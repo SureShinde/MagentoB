@@ -1,0 +1,68 @@
+.footer-container {
+	border: none;
+	width: 100%;
+}
+.footer {
+	width: 1217px;
+	padding: 20px 0 0 0;
+	border-top: 1px solid #707070;
+}
+.footer ul, .footer ul.links, .footer li {
+	display: block;
+} 
+.footer ul {
+	float: left;
+	text-align: left;
+	margin: 0 30px 0 0;
+}
+.footer li {
+	padding: 0;
+	background: none;
+	color: #494949;
+}
+.footer li span.title, .footer .conect-us span.title, .footer .payment-partners span.title, .footer .shipping-partners span.title {
+	color: #484848;
+	font-size: 14px;
+	font-weight: bold;
+	text-transform: uppercase;
+	font-family: 'bebasregular';
+}
+.footer a, .footer address {
+	color: #767676;
+}
+.footer .conect-us, .footer .payment-partners, .footer .shipping-partners {
+	float: right;
+	text-align: left;
+	margin:0 50px 0 0;
+}
+.footer .payment-partners {
+	width: 180px;
+}
+.footer .conect-us span.title, .footer .payment-partners span.title, .footer .shipping-partners span.title {
+	display: block;
+	margin:0 0 15px 0;
+}
+.footer .conect-us a, .footer .payment-partners a, .footer .shipping-partners a {
+	display: inline-block;
+	margin: 0 8px 0 0;
+}
+.footer .payment-partners a, .footer .shipping-partners a {
+	vertical-align: middle;
+}
+.footer-bottom {
+	margin:20px 0 0 0;
+}
+.footer .about-us {
+	padding: 20px 0 0 0;
+	border-top: 1px solid #707070;
+}
+.footer .about-us p {
+	line-height: normal;
+	padding: 0 0 20px 0;
+}
+.footer .about-us, .footer address {
+	text-align: left;
+}
+.footer .bugs {
+	display: none;
+}

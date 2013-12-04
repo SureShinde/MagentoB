@@ -1,0 +1,8 @@
+.homepage {}
+.homepage-top {}
+.homepage-top-block {
+	float: left;
+}
+.homepage-top-block.right {
+	width: 185px;
+}
