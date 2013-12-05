@@ -1,0 +1,46 @@
+@import url('stylesheet.css');
+body {
+	margin: 0;
+	padding: 0;
+	line-height: normal;
+	font-size: 12px;
+	color: #707070;
+	font-family: Helvetica;
+}
+.wrapper {
+	width: 100%;
+}
+.page {
+	margin: 0 auto;
+}
+.main-container, .main-container.col1-layout .main {
+	width: 1217px;
+	margin: 0 auto;
+	background: none;
+}
+.main {}
+.main.col2-left-layout {}
+.main.col2-left-layout .col-left.sidebar {}
+.main.col2-left-layout .col-main {}
+.breadcrumbs, 
+.breadcrumbs a {}
+.breadcrumbs a:hover {}
+.left {
+	float: left;
+}
+
+@media only screen and (max-width: 1245px) {
+	
+}
+/* --------------- 960 px layout -------------------- */
+@media only screen and (max-width: 1023px) {
+	
+}
+/* --------------- smaller 959 px layout -------------------- */
+@media only screen and (max-width: 767px) {
+	
+}
+/* --------------- 320 px layout -------------------- */
+@media only screen and (max-width: 479px) { 
+	
+}
