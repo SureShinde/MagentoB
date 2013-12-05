@@ -1,8 +1,204 @@
 .homepage {}
-.homepage-top {}
+.homepage-top {
+}
 .homepage-top-block {
 	float: left;
 }
 .homepage-top-block.right {
 	width: 185px;
+}
+#shop-by {
+	list-style: none;
+	padding: 0 0 20px 0;
+	margin: 0 0 20px 20px;
+	background: url(../images/dash.png) no-repeat left bottom;
+}
+#shop-by li {
+	margin: 0 0 2px 0;
+}
+#shop-by li span.title {
+	font-size: 14px;
+	font-family: 'bebasregular';
+	text-transform: uppercase;
+	letter-spacing: 1px;
+}
+#shop-by li a.link-seemore, .homepage-product a.link-viewmore-product {
+	display: inline-block;
+	padding: 0 20px 0 0;
+	font-weight: bold;
+	background: url(../images/arrow-2.png) no-repeat right center;
+}
+.slider-wrapper {
+	width: 750px;
+	height: 333px;
+	position: relative;
+}
+.advertise {
+	margin: 15px 0 0 0;
+}
+.advertise ul {
+	padding: 0;
+	margin: 0;
+	list-style: none;
+}
+.advertise ul li {
+	display: inline-block;
+	margin: 0 0 0 15px;
+}
+.advertise ul li:first-child {
+	margin: 0;
+}
+.homepage-top-block.left {
+	width: 235px;
+	margin: 0 30px 0 0;
+}
+.homepage-top-block.right a {
+	display: block;
+	margin: 0 0 10px 0;
+}
+.homepage-middle {
+	margin: 0 10px;
+}
+.homepage-product {
+	position: relative;
+}
+.homepage-product.onsale {
+	background: url(../images/label-list-product.png) no-repeat center top, url(../images/dash-2.png) repeat-x left 21px;
+}
+.homepage-product.newarrival {
+	background: url(../images/label-new-arrival.png) no-repeat center top, url(../images/dash-2.png) repeat-x left 21px;
+}
+.homepage-product.mostpopular {
+	background: url(../images/label-most-popular.png) no-repeat center top, url(../images/dash-2.png) repeat-x left 21px;
+}
+.homepage-product h2 {
+	color: #fff;
+	font-size: 24px;
+	font-family: 'bebasregular';
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	text-align: center;
+	padding: 12px 0 0 0;
+	margin: 0 0 20px 0;
+}
+.homepage-product a.link-viewmore-product {
+	position: absolute;
+	top:0;
+	right: 0;
+	
+}
+.homepage-bottom {
+	clear: both;
+	margin: 0 10px;
+}
+.homepage-bottom ul.block-wrapper {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+.homepage-bottom ul.block-wrapper li {
+	display: inline-block;
+	margin: 0 14px 34px;
+	padding:10px 15px;
+	width: 28.25%;
+	background: #dad8d5;
+	vertical-align: top;
+}
+.homepage-bottom ul.block-wrapper li:last-child {}
+.block-bottom {
+	text-align: center;
+	text-transform: uppercase;
+	color: #fff;
+	border-top: 2px dashed #fff;
+	border-bottom: 2px dashed #fff;	
+	padding: 12px 0;
+	height: 100px;
+}
+.block-bottom span {
+	display: block;
+	font-size: 23px;
+	font-family: 'Fredoka One', cursive;
+}
+.block-bottom p {
+	font-family: 'bebasregular';
+	font-size: 16.75px;
+	margin: 0;
+}
+.block-bottom p a {
+	display: inline-block;
+	text-decoration: underline;
+	text-align: left;
+	color: #fff;
+	background-image: url(../images/arrow-1.png);
+	background-repeat: no-repeat;
+	background-position: right 5px;
+	padding: 0 25px 0 0;
+}
+.block-bottom p a:hover {
+	text-decoration: none;
+}
+.block-bottom p a.link-how-to-buy {
+	width: 58px;
+	background-position: 40px 28px;
+}
+.block-bottom p a.link-shipping-table {
+	width: 100px;
+	background-position: 50px 28px;
+}
+.block-bottom p a.link-other-help {
+	width: 66px;
+	background-position: 50px 28px;
+	padding-left: 0;
+}
+.block-bottom p a.link-bilna-credit {
+	width: 80px;
+	background-position: 61px 28px;
+}
+.block-bottom p a.link-reseller-program {
+	width: 90px;
+	background-position: 71px 28px;
+}
+.block-bottom p a.link-gift-voucher {
+	width: 80px;
+	background-position: 67px 28px;
+}
+.homepage-bottom .testimonial-wrapper {
+	float: left;
+	width: 45%;
+}
+.testimonial-wrapper h4, .media-partners span.title {
+	font-size: 18px;
+	font-weight: normal;
+	font-family: 'bebasregular';
+}
+.testimonial-wrapper h4 {
+	background: url(../images/label.png) no-repeat left top;
+	color: #fff;
+	width: 279px;
+	height: 58px;
+	margin: 0 0 10px 0;
+}
+.testimonial-wrapper h4 span {
+	display: inline-block;
+	margin: 18px 0 0 55px;
+}
+.homepage-bottom .media-partners {
+	float: right;
+	margin: 0 148px 0 0;
+}
+.media-partners span.title {
+	display: block;
+}
+.media-partners ul.media-partners-wrapper {
+	list-style: none;
+	margin: 30px 0 0 0;
+	padding: 0;
+}
+.media-partners ul.media-partners-wrapper li {
+	display: inline-block;
+	vertical-align: middle;
+	margin: 0 0 0 20px;
+}
+.media-partners ul.media-partners-wrapper li:first-child {
+	margin: 0;
 }

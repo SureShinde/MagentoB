@@ -14,9 +14,10 @@ body {
 	margin: 0 auto;
 }
 .main-container, .main-container.col1-layout .main {
-	width: 1217px;
-	margin: 0 auto;
+	width: 1216px;
+	margin: 20px auto 0;
 	background: none;
+	padding: 0;
 }
 .main {}
 .main.col2-left-layout {}
