@@ -35,7 +35,7 @@
         	<remove name="wishlist_link"/>
         </reference>
         <remove name="footer_links"/>
-	</default>
+    </default>
 	<customer_logged_in>
         <reference name="top.links">
         	<action method="addLink" translate="label" module="customer"><label>Track Order</label><url>sales/order/history</url><title>Track Order</title><prepare/><urlParams/><position>9</position></action>
