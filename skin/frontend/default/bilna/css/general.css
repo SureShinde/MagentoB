@@ -30,16 +30,26 @@ body {
 	float: left;
 }
 
-@media only screen and (max-width: 1245px) {
-	
+@media only screen and (max-width: 1215px) {
+	.main-container, .main-container.col1-layout .main {
+		width: 994px;
+	}
 }
 /* --------------- 960 px layout -------------------- */
 @media only screen and (max-width: 1023px) {
-	
+	.main-container, .main-container.col1-layout .main {
+		width: 745px;
+	}
 }
 /* --------------- smaller 959 px layout -------------------- */
 @media only screen and (max-width: 767px) {
-	
+	.main-container, .main-container.col1-layout .main {
+		width: 100%;
+		margin-top: 0;
+	}
+	.main {
+		min-height: inherit;
+	}
 }
 /* --------------- 320 px layout -------------------- */
 @media only screen and (max-width: 479px) { 

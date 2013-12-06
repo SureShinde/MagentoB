@@ -5,7 +5,7 @@
 }
 .header, #nav {
 	width: 1216px;
-	padding: 0 15px;
+	padding: 0;
 }
 .header {
 	position: relative;
@@ -75,7 +75,7 @@
 .keypoint ul li {
 	display: inline-block;
 	padding: 0 0 0 40px;
-	width: 85px;
+	width: 72px;
 }
 .keypoint ul li span {
 	display: block;
@@ -175,7 +175,8 @@
 	margin: 10px 0 0 0;
 	background: url(../images/arrow-select.png) no-repeat right center;
 }
-.header .form-language select {
+
+.form-language select {
 	background: none;
 	width: auto;
 	padding: 0 10px 0 25px;
@@ -189,13 +190,17 @@
 	font-weight: bold;
 	-webkit-appearance: none;
 }
-.header .form-language select.english {
+.form-language select.english {
 	background: url(../images/english.jpg) no-repeat left top;
+}
+.form-language .switch-language-mobile {
+	display: none;
 }
 .header .form-search {
 	position: relative;
 	background: none;
 	padding: 0;
+	margin: 0 0 0 10px;
 	top:inherit;
 	right: inherit;
 	float: right;
@@ -271,4 +276,61 @@
 #nav li.label-sale-gift {
 	float: right;
 	margin-left: 5px;
+}
+@media only screen and (max-width: 1215px) {
+	.header, #nav {
+		width: 994px;
+	}
+	.header .quick-access .left {
+		margin: 0 5px 0 0;
+	}
+	.header .links li {
+		padding-left: 4px;
+		padding-right: 2px;
+	}
+}
+/* --------------- 960 px layout -------------------- */
+@media only screen and (max-width: 1023px) {
+	.header, #nav {
+		width: 745px;
+	}
+	.header .menu-blog {
+		width: 215px;
+	}
+	.header .quick-access .left, .header .quick-access .top-cart {
+		float: none !important;
+	}
+	.header .quick-access .left {
+		text-align: right;
+	}
+	.header .quick-access .top-cart {
+		width: 120px;
+	}
+	.header .quick-access .top-cart a.link-minicart {
+		padding-left: 0;
+		padding-right: 0;
+		text-indent: -999999px;
+	}
+	.header .form-search, .header .form-language {
+		display: none;
+	}
+	.header .form-search input.input-text {
+		width: 90px;
+	}
+}
+/* --------------- smaller 959 px layout -------------------- */
+@media only screen and (max-width: 767px) {
+	.header, #nav {
+		width: 100%;
+	}
+	.form-language select {
+		display: none;
+	}
+	.form-language .switch-language-mobile {
+		display: block;
+	}
+}
+/* --------------- 320 px layout -------------------- */
+@media only screen and (max-width: 479px) { 
+	
 }
