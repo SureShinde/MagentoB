@@ -36,9 +36,17 @@ $j(document).ready(function(){
 		$j('.mini-cart').slideToggle();
 			
 	});	
-	$j(".link-shopby").live("mouseover",function(){
-		$j("#shopby").css({"display":"block"});
-	});
+	if(wwidth < 1216) {
+		$j(".link-shopby").live("mouseover",function(){
+			$j("#shopby").css({"display":"block"});
+		});
+		$j(".link-shopby").mouseout(function(){
+		  $j("#shopby").css("display","none");
+		});
+	}
+	else {
+		return false;
+	}
 });
 </script>
 <div class="header-container">
