@@ -1,0 +1,106 @@
+/**
+ * aheadWorks Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://ecommerce.aheadworks.com/LICENSE-M1.txt
+ *
+ * @category   AW
+ * @package    AW_Islider
+ * @copyright  Copyright (c) 2011 aheadWorks Co. (http://www.aheadworks.com)
+ * @license    http://ecommerce.aheadworks.com/LICENSE-M1.txt
+ */
+
+.awis-block, .awis-block .awis-r-default-item img {
+    margin: 0 auto;
+    display: block;
+}
+.awis-block .awis-slides-controls {
+     position: relative;
+     z-index: 5;
+}
+.awis-block .awis-slides-controls .awis-c-left {
+    float: left;
+    height: 22px;
+    padding-left: 20px;
+    text-align: right;
+    width: 22px;
+}
+.awis-block .awis-slides-controls .awis-c-left button, .awis-block .awis-slides-controls .awis-c-right button {
+    position: relative;
+}
+.awis-block .awis-slides-controls .awis-c-left button.button, .awis-block .awis-slides-controls .awis-c-right button.button {
+    background-color: transparent;
+    border: 0px;
+    cursor: pointer;
+}
+.awis-block .awis-slides-controls .awis-c-left button {
+    background-image: url('images/arrow_left.png');
+    background-repeat: no-repeat;
+    width: 22px;
+    height: 22px;
+}
+.awis-block .awis-slides-controls .awis-c-left button:hover {
+    background-image: url('images/arrow_left_hover.png');
+}
+.awis-block .awis-slides-controls .awis-c-center {
+    line-height: 22px;
+    margin: 0px 50px;
+    text-align: center;
+}
+.awis-block .awis-slides-controls .awis-c-center button.button {
+    background-color: transparent;
+    background-image: url('images/item.png');
+    border: 0px;
+    height: 12px;
+    width: 12px;
+}
+.awis-block .awis-slides-controls .awis-c-center button.awis-s-current {
+    background-image: url('images/item_current.png');
+}
+.awis-block .awis-slides-controls .awis-c-center button:hover {
+    background-image: url('images/item_hover.png');
+}
+.awis-block .awis-slides-controls .awis-c-right {
+    float: right;
+    height: 22px;
+    padding-right: 20px;
+    position: relative;
+    text-align: right;
+    top: -22px;
+    width: 22px;
+}
+.awis-block .awis-slides-controls .awis-c-right button {
+    background-image: url('images/arrow_right.png');
+    background-repeat: no-repeat;
+    height: 22px;
+    width: 22px;
+}
+.awis-block .awis-slides-controls .awis-c-right button:hover {
+    background-image: url('images/arrow_right_hover.png');
+}
+
+.awis-effect-simple-slider {
+     overflow: hidden;
+     position: relative;
+}
+.awis-effect-simple-slider .awis-r-default-item {
+     float: left;
+}
+.awis-slides-container {
+    position: relative;
+}
+
+.awis-effect-fade-appear .awis-r-default-item,
+.awis-effect-blind-up-down .awis-r-default-item,
+.awis-effect-slide-up-down .awis-r-default-item,
+.awis-effect-jalousie .awis-r-default-item {
+    position: absolute;
+}
+
+.awis-jalousie-slice {
+    position: absolute;
+}
