@@ -27,6 +27,20 @@
  * @var Mage_Page_Block_Html_Header $this
  */
 ?>
+<!--Mobile Menu-->
+<script type="text/javascript">
+wwidth = $j(window).width();
+$j(document).ready(function(){
+	$j('#link-minicart').click(function(e){
+		e.preventDefault();
+		$j('.mini-cart').slideToggle();
+			
+	});	
+	$j(".link-shopby").live("mouseover",function(){
+		$j("#shopby").css({"display":"block"});
+	});
+});
+</script>
 <div class="header-container">
     <div class="header">
     	<div class="menu-top">
@@ -49,13 +63,14 @@
         		<a href="#" class="link-minicart" id="link-minicart"><?php echo $this->__('View Cart(').$_totalItem.$this->__(')') ?></a>
         		<a href="#" class="link-checkout"><?php echo $this->__('Checkout') ?></a>
         		<div class="clear"></div>
+        		<div class="mini-cart"><?php echo $this->getChildHtml('topcart') ?></div>
         	</div>
         	<div class="left">
 	        	<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('store_phone')->toHtml() ?>
 	        	<?php echo $this->getChildHtml('topLinks') ?>
 	        </div>
         	<div class="clear"></div>
-        	<div class="mini-cart"><?php echo $this->getChildHtml('topcart') ?></div>
+        	
             <p class="welcome-msg"><?php echo $this->getChildHtml('welcome') ?> <?php echo $this->getAdditionalHtml() ?></p>
            
             <?php echo $this->getChildHtml('topSearch') ?>
