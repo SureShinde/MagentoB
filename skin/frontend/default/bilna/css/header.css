@@ -130,6 +130,9 @@
 }
 .header .mini-cart {
 	display: none;
+	position: absolute;
+	right: 0;
+	top:50px;
 }
 .header .quick-access .left {
 	margin: 0 50px 0 0;

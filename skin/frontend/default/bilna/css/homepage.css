@@ -51,6 +51,7 @@
 .homepage-top-block.left {
 	width: 235px;
 	margin: 0 30px 0 0;
+	background: #fff;
 }
 .homepage-top-block.right a {
 	display: block;
@@ -205,10 +206,16 @@
 @media only screen and (max-width: 1215px) {
 	.homepage-top-block.left {
 		display: none;
+		position: absolute;
+		top:-13px;
+		left:-20px;
+		z-index: 9;
+		padding-top: 30px;
 	}
 	.homepage-top {
 		width: 955px;
 		margin: 0 auto;
+		position: relative;
 	}
 	.homepage-bottom ul.block-wrapper li {
 		margin-left: 6px;
