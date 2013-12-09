@@ -357,6 +357,26 @@
 	background: none;
 	padding: 0;
 }
+/*header menu*/
+#nav ul, #nav div {
+	position: inherit;
+	left: 0;
+	top: 0;
+	width: auto;
+	border: 0;
+}
+#nav ul li.level-top {
+	position: relative;
+}
+#nav .level-hover {
+	display: none;
+	position: absolute;
+	top:auto;
+	left: auto;
+}
+#nav .level-hover.shown-sub {
+	display: block;
+}
 /*navigation*/
 .nav-container {
 	background: #4ec7da;

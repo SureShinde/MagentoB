@@ -1,0 +1,95 @@
+<?xml version="1.0"?>
+<!--
+/**
+* @author      Guidance Magento Team <magento@guidance.com>
+* @category    Guidance
+* @package     Megamenu
+* @copyright   Copyright (c) 2013 Guidance Solutions (http://www.guidance.com)
+*/
+-->
+<config>
+    <modules>
+        <Guidance_Megamenu>
+            <version>0.1.1</version>
+        </Guidance_Megamenu>
+    </modules>
+    <global>
+        <models>
+            <guidance_megamenu>
+                <class>Guidance_Megamenu_Model</class>
+            </guidance_megamenu>
+        </models>
+        <blocks>
+            <guidance_megamenu>
+                <class>Guidance_Megamenu_Block</class>
+            </guidance_megamenu>
+            <adminhtml>
+                <rewrite>
+                    <catalog_category_tabs>Guidance_Megamenu_Block_Catalog_Category_Tabs</catalog_category_tabs>
+                </rewrite>
+            </adminhtml>
+        </blocks>
+        <events>
+            <megamenu_block_html_topmenu_gethtml_before>
+                <observers>
+                    <megamenu_catalog_add_topmenu_items>
+                        <class>guidance_megamenu/observer</class>
+                        <method>addCatalogToTopmenuItems</method>
+                    </megamenu_catalog_add_topmenu_items>
+                </observers>
+            </megamenu_block_html_topmenu_gethtml_before>
+        </events>
+        <resources>                       
+            <guidance_megamenu_setup>                               
+                <setup>                                       
+                    <module>Guidance_Megamenu</module>                                       
+                    <class>Mage_Catalog_Model_Resource_Setup</class>                                   
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>           
+            </guidance_megamenu_setup>
+            <guidance_megamenu_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </guidance_megamenu_write>
+            <guidance_megamenu_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </guidance_megamenu_read>   
+        </resources>
+    </global>
+    <frontend>
+        <category>
+            <collection>
+                <attributes>
+                    <shortname/>
+                    <description/>
+                    <featuredproduct/>
+                </attributes>
+            </collection>
+        </category>
+        <layout>
+            <updates>
+                <guidance_megamenu>
+                    <file>guidance_megamenu.xml</file>
+                </guidance_megamenu>
+            </updates>
+        </layout>
+    </frontend>
+    <adminhtml>
+        <events>
+            <catalog_product_delete_before>
+                <observers>
+                    <megamenu_catalog>
+                        <type>singleton</type>
+                        <class>guidance_megamenu/observer</class>
+                        <method>productDelete</method>
+                    </megamenu_catalog>
+                </observers>
+            </catalog_product_delete_before>
+        </events>
+    </adminhtml>
+</config>
