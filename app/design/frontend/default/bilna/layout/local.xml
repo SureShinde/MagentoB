@@ -65,6 +65,10 @@
                 <type>skin_js</type>
                 <name>js/jquery.nivo.slider.js</name>
             </action>
-		</reference>
+            <action method="addItem">
+				<type>skin_js</type>
+				<name>js/jquery.slides.min.js</name>
+			</action>
+        </reference>
 	</cms_index_index>
 </layout>
