@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<representations>
+    <slider translate="label">
+        <label>Slider</label>
+        <version>1.0</version>
+        <block>awfeatured/representations_slider_block</block>
+        <css>aw_featured/representations/slider/css/slider.css</css>
+        <js>aw_featured/representations/slider/js/slider.js</js>
+        <options>
+            <autohidenavi translate="label">
+                <label>Auto hide navigation</label>
+                <input_type>select</input_type>
+                <source_model>adminhtml/system_config_source_yesno</source_model>
+                <default>1</default>
+                <required>1</required>
+            </autohidenavi>
+            <layout translate="label">
+                <label>Layout type</label>
+                <input_type>select</input_type>
+                <source_model>awfeatured/representations_slider_layouts</source_model>
+                <required>1</required>
+            </layout>
+            <switcheffect translate="label">
+                <label>Switch effect</label>
+                <input_type>select</input_type>
+                <source_model>awfeatured/representations_slider_switcheffects</source_model>
+                <required>1</required>
+            </switcheffect>
+            <showproductname translate="label">
+                <label>Show product name</label>
+                <input_type>select</input_type>
+                <source_model>adminhtml/system_config_source_yesno</source_model>
+                <default>1</default>
+                <required>1</required>
+            </showproductname>
+            <showdetails translate="label">
+                <label>Show details</label>
+                <input_type>select</input_type>
+                <source_model>adminhtml/system_config_source_yesno</source_model>
+                <default>0</default>
+                <required>1</required>
+            </showdetails>
+            <showprice translate="label">
+                <label>Show price</label>
+                <input_type>select</input_type>
+                <source_model>adminhtml/system_config_source_yesno</source_model>
+                <default>1</default>
+                <required>1</required>
+            </showprice>
+            <showaddtocart translate="label">
+                <label>Show "Add to cart" button</label>
+                <input_type>select</input_type>
+                <source_model>adminhtml/system_config_source_yesno</source_model>
+                <default>1</default>
+                <required>1</required>
+            </showaddtocart>
+            <width translate="label">
+                <label>Width, px</label>
+                <input_type>text</input_type>
+                <required>0</required>
+            </width>
+            <height translate="label">
+                <label>Height, px</label>
+                <input_type>text</input_type>
+                <required>0</required>
+            </height>
+            <animationspeed translate="label">
+                <label>Animation speed, seconds (0 disables animation)</label>
+                <input_type>text</input_type>
+                <default>0</default>
+            </animationspeed>
+        </options>
+    </slider>
+</representations>
