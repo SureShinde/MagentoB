@@ -7,27 +7,6 @@
 .homepage-top-block.right {
 	width: 185px;
 }
-#shop-by {
-	list-style: none;
-	padding: 0 0 20px 0;
-	margin: 0 0 20px 20px;
-	background: url(../images/dash.png) no-repeat left bottom;
-}
-#shop-by li {
-	margin: 0 0 2px 0;
-}
-#shop-by li span.title {
-	font-size: 14px;
-	font-family: 'bebasregular';
-	text-transform: uppercase;
-	letter-spacing: 1px;
-}
-#shop-by li a.link-seemore, .homepage-product a.link-viewmore-product {
-	display: inline-block;
-	padding: 0 20px 0 0;
-	font-weight: bold;
-	background: url(../images/arrow-2.png) no-repeat right center;
-}
 .slider-wrapper {
 	width: 750px;
 	height: 333px;
@@ -243,11 +222,6 @@
 @media only screen and (max-width: 1215px) {
 	.homepage-top-block.left {
 		display: none;
-		position: absolute;
-		top:-13px;
-		left:-20px;
-		z-index: 9;
-		padding-top: 30px;
 	}
 	.homepage-top {
 		width: 955px;

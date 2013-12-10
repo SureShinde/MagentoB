@@ -20,6 +20,9 @@
 <?php if($menuTree): ?>
     <div class="nav-container container">
             <ul id="nav" class="nav">
+            	<li class="level0 level-top shop-by"><span><?php echo $this->__('Shop by') ?></span><a href="#" class="level-top link-shopby"><?php echo $this->__('Shop by') ?></a>
+            	 <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('shopby')->toHtml() ?>
+            	</li>
                 <?php
                 $children = $this->addFeaturedProductData($menuTree->getChildren());
                 $parentLevel = $menuTree->getLevel();
@@ -49,5 +52,6 @@
                     <?php $counter++;?>
                 <?php endforeach; ?>
             </ul>
+           
     </div>
 <?php endif ?>
