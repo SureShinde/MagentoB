@@ -151,6 +151,9 @@
 	padding: 0 0 10px 0;
 	border: 1px solid #fff;
 }
+.header .mini-cart .block-cart .block-content .empty {
+	margin-top: 10px;
+}
 .mini-products-list {
 	width: 100%;
 	background: #fff;
@@ -400,6 +403,7 @@
 #nav li.shop-by {
 	width: 49px;
 	vertical-align: top;	
+	position: relative;
 }
 #nav a {
 	color: #fff;
@@ -431,6 +435,43 @@
 	float: right;
 	margin-left: 5px;
 }
+.shopby {
+	text-align: left;
+}
+.shopby ul.shop-by {
+	list-style: none;
+	padding: 0 0 20px 0;
+	margin: 0 0 20px 20px;
+	background: url(../images/dash.png) no-repeat left bottom;
+}
+.shopby ul.shop-by li {
+	margin: 0 0 2px 0;
+}
+.shopby ul.shop-by li span.title {
+	font-size: 14px;
+	font-family: 'bebasregular';
+	text-transform: uppercase;
+	letter-spacing: 1px;
+}
+.shopby ul.shop-by li a.link-seemore, .homepage-product a.link-viewmore-product {
+	display: inline-block;
+	padding: 0 20px 0 0;
+	font-weight: bold;
+	background: url(../images/arrow-2.png) no-repeat right center;
+}
+#nav .shopby {
+	display: none;
+}
+#nav .shopby ul.shop-by li, #nav .shopby ul.shop-by li a {
+	background: none;
+}
+#nav .shopby ul.shop-by li a {
+	font-size: 0.75em;
+	color: #707070 !important;
+	font-family: Helvetica;
+	font-weight: normal !important;
+	text-transform: capitalize;
+}
 @media only screen and (max-width: 1215px) {
 	.header, #nav {
 		width: 994px;
@@ -441,6 +482,17 @@
 	.header .links li {
 		padding-left: 4px;
 		padding-right: 2px;
+	}
+	#nav .shopby {
+		display: none;
+		position: absolute;
+		top:0;
+		left:0;
+		z-index: 9;
+		padding-top: 60px;
+	}
+	#nav li.shop-by:hover > .shopby {
+		display: block;
 	}
 }
 /* --------------- 960 px layout -------------------- */
