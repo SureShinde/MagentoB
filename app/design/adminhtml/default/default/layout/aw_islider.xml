@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layout version="0.1.0">
+    <awislider_admin_adminhtml_slider_list>
+        <reference name="content">
+            <block type="awislider/adminhtml_slider" name="awislider.sliders.list" />
+        </reference>
+    </awislider_admin_adminhtml_slider_list>
+    <awislider_admin_adminhtml_slider_edit>
+        <reference name="head">
+            <action method="addJs"><script>prototype/window.js</script></action>
+            <action method="addJs"><script>aw_islider/settings.js</script></action>
+            <action method="addJs"><script>aw_islider/backend/ajaxForm.js</script></action>
+            <action method="addCss"><name>aw_islider/style.css</name></action>
+            <action method="addItem"><type>js_css</type><name>prototype/windows/themes/default.css</name></action>
+            <action method="addItem"><type>js_css</type><name>prototype/windows/themes/magento.css</name></action>
+        </reference>
+    </awislider_admin_adminhtml_slider_edit>
+</layout>

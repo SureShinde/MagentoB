@@ -4,7 +4,6 @@ Thumbs.db
 app/code/community/Find/
 app/code/community/Phoenix/
 app/code/core/
-app/design/adminhtml/default/default/
 app/design/adminhtml/default/find/
 app/design/frontend/base/
 app/design/frontend/default/blank/
@@ -37,7 +36,6 @@ app/etc/enterprise.xml
 app/etc/local.xml.additional
 app/etc/local.xml.template
 app/.htaccess
-app/locale/
 app/Mage.php
 cron.php
 cron.sh
@@ -96,8 +94,6 @@ shell/abstract.php
 shell/compiler.php
 shell/indexer.php
 shell/log.php
-skin/adminhtml/default/default/
-skin/adminhtml/default/enterprise
 skin/frontend/base/
 skin/frontend/default/blank/
 skin/frontend/default/blue/
