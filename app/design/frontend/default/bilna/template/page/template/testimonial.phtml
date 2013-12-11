@@ -4,22 +4,29 @@
     ->addFieldToFilter('is_active', 1);
     ?>
 <div class="testimonial-wrapper">
-<h4><span><?php echo $this->__('What Our Customer Says:') ?></span></h4>
-<div id="slides">
-<?php  
-    $blockNum = 1;
-    $_blockId = $this->getIdentifier();
-    foreach($collection as $value){
-    $block_ID = $_blockId . $blockNum;
-    $blockNum++;    
-
-    $_block = $this->getLayout()->createBlock('cms/block')->setBlockId($block_ID);
-
-    if ($_block) : 
-	     echo $_block->toHtml();   
-    endif;
-}
-?>
-<a class="slidesjs-previous slidesjs-navigation" href="#"><?php echo $this->__('Prev') ?></a> <a class="slidesjs-next slidesjs-navigation" href="#"><?php echo $this->__('Next') ?></a></div>
-</div>
+	<h4><span><?php echo $this->__('What Our Customer Says:') ?></span></h4>
+	<div id="slides">
+	<?php  
+	    $blockNum = 1;
+	    $_blockId = $this->getIdentifier();
+	    foreach($collection as $value){
+		    $block_ID = $_blockId . $blockNum;
+		    $blockNum++;    
+		
+		    $_block = $this->getLayout()->createBlock('cms/block')->setBlockId($block_ID);
+		
+		    if ($_block) : 
+			     ?>
+			     <div>
+			     	<div class="testimonial">
+			     <?php echo $_block->toHtml();   ?>
+			     	</div>
+			     </div>
+		<?php
+		    endif;
+		}
+	?>
+		<a class="slidesjs-previous slidesjs-navigation" href="#"><?php echo $this->__('Prev') ?></a>
+		<a class="slidesjs-next slidesjs-navigation" href="#"><?php echo $this->__('Next') ?></a>
+	</div>
 </div>

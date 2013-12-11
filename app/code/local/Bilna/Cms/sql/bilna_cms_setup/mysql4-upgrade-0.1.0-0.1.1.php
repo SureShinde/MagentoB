@@ -145,9 +145,8 @@ $pageContent =<<<EOF
 </div>
 </div>
 <script type="text/javascript">// <![CDATA[
-$j(window).load(function() {
-$j('#slider').nivoSlider();
-$j('#slides').slidesjs({
+jQuery(window).load(function() {
+jQuery('#slides').slidesjs({
 width: 376,
 height: 120,
 navigation: false,

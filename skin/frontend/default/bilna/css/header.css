@@ -405,13 +405,13 @@
 	width: auto;
 	border: 0;
 }
-#nav ul li, #nav ul li .left-columns .column {
-	background: url(../images/arrow-menu.png) no-repeat right center;	
+#nav ul li {
+	background: none;
 	padding: 3px 0;
 	border-top:1px solid #dadada;
 }
 
-#nav ul li:first-child {
+#nav ul li:first-child, #nav ul li .left-columns ul li:first-child {
 	border: none;
 }
 #nav ul li a, #nav ul li a:hover {
@@ -420,21 +420,19 @@
 	text-transform: capitalize;
 	color: #707070 !important;
 	letter-spacing: normal;
-}
-#nav ul li a {
-	background: none;
+	background: url(../images/arrow-menu.png) no-repeat right center;
 }
 #nav ul li.level-top {
 	position: relative;
 }
 #nav .level-hover {
-	display: none;
+	display: block;
 	position: absolute;
 	top:30px;
 	left: auto;
 	background: #fff;
 	width: 500px;
-	padding: 0 10px;
+	padding: 20px 10px 0;
 	-webkit-box-shadow: 1px 1px 4px 0 #ccc;
 	-moz-box-shadow: 1px 1px 4px 0 #ccc;
 	box-shadow: 1px 1px 4px 0 #ccc;
@@ -486,9 +484,35 @@
 	float: right;
 	margin-left: 5px;
 }
+#nav ul div {
+	top:0;
+}
 #nav ul li .left-columns {
 	float: left;
 	width: 30%;
+}
+#nav ul li .left-columns ul li span {
+	padding: 0;
+}
+#nav ul li .left-columns ul.added-menu li:first-child {
+	border-top: 2px solid #707070;
+}
+#nav ul li .left-columns ul.added-menu li a {
+	font-weight: bold !important;
+	background-image: url(../images/arrow-color.png);
+	background-repeat: no-repeat;
+}
+#nav ul li .left-columns ul.added-menu li a.link-bestseller {
+	color: #ffa01b !important;
+	background-position: right 4px;
+}
+#nav ul li .left-columns ul.added-menu li a.link-whatsnew {
+	color: #8dd240 !important;
+	background-position: right -20px;
+}
+#nav ul li .left-columns ul.added-menu li a.link-onsale {
+	color: #fc8360 !important; 
+	background-position: right -45px;
 }
 #nav ul li .right-columns {
 	float: right;
@@ -502,6 +526,19 @@
 }
 #nav ul li .right-columns .our-choice {
 	float: right;
+}
+#nav ul li .right-columns .featured-product {
+	text-align: right;
+	margin: 20px 0 0 0;
+	background: none;
+}
+#nav ul li .right-columns .featured-product a.featured-image {
+	display: inline-block;
+	border: 1px solid #dadada;
+	width: 131px;
+	height: 192px;
+	overflow: hidden;
+	background: none;
 }
 .shopby {
 	text-align: left;
@@ -523,15 +560,21 @@
 	font-weight: normal;
 	text-transform: uppercase;
 	letter-spacing: 1px;
+
+}
+.shopby ul.shop-by li span.title, .submenu span.title {
 	padding: 0 !important;
+}
+#nav ul li .left-columns h2 {
+	margin-bottom: 10px;
 }
 .submenu span.title {
 	margin-bottom: 10px;
 }
-.shopby ul.shop-by li a.link-seemore, .homepage-product a.link-viewmore-product, #nav .shopby ul.shop-by li a.link-seemore {
+.shopby ul.shop-by li a.link-seemore, .homepage-product a.link-viewmore-product, #nav .shopby ul.shop-by li a.link-seemore, #nav ul li a.browse-all {
 	display: inline-block;
 	padding: 0 20px 0 0;
-	font-weight: bold;
+	font-weight: bold !important;
 	background: url(../images/arrow-2.png) no-repeat right center;
 }
 #nav .shopby {
