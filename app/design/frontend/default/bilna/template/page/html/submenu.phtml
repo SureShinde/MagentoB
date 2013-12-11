@@ -21,32 +21,19 @@
             $limCounter = ceil($children->count()/4);
             $catCounter =$children->count();
             ?>
+            <ul>
             <?php foreach ($children as $submenu): ?>
-                <?php if($counter == 0):?>
-                    <div class="three columns alpha">
-                        <div class="column inside">
-                <?php endif;?>
-                <?php if($counter % $limCounter == 0 && $counter != 0 && $counter != ($limCounter*2)):?>
-                        </div>
-                        <div class="column inside">
-                <?php endif;?>
-                <?php if($counter == ($limCounter*2)):?>
-                    </div>
-                    </div>
-                    <div class="three columns omega">
-                        <div class="column inside">
-                <?php endif;?>
-                <a href="<?php echo $submenu->getUrl()?>">
-                    <span>
-                        <?php echo $this->escapeHtml($submenu->getName())?>
-                    </span>
-                </a>
-                <?php if($counter == $catCounter-1):?>
-                    </div>
-                    </div>
-                <?php endif;?>
+                <li>
+                	<a href="<?php echo $submenu->getUrl()?>"><span><?php echo $this->escapeHtml($submenu->getName())?></span></a>
+                </li>
                 <?php $counter++;?>
             <?php endforeach; ?>
+            </ul>
+            <ul class="added-menu">
+	            <li><a href="#" class="link-bestseller"><?php echo $this->__('Best Seller')?></a></li>
+        		<li><a href="#" class="link-whatsnew"><?php echo $this->__('Whats New?')?></a></li>
+        		<li><a href="#" class="link-onsale"><?php echo $this->__('On Sale!')?></a></li>
+            </ul>
             <div class="clear"></div>
         </div>
         <div class="devider"></div>
@@ -82,25 +69,19 @@
 	        <div class="featured-product">
 	        	<?php 
 	        		$product =  Mage::getModel('catalog/product')->load($productData['product_id']); 
-	            	$_imageUrl =  Mage::helper('catalog/image')->init($product, 'small_image')->resize(200, 200);
+	            	$_imageUrl =  Mage::helper('catalog/image')->init($product, 'small_image')->resize(131, 192);
 	        	?>
 	            <?php if ($_imageUrl): ?>
 	                <a href="<?php echo $product->getProductUrl(); ?>"
-	                   class="text-none image-cat">
+	                   class="featured-image">
 	                    <img src="<?php echo $_imageUrl; ?>"/>
 	                </a>
 	            <?php endif; ?>
-	            <h4 class="feature-title"><?php echo $productData['product_name']; ?></h4>
-	            <p><?php echo $productData['product_short_description']; ?></p>
-	            <a class="button"
-	               href="<?php echo $product->getProductUrl(); ?>">
-	                <?php echo $this->__('Shop Now')?>
-	            </a>
 	        </div>
 	    <?php else: ?>
 	        <?php echo $this->__('Featured Products Not Available')?>
 	    <?php endif;?>
     </div>
     <div class="clear"></div>
-    <a href="<?php echo $child->getUrl()?>" class="browse-all"><?php echo $this->__('BROWSE ALL')?> <?php echo strtoupper($name) ?></a>
+    <a href="<?php echo $child->getUrl()?>" class="browse-all"><?php echo $this->__('Browse All')?></a>
 </li>
