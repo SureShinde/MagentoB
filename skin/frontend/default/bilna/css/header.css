@@ -343,14 +343,41 @@
 	float: right;
 	width: auto;
 }
-.header .form-search input.input-text {
-	margin: 0;
-	border: none;
+.header .form-search .input-keyword {
+	float: left;
 	width: 286px;
 	height: 32px;
 	background: url(../images/txt-search.jpg) no-repeat left top;
 }
+.header .form-search .input-keyword input.input-text {
+	margin: 8px 0 0 5px;
+	width: 119px;
+	border: none;
+	color: #bababa;
+}
+.header .form-search .input-keyword .select-category {
+	float: right;
+	clear: none;
+	width: auto;
+	height: auto;
+	overflow: hidden;
+	padding: 0 10px 0 0;
+	margin: 9px 10px 0 0;
+	background: url(../images/arrow-green.png) no-repeat right center;
+}
+
+.header .form-search .input-keyword .select-category select {
+	background: none;
+	width: auto;
+	line-height: normal;
+	border: 0;
+	border-radius:0;
+	height: 15px;
+	color: #a0cc00;
+	-webkit-appearance: none;
+}
 .header .form-search button.button {
+	float: left;
 	width: 34px;
 	height: 32px;
 	background: url(../images/btn-search.jpg) no-repeat left top;
@@ -361,26 +388,6 @@
 	padding: 0;
 }
 /*header menu*/
-#nav ul, #nav div {
-	position: inherit;
-	left: 0;
-	top: 0;
-	width: auto;
-	border: 0;
-}
-#nav ul li.level-top {
-	position: relative;
-}
-#nav .level-hover {
-	display: none;
-	position: absolute;
-	top:auto;
-	left: auto;
-}
-#nav .level-hover.shown-sub {
-	display: block;
-}
-/*navigation*/
 .nav-container {
 	background: #4ec7da;
 }
@@ -390,6 +397,50 @@
 }
 #nav {
 	text-align: left;
+}
+#nav ul, #nav div {
+	position: inherit;
+	left: 0;
+	top: 0;
+	width: auto;
+	border: 0;
+}
+#nav ul li, #nav ul li .left-columns .column {
+	background: url(../images/arrow-menu.png) no-repeat right center;	
+	padding: 3px 0;
+	border-top:1px solid #dadada;
+}
+
+#nav ul li:first-child {
+	border: none;
+}
+#nav ul li a, #nav ul li a:hover {
+	font-family: Helvetica;
+	font-size: 0.9em;
+	text-transform: capitalize;
+	color: #707070 !important;
+	letter-spacing: normal;
+}
+#nav ul li a {
+	background: none;
+}
+#nav ul li.level-top {
+	position: relative;
+}
+#nav .level-hover {
+	display: none;
+	position: absolute;
+	top:30px;
+	left: auto;
+	background: #fff;
+	width: 500px;
+	padding: 0 10px;
+	-webkit-box-shadow: 1px 1px 4px 0 #ccc;
+	-moz-box-shadow: 1px 1px 4px 0 #ccc;
+	box-shadow: 1px 1px 4px 0 #ccc;
+}
+#nav .level-hover.shown-sub {
+	display: block;
 }
 #nav li.level-top {
 	position: relative;
@@ -435,8 +486,26 @@
 	float: right;
 	margin-left: 5px;
 }
+#nav ul li .left-columns {
+	float: left;
+	width: 30%;
+}
+#nav ul li .right-columns {
+	float: right;
+	width: 65%;
+}
+#nav ul li .right-columns .submenu {
+	width: 45%;
+}
+#nav ul li .right-columns .popular-brand {
+	float: left;
+}
+#nav ul li .right-columns .our-choice {
+	float: right;
+}
 .shopby {
 	text-align: left;
+	background: #fff;
 }
 .shopby ul.shop-by {
 	list-style: none;
@@ -447,13 +516,19 @@
 .shopby ul.shop-by li {
 	margin: 0 0 2px 0;
 }
-.shopby ul.shop-by li span.title {
-	font-size: 14px;
+.shopby ul.shop-by li span.title, .submenu span.title, #nav ul li .left-columns h2 {
+	color: #707070;
+	font-size: 1.1em;
 	font-family: 'bebasregular';
+	font-weight: normal;
 	text-transform: uppercase;
 	letter-spacing: 1px;
+	padding: 0 !important;
 }
-.shopby ul.shop-by li a.link-seemore, .homepage-product a.link-viewmore-product {
+.submenu span.title {
+	margin-bottom: 10px;
+}
+.shopby ul.shop-by li a.link-seemore, .homepage-product a.link-viewmore-product, #nav .shopby ul.shop-by li a.link-seemore {
 	display: inline-block;
 	padding: 0 20px 0 0;
 	font-weight: bold;
@@ -461,17 +536,24 @@
 }
 #nav .shopby {
 	display: none;
+	width: 215px;
+	background: #fff;
 }
 #nav .shopby ul.shop-by li, #nav .shopby ul.shop-by li a {
 	background: none;
 }
+#nav .shopby ul.shop-by li span.title {
+	padding: 0;
+}
 #nav .shopby ul.shop-by li a {
-	font-size: 0.75em;
+	font-size: 0.9em;
 	color: #707070 !important;
 	font-family: Helvetica;
 	font-weight: normal !important;
 	text-transform: capitalize;
+	letter-spacing: normal;
 }
+#nav li .shown-sub li div.shown-sub { left:0; }
 @media only screen and (max-width: 1215px) {
 	.header, #nav {
 		width: 994px;
@@ -486,10 +568,9 @@
 	#nav .shopby {
 		display: none;
 		position: absolute;
-		top:0;
+		top:60px;
 		left:0;
 		z-index: 9;
-		padding-top: 60px;
 	}
 	#nav li.shop-by:hover > .shopby {
 		display: block;
