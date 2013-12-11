@@ -66,7 +66,7 @@ $pageContent =<<<EOF
 <div class="homepage-top-block left">{{block type="cms/block" block_id="shopby"}}</div>
 <div class="homepage-top-block middle">
 <div class="slider-wrapper">
-<div id="slider" class="nivoSlider"><img src="{{skin url=" alt="" data-thumb="{{skin url="images/banner.jpg"}}" alt="" data-transition="slideInLeft" /> <img src="{{skin url="images/banner.jpg"}}" alt="" data-thumb="{{skin url="images/banner.jpg"}}" /></div>
+{{block type="awislider/block" id="homepage"}}
 </div>
 <div class="advertise">
 <ul>
@@ -82,12 +82,15 @@ $pageContent =<<<EOF
 <div class="homepage-product onsale">
 <h2 class="title">Products on Sale!!</h2>
 <a class="link-viewmore-product" href="#">View more products</a></div>
+{{block type="awfeatured/block" id="product_sale"}}
 <div class="homepage-product newarrival">
 <h2 class="title">New Arrival</h2>
 <a class="link-viewmore-product" href="#">View more products</a></div>
+{{block type="awfeatured/block" id="new_arrival"}}
 <div class="homepage-product mostpopular">
 <h2 class="title">Most Popular</h2>
 <a class="link-viewmore-product" href="#">View more products</a></div>
+{{block type="awfeatured/block" id="most_popular"}}
 </div>
 <div class="homepage-bottom">
 <ul class="block-wrapper">

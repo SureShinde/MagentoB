@@ -1,5 +1,4 @@
 .awafpgrid {
-    font-family:Verdana;
     clear:both;
     overflow:visible;
 }
@@ -19,15 +18,33 @@
 .awafpgrid .awafptitle {
     font-size:12px; color:#000;
 }
+.awafpgrid .awafptitle {
+	height: 50px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.awafpgrid .awafptitle span {
+	display: inline-block;
+	color: #fff;
+	font-size: 1em;
+	text-align: center;
+	text-transform: uppercase;
+	font-family: 'bebasregular';
+	font-weight: normal;
+	letter-spacing: 1px;
+	background: #8dd240;
+	padding: 0 3px;
+	margin: 0 3px 0 0;
+}
 .awafpgrid .awafptitle a {
-    font-weight:700;
-    font-size:12px;
-    color:#000;
+    font-weight:bold;
+    font-size:1em;
+    color: #707070;
 }
 .awafpgrid .price-box .price {
-    font-weight:400;
-    color:#000;
-    font-size:12px;
+    font-weight:bold;
+    color:#707070;
+    font-size:1.2em;
 }
 .awafpgrid .afp-addtocart button {
     font-size:12px;
@@ -35,21 +52,25 @@
     background:none;
     cursor:pointer;
 }
-.awafpgrid .afp-addtocart button div {
-    width:91px;
-    background-image:url(../../images/addtocart.png);
-    height:21px;
+.awafpgrid .afp-addtocart button.btn-buynow {
+    width:88px;
+    background-image:url(../../../images/btn-buynow.png);
+    height:36px;
     line-height:21px;
+    color: #fff;
+    font-family: Helvetica;
+    font-size: 1em;
+    font-weight: bold;
+    text-transform: uppercase;
 }
 .afp-thumbnail .onsale-category-container-list {
     float:none!important;
     margin: 0 auto;
 }
 .awafpgrid .afp-details,
-.awafpgrid .awafptitle,
-.awafpgrid .afp-thumbnail,
-.awafpgrid .price-box,
-.awafpgrid .afp-addtocart {
+.awafpgrid .afp-thumbnail {
     text-align:center;
 }
-
+.awafpgrid .afp-thumbnail {
+	margin-bottom: 10px;
+}
