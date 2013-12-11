@@ -270,6 +270,7 @@
 }
 .header .quick-access .left {
 	margin: 0 50px 0 0;
+	position: relative;
 }
 .header .quick-access .store-phone, .header .links {
 	float: none;
@@ -301,6 +302,32 @@
 }
 .header .links a {
 	color: #4ec7da;
+}
+.toplink-myaccount {
+	display: none;
+	position: absolute;
+	top: 30px;
+	right: -8px;
+	background: #fff;
+	padding: 10px;
+	-webkit-box-shadow: 1px 1px 4px 0 #ccc;
+	-moz-box-shadow: 1px 1px 4px 0 #ccc;
+	box-shadow: 1px 1px 4px 0 #ccc;
+}
+.toplink-myaccount ul li {
+	border-top: 1px solid #dadada;
+}
+.toplink-myaccount ul li:first-child {
+	border-top: none;
+}
+.toplink-myaccount ul li a {
+	display: block;
+	padding: 5px 0;
+	color: #707070;
+	font-size: 1em;
+}
+.header .links:hover + .toplink-myaccount {
+	display: block;
 }
 .header .form-language {
 	float: right;
@@ -426,7 +453,7 @@
 	position: relative;
 }
 #nav .level-hover {
-	display: block;
+	display: none;
 	position: absolute;
 	top:30px;
 	left: auto;
