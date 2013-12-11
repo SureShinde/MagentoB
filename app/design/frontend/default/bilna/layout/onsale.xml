@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+	<default>
+		<reference name="head">
+            <action method="addJs"><script>aw_onsale/onsale.js</script></action>
+			<action method="addCss"><name>onsale/css/product_onsale_label.css</name></action>
+            <action method="addCss"><name>onsale/css/category_onsale_label.css</name></action>
+		</reference>
+	</default>
+</layout>
