@@ -8,10 +8,14 @@
 .awafpgrid ul {
     clear:both;
     list-style: none !important;
+    padding-left: 0;
 }
 .awafpgrid ul li {
     float:left;
-    margin:0 1% 10px 0;
+    margin:0 0 10px 1.5%;
+}
+.awafpgrid ul li:first-child {
+	margin: 0;
 }
 .awafpgrid .awafpprice,
 .awafpgrid .awafpbutton,
@@ -73,4 +77,26 @@
 }
 .awafpgrid .afp-thumbnail {
 	margin-bottom: 10px;
+}
+@media only screen and (max-width: 1215px) {
+	.awafpgrid .afp-thumbnail, .awafpgrid .afp-thumbnail a.product-image img {
+		width: 100%;
+	}
+}
+/* --------------- 960 px layout -------------------- */
+@media only screen and (max-width: 1023px) {
+	
+}
+/* --------------- smaller 959 px layout -------------------- */
+@media only screen and (max-width: 767px) {
+	.awis-block {
+		width: 100% !important;
+	}
+	.awis-r-default-item img {
+		width: 100%;
+	}
+}
+/* --------------- 320 px layout -------------------- */
+@media only screen and (max-width: 479px) { 
+	
 }

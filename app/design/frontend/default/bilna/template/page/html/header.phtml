@@ -36,6 +36,18 @@ $j(document).ready(function(){
 		$j('.mini-cart').slideToggle();
 			
 	});	
+	
+		//$j('.mini-cart').slideToggle();
+		if(wwidth < 768) {
+			$j('.nav-mobile-trigger').click(function(e){
+				e.preventDefault();
+				$j('.nav-mobile').slideToggle();
+					
+			});
+		 }
+		 else {
+		 	return false;
+		}	
 	/*if(wwidth > 765) {
 		$j(".myaccount").live("mouseover",function(){
 			$j(".toplink-myaccount").css({"display":"block"});
@@ -51,6 +63,7 @@ $j(document).ready(function(){
 </script>
 <div class="header-container">
     <div class="header">
+    	<a href="#" class="nav-mobile-trigger"><?php echo $this->__('Menu') ?></a>
     	<div class="menu-top">
 	    	<ul>
 		    	<li class="active"><a href="#"><?php echo $this->__('Mom &amp; Baby') ?></a></li>
@@ -66,6 +79,8 @@ $j(document).ready(function(){
         <?php endif?>
         <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('keypoint')->toHtml() ?>
         <div class="quick-access">
+        	<a href="#" class="link-blog-mobile"><?php echo $this->__('Blog') ?></a>
+        	<a href="#" class="link-myaccount-mobile"><?php echo $this->__('My Account') ?></a>
         	<div class="top-cart">
         		<?php $_totalItem = $this->helper('checkout/cart')->getSummaryCount();  //get total items in cart ?>
         		<a href="#" class="link-minicart" id="link-minicart"><?php echo $this->__('View Cart(').$_totalItem.$this->__(')') ?></a>
@@ -86,6 +101,8 @@ $j(document).ready(function(){
             <div class="clear"></div>
         </div>
         <?php echo $this->getChildHtml('topContainer'); ?>
+        <div class="nav-mobile"><?php echo $this->getChildHtml('topMenu') ?></div>
+        <div class="search-mobile"><?php echo $this->getChildHtml('topSearch') ?></div>
     </div>
 </div>
 <?php echo $this->getChildHtml('topMenu') ?>
