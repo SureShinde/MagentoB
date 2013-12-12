@@ -31,22 +31,29 @@
 <script type="text/javascript">
 wwidth = $j(window).width();
 $j(document).ready(function(){
-	$j('#link-minicart').click(function(e){
-		e.preventDefault();
-		$j('.mini-cart').slideToggle();
-			
-	});	
+	
 	
 		//$j('.mini-cart').slideToggle();
 		if(wwidth < 768) {
 			$j('.nav-mobile-trigger').click(function(e){
 				e.preventDefault();
-				$j('.nav-mobile').slideToggle();
+				$j('.mini-cart-mobile').slideUp();
+				$j('.nav-container').slideToggle();
+					
+			});
+			$j('#link-minicart').click(function(e){
+				e.preventDefault();
+				$j('.nav-container').slideUp();
+				$j('.mini-cart-mobile').slideToggle();
 					
 			});
 		 }
 		 else {
-		 	return false;
+		 	$j('#link-minicart').click(function(e){
+				e.preventDefault();
+				$j('.mini-cart').slideToggle();
+					
+			});	
 		}	
 	/*if(wwidth > 765) {
 		$j(".myaccount").live("mouseover",function(){
@@ -101,7 +108,8 @@ $j(document).ready(function(){
             <div class="clear"></div>
         </div>
         <?php echo $this->getChildHtml('topContainer'); ?>
-        <div class="nav-mobile"><?php echo $this->getChildHtml('topMenu') ?></div>
+        <div class="nav-mobile"><?php //echo $this->getChildHtml('topMenu') ?></div>
+        <div class="mini-cart-mobile"><?php echo $this->getChildHtml('topcart') ?></div>
         <div class="search-mobile"><?php echo $this->getChildHtml('topSearch') ?></div>
     </div>
 </div>
