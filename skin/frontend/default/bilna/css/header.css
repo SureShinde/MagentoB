@@ -351,7 +351,7 @@
 	color: #707070;
 	font-size: 1em;
 }
-.header .links:hover + .toplink-myaccount {
+.header a.link-trigger-myaccount:hover + .toplink-myaccount {
 	display: block;
 }
 .header .form-language {
@@ -892,6 +892,9 @@
 	#nav ul li a {
 		padding-top:10px;
 		padding-bottom: 10px;
+	}
+	#nav .level-hover.shown-sub {
+		display: none;
 	}
 	.form-language .switch-language-mobile {
 		display: block;

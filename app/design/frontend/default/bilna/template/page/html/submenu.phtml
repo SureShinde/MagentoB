@@ -24,7 +24,8 @@
             <ul>
             <?php foreach ($children as $submenu): ?>
                 <li>
-                	<a href="<?php echo $submenu->getUrl()?>"><span><?php echo $this->escapeHtml($submenu->getName())?></span></a>
+                	<?php $trimmed = str_replace( " ", "", $this->escapeHtml($submenu->getName())) ?>
+                	<a href="<?php echo $submenu->getUrl()?>" class="<?php echo strtolower($trimmed) ?>"><span><?php echo $this->escapeHtml($submenu->getName())?></span></a>
                 </li>
                 <?php $counter++;?>
             <?php endforeach; ?>
