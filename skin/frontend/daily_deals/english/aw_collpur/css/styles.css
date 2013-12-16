@@ -42,28 +42,20 @@
 
 /* common mark styles */
 .awcp-deal {
-    background: transparent url(../images/mark-rl.png) 0 -540px no-repeat;
-    padding-left: 32px;
-    height: 133px;
     margin-bottom: 1px;
 }
 
 .awcp-mark-right {
-    background: transparent url(../images/mark-rl.png) 100% -675px no-repeat;
-    padding-right: 32px;
 }
 
 .awcp-mark-center {
-    background: transparent url(../images/mark-c.png) 0 -270px repeat-x;
-    padding: 26px 0;
+    
 }
 
 .awcp-deal .content {
-    background: #f7f7f7 url(../images/icon-clock-huge.png) 0 50% no-repeat;
     padding: 0 0 0 90px;
     text-align: center;
     color: #333;
-    min-height: 82px;
 }
 
 /* product page marks */
@@ -264,28 +256,19 @@ button.awcp-button span span {
 }
 
 .awcp-add-to-box {
-    background: transparent url(../images/mark-rl.png) 0 -270px no-repeat;
-    padding-left: 32px;
 }
 
 .awcp-add-to-box .awcp-mark-right {
-    background: transparent url(../images/mark-rl.png) 100% -405px no-repeat;
-    padding-right: 32px;
 }
 
 .awcp-add-to-box .awcp-mark-center {
-    background: transparent url(../images/mark-c.png) 0 -135px repeat-x;
-    padding: 26px 0;
 }
 
 .awcp-add-to-box .content {
-    background: #4BC1DE none;
     padding: 0;
 }
 
 .awcp-add-to-box .awcp-price {
-    float: left;
-    text-align: left;
     padding-top: 10px;
 }
 
@@ -299,14 +282,16 @@ button.awcp-button span span {
 }
 
 .awcp-buy-button button.awcp-buy span {
-    background: transparent url(../images/btn-buy.png) left top no-repeat;
     border: 0 none;
-    height: 82px;
-    padding: 0 0 0 13px;
+    height: auto;
+	display:table;
+	width:100%;
+	padding: 10px 0;
+	font:25px Arial;
+	font-weight:bold;
 }
 
 .awcp-buy-button button.awcp-buy span span {
-    background: transparent url(../images/btn-buy.png) right top no-repeat;
     padding: 0 17px 0 4px;
     line-height: 82px;
     font-size: 30px;
@@ -321,17 +306,15 @@ button.awcp-button span span {
 }
 
 .awcp-options button.awcp-buy span {
-    background: transparent url(../images/btn-buy-options.png) left top no-repeat;
 }
 
 .awcp-options button.awcp-buy span span {
-    background: transparent url(../images/btn-buy-options.png) right top no-repeat;
     padding: 6px 17px 0 4px;
     line-height: 34px;
 }
 
 .awcp-add-to-box .awcp-price-label {
-    color: #fff;
+    color: #000;
     font-weight: normal;
     font-size: 14px;
 }
@@ -343,20 +326,19 @@ button.awcp-button span span {
 }
 
 .awcp-options-box {
-    background: transparent url(../images/mark-rl.png) 0 0 no-repeat;
     padding-left: 32px;
 }
 
 .awcp-options-box .awcp-mark-right {
-    background: transparent url(../images/mark-rl.png) 100% -135px no-repeat;
     padding-right: 32px;
 }
 
 .awcp-options-box .awcp-mark-center {
-    background: transparent url(../images/mark-c.png) 0 0 repeat-x;
     padding: 26px 0;
 }
-
+.awcp-price-value .price{
+	color:#000;
+}
 .awcp-options-box .content {
     background: transparent none;
     padding: 0px;
@@ -433,15 +415,15 @@ table.awcp-pricedata th.last {
 }
 
 .awcp-cols {
-    margin-left: 261px;
-    float: left;
+    /*margin-left: 261px;
+    float: left;*/
     width: 100%;
 }
 
 .awcp-cols .col-1 {
-    float: left;
-    width: 260px;
+    /*float: left;
     margin-left: -261px;
+    width: 260px;*/
 }
 
 .awcp-cols .col-2 {
@@ -566,3 +548,14 @@ LI#googleplusli {
 .addthis_toolbox .addthis_button_google_plusone {
     width: 72px;
 }
+
+/*Tambahan*/
+
+/*detail deals*/
+.awcp-options .awcp-buy{
+	width:100%;
+}
+.col_left_deals_detail{
+	
+}
+.col_right_deals_detail{}

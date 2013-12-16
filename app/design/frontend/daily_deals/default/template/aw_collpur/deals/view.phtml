@@ -23,7 +23,10 @@
  * @copyright  Copyright (c) 2010-2012 aheadWorks Co. (http://www.aheadworks.com)
  * @license    http://ecommerce.aheadworks.com/AW-LICENSE.txt
  */
-?><div id="messages_product_view"><?php echo $this->getMessagesBlock()->getGroupedHtml() ?></div>
+?>
+<div class="row">
+<div class="large-8 medium-8 small-8 columns">
+<div id="messages_product_view"><?php echo $this->getMessagesBlock()->getGroupedHtml() ?></div>
 <?php if ($this->isFeaturedMode()): ?>
     <div class="awcp-navigation">
         <ul>
@@ -52,12 +55,7 @@
     $container = "awcp_timer_" . rand();
 ?>
 
-        <div class="awcp-product-name">
-            <h1><?php echo $deal->getDealName(); ?></h1>
-        </div>
-        <div class="awcp-short-description">
-            <?php echo $this->filter($deal->getDescription()); ?>
-        </div>
+        
 
             <div class="awcp-product-img-box">
                 <div class="share">
@@ -66,29 +64,19 @@
                 </div>
                 <img class="awcp-product-img" src="<?php echo $this->getDealImage($deal->getDealImage()); ?>" alt="<?php echo $deal->getDealName(); ?>" />
             </div>
-
-           <form id="product_addtocart_form" method="post" action="<?php echo Mage::getUrl('checkout/cart/add', array('_secure'=>true,'product' => $product->getId(), 'deal_id' => $this->getDeal()->getId(), 'form_key' => Mage::getSingleton('core/session')->getFormKey())) ?>">
-                <div class="awcp-cols">
-                     <div class="col-1">
-                         <?php if (!$deal->isClosed()) : ?>
-                            <?php if ($deal->isRunning()): ?><!-- blue box -->
-                                    <div class="awcp-deal awcp-add-to-box">
-                                        <div class="awcp-mark-right">
-                                            <div class="awcp-mark-center">
-                                                <div class="content">
-                                                    <div class="awcp-price">
-                                                        <div class="awcp-price-label">
-                                                            <?php
-                                                            if ($this->hasOptions() && $this->_hasOptionsWithPrice($product)): echo $this->__('from');
-                                                            else: echo '&nbsp;';
-                                                            endif;
-                                                            ?>
-                                                        </div>
-                                                        <div class="awcp-price-value">
-                                                                    <?php echo $dealInfo->getPrice(); ?>
-                                                        </div>
-                                                     </div>
-                                                     <div class="awcp-buy-button <?php if ($this->hasOptions()): ?>awcp-options<?php endif; ?>">
+			<div class="awcp-full-description">
+                   <?php echo $this->filter($deal->getFullDescription()); ?>
+            </div>
+</div>
+<div class="large-4 medium-4 small-4 columns">
+			<div class="awcp-product-name">
+            <h1><?php echo $deal->getDealName(); ?></h1>
+			</div>
+			<!--<div class="awcp-short-description">
+				<?php //echo $this->filter($deal->getDescription()); ?>
+			</div>-->
+           <form id="product_addtocart_form" class="right_detail_deals" method="post" action="<?php echo Mage::getUrl('checkout/cart/add', array('_secure'=>true,'product' => $product->getId(), 'deal_id' => $this->getDeal()->getId(), 'form_key' => Mage::getSingleton('core/session')->getFormKey())) ?>">
+                <div class="awcp-buy-button <?php if ($this->hasOptions()): ?>awcp-options<?php endif; ?>">
                                                         <!-- POPUP -->
                                                            <div class="awcp-popup awcp-popup-shown" style = "display:none;" id ="awcp-popup-options<?php echo $deal->getId(); ?>">
                                                               <div class="awcp-popup-top-left">
@@ -112,12 +100,32 @@
                                                             <!-- popup -->
                                                             <button class="button awcp-buy" <?php if ($this->hasOptions()): ?>onclick = "Effect.toggle($('awcp-popup-options<?php echo $deal->getId(); ?>'),'appear');return false;"<?php endif; ?>>
                                                                 <span>
-                                                                    <span>
-                                                                        <img src="<?php echo $this->getSkinImage('awcp-arrow'); ?>" alt="" /><?php echo $this->__('Buy!'); ?>
-                                                                    </span>
+                                                                        <?php echo $this->__('Buy Now!'); ?>
+                                                                    
                                                                 </span>
                                                             </button>
                                                       </div>
+				<div class="awcp-cols">
+                    <div class="col-1">
+                         <?php if (!$deal->isClosed()) : ?>
+                            <?php if ($deal->isRunning()): ?><!-- blue box -->
+                                    <div class="awcp-deal awcp-add-to-box">
+                                        <div class="awcp-mark-right">
+                                            <div class="awcp-mark-center">
+                                                <div class="content">
+                                                    <div class="awcp-price">
+                                                        <div class="awcp-price-label">
+                                                            <?php
+                                                            if ($this->hasOptions() && $this->_hasOptionsWithPrice($product)): echo $this->__('from');
+                                                            else: echo '&nbsp;';
+                                                            endif;
+                                                            ?>
+                                                        </div>
+                                                        <div class="awcp-price-value">
+                                                                    <?php echo $dealInfo->getPrice(); ?>
+                                                        </div>
+                                                     </div>
+                                                     
 
                                                 <div class="clearer"></div>
                                             </div>
@@ -149,7 +157,7 @@
                             </div>
                         </div>
                         <!-- yellow box -->
-                </div><!-- col-1 -->
+					</div><!-- col-1 -->
 
                 <div class="col-2">
                     <div class="col-2-inner">
@@ -209,10 +217,9 @@
                 </div><!-- col-2 -->
             </div><!-- cols -->
            <div class="clearer"></div>
-             <div class="awcp-full-description">
-                   <?php echo $this->filter($deal->getFullDescription()); ?>
-             </div>
-        </form>
+		</form>
+    </div>
+</div>        
 
      <script type = "text/javascript">
           document.observe("dom:loaded", function() {
