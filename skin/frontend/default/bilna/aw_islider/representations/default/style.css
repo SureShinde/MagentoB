@@ -58,8 +58,8 @@
     background-color: transparent;
     background-image: url('../../../images/node.png');
     border: 0px;
-    height: 12px;
-    width: 12px;
+    height: 19px;
+    width: 19px;
     margin: 0 0 0 5px;
 }
 .awis-block .awis-slides-controls .awis-c-center button.awis-s-current {
@@ -114,13 +114,20 @@
 }
 /* --------------- 960 px layout -------------------- */
 @media only screen and (max-width: 1023px) {
-	
+	.awis-effect-simple-slider .awis-r-default-item {
+		width: 717px !important;
+	}
 }
 /* --------------- smaller 959 px layout -------------------- */
 @media only screen and (max-width: 767px) {
+	.awis-effect-simple-slider {
+	}
 	.awis-effect-simple-slider .awis-r-default-item {
 		width: auto;
 		overflow: hidden;
+	}
+	.awis-block .awis-slides-controls {
+		right: 40%;
 	}
 }
 /* --------------- 320 px layout -------------------- */

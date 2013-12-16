@@ -82,6 +82,13 @@
 	.onsale-category-container-list, .awafpgrid .afp-thumbnail, .awafpgrid .afp-thumbnail a.product-image img {
 		width: 100% !important;
 	}
+	.awafpgrid ul {
+		overflow: hidden;
+		height: 300px;
+	}
+	.awafpgrid ul li {
+		width: 15.41% !important;
+	}
 }
 /* --------------- 960 px layout -------------------- */
 @media only screen and (max-width: 1023px) {
@@ -94,6 +101,7 @@
 	.awis-r-default-item img {
 		width: 100%;
 	}
+	
 }
 /* --------------- smaller 959 px layout -------------------- */
 @media only screen and (max-width: 767px) {

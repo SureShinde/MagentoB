@@ -327,32 +327,46 @@
 .header .links a {
 	color: #4ec7da;
 }
-.toplink-myaccount {
+.header .links li.myaccount {
+	position: relative;
+}
+.header .links li.myaccount:hover .toplink-myaccount {
+	display: block;
+}
+.header .links li.myaccount a.link-trigger-myaccount {
+	display: inline-block;
+	background: url(../images/icon-user.png) no-repeat left center;
+	padding: 5px 0 5px 20px;
+}
+.header .links li.myaccount .toplink-myaccount {
 	display: none;
 	position: absolute;
-	top: 30px;
-	right: -8px;
+	top: 18px;
+	left: 0;
 	background: #fff;
 	padding: 10px;
 	z-index: 2;
 	-webkit-box-shadow: 1px 1px 4px 0 #ccc;
 	-moz-box-shadow: 1px 1px 4px 0 #ccc;
 	box-shadow: 1px 1px 4px 0 #ccc;
+	width: 130px;
 }
-.toplink-myaccount ul li {
+.header .links li.myaccount .toplink-myaccount ul li {
 	border-top: 1px solid #dadada;
+	border-left: none;
+	padding-left: 0;
+	padding-right: 0;
+	font-size: 1.1em;
+	display: block;
 }
-.toplink-myaccount ul li:first-child {
+.header .links li.myaccount .toplink-myaccount ul li:first-child {
 	border-top: none;
 }
-.toplink-myaccount ul li a {
+.header .links li.myaccount .toplink-myaccount ul li a {
 	display: block;
 	padding: 5px 0;
 	color: #707070;
 	font-size: 1em;
-}
-.header a.link-trigger-myaccount:hover + .toplink-myaccount {
-	display: block;
 }
 .header .form-language {
 	float: right;
@@ -414,13 +428,13 @@
 	height: auto;
 	overflow: hidden;
 	padding: 0 10px 0 0;
-	margin: 9px 10px 0 0;
+	margin: 9px 5px 0 0;
 	background: url(../images/arrow-green.png) no-repeat right center;
 }
 
 .header .form-search .input-keyword .select-category select {
 	background: none;
-	width: auto;
+	width: 80px;
 	line-height: normal;
 	border: 0;
 	border-radius:0;
@@ -461,7 +475,7 @@
 	background: url(../images/txt-search-1.jpg) repeat-x left top;
 }
 .header .search-mobile .form-search .input-keyword input.input-text {
-	width: 65%;
+	width: 50%;
 	margin-top: 14px;
 }
 .header .search-mobile .form-search .input-keyword .select-category {
@@ -481,6 +495,7 @@
 .nav-container {
 	background: #4ec7da;
 }
+
 .dash {
 	background: url(../images/dash.png) repeat-x center center;
 	height: 5px;
@@ -533,12 +548,36 @@
 }
 #nav li.level-top {
 	position: relative;
-	width: 80px;
+	width: 98px;
 	float: none;
 	display: inline-block;
 	vertical-align: middle;
 	padding-top: 3px;
 	padding-bottom: 3px;
+}
+#nav li.level-top.parent-7 {
+	width: 107px;
+}
+#nav li.level-top.parent-9 {
+	width: 121px;
+}
+#nav li.level-top.parent-10, #nav li.level-top.parent-11 {
+	float: right;
+	width: auto;
+}
+#nav li.level-top a.sale, #nav li.level-top a.giftideas {
+	text-indent: -99999px;
+	padding: 0;
+}
+#nav li.level-top a.sale {
+	width: 68px;
+	height: 37px;
+	background: url(../images/sale.png) no-repeat center center;
+}
+#nav li.level-top a.giftideas {
+	width: 43px;
+	height: 37px;
+	background: url(../images/gift-ideas.png) no-repeat center center;
 }
 #nav li.shop-by {
 	width: 49px;
@@ -557,6 +596,7 @@
 	display: table-cell;
 	vertical-align: middle;
 	float: none;
+	font-size: 1.1em;
 }
 #nav a.link-shopby {
 	position: absolute;
@@ -631,6 +671,17 @@
 	overflow: hidden;
 	background: none;
 }
+.nav-container-mobile {
+	display: none;
+	margin: 50px 15px 0;
+}
+.nav-container-mobile ul, .nav-container-mobile .cat-sub li {
+	list-style: none;
+}
+.nav-container-mobile .cat-sub li a {
+	padding-left: 25px;
+	padding-right: 25px;
+}
 .shopby {
 	text-align: left;
 	background: #fff;
@@ -703,25 +754,23 @@
 	margin: 29px 0 0 10px;
 }
 /* for menu */
-.nav-container-mobile {
-	width: 1216px;
-	padding: 0;
-	margin: 0 auto;
-}
 .nav-container-mobile ul {
-	width: 400px;
+	list-style: none;
+	padding-left: 0;
 }
 .nav-container-mobile ul ul a {
 	padding-left: 20px;
 }
-.nav-container-mobile .cat-leveltop a{
-	border-bottom: 1px solid #dadada;
-	border-top: 1px solid #f0f0f0;
+.nav-container-mobile ul li {
+	border-top: 1px solid #dadada;
+}
+.nav-container-mobile ul li:first-child {
+	border-top: none;
+}
+.nav-container-mobile .cat-leveltop a {
 	padding-top: 20px;
 	padding-bottom: 20px;
 	display: block;
-}
-.nav-container-mobile .cat-leveltop a{
 	color: #707070;
 	font-size: 1.1em;
 	font-family: Helvetica;
@@ -729,12 +778,17 @@
 	display: block;
 	text-transform: uppercase;
 	text-align: left;
+	padding-left:12px;
+	padding-right: 12px;
 }
-.nav-container-mobile .cat-leveltop.parent {
+
+.nav-container-mobile ul li.cat-leveltop.parent {
 	background: url(../images/arrow-menu-mobile.png) no-repeat 98% 17px;
+	
 }
 .nav-container-mobile .cat-sub {
 	display: none;
+	border-top: 1px solid #dadada;
 }
 /* end for menu */
 @media only screen and (max-width: 1215px) {
@@ -762,6 +816,35 @@
 	}
 	#nav li.shop-by:hover > .shopby {
 		display: block;
+	}
+	#nav li.level-top {
+		width: 81px;
+	}
+	#nav a.level-top {
+		font-size: 0.9em;
+		padding-left: 5px;
+		padding-right: 5px;
+	}
+	#nav li.level-top.shop-by {
+		width: 49px;
+	}
+	#nav li.level-top.parent-0 {
+		width: 70px;
+	}
+	#nav li.level-top.parent-4 {
+		width: 79px;
+	}
+	#nav li.level-top.parent-5 {
+		width: 74px;
+	}
+	#nav li.level-top.parent-6 {
+		width: 60px;
+	}
+	#nav li.level-top.parent-7 {
+		width: 83px;
+	}
+	#nav li.level-top.parent-9 {
+		width: 94px;
 	}
 }
 /* --------------- 960 px layout -------------------- */
@@ -860,7 +943,11 @@
 		background: none;
 		text-align: right;
 	}
+	.nav-container-mobile {
+		display: block;
+	}
 	.nav-container {
+		display: none;
 		background: #fff;
 	}
 	.nav-container #nav a {
@@ -876,6 +963,9 @@
 		border-top: 1px solid #f0f0f0;
 		padding-top: 20px;
 		padding-bottom: 20px;
+		
+	}
+	.nav-container #nav li.level-top.parent {
 		background: url(../images/arrow-menu-mobile.png) no-repeat 98% 17px;
 	}
 	.nav-container #nav li.level-top.parent-0 {
@@ -901,6 +991,36 @@
 	}
 }
 /* --------------- 320 px layout -------------------- */
-@media only screen and (max-width: 479px) { 
+@media only screen and (max-width: 482px) { 
+	.header a.nav-mobile-trigger, .header .logo {
+		margin-left: 5px;
+	}
+	.header a.nav-mobile-trigger {
+		margin-top: 20px;
+	}
+	.header .logo {
+		margin-top: 10px;
+	}
+	.header .logo img {
+		width: 80%;
+	}
+	.header .quick-access {
+		margin-right: 3px;
+		font-size: 8.66px;
+	}
+	.header .quick-access a.link-blog-mobile, .header .quick-access a.link-myaccount-mobile {
+		margin-right: 5px;
+	}
+	.header .quick-access .top-cart a.link-minicart {
+		font-size: 8.66px;
+	}
+	.header .quick-access a.link-blog-mobile {
+		width: 39px;
+		background-position: center 7px;
+		background-size: 100% auto;
+	}
+	.header .search-mobile .form-search .input-keyword input.input-text {
+		width: 40%;
+	}
 	
 }

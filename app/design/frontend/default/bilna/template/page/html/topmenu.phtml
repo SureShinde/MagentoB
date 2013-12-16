@@ -36,7 +36,7 @@
                     $outermostClass = $menuTree->getOutermostClass()." parent-".$counter;
                     ?>
                     <?php if ($childLevel == 0 && $outermostClass): ?>
-                        <?php $outermostClassCode = ' class="' . $outermostClass . ' '. strtolower(str_replace(array('&',' '), "_", $child->getName())) .'" ';
+                        <?php $outermostClassCode = ' class="' . $outermostClass . ' '. strtolower(str_replace(array('&',' '), "", $child->getName())).'" ';
                         $child->setClass($outermostClass); ?>
                     <?php endif; ?>
                     <li <?php echo $this->_getRenderedMenuItemAttributes($child)?>>
@@ -51,6 +51,7 @@
                     </li>
                     <?php $counter++;?>
                 <?php endforeach; ?>
+                <div class="clear"></div>
             </ul>
            
     </div>
