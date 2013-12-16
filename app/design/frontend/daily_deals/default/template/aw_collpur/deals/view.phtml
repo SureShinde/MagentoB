@@ -160,7 +160,6 @@
 					</div><!-- col-1 -->
 
                 <div class="col-2">
-                    <div class="col-2-inner">
                           <?php if (($deal->isNotRunning() && $deal->getAvailableFrom()) || $deal->isRunning() && $deal->getAvailableTo()): ?>
                                 <!-- clock -->
                                 <div class="awcp-deal awcp-deal-mark1">
@@ -213,7 +212,7 @@
                                 <!-- gray check -->
                             <?php endif; ?>
                         <?php endif; ?>
-                    </div>
+                    
                 </div><!-- col-2 -->
             </div><!-- cols -->
            <div class="clearer"></div>
