@@ -72,17 +72,15 @@
 
 /* category marks*/
 .awcp-category-grid .awcp-mark-left {
-    background: transparent url(../images/category-mark.png) 0 0 no-repeat;
+    
     padding-left: 14px;
 }
 
 .awcp-category-grid .awcp-mark-right {
-    background: transparent url(../images/category-mark.png) 100% -150px no-repeat;
     padding-right: 14px;
 }
 
 .awcp-category-grid .awcp-mark-center {
-    background: transparent url(../images/category-mark.png) 100% -300px repeat-x;
     padding: 15px 0;
     min-height: 82px;
 }
@@ -187,6 +185,7 @@ button.awcp-button span span {
 .awcp-product-name h1 {
     color: #333;
     font-size: 24px;
+	text-align:center;
     font-weight: bold;
 }
 
@@ -546,6 +545,9 @@ LI#googleplusli {
 
 /*detail deals*/
 .awcp-options .awcp-buy{
+	width:100%;
+}
+.awcp-buy-button .awcp-buy{
 	width:100%;
 }
 .col_left_deals_detail{
