@@ -59,13 +59,11 @@
 
 /* product page marks */
 .awcp-deal-mark1 .awcp-mark-center {
-    padding: 23px 0;
 }
 
 .awcp-deal-mark1 .content {
-    margin-left: -3px;
-    margin-right: -3px;
-    min-height: 88px;
+    min-height: 60px;
+	padding:20px 0 0;
 }
 
 .awcp-deal-mark2 .content {
@@ -267,7 +265,7 @@ button.awcp-button span span {
 }
 
 .awcp-add-to-box .awcp-price {
-    padding-top: 10px;
+    padding: 10px 0 30px;
 }
 
 .awcp-add-to-box .awcp-buy-button {
@@ -337,7 +335,7 @@ button.awcp-button span span {
 .awcp-options-box .content {
     background: transparent none;
     padding: 0px;
-    min-height: 81px;
+    min-height: 60px;
     overflow: hidden;
 }
 
@@ -350,7 +348,7 @@ table.awcp-pricedata th {
     font-weight: normal;
     font-size: 14px;
     color: #333;
-    text-align: center;
+    text-align: left;
     padding: 1px 5px 1px 0px;
 }
 
@@ -358,8 +356,8 @@ table.awcp-pricedata td {
     font-weight: bold;
     font-size: 18px;
     color: #333;
-    text-align: center;
-    padding: 0px 5px 0px 0px;
+    text-align: left;
+    padding: 15px 5px 0;
 }
 
 table.awcp-pricedata td.last,
@@ -396,6 +394,7 @@ table.awcp-pricedata th.last {
 }
 
 .awcp-deal-mark3 .content {
+	margin:25px 0 0;
 }
 
 .awcp-deal-mark3 .awcp-bought {

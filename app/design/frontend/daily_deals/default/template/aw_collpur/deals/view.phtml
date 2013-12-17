@@ -24,8 +24,7 @@
  * @license    http://ecommerce.aheadworks.com/AW-LICENSE.txt
  */
 ?>
-<div class="row">
-<div class="large-8 medium-8 small-8 columns">
+<div class="large-8 medium-8 columns">
 <div id="messages_product_view"><?php echo $this->getMessagesBlock()->getGroupedHtml() ?></div>
 <?php if ($this->isFeaturedMode()): ?>
     <div class="awcp-navigation">
@@ -68,7 +67,7 @@
                    <?php echo $this->filter($deal->getFullDescription()); ?>
             </div>
 </div>
-<div class="large-4 medium-4 small-4 columns">
+<div class="large-4 medium-4 columns">
 			<div class="awcp-product-name">
             <h1><?php echo $deal->getDealName(); ?></h1>
 			</div>
@@ -142,14 +141,14 @@
                                     <div class="content">
                                         <table class="awcp-pricedata" cellspacing="0">
                                             <tr>
+												<th><?php echo $this->__('Discount'); ?></th>
                                                 <th><?php echo $this->__('Value'); ?></th>
-                                                <th><?php echo $this->__('Discount'); ?></th>
-                                                <th class="last"><?php echo $this->__('You save'); ?></th>
+                                                <!--<th class="last"><?php //echo $this->__('You save'); ?></th>-->
                                             </tr>
                                             <tr>
+												<td><?php echo $dealInfo->getPercentDiscount(); ?>%</td>
                                                 <td><?php echo Mage::helper('core')->currency($originalProduct->getFinalPrice(), true, false); ?></td>
-                                                <td><?php echo $dealInfo->getPercentDiscount(); ?>%</td>
-                                                <td class="last"><?php echo $dealInfo->getSaveAmount(); ?></td>
+                                                <!--<td class="last"><?php //echo $dealInfo->getSaveAmount(); ?></td>-->
                                             </tr>
                                         </table>
                                     </div>
@@ -218,7 +217,6 @@
            <div class="clearer"></div>
 		</form>
     </div>
-</div>        
 
      <script type = "text/javascript">
           document.observe("dom:loaded", function() {
