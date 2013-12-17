@@ -31,6 +31,13 @@
 <script type="text/javascript">
 wwidth = $j(window).width();
 $j(document).ready(function(){
+	$j(window).scroll(function(){
+		  if ($j(this).scrollTop() > 100) {
+	          $j(".header-container .sticky-header-wrapper").fadeIn();
+	      } else {
+	          $j(".header-container .sticky-header-wrapper").fadeOut();
+	      }
+		});
 	if(wwidth < 768) {
 		$j('.nav-mobile-trigger').click(function(e){
 			e.preventDefault();
@@ -66,13 +73,7 @@ $j(document).ready(function(){
 			$j('.mini-cart-sticky').slideToggle();
 				
 		});	
-		$j(window).scroll(function(){
-		  if ($j(this).scrollTop() > 100) {
-	          $j(".header-container .sticky-header-wrapper").fadeIn();
-	      } else {
-	          $j(".header-container .sticky-header-wrapper").fadeOut();
-	      }
-		}); 
+		
 	}	
 });
 </script>
