@@ -40,7 +40,7 @@
                         $child->setClass($outermostClass); ?>
                     <?php endif; ?>
                     <li <?php echo $this->_getRenderedMenuItemAttributes($child)?>>
-                            <a href="javascript:void(0)" <?php echo $outermostClassCode ?>>
+                            <a href="<?php echo $child->getUrl()?>" <?php echo $outermostClassCode ?>>
                                 <span><span><?php echo $this->escapeHtml($child->getName()) ?></span></span>
                             </a>
                             <?php if ($child->hasChildren()): ?>

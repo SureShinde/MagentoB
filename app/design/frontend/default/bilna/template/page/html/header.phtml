@@ -31,30 +31,29 @@
 <script type="text/javascript">
 wwidth = $j(window).width();
 $j(document).ready(function(){
-	
-	
-		//$j('.mini-cart').slideToggle();
-		if(wwidth < 768) {
-			$j('.nav-mobile-trigger').click(function(e){
-				e.preventDefault();
-				$j('.mini-cart-mobile').slideUp();
-				$j('.nav-container').slideToggle();
-					
-			});
-			$j('#link-minicart').click(function(e){
-				e.preventDefault();
-				$j('.nav-container').slideUp();
-				$j('.mini-cart-mobile').slideToggle();
-					
-			});
-		 }
-		 else {
-		 	$j('#link-minicart').click(function(e){
-				e.preventDefault();
-				$j('.mini-cart').slideToggle();
-					
-			});	
-		}	
+	$j("html, body").scrollTop($j(".homepage-middle").offset().top);
+	//$j('.mini-cart').slideToggle();
+	if(wwidth < 768) {
+		$j('.nav-mobile-trigger').click(function(e){
+			e.preventDefault();
+			$j('.mini-cart-mobile').slideUp();
+			$j('.nav-container').slideToggle();
+				
+		});
+		$j('#link-minicart').click(function(e){
+			e.preventDefault();
+			$j('.nav-container').slideUp();
+			$j('.mini-cart-mobile').slideToggle();
+				
+		});
+	 }
+	 else {
+	 	$j('#link-minicart').click(function(e){
+			e.preventDefault();
+			$j('.mini-cart').slideToggle();
+				
+		});	
+	}	
 	/*if(wwidth > 765) {
 		$j(".myaccount").live("mouseover",function(){
 			$j(".toplink-myaccount").css({"display":"block"});
@@ -66,9 +65,37 @@ $j(document).ready(function(){
 	else {
 		return false;
 	}*/
+	$j(window).scroll(function(){
+	  if ($j(this).scrollTop() > 100) {
+          $j(".header-container .sticky-header-wrapper").fadeIn();
+      } else {
+          $j(".header-container .sticky-header-wrapper").fadeOut();
+      }
+	}); 
+	 
 });
 </script>
 <div class="header-container">
+	<div class="sticky-header-wrapper">
+		<div class="sticky-header">
+			<a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="sticky-logo"><img src="<?php echo $this->getSkinUrl(); ?>images/logo-sticky.png" alt="<?php echo $this->getLogoAlt() ?>" /></a>
+			<ul class="sticky-menu">
+				<li><a href="#"><?php echo $this->__('Todays Promo') ?></a></li>
+				<li><a href="#"><?php echo $this->__('Get Free Voucher!') ?></a></li>
+				<li class="link-customer-care"><a href="#" ><?php echo $this->__('Customer Care Center') ?></a></li>
+				<div class="clear"></div>
+			</ul>
+			<div class="sticky-top-cart">
+	    		<?php $_totalItem = $this->helper('checkout/cart')->getSummaryCount();  //get total items in cart ?>
+	    		<a href="#" class="link-minicart-sticky" id="link-minicart-sticky"><?php echo $this->__('View Cart(').$_totalItem.$this->__(')') ?></a>
+	    		<a href="<?php echo $this->getCheckoutUrl() ?>" class="link-checkout"><?php echo $this->__('Checkout') ?></a>
+	    		<div class="clear"></div>
+	    		<div class="mini-cart-sticky"><?php echo $this->getChildHtml('topcart') ?></div>
+	    	</div>
+			<div class="sticky-search"><?php echo $this->getChildHtml('topSearch') ?></div>
+			<div class="clear"></div>
+    	</div>
+	</div>
     <div class="header">
     	<a href="#" class="nav-mobile-trigger"><?php echo $this->__('Menu') ?></a>
     	<div class="menu-top">

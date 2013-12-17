@@ -40,30 +40,8 @@
         <div class="devider"></div>
     </div>
     <div class="right-columns">
-    	<div class="submenu popular-brand">
-    		<span class="title"><?php echo $this->__('Popular Brands')?></span>
-        	<ul>
-        		<li><a href="#"><?php echo $this->__('MamyPoko')?></a></li>
-        		<li><a href="#"><?php echo $this->__('Pampers')?></a></li>
-        		<li><a href="#"><?php echo $this->__('Merries')?></a></li>
-        		<li><a href="#"><?php echo $this->__('Nepia')?></a></li>
-        		<li><a href="#"><?php echo $this->__('Huggies')?></a></li>
-        		<li><a href="#"><?php echo $this->__('Ruparooz')?></a></li>
-        		<li><a href="#"><?php echo $this->__('Okiedog')?></a></li>
-        	</ul>
-    	</div>
-    	<div class="submenu our-choice">
-    		<span class="title"><?php echo $this->__('Our Choice')?></span>
-        	<ul>
-        		<li><a href="#"><?php echo $this->__('MamyPoko')?></a></li>
-        		<li><a href="#"><?php echo $this->__('Pampers')?></a></li>
-        		<li><a href="#"><?php echo $this->__('Merries')?></a></li>
-        		<li><a href="#"><?php echo $this->__('Nepia')?></a></li>
-        		<li><a href="#"><?php echo $this->__('Huggies')?></a></li>
-        		<li><a href="#"><?php echo $this->__('Ruparooz')?></a></li>
-        		<li><a href="#"><?php echo $this->__('Okiedog')?></a></li>
-        	</ul>
-    	</div>
+    	<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('popular-brands')->toHtml() ?>
+    	<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('our-choice')->toHtml() ?>
     	<div class="clear"></div>
     	<?php $productData = $child->getFeaturedProduct(); ?>
 	    <?php if($productData): ?>

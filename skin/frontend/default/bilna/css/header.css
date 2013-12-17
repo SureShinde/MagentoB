@@ -1,11 +1,149 @@
-.header-container {
+.header-container, .sticky-header-wrapper {
 	width: 100%;
-	background: none;
 	border: none;
 }
-.header, #nav {
+.header-container {
+	background: none;
+}
+.sticky-header-wrapper {
+	display: none;
+	background: #fff;
+	position: fixed;
+	top:0;
+	left: 0;
+	z-index: 99;
+	-webkit-box-shadow: 1px 1px 4px 0 #ccc;
+	-moz-box-shadow: 1px 1px 4px 0 #ccc;
+	box-shadow: 1px 1px 4px 0 #ccc;
+}
+.header, #nav, .sticky-header {
 	width: 1216px;
 	padding: 0;
+}
+.sticky-header {
+	margin: 0 auto;
+	background: #f7f7f7;
+}
+.sticky-header a.sticky-logo, .sticky-header ul.sticky-menu {	
+	float: left;
+}
+.sticky-header a.sticky-logo {
+	display: block;
+	background: #fff;
+	height: 34px;
+}
+.sticky-header ul.sticky-menu {
+	margin: 3px 0;
+}
+.sticky-header ul.sticky-menu li {
+	display: block;
+	float: left;
+	text-transform: uppercase;
+	color: #b2b2b2;
+	font-size: 14px;
+	font-family: 'bebasregular';
+	font-weight: normal;
+	padding:5px 15px;
+	border-right: 1px solid #cecece;
+	border-left: 1px solid #fafafa;
+}
+.sticky-header ul.sticky-menu li:first-child {
+	border-left: none;
+}
+.sticky-header ul.sticky-menu li a {
+	color: #b2b2b2;
+	display:block;
+}
+.sticky-header ul.sticky-menu li.link-customer-care {
+	padding-top: 0;
+	padding-bottom: 0;
+	border-right: none;
+}
+.sticky-header ul.sticky-menu li.link-customer-care a {
+	color: #707070;
+	font-size: 18px;
+	background: url(../images/icon-phone.png) no-repeat left top;
+	padding-left: 45px;
+	height: 28px;
+}
+.sticky-header .sticky-search, .sticky-header .sticky-top-cart {
+	float: right;
+}
+.sticky-header .sticky-top-cart {
+	background: #ffa01b;
+	height: 34px;
+	padding:0 10px;
+}
+.sticky-header .sticky-top-cart a.link-minicart-sticky, .sticky-header .sticky-top-cart a.link-checkout {
+	display: block;
+	float: left;
+	font-family: 'bebasregular';
+	font-weight: normal;
+	color: #fff;
+	text-transform: uppercase;
+	margin: 3px 0;
+	padding: 5px 0;
+}
+.sticky-header .sticky-top-cart a.link-minicart-sticky {
+	border-right: 1px solid #eb8c00;
+	padding-right: 10px;
+}
+.sticky-header .sticky-top-cart a.link-checkout  {
+	padding-left: 10px;
+}
+.sticky-header .sticky-search {
+	background: #fff;
+	padding: 3px 5px;
+	margin: 3px 3px 3px;
+	-webkit-box-shadow: 1px 1px 4px 0 #ccc;
+	-moz-box-shadow: 1px 1px 4px 0 #ccc;
+	box-shadow: 1px 1px 4px 0 #ccc;
+}
+.sticky-header .sticky-search .form-search .input-keyword {
+	float: left;
+	
+}
+.sticky-header .sticky-search .form-search .input-keyword input.input-text {
+	border: none;
+	float: left;
+}
+.sticky-header .sticky-search .form-search .input-keyword button.btn-search-mobile {
+	display: none;
+}
+.sticky-header .sticky-search .form-search .input-keyword .select-category {
+	float: left;
+	width: auto;
+	height: auto;
+	overflow: hidden;
+	padding: 0 10px 0 0;
+	margin: 3px 0 0 0;
+	background: url(../images/arrow-select.png) no-repeat 76px center;
+	border-right: 1px solid #c1c1c1;
+}
+
+.sticky-header .sticky-search .form-search .input-keyword .select-category select {
+	background: none;
+	width: 80px;
+	line-height: normal;
+	border: 0;
+	border-radius:0;
+	height: 15px;
+	-webkit-appearance: none;
+}
+.sticky-header .sticky-search .form-search button.button {
+	float: left;
+	width: 30px;
+	height: 21px;
+	background: url(../images/icon-lup.png) no-repeat center center;
+	text-indent: -999999px;
+}
+.sticky-header .sticky-search .form-search button.button span, .sticky-header .sticky-search .form-search button.button span span {
+	background: none;
+	padding: 0;
+	border: none;
+}
+.sticky-header .mini-cart-sticky {
+	display: none;
 }
 .header {
 	position: relative;
@@ -136,15 +274,15 @@
 	padding: 3px 10px;
 	line-height: 23px;
 }
-.header .quick-access .top-cart a.link-minicart {
+.header .quick-access .top-cart a.link-minicart, .sticky-header .sticky-top-cart a.link-minicart-sticky {
 	background: url(../images/cart.png) no-repeat left center;	
 	padding-left:36px;
 }
-.header .quick-access .top-cart a.link-checkout, .mini-cart .block-cart .actions button.button.btn-checkout, .mini-cart-mobile .block-cart .actions button.button.btn-checkout {
+.header .quick-access .top-cart a.link-checkout, .mini-cart .block-cart .actions button.button.btn-checkout, .mini-cart-mobile .block-cart .actions button.button.btn-checkout, .sticky-header .sticky-top-cart a.link-checkout {
 	background-image: url(../images/arrow.png);
 	background-repeat: no-repeat;
 }
-.header .quick-access .top-cart a.link-checkout {
+.header .quick-access .top-cart a.link-checkout, .sticky-header .sticky-top-cart a.link-checkout {
 	background-position: right center;
 	border-left: 1px solid #fff;
 	padding-right:20px;
