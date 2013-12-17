@@ -31,8 +31,6 @@
 <script type="text/javascript">
 wwidth = $j(window).width();
 $j(document).ready(function(){
-	$j("html, body").scrollTop($j(".homepage-middle").offset().top);
-	//$j('.mini-cart').slideToggle();
 	if(wwidth < 768) {
 		$j('.nav-mobile-trigger').click(function(e){
 			e.preventDefault();
@@ -46,33 +44,34 @@ $j(document).ready(function(){
 			$j('.mini-cart-mobile').slideToggle();
 				
 		});
+		$j('.link-myaccount-mobile').click(function(e){
+			e.preventDefault();
+			$j('.nav-container').slideUp();
+			$j('.mini-cart-mobile').slideUp();
+			$j('.my-account-mobile').slideToggle();
+				
+		});
 	 }
 	 else {
+	 	$j("html, body").scrollTop($j(".homepage-middle").offset().top);
 	 	$j('#link-minicart').click(function(e){
 			e.preventDefault();
 			$j('.mini-cart').slideToggle();
 				
 		});	
+		$j('#link-minicart-sticky').click(function(e){
+			e.preventDefault();
+			$j('.mini-cart-sticky').slideToggle();
+				
+		});	
+		$j(window).scroll(function(){
+		  if ($j(this).scrollTop() > 100) {
+	          $j(".header-container .sticky-header-wrapper").fadeIn();
+	      } else {
+	          $j(".header-container .sticky-header-wrapper").fadeOut();
+	      }
+		}); 
 	}	
-	/*if(wwidth > 765) {
-		$j(".myaccount").live("mouseover",function(){
-			$j(".toplink-myaccount").css({"display":"block"});
-		});
-		$j(".myaccount").mouseout(function(){
-		  $j(".toplink-myaccount").css("display","none");
-		});
-	}
-	else {
-		return false;
-	}*/
-	$j(window).scroll(function(){
-	  if ($j(this).scrollTop() > 100) {
-          $j(".header-container .sticky-header-wrapper").fadeIn();
-      } else {
-          $j(".header-container .sticky-header-wrapper").fadeOut();
-      }
-	}); 
-	 
 });
 </script>
 <div class="header-container">
@@ -139,6 +138,7 @@ $j(document).ready(function(){
         <div class="nav-mobile"><?php //echo $this->getChildHtml('topMenu') ?></div>
         <div class="mini-cart-mobile"><?php echo $this->getChildHtml('topcart') ?></div>
         <div class="search-mobile"><?php echo $this->getChildHtml('topSearch') ?></div>
+        <div class="my-account-mobile"><?php echo $this->getChildHtml('topLinks') ?></div>
     </div>
 </div>
 <?php echo $this->getChildHtml('topMenu') ?>
