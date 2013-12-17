@@ -888,6 +888,18 @@
 	display: none;
 	width: 215px;
 	background: #fff;
+	position: absolute;
+	top:50px;
+	left:0;
+	z-index: 9;
+	padding-top: 10px;
+}
+#nav .shopby ul.shop-by {
+	margin-right: 20px;
+}
+#nav .shopby ul.shop-by li {
+	border: none;
+	padding: 0;
 }
 #nav .shopby ul.shop-by li, #nav .shopby ul.shop-by li a {
 	background: none;
@@ -955,6 +967,12 @@
 	display: none;
 	border-top: 1px solid #dadada;
 }
+#nav li.shop-by:hover .shopby {
+	display: block;
+}
+.cms-home #nav li.shop-by:hover .shopby {
+	display: none;
+}
 /* end for menu */
 @media only screen and (max-width: 1215px) {
 	.header, #nav {
@@ -966,18 +984,6 @@
 	.header .links li {
 		padding-left: 4px;
 		padding-right: 2px;
-	}
-	#nav .shopby {
-		display: none;
-		position: absolute;
-		top:50px;
-		left:0;
-		z-index: 9;
-		padding-top: 10px;
-	}
-	#nav .shopby ul.shop-by li {
-		border: none;
-		padding: 0;
 	}
 	#nav li.shop-by:hover > .shopby {
 		display: block;
@@ -1010,6 +1016,9 @@
 	}
 	#nav li.level-top.parent-9 {
 		width: 94px;
+	}
+	.cms-home #nav li.shop-by:hover .shopby {
+		display: block;
 	}
 }
 /* --------------- 960 px layout -------------------- */
