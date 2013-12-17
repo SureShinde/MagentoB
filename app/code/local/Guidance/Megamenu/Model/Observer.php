@@ -32,7 +32,9 @@ class Guidance_Megamenu_Model_Observer extends Mage_Catalog_Model_Observer
                 'shortname' =>  $category->getData('shortname'),
                 'description' => $category->getData('description'),
                 'featuredproduct' => $category->getData('featuredproduct'),
+                'staticblock' => $category->getData('staticblock')
             );
+            
             $categoryNode = new Varien_Data_Tree_Node($categoryData, 'id', $tree, $parentCategoryNode);
             $parentCategoryNode->addChild($categoryNode);
 
@@ -65,6 +67,7 @@ class Guidance_Megamenu_Model_Observer extends Mage_Catalog_Model_Observer
             ->getCollection()
             ->addAttributeToSelect(array('name'))
             ->addAttributeToFilter('featuredproduct',array('eq' => $id))
+            ->addAttributeToFilter('staticblock',array('eq' => $id))
             ->load();
         if ($collections->count()) {
             $categoryName = '';

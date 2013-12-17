@@ -67,8 +67,9 @@ class Guidance_Megamenu_Block_Catalog_Category_Tabs extends Mage_Adminhtml_Block
             ));
         }
 
-        $attribute = Mage::getSingleton('eav/config')->getAttribute('catalog_category', 'featuredproduct');
-        $attributes = array($attribute);
+        $attribute = array(Mage::getSingleton('eav/config')->getAttribute('catalog_category', 'featuredproduct'));
+        $attributeStatic = array(Mage::getSingleton('eav/config')->getAttribute('catalog_category', 'staticblock'));
+        $attributes = array_merge($attribute, $attributeStatic);
         $this->addTab('group_category_products', array(
             'label'   => Mage::helper('catalog')->__('Category Products'),
             'content' => $this->getLayout()->createBlock(
