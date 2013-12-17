@@ -722,20 +722,24 @@
 #nav li.level-top.parent-9 {
 	width: 121px;
 }
-#nav li.level-top.parent-10, #nav li.level-top.parent-11 {
+#nav li.menu-salegift {
 	float: right;
+}
+#nav li.menu-salegift a {
+	display: block;
+	float: left;
 	width: auto;
 }
-#nav li.level-top a.sale, #nav li.level-top a.giftideas {
+#nav li.menu-salegift a.sale, #nav li.menu-salegift a.giftideas {
 	text-indent: -99999px;
 	padding: 0;
 }
-#nav li.level-top a.sale {
+#nav li.menu-salegift a.sale {
 	width: 68px;
 	height: 37px;
 	background: url(../images/sale.png) no-repeat center center;
 }
-#nav li.level-top a.giftideas {
+#nav li.menu-salegift a.giftideas {
 	width: 43px;
 	height: 37px;
 	background: url(../images/gift-ideas.png) no-repeat center center;

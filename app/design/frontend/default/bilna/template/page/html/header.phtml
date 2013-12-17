@@ -35,12 +35,14 @@ $j(document).ready(function(){
 		$j('.nav-mobile-trigger').click(function(e){
 			e.preventDefault();
 			$j('.mini-cart-mobile').slideUp();
+			$j('.my-account-mobile').slideUp();
 			$j('.nav-container').slideToggle();
 				
 		});
 		$j('#link-minicart').click(function(e){
 			e.preventDefault();
 			$j('.nav-container').slideUp();
+			$j('.my-account-mobile').slideUp();
 			$j('.mini-cart-mobile').slideToggle();
 				
 		});
@@ -122,7 +124,9 @@ $j(document).ready(function(){
         		<div class="mini-cart"><?php echo $this->getChildHtml('topcart') ?></div>
         	</div>
         	<div class="left">
-	        	<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('store_phone')->toHtml() ?>
+	        	<div class="store-phone">
+	        		<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('store_phone')->toHtml() ?>
+	        	</div>
 	        	<?php echo $this->getChildHtml('topLinks') ?>
 	        	
 	        </div>
