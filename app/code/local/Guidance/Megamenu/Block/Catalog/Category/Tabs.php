@@ -44,7 +44,7 @@ class Guidance_Megamenu_Block_Catalog_Category_Tabs extends Mage_Adminhtml_Block
             foreach ($categoryAttributes as $attribute) {
                 /* @var $attribute Mage_Eav_Model_Entity_Attribute */
                 if ($attribute->isInGroup($attributeSetId, $group->getId())
-                    && $attribute->getAttributeCode() != 'featuredproduct') {
+                    && $attribute->getAttributeCode() != 'featuredproduct' && $attribute->getAttributeCode() != 'staticblock' && $attribute->getAttributeCode() != 'shortname') {
                     $attributes[] = $attribute;
                 }
             }
@@ -71,7 +71,7 @@ class Guidance_Megamenu_Block_Catalog_Category_Tabs extends Mage_Adminhtml_Block
         $attributeStatic = array(Mage::getSingleton('eav/config')->getAttribute('catalog_category', 'staticblock'));
         $attributes = array_merge($attribute, $attributeStatic);
         $this->addTab('group_category_products', array(
-            'label'   => Mage::helper('catalog')->__('Category Products'),
+            'label'   => Mage::helper('catalog')->__('Category Products / Mega Menu Feature'),
             'content' => $this->getLayout()->createBlock(
                 'guidance_megamenu/catalog_category_tab_product', 'megamenu.product.grid')
                 ->setAttributes($attributes)
