@@ -10,7 +10,7 @@
  */
 ?>
 <?php $child = $this->getData('child'); ?>
-<?php $name = ($child->getData('shortname'))?$child->getData('shortname'):$child->getData('name') ?>
+<?php $name = ($child->getData('shortname'))?$child->getData('shortname'):$child->getData('name'); ?>
 <li>
     <div class="left-columns">
         <h2><?php echo $name ?></h2>
@@ -40,8 +40,7 @@
         <div class="devider"></div>
     </div>
     <div class="right-columns">
-    	<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('popular-brands')->toHtml() ?>
-    	<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('our-choice')->toHtml() ?>
+      <?php echo trim($this->getLayout()->createBlock('cms/block')->setBlockId($child->getData()['staticblock'])->toHtml());?>
     	<div class="clear"></div>
     	<?php $productData = $child->getFeaturedProduct(); ?>
 	    <?php if($productData): ?>
