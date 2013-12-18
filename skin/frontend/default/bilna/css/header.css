@@ -838,7 +838,7 @@
 }
 .nav-container-mobile {
 	display: none;
-	margin: 50px 15px 0;
+	margin: 0 15px 0;
 }
 .nav-container-mobile ul, .nav-container-mobile .cat-sub li {
 	list-style: none;

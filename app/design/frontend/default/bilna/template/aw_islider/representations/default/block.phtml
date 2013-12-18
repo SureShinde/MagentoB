@@ -27,42 +27,36 @@
  */
 ?><?php
 ?>
-
+<script type="text/javascript">
+	$j(function() {
+      $j('#slides').slidesjs({
+        width: 750,
+        height: 333,
+        pagination: {
+	      active: true,
+	        // [boolean] Create pagination items.
+	        // You cannot use your own pagination. Sorry.
+	      effect: "slide"
+	        // [string] Can be either "slide" or "fade".
+	    }
+      });
+    });
+</script>
 <?php $helper = Mage::helper('awislider') ?>
 <?php if($this->canDisplay() && $this->getSlides()->getSize()) : ?>
-<div class="awis-block awis-r-default awis-effect-<?php echo $this->getSwitchEffect() ?> awis-rpr-default-horizontal awis-block-<?php echo $this->getAWISBlock()->getData('id') ?>" id="<?php echo $this->getUniqueBlockId() ?>" style="<?php echo $this->getContainerStyleString() ?>">
-    <div class="awis-slides-container">
-        <?php $_i = 0 ?>
-        <?php foreach($this->getSlides() as $slide) : ?>
-        <div style="<?php echo $this->getContainerStyleString() ?>" id="<?php echo $this->getUniqueBlockId() ?>div<?php echo $_i ?>" class="awis-r-default-item">
-            <?php if($slide->getData('url')) : ?>
-            <a href="<?php echo $helper->getUseDirectLinks() ? $slide->getData('url') : $this->getUrl('awislider/link/out', array('sid' => $slide->getData('id'))) ?>"<?php if($slide->getData('new_window')) : ?> onclick="return !window.open(this.href)"<?php endif ?><?php if($slide->getData('nofollow')) : ?> rel="nofollow"<?php endif ?>>
-            <?php endif ?>
-                <img src="<?php echo ($slide->getUriLocation()) ?>" title="<?php echo htmlspecialchars($slide->getData('title')) ?>" alt="<?php echo htmlspecialchars($slide->getData('title')) ?>" />
-            <?php if($slide->getData('url')) : ?>
-            </a>
-            <?php endif ?>
-        </div>
-        <?php $_i++ ?>
-        <?php endforeach ?>
-    </div>
-    <div class="awis-slides-controls"<?php if($_i <= 1) : ?> style="display: none"<?php endif ?>>
-        <div class="awis-c-left">
-            <button class="button" onclick="<?php echo $this->getUniqueBlockId() ?>.previous();"></button>
-        </div>
-        <div class="awis-c-center">
-            <?php for($_j = 0; $_j < $_i; $_j++) : ?>
-               <button
-                   <?php if (($this->getAutohideNavigation() == 0)):?>
-                       style="display: none;"
-                   <?php endif;?>
-               class="button<?php echo $_j==0 ? ' awis-s-current' : '' ?>" onclick="<?php echo $this->getUniqueBlockId() ?>.show(<?php echo $_j ?>);"></button>
-            <?php endfor ?>
-        </div>
-        <div class="awis-c-right">
-            <button class="button" onclick="<?php echo $this->getUniqueBlockId() ?>.next();"></button>
-        </div>
-    </div>
+<div id="slides">
+  <?php $_i = 0 ?>
+    <?php foreach($this->getSlides() as $slide) : ?>
+ 		<?php if($slide->getData('url')) : ?>
+        <a href="<?php echo $helper->getUseDirectLinks() ? $slide->getData('url') : $this->getUrl('awislider/link/out', array('sid' => $slide->getData('id'))) ?>"<?php if($slide->getData('new_window')) : ?> onclick="return !window.open(this.href)"<?php endif ?><?php if($slide->getData('nofollow')) : ?> rel="nofollow"<?php endif ?>>
+        <?php endif ?>
+            <img src="<?php echo ($slide->getUriLocation()) ?>" title="<?php echo htmlspecialchars($slide->getData('title')) ?>" alt="<?php echo htmlspecialchars($slide->getData('title')) ?>" />
+        <?php if($slide->getData('url')) : ?>
+        </a>
+        <?php endif ?>
+    <?php $_i++ ?>
+    <?php endforeach ?>
+    
 </div>
 <script type="text/javascript">
     new awiSlider('<?php echo $this->getUniqueBlockId() ?>', {
@@ -74,5 +68,7 @@
         autohideNavigation: '<?php echo $this->getAutohideNavigation() ?>',
         needCalculateWH: <?php echo $this->getWidth() && $this->getHeight() ? '0' : '1' ?>
     });
+    
+    
 </script>
 <?php endif ?>
