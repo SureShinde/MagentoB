@@ -62,7 +62,9 @@ $j(document).ready(function(){
 		});
 	 }
 	 else {
-	 	$j("html, body").scrollTop($j(".homepage-middle").offset().top);
+	 	//$j("html, body").scrollTop($j(".homepage-middle").offset().top);
+	 	//$j("html, body").scrollTop(660);
+	 	$j("html, body").animate({ scrollTop: 660 }, 1000);
 	 	$j('#link-minicart').click(function(e){
 			e.preventDefault();
 			$j('.mini-cart').slideToggle();
