@@ -29,7 +29,7 @@
 ?>
 <script type="text/javascript">
 	$j(function() {
-      $j('#slides').slidesjs({
+      $j('#slides-banner').slidesjs({
         width: 750,
         height: 333,
         pagination: {
@@ -44,7 +44,7 @@
 </script>
 <?php $helper = Mage::helper('awislider') ?>
 <?php if($this->canDisplay() && $this->getSlides()->getSize()) : ?>
-<div id="slides">
+<div id="slides-banner">
   <?php $_i = 0 ?>
     <?php foreach($this->getSlides() as $slide) : ?>
  		<?php if($slide->getData('url')) : ?>

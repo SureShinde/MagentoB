@@ -166,11 +166,9 @@
 	margin: 0 40px;
 }
 #slides {
-      display:none;
 	  position:relative;
 }
 #slides .slidesjs-navigation {
-	display: none !important;
   position:absolute;
   top:40px;
   z-index:10;
@@ -200,7 +198,7 @@
 	top:auto;
 	background-color: #ddd;
 }
-#slides .slidesjs-pagination {
+#slides-banner .slidesjs-pagination {
 	position: absolute;
 	right: 10px;
 	bottom: 0;
@@ -208,22 +206,22 @@
 	z-index: 99;
 	padding: 0;
 }
-#slides .slidesjs-pagination li {
+#slides-banner .slidesjs-pagination li {
 	display: inline-block;
 	margin: 0 0 0 5px;
 }
-#slides .slidesjs-pagination li:first-child {
+#slides-banner .slidesjs-pagination li:first-child {
 	margin-left: 0;
 }
 
-#slides .slidesjs-pagination li.slidesjs-pagination-item a {
+#slides-banner .slidesjs-pagination li.slidesjs-pagination-item a {
 	display: block;
 	width: 19px;
 	height: 19px;
 	text-indent: -999999px;
 	background: url(../images/node.png) no-repeat center center;
 }
-#slides .slidesjs-pagination li.slidesjs-pagination-item a.active {
+#slides-banner .slidesjs-pagination li.slidesjs-pagination-item a.active {
 	background: url(../images/node-active.png) no-repeat center center;
 }
 .homepage-bottom .media-partners {
