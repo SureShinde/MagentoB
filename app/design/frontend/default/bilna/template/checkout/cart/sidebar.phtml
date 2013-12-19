@@ -37,15 +37,20 @@
     <div class="block-content">
         <?php $_items = $this->getRecentItems() ?>
 	    <?php if(count($_items)): ?>
+	    <table id="cart-sidebar" class="mini-products-list">
+        	<thead>
+	        	<tr>
+		        	<th><?php echo $this->__('Item(s)') ?></th>
+		        	<th>&nbsp;</th>
+		        	<th><?php echo $this->__('Quantity') ?></th>
+		        	<th class="price"><?php echo $this->__('Price') ?></th>
+	        	</tr>
+        	</thead>
+       	</table>
+       
+       <div class="mini-cart-content">
+			
 	       	<table id="cart-sidebar" class="mini-products-list">
-	        	<thead>
-		        	<tr>
-			        	<th><?php echo $this->__('Item(s)') ?></th>
-			        	<th>&nbsp;</th>
-			        	<th><?php echo $this->__('Quantity') ?></th>
-			        	<th class="price"><?php echo $this->__('Price') ?></th>
-		        	</tr>
-	        	</thead>
 		        <tbody>
 			        <?php foreach($_items as $_item): ?>
 			            <?php echo $this->getItemHtml($_item) ?>
@@ -53,7 +58,9 @@
 		        </tbody>
 	        </table>
 	        <script type="text/javascript">decorateList('cart-sidebar', 'none-recursive')</script>
-	    <?php else: ?>
+			     
+		</div>
+		<?php else: ?>
 	        <p class="empty"><?php echo $this->__('You have no items in your shopping cart.') ?></p>
 	    <?php endif ?>
 	    <?php if ($_cartQty>0): ?>

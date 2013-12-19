@@ -363,6 +363,10 @@
 	width: 80px;
 	text-align: right;
 }
+.mini-cart-content {
+	height: 300px;
+	overflow: auto;
+}
 .mini-products-list a.product-image {
 	display: block;
 	width: 46px;
