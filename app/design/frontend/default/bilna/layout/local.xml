@@ -16,7 +16,7 @@
                 <type>skin_js</type>
                 <name>js/jquery.min.js</name>
             </action>
- 			<action method="addItem">
+            <action method="addItem">
                 <type>skin_js</type>
                 <name>js/jquery.jqzoom-core.js</name>
             </action>
