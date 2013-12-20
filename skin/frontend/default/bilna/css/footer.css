@@ -26,7 +26,7 @@
 .footer li span.title, .footer .conect-us span.title, .footer .payment-partners span.title, .footer .shipping-partners span.title {
 	color: #484848;
 	font-size: 14px;
-	font-weight: bold;
+	font-weight: normal;
 	text-transform: uppercase;
 	font-family: 'bebasregular';
 }

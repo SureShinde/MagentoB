@@ -107,6 +107,7 @@
 .sticky-header .sticky-search .form-search .input-keyword input.input-text {
 	border: none;
 	float: left;
+	margin-right: 5px;
 }
 .sticky-header .sticky-search .form-search .input-keyword button.btn-search-mobile {
 	display: none;
@@ -117,8 +118,8 @@
 	height: auto;
 	overflow: hidden;
 	padding: 0 10px 0 0;
-	margin: 3px 0 0 0;
-	background: url(../images/arrow-select.png) no-repeat 76px center;
+	margin: 3px 5px 0 0;
+	background: url(../images/arrow-select.png) no-repeat right center;
 	border-right: 1px solid #c1c1c1;
 }
 
@@ -130,6 +131,7 @@
 	border-radius:0;
 	height: 15px;
 	-webkit-appearance: none;
+	margin-right: 5px;
 }
 .sticky-header .sticky-search .form-search button.button {
 	float: left;
@@ -169,6 +171,7 @@
 	position: relative;
 	text-align: left;
 	padding: 0 0 5px 0;
+	background: #fff;
 }
 .header .menu-top, .header .menu-blog {
 	position: absolute;	
@@ -183,7 +186,7 @@
 }
 .header .menu-blog {
 	right:0;
-	width: 287px;
+	width: 281px;
 }
 .menu-top ul li, .menu-blog span {
 	display: inline-block;
@@ -603,6 +606,7 @@
 	height: 15px;
 	color: #a0cc00;
 	-webkit-appearance: none;
+	margin-right: 5px;
 }
 .header .form-search button.button {
 	float: left;
@@ -740,12 +744,12 @@
 }
 #nav li.menu-salegift a.sale {
 	width: 68px;
-	height: 37px;
+	height: 42px;
 	background: url(../images/sale.png) no-repeat center center;
 }
 #nav li.menu-salegift a.giftideas {
 	width: 43px;
-	height: 37px;
+	height: 42px;
 	background: url(../images/gift-ideas.png) no-repeat center center;
 }
 #nav li.shop-by {
@@ -858,7 +862,7 @@
 .shopby ul.shop-by {
 	list-style: none;
 	padding: 0 0 20px 0;
-	margin: 0 0 20px 20px;
+	margin: 0 0 0 20px;
 	background: url(../images/dash.png) no-repeat left bottom;
 }
 .shopby ul.shop-by li {
