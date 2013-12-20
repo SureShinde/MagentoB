@@ -118,6 +118,9 @@
 	.awis-block {
 		width: 100% !important;
 	}
+	.awafpgrid ul li {
+		width:17.88% !important;
+	}
 	.awis-r-default-item {
 		width: auto;
 	}
