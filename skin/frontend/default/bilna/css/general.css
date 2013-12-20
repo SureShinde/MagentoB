@@ -6,6 +6,7 @@ body {
 	font-size: 0.75em;
 	color: #707070;
 	font-family: Helvetica;
+	background: url(../images/border-top.jpg) repeat-x left top;
 }
 .wrapper {
 	width: 100%;
