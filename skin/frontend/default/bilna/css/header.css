@@ -11,7 +11,7 @@
 	position: fixed;
 	top:0;
 	left: 0;
-	z-index: 99;
+	z-index: 999;
 	-webkit-box-shadow: 1px 1px 4px 0 #ccc;
 	-moz-box-shadow: 1px 1px 4px 0 #ccc;
 	box-shadow: 1px 1px 4px 0 #ccc;
@@ -94,7 +94,7 @@
 }
 .sticky-header .sticky-search {
 	background: #fff;
-	padding: 3px 5px;
+	padding: 3px 0 3px 5px;
 	margin: 3px 3px 3px;
 	-webkit-box-shadow: 1px 1px 4px 0 #ccc;
 	-moz-box-shadow: 1px 1px 4px 0 #ccc;
@@ -120,7 +120,7 @@
 	padding: 0 10px 0 0;
 	margin: 3px 5px 0 0;
 	background: url(../images/arrow-select.png) no-repeat right center;
-	border-right: 1px solid #c1c1c1;
+	
 }
 
 .sticky-header .sticky-search .form-search .input-keyword .select-category select {
@@ -139,6 +139,7 @@
 	height: 21px;
 	background: url(../images/icon-lup.png) no-repeat center center;
 	text-indent: -999999px;
+	border-left: 1px solid #c1c1c1;
 }
 .sticky-header .sticky-search .form-search button.button span, .sticky-header .sticky-search .form-search button.button span span {
 	background: none;
@@ -186,7 +187,7 @@
 }
 .header .menu-blog {
 	right:0;
-	width: 281px;
+	width: 287px;
 }
 .menu-top ul li, .menu-blog span {
 	display: inline-block;
@@ -236,7 +237,7 @@
 .keypoint ul li {
 	display: inline-block;
 	padding: 0 0 0 40px;
-	width: 72px;
+	width: 85px;
 }
 .keypoint ul li span {
 	display: block;
@@ -547,6 +548,7 @@
 .form-language select {
 	background: none;
 	width: auto;
+	margin-right: 13px;
 	padding: 0 10px 0 25px;
 	line-height: normal;
 	border: 0;
@@ -702,9 +704,9 @@
 #nav .level-hover {
 	display: none;
 	position: absolute;
-	top:30px;
+	top:42px;
 	left: auto;
-	background: #fff;
+	background: #fff url(../images/shadow.png) repeat-x left top;
 	width: 500px;
 	padding: 20px 10px 0;
 	-webkit-box-shadow: 1px 1px 4px 0 #ccc;
@@ -718,17 +720,45 @@
 #nav li.level-top {
 	position: relative;
 	width: 98px;
-	float: none;
-	display: inline-block;
+	float: left;
+	display: block;
 	vertical-align: middle;
-	padding-top: 3px;
-	padding-bottom: 3px;
+}
+#nav li.level-top:hover {
+	background: #fff;
+}
+#nav li.level-top:hover a.level-top {
+	color: #dadada;
+}
+#nav li.level-top.parent-0 {
+	width: 93px;
+}
+#nav li.level-top.parent-1 {
+	width: 88px;
+}
+#nav li.level-top.parent-2 {
+	width: 113px;
+}
+#nav li.level-top.parent-3 {
+	width: 88px;
+}
+#nav li.level-top.parent-4 {
+	width: 91px;
+}
+#nav li.level-top.parent-5 {
+	width: 86px;
+}
+#nav li.level-top.parent-6 {
+	width: 70px;
 }
 #nav li.level-top.parent-7 {
-	width: 107px;
+	width: 109px;
+}
+#nav li.level-top.parent-8 {
+	width: 65px;
 }
 #nav li.level-top.parent-9 {
-	width: 121px;
+	width: 125px;
 }
 #nav li.menu-salegift {
 	float: right;
@@ -770,6 +800,7 @@
 	vertical-align: middle;
 	float: none;
 	font-size: 1.1em;
+	height: 42px;
 }
 #nav a.link-shopby {
 	position: absolute;
@@ -983,11 +1014,28 @@
 }
 /* end for menu */
 @media only screen and (max-width: 1215px) {
-	.header, #nav {
+	.header, #nav, .sticky-header {
 		width: 994px;
+	}
+	.sticky-header ul.sticky-menu li, .sticky-header .sticky-top-cart {
+		padding-left: 5px;
+		padding-right: 5px;
+	}
+	.sticky-header .sticky-top-cart a.link-minicart-sticky {
+		padding-right: 5px;
+	}
+	.sticky-header .sticky-top-cart a.link-checkout {
+		padding-left: 5px;
+	}
+	.header .menu-blog {
+		width: 277px;
 	}
 	.header .quick-access .left {
 		margin: 0 5px 0 0;
+	}
+	.header .quick-access .top-cart {
+		padding-left: 5px;
+		padding-right: 5px;
 	}
 	.header .links li {
 		padding-left: 4px;
@@ -1037,11 +1085,30 @@
 }
 /* --------------- 960 px layout -------------------- */
 @media only screen and (max-width: 1023px) {
-	.header, #nav {
+	.header, #nav, .sticky-header {
 		width: 745px;
 	}
+	.sticky-header ul.sticky-menu li {
+		font-size: 12px;
+	}
+	.sticky-header ul.sticky-menu li.link-customer-care a {
+		font-size: 12px;
+		padding-left: 40px;
+		line-height: 24px;
+	}
+	.sticky-header .sticky-top-cart a.link-minicart-sticky {
+		padding-left: 0;
+		text-indent: -999999px;
+	}
+	.keypoint {
+		margin-left: 13px;
+	}
 	.header .menu-blog {
-		width: 215px;
+		width: 205px;
+	}
+	.header .links li.myaccount .toplink-myaccount {
+		left: auto;
+		right: 0;
 	}
 	.header .quick-access .left, .header .quick-access .top-cart {
 		float: none !important;
@@ -1051,6 +1118,8 @@
 	}
 	.header .quick-access .top-cart {
 		width: 120px;
+		padding-left: 5px;
+		padding-right: 5px;
 	}
 	.header .quick-access .top-cart a.link-minicart {
 		padding-left: 0;
@@ -1077,7 +1146,7 @@
 	}
 	#nav li.level-top.shop-by {
 		position: absolute;
-		bottom:-20px;
+		bottom:-14px;
 		left: 0;
 		z-index: 99;
 	}
@@ -1109,7 +1178,7 @@
 		width: 88px;
 	}
 	#nav li.menu-salegift a.sale {
-		width: 35px;
+		width: 50px;
 		background-size: 100% auto;
 	}
 	#nav li.menu-salegift a.giftideas {
