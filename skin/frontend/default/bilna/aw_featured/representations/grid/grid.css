@@ -63,6 +63,9 @@
     font-size:1em;
     color: #707070;
 }
+.awafpgrid .price-box {
+	height: 50px;
+}
 .awafpgrid .price-box .price {
     font-weight:bold;
     color:#707070;
