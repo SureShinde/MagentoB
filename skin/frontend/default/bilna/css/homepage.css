@@ -395,10 +395,13 @@
 }
 /* --------------- smaller 959 px layout -------------------- */
 @media only screen and (max-width: 767px) {
-	.homepage-middle, .homepage-bottom, .advertise {
+	.homepage-middle, .homepage-bottom, .advertise, .homepage-top-block.right, .sticky-header-wrapper {
 		display: none;
 	}
 	.homepage-top {
+		width: 100%;
+	}
+	.homepage-top-block.middle {
 		width: 100%;
 	}
 	.slider-wrapper {
