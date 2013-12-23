@@ -40,7 +40,10 @@
         <div class="devider"></div>
     </div>
     <div class="right-columns">
-      <?php echo trim($this->getLayout()->createBlock('cms/block')->setBlockId($child->getData()['staticblock'])->toHtml());?>
+      <?php 
+      	$static = $child->getData();
+      	echo trim($this->getLayout()->createBlock('cms/block')->setBlockId($static['staticblock'])->toHtml());
+      ?>
     	<div class="clear"></div>
     	<?php $productData = $child->getFeaturedProduct(); ?>
 	    <?php if($productData): ?>
