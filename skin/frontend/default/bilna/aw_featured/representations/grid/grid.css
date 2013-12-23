@@ -67,6 +67,16 @@
     color:#707070;
     font-size:1.2em;
 }
+.awafpgrid .price-box .old-price .price {
+	font-weight: normal;
+	font-size: 12px;
+}
+.awafpgrid .price-box .special-price .price {
+	color: #e74949;
+}
+.awafpgrid .price-box a.minimal-price-link {
+	display: none;
+}
 .awafpgrid .afp-addtocart button {
     font-size:12px;
     border:0;

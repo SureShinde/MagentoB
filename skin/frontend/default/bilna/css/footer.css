@@ -102,6 +102,9 @@
 		border: none;
 		padding-top: 0;
 	}
+	.footer ul {
+		height: auto;
+	}
 	.footer ul, .footer .conect-us, .footer .payment-partners, .footer .shipping-partners, .footer .form-language {
 		background-color: #ededed;
 	}
