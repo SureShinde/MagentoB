@@ -914,8 +914,8 @@
 }
 .shopby ul.shop-by {
 	list-style: none;
-	padding: 0 0 20px 0;
-	margin: 0 0 0 20px;
+	padding: 0 0 5px 0;
+	margin: 0 0 5px 20px;
 	background: url(../images/dash.png) no-repeat left bottom;
 }
 .shopby ul.shop-by li {
@@ -989,7 +989,7 @@
 	height: 26px;
 	background: url(../images/menu-mobile.png) no-repeat center center;
 	text-indent: -999999px;
-	margin: 29px 0 0 10px;
+	margin: 20px 0 0 10px;
 }
 /* for menu */
 .nav-container-mobile ul {
@@ -1223,8 +1223,11 @@
 	.header, #nav {
 		width: 100%;
 	}
+	.header .logo {
+		margin-top: 0;
+	}
 	.header .quick-access {
-		margin: 3px 10px 0 0;
+		margin: 3px 10px 5px 0;
 	}
 	.header .quick-access a.link-blog-mobile, .header .quick-access a.link-myaccount-mobile, .header .search-mobile, .header .search-mobile .form-search, .header .form-search button.button.btn-search-mobile, .nav-container #nav li {
 		display: block;
