@@ -85,6 +85,7 @@
 	.footer ul {
 		margin: 0;
 		width: 33.33%;
+		height: 100px;
 		text-align: center;
 	}
 	.footer .conect-us, .footer .payment-partners, .footer .shipping-partners {
