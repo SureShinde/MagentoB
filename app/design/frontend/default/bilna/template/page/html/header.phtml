@@ -70,21 +70,21 @@ $j(document).ready(function(){
 	}	
 	
 	/*added by krisna*/
-	$j("ul#nav li.parent a").live("mouseover",function(){
+	$j(".nav-container ul#nav li.parent a").live("mouseover",function(){
 		if(wwidth < 768) { return  false; }
 	});
-	$j("ul#nav li.active-submenu").live("mouseover",function(){
+	$j(".nav-container ul#nav li.active-submenu").live("mouseover",function(){
 		if(wwidth < 768) { return  false; }
 	});
-	$j("ul#nav li.parent a.level-top").live('click',function() {
+	$j(".nav-container ul#nav li.parent a.level-top").live('click',function() {
 		 if(wwidth < 768) {
-			 var allPanels = $j('li.parent ul').hide();
+			 var allPanels = $j('.nav-container li.parent ul').hide();
 			 if($j(this).hasClass('active-submenu')) {
 			  var href = $j(this).attr('href');
 			  window.location.href = href;
 			 }
 			 else {
-				$j("li.parent a.level-top").removeClass("active-submenu");
+				$j(".nav-container li.parent a.level-top").removeClass("active-submenu");
 				allPanels.slideUp();
 				$j(this).parent().next().slideDown();
 

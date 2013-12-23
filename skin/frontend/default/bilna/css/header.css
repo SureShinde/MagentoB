@@ -1357,9 +1357,18 @@
 	.nav-container #nav li.level-top.parent-0 {
 		border-top:none;
 	}
+	.nav-container #nav .level-hover {
+		padding: 0 0 0 ;
+		-webkit-box-shadow: none;
+		-moz-box-shadow: none;
+		box-shadow: none;
+		background: none;
+		top: 0;
+	}
 	#nav .level-hover {
 		position: relative;
 		width: auto;
+		padding: 0;
 	}
 	#nav ul li .left-columns {
 		float: none;
@@ -1371,6 +1380,30 @@
 	}
 	#nav .level-hover.shown-sub {
 		display: none;
+	}
+	.nav-container #nav ul li a {
+		padding-left: 20px;
+		padding-right: 20px;
+	}
+	.nav-container #nav ul li a, .nav-container #nav ul li a:hover {
+		text-transform: uppercase;
+		font-size: 12px;
+		line-height: normal;
+		background-image: none;
+	}
+	.nav-container #nav ul li,
+	.nav-container #nav ul li:hover {
+		padding-top: 5px;
+		padding-bottom: 5px;
+	}
+	.nav-container #nav ul li .left-columns .view-box ul {
+		display: block !important;
+	}
+	.nav-container #nav ul li a.browse-all {
+		display: none;
+	}
+	.nav-container #nav ul li .left-columns ul.added-menu li a {
+		background-image: none;
 	}
 	.form-language .switch-language-mobile {
 		display: block;
