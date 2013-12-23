@@ -1113,7 +1113,7 @@
 		width: 44px;
 	}
 	#nav li.level-top.parent-9 {
-		width: 94px;
+		width: 95px;
 	}
 	.cms-home #nav li.shop-by:hover .shopby {
 		display: block;
@@ -1136,6 +1136,7 @@
 		padding-left: 0;
 		padding-right: 0;
 		text-indent: -999999px;
+		width: 40px;
 	}
 	.keypoint {
 		margin-left: 13px;
@@ -1157,8 +1158,9 @@
 		padding-left: 0;
 		padding-right: 0;
 		text-indent: -999999px;
+		width: 40px;
 	}
-	.header .form-search, .header .form-language {
+	.sticky-header .sticky-search .form-search .input-keyword .select-category, .header .form-search, .header .form-language {
 		display: none;
 	}
 	.header .form-search input.input-text {
@@ -1192,7 +1194,7 @@
 		width: 60px;
 	}
 	#nav li.level-top.parent-4 {
-		width: 62px;
+		width: 63px;
 	}
 	#nav li.level-top.parent-5 {
 		width: 60px;
@@ -1207,7 +1209,7 @@
 		width: 41px;
 	}
 	#nav li.level-top.parent-9 {
-		width: 88px;
+		width: 89px;
 	}
 	#nav li.menu-salegift a.sale {
 		width: 50px;
@@ -1307,6 +1309,9 @@
 		display: none;
 		background: #fff;
 	}
+	#nav a.level-top {
+		height: auto;
+	}
 	.nav-container #nav a, .header .my-account-mobile ul.links li a {
 		color: #707070;
 		font-size: 1.1em;
@@ -1356,7 +1361,8 @@
 		margin-top: 20px;
 	}
 	.header .logo {
-		margin-top: 10px;
+		margin-top: 5px;
+		width: 136px;
 	}
 	.header .logo img {
 		width: 80%;
