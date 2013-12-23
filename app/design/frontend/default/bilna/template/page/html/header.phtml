@@ -68,6 +68,40 @@ $j(document).ready(function(){
 			$j('.mini-cart-sticky').slideToggle();
 		});	
 	}	
+	
+	/*added by krisna*/
+	$j("ul#nav li.parent a").live("mouseover",function(){
+		if(wwidth < 768) { return  false; }
+	});
+	$j("ul#nav li.active-submenu").live("mouseover",function(){
+		if(wwidth < 768) { return  false; }
+	});
+	$j("ul#nav li.parent a.level-top").live('click',function() {
+		 if(wwidth < 768) {
+			 var allPanels = $j('li.parent ul').hide();
+			 if($j(this).hasClass('active-submenu')) {
+			  var href = $j(this).attr('href');
+			  window.location.href = href;
+			 }
+			 else {
+				$j("li.parent a.level-top").removeClass("active-submenu");
+				allPanels.slideUp();
+				$j(this).parent().next().slideDown();
+
+				$j(this).addClass("active-submenu");
+				//$j(this).prev().removeClass("active-submenu");
+				//$j(this).next().removeClass("active-submenu");
+				$j(this).next().css({"display":"block"});
+				return false;
+			 }
+		}	
+		else {
+			var href = $j(this).attr('href');
+			window.location.href = href;
+		}
+
+	});
+	 /*end krisna*/ 
 });
 </script>
 <div class="header-container">

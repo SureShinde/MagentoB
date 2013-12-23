@@ -279,6 +279,9 @@
 .header .quick-access a.link-myaccount-mobile {
 	background: url(../images/menu-account-mobile.png) no-repeat center top;
 }
+.header .quick-access .left .form-language {
+	display: none;
+}
 .header .quick-access .top-cart {
 	border-top: 4px solid #95e1f1;
 	float: right;
@@ -1146,6 +1149,7 @@
 	}
 	.header .quick-access .top-cart {
 		margin-bottom: 5px;
+		width: 177px;
 	}
 	.header .links {
 		float: left;
@@ -1155,7 +1159,7 @@
 		left: auto;
 		right: 0;
 	}
-	.header .quick-access .left, .header .quick-access .top-cart {
+	.header .quick-access .left {
 		float: none !important;
 	}
 	.header .quick-access .left {
@@ -1179,6 +1183,9 @@
 	.header .left .form-language {
 		display: block;
 		margin-top: 0;
+	}
+	.header .quick-access .left .form-language {
+		display: block;
 	}
 	#nav {
 		position: relative;
@@ -1269,7 +1276,10 @@
 		display: block;
 		float: left;
 	}
-	.dash, .sticky-header-wrapper, .menu-top, .menu-blog, .keypoint, .form-language select, .header .quick-access .top-cart a.link-checkout, .header .quick-access .left, .header .form-search button.button, #nav li.shop-by, #nav ul li .right-columns, #nav ul li .left-columns h2, .header .quick-access .top-cart a.link-blog {
+	.sticky-header-wrapper {
+		display: none !important;
+	}
+	.dash, .menu-top, .menu-blog, .keypoint, .form-language select, .header .quick-access .top-cart a.link-checkout, .header .quick-access .left, .header .form-search button.button, #nav li.shop-by, #nav ul li .right-columns, #nav ul li .left-columns h2, .header .quick-access .top-cart a.link-blog, .header .quick-access .form-search, #nav li.menu-salegift {
 		display: none;
 	}
 	.header .my-account-mobile ul.links li {
