@@ -387,7 +387,7 @@
 	text-align: right;
 }
 .mini-cart-content {
-	height: 300px;
+	max-height: 300px;
 	overflow: auto;
 }
 .mini-products-list a.product-image {
@@ -1144,6 +1144,13 @@
 	.header .menu-blog {
 		width: 205px;
 	}
+	.header .quick-access .top-cart {
+		margin-bottom: 5px;
+	}
+	.header .links {
+		float: left;
+		margin-top: 0;
+	}
 	.header .links li.myaccount .toplink-myaccount {
 		left: auto;
 		right: 0;
@@ -1154,17 +1161,24 @@
 	.header .quick-access .left {
 		text-align: right;
 	}
-	.header .quick-access .top-cart a.link-minicart {
-		padding-left: 0;
-		padding-right: 0;
-		text-indent: -999999px;
-		width: 40px;
-	}
-	.sticky-header .sticky-search .form-search .input-keyword .select-category, .header .form-search, .header .form-language {
+	.sticky-header .sticky-search .form-search .input-keyword .select-category, .header .quick-access .store-phone, .header .form-language, .header .quick-access .top-cart a.link-checkout {
 		display: none;
+	}
+	.header .form-search {
+		margin-left: 0;
+	}
+	.header .form-search .input-keyword {
+		width: 170px;
+	}
+	.header .form-search .input-keyword input.input-text {
+		width: 57px;
 	}
 	.header .form-search input.input-text {
 		width: 90px;
+	}
+	.header .left .form-language {
+		display: block;
+		margin-top: 0;
 	}
 	#nav {
 		position: relative;
