@@ -34,11 +34,17 @@
         height: 333,
         pagination: {
 	      active: true,
-	        // [boolean] Create pagination items.
-	        // You cannot use your own pagination. Sorry.
-	      effect: "slide"
 	        // [string] Can be either "slide" or "fade".
-	    }
+	    },
+	     play: {
+		     auto: true,
+		     interval: 5000,
+	     },
+	      effect: {
+		      slide: {
+		      		speed : 2000
+		      		}
+		      }
       });
     });
 </script>
@@ -58,17 +64,4 @@
     <?php endforeach ?>
     
 </div>
-<script type="text/javascript">
-    new awiSlider('<?php echo $this->getUniqueBlockId() ?>', {
-        blockId: '<?php echo $this->getUniqueBlockId() ?>',
-        effect: '<?php echo $this->getSwitchEffect() ?>',
-        slidesCount: '<?php echo $_i ?>',
-        animationSpeed: '<?php echo $this->getAnimationSpeed() ?>',
-        firstFrameTimeout: '<?php echo $this->getFirstFrameTimeout() ?>',
-        autohideNavigation: '<?php echo $this->getAutohideNavigation() ?>',
-        needCalculateWH: <?php echo $this->getWidth() && $this->getHeight() ? '0' : '1' ?>
-    });
-    
-    
-</script>
 <?php endif ?>
