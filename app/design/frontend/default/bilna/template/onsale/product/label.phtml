@@ -1,0 +1,45 @@
+<?php
+/**
+ * aheadWorks Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://ecommerce.aheadworks.com/AW-LICENSE.txt
+ *
+ * =================================================================
+ *                 MAGENTO EDITION USAGE NOTICE
+ * =================================================================
+ * This package designed for Magento community edition
+ * aheadWorks does not guarantee correct work of this extension
+ * on any other Magento edition except Magento community edition.
+ * aheadWorks does not provide extension support in case of
+ * incorrect edition usage.
+ * =================================================================
+ *
+ * @category   AW
+ * @package    AW_Onsale
+ * @version    2.4.0
+ * @copyright  Copyright (c) 2010-2012 aheadWorks Co. (http://www.aheadworks.com)
+ * @license    http://ecommerce.aheadworks.com/AW-LICENSE.txt
+ */
+?><?php
+    ?>
+<?php if ( $this->isShow() ): ?>
+<?php $position = $this->getPosition(); ?>
+<div id ="product-container-<?php echo $this->getProduct()->getId(); ?>" class="onsale-product-container-inside" onclick="document.location='<?php echo $this->getProduct()->getProductUrl() ?>'" style="<?php print $this->getImageSizeHtml(); ?> background-image: url('<?php print $this->getImageUrl(); ?>');
+            <?php if (in_array($position, array('TL', 'TC', 'TR'))): ?>top: 0px;<?php endif; ?>
+            <?php if (in_array($position, array('BL', 'BC', 'BR'))): ?>bottom: 0px;<?php endif; ?>">
+    <div id="product-onsale-label-<?php echo $this->getProduct()->getId(); ?>" class="<?php echo  $this->getType() ?>-onsale-product-label-text onsale-product-label"><span><?php print $this->getFormatedText() ?></span></div>
+</div>
+<script type="text/javascript">
+    onsale.registerHorPosition($('product-container-<?php echo $this->getProduct()->getId(); ?>'), '<?php if (($position == 'TC') or ($position == 'BC') or ($position == 'MC')) print 'center'; if (($position == 'TL') or ($position == 'BL') or ($position == 'ML')) print 'left'; if (($position == 'TR') or ($position == 'BR') or ($position == 'MR')) print 'right'; ?>');
+    <?php if (in_array($position, array('ML', 'MC', 'MR'))): ?>
+    onsale.registerVertPosition($('product-container-<?php echo $this->getProduct()->getId(); ?>'), 'middle');
+    <?php endif; ?>
+    onsale.registerHorPosition($('product-onsale-label-<?php echo $this->getProduct()->getId(); ?>'), 'center');
+    onsale.registerVertPosition($('product-onsale-label-<?php echo $this->getProduct()->getId(); ?>'), 'middle');
+</script>
+<?php endif; ?>

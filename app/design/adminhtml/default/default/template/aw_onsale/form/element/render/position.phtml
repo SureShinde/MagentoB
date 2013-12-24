@@ -1,0 +1,57 @@
+<?php
+/**
+ * aheadWorks Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://ecommerce.aheadworks.com/AW-LICENSE.txt
+ *
+ * =================================================================
+ *                 MAGENTO EDITION USAGE NOTICE
+ * =================================================================
+ * This package designed for Magento community edition
+ * aheadWorks does not guarantee correct work of this extension
+ * on any other Magento edition except Magento community edition.
+ * aheadWorks does not provide extension support in case of
+ * incorrect edition usage.
+ * =================================================================
+ *
+ * @category   AW
+ * @package    AW_Onsale
+ * @version    2.4.0
+ * @copyright  Copyright (c) 2010-2012 aheadWorks Co. (http://www.aheadworks.com)
+ * @license    http://ecommerce.aheadworks.com/AW-LICENSE.txt
+ */
+?><?php
+?>
+<?php
+         if(Mage::app()->getRequest()->getControllerName() == 'catalog_product_action_attribute') { $attributeName = "attributes[{$this->getName()}]"; }
+         else { $attributeName = $this->getName(); }
+?>
+<div id="<?php echo $this->getHtmlId(); ?>_container" class="aw_onsale_position_container">
+    <input type="hidden" id="<?php echo $this->getHtmlId(); ?>_input" name="<?php echo $attributeName; ?>"  value="<?php echo $this->getValue(); ?>">
+    <input id="<?php echo $this->getHtmlId(); ?>" class="input-text" type="text" value=""<?php if ($this->getCanUseDefaultValue() || $this->getCanUseWebsiteValue() || $this->getDisabled()) { echo ' disabled'; } ?> onfocus="focusNextInput($('<?php echo $this->getHtmlId(); ?>'))" >
+    <div id="<?php echo $this->getHtmlId(); ?>_button" class="aw_onsale_position_button"><?php echo $this->__('Click here to select'); ?></div>
+    <div id="<?php echo $this->getHtmlId(); ?>_selectbox" class="aw_onsale_selectbox">
+    <?php foreach (array('T', 'M', 'B') as $V): ?>
+        <?php foreach (array('L', 'C', 'R') as $H): ?>
+        <div id="<?php echo $this->getHtmlId(); ?>_<?php echo $V.$H; ?>" class="position_selector"></div>
+        <?php endforeach; ?>
+    <?php endforeach; ?>
+    </div>
+</div>
+<script type="text/javascript">
+    awPosition.register($('<?php echo $this->getHtmlId(); ?>_container'), $('<?php echo $this->getHtmlId(); ?>_button'), $('<?php echo $this->getHtmlId(); ?>_input'), $('<?php echo $this->getHtmlId(); ?>_selectbox'));
+    <?php foreach ($this->getValues() as $option): ?>
+    awPosition.addPosition('<?php echo $option['value']; ?>', '<?php echo $this->__($option['label']); ?>')
+    <?php endforeach; ?>
+    <?php foreach (array('T', 'M', 'B') as $V): ?>
+        <?php foreach (array('L', 'C', 'R') as $H): ?>
+        awPosition.registerSelector($('<?php echo $this->getHtmlId(); ?>_selectbox'), $('<?php echo $this->getHtmlId(); ?>_<?php echo $V.$H; ?>'), '<?php echo $V.$H; ?>', $('<?php echo $this->getHtmlId(); ?>_input'), $('<?php echo $this->getHtmlId(); ?>'));
+        <?php endforeach; ?>
+    <?php endforeach; ?>
+    awPosition.setInputValue($('<?php echo $this->getHtmlId(); ?>_input'),$('<?php echo $this->getHtmlId(); ?>'), '<?php echo ($this->getValue())?($this->getValue()):'TL'; ?>', $('<?php echo $this->getHtmlId(); ?>_selectbox'));
+</script>

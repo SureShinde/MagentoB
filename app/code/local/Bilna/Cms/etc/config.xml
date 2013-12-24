@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Bilna_Cms>
+            <version>0.1.12</version>
+        </Bilna_Cms>
+    </modules>
+    <global>
+        <resources>
+            <bilna_cms_setup>
+                <setup>
+                    <module>Bilna_Cms</module>
+                </setup>
+            </bilna_cms_setup>
+        </resources>
+    </global>
+</config>

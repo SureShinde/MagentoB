@@ -4,6 +4,11 @@ Thumbs.db
 app/code/community/Find/
 app/code/community/Phoenix/
 app/code/core/
+app/design/adminhtml/default/find/
+app/design/frontend/default/blank/
+app/design/frontend/default/default/
+app/design/frontend/default/iphone/
+app/design/frontend/default/modern/
 app/design/install/
 app/etc/modules/Enterprise_*
 app/etc/modules/Find_Feed.xml
@@ -29,16 +34,12 @@ app/etc/enterprise.xml
 app/etc/local.xml.additional
 app/etc/local.xml.template
 app/.htaccess
-app/locale/
 app/Mage.php
-cron.php
 cron.sh
 downloader/
 errors/
 favicon.ico
 get.php
-includes/
-index.php
 index.php.sample
 install.php
 js/blank.html
@@ -72,7 +73,7 @@ LICENSE.html
 LICENSE.txt
 LICENSE_EE*
 mage
-media
+media/
 media/customer/
 media/downloadable/
 media/.htaccess
@@ -101,3 +102,4 @@ skin/frontend/default/modern/
 skin/frontend/enterprise
 skin/install/
 var/
+wp/wp-config.php

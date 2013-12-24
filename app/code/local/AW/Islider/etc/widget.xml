@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<widgets>
+    <awislider_block type="awislider/widget_block" translate="name description" module="awislider">
+        <name>Image Slider</name>
+        <is_email_compatible>0</is_email_compatible>
+        <parameters>
+            <block_id type="complex">
+                <visible>1</visible>
+                <required>1</required>
+                <label>Block</label>
+                <type>label</type>
+                <sort_order>10</sort_order>
+                <helper_block>
+                    <type>awislider/adminhtml_widget_blockchooser</type>
+                    <data>
+                        <button translate="open">
+                            <open>Select block...</open>
+                        </button>
+                    </data>
+                </helper_block>
+            </block_id>
+        </parameters>
+    </awislider_block>
+</widgets>

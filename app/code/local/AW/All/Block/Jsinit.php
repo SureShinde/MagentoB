@@ -12,6 +12,7 @@
  * =================================================================
  *                 MAGENTO EDITION USAGE NOTICE
  * =================================================================
+<<<<<<< HEAD
  * This software is designed to work with Magento community edition and
  * its use on an edition other than specified is prohibited. aheadWorks does not
  * provide extension support in case of incorrect edition use.
@@ -20,6 +21,18 @@
  * @category   AW
  * @package    AW_Featured
  * @version    3.5.2
+=======
+ * This package designed for Magento community edition
+ * aheadWorks does not guarantee correct work of this extension
+ * on any other Magento edition except Magento community edition.
+ * aheadWorks does not provide extension support in case of
+ * incorrect edition usage.
+ * =================================================================
+ *
+ * @category   AW
+ * @package    AW_Islider
+ * @version    1.3.3
+>>>>>>> 998702843ab21e36bfa645135edcac3b3c0da5d0
  * @copyright  Copyright (c) 2010-2012 aheadWorks Co. (http://www.aheadworks.com)
  * @license    http://ecommerce.aheadworks.com/AW-LICENSE.txt
  */
