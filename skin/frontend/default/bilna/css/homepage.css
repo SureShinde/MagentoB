@@ -408,7 +408,7 @@
 	.slider-wrapper {
 		height: auto;
 	}
-	#slides .slidesjs-pagination {
+	#slides-banner .slidesjs-pagination {
 		position: relative;
 		width: auto;
 		text-align: center;
