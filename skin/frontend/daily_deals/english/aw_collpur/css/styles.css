@@ -421,7 +421,6 @@ table.awcp-pricedata th.last {
 }
 
 .awcp-cols .col-1 {
-	display:table;
 }
 
 .awcp-cols .col-2 {
@@ -551,7 +550,6 @@ LI#googleplusli {
 
 /*detail deals*/
 .awcp-options .awcp-buy{
-	width:100%;
 }
 .awcp-buy-button .awcp-buy{
     -moz-box-shadow:6px 6px 8px #be6252;
@@ -605,4 +603,41 @@ table.awcp-pricedata tr:nth-child(1) td{
 .right_detail_deals .awcp-buy-button{
 	margin:13px 0;
 }
-
+.desc_deals h2{
+	color:#fb816c;
+	text-transform:uppercase;
+	letter-spacing:-1px;
+}
+.desc_deals .desc_one h2:before {
+	background: url("../images/bullet_desc.jpg") no-repeat scroll 50% 100% rgba(0, 0, 0, 0);
+    content: "";
+    display: block;
+    height: 18px;
+    left: -11px;
+    overflow: hidden;
+    position: absolute;
+    top: 4px;
+    width: 20px;
+}
+.desc_deals .desc_two h2:before {
+	background: url("../images/bullet_desc.jpg") no-repeat scroll 0 100% rgba(0, 0, 0, 0);
+    content: "";
+    display: block;
+    height: 18px;
+    left: -11px;
+    overflow: hidden;
+    position: absolute;
+    top: 4px;
+    width: 20px;
+}
+.desc_deals .desc_three h2:before {
+	background: url("../images/bullet_desc.jpg") no-repeat scroll 100% 100% rgba(0, 0, 0, 0);
+    content: "";
+    display: block;
+    height: 18px;
+    left: -11px;
+    overflow: hidden;
+    position: absolute;
+    top: 4px;
+    width: 20px;
+}
