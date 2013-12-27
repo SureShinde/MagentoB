@@ -1,0 +1,125 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <Bilna_Tanyadokter>
+      <version>1.0.0</version>
+    </Bilna_Tanyadokter>
+  </modules>
+  
+  <global>
+	<helpers>
+		<bilna_tanyadokter>
+			<!-- Mendefinisikan direktori helper -->
+			<class>Bilna_Tanyadokter_Helper</class>
+		</bilna_tanyadokter>
+	</helpers>
+	
+	<blocks>
+		<bilna_tanyadokter>
+			<!-- Mengatur definisi blok dan direktori pencarian -->
+			<class>Bilna_Tanyadokter_Block</class>
+		</bilna_tanyadokter>
+	</blocks>	
+	
+	<models>
+		<bilna_tanyadokter>
+			<!-- Mendefinisikan direktori model -->
+			<class>Bilna_Tanyadokter_Model</class>
+			<!-- Menentukan sumber tabel -->
+			<resourceModel>bilna_tanyadokter_mysql4</resourceModel>
+		</bilna_tanyadokter>
+		
+		<!-- Sumber model untuk membuat tabel database -->
+		<bilna_tanyadokter_mysql4>
+			<class>Bilna_Tanyadokter_Model_Mysql4</class>
+			<entities>
+				<tanyadokter>
+					<table>tanyadokter</table>
+				</tanyadokter>
+			</entities>
+		</bilna_tanyadokter_mysql4>
+	</models>
+	
+	<resources>
+		<bilna_tanyadokter_setup>
+			<setup>
+				<module>Bilna_Tanyadokter</module>
+			</setup>
+		</bilna_tanyadokter_setup>
+	</resources>
+  </global>
+  	<frontend>
+		<routers>
+			<tanyadokter>
+			<use>standard</use>
+				<args>
+					<module>Bilna_Tanyadokter</module>
+					<frontName>tanyadokter</frontName>
+				</args>
+			</tanyadokter>
+		</routers>
+		<layout>
+			<updates>
+				<tanyadokter>
+					<file>tanyadokter.xml</file>
+				</tanyadokter>
+			</updates>
+		</layout>
+	</frontend>
+	<admin>
+		<routers>
+			<adminhtml>
+				<args>
+					<!-- Memanggil controller Adminhtml -->
+					<modules>
+						<Bilna_Tanyadokter before="Mage_Adminhtml">Bilna_Tanyadokter_Adminhtml</Bilna_Tanyadokter>
+					</modules>
+				</args>
+			</adminhtml>
+		</routers>
+	</admin>
+  
+  <adminhtml>
+	<menu>
+		<bilna>
+			<title>Bilna</title>
+			<sort_order>20</sort_order>               
+<!-- 			<children>
+				<dailydeals module="dailydeals">
+					<title>DailyDeals Manager</title>
+					<sort_order>0</sort_order>
+					<action>dailydeals/adminhtml_dailydeals</action>
+				</dailydeals>
+			</children> -->
+		</bilna>
+	</menu>
+<!-- 	<acl>
+		<resources>
+			<all>
+				<title>Allow Everything</title>
+			</all>
+			<admin>
+				<children>
+				<bilna translate="title" module="dailydeals">
+				<title>Bilna</title>
+					<sort_order>60</sort_order>
+					<children>
+						<dailydeals translate="title">
+							<title>DailyDeals</title>
+							<sort_order>100</sort_order>
+						</dailydeals>
+					</children>
+				</bilna>
+				</children>
+			</admin>
+		</resources>
+	</acl> -->
+	<layout>
+	  <updates>
+		<bilna_tanyadokter>
+		  <file>tanyadokter.xml</file>
+		</bilna_tanyadokter>
+	  </updates>
+	</layout>
+  </adminhtml>  
+</config> 

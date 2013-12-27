@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<layout>
+  <adminhtml_tanyadokter_index>
+	<reference name="content">
+	  <block type="bilna_tanyadokter/adminhtml_tanyadokter" name="bilna_tanyadokter_tanyadokter"/>
+	</reference>
+  </adminhtml_tanyadokter_index>
+</layout>
