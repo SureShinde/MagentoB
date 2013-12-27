@@ -393,7 +393,7 @@ table.awcp-pricedata th.last {
 }
 
 .awcp-deal-mark3 .content {
-	margin:13px 0;
+	padding:13px 0;
 	display:table;
 	width:100%;
 	border-bottom:1px solid #fff;
@@ -554,9 +554,13 @@ LI#googleplusli {
 	width:100%;
 }
 .awcp-buy-button .awcp-buy{
+    -moz-box-shadow:6px 6px 8px #be6252;
+    -webkit-box-shadow:6px 6px 8px #be6252;
+    box-shadow:6px 6px 8px #be6252;
+	text-shadow:2px 2px 0 #BE6252;
 	float:right;
 	padding:7px 30px;
-	margin:20px 0;
+	margin:10px 0 20px;
 	border-radius:10px;
 	-webkit-border-radius:10px;
 	-moz-border-radius:10px;

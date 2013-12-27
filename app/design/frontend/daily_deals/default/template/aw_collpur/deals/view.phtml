@@ -69,7 +69,7 @@
                     <div class="col-1 row">
                          <?php if (!$deal->isClosed()) : ?>
                             <?php if ($deal->isRunning()): ?><!-- blue box -->
-                                    <div class="awcp-deal awcp-add-to-box small-8 column">
+                                    <div class="awcp-deal awcp-add-to-box small-12 medium-12 large-8 column">
                                         <div class="awcp-mark-right">
                                             <div class="awcp-mark-center">
                                                 <div class="content">
@@ -94,7 +94,7 @@
                         <?php endif; ?>
 
                         <!-- yellow box -->
-                        <div class="awcp-deal awcp-options-box small-4 column">
+                        <div class="awcp-deal awcp-options-box small-12 medium-12 large-4 column">
                             <div class="awcp-mark-right">
 								<div class="awcp-mark-center">
                                     <div class="content">
@@ -216,10 +216,10 @@
 </div>
 <div class="large-12 medium-12 columns">
 	<div class="awcp-full-description">
-		<div class="large-4 small-4 columns">
+		<div class="large-4 medium-4 small-12 columns">
 		   <?php echo $this->filter($deal->getFullDescription()); ?>
 		</div>
-		<div class="large-4 small-4 columns">
+		<div class="large-4 medium-4 small-12 columns">
 			<h2> What We Love About This Deal</h2>
 		   <ol>
 				<li>Dilengkapi dengan LED indikator temperatur.</li>
@@ -232,7 +232,7 @@
 				<li>Akan mati secara otomatis apabila tidak dipakai selama 30 menit.</li>
 		   </ol>
 		</div>
-		<div class="large-4 small-4 columns">
+		<div class="large-4 medium-4 small-12 columns">
 			<h2>What'S IN THE BOX</h2>
 		    <ol>
 				<li>Dilengkapi dengan LED indikator temperatur.</li>
