@@ -42,7 +42,6 @@
 
 /* common mark styles */
 .awcp-deal {
-    margin-bottom: 1px;
 }
 
 .awcp-mark-right {
@@ -53,17 +52,18 @@
 }
 
 .awcp-deal .content {
-    text-align: center;
-    color: #333;
+    text-align: left;
+    color: #fff;
 }
 
 /* product page marks */
 .awcp-deal-mark1 .awcp-mark-center {
+	border-bottom:1px solid #fff;
+	padding:0 0 10px;
 }
 
 .awcp-deal-mark1 .content {
     min-height: 60px;
-	padding:20px 0 0;
 }
 
 .awcp-deal-mark2 .content {
@@ -131,7 +131,7 @@
 
 .awcp-category-grid .awcp-title a {
     color: #333;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: bold;
     text-decoration: none;
 }
@@ -183,9 +183,11 @@ button.awcp-button span span {
 
 /* product page styles */
 .awcp-product-name h1 {
-    color: #333;
-    font-size: 24px;
-	text-align:center;
+    color: #fff;
+    font-size: 18px;
+	line-height:20px;
+	margin:0;
+	text-align:left;
     font-weight: bold;
 }
 
@@ -197,15 +199,14 @@ button.awcp-button span span {
 
 .awcp-full-description {
     font-weight: normal;
-    font-size: 14px;
+    font-size: 12px;
     color: #333;
+	color:#707070;
     margin: 20px 0;
 }
 
 .awcp-product-img-box {
     position: relative;
-    padding: 5px;
-    background-color: #7FB93C;
     /* overflow:hidden; */
     margin-bottom: 16px;
 }
@@ -264,7 +265,7 @@ button.awcp-button span span {
 }
 
 .awcp-add-to-box .awcp-price {
-    padding: 10px 0 30px;
+    padding: 10px 0;
 }
 
 .awcp-add-to-box .awcp-buy-button {
@@ -280,10 +281,9 @@ button.awcp-button span span {
     border: 0 none;
     height: auto;
 	display:table;
-	width:100%;
-	padding: 10px 0;
-	font:25px Arial;
+	font:28px Arial;
 	font-weight:bold;
+	
 }
 
 .awcp-buy-button button.awcp-buy span span {
@@ -317,7 +317,8 @@ button.awcp-button span span {
 .awcp-add-to-box .awcp-price-value {
     color: #fff;
     font-weight: bold;
-    font-size: 22px;
+    font-size: 30px;
+	text-align:left;
 }
 
 .awcp-options-box {
@@ -329,18 +330,18 @@ button.awcp-button span span {
 .awcp-options-box .awcp-mark-center {
 }
 .awcp-price-value .price{
-	color:#000;
 }
 .awcp-options-box .content {
     background: transparent none;
     padding: 0px;
-    min-height: 60px;
     overflow: hidden;
 }
 
 table.awcp-pricedata {
-    margin: 16px auto 0 auto;
+	color:#fff;
+	background:none;
     width: 100%;
+	margin:7px 0 0;
 }
 
 table.awcp-pricedata th {
@@ -352,11 +353,10 @@ table.awcp-pricedata th {
 }
 
 table.awcp-pricedata td {
-    font-weight: bold;
-    font-size: 18px;
-    color: #333;
+    font-size: 14px;
+    color: #fff;
     text-align: left;
-    padding: 15px 5px 0;
+	padding:0;
 }
 
 table.awcp-pricedata td.last,
@@ -370,7 +370,7 @@ table.awcp-pricedata th.last {
 }
 
 .awcp-deal-mark1 .awcp-status {
-    font-size: 30px;
+    font-size: 24px;
     font-weight: bold;
 }
 
@@ -393,29 +393,35 @@ table.awcp-pricedata th.last {
 }
 
 .awcp-deal-mark3 .content {
-	margin:25px 0 0;
+	margin:13px 0;
+	display:table;
+	width:100%;
+	border-bottom:1px solid #fff;
 }
 
 .awcp-deal-mark3 .awcp-bought {
+	display:table;
     font-weight: bold;
-    font-size: 30px;
+    font-size: 24px;
+	float:left;
 }
 
 .awcp-deal-mark3 .awcp-status {
-    font-size: 18px;
+    font-size: 24px;
     font-weight: bold;
+	display:table;
+	float:right;
 }
 
 .awcp-cols {
     /*margin-left: 261px;
     float: left;*/
     width: 100%;
+	border-bottom:1px solid #fff;
 }
 
 .awcp-cols .col-1 {
-    /*float: left;
-    margin-left: -261px;
-    width: 260px;*/
+	display:table;
 }
 
 .awcp-cols .col-2 {
@@ -548,9 +554,51 @@ LI#googleplusli {
 	width:100%;
 }
 .awcp-buy-button .awcp-buy{
-	width:100%;
+	float:right;
+	padding:7px 30px;
+	margin:20px 0;
+	border-radius:10px;
+	-webkit-border-radius:10px;
+	-moz-border-radius:10px;
+	border:3px solid #fff;
+	background:url(../images/bg_button.jpg) 0 0 repeat-x;
 }
 .col_left_deals_detail{
 	
 }
 .col_right_deals_detail{}
+.awcp-full-description ol{
+	font-size:12px;
+	list-style:decimal;
+}
+.share{
+	display:table;
+    float: right;
+    position: absolute;
+    right:0;
+	bottom:0;
+}
+.awcp-product-name p{
+	font-size:12px;
+}
+.left_detail{
+	padding-top:0.9375rem;
+	color:#fff;
+	background-color:#fb816c;
+}
+table.awcp-pricedata tr:nth-child(2){
+	background:none;
+}
+table.awcp-pricedata tr:nth-child(2) td{
+	font-weight:bold !important;
+}
+table.awcp-pricedata tr:nth-child(1) td{
+	text-decoration:line-through;
+}
+.awcp-mark-center .awcp_time_label{
+	font-size:12px;
+}
+.right_detail_deals .awcp-buy-button{
+	margin:13px 0;
+}
+

@@ -6,7 +6,7 @@ app/code/community/Phoenix/
 app/code/core/
 app/design/adminhtml/default/find/
 app/design/frontend/default/blank/
-app/design/frontend/default/default/
+
 app/design/frontend/default/iphone/
 app/design/frontend/default/modern/
 app/design/install/
@@ -28,7 +28,7 @@ app/etc/modules/Mage_Weee.xml
 app/etc/modules/Mage_Widget.xml
 app/etc/modules/Mage_XmlConnect.xml
 app/etc/modules/Phoenix_Moneybookers.xml
-app/etc/config.xml
+
 app/etc/local.xml
 app/etc/enterprise.xml
 app/etc/local.xml.additional
