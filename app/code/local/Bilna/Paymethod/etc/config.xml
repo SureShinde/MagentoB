@@ -1,0 +1,146 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Bilna_Paymethod>
+            <version>0.1.0</version>
+        </Bilna_Paymethod>
+    </modules>
+    
+    <global>
+        <models>
+            <paymethod>
+                <class>Bilna_Paymethod_Model</class>
+            </paymethod>
+        </models>
+        
+        <helpers>
+            <paymethod>
+                <class>Bilna_Paymethod_Helper</class>
+            </paymethod>
+        </helpers>
+        
+        <blocks>
+            <paymethod>
+                <class>Bilna_Paymethod_Block</class>
+            </paymethod>
+        </blocks>
+        
+        <rewrite>
+            <paymethod>
+                <from><![CDATA[#^/checkout/onepage/#]]></from> 
+                <to>/paymethod/onepage/</to>
+            </paymethod>
+        </rewrite>
+     
+        <resources>
+            <paymethod_setup>
+                <setup>
+                    <module>Bilna_Paymethod</module>
+                </setup>
+    
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </paymethod_setup>
+            
+            <paymethod_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </paymethod_write>
+            
+            <paymethod_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </paymethod_read>
+        </resources>
+        
+        <fieldsets>
+            <sales_convert_quote_payment>
+                <klikbca_user_id>
+                    <to_order_payment>*</to_order_payment>
+                </klikbca_user_id>
+            </sales_convert_quote_payment>
+        </fieldsets>
+    </global>
+    
+    <frontend>
+        <routers>
+            <paymethod>
+                <use>standard</use>
+                <args>
+                    <module>Bilna_Paymethod</module>
+                    <frontName>paymethod</frontName>
+                </args>
+            </paymethod>
+        </routers>
+        
+        <layout>
+            <updates>
+                <paymethod module="Bilna_Paymethod">
+                    <file>bilna_paymethod.xml</file>
+                </paymethod>
+            </updates>
+        </layout>
+    </frontend>
+    
+    <adminhtml>
+        <layout>
+            <updates>
+                <paymethod>
+                    <file>bilna_paymethod.xml</file>
+                </paymethod>
+            </updates>
+        </layout>
+    </adminhtml>
+    
+    <default>
+        <payment>
+            <transferbca>
+                <active>1</active>
+                <model>paymethod/method_transferbca</model>
+                <order_status>pending</order_status>
+                <title>Bank Transfer Payment BCA</title>
+                <allowspecific>0</allowspecific>
+                <group>offline</group>
+            </transferbca>
+            
+            <transfermandiri>
+                <active>1</active>
+                <model>paymethod/method_transfermandiri</model>
+                <order_status>pending</order_status>
+                <title>Bank Transfer Payment Mandiri</title>
+                <allowspecific>0</allowspecific>
+                <group>offline</group>
+            </transfermandiri>
+            
+            <transferbni>
+                <active>1</active>
+                <model>paymethod/method_transferbni</model>
+                <order_status>pending</order_status>
+                <title>Bank Transfer Payment BNI</title>
+                <allowspecific>0</allowspecific>
+                <group>offline</group>
+            </transferbni>
+            
+            <klikbca>
+                <active>1</active>
+                <model>paymethod/method_klikbca</model>
+                <order_status>pending</order_status>
+                <title>KlikBCA</title>
+                <allowspecific>0</allowspecific>
+                <group>offline</group>
+            </klikbca>
+            
+            <klikpay>
+                <active>1</active>
+                <model>paymethod/method_klikpay</model>
+                <order_status>pending</order_status>
+                <title>BCA Klikpay</title>
+                <allowspecific>0</allowspecific>
+                <group>offline</group>
+            </klikpay>
+        </payment>
+    </default>
+</config>
