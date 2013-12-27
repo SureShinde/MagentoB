@@ -1149,23 +1149,24 @@
 	}
 	.header .quick-access .top-cart {
 		margin-bottom: 5px;
-		width: 177px;
+		width: auto;
 	}
 	.header .links {
 		float: left;
 		margin-top: 0;
 	}
+	.header .links li {
+		border-left: none;
+	}
 	.header .links li.myaccount .toplink-myaccount {
-		left: auto;
-		right: 0;
+		left: 0;
+		right:auto;
 	}
 	.header .quick-access .left {
 		float: none !important;
-	}
-	.header .quick-access .left {
 		text-align: right;
 	}
-	.sticky-header .sticky-search .form-search .input-keyword .select-category, .header .quick-access .store-phone, .header .form-language, .header .quick-access .top-cart a.link-checkout {
+	.sticky-header .sticky-search .form-search .input-keyword .select-category, .header .links li.trackorder, .header .quick-access .store-phone, .header .form-language, .header .quick-access .top-cart a.link-checkout {
 		display: none;
 	}
 	.header .form-search {
@@ -1182,7 +1183,7 @@
 	}
 	.header .left .form-language {
 		display: block;
-		margin-top: 0;
+		margin-top: 5px;
 	}
 	.header .quick-access .left .form-language {
 		display: block;
