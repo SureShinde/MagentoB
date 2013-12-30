@@ -29,16 +29,6 @@ class Bilna_Wrappinggiftevent_Block_Checkout_Onepage_Shipping_Method extends  Ma
         //Mage::helper('core')->isModuleEnabled('Bilna_Wrappinggiftevent');
     }
 
-    /*protected function _toHtml() {
-        $magentoVersionTag = AW_Points_Helper_Data::MAGENTO_VERSION_14;
-        if (Mage::helper('points')->magentoLess14())
-            $magentoVersionTag = AW_Points_Helper_Data::MAGENTO_VERSION_13;
-        $this->setTemplate('wrappinggiftevent/checkout/onepage/shipping_method/available.phtml');
-
-        return parent::_toHtml();
-    }*/
-
-
     /**
      * Retrieve is allow and show block
      *
@@ -48,13 +38,6 @@ class Bilna_Wrappinggiftevent_Block_Checkout_Onepage_Shipping_Method extends  Ma
     {
         return !$this->getQuote()->isVirtual();
     }
-    
-    /*protected function _toHtml()
-    {
-        $this->setTemplate('wrappinggiftevent/onepage/shipping_method/available.phtml');
-
-        return parent::_toHtml();
-    }*/
 
 }
 			
