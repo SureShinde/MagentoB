@@ -125,8 +125,8 @@
 .awcp-category-grid .awcp-title {
     display: block;
     overflow: hidden;
-    height: 23px;
-    line-height: 1;
+    height: 26px;
+    line-height: 18px;
     padding-top: 6px;
     margin-bottom: 0;
 }
@@ -139,8 +139,8 @@
 }
 
 .awcp-category-grid .awcp-title a:hover {
-    color: #333;
-    font-size: 14px;
+    color: #fff;
+    font-size: 18px;
     font-weight: bold;
 }
 
@@ -158,11 +158,10 @@
 }
 
 .awcp-details button.awcp-button {
-	-moz-box-shadow:3px 3px 8px #888;
-    -webkit-box-shadow:3px 3px 8px #888;
-    box-shadow:3px 3px 8px #888;
-	text-shadow:2px 2px 0 #BE6252;
-	float:right;
+	-moz-box-shadow:1px 1px 5px #888;
+    -webkit-box-shadow:1px 1px 5px #888;
+    box-shadow:1px 1px 5px #888;
+	text-shadow:1px 1px 0 #BE6252;
 	border-radius:10px;
 	-webkit-border-radius:10px;
 	-moz-border-radius:10px;
@@ -673,4 +672,23 @@ table.awcp-pricedata tr:nth-child(1) td{
 	margin:-92px 0 0;
 	padding:5px 0 0;
     background:rgba(251, 129, 108, 0.9);
+}
+.awcp-mark-center .product_price{
+	font-size:14px;
+	text-decoration:line-through;
+	color:#fff;
+	display:table;
+	margin:0;
+}
+.awcp-mark-center .discount{
+	margin:0;
+	font-size:14px;
+	font-weight:bold;
+	line-height:12px;
+	color:#fff;
+}
+.awcp-item:hover button.awcp-button {
+	-moz-box-shadow:1px 1px 5px #BE6252;
+    -webkit-box-shadow:1px 1px 5px #BE6252;
+    box-shadow:1px 1px 5px #BE6252;
 }

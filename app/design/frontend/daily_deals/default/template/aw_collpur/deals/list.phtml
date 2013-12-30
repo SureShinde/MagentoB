@@ -56,7 +56,7 @@
 			<a class="awcp-product-image" href="<?php echo $this->getDealPageLink($deal->getId()); ?>"><img src="<?php echo $this->getDealImage($deal->getDealImage()); ?>" alt="<?php echo $deal->getDealName(); ?>" /></a>
 			<div class="awcp-mark-center">
 				<div class="awcp-details inprogress row">
-					<div class="column large-8 small-8 medium-8">
+					<div class="column large-7 small-7 medium-7">
 					  <h2 class="awcp-title"><a href="<?php echo $this->getDealPageLink($deal->getId()); ?>"><?php echo $deal->getDealName(); ?></a></h2>
 					  <p class="desc_short_deals">Lorem ipsum dolor sit amet</p>
 					   <?php if(!$deal->isClosed()): ?>
@@ -78,8 +78,10 @@
 							  <?php endif; ?>
 					   <?php endif; ?>
 					</div>
-					<div class="column large-4 small-4 medium-4">
+					<div class="column large-5 small-5 medium-5">
 						<button class="button awcp-button" onclick="setLocation('<?php echo $this->getDealPageLink($deal->getId()); ?>')"><span><span><?php echo $this->__('View<br/>This Deal!'); ?></span></span></button>
+						<p class="product_price">Rp 550.000</p>
+						<p class="discount">50% OFF</p>
 					</div>
 				  <div class="clearer"></div>
 				</div>
