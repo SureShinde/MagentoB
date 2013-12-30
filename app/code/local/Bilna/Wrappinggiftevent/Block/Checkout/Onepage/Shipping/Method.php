@@ -40,4 +40,3 @@ class Bilna_Wrappinggiftevent_Block_Checkout_Onepage_Shipping_Method extends  Ma
     }
 
 }
-			

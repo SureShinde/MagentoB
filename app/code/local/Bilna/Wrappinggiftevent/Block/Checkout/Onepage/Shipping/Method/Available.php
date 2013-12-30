@@ -24,7 +24,9 @@ class Bilna_Wrappinggiftevent_Block_Checkout_Onepage_Shipping_Method_Available e
         $tableName      = $resource->getTableName('wrapping_gift_event');
         $select = $adapter->select()
             ->from(
-                $tableName
+                $tableName)
+            ->where(
+                'wrapping_startdate >= DATE(NOW())'
             );
 
         $eventNames = $adapter->fetchAll($select);
