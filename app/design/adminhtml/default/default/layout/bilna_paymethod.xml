@@ -5,7 +5,7 @@
             <action method="addColumnRender">
                 <column>name</column>
                 <block>adminhtml/sales_items_column_name</block>
-                <template>paymethod/sales/items/column/klikpay_name.phtml</template>
+                <template>paymethod/sales/items/column/name.phtml</template>
             </action>
         </reference>
     </adminhtml_sales_order_view>
@@ -15,7 +15,7 @@
             <action method="addColumnRender">
                 <column>name</column>
                 <block>adminhtml/sales_items_column_name</block>
-                <template>klikpay/sales/items/column/name.phtml</template>
+                <template>paymethod/sales/items/column/name.phtml</template>
             </action>
         </reference>
     </adminhtml_sales_order_invoice_new>
@@ -25,7 +25,7 @@
             <action method="addColumnRender">
                 <column>name</column>
                 <block>adminhtml/sales_items_column_name</block>
-                <template>klikpay/sales/items/column/name.phtml</template>
+                <template>paymethod/sales/items/column/name.phtml</template>
             </action>
         </reference>
     </adminhtml_sales_order_invoice_view>
@@ -35,7 +35,7 @@
             <action method="addColumnRender">
                 <column>name</column>
                 <block>adminhtml/sales_items_column_name</block>
-                <template>klikpay/sales/items/column/name.phtml</template>
+                <template>paymethod/sales/items/column/name.phtml</template>
             </action>
         </reference>
     </adminhtml_sales_order_shipment_new>
@@ -45,7 +45,7 @@
             <action method="addColumnRender">
                 <column>name</column>
                 <block>adminhtml/sales_items_column_name</block>
-                <template>klikpay/sales/items/column/name.phtml</template>
+                <template>paymethod/sales/items/column/name.phtml</template>
             </action>
         </reference>
     </adminhtml_sales_order_shipment_view>
@@ -55,7 +55,7 @@
             <action method="addColumnRender">
                 <column>name</column>
                 <block>adminhtml/sales_items_column_name</block>
-                <template>klikpay/sales/items/column/name.phtml</template>
+                <template>paymethod/sales/items/column/name.phtml</template>
             </action>
         </reference>
     </adminhtml_sales_order_creditmemo_new>
@@ -65,7 +65,7 @@
             <action method="addColumnRender">
                 <column>name</column>
                 <block>adminhtml/sales_items_column_name</block>
-                <template>klikpay/sales/items/column/name.phtml</template>
+                <template>paymethod/sales/items/column/name.phtml</template>
             </action>
         </reference>
     </adminhtml_sales_order_creditmemo_view>

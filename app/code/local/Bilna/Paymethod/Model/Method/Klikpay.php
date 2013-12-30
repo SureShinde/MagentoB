@@ -15,7 +15,6 @@ class Bilna_Paymethod_Model_Method_Klikpay extends Mage_Payment_Model_Method_Abs
     const PAYMENT_TYPE_COMBINE_TRANSACTION = '03';
     
     public function assignData($data) {
-        
         if (!($data instanceof Varien_Object)) {
             $data = new Varien_Object($data);
         }

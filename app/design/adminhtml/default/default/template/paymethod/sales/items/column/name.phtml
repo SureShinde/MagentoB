@@ -32,7 +32,7 @@ $payCode = $order->getPayment()->getMethodInstance()->getCode();
     <?php endif; ?>
     <?php // showing installment option ?>
     <?php if ($_item->getInstallmentType()): ?>
-        <div><strong><?php echo $this->helper('sales')->__('Payment type:') ?></strong> <?php echo $this->helper($payCode)->getInstallmentOption($_item->getInstallmentType(), 'label');?></div>
+        <div><strong><?php echo $this->helper('sales')->__('Payment type:') ?></strong> <?php echo $this->helper('paymethod/' . $payCode)->getInstallmentOption($_item->getInstallmentType(), 'label'); ?></div>
     <?php endif; ?>
     <?php echo $this->htmlEscape($_item->getDescription()) ?>
 <?php endif; ?>

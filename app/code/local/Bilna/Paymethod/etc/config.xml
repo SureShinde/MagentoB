@@ -57,11 +57,21 @@
         </resources>
         
         <fieldsets>
-            <sales_convert_quote_payment>
-                <klikbca_user_id>
-                    <to_order_payment>*</to_order_payment>
-                </klikbca_user_id>
-            </sales_convert_quote_payment>
+            <sales_convert_quote_item>
+                <installment_type>
+                    <to_order_item>*</to_order_item>
+                </installment_type>
+
+                <installment_tenor>
+                    <to_order_item>*</to_order_item>
+                </installment_tenor>
+            </sales_convert_quote_item>
+            
+            <sales_convert_quote>
+                <pay_type>
+                    <to_order>*</to_order>
+                </pay_type>
+            </sales_convert_quote>
         </fieldsets>
     </global>
     
