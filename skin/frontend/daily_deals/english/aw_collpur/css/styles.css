@@ -72,16 +72,17 @@
 
 /* category marks*/
 .awcp-category-grid .awcp-mark-left {
-    background:rgba(140, 140, 140, 0.9);
-    padding: 5px;
-	margin:-87px 0 0;
-	position:relative;
+   
 }
 
 .awcp-category-grid .awcp-mark-right {
 }
 
 .awcp-category-grid .awcp-mark-center {
+	 background:rgba(140, 140, 140, 0.9);
+    padding: 5px;
+	margin:-87px 0 0;
+	position:relative;
 }
 
 .awcp-category-grid .awcp-details {
@@ -649,7 +650,7 @@ table.awcp-pricedata tr:nth-child(1) td{
     top: 4px;
     width: 20px;
 }
-.awcp-mark-left .desc_short_deals{
+.awcp-mark-center .desc_short_deals{
 	font-size:12px;
 	color:#fff;
 	min-height:40px;
@@ -664,4 +665,12 @@ table.awcp-pricedata tr:nth-child(1) td{
 	-moz-box-shadow: 1px 1px 5px 0px #e6e6e6 ;
     -webkit-box-shadow: 1px 1px 5px 0px #e6e6e6 ;
     box-shadow: 1px 1px 5px 0px #e6e6e6 ;
+}
+.awcp-item:hover .wrap_li{
+	border:5px solid #fb816c;
+}
+.awcp-item:hover .awcp-mark-center{
+	margin:-92px 0 0;
+	padding:5px 0 0;
+    background:rgba(251, 129, 108, 0.9);
 }

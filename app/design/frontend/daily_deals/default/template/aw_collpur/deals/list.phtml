@@ -51,10 +51,10 @@
     
  <ul  class="awcp-category-grid row">
      <?php $i = 0; foreach($this->getAvailableDeals() as $deal): ?>
-      <li class="awcp-item <?php if(!$i || $i%2 == 0) { echo 'first'; } else { echo 'last'; } ?> column small-6 medium-4 large-4">
+      <li class="awcp-item <?php if(!$i || $i%2 == 0) { echo 'first'; } else { echo 'last'; } ?> column small-12 medium-4 large-4">
 		<div class="wrap_li">
 			<a class="awcp-product-image" href="<?php echo $this->getDealPageLink($deal->getId()); ?>"><img src="<?php echo $this->getDealImage($deal->getDealImage()); ?>" alt="<?php echo $deal->getDealName(); ?>" /></a>
-			<div class="awcp-mark-left"><div class="awcp-mark-right"><div class="awcp-mark-center">
+			<div class="awcp-mark-center">
 				<div class="awcp-details inprogress row">
 					<div class="column large-8 small-8 medium-8">
 					  <h2 class="awcp-title"><a href="<?php echo $this->getDealPageLink($deal->getId()); ?>"><?php echo $deal->getDealName(); ?></a></h2>
@@ -83,7 +83,7 @@
 					</div>
 				  <div class="clearer"></div>
 				</div>
-			</div></div></div>
+			</div>
 		</div>
      </li>      
      <?php $i++; endforeach; ?> 
