@@ -66,19 +66,19 @@ class Bilna_Tanyadokter_Block_Adminhtml_Tanyadokter_Grid extends Mage_Adminhtml_
 			'index' => 'submit_date'
 	));
 		
-	//$this->addExportType('*/*/exportCsv', Mage::helper('promo')->__('CSV'));
+	$this->addExportType('*/*/exportCsv', Mage::helper('bilna_tanyadokter')->__('CSV'));
 	  
       return parent::_prepareColumns();
   }
   
-  public function getGridUrl()
-    {
-        return $this->getUrl('*/*/grid', array('_current'=>true));
-    }
+  // public function getGridUrl()
+    // {
+        // return $this->getUrl('*/*/grid', array('_current'=>true));
+    // }
 	
-    public function getRowUrl($row)
-    {
-        return $this->getUrl('*/*/edit', array('id' => $row->getId()));
-    }
+    // public function getRowUrl($row)
+    // {
+        // return $this->getUrl('*/*/edit', array('id' => $row->getId()));
+    // }
 
 }
