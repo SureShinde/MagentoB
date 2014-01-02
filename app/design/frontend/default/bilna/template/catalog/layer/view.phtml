@@ -48,7 +48,17 @@
                 <?php foreach ($_filters as $_filter): ?>
                 <?php if($_filter->getItemsCount()): ?>
                     <dt class="<?php echo strtolower($this->__($_filter->getName())) ?>"><?php echo $this->__($_filter->getName()) ?></dt>
-                    <dd><?php echo $_filter->getHtml() ?></dd>
+                    <dd>
+                    	<?php echo $_filter->getHtml() ?>
+                    	<?php if($this->__($_filter->getName())=='Category'):?>
+	                    	<ol class="added-menu">
+		                    	<li><a href="#" class="link-bestseller "><?php echo $this->__('Best Seller') ?></a></li>
+		                    	<li><a href="#" class="link-whatsnew"><?php echo $this->__('Whats New') ?></a></li>
+		                    	<li><a href="#" class="link-onsale"><?php echo $this->__('On Sale!') ?></a></li>
+	                    	</ol>
+	                    <?php endif;?>
+                    </dd>
+                    
                 <?php endif; ?>
                 <?php endforeach; ?>
             </dl>
