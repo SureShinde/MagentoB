@@ -19,9 +19,15 @@ class Bilna_Paymethod_KlikbcaController extends Mage_Core_Controller_Front_Actio
     protected $_reasonTrxPaid = 'Your transaction has been paid.';
     protected $_reasonTrxExpired = 'Your transaction has expired.';
     
+    protected $_typeTransaction = 'transaction';
+    protected $_typeConfirmation = 'confirmation';
+
     public function inquiryAction() {
         $klikbcaUserId = $this->getRequestData('userid');
         $additionalData = $this->getRequestData('adddata');
+        
+        $contentLog = sprintf("%s | request_klikbca: %s", $klikbcaUserId, json_encode($this->getRequest()->getParams()));
+        $this->writeLog($this->_typeTransaction, 'inquiry', $contentLog);
         
         $validationHours = Mage::getStoreConfig('payment/klikbca/order_validation');
         $validationOption = Mage::getStoreConfig('payment/klikbca/order_validation_option');
@@ -59,13 +65,14 @@ class Bilna_Paymethod_KlikbcaController extends Mage_Core_Controller_Front_Actio
             $xml .= "<transactionNo>" . $order->getIncrementId() . "</transactionNo>";
             $xml .= "<transactionDate>" . date($this->_formatDate2, strtotime($order->getCreatedAt())) . "</transactionDate>";
             $xml .= "<amount>" . $this->_currency . number_format((int) $order->getGrandTotal(), 2, null, '') . "</amount>";
-            //$xml .= "<description>" . Mage::helper('klikbca')->_removeSymbols($productName) . "</description>";
+            $xml .= "<description>" . Mage::helper('paymethod/klikbca')->_removeSymbols($productName) . "</description>";
             $xml .= "</OutputDetailPayment>";                     
         }
 
         $xml .= "</OutputListTransactionPGW>";
         
-        //$this->_writeTransactionLog(sprintf("%s | response_klikbca: %s", $_GET['userid'], $xml));
+        $contentLog = sprintf("%s | response_klikbca: %s", $_GET['userid'], $xml);
+        $this->writeLog($this->_typeTransaction, 'inquiry', $contentLog);
         die ($xml);
     }
     
@@ -78,6 +85,9 @@ class Bilna_Paymethod_KlikbcaController extends Mage_Core_Controller_Front_Actio
         $additionalData = $this->getRequestData('adddata');
         $reason = '';
         $status = '';
+        
+        $contentLog = sprintf("%s | request_klikbca: %s", $klikbcaUserId, json_encode($this->getRequest()->getParams()));
+        $this->writeLog($this->_typeTransaction, 'payment', $contentLog);
         
         $orderCollection = Mage::getModel('sales/order')->getCollection();
         $orderCollection->addFieldToFilter('increment_id', array ('eq' => $transactionNo));
@@ -117,7 +127,9 @@ class Bilna_Paymethod_KlikbcaController extends Mage_Core_Controller_Front_Actio
                    $order->setState(Mage_Sales_Model_Order::STATE_NEW, 'klikbca_pending', Mage::getStoreConfig('payment/klikbca/order_klikbca_pending_comment'), true)->save();
                    $status = $this->_statusTrxSuccess;
                    $reason = $this->_reasonTrxSuccess;
-                   //$this->_writeConfirmationLog();
+                   
+                   $contentLog = sprintf("%s|%s|%s|%s|%s|%s", $klikbcaUserId, $transactionNo, $transactionDate, $transactionAmount, $type, $additionalData);
+                   $this->createLog($transactionNo, 'confirmation', $contentLog);
                 }
                 catch (Mage_Core_Exception $e) {
                     Mage::log($e->getMessage(), null, 'klikbca_error.log', true);
@@ -138,7 +150,8 @@ class Bilna_Paymethod_KlikbcaController extends Mage_Core_Controller_Front_Actio
         $xml .= "<additionalData>" . $additionalData . "</additionalData>";
         $xml .= "</OutputPaymentPGW>";
         
-        //$this->_writeTransactionLog(sprintf("%s | response_klikbca: %s", $_GET['userid'], $xml));
+        $contentLog = sprintf("%s | response_klikbca: %s", $klikbcaUserId, $xml);
+        $this->writeLog($this->_typeTransaction, 'payment', $contentLog);
         die ($xml);
     }
     
@@ -164,5 +177,19 @@ class Bilna_Paymethod_KlikbcaController extends Mage_Core_Controller_Front_Actio
         }
         
         return $result;
+    }
+    
+    protected function writeLog($type, $logFile, $content) {
+        $tdate = date('Ymd', Mage::getModel('core/date')->timestamp(time()));
+        $filename = sprintf("%s_%s.%s", $this->_code, $logFile, $tdate);
+        
+        return Mage::helper('paymethod')->writeLogFile($this->_code, $type, $filename, $content);
+    }
+    
+    protected function createLog($filename, $type, $content) {
+        $tdate = date('Ymd', Mage::getModel('core/date')->timestamp(time()));
+        $content = sprintf("%s|%s", $content, $tdate);
+        
+        return Mage::helper('paymethod')->writeLogFile($this->_code, $type, $filename, $content, 'file');
     }
 }

@@ -72,6 +72,12 @@
                     <to_order>*</to_order>
                 </pay_type>
             </sales_convert_quote>
+            
+            <sales_convert_quote_payment>
+                <klikbca_user_id>
+                    <to_order_payment>*</to_order_payment>
+                </klikbca_user_id>
+            </sales_convert_quote_payment>
         </fieldsets>
     </global>
     
@@ -103,6 +109,30 @@
                 </paymethod>
             </updates>
         </layout>
+
+        <acl>
+            <resources>
+                <all>
+                    <title>Allow Everything</title>
+                </all>
+                
+                <admin>
+                    <children>
+                        <bilna_module translate="title">
+                            <title>Bilna Extensions</title>
+                            <sort_order>0</sort_order>
+                            
+                            <children>
+                                <paymethod translate="title">
+                                    <title>Payment Method</title>
+                                    <sort_order>0</sort_order>
+                                </paymethod>
+                            </children>
+                        </bilna_module>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
     </adminhtml>
     
     <default>

@@ -1,6 +1,44 @@
 <?xml version="1.0"?>
 <config>
-   <sections>
+    <tabs>
+        <bilna translate="label">
+            <label>Bilna Extensions</label>
+            <sort_order>0</sort_order>
+        </bilna>
+    </tabs>
+    
+    <sections>
+        <bilna_module translate="label" module="paymethod">
+            <label>Payment Method</label>
+            <tab>bilna</tab>
+            <frontend_type>text</frontend_type>
+            <!--sort_order>22</sort_order-->
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>            
+            <groups>
+                <paymethod translate="label" module="paymethod">
+                    <label>Payment Method Settings</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>0</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <log_path translate="label">
+                            <label>Base log path</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>0</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>ex: var/log/paymethod/</comment>
+                        </log_path>
+                    </fields>
+                </paymethod>
+            </groups>
+        </bilna_module>
+        
         <payment>
             <groups>
                 <transferbca translate="label">
@@ -378,7 +416,7 @@
                             <show_in_store>1</show_in_store>
                         </message>
                         
-                        <base_log_path translate="label">
+                        <!--base_log_path translate="label">
                             <label>Base Log Path</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>61</sort_order>
@@ -396,16 +434,16 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                             <comment>example: transaction/</comment>
-                        </trx_log_path>
+                        </trx_log_path-->
                         
                         <confirm_log_path translate="label">
-                            <label>Confirmation Log Path</label>
+                            <label>Confirmation log path</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>63</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>example: confirmation/</comment>
+                            <comment>ex: klikbca/confirmation/</comment>
                         </confirm_log_path>
                         
                         <success_lock_path translate="label">
