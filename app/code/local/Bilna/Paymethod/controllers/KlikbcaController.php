@@ -129,7 +129,7 @@ class Bilna_Paymethod_KlikbcaController extends Mage_Core_Controller_Front_Actio
                    $status = $this->_statusTrxSuccess;
                    $reason = $this->_reasonTrxSuccess;
                    
-                   $contentLog = sprintf("%s|%s|%s|%s|%s|%s", strtoupper($klikbcaUserId), $transactionNo, $transactionDate, $transactionAmountCurrency, $type, $additionalData);
+                   $contentLog = sprintf("%s|%s|%s|%s|%s|%s", $klikbcaUserId, $transactionNo, $transactionDate, $transactionAmountCurrency, $type, $additionalData);
                    $this->createLog($transactionNo, 'confirmation', $contentLog);
                 }
                 catch (Mage_Core_Exception $e) {
