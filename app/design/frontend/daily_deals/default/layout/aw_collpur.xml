@@ -58,6 +58,7 @@
             <action method="setTemplate">
                 <template>page/1column-deals.phtml</template>
             </action>
+			
         </reference>
     </awcollpur_deals_list>
     <awcollpur_deals_view>

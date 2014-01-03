@@ -51,7 +51,6 @@ Default layout, loads most of the pages
 
                 <block type="page/js_cookie" name="js_cookies" template="page/js/cookie.phtml"/>
 
-				<action method="addCss"><stylesheet>css/foundation.css</stylesheet></action>
 				<action method="addCss"><stylesheet>css/foundation.min.css</stylesheet></action>
 				<action method="addCss"><stylesheet>css/modernizr.css</stylesheet></action>
                 <action method="addCss"><stylesheet>css/styles.css</stylesheet></action>
@@ -109,7 +108,7 @@ Default layout, loads most of the pages
                     <action method="setElementClass"><value>bottom-container</value></action>
                 </block>
                 
-                <block type="page/template_links" name="footer_links" as="footer_links" template="page/template/links.phtml"/>
+                
             </block>
 
             <block type="core/text_list" name="before_body_end" as="before_body_end" translate="label">

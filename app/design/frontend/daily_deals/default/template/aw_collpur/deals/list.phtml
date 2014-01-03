@@ -24,7 +24,6 @@
  * @license    http://ecommerce.aheadworks.com/AW-LICENSE.txt
  */
 ?><div id="messages_product_view"><?php echo $this->getMessagesBlock()->getGroupedHtml() ?></div>
- 
 <?php if($this->isNative()): ?>
 <div class="awcp-navigation">
  <ul>
@@ -37,7 +36,7 @@
  <div class="clearer"></div>
 </div>
  <?php endif; ?>
- 
+  <?php echo $this->getLayout()->createBlock('awislider/block')->setBlockId('new_slider')->toHtml() ?> 
 <?php if($this->getAvailableDeals()->count() == 0):  ?>
     <h2  id = "awcp-nodeals-available"><?php echo $this->__('No deals available'); ?></h2>
     <?php return; ?>

@@ -26,8 +26,25 @@
 ?>
 <div class="footer-container">
     <div class="footer row">
-        <?php echo $this->getChildHtml() ?>
+        <?php echo $this->getLayout()->createBlock('page/switch')->setTemplate('page/switch/languages.phtml')->toHtml() ?>
+    	<?php echo $this->getChildHtml() ?>
+		<div class="column large-2 medium-2">
+			<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('shipping_partners')->toHtml() ?>
+		</div>
+		<div class="column large-2 medium-2">
+        <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('payment_partners')->toHtml() ?>
+		</div>
+		<div class="column large-2 medium-2">
+        <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('conect_us')->toHtml() ?>
+		</div>
+        
+        <div class="clear"></div>
         <p class="bugs"><?php echo $this->__('Help Us to Keep Magento Healthy') ?> - <a href="http://www.magentocommerce.com/bug-tracking" onclick="this.target='_blank'"><strong><?php echo $this->__('Report All Bugs') ?></strong></a> <?php echo $this->__('(ver. %s)', Mage::getVersion()) ?></p>
-        <address><?php echo $this->getCopyright() ?></address>
+        <div class="footer-bottom">
+        	<div class="about-us">
+	        	<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('about_us')->toHtml() ?>
+			</div>
+        	<address><?php echo $this->getCopyright() ?></address>
+        </div>
     </div>
 </div>
