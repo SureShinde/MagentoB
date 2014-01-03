@@ -35,6 +35,7 @@ app/etc/local.xml.additional
 app/etc/local.xml.template
 app/.htaccess
 app/Mage.php
+skin/frontend/default/modern/
 cron.sh
 downloader/
 errors/
