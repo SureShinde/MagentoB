@@ -50,7 +50,7 @@
                 <?php endif ?>
                 <?php if($this->getShowProductName()) : ?>
                 <div class="awafptitle">
-                    <!--<span class="lbl-new"><?php echo $this->__('New!') ?></span>--><a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($_product->getName(), null, true) ?>"><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></a>
+                    <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($_product->getName(), null, true) ?>"><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></a>
                 </div>
                 <?php endif ?>
                 <?php if($this->getShowDetails()) : ?>

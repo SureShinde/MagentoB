@@ -11,9 +11,10 @@
 	width: 750px;
 	height: 333px;
 	position: relative;
+	z-index: 0;
 }
 .advertise {
-	margin: 15px 0 0 0;
+	margin: 5px 0 0 0;
 }
 .advertise ul {
 	padding: 0;
@@ -34,7 +35,7 @@
 }
 .homepage-top-block.right a {
 	display: block;
-	margin: 0 0 10px 0;
+	margin: 0 0 5px 0;
 }
 .homepage-middle {
 	margin: 0 10px;
@@ -198,6 +199,9 @@
 	top:auto;
 	background-color: #ddd;
 }
+#slides-banner .slidesjs-navigation {
+	display: none;
+}
 #slides-banner .slidesjs-pagination {
 	position: absolute;
 	right: 10px;
@@ -257,7 +261,7 @@
 		margin-left: 6px;
 		margin-right: 6px;
 		margin-bottom: 16px;
-		width: 28.81%;
+		width: 28.79%;
 	}
 	.block-bottom span {
 		font-size: 19px;
@@ -302,32 +306,27 @@
 		width: 717px;
 	}
 	.homepage-top-block.middle {
-		float: none;
-		width: 100%;
+		width: 78%;
 	}
 	.slider-wrapper {
 		width: 100%;
-		height: 333px;
+		height: 248px;
 	}
 	.advertise {
 		margin-top: 10px;
 		margin-bottom: 10px;
 	}
 	.advertise ul li {
-		width: 49.44%;
+		width: 49.25%;
 		margin-left: 5px;
 	}
 	.advertise ul li a img {
 		width: 100%;
 	}
 	.homepage-top-block.right {
-		display: none;
-		float: none !important;
-		width: 100%;
+		width: 20%;
 	}
 	.homepage-top-block.right a {
-		display: inline-block;
-		width: 33.05%;
 	}
 	.homepage-top-block.right a img {
 		width: 100%;
@@ -338,7 +337,7 @@
 		margin-left: 2.5px;
 		margin-right: 2.5px;
 		margin-bottom: 8px;
-		width: 30.98%;
+		width: 30.95%;
 	}
 	.block-bottom {
 		height: 111px;
@@ -397,16 +396,19 @@
 }
 /* --------------- smaller 959 px layout -------------------- */
 @media only screen and (max-width: 767px) {
-	.homepage-middle, .homepage-bottom, .advertise {
+	.homepage-middle, .homepage-bottom, .advertise, .homepage-top-block.right, .sticky-header-wrapper {
 		display: none;
 	}
 	.homepage-top {
 		width: 100%;
 	}
+	.homepage-top-block.middle {
+		width: 100%;
+	}
 	.slider-wrapper {
 		height: auto;
 	}
-	#slides .slidesjs-pagination {
+	#slides-banner .slidesjs-pagination {
 		position: relative;
 		width: auto;
 		text-align: center;
