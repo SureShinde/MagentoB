@@ -50,6 +50,27 @@ ol.added-menu li a.link-onsale {
 	color: #fc8360 !important; 
 	background-position: right -45px;
 }
+.demo {
+	margin: 0 10px;
+}
+.demo label {
+	text-transform: uppercase;
+	font-size: 14px;
+	font-family: 'bebasregular';
+	font-weight: normal;
+	letter-spacing: 1px;
+}
+.demo input[type="text"] {
+	background: none;
+	color: #707070;
+	font-size: 12px;
+	font-weight: normal;
+	border: none;
+	text-align: center;
+}
+.demo #slider-range {
+	margin: 10px 0;
+}
 .toolbar .pager {
 	border-bottom: none;
 	padding: 8px;
