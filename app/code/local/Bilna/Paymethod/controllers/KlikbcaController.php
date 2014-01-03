@@ -81,6 +81,7 @@ class Bilna_Paymethod_KlikbcaController extends Mage_Core_Controller_Front_Actio
         $transactionNo = $this->getRequestData('transno');
         $transactionDate = $this->getRequestData('transdate');
         $transactionAmount = $this->getRequestDataReplace('amount', $this->_currency);
+        $transactionAmountCurrency = $this->getRequestData('amount');
         $type = $this->getRequestData('type');
         $additionalData = $this->getRequestData('adddata');
         $reason = '';
@@ -128,7 +129,7 @@ class Bilna_Paymethod_KlikbcaController extends Mage_Core_Controller_Front_Actio
                    $status = $this->_statusTrxSuccess;
                    $reason = $this->_reasonTrxSuccess;
                    
-                   $contentLog = sprintf("%s|%s|%s|%s|%s|%s", $klikbcaUserId, $transactionNo, $transactionDate, $transactionAmount, $type, $additionalData);
+                   $contentLog = sprintf("%s|%s|%s|%s|%s|%s", strtoupper($klikbcaUserId), $transactionNo, $transactionDate, $transactionAmountCurrency, $type, $additionalData);
                    $this->createLog($transactionNo, 'confirmation', $contentLog);
                 }
                 catch (Mage_Core_Exception $e) {
@@ -187,9 +188,9 @@ class Bilna_Paymethod_KlikbcaController extends Mage_Core_Controller_Front_Actio
     }
     
     protected function createLog($filename, $type, $content) {
-        $tdate = date('Ymd', Mage::getModel('core/date')->timestamp(time()));
+        $tdate = date('Y-m-d H:i:s', Mage::getModel('core/date')->timestamp(time()));
         $content = sprintf("%s|%s", $content, $tdate);
         
-        return Mage::helper('paymethod')->writeLogFile($this->_code, $type, $filename, $content, 'file');
+        return Mage::helper('paymethod')->writeLogFile($this->_code, $type, $filename, $content, 'normal');
     }
 }
