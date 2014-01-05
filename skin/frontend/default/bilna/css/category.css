@@ -78,7 +78,10 @@ ol.added-menu li a.link-onsale {
 .tiny .disable { display: none; }
 .noSelect { user-select: none; -o-user-select: none; -moz-user-select: none; -khtml-user-select: none; -webkit-user-select: none; }
 .demo {
-	margin: 0 10px;
+	margin: 0 10px 15px;
+	padding: 12px 0;
+	border-top: 1px solid #dadada;
+	border-bottom: 1px solid #dadada;
 }
 .demo input[type="text"] {
 	background: none;
@@ -91,8 +94,22 @@ ol.added-menu li a.link-onsale {
 .demo #slider-range {
 	margin: 10px 0;
 }
+.category-desc {
+	font-size: 10px;
+	margin: 0 10px;
+	padding-bottom: 15px;
+	border-bottom: 1px solid #dadada;
+}
+.category-desc span {
+	display: block;
+	font-weight: bold;
+}
+.category-desc p {}
 .left-banner-category {
 	padding: 10px;
+}
+.category-description {
+	display: none;
 }
 .featured-product-catalog {
 	padding-bottom: 20px;

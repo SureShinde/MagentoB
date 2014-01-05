@@ -114,6 +114,11 @@
 	});
 	});
     </script>
+    <?php $category=Mage::getModel('catalog/category')->load(35); ?>
+	<div class="category-desc">
+		<span><?php echo $category->getName(); ?></span>
+		<p><?php echo $category->getDescription(); ?></p>
+	</div>
     <div class="left-banner-category"><?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('left_banner_category')->toHtml() ?></div>
 </div>
 <?php endif; ?>
