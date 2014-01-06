@@ -139,6 +139,12 @@ button.btn-cart span, button.btn-cart span span {
     width: 100%;
 	background:none;
 	display:block;
+	padding: 0 !important;
 }
 
-.blog-index-list .col-main {width:80%;}
+.blog-index-list .col-main {width:75%;}
+.blog-index-list .col-right {
+    float: right;
+    padding:0 0 0 3%;
+    width: 22%;
+}
