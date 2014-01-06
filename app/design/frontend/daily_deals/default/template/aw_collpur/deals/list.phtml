@@ -26,20 +26,21 @@
 ?><div id="messages_product_view"><?php echo $this->getMessagesBlock()->getGroupedHtml() ?></div>
 <?php if($this->isNative()): ?>
 <div class="awcp-navigation">
- <ul>
+	<ul>
     <?php foreach($this->getMenus() as $menu): ?>
        <?php if($this->_tabIsAllowed($menu)): ?>
-            <li <?php echo $this->checkCurrentTab($menu['key']); ?>><a href="<?php echo $this->getDealTabUrl($menu['key']); ?>"><?php echo $menu['title']; ?></a></li>
+            <li <?php echo $this->checkCurrentTab($menu['key']); ?>><a
+			href="<?php echo $this->getDealTabUrl($menu['key']); ?>"><?php echo $menu['title']; ?></a></li>
        <?php endif; ?>
     <?php endforeach; ?>
- </ul> 
- <div class="clearer"></div>
+ </ul>
+	<div class="clearer"></div>
 </div>
- <?php endif; ?>
+<?php endif; ?>
   <?php echo $this->getLayout()->createBlock('awislider/block')->setBlockId('new_slider')->toHtml() ?> 
 <?php if($this->getAvailableDeals()->count() == 0):  ?>
-    <h2  id = "awcp-nodeals-available"><?php echo $this->__('No deals available'); ?></h2>
-    <?php return; ?>
+<h2 id="awcp-nodeals-available"><?php echo $this->__('No deals available'); ?></h2>
+<?php return; ?>
 <?php endif; ?>
 
 
@@ -47,30 +48,42 @@
 <div>
 
 
-    
- <ul  class="awcp-category-grid row">
+
+	<ul class="awcp-category-grid row">
      <?php $i = 0; foreach($this->getAvailableDeals() as $deal): ?>
-      <li class="awcp-item <?php if(!$i || $i%2 == 0) { echo 'first'; } else { echo 'last'; } ?> column small-12 medium-4 large-4">
-		<div class="wrap_li">
-			<a class="awcp-product-image" href="<?php echo $this->getDealPageLink($deal->getId()); ?>"><img src="<?php echo $this->getDealImage($deal->getDealImage()); ?>" alt="<?php echo $deal->getDealName(); ?>" /></a>
-			<div class="awcp-mark-center">
-				<div class="awcp-details inprogress row">
-					<div class="column large-7 small-7 medium-7">
-					  <h2 class="awcp-title"><a href="<?php echo $this->getDealPageLink($deal->getId()); ?>"><?php echo $deal->getDealName(); ?></a></h2>
-					  <p class="desc_short_deals">Lorem ipsum dolor sit amet</p>
-					  <label><?php echo $deal->getPrice(); ?></label>
+	<?php
+						$product = $this->getProduct ( $deal );
+						$originalProduct = $this->getOriginalProduct ( $deal );
+						$dealInfo = $this->getDealPricesSpare ( $originalProduct, $product );
+						?>
+      <li
+			class="awcp-item <?php if(!$i || $i%2 == 0) { echo 'first'; } else { echo 'last'; } ?> column small-12 medium-4 large-4">
+			<div class="wrap_li">
+				<a class="awcp-product-image"
+					href="<?php echo $this->getDealPageLink($deal->getId()); ?>"><img
+					src="<?php echo $this->getDealImage($deal->getDealImage()); ?>"
+					alt="<?php echo $deal->getDealName(); ?>" /></a>
+				<div class="awcp-mark-center">
+					<div class="awcp-details inprogress row">
+						<div class="column large-7 small-7 medium-7">
+							<h2 class="awcp-title">
+								<a href="<?php echo $this->getDealPageLink($deal->getId()); ?>"><?php echo $deal->getDealName(); ?></a>
+							</h2>
+							<p class="desc_short_deals"><?php echo $this->filter($deal->getDescription()); ?></p>
+							<label><?php echo Mage::helper('core')->currency($deal->getPrice(), true, false); ?></label>
 					   <?php if(!$deal->isClosed()): ?>
 							<?php $container = "awcp_timer_".rand(); ?>
 						   <?php if($deal->isNotRunning() && $deal->getAvailableFrom()): ?>
-								<div class="awcp-date" id = "<?php echo $container; ?>"><?php echo $this->getTimeLeftToBuy($deal,$time = 'available_from'); ?></div>
+								<div class="awcp-date" id="<?php echo $container; ?>"><?php echo $this->getTimeLeftToBuy($deal,$time = 'available_from'); ?></div>
 							<?php elseif($deal->isRunning() && $deal->getAvailableTo()): ?>
-								<div class="awcp-date" id = "<?php echo $container; ?>"><?php echo $this->getTimeLeftToBuy($deal); ?></div>
+								<div class="awcp-date" id="<?php echo $container; ?>"><?php echo $this->getTimeLeftToBuy($deal); ?></div>
 							<?php else: ?>
-								 <div  class="awcp-date awcp-date-empty" id = "<?php echo $container; ?>">&nbsp;</div>
+								 <div class="awcp-date awcp-date-empty"
+								id="<?php echo $container; ?>">&nbsp;</div>
 							<?php endif; ?>
 		 
 							  <?php if($data = $this->getJsonConfig($deal->getId())): ?>
-								<script type = "text/javascript">
+								<script type="text/javascript">
 									document.observe("dom:loaded", function() {
 									   new AwcpCollpur(<?php echo $this->getJsonConfig($deal->getId()) ; ?>,"<?php echo $container; ?>");
 									});
@@ -78,27 +91,64 @@
 							  <?php endif; ?>
 					   <?php endif; ?>
 					</div>
-					<div class="column large-5 small-5 medium-5">
-						<!-- 
-           				<form id="product_addtocart_form" class="right_detail_deals" method="post" action="<?php echo Mage::getUrl('checkout/cart/add', array('_secure'=>true,'product' => $deal->getProduct()->getId(), 'deal_id' => $deal->getId(), 'form_key' => Mage::getSingleton('core/session')->getFormKey())) ?>">
-						<button class="button awcp-button" onclick="setLocation('<?php echo $this->getDealPageLink($deal->getId()); ?>')"><span><span><?php echo $this->__('View<br/>This Deal!'); ?></span></span></button>
-						</form>
+						<div class="column large-5 small-5 medium-5">
+							<form id="product_addtocart_form" class="right_detail_deals"
+								method="post"
+								action="<?php echo Mage::getUrl('checkout/cart/add', array('_secure'=>true,'product' => $deal->getProduct()->getId(), 'deal_id' => $deal->getId(), 'form_key' => Mage::getSingleton('core/session')->getFormKey())) ?>">
+								<div
+									class="awcp-buy-button <?php if ($this->hasOptions($deal)): ?>awcp-options<?php endif; ?>">
+									<!-- POPUP -->
+									<div class="awcp-popup awcp-popup-shown" style="display: none;"
+										id="awcp-popup-options<?php echo $deal->getId(); ?>">
+										<div class="awcp-popup-top-left">
+											<div class="awcp-popup-top-right"></div>
+										</div>
+										<div class="awcp-popup-center-left">
+											<div class="awcp-popup-center-right">
+												<div class="awcp-popup-content">
+											<?php echo $this->getChildHtml('main_collpur_block'); ?>
+										</div>
+											</div>
+										</div>
+										<div class="awcp-popup-bottom-left">
+											<div class="awcp-popup-bottom-right">
+												<button class="button awcp-popup-button">
+													<span><span><?php echo $this->__('Buy!'); ?></span></span>
+												</button>
+											</div>
+										</div>
+										<div class="awcp-popup-tail"></div>
+									</div>
+									<!-- popup -->
+									<button class="button awcp-buy"
+										<?php if ($this->hasOptions($deal)): ?>
+										onclick="Effect.toggle($('awcp-popup-options<?php echo $deal->getId(); ?>'),'appear');return false;"
+										<?php endif; ?>>
+										<span>
+											<?php echo $this->__('BUY</br>NOW'); ?>
+									</span>
+									</button>
+								</div>
+							</form>
+						<?php if($originalProduct->getFinalPrice() != 0){ ?>
 						<p class="product_price"><?php echo Mage::helper('core')->currency($originalProduct->getFinalPrice(), true, false); ?></p>
-						<p class="discount"><?php echo $dealInfo->getPercentDiscount(); ?>% OFF</p>
-						-->
+							<p class="discount"><?php echo $dealInfo->getPercentDiscount(); ?>% OFF</p>
+						<?php } ?>
 					</div>
-				  <div class="clearer"></div>
+						<div class="clearer"></div>
+					</div>
 				</div>
 			</div>
-		</div>
-     </li>      
+		</li>      
      <?php $i++; endforeach; ?> 
  </ul>
- <div class="clearer"></div>
+	<div class="clearer"></div>
 </div>
 
 <?php echo $this->getChildHtml('available_deals_pager'); ?>
- <!-- Incorrect view of buttons in catalog -->
- <style>
- button.button span span {height:auto!important;}
- </style>
+<!-- Incorrect view of buttons in catalog -->
+<style>
+button.button span span {
+	height: auto !important;
+}
+</style>
