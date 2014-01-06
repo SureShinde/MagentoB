@@ -55,7 +55,7 @@
 	margin: 0 3px 0 0;
 }
 .awafpgrid .awafptitle a {
-    font-weight:bold;
+    font-weight:bold !important;
     font-size:1em;
     color: #707070;
 }

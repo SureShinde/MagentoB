@@ -40,6 +40,7 @@
 		});
 	</script>
 <?php if($this->canShowBlock()): ?>
+<?php $currentCategory=Mage::getSingleton('catalog/layer')->getCurrentCategory();?>
 <div class="block block-layered-nav">
     <div class="block-title">
         <strong><span><?php echo $this->__('Shop By') ?></span></strong>
@@ -59,13 +60,6 @@
                     <dd>
                     	<div class="scrollbar"><div class="track"><div class="thumb"><div class="end"></div></div></div></div>
                     	<?php echo $_filter->getHtml() ?>
-                    	<?php if($this->__($_filter->getName())=='Category'):?>
-	                    	<ol class="added-menu">
-		                    	<li><a href="#" class="link-bestseller "><?php echo $this->__('Best Seller') ?></a></li>
-		                    	<li><a href="#" class="link-whatsnew"><?php echo $this->__('Whats New') ?></a></li>
-		                    	<li><a href="#" class="link-onsale"><?php echo $this->__('On Sale!') ?></a></li>
-	                    	</ol>
-	                    <?php endif;?>
                     </dd>
                     
                 <?php endif; ?>
