@@ -58,6 +58,7 @@
 					<div class="column large-7 small-7 medium-7">
 					  <h2 class="awcp-title"><a href="<?php echo $this->getDealPageLink($deal->getId()); ?>"><?php echo $deal->getDealName(); ?></a></h2>
 					  <p class="desc_short_deals">Lorem ipsum dolor sit amet</p>
+					  <label><?php echo $deal->getPrice(); ?></label>
 					   <?php if(!$deal->isClosed()): ?>
 							<?php $container = "awcp_timer_".rand(); ?>
 						   <?php if($deal->isNotRunning() && $deal->getAvailableFrom()): ?>
@@ -78,9 +79,13 @@
 					   <?php endif; ?>
 					</div>
 					<div class="column large-5 small-5 medium-5">
+						<!-- 
+           				<form id="product_addtocart_form" class="right_detail_deals" method="post" action="<?php echo Mage::getUrl('checkout/cart/add', array('_secure'=>true,'product' => $deal->getProduct()->getId(), 'deal_id' => $deal->getId(), 'form_key' => Mage::getSingleton('core/session')->getFormKey())) ?>">
 						<button class="button awcp-button" onclick="setLocation('<?php echo $this->getDealPageLink($deal->getId()); ?>')"><span><span><?php echo $this->__('View<br/>This Deal!'); ?></span></span></button>
-						<p class="product_price">Rp 550.000</p>
-						<p class="discount">50% OFF</p>
+						</form>
+						<p class="product_price"><?php echo Mage::helper('core')->currency($originalProduct->getFinalPrice(), true, false); ?></p>
+						<p class="discount"><?php echo $dealInfo->getPercentDiscount(); ?>% OFF</p>
+						-->
 					</div>
 				  <div class="clearer"></div>
 				</div>

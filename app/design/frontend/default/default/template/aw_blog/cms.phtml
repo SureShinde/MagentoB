@@ -23,15 +23,8 @@
  * @copyright  Copyright (c) 2010-2012 aheadWorks Co. (http://www.aheadworks.com)
  * @license    http://ecommerce.aheadworks.com/AW-LICENSE.txt
  */
-
-class AW_All_AdditionalController extends Mage_Adminhtml_Controller_Action
-{
-    public function indexAction()
-    {
-        $this
-            ->loadLayout()
-            ->_title($this->__('aheadWorks - Additional Info View'))
-            ->renderLayout()
-        ;
-    }
-}
+?><?php if ($posts = $this->getRecent()): ?>
+    <?php foreach ($posts as $post): ?>
+        <a href="<?php echo $post->getAddress(); ?>" ><?php echo $post->getTitle(); ?></a><br />
+    <?php endforeach; ?>
+<?php endif; ?>

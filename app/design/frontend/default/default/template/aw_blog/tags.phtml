@@ -23,15 +23,13 @@
  * @copyright  Copyright (c) 2010-2012 aheadWorks Co. (http://www.aheadworks.com)
  * @license    http://ecommerce.aheadworks.com/AW-LICENSE.txt
  */
-
-class AW_All_AdditionalController extends Mage_Adminhtml_Controller_Action
-{
-    public function indexAction()
-    {
-        $this
-            ->loadLayout()
-            ->_title($this->__('aheadWorks - Additional Info View'))
-            ->renderLayout()
-        ;
-    }
-}
+?><?php if (Mage::getStoreConfig(AW_Blog_Helper_Config::XML_TAGCLOUD_SIZE) && $this->getCollection()->count()): ?>
+    <div class="menu-tags">
+        <h5><?php echo Mage::helper('blog')->__('Tags'); ?></h5>
+        <ul class="tagcloud">
+            <?php foreach ($this->getCollection() as $tag): ?>
+                <li><a class="tag-count-<?php echo $this->getTagWeight($tag) ?>" href="<?php echo $this->getTagHref($tag) ?>"><?php echo $tag->getTag() ?></a></li>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+<?php endif; ?>

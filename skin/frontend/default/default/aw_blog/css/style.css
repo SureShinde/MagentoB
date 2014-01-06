@@ -188,24 +188,3 @@ A.awblog_current_comment {
     text-decoration: none !important;
     font-weight: bold !important;
 }
-
-/* custom */
-
-.blog-index-list .wrapper .main-container main {
-	width: 100% !important;
-	margin: 0 auto;
-	padding:25px 25px 80px;
-	text-align:left;
-}
-
-.blog-index-list .toolbar {
-    clear: both;
-    display: block;
-}
-
-/* .blog-index-list .blog-islider { width:100%; display:block; margin: 0 0 20px;} */
-/* .blog-index-list .blog-islider img { width:100%; display:block;} */
-
-
-
-
