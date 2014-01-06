@@ -215,4 +215,37 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
             return '';
         }
     }
+    
+    public function bankCheckAction() {
+        $cardNo = $this->getRequest()->getPost('card_no');
+        $response = array (
+            'status' => false,
+            'data' => array (),
+            'message' => null
+        );
+        
+        if (in_array ($cardNo[0], array (4,5))) {
+            $bankCode = Mage::getModel('paymethod/method_vtdirect')->getBankCode($cardNo);
+            $ccType = $this->getCcType($bankCode);
+            
+            $response['status'] = true;
+            $response['data'] = array (
+                'bank_code' => $bankCode,
+                'cc_type' => $ccType
+            );
+        }
+        else {
+            $response['message'] = 'Please enter a valid credit card number.';
+        }
+        
+        echo json_encode($response);
+        exit;
+    }
+    
+    private function getCcType($bank) {
+        $bankArr = explode('_', $bank);
+        $ccType = (strtoupper($bankArr[1]) == 'VISA') ? 'VI' : 'MC';
+        
+        return $ccType;
+    }
 }

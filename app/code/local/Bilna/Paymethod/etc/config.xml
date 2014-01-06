@@ -181,6 +181,16 @@
                 <allowspecific>0</allowspecific>
                 <group>offline</group>
             </klikpay>
+            
+            <vtdirect>
+                <active>1</active>
+                <model>paymethod/method_vtdirect</model>
+                <order_status>pending</order_status>
+                <title>Credit Card (VT-Direct by Veritrans)</title>
+                <cctypes>VI,MC</cctypes>
+                <payment_action>authorize</payment_action>
+                <allowspecific>0</allowspecific>
+            </vtdirect>
         </payment>
     </default>
 </config>
