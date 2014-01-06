@@ -83,6 +83,10 @@
 		<reference name="head">
             <action method="addCss"><stylesheet>css/category.css</stylesheet></action>	
             <action method="addCss"><stylesheet>css/jquery-ui.css</stylesheet></action>	
+            <action method="addItem">
+                <type>skin_js</type>
+                <name>js/jquery.tinyscrollbar.min.js</name>
+            </action>
              <action method="addItem">
                 <type>skin_js</type>
                 <name>js/jquery-ui.min.js</name>

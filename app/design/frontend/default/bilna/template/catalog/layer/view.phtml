@@ -31,6 +31,14 @@
  * @see Mage_Catalog_Block_Layer_View
  */
 ?>
+<script type="text/javascript">
+		$j(document).ready(function(){
+			$j('.brand + dd').addClass("tiny");
+			$j('.tiny div').addClass("viewport");
+			$j('.tiny div ol').addClass("overview");
+			$j('.tiny').tinyscrollbar();	
+		});
+	</script>
 <?php if($this->canShowBlock()): ?>
 <div class="block block-layered-nav">
     <div class="block-title">
@@ -49,6 +57,7 @@
                 <?php if($_filter->getItemsCount()): ?>
                     <dt class="<?php echo strtolower($this->__($_filter->getName())) ?>"><?php echo $this->__($_filter->getName()) ?></dt>
                     <dd>
+                    	<div class="scrollbar"><div class="track"><div class="thumb"><div class="end"></div></div></div></div>
                     	<?php echo $_filter->getHtml() ?>
                     	<?php if($this->__($_filter->getName())=='Category'):?>
 	                    	<ol class="added-menu">
@@ -66,14 +75,9 @@
         <?php endif; ?>
     </div>
     <div class="demo">
-
-    <p>
-        <label for="amount"><?php echo $this->__('Price') ?></label>
-        
-    </p>
-
-    <div id="slider-range"></div>
-    <input type="text" id="amount" readonly="true" />
+	    <p><label for="amount"><?php echo $this->__('Price') ?></label></p>
+	    <div id="slider-range"></div>
+	    <input type="text" id="amount" readonly="true" />
     </div>
     <script type="text/javascript">
     $j(window).load(function(){
@@ -110,5 +114,11 @@
 	});
 	});
     </script>
+    <?php $category=Mage::getModel('catalog/category')->load(35); ?>
+	<div class="category-desc">
+		<span><?php echo $category->getName(); ?></span>
+		<p><?php echo $category->getDescription(); ?></p>
+	</div>
+    <div class="left-banner-category"><?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('left_banner_category')->toHtml() ?></div>
 </div>
 <?php endif; ?>
