@@ -31,6 +31,12 @@ class AW_Collpur_Block_Deals extends AW_Collpur_Block_BaseDeal
     protected $_collection;
     private $_limitParam = NULL;
 
+    protected $_awcpStoreModel;
+    protected $_currencyHelper;
+//     protected $_dealModel;
+//     protected $_cmsdeal;
+//     protected $_bridge;
+
     protected function _construct()
     {
         parent::_construct();
@@ -39,6 +45,11 @@ class AW_Collpur_Block_Deals extends AW_Collpur_Block_BaseDeal
         }
         $this->setTemplate('aw_collpur/deals/list.phtml');
         $this->setAvailableDealsScope($this->getAvailableDeals());
+
+        $this->_awcpStoreModel = Mage::app()->getStore();
+        $this->_currencyHelper = Mage::helper('core');
+//         $this->_dealModel = Mage::getModel('collpur/deal');
+//         $this->_bridge = Mage::getBlockSingleton('collpur/deals');
     }
 
     protected function _toHtml()
@@ -92,5 +103,48 @@ class AW_Collpur_Block_Deals extends AW_Collpur_Block_BaseDeal
     public function isNative()
     {
         return 'deals' == Mage::app()->getRequest()->getModuleName();
+    }
+
+    public function getProduct($deal) {
+        $this->_originalProductId = $deal->getProduct()->getId();
+        $product = Mage::getModel('catalog/product')->load($deal->getProduct()->getId())->setDeal($deal);
+        $product->setData('price', $product->getDeal()->getPrice());
+        $product->setData('final_price', $product->getDeal()->getPrice());
+
+//         $this->_modifyMeta($product, $deal);
+
+        return $product;
+    }
+
+    public function getOriginalProduct($deal) {
+        $product = Mage::getModel('catalog/product')->load($deal->getProduct()->getId());
+
+        return $product;
+    }
+
+    public function getDealPricesSpare($orig, $deal) {
+
+        $priceInfo = new Varien_Object();
+        $price = $this->_currencyHelper->currency($deal->getPrice());
+        $save = $this->_currencyHelper->currency($orig->getFinalPrice() - $deal->getPrice(), true, false);
+
+        /* Avoide devision by zero */
+        $discount = 0;
+        if ($orig->getFinalPrice()) {
+            $discount = ($orig->getFinalPrice() - $deal->getPrice()) / $orig->getFinalPrice() * 100;
+        }
+
+        $priceInfo->setPrice($price)
+                ->setSaveAmount($save)
+                ->setPercentDiscount(round($discount, 1));
+
+        return $priceInfo;
+    }
+
+    public function hasOptions($deal) {
+        if ($this->getProduct($deal)->getTypeInstance(true)->hasOptions($this->getProduct($deal))) {
+            return true;
+        }
+        return false;
     }
 }

@@ -24,75 +24,216 @@
  * @license    http://ecommerce.aheadworks.com/AW-LICENSE.txt
  */
 ?><div id="messages_product_view"><?php echo $this->getMessagesBlock()->getGroupedHtml() ?></div>
-<?php if($this->isNative()): ?>
-<div class="awcp-navigation">
- <ul class="row">
-    <?php foreach($this->getMenus() as $menu): ?>
-       <?php if($this->_tabIsAllowed($menu)): ?>
-            <li <?php echo $this->checkCurrentTab($menu['key']); ?>><a href="<?php echo $this->getDealTabUrl($menu['key']); ?>"><?php echo $menu['title']; ?></a></li>
-       <?php endif; ?>
-    <?php endforeach; ?>
- </ul> 
- <div class="clearer"></div>
+<div class>
 </div>
- <?php endif; ?>
+<?php //if($this->isNative()): ?>
+<!--<div class="awcp-navigation">
+ <ul class="row">
+    <?php //foreach($this->getMenus() as $menu): ?>
+       <?php //if($this->_tabIsAllowed($menu)): ?>
+            <li <?php //echo $this->checkCurrentTab($menu['key']); ?>><a
+			href="<?php //echo $this->getDealTabUrl($menu['key']); ?>"><?php //echo $menu['title']; ?></a></li>
+       <?php //endif; ?>
+    <?php //endforeach; ?>
+ </ul>
+	<div class="clearer"></div>
+</div>-->
+<?php //endif; ?>
   <?php echo $this->getLayout()->createBlock('awislider/block')->setBlockId('new_slider')->toHtml() ?> 
 <?php if($this->getAvailableDeals()->count() == 0):  ?>
-    <h2  id = "awcp-nodeals-available"><?php echo $this->__('No deals available'); ?></h2>
-    <?php return; ?>
+<h2 id="awcp-nodeals-available"><?php echo $this->__('No deals available'); ?></h2>
+<?php return; ?>
 <?php endif; ?>
 
-<div class="row">
-<?php echo $this->getChildHtml('available_deals_pager'); ?>
-</div>
+<!--<div class="row">
+<?php //echo $this->getChildHtml('available_deals_pager'); ?>
+</div>-->
 
 <div>
 
-
-    
- <ul  class="awcp-category-grid row">
+		<!--slider-->
+		<div class="row">
+			<div class="large-9 orbit-container wrap_banner column"> 
+				<ul data-orbit class="example-orbit orbit-slides-container row"> 
+					<li> 
+						<img src="http://localhost/bilna_2014/media/aw_collpur/deals/slider_1.jpg" alt="slide 1" /> 
+						<div class="orbit-caption">
+							<div class="column large-5">
+								<label>TODAY'S DEALS</label>
+								<p class="judul_deals_slider">Christmas Party Set</p>
+								<div class="price_deals_slider">
+									<p>Rp 135,000</p>
+									<p>Rp 550.000</p>
+									<p>70%OFF</p>
+								</div>
+							</div>
+							<div class="column large-3 date_slider_deals">
+								<label>PROMO END IN:</label>
+								<p>150 : 27 : 20</p>
+								<p>hour(s) minute(s) second(s)</p>
+								<p>SOLD: <span>737</span></p>
+							</div>
+							<div class="column large-4">
+								<button class="button awcp-buy">
+								<span>
+										BUY<br>NOW							
+								</span>
+							</button>
+							</div>
+						</div> 
+					</li> 
+					<li> 
+						<img src="images/Untitled-3.jpg" alt="slide 2" /> 
+						<div class="orbit-caption"> Caption Two. </div> 
+					</li> 
+					<li> 
+						<img src="http://placehold.it/1000x300/FDC43D/fff" alt="slide 3" /> 
+						<div class="orbit-caption"> Caption Three. </div> 
+					</li> 
+				</ul> 
+				
+				<!-- Navigation Arrows --> 
+				<!--<a href="#" class="orbit-prev">Prev <span></span></a> 
+				<a href="#" class="orbit-next">Next <span></span></a>--> 
+				
+				<!-- Slide Numbers --> 
+				<div class="orbit-slide-number"> 
+					<span>1</span> of <span>3</span> 
+				</div> 
+				
+				<!-- Timer and Play/Pause Button --> 
+				<div class="orbit-timer"> 
+					<span></span> 
+					<div class="orbit-progress"></div> 
+				</div> 
+			</div> 
+			
+			<div class="column large-3 thumb_area">
+				<ul class="row">
+					<li class="larege-12 thumb_slider current">
+						<p>Christmas Party Set</p>
+						<p>70% OFF</p>
+					</li>
+					<li class="larege-12 thumb_slider">
+						<img src="http://localhost/bilna_2014/media/aw_collpur/deals/thumb_foto.jpg"/>
+						<p>Christmas Party Set</p>
+						<p>70% OFF</p>
+					</li>
+					<li class="larege-12 thumb_slider">
+						<img src="http://localhost/bilna_2014/media/aw_collpur/deals/thumb_foto.jpg"/>
+						<p>Christmas Party Set</p>
+						<p>70% OFF</p>
+					</li>
+					<li class="larege-12 thumb_slider">
+						<img src="http://localhost/bilna_2014/media/aw_collpur/deals/thumb_foto.jpg"/>
+						<p>Christmas Party Set</p>
+						<p>70% OFF</p>
+					</li>
+				</ul>
+			</div>
+			<!-- Bullets 
+			<ol class="orbit-bullets"> 
+				<li data-orbit-slide-number="1"></li> 
+				<li data-orbit-slide-number="2"></li> 
+				<li data-orbit-slide-number="3"></li> 
+			</ol>--> 
+		</div>
+		<!--end slider-->
+		
+	<ul class="awcp-category-grid row">
      <?php $i = 0; foreach($this->getAvailableDeals() as $deal): ?>
-      <li class="awcp-item <?php if(!$i || $i%2 == 0) { echo 'first'; } else { echo 'last'; } ?> column small-12 medium-4 large-4">
-		<div class="wrap_li">
-			<a class="awcp-product-image" href="<?php echo $this->getDealPageLink($deal->getId()); ?>"><img src="<?php echo $this->getDealImage($deal->getDealImage()); ?>" alt="<?php echo $deal->getDealName(); ?>" /></a>
-			<div class="awcp-mark-center">
-				<div class="awcp-details inprogress row">
-					<div class="column large-7 small-7 medium-7">
-					  <h2 class="awcp-title"><a href="<?php echo $this->getDealPageLink($deal->getId()); ?>"><?php echo $deal->getDealName(); ?></a></h2>
-					  <p class="desc_short_deals">Lorem ipsum dolor sit amet</p>
-					  <div class="price_deals_list">Rp 135,000</div>
-					   <?php if(!$deal->isClosed()): ?>
-							<?php $container = "awcp_timer_".rand(); ?>
-						   <?php if($deal->isNotRunning() && $deal->getAvailableFrom()): ?>
-								<!--<div class="awcp-date" id = "<?php //echo $container; ?>"><?php //echo $this->getTimeLeftToBuy($deal,$time = 'available_from'); ?></div>-->
-							<?php elseif($deal->isRunning() && $deal->getAvailableTo()): ?>
-								<!--<div class="awcp-date" id = "<?php //echo $container; ?>"><?php //echo $this->getTimeLeftToBuy($deal); ?></div>-->
-							<?php else: ?>
-								 <div  class="awcp-date awcp-date-empty" id = "<?php echo $container; ?>">&nbsp;</div>
-							<?php endif; ?>
+	<?php
+						$product = $this->getProduct ( $deal );
+						$originalProduct = $this->getOriginalProduct ( $deal );
+						$dealInfo = $this->getDealPricesSpare ( $originalProduct, $product );
+						?>
+      <li
+			class="awcp-item <?php if(!$i || $i%2 == 0) { echo 'first'; } else { echo 'last'; } ?> column small-12 medium-4 large-4">
+			<div class="wrap_li">
+				<a class="awcp-product-image"
+					href="<?php echo $this->getDealPageLink($deal->getId()); ?>"><img
+					src="<?php echo $this->getDealImage($deal->getDealImage()); ?>"
+					alt="<?php echo $deal->getDealName(); ?>" /></a>
+				<div class="awcp-mark-center">
+					<div class="awcp-details inprogress row">
+						<div class="column large-7 small-7 medium-7">
+							<h2 class="awcp-title">
+								<a href="<?php echo $this->getDealPageLink($deal->getId()); ?>"><?php echo $deal->getDealName(); ?></a>
+							</h2>
+							<p class="desc_short_deals"><?php echo $this->filter($deal->getDescription()); ?></p>
+							<div class="price_deals_list"><?php echo Mage::helper('core')->currency($deal->getPrice(), true, false); ?></div>
+					   <?php //if(!$deal->isClosed()): ?>
+							<?php //$container = "awcp_timer_".rand(); ?>
+						   <?php //if($deal->isNotRunning() && $deal->getAvailableFrom()): ?>
+								<!--<div class="awcp-date" id="<?php //echo $container; ?>"><?php //echo $this->getTimeLeftToBuy($deal,$time = 'available_from'); ?></div>
+							<?php //elseif($deal->isRunning() && $deal->getAvailableTo()): ?>
+								<div class="awcp-date" id="<?php //echo $container; ?>"><?php //echo $this->getTimeLeftToBuy($deal); ?></div>
+							<?php //else: ?>
+								 <div class="awcp-date awcp-date-empty"
+								id="<?php //echo $container; ?>">&nbsp;</div>
+							<?php //endif; ?>
 		 
-							  <?php if($data = $this->getJsonConfig($deal->getId())): ?>
-								<script type = "text/javascript">
+							  <?php //if($data = $this->getJsonConfig($deal->getId())): ?>
+								<script type="text/javascript">
 									document.observe("dom:loaded", function() {
-									   new AwcpCollpur(<?php echo $this->getJsonConfig($deal->getId()) ; ?>,"<?php echo $container; ?>");
+									   new AwcpCollpur(<?php //echo $this->getJsonConfig($deal->getId()) ; ?>,"<?php //echo $container; ?>");
 									});
-								</script>
-							  <?php endif; ?>
-					   <?php endif; ?>
+								</script>-->
+							  <?php //endif; ?>
+					   <?php //endif; ?>
 					</div>
-					<div class="column large-5 small-5 medium-5">
-						<button class="button awcp-button" onclick="setLocation('<?php echo $this->getDealPageLink($deal->getId()); ?>')"><span><span><?php echo $this->__('BUY NOW'); ?></span></span></button>
-						<p class="product_price">Rp 550.000</p>
-						<p class="discount">50% OFF</p>
+						<div class="column large-5 small-5 medium-5">
+							<form id="product_addtocart_form" class="right_detail_deals"
+								method="post"
+								action="<?php echo Mage::getUrl('checkout/cart/add', array('_secure'=>true,'product' => $deal->getProduct()->getId(), 'deal_id' => $deal->getId(), 'form_key' => Mage::getSingleton('core/session')->getFormKey())) ?>">
+								<div
+									class="awcp-buy-button <?php if ($this->hasOptions($deal)): ?>awcp-options<?php endif; ?>">
+									<!-- POPUP -->
+									<div class="awcp-popup awcp-popup-shown" style="display: none;"
+										id="awcp-popup-options<?php echo $deal->getId(); ?>">
+										<div class="awcp-popup-top-left">
+											<div class="awcp-popup-top-right"></div>
+										</div>
+										<div class="awcp-popup-center-left">
+											<div class="awcp-popup-center-right">
+												<div class="awcp-popup-content">
+											<?php echo $this->getChildHtml('main_collpur_block'); ?>
+										</div>
+											</div>
+										</div>
+										<div class="awcp-popup-bottom-left">
+											<div class="awcp-popup-bottom-right">
+												<button class="button awcp-button">
+													<span><span><?php echo $this->__('BUY NOW'); ?></span></span>
+												</button>
+											</div>
+										</div>
+										<div class="awcp-popup-tail"></div>
+									</div>
+									<!-- popup -->
+									<button class="button awcp-button"
+										<?php if ($this->hasOptions($deal)): ?>
+										onclick="Effect.toggle($('awcp-popup-options<?php echo $deal->getId(); ?>'),'appear');return false;"
+										<?php endif; ?>>
+										<span>
+											<?php echo $this->__('BUY NOW'); ?>
+									</span>
+									</button>
+								</div>
+							</form>
+						<?php if($originalProduct->getFinalPrice() != 0){ ?>
+						<p class="product_price"><?php echo Mage::helper('core')->currency($originalProduct->getFinalPrice(), true, false); ?></p>
+							<p class="discount"><?php echo $dealInfo->getPercentDiscount(); ?>% OFF</p>
+						<?php } ?>
 					</div>
-				  <div class="clearer"></div>
+						<div class="clearer"></div>
+					</div>
 				</div>
 			</div>
-		</div>
-     </li>      
+		</li>      
      <?php $i++; endforeach; ?> 
  </ul>
- <div class="clearer"></div>
+	<div class="clearer"></div>
 </div>
 
 <div class="row">

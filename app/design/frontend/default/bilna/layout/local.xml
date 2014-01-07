@@ -8,10 +8,11 @@
 	        		]]></text>
         		</action>
         	</block>
-			<action method="addCss"><stylesheet>css/reset.css</stylesheet></action>
+        	<action method="addCss"><stylesheet>css/reset.css</stylesheet></action>
  			<action method="addCss"><stylesheet>css/general.css</stylesheet></action>
             <action method="addCss"><stylesheet>css/header.css</stylesheet></action>
             <action method="addCss"><stylesheet>css/footer.css</stylesheet></action>
+			<action method="addCss"><stylesheet>additional-style-blog.css</stylesheet></action>
             <action method="addItem">
                 <type>skin_js</type>
                 <name>js/jquery.min.js</name>
@@ -81,7 +82,12 @@
             <action method="setTemplate"><template>page/2columns-left.phtml</template></action>
         </reference>
 		<reference name="head">
-            <action method="addCss"><stylesheet>css/category.css</stylesheet></action>			
+            <action method="addCss"><stylesheet>css/category.css</stylesheet></action>	
+            <action method="addCss"><stylesheet>css/jquery-ui.css</stylesheet></action>	
+             <action method="addItem">
+                <type>skin_js</type>
+                <name>js/jquery-ui.min.js</name>
+            </action>		
 		</reference>
 		<reference name="left">
 			<remove name="left.permanent.callout"/>
