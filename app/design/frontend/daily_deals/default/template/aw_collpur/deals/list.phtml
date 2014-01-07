@@ -26,7 +26,7 @@
 ?><div id="messages_product_view"><?php echo $this->getMessagesBlock()->getGroupedHtml() ?></div>
 <?php if($this->isNative()): ?>
 <div class="awcp-navigation">
- <ul>
+ <ul class="row">
     <?php foreach($this->getMenus() as $menu): ?>
        <?php if($this->_tabIsAllowed($menu)): ?>
             <li <?php echo $this->checkCurrentTab($menu['key']); ?>><a href="<?php echo $this->getDealTabUrl($menu['key']); ?>"><?php echo $menu['title']; ?></a></li>
@@ -42,8 +42,10 @@
     <?php return; ?>
 <?php endif; ?>
 
-
+<div class="row">
 <?php echo $this->getChildHtml('available_deals_pager'); ?>
+</div>
+
 <div>
 
 
@@ -58,12 +60,13 @@
 					<div class="column large-7 small-7 medium-7">
 					  <h2 class="awcp-title"><a href="<?php echo $this->getDealPageLink($deal->getId()); ?>"><?php echo $deal->getDealName(); ?></a></h2>
 					  <p class="desc_short_deals">Lorem ipsum dolor sit amet</p>
+					  <div class="price_deals_list">Rp 135,000</div>
 					   <?php if(!$deal->isClosed()): ?>
 							<?php $container = "awcp_timer_".rand(); ?>
 						   <?php if($deal->isNotRunning() && $deal->getAvailableFrom()): ?>
-								<div class="awcp-date" id = "<?php echo $container; ?>"><?php echo $this->getTimeLeftToBuy($deal,$time = 'available_from'); ?></div>
+								<!--<div class="awcp-date" id = "<?php //echo $container; ?>"><?php //echo $this->getTimeLeftToBuy($deal,$time = 'available_from'); ?></div>-->
 							<?php elseif($deal->isRunning() && $deal->getAvailableTo()): ?>
-								<div class="awcp-date" id = "<?php echo $container; ?>"><?php echo $this->getTimeLeftToBuy($deal); ?></div>
+								<!--<div class="awcp-date" id = "<?php //echo $container; ?>"><?php //echo $this->getTimeLeftToBuy($deal); ?></div>-->
 							<?php else: ?>
 								 <div  class="awcp-date awcp-date-empty" id = "<?php echo $container; ?>">&nbsp;</div>
 							<?php endif; ?>
@@ -78,7 +81,7 @@
 					   <?php endif; ?>
 					</div>
 					<div class="column large-5 small-5 medium-5">
-						<button class="button awcp-button" onclick="setLocation('<?php echo $this->getDealPageLink($deal->getId()); ?>')"><span><span><?php echo $this->__('View<br/>This Deal!'); ?></span></span></button>
+						<button class="button awcp-button" onclick="setLocation('<?php echo $this->getDealPageLink($deal->getId()); ?>')"><span><span><?php echo $this->__('BUY NOW'); ?></span></span></button>
 						<p class="product_price">Rp 550.000</p>
 						<p class="discount">50% OFF</p>
 					</div>
@@ -92,7 +95,9 @@
  <div class="clearer"></div>
 </div>
 
+<div class="row">
 <?php echo $this->getChildHtml('available_deals_pager'); ?>
+</div>
  <!-- Incorrect view of buttons in catalog -->
  <style>
  button.button span span {height:auto!important;}

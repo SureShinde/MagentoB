@@ -27,7 +27,7 @@
 
 <?php if ($this->isFeaturedMode()): ?>
     <div class="awcp-navigation">
-        <ul>
+        <ul class="row">
         <?php foreach ($this->getMenus() as $menu): ?>
         <?php if ($this->_tabIsAllowed($menu)): ?>
                 <li <?php echo $this->checkCurrentTab($menu['key']); ?>><a href="<?php echo $this->getDealTabUrl($menu['key']); ?>"><?php echo $menu['title']; ?></a></li>
@@ -37,7 +37,7 @@
             <div class="clearer"></div>
       </div>
 <?php endif; ?>
-
+<div class="row">
 <?php
       $product = $this->getProduct();
 ?>
@@ -246,6 +246,7 @@
 		<?php echo $this->getChildHtml('awgd_addthis') ?>
 		<div class="clearer"></div>
 	</div>
+</div>
 </div>	
      <script type = "text/javascript">
           document.observe("dom:loaded", function() {

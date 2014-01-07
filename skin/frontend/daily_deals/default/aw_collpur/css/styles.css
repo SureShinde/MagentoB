@@ -1,17 +1,20 @@
 /* navigation styles */
-.awcp-navigation {
-    background: transparent url(../images/deal-bg.png) 0 0 repeat-x;
+.awcp-navigation { 
+	background:#fb816c url(../images/dashed_nav.jpg) 0 94% repeat-x;
     width: 100%;
+	margin:0 0 35px;
 }
 
 .awcp-navigation ul {
-    float: left;
-    padding: 6px;
+	width:100%;
 }
 
 .awcp-navigation li {
+	text-transform:uppercase;
+	border-top-left-radius:5px;
+	border-top-right-radius:5px;
     float: left;
-    margin-right: 8px;
+    margin:5px 10px 0 0;
 }
 
 .awcp-navigation li a {
@@ -23,21 +26,25 @@
     line-height: 35px;
     text-decoration: none;
     text-align: center;
+	border-top-left-radius:8px;
+	border-top-right-radius:8px;
 }
 
 .awcp-navigation li.awcp-current,
 .awcp-navigation li:hover {
-    background: transparent url(../images/marker.png) 50% 100% no-repeat;
-    padding-bottom: 16px;
+    margin:5px 10px 0 0;
 }
 
 .awcp-navigation li.awcp-current a {
-    background-color: #7FB93C;
+    background-color: #fff;
+	color:#515151;
     font-weight: bold;
+	text-transform:uppercase;
 }
 
 .awcp-navigation li:hover a {
-    background-color: #7FB93C;
+    background-color: #fff;
+	color:#515151;
 }
 
 /* common mark styles */
@@ -162,10 +169,12 @@
     -webkit-box-shadow:1px 1px 5px #888;
     box-shadow:1px 1px 5px #888;
 	text-shadow:1px 1px 0 #BE6252;
-	border-radius:10px;
-	-webkit-border-radius:10px;
-	-moz-border-radius:10px;
-	border:3px solid #fff;
+	border-radius:5px;
+	-webkit-border-radius:5px;
+	padding:7px 5px;
+	margin:7px 0 0;
+	-moz-border-radius:5px;
+	border:2px solid #fff;
 	background:url(../images/bg_button.jpg) 0 0 repeat-x;
 }
 
@@ -179,7 +188,7 @@ button.awcp-button span span {
     /*background: transparent url(../images/awcp-btn-bg.png) right top no-repeat;*/
 	text-align:center;
     font-size: 12px;
-    font-weight: bold;
+    font-weight: bolder;
     color: #fff;
 }
 
@@ -652,8 +661,10 @@ table.awcp-pricedata tr:nth-child(1) td{
 .awcp-mark-center .desc_short_deals{
 	font-size:12px;
 	color:#fff;
-	min-height:40px;
-	display:table;
+	max-height:20px;
+	overflow:hidden;
+	display:block;
+	margin:0 0 2px;
 }
 .awcp-item .wrap_li{
 	position:relative;
@@ -691,4 +702,9 @@ table.awcp-pricedata tr:nth-child(1) td{
 	-moz-box-shadow:1px 1px 5px #BE6252;
     -webkit-box-shadow:1px 1px 5px #BE6252;
     box-shadow:1px 1px 5px #BE6252;
+}
+.price_deals_list{
+	font-size:1.4rem;
+	font-weight:bold;
+	color:#fff;
 }
