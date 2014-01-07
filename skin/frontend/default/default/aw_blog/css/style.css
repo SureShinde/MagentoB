@@ -18,9 +18,9 @@
 }
 
 .postTitle h3 {
-    font-size: 10px;
+    font-size: 12px;
     margin: 0px;
-    padding-top: 2px;
+    padding-top: 8px;
     padding-right: 0px;
     padding-bottom: 2px;
     padding-left: 0px;
@@ -31,7 +31,19 @@
 }
 
 .postDetails {
+	font-size: 12px;
+    margin: 0px;
+    padding-top: 8px;
+    padding-right: 0px;
+    padding-bottom: 2px;
+    padding-left: 0px;
+}
 
+.postDetails a, .postDetails h4 {
+	color: #484848;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
 }
 
 .postBookmarks {
@@ -68,6 +80,16 @@
 .tags {
     font-weight: bold;
     padding-bottom: 10px;
+	clear: both;
+    display: block;
+}
+
+.tags a {
+	background: #4ec7da;
+	padding: 5px 10px;
+	margin: 2px 0;
+	color: #FFF;
+	font-style: bold;
 }
 
 .tags UL {
@@ -81,8 +103,12 @@
 }
 
 .tags h4 {
-    font-size: 12px;
-    font-weight: bold;
+	padding: 20px 0 0;
+	color: #484848;
+    font-family: 'bebasregular';
+    font-size: 14px;
+    font-weight: normal;
+    text-transform: uppercase;
 }
 
 .menu-tags, .menu-categories, .menu-recent {
@@ -208,4 +234,58 @@ A.awblog_current_comment {
 
 
 
+.blog-post-view .form-list .input-box {
+    clear: both;
+    display: block;
+    width: 90%;
+}
 
+.blog-post-view .form-list input.input-text {
+    margin: 5px 0 15px;
+    padding: 5px;
+    width: 100%;
+}
+
+
+.blog-post-view p.required {
+    color: #EB340A;
+    font-size: 11px;
+    text-align: left;
+	margin: 0 0 20px 0;
+}
+
+.blog-post-view button.button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin: 0;
+    overflow: visible;
+    padding:0;
+    width: auto;
+}
+
+.blog-post-view button.button span {
+    background: none;
+    color: #FFFFFF;
+    display: block;
+    font: bold 12px/19px Arial,Helvetica,sans-serif;
+    text-align: center;
+    white-space: nowrap;
+	padding:0;
+	border: none;
+	margin-bottom: 100px;
+}
+
+.blog-post-view button.button span span {
+	background:#FFA01B;
+	height: auto !important;
+	padding: 10px 80px;
+	display:block;
+}
+
+.blog-post-view .postContent img {
+    padding-bottom: 10px;
+	clear: both;
+	display: block;
+	width: 100%;
+}
