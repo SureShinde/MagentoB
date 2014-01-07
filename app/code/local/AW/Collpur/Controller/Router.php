@@ -41,7 +41,6 @@ class AW_Collpur_Controller_Router extends Mage_Core_Controller_Varien_Router_Ab
     }
 
     public function match(Zend_Controller_Request_Http $request) {
-
         $this->_rewriteResource = Mage::getResourceModel('collpur/rewrite');
 
         if (!Mage::app()->isInstalled()) {
@@ -57,7 +56,6 @@ class AW_Collpur_Controller_Router extends Mage_Core_Controller_Varien_Router_Ab
     }
 
     private function _combineRequest($request) {
-
         $identifier = $request->getPathInfo();
 
         /*
@@ -80,7 +78,7 @@ class AW_Collpur_Controller_Router extends Mage_Core_Controller_Varien_Router_Ab
         /* As a default start page assumed to be featured deal, but if it's unavailable,
          * there is no choice but redirect to the first available list section
          */
-        if ($identifier == '/deals/' || preg_match("#/deals/" . AW_Collpur_Helper_Deals::FEATURED . "#is", $identifier)) {
+        if ($identifier == '/deals/') {
             if (AW_Collpur_Model_Source_Menus::isNotAllowed(AW_Collpur_Helper_Deals::FEATURED) || !Mage::getModel('collpur/deal')->getRandomFeaturedId()) {
                 $startPage = AW_Collpur_Model_Source_Menus::getFirstAvailable();
                 $request->setModuleName('deals')
@@ -95,6 +93,12 @@ class AW_Collpur_Controller_Router extends Mage_Core_Controller_Varien_Router_Ab
                     ->setParam('id', Mage::getModel('collpur/deal')->getRandomFeaturedId())
                     ->setParam('mode', AW_Collpur_Helper_Deals::FEATURED);
             return true;
+        }else if(preg_match("#/deals/" . AW_Collpur_Helper_Deals::FEATURED . "#is", $identifier)){
+        	$request->setModuleName('deals')
+		        	->setControllerName('deals')
+		        	->setActionName('list')
+		        	->setParam('section', AW_Collpur_Helper_Deals::FEATURED);
+        	return true;
         }
 
         /* Handle list category  mode */

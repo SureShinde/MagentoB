@@ -69,6 +69,7 @@ class AW_Collpur_Block_Deals extends AW_Collpur_Block_BaseDeal
             ->addIsActiveFilter();
 
         $section = Mage::app()->getRequest()->getParam('section');
+        if(is_null($section)) $section = AW_Collpur_Helper_Deals::RUNNING;
 
         if ($section == AW_Collpur_Helper_Deals::CLOSED || $this->getCmsmode() == AW_Collpur_Helper_Deals::CLOSED) {
             $dealsCollection->getClosedDeals();
