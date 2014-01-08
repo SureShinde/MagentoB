@@ -132,33 +132,3 @@ button.btn-cart span, button.btn-cart span span {
 @media only screen and (max-width: 479px) { 
 	
 }
-
-
-/* -------blog custom-------- */
-.blog-index-list .main {
-    width: 100%;
-	background:none;
-	display:block;
-	padding: 0 !important;
-}
-
-.blog-index-list .col-main {width:75%;}
-.blog-index-list .col-right {
-    float: right;
-    padding:0 0 0 3%;
-    width: 22%;
-}
-
-.blog-post-view .main {
-    width: 100%;
-	background:none;
-	display:block;
-	padding: 0 !important;
-}
-
-.blog-post-view .col-main {width:75%;}
-.blog-post-view .col-right {
-    float: right;
-    padding:0 0 0 3%;
-    width: 22%;
-}
