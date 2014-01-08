@@ -12,8 +12,19 @@ class Bilna_Paymethod_Block_Form_Vtdirect extends Mage_Payment_Block_Form_Ccsave
         $this->setTemplate('paymethod/form/vtdirect.phtml');
     }
     
-    public function getBaseUrl() {
-        return Mage::getBaseUrl();
+    /**
+     * Retrieve credit card expire months
+     *
+     * @return array
+     */
+    public function getCcMonths() {
+        $months = $this->getData('cc_months');
+        if (is_null($months)) {
+            $months[0] =  $this->__('Month');
+            $months = array_merge($months, $this->_getConfig()->getMonths());
+            $this->setData('cc_months', $months);
+        }
+        return $months;
     }
     
     public function getClientKey() {

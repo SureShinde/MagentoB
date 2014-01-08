@@ -725,74 +725,6 @@ Payment.prototype = {
             alert(Translator.translate('Your order cannot be completed at this time as there is no payment methods available for it.').stripTags());
             return false;
         }
-        
-//        for (var i=0; i<methods.length; i++) {
-//            if (methods[i].checked) {
-//            	checkAfter = false;
-//                
-//                var paymentValue = methods[i].value;
-//            	
-//                if (jQuery("#payment_form_" + paymentValue).find(".cc-issuer-check").length > 0) {
-//                    var cardNo = jQuery("#payment_form_" + paymentValue).find(".cc-issuer-check");
-//                    
-//                    if (jQuery.isNumeric(cardNo.val())) {
-//                        if (cardNo.val().length !== 16) {
-//                            alert(Translator.translate('Credit card number must contain 16 digits.').stripTags());
-//                            return false;
-//                        }
-//                        
-//                        //var baseUrl = window.location.protocol + '//' + window.location.host + '/';
-//                        var ajaxURL = baseUrl + 'paymethod/onepage/bankCheck';
-//                        //var ajaxURL = window.location.protocol+"//"+window.location.host+"/ajaxrequest/checkout/verifyccissuer";
-//                        var loopInLoop = true;
-//                        var returnStat = null;
-//                            
-//                        jQuery.ajax({
-//                            type: "POST",
-//                            async: false,
-//                            url : ajaxURL,
-//                            data: {	card_no: cardNo.val() },
-//                            dataType: 'json',
-//                            success: function(response) {
-//                                if (response.status == true) {
-//                                    //jQuery("#payment_form_" + paymentValue).find("#bin_code").val(response.codes);
-//                                    jQuery('#payment_form_' + paymentValue + ' #' + paymentValue + '_cc_bank').val(response.data.bank);
-//                                    jQuery('#payment_form_' + paymentValue + ' #' + paymentValue + '_cc_type').val(response.data.cc_type);
-//                                    
-//                                    /**
-//                                     * 
-//                                     */
-//                                    
-//                                    checkAfter = true;
-//                                    returnStat = true;
-//                                    loopInLoop = false;
-//                                }
-//                                else {
-//                                    alert(Translator.translate('Invalid first 6 digits for the sellected bank.').stripTags());
-//                                    returnStat = false;
-//                                    loopInLoop = false;
-//                                }
-//                            },
-//                            error: function() {
-//                                alert(Translator.translate('Invalid first 6 digits for the sellected bank.').stripTags());
-//                                returnStat = false;
-//                                loopInLoop = false;
-//                            }
-//                        });
-//
-//                        while (loopInLoop == true) {}
-//                        return returnStat;
-//                    }
-//                    else {
-//                        alert(Translator.translate('Credit card number can only contain numbers').stripTags());
-//                        return false;
-//                    }
-//                }
-//                else {
-//                    return true;
-//            	}
-//            }
-//        }
 
         for (var i=0; i<methods.length; i++) {
             if (methods[i].checked) {
@@ -842,104 +774,78 @@ Payment.prototype = {
             }
         }
         
-        var cardNo = jQuery('#payment_form_' + paymentValue + ' #' + paymentValue + '_cc_number').val();
-        var ajaxURL = baseUrl + 'paymethod/onepage/bankCheck';
-        var responseStatus = false;
-        
-        jQuery.ajax({
-            type: 'POST',
-            async: false,
-            url : ajaxURL,
-            data: { card_no: cardNo },
-            dataType: 'json',
-            success: function(response) {
-                if (response.status == true) {
-                    jQuery('#payment_form_' + paymentValue + ' #' + paymentValue + '_cc_bank').val(response.data.bank_code);
-                    jQuery('#payment_form_' + paymentValue + ' #' + paymentValue + '_cc_type').val(response.data.cc_type);
-                    responseStatus = true;
-                }
-                else {
+        if (paymentValue != 'vtdirect') {
+            responseStatus = true;
+        }
+        else {
+            var cardNo = jQuery('#payment_form_' + paymentValue + ' #' + paymentValue + '_cc_number').val();
+            var ajaxURL = baseUrl + 'paymethod/onepage/bankCheck';
+            var responseStatus = false;
+
+            jQuery.ajax({
+                type: 'POST',
+                async: false,
+                url : ajaxURL,
+                data: { card_no: cardNo },
+                dataType: 'json',
+                success: function(response) {
+                    if (response.status == true) {
+                        jQuery('#payment_form_' + paymentValue + ' #' + paymentValue + '_cc_bank').val(response.data.bank_code);
+                        jQuery('#payment_form_' + paymentValue + ' #' + paymentValue + '_cc_type').val(response.data.cc_type);
+                        responseStatus = true;
+                    }
+                    else {
+                        alert(Translator.translate('Please enter a valid credit card number.').stripTags());
+                        return false;
+                    }
+                },
+                error: function() {
                     alert(Translator.translate('Please enter a valid credit card number.').stripTags());
                     return false;
                 }
-            },
-            error: function() {
-                alert(Translator.translate('Please enter a valid credit card number.').stripTags());
-                return false;
-            }
-        });
+            });
+        }
         
         return responseStatus;
     },
     
-    //_cardSet: function() {
-    //    return {
-    //        'card_number': jQuery('input.card-number').val(),
-    //        'card_exp_month': jQuery('select.card-expiry-month').val(),
-    //        'card_exp_year': jQuery('select.card-expiry-year').val(),
-    //        'card_cvv': jQuery('input.card-cvv').val()
-    //    }
-    //},
-    //
-    //_success: function() {
-    //    //jQuery('#token_id').val(d.data.token_id);
-    //    alert('oke');
-    //    //jQuery('#payment-form')[0].submit();
-    //},
-    //
-    //_error: function() {
-    //    alert('error');
-    //    //alert(d.message);
-    //    return false;
-    //},
-    
-    getVtdirectToken: function() {
-        //Veritrans.client_key = vtDirectClientKey;
-        //var varibel = Veritrans.tokenGet(this._cardSet(), this._success(), this._error());
-        //console.log(varibel);
-        
-        peritrans.getTokenVtdirect;
-
-        
-
-//        function _success(d) {
-//            $('#token_id').val(d.data.token_id); // store token data in input #token_id
-//            $("#payment-form")[0].submit(); //submits Token to merchant server
-//        };
-//
-//        function _error(d) {
-//            alert(d.message); // please customize the error
-//            $('.submit-button').removeAttr("disabled");
-//        };
-//
-//        $("#payment-form").submit(function(event) {
-//            $('.submit-button').attr("disabled", "disabled"); // disable the submit button
-//            Veritrans.tokenGet(_cardSet, _success, _error);
-//            return false;
-//        });
+    savePayment: function() {
+        checkout.setLoadWaiting('payment');
+        var request = new Ajax.Request(
+            this.saveUrl, {
+                method: 'post',
+                onComplete: this.onComplete,
+                onSuccess: this.onSave,
+                onFailure: checkout.ajaxFailure.bind(checkout),
+                parameters: Form.serialize(this.form)
+            }
+        );
     },
 
     save: function() {
-        if (checkout.loadWaiting != false) return;
+        if (checkout.loadWaiting != false) {
+            return;
+        }
         
         var validator = new Validation(this.form);
         
         if (this.validate() && validator.validate()) {
             if (this.bankValidate()) {
-                if (this.getVtdirectToken(this.form)) {
-                    //alert('oke');
+                if (this.currentMethod == 'vtdirect') {
+                    Veritrans.tokenGet(_cardSet, _success, _error);
                 }
-                
-                checkout.setLoadWaiting('payment');
-                var request = new Ajax.Request(
-                    this.saveUrl, {
-                        method: 'post',
-                        onComplete: this.onComplete,
-                        onSuccess: this.onSave,
-                        onFailure: checkout.ajaxFailure.bind(checkout),
-                        parameters: Form.serialize(this.form)
-                    }
-                );
+                else {
+                    checkout.setLoadWaiting('payment');
+                    var request = new Ajax.Request(
+                        this.saveUrl, {
+                            method: 'post',
+                            onComplete: this.onComplete,
+                            onSuccess: this.onSave,
+                            onFailure: checkout.ajaxFailure.bind(checkout),
+                            parameters: Form.serialize(this.form)
+                        }
+                    );
+                }
             }
         }
     },
@@ -1065,35 +971,30 @@ Review.prototype = {
     isSuccess: false
 }
 
-var peritrans = function() {
-//jQuery(function() {
-    Veritrans.client_key = vtDirectClientKey;
 
-    function _cardSet() {
-        return {
-            'card_number': jQuery('input.card-number').val(),
-            'card_exp_month': jQuery('select.card-expiry-month').val(),
-            'card_exp_year': jQuery('select.card-expiry-year').val(),
-            'card_cvv': jQuery('input.card-cvv').val()
-        }
-    };
+Veritrans.client_key = vtDirectClientKey; // please add client-key from veritrans
 
-    function _success(d) {
-        alert(d.data.token_id);
-        $('#token_id').val(d.data.token_id); // store token data in input #token_id
-        //$("#payment-form")[0].submit(); //submits Token to merchant server
-        return true;
-    };
-
-    function _error(d) {
-        alert(d.message); // please customize the error
-        //$('.submit-button').removeAttr("disabled");
-    };
-
-    function getTokenVtdirect() {
-        //$('.submit-button').attr("disabled", "disabled"); // disable the submit button
-        Veritrans.tokenGet(_cardSet, _success, _error);
-        
-        return false;
+function _cardSet() {
+    return {
+        "card_number": jQuery('input.card-number').val(),
+        "card_exp_month": jQuery('select.card-expiry-month').val(),
+        "card_exp_year": jQuery('select.card-expiry-year').val(),
+        "card_cvv": jQuery('input.card-cvv').val()
     }
-}();
+};
+
+function _success(d) {
+    if (d.data.token_id) {
+        jQuery('#token_id').val(d.data.token_id); // store token data in input #token_id
+        
+        payment.savePayment();
+        
+        return true;
+    }
+    
+    return false;
+};
+
+function _error(d) {
+    alert(d.message); // please customize the error
+};

@@ -191,6 +191,26 @@
                 <payment_action>authorize</payment_action>
                 <allowspecific>0</allowspecific>
             </vtdirect>
+            
+            <anzvisa>
+                <active>1</active>
+                <model>paymethod/method_anzvisa</model>
+                <order_status>pending</order_status>
+                <title>Credit Card (ANZ Visa)</title>
+                <cctypes>VI</cctypes>
+                <payment_action>authorize</payment_action>
+                <allowspecific>0</allowspecific>
+            </anzvisa>
+            
+            <othervisa>
+                <active>1</active>
+                <model>paymethod/method_othervisa</model>
+                <order_status>pending</order_status>
+                <title>Credit Card (Other Visa)</title>
+                <cctypes>VI</cctypes>
+                <payment_action>authorize</payment_action>
+                <allowspecific>0</allowspecific>
+            </othervisa>
         </payment>
     </default>
 </config>

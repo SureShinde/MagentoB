@@ -81,6 +81,9 @@ class Bilna_Paymethod_Model_Method_Vtdirect extends Mage_Payment_Model_Method_Cc
      * @see examples of transaction specific public methods such as
      * authorize, capture and void in Mage_Paygate_Model_Authorizenet
      */
+    public function getOrderPlaceRedirectUrl() {
+        return Mage::getUrl('paymethod/vtdirect/processing', array ('_secure' => true));
+    }
     
     public function getCode() {
         if (empty ($this->_code)) {
