@@ -23,7 +23,13 @@
  * @copyright  Copyright (c) 2010-2012 aheadWorks Co. (http://www.aheadworks.com)
  * @license    http://ecommerce.aheadworks.com/AW-LICENSE.txt
  */
-?><div id="messages_product_view"><?php echo $this->getMessagesBlock()->getGroupedHtml() ?></div>
+?>
+<script type="text/javascript" src="/js/zurb/foundation/foundation.min.js"></script>
+<script type="text/javascript" src="/js/zurb/foundation/foundation.orbit.js"></script>
+<script>
+  jQuery(document).foundation();
+</script>
+<div id="messages_product_view"><?php echo $this->getMessagesBlock()->getGroupedHtml() ?></div>
 <div class>
 </div>
 <?php //if($this->isNative()): ?>
