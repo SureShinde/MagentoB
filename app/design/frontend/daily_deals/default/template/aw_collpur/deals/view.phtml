@@ -167,7 +167,7 @@
                                     <div class="awcp-mark-right">
                                         <div class="awcp-mark-center">
                                             <div class="content">
-                                                <div class="awcp-bought"><?php echo $this->__('SOLD : %s', $this->getPurchasesCount($deal->getId())); ?></div>
+                                                <div class="awcp-bought"><?php echo $this->__('SOLD :<span> %s </span> ', $this->getPurchasesCount($deal->getId())); ?></div>
                                                 <div class="awcp-status"><?php echo $this->__('%s LEFT', $this->getPurchasesToReach($deal)); ?></div>
                                             </div>
                                         </div>
@@ -219,31 +219,8 @@
 </div>
 <div class="large-12 medium-12 columns desc_deals">
 	<div class="awcp-full-description">
-		<div class="large-4 medium-4 small-12 columns desc_one">
 		   <?php echo $this->filter($deal->getFullDescription()); ?>
-		</div>
-		<div class="large-4 medium-4 small-12 columns desc_two">
-			<h2> What We Love About This Deal</h2>
-		   <ol>
-				<li>Dilengkapi dengan LED indikator temperatur.</li>
-				<li>Alat pelurus dan pegeriting rambut.</li>
-				<li>Dilengkapi dengan sikat dan silinder yang dapat berputar.</li>
-				<li>Material: Ceramic Tourmaline Floating.</li>
-				<li>Tegangan listrik: 130 Watt.</li>
-				<li>Voltage: 100-240V ac/50-60Hz.</li>
-				<li>Memiliki 3 pengaturan panas yaitu suhu rendah, sedang dan tinggi.</li>
-				<li>Akan mati secara otomatis apabila tidak dipakai selama 30 menit.</li>
-		   </ol>
-		</div>
-		<div class="large-4 medium-4 small-12 columns desc_three">
-			<h2>What'S IN THE BOX</h2>
-		    <ol>
-				<li>Dilengkapi dengan LED indikator temperatur.</li>
-				<li>Alat pelurus dan pegeriting rambut.</li>
-				<li>Dilengkapi dengan sikat dan silinder yang dapat berputar.</li>
-				<li>Material: Ceramic Tourmaline Floating.</li>
-		   </ol>
-		</div>
+		
 	</div>
 	<div class="share">
 		<?php echo $this->getChildHtml('awgd_addthis') ?>

@@ -60,7 +60,7 @@
 
 .awcp-deal .content {
     text-align: left;
-    color: #fff;
+    color: #6f6f6f;
 }
 
 /* product page marks */
@@ -139,7 +139,7 @@
 }
 
 .awcp-category-grid .awcp-title a {
-    color: #fff;
+    color: #6f6f6f;
     font-size: 18px;
     font-weight: bold;
     text-decoration: none;
@@ -386,6 +386,7 @@ table.awcp-pricedata th.last {
 }
 
 .awcp-deal-mark1 .awcp-status {
+	color:#f75a2f;
     font-size: 24px;
     font-weight: bold;
 }
@@ -418,7 +419,7 @@ table.awcp-pricedata th.last {
 .awcp-deal-mark3 .awcp-bought {
 	display:table;
     font-weight: bold;
-    font-size: 24px;
+    font-size: 12px;
 	float:left;
 }
 
@@ -426,6 +427,7 @@ table.awcp-pricedata th.last {
     font-size: 24px;
     font-weight: bold;
 	display:table;
+	color:#f75a2f;
 	float:right;
 }
 
@@ -433,6 +435,8 @@ table.awcp-pricedata th.last {
     /*margin-left: 261px;
     float: left;*/
     width: 100%;
+	background:#f75a2f;
+	padding:0 10px;
 	border-bottom:1px solid #fff;
 }
 
@@ -577,7 +581,7 @@ LI#googleplusli {
 	text-shadow:2px 2px 0 #BE6252;
 	float:right;
 	padding:7px 30px;
-	margin:10px 0 20px;
+	margin:10px 10px 20px;
 	border-radius:10px;
 	-webkit-border-radius:10px;
 	-moz-border-radius:10px;
@@ -603,9 +607,9 @@ LI#googleplusli {
 	font-size:12px;
 }
 .left_detail{
-	padding-top:0.9375rem;
+	padding: 0;
 	color:#fff;
-	background-color:#fb816c;
+	background-color:#e0e0e0;
 }
 table.awcp-pricedata tr:nth-child(2){
 	background:none;
@@ -711,6 +715,14 @@ table.awcp-pricedata tr:nth-child(1) td{
 	color:#fff;
 }
 
+.awcp-product-name{
+	padding:10px;
+	background:#f75a2f;
+}
+.awcp-deal-mark3 .awcp-bought span{
+	color:#f75a2f;
+	font-size:24px
+}
 /*slider*/
 .wrap{
 	margin:0 auto;
