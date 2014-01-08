@@ -144,7 +144,12 @@
     font-weight: bold;
     text-decoration: none;
 }
-
+.awcp-category-grid .awcp-title-list	 a{
+    font-size: 18px;
+    font-weight: bold;
+    text-decoration: none;
+	color:#fff;
+}
 .awcp-category-grid .awcp-title a:hover {
     color: #fff;
     font-size: 18px;
@@ -723,6 +728,7 @@ table.awcp-pricedata tr:nth-child(1) td{
 	color:#f75a2f;
 	font-size:24px
 }
+
 /*slider*/
 .wrap{
 	margin:0 auto;
@@ -805,6 +811,9 @@ table.awcp-pricedata tr:nth-child(1) td{
 	font-size:26px;
 	line-height:26px;
 	}
+.price_deals_slider{
+
+}
 .price_deals_slider p:nth-child(1){
 	font-weight:bold;
 	color:#ffa01b;
@@ -845,4 +854,12 @@ table.awcp-pricedata tr:nth-child(1) td{
 .date_slider_deals{
 	border-left:1px solid #fff !important;
 	border-right:1px solid #fff !important;}
+.thumb_image_slider{
+	width:94px;
+	height:98px;
+	float:left;
+}
+.thumb_image_slider img{
+	height:100%;
+}
 /*end slider*/
