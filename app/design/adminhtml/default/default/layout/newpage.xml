@@ -1,8 +1,0 @@
-<?xml version="1.0"?>
-<layout version="0.1.0">
-  <newpage_adminhtml_pagenew_index>
-	<reference name="content">
-	  <block type="newpage/adminhtml_pagenew" name="pagenew" />
-	</reference>
-  </newpage_adminhtml_pagenew_index>
-</layout>

@@ -29,11 +29,11 @@
             <remove name="awis.content.top" />
         </reference>
     </shipping_tracking_popup>
-	<awcollpur_deals_list>
+	<!--<awcollpur_deals_list>
         <reference name="content">
             <block type="awislider/block" name="aisblock4" after="-"> 
 			<action method="setId"><id>new_slider</id></action> 
 		</block> 
         </reference>
-    </awcollpur_deals_list>
+    </awcollpur_deals_list>-->
 </layout>
