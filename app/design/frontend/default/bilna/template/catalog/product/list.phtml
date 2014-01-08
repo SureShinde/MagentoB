@@ -35,6 +35,8 @@
     $_productCollection=$this->getLoadedProductCollection();
     $_helper = $this->helper('catalog/output');
 ?>
+<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('banner_diapering')->toHtml() ?>
+<div class="clear"></div>
 <div class="featured-product-catalog">
 	<h2><?php echo $this->__('Featured Product') ?></h2>
 	<div class="featured-category"><?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('featured_category')->toHtml() ?></div>

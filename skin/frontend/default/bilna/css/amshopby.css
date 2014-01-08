@@ -50,15 +50,15 @@ clear:both; font-size:0; line-height:0; height:0; overflow:hidden; }
 div.block-layered-nav dt {
  cursor:pointer; 
  padding-left:15px;
- background:url(../images/amshopby-expanded.gif) center left no-repeat;
+ /*background:url(../images/amshopby-expanded.gif) center left no-repeat;*/
 }
 div.block-layered-nav dt.amshopby-collapsed {background:url(../images/amshopby-collapsed.gif) center left no-repeat}
 
 
 div.block-layered-nav div.amshopby-slider {
-	 position:relative; margin:10px auto 5px auto; z-index:9; height:18px;  background: url(../images/amshopby-slider-bg.gif) no-repeat 50% 50%; cursor:pointer;
+	 position:relative; margin:10px auto 5px auto; z-index:9; height:18px;  background: /*url(../images/amshopby-slider-bg.gif)*/url(../images/slide-bar.png) repeat-x 50% 50%; cursor:pointer; overflow: hidden;
 }
-div.block-layered-nav div.amshopby-slider div.handle {width:8px; top:3px; height:14px; background: transparent url(../images/amshopby-hadle.png) no-repeat; position: absolute; cursor:move; z-index: 2;}
+div.block-layered-nav div.amshopby-slider div.handle {width:14px; top:3px; height:14px; background: transparent /*url(../images/amshopby-hadle.png)*/url(../images/slider.png) no-repeat; position: absolute; cursor:move; z-index: 2;}
 
 /*
  * Slider labels
@@ -164,7 +164,7 @@ div.amshopby-overlay div {
  */
 .amshopby-slider-bar {
 	position:absolute; 
-	background: #999; 
+	background: url(../images/slide-bar-current.png) repeat-x 50% 50%; 
 	height: 6px; 
 	top: 6px; 
 	z-index: 1;  

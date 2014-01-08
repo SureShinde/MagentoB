@@ -126,16 +126,42 @@ ol.added-menu li a.link-onsale {
 .category-description {
 	display: none;
 }
+.show-filter {
+	position: absolute;
+	bottom: -60px;
+	left: 0;
+	background: #4ec8da;
+	z-index: 99;
+	-webkit-border-radius: 0 10px 10px 0;
+	-moz-border-radius: 0 10px 10px 0;
+	border-radius: 0 10px 10px 0;
+	padding: 20px 0 20px 0;
+	width: 100%;
+	text-align: right;
+}
+a.triger-showfilter, .featured-product-catalog h2, .toolbar-bottom a.link-catalog-nav {
+	color: #fff;
+	font-family: 'bebasregular';
+	text-transform: uppercase;
+	letter-spacing: 1px;
+}
+a.triger-showfilter {
+	display: block;
+	font-size: 14px;
+	background: url(../images/arrow-filter.png) no-repeat right center;
+	padding-right: 20px;
+	margin-right: 15px;
+}
+.category-image {
+	float: left;
+	width: auto;
+}
 .featured-product-catalog {
 	padding-bottom: 20px;
 	background: url(../images/label-featured-product.png) no-repeat center top, url(../images/dash-orange.png) repeat-x left 25px, url(../images/dash-orange.png) repeat-x left bottom;
 }
 .featured-product-catalog h2 {
-	color: #fff;
 	font-size: 24px;
-	font-family: 'bebasregular';
-	text-transform: uppercase;
-	letter-spacing: 1px;
 	text-align: center;
 	padding: 13px 0;
 	margin: 0 0 20px 0;
@@ -196,12 +222,7 @@ ol.added-menu li a.link-onsale {
 }
 .toolbar-bottom a.link-catalog-nav {
 	display: block;
-	color: #fff;
-	text-transform: uppercase;
 	font-size: 14px;
-	font-family: 'bebasregular';
-	font-weight: normal;
-	letter-spacing: 1px;
 	background-color: #9b9b9b;
 	background-repeat: no-repeat;
 	width: 100px;

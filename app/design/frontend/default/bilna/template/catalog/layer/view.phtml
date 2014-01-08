@@ -32,16 +32,16 @@
  */
 ?>
 <script type="text/javascript">
-		$j(document).ready(function(){
-			$j('.brand + dd').addClass("tiny");
-			$j('.tiny div').addClass("viewport");
-			$j('.tiny div ol').addClass("overview");
-			$j('.tiny').tinyscrollbar();	
-		});
-	</script>
+	$j(document).ready(function(){
+		$j('.brand + dd').addClass("tiny");
+		$j('.tiny div').addClass("viewport");
+		$j('.tiny div ol').addClass("overview");
+		$j('.tiny').tinyscrollbar();	
+	});
+</script>
 <?php if($this->canShowBlock()): ?>
 <?php $currentCategory=Mage::getSingleton('catalog/layer')->getCurrentCategory();?>
-<?php $navCategory = $currentCategory ?>
+<?php $navCategory = $currentCategory->getId(); ?>
 <div class="block block-layered-nav">
     <div class="block-title">
         <strong><span><?php echo $this->__('Shop By') ?></span></strong>
@@ -69,51 +69,12 @@
             <script type="text/javascript">decorateDataList('narrow-by-list')</script>
         <?php endif; ?>
     </div>
-    <div class="demo">
-	    <p><label for="amount"><?php echo $this->__('Price') ?></label></p>
-	    <div id="slider-range"></div>
-	    <input type="text" id="amount" readonly="true" />
-    </div>
-    <script type="text/javascript">
-    $j(window).load(function(){
-	    function showProducts(minPrice, maxPrice) {
-	    $j("#products li").hide().filter(function() {
-	        var price = parseInt($j(this).data("price"), 10);
-	        return price >= minPrice && price <= maxPrice;
-	    }).show();
-	}
-	
-	$j(function() {
-	    var options = {
-	        range: true,
-	        min: 0,
-	        max: 500,
-	        values: [50, 300],
-	        slide: function(event, ui) {
-	            var min = ui.values[0],
-	                max = ui.values[1];
-	
-	            $j("#amount").val("Rp. " + min + " to Rp. " + max);
-	            showProducts(min, max);
-	        }
-	    }, min, max;
-	
-	    $j("#slider-range").slider(options);
-	
-	    min = $j("#slider-range").slider("values", 0);
-	    max = $j("#slider-range").slider("values", 1);
-	
-	    $j("#amount").val("Rp. " + min + " to Rp. " + max);
-	
-	    showProducts(min, max);
-	});
-	});
-    </script>
-    <?php $category=Mage::getModel('catalog/category')->load(35); ?>
+    <?php $category=Mage::getModel('catalog/category')->load($navCategory); ?>
 	<div class="category-desc">
 		<span><?php echo $category->getName(); ?></span>
 		<p><?php echo $category->getDescription(); ?></p>
 	</div>
     <div class="left-banner-category"><?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('left_banner_category')->toHtml() ?></div>
 </div>
+<div class="show-filter"><a href="javascript:void(0)" class="triger-showfilter"><?php echo $this->__('Show Filters') ?></a></div>
 <?php endif; ?>
