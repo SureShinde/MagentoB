@@ -62,6 +62,9 @@ Default layout, loads most of the pages
         <reference name="root">
             <action method="setTemplate"><template>page/1column-deals.phtml</template></action>
         </reference>
+		<reference name="content">
+            <block type="collpur/deals" name="cms_deals_homepage" cmsmode="active"></block>
+        </reference>
     </cms_index_index>
 
     <cms_index_defaultindex>

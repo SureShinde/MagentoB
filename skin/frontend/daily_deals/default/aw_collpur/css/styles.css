@@ -99,7 +99,7 @@
 /* category */
 .awcp-category-grid li.awcp-item {
     display: block;
-    float: left;
+    float: left !important;
     margin-top: 7px;
     margin-bottom: 7px;
 	position:relative;
@@ -728,6 +728,13 @@ table.awcp-pricedata tr:nth-child(1) td{
 	background:#8c8c8c; 
 	height:105px;
 	padding:3px;
+}
+.thumb_area .thumb_slider a{
+	display:block;
+	background:none;
+	height:100px;
+	width:100%;
+	position:absolute;
 }
 .thumb_area .current{
 	padding:0 3px;
