@@ -54,13 +54,10 @@
     $dealInfo = $this->getDealPricesSpare($originalProduct, $product);
     $container = "awcp_timer_" . rand();
 ?>
-
-        
-
 <div class="large-4 medium-4 columns left_detail">
 			<div class="awcp-product-name">
             <h1><?php echo $deal->getDealName(); ?></h1>
-			<p>Lorem ipsum dolor sit amet, lorem ipsum dolor sit amet, lorem ipsum dolor sit amet.</p>
+			<p><?php echo $this->filter($deal->getDescription()); ?></p>
 			</div>
 			<!--<div class="awcp-short-description">
 				<?php //echo $this->filter($deal->getDescription()); ?>
@@ -221,6 +218,7 @@
 	<div class="awcp-full-description">
 		   <?php echo $this->filter($deal->getFullDescription()); ?>
 		
+
 	</div>
 	<div class="share">
 		<?php echo $this->getChildHtml('awgd_addthis') ?>

@@ -33,7 +33,7 @@ class AW_Collpur_Block_Deals extends AW_Collpur_Block_BaseDeal
 
     protected $_awcpStoreModel;
     protected $_currencyHelper;
-//     protected $_dealModel;
+    protected $_dealModel;
 //     protected $_cmsdeal;
 //     protected $_bridge;
 
@@ -48,7 +48,7 @@ class AW_Collpur_Block_Deals extends AW_Collpur_Block_BaseDeal
 
         $this->_awcpStoreModel = Mage::app()->getStore();
         $this->_currencyHelper = Mage::helper('core');
-//         $this->_dealModel = Mage::getModel('collpur/deal');
+        $this->_dealModel = Mage::getModel('collpur/deal');
 //         $this->_bridge = Mage::getBlockSingleton('collpur/deals');
     }
 
@@ -86,6 +86,22 @@ class AW_Collpur_Block_Deals extends AW_Collpur_Block_BaseDeal
         } else {
             return new Varien_Data_Collection;
         }
+
+        return $dealsCollection;
+    }
+
+    public function getPurchasesCount($dealId) {
+        return $this->_dealModel->load($dealId)->getPurchasesCount();
+    }
+
+    public function getFeaturedSliders()
+    {
+        $dealsCollection = Mage::getModel('collpur/deal')
+            ->getCollection()
+            ->addIsActiveFilter()
+        	->getActiveDeals()
+        	->addFeaturedFilter();
+//         	->setPage(0, 4);
 
         return $dealsCollection;
     }
