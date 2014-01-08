@@ -41,6 +41,7 @@
 	</script>
 <?php if($this->canShowBlock()): ?>
 <?php $currentCategory=Mage::getSingleton('catalog/layer')->getCurrentCategory();?>
+<?php $navCategory = $currentCategory ?>
 <div class="block block-layered-nav">
     <div class="block-title">
         <strong><span><?php echo $this->__('Shop By') ?></span></strong>

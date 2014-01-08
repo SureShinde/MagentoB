@@ -28,8 +28,6 @@
 	margin-bottom: 5px;
 }
 .block-layered-nav dd li {
-	background:url(../images/checkbox.png) no-repeat left top;
-	padding-left: 20px;
 	margin-top: 3px;
 }
 .block-layered-nav dt.category + dd li {
@@ -42,6 +40,7 @@
 }
 .block-layered-nav dt.category + dd li a {
 	display: block;
+	float: none;
 	background: url(../images/arrow-2.png) no-repeat right center;
 }
 .block-layered-nav dt.category + dd li a.bestseller, .block-layered-nav dt.category + dd li a.whatsnew, .block-layered-nav dt.category + dd li a.onsale {

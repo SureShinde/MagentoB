@@ -14,13 +14,19 @@
         ))): ?>
     <?php foreach ($this->getItems() as $_item): ?>
         <li class="amshopby-cat amshopby-cat-level-<?php echo max(1, $_item->getLevel())?>">
+        	<?php $trim = str_replace( " ", "", $_item->getLabel()) ?>
             <?php if ($_item->getIsSelected()) :?>
                 <?php echo $_item->getLabel() ?>
             <?php else:?>
-                <a href="<?php echo $this->urlEscape($_item->getUrl()) ?>"><?php echo $_item->getLabel() ?></a>
-            <?php endif;?>
-            <?php if ($_item->getCount() > 0):?>
-                (<?php echo $_item->getCount() ?>)
+                <a href="<?php echo $this->urlEscape($_item->getUrl()) ?>" class="<?php echo strtolower($trim) ?>">
+                	<?php if(strtolower($trim)=='whatsnew'):?>
+				          	<?php echo $this->__('Whats New?')?>
+		        	<?php elseif(strtolower($trimmed)=='onsale'):?>
+		        			<?php echo $this->__('On Sale!')?>
+		        	<?php else:?>
+		        			<?php echo $_item->getLabel() ?>
+				    <?php endif;?>
+                </a>
             <?php endif;?>
         </li>
     <?php endforeach ?>
