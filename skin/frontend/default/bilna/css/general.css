@@ -148,3 +148,17 @@ button.btn-cart span, button.btn-cart span span {
     padding:0 0 0 3%;
     width: 22%;
 }
+
+.blog-post-view .main {
+    width: 100%;
+	background:none;
+	display:block;
+	padding: 0 !important;
+}
+
+.blog-post-view .col-main {width:75%;}
+.blog-post-view .col-right {
+    float: right;
+    padding:0 0 0 3%;
+    width: 22%;
+}

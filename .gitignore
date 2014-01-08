@@ -9,7 +9,6 @@ app/code/community/Phoenix/
 app/code/core/
 app/design/adminhtml/default/find/
 app/design/frontend/default/blank/
-
 app/design/frontend/default/iphone/
 app/design/frontend/default/modern/
 app/design/install/
@@ -44,6 +43,7 @@ errors/
 favicon.ico
 get.php
 index.php.sample
+<<<<<<< HEAD
 install.php
 js/blank.html
 js/calendar/
@@ -105,4 +105,8 @@ skin/frontend/default/modern/
 skin/frontend/enterprise
 skin/install/
 var/
+=======
+/var
+/media
+>>>>>>> 6e4cd50f220510d392f180c49ccc5c7949383ec6
 wp/wp-config.php
