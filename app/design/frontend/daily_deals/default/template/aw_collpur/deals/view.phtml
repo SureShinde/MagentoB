@@ -164,7 +164,7 @@
                                     <div class="awcp-mark-right">
                                         <div class="awcp-mark-center">
                                             <div class="content">
-                                                <div class="awcp-bought"><?php echo $this->__('SOLD : %s', $this->getPurchasesCount($deal->getId())); ?></div>
+                                                <div class="awcp-bought"><?php echo $this->__('SOLD :<span> %s </span> ', $this->getPurchasesCount($deal->getId())); ?></div>
                                                 <div class="awcp-status"><?php echo $this->__('%s LEFT', $this->getPurchasesToReach($deal)); ?></div>
                                             </div>
                                         </div>
@@ -216,7 +216,9 @@
 </div>
 <div class="large-12 medium-12 columns desc_deals">
 	<div class="awcp-full-description">
-	   <?php echo $this->filter($deal->getFullDescription()); ?>
+		   <?php echo $this->filter($deal->getFullDescription()); ?>
+		
+
 	</div>
 	<div class="share">
 		<?php echo $this->getChildHtml('awgd_addthis') ?>
