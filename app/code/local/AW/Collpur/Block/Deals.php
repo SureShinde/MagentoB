@@ -100,8 +100,8 @@ class AW_Collpur_Block_Deals extends AW_Collpur_Block_BaseDeal
             ->getCollection()
             ->addIsActiveFilter()
         	->getActiveDeals()
-        	->addFeaturedFilter();
-//         	->setPage(0, 4);
+        	->addFeaturedFilter()
+        	->setPageSize(4);
 
         return $dealsCollection;
     }

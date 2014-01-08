@@ -50,10 +50,11 @@ Default layout, loads most of the pages
                 <action method="addJs"><script>mage/cookies.js</script></action>
 				
 				<!--zurb-->
-				 <action method="addJs"><script>zurb/foundation.min.js</script></action>
                 <action method="addJs"><script>zurb/modernizr.js</script></action>
+				<action method="addJs"><script>zurb/vendor/jquery.js</script></action>
+                <action method="addJs"><script>zurb/vendor/fastclick.js</script></action>
+				<action method="addJs"><script>zurb/foundation/foundation.min.js</script></action>
 				<action method="addJs"><script>zurb/foundation/foundation.orbit.js</script></action>
-				<action method="addJs"><script>zurb/jquery.js</script></action>
 				<!--zurb-->
 
                 <block type="page/js_cookie" name="js_cookies" template="page/js/cookie.phtml"/>
