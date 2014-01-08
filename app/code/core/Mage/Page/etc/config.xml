@@ -65,6 +65,11 @@
                     <template>page/2columns-right.phtml</template>
                     <layout_handle>page_two_columns_right</layout_handle>
                 </two_columns_right>
+				<two_columns_right_blog module="page" translate="label">
+                    <label>2 columns with right bar blog</label>
+                    <template>page/2columns-right-blog.phtml</template>
+                    <layout_handle>page_two_columns_right_blog</layout_handle>
+                </two_columns_right_blog>
                 <three_columns module="page" translate="label">
                     <label>3 columns</label>
                     <template>page/3columns.phtml</template>
