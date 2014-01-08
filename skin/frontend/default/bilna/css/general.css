@@ -24,6 +24,7 @@ body {
 .col2-left-layout .main {}
 .col2-left-layout .main .col-left.sidebar {
 	width: 167px;
+	position:relative;
 }
 .col2-left-layout .main .col-main {
 	width: 1032px;
