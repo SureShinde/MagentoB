@@ -42,8 +42,8 @@ class AW_Collpur_Helper_Deals extends Mage_Core_Helper_Abstract
         }
         
         $amount = $gmtTo - $now; 
-        $days = floor($amount / 86400);
-        $amount = $amount % 86400;
+//         $days = floor($amount / 86400);
+//         $amount = $amount % 86400;
         $hours = floor($amount / 3600);
         $amount = $amount % 3600;
         $minutes = floor($amount / 60);
@@ -62,7 +62,8 @@ class AW_Collpur_Helper_Deals extends Mage_Core_Helper_Abstract
         $minutesPHP = $minutes > 1 || $minutes == 0 ? Mage::helper('collpur')->__('minutes') : Mage::helper('collpur')->__('minute');
         $secondsPHP = $seconds > 1 || $seconds == 0 ? Mage::helper('collpur')->__('seconds') : Mage::helper('collpur')->__('second');
 
-        return "{$days} $daysPHP {$hours}:{$minutes}"; //{seconds};
+//         return "{$days} $daysPHP {$hours}:{$minutes}:{$seconds}"; //{seconds};
+        return "{$hours} : {$minutes} : {$seconds}"; //{seconds};
     }
 
     public static function setActiveMenus($menu) {

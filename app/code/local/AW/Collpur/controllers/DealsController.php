@@ -40,14 +40,14 @@ class AW_Collpur_DealsController extends Mage_Core_Controller_Front_Action {
             return;
         }
 
-        if (!$section || $section == AW_Collpur_Helper_Deals::FEATURED) {
-            $startPage = AW_Collpur_Model_Source_Menus::getFirstAvailable();
-            if ($startPage == AW_Collpur_Helper_Deals::FEATURED) {
-                $this->getResponse()->setRedirect(Mage::getUrl('deals/deals/view', array('_store' => Mage::app()->getStore()->getId(), 'id' => Mage::getModel('collpur/deal')->getRandomFeaturedId(), 'mode' => AW_Collpur_Helper_Deals::FEATURED)));
-            } else {
-                $this->getResponse()->setRedirect(Mage::getUrl('deals/deals/list', array('_store' => Mage::app()->getStore()->getId(), 'section' => $startPage)));
-            }
-        } else {
+//         if (!$section || $section == AW_Collpur_Helper_Deals::FEATURED) {
+//             $startPage = AW_Collpur_Model_Source_Menus::getFirstAvailable();
+//             if ($startPage == AW_Collpur_Helper_Deals::FEATURED) {
+//                 $this->getResponse()->setRedirect(Mage::getUrl('deals/deals/view', array('_store' => Mage::app()->getStore()->getId(), 'id' => Mage::getModel('collpur/deal')->getRandomFeaturedId(), 'mode' => AW_Collpur_Helper_Deals::FEATURED)));
+//             } else {
+//                 $this->getResponse()->setRedirect(Mage::getUrl('deals/deals/list', array('_store' => Mage::app()->getStore()->getId(), 'section' => $startPage)));
+//             }
+//         } else {
             $this->loadLayout();
 
             $this->_initLayoutMessages('catalog/session');
@@ -56,10 +56,10 @@ class AW_Collpur_DealsController extends Mage_Core_Controller_Front_Action {
 
             $layout = $this->getLayout();
             $layout->getBlock('content')->append(
-                    $layout->createBlock('collpur/deals')
+            $layout->createBlock('collpur/deals')
             );
             $this->renderLayout();
-        }
+//         }
     }
 
     public function viewAction()

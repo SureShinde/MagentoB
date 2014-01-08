@@ -133,8 +133,9 @@
                                                             <div class="awcp-title"><?php echo $this->__('Time Left To Run'); ?></div>
                                                                 <div class="awcp-status" id = "<?php echo $container; ?>"><?php echo $this->getTimeLeftToBuy($deal, $time = 'available_from'); ?></div>
                                                      <?php elseif ($deal->isRunning() && $deal->getAvailableTo()): ?>
-                                                        <div class="awcp-title"><?php echo $this->__('PROMO ENDS IN :'); ?></div>
-                                                         <div class="awcp-status" id = "<?php echo $container; ?>"><?php echo $this->getTimeLeftToBuy($deal); ?></div>
+                                                        <div class="awcp-title"><?php echo $this->__('PROMO ENDS IN:'); ?></div>
+                                                         <div class="awcp-status"><?php echo $this->getTimeLeftToBuy($deal); ?></div>
+                                                         <!-- <div class="awcp-status" id = "<?php //echo $container; ?>"><?php //echo $this->getTimeLeftToBuy($deal); ?></div> -->
 														 <div class="awcp_time_label">hour(s) minute(s) second(s)</div>
                                                      <?php endif; ?>
                                                 </div>
