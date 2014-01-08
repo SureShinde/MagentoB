@@ -728,7 +728,14 @@ table.awcp-pricedata tr:nth-child(1) td{
 	color:#f75a2f;
 	font-size:24px
 }
-
+.list_detail_left{
+	width:65%;
+	float:left;
+}
+.list_detail_right{
+	width:35%;
+	float:left;
+}
 /*slider*/
 .wrap{
 	margin:0 auto;
