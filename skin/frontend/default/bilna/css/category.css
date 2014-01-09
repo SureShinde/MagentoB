@@ -11,11 +11,16 @@
 .block-layered-nav .block-title {
 	background: none;
 	text-indent: inherit;
+	margin: 0 10px;
+	padding: 10px 0 0 0;
+}
+.block-layered-nav .block-title strong span {
+	color: #707070;
 }
 .block-layered-nav .block-subtitle, .block-layered-nav dt.category, .sorter .view-mode, .toolbar-bottom .sorter, .category-title {
 	display: none;
 }
-.block-layered-nav dt, .demo label {
+.block-layered-nav dt, .demo label, .block-layered-nav .block-title strong span {
 	text-transform: uppercase;
 	font-size: 14px;
 	font-family: 'bebasregular';
@@ -170,6 +175,9 @@ a.triger-showfilter {
 	border-bottom: none;
 	padding: 8px;
 }
+.toolbar .pager .custome-nav {
+	display: none;
+}
 .toolbar .limiter ul li {
 	padding-left: 8px;
 	background: url(../images/slash-grey.png) no-repeat left center;
@@ -214,11 +222,27 @@ a.triger-showfilter {
 	display: inline-block;
 	color: #838383;
 }
+.pager .pages {
+	font-weight: bold;
+}
+.pager .pages li a {
+	color: #4ec7da;
+}
+.old-price .price {
+	font-weight: normal;
+	font-size: 12px !important;
+}
+.special-price .price {
+	color: #e74949 !important;
+}
 .toolbar-bottom {
 	margin-bottom: 20px;
 }
 .toolbar-bottom .toolbar {
 	margin-bottom: 20px;
+}
+.toolbar-bottom .toolbar .pager .custome-nav {
+	display: block;
 }
 .toolbar-bottom a.link-catalog-nav {
 	display: block;

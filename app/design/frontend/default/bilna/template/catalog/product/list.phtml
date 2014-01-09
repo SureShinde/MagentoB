@@ -96,11 +96,14 @@
 
     <?php $_collectionSize = $_productCollection->count() ?>
     <?php $_columnCount = $this->getColumnCount(); ?>
-    <?php $i=0; foreach ($_productCollection as $_product): ?>
-        <?php if ($i++%$_columnCount==0): ?>
+    <?php $i=0; ?>
+    
+        
+        
         <ul class="products-grid">
-        <?php endif ?>
-            <li class="item<?php if(($i-1)%$_columnCount==0): ?> first<?php elseif($i%$_columnCount==0): ?> last<?php endif; ?>">
+        <?php foreach ($_productCollection as $_product): ?>
+       
+            <li class="item">
             	<div class="onsale-category-container-grid">
             		<?php echo Mage::helper('onsale')->getCategoryLabelHtml($_product, 135); ?>
 	                <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" class="product-image"><img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(152,152); ?>" alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" /></a>
@@ -126,18 +129,14 @@
                     </ul>
                 </div>
             </li>
-        <?php if ($i%$_columnCount==0 || $i==$_collectionSize): ?>
-        </ul>
-        <?php endif ?>
         <?php endforeach ?>
+        </ul>
         <script type="text/javascript">decorateGeneric($$('ul.products-grid'), ['odd','even','first','last'])</script>
     <?php endif; ?>
 
     <div class="toolbar-bottom">
         <?php echo $this->getToolbarHtml() ?>
-        <a href="#" class="link-catalog-nav prev"><?php echo $this->__('Previous Page') ?></a>
-        <a href="#" class="link-catalog-nav next"><?php echo $this->__('Next Page') ?></a>
-        <div class="clear"></div>
+        
     </div>
 </div>
 <?php endif; ?>

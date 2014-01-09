@@ -17,6 +17,7 @@
     padding: 7.6px;
     zoom: 1;
     position: relative;
+    width: 13% !important;
 }
 .awafpgrid ul li:first-child {
 }
