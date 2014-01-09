@@ -49,13 +49,11 @@
 
     <?php if($this->getShowPerPage()): ?>
     <div class="limiter">
-		
         <label><?php echo $this->__('View') ?></label>
 		<ul>
-			<li>10</li><span>/</span>
-			<li>20</li><span>/</span>
-			<li>30</li><span>/</span>
-			<li>all</li>
+        <?php foreach ($this->getAvailableLimit() as  $_key=>$_limit): ?>
+			<li<?php if($this->isLimitCurrent($_key)): ?> class="active-page"<?php endif ?>><a href="<?php echo $this->getLimitUrl($_key) ?>"><?php echo $_limit; ?></a></li><span>/</span>
+        <?php endforeach; ?>
 		</ul>
         <!--<select onchange="setLocation(this.value)">
         <?php foreach ($this->getAvailableLimit() as  $_key=>$_limit): ?>

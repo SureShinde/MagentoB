@@ -45,6 +45,20 @@
             <?php echo Mage::helper('blog')->__('Posted'); ?>
         <?php endif; ?><?php echo $this->__("By"); ?> <h4 class="poster"><?php echo $post->getUser(); ?></h4>
     </div>
+	<div style="clear:both; margin: 10px 0;">
+		<!-- AddThis Button BEGIN -->
+		<div class="addthis_toolbox addthis_default_style addthis_32x32_style">
+		<a class="addthis_button_preferred_1"></a>
+		<a class="addthis_button_preferred_2"></a>
+		<a class="addthis_button_preferred_3"></a>
+		<a class="addthis_button_preferred_4"></a>
+		<a class="addthis_button_compact"></a>
+		<a class="addthis_counter addthis_bubble_style"></a>
+		</div>
+		<script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
+		<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-52ccfe823e12c07f"></script>
+		<!-- AddThis Button END -->
+	</div>
 </div>
 
 <!-- Comment Section -->
@@ -52,17 +66,23 @@
 <?php if ($this->getCommentsEnabled()): ?>
     <?php $comments = $this->getComment(); ?>
     <div class="postTitle"><a name="commentBox" ></a>
-        <h2><?php echo $this->__('Post Comments') ?></h2>
+        <h2><?php echo $this->__('Leave A Response') ?></h2>
     </div>
-
-    <?php echo $this->getChildHtml('aw_blog_comments_toolbar'); ?>
+	
+    <?php //echo $this->getChildHtml('aw_blog_comments_toolbar'); ?>
         <?php foreach ($comments as $comment) : ?>
             <div class="commentWrapper">
-                <div class="commentDetails"><h4 class="username"><?php echo $comment->getUser(); ?></h4> <?php echo $this->__("posted on") ?> <?php echo $this->formatDate($comment->getCreatedTime(), Mage::getStoreConfig('blog/blog/dateformat'), true); ?></div>
-                <div class="commentContent"><?php echo nl2br($comment->getComment()); ?></div>
+                <div class="commentDetails">
+					<h4 class="username"><?php echo $comment->getUser(); ?></h4>
+					<!--<div style="font-size:18px;">&#8226;</div>-->
+					<?php echo $this->__(" &mdash; posted on") ?> <?php echo $this->formatDate($comment->getCreatedTime(), Mage::getStoreConfig('blog/blog/dateformat'), true); ?>
+				</div>
+                <div class="commentContent" style="padding: 0 0 10px 0; border-bottom: 1px solid #999;">
+					<?php echo nl2br($comment->getComment()); ?>
+				</div>
             </div>
         <?php endforeach; ?>
-     <?php echo $this->getChildHtml('aw_blog_comments_toolbar'); ?>
+     <?php //echo $this->getChildHtml('aw_blog_comments_toolbar'); ?>
 
 
     <?php if ($post->getComments()): ?>
@@ -75,7 +95,6 @@
                         <h4 class="legend"><?php echo Mage::helper('blog')->__('Submit Comment') ?></h4>
                         <ul class="form-list">
                             <li>
-
                                 <div class="input-box aw-blog-comment-area">
                                     <label for="comment" class="required"><?php echo Mage::helper('blog')->__('Comment') ?><em>*</em></label><br />
                                     <textarea name="comment" id="comment" title="<?php echo $this->__('Comment') ?>" class="required-entry input-text" style="height:150px;width:95%;" cols="50" rows="5"><?php echo $this->getCommentText(); ?></textarea>
@@ -105,25 +124,35 @@
 
             <form action="" id="postComment" method="post">
                 <fieldset class="group-select">
-                    <h4 class="legend"><?php echo Mage::helper('blog')->__('Submit Comment') ?></h4>
+                    <h4 class="legend" style="display:none"><?php echo Mage::helper('blog')->__('Submit Comment') ?></h4>
                     <ul class="form-list">
                         <li>
-                            <div class="input-box">
-                                <label for="name" class="required"><?php echo Mage::helper('blog')->__('Name') ?><em>*</em></label><br />
-                                <input name="user" id="user" value="<?php echo $this->getCommentName(); ?>" title="<?php echo $this->__('Name') ?>" class="required-entry input-text" type="text" />
-                            </div>
+                            
+							<div style="width: 45%; padding: 0 2.5% 0 0; float:left;">
+								<div class="input-box">
+									<label for="name" class="required"><?php echo Mage::helper('blog')->__('Name') ?><em>*</em></label><br />
+									<input name="user" id="user" value="<?php echo $this->getCommentName(); ?>" title="<?php echo $this->__('Name') ?>" class="required-entry input-text" type="text" />
+								</div>
 
-                            <div class="input-box">
-                                <label for="email" class="required"><?php echo Mage::helper('blog')->__('Email') ?><em>*</em></label><br />
-                                <input name="email" id="email" value="<?php echo $this->getCommentEmail(); ?>" title="<?php echo $this->__('Email') ?>" class="required-entry input-text validate-email" type="text" />
-                            </div>
+								<div class="input-box">
+									<label for="email" class="required"><?php echo Mage::helper('blog')->__('Email') ?><em>*</em></label><br />
+									<input name="email" id="email" value="<?php echo $this->getCommentEmail(); ?>" title="<?php echo $this->__('Email') ?>" class="required-entry input-text validate-email" type="text" />
+								</div>
+								
+								<div class="input-box">
+									<label for="website" class="required"><?php echo Mage::helper('blog')->__('Website') ?></label><br />
+									<input name="website" id="website" value="<?php echo $this->getCommentName(); ?>" title="<?php echo $this->__('Website') ?>" class="input-text" type="text" />
+								</div>
 
-                            <div class="clear"></div>
-
-                            <div class="input-box aw-blog-comment-area">
-                                <label for="comment" class="required"><?php echo Mage::helper('blog')->__('Comment') ?><em>*</em></label><br />
-                                <textarea name="comment" id="comment" title="<?php echo Mage::helper('blog')->__('Comment') ?>" class="required-entry input-text" style="height:150px;width:95%;" cols="50" rows="5"><?php echo $this->getCommentText(); ?></textarea>
-                            </div>
+								<div class="clear"></div>
+							</div>
+							
+							<div style="width: 50%; padding: 0 2.5% 0 0; float:left;">
+								<div class="input-box aw-blog-comment-area">
+									<label for="comment" class="required"><?php echo Mage::helper('blog')->__('Comment') ?><em>*</em></label><br />
+									<textarea name="comment" id="comment" title="<?php echo Mage::helper('blog')->__('Comment') ?>" class="required-entry input-text" style="height:141pxpx;width:100%;margin:0;padding: 8px;" cols="50" rows="5"><?php echo $this->getCommentText(); ?></textarea>
+								</div>
+							</div>
                         </li>
 
                         <?php
@@ -139,16 +168,16 @@
                 echo recaptcha_get_html($publickey, $error);
                             ?></li><?php
             }
-                        ?>
+                        // ?>
                     </ul>
                 </fieldset>
-                <div class="button-set" style="width:96%">
+                <div class="button-set" style="width:96%; margin-bottom:40px">
                     <input name="post_id" type="hidden" value="<?php echo $post->getPostId(); ?>" />
                     <p class="required"><?php echo $this->__('* Required Fields') ?></p>
-                    <button class="button form-button" type="submit"><span><span><?php echo Mage::helper('blog')->__('Submit Comment') ?></span></span></button>
+                    <button class="button form-button" type="submit"><span><span><?php echo Mage::helper('blog')->__('POST COMMENT') ?></span></span></button>
                 </div>
             </form>
-
+<div class="clear"></div>
             <script type="text/javascript">
                 var contactForm = new VarienForm('postComment', false);
             </script>
