@@ -109,7 +109,7 @@ class AW_Collpur_Block_Deals extends AW_Collpur_Block_BaseDeal
     protected function _prepareLayout()
     {
         $pager = $this->getLayout()->createBlock('page/html_pager', 'available_deals_pager');
-        $pager->setAvailableLimit(array("10" => "10", "15" => "15", "25" => "25"));
+        $pager->setAvailableLimit(array("15" => "15", "30" => "30", "60" => "60", "all" => "all"));
         $pager->setLimitVarName('dealslimit' . $this->_limitParam);
         $pager->setPageVarName('dealsvarname' . $this->_limitParam);
         $pager->setCollection($this->getAvailableDeals());

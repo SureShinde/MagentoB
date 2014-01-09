@@ -50,11 +50,6 @@
 <h2 id="awcp-nodeals-available"><?php echo $this->__('No deals available'); ?></h2>
 <?php return; ?>
 <?php endif; ?>
-
-<!--<div class="row">
-<?php //echo $this->getChildHtml('available_deals_pager'); ?>
-</div>-->
-
 <div>
 	<?php $dealSliders = $this->getFeaturedSliders(); 
 			$i = 0; 
@@ -155,6 +150,11 @@
 			</div>
 		</div>
 		<!--end slider-->
+		
+
+<div class="row">
+<?php echo $this->getChildHtml('available_deals_pager'); ?>
+</div>
 	<ul class="awcp-category-grid row">
     <?php $i = 0; foreach($this->getAvailableDeals() as $deal): ?>
 	<?php
