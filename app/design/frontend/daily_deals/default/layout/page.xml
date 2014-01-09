@@ -49,12 +49,13 @@ Default layout, loads most of the pages
                 <action method="addJs"><script>mage/translate.js</script></action>
                 <action method="addJs"><script>mage/cookies.js</script></action>
 				
+				
 				<!--zurb-->
                 <action method="addJs"><script>zurb/vendor/modernizr.js</script></action>
 				<action method="addJs"><script>zurb/vendor/jquery.js</script></action>
                 <action method="addJs"><script>zurb/vendor/fastclick.js</script></action>
 				<!--zurb-->
-
+				
                 <block type="page/js_cookie" name="js_cookies" template="page/js/cookie.phtml"/>
 
 				<action method="addCss"><stylesheet>css/foundation.min.css</stylesheet></action>

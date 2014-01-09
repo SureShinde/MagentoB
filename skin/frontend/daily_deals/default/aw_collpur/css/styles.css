@@ -751,7 +751,7 @@ table.awcp-pricedata tr:nth-child(1) td{
 	list-style:none;
 	margin:0 0 2px;
 	background:#8c8c8c; 
-	height:105px;
+	height:106px;
 	padding:3px;
 }
 .thumb_area .thumb_slider a{
@@ -837,6 +837,9 @@ table.awcp-pricedata tr:nth-child(1) td{
 	line-height:12px;
 	margin:4px 0 0 5px;
 	float:left;
+}
+.price_deals_slider p:nth-child(2){
+	text-decoration:line-through;
 }
 .date_slider_deals label{
 	font-size:12px;
