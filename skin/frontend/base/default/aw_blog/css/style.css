@@ -52,7 +52,20 @@
 }
 
 .commentContent {
-    padding-bottom: 0px;
+    padding: 20px;
+	background: #F3F9FC;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+}
+
+.commentContent-before {
+	border-right: 10px solid white;
+	border-bottom: 10px solid #F3F9FC;
+	border-left: 10px solid white;
+	clear: both;
+	width:0;
+	margin-left:20px;
 }
 
 .commentDetails {
@@ -62,7 +75,7 @@
 
 .commentDetails h4.username {
     display: inline;
-	color: #484848;
+	color: #4EC7DA;
     font-family: helvetica, arial;
     font-size: 18px;
     font-weight: normal;

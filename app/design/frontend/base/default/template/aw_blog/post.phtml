@@ -80,7 +80,8 @@
 					<!--<div style="font-size:18px;">&#8226;</div>-->
 					<label style="margin: 2px;border-left: 2px dotted #a0a0a0; padding-top:5px;">&nbsp;</label>&nbsp;&nbsp;<img src="<?php echo $this->getSkinUrl('images/post--comment-blog.png'); ?>" style="margin: 3px 0 0"/><?php echo $this->__(" posted on") ?> <?php echo $this->formatDate($comment->getCreatedTime(), Mage::getStoreConfig('blog/blog/dateformat'), true); ?>
 				</div>
-                <div class="commentContent" style="padding: 0 0 10px 0; border-bottom: 2px solid #ebebeb;">
+				<div class="commentContent-before"></div>
+                <div class="commentContent" style="margin: 0 0 10px 0;">
 					<?php echo nl2br($comment->getComment()); ?>
 				</div>
             </div>
