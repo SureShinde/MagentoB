@@ -60,16 +60,7 @@
 		<!-- AddThis Button END -->
 	</div>
 	
-	<div id="fb-root"></div>
-	<script>(function(d, s, id) {
-	  var js, fjs = d.getElementsByTagName(s)[0];
-	  if (d.getElementById(id)) return;
-	  js = d.createElement(s); js.id = id;
-	  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
-	  fjs.parentNode.insertBefore(js, fjs);
-	}(document, 'script', 'facebook-jssdk'));</script>
-	
-	<div class="fb-comments" data-href="http://www.bilna.com/" data-numposts="5" data-colorscheme="light"></div>
+	<div class="fb-comments" data-href="http://www.stejing.com" data-numposts="25" data-colorscheme="light"></div>
 	
 </div>
 
@@ -85,11 +76,11 @@
         <?php foreach ($comments as $comment) : ?>
             <div class="commentWrapper">
                 <div class="commentDetails">
-					<h4 class="username"><?php echo $comment->getUser(); ?></h4>
+					<h4 class="username"><?php echo $comment->getUser(); ?></h4>&nbsp;&nbsp;
 					<!--<div style="font-size:18px;">&#8226;</div>-->
-					<?php echo $this->__(" &mdash; posted on") ?> <?php echo $this->formatDate($comment->getCreatedTime(), Mage::getStoreConfig('blog/blog/dateformat'), true); ?>
+					<label style="margin: 2px;border-left: 2px dotted #a0a0a0; padding-top:5px;">&nbsp;</label>&nbsp;&nbsp;<img src="<?php echo $this->getSkinUrl('images/post--comment-blog.png'); ?>" style="margin: 3px 0 0"/><?php echo $this->__(" posted on") ?> <?php echo $this->formatDate($comment->getCreatedTime(), Mage::getStoreConfig('blog/blog/dateformat'), true); ?>
 				</div>
-                <div class="commentContent" style="padding: 0 0 10px 0; border-bottom: 1px solid #999;">
+                <div class="commentContent" style="padding: 0 0 10px 0; border-bottom: 2px solid #ebebeb;">
 					<?php echo nl2br($comment->getComment()); ?>
 				</div>
             </div>
@@ -162,7 +153,7 @@
 							<div style="width: 50%; padding: 0 2.5% 0 0; float:left;">
 								<div class="input-box aw-blog-comment-area">
 									<label for="comment" class="required"><?php echo Mage::helper('blog')->__('Comment') ?><em>*</em></label><br />
-									<textarea name="comment" id="comment" title="<?php echo Mage::helper('blog')->__('Comment') ?>" class="required-entry input-text" style="height:141pxpx;width:100%;margin:0;padding: 8px;" cols="50" rows="5"><?php echo $this->getCommentText(); ?></textarea>
+									<textarea name="comment" id="comment" title="<?php echo Mage::helper('blog')->__('Comment') ?>" class="required-entry input-text" style="height:141px;width:100%;margin:0;padding: 8px;" cols="50" rows="5"><?php echo $this->getCommentText(); ?></textarea>
 								</div>
 							</div>
                         </li>

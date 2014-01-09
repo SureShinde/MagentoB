@@ -29,7 +29,7 @@
     <?php echo Mage::app()->getLayout()->getMessagesBlock()->getGroupedHtml(); ?>
 </div>
 <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('blogpost-right')->toHtml() ?>
-<?php echo $this->getChildHtml('aw_blog_comments_toolbar'); ?>
+<?php //echo $this->getChildHtml('aw_blog_comments_toolbar'); ?>
 <?php foreach ($posts as $post): ?>
     <div class="postWrapper">
         <div class="postTitle">
@@ -42,7 +42,10 @@
         <div class="tags"><?php echo $this->getTagsHtml($post) ?></div>
         <div class="postDetails">
             <?php if ($this->getCommentsEnabled()): ?>
-                <?php echo $post->getCommentCount(); ?> <a href="<?php echo $post->getAddress(); ?>#commentBox" >Comments</a> |
+                <label style="font-weight: bold;"><?php echo $post->getCommentCount(); ?></label> 
+					<a href="<?php echo $post->getAddress(); ?>#commentBox" >
+						<img src="<?php echo $this->getSkinUrl('images/post--comment-blog.png'); ?>" style="margin: -3px 0 0"/> Comments
+					</a>&nbsp;&nbsp;|&nbsp;&nbsp;<img src="<?php echo $this->getSkinUrl('images/post-blog.png'); ?>" style="margin: -3px 0 0"/>
             <?php endif; ?>
             <?php $postCats = $post->getCats(); ?>
             <?php if (!empty($postCats)): ?>
@@ -55,4 +58,4 @@
             <?php endif; ?><?php echo $this->__("By"); ?> <?php echo $post->getUser(); ?></div>
     </div>
 <?php endforeach; ?>
-<?php echo $this->getChildHtml('aw_blog_comments_toolbar'); ?>
+<?php //echo $this->getChildHtml('aw_blog_comments_toolbar'); ?>

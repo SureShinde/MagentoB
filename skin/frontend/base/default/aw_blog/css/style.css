@@ -4,7 +4,7 @@
 }
 
 .postTitle {
-    border-bottom-width: 1px;
+    border-bottom-width: 5px;
     border-bottom-style: solid;
     border-bottom-color: #DDDDDD;
     margin-bottom: 15px;
@@ -12,9 +12,9 @@
 
 .postTitle h2 {
     font-size: 20px;
-    font-weight: normal;
+    font-weight: bold;
     margin: 0px;
-    padding: 0px;
+    padding: 5px 0;
 }
 
 .postTitle h3 {
@@ -31,7 +31,8 @@
 }
 
 .postDetails {
-
+	padding:5px;
+	margin: 10px 0;
 }
 
 .postBookmarks {
@@ -46,6 +47,8 @@
 
 .commentWrapper {
     padding-bottom: 15px;
+	width: 98%;
+	padding-left: 2%;
 }
 
 .commentContent {
@@ -95,12 +98,16 @@
     font-size: 14px;
     font-weight: normal;
     text-transform: uppercase;
+	padding: 20px 0 0;
 }
 .tags a {
 	padding: 5px 20px;
 	background: #4ec7da;
 	color: #FFF;
 	font-weight: bold;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
 }
 
 .menu-tags, .menu-categories, .menu-recent {
