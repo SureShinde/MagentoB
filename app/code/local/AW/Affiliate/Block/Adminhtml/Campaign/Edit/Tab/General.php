@@ -106,6 +106,34 @@ class AW_Affiliate_Block_Adminhtml_Campaign_Edit_Tab_General
             'note' => Mage::helper('awaffiliate')->__('Customer groups of affiliates who can access this campaign'),
         ));
 
+        /*start added image/banner upload*/
+        $fieldset->addField('campaign_type', 'select', array(
+            'name' => 'campaign_type',
+            'label' => Mage::helper('awaffiliate')->__('Campaign Type'),
+            'image' => $this->getSkinUrl('images/grid-cal.gif'),
+            'values' => array(
+                'banner'   => 'Banner',
+                'products' => 'Products'
+            ),
+            'required' => true,
+            'note' => Mage::helper('awaffiliate')->__('Campaign Type to show on publisher sites'),
+        ));
+
+        $fieldset->addField('url', 'text', array(
+            'name' => 'url',
+            'label' => Mage::helper('awaffiliate')->__('URL Redirect'),
+            'title' => Mage::helper('awaffiliate')->__('URL Redirect'),
+            'note' => Mage::helper('awaffiliate')->__('For banner campaign yype only'),
+        ));
+
+        $fieldset->addField('filename', 'image', array(
+            'label' => Mage::helper('awaffiliate')->__('Image'),
+            'required' => false,
+            'name' => 'filename',
+            'note' => Mage::helper('awaffiliate')->__('For banner campaign yype only'),
+        ));
+        /*end added image/banner upload*/
+
         $adminhhtmlUrlModel = Mage::getSingleton('adminhtml/url');
         $wysiwygConfig = Mage::getSingleton('cms/wysiwyg_config')->getConfig();
         $wysiwygConfig->addData(array(

@@ -30,8 +30,8 @@
             <block type="awaffiliate/adminhtml_campaign_edit_tabs" name="awaff.campaign.edit.tabs">
                 <block type="awaffiliate/adminhtml_campaign_edit_tab_general" name="awaff.campaign.edit.tab.general"/>
                 <block type="awaffiliate/adminhtml_campaign_edit_tab_rate" name="awaff.campaign.edit.tab.rate"/>
-                <block type="awaffiliate/adminhtml_campaign_edit_tab_conditions"
-                       name="awaff.campaign.edit.tab.conditions"/>
+                <block type="awaffiliate/adminhtml_campaign_edit_tab_conditions" name="awaff.campaign.edit.tab.conditions"/>
+                <block type="awaffiliate/adminhtml_campaign_edit_tab_products" name="awaff.campaign.edit.tab.products"/>
                 <action method="addTab">
                     <name>general_section</name>
                     <block>awaff.campaign.edit.tab.general</block>
@@ -43,6 +43,10 @@
                 <action method="addTab">
                     <name>conditions_section</name>
                     <block>awaff.campaign.edit.tab.conditions</block>
+                </action>
+                <action method="addTab">
+                    <name>products_section</name>
+                    <block>awaff.campaign.edit.tab.products</block>
                 </action>
             </block>
         </reference>

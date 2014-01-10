@@ -50,6 +50,8 @@ class AW_Affiliate_Block_Campaign_Link extends Mage_Core_Block_Template
 
     public function getInputLinkField()
     {
+        $campaignUrl = Mage::registry('current_campaign')->getUrl();
+
         $input = new Varien_Data_Form_Element_Text(array(
             'label' => $this->__('Website Link'),
             'html_id' => 'link-to-generate',
@@ -59,11 +61,13 @@ class AW_Affiliate_Block_Campaign_Link extends Mage_Core_Block_Template
             'after_element_html' => $this->__('Direct link visitor will be redirected to. Full web page URL required.')
         ));
         if (!is_null($_defaultValue = $this->__getDefaultValue('link_to_generate'))) {
-            $input->setData('value', $_defaultValue);
+            //$input->setData('value', $_defaultValue);
+            $input->setData('value', $campaignUrl);
         }
         else {
             $_defaultValue = Mage::app()->getStore()->getBaseUrl();
-            $input->setData('value', $_defaultValue);
+            //$input->setData('value', $_defaultValue);
+            $input->setData('value', $campaignUrl);
         }
 
         $input->setForm(new Varien_Object());
@@ -105,4 +109,12 @@ class AW_Affiliate_Block_Campaign_Link extends Mage_Core_Block_Template
         $formData = $_session->getGenerateLinkFormData();
         return isset($formData[$key]) ? $formData[$key] : null;
     }
+
+    /*start added for get image for banner*/
+    public function getImageField()
+    {
+        $campaignName = Mage::registry('current_campaign')->getName();
+        return $campaignName;
+    }
+    /*end added for get image for banner*/
 }

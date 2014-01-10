@@ -74,7 +74,7 @@ AWGenerateLink = {
             });
             eval("var response = " + transport.responseText);
             if (response.error == 0) {
-                $('result').setValue(response.result);
+                $('result').setValue('<a href="'+response.result+'"><img src="'+ response.image+'"/></a>');
                 $('result').focus();
                 $('result').select();
             }

@@ -101,6 +101,11 @@ class AW_Affiliate_Block_Customer_Campaigns extends Mage_Core_Block_Template
         return Mage::getUrl('awaffiliate/customer_affiliate/campaign', array('id' => $campaignId));
     }
 
+    public function getUrlToCampaignProductsView($campaignId)
+    {
+        return Mage::getUrl('awaffiliate/customer_affiliate/campaignproducts', array('id' => $campaignId));
+    }
+
     public function formatCurrency($value)
     {
         return Mage::helper('core')->currency($value);

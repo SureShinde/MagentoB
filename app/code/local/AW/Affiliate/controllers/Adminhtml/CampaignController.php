@@ -81,8 +81,9 @@ class AW_Affiliate_Adminhtml_CampaignController extends Mage_Adminhtml_Controlle
     }
 
     protected function saveAction()
-    {
+    { 
         $data = $this->getRequest()->getPost();
+
         if ($data) {
             $redirectBack = $this->getRequest()->getParam('back', false);
             $this->_initCampaign('campaign_id');
@@ -109,6 +110,33 @@ class AW_Affiliate_Adminhtml_CampaignController extends Mage_Adminhtml_Controlle
             if (isset($data["profit_rate"])) {
                 $data['profit_rate'] = floatval($data['profit_rate']);
             }
+            /*start added for save image/banner*/
+            $imagedata = array();
+            if (!empty($_FILES['filename']['name']))
+            {
+                try {
+                    $ext = substr($_FILES['filename']['name'], strrpos($_FILES['filename']['name'], '.') + 1);
+                    $fname = 'File-' . time() . '.' . $ext;
+                    $uploader = new Varien_File_Uploader('filename');
+                    $uploader->setAllowedExtensions(array('jpg', 'jpeg', 'gif', 'png'));
+                    $uploader->setAllowRenameFiles(true);
+                    $uploader->setFilesDispersion(false);
+
+                    $path = Mage::getBaseDir('media').DS.'affiliate'.DS.'banners';
+
+                    $uploader->save($path, $fname);
+                    $imagedata['filename'] = 'affiliate/banners/'.$fname;
+                }catch(Exception $e){
+                    Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+                    $this->_redirect('*/*/edit');
+                    return;
+                }
+            }
+            //$data['image_name'] = '';
+            if (!empty($imagedata['filename'])) {
+                $data['image_name'] = $imagedata['filename'];
+            }
+            /*start added for save image/banner*/
 
             $campaign->addData($data);
 
@@ -275,5 +303,15 @@ class AW_Affiliate_Adminhtml_CampaignController extends Mage_Adminhtml_Controlle
     {
         $acl = 'awaffiliate/campaigns';
         return Mage::getSingleton('admin/session')->isAllowed($acl);
+    }
+
+    protected function productsgridAction()
+    {
+        $this->loadLayout();
+        $this->getResponse()->setBody(
+            $this->getLayout()
+                ->createBlock('awaffiliate/adminhtml_campaign_edit_tab_productsgrid')
+                ->toHtml()
+        );
     }
 }

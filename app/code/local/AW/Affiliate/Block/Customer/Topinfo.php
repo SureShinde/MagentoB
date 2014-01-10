@@ -45,4 +45,15 @@ class AW_Affiliate_Block_Customer_Topinfo extends Mage_Core_Block_Template
             return $processor->filter($currentCampaign->getData('description'));
         }
     }
+
+    /*start added for get image for banner*/
+    public function getImageField()
+    {
+        $currentCampaign = $this->getCurrentCampaign();
+        if ($currentCampaign) {
+            $processor = Mage::helper('cms')->getBlockTemplateProcessor();
+            return $processor->filter($currentCampaign->getData('image_name'));
+        }
+    }
+    /*end added for get image for banner*/
 }
