@@ -136,6 +136,13 @@
         <div class="clearer"></div>
 		<div class="product-tab-wrapper">
 			<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('product_description')->toHtml() ?>
+			<script type="text/javascript">
+			// <![CDATA[
+				$j(document).ready( function() {
+					$j('#tab-container').easytabs();
+				});
+			// ]]>
+			</script>
 		</div>
     </form>
     <script type="text/javascript">
