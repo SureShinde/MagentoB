@@ -42,14 +42,6 @@
                 </action>
             </block>
         </reference>
-        <reference name="top.menu">
-            <remove name="catalog.topnav"/>
-            <block type="brands/navigation" name="brands.topnav" template="catalog/navigation/top.phtml">
-                <action method="setItemTemplate">
-                    <template>belvg/brands/list/menu.phtml</template>
-                </action>
-            </block>
-        </reference>
     </default>
 
     <brands_index_index>
