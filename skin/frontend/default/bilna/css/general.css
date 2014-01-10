@@ -64,9 +64,7 @@ body {
 .price-box .old-price .price-label, .price-box .special-price .price-label {
 	display: none;
 }
-.price-box .old-price {
-	margin-bottom: 5px;
-}
+.price-box .old-price {}
 .products-grid {
 	background: none;
 	border-bottom: none;
@@ -96,6 +94,9 @@ body {
 	color: #707070;
 	font-size: 1.2em;
 }
+.products-grid .actions {
+	position: relative;
+}
 button.btn-cart {
     width:88px;
     background-image:url(../images/btn-buynow.png);
@@ -115,6 +116,15 @@ button.btn-cart span, button.btn-cart span span {
 @media only screen and (max-width: 1215px) {
 	.main-container, .main-container.col1-layout .main {
 		width: 994px;
+	}
+	.main-container.col2-left-layout .main {
+		width: 100%;
+	}
+	.col2-left-layout .main .col-main {
+		width: 815px;
+	}
+	.products-grid li.item {
+		width: 141px;
 	}
 }
 /* --------------- 960 px layout -------------------- */

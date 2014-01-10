@@ -824,6 +824,10 @@
 	height: 42px;
 	background: url(../images/gift-ideas.png) no-repeat center center;
 }
+#nav li.level-top.parent-6 ul.shown-sub, #nav li.level-top.parent-7 ul.shown-sub, #nav li.level-top.parent-8 ul.shown-sub, #nav li.level-top.parent-9 ul.shown-sub {
+	right: 0;
+	left: auto;
+}
 #nav li.shop-by {
 	width: 49px;
 	vertical-align: top;	

@@ -44,7 +44,7 @@
 <?php $navCategory = $currentCategory->getId(); ?>
 <div class="block block-layered-nav">
     <div class="block-title">
-        <strong><span><?php echo $this->__('Shop By') ?></span></strong>
+        <strong><span><?php echo $currentCategory->getName(); ?></span></strong>
     </div>
     <div class="block-content">
         <?php echo $this->getStateHtml() ?>
