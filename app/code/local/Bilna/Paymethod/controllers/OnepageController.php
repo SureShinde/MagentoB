@@ -233,18 +233,32 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
             }
 
             $data = $this->getRequest()->getPost('payment', array ());
+            $paymentHide = explode(',', Mage::getStoreConfig('bilna_module/paymethod/payment_hide'));
             
             /**
              * save parameter token_id to session
              */
-            if ($data['method'] == 'vtdirect') {
-                Mage::getSingleton('core/session')->setVtdirectTokenIdCreate(date('yyyy-mm-dd H:i:s'));
+            if ($data['method'] == 'vtdirect' || in_array($data['method'], $paymentHide)) {
+                $dataCc = $this->getRequest()->getPost('payment', array ());
+                $data = array (
+                    'method' => $dataCc['cc_bank'],
+                    'cc_owner' => $dataCc['cc_owner'],
+                    'cc_type' => $dataCc['cc_type'],
+                    'cc_bank' => $dataCc['cc_bank'],
+                    'token_id' => $dataCc['token_id'],
+                    'cc_number' => $dataCc['cc_number'],
+                    'cc_exp_month' => $dataCc['cc_exp_month'],
+                    'cc_exp_year' => $dataCc['cc_exp_year'],
+                    'cc_cid' => $dataCc['cc_cid']
+                );
+                
+                Mage::getSingleton('core/session')->unsVtdirectTokenIdCreate();
+                Mage::getSingleton('core/session')->unsVtdirectTokenId();
+                Mage::getSingleton('core/session')->setVtdirectTokenIdCreate(date('Y-m-d H:i:s', Mage::getModel('core/date')->timestamp(time())));
                 Mage::getSingleton('core/session')->setVtdirectTokenId($data['token_id']);
             }
             
             $result = $this->getOnepage()->savePayment($data);
-
-            // get section and redirect data
             $redirectUrl = $this->getOnepage()->getQuote()->getPayment()->getCheckoutRedirectUrl();
             
             if (empty ($result['error']) && !$redirectUrl) {
@@ -305,8 +319,8 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
     }
     
     private function getCcType($bank) {
-        $bankArr = explode('_', $bank);
-        $ccType = (strtoupper($bankArr[1]) == 'VISA') ? 'VI' : 'MC';
+        //$bankArr = explode('_', $bank);
+        $ccType = (strtoupper(substr($bank, -2)) == 'MC') ? 'MC' : 'VI';
         
         return $ccType;
     }

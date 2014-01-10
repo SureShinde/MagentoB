@@ -765,20 +765,13 @@ Payment.prototype = {
     
     bankValidate: function() {
         var methods = document.getElementsByName('payment[method]');
-        var paymentValue = '';
+        var currPayment = $$('input:checked[type=radio][name=payment[method]]')[0].value;
         
-        for (var i=0; i<methods.length; i++) {
-            if (methods[i].checked) {
-                paymentValue = methods[i].value;
-                break;
-            }
-        }
-        
-        if (paymentValue != 'vtdirect') {
+        if (currPayment != 'vtdirect') {
             responseStatus = true;
         }
         else {
-            var cardNo = jQuery('#payment_form_' + paymentValue + ' #' + paymentValue + '_cc_number').val();
+            var cardNo = jQuery('#payment_form_' + currPayment + ' #' + currPayment + '_cc_number').val();
             var ajaxURL = baseUrl + 'paymethod/onepage/bankCheck';
             var responseStatus = false;
 
@@ -790,8 +783,9 @@ Payment.prototype = {
                 dataType: 'json',
                 success: function(response) {
                     if (response.status == true) {
-                        jQuery('#payment_form_' + paymentValue + ' #' + paymentValue + '_cc_bank').val(response.data.bank_code);
-                        jQuery('#payment_form_' + paymentValue + ' #' + paymentValue + '_cc_type').val(response.data.cc_type);
+                        jQuery('#p_method_' + currPayment).val(response.data.bank_code);
+                        jQuery('#payment_form_' + currPayment + ' #' + currPayment + '_cc_bank').val(response.data.bank_code);
+                        jQuery('#payment_form_' + currPayment + ' #' + currPayment + '_cc_type').val(response.data.cc_type);
                         responseStatus = true;
                     }
                     else {
@@ -831,10 +825,12 @@ Payment.prototype = {
         
         if (this.validate() && validator.validate()) {
             if (this.bankValidate()) {
+                //alert(Form.serialize(payment.form));
                 if (this.currentMethod == 'vtdirect') {
                     Veritrans.tokenGet(_cardSet, _success, _error);
                 }
                 else {
+                    alert('asdfsadiafsdf');
                     checkout.setLoadWaiting('payment');
                     var request = new Ajax.Request(
                         this.saveUrl, {
@@ -904,24 +900,41 @@ Review.prototype = {
         this.onComplete = this.resetLoadWaiting.bindAsEventListener(this);
     },
 
-    save: function(){
-        if (checkout.loadWaiting!=false) return;
+    save: function() {
+        if (checkout.loadWaiting != false) {
+            return;
+        }
+        
         checkout.setLoadWaiting('review');
         var params = Form.serialize(payment.form);
+        
         if (this.agreementsForm) {
             params += '&'+Form.serialize(this.agreementsForm);
         }
+        
         if (this.installmentForm) {
             params += '&'+Form.serialize(this.installmentForm);
         }
+        
         params.save = true;
         var request = new Ajax.Request(
-            this.saveUrl,
-            {
-                method:'post',
-                parameters:params,
+            this.saveUrl, {
+                method: 'post',
+                parameters: params,
                 onComplete: this.onComplete,
-                onSuccess: this.onSave,
+                //onSuccess: this.onSave,
+                onSuccess: function(response) {
+                    var responseJson = response.responseText.evalJSON();
+                    //console.log(responseJson);
+                    
+                    if (responseJson.success == false && responseJson.error == true) {
+                        alert(responseJson.error_messages);
+                        checkout.gotoSection('payment');
+                    }
+                    else {
+                        review.nextStep(response);
+                    }
+                },
                 onFailure: checkout.ajaxFailure.bind(checkout)
             }
         );
@@ -975,18 +988,21 @@ Review.prototype = {
 Veritrans.client_key = vtDirectClientKey; // please add client-key from veritrans
 
 function _cardSet() {
+    var currPayment = payment.currentMethod;
+    
     return {
-        "card_number": jQuery('input.card-number').val(),
-        "card_exp_month": jQuery('select.card-expiry-month').val(),
-        "card_exp_year": jQuery('select.card-expiry-year').val(),
-        "card_cvv": jQuery('input.card-cvv').val()
+        "card_number": jQuery('#payment_form_' + currPayment + ' input.card-number').val(),
+        "card_exp_month": jQuery('#payment_form_' + currPayment + ' select.card-expiry-month').val(),
+        "card_exp_year": jQuery('#payment_form_' + currPayment + ' select.card-expiry-year').val(),
+        "card_cvv": jQuery('#payment_form_' + currPayment + ' input.card-cvv').val()
     }
 };
 
 function _success(d) {
     if (d.data.token_id) {
-        jQuery('#token_id').val(d.data.token_id); // store token data in input #token_id
+        var currPayment = payment.currentMethod;
         
+        jQuery('#payment_form_' + currPayment + ' #token_id').val(d.data.token_id); // store token data in input #token_id
         payment.savePayment();
         
         return true;
