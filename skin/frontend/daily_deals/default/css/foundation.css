@@ -3824,7 +3824,8 @@ blockquote p {
       border-bottom-color: transparent !important;
       top: 22px;
       left: -20px;
-      right: auto; } }
+      right: auto; } 
+	  }
 .label {
   font-weight: normal;
   font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;

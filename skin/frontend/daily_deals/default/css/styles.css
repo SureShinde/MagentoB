@@ -353,13 +353,13 @@ p.required { font-size:11px; text-align:right; color:#EB340A; }
 .pager .limiter { float:right; }
 .pager .limiter ul{ float:left; margin-left:4px; margin-bottom:0; }
 .pager .limiter ul span{ float:left; font-size:12px;}
-.pager .limiter li{ float:left; margin: 0 5px; font-size:12px; }
+.pager .limiter li{ float:left; margin: 0 5px; font-size:12px; position:relative;}
 .pager .limiter label { vertical-align:middle; float:left; padding:4px; margin-bottom:0; font-size:12px;}
 .pager .limiter select { padding:0; margin:0 0 1px; vertical-align:middle; }
 .pager .pages { margin:0 140px; color:#818181; font-size:12px; }
 .pager .pages ol { display:inline; margin:0;}
 .pager .pages li { display:inline; margin:0 2px; }
-.pager .pages li  a{ text-decoration:none; font-size:12px;}
+.pager .pages li a{ text-decoration:none; font-size:12px; color:#FD552E;}
 .pager .pages .current { font-size:12px;}
 
 /* Sorter */
@@ -1865,4 +1865,21 @@ tr.summary-details-excluded { font-style:italic; }
 .clear {
     clear: both;
     line-height: 0;
+}
+.pager .limiter li a{
+	text-decoration:none;
+	color:#fd552e;
+ }
+.pager .limiter li.active-page a{
+	color:#9d9d9d;
+}
+.pager .limiter li:after{
+	left:17px;
+	position:absolute;
+	top:0;
+	content:"/";
+	display:block;
+}
+.pager .limiter li:last-child:after{
+	content:"";
 }
