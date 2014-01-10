@@ -114,14 +114,89 @@
 	color: white;
 	font-size: 1.23em;
 }
-.product-view .product-shop .product-shop-right .buy-later {
+.product-view .product-shop .product-shop-right .buy-later .add-to-links {
+	text-align: left;
 	margin: 10px 0;
 	color: #ffa01b;
 	font-weight: bold;
 }
 .product-view .product-shop .product-shop-right .buy-later a {
-	color: #ffa01b;
-	font-weight: bold;
+	color: #ffa01b !important;
+	font-weight: bold !important;
+}
+.product-view .product-shop .product-shop-right .block.block-related {
+	border: 0;
+	background: #f6f6f6;
+	padding: 15px;
+	-webkit-border-radius: 15px;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
+}
+.product-shop-right .block.block-related .block-title {
+	background: none;
+	border-bottom: none;
+	padding: 0;
+}
+.product-shop-right .block.block-related .block-title strong {
+	background: none;
+	padding: 0;
+}
+.product-shop-right .block.block-related .block-title strong span {
+	color: #707070;
+	font-size: 1.16em;
+	font-family: 'bebasregular';
+}
+.product-shop-right .block.block-related .block-content {
+	background: none;
+	padding: 0;
+	overflow: visible;
+}
+.product-shop-right .block.block-related .block-content .aw-arp-item {
+	display: block !important;
+	text-align: left;
+	margin: 0;
+	position: relative;
+	width: auto;
+	height: auto;
+	min-height: initial;
+	clear: both;
+}
+.product-shop-right .block.block-related .block-content .aw-arp-item .aw-arp-item-left {
+	float: left;
+	width: 220px;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+.product-shop-right .block.block-related .block-content .aw-arp-item a, 
+.product-shop-right .aw-arp-item .regular-price .price {
+	color: #707070;
+	font-size: 1.16em;
+	font-family: Helvetica;
+}
+.product-shop-right .block.block-related .block-content .aw-arp-item:hover a img {
+	display: block;
+	position: absolute;
+	left: -90px;
+	top: -10px;
+	box-shadow: 5px 5px 5px #888888;
+	border: 0;
+}
+.product-shop-right .block.block-related .block-content .aw-arp-item a img  {
+	display: none;
+}
+.product-shop-right .block.block-related .block-content .aw-arp-item .aw-arp-addtocart {
+	margin-top: 20px;
+	float: right;
+	background: url(../images/btn-buynow.png) no-repeat;
+	width: 88px;
+	height: 36px;
+	color: white;
+}
+.product-shop-right .block.block-related .block-content .aw-arp-item .aw-arp-addtocart .link-cart {
+	color: white !important;
+	text-transform: uppercase;
+	line-height: 2.7em;
+	padding-left: 12px;
 }
 .product-view .product-shop .product-shop-right .share-button {
 	margin-bottom: 5px;

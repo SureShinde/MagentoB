@@ -63,8 +63,12 @@
 				<div class="stock-left">
 					<p><?php echo $this->__('Only %d left in stock', $stock_left) ?></p>
 				</div>
+				<?php
+					$ship_from = $_helper->productAttribute($_product, $_product->getShipFrom(), 'ship_from');
+					$sold_by   = $_helper->productAttribute($_product, $_product->getSoldBy(), 'sold_by');
+				?>
 				<div class="shipsfrom-soldby">
-					<p><?php echo $this->__('Ships from <span>Bilna</span> and sold by <span>Bilna/Company</span>') ?></p>
+					<p><?php echo $this->__('Ships from <span>%s</span> and sold by <span>%s</span>', ( $ship_from ? $ship_from : '-'), ( $sold_by ? $sold_by : '-')) ?></p>
 				</div>
 				
 				<?php echo $this->getTierPriceHtml() ?>
@@ -87,11 +91,7 @@
 					<div class="add-to-box">
 						<?php if($_product->isSaleable()): ?>
 							<?php echo $this->getChildHtml('addtocart') ?>
-							<?php/* if( $this->helper('wishlist')->isAllow() || $_compareUrl=$this->helper('catalog/product_compare')->getAddUrl($_product)): ?>
-								<span class="or"><?php echo $this->__('OR') ?></span>
-							<?php endif; */?>
 						<?php endif; ?>
-						<?php/* echo $this->getChildHtml('addto') */?>
 					</div>
 					<?php echo $this->getChildHtml('extra_buttons') ?>
 				<?php elseif (!$_product->isSaleable()): ?>
@@ -103,9 +103,11 @@
 				<div class="one-click-checkout">
 					<a href="#"><?php echo $this->__('One Click Checkout') ?></a>
 				</div>				
-				<div class="buy-later">
-					<a href="#"><?php echo $this->__('Buy Later') ?></a>
-				</div>
+				<div class="buy-later">				
+					<?php echo $this->getChildHtml('addto') ?>
+				</div>				
+				
+				<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('buying_choice')->toHtml() ?>
 
 				<?php echo $this->getChildHtml('other');?>
 
@@ -188,5 +190,5 @@
     //]]>
     </script>
     </div>
-
+	
 </div>

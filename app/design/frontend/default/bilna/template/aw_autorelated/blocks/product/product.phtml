@@ -60,25 +60,24 @@ if ($this->getPosition() == AW_Autorelated_Model_Source_Position::INSTEAD_NATIVE
                     <ul>
                         <?php foreach ($collection as $product) : ?>
                             <li class="aw-arp-item">
-                                <a href="<?php echo $abstractBlock->getProductUrl($product) ?>"><img src="<?php echo $this->helper('catalog/image')->init($product, 'thumbnail')->resize(75) ?>" alt="<?php echo $this->htmlEscape($product->getName()) ?>" width="75" height="75" /></a><br />
-                                <a href="<?php echo $abstractBlock->getProductUrl($product) ?>"><?php echo $this->htmlEscape($product->getName()) ?></a><br />
-                                <?php echo $abstractBlock->getPriceHtml($product, true, '-related') ?>
-                                <?php if ($product->isSaleable()) : ?>
+								<div class="aw-arp-item-left">
+									<a href="<?php echo $abstractBlock->getProductUrl($product) ?>"><img src="<?php echo $this->helper('catalog/image')->init($product, 'thumbnail')->resize(75) ?>" alt="<?php echo $this->htmlEscape($product->getName()) ?>" width="75" height="75" /></a><br />
+									<a href="<?php echo $abstractBlock->getProductUrl($product) ?>"><?php echo $this->htmlEscape($product->getName()) ?></a><br />
+									<?php echo $abstractBlock->getPriceHtml($product, true, '-related') ?>
+                                </div>
+								<?php if ($product->isSaleable()) : ?>
                                   <div class="aw-arp-addtocart">
                                     <p>
                                        <?php if(!$this->isLocationLink($product)): ?>
-                                            <a class="link-cart" href="<?php echo $abstractBlock->getAddToCartUrl($product) ?>"><?php echo $this->__('Add to Cart') ?></a>
+                                            <a class="link-cart" href="<?php echo $abstractBlock->getAddToCartUrl($product) ?>"><?php echo $this->__('Buy Now') ?></a>
                                         <?php else : ?>
-                                            <a class="link-cart" href="javascript:setLocation('<?php echo $abstractBlock->getAddToCartUrl($product) ?>');"><?php echo $this->__('Add to Cart') ?></a>                                            
+                                            <a class="link-cart" href="javascript:setLocation('<?php echo $abstractBlock->getAddToCartUrl($product) ?>');"><?php echo $this->__('Buy Now') ?></a>                                            
                                         <?php endif; ?>                                       
                                     </p>
                                </div>
                                 <?php else : ?>
                                     <p class="availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></p>
                                 <?php endif ?>
-                                <?php if ($this->helper('wishlist')->isAllow()) : ?>
-                                    <a href="<?php echo $abstractBlock->getAddToWishlistUrl($product) ?>" class="link-wishlist"><?php echo $this->__('Add to Wishlist') ?></a>
-                                <?php endif; ?>
                             </li>
                         <?php endforeach ?>
                     </ul>
