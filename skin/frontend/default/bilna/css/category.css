@@ -283,3 +283,80 @@ a.triger-showfilter {
 .toolbar-bottom a.link-catalog-nav.next:hover {
 	background-image: url(../images/arrow-next-white-hover.png);
 }
+.toolbar-mobile {
+	display: none;
+	background: #efefef;
+}
+.toolbar-mobile .amount {
+	padding: 15px 0;
+	border-bottom: 1px solid #dadada;
+	text-align: center;
+}
+.toolbar-mobile .pager {
+	padding: 10px 0;
+	border-top: 1px solid #fff;
+	border-bottom: 1px solid #dadada;
+}
+.toolbar-mobile .sorter {
+	padding: 10px 0;
+	border-top: 1px solid #fff;
+	text-align: center;
+	margin: 0 auto;
+	width: 252px;
+}
+.toolbar-mobile .sort-by, .toolbar-mobile .filter {
+	padding-right: 0;
+	float: left;
+	padding: 10px 5px;
+	border-left: 1px solid #ccc;
+	border-right: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+	background: url(../images/txt-search-1.jpg) repeat-x left top;
+}
+.toolbar-mobile .sort-by .sort-by-option, .toolbar-mobile .filter .filter-option {
+	width: auto;
+	height: auto;
+	overflow: hidden;
+	padding: 0 0 0 0;
+	margin: 0 0 0 0;
+	background: url(../images/arrow-blue.png) no-repeat right center;
+}
+.toolbar-mobile .sort-by .sort-by-option select, .toolbar-mobile .filter .filter-option select {
+	color: #42bcd1;
+	font-size: 1.2em;
+	height: 25px;
+	background: none;
+	width: 80px;
+	line-height: normal;
+	border: 0;
+	border-radius:0;
+	height: 15px;
+	-webkit-appearance: none;
+	margin-right: 5px;
+}
+.toolbar-mobile .filter {
+	margin-left: 5px;
+}
+/* --------------- smaller 959 px layout -------------------- */
+@media only screen and (max-width: 767px) {
+	.category-description + p, .featured-product-catalog, .toolbar, .toolbar-mobile .limiter, .custome-nav {
+		display: none;
+	}
+	.col2-left-layout .products-grid, .col2-right-layout .products-grid {
+		width: auto;
+		margin: 0 10px;
+	}
+	.toolbar-mobile, .toolbar-bottom .toolbar-mobile .sorter {
+		display: block;
+	}
+	.pager {
+		background: none;
+	}
+	.pager .pages {
+		margin: 0 auto;
+	}
+}
+/* --------------- 320 px layout -------------------- */
+@media only screen and (max-width: 479px) { 
+	
+}
