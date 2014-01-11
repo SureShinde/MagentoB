@@ -115,13 +115,14 @@
 					<?php echo $this->getChildChildHtml('container1', '', true, true) ?>
 				<?php endif;?>
 				
+				<?php/*
 				<div class="share-button">
 					<span class='st_twitter_hcount' displayText='Tweet'></span>
 					<span class='st_fblike_hcount' displayText='Facebook Like'></span>
 					<span class='st_plusone_hcount' displayText='Google +1'></span>
 					<script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
 					<script type="text/javascript">stLight.options({publisher: "b9878051-cbe0-48e6-a245-b0a08e0f964d", doNotHash: true, doNotCopy: true, hashAddressBar: false});</script>
-				</div>
+				</div> */?>
 				
 				<?php if ($this->canEmailToFriend()): ?>
 					<p class="email-friend"><a href="<?php echo $this->helper('catalog/product')->getEmailToFriendUrl($_product) ?>"><?php echo $this->__('Email to a Friend') ?></a></p>
@@ -197,5 +198,7 @@
     //]]>
     </script>
     </div>
-	
+	<div class="related-product">
+		<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('pdp_related_product')->toHtml() ?>
+	</div>
 </div>
