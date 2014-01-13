@@ -52,9 +52,15 @@
 					<h1><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></h1>
 				</div>
 				
+				<?php
+					$myproduct = Mage::getModel('catalog/product')->load($_product->getId());
+					$product_brands = $myproduct->getAttributeText('brands');
+					if ($product_brands) :
+				?>				
 				<div class="by-brand">
-					<p><?php echo $this->__('by <span>BRAND</span>') ?></p>
+					<p><?php echo $this->__('by <span>%s</span>', $product_brands) ?></p>
 				</div>
+				<?php endif; ?>
 
 				<?php echo $this->getChildHtml('product_type_data') ?>
 				<?php echo $this->getReviewsSummaryHtml($_product, false, true)?>
@@ -199,5 +205,11 @@
     </div>
 	<div class="related-product">
 		<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('pdp_related_product')->toHtml() ?>
+	</div>
+	<div class="aw-related-product">
+		<?php echo $this->getChildHtml('awrelatedproducts') ?>
+	</div>
+	<div class="product-review">
+		<?php echo $this->getChildHtml('reviews') ?>
 	</div>
 </div>

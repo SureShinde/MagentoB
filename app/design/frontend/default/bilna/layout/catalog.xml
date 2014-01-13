@@ -215,6 +215,12 @@ Product view
                 </block>
                 <block type="catalog/product_view" name="product.info.addto" as="addto" template="catalog/product/view/addto.phtml"/>
                 <block type="catalog/product_view" name="product.info.addtocart" as="addtocart" template="catalog/product/view/addtocart.phtml"/>
+				
+				<block type="relatedproducts/relatedproducts" name="catalog.product.awrelated.community" as="awrelatedproducts" template="catalog/product/list/awrelated.phtml">
+					<action method="disableRelated"/>
+				</block>
+				
+				<block type="review/product_view_list" name="product.info.product_additional_data" as="reviews" template="review/product/view/list.phtml"/>
 
                 <block type="core/text_list" name="product.info.extrahint" as="extrahint" translate="label">
                     <label>Product View Extra Hint</label>
