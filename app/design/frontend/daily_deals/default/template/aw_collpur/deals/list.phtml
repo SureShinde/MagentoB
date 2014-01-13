@@ -45,23 +45,17 @@
 	<div class="clearer"></div>
 </div>-->
 <?php //endif; ?>
-  <?php echo $this->getLayout()->createBlock('awislider/block')->setBlockId('new_slider')->toHtml() ?> 
 <?php if($this->getAvailableDeals()->count() == 0):  ?>
 <h2 id="awcp-nodeals-available"><?php echo $this->__('No deals available'); ?></h2>
 <?php return; ?>
 <?php endif; ?>
-	<?php $dealSliders = $this->getFeaturedSliders(); 
-			$i = 0; 
-			$max = count($dealSliders); ?>
 <div>
-
-		<!--slider-->
-		<?php echo $this->getLayout()->createBlock('collpur/dealview')->setTemplate('aw_collpur/deals/slider.phtml')->toHtml(); ?>
-		<!--end slider-->
-
-<div class="row">
-<?php echo $this->getChildHtml('available_deals_pager'); ?>
-</div>
+	<!--slider-->
+	<?php echo $this->getLayout()->createBlock('collpur/deals')->setTemplate('aw_collpur/deals/slider.phtml')->toHtml(); ?>
+	<!--end slider-->
+	<div class="row">
+	<?php echo $this->getChildHtml('available_deals_pager'); ?>
+	</div>
 	<ul class="awcp-category-grid row">
     <?php $i = 0; foreach($this->getAvailableDeals() as $deal): ?>
 	<?php
@@ -153,7 +147,7 @@
 			</div>
 		</li>      
      <?php $i++; endforeach; ?> 
- </ul>
+	</ul>
 	<div class="clearer"></div>
 </div>
 

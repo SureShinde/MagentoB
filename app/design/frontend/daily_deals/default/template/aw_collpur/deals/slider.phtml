@@ -1,4 +1,3 @@
-
 <?php
 /**
  * aheadWorks Co.
@@ -26,136 +25,30 @@
  */
 ?>
 <!--slider-->
-		
-<script src="http://localhost/bilna_2014/js/zurb/jquery.js"></script> 
-<script src="http://localhost/bilna_2014/js/zurb/foundation/foundation.js"></script>
-<script src="http://localhost/bilna_2014/js/zurb/foundation/foundation.orbit.js"></script>
-
-		<div class="row">
-			<div class="large-9 orbit-container wrap_banner column"> 
-				<ul data-orbit class="example-orbit orbit-slides-container row">
-				<?php foreach($dealSliders as $dealSlider){ ?>
-				<?php
-					$product = $this->getProduct ( $dealSlider );
-					$originalProduct = $this->getOriginalProduct ( $dealSlider );
-					$dealInfo = $this->getDealPricesSpare ( $originalProduct, $product );
-				?>
-					<li data-orbit-slide="headline-<?php echo $i; ?>"> 
-						<img src="<?php echo $this->getDealImage($dealSlider->getDealImage()); ?>" alt="slide <?php echo $i; ?>" />
-						<div class="orbit-caption">
-							<div class="column large-5">
-								<label>TODAY'S DEALS</label>
-								<p class="judul_deals_slider"><?php echo $dealSlider->getDealName(); ?></p>
-								<div class="price_deals_slider">
-									<p><?php echo Mage::helper('core')->currency($dealSlider->getPrice(), true, false); ?></p>
-									<?php if($originalProduct->getFinalPrice() > 0) echo "<p>".Mage::helper('core')->currency($originalProduct->getFinalPrice(), true, false)."</p>"; ?>
-									<p><?php echo $dealInfo->getPercentDiscount(); ?>% OFF</p>
-								</div>
-							</div>
-							<div class="column large-3 date_slider_deals">
-								<label>PROMO END IN:</label>
-								<p><?php echo $this->getTimeLeftToBuy($dealSlider); ?></p>
-								<p>hour(s) minute(s) second(s)</p>
-								<p>SOLD: <span><?php echo $this->getPurchasesCount($dealSlider->getId()); ?></span></p>
-							</div>
-							<div class="column large-4">
-							<form id="product_addtocart_form" class="right_detail_deals"
-								method="post"
-								action="<?php echo Mage::getUrl('checkout/cart/add', array('_secure'=>true,'product' => $dealSlider->getProduct()->getId(), 'deal_id' => $dealSlider->getId(), 'form_key' => Mage::getSingleton('core/session')->getFormKey())) ?>">
-								<div
-									class="awcp-buy-button <?php if ($this->hasOptions($dealSlider)): ?>awcp-options<?php endif; ?>">
-									<!-- POPUP -->
-									<div class="awcp-popup awcp-popup-shown" style="display: none;"
-										id="awcp-popup-options<?php echo $dealSlider->getId(); ?>">
-										<div class="awcp-popup-top-left">
-											<div class="awcp-popup-top-right"></div>
-										</div>
-										<div class="awcp-popup-center-left">
-											<div class="awcp-popup-center-right">
-												<div class="awcp-popup-content">
-											<?php echo $this->getChildHtml('main_collpur_block'); ?>
-										</div>
-											</div>
-										</div>
-										<div class="awcp-popup-bottom-left">
-											<div class="awcp-popup-bottom-right">
-												<button class="button awcp-button">
-													<span><span><?php echo $this->__('BUY NOW'); ?></span></span>
-												</button>
-											</div>
-										</div>
-										<div class="awcp-popup-tail"></div>
-									</div>
-									<!-- popup -->
-									<button class="button awcp-buy">
-										<?php if ($this->hasOptions($dealSlider)): ?>
-										onclick="Effect.toggle($('awcp-popup-options<?php echo $dealSlider->getId(); ?>'),'appear');return false;"
-										<?php endif; ?>
-										<span>
-											<?php echo $this->__('BUY</br>NOW'); ?>
-									</span>
-									</button>
-								</div>
-							</form>
-							</div>
-						</div> 
-					</li> 
-				<?php $i++; } ?>
-				</ul>
-			</div> 
-			<div class="column large-3 thumb_area">
-				<ul class="row">
-				<?php 
-					$i = 0; 
-					foreach($dealSliders as $dealSlider){ ?>
-				<?php
-					$product = $this->getProduct ( $dealSlider );
-					$originalProduct = $this->getOriginalProduct ( $dealSlider );
-					$dealInfo = $this->getDealPricesSpare ( $originalProduct, $product );
-				?>
-					<li class="larege-12 thumb_slider">
-					<a data-orbit-link="headline-<?php echo $i; ?>" class="small button"></a>
-						<div class="thumb_image_slider">
-						<img src="<?php echo $this->getDealImage($dealSlider->getDealImage()); ?>"/>
-						</div>
-						<p><?php echo $dealSlider->getDealName(); ?></p>
-						<p><?php echo $dealInfo->getPercentDiscount(); ?>% OFF</p>
-					</li>
-				<?php $i++; } ?>
-				</ul>
-			</div>
-		</div>
-		<!--end slider-->
-		<!--slider 2-->
-		<div class="row">
-		<style> 
-        
-    </style>
+<script src="http://bilna.local/js/zurb/jquery.js"></script> 
+<script src="http://bilna.local/js/zurb/foundation/foundation.js"></script>
+<script src="http://bilna.local/js/zurb/foundation/foundation.orbit.js"></script>
+<!--slider 2-->
+<?php $dealSliders = $this->getFeaturedSliders(); 
+		$i = 0; 
+		$max = count($dealSliders); ?>
+<div class="row">
     <!-- use jssor.slider.min.js instead for release -->
     <!-- jssor.slider.min.js = (jssor.core.js + jssor.utils.js + jssor.slider.js) -->
-    <script type="text/javascript" src="http://localhost/bilna_2014/js/jssor.core.js"></script>
-    <script type="text/javascript" src="http://localhost/bilna_2014/js/jssor.utils.js"></script>
-    <script type="text/javascript" src="http://localhost/bilna_2014/js/jssor.slider.js"></script>
+    <script type="text/javascript" src="http://bilna.local/js/jssor.core.js"></script>
+    <script type="text/javascript" src="http://bilna.local/js/jssor.utils.js"></script>
+    <script type="text/javascript" src="http://bilna.local/js/jssor.slider.js"></script>
     <script>
-        jssor_slider1_starter = function (containerId) {
+        jQuery(document).ready(function ($) {
             var options = {
-                $AutoPlay: true,                                    //[Optional] Whether to auto play, to enable slideshow, this option must be set to true, default value is false
-                $AutoPlaySteps: 1,                                  //[Optional] Steps to go for each navigation request (this options applys only when slideshow disabled), the default value is 1
-                $AutoPlayInterval: 4000,                            //[Optional] Interval (in milliseconds) to go for next slide since the previous stopped if the slider is auto playing, default value is 3000
-                $PauseOnHover: 0,                               //[Optional] Whether to pause when mouse over if a slider is auto playing, 0 no pause, 1 pause for desktop, 2 pause for touch device, 3 pause for desktop and touch device, default value is 3
-
-                $ArrowKeyNavigation: true,   			            //[Optional] Allows keyboard (arrow key) navigation or not, default value is false
                 $SlideDuration: 500,                                //[Optional] Specifies default duration (swipe) for slide in milliseconds, default value is 500
-                $MinDragOffsetToSlide: 20,                          //[Optional] Minimum drag offset to trigger slide , default value is 20
-                //$SlideWidth: 600,                                 //[Optional] Width of every slide in pixels, default value is width of 'slides' container
-                //$SlideHeight: 300,                                //[Optional] Height of every slide in pixels, default value is height of 'slides' container
-                $SlideSpacing: 5, 					                //[Optional] Space between each slide in pixels, default value is 0
-                $DisplayPieces: 1,                                  //[Optional] Number of pieces to display (the slideshow would be disabled if the value is set to greater than 1), the default value is 1
-                $ParkingPosition: 0,                                //[Optional] The offset position to park slide (this options applys only when slideshow disabled), default value is 0.
-                $UISearchMode: 1,                                   //[Optional] The way (0 parellel, 1 recursive, default value is 1) to search UI components (slides container, loading screen, navigator container, direction navigator container, thumbnail navigator container etc).
-                $PlayOrientation: 1,                                //[Optional] Orientation to play slide (for auto play, navigation), 1 horizental, 2 vertical, default value is 1
                 $DragOrientation: 3,                                //[Optional] Orientation to drag slide, 0 no drag, 1 horizental, 2 vertical, 3 either, default value is 1 (Note that the $DragOrientation should be the same as $PlayOrientation when $DisplayPieces is greater than 1, or parking position is not 0)
-
+                $DirectionNavigatorOptions: {
+                    $Class: $JssorDirectionNavigator$,              //[Requried] Class to create direction navigator instance
+                    $ChanceToShow: 2,                               //[Required] 0 Never, 1 Mouse Over, 2 Always
+                    $AutoCenter: 2,                                 //[Optional] Auto center arrows in parent container, 0 No, 1 Horizontal, 2 Vertical, 3 Both, default value is 0
+                    $Steps: 1                                       //[Optional] Steps to go for each navigation request, default value is 1
+                },
                 $ThumbnailNavigatorOptions: {
                     $Class: $JssorThumbnailNavigator$,              //[Required] Class to create thumbnail navigator instance
                     $ChanceToShow: 2,                               //[Required] 0 Never, 1 Mouse Over, 2 Always
@@ -171,113 +64,107 @@
                 }
             };
 
-            var jssor_slider1 = new $JssorSlider$(containerId, options);
-        };
+            var jssor_slider1 = new $JssorSlider$("slider1_container", options);
+            //responsive code begin
+            //you can remove responsive code if you don't want the slider scales while window resizes
+            function ScaleSlider() {
+                var parentWidth = jssor_slider1.$Elmt.parentNode.clientWidth;
+                if (parentWidth)
+                    jssor_slider1.$SetScaleWidth(parentWidth);
+                else
+                    window.setTimeout(ScaleSlider, 30);
+            }
+
+            //Scale slider immediately
+            ScaleSlider();
+
+            if (!navigator.userAgent.match(/(iPhone|iPod|iPad|BlackBerry|IEMobile)/)) {
+                $(window).bind('resize', ScaleSlider);
+            }
+            //responsive code end
+        });
     </script>
     <!-- Jssor Slider Begin -->
     <!-- You can move inline styles (except 'top', 'left', 'width' and 'height') to css file or css block. -->
-
-    <div id="slider1_container" class="slider1_container" style="height: 430px; background:#191919; width: 997px; position:relative; ">
-
-        <!-- Loading Screen -->
-        <div u="loading" style="position: relative; top: 0px; left: 0px;">
-            <div style="filter: alpha(opacity=70); opacity:0.7; position: relative; display: block;
-                background-color: #000000; top: 0px; left: 0px;width: 100%;height:100%;">
-            </div>
-            <div style="position: relative; display: block; background: url(http://localhost/bilna_2014/skin/frontend/daily_deals/default/aw_collpur/images/img/loading.gif) no-repeat center center;
-                top: 0px; left: 0px;width: 100%;height:100%;">
-            </div>
-        </div>
-
+    <div id="slider1_container" style="position: relative; width: 960px; height: 380px; overflow: hidden;">
         <!-- Slides Container -->
-		
-        <div class="container_main_image" u="slides" style="cursor: move; position: relative; left: 0px; top: 0px; width: 797px; height: 430px;
-            overflow: hidden;">
-            <div class="main_image"> 
-                <img src="http://localhost/bilna_2014/skin/frontend/daily_deals/default/aw_collpur/images/img/photography/002.jpg" />
-				<div class="orbit-caption">
+        <div u="slides" style="cursor: move; position: absolute; width: 760px; height: 380px; top: 0px;
+            left: 0px; overflow: hidden;">
+            <?php 
+			$i = 0; 
+			foreach($dealSliders as $dealSlider){ 
+				$product = $this->getProduct ( $dealSlider );
+				$originalProduct = $this->getOriginalProduct ( $dealSlider );
+				$dealInfo = $this->getDealPricesSpare ( $originalProduct, $product );
+			?>
+            <div>
+            	<img u="image" src="<?php echo $this->getDealImage($dealSlider->getDealImage()); ?>" />
+                <div u="thumb">
+                    <img class="i" src="<?php echo $this->getDealImage($dealSlider->getDealImage()); ?>" />
+                    <div class="t"><?php echo $dealSlider->getDealName(); ?></div>
+                    <div class="c"><?php if($dealInfo->getPercentDiscount() <> "0") { echo $dealInfo->getPercentDiscount(); ?>% OFF<?php } ?></div>
+                </div>
+                <div u="caption" t="MCLIP|B" style="position: absolute; bottom: 0px; left: 0px; right: 0px; height: 150px;  background-color: Black; opacity: 0.8; filter: alpha(opacity=80);">
+                    <div style="display: block; color: #fff; font-size: 16px; font-weight: bold; line-height: 50px;">
+						<div class="orbit-caption">
 							<div class="column large-5">
 								<label>TODAY'S DEALS</label>
-								<p class="judul_deals_slider">fsjgh fh sdh</p>
+								<p class="judul_deals_slider"><?php echo $dealSlider->getDealName(); ?></p>
 								<div class="price_deals_slider">
-									<p>Rp30.000,00</p>
-									<p>Rp2.000.000,00</p>									<p>98.5% OFF</p>
+									<p><?php echo Mage::helper('core')->currency($dealSlider->getPrice(), true, false); ?></p>
+									<?php if($originalProduct->getFinalPrice() > 0) echo "<p>".Mage::helper('core')->currency($originalProduct->getFinalPrice(), true, false)."</p>"; ?>
+									<p><?php if($dealInfo->getPercentDiscount() <> "0") { echo $dealInfo->getPercentDiscount(); ?>% OFF<?php } ?></p>
 								</div>
 							</div>
 							<div class="column large-3 date_slider_deals">
 								<label>PROMO END IN:</label>
-								<p>718 : 56 : 38</p>
+								<p><?php echo $this->getTimeLeftToBuy($dealSlider); ?></p>
 								<p>hour(s) minute(s) second(s)</p>
-								<p>SOLD: <span>0</span></p>
+								<p>SOLD: <span><?php echo $this->getPurchasesCount($dealSlider->getId()); ?></span></p>
 							</div>
 							<div class="column large-4">
-							<form action="http://localhost/bilna_2014/index.php/checkout/cart/add/product/157/deal_id/7/form_key/mLukfXLa6TtePNO3/" method="post" class="right_detail_deals" id="product_addtocart_form">
-								<div class="awcp-buy-button ">
-									<!-- POPUP -->
-									<div id="awcp-popup-options7" style="display: none;" class="awcp-popup awcp-popup-shown">
-										<div class="awcp-popup-top-left">
-											<div class="awcp-popup-top-right"></div>
-										</div>
-										<div class="awcp-popup-center-left">
-											<div class="awcp-popup-center-right">
-												<div class="awcp-popup-content">
-																					</div>
+								<form	id="product_addtocart_form" class="right_detail_deals"
+										method="post"
+										action="<?php echo Mage::getUrl('checkout/cart/add', array('_secure'=>true,'product' => $dealSlider->getProduct()->getId(), 'deal_id' => $dealSlider->getId(), 'form_key' => Mage::getSingleton('core/session')->getFormKey())) ?>">
+									<div class="awcp-buy-button <?php if ($this->hasOptions($dealSlider)): ?>awcp-options<?php endif; ?>">
+										<!-- POPUP -->
+										<div class="awcp-popup awcp-popup-shown" style="display: none;"
+										id="awcp-popup-options<?php echo $dealSlider->getId(); ?>">
+											<div class="awcp-popup-top-left">
+												<div class="awcp-popup-top-right"></div>
 											</div>
-										</div>
-										<div class="awcp-popup-bottom-left">
-											<div class="awcp-popup-bottom-right">
-												<button class="button awcp-button">
-													<span><span>BUY NOW</span></span>
-												</button>
+											<div class="awcp-popup-center-left">
+												<div class="awcp-popup-center-right">
+													<div class="awcp-popup-content"><?php echo $this->getChildHtml('main_collpur_block'); ?></div>
+												</div>
 											</div>
+											<div class="awcp-popup-bottom-left">
+												<div class="awcp-popup-bottom-right">
+													<button class="button awcp-button">
+														<span><span><?php echo $this->__('BUY NOW'); ?></span></span>
+													</button>
+												</div>
+											</div>
+											<div class="awcp-popup-tail"></div>
 										</div>
-										<div class="awcp-popup-tail"></div>
+										<!-- popup -->
+										<button class="button awcp-buy" <?php if ($this->hasOptions($dealSlider)): ?>onclick="Effect.toggle($('awcp-popup-options<?php echo $dealSlider->getId(); ?>'),'appear');return false;"<?php endif; ?>>
+											<span><?php echo $this->__('BUY</br>NOW'); ?></span>
+										</button>
 									</div>
-									<!-- popup -->
-									<button class="button awcp-buy">
-										<span>
-											BUY NOW</span>
-									</button>
-								</div>
-							</form>
+								</form>
 							</div>
 						</div>
-				<div style="width:100px; height:30px; background:#000;"> </div>
-                <div u="thumb">
-                    <img class="i" src="http://localhost/bilna_2014/skin/frontend/daily_deals/default/aw_collpur/images/img/photography/thumb-002.jpg" />
-					<div class="t">Cristmas Party Set</div>
-					<div class="c">70% OFF</div>
+                    </div>
                 </div>
             </div>
-            <div class="main_image">
-                <img src="http://localhost/bilna_2014/skin/frontend/daily_deals/default/aw_collpur/images/img/photography/003.jpg" />
-                <div u="thumb">
-                    <img class="i" src="http://localhost/bilna_2014/skin/frontend/daily_deals/default/aw_collpur/images/img/photography/thumb-003.jpg" />
-					<div class="t">Image Gallery</div>
-                    <div class="c">70% OFF</div>
-                </div>
-            </div>
-            <div class="main_image">
-                <img src="http://localhost/bilna_2014/skin/frontend/daily_deals/default/aw_collpur/images/img/photography/004.jpg" />
-                <div u="thumb">
-                    <img class="i" src="http://localhost/bilna_2014/skin/frontend/daily_deals/default/aw_collpur/images/img/photography/thumb-004.jpg" />
-					<div class="t">Carousel</div>
-                    <div class="c">70% OFF</div>
-                </div>
-            </div>
-            <div class="main_image">
-                <img src="http://localhost/bilna_2014/skin/frontend/daily_deals/default/aw_collpur/images/img/photography/005.jpg" />
-                <div u="thumb">
-                    <img class="i" src="http://localhost/bilna_2014/skin/frontend/daily_deals/default/aw_collpur/images/img/photography/thumb-005.jpg" />
-					<div class="t">Themes</div>
-                    <div class="c">70% OFF</div>
-                </div>
-            </div>
-            
+			<?php
+				$i++;
+			}
+			?>
         </div>
-        
         <!-- ThumbnailNavigator Skin Begin -->
-        <div u="thumbnavigator" class="jssort11 thumb_area" style="position: relative; width: 200px; height: 430px; float:right; top:0px;">
+        <div u="thumbnavigator" class="jssort11" style="position: absolute; width: 200px; height: 380px; right:0px; top: 0px; bottom:0px;">
             <!-- Thumbnail Item Skin Begin -->
             <style>
                 /* jssor slider thumbnail navigator skin 11 css */
@@ -294,35 +181,37 @@
                 }
                 .jssort11 .i, .jssort11 .pav:hover .i
                 {
-                	position: relative;
+                	position: absolute;
                 	top:3px;
-					margin:0 10px 0 0;
                 	left:3px;
-					float:left;
-                	WIDTH: 96px;
-                	HEIGHT: 98px;
+                	WIDTH: 60px;
+                	HEIGHT: 30px;
+                	border: white 1px dashed;
                 }
                 * html .jssort11 .i
                 {
-					position: relative;
-                	top:3px;
-                	left:3px;
-					float:left;
-					WIDTH: 96px;
-                	HEIGHT: 98px;
+                	WIDTH /**/: 62px;
+                	HEIGHT /**/: 32px;
+                }
+                .jssort11{
+                	background-color: #000;
                 }
                 .jssort11 .pav .i
                 {
-					float:left;
+                	border: white 1px solid;
                 }
                 .jssort11 .t, .jssort11 .pav:hover .t
                 {
-                	position: relative;
-                	text-align: left;
+                	position: absolute;
+                	top: 3px;
+                	left: 68px;
+                	width:129px;
+                	height: 32px;
+                	line-height:32px;
+                	text-align: center;
                 	color:#fc9835;
-                	font-size:12px;
+                	font-size:13px;
                 	font-weight:700;
-					padding:30px 0 0;
                 }
                 .jssort11 .pav .t, .jssort11 .phv .t, .jssort11 .p:hover .t
                 {
@@ -330,8 +219,11 @@
                 }
                 .jssort11 .c, .jssort11 .pav:hover .c
                 {
-                	position: relative;
-                	float:left;
+                	position: absolute;
+                	top: 38px;
+                	left: 3px;
+                	width:197px;
+                	height: 31px;
                 	line-height:31px;
                 	color:#fff;
                 	font-size:11px;
@@ -369,19 +261,64 @@
                 	background:#333;
                 }
             </style>
-            <div u="slides" style="cursor: move;">
-                <div u="prototype" class="p" style="position: relative; width: 200px; height: 105px; top: 0; left: 0;">
-                    <thumbnailtemplate style=" width: 100%; height: 100%; border: none;position:relative; top: 0; left: 0;"></thumbnailtemplate>
+            <div u="slides" style="cursor: move; position: absolute; width: 200px; height: 100%;">
+                <div u="prototype" class="p" style="position: absolute; width: 200px; height: 100%;">
+                    <thumbnailtemplate style=" width: 100%; height: 100%; border: none;position:absolute;"></thumbnailtemplate>
                 </div>
             </div>
             <!-- Thumbnail Item Skin End -->
         </div>
         <!-- ThumbnailNavigator Skin End -->
+        <!-- Direction Navigator Skin Begin -->
+        <style>
+		            /* jssor slider direction navigator skin 20 css */
+		            /*
+		            .jssord20l              (normal)
+		            .jssord20r              (normal)
+		            .jssord20l:hover        (normal mouseover)
+		            .jssord20r:hover        (normal mouseover)
+		            .jssord20ldn            (mousedown)
+		            .jssord20rdn            (mousedown)
+		            */
+		            .jssord20l, .jssord20r, .jssord20ldn, .jssord20rdn
+		            {
+		            	position: absolute;
+		            	cursor: pointer;
+		            	display: block;
+		                background: url(../img/d20.png) no-repeat;
+		                overflow:hidden;
+		            }
+		            .jssord20l { background-position: -3px -33px; }
+		            .jssord20r { background-position: -63px -33px; }
+		            .jssord20l:hover { background-position: -123px -33px; }
+		            .jssord20r:hover { background-position: -183px -33px; }
+		            .jssord20ldn { background-position: -243px -33px; }
+		            .jssord20rdn { background-position: -303px -33px; }
+		            
+ 	                #slider1_container .i, #slider1_container .i
+ 	                {
+ 	                	position: absolute;
+ 	                	top:3px;
+ 	                	left:3px;
+ 	                	WIDTH: 60px;
+ 	                	HEIGHT: 30px;
+ 	                	border: white 1px dashed;
+ 	                }
+ 	                #slider1_container .i
+ 	                {
+ 	                	WIDTH /**/: 62px;
+ 	                	HEIGHT /**/: 32px;
+ 	                }
+		        </style>
+        <!-- Arrow Left -->
+        <span u="arrowleft" class="jssord20l" style="width: 55px; height: 55px; top: 123px; left: 8px;">
+        </span>
+        <!-- Arrow Right -->
+        <span u="arrowright" class="jssord20r" style="width: 55px; height: 55px; top: 123px; right: 8px">
+        </span>
+        <!-- Direction Navigator Skin End -->
         <a style="display: none" href="http://www.jssor.com">jQuery Slideshow</a>
-        <!-- Trigger -->
-        <script>
-            jssor_slider1_starter('slider1_container');
-        </script>
     </div>
-	</div>
-		<!--end slider 2-->
+    <!-- Jssor Slider End -->
+</div>
+<!--end slider 2-->

@@ -1,3 +1,4 @@
+
 /* navigation styles */
 .awcp-navigation { 
 	background:#fb816c url(../images/dashed_nav.jpg) 0 94% repeat-x;
@@ -872,6 +873,10 @@ table.awcp-pricedata tr:nth-child(1) td{
 .thumb_image_slider img{
 	height:100%;
 }
+
+.thumb_area{
+	background-color: #000;
+}
 /*end slider*/
 
 
@@ -882,7 +887,6 @@ table.awcp-pricedata tr:nth-child(1) td{
 
 @media only screen and (min-width: 40.063em) and (max-width: 64em) {
 .slider1_container{
-	height: 430px;
 	background:#191919; 
 	width: 100% !important; 
 }
@@ -890,7 +894,7 @@ table.awcp-pricedata tr:nth-child(1) td{
 	width:100%!important;
 }
 .main_image{
-	height:430px !important;;
+	width:100%!important;
 }
 .main_image img{
 	width:100%;
