@@ -802,6 +802,13 @@
 #nav li.level-top.parent-9 {
 	width: 125px;
 }
+#nav li.level-top.parent-10, #nav li.level-top.parent-11 {
+	float: right;
+	width: auto;
+}
+#nav li.level-top.parent-10:hover, #nav li.level-top.parent-11:hover {
+	background:none;
+}
 #nav li.menu-salegift {
 	float: right;
 }
@@ -814,17 +821,22 @@
 	text-indent: -99999px;
 	padding: 0;
 }
-#nav li.menu-salegift a.sale {
+#nav li.menu-salegift a.sale, #nav a.level-top.sale {
 	width: 68px;
 	height: 42px;
 	background: url(../images/sale.png) no-repeat center center;
 }
-#nav li.menu-salegift a.giftideas {
+#nav li.menu-salegift a.giftideas, #nav a.level-top.giftideas {
 	width: 43px;
 	height: 42px;
 	background: url(../images/gift-ideas.png) no-repeat center center;
 }
-#nav li.level-top.parent-6 ul.shown-sub, #nav li.level-top.parent-7 ul.shown-sub, #nav li.level-top.parent-8 ul.shown-sub, #nav li.level-top.parent-9 ul.shown-sub {
+#nav a.level-top.sale, #nav a.level-top.giftideas {
+	text-indent: -999999px;
+	padding: 0;
+}
+
+#nav li.level-top.parent-6 ul.shown-sub, #nav li.level-top.parent-7 ul.shown-sub, #nav li.level-top.parent-8 ul.shown-sub, #nav li.level-top.parent-9 ul.shown-sub, #nav li.level-top.parent-10 ul.shown-sub, #nav li.level-top.parent-11 ul.shown-sub {
 	right: 0;
 	left: auto;
 }
@@ -1235,11 +1247,11 @@
 	#nav li.level-top.parent-9 {
 		width: 89px;
 	}
-	#nav li.menu-salegift a.sale {
+	#nav li.menu-salegift a.sale, #nav a.level-top.sale {
 		width: 50px;
 		background-size: 100% auto;
 	}
-	#nav li.menu-salegift a.giftideas {
+	#nav li.menu-salegift a.giftideas, #nav a.level-top.giftideas {
 		width: 35px;
 		background-size: 100% auto;
 	}
