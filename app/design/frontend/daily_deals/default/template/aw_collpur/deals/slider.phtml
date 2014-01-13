@@ -129,41 +129,7 @@
 		<!--slider 2-->
 		<div class="row">
 		<style> 
-        .captionOrange, .captionBlack
-        {
-            color: #fff;
-            font-size: 20px;
-            line-height: 30px;
-            text-align: center;
-            border-radius: 4px;
-        }
-        .captionOrange
-        {
-            background: #EB5100;
-            background-color: rgba(235, 81, 0, 0.6);
-        }
-        .captionBlack
-        {
-        	font-size:16px;
-            background: #000;
-            background-color: rgba(0, 0, 0, 0.4);
-        }
-        a.captionOrange, A.captionOrange:active, A.captionOrange:visited
-        {
-        	color: #ffffff;
-        	text-decoration: none;
-        }
-        a.captionOrange:hover
-        {
-            color: #eb5100;
-            text-decoration: underline;
-            background-color: #eeeeee;
-            background-color: rgba(238, 238, 238, 0.7);
-        }
-        .bricon
-        {
-            background: url(http://localhost/bilna_2014/skin/frontend/daily_deals/default/aw_collpur/images/img/browser-icons.png);
-        }
+        
     </style>
     <!-- use jssor.slider.min.js instead for release -->
     <!-- jssor.slider.min.js = (jssor.core.js + jssor.utils.js + jssor.slider.js) -->
@@ -211,7 +177,7 @@
     <!-- Jssor Slider Begin -->
     <!-- You can move inline styles (except 'top', 'left', 'width' and 'height') to css file or css block. -->
 
-    <div id="slider1_container" class="column large-12" style="height: 300px;background:#191919; width: 1024px; ">
+    <div id="slider1_container" class="slider1_container" style="height: 430px; background:#191919; width: 997px; position:relative; ">
 
         <!-- Loading Screen -->
         <div u="loading" style="position: relative; top: 0px; left: 0px;">
@@ -225,9 +191,9 @@
 
         <!-- Slides Container -->
 		
-        <div u="slides" style="cursor: move; position: relative; left: 0px; top: 0px; width: 700px; height: 300px;
+        <div class="container_main_image" u="slides" style="cursor: move; position: relative; left: 0px; top: 0px; width: 797px; height: 430px;
             overflow: hidden;">
-            <div>
+            <div class="main_image"> 
                 <img src="http://localhost/bilna_2014/skin/frontend/daily_deals/default/aw_collpur/images/img/photography/002.jpg" />
 				<div class="orbit-caption">
 							<div class="column large-5">
@@ -278,36 +244,40 @@
 						</div>
 				<div style="width:100px; height:30px; background:#000;"> </div>
                 <div u="thumb">
-                    <img class="i" src="http://localhost/bilna_2014/skin/frontend/daily_deals/default/aw_collpur/images/img/photography/thumb-002.jpg" /><div class="t">Banner Rotator</div>
-                    <div class="c">360+ touch swipe slideshow effects</div>
+                    <img class="i" src="http://localhost/bilna_2014/skin/frontend/daily_deals/default/aw_collpur/images/img/photography/thumb-002.jpg" />
+					<div class="t">Cristmas Party Set</div>
+					<div class="c">70% OFF</div>
                 </div>
             </div>
-            <div>
+            <div class="main_image">
                 <img src="http://localhost/bilna_2014/skin/frontend/daily_deals/default/aw_collpur/images/img/photography/003.jpg" />
                 <div u="thumb">
-                    <img class="i" src="http://localhost/bilna_2014/skin/frontend/daily_deals/default/aw_collpur/images/img/photography/thumb-003.jpg" /><div class="t">Image Gallery</div>
-                    <div class="c">Image gallery with thumbnail navigation</div>
+                    <img class="i" src="http://localhost/bilna_2014/skin/frontend/daily_deals/default/aw_collpur/images/img/photography/thumb-003.jpg" />
+					<div class="t">Image Gallery</div>
+                    <div class="c">70% OFF</div>
                 </div>
             </div>
-            <div>
+            <div class="main_image">
                 <img src="http://localhost/bilna_2014/skin/frontend/daily_deals/default/aw_collpur/images/img/photography/004.jpg" />
                 <div u="thumb">
-                    <img class="i" src="http://localhost/bilna_2014/skin/frontend/daily_deals/default/aw_collpur/images/img/photography/thumb-004.jpg" /><div class="t">Carousel</div>
-                    <div class="c">Touch swipe, mobile device optimized</div>
+                    <img class="i" src="http://localhost/bilna_2014/skin/frontend/daily_deals/default/aw_collpur/images/img/photography/thumb-004.jpg" />
+					<div class="t">Carousel</div>
+                    <div class="c">70% OFF</div>
                 </div>
             </div>
-            <div>
+            <div class="main_image">
                 <img src="http://localhost/bilna_2014/skin/frontend/daily_deals/default/aw_collpur/images/img/photography/005.jpg" />
                 <div u="thumb">
-                    <img class="i" src="http://localhost/bilna_2014/skin/frontend/daily_deals/default/aw_collpur/images/img/photography/thumb-005.jpg" /><div class="t">Themes</div>
-                    <div class="c">30+ professional themems + growing</div>
+                    <img class="i" src="http://localhost/bilna_2014/skin/frontend/daily_deals/default/aw_collpur/images/img/photography/thumb-005.jpg" />
+					<div class="t">Themes</div>
+                    <div class="c">70% OFF</div>
                 </div>
             </div>
             
         </div>
         
         <!-- ThumbnailNavigator Skin Begin -->
-        <div u="thumbnavigator" class="jssort11" style="position: relative; width: 200px; height: 300px; left:605px; top:0px;">
+        <div u="thumbnavigator" class="jssort11 thumb_area" style="position: relative; width: 200px; height: 430px; float:right; top:0px;">
             <!-- Thumbnail Item Skin Begin -->
             <style>
                 /* jssor slider thumbnail navigator skin 11 css */
@@ -326,32 +296,33 @@
                 {
                 	position: relative;
                 	top:3px;
+					margin:0 10px 0 0;
                 	left:3px;
 					float:left;
-                	WIDTH: 60px;
-                	HEIGHT: 30px;
-                	border: white 1px dashed;
+                	WIDTH: 96px;
+                	HEIGHT: 98px;
                 }
                 * html .jssort11 .i
                 {
-                	WIDTH /**/: 62px;
-                	HEIGHT /**/: 32px;
+					position: relative;
+                	top:3px;
+                	left:3px;
+					float:left;
+					WIDTH: 96px;
+                	HEIGHT: 98px;
                 }
                 .jssort11 .pav .i
                 {
-                	border: white 1px solid;
+					float:left;
                 }
                 .jssort11 .t, .jssort11 .pav:hover .t
                 {
                 	position: relative;
-                	float:left;
-                	width:129px;
-                	height: 32px;
-                	line-height:32px;
-                	text-align: center;
+                	text-align: left;
                 	color:#fc9835;
-                	font-size:13px;
+                	font-size:12px;
                 	font-weight:700;
+					padding:30px 0 0;
                 }
                 .jssort11 .pav .t, .jssort11 .phv .t, .jssort11 .p:hover .t
                 {
@@ -361,8 +332,6 @@
                 {
                 	position: relative;
                 	float:left;
-                	width:197px;
-                	height: 31px;
                 	line-height:31px;
                 	color:#fff;
                 	font-size:11px;
@@ -401,7 +370,7 @@
                 }
             </style>
             <div u="slides" style="cursor: move;">
-                <div u="prototype" class="p" style="position: relative; width: 200px; height: 69px; top: 0; left: 0;">
+                <div u="prototype" class="p" style="position: relative; width: 200px; height: 105px; top: 0; left: 0;">
                     <thumbnailtemplate style=" width: 100%; height: 100%; border: none;position:relative; top: 0; left: 0;"></thumbnailtemplate>
                 </div>
             </div>
