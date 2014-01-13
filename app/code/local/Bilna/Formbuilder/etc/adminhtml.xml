@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<config>
+    <menu>
+        <bilna>
+            <children>
+                <bilna_formbuilder_formbuilder translate="title" module="bilna_formbuilder">
+                    <sort_order>212</sort_order>
+                    <title>Form Builder Manager</title>
+                    <action>adminhtml/formbuilder/</action>
+                </bilna_formbuilder_formbuilder>
+            </children>
+        </bilna>
+    </menu>
+	
+	<acl>
+	  <resources>
+		<all>
+		  <title>Allow Everything</title>
+		</all>
+		<admin>
+		  <children>
+		  <bilna>
+				<children>
+					<bilna_formbuilder_formbuilder>
+						<title>Formbuilder Manager</title>
+					</bilna_formbuilder_formbuilder>
+				</children>
+		  </bilna>
+		  </children>
+		</admin>
+	  </resources>
+	</acl>
+</config>
