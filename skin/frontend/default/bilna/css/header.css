@@ -484,7 +484,7 @@
 	margin: 4px 50px 0 0;
 	position: relative;
 }
-.header .quick-access .store-phone, .header .links {
+.header .quick-access .store-phone, .header .links, .menu-tablet .links {
 	float: none;
 	font-family: Helvetica;
 }
@@ -508,11 +508,11 @@
 	padding: 0;
 	border: none;
 }
-.header .links li.register {
+.header .links li.register, .menu-tablet .links li.register {
 	padding-left: 5px;
 	background: url(../images/slash.png) no-repeat left center !important;
 }
-.header .links a {
+.header .links a, .menu-tablet .links a {
 	color: #4ec7da;
 }
 .header .links a:hover {
@@ -559,17 +559,18 @@
 	color: #707070;
 	font-size: 1em;
 }
-.header .form-language {
+.header .form-language, .menu-tablet .form-language {
 	float: right;
 	clear: none;
 	width: auto;
 	height: auto;
 	overflow: hidden;
 	padding: 0;
-	margin: 10px 0 0 0;
 	background: url(../images/arrow-select.png) no-repeat right center;
 }
-
+.header .form-language {
+	margin: 10px 0 0 0;
+}
 .form-language select {
 	background: none;
 	width: auto;
@@ -833,7 +834,7 @@
 }
 #nav a.level-top.sale, #nav a.level-top.giftideas {
 	text-indent: -999999px;
-	padding: 0;
+	padding: 0 5px;
 }
 
 #nav li.level-top.parent-6 ul.shown-sub, #nav li.level-top.parent-7 ul.shown-sub, #nav li.level-top.parent-8 ul.shown-sub, #nav li.level-top.parent-9 ul.shown-sub, #nav li.level-top.parent-10 ul.shown-sub, #nav li.level-top.parent-11 ul.shown-sub {
@@ -1052,6 +1053,20 @@
 	display: none;
 }
 /* end for menu */
+.menu-tablet {
+	display: none;
+	margin: 3px auto 0;
+	font-size: 11px;
+}
+.menu-tablet .form-language, .menu-tablet .store-phone, .menu-tablet ul.links {
+	float: right;
+}
+.menu-tablet .form-language {
+	margin-right: 10px;
+}
+.menu-tablet ul.links {
+	margin-left: 20px;
+}
 @media only screen and (max-width: 1215px) {
 	.header, #nav, .sticky-header {
 		width: 994px;
@@ -1138,7 +1153,7 @@
 }
 /* --------------- 960 px layout -------------------- */
 @media only screen and (max-width: 1023px) {
-	.header, #nav, .sticky-header {
+	.header, #nav, .sticky-header, .menu-tablet {
 		width: 745px;
 	}
 	.sticky-header ul.sticky-menu li {
@@ -1165,22 +1180,11 @@
 		margin-bottom: 5px;
 		width: auto;
 	}
-	.header .links {
-		float: left;
-		margin-top: 0;
-	}
-	.header .links li {
-		border-left: none;
-	}
-	.header .links li.myaccount .toplink-myaccount {
-		left: 0;
-		right:auto;
-	}
 	.header .quick-access .left {
 		float: none !important;
 		text-align: right;
 	}
-	.sticky-header .sticky-search .form-search .input-keyword .select-category, .header .links li.trackorder, .header .quick-access .store-phone, .header .form-language, .header .quick-access .top-cart a.link-checkout {
+	.sticky-header .sticky-search .form-search .input-keyword .select-category, .header .links, .header .quick-access .store-phone, .header .form-language, .header .quick-access .top-cart a.link-checkout {
 		display: none;
 	}
 	.header .form-search {
@@ -1194,13 +1198,6 @@
 	}
 	.header .form-search input.input-text {
 		width: 90px;
-	}
-	.header .left .form-language {
-		display: block;
-		margin-top: 5px;
-	}
-	.header .quick-access .left .form-language {
-		display: block;
 	}
 	#nav {
 		position: relative;
@@ -1254,6 +1251,12 @@
 	#nav li.menu-salegift a.giftideas, #nav a.level-top.giftideas {
 		width: 35px;
 		background-size: 100% auto;
+	}
+	#nav a.level-top.sale, #nav a.level-top.giftideas {
+		padding: 0;
+	}
+	.menu-tablet {
+		display: block;
 	}
 }
 /* --------------- smaller 959 px layout -------------------- */

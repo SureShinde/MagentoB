@@ -134,8 +134,7 @@ $j(document).ready(function(){
 		    	<li><a href="#"><?php echo $this->__('Daily Deals') ?></a></li>
 	    	</ul>
     	</div>
-    	<!--<div class="menu-blog"><span><a href="#"><?php echo $this->__('Blog') ?></a></span></div>-->
-        <?php if ($this->getIsHomePage()):?>
+    	<?php if ($this->getIsHomePage()):?>
         <h1 class="logo"><strong><?php echo $this->getLogoAlt() ?></strong><a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="logo"><img src="<?php echo $this->getSkinUrl(); ?>images/logo.png" alt="<?php echo $this->getLogoAlt() ?>" /></a></h1>
         <?php else:?>
         <a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="logo"><strong><?php echo $this->getLogoAlt() ?></strong><img src="<?php echo $this->getSkinUrl(); ?>images/logo.png" alt="<?php echo $this->getLogoAlt() ?>" /></a>
@@ -175,7 +174,14 @@ $j(document).ready(function(){
     </div>
 </div>
 <?php echo $this->getChildHtml('topMenu') ?>
-
+<div class="menu-tablet">
+	<?php echo $this->getChildHtml('topLinks') ?>
+	<div class="store-phone">
+		<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('store_phone')->toHtml() ?>
+	</div>
+	<?php echo $this->getChildHtml('store_language') ?>
+	<div class="clear"></div>
+</div>
 <!--this is for testing only-->
 <?php //echo $this->getLayout()->createBlock("core/template")->setTemplate("page/template/bottommenu.phtml")->toHtml(); ?>
 <!--
