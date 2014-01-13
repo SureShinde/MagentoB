@@ -503,6 +503,64 @@
 	float: left;
 }
 
+.product-review {
+	margin-bottom: 50px;
+}
+.product-review  h2 {
+	background: url(../images/product_reviews.png) no-repeat left;
+	height: 58px;	
+	font-family: 'bebasregular';
+	text-transform: uppercase;
+	color: #fff;
+	font-size: 1.5em;
+	padding-left: 55px;
+	line-height: 3em;
+}
+.product-review .box-reviews li {
+	border-bottom: #707070 solid 1px;
+	clear: left;
+	padding: 20px;
+}
+.product-review .box-reviews li.last {
+	border-bottom: none;
+}
+.product-review .box-reviews li .name, 
+.product-review .box-reviews li .review-star, 
+.product-review .box-reviews li .review-detail {
+	float: left;
+}
+.product-review .box-reviews li .name {
+	width: 25%;
+	font-size: 1.6em;
+	font-weight: bold;
+}
+.product-review .box-reviews li .review-star {
+	width: 12%;
+	margin-top: 3px;
+}
+.product-review .box-reviews li .review-detail {
+	width: 45%;
+}
+.product-review .box-reviews li .review-detail .review-title {
+	font-size: 1.6em;
+	font-weight: bold;
+	color: #707070;
+	margin-bottom: 10px;
+} 
+.product-review .box-reviews li .review-detail .review-description {
+	
+}
+.product-review .box-reviews li .review-date {
+	width: auto;
+	float: right;
+}
+.product-review .review-show-all {
+	float: right;
+	padding: 0 20px 0 0;
+	font-weight: bold !important;
+	background: url(../images/arrow-2.png) no-repeat right center;
+}
+
 @media only screen and (max-width: 1215px) {
 	.homepage-top-block.left {
 		display: none;
