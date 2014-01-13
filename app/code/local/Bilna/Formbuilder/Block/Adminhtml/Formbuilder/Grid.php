@@ -19,6 +19,9 @@ class Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Grid extends Mage_Adminhtml_
     protected function _prepareCollection()
     {
 		$collection = Mage::getResourceModel($this->_getCollectionClass());
+		//$collection->printLogQuery(true); die;
+		//SELECT `main_table`.* FROM `bilna_form_data` AS `main_table`
+		$collection->getSelect()->join('bilna_form', 'main_table.form_id = bilna_form.id',array('title'));
 		$this->setCollection($collection);
 		 
 		return parent::_prepareCollection();
@@ -33,6 +36,25 @@ class Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Grid extends Mage_Adminhtml_
 			'align' =>'right',
 			'width' => '50px',
 			'index' => 'id'
+	));
+			
+	// $resource = Mage::getSingleton('core/resource');
+    // $read = $resource->getConnection('core_read');
+    // $select = $read->select()
+        // ->from(array('f' => 'bilna_form'), array('id' => 'f.id'))
+        // ->joinInner(array('fd' => 'bilna_form_data'), 'f.id=fd.form_id');
+	// $form = $read->fetchRow($select);
+	// //Zend_Debug::Dump($form); die;
+	
+	$this->addColumn('title',
+		array(
+			//'header'=> $this->__('Type'),
+			'header' =>Mage::helper('bilna_formbuilder')->__('Title'),
+			'align' =>'right',
+			'width' => '30px',
+			'index' => 'title',
+			//'type'  => 'options',
+			//'options' => $this,
 	));
 	  
 	$this->addColumn('name',
@@ -70,15 +92,5 @@ class Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Grid extends Mage_Adminhtml_
 	  
       return parent::_prepareColumns();
   }
-  
-  // public function getGridUrl()
-    // {
-        // return $this->getUrl('*/*/grid', array('_current'=>true));
-    // }
-	
-    // public function getRowUrl($row)
-    // {
-        // return $this->getUrl('*/*/edit', array('id' => $row->getId()));
-    // }
 
 }

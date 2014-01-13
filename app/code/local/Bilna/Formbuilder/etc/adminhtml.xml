@@ -4,7 +4,7 @@
         <bilna>
             <children>
                 <bilna_formbuilder_formbuilder translate="title" module="bilna_formbuilder">
-                    <sort_order>212</sort_order>
+                    <sort_order>300</sort_order>
                     <title>Form Builder Manager</title>
                     <action>adminhtml/formbuilder/</action>
                 </bilna_formbuilder_formbuilder>

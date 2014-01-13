@@ -34,7 +34,7 @@
 			<class>Bilna_Formbuilder_Model_Mysql4</class>
 			<entities>
 				<formbuilder>
-					<table>formbuilder</table>
+					<table>bilna_form_data</table>
 				</formbuilder>
 			</entities>
 		</bilna_formbuilder_mysql4>
@@ -84,36 +84,9 @@
 		<bilna>
 			<title>Bilna</title>
 			<sort_order>20</sort_order>               
-<!-- 			<children>
-				<dailydeals module="dailydeals">
-					<title>DailyDeals Manager</title>
-					<sort_order>0</sort_order>
-					<action>dailydeals/adminhtml_dailydeals</action>
-				</dailydeals>
-			</children> -->
 		</bilna>
 	</menu>
-<!-- 	<acl>
-		<resources>
-			<all>
-				<title>Allow Everything</title>
-			</all>
-			<admin>
-				<children>
-				<bilna translate="title" module="dailydeals">
-				<title>Bilna</title>
-					<sort_order>60</sort_order>
-					<children>
-						<dailydeals translate="title">
-							<title>DailyDeals</title>
-							<sort_order>100</sort_order>
-						</dailydeals>
-					</children>
-				</bilna>
-				</children>
-			</admin>
-		</resources>
-	</acl> -->
+
 	<layout>
 	  <updates>
 		<bilna_formbuilder>
