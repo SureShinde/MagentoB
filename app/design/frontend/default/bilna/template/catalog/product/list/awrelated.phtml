@@ -45,31 +45,29 @@
 <?php if($this->getEnabled() && count($this->getRelatedProductsCollection())): ?>
 <div class="aw-box aw-base-mini aw-mini-related-items block">
     <div class="head">
-        <h4><?php echo $this->__('Customers Who Bought This Also Bought') ?></h4>
+        <strong>
+			<span><?php echo $this->__('You Might Like This') ?></span>
+		</strong>
     </div>
     <div class="aw-content" <?php if (Mage::helper('relatedproducts')->checkVersion('1.4.1.0')) { echo "id=\"after1400\""; }?>>
-        <p><strong><?php echo $this->__('Check items to add to the cart or') ?>&nbsp;<a href="#" onclick="selectAllAwRelated(this);return false;"><?php echo $this->__('select all') ?></a></strong></p>
         <ol>
         <?php foreach($this->getRelatedProductsCollection() as $_item): ?>
         <li<?php if($_item->isComposite() || !$_item->isSaleable()): ?> class="super-products"<?php endif; ?>>
             <div class="product-images">
-            <?php if(!$_item->isComposite() && $_item->isSaleable()): ?>
-                <span class="checkbox-container">
-                <?php if (!$_item->getRequiredOptions()): ?>
-                    <input type="checkbox" class="aw-related-checkbox left" id="aw-related-checkbox<?php echo $_item->getId() ?>" name="aw_related_products[]" value="<?php echo $_item->getId() ?>" />
-                <?php endif; ?>
-                </span>
-            <?php else: ?>
-                <span class="checkbox-container">&nbsp;</span>
-            <?php endif; ?>
                 <a href="<?php echo $_item->getProductUrl() ?>"><img src="<?php echo $this->helper('catalog/image')->init($_item, 'thumbnail')->resize(50) ?>" alt="<?php echo $this->htmlEscape($_item->getName()) ?>" width="50" height="50" /></a>
             </div>
             <div class="product-details">
-                    <a href="<?php echo $_item->getProductUrl() ?>"><?php echo $this->htmlEscape($_item->getName()) ?></a>
-                    <?php echo $this->getPriceHtml($_item, true); ?>
-                    <?php if ($this->helper('wishlist')->isAllow()) : ?>
-                    <a href="<?php echo $this->getAddToWishlistUrl($_item) ?>" class="aw-link-cart"><?php echo $this->__('Add to Wishlist') ?></a>
-                    <?php endif; ?>
+				<div class="product-name-wrap">
+					<a href="<?php echo $_item->getProductUrl() ?>"><?php echo $this->htmlEscape($_item->getName()) ?></a>
+				</div>
+				<?php echo $this->getPriceHtml($_item, true); ?>
+				<?php echo $this->getReviewsSummaryHtml($_item, false, true)?>
+				
+				<?php if($_item->isSaleable()): ?>
+					<button type="button" title="<?php echo $this->__('Buy Now') ?>" class="button btn-cart" onclick="setLocation('<?php echo $this->getAddToCartUrl($_item) ?>')"><span><span><?php echo $this->__('Buy Now') ?></span></span></button>
+				<?php else: ?>
+					<p class="availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></p>
+				<?php endif; ?>
             </div>
         </li>
         <?php endforeach ?>
