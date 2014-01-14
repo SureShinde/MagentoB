@@ -141,7 +141,34 @@
 
         <div class="clearer"></div>
 		<div class="product-tab-wrapper">
-			<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('product_description')->toHtml() ?>
+			<div id="tab-container" class="tab-container">
+				<ul class="etabs">
+					<?php foreach ($this->getChildGroup('detailed_info', 'getChildHtml') as $alias => $html):?>
+						<li class="tab"><a href="#<?php echo "tabs-{$alias}"?>">
+							<?php if ($alias == 'description'):?>
+				            <?php echo $this->__('Description'); ?>
+				            <?php elseif ($alias == 'additional') :?>
+				            <?php echo $this->__('Additional Info'); ?>
+				            <?php endif;?>
+						</a></li>
+				<?php endforeach;?>
+				<li class="tab"><a href="#tabs-features">Features</a></li>
+				<li class="tab"><a href="#tabs-size-chart">Size Chart</a></li>
+				</ul>	
+				<div class="panel-container">
+					<?php foreach ($this->getChildGroup('detailed_info', 'getChildHtml') as $alias => $html):?>
+						<div id="<?php echo "tabs-{$alias}"?>">
+						    <?php echo $html; ?>
+						</div>
+					<?php endforeach;?>
+					<div id="tabs-features">
+					<p><strong>Lorem ipsum dolor sit amet</strong>, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+					</div>
+					<div id="tabs-size-chart">
+					<p><strong>Lorem ipsum dolor sit amet</strong>, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+					</div>
+				</div>
+			</div>
 			<script type="text/javascript">
 			// <![CDATA[
 				$j(document).ready( function() {
@@ -204,7 +231,7 @@
     </script>
     </div>
 	<div class="related-product">
-		<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('pdp_related_product')->toHtml() ?>
+		<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('related_product')->toHtml() ?>
 	</div>
 	<div class="aw-related-product">
 		<?php echo $this->getChildHtml('awrelatedproducts') ?>
