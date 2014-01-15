@@ -1075,9 +1075,6 @@
 		-moz-box-shadow: 1px 1px 4px 0 #ccc;
 		box-shadow: 1px 1px 4px 0 #ccc;
 	}
-	#nav li.level-top {
-		width: 81px;
-	}
 	#nav a.level-top {
 		font-size: 0.9em;
 		padding-left: 5px;
@@ -1085,36 +1082,6 @@
 	}
 	#nav li.level-top.shop-by {
 		width: 49px;
-	}
-	#nav li.level-top.parent-0 {
-		width: 70px;
-	}
-	#nav li.level-top.parent-1 {
-		width: 62px;
-	}
-	#nav li.level-top.parent-2 {
-		width: 86px;
-	}
-	#nav li.level-top.parent-3 {
-		width: 66px;
-	}
-	#nav li.level-top.parent-4 {
-		width: 68px;
-	}
-	#nav li.level-top.parent-5 {
-		width: 63px;
-	}
-	#nav li.level-top.parent-6 {
-		width: 50px;
-	}
-	#nav li.level-top.parent-7 {
-		width: 83px;
-	}
-	#nav li.level-top.parent-8 {
-		width: 44px;
-	}
-	#nav li.level-top.parent-9 {
-		width: 95px;
 	}
 	.cms-home #nav li.shop-by:hover .shopby {
 		display: block;
@@ -1177,41 +1144,11 @@
 		padding-top: 60px;
 		z-index: 0;
 	}
-	#nav li.level-top {
-		width: 62px;
-	}
 	#nav li.level-top.shop-by {
 		position: absolute;
 		bottom:-14px;
 		left: 0;
 		z-index: 99;
-	}
-	#nav li.level-top.parent-1 {
-		width: 58px;
-	}
-	#nav li.level-top.parent-2 {
-		width: 80px;
-	}
-	#nav li.level-top.parent-3 {
-		width: 60px;
-	}
-	#nav li.level-top.parent-4 {
-		width: 63px;
-	}
-	#nav li.level-top.parent-5 {
-		width: 60px;
-	}
-	#nav li.level-top.parent-6 {
-		width: 48px;
-	}
-	#nav li.level-top.parent-7 {
-		width: 77px;
-	}
-	#nav li.level-top.parent-8 {
-		width: 41px;
-	}
-	#nav li.level-top.parent-9 {
-		width: 89px;
 	}
 	#nav li.menu-salegift a.sale, #nav a.level-top.sale {
 		width: 50px;
@@ -1226,6 +1163,9 @@
 	}
 	.menu-tablet {
 		display: block;
+	}
+	#nav a.level-top {
+		padding: 0px 3px;
 	}
 }
 /* --------------- smaller 959 px layout -------------------- */
