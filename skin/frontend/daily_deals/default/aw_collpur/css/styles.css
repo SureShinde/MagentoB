@@ -758,7 +758,7 @@ table.awcp-pricedata tr:nth-child(1) td{
 .thumb_area .thumb_slider a{
 	display:block;
 	background:none;
-	height:100px;
+	height:105px;
 	width:100%;
 	position:absolute;
 }
@@ -880,39 +880,9 @@ table.awcp-pricedata tr:nth-child(1) td{
 /*end slider*/
 
 
-/*slider 2*/
-
-
-	@media only screen and (min-width: 40.063em) { } /* min-width 641px, medium screens */
-
-@media only screen and (min-width: 40.063em) and (max-width: 64em) {
-.slider1_container{
-	background:#191919; 
-	width: 100% !important; 
+#slider1_container{
+	margin:0 0 25px;
 }
-.container_main_image{
-	width:100%!important;
-}
-.main_image{
-	width:100%!important;
-}
-.main_image img{
-	width:100%;
-	height:430px;
-}
-
- } /* min-width 641px and max-width 1024px, use when QAing tablet-only issues */
-
-/*Large screens*/
-@media only screen and (min-width: 64.063em) { 
-.main_image img{
-	width:797px;
-	height:430px;
-}
-
-	
-} /* min-width 1025px, large screens */
-
 .captionOrange, .captionBlack
         {
             color: #fff;

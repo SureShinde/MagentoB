@@ -82,9 +82,9 @@
     </script>
     <!-- Jssor Slider Begin -->
     <!-- You can move inline styles (except 'top', 'left', 'width' and 'height') to css file or css block. -->
-    <div id="slider1_container" style="position: relative; width: 960px; height: 380px; overflow: hidden;">
+    <div id="slider1_container" style="position: relative; width: 960px; height: 430px; overflow: hidden;">
         <!-- Slides Container -->
-        <div u="slides" style="cursor: move; position: absolute; width: 760px; height: 380px; top: 0px;
+        <div u="slides" style="cursor: move; position: absolute; width: 760px; height: 430px; top: 0px;
             left: 0px; overflow: hidden;">
             <?php 
 			$i = 0; 
@@ -160,7 +160,7 @@
 			?>
         </div>
         <!-- ThumbnailNavigator Skin Begin -->
-        <div u="thumbnavigator" class="jssort11" style="position: absolute; width: 200px; height: 380px; right:0px; top: 0px; bottom:0px;">
+        <div u="thumbnavigator" class="jssort11" style="position: absolute; width: 200px; height: 430px; right:0px; top: 0px; bottom:0px;">
             <!-- Thumbnail Item Skin Begin -->
             <style>
                 /* jssor slider thumbnail navigator skin 11 css */
@@ -177,12 +177,10 @@
                 }
                 .jssort11 .i, .jssort11 .pav:hover .i
                 {
-                	position: absolute;
-                	top:3px;
-                	left:3px;
+                	position: relative;
                 	WIDTH: 60px;
                 	HEIGHT: 30px;
-                	border: white 1px dashed;
+					margin:0 0 0 3px;
                 }
                 * html .jssort11 .i
                 {
@@ -198,14 +196,10 @@
                 }
                 .jssort11 .t, .jssort11 .pav:hover .t
                 {
-                	position: absolute;
-                	top: 3px;
-                	left: 68px;
-                	width:129px;
-                	height: 32px;
-                	line-height:32px;
-                	text-align: center;
-                	color:#fc9835;
+                	position: relative;
+					margin:24px 0 0 7px;
+					float:left;
+                	color:#fff;
                 	font-size:13px;
                 	font-weight:700;
                 }
@@ -215,20 +209,17 @@
                 }
                 .jssort11 .c, .jssort11 .pav:hover .c
                 {
-                	position: absolute;
-                	top: 38px;
-                	left: 3px;
-                	width:197px;
-                	height: 31px;
-                	line-height:31px;
+                	position: relative;
                 	color:#fff;
-                	font-size:11px;
-                	font-weight:400;
+					float:left;
+					margin:10px 0 0 7px;
+                	font-size:17px;
+                	font-weight:bold;
                 	overflow: hidden;
                 }
                 .jssort11 .pav .c, .jssort11 .phv .c, .jssort11 .p:hover .c
                 {
-                	color:#fc9835;
+                	color:#fff;
                 }
                 .jssort11 .t, .jssort11 .c
                 {
@@ -250,7 +241,7 @@
                 }
                 .jssort11 .pav, .jssort11 .pdn
                 {
-                	background:#462300;
+                	background:#f75a2f;
                 }
                 .jssort11 .p:hover, .jssort11 .phv, .jssort11 .pav:hover
                 {
@@ -293,17 +284,14 @@
 		            
  	                #slider1_container .i, #slider1_container .i
  	                {
- 	                	position: absolute;
- 	                	top:3px;
- 	                	left:3px;
- 	                	WIDTH: 60px;
- 	                	HEIGHT: 30px;
- 	                	border: white 1px dashed;
+ 	                	position: relative;
+ 	                	margin:3px 0 0 3px;
  	                }
  	                #slider1_container .i
  	                {
- 	                	WIDTH /**/: 62px;
- 	                	HEIGHT /**/: 32px;
+						float:left;
+ 	                	WIDTH /**/: 94px;
+ 	                	HEIGHT /**/: 95px;
  	                }
 		        </style>
         <!-- Arrow Left -->
