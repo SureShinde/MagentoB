@@ -105,6 +105,17 @@ body {
 	color: #707070;
 	font-size: 1.2em;
 }
+.products-grid .price-box {
+	position: relative;
+}
+.products-grid .price-box .discount-product {
+	color: #4ec7da;
+	font-size: 11px;
+	font-weight: bold;
+	position: absolute;
+	right: 0;
+	bottom: 18px;
+}
 .products-grid .actions {
 	position: relative;
 }
