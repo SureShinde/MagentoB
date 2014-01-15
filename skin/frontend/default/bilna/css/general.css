@@ -98,7 +98,7 @@ body {
 .products-grid .actions {
 	position: relative;
 }
-button.btn-cart, .add-to-links li a {
+button.btn-cart {
     width:88px;
     background-image:url(../images/btn-buynow.png);
     height:36px;
@@ -111,19 +111,19 @@ button.btn-cart span, button.btn-cart span span {
 	border: none;
 	height: auto;
 }
-button.btn-cart, .add-to-links {
+button.btn-cart {
 	color: #fff;
 	font-family: Helvetica;
     font-size: 1em;
     font-weight: normal;
     text-transform: uppercase;
 }
-.add-to-links {}
 .add-to-links li a {
-	display: block;
-	line-height: 36px;
-	text-align: center;
-	color: #fff;
+	display: inline-block;
+	font-weight: bold;
+	font-size: 12px;
+	color: #ffa01b;
+	margin-left: 5px;
 }
 @media only screen and (max-width: 1215px) {
 	.main-container, .main-container.col1-layout .main {
@@ -187,6 +187,9 @@ button.btn-cart, .add-to-links {
 	.products-grid .actions .add-to-links {
 		margin-top: 0;
 		margin-left: 10px;
+	}
+	.add-to-links li a {
+		margin-top: 11px;
 	}
 }
 /* --------------- 320 px layout -------------------- */

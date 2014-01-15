@@ -171,6 +171,10 @@ a.triger-showfilter {
 	padding: 13px 0;
 	margin: 0 0 20px 0;
 }
+.featured-category {
+	height: 370px;
+	overflow: hidden;
+}
 .toolbar .pager {
 	border-bottom: none;
 	padding: 8px;
