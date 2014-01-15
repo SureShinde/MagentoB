@@ -55,11 +55,11 @@
 				<?php
 					$myproduct = Mage::getModel('catalog/product')->load($_product->getId());
 					$product_brands = $myproduct->getAttributeText('brands');
-					if ($product_brands) :
+					if($product_brands) :
 				?>				
 				<div class="by-brand">
-					<p><?php echo $this->__('by <span>%s</span>', $product_brands) ?></p>
-				</div>
+					<?php echo $this->getChildHtml('brand') ?>
+				</div>				
 				<?php endif; ?>
 
 				<?php echo $this->getChildHtml('product_type_data') ?>

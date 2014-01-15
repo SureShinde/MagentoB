@@ -19,7 +19,7 @@
 	width: 48%;
 	padding-right: 1%;
 }
-.product-view .product-shop .product-shop-left .by-brand span, 
+.product-view .product-shop .product-shop-left .by-brand span a, 
 .product-view .product-shop .product-shop-left .shipsfrom-soldby span {
 	color: #ffa01b;
 	font-weight: bold;
