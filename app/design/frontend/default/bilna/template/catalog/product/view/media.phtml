@@ -44,27 +44,28 @@
 	<p class="product-image product-image-zoom">
 	    <?php
 			$zoom_large_img = "zoomImage: '".$this->helper('catalog/image')->init($_product, 'image')."'";
-	        $_img = '<img id="image" data-cloudzoom="'.$zoom_large_img.'" class="cloudzoom" src="'.$this->helper('catalog/image')->init($_product, 'image')->resize( 320, 340).'" height="340" width="320" />';
+	        $_img = '<img id="image" class="cloudzoom" data-cloudzoom="'.$zoom_large_img.'" src="'.$this->helper('catalog/image')->init($_product, 'image')->resize( 320, 340).'" height="340" width="320" />';
 	        echo $_helper->productAttribute($_product, $_img, 'image');
 	    ?>
 	</p>
-	<script type="text/javascript">
-		$j(document).ready(function(){
-			CloudZoom.quickStart();
-		});
-	</script>   
 </div>
 <?php else: ?>
 <div class="onsale-product-container<?php echo $onsale_class?>">
    <?php echo Mage::helper('onsale')->getProductLabelHtml($_product, 265); ?>
 	<p class="product-image">
 	    <?php
-	        $_img = '<img src="'.$this->helper('catalog/image')->init($_product, 'image')->resize(265).'" alt="'.$this->escapeHtml($this->getImageLabel()).'" title="'.$this->escapeHtml($this->getImageLabel()).'" />';
+			$zoom_large_img = "zoomImage: '".$this->helper('catalog/image')->init($_product, 'image')."'";
+	        $_img = '<img class="cloudzoom" data-cloudzoom="'.$zoom_large_img.'" src="'.$this->helper('catalog/image')->init($_product, 'image')->resize(265).'" alt="'.$this->escapeHtml($this->getImageLabel()).'" title="'.$this->escapeHtml($this->getImageLabel()).'" />';
 	        echo $_helper->productAttribute($_product, $_img, 'image');
 	    ?>
 	</p>
 </div>
 <?php endif; ?>
+<script type="text/javascript">
+	$j(document).ready(function(){
+		CloudZoom.quickStart();
+	});
+</script>   
 <?php if (count($this->getGalleryImages()) > 0): ?>
 <div class="more-views">
     <div class="more-views-slider">

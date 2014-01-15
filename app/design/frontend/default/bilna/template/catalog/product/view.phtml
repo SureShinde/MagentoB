@@ -88,6 +88,9 @@
 				<?php endif;?>
 				
 				<?php if ($_product->isSaleable() && $this->hasOptions()):?>
+					<?php echo $this->getChildChildHtml('container1', '', true, true) ?>
+				<?php endif;?>
+				<?php if ($_product->isSaleable() && $this->hasOptions()):?>
 					<?php echo $this->getChildChildHtml('container2', '', true, true) ?>
 				<?php endif;?>
 			</div>			
@@ -120,10 +123,6 @@
 				<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('buying_choice')->toHtml() ?>
 
 				<?php echo $this->getChildHtml('other');?>
-
-				<?php if ($_product->isSaleable() && $this->hasOptions()):?>
-					<?php echo $this->getChildChildHtml('container1', '', true, true) ?>
-				<?php endif;?>
 				
 				<div class="share-button">
 					<span class='st_twitter_hcount' displayText='Tweet'></span>
@@ -236,11 +235,5 @@
     </div>
 	<div class="related-product">
 		<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('related_product')->toHtml() ?>
-	</div>
-	<div class="aw-related-product">
-		<?php echo $this->getChildHtml('awrelatedproducts') ?>
-	</div>
-	<div class="product-review">
-		<?php echo $this->getChildHtml('reviews') ?>
 	</div>
 </div>
