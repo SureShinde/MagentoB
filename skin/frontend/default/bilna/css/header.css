@@ -762,7 +762,6 @@
 }
 #nav li.level-top {
 	position: relative;
-	width: 98px;
 	float: left;
 	display: block;
 	vertical-align: middle;
@@ -772,36 +771,6 @@
 }
 #nav li.level-top:hover a.level-top {
 	color: #dadada;
-}
-#nav li.level-top.parent-0 {
-	width: 93px;
-}
-#nav li.level-top.parent-1 {
-	width: 88px;
-}
-#nav li.level-top.parent-2 {
-	width: 113px;
-}
-#nav li.level-top.parent-3 {
-	width: 88px;
-}
-#nav li.level-top.parent-4 {
-	width: 91px;
-}
-#nav li.level-top.parent-5 {
-	width: 86px;
-}
-#nav li.level-top.parent-6 {
-	width: 70px;
-}
-#nav li.level-top.parent-7 {
-	width: 109px;
-}
-#nav li.level-top.parent-8 {
-	width: 65px;
-}
-#nav li.level-top.parent-9 {
-	width: 125px;
 }
 #nav li.level-top.parent-10, #nav li.level-top.parent-11 {
 	float: right;

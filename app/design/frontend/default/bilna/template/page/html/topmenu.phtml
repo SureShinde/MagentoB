@@ -41,7 +41,11 @@
                 <?php endif; ?>
                 <li <?php echo $this->_getRenderedMenuItemAttributes($child)?>>
                         <a href="<?php echo $child->getUrl()?>" <?php echo $outermostClassCode ?>>
-                            <span><span><?php echo $this->escapeHtml($child->getName()) ?></span></span>
+                        <?php if (strtolower($child->getName()) == 'for moms') :?>
+                            <span><span><?php echo str_replace(' ','<br>',$child->getName()) ?></span></span>
+                        <?php else : ?>
+                        	<span><span><?php echo str_replace('&','<br>&',$child->getName()) ?></span></span>
+                        <?php endif; ?>
                         </a>
                         <?php if ($child->hasChildren()): ?>
                             <ul class="level-hover <?php echo $childLevel ." ".strtolower(str_replace(array('&',' '), "_", $child->getName()))."_hover";?>">
