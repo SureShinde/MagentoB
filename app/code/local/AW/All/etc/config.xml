@@ -2,7 +2,7 @@
 <config>
     <modules>
         <AW_All>
-            <version>2.3.0</version><platform>ce</platform>
+            <version>2.3.0</version><platform>pe</platform>
         </AW_All>
     </modules>
 
