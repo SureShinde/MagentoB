@@ -88,12 +88,30 @@
 				<?php endif;?>
 				
 				<?php if ($_product->isSaleable() && $this->hasOptions()):?>
+					<div class="product-container1">
 					<?php echo $this->getChildChildHtml('container1', '', true, true) ?>
+					</div>
 				<?php endif;?>
 				<?php if ($_product->isSaleable() && $this->hasOptions()):?>
 					<?php echo $this->getChildChildHtml('container2', '', true, true) ?>
 				<?php endif;?>
 			</div>			
+			<script>
+				// jQuery(document).ready(function(){
+					// if($j('select').length > 0) {
+						// $j('select').each(function(){
+							// $j(this).wrap('<div class="select" />');
+							// $j(this).parent().prepend('<span>' + $j(this).children("option").filter(":selected").text() + '</span>');
+							// $j(this).parent().css('width',$j(this).width());
+							// if($j(this).hasClass("required-entry")) 
+								// $j(this).parent().css('width',$j(this).width());
+						// });
+						// $j('select').change(function(){
+							// $j(this).prev().text($j(this).children("option").filter(":selected").text());
+						// });
+					// }
+				// });
+			</script>
 			
 			<div class="product-shop-right">
 				<?php if (!$this->hasOptions()):?>
