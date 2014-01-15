@@ -87,6 +87,16 @@ body {
 	text-overflow: ellipsis;
 	overflow: hidden;
 }
+.products-grid .product-name span.lbl-newproduct {
+	display: inline-block;
+	text-transform: uppercase;
+	color: #fff;
+	font-size: 12px;
+	font-family: 'bebasregular';
+	font-weight: normal;
+	background: #8dd240;
+	padding: 0 7px;
+}
 .products-grid .product-name a {
 	color: #707070;
 	font-size: 1em;
