@@ -114,5 +114,14 @@
 		<reference name="head">
             <action method="addCss"><stylesheet>css/pdp.css</stylesheet></action>
 		</reference>
+		<reference name="product.info.options.wrapper.bottom">
+			<action method="unsetCallChild"><child>product.info.addtocart</child></action>
+			<action method="unsetCallChild"><child>product.info.addto</child></action>
+		</reference>
+		<reference name="content">
+			<block type="relatedproducts/relatedproducts" name="catalog.product.awrelated.community" as="awrelatedproducts" template="catalog/product/list/awrelated.phtml">
+					<action method="disableRelated"/>
+			</block>
+		</reference>
 	</catalog_product_view>
 </layout>
