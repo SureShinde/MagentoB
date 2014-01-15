@@ -247,6 +247,7 @@ a.triger-showfilter {
 }
 .toolbar-bottom .toolbar .pager .custome-nav {
 	display: block;
+	margin-top: 20px;
 }
 .toolbar-bottom a.link-catalog-nav {
 	display: block;
