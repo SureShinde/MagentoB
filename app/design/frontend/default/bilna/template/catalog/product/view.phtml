@@ -104,6 +104,10 @@
 					<div class="add-to-box">
 						<?php echo $this->getChildHtml('addto') ?>
 					</div>
+				<?php elseif($this->hasOptions()): ?>
+					<?php if($_product->isSaleable()): ?>
+						<?php echo $this->getChildHtml('addtocart') ?>
+					<?php endif; ?>
 				<?php endif; ?>
 				
 				<div class="one-click-checkout">
