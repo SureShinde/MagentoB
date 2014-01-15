@@ -24,10 +24,6 @@
  * @license    http://ecommerce.aheadworks.com/AW-LICENSE.txt
  */
 ?>
-<!--slider-->
-<script src="http://bilna.local/js/zurb/jquery.js"></script> 
-<script src="http://bilna.local/js/zurb/foundation/foundation.js"></script>
-<script src="http://bilna.local/js/zurb/foundation/foundation.orbit.js"></script>
 <!--slider 2-->
 <?php $dealSliders = $this->getFeaturedSliders(); 
 		$i = 0; 
@@ -35,9 +31,9 @@
 <div class="row">
     <!-- use jssor.slider.min.js instead for release -->
     <!-- jssor.slider.min.js = (jssor.core.js + jssor.utils.js + jssor.slider.js) -->
-    <script type="text/javascript" src="http://bilna.local/js/jssor.core.js"></script>
-    <script type="text/javascript" src="http://bilna.local/js/jssor.utils.js"></script>
-    <script type="text/javascript" src="http://bilna.local/js/jssor.slider.js"></script>
+    <script type="text/javascript" src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_JS); ?>jssor.core.js"></script>
+    <script type="text/javascript" src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_JS); ?>jssor.utils.js"></script>
+    <script type="text/javascript" src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_JS); ?>jssor.slider.js"></script>
     <script>
         jQuery(document).ready(function ($) {
             var options = {
