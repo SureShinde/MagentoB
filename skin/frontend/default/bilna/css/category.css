@@ -163,7 +163,7 @@ a.triger-showfilter {
 }
 .featured-product-catalog {
 	padding-bottom: 20px;
-	background: url(../images/label-featured-product.png) no-repeat center top, url(../images/dash-orange.png) repeat-x left 25px, url(../images/dash-orange.png) repeat-x left bottom;
+	background: url(../images/label-featured-product.png) no-repeat center top, url(../images/dash-orange.png) repeat-x left 25px, url(../images/dash-orange.png) repeat-x left bottom, url(../images/bg-pager-2.jpg) repeat-x left 15px;
 }
 .featured-product-catalog h2 {
 	font-size: 24px;

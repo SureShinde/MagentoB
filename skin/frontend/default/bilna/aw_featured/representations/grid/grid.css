@@ -104,6 +104,13 @@
     font-weight: bold;
     text-transform: uppercase;
 }
+.awafpgrid .afp-addtocart a {
+	display: inline-block;
+	font-weight: bold;
+	font-size: 12px;
+	color: #ffa01b;
+	margin-left: 5px;
+}
 .afp-thumbnail .onsale-category-container-list {
     float:none!important;
     margin: 0 auto;
