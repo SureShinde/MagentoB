@@ -93,11 +93,6 @@
                 </action>
             </block>
         </reference>
-        <reference name="alert.urls">
-            <action method="insert" ifconfig="brands/settings/enabled">
-                <block>brand</block>
-            </action>
-        </reference>
     </catalog_product_view>
 
 </layout>
