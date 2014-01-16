@@ -72,6 +72,24 @@ body {
 .products-grid li.item {
 	width: 152px;
 	padding-bottom: 12px;
+
+    /*float:left;
+    margin:15px 0 10px 0;
+    padding: 7.6px;*/
+    zoom: 1;
+    position: relative;
+    /*width: 13% !important;*/
+}
+.products-grid li.item:hover {
+	background-color: #fff;
+	z-index: 10;
+	margin-left:0;
+	margin-right: 0;
+	border-color: transparent;
+	box-shadow: 0 0 20px rgba(0,0,0,0.2);
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
 }
 .products-grid .product-image {
 	width: 152px;
