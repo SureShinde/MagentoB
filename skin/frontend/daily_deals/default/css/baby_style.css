@@ -238,6 +238,9 @@
 	font-weight: normal;
 	letter-spacing: 1px;
 }
+.menu-top ul{
+	margin:0;
+}
 .menu-top ul li {
 	background: #e0e0e0;
 	width: 110px;
@@ -246,6 +249,7 @@
 .menu-top ul li a {
 	display: block;
 	color: #fff;
+	text-decoration:none;
 }
 .menu-top ul li:hover, .menu-top ul li.active {
 	background: #95e1f1;
@@ -274,9 +278,11 @@
 	display: inline-block;
 	padding: 0 0 0 40px;
 	width: 85px;
+	-moz-box-sizing:content-box;
 }
 .keypoint ul li span {
 	display: block;
+	font-size:12px;
 	text-transform: uppercase;
 	font-family: 'bebasregular';
 }
@@ -287,6 +293,9 @@
 }
 .keypoint ul li.free-shipping {
 	background: url(../images/free-shipping.png) no-repeat left top;
+}
+.keypoint ul{
+	margin:0;
 }
 .keypoint ul li.cod {
 	background: url(../images/cod.png) no-repeat 5px top;
@@ -523,6 +532,9 @@
 .header .quick-access .store-phone, .header .links {
 	float: none;
 	font-family: Helvetica;
+}
+.store-phone p{
+	font-size:12px;
 }
 .header .links {
 	margin: 2px 0 0 0;
