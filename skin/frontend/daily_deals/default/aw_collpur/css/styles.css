@@ -89,7 +89,7 @@
 .awcp-category-grid .awcp-mark-center {
 	 background:rgba(140, 140, 140, 0.9);
     padding: 5px;
-	margin:-87px 0 0;
+	margin:-96px 0 0;
 	position:relative;
 }
 
@@ -117,7 +117,6 @@
 .awcp-category-grid .awcp-product-image {
     display: block;
     overflow: hidden;
-    padding-bottom: 11px;
     border: none;
     border-bottom-width: 4px;
 	position:relative;
@@ -736,6 +735,39 @@ table.awcp-pricedata tr:nth-child(1) td{
 	width:35%;
 	float:left;
 }
+.back_list{
+	padding-left:0;
+}
+.back_list a{
+	font-size:14px;
+	background:#f75a2f;
+	line-height:40px;
+	text-decoration:none;
+	display:block;
+	padding-left:16px;
+	color:#fff;
+	box-shadow:1px 1px 5px 0 #E6E6E6;
+	-moz-box-shadow:1px 1px 5px 0 #E6E6E6;
+	-webkit-box-shadow:1px 1px 5px 0 #E6E6E6;
+	font-weight:bold;
+}
+.back_list a:after{
+	display:block;
+	content:"";
+	border-color:transparent transparent transparent #f75a2f;
+	border-width:20px 20px 20px 20px;
+	position:absolute;
+	top:0;
+	border-style:solid none solid solid;
+	right:-5px;
+}
+.also_like{
+	font-size:14px;
+	line-height:40px;
+	color:#515151;
+	font-weight:bold;
+}
+
 /*slider*/
 .wrap{
 	margin:0 auto;

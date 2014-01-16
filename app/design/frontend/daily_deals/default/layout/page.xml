@@ -61,6 +61,7 @@ Default layout, loads most of the pages
 				<action method="addCss"><stylesheet>css/foundation.min.css</stylesheet></action>
 				<action method="addCss"><stylesheet>css/normalize.css</stylesheet></action>
                 <action method="addCss"><stylesheet>css/styles.css</stylesheet></action>
+				<action method="addCss"><stylesheet>css/baby_style.css</stylesheet></action>
 				
                 <action method="addItem"><type>skin_css</type><name>css/styles-ie.css</name><params/><if>lt IE 8</if></action>
                 <action method="addCss"><stylesheet>css/widgets.css</stylesheet></action>
