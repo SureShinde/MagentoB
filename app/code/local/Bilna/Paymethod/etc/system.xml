@@ -1025,6 +1025,38 @@
                             <show_in_store>1</show_in_store>
                         </useccv>
                         
+                        <allow_installment translate="label">
+                            <label>Allow Installment</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>51</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </allow_installment>
+                        
+                        <installment_option translate="label">
+                            <label>Installment Options Per</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>paymethod/system_config_installmentoption</source_model>
+                            <sort_order>52</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Installment Options Per Order / Item.</comment>
+                        </installment_option>
+                        
+                        <installment translate="label">
+                            <label>Installment Options</label>
+                            <frontend_model>paymethod/system_config_form_field_installment</frontend_model>
+                            <backend_model>paymethod/system_config_backend_design_installment</backend_model>
+                            <sort_order>53</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Add Installment Options.</comment>
+                        </installment>
+                        
                         <allowspecific translate="label">
                             <label>Payment from Applicable Countries</label>
                             <frontend_type>allowspecific</frontend_type>
@@ -1062,6 +1094,24 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </max_order_total>
+                        
+                        <min_installment_total translate="label">
+                            <label>Minimum Installment Total</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>100</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </min_installment_total>
+                        
+                        <max_installment_total translate="label">
+                            <label>Maximum Installment Total</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>110</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </max_installment_total>
                     </fields>
                 </anzvisa>
                 
@@ -1121,6 +1171,38 @@
                             <show_in_store>1</show_in_store>
                         </useccv>
                         
+                        <allow_installment translate="label">
+                            <label>Allow Installment</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>51</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </allow_installment>
+                        
+                        <installment_option translate="label">
+                            <label>Installment Options Per</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>paymethod/system_config_installmentoption</source_model>
+                            <sort_order>52</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Installment Options Per Order / Item.</comment>
+                        </installment_option>
+                        
+                        <installment translate="label">
+                            <label>Installment Options</label>
+                            <frontend_model>paymethod/system_config_form_field_installment</frontend_model>
+                            <backend_model>paymethod/system_config_backend_design_installment</backend_model>
+                            <sort_order>53</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Add Installment Options.</comment>
+                        </installment>
+                        
                         <allowspecific translate="label">
                             <label>Payment from Applicable Countries</label>
                             <frontend_type>allowspecific</frontend_type>
@@ -1158,6 +1240,24 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </max_order_total>
+                        
+                        <min_installment_total translate="label">
+                            <label>Minimum Installment Total</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>100</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </min_installment_total>
+                        
+                        <max_installment_total translate="label">
+                            <label>Maximum Installment Total</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>110</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </max_installment_total>
                     </fields>
                 </othervisa>
             </groups>

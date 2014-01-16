@@ -1,5 +1,0 @@
-<?php
-// here are the table updates for this module e.g.:
-$this->startSetup();
-$this->run("");
-$this->endSetup();
