@@ -1,0 +1,117 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Bilna_Whitelistemail>
+            <version>0.1.3</version>
+        </Bilna_Whitelistemail>
+    </modules>
+     
+    <global>
+        <models>
+            <whitelistemail>
+                <class>Bilna_Whitelistemail_Model</class>
+                <resourceModel>whitelistemail_mysql4</resourceModel>
+            </whitelistemail>
+            
+            <whitelistemail_mysql4>
+                <class>Bilna_Whitelistemail_Model_Mysql4</class>
+                <entities>
+                    <customer>
+                        <table>customer_entity</table>
+                    </customer>
+                </entities>
+            </whitelistemail_mysql4>
+        </models>
+        
+        <resources>
+            <whitelistemail_setup>
+                <setup>
+                    <module>Bilna_Whitelistemail</module>
+                </setup>
+                
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </whitelistemail_setup>
+                
+            <whitelistemail_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </whitelistemail_write>
+            
+            <whitelistemail_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </whitelistemail_read>
+        </resources>
+        
+        <blocks>
+            <whitelistemail>
+                <class>Bilna_Whitelistemail_Block</class>
+            </whitelistemail>
+        </blocks>
+        
+        <helpers>
+            <whitelistemail>
+                <class>Bilna_Whitelistemail_Helper</class>
+            </whitelistemail>
+        </helpers>
+    </global>
+    
+    <admin>
+        <routers>
+            <whitelistemail>
+                <use>admin</use>
+                <args>
+                    <module>Bilna_Whitelistemail</module>
+                    <frontName>whitelistemail</frontName>
+                </args>
+            </whitelistemail>
+        </routers>
+    </admin>
+  
+    <adminhtml>
+        <menu>
+            <bilna module="whitelistemail">
+                <title>Bilna</title>
+		<children>
+                    <whitelistemailbackend module="whitelistemail">
+                        <title>Whitelist Email</title>
+			<action>whitelistemail/adminhtml_whitelistemailbackend</action>
+                    </whitelistemailbackend>
+                </children>
+            </bilna>
+        </menu>
+	
+        <acl>
+            <resources>
+                <all>
+                    <title>Allow Everything</title>
+		</all>
+		
+                <admin>
+                    <children>
+                        <bilna translate="title" module="whitelistemail">
+                            <title>Bilna</title>
+                            <children>
+                                <whitelistemailbackend translate="title">
+                                    <title>Whitelist Email</title>
+                                </whitelistemailbackend>
+                            </children>
+                        </bilna>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+        
+	<!--layout>
+            <updates>
+                <whitelistemail>
+                    <file>whitelistemail.xml</file>
+                </whitelistemail>
+            </updates>
+        </layout-->
+    </adminhtml>
+</config>
