@@ -182,15 +182,21 @@ button.btn-cart {
 }
 /* --------------- smaller 959 px layout -------------------- */
 @media only screen and (max-width: 767px) {
-	.main-container, .main-container.col1-layout .main, .col2-left-layout .main .col-main{
+	.main-container, .main-container.col1-layout .main, .col2-left-layout .main .col-main {
 		width: 100%;
 		margin-top: 0;
 	}
 	.main {
 		min-height: inherit;
 	}
-
-	.breadcrumbs, .col2-left-layout .main .col-left.sidebar {
+	.col2-left-layout .main .col-left.sidebar, .col2-left-layout .main .col-main {
+		float: none;
+	}
+	.col2-left-layout .main .col-left.sidebar {
+		margin: 0;
+		width: 100%;
+	}
+	.breadcrumbs {
 		display: none;
 	}
 	.products-grid li.item {
