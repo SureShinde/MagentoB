@@ -108,8 +108,10 @@
 								<p class="judul_deals_slider"><?php echo $dealSlider->getDealName(); ?></p>
 								<div class="price_deals_slider">
 									<p><?php echo Mage::helper('core')->currency($dealSlider->getPrice(), true, false); ?></p>
-									<?php if($originalProduct->getFinalPrice() > 0) echo "<p>".Mage::helper('core')->currency($originalProduct->getFinalPrice(), true, false)."</p>"; ?>
-									<p><?php if($dealInfo->getPercentDiscount() <> "0") { echo $dealInfo->getPercentDiscount(); ?>% OFF<?php } ?></p>
+										<div class="after_price">
+											<?php if($originalProduct->getFinalPrice() > 0) echo "<p>".Mage::helper('core')->currency($originalProduct->getFinalPrice(), true, false)."</p>"; ?>
+											<p><?php if($dealInfo->getPercentDiscount() <> "0") { echo $dealInfo->getPercentDiscount(); ?>% OFF<?php } ?></p>
+										</div>
 								</div>
 							</div>
 							<div class="column large-3 medium-3 date_slider_deals">
@@ -196,11 +198,17 @@
                 }
                 .jssort11 .t, .jssort11 .pav:hover .t
                 {
+					overflow:hidden;
+					text-overflow:ellipsis;
+					white-space:nowrap;
                 	position: relative;
 					margin:24px 0 0 7px;
                 	color:#fff;
                 	font-size:13px;
                 }
+				 .jssort11 .pav .t, .jssort11 .pav:hover .t{
+					font-size:16px;
+				}
                 .jssort11 .pav .t, .jssort11 .phv .t, .jssort11 .p:hover .t
                 {
                 	color:#fff;
@@ -209,7 +217,7 @@
                 {
                 	position: relative;
                 	color:#fff;
-					margin:10px 0 0;
+					margin:10px 0 0 7px;
                 	font-size:17px;
                 	font-weight:bold;
                 	overflow: hidden;

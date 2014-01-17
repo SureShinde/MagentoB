@@ -110,8 +110,8 @@
     float: right;
 }
 
-.awcp-category-grid IMG {
-
+.awcp-category-grid img {
+	width:100%;
 }
 
 .awcp-category-grid .awcp-product-image {
@@ -144,10 +144,16 @@
     text-decoration: none;
 }
 .awcp-category-grid .awcp-title-list	 a{
+    color: #FFFFFF;
+    display: block;
     font-size: 18px;
     font-weight: bold;
+    height: 23px;
+    max-width: 95%;
+    overflow: hidden;
     text-decoration: none;
-	color:#fff;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 .awcp-category-grid .awcp-title a:hover {
     color: #fff;
@@ -771,7 +777,10 @@ table.awcp-pricedata tr:nth-child(1) td{
 	color:#515151;
 	font-weight:bold;
 }
-
+.after_price{
+	display:table;
+	float:left;
+}
 /*slider*/
 .wrap{
 	margin:0 auto;
@@ -853,6 +862,9 @@ table.awcp-pricedata tr:nth-child(1) td{
 .judul_deals_slider{
 	font-size:23px;
 	line-height:26px;
+	overflow:hidden;
+	white-space:nowrap;
+	text-overflow:ellipsis;
 	}
 .price_deals_slider{
 
@@ -864,17 +876,17 @@ table.awcp-pricedata tr:nth-child(1) td{
 	font-size:30px;
 	float:left;
 }
-.price_deals_slider p:nth-child(3){
+.price_deals_slider .after_price p:nth-child(1){
 	color:#ffa01b;
 	font-weight:bold;
 }
-.price_deals_slider p:nth-child(2), .price_deals_slider p:nth-child(3){
+.price_deals_slider .after_price p:nth-child(1), .price_deals_slider .after_price p:nth-child(2){
 	font-size:12px;
 	line-height:12px;
 	margin:4px 0 0 5px;
 	float:left;
 }
-.price_deals_slider p:nth-child(2){
+.price_deals_slider .after_price p:nth-child(1){
 	text-decoration:line-through;
 }
 .date_slider_deals label{
@@ -912,6 +924,7 @@ table.awcp-pricedata tr:nth-child(1) td{
 .thumb_area{
 	background-color: #000;
 }
+
 /*end slider*/
 
 
@@ -953,4 +966,14 @@ table.awcp-pricedata tr:nth-child(1) td{
         {
             background: url(http://localhost/bilna_2014/skin/frontend/daily_deals/default/aw_collpur/images/img/browser-icons.png);
         }
+.pav img{
+	display:none;
+}
 /*end slider 2*/
+
+@media only screen and (max-width: 40em) { 
+.awcp-mark-center{
+	
+}
+	
+}
