@@ -47,7 +47,7 @@ body {
 	width: 100%;
 }
 .pager {
-	background: #f2f2f2;
+	background: url(../images/bg-pager.jpg) repeat-x left top;
 	border-top: none;
 }
 .pager .amount {
@@ -72,6 +72,24 @@ body {
 .products-grid li.item {
 	width: 152px;
 	padding-bottom: 12px;
+
+    /*float:left;
+    margin:15px 0 10px 0;
+    padding: 7.6px;*/
+    zoom: 1;
+    position: relative;
+    /*width: 13% !important;*/
+}
+.products-grid li.item:hover {
+	background-color: #fff;
+	z-index: 10;
+	margin-left:0;
+	margin-right: 0;
+	border-color: transparent;
+	box-shadow: 0 0 20px rgba(0,0,0,0.2);
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
 }
 .products-grid .product-image {
 	width: 152px;
@@ -87,6 +105,16 @@ body {
 	text-overflow: ellipsis;
 	overflow: hidden;
 }
+.products-grid .product-name span.lbl-newproduct {
+	display: inline-block;
+	text-transform: uppercase;
+	color: #fff;
+	font-size: 12px;
+	font-family: 'bebasregular';
+	font-weight: normal;
+	background: #8dd240;
+	padding: 0 7px;
+}
 .products-grid .product-name a {
 	color: #707070;
 	font-size: 1em;
@@ -94,6 +122,17 @@ body {
 .products-grid .price-box .price, .products-grid .price-box .regular-price .price {
 	color: #707070;
 	font-size: 1.2em;
+}
+.products-grid .price-box {
+	position: relative;
+}
+.products-grid .price-box .discount-product {
+	color: #4ec7da;
+	font-size: 11px;
+	font-weight: bold;
+	position: absolute;
+	right: 0;
+	bottom: 18px;
 }
 .products-grid .actions {
 	position: relative;
@@ -161,15 +200,21 @@ button.btn-cart {
 }
 /* --------------- smaller 959 px layout -------------------- */
 @media only screen and (max-width: 767px) {
-	.main-container, .main-container.col1-layout .main, .col2-left-layout .main .col-main{
+	.main-container, .main-container.col1-layout .main, .col2-left-layout .main .col-main {
 		width: 100%;
 		margin-top: 0;
 	}
 	.main {
 		min-height: inherit;
 	}
-
-	.breadcrumbs, .col2-left-layout .main .col-left.sidebar {
+	.col2-left-layout .main .col-left.sidebar, .col2-left-layout .main .col-main {
+		float: none;
+	}
+	.col2-left-layout .main .col-left.sidebar {
+		margin: 0;
+		width: 100%;
+	}
+	.breadcrumbs {
 		display: none;
 	}
 	.products-grid li.item {

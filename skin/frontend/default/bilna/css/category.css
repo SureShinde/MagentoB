@@ -163,7 +163,7 @@ a.triger-showfilter {
 }
 .featured-product-catalog {
 	padding-bottom: 20px;
-	background: url(../images/label-featured-product.png) no-repeat center top, url(../images/dash-orange.png) repeat-x left 25px, url(../images/dash-orange.png) repeat-x left bottom;
+	background: url(../images/label-featured-product.png) no-repeat center top, url(../images/dash-orange.png) repeat-x left 25px, url(../images/dash-orange.png) repeat-x left bottom, url(../images/bg-pager-2.jpg) repeat-x left 15px;
 }
 .featured-product-catalog h2 {
 	font-size: 24px;
@@ -241,12 +241,14 @@ a.triger-showfilter {
 }
 .toolbar-bottom {
 	margin-bottom: 20px;
+	margin-top: 20px;
 }
 .toolbar-bottom .toolbar {
 	margin-bottom: 20px;
 }
 .toolbar-bottom .toolbar .pager .custome-nav {
 	display: block;
+	margin-top: 20px;
 }
 .toolbar-bottom a.link-catalog-nav {
 	display: block;
@@ -310,7 +312,6 @@ a.triger-showfilter {
 }
 .toolbar-mobile .sort-by, .toolbar-mobile .filter {
 	padding-right: 0;
-	float: left;
 	padding: 10px 5px;
 	border-left: 1px solid #ccc;
 	border-right: 1px solid #ccc;
@@ -343,7 +344,7 @@ a.triger-showfilter {
 }
 /* --------------- smaller 959 px layout -------------------- */
 @media only screen and (max-width: 767px) {
-	.category-description + p, .featured-product-catalog, .toolbar, .toolbar-mobile .limiter, .custome-nav {
+	.category-description + p, .featured-product-catalog, .toolbar, .toolbar-mobile .limiter, .custome-nav, .show-filter, .toolbar-mobile .filter {
 		display: none;
 	}
 	.col2-left-layout .products-grid, .col2-right-layout .products-grid {

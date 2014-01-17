@@ -38,9 +38,6 @@
  * @see Belvg_Brands_Block_Product_View
  */
 ?>
-<!-- brand -->
 <?php if($_brand = $this->getBrand()):?>
-<a href="<?php echo $_brand->getUrl()?>"><img src="<?php echo Mage::helper('brands/image')->init($_brand)->resize(80,60) ?>" alt="<?php echo $this->stripTags($_brand->getTitle(), null, true) ?>" /></a><br />
-<a href="<?php echo $_brand->getUrl()?>"><?php echo $this->__('View all products from %s', $this->escapeHtml($_brand->getTitle()))?></a>
+<p><?php echo $this->__('By ')?><span><a href="<?php echo $_brand->getUrl()?>"><?php echo $this->escapeHtml($_brand->getTitle())?></a></span></p>
 <?php endif?>
-<!-- brand -->
