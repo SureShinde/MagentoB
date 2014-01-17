@@ -1703,7 +1703,9 @@ tr.summary-details-excluded { font-style:italic; }
 	width:200px;
 
 }
-
+.homepage{
+	display:none;
+}
 .clear {
     clear: both;
     line-height: 0;
@@ -1724,4 +1726,24 @@ tr.summary-details-excluded { font-style:italic; }
 }
 .pager .limiter li:last-child:after{
 	content:"";
+}
+
+.row{
+	max-width:1216px;
+	}
+
+@media only screen and (max-width: 1215px){
+	.row{
+	width:994px;
+	}
+}
+@media only screen and (max-width: 1023px){
+	.row{
+	width:745px;
+	}
+}
+@media only screen and (max-width: 767px){
+	.row{
+	width:100%;
+	}
 }

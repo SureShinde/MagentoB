@@ -990,6 +990,9 @@ table.awcp-pricedata tr:nth-child(1) td{
 		margin:10px 0 0;
 		display:block;
 	}
+	.price_deals_list{
+		font-size:20px;
+	}
 	.list_detail_right{
 		padding-left:14px;
 	}
@@ -999,10 +1002,10 @@ table.awcp-pricedata tr:nth-child(1) td{
 	.awcp-category-grid .awcp-title-list a,
 	.awcp-mark-center .desc_short_deals,
 	.product_price,
-	.awcp-mark-center .discount{
+	{
 		color:#323232 !important;
 	}
-	.price_deals_list{
+	.price_deals_list, .awcp-mark-center .discount{
 		color:#fd7450;
 	}
 	.awcp-item:hover .wrap_li{
