@@ -71,7 +71,7 @@
 					alt="<?php echo $deal->getDealName(); ?>" /></a>
 				<div class="awcp-mark-center small-6 column large-12 medium-12">
 					<div class="awcp-details inprogress">
-						<div class="list_detail_left">
+						<div class="list_detail_left  column small-12 large-7 medium-7">
 							<h2 class="awcp-title-list">
 								<a href="<?php echo $this->getDealPageLink($deal->getId()); ?>"><?php echo $deal->getDealName(); ?></a>
 							</h2>
@@ -97,7 +97,7 @@
 							  <?php //endif; ?>
 					   <?php //endif; ?>
 					</div>
-						<div class="list_detail_right">
+						<div class="list_detail_right small-12 column large-5 medium-5">
 							<form id="product_addtocart_form" class="right_detail_deals"
 								method="post"
 								action="<?php echo Mage::getUrl('checkout/cart/add', array('_secure'=>true,'product' => $deal->getProduct()->getId(), 'deal_id' => $deal->getId(), 'form_key' => Mage::getSingleton('core/session')->getFormKey())) ?>">
@@ -140,6 +140,44 @@
 						<p class="product_price"><?php echo Mage::helper('core')->currency($originalProduct->getFinalPrice(), true, false); ?></p>
 							<p class="discount"><?php echo $dealInfo->getPercentDiscount(); ?>% OFF</p>
 						<?php } ?>
+						<form id="product_addtocart_form" class="right_detail_deals_2"
+								method="post"
+								action="<?php echo Mage::getUrl('checkout/cart/add', array('_secure'=>true,'product' => $deal->getProduct()->getId(), 'deal_id' => $deal->getId(), 'form_key' => Mage::getSingleton('core/session')->getFormKey())) ?>">
+								<div
+									class="awcp-buy-button <?php if ($this->hasOptions($deal)): ?>awcp-options<?php endif; ?>">
+									<!-- POPUP -->
+									<div class="awcp-popup awcp-popup-shown" style="display: none;"
+										id="awcp-popup-options<?php echo $deal->getId(); ?>">
+										<div class="awcp-popup-top-left">
+											<div class="awcp-popup-top-right"></div>
+										</div>
+										<div class="awcp-popup-center-left">
+											<div class="awcp-popup-center-right">
+												<div class="awcp-popup-content">
+											<?php echo $this->getChildHtml('main_collpur_block'); ?>
+										</div>
+											</div>
+										</div>
+										<div class="awcp-popup-bottom-left">
+											<div class="awcp-popup-bottom-right">
+												<button class="button awcp-button">
+													<span><span><?php echo $this->__('BUY NOW'); ?></span></span>
+												</button>
+											</div>
+										</div>
+										<div class="awcp-popup-tail"></div>
+									</div>
+									<!-- popup -->
+									<button class="button awcp-button"
+										<?php if ($this->hasOptions($deal)): ?>
+										onclick="Effect.toggle($('awcp-popup-options<?php echo $deal->getId(); ?>'),'appear');return false;"
+										<?php endif; ?>>
+										<span>
+											<?php echo $this->__('BUY NOW'); ?>
+									</span>
+									</button>
+								</div>
+							</form>
 					</div>
 						<div class="clearer"></div>
 					</div>
