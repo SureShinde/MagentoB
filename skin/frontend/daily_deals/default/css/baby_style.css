@@ -278,6 +278,8 @@
 	float:left;
 	width: 85px;
 	-moz-box-sizing:content-box;
+	box-sizing:content-box;
+	-webkit-box-sizing:content-box;
 }
 .keypoint ul li span {
 	display: block;
@@ -459,6 +461,9 @@
 	padding: 0;
 	display: inline;
 	height: auto;
+}
+.form-search label,.form-search .input-text,.form-search .button{
+	float:left;
 }
 .mini-products-list .product-details a.product-name {
 	font-size: 0.95em;
@@ -1528,6 +1533,7 @@
 .footer a, .footer address {
 	color: #767676;
 	font-size:0.8rem;
+	margin:0 0 20px;
 }
 .footer .conect-us, .footer .payment-partners, .footer .shipping-partners {
 	float: right;

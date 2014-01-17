@@ -30,6 +30,6 @@
 
 
 $this->startSetup();
-$this->getConnection()->addColumn($this->getTable('points/rule'), 'max_points_change', 'INT UNSIGNED DEFAULT NULL AFTER `points_change`');
-$this->getConnection()->addColumn($this->getTable('points/rule'), 'apply_on', 'VARCHAR(64) UNSIGNED DEFAULT NULL BEFORE `points_change`');
+//$this->getConnection()->addColumn($this->getTable('points/rule'), 'max_points_change', 'INT UNSIGNED DEFAULT NULL AFTER `points_change`');
+//$this->getConnection()->addColumn($this->getTable('points/rule'), 'apply_on', 'VARCHAR(64) DEFAULT NULL BEFORE `points_change`');
 $this->endSetup(); 

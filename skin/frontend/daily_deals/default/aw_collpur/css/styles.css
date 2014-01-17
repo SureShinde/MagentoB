@@ -79,8 +79,8 @@
 }
 
 /* category marks*/
-.awcp-category-grid .awcp-mark-left {
-   
+.awcp-category-grid {
+	margin:0;
 }
 
 .awcp-category-grid .awcp-mark-right {
@@ -89,7 +89,7 @@
 .awcp-category-grid .awcp-mark-center {
 	 background:rgba(140, 140, 140, 0.9);
     padding: 5px;
-	margin:-103px 0 0;
+	margin:-102px 0 0;
 	position:relative;
 }
 
@@ -701,7 +701,7 @@ table.awcp-pricedata tr:nth-child(1) td{
 	border:5px solid #fb816c;
 }
 .awcp-item:hover .awcp-mark-center{
-	margin:-103px 0 0;
+	margin:-102px 0 0;
     background:rgba(251, 129, 108, 0.9);
 }
 .awcp-mark-center .product_price{
@@ -929,7 +929,7 @@ table.awcp-pricedata tr:nth-child(1) td{
 
 
 #slider1_container{
-	margin:25px 0;
+	margin:0;
 }
 .captionOrange, .captionBlack
         {
@@ -978,6 +978,7 @@ table.awcp-pricedata tr:nth-child(1) td{
 	.right_detail_deals{
 		display:block;
 	}
+	
 }
 @media only screen and (max-width: 40em) { 
 	.awcp-mark-center{
@@ -999,9 +1000,7 @@ table.awcp-pricedata tr:nth-child(1) td{
 	.awcp-mark-center{
 		background:#fff !important;
 	}
-	.awcp-category-grid .awcp-title-list a,
-	.awcp-mark-center .desc_short_deals,
-	.product_price,
+	.awcp-category-grid .awcp-title-list a, .awcp-mark-center .desc_short_deals, .product_price
 	{
 		color:#323232 !important;
 	}
