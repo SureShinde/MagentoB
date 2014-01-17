@@ -132,8 +132,6 @@ class AW_Collpur_Adminhtml_DealController extends Mage_Adminhtml_Controller_Acti
                     $data['available_to'] = null;
                 }
 
-
-
                 $imgName = '';
                 if (isset($_FILES['deal_image']['name']) && $_FILES['deal_image']['name'] != '' && @$data['deal_image']['delete'] != 1) {
                     $uploader = new Varien_File_Uploader('deal_image');
@@ -150,13 +148,31 @@ class AW_Collpur_Adminhtml_DealController extends Mage_Adminhtml_Controller_Acti
                 if ($deal->getId()) { $deal->checkPurchasesCount()->checkSuccess()->checkAutoClose(); }
                 else { $deal->setPurchasesLeft($deal->getQtyToReachDeal()); }
 
-
                 if ($imgName) {
                     $deal->setData('deal_image', $imgName);
                 } elseif (@$data['deal_image']['delete'] == 1) {
                     $deal->setData('deal_image', '');
                 } else {
                     $deal->unsDealImage();
+                }
+
+                $imgSliderName = '';
+                if (isset($_FILES['deal_image_slider']['name']) && $_FILES['deal_image_slider']['name'] != '' && @$data['deal_image_slider']['delete'] != 1) {
+                    $uploader = new Varien_File_Uploader('deal_image_slider');
+                    $uploader->setAllowedExtensions(array('jpg', 'jpeg', 'gif', 'png'));
+                    $uploader->setAllowRenameFiles(false);
+                    $uploader->setFilesDispersion(false);
+                    $path = Mage::getBaseDir('media') . DS . 'aw_collpur' . DS . 'deals' . DS;
+                    $imgSliderName = preg_replace("#[^a-zA-Z0-9_.-]#is","",$_FILES['deal_image_slider']['name']); 
+                    $uploader->save($path, $imgSliderName);
+                }
+
+                if ($imgSliderName) {
+                    $deal->setData('deal_image_slider', $imgSliderName);
+                } elseif (@$data['deal_image_slider']['delete'] == 1) {
+                    $deal->setData('deal_image_slider', '');
+                } else {
+//                     $deal->unsDealImage();
                 }
 
                 $deal->save();

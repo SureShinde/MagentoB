@@ -67,6 +67,13 @@ class AW_Collpur_Block_Adminhtml_Deal_Edit_Tab_Details extends Mage_Adminhtml_Bl
             'name' => 'deal_image',
             'label' => Mage::helper('collpur')->__('Image'),
             'title' => Mage::helper('collpur')->__('Image'),
+        ));   
+
+
+        $fieldset->addField('image_slider', 'image', array(
+            'name' => 'deal_image_slider',
+            'label' => Mage::helper('collpur')->__('Image Slider'),
+            'title' => Mage::helper('collpur')->__('Image Slider'),
         ));
 
         if (Mage::getSingleton('cms/wysiwyg_config')->isEnabled()) {

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Demo: Effortless jQuery Floating Back-To-Top Script V2 | TypicalWhiner.com</title>
+<style type="text/css">
+#backtotop {
+	position: fixed;
+	right:0;
+	bottom:0px;
+	margin-bottom:260px;
+	display:none;/*hid the button first*/
+}
+#backtotop a {
+	border-top-left-radius:5px;
+	-moz-border-top-left-radius:5px;
+	-webkit-border-top-left-radius:5px;
+	border-bottom-left-radius:5px;
+	-moz-border-bottom-left-radius:5px;
+	-webkit-border-bottom-left-radius:5px;
+	text-decoration:none;
+	padding:10px;
+	background:#ee5722;
+	border:0 none;
+	text-transform:uppercase;
+	display:block;
+	color:#fff;
+}
+#backtotop a:hover {
+	opacity:.8; /*mouse over fade effect*/
+}
+.clrb {
+	clear:both;
+}
+#maindiv {
+	width:700px;
+	border:1px solid #999;
+	margin:auto;
+	padding:20px;
+}
+</style>
+<!-- efforless script below -->
+<script type="text/javascript">
+	jQuery(document).ready(function(){
+		var pxShow = 20;//height on which the button will show
+		var slideUpTime = 500;//how slow/fast you want the button to show
+		var slideDownTime = 500;//how slow/fast you want the button to hide
+		var scrollSpeed = 400;//how slow/fast you want the button to scroll to top. can be a value, 'slow', 'normal' or 'fast'
+		jQuery(window).scroll(function(){
+			if(jQuery(window).scrollTop() >= pxShow){
+				jQuery("#backtotop").slideDown(slideDownTime);
+			}else{
+				jQuery("#backtotop").slideUp(slideUpTime);
+			}
+		});
+		 
+		jQuery('#backtotop a').click(function(){
+			jQuery('html, body').animate({scrollTop:0}, scrollSpeed); 
+			return false; 
+		}); 
+	});
+</script>
+</head>
+<body>
+<div class="clrb"></div>
+<div id="backtotop"><a href="#">Back to</br>Top ▲</a></div>
+</body>
+</html>
