@@ -1,12 +1,13 @@
 <?php
 /**
- * Description of Bilna_Paymethod_Model_System_Config_Paymenthide
+ * Description of Bilna_Paymethod_Model_System_Config_Paymentactive
  *
  * @author Bilna Development Team <development@bilna.com>
  */
 
-class Bilna_Paymethod_Model_System_Config_Paymenthide {
+class Bilna_Paymethod_Model_System_Config_Paymentactive {
     public function toOptionArray() {
+        //$payments = Mage::getSingleton('payment/config')->getAllMethods();
         $payments = Mage::getSingleton('payment/config')->getActiveMethods();
         $methods = array ();
         

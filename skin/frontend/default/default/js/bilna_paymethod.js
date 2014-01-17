@@ -825,12 +825,10 @@ Payment.prototype = {
         
         if (this.validate() && validator.validate()) {
             if (this.bankValidate()) {
-                //alert(Form.serialize(payment.form));
                 if (this.currentMethod == 'vtdirect') {
                     Veritrans.tokenGet(_cardSet, _success, _error);
                 }
                 else {
-                    alert('asdfsadiafsdf');
                     checkout.setLoadWaiting('payment');
                     var request = new Ajax.Request(
                         this.saveUrl, {

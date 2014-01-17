@@ -11,10 +11,10 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
     protected $_payType = '';
     
     public function saveOrderAction() {
-        $paymentAllow = array ('klikpay', 'anzcc', 'scbcc');
         $paymentCode = Mage::getSingleton('checkout/session')->getQuote()->getPayment()->getMethodInstance()->getCode();
+        $paymentSupportInstallment = explode(',', Mage::getStoreConfig('bilna_module/paymethod/payment_support_installment'));
         
-        if (in_array($paymentCode, $paymentAllow)) {
+        if (in_array($paymentCode, $paymentSupportInstallment)) {
             if ($this->_expireAjax()) {
                 return;
             }
@@ -32,8 +32,11 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
                     }
                     
                     $installmentOptionType = Mage::getStoreConfig('payment/' . $paymentCode . '/installment_option');
-                       
-                    if ($installmentOptionType == 2) { // if installment type is per order
+                    
+                    /**
+                     * installment type is per order
+                     */
+                    if ($installmentOptionType == 2) {
                         if ($installmentData == '') {
                             $result['success'] = false;
                             $result['error'] = true;
@@ -127,7 +130,7 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
 
                 $redirectUrl = $this->getOnepage()->getCheckout()->getRedirectUrl();
                 $result['success'] = true;
-                $result['error']   = false;
+                $result['error'] = false;
             }
             catch (Mage_Payment_Model_Info_Exception $e) {
                 $message = $e->getMessage();
@@ -137,7 +140,7 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
                 }
                 
                 $result['goto_section'] = 'payment';
-                $result['update_section'] = array(
+                $result['update_section'] = array (
                     'name' => 'payment-method',
                     'html' => $this->_getPaymentMethodsHtml()
                 );
