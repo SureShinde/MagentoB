@@ -518,18 +518,18 @@
 .header .links a:hover {
 	text-decoration: underline;
 }
-.header .links li.myaccount {
+.header .links li.myaccount, .menu-tablet .links li.myaccount {
 	position: relative;
 }
-.header .links li.myaccount:hover .toplink-myaccount {
+.header .links li.myaccount:hover .toplink-myaccount, .menu-tablet .links li.myaccount:hover .toplink-myaccount {
 	display: block;
 }
-.header .links li.myaccount a.link-trigger-myaccount {
+.header .links li.myaccount a.link-trigger-myaccount, .menu-tablet .links li.myaccount a.link-trigger-myaccount {
 	display: inline-block;
 	background: url(../images/icon-user.png) no-repeat left center;
 	padding: 5px 0 5px 20px;
 }
-.header .links li.myaccount .toplink-myaccount {
+.header .links li.myaccount .toplink-myaccount, .menu-tablet .links li.myaccount .toplink-myaccount {
 	display: none;
 	position: absolute;
 	top: 18px;
@@ -542,7 +542,7 @@
 	box-shadow: 1px 1px 4px 0 #ccc;
 	width: 130px;
 }
-.header .links li.myaccount .toplink-myaccount ul li {
+.header .links li.myaccount .toplink-myaccount ul li, .menu-tablet .links li.myaccount .toplink-myaccount ul li  {
 	border-top: 1px solid #dadada;
 	border-left: none;
 	padding-left: 0;
@@ -550,10 +550,12 @@
 	font-size: 1.1em;
 	display: block;
 }
-.header .links li.myaccount .toplink-myaccount ul li:first-child {
+.header .links li.myaccount .toplink-myaccount ul li:first-child, 
+.menu-tablet .links li.myaccount .toplink-myaccount ul li:first-child {
 	border-top: none;
 }
-.header .links li.myaccount .toplink-myaccount ul li a {
+.header .links li.myaccount .toplink-myaccount ul li a,
+.menu-tablet .links li.myaccount .toplink-myaccount ul li a {
 	display: block;
 	padding: 5px 0;
 	color: #707070;
@@ -1030,11 +1032,18 @@
 .menu-tablet .form-language, .menu-tablet .store-phone, .menu-tablet ul.links {
 	float: right;
 }
+.menu-tablet .form-language, .menu-tablet .store-phone {
+	margin-top: 5px;
+}
 .menu-tablet .form-language {
 	margin-right: 10px;
 }
 .menu-tablet ul.links {
 	margin-left: 20px;
+}
+.menu-tablet .links li.myaccount .toplink-myaccount {
+	left: auto;
+	right: 0;
 }
 @media only screen and (max-width: 1215px) {
 	.header, #nav, .sticky-header {
