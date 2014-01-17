@@ -12,20 +12,22 @@
  * =================================================================
  *                 MAGENTO EDITION USAGE NOTICE
  * =================================================================
- * This software is designed to work with Magento community edition and
- * its use on an edition other than specified is prohibited. aheadWorks does not
- * provide extension support in case of incorrect edition use.
+ * This package designed for Magento community edition
+ * aheadWorks does not guarantee correct work of this extension
+ * on any other Magento edition except Magento community edition.
+ * aheadWorks does not provide extension support in case of
+ * incorrect edition usage.
  * =================================================================
  *
  * @category   AW
- * @package    AW_Collpur
- * @version    1.0.5
+ * @package    AW_Points
+ * @version    1.6.1
  * @copyright  Copyright (c) 2010-2012 aheadWorks Co. (http://www.aheadworks.com)
  * @license    http://ecommerce.aheadworks.com/AW-LICENSE.txt
  */
 
-class AW_Core_Helper_Logger extends Mage_Core_Helper_Abstract {
 
+class AW_Core_Helper_Logger extends Mage_Core_Helper_Abstract {
     const PARENT_HELPER = 'Mage_Core_Helper_Abstract';
     const PARENT_MODEL = 'Mage_Core_Model_Abstract';
     const RESOURCE_MODEL = 'Mage_Core_Model_Mysql4_Abstract';
@@ -46,11 +48,12 @@ class AW_Core_Helper_Logger extends Mage_Core_Helper_Abstract {
      * @return AW_Core_Model_Logger
      */
     protected function _getLogger() {
-	if(self::$_logger instanceof AW_Core_Model_Logger) {
-	}else {
-	    self::$_logger = Mage::getSingleton('awcore/logger');
-	}
-	return self::$_logger;
+        if (self::$_logger instanceof AW_Core_Model_Logger) {
+            
+        } else {
+            self::$_logger = Mage::getSingleton('awcore/logger');
+        }
+        return self::$_logger;
     }
 
     /**
@@ -60,26 +63,26 @@ class AW_Core_Helper_Logger extends Mage_Core_Helper_Abstract {
      * @param object $severity [optional]
      * @return AW_Core_Helper_Logger
      */
-    public function log($Object, $message, $severity=null, $description=null,$line=null) {
+    public function log($Object, $message, $severity=null, $description=null, $line=null) {
 
-	if(!Mage::getStoreConfig(self::XML_PATH_ENABLE_LOG)) {
-	    return $this;
-	}
-	$class_name = get_class($Object);
-	$this->_getLogger()->setData(array());
-	if(preg_match("/AW_([a-z]+)+/i", $class_name, $matches)) {
-	    $this->_getLogger()->setModule(@$matches[1]);
-	}else {
-	    $this->_getLogger()->setModule('');
-	}
-	$this->_getLogger()
-		->setObject($class_name)
-		->setTitle($message)
-		->setLine($line)
-		->setSeverity($severity)
-		->setContent($description)
-		->save();
-	return $this;
+        if (!Mage::getStoreConfig(self::XML_PATH_ENABLE_LOG)) {
+            return $this;
+        }
+        $class_name = get_class($Object);
+        $this->_getLogger()->setData(array());
+        if (preg_match("/AW_([a-z]+)+/i", $class_name, $matches)) {
+            $this->_getLogger()->setModule(@$matches[1]);
+        } else {
+            $this->_getLogger()->setModule('');
+        }
+        $this->_getLogger()
+                ->setObject($class_name)
+                ->setTitle($message)
+                ->setLine($line)
+                ->setSeverity($severity)
+                ->setContent($description)
+                ->save();
+        return $this;
     }
 
     /**
@@ -90,19 +93,19 @@ class AW_Core_Helper_Logger extends Mage_Core_Helper_Abstract {
      * @return AW_Core_Helper_Logger
      */
     public function logInvisible($Object, $message, $severity=null) {
-	$class_name = get_class($Object);
-	if(preg_match("/AW_([a-z]+)+/i", $class_name, $matches)) {
-	    $this->_getLogger()->setModule(@$matches[1]);
-	}else {
-	    $this->_getLogger()->setModule('');
-	}
-	$this->_getLogger()
-		->setTitle($message)
-		->setObject($class_name)
-		->setVisibility(0)
-		->setSeverity($severity)
-		->save();
-	return $this;
+        $class_name = get_class($Object);
+        if (preg_match("/AW_([a-z]+)+/i", $class_name, $matches)) {
+            $this->_getLogger()->setModule(@$matches[1]);
+        } else {
+            $this->_getLogger()->setModule('');
+        }
+        $this->_getLogger()
+                ->setTitle($message)
+                ->setObject($class_name)
+                ->setVisibility(0)
+                ->setSeverity($severity)
+                ->save();
+        return $this;
     }
 
     /**
@@ -110,14 +113,14 @@ class AW_Core_Helper_Logger extends Mage_Core_Helper_Abstract {
      * @return
      */
     public function exorcise() {
-	$Date = new Zend_Date();
-	Zend_Date::setOptions(array('extend_month' => true));
-	$Date->addDayOfYear((0-(int)Mage::getStoreConfig('awall/awcore/logger_store_days')));
+        $Date = new Zend_Date();
+        Zend_Date::setOptions(array('extend_month' => true));
+        $Date->addDayOfYear((0 - (int) Mage::getStoreConfig('awall/awcore/logger_store_days')));
 
-	foreach(Mage::getModel('awcore/logger')->getCollection()->addOlderThanFilter($Date) as $entry) {
-	    $entry->delete();
-	}
-	return $this;
+        foreach (Mage::getModel('awcore/logger')->getCollection()->addOlderThanFilter($Date) as $entry) {
+            $entry->delete();
+        }
+        return $this;
     }
 
 }

@@ -12,17 +12,20 @@
  * =================================================================
  *                 MAGENTO EDITION USAGE NOTICE
  * =================================================================
- * This software is designed to work with Magento community edition and
- * its use on an edition other than specified is prohibited. aheadWorks does not
- * provide extension support in case of incorrect edition use.
+ * This package designed for Magento community edition
+ * aheadWorks does not guarantee correct work of this extension
+ * on any other Magento edition except Magento community edition.
+ * aheadWorks does not provide extension support in case of
+ * incorrect edition usage.
  * =================================================================
  *
  * @category   AW
- * @package    AW_Collpur
- * @version    1.0.5
+ * @package    AW_Points
+ * @version    1.6.1
  * @copyright  Copyright (c) 2010-2012 aheadWorks Co. (http://www.aheadworks.com)
  * @license    http://ecommerce.aheadworks.com/AW-LICENSE.txt
  */
+
 
 class AW_Core_Helper_Extension extends Varien_Object {
 
@@ -31,7 +34,7 @@ class AW_Core_Helper_Extension extends Varien_Object {
      * @param string $code
      * @return bool
      */
-    public function isExtensionInstalled($code){
+    public function isExtensionInstalled($code) {
         $exts = $this->getInstalledExtensions();
         return (isset($exts[$code]));
     }
@@ -41,10 +44,10 @@ class AW_Core_Helper_Extension extends Varien_Object {
      * @param string $code
      * @return bool
      */
-    public function isExtensionActive($code){
-        if($this->isExtensionInstalled($code)){
+    public function isExtensionActive($code) {
+        if ($this->isExtensionInstalled($code)) {
             $exts = $this->getInstalledExtensions();
-            return (bool)$exts[$code]['active'];
+            return (bool) $exts[$code]['active'];
         }
     }
 
@@ -53,15 +56,16 @@ class AW_Core_Helper_Extension extends Varien_Object {
      * This way is based on
      * @return array
      */
-    public function getInstalledExtensions(){
-        if(!$this->getData('installed_extensions')){
+    public function getInstalledExtensions() {
+        if (!$this->getData('installed_extensions')) {
             $exts = array();
-            $modules = ((array)Mage::getConfig()->getNode('modules')->children());
-            foreach($modules as $k=>$Module){
-                $exts[$k] = (array)$Module;
+            $modules = ((array) Mage::getConfig()->getNode('modules')->children());
+            foreach ($modules as $k => $Module) {
+                $exts[$k] = (array) $Module;
             }
             $this->setData('installed_extensions', $exts);
         }
         return $this->getData('installed_extensions');
     }
+
 }

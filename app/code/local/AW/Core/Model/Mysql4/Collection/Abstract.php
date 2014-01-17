@@ -12,17 +12,20 @@
  * =================================================================
  *                 MAGENTO EDITION USAGE NOTICE
  * =================================================================
- * This software is designed to work with Magento community edition and
- * its use on an edition other than specified is prohibited. aheadWorks does not
- * provide extension support in case of incorrect edition use.
+ * This package designed for Magento community edition
+ * aheadWorks does not guarantee correct work of this extension
+ * on any other Magento edition except Magento community edition.
+ * aheadWorks does not provide extension support in case of
+ * incorrect edition usage.
  * =================================================================
  *
  * @category   AW
- * @package    AW_Collpur
- * @version    1.0.5
+ * @package    AW_Points
+ * @version    1.6.1
  * @copyright  Copyright (c) 2010-2012 aheadWorks Co. (http://www.aheadworks.com)
  * @license    http://ecommerce.aheadworks.com/AW-LICENSE.txt
  */
+
 
 class AW_Core_Model_Mysql4_Collection_Abstract extends Mage_Core_Model_Mysql4_Collection_Abstract {
 
@@ -33,6 +36,7 @@ class AW_Core_Model_Mysql4_Collection_Abstract extends Mage_Core_Model_Mysql4_Co
      * @return
      */
     public function log($message, $severity=null) {
-	Mage::helper('awcore/logger')->log($this, $message, $severity);
+        Mage::helper('awcore/logger')->log($this, $message, $severity);
     }
+
 }

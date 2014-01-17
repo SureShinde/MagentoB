@@ -12,17 +12,20 @@
  * =================================================================
  *                 MAGENTO EDITION USAGE NOTICE
  * =================================================================
- * This software is designed to work with Magento community edition and
- * its use on an edition other than specified is prohibited. aheadWorks does not
- * provide extension support in case of incorrect edition use.
+ * This package designed for Magento community edition
+ * aheadWorks does not guarantee correct work of this extension
+ * on any other Magento edition except Magento community edition.
+ * aheadWorks does not provide extension support in case of
+ * incorrect edition usage.
  * =================================================================
  *
  * @category   AW
- * @package    AW_Collpur
- * @version    1.0.5
+ * @package    AW_Points
+ * @version    1.6.1
  * @copyright  Copyright (c) 2010-2012 aheadWorks Co. (http://www.aheadworks.com)
  * @license    http://ecommerce.aheadworks.com/AW-LICENSE.txt
  */
+
 
 class AW_Core_Block_Adminhtml_System_Config_Form_Fieldset extends Mage_Adminhtml_Block_System_Config_Form_Fieldset {
 
@@ -32,22 +35,23 @@ class AW_Core_Block_Adminhtml_System_Config_Form_Fieldset extends Mage_Adminhtml
      * @return string
      */
     public function render(Varien_Data_Form_Element_Abstract $element) {
-	$html = $this->_getHeaderHtml($element);
+        $html = $this->_getHeaderHtml($element);
 
-	foreach ($element->getElements() as $field) {
-	    $html.= $field->toHtml();
-	}
-	$html .= "<tr>
+        foreach ($element->getElements() as $field) {
+            $html.= $field->toHtml();
+        }
+        $html .= "<tr>
 			<td class=\"label\"></td>
 			<td class=\"value\">
-			<button class=\"scalable\" onclick=\"window.location='".Mage::getSingleton('adminhtml/url')->getUrl('awcore_admin/viewlog/index')."'\" type=\"button\">
+			<button class=\"scalable\" onclick=\"window.location='" . Mage::getSingleton('adminhtml/url')->getUrl('awcore_admin/viewlog/index') . "'\" type=\"button\">
 				<span>View log</span>
 			</button
 			</td>
 		 </tr>
 		 ";
-	$html .= $this->_getFooterHtml($element);
+        $html .= $this->_getFooterHtml($element);
 
-	return $html;
+        return $html;
     }
+
 }
