@@ -16,6 +16,7 @@
                 <type>skin_js</type>
                 <name>aw_affiliate/js/campaign/edit.js</name>
             </action>
+            <!-- <action method="addJs"><script>extjs/ext-tree-checkbox.js</script></action> -->
             <action method="setCanLoadExtJs">
                 <flag>1</flag>
             </action>
@@ -31,7 +32,7 @@
                 <block type="awaffiliate/adminhtml_campaign_edit_tab_general" name="awaff.campaign.edit.tab.general"/>
                 <block type="awaffiliate/adminhtml_campaign_edit_tab_rate" name="awaff.campaign.edit.tab.rate"/>
                 <block type="awaffiliate/adminhtml_campaign_edit_tab_conditions" name="awaff.campaign.edit.tab.conditions"/>
-                <block type="awaffiliate/adminhtml_campaign_edit_tab_products" name="awaff.campaign.edit.tab.products"/>
+                <!-- <block type="awaffiliate/adminhtml_campaign_edit_tab_products" name="awaff.campaign.edit.tab.products"/> -->
                 <action method="addTab">
                     <name>general_section</name>
                     <block>awaff.campaign.edit.tab.general</block>
@@ -44,13 +45,40 @@
                     <name>conditions_section</name>
                     <block>awaff.campaign.edit.tab.conditions</block>
                 </action>
-                <action method="addTab">
+                <!-- <action method="addTab">
                     <name>products_section</name>
                     <block>awaff.campaign.edit.tab.products</block>
-                </action>
+                </action> -->
+
             </block>
         </reference>
     </awaffiliate_admin_adminhtml_campaign_edit>
+
+    <awaffiliate_admin_adminhtml_campaign_products>
+        <block type="core/text_list" name="root" output="toHtml">
+           <block type="awaffiliate/adminhtml_campaign_edit_tab_productsgrid" name="awaff.campaign.edit.tab.productsgrid"/>
+           <block type="adminhtml/widget_grid_serializer" name="grid_serializer">
+               <reference name="grid_serializer">
+                   <action method="initSerializerBlock">
+                       <grid_block_name>awaff.campaign.edit.tab.productsgrid</grid_block_name>
+                       <data_callback>getSelectedProducts</data_callback>
+                       <hidden_input_name>links[products]</hidden_input_name>
+                       <reload_param_name>products</reload_param_name>
+                   </action>
+                   <action method="addColumnInputName">
+                       <input_name>position</input_name>
+                   </action>
+               </reference>
+           </block>
+       </block>
+    </awaffiliate_admin_adminhtml_campaign_products>  
+    <awaffiliate_admin_adminhtml_campaign_productsgrid>
+            <block type="core/text_list" name="root" output="toHtml">
+                <block type="awaffiliate/adminhtml_campaign_edit_tab_productsgrid" name="awaff.campaign.edit.tab.productsgrid"/>
+            </block>
+    </awaffiliate_admin_adminhtml_campaign_productsgrid> 
+
+
     <awaffiliate_admin_adminhtml_affiliate_index>
         <reference name="content">
             <block type="awaffiliate/adminhtml_affiliate" name="awaff.affiliate.grid"/>
@@ -145,4 +173,31 @@
             <block type="awaffiliate/adminhtml_withdrawal_grid"/>
         </block>
     </awaffiliate_admin_adminhtml_withdrawal_grid>
+    <awaffiliate_admin_adminhtml_category_index>
+        <reference name="content">
+            <block type="awaffiliate/adminhtml_category" name="awaff.category.grid"/>
+        </reference>
+    </awaffiliate_admin_adminhtml_category_index>
+    <awaffiliate_admin_adminhtml_category_new>
+         <reference name="head">
+            <action method="addJs"><js>extjs/ext-tree.js</js></action>
+            <action method="addJs"><js>extjs/ext-tree-checkbox.js</js></action>
+            <action method="addItem"><type>js</type><name>extjs/ext-tree.js</name></action>
+            <action method="addItem"><type>js</type><name>extjs/ext-tree-checkbox.js</name></action>
+            <action method="addItem"><type>js_css</type><name>extjs/resources/css/ext-all.css</name></action>
+            <action method="addItem"><type>js_css</type><name>extjs/resources/css/ytheme-magento.css</name></action>
+        </reference>
+        <reference name="content">
+            <block type="awaffiliate/adminhtml_category_edit" name="awaff.category.edit"></block>
+        </reference>
+        <reference name="left">
+            <block type="awaffiliate/adminhtml_category_edit_tabs" name="awaff.category.edit.tabs">
+                <!-- <block type="awaffiliate/adminhtml_category_edit_tab_general" name="awaff.category.edit.tab.general"/> -->
+                <!-- <action method="addTab">
+                    <name>general_section_category</name>
+                    <block>awaff.category.edit.tab.general</block>
+                </action> -->
+            </block>
+        </reference>
+    </awaffiliate_admin_adminhtml_category_new>
 </layout>

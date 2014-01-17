@@ -249,6 +249,26 @@ class AW_Affiliate_Adminhtml_CampaignController extends Mage_Adminhtml_Controlle
                     }
                 }
 
+                /*process to save products list for product campaign*/
+                if(isset($data['links']))
+                {
+                    $campaign_id = $campaign->getId();
+                    $products = Mage::helper('adminhtml/js')->decodeGridSerializedInput($data['links']['products']);
+                    $collection = Mage::getModel('awaffiliate/products')->getCollection();
+                    $collection->addFieldToFilter('campaign_id',$campaign_id);
+                    foreach($collection as $obj){
+                        $obj->delete();
+                    }
+                    foreach($products as $key => $value){
+                        $model2 = Mage::getModel('awaffiliate/products');
+                        $model2->setCampaignId($campaign_id);
+                        $model2->setProductId($key);
+                        $model2->setPosition($value['position']);
+                        $model2->save();
+                    }
+                }
+                /*process to save products list for product campaign*/
+
                 $this->_getSession()->addSuccess(Mage::helper('awaffiliate')->__('The campaign has been saved.'));
                 if ($redirectBack) {
                     $this->_redirect('*/*/edit', array('id' => $campaign->getId(), '_current' => true));
@@ -308,10 +328,16 @@ class AW_Affiliate_Adminhtml_CampaignController extends Mage_Adminhtml_Controlle
     protected function productsgridAction()
     {
         $this->loadLayout();
-        $this->getResponse()->setBody(
-            $this->getLayout()
-                ->createBlock('awaffiliate/adminhtml_campaign_edit_tab_productsgrid')
-                ->toHtml()
-        );
+        $this->getLayout()->getBlock('awaff.campaign.edit.tab.productsgrid')
+                ->setProdlist($this->getRequest()->getPost('products', null)); //don't forget to pass list of selected items
+        $this->renderLayout();
     }
+
+    public function productsAction() {
+        $this->loadLayout();
+        $this->getLayout()->getBlock('awaff.campaign.edit.tab.productsgrid')
+                ->setProdlist($this->getRequest()->getPost('products', null));
+        $this->renderLayout();
+    }
+
 }

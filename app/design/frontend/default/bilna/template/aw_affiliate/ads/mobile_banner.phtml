@@ -47,10 +47,17 @@ $x = $this->productsScriptAction();
             </style>
             <div id="cto_banner_content" class="ad">
                 <?php foreach($x as $row):?>
-                <a href="<?php echo $row['a'];?>" alt="<?php echo $row['name'];?>">
+                <a href="<?php echo $row['a'];?>" alt="<?php echo $row['name'];?>" target="_blank">
                 <div class="thumb">
                     <?php echo $row['img']; ?>
-                    <span class="text"><?php echo $row['name'];?><p style="font-size: 9px;"><?php echo $row['price']['old_price'];?></p></span>
+                    <span class="text"><?php echo $row['name'];?>
+                        <?php if( $row['price']['old_price'] > $row['price']['special_price'] ) : ?>
+                        <p style="font-size: 9px;"><?php echo $row['price']['old_price'];?></p>
+                        <p style="font-size: 9px;"><?php echo $row['price']['special_price'];?></p>
+                        <?php else :?>
+                        <p style="font-size: 9px;"><?php echo $row['price']['old_price'];?></p>
+                    <?php endif;?>
+                    </span>
                 </div>
                 </a>
                 <?php endforeach; ?>

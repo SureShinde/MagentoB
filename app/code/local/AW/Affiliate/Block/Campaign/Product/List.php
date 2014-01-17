@@ -29,17 +29,24 @@ class AW_Affiliate_Block_Campaign_Product_List extends Mage_Catalog_Block_Produc
         return $collection;
    }
 
-   public function getBestProductCollection($limit)
+   public function getBestProductCollection($campaign_id, $limit)
    {
-        $todayDate  = Mage::app()->getLocale()->date()->toString(Varien_Date::DATETIME_INTERNAL_FORMAT);
+        //$todayDate  = Mage::app()->getLocale()->date()->toString(Varien_Date::DATETIME_INTERNAL_FORMAT);
 
         $collection = Mage::getResourceModel('catalog/product_collection');
-        $collection->setVisibility(Mage::getSingleton('catalog/product_visibility')->getVisibleInSiteIds());
+        //$collection->setVisibility(Mage::getSingleton('catalog/product_visibility')->getVisibleInSiteIds());
+
+        $collection->getSelect()
+            ->joinInner(
+            array( 'prod_index' => Mage::getSingleton('core/resource')->getTableName('awaffiliate/products') ),
+            "prod_index.product_id = e.entity_id AND prod_index.campaign_id='".$campaign_id."'"
+        );
 
         $collection = $this->_addProductAttributesAndPrices($collection)
-            ->addStoreFilter()
-            ->addAttributeToFilter('news_from_date', array('date' => true, 'to' => $todayDate))
-            ->addAttributeToSort('news_from_date', 'desc');
+            ->addStoreFilter();
+/*            ->addAttributeToFilter('news_from_date', array('date' => true, 'to' => $todayDate))
+            ->addAttributeToSort('news_from_date', 'desc');*/
+        $collection->getSelect()->order(new Zend_Db_Expr('RAND()'));    
         $collection->getSelect()->limit( $limit ); 
 
         $this->setProductCollection($collection);

@@ -2,7 +2,7 @@
 <config>
     <modules>
         <AW_Affiliate>
-            <version>1.0.2</version><platform>ce</platform>
+            <version>1.0.3</version><platform>ce</platform>
         </AW_Affiliate>
     </modules>
     <global>
@@ -49,6 +49,12 @@
                     <traffic_source>
                         <table>aw_affiliate_traffic_source</table>
                     </traffic_source>
+                    <products>
+                        <table>aw_affiliate_products</table>
+                    </products>
+                    <categories>
+                        <table>aw_affiliate_categories</table>
+                    </categories>
                 </entities>
             </awaffiliate_mysql4>
         </models>
@@ -236,6 +242,11 @@
                         <action>awaffiliate_admin/adminhtml_affiliate/index</action>
                         <sort_order>20</sort_order>
                     </affiliates>
+                    <categories translate="title" module="awaffiliate">
+                        <title>Manage Categories</title>
+                        <action>awaffiliate_admin/adminhtml_category/index</action>
+                        <sort_order>21</sort_order>
+                    </categories>
                     <withdrawal translate="title" module="awaffiliate">
                         <title>Withdrawals</title>
                         <action>awaffiliate_admin/adminhtml_withdrawal/index</action>

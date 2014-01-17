@@ -40,6 +40,14 @@ class AW_Affiliate_Block_Adminhtml_Campaign_Edit_Tabs extends Mage_Adminhtml_Blo
     protected function _beforeToHtml()
     {
         $this->_updateActiveTab();
+
+        $this->addTab('products', array(
+          'label'     => Mage::helper('awaffiliate')->__('Products List'),
+          'title'     => Mage::helper('awaffiliate')->__('Products List'),
+          'url'       => $this->getUrl('*/*/products', array('_current' => true)),
+            'class'     => 'ajax',
+        ));
+
         return parent::_beforeToHtml();
     }
 

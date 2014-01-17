@@ -59,7 +59,7 @@
 <?php if ($campaignImageName = $this->getImageField()) : ?>
 <div class="fieldset">
     <h2 class="legend"><?php echo $this->__('Banner '); ?></h2>
-    <div class="row"><img src="http://rebirth.bilna/media/<?php echo $campaignImageName ?>" /></div>
+    <div class="row"><img src="<?php echo Mage::getBaseUrl();?>media/<?php echo $campaignImageName ?>" /></div>
 </div>
 <?php endif ?>
 <!---- end added for image slot ---->

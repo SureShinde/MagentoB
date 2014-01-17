@@ -58,6 +58,7 @@
         <thead>
         <tr>
             <th><?php echo $this->__('Name') ?></th>
+            <th><?php echo $this->__('Type') ?></th>
             <th><?php echo $this->__('Rate') ?></th>
             <th><?php echo $this->__('Earnings') ?></th>
             <th><?php echo $this->__('Status') ?></th>
@@ -68,11 +69,12 @@
         <?php foreach ($this->getCampaignCollection() as $item) : ?>
         <tr>
             <td><?php echo $item->getName() ?></td>
+            <td><?php echo $item->getCampaignType() ?></td>
             <td><?php echo $this->getRate($item) ?></td>
             <td><?php echo $this->getTotalAmountByCampaignId($item->getId());  ?></td>
             <td><?php echo $this->getCampaignStatusLabel($item->getStatus()) ?></td>
-            <?php //if($item->getCampaignType() == 'banner') :?>
-            <?php if( 'banner' != 'banner') :?>
+            <?php if($item->getCampaignType() == 'banner') :?>
+            <?php //if( 'banner' != 'banner') :?>
             <td>
                 <span class="nobr">
                     <a href="<?php echo $this->getUrlToCampaignView($item->getId()) ?>"><?php echo $this->__('View') ?></a>

@@ -208,7 +208,15 @@ class AW_Affiliate_Block_Campaign_Products extends Mage_Core_Block_Template
             ->setStoreId(1)
             ->addAttributeToSelect('name')
             ->addAttributeToSelect('is_active'); 
-//$collection->printLogQuery(true); 
+        $collection->getSelect()
+            ->joinInner(
+                array( 'awaffiliate_cat' => Mage::getSingleton('core/resource')->getTableName('awaffiliate/categories') ),
+                "main_table.entity_id = awaffiliate_cat.category_id",
+                array(
+                    "category_id" => "awaffiliate_cat.category_id"
+                )
+            );
+
         $values=array();
 
         foreach ($collection as $row){
@@ -295,7 +303,36 @@ class AW_Affiliate_Block_Campaign_Products extends Mage_Core_Block_Template
         $helper = Mage::helper('adminhtml');
         switch ($data['category_to_generate']) {
             case 1: /*case for best products*/
-                
+                $_block = $this->getLayout()->getBlockSingleton('awaffiliate/campaign_product_list');
+
+                $collection = $_block->getBestProductCollection($data['campaign_id'], $limit);
+
+                if($collection->count())
+                {
+                    foreach ($collection as $_product)
+                    {
+                        $baseUrl = trim($_product->getProductUrl());
+                        $params = array(
+                            AW_Affiliate_Helper_Affiliate::CAMPAIGN_REQUEST_KEY => $data['campaign_id'], //$campaign->getId(),
+                            AW_Affiliate_Helper_Affiliate::AFFILIATE_REQUEST_KEY => $data['affiliate_id'], //$affiliate->getId(),
+                            AW_Affiliate_Helper_Affiliate::AFFILIATE_TRAFFIC_SOURCE => $trafficId
+                        );
+                        $resultUrl = Mage::helper('awaffiliate/affiliate')->generateAffiliateLink($baseUrl, $params);
+
+                        //$p[$_product->getId()]['a']    = '<a href="'. $resultUrl.'" class="product-image"><img src="'.Mage::helper('catalog/image')->init($_product, 'small_image')->resize(135).'" width="44" height="44" /></a>';
+                        $p['id']   = $_product->getId();
+                        $p['a']    = $resultUrl;
+                        $p['img']  = '<img src="'.Mage::helper('catalog/image')->init($_product, 'small_image')->resize(135).'" width="'.$width.'" height="'.$height.'" style="z-index: 200" />';//Mage::helper('catalog/image')->init($_product, 'small_image')->resize(135);
+                        $p['name'] = $helper->stripTags($_product->getName());
+                        //$p[$_product->getId()]['a']    = '<a href="'. $resultUrl.'" class="product-image"><img src="http://demo.mage-world.com/1501/media/catalog/product/cache/1/thumbnail/44x44/9df78eab33525d08d6e5fb8d27136e95/h/t/htc-touch-diamond.jpg" width="44" height="44" /></a>';
+                        $p['price'] = $this->getPriceEachProduct($_product); //$_product->getPrice();//$helper->getPriceHtml($_product->getPrice()); //$this->getLayout()->getBlock('product.info')->getPriceHtml($_product, true);/   
+                        $x[] = $p;
+                    }
+                    $messages[] = 'success';
+                }else{
+
+                    $messages[] = 'fail';
+                }
                 break;
             
             case 2: /*case for new products*/

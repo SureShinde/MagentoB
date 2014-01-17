@@ -1,29 +1,4 @@
 <?php
-/**
- * aheadWorks Co.
- *
- * NOTICE OF LICENSE
- *
- * This source file is subject to the EULA
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://ecommerce.aheadworks.com/AW-LICENSE.txt
- *
- * =================================================================
- *                 MAGENTO EDITION USAGE NOTICE
- * =================================================================
- * This software is designed to work with Magento community edition and
- * its use on an edition other than specified is prohibited. aheadWorks does not
- * provide extension support in case of incorrect edition use.
- * =================================================================
- *
- * @category   AW
- * @package    AW_Featured
- * @version    3.5.2
- * @copyright  Copyright (c) 2010-2012 aheadWorks Co. (http://www.aheadworks.com)
- * @license    http://ecommerce.aheadworks.com/AW-LICENSE.txt
- */
-
 
 class AW_Affiliate_Block_Adminhtml_Campaign_Edit_Tab_Productsgrid extends Mage_Adminhtml_Block_Widget_Grid
 {
@@ -34,19 +9,8 @@ class AW_Affiliate_Block_Adminhtml_Campaign_Edit_Tab_Productsgrid extends Mage_A
         $this->setDefaultSort('entity_id');
         $this->setUseAjax(true);
         //$this->setRowInitCallback('awfBForm.productGridRowInit.bind(awfBForm)');
-        $this->setSaveParametersInSession(true);
-    }
-
-    protected function _prepareLayout()
-    {
-        $ret = parent::_prepareLayout();
-        //$this->getChild('search_button')->setData('onclick', 'awfBForm.awf_filter()');
-        return $ret;
-    }
-
-    protected function __escape($str)
-    {
-        return Mage::getSingleton('core/resource')->getConnection('core_read')->quote($str);
+        $this->setDefaultFilter(array('in_products'=>1));
+        $this->setSaveParametersInSession(false);
     }
 
     protected function getWebsite()
@@ -75,78 +39,71 @@ class AW_Affiliate_Block_Adminhtml_Campaign_Edit_Tab_Productsgrid extends Mage_A
         $this->setCollection($collection);
 
         parent::_prepareCollection();
-//$collection->printLogQuery(true);         
-        //$this->getCollection()->addWebsiteNamesToResult();
+
         return $this;
+
     }
 
     protected function _addColumnFilterToCollection($column)
     {
-        if ($this->getCollection() && $column->getId() == 'websites') {
-            $this->getCollection()->joinField(
-                'websites',
-                'catalog/product_website',
-                'website_id',
-                'product_id=entity_id',
-                null,
-                'left'
-            );
+        // Set custom filter for in product flag
+        if ($column->getId() == 'in_products') {
+            $ids = $this->_getSelectedProducts();
+            if (empty($ids)) {
+                $ids = 0;
+            }
+            if ($column->getFilter()->getValue()) {
+                $this->getCollection()->addFieldToFilter('entity_id', array('in'=>$ids));
+            } else {
+                if($productIds) {
+                    $this->getCollection()->addFieldToFilter('entity_id', array('nin'=>$ids));
+                }
+            }
+        } else {
+            parent::_addColumnFilterToCollection($column);
         }
-        return parent::_addColumnFilterToCollection($column);
+        return $this;
     }
 
     protected function _prepareColumns()
     {
         $this->addColumn(
-            'products',
+            'in_products',
             array(
-                'header_css_class' => 'a-center',
-                'type' => 'checkbox',
-                'name' => 'products[]',
-                'align' => 'center',
-                'index' => 'entity_id',
-                'filter' => false,
-                'disabled' => true,
-                'renderer' => 'AW_Affiliate_Block_Campaign_Widget_Grid_Column_Renderer_Checkbox'
+                'header_css_class'  => 'a-center',
+                'type'              => 'checkbox',
+                'name'              => 'product',
+                'align'             => 'center',
+                'index'             => 'entity_id',
+                'values'            => $this->_getSelectedProducts()
+                //'renderer' => 'AW_Affiliate_Block_Adminhtml_Widget_Grid_Column_Renderer_Checkbox'
             )
         );
-
-        /*$this->addColumn(
-            'products',
-            array(
-                'header_css_class' => 'a-center',
-                'type' => 'checkbox',
-                'name' => 'products[]',
-                'align' => 'center',
-                'index' => 'entity_id',
-                'renderer' => 'AW_Affiliate_Block_Widget_Grid_Column_Renderer_Checkbox'
-            )
-        );*/
 
         $this->addColumn(
             'entity_id',
             array(
-                'header' => Mage::helper('awfeatured')->__('ID'),
-                'sortable' => true,
-                'width' => '60',
-                'index' => 'entity_id'
+                'header'    => Mage::helper('awaffiliate')->__('ID'),
+                'sortable'  => true,
+                'width'     => '60',
+                'index'     => 'entity_id'
             )
         );
 
         $this->addColumn(
-            'name',
+            'product_name',
             array(
-                'header' => Mage::helper('awfeatured')->__('Product Name'),
-                'index' => 'name'
+                'header'    => Mage::helper('awaffiliate')->__('Product Name'),
+                'index'     => 'name'
             )
         );
 
         $this->addColumn(
             'sku',
             array(
-                'header' => Mage::helper('awfeatured')->__('SKU'),
-                'width' => '80',
-                'index' => 'sku'
+                'header'    => Mage::helper('awaffiliate')->__('SKU'),
+                'width'     => '80',
+                'index'     => 'sku'
             )
         );
 
@@ -154,10 +111,10 @@ class AW_Affiliate_Block_Adminhtml_Campaign_Edit_Tab_Productsgrid extends Mage_A
         $this->addColumn(
             'price',
             array(
-                'header' => Mage::helper('awfeatured')->__('Price'),
-                'type' => 'price',
+                'header'    => Mage::helper('awaffiliate')->__('Price'),
+                'type'      => 'price',
                 'currency_code' => $store->getBaseCurrency()->getCode(),
-                'index' => 'price',
+                'index'     => 'price',
             )
         );
 
@@ -165,12 +122,12 @@ class AW_Affiliate_Block_Adminhtml_Campaign_Edit_Tab_Productsgrid extends Mage_A
             $this->addColumn(
                 'websites',
                 array(
-                    'header' => Mage::helper('awfeatured')->__('Websites'),
-                    'width' => '100px',
-                    'sortable' => false,
-                    'index' => 'websites',
-                    'type' => 'options',
-                    'options' => Mage::getModel('core/website')->getCollection()->toOptionHash(),
+                    'header'    => Mage::helper('awaffiliate')->__('Websites'),
+                    'width'     => '100px',
+                    'sortable'  => false,
+                    'index'     => 'websites',
+                    'type'      => 'options',
+                    'options'   => Mage::getModel('core/website')->getCollection()->toOptionHash(),
                 )
             );
         }
@@ -178,51 +135,51 @@ class AW_Affiliate_Block_Adminhtml_Campaign_Edit_Tab_Productsgrid extends Mage_A
         $this->addColumn(
             'image',
             array(
-                'header' => $this->__('Product Image'),
-                'width' => '150',
-                'index' => 'entity_id',
-                'sortable' => false,
-                'filter' => false,
-                'renderer' => 'AW_Featured_Block_Widget_Grid_Column_Renderer_Imagepreview',
+                'header'    => $this->__('Product Image'),
+                'width'     => '150',
+                'index'     => 'entity_id',
+                'sortable'  => false,
+                'filter'    => false,
+                'renderer'  => 'AW_Affiliate_Block_Adminhtml_Widget_Grid_Column_Renderer_Imagepreview',
             )
         );
+
+        $this->addColumn(
+            'position', 
+            array(
+                'header'            => Mage::helper('catalog')->__('Position'),
+                'name'              => 'position',
+                'width'             => 60,
+                'type'              => 'number',
+                'validate_class'    => 'validate-number',
+                'index'             => 'position',
+                'editable'          => true,
+                'edit_only'         => true
+            ));
+
+        return parent::_prepareColumns();
+
     }
 
-    protected function _filterCheckedCondition($collection, $column)
+    protected function _getSelectedProducts()
     {
-        if (!$this->getRequest()->getParam('awf_ids')) {
-            $_data = Mage::getSingleton('adminhtml/session')->getData(AW_Featured_Helper_Data::FORM_DATA_KEY);
-            if (is_array($_data)) {
-                $_data = new Varien_Object($_data);
-            }
-            $fpFilter = array();
-            if (is_object($_data)) {
-                $fProducts = $_data->getAutomationData();
-                if (is_array($fProducts) && array_key_exists('products', $fProducts)) {
-                    $fpFilter = explode(',', $fProducts['products']);
-                }
-            }
-        } else {
-            $fpFilter = explode(',', $this->getRequest()->getParam('awf_ids'));
+        $products = array_keys($this->getSelectedProducts());
+        return $products;
+    }
+
+    public function getSelectedProducts()
+    {
+        $campaign_id = $this->getRequest()->getParam('id');
+        if(!isset($campaign_id)) {
+            $campaign_id = 0;
         }
-        // if NO selected
-        if ($column->getFilter()->getValue() == 0) {
-            $collection->addAttributeToFilter(
-                array(
-                    array('attribute' => 'entity_id', 'nin' => $fpFilter),
-                )
-            );
-            return;
+        $collection = Mage::getModel('awaffiliate/products')->getCollection();
+        $collection->addFieldToFilter('campaign_id',$campaign_id);
+        $prodIds = array();
+        foreach($collection as $obj){
+            $prodIds[$obj->getProductId()] = array('position'=>$obj->getPosition());
         }
-        // if YES selected   
-        if ($column->getFilter()->getValue() == 1) {
-            $collection->addAttributeToFilter(
-                array(
-                    array('attribute' => 'entity_id', 'in' => $fpFilter),
-                )
-            );
-            return;
-        }
+        return $prodIds;
     }
 
     protected function _getStore()
@@ -240,4 +197,5 @@ class AW_Affiliate_Block_Adminhtml_Campaign_Edit_Tab_Productsgrid extends Mage_A
     {
         return null;
     }
+
 }

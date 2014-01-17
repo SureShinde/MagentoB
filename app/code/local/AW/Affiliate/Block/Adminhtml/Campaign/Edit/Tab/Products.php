@@ -10,7 +10,7 @@
  */
 
 
-class AW_Affiliate_Block_Adminhtml_Campaign_Edit_Tab_Products
+class GGGGGGGGGGGGGGAW_Affiliate_Block_Adminhtml_Campaign_Edit_Tab_Products
     extends Mage_Adminhtml_Block_Widget_Form
     implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
@@ -29,7 +29,7 @@ class AW_Affiliate_Block_Adminhtml_Campaign_Edit_Tab_Products
 
         $productGridHtml = Mage::getSingleton('core/layout')
             ->createBlock(
-                'awaffiliate/adminhtml_campaign_edit_tab_productsgrid', null,array('automation_data_products' => array())
+                'awaffiliate/adminhtml_campaign_edit_tab_productsgrid', null
             )
             ->toHtml()
         ;
