@@ -164,4 +164,16 @@ class Bilna_Paymethod_Helper_Klikpay extends Mage_Core_Helper_Abstract {
     public function payUrl($order) {
         return  Mage::getUrl('klikpay/processing/pay/', array ('id'=>$order->getIncrementId()));
     }
+    
+    /**
+     * 
+     * @param string $text
+     * @return string
+     */
+    public function _removeSymbols($text) {
+        $disallowed_symbol = '~ / \ < > + = ( ) * & ^ % $ £ @ ! ± ? " #';
+        $disallowed_symbol_arr = explode(' ', $disallowed_symbol);
+
+        return str_replace($disallowed_symbol_arr, ' ', $text);
+    }
 }
