@@ -271,11 +271,11 @@
 }
 .keypoint {
 	float: left;
-	margin: 35px 0 0 26px;
+	margin: 40px 0 0 13px;
 }
 .keypoint ul li {
-	display: inline-block;
 	padding: 0 0 0 40px;
+	float:left;
 	width: 85px;
 	-moz-box-sizing:content-box;
 }
@@ -1187,9 +1187,7 @@
 		text-indent: -999999px;
 		width: 40px;
 	}
-	.keypoint {
-		margin-left: 13px;
-	}
+	
 	.header .menu-blog {
 		width: 205px;
 	}
