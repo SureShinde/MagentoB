@@ -339,6 +339,32 @@ AdminOrder.prototype = {
         this.loadArea(['shipping_method', 'totals', 'billing_method'], true, data);
     },
 
+    setWrappinggiftChange: function(url) {
+        if ($('wrapping_for_gift').checked == false) {
+            var use_wrappinggift = null;
+            var wrappinggift_amount = null;
+        }
+        else {
+            var use_wrappinggift = $('wrapping_for_gift').getValue();
+            var wrappinggift_amount = $$('input:checked[type=radio][name=wrapping_gift]')[0].value;
+        }
+        
+        new Ajax.Request(url, {
+            method: 'post',
+            parameters: {
+                use_wrappinggift: use_wrappinggift,
+                wrappinggift_amount: wrappinggift_amount
+            },
+            onSuccess: function() {
+                var data = {};
+                data['order[use_wrappinggift]'] = use_wrappinggift;
+                data['order[wrappinggift_amount]'] = wrappinggift_amount;
+                
+                order.loadArea(['shipping_method', 'totals'], true, data);
+            }
+        });
+    },
+    
     switchPaymentMethod : function(method){
         this.setPaymentMethod(method);
         var data = {};
