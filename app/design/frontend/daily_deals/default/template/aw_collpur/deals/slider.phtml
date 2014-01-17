@@ -103,7 +103,7 @@
                 <div u="caption" t="MCLIP|B" style="position: absolute; bottom: 0px; left: 0px; right: 0px; height: 150px;  background-color: Black; opacity: 0.8; filter: alpha(opacity=80);">
                     <div style="display: block; color: #fff; font-size: 16px; font-weight: bold; line-height: 50px;">
 						<div class="orbit-caption">
-							<div class="column large-5">
+							<div class="column large-5 medium-5">
 								<label>TODAY'S DEALS</label>
 								<p class="judul_deals_slider"><?php echo $dealSlider->getDealName(); ?></p>
 								<div class="price_deals_slider">
@@ -112,13 +112,13 @@
 									<p><?php if($dealInfo->getPercentDiscount() <> "0") { echo $dealInfo->getPercentDiscount(); ?>% OFF<?php } ?></p>
 								</div>
 							</div>
-							<div class="column large-3 date_slider_deals">
+							<div class="column large-3 medium-3 date_slider_deals">
 								<label>PROMO END IN:</label>
 								<p><?php echo $this->getTimeLeftToBuy($dealSlider); ?></p>
 								<p>hour(s) minute(s) second(s)</p>
 								<p>SOLD: <span><?php echo $this->getPurchasesCount($dealSlider->getId()); ?></span></p>
 							</div>
-							<div class="column large-4">
+							<div class="column large-4 medium-4">
 								<form	id="product_addtocart_form" class="right_detail_deals"
 										method="post"
 										action="<?php echo Mage::getUrl('checkout/cart/add', array('_secure'=>true,'product' => $dealSlider->getProduct()->getId(), 'deal_id' => $dealSlider->getId(), 'form_key' => Mage::getSingleton('core/session')->getFormKey())) ?>">

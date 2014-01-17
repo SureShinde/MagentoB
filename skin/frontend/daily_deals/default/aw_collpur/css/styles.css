@@ -686,6 +686,10 @@ table.awcp-pricedata tr:nth-child(1) td{
     -webkit-box-shadow: 1px 1px 5px 0px #e6e6e6 ;
     box-shadow: 1px 1px 5px 0px #e6e6e6 ;
 }
+.awcp-item:hover  {
+    margin-top: 7px;
+    margin-bottom: 7px;
+}
 .awcp-item:hover .wrap_li{
 	border:5px solid #fb816c;
 }
@@ -714,7 +718,7 @@ table.awcp-pricedata tr:nth-child(1) td{
     box-shadow:1px 1px 5px #BE6252;
 }
 .price_deals_list{
-	font-size:1.4rem;
+	font-size:2vw;
 	font-weight:bold;
 	color:#fff;
 }
@@ -847,7 +851,7 @@ table.awcp-pricedata tr:nth-child(1) td{
 	margin:0;
 }
 .judul_deals_slider{
-	font-size:26px;
+	font-size:23px;
 	line-height:26px;
 	}
 .price_deals_slider{
@@ -857,7 +861,7 @@ table.awcp-pricedata tr:nth-child(1) td{
 	font-weight:bold;
 	color:#ffa01b;
 	line-height:36px;
-	font-size:36px;
+	font-size:30px;
 	float:left;
 }
 .price_deals_slider p:nth-child(3){

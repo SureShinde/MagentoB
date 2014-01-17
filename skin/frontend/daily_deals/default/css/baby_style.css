@@ -207,13 +207,12 @@
 .header {
 	position: relative;
 	text-align: left;
-	padding: 0 0 5px 0;
-	background: #fff;
-}
+	padding: 0 0 5px 0;}
+	
 .header .menu-top, .header .menu-blog {
 	position: absolute;	
 	top: 0;
-	border-top:4px solid #95e1f1;
+	border-top:4px solid #ffb39c;
 	
 	text-align: right;
 }
@@ -252,7 +251,7 @@
 	text-decoration:none;
 }
 .menu-top ul li:hover, .menu-top ul li.active {
-	background: #95e1f1;
+	background: #ffb39c;
 } 
 .menu-blog span {
 	background: #95e1f1;
@@ -328,7 +327,6 @@
 	display: none;
 }
 .header .quick-access .top-cart {
-	border-top: 4px solid #95e1f1;
 	float: right;
 	margin: 0 0 10px 0;
 	position: relative;
