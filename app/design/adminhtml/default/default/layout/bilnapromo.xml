@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <bilnapromo_adminhtml_giftvoucher_index>
+        <reference name="content">
+            <block type="bilnapromo/adminhtml_giftvoucher" name="giftvoucher" />
+        </reference>
+    </bilnapromo_adminhtml_giftvoucher_index>
+    <bilnapromo_adminhtml_giftvoucher_applicant>
+        <reference name="content">
+            <block type="bilnapromo/adminhtml_giftvoucherapplicant" name="giftvoucher_applicant" />
+        </reference>
+    </bilnapromo_adminhtml_giftvoucher_applicant>
+</layout>
