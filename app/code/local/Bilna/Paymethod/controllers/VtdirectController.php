@@ -40,6 +40,7 @@ class Bilna_Paymethod_VtdirectController extends Mage_Core_Controller_Front_Acti
             $data = array ();
             $data['token_id'] = $this->getTokenId();
             $data['order_id'] = $this->maxChar($order->getIncrementId(), 20);
+            $data['bins'] = $this->getBins($order, $paymentCode);
             $data['order_items'] = $this->getOrderItems($order, $items);
             $data['gross_amount'] = round($order->getGrandTotal());
             $data['email'] = $this->getCustomerEmail($order->getBillingAddress()->getEmail());
@@ -97,6 +98,62 @@ class Bilna_Paymethod_VtdirectController extends Mage_Core_Controller_Front_Acti
         $this->renderLayout();
     }
     
+    public function successAction() {
+        $data = json_decode($this->getRequestData('vtdirect'), true);
+        
+        $contentRequest = sprintf("%s | request_vtdirect: %s", $data->data->order_id, json_encode($data));
+        $this->writeLog($this->_typeTransaction, 'notification', $contentRequest);
+        
+        echo json_encode($data);
+        exit;
+    }
+    
+    public function notificationAction() {
+        $notification = json_decode($this->getRequestData('vtdirect'));
+        
+        $contentRequest = sprintf("%s | request_vtdirect: %s", $notification->data->order_id, json_encode($notification));
+        $this->writeLog($this->_typeTransaction, 'notification', $contentRequest);
+        
+        if ($this->getServerKey() == $notification->data->server_key) {
+            $order = Mage::getModel('sales/order')->loadByIncrementId($notification->data->order_id);
+            
+            if ($notification->status == 'success') {
+                if ($order->canInvoice()) {
+                    $invoice = Mage::getModel('sales/service_order', $order)->prepareInvoice();
+
+                    if ($invoice->getTotalQty()) {
+                        $invoice->register();
+                        $transactionSave = Mage::getModel('core/resource_transaction')
+                            ->addObject($invoice)
+                            ->addObject($invoice->getOrder());
+                        $transactionSave->save();                            
+                        $order->setState(Mage_Sales_Model_Order::STATE_PROCESSING, true, $notification->message, true)->save();
+                        $invoice->sendEmail(true, '');
+
+                        $contentLog = sprintf("%s | status_order: %s", $notification->data->order_id, Mage_Sales_Model_Order::STATE_PROCESSING);
+                        $this->writeLog($this->_typeTransaction, 'notification', $contentLog);
+                    }
+                    else {
+                        $contentLog = sprintf("%s | status_order: invoice cannot get total qty", $notification->data->order_id);
+                        $this->writeLog($this->_typeTransaction, 'notification', $contentLog);
+                    }
+                }
+                else {
+                    $contentLog = sprintf("%s | status_order: cannot create invoice", $notification->data->order_id);
+                    $this->writeLog($this->_typeTransaction, 'notification', $contentLog);
+                }
+            }
+            else {
+                $order->addStatusHistoryComment($notification->message);
+                $order->save();
+            }
+        }
+        else {
+            $contentLog = sprintf("%s | status_order: server key is not valid", $notification->data->order_id);
+            $this->writeLog($this->_typeTransaction, 'notification', $contentLog);
+        }
+    }
+
     private function getOrderId() {
         return Mage::helper('paymethod/vtdirect')->getOrderId();
     }
@@ -117,6 +174,13 @@ class Bilna_Paymethod_VtdirectController extends Mage_Core_Controller_Front_Acti
         return $tokenId;
     }
     
+    private function getBins($order, $paymentCode) {
+        $digit = ($paymentCode == 'othervisa' || $paymentCode == 'othermc') ? 1 : 6;
+        $result = substr($order->getPayment()->getCcBins(), 0, $digit);
+        
+        return array ($result);
+    }
+
     private function getOrderItems($order, $items) {
         $result = array ();
         
@@ -232,6 +296,10 @@ class Bilna_Paymethod_VtdirectController extends Mage_Core_Controller_Front_Acti
         return Mage::getStoreConfig('payment/' . $paymentCode . '/threedsecure_notification_url');
     }
 
+    private function getServerKey() {
+        return Mage::getStoreConfig('payment/vtdirect/server_key');
+    }
+
     private function updateOrder($order, $responseCharge) {
         if ($responseCharge->status == 'success') {
             if ($order->canInvoice()) {
@@ -268,6 +336,23 @@ class Bilna_Paymethod_VtdirectController extends Mage_Core_Controller_Front_Acti
             //do nothing
             return true;
         }
+    }
+    
+    protected function getRequestData($key, $type = 'POST') {
+        $result = '';
+        
+        if ($type == 'POST') {
+            if ($this->getRequest()->getPost($key)) {
+                $result = $this->getRequest()->getPost($key);
+            }
+        }
+        else {
+            if ($this->getRequest()->getParam($key)) {
+                $result = $this->getRequest()->getParam($key);
+            }
+        }
+        
+        return $result;
     }
 
     private function maxChar($text, $maxLength = 10) {
