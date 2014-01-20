@@ -95,23 +95,7 @@
 				<?php if ($_product->isSaleable() && $this->hasOptions()):?>
 					<?php echo $this->getChildChildHtml('container2', '', true, true) ?>
 				<?php endif;?>
-			</div>			
-			<script>
-				// jQuery(document).ready(function(){
-					// if($j('select').length > 0) {
-						// $j('select').each(function(){
-							// $j(this).wrap('<div class="select" />');
-							// $j(this).parent().prepend('<span>' + $j(this).children("option").filter(":selected").text() + '</span>');
-							// $j(this).parent().css('width',$j(this).width());
-							// if($j(this).hasClass("required-entry")) 
-								// $j(this).parent().css('width',$j(this).width());
-						// });
-						// $j('select').change(function(){
-							// $j(this).prev().text($j(this).children("option").filter(":selected").text());
-						// });
-					// }
-				// });
-			</script>
+			</div>
 			
 			<div class="product-shop-right">
 				<?php if (!$this->hasOptions()):?>
@@ -143,9 +127,9 @@
 				<?php echo $this->getChildHtml('other');?>
 				
 				<div class="share-button">
-					<span class='st_twitter_hcount' displayText='Tweet'></span>
-					<span class='st_fblike_hcount' displayText='Facebook Like'></span>
-					<span class='st_plusone_hcount' displayText='Google +1'></span>
+					<span class='item-share st_twitter_hcount' displayText='Tweet'></span>
+					<span class='item-share st_fblike_hcount' displayText='Facebook Like'></span>
+					<span class='item-share st_plusone_hcount' displayText='Google +1'></span>
 					<script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
 					<script type="text/javascript">stLight.options({publisher: "b9878051-cbe0-48e6-a245-b0a08e0f964d", doNotHash: true, doNotCopy: true, hashAddressBar: false});</script>
 				</div>
@@ -198,6 +182,12 @@
 			// ]]>
 			</script>
 		</div>
+		
+		<?php if ($_product->getShortDescription()):?>
+			<div class="short-description-mobile">
+				<div class="std"><?php echo $_helper->productAttribute($_product, nl2br($_product->getShortDescription()), 'short_description') ?></div>
+			</div>
+		<?php endif;?>
 		
 		<div class="product-tab-mobile-wrapper">
 			<div id="tab-container" class="tab-container">

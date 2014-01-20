@@ -165,37 +165,6 @@
 .product-container1 .product-options-bottom {
 	border: 0;
 }
-/* .product-container1 .select {
-	position: relative;
-	display: inline-block;
-	zoom: 1;
-	font-size: 11px;
-}
-.product-container1 .select select {
-	position: relative;
-	position: absolute;
-	top:0;
-	left: 0;
-	z-index: 2;
-	opacity: 0;
-	filter: alpha(opacity = 0);
-	background: #fff;
-	border: 1px solid #7e8083;
-}
-.product-container1 .select span {
-	display: block;
-	margin-top: 2px;
-	padding: 0 14px 0 5px;
-	border: 1px solid #7e8083;
-	background: #fff url(../images/combo-arrow.png) right center no-repeat;
-	text-align: left;
-	line-height:14px;
-	color: #7e8083;
-	font-style: italic;
-	height: 14px;
-	overflow: hidden;
-}
- */
 .product-view .product-shop .product-shop-right {
 	float: right;
 	width: 256px;
@@ -419,6 +388,9 @@
 	width: auto;
 	height: auto;
 	border: none;
+}
+.short-description-mobile {
+	display: none;
 }
 /* tabs*/
 .product-tab-wrapper .etabs {
@@ -703,6 +675,9 @@
 	font-weight: bold !important;
 	background: url(../images/arrow-2.png) no-repeat right center;
 }
+.share-button .stButton {
+	z-index: 0;
+}
 
 @media (max-width: 1215px) {
 	.col1-layout .product-view .product-shop {
@@ -781,9 +756,12 @@
 	}
 }
 /* --------------- smaller 959 px layout -------------------- */
-@media only screen and (max-width: 767px) {
-	.product-view .product-img-box .more-views,
+@media (max-width: 767px) {
+	.product-view .product-img-box .more-views, 
+	.product-view .product-shop .product-shop-left .short-description, 
 	.product-view .product-shop .product-shop-right .block.block-related,
+	/* .product-view .product-shop .product-shop-right .share-button,
+	.product-view .product-shop .product-shop-right .email-friend, */
 	.product-shop-left .rating-links .review-count,
 	.product-shop-left .rating-links .separator,
 	.related-product,
@@ -821,16 +799,9 @@
 		right: 0;
 		width: 240px;
 	}
-	.product-view .product-shop .product-shop-right .add-to-cart {
-		/* background: none; */
-	}
-	.product-view .product-shop .product-shop-right .add-to-cart button.button {
-		/* background: url(../images/btn-buynow3.png) no-repeat;
-		width: 110px; */
-	}
 	.product-view .product-img-box {
 		width: 45%;
-		margin: 0;
+		margin: 0 0 0 15px;
 	}
 	.product-view .product-img-box .onsale-product-container {
 		float: left;
@@ -844,6 +815,10 @@
 		position: inherit;
 	}
 	
+	.short-description-mobile {
+		display: block;
+		margin: 0 15px 30px;
+	}
 	.product-tab-wrapper {
 		display: none;
 	}
@@ -907,7 +882,7 @@
 		left: 10px !important;
 	}
 /* --------------- 320 px layout -------------------- */
-@media only screen and (max-width: 479px) {
+@media (max-width: 479px) {
 	.product-view .product-shop .product-shop-right {
 		width: 170px;
 	}
