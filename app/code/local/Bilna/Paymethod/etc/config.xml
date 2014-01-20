@@ -202,6 +202,276 @@
                 <allowspecific>0</allowspecific>
             </anzvisa>
             
+            <anzmc>
+                <active>1</active>
+                <model>paymethod/method_anzmc</model>
+                <order_status>pending</order_status>
+                <title>Credit Card (ANZ MasterCard)</title>
+                <cctypes>MC</cctypes>
+                <payment_action>authorize</payment_action>
+                <allowspecific>0</allowspecific>
+            </anzmc>
+            
+            <bukopinvisa>
+                <active>1</active>
+                <model>paymethod/method_bukopinvisa</model>
+                <order_status>pending</order_status>
+                <title>Credit Card (Bukopin Visa)</title>
+                <cctypes>VI</cctypes>
+                <payment_action>authorize</payment_action>
+                <allowspecific>0</allowspecific>
+            </bukopinvisa>
+            
+            <bukopinmc>
+                <active>1</active>
+                <model>paymethod/method_bukopinmc</model>
+                <order_status>pending</order_status>
+                <title>Credit Card (Bukopin MasterCard)</title>
+                <cctypes>MC</cctypes>
+                <payment_action>authorize</payment_action>
+                <allowspecific>0</allowspecific>
+            </bukopinmc>
+            
+            <bcavisa>
+                <active>1</active>
+                <model>paymethod/method_bcavisa</model>
+                <order_status>pending</order_status>
+                <title>Credit Card (BCA Visa)</title>
+                <cctypes>VI</cctypes>
+                <payment_action>authorize</payment_action>
+                <allowspecific>0</allowspecific>
+            </bcavisa>
+            
+            <bcamc>
+                <active>1</active>
+                <model>paymethod/method_bcamc</model>
+                <order_status>pending</order_status>
+                <title>Credit Card (BCA MasterCard)</title>
+                <cctypes>MC</cctypes>
+                <payment_action>authorize</payment_action>
+                <allowspecific>0</allowspecific>
+            </bcamc>
+            
+            <danamonvisa>
+                <active>1</active>
+                <model>paymethod/method_danamonvisa</model>
+                <order_status>pending</order_status>
+                <title>Credit Card (Danamon Visa)</title>
+                <cctypes>VI</cctypes>
+                <payment_action>authorize</payment_action>
+                <allowspecific>0</allowspecific>
+            </danamonvisa>
+            
+            <danamonmc>
+                <active>1</active>
+                <model>paymethod/method_danamonmc</model>
+                <order_status>pending</order_status>
+                <title>Credit Card (Danamon MasterCard)</title>
+                <cctypes>MC</cctypes>
+                <payment_action>authorize</payment_action>
+                <allowspecific>0</allowspecific>
+            </danamonmc>
+            
+            <biivisa>
+                <active>1</active>
+                <model>paymethod/method_biivisa</model>
+                <order_status>pending</order_status>
+                <title>Credit Card (BII Visa)</title>
+                <cctypes>VI</cctypes>
+                <payment_action>authorize</payment_action>
+                <allowspecific>0</allowspecific>
+            </biivisa>
+            
+            <biimc>
+                <active>1</active>
+                <model>paymethod/method_biimc</model>
+                <order_status>pending</order_status>
+                <title>Credit Card (BII MasterCard)</title>
+                <cctypes>MC</cctypes>
+                <payment_action>authorize</payment_action>
+                <allowspecific>0</allowspecific>
+            </biimc>
+            
+            <mandirivisa>
+                <active>1</active>
+                <model>paymethod/method_mandirivisa</model>
+                <order_status>pending</order_status>
+                <title>Credit Card (Mandiri Visa)</title>
+                <cctypes>VI</cctypes>
+                <payment_action>authorize</payment_action>
+                <allowspecific>0</allowspecific>
+            </mandirivisa>
+            
+            <mandirimc>
+                <active>1</active>
+                <model>paymethod/method_mandirimc</model>
+                <order_status>pending</order_status>
+                <title>Credit Card (Mandiri MasterCard)</title>
+                <cctypes>MC</cctypes>
+                <payment_action>authorize</payment_action>
+                <allowspecific>0</allowspecific>
+            </mandirimc>
+            
+            <megavisa>
+                <active>1</active>
+                <model>paymethod/method_megavisa</model>
+                <order_status>pending</order_status>
+                <title>Credit Card (Mega Visa)</title>
+                <cctypes>VI</cctypes>
+                <payment_action>authorize</payment_action>
+                <allowspecific>0</allowspecific>
+            </megavisa>
+            
+            <megamc>
+                <active>1</active>
+                <model>paymethod/method_megamc</model>
+                <order_status>pending</order_status>
+                <title>Credit Card (Mega MasterCard)</title>
+                <cctypes>MC</cctypes>
+                <payment_action>authorize</payment_action>
+                <allowspecific>0</allowspecific>
+            </megamc>
+            
+            <bnivisa>
+                <active>1</active>
+                <model>paymethod/method_bnivisa</model>
+                <order_status>pending</order_status>
+                <title>Credit Card (BNI Visa)</title>
+                <cctypes>VI</cctypes>
+                <payment_action>authorize</payment_action>
+                <allowspecific>0</allowspecific>
+            </bnivisa>
+            
+            <bnimc>
+                <active>1</active>
+                <model>paymethod/method_bnimc</model>
+                <order_status>pending</order_status>
+                <title>Credit Card (BNI MasterCard)</title>
+                <cctypes>MC</cctypes>
+                <payment_action>authorize</payment_action>
+                <allowspecific>0</allowspecific>
+            </bnimc>
+            
+            <permatavisa>
+                <active>1</active>
+                <model>paymethod/method_permatavisa</model>
+                <order_status>pending</order_status>
+                <title>Credit Card (Permata Visa)</title>
+                <cctypes>VI</cctypes>
+                <payment_action>authorize</payment_action>
+                <allowspecific>0</allowspecific>
+            </permatavisa>
+            
+            <permatamc>
+                <active>1</active>
+                <model>paymethod/method_permatamc</model>
+                <order_status>pending</order_status>
+                <title>Credit Card (Permata MasterCard)</title>
+                <cctypes>MC</cctypes>
+                <payment_action>authorize</payment_action>
+                <allowspecific>0</allowspecific>
+            </permatamc>
+            
+            <brivisa>
+                <active>1</active>
+                <model>paymethod/method_brivisa</model>
+                <order_status>pending</order_status>
+                <title>Credit Card (BRI Visa)</title>
+                <cctypes>VI</cctypes>
+                <payment_action>authorize</payment_action>
+                <allowspecific>0</allowspecific>
+            </brivisa>
+            
+            <brimc>
+                <active>1</active>
+                <model>paymethod/method_brimc</model>
+                <order_status>pending</order_status>
+                <title>Credit Card (BRI MasterCard)</title>
+                <cctypes>MC</cctypes>
+                <payment_action>authorize</payment_action>
+                <allowspecific>0</allowspecific>
+            </brimc>
+            
+            <cimbvisa>
+                <active>1</active>
+                <model>paymethod/method_cimbvisa</model>
+                <order_status>pending</order_status>
+                <title>Credit Card (CIMB Visa)</title>
+                <cctypes>VI</cctypes>
+                <payment_action>authorize</payment_action>
+                <allowspecific>0</allowspecific>
+            </cimbvisa>
+            
+            <cimbmc>
+                <active>1</active>
+                <model>paymethod/method_cimbmc</model>
+                <order_status>pending</order_status>
+                <title>Credit Card (CIMB MasterCard)</title>
+                <cctypes>MC</cctypes>
+                <payment_action>authorize</payment_action>
+                <allowspecific>0</allowspecific>
+            </cimbmc>
+            
+            <citibankvisa>
+                <active>1</active>
+                <model>paymethod/method_citibankvisa</model>
+                <order_status>pending</order_status>
+                <title>Credit Card (Citibank Visa)</title>
+                <cctypes>VI</cctypes>
+                <payment_action>authorize</payment_action>
+                <allowspecific>0</allowspecific>
+            </citibankvisa>
+            
+            <citibankmc>
+                <active>1</active>
+                <model>paymethod/method_citibankmc</model>
+                <order_status>pending</order_status>
+                <title>Credit Card (Citibank MasterCard)</title>
+                <cctypes>MC</cctypes>
+                <payment_action>authorize</payment_action>
+                <allowspecific>0</allowspecific>
+            </citibankmc>
+            
+            <hsbcvisa>
+                <active>1</active>
+                <model>paymethod/method_hsbcvisa</model>
+                <order_status>pending</order_status>
+                <title>Credit Card (HSBC Visa)</title>
+                <cctypes>VI</cctypes>
+                <payment_action>authorize</payment_action>
+                <allowspecific>0</allowspecific>
+            </hsbcvisa>
+            
+            <hsbcmc>
+                <active>1</active>
+                <model>paymethod/method_hsbcmc</model>
+                <order_status>pending</order_status>
+                <title>Credit Card (HSBC MasterCard)</title>
+                <cctypes>MC</cctypes>
+                <payment_action>authorize</payment_action>
+                <allowspecific>0</allowspecific>
+            </hsbcmc>
+            
+            <scvisa>
+                <active>1</active>
+                <model>paymethod/method_scvisa</model>
+                <order_status>pending</order_status>
+                <title>Credit Card (Standard Chartered Visa)</title>
+                <cctypes>VI</cctypes>
+                <payment_action>authorize</payment_action>
+                <allowspecific>0</allowspecific>
+            </scvisa>
+            
+            <scmc>
+                <active>1</active>
+                <model>paymethod/method_scmc</model>
+                <order_status>pending</order_status>
+                <title>Credit Card (Standard Chartered MasterCard)</title>
+                <cctypes>MC</cctypes>
+                <payment_action>authorize</payment_action>
+                <allowspecific>0</allowspecific>
+            </scmc>
+            
             <othervisa>
                 <active>1</active>
                 <model>paymethod/method_othervisa</model>
@@ -211,6 +481,16 @@
                 <payment_action>authorize</payment_action>
                 <allowspecific>0</allowspecific>
             </othervisa>
+            
+            <othermc>
+                <active>1</active>
+                <model>paymethod/method_othermc</model>
+                <order_status>pending</order_status>
+                <title>Credit Card (Other MasterCard)</title>
+                <cctypes>MC</cctypes>
+                <payment_action>authorize</payment_action>
+                <allowspecific>0</allowspecific>
+            </othermc>
         </payment>
     </default>
 </config>

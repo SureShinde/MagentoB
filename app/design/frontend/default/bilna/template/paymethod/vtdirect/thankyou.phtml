@@ -1,0 +1,18 @@
+<?php $responseCharge = $this->getResponseCharge(); ?>
+
+<?php if ($this->getThreedSecure()): ?>
+    <script type="text/javascript">
+        document.location = '<?php echo $responseCharge->data->redirect_url; ?>';
+    </script>
+<?php endif; ?>
+
+<?php if ($responseCharge->status == 'success'): ?>
+    <h3>halaman sukses</h3>
+    <h4><?php echo $responseCharge->message; ?></h4>
+<?php elseif ($responseCharge->status == 'failure'): ?>
+    <h3>halaman failure</h3>
+    <h4><?php echo $responseCharge->message; ?></h4>
+<?php else: ?>
+    <h3>halaman challange</h3>
+    <h4><?php echo $responseCharge->message; ?></h4>
+<?php endif; ?>

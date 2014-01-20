@@ -34,17 +34,41 @@ class Bilna_Paymethod_VtdirectController extends Mage_Core_Controller_Front_Acti
         if ($this->getOrderId()) {
             $order = $this->getOrder();
             $items = $order->getAllItems();
-            
+            $paymentCode = $order->getPayment()->getMethodInstance()->getCode();
             $url = Mage::getStoreConfig('payment/vtdirect/charge_transaction_url');
-            $data = array (
-                'token_id' => $this->getTokenId(),
-                'order_id' => $this->maxChar($order->getIncrementId(), 20),
-                'order_items' => $this->getOrderItems($items),
-                'gross_amount' => round($order->getGrandTotal()),
-                'email' => $this->getCustomerEmail($order->getBillingAddress()->getEmail()),
-                'shipping_address' => $this->parseShippingAddress($order->getShippingAddress()),
-                'billing_address' => $this->parseBillingAddress($order->getBillingAddress())
-            );
+            
+            $data = array ();
+            $data['token_id'] = $this->getTokenId();
+            $data['order_id'] = $this->maxChar($order->getIncrementId(), 20);
+            $data['order_items'] = $this->getOrderItems($order, $items);
+            $data['gross_amount'] = round($order->getGrandTotal());
+            $data['email'] = $this->getCustomerEmail($order->getBillingAddress()->getEmail());
+            $data['shipping_address'] = $this->parseShippingAddress($order->getShippingAddress());
+            $data['billing_address'] = $this->parseBillingAddress($order->getBillingAddress());
+            $data['bank'] = $this->getAcquiredBank($paymentCode);
+            
+            /**
+             * check installment
+             */
+            $installmentId = $this->getInstallment($items);
+            
+            if ($installmentId) {
+                $data['type'] = 'installment';
+                $data['installment'] = array (
+                    'bank' => $this->getInstallmentBank($paymentCode),
+                    'term' => $this->getInstallmentTenor($paymentCode, $installmentId),
+                    'type' => $this->getInstallmentTypeCodeBank($paymentCode)
+                );
+            }
+            
+            $threedsecure = $this->getThreedSecure($paymentCode);
+            
+            if ($threedsecure == true) {
+                $data['3dsecure'] = $threedsecure;
+                $data['3dsecure_callback_url'] = $this->getThreedSecureCallbackUrl($paymentCode);
+                $data['3dsecure_notification_url'] = $this->getThreedSecureNotificationUrl($paymentCode);
+            }
+            
             $responseCharge = json_decode(Mage::helper('paymethod/vtdirect')->postRequest($url, $data));
             
             $contentRequest = sprintf("%s | request_vtdirect: %s", $order->getIncrementId(), json_encode($data));
@@ -65,6 +89,7 @@ class Bilna_Paymethod_VtdirectController extends Mage_Core_Controller_Front_Acti
         /**
          * assign data to View
          */
+        Mage::register('threedsecure', $threedsecure);
         Mage::register('response_charge', $responseCharge);
         
         $this->loadLayout();
@@ -92,17 +117,21 @@ class Bilna_Paymethod_VtdirectController extends Mage_Core_Controller_Front_Acti
         return $tokenId;
     }
     
-    private function getOrderItems($items) {
+    private function getOrderItems($order, $items) {
         $result = array ();
         
-        if (count($items) > 0) {
-            foreach ($items as $itemId => $item) {
-                $result[$itemId]['id'] = $this->maxChar($item->getProductId(), 20);
-                $result[$itemId]['price'] = round($item->getPrice());
-                $result[$itemId]['qty'] = $item->getQtyToInvoice();
-                $result[$itemId]['name'] = $this->maxChar($this->removeSymbols($item->getName()), 20);
-            }
-        }
+        //if (count($items) > 0) {
+        //    foreach ($items as $itemId => $item) {
+        //        $result[$itemId]['id'] = $this->maxChar($item->getProductId(), 20);
+        //        $result[$itemId]['price'] = round($item->getPrice());
+        //        $result[$itemId]['qty'] = $item->getQtyToInvoice();
+        //        $result[$itemId]['name'] = $this->maxChar($this->removeSymbols($item->getName()), 20);
+        //    }
+        //}
+        $result[0]['id'] = $order->getId();
+        $result[0]['price'] = round($order->getGrandTotal());
+        $result[0]['qty'] = 1;
+        $result[0]['name'] = $this->maxChar('Item order ' . $order->getIncrementId(), 20);
         
         return $result;
     }
@@ -142,19 +171,67 @@ class Bilna_Paymethod_VtdirectController extends Mage_Core_Controller_Front_Acti
         
         return $result;
     }
-  
-    private function maxChar($text, $maxLength = 10) {
-        if (empty ($text)) {
-            return '';
+    
+    private function getAcquiredBank($paymentCode) {
+        return Mage::getStoreConfig('payment/' . $paymentCode . '/bank_acquired');
+    }
+    
+    private function getInstallment($items) {
+        foreach ($items as $itemId => $item) {
+            $installmentType = $item->getInstallmentType();
+            
+            if ($installmentType > 1) {
+                return $installmentType;
+            }
         }
         
-        return substr($text, 0, $maxLength);
+        return false;
     }
     
-    private function removeSymbols($text) {
-        return Mage::helper('paymethod/vtdirect')->removeSymbols($text);
+    private function getInstallmentBank($paymentCode) {
+        $result = '';
+        
+        if (substr($paymentCode, -4) == 'visa') {
+            $result = substr($paymentCode, 0, -4);
+        }
+        else if (substr($paymentCode, -2) == 'mc') {
+            $result = substr($paymentCode, 0, -2);
+        }
+        else {
+            //do nothing
+        }
+        
+        return $result;
     }
     
+    private function getInstallmentTenor($paymentCode, $installmentId) {
+        return Mage::helper('paymethod')->getInstallmentOption($paymentCode, $installmentId, 'tenor');
+    }
+    
+    private function getInstallmentTypeCodeBank($paymentCode) {
+        return Mage::getStoreConfig('payment/' . $paymentCode . '/installment_type_code');
+    }
+    
+    private function getThreedSecure($paymentCode) {
+        $result = false;
+        
+        if (Mage::getStoreConfig('payment/' . $paymentCode . '/threedsecure')) {
+            if (Mage::getStoreConfig('payment/' . $paymentCode . '/threedsecure') == 1) {
+                $result = true;
+            }
+        }
+        
+        return $result;
+    }
+    
+    private function getThreedSecureCallbackUrl($paymentCode) {
+        return Mage::getStoreConfig('payment/' . $paymentCode . '/threedsecure_callback_url');
+    }
+    
+    private function getThreedSecureNotificationUrl($paymentCode) {
+        return Mage::getStoreConfig('payment/' . $paymentCode . '/threedsecure_notification_url');
+    }
+
     private function updateOrder($order, $responseCharge) {
         if ($responseCharge->status == 'success') {
             if ($order->canInvoice()) {
@@ -191,6 +268,18 @@ class Bilna_Paymethod_VtdirectController extends Mage_Core_Controller_Front_Acti
             //do nothing
             return true;
         }
+    }
+
+    private function maxChar($text, $maxLength = 10) {
+        if (empty ($text)) {
+            return '';
+        }
+        
+        return substr($text, 0, $maxLength);
+    }
+    
+    private function removeSymbols($text) {
+        return Mage::helper('paymethod/vtdirect')->removeSymbols($text);
     }
     
     protected function writeLog($type, $logFile, $content) {
