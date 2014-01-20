@@ -591,14 +591,17 @@
 	-webkit-box-shadow: 1px 1px 4px 0 #ccc;
 	-moz-box-shadow: 1px 1px 4px 0 #ccc;
 	box-shadow: 1px 1px 4px 0 #ccc;
-	width: 130px;
+	width: 145px;
+}
+.header .links li.myaccount .toplink-myaccount ul{
+	margin:0;
 }
 .header .links li.myaccount .toplink-myaccount ul li {
 	border-top: 1px solid #dadada;
 	border-left: none;
 	padding-left: 0;
 	padding-right: 0;
-	font-size: 1.1em;
+	font-size: 0.8em;
 	display: block;
 }
 .header .links li.myaccount .toplink-myaccount ul li:first-child {
@@ -1536,7 +1539,6 @@
 	margin:0 0 20px;
 }
 .footer .conect-us, .footer .payment-partners, .footer .shipping-partners {
-	float: right;
 	text-align: left;
 }
 .footer .payment-partners {

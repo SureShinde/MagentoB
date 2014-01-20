@@ -591,7 +591,7 @@ LI#googleplusli {
     box-shadow:2px 2px 2px #282828;
 	text-shadow:2px 2px 0 #BE6252;
 	float:right;
-	padding:7px 30px;
+	padding:5px 30px;
 	margin:10px 10px 20px;
 	border-radius:10px;
 	-webkit-border-radius:10px;
@@ -612,7 +612,7 @@ LI#googleplusli {
     float: right;
     position: absolute;
     right:0;
-	bottom:0;
+	bottom:5px;
 }
 .awcp-product-name p{
 	font-size:12px;
@@ -635,11 +635,17 @@ table.awcp-pricedata tr:nth-child(1) td{
 	font-size:12px;
 }
 .right_detail_deals .awcp-buy-button{
-	margin:5px 0 0;
+	margin:0;
+}
+.desc_deals{
+	border-bottom: 1px solid #999999;
+    margin: 0 0 10px;
+    padding: 0 0 20px;
 }
 .desc_deals h2{
 	color:#fb816c;
 	text-transform:uppercase;
+	font-size:19px;
 	letter-spacing:-1px;
 }
 .desc_deals .desc_one h2:before {
@@ -701,7 +707,7 @@ table.awcp-pricedata tr:nth-child(1) td{
 	border:5px solid #fb816c;
 }
 .awcp-item:hover .awcp-mark-center{
-	margin:-102px 0 0;
+	margin:-98px 0 0;
     background:rgba(251, 129, 108, 0.9);
 }
 .awcp-mark-center .product_price{
@@ -776,10 +782,10 @@ table.awcp-pricedata tr:nth-child(1) td{
 	line-height:40px;
 	color:#515151;
 	font-weight:bold;
+	margin:0 0 20px;
 }
 .after_price{
 	display:table;
-	float:left;
 }
 /*slider*/
 .wrap{
@@ -845,15 +851,14 @@ table.awcp-pricedata tr:nth-child(1) td{
 .thumb_area .current, .thumb_slider:hover{
 	background:#f75a2f;
 }
-.orbit-caption{
-	padding:10px 0 !important;
-}
+
 .orbit-caption > div{
 	border:none;
 }
 .orbit-caption label{
 	font-size:12px;
 	color:#FFF;
+	line-height:12px;
 	margin:0;
 }
 .orbit-caption p{
@@ -970,6 +975,43 @@ table.awcp-pricedata tr:nth-child(1) td{
 	display:none;
 }
 /*end slider 2*/
+.prev_page{
+	margin:20px 0;
+	padding:0;
+}
+.prev_page a{
+	background:#9b9b9b;
+	font-size:14px;
+	padding:14px;
+	border-top-right-radius:5px;
+	border-bottom-right-radius:5px;
+	display:block;
+	width:80%;
+	text-align:right;
+	color:#fff;
+}
+.prev_page a:before{
+	content:"◄";
+}
+.next_page{
+	margin:20px 0;
+	padding:0;
+}
+.next_page a{
+	background:#f75b33;
+	font-size:14px;
+	padding:14px;
+	border-top-left-radius:5px;
+	border-bottom-left-radius:5px;
+	display:block;
+	width:80%;
+	text-align:right;
+	float:right;
+	color:#fff;
+}
+.next_page a:after{
+	content:"►";
+}
 
 @media only screen and (min-width: 40.063em) { 
 	.right_detail_deals_2{

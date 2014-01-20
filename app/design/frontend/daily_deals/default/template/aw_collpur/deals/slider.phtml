@@ -51,8 +51,8 @@
 
                     $AutoCenter: 3,                                 //[Optional] Auto center thumbnail items in the thumbnail navigator container, 0 None, 1 Horizontal, 2 Vertical, 3 Both, default value is 3
                     $Lanes: 1,                                      //[Optional] Specify lanes to arrange thumbnails, default value is 1
-                    $SpacingX: 4,                                   //[Optional] Horizontal space between each thumbnail in pixel, default value is 0
-                    $SpacingY: 4,                                   //[Optional] Vertical space between each thumbnail in pixel, default value is 0
+                    $SpacingX: 2,                                   //[Optional] Horizontal space between each thumbnail in pixel, default value is 0
+                    $SpacingY: 2,                                   //[Optional] Vertical space between each thumbnail in pixel, default value is 0
                     $DisplayPieces: 4,                              //[Optional] Number of pieces to display, default value is 1
                     $ParkingPosition: 0,                            //[Optional] The offset position to park thumbnail
                     $Orientation: 2,                                //[Optional] Orientation to arrange thumbnails, 1 horizental, 2 vertical, default value is 1
@@ -100,7 +100,7 @@
                     <div class="t"><?php echo $dealSlider->getDealName(); ?></div>
                     <div class="c"><?php if($dealInfo->getPercentDiscount() <> "0") { echo $dealInfo->getPercentDiscount(); ?>% OFF<?php } ?></div>
                 </div>
-                <div u="caption" t="MCLIP|B" style="position: absolute; bottom: 0px; left: 0px; right: 0px; height: 150px;  background-color: Black; opacity: 0.8; filter: alpha(opacity=80);">
+                <div u="caption" t="MCLIP|B" style="position: absolute; bottom: 0px; left: 0px; right: 0px; height: auto; padding:10px 0; background-color: Black; opacity: 0.8; filter: alpha(opacity=80);">
                     <div style="display: block; color: #fff; font-size: 16px; font-weight: bold; line-height: 50px;">
 						<div class="orbit-caption">
 							<div class="column large-5 medium-5">
