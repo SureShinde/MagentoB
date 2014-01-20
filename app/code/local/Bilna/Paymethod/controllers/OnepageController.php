@@ -79,7 +79,7 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
                            
                         //save pay type 
                         $count = 0;
-                        $arrayCount  = count($installmentData);
+                        $arrayCount = count($installmentData);
                         
                         foreach ($installmentData as $value) {
                             if ($value == $this->getPaymentTypeTransaction($paymentCode, 'full')) {

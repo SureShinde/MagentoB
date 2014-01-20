@@ -61,6 +61,14 @@ class Bilna_Paymethod_VtdirectController extends Mage_Core_Controller_Front_Acti
                 );
             }
             
+            $threedsecure = $this->getThreedSecure($paymentCode);
+            
+            if ($threedsecure == true) {
+                $data['3dsecure'] = $threedsecure;
+                $data['3dsecure_callback_url'] = $this->getThreedSecureCallbackUrl($paymentCode);
+                $data['3dsecure_notification_url'] = $this->getThreedSecureNotificationUrl($paymentCode);
+            }
+            
             $responseCharge = json_decode(Mage::helper('paymethod/vtdirect')->postRequest($url, $data));
             
             $contentRequest = sprintf("%s | request_vtdirect: %s", $order->getIncrementId(), json_encode($data));
@@ -81,6 +89,7 @@ class Bilna_Paymethod_VtdirectController extends Mage_Core_Controller_Front_Acti
         /**
          * assign data to View
          */
+        Mage::register('threedsecure', $threedsecure);
         Mage::register('response_charge', $responseCharge);
         
         $this->loadLayout();
@@ -203,6 +212,26 @@ class Bilna_Paymethod_VtdirectController extends Mage_Core_Controller_Front_Acti
         return Mage::getStoreConfig('payment/' . $paymentCode . '/installment_type_code');
     }
     
+    private function getThreedSecure($paymentCode) {
+        $result = false;
+        
+        if (Mage::getStoreConfig('payment/' . $paymentCode . '/threedsecure')) {
+            if (Mage::getStoreConfig('payment/' . $paymentCode . '/threedsecure') == 1) {
+                $result = true;
+            }
+        }
+        
+        return $result;
+    }
+    
+    private function getThreedSecureCallbackUrl($paymentCode) {
+        return Mage::getStoreConfig('payment/' . $paymentCode . '/threedsecure_callback_url');
+    }
+    
+    private function getThreedSecureNotificationUrl($paymentCode) {
+        return Mage::getStoreConfig('payment/' . $paymentCode . '/threedsecure_notification_url');
+    }
+
     private function updateOrder($order, $responseCharge) {
         if ($responseCharge->status == 'success') {
             if ($order->canInvoice()) {

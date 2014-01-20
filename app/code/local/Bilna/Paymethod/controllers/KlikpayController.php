@@ -260,11 +260,18 @@ class Bilna_Paymethod_KlikpayController extends Mage_Core_Controller_Front_Actio
         die($xml);
     }
     
-    protected function getRequestData($key) {
+    protected function getRequestData($key, $type = 'POST') {
         $result = '';
         
-        if ($this->getRequest()->getParam($key)) {
-            $result = $this->getRequest()->getParam($key);
+        if ($type == 'POST') {
+            if ($this->getRequest()->getPost($key)) {
+                $result = $this->getRequest()->getPost($key);
+            }
+        }
+        else {
+            if ($this->getRequest()->getParam($key)) {
+                $result = $this->getRequest()->getParam($key);
+            }
         }
         
         return $result;
