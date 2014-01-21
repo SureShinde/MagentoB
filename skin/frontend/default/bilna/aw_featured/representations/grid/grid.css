@@ -127,8 +127,11 @@
 	z-index: 2;
 	position: relative;
 }
+.featured-category .awafpgrid ul {
+	margin-left: 8px;
+}
 .featured-category .awafpgrid ul li {
-	width: 15.19% !important;
+	width: 15.05% !important;
 }
 @media only screen and (max-width: 1215px) {
 	.onsale-category-container-list, .awafpgrid .afp-thumbnail, .awafpgrid .afp-thumbnail a.product-image img {
