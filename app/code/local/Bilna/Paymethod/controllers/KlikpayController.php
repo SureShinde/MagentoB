@@ -16,13 +16,13 @@ class Bilna_Paymethod_KlikpayController extends Mage_Core_Controller_Front_Actio
     }
     
     public function inquiryAction() {
-        $contentLog = sprintf("%s | request_klikpay: %s", $transactionNo, json_encode($this->getRequest()->getParams()));
-        $this->writeLog($this->_typeTransaction, 'inquiry', $contentLog);
-        
         $klikpayUserId = $this->getRequestData('klikPayCode');
         $additionalData = $this->getRequestData('additionalData');
         $transactionNo = $this->getRequestData('transactionNo');
         $signature = $this->getRequestData('signature');
+        
+        $contentLog = sprintf("%s | request_klikpay: %s", $transactionNo, json_encode($this->getRequestData()));
+        $this->writeLog($this->_typeTransaction, 'inquiry', $contentLog);
         
         $orderCollection = Mage::getModel('sales/order')->getCollection();
         $orderCollection->addFieldToFilter('status', 'pending');
@@ -106,9 +106,6 @@ class Bilna_Paymethod_KlikpayController extends Mage_Core_Controller_Front_Actio
     }
     
     public function paymentAction() {
-        $contentLog = sprintf("%s | request_klikpay: %s", $transactionNo, json_encode($this->getRequest()->getParams()));
-        $this->writeLog($this->_typeTransaction, 'payment', $contentLog);
-        
         $klikpayUserId = $this->getRequestData('klikPayCode');
         $transactionDate = $this->getRequestData('transactionDate');
         $transactionNo = $this->getRequestData('transactionNo');
@@ -121,6 +118,9 @@ class Bilna_Paymethod_KlikpayController extends Mage_Core_Controller_Front_Actio
         $authKey = $this->getRequestData('authKey');
         $additionalData = $this->getRequestData('additionalData');
         $status = '01';
+        
+        $contentLog = sprintf("%s | request_klikpay: %s", $transactionNo, json_encode($this->getRequestData()));
+        $this->writeLog($this->_typeTransaction, 'payment', $contentLog);
         
         $idReason = '';
         $enReason = '';
@@ -260,7 +260,6 @@ class Bilna_Paymethod_KlikpayController extends Mage_Core_Controller_Front_Actio
         die($xml);
     }
     
-    //http://stage.bilna.com/klikpay/processing/thankyou/id/
     public function thankyouAction() {
         // parameter id tidak ada
         if (!$this->getRequest()->getParam('id')) {
@@ -271,17 +270,28 @@ class Bilna_Paymethod_KlikpayController extends Mage_Core_Controller_Front_Actio
         $this->renderLayout();
     }
     
-    protected function getRequestData($key, $type = 'POST') {
+    protected function getRequestData($key = '') {
+        $method = Mage::getStoreConfig('payment/klikpay/request_method');
         $result = '';
         
-        if ($type == 'POST') {
-            if ($this->getRequest()->getPost($key)) {
-                $result = $this->getRequest()->getPost($key);
+        if ($method == 'POST') {
+            if ($key == '') {
+                $result = $this->getRequest()->getPost();
+            }
+            else {
+                if ($this->getRequest()->getPost($key)) {
+                    $result = $this->getRequest()->getPost($key);
+                }
             }
         }
         else {
-            if ($this->getRequest()->getParam($key)) {
-                $result = $this->getRequest()->getParam($key);
+            if ($key == '') {
+                $result = $this->getRequest()->getParams();
+            }
+            else {
+                if ($this->getRequest()->getParam($key)) {
+                    $result = $this->getRequest()->getParam($key);
+                }
             }
         }
         

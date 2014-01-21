@@ -26,7 +26,7 @@ class Bilna_Paymethod_KlikbcaController extends Mage_Core_Controller_Front_Actio
         $klikbcaUserId = $this->getRequestData('userid');
         $additionalData = $this->getRequestData('adddata');
         
-        $contentLog = sprintf("%s | request_klikbca: %s", $klikbcaUserId, json_encode($this->getRequest()->getParams()));
+        $contentLog = sprintf("%s | request_klikbca: %s", $klikbcaUserId, json_encode($this->getRequestData()));
         $this->writeLog($this->_typeTransaction, 'inquiry', $contentLog);
         
         $validationHours = Mage::getStoreConfig('payment/klikbca/order_validation');
@@ -87,7 +87,7 @@ class Bilna_Paymethod_KlikbcaController extends Mage_Core_Controller_Front_Actio
         $reason = '';
         $status = '';
         
-        $contentLog = sprintf("%s | request_klikbca: %s", $klikbcaUserId, json_encode($this->getRequest()->getParams()));
+        $contentLog = sprintf("%s | request_klikbca: %s", $klikbcaUserId, json_encode($this->getRequestData()));
         $this->writeLog($this->_typeTransaction, 'payment', $contentLog);
         
         $orderCollection = Mage::getModel('sales/order')->getCollection();
@@ -156,24 +156,54 @@ class Bilna_Paymethod_KlikbcaController extends Mage_Core_Controller_Front_Actio
         die ($xml);
     }
     
-    protected function getRequestData($key) {
+    protected function getRequestData($key = '') {
+        $method = Mage::getStoreConfig('payment/klikbca/request_method');
         $result = '';
         
-        if ($this->getRequest()->getParam($key)) {
-            $result = $this->getRequest()->getParam($key);
+        if ($method == 'POST') {
+            if ($key == '') {
+                $result = $this->getRequest()->getPost();
+            }
+            else {
+                if ($this->getRequest()->getPost($key)) {
+                    $result = $this->getRequest()->getPost($key);
+                }
+            }
+        }
+        else {
+            if ($key == '') {
+                $result = $this->getRequest()->getParams();
+            }
+            else {
+                if ($this->getRequest()->getParam($key)) {
+                    $result = $this->getRequest()->getParam($key);
+                }
+            }
         }
         
         return $result;
     }
     
     protected function getRequestDataReplace($key, $replace) {
+        $method = Mage::getStoreConfig('payment/klikbca/request_method');
         $result = '';
         
-        if ($this->getRequest()->getParam($key)) {
-            $result = $this->getRequest()->getParam($key);
-            
-            if (strpos($result, $replace) !== false) {
-                $result = str_replace($replace, '', $result);
+        if ($method == 'POST') {
+            if ($this->getRequest()->getPost($key)) {
+                $result = $this->getRequest()->getPost($key);
+
+                if (strpos($result, $replace) !== false) {
+                    $result = str_replace($replace, '', $result);
+                }
+            }
+        }
+        else {
+            if ($this->getRequest()->getParam($key)) {
+                $result = $this->getRequest()->getParam($key);
+
+                if (strpos($result, $replace) !== false) {
+                    $result = str_replace($replace, '', $result);
+                }
             }
         }
         
