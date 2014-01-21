@@ -503,6 +503,10 @@
 }
 .header .links li.trackorder {
 	background: none !important;
+	display: none;
+}
+.header .links li.track-order {
+	border-left: none;
 }
 .header .links li.login, .header .links li.register {
 	padding: 0;
