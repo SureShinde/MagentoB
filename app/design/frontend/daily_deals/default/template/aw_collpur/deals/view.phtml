@@ -62,13 +62,13 @@
 			<!--<div class="awcp-short-description">
 				<?php //echo $this->filter($deal->getDescription()); ?>
 			</div>-->
-           <form id="product_addtocart_form" class="right_detail_deals" method="post" action="<?php echo Mage::getUrl('checkout/cart/add', array('_secure'=>true,'product' => $product->getId(), 'deal_id' => $this->getDeal()->getId(), 'form_key' => Mage::getSingleton('core/session')->getFormKey())) ?>">
+           <form id="product_addtocart_form" class="" method="post" action="<?php echo Mage::getUrl('checkout/cart/add', array('_secure'=>true,'product' => $product->getId(), 'deal_id' => $this->getDeal()->getId(), 'form_key' => Mage::getSingleton('core/session')->getFormKey())) ?>">
                 
 				<div class="awcp-cols">
                     <div class="col-1 row">
                          <?php if (!$deal->isClosed()) : ?>
                             <?php if ($deal->isRunning()): ?><!-- blue box -->
-                                    <div class="awcp-deal awcp-add-to-box small-12 medium-12 large-8 column">
+                                    <div class="awcp-deal awcp-add-to-box small-8 medium-12 large-8 column">
                                         <div class="awcp-mark-right">
                                             <div class="awcp-mark-center">
                                                 <div class="content">
@@ -93,7 +93,7 @@
                         <?php endif; ?>
 
                         <!-- yellow box -->
-                        <div class="awcp-deal awcp-options-box small-12 medium-12 large-4 column">
+                        <div class="awcp-deal awcp-options-box small-4 medium-12 large-4 column">
                             <div class="awcp-mark-right">
 								<div class="awcp-mark-center">
                                     <div class="content">

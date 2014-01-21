@@ -89,8 +89,9 @@
 .awcp-category-grid .awcp-mark-center {
 	 background:rgba(140, 140, 140, 0.9);
     padding: 5px;
-	margin:-97px 0 0;
-	position:relative;
+	position:absolute;
+	bottom:0;
+	right:0;
 }
 
 .awcp-category-grid .awcp-details {
@@ -646,6 +647,7 @@ table.awcp-pricedata tr:nth-child(1) td{
 	color:#fb816c;
 	text-transform:uppercase;
 	font-size:19px;
+	text-indent:20px;
 	letter-spacing:-1px;
 }
 .desc_deals .desc_one h2:before {
@@ -653,7 +655,7 @@ table.awcp-pricedata tr:nth-child(1) td{
     content: "";
     display: block;
     height: 18px;
-    left: -11px;
+    left: 10px;
     overflow: hidden;
     position: absolute;
     top: 4px;
@@ -664,7 +666,7 @@ table.awcp-pricedata tr:nth-child(1) td{
     content: "";
     display: block;
     height: 18px;
-    left: -11px;
+    left: 10px;
     overflow: hidden;
     position: absolute;
     top: 4px;
@@ -675,7 +677,7 @@ table.awcp-pricedata tr:nth-child(1) td{
     content: "";
     display: block;
     height: 18px;
-    left: -11px;
+    left: 10px;
     overflow: hidden;
     position: absolute;
     top: 4px;
@@ -707,7 +709,7 @@ table.awcp-pricedata tr:nth-child(1) td{
 	border:5px solid #fb816c;
 }
 .awcp-item:hover .awcp-mark-center{
-	margin:-98px 0 0;
+	margin:-97px 0 0;
     background:rgba(251, 129, 108, 0.9);
 }
 .awcp-mark-center .product_price{
@@ -986,8 +988,8 @@ table.awcp-pricedata tr:nth-child(1) td{
 	border-top-right-radius:5px;
 	border-bottom-right-radius:5px;
 	display:block;
-	width:80%;
-	text-align:right;
+	width:90%;
+	text-align:left;
 	color:#fff;
 }
 .prev_page a:before{
@@ -1024,6 +1026,7 @@ table.awcp-pricedata tr:nth-child(1) td{
 }
 @media only screen and (max-width: 40em) { 
 	.awcp-mark-center{
+		background:#fff !important;
 		margin:0 !important;
 	}
 	.right_detail_deals{
@@ -1040,7 +1043,6 @@ table.awcp-pricedata tr:nth-child(1) td{
 		padding-left:14px;
 	}
 	.awcp-mark-center{
-		background:#fff !important;
 	}
 	.awcp-category-grid .awcp-title-list a, .awcp-mark-center .desc_short_deals, .product_price
 	{
