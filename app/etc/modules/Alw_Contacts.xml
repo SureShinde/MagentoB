@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!-- 
+/**
+ * @category   Alw
+ * @package    Alw_Contacts
+ */
+ -->
+<config>
+    <modules>
+        <Alw_Contacts>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Alw_Contacts>
+    </modules>
+</config> 
