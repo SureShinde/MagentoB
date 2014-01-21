@@ -19,26 +19,3 @@
         </p>
     <?php endif; ?>
 <?php endif; ?>
-
-
-<?php $responseCharge = $this->getResponseCharge(); ?>
-<?php if ($responseCharge->status == 'success'): ?>
-    <h3>halaman sukses</h3>
-    <h4><?php echo $responseCharge->message; ?></h4>
-    
-    <?php if ($this->getThreedSecure()): ?>
-        <script type="text/javascript">
-            //document.location = '<?php //echo $responseCharge->data->redirect_url; ?>';
-        </script>
-    <?php endif; ?>
-<?php elseif ($responseCharge->status == 'failure'): ?>
-    <h3>halaman failure</h3>
-    <h4><?php echo $responseCharge->message; ?></h4>
-<?php else: ?>
-    <h3>halaman challange</h3>
-    <h4><?php echo $responseCharge->message; ?></h4>
-<?php endif; ?>
-
-<div class="buttons-set">
-    <button type="button" class="button" title="<?php echo $this->__('Continue Shopping') ?>" onclick="window.location='<?php echo $this->getUrl() ?>'"><span><span><?php echo $this->__('Continue Shopping') ?></span></span></button>
-</div>

@@ -260,6 +260,17 @@ class Bilna_Paymethod_KlikpayController extends Mage_Core_Controller_Front_Actio
         die($xml);
     }
     
+    //http://stage.bilna.com/klikpay/processing/thankyou/id/
+    public function thankyouAction() {
+        // parameter id tidak ada
+        if (!$this->getRequest()->getParam('id')) {
+            $this->_redirect('checkout/cart');
+        }
+
+        $this->loadLayout();
+        $this->renderLayout();
+    }
+    
     protected function getRequestData($key, $type = 'POST') {
         $result = '';
         

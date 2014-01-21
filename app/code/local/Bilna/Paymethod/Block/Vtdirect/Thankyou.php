@@ -5,7 +5,7 @@
  * @author Bilna Development Team <development@bilna.com>
  */
 
-class Bilna_Paymethod_Block_Vtdirect_Thankyou extends Mage_Core_Block_Template {
+class Bilna_Paymethod_Block_Vtdirect_Thankyou extends Mage_Checkout_Block_Onepage_Success {
     public function getThreedSecure() {
         return Mage::registry('threedsecure');
     }
