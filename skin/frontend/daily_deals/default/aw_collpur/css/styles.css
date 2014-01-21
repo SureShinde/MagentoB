@@ -1122,7 +1122,7 @@ table.awcp-pricedata tr:nth-child(1) td{
 		margin:5px 0;
 	}
 }
-@media only screen and (min-width: 64.063em) { 
+@media only screen and (min-width: 1215px) { 
 	.banner_right_slider{
 		width:182px;
 		margin:0 0 0 3px;
@@ -1130,4 +1130,18 @@ table.awcp-pricedata tr:nth-child(1) td{
 		background:#000;
 		float:left;
 	}
+	.slider_area{
+		width:auto;
+		float:left;
+	}
 }
+@media only screen and (max-width: 1215px) {
+	.banner_right_slider{
+		display:none;
+	}
+	.slider_area{
+		width:100%;
+		float:left;
+	}
+}
+
