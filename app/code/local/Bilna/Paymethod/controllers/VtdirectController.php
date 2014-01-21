@@ -40,7 +40,7 @@ class Bilna_Paymethod_VtdirectController extends Mage_Core_Controller_Front_Acti
             $data = array ();
             $data['token_id'] = $this->getTokenId();
             $data['order_id'] = $this->maxChar($order->getIncrementId(), 20);
-            $data['bins'] = $this->getBins($order, $paymentCode);
+            //$data['bins'] = $this->getBins($order, $paymentCode);
             $data['order_items'] = $this->getOrderItems($order, $items);
             $data['gross_amount'] = round($order->getGrandTotal());
             $data['email'] = $this->getCustomerEmail($order->getBillingAddress()->getEmail());

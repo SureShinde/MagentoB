@@ -96,15 +96,20 @@ class Bilna_Paymethod_Model_Observer_Klikbca {
                  * status pembayaran gagal, customer dapat membayar kembali
                  * update order status menjadi "Pending" dan kirim email notifikasi ke customer
                  */
-//                    $this->_updateOrderStatus($order, 'pending');
-//                    $templateId = Mage::getStoreConfig('payment/klikbca/template_id_pending');
-//                    $emailVars = array (
-//                        'email_to' => $order->getCustomerEmail(),
-//                        'name_to' => $order->getCustomerName(),
-//                        'transaction_no' => $transactionNo
-//                    );
-//
-//                    Mage::helper('paymethod/klikbca')->_sendEmail($templateId, $emailVars);
+                $this->_updateOrderStatus($order, 'pending');
+                $order->addStatusHistoryComment('Konfirmasi SprintAsia: ' . $responseObj->reason);
+                $templateId = Mage::getStoreConfig('payment/klikbca/template_id_pending');
+                $emailVars = array (
+                    'email_to' => $order->getCustomerEmail(),
+                    'name_to' => $order->getCustomerName(),
+                    'transaction_no' => $transactionNo
+                );
+
+                Mage::helper('paymethod/klikbca')->_sendEmail($templateId, $emailVars);
+                
+                $contentLog = sprintf("%s | order_status: %s -> pending", $klikbcaUserId, $transactionNo);
+                $this->writeLog($this->_typeTransaction, 'confirmation', $contentLog);
+                $this->moveFile($filename, $transactionNo, 'failed');
             }
             else {
                 /**

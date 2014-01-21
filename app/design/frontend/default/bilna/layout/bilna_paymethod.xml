@@ -98,6 +98,16 @@
             <block type="paymethod/checkout_onepage_redirect_klikpay" name="paymethod_redirect_klikpay" template="paymethod/checkout/onepage/redirect/klikpay.phtml"/>
         </reference>
     </paymethod_klikpay_redirect>
+    
+    <paymethod_klikpay_thankyou>
+    	<reference name="root">
+            <action method="setTemplate"><template>page/1column.phtml</template></action>
+    	</reference>
+    	                        
+        <reference name="content">
+            <block type="paymethod/block_klikpay_thankyou" name="paymethod_klikpay_thankyou" template="paymethod/klikpay/thankyou.phtml"/>
+        </reference>
+    </paymethod_klikpay_thankyou>
 
     <!--klikpay_processing_pay>
         <reference name="root">
