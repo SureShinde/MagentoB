@@ -33,6 +33,16 @@ class Bilna_Cod_Model_PaymentMethod extends Mage_Payment_Model_Method_Abstract {
         		unset($availablePayment[$key]);
         	}
         }
+
+		$paymentHide = Mage::getStoreConfig('bilna_module/paymethod/payment_hide');
+		$exclude_payment = explode(',', $paymentHide);
+        
+        foreach($exclude_payment as $payment){
+        	$payment = trim($payment);
+        	if(($key = array_search($payment, $availablePayment)) !== false) {
+        		unset($availablePayment[$key]);
+        	}
+        }
         
         return $availablePayment;
     }

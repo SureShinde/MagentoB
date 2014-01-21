@@ -42,9 +42,11 @@
                     <ul class="messages"><li class="error-msg"><ul><li><?php echo $this->escapeHtml($_rate->getErrorMessage()) ?></li></ul></li></ul>
                    <?php else: ?>
                         <?php if ($_sole) : ?>
-                        <span class="no-display"><input name="shipping_method" type="radio" value="<?php echo $_rate->getCode() ?>" id="s_method_<?php echo $_rate->getCode() ?>" checked="checked" /></span>
+                        <span class="no-display">
+                        	<input name="shipping_method" type="radio" value="<?php echo $_rate->getCode() ?>" data-text="<?php echo $this->escapeHtml($_rate->getMethodTitle()) ?>" data-type="<?php echo $_rate->getDeliveryId() ?>" id="s_method_<?php echo $_rate->getCode() ?>" checked="checked" class="shipping-type" />
+                        </span>
                         <?php else: ?>
-                        <input name="shipping_method" type="radio" value="<?php echo $_rate->getCode() ?>" id="s_method_<?php echo $_rate->getCode() ?>"<?php if($_rate->getCode()===$this->getAddressShippingMethod()) echo ' checked="checked"' ?> class="radio"/>
+                        <input name="shipping_method" type="radio" value="<?php echo $_rate->getCode() ?>" data-text="<?php echo $this->escapeHtml($_rate->getMethodTitle()) ?>" data-type="<?php echo $_rate->getDeliveryId() ?>" id="s_method_<?php echo $_rate->getCode() ?>"<?php if($_rate->getCode()===$this->getAddressShippingMethod()) echo ' checked="checked"' ?> class="radio shipping-type"/>
 
                         <?php if ($_rate->getCode() === $this->getAddressShippingMethod()): ?>
                         <script type="text/javascript">
