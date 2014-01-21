@@ -605,6 +605,7 @@ LI#googleplusli {
 }
 .col_right_deals_detail{}
 .awcp-full-description ol{
+	padding:0 0 0 17px;
 	font-size:12px;
 	list-style:decimal;
 }
@@ -641,7 +642,7 @@ table.awcp-pricedata tr:nth-child(1) td{
 .desc_deals{
 	border-bottom: 1px solid #999999;
     margin: 0 0 10px;
-    padding: 0 0 20px;
+    padding: 0 0 50px;
 }
 .desc_deals h2{
 	color:#fb816c;
@@ -757,12 +758,13 @@ table.awcp-pricedata tr:nth-child(1) td{
 	padding-left:0;
 }
 .back_list a{
+	float:right;
 	font-size:14px;
 	background:#f75a2f;
 	line-height:40px;
 	text-decoration:none;
-	display:block;
-	padding-left:16px;
+	display:table;
+	padding:0 16px;
 	color:#fff;
 	box-shadow:1px 1px 5px 0 #E6E6E6;
 	-moz-box-shadow:1px 1px 5px 0 #E6E6E6;
@@ -982,13 +984,14 @@ table.awcp-pricedata tr:nth-child(1) td{
 	padding:0;
 }
 .prev_page a{
+	font-family:'bebasregular';
 	background:#9b9b9b;
 	font-size:14px;
 	padding:14px;
 	border-top-right-radius:5px;
 	border-bottom-right-radius:5px;
-	display:block;
-	width:90%;
+	display:table;
+	width:auto;
 	text-align:left;
 	color:#fff;
 }
@@ -1000,13 +1003,14 @@ table.awcp-pricedata tr:nth-child(1) td{
 	padding:0;
 }
 .next_page a{
+	font-family:'bebasregular';
 	background:#f75b33;
 	font-size:14px;
 	padding:14px;
 	border-top-left-radius:5px;
 	border-bottom-left-radius:5px;
-	display:block;
-	width:80%;
+	display:table;
+	width:auto;
 	text-align:right;
 	float:right;
 	color:#fff;
@@ -1022,11 +1026,19 @@ table.awcp-pricedata tr:nth-child(1) td{
 	.right_detail_deals{
 		display:block;
 	}
-	
+	.hide_1, .hide_2, .hide_3{
+		display:block !important;
+	}
 }
 @media only screen and (max-width: 40em) { 
+	.prev_page{
+		display:none;
+	}
+	.next_page{
+		display:none;
+	}
 	.awcp-mark-center{
-		background:#fff !important;
+		background:#fff !important	;
 		margin:0 !important;
 	}
 	.right_detail_deals{
@@ -1038,6 +1050,11 @@ table.awcp-pricedata tr:nth-child(1) td{
 	}
 	.price_deals_list{
 		font-size:20px;
+	}
+	.awcp-item .wrap_li{
+		box-shadow:none;
+		-moz-box-shadow:none;
+		-webkit-box-shadow:none;
 	}
 	.list_detail_right{
 		padding-left:14px;
@@ -1056,5 +1073,46 @@ table.awcp-pricedata tr:nth-child(1) td{
 	}
 	.awcp-item:hover .awcp-mark-center{
 		padding:none;
+	}
+	.shiping_partner,.payment_partner,.footer .about-us, .back_list, .also_like {
+		display:none;
+	}
+	.footer-bottom{
+	margin:20px;
+	}
+	.share{
+	position:relative;
+	top:10px;
+	}
+	.hide_1, .hide_2, .hide_3{
+		display:none;
+	}
+	.desc_deals h2 .span_2 {
+		background: url("../images/plus_desc_deals.jpg") no-repeat;
+		content: "";
+		display: block;
+		height: 17px;
+		right: 10px;
+		overflow: hidden;
+		position: absolute;
+		top: 4px;
+		width: 17px;
+	}
+	.desc_deals h2 .span_1 {
+		background: url("../images/min_desc_deals.jpg") no-repeat;
+		content: "";
+		display: block;
+		height: 17px;
+		right: 10px;
+		overflow: hidden;
+		position: absolute;
+		top: 4px;
+		width: 17px;
+	}
+	.desc_deals h2{
+		border-bottom:1px solid #e1e1e1;
+	}
+	.desc_one, .desc_two, .desc_three{
+		margin:5px 0;
 	}
 }

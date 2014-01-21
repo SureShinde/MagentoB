@@ -289,7 +289,7 @@
 }
 .keypoint ul li p {
 	line-height: 12px;
-	font-size: 10px;
+	font-size: 9px;
 	color: #707070;
 }
 .keypoint ul li.free-shipping {
@@ -1116,7 +1116,7 @@
 		width: 277px;
 	}
 	.header .quick-access .left {
-		margin-right: 5px;
+		margin-right: 0;
 	}
 	.header .links li {
 		padding-left: 4px;
@@ -1201,7 +1201,6 @@
 	}
 	.header .quick-access .top-cart {
 		margin-bottom: 5px;
-		width: 177px;
 	}
 	.header .links {
 		float: left;
@@ -1216,6 +1215,7 @@
 	}
 	.header .quick-access .left {
 		text-align: right;
+		display:table;
 	}
 	.sticky-header .sticky-search .form-search .input-keyword .select-category, .header .quick-access .store-phone, .header .form-language, .header .quick-access .top-cart a.link-checkout {
 		display: none;

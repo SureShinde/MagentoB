@@ -37,6 +37,23 @@
             <div class="clearer"></div>
       </div>-->
 <?php //endif; ?>
+<script>
+	jQuery(document).ready(function(){
+	jQuery(".desc_one").click(function(){
+    jQuery(".hide_1").toggle();
+	jQuery(".desc_one>div>h2>.span_2").toggle(); 
+	});
+	jQuery(".desc_two").click(function(){
+    jQuery(".hide_2").toggle();
+	jQuery(".desc_two>h2>.span_2").toggle();
+	});
+	jQuery(".desc_three").click(function(){
+    jQuery(".hide_3").toggle();
+	jQuery(".desc_three>h2>.span_2").toggle();
+	});
+	
+});
+</script>
 <div class="row">
 <?php //endif; ?>
 
@@ -70,7 +87,7 @@
                             <?php if ($deal->isRunning()): ?><!-- blue box -->
                                     <div class="awcp-deal awcp-add-to-box small-8 medium-12 large-8 column">
                                         <div class="awcp-mark-right">
-                                            <div class="awcp-mark-center">
+                                            <div class="">
                                                 <div class="content">
                                                     <div class="awcp-price">
                                                         <!--<div class="awcp-price-label">
@@ -95,7 +112,7 @@
                         <!-- yellow box -->
                         <div class="awcp-deal awcp-options-box small-4 medium-12 large-4 column">
                             <div class="awcp-mark-right">
-								<div class="awcp-mark-center">
+								<div class="">
                                     <div class="content">
                                         <table class="awcp-pricedata" cellspacing="0">
                                             <!--<tr>
@@ -123,7 +140,7 @@
                                 <!-- clock -->
                                 <div class="awcp-deal awcp-deal-mark1">
                                     <div class="awcp-mark-right">
-                                       <div class="awcp-mark-center">
+                                       <div class="">
                                             <?php if (!$deal->isClosed()): ?>
                                                 <div class="content">
                                                      <?php if ($deal->isNotRunning() && $deal->getAvailableFrom()): ?>
@@ -148,7 +165,7 @@
                                 <!-- green check -->
                                 <div class="awcp-deal awcp-deal-mark2">
                                     <div class="awcp-mark-right">
-                                       <div class="awcp-mark-center">
+                                       <div class="">
                                             <div class="content">
                                                 <div class="awcp-bought"><?php echo $this->__('%s  bought', $this->getPurchasesCount($deal->getId())); ?></div>
                                                 <div class="awcp-notice"><?php echo $this->__('Limited quantity available'); ?></div>
@@ -162,7 +179,7 @@
                                 <!-- gray check -->
                                 <div class="awcp-deal awcp-deal-mark3">
                                     <div class="awcp-mark-right">
-                                        <div class="awcp-mark-center">
+                                        <div class="">
                                             <div class="content">
                                                 <div class="awcp-bought"><?php echo $this->__('SOLD :<span> %s </span> ', $this->getPurchasesCount($deal->getId())); ?></div>
                                                 <div class="awcp-status"><?php echo $this->__('%s LEFT', $this->getPurchasesToReach($deal)); ?></div>
@@ -226,8 +243,8 @@
 	</div>
 </div>
 
-<div class="small-2 small-push-10 columns back_list"><a href="!#">FEATURED DEALS</a></div>
-<div class="small-3 small-pull-9 columns also_like">YOU MIGHT ALSO LIKE</div>
+<div class="small-4 small-push-8 columns back_list"><a href="!#">FEATURED DEALS</a></div>
+<div class="small-4 small-pull-8 columns also_like">YOU MIGHT ALSO LIKE</div>
 	
 	
 </div>	
@@ -236,9 +253,7 @@
 <?php echo $this->getLayout()->createBlock('collpur/deals')->setTemplate('aw_collpur/deals/list.phtml')->toHtml(); ?>
 
 <!--end list-->
-<div class="row">
-	<div class="small-2 small-push-10 columns back_list"><a href="!#">FEATURED DEALS</a></div>
-</div>
+
      <script type = "text/javascript">
           document.observe("dom:loaded", function() {
                 <?php if ($data = $this->getJsonConfig($deal->getId())): ?>
