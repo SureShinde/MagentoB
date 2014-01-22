@@ -123,9 +123,8 @@
             <action method="addCss"><stylesheet>css/cloudzoom.css</stylesheet></action>
             <action method="addCss"><stylesheet>css/pdp.css</stylesheet></action>
 		</reference>
-		<reference name="product.info.options.wrapper.bottom">
-			<action method="unsetCallChild"><child>product.info.addtocart</child></action>
-			<action method="unsetCallChild"><child>product.info.addto</child></action>
+		<reference name="product.info">
+			<remove name="product.info.options.wrapper.bottom"/>
 		</reference>
 		<reference name="content">
 			<block type="relatedproducts/relatedproducts" name="catalog.product.awrelated.community" as="awrelatedproducts" template="catalog/product/list/awrelated.phtml">
