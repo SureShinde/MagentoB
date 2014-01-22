@@ -167,6 +167,9 @@ button.btn-cart {
 	color: #ffa01b;
 	margin-left: 5px;
 }
+.ratings {
+	height: 20px;
+}
 @media only screen and (max-width: 1215px) {
 	.main-container, .main-container.col1-layout .main {
 		width: 994px;
