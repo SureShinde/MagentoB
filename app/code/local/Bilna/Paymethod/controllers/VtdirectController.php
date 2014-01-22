@@ -109,10 +109,8 @@ class Bilna_Paymethod_VtdirectController extends Mage_Core_Controller_Front_Acti
     }
     
     public function notificationAction() {
-        $notification = json_decode($this->getRequestData('vtdirect'));
-        
+        $notification = json_decode(file_get_contents('php://input'));
         $contentRequest = sprintf("%s | request_vtdirect: %s", $notification->data->order_id, json_encode($notification));
-        $this->writeLog($this->_typeTransaction, 'notification', $contentRequest);
         
         if ($this->getServerKey() == $notification->data->server_key) {
             $order = Mage::getModel('sales/order')->loadByIncrementId($notification->data->order_id);
