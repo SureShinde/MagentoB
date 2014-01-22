@@ -211,7 +211,7 @@ class AW_Affiliate_Block_Campaign_Products extends Mage_Core_Block_Template
         $collection->getSelect()
             ->joinInner(
                 array( 'awaffiliate_cat' => Mage::getSingleton('core/resource')->getTableName('awaffiliate/categories') ),
-                "e.entity_id = awaffiliate_cat.category_id",
+                "main_table.entity_id = awaffiliate_cat.category_id",
                 array(
                     "category_id" => "awaffiliate_cat.category_id"
                 )
