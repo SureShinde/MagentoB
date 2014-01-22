@@ -525,9 +525,14 @@
 	border-left: none;
 	padding-left: 0;
 }
-.header .links li.login, .header .links li.register {
-	padding: 0;
+.header .links li.register {
 	border: none;
+	padding: 0;
+}
+.header .links li.login {
+	border-left: 1px solid #f1f1f1; 
+	padding-left: 7px;
+	padding-right: 0;
 }
 .header .links li.register, .menu-tablet .links li.register {
 	padding-left: 5px;
