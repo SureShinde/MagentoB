@@ -14,8 +14,8 @@ $x = $this->productsScriptAction();
             <style>
                 .thumb {
                     position: relative;
-                    width: 84px;
-                    height: 80px;
+                    width: 58px;
+                    height: 45px;
                     border: 1px solid #FF9B42;
                     padding: 0px;
                     margin: 1px;
@@ -26,6 +26,19 @@ $x = $this->productsScriptAction();
                 }
                 .logo_banner{
                     padding: 0px 0px 0px 0px ;   
+					background: none repeat scroll 0 0 #FFFAF4;
+					display: block;
+					clear: both;
+					position: absolute;
+					right: 0;
+					width: 72px;
+                }
+				.logo_banner img{
+					padding: 10px 0 0;
+                }
+				
+				.logo_banner img.fs-aff{
+					padding: 2px 0;
                 }
                 .text {
                     display: none;
@@ -35,35 +48,48 @@ $x = $this->productsScriptAction();
                     width: 100%;
                     height: 100%;
                     background: #fff;
-                    background: rgba(0,0,0,0.1);
+                    background: rgba(255,255,255,0.8);
                     text-align: center;
                     font-size: 9px;
                     color: #20C5DF;
                     font-weight: bold;
+					font-family: helvetica, arial, 'sans-serif';
                 }
                 .thumb:hover .text {
-                    display: block
+                    display: block;
                 }
+				.buynow-aff {
+					background: none repeat scroll 0 0 #ff7626;
+					bottom: -9px;
+					color: #FFF;
+					display: block;
+					font-size: 9px;
+					padding: 3px 0;
+					position: absolute;
+					text-align: center;
+					width: 100%;
+				}
             </style>
             <div id="cto_banner_content" class="ad">
                 <?php foreach($x as $row):?>
                 <a href="<?php echo $row['a'];?>" alt="<?php echo $row['name'];?>" target="_blank">
                 <div class="thumb">
                     <?php echo $row['img']; ?>
-                    <span class="text"><?php echo $row['name'];?>
+                    <span class="text"><?php //echo $row['name'];?>
                         <?php if( $row['price']['old_price'] > $row['price']['special_price'] ) : ?>
-                        <p style="font-size: 9px;"><?php echo $row['price']['old_price'];?></p>
-                        <p style="font-size: 9px;"><?php echo $row['price']['special_price'];?></p>
+                        <p style="font-size: 9px;" class="none-text"><?php //echo $row['price']['old_price'];?></p>
+                        <p style="font-size: 9px;" class="none-text"><?php //echo $row['price']['special_price'];?></p>
                         <?php else :?>
-                        <p style="font-size: 9px;"><?php echo $row['price']['old_price'];?></p>
+                        <p style="font-size: 9px;" class="none-text"><?php //echo $row['price']['old_price'];?></p>
+						<p class="buynow-aff">Buy Now</p>
                     <?php endif;?>
                     </span>
                 </div>
                 </a>
                 <?php endforeach; ?>
                 <div class="logo_banner">
-                    <img src="http://dummyimage.com/150x100/ccc/fff" height="18px"/>
-                    <span class="text">text text text text text text text</span>
+                    <img src="<?php echo $this->getSkinUrl('images/logo.png') ?>" height="29px"/>
+					<div style="clear: both;"></div>
                 </div>
             </div>
         </div>
