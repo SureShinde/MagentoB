@@ -35,7 +35,7 @@ class AW_Collpur_Block_Links extends Mage_Core_Block_Template
           if(Mage::getStoreConfig('collpur/general/enable_toplinks')) {
             $parentBlock = $this->getParentBlock();
             $text = $this->__('Deals');
-            $parentBlock->addLink($text, 'deals/', $text, true, array(), 25, null, 'class="top-link-deals"');
+//             $parentBlock->addLink($text, 'deals/', $text, true, array(), 25, null, 'class="top-link-deals"');
           }
         }
         return $this;
