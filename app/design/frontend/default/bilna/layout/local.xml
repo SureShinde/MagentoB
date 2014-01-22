@@ -36,6 +36,7 @@
         <reference name="header">
         	<remove name="welcome"/>
             <block type="checkout/cart_sidebar" name="cart_sidebar_header" as="topcart" template="checkout/cart/sidebar.phtml"/>
+            <block type="newsletter/subscribe" name="header.newsletter" template="newsletter/subscribe.phtml"/>
         </reference>
         <reference name="top.links">
         	<!--<action method="removeLinkByUrl"><url helper="customer/getAccountUrl"/></action>-->
