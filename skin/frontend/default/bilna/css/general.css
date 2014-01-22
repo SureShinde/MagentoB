@@ -251,6 +251,7 @@ button.btn-cart {
 	.products-grid .actions .add-to-links {
 		margin-left: 0;
 	}
+}
 
 /* -------blog custom-------- */
 .blog-index-list .main {
@@ -279,5 +280,4 @@ button.btn-cart {
     float: right;
     padding:0 0 0 3%;
     width: 22%;
-}
 }
