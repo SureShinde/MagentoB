@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 <layout version="0.1.0">
     <default>
+         
         <reference name="footer_links">
             <block type="blog/blog" name="add.blog.footer">
                 <action method="addBlogLink" ifconfig="blog/menu/footer"><param>footer</param></action>

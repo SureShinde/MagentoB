@@ -30,7 +30,10 @@ body {
 	width: 1032px;
 }
 .breadcrumbs {
-	font-size: 12px;
+	font-size: 15px;
+	font-family: helvetica;
+	font-weight: bold;
+	margin: 30px 0 10px;
 } 
 .breadcrumbs a {
 	color: #4ec7da;
@@ -246,6 +249,7 @@ button.btn-cart {
 		margin-left: 0;
 	}
 	
+
 }
 
 
@@ -277,3 +281,4 @@ button.btn-cart {
     padding:0 0 0 3%;
     width: 22%;
 }
+
