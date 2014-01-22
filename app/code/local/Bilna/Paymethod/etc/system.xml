@@ -5938,33 +5938,6 @@
                             <show_in_store>1</show_in_store>
                             <comment>Installment code that you received from the bank.</comment>
                         </installment_type_code>
-                        <threedsecure>
-                            <label>3D Secure</label>
-                            <frontend_type>select</frontend_type>
-                            <source_model>adminhtml/system_config_source_yesno</source_model>
-                            <sort_order>55</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                        </threedsecure>
-                        <threedsecure_callback_url>
-                            <label>3D Secure Callback URL</label>
-                            <frontend_type>text</frontend_type>
-                            <sort_order>56</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                            <comment>Merchant callback URL.</comment>
-                        </threedsecure_callback_url>
-                        <threedsecure_notification_url>
-                            <label>3D Secure Notification URL</label>
-                            <frontend_type>text</frontend_type>
-                            <sort_order>57</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                            <comment>Merchant notification URL.</comment>
-                        </threedsecure_notification_url>
                         <allowspecific translate="label">
                             <label>Payment from Applicable Countries</label>
                             <frontend_type>allowspecific</frontend_type>
@@ -6115,33 +6088,6 @@
                             <show_in_store>1</show_in_store>
                             <comment>Installment code that you received from the bank.</comment>
                         </installment_type_code>
-                        <threedsecure>
-                            <label>3D Secure</label>
-                            <frontend_type>select</frontend_type>
-                            <source_model>adminhtml/system_config_source_yesno</source_model>
-                            <sort_order>55</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                        </threedsecure>
-                        <threedsecure_callback_url>
-                            <label>3D Secure Callback URL</label>
-                            <frontend_type>text</frontend_type>
-                            <sort_order>56</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                            <comment>Merchant callback URL.</comment>
-                        </threedsecure_callback_url>
-                        <threedsecure_notification_url>
-                            <label>3D Secure Notification URL</label>
-                            <frontend_type>text</frontend_type>
-                            <sort_order>57</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                            <comment>Merchant notification URL.</comment>
-                        </threedsecure_notification_url>
                         <allowspecific translate="label">
                             <label>Payment from Applicable Countries</label>
                             <frontend_type>allowspecific</frontend_type>

@@ -9,13 +9,15 @@ class Bilna_Paymethod_KlikpayController extends Mage_Core_Controller_Front_Actio
     protected $_code = 'klikpay';
     protected $_typeTransaction = 'transaction';
     protected $_typeConfirmation = 'confirmation';
-    
+
     public function redirectAction() {
         $this->loadLayout();
         $this->renderLayout();
     }
     
     public function inquiryAction() {
+        $this->writeLog($this->_typeTransaction, 'inquiry', 'request_method: ' . $this->getRequestMethod());
+        
         $klikpayUserId = $this->getRequestData('klikPayCode');
         $additionalData = $this->getRequestData('additionalData');
         $transactionNo = $this->getRequestData('transactionNo');
@@ -23,6 +25,7 @@ class Bilna_Paymethod_KlikpayController extends Mage_Core_Controller_Front_Actio
         
         $contentLog = sprintf("%s | request_klikpay: %s", $transactionNo, json_encode($this->getRequestData()));
         $this->writeLog($this->_typeTransaction, 'inquiry', $contentLog);
+        
         
         $orderCollection = Mage::getModel('sales/order')->getCollection();
         $orderCollection->addFieldToFilter('status', 'pending');
@@ -106,6 +109,8 @@ class Bilna_Paymethod_KlikpayController extends Mage_Core_Controller_Front_Actio
     }
     
     public function paymentAction() {
+        $this->writeLog($this->_typeTransaction, 'payment', 'request_method: ' . $this->getRequestMethod());
+        
         $klikpayUserId = $this->getRequestData('klikPayCode');
         $transactionDate = $this->getRequestData('transactionDate');
         $transactionNo = $this->getRequestData('transactionNo');
@@ -270,8 +275,17 @@ class Bilna_Paymethod_KlikpayController extends Mage_Core_Controller_Front_Actio
         $this->renderLayout();
     }
     
+    public function payAction() {
+        $this->loadLayout();
+        $this->renderLayout();
+    }
+    
+    protected function getRequestMethod() {
+        return Mage::getStoreConfig('payment/' . $this->_code . '/request_method');
+    }
+    
     protected function getRequestData($key = '') {
-        $method = Mage::getStoreConfig('payment/klikpay/request_method');
+        $method = $this->getRequestMethod();
         $result = '';
         
         if ($method == 'POST') {
