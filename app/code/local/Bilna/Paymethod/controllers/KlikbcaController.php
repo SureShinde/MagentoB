@@ -23,6 +23,8 @@ class Bilna_Paymethod_KlikbcaController extends Mage_Core_Controller_Front_Actio
     protected $_typeConfirmation = 'confirmation';
 
     public function inquiryAction() {
+        $this->writeLog($this->_typeTransaction, 'inquiry', 'request_method: ' . $this->getRequestMethod());
+        
         $klikbcaUserId = $this->getRequestData('userid');
         $additionalData = $this->getRequestData('adddata');
         
@@ -77,6 +79,8 @@ class Bilna_Paymethod_KlikbcaController extends Mage_Core_Controller_Front_Actio
     }
     
     public function paymentAction() {
+        $this->writeLog($this->_typeTransaction, 'payment', 'request_method: ' . $this->getRequestMethod());
+        
         $klikbcaUserId = $this->getRequestData('userid');
         $transactionNo = $this->getRequestData('transno');
         $transactionDate = $this->getRequestData('transdate');
@@ -156,8 +160,12 @@ class Bilna_Paymethod_KlikbcaController extends Mage_Core_Controller_Front_Actio
         die ($xml);
     }
     
+    protected function getRequestMethod() {
+        return Mage::getStoreConfig('payment/' . $this->_code . '/request_method');
+    }
+    
     protected function getRequestData($key = '') {
-        $method = Mage::getStoreConfig('payment/klikbca/request_method');
+        $method = $this->getRequestMethod();
         $result = '';
         
         if ($method == 'POST') {

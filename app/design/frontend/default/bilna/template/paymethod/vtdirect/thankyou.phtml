@@ -19,26 +19,31 @@
         </p>
     <?php endif; ?>
 <?php endif; ?>
-
+        
+<?php
+$buttonText = $this->__('Continue Shopping');
+$buttonAction = $this->getUrl();
+?>
 
 <?php $responseCharge = $this->getResponseCharge(); ?>
 <?php if ($responseCharge->status == 'success'): ?>
-    <h3>halaman sukses</h3>
-    <h4><?php echo $responseCharge->message; ?></h4>
-    
     <?php if ($this->getThreedSecure()): ?>
-        <script type="text/javascript">
-            //document.location = '<?php //echo $responseCharge->data->redirect_url; ?>';
-        </script>
+        <?php if ($responseCharge->data->redirect_url): ?>
+            <?php $buttonText = $this->__('Redirect'); ?>
+            <?php $buttonAction = $responseCharge->data->redirect_url; ?>
+            <script type="text/javascript">
+                setTimeout(function() {
+                    document.location = '<?php echo $responseCharge->data->redirect_url; ?>';
+                }, 3000);
+            </script>
+        <?php endif; ?>
     <?php endif; ?>
-<?php elseif ($responseCharge->status == 'failure'): ?>
-    <h3>halaman failure</h3>
-    <h4><?php echo $responseCharge->message; ?></h4>
-<?php else: ?>
-    <h3>halaman challange</h3>
-    <h4><?php echo $responseCharge->message; ?></h4>
+<?php //elseif ($responseCharge->status == 'failure'): ?>
+    <!-- halaman failure -->
+<?php //else: ?>
+    <!-- halaman challange -->
 <?php endif; ?>
 
 <div class="buttons-set">
-    <button type="button" class="button" title="<?php echo $this->__('Continue Shopping') ?>" onclick="window.location='<?php echo $this->getUrl() ?>'"><span><span><?php echo $this->__('Continue Shopping') ?></span></span></button>
+    <button type="button" class="button" title="<?php echo $buttonText; ?>" onclick="window.location='<?php echo $buttonAction; ?>'"><span><span><?php echo $buttonText; ?></span></span></button>
 </div>
