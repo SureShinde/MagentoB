@@ -14,7 +14,11 @@ class Bilna_Wrappinggiftevent_Block_Adminhtml_Sales_Order_Create_Shipping_Method
         $resource = Mage::getSingleton('core/resource');
         $adapter = $resource->getConnection('core_read');
         $tableName = $resource->getTableName('wrapping_gift_event');
-        $select = $adapter->select()->from($tableName);
+        $select = $adapter->select()
+            ->from($tableName)
+            ->where(
+                'DATE(NOW()) >= wrapping_startdate AND DATE(NOW()) <= wrapping_enddate'
+            );
         $eventNames = $adapter->fetchAll($select);
 
         return $eventNames;
