@@ -30,7 +30,10 @@ body {
 	width: 1032px;
 }
 .breadcrumbs {
-	font-size: 12px;
+	font-size: 15px;
+	font-family: helvetica;
+	font-weight: bold;
+	margin: 30px 0 10px;
 } 
 .breadcrumbs a {
 	color: #4ec7da;
@@ -245,9 +248,6 @@ button.btn-cart {
 	.products-grid .actions .add-to-links {
 		margin-left: 0;
 	}
-	
-}
-
 
 /* -------blog custom-------- */
 .blog-index-list .main {
@@ -276,4 +276,5 @@ button.btn-cart {
     float: right;
     padding:0 0 0 3%;
     width: 22%;
+}
 }
