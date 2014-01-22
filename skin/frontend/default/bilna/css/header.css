@@ -523,6 +523,7 @@
 }
 .header .links li.track-order {
 	border-left: none;
+	padding-left: 0;
 }
 .header .links li.login, .header .links li.register {
 	padding: 0;
