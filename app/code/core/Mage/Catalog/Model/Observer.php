@@ -212,7 +212,7 @@ class Mage_Catalog_Model_Observer
     public function addCatalogToTopmenuItems(Varien_Event_Observer $observer)
     {
         $block = $observer->getEvent()->getBlock();
-        $block->addCacheTag(Mage_Catalog_Model_Category::CACHE_TAG);
+        //$block->addCacheTag(Mage_Catalog_Model_Category::CACHE_TAG);
         $this->_addCategoriesToMenu(
             Mage::helper('catalog/category')->getStoreCategories(), $observer->getMenu(), $block, true
         );
@@ -238,7 +238,7 @@ class Mage_Catalog_Model_Observer
 
             $categoryModel->setId($category->getId());
             if ($addTags) {
-                $menuBlock->addModelTags($categoryModel);
+                //$menuBlock->addModelTags($categoryModel);
             }
 
             $tree = $parentCategoryNode->getTree();
