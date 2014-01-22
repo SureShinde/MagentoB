@@ -1765,11 +1765,17 @@ tr.summary-details-excluded { font-style:italic; }
 	margin:auto;
 	padding:20px;
 }
-
+@media only screen and (min-width: 1215px){
+.row-list{
+	width:1145px;
+	margin:0 auto;
+	}
+}
 @media only screen and (max-width: 1215px){
 	.row{
 	width:994px;
 	}
+	
 }
 @media only screen and (max-width: 1023px){
 	.row{

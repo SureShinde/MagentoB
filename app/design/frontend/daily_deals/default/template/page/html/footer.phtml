@@ -29,13 +29,13 @@
 		<?php echo $this->getLayout()->createBlock('page/html')->setTemplate('page/html/back-top.phtml')->toHtml(); ?>
         <?php //echo $this->getLayout()->createBlock('page/switch')->setTemplate('page/switch/languages.phtml')->toHtml() ?>
     	<?php echo $this->getChildHtml() ?>
-		<div class="column large-2 medium-2">
+		<div class="column large-2 medium-2 shiping_partner">
 			<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('shipping_partners')->toHtml() ?>
 		</div>
-		<div class="column large-2 medium-2">
+		<div class="column large-2 medium-2 payment_partner">
         <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('payment_partners')->toHtml() ?>
 		</div>
-		<div class="column large-2 medium-2">
+		<div class="column large-2 medium-2 connect_us">
         <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('conect_us')->toHtml() ?>
 		</div>
         
