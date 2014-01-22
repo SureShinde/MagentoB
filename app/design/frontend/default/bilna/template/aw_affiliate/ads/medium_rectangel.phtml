@@ -9,7 +9,7 @@ $x = $this->productsScriptAction();
     <meta charset="utf-8">
 </head>
 <body marginwidth="0" marginheight="0" style="background-color:transparent; width: 100%; text-align: center;" topmargin="0" leftmargin="0">
-    <div id="main4b414196be" style="width:299px;height:250px;border: 1px solid #20C5DF;position:relative;padding:0px;background-color:#fff;cursor:pointer;overflow:hidden;margin-left:auto;margin-right:auto;">
+    <div id="main4b414196be" style="width:297px;height:248px;border: 1px solid #20C5DF;position:relative;padding:0px;background-color:#fff;cursor:pointer;overflow:hidden;margin-left:auto;margin-right:auto;">
         <div id="cto_banner_content">
             <style>
                 .thumb {
@@ -18,15 +18,31 @@ $x = $this->productsScriptAction();
                     height: 80px;
                     border: 1px solid #FF9B42;
                     padding: 0px;
-                    margin: 1px;
+                    margin: 5px 6px;
                     float: left
                 }
                 .thumb img{
                     padding: 2px ;
+					width: 79px !important;
+					height: 75px !important;
                 }
                 .logo_banner{
                     padding: 0px 0px 0px 0px ;   
+					background: none repeat scroll 0 0 #FFFAF4;
+					display: block;
+					clear: both;
+					width: 100%;
                 }
+				.logo_banner img{
+                    float: left;
+					padding: 10px 0 10px 10px;
+                }
+				
+				.logo_banner img.fs-aff{
+                    float: right;
+					padding: 17px 10px 10px 0;
+                }
+				
                 .text {
                     display: none;
                     position: absolute;
@@ -35,36 +51,52 @@ $x = $this->productsScriptAction();
                     width: 100%;
                     height: 100%;
                     background: #fff;
-                    background: rgba(0,0,0,0.1);
+                    background: rgba(255,255,255,0.8);
                     text-align: center;
                     font-size: 9px;
                     color: #20C5DF;
                     font-weight: bold;
+					font-family: helvetica, arial, 'sans-serif';
                 }
                 .thumb:hover .text {
                     display: block
                 }
+				.buynow-aff {
+					background: none repeat scroll 0 0 #ff7626;
+					bottom: -9px;
+					color: #FFF;
+					display: block;
+					font-size: 9px;
+					padding: 3px 0;
+					position: absolute;
+					text-align: center;
+					width: 100%;
+				}
+				
             </style>
             <div id="cto_banner_content" class="ad">
+				<div class="logo_banner">
+                    <img src="<?php echo $this->getSkinUrl('images/logo.png') ?>" height="45px"/>
+					<img src="<?php echo $this->getSkinUrl('images/free-shipping-affiliate.png') ?>" height="33px" class="fs-aff"/>
+					<div style="clear: both;"></div>
+                </div>
                 <?php foreach($x as $row):?>
                 <a href="<?php echo $row['a'];?>" alt="<?php echo $row['name'];?>" target="_blank">
                 <div class="thumb">
                     <?php echo $row['img']; ?>
                     <span class="text"><?php echo $row['name'];?>
                         <?php if( $row['price']['old_price'] > $row['price']['special_price'] ) : ?>
-                        <p style="font-size: 9px;"><?php echo $row['price']['old_price'];?></p>
-                        <p style="font-size: 9px;"><?php echo $row['price']['special_price'];?></p>
+                        <p style="font-size: 9px; font-weight: bold;"><?php echo $row['price']['old_price'];?></p>
+                        <p style="font-size: 9px; font-weight: bold;"><?php echo $row['price']['special_price'];?></p>
                         <?php else :?>
-                        <p style="font-size: 9px;"><?php echo $row['price']['old_price'];?></p>
+                        <p style="font-size: 9px; font-weight: bold;"><?php echo $row['price']['old_price'];?></p>
+						<p class="buynow-aff">Buy Now</p>
                     <?php endif;?>
                     </span>
                 </div>
                 </a>
                 <?php endforeach; ?>
-                <div class="logo_banner">
-                    <img src="http://dummyimage.com/150x100/ccc/fff" height="72px"/>
-                    <span class="text">text text text text text text text</span>
-                </div>
+                
             </div>
         </div>
     </div>
