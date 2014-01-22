@@ -1,20 +1,35 @@
 <?xml version="1.0"?>
 <layout version="0.1.0">
     <default>
-         
+		<reference name="right">
+            <block type="blog/post" name="dodo.blog.menu" before="-">
+                <action method="setTemplate">
+                    <template>aw_blog/right-block-blog.phtml</template>
+                </action>
+                <block type="blog/tags" name="blog_tags" />
+            </block>
+			<block type="cms/block" name="Blog_Media_Partner">
+				<action method="setBlockId"><block_id>blog-media-partner</block_id></action>
+			</block>
+			<block type="cms/block" name="Blog_Banner_bottom_right">
+				<action method="setBlockId"><block_id>blog-banner-bottom-right</block_id></action>
+			</block> 
+        </reference>
+		
         <reference name="footer_links">
             <block type="blog/blog" name="add.blog.footer">
                 <action method="addBlogLink" ifconfig="blog/menu/footer"><param>footer</param></action>
             </block>
         </reference>
-        <reference name="right">
+
+        <!-- <reference name="right">
             <block type="blog/menu_sidebar" name="right.blog.menu" before="-">
                 <action method="setTemplate" ifconfig="blog/menu/right" ifvalue="1">
                     <template>aw_blog/menu.phtml</template>
                 </action>
                 <block type="blog/tags" name="blog_tags" />
             </block>
-        </reference>
+        </reference> -->
         <reference name="left">
             <block type="blog/menu_sidebar" name="left.blog.menu"  before="-">
                 <action method="setTemplate" ifconfig="blog/menu/left">
