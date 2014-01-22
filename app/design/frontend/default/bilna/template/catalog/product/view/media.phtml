@@ -44,7 +44,7 @@
 	<p class="product-image product-image-zoom">
 	    <?php
 			$zoom_large_img = "zoomImage: '".$this->helper('catalog/image')->init($_product, 'image')."'";
-	        $_img = '<img id="image" class="cloudzoom" data-cloudzoom="'.$zoom_large_img.'" src="'.$this->helper('catalog/image')->init($_product, 'image')->resize( 320, 340).'" height="340" width="320" />';
+	        $_img = '<img id="image" class="cloudzoom" data-cloudzoom="'.$zoom_large_img.'" src="'.$this->helper('catalog/image')->init($_product, 'image')->resize(265).'" height="265" width="265" />';
 	        echo $_helper->productAttribute($_product, $_img, 'image');
 	    ?>
 	</p>
@@ -71,7 +71,7 @@
     <div class="more-views-slider">
     <?php foreach ($this->getGalleryImages() as $_image): ?>
 		<div class="slide">
-			<img class="cloudzoom-gallery" data-cloudzoom = "useZoom: '.cloudzoom', image: '<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'image', $_image->getFile())->resize( 320, 340); ?>', zoomImage: '<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'image', $_image->getFile()); ?>' " src="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'thumbnail', $_image->getFile())->resize(56); ?>" width="56" height="56" alt="<?php echo $this->escapeHtml($_image->getLabel()) ?>" />
+			<img class="cloudzoom-gallery" data-cloudzoom = "useZoom: '.cloudzoom', image: '<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'image', $_image->getFile())->resize(265); ?>', zoomImage: '<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'image', $_image->getFile()); ?>' " src="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'thumbnail', $_image->getFile())->resize(56); ?>" width="56" height="56" alt="<?php echo $this->escapeHtml($_image->getLabel()) ?>" />
 		</div>
     <?php endforeach; ?>
     </div>
