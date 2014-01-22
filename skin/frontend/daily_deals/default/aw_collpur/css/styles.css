@@ -89,8 +89,9 @@
 .awcp-category-grid .awcp-mark-center {
 	 background:rgba(140, 140, 140, 0.9);
     padding: 5px;
-	margin:-97px 0 0;
-	position:relative;
+	position:absolute;
+	bottom:0;
+	right:0;
 }
 
 .awcp-category-grid .awcp-details {
@@ -591,7 +592,7 @@ LI#googleplusli {
     box-shadow:2px 2px 2px #282828;
 	text-shadow:2px 2px 0 #BE6252;
 	float:right;
-	padding:7px 30px;
+	padding:5px 30px;
 	margin:10px 10px 20px;
 	border-radius:10px;
 	-webkit-border-radius:10px;
@@ -604,6 +605,7 @@ LI#googleplusli {
 }
 .col_right_deals_detail{}
 .awcp-full-description ol{
+	padding:0 0 0 17px;
 	font-size:12px;
 	list-style:decimal;
 }
@@ -612,7 +614,7 @@ LI#googleplusli {
     float: right;
     position: absolute;
     right:0;
-	bottom:0;
+	bottom:5px;
 }
 .awcp-product-name p{
 	font-size:12px;
@@ -635,11 +637,18 @@ table.awcp-pricedata tr:nth-child(1) td{
 	font-size:12px;
 }
 .right_detail_deals .awcp-buy-button{
-	margin:5px 0 0;
+	margin:0;
+}
+.desc_deals{
+	border-bottom: 1px solid #999999;
+    margin: 0 0 10px;
+    padding: 0 0 50px;
 }
 .desc_deals h2{
 	color:#fb816c;
 	text-transform:uppercase;
+	font-size:19px;
+	text-indent:20px;
 	letter-spacing:-1px;
 }
 .desc_deals .desc_one h2:before {
@@ -647,7 +656,7 @@ table.awcp-pricedata tr:nth-child(1) td{
     content: "";
     display: block;
     height: 18px;
-    left: -11px;
+    left: 10px;
     overflow: hidden;
     position: absolute;
     top: 4px;
@@ -658,7 +667,7 @@ table.awcp-pricedata tr:nth-child(1) td{
     content: "";
     display: block;
     height: 18px;
-    left: -11px;
+    left: 10px;
     overflow: hidden;
     position: absolute;
     top: 4px;
@@ -669,7 +678,7 @@ table.awcp-pricedata tr:nth-child(1) td{
     content: "";
     display: block;
     height: 18px;
-    left: -11px;
+    left: 10px;
     overflow: hidden;
     position: absolute;
     top: 4px;
@@ -701,7 +710,7 @@ table.awcp-pricedata tr:nth-child(1) td{
 	border:5px solid #fb816c;
 }
 .awcp-item:hover .awcp-mark-center{
-	margin:-102px 0 0;
+	margin:-97px 0 0;
     background:rgba(251, 129, 108, 0.9);
 }
 .awcp-mark-center .product_price{
@@ -749,12 +758,13 @@ table.awcp-pricedata tr:nth-child(1) td{
 	padding-left:0;
 }
 .back_list a{
+	float:right;
 	font-size:14px;
 	background:#f75a2f;
 	line-height:40px;
 	text-decoration:none;
-	display:block;
-	padding-left:16px;
+	display:table;
+	padding:0 16px;
 	color:#fff;
 	box-shadow:1px 1px 5px 0 #E6E6E6;
 	-moz-box-shadow:1px 1px 5px 0 #E6E6E6;
@@ -776,10 +786,10 @@ table.awcp-pricedata tr:nth-child(1) td{
 	line-height:40px;
 	color:#515151;
 	font-weight:bold;
+	margin:0 0 20px;
 }
 .after_price{
 	display:table;
-	float:left;
 }
 /*slider*/
 .wrap{
@@ -845,15 +855,14 @@ table.awcp-pricedata tr:nth-child(1) td{
 .thumb_area .current, .thumb_slider:hover{
 	background:#f75a2f;
 }
-.orbit-caption{
-	padding:10px 0 !important;
-}
+
 .orbit-caption > div{
 	border:none;
 }
 .orbit-caption label{
 	font-size:12px;
 	color:#FFF;
+	line-height:12px;
 	margin:0;
 }
 .orbit-caption p{
@@ -970,6 +979,45 @@ table.awcp-pricedata tr:nth-child(1) td{
 	display:none;
 }
 /*end slider 2*/
+.prev_page{
+	margin:20px 0;
+	padding:0;
+}
+.prev_page a{
+	font-family:'bebasregular';
+	background:#9b9b9b;
+	font-size:14px;
+	padding:14px;
+	border-top-right-radius:5px;
+	border-bottom-right-radius:5px;
+	display:table;
+	width:auto;
+	text-align:left;
+	color:#fff;
+}
+.prev_page a:before{
+	content:"◄";
+}
+.next_page{
+	margin:20px 0;
+	padding:0;
+}
+.next_page a{
+	font-family:'bebasregular';
+	background:#f75b33;
+	font-size:14px;
+	padding:14px;
+	border-top-left-radius:5px;
+	border-bottom-left-radius:5px;
+	display:table;
+	width:auto;
+	text-align:right;
+	float:right;
+	color:#fff;
+}
+.next_page a:after{
+	content:"►";
+}
 
 @media only screen and (min-width: 40.063em) { 
 	.right_detail_deals_2{
@@ -978,10 +1026,25 @@ table.awcp-pricedata tr:nth-child(1) td{
 	.right_detail_deals{
 		display:block;
 	}
-	
+	.hide_1, .hide_2, .hide_3{
+		display:block !important;
+	}
+}
+@media only screen and (max-width: 360px){
+.awcp-item .wrap_li{
+	padding:10px 0;
+}
+
 }
 @media only screen and (max-width: 40em) { 
+	.prev_page{
+		display:none;
+	}
+	.next_page{
+		display:none;
+	}
 	.awcp-mark-center{
+		background:#fff !important	;
 		margin:0 !important;
 	}
 	.right_detail_deals{
@@ -994,11 +1057,15 @@ table.awcp-pricedata tr:nth-child(1) td{
 	.price_deals_list{
 		font-size:20px;
 	}
+	.awcp-item .wrap_li{
+		box-shadow:none;
+		-moz-box-shadow:none;
+		-webkit-box-shadow:none;
+	}
 	.list_detail_right{
 		padding-left:14px;
 	}
 	.awcp-mark-center{
-		background:#fff !important;
 	}
 	.awcp-category-grid .awcp-title-list a, .awcp-mark-center .desc_short_deals, .product_price
 	{
@@ -1013,4 +1080,68 @@ table.awcp-pricedata tr:nth-child(1) td{
 	.awcp-item:hover .awcp-mark-center{
 		padding:none;
 	}
+	.shiping_partner,.payment_partner,.footer .about-us, .back_list, .also_like {
+		display:none;
+	}
+	.footer-bottom{
+	margin:20px;
+	}
+	.share{
+	position:relative;
+	top:10px;
+	}
+	.hide_1, .hide_2, .hide_3{
+		display:none;
+	}
+	.desc_deals h2 .span_2 {
+		background: url("../images/plus_desc_deals.jpg") no-repeat;
+		content: "";
+		display: block;
+		height: 17px;
+		right: 10px;
+		overflow: hidden;
+		position: absolute;
+		top: 4px;
+		width: 17px;
+	}
+	.desc_deals h2 .span_1 {
+		background: url("../images/min_desc_deals.jpg") no-repeat;
+		content: "";
+		display: block;
+		height: 17px;
+		right: 10px;
+		overflow: hidden;
+		position: absolute;
+		top: 4px;
+		width: 17px;
+	}
+	.desc_deals h2{
+		border-bottom:1px solid #e1e1e1;
+	}
+	.desc_one, .desc_two, .desc_three{
+		margin:5px 0;
+	}
 }
+@media only screen and (min-width: 1215px) { 
+	.banner_right_slider{
+		width:182px;
+		margin:0 0 0 3px;
+		height:100%;
+		background:#000;
+		float:left;
+	}
+	.slider_area{
+		width:auto;
+		float:left;
+	}
+}
+@media only screen and (max-width: 1215px) {
+	.banner_right_slider{
+		display:none;
+	}
+	.slider_area{
+		width:100%;
+		float:left;
+	}
+}
+

@@ -49,7 +49,7 @@
 <h2 id="awcp-nodeals-available"><?php echo $this->__('No deals available'); ?></h2>
 <?php return; ?>
 <?php endif; ?>
-<div>
+<div class="row-list">
 	<!--slider-->
 	<?php echo $this->getLayout()->createBlock('collpur/deals')->setTemplate('aw_collpur/deals/slider.phtml')->toHtml(); ?>
 	<!--end slider-->
@@ -187,11 +187,18 @@
      <?php $i++; endforeach; ?> 
 	</ul>
 	<div class="clearer"></div>
+	<div class="row">
+	<?php echo $this->getChildHtml('available_deals_pager'); ?>
+	</div>
+	<div class="small-3 small-push-9 columns next_page">
+		<a href="!#">NEXT PAGE</a>
+	</div>
+	<div class="small-3 small-pull-9 columns prev_page">
+		<a href="!#">PREVIOUS PAGE</a>
+	</div>
 </div>
 
-<div class="row">
-<?php echo $this->getChildHtml('available_deals_pager'); ?>
-</div>
+
  <!-- Incorrect view of buttons in catalog -->
  <style>
  button.button span span {height:auto!important;}
