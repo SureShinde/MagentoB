@@ -45,6 +45,7 @@
                 <?php echo $this->getChildHtml('breadcrumbs') ?>
                 <div class="col-main">
                     <?php echo $this->getChildHtml('global_messages') ?>
+					<?php echo $this->getLayout()->createBlock('page/html')->setTemplate('page/html/fb-comment.phtml')->toHtml(); ?>
                     <?php echo $this->getChildHtml('content') ?>
                 </div>
             </div>
