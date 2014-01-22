@@ -117,7 +117,11 @@ $j(document).ready(function(){
 			</ul>
 			<div class="sticky-top-cart">
 	    		<?php $_totalItem = $this->helper('checkout/cart')->getSummaryCount();  //get total items in cart ?>
-	    		<a href="#" class="link-minicart-sticky" id="link-minicart-sticky"><?php echo $this->__('View Cart(').$_totalItem.$this->__(')') ?></a>
+	    		<?php if($_totalItem == 0):?>
+	    			<a href="#" class="link-minicart-sticky" id="link-minicart-sticky"><?php echo $this->__('0)') ?></a>
+	    		<?php else:?>
+	    			<a href="#" class="link-minicart-sticky" id="link-minicart-sticky"><?php echo $this->__('View Cart(').$_totalItem.$this->__(')') ?></a>
+	    		<?php endif;?>
 	    		<a href="<?php if($_totalItem): echo "/checkout/cart"; endif;?>" class="link-checkout"><?php echo $this->__('Checkout') ?></a>
 	    		<div class="clear"></div>
 	    		<div class="mini-cart-sticky"><?php echo $this->getChildHtml('topcart') ?></div>
