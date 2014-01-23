@@ -120,6 +120,8 @@ class Bilna_Paymethod_VtdirectController extends Mage_Core_Controller_Front_Acti
                     $invoice = Mage::getModel('sales/service_order', $order)->prepareInvoice();
 
                     if ($invoice->getTotalQty()) {
+                        $invoice->setGrandTotal($order->getGrandTotal());
+                        $invoice->setBaseGrandTotal($order->getBaseGrandTotal());
                         $invoice->register();
                         $transactionSave = Mage::getModel('core/resource_transaction')
                             ->addObject($invoice)
@@ -308,7 +310,8 @@ class Bilna_Paymethod_VtdirectController extends Mage_Core_Controller_Front_Acti
                     $invoice = Mage::getModel('sales/service_order', $order)->prepareInvoice();
 
                     if ($invoice->getTotalQty()) {
-                        $invoice->setRequestedCaptureCase(Mage_Sales_Model_Order_Invoice::CAPTURE_OFFLINE);
+                        $invoice->setGrandTotal($order->getGrandTotal());
+                        $invoice->setBaseGrandTotal($order->getBaseGrandTotal());
                         $invoice->register();
                         $transaction = Mage::getModel('core/resource_transaction')
                             ->addObject($invoice)
