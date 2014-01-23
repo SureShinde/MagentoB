@@ -58,7 +58,23 @@ class AW_Collpur_Block_Adminhtml_Deal_Grid extends Mage_Adminhtml_Block_Widget_G
             'align' => 'right',
             'width' => '50px',
             'index' => 'id',
-        ));		
+        ));
+		
+		$this->addColumn('deal_image', array(
+			'header' => Mage::helper('collpur')->__('Deal'),
+			'align' => 'center',
+			'width' => '50px',
+			'height' => '50px',
+			'index' => 'deal_image',
+			'renderer' => 'AW_Collpur_Block_Adminhtml_Renderer_Image',
+		));
+		
+		$this->addColumn('deal_image_slider', array(
+			'header' => Mage::helper('collpur')->__('Slider'),
+			'align' => 'center',
+			'index' => 'deal_image_slider',
+			 'renderer' => 'AW_Collpur_Block_Adminhtml_Renderer_Image',
+		));
 
         if (!Mage::app()->isSingleStoreMode()) {
             $this->addColumn('store_ids', array(
