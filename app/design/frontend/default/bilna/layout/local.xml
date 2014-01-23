@@ -9,7 +9,7 @@
         		</action>
         	</block>
         	<action method="addCss"><stylesheet>css/reset.css</stylesheet></action>
- 			<action method="addCss"><stylesheet>css/general.css</stylesheet></action>
+        	<action method="addCss"><stylesheet>css/general.css</stylesheet></action>
             <action method="addCss"><stylesheet>css/header.css</stylesheet></action>
             <action method="addCss"><stylesheet>css/footer.css</stylesheet></action>
             <action method="addItem">
@@ -31,6 +31,10 @@
             <action method="addItem">
                 <type>skin_js</type>
                 <name>js/jquery.easytabs.min.js</name>
+            </action>
+            <action method="addItem">
+                <type>skin_js</type>
+                <name>js/css_browser_selector.js</name>
             </action>
         </reference>
         <reference name="header">

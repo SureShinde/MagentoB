@@ -74,7 +74,13 @@
                     <div class="rating-box">
                         <div class="rating" style="width:<?php echo $_product->getRatingSummary() ?>%"></div>
                     </div>
-                    <span class="amount"><a href="#" onclick="var t = opener ? opener.window : window; t.location.href='<?php echo $this->getReviewsUrl($_product) ?>'; return false;"><?php echo $this->__('%d Review(s)', $_product->getReviewsCount()) ?></a></span>
+                    <span class="amount">
+                    	<?php if($_product->getReviewsCount()>1):?>
+                    	<a href="#" onclick="var t = opener ? opener.window : window; t.location.href='<?php echo $this->getReviewsUrl($_product) ?>'; return false;"><?php echo $this->__('%d Reviews', $_product->getReviewsCount()) ?></a>
+                    	<?php else:?>
+	                    	<a href="#" onclick="var t = opener ? opener.window : window; t.location.href='<?php echo $this->getReviewsUrl($_product) ?>'; return false;"><?php echo $this->__('%d Review', $_product->getReviewsCount()) ?></a>
+                    	<?php endif?>
+                    </span>
                     <?php endif;?>
                 </div>
                 <?php endif;?>
