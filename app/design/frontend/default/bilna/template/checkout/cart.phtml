@@ -32,11 +32,6 @@
  */
 ?>
 <div class="cart">
-    <div class="page-title title-buttons">
-        <p><?php echo $this->__('Get <span>50% OFF</span> on reusable diapers.') ?></p>
-        <p><?php echo $this->__('Buy 2 Get 1 <span>FREE</span> for Cussons Baby Wipes.') ?></p>
-        <p><?php echo $this->__('<span>CLERANCE SALE</span> on baby food and formula.') ?></p>
-    </div>
     <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
     <?php echo $this->getChildHtml('form_before') ?>
     <form action="<?php echo $this->getUrl('checkout/cart/updatePost') ?>" method="post">
@@ -68,12 +63,12 @@
                     <tr>
                         <th rowspan="<?php echo $mergedCells; ?>"><span class="title"><?php echo $this->__('Shopping Cart') ?></span></th>
                         <th rowspan="<?php echo $mergedCells; ?>"><span class="nobr"><?php echo $this->__('Item(s)') ?></span></th>
-                        <th rowspan="<?php echo $mergedCells; ?>"><span class="weight"><?php echo $this->__('Weight') ?></span></th>
+                        <th class="a-center" colspan="<?php echo $mergedCells; ?>"><span class="nobr"><?php echo $this->__('Price') ?></span></th>
                         <th rowspan="<?php echo $mergedCells; ?>" class="a-center"><?php echo $this->__('Quantity') ?></th>
+                        <th class ="a-right" rowspan="<?php echo $mergedCells; ?>"><span class="weight"><?php echo $this->__('Weight') ?></span></th>
                         <?php if ($this->helper('wishlist')->isAllowInCart()) : ?>
                         <th rowspan="<?php echo $mergedCells; ?>" class="a-center"><span class="nobr"><?php echo $this->__('Move to Wishlist') ?></span></th>
                         <?php endif ?>
-                        <th class="a-center" colspan="<?php echo $mergedCells; ?>"><span class="nobr"><?php echo $this->__('Price') ?></span></th>
                         <th class="a-center" colspan="<?php echo $mergedCells; ?>"><?php echo $this->__('Subtotal') ?></th>
                         <th rowspan="<?php echo $mergedCells; ?>" class="a-center"><?php echo $this->__('Remove') ?></th>
                     </tr>
@@ -89,11 +84,26 @@
                 <tfoot>
                     <tr>
                         <td colspan="50" class="a-right">
+							<?php if(!$this->hasError()): ?>
+							<ul class="checkout-types">
+							<?php $idx_method = 0; ?>
+							<?php foreach ($this->getMethods('methods') as $method): ?>
+								<?php if ($methodHtml = $this->getMethodHtml($method)): ?>
+								<li><?php echo $methodHtml; $idx_method = $idx_method + 1; ?></li>
+								<?php endif; ?>
+								<?php if ($idx_method > 0): ?>
+									<?php break; ?>
+								<?php endif; ?>
+							<?php endforeach; ?>
+							</ul>
+							<?php endif; ?>
+							
                             <?php if($this->getContinueShoppingUrl()): ?>
                                 <button type="button" title="<?php echo $this->__('Continue Shopping') ?>" class="button btn-continue" onclick="setLocation('<?php echo $this->getContinueShoppingUrl() ?>')"><span><span><?php echo $this->__('Continue Shopping') ?></span></span></button>
                             <?php endif; ?>
-                            <button type="submit" name="update_cart_action" value="empty_cart" title="<?php echo $this->__('Clear Shopping Cart'); ?>" class="button btn-empty" id="empty_cart_button"><span><span><?php echo $this->__('Clear Shopping Cart'); ?></span></span></button>
-                            <!--[if lt IE 8]>
+							
+                            <!-- <button type="submit" name="update_cart_action" value="empty_cart" title="<?php echo $this->__('Clear Shopping Cart'); ?>" class="button btn-empty" id="empty_cart_button"><span><span><?php echo $this->__('Clear Shopping Cart'); ?></span></span></button>
+                            [if lt IE 8]>
                             <input type="hidden" id="update_cart_action_container" />
                             <script type="text/javascript">
                             //<![CDATA[
@@ -127,6 +137,16 @@
 							<button type="submit" name="update_cart_action" value="update_qty" title="<?php echo $this->__('Update Changes'); ?>" class="button btn-update"><span><span><?php echo $this->__('Update Changes'); ?></span></span></button>
 						</td>
 					</tr>
+					<tr class="discount-totals-wrap">
+						<td colspan="2" class="a-right">
+							<?php echo $this->getChildHtml('coupon') ?>
+						</td>
+						<td colspan="50" class="a-right">
+							<div class="totals">
+								<?php echo $this->getChildHtml('totals'); ?>
+							</div>
+						</td>
+					</tr>
                 </tbody>
             </table>
             <script type="text/javascript">decorateTable('shopping-cart-table')</script>
@@ -135,26 +155,10 @@
     <div class="cart-collaterals">
         <div class="col2-set">
             <div class="col-1">
-                <?php echo $this->getChildHtml('crosssell') ?>
-            </div>
-            <div class="col-2">
                 <?php /* Extensions placeholder */ ?>
                 <?php echo $this->getChildHtml('checkout.cart.extra') ?>
-                <?php echo $this->getChildHtml('coupon') ?>
                 <?php if (!$this->getIsVirtual()): echo $this->getChildHtml('shipping'); endif; ?>
             </div>
-        </div>
-        <div class="totals">
-            <?php echo $this->getChildHtml('totals'); ?>
-            <?php if(!$this->hasError()): ?>
-            <ul class="checkout-types">
-            <?php foreach ($this->getMethods('methods') as $method): ?>
-                <?php if ($methodHtml = $this->getMethodHtml($method)): ?>
-                <li><?php echo $methodHtml; ?></li>
-                <?php endif; ?>
-            <?php endforeach; ?>
-            </ul>
-            <?php endif; ?>
         </div>
     </div>
 </div>
