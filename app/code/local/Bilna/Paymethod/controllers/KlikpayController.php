@@ -9,20 +9,23 @@ class Bilna_Paymethod_KlikpayController extends Mage_Core_Controller_Front_Actio
     protected $_code = 'klikpay';
     protected $_typeTransaction = 'transaction';
     protected $_typeConfirmation = 'confirmation';
-    
+
     public function redirectAction() {
         $this->loadLayout();
+        $this->getLayout()->getBlock('head')->setTitle($this->__('Redirect Page'));
         $this->renderLayout();
     }
     
     public function inquiryAction() {
-        $contentLog = sprintf("%s | request_klikpay: %s", $transactionNo, json_encode($this->getRequest()->getParams()));
-        $this->writeLog($this->_typeTransaction, 'inquiry', $contentLog);
+        $this->writeLog($this->_typeTransaction, 'inquiry', 'request_method: ' . $this->getRequestMethod());
         
         $klikpayUserId = $this->getRequestData('klikPayCode');
         $additionalData = $this->getRequestData('additionalData');
         $transactionNo = $this->getRequestData('transactionNo');
         $signature = $this->getRequestData('signature');
+        
+        $contentLog = sprintf("%s | request_klikpay: %s", $transactionNo, json_encode($this->getRequestData()));
+        $this->writeLog($this->_typeTransaction, 'inquiry', $contentLog);
         
         $orderCollection = Mage::getModel('sales/order')->getCollection();
         $orderCollection->addFieldToFilter('status', 'pending');
@@ -65,34 +68,31 @@ class Bilna_Paymethod_KlikpayController extends Mage_Core_Controller_Front_Actio
                 $xml .= "<transactionNo>" . $transactionNo . "</transactionNo>";
                 $xml .= "<currency>IDR</currency>";
                 
-                $_miscFee = false;
-                
                 foreach ($items as $itemId => $item) {
                     $_installmentTypeValue = Mage::helper('paymethod/klikpay')->getInstallmentOption($item->getInstallmentType(), 'value');
-                    
-                    if ($_installmentTypeValue == Bilna_Paymethod_Model_Method_Klikpay::PAYMENT_TYPE_FULL_TRANSACTION) {
-                        $xml .= "<fullTransaction>";
-                        $xml .= "<amount>" . number_format((int) $item->getRowTotal(), 2, null, '') . "</amount>";
-                        $xml .= "<description>" . Mage::helper('paymethod/klikpay')->_removeSymbols($item->getName()) . "</description>";
-                        $xml .= "</fullTransaction>";
-                    }
-                    else {
-                        $_tenor = Mage::helper('paymethod/klikpay')->getInstallmentOption($item->getInstallmentType(), 'tenor');
-                        $_merchantId = Mage::helper('paymethod/klikpay')->getInstallmentOption($item->getInstallmentType(), 'merchantid');
-                        
-                        $xml .= "<installmentTransaction>";
-                        $xml .= "<itemName>" . Mage::helper('paymethod/klikpay')->_removeSymbols($item->getName()) . "</itemName>";
-                        $xml .= "<quantity>" . number_format($item->getQtyOrdered()) . "</quantity>";
-                        $xml .= "<amount>" . number_format((int) $item->getRowTotal(), 2, null, '') . "</amount>";
-                        $xml .= "<tenor>" . $_tenor . "</tenor>";
-                        $xml .= "<codePlan>000</codePlan>";
-                        $xml .= "<merchantId>" . $_merchantId . "</merchantId>";
-                        $xml .= "</installmentTransaction>";
-                        $_miscFee = true;
-                    }
+                    $_tenor = Mage::helper('paymethod/klikpay')->getInstallmentOption($item->getInstallmentType(), 'tenor');
+                    $_merchantId = Mage::helper('paymethod/klikpay')->getInstallmentOption($item->getInstallmentType(), 'merchantid');
+                    break;
+                }
+
+                if ($_installmentTypeValue == Bilna_Paymethod_Model_Method_Klikpay::PAYMENT_TYPE_FULL_TRANSACTION) {
+                    $xml .= "<fullTransaction>";
+                    $xml .= "<amount>" . number_format((int) $order->getGrandTotal(), 2, null, '') . "</amount>";
+                    $xml .= "<description>" . Mage::helper('paymethod/klikpay')->_removeSymbols('Order Item ' . $transactionNo) . "</description>";
+                    $xml .= "</fullTransaction>";
+                }
+                else {
+                    $xml .= "<installmentTransaction>";
+                    $xml .= "<itemName>" . Mage::helper('paymethod/klikpay')->_removeSymbols('Order Item ' . $transactionNo) . "</itemName>";
+                    $xml .= "<quantity>1</quantity>";
+                    $xml .= "<amount>" . number_format((int) $order->getGrandTotal(), 2, null, '') . "</amount>";
+                    $xml .= "<tenor>" . $_tenor . "</tenor>";
+                    $xml .= "<codePlan>000</codePlan>";
+                    $xml .= "<merchantId>" . $_merchantId . "</merchantId>";
+                    $xml .= "</installmentTransaction>";
                 }
                 
-                $xml .= $_miscFee === false ? "<miscFee></miscFee>" : "<miscFee>" . number_format((int) $order->getShippingAmount(), 2, null, '') . "</miscFee>";
+                $xml .= "<miscFee></miscFee>";
                 $xml .= "<additionalData>" . $additionalData . "</additionalData>";
                 $xml .= "</OutputListTransactionIPAY>";
                 
@@ -106,8 +106,7 @@ class Bilna_Paymethod_KlikpayController extends Mage_Core_Controller_Front_Actio
     }
     
     public function paymentAction() {
-        $contentLog = sprintf("%s | request_klikpay: %s", $transactionNo, json_encode($this->getRequest()->getParams()));
-        $this->writeLog($this->_typeTransaction, 'payment', $contentLog);
+        $this->writeLog($this->_typeTransaction, 'payment', 'request_method: ' . $this->getRequestMethod());
         
         $klikpayUserId = $this->getRequestData('klikPayCode');
         $transactionDate = $this->getRequestData('transactionDate');
@@ -121,6 +120,9 @@ class Bilna_Paymethod_KlikpayController extends Mage_Core_Controller_Front_Actio
         $authKey = $this->getRequestData('authKey');
         $additionalData = $this->getRequestData('additionalData');
         $status = '01';
+        
+        $contentLog = sprintf("%s | request_klikpay: %s", $transactionNo, json_encode($this->getRequestData()));
+        $this->writeLog($this->_typeTransaction, 'payment', $contentLog);
         
         $idReason = '';
         $enReason = '';
@@ -260,7 +262,6 @@ class Bilna_Paymethod_KlikpayController extends Mage_Core_Controller_Front_Actio
         die($xml);
     }
     
-    //http://stage.bilna.com/klikpay/processing/thankyou/id/
     public function thankyouAction() {
         // parameter id tidak ada
         if (!$this->getRequest()->getParam('id')) {
@@ -268,20 +269,41 @@ class Bilna_Paymethod_KlikpayController extends Mage_Core_Controller_Front_Actio
         }
 
         $this->loadLayout();
+        $this->getLayout()->getBlock('head')->setTitle($this->__('Thank you Page'));
         $this->renderLayout();
     }
     
-    protected function getRequestData($key, $type = 'POST') {
+    public function payAction() {
+        $this->loadLayout();
+        $this->renderLayout();
+    }
+    
+    protected function getRequestMethod() {
+        return Mage::getStoreConfig('payment/' . $this->_code . '/request_method');
+    }
+    
+    protected function getRequestData($key = '') {
+        $method = $this->getRequestMethod();
         $result = '';
         
-        if ($type == 'POST') {
-            if ($this->getRequest()->getPost($key)) {
-                $result = $this->getRequest()->getPost($key);
+        if ($method == 'POST') {
+            if ($key == '') {
+                $result = $this->getRequest()->getPost();
+            }
+            else {
+                if ($this->getRequest()->getPost($key)) {
+                    $result = $this->getRequest()->getPost($key);
+                }
             }
         }
         else {
-            if ($this->getRequest()->getParam($key)) {
-                $result = $this->getRequest()->getParam($key);
+            if ($key == '') {
+                $result = $this->getRequest()->getParams();
+            }
+            else {
+                if ($this->getRequest()->getParam($key)) {
+                    $result = $this->getRequest()->getParam($key);
+                }
             }
         }
         

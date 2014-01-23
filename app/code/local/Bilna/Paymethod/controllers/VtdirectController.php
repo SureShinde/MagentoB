@@ -80,7 +80,7 @@ class Bilna_Paymethod_VtdirectController extends Mage_Core_Controller_Front_Acti
             /**
              * processing order
              */
-            $this->updateOrder($order, $responseCharge);
+            $this->updateOrder($order, $paymentCode, $responseCharge);
         }
         else {
             $this->_redirect('checkout/cart');
@@ -109,10 +109,8 @@ class Bilna_Paymethod_VtdirectController extends Mage_Core_Controller_Front_Acti
     }
     
     public function notificationAction() {
-        $notification = json_decode($this->getRequestData('vtdirect'));
-        
+        $notification = json_decode(file_get_contents('php://input'));
         $contentRequest = sprintf("%s | request_vtdirect: %s", $notification->data->order_id, json_encode($notification));
-        $this->writeLog($this->_typeTransaction, 'notification', $contentRequest);
         
         if ($this->getServerKey() == $notification->data->server_key) {
             $order = Mage::getModel('sales/order')->loadByIncrementId($notification->data->order_id);
@@ -300,21 +298,28 @@ class Bilna_Paymethod_VtdirectController extends Mage_Core_Controller_Front_Acti
         return Mage::getStoreConfig('payment/vtdirect/server_key');
     }
 
-    private function updateOrder($order, $responseCharge) {
+    private function updateOrder($order, $paymentCode, $responseCharge) {
         if ($responseCharge->status == 'success') {
-            if ($order->canInvoice()) {
-                $invoice = Mage::getModel('sales/service_order', $order)->prepareInvoice();
+            if ($this->getThreedSecure($paymentCode)) {
+                $order->setState(Mage_Sales_Model_Order::STATE_NEW, true, 'Pending for 3D Secure Validation', true)->save();
+            }
+            else {
+                if ($order->canInvoice()) {
+                    $invoice = Mage::getModel('sales/service_order', $order)->prepareInvoice();
 
-                if ($invoice->getTotalQty()) {
-                    $invoice->register();
-                    $transactionSave = Mage::getModel('core/resource_transaction')
-                        ->addObject($invoice)
-                        ->addObject($invoice->getOrder());
-                    $transactionSave->save();                            
-                    $order->setState(Mage_Sales_Model_Order::STATE_PROCESSING, true, $responseCharge->message, true)->save();
-                    $invoice->sendEmail(true, '');
+                    if ($invoice->getTotalQty()) {
+                        $invoice->setRequestedCaptureCase(Mage_Sales_Model_Order_Invoice::CAPTURE_OFFLINE);
+                        $invoice->register();
+                        $transaction = Mage::getModel('core/resource_transaction')
+                            ->addObject($invoice)
+                            ->addObject($invoice->getOrder());
+                        $order->setState(Mage_Sales_Model_Order::STATE_PROCESSING, true, $responseCharge->message, true);
+                        $order->save();
+                        $transaction->save();
+                        $invoice->sendEmail(true, '');
 
-                    return true;
+                        return true;
+                    }
                 }
             }
 

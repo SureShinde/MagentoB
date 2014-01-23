@@ -105,20 +105,19 @@
     	</reference>
     	                        
         <reference name="content">
-            <block type="paymethod/block_klikpay_thankyou" name="paymethod_klikpay_thankyou" template="paymethod/klikpay/thankyou.phtml"/>
+            <block type="paymethod/klikpay_thankyou" name="paymethod_klikpay_thankyou" template="paymethod/klikpay/thankyou.phtml"/>
         </reference>
     </paymethod_klikpay_thankyou>
-
-    <!--klikpay_processing_pay>
+    
+    <paymethod_klikpay_pay>
         <reference name="root">
             <action method="setTemplate"><template>page/1column.phtml</template></action>
         </reference>
         
         <reference name="content">
-            <block type="klikpay/redirect" name="klikpay_redirect" template="klikpay/redirect.phtml"/>            
+            <block type="paymethod/klikpay_pay" name="paymethod_klikpay_pay" template="paymethod/klikpay/pay.phtml"/>
         </reference>
-    </klikpay_processing_pay-->
-    
+    </paymethod_klikpay_pay>
     
     <!-- Credit Card VT-Direct -->
     <paymethod_vtdirect_thankyou>
