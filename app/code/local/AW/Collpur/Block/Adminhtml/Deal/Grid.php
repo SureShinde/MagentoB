@@ -58,7 +58,7 @@ class AW_Collpur_Block_Adminhtml_Deal_Grid extends Mage_Adminhtml_Block_Widget_G
             'align' => 'right',
             'width' => '50px',
             'index' => 'id',
-        ));
+        ));		
 
         if (!Mage::app()->isSingleStoreMode()) {
             $this->addColumn('store_ids', array(
