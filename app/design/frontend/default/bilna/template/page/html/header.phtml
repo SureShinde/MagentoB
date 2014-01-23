@@ -191,12 +191,14 @@ $j(document).ready(function(){
 </div>
 <?php echo $this->getChildHtml('topMenu') ?>
 <div class="menu-tablet">
+	<div class="header-container">
 	<?php echo $this->getChildHtml('topLinks') ?>
 	<div class="store-phone">
 		<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('store_phone')->toHtml() ?>
 	</div>
 	<?php echo $this->getChildHtml('store_language') ?>
 	<div class="clear"></div>
+	</div>
 </div>
 <!--this is for testing only-->
 <?php //echo $this->getLayout()->createBlock("core/template")->setTemplate("page/template/bottommenu.phtml")->toHtml(); ?>
