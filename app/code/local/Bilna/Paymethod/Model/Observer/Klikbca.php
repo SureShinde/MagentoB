@@ -129,6 +129,8 @@ class Bilna_Paymethod_Model_Observer_Klikbca {
                 $invoice = Mage::getModel('sales/service_order', $order)->prepareInvoice();
 
                 if ($invoice->getTotalQty()) {
+                    $invoice->setGrandTotal($order->getGrandTotal());
+                    $invoice->setBaseGrandTotal($order->getBaseGrandTotal());
                     $invoice->register();
                     $transactionSave = Mage::getModel('core/resource_transaction')
                         ->addObject($invoice)

@@ -127,7 +127,6 @@ class Bilna_Paymethod_KlikbcaController extends Mage_Core_Controller_Front_Actio
                 $reason = $this->_reasonTrxExpired;
             }
             else {
-               // create invoice
                try {
                    $order->setState(Mage_Sales_Model_Order::STATE_NEW, 'klikbca_pending', Mage::getStoreConfig('payment/klikbca/order_klikbca_pending_comment'), true)->save();
                    $status = $this->_statusTrxSuccess;
