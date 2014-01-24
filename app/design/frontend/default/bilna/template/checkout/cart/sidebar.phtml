@@ -44,6 +44,7 @@
 		        	<th>&nbsp;</th>
 		        	<th><?php echo $this->__('Quantity') ?></th>
 		        	<th class="price"><?php echo $this->__('Price') ?></th>
+		        	<th>&nbsp;</th>
 	        	</tr>
         	</thead>
        	</table>
@@ -51,7 +52,7 @@
        <div class="mini-cart-content">
 			
 	       	<table id="cart-sidebar" class="mini-products-list">
-		        <tbody>
+	       		<tbody>
 			        <?php foreach($_items as $_item): ?>
 			            <?php echo $this->getItemHtml($_item) ?>
 			        <?php endforeach; ?>
@@ -76,16 +77,16 @@
 	                <?php endif; ?>
 	            </p>
 	            <?php if ($_cartQty==1): ?>
-	                <p class="amount"><?php echo $this->__('You have <a href="%s">1 item</a> in your cart.', $this->getUrl('checkout/cart')) ?></p>
+	                <p class="amount"><?php echo $this->__('You have <a href="%s">1</a> item in your cart.', $this->getUrl('checkout/cart')) ?></p>
 	            <?php else: ?>
-	                <p class="amount"><?php echo $this->__('You have <a href="%s">%s items</a> in your cart.', $this->getUrl('checkout/cart'), $_cartQty) ?></p>
+	                <p class="amount"><?php echo $this->__('You have <a href="%s">%s</a> items in your cart.', $this->getUrl('checkout/cart'), $_cartQty) ?></p>
 	            <?php endif ?>
 	        </div>
 	    <?php endif ?>
 	    <?php if($_cartQty && $this->isPossibleOnepageCheckout()): ?>
 		    <div class="actions">
 		        <?php echo $this->getChildHtml('extra_actions') ?>
-		        <button type="button" title="<?php echo $this->__('Checkout') ?>" class="button btn-checkout" onclick="setLocation('<?php echo $this->getUrl('checkout/cart')?>')"><span><span><?php echo $this->__('Checkout') ?></span></span></button>
+		        <button type="button" title="<?php echo $this->__('Checkout') ?>" class="button btn-checkout" onclick="setLocation('<?php echo $this->getUrl('checkout/cart')?>')"><span><span><?php echo $this->__('Checkout') ?> <img src="<?php echo $this->getSkinUrl('images/arrow.png') ?>"/></span></span></button>
 		    </div>
 	    <?php endif ?>
     </div>
