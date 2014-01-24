@@ -421,7 +421,7 @@
 	margin:0 10px 3px;
 	text-align: center;
 }
-.header .quick-access .top-cart a.link-checkout, .mini-cart .block-cart .actions button.button.btn-checkout, .mini-cart-mobile .block-cart .actions button.button.btn-checkout, .sticky-header .sticky-top-cart a.link-checkout, .mini-cart-sticky .block-cart .actions button.button.btn-checkout {
+.header .quick-access .top-cart a.link-checkout, .mini-cart-mobile .block-cart .actions button.button.btn-checkout, .sticky-header .sticky-top-cart a.link-checkout {
 	background-image: url(../images/arrow.png);
 	background-repeat: no-repeat;
 }
@@ -437,11 +437,11 @@
 .header .mini-cart {
 	display: none;
 	position: absolute;
-	left: 0;
-	top:31px;
+	right: 67px;
+	top:30px;
 	border: 1px solid #ffa01b;
 	background: #fff;
-	width: 100%;
+	width: 342px;
 }
 .header .mini-cart .block-cart {
 	border: none;
@@ -467,7 +467,7 @@
 .mini-products-list thead tr th {
 	font-weight: bold;
 	padding: 5px;
-	text-align: center;
+	text-align: left;
 	font-size: 1.05em;
 }
 .mini-products-list thead tr th.price {
@@ -526,6 +526,7 @@
 .mini-cart .block-cart .amount a, .mini-cart-sticky .block-cart .amount a {
 	text-transform: none;
 	font-size: 1em;
+	color: #fd8e17;
 }
 .mini-products-list input.input-text.qty {
 	width: 28px !important;
@@ -543,17 +544,26 @@
 }
 .mini-cart .block-cart .subtotal, .mini-cart .block-cart .amount, .mini-cart-sticky .block-cart .subtotal, .mini-cart-sticky .block-cart .amount {
 	text-align: right;
-	font-size: 1.05em;
+	font-size: 12px;
 }
 .mini-cart .block-cart .subtotal, .mini-cart-sticky .block-cart .subtotal {
 	font-weight: bold;
 	background: none;
 }
+.mini-cart .block-cart .subtotal {
+	font-size: 14px;
+}
+.mini-cart .block-cart .subtotal span.price {
+	color: #fd8e17;
+}
 .mini-cart .block-cart .actions, .mini-cart-sticky .block-cart .actions {
 	padding-top: 0;
 	padding-bottom: 0;
-	text-align: right;
+	text-align: left;
 	border-bottom: none;
+}
+.mini-cart .block-cart .actions button.button.btn-checkout, .mini-cart-sticky .block-cart .actions button.button.btn-checkout {
+	width: 100%;
 }
 .mini-cart .block-cart .actions button.button.btn-checkout, .mini-cart-mobile .block-cart .actions button.button.btn-checkout, .mini-cart-sticky .block-cart .actions button.button.btn-checkout {
 	display: inline-block;
@@ -580,6 +590,9 @@
 	font-family: 'bebasregular';
 	font-weight: normal;
 	line-height: normal;
+}
+.mini-cart .block-cart .actions button.button.btn-checkout span span img, .mini-cart-sticky .block-cart .actions button.button.btn-checkout span span img {
+	margin-top: 5px;
 }
 .header .quick-access .left {
 	margin: 4px 50px 0 0;
