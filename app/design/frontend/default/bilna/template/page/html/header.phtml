@@ -110,7 +110,14 @@ $j(document).ready(function(){
 			<a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="sticky-logo"><img src="<?php echo $this->getSkinUrl(); ?>images/logo-sticky.png" alt="<?php echo $this->getLogoAlt() ?>" /></a>
 			<ul class="sticky-menu">
 				<li><a href="#"><?php echo $this->__('Today\'s Promo') ?></a></li>
-				<li><a href="#"><?php echo $this->__('Get Free Voucher!') ?></a></li>
+				<li class="link-free-voucher">
+					<a href="#"><?php echo $this->__('Get Free Voucher!') ?></a>
+					<div class="free-voucher-info">
+						<h3><?php echo $this->__('Get Free Rp50,000 Voucher!') ?></h3>
+						<p><?php echo $this->__('Sign up to Bilna Newsletter and get your voucher!') ?></p>
+						<div class="header-newsletter"><?php echo $this->getChildHtml('header.newsletter'); ?></div>
+					</div>
+				</li>
 				<li class="link-customer-care"><a href="#" ><?php echo $this->__('Customer Care Center') ?></a></li>
 				<li class="link-customer-care2"><a href="#" ><?php echo $this->__('Care Center') ?></a></li>
 				<div class="clear"></div>
@@ -169,8 +176,7 @@ $j(document).ready(function(){
 	        	<?php echo $this->getChildHtml('store_language') ?>
 	        </div>
         	<div class="clear"></div>
-        	
-            <p class="welcome-msg"><?php echo $this->getChildHtml('welcome') ?> <?php echo $this->getAdditionalHtml() ?></p>
+        	<p class="welcome-msg"><?php echo $this->getChildHtml('welcome') ?> <?php echo $this->getAdditionalHtml() ?></p>
            
             <?php echo $this->getChildHtml('topSearch') ?>
             <?php echo $this->getChildHtml('store_language') ?>
@@ -185,12 +191,14 @@ $j(document).ready(function(){
 </div>
 <?php echo $this->getChildHtml('topMenu') ?>
 <div class="menu-tablet">
+	<div class="header-container">
 	<?php echo $this->getChildHtml('topLinks') ?>
 	<div class="store-phone">
 		<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('store_phone')->toHtml() ?>
 	</div>
 	<?php echo $this->getChildHtml('store_language') ?>
 	<div class="clear"></div>
+	</div>
 </div>
 <!--this is for testing only-->
 <?php //echo $this->getLayout()->createBlock("core/template")->setTemplate("page/template/bottommenu.phtml")->toHtml(); ?>

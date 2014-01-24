@@ -63,14 +63,31 @@
 <?php endif; ?>
 <script type="text/javascript">
 	$j(document).ready(function(){
-		CloudZoom.quickStart();
+		if($j(window).width() > 750){
+			CloudZoom.quickStart();
+		} 
+		else {
+			$j('#thumblist a').live('click',function(){
+				$j('#thumblist a').each(function(){
+					$j(this).removeClass('zoomThumbActive');
+				});
+				var options = new Object();
+				options = jQuery.extend({}, eval("(" + jQuery.trim(jQuery(this).attr('rel')) + ")"));
+
+				$j('.product-image.image-zoom img').attr('src', options.smallimage);
+				$j('.product-image.image-zoom').attr('href', options.largeimage);
+
+				$j(this).addClass('zoomThumbActive');
+				state = false;
+			});
+		}
 	});
 </script>   
 <?php if (count($this->getGalleryImages()) > 0): ?>
 <div class="more-views">
     <div class="more-views-slider">
     <?php foreach ($this->getGalleryImages() as $_image): ?>
-		<div class="slide">
+		<div class="slide<?php if (count($this->getGalleryImages()) < 5): echo " no-slider"; endif; ?>">
 			<img class="cloudzoom-gallery" data-cloudzoom = "useZoom: '.cloudzoom', image: '<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'image', $_image->getFile())->resize(265); ?>', zoomImage: '<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'image', $_image->getFile()); ?>' " src="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'thumbnail', $_image->getFile())->resize(56); ?>" width="56" height="56" alt="<?php echo $this->escapeHtml($_image->getLabel()) ?>" />
 		</div>
     <?php endforeach; ?>
