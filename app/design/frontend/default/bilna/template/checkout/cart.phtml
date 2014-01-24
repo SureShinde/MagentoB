@@ -61,16 +61,16 @@
             <?php $mergedCells = ($this->helper('tax')->displayCartBothPrices() ? 2 : 1); ?>
                 <thead>
                     <tr>
-                        <th rowspan="<?php echo $mergedCells; ?>"><span class="title"><?php echo $this->__('Shopping Cart') ?></span></th>
-                        <th rowspan="<?php echo $mergedCells; ?>"><span class="nobr"><?php echo $this->__('Item(s)') ?></span></th>
-                        <th class="a-center" colspan="<?php echo $mergedCells; ?>"><span class="nobr"><?php echo $this->__('Price') ?></span></th>
-                        <th rowspan="<?php echo $mergedCells; ?>" class="a-center"><?php echo $this->__('Quantity') ?></th>
-                        <th class ="a-right" rowspan="<?php echo $mergedCells; ?>"><span class="weight"><?php echo $this->__('Weight') ?></span></th>
+                        <th class="shopping-cart" rowspan="<?php echo $mergedCells; ?>"><span class="title"><?php echo $this->__('Shopping Cart') ?></span></th>
+                        <th class="items" rowspan="<?php echo $mergedCells; ?>"><span class="nobr"><?php echo $this->__('Item(s)') ?></span></th>
                         <?php if ($this->helper('wishlist')->isAllowInCart()) : ?>
-                        <th rowspan="<?php echo $mergedCells; ?>" class="a-center"><span class="nobr"><?php echo $this->__('Move to Wishlist') ?></span></th>
+                        <th class="wishlist" rowspan="<?php echo $mergedCells; ?>" class="a-center"><span class="nobr"><?php echo $this->__('Move to Wishlist') ?></span></th>
                         <?php endif ?>
-                        <th class="a-center" colspan="<?php echo $mergedCells; ?>"><?php echo $this->__('Subtotal') ?></th>
-                        <th rowspan="<?php echo $mergedCells; ?>" class="a-center"><?php echo $this->__('Remove') ?></th>
+                        <th class="a-right" colspan="<?php echo $mergedCells; ?>"><span class="nobr"><?php echo $this->__('Price') ?></span></th>
+                        <th rowspan="<?php echo $mergedCells; ?>" class="a-center"><?php echo $this->__('Quantity') ?></th>
+                        <th class="a-right" rowspan="<?php echo $mergedCells; ?>"><span class="weight"><?php echo $this->__('Weight') ?></span></th>
+                        <th class="a-right" colspan="<?php echo $mergedCells; ?>"><?php echo $this->__('Subtotal') ?></th>
+                        <th class="a-right" rowspan="<?php echo $mergedCells; ?>" class="a-center"><?php echo $this->__('Remove') ?></th>
                     </tr>
                     <?php if ($this->helper('tax')->displayCartBothPrices()): ?>
                     <tr>
@@ -127,6 +127,16 @@
                             <![endif]-->
                         </td>
                     </tr>
+					<tr class="one-click-checkout">
+						<td colspan="50" class="a-right">
+						<?php if( $this->helper('customer')->isLoggedIn() ) : ?>
+							<a href="#"><?php echo $this->__('One Click Checkout') ?></a>
+						<?php else : ?>
+							<a href="#"><?php echo $this->__('Log in') ?></a>
+							<?php echo $this->__('to turn on One Click Checkout') ?>
+						<?php endif; ?>
+						</td>
+					</tr>
                 </tfoot>
                 <tbody>
                 <?php foreach($this->getItems() as $_item): ?>
@@ -137,14 +147,35 @@
 							<button type="submit" name="update_cart_action" value="update_qty" title="<?php echo $this->__('Update Changes'); ?>" class="button btn-update"><span><span><?php echo $this->__('Update Changes'); ?></span></span></button>
 						</td>
 					</tr>
-					<tr class="discount-totals-wrap">
-						<td colspan="2" class="a-right">
+					
+					<tr class="table-bottom-wrap top">
+						<td class="a-right discount-column" colspan="2">
 							<?php echo $this->getChildHtml('coupon') ?>
 						</td>
-						<td colspan="50" class="a-right">
+						<td class="a-right subtotal-title"<?php if ($this->helper('wishlist')->isAllowInCart()) : ?> colspan="2"<?php endif; ?>>&nbsp;</td>
+						<td class="a-center">
+							<div class="sum-qty"><?php echo Mage::getModel('checkout/cart')->getQuote()->getItemsQty(); ?></div>
+						</td>
+						<td class="a-right">
+							<div class="sum-weights">
+							<?php 
+								$items = Mage::getSingleton('checkout/session')->getQuote()->getAllItems();
+								$weight = 0;
+								foreach($items as $item) {
+									$weight += ($item->getWeight() * $item->getQty()) ;
+								}
+								if ( $weight != 0 )
+									echo $this->__('%0.2f Kg', $weight);
+							?>
+							</div>
+						</td>
+						<td class="a-right">
 							<div class="totals">
 								<?php echo $this->getChildHtml('totals'); ?>
 							</div>
+						</td>
+						<td colspan="50">
+							&nbsp;
 						</td>
 					</tr>
                 </tbody>
@@ -162,3 +193,6 @@
         </div>
     </div>
 </div>
+<tr>
+	<td><td>
+<tr>
