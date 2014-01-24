@@ -110,7 +110,7 @@ class Bilna_Paymethod_VtdirectController extends Mage_Core_Controller_Front_Acti
     
     public function notificationAction() {
         $notification = json_decode(file_get_contents('php://input'));
-        $contentRequest = sprintf("%s | request_vtdirect: %s", $notification->data->order_id, json_encode($notification));
+        $contentRequest = sprintf("%s | request_vtdirect: %s", $notification->data->order_id, $notification);
         
         if ($this->getServerKey() == $notification->data->server_key) {
             $order = Mage::getModel('sales/order')->loadByIncrementId($notification->data->order_id);
@@ -120,6 +120,7 @@ class Bilna_Paymethod_VtdirectController extends Mage_Core_Controller_Front_Acti
                     $invoice = Mage::getModel('sales/service_order', $order)->prepareInvoice();
 
                     if ($invoice->getTotalQty()) {
+                        $invoice->setRequestedCaptureCase(Mage_Sales_Model_Order_Invoice::CAPTURE_OFFLINE);
                         $invoice->setGrandTotal($order->getGrandTotal());
                         $invoice->setBaseGrandTotal($order->getBaseGrandTotal());
                         $invoice->register();
@@ -310,6 +311,7 @@ class Bilna_Paymethod_VtdirectController extends Mage_Core_Controller_Front_Acti
                     $invoice = Mage::getModel('sales/service_order', $order)->prepareInvoice();
 
                     if ($invoice->getTotalQty()) {
+                        $invoice->setRequestedCaptureCase(Mage_Sales_Model_Order_Invoice::CAPTURE_OFFLINE);
                         $invoice->setGrandTotal($order->getGrandTotal());
                         $invoice->setBaseGrandTotal($order->getBaseGrandTotal());
                         $invoice->register();

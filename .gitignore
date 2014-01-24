@@ -54,7 +54,7 @@ js/flash/
 js/index.php
 js/jscolor/
 js/lib/
-js/mage/
+#js/mage/
 js/prototype/
 js/scriptaculous/
 js/spacer.gif
@@ -75,7 +75,6 @@ LICENSE_AFL.txt
 LICENSE.html
 LICENSE.txt
 LICENSE_EE*
-mage
 media/
 media/customer/
 media/downloadable/

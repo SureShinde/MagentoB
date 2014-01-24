@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -383,18 +383,17 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
     {
         $orderIds = $this->getRequest()->getPost('order_ids', array());
         $countHoldOrder = 0;
-
+        $countNonHoldOrder = 0;
         foreach ($orderIds as $orderId) {
             $order = Mage::getModel('sales/order')->load($orderId);
             if ($order->canHold()) {
                 $order->hold()
                     ->save();
                 $countHoldOrder++;
+            } else {
+                $countNonHoldOrder++;
             }
         }
-
-        $countNonHoldOrder = count($orderIds) - $countHoldOrder;
-
         if ($countNonHoldOrder) {
             if ($countHoldOrder) {
                 $this->_getSession()->addError($this->__('%s order(s) were not put on hold.', $countNonHoldOrder));
@@ -456,6 +455,220 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
     {
         $orderIds = $this->getRequest()->getPost('order_ids');
         $document = $this->getRequest()->getPost('document');
+    }
+
+    /**
+     * Print invoices for selected orders
+     */
+    public function pdfdetailAction(){
+        $orderIds = $this->getRequest()->getPost('order_ids');
+        $flag = false;
+        if (!empty($orderIds)) {
+            foreach ($orderIds as $orderId) {
+            	//TODO: XXX
+            	//DIRTY CODE
+//             	$order = Mage::getModel('sales/order')->load($orderId);
+            	$collection = Mage::getModel('sales/order')->getCollection();
+            	$collection	->addFieldToFilter('main_table.entity_id', $orderId);
+            	$collection	->getSelect()->joinLeft(	array('wo' => 'wrappinggiftevent_order'),
+				            						"wo.order_id = main_table.entity_id",
+				            						array('wrapping_fee'=>'wrapping_price'));
+            	$collection	->getSelect()->joinLeft(array('apto' => 'aw_points_transaction_orderspend'),
+				            						"apto.order_increment_id = main_table.increment_id",
+				            						array(	'money_for_points'=>'points_to_money',
+				            								'base_money_for_points'=>'base_points_to_money',
+				            								'points_balance_change'=>'ABS(base_points_to_money)'));
+            	
+            	$order = $collection->getFirstItem();
+                if (!is_null($order->getId())) {
+                    $flag = true;
+                    if (!isset($pdf)){
+                        $pdf = Mage::getModel('sales/order_pdf_detail')->getPdf($order);
+                    } else {
+                        $pages = Mage::getModel('sales/order_pdf_detail')->getPdf($order);
+                        $pdf->pages = array_merge ($pdf->pages, $pages->pages);
+                    }
+                }
+            }
+            if ($flag) {
+                return $this->_prepareDownloadResponse(
+                    'detail'.Mage::getSingleton('core/date')->date('Y-m-d_H-i-s').'.pdf', $pdf->render(),
+                    'application/pdf'
+                );
+            } else {
+                $this->_getSession()->addError($this->__('There are no printable documents related to selected orders.'));
+                $this->_redirect('*/*/');
+            }
+        }
+        $this->_redirect('*/*/');
+    }
+
+    /**
+     * Print invoices for selected orders
+     */
+    public function pdfcodrpxAction(){
+        $orderIds = $this->getRequest()->getPost('order_ids');
+        $flag = false;
+
+        $rows = "";
+        $header = array();
+        $header[] = "origin";
+        $header[] = "origin_city";
+        $header[] = "destination";
+        $header[] = "destination_city";
+        $header[] = "shipper_account";
+        $header[] = "shipper_name";
+        $header[] = "identity_no";
+        $header[] = "shipper_company";
+        $header[] = "shipper_address1";
+        $header[] = "shipper_address2";
+        $header[] = "shipper_mobile_no";
+        $header[] = "shipper_email";
+        $header[] = "shipper_city";
+        $header[] = "shipper_state";
+        $header[] = "shipper_country_id";
+        $header[] = "shipper_zip";
+        $header[] = "shipper_phone";
+        $header[] = "consignee_account";
+        $header[] = "order_number";
+        $header[] = "consignee_name";
+        $header[] = "consignee_company";
+        $header[] = "consignee_address1";
+        $header[] = "consignee_address2";
+        $header[] = "consignee_mobile_no";
+        $header[] = "consignee_email";
+        $header[] = "consignee_city";
+        $header[] = "consignee_state";
+        $header[] = "consignee_zip";
+        $header[] = "consignee_phone";
+        $header[] = "service_type_id";
+        $header[] = "package_type_id";
+        $header[] = "bill_trans_type_id";
+        $header[] = "special_handling_type_id";
+        $header[] = "actual_weight";
+        $header[] = "tot_weight";
+        $header[] = "tot_weight_type";
+        $header[] = "rpx_pack";
+        $header[] = "rpx_box_a";
+        $header[] = "rpx_box_b";
+        $header[] = "rpx_box_s";
+        $header[] = "others";
+        $header[] = "flag_hold";
+        $header[] = "flag_holiday_delivery";
+        $header[] = "flag_mp_spec_handling";
+        $header[] = "flag_heavy_weight";
+        $header[] = "flag_dangerous_goods";
+        $header[] = "high_value";
+        $header[] = "value_docs";
+        $header[] = "time_critical";
+        $header[] = "electronic";
+        $header[] = "others_handling";
+        $header[] = "others_handling_desc";
+        $header[] = "";
+        $header[] = "flag_holiday_pickup";
+        $header[] = "boxes";
+        $header[] = "packing";
+        $header[] = "insurance";
+        $header[] = "tot_package";
+        $header[] = "desc_of_goods";
+        $header[] = "awb";
+        $header[] = "tot_declare_value";
+        $header[] = "tot_dimensi";
+        $header[] = "bill_trans_acct";
+        $header[] = "bill_trans_desc";
+        $header[] = "bill_card_expired";
+        $rows     .= implode(',', $header)."\n";
+
+        if (!empty($orderIds)) {
+            foreach ($orderIds as $orderId) {
+            	//TODO: XXX
+            	$order = Mage::getModel('sales/order')->load($orderId);
+            	$shipping = $order->getShippingAddress()->getData();
+                if (!is_null($order->getId())) {
+                	$shipping["street"] = str_replace(array("\n","\r\n",","), '; ', $shipping["street"]);
+                    $flag = true;
+                    if($order->getStatus() == "processing_cod"){
+                    	$content = array();
+                    	$content[] = "";
+                    	$content[] = "";
+                    	$content[] = "";
+                    	$content[] = "";
+                    	$content[] = "800033915";
+                    	$content[] = "BILNA";
+                    	$content[] = "COD";
+                    	$content[] = "PT. BILNA";
+                    	$content[] = "GREEN GARDEN BLOCK D1A NO. 1";
+                    	$content[] = "";
+                    	$content[] = "021-5809885";
+                    	$content[] = "cs@bilna.com & dedi@bilna.com & husni@bilna.com";
+                    	$content[] = "JAKARTA BARAT";
+                    	$content[] = "DKI JAKARTA";
+                    	$content[] = "INDONESIA";
+                    	$content[] = "11480";
+                    	$content[] = "021-5809885";
+                    	$content[] = "";
+                    	$content[] = "COD/".$order->getIncrementId();
+                    	$content[] = $shipping["firstname"]." ".$shipping["lastname"];
+                    	$content[] = "";
+                    	$content[] = $shipping["street"];
+                    	$content[] = "";
+                    	$content[] = $shipping["telephone"];
+                    	$content[] = $shipping["email"];
+                    	$content[] = $shipping["city"];
+                    	$content[] = $shipping["region"];
+                    	$content[] = $shipping["postcode"];
+                    	$content[] = "";
+                    	$content[] = "ECP";
+                    	$content[] = "3";
+                    	$content[] = "2";
+                    	$content[] = "0";
+                    	$content[] = ceil($order->getWeight());
+                    	$content[] = ceil($order->getWeight());
+                    	$content[] = "KG";
+                    	$content[] = "0";
+                    	$content[] = "0";
+                    	$content[] = "0";
+                    	$content[] = "0";
+                    	$content[] = "1";
+                    	$content[] = "N";
+                    	$content[] = "N";
+                    	$content[] = "N";
+                    	$content[] = "N";
+                    	$content[] = "N";
+                    	$content[] = "N";
+                    	$content[] = "N";
+                    	$content[] = "N";
+                    	$content[] = "N";
+                    	$content[] = "";
+                    	$content[] = "";
+                    	$content[] = "";
+                    	$content[] = "N";
+                    	$content[] = "N";
+                    	$content[] = "N";
+                    	$content[] = "N";
+                    	$content[] = "";
+                    	$content[] = "cust id: ".$shipping["customer_id"]." - Baby Product(s)";
+                    	$content[] = "";
+                    	$content[] = (int)$order->getGrandTotal();
+                    	$content[] = "0";
+                    	$content[] = "";
+                    	$content[] = "";
+                    	$content[] = "";
+
+                    	$rows     .= implode(',', $content)."\n";
+                    }
+                }
+            }
+            if ($flag) {
+                return $this->_prepareDownloadResponse(
+                    'rpx_'.Mage::getSingleton('core/date')->date('Y-m-d_H-i-s').'.csv', $rows
+                );
+            } else {
+                $this->_getSession()->addError($this->__('There are no printable documents related to selected orders.'));
+                $this->_redirect('*/*/');
+            }
+        }
+        $this->_redirect('*/*/');
     }
 
     /**
