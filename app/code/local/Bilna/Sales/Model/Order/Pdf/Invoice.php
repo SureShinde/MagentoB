@@ -31,7 +31,7 @@
  * @package    Mage_Sales
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Sales_Model_Order_Pdf_Detail extends Mage_Sales_Model_Order_Pdf_Abstracts
+class Mage_Sales_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Abstracts
 {
     /**
      * Draw header for item table
@@ -43,8 +43,8 @@ class Mage_Sales_Model_Order_Pdf_Detail extends Mage_Sales_Model_Order_Pdf_Abstr
     {
         /* Add table head */
         $this->_setFontRegular($page, 10);
-        $page->setFillColor(new Zend_Pdf_Color_RGB(0.93, 0.92, 0.92));
-        $page->setLineColor(new Zend_Pdf_Color_GrayScale(0.5));
+        $page->setFillColor(new Zend_Pdf_Color_RGB(1, 1, 1));
+        $page->setLineColor(new Zend_Pdf_Color_GrayScale(0));
         $page->setLineWidth(0.5);
         $page->drawRectangle(25, $this->y, 570, $this->y -15);
         $this->y -= 10;
@@ -99,68 +99,85 @@ class Mage_Sales_Model_Order_Pdf_Detail extends Mage_Sales_Model_Order_Pdf_Abstr
     /**
      * Return PDF document
      *
-     * @param  array $order
+     * @param  array $invoices
      * @return Zend_Pdf
      */
-    public function getPdf($order = NULL)
+    public function getPdf($invoices = array())
     {
         $this->_beforeGetPdf();
-        $this->_initRenderer('detail');
+        $this->_initRenderer('invoice');
 
         $pdf = new Zend_Pdf();
         $this->_setPdf($pdf);
         $style = new Zend_Pdf_Style();
         $this->_setFontBold($style, 10);
 
-        if ($order->getStoreId()) {
-            Mage::app()->getLocale()->emulate($order->getStoreId());
-            Mage::app()->setCurrentStore($order->getStoreId());
-        }
-        $page  = $this->newPage();
-        /* Add image */
-        $this->insertLogo($page, $order->getStore());
-        /* Add address */
-        $this->insertAddress($page, $order->getStore());
-        /* Add head */
-        $this->insertOrder(
-            $page,
-            $order,
-            Mage::getStoreConfigFlag(self::XML_PATH_SALES_PDF_INVOICE_PUT_ORDER_ID, $order->getStoreId())
-        );
-        /* Add document text and number */
-//         $this->insertDocumentNumber(
-//             $page,
-//             Mage::helper('sales')->__('Invoice # ') . $order->getIncrementId()
-//         );
-        /* Add table */
-        $this->_drawHeader($page);
-        /* Add body */
-        foreach ($order->getAllItems() as $item){
-            if ($item->getParentItem()) {
-                continue;
+        foreach ($invoices as $invoice) {
+            if ($invoice->getStoreId()) {
+                Mage::app()->getLocale()->emulate($invoice->getStoreId());
+                Mage::app()->setCurrentStore($invoice->getStoreId());
             }
-            /* Draw item */
-            $this->_drawItem($item, $page, $order, true);
-            $page = end($pdf->pages);
-        }
-        /* Add totals */
-        $this->insertTotals($page, $order);
-        if ($order->getStoreId()) {
-            Mage::app()->getLocale()->revert();
-        }
+            $page  = $this->newPage();
+            //TODO: XXX
+            //DIRTY CODE
+//             $order = $invoice->getOrder();
+            $collection = Mage::getModel('sales/order')->getCollection();
+            $collection	->addFieldToFilter('main_table.entity_id', $invoice->getOrder()->getId());
+            $collection	->getSelect()->joinLeft(	array('wo' => 'wrappinggiftevent_order'),
+            		"wo.order_id = main_table.entity_id",
+            		array('wrapping_fee'=>'wrapping_price'));
+            $collection	->getSelect()->joinLeft(array('apto' => 'aw_points_transaction_orderspend'),
+            		"apto.order_increment_id = main_table.increment_id",
+            		array(	'money_for_points'=>'points_to_money',
+            				'base_money_for_points'=>'base_points_to_money',
+            				'points_balance_change'=>'ABS(base_points_to_money)'));
+             
+            $order = $collection->getFirstItem();
 
-        $top = 30;
-        $value = array();
-        $value[] = "Kepuasan Anda adalah Prioritas Bilna.";
-        $value[] = "Apabila ada keluhan apapun terhadap kinerja dari kurir kami, silakan menghubungi kami di 021-5809885 (Departemen Shipping)";
-        $font = $this->_setFontRegular($page, 10);
-        foreach ($value as $_value){
-        	$page->drawText($_value,
-        			$this->getAlignCenter($_value, 75, 440, $font, 10),
-        			$top, 'UTF-8');
-        	$top -= 10;
+            /* Add image */
+            $this->insertLogo($page, $invoice->getStore());
+            /* Add address */
+            $this->insertAddress($page, $invoice->getStore());
+            /* Add head */
+            $this->insertOrder(
+                $page,
+                $order,
+                Mage::getStoreConfigFlag(self::XML_PATH_SALES_PDF_INVOICE_PUT_ORDER_ID, $order->getStoreId())
+            );
+            /* Add document text and number */
+            $this->insertDocumentNumber(
+                $page,
+                Mage::helper('sales')->__('Invoice # ') . $invoice->getIncrementId()
+            );
+            /* Add table */
+            $this->_drawHeader($page);
+            /* Add body */
+            foreach ($invoice->getAllItems() as $item){
+                if ($item->getOrderItem()->getParentItem()) {
+                    continue;
+                }
+                /* Draw item */
+                $this->_drawItem($item, $page, $order);
+                $page = end($pdf->pages);
+            }
+            /* Add totals */
+            $this->insertTotals($page, $order);
+            if ($invoice->getStoreId()) {
+                Mage::app()->getLocale()->revert();
+            }
+
+            $top = 30;
+            $value = array();
+            $value[] = "Kepuasan Anda adalah Prioritas Bilna.";
+            $value[] = "Apabila ada keluhan apapun terhadap kinerja dari kurir kami, silakan menghubungi kami di 021-5809885 (Departemen Shipping)";
+            $font = $this->_setFontRegular($page, 10);
+            foreach ($value as $_value){
+	            $page->drawText($_value,
+	           			$this->getAlignCenter($_value, 75, 440, $font, 10),
+	           			$top, 'UTF-8');
+	            $top -= 10;
+            }
         }
-        
         $this->_afterGetPdf();
         return $pdf;
     }

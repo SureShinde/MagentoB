@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Bilna_Sales>
+             <active>true</active>
+             <codePool>local</codePool>
+        </Bilna_Sales>
+    </modules>
+</config>

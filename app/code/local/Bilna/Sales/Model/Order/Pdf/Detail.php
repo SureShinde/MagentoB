@@ -160,7 +160,6 @@ class Mage_Sales_Model_Order_Pdf_Detail extends Mage_Sales_Model_Order_Pdf_Abstr
         			$top, 'UTF-8');
         	$top -= 10;
         }
-        
         $this->_afterGetPdf();
         return $pdf;
     }
