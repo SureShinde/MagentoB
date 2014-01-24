@@ -23,6 +23,12 @@
             <paymethod>
                 <class>Bilna_Paymethod_Block</class>
             </paymethod>
+            
+            <adminhtml>
+                <rewrite>
+                    <sales_order_grid>Bilna_Paymethod_Block_Adminhtml_Sales_Order_Grid</sales_order_grid>
+                </rewrite>
+            </adminhtml>
         </blocks>
         
         <rewrite>
