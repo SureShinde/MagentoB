@@ -12,8 +12,8 @@
 $installer = $this;
 
 $installer->startSetup();
-
-$installer->run("
+/*
+$installer->run("	
 CREATE TABLE `wrappinggiftevent_order` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `store_id` int(11) DEFAULT NULL,
@@ -44,5 +44,5 @@ CREATE TABLE `wrapping_gift_event` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1 COMMENT='wrapping gift event'
 ");
-
+*/
 $installer->endSetup();

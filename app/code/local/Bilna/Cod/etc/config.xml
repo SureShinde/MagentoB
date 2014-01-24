@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <modules>
+        <Bilna_Cod>
+            <version>0.2.3</version>
+        </Bilna_Cod>
+    </modules>
+    
+    <global>
+        <blocks>
+            <cod>
+                <class>Bilna_Cod_Block</class>
+            </cod>
+        </blocks>
+        
+        <models>
+            <cod>
+                <class>Bilna_Cod_Model</class>
+            </cod>
+        </models>
+        
+        <helpers>
+            <cod>
+                <class>Bilna_Cod_Helper</class>
+            </cod>
+        </helpers>
+        
+        <resources>
+            <cod_setup>
+                <setup>
+                    <module>Bilna_Cod</module>
+                </setup>
+                
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </cod_setup>
+            
+            <cod_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </cod_write>
+            
+            <cod_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </cod_read>
+        </resources>
+    </global>
+    
+    <default>
+        <payment>
+            <cod>
+                <active>1</active>
+                <model>cod/paymentMethod</model>
+                <order_status>pending_cod</order_status>
+                <title>Cash On Delivery</title>
+                <allowspecific>0</allowspecific>
+                <group>offline</group>
+            </cod>
+        </payment>
+        <carriers>
+            <premiumrate>
+                <model>bilna_cod/carrier_cod</model>
+            </premiumrate>
+        </carriers>
+    </default>
+    <sales>
+		<shipping>
+		    <carriers>
+				<cod>
+					<class>Webshopapps_Premiumrate_Model_Carrier_Premiumrate</class>
+				</cod>
+		    </carriers>
+		</shipping>
+    </sales>
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <Bilna_Cod before="Mage_Adminhtml">Bilna_Cod</Bilna_Cod>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+</config>

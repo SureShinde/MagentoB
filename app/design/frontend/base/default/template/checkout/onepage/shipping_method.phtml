@@ -25,6 +25,28 @@
  */
 ?>
 <form id="co-shipping-method-form" action="">
+	 <?php
+	 /*
+	 * Get Total weight of the cart
+	 */
+		$items = Mage::getSingleton('checkout/cart')->getQuote()->getItemsCollection()->getItems();
+		$product = Mage::getModel('catalog/product');
+		$total_weight=0;
+		foreach ($items as $item) 
+		{ 
+		$product->load($product->getIdBySku($item->getSku()));
+		$qty = $item->getQty();
+		$weight = $item->getWeight();
+		if($product->isConfigurable()){
+			$total_weight+=($weight*($qty-1));
+		} 
+		else {
+			$total_weight+=($weight*$qty);
+		};
+		}
+		$total_weight =round($total_weight,1);
+	?> 
+  	<div class="shipping-weight"><?php echo $this->__("Your total mechandise shipping weight is") ." ".$total_weight." ". $this->__("kg"); ?></div>
     <div id="checkout-shipping-method-load">
        <!-- Content loaded dynamically -->
     </div>

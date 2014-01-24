@@ -126,7 +126,7 @@ class Webshopapps_Premiumrate_Model_Carrier_Premiumrate
 				$method->setMethod(strtolower('premiumrate_'.$this->getConfigData('free_method_text')));
 				$method->setPrice('0.00');
 				$method->setMethodTitle($this->getConfigData('free_method_text'));
-                $method->setShippingType("");
+//                 $method->setShippingType("");
 				$result->append($method);
 				return $result;
         	}
@@ -139,7 +139,7 @@ class Webshopapps_Premiumrate_Model_Carrier_Premiumrate
 	            $error = Mage::getModel('shipping/rate_result_error');
 	            $error->setCarrier('premiumrate');
 	            $error->setCarrierTitle($this->getConfigData('title'));
-                $method->setShippingType("");
+//                 $method->setShippingType("");
 	            $error->setErrorMessage($this->getConfigData('specificerrmsg'));
 	            $result->append($error);
      		}

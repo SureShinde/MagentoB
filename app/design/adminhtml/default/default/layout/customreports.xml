@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <customreports_adminhtml_salesreport_index>
+	    <reference name="content">
+	        <block type="customreports/adminhtml_salesreport" template="customreports/grid/salesreport/container.phtml" name="report">
+    	        <block type="adminhtml/store_switcher" template="report/store/switcher/enhanced.phtml" name="store.switcher">
+                    <action method="setStoreVarName"><var_name>store_ids</var_name></action>
+                </block>
+    	        <block type="customreports/adminhtml_salesreportfilter" name="grid.filter.form">
+                    <action method="setFieldVisibility">
+                        <field>report_type</field>
+                        <visibility>0</visibility>
+                    </action>
+                </block>
+	        </block>
+	   </reference>
+    </customreports_adminhtml_salesreport_index>
+    <customreports_adminhtml_couponsreport_index>
+        <reference name="content">
+            <block type="customreports/adminhtml_couponsreport" template="customreports/grid/couponsreport/container.phtml" name="report">
+                <block type="adminhtml/store_switcher" template="report/store/switcher/enhanced.phtml" name="store.switcher">
+                    <action method="setStoreVarName"><var_name>store_ids</var_name></action>
+                </block>
+                <block type="customreports/adminhtml_couponsreportfilter" name="grid.filter.form">
+                    <action method="setFieldVisibility">
+                        <field>report_type</field>
+                        <visibility>0</visibility>
+                    </action>
+                </block>
+            </block>
+       </reference>
+    </customreports_adminhtml_couponsreport_index>
+</layout>

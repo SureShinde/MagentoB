@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+    <config>
+        <modules>
+            <Alw_Customer>
+                <version>0.1.0</version>
+            </Alw_Customer>
+        </modules>
+
+        <frontend>
+           <routers>
+              <alw_customer>
+                 <use>standard</use>
+                 <args>
+                     <module>Alw_Customer</module>
+                     <frontName>customer</frontName>
+                 </args>
+              </alw_customer>
+           </routers>
+        </frontend>
+
+        <global>
+      <rewrite>
+		     <alw_customer_account>
+              <from><![CDATA[#^/account/#]]></from>
+              <to>/customer/account/</to>
+            </alw_customer_account>
+			<alw_customer_address>
+              <from><![CDATA[#^/address/#]]></from>
+              <to>/customer/address/</to>
+            </alw_customer_address>
+          </rewrite>
+		  <blocks>
+			<customer>
+					<rewrite>
+						<widget_dob>Alw_Customer_Block_Widget_Dob</widget_dob>
+					</rewrite>
+            </customer>
+		 </blocks>
+        </global>
+		
+</config>

@@ -52,6 +52,7 @@ Default layout, loads most of the pages
                 <block type="page/js_cookie" name="js_cookies" template="page/js/cookie.phtml"/>
 
                 <action method="addCss"><stylesheet>css/styles.css</stylesheet></action>
+				<action method="addCss"><stylesheet>css/style-static.css</stylesheet></action>
                 <action method="addItem"><type>skin_css</type><name>css/styles-ie.css</name><params/><if>lt IE 8</if></action>
                 <action method="addCss"><stylesheet>css/widgets.css</stylesheet></action>
                 <action method="addCss"><stylesheet>css/print.css</stylesheet><params>media="print"</params></action>
@@ -92,7 +93,8 @@ Default layout, loads most of the pages
             <block type="core/text_list" name="content" as="content" translate="label">
                 <label>Main Content Area</label>
             </block>
-
+			
+			
             <block type="core/text_list" name="right" as="right" translate="label">
                 <label>Right Column</label>
             </block>
@@ -125,6 +127,9 @@ Default layout, loads most of the pages
                 <action method="addJs"><script>lib/ccard.js</script></action>
                 <action method="addJs"><script>prototype/validation.js</script></action>
                 <action method="addJs"><script>varien/js.js</script></action>
+				<action method="addJs"><script>jssor/jssor.core.js</script></action>
+				<action method="addJs"><script>jssor/jssor.slider.js</script></action>
+				<action method="addJs"><script>jssor/jssor.utils.js</script></action>
 
                 <action method="addCss"><stylesheet>css/styles.css</stylesheet></action>
                 <action method="addItem"><type>skin_css</type><name>css/styles-ie.css</name><params/><if>lt IE 8</if></action>
@@ -142,6 +147,10 @@ Default layout, loads most of the pages
 
         </block>
     </print>
+	
+	<reference name="content">
+		<block type="blog/blog" name="fb-comment" template="page/fb-comment.phtml"/>
+	</reference>
 
      <!-- Custom page layout handles -->
     <page_empty translate="label">

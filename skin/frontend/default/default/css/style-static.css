@@ -1,0 +1,63 @@
+.static-page-area {
+	padding: 0;
+	margin: 0;
+	width: 100%;
+}
+
+.static-page-wrapper {
+	padding: 0;
+	margin: 0;
+	width: 94%;
+	padding: 0 3%;
+}
+
+.static-page-wrapper p {
+	color: #707070;
+	font-size: font:12px/1.55 Arial, Helvetica, sans-serif;
+	line-height: 1;
+}
+
+.fc-base-blue {color:#4ec7da;}
+.fc-base-orange {color:#ffa01b;}
+.fc-base-yellow {color:#ffe449;}
+.fc-base-peach {color:#fc8360;}
+.fc-base-green {color:#8dd240;}
+
+.bc-white {background: #FFF;}
+
+.static-page-wrapper a {
+	color: #707070;
+	font-size: 12px/1.55em;
+	line-height: 1;
+	text-decoration: none;
+}
+
+.rounded-5 {
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+}
+
+.rounded-10 {
+	border-radius: 10px;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+}
+
+.rounded-15 {
+	border-radius: 15px;
+	-moz-border-radius: 15px;
+	-webkit-border-radius: 15px;
+}
+
+.rounded-20 {
+	border-radius: 20px;
+	-moz-border-radius: 20px;
+	-webkit-border-radius: 20px;
+}
+
+.rounded-300 {
+	border-radius: 300px;
+	-moz-border-radius: 300px;
+	-webkit-border-radius: 300px;
+}

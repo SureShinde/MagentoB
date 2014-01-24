@@ -1,0 +1,46 @@
+<?php
+/**
+ * aheadWorks Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://ecommerce.aheadworks.com/AW-LICENSE.txt
+ *
+ * =================================================================
+ *                 MAGENTO EDITION USAGE NOTICE
+ * =================================================================
+ * This software is designed to work with Magento community edition and
+ * its use on an edition other than specified is prohibited. aheadWorks does not
+ * provide extension support in case of incorrect edition use.
+ * =================================================================
+ *
+ * @category   AW
+ * @package    AW_Customerattributes
+ * @version    1.0.2
+ * @copyright  Copyright (c) 2010-2012 aheadWorks Co. (http://www.aheadworks.com)
+ * @license    http://ecommerce.aheadworks.com/AW-LICENSE.txt
+ */
+?><?php $collection = $this->getAttributeCollection(); ?>
+<?php if ($collection->getSize() > 0) : ?>
+    <div class="fieldset no-display" id="aw-customerattributes-customer-form-edit-fieldset">
+        <h2 class="legend"><?php echo $this->__('Additional Information') ?></h2>
+        <ul class="form-list">
+            <?php foreach ($collection as $attribute): ?>
+                <?php
+                $html = $attribute->unpackData()->getTypeModel()->getFrontendFormRenderer()
+                    ->setValue($this->getValueByAttributeId($attribute->getId()))
+                    ->getHtml();
+                ?>
+                <?php if (strlen(trim($html)) > 0) : ?>
+                    <li class="fields">
+                        <div class=""><?php echo $html; ?></div>
+                    </li>
+                <?php endif; ?>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+    <?php Mage::getSingleton('customer/session')->setAWCACustomerFormData(null); ?>
+<?php endif; ?>
