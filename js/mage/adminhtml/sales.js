@@ -84,6 +84,7 @@ AdminOrder.prototype = {
             });
             this.areasLoaded();
             this.itemsArea.onLoad();
+            this.resetShippingMethod(data);
         }).bind(this));
     },
 
@@ -218,6 +219,7 @@ AdminOrder.prototype = {
         else {
             this.saveData(data);
             if (name == 'country_id' || name == 'customer_address_id') {
+                data['collect_shipping_rates'] = 1;
                 this.loadArea(['shipping_method', 'billing_method', 'totals', 'items'], true, data);
             }
             // added for reloading of default sender and default recipient for giftmessages
@@ -319,24 +321,31 @@ AdminOrder.prototype = {
         data = data.toObject();
         data['shipping_as_billing'] = flag ? 1 : 0;
         data['reset_shipping'] = 1;
+        data['collect_shipping_rates'] = 1;
         this.loadArea(['shipping_method', 'billing_method', 'shipping_address', 'totals', 'giftmessage'], true, data);
     },
 
     resetShippingMethod : function(data){
         data['reset_shipping'] = 1;
+        data['collect_shipping_rates'] = 1;
         this.isShippingMethodReseted = true;
         this.loadArea(['shipping_method', 'billing_method', 'shipping_address', 'totals', 'giftmessage', 'items'], true, data);
     },
 
     loadShippingRates : function(){
         this.isShippingMethodReseted = false;
-        this.loadArea(['shipping_method', 'totals'], true, {collect_shipping_rates: 1});
+        this.loadArea(['shipping_method', 'billing_method', 'totals'], true, {collect_shipping_rates: 1});
     },
 
     setShippingMethod : function(method){
         var data = {};
+        data['collect_shipping_rates'] = 1;
         data['order[shipping_method]'] = method;
+        data['order[shipping_text]'] = $('s_method_' + method).readAttribute('datatext');
+        data['order[shipping_type]'] = $('s_method_' + method).readAttribute('datatype');
         this.loadArea(['shipping_method', 'totals', 'billing_method'], true, data);
+        $$('input[name="payment[method]"]').clear();
+        $$('input[name="payment[klikbca_user_id]"]').clear();
     },
 
     setWrappinggiftChange: function(url) {
@@ -726,6 +735,7 @@ AdminOrder.prototype = {
                 }
             }
             data.reset_shipping = true;
+            data.collect_shipping_rates = 1;
             this.loadArea(['sidebar', 'items', 'shipping_method', 'billing_method','totals', 'giftmessage'], true, data);
         }
     },
@@ -777,7 +787,7 @@ AdminOrder.prototype = {
             if (!response.ok) {
                 return;
             }
-            this.loadArea(['items', 'shipping_method', 'billing_method','totals', 'giftmessage'], true);
+            this.loadArea(['items', 'shipping_method', 'billing_method','totals', 'giftmessage'], true, {collect_shipping_rates: 1});
         }.bind(this));
         // show item configuration
         itemId = itemId ? itemId : productId;
@@ -1147,6 +1157,7 @@ AdminOrder.prototype = {
         }
 
         var parentEl = el.up(1);
+        var parentPos = Element.cumulativeOffset(parentEl);
         if (show) {
             parentEl.removeClassName('ignore-validate');
         }
@@ -1174,8 +1185,8 @@ AdminOrder.prototype = {
             opacity: 0.8,
             width: parentEl.getWidth() + 'px',
             height: parentEl.getHeight() + 'px',
-            top: 0,
-            left: 0
+            top: parentPos[1] + 'px',
+            left: parentPos[0] + 'px'
         });
     },
 
