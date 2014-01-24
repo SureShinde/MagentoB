@@ -105,41 +105,10 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Billing_Method_Form extends Mage_P
         
         return false;
     }
-    
-    /**
-     * Retrieve available payment methods
-     *
-     * @return array
-     */
-    public function getMethods() {
-        $methods = $this->getData('methods');
-        $methodsHide = $this->getPaymentMethodHide();
-        
-        if ($methods === null) {
-            $quote = $this->getQuote();
-            $store = $quote ? $quote->getStoreId() : null;
-            $methods = array ();
-            
-            foreach ($this->helper('payment')->getStoreMethods($store, $quote) as $method) {
-                if (in_array($method->getCode(), $methodsHide)) {
-                    continue;
-                }
-                
-                if ($this->_canUseMethod($method) && $method->isApplicableToQuote($quote, Mage_Payment_Model_Method_Abstract::CHECK_ZERO_TOTAL)) {
-                    $this->_assignMethod($method);
-                    $methods[] = $method;
-                }
-            }
-            
-            $this->setData('methods', $methods);
-        }
-        
-        return $methods;
-    }
 
     public function getPaymentMethodsFilter() {
         $_methods = $this->getMethods();
-        $_methodsReject = array ('veritrans', 'klikpay', 'anzcc', 'scbcc');
+        $_methodsReject = $this->getPaymentMethodHide();
         $_methodsAllow = $this->getPaymentMethodsByShippingMethod();
         $_result = array ();
         
