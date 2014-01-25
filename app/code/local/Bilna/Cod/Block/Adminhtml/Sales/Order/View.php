@@ -5,7 +5,7 @@
  * @author Bilna Development Team <development@bilna.com>
  */
 
-class Bilna_Cod_Block_Adminhtml_Sales_Order_View extends Mage_Adminhtml_Block_Sales_Order_View {
+class Bilna_Cod_Block_Adminhtml_Sales_Order_View extends Mage_Adminhtml_Block_Widget_Form_Container {
     private $payCode;
     private $orderStatus;
     private $shippingBtnNotAllow = array ('cod');

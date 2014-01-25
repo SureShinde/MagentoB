@@ -58,6 +58,16 @@
         </resources>
     </global>
     
+    <adminhtml>
+        <layout>
+            <updates>
+                <cod>
+                    <file>bilna_cod.xml</file>
+                </cod>
+            </updates>
+        </layout>
+    </adminhtml>
+    
     <default>
         <payment>
             <cod>
@@ -69,12 +79,14 @@
                 <group>offline</group>
             </cod>
         </payment>
+        
         <carriers>
             <premiumrate>
                 <model>bilna_cod/carrier_cod</model>
             </premiumrate>
         </carriers>
     </default>
+    
     <sales>
         <shipping>
             <carriers>
@@ -84,6 +96,7 @@
             </carriers>
         </shipping>
     </sales>
+    
     <admin>
         <routers>
             <adminhtml>
