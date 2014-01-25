@@ -20,8 +20,8 @@ class Bilna_Cod_Sales_Order_ProcessingcodController extends Mage_Core_Controller
         $translate = Mage::getSingleton('core/translate');
         $email = Mage::getModel('core/email_template');
 
-        $sender["name"] = Mage::getStoreConfig('trans_email/ident_support/name', Mage::app()->getStore()->getId());
-        $sender["email"] = Mage::getStoreConfig('trans_email/ident_support/email', Mage::app()->getStore()->getId());
+        $sender['name'] = Mage::getStoreConfig('trans_email/ident_support/name', Mage::app()->getStore()->getId());
+        $sender['email'] = Mage::getStoreConfig('trans_email/ident_support/email', Mage::app()->getStore()->getId());
         
         $guess = $order->getCustomerIsGuest();
         
@@ -30,14 +30,14 @@ class Bilna_Cod_Sales_Order_ProcessingcodController extends Mage_Core_Controller
             $customerName = $order->getShippingAddress()->getFirstname() . " " . $order->getShippingAddress()->getLastname();
 
             //must change this id to actual template id
-            $template = 20;
+            $template = Mage::getStoreConfig('bilna_module/cod/template_email_user');
         }
         else {
             //guest
             $customerName = "Moms and Dads";
         	
             //must change this id to actual template id
-            $template = 19;
+            $template = Mage::getStoreConfig('bilna_module/cod/template_email_guest');
         }
                 
         $customerEmail = $order->getPayment()->getOrder()->getCustomerEmail();
