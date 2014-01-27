@@ -10,6 +10,7 @@
         	</block>
         	<action method="addCss"><stylesheet>css/reset.css</stylesheet></action>
         	<action method="addCss"><stylesheet>css/general.css</stylesheet></action>
+        	<action method="addCss"><stylesheet>css/checkout.css</stylesheet></action>
             <action method="addCss"><stylesheet>css/header.css</stylesheet></action>
             <action method="addCss"><stylesheet>css/footer.css</stylesheet></action>
 			<action method="addCss"><stylesheet>additional-style-blog.css</stylesheet></action>
