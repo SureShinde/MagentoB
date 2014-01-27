@@ -11,6 +11,14 @@
             <cod>
                 <class>Bilna_Cod_Block</class>
             </cod>
+            
+            <adminhtml>
+                <rewrite>
+                    <sales_order_view>Bilna_Cod_Block_Adminhtml_Sales_Order_View</sales_order_view>
+                    <sales_order_view_tab_invoices>Bilna_Cod_Block_Adminhtml_Sales_Order_View_Tab_Invoices</sales_order_view_tab_invoices>
+                    <sales_order_view_tab_shipments>Bilna_Cod_Block_Adminhtml_Sales_Order_View_Tab_Shipments</sales_order_view_tab_shipments>
+                </rewrite>
+            </adminhtml>
         </blocks>
         
         <models>
@@ -50,6 +58,16 @@
         </resources>
     </global>
     
+    <adminhtml>
+        <layout>
+            <updates>
+                <cod>
+                    <file>bilna_cod.xml</file>
+                </cod>
+            </updates>
+        </layout>
+    </adminhtml>
+    
     <default>
         <payment>
             <cod>
@@ -61,21 +79,24 @@
                 <group>offline</group>
             </cod>
         </payment>
+        
         <carriers>
             <premiumrate>
                 <model>bilna_cod/carrier_cod</model>
             </premiumrate>
         </carriers>
     </default>
+    
     <sales>
-		<shipping>
-		    <carriers>
-				<cod>
-					<class>Webshopapps_Premiumrate_Model_Carrier_Premiumrate</class>
-				</cod>
-		    </carriers>
-		</shipping>
+        <shipping>
+            <carriers>
+                <cod>
+                    <class>Webshopapps_Premiumrate_Model_Carrier_Premiumrate</class>
+                </cod>
+            </carriers>
+        </shipping>
     </sales>
+    
     <admin>
         <routers>
             <adminhtml>
