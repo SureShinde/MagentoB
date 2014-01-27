@@ -112,8 +112,18 @@ class AW_Collpur_Block_Deals extends AW_Collpur_Block_BaseDeal
         $pager->setAvailableLimit(array("15" => "15", "30" => "30", "60" => "60", "all" => "all"));
         $pager->setLimitVarName('dealslimit' . $this->_limitParam);
         $pager->setPageVarName('dealsvarname' . $this->_limitParam);
+        $pager->setPrevNext(false);
         $pager->setCollection($this->getAvailableDeals());
         $this->setChild('available_deals_pager', $pager);
+        
+
+        $pager = $this->getLayout()->createBlock('page/html_pager', 'available_deals_pager_extra');
+        $pager->setAvailableLimit(array("15" => "15", "30" => "30", "60" => "60", "all" => "all"));
+        $pager->setLimitVarName('dealslimit' . $this->_limitParam);
+        $pager->setPageVarName('dealsvarname' . $this->_limitParam);
+        $pager->setPrevNext(true);
+        $pager->setCollection($this->getAvailableDeals());
+        $this->setChild('available_deals_pager_extra', $pager);
         $this->_modifyCrumbs($this->getLayout(), false, false, 'category');
     }
 
