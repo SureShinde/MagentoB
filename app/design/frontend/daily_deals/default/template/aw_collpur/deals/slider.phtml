@@ -83,9 +83,9 @@
 	<div class="slider_area">
     <!-- Jssor Slider Begin -->
     <!-- You can move inline styles (except 'top', 'left', 'width' and 'height') to css file or css block. -->
-    <div id="slider1_container" style="position: relative; width: 960px; height: 430px; overflow: hidden;">
+    <div id="slider1_container" style="position: relative; width: 1143px; height: 430px; overflow: hidden;">
         <!-- Slides Container -->
-        <div u="slides" style="cursor: move; position: absolute; width: 760px; height: 430px; top: 0px;
+        <div u="slides" style="cursor: move; position: absolute; width: 943px; height: 430px; top: 0px;
             left: 0px; overflow: hidden;">
             <?php 
 			$i = 0; 
@@ -95,8 +95,8 @@
 				$dealInfo = $this->getDealPricesSpare ( $originalProduct, $product );
 			?>
             <div>
-            	<img u="image" src="<?php echo $this->getDealImage($dealSlider->getDealImage()); ?>" />
-                <div u="thumb">
+            	<img class="slider_image" u="image" src="<?php echo $this->getDealImage($dealSlider->getDealImage()); ?>" />
+                <div u="thumb">	
                     <img class="i" src="<?php echo $this->getDealImage($dealSlider->getDealImage()); ?>" />
                     <div class="t"><?php echo $dealSlider->getDealName(); ?></div>
                     <div class="c"><?php if($dealInfo->getPercentDiscount() <> "0") { echo $dealInfo->getPercentDiscount(); ?>% OFF<?php } ?></div>
@@ -311,8 +311,6 @@
     </div>
     <!-- Jssor Slider End -->
 	</div>
-	<div class="banner_right_slider">
-		 <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('banner-right-slider')->toHtml() ?> 
-	</div>
+	
 </div>
 <!--end slider 2-->
