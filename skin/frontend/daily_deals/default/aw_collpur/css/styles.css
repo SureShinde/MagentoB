@@ -647,9 +647,9 @@ table.awcp-pricedata tr:nth-child(1) td{
 .desc_deals h2{
 	color:#fb816c;
 	text-transform:uppercase;
-	font-size:19px;
+	font-family:'bebasregular';
+	font-size:18px;
 	text-indent:20px;
-	letter-spacing:-1px;
 }
 .desc_deals .desc_one h2:before {
 	background: url("../images/bullet_desc.jpg") no-repeat scroll 50% 100% rgba(0, 0, 0, 0);
@@ -659,7 +659,6 @@ table.awcp-pricedata tr:nth-child(1) td{
     left: 10px;
     overflow: hidden;
     position: absolute;
-    top: 4px;
     width: 20px;
 }
 .desc_deals .desc_two h2:before {
@@ -670,7 +669,6 @@ table.awcp-pricedata tr:nth-child(1) td{
     left: 10px;
     overflow: hidden;
     position: absolute;
-    top: 4px;
     width: 20px;
 }
 .desc_deals .desc_three h2:before {
@@ -681,7 +679,6 @@ table.awcp-pricedata tr:nth-child(1) td{
     left: 10px;
     overflow: hidden;
     position: absolute;
-    top: 4px;
     width: 20px;
 }
 .awcp-mark-center .desc_short_deals{
@@ -1021,9 +1018,12 @@ table.awcp-pricedata tr:nth-child(1) td{
 .left_detail{
 		float:left;
 	}
-	.right_detail{
+.right_detail{
 		float:right;
 	}
+.share_label{
+	font-family:'bebasregular';
+}
 @media only screen and (min-width: 40.063em) { 
 	.right_detail_deals_2{
 		display:none;
