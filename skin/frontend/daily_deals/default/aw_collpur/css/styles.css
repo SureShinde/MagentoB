@@ -1018,7 +1018,12 @@ table.awcp-pricedata tr:nth-child(1) td{
 .next_page a:after{
 	content:"►";
 }
-
+.left_detail{
+		float:left;
+	}
+	.right_detail{
+		float:right;
+	}
 @media only screen and (min-width: 40.063em) { 
 	.right_detail_deals_2{
 		display:none;
@@ -1029,12 +1034,14 @@ table.awcp-pricedata tr:nth-child(1) td{
 	.hide_1, .hide_2, .hide_3{
 		display:block !important;
 	}
+	
 }
 @media only screen and (max-width: 360px){
-.awcp-item .wrap_li{
-	padding:10px 0;
-}
-
+	.awcp-item .wrap_li{
+		padding:10px 0;
+	}
+	
+	
 }
 @media only screen and (max-width: 40em) { 
 	.prev_page{
@@ -1121,27 +1128,14 @@ table.awcp-pricedata tr:nth-child(1) td{
 	.desc_one, .desc_two, .desc_three{
 		margin:5px 0;
 	}
-}
-@media only screen and (min-width: 1215px) { 
-	.banner_right_slider{
-		width:182px;
-		margin:0 0 0 3px;
-		height:100%;
-		background:#000;
-		float:left;
+	.main_detail{
 	}
-	.slider_area{
-		width:auto;
+	.left_detail{
+		float:right;
+	}
+	.right_detail{
 		float:left;
 	}
 }
-@media only screen and (max-width: 1215px) {
-	.banner_right_slider{
-		display:none;
-	}
-	.slider_area{
-		width:100%;
-		float:left;
-	}
-}
+
 
