@@ -62,6 +62,49 @@ class AW_Blog_Block_Menu_Sidebar extends AW_Blog_Block_Abstract
         return $collection;
     }
 
+    public function getComment()
+    {
+        $collection = Mage::getModel('blog/comment')
+            ->getCollection()
+            ->setOrder('created_time', 'DESC');
+        $collection->addFieldToFilter("main_table.status", array ('eq' => 2));
+        $collection->getSelect()
+            ->joinLeft(
+                array( 'awblog_post' => Mage::getSingleton('core/resource')->getTableName('blog/post') ),
+                "main_table.post_id = awblog_post.post_id",
+                array(
+                    'image_name' => 'awblog_post.image_name',
+                    'title'      => 'awblog_post.title',
+                )
+        );
+
+        $collection->getSelect()->limit(5);
+
+        return $collection;
+    }
+
+    public function getPopular()
+    {
+        // widget declaration
+        if ($this->getBlogWidgetRecentCount()) {
+            $size = $this->getBlogWidgetRecentCount();
+        } else {
+            // standard output
+            $size = self::$_helper->getRecentPage();
+        }
+
+        if ($size) {
+            $collection = clone self::$_collection;
+            $collection->setPageSize($size);
+
+            foreach ($collection as $item) {
+                $item->setAddress($this->getBlogUrl($item->getIdentifier()));
+            }
+            return $collection;
+        }
+        return false;
+    }
+
     protected function _beforeToHtml()
     {
         return $this;
