@@ -250,7 +250,7 @@
 </div>	
 
 <!--list-->
-<?php echo $this->getLayout()->createBlock('collpur/deals')->setTemplate('aw_collpur/deals/list.phtml')->toHtml(); ?>
+<?php echo $this->getLayout()->createBlock('collpur/deals')->setData('type', 'detail')->setTemplate('aw_collpur/deals/list.phtml')->toHtml(); ?>
 
 <!--end list-->
 

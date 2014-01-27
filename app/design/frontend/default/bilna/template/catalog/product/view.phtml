@@ -46,6 +46,10 @@
             <input type="hidden" name="related_product" id="related-products-field" value="" />
         </div>
 
+        <div class="product-img-box">
+            <?php echo $this->getChildHtml('media') ?>
+        </div>
+
         <div class="product-shop">
 			<div class="product-shop-left">
 				<div class="product-name">
@@ -138,10 +142,6 @@
 					<p class="email-friend"><a href="<?php echo $this->helper('catalog/product')->getEmailToFriendUrl($_product) ?>"><?php echo $this->__('Email to a Friend') ?></a></p>
 				<?php endif; ?>
 			</div>
-        </div>
-
-        <div class="product-img-box">
-            <?php echo $this->getChildHtml('media') ?>
         </div>
 
         <div class="clearer"></div>

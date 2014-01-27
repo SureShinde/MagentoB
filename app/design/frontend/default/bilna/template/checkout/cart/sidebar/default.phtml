@@ -144,4 +144,5 @@
 	
 	    <?php endif; //Can apply MSRP ?>
     </td>
+    <td><a href="<?php echo $this->getDeleteUrl() ?>" title="<?php echo $this->__('Remove This Item') ?>" onclick="return confirm('<?php echo $this->__('Are you sure you would like to remove this item from the shopping cart?') ?>');" class="btn-remove"><?php echo $this->__('Remove This Item') ?></a></td>
 </tr>
