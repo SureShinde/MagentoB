@@ -95,7 +95,8 @@
 				$dealInfo = $this->getDealPricesSpare ( $originalProduct, $product );
 			?>
             <div>
-            	<img u="image" src="<?php echo $this->getDealImage($dealSlider->getDealImage()); ?>" />
+				<? $url = Mage::getBaseUrl('media').'aw_collpur/deals/'.$dealSlider['deal_image_slider']; ?>
+            	<img u="image" src="<?php echo $url; ?>" />
                 <div u="thumb">
                     <img class="i" src="<?php echo $this->getDealImage($dealSlider->getDealImage()); ?>" />
                     <div class="t"><?php echo $dealSlider->getDealName(); ?></div>
