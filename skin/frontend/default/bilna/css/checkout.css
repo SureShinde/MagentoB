@@ -48,22 +48,45 @@
 .opc .step-title {
 	padding-top: 8px;
 	padding-bottom: 8px;
-	background: #f2f2f2;
-	border: 1px solid #dadada;
+	background: #c5c5c5;
+	border: none;	
+	margin-bottom: 1px;
 }
-.opc .step-title h2 {
+.opc .step-title h2, .opc .step-title .number {
 	text-transform: uppercase;
 	font-size: 14px;
 	font-family: 'bebasregular';
 	font-weight: normal;
 	letter-spacing: 1px;
-	color: #707070;
+	color: #fff;
+	line-height: 22px;
 }
-.opc .active .step-title, .opc .allow .step-title {
-	background: #f2f2f2;
-	border: 1px solid #dadada;
-}
+.opc .step-title .number, .opc .active .step-title .number, .opc .allow .step-title .number  {
+	background: url(../images/bg-number.png) no-repeat left top;
+	border: none;
+	width: 22px;
+	height: 22px;
+	text-align: center;
+	padding: 0;
 
+}
+.opc .step-title .number, .opc .allow .step-title .number {
+		color: #c5c5c5;
+}
+.opc .active .step-title .number {
+	color: #fd8e17;
+}
+.opc .active .step-title h2, .opc .allow .step-title h2 {
+	color: #fff;
+}
+.opc .allow .step-title {
+	background: #c5c5c5;
+	border: none;
+}
+.opc .active .step-title {
+	background: #fd8e17;
+	
+}
 .opc .step {
 	background: none;
 	border:none;
