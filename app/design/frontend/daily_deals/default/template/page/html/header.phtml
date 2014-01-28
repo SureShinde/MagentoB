@@ -109,31 +109,19 @@ $j(document).ready(function(){
 		<div class="sticky-header">
 			<a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="sticky-logo"><img src="<?php echo $this->getSkinUrl(); ?>images/logo-sticky.png" alt="<?php echo $this->getLogoAlt() ?>" /></a>
 			<ul class="sticky-menu">
-				<li><a href="#"><?php echo $this->__('Today\'s Promo') ?></a></li>
-				<li class="link-free-voucher">
-					<a href="#"><?php echo $this->__('Get Free Voucher!') ?></a>
-					<div class="free-voucher-info">
-						<h3><?php echo $this->__('Get Free Rp50,000 Voucher!') ?></h3>
-						<p><?php echo $this->__('Sign up to Bilna Newsletter and get your voucher!') ?></p>
-						<div class="header-newsletter"><?php echo $this->getChildHtml('header.newsletter'); ?></div>
-					</div>
-				</li>
+				<li><a href="#"><?php echo $this->__('Todays Promo') ?></a></li>
+				<li><a href="#"><?php echo $this->__('Get Free Voucher!') ?></a></li>
 				<li class="link-customer-care"><a href="#" ><?php echo $this->__('Customer Care Center') ?></a></li>
-				<li class="link-customer-care2"><a href="#" ><?php echo $this->__('Care Center') ?></a></li>
 				<div class="clear"></div>
 			</ul>
 			<div class="sticky-top-cart">
 	    		<?php $_totalItem = $this->helper('checkout/cart')->getSummaryCount();  //get total items in cart ?>
-	    		<?php if($_totalItem == 0):?>
-	    			<a href="#" class="link-minicart-sticky" id="link-minicart-sticky"><?php echo $this->__('View Cart(0)') ?></a>
-	    		<?php else:?>
-	    			<a href="#" class="link-minicart-sticky" id="link-minicart-sticky"><?php echo $this->__('View Cart(').$_totalItem.$this->__(')') ?></a>
-	    		<?php endif;?>
-	    		<a href="<?php if($_totalItem): echo "/checkout/cart"; endif;?>" class="link-checkout"><?php echo $this->__('Checkout') ?></a>
+	    		<a href="#" class="link-minicart-sticky" id="link-minicart-sticky"><?php echo $this->__('View Cart(').$_totalItem.$this->__(')') ?></a>
+	    		<a href="<?php echo $this->getCheckoutUrl() ?>" class="link-checkout"><?php echo $this->__('Checkout') ?></a>
 	    		<div class="clear"></div>
 	    		<div class="mini-cart-sticky"><?php echo $this->getChildHtml('topcart') ?></div>
 	    	</div>
-			<div class="sticky-search"><?php echo $this->getChildHtml('topSearch') ?></div>
+			<!--<div class="sticky-search"><?php //echo $this->getChildHtml('topSearch') ?></div>-->
 			<div class="clear"></div>
     	</div>
 	</div>
@@ -141,12 +129,13 @@ $j(document).ready(function(){
     	<a href="#" class="nav-mobile-trigger"><?php echo $this->__('Menu') ?></a>
     	<div class="menu-top">
 	    	<ul>
-		    	<li class="active"><a href="#"><?php echo $this->__('Mom &amp; Baby') ?></a></li>
+		    	<li><a href="#"><?php echo $this->__('Mom &amp; Baby') ?></a></li>
 		    	<li><a href="<?php echo $this->getUrl('') ?>"><?php echo $this->__('Home') ?></a></li>
-		    	<li><a href="#"><?php echo $this->__('Daily Deals') ?></a></li>
+		    	<li class="active"><a href="#"><?php echo $this->__('Daily Deals') ?></a></li>
 	    	</ul>
     	</div>
-    	<?php if ($this->getIsHomePage()):?>
+    	<!--<div class="menu-blog"><span><a href="#"><?php echo $this->__('Blog') ?></a></span></div>-->
+        <?php if ($this->getIsHomePage()):?>
         <h1 class="logo"><strong><?php echo $this->getLogoAlt() ?></strong><a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="logo"><img src="<?php echo $this->getSkinUrl(); ?>images/logo.png" alt="<?php echo $this->getLogoAlt() ?>" /></a></h1>
         <?php else:?>
         <a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="logo"><strong><?php echo $this->getLogoAlt() ?></strong><img src="<?php echo $this->getSkinUrl(); ?>images/logo.png" alt="<?php echo $this->getLogoAlt() ?>" /></a>
@@ -157,14 +146,9 @@ $j(document).ready(function(){
         	<a href="#" class="link-myaccount-mobile"><?php echo $this->__('My Account') ?></a>
         	<div class="top-cart">
         		<?php $_totalItem = $this->helper('checkout/cart')->getSummaryCount();  //get total items in cart ?>
-        		
-        		<?php if($_totalItem == 0):?>
-	    			<a href="#" class="link-minicart" id="link-minicart"><?php echo $this->__('View Cart(0)') ?></a>
-	    		<?php else:?>
-	    			<a href="#" class="link-minicart" id="link-minicart"><?php echo $this->__('View Cart(').$_totalItem.$this->__(')') ?></a>
-	    			<?php endif;?>
-        		<a href="<?php if($_totalItem): echo "/checkout/cart"; endif;?>" class="link-checkout"><?php echo $this->__('Checkout') ?></a>
-        		<a href="#" class="link-blog"><span><?php echo $this->__('Blog') ?></span></a>
+        		<a href="#" class="link-minicart" id="link-minicart"><?php echo $this->__('View Cart(').$_totalItem.$this->__(')') ?></a>
+        		<a href="<?php echo $this->getCheckoutUrl() ?>" class="link-checkout"><?php echo $this->__('Checkout') ?></a>
+        		<!--<a href="#" class="link-blog"><span><?php //echo $this->__('Blog') ?></span></a>-->
         		<div class="clear"></div>
         		<div class="mini-cart"><?php echo $this->getChildHtml('topcart') ?></div>
         	</div>
@@ -176,30 +160,22 @@ $j(document).ready(function(){
 	        	<?php echo $this->getChildHtml('store_language') ?>
 	        </div>
         	<div class="clear"></div>
-        	<p class="welcome-msg"><?php echo $this->getChildHtml('welcome') ?> <?php echo $this->getAdditionalHtml() ?></p>
+        	
+            <p class="welcome-msg"><?php echo $this->getChildHtml('welcome') ?> <?php echo $this->getAdditionalHtml() ?></p>
            
-            <?php echo $this->getChildHtml('topSearch') ?>
+            <?php //echo $this->getChildHtml('topSearch') ?>
             <?php echo $this->getChildHtml('store_language') ?>
             <div class="clear"></div>
         </div>
         <?php echo $this->getChildHtml('topContainer'); ?>
         <div class="nav-mobile"><?php //echo $this->getChildHtml('topMenu') ?></div>
         <div class="mini-cart-mobile"><?php echo $this->getChildHtml('topcart') ?></div>
-        <div class="search-mobile"><?php echo $this->getChildHtml('topSearch') ?></div>
+        <!--<div class="search-mobile"><?php //echo $this->getChildHtml('topSearch') ?></div>-->
         <div class="my-account-mobile"><?php echo $this->getChildHtml('topLinks') ?></div>
     </div>
 </div>
 <?php echo $this->getChildHtml('topMenu') ?>
-<div class="menu-tablet">
-	<div class="header-container">
-	<?php echo $this->getChildHtml('topLinks') ?>
-	<div class="store-phone">
-		<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('store_phone')->toHtml() ?>
-	</div>
-	<?php echo $this->getChildHtml('store_language') ?>
-	<div class="clear"></div>
-	</div>
-</div>
+
 <!--this is for testing only-->
 <?php //echo $this->getLayout()->createBlock("core/template")->setTemplate("page/template/bottommenu.phtml")->toHtml(); ?>
 <!--
