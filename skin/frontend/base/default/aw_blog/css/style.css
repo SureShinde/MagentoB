@@ -279,6 +279,7 @@ A.awblog_current_comment {
     border:none;
 	padding: 0;
 }
+
 .blog-post-view #postComment button.button span span,
 .blog-cat-view #postComment button.button span span {
 	background: none repeat scroll 0 0 #FFa01b;

@@ -177,6 +177,13 @@ class AW_Blog_Block_Manage_Blog_Edit_Tab_Form extends Mage_Adminhtml_Block_Widge
             )
         );
 
+        /*start added image upload*/
+        $fieldset->addField('filename', 'image', array(
+            'label' => Mage::helper('blog')->__('Image'),
+            'required' => false,
+            'name' => 'filename'
+        ));
+        /*end added image upload*/
         try {
             $config = Mage::getSingleton('cms/wysiwyg_config')->getConfig();
             $config->setData(

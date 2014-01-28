@@ -38,176 +38,97 @@
 	</div>
 	
 	
+	<?php if ($this->getCategories()->count() && Mage::getStoreConfig('blog/menu/category')): ?>
 	<div class="postContent2">
 		<div class="cat-title">
-			<h2>Category</h2>
+			<h2><?php echo Mage::helper('blog')->__('Categories'); ?></h2>
 		</div>
 		<div class="cat-list">
 			<ul style="width: 100%; margin-left:5px 2% 5px 2%;float:left;display: block;">
-				<li><a>Ibu & Kehamilan</a></li>
-				<li><a>Balita</a></li>
-				<li><a>Ibu</a></li>
-				<li><a>Anak</a></li>
-				<li><a>Keluarga</a></li>
+				<?php $cats = $this->getCategories(); ?>
+				<?php foreach ($cats as $cat): ?>
+                    <li><a href="<?php echo $cat->getAddress(); ?>" ><?php echo $cat->getTitle(); ?></a></li>
+                <?php endforeach; ?>
 			</ul>
 		<div>
 			
 		</div>
 	</div>
+	<?php endif; ?>
+
+		
+
+    <?php if ($posts = $this->getRecent()): ?>    
+	<div style="clear:both;"></div>
+	<div class="postContent3">
+		<div class="cat-title">
+			<h2><?php echo Mage::helper('blog')->__('Recent Posts'); ?></h2>
+		</div>
+		<div class="bg-greyblog">
+			<?php foreach ($posts as $post): ?>
+			<div style="width: 100%; margin-left:5px 2% 5px 2%;float:left;display: block; border-bottom: 1px solid #666;">
+				<div class="postTitle4">
+					<img alt="" src="<?php echo Mage::getBaseUrl();?>media/<?php echo $post->getImageName();?>" style="float: left;">
+					<div style="float: left;width: 60%;"> 
+						<h2><a href="<?php echo $post->getAddress(); ?>" ><?php echo $post->getTitle(); ?></a></h2>
+						<?php $d = new DateTime($post->getCreatedTime());?>
+						<h3><?php echo $d->format('l d, F Y h:i:s A'); ?></h3>
+					</div>
+				</div>
+			</div>
+			<?php endforeach; ?>
+			<div style="clear:both;"></div>
+		</div>
+	</div>
+	<?php endif; ?>
 	
+	<?php if ($posts = $this->getPopular()): ?>
 	<div style="clear:both;"></div>
 		<div class="postContent3">
 			<div class="cat-title">
-				<h2>Recent Post</h2>
+				<h2><?php echo Mage::helper('blog')->__('POPULAR'); ?></h2>
 			</div>
 			<div class="bg-greyblog">
+				<?php foreach ($posts as $post): ?>
 				<div style="width: 100%; margin-left:5px 2% 5px 2%;float:left;display: block; border-bottom: 1px solid #666;">
 					<div class="postTitle4">
-						<img alt="" src="http://192.168.2.31/bilna-baru/media/wysiwyg/Artikel/i-am-image.jpg" style="float: left;">
+						<img alt="" src="<?php echo Mage::getBaseUrl();?>media/<?php echo $post->getImageName();?>" style="float: left;">
 						<div style="float: left;width: 60%;"> 
-							<h2><a href="http://192.168.2.31/bilna-baru/news/test-blog-weeeewww/">Test 2 Image weeewww</a></h2>
-							<h3>Friday, January 3, 2014 3:59:57 PM Asia/Bangkok</h3>
+							<h2><a href="<?php echo $post->getAddress(); ?>" ><?php echo $post->getTitle(); ?></a></h2>
+							<?php $d = new DateTime($post->getCreatedTime());?>
+							<h3><?php echo $d->format('l d, F Y h:i:s A'); ?></h3>
 						</div>
 					</div>
 				</div>
-				<div style="width: 100%; margin-left:5px 2% 5px 2%;float:left;display: block; border-bottom: 1px solid #666;">
-					<div class="postTitle4">
-						<img alt="" src="http://192.168.2.31/bilna-baru/media/wysiwyg/Artikel/i-am-image.jpg" style="float: left;">
-						<div style="float: left;width: 60%;">
-							<h2><a href="http://192.168.2.31/bilna-baru/news/test-blog-weeeewww/">Test 2 Image weeewww</a></h2>
-							<h3>Friday, January 3, 2014 3:59:57 PM Asia/Bangkok</h3>
-						</div>
-					</div>
-					
-				</div>
-				
-				<div style="width: 100%; margin-left:5px 2% 5px 2%;float:left;display: block; border-bottom: 1px solid #666;">
-					<div class="postTitle4">
-						<img alt="" src="http://192.168.2.31/bilna-baru/media/wysiwyg/Artikel/i-am-image.jpg" style="float: left;">
-						<div style="float: left;width: 60%;"> 
-							<h2><a href="http://192.168.2.31/bilna-baru/news/test-blog-weeeewww/">Test 2 Image weeewww</a></h2>
-							<h3>Friday, January 3, 2014 3:59:57 PM Asia/Bangkok</h3>
-						</div>
-					</div>
-				</div>
-				<div style="width: 100%; margin-left:5px 2% 5px 2%;float:left;display: block; border-bottom: 1px solid #666;">
-					<div class="postTitle4">
-						<img alt="" src="http://192.168.2.31/bilna-baru/media/wysiwyg/Artikel/i-am-image.jpg" style="float: left;">
-						<div style="float: left;width: 60%;">
-							<h2><a href="http://192.168.2.31/bilna-baru/news/test-blog-weeeewww/">Test 2 Image weeewww</a></h2>
-							<h3>Friday, January 3, 2014 3:59:57 PM Asia/Bangkok</h3>
-						</div>
-					</div>
-					
-				</div>
+				<?php endforeach; ?>
 				<div style="clear:both;"></div>
 			</div>
 		</div>
-		
-	
+		<?php endif; ?>
+
+	<?php if ($comments = $this->getComment()): ?>	
 	<div style="clear:both;"></div>
 		<div class="postContent3">
 			<div class="cat-title">
-				<h2>POPULAR</h2>
+				<h2><?php echo Mage::helper('blog')->__('Recent Comments'); ?></h2>
 			</div>
 			<div class="bg-greyblog">
+				<?php foreach ($comments as $comment): ?>
 				<div style="width: 100%; margin-left:5px 2% 5px 2%;float:left;display: block; border-bottom: 1px solid #666;">
 					<div class="postTitle4">
-						<img alt="" src="http://192.168.2.31/bilna-baru/media/wysiwyg/Artikel/i-am-image.jpg" style="float: left;">
+						<img alt="" src="<?php echo Mage::getBaseUrl();?>media/<?php echo $comment->getImageName();?>" style="float: left;">
 						<div style="float: left;width: 60%;"> 
-							<h2><a href="http://192.168.2.31/bilna-baru/news/test-blog-weeeewww/">Test 2 Image weeewww</a></h2>
-							<h3>Friday, January 3, 2014 3:59:57 PM Asia/Bangkok</h3>
+							<h3><?php echo $comment->getUser(); ?> was comment on : <?php echo $comment->getTitle(); ?></h3>
+							<?php $d = new DateTime($comment->getCreatedTime());?>
+							<h3><?php echo $d->format('l d, F Y h:i:s A'); ?></h3>
 						</div>
 					</div>
 				</div>
-				<div style="width: 100%; margin-left:5px 2% 5px 2%;float:left;display: block; border-bottom: 1px solid #666;">
-					<div class="postTitle4">
-						<img alt="" src="http://192.168.2.31/bilna-baru/media/wysiwyg/Artikel/i-am-image.jpg" style="float: left;">
-						<div style="float: left;width: 60%;">
-							<h2><a href="http://192.168.2.31/bilna-baru/news/test-blog-weeeewww/">Test 2 Image weeewww</a></h2>
-							<h3>Friday, January 3, 2014 3:59:57 PM Asia/Bangkok</h3>
-						</div>
-					</div>
-					
-				</div>
-				
-				<div style="width: 100%; margin-left:5px 2% 5px 2%;float:left;display: block; border-bottom: 1px solid #666;">
-					<div class="postTitle4">
-						<img alt="" src="http://192.168.2.31/bilna-baru/media/wysiwyg/Artikel/i-am-image.jpg" style="float: left;">
-						<div style="float: left;width: 60%;"> 
-							<h2><a href="http://192.168.2.31/bilna-baru/news/test-blog-weeeewww/">Test 2 Image weeewww</a></h2>
-							<h3>Friday, January 3, 2014 3:59:57 PM Asia/Bangkok</h3>
-						</div>
-					</div>
-				</div>
-				<div style="width: 100%; margin-left:5px 2% 5px 2%;float:left;display: block; border-bottom: 1px solid #666;">
-					<div class="postTitle4">
-						<img alt="" src="http://192.168.2.31/bilna-baru/media/wysiwyg/Artikel/i-am-image.jpg" style="float: left;">
-						<div style="float: left;width: 60%;">
-							<h2><a href="http://192.168.2.31/bilna-baru/news/test-blog-weeeewww/">Test 2 Image weeewww</a></h2>
-							<h3>Friday, January 3, 2014 3:59:57 PM Asia/Bangkok</h3>
-						</div>
-					</div>
-					
-				</div>
+				<?php endforeach; ?>
 				<div style="clear:both;"></div>
 			</div>
 		</div>
-		
-		
-	<div style="clear:both;"></div>
-		<div class="postContent3">
-			<div class="cat-title">
-				<h2>Recent COMMENTS</h2>
-			</div>
-			<div class="bg-greyblog">
-				<div style="width: 100%; margin-left:5px 2% 5px 2%;float:left;display: block; border-bottom: 1px solid #666;">
-					<div class="postTitle4">
-						<img alt="" src="http://192.168.2.31/bilna-baru/media/wysiwyg/Artikel/i-am-image.jpg" style="float: left;">
-						<div style="float: left;width: 60%;"> 
-							<h2><a href="http://192.168.2.31/bilna-baru/news/test-blog-weeeewww/">Test 2 Image weeewww</a></h2>
-							<h3>Friday, January 3, 2014 3:59:57 PM Asia/Bangkok</h3>
-						</div>
-					</div>
-				</div>
-				<div style="width: 100%; margin-left:5px 2% 5px 2%;float:left;display: block; border-bottom: 1px solid #666;">
-					<div class="postTitle4">
-						<img alt="" src="http://192.168.2.31/bilna-baru/media/wysiwyg/Artikel/i-am-image.jpg" style="float: left;">
-						<div style="float: left;width: 60%;">
-							<h2><a href="http://192.168.2.31/bilna-baru/news/test-blog-weeeewww/">Test 2 Image weeewww</a></h2>
-							<h3>Friday, January 3, 2014 3:59:57 PM Asia/Bangkok</h3>
-						</div>
-					</div>
-					
-				</div>
-				
-				<div style="width: 100%; margin-left:5px 2% 5px 2%;float:left;display: block; border-bottom: 1px solid #666;">
-					<div class="postTitle4">
-						<img alt="" src="http://192.168.2.31/bilna-baru/media/wysiwyg/Artikel/i-am-image.jpg" style="float: left;">
-						<div style="float: left;width: 60%;"> 
-							<h2><a href="http://192.168.2.31/bilna-baru/news/test-blog-weeeewww/">Test 2 Image weeewww</a></h2>
-							<h3>Friday, January 3, 2014 3:59:57 PM Asia/Bangkok</h3>
-						</div>
-					</div>
-				</div>
-				<div style="width: 100%; margin-left:5px 2% 5px 2%;float:left;display: block; border-bottom: 1px solid #666;">
-					<div class="postTitle4">
-						<img alt="" src="http://192.168.2.31/bilna-baru/media/wysiwyg/Artikel/i-am-image.jpg" style="float: left;">
-						<div style="float: left;width: 60%;">
-							<h2><a href="http://192.168.2.31/bilna-baru/news/test-blog-weeeewww/">Test 2 Image weeewww</a></h2>
-							<h3>Friday, January 3, 2014 3:59:57 PM Asia/Bangkok</h3>
-						</div>
-					</div>
-					
-				</div>
-				<div style="clear:both;"></div>
-			</div>
-		</div>
-	
-	
-	
-		
-		
+	<?php endif; ?>
 	</div>
 </div>
 

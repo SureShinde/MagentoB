@@ -167,6 +167,35 @@ class AW_Blog_Manage_BlogController extends Mage_Adminhtml_Controller_Action
                 }
             }
 
+            /*start added for save image/banner*/
+            $imagedata = array();
+            if (!empty($_FILES['filename']['name']))
+            {
+                try {
+                    $ext = substr($_FILES['filename']['name'], strrpos($_FILES['filename']['name'], '.') + 1);
+                    $fname = 'File-' . time() . '.' . $ext;
+                    $uploader = new Varien_File_Uploader('filename');
+                    $uploader->setAllowedExtensions(array('jpg', 'jpeg', 'gif', 'png'));
+                    $uploader->setAllowRenameFiles(true);
+                    $uploader->setFilesDispersion(false);
+
+                    $path = Mage::getBaseDir('media').DS.'blog'.DS.'images';
+
+                    $uploader->save($path, $fname);
+                    $imagedata['filename'] = 'blog/images/'.$fname;
+                }catch(Exception $e){
+                    Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+                    $this->_redirect('*/*/edit');
+                    return;
+                }
+            }
+            //$data['image_name'] = '';
+            if (!empty($imagedata['filename'])) {
+                $data['image_name'] = $imagedata['filename'];
+            }
+//print_r($data['image_name']);die;            
+            /*start added for save image/banner*/
+
             $model
                 ->setData($data)
                 ->setId($this->getRequest()->getParam('id'))

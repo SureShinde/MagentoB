@@ -256,6 +256,7 @@ button.btn-cart span, button.btn-cart span span {
 	.products-grid .actions .add-to-links {
 		margin-left: 0;
 	}
+}
 
 /* -------blog custom-------- */
 .blog-index-list .main {
@@ -284,5 +285,4 @@ button.btn-cart span, button.btn-cart span span {
     float: right;
     padding:0 0 0 3%;
     width: 22%;
-}
 }
