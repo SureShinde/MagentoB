@@ -110,7 +110,29 @@ class Bilna_Paymethod_VtdirectController extends Mage_Core_Controller_Front_Acti
     
     public function notificationAction() {
         $notification = json_decode(file_get_contents('php://input'));
-        $contentRequest = sprintf("%s | request_vtdirect: %s", $notification->data->order_id, $notification);
+        $contentRequest = sprintf("%s | request_vtdirect: %s", $notification->data->order_id, json_encode($notification));
+        $this->writeLog($this->_typeTransaction, 'notification', $contentRequest);
+        
+        /**
+         * check order id
+         */
+        if (!isset ($notification->data->order_id)) {
+            $this->writeLog($this->_typeTransaction, 'notification', 'transactionNo failed.');
+            exit;
+        }
+        
+        /**
+         * check transaction already in process
+         */
+        if ($this->checkLock($notification->data->order_id)) {
+            $this->writeLog($this->_typeTransaction, 'notification', 'Transaction already in process.');
+            exit;
+        }
+        
+        /**
+         * create lock file
+         */
+        $this->createLock($notification->data->order_id);
         
         if ($this->getServerKey() == $notification->data->server_key) {
             $order = Mage::getModel('sales/order')->loadByIncrementId($notification->data->order_id);
@@ -382,5 +404,13 @@ class Bilna_Paymethod_VtdirectController extends Mage_Core_Controller_Front_Acti
         $filename = sprintf("%s_%s.%s", $this->_code, $logFile, $tdate);
         
         return Mage::helper('paymethod')->writeLogFile($this->_code, $type, $filename, $content);
+    }
+    
+    protected function createLock($filename) {
+        return Mage::helper('paymethod')->createLockFile($this->_code, $filename);
+    }
+    
+    protected function checkLock($filename) {
+        return Mage::helper('paymethod')->checkLockFile($this->_code, $filename);
     }
 }
