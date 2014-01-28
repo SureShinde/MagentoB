@@ -1703,6 +1703,9 @@ tr.summary-details-excluded { font-style:italic; }
 	width:200px;
 
 }
+.footer-container{
+	margin:20px 0 0;
+}
 .homepage{
 	display:none;
 }
@@ -1759,6 +1762,10 @@ tr.summary-details-excluded { font-style:italic; }
 .clrb {
 	clear:both;
 }
+.block-cart .empty{
+	font-size:100%;
+}
+
 #maindiv {
 	width:700px;
 	border:1px solid #999;
@@ -1775,9 +1782,17 @@ tr.summary-details-excluded { font-style:italic; }
 	.row{
 	width:994px;
 	}
-	
+	.slider_img{
+	width:1143px !important;
+	}
+	.slider_image{
+	width:1143px !important;
+	}
 }
 @media only screen and (max-width: 1023px){
+	.awcp-buy-button .awcp-buy, .orbit-caption .awcp-buy{
+		margin:15px 10px;
+	}
 	.row{
 	width:745px;
 	}
@@ -1786,6 +1801,7 @@ tr.summary-details-excluded { font-style:italic; }
 	.row{
 	width:100%;
 	}
+	
 }
 
 

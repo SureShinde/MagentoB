@@ -248,7 +248,7 @@
 	</div>
 </div>
 
-<div class="small-4 small-push-8 columns back_list"><a href="!#">FEATURED DEALS</a></div>
+<div class="small-4 small-push-8 columns back_list"><a href="<?php echo Mage::getBaseUrl(); ?>/deals/featured.html">FEATURED DEALS</a></div>
 <div class="small-4 small-pull-8 columns also_like">YOU MIGHT ALSO LIKE</div>
 	
 	
@@ -257,6 +257,7 @@
 <!--list-->
 <?php echo $this->getLayout()->createBlock('collpur/deals')->setData('type', 'detail')->setTemplate('aw_collpur/deals/list.phtml')->toHtml(); ?>
 
+<div class="small-4 small-push-8 columns back_list"><a href="<?php echo Mage::getBaseUrl(); ?>/deals/featured.html">FEATURED DEALS</a></div>
 <!--end list-->
 
      <script type = "text/javascript">
