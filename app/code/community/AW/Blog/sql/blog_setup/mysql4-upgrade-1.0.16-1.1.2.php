@@ -11,7 +11,7 @@ CREATE TABLE `aw_blog_layout` (
   `layout_name` char(100) NOT NULL,
   `layout_desc` varchar(200) NOT NULL,
   PRIMARY KEY (`layout_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 ");
 
 $installer->endSetup();

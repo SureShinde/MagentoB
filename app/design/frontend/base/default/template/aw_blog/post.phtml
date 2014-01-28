@@ -26,27 +26,12 @@
 ?><?php $post = $this->getPost(); 
 $relatedPost = $this->getRelatedPost($post->getCatId(), $post->getPostId());
 ?>
-<style type="text/css">
-    
-    .rel-post {
-        width: 19%;
-        float: left;
-        margin: 0.5%;
-    }
-    .rel-post img {
-        width: 100%;
-        clear: both;
-        margin-bottom: 10px;
-    }
 
-
-
-</style>
 <div id="messages_product_view"><?php echo $this->getMessagesBlock()->getGroupedHtml() ?></div>
 <div class="postWrapper">
     
     <p>
-        <img alt="" src="<?php echo Mage::getBaseUrl();?>media/<?php echo $post->getImageName();?>" style="float: left;" />
+        <img alt="" src="<?php echo Mage::getBaseUrl();?>media/<?php echo $post->getImageName();?>" class="image-post-main" />
         <div class="postTitle">
         <h2><?php echo $post->getTitle(); ?></h2>
         <h3><?php echo $post->getCreatedTime(); ?></h3>
@@ -87,13 +72,13 @@ $relatedPost = $this->getRelatedPost($post->getCatId(), $post->getPostId());
         
         <div class="rel-post">
             <img src="<?php echo Mage::getBaseUrl();?>media/<?php echo $row->getImageName();?>"/>
-            <p>
+            <p class="post-blog-title-small">
                 <?php echo $row->getTitle();?>
             </p>
         </div>
     <?php endforeach;?>
     </div>
-    <div style="clear:both;"></div>
+    <div style="clear:both;height: 20px;"></div>
 
     <div class="fb-comments" data-href="http://www.stejing.com" data-numposts="25" data-colorscheme="light"></div>
     
