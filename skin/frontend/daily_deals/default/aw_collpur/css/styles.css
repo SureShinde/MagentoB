@@ -897,7 +897,6 @@ table.awcp-pricedata tr:nth-child(1) td{
 	font-size:12px;
 	line-height:12px;
 	margin:4px 0 0 5px;
-	float:left;
 }
 .price_deals_slider .after_price p:nth-child(1){
 	text-decoration:line-through;

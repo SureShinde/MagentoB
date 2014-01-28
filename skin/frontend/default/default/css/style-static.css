@@ -716,6 +716,9 @@ animation-timing-function: linear;
 		z-index: 801;
 	}
 }
+
+
+
 /* ---------------------------------------- End min MWB 700px ------------------------------------------------------ */
 
 
@@ -796,4 +799,10 @@ animation-timing-function: linear;
 /* END Styles for MOM's & BABY WORLD */
 
 
+/*style Tanya Ahli */
+.registered-users ul.form-list{
+	list-style-type:;
+}
+
+/*style Tanya Ahli */
 
