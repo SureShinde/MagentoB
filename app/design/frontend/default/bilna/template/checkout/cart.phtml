@@ -67,10 +67,10 @@
                         <th class="wishlist" rowspan="<?php echo $mergedCells; ?>" class="a-center"><span class="nobr"><?php echo $this->__('Move to Wishlist') ?></span></th>
                         <?php endif ?>
                         <th class="a-right" colspan="<?php echo $mergedCells; ?>"><span class="nobr"><?php echo $this->__('Price') ?></span></th>
-                        <th rowspan="<?php echo $mergedCells; ?>" class="a-center"><?php echo $this->__('Quantity') ?></th>
+                        <th rowspan="<?php echo $mergedCells; ?>" class="a-center"><span><?php echo $this->__('Quantity') ?></span></th>
                         <th class="a-right" rowspan="<?php echo $mergedCells; ?>"><span class="weight"><?php echo $this->__('Weight') ?></span></th>
-                        <th class="a-right" colspan="<?php echo $mergedCells; ?>"><?php echo $this->__('Subtotal') ?></th>
-                        <th class="a-right" rowspan="<?php echo $mergedCells; ?>" class="a-center"><?php echo $this->__('Remove') ?></th>
+                        <th class="a-right" colspan="<?php echo $mergedCells; ?>"><span><?php echo $this->__('Subtotal') ?></span></th>
+                        <th class="a-right remove" rowspan="<?php echo $mergedCells; ?>"><span><?php echo $this->__('Remove') ?></span></th>
                     </tr>
                     <?php if ($this->helper('tax')->displayCartBothPrices()): ?>
                     <tr>
@@ -152,11 +152,11 @@
 						<td class="a-right discount-column" colspan="2">
 							<?php echo $this->getChildHtml('coupon') ?>
 						</td>
-						<td class="a-right subtotal-title"<?php if ($this->helper('wishlist')->isAllowInCart()) : ?> colspan="2"<?php endif; ?>>&nbsp;</td>
-						<td class="a-center">
+						<td class="a-right subtotal-title hi-res"<?php if ($this->helper('wishlist')->isAllowInCart()) : ?> colspan="2"<?php endif; ?>>&nbsp;</td>
+						<td class="a-center hi-res">
 							<div class="sum-qty"><?php echo Mage::getModel('checkout/cart')->getQuote()->getItemsQty(); ?></div>
 						</td>
-						<td class="a-right">
+						<td class="a-right hi-res">
 							<div class="sum-weights">
 							<?php 
 								$items = Mage::getSingleton('checkout/session')->getQuote()->getAllItems();
