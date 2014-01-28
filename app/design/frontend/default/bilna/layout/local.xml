@@ -8,10 +8,11 @@
 	        		]]></text>
         		</action>
         	</block>
-			<action method="addCss"><stylesheet>css/reset.css</stylesheet></action>
+        	<action method="addCss"><stylesheet>css/reset.css</stylesheet></action>
  			<action method="addCss"><stylesheet>css/general.css</stylesheet></action>
             <action method="addCss"><stylesheet>css/header.css</stylesheet></action>
             <action method="addCss"><stylesheet>css/footer.css</stylesheet></action>
+			<action method="addCss"><stylesheet>additional-style-blog.css</stylesheet></action>
             <action method="addItem">
                 <type>skin_js</type>
                 <name>js/jquery.min.js</name>
@@ -24,6 +25,14 @@
                 <type>skin_js</type>
                 <name>js/no-conflict.js</name>
             </action>
+            <action method="addItem">
+                <type>skin_js</type>
+                <name>js/jquery.bxslider.min.js</name>
+            </action>
+            <action method="addItem">
+                <type>skin_js</type>
+                <name>js/jquery.easytabs.min.js</name>
+            </action>
         </reference>
         <reference name="header">
         	<remove name="welcome"/>
@@ -35,6 +44,9 @@
         	<remove name="wishlist_link"/>
         </reference>
         <remove name="footer_links"/>
+        <reference name="footer">
+        	<remove name="store_switcher"/>
+        </reference>
     </default>
 	<customer_logged_in>
         <reference name="top.links">
@@ -81,7 +93,16 @@
             <action method="setTemplate"><template>page/2columns-left.phtml</template></action>
         </reference>
 		<reference name="head">
-            <action method="addCss"><stylesheet>css/category.css</stylesheet></action>			
+            <action method="addCss"><stylesheet>css/category.css</stylesheet></action>	
+            <action method="addCss"><stylesheet>css/jquery-ui.css</stylesheet></action>	
+            <action method="addItem">
+                <type>skin_js</type>
+                <name>js/jquery.tinyscrollbar.min.js</name>
+            </action>
+             <action method="addItem">
+                <type>skin_js</type>
+                <name>js/jquery-ui.min.js</name>
+            </action>		
 		</reference>
 		<reference name="left">
 			<remove name="left.permanent.callout"/>
@@ -90,4 +111,27 @@
 		</reference>
 		<reference name="content"></reference>
 	</catalog_category_view>
+	<catalog_product_view translate="label">
+		<reference name="root">
+            <action method="setTemplate"><template>page/1column.phtml</template></action>
+        </reference>
+		<reference name="head">
+            <action method="addItem">
+                <type>skin_js</type>
+                <name>js/cloudzoom.js</name>
+            </action>
+            <action method="addCss"><stylesheet>css/cloudzoom.css</stylesheet></action>
+            <action method="addCss"><stylesheet>css/pdp.css</stylesheet></action>
+		</reference>
+		<reference name="product.info.options.wrapper.bottom">
+			<action method="unsetCallChild"><child>product.info.addtocart</child></action>
+			<action method="unsetCallChild"><child>product.info.addto</child></action>
+		</reference>
+		<reference name="content">
+			<block type="relatedproducts/relatedproducts" name="catalog.product.awrelated.community" as="awrelatedproducts" template="catalog/product/list/awrelated.phtml">
+					<action method="disableRelated"/>
+			</block>
+			<block type="review/product_view_list" name="product.info.product_additional_data" as="reviews" template="review/product/view/list.phtml"/>
+		</reference>
+	</catalog_product_view>
 </layout>

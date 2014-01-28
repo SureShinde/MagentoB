@@ -1,0 +1,64 @@
+<?php $catposts = $this->getData('catPosts'); 
+$posts = $catposts['posts'];
+$cat = $catposts['cat'];
+?>
+
+<div style="width: 100%; clear: both;">
+	<?php $i=0; foreach ($posts as $row): ?>
+    <?php if($i==0):?>
+  <div class="postContent">
+    <div class="line-yellow"></div>
+    <div class="cat-title">
+      	<h2><?php echo $cat;?></h2>
+    </div>
+    <p>
+    	<img alt="" src="<?php echo Mage::getBaseUrl();?>media/<?php echo $row->getImageName();?>" style="float: left;" />
+    </p>
+    <div class="postTitle">
+	  	<h2>
+	    	<a href="<?php echo $row->getAddress(); ?>" ><?php echo $row->getTitle(); ?></a>
+	  	</h2>
+	    <?php $d = new DateTime($row->getCreatedTime());?>
+			<h3><?php echo $d->format('l d, F Y h:i:s A'); ?></h3>
+    </div>
+	    <p><?php echo $row->getPostContent(); ?></p>
+	    <a href="http://192.168.2.31/bilna-baru/news/test-blog-weeeewww/" class="aw-blog-read-more">Continue Reading</a>
+    	<div style="clear:both;"></div>
+  	</div>
+  <div style="clear:both;"></div>
+  <div class="postContent2">
+    
+  	<?php else:?>
+  	<div style="width: 50%; margin-left:5px 2% 5px 2%;float:left;display: block;">
+      <div class="postTitle3">
+        <img alt="" src="<?php echo Mage::getBaseUrl();?>media/<?php echo $row->getImageName();?>" style="float: left;" />
+        <div style="float: left;width: 45%;">
+          <h2>
+            <a href="<?php echo $row->getAddress(); ?>" ><?php echo $row->getTitle(); ?></a>
+          </h2>
+          <?php $d = new DateTime($row->getCreatedTime());?>
+			<h3><?php echo $d->format('l d, F Y h:i:s A'); ?></h3>
+        </div>
+      </div>
+    </div>
+  	<?php endif;?>
+    <div class="postDetails">
+        <?php if ($this->getCommentsEnabled()): ?>
+            <?php echo $row->getCommentCount(); ?> <a href="<?php echo $row->getAddress(); ?>#commentBox" >Comments</a> |
+        <?php endif; ?>
+        <?php $postCats = $row->getCats(); ?>
+        <?php if (!empty($postCats)): ?>
+            <?php echo Mage::helper('blog')->__('Posted in'); ?>
+            <?php foreach ($postCats as $data): ?>
+                <a href="<?php echo $data['url']; ?>"><?php echo $data['title']; ?></a>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <?php echo Mage::helper('blog')->__('Posted'); ?>
+        <?php endif; ?><?php echo $this->__("By"); ?> <?php echo $row->getUser(); ?></div>
+	<?php $i++; endforeach; ?> 
+
+    
+
+    <div style="clear:both;"></div>
+  </div>
+</div>

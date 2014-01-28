@@ -1,0 +1,59 @@
+<?php
+/**
+ * Magento Enterprise Edition
+ *
+ * @author      Guidance Magento Team <magento@guidance.com>
+ * @category    design
+ * @package     enterprise_rtb
+ * @copyright   Copyright (c) 2013 Guidance Solutions (http://www.guidance.com)
+ *
+ */
+?>
+<?php
+/**
+ * Top menu for store
+ *
+ * @see Mage_Page_Block_Html_Topmenu
+ */
+?>
+<?php $menuTree = $this->getHtml('level-top') ?>
+<?php if($menuTree): ?>
+    <div class="nav-container container">
+        <ul id="nav" class="nav">
+        	<li class="level0 level-top shop-by"><span><?php echo $this->__('Shop by') ?></span><a href="#" class="level-top link-shopby"><?php echo $this->__('Shop by') ?></a>
+        	 <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('shopby')->toHtml() ?>
+        	</li>
+            <?php
+            $children = $this->addFeaturedProductData($menuTree->getChildren());
+            $parentLevel = $menuTree->getLevel();
+            $childLevel = is_null($parentLevel) ? 0 : $parentLevel + 1;
+            $parentsCount = $children->count();
+            $counter = 0;
+            ?>
+            <?php foreach ($children as $child): ?>
+                <?php
+                $outermostClassCode = '';
+                $outermostClass = $menuTree->getOutermostClass()." parent-".$counter;
+                ?>
+                <?php if ($childLevel == 0 && $outermostClass): ?>
+                    <?php $outermostClassCode = ' class="' . $outermostClass . ' '. strtolower(str_replace(array('&',' '), "", $child->getName())).'" ';
+                    $child->setClass($outermostClass); ?>
+                <?php endif; ?>
+                <li <?php echo $this->_getRenderedMenuItemAttributes($child)?>>
+                        <a href="<?php echo $child->getUrl()?>" <?php echo $outermostClassCode ?>>
+                            <span><span><?php echo $this->escapeHtml($child->getName()) ?></span></span>
+                        </a>
+                        <?php if ($child->hasChildren()): ?>
+                            <ul class="level-hover <?php echo $childLevel ." ".strtolower(str_replace(array('&',' '), "_", $child->getName()))."_hover";?>">
+                                <?php echo $this->getSubMenuHtml($child) ?>
+                            </ul>
+                        <?php endif; ?>
+                </li>
+                <?php $counter++;?>
+            <?php endforeach; ?>
+            <li class="menu-salegift"><?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('sale_giftideas')->toHtml() ?></li>
+            <div class="clear"></div>
+        </ul>
+    </div>
+<?php endif ?>
+<div class="dash"></div>

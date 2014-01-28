@@ -41,6 +41,9 @@
 .footer .payment-partners {
 	width: 180px;
 }
+.footer .payment-partners table tr td.payment-right {
+	text-align: right;
+}
 .footer .conect-us span.title, .footer .payment-partners span.title, .footer .shipping-partners span.title {
 	display: block;
 	margin:0 0 15px 0;
