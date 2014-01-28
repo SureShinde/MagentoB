@@ -16,6 +16,7 @@ AWGenerateLinkProducts = {
         this.cat = config.cat;  
         this.wh  = config.wh;
         this.catOpt = config.catOpt;
+        this.storeId = config.storeId;
         Event.observe(window, 'load', function(){
             $('generate-link-btn').observe('click', this.generateLink.bind(this));
         }.bind(this));
@@ -32,9 +33,11 @@ AWGenerateLinkProducts = {
         var _wh = this.wh;
         var __wh = _wh.split('x')
         var _catOpt = this.catOpt;
+        var _storeId = this.storeId
         var _params = 'traffic_source_generate/' + encodeURIComponent($('traffic-source-generate').getValue())
                 +'/width_to_generate/'+ encodeURIComponent(_wh)
                 +'/category_to_generate/'+ encodeURIComponent(_cat)
+                +'/store_id/'+ encodeURIComponent(_storeId)
                 +'/category_option_to_generate/'+ encodeURIComponent(_catOpt)
         $('result').setValue('<iframe width="'+__wh[0]+'" scrolling="no" height="'+__wh[1]+'" frameborder="0" src="'+_url+ _params+'"></iframe>');
         $('result').focus();
