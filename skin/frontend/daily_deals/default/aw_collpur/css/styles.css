@@ -104,6 +104,7 @@
     float: left !important;
     margin-top: 7px;
     margin-bottom: 7px;
+	padding-bottom:0;
 	position:relative;
 }
 
@@ -235,14 +236,18 @@ button.awcp-button span span {
 
 .awcp-product-img-box {
     position: relative;
-    /* overflow:hidden; */
+    overflow:hidden;
     margin-bottom: 16px;
+	height:384px;
 }
 
 .awcp-product-img-box .awcp-product-img {
     padding: 2px;
     background-color: #FFF;
 	width:100%;
+	width:798px;
+	max-width:none;
+	position:absolute;
 }
 
 .awcp-product-img-box .share {
@@ -293,7 +298,7 @@ button.awcp-button span span {
 }
 
 .awcp-add-to-box .awcp-price {
-    padding: 10px 0;
+
 }
 
 .awcp-add-to-box .awcp-buy-button {
@@ -422,10 +427,12 @@ table.awcp-pricedata th.last {
 }
 
 .awcp-deal-mark3 .content {
-	padding:13px 0;
+	padding:10px 0;
 	display:table;
 	width:100%;
+	margin:10px 0 0;
 	border-bottom:1px solid #fff;
+	border-top:1px solid #fff;
 }
 
 .awcp-deal-mark3 .awcp-bought {
@@ -448,7 +455,7 @@ table.awcp-pricedata th.last {
     float: left;*/
     width: 100%;
 	background:#f75a2f;
-	padding:0 10px;
+	padding:0 10px 10px;
 	border-bottom:1px solid #fff;
 }
 
@@ -593,7 +600,7 @@ LI#googleplusli {
 	text-shadow:2px 2px 0 #BE6252;
 	float:right;
 	padding:5px 30px;
-	margin:10px 10px 20px;
+	margin:26px 10px;
 	border-radius:10px;
 	-webkit-border-radius:10px;
 	-moz-border-radius:10px;
@@ -614,7 +621,7 @@ LI#googleplusli {
     float: right;
     position: absolute;
     right:0;
-	bottom:5px;
+	bottom:45px;
 }
 .awcp-product-name p{
 	font-size:12px;
@@ -641,8 +648,8 @@ table.awcp-pricedata tr:nth-child(1) td{
 }
 .desc_deals{
 	border-bottom: 1px solid #999999;
-    margin: 0 0 10px;
-    padding: 0 0 50px;
+    margin:0 0 25px;
+    padding: 0 0 100px;
 }
 .desc_deals h2{
 	color:#fb816c;
@@ -684,7 +691,7 @@ table.awcp-pricedata tr:nth-child(1) td{
 .awcp-mark-center .desc_short_deals{
 	font-size:12px;
 	color:#fff;
-	max-height:20px;
+	max-height:17px;
 	overflow:hidden;
 	display:block;
 	margin:0 0 2px;
@@ -1024,6 +1031,11 @@ table.awcp-pricedata tr:nth-child(1) td{
 .share_label{
 	font-family:'bebasregular';
 }
+@media only screen and (min-width: 767px){
+	.right_detail {
+    padding-right: 0;
+}
+}
 @media only screen and (min-width: 40.063em) { 
 	.right_detail_deals_2{
 		display:none;
@@ -1043,6 +1055,12 @@ table.awcp-pricedata tr:nth-child(1) td{
 	
 	
 }
+@media only screen and (max-width: 64em){
+	.awcp-buy-button .awcp-buy, .orbit-caption .awcp-buy{
+		margin:15px 10px;
+	}
+	
+	}
 @media only screen and (max-width: 40em) { 
 	.prev_page{
 		display:none;
@@ -1124,6 +1142,7 @@ table.awcp-pricedata tr:nth-child(1) td{
 	}
 	.desc_deals h2{
 		border-bottom:1px solid #e1e1e1;
+		cursor:pointer;
 	}
 	.desc_one, .desc_two, .desc_three{
 		margin:5px 0;
@@ -1135,6 +1154,16 @@ table.awcp-pricedata tr:nth-child(1) td{
 	}
 	.right_detail{
 		float:left;
+	}
+	.awcp-product-img-box .awcp-product-img{
+		position: relative;
+		width: 100%;
+	}
+	.awcp-product-img-box{
+		height:auto;
+	}
+	.desc_deals{
+		padding:0 0 50px;
 	}
 }
 

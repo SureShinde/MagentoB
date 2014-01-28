@@ -73,7 +73,7 @@
 					alt="<?php echo $deal->getDealName(); ?>" /></a>
 				<div class="awcp-mark-center small-6 column large-12 medium-12">
 					<div class="awcp-details inprogress">
-						<div class="list_detail_left  column small-12 large-7 medium-7">
+						<div class="list_detail_left  column small-12 large-8 medium-7">
 							<h2 class="awcp-title-list">
 								<a href="<?php echo $this->getDealPageLink($deal->getId()); ?>"><?php echo $deal->getDealName(); ?></a>
 							</h2>
@@ -99,7 +99,7 @@
 							  <?php //endif; ?>
 					   <?php //endif; ?>
 					</div>
-						<div class="list_detail_right small-12 column large-5 medium-5">
+						<div class="list_detail_right small-12 column large-4 medium-5">
 							<form id="product_addtocart_form" class="right_detail_deals"
 								method="post"
 								action="<?php echo Mage::getUrl('checkout/cart/add', array('_secure'=>true,'product' => $deal->getProduct()->getId(), 'deal_id' => $deal->getId(), 'form_key' => Mage::getSingleton('core/session')->getFormKey())) ?>">
