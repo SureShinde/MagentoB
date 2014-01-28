@@ -42,6 +42,19 @@ $cat = $catposts['cat'];
       </div>
     </div>
   	<?php endif;?>
+    <div class="postDetails">
+        <?php if ($this->getCommentsEnabled()): ?>
+            <?php echo $row->getCommentCount(); ?> <a href="<?php echo $row->getAddress(); ?>#commentBox" >Comments</a> |
+        <?php endif; ?>
+        <?php $postCats = $row->getCats(); ?>
+        <?php if (!empty($postCats)): ?>
+            <?php echo Mage::helper('blog')->__('Posted in'); ?>
+            <?php foreach ($postCats as $data): ?>
+                <a href="<?php echo $data['url']; ?>"><?php echo $data['title']; ?></a>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <?php echo Mage::helper('blog')->__('Posted'); ?>
+        <?php endif; ?><?php echo $this->__("By"); ?> <?php echo $row->getUser(); ?></div>
 	<?php $i++; endforeach; ?> 
 
     
