@@ -1,0 +1,44 @@
+<div class="page-title">
+    <h1><?php echo $this->__('Your order has been received.') ?></h1>
+</div>
+<?php echo $this->getMessagesBlock()->getGroupedHtml(); ?>
+<h2 class="sub-title"><?php echo $this->__('Thank you for your purchase!'); ?></h2>
+
+<?php if ($this->getOrderId()): ?>
+    <?php if ($this->getCanViewOrder()): ?>
+        <p><?php echo $this->__('Your order # is: %s.', sprintf('<a href="%s">%s</a>', $this->escapeHtml($this->getViewOrderUrl()), $this->escapeHtml($this->getOrderId()))); ?></p>
+    <?php else: ?>
+        <p><?php echo $this->__('Your order # is: %s.', $this->escapeHtml($this->getOrderId())); ?></p>
+    <?php endif; ?>
+<?php endif; ?>
+        
+<?php $buttonText = $this->__('Continue Shopping'); ?>
+<?php $buttonAction = $this->getUrl(); ?>
+
+<?php $responseCharge = $this->getResponseCharge(); ?>
+<?php if ($responseCharge->status == 'success'): ?>
+    <?php if ($this->getThreedSecure()): ?>
+        <?php if ($responseCharge->data->redirect_url): ?>
+            <p><?php echo $this->__('This page will be redirect.'); ?></p>
+            <?php $buttonText = $this->__('Redirect'); ?>
+            <?php $buttonAction = $responseCharge->data->redirect_url; ?>
+            <script type="text/javascript">
+                setTimeout(function() {
+                    document.location = '<?php echo $responseCharge->data->redirect_url; ?>';
+                }, 3000);
+            </script>
+        <?php endif; ?>
+    <?php else: ?>
+        <p><?php echo $responseCharge->message; ?></p>
+    <?php endif; ?>
+<?php elseif ($responseCharge->status == 'failure'): ?>
+    <!-- halaman failure -->
+    <p><?php echo $responseCharge->message; ?></p>
+<?php else: ?>
+    <!-- halaman challange -->
+    <p><?php echo $responseCharge->message; ?></p>
+<?php endif; ?>
+
+<div class="buttons-set">
+    <button type="button" class="button" title="<?php echo $buttonText; ?>" onclick="window.location='<?php echo $buttonAction; ?>'"><span><span><?php echo $buttonText; ?></span></span></button>
+</div>
