@@ -381,11 +381,10 @@
 .header .mini-cart {
 	display: none;
 	position: absolute;
-	left: 0;
+	right: 0;
 	top:31px;
 	border: 1px solid #ffa01b;
 	background: #fff;
-	width: 100%;
 }
 .header .mini-cart .block-cart {
 	border: none;
@@ -601,7 +600,6 @@
 	border-left: none;
 	padding-left: 0;
 	padding-right: 0;
-	font-size: 0.8em;
 	display: block;
 }
 .header .links li.myaccount .toplink-myaccount ul li:first-child {
@@ -611,7 +609,7 @@
 	display: block;
 	padding: 5px 0;
 	color: #707070;
-	font-size: 1em;
+	text-decoration:none;
 }
 .header .form-language {
 	float: right;
