@@ -127,8 +127,7 @@ if ($_product->getPriceType() == 1) {
             </p>
         <?php else: ?>
             <?php if ($_minimalPriceTax <> $_maximalPriceTax): ?>
-            <p class="price-from">
-                <span class="price-label"><?php echo $this->__('From') ?>:</span>
+            <span class="price-from">
                 <?php if ($this->displayBothPrices()): ?>
                     <span class="price-excluding-tax">
                         <span class="label"><?php echo $_taxHelper->__('Excl. Tax:') ?></span>
@@ -178,7 +177,7 @@ if ($_product->getPriceType() == 1) {
                         <?php echo $_coreHelper->currency($_minimalPriceInclTax) ?>
                     <?php endif; ?>
                 <?php endif; ?>
-            </p>
+            </span>
                 <?php
                     if ($_product->getPriceType() == 1) {
                         if ($_weeeTaxAmount && $_weeeHelper->typeOfDisplay($_product, array(0, 1, 4))) {
@@ -190,8 +189,8 @@ if ($_product->getPriceType() == 1) {
                         }
                     }
                 ?>
-                <p class="price-to">
-                    <span class="price-label"><?php echo $this->__('To') ?>:</span>
+                <span class="price-to">
+                	<?php echo $this->__('-') ?>
                     <?php if ($this->displayBothPrices()): ?>
                         <span class="price-excluding-tax">
                             <span class="label"><?php echo $_taxHelper->__('Excl. Tax:') ?></span>
@@ -241,7 +240,7 @@ if ($_product->getPriceType() == 1) {
                             <?php echo $_coreHelper->currency($_maximalPriceInclTax) ?>
                         <?php endif; ?>
                     <?php endif; ?>
-                </p>
+                </span>
             <?php else: ?>
                 <?php if ($this->displayBothPrices()): ?>
                     <span class="price-excluding-tax">

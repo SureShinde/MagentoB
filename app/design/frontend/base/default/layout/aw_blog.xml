@@ -2,7 +2,7 @@
 <layout version="0.1.0">
     <default>
 		<reference name="right">
-            <block type="blog/menu_sidebar" name="dodo.blog.menu" before="-">
+            <block type="blog/post" name="dodo.blog.menu" before="-">
                 <action method="setTemplate">
                     <template>aw_blog/right-block-blog.phtml</template>
                 </action>

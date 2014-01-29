@@ -1,0 +1,57 @@
+<?php
+/**
+ * BelVG LLC.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://store.belvg.com/BelVG-LICENSE-COMMUNITY.txt
+ *
+  /***************************************
+ *         MAGENTO EDITION USAGE NOTICE *
+ * *************************************** */
+/* This package designed for Magento COMMUNITY edition
+ * BelVG does not guarantee correct work of this extension
+ * on any other Magento edition except Magento COMMUNITY edition.
+ * BelVG does not provide extension support in case of
+ * incorrect edition usage.
+  /***************************************
+ *         DISCLAIMER   *
+ * *************************************** */
+/* Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future.
+ * ****************************************************
+ * @category   Belvg
+ * @package    Belvg_Brands
+ * @author Pavel Novitsky <pavel@belvg.com>
+ * @copyright  Copyright (c) 2010 - 2012 BelVG LLC. (http://www.belvg.com)
+ * @license    http://store.belvg.com/BelVG-LICENSE-COMMUNITY.txt
+ */
+?>
+
+<?php
+/**
+ * Brads switcher
+ *
+ * @see Belvg_Brands_Block_List_Menu
+ */
+?>
+<?php $items = $this->getItems() ?>
+<?php $active = $this->getActive() ?>
+<?php $outermostItemClass = $this->getOutermostItemClass() ?>
+<?php if ($count = $items->count()): ?>
+    <li class="<?php echo $outermostItemClass ?> <?php echo $active ?>">
+        <a class="<?php echo $outermostItemClass ?>" href="<?php echo $this->getUrl(Mage::helper('brands')->getRoute()) ?>"><span><?php echo $this->escapeHtml($this->__(Mage::helper('brands')->getPageTitle())) ?></span></a>
+        <ul class="level0">
+            <?php $i = 0; foreach ($items as $item): ?>
+                <li class="level1 nav-1-<?php echo ($i+1)?><?php echo ($i == 0)?' first':''?> <?php echo ($i == $count - 1)?'last':''?>">
+                    <a href="<?php echo $item->getUrl()?>">
+                        <span><?php echo $this->escapeHtml($item->getTitle())?></span>
+                    </a>
+                </li>
+            <?php $i++; endforeach ?>
+        </ul>
+    </li>
+<?php endif; ?>

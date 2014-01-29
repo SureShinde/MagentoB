@@ -31,10 +31,20 @@
  * @see Mage_Catalog_Block_Layer_View
  */
 ?>
+<script type="text/javascript">
+	$j(document).ready(function(){
+		$j('.brand + dd').addClass("tiny");
+		$j('.tiny div').addClass("viewport");
+		$j('.tiny div ol').addClass("overview");
+		$j('.tiny').tinyscrollbar();	
+	});
+</script>
 <?php if($this->canShowBlock()): ?>
+<?php $currentCategory=Mage::getSingleton('catalog/layer')->getCurrentCategory();?>
+<?php $navCategory = $currentCategory->getId(); ?>
 <div class="block block-layered-nav">
     <div class="block-title">
-        <strong><span><?php echo $this->__('Shop By') ?></span></strong>
+        <strong><span><?php echo $currentCategory->getName(); ?></span></strong>
     </div>
     <div class="block-content">
         <?php echo $this->getStateHtml() ?>
@@ -47,13 +57,24 @@
                 <?php $_filters = $this->getFilters() ?>
                 <?php foreach ($_filters as $_filter): ?>
                 <?php if($_filter->getItemsCount()): ?>
-                    <dt><?php echo $this->__($_filter->getName()) ?></dt>
-                    <dd><?php echo $_filter->getHtml() ?></dd>
+                    <dt class="<?php echo strtolower($this->__($_filter->getName())) ?>"><?php echo $this->__($_filter->getName()) ?></dt>
+                    <dd>
+                    	<div class="scrollbar"><div class="track"><div class="thumb"><div class="end"></div></div></div></div>
+                    	<?php echo $_filter->getHtml() ?>
+                    </dd>
+                    
                 <?php endif; ?>
                 <?php endforeach; ?>
             </dl>
             <script type="text/javascript">decorateDataList('narrow-by-list')</script>
         <?php endif; ?>
     </div>
+    <?php $category=Mage::getModel('catalog/category')->load($navCategory); ?>
+	<div class="category-desc">
+		<span><?php echo $category->getName(); ?></span>
+		<p><?php echo $category->getDescription(); ?></p>
+	</div>
+    <div class="left-banner-category"><?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('left_banner_category')->toHtml() ?></div>
 </div>
+<div class="show-filter"><a href="javascript:void(0)" class="triger-showfilter"><?php echo $this->__('Show Filters') ?></a></div>
 <?php endif; ?>
