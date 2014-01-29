@@ -34,13 +34,21 @@ class Bilna_Paymethod_Block_Checkout_Onepage_Review_Installment extends Mage_Cor
         $totals = Mage::getSingleton('checkout/session')->getQuote()->getTotals(); //Total object
         $subTotal = round($totals['subtotal']->getValue()); //Subtotal value
         $grandTotal = round($totals['grand_total']->getValue()); //Grandtotal value
-        $minOrderTotalInstallment = Mage::getStoreConfig('payment/' . $this->getPaymentMethod() . '/min_order_total_installment');
+        $minOrderTotalInstallment = Mage::getStoreConfig('payment/' . $this->getPaymentMethod() . '/min_installment_total');
+        
+        if (empty ($minOrderTotalInstallment) || $minOrderTotalInstallment == '') {
+            return true;
+        }
         
         if ($grandTotal >= $minOrderTotalInstallment) {
             return true;
         }
         
         return false;
+    }
+    
+    public function getMinInstallmentTotal() {
+        return Mage::getStoreConfig('payment/' . $this->getPaymentMethod() . '/min_installment_total');
     }
     
     
@@ -84,16 +92,16 @@ class Bilna_Paymethod_Block_Checkout_Onepage_Review_Installment extends Mage_Cor
     }
 
 
-    public function _getInstallmentFeature() {
-        $totals = Mage::getSingleton('checkout/session')->getQuote()->getTotals(); //Total object
-        $subTotal = round($totals['subtotal']->getValue()); //Subtotal value
-        $grandTotal = round($totals['grand_total']->getValue()); //Grandtotal value
-        $minOrderTotalInstallment = Mage::getStoreConfig('payment/klikpay/min_order_total_installment');
-        
-        if ($grandTotal >= $minOrderTotalInstallment) {
-            return true;
-        }
-        
-        return false;
-    }
+    //public function _getInstallmentFeature() {
+    //    $totals = Mage::getSingleton('checkout/session')->getQuote()->getTotals(); //Total object
+    //    $subTotal = round($totals['subtotal']->getValue()); //Subtotal value
+    //    $grandTotal = round($totals['grand_total']->getValue()); //Grandtotal value
+    //    $minOrderTotalInstallment = Mage::getStoreConfig('payment/klikpay/min_order_total_installment');
+    //    
+    //    if ($grandTotal >= $minOrderTotalInstallment) {
+    //        return true;
+    //    }
+    //    
+    //    return false;
+    //}
 }
