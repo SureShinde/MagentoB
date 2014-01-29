@@ -19,7 +19,7 @@
  *
  * @category   AW
  * @package    AW_Blog
- * @version    1.3.0
+ * @version    1.3.1
  * @copyright  Copyright (c) 2010-2012 aheadWorks Co. (http://www.aheadworks.com)
  * @license    http://ecommerce.aheadworks.com/AW-LICENSE.txt
  */
@@ -28,11 +28,16 @@
  <?php //echo $this->getChildHtml('aw_blog_comments_toolbar'); ?>
     <?php foreach ($posts as $post): ?>
         <div class="postWrapper">
-            <div class="postTitle">
-                <h2><a href="<?php echo $post->getAddress(); ?>" ><?php echo $post->getTitle(); ?></a></h2>
-                <h3><?php echo $post->getCreatedTime(); ?></h3>
-            </div>
-            <div class="postContent"><?php echo $post->getPostContent(); ?></div>
+            
+            <div class="postContent">
+                <img alt="" src="<?php echo Mage::getBaseUrl();?>media/<?php echo $post->getImageName();?>" style="padding:0 10px 10px 0; display: blog; float: left;" />
+                <p>
+                    <div class="postTitle">
+                        <h2><a href="<?php echo $post->getAddress(); ?>" ><?php echo $post->getTitle(); ?></a></h2>
+                        <h3><?php echo $post->getCreatedTime(); ?></h3>
+                    </div>
+                </p>
+                <?php echo $post->getPostContent(); ?></div>
             <?php echo $this->getBookmarkHtml($post) ?>
             <div class="tags"><?php echo Mage::getBlockSingleton('blog/blog')->getTagsHtml($post) ?></div>
             <div class="postDetails">
