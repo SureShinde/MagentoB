@@ -228,4 +228,24 @@ class AW_Blog_Block_Post extends AW_Blog_Block_Abstract
         }
         return trim($name);
     }
+
+    public function getRelatedPost($catId, $postId)
+    {
+        $posts = Mage::getModel("blog/blog")->getCollection()
+            ->addPresentFilter()
+            ->addEnableFilter(AW_Blog_Model_Status::STATUS_ENABLED)
+            ->addStoreFilter()
+            ->setOrder('created_time', 'desc');
+        $posts->addFieldToFilter("awblog_post_cat.cat_id", array ('in' => $catId));
+        $posts->addFieldToFilter("main_table.post_id", array ('neq' => $postId));
+        $posts->getSelect()
+            ->joinLeft(
+                array( 'awblog_post_cat' => Mage::getSingleton('core/resource')->getTableName('blog/post_cat') ),
+                "main_table.post_id = awblog_post_cat.post_id",
+                array(
+                    'cat_id' => 'awblog_post_cat.cat_id'
+                ))
+            ->limit(5);
+        return parent::_processCollection($posts);
+    }
 }

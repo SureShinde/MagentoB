@@ -19,13 +19,13 @@
  *
  * @category   AW
  * @package    AW_Blog
- * @version    1.3.0
+ * @version    1.3.1
  * @copyright  Copyright (c) 2010-2012 aheadWorks Co. (http://www.aheadworks.com)
  * @license    http://ecommerce.aheadworks.com/AW-LICENSE.txt
  */
 ?><?php if (Mage::getStoreConfig(AW_Blog_Helper_Config::XML_TAGCLOUD_SIZE) && $this->getCollection()->count()): ?>
     <div class="menu-tags">
-        <h5><?php echo Mage::helper('blog')->__('Tags'); ?></h5>
+        <h5 style="display:none;"><?php echo Mage::helper('blog')->__('Tags'); ?></h5>
         <ul class="tagcloud">
             <?php foreach ($this->getCollection() as $tag): ?>
                 <li><a class="tag-count-<?php echo $this->getTagWeight($tag) ?>" href="<?php echo $this->getTagHref($tag) ?>"><?php echo $tag->getTag() ?></a></li>

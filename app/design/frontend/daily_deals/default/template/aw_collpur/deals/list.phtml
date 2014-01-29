@@ -50,12 +50,14 @@
 <?php return; ?>
 <?php endif; ?>
 <div class="row-list">
+	<?php if(is_null($this->getType()) || $this->getType()<>"detail"){ ?>
 	<!--slider-->
 	<?php echo $this->getLayout()->createBlock('collpur/deals')->setTemplate('aw_collpur/deals/slider.phtml')->toHtml(); ?>
 	<!--end slider-->
 	<div class="row">
 	<?php echo $this->getChildHtml('available_deals_pager'); ?>
 	</div>
+	<?php } ?>
 	<ul class="awcp-category-grid medium-block-grid-3 large-block-grid-3">
     <?php $i = 0; foreach($this->getAvailableDeals() as $deal): ?>
 	<?php
@@ -186,16 +188,12 @@
 		</li>      
      <?php $i++; endforeach; ?> 
 	</ul>
+	<?php if(is_null($this->getType()) || $this->getType()<>"detail"){ ?>
 	<div class="clearer"></div>
 	<div class="row">
-	<?php echo $this->getChildHtml('available_deals_pager'); ?>
+	<?php echo $this->getChildHtml('available_deals_pager_extra'); ?>
 	</div>
-	<div class="small-3 small-push-9 columns next_page">
-		<a href="!#">NEXT PAGE</a>
-	</div>
-	<div class="small-3 small-pull-9 columns prev_page">
-		<a href="!#">PREVIOUS PAGE</a>
-	</div>
+	<?php } ?>
 </div>
 
 

@@ -233,7 +233,7 @@ class AW_Affiliate_Block_Campaign_Products extends Mage_Core_Block_Template
     public function productsScriptAction()
     {
         $data = $this->getRequest()->getParams();
-
+        $storeId = $data['store_id'];
         /*later we can change to DB, but we need it ?????*/
         switch ($data['width_to_generate']) {
             case '299x250':
@@ -371,7 +371,7 @@ class AW_Affiliate_Block_Campaign_Products extends Mage_Core_Block_Template
             case 3: /*case by category products*/
                 $_block = $this->getLayout()->getBlockSingleton('awaffiliate/campaign_product_list');
 
-                $collection = $_block->getCategoryProductCollection($data['category_option_to_generate'], $limit);
+                $collection = $_block->getCategoryProductCollection($data['category_option_to_generate'], $storeId, $limit);
 
                 if($collection->count())
                 {

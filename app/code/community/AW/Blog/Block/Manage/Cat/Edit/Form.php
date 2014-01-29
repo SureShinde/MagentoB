@@ -74,6 +74,28 @@ class AW_Blog_Block_Manage_Cat_Edit_Form extends Mage_Adminhtml_Block_Widget_For
             )
         );
 
+        $layout = $this->getBlogLayout();
+        $fieldset->addField(
+            'layout',
+            'select',
+            array(
+                'name'   => 'layout',
+                'values' => $layout,
+                'label'     => Mage::helper('cms')->__('Category Layout')
+            )
+        );
+
+        /*$fieldset->addField(
+            'layoutx',
+            'select',
+            array(
+                 'name'     => 'layoutx',
+                 'label'    => Mage::helper('cms')->__('Store View'),
+                 'title'    => Mage::helper('cms')->__('Store View'),
+                 'required' => true,
+                 'values'   => $layout,
+            )
+        );*/
         /**
          * Check is single store mode
          */
@@ -119,5 +141,26 @@ class AW_Blog_Block_Manage_Cat_Edit_Form extends Mage_Adminhtml_Block_Widget_For
             $form->setValues(Mage::registry('blog_data')->getData());
         }
         return parent::_prepareForm();
+    }
+
+    public function getBlogLayout()
+    {
+        $resource       = Mage::getSingleton('core/resource');
+        $adapter        = $resource->getConnection('core_read');
+        $tableName      = $resource->getTableName('aw_blog_layout');
+        $select = $adapter->select()
+            ->from(
+                $tableName
+            );
+
+        $layoutNames = $adapter->fetchAll($select);
+
+        $result = array();
+
+        foreach ($layoutNames as $row) {
+            $result[$row['layout_name']] = $row['layout_name'];
+        }
+
+        return $result;
     }
 }

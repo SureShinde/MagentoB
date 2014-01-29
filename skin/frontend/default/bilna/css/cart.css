@@ -1,5 +1,14 @@
 /* cart.css */
 
+.main-container.col2-right-layout .main {
+	width: 100%;
+}
+.col2-right-layout .main .col-main  {
+	width: 80%;
+}
+.col2-right-layout .main .col-right.sidebar {
+	width: 20%;
+}
 .main {
 	width: 100%;
 	padding: 0;
@@ -12,7 +21,9 @@
 .col-right {
 	width: 20%;
 }
-
+.low-res {
+	display: none;
+}
 .cart .page-title {
 	padding: 10px 30px;
 	background-color: #ff7f6e;
@@ -34,16 +45,43 @@
 	color: #fff;
 	border-right: 0;
 }
+#shopping-cart-table.data-table thead .shopping-cart, 
+#shopping-cart-table.data-table thead .wishlist {
+	width: 10%;
+}
+#shopping-cart-table.data-table thead .items {
+	width: 30%;
+}
 #shopping-cart-table.data-table tr.last th span.title {
 	text-transform: uppercase;
-	font-family: Bebasregular;
+	font-family: 'bebasregular';
 	font-size: 1.16em;
+	word-spacing: 3px;
 }
-#shopping-cart-table.data-table tbody .discount-totals-wrap {
+#shopping-cart-table.data-table tbody .table-bottom-wrap {
 	background: #e9e9e9;
 }
-#shopping-cart-table.data-table tbody .discount-totals-wrap td {
+#shopping-cart-table.data-table tbody .table-bottom-wrap.top td {
 	padding: 0;
+}
+#shopping-cart-table.data-table tbody .table-bottom-wrap.top  .discount-column {
+	vertical-align: bottom;
+}
+#shopping-cart-table.data-table tbody .table-bottom-wrap.top  .subtotal-title, 
+#shopping-cart-table.data-table tbody .table-bottom-wrap.middle  td, 
+#shopping-cart-table.data-table tbody .table-bottom-wrap.bottom td {
+	font-weight: bold;
+}
+#shopping-cart-table.data-table tbody .table-bottom-wrap.top  .subtotal-title {
+	padding: 10px 10px 0;
+}
+#shopping-cart-table.data-table tbody .table-bottom-wrap.middle  td {
+	padding-top: 0;
+	padding-bottom: 0;
+}
+#shopping-cart-table.data-table tbody .table-bottom-wrap.bottom td {
+	text-transform: uppercase;
+	font-size: 1.2em;
 }
 #shopping-cart-table.data-table tbody .discount {
 	float: left;
@@ -64,6 +102,10 @@
 #shopping-cart-table tbody .discount .buttons-set {
 	float: left;
 }
+#shopping-cart-table tbody .discount .input-box, 
+#shopping-cart-table tbody .discount input.input-text {
+	width: 180px;
+}
 #shopping-cart-table tbody .discount .buttons-set {
 	clear: none;
 	margin-top: 8px;
@@ -73,11 +115,16 @@
 	background: #909090;
 	font-family: 'bebasregular';
 	height: 21px;
+	word-spacing: 2px;
+}
+#shopping-cart-table tbody .sum-weights, 
+#shopping-cart-table tbody .sum-qty {
+	padding: 10px;
 }
 #shopping-cart-table tbody .totals {
 	border: 0;
 	background: none;
-	padding-right: 40px;
+	width: 100%;
 }
 #shopping-cart-table tbody .totals tfoot {
 	border-bottom: 0;
@@ -141,6 +188,14 @@
 	padding-top: 5px;
 	height: 35px;
 }
+#shopping-cart-table tfoot .btn-continue span span {
+	background: url(../images/arrow-orange-prev.png) 65px 8px no-repeat;
+}
+#shopping-cart-table tfoot .one-click-checkout a {
+	font-weight: bold;
+	color: #ff9810;
+	text-decoration: underline;
+}
 .cart .cart-collaterals {
 	margin-bottom: 50px;
 }
@@ -155,6 +210,9 @@
 .cart-collaterals .shipping h2 {
 	background: none;
 	padding-left: 0;
+	color: #6e6e6e;
+	font-family: 'bebasregular';
+	word-spacing: 3px;
 }
 .cart-collaterals .shipping .shipping-form .form-list, 
 .cart-collaterals .shipping .shipping-form .form-list li, 
@@ -182,4 +240,77 @@
 	background: #909090;
 	font-family: 'bebasregular';
 	height: 21px;
+	word-spacing: 2px;
+}
+
+@media (max-width: 1215px) {
+	
+}
+@media (max-width: 1023px) {
+	.main-container.col2-right-layout .main {
+		margin-top: 30px;
+	}
+	.data-table thead th {
+		padding-left: 0;
+		padding-right: 0;
+	}
+	.data-table thead th span {
+		padding: 5px;;
+	}
+	#shopping-cart-table.data-table thead .items {
+		width: 25%;
+	}
+	#shopping-cart-table tbody .discount .input-box, 
+	#shopping-cart-table tbody .discount input.input-text {
+		width: 125px;
+	}
+	#shopping-cart-table tfoot .btn-continue {
+		width: 200px;
+	}
+	#shopping-cart-table tfoot .btn-continue span span {
+		background-position: 15px 8px;
+	}
+	#shopping-cart-table tfoot .checkout-types button {
+		width: 130px;
+	}
+	#shopping-cart-table tfoot .checkout-types button.btn-checkout span span {
+		background-position: 90px 14px;
+	}
+}
+@media (max-width: 767px) {
+	.main-container.col2-right-layout .main {
+		margin-top: 0;
+	}
+	.col2-right-layout .main .col-main, 
+	.col2-right-layout .main .col-right.sidebar {
+		width: 100%;
+	}
+	#shopping-cart-table.data-table thead, 
+	#shopping-cart-table.data-table .hi-res {
+		display: none;
+	}
+	#shopping-cart-table tfoot .checkout-types {
+		margin-right: 10px;
+	}
+}
+@media (max-width: 479px) {
+	#shopping-cart-table tfoot .btn-continue {
+		width: 135px;
+	}
+	#shopping-cart-table tfoot .checkout-types button {
+		width: 165px;
+	}
+	#shopping-cart-table tfoot .checkout-types button.btn-checkout span span {
+		background-position: 105px 14px;
+	}
+	#shopping-cart-table tfoot .checkout-types, 
+	#shopping-cart-table tfoot .btn-continue {
+		margin-right: 0;
+	}
+	#shopping-cart-table tfoot .btn-continue span {
+		font-size: 1em;
+	}
+	#shopping-cart-table tfoot .btn-continue span span {
+		background-position: -1px 8px;
+	}
 }

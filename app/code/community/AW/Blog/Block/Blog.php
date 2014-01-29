@@ -38,6 +38,50 @@ class AW_Blog_Block_Blog extends AW_Blog_Block_Abstract
         return $collection;
     }
 
+    public function getCategoriesPosts()
+    {
+        $collection = Mage::getModel("blog/cat")->getCollection()
+            ->setOrder('sort_order', 'ASC');
+
+        $data = array();
+        foreach ($collection as $row) {
+            $data[$row->getCatId()]['layout'] = $row->getLayout(); 
+            $data[$row->getCatId()]['catName'] = $row->getTitle();
+
+            $catId = $row->getCatId();
+
+            $posts = Mage::getModel("blog/blog")->getCollection()
+                ->addPresentFilter()
+                ->addEnableFilter(AW_Blog_Model_Status::STATUS_ENABLED)
+                ->addStoreFilter()
+                ->setOrder('created_time', 'desc');
+            $posts->addFieldToFilter("awblog_post_cat.cat_id", array ('eq' => $catId));
+            $posts->getSelect()
+                ->joinLeft(
+                    array( 'awblog_post_cat' => Mage::getSingleton('core/resource')->getTableName('blog/post_cat') ),
+                    "main_table.post_id = awblog_post_cat.post_id",
+                    array(
+                        'cat_id' => 'awblog_post_cat.cat_id'
+                    )
+            );
+            parent::_processCollection($posts);    
+
+            $data[$row->getCatId()]['post'] = $posts;
+        }
+
+        return $data;
+    }
+
+    public function getCategory()
+    {
+        return Mage::getSingleton('blog/cat');
+    }
+
+    public function getDataPosts()
+    {
+        return $this->getCatPosts();
+    }
+
     protected function _prepareLayout()
     {
         if ($this->isBlogPage() && ($breadcrumbs = $this->getCrumbs())) {
