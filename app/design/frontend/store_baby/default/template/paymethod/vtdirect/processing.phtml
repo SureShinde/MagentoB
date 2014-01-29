@@ -1,0 +1,97 @@
+<?php $order = $this->getOrder(); ?>
+<?php $items = $order->getAllItems(); ?>
+
+<div id="success-page" class="vtdirect-page" style="display:none;">ini halaman success</div>
+
+<div id="failure-page" class="vtdirect-page" style="display:none;">ini halaman error/failure</div>
+
+<div id="challenge-page" class="vtdirect-page" style="display:none;">ini halaman challenge</div>
+
+<form id="vtdirect-charge-form">
+    <input type="hidden" id="order_id" name="order_id" value="<?php echo $this->maxChar($order->getIncrementId(), 20); ?>" />
+    <input type="hidden" id="token_id" name="token_id" value="<?php echo $this->getTokenId(); ?>" />
+    
+    <!-- Order Items -->
+    <?php foreach ($items as $itemId => $item): ?>
+        <input type="hidden" id="" name="order_items[<?php echo $itemId; ?>][id]" value="<?php echo $this->maxChar($item->getProductId(), 20); ?>" />
+        <input type="hidden" id="" name="order_items[<?php echo $itemId; ?>][price]" value="<?php echo round($item->getPrice()); ?>" />
+        <input type="hidden" id="" name="order_items[<?php echo $itemId; ?>][qty]" value="<?php echo $item->getQtyToInvoice(); ?>" />
+        <input type="hidden" id="" name="order_items[<?php echo $itemId; ?>][name]" value="<?php echo $this->maxChar($this->removeSymbols($item->getName()), 20); ?>" />
+    <?php endforeach; ?>
+        
+    <input type="hidden" id="gross_amount" name="gross_amount" value="<?php echo round($order->getGrandTotal()); ?>" />
+    <!--input type="hidden" id="email" name="email" value="<?php //echo $order->getBillingAddress()->getData('email'); ?>" /-->
+    <input type="hidden" id="email" name="email" value="vt-testing@veritrans.co.id" />
+    
+    <!-- Shipping Address -->
+    <input type="hidden" id="" name="shipping_address[first_name]" value="<?php echo $this->maxChar($order->getShippingAddress()->getFirstname(), 20); ?>" />
+    <input type="hidden" id="" name="shipping_address[last_name]" value="<?php echo $this->maxChar($order->getShippingAddress()->getLastname(), 20); ?>" />
+    <input type="hidden" id="" name="shipping_address[address1]" value="<?php echo $this->maxChar($order->getShippingAddress()->getStreet(1), 100); ?>" />
+    <input type="hidden" id="" name="shipping_address[address2]" value="<?php echo $this->maxChar($order->getShippingAddress()->getStreet(2), 100); ?>" />
+    <input type="hidden" id="" name="shipping_address[city]" value="<?php echo $this->maxChar($order->getShippingAddress()->getCity(), 20); ?>" />
+    <input type="hidden" id="" name="shipping_address[postal_code]" value="<?php echo $this->maxChar($order->getShippingAddress()->getPostcode(), 10); ?>" />
+    <input type="hidden" id="" name="shipping_address[phone]" value="<?php echo $this->maxChar($order->getShippingAddress()->getTelephone(), 19); ?>" />
+    
+    <!-- Billing Address -->
+    <input type="hidden" id="" name="billing_address[first_name]" value="<?php echo $this->maxChar($order->getBillingAddress()->getFirstname(), 20); ?>" />
+    <input type="hidden" id="" name="billing_address[last_name]" value="<?php echo $this->maxChar($order->getBillingAddress()->getLastname(), 20); ?>" />
+    <input type="hidden" id="" name="billing_address[address1]" value="<?php echo $this->maxChar($order->getBillingAddress()->getStreet(1), 100); ?>" />
+    <input type="hidden" id="" name="billing_address[address2]" value="<?php echo $this->maxChar($order->getBillingAddress()->getStreet(2), 100); ?>" />
+    <input type="hidden" id="" name="billing_address[city]" value="<?php echo $this->maxChar($order->getBillingAddress()->getCity(), 20); ?>" />
+    <input type="hidden" id="" name="billing_address[postal_code]" value="<?php echo $this->maxChar($order->getBillingAddress()->getPostcode(), 10); ?>" />
+    <input type="hidden" id="" name="billing_address[phone]" value="<?php echo $this->maxChar($order->getBillingAddress()->getTelephone(), 19); ?>" />
+</form>
+
+<script type="text/javascript">
+    var ajaxUrl = '<?php echo $this->getChargeUrl(); ?>';
+    var ajaxData = jQuery('#vtdirect-charge-form').serialize();
+    
+    jQuery.ajax({
+        type: 'POST',
+        async: false,
+        url : ajaxUrl,
+        data: ajaxData,
+        dataType: 'json',
+        success: function(response) {
+            jQuery('.vtdirect-page').hide();
+            
+            if (response.status == 'success') {
+                jQuery('#success-page').show();
+            }
+            else if (response.status == 'failure') {
+                jQuery('#failure-page').show();
+            }
+            else {
+                jQuery('#challenge-page').show();
+            }
+        },
+        error: function() {
+            alert('error..');
+        }
+    });
+    
+//    new Ajax.Request(ajaxUrl, {
+//        method: 'post',
+//        parameters: Form.serialize($('vtdirect-charge-form')),
+//        //onComplete: this.onComplete,
+//        //onSuccess: this.onSave,
+//        //onFailure: checkout.ajaxFailure.bind(checkout),
+//        onSuccess: function(response) {
+//            var responseJson = response.responseText.evalJSON();
+//            
+//            jQuery('.vtdirect-page').hide();
+//            
+//            if (responseJson.status == 'success') {
+//                jQuery('#success-page').show();
+//            }
+//            else if (responseJson.status == 'failure') {
+//                jQuery('#failure-page').show();
+//                console.log(responseJson.message);
+//            }
+//            else {
+//                jQuery('#challenge-page').show();
+//            }
+//        },
+//        loaderArea: true
+//    });
+</script>

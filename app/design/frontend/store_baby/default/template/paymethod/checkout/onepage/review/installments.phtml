@@ -1,0 +1,22 @@
+<?php if ($this->getInstallmentOptionPerOrder()): ?>
+    <strong style="margin-left:10px;"><?php echo $this->__('Payment type:'); ?></strong>
+    <ul style="margin:0 0 10px 20px;">
+        <?php $i = 1; ?>
+        <?php foreach ($this->getInstallmentOption() as $option): ?>
+            <?php if (!empty ($option['tenor']) || $option['tenor'] != ''): ?>
+                <?php if ($this->_getInstallmentFeature() === false): ?>
+                    <?php continue; ?>
+                <?php endif; ?>
+            <?php endif; ?>
+        
+            <?php $checked = $i == 1 ? 'checked="checked"' : ""; ?>
+        
+            <li>
+                <input <?php echo $checked; ?> type="radio" class="validate-one-required" value="<?php echo $option['id']; ?>" name="installment" id="installment-<?php echo $option['id']; ?>" />&nbsp;
+                <label for="installment-<?php echo $option['id']; ?>"><?php echo $option['label']; ?></label>
+            </li>
+            
+            <?php $i++; ?>
+        <?php endforeach; ?>
+    </ul>
+<?php endif; ?>

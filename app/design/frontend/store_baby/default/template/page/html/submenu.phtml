@@ -25,15 +25,22 @@
             <?php foreach ($children as $submenu): ?>
                 <li>
                 	<?php $trimmed = str_replace( " ", "", $this->escapeHtml($submenu->getName())) ?>
-                	<a href="<?php echo $submenu->getUrl()?>" class="<?php echo strtolower($trimmed) ?>"><span><?php echo $this->escapeHtml($submenu->getName())?></span></a>
+                	
+		                	<?php if(strtolower($trimmed)=='whatsnew'):?>
+		                		<a href="<?php echo $submenu->getUrl()?>" class="<?php echo strtolower($trimmed) ?>">
+                		<span><?php echo $this->__('Whats New?')?></span></a>
+		                	<?php elseif(strtolower($trimmed)=='onsale'):?>
+		                		<a href="<?php echo $submenu->getUrl()?>" class="<?php echo strtolower($trimmed) ?>">
+                		<span><?php echo $this->__('On Sale!')?></span></a>
+		                	<?php else:?>
+		                		<a href="<?php echo $submenu->getUrl()?>" class="<?php echo strtolower($trimmed) ?>">
+                		<span><?php echo $this->escapeHtml($submenu->getName())?></span></a>
+		                	<?php endif;?>
+                		
+                	
                 </li>
                 <?php $counter++;?>
             <?php endforeach; ?>
-            </ul>
-            <ul class="added-menu">
-	            <li><a href="#" class="link-bestseller"><?php echo $this->__('Best Seller')?></a></li>
-        		<li><a href="#" class="link-whatsnew"><?php echo $this->__('Whats New?')?></a></li>
-        		<li><a href="#" class="link-onsale"><?php echo $this->__('On Sale!')?></a></li>
             </ul>
             <div class="clear"></div>
         </div>
