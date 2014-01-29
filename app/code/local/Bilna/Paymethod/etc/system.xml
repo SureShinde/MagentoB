@@ -679,14 +679,14 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </min_order_total>
-                        <min_order_total_installment translate="label">
+                        <min_installment_total translate="label">
                             <label>Minimum Order Total for Installment</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>84</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                        </min_order_total_installment>
+                        </min_installment_total>
                         <disallowed_characters>
                             <label>Disallowed Characters</label>
                             <frontend_type>text</frontend_type>

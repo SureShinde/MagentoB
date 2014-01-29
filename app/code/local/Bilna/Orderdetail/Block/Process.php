@@ -58,7 +58,7 @@ class Bilna_Orderdetail_Block_Process extends Mage_Core_Block_Template {
     }
     
     public function getPayUrl($orderId) {
-        return sprintf("%sklikpay/processing/pay/id/%s/", Mage::getBaseUrl(), $orderId);
+        return sprintf("%spaymethod/klikpay/redirect/id/%s/", Mage::getBaseUrl(), $orderId);
     }
     
     public function getLoginRegisterUrl() {
