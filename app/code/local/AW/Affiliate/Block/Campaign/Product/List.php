@@ -54,7 +54,7 @@ class AW_Affiliate_Block_Campaign_Product_List extends Mage_Catalog_Block_Produc
         return $collection;
    }
 
-   public function getCategoryProductCollection($category_id='2', $limit)
+   public function getCategoryProductCollection($category_id='2', $storeId, $limit)
    {
         $todayDate  = Mage::app()->getLocale()->date()->toString(Varien_Date::DATETIME_INTERNAL_FORMAT);
 
@@ -63,7 +63,7 @@ class AW_Affiliate_Block_Campaign_Product_List extends Mage_Catalog_Block_Produc
         $collection->getSelect()
             ->joinInner(
             array( 'cat_index' => Mage::getSingleton('core/resource')->getTableName('catalog/category_product_index') ),
-            "cat_index.product_id = e.entity_id AND cat_index.category_id= '".$category_id."' AND cat_index.visibility IN (".implode(",", Mage::getSingleton('catalog/product_visibility')->getVisibleInSiteIds()).") AND cat_index.store_id='1'",
+            "cat_index.product_id = e.entity_id AND cat_index.category_id= '".$category_id."' AND cat_index.visibility IN (".implode(",", Mage::getSingleton('catalog/product_visibility')->getVisibleInSiteIds()).") AND cat_index.store_id='".$storeId."'",
             array( 
                 'category_id'        => 'cat_index.category_id'
             )

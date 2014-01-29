@@ -164,7 +164,7 @@ class Bilna_Paymethod_Model_Observer_Klikbca {
         /**
          * check lock file process
          */
-        if (Mage::helper('paymethod')->checkLockFile($this->_lockFile)) {
+        if (Mage::helper('paymethod')->checkLockFile($this->_code, $this->_lockFile)) {
             $contentLog = "cannot start process because other process still running";
             $this->writeLog($this->_typeTransaction, 'confirmation', $contentLog);
             exit;
@@ -173,7 +173,7 @@ class Bilna_Paymethod_Model_Observer_Klikbca {
             /**
              * create lock file process
              */
-            if (Mage::helper('paymethod')->createLockFile($this->_lockFile)) {
+            if (Mage::helper('paymethod')->createLockFile($this->_code, $this->_lockFile)) {
                 return true;
             }
             else {
@@ -185,7 +185,7 @@ class Bilna_Paymethod_Model_Observer_Klikbca {
     }
     
     protected function removeLockProcess() {
-        if (Mage::helper('paymethod')->removeLockFile($this->_lockFile)) {
+        if (Mage::helper('paymethod')->removeLockFile($this->_code, $this->_lockFile)) {
             return true;
         }
         else {

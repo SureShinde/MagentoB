@@ -11,6 +11,21 @@ class Bilna_Promo_Adminhtml_GiftvoucherController extends Mage_Adminhtml_Control
 	}   
  
 	public function indexAction() {
+// 		$read = Mage::getSingleton('core/resource')->getConnection('core_read');
+// 		$sql = "select * from aw_blog";
+// 		$result = $read->fetchAll($sql);
+// 		foreach($result as $post){
+// 			$post["post_content"] = str_replace("<!--more-->", "", $post["post_content"]);
+// 			$post["post_content"] = str_replace("'", "\'", $post["post_content"]);
+// 			$post["post_content"] = preg_replace("/<img[^>]+\>/i", "", $post["post_content"]);
+// 			preg_match("/<p[^>]*>.*?<\/p>/si", $post["post_content"], $matches, PREG_OFFSET_CAPTURE);
+			
+// 			$conn = Mage::getSingleton('core/resource')->getConnection('core_write');
+// 			$sql="update aw_blog set post_content='".$post["post_content"]."', short_content = '".$matches[0][0]."' WHERE post_id='".$post["post_id"]."';";
+// 			$result = $conn->query($sql);
+// 		}
+		
+// 		echo 8;die;
 		$this->_initAction()
 			->renderLayout();
 	}

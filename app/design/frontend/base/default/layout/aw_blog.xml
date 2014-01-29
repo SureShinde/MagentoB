@@ -2,11 +2,11 @@
 <layout version="0.1.0">
     <default>
 		<reference name="right">
-<<<<<<< HEAD
+
             <block type="blog/post" name="dodo.blog.menu" before="-">
-=======
+
             <block type="blog/menu_sidebar" name="dodo.blog.menu" before="-">
->>>>>>> 108b48c2be0999cb02d7fb82b1fc5327cab99812
+
                 <action method="setTemplate">
                     <template>aw_blog/right-block-blog.phtml</template>
                 </action>

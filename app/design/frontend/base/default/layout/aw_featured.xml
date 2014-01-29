@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layout version="0.1.0">
+    <default>
+        <reference name="head">
+            <action method="addCss">
+                <name>aw_featured/representations/grid/grid.css</name>
+            </action>
+            <action method="addCss">
+                <name>aw_featured/representations/slider/css/slider.css</name>
+            </action>
+        </reference>
+        <reference name="left">
+            <block type="awfeatured/block" name="awafp.sidebar.left.bottom" />
+        </reference>
+        <reference name="right">
+            <block type="awfeatured/block" name="awafp.sidebar.right.bottom" />
+        </reference>
+        <reference name="content">
+            <block type="awfeatured/block" name="awafp.content.top" before="-" />
+        </reference>
+    </default>
+    <catalog_product_gallery>
+        <reference name="content">
+            <remove name="awafp.content.top" />
+        </reference>
+    </catalog_product_gallery>
+    <catalog_product_compare_index>
+        <reference name="content">
+            <remove name="awafp.content.top" />
+        </reference>
+    </catalog_product_compare_index>
+    <shipping_tracking_popup>
+        <reference name="content">
+            <remove name="awafp.content.top" />
+        </reference>
+    </shipping_tracking_popup>
+    <cms_page>
+        <update handle="MAP_popup" />
+        <update handle="MAP_price_msrp_item" />
+    </cms_page> 
+</layout>
