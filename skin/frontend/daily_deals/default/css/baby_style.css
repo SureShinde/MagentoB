@@ -381,11 +381,10 @@
 .header .mini-cart {
 	display: none;
 	position: absolute;
-	left: 0;
+	right: 0;
 	top:31px;
 	border: 1px solid #ffa01b;
 	background: #fff;
-	width: 100%;
 }
 .header .mini-cart .block-cart {
 	border: none;
