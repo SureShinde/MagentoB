@@ -4,7 +4,7 @@
         <?php $i = 1; ?>
         <?php foreach ($this->getInstallmentOption() as $option): ?>
             <?php if (!empty ($option['tenor']) || $option['tenor'] != ''): ?>
-                <?php if ($this->_getInstallmentFeature() === false): ?>
+                <?php if (!$this->getInstallmentFeature()): ?>
                     <?php continue; ?>
                 <?php endif; ?>
             <?php endif; ?>
