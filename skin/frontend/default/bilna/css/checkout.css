@@ -1,15 +1,6 @@
 .checkout-onepage-index .page-title {
 	background: #fd8e17;	
-}
-.checkout-onepage-index .page-title h1 {
-	color: #fff;
-	font-size: 14px;
-	font-family: 'bebasregular';
-	font-weight: normal;
-	text-transform: uppercase;
-	padding: 7px 0 7px 40px;
-	background: url(../images/arrow-title.png) no-repeat 10px center;
-	letter-spacing: 1px;
+	display: none;
 }
 .checkout-onepage-index .col-main {
 	margin-bottom: 30px;
@@ -29,21 +20,36 @@
 	width: 90%;
 	border: 1px solid #dadada;
 }
+#checkoutSteps .buttons-set .back-link {
+	float: right;
+	margin-top: 10px;
+	margin-right: 5px;
+}
 #checkoutSteps .buttons-set button.button {
-    width:88px;
-    background-image:url(../images/btn-buynow.png);
+    width:93px;
+    /*background-image:url(../images/btn-buynow.png);*/
+    background: #fd8e17;
     height:36px;
     line-height:21px;
-    color: #fff;
-	font-family: Helvetica;
-    font-size: 1em;
-    font-weight: normal;
-    text-transform: uppercase;
+}
+#checkoutSteps .buttons-set button.button.btn-checkout {
+	width: auto;
+}
+#checkoutSteps .buttons-set button.button span, #checkoutSteps .buttons-set button.button span span, .opc .buttons-set .back-link a {
+	text-transform: uppercase;
+	font-size: 14px;
+	font-family: 'bebasregular';
+	font-weight: normal;
+	letter-spacing: 1px;
 }
 #checkoutSteps .buttons-set button.button span, #checkoutSteps .buttons-set button.button span span {
+	color: #fff;
 	background: none;
 	border: none;
 	height: auto;
+}
+#checkoutSteps .buttons-set button.button span span img {
+	margin-top: 3px;
 }
 .opc .step-title {
 	padding-top: 8px;
@@ -91,6 +97,10 @@
 	background: none;
 	border:none;
 }
+.opc .buttons-set .back-link a {
+	background: url(../images/arrow-back.png) no-repeat left center;
+	color: #fd8e17;
+}
 #checkout-progress-wrapper {
 	background: #f8f8f8;
 }
@@ -135,3 +145,13 @@
 	background: none;
 	border:none;
 }
+@media only screen and (max-width: 1215px) {}
+@media only screen and (max-width: 1023px) {
+	.checkout-onepage-index .col-main {
+		margin-top: 20px;
+	}
+}
+@media only screen and (max-width: 767px) {
+	
+}
+@media only screen and (max-width: 482px) { }
