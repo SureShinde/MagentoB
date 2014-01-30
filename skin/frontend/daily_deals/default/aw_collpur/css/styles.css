@@ -1164,6 +1164,9 @@ table.awcp-pricedata tr:nth-child(1) td{
 	.desc_deals{
 		padding:0 0 50px;
 	}
+	.pager .limiter, .pager .amount{
+		display:none;
+	}
 }
 
 
