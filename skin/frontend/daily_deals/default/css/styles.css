@@ -103,7 +103,7 @@ ul,ol         { list-style:none; }
 .col-left { float:left; width:195px; padding:0 0 1px; }
 .col-main { float:left; /*width:685px;*/ padding:0 0 1px; }
 .col-right { float:right; /*width:195px;*/ padding:0 0 1px; }
-
+.main .col-main{float:none}
 /* 1 Column Layout */
 .col1-layout .col-main { float:none; width:auto; }
 
