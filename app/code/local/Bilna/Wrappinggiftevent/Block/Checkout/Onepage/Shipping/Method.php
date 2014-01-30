@@ -38,5 +38,10 @@ class Bilna_Wrappinggiftevent_Block_Checkout_Onepage_Shipping_Method extends  Ma
     {
         return !$this->getQuote()->isVirtual();
     }
-
+    
+    public function getUrl($route = '', $params = array ()) {
+        $url = Mage::helper('paymethod')->checkHttpsProtocol($this->_getUrlModel()->getUrl($route, $params));
+        
+        return $url;
+    }
 }
