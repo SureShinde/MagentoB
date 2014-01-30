@@ -63,14 +63,17 @@
 					<thead>
 	                    <tr>
 	                        <th class="shopping-cart" rowspan="<?php echo $mergedCells; ?>"><span class="title"><?php echo $this->__('Shopping Cart') ?></span></th>
-	                        <th class="items" rowspan="<?php echo $mergedCells; ?>"><span class="nobr"><?php echo $this->__('Item(s)') ?></span></th>
+	                        <th class="items<?php if($this->helper('customer')->isLoggedIn()):?> loggedin<?php endif;?>" rowspan="<?php echo $mergedCells; ?>"><span class="nobr"><?php echo $this->__('Item(s)') ?></span></th>
 	                        <?php if ($this->helper('wishlist')->isAllowInCart()) : ?>
-	                        <th class="wishlist" rowspan="<?php echo $mergedCells; ?>" class="a-center"><span class="nobr"><?php echo $this->__('Move to Wishlist') ?></span></th>
+	                        <th class="a-center wishlist" rowspan="<?php echo $mergedCells; ?>">
+								<span class="nobr"><?php echo $this->__('Move to<br />') ?></span>
+								<span class="nobr"><?php echo $this->__('Wishlist') ?></span>
+							</th>
 	                        <?php endif ?>
-	                        <th class="a-right" colspan="<?php echo $mergedCells; ?>"><span class="nobr"><?php echo $this->__('Price') ?></span></th>
-	                        <th rowspan="<?php echo $mergedCells; ?>" class="a-center"><span><?php echo $this->__('Quantity') ?></span></th>
-	                        <th class="a-right" rowspan="<?php echo $mergedCells; ?>"><span class="weight"><?php echo $this->__('Weight') ?></span></th>
-	                        <th class="a-right" colspan="<?php echo $mergedCells; ?>"><span><?php echo $this->__('Subtotal') ?></span></th>
+	                        <th class="a-center" colspan="<?php echo $mergedCells; ?>"><span class="nobr"><?php echo $this->__('Price') ?></span></th>
+	                        <th class="a-center quantity" rowspan="<?php echo $mergedCells; ?>"><span><?php echo $this->__('Quantity') ?></span></th>
+	                        <th class="a-right weight" rowspan="<?php echo $mergedCells; ?>"><span><?php echo $this->__('Weight') ?></span></th>
+	                        <th class="a-right subtotal" colspan="<?php echo $mergedCells; ?>"><span><?php echo $this->__('Subtotal') ?></span></th>
 	                        <th class="a-right remove" rowspan="<?php echo $mergedCells; ?>"><span><?php echo $this->__('Remove') ?></span></th>
 	                    </tr>
 	                    <?php if ($this->helper('tax')->displayCartBothPrices()): ?>
@@ -124,8 +127,30 @@
 			<div class="coupon">
 				<?php echo $this->getChildHtml('coupon') ?>
 			</div>
-			<div class="totals">
+			<div class="totals<?php if($this->helper('customer')->isLoggedIn()):?> loggedin<?php endif;?>">
 				<?php echo $this->getChildHtml('totals'); ?>
+			</div>
+			<div class="sum-cart">
+				<table>
+					<tr>
+						<td class="a-center sum-qty hi-res<?php if($this->helper('customer')->isLoggedIn()):?> loggedin<?php endif;?>">
+							<div><?php echo Mage::getModel('checkout/cart')->getQuote()->getItemsQty(); ?></div>
+						</td>
+						<td class="a-right sum-weight hi-res<?php if($this->helper('customer')->isLoggedIn()):?> loggedin<?php endif;?>">
+							<div>
+							<?php 
+								$items = Mage::getSingleton('checkout/session')->getQuote()->getAllItems();
+								$weight = 0;
+								foreach($items as $item) {
+									$weight += ($item->getWeight() * $item->getQty()) ;
+								}
+								if ( $weight != 0 )
+									echo $this->__('%0.2f Kg', $weight);
+							?>
+							</div>
+						</td>
+					</tr>
+				</table>
 			</div>
 		</div>
 		<div class="continue-checkout">
