@@ -24,6 +24,12 @@
                 <class>Bilna_Paymethod_Block</class>
             </paymethod>
             
+            <checkout>
+                <rewrite>
+                    <onepage>Bilna_Paymethod_Block_Checkout_Onepage</onepage>
+                </rewrite>
+            </checkout>
+            
             <adminhtml>
                 <rewrite>
                     <sales_order_grid>Bilna_Paymethod_Block_Adminhtml_Sales_Order_Grid</sales_order_grid>
