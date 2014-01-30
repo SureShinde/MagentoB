@@ -10,7 +10,7 @@
 }
 #checkoutSteps .form-list label {
 	color: #707070;
-	margin-bottom: 3px;
+	margin-bottom: 10px;
 }
 #checkoutSteps .form-list .input-box {
 	width: auto;
@@ -144,6 +144,68 @@
 .block-progress dd {
 	background: none;
 	border:none;
+}
+#opc-review .step {
+	padding: 20px;
+}
+#opc-review .product-name {
+	color: #707070;
+}
+#opc-review .buttons-set {
+	border: none;
+}
+#opc-review .buttons-set p a {
+	color: #fd8e17;
+}
+#opc-review .buttons-set .f-right {
+	margin-right: 10px;
+}
+.data-table {
+	border:none;
+}
+.data-table td {
+	padding:8px 20px;
+}
+.data-table thead th {
+	background: #5d5d5d;
+	color: #fff;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	border-right:none;
+	padding-right: 20px;
+	padding-left: 20px;
+}
+.data-table tbody th, .data-table tbody td {
+	border-right: none;
+	border-bottom: 1px solid #afafaf;
+}
+.data-table tfoot {
+	border-bottom: none;
+}
+.data-table tfoot strong {
+	font-size: 14px;
+	text-transform: uppercase;
+}
+.data-table tfoot tr {
+	background: none;
+}
+.data-table tfoot tr.first td {
+	background: none;
+	border-top: 1px solid #afafaf;
+}
+.data-table tfoot tr.last {
+	border-top:1px solid #afafaf;
+}
+.data-table tfoot td {
+	border-right:none;
+	padding-top: 3px;
+	padding-bottom: 3px;
+}
+.data-table tfoot tr.last td {
+	padding-top: 10px;
+}
+.data-table .odd, .data-table .even {
+	background: none;
 }
 @media only screen and (max-width: 1215px) {}
 @media only screen and (max-width: 1023px) {
