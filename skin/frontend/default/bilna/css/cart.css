@@ -90,6 +90,9 @@
 #shopping-cart-table tfoot tr.first td {
 	background: none !important;
 }
+#shopping-cart-table tfoot tr.first td {
+	border-top: none;
+}
 .cart .cart-collaterals {
 	margin-bottom: 50px;
 }
@@ -230,6 +233,9 @@
 	font-weight: bold;
 	color: #ff9810;
 	text-decoration: underline;
+}
+.one-click-checkout .links {
+	text-align: right;
 }
 
 .shipping-wrap {
