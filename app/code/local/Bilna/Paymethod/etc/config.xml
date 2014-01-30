@@ -28,7 +28,9 @@
                 <rewrite>
                     <onepage>Bilna_Paymethod_Block_Checkout_Onepage</onepage>
                     <onepage_billing>Bilna_Paymethod_Block_Checkout_Onepage_Billing</onepage_billing>
+                    <onepage_shipping>Bilna_Paymethod_Block_Checkout_Onepage_Shipping</onepage_shipping>
                     <onepage_payment>Bilna_Paymethod_Block_Checkout_Onepage_Payment</onepage_payment>
+                    <onepage_review_info>Bilna_Paymethod_Block_Checkout_Onepage_Review_Info</onepage_review_info>
                 </rewrite>
             </checkout>
             
