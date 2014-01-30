@@ -1,23 +1,5 @@
 <?xml version="1.0"?>
 <config>
-	<menu>
-      <bilna>
-        <title>Bilna</title>
-        <sort_order>100</sort_order>
-        <children>
-          <customreports module="customreports">
-            <title>Custom Reports</title>
-            <children>
-              <manage module="customreports">
-                <title>Manage Custom Reports</title>
-                <sort_order>0</sort_order>
-                <action>customreports/adminhtml_manage</action>
-              </manage>
-            </children>
-          </customreports>
-        </children>
-      </bilna>
-    </menu>
     <acl>
         <resources>
             <admin>

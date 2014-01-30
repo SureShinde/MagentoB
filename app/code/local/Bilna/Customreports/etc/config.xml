@@ -2,28 +2,9 @@
 <config>
 	<modules>
 		<Bilna_Customreports>
-			<version>0.1.1</version>
+			<version>0.1.0</version>
 		</Bilna_Customreports>
 	</modules>
-	<frontend>
-        <routers>
-            <customreports>
-                <use>standard</use>
-                <args>
-                    <module>Bilna_Customreports</module>
-                    <frontName>customreports</frontName>
-                </args>
-            </customreports>
-        </routers>
-        
-        <layout>
-            <updates>
-                <customreports>
-                    <file>anzcc.xml</file>
-                </customreports>
-            </updates>
-        </layout>
-    </frontend>
 	<global>
 		<helpers>
 			<customreports>
@@ -34,11 +15,6 @@
 			<customreports>
 				<class>Bilna_Customreports_Block</class>
 			</customreports>
-			<catalog>
-                <rewrite>
-                    <renderer>Bilna_Customreports_Block_Checkout_Cart_Item_Renderer</renderer>
-                </rewrite>
-            </catalog>
 		</blocks>
 		<models>
 			<customreports>
@@ -51,9 +27,6 @@
 					<salesreport>
 						<table>bilnaview_sales_report</table>
 					</salesreport>
-					<bincode>
-                        <table>bin_code</table>
-                    </bincode>
 				</entities>
 			</customreports_mysql4>
 		</models>
@@ -77,27 +50,7 @@
 				</connection>
 			</customreports_read>
 		</resources>
-		<fieldsets>
-             <sales_convert_quote_payment>
-                 <cc_bins>
-                     <to_order_payment>*</to_order_payment>
-                 </cc_bins>
-             </sales_convert_quote_payment>
-        </fieldsets>
 	</global>
-	<default>
-        <payment>
-            <customreports>
-                <active>1</active>
-                <!--model>anzcc/anzcc</model-->
-				<model>customreports/customreports</model>
-                <order_status>pending</order_status>
-                <title>Credit Card (ANZ)</title>
-                <allowspecific>0</allowspecific>
-                <group>offline</group>
-            </customreports>
-        </payment>
-    </default>
 	<admin>
 		<routers>
 			<customreports>
@@ -109,7 +62,67 @@
 			</customreports>
 		</routers>
 	</admin>
-	<adminhtml>				
+	<adminhtml>
+		<menu>
+			<bilna>
+				<title>Bilna</title>
+				<sort_order>100</sort_order>
+				<children>
+					<customreports module="customreports">
+						<title>Custom Report</title>
+						<sort_order>100</sort_order>
+						<children>
+							<customsalesreports>
+								<title>Sales Report</title>
+								<sort_order>2</sort_order>
+								<action>customreports/adminhtml_salesreport</action>
+							</customsalesreports>
+							<customcouponsreports>
+								<title>Coupons Report</title>
+								<sort_order>0</sort_order>
+								<action>customreports/adminhtml_couponsreport</action>
+							</customcouponsreports>
+							<custominstallmentreport>
+								<title>Installment Report</title>
+								<sort_order>1</sort_order>
+								<action>customreports/adminhtml_installmentreport</action>
+							</custominstallmentreport>
+						</children>
+					</customreports>
+				</children>
+			</bilna>
+		</menu>
+		<acl>
+			<resources>
+				<all>
+					<title>Allow Everything</title>
+				</all>
+				<admin>
+					<children>
+						<bilna translate="title">
+							<title>Bilna</title>
+							<sort_order>100</sort_order>
+							<children>
+								<customreports translate="title" module="customreports">
+									<title>Custom Report</title>
+									<sort_order>100</sort_order>
+									<children>
+										<customsalesreports translate="title">
+											<title>Sales Report</title>
+											<sort_order>0</sort_order>
+										</customsalesreports>
+										<customcouponsreports translate="title">
+											<title>Coupons Report</title>
+											<sort_order>0</sort_order>
+										</customcouponsreports>
+									</children>
+								</customreports>
+							</children>
+						</bilna>
+					</children>
+				</admin>
+			</resources>
+		</acl>
 		<layout>
 			<updates>
 				<customreports>

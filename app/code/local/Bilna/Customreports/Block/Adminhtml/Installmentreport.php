@@ -3,7 +3,7 @@ class Bilna_Customreports_Block_Adminhtml_Installmentreport extends Mage_Adminht
     public function __construct() {
         $this->_blockGroup = 'customreports';
         $this->_controller = 'adminhtml_installmentreport';
-        $this->_headerText = Mage::helper('customreports/installmentreport')->__('Installment Report 2');
+        $this->_headerText = Mage::helper('customreports/installmentreport')->__('Installment Report');
         
         parent::__construct();
         
