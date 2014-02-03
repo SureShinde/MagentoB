@@ -1036,6 +1036,9 @@ table.awcp-pricedata tr:nth-child(1) td{
 }
 }
 @media only screen and (min-width: 40.063em) { 
+	#slider2_container{
+		display:none;
+	}
 	.right_detail_deals_2{
 		display:none;
 	}
@@ -1061,6 +1064,10 @@ table.awcp-pricedata tr:nth-child(1) td{
 	
 	}
 @media only screen and (max-width: 40em) { 
+	#slider1_container{
+		display:none;
+	}
+.slider2_container 	
 	.prev_page{
 		display:none;
 	}
@@ -1167,6 +1174,7 @@ table.awcp-pricedata tr:nth-child(1) td{
 	.pager .limiter, .pager .amount{
 		display:none;
 	}
+	
 }
 
 

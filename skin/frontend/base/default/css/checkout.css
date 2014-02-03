@@ -30,8 +30,8 @@
 	border: 1px solid #dadada;
 }
 #checkoutSteps .buttons-set button.button {
-    width:88px;
-    background-image:url(../images/btn-buynow.png);
+
+    background-image:url(../images/btn-buynow.png) #ffa01b;
     height:36px;
     line-height:21px;
     color: #fff;
