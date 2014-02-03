@@ -101,6 +101,9 @@
 	background: url(../images/arrow-back.png) no-repeat left center;
 	color: #fd8e17;
 }
+.form-list li.wide select {
+	width: auto;
+}
 #checkout-progress-wrapper {
 	background: #f8f8f8;
 }
@@ -214,6 +217,23 @@
 	}
 }
 @media only screen and (max-width: 767px) {
-	
+	.opc {
+		padding: 0 5px;
+	}
+	.opc .step {
+		padding-left: 10px;
+		padding-right: 10px;
+	}
 }
-@media only screen and (max-width: 482px) { }
+@media only screen and (max-width: 482px) { 
+	.form-list li.wide select {
+		width: 100%;
+	}
+	#opc-review .step {
+		padding: 5px;
+	}
+	.data-table thead th, .data-table td {
+		padding-left: 5px;
+		padding-right: 5px;
+	}
+}

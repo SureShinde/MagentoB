@@ -164,8 +164,15 @@
 	.awis-r-default-item img {
 		width: 100%;
 	}
+	.awafpgrid ul {
+		height: 395px;
+	}
+	.featured-category .awafpgrid ul {
+		margin-left: 0;
+		padding-left: 10px;
+	}
 	.featured-category .awafpgrid ul li {
-		width: 22.33% !important;
+		width: 22% !important;
 	}
 }
 /* --------------- smaller 959 px layout -------------------- */
