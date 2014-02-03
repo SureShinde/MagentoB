@@ -1574,6 +1574,115 @@
 .footer .bugs {
 	display: none;
 }
+.sticky-header ul.sticky-menu li.link-free-voucher:hover {
+    background: none repeat scroll 0 0 #FFFFFF;
+}
+.sticky-header ul.sticky-menu li.link-free-voucher {
+    position: relative;
+}
+.sticky-header ul.sticky-menu li {
+    border-left: 1px solid #FAFAFA;
+    border-right: 1px solid #CECECE;
+    color: #B2B2B2;
+    display: block;
+    float: left;
+    font-family: 'bebasregular';
+    font-size: 14px;
+    font-weight: normal;
+    height: 34px;
+    padding: 0 15px;
+    text-transform: uppercase;
+}
+.sticky-header ul.sticky-menu li.link-free-voucher:hover a {
+    color: #707070;
+}
+.sticky-header ul.sticky-menu li a {
+    color: #B2B2B2;
+    display: block;
+    line-height: 34px;
+}
+
+.sticky-header ul.sticky-menu li.link-free-voucher:hover .free-voucher-info {
+    display: block;
+}
+.free-voucher-info {
+    background: none repeat scroll 0 0 #FCFCFC;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    display: none;
+    left: -1px;
+    padding: 18px 20px;
+    position: absolute;
+    text-align: left;
+    top: 35px;
+    width: 370px
+}
+
+.free-voucher-info h3 {
+    color: #FFA01B;
+    font-family: 'bebasregular';
+    font-size: 24px;
+    font-weight: normal;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+
+.free-voucher-info p {
+    color: #707070;
+    font-family: Helvetica,Arial;
+    font-size: 14px;
+    margin-bottom: 5px;
+    text-transform: none;
+}
+
+.header-newsletter .block-subscribe {
+    border: medium none;
+    margin: 0;
+}
+.header-newsletter .block-subscribe .block-content {
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
+    padding: 0;
+}
+.header-newsletter .block-subscribe .block-title, .header-newsletter .block-subscribe .form-subscribe-header {
+    display: none;
+}
+
+.header-newsletter .block-subscribe .block-content .input-box {
+    background: url("../images/txt-search.jpg") no-repeat scroll left top rgba(0, 0, 0, 0);
+    border-bottom: 1px solid #D0D0D0;
+    height: 25px;
+    width: 237px;
+}
+.header-newsletter .block-subscribe .block-content .input-box, .header-newsletter .block-subscribe .block-content .actions {
+    float: left;
+}
+.header-newsletter .block-subscribe .block-content .input-box input.input-text {
+    border: medium none;
+    color: #BABABA;
+    margin: 3px 0 0 5px;
+    width: 205px;
+}
+.block-subscribe input.input-text {
+    display: block;
+    margin: 3px 0;
+    width: 167px;
+}
+.header-newsletter .block-subscribe .block-content .actions {
+    margin-top: 0;
+}
+.header-newsletter .block-subscribe .actions button.button {
+    background: none repeat scroll 0 0 #FFA01B;
+    height: 26px;
+}
+.header-newsletter .block-subscribe .actions button.button span {
+    background: none repeat scroll 0 0 #FFA01B;
+    border: medium none;
+    font-family: 'bebasregular';
+    font-size: 16px;
+    font-weight: normal;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    word-spacing: 3px;
+}
 @media only screen and (max-width: 40em) { 
 	.footer li span.title, .footer .conect-us span.title, .footer .payment-partners span.title, .footer .shipping-partners span.title, .footer .listbox h4{
 		text-align:left !important;
@@ -1636,3 +1745,223 @@
 .col2-left-layout .main .col-main, .col2-right-layout .main .col-main {
     width: 1032px;
 }
+.checkout-onepage-index .page-title {
+	background: #fd8e17;	
+	display: none;
+}
+.checkout-onepage-index .col-main {
+	margin-bottom: 30px;
+}
+#checkoutSteps .form-list .field {
+	width: 50%;
+}
+#checkoutSteps .form-list label {
+	color: #707070;
+	margin-bottom: 10px;
+}
+#checkoutSteps .form-list .input-box {
+	width: auto;
+}
+#checkoutSteps input.input-text {
+	padding: 5px;
+	width: 90%;
+	border: 1px solid #dadada;
+}
+#checkoutSteps .buttons-set .back-link {
+	float: right;
+	margin-top: 10px;
+	margin-right: 5px;
+}
+#checkoutSteps .buttons-set button.button {
+    width:93px;
+    /*background-image:url(../images/btn-buynow.png);*/
+    background: #fd8e17;
+    height:36px;
+    line-height:21px;
+}
+#checkoutSteps .buttons-set button.button.btn-checkout {
+	width: auto;
+}
+#checkoutSteps .buttons-set button.button span, #checkoutSteps .buttons-set button.button span span, .opc .buttons-set .back-link a {
+	text-transform: uppercase;
+	font-size: 14px;
+	font-family: 'bebasregular';
+	font-weight: normal;
+	letter-spacing: 1px;
+}
+#checkoutSteps .buttons-set button.button span, #checkoutSteps .buttons-set button.button span span {
+	color: #fff;
+	background: none;
+	border: none;
+	height: auto;
+}
+#checkoutSteps .buttons-set button.button span span img {
+	margin-top: 3px;
+}
+.opc .step-title {
+	padding-top: 8px;
+	padding-bottom: 8px;
+	background: #c5c5c5;
+	border: none;	
+	margin-bottom: 1px;
+}
+.opc .step-title h2, .opc .step-title .number {
+	text-transform: uppercase;
+	font-size: 14px;
+	font-family: 'bebasregular';
+	font-weight: normal;
+	letter-spacing: 1px;
+	color: #fff;
+	line-height: 22px;
+}
+.opc .step-title .number, .opc .active .step-title .number, .opc .allow .step-title .number  {
+	background: url(../images/bg-number.png) no-repeat left top;
+	border: none;
+	width: 22px;
+	height: 22px;
+	text-align: center;
+	padding: 0;
+
+}
+.opc .step-title .number, .opc .allow .step-title .number {
+		color: #c5c5c5;
+}
+.opc .active .step-title .number {
+	color: #fd8e17;
+}
+.opc .active .step-title h2, .opc .allow .step-title h2 {
+	color: #fff;
+}
+.opc .allow .step-title {
+	background: #c5c5c5;
+	border: none;
+}
+.opc .active .step-title {
+	background: #fd8e17;
+	
+}
+.opc .step {
+	background: none;
+	border:none;
+}
+.opc .buttons-set .back-link a {
+	background: url(../images/arrow-back.png) no-repeat left center;
+	color: #fd8e17;
+}
+#checkout-progress-wrapper {
+	background: #f8f8f8;
+}
+.block-progress .block-title {
+	padding: 10px;
+}
+.block-progress .block-title strong, .block-progress dt {
+	text-transform: uppercase;
+	font-size: 14px;
+	font-family: 'bebasregular';
+	font-weight: normal;
+	letter-spacing: 1px;
+	color: #707070;
+}
+.block-progress dt, .block-progress dt.complete {
+	margin: 0;
+	
+	background: #f2f2f2;
+}
+.block-progress dt {
+	border: 1px solid #dadada;
+}
+.block-progress dt.complete {
+	border: none;
+	background:url(../images/bkg_block-layered-dd.gif) repeat-x 0 100% ;
+	padding-bottom: 10px;
+	color: #707070;
+}
+.block-progress dt.complete a {
+	text-transform: lowercase;
+	color: #4ec7da;
+}
+.block-progress dt.complete span.changelink {
+	display: block;
+	font-size: 12px;
+	font-weight: normal;
+}
+.opc-block-progress dt.complete .separator {
+	display: none;
+}
+.block-progress dd {
+	background: none;
+	border:none;
+}
+#opc-review .step {
+	padding: 20px;
+}
+#opc-review .product-name {
+	color: #707070;
+}
+#opc-review .buttons-set {
+	border: none;
+}
+#opc-review .buttons-set p a {
+	color: #fd8e17;
+}
+#opc-review .buttons-set .f-right {
+	margin-right: 10px;
+}
+.data-table {
+	border:none;
+}
+.data-table td {
+	padding:8px 20px;
+}
+.data-table thead th {
+	background: #5d5d5d;
+	color: #fff;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	border-right:none;
+	padding-right: 20px;
+	padding-left: 20px;
+}
+.data-table tbody th, .data-table tbody td {
+	border-right: none;
+	border-bottom: 1px solid #afafaf;
+}
+.data-table tfoot {
+	border-bottom: none;
+}
+.data-table tfoot strong {
+	font-size: 14px;
+	text-transform: uppercase;
+}
+.data-table tfoot tr {
+	background: none;
+}
+.data-table tfoot tr.first td {
+	background: none;
+	border-top: 1px solid #afafaf;
+}
+.data-table tfoot tr.last {
+	border-top:1px solid #afafaf;
+}
+.data-table tfoot td {
+	border-right:none;
+	padding-top: 3px;
+	padding-bottom: 3px;
+}
+.data-table tfoot tr.last td {
+	padding-top: 10px;
+}
+.data-table .odd, .data-table .even {
+	background: none;
+}
+@media only screen and (max-width: 1215px) {}
+@media only screen and (max-width: 1023px) {
+	.checkout-onepage-index .col-main {
+		margin-top: 20px;
+	}
+}
+@media only screen and (max-width: 767px) {
+	
+}
+@media only screen and (max-width: 482px) { }
+/*=======================================checkout========================================*/
