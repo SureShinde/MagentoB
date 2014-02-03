@@ -55,7 +55,6 @@
     </default>
 	<customer_logged_in>
         <reference name="top.links">
-        	<action method="addLink" translate="label" module="customer"><label>Track Order</label><url>sales/order/history</url><title>Track Order</title><prepare/><urlParams/><position>9</position></action>
         	<action method="removeLinkByUrl"><url helper="customer/getAccountUrl"/></action>
 			<!--<action method="addLink" translate="label title" module="customer"><label>My Account</label><url helper="customer/getAccountUrl"/><title>My Account</title><prepare/><urlParams/><position>10</position><liParams><class>myaccount</class></liParams></action>-->
         	<action method="removeLinkByUrl"><url helper="customer/getLogoutUrl"/></action>

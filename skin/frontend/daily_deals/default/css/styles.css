@@ -348,13 +348,13 @@ p.required { font-size:11px; text-align:right; color:#EB340A; }
 .sub-title { clear:both; padding:15px 0 0; font-size:15px; font-weight:bold; margin:0 0 6px; color:#e25203; }
 
 /* Pager */
-.pager { background:#f2f2f2; padding:4px 8px; border-top:1px solid #e2e2e2; text-align:center; color:#818181; margin:20px 0 0; }
+.pager { background:#f2f2f2; padding:7px 8px; border-top:1px solid #e2e2e2; text-align:center; color:#818181; margin:20px 0 0; }
 .pager .amount { float:left; margin:0; font-size:12px;  }
-.pager .limiter { float:right; }
+.pager .limiter { float:right;}
 .pager .limiter ul{ float:left; margin-left:4px; margin-bottom:0; }
 .pager .limiter ul span{ float:left; font-size:12px;}
 .pager .limiter li{ float:left; margin: 0 5px; font-size:12px; position:relative;}
-.pager .limiter label { vertical-align:middle; float:left; padding:4px; margin-bottom:0; font-size:12px;}
+.pager .limiter label { vertical-align:middle; float:left; margin-bottom:0; font-size:12px;}
 .pager .limiter select { padding:0; margin:0 0 1px; vertical-align:middle; }
 .pager .pages { margin:0 140px; color:#818181; font-size:12px; }
 .pager .pages ol { display:inline; margin:0;}
