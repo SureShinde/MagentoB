@@ -50,6 +50,7 @@ body {
 	color: #838383;
 }
 .pager, .limiter {
+	 line-height:12px;
 	font-size: 12px;
 }
 .sorter {

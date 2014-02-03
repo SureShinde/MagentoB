@@ -1,15 +1,6 @@
 .checkout-onepage-index .page-title {
 	background: #fd8e17;	
-}
-.checkout-onepage-index .page-title h1 {
-	color: #fff;
-	font-size: 14px;
-	font-family: 'bebasregular';
-	font-weight: normal;
-	text-transform: uppercase;
-	padding: 7px 0 7px 40px;
-	background: url(../images/arrow-title.png) no-repeat 10px center;
-	letter-spacing: 1px;
+	display: none;
 }
 .checkout-onepage-index .col-main {
 	margin-bottom: 30px;
@@ -19,7 +10,7 @@
 }
 #checkoutSteps .form-list label {
 	color: #707070;
-	margin-bottom: 3px;
+	margin-bottom: 10px;
 }
 #checkoutSteps .form-list .input-box {
 	width: auto;
@@ -29,21 +20,36 @@
 	width: 90%;
 	border: 1px solid #dadada;
 }
+#checkoutSteps .buttons-set .back-link {
+	float: right;
+	margin-top: 10px;
+	margin-right: 5px;
+}
 #checkoutSteps .buttons-set button.button {
-    width:88px;
-    background-image:url(../images/btn-buynow.png);
+    width:93px;
+    /*background-image:url(../images/btn-buynow.png);*/
+    background: #fd8e17;
     height:36px;
     line-height:21px;
-    color: #fff;
-	font-family: Helvetica;
-    font-size: 1em;
-    font-weight: normal;
-    text-transform: uppercase;
+}
+#checkoutSteps .buttons-set button.button.btn-checkout {
+	width: auto;
+}
+#checkoutSteps .buttons-set button.button span, #checkoutSteps .buttons-set button.button span span, .opc .buttons-set .back-link a {
+	text-transform: uppercase;
+	font-size: 14px;
+	font-family: 'bebasregular';
+	font-weight: normal;
+	letter-spacing: 1px;
 }
 #checkoutSteps .buttons-set button.button span, #checkoutSteps .buttons-set button.button span span {
+	color: #fff;
 	background: none;
 	border: none;
 	height: auto;
+}
+#checkoutSteps .buttons-set button.button span span img {
+	margin-top: 3px;
 }
 .opc .step-title {
 	padding-top: 8px;
@@ -91,6 +97,10 @@
 	background: none;
 	border:none;
 }
+.opc .buttons-set .back-link a {
+	background: url(../images/arrow-back.png) no-repeat left center;
+	color: #fd8e17;
+}
 #checkout-progress-wrapper {
 	background: #f8f8f8;
 }
@@ -135,3 +145,75 @@
 	background: none;
 	border:none;
 }
+#opc-review .step {
+	padding: 20px;
+}
+#opc-review .product-name {
+	color: #707070;
+}
+#opc-review .buttons-set {
+	border: none;
+}
+#opc-review .buttons-set p a {
+	color: #fd8e17;
+}
+#opc-review .buttons-set .f-right {
+	margin-right: 10px;
+}
+.data-table {
+	border:none;
+}
+.data-table td {
+	padding:8px 20px;
+}
+.data-table thead th {
+	background: #5d5d5d;
+	color: #fff;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	border-right:none;
+	padding-right: 20px;
+	padding-left: 20px;
+}
+.data-table tbody th, .data-table tbody td {
+	border-right: none;
+	border-bottom: 1px solid #afafaf;
+}
+.data-table tfoot {
+	border-bottom: none;
+}
+.data-table tfoot strong {
+	font-size: 14px;
+	text-transform: uppercase;
+}
+.data-table tfoot tr {
+	background: none;
+}
+.data-table tfoot tr.first td {
+	background: none;
+	border-top: 1px solid #afafaf;
+}
+.data-table tfoot tr.last {
+	border-top:1px solid #afafaf;
+}
+.data-table tfoot td {
+	border-right:none;
+	padding-top: 3px;
+	padding-bottom: 3px;
+}
+.data-table tfoot tr.last td {
+	padding-top: 10px;
+}
+.data-table .odd, .data-table .even {
+	background: none;
+}
+@media only screen and (max-width: 1215px) {}
+@media only screen and (max-width: 1023px) {
+	.checkout-onepage-index .col-main {
+		margin-top: 20px;
+	}
+}
+@media only screen and (max-width: 767px) {
+	
+}
+@media only screen and (max-width: 482px) { }
