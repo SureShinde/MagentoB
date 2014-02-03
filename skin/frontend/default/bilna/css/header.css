@@ -1295,7 +1295,7 @@
 	.sticky-header ul.sticky-menu li.link-customer-care2 a {
 		font-size: 12px;
 		padding-left: 0;
-		line-height: 24px;
+		line-height: 30px;
 		background: none;
 		padding-top: 2px;
 	}
@@ -1308,6 +1308,9 @@
 		background: none;
 		padding-left: 3px;
 		padding-right: 3px;
+	}
+	.sticky-header .sticky-search .form-search .input-keyword input.input-text {
+		width: 124px;
 	}
 	.keypoint {
 		margin-left: 13px;
