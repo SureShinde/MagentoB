@@ -1,0 +1,1008 @@
+.static-page-area {
+	padding: 0;
+	margin: 0;
+	width: 100%;
+	color: #707070;
+	font-family: Arial, Helvetica, sans-serif;
+	line-height: 1;
+}
+
+.static-page-wrapper {
+	padding: 0;
+	margin: 0;
+	width: 94%;
+	padding: 0 3%;
+}
+
+.static-page-wrapper p {
+	color: #707070;
+	font:12px/1.55 Arial, Helvetica, sans-serif;
+	line-height: 1;
+}
+
+.font-base-text {font-family: helvetica, arial;}
+.font-base-text-bold {font-family: helvetica, arial; font-weight: bold;}
+
+.fb-13 {font-size: 13px;}
+.fb-14 {font-size: 14px;}
+.fb-15 {font-size: 15px;}
+.fb-18 {font-size: 18px;}
+
+.clear-static {clear: both;}
+
+.fc-base-blue {color:#4ec7da;}
+.fc-base-blue2 {color: #2F93BF;}
+.fc-base-orange {color:#ffa01b;}
+.fc-base-yellow {color:#ffe449;}
+.fc-base-peach {color:#fc8360;}
+.fc-base-green {color:#8dd240;}
+.fc-base-red {color:#e72b2f;}
+.fc-base-orange-sp {color:#fc6a33;}
+
+.bc-white {background: #FFF;}
+
+.static-page-wrapper a {
+	color: #707070;
+	font-size: 12px/1.55em;
+	line-height: 1;
+	text-decoration: none;
+}
+
+.rounded-5 {
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+}
+
+.rounded-10 {
+	border-radius: 10px;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+}
+
+.rounded-15 {
+	border-radius: 15px;
+	-moz-border-radius: 15px;
+	-webkit-border-radius: 15px;
+}
+
+.rounded-20 {
+	border-radius: 20px;
+	-moz-border-radius: 20px;
+	-webkit-border-radius: 20px;
+}
+
+.rounded-300 {
+	border-radius: 300px;
+	-moz-border-radius: 300px;
+	-webkit-border-radius: 300px;
+}
+
+.clear-sp {clear:both;}
+.title-sp {color:#fc6a33; font-size: 18px !important; font-weight: bold;font-size: Arial, Helvetica, sans-serif;}
+.title-sp-25 {font-size: 25px !important; font-weight: bold; font-family: Arial, Helvetica, sans-serif;}
+.image-sp {width:100% !important;}
+.image-sp img {width:100% !important;}
+
+
+.bc-content-area .image-sp {float: left; padding: 0 2% 15px; width: 94% !important;}
+	
+.image-sp2 {width:100% !important;}
+.image-sp2 img {width:100% !important;}
+
+.text-sp {font-size: 14px; margin: 0 auto;}
+.text-sp2 {font-size: 14px; margin: 0 auto; padding: 0;}
+
+
+.static-page-content {
+    display: block;
+    position: relative;
+    z-index: 1;
+}
+
+.static-page-content table {
+    border: 1px solid #F58D66;
+}
+
+
+.static-page-content table tr th {
+    background: none repeat scroll 0 0 #F58D66;
+    border-right: 1px solid #FFFFFF;
+    color: #FFFFFF;
+    font-size: 14px;
+    padding: 5px;
+}
+
+.static-page-content table tr td {
+    border-bottom: 1px solid #F58D66;
+    border-right: 1px solid #F58D66;
+    color: #666666;
+    font-size: 14px;
+    padding: 5px;
+}
+
+.table-sp {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border-radius: 10px;
+    margin: 0 3%;
+    padding: 20px 0;
+    width: 94%;
+}
+ul.decimal-ul li {
+		list-style-type: decimal;
+	}
+
+.bc-content-area {width: 100%; float: left;}
+.bc-content-area img {width: 98%; padding: 5px 1% 20px;}
+.line-sp-blue {
+	border-top: 2px dashed #2f93bf;
+	margin: 0 auto;
+	margin-top: 20px;
+	margin-bottom:20px;
+	width: 94%;
+  }
+
+.static-page-area ol li {font-size:16px; margin:0 0 10px;line-height:1.35;}
+.wrapper-voucher a {text-decoration:none;}
+
+
+
+/* --------------------------------------------Gift Voucher static page */
+
+	.button-area-voucher {
+		padding: 0 2%;
+		width: 96%;
+		margin: 0 auto;
+	}
+	
+	.button-voucher1 {
+		background: #36ccaf;
+		padding: 18px 10px 13px;
+		text-align: center;
+		font-size: 30px;
+		color: #fff;
+		margin: 10px 0;
+		clear: both;
+		width: 190px;
+		display: block;
+	}
+	
+	.button-voucher1:hover {
+		box-shadow:1px 1px 2px #d7d7d7;
+		text-decoration:none;
+	}
+	
+	.button-voucher2 {
+		background: #FF1493;
+		padding: 10px 20px;
+		text-align: center;
+		font-size: 20px;
+		color: #fff;
+		margin: 10px 0;
+		clear: both;
+	}
+	.back-button-area {
+		margin: 20px 0;
+		color: #FFF;
+		width: 96%;
+		padding: 0 2%;
+	}
+	.back-button-voucher {
+		background: none;
+		padding: 10px 20px;
+		width: 40px;
+		color: #36ccaf;
+		display: block;
+		border: 1px solid #36ccaf;
+	}
+	
+	.back-button-voucher:hover {
+		background: #36ccaf;
+		padding: 10px 20px;
+		width: 40px;
+		color: #FFF;
+		display: block;
+		border: 1px solid #36ccaf;
+		text-decoration:none;
+	}
+
+	.button-voucher3 {
+		background: #36ccaf;
+		padding: 18px 10px 13px;
+		text-align: center;
+		font-size: 30px;
+		color: #fff;
+		margin: 10px 0;
+		clear: both;
+		width: 190px;
+		display: block;
+	}
+	
+	.button-voucher3:hover {
+		text-decoration:none;
+		box-shadow:1px 1px 2px #d7d7d7;
+	}
+	
+	.button-area-voucher2 {
+		width: 96%;
+		padding: 0 2%;
+		margin: 0 auto;
+		display:none;
+	}
+	
+	.voucher-parent {
+		display:none;
+	}
+	
+	form.area-voucher {
+		margin:-0;
+		text-align: left;
+		font-size: 14px;
+		width: 96%;
+		padding: 0 2%;
+		display: block;
+	}
+	
+	.voucher-input {
+		padding: 5px;
+		width: 60px;
+		font-size: 14px;
+		border: 1px solid #36ccaf;
+		box-shadow: 1px 1px 5px #d7d7d7 inset;
+		background: #FFF;
+		text-align: center;
+		border-radius: 5px;
+	}
+	
+	.header-voucher-banner {
+		width: 96%;
+		padding: 0 2%;
+		margin-bottom: 20px;
+	}
+	
+	.header-voucher-banner img {
+		width: 100%;
+	}
+	
+	.voucher-parent.text-sp {
+		padding: 0 2%;
+		width: 96%;
+	}
+	
+/* ----------------End Gift Voucher Static Page */
+
+
+
+
+
+
+/* Styles for MOM's & BABY WORLD */
+
+@keyframes shake-mbw{
+0% { transform: translate(2px, 1px) rotate(0deg); }
+10% { transform: translate(-1px, -2px) rotate(-1deg); }
+20% { transform: translate(-3px, 0px) rotate(1deg); }
+30% { transform: translate(0px, 2px) rotate(0deg); }
+40% { transform: translate(1px, -1px) rotate(1deg); }
+50% { transform: translate(-1px, 2px) rotate(-1deg); }
+60% { transform: translate(-3px, 1px) rotate(0deg); }
+70% { transform: translate(2px, 1px) rotate(-1deg); }
+80% { transform: translate(-1px, -1px) rotate(1deg); }
+90% { transform: translate(2px, 2px) rotate(0deg); }
+100% { transform: translate(1px, -2px) rotate(-1deg); }
+}
+
+@-moz-keyframes shake-mbw{
+0% { -moz-transform: translate(2px, 1px) rotate(0deg); }
+10% { -moz-transform: translate(-1px, -2px) rotate(-1deg); }
+20% { -moz-transform: translate(-3px, 0px) rotate(1deg); }
+30% { -moz-transform: translate(0px, 2px) rotate(0deg); }
+40% { -moz-transform: translate(1px, -1px) rotate(1deg); }
+50% { -moz-transform: translate(-1px, 2px) rotate(-1deg); }
+60% { -moz-transform: translate(-3px, 1px) rotate(0deg); }
+70% { -moz-transform: translate(2px, 1px) rotate(-1deg); }
+80% { -moz-transform: translate(-1px, -1px) rotate(1deg); }
+90% { -moz-transform: translate(2px, 2px) rotate(0deg); }
+100% { -moz-transform: translate(1px, -2px) rotate(-1deg); }
+}
+
+@-webkit-keyframes shake-mbw {
+0% { -webkit-transform: translate(2px, 1px) rotate(0deg); }
+10% { -webkit-transform: translate(-1px, -2px) rotate(-1deg); }
+20% { -webkit-transform: translate(-3px, 0px) rotate(1deg); }
+30% { -webkit-transform: translate(0px, 2px) rotate(0deg); }
+40% { -webkit-transform: translate(1px, -1px) rotate(1deg); }
+50% { -webkit-transform: translate(-1px, 2px) rotate(-1deg); }
+60% { -webkit-transform: translate(-3px, 1px) rotate(0deg); }
+70% { -webkit-transform: translate(2px, 1px) rotate(-1deg); }
+80% { -webkit-transform: translate(-1px, -1px) rotate(1deg); }
+90% { -webkit-transform: translate(2px, 2px) rotate(0deg); }
+100% { -webkit-transform: translate(1px, -2px) rotate(-1deg); }
+}
+
+.shake-mbw{
+display:inline-block;
+}
+
+.shake-mbw, .shake-mbw:hover, .shake-mbw:focus{
+animation-name: shake-mbw;
+animation-duration: 0.8s;
+transform-origin:50% 50%;
+animation-iteration-count: infinite;
+animation-timing-function: linear;
+
+-moz-animation-name: shake-mbw;
+-moz-animation-duration: 0.8s;
+-moz-transform-origin:50% 50%;
+-moz-animation-iteration-count: infinite;
+-moz-animation-timing-function: linear;
+
+-webkit-animation-name: shake-mbw;
+-webkit-animation-duration: 0.8s;
+-webkit-transform-origin:50% 50%;
+-webkit-animation-iteration-count: infinite;
+-webkit-animation-timing-function: linear;
+}
+
+
+
+	/* shake originale */
+
+@keyframes shake2{
+0% { transform: translate(2px, 1px) rotate(0deg); }
+10% { transform: translate(-1px, -2px) rotate(-1deg); }
+20% { transform: translate(-3px, 0px) rotate(1deg); }
+30% { transform: translate(0px, 2px) rotate(0deg); }
+40% { transform: translate(1px, -1px) rotate(1deg); }
+50% { transform: translate(-1px, 2px) rotate(-1deg); }
+60% { transform: translate(-3px, 1px) rotate(0deg); }
+70% { transform: translate(2px, 1px) rotate(-1deg); }
+80% { transform: translate(-1px, -1px) rotate(1deg); }
+90% { transform: translate(2px, 2px) rotate(0deg); }
+100% { transform: translate(1px, -2px) rotate(-1deg); }
+}
+
+@-moz-keyframes shake2{
+0% { -moz-transform: translate(2px, 1px) rotate(0deg); }
+10% { -moz-transform: translate(-1px, -2px) rotate(-1deg); }
+20% { -moz-transform: translate(-3px, 0px) rotate(1deg); }
+30% { -moz-transform: translate(0px, 2px) rotate(0deg); }
+40% { -moz-transform: translate(1px, -1px) rotate(1deg); }
+50% { -moz-transform: translate(-1px, 2px) rotate(-1deg); }
+60% { -moz-transform: translate(-3px, 1px) rotate(0deg); }
+70% { -moz-transform: translate(2px, 1px) rotate(-1deg); }
+80% { -moz-transform: translate(-1px, -1px) rotate(1deg); }
+90% { -moz-transform: translate(2px, 2px) rotate(0deg); }
+100% { -moz-transform: translate(1px, -2px) rotate(-1deg); }
+}
+
+@-webkit-keyframes shake2 {
+0% { -webkit-transform: translate(2px, 1px) rotate(0deg); }
+10% { -webkit-transform: translate(-1px, -2px) rotate(-1deg); }
+20% { -webkit-transform: translate(-3px, 0px) rotate(1deg); }
+30% { -webkit-transform: translate(0px, 2px) rotate(0deg); }
+40% { -webkit-transform: translate(1px, -1px) rotate(1deg); }
+50% { -webkit-transform: translate(-1px, 2px) rotate(-1deg); }
+60% { -webkit-transform: translate(-3px, 1px) rotate(0deg); }
+70% { -webkit-transform: translate(2px, 1px) rotate(-1deg); }
+80% { -webkit-transform: translate(-1px, -1px) rotate(1deg); }
+90% { -webkit-transform: translate(2px, 2px) rotate(0deg); }
+100% { -webkit-transform: translate(1px, -2px) rotate(-1deg); }
+}
+
+.shake2{
+display:inline-block;
+}
+
+.shake2:hover,
+.shake2:focus{
+animation-name: shake;
+animation-duration: 0.8s;
+transform-origin:50% 50%;
+animation-iteration-count: infinite;
+animation-timing-function: linear;
+
+-moz-animation-name: shake;
+-moz-animation-duration: 0.8s;
+-moz-transform-origin:50% 50%;
+-moz-animation-iteration-count: infinite;
+-moz-animation-timing-function: linear;
+
+-webkit-animation-name: shake;
+-webkit-animation-duration: 0.8s;
+-webkit-transform-origin:50% 50%;
+-webkit-animation-iteration-count: infinite;
+-webkit-animation-timing-function: linear;
+}
+
+	/* END shake originale */
+
+.bg-mwb {
+	background: url('../../../../../media/wysiwyg/landing-page/mwb_bg2.jpg') no-repeat; position:relative; margin:0 auto; padding:0; display:block; width: 911px; height: 938px;
+}
+
+
+.prod1 {
+	margin:403px 0 0 93px;
+	position:absolute;
+}
+
+.pita-1 {
+	background: url('../../../../../media/wysiwyg/landing-page/pita-1.png') no-repeat;
+	position:absolute;
+	width:114px;
+	height:18px;
+	margin: 67px 0 0 -10px;
+}
+
+.makanan-bayi {
+	background: url('../../../../../media/wysiwyg/landing-page/makanan-bayi.png') no-repeat;
+	position:absolute;
+	margin: 0px 0 0 -10px;
+	margin:0px;
+	background-size: 100px auto;
+	width: 100px;
+	height: 70px;
+}
+.makanan-bayi:hover {
+	background: url('../../../../../media/wysiwyg/landing-page/makanan-bayi.png') no-repeat;
+	position:absolute;
+	margin: -12px 0 0 -10px;
+	background-size: 120px auto;
+	width: 120px;
+	height: 101px;
+	animation-duration: 0.8s;
+}
+
+
+.prod2 {
+	margin:404px 0 0 269px;
+	position:absolute;
+}
+
+.pita-2 {
+	background: url('../../../../../media/wysiwyg/landing-page/pita-2.png') no-repeat;
+	position:absolute;
+	width:168px;
+	height:37px;
+	margin: 89px 0 0 -29px;
+}
+
+.perlengkapan-makan {
+	background: url('../../../../../media/wysiwyg/landing-page/Food-equip.png') no-repeat;
+	position:absolute;
+	background-size: 105px auto;
+	width: 105px;
+	height: 103px;
+}
+.perlengkapan-makan:hover {
+	background: url('../../../../../media/wysiwyg/landing-page/Food-equip.png') no-repeat;
+	position:absolute;
+	margin: -23px 0 0 -11px;
+	background-size: 130px auto;
+	width: 130px;
+	height: 130px;
+	animation-duration: 0.8s;
+}
+
+.prod3 {
+	margin:394px 0px 0px 368px;
+	position:absolute;
+}
+.pita-3 {
+	background: url('../../../../../media/wysiwyg/landing-page/pita-3.png') no-repeat;
+	position:absolute;
+	width:114px;
+	height:18px;
+	margin: 58px 0 0 12px;
+}
+.ibu-sgm {
+	background: url('../../../../../media/wysiwyg/landing-page/ibu-sgm.png') no-repeat;
+	margin: -3px 0 0 5px;
+	position:absolute;
+	background-size: 68px auto;
+	width: 68px;
+	height: 62px;
+}
+.ibu-sgm:hover {
+	background: url('../../../../../media/wysiwyg/landing-page/ibu-sgm.png') no-repeat;
+	margin: -23px 0 0 -10px;
+	position:absolute;
+	background-size: 90px auto;
+	width: 90px;
+	height: 88px;
+	animation-duration: 0.8s;
+	z-index: 800;
+}
+.ibu-lactamil {
+	background: url('../../../../../media/wysiwyg/landing-page/ibu-lactamil.png') no-repeat;
+	margin: -6px 0 0 76px;
+	position:absolute;
+	background-size: 61px auto;
+	width: 61px;
+	height: 65px;
+}
+.ibu-lactamil:hover {
+	background: url('../../../../../media/wysiwyg/landing-page/ibu-lactamil.png') no-repeat;
+	margin: -29px 0 0 56px;
+	position:absolute;
+	background-size: 94px auto;
+	width: 94px;
+	height: 88px;
+	animation-duration: 0.8s;
+	z-index: 800;
+}
+
+.prod4 {
+	margin:254px 0 0 668px;
+	position:absolute;
+}
+.pita-4 {
+	background: url('../../../../../media/wysiwyg/landing-page/pita-4.png') no-repeat;
+	position:absolute;
+	width:170px;
+	height:18px;
+	margin: 65px 0 0 12px;
+}
+.info-ibu {
+	background: url('../../../../../media/wysiwyg/landing-page/info.png') no-repeat;
+	margin:0px 0 0 50px;
+	background-size: 119px auto;
+	position:absolute;
+	width: 119px;
+	height: 75px;
+}
+.info-ibu:hover {
+	background: url('../../../../../media/wysiwyg/landing-page/info.png') no-repeat;
+	margin:0px 0 0 50px;
+	position:absolute;
+	background-size: 119px auto;
+	width: 119px;
+	height: 75px;
+	animation-duration: 0.8s;
+}
+
+.prod5 {
+	margin:464px 0 0 618px;
+	position:absolute;
+}
+.pita-5 {
+	background: url('../../../../../media/wysiwyg/landing-page/pita-5.png') no-repeat;
+	position:absolute;
+	width:114px;
+	height:18px;
+	margin: 87px 0 0 -17px;
+}
+.pakaian {
+	background: url('../../../../../media/wysiwyg/landing-page/pakaian.png') no-repeat;
+	margin:0px 0 0 0px;
+	background-size: 78px auto;
+	position:absolute;
+	width: 78px;
+	height: 105px;
+}
+.pakaian:hover {
+	background: url('../../../../../media/wysiwyg/landing-page/pakaian.png') no-repeat;
+	margin:0px 0 0 -6px;
+	position:absolute;
+	background-size: 90px auto;
+	width: 90px;
+	height: 134px;
+	animation-duration: 0.8s;
+}
+
+.prod6 {
+	margin:455px 0 0 742px;
+	position:absolute;
+}
+.pita-6 {
+	background: url('../../../../../media/wysiwyg/landing-page/pita-6.png') no-repeat;
+	position:absolute;
+	width:155px;
+	height:18px;
+	margin: 83px 0 0 -28px;
+}
+.mandi {
+	background: url('../../../../../media/wysiwyg/landing-page/per-mandi.png') no-repeat;
+	margin:0px 0 0 0px;
+	background-size: 105px auto;
+	position:absolute;
+	width: 105px;
+	height: 90px;
+}
+.mandi:hover {
+	background: url('../../../../../media/wysiwyg/landing-page/per-mandi.png') no-repeat;
+	margin:-18px 0 0 0px;
+	position:absolute;
+	background-size: 125px auto;
+	width: 125px;
+	height: 109px;
+	animation-duration: 0.8s;
+}
+
+
+.prod7 {
+	margin:575px 0 0 521px;
+	position:absolute;
+}
+.pita-7 {
+	background: url('../../../../../media/wysiwyg/landing-page/pita-7.png') no-repeat;
+	position:absolute;
+	width:114px;
+	height:18px;
+	margin: 58px 0 0 -17px;
+}
+.mainan {
+	background: url('../../../../../media/wysiwyg/landing-page/mainan.png') no-repeat;
+	margin:0px 0 0 0px;
+	background-size: 135px auto;
+	position:absolute;
+	width: 135px;
+	height: 140px;
+}
+.mainan:hover {
+	background: url('../../../../../media/wysiwyg/landing-page/mainan.png') no-repeat;
+	margin:-20px 0 0 -5px;
+	position:absolute;
+	background-size: 154px auto;
+	width: 154px;
+	height: 176px;
+	animation-duration: 0.8s;
+}
+
+.prod8 {
+	margin:678px 0 0 659px;
+	position:absolute;
+}
+.pita-8 {
+	background: url('../../../../../media/wysiwyg/landing-page/pita-8.png') no-repeat;
+	position:absolute;
+	width:114px;
+	height:18px;
+	margin: 106px 0 0 36px;
+}
+.popok {
+	background: url('../../../../../media/wysiwyg/landing-page/popok.png') no-repeat;
+	margin:0px 0 0 0px;
+	background-size: 188px auto;
+	position:absolute;
+	width: 188px;
+	height: 114px;
+}
+.popok:hover {
+	background: url('../../../../../media/wysiwyg/landing-page/popok.png') no-repeat;
+	margin:-9px 0 0 -25px;
+	position:absolute;
+	background-size: 214px auto;
+	width: 214px;
+	height: 131px;
+	animation-duration: 0.8s;
+}
+
+.prod9 {
+	margin:523px 0 0 33px;
+	position:absolute;
+}
+.pita-9 {
+	background: url('../../../../../media/wysiwyg/landing-page/pita-9.png') no-repeat;
+	position:absolute;
+	width:141px;
+	height:18px;
+	margin: 85px 0 0 61px;
+}
+.perlengkapan-bayi {
+	background: url('../../../../../media/wysiwyg/landing-page/perlengkapan-bayi.png') no-repeat;
+	margin:0px 0 0 0px;
+	background-size: 127px auto;
+	position:absolute;
+	width: 127px;
+	height: 166px;
+}
+.perlengkapan-bayi:hover {
+	background: url('../../../../../media/wysiwyg/landing-page/perlengkapan-bayi.png') no-repeat;
+	margin:-10px 0 0 0px;
+	position:absolute;
+	background-size: 150px auto;
+	width: 150px;
+	height: 188px;
+	animation-duration: 0.8s;
+}
+
+.prod10 {
+	margin: 700px 0 0 57px;
+	position:absolute;
+}
+.pita-10 {
+	background: url('../../../../../media/wysiwyg/landing-page/pita-10-2.png') no-repeat;
+	position:absolute;
+	width:211px;
+	height:19px;
+	margin: 66px 0 0 61px;
+	z-index: 801;
+}
+.susu-1sgm {
+	background: url('../../../../../media/wysiwyg/landing-page/susu-sgm.png') no-repeat;
+	margin: -2px 0 0 143px;
+	background-size: 67px auto;
+	position:absolute;
+	width: 67px;
+	height: 67px;
+}
+.susu-1sgm:hover {
+	background: url('../../../../../media/wysiwyg/landing-page/susu-sgm.png') no-repeat;
+	margin:-25px 0 0 138px;
+	position:absolute;
+	background-size: 90px auto;
+	width: 90px;
+	height: 110px;
+	animation-duration: 0.8s;
+	z-index: 800;
+}
+.susu-2bebelac {
+	background: url('../../../../../media/wysiwyg/landing-page/susu-bebelac.png') no-repeat;
+	margin:-5px 0 0 216px;
+	background-size: 76px auto;
+	position:absolute;
+	width: 76px;
+	height: 67px;
+}
+.susu-2bebelac:hover {
+	background: url('../../../../../media/wysiwyg/landing-page/susu-bebelac.png') no-repeat;
+	margin:-23px 0 0 207px;
+	position:absolute;
+	background-size: 101px auto;
+	width: 101px;
+	height: 110px;
+	animation-duration: 0.8s;
+	z-index: 800;
+	
+}
+.susu-3nutrilon {
+	background: url('../../../../../media/wysiwyg/landing-page/susu-nutrilon.png') no-repeat;
+	margin: -4px 0 0 298px;
+	background-size: 64px auto;
+	position:absolute;
+	width: 64px;
+	height: 70px;
+}
+.susu-3nutrilon:hover {
+	background: url('../../../../../media/wysiwyg/landing-page/susu-nutrilon.png') no-repeat;
+	margin:-23px 0 0 287px;
+	position:absolute;
+	background-size: 85px auto;
+	width: 85px;
+	height: 110px;
+	animation-duration: 0.8s;
+	z-index: 800;
+	
+}
+
+/* End Large MWB */
+
+
+
+/* -------------------------min-700px width MWB------------------------ */
+
+@media only screen and (min-width: 768px) and (max-width: 1023px) { 
+	.bg-mwb {
+		background: url('../../../../../media/wysiwyg/landing-page/mwb_bg2.jpg') no-repeat;
+		position:relative; 
+		margin:0 auto; 
+		padding:0; 
+		display:block; 
+		width: 911px; 
+		height: 938px;
+		background-size: 742px;
+	}
+
+
+	.prod1 {
+		margin:303px 0 0 68px;
+		position:absolute;
+	}
+
+	.pita-1 {
+		background: url('../../../../../media/wysiwyg/landing-page/pita-1.png') no-repeat;
+		position:absolute;
+		width:114px;
+		height:18px;
+		margin: 67px 0 0 -10px;
+	}
+
+
+	.prod2 {
+		margin:308px 0 0 211px;
+		position:absolute;
+	}
+
+	.pita-2 {
+		background: url('../../../../../media/wysiwyg/landing-page/pita-2.png') no-repeat;
+		position:absolute;
+		width:168px;
+		height:37px;
+		margin: 89px 0 0 -29px;
+	}
+
+	.prod3 {
+		margin:394px 0px 0px 368px;
+		position:absolute;
+	}
+	.pita-3 {
+		background: url('../../../../../media/wysiwyg/landing-page/pita-3.png') no-repeat;
+		position:absolute;
+		width:114px;
+		height:18px;
+		margin: 58px 0 0 12px;
+	}
+
+	.prod4 {
+		margin:189px 0 0 537px;
+		position:absolute;
+	}
+	.pita-4 {
+		background: url('../../../../../media/wysiwyg/landing-page/pita-4.png') no-repeat;
+		position:absolute;
+		width:170px;
+		height:18px;
+		margin: 65px 0 0 12px;
+	}
+
+	.prod5 {
+		margin:296px 0 0 470px;
+		position:absolute;
+	}
+	.pita-5 {
+		background: url('../../../../../media/wysiwyg/landing-page/pita-5.png') no-repeat;
+		position:absolute;
+		width:114px;
+		height:18px;
+		margin: 87px 0 0 -17px;
+	}
+
+	.prod6 {
+		margin:350px 0 0 600px;
+		position:absolute;
+	}
+	.pita-6 {
+		background: url('../../../../../media/wysiwyg/landing-page/pita-6.png') no-repeat;
+		position:absolute;
+		width:155px;
+		height:18px;
+		margin: 83px 0 0 -28px;
+	}
+
+
+	.prod7 {
+		margin:442px 0 0 405px;
+		position:absolute;
+	}
+	.pita-7 {
+		background: url('../../../../../media/wysiwyg/landing-page/pita-7.png') no-repeat;
+		position:absolute;
+		width:114px;
+		height:18px;
+		margin: 58px 0 0 -17px;
+	}
+
+	.prod8 {
+		margin:570px 0 0 532px;
+		position:absolute;
+	}
+	.pita-8 {
+		background: url('../../../../../media/wysiwyg/landing-page/pita-8.png') no-repeat;
+		position:absolute;
+		width:114px;
+		height:18px;
+		margin: 106px 0 0 36px;
+	}
+
+	.prod9 {
+		margin:395px 0 0 33px;
+		position:absolute;
+	}
+	.pita-9 {
+		background: url('../../../../../media/wysiwyg/landing-page/pita-9.png') no-repeat;
+		position:absolute;
+		width:141px;
+		height:18px;
+		margin: 85px 0 0 61px;
+	}
+
+	.prod10 {
+		margin:559px 0 0 15px;
+		position:absolute;
+	}
+	.pita-10 {
+		background: url('../../../../../media/wysiwyg/landing-page/pita-10-2.png') no-repeat;
+		position:absolute;
+		width:211px;
+		height:19px;
+		margin: 66px 0 0 61px;
+		z-index: 801;
+	}
+}
+/* ---------------------------------------- End min MWB 700px ------------------------------------------------------ */
+
+
+
+
+
+
+	/* For Mobile Moms & Baby World */
+
+	.header-mobile-mwb {
+		width:100%;
+		background: url("../images/header-MWB-red.png") repeat-x;
+		height: 94px;
+	}
+	
+	.header-mobile-mwb img {
+		position: absolute;
+		right: 10px;
+		top: 210px;
+		width: 82%;
+		max-width: 385px;
+		z-index: 100;
+	}
+	
+	.block-button-mwb {
+		width: 100%;
+		height: 74px;
+		clear: both;
+		display: block;
+		padding: 3px 2%;
+		text-align: left;
+	}
+	
+	.block-button-mwb img {
+		display: block;
+		float: left;
+		width: 70px;
+		margin: 3px 10%;
+	}
+	
+	.block-button-mwb p {
+		float: left;
+	}
+	
+	.menu-thumbs-mwb ul li {
+		list-style: none outside none;
+		margin: 10px 0;
+		text-decoration: none;
+		width: 95%;
+		border: 1px solid #d7d7d7;
+		background: url("../images/arrow-red-mwb.png") no-repeat right 5px center #ebebeb;
+		background-size: 30px;
+		display: block;
+		padding: 10px 0;
+	}
+	
+	.menu-thumbs-mwb h2 {
+		padding: 20px 45px 20px 0;
+		display: table-cell; vertical-align: middle;
+		height: 100%;
+	}
+	
+	@media only screen and (min-width: 768px) { 
+		.web-ver-mwb {display: block}
+		.mobile-ver-mwb {display: none;}
+	}
+	
+	@media only screen and (max-width: 767px) { 
+		.web-ver-mwb {display: none}
+		.mobile-ver-mwb {display: block;}
+	}
+
+
+
+	/*END For Mobile Moms & Baby World */
+
+
+/* END Styles for MOM's & BABY WORLD */
+
+
+
+
+
+
+
