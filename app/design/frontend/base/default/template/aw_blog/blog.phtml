@@ -1,9 +1,4 @@
 <?php $posts = $this->getCategoriesPosts(); ?>
-<!DOCTYPE HTML>
-<html>
-  <head>
-    <meta name="generator"
-    content="HTML Tidy for HTML5 (experimental) for Windows https://github.com/w3c/tidy-html5/tree/c63cc39" />
     <div>
       <div class="postWrapper">
         <div style="width: 100%;clear: both;">
@@ -77,8 +72,6 @@
     </div>
     <!-- Jssor Slider End -->
     
-    </div>
-    
         <?php $j=0; foreach ($posts as $key => $post): ?>
             <?php 
                 echo $this->getLayout()->createBlock('core/template')
@@ -91,5 +84,3 @@
       </div>
       
     </div>
-  </body>
-</html>
