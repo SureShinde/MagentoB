@@ -1,0 +1,185 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+/**
+ * @var Mage_Page_Block_Html_Header $this
+ */
+?>
+<!--Mobile Menu-->
+<script type="text/javascript">
+wwidth = $j(window).width();
+$j(document).ready(function(){
+	$j(window).scroll(function(){
+		  if ($j(this).scrollTop() > 100) {
+	          $j(".header-container .sticky-header-wrapper").fadeIn();
+	      } else {
+	          $j(".header-container .sticky-header-wrapper").fadeOut();
+	      }
+		})
+	if(wwidth < 768) {
+		$j('.nav-mobile-trigger').click(function(e){
+			e.preventDefault();
+			$j('.mini-cart-mobile').slideUp();
+			$j('.my-account-mobile').slideUp();
+			$j('.nav-container').slideToggle();
+		});
+		$j('#link-minicart').click(function(e){
+			e.preventDefault();
+			$j('.nav-container').slideUp();
+			$j('.my-account-mobile').slideUp();
+			$j('.mini-cart-mobile').slideToggle();
+		});
+		$j('.link-myaccount-mobile').click(function(e){
+			e.preventDefault();
+			$j('.nav-container').slideUp();
+			$j('.mini-cart-mobile').slideUp();
+			$j('.my-account-mobile').slideToggle();	
+		});
+	 }
+	 else {
+	 	$j('#link-minicart').click(function(e){
+			e.preventDefault();
+			$j('.mini-cart').slideToggle();		
+		});	
+		$j('#link-minicart-sticky').click(function(e){
+			e.preventDefault();
+			$j('.mini-cart-sticky').slideToggle();
+		});	
+	}	
+	
+	/*added by krisna*/
+	$j(".nav-container ul#nav li.parent a").live("mouseover",function(){
+		if(wwidth < 768) { return  false; }
+	});
+	$j(".nav-container ul#nav li.active-submenu").live("mouseover",function(){
+		if(wwidth < 768) { return  false; }
+	});
+	$j(".nav-container ul#nav li.parent a.level-top").live('click',function() {
+		 if(wwidth < 768) {
+			 var allPanels = $j('.nav-container li.parent ul').hide();
+			 if($j(this).hasClass('active-submenu')) {
+			  var href = $j(this).attr('href');
+			  window.location.href = href;
+			 }
+			 else {
+				$j(".nav-container li.parent a.level-top").removeClass("active-submenu");
+				allPanels.slideUp();
+				$j(this).parent().next().slideDown();
+
+				$j(this).addClass("active-submenu");
+				//$j(this).prev().removeClass("active-submenu");
+				//$j(this).next().removeClass("active-submenu");
+				$j(this).next().css({"display":"block"});
+				return false;
+			 }
+		}	
+		else {
+			var href = $j(this).attr('href');
+			window.location.href = href;
+		}
+
+	});
+	 /*end krisna*/ 
+});
+</script>
+<div class="header-container">
+	<div class="sticky-header-wrapper">
+		<div class="sticky-header">
+			<a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="sticky-logo"><img src="<?php echo $this->getSkinUrl(); ?>images/logo-sticky.png" alt="<?php echo $this->getLogoAlt() ?>" /></a>
+			<ul class="sticky-menu">
+				<li><a href="#"><?php echo $this->__('Todays Promo') ?></a></li>
+				<li><a href="#"><?php echo $this->__('Get Free Voucher!') ?></a></li>
+				<li class="link-customer-care"><a href="#" ><?php echo $this->__('Customer Care Center') ?></a></li>
+				<div class="clear"></div>
+			</ul>
+			<div class="sticky-top-cart">
+	    		<?php $_totalItem = $this->helper('checkout/cart')->getSummaryCount();  //get total items in cart ?>
+	    		<a href="#" class="link-minicart-sticky" id="link-minicart-sticky"><?php echo $this->__('View Cart(').$_totalItem.$this->__(')') ?></a>
+	    		<a href="<?php echo $this->getCheckoutUrl() ?>" class="link-checkout"><?php echo $this->__('Checkout') ?></a>
+	    		<div class="clear"></div>
+	    		<div class="mini-cart-sticky"><?php echo $this->getChildHtml('topcart') ?></div>
+	    	</div>
+			<!--<div class="sticky-search"><?php //echo $this->getChildHtml('topSearch') ?></div>-->
+			<div class="clear"></div>
+    	</div>
+	</div>
+    <div class="header">
+    	<a href="#" class="nav-mobile-trigger"><?php echo $this->__('Menu') ?></a>
+    	<div class="menu-top">
+	    	<ul>
+		    	<li><a href="/baby"><?php echo $this->__('Mom &amp; Baby') ?></a></li>
+		    	<li><a href="/home"><?php echo $this->__('Home') ?></a></li>
+		    	<li class="active"><a href="/deals"><?php echo $this->__('Daily Deals') ?></a></li>
+	    	</ul>
+    	</div>
+    	<!--<div class="menu-blog"><span><a href="#"><?php echo $this->__('Blog') ?></a></span></div>-->
+        <?php if ($this->getIsHomePage()):?>
+        <h1 class="logo"><strong><?php echo $this->getLogoAlt() ?></strong><a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="logo"><img src="<?php echo $this->getSkinUrl(); ?>images/logo.png" alt="<?php echo $this->getLogoAlt() ?>" /></a></h1>
+        <?php else:?>
+        <a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="logo"><strong><?php echo $this->getLogoAlt() ?></strong><img src="<?php echo $this->getSkinUrl(); ?>images/logo.png" alt="<?php echo $this->getLogoAlt() ?>" /></a>
+        <?php endif?>
+        <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('keypoint')->toHtml() ?>
+        <div class="quick-access">
+        	<a href="#" class="link-blog-mobile"><?php echo $this->__('Blog') ?></a>
+        	<a href="#" class="link-myaccount-mobile"><?php echo $this->__('My Account') ?></a>
+        	<div class="top-cart">
+        		<?php $_totalItem = $this->helper('checkout/cart')->getSummaryCount();  //get total items in cart ?>
+        		<a href="#" class="link-minicart" id="link-minicart"><?php echo $this->__('View Cart(').$_totalItem.$this->__(')') ?></a>
+        		<a href="<?php echo $this->getCheckoutUrl() ?>" class="link-checkout"><?php echo $this->__('Checkout') ?></a>
+        		<!--<a href="#" class="link-blog"><span><?php //echo $this->__('Blog') ?></span></a>-->
+        		<div class="clear"></div>
+        		<div class="mini-cart"><?php echo $this->getChildHtml('topcart') ?></div>
+        	</div>
+        	<div class="left">
+	        	<div class="store-phone">
+	        		<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('store_phone')->toHtml() ?>
+	        	</div>
+	        	<?php echo $this->getChildHtml('topLinks') ?>
+	        	<?php echo $this->getChildHtml('store_language') ?>
+	        </div>
+        	<div class="clear"></div>
+        	
+            <p class="welcome-msg"><?php echo $this->getChildHtml('welcome') ?> <?php echo $this->getAdditionalHtml() ?></p>
+           
+            <?php //echo $this->getChildHtml('topSearch') ?>
+            <?php echo $this->getChildHtml('store_language') ?>
+            <div class="clear"></div>
+        </div>
+        <?php echo $this->getChildHtml('topContainer'); ?>
+        <div class="nav-mobile"><?php //echo $this->getChildHtml('topMenu') ?></div>
+        <div class="mini-cart-mobile"><?php echo $this->getChildHtml('topcart') ?></div>
+        <!--<div class="search-mobile"><?php //echo $this->getChildHtml('topSearch') ?></div>-->
+        <div class="my-account-mobile"><?php echo $this->getChildHtml('topLinks') ?></div>
+    </div>
+</div>
+<?php echo $this->getChildHtml('topMenu') ?>
+
+<!--this is for testing only-->
+<?php //echo $this->getLayout()->createBlock("core/template")->setTemplate("page/template/bottommenu.phtml")->toHtml(); ?>
+<!--
+if you want to call it from cms page, please use this
+{{block type="core/template" template="page/template/bottommenu.phtml"}}
+-->
+<!--end for testing only-->

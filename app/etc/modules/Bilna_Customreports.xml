@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Bilna_Customreports>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Bilna_Customreports>
+    </modules>
+</config>
+

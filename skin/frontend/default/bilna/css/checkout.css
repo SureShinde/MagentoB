@@ -1,0 +1,219 @@
+.checkout-onepage-index .page-title {
+	background: #fd8e17;	
+	display: none;
+}
+.checkout-onepage-index .col-main {
+	margin-bottom: 30px;
+}
+#checkoutSteps .form-list .field {
+	width: 50%;
+}
+#checkoutSteps .form-list label {
+	color: #707070;
+	margin-bottom: 10px;
+}
+#checkoutSteps .form-list .input-box {
+	width: auto;
+}
+#checkoutSteps input.input-text {
+	padding: 5px;
+	width: 90%;
+	border: 1px solid #dadada;
+}
+#checkoutSteps .buttons-set .back-link {
+	float: right;
+	margin-top: 10px;
+	margin-right: 5px;
+}
+#checkoutSteps .buttons-set button.button {
+    width:93px;
+    /*background-image:url(../images/btn-buynow.png);*/
+    background: #fd8e17;
+    height:36px;
+    line-height:21px;
+}
+#checkoutSteps .buttons-set button.button.btn-checkout {
+	width: auto;
+}
+#checkoutSteps .buttons-set button.button span, #checkoutSteps .buttons-set button.button span span, .opc .buttons-set .back-link a {
+	text-transform: uppercase;
+	font-size: 14px;
+	font-family: 'bebasregular';
+	font-weight: normal;
+	letter-spacing: 1px;
+}
+#checkoutSteps .buttons-set button.button span, #checkoutSteps .buttons-set button.button span span {
+	color: #fff;
+	background: none;
+	border: none;
+	height: auto;
+}
+#checkoutSteps .buttons-set button.button span span img {
+	margin-top: 3px;
+}
+.opc .step-title {
+	padding-top: 8px;
+	padding-bottom: 8px;
+	background: #c5c5c5;
+	border: none;	
+	margin-bottom: 1px;
+}
+.opc .step-title h2, .opc .step-title .number {
+	text-transform: uppercase;
+	font-size: 14px;
+	font-family: 'bebasregular';
+	font-weight: normal;
+	letter-spacing: 1px;
+	color: #fff;
+	line-height: 22px;
+}
+.opc .step-title .number, .opc .active .step-title .number, .opc .allow .step-title .number  {
+	background: url(../images/bg-number.png) no-repeat left top;
+	border: none;
+	width: 22px;
+	height: 22px;
+	text-align: center;
+	padding: 0;
+
+}
+.opc .step-title .number, .opc .allow .step-title .number {
+		color: #c5c5c5;
+}
+.opc .active .step-title .number {
+	color: #fd8e17;
+}
+.opc .active .step-title h2, .opc .allow .step-title h2 {
+	color: #fff;
+}
+.opc .allow .step-title {
+	background: #c5c5c5;
+	border: none;
+}
+.opc .active .step-title {
+	background: #fd8e17;
+	
+}
+.opc .step {
+	background: none;
+	border:none;
+}
+.opc .buttons-set .back-link a {
+	background: url(../images/arrow-back.png) no-repeat left center;
+	color: #fd8e17;
+}
+#checkout-progress-wrapper {
+	background: #f8f8f8;
+}
+.block-progress .block-title {
+	padding: 10px;
+}
+.block-progress .block-title strong, .block-progress dt {
+	text-transform: uppercase;
+	font-size: 14px;
+	font-family: 'bebasregular';
+	font-weight: normal;
+	letter-spacing: 1px;
+	color: #707070;
+}
+.block-progress dt, .block-progress dt.complete {
+	margin: 0;
+	
+	background: #f2f2f2;
+}
+.block-progress dt {
+	border: 1px solid #dadada;
+}
+.block-progress dt.complete {
+	border: none;
+	background:url(../images/bkg_block-layered-dd.gif) repeat-x 0 100% ;
+	padding-bottom: 10px;
+	color: #707070;
+}
+.block-progress dt.complete a {
+	text-transform: lowercase;
+	color: #4ec7da;
+}
+.block-progress dt.complete span.changelink {
+	display: block;
+	font-size: 12px;
+	font-weight: normal;
+}
+.opc-block-progress dt.complete .separator {
+	display: none;
+}
+.block-progress dd {
+	background: none;
+	border:none;
+}
+#opc-review .step {
+	padding: 20px;
+}
+#opc-review .product-name {
+	color: #707070;
+}
+#opc-review .buttons-set {
+	border: none;
+}
+#opc-review .buttons-set p a {
+	color: #fd8e17;
+}
+#opc-review .buttons-set .f-right {
+	margin-right: 10px;
+}
+.data-table {
+	border:none;
+}
+.data-table td {
+	padding:8px 20px;
+}
+.data-table thead th {
+	background: #5d5d5d;
+	color: #fff;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	border-right:none;
+	padding-right: 20px;
+	padding-left: 20px;
+}
+.data-table tbody th, .data-table tbody td {
+	border-right: none;
+	border-bottom: 1px solid #afafaf;
+}
+.data-table tfoot {
+	border-bottom: none;
+}
+.data-table tfoot strong {
+	font-size: 14px;
+	text-transform: uppercase;
+}
+.data-table tfoot tr {
+	background: none;
+}
+.data-table tfoot tr.first td {
+	background: none;
+	border-top: 1px solid #afafaf;
+}
+.data-table tfoot tr.last {
+	border-top:1px solid #afafaf;
+}
+.data-table tfoot td {
+	border-right:none;
+	padding-top: 3px;
+	padding-bottom: 3px;
+}
+.data-table tfoot tr.last td {
+	padding-top: 10px;
+}
+.data-table .odd, .data-table .even {
+	background: none;
+}
+@media only screen and (max-width: 1215px) {}
+@media only screen and (max-width: 1023px) {
+	.checkout-onepage-index .col-main {
+		margin-top: 20px;
+	}
+}
+@media only screen and (max-width: 767px) {
+	
+}
+@media only screen and (max-width: 482px) { }

@@ -32,6 +32,7 @@
 .fc-base-yellow {color:#ffe449;}
 .fc-base-peach {color:#fc8360;}
 .fc-base-green {color:#8dd240;}
+
 .fc-base-red {color:#e72b2f;}
 .fc-base-orange-sp {color:#fc6a33;}
 
@@ -72,6 +73,7 @@
 	border-radius: 300px;
 	-moz-border-radius: 300px;
 	-webkit-border-radius: 300px;
+
 }
 
 .clear-sp {clear:both;}
@@ -126,6 +128,8 @@ ul.decimal-ul li {
 
 .bc-content-area {width: 100%; float: left;}
 .bc-content-area img {width: 98%; padding: 5px 1% 20px;}
+
+
 
 
 
@@ -780,6 +784,9 @@ animation-timing-function: linear;
 		z-index: 801;
 	}
 }
+
+
+
 /* ---------------------------------------- End min MWB 700px ------------------------------------------------------ */
 
 
@@ -860,6 +867,12 @@ animation-timing-function: linear;
 /* END Styles for MOM's & BABY WORLD */
 
 
+/*style Tanya Ahli */
+.registered-users ul.form-list{
+	list-style-type:;
+}
+
+/*style Tanya Ahli */
 
 
 

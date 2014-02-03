@@ -1,0 +1,114 @@
+.checkout-onepage-index .page-title {
+	background: #fd8e17;	
+}
+.checkout-onepage-index .page-title h1 {
+	color: #fff;
+	font-size: 14px;
+	font-family: 'bebasregular';
+	font-weight: normal;
+	text-transform: uppercase;
+	padding: 7px 0 7px 40px;
+	background: url(../images/arrow-title.png) no-repeat 10px center;
+	letter-spacing: 1px;
+}
+.checkout-onepage-index .col-main {
+	margin-bottom: 30px;
+}
+#checkoutSteps .form-list .field {
+	width: 50%;
+}
+#checkoutSteps .form-list label {
+	color: #707070;
+	margin-bottom: 3px;
+}
+#checkoutSteps .form-list .input-box {
+	width: auto;
+}
+#checkoutSteps input.input-text {
+	padding: 5px;
+	width: 90%;
+	border: 1px solid #dadada;
+}
+#checkoutSteps .buttons-set button.button {
+    width:88px;
+    background-image:url(../images/btn-buynow.png);
+    height:36px;
+    line-height:21px;
+    color: #fff;
+	font-family: Helvetica;
+    font-size: 1em;
+    font-weight: normal;
+    text-transform: uppercase;
+}
+#checkoutSteps .buttons-set button.button span, #checkoutSteps .buttons-set button.button span span {
+	background: none;
+	border: none;
+	height: auto;
+}
+.opc .step-title {
+	padding-top: 8px;
+	padding-bottom: 8px;
+	background: #f2f2f2;
+	border: 1px solid #dadada;
+}
+.opc .step-title h2 {
+	text-transform: uppercase;
+	font-size: 14px;
+	font-family: 'bebasregular';
+	font-weight: normal;
+	letter-spacing: 1px;
+	color: #707070;
+}
+.opc .active .step-title, .opc .allow .step-title {
+	background: #f2f2f2;
+	border: 1px solid #dadada;
+}
+
+.opc .step {
+	background: none;
+	border:none;
+}
+#checkout-progress-wrapper {
+	background: #f8f8f8;
+}
+.block-progress .block-title {
+	padding: 10px;
+}
+.block-progress .block-title strong, .block-progress dt {
+	text-transform: uppercase;
+	font-size: 14px;
+	font-family: 'bebasregular';
+	font-weight: normal;
+	letter-spacing: 1px;
+	color: #707070;
+}
+.block-progress dt, .block-progress dt.complete {
+	margin: 0;
+	
+	background: #f2f2f2;
+}
+.block-progress dt {
+	border: 1px solid #dadada;
+}
+.block-progress dt.complete {
+	border: none;
+	background:url(../images/bkg_block-layered-dd.gif) repeat-x 0 100% ;
+	padding-bottom: 10px;
+	color: #707070;
+}
+.block-progress dt.complete a {
+	text-transform: lowercase;
+	color: #4ec7da;
+}
+.block-progress dt.complete span.changelink {
+	display: block;
+	font-size: 12px;
+	font-weight: normal;
+}
+.opc-block-progress dt.complete .separator {
+	display: none;
+}
+.block-progress dd {
+	background: none;
+	border:none;
+}

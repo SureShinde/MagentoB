@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<config>
+    <menu>
+      <bilna>
+        <title>Bilna</title>
+        <sort_order>100</sort_order>
+        <children>
+          <wrappinggiftevent module="wrappinggiftevent">
+            <title>Wrap Gift</title>
+            <!-- <sort_order>1</sort_order> -->
+            <children>
+              <manage module="wrappinggiftevent">
+                <title>Manage Wrap Gift</title>
+                <sort_order>0</sort_order>
+                <action>wrappinggiftevent/adminhtml_manage</action>
+              </manage>
+              <!-- <vouchergenerator module="pointreward">
+                <title>Wrap Report</title>
+                <sort_order>0</sort_order>
+                <action>wrappinggiftevent/adminhtml_wraptypereport</action>
+              </vouchergenerator> -->
+            </children>
+          </wrappinggiftevent>
+        </children>
+      </bilna>
+    </menu>
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <bilna_wrappinggiftevent translate="title" module="wrappinggiftevent">
+                                        <title>Wrapping Gift Event Section</title>
+                                        <sort_order>0</sort_order>
+                                    </bilna_wrappinggiftevent>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>

@@ -1,0 +1,23 @@
+<?php $posts = $this->getCategoriesPosts(); ?>
+
+
+
+    <div>
+		<div class="postWrapper">
+				<div style="width: 100%;clear: both;">
+					<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('main-slider-blog-block')->toHtml() ?>
+					<div style="clear: both;"></div>
+				</div>
+		</div>
+		
+			<?php $j=0; foreach ($posts as $key => $post): ?>
+				<?php 
+					echo $this->getLayout()->createBlock('core/template')
+						->setTemplate('aw_blog/'.$post['layout'])
+						->setData('catPosts', array('posts' => $post['post'], 'cat' => $post['catName']) )
+						->toHtml();
+				?>
+			<?php $j++; endforeach; ?> 
+
+		
+    </div>
