@@ -63,7 +63,7 @@
 	    </div>
     </td>
     <td class="qty">
-	    <input type="text" class="input-text qty" value="<?php echo $this->getQty() ?>"/>
+	    <input type="text" class="input-text qty" value="<?php echo $this->getQty() ?>" readonly="readonly"/>
     </td>
     <td class="price">
 	    <?php if ($canApplyMsrp): ?>
@@ -144,4 +144,5 @@
 	
 	    <?php endif; //Can apply MSRP ?>
     </td>
+    <td><a href="<?php echo $this->getDeleteUrl() ?>" title="<?php echo $this->__('Remove This Item') ?>" onclick="return confirm('<?php echo $this->__('Are you sure you would like to remove this item from the shopping cart?') ?>');" class="btn-remove"><?php echo $this->__('Remove This Item') ?></a></td>
 </tr>

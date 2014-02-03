@@ -63,7 +63,18 @@
     <?php echo $this->getCmsBlockHtml() ?>
 
 <?php elseif($this->isMixedMode()): ?>
-    <?php echo $this->getCmsBlockHtml() ?>
+    <div class="category-image"><?php echo $this->getCmsBlockHtml() ?></div>
+    <div class="advertise">
+	    <ul>
+		    <li>
+		    	<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('banner_category_left')->toHtml() ?>
+		    </li>
+		    <li>
+		    	<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('banner_category_right')->toHtml() ?>
+		    </li>
+	    </ul>
+    </div>
+    <div class="clear"></div>
     <?php echo $this->getProductListHtml() ?>
 
 <?php else: ?>

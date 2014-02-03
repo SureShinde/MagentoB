@@ -35,7 +35,8 @@
 			<?php $class_review = ''; ?>
 			<?php if( $idx_review == 0 ): ?>
 				<?php $class_review = 'first'; ?>
-			<?php elseif( $idx_review == 1 ): ?>
+			<?php endif; ?>
+			<?php if( ($idx_review == 1) or ($idx_review == (count($_items) - 1 )) ): ?>
 				<?php $class_review = 'last'; ?>
 			<?php endif; ?>
             <li class="<?php echo $class_review; ?>">

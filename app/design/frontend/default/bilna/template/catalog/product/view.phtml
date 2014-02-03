@@ -46,6 +46,10 @@
             <input type="hidden" name="related_product" id="related-products-field" value="" />
         </div>
 
+        <div class="product-img-box">
+            <?php echo $this->getChildHtml('media') ?>
+        </div>
+
         <div class="product-shop">
 			<div class="product-shop-left">
 				<div class="product-name">
@@ -55,11 +59,11 @@
 				<?php
 					$myproduct = Mage::getModel('catalog/product')->load($_product->getId());
 					$product_brands = $myproduct->getAttributeText('brands');
-					if ($product_brands) :
+					if($product_brands) :
 				?>				
 				<div class="by-brand">
-					<p><?php echo $this->__('by <span>%s</span>', $product_brands) ?></p>
-				</div>
+					<?php echo $this->getChildHtml('brand') ?>
+				</div>				
 				<?php endif; ?>
 
 				<?php echo $this->getChildHtml('product_type_data') ?>
@@ -88,9 +92,14 @@
 				<?php endif;?>
 				
 				<?php if ($_product->isSaleable() && $this->hasOptions()):?>
+					<div class="product-container1">
+					<?php echo $this->getChildChildHtml('container1', '', true, true) ?>
+					</div>
+				<?php endif;?>
+				<?php if ($_product->isSaleable() && $this->hasOptions()):?>
 					<?php echo $this->getChildChildHtml('container2', '', true, true) ?>
 				<?php endif;?>
-			</div>			
+			</div>
 			
 			<div class="product-shop-right">
 				<?php if (!$this->hasOptions()):?>
@@ -104,11 +113,173 @@
 					<div class="add-to-box">
 						<?php echo $this->getChildHtml('addto') ?>
 					</div>
+				<?php elseif($this->hasOptions()): ?>
+					<?php if($_product->isSaleable()): ?>
+						<?php echo $this->getChildHtml('addtocart') ?>
+					<?php endif; ?>
 				<?php endif; ?>
-				
-				<div class="one-click-checkout">
-					<a href="#"><?php echo $this->__('One Click Checkout') ?></a>
-				</div>				
+
+				<div class="header-container">
+					<div class="links">
+						<?php if($this->helper('customer')->isLoggedIn()) : ?>
+							<a href="#"><?php echo $this->__('One Click Checkout') ?></a>
+						<?php else : ?>
+							<a href="/customer/account/login/"><?php echo $this->__('Login') ?></a>
+							<?php echo $this->__('to turn on One Click Checkout') ?>
+						<?php endif; ?>
+					</div>			
+					<script type="text/javascript">
+						if ( typeof AjaxLogin == 'undefined' ) {
+							AjaxLogin = {};
+						}
+						
+						AjaxLogin.BASE_URL_UNSECURE = 'http://local.bilna.com/';
+						AjaxLogin.BASE_URL_SECURE   = 'http://local.bilna.com/';
+						
+						AjaxLogin.BASE_URL          = AjaxLogin.BASE_URL_UNSECURE;
+						
+						
+						/**
+						 * 
+						 */
+						AjaxLogin.sameRoutines = function(urlA, urlB) {
+							if ( typeof urlA != 'string' ) urlA = urlA.toString();
+							if ( typeof urlB != 'string' ) urlB = urlB.toString();
+							
+							if ( urlA.indexOf(AjaxLogin.BASE_URL_UNSECURE) > -1 ) {
+								__routineA_Parts = urlA.split(AjaxLogin.BASE_URL_UNSECURE).join('').split('/').splice(0, 3);
+							}
+							else if ( urlA.indexOf(AjaxLogin.BASE_URL_SECURE) > -1 ) {
+								__routineA_Parts = urlA.split(AjaxLogin.BASE_URL_SECURE).join('').split('/').splice(0, 3);
+							}
+							else {
+								return false;
+							}
+							
+							if ( urlB.indexOf(AjaxLogin.BASE_URL_UNSECURE) > -1 ) {
+								__routineB_Parts = urlB.split(AjaxLogin.BASE_URL_UNSECURE).join('').split('/').splice(0, 3);
+							}
+							else if ( urlB.indexOf(AjaxLogin.BASE_URL_SECURE) > -1 ) {
+								__routineB_Parts = urlB.split(AjaxLogin.BASE_URL_SECURE).join('').split('/').splice(0, 3);
+							}
+							else {
+								return false;
+							}
+							
+							for ( var __index = 0; __index < 3; __index++ ) {
+								if ( (typeof __routineA_Parts[__index] == 'undefined') || (!__routineA_Parts[__index]) ) {
+									__routineA_Parts[__index] = 'index';
+								}
+								if ( (typeof __routineB_Parts[__index] == 'undefined') || (!__routineB_Parts[__index]) ) {
+									__routineB_Parts[__index] = 'index';
+								}
+							}
+							
+							__routineA = __routineA_Parts.join('/');
+							__routineB = __routineB_Parts.join('/');
+							
+							return __routineA == __routineB ? true : false;
+						};
+						
+						$$('.header-container .links a').each(
+							function(node) {
+								if ( AjaxLogin.sameRoutines(node.href, 'http://local.bilna.com/customer/account/login/') ) {
+									Event.observe(
+										node,
+										'click',
+										function(event) {
+											var __overlapRootNode = $$('.al-authorization-container-overlap')[0];
+											__overlapRootNode.style.display = '';
+											var __overlapAuthorizationNode = $$('.al-authorization-container-overlap .al-authorization')[0];
+											var __overlapAuthorizationInstance = AjaxLogin.Authorization.__getInstanceByChildnode(__overlapAuthorizationNode);
+											__overlapAuthorizationInstance.switchToFrame('login');
+											
+											if (window.event) window.event.cancelBubble = true;
+											if (window.event) window.event.returnValue = false;
+											event.preventDefault();
+											event.stopPropagation();
+											
+											return false;
+										}
+									);
+								}
+								if ( AjaxLogin.sameRoutines(node.href, 'http://local.bilna.com/customer/account/logout/') ) {
+									Event.observe(
+										node,
+										'click',
+										function(event) {
+											var __overlapAuthorizationNode = $$('.al-authorization-container-overlap .al-authorization')[0];
+											var __overlapAuthorizationInstance = AjaxLogin.Authorization.__getInstanceByChildnode(__overlapAuthorizationNode);
+											__overlapAuthorizationInstance.getFrame('login').logout();
+											
+											if (window.event) window.event.cancelBubble = true;
+											if (window.event) window.event.returnValue = false;
+											event.preventDefault();
+											event.stopPropagation();
+											return false;
+										}
+									);
+								}
+								if ( AjaxLogin.sameRoutines(node.href, 'http://local.bilna.com/customer/account/create/') ) {
+									Event.observe(
+										node,
+										'click',
+										function(event) {
+											var __overlapRootNode = $$('.al-authorization-container-overlap')[0];
+											__overlapRootNode.style.display = '';
+											var __overlapAuthorizationNode = $$('.al-authorization-container-overlap .al-authorization')[0];
+											var __overlapAuthorizationInstance = AjaxLogin.Authorization.__getInstanceByChildnode(__overlapAuthorizationNode);
+											__overlapAuthorizationInstance.switchToFrame('register');
+											
+											if (window.event) window.event.cancelBubble = true;
+											if (window.event) window.event.returnValue = false;
+											event.preventDefault();
+											event.stopPropagation();
+											return false;
+										}
+									);
+								}
+							}
+						);
+						
+						
+						/**
+						 * 
+						 */
+						if ( typeof window.mainNav == 'function' ) {
+							mainNav("nav", {"show_delay":"100","hide_delay":"100"});
+						}
+						
+						
+						/**
+						 * 
+						 */
+						Event.observe(
+							window,
+							'load',
+							function() {
+								if (typeof window.customer_dob != 'undefined') {
+									delete window.customer_dob;
+									
+									var __rootNode = $$('.customer-dob')[0];
+									new Varien.DateElement(
+										'container',
+										{
+											month  : Element.select(__rootNode, '.dob-month input')[0],
+											day    : Element.select(__rootNode, '.dob-day input')[0],
+											year   : Element.select(__rootNode, '.dob-year input')[0],
+											full   : Element.select(__rootNode, '.dob-full input')[0],
+											advice : Element.select(__rootNode, '.validation-advice')[0]
+										},
+										true,
+										AjaxLogin.DATE_FORMAT
+									);
+								}
+							}
+						);
+					</script>
+				</div>
+	
 				<div class="buy-later">				
 					<?php echo $this->getChildHtml('addto') ?>
 				</div>				
@@ -116,15 +287,11 @@
 				<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('buying_choice')->toHtml() ?>
 
 				<?php echo $this->getChildHtml('other');?>
-
-				<?php if ($_product->isSaleable() && $this->hasOptions()):?>
-					<?php echo $this->getChildChildHtml('container1', '', true, true) ?>
-				<?php endif;?>
 				
 				<div class="share-button">
-					<span class='st_twitter_hcount' displayText='Tweet'></span>
-					<span class='st_fblike_hcount' displayText='Facebook Like'></span>
-					<span class='st_plusone_hcount' displayText='Google +1'></span>
+					<span class='item-share st_twitter_hcount' displayText='Tweet'></span>
+					<span class='item-share st_fblike_hcount' displayText='Facebook Like'></span>
+					<span class='item-share st_plusone_hcount' displayText='Google +1'></span>
 					<script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
 					<script type="text/javascript">stLight.options({publisher: "b9878051-cbe0-48e6-a245-b0a08e0f964d", doNotHash: true, doNotCopy: true, hashAddressBar: false});</script>
 				</div>
@@ -133,10 +300,6 @@
 					<p class="email-friend"><a href="<?php echo $this->helper('catalog/product')->getEmailToFriendUrl($_product) ?>"><?php echo $this->__('Email to a Friend') ?></a></p>
 				<?php endif; ?>
 			</div>
-        </div>
-
-        <div class="product-img-box">
-            <?php echo $this->getChildHtml('media') ?>
         </div>
 
         <div class="clearer"></div>
@@ -173,6 +336,48 @@
 			// <![CDATA[
 				$j(document).ready( function() {
 					$j('#tab-container').easytabs();
+				});
+			// ]]>
+			</script>
+		</div>
+		
+		<?php if ($_product->getShortDescription()):?>
+			<div class="short-description-mobile">
+				<div class="std"><?php echo $_helper->productAttribute($_product, nl2br($_product->getShortDescription()), 'short_description') ?></div>
+			</div>
+		<?php endif;?>
+		
+		<div class="product-tab-mobile-wrapper">
+			<div id="tab-container" class="tab-container">
+				<?php $idx_tab = 0;?>
+				<?php foreach ($this->getChildGroup('detailed_info', 'getChildHtml') as $alias => $html):?>
+					<h3 class="toggle-tab" id="index<?php echo $idx_tab;?>">
+					<?php if ($alias == 'description'):?>
+					<?php echo $this->__('Description'); ?>
+					<?php elseif ($alias == 'additional') :?>
+					<?php echo $this->__('Additional Info'); ?>
+					<?php endif;?>
+					</h3>
+					<div class="content-tab" id="content<?php echo $idx_tab;?>">
+						<?php echo $html; ?>
+					</div>
+					<?php $idx_tab = $idx_tab + 1;?>
+				<?php endforeach;?>
+				<h3 class="toggle-tab" id="index<?php echo $idx_tab + 1;?>">Features</h3>
+				<div class="content-tab" id="content<?php echo $idx_tab + 1;?>">
+					<p><strong>Lorem ipsum dolor sit amet</strong>, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+				</div>
+				<h3 class="toggle-tab" id="index<?php echo $idx_tab + 2;?>">Size Chart</h3>
+				<div class="content-tab" id="content<?php echo $idx_tab + 2;?>">
+					<p><strong>Lorem ipsum dolor sit amet</strong>, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+				</div>
+			</div>			
+			<script type="text/javascript">
+			// <![CDATA[
+				$j(document).ready( function() {					
+					$j('.toggle-tab').click(function(){
+						$j(this).next().slideToggle('slow');
+					});
 				});
 			// ]]>
 			</script>
@@ -233,10 +438,14 @@
 	<div class="related-product">
 		<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('related_product')->toHtml() ?>
 	</div>
-	<div class="aw-related-product">
-		<?php echo $this->getChildHtml('awrelatedproducts') ?>
-	</div>
-	<div class="product-review">
-		<?php echo $this->getChildHtml('reviews') ?>
-	</div>
+	<script type="text/javascript">
+	// <![CDATA[
+		$j(document).ready( function() {
+			$j('#customer-reviews h2').click(function(){
+				$j('#customer-reviews ol').slideToggle('slow');
+				$j('.review-show-all').slideToggle();
+			});
+		});
+	// ]]>
+	</script>
 </div>

@@ -159,11 +159,28 @@ a.triger-showfilter {
 }
 .category-image {
 	float: left;
-	width: auto;
+	width: 60%;
+}
+.category-image img {
+	width: 100%;
+}
+.advertise {
+	float: left;
+	width: 40%;
+}
+.advertise ul li {
+	display: inline-block;
+	width: 49.6%;
+	height: 49.6%;
+	overflow: hidden;
+}
+.advertise ul li img {
+	width: 100%;
+	height: auto;
 }
 .featured-product-catalog {
 	padding-bottom: 20px;
-	background: url(../images/label-featured-product.png) no-repeat center top, url(../images/dash-orange.png) repeat-x left 25px, url(../images/dash-orange.png) repeat-x left bottom;
+	background: url(../images/label-featured-product.png) no-repeat center top, url(../images/dash-orange.png) repeat-x left 25px, url(../images/dash-orange.png) repeat-x left bottom, url(../images/bg-pager-2.jpg) repeat-x left 15px;
 }
 .featured-product-catalog h2 {
 	font-size: 24px;
@@ -172,7 +189,7 @@ a.triger-showfilter {
 	margin: 0 0 20px 0;
 }
 .featured-category {
-	height: 370px;
+	height: 400px;
 	overflow: hidden;
 }
 .toolbar .pager {
@@ -241,12 +258,14 @@ a.triger-showfilter {
 }
 .toolbar-bottom {
 	margin-bottom: 20px;
+	margin-top: 20px;
 }
 .toolbar-bottom .toolbar {
 	margin-bottom: 20px;
 }
 .toolbar-bottom .toolbar .pager .custome-nav {
 	display: block;
+	margin-top: 20px;
 }
 .toolbar-bottom a.link-catalog-nav {
 	display: block;
@@ -310,7 +329,6 @@ a.triger-showfilter {
 }
 .toolbar-mobile .sort-by, .toolbar-mobile .filter {
 	padding-right: 0;
-	float: left;
 	padding: 10px 5px;
 	border-left: 1px solid #ccc;
 	border-right: 1px solid #ccc;
@@ -341,9 +359,21 @@ a.triger-showfilter {
 .toolbar-mobile .filter {
 	margin-left: 5px;
 }
+@media only screen and (max-width: 1215px) {
+	.advertise ul li {
+		width: 49.4%;
+		height: 49.4%;
+	}
+}
+@media only screen and (max-width: 1023px) { 
+	.advertise ul li {
+		width: 49.2%;
+		height: 49.2%;
+	}
+}
 /* --------------- smaller 959 px layout -------------------- */
 @media only screen and (max-width: 767px) {
-	.category-description + p, .featured-product-catalog, .toolbar, .toolbar-mobile .limiter, .custome-nav {
+	.category-description + p, .featured-product-catalog, .toolbar, .toolbar-mobile .limiter, .custome-nav, .show-filter, .toolbar-mobile .filter {
 		display: none;
 	}
 	.col2-left-layout .products-grid, .col2-right-layout .products-grid {
