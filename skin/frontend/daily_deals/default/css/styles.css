@@ -1754,7 +1754,7 @@ tr.summary-details-excluded { font-style:italic; }
 	border:0 none;
 	text-transform:uppercase;
 	display:block;
-	color:#fff;
+	color:#fff !important;
 }
 #backtotop a:hover {
 	opacity:.8; /*mouse over fade effect*/

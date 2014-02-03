@@ -1290,17 +1290,7 @@
 		width: 35px;
 		background-size: 100% auto;
 	}
-	.footer li span.title, .footer .conect-us span.title, .footer .payment-partners span.title, .footer .shipping-partners span.title, .footer .listbox h4{
-		text-align:center !important;
-	}
-	.footer ul{
-		text-align:center !important;
-		float: none !important;
-		margin: 0 !important;
-	}
-	.footer .listbox{
-		margin:0 0 50px;
-	}
+	
 }
 /* --------------- smaller 959 px layout -------------------- */
 @media only screen and (max-width: 767px) {
@@ -1511,6 +1501,7 @@
 
 
 /* Footer ================================================================================ */
+
 .footer-container {
 	border: none;
 	width: 100%;
@@ -1609,6 +1600,31 @@
 	.footer address{
 		color:#494949 !important;
 	}
-	.connect_us{}
+	.connect_us{
+		padding:0 0 20px;
+	}
+	
+}
+@media only screen and (max-width: 1215px) {
+
+	.footer .payment-partners .wrap_bank{
+		text-align:center;
+	}
+}
+@media only screen and (min-width:641px) and (max-width: 1024px){
+	.footer .conect-us, .footer .payment-partners .wrap_bank, .footer .shipping-partners{
+		text-align:center;
+	}
+	.footer li span.title, .footer .conect-us span.title, .footer .payment-partners span.title, .footer .shipping-partners span.title, .footer .listbox h4{
+		text-align:center !important;
+	}
+	.footer ul{
+		text-align:center !important;
+		float: none !important;
+		margin: 0 !important;
+	}
+	.footer .listbox{
+		margin:0 0 50px;
+	}
 }
 /* ======================================================================================= */
