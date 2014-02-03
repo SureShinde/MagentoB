@@ -17,6 +17,14 @@
 	line-height: 1;
 }
 
+.font-base-text {font-family: helvetica, arial;}
+.font-base-text-bold {font-family: helvetica, arial; font-weight: bold;}
+
+.fb-13 {font-size: 13px;}
+.fb-14 {font-size: 14px;}
+.fb-15 {font-size: 15px;}
+.fb-18 {font-size: 18px;}
+
 .clear-static {clear: both;}
 
 .fc-base-blue {color:#4ec7da;}
@@ -25,6 +33,7 @@
 .fc-base-peach {color:#fc8360;}
 .fc-base-green {color:#8dd240;}
 .fc-base-red {color:#e72b2f;}
+.fc-base-orange-sp {color:#fc6a33;}
 
 .bc-white {background: #FFF;}
 
@@ -64,6 +73,65 @@
 	-moz-border-radius: 300px;
 	-webkit-border-radius: 300px;
 }
+
+.clear-sp {clear:both;}
+.title-sp {color:#fc6a33; font-size: 18px !important; font-weight: bold;}
+.image-sp {width:100% !important;}
+.image-sp img {width:100% !important;}
+	
+.image-sp2 {width:100% !important;}
+.image-sp2 img {width:100% !important;}
+
+.text-sp {font-size: 14px; margin: 0 auto;}
+.text-sp2 {font-size: 14px; margin: 0 auto; padding: 0;}
+
+
+.static-page-content {
+    display: block;
+    position: relative;
+    z-index: 1;
+}
+
+.static-page-content table {
+    border: 1px solid #F58D66;
+}
+
+
+.static-page-content table tr th {
+    background: none repeat scroll 0 0 #F58D66;
+    border-right: 1px solid #FFFFFF;
+    color: #FFFFFF;
+    font-size: 14px;
+    padding: 5px;
+}
+
+.static-page-content table tr td {
+    border-bottom: 1px solid #F58D66;
+    border-right: 1px solid #F58D66;
+    color: #666666;
+    font-size: 14px;
+    padding: 5px;
+}
+
+.table-sp {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border-radius: 10px;
+    margin: 0 3%;
+    padding: 20px 0;
+    width: 94%;
+}
+ul.decimal-ul li {
+		list-style-type: decimal;
+	}
+
+.bc-content-area {width: 100%; float: left;}
+.bc-content-area img {width: 98%; padding: 5px 1% 20px;}
+
+
+
+
+
+
 
 
 
@@ -790,6 +858,10 @@ animation-timing-function: linear;
 
 
 /* END Styles for MOM's & BABY WORLD */
+
+
+
+
 
 
 
