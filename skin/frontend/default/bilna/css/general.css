@@ -377,4 +377,22 @@ button.btn-cart span, button.btn-cart span span {
 	.products-grid .actions .add-to-links {
 		margin-left: 0;
 	}
+	
+	/* ajax login */
+	.al-authorization-container-overlap .Canvas {
+		margin-left: -130px !important;
+		width: 260px !important;
+	}
+	.al-authorization .form-list .input-box {
+		clear: both;
+	}
+	.al-authorization .form-list li label {
+		padding-top: 0;
+		padding-bottom: 5px;
+	}
+	.al-socialnets ul {
+		margin-left: auto;
+		margin-right: auto;
+		width: 132px;
+	}
 }
