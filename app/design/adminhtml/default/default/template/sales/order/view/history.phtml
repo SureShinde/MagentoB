@@ -7,11 +7,21 @@
                 <label class="normal" for="history_status"><?php echo Mage::helper('sales')->__('Status'); ?></label><br/>
                 <select name="history[status]" class="select" id="history_status">
                 <?php foreach ($this->getStatuses() as $_code => $_label): ?>
-                    <?php if ($payCode == 'cod'): ?>
-                        <?php if ($_code != $orderStatus): ?>
-                            <?php continue; ?>
-                        <?php endif; ?>
-                    <?php endif; ?>
+                    <?php
+                    if ($payCode == 'cod'):
+                        if ($_code != $orderStatus):
+                            continue;
+                        endif;
+                    elseif ($payCode == 'klikbca'):
+                        if (in_array($_code, array ('pending_cod', 'processing_cod', 'shipping_cod', 'cc_verification'))):
+                            continue;
+                        endif;
+                    else:
+                        if (in_array($_code, array ('pending_cod', 'processing_cod', 'shipping_cod', 'klikbca_pending', 'cc_verification'))):
+                            continue;
+                        endif;
+                    endif;
+                    ?>
                     <option value="<?php echo $_code ?>"<?php if ($_code == $this->getOrder()->getStatus()): ?> selected="selected"<?php endif; ?>><?php echo $_label ?></option>
                 <?php endforeach; ?>
                 </select>
