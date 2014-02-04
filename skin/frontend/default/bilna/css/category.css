@@ -361,14 +361,14 @@ a.triger-showfilter {
 }
 @media only screen and (max-width: 1215px) {
 	.advertise ul li {
-		width: 49.5%;
-		height: 49.5%;
+		width: 49.4%;
+		height: 49.4%;
 	}
 }
 @media only screen and (max-width: 1023px) { 
 	.advertise ul li {
-		width: 49.3%;
-		height: 49.3%;
+		width: 49.2%;
+		height: 49.2%;
 	}
 }
 /* --------------- smaller 959 px layout -------------------- */

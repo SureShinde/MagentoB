@@ -28,11 +28,11 @@
 ?><ul class="messages Shaddy" style="display: none;"></ul>
 
 <div class="buttons-set">
+    <button type="submit" title="<?php echo $this->__('Submit') ?>" class="button"><span><span><?php echo $this->__('Submit') ?></span></span></button>
     <p class="required"><?php echo $this->__('* Required Fields') ?></p>
     <?php if ( $this->shouldDisplayBacktologinbutton() ): ?>
-        <p class="back-link"><a href="<?php echo $this->helper('customer')->getLoginUrl() ?>" id="<?php echo $this->getBacktologinbuttonHtmlId() ?>"><small>&laquo; </small><?php echo $this->__('Back to Login') ?></a></p>
+        <p class="back-link"><a href="<?php echo $this->helper('customer')->getLoginUrl() ?>" id="<?php echo $this->getBacktologinbuttonHtmlId() ?>"><?php echo $this->__('Back to Login') ?></a></p>
     <?php endif; ?>
-    <button type="submit" title="<?php echo $this->__('Submit') ?>" class="button"><span><span><?php echo $this->__('Submit') ?></span></span></button>
 </div>
 
 <script type="text/javascript">
