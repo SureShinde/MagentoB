@@ -54,7 +54,7 @@
 	
 });
 </script>
-<div class="row">
+<div class="row main_detail">
 <?php //endif; ?>
 
 <?php
@@ -71,6 +71,13 @@
     $dealInfo = $this->getDealPricesSpare($originalProduct, $product);
     $container = "awcp_timer_" . rand();
 ?>
+
+<div class="large-8 medium-8 columns right_detail">
+<div id="messages_product_view"><?php echo $this->getMessagesBlock()->getGroupedHtml() ?></div>
+	<div class="awcp-product-img-box">
+		<img class="awcp-product-img" src="<?php echo $this->getDealImage($deal->getDealImage()); ?>" alt="<?php echo $deal->getDealName(); ?>" />
+	</div>	
+</div>
 <div class="large-4 medium-4 columns left_detail">
 			<div class="awcp-product-name">
             <h1><?php echo $deal->getDealName(); ?></h1>
@@ -225,12 +232,10 @@
 			  </div>
 		</form>
     </div>
-<div class="large-8 medium-8 columns">
-<div id="messages_product_view"><?php echo $this->getMessagesBlock()->getGroupedHtml() ?></div>
-	<div class="awcp-product-img-box">
-		<img class="awcp-product-img" src="<?php echo $this->getDealImage($deal->getDealImage()); ?>" alt="<?php echo $deal->getDealName(); ?>" />
-	</div>	
+	
+
 </div>
+<div class="row">
 <div class="large-12 medium-12 columns desc_deals">
 	<div class="awcp-full-description">
 		   <?php echo $this->filter($deal->getFullDescription()); ?>
@@ -243,15 +248,16 @@
 	</div>
 </div>
 
-<div class="small-4 small-push-8 columns back_list"><a href="!#">FEATURED DEALS</a></div>
+<div class="small-4 small-push-8 columns back_list"><a href="<?php echo Mage::getBaseUrl(); ?>/deals/featured.html">FEATURED DEALS</a></div>
 <div class="small-4 small-pull-8 columns also_like">YOU MIGHT ALSO LIKE</div>
 	
 	
 </div>	
 
 <!--list-->
-<?php echo $this->getLayout()->createBlock('collpur/deals')->setTemplate('aw_collpur/deals/list.phtml')->toHtml(); ?>
+<?php echo $this->getLayout()->createBlock('collpur/deals')->setData('type', 'detail')->setTemplate('aw_collpur/deals/list.phtml')->toHtml(); ?>
 
+<div class="small-4 small-push-8 columns back_list"><a href="<?php echo Mage::getBaseUrl(); ?>/deals/featured.html">FEATURED DEALS</a></div>
 <!--end list-->
 
      <script type = "text/javascript">

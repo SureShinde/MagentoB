@@ -34,7 +34,10 @@ class AW_Collpur_Block_Adminhtml_Deal_Edit_Tab_Details extends Mage_Adminhtml_Bl
         if($deal->getDealImage()) {
             $deal->setDealImage('aw_collpur/deals/'.$deal->getDealImage());
         } 
-
+		
+		if($deal->getDealImageSlider()) {
+            $deal->setDealImageSlider('aw_collpur/deals/'.$deal->getDealImageSlider());
+        } 
 
         $form = new Varien_Data_Form();
         $fieldset = $form->addFieldset('base_fieldset', array('legend' => Mage::helper('collpur')->__('Details')));
@@ -51,8 +54,7 @@ class AW_Collpur_Block_Adminhtml_Deal_Edit_Tab_Details extends Mage_Adminhtml_Bl
             'label' => Mage::helper('collpur')->__('Short description'),
             'title' => Mage::helper('collpur')->__('Short description'),
         ));
-        
-         
+                 
         $config = Mage::getSingleton('cms/wysiwyg_config')->getConfig();
 
         $config->setData(
@@ -62,15 +64,13 @@ class AW_Collpur_Block_Adminhtml_Deal_Edit_Tab_Details extends Mage_Adminhtml_Bl
                         $config->getData()
         ));        
 
-
         $fieldset->addField('deal_image', 'image', array(
             'name' => 'deal_image',
             'label' => Mage::helper('collpur')->__('Image'),
             'title' => Mage::helper('collpur')->__('Image'),
         ));   
 
-
-        $fieldset->addField('image_slider', 'image', array(
+        $fieldset->addField('deal_image_slider', 'image', array(
             'name' => 'deal_image_slider',
             'label' => Mage::helper('collpur')->__('Image Slider'),
             'title' => Mage::helper('collpur')->__('Image Slider'),

@@ -50,12 +50,14 @@
 <?php return; ?>
 <?php endif; ?>
 <div class="row-list">
+	<?php if(is_null($this->getType()) || $this->getType()<>"detail"){ ?>
 	<!--slider-->
 	<?php echo $this->getLayout()->createBlock('collpur/deals')->setTemplate('aw_collpur/deals/slider.phtml')->toHtml(); ?>
 	<!--end slider-->
 	<div class="row">
 	<?php echo $this->getChildHtml('available_deals_pager'); ?>
 	</div>
+	<?php } ?>
 	<ul class="awcp-category-grid medium-block-grid-3 large-block-grid-3">
     <?php $i = 0; foreach($this->getAvailableDeals() as $deal): ?>
 	<?php
@@ -71,7 +73,7 @@
 					alt="<?php echo $deal->getDealName(); ?>" /></a>
 				<div class="awcp-mark-center small-6 column large-12 medium-12">
 					<div class="awcp-details inprogress">
-						<div class="list_detail_left  column small-12 large-7 medium-7">
+						<div class="list_detail_left  column small-12 large-8 medium-7">
 							<h2 class="awcp-title-list">
 								<a href="<?php echo $this->getDealPageLink($deal->getId()); ?>"><?php echo $deal->getDealName(); ?></a>
 							</h2>
@@ -97,7 +99,7 @@
 							  <?php //endif; ?>
 					   <?php //endif; ?>
 					</div>
-						<div class="list_detail_right small-12 column large-5 medium-5">
+						<div class="list_detail_right small-12 column large-4 medium-5">
 							<form id="product_addtocart_form" class="right_detail_deals"
 								method="post"
 								action="<?php echo Mage::getUrl('checkout/cart/add', array('_secure'=>true,'product' => $deal->getProduct()->getId(), 'deal_id' => $deal->getId(), 'form_key' => Mage::getSingleton('core/session')->getFormKey())) ?>">
@@ -186,16 +188,12 @@
 		</li>      
      <?php $i++; endforeach; ?> 
 	</ul>
+	<?php if(is_null($this->getType()) || $this->getType()<>"detail"){ ?>
 	<div class="clearer"></div>
 	<div class="row">
-	<?php echo $this->getChildHtml('available_deals_pager'); ?>
+	<?php echo $this->getChildHtml('available_deals_pager_extra'); ?>
 	</div>
-	<div class="small-3 small-push-9 columns next_page">
-		<a href="!#">NEXT PAGE</a>
-	</div>
-	<div class="small-3 small-pull-9 columns prev_page">
-		<a href="!#">PREVIOUS PAGE</a>
-	</div>
+	<?php } ?>
 </div>
 
 

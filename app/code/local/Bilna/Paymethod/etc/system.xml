@@ -50,6 +50,15 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </payment_support_installment>
+                        <payment_hide_admin translate="label">
+                            <label>Payment Method not support in Admin Panel</label>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>paymethod/system_config_paymentactive</source_model>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </payment_hide_admin>
                     </fields>
                 </paymethod>
             </groups>
@@ -396,6 +405,15 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </message>
+                        <request_method translate="label">
+                            <label>Request Method</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>paymethod/system_config_requestmethod</source_model>
+                            <sort_order>52</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </request_method>
                         <confirm_log_path translate="label">
                             <label>Confirmation log path</label>
                             <frontend_type>text</frontend_type>
@@ -644,22 +662,31 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </thankyou_message>
-                        <min_order_total translate="label">
-                            <label>Minimum Order Total</label>
-                            <frontend_type>text</frontend_type>
+                        <request_method translate="label">
+                            <label>Request Method</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>paymethod/system_config_requestmethod</source_model>
                             <sort_order>82</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                        </min_order_total>
-                        <min_order_total_installment translate="label">
-                            <label>Minimum Order Total for Installment</label>
+                        </request_method>
+                        <min_order_total translate="label">
+                            <label>Minimum Order Total</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>83</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                        </min_order_total_installment>
+                        </min_order_total>
+                        <min_installment_total translate="label">
+                            <label>Minimum Order Total for Installment</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>84</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </min_installment_total>
                         <disallowed_characters>
                             <label>Disallowed Characters</label>
                             <frontend_type>text</frontend_type>
@@ -5920,33 +5947,6 @@
                             <show_in_store>1</show_in_store>
                             <comment>Installment code that you received from the bank.</comment>
                         </installment_type_code>
-                        <threedsecure>
-                            <label>3D Secure</label>
-                            <frontend_type>select</frontend_type>
-                            <source_model>adminhtml/system_config_source_yesno</source_model>
-                            <sort_order>55</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                        </threedsecure>
-                        <threedsecure_callback_url>
-                            <label>3D Secure Callback URL</label>
-                            <frontend_type>text</frontend_type>
-                            <sort_order>56</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                            <comment>Merchant callback URL.</comment>
-                        </threedsecure_callback_url>
-                        <threedsecure_notification_url>
-                            <label>3D Secure Notification URL</label>
-                            <frontend_type>text</frontend_type>
-                            <sort_order>57</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                            <comment>Merchant notification URL.</comment>
-                        </threedsecure_notification_url>
                         <allowspecific translate="label">
                             <label>Payment from Applicable Countries</label>
                             <frontend_type>allowspecific</frontend_type>
@@ -6097,33 +6097,6 @@
                             <show_in_store>1</show_in_store>
                             <comment>Installment code that you received from the bank.</comment>
                         </installment_type_code>
-                        <threedsecure>
-                            <label>3D Secure</label>
-                            <frontend_type>select</frontend_type>
-                            <source_model>adminhtml/system_config_source_yesno</source_model>
-                            <sort_order>55</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                        </threedsecure>
-                        <threedsecure_callback_url>
-                            <label>3D Secure Callback URL</label>
-                            <frontend_type>text</frontend_type>
-                            <sort_order>56</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                            <comment>Merchant callback URL.</comment>
-                        </threedsecure_callback_url>
-                        <threedsecure_notification_url>
-                            <label>3D Secure Notification URL</label>
-                            <frontend_type>text</frontend_type>
-                            <sort_order>57</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                            <comment>Merchant notification URL.</comment>
-                        </threedsecure_notification_url>
                         <allowspecific translate="label">
                             <label>Payment from Applicable Countries</label>
                             <frontend_type>allowspecific</frontend_type>

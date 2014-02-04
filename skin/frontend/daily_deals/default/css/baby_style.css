@@ -381,11 +381,10 @@
 .header .mini-cart {
 	display: none;
 	position: absolute;
-	left: 0;
+	right: 0;
 	top:31px;
 	border: 1px solid #ffa01b;
 	background: #fff;
-	width: 100%;
 }
 .header .mini-cart .block-cart {
 	border: none;
@@ -601,7 +600,6 @@
 	border-left: none;
 	padding-left: 0;
 	padding-right: 0;
-	font-size: 0.8em;
 	display: block;
 }
 .header .links li.myaccount .toplink-myaccount ul li:first-child {
@@ -609,9 +607,10 @@
 }
 .header .links li.myaccount .toplink-myaccount ul li a {
 	display: block;
+	font-size:12px;
 	padding: 5px 0;
 	color: #707070;
-	font-size: 1em;
+	text-decoration:none;
 }
 .header .form-language {
 	float: right;
@@ -1292,6 +1291,7 @@
 		width: 35px;
 		background-size: 100% auto;
 	}
+	
 }
 /* --------------- smaller 959 px layout -------------------- */
 @media only screen and (max-width: 767px) {
@@ -1502,6 +1502,7 @@
 
 
 /* Footer ================================================================================ */
+
 .footer-container {
 	border: none;
 	width: 100%;
@@ -1526,11 +1527,12 @@
 	background: none;
 	color: #494949;
 }
-.footer li span.title, .footer .conect-us span.title, .footer .payment-partners span.title, .footer .shipping-partners span.title {
+.footer li span.title, .footer .conect-us span.title, .footer .payment-partners span.title, .footer .shipping-partners span.title, .footer .listbox h4{
 	color: #484848;
 	font-size: 14px;
 	font-weight: normal;
 	text-transform: uppercase;
+	text-align:left;
 	font-family: 'bebasregular';
 }
 .footer a, .footer address {
@@ -1543,7 +1545,7 @@
 }
 .footer .payment-partners {
 }
-.footer .conect-us span.title, .footer .payment-partners span.title, .footer .shipping-partners span.title {
+.footer .conect-us span.title, .footer .payment-partners span.title, .footer .shipping-partners span.title, .footer .listbox h4 {
 	display: block;
 	margin:0 0 15px 0;
 }
@@ -1572,4 +1574,65 @@
 .footer .bugs {
 	display: none;
 }
+@media only screen and (max-width: 40em) { 
+	.footer li span.title, .footer .conect-us span.title, .footer .payment-partners span.title, .footer .shipping-partners span.title, .footer .listbox h4{
+		text-align:left !important;
+		color:#8c8c8c;	
+	}
+	.footer ul{
+		text-align:left !important;
+	}
+	.footer{
+		background:#ededed;
+	}
+	.footer .listbox{
+		 border-bottom: 1px solid #a1a1a1;
+		margin: 0 0 20px;
+		padding: 0 0 20px;
+	}
+	.footer a, .footer address{
+		color:#FA8C11 !important;
+	}
+	.footer-bottom{
+	margin:0 !important;
+	padding:20px;
+	background:#fff;
+	}
+	.footer address{
+		color:#494949 !important;
+	}
+	.connect_us{
+		padding:0 0 20px;
+	}
+	
+}
+@media only screen and (max-width: 1215px) {
+
+	.footer .payment-partners .wrap_bank{
+		text-align:center;
+	}
+}
+@media only screen and (min-width:641px) and (max-width: 1024px){
+	.footer .conect-us, .footer .payment-partners .wrap_bank, .footer .shipping-partners{
+		text-align:center;
+	}
+	.footer li span.title, .footer .conect-us span.title, .footer .payment-partners span.title, .footer .shipping-partners span.title, .footer .listbox h4{
+		text-align:center !important;
+	}
+	.footer ul{
+		text-align:center !important;
+		float: none !important;
+		margin: 0 !important;
+	}
+	.footer .listbox{
+		margin:0 0 50px;
+	}
+}
 /* ======================================================================================= */
+
+
+
+/*=======================================checkout========================================*/
+.col2-left-layout .main .col-main, .col2-right-layout .main .col-main {
+    width: 1032px;
+}

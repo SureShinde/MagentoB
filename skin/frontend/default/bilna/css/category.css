@@ -159,7 +159,24 @@ a.triger-showfilter {
 }
 .category-image {
 	float: left;
-	width: auto;
+	width: 60%;
+}
+.category-image img {
+	width: 100%;
+}
+.advertise {
+	float: left;
+	width: 40%;
+}
+.advertise ul li {
+	display: inline-block;
+	width: 49.6%;
+	height: 49.6%;
+	overflow: hidden;
+}
+.advertise ul li img {
+	width: 100%;
+	height: auto;
 }
 .featured-product-catalog {
 	padding-bottom: 20px;
@@ -341,6 +358,18 @@ a.triger-showfilter {
 }
 .toolbar-mobile .filter {
 	margin-left: 5px;
+}
+@media only screen and (max-width: 1215px) {
+	.advertise ul li {
+		width: 49.5%;
+		height: 49.5%;
+	}
+}
+@media only screen and (max-width: 1023px) { 
+	.advertise ul li {
+		width: 49.3%;
+		height: 49.3%;
+	}
 }
 /* --------------- smaller 959 px layout -------------------- */
 @media only screen and (max-width: 767px) {

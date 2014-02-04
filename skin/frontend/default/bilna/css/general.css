@@ -14,7 +14,7 @@ body {
 .page {
 	margin: 0 auto;
 }
-.main-container, .main-container.col1-layout .main, .main-container.col2-left-layout .main {
+.main-container, .main-container.col1-layout .main, .main-container.col2-left-layout .main, .main-container.col2-right-layout .main {
 	width: 1216px;
 	margin: 5px auto 0;
 	background: none;
@@ -22,11 +22,11 @@ body {
 }
 .main {}
 .col2-left-layout .main {}
-.col2-left-layout .main .col-left.sidebar {
+.col2-left-layout .main .col-left.sidebar, .col2-right-layout .main .col-right.sidebar {
 	width: 167px;
 	position:relative;
 }
-.col2-left-layout .main .col-main {
+.col2-left-layout .main .col-main, .col2-right-layout .main .col-main {
 	width: 1032px;
 }
 .breadcrumbs {
@@ -144,21 +144,17 @@ button.btn-cart {
     width:88px;
     background-image:url(../images/btn-buynow.png);
     height:36px;
-}
-button.btn-cart {
     line-height:21px;
+    color: #fff;
+	font-family: Helvetica;
+    font-size: 1em;
+    font-weight: normal;
+    text-transform: uppercase;
 }
 button.btn-cart span, button.btn-cart span span {
 	background: none;
 	border: none;
 	height: auto;
-}
-button.btn-cart {
-	color: #fff;
-	font-family: Helvetica;
-    font-size: 1em;
-    font-weight: normal;
-    text-transform: uppercase;
 }
 .add-to-links li a {
 	display: inline-block;
@@ -169,6 +165,15 @@ button.btn-cart {
 }
 .ratings {
 	height: 20px;
+}
+.block .btn-remove {
+	margin-left: 0;
+	margin-right: 5px;
+}
+.btn-remove {
+	width: 14px;
+	height: 14px;
+	background: url(../images/btn-remove.png) no-repeat 0 0;
 }
 @media only screen and (max-width: 1215px) {
 	.main-container, .main-container.col1-layout .main {
@@ -254,7 +259,7 @@ button.btn-cart {
 }
 
 /* -------blog custom-------- */
-.blog-index-list .main {
+/* .blog-index-list .main {
     width: 100%;
 	background:none;
 	display:block;

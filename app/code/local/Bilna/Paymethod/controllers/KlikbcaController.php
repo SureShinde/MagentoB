@@ -23,10 +23,12 @@ class Bilna_Paymethod_KlikbcaController extends Mage_Core_Controller_Front_Actio
     protected $_typeConfirmation = 'confirmation';
 
     public function inquiryAction() {
+        $this->writeLog($this->_typeTransaction, 'inquiry', 'request_method: ' . $this->getRequestMethod());
+        
         $klikbcaUserId = $this->getRequestData('userid');
         $additionalData = $this->getRequestData('adddata');
         
-        $contentLog = sprintf("%s | request_klikbca: %s", $klikbcaUserId, json_encode($this->getRequest()->getParams()));
+        $contentLog = sprintf("%s | request_klikbca: %s", $klikbcaUserId, json_encode($this->getRequestData()));
         $this->writeLog($this->_typeTransaction, 'inquiry', $contentLog);
         
         $validationHours = Mage::getStoreConfig('payment/klikbca/order_validation');
@@ -77,6 +79,8 @@ class Bilna_Paymethod_KlikbcaController extends Mage_Core_Controller_Front_Actio
     }
     
     public function paymentAction() {
+        $this->writeLog($this->_typeTransaction, 'payment', 'request_method: ' . $this->getRequestMethod());
+        
         $klikbcaUserId = $this->getRequestData('userid');
         $transactionNo = $this->getRequestData('transno');
         $transactionDate = $this->getRequestData('transdate');
@@ -87,7 +91,7 @@ class Bilna_Paymethod_KlikbcaController extends Mage_Core_Controller_Front_Actio
         $reason = '';
         $status = '';
         
-        $contentLog = sprintf("%s | request_klikbca: %s", $klikbcaUserId, json_encode($this->getRequest()->getParams()));
+        $contentLog = sprintf("%s | request_klikbca: %s", $klikbcaUserId, json_encode($this->getRequestData()));
         $this->writeLog($this->_typeTransaction, 'payment', $contentLog);
         
         $orderCollection = Mage::getModel('sales/order')->getCollection();
@@ -123,7 +127,6 @@ class Bilna_Paymethod_KlikbcaController extends Mage_Core_Controller_Front_Actio
                 $reason = $this->_reasonTrxExpired;
             }
             else {
-               // create invoice
                try {
                    $order->setState(Mage_Sales_Model_Order::STATE_NEW, 'klikbca_pending', Mage::getStoreConfig('payment/klikbca/order_klikbca_pending_comment'), true)->save();
                    $status = $this->_statusTrxSuccess;
@@ -156,24 +159,58 @@ class Bilna_Paymethod_KlikbcaController extends Mage_Core_Controller_Front_Actio
         die ($xml);
     }
     
-    protected function getRequestData($key) {
+    protected function getRequestMethod() {
+        return Mage::getStoreConfig('payment/' . $this->_code . '/request_method');
+    }
+    
+    protected function getRequestData($key = '') {
+        $method = $this->getRequestMethod();
         $result = '';
         
-        if ($this->getRequest()->getParam($key)) {
-            $result = $this->getRequest()->getParam($key);
+        if ($method == 'POST') {
+            if ($key == '') {
+                $result = $this->getRequest()->getPost();
+            }
+            else {
+                if ($this->getRequest()->getPost($key)) {
+                    $result = $this->getRequest()->getPost($key);
+                }
+            }
+        }
+        else {
+            if ($key == '') {
+                $result = $this->getRequest()->getParams();
+            }
+            else {
+                if ($this->getRequest()->getParam($key)) {
+                    $result = $this->getRequest()->getParam($key);
+                }
+            }
         }
         
         return $result;
     }
     
     protected function getRequestDataReplace($key, $replace) {
+        $method = Mage::getStoreConfig('payment/klikbca/request_method');
         $result = '';
         
-        if ($this->getRequest()->getParam($key)) {
-            $result = $this->getRequest()->getParam($key);
-            
-            if (strpos($result, $replace) !== false) {
-                $result = str_replace($replace, '', $result);
+        if ($method == 'POST') {
+            if ($this->getRequest()->getPost($key)) {
+                $result = $this->getRequest()->getPost($key);
+
+                if (strpos($result, $replace) !== false) {
+                    $result = str_replace($replace, '', $result);
+                }
+            }
+        }
+        else {
+            if ($this->getRequest()->getParam($key)) {
+                $result = $this->getRequest()->getParam($key);
+
+                if (strpos($result, $replace) !== false) {
+                    $result = str_replace($replace, '', $result);
+                }
             }
         }
         

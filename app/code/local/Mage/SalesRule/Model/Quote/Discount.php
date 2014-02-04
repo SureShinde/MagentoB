@@ -49,6 +49,15 @@ class Mage_SalesRule_Model_Quote_Discount extends Mage_Sales_Model_Quote_Address
         $this->_calculator = Mage::getSingleton('salesrule/validator');
     }
 
+    private function _initRules($websiteId, $customerGroupId, $couponCode)
+    {
+        $key = $websiteId . '_' . $customerGroupId . '_' . $couponCode; 
+        if (!isset($this->_rules[$key])) {
+            $this->_rules[$key] = Mage::getResourceModel('salesrule/rule_collection')
+                ->setValidationFilter($websiteId, $customerGroupId, $couponCode)
+                ->load();
+        }
+    }
     /**
      * Collect address discount amount
      *
@@ -245,10 +254,12 @@ class Mage_SalesRule_Model_Quote_Discount extends Mage_Sales_Model_Quote_Address
      * @param   Mage_Sales_Model_Quote_Item_Abstract $item
      * @return  Mage_SalesRule_Model_Quote_Discount
      */
-    protected function _aggregateItemDiscount($item)
+    //protected function _aggregateItemDiscount($item, $rule)
+    protected function _aggregateItemDiscount($discount, $baseDiscount)
     {
-        $this->_addAmount(-$item->getDiscountAmount());
-        $this->_addBaseAmount(-$item->getBaseDiscountAmount());
+        $this->_addAmount(-$discount);
+        $this->_addBaseAmount(-$baseDiscount);
+        
         return $this;
     }
 

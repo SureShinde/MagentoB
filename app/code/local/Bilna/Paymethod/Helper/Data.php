@@ -87,20 +87,50 @@ class Bilna_Paymethod_Helper_Data extends Mage_Core_Helper_Abstract {
         return false;
     }
     
-    public function createLockFile($filename) {
-        $baseLockPath = sprintf("%s/locks/", Mage::getBaseDir('var'));
-        $fullFilename = sprintf("%s%s.lock", $baseLockPath, $filename);
+    public function createLockFile($module, $filename) {
+        $type = 'locks';
+        $content = date('Y-m-d H:i:s', Mage::getModel('core/date')->timestamp(time()));
         
-        $handle = fopen($fullFilename, 'w');
-        fwrite($handle, date('Y-m-d H:i:s', Mage::getModel('core/date')->timestamp(time())));
+        $baseLogPath = sprintf("%s/%s", Mage::getBaseDir(), Mage::getStoreConfig('bilna_module/paymethod/log_path'));
+        $moduleLogPath = sprintf("%s%s/", $baseLogPath, $module);
+        $typeLogPath = sprintf("%s%s/", $moduleLogPath, $type);
+        
+        // create base log path folder if not exit
+        if (!file_exists($baseLogPath)) {
+            mkdir($baseLogPath, 0777, true);
+        }
+        
+        // create module path folder if not exit
+        if (!file_exists($moduleLogPath)) {
+            mkdir($moduleLogPath, 0777, true);
+        }
+        
+        // create type path folder if not exit
+        if (!file_exists($typeLogPath)) {
+            mkdir($typeLogPath, 0777, true);
+        }
+        
+        $fullFilename = sprintf("%s%s.lock", $typeLogPath, $filename);
+        
+        if (file_exists($fullFilename)) {
+            $handle = fopen($fullFilename, 'a');
+        }
+        else {
+            $handle = fopen($fullFilename, 'w'); 
+        }
+        
+        fwrite($handle, $content);
         fclose($handle);
-        
+
         return true;
     }
     
-    public function checkLockFile($filename) {
-        $baseLockPath = sprintf("%s/locks/", Mage::getBaseDir('var'));
-        $fullFilename = sprintf("%s%s.lock", $baseLockPath, $filename);
+    public function checkLockFile($module, $filename) {
+        $type = 'locks';
+        $baseLogPath = sprintf("%s/%s", Mage::getBaseDir(), Mage::getStoreConfig('bilna_module/paymethod/log_path'));
+        $moduleLogPath = sprintf("%s%s/", $baseLogPath, $module);
+        $typeLogPath = sprintf("%s%s/", $moduleLogPath, $type);
+        $fullFilename = sprintf("%s%s.lock", $typeLogPath, $filename);
         
         if (file_exists($fullFilename)) {
             return true;
@@ -109,9 +139,12 @@ class Bilna_Paymethod_Helper_Data extends Mage_Core_Helper_Abstract {
         return false;
     }
     
-    public function removeLockFile($filename) {
-        $baseLockPath = sprintf("%s/locks/", Mage::getBaseDir('var'));
-        $fullFilename = sprintf("%s%s.lock", $baseLockPath, $filename);
+    public function removeLockFile($module, $filename) {
+        $type = 'locks';
+        $baseLogPath = sprintf("%s/%s", Mage::getBaseDir(), Mage::getStoreConfig('bilna_module/paymethod/log_path'));
+        $moduleLogPath = sprintf("%s%s/", $baseLogPath, $module);
+        $typeLogPath = sprintf("%s%s/", $moduleLogPath, $type);
+        $fullFilename = sprintf("%s%s.lock", $typeLogPath, $filename);
         
         if (file_exists($fullFilename)) {
             unlink($fullFilename);
@@ -120,5 +153,21 @@ class Bilna_Paymethod_Helper_Data extends Mage_Core_Helper_Abstract {
         }
         
         return false;
+    }
+    
+    public function checkHttpsProtocol($url) {
+        $isSecure = false;
+        
+        if (isset ($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') {
+            $isSecure = true;
+        }
+        else if (!empty ($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https' || !empty ($_SERVER['HTTP_X_FORWARDED_SSL']) && $_SERVER['HTTP_X_FORWARDED_SSL'] == 'on') {
+            $isSecure = true;
+        }
+        
+        $REQUEST_PROTOCOL = $isSecure ? 'https' : 'http';
+        $result = str_replace('http', $REQUEST_PROTOCOL, $url);
+        
+        return $result;
     }
 }

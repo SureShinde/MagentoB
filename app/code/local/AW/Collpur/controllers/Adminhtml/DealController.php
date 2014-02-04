@@ -24,7 +24,6 @@
  * @license    http://ecommerce.aheadworks.com/AW-LICENSE.txt
  */
 
-
 class AW_Collpur_Adminhtml_DealController extends Mage_Adminhtml_Controller_Action {
 
     protected function displayTitle($data = null,$root = 'Group Deals') {
@@ -93,7 +92,8 @@ class AW_Collpur_Adminhtml_DealController extends Mage_Adminhtml_Controller_Acti
     }
 
     public function saveAction() {
-        try {
+
+		try {
             $request = $this->getRequest();
             if ($data = $request->getPost()) {
 
@@ -142,7 +142,7 @@ class AW_Collpur_Adminhtml_DealController extends Mage_Adminhtml_Controller_Acti
                     $imgName = preg_replace("#[^a-zA-Z0-9_.-]#is","",$_FILES['deal_image']['name']); 
                     $uploader->save($path, $imgName);
                 }
-
+				
                 $deal->setData('close_state', AW_Collpur_Model_Deal::STATE_OPEN)->addData($data);
  
                 if ($deal->getId()) { $deal->checkPurchasesCount()->checkSuccess()->checkAutoClose(); }
@@ -155,8 +155,8 @@ class AW_Collpur_Adminhtml_DealController extends Mage_Adminhtml_Controller_Acti
                 } else {
                     $deal->unsDealImage();
                 }
-
-                $imgSliderName = '';
+				
+				$imgSliderName = '';
                 if (isset($_FILES['deal_image_slider']['name']) && $_FILES['deal_image_slider']['name'] != '' && @$data['deal_image_slider']['delete'] != 1) {
                     $uploader = new Varien_File_Uploader('deal_image_slider');
                     $uploader->setAllowedExtensions(array('jpg', 'jpeg', 'gif', 'png'));
@@ -166,13 +166,13 @@ class AW_Collpur_Adminhtml_DealController extends Mage_Adminhtml_Controller_Acti
                     $imgSliderName = preg_replace("#[^a-zA-Z0-9_.-]#is","",$_FILES['deal_image_slider']['name']); 
                     $uploader->save($path, $imgSliderName);
                 }
-
+				
                 if ($imgSliderName) {
                     $deal->setData('deal_image_slider', $imgSliderName);
                 } elseif (@$data['deal_image_slider']['delete'] == 1) {
                     $deal->setData('deal_image_slider', '');
                 } else {
-//                     $deal->unsDealImage();
+					$deal->unsDealImageSlider();
                 }
 
                 $deal->save();

@@ -1,6 +1,6 @@
 <?php
 /**
- * Description of Redirect
+ * Description of Bilna_Paymethod_Block_Checkout_Onepage_Redirect_Klikpay
  *
  * @author Bilna Development Team <development@bilna.com>
  */

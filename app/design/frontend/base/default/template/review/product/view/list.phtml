@@ -24,43 +24,61 @@
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
-
 <?php $_items = $this->getReviewsCollection()->getItems();?>
 <div class="box-collateral box-reviews" id="customer-reviews">
     <?php if (count($_items)):?>
-        <h2><?php echo $this->__('Customer Reviews') ?></h2>
-        <?php echo $this->getChildHtml('toolbar') ?>
-        <dl>
+    <?php $idx_review = 0; ?>
+        <h2><?php echo $this->__('Product Reviews') ?></h2>
+        <ol>
         <?php foreach ($_items as $_review):?>
-            <dt>
-                <a href="<?php echo $this->getReviewUrl($_review->getId()) ?>"><?php echo $this->escapeHtml($_review->getTitle()) ?></a> <?php echo $this->__('Review by <span>%s</span>', $this->escapeHtml($_review->getNickname())) ?>
-            </dt>
-            <dd>
-                <?php $_votes = $_review->getRatingVotes(); ?>
-                <?php if (count($_votes)): ?>
-                <table class="ratings-table">
-                    <col width="1" />
-                    <col />
-                    <tbody>
-                        <?php foreach ($_votes as $_vote): ?>
-                        <tr>
-                            <th><?php echo $this->escapeHtml($_vote->getRatingCode()) ?></th>
-                            <td>
-                                <div class="rating-box">
-                                    <div class="rating" style="width:<?php echo $_vote->getPercent() ?>%;"></div>
-                                </div>
-                            </td>
-                        </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
-                <?php endif; ?>
-                <?php echo nl2br($this->escapeHtml($_review->getDetail())) ?>
-                <small class="date"><?php echo $this->__('(Posted on %s)', $this->formatDate($_review->getCreatedAt()), 'long') ?></small>
-            </dd>
+			<?php $class_review = ''; ?>
+			<?php if( $idx_review == 0 ): ?>
+				<?php $class_review = 'first'; ?>
+			<?php endif; ?>
+			<?php if( ($idx_review == 1) or ($idx_review == (count($_items) - 1 )) ): ?>
+				<?php $class_review = 'last'; ?>
+			<?php endif; ?>
+            <li class="<?php echo $class_review; ?>">
+				<div class="name">
+					<span><?php echo $this->escapeHtml($_review->getNickname()) ?></span>
+				</div>
+				<div class="review-star">
+					<?php $_votes = $_review->getRatingVotes(); ?>
+					<?php if (count($_votes)): ?>
+					<table class="ratings-table">
+						<col width="1" />
+						<col />
+						<tbody>
+							<?php foreach ($_votes as $_vote): ?>
+							<tr>
+								<th><?php echo $this->escapeHtml($_vote->getRatingCode()) ?></th>
+								<td>
+									<div class="rating-box">
+										<div class="rating" style="width:<?php echo $_vote->getPercent() ?>%;"></div>
+									</div>
+								</td>
+							</tr>
+							<?php endforeach; ?>
+						</tbody>
+					</table>
+					<?php endif; ?>
+				</div>
+				<div class="review-detail">
+					<h4 class="review-title"><?php echo $this->escapeHtml($_review->getTitle()) ?></h4>
+					<p class="review-description"><?php echo nl2br($this->escapeHtml($_review->getDetail())) ?></p>
+				</div>
+				<div class="review-date">
+					<small class="date"><?php echo $this->formatDate($_review->getCreatedAt()) ?></small>
+				</div>
+				<div class="clear"></div>
+            </li>
+			<?php $idx_review = $idx_review + 1; ?>
+			<?php if( $idx_review == 2 ) : ?>
+				<?php break; ?>
+			<?php endif; ?>
         <?php endforeach; ?>
-        </dl>
-        <?php echo $this->getChildHtml('toolbar') ?>
+        </ol>
+		<a href="#" class="review-show-all"><?php echo $this->__('Show all reviews') ?></a>
     <?php endif;?>
     <?php echo $this->getChildHtml('review_form') ?>
 </div>

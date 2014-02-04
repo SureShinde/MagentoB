@@ -120,6 +120,18 @@
         </ol>
 
     </div>
+    <?php if ($this->getPrevNext()==true): ?>
+        <?php if ($this->canShowNextJump()): ?>
+		<div class="small-3 small-push-9 columns next_page">
+			<a href="<?php echo $this->getNextJumpUrl(); ?>">NEXT PAGE</a>
+		</div>
+        <?php endif;?>
+        <?php if ($this->canShowPreviousJump()): ?>
+		<div class="small-3 small-pull-9 columns prev_page">
+			<a href="<?php echo $this->getPreviousJumpUrl(); ?>">PREVIOUS PAGE</a>
+		</div>
+        <?php endif;?>
+    <?php endif; ?>
     <?php endif; ?>
 
     <?php if($this->getUseContainer()): ?>

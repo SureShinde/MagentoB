@@ -29,6 +29,9 @@
 <?php
 $summaryForCustomer = $this->getSummaryForCustomer();
 $textForPoints = Mage::helper('points/config')->getPointUnitName();
+$pointsData = $this->getPointsData();
+$usePoints = $pointsData['use_points'];
+$pointsAmount = $pointsData['points_amount'];
 ?>
 <?php if($this->hasMethods()): ?>
     <div id="order-billing_method_form">
@@ -75,7 +78,11 @@ $textForPoints = Mage::helper('points/config')->getPointUnitName();
             <?php endif; ?>
         </dl>
     </div>
-
+    
+    <script type="text/javascript">
+        var pointsAmountChanged;
+    </script>
+    
     <?php if ($this->pointsSectionAvailable()): ?>
         <script type="text/javascript">
             //<![CDATA[
@@ -84,9 +91,9 @@ $textForPoints = Mage::helper('points/config')->getPointUnitName();
             var limitedPoints = <?php echo $this->getLimitedPoints() ?>;
 
             $('use_points').disabled = $('points_amount').disabled = false;
-            if (typeof(order.awPointsAvailable) == 'undefined') {
+            //if (typeof(order.awPointsAvailable) == 'undefined') {
                 order.awPointsAvailable = Math.abs(Math.min(customerPoints, neededPoints, limitedPoints)).toFixed(0);
-            }
+            //}
             $('points_amount').value = order.awPointsAvailable;
 
             var pointsAmountChanged = function(){
