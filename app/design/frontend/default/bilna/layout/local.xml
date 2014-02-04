@@ -150,4 +150,20 @@
             <action method="setTemplate"><template>page/1column.phtml</template></action>
         </reference>
 	</checkout_onepage_index>
+	<ajaxlogin_default>
+		<reference name="authorization">
+		<action method="unsetChild">
+		<name>authorization_login</name>
+		</action>
+		<block type="ajaxlogin/authorizationFormLogin" name="authorization_login" as="authorization_login" template="ajaxlogin/authorizationForm.login.phtml">
+			<block type="core/template" name="al_auth_login_title" template="ajaxlogin/authorizationFormElement.title.phtml">
+				<action method="setTitle" translate="title" module="customer"><title>Login or Create an Account</title></action>
+			</block>
+			<block type="core/template" name="al_auth_login_email" template="ajaxlogin/authorizationFormElement.email.phtml"></block>
+			<block type="core/template" name="al_auth_login_password" template="ajaxlogin/authorizationFormElement.password.phtml"></block>
+			<block type="ajaxlogin/authorizationFormElementButtonsetLogin" name="al_auth_login_buttonset" template="ajaxlogin/authorizationFormElement.buttonsetLogin.phtml"></block>
+			<block type="ajaxlogin/authorizationFormElementSocialnets" name="al_auth_login_socialnets" template="ajaxlogin/authorizationFormElement.socialNetworks.phtml"></block>
+		</block>
+		</reference>
+	</ajaxlogin_default>
 </layout>

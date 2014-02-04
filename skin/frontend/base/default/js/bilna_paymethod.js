@@ -772,7 +772,8 @@ Payment.prototype = {
         }
         else {
             var cardNo = jQuery('#payment_form_' + currPayment + ' #' + currPayment + '_cc_number').val();
-            var ajaxURL = baseUrl + 'paymethod/onepage/bankCheck';
+            var ajaxURL = bankCheckUrl;
+            //var ajaxURL = baseUrl + 'paymethod/onepage/bankCheck';
             var responseStatus = false;
 
             jQuery.ajax({
