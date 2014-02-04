@@ -129,6 +129,29 @@
 			</div>
 			<div class="totals<?php if($this->helper('customer')->isLoggedIn()):?> loggedin<?php endif;?>">
 				<?php echo $this->getChildHtml('totals'); ?>
+				<script type="text/javascript">
+					$j(document).ready( function() {
+						// table totals alignment
+						$total_tfoot_first = $j('#shopping-cart-totals-table tfoot tr td').first();
+						$total_tfoot_next = $j('#shopping-cart-totals-table tfoot tr td').first().next();
+						$total_tbody_first = $j('#shopping-cart-totals-table tbody tr td').first();
+						$total_tbody_next = $j('#shopping-cart-totals-table tbody tr td').first().next();
+						
+						$total_tfoot_first.css( "width", $j('#shopping-cart-table thead th.subtotal').width() + 'px' );
+						$total_tfoot_first.css( "padding-left", $j('#shopping-cart-table thead th.subtotal').css('padding-left') );
+						$total_tfoot_first.css( "padding-right", $j('#shopping-cart-table thead th.subtotal').css('padding-right') );
+						$total_tfoot_next.css( "width", $j('#shopping-cart-table thead th.remove').width() + 'px' );
+						$total_tfoot_next.css( "padding-left", $j('#shopping-cart-table thead th.remove').css('padding-left') );
+						$total_tfoot_next.css( "padding-right", $j('#shopping-cart-table thead th.remove').css('padding-right') );
+						
+						$total_tbody_first.css( "width", $j('#shopping-cart-table thead th.subtotal').width() + 'px' );
+						$total_tbody_first.css( "padding-left", $j('#shopping-cart-table thead th.subtotal').css('padding-left') );
+						$total_tbody_first.css( "padding-right", $j('#shopping-cart-table thead th.subtotal').css('padding-right') );
+						$total_tbody_next.css( "width", $j('#shopping-cart-table thead th.remove').width() + 'px' );
+						$total_tbody_next.css( "padding-left", $j('#shopping-cart-table thead th.remove').css('padding-left') );
+						$total_tbody_next.css( "padding-right", $j('#shopping-cart-table thead th.remove').css('padding-right') );
+					});
+				</script>
 			</div>
 			<div class="sum-cart">
 				<table>
@@ -150,6 +173,20 @@
 							</div>
 						</td>
 					</tr>
+					<script type="text/javascript">
+						$j(document).ready( function() {
+							// table sum quantity and sum weight alignment
+							$j('.sum-cart .sum-qty').css( 'width', (
+								parseInt($j('#shopping-cart-table thead th.quantity').width()) + 
+								parseInt($j('#shopping-cart-table thead th.quantity').css('padding-left').replace('px','')) + 
+								parseInt($j('#shopping-cart-table thead th.quantity').css('padding-right').replace('px','')) ) + 'px' );
+								
+							$j('.sum-cart .sum-weight').css( 'width', (
+								parseInt($j('#shopping-cart-table thead th.weight').width()) + 
+								parseInt($j('#shopping-cart-table thead th.weight').css('padding-left').replace('px','')) ) + 'px' );							
+							$j('.sum-cart .sum-weight').css( 'padding-right', $j('#shopping-cart-table thead th.weight').css('padding-right'));
+						});
+					</script>
 				</table>
 			</div>
 		</div>
@@ -180,7 +217,7 @@
 					<?php if($this->helper('customer')->isLoggedIn()) : ?>
 						<a href="#"><?php echo $this->__('One Click Checkout') ?></a>
 					<?php else : ?>
-						<a href="/customer/account/login/"><?php echo $this->__('Login') ?></a>
+						<a href="/customer/account/login/"><?php echo $this->__('Log in') ?></a>
 						<?php echo $this->__('to turn on One Click Checkout') ?>
 					<?php endif; ?>
 				</div>			
