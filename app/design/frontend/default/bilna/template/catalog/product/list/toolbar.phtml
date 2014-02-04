@@ -36,7 +36,7 @@
     <div class="pager">
         <p class="amount">
             <?php if($this->getLastPageNum()>1): ?>
-                <?php echo $this->__('Showing %s to %s out of %s products', $this->getFirstNum(), $this->getLastNum(), $this->getTotalNum()) ?>
+                <?php echo $this->__('Showing %s out of %s products', $this->getLastNum(), $this->getTotalNum()) ?>
             <?php else: ?>
                 <strong><?php echo $this->__('Showing all out of ').$this->getTotalNum().$this->__(' product(s)') ?></strong>
             <?php endif; ?>

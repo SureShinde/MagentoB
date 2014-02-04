@@ -37,6 +37,11 @@ $j(document).ready(function(){
 	      } else {
 	          $j(".header-container .sticky-header-wrapper").fadeOut();
 	      }
+	      if ($j(this).scrollTop() > 900) {
+	          $j(".back-to-top").fadeIn();
+	      } else {
+	          $j(".back-to-top").fadeOut();
+	      }
 		})
 	if(wwidth < 768) {
 		$j('.nav-mobile-trigger').click(function(e){
@@ -105,6 +110,7 @@ $j(document).ready(function(){
 	 /*end krisna*/ 
 });
 </script>
+<a name="Top"></a>
 <div class="header-container">
 	<div class="sticky-header-wrapper">
 		<div class="sticky-header">
