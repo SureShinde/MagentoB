@@ -62,6 +62,7 @@
 	display: block;
 	float: none;
 	background: url(../images/arrow-2.png) no-repeat right center;
+	padding-right: 15px;
 }
 .block-layered-nav dt.category + dd li a.bestseller, .block-layered-nav dt.category + dd li a.whatsnew, .block-layered-nav dt.category + dd li a.onsale {
 	font-weight: bold !important;
