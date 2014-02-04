@@ -16,7 +16,8 @@ class Bilna_Cod_Sales_Order_ShipmentController extends Mage_Adminhtml_Sales_Orde
      */
     protected function _saveShipment($shipment) {
     	if ($shipment->getOrder()->getStatus() == 'processing_cod') {
-            $shipment->getOrder()->setStatus('shipping_cod');
+            //$shipment->getOrder()->setStatus('shipping_cod');
+            $shipment->getOrder()->setState(Mage_Sales_Model_Order::STATE_PROCESSING, 'shipping_cod');
     	}
         else {
             $shipment->getOrder()->setIsInProcess(true);

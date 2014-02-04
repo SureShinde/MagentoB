@@ -1,5 +1,6 @@
 <script type="text/javascript">
     var baseUrl = '<?php echo Mage::getBaseUrl(); ?>';
+    var bankCheckUrl = '<?php echo Mage::helper('paymethod')->checkHttpsProtocol(Mage::getBaseUrl() . 'paymethod/onepage/bankCheck'); ?>';
     var vtDirectClientKey = '<?php echo Mage::getStoreConfig('payment/vtdirect/client_key'); ?>';
 </script>
 <script type="text/javascript" src="<?php echo Mage::getStoreConfig('payment/vtdirect/vtdirect_src'); ?>"></script>

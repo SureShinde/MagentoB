@@ -244,6 +244,8 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
             if ($data['method'] == 'vtdirect' || in_array($data['method'], $paymentHide)) {
                 $dataCc = $this->getRequest()->getPost('payment', array ());
                 $data = array (
+                    'use_points' => array_key_exists('use_points', $data) ? $data['use_points'] : '',
+                    'points_amount' => array_key_exists('points_amount', $data) ? $data['points_amount'] : '',
                     'method' => $dataCc['cc_bank'],
                     'cc_owner' => $dataCc['cc_owner'],
                     'cc_type' => $dataCc['cc_type'],
