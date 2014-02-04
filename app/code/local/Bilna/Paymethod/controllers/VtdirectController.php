@@ -93,6 +93,7 @@ class Bilna_Paymethod_VtdirectController extends Mage_Core_Controller_Front_Acti
         Mage::register('threedsecure', $threedsecure);
         Mage::register('response_charge', $responseCharge);
         
+        $session->clear();
         $this->loadLayout();
         $this->getLayout()->getBlock('head')->setTitle($this->__('Thankyou Page'));
         $this->renderLayout();
