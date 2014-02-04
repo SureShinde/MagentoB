@@ -127,6 +127,7 @@ ol.added-menu li a.link-onsale {
 .category-desc p {}
 .left-banner-category {
 	padding: 10px;
+	display: none;
 }
 .category-description {
 	display: none;
@@ -143,6 +144,7 @@ ol.added-menu li a.link-onsale {
 	padding: 20px 0 20px 0;
 	width: 100%;
 	text-align: right;
+	display: none;
 }
 a.triger-showfilter, .featured-product-catalog h2, .toolbar-bottom a.link-catalog-nav {
 	color: #fff;

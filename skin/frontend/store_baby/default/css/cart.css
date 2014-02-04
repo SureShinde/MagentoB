@@ -185,6 +185,7 @@
 }
 .cart .cart-collaterals {
 	margin-bottom: 50px;
+	display: none;
 }
 .cart .cart-collaterals .col2-set, 
 .cart .cart-collaterals .col2-set .col-1 {
