@@ -116,12 +116,28 @@
 	border: 0;
 	background: none;
 }
+.coupon-total .coupon .discount h2, 
+.coupon-total .coupon .discount .get-voucher {
+	float: left;
+	font-size: 1em;
+}
 .coupon-total .coupon .discount h2 {
 	background: none;
 	text-align: left;
 	padding-left: 0;
 	color: #515151;
 	text-transform: capitalize;
+}
+.coupon-total .coupon .discount .get-voucher {
+	font-weight: bold;
+	margin-left: 10px;
+}
+.coupon-total .coupon .discount .get-voucher a {
+	color: #ff9810;
+	text-decoration: underline;
+}
+.coupon-total .coupon .discount .discount-form {
+	clear: left;
 }
 .coupon-total .coupon .discount .discount-form label {
 	display: none;
@@ -159,7 +175,7 @@
 	float: right;
 	background: none;
 	border: 0;
-	width: 226px;
+	width: auto;
 }
 .coupon-total .totals.loggedin {
 	width: 188px;
@@ -283,7 +299,7 @@
 	margin-top: 30px;
 }
 .shipping-wrap .shipping .shipping-form .buttons-set .button {
-	width: 100px;
+	width: 115px;
 }
 .shipping-wrap .shipping .shipping-form .buttons-set span {
 	border: 0;
