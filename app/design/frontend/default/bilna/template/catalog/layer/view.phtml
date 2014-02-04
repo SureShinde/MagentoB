@@ -57,6 +57,9 @@
                 <?php $_filters = $this->getFilters() ?>
                 <?php foreach ($_filters as $_filter): ?>
                 <?php if($_filter->getItemsCount()): ?>
+                	<?php if(($this->__($_filter->getName()))=='Price'): ?>
+                		<div class="lbl-filterby"><?php echo $currentCategory->getName().$this->__(' Shop by:'); ?></div>
+                	<?php endif;?>
                     <dt class="<?php echo strtolower($this->__($_filter->getName())) ?>"><?php echo $this->__($_filter->getName()) ?></dt>
                     <dd>
                     	<div class="scrollbar"><div class="track"><div class="thumb"><div class="end"></div></div></div></div>
