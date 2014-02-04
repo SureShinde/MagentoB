@@ -1503,6 +1503,9 @@
 
 /* Footer ================================================================================ */
 
+.shiping_partner span, .payment_partner span, .connect_us span {
+	text-align:right !important;
+}
 .footer-container {
 	border: none;
 	width: 100%;
@@ -1541,7 +1544,8 @@
 	margin:0 0 20px;
 }
 .footer .conect-us, .footer .payment-partners, .footer .shipping-partners {
-	text-align: left;
+	float: right;
+    padding: 0;
 }
 .footer .payment-partners {
 }
@@ -1551,7 +1555,10 @@
 }
 .footer .conect-us a, .footer .payment-partners a, .footer .shipping-partners a {
 	display: inline-block;
-	margin: 0 8px 0 0;
+	margin: 0 0 0 8px;
+}
+.wrap_bank {
+    text-align: right;
 }
 .footer .payment-partners a, .footer .shipping-partners a {
 	vertical-align: middle;
@@ -1713,6 +1720,9 @@
 	.connect_us{
 		padding:0 0 20px;
 	}
+	.footer .conect-us, .footer .payment-partners, .footer .shipping-partners {
+	float: left;
+	}
 	
 }
 @media only screen and (max-width: 1215px) {
@@ -1724,6 +1734,7 @@
 @media only screen and (min-width:641px) and (max-width: 1024px){
 	.footer .conect-us, .footer .payment-partners .wrap_bank, .footer .shipping-partners{
 		text-align:center;
+		float:none;
 	}
 	.footer li span.title, .footer .conect-us span.title, .footer .payment-partners span.title, .footer .shipping-partners span.title, .footer .listbox h4{
 		text-align:center !important;
