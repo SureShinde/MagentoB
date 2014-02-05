@@ -14,6 +14,11 @@ class Bilna_Paymethod_Model_Observer_Klikbca {
     protected $_logPath = '';
     protected $_typeTransaction = 'transaction';
     
+    public function testing() {
+        echo json_encode($_POST);
+        exit;
+    }
+    
     public function confirmationProcess() {
         $this->checkLockProcess();
         $this->setPath();

@@ -31,6 +31,8 @@
                     <onepage_shipping>Bilna_Paymethod_Block_Checkout_Onepage_Shipping</onepage_shipping>
                     <onepage_payment>Bilna_Paymethod_Block_Checkout_Onepage_Payment</onepage_payment>
                     <onepage_review_info>Bilna_Paymethod_Block_Checkout_Onepage_Review_Info</onepage_review_info>
+                    <onepage_success>Bilna_Paymethod_Block_Checkout_Onepage_Success</onepage_success>
+                    <onepage_failure>Bilna_Paymethod_Block_Checkout_Onepage_Failure</onepage_failure>
                 </rewrite>
             </checkout>
             
