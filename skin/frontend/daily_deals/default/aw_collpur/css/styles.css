@@ -593,13 +593,14 @@ LI#googleplusli {
 .orbit-caption .awcp-buy{
 	margin:0 !important;
 }
+
 .awcp-buy-button .awcp-buy, .orbit-caption .awcp-buy{
     -moz-box-shadow:2px 2px 2px #282828;
+	padding:5px 30px;
     -webkit-box-shadow:2px 2px 2px #282828;
     box-shadow:2px 2px 2px #282828;
 	text-shadow:2px 2px 0 #BE6252;
 	float:right;
-	padding:5px 30px;
 	margin:26px 10px;
 	border-radius:10px;
 	-webkit-border-radius:10px;
@@ -981,8 +982,8 @@ table.awcp-pricedata tr:nth-child(1) td{
 }
 .desc_deals_slider2{
 	color:#fff;
-	padding:10px 0;
-	border-bottom:1px solid #d6d6d6;
+	padding:10px 15px;
+	border-bottom:1px solid #d6d6d6 !important;
 }
 .date_slider_deals{
 	padding:10px 0;
@@ -1115,16 +1116,19 @@ table.awcp-pricedata tr:nth-child(1) td{
 	}
 	
 }
-@media only screen and (max-width: 360px){
+@media only screen and (max-width: 320px){
 	.awcp-item .wrap_li{
 		padding:10px 0;
 	}
-	
+	.date_slider_deals{
+		padding:10px 15px;
+	}
 	
 }
 @media only screen and (max-width: 64em){
 	.awcp-buy-button .awcp-buy, .orbit-caption .awcp-buy{
 		margin:15px 10px;
+		padding:5px 18px;
 	}
 	
 	}
