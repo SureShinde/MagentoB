@@ -19,11 +19,16 @@ endif;
         <p>
             <?php echo $this->__('Your order no is'); ?>: <?php echo $orderNoLink; ?>.
             <br/>
+            
             <?php echo $this->__('You will receive an order confirmation email with details of your order and a link to track its progress'); ?>.
             <br/><br/>
+            
             <?php if ($this->getCanViewOrder() && $this->getCanPrintOrder()): ?>
                 <?php echo $this->__('Click'); ?> <a href="<?php echo $this->escapeHtml($this->getPrintUrl()); ?>"><?php echo $this->__('here'); ?></a> <?php echo $this->__('to print a copy of your order confirmation'); ?>.
             <?php endif; ?>
+                
+            <br/><br/>
+            <?php echo $this->__('Click <a href="%s">here</a> to continue shopping.', $this->getUrl()); ?>
         </p>
 		
         <div class="say_thanks">
@@ -31,5 +36,7 @@ endif;
         </div>
     </div>
     
-    <div class="col_right"></div>
+    <div class="col_right">
+        <?php echo $this->getInstruction(); ?>
+    </div>
 </div>

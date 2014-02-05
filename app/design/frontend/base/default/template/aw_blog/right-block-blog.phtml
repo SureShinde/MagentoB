@@ -57,7 +57,7 @@
 			<?php foreach ($posts as $post): ?>
 			<div style="width: 100%; margin-left:5px 2% 5px 2%;float:left;display: block; border-bottom: 1px solid #dadada;">
 				<div class="postTitle4">
-					<img alt="" src="<?php echo Mage::getBaseUrl();?>media/<?php echo $post->getImageName();?>" style="float: left;">
+					<img alt="" src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA);?><?php echo $post->getImageName();?>" style="float: left;">
 					<div style="float: left;width: 60%;"> 
 						<h2 class="post-blog-title-small"><a href="<?php echo $post->getAddress(); ?>" ><?php echo $post->getTitle(); ?></a></h2>
 						<?php $d = new DateTime($post->getCreatedTime());?>
@@ -81,7 +81,7 @@
 				<?php foreach ($posts as $post): ?>
 				<div style="width: 100%; margin-left:5px 2% 5px 2%;float:left;display: block; border-bottom: 1px solid #dadada;">
 					<div class="postTitle4">
-						<img alt="" src="<?php echo Mage::getBaseUrl();?>media/<?php echo $post->getImageName();?>" style="float: left;">
+						<img alt="" src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA);?><?php echo $post->getImageName();?>" style="float: left;">
 						<div style="float: left;width: 60%;"> 
 							<h2 class="post-blog-title-small"><a href="<?php echo $post->getAddress(); ?>" ><?php echo $post->getTitle(); ?></a></h2>
 							<?php $d = new DateTime($post->getCreatedTime());?>
@@ -105,7 +105,7 @@
 				<?php foreach ($comments as $comment): ?>
 				<div style="width: 100%; margin-left:5px 2% 5px 2%;float:left;display: block; border-bottom: 1px solid #dadada;">
 					<div class="postTitle4">
-						<img alt="" src="<?php echo Mage::getBaseUrl();?>media/<?php echo $comment->getImageName();?>" style="float: left;">
+						<img alt="" src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA);?><?php echo $comment->getImageName();?>" style="float: left;">
 						<div style="float: left;width: 60%;"> 
 							<h3 class="post-blog-title-small2"><?php echo $comment->getUser(); ?> <label style="font-weight: normal;">on</label><?php echo $comment->getTitle(); ?></h3>
 							<?php $d = new DateTime($comment->getCreatedTime());?>

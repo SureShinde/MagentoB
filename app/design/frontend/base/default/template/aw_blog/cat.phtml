@@ -30,7 +30,7 @@
         <div class="postWrapper">
             
             <div class="postContent">
-                <img alt="" src="<?php echo Mage::getBaseUrl();?>media/<?php echo $post->getImageName();?>" style="padding:0 10px 10px 0; display: blog; float: left;" />
+                <img alt="" src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA);?><?php echo $post->getImageName();?>" style="padding:0 10px 10px 0; display: blog; float: left;" />
                 <p>
                     <div class="postTitle">
                         <h2><a href="<?php echo $post->getAddress(); ?>" ><?php echo $post->getTitle(); ?></a></h2>
