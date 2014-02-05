@@ -120,6 +120,9 @@ body {
 	color: #707070;
 	font-size: 1em;
 }
+.products-grid .product-info-wrapper {
+	height: 150px;
+}
 .products-grid .price-box .price, .products-grid .price-box .regular-price .price {
 	color: #707070;
 	font-size: 1.2em;
