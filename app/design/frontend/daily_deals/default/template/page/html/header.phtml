@@ -109,8 +109,15 @@ $j(document).ready(function(){
 		<div class="sticky-header">
 			<a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="sticky-logo"><img src="<?php echo $this->getSkinUrl(); ?>images/logo-sticky.png" alt="<?php echo $this->getLogoAlt() ?>" /></a>
 			<ul class="sticky-menu">
-				<li><a href="#"><?php echo $this->__('Todays Promo') ?></a></li>
-				<li><a href="#"><?php echo $this->__('Get Free Voucher!') ?></a></li>
+				<li><a href="#"><?php echo $this->__('Today\'s Promo') ?></a></li>
+				<li class="link-free-voucher">
+					<a href="#"><?php echo $this->__('Get Free Voucher!') ?></a>
+					<div class="free-voucher-info">
+						<h3><?php echo $this->__('Get Free Rp50,000 Voucher!') ?></h3>
+						<p><?php echo $this->__('Sign up to Bilna Newsletter and get your voucher!') ?></p>
+						<div class="header-newsletter"><?php echo $this->getChildHtml('header.newsletter'); ?></div>
+					</div>
+				</li>
 				<li class="link-customer-care"><a href="#" ><?php echo $this->__('Customer Care Center') ?></a></li>
 				<div class="clear"></div>
 			</ul>
