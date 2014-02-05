@@ -355,6 +355,16 @@
 .total-right table tr td:first-child {
 	display: none;
 }
+#checkoutpromo {
+	padding: 10px 5px;
+	background: #ff7f6e;
+	color: #303030;
+	margin-bottom: 10px;
+}
+#checkoutpromo span {
+	font-weight: bold;
+}
+
 @media (max-width: 1215px) {
 	#shopping-cart-table.data-table thead .items.loggedin {
 		width: 20%;
@@ -480,6 +490,10 @@
 		position: absolute;
 		top: 0;
 		right: 0;
+	}
+	#checkoutpromo {
+		margin-left: 5px;
+		margin-right: 5px;
 	}
 }
 @media (max-width: 479px) {
