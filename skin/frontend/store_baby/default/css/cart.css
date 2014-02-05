@@ -232,3 +232,11 @@
 	font-family: 'bebasregular';
 	height: 21px;
 }
+.coupon-total .coupon .discount .get-voucher {
+    font-weight: bold;
+    margin-left: 10px;
+}
+.coupon-total .coupon .discount h2, .coupon-total .coupon .discount .get-voucher {
+    float: left;
+    font-size: 1em;
+}
