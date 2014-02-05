@@ -13,7 +13,7 @@ $cat = $catposts['cat'];
 			<h2><?php echo $cat;?></h2>
 		  </div>
 		  <p>
-			<img alt="" src="<?php echo Mage::getBaseUrl();?>media/<?php echo $row->getImageName();?>" style="float: left;" />
+			<img alt="" src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA);?><?php echo $row->getImageName();?>" style="float: left;" />
 		  </p>
 		  <div class="postTitle">
 			<h2>
@@ -31,7 +31,7 @@ $cat = $catposts['cat'];
 		<?php else:?>
 		  <div style="width: 100%; margin-left:5px 2% 5px 2%;float:left;display: block;">
 			<div class="postTitle3">
-			  <img alt="" src="<?php echo Mage::getBaseUrl();?>media/<?php echo $row->getImageName();?>" style="float: left;" />
+			  <img alt="" src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA);?><?php echo $row->getImageName();?>" style="float: left;" />
 			  <div style="float: left;width: 45%;">
 				<h2>
 				  <a href="<?php echo $row->getAddress(); ?>" ><?php echo $row->getTitle(); ?></a>
