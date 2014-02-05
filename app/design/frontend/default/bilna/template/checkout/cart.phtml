@@ -124,70 +124,40 @@
 			</fieldset>
 		</form>
 		<div class="coupon-total">
-			<div class="coupon">
-				<?php echo $this->getChildHtml('coupon') ?>
+			<div class="left">
+				<div class="coupon">
+					<?php echo $this->getChildHtml('coupon') ?>
+				</div>
 			</div>
-			<div class="totals<?php if($this->helper('customer')->isLoggedIn()):?> loggedin<?php endif;?>">
-				<?php echo $this->getChildHtml('totals'); ?>
-				<script type="text/javascript">
-					$j(document).ready( function() {
-						// table totals alignment
-						$total_tfoot_first = $j('#shopping-cart-totals-table tfoot tr td').first();
-						$total_tfoot_next = $j('#shopping-cart-totals-table tfoot tr td').first().next();
-						$total_tbody_first = $j('#shopping-cart-totals-table tbody tr td').first();
-						$total_tbody_next = $j('#shopping-cart-totals-table tbody tr td').first().next();
-						
-						$total_tfoot_first.css( "width", $j('#shopping-cart-table thead th.subtotal').width() + 'px' );
-						$total_tfoot_first.css( "padding-left", $j('#shopping-cart-table thead th.subtotal').css('padding-left') );
-						$total_tfoot_first.css( "padding-right", $j('#shopping-cart-table thead th.subtotal').css('padding-right') );
-						$total_tfoot_next.css( "width", $j('#shopping-cart-table thead th.remove').width() + 'px' );
-						$total_tfoot_next.css( "padding-left", $j('#shopping-cart-table thead th.remove').css('padding-left') );
-						$total_tfoot_next.css( "padding-right", $j('#shopping-cart-table thead th.remove').css('padding-right') );
-						
-						$total_tbody_first.css( "width", $j('#shopping-cart-table thead th.subtotal').width() + 'px' );
-						$total_tbody_first.css( "padding-left", $j('#shopping-cart-table thead th.subtotal').css('padding-left') );
-						$total_tbody_first.css( "padding-right", $j('#shopping-cart-table thead th.subtotal').css('padding-right') );
-						$total_tbody_next.css( "width", $j('#shopping-cart-table thead th.remove').width() + 'px' );
-						$total_tbody_next.css( "padding-left", $j('#shopping-cart-table thead th.remove').css('padding-left') );
-						$total_tbody_next.css( "padding-right", $j('#shopping-cart-table thead th.remove').css('padding-right') );
-					});
-				</script>
-			</div>
-			<div class="sum-cart">
-				<table>
-					<tr>
-						<td class="a-center sum-qty hi-res<?php if($this->helper('customer')->isLoggedIn()):?> loggedin<?php endif;?>">
-							<div><?php echo Mage::getModel('checkout/cart')->getQuote()->getItemsQty(); ?></div>
-						</td>
-						<td class="a-right sum-weight hi-res<?php if($this->helper('customer')->isLoggedIn()):?> loggedin<?php endif;?>">
-							<div>
-							<?php 
-								$items = Mage::getSingleton('checkout/session')->getQuote()->getAllItems();
-								$weight = 0;
-								foreach($items as $item) {
-									$weight += ($item->getWeight() * $item->getQty()) ;
-								}
-								if ( $weight != 0 )
-									echo $this->__('%0.2f Kg', $weight);
-							?>
-							</div>
-						</td>
-					</tr>
-					<script type="text/javascript">
-						$j(document).ready( function() {
-							// table sum quantity and sum weight alignment
-							$j('.sum-cart .sum-qty').css( 'width', (
-								parseInt($j('#shopping-cart-table thead th.quantity').width()) + 
-								parseInt($j('#shopping-cart-table thead th.quantity').css('padding-left').replace('px','')) + 
-								parseInt($j('#shopping-cart-table thead th.quantity').css('padding-right').replace('px','')) ) + 'px' );
-								
-							$j('.sum-cart .sum-weight').css( 'width', (
-								parseInt($j('#shopping-cart-table thead th.weight').width()) + 
-								parseInt($j('#shopping-cart-table thead th.weight').css('padding-left').replace('px','')) ) + 'px' );							
-							$j('.sum-cart .sum-weight').css( 'padding-right', $j('#shopping-cart-table thead th.weight').css('padding-right'));
-						});
-					</script>
-				</table>
+			<div class="right">
+				<div class="left total-left totals<?php if($this->helper('customer')->isLoggedIn()):?> loggedin<?php endif;?>">
+					<?php echo $this->getChildHtml('totals'); ?>
+				</div>
+				<div class="sum-cart left">
+					<table>
+						<tr>
+							<td class="a-center sum-qty hi-res<?php if($this->helper('customer')->isLoggedIn()):?> loggedin<?php endif;?>">
+								<div><?php echo Mage::getModel('checkout/cart')->getQuote()->getItemsQty(); ?></div>
+							</td>
+							<td class="a-right sum-weight hi-res<?php if($this->helper('customer')->isLoggedIn()):?> loggedin<?php endif;?>">
+								<div>
+								<?php 
+									$items = $this->getItems();
+									$weight = 0;
+									foreach($items as $item) {
+										$weight += ($item->getWeight() * $item->getQty()) ;
+									}
+									if ( $weight != 0 )
+										echo $this->__('%0.2f Kg', $weight);
+								?>
+								</div>
+							</td>
+						</tr>
+					</table>
+				</div>
+				<div class="right total-right totals<?php if($this->helper('customer')->isLoggedIn()):?> loggedin<?php endif;?>">
+					<?php echo $this->getChildHtml('totals'); ?>
+				</div>
 			</div>
 		</div>
 		<div class="continue-checkout">
@@ -217,7 +187,7 @@
 					<?php if($this->helper('customer')->isLoggedIn()) : ?>
 						<a href="#"><?php echo $this->__('One Click Checkout') ?></a>
 					<?php else : ?>
-						<a href="/customer/account/login/"><?php echo $this->__('Log in') ?></a>
+						<a href="/customer/account/login/"><?php echo $this->__('Login') ?></a>
 						<?php echo $this->__('to turn on One Click Checkout') ?>
 					<?php endif; ?>
 				</div>			

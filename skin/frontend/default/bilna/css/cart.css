@@ -343,7 +343,18 @@
 .cart .crosssell .item .discount-product {
 	display: none;
 }
-
+.total-left table tr td {
+	display: none;
+}
+.total-left table tr td:first-child {
+	display: block;
+}
+.total-right table tr td {
+	display: block;
+}
+.total-right table tr td:first-child {
+	display: none;
+}
 @media (max-width: 1215px) {
 	#shopping-cart-table.data-table thead .items.loggedin {
 		width: 20%;
