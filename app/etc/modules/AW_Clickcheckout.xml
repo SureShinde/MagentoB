@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <modules>
+        <AW_Clickcheckout>
+            <active>true</active>
+            <codePool>local</codePool>
+        </AW_Clickcheckout>
+    </modules>
+</config>
