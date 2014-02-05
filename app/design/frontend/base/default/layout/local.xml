@@ -13,7 +13,7 @@
         	<action method="addCss"><stylesheet>css/checkout.css</stylesheet></action>
             <action method="addCss"><stylesheet>css/header.css</stylesheet></action>
             <action method="addCss"><stylesheet>css/footer.css</stylesheet></action>
-			<action method="addCss"><stylesheet>additional-style-blog.css</stylesheet></action>
+			<action method="addCss"><stylesheet>css/additional-style-blog.css</stylesheet></action>
             <action method="addItem">
                 <type>skin_js</type>
                 <name>js/jquery.min.js</name>
