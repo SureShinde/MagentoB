@@ -1,4 +1,6 @@
-.homepage {}
+.homepage {
+	margin: 25px 0;
+}
 .homepage-top {
 }
 .homepage-top-block {
@@ -64,10 +66,14 @@
 }
 .homepage-product a.link-viewmore-product {
 	position: absolute;
-	top:0;
+	top:-10px;
 	right: 6px;
 	
 }
+.homepage-product a.link-viewmore-product:hover {
+	color: #4EC7DA;
+}
+
 .homepage-bottom {
 	clear: both;
 	margin: 0 10px 20px;
