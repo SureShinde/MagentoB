@@ -163,7 +163,54 @@
 			}
 			?>
         </div>
-        <!-- ThumbnailNavigator Skin Begin -->
+        
+        <style>
+		            /* jssor slider direction navigator skin 20 css */
+		            /*
+		            .jssord20l              (normal)
+		            .jssord20r              (normal)
+		            .jssord20l:hover        (normal mouseover)
+		            .jssord20r:hover        (normal mouseover)
+		            .jssord20ldn            (mousedown)
+		            .jssord20rdn            (mousedown)
+		            */
+		            .jssord20l, .jssord20r, .jssord20ldn, .jssord20rdn
+		            {
+		            	position: absolute;
+		            	cursor: pointer;
+		            	display: block;
+		                background: url(../img/d20.png) no-repeat;
+		                overflow:hidden;
+		            }
+		            .jssord20l { background-position: -3px -33px; }
+		            .jssord20r { background-position: -63px -33px; }
+		            .jssord20l:hover { background-position: -123px -33px; }
+		            .jssord20r:hover { background-position: -183px -33px; }
+		            .jssord20ldn { background-position: -243px -33px; }
+		            .jssord20rdn { background-position: -303px -33px; }
+		            
+ 	                #slider1_container .i, #slider1_container .i
+ 	                {
+ 	                	position: relative;
+ 	                	margin:3px 3px 0;
+ 	                }
+ 	                #slider1_container .i
+ 	                {
+						float:left;
+ 	                	WIDTH /**/: 94px;
+ 	                	HEIGHT /**/: 95px;
+ 	                }
+		        </style>
+        <!-- Arrow Left -->
+        <span u="arrowleft" class="jssord20l" style="width: 55px; height: 55px; top: 123px; left: 8px;">
+        </span>
+        <!-- Arrow Right -->
+        <span u="arrowright" class="jssord20r" style="width: 55px; height: 55px; top: 123px; right: 8px">
+        </span>
+        <!-- Direction Navigator Skin End -->
+        <a style="display: none" href="http://www.jssor.com">jQuery Slideshow</a>
+		<!-- Jssor Slider End -->
+	<!-- ThumbnailNavigator Skin Begin -->
         <div u="thumbnavigator" class="jssort11" style="position: absolute; width: 200px; height: 430px; right:0px; top: 0px; bottom:0px;">
             <!-- Thumbnail Item Skin Begin -->
             <style>
@@ -264,53 +311,8 @@
         </div>
         <!-- ThumbnailNavigator Skin End -->
         <!-- Direction Navigator Skin Begin -->
-        <style>
-		            /* jssor slider direction navigator skin 20 css */
-		            /*
-		            .jssord20l              (normal)
-		            .jssord20r              (normal)
-		            .jssord20l:hover        (normal mouseover)
-		            .jssord20r:hover        (normal mouseover)
-		            .jssord20ldn            (mousedown)
-		            .jssord20rdn            (mousedown)
-		            */
-		            .jssord20l, .jssord20r, .jssord20ldn, .jssord20rdn
-		            {
-		            	position: absolute;
-		            	cursor: pointer;
-		            	display: block;
-		                background: url(../img/d20.png) no-repeat;
-		                overflow:hidden;
-		            }
-		            .jssord20l { background-position: -3px -33px; }
-		            .jssord20r { background-position: -63px -33px; }
-		            .jssord20l:hover { background-position: -123px -33px; }
-		            .jssord20r:hover { background-position: -183px -33px; }
-		            .jssord20ldn { background-position: -243px -33px; }
-		            .jssord20rdn { background-position: -303px -33px; }
-		            
- 	                #slider1_container .i, #slider1_container .i
- 	                {
- 	                	position: relative;
- 	                	margin:3px 3px 0;
- 	                }
- 	                #slider1_container .i
- 	                {
-						float:left;
- 	                	WIDTH /**/: 94px;
- 	                	HEIGHT /**/: 95px;
- 	                }
-		        </style>
-        <!-- Arrow Left -->
-        <span u="arrowleft" class="jssord20l" style="width: 55px; height: 55px; top: 123px; left: 8px;">
-        </span>
-        <!-- Arrow Right -->
-        <span u="arrowright" class="jssord20r" style="width: 55px; height: 55px; top: 123px; right: 8px">
-        </span>
-        <!-- Direction Navigator Skin End -->
-        <a style="display: none" href="http://www.jssor.com">jQuery Slideshow</a>
     </div>
-    <!-- Jssor Slider End -->
+    
 	</div>
 	
 </div>
