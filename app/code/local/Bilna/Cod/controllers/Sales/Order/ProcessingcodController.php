@@ -57,15 +57,16 @@ class Bilna_Cod_Sales_Order_ProcessingcodController extends Mage_Core_Controller
     public function startAction() {
         $orderId = $this->getRequest()->getParam('order_id');
         $order = Mage::getModel('sales/order')->load($orderId);
-
-        $order->setStatus('processing_cod');
+        //$order->setStatus('shipping_cod')->save();
+        $order->setState(Mage_Sales_Model_Order::STATE_PROCESSING, 'shipping_cod', '', false);
+        $order->save();
         $transactionSave = Mage::getModel('core/resource_transaction')->addObject($order);
         $this->generateCsv($order);
         
         /**
          * Clear old values for shipment qty's
          */
-    	$this->_redirect('*/sales_order/view', array('order_id'=>$this->getRequest()->getParam('order_id')));
+    	$this->_redirect('*/sales_order/view', array ('order_id' => $orderId));
     }
     
     public function generateCsv($order) {

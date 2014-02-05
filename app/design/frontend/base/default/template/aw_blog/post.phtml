@@ -31,7 +31,7 @@ $relatedPost = $this->getRelatedPost($post->getCatId(), $post->getPostId());
 <div class="postWrapper">
     
     <p>
-        <img alt="" src="<?php echo Mage::getBaseUrl();?>media/<?php echo $post->getImageName();?>" class="image-post-main" />
+        <img alt="" src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA);?><?php echo $post->getImageName();?>" class="image-post-main" />
         <div class="postTitle">
         <h2><?php echo $post->getTitle(); ?></h2>
         <h3><?php echo $post->getCreatedTime(); ?></h3>
