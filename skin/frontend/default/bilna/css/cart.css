@@ -44,6 +44,7 @@
 #shopping-cart-table.data-table thead .shopping-cart, 
 #shopping-cart-table.data-table thead .wishlist {
 	width: 10%;
+	padding: 11px 10px 7px;
 }
 #shopping-cart-table.data-table thead .items {
 	width: 30%;
@@ -79,7 +80,17 @@
 	background: #4ec7da;
 	font-family: 'bebasregular';
 	font-size: 1em;
+	padding: 5px 14px 10px;
+	letter-spacing: 0.1em;
 }
+
+#shopping-cart-table.cart-table .btn-update span span {
+	border: 0;
+	background: none;
+	font-family: 'bebasregular';
+	font-size: 1em;
+}
+
 #shopping-cart-table.data-table tfoot {
 	border-bottom: 0;
 }
