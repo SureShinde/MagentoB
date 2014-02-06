@@ -14,9 +14,9 @@ body {
 .page {
 	margin: 0 auto;
 }
-.main-container, .main-container.col1-layout .main, .main-container.col2-left-layout .main {
+.main-container, .main-container.col1-layout .main, .main-container.col2-left-layout .main, .main-container.col2-right-layout .main {
 	width: 1216px;
-	margin: 5px auto 0;
+	margin: 25px auto 0;
 	background: none;
 	padding: 0;
 }
@@ -148,15 +148,16 @@ body {
 	position: relative;
 }
 button.btn-cart {
-    width:88px;
+    width:107px;
     background-image:url(../images/btn-buynow.png);
     height:36px;
     line-height:21px;
     color: #fff;
     font-family: Helvetica;
     font-size: 1em;
-    font-weight: bold;
+    font-weight: normal;
     text-transform: uppercase;
+	background-size: 107px 36px;
 }
 button.btn-cart span, button.btn-cart span span {
 	background: none;
@@ -409,7 +410,7 @@ a.back-to-top img {
 	}
 
 /* -------blog custom-------- */
-/* .blog-index-list .main {
+.blog-index-list .main {
     width: 100%;
 	background:none;
 	display:block;
