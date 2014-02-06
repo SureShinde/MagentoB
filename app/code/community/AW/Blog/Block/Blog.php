@@ -42,7 +42,7 @@ class AW_Blog_Block_Blog extends AW_Blog_Block_Abstract
     {
         $collection = Mage::getModel("blog/cat")->getCollection()
             ->setOrder('sort_order', 'ASC');
-
+        $collection->getSelect()->limit(6);
         $data = array();
         foreach ($collection as $row) {
             $data[$row->getCatId()]['layout'] = $row->getLayout(); 
