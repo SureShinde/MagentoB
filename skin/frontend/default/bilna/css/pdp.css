@@ -205,6 +205,9 @@
 	width: 230px;
 	margin: 10px auto;
 }
+.product-shop-right .header-container-link {
+	padding: 10px 0px 0px 14px;
+}
 .product-shop-right .header-container a, .product-shop-right .header-container-link a {
 	font-weight: bold;
 	color: #ffa01b;
