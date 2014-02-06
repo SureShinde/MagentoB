@@ -957,10 +957,11 @@ table.awcp-pricedata tr:nth-child(1) td{
 	display: table;
     left: 0;
     position: absolute;
-    top: 130px;
+    top: 108px;
     z-index: 99;
 }
 .thumb_angka_area .thumb_angka{
+	color:#fff;
 	padding:10px 13px;
 	margin:0 4px 0 0;
 	font-size:12px;
@@ -1145,9 +1146,7 @@ table.awcp-pricedata tr:nth-child(1) td{
 		background:#fff !important	;
 		margin:0 !important;
 	}
-	.right_detail_deals{
-		display:none;
-	}
+	
 	.right_detail_deals_2{
 		margin:10px 0 0;
 		display:block;
