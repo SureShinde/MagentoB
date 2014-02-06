@@ -787,6 +787,9 @@
 	#customer-reviews li .review-detail {
 		width: 50%;
 	}
+	.product-shop-right .header-container-link {
+		padding: 14px 0px 0px 0px;
+	}
 }
 /* --------------- smaller 959 px layout -------------------- */
 @media (max-width: 767px) {
