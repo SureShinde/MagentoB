@@ -808,13 +808,13 @@
 	}
 	.product-view .product-shop .product-shop-left .ratings {
 		clear: none;
-		float: right;
+		float: none;
 	}
 	.product-view .product-shop .product-shop-left .stock-left {
 		clear: both;
 	}
 	.product-shop-left .ratings .rating-box {
-		float: right;
+		float: left;
 		margin-bottom: 10px;
 	}
 	.col1-layout .product-view .product-shop {
@@ -935,5 +935,8 @@
 	}
 	.product-shop-right .header-container-link {
 		padding: 50px 0px 0px 0px;
+	}
+	.product-shop-left .rating-links .review-count {
+		display: inline-block;
 	}
 }
