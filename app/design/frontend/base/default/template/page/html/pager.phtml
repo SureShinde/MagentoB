@@ -115,14 +115,18 @@
 	        </ol>
 	
 	    </div>
-	    <?php endif; ?>
+		<div class="custome-nav">
+        <?php if ($this->canShowNextJump()): ?>
+		    <a href="<?php echo $this->getPreviousPageUrl() ?>" class="link-catalog-nav prev"><?php echo $this->__('Previous Page') ?></a>
+        <?php endif;?>
+        <?php if ($this->canShowPreviousJump()): ?>
+		    <a href="<?php echo $this->getNextPageUrl() ?>" class="link-catalog-nav next"><?php echo $this->__('Next Page') ?></a>
+		    <div class="clear"></div>
+        <?php endif;?>
+		</div>
+	<?php endif; ?>
    
     <?php if($this->getUseContainer()): ?>
     </div>
     <?php endif ?>
 <?php endif ?>
-<div class="custome-nav">
-    	<a href="<?php echo $this->getPreviousPageUrl() ?>" class="link-catalog-nav prev"><?php echo $this->__('Previous Page') ?></a>
-        <a href="<?php echo $this->getNextPageUrl() ?>" class="link-catalog-nav next"><?php echo $this->__('Next Page') ?></a>
-        <div class="clear"></div>
-    </div>

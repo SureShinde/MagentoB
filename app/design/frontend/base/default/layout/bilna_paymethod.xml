@@ -35,6 +35,34 @@
             <block type="paymethod/checkout_onepage_review_installment" name="items_after" as="items_after" ifconfig="payment/klikpay/active" template="paymethod/checkout/onepage/review/installments.phtml"/>
         </reference>
     </checkout_onepage_review>
+    
+    <checkout_onepage_success>
+    	<reference name="root">
+            <action method="setTemplate">
+                <template>page/1column.phtml</template>
+            </action>
+    	</reference>
+        
+        <reference name='checkout.success'>  
+            <action method='setTemplate'>
+                <template>paymethod/checkout/onepage/success.phtml</template>
+            </action>
+        </reference>
+    </checkout_onepage_success>
+    
+    <checkout_onepage_failure>
+    	<reference name="root">
+            <action method="setTemplate">
+                <template>page/1column.phtml</template>
+            </action>
+    	</reference>
+        
+        <reference name='checkout.failure'>  
+            <action method='setTemplate'>
+                <template>paymethod/checkout/onepage/failure.phtml</template>
+            </action>
+        </reference>
+    </checkout_onepage_failure>
 
     <sales_order_view>
         <reference name='order_items'>  

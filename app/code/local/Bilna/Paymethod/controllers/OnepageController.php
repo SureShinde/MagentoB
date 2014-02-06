@@ -244,6 +244,8 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
             if ($data['method'] == 'vtdirect' || in_array($data['method'], $paymentHide)) {
                 $dataCc = $this->getRequest()->getPost('payment', array ());
                 $data = array (
+                    'use_points' => array_key_exists('use_points', $data) ? $data['use_points'] : '',
+                    'points_amount' => array_key_exists('points_amount', $data) ? $data['points_amount'] : '',
                     'method' => $dataCc['cc_bank'],
                     'cc_owner' => $dataCc['cc_owner'],
                     'cc_type' => $dataCc['cc_type'],
@@ -326,5 +328,27 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
         $ccType = (strtoupper(substr($bank, -2)) == 'MC') ? 'MC' : 'VI';
         
         return $ccType;
+    }
+    
+    public function successAction() {
+        $session = $this->getOnepage()->getCheckout();
+        if (!$session->getLastSuccessQuoteId()) {
+            $this->_redirect('checkout/cart');
+            return;
+        }
+
+        $lastQuoteId = $session->getLastQuoteId();
+        $lastOrderId = $session->getLastOrderId();
+        $lastRecurringProfiles = $session->getLastRecurringProfileIds();
+        if (!$lastQuoteId || (!$lastOrderId && empty($lastRecurringProfiles))) {
+            $this->_redirect('checkout/cart');
+            return;
+        }
+
+        //$session->clear();
+        $this->loadLayout();
+        $this->_initLayoutMessages('checkout/session');
+        Mage::dispatchEvent('checkout_onepage_controller_success_action', array('order_ids' => array($lastOrderId)));
+        $this->renderLayout();
     }
 }

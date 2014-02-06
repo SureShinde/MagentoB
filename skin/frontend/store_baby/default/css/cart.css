@@ -37,6 +37,7 @@
 #shopping-cart-table.data-table thead .shopping-cart, 
 #shopping-cart-table.data-table thead .wishlist {
 	width: 10%;
+	padding: 10px;
 }
 #shopping-cart-table.data-table thead .items {
 	width: 30%;
@@ -45,6 +46,7 @@
 	text-transform: uppercase;
 	font-family: 'bebasregular';
 	font-size: 1.16em;
+	letter-spacing: 0.1em;
 }
 #shopping-cart-table.data-table tbody .table-bottom-wrap {
 	background: #e9e9e9;
@@ -119,7 +121,7 @@
 
 #shopping-cart-table .odd, 
 #shopping-cart-table .even {
-	background: none;
+	background: none; line-height: 2em;
 }
 #shopping-cart-table.cart-table .product-name a {
 	color: #515151;
@@ -156,10 +158,12 @@
 #shopping-cart-table tfoot .checkout-types button.btn-checkout span {
 	background: #ffa01b;
 	font-family: 'bebasregular';
-	text-shadow: 1px 1px #b6b6b6;
+	/* text-shadow: 1px 1px #b6b6b6; */
+	height: 37px;
+    padding: 2px 0 0 9px;
 }
 #shopping-cart-table tfoot .checkout-types button.btn-checkout span span {
-	background: url(../images/arrow.png) 180px 14px no-repeat;
+	background: url(../images/arrow.png) 190px 12px no-repeat;
 }
 #shopping-cart-table tfoot .btn-continue {
 	float: right;
@@ -172,11 +176,11 @@
 	color: #ffa01b;
 	font-family: 'bebasregular';
 	font-size: 1.1em;
-	padding-top: 5px;
-	height: 35px;
+	padding-top: 7px;
+	height: 27px;
 }
 #shopping-cart-table tfoot .btn-continue span span {
-	background: url(../images/arrow-orange-prev.png) 65px 8px no-repeat;
+	background: url(../images/arrow-orange-prev.png) 55px 8px no-repeat;
 }
 #shopping-cart-table tfoot .one-click-checkout a {
 	font-weight: bold;
@@ -185,6 +189,7 @@
 }
 .cart .cart-collaterals {
 	margin-bottom: 50px;
+	display: none;
 }
 .cart .cart-collaterals .col2-set, 
 .cart .cart-collaterals .col2-set .col-1 {
@@ -226,4 +231,12 @@
 	background: #909090;
 	font-family: 'bebasregular';
 	height: 21px;
+}
+.coupon-total .coupon .discount .get-voucher {
+    font-weight: bold;
+    margin-left: 10px;
+}
+.coupon-total .coupon .discount h2, .coupon-total .coupon .discount .get-voucher {
+    float: left;
+    font-size: 1em;
 }

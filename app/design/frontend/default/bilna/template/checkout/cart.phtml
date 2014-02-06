@@ -124,33 +124,40 @@
 			</fieldset>
 		</form>
 		<div class="coupon-total">
-			<div class="coupon">
-				<?php echo $this->getChildHtml('coupon') ?>
+			<div class="left">
+				<div class="coupon">
+					<?php echo $this->getChildHtml('coupon') ?>
+				</div>
 			</div>
-			<div class="totals<?php if($this->helper('customer')->isLoggedIn()):?> loggedin<?php endif;?>">
-				<?php echo $this->getChildHtml('totals'); ?>
-			</div>
-			<div class="sum-cart">
-				<table>
-					<tr>
-						<td class="a-center sum-qty hi-res<?php if($this->helper('customer')->isLoggedIn()):?> loggedin<?php endif;?>">
-							<div><?php echo Mage::getModel('checkout/cart')->getQuote()->getItemsQty(); ?></div>
-						</td>
-						<td class="a-right sum-weight hi-res<?php if($this->helper('customer')->isLoggedIn()):?> loggedin<?php endif;?>">
-							<div>
-							<?php 
-								$items = Mage::getSingleton('checkout/session')->getQuote()->getAllItems();
-								$weight = 0;
-								foreach($items as $item) {
-									$weight += ($item->getWeight() * $item->getQty()) ;
-								}
-								if ( $weight != 0 )
-									echo $this->__('%0.2f Kg', $weight);
-							?>
-							</div>
-						</td>
-					</tr>
-				</table>
+			<div class="right">
+				<div class="left total-left totals<?php if($this->helper('customer')->isLoggedIn()):?> loggedin<?php endif;?>">
+					<?php echo $this->getChildHtml('totals'); ?>
+				</div>
+				<div class="sum-cart left">
+					<table>
+						<tr>
+							<td class="a-center sum-qty hi-res<?php if($this->helper('customer')->isLoggedIn()):?> loggedin<?php endif;?>">
+								<div><?php echo Mage::getModel('checkout/cart')->getQuote()->getItemsQty(); ?></div>
+							</td>
+							<td class="a-right sum-weight hi-res<?php if($this->helper('customer')->isLoggedIn()):?> loggedin<?php endif;?>">
+								<div>
+								<?php 
+									$items = $this->getItems();
+									$weight = 0;
+									foreach($items as $item) {
+										$weight += ($item->getWeight() * $item->getQty()) ;
+									}
+									if ( $weight != 0 )
+										echo $this->__('%0.2f Kg', $weight);
+								?>
+								</div>
+							</td>
+						</tr>
+					</table>
+				</div>
+				<div class="right total-right totals<?php if($this->helper('customer')->isLoggedIn()):?> loggedin<?php endif;?>">
+					<?php echo $this->getChildHtml('totals'); ?>
+				</div>
 			</div>
 		</div>
 		<div class="continue-checkout">
@@ -180,7 +187,7 @@
 					<?php if($this->helper('customer')->isLoggedIn()) : ?>
 						<a href="#"><?php echo $this->__('One Click Checkout') ?></a>
 					<?php else : ?>
-						<a href="/customer/account/login/"><?php echo $this->__('Login') ?></a>
+						<a href="/customer/account/login/"><?php echo $this->__('Log in') ?></a>
 						<?php echo $this->__('to turn on One Click Checkout') ?>
 					<?php endif; ?>
 				</div>			

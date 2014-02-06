@@ -40,13 +40,15 @@
     var categoryToGenerate = jQuery('input[name=category_to_generate]:checked').val();
     var trafficSourceGenerate = jQuery('input[name=traffic_source_generate]').val();
     var categoryOptionToGenerate = null;
+    var storeId = '<?php echo Mage::app()->getStore()->getStoreId();?>';
 
     var config = {
         url: '<?php echo $this->getUrlProductsScriptRequest();?>',
         msg: {'generateLink' : '<?php echo $this->__('Link generation...');?>'},
         cat: categoryToGenerate,
         catOpt: categoryOptionToGenerate,
-        wh: widthToGenerate
+        wh: widthToGenerate,
+        storeId: storeId
     };
     jQuery('#category_option').hide();
 
@@ -84,13 +86,14 @@
         config["cat"] = categoryToGenerate;
         config["catOpt"] = categoryOptionToGenerate;
         config["wh"]  = widthToGenerate;
-
-        jQuery('#frameDemo').attr('src', '<?php echo Mage::getBaseUrl();?>affiliate/customer_affiliate/productsScript/campaign_id/'+campaignId+'/affiliate_id/'+affiliateId+'/traffic_source_generate/'+trafficSourceGenerate+'/width_to_generate/'+widthToGenerate+'/category_to_generate/'+categoryToGenerate+'/category_option_to_generate/'+categoryOptionToGenerate);
+        config["storeId"] = storeId;
+        
+        jQuery('#frameDemo').attr('src', '<?php echo Mage::getBaseUrl();?>affiliate/customer_affiliate/productsScript/campaign_id/'+campaignId+'/affiliate_id/'+affiliateId+'/traffic_source_generate/'+trafficSourceGenerate+'/width_to_generate/'+widthToGenerate+'/category_to_generate/'+categoryToGenerate+'/store_id/'+storeId+'/category_option_to_generate/'+categoryOptionToGenerate);
 
         AWGenerateLinkProducts.initialize(config);
     });
 
-    jQuery('#frameDemo').attr('src', '<?php echo Mage::getBaseUrl();?>affiliate/customer_affiliate/productsScript/campaign_id/'+campaignId+'/affiliate_id/'+affiliateId+'/traffic_source_generate/'+trafficSourceGenerate+'/width_to_generate/'+widthToGenerate+'/category_to_generate/'+categoryToGenerate+'/category_option_to_generate/'+categoryOptionToGenerate);
+    jQuery('#frameDemo').attr('src', '<?php echo Mage::getBaseUrl();?>affiliate/customer_affiliate/productsScript/campaign_id/'+campaignId+'/affiliate_id/'+affiliateId+'/traffic_source_generate/'+trafficSourceGenerate+'/width_to_generate/'+widthToGenerate+'/category_to_generate/'+categoryToGenerate+'/store_id/'+storeId+'/category_option_to_generate/'+categoryOptionToGenerate);
     
     AWGenerateLinkProducts.initialize(config);
 
