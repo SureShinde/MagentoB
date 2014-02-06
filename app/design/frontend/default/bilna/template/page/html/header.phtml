@@ -34,6 +34,10 @@ $j(document).ready(function(){
 	$j(window).scroll(function(){
 		  if ($j(this).scrollTop() > 100) {
 	          $j(".header-container .sticky-header-wrapper").fadeIn();
+	          if($j('.mini-cart').is(':visible'))
+	          {
+		          $j('.mini-cart').fadeOut();
+	          }
 	      } else {
 	          $j(".header-container .sticky-header-wrapper").fadeOut();
 	      }
