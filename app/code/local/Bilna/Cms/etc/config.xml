@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Bilna_Cms>
-            <version>0.1.18</version>
+            <version>0.1.19</version>
         </Bilna_Cms>
     </modules>
     <global>
