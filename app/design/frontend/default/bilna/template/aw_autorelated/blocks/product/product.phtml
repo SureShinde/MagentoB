@@ -61,12 +61,11 @@ if ($this->getPosition() == AW_Autorelated_Model_Source_Position::INSTEAD_NATIVE
                         <?php foreach ($collection as $product) : ?>
                             <li class="aw-arp-item">
 								<div class="aw-arp-item-left">
-									<a href="<?php echo $abstractBlock->getProductUrl($product) ?>"><img src="<?php echo $this->helper('catalog/image')->init($product, 'thumbnail')->resize(75) ?>" alt="<?php echo $this->htmlEscape($product->getName()) ?>" width="75" height="75" /></a><br />
+									<a href="<?php echo $abstractBlock->getProductUrl($product) ?>"><img src="<?php echo $this->helper('catalog/image')->init($product, 'thumbnail')->resize(200) ?>" alt="<?php echo $this->htmlEscape($product->getName()) ?>" width="75" height="75" /></a><br />
 									<div class="aw-arp-product-name-wrap">
 										<a class="aw-arp-product-name" href="<?php echo $abstractBlock->getProductUrl($product) ?>"><?php echo $this->htmlEscape($product->getName()) ?></a><br />
 									</div>
 									<?php echo $abstractBlock->getPriceHtml($product, true, '-related') ?>
-									<?php echo $abstractBlock->getReviewsSummaryHtml($product, false, true)?>
                                 </div>
 								<?php if ($product->isSaleable()) : ?>
                                   <div class="aw-arp-addtocart">

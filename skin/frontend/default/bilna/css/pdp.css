@@ -348,6 +348,7 @@
 .product-view .product-img-box {
 	width: 400px;
 	margin: 50px 0;
+	position: relative;
 }
 .product-view .product-img-box .onsale-product-container {
 	float: right;
@@ -802,9 +803,6 @@
 		margin-left: 15px;
 		margin-right: 15px;
 	}
-	.product-view .product-shop .price-box {
-		float: left;
-	}
 	.product-view .product-shop .product-shop-left .ratings {
 		clear: none;
 		float: right;
@@ -927,9 +925,12 @@
 /* --------------- 320 px layout -------------------- */
 @media (max-width: 479px) {
 	.product-view .product-shop .product-shop-right {
-		width: 170px;
+		width: 257px;
 	}
 	.product-view .product-img-box {
 		margin-bottom: 50px;
+	}
+	.product-shop-right .header-container-link {
+		padding: 50px 0px 0px 0px;
 	}
 }

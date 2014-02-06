@@ -88,7 +88,7 @@
     <div class="more-views-slider">
     <?php foreach ($this->getGalleryImages() as $_image): ?>
 		<div class="slide<?php if (count($this->getGalleryImages()) < 5): echo " no-slider"; endif; ?>">
-			<img class="cloudzoom-gallery" data-cloudzoom = "useZoom: '.cloudzoom', image: '<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'image', $_image->getFile())->resize(265); ?>', zoomImage: '<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'image', $_image->getFile()); ?>' " src="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'thumbnail', $_image->getFile())->resize(56); ?>" width="56" height="56" alt="<?php echo $this->escapeHtml($_image->getLabel()) ?>" />
+			<img class="cloudzoom-gallery" data-cloudzoom = "useZoom: '.cloudzoom', image: '<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'image', $_image->getFile())->resize(265); ?>', zoomImage: '<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'image', $_image->getFile())->resize(700); ?>' " src="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'thumbnail', $_image->getFile())->resize(56); ?>" width="56" height="56" alt="<?php echo $this->escapeHtml($_image->getLabel()) ?>" />
 		</div>
     <?php endforeach; ?>
     </div>
