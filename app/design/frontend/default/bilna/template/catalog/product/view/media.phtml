@@ -43,7 +43,7 @@
    <?php echo Mage::helper('onsale')->getProductLabelHtml($_product, 265); ?>
 	<p class="product-image product-image-zoom">
 	    <?php
-			$zoom_large_img = "zoomImage: '".$this->helper('catalog/image')->init($_product, 'image')."'";
+			$zoom_large_img = "zoomImage: '".$this->helper('catalog/image')->init($_product, 'image')->resize(700)."'";
 	        $_img = '<img id="image" class="cloudzoom" data-cloudzoom="'.$zoom_large_img.'" src="'.$this->helper('catalog/image')->init($_product, 'image')->resize(265).'" height="265" width="265" />';
 	        echo $_helper->productAttribute($_product, $_img, 'image');
 	    ?>
@@ -54,7 +54,7 @@
    <?php echo Mage::helper('onsale')->getProductLabelHtml($_product, 265); ?>
 	<p class="product-image">
 	    <?php
-			$zoom_large_img = "zoomImage: '".$this->helper('catalog/image')->init($_product, 'image')."'";
+			$zoom_large_img = "zoomImage: '".$this->helper('catalog/image')->init($_product, 'image')->resize(700)."'";
 	        $_img = '<img class="cloudzoom" data-cloudzoom="'.$zoom_large_img.'" src="'.$this->helper('catalog/image')->init($_product, 'image')->resize(265).'" alt="'.$this->escapeHtml($this->getImageLabel()).'" title="'.$this->escapeHtml($this->getImageLabel()).'" />';
 	        echo $_helper->productAttribute($_product, $_img, 'image');
 	    ?>
