@@ -131,6 +131,9 @@
 			<remove name="product.info.options.wrapper.bottom"/>
 			<block type="ajaxlogin/overwriterToplinks" name="al_ow_oneclicklinks" as="al_ow_oneclicklinks_as" template="ajaxlogin/overwritter.oneclicklinks.phtml"/>
 		</reference>
+		<reference name="product.info.additional">
+			<remove name="product_tag_list"/>
+		</reference>
 		<reference name="content">
 			<block type="relatedproducts/relatedproducts" name="catalog.product.awrelated.community" as="awrelatedproducts" template="catalog/product/list/awrelated.phtml">
 					<action method="disableRelated"/>

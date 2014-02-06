@@ -69,10 +69,6 @@
 				<?php echo $this->getChildHtml('product_type_data') ?>
 				<?php echo $this->getReviewsSummaryHtml($_product, false, true)?>
 				
-				<?php $stock_left = Mage::getModel('cataloginventory/stock_item')->loadByProduct($_product)->getQty() ?>
-				<div class="stock-left">
-					<p><?php echo $this->__('Only %d left in stock', $stock_left) ?></p>
-				</div>
 				<?php
 					$ship_from = $_helper->productAttribute($_product, $_product->getShipFrom(), 'ship_from');
 					$sold_by   = $_helper->productAttribute($_product, $_product->getSoldBy(), 'sold_by');
@@ -300,3 +296,4 @@
 	// ]]>
 	</script>
 </div>
+<?php echo $this->getChildHtml('product_additional_data') ?>
