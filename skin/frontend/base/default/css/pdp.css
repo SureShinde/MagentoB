@@ -213,9 +213,18 @@
 	font-weight: bold;
 	line-height: 2.3em;
 }
+.product-shop-right .header-container {
+	width: 230px;
+	margin: 10px auto;
+}
 .product-view .product-shop .product-shop-right .one-click-checkout a {
 	color: white;
 	font-size: 1.23em;
+}
+.product-shop-right .header-container a {
+	font-weight: bold;
+	color: #ffa01b;
+	text-decoration: underline;
 }
 .product-view .product-shop .product-shop-right .buy-later {
 	width: 230px;
@@ -836,11 +845,6 @@
 	.product-view .product-img-box .product-image-zoom img {
 		position: inherit;
 	}
-	
-	/* .short-description-mobile {
-		display: block;
-		margin-bottom: 30px;
-	} */
 	.product-tab-wrapper {
 		display: none;
 	}

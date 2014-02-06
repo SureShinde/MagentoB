@@ -437,7 +437,7 @@
 .header .mini-cart {
 	display: none;
 	position: absolute;
-	right: 67px;
+	right: 69px;
 	top:30px;
 	border: 1px solid #ffa01b;
 	background: #fff;
@@ -1295,7 +1295,7 @@
 	.sticky-header ul.sticky-menu li.link-customer-care2 a {
 		font-size: 12px;
 		padding-left: 0;
-		line-height: 24px;
+		line-height: 30px;
 		background: none;
 		padding-top: 2px;
 	}
@@ -1308,6 +1308,9 @@
 		background: none;
 		padding-left: 3px;
 		padding-right: 3px;
+	}
+	.sticky-header .sticky-search .form-search .input-keyword input.input-text {
+		width: 124px;
 	}
 	.keypoint {
 		margin-left: 13px;
@@ -1416,6 +1419,9 @@
 	}
 	.dash, .menu-top, .menu-blog, .keypoint, .form-language select, .header .quick-access .top-cart a.link-checkout, .header .quick-access .left, .header .form-search button.button, #nav li.shop-by, #nav ul li .right-columns, #nav ul li .left-columns h2, .header .quick-access .top-cart a.link-blog, .header .quick-access .form-search, #nav li.menu-salegift, .menu-tablet {
 		display: none;
+	}
+	.header .my-account-mobile ul.links {
+		display: block;
 	}
 	.header .my-account-mobile ul.links li {
 		display: block;
