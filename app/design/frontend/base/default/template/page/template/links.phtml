@@ -33,7 +33,7 @@
 <?php if(count($_links)>0): ?>
 <ul class="links"<?php if($this->getName()): ?> id="<?php echo $this->getName() ?>"<?php endif;?>>
     <?php if(!$this->helper('customer')->isLoggedIn()):?>
-    <li class="track-order"><a href="/orderdetail" class="link-trackorder"><?php echo $this->__('Track Order') ?></a></li>
+    <li class="track-order"><a href="<?php echo $this->getUrl('orderdetail'); ?>" class="link-trackorder"><?php echo $this->__('Track Order') ?></a></li>
 	<?php endif?>
     <?php foreach($_links as $_link): ?>
         <?php if ($_link instanceof Mage_Core_Block_Abstract):?>
@@ -44,20 +44,19 @@
         <?php endif;?>
     <?php endforeach; ?>
     <?php if($this->helper('customer')->isLoggedIn()):?>
-		<li class="myaccount"><a href="#" class="link-trigger-myaccount"><?php echo $this->__('Hello, %s', Mage::getSingleton('customer/session')->getCustomer()->getFirstname()) ?></a>
-			<div class="toplink-myaccount">
-				<ul>
-					<li><a href="<?php echo $this->getUrl('customer/account/edit')?>"><?php echo $this->__('Account Information') ?></a></li>
-					<li><a href="<?php echo $this->getUrl('sales/order/history')?>"><?php echo $this->__('My Orders') ?></a></li>
-					<!--  <li><a href="<?php echo $this->getUrl('customer/account/sales/order/history')?>"><?php echo $this->__('Track Orders') ?></a></li> -->
-					<li><a href="<?php echo $this->getUrl('review/customer')?>"><?php echo $this->__('My Product Reviews') ?></a></li>
-					<li><a href="<?php echo $this->getUrl('points/invitation')?>"><?php echo $this->__('My Invitation') ?></a></li>
-					<li><a href="<?php echo $this->getUrl('points/reward')?>"><?php echo $this->__('Bilna Credits') ?></a></li>
-					<li><a href="<?php echo $this->getUrl('customer/account/logout')?>"><?php echo $this->__('Log Out') ?></a></li>
-				</ul>
-			</div>
-		</li>
-		
-	<?php endif?>
+        <li class="myaccount"><a href="#" class="link-trigger-myaccount"><?php echo $this->__('Hello, %s', Mage::getSingleton('customer/session')->getCustomer()->getFirstname()) ?></a>
+            <div class="toplink-myaccount">
+                <ul>
+                    <li><a href="<?php echo $this->getUrl('customer/account/edit')?>"><?php echo $this->__('Account Information') ?></a></li>
+                    <li><a href="<?php echo $this->getUrl('sales/order/history')?>"><?php echo $this->__('My Orders') ?></a></li>
+                    <!--  <li><a href="<?php echo $this->getUrl('customer/account/sales/order/history')?>"><?php echo $this->__('Track Orders') ?></a></li> -->
+                    <li><a href="<?php echo $this->getUrl('review/customer')?>"><?php echo $this->__('My Product Reviews') ?></a></li>
+                    <li><a href="<?php echo $this->getUrl('points/invitation')?>"><?php echo $this->__('My Invitation') ?></a></li>
+                    <li><a href="<?php echo $this->getUrl('points/reward')?>"><?php echo $this->__('Bilna Credits') ?></a></li>
+                    <li><a href="<?php echo $this->getUrl('customer/account/logout')?>"><?php echo $this->__('Log Out') ?></a></li>
+                </ul>
+            </div>
+        </li>
+    <?php endif?>
 </ul>
 <?php endif; ?>
