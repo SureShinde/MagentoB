@@ -218,7 +218,7 @@
 }
 .header .menu-top {
 	left: 0;
-	width: 500px;
+	width: 398px;
 }
 .header .menu-blog {
 	right:0;
@@ -245,14 +245,29 @@
 	width: 110px;
 	padding: 3px 0;
 }
+.menu-top ul li:hover {
+	background: #95E1F1;
+	width: 110px;
+	padding: 3px 0;
+}
+.menu-top ul li:first-child:hover {
+	background: #95E1F1;
+	width: 110px;
+	padding: 3px 0;
+}
 .menu-top ul li a {
 	display: block;
 	color: #fff;
 	text-decoration:none;
 }
 .menu-top ul li:hover, .menu-top ul li.active {
-	background: #ffb39c;
+	background: #95E1F1;
 } 
+.menu-top ul li:last-child:hover, .menu-top ul li:last-child.active {
+	background: #ffb39c;
+	width: 110px;
+	padding: 3px 0;
+}
 .menu-blog span {
 	background: #95e1f1;
 	padding: 0 0 5px 0;
@@ -271,7 +286,7 @@
 }
 .keypoint {
 	float: left;
-	margin: 40px 0 0 13px;
+	margin: 40px 0 0 26px;
 }
 .keypoint ul li {
 	padding: 0 0 0 40px;

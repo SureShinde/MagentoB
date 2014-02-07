@@ -277,7 +277,7 @@
 }
 .header .menu-top {
 	left: 0;
-	width: 500px;
+	width: 398px;
 }
 .header .menu-blog {
 	right:0;
@@ -308,6 +308,9 @@
 .menu-top ul li:hover, .menu-top ul li.active {
 	background: #95e1f1;
 } 
+.menu-top ul li:last-child:hover {
+	background: #ffb39c;
+}
 .menu-blog span {
 	background: #95e1f1;
 	padding: 0 0 5px 0;
@@ -765,6 +768,7 @@
 	width: 97px;
 	border: none;
 	color: #bababa;
+	padding: 0;
 }
 .header .form-search .input-keyword .select-category {
 	float: right;

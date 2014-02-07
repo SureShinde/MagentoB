@@ -1,15 +1,7 @@
 .checkout-onepage-index .page-title {
-	background: #fd8e17;
-
-.checkout-onepage-index .page-title h1 {
-	color: #fff;
-	font-size: 14px;
-	font-family: 'bebasregular';
-	font-weight: normal;
-	text-transform: uppercase;
-	padding: 7px 0 7px 40px;
-	background: url(../images/arrow-title.png) no-repeat 10px center;
-	letter-spacing: 1px;
+	background: #fd8e17;	
+	display: none;
+}
 .checkout-onepage-index .col-main {
 	margin-bottom: 30px;
 }
@@ -38,11 +30,16 @@
     background-image:url(../images/btn-buynow.png);
     height:36px;
     line-height:21px;
-    color: #fff;
-	font-family: Helvetica;
-    font-size: 1em;
-    font-weight: normal;
-    text-transform: uppercase;
+}
+#checkoutSteps .buttons-set button.button.btn-checkout {
+	width: auto;
+}
+#checkoutSteps .buttons-set button.button span, #checkoutSteps .buttons-set button.button span span, .opc .buttons-set .back-link a {
+	text-transform: uppercase;
+	font-size: 14px;
+	font-family: 'bebasregular';
+	font-weight: normal;
+	letter-spacing: 1px;
 }
 #checkoutSteps .buttons-set button.button span, #checkoutSteps .buttons-set button.button span span {
 	color: #fff;
@@ -56,8 +53,9 @@
 .opc .step-title {
 	padding-top: 8px;
 	padding-bottom: 8px;
-	background: #f2f2f2;
-	border: 1px solid #dadada;
+	background: #c5c5c5;
+	border: none;	
+	margin-bottom: 1px;
 }
 .opc .step-title h2, .opc .step-title .number {
 	text-transform: uppercase;
@@ -65,7 +63,8 @@
 	font-family: 'bebasregular';
 	font-weight: normal;
 	letter-spacing: 1px;
-	color: #707070;
+	color: #fff;
+	line-height: 22px;
 }
 .opc .step-title .number, .opc .active .step-title .number, .opc .allow .step-title .number  {
 	background: url(../images/bg-number.png) no-repeat left top;
