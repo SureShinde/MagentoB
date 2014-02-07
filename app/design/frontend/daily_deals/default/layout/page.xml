@@ -39,8 +39,8 @@ Default layout, loads most of the pages
                 <action method="addJs"><script>zurb/vendor/modernizr.js</script></action>
 				<action method="addJs"><script>zurb/vendor/jquery.js</script></action>
                 <action method="addJs"><script>zurb/vendor/fastclick.js</script></action>
-				<!--zurb-->
-				
+				<!--zurb-->	
+				<action method="addJs"><script>aw_collpur/modernizr.custom.js</script></action>
                 <action method="addJs"><script>prototype/prototype.js</script></action>
                 <action method="addJs"><script>lib/ccard.js</script></action>
                 <action method="addJs"><script>prototype/validation.js</script></action>

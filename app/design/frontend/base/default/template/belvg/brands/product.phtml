@@ -39,5 +39,5 @@
  */
 ?>
 <?php if($_brand = $this->getBrand()):?>
-<p><?php echo $this->__('By ')?><span><a href="<?php echo $_brand->getUrl()?>"><?php echo $this->escapeHtml($_brand->getTitle())?></a></span></p>
+<p><?php echo $this->__('By ')?><span><?php echo $this->escapeHtml($_brand->getTitle())?> <!--<a href="<?php //echo $_brand->getUrl()?>"><?php //echo $this->escapeHtml($_brand->getTitle())?></a>--></span></p>
 <?php endif?>
