@@ -68,11 +68,19 @@ if ($this->getPosition() == AW_Autorelated_Model_Source_Position::INSTEAD_NATIVE
 									<?php echo $abstractBlock->getPriceHtml($product, true, '-related') ?>
                                 </div>
 								<?php if ($product->isSaleable()) : ?>
+                                  <?php if($product->isConfigurable()):?>  
                                   <div class="aw-arp-addtocart">
                                     <p>
-										<a class="link-cart" href="javascript:setLocation('<?php echo $abstractBlock->getAddToCartUrl($product) ?>');"><?php echo $this->__('Buy Now') ?></a>                                            
+										<a class="link-cart" href="<?php echo $product->getProductUrl() ?>" title="<?php echo $this->stripTags($product->getName(), null, true) ?>"><?php echo $this->__('Buy Now') ?></a>                                         
 									</p>
-                               </div>
+                                  </div>
+                                  <?php else : ?>
+                                  <div class="aw-arp-addtocart">
+                                    <p>
+                                        <a class="link-cart" href="javascript:setLocation('<?php echo $abstractBlock->getAddToCartUrl($product) ?>');"><?php echo $this->__('Buy Now') ?></a>                                            
+                                    </p>
+                                  </div>
+                                  <?php endif ?>
                                 <?php else : ?>
                                     <p class="availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></p>
                                 <?php endif ?>
