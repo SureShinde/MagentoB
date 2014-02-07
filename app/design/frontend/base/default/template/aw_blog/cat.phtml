@@ -55,7 +55,7 @@
                 <?php endif; ?><?php echo$this->__("By"); ?> <?php echo $post->getUser(); ?></div>
         </div>
     <?php endforeach; ?>
- <?php //echo $this->getChildHtml('aw_blog_comments_toolbar'); ?>
+ <?php echo $this->getChildHtml('aw_blog_comments_toolbar'); ?>
 <?php else: ?>
     <?php echo Mage::helper('blog')->__('No Posts in this Category.'); ?>
 <?php endif; ?>
