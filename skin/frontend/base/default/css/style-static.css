@@ -1016,6 +1016,39 @@ animation-timing-function: linear;
 /*style Tanya Ahli */
 
 
+/*testimonial*/
+.static-tagline{
+	font-size:14px;
+	color:#c1c1c1;	
+	margin: 0 !important;
+}
+.static-page-content > h3 {
+    font-size: 21px;
+	color:#4ec7da;
+}
+.static-testi-row {
+	margin:15px 0 0;
+}
+.static-testi-row h3{
+	font-size:18px;
+	color:#a0da4e;
+}
+.static-testi-row h2{
+	color: #FFB041;
+    font-weight: bold;
+}
+.static-testi-row p{
+	font-size:12px;
+	line-height:20px;
+	color:#989898;
+}
+.static-page-content table tr td {
+    border-bottom: 1px solid #caefdc;
+    color: #666666;
+    font-size: 14px;
+    padding: 5px;
+}
+/*end testimonial*/
 
 
 
