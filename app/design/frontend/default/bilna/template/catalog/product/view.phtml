@@ -73,9 +73,6 @@
 					$ship_from = $_helper->productAttribute($_product, $_product->getShipFrom(), 'ship_from');
 					$sold_by   = $_helper->productAttribute($_product, $_product->getSoldBy(), 'sold_by');
 				?>
-				<div class="shipsfrom-soldby">
-					<p><?php echo $this->__('Ships from <span>%s</span> and sold by <span>%s</span>', ( $ship_from ? $ship_from : '-'), ( $sold_by ? $sold_by : '-')) ?></p>
-				</div>
 				
 				<?php echo $this->getTierPriceHtml() ?>
 				<?php echo $this->getChildHtml('alert_urls') ?>
@@ -99,7 +96,7 @@
 			
 			<div class="product-shop-right">
 				<?php if (!$this->hasOptions()):?>
-					<div class="add-to-box">
+					<div class="add-to-box <?php if($_product->isGrouped()) echo 'btn-buy-grouped';?>">
 						<?php if($_product->isSaleable()): ?>
 							<?php echo $this->getChildHtml('addtocart') ?>
 						<?php endif; ?>
