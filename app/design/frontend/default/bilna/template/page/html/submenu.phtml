@@ -1,0 +1,75 @@
+<?php
+/**
+ * Magento Enterprise Edition
+ *
+ * @author      Guidance Magento Team <magento@guidance.com>
+ * @category    design
+ * @package     enterprise_rtb
+ * @copyright   Copyright (c) 2013 Guidance Solutions (http://www.guidance.com)
+ *
+ */
+?>
+<?php $child = $this->getData('child'); ?>
+<?php $name = ($child->getData('shortname'))?$child->getData('shortname'):$child->getData('name'); ?>
+<li>
+    <div class="left-columns">
+        <h2><?php echo $name ?></h2>
+        <div class="view-box">
+            <?php
+            $children = $child->getChildren();
+            $counter = 0;
+            $limCounter = ceil($children->count()/4);
+            $catCounter =$children->count();
+            ?>
+            <ul>
+            <?php foreach ($children as $submenu): ?>
+                <li>
+                	<?php $trimmed = str_replace( " ", "", $this->escapeHtml($submenu->getName())) ?>
+                	
+		                	<?php if(strtolower($trimmed)=='whatsnew'):?>
+		                		<a href="<?php echo $submenu->getUrl()?>" class="<?php echo strtolower($trimmed) ?>">
+                		<span><?php echo $this->__('Whats New?')?></span></a>
+		                	<?php elseif(strtolower($trimmed)=='onsale'):?>
+		                		<a href="<?php echo $submenu->getUrl()?>" class="<?php echo strtolower($trimmed) ?>">
+                		<span><?php echo $this->__('On Sale!')?></span></a>
+		                	<?php else:?>
+		                		<a href="<?php echo $submenu->getUrl()?>" class="<?php echo strtolower($trimmed) ?>">
+                		<span><?php echo $this->escapeHtml($submenu->getName())?></span></a>
+		                	<?php endif;?>
+                		
+                	
+                </li>
+                <?php $counter++;?>
+            <?php endforeach; ?>
+            </ul>
+            <div class="clear"></div>
+        </div>
+        <div class="devider"></div>
+    </div>
+    <div class="right-columns">
+      <?php 
+      	$static = $child->getData();
+      	echo trim($this->getLayout()->createBlock('cms/block')->setBlockId($static['staticblock'])->toHtml());
+      ?>
+    	<div class="clear"></div>
+    	<?php $productData = $child->getFeaturedProduct(); ?>
+	    <?php if($productData): ?>
+	        <div class="featured-product">
+	        	<?php 
+	        		$product =  Mage::getModel('catalog/product')->load($productData['product_id']); 
+	            	$_imageUrl =  Mage::helper('catalog/image')->init($product, 'small_image')->resize(131, 192);
+	        	?>
+	            <?php if ($_imageUrl): ?>
+	                <a href="<?php echo $product->getProductUrl(); ?>"
+	                   class="featured-image">
+	                    <img src="<?php echo $_imageUrl; ?>"/>
+	                </a>
+	            <?php endif; ?>
+	        </div>
+	    <?php else: ?>
+	        <?php echo $this->__('Featured Products Not Available')?>
+	    <?php endif;?>
+    </div>
+    <div class="clear"></div>
+    <a href="<?php echo $child->getUrl()?>" class="browse-all"><?php echo $this->__('Browse All')?></a>
+</li>

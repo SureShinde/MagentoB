@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layout version="0.1.0">
+    <default>
+        <reference name="head">
+            <action method="addCss"><name>aw_islider/representations/default/style.css</name></action>
+        </reference>
+        <reference name="left">
+            <block type="awislider/block" name="awis.sidebar.left.bottom" />
+        </reference>
+        <reference name="right">
+            <block type="awislider/block" name="awis.sidebar.right.bottom" />
+        </reference>
+        <reference name="content">
+            <block type="awislider/block" name="awis.content.top" before="-" />
+        </reference>
+    </default>
+    <catalog_product_gallery>
+        <reference name="content">
+            <remove name="awis.content.top" />
+        </reference>
+    </catalog_product_gallery>
+    <catalog_product_compare_index>
+        <reference name="content">
+            <remove name="awis.content.top" />
+        </reference>
+    </catalog_product_compare_index>
+    <shipping_tracking_popup>
+        <reference name="content">
+            <remove name="awis.content.top" />
+        </reference>
+    </shipping_tracking_popup>
+</layout>

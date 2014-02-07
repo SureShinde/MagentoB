@@ -124,33 +124,40 @@
 			</fieldset>
 		</form>
 		<div class="coupon-total">
-			<div class="coupon">
-				<?php echo $this->getChildHtml('coupon') ?>
+			<div class="left">
+				<div class="coupon">
+					<?php echo $this->getChildHtml('coupon') ?>
+				</div>
 			</div>
-			<div class="totals<?php if($this->helper('customer')->isLoggedIn()):?> loggedin<?php endif;?>">
-				<?php echo $this->getChildHtml('totals'); ?>
-			</div>
-			<div class="sum-cart">
-				<table>
-					<tr>
-						<td class="a-center sum-qty hi-res<?php if($this->helper('customer')->isLoggedIn()):?> loggedin<?php endif;?>">
-							<div><?php echo Mage::getModel('checkout/cart')->getQuote()->getItemsQty(); ?></div>
-						</td>
-						<td class="a-right sum-weight hi-res<?php if($this->helper('customer')->isLoggedIn()):?> loggedin<?php endif;?>">
-							<div>
-							<?php 
-								$items = Mage::getSingleton('checkout/session')->getQuote()->getAllItems();
-								$weight = 0;
-								foreach($items as $item) {
-									$weight += ($item->getWeight() * $item->getQty()) ;
-								}
-								if ( $weight != 0 )
-									echo $this->__('%0.2f Kg', $weight);
-							?>
-							</div>
-						</td>
-					</tr>
-				</table>
+			<div class="right">
+				<div class="left total-left totals<?php if($this->helper('customer')->isLoggedIn()):?> loggedin<?php endif;?>">
+					<?php echo $this->getChildHtml('totals'); ?>
+				</div>
+				<div class="sum-cart left">
+					<table>
+						<tr>
+							<td class="a-center sum-qty hi-res<?php if($this->helper('customer')->isLoggedIn()):?> loggedin<?php endif;?>">
+								<div><?php echo Mage::getModel('checkout/cart')->getQuote()->getItemsQty(); ?></div>
+							</td>
+							<td class="a-right sum-weight hi-res<?php if($this->helper('customer')->isLoggedIn()):?> loggedin<?php endif;?>">
+								<div>
+								<?php 
+									$items = $this->getItems();
+									$weight = 0;
+									foreach($items as $item) {
+										$weight += ($item->getWeight() * $item->getQty()) ;
+									}
+									if ( $weight != 0 )
+										echo $this->__('%0.2f Kg', $weight);
+								?>
+								</div>
+							</td>
+						</tr>
+					</table>
+				</div>
+				<div class="right total-right totals<?php if($this->helper('customer')->isLoggedIn()):?> loggedin<?php endif;?>">
+					<?php echo $this->getChildHtml('totals'); ?>
+				</div>
 			</div>
 		</div>
 		<div class="continue-checkout">
@@ -175,165 +182,16 @@
 				<?php endif; ?>								
 			</div>
 			
-			<div class="header-container one-click-checkout">
+			<div class="header-container-link one-click-checkout">
 				<div class="links">
 					<?php if($this->helper('customer')->isLoggedIn()) : ?>
 						<a href="#"><?php echo $this->__('One Click Checkout') ?></a>
 					<?php else : ?>
-						<a href="/customer/account/login/"><?php echo $this->__('Login') ?></a>
+						<a href="/customer/account/login/"><?php echo $this->__('Log in') ?></a>
 						<?php echo $this->__('to turn on One Click Checkout') ?>
 					<?php endif; ?>
 				</div>			
-				<script type="text/javascript">
-					if ( typeof AjaxLogin == 'undefined' ) {
-						AjaxLogin = {};
-					}
-					
-					AjaxLogin.BASE_URL_UNSECURE = 'http://local.bilna.com/';
-					AjaxLogin.BASE_URL_SECURE   = 'http://local.bilna.com/';
-					
-					AjaxLogin.BASE_URL          = AjaxLogin.BASE_URL_UNSECURE;
-					
-					
-					/**
-					 * 
-					 */
-					AjaxLogin.sameRoutines = function(urlA, urlB) {
-						if ( typeof urlA != 'string' ) urlA = urlA.toString();
-						if ( typeof urlB != 'string' ) urlB = urlB.toString();
-						
-						if ( urlA.indexOf(AjaxLogin.BASE_URL_UNSECURE) > -1 ) {
-							__routineA_Parts = urlA.split(AjaxLogin.BASE_URL_UNSECURE).join('').split('/').splice(0, 3);
-						}
-						else if ( urlA.indexOf(AjaxLogin.BASE_URL_SECURE) > -1 ) {
-							__routineA_Parts = urlA.split(AjaxLogin.BASE_URL_SECURE).join('').split('/').splice(0, 3);
-						}
-						else {
-							return false;
-						}
-						
-						if ( urlB.indexOf(AjaxLogin.BASE_URL_UNSECURE) > -1 ) {
-							__routineB_Parts = urlB.split(AjaxLogin.BASE_URL_UNSECURE).join('').split('/').splice(0, 3);
-						}
-						else if ( urlB.indexOf(AjaxLogin.BASE_URL_SECURE) > -1 ) {
-							__routineB_Parts = urlB.split(AjaxLogin.BASE_URL_SECURE).join('').split('/').splice(0, 3);
-						}
-						else {
-							return false;
-						}
-						
-						for ( var __index = 0; __index < 3; __index++ ) {
-							if ( (typeof __routineA_Parts[__index] == 'undefined') || (!__routineA_Parts[__index]) ) {
-								__routineA_Parts[__index] = 'index';
-							}
-							if ( (typeof __routineB_Parts[__index] == 'undefined') || (!__routineB_Parts[__index]) ) {
-								__routineB_Parts[__index] = 'index';
-							}
-						}
-						
-						__routineA = __routineA_Parts.join('/');
-						__routineB = __routineB_Parts.join('/');
-						
-						return __routineA == __routineB ? true : false;
-					};
-					
-					$$('.header-container .links a').each(
-						function(node) {
-							if ( AjaxLogin.sameRoutines(node.href, 'http://local.bilna.com/customer/account/login/') ) {
-								Event.observe(
-									node,
-									'click',
-									function(event) {
-										var __overlapRootNode = $$('.al-authorization-container-overlap')[0];
-										__overlapRootNode.style.display = '';
-										var __overlapAuthorizationNode = $$('.al-authorization-container-overlap .al-authorization')[0];
-										var __overlapAuthorizationInstance = AjaxLogin.Authorization.__getInstanceByChildnode(__overlapAuthorizationNode);
-										__overlapAuthorizationInstance.switchToFrame('login');
-										
-										if (window.event) window.event.cancelBubble = true;
-										if (window.event) window.event.returnValue = false;
-										event.preventDefault();
-										event.stopPropagation();
-										
-										return false;
-									}
-								);
-							}
-							if ( AjaxLogin.sameRoutines(node.href, 'http://local.bilna.com/customer/account/logout/') ) {
-								Event.observe(
-									node,
-									'click',
-									function(event) {
-										var __overlapAuthorizationNode = $$('.al-authorization-container-overlap .al-authorization')[0];
-										var __overlapAuthorizationInstance = AjaxLogin.Authorization.__getInstanceByChildnode(__overlapAuthorizationNode);
-										__overlapAuthorizationInstance.getFrame('login').logout();
-										
-										if (window.event) window.event.cancelBubble = true;
-										if (window.event) window.event.returnValue = false;
-										event.preventDefault();
-										event.stopPropagation();
-										return false;
-									}
-								);
-							}
-							if ( AjaxLogin.sameRoutines(node.href, 'http://local.bilna.com/customer/account/create/') ) {
-								Event.observe(
-									node,
-									'click',
-									function(event) {
-										var __overlapRootNode = $$('.al-authorization-container-overlap')[0];
-										__overlapRootNode.style.display = '';
-										var __overlapAuthorizationNode = $$('.al-authorization-container-overlap .al-authorization')[0];
-										var __overlapAuthorizationInstance = AjaxLogin.Authorization.__getInstanceByChildnode(__overlapAuthorizationNode);
-										__overlapAuthorizationInstance.switchToFrame('register');
-										
-										if (window.event) window.event.cancelBubble = true;
-										if (window.event) window.event.returnValue = false;
-										event.preventDefault();
-										event.stopPropagation();
-										return false;
-									}
-								);
-							}
-						}
-					);
-					
-					
-					/**
-					 * 
-					 */
-					if ( typeof window.mainNav == 'function' ) {
-						mainNav("nav", {"show_delay":"100","hide_delay":"100"});
-					}
-					
-					
-					/**
-					 * 
-					 */
-					Event.observe(
-						window,
-						'load',
-						function() {
-							if (typeof window.customer_dob != 'undefined') {
-								delete window.customer_dob;
-								
-								var __rootNode = $$('.customer-dob')[0];
-								new Varien.DateElement(
-									'container',
-									{
-										month  : Element.select(__rootNode, '.dob-month input')[0],
-										day    : Element.select(__rootNode, '.dob-day input')[0],
-										year   : Element.select(__rootNode, '.dob-year input')[0],
-										full   : Element.select(__rootNode, '.dob-full input')[0],
-										advice : Element.select(__rootNode, '.validation-advice')[0]
-									},
-									true,
-									AjaxLogin.DATE_FORMAT
-								);
-							}
-						}
-					);
-				</script>
+				<?php echo $this->getChildHtml('al_ow_oneclicklinks_as'); ?>
 			</div>
 			
 		</div>

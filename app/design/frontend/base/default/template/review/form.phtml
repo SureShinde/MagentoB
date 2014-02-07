@@ -30,7 +30,8 @@
     <form action="<?php echo $this->getAction() ?>" method="post" id="review-form">
         <fieldset>
             <?php echo $this->getChildHtml('form_fields_before')?>
-            <h3><?php echo $this->__("You're reviewing:"); ?> <span><?php echo $this->escapeHtml($this->getProductInfo()->getName()) ?></span></h3>
+            <h3 class="review-note"><?php echo $this->__("You're reviewing:"); ?> <span><?php echo $this->escapeHtml($this->getProductInfo()->getName()) ?></span></h3>
+			<div style="clear: both;height: 20px;"></div>
             <?php if( $this->getRatings() && $this->getRatings()->getSize()): ?>
                 <h4><?php echo $this->__('How do you rate this product?') ?> <em class="required">*</em></h4>
                 <span id="input-message-box"></span>
@@ -87,7 +88,7 @@
                 </ul>
             </fieldset>
             <div class="buttons-set">
-                <button type="submit" title="<?php echo $this->__('Submit Review') ?>" class="button"><span><span><?php echo $this->__('Submit Review') ?></span></span></button>
+                <button type="submit" title="<?php echo $this->__('Submit Review') ?>" class="button" style="float:;left;"><span><span><?php echo $this->__('Submit Review') ?></span></span></button>
             </div>
     </form>
     <script type="text/javascript">

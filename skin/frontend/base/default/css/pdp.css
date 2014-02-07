@@ -213,9 +213,18 @@
 	font-weight: bold;
 	line-height: 2.3em;
 }
+.product-shop-right .header-container {
+	width: 230px;
+	margin: 10px auto;
+}
 .product-view .product-shop .product-shop-right .one-click-checkout a {
 	color: white;
 	font-size: 1.23em;
+}
+.product-shop-right .header-container a {
+	font-weight: bold;
+	color: #ffa01b;
+	text-decoration: underline;
 }
 .product-view .product-shop .product-shop-right .buy-later {
 	width: 230px;
@@ -634,14 +643,15 @@
 	font-family: 'bebasregular';
 	text-transform: uppercase;
 	color: #fff;
-	font-size: 1.5em;
+	font-size: 1.2em;
 	padding-left: 55px;
+	padding-top: 21px;
 	line-height: 3em;
 }
 #customer-reviews li {
-	border-bottom: #707070 solid 1px;
+	/* border-bottom: #707070 solid 1px; */
 	clear: left;
-	padding: 20px;
+	padding: 0;
 }
 #customer-reviews li.last {
 	border-bottom: none;
@@ -937,3 +947,26 @@
 		margin-bottom: 50px;
 	}
 }
+
+
+.customer-reviews h3 {font-size: 15px !important; padding: 10px 0 !important;}
+.customer-reviews .form-list .input-box {
+    clear: both;
+    display: block;
+    width: 100%;
+}
+
+.customer-reviews .form-list input.input-text {
+    width: 254px;
+	padding: 5%;
+}
+.review-note {font-size: 15px; font-weight: normal;}
+.review-note span {font-size: 15px; font-weight: bold; color: #FFA01B;}
+.customer-reviews .buttons-set {
+    border-top: 1px solid #E4E4E4;
+    clear: both;
+    margin: 1em 0 0;
+    padding: 8px 0 0;
+    text-align: right;
+}
+

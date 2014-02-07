@@ -55,6 +55,7 @@
     </default>
 	<customer_logged_in>
         <reference name="top.links">
+        	<action method="addLink" translate="label" module="customer"><label>Track Order</label><url>sales/order/history</url><title>Track Order</title><prepare/><urlParams/><position>9</position></action>
         	<action method="removeLinkByUrl"><url helper="customer/getAccountUrl"/></action>
 			<!--<action method="addLink" translate="label title" module="customer"><label>My Account</label><url helper="customer/getAccountUrl"/><title>My Account</title><prepare/><urlParams/><position>10</position><liParams><class>myaccount</class></liParams></action>-->
         	<action method="removeLinkByUrl"><url helper="customer/getLogoutUrl"/></action>
@@ -129,6 +130,10 @@
 		</reference>
 		<reference name="product.info">
 			<remove name="product.info.options.wrapper.bottom"/>
+			<block type="ajaxlogin/overwriterToplinks" name="al_ow_oneclicklinks" as="al_ow_oneclicklinks_as" template="ajaxlogin/overwritter.oneclicklinks.phtml"/>
+		</reference>
+		<reference name="product.info.additional">
+			<remove name="product_tag_list"/>
 		</reference>
 		<reference name="content">
 			<block type="relatedproducts/relatedproducts" name="catalog.product.awrelated.community" as="awrelatedproducts" template="catalog/product/list/awrelated.phtml">
@@ -163,6 +168,9 @@
 	<checkout_cart_index>
 		<reference name="head">
 			<action method="addCss"><stylesheet>css/cart.css</stylesheet></action>
+		</reference>
+		<reference name="content">
+			<block type="ajaxlogin/overwriterToplinks" name="al_ow_oneclicklinks" as="al_ow_oneclicklinks_as" template="ajaxlogin/overwritter.oneclicklinks.phtml"/>
 		</reference>
 	</checkout_cart_index>
 	<checkout_onepage_index>

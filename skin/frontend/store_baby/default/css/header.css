@@ -489,6 +489,8 @@
 .mini-products-list tbody tr td.price {
 	width: 80px;
 	text-align: right;
+	font-size: 14px;
+    font-weight: bold;
 }
 .mini-cart-content {
 	max-height: 300px;
@@ -511,7 +513,7 @@
 .mini-products-list .product-details a.product-name, .mini-cart .block-cart .amount a, .mini-cart-sticky .block-cart .amount a {
 	float: none;
 	font-family: Helvetica;
-	font-weight: normal;
+	font-weight: bold;
 	color: #707070;
 	line-height: normal;
 	padding: 0;
@@ -530,7 +532,7 @@
 }
 .mini-products-list input.input-text.qty {
 	width: 28px !important;
-	height: 29px;
+	height: 18px;
 	background:url(../images/bg-txt-qty.png) no-repeat left top ;
 	border: none;
 	text-align: center;
@@ -551,7 +553,7 @@
 	background: none;
 }
 .mini-cart .block-cart .subtotal {
-	font-size: 14px;
+	font-size: 14px;  padding: 10px 0;
 }
 .mini-cart .block-cart .subtotal span.price {
 	color: #fd8e17;
@@ -571,7 +573,7 @@
 	background-color: #ffa01b;
 	background-position: 107px 8px;
 	text-align: center;
-	padding: 2px 45px 2px 30px;
+	padding: 13px 45px 10px 30px;
 }
 .header .mini-cart-mobile {
 	display: none;
@@ -592,7 +594,7 @@
 	line-height: normal;
 }
 .mini-cart .block-cart .actions button.button.btn-checkout span span img, .mini-cart-sticky .block-cart .actions button.button.btn-checkout span span img {
-	margin-top: 5px;
+	/* margin-top: 5px; */ margin: 1px 0 0 8px;
 }
 .header .quick-access .left {
 	margin: 4px 50px 0 0;
@@ -1077,19 +1079,23 @@
 .shopby ul.shop-by {
 	list-style: none;
 	padding: 0 0 5px 0;
-	margin: 0 0 5px 20px;
+	margin: 0 0 20px 20px;
 	background: url(../images/dash.png) no-repeat left bottom;
 }
 .shopby ul.shop-by li {
-	margin: 0 0 2px 0;
+	margin: 0 0 4px 0;
 }
+
+.shopby ul.shop-by li a:hover {color: #4EC7DA;}
+
 .shopby ul.shop-by li span.title, .submenu span.title, #nav ul li .left-columns h2 {
 	color: #707070;
-	font-size: 1.1em;
+	font-size: 1.3em;
 	font-family: 'bebasregular';
 	font-weight: normal;
 	text-transform: uppercase;
 	letter-spacing: 1px;
+	margin-bottom: 10px 
 
 }
 .shopby ul.shop-by li span.title, .submenu span.title {
@@ -1106,6 +1112,7 @@
 	padding: 0 20px 0 0;
 	font-weight: bold !important;
 	background: url(../images/arrow-2.png) no-repeat right center;
+	margin: 10px 0;
 }
 #nav .shopby {
 	display: none;
