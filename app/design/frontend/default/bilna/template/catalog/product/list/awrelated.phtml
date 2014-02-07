@@ -54,7 +54,7 @@
         <?php foreach($this->getRelatedProductsCollection() as $_item): ?>
         <li<?php if($_item->isComposite() || !$_item->isSaleable()): ?> class="super-products"<?php endif; ?>>
             <div class="product-images">
-                <a href="<?php echo $_item->getProductUrl() ?>"><img src="<?php echo $this->helper('catalog/image')->init($_item, 'thumbnail')->resize(50) ?>" alt="<?php echo $this->htmlEscape($_item->getName()) ?>" width="50" height="50" /></a>
+                <a href="<?php echo $_item->getProductUrl() ?>"><img src="<?php echo $this->helper('catalog/image')->init($_item, 'thumbnail')->resize(152) ?>" alt="<?php echo $this->htmlEscape($_item->getName()) ?>" /></a>
             </div>
             <div class="product-details">
 				<div class="product-name-wrap">
