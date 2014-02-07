@@ -137,7 +137,7 @@ ul,ol         { list-style:none; }
 /* Form Elements */
 input,select,textarea,button { font:12px/15px Arial, Helvetica, sans-serif; vertical-align:middle; color:#2f2f2f; }
 input.input-text,select,textarea { background:#fff; border:1px solid #b6b6b6; }
-input.input-text,textarea { padding:8px 2px; }
+input.input-text,textarea { padding:2px; }
 select { padding:1px; }
 select option { padding-right:10px; }
 select.multiselect option { border-bottom:1px solid #b6b6b6; padding:2px 5px; }
@@ -149,7 +149,7 @@ input.qty { width:2.5em !important; }
 button.button::-moz-focus-inner { padding:0; border:0; } /* FF Fix */
 button.button { -webkit-border-fit:lines; } /* <- Safari & Google Chrome Fix */
 button.button { overflow:visible; width:auto; border:0; padding:0; margin:0; background:transparent; cursor:pointer; }
-button.button span { display:block; height:19px; border:none; background:#FFA01B; padding: 6px 15px; font:bold 12px/19px Arial, Helvetica, sans-serif; text-align:center; white-space:nowrap; color:#fff; }
+button.button span { display:block; height:19px; border:1px solid #de5400; background:#f18200; padding:0 8px; font:bold 12px/19px Arial, Helvetica, sans-serif; text-align:center; white-space:nowrap; color:#fff; }
 button.button span span { border:0; padding:0; }
 button.disabled span { border-color:#bbb !important; background:#bbb !important; }
 
@@ -176,10 +176,10 @@ input.input-text:focus,select:focus,textarea:focus { background-color:#edf7fd; }
 .form-list li.control input.checkbox { margin-right:6px; }
 .form-list li.control .input-box { clear:none; display:inline; width:auto; }
 /*.form-list li.fields { margin-right:-15px; }*/
-.form-list .input-box { display:block; clear:both; /* width:260px; */ width:100%; padding: 10px 0; }
+.form-list .input-box { display:block; clear:both; width:260px; }
 .form-list .field { float:left; width:275px; }
-.form-list input.input-text { /* width:254px; */ width:50%; padding: 5px; }
-.form-list textarea { /* width:254px; */ width: 50%; height:10em; }
+.form-list input.input-text { width:254px; }
+.form-list textarea { width:254px; height:10em; }
 .form-list select { width:260px; }
 .form-list li.wide .input-box { width:535px; }
 .form-list li.wide input.input-text { width:529px; }
@@ -288,8 +288,7 @@ input.input-text:focus,select:focus,textarea:focus { background-color:#edf7fd; }
 
 .buttons-set { clear:both; margin:4em 0 0; padding:8px 0 0; border-top:1px solid #e4e4e4; text-align:right; }
 .buttons-set p.required { margin:0 0 10px; }
-.buttons-set .back-link { float:left; margin:0;padding: 5px 10px 5px 5px;background: none repeat scroll 0 0 #4EC7DA; border-radius: 0 5px 5px 0;margin: 0 0 20px; color: #FFF !important; font-weight:bold; }
-.buttons-set .back-link a {color: #FFF !important;}
+.buttons-set .back-link { float:left; margin:0; }
 .buttons-set button.button { float:right; margin-left:5px; }
 
 .buttons-set-order { margin:10px 0 0; }
@@ -395,7 +394,7 @@ p.required { font-size:11px; text-align:right; color:#EB340A; }
 
 .data-table tfoot { border-bottom:1px solid #d9dde3; }
 .data-table tfoot tr.first td { background:url(../images/bkg_tfoot.gif) 0 0 repeat-x; }
-.data-table tfoot tr { background-color:#dee5e8 !important; }
+.data-table tfoot tr { background-color:#dee5e8; }
 .data-table tfoot td { padding-top:1px; padding-bottom:1px; border-bottom:0; border-right:1px solid #d9dde3; }
 .data-table tfoot strong { font-size:16px; }
 
@@ -468,11 +467,11 @@ tr.summary-details-excluded { font-style:italic; }
 
 /* Misc */
 .links li { display:inline; }
-.links li.first { padding-left:0 !important; }
+.links li.first { padding-left:0; }
 .links li.last { background:none !important; padding-right:0 !important; }
 
 .link-cart { color:#dc6809 !important; font-weight:bold; }
-.link-wishlist { color:#dc6809 !important; font-weight:bold; }
+.link-wishlist { color:#dc6809; font-weight:bold; }
 .link-reorder { font-weight:bold; color:#dc6809 !important; }
 .link-compare { font-weight:bold; }
 .link-print { /*background:url(../images/i_print.gif) 0 2px no-repeat; padding:2px 0 2px 25px;*/ font-weight:bold; color:#dc6809; }
