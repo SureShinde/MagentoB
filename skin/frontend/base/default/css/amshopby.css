@@ -28,7 +28,7 @@ padding: 0pt 10px 10px 0pt; float: left;
 }
 div.block-layered-nav dd a {padding:0px 5px 0px 0px; display:block; float: left;}  
 div.block-layered-nav dd a.amshopby-attr {padding-left:20px; background:transparent url(../images/checkbox.png) no-repeat left center;} 
-div.block-layered-nav dd a.amshopby-attr-selected {font-weight: bold; padding-left:15px; background:transparent url(../images/amshopby-cb2.gif) no-repeat left center;} 
+div.block-layered-nav dd a.amshopby-attr-selected {font-weight: bold; padding-left:20px; background:transparent url(../images/checked.png) no-repeat left center;} 
 div.block-layered-nav dd a img {padding: 0px 4px 5px; float:left;} 
 
 div.block-layered-nav dd li.amshopby-cat-level-2 {padding-left:10px;}
@@ -48,8 +48,8 @@ clear:both; font-size:0; line-height:0; height:0; overflow:hidden; }
 
 
 div.block-layered-nav dt {
- cursor:pointer; 
- padding-left:15px;
+ cursor:pointer; padding: 13px;
+ /* padding-left:15px; */
  /*background:url(../images/amshopby-expanded.gif) center left no-repeat;*/
 }
 div.block-layered-nav dt.amshopby-collapsed {background:url(../images/amshopby-collapsed.gif) center left no-repeat}
