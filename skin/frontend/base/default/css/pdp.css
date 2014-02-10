@@ -851,6 +851,12 @@
 	.product-tab-mobile-wrapper {
 		display: block;
 	}
+	.product-tab-mobile-wrapper #index4{
+		display:none;
+	}
+	.product-tab-mobile-wrapper #index5{
+		display:none;
+	}
 	.product-tab-mobile-wrapper .toggle-tab {
 		line-height: 3em;
 	}
