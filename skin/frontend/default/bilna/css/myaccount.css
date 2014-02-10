@@ -1,5 +1,114 @@
 /* myaccount.css */
 
+/* login non pop-up */
+.account-login {
+	margin-bottom: 30px;
+}
+.account-login .content {
+	background: none;
+	-webkit-border-radius: 20px;
+	-moz-border-radius: 20px;
+	border-radius: 20px;
+	border-bottom: 1px solid #bbb6a5;
+}
+.account-login .new-users h2, 
+.account-login .registered-users h2 {
+	background: none;
+	padding-left: 0;
+	font-family: 'bebasregular';
+	font-weight: normal;
+	font-size: 1.4em;
+	color: #343334;
+	word-spacing: 3px;
+	background: url(../images/dash-orange.png) bottom repeat-x;
+	border-bottom: 0;
+	padding-bottom: 15px;
+}
+.account-login .col-2.registered-users .content p {
+	margin-bottom: 10px;
+}
+.account-login .al-authorization .form-list li:first-child, 
+.account-login .al-authorization .form-list li:last-child {
+	background: none;
+	padding-bottom: 0;
+}
+.account-login .buttons-set {
+	background: none;
+	border: 0;
+}
+.account-login .buttons-set button.button span {
+	border: 0;
+	background: #fd8e17;
+	height: auto;
+	padding: 0;
+}
+.account-login .buttons-set button.button span span {
+	font-size: 1.4em;
+	font-family: 'bebasregular';
+	font-weight: normal;
+	padding: 3px 10px;
+	line-height: 2em;
+	border: 0;
+	background: #fd8e17;
+	height: auto;
+}
+.account-login .col-2.registered-users button.button {
+	float: left;
+}
+#forgotpwdbtn {
+	padding-left: 10px;
+	color: #fd8e17;
+	text-decoration: underline;
+}
+
+/* create account non pop-up */
+.account-create {
+	margin-bottom: 30px;
+}
+.account-create .fieldset {
+	background: none;
+	border: 0;
+	margin: 0;
+	padding: 15px 20px 0;
+}
+.account-create .fieldset .legend {
+	border: 0;
+	background: 0;
+	padding: 0;
+	margin: 0;
+	float: none;
+	color: #434343;
+	margin: 0 0 8px;
+}
+.account-create .buttons-set {
+	border-top: 0;
+	margin-top: 0;
+	margin-left: 15px;
+}
+.account-create .buttons-set .required, 
+.account-create .buttons-set .back-link {
+	display: none;
+}
+.account-create .buttons-set button.button {
+	float: left;
+}
+.account-create .buttons-set button.button span {
+	border: 0;
+	background: #fd8e17;
+	height: auto;
+	padding: 0;
+}
+.account-create .buttons-set button.button span span {
+	font-size: 1.4em;
+	font-family: 'bebasregular';
+	font-weight: normal;
+	padding: 3px 10px;
+	line-height: 2em;
+	border: 0;
+	background: #fd8e17;
+	height: auto;
+}
+
 /* left */
 .block.block-account {
 	border: 0;
@@ -97,7 +206,8 @@
 	font-weight: bold;
 	color: #ffa01b;
 }
-.dashboard .box-account.box-recent {
+.dashboard .box-account.box-recent, 
+.dashboard .box-account.box-reviews {
 	background: 0;
 	border: 0;
 	padding: 10px 10px 0;
@@ -110,18 +220,23 @@
 	color: #fd810d;
 	font-weight: bold;
 }
-.dashboard .box-recent .box-head h2 {
+.dashboard .box-recent .box-head h2, 
+.dashboard .box-reviews .box-head h2 {
 	background-image: none;
 	padding-left: 0;
 }
 .dashboard .box .box-title h3, 
 .dashboard .box .box-title h4, 
-.dashboard .box-recent .box-head h2 {
+.dashboard .box-recent .box-head h2, 
+.dashboard .box-reviews .box-head h2 {
 	color: #515151;
 	text-transform: capitalize;
 }
 
 /* Personal Details */
+.my-account {
+	margin-bottom: 30px;
+}
 .my-account .fieldset {
 	border: 0;
 	background: 0;
@@ -146,6 +261,7 @@
 }
 .my-account .fieldset .form-list .field {
 	width: 100%;
+	margin-bottom: 8px;
 }
 .my-account .fieldset .form-list .field.name-firstname, 
 .my-account .fieldset .form-list .field.new-password {
@@ -169,9 +285,16 @@
 	background: #f7f7f7;
 	border-color: #dedede;
 }
+.form-list input.input-text#street_2 {
+	margin-left: 160px;
+}
 .my-account .buttons-set {
 	border-top: 0;
 	text-align: center;
+}
+.my-account .buttons-set p.required, 
+.my-account .buttons-set p.back-link {
+	display: none;
 }
 .my-account .buttons-set button.button {
 	float: none;
@@ -231,6 +354,7 @@
 	padding: 15px 20px 0;
 	border-top: 1px #afafaf solid;
 }
+
 
 /* Order History */
 .my-account .pager {
@@ -321,9 +445,18 @@
 }
 
 @media (max-width: 767px) {
-	
+	.account-login .col2-set .col-1, 
+	.account-login .col2-set .col-2 {
+		width: 100%;
+	}
+	.account-login .col2-set .col-1 .content, 
+	.account-login .col2-set .col-2 .content {
+		margin: 15px;
+	}
 }
 
 @media (max-width: 479px) {
-	
+	.account-login .al-authorization .form-list input.input-text {
+		width: 215px;
+	}
 }
