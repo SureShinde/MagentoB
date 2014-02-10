@@ -10,7 +10,7 @@
 }
 #checkoutSteps .form-list label {
 	color: #707070;
-	margin-bottom: 10px;
+	margin-bottom: 3px;
 }
 #checkoutSteps .form-list .input-box {
 	width: auto;
@@ -26,9 +26,8 @@
 	margin-right: 5px;
 }
 #checkoutSteps .buttons-set button.button {
-    width:93px;
-    /*background-image:url(../images/btn-buynow.png);*/
-    background: #fd8e17;
+    width:88px;
+    background-image:url(../images/btn-buynow.png);
     height:36px;
     line-height:21px;
 }
@@ -100,6 +99,9 @@
 .opc .buttons-set .back-link a {
 	background: url(../images/arrow-back.png) no-repeat left center;
 	color: #fd8e17;
+}
+.form-list li.wide select {
+	width: auto;
 }
 #checkout-progress-wrapper {
 	background: #f8f8f8;
@@ -231,6 +233,23 @@
 	}
 }
 @media only screen and (max-width: 767px) {
-	
+	.opc {
+		padding: 0 5px;
+	}
+	.opc .step {
+		padding-left: 10px;
+		padding-right: 10px;
+	}
 }
-@media only screen and (max-width: 482px) { }
+@media only screen and (max-width: 482px) { 
+	.form-list li.wide select {
+		width: 100%;
+	}
+	#opc-review .step {
+		padding: 5px;
+	}
+	.data-table thead th, .data-table td {
+		padding-left: 5px;
+		padding-right: 5px;
+	}
+}

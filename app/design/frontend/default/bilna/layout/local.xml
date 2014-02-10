@@ -130,6 +130,10 @@
 		</reference>
 		<reference name="product.info">
 			<remove name="product.info.options.wrapper.bottom"/>
+			<block type="ajaxlogin/overwriterToplinks" name="al_ow_oneclicklinks" as="al_ow_oneclicklinks_as" template="ajaxlogin/overwritter.oneclicklinks.phtml"/>
+		</reference>
+		<reference name="product.info.additional">
+			<remove name="product_tag_list"/>
 		</reference>
 		<reference name="content">
 			<block type="relatedproducts/relatedproducts" name="catalog.product.awrelated.community" as="awrelatedproducts" template="catalog/product/list/awrelated.phtml">
@@ -165,6 +169,9 @@
 		<reference name="head">
 			<action method="addCss"><stylesheet>css/cart.css</stylesheet></action>
 		</reference>
+		<reference name="content">
+			<block type="ajaxlogin/overwriterToplinks" name="al_ow_oneclicklinks" as="al_ow_oneclicklinks_as" template="ajaxlogin/overwritter.oneclicklinks.phtml"/>
+		</reference>
 	</checkout_cart_index>
 	<checkout_onepage_index>
 		<reference name="head">
@@ -190,4 +197,16 @@
 		</block>
 		</reference>
 	</ajaxlogin_default>
+	<customer_account>
+		<reference name="head">
+			<action method="addCss"><stylesheet>css/myaccount.css</stylesheet></action>
+		</reference>
+		<reference name="left">
+            <remove name="left.permanent.callout" />
+            <remove name="brands.switch" />
+            <remove name="cart_sidebar" />
+            <remove name="catalog.compare.sidebar" />
+            <remove name="sale.reorder.sidebar" />
+        </reference>
+	</customer_account>
 </layout>

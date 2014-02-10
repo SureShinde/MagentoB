@@ -213,9 +213,21 @@
 	font-weight: bold;
 	line-height: 2.3em;
 }
+.product-shop-right .header-container {
+	width: 230px;
+	margin: 10px auto;
+}
+.product-shop-right .header-container-link {
+	padding: 10px 0px 0px 14px;
+}
 .product-view .product-shop .product-shop-right .one-click-checkout a {
 	color: white;
 	font-size: 1.23em;
+}
+.product-shop-right .header-container a, .product-shop-right .header-container-link a {
+	font-weight: bold;
+	color: #ffa01b;
+	text-decoration: underline;
 }
 .product-view .product-shop .product-shop-right .buy-later {
 	width: 230px;
@@ -352,6 +364,7 @@
 .product-view .product-img-box {
 	width: 400px;
 	margin: 50px 0;
+	position: relative;
 }
 .product-view .product-img-box .onsale-product-container {
 	float: right;
@@ -476,8 +489,25 @@
 	line-height: 2em;
 }
 .related-product .block-content .aw-arp-item {
+	float: left;
+	margin: 15px 0 10px 0;
+	padding: 7.6px;
+	zoom: 1;
+	position: relative;
 	width: 13%;
-	text-align: center;
+}
+.related-product .block-content .aw-arp-item:hover {
+	background-color: #fff;
+	z-index: 10;
+	margin-left: 0;
+	margin-right: 0;
+	border-color: transparent;
+	-moz-box-shadow: 0 0 20px rgba(0,0,0,0.2);
+	-webkit-box-shadow: 0 0 20px rgba(0,0,0,0.2);
+	box-shadow: 0 0 20px rgba(0,0,0,0.2);
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
 }
 .related-product .block-content .aw-arp-item img {
 	border: 0;
@@ -558,15 +588,25 @@
 	background: none;
 }
 .aw-mini-related-items ol li {
-	width: 13%;
-	text-align: center;
-	padding: 0;
-	min-height: 100px;
-	display: -moz-inline-stack;
-	display: inline-block !important;
-	vertical-align: top;
+	float: left;
+	margin: 15px 0 10px 0;
+	padding: 7.6px;
 	zoom: 1;
-	margin: 5px;
+	position: relative;
+	width: 13%;
+}
+.aw-mini-related-items ol li:hover {
+	background-color: #fff;
+	z-index: 10;
+	margin-left: 0;
+	margin-right: 0;
+	border-color: transparent;
+	-moz-box-shadow: 0 0 20px rgba(0,0,0,0.2);
+	-webkit-box-shadow: 0 0 20px rgba(0,0,0,0.2);
+	box-shadow: 0 0 20px rgba(0,0,0,0.2);
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
 }
 .aw-mini-related-items .product-images a {
 	margin: 0;
@@ -630,6 +670,7 @@
 
 #customer-reviews {
 	margin-bottom: 50px;
+	clear: both;
 }
 #customer-reviews  h2 {
 	background: url(../images/product_reviews.png) no-repeat left;
@@ -637,14 +678,15 @@
 	font-family: 'bebasregular';
 	text-transform: uppercase;
 	color: #fff;
-	font-size: 1.5em;
+	font-size: 1.2em;
 	padding-left: 55px;
+	padding-top: 21px;
 	line-height: 3em;
 }
 #customer-reviews li {
-	border-bottom: #707070 solid 1px;
+	/* border-bottom: #707070 solid 1px; */
 	clear: left;
-	padding: 20px;
+	padding: 0;
 }
 #customer-reviews li.last {
 	border-bottom: none;
@@ -769,6 +811,9 @@
 	#customer-reviews li .review-detail {
 		width: 50%;
 	}
+	.product-shop-right .header-container-link {
+		padding: 14px 0px 0px 0px;
+	}
 }
 /* --------------- smaller 959 px layout -------------------- */
 @media (max-width: 767px) {
@@ -790,13 +835,13 @@
 	}
 	.product-view .product-shop .product-shop-left .ratings {
 		clear: none;
-		float: right;
+		float: none;
 	}
 	.product-view .product-shop .product-shop-left .stock-left {
 		clear: both;
 	}
 	.product-shop-left .ratings .rating-box {
-		float: right;
+		float: left;
 		margin-bottom: 10px;
 	}
 	.col1-layout .product-view .product-shop {
@@ -925,7 +970,7 @@
 /* --------------- 320 px layout -------------------- */
 @media (max-width: 479px) {
 	.product-view .product-shop .product-shop-right {
-		width: 170px;
+		width: 257px;
 	}
 	/* .product-view .product-shop .product-shop-right .add-to-cart {
 		background: none;
@@ -946,4 +991,20 @@
 	.product-view .product-img-box {
 		margin-bottom: 50px;
 	}
+	.product-shop-right .header-container-link {
+		padding: 50px 0px 0px 0px;
+	}
+	.product-shop-left .rating-links .review-count {
+		display: inline-block;
+	}
 }
+.review-note {font-size: 15px; font-weight: normal;}
+.review-note span {font-size: 15px; font-weight: bold; color: #FFA01B;}
+.customer-reviews .buttons-set {
+    border-top: 1px solid #E4E4E4;
+    clear: both;
+    margin: 1em 0 0;
+    padding: 8px 0 0;
+    text-align: right;
+}
+

@@ -54,7 +54,7 @@
         <?php foreach($this->getRelatedProductsCollection() as $_item): ?>
         <li <?php if($_item->isComposite() || !$_item->isSaleable()): ?> class="super-products"<?php endif; ?>>
             <div class="product-images">
-                <a href="<?php echo $_item->getProductUrl() ?>"><img src="<?php echo $this->helper('catalog/image')->init($_item, 'thumbnail')->resize(50) ?>" alt="<?php echo $this->htmlEscape($_item->getName()) ?>" width="50" height="50" /></a>
+                <a href="<?php echo $_item->getProductUrl() ?>"><img src="<?php echo $this->helper('catalog/image')->init($_item, 'thumbnail')->resize(152) ?>" alt="<?php echo $this->htmlEscape($_item->getName()) ?>" /></a>
             </div>
             <div class="product-details">
 				<div class="product-name-wrap">
@@ -66,7 +66,11 @@
 				<?php echo $this->getReviewsSummaryHtml($_item, false, true)?>
 				
 				<?php if($_item->isSaleable()): ?>
-					<button type="button" title="<?php echo $this->__('Buy Now') ?>" class="button btn-cart" onclick="setLocation('<?php echo $this->getAddToCartUrl($_item) ?>')"><span><span><?php echo $this->__('Buy Now') ?></span></span></button>
+					<?php if($_item->isConfigurable()):?>
+                    <a class="link-cart" href="<?php echo $_item->getProductUrl() ?>" title="<?php echo $this->stripTags($_item->getName(), null, true) ?>"><?php echo $this->__('Buy Now') ?></a>
+                    <?php else:?>
+                    <button type="button" title="<?php echo $this->__('Buy Now') ?>" class="button btn-cart" onclick="setLocation('<?php echo $this->getAddToCartUrl($_item) ?>')"><span><span><?php echo $this->__('Buy Now') ?></span></span></button>
+                    <?php endif; ?>    
 				<?php else: ?>
 					<p class="availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></p>
 				<?php endif; ?>

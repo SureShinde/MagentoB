@@ -40,7 +40,7 @@
 	    <?php if($this->getShowAmounts()): ?>
 	    <p class="amount">
 	        <?php if($this->getLastPageNum()>1): ?>
-	            <?php echo $this->__('Items %s to %s of %s total', $this->getFirstNum(), $this->getLastNum(), $this->getTotalNum()) ?>
+	            <?php echo $this->__('Showing %s out of %s orders', $this->getLastNum(), $this->getTotalNum()) ?>
 	        <?php else: ?>
 	            <strong><?php echo $this->__('%s Item(s)', $this->getTotalNum()) ?></strong>
 	        <?php endif; ?>
@@ -49,15 +49,17 @@
 
 	    <?php if($this->getShowPerPage()): ?>
 	    <div class="limiter">
-	        <label><?php echo $this->__('Show') ?></label>
-	        <select onchange="setLocation(this.value)">
-	        <?php foreach ($this->getAvailableLimit() as  $_key=>$_limit): ?>
-	            <option value="<?php echo $this->getLimitUrl($_key) ?>"<?php if($this->isLimitCurrent($_key)): ?> selected="selected"<?php endif ?>>
-	                <?php echo $_limit ?>
-	            </option>
-	        <?php endforeach; ?>
-	        </select> <?php echo $this->__('per page') ?>
-	    </div>
+            <label><?php echo $this->__('View') ?></label>
+            <ul>
+            <?php foreach ($this->getAvailableLimit() as  $_key=>$_limit): ?>
+            <?php if($this->isLimitCurrent($_key)): ?>
+            		<li><span class="view-active"><?php echo $_limit ?></span></li>
+            	<?php else: ?>
+            		<li><a href="<?php echo $this->getLimitUrl($_key) ?>"><?php echo $_limit ?></a></li>
+            	<?php endif; ?>
+            <?php endforeach; ?>
+            </ul>
+        </div>
 	    <?php endif ?>
 
 	    <?php if($this->getLastPageNum()>1): ?>
