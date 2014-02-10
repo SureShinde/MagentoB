@@ -420,13 +420,6 @@ padding: 5px 14px 10px;
 	color: #6e6e6e;
 	font-family: 'bebasregular';
 	word-spacing: 3px;
-.cart-collaterals .shipping {
-	border: 0;
-	background: #909090;
-	font-family: 'bebasregular';
-	height: auto;
-	word-spacing: 2px;
-	padding: 0 10px;
 }
 .coupon-total .coupon .discount button span span {
 	padding: 8.5px 0;

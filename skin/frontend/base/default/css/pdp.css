@@ -556,6 +556,8 @@
 	background: url(../images/btn-buynow.png) no-repeat;
 	width: 88px;
 	height: 36px;
+	position:absolute;
+	bottom:0;
 }
 .related-product .block-content .aw-arp-addtocart a {
 	color: white !important;
@@ -792,6 +794,7 @@
 	.aw-mini-related-items ol li {
 		width: 17.88%;
 		margin-bottom: 60px;
+		height:310px;
 	}
 	.related-product .block-content .aw-arp-item img, 
 	.aw-mini-related-items .product-images a img {

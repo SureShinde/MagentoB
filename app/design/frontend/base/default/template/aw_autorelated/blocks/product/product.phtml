@@ -60,31 +60,26 @@ if ($this->getPosition() == AW_Autorelated_Model_Source_Position::INSTEAD_NATIVE
                     <ul>
                         <?php foreach ($collection as $product) : ?>
                             <li class="aw-arp-item">
-                                <div class="aw-arp-item-left">
-                                    <a href="<?php echo $abstractBlock->getProductUrl($product) ?>">
-                                        <img src="<?php echo $this->helper('catalog/image')->init($product, 'thumbnail')->resize(152) ?>" alt="<?php echo $this->htmlEscape($product->getName()) ?>" />
-                                    </a>
-                                    <br />
-                                    <div class="aw-arp-product-name-wrap">
-                                        <a class="aw-arp-product-name" href="<?php echo $abstractBlock->getProductUrl($product) ?>"><?php echo $this->htmlEscape($product->getName()) ?></a><br />
-                                    </div>
-                                    <?php echo $abstractBlock->getPriceHtml($product, true, '-related') ?>
-                                    <?php echo $abstractBlock->getReviewsSummaryHtml($product, false, true)?>
+								<div class="aw-arp-item-left">
+									<a href="<?php echo $abstractBlock->getProductUrl($product) ?>"><img src="<?php echo $this->helper('catalog/image')->init($product, 'thumbnail')->resize(75) ?>" alt="<?php echo $this->htmlEscape($product->getName()) ?>" width="75" height="75" /></a><br />
+									<div class="aw-arp-product-name-wrap">
+										<a class="aw-arp-product-name" href="<?php echo $abstractBlock->getProductUrl($product) ?>"><?php echo $this->htmlEscape($product->getName()) ?></a><br />
+									</div>
+									<?php echo $abstractBlock->getPriceHtml($product, true, '-related') ?>
                                 </div>
-								<?php if ($product->isSaleable()) : ?>
-                                  <?php if($product->isConfigurable()):?>  
-                                  <div class="aw-arp-addtocart">
-                                    <p>
-                                        <a class="link-cart" href="<?php echo $product->getProductUrl() ?>" title="<?php echo $this->stripTags($product->getName(), null, true) ?>"><?php echo $this->__('Buy Now') ?></a>                                         
-                                    </p>
-                                  </div>
-                                  <?php else : ?>
-                                  <div class="aw-arp-addtocart">
-                                    <p>
-                                        <a class="link-cart" href="javascript:setLocation('<?php echo $abstractBlock->getAddToCartUrl($product) ?>');"><?php echo $this->__('Buy Now') ?></a>                                            
-                                    </p>
-                                  </div>
-                                  <?php endif ?>
+								<div class="buttom_related_product">
+									<?php echo $abstractBlock->getReviewsSummaryHtml($product, false, true)?>
+									<div class="aw-arp-addtocart">
+									<?php if ($product->isSaleable()) : ?>
+										<p>
+										   <?php if(!$this->isLocationLink($product)): ?>
+												<a class="link-cart" href="<?php echo $abstractBlock->getAddToCartUrl($product) ?>"><?php echo $this->__('Buy Now') ?></a>
+											<?php else : ?>
+												<a class="link-cart" href="javascript:setLocation('<?php echo $abstractBlock->getAddToCartUrl($product) ?>');"><?php echo $this->__('Buy Now') ?></a>                                            
+											<?php endif; ?>                                       
+										</p>
+									</div>
+								</div>
                                 <?php else : ?>
                                     <p class="availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></p>
                                 <?php endif ?>
