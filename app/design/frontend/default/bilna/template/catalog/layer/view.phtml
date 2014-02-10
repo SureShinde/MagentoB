@@ -37,6 +37,27 @@
 		$j('.tiny div').addClass("viewport");
 		$j('.tiny div ol').addClass("overview");
 		$j('.tiny').tinyscrollbar();	
+		
+		function fixDiv() {
+		    var $div = $j(".show-filter");
+		    if ($j(window).scrollTop() > $div.data("top")) { 
+		        $div.css({'position': 'fixed', 'top': '45px', 'left': '30px', 'width': '167px'}); 
+		    }
+		    else {
+		        $div.css({'position': 'absolute', 'top': 'auto', 'left': '0','width': '167px'});
+		    }
+		}
+		
+		$j(".show-filter").data("top", $j(".show-filter").offset().top); // set original position on load
+		$j(window).scroll(fixDiv);
+		
+		
+		
+		$j(".triger-showfilter").live('click',function() {
+			//console.log("click");
+			$j(".show-filter").css({'position': 'absolute', 'top': 'auto', 'left': '0','width': '167px'});
+			//$j(".sidebar").css({'position': 'fixed', 'top': '45px', 'left': '30px', 'width': '167px'});
+		});
 	});
 </script>
 <?php if($this->canShowBlock()): ?>

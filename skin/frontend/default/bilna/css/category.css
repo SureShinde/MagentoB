@@ -154,12 +154,10 @@ ol.added-menu li a.link-onsale {
 	position: absolute;
 	bottom: -60px;
 	left: 0;
-	background: #4ec8da;
+	
 	z-index: 99;
-	-webkit-border-radius: 0 10px 10px 0;
-	-moz-border-radius: 0 10px 10px 0;
-	border-radius: 0 10px 10px 0;
-	padding: 20px 0 20px 0;
+	
+	padding: 0;
 	width: 100%;
 	text-align: right;
 }
@@ -172,9 +170,13 @@ a.triger-showfilter, .featured-product-catalog h2, .toolbar-bottom a.link-catalo
 a.triger-showfilter {
 	display: block;
 	font-size: 14px;
-	background: url(../images/arrow-filter.png) no-repeat right center;
-	padding-right: 20px;
-	margin-right: 15px;
+	background:#4ec8da url(../images/arrow-filter.png) no-repeat 135px center;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	padding-right: 35px;
+	-webkit-border-radius: 0 10px 10px 0;
+	-moz-border-radius: 0 10px 10px 0;
+	border-radius: 0 10px 10px 0;
 }
 .category-image {
 	float: left;

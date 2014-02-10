@@ -197,4 +197,16 @@
 		</block>
 		</reference>
 	</ajaxlogin_default>
+	<customer_account>
+		<reference name="head">
+			<action method="addCss"><stylesheet>css/myaccount.css</stylesheet></action>
+		</reference>
+		<reference name="left">
+            <remove name="left.permanent.callout" />
+            <remove name="brands.switch" />
+            <remove name="cart_sidebar" />
+            <remove name="catalog.compare.sidebar" />
+            <remove name="sale.reorder.sidebar" />
+        </reference>
+	</customer_account>
 </layout>
