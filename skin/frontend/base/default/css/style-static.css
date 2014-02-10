@@ -1052,5 +1052,125 @@ animation-timing-function: linear;
 
 /*end testimonial*/
 
+/* style for company static page */
+.contacts-formcms {
+    min-height: 540px !important;
+}
+.cms-main {
+    display: block;
+    float: left;
+    min-height: 350px;
+    padding-bottom: 100px;
+    position: relative;
+    width: 100%;
+}
+.contactForm-content {
+    font-size: 14px;
+}
+.contactForm-content .static-tagline {
+    color: #F58D66;
+    font-family: helvetica,arial,'sans-serif';
+    font-size: 14px;
+}
+.contactForm-content {
+    font-size: 14px;
+}
+.contactForm-leftbox {
+    float: left;
+    margin-right: 20px;
+    width: 340px;
+}
+.contactForm-leftbox h3, .contactForm-rightbox h3 {
+    margin-bottom: 15px;
+}
+.contactForm-content ul {
+    list-style: none outside none !important;
+}
+.contactForm-rightbox {
+    float: left;
+    width: 340px;
+}
+.cms-main .fieldset {
+    background: none;
+    border: none;
+    margin: 28px 0;
+    padding: 22px 25px 12px 33px;
+}
+.contactForm-leftbox h2, .contactForm-rightbox h2 {
+    margin-bottom: 15px;
+	font-size: 16px;
+    font-weight: normal;
+}
+.contactForm-leftbox h3, .contactForm-rightbox h3 {
+    margin-bottom: 15px;
+	font-size: 16px;
+    font-weight: normal;
+}
+.cms-main .fieldset .legend {
+    background: none;
+    border: none;
+    color: #a0a0a0;
+    float: left;
+    font-size: 13px;
+    font-weight: bold;
+    margin: -33px 0 0 -10px;
+    padding: 0 8px;
+    position: relative;
+}
+
+.cms-main .page-title h1, .page-title h2 {
+    color: #a0a0a0;
+    font-size: 20px;
+    margin: 10px 0;
+	font-weight: bold;
+}
+.cms-main input.input-text, select, textarea {
+    background: none repeat scroll 0 0 #F9F9F9;
+    border: 1px solid #CFCFCE;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1) inset;
+    color: #666666;
+    padding: 7px 5px;
+}
+
+.cms-main .contactForm-leftbox .form-list .input-box, .contactForm-rightbox .form-list .input-box {
+    clear: none;
+    float: left;
+    width: 214px;
+}
+.cms-main.contactForm-leftbox textarea {
+    width: 204px;
+}
+.cms-main .form-list label {
+    color: #666666;
+    float: left;
+    font-weight: bold;
+    padding: 0 0 10px;
+    position: relative;
+    z-index: 0;
+}
+.cms-main .buttons-set button.button {
+    float: right;
+    margin-left: 5px;
+}
+.cms-main .buttons-set button.button span {
+    background: none repeat scroll 0 0 #FF763F;
+    border: 1px solid #FF763F;
+	padding:3px 20px 10px;
+}
+.cms-main .buttons-set button.button span span {
+    background: none;
+    border: none;
+}
+.cms-main .contactForm-leftbox {
+    float: left;
+    margin-right: 20px;
+    width: 340px;
+}
+.cms-main .contactForm-rightbox {
+    float: left;
+    width: 340px;
+}
+/* END style for company static page */
+
 
 

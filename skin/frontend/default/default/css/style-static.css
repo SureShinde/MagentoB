@@ -1015,6 +1015,47 @@ animation-timing-function: linear;
 
 /*style Tanya Ahli */
 
+/* style for company static page */
+.contacts-formcms {
+    min-height: 540px !important;
+}
+.cms-main {
+    display: block;
+    float: left;
+    min-height: 350px;
+    padding-bottom: 100px;
+    position: relative;
+    width: 100%;
+}
+.contactForm-content {
+    font-size: 14px;
+}
+.contactForm-content .static-tagline {
+    color: #F58D66;
+    font-family: helvetica,arial,'sans-serif';
+    font-size: 14px;
+}
+.contactForm-content {
+    font-size: 14px;
+}
+.contactForm-leftbox {
+    float: left;
+    margin-right: 20px;
+    width: 340px;
+}
+.contactForm-leftbox h3, .contactForm-rightbox h3 {
+    margin-bottom: 15px;
+}
+.contactForm-content ul {
+    list-style: none outside none;
+}
+.contactForm-rightbox {
+    float: left;
+    width: 340px;
+}
+
+/* END style for company static page */
+
 
 
 
