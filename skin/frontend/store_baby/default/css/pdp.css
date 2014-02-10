@@ -492,7 +492,7 @@
 }
 .related-product .block-content .aw-arp-item .price-box {
 	text-align: left;
-	margin-bottom: 50px;
+	margin-bottom: 25px;
 }
 .related-product .block-content .aw-arp-product-name, 
 .related-product .block-content .price {
@@ -526,6 +526,8 @@
 	background: url(../images/btn-buynow.png) no-repeat;
 	width: 88px;
 	height: 36px;
+	position:absolute;
+	bottom:0;
 }
 .related-product .block-content .aw-arp-addtocart a {
 	color: white !important;

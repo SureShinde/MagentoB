@@ -831,6 +831,9 @@ tr.summary-details-excluded { font-style:italic; }
 .no-rating { margin:0; }
 
 .ratings { font-size:11px; line-height:1.25; margin:7px 0; }
+.aw-arp-block-1 .ratings {
+    display: none;
+}
 .ratings strong { float:left; margin:1px 3px 0 0; }
 .ratings .rating-links { margin:0; }
 .ratings .rating-links .separator { margin:0 2px; }

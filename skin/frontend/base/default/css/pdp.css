@@ -492,6 +492,7 @@
 }
 .related-product .block-content .aw-arp-item .price-box {
 	text-align: left;
+	height: 35px;
 	margin-bottom: 50px;
 }
 .related-product .block-content .aw-arp-product-name, 
