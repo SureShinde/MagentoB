@@ -41,8 +41,9 @@ class AW_Blog_Block_Blog extends AW_Blog_Block_Abstract
     public function getCategoriesPosts()
     {
         $collection = Mage::getModel("blog/cat")->getCollection()
+            ->addFieldToFilter("title", array ('neq' => 'Uncategorized'))
             ->setOrder('sort_order', 'ASC');
-
+        $collection->getSelect()->limit(6);
         $data = array();
         foreach ($collection as $row) {
             $data[$row->getCatId()]['layout'] = $row->getLayout(); 

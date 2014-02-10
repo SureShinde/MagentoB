@@ -561,7 +561,7 @@
 	background: none;
 	padding-left: 7px;
 	padding-right: 5px;
-	border-left: 1px solid #f1f1f1; 
+	border-right: 1px solid #f1f1f1; 
 }
 .header .links li.first {
 	border: none;
@@ -1991,3 +1991,71 @@
 }
 @media only screen and (max-width: 482px) { }
 /*=======================================checkout========================================*/
+
+/*===================================free product popup cart==============================*/
+#aw-afptc-overlay {
+    background-color: #000000;
+    height: 100%;
+    left: 0;
+    opacity: 0.3;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+}
+#aw-afptc-popup {
+    background-color: #FFFFFF;
+    border: 1px solid #999999;
+    color: #000000;
+    height: auto;
+    min-height: 200px;
+    min-width: 450px;
+    overflow: auto;
+    padding: 10px;
+    position: fixed;
+    text-align: center !important;
+    width: auto;
+    z-index: 9999;
+}
+.aw-afptc-promo-message {
+    font-size: 16px;
+}
+
+.product-name a {
+    color: #1E7EC8;
+}
+#aw-afptc-popup .product-name {
+    font-size: 16px;
+font-weight: normal;
+    margin: 0;
+}
+.old-price .price {
+    color: #C76200;
+    font-weight: bold;
+    text-decoration: line-through;
+}
+
+.special-price .price {
+    color: #C76200;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+button.btn-cart {
+    background-image: url("../images/btn-buynow.png");
+    background-size: 107px 36px;
+    color: #FFFFFF;
+    font-family: Helvetica;
+    font-size: 1em;
+    font-weight: normal;
+    height: 36px;
+    line-height: 21px;
+    text-transform: uppercase;
+    width: 107px;
+}
+
+button.btn-cart span, button.btn-cart span span {
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
+    border: medium none;
+    height: auto;
+}

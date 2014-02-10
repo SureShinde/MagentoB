@@ -1,0 +1,267 @@
+@font-face {
+	font-family: 'icomoon';
+	src:url('../fonts/icomoon.eot');
+	src:url('../fonts/icomoon.eot?#iefix') format('embedded-opentype'),
+		url('../fonts/icomoon.svg#icomoon') format('svg'),
+		url('../fonts/icomoon.woff') format('woff'),
+		url('../fonts/icomoon.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
+
+/* Needed for a fluid height: */
+html, body, .container, .main { height: 100%;}
+
+/* main wrapper */
+.cbp-contentslider {
+	width: 100%;
+	height: 430px;
+	position: relative;
+	overflow:hidden;
+}
+
+.cbp-contentslider > ul {
+	list-style: none;
+	height: 100%;
+	width: 943px;
+	overflow: hidden;
+	position: relative;
+	padding: 0;
+	margin: 0;
+}
+
+.cbp-contentslider > ul li {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	left: 0;
+	top: 0;
+	background: #fff;
+}
+
+/* Whithout JS, we use :target */
+.cbp-contentslider > ul li:target {
+	z-index: 100;
+}
+
+.cbp-contentslider nav {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	height: 100%;
+	width:200px;
+	overflow: hidden;
+}
+
+.cbp-contentslider nav a {
+	float: left;
+	display: block;
+	width: 100%;
+	height: 25%	;
+	font-weight: 400;
+	overflow: hidden;
+	color: #fff;
+	background: #797979;
+	outline: none;
+	position: relative;
+	-webkit-transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out;
+	-moz-transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out;
+	transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out;
+}
+
+.cbp-contentslider nav a span {
+	display: block;
+}
+
+.cbp-contentslider nav a:last-child {
+	border: none;
+	box-shadow: 1px 0 #47a3da; /* fills gap caused by rounding */
+}
+
+.cbp-contentslider nav a:hover {
+	background-color: #f14223;
+	color: #fff;
+}
+
+.cbp-contentslider nav a.rc-active {
+	background-color: #f14223;
+	color: #fff;
+}
+.cbp-contentslider nav .slider_thumb_large img.i{
+	float: left;
+    height: 95px;
+    width: 94px;
+	margin: 5px;
+}
+.cbp-contentslider nav a.rc-active .slider_thumb_large img.i{
+	display:none;
+}
+.cbp-contentslider nav .slider_thumb_large .t{
+	color: #FFFFFF;
+    font-size: 17px;
+    margin: 34px 0 0 7px;
+    overflow: hidden;
+    position: relative;
+    text-overflow: ellipsis;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.cbp-contentslider nav .slider_thumb_large .c	{
+	padding: 0 0 0 10px;
+}
+/* Iconfont for navigation and headings */
+.cbp-contentslider [class^="icon-"]:before, 
+.cbp-contentslider [class*=" icon-"]:before {
+	font-family: 'icomoon';
+	font-style: normal;
+	text-align: center;
+	speak: none;
+	font-weight: normal;
+	line-height: 2.5;
+	font-size: 2em;
+	position: absolute;
+	left: 10%;
+	top: 50%;
+	margin: -1.250em 0 0 0;
+	height: 2.500em;
+	width: 2.500em;
+	color: rgba(0,0,0,0.1);
+	-webkit-font-smoothing: antialiased;
+}
+
+.cbp-contentslider .icon-wolf:before {
+
+}
+
+.cbp-contentslider .icon-rabbit:before {
+
+}
+
+.cbp-contentslider .icon-turtle:before {
+
+}
+
+.cbp-contentslider .icon-platypus:before {
+
+}
+
+.cbp-contentslider .icon-aligator:before {
+
+}
+
+.cbp-contentslider [class^="icon-"].rc-active:before, 
+.cbp-contentslider [class*=" icon-"].rc-active:before,
+.cbp-contentslider nav a:hover:before {
+	color: rgba(255,255,255,0.9);
+}
+
+.cbp-contentslider h3 {
+	font-size: 4em;
+	height: 2em;
+	line-height: 1.7;
+	font-weight: 300;
+	margin: 0 0 0.3em;
+	position: relative;
+	color: #47a3da;
+	text-transform: uppercase;
+	text-align: right;
+	letter-spacing: 0.3em;
+	padding: 0 0.2em 0 0;
+	border-bottom: 4px solid #47a3da;
+}
+
+.cbp-contentslider h3[class^="icon-"]:before, 
+.cbp-contentslider h3[class*=" icon-"]:before {
+	top: 0;
+	left: 0;
+	width: 2em;
+	line-height: 1;
+	height: 1.2em;
+	margin: 0;
+	color: #47a3da;
+}
+
+.cbp-contentslider li > div {
+	bottom: 1px;
+	background:#000;
+	opacity:0.8;
+    position: absolute;
+    width: 100%;
+	padding:10px 0;
+}
+
+.cbp-contentslider .cbp-content {
+	
+}
+.cbp-contentslider p {
+	margin: 0;
+	font-size: 1.2em;
+	font-weight: 300;
+	text-align: justify;
+	line-height: 1.6;
+}
+
+.main, .container > header {
+    margin: 0 auto;
+    max-width: 1143px;
+    width: 90%;
+	padding:0;
+}
+.slider_img{
+	width:100%;
+}
+
+
+@media only screen and  (min-width: 1025px) and (max-width: 1215px){
+	.cbp-contentslider li > div{
+		padding-right: 200px;
+	}
+}
+
+@media only screen and (min-width: 769px) and (max-width: 1024px){
+	.cbp-contentslider li > div{
+		padding-right:163px;
+	}
+	.cbp-contentslider nav{
+		width:163px;
+	}
+	.cbp-contentslider > ul{
+		width:100%;
+	}
+}
+
+@media only screen and  (min-width: 320px) and (max-width: 768px){
+	.cbp-contentslider li > div{
+		padding-right:163px;
+	}	
+	.cbp-contentslider nav{
+		width:163px;
+	}
+	.cbp-contentslider > ul{
+		width:100%;
+	}
+	.awcp-buy-button button.awcp-buy, .orbit-caption button.awcp-buy{
+		padding:5px 10px;
+	}
+	.awcp-buy-button button.awcp-buy span, .orbit-caption button.awcp-buy span{
+	font-size:18px
+	}
+	
+}
+
+@media only screen and (max-width: 321px) {
+	.cbp-contentslider > ul li{
+		width:320px;
+		height: 380px;
+	}
+	.cbp-contentslider{
+		height:380px;
+	}
+	.cbp-contentslider .thumb_image{
+		display:none;
+	}
+	.cbp-contentslider li > div{
+		width:320px;
+	}
+}

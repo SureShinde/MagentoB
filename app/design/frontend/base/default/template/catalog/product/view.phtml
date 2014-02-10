@@ -119,9 +119,9 @@
 					<?php endif; ?>
 				<?php endif; ?>
 				
-				<div class="one-click-checkout">
-					<a href="#"><?php echo $this->__('One Click Checkout') ?></a>
-				</div>				
+				<!--<div class="one-click-checkout">
+					<a href="#"><?php //echo $this->__('One Click Checkout') ?></a>
+				</div>-->				
 				<div class="buy-later">				
 					<?php echo $this->getChildHtml('addto') ?>
 				</div>				
@@ -131,11 +131,16 @@
 				<?php echo $this->getChildHtml('other');?>
 				
 				<div class="share-button">
-					<span class='item-share st_twitter_hcount' displayText='Tweet'></span>
-					<span class='item-share st_fblike_hcount' displayText='Facebook Like'></span>
-					<span class='item-share st_plusone_hcount' displayText='Google +1'></span>
-					<script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
-					<script type="text/javascript">stLight.options({publisher: "b9878051-cbe0-48e6-a245-b0a08e0f964d", doNotHash: true, doNotCopy: true, hashAddressBar: false});</script>
+					<div class="addthis_toolbox addthis_default_style addthis_32x32_style">
+						<a class="addthis_button_preferred_1"></a>
+						<a class="addthis_button_preferred_2"></a>
+						<a class="addthis_button_preferred_3"></a>
+						<a class="addthis_button_preferred_4"></a>
+						<a class="addthis_button_compact"></a>
+						<a class="addthis_counter addthis_bubble_style"></a>
+					</div>
+					<script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
+					<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-52ca915500b92b8f"></script>
 				</div>
 				
 				<?php if ($this->canEmailToFriend()): ?>
@@ -157,8 +162,9 @@
 				            <?php endif;?>
 						</a></li>
 				<?php endforeach;?>
-				<li class="tab"><a href="#tabs-features">Features</a></li>
+				<!--<li class="tab"><a href="#tabs-features">Features</a></li>
 				<li class="tab"><a href="#tabs-size-chart">Size Chart</a></li>
+				-->
 				</ul>	
 				<div class="panel-container">
 					<?php foreach ($this->getChildGroup('detailed_info', 'getChildHtml') as $alias => $html):?>
