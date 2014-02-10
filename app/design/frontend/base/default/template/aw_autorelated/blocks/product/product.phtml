@@ -66,18 +66,20 @@ if ($this->getPosition() == AW_Autorelated_Model_Source_Position::INSTEAD_NATIVE
 										<a class="aw-arp-product-name" href="<?php echo $abstractBlock->getProductUrl($product) ?>"><?php echo $this->htmlEscape($product->getName()) ?></a><br />
 									</div>
 									<?php echo $abstractBlock->getPriceHtml($product, true, '-related') ?>
-									<?php echo $abstractBlock->getReviewsSummaryHtml($product, false, true)?>
                                 </div>
-								<?php if ($product->isSaleable()) : ?>
-                                  <div class="aw-arp-addtocart">
-                                    <p>
-                                       <?php if(!$this->isLocationLink($product)): ?>
-                                            <a class="link-cart" href="<?php echo $abstractBlock->getAddToCartUrl($product) ?>"><?php echo $this->__('Buy Now') ?></a>
-                                        <?php else : ?>
-                                            <a class="link-cart" href="javascript:setLocation('<?php echo $abstractBlock->getAddToCartUrl($product) ?>');"><?php echo $this->__('Buy Now') ?></a>                                            
-                                        <?php endif; ?>                                       
-                                    </p>
-                               </div>
+								<div class="buttom_related_product">
+									<?php echo $abstractBlock->getReviewsSummaryHtml($product, false, true)?>
+									<div class="aw-arp-addtocart">
+									<?php if ($product->isSaleable()) : ?>
+										<p>
+										   <?php if(!$this->isLocationLink($product)): ?>
+												<a class="link-cart" href="<?php echo $abstractBlock->getAddToCartUrl($product) ?>"><?php echo $this->__('Buy Now') ?></a>
+											<?php else : ?>
+												<a class="link-cart" href="javascript:setLocation('<?php echo $abstractBlock->getAddToCartUrl($product) ?>');"><?php echo $this->__('Buy Now') ?></a>                                            
+											<?php endif; ?>                                       
+										</p>
+									</div>
+								</div>
                                 <?php else : ?>
                                     <p class="availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></p>
                                 <?php endif ?>
