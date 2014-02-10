@@ -100,6 +100,7 @@
 	padding-left: 0;
 	color: #515151;
 	text-transform: capitalize;
+}
 #shopping-cart-table.data-table tbody tr td {
 	vertical-align: middle;
 }
@@ -171,7 +172,7 @@
 	background: #4ec7da;
 	font-family: 'bebasregular';
 	font-size: 1em;
-padding: 5px 14px 10px;
+	padding: 5px 14px 10px;
 	letter-spacing: 0.1em;
 }
 
