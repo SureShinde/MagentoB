@@ -161,7 +161,7 @@
 	border: 0;
 	text-align: center;
 	background: url(../images/bg-txt-qty.png) no-repeat;
-	height: 18px;
+	height: 31px;
 }
 #shopping-cart-table.cart-table .btn-remove2 {
 	background: url(../images/btn_close.png) no-repeat;
@@ -504,6 +504,7 @@
 	clear: both;
 	float: right;
 	padding: 5px 0;
+	display: none;
 }
 .one-click-checkout a {
 	font-weight: bold;
@@ -517,6 +518,7 @@
 .shipping-wrap {
 	clear: both;
 	border-top: 1px #bcbcbc solid;
+	display: none;
 }
 .shipping-wrap .shipping {
 	border: 0;
