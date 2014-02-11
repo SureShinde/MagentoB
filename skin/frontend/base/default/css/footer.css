@@ -16,7 +16,8 @@
 .footer ul {
 	float: left;
 	text-align: left;
-	margin: 0 30px 0 0;
+	/* margin: 0 30px 0 0; */
+	width: 15%;
 }
 .footer li {
 	padding: 0;
@@ -25,14 +26,14 @@
 	padding: 3px 0;
 	font-weight: normal;
 }
-/* .footer li a {
+.footer li a {
 	color: #494949;
 	text-decoration: none !important;
 }
 .footer li a:hover {
 	color: #4EC7DA;
 }
- */
+
 .footer li span.title, .footer .conect-us span.title, .footer .payment-partners span.title, .footer .shipping-partners span.title {
 	color: #484848;
 	font-size: 14px;
@@ -87,7 +88,7 @@
 		width: 994px;
 	}
 	.footer .conect-us, .footer .payment-partners, .footer .shipping-partners {
-		margin-left: 56px;
+		margin-left: 5%;
 	}
 }
 /* --------------- 960 px layout -------------------- */
@@ -96,10 +97,11 @@
 		width: 745px;
 	}
 	.footer ul {
-		margin: 0;
 		width: 33.33%;
-		height: 100px;
+		height: auto;
+		margin: 0 0 20px;
 		text-align: center;
+		min-height: 145px;
 	}
 	.footer .conect-us, .footer .payment-partners, .footer .shipping-partners {
 		width: 33.33%;
