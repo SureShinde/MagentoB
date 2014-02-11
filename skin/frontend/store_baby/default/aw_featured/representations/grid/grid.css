@@ -40,7 +40,7 @@
     font-size:12px; color:#000;
 }
 .awafpgrid .awafptitle {
-	height: 50px;
+	max-height: 45px;
 	overflow: hidden;
 	text-overflow: ellipsis;
 }
@@ -134,6 +134,20 @@
 }
 .featured-category .awafpgrid ul li {
 	width: 15.05% !important;
+}
+.top_thumb_list_product{
+	height:240px;
+	position:relative;
+}
+.top_thumb_list_product{
+	height:0;
+}
+.bottom_thumb_list_product .ratings{
+	margin:0;
+}
+.bottom_thumb_list_product{
+	height:85px;
+	position:relative;
 }
 @media only screen and (max-width: 1215px) {
 	.onsale-category-container-list, .awafpgrid .afp-thumbnail, .awafpgrid .afp-thumbnail a.product-image img {

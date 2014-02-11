@@ -966,7 +966,7 @@ tr.summary-details-excluded { font-style:italic; }
 .tier-prices-grouped li .price { font-weight:bold; }
 
 /* Add to Links */
-.add-to-links { font-size:11px; margin:5px 0 0; }
+.add-to-links { font-size:11px; margin:5px 0 0; position:absolute; bottom:0;}
 .add-to-links .separator { display:none; }
 
 /* Add to Cart */
