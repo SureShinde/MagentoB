@@ -1,0 +1,329 @@
+/* myaccount.css */
+
+/* left */
+.block.block-account {
+	border: 0;
+}
+.block-account .block-title {
+	background-image: none;
+	background-color: #dfe0e0;
+	padding: 12px 7px;
+}
+.block-account .block-title strong {
+	color: #707070;
+	font-family: 'bebasregular';
+	font-size: 1.3em;
+	font-weight: normal;
+	padding: 3px 0;
+}
+.block-account .block-content {
+	background: none;
+}
+.block-account .block-content ul {
+	margin-top: 10px;
+}
+.block-account .block-content li, 
+.block-account .block-content li.current {
+	padding: 10px 0;
+}
+.block-account .block-content li a, 
+.block-account .block-content li.current {
+	border-bottom: 0;
+}
+.block-account .block-content li.current {
+	color: #838383;
+	background: url(../images/arrow-myaccount.png) right center no-repeat;
+}
+.block-account .block-content li.current strong {
+	font-weight: normal;
+}
+.block-account .block-content li a, 
+.block-account .block-content li a:hover {
+	color: #ffa01b;
+	font-weight: bold;
+}
+
+.page-title {
+	border-bottom: 0;
+	background-color: #ffa01b;
+	padding: 12px 7px;
+	margin: 0 0 15px;
+}
+.page-title h1 {
+	color: white;
+	font-family: 'bebasregular';
+	font-size: 1.3em;
+	font-weight: normal;
+	word-spacing: 5px;
+}
+.my-account .col2-set .col-1, 
+.my-account .col2-set .col-2 {
+	width: 100%;
+	float: none;
+}
+
+/* My Dashboard */
+.dashboard .welcome-msg {
+	padding: 10px 10px 30px;
+}
+.dashboard .welcome-msg p {
+	font-size: 1.2em;
+	color: #515151;
+}
+.dashboard .welcome-msg p.hello {
+	font-size: 1.4em;
+	margin-bottom: 15px;
+}
+.box-account.box-info {
+	background: none;
+	padding: 0;
+	border: 0;
+	margin-bottom: 0;
+}
+.dashboard .col2-set {
+	margin-bottom: 0;
+}
+.box-account.box-info .col2-set address {
+	margin-bottom: 10px;
+}
+.box-account.box-info .col2-set .box {
+	border-top: 1px #bcbcbc solid;
+	padding: 10px 10px 30px;
+}
+.dashboard .box .box-title {
+	background: none;
+}
+.dashboard .box .box-title a {
+	font-weight: bold;
+	color: #ffa01b;
+}
+.dashboard .box-account.box-recent {
+	background: 0;
+	border: 0;
+	padding: 10px 10px 0;
+	border-top: 1px #bcbcbc solid;
+}
+.dashboard .box-account .box-head {
+	border-bottom: 0;
+}
+.dashboard .box-account .box-head a {
+	color: #fd810d;
+	font-weight: bold;
+}
+.dashboard .box-recent .box-head h2 {
+	background-image: none;
+	padding-left: 0;
+}
+.dashboard .box .box-title h3, 
+.dashboard .box .box-title h4, 
+.dashboard .box-recent .box-head h2 {
+	color: #515151;
+	text-transform: capitalize;
+}
+
+/* Personal Details */
+.my-account .fieldset {
+	border: 0;
+	background: 0;
+	padding: 15px 20px 0;
+	margin: 0;
+}
+.my-account .fieldset.personal-details {
+	margin: 0 0 50px;
+}
+.my-account .fieldset.change-password {
+	border-top: 1px #afafaf solid;
+	padding-top: 20px;
+}
+.my-account .fieldset .legend {
+	border: 0;
+	background: 0;
+	padding: 0;
+	margin: 0;
+	float: none;
+	color: #434343;
+	margin: 0 0 8px;
+}
+.my-account .fieldset .form-list .field {
+	width: 100%;
+}
+.my-account .fieldset .form-list .field.name-firstname, 
+.my-account .fieldset .form-list .field.new-password {
+	margin: 0 0 8px;
+}
+.my-account .fieldset .form-list label {
+	color: #434343;
+	font-weight: normal;
+	width: 160px;
+	padding-top: 4px;
+}
+.my-account .fieldset .form-list label.required em {
+	right: 10px;
+	top: 3px;
+}
+.my-account .fieldset .form-list .input-box {
+	clear: none;
+	float: left;
+}
+.form-list input.input-text {
+	background: #f7f7f7;
+	border-color: #dedede;
+}
+.my-account .buttons-set {
+	border-top: 0;
+	text-align: center;
+}
+.my-account .buttons-set button.button {
+	float: none;
+}
+.my-account .buttons-set button.button span {
+	border: 0;
+	background: #fd8e18;
+	padding: 10px 0;
+	height: 30px;
+}
+.my-account .buttons-set button.button span span {
+	font-family: 'bebasregular';
+	font-size: 1.3em;
+	font-weight: normal;
+	word-spacing: 5px;
+	padding: 5px 20px;
+}
+
+/* Adress Book */
+.addresses-list li.item {
+	background: 0;
+	border: 0;
+	padding: 15px 20px 0;
+	margin: 0;
+}
+.addresses-list li.item.billing-address {
+	margin-bottom: 50px;
+}
+.addresses-list li.item.shipping-address {
+	border-top: 1px #afafaf solid;
+	margin-bottom: 50px;
+}
+.addresses-list li.item h3 {
+	float: left;
+	color: #424242;
+	margin-bottom: 15px;
+}
+.addresses-list li.item p {
+	text-align: right;
+}
+.addresses-list li.item.empty p {
+	text-align: left;
+	clear: left;
+}
+.addresses-list li.item address {
+	clear: left;
+}
+.addresses-list h2 {
+	text-transform: capitalize;
+	color: #424242;
+	float: left;
+}
+.addresses-list p.new-address {
+	text-align: right;
+}
+.addresses-additional-wrap {
+	padding: 15px 20px 0;
+	border-top: 1px #afafaf solid;
+}
+
+/* Order History */
+.my-account .pager {
+	background: 0;
+}
+.my-account .pager .pager {
+	border-top: 2px #5f5f5f solid;
+}
+.my-account .pager .pager .pager-wrapper {
+	padding: 0;
+}
+.my-account .pager-wrapper {
+	color: #6e6e6e;
+	padding: 0 10px;
+}
+.my-account .pager .buttons-set, 
+.my-account .pager-wrapper .pages, 
+.my-account .custome-nav {
+	display: none;
+}
+.my-account .pager-wrapper .limiter {
+	font-weight: bold;
+}
+.my-account .pager-wrapper .limiter label, 
+.my-account .pager-wrapper .limiter ul {
+	float: left;
+}
+.my-account .pager-wrapper .limiter label {
+	margin-right: 5px;
+}
+.my-account .pager-wrapper .limiter ul li {
+	display: inline-block;
+}
+.my-account .pager-wrapper .limiter ul li {
+	padding-left: 8px;
+	background: url(../images/slash-grey.png) no-repeat left center;
+}
+.my-account .pager-wrapper .limiter ul li:first-child {
+	background: none;
+	padding-left: 0;
+}
+.my-account .pager-wrapper .limiter ul li a, 
+.my-account .data-table .link-reorder, 
+.my-account .data-table .link-view-order {
+	color: #fd810d !important;
+	font-weight: bold;
+}
+.my-account .data-table {
+	border: 0;
+	margin: 20px 0 15px;
+}
+.my-account .data-table td {
+	padding: 7px 8px;
+}
+.my-account .data-table thead th {
+	background-image: none;
+	background-color: #5d5d5d;
+	color: white;
+	border-right: 0;
+	padding: 7px 8px;
+}
+.my-account .data-table .odd {
+	background: white;
+}
+.my-account .data-table .even {
+	background: #ededed;
+}
+.my-account .data-table tbody td {
+	border-bottom: 0;
+	border-right: 0;
+}
+
+/* Review */
+#my-reviews-table .product-name a {
+	color: #515151;
+}
+#my-reviews-table tbody td.last a {
+	color: #fd810d;
+	font-weight: bold;
+}
+
+@media (max-width: 1215px) {
+	
+}
+
+@media (max-width: 1023px) {
+	
+}
+
+@media (max-width: 767px) {
+	
+}
+
+@media (max-width: 479px) {
+	
+}

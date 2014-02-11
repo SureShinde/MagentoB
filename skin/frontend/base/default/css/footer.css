@@ -1,6 +1,7 @@
 .footer-container {
 	border: none;
 	width: 100%;
+	clear: both;
 }
 .footer {
 	width: 1216px;
