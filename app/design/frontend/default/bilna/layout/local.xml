@@ -201,6 +201,16 @@
 			<action method="addCss"><stylesheet>css/myaccount.css</stylesheet></action>
 		</reference>
 		<reference name="left">
+			<remove name="customer_account_navigation" />
+			<block type="customer/account_navigation" name="customer_account_navigation_2" before="-" template="customer/account/navigation.phtml">
+                <action method="addLink" translate="label" module="customer"><name>account</name><path>customer/account/</path><label>Account Dashboard</label></action>
+                <action method="addLink" translate="label" module="customer"><name>account_edit</name><path>customer/account/edit/</path><label>Personal Details</label></action>
+                <action method="addLink" translate="label" module="customer"><name>address_book</name><path>customer/address/</path><label>Address Books</label></action>
+				<action method="addLink" translate="label" module="sales"><name>orders</name><path>sales/order/history/</path><label>Order History</label></action>
+				<action method="addLink" translate="label" module="review"><name>reviews</name><path>review/customer</path><label>My Product Reviews</label></action>
+				<action method="addLink" translate="label" module="newsletter"><name>newsletter</name><path>newsletter/manage/</path><label>Newsletter Subscriptions</label></action>
+            </block>
+			
             <remove name="left.permanent.callout" />
             <remove name="brands.switch" />
             <remove name="cart_sidebar" />
