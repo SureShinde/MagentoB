@@ -1,0 +1,7 @@
+<config>
+   <global>
+      <cache>
+         <backend>Brim_PageCache_Model_Backend_File_Scalable</backend>
+      </cache>
+   </global>
+</config>

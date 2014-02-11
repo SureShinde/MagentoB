@@ -14,14 +14,20 @@
  *
  * @category   Brim
  * @package    Brim_PageCache
- * @copyright  Copyright (c) 2011-2012 Brim LLC
+ * @copyright  Copyright (c) 2011-2013 Brim LLC
  * @license    http://ecommerce.brimllc.com/license
  */
+
+/** @var Mage_Core_Model_Resource_Setup $installer */
+
 $installer = $this;
 $installer->startSetup();
 
+$cacheTableName     = $installer->getTable('brim_pagecache_cache');
+$cacheTagTableName  = $installer->getTable('brim_pagecache_cache_tag');
+
 $createCacheTables = <<<TABLE
-    CREATE TABLE IF NOT EXISTS `brim_pagecache_cache` (
+    CREATE TABLE IF NOT EXISTS `{$cacheTableName}` (
             `id` VARCHAR(255) NOT NULL,
             `data` mediumblob,
             `create_time` int(11),
@@ -31,7 +37,7 @@ $createCacheTables = <<<TABLE
             KEY `IDX_EXPIRE_TIME` (`expire_time`)
     )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-    CREATE TABLE IF NOT EXISTS `brim_pagecache_cache_tag` (
+    CREATE TABLE IF NOT EXISTS `{$cacheTagTableName}` (
         `tag` VARCHAR(255) NOT NULL,
         `cache_id` VARCHAR(255) NOT NULL,
         KEY `IDX_TAG` (`tag`),

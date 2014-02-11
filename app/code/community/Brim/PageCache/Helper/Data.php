@@ -134,4 +134,21 @@ class Brim_PageCache_Helper_Data extends Mage_Core_Helper_Abstract {
 
         return $newUri;
     }
+
+    /**
+     * Gets a request object with the original request uri.  Certain extension have modify the original request causing
+     * incorrect result.  ie. different request being treated as one.
+     *
+     * @param null $request
+     * @return Mage_Core_Controller_Request_Http|null
+     */
+    public static function getRequest($request=null) {
+        if (is_null($request)) {
+            if (!($request = Mage::registry('brim_pagecache_original_request'))) {
+                $request = Mage::app()->getRequest()->getOriginalRequest();
+            }
+        }
+
+        return $request;
+    }
 }

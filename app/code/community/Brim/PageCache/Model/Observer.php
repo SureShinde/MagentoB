@@ -34,12 +34,13 @@ class Brim_PageCache_Model_Observer extends Varien_Event_Observer
     protected $_engine = null;
 
     /**
-     *
+     * @return Brim_PageCache_Model_Engine|Mage_Core_Model_Abstract
      */
-    function _construct() {
-        parent::_construct();
-
-        $this->_engine = Mage::getSingleton('brim_pagecache/engine');
+    public function getEngine() {
+        if ($this->_engine == null) {
+            $this->_engine = Mage::getSingleton('brim_pagecache/engine');
+        }
+        return $this->_engine;
     }
 
     /**
@@ -117,6 +118,24 @@ class Brim_PageCache_Model_Observer extends Varien_Event_Observer
     }
 
     /**
+     * Disabled storing and removes parameters stored in the session
+     *
+     * @return void
+     */
+    public function disableParamMemorization() {
+        if (!$this->getEngine()->isEnabled()) {
+            return;
+        }
+        $catalogSession = Mage::getSingleton('catalog/session');
+        $catalogSession->setParamsMemorizeDisabled(true)
+            ->unsSortOrder()
+            ->unsSortDirection()
+            ->unsDisplayMode()
+            ->unsLimitPage();
+        return;
+    }
+
+    /**
      * Handles appending custom FPC updates to the pages layout.
      *
      * Observes: controller_action_layout_generate_xml_before
@@ -131,7 +150,7 @@ class Brim_PageCache_Model_Observer extends Varien_Event_Observer
          * @var $child  Mage_Core_Model_Layout_Element
          */
 
-        if (!$this->_engine->isEnabled()) {
+        if (!$this->getEngine()->isEnabled()) {
             return;
         }
 
@@ -650,5 +669,17 @@ EOT;
         }
 
         Mage::getSingleton('brim_pagecache/container_compared')->generateCacheKey();
+    }
+
+    /**
+     * Preloads the orignal request to prevent other extension from changing it.
+     *
+     * Observes: controller_front_init_routers
+     *
+     * @return void
+     */
+    public function saveOriginalRequest() {
+        $request = Mage::app()->getRequest()->getOriginalRequest();
+        Mage::register('brim_pagecache_original_request', $request);
     }
 }
