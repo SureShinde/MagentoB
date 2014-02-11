@@ -20,14 +20,17 @@
 	font-size: 1.4em;
 	color: #343334;
 	word-spacing: 3px;
-	background: url(../images/dash-orange.png) bottom repeat-x;
+	background: url(../images/dash-orange.png) bottom repeat-x; 
 	border-bottom: 0;
 	padding-bottom: 15px;
 }
 .account-login .col-2.registered-users .content p {
 	margin-bottom: 10px;
 }
-.account-login .al-authorization .form-list li:first-child, 
+.account-login .al-authorization .form-list li:first-child {
+	background: none;
+	padding-bottom: 0;
+} 
 .account-login .al-authorization .form-list li:last-child {
 	background: none;
 	padding-bottom: 0;
@@ -436,7 +439,13 @@
 	color: #fd810d;
 	font-weight: bold;
 }
-
+.form-list li .orange-dash { background: url(../images/dash-orange.png) bottom repeat-x; padding-bottom:20px;}
+.error-msg {
+    border-color: #F16048;
+    background-color: #FFF;
+    background-image: url('../images/i_msg-error.gif');
+    color: #DF280A;
+}
 @media (max-width: 1215px) {
 	
 }
