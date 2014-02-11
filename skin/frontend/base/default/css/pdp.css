@@ -293,7 +293,7 @@
 	clear: both;
 }
 .aw-arp-item .top_thumb_list_product{
-	height:230px;
+	height:240px;
 	position:relative;
 }
 .aw-arp-block-1 .top_thumb_list_product{
@@ -519,12 +519,7 @@
 	position: relative;
 	width: 13%;
 }
-.top_thumb_list_product{
-	height:240px;
-}
-.bottom_thumb_list_product{
-	height:75px;
-}
+
 .related-product .block-content .aw-arp-item:hover {
 	background-color: #fff;
 	z-index: 10;
@@ -544,7 +539,7 @@
 	width: 152px;
 }
 .related-product .block-content .aw-arp-product-name-wrap {
-	max-height: 30px;
+	max-height: 45px;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	text-align: left;
