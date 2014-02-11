@@ -78,7 +78,7 @@ body {
 .products-grid li.item {
 	width: 152px;
 	padding-bottom: 12px;
-	height: 340px;
+	height: 355px;
     /*float:left;
     margin:15px 0 10px 0;
     padding: 7.6px;*/
@@ -144,7 +144,8 @@ body {
 	bottom: 18px;
 }
 .products-grid .actions {
-	position: relative;
+	/*position: relative;*/
+	position: static;
 }
 button.btn-cart {
     width:107px;
