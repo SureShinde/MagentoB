@@ -107,7 +107,7 @@ body {
 	height:auto;
 }
 .products-grid .product-name, .products-grid .price-box {
-	height: 50px;
+	max-height: 50px;
 	text-overflow: ellipsis;
 	overflow: hidden;
 }
@@ -126,7 +126,7 @@ body {
 	font-size: 1em;
 }
 .products-grid .product-info-wrapper {
-	height: 150px;
+	/*height: 150px;*/
 }
 .products-grid .price-box .price, .products-grid .price-box .regular-price .price {
 	color: #707070;
