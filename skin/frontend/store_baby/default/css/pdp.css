@@ -11,6 +11,7 @@
 	padding-left: 0;	
 	padding-right: 0;	
 }
+}
 .col1-layout .product-view .product-shop {
 	width: 720px;
 	margin-bottom: 30px;
@@ -478,6 +479,7 @@
 .related-product .block-content .aw-arp-item {
 	width: 13%;
 	text-align: center;
+	height: 315px;
 }
 .related-product .block-content .aw-arp-item img {
 	border: 0;

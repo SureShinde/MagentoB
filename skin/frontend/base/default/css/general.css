@@ -78,7 +78,7 @@ body {
 .products-grid li.item {
 	width: 152px;
 	padding-bottom: 12px;
-
+	height: 340px;
     /*float:left;
     margin:15px 0 10px 0;
     padding: 7.6px;*/
