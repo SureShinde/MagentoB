@@ -277,7 +277,7 @@
 }
 .header .menu-top {
 	left: 0;
-	width: 500px;
+	width: 399px;
 }
 .header .menu-blog {
 	right:0;
@@ -1602,4 +1602,15 @@
 	.header .search-mobile .form-search .input-keyword .select-category select {
 		width: 105px;
 	}
+}
+
+.header .links li {
+float: none;
+background: none;
+padding-left: 7px;
+padding-right: 5px;
+border-right: 1px solid #f1f1f1;
+}
+.header .links li.first {
+border: none;
 }
