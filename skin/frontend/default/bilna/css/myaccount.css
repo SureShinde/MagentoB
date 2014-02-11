@@ -157,6 +157,7 @@
 	background-color: #ffa01b;
 	padding: 12px 7px;
 	margin: 0 0 15px;
+	width: auto;
 }
 .page-title h1 {
 	color: white;
@@ -441,7 +442,18 @@
 }
 
 @media (max-width: 1023px) {
-	
+	.col2-left-layout .main .col-left.sidebar {
+		margin-top: 0px;
+	}
+	.account-login .content {
+		min-height: 380px !important;
+	}
+	.form-list li.wide .input-box {
+		width: 260px;
+	}
+	.form-list li.wide input.input-text {
+		width: 254px;
+	}
 }
 
 @media (max-width: 767px) {
@@ -453,10 +465,21 @@
 	.account-login .col2-set .col-2 .content {
 		margin: 15px;
 	}
+	.account-login .content {
+		min-height: 0 !important;
+		height: auto;
+	}
 }
 
 @media (max-width: 479px) {
 	.account-login .al-authorization .form-list input.input-text {
 		width: 215px;
+	}
+	.form-list input.input-text#street_2 {
+		margin-left: 0;
+	}
+	.my-account .fieldset .form-list label {
+		padding-top: 0;
+		padding-bottom: 3px;
 	}
 }
