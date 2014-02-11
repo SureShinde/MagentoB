@@ -107,7 +107,7 @@ var AW_AjaxCartPro = {
         var me = this;
         this.ui.observer = observer;
         this.ui.beforeFire();
-
+        
         var parameters = parameters || {};
         parameters['block[]'] = [];
         Object.keys(me.config.targetsToUpdate).each(function(k){
@@ -138,6 +138,10 @@ var AW_AjaxCartPro = {
                 }, {
                     actionData: Object.toJSON(response.action_data)
                 });
+
+                if(observer.name == 'clickOnButtonInCartPageForm'){
+                	document.location.reload();
+                }
             },
             function(json){
                 observer.fireOriginal(url, parameters);
