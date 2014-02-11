@@ -277,7 +277,7 @@
 }
 .header .menu-top {
 	left: 0;
-	width: 398px;
+	width: 399px;
 }
 .header .menu-blog {
 	right:0;
@@ -954,7 +954,7 @@
 	color: #dadada;
 }
 #nav li.level-top.parent-10, #nav li.level-top.parent-11 {
-	float: right;
+	float: left;
 	width: auto;
 }
 #nav li.level-top.parent-10:hover, #nav li.level-top.parent-11:hover {
@@ -1019,7 +1019,7 @@
 	height: 44px;
 	background: url(../images/arrow-down.png) no-repeat 28px 25px, url(../images/lbl-shopby.png) no-repeat left top;
 	z-index: 2;
-	padding: 5px 0 0 10px;
+	padding: 5px 0 0 10px !important;
 }
 #nav span {
 	white-space: inherit;
@@ -1083,7 +1083,7 @@
 .shopby ul.shop-by {
 	list-style: none;
 	padding: 0 0 5px 0;
-	margin: 0 0 20px 20px;
+	margin: 0 0 5px 20px;
 	background: url(../images/dash.png) no-repeat left bottom;
 }
 .shopby ul.shop-by li {
@@ -1220,7 +1220,7 @@
 	float: right;
 }
 .menu-tablet .form-language, .menu-tablet .store-phone {
-	margin-top: 0;
+	margin-top: 5px;
 }
 .menu-tablet .form-language {
 	margin-right: 10px;
@@ -1308,7 +1308,7 @@
 	.sticky-header ul.sticky-menu li.link-customer-care2 a {
 		font-size: 12px;
 		padding-left: 0;
-		line-height: 24px;
+		line-height: 30px;
 		background: none;
 		padding-top: 2px;
 	}
@@ -1602,4 +1602,15 @@
 	.header .search-mobile .form-search .input-keyword .select-category select {
 		width: 105px;
 	}
+}
+
+.header .links li {
+float: none;
+background: none;
+padding-left: 7px;
+padding-right: 5px;
+border-right: 1px solid #f1f1f1;
+}
+.header .links li.first {
+border: none;
 }

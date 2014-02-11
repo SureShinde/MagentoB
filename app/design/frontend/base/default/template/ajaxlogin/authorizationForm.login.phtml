@@ -26,7 +26,69 @@
  * @license    http://ecommerce.aheadworks.com/AW-LICENSE.txt
  */
 ?><div class="al-authorizationform-login">
-    <form action="<?php echo $this->getLoginActionUrl() ?>" method="post" id="login-form">
+    
+<div class="al-authorizationform-register" style="float:left; margin: 0 30px;width: 350px;">
+    <form action="http://dev-icube.bilna.com/ajaxlogin/index/registerPost/" method="post" id="register-form">
+        <input type="hidden" name="success_url" value="">
+        <input type="hidden" name="error_url" value="">
+        <ul class="form-list">
+                                                                <li>
+                        <div class="Title">
+            <h2>Create an Account</h2>
+    </div>                    </li>
+                                                                                <li>
+                        <div class="customer-name">
+    <div class="field name-firstname">
+        <label for="firstname" class="required"><em>*</em>First Name</label>
+        <div class="input-box">
+            <input type="text" id="firstname" name="firstname" value="" title="First Name" maxlength="255" class="input-text required-entry">
+        </div>
+    </div>
+    <div class="field name-lastname">
+        <label for="lastname" class="required"><em>*</em>Last Name</label>
+        <div class="input-box">
+            <input type="text" id="lastname" name="lastname" value="" title="Last Name" maxlength="255" class="input-text required-entry">
+        </div>
+    </div>
+</div>
+                    </li>
+                                                                                <li>
+                        <label for="email" class="required"><em>*</em>Email Address</label>
+<div class="input-box">
+    <input type="text" name="email" value="" id="al_auth_reg_email" class="input-text required-entry validate-email" title="Email Address">
+</div>                    </li>
+                                                                                <li>
+                        <label for="pass" class="required"><em>*</em>Password</label>
+<div class="input-box">
+    <input type="password" name="password" class="input-text required-entry validate-password" title="Password" id="al_auth_reg_password">
+</div>                    </li>
+                                                                                <li>
+                        <label for="confirmation" class="required"><em>*</em>Confirm Password</label>
+<div class="input-box">
+    <input type="password" name="confirmation" class="input-text required-entry validate-cpassword" title="Confirm Password" id="al_auth_reg_passwordconfirm">
+</div>                    </li>
+                                                                                <li>
+                            <input type="checkbox" name="is_subscribed" title="Sign Up for Newsletter" value="1" id="al_auth_reg_newsletter" class="checkbox">
+    <label class="newsletter" for="is_subscribed">Sign Up for special offers from Bilna.com</label>
+                        </li>
+                                                                                                                                                                                                                                                                <li>
+                        <ul class="messages Shaddy" style="display: none;"></ul>
+
+<div class="buttons-set">
+    <button type="submit" class="button" title="Submit"><span><span>Submit</span></span></button>
+    <p class="required">* Required Fields</p>
+            <p class="back-link"><a href="http://dev-icube.bilna.com/customer/account/login/" id="node-uid-ajaxlogin-4">Back to Login</a></p>
+    </div>
+
+<script type="text/javascript">Event.observe(window,'load',function(){$('node-uid-ajaxlogin-4').observe('click',function(event){AjaxLogin.Authorization.__getInstanceByChildnode(this).switchToFrame('login');if(window.event)window.event.cancelBubble=true;if(window.event)window.event.returnValue=false;event.preventDefault();event.stopPropagation();return false;});});</script>                    </li>
+                                    </ul>
+    </form>
+	</div>
+	
+<!---------------- LOGIN start -------------------->
+	
+	<div class="al-authorizationform-login-custom" style="float:left; margin: 0 30px;">
+	<form action="<?php echo $this->getLoginActionUrl() ?>" method="post" id="login-form">
         <ul class="form-list">
             <?php foreach ($this->getChildren() as $__childBlock): ?>
                 <li>
@@ -36,4 +98,9 @@
         </ul>
     </form>
     <form action="<?php echo $this->getLogoutActionUrl() ?>" method="get" id="logout-form"></form>
+	</div>
+	
+
+	
+	
 </div>

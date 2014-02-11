@@ -183,6 +183,9 @@
 	width: 230px;
 	margin: 0 auto;
 }
+.product-view .product-shop .product-shop-right .btn-buy-grouped .add-to-cart {
+	background: url(../images/btn-buynow4.png) repeat-x;
+}
 .product-view .product-shop .product-shop-right .add-to-cart label {
 	font-size: 1.16em;
 	margin-top: 12px;
@@ -197,6 +200,11 @@
 .product-view .product-shop .product-shop-right .add-to-cart button.button {
 	margin-left: 28px;
 	margin-top: 3px;
+}
+.product-view .product-shop .product-shop-right .btn-buy-grouped .add-to-cart button.button {
+	text-align: center;
+	width: 100%;
+	margin-left: 0px;
 }
 .product-view .product-shop .product-shop-right button.btn-cart {
 	background: none;
@@ -283,6 +291,20 @@
 	height: auto;
 	min-height: initial;
 	clear: both;
+}
+.aw-arp-item .top_thumb_list_product{
+	height:240px;
+	position:relative;
+}
+.aw-arp-block-1 .top_thumb_list_product{
+	height:0;
+}
+.bottom_thumb_list_product .ratings{
+	margin:0;
+}
+.aw-arp-item .bottom_thumb_list_product{
+	height:85px;
+	position:relative;
 }
 .product-shop-right .block.block-related .aw-arp-item-left {
 	float: left;
@@ -493,9 +515,11 @@
 	margin: 15px 0 10px 0;
 	padding: 7.6px;
 	zoom: 1;
+	height:315px;
 	position: relative;
 	width: 13%;
 }
+
 .related-product .block-content .aw-arp-item:hover {
 	background-color: #fff;
 	z-index: 10;
@@ -515,7 +539,7 @@
 	width: 152px;
 }
 .related-product .block-content .aw-arp-product-name-wrap {
-	height: 30px;
+	max-height: 45px;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	text-align: left;
@@ -523,7 +547,7 @@
 .related-product .block-content .aw-arp-item .price-box {
 	text-align: left;
 	height: 35px;
-	margin-bottom: 50px;
+	/*margin-bottom: 50px;*/
 }
 .related-product .block-content .aw-arp-product-name, 
 .related-product .block-content .price {
@@ -558,7 +582,7 @@
 	width: 88px;
 	height: 36px;
 	position:absolute;
-	bottom:0;
+	bottom:26px;
 }
 .related-product .block-content .aw-arp-addtocart a {
 	color: white !important;

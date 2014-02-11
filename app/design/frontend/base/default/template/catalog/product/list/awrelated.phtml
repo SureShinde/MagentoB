@@ -52,15 +52,19 @@
     <div class="aw-content" <?php if (Mage::helper('relatedproducts')->checkVersion('1.4.1.0')) { echo "id=\"after1400\""; }?>>
         <ol>
         <?php foreach($this->getRelatedProductsCollection() as $_item): ?>
-        <li<?php if($_item->isComposite() || !$_item->isSaleable()): ?> class="super-products"<?php endif; ?>>
-            <div class="product-images">
-                <a href="<?php echo $_item->getProductUrl() ?>"><img src="<?php echo $this->helper('catalog/image')->init($_item, 'thumbnail')->resize(152) ?>" alt="<?php echo $this->htmlEscape($_item->getName()) ?>" /></a>
-            </div>
-            <div class="product-details">
-				<div class="product-name-wrap">
-					<a href="<?php echo $_item->getProductUrl() ?>"><?php echo $this->htmlEscape($_item->getName()) ?></a>
+        <li <?php if($_item->isComposite() || !$_item->isSaleable()): ?> class="super-products"<?php endif; ?>>
+			<div class="top_thumb_list_product">
+				<div class="product-images">
+					<a href="<?php echo $_item->getProductUrl() ?>"><img src="<?php echo $this->helper('catalog/image')->init($_item, 'thumbnail')->resize(152) ?>" alt="<?php echo $this->htmlEscape($_item->getName()) ?>" /></a>
 				</div>
-				<?php echo $this->getPriceHtml($_item, true); ?>
+				<div class="product-details">
+					<div class="product-name-wrap">
+						<a href="<?php echo $_item->getProductUrl() ?>"><?php echo $this->htmlEscape($_item->getName()) ?></a>
+					</div>
+					<?php echo $this->getPriceHtml($_item, true); ?>
+				</div>
+			</div>
+			<div class="buttom_related_product">
 				<?php echo $this->getReviewsSummaryHtml($_item, false, true)?>
 				
 				<?php if($_item->isSaleable()): ?>

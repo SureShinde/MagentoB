@@ -67,7 +67,8 @@
 	            <?php endif; ?>
 	        </div>
 	    <?php else: ?>
-	        <?php echo $this->__('Featured Products Not Available')?>
+	        <?php //echo $this->__('Featured Products Not Available') ?>
+            <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId($child->getData('id'))->toHtml(); ?>
 	    <?php endif;?>
     </div>
     <div class="clear"></div>

@@ -78,7 +78,7 @@ body {
 .products-grid li.item {
 	width: 152px;
 	padding-bottom: 12px;
-
+	height: 340px;
     /*float:left;
     margin:15px 0 10px 0;
     padding: 7.6px;*/
@@ -150,8 +150,10 @@ button.btn-cart {
     width:107px;
     background-image:url(../images/btn-buynow.png);
     height:36px;
+	bottom: 26px;
     line-height:21px;
     color: #fff;
+	position:absolute;
     font-family: Helvetica;
     font-size: 1em;
     font-weight: normal;
@@ -230,11 +232,12 @@ a.back-to-top img {
 	color: #343334;
 	word-spacing: 2px;
 }
-.al-authorization .form-list li:first-child, 
+.al-authorization .form-list li:first-child , 
 .al-authorization .form-list li:last-child {
 	background: url(../images/dash-orange.png) bottom repeat-x;
 	padding-bottom: 20px;
 }
+
 .al-authorization .form-list .field {
 	width: 100%;
 }
