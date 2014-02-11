@@ -69,8 +69,8 @@
         <reference name="top.links">
         	<action method="removeLinkByUrl"><url helper="customer/getAccountUrl"/></action>
 			<action method="removeLinkByUrl"><url helper="customer/getLoginUrl"/></action>
-			<action method="addLink" translate="label title" module="customer"><label>Login</label><url helper="customer/getLoginUrl"/><title>Login</title><prepare/><urlParams/><position>10</position><liParams><class>signin</class></liParams></action>
-            <action method="addLink" translate="label title" module="customer"><label>Register</label><url helper="customer/getRegisterUrl"/><title>Register</title><prepare/><urlParams/></action>
+			<action method="addLink" translate="label title" module="customer"><label>Login/Register</label><url helper="customer/getLoginUrl"/><title>Login</title><prepare/><urlParams/><position>10</position><liParams><class>signin</class></liParams></action>
+            <!-- action method="addLink" translate="label title" module="customer"><label>Register</label><url helper="customer/getRegisterUrl"/><title>Register</title><prepare/><urlParams/></action -->
         </reference>
         <remove name="reorder"></remove>
     </customer_logged_out>
