@@ -15,7 +15,7 @@ body {
 	margin: 0 auto;
 }
 .main-container, .main-container.col1-layout .main, .main-container.col2-left-layout .main, .main-container.col2-right-layout .main {
-	width: 1216px;
+	width: 1130px;
 	margin: 25px auto 0;
 	background: none;
 	padding: 0;
@@ -23,12 +23,10 @@ body {
 .main {}
 .col2-left-layout .main {}
 .col2-left-layout .main .col-left.sidebar, .col2-right-layout .main .col-right.sidebar {
-	width: 167px;
+	width: 20%;
 	position:relative;
 }
-.col2-left-layout .main .col-main, .col2-right-layout .main .col-main {
-	width: 1032px;
-}
+
 .breadcrumbs {
 	font-size: 15px;
 	font-family: helvetica;
