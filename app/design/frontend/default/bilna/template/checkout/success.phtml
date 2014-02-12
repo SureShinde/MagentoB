@@ -24,22 +24,24 @@
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
+
 <div class="page-title">
     <!--<h1><?php echo $this->__('Your order has been received.') ?></h1> -->
-</div>
+</div> </br>
 <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
 <h2 class="sub-title"><img src="<?php echo $this->getSkinUrl('images/smile.png') ?>" alt="" id="Smile" /> <?php echo $this->__('Thank you for shopping at Bilna.com!') ?></h2>
-
+<div style="padding-left: 30px;">
 <?php if ($this->getOrderId()):?>
-<?php if ($this->getCanViewOrder()) :?>
-    <p><?php echo $this->__('Your order # is: %s.', sprintf('<a href="%s">%s</a>', $this->escapeHtml($this->getViewOrderUrl()), $this->escapeHtml($this->getOrderId()))) ?></p>
+<?php if ($this->getCanViewOrder()) :?></br>
+    <p><?php echo $this->__('Your order # is: <b>%s</b>.', sprintf('<a href="%s">%s</a>', $this->escapeHtml($this->getViewOrderUrl()), $this->escapeHtml($this->getOrderId()))) ?></p>
 <?php  else :?>
-    <p><?php echo $this->__('Your order # is: %s.', $this->escapeHtml($this->getOrderId())) ?></p>
-<?php endif;?>
+    <p><?php echo $this->__('Your order # is: <b>%s</b>.', $this->escapeHtml($this->getOrderId())) ?></p>
+<?php endif;?></br>
     <p><?php echo $this->__('You will receive an order confirmation email with details of your order and a link to track its progress.') ?></p>
+    <p><?php echo $this->__('Question or problem? Call (021) 2902 2090.') ?> </p> </br>
 <?php if ($this->getCanViewOrder() && $this->getCanPrintOrder()) :?>
     <p>
-        <?php echo $this->__('Click <a href="%s" onclick="this.target=\'_blank\'">here to print</a> a copy of your order confirmation.', $this->getPrintUrl()) ?>
+        <?php echo $this->__('Click here to <a style="color:#FFA01B;" href="%s" onclick="this.target=\'_blank\'"> print a copy </a> of your order confirmation.', $this->getPrintUrl()) ?>
         <?php echo $this->getChildHtml() ?>
     </p>
 <?php endif;?>
@@ -63,4 +65,5 @@ echo $this->getLayout()->createBlock('cms/block')->setBlockId('Payment-Success')
 
 <div class="buttons-set">
     <button type="button" class="button" title="<?php echo $this->__('Continue Shopping') ?>" onclick="window.location='<?php echo $this->getUrl() ?>'"><span><span><?php echo $this->__('Continue Shopping') ?></span></span></button>
+</div>
 </div>
