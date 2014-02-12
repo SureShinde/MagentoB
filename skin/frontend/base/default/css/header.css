@@ -545,7 +545,7 @@
 }
 .mini-cart .block-cart .summary, .mini-cart-sticky .block-cart .summary {
 	margin: 0;
-	min-height: 80px;
+	max-height: 80px;
 }
 .mini-cart .block-cart .subtotal, .mini-cart .block-cart .amount, .mini-cart-sticky .block-cart .subtotal, .mini-cart-sticky .block-cart .amount {
 	text-align: right;
@@ -597,7 +597,7 @@
 	line-height: normal;
 }
 .mini-cart .block-cart .actions button.button.btn-checkout span span img, .mini-cart-sticky .block-cart .actions button.button.btn-checkout span span img {
-	/* margin-top: 5px; */ margin: 1px 0 0 8px;
+	/* margin-top: 5px; */ margin: 5px 0 0 8px;
 }
 .header .quick-access .left {
 	margin: 4px 50px 0 0;
