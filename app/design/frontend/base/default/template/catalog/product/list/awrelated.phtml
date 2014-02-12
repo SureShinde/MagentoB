@@ -69,7 +69,7 @@
 				
 				<?php if($_item->isSaleable()): ?>
 					<?php if($_item->isConfigurable()):?>
-                    <a class="link-cart" href="<?php echo $_item->getProductUrl() ?>" title="<?php echo $this->stripTags($_item->getName(), null, true) ?>"><?php echo $this->__('Buy Now') ?></a>
+                    <a class="link-cart-special" href="<?php echo $_item->getProductUrl() ?>" title="<?php echo $this->stripTags($_item->getName(), null, true) ?>"><?php echo $this->__('Buy Now') ?></a>
                     <?php else:?>
                     <button type="button" title="<?php echo $this->__('Buy Now') ?>" class="button btn-cart" onclick="setLocation('<?php echo $this->getAddToCartUrl($_item) ?>')"><span><span><?php echo $this->__('Buy Now') ?></span></span></button>
                     <?php endif; ?>    
