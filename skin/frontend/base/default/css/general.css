@@ -22,10 +22,7 @@ body {
 }
 .main {}
 .col2-left-layout .main {}
-.col2-left-layout .main .col-left.sidebar, .col2-right-layout .main .col-right.sidebar {
-	width: 25%;
-	position:relative;
-}
+
 
 .breadcrumbs {
 	font-size: 15px;
