@@ -1173,7 +1173,7 @@ animation-timing-function: linear;
 /* END style for company static page */
 
 
-.nav-container-2013 ul#nav ul.shown-sub {
+/* .nav-container-2013 ul#nav ul.shown-sub {
 background: none repeat scroll 0 0 #F8F2E8;
 border-top: medium none;
 top: 40px !important;
@@ -1192,6 +1192,53 @@ position: absolute;
 min-width: 300px;
 left: 250px;
 z-index: 999;
+} */
+
+
+.gift-menu-wrapp {
+	background: none repeat scroll 0 0 #F9f3e7;
+    box-shadow: 2px 4px 5px rgba(0, 0, 0, 0.1);
+    margin-left: 440px;
+    padding: 20px;
+    position: absolute;
+    top: 120px;
+    width: 600px;
+	display: none;
+}
+.title-gift-megamenu {
+	text-align: left;
+	margin-bottom: 10px;
+}
+.title-gift-megamenu h2 {
+	color: #707070;
+    font-family: 'bebasregular';
+    font-size: 1.1em;
+    font-weight: normal;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+.gift-menu-wrapp ul li{
+	background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
+    border-bottom: 1px solid #DADADA;
+	background: url("../images/arrow-menu.png") no-repeat scroll right center rgba(0, 0, 0, 0);
+    padding: 3px 0;
+}
+.gift-menu-wrapp ul li .spacing{
+	background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
+    border-bottom: 1px solid #DADADA;
+    padding: 3px 0;
+}
+.gift-menu-wrapp a span {
+	color: #707070;
+    text-decoration: none;
+	/* font-size: 14px; */
+}
+.gift-menu-wrapp a span:hover {
+	color: #707070;
+    text-decoration: none;
+}
+.bg-hover-menu {
+	background: none repeat scroll 0 0 #FFFFFF;
 }
 
 
