@@ -21,30 +21,28 @@
 class Brim_PageCache_Model_Container_Welcome
     extends Brim_PageCache_Model_Container_Abstract {
 
-    protected function _construct($args) {
-        // Using customer id on purpose here.  Non customers share an id 0.
-        $this->_cacheKey = 'WELCOME_' . Mage::getSingleton('customer/session')->getCustomerId();
+    protected function _generateCacheKey() {
+        return 'WELCOME_' . Mage::getSingleton('customer/session')->getCustomerId();
     }
 
     /**
-     * WE don't actually want a welcome block.
-     *
-     * @return void
-     */
-    protected function _createBlock() {
-        return null;
-    }
-
-    /**
+     * Note: Mage 1.8 CE moved the welcome text to it's own block.  If the block exists we use it otherwise we fall back
      * @return string
      */
     protected function _renderBlock() {
-        return Mage::app()->getLayout()->createBlock('page/html_header')->getWelcome();
+        if ($this->_block != null) {
+            $welcome = parent::_renderBlock();
+        } else {
+            $welcome = Mage::app()->getLayout()->createBlock('page/html_header')->getWelcome();
+        }
+        return $welcome;
     }
 
     /**
      * Marks the welcome content. Required since the welcome content is not it's own block, but
      * a method on the page/html_header block.
+     *
+     * Mage CE 1.8+ no longer uses this method.
      *
      * @static
      * @param $block

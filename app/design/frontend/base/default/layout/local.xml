@@ -45,7 +45,7 @@
             <block type="newsletter/subscribe" name="header.newsletter" template="newsletter/subscribe.phtml"/>
         </reference>
         <reference name="top.links">
-        	<!-- action method="addLink" translate="label" module="customer"><prepare/><urlParams/><position>9</position></action -->
+        	<action method="addLink" translate="label" module="customer"><prepare/><urlParams/><position>9</position></action>
         	<!--<action method="removeLinkByUrl"><url helper="customer/getAccountUrl"/></action>-->
         	<remove name="checkout_cart_link" />
         	<remove name="wishlist_link"/>

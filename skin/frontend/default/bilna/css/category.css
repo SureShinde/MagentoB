@@ -16,6 +16,7 @@
 	text-indent: inherit;
 	margin: 0 10px;
 	padding: 10px 0 0 0;
+	height: auto;
 }
 .block-layered-nav .block-title strong span {
 	color: #707070;
@@ -48,7 +49,8 @@
 	margin-bottom: 5px;
 }
 .block-layered-nav dd li {
-	margin-top: 3px;
+	/* margin-top: 3px; */
+	margin: 10px 0;
 }
 .block-layered-nav dt.category + dd li {
 	border-top: 1px solid #dadada;
@@ -107,7 +109,7 @@ ol.added-menu li a.link-onsale {
 	
 }
 /* Tiny Scrollbar */
-.tiny { width: auto; margin: 20px 0 10px; }
+.tiny { width: auto; /* margin: 20px 0 10px; */ margin: 0 0 10px; }
 .tiny .viewport { width: auto; height: 80px; overflow: hidden; position: relative; }
 .tiny .overview { list-style: none; position: absolute; left: 0; top: 0; padding: 0; margin: 0; }
 .tiny .scrollbar{ background: #dfe0e0 /*url(../images/bg-scrollbar-track-y.png) no-repeat 0 0*/ url(../images/scroll-up.png) no-repeat; position: relative; background-position: 0 0; float: right; width: 15px; -webkit-border-radius: 10px;-moz-border-radius: 10px;border-radius: 10px;}
@@ -146,6 +148,7 @@ ol.added-menu li a.link-onsale {
 .category-desc p {}
 .left-banner-category {
 	padding: 10px;
+	display: none;
 }
 .category-description {
 	display: none;
@@ -154,12 +157,15 @@ ol.added-menu li a.link-onsale {
 	position: absolute;
 	bottom: -60px;
 	left: 0;
-	
+	background: #4ec8da;
 	z-index: 99;
-	
-	padding: 0;
+	-webkit-border-radius: 0 10px 10px 0;
+	-moz-border-radius: 0 10px 10px 0;
+	border-radius: 0 10px 10px 0;
+	padding: 20px 0 20px 0;
 	width: 100%;
 	text-align: right;
+	display: none;
 }
 a.triger-showfilter, .featured-product-catalog h2, .toolbar-bottom a.link-catalog-nav {
 	color: #fff;
@@ -170,10 +176,11 @@ a.triger-showfilter, .featured-product-catalog h2, .toolbar-bottom a.link-catalo
 a.triger-showfilter {
 	display: block;
 	font-size: 14px;
-	background:#4ec8da url(../images/arrow-filter.png) no-repeat 135px center;
+	background:#4ec8da url(../images/arrow-filter.png) no-repeat 135px right center;
 	padding-top: 20px;
 	padding-bottom: 20px;
-	padding-right: 35px;
+	padding-right: 20px;
+	margin-right: 15px;
 	-webkit-border-radius: 0 10px 10px 0;
 	-moz-border-radius: 0 10px 10px 0;
 	border-radius: 0 10px 10px 0;
@@ -300,7 +307,12 @@ a.triger-showfilter {
 }
 .toolbar-bottom a.link-catalog-nav {
 	display: block;
+	color: #fff;
+	text-transform: uppercase;
 	font-size: 14px;
+	font-family: 'bebasregular';
+	font-weight: normal;
+	letter-spacing: 1px;
 	background-color: #9b9b9b;
 	background-repeat: no-repeat;
 	width: 100px;

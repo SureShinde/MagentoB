@@ -610,12 +610,14 @@
 .header .links {
 	margin: 2px 0 0 0;
 }
+.header .links li:first-child {
+	border-right: 1px solid #f1f1f1; 
+}
 .header .links li {
 	float: none;
 	background: none;
 	padding-left: 7px;
 	padding-right: 5px;
-	border-left: 1px solid #f1f1f1; 
 }
 .header .links li.first {
 	border: none;
@@ -625,7 +627,6 @@
 	display: none;
 }
 .header .links li.track-order {
-	border-left: none;
 	padding-left: 0;
 }
 .header .links li.register {
@@ -1598,15 +1599,4 @@
 	.header .search-mobile .form-search .input-keyword .select-category select {
 		width: 105px;
 	}
-}
-
-.header .links li {
-float: none;
-background: none;
-padding-left: 7px;
-padding-right: 5px;
-border-right: 1px solid #f1f1f1;
-}
-.header .links li.first {
-border: none;
 }
