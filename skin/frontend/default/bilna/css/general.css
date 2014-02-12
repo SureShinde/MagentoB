@@ -324,6 +324,17 @@ a.back-to-top img {
 	padding-bottom: 0;
 }
 
+.subtitle, .sub-title {
+    clear: both;
+    background: #ffa01b;
+    padding: 10px 10px 10px 10px;
+    font-size: 18px;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin: 0px 0px 16px;
+    color: #FFF;
+    }
+
 @media only screen and (max-width: 1215px) {
 	.main-container, .main-container.col1-layout .main {
 		width: 994px;
