@@ -75,7 +75,7 @@ if ($this->getPosition() == AW_Autorelated_Model_Source_Position::INSTEAD_NATIVE
 									<?php if ($product->isSaleable()) : ?>
 										<p>
 										   <?php if(!$this->isLocationLink($product)): ?>
-												<a class="link-cart-special" href="<?php echo $abstractBlock->getAddToCartUrl($product) ?>"><?php echo $this->__('Buy Now') ?></a>
+												<a class="link-cart" href="<?php echo $abstractBlock->getAddToCartUrl($product) ?>"><?php echo $this->__('Buy Now') ?></a>
 											<?php else : ?>
 												<a class="link-cart" href="javascript:setLocation('<?php echo $abstractBlock->getAddToCartUrl($product) ?>');"><?php echo $this->__('Buy Now') ?></a>                                            
 											<?php endif; ?>                                       
