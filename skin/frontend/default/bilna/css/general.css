@@ -434,4 +434,13 @@ a.back-to-top img {
 		margin-right: auto;
 		width: 132px;
 	}
+    .subtitle, .sub-title {
+    font-size: 11px;
+    margin-left: 0;
+    padding-top:5px ;
+    }
 }
+
+.validation-advice 
+{ clear:both; 
+    max-width: 210px; }
