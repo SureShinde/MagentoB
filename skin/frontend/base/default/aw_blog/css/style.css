@@ -326,7 +326,7 @@ A.awblog_current_comment {
 	padding: 0 !important;
 }
 
-.blog-index-list .col-main, .blog-cat-view .col-main {width:75%;}
+.blog-index-list .col-main, .blog-cat-view .col-main {width:78%;}
 .blog-index-list .col-right, .blog-cat-view .col-right {
     float: right;
     padding:0 0 0 3%;
@@ -603,7 +603,9 @@ A.awblog_current_comment {
 		clear: both;
 		margin-bottom: 10px;
 }
-
+.col2-left-layout .main .col-main, .col2-right-layout .main .col-main {
+	width: 1013px;
+}
 
 
 /* --------------- 960 px layout -------------------- */
