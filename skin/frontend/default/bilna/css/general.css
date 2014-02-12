@@ -227,9 +227,13 @@ a.back-to-top img {
 	color: #343334;
 	word-spacing: 2px;
 }
-.al-authorization .form-list li:first-child, 
+.al-authorization .form-list li:first-child
+ {
+	/*background: url(../images/dash-orange.png) bottom repeat-x; */
+	padding-bottom: 20px;
+}
 .al-authorization .form-list li:last-child {
-	background: url(../images/dash-orange.png) bottom repeat-x;
+	/*background: url(../images/dash-orange.png) bottom repeat-x; */
 	padding-bottom: 20px;
 }
 .al-authorization .form-list .field {

@@ -435,9 +435,8 @@ class Brim_PageCache_Model_Engine {
      * @return string
      */
     public function generateFPCId($request=null) {
-        if ($request == null) {
-            $request= Mage::app()->getRequest()->getOriginalRequest();
-        }
+
+        $request = Mage::helper('brim_pagecache')->getRequest($request);
 
         if ($this->_fpcCacheId == null) {
             $this->_fpcCacheId = 'BRIM_FPC_'
@@ -473,6 +472,11 @@ class Brim_PageCache_Model_Engine {
 
         if (isset($_GET['no_cache'])) {
             $this->_failed_conditions = 'no_cache';
+            return false;
+        }
+
+        if (isset($_GET['___store'])) {
+            $this->_failed_conditions = 'store_change';
             return false;
         }
 
@@ -738,8 +742,8 @@ class Brim_PageCache_Model_Engine {
                             $svarsCookieValue[$var] = $value;
                         }
                     } else {
-                        if (!empty($_SESSION[$var])) {
-                            $svarsCookieValue[$var] = $_SESSION[$var];
+                        if (!empty($_SESSION[$def])) {
+                            $svarsCookieValue[$def] = $_SESSION[$def];
                         }
                     }
                 } catch (Exception $e) {

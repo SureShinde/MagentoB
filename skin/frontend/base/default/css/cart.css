@@ -167,15 +167,6 @@
 	background: url(../images/btn_close.png) no-repeat;
 	float: right;
 }
-#shopping-cart-table.cart-table .btn-update span {
-	border: 0;
-	background: #4ec7da;
-	font-family: 'bebasregular';
-	font-size: 1em;
-	padding: 5px 14px 10px;
-	letter-spacing: 0.1em;
-}
-
 #shopping-cart-table.cart-table .btn-update span span {
 	border: 0;
 	background: none;

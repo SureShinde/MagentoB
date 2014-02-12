@@ -16,7 +16,7 @@ body {
 }
 .main-container, .main-container.col1-layout .main, .main-container.col2-left-layout .main, .main-container.col2-right-layout .main {
 	width: 1216px;
-	margin: 25px auto 0;
+	margin: 5px auto 0;
 	background: none;
 	padding: 0;
 }
@@ -68,9 +68,7 @@ body {
 .price-box .old-price .price-label, .price-box .special-price .price-label {
 	display: none;
 }
-.price-box .old-price {
-	margin-bottom: 5px;
-}
+.price-box .old-price {}
 .products-grid {
 	background: none;
 	border-bottom: none;
@@ -78,7 +76,7 @@ body {
 .products-grid li.item {
 	width: 152px;
 	padding-bottom: 12px;
-	height: 340px;
+
     /*float:left;
     margin:15px 0 10px 0;
     padding: 7.6px;*/
@@ -147,18 +145,15 @@ body {
 	position: relative;
 }
 button.btn-cart {
-    width:107px;
+    width:88px;
     background-image:url(../images/btn-buynow.png);
     height:36px;
-	bottom: 26px;
     line-height:21px;
     color: #fff;
-	position:absolute;
-    font-family: Helvetica;
+	font-family: Helvetica;
     font-size: 1em;
     font-weight: normal;
     text-transform: uppercase;
-	background-size: 107px 36px;
 }
 button.btn-cart span, button.btn-cart span span {
 	background: none;
@@ -232,12 +227,15 @@ a.back-to-top img {
 	color: #343334;
 	word-spacing: 2px;
 }
-.al-authorization .form-list li:first-child , 
-.al-authorization .form-list li:last-child {
-	background: url(../images/dash-orange.png) bottom repeat-x;
+.al-authorization .form-list li:first-child
+ {
+	/*background: url(../images/dash-orange.png) bottom repeat-x; */
 	padding-bottom: 20px;
 }
-
+.al-authorization .form-list li:last-child {
+	/*background: url(../images/dash-orange.png) bottom repeat-x; */
+	padding-bottom: 20px;
+}
 .al-authorization .form-list .field {
 	width: 100%;
 }

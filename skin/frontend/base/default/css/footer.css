@@ -48,10 +48,12 @@
 .footer .conect-us, .footer .payment-partners, .footer .shipping-partners {
 	float: right;
 	text-align: left;
-	margin:0 0 0 85px;
+	/* margin:0 0 0 85px; */
+	width: 11%;
 }
 .footer .payment-partners {
-	width: 180px;
+	padding: 0 6%;
+    width: 21%;
 }
 .footer .payment-partners table tr td.payment-right {
 	text-align: right;
@@ -89,8 +91,9 @@
 		width: 994px;
 	}
 	.footer .conect-us, .footer .payment-partners, .footer .shipping-partners {
-		margin-left: 5%;
+		margin-left: 0%;
 	}
+
 }
 /* --------------- 960 px layout -------------------- */
 @media only screen and (max-width: 1023px) {
@@ -108,6 +111,10 @@
 		width: 33.33%;
 		text-align: center;
 		margin: 0;
+	}
+	.footer .payment-partners {
+		padding: 0 6%;
+		width: 21%;
 	}
 }
 /* --------------- smaller 959 px layout -------------------- */

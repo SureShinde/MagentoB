@@ -62,9 +62,8 @@
 	        <?php endif; ?>
 	    </div>
     </td>
-    <td class="qty">
-	    <input type="text" class="input-text qty" value="<?php echo $this->getQty() ?>" readonly="readonly"/>
-    </td>
+    <td class="qty"><?php echo $this->getQty() ?></td>
+	<!-- input type="text" class="input-text qty" value="<?php //echo $this->getQty() ?>" readonly="readonly"/ -->
     <td class="price">
 	    <?php if ($canApplyMsrp): ?>
 	
