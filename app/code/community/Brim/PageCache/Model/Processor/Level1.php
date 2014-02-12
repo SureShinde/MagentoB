@@ -181,16 +181,23 @@ class Brim_PageCache_Model_Processor_Level1 {
      * @return null|string
      */
     public function generateFPCId($request=null) {
-        if ($request == null) {
-            $request= Mage::app()->getRequest()->getOriginalRequest();
-        }
+
+        $request = Brim_PageCache_Helper_Data::getRequest($request);
 
         if ($this->_fpcCacheId == null) {
             $params = Mage::registry('application_params');
 
+            if (($userAgentPattern = (string)Mage::getConfig()->getNode('global/' . Brim_PageCache_Model_Config::XML_PATH_MOBILE_USER_AGENT)) != '') {
+                $isMobile =  Brim_PageCache_Helper_Mobile::isMobile($userAgentPattern);
+            } else {
+                $isMobile = null;
+            }
+
             $this->_fpcCacheId =
                 'BRIM_FPC_L1_'
-                . (($isMobile  = Brim_PageCache_Helper_Mobile::isMobile()) !== null ? ($isMobile . '_') : '')
+                . (($isMobile) !== null ? ($isMobile . '_') : '')
+                . (($currency = Mage::app()->getCookie()->get('currency')) != '' ? "{$currency}_" : '')
+                . (($store = Mage::app()->getCookie()->get('store')) != '' ? "{$store}_" : '')
                 . (
                     Brim_PageCache_Helper_Data::normalizeUri(
                         $request->getRequestUri(),
@@ -238,6 +245,10 @@ class Brim_PageCache_Model_Processor_Level1 {
         }
 
         if (isset($_GET['no_cache'])) {
+            return false;
+        }
+
+        if (isset($_GET['___store'])) {
             return false;
         }
 

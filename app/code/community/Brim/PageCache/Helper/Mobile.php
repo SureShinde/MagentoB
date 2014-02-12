@@ -20,12 +20,27 @@
 
 class Brim_PageCache_Helper_Mobile {
     /**
-     * Place your custom mobile detection code here.  This is used as part of the cache key.  This method may also
-     * be called before extensions have been loaded
+     * Performs a mobile check by user agent.  Used when generating cache key ids.  Added to support design exception
+     * implementations of mobile stores.
      *
-     * @return null
+     * @return string
      */
-    static public function isMobile() {
-        return null;
+    static public function isMobile($userAgentPattern=null) {
+
+        if ($userAgentPattern === null) {
+            if (Mage::getStoreConfig(Brim_PageCache_Model_Config::XML_PATH_MOBILE_ENABLE)) {
+                $userAgentPattern = Mage::getStoreConfig(Brim_PageCache_Model_Config::XML_PATH_MOBILE_USER_AGENT);
+            } else {
+                return null;
+            }
+        }
+
+        if (!empty($_SERVER['HTTP_USER_AGENT']) && !empty($userAgentPattern)) {
+            if (@preg_match("/$userAgentPattern/", $_SERVER['HTTP_USER_AGENT'])) {
+                return 'mobile';
+            }
+        }
+
+        return 'desktop';
     }
 }

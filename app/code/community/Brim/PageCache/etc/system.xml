@@ -201,6 +201,39 @@
                         </custom_xml>
                     </fields>
                 </layout>
+
+                <mobile>
+                    <label>Mobile Settings</label>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <sort_order>175</sort_order>
+                    <fields>
+                        <enable translate="label">
+                            <label>Enable User Agent Detection</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>100</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment><![CDATA[]]></comment>
+                        </enable>
+                        <user_agent translate="label">
+                            <label>User Agent Pattern</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>200</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends>
+                                <enable>1</enable>
+                            </depends>
+                            <comment><![CDATA[]]></comment>
+                        </user_agent>
+                    </fields>
+                </mobile>
+
                 <storage>
                     <label>Storage Settings</label>
                     <show_in_default>1</show_in_default>
