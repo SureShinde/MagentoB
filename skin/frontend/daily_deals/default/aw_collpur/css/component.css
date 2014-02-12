@@ -44,7 +44,7 @@ html, body, .container, .main { height: 100%;}
 	z-index: 100;
 }
 
-.cbp-contentslider nav {
+.cbp-contentslider .large_thumb {
 	position: absolute;
 	bottom: 0;
 	right: 0;
@@ -53,7 +53,7 @@ html, body, .container, .main { height: 100%;}
 	overflow: hidden;
 }
 
-.cbp-contentslider nav a {
+.cbp-contentslider .large_thumb a {
 	float: left;
 	display: block;
 	width: 100%;
@@ -69,34 +69,34 @@ html, body, .container, .main { height: 100%;}
 	transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out;
 }
 
-.cbp-contentslider nav a span {
+.cbp-contentslider .large_thumb a span {
 	display: block;
 }
 
-.cbp-contentslider nav a:last-child {
+.cbp-contentslider .large_thumb a:last-child {
 	border: none;
 	box-shadow: 1px 0 #47a3da; /* fills gap caused by rounding */
 }
 
-.cbp-contentslider nav a:hover {
+.cbp-contentslider .large_thumb a:hover {
 	background-color: #f14223;
 	color: #fff;
 }
 
-.cbp-contentslider nav a.rc-active {
+.cbp-contentslider .large_thumb a.rc-active {
 	background-color: #f14223;
 	color: #fff;
 }
-.cbp-contentslider nav .slider_thumb_large img.i{
+.cbp-contentslider .large_thumb .slider_thumb_large img.i{
 	float: left;
     height: 95px;
     width: 94px;
 	margin: 5px;
 }
-.cbp-contentslider nav a.rc-active .slider_thumb_large img.i{
+.cbp-contentslider .large_thumb a.rc-active .slider_thumb_large img.i{
 	display:none;
 }
-.cbp-contentslider nav .slider_thumb_large .t{
+.cbp-contentslider .large_thumb .slider_thumb_large .t{
 	color: #FFFFFF;
     font-size: 17px;
     margin: 34px 0 0 7px;
@@ -107,10 +107,10 @@ html, body, .container, .main { height: 100%;}
     white-space: nowrap;
 }
 
-.cbp-contentslider nav .slider_thumb_large .c	{
+.cbp-contentslider .large_thumb .slider_thumb_large .c	{
 	padding: 0 0 0 10px;
 }
-/* Iconfont for navigation and headings */
+/* Iconfont for .large_thumbigation and headings */
 .cbp-contentslider [class^="icon-"]:before, 
 .cbp-contentslider [class*=" icon-"]:before {
 	font-family: 'icomoon';
@@ -152,7 +152,7 @@ html, body, .container, .main { height: 100%;}
 
 .cbp-contentslider [class^="icon-"].rc-active:before, 
 .cbp-contentslider [class*=" icon-"].rc-active:before,
-.cbp-contentslider nav a:hover:before {
+.cbp-contentslider .large_thumb a:hover:before {
 	color: rgba(255,255,255,0.9);
 }
 
@@ -223,18 +223,31 @@ html, body, .container, .main { height: 100%;}
 	.cbp-contentslider li > div{
 		padding-right:163px;
 	}
-	.cbp-contentslider nav{
+	.cbp-contentslider .large_thumb{
 		width:163px;
 	}
 	.cbp-contentslider > ul{
 		width:100%;
 	}
 }
-
+@media only screen and (max-width: 320px){
+	.desc_deals_slider2{
+		width:100%;
+		border-bottom:1px solid #d6d6d6 !important;
+	}
+	.date_slider_deals{
+	border:none !important;
+	padding:10px 10px 0;
+	width: 58%;
+	}
+	.thumb_angka_area{
+		top:138px;
+	}
+}
 @media only screen and (max-width: 768px){
 		
-	.cbp-contentslider nav{
-		width:163px;
+	.cbp-contentslider .large_thumb{
+		display:none;
 	}
 	.cbp-contentslider > ul{
 		width:100%;
@@ -254,5 +267,11 @@ html, body, .container, .main { height: 100%;}
 	.cbp-contentslider .thumb_image{
 		display:none;
 	}
+	.cbp-contentslider .large_thumb a.rc-active .slider_thumb_small{
 	
+	}
+	.thumb_angka_area .thumb_angka{
+		width:0 !important;
+		display:table;
+	}
 }
