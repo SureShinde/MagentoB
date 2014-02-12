@@ -765,7 +765,7 @@
 	background: url(../images/txt-search.jpg) no-repeat left top;
 }
 .header .form-search .input-keyword input.input-text {
-	margin: 6px 0 0 5px;
+	margin: 7px 0 0 5px;
 	width: 97px;
 	border: none;
 	color: #bababa;
@@ -777,7 +777,7 @@
 	height: auto;
 	overflow: hidden;
 	padding: 0 10px 0 0;
-	margin: 9px 5px 0 0;
+	margin: 7px 5px 0 0;
 	background: url(../images/arrow-green.png) no-repeat right center;
 }
 
@@ -787,7 +787,7 @@
 	line-height: normal;
 	border: 0;
 	border-radius:0;
-	height: 15px;
+	height: 20px;
 	color: #a0cc00;
 	-webkit-appearance: none;
 	margin-right: 5px;
@@ -1115,6 +1115,9 @@
 	padding: 0 20px 0 0;
 	font-weight: bold !important;
 	background: url(../images/arrow-2.png) no-repeat right center;
+}
+.level-top .browse-all{
+	margin: 10px 0px;
 }
 #nav .shopby {
 	display: none;
