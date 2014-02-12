@@ -231,10 +231,8 @@ html, body, .container, .main { height: 100%;}
 	}
 }
 
-@media only screen and  (min-width: 320px) and (max-width: 768px){
-	.cbp-contentslider li > div{
-		padding-right:163px;
-	}	
+@media only screen and (max-width: 768px){
+		
 	.cbp-contentslider nav{
 		width:163px;
 	}
@@ -247,12 +245,7 @@ html, body, .container, .main { height: 100%;}
 	.awcp-buy-button button.awcp-buy span, .orbit-caption button.awcp-buy span{
 	font-size:18px
 	}
-	
-}
-
-@media only screen and (max-width: 321px) {
 	.cbp-contentslider > ul li{
-		width:320px;
 		height: 380px;
 	}
 	.cbp-contentslider{
@@ -261,7 +254,5 @@ html, body, .container, .main { height: 100%;}
 	.cbp-contentslider .thumb_image{
 		display:none;
 	}
-	.cbp-contentslider li > div{
-		width:320px;
-	}
+	
 }
