@@ -16,7 +16,7 @@ body {
 }
 .main-container, .main-container.col1-layout .main, .main-container.col2-left-layout .main, .main-container.col2-right-layout .main {
 	width: 1216px;
-	margin: 25px auto 0;
+	margin: 5px auto 0;
 	background: none;
 	padding: 0;
 }
@@ -230,12 +230,11 @@ a.back-to-top img {
 	color: #343334;
 	word-spacing: 2px;
 }
-.al-authorization .form-list li:first-child , 
+.al-authorization .form-list li:first-child, 
 .al-authorization .form-list li:last-child {
 	background: url(../images/dash-orange.png) bottom repeat-x;
 	padding-bottom: 20px;
 }
-
 .al-authorization .form-list .field {
 	width: 100%;
 }
