@@ -471,6 +471,10 @@ tr.summary-details-excluded { font-style:italic; }
 .links li.last { background:none !important; padding-right:0 !important; }
 
 .link-cart { 
+	color: #fff !important;
+	font-weight: bold;	
+}
+.link-cart-special { 
 	width: 107px;
 	background-image: url(../images/btn-buynow.png);
 	height: 36px;
@@ -485,8 +489,6 @@ tr.summary-details-excluded { font-style:italic; }
 	background-size: 107px 36px;
 	text-align: center;
 	line-height: 36px;
-	color: #fff !important;
-	font-weight: bold;	
 }
 .link-wishlist { color:#dc6809; font-weight:bold; }
 .link-reorder { font-weight:bold; color:#dc6809 !important; }
