@@ -36,17 +36,24 @@
             <col width="1" />
 			<thead>
 				<tr>
-					<th><span class="nobr"><?php echo $this->__('Date') ?></span></th>
-					<th><span class="nobr"><?php echo $this->__('Product') ?></span></th>
-					<th><span class="nobr"><?php echo $this->__('Action') ?></span></th>
+					<th class="low-res"><span class="nobr"><?php echo $this->__('Details') ?></span></th>
+					
+					<th class="hi-res"><span class="nobr"><?php echo $this->__('Date') ?></span></th>
+					<th class="hi-res"><span class="nobr"><?php echo $this->__('Product') ?></span></th>
+					<th class="a-center action"><span class="nobr"><?php echo $this->__('Action') ?></span></th>
 				</tr>
 			</thead>
             <tbody>
                 <?php foreach ($this->getCollection() as $_review): ?>
                 <tr>
-                    <td><span class="nobr"><?php echo $this->dateFormat($_review->getReviewCreatedAt()); ?></span></td>
-                    <td><h2 class="product-name"><a href="<?php echo $this->getProductLink() ?>id/<?php echo $_review->getEntityPkValue() ?>"><?php echo $this->escapeHtml($_review->getName()) ?></a></h2></td>
-                    <td><a href="<?php echo $this->getReviewLink() ?>id/<?php echo $_review->getReviewId() ?>" class="nobr"><?php echo $this->__('View Details') ?></a></td>
+                    <td class="low-res">
+						<span class="nobr"><?php echo $this->dateFormat($_review->getReviewCreatedAt()); ?></span>
+						<h2 class="product-name"><a href="<?php echo $this->getProductLink() ?>id/<?php echo $_review->getEntityPkValue() ?>"><?php echo $this->escapeHtml($_review->getName()) ?></a></h2>
+					</td>
+					
+                    <td class="hi-res"><span class="nobr"><?php echo $this->dateFormat($_review->getReviewCreatedAt()); ?></span></td>
+                    <td class="hi-res"><h2 class="product-name"><a href="<?php echo $this->getProductLink() ?>id/<?php echo $_review->getEntityPkValue() ?>"><?php echo $this->escapeHtml($_review->getName()) ?></a></h2></td>
+                    <td class="a-center"><a href="<?php echo $this->getReviewLink() ?>id/<?php echo $_review->getReviewId() ?>" class="nobr"><?php echo $this->__('View Details') ?></a></td>
                 </tr>
                 <?php endforeach; ?>
             </tbody>
@@ -54,7 +61,7 @@
         <script type="text/javascript">decorateTable('my-reviews-table')</script>
     <?php echo $this->getToolbarHtml() ?>
 <?php else: ?>
-    <p><?php echo $this->__('You have submitted no reviews.') ?></p>
+    <p class="no-reviews"><?php echo $this->__('You have submitted no reviews.') ?></p>
 <?php endif; ?>
 <div class="buttons-set">
     <p class="back-link"><a href="<?php echo $this->escapeUrl($this->getBackUrl()) ?>"><small>&laquo; </small><?php echo $this->__('Back') ?></a></p>
