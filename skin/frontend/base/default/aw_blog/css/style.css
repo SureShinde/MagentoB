@@ -560,7 +560,7 @@ A.awblog_current_comment {
 }
 .cat-list {width: 100%;}
 .cat-list ul li {
-	width: 100%;
+	width: 95%;
 	border-bottom: 1px solid #dadada;
 	background: url('../../images/category-arrow-blog.png') right center no-repeat;
 	padding: 5px;
@@ -615,6 +615,20 @@ A.awblog_current_comment {
 	}
 	.postWrapper .blog-search {
 	width: 93%;
+	}
+	.col2-left-layout .main .col-main, .col2-right-layout .main .col-main {
+	 width: 78% !important;
+	}
+	.col2-left-layout .main .col-left.sidebar, .col2-right-layout .main .col-right.sidebar{
+		width:20%;
+		float:right;
+		position:relative;
+	}
+	.postWrapper .blog-submit-search {
+	position:absolute;
+	right:3px;
+	top:1px;
+    padding: 5px 0;
 }
 }
 /* --------------- smaller 959 px layout -------------------- */
