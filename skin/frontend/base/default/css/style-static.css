@@ -1173,4 +1173,26 @@ animation-timing-function: linear;
 /* END style for company static page */
 
 
+.nav-container-2013 ul#nav ul.shown-sub {
+background: none repeat scroll 0 0 #F8F2E8;
+border-top: medium none;
+top: 40px !important;
+}
+.nav-container-2013 #nav ul .left-left-block {
+float: left;
+width: 33%;
+padding-top: 18px;
+}
+.nav-container-2013 ul#nav .nav-10-sub {
+background: #000000;
+display: none;
+min-height: 250px;
+left: 0;
+position: absolute;
+min-width: 300px;
+left: 250px;
+z-index: 999;
+}
+
+
 

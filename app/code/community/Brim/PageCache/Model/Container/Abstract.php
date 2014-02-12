@@ -177,10 +177,14 @@ class Brim_PageCache_Model_Container_Abstract {
     protected function _createBlock() {
 
         $args   = $this->_blockArgs;
-        $layout = new Mage_Core_Model_Layout($args['layout']);
-        $layout->generateBlocks();
 
-        return ($this->_block = $layout->getBlock($args['name']));
+        if (isset($args['layout'])) {
+            $layout = new Mage_Core_Model_Layout($args['layout']);
+            $layout->generateBlocks();
+            $this->_block = $layout->getBlock($args['name']);
+        }
+
+        return $this->_block;
     }
 
     /**

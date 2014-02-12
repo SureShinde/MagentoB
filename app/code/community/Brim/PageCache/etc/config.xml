@@ -22,7 +22,7 @@
 <config>
 	<modules>
 		<Brim_PageCache>
-			<version>3.0.2</version>
+			<version>3.0.5</version>
 		</Brim_PageCache>
 	</modules>
 	<global>
@@ -59,6 +59,11 @@
 			<brim_pagecache>
 				<class>Brim_PageCache_Helper</class>
 			</brim_pagecache>
+            <checkout>
+                <rewrite>
+                    <cart>Brim_PageCache_Helper_Checkout_Cart</cart>
+                </rewrite>
+            </checkout>
 		</helpers>
         <cache>
             <types>
@@ -138,7 +143,7 @@
                     </brim_pagecache>
                 </observers>
             </admin_system_config_changed_section_brim_pagecache>
-            <catalog_product_save_after>
+            <catalog_product_save_commit_after>
                 <observers>
                     <brim_pagecache>
                         <type>singleton</type>
@@ -146,8 +151,8 @@
                         <method>cleanProductCache</method>
                     </brim_pagecache>
                 </observers>
-            </catalog_product_save_after>
-            <catalog_category_save_after>
+            </catalog_product_save_commit_after>
+            <catalog_category_save_commit_after>
                 <observers>
                     <brim_pagecache>
                         <type>singleton</type>
@@ -155,8 +160,8 @@
                         <method>cleanCategoryCache</method>
                     </brim_pagecache>
                 </observers>
-            </catalog_category_save_after>
-            <cms_page_save_after>
+            </catalog_category_save_commit_after>
+            <cms_page_save_commit_after>
                 <observers>
                     <brim_pagecache>
                         <type>singleton</type>
@@ -164,8 +169,8 @@
                         <method>cleanCMSPageCache</method>
                     </brim_pagecache>
                 </observers>
-            </cms_page_save_after>
-            <cataloginventory_stock_item_save_after>
+            </cms_page_save_commit_after>
+            <cataloginventory_stock_item_save_commit_after>
                 <observers>
                     <brim_pagecache>
                         <type>singleton</type>
@@ -173,8 +178,8 @@
                         <method>cleanProductCacheOnStockChange</method>
                     </brim_pagecache>
                 </observers>
-            </cataloginventory_stock_item_save_after>
-            <catalogrule_rule_save_after>
+            </cataloginventory_stock_item_save_commit_after>
+            <catalogrule_rule_save_commit_after>
                 <observers>
                     <brim_pagecache>
                         <type>singleton</type>
@@ -182,7 +187,16 @@
                         <method>cleanProductsInCatalogPriceRule</method>
                     </brim_pagecache>
                 </observers>
-            </catalogrule_rule_save_after>
+            </catalogrule_rule_save_commit_after>
+            <controller_front_init_routers>
+                <observers>
+                    <brim_pagecache>
+                        <type>singleton</type>
+                        <class>brim_pagecache/observer</class>
+                        <method>saveOriginalRequest</method>
+                    </brim_pagecache>
+                </observers>
+            </controller_front_init_routers>
 		</events>
 	</global>
     <frontend>
@@ -194,6 +208,13 @@
                     <frontName>brim_pagecache</frontName>
                 </args>
             </brim_pagecache>
+            <checkout>
+                <args>
+                    <modules>
+                        <Brim_PageCache before="Mage_Checkout">Brim_PageCache_Checkout</Brim_PageCache>
+                    </modules>
+                </args>
+            </checkout>
         </routers>
         <layout>
             <updates>
@@ -272,7 +293,7 @@
                     </brim_pagecache>
                 </observers>
             </catalog_block_product_list_collection>
-            <sales_quote_save_after>
+            <sales_quote_save_commit_after>
                 <observers>
                     <brim_pagecache>
                         <type>singleton</type>
@@ -280,7 +301,8 @@
                         <method>updateBlockKeysOnQuoteSave</method>
                     </brim_pagecache>
                 </observers>
-            </sales_quote_save_after>
+            </sales_quote_save_commit_after>
+
             <customer_login>
                 <observers>
                     <brim_pagecache>
@@ -299,7 +321,8 @@
                     </brim_pagecache>
                 </observers>
             </customer_logout>
-            <wishlist_wishlist_save_after>
+
+            <wishlist_wishlist_save_commit_after>
                 <observers>
                     <brim_pagecache>
                         <type>singleton</type>
@@ -307,7 +330,8 @@
                         <method>updateBlockKeysOnWishlistSave</method>
                     </brim_pagecache>
                 </observers>
-            </wishlist_wishlist_save_after>
+            </wishlist_wishlist_save_commit_after>
+
             <catalog_product_compare_add_product>
                 <observers>
                     <brim_pagecache>
@@ -335,6 +359,16 @@
                     </brim_pagecache>
                 </observers>
             </catalog_product_compare_item_collection_clear>
+
+            <catalog_controller_category_init_before>
+                <observers>
+                    <brim_pagecache>
+                        <type>singleton</type>
+                        <class>brim_pagecache/observer</class>
+                        <method>disableParamMemorization</method>
+                    </brim_pagecache>
+                </observers>
+            </catalog_controller_category_init_before>
         </events>
         <brim_pagecache>
             <actions>
@@ -373,6 +407,10 @@
             <conditions>
                 <ignore_params>gclid</ignore_params>
             </conditions>
+            <mobile>
+                <enable>0</enable>
+                <user_agent>iPhone|iPod|BlackBerry|Pre|Palm|Googlebot-Mobile|mobi|Safari Mobile|Windows Mobile|Android|Opera Mini|mobile</user_agent>
+            </mobile>
             <storage>
                 <system_cache>1</system_cache>
                 <override_system_file>0</override_system_file>
