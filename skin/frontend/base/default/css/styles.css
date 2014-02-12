@@ -1846,3 +1846,12 @@ tr.summary-details-excluded { font-style:italic; }
 .amshopby-slider-price-range{
 	display: none;
 }
+.pos-abs{
+	position: absolute;
+}
+.buy-later>.add-to-links{
+	position: relative;
+}
+.item .no-rating{
+	display: none;
+}

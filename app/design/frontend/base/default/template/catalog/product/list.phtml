@@ -67,7 +67,7 @@
                     <?php endif; ?>
                     <?php echo $this->getPriceHtml($_product, true) ?>
                     <?php if($_product->isSaleable()): ?>
-                        <p><button type="button" title="<?php echo $this->__('Add to Cart') ?>" class="button btn-cart" onclick="setLocation('<?php echo $this->getAddToCartUrl($_product) ?>')"><span><span><?php echo $this->__('Add to Cart') ?></span></span></button></p>
+                        <p><button type="button" title="<?php echo $this->__('Add to Cart') ?>" class="button btn-cart pos-abs" onclick="setLocation('<?php echo $this->getAddToCartUrl($_product) ?>')"><span><span><?php echo $this->__('Add to Cart') ?></span></span></button></p>
                     <?php else: ?>
                         <p class="availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></p>
                     <?php endif; ?>
@@ -133,7 +133,7 @@
                             <?php if($_product->isConfigurable()):?>
                             <a class="link-cart-special" href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($_product->getName(), null, true) ?>"><?php echo $this->__('Buy Now') ?></a>
                             <?php else:?>
-	                        <button type="button" title="<?php echo $this->__('Buy Now') ?>" class="button btn-cart" onclick="setLocation('<?php echo $this->getAddToCartUrl($_product) ?>')"><span><span><?php echo $this->__('Buy Now') ?></span></span></button>
+	                        <button type="button" title="<?php echo $this->__('Buy Now') ?>" class="button btn-cart pos-abs" onclick="setLocation('<?php echo $this->getAddToCartUrl($_product) ?>')"><span><span><?php echo $this->__('Buy Now') ?></span></span></button>
                             <?php endif;?>
 	                    <?php else: ?>
 	                        <p class="availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></p>
