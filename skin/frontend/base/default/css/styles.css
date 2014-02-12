@@ -1852,6 +1852,6 @@ tr.summary-details-excluded { font-style:italic; }
 .buy-later>.add-to-links{
 	position: relative;
 }
-.item .no-rating{
+.item .no-rating, .product-view .no-rating{
 	display: none;
 }
