@@ -109,7 +109,11 @@ $j(document).ready(function(){
 		<div class="sticky-header">
 			<a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="sticky-logo"><img src="<?php echo $this->getSkinUrl(); ?>images/logo-sticky.png" alt="<?php echo $this->getLogoAlt() ?>" /></a>
 			<ul class="sticky-menu">
-				<li><a href="#"><?php echo $this->__('Today\'s Promo') ?></a></li>
+				<li class="td-promo"><a class="td-promo" href="#"><?php echo $this->__('Today\'s Promo') ?></a>
+					<div class="td-promo-cont">
+						<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('blogandcontact')->toHtml() ?>
+					</div>
+				</li>
 				<li class="link-free-voucher">
 					<a href="#"><?php echo $this->__('Get Free Voucher!') ?></a>
 					<div class="free-voucher-info">
@@ -207,3 +211,15 @@ if you want to call it from cms page, please use this
 {{block type="core/template" template="page/template/bottommenu.phtml"}}
 -->
 <!--end for testing only-->
+
+<script>
+ jQuery(document).ready(function(){
+  jQuery(".td-promo").mouseover(function(){
+    jQuery(".td-promo-cont").show();
+  });	
+  jQuery(".td-promo").mouseleave(function(){
+    jQuery(".td-promo-cont").hide();
+  });
+  
+});
+</script>

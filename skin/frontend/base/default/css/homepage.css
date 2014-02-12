@@ -120,7 +120,7 @@
 	padding: 0 25px 0 0;
 }
 .block-bottom p a:hover {
-	text-decoration: none;
+	text-decoration: none;color: #4EC7DA;
 }
 .block-bottom p a.link-how-to-buy {
 	width: 58px;
@@ -161,6 +161,7 @@
 	color: #fff;
 	text-decoration: underline;
 }
+.block-bottom table tr td a:hover {color: #4EC7DA;}
 .block-bottom table tr td a img {
 	margin-left: 5px;
 	margin-top: 3px;
