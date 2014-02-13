@@ -1,5 +1,9 @@
 /* myaccount.css */
 
+.col2-left-layout .main .col-left.sidebar {
+	width: 175px;
+}
+
 /* login non pop-up */
 .account-login {
 	margin-bottom: 30px;
@@ -506,6 +510,9 @@
 	margin-left: 7px;
 	margin-top: 30px;
 }
+.product-review .product-img-box {
+	margin-left: 10px;
+}
 
 /* Newsletter Subscribe */
 .my-account .fieldset.newsletter-subscribe .control #subscription, 
@@ -529,10 +536,15 @@
 }
 
 @media (max-width: 1215px) {
-	
+	.col2-left-layout .main .col-main {
+		width: 810px;
+	}
 }
 
 @media (max-width: 1023px) {
+	.col2-left-layout .main .col-main {
+		width: 560px;
+	}
 	.col2-left-layout .main .col-left.sidebar {
 		margin-top: 0px;
 	}
@@ -555,6 +567,10 @@
 }
 
 @media (max-width: 767px) {
+	.col2-left-layout .main .col-left.sidebar, 
+	.col2-left-layout .main .col-main {
+		width: 100%;
+	}
 	.account-login .col2-set .col-1, 
 	.account-login .col2-set .col-2 {
 		width: 100%;
@@ -604,5 +620,7 @@
 	}
 	.my-account .buttons-set {
 		width: 275px;
+		text-align: left;
+		margin-left: 15px;
 	}
 }
