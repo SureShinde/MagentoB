@@ -99,15 +99,16 @@ html, body, .container, .main { height: 100%;}
 .cbp-contentslider .large_thumb .slider_thumb_large .t{
 	color: #FFFFFF;
     font-size: 17px;
-    margin: 34px 0 0 7px;
-    overflow: hidden;
+    margin: 24px 0 0 7px;
     position: relative;
+	/*overflow: hidden;
     text-overflow: ellipsis;
-    font-weight: bold;
-    white-space: nowrap;
+    white-space: nowrap;*/
 }
 
 .cbp-contentslider .large_thumb .slider_thumb_large .c	{
+	font-size:17px;
+	font-weight:bold;
 	padding: 0 0 0 10px;
 }
 /* Iconfont for .large_thumbigation and headings */
@@ -213,13 +214,13 @@ html, body, .container, .main { height: 100%;}
 }
 
 
-@media only screen and  (min-width: 1025px) and (max-width: 1215px){
+@media only screen and  (min-width: 1024px) and (max-width: 1215px){
 	.cbp-contentslider li > div{
 		padding-right: 200px;
 	}
 }
 
-@media only screen and (min-width: 769px) and (max-width: 1024px){
+@media only screen and (min-width: 769px) and (max-width: 1023px){
 	.cbp-contentslider li > div{
 		padding-right:163px;
 	}
@@ -228,6 +229,42 @@ html, body, .container, .main { height: 100%;}
 	}
 	.cbp-contentslider > ul{
 		width:100%;
+	}
+	.cbp-contentslider {
+	height: 330px;
+	}
+	.cbp-contentslider .large_thumb .slider_thumb_large img.i{
+	height: 75px;
+	width:72px;
+	}
+	.cbp-contentslider .large_thumb .slider_thumb_large .c{
+		font-size:15px;
+	}
+	.cbp-contentslider .large_thumb .slider_thumb_large .t{
+		font-size:14px;
+	}
+	.awcp-buy-button button.awcp-buy span, .orbit-caption button.awcp-buy span{
+		font: bold 18px Arial;
+	}
+	.cbp-contentslider p{
+		line-height: 1;
+	}
+	.price_deals_slider p:nth-child(1){
+		font-size:25px;
+	}
+	.date_slider_deals p:nth-child(2) {
+    font-size: 20px;
+    line-height: 20px;
+	}
+	.date_slider_deals p:nth-child(3){
+		font-size:11px;
+		margin: 0 0 3px;
+	}
+	.date_slider_deals p:nth-child(4) span{
+		font-size: 20px;
+	}
+	.cbp-contentslider .large_thumb a{
+		width:163px !important;
 	}
 }
 @media only screen and (max-width: 768px){
@@ -243,8 +280,6 @@ html, body, .container, .main { height: 100%;}
 	.thumb_angka_area{
 		top:138px;
 	}
-}
-@media only screen and (max-width: 768px){
 		
 	.cbp-contentslider .large_thumb{
 		display:none;
@@ -274,9 +309,7 @@ html, body, .container, .main { height: 100%;}
 		width:0 !important;
 		display:table;
 	}
-}
 
-@media only screen and (max-width: 768px) { 
 .thumb_angka_area{
 	color:#fff;
 	display: table;
