@@ -81,8 +81,15 @@
 	jQuery(document).ready(function(){
 		jQuery('.cat-leveltop.parent a').live('click',function(){
 			if (!jQuery(this).next().is(':visible')) {
-				jQuery(this).next().show();
-				jQuery(this).addClass('active');
+				if(!jQuery(this).hasClass('subcategories')) {
+					jQuery(this).next().show();
+					jQuery(this).addClass('active');
+					return false;
+				}
+			}
+			else {
+				jQuery(this).next().hide();
+				jQuery(this).removeClass('active');
 				return false;
 			}
 			window.location.href = jQuery(this).attr('rel');

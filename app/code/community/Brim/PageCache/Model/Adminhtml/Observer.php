@@ -190,8 +190,9 @@ class Brim_PageCache_Model_Adminhtml_Observer extends Varien_Event_Observer {
             $ignoreParams = Mage::getStoreConfig(Brim_PageCache_Model_Config::XML_PATH_CONDITIONS_IGNORE_PARAMS);
             $sessionVariables = Mage::getStoreConfig(Brim_PageCache_Model_Config::XML_PATH_CONDITIONS_SESSION_VARS);
 
+            $pageCacheConfig    = $global->addChild('brim_pagecache');
+
             if ($ignoreParams != false || $sessionVariables != false) {
-                $pageCacheConfig    = $global->addChild('brim_pagecache');
                 $pageCacheConditions= $pageCacheConfig->addChild('conditions');
 
                 if ($ignoreParams != false) {
@@ -200,6 +201,13 @@ class Brim_PageCache_Model_Adminhtml_Observer extends Varien_Event_Observer {
 
                 if ($sessionVariables != false) {
                     $pageCacheConditions->addChild('session_vars', $sessionVariables);
+                }
+            }
+
+            if (($mobileEnable = Mage::getStoreConfig(Brim_PageCache_Model_Config::XML_PATH_MOBILE_ENABLE)) != false) {
+                if (($mobileUserAgent = Mage::getStoreConfig(Brim_PageCache_Model_Config::XML_PATH_MOBILE_USER_AGENT)) != false) {
+                    $mobileConfig       = $pageCacheConfig->addChild('mobile');
+                    $mobileConfig->addChild('user_agent', $mobileUserAgent);
                 }
             }
 

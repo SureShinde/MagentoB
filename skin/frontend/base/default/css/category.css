@@ -49,7 +49,7 @@
 }
 .block-layered-nav dd li {
 	/* margin-top: 3px; */
-	margin: 10px 0;
+	margin: 5px 0;
 }
 .block-layered-nav dt.category + dd li {
 	border-top: 1px solid #dadada;
@@ -109,7 +109,7 @@ ol.added-menu li a.link-onsale {
 }
 /* Tiny Scrollbar */
 .tiny { width: auto; /* margin: 20px 0 10px; */ margin: 0 0 10px; }
-.tiny .viewport { width: auto; height: 80px; overflow: hidden; position: relative; }
+.tiny .viewport { width: auto; height: 145px; overflow: hidden; position: relative; }
 .tiny .overview { list-style: none; position: absolute; left: 0; top: 0; padding: 0; margin: 0; }
 .tiny .scrollbar{ background: #dfe0e0 /*url(../images/bg-scrollbar-track-y.png) no-repeat 0 0*/ url(../images/scroll-up.png) no-repeat; position: relative; background-position: 0 0; float: right; width: 15px; -webkit-border-radius: 10px;-moz-border-radius: 10px;border-radius: 10px;}
 .tiny .track { background: #dfe0e0 /*url(../images/bg-scrollbar-trackend-y.png) no-repeat 0 100%*/url(../images/scroll-down.png) no-repeat center bottom; height: 100%; width:13px; position: relative; padding: 0 1px; }
@@ -213,7 +213,7 @@ a.triger-showfilter {
 	font-size: 24px;
 	text-align: center;
 	padding: 13px 0;
-	margin: 0 0 20px 0;
+	margin: 0 0 10px 0;
 }
 .featured-category {
 	height: 400px;

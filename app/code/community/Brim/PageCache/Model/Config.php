@@ -33,6 +33,9 @@ class Brim_PageCache_Model_Config {
     const XML_PATH_CONDITIONS_SESSION_VARS  = 'brim_pagecache/conditions/session_vars';
     const XML_PATH_CONDITIONS_IGNORE_PARAMS = 'brim_pagecache/conditions/ignore_params';
 
+    const XML_PATH_MOBILE_ENABLE            = 'brim_pagecache/mobile/enable';
+    const XML_PATH_MOBILE_USER_AGENT        = 'brim_pagecache/mobile/user_agent';
+
     const XML_PATH_LAYOUT_BLOCK_UPDATES     = 'brim_pagecache/layout/custom_block_updates';
     const XML_PATH_LAYOUT_CUSTOM_XML        = 'brim_pagecache/layout/custom_xml';
 

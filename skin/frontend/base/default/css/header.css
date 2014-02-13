@@ -277,7 +277,7 @@
 }
 .header .menu-top {
 	left: 0;
-	width: 398px;
+	width: 399px;
 }
 .header .menu-blog {
 	right:0;
@@ -545,7 +545,7 @@
 }
 .mini-cart .block-cart .summary, .mini-cart-sticky .block-cart .summary {
 	margin: 0;
-	min-height: 80px;
+	max-height: 80px;
 }
 .mini-cart .block-cart .subtotal, .mini-cart .block-cart .amount, .mini-cart-sticky .block-cart .subtotal, .mini-cart-sticky .block-cart .amount {
 	text-align: right;
@@ -556,7 +556,7 @@
 	background: none;
 }
 .mini-cart .block-cart .subtotal {
-	font-size: 14px;  padding: 10px 0;
+	font-size: 14px;
 }
 .mini-cart .block-cart .subtotal span.price {
 	color: #fd8e17;
@@ -576,7 +576,7 @@
 	background-color: #ffa01b;
 	background-position: 107px 8px;
 	text-align: center;
-	padding: 13px 45px 10px 30px;
+	padding: 2px 45px 2px 30px;
 }
 .header .mini-cart-mobile {
 	display: none;
@@ -597,7 +597,7 @@
 	line-height: normal;
 }
 .mini-cart .block-cart .actions button.button.btn-checkout span span img, .mini-cart-sticky .block-cart .actions button.button.btn-checkout span span img {
-	/* margin-top: 5px; */ margin: 1px 0 0 8px;
+	/* margin-top: 5px; */ margin: 5px 0 0 8px;
 }
 .header .quick-access .left {
 	margin: 4px 50px 0 0;
@@ -610,12 +610,14 @@
 .header .links {
 	margin: 2px 0 0 0;
 }
+.header .links li:first-child {
+	border-right: 1px solid #f1f1f1; 
+}
 .header .links li {
 	float: none;
 	background: none;
 	padding-left: 7px;
 	padding-right: 5px;
-	border-left: 1px solid #f1f1f1; 
 }
 .header .links li.first {
 	border: none;
@@ -625,7 +627,6 @@
 	display: none;
 }
 .header .links li.track-order {
-	border-left: none;
 	padding-left: 0;
 }
 .header .links li.register {
@@ -764,11 +765,10 @@
 	background: url(../images/txt-search.jpg) no-repeat left top;
 }
 .header .form-search .input-keyword input.input-text {
-	margin: 8px 0 0 5px;
+	margin: 7px 0 0 5px;
 	width: 97px;
 	border: none;
 	color: #bababa;
-	padding: 0;
 }
 .header .form-search .input-keyword .select-category {
 	float: right;
@@ -777,7 +777,7 @@
 	height: auto;
 	overflow: hidden;
 	padding: 0 10px 0 0;
-	margin: 9px 5px 0 0;
+	margin: 7px 5px 0 0;
 	background: url(../images/arrow-green.png) no-repeat right center;
 }
 
@@ -787,7 +787,7 @@
 	line-height: normal;
 	border: 0;
 	border-radius:0;
-	height: 15px;
+	height: 20px;
 	color: #a0cc00;
 	-webkit-appearance: none;
 	margin-right: 5px;
@@ -1019,7 +1019,7 @@
 	height: 44px;
 	background: url(../images/arrow-down.png) no-repeat 28px 25px, url(../images/lbl-shopby.png) no-repeat left top;
 	z-index: 2;
-	padding: 5px 0 0 10px;
+	padding: 5px 0 0 10px !important;
 }
 #nav span {
 	white-space: inherit;
@@ -1083,23 +1083,22 @@
 .shopby ul.shop-by {
 	list-style: none;
 	padding: 0 0 5px 0;
-	margin: 0 0 20px 20px;
+	margin: 0 0 5px 20px;
 	background: url(../images/dash.png) no-repeat left bottom;
 }
 .shopby ul.shop-by li {
-	margin: 0 0 4px 0;
+	margin: 0 0 2px 0;
 }
 
 .shopby ul.shop-by li a:hover {color: #4EC7DA;}
 
 .shopby ul.shop-by li span.title, .submenu span.title, #nav ul li .left-columns h2 {
 	color: #707070;
-	font-size: 1.3em;
+	font-size: 1.1em;
 	font-family: 'bebasregular';
 	font-weight: normal;
 	text-transform: uppercase;
 	letter-spacing: 1px;
-	margin-bottom: 10px 
 
 }
 .shopby ul.shop-by li span.title, .submenu span.title {
@@ -1116,7 +1115,9 @@
 	padding: 0 20px 0 0;
 	font-weight: bold !important;
 	background: url(../images/arrow-2.png) no-repeat right center;
-	margin: 10px 0;
+}
+.level-top .browse-all{
+	margin: 10px 0px;
 }
 #nav .shopby {
 	display: none;
@@ -1126,7 +1127,7 @@
 	top:50px;
 	left:0;
 	z-index: 9;
-	padding-top: 40px;
+	padding-top: 10px;
 }
 #nav .shopby ul.shop-by {
 	margin-right: 20px;
@@ -1134,7 +1135,6 @@
 #nav .shopby ul.shop-by li {
 	border: none;
 	padding: 0;
-	padding: 0 0 4px;
 }
 #nav .shopby ul.shop-by li, #nav .shopby ul.shop-by li a {
 	background: none;
@@ -1220,7 +1220,7 @@
 	float: right;
 }
 .menu-tablet .form-language, .menu-tablet .store-phone {
-	margin-top: 0;
+	margin-top: 5px;
 }
 .menu-tablet .form-language {
 	margin-right: 10px;
@@ -1308,7 +1308,7 @@
 	.sticky-header ul.sticky-menu li.link-customer-care2 a {
 		font-size: 12px;
 		padding-left: 0;
-		line-height: 24px;
+		line-height: 30px;
 		background: none;
 		padding-top: 2px;
 	}

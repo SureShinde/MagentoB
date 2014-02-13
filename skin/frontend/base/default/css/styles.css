@@ -100,7 +100,7 @@ ul,ol         { list-style:none; }
 .main { width:900px; margin:0 auto; min-height:400px; padding:25px 25px 80px; background:#fffffe url(../images/bkg_main2.gif) 0 0 no-repeat; text-align:left; }
 
 /* Base Columns */
-.col-left { float:left; width:195px; padding:0 0 1px; }
+.col-left { float:left; width:167px; padding:0 0 1px; }
 .col-main { float:left; width:685px; padding:0 0 1px; }
 .col-right { float:right; width:195px; padding:0 0 1px; }
 
@@ -470,7 +470,26 @@ tr.summary-details-excluded { font-style:italic; }
 .links li.first { padding-left:0; }
 .links li.last { background:none !important; padding-right:0 !important; }
 
-.link-cart { color:#dc6809 !important; font-weight:bold; }
+.link-cart { 
+	color: #fff !important;
+	font-weight: bold;	
+}
+.link-cart-special { 
+	width: 107px;
+	background-image: url(../images/btn-buynow.png);
+	height: 36px;
+	bottom: 18px;
+	line-height: 21px;
+	color: #fff;
+	position: absolute;
+	font-family: Helvetica;
+	font-size: 1em;
+	font-weight: normal;
+	text-transform: uppercase;
+	background-size: 107px 36px;
+	text-align: center;
+	line-height: 36px;
+}
 .link-wishlist { color:#dc6809; font-weight:bold; }
 .link-reorder { font-weight:bold; color:#dc6809 !important; }
 .link-compare { font-weight:bold; }
@@ -1816,4 +1835,24 @@ tr.summary-details-excluded { font-style:italic; }
     margin: 1em 0 0;
     padding: 8px 0 0;
     text-align: right;
+}
+
+.crosssell .add-to-links {display: none;}
+
+
+.col2-left-layout .main .col-main, .col2-right-layout .main .col-main {
+	width: 1032px;
+}
+
+.amshopby-slider-price-range{
+	display: none;
+}
+.pos-abs{
+	position: absolute;
+}
+.buy-later>.add-to-links{
+	position: relative;
+}
+.item .no-rating, .product-view .no-rating, .aw-content .no-rating{
+	display: none;
 }

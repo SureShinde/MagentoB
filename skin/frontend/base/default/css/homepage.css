@@ -64,7 +64,7 @@
 }
 .homepage-product a.link-viewmore-product {
 	position: absolute;
-	top:-5px;
+	top: 5px;
 	right: 6px;
 	
 }
@@ -74,7 +74,7 @@
 
 .homepage-bottom {
 	clear: both;
-	margin: 0 10px 20px;
+	margin: 20px 10px 20px;
 }
 .homepage-bottom ul.block-wrapper {
 	list-style: none;
@@ -120,7 +120,7 @@
 	padding: 0 25px 0 0;
 }
 .block-bottom p a:hover {
-	text-decoration: none;
+	text-decoration: none;color: #4EC7DA;
 }
 .block-bottom p a.link-how-to-buy {
 	width: 58px;
@@ -161,6 +161,7 @@
 	color: #fff;
 	text-decoration: underline;
 }
+.block-bottom table tr td a:hover {color: #4EC7DA;}
 .block-bottom table tr td a img {
 	margin-left: 5px;
 	margin-top: 3px;

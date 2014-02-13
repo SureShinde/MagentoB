@@ -30,6 +30,7 @@
 
 .postContent {
     padding-bottom: 10px;
+	clear:both;
 }
 
 .postDetails {
@@ -85,6 +86,7 @@
 .tags h4 {
     font-size: 12px;
     font-weight: bold;
+	padding: 20px 0 10px;
 }
 
 .menu-tags, .menu-categories, .menu-recent {

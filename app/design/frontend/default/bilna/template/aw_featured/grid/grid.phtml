@@ -51,12 +51,18 @@
                 <?php if($this->getShowProductName()) : ?>
                 <div class="awafptitle">
                 	<?php // NEW label placement
-					$now = date("Y-m-d");
-					$newsFrom= substr($_product->getData('news_from_date'),0,10);
-					$newsTo=  substr($_product->getData('news_to_date'),0,10);
-					if ($now>=$newsFrom && $now<=$newsTo):?>
-						<span class="lbl-newproduct"><?php echo $this->__('New!') ?></span>
-					<?php endif; ?>
+					$today =  time();
+					$news_from_date_value = $_product->getData('news_from_date');
+					$news_to_date_value	  = $_product->getData('news_to_date');
+					
+					if($news_from_date_value != null):
+						if($today >= strtotime( $news_from_date_value) && $today <= strtotime($news_to_date_value) || $today >= strtotime( $news_from_date_value) && is_null($news_to_date_value)):                                
+							?>
+							<span class="lbl-newproduct"><?php echo $this->__('New!') ?></span>
+							<?php
+						endif;
+					endif;
+					?>
                     <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($_product->getName(), null, true) ?>"><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></a>
                 </div>
                 <?php endif ?>
