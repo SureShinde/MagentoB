@@ -61,7 +61,32 @@
             <a href="#" id="order-item-gift-message-link-<?php echo $_item->getId() ?>" class="gift-message-link" onclick="return giftMessageToogle('<?php echo $_item->getId() ?>')"><?php echo $this->__('Gift Message') ?></a>
         <?php endif; ?>
     </td>
-    <td class="hi-res"><?php echo $this->escapeHtml(Mage::helper('core/string')->splitInjection($this->getSku())) ?></td>
+    <td>
+		<?php 
+			$sku_temp = $this->escapeHtml(Mage::helper('core/string')->splitInjection($_item->getSku()));
+			
+			$cut_index = 7;
+			$insert_string = "<span class='low-res'> </span>";
+			if( strlen($sku_temp) > $cut_index ) :
+				$arr_sku = explode(' ' , $sku_temp);
+				for( $i = 0; $i < count($arr_sku); $i++ ) :
+					if( strlen($arr_sku[$i]) > $cut_index ) :
+						$div_count = intval( ( strlen($arr_sku[$i]) ) / $cut_index );
+						$new_string = $arr_sku[$i];
+						for( $j = 0; $j < $div_count; $j++ ) :
+							$indek = $cut_index + ($cut_index + strlen($insert_string)) * $j;
+							$new_string = substr_replace($new_string, $insert_string, $indek, 0);
+						endfor;
+						echo $new_string;
+					else :
+						echo $arr_sku[$i]." ";
+					endif;
+				endfor;
+			else :
+				echo $sku_temp;
+			endif;
+		?>
+	</td>
     <td class="a-right hi-res">
         <?php if ($this->helper('tax')->displaySalesBothPrices() || $this->helper('tax')->displaySalesPriceExclTax()): ?>
             <span class="price-excl-tax">
@@ -178,8 +203,8 @@
             </span>
         <?php endif; ?>
     </td>
-    <td class="a-right">
-        <span class="nobr">
+    <td class="a-center">
+        <span>
                 <?php if ($this->getItem()->getQtyOrdered() > 0): ?>
             <?php echo $this->__('Ordered'); ?>: <strong><?php echo $this->getItem()->getQtyOrdered()*1 ?></strong><br />
         <?php endif; ?>

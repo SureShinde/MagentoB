@@ -44,7 +44,7 @@
     <?php if ($_prevOptionId != $attributes['option_id']): ?>
     <tr<?php if ($_item->getLastRow()) echo 'class="last"'; ?>>
         <td><div class="option-label"><?php echo $attributes['option_label'] ?></div></td>
-        <td class="hi-res">&nbsp;</td>
+        <td>&nbsp;</td>
         <td class="hi-res">&nbsp;</td>
         <td>&nbsp;</td>
         <td>&nbsp;</td>
@@ -59,7 +59,32 @@
     <?php else: ?>
     <td><div class="option-value"><?php echo $this->getValueHtml($_item)?></div></td>
     <?php endif; ?>
-    <td class="hi-res"><?php echo $this->escapeHtml(Mage::helper('core/string')->splitInjection($_item->getSku())) ?></td>
+    <td>
+		<?php 
+			$sku_temp = $this->escapeHtml(Mage::helper('core/string')->splitInjection($_item->getSku()));
+			
+			$cut_index = 7;
+			$insert_string = "<span class='low-res'> </span>";
+			if( strlen($sku_temp) > $cut_index ) :
+				$arr_sku = explode(' ' , $sku_temp);
+				for( $i = 0; $i < count($arr_sku); $i++ ) :
+					if( strlen($arr_sku[$i]) > $cut_index ) :
+						$div_count = intval( ( strlen($arr_sku[$i]) ) / $cut_index );
+						$new_string = $arr_sku[$i];
+						for( $j = 0; $j < $div_count; $j++ ) :
+							$indek = $cut_index + ($cut_index + strlen($insert_string)) * $j;
+							$new_string = substr_replace($new_string, $insert_string, $indek, 0);
+						endfor;
+						echo $new_string;
+					else :
+						echo $arr_sku[$i]." ";
+					endif;
+				endfor;
+			else :
+				echo $sku_temp;
+			endif;
+		?>
+	</td>
     <td class="a-right hi-res">
         <?php if (!$_item->getParentItem()): ?>
         <?php if ($this->helper('tax')->displaySalesBothPrices() || $this->helper('tax')->displaySalesPriceExclTax()): ?>
@@ -180,10 +205,10 @@
             &nbsp;
         <?php endif; ?>
     </td>
-    <td class="a-right">
+    <td class="a-center">
         <?php if (($_item->getParentItem() && $this->isChildCalculated()) ||
                 (!$_item->getParentItem() && !$this->isChildCalculated())): ?>
-            <span class="nobr">
+            <span>
             <?php if ($_item->getQtyOrdered() > 0): ?>
                 <?php echo Mage::helper('sales')->__('Ordered'); ?>: <strong><?php echo $_item->getQtyOrdered()*1 ?></strong><br />
             <?php endif; ?>
