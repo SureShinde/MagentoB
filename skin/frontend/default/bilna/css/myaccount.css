@@ -284,6 +284,7 @@
 .my-account .fieldset .form-list .input-box {
 	clear: none;
 	float: left;
+	width: auto;
 }
 .form-list input.input-text {
 	background: #f7f7f7;
@@ -292,9 +293,16 @@
 .form-list input.input-text#street_2 {
 	margin-left: 160px;
 }
+.form-list li.wide input.input-text, 
+.form-list input.input-text {
+	width: 405px;
+}
+.form-list select {
+	width: 410px;
+}
 .my-account .buttons-set {
 	border-top: 0;
-	text-align: center;
+	width: 590px;
 }
 .my-account .buttons-set p.required, 
 .my-account .buttons-set p.back-link {
@@ -499,6 +507,23 @@
 	margin-top: 30px;
 }
 
+/* Newsletter Subscribe */
+.my-account .fieldset.newsletter-subscribe .control #subscription, 
+.my-account .fieldset.newsletter-subscribe .control label {
+	float: left;
+}
+.my-account .fieldset.newsletter-subscribe .control #subscription {
+	margin-top: 2px;
+}
+.my-account .fieldset.newsletter-subscribe .control label {
+	width: 280px;
+	padding-top: 0;
+}
+.my-account .buttons-set.newsletter-subscribe {
+	text-align: left;
+	margin-left: 35px;
+}
+
 .low-res {
 	display: none;
 }
@@ -517,8 +542,15 @@
 	.form-list li.wide .input-box {
 		width: 260px;
 	}
-	.form-list li.wide input.input-text {
+	.form-list li.wide input.input-text, 
+	.form-list input.input-text {
 		width: 254px;
+	}
+	.form-list select {
+		width: 260px;
+	}
+	.my-account .buttons-set {
+		width: 440px;
 	}
 }
 
@@ -566,5 +598,11 @@
 	}
 	.title-buttons h1 {
 		float: none;
+	}
+	.my-account .fieldset.newsletter-subscribe .control label {
+		width: 245px;
+	}
+	.my-account .buttons-set {
+		width: 275px;
 	}
 }
