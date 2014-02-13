@@ -23,10 +23,10 @@
 .font-base-text {font-family: helvetica, arial;}
 .font-base-text-bold {font-family: helvetica, arial; font-weight: bold;}
 
-.fb-13 {font-size: 13px;}
-.fb-14 {font-size: 14px;}
-.fb-15 {font-size: 15px;}
-.fb-18 {font-size: 18px;}
+.fb-13 {font-size: 13px !important;}
+.fb-14 {font-size: 14px !important;}
+.fb-15 {font-size: 15px !important;}
+.fb-18 {font-size: 18px !important;}
 
 .clear-static {clear: both;}
 
@@ -41,6 +41,8 @@
 .fc-base-orange-sp {color:#fc6a33;}
 
 .bc-white {background: #FFF;}
+
+.base-bold {font-weight: bold !important;}
 
 .static-page-wrapper a {
 	color: #707070;
@@ -1300,5 +1302,12 @@ z-index: 999;
     height: 28px;
     line-height: 1.7em;
     padding-left: 0px !important;
+}
+
+/* -------------- Gift Idea Pages ------------------ */
+.cont-20-percent {
+	width: 16%;
+	padding: 10px 2%;
+	float: left;
 }
 
