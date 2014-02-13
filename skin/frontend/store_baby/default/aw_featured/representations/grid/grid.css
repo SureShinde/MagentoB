@@ -16,7 +16,7 @@
     margin:15px 0 10px 0;
     padding: 7.6px;
     zoom: 1;
-	height:355px;
+	height:335px;
     position: relative;
     width: 13% !important;
 }
@@ -64,7 +64,7 @@
     color: #707070;
 }
 .awafpgrid .price-box {
-	height: 50px;
+	height: 35px;
 	position: relative;
 }
 .awafpgrid .price-box .price {
@@ -137,12 +137,16 @@
 	width: 15.05% !important;
 }
 .top_thumb_list_product{
-	height:270px;
+	height:275px;
 	position:relative;
 }
 
 .bottom_thumb_list_product .ratings{
 	margin:0;
+}
+.bottom_thumb_list_product .btn-cart{
+	position:absolute;
+	bottom:20px;
 }
 .bottom_thumb_list_product{
 	height:75px;
