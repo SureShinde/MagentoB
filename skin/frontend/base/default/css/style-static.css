@@ -1201,7 +1201,7 @@ z-index: 999;
     /* margin-left: 440px; */
     padding: 20px;
     position: absolute;
-    top: 120px;
+    top: 122px;
     width: 460px;
 	display: none;
 	right: 3%;
@@ -1276,11 +1276,29 @@ z-index: 999;
 
 .megamenu-product a.megamenu-image {
 	display: inline-block;
-	border: 1px solid #dadada;
-	width: 131px;
-	height: 192px;
+	border: none !important;
+	width: 190px;
+	/* height: 192px; */
 	overflow: hidden;
 	background: none;
 }
+.megamenu-product a.megamenu-image img {
+	width: 100%;
+}
+.td-contact-sticky-cont .title-font {
+	font-family: 'bebasregular';
+    font-size: 1.5em;
+    font-weight: normal;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
 
+.td-contact-sticky-cont a {
+    background: none !important;
+    color: #707070;
+    font-size: 18px;
+    height: 28px;
+    line-height: 1.7em;
+    padding-left: 0px !important;
+}
 
