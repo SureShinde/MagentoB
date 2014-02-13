@@ -161,6 +161,19 @@ button.btn-cart {
     text-transform: uppercase;
 	background-size: 107px 36px;
 }
+button.buynow_awrelated {
+    background-image: url("../images/btn-buynow.png");
+    color: #FFFFFF;
+    font-family: Helvetica;
+    font-size: 1em;
+    font-weight: normal;
+    height: 36px;
+    line-height: 21px;
+    position: absolute;
+    text-transform: uppercase;
+    top: 25px;
+    width: 88px;
+}
 button.btn-cart span, button.btn-cart span span {
 	background: none;
 	border: none;

@@ -539,7 +539,7 @@
 	width: 152px;
 }
 .related-product .block-content .aw-arp-product-name-wrap {
-	max-height: 45px;
+	height: 45px;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	text-align: left;
@@ -547,7 +547,12 @@
 .related-product .block-content .aw-arp-item .price-box {
 	text-align: left;
 	height: 35px;
+	position:relative;
 	/*margin-bottom: 50px;*/
+}
+.aw-arp-block-content .regular-price {
+    bottom: 0;
+    position: absolute;
 }
 .related-product .block-content .aw-arp-product-name, 
 .related-product .block-content .price {
@@ -651,7 +656,7 @@
 	padding: 0;
 }
 .aw-mini-related-items .product-name-wrap {
-	height: 30px;
+	height: 45px;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	text-align: left;

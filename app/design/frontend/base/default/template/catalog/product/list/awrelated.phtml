@@ -64,14 +64,14 @@
 					<?php echo $this->getPriceHtml($_item, true); ?>
 				</div>
 			</div>
-			<div class="top_thumb_list_product">
+			<div class="bottom_thumb_list_product">
 				<?php echo $this->getReviewsSummaryHtml($_item, false, true)?>
 				
 				<?php if($_item->isSaleable()): ?>
 					<?php if($_item->isConfigurable()):?>
                     <a class="link-cart" href="<?php echo $_item->getProductUrl() ?>" title="<?php echo $this->stripTags($_item->getName(), null, true) ?>"><?php echo $this->__('Buy Now') ?></a>
                     <?php else:?>
-                    <button type="button" title="<?php echo $this->__('Buy Now') ?>" class="button btn-cart" onclick="setLocation('<?php echo $this->getAddToCartUrl($_item) ?>')"><span><span><?php echo $this->__('Buy Now') ?></span></span></button>
+                    <button type="button buynow_awrelated" title="<?php echo $this->__('Buy Now') ?>" class="button btn-cart" onclick="setLocation('<?php echo $this->getAddToCartUrl($_item) ?>')"><span><span><?php echo $this->__('Buy Now') ?></span></span></button>
                     <?php endif; ?>    
 				<?php else: ?>
 					<p class="availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></p>
