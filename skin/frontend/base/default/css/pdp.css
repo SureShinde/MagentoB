@@ -554,6 +554,9 @@
     bottom: 0;
     position: absolute;
 }
+.product-shop-right .aw-arp-block-content .regular-price{
+	position:relative;
+}
 .related-product .block-content .aw-arp-product-name, 
 .related-product .block-content .price {
 	font-weight: bold;

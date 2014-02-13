@@ -41,7 +41,7 @@
     font-size:12px; color:#000;
 }
 .awafpgrid .awafptitle {
-	max-height: 45px;
+	height: 45px;
 	overflow: hidden;
 	text-overflow: ellipsis;
 }
