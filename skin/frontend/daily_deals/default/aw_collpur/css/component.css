@@ -230,7 +230,7 @@ html, body, .container, .main { height: 100%;}
 		width:100%;
 	}
 }
-@media only screen and (max-width: 320px){
+@media only screen and (max-width: 768px){
 	.desc_deals_slider2{
 		width:100%;
 		border-bottom:1px solid #d6d6d6 !important;
@@ -259,10 +259,10 @@ html, body, .container, .main { height: 100%;}
 	font-size:18px
 	}
 	.cbp-contentslider > ul li{
-		height: 380px;
+		height: 345px;
 	}
 	.cbp-contentslider{
-		height:380px;
+		height:345px;
 	}
 	.cbp-contentslider .thumb_image{
 		display:none;
@@ -274,4 +274,64 @@ html, body, .container, .main { height: 100%;}
 		width:0 !important;
 		display:table;
 	}
+}
+
+@media only screen and (max-width: 768px) { 
+.thumb_angka_area{
+	color:#fff;
+	display: table;
+    left: 0;
+    position: absolute;
+    bottom: 110px;
+    z-index: 999;
+}
+.thumb_angka_area .thumb_angka{
+	color:#fff;
+	padding:10px 13px;
+	margin:0 4px 0 0;
+	font-size:12px;
+	background:#3d3d3d;
+	float:left;
+}
+.thumb_angka_area .active{
+	background:#fd8261 !important;
+}
+.desc_featured{	
+	padding: 0 10px;
+	height:195px;
+	background:#000;
+	position:relative;
+	top: 166px;
+}
+#slider2_container img{
+	height:165px !important;
+}
+.desc_deals_slider2{
+	color:#fff;
+	padding:0 15px;
+}
+.date_slider_deals{
+	color:#fff;
+}
+.right_detail_deals{
+	display:block !important;
+}
+.right_detail_deals .awcp-buy{
+	margin:10px 0 0 !important;
+	padding: 10px;
+}
+.right_detail_deals .awcp-buy span{
+	font-size:23px !important;
+}
+.price_deals_slider p:nth-child(1){
+	color:#f75d2b;
+}
+.price_deals_slider .after_price p:nth-child(1){
+	color:#f75d2b;
+}
+}
+
+
+@media only screen and (min-width: 321px) and (max-width: 615px){
+	
 }
