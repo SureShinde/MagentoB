@@ -60,31 +60,37 @@
                     <template>page/2columns-left.phtml</template>
                     <layout_handle>page_two_columns_left</layout_handle>
                 </two_columns_left>
+				
                 <two_columns_right module="page" translate="label">
                     <label>2 columns with right bar</label>
                     <template>page/2columns-right.phtml</template>
                     <layout_handle>page_two_columns_right</layout_handle>
                 </two_columns_right>
+				
 				<two_columns_right_blog module="page" translate="label">
                     <label>2 columns with right bar blog</label>
                     <template>page/2columns-right-blog.phtml</template>
                     <layout_handle>page_two_columns_right_blog</layout_handle>
                 </two_columns_right_blog>
+				
                 <three_columns module="page" translate="label">
                     <label>3 columns</label>
                     <template>page/3columns.phtml</template>
                     <layout_handle>page_three_columns</layout_handle>
                 </three_columns>
+				
 				<two_columns_left_gift_ideas module="page" translate="label">
                     <label>2 columns with left bar gift ideas</label>
                     <template>page/2columns-left-gift-ideas.phtml</template>
                     <layout_handle>page_two_columns_left_gift_ideas</layout_handle>
                 </two_columns_left_gift_ideas>
+				
 				<two_columns_left_nofeatured module="page" translate="label">
                     <label>2 columns with left bar nofeatured</label>
                     <template>page/2columns-left-nofeatured.phtml</template>
                     <layout_handle>page_two_columns_left_nofeatured</layout_handle>
                 </two_columns_left_nofeatured>
+				
             </layouts>
         </page>
     </global>
