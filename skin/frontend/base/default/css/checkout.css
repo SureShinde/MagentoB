@@ -26,14 +26,15 @@
 	margin-right: 5px;
 }
 #checkoutSteps .buttons-set button.button {
-    width:88px;
+    width:100px;
     background-image:url("../images/btn-buynow.png");
     height:36px;
     line-height:21px;
 }
 #checkoutSteps .buttons-set button.button.btn-checkout {
 	width: auto;
-	background:#FFA01B;
+	background-image: url("../images/btn-buynow4.png");
+	height:40px;
 }
 #checkoutSteps .buttons-set button.button span, #checkoutSteps .buttons-set button.button span span, .opc .buttons-set .back-link a {
 	text-transform: uppercase;
@@ -49,7 +50,7 @@
 	height: auto;
 }
 #checkoutSteps .buttons-set button.button span span img {
-	margin-top: 3px;
+	/*margin-top: 3px;*/
 }
 .opc .step-title {
 	padding-top: 8px;
