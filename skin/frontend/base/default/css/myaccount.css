@@ -177,6 +177,7 @@
 .my-account .col2-set .col-2 {
 	width: 80%;
 	float: none;
+	padding-bottom: 40px;
 }
 
 /* My Dashboard */
@@ -481,7 +482,7 @@
 	/* width: auto; */
 	float: left;
     /* margin: 0 2%; */
-    width: 100%;
+    width: 96%;
 }
 .my-account #my-orders-table thead th, 
 .my-account #my-orders-table tbody td {
