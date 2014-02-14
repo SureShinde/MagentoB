@@ -31,7 +31,7 @@
        <form action="<?php echo $this->getUrl('checkout/cart/estimatePost') ?>" method="post" id="shipping-zip-form">
             <p><?php echo $this->__('Enter your destination to get a shipping estimate.') ?></p>
             <ul class="form-list">
-                <li>
+                <li class="shipping-country">
                     <label for="country" class="required"><em>*</em><?php echo $this->__('Country') ?></label>
                     <div class="input-box">
                         <?php echo Mage::getBlockSingleton('directory/data')->getCountryHtmlSelect($this->getEstimateCountryId()) ?>

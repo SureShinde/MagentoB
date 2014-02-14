@@ -1823,7 +1823,7 @@ tr.summary-details-excluded { font-style:italic; }
 
 .guest-select {width:305px !important;}
 
-.product-tab-wrapper {margin: 60px 0 20px;}
+.product-tab-wrapper {margin: 20px;}
 .customer-reviews .form-list {margin: 20px 0;}
 .customer-reviews h3 {font-size: 15px !important; padding: 10px 0 !important;}
 .customer-reviews .buttons-set button.button {
@@ -1854,6 +1854,9 @@ tr.summary-details-excluded { font-style:italic; }
 .buy-later>.add-to-links{
 	position: relative;
 }
-.item .no-rating, .product-view .no-rating, .aw-content .no-rating{
+.item .no-rating, .related-product .no-rating, .aw-content .no-rating{
+	display: none;
+}
+.email-friend, .shipsfrom-soldby{
 	display: none;
 }
