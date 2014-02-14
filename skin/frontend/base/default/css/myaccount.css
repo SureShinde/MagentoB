@@ -175,7 +175,7 @@
 }
 .my-account .col2-set .col-1, 
 .my-account .col2-set .col-2 {
-	width: 100%;
+	width: 80%;
 	float: none;
 }
 
@@ -450,13 +450,27 @@
 	padding: 10px 10px;
 }
 .my-account .order-info-box, 
-.my-account .order-items.order-details {
+.my-account {
 	background: none;
 	margin: 0;
 	border: 0;
 	border-top: 1px #bcbcbc solid;
 	padding: 10px 10px 30px;
-	width: auto;
+	/* width: auto; */
+	float: left;
+    margin: 0 2%;
+    width: 43%;
+}
+.order-items.order-details {
+	background: none;
+	margin: 0;
+	border: 0;
+	border-top: 1px #bcbcbc solid;
+	padding: 10px 10px 30px;
+	/* width: auto; */
+	float: left;
+    /* margin: 0 2%; */
+    width: 100%;
 }
 .my-account #my-orders-table thead th, 
 .my-account #my-orders-table tbody td {
