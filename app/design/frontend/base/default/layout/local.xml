@@ -119,7 +119,7 @@
 	</catalog_category_view>
 	<catalog_product_view translate="label">
 		<reference name="root">
-            <action method="setTemplate"><template>page/1column.phtml</template></action>
+            <action method="setTemplate"><template>page/2columns-right.phtml</template></action>
         </reference>
 		<reference name="head">
             <action method="addItem">
