@@ -84,6 +84,12 @@ body {
     position: relative;
     /*width: 13% !important;*/
 }
+
+.top_thumb_list_product .special-price,
+.top_thumb_list_product .old-price,
+.top_thumb_list_product .discount-product {
+    margin: 0;
+}
 .products-grid li.item:hover {
 	background-color: #fff;
 	z-index: 10;
@@ -143,6 +149,17 @@ body {
 }
 .products-grid .actions {
 	position: relative;
+}
+.category-products .actions{
+	position:static;
+}
+.category-products .pos-abs {
+    bottom: 20px;
+    position: absolute;
+}
+.top_thumb_list_product .regular-price{
+	position:absolute;
+	bottom:0;
 }
 button.btn-cart {
     width:88px;
