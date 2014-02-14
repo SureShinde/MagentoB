@@ -480,7 +480,7 @@ tr.summary-details-excluded { font-style:italic; }
 	height: 36px;
 	bottom: 18px;
 	line-height: 21px;
-	color: #fff;
+	color: #fff !important;
 	position: absolute;
 	font-family: Helvetica;
 	font-size: 1em;
@@ -490,7 +490,7 @@ tr.summary-details-excluded { font-style:italic; }
 	text-align: center;
 	line-height: 36px;
 }
-.link-wishlist { color:#dc6809; font-weight:bold; }
+.link-wishlist { color:#dc6809; font-weight:bold; position:absolute; bottom:0;}
 .link-reorder { font-weight:bold; color:#dc6809 !important; }
 .link-compare { font-weight:bold; }
 .link-print { /*background:url(../images/i_print.gif) 0 2px no-repeat; padding:2px 0 2px 25px;*/ font-weight:bold; color:#dc6809; }
@@ -873,7 +873,7 @@ tr.summary-details-excluded { font-style:italic; }
 .availability.in-stock span {}
 .availability.out-of-stock span { color:#d83820; }
 
-.availability-only { margin:10px 0 7px; line-height:16px; background:url(../images/i_availability_only.gif) 0 50% no-repeat; padding-left:15px; }
+.availability-only { margin:10px 0 7px; line-height:16px; background:url(../images/i_availability_only.gif) 0 50% no-repeat; padding-left:15px; display:none; }
 .availability-only span,
 .availability-only a { border-bottom:1px dashed #751d02; color:#000; }
 .availability-only a { background:url(../images/i_availability_only_arrow.gif) 100% 0 no-repeat; cursor:pointer; padding-right:15px; text-decoration:none; }
@@ -986,7 +986,7 @@ tr.summary-details-excluded { font-style:italic; }
 .tier-prices-grouped li .price { font-weight:bold; }
 
 /* Add to Links */
-.add-to-links { font-size:11px; position:absolute; bottom:0;}
+.add-to-links { font-size:11px;bottom:0;}
 .add-to-links .separator { display:none; }
 
 /* Add to Cart */
