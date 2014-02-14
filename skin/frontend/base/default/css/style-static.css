@@ -1245,6 +1245,7 @@ z-index: 999;
 	background: none repeat scroll 0 0 #FFFFFF;
 }
 
+
 /* Sticky */
 .td-promo-cont {
 	display: none;
@@ -1310,4 +1311,197 @@ z-index: 999;
 	padding: 10px 2%;
 	float: left;
 }
+
+.wrapper-gift {
+		width: 94%;
+		margin:0 auto;
+		padding: 0;
+	}
+	
+	.tittle-gift-blue {font-family: 'InsaniburgerRegular'; font-size: 40px; color:#04BEEF; text-align: center; margin-top:20px;line-height: 1;}
+	.tittle-gift-green {font-family: 'InsaniburgerRegular'; font-size: 40px; color:#86B940; text-align: center; margin-top:20px;line-height: 1;}
+	
+	.tittle-gift-blue-detail {font-family: 'InsaniburgerRegular'; font-size: 40px; color:#04BEEF; text-align: left; margin-top:20px;}
+	.tittle-gift-green-detail {font-family: 'InsaniburgerRegular'; font-size: 40px; color:#86B940; text-align: left; margin-top:20px;}
+	
+	.body-text-gift {font-family: 'tin_doghouseregular'; font-size:14px; text-align:center;}
+	.body-text-left {font-family: 'tin_doghouseregular'; font-size:14px; text-align:left;}
+	.body-text-right {font-family: 'tin_doghouseregular'; font-size:14px; text-align:right;}
+	.line-blue {clear:both;border-bottom: 2px dashed #04BEEF; margin: 20px 0;}
+	.line-green {clear:both;border-bottom: 2px dashed #86B940; margin: 20px 0;}
+	
+	.clear-gift {clear:both;}
+	.submain-area-gift {
+		width: 100%;
+		margin:0 auto;
+	}
+	
+	.submain-area-gift .images {
+		width: 35%;
+		float: left;
+		padding: 10px 0;
+	}
+	
+	.submain-area-gift img {
+		margin: 0 auto;
+		width: 90%;
+	}
+	
+	.submain-area-gift .text {
+		width:43%;
+		float: left;
+		padding: 10px 30px;
+		margin-top: 88px;
+	}
+	
+	.submain-area-gift-detail .text {
+		width:55%;
+		float: left;
+		padding: 10px 30px;
+		margin-top: 30px;
+	}
+	
+	.submain-area-gift-detail {
+		width: 100%;
+		margin:0 auto;
+	}
+	
+	.submain-area-gift-detail .images {
+		width: 35%;
+		float: left;
+		padding: 10px 0;
+	}
+	
+	.submain-area-gift-detail img {
+		margin: 0 auto;
+		width: 90%;
+	}
+	
+	.submain-area-gift label.blue {font-size: 15px; color:#04BEEF;}
+	.submain-area-gift label.green {font-size: 15px; color:#86B940;}
+	
+	.check-area-gift {
+		font-size: 15px;
+		color:#04BEEF;
+		height:25px;
+		padding:8px 10px 0px 40px;
+		background: url('http://assets.bilna.com/media/wysiwyg/gift-idea/btnchecklistmoms-normal.jpg') no-repeat;
+		background-position:0px;
+		text-decoration:none;
+		transition-delay: 0s;
+		transition-duration: 0.1s;
+		transition-property: all;
+		transition-timing-function: ease;
+		display:table;
+	}
+	
+	.check-area-gift:hover {
+		background: url('http://assets.bilna.com/media/wysiwyg/gift-idea/btnchecklistmoms-rollover.jpg') no-repeat;
+		background-position:0 0px;
+		text-decoration:none;
+	}
+	
+	.btn-bottom-detail {
+		padding: 10px 0;
+	}
+	
+	.btn-bottom-detail img{
+		width:293px;
+	}
+	ul.body-text-left {margin-left: 0px; list-style-type: none;}
+	
+@media only screen and (max-width:680px) {
+	.submain-area-gift .images {
+		width: 94%;
+		float: left;
+		padding: 10px 3%;
+	}
+	
+	.submain-area-gift .text {
+		width:94%;
+		float: left;
+		padding: 10px 3%;
+		margin-top: 0px;
+	}
+	.body-text-gift {font-family: 'tin_doghouseregular'; font-size:14px; text-align:center;}
+	.body-text-left {font-family: 'tin_doghouseregular'; font-size:14px; text-align:left;}
+	.body-text-right {font-family: 'tin_doghouseregular'; font-size:14px; text-align:left;}
+	
+	.submain-area-gift-detail .images {
+		width: 94%;
+		float: left;
+		padding: 10px 3%;
+	}
+		.tittle-gift-blue {
+		color: #04BEEF;
+		font-family: 'InsaniburgerRegular';
+		font-size: 55px;
+		line-height: 1;
+		margin-top: 20px;
+		text-align: center;
+	}
+	.submain-area-gift-detail .text {
+		width:94%;
+		float: left;
+		padding: 10px 3%;
+		margin-top: 0px;
+	}
+}
+
+	.submain-area-gift a.blue {font-size: 15px; color:#04BEEF;}
+	.submain-area-gift a.green {font-size: 15px; color:#86B940;}
+	
+	.btn-bottom-detail img{
+		width:280px;
+	}
+	ul.body-text-left {margin-left: 0px; list-style-type: none;}
+}
+
+.hide-something-ideas {}
+.hide-something-ideas .featured-product-catalog {display: none;}
+.hide-something-ideas .note-msg {display: none !important;}
+
+
+.gift-menu-wrapp2.gift-pages ul li{
+	background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
+    border-bottom: 1px solid #DADADA;
+	background: url("../images/arrow-2.png") no-repeat scroll right center rgba(0, 0, 0, 0);
+    padding: 7px 0;
+}
+.gift-menu-wrapp2 {
+	background: none repeat scroll 0 0 #fcfcfc;
+    /* box-shadow: 2px 4px 5px rgba(0, 0, 0, 0.1); */
+    /* margin-left: 440px; */
+    padding: 20px 21px;
+    width: 100%;
+	display: block;
+}
+.title-gift-megamenu {
+	text-align: left;
+	margin-bottom: 10px;
+}
+.title-gift-megamenu h2 {
+	color: #707070;
+    font-family: 'bebasregular';
+    font-size: 1.1em;
+    font-weight: normal;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+.gift-menu-wrapp2 ul li .spacing{
+	background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
+    border-bottom: 1px solid #DADADA;
+    padding: 3px 0;
+}
+.gift-menu-wrapp2 a span {
+	color: #707070;
+    text-decoration: none;
+	/* font-size: 14px; */
+}
+.gift-menu-wrapp2 a span:hover {
+	color: #FFA01B;
+    text-decoration: none;
+}
+
+.gift-menu-wrapp2 .list-gift-left {float: left;width: 100%;text-align: left}
 
