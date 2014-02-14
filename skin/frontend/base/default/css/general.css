@@ -111,7 +111,7 @@ body {
 	height:auto;
 }
 .products-grid .product-name, .products-grid .price-box {
-	height: 38px;
+	height: 55px;
 	text-overflow: ellipsis;
 	overflow: hidden;
 }
@@ -137,6 +137,7 @@ body {
 }
 .products-grid .price-box {
 	position: relative;
+	height: 40px;
 }
 .products-grid .price-box .discount-product {
 	color: #4ec7da;
