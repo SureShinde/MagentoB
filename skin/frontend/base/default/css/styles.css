@@ -1862,5 +1862,5 @@ tr.summary-details-excluded { font-style:italic; }
 }
 
 .megamenu-image{
-	background: none;
+	background: none !important;
 }

@@ -36,7 +36,7 @@
 
 /* Authorization form shape - Login */
 .al-authorizationform-login {  }
-.al-authorizationform-login-custom .form-list li:last-child {height: 80px;}
+.al-authorizationform-login-custom .form-list li:last-child {max-height: 80px;}
 
 /* Authorization form shape - Register */
 .al-authorizationform-register {  }
