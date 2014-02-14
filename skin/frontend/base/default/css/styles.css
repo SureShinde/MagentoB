@@ -903,6 +903,7 @@ tr.summary-details-excluded { font-style:italic; }
 
 /* Regular price */
 .regular-price { color:#c76200; }
+
 .regular-price .price { font-weight:bold; font-size:13px; color:#c76200; }
 .block .regular-price,
 .block .regular-price .price { color:#2f2f2f; }
@@ -1046,7 +1047,7 @@ tr.summary-details-excluded { font-style:italic; }
 .product-view .product-shop .product-name h1 { margin:0; font:bold 15px/1.35 Arial, Helvetica, sans-serif; }
 .product-view .product-shop .availability { margin:10px 0; }
 .product-view .product-shop .short-description { margin:10px 0; background:url(../images/bkg_divider1.gif) 0 0 repeat-x; padding:10px 0 0; }
-.product-view .product-shop .price-box { margin:10px 0; }
+.product-view .product-shop .price-box { margin:10px 0; position:relative; }
 .product-view .product-shop .add-to-links { margin:0; }
 .product-view .product-shop .add-to-links { font-size:12px; text-align:right; }
 .product-view .product-shop .add-to-links li,
@@ -1821,7 +1822,7 @@ tr.summary-details-excluded { font-style:italic; }
 
 .guest-select {width:305px !important;}
 
-.product-tab-wrapper {margin: 60px 0 20px;}
+.product-tab-wrapper {margin: 20px;}
 .customer-reviews .form-list {margin: 20px 0;}
 .customer-reviews h3 {font-size: 15px !important; padding: 10px 0 !important;}
 .customer-reviews .buttons-set button.button {
@@ -1852,6 +1853,9 @@ tr.summary-details-excluded { font-style:italic; }
 .buy-later>.add-to-links{
 	position: relative;
 }
-.item .no-rating, .product-view .no-rating{
+.item .no-rating, .related-product .no-rating, .aw-content .no-rating{
+	display: none;
+}
+.email-friend, .shipsfrom-soldby{
 	display: none;
 }

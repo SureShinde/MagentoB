@@ -46,8 +46,20 @@
 	width: 10%;
 	padding: 11px 10px 7px;
 }
-#shopping-cart-table.data-table thead .items {
-	width: 30%;
+#shopping-cart-table.data-table thead .price {
+	width: 200px;
+}
+#shopping-cart-table.data-table thead .quantity {
+	width: 60px;
+}
+#shopping-cart-table.data-table thead .weight {
+	width: 60px;
+}
+#shopping-cart-table.data-table thead .subtotal {
+	width: 150px;
+}
+#shopping-cart-table.data-table thead .remove {
+	width: 48px;
 }
 #shopping-cart-table.data-table tr.last th span.title {
 	text-transform: uppercase;
@@ -186,13 +198,20 @@
 	float: right;
 	background: none;
 	border: 0;
-	width: auto;
+	width: 166px;
+	margin-right: 64px;
 }
-.coupon-total .totals.loggedin {
-	width: 188px;
+.coupon-total .total-left.totals {
+	background: none;
+	border: 0;
+	width: 200px;
+	margin-right: 0px;
 }
 .cart .totals table {
 	margin: 15px 0;
+}
+.cart .totals td {
+	padding: 2px 8px;
 }
 .sum-cart {
 	float: right;
@@ -201,17 +220,11 @@
 	margin-top: 15px;
 }
 .sum-cart table .sum-qty {
-	width: 105px;
-}
-.sum-cart table .sum-qty.loggedin {
-	width: 92px;
+	width: 76px;
 }
 .sum-cart table .sum-weight {
-	padding-right: 8px;
-	width: 96px;
-}
-.sum-cart table .sum-weight.loggedin {
-	width: 77px;
+	width: 56px;
+	padding: 0px 10px;
 }
 .continue-checkout {
 	clear: both;
@@ -323,6 +336,9 @@
 .shipping-wrap .shipping .shipping-form .buttons-set span span {
 	padding: 8.5px 0;
 }
+.shipping-wrap .shipping-country {
+	display: none;
+}
 /* right */
 .cart .cart-right .crosssell {
 	border: 0;
@@ -366,13 +382,13 @@
 .total-right table tr td:first-child {
 	display: none;
 }
-#checkoutpromo {
+#checkoutpromo .checkoutpromo-banner {
 	padding: 10px 5px;
 	background: #ff7f6e;
 	color: #303030;
 	margin-bottom: 10px;
 }
-#checkoutpromo span {
+#checkoutpromo .checkoutpromo-banner span {
 	font-weight: bold;
 }
 
@@ -381,22 +397,19 @@
 		width: 20%;
 	}
 	.coupon-total .totals {
-		width: 180px;
-	}
-	.coupon-total .totals.loggedin {
-		width: 177px;
+		width: 137px;
 	}
 	.sum-cart table .sum-qty {
-		width: 90px;
-	}
-	.sum-cart table .sum-qty.loggedin {
-		width: 81px;
+		width: 60px;
 	}
 	.sum-cart table .sum-weight {
-		width: 70px;
+		width: 60px;
 	}
-	.sum-cart table .sum-weight.loggedin {
-		width: 66px;
+	.coupon-total .total-left.totals {
+		width: 143px;
+	}
+	.coupon-total .coupon .discount input.input-text {
+		width: 134px;
 	}
 }
 @media (max-width: 1023px) {
@@ -420,7 +433,7 @@
 		width: 25%;
 	}
 	.coupon-total .coupon .discount input.input-text {
-		width: 125px;
+		width: 120px;
 	}
 	.sum-cart {
 		display: none;
@@ -442,6 +455,12 @@
 	}
 	.cart .crosssell .product-details {
 		margin-left: 80px;
+	}
+	.coupon-total .totals {
+		width: 77px;
+	}
+	.coupon-total .total-left.totals {
+		width: 130px;
 	}
 }
 @media (max-width: 767px) {
@@ -513,6 +532,26 @@
 	}
 	.coupon-total .coupon {
 		margin-left: 0;
+	}
+	.coupon-total > .left {
+		float: none !important;
+	}
+	.coupon-total > .right {
+		float: none !important;
+	}
+	.total-right table tr td {
+		display: table-cell;
+	}
+	.coupon-total .total-left.totals {
+		display: none;
+	}
+	.coupon-total .totals {
+		width: 100%;
+		margin: 0px;
+		float: none;
+	}
+	.total-right table tr td:first-child {
+		display: block;
 	}
 	.coupon-total .coupon .discount input.input-text {
 		width: 155px;

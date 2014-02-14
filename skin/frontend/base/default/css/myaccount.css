@@ -1,5 +1,121 @@
 /* myaccount.css */
 
+.col2-left-layout .main .col-left.sidebar {
+	width: 175px;
+}
+
+/* login non pop-up */
+.account-login {
+	margin-bottom: 30px;
+}
+.account-login .content {
+	background: none;
+	-webkit-border-radius: 20px;
+	-moz-border-radius: 20px;
+	border-radius: 20px;
+	border-bottom: 1px solid #bbb6a5;
+}
+.account-login .new-users h2, 
+.account-login .registered-users h2 {
+	background: none;
+	padding-left: 0;
+	font-family: 'bebasregular';
+	font-weight: normal;
+	font-size: 1.4em;
+	color: #343334;
+	word-spacing: 3px;
+	background: url(../images/dash-orange.png) bottom repeat-x; 
+	border-bottom: 0;
+	padding-bottom: 15px;
+}
+.account-login .col-2.registered-users .content p {
+	margin-bottom: 10px;
+}
+.account-login .al-authorization .form-list li:first-child {
+	background: none;
+	padding-bottom: 0;
+} 
+.account-login .al-authorization .form-list li:last-child {
+	background: none;
+	padding-bottom: 0;
+}
+.account-login .buttons-set {
+	background: none;
+	border: 0;
+}
+.account-login .buttons-set button.button span {
+	border: 0;
+	background: #fd8e17;
+	height: auto;
+	padding: 0;
+}
+.account-login .buttons-set button.button span span {
+	font-size: 1.4em;
+	font-family: 'bebasregular';
+	font-weight: normal;
+	padding: 3px 10px;
+	line-height: 2em;
+	border: 0;
+	background: #fd8e17;
+	height: auto;
+}
+.account-login .col-2.registered-users button.button {
+	float: left;
+}
+#forgotpwdbtn {
+	padding-left: 10px;
+	color: #fd8e17;
+	text-decoration: underline;
+}
+
+/* create account non pop-up */
+.account-create {
+	margin-bottom: 30px;
+}
+.account-create .fieldset {
+	background: none;
+	border: 0;
+	margin: 0;
+	padding: 15px 20px 0;
+}
+.account-create .fieldset .legend {
+	border: 0;
+	background: 0;
+	padding: 0;
+	margin: 0;
+	float: none;
+	color: #434343;
+	margin: 0 0 8px;
+}
+.account-create .buttons-set {
+	border-top: 0;
+	margin-top: 0;
+	margin-left: 15px;
+}
+.account-create .buttons-set .required, 
+.account-create .buttons-set .back-link {
+	display: none;
+}
+.account-create .buttons-set button.button {
+	float: left;
+}
+.account-create .buttons-set button.button span {
+	border: 0;
+	background: #fd8e17;
+	height: auto;
+	padding: 0;
+}
+.account-create .buttons-set button.button span span {
+	font-size: 1.4em;
+	font-family: 'bebasregular';
+	font-weight: normal;
+	padding: 3px 10px;
+	line-height: 2em;
+	border: 0;
+	background: #fd8e17;
+	height: auto;
+}
+
 /* left */
 .block.block-account {
 	border: 0;
@@ -48,6 +164,7 @@
 	background-color: #ffa01b;
 	padding: 12px 7px;
 	margin: 0 0 15px;
+	width: auto;
 }
 .page-title h1 {
 	color: white;
@@ -97,7 +214,8 @@
 	font-weight: bold;
 	color: #ffa01b;
 }
-.dashboard .box-account.box-recent {
+.dashboard .box-account.box-recent, 
+.dashboard .box-account.box-reviews {
 	background: 0;
 	border: 0;
 	padding: 10px 10px 0;
@@ -110,18 +228,23 @@
 	color: #fd810d;
 	font-weight: bold;
 }
-.dashboard .box-recent .box-head h2 {
+.dashboard .box-recent .box-head h2, 
+.dashboard .box-reviews .box-head h2 {
 	background-image: none;
 	padding-left: 0;
 }
 .dashboard .box .box-title h3, 
 .dashboard .box .box-title h4, 
-.dashboard .box-recent .box-head h2 {
+.dashboard .box-recent .box-head h2, 
+.dashboard .box-reviews .box-head h2 {
 	color: #515151;
 	text-transform: capitalize;
 }
 
 /* Personal Details */
+.my-account {
+	margin-bottom: 30px;
+}
 .my-account .fieldset {
 	border: 0;
 	background: 0;
@@ -146,6 +269,7 @@
 }
 .my-account .fieldset .form-list .field {
 	width: 100%;
+	margin-bottom: 8px;
 }
 .my-account .fieldset .form-list .field.name-firstname, 
 .my-account .fieldset .form-list .field.new-password {
@@ -164,14 +288,29 @@
 .my-account .fieldset .form-list .input-box {
 	clear: none;
 	float: left;
+	width: auto;
 }
 .form-list input.input-text {
 	background: #f7f7f7;
 	border-color: #dedede;
 }
+.form-list input.input-text#street_2 {
+	margin-left: 160px;
+}
+.form-list li.wide input.input-text, 
+.form-list input.input-text {
+	width: 405px;
+}
+.form-list select {
+	width: 410px;
+}
 .my-account .buttons-set {
 	border-top: 0;
-	text-align: center;
+	width: 590px;
+}
+.my-account .buttons-set p.required, 
+.my-account .buttons-set p.back-link {
+	display: none;
 }
 .my-account .buttons-set button.button {
 	float: none;
@@ -190,7 +329,7 @@
 	padding: 5px 20px;
 }
 
-/* Adress Book */
+/* Address Book */
 .addresses-list li.item {
 	background: 0;
 	border: 0;
@@ -208,6 +347,10 @@
 	float: left;
 	color: #424242;
 	margin-bottom: 15px;
+}
+.addresses-list li.item a, 
+.addresses-additional-wrap a {
+	color: #ffa01b;
 }
 .addresses-list li.item p {
 	text-align: right;
@@ -292,15 +435,59 @@
 	border-right: 0;
 	padding: 7px 8px;
 }
-.my-account .data-table .odd {
-	background: white;
-}
+.my-account .data-table .odd, 
 .my-account .data-table .even {
-	background: #ededed;
+	background: white;
 }
 .my-account .data-table tbody td {
 	border-bottom: 0;
 	border-right: 0;
+}
+.my-account .order-info {
+	background: none;
+}
+.my-account .order-date {
+	padding: 10px 10px;
+}
+.my-account .order-info-box, 
+.my-account .order-items.order-details {
+	background: none;
+	margin: 0;
+	border: 0;
+	border-top: 1px #bcbcbc solid;
+	padding: 10px 10px 30px;
+	width: auto;
+}
+.my-account #my-orders-table thead th, 
+.my-account #my-orders-table tbody td {
+	word-wrap: break-word;
+	white-space: normal;
+}
+.my-account #my-orders-table tfoot {
+	border-bottom: none;
+}
+.my-account #my-orders-table tfoot tr {
+	background: none;
+}
+.my-account #my-orders-table tfoot tr td {
+	border-right: 0;
+}
+.my-account #my-orders-table tfoot tr.subtotal td.last {
+	width: 20%;
+}
+.my-account #my-orders-table tfoot tr.first td {
+	background: none;
+	border-top: 1px solid #afafaf;
+}
+.my-account #my-orders-table tfoot tr.last {
+	border-top: 1px solid #afafaf;
+}
+.my-account #my-orders-table tbody tr {
+	background: none !important;
+	border-bottom: 1px solid #afafaf;
+}
+.my-account .dashboard #my-orders-table tbody tr {
+	border-bottom: 0;
 }
 
 /* Review */
@@ -311,19 +498,129 @@
 	color: #fd810d;
 	font-weight: bold;
 }
+.form-list li .orange-dash { background: url(../images/dash-orange.png) bottom repeat-x; padding-bottom:20px;}
+.error-msg {
+    border-color: #F16048;
+    background-color: #FFF;
+    background-image: url('../images/i_msg-error.gif');
+    color: #DF280A;
+}
+.no-orders, 
+.no-reviews {
+	margin-left: 7px;
+	margin-top: 30px;
+}
+.product-review .product-img-box {
+	margin-left: 10px;
+}
+
+/* Newsletter Subscribe */
+.my-account .fieldset.newsletter-subscribe .control #subscription, 
+.my-account .fieldset.newsletter-subscribe .control label {
+	float: left;
+}
+.my-account .fieldset.newsletter-subscribe .control #subscription {
+	margin-top: 2px;
+}
+.my-account .fieldset.newsletter-subscribe .control label {
+	width: 280px;
+	padding-top: 0;
+}
+.my-account .buttons-set.newsletter-subscribe {
+	text-align: left;
+	margin-left: 35px;
+}
+
+.low-res {
+	display: none;
+}
 
 @media (max-width: 1215px) {
-	
+	.col2-left-layout .main .col-main {
+		width: 810px;
+	}
 }
 
 @media (max-width: 1023px) {
-	
+	.col2-left-layout .main .col-main {
+		width: 560px;
+	}
+	.col2-left-layout .main .col-left.sidebar {
+		margin-top: 0px;
+	}
+	.account-login .content {
+		min-height: 380px !important;
+	}
+	.form-list li.wide .input-box {
+		width: 260px;
+	}
+	.form-list li.wide input.input-text, 
+	.form-list input.input-text {
+		width: 254px;
+	}
+	.form-list select {
+		width: 260px;
+	}
+	.my-account .buttons-set {
+		width: 440px;
+	}
 }
 
 @media (max-width: 767px) {
-	
+	.col2-left-layout .main .col-left.sidebar, 
+	.col2-left-layout .main .col-main {
+		width: 100%;
+	}
+	.account-login .col2-set .col-1, 
+	.account-login .col2-set .col-2 {
+		width: 100%;
+	}
+	.account-login .col2-set .col-1 .content, 
+	.account-login .col2-set .col-2 .content {
+		margin: 15px;
+	}
+	.account-login .content {
+		min-height: 0 !important;
+		height: auto;
+	}
+	.low-res {
+		display: block;
+	}
+	.hi-res {
+		display: none;
+	}
+	#my-orders-table th.action, 
+	#my-reviews-table th.action {
+		width: 20%;
+	}
 }
 
 @media (max-width: 479px) {
-	
+	.account-login .al-authorization .form-list input.input-text {
+		width: 215px;
+	}
+	.form-list input.input-text#street_2 {
+		margin-left: 0;
+	}
+	.my-account .fieldset .form-list label {
+		padding-top: 0;
+		padding-bottom: 3px;
+	}
+	.my-account .fieldset .form-list label.required em {
+		right: 50px;
+	}
+	.my-account .fieldset .form-list .confirm-password label.required em {
+		right: 20px;
+	}
+	.title-buttons h1 {
+		float: none;
+	}
+	.my-account .fieldset.newsletter-subscribe .control label {
+		width: 245px;
+	}
+	.my-account .buttons-set {
+		width: 275px;
+		text-align: left;
+		margin-left: 15px;
+	}
 }

@@ -45,7 +45,14 @@
     if (array_key_exists($this->getNameInLayout(), $appliedBlockIds)) {
 
         foreach ($appliedBlockIds[$this->getNameInLayout()] as $appliedBlockId) {
-            echo $this->getLayout()->createBlock('cms/block')->setBlockId($appliedBlockId)->toHtml();
+        	
+        	if($this->getLayout()->createBlock('cms/block')->setBlockId($appliedBlockId)->toHtml()) {
+        	?>
+	        	<div class="checkoutpromo-banner">
+	        		<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId($appliedBlockId)->toHtml(); ?>
+	            </div>
+            <?php
+            }
         }
     }
     ?>

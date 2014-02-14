@@ -38,39 +38,14 @@
 		<form action="<?php echo $this->getUrl('checkout/cart/updatePost') ?>" method="post">
 			<fieldset>
 				<table id="shopping-cart-table" class="data-table cart-table">
-					<col width="1" />
-					<col />
-					<col width="1" />
-				<?php if ($this->helper('wishlist')->isAllowInCart()) : ?>
-					<col width="1" />
-				<?php endif ?>
-				<?php if ($this->helper('tax')->displayCartPriceExclTax() || $this->helper('tax')->displayCartBothPrices()): ?>
-					<col width="1" />
-				<?php endif; ?>
-				<?php if ($this->helper('tax')->displayCartPriceInclTax() || $this->helper('tax')->displayCartBothPrices()): ?>
-					<col width="1" />
-				<?php endif; ?>
-					<col width="1" />
-				<?php if ($this->helper('tax')->displayCartPriceExclTax() || $this->helper('tax')->displayCartBothPrices()): ?>
-					<col width="1" />
-				<?php endif; ?>
-				<?php if ($this->helper('tax')->displayCartPriceInclTax() || $this->helper('tax')->displayCartBothPrices()): ?>
-					<col width="1" />
-				<?php endif; ?>
-					<col width="1" />
 
 				<?php $mergedCells = ($this->helper('tax')->displayCartBothPrices() ? 2 : 1); ?>
 					<thead>
 	                    <tr>
 	                        <th class="shopping-cart" rowspan="<?php echo $mergedCells; ?>"><span class="title"><?php echo $this->__('Shopping Cart') ?></span></th>
 	                        <th class="items<?php if($this->helper('customer')->isLoggedIn()):?> loggedin<?php endif;?>" rowspan="<?php echo $mergedCells; ?>"><span class="nobr"><?php echo $this->__('Item(s)') ?></span></th>
-	                        <?php if ($this->helper('wishlist')->isAllowInCart()) : ?>
-	                        <th class="a-center wishlist" rowspan="<?php echo $mergedCells; ?>">
-								<span class="nobr"><?php echo $this->__('Move to<br />') ?></span>
-								<span class="nobr"><?php echo $this->__('Wishlist') ?></span>
-							</th>
-	                        <?php endif ?>
-	                        <th class="a-center" colspan="<?php echo $mergedCells; ?>"><span class="nobr"><?php echo $this->__('Price') ?></span></th>
+
+	                        <th class="a-right price" colspan="<?php echo $mergedCells; ?>"><span class="nobr"><?php echo $this->__('Price') ?></span></th>
 	                        <th class="a-center quantity" rowspan="<?php echo $mergedCells; ?>"><span><?php echo $this->__('Quantity') ?></span></th>
 	                        <th class="a-right weight" rowspan="<?php echo $mergedCells; ?>"><span><?php echo $this->__('Weight') ?></span></th>
 	                        <th class="a-right subtotal" colspan="<?php echo $mergedCells; ?>"><span><?php echo $this->__('Subtotal') ?></span></th>

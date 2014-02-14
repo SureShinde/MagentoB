@@ -41,7 +41,7 @@
     font-size:12px; color:#000;
 }
 .awafpgrid .awafptitle {
-	max-height: 45px;
+	height: 45px;
 	overflow: hidden;
 	text-overflow: ellipsis;
 }
@@ -64,7 +64,7 @@
     color: #707070;
 }
 .awafpgrid .price-box {
-	height: 50px;
+	height: 35px;
 	position: relative;
 }
 .awafpgrid .price-box .price {
@@ -137,12 +137,16 @@
 	width: 15.05% !important;
 }
 .top_thumb_list_product{
-	height:270px;
+	height:275px;
 	position:relative;
 }
 
 .bottom_thumb_list_product .ratings{
 	margin:0;
+}
+.bottom_thumb_list_product .btn-cart{
+	position:absolute;
+	bottom:20px;
 }
 .bottom_thumb_list_product{
 	height:75px;
