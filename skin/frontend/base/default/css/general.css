@@ -486,3 +486,8 @@ a.back-to-top img {
 		width: 132px;
 	}
 }
+
+.regular-price .price, .special-price .price{
+	position: absolute;
+	bottom: 0;
+}
