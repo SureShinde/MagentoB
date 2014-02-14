@@ -90,6 +90,7 @@
 	color: #4ec7da;
 	font-weight: bold;
 	margin: 5px 0;
+	display: none;
 }
 .product-view .product-shop .product-shop-left .price-as-configured .price-label {
 	font-weight: normal;
@@ -238,6 +239,7 @@
 	text-decoration: underline;
 }
 .product-view .product-shop .product-shop-right .buy-later {
+	display:table;
 	width: 230px;
 	margin: 10px auto;
 }
