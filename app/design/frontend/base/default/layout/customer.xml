@@ -97,7 +97,11 @@ Layout for customer login page
             <action method="setTemplate"><template>page/1column.phtml</template></action>
         </reference>
         <reference name="content">
-            <block type="customer/form_login" name="customer_form_login" template="customer/form/login.phtml" />
+            <block type="customer/form_login" name="customer_form_login" template="customer/form/login.phtml" >
+                <block type="customer/form_register" name="customer_form_register2" template="customer/form/register.phtml">
+                    <block type="page/html_wrapper" name="customer.form.register.fields.before" as="form_fields_before" />
+                </block>
+            </block>
         </reference>
 		<reference name="head">
 			 <action method="addCss"><stylesheet>css/myaccount.css</stylesheet></action>
@@ -251,8 +255,7 @@ Customer account pages, rendered for all tabs in dashboard
             </block>
         </reference>
 		<reference name="left">
-			<remove name="customer_account_navigation" />
-			<block type="customer/account_navigation" name="customer_account_navigation_2" before="-" template="customer/account/navigation.phtml">
+			<block type="customer/account_navigation" name="customer_account_navigation" before="-" template="customer/account/navigation.phtml">
                 <action method="addLink" translate="label" module="customer"><name>account</name><path>customer/account/</path><label>Account Dashboard</label></action>
                 <action method="addLink" translate="label" module="customer"><name>account_edit</name><path>customer/account/edit/</path><label>Personal Details</label></action>
                 <action method="addLink" translate="label" module="customer"><name>address_book</name><path>customer/address/</path><label>Address Books</label></action>

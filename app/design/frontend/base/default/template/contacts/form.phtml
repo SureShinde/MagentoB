@@ -25,8 +25,9 @@
  */
 ?>
 <div id="messages_product_view"><?php echo $this->getMessagesBlock()->getGroupedHtml() ?></div>
-<div class="page-title">
-    <h1><?php echo Mage::helper('contacts')->__('Contact Us') ?></h1>
+<div class="page-title static-page-content" style="background: none !important;">
+    <!--<h1><?php //echo Mage::helper('contacts')->__('Contact Us') ?></h1>-->
+	<h3>Contact Us</h3>
 </div>
 <form action="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB); ?><?php echo Mage::app()->getStore()->getCode()?>/contacts/index/post" id="contactForm" method="post">
     <div class="fieldset">
