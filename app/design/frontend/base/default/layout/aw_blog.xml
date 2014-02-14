@@ -46,6 +46,7 @@
     </default>
 
     <blog_index_index>
+        <remove name="breadcrumbs" /> 
         <reference name="footer" >
             <block type="blog/blog" name="copyright.blog.footer" template="aw_blog/copyright.phtml"/>
         </reference>
@@ -61,6 +62,7 @@
     </blog_index_index>
 
     <blog_index_list>
+        <remove name="breadcrumbs" /> 
         <reference name="footer" >
             <block type="blog/blog" name="copyright.blog.footer" template="aw_blog/copyright.phtml"/>
         </reference>
@@ -79,6 +81,7 @@
         </reference>
     </blog_index_list>
     <blog_post_view>
+        <remove name="breadcrumbs" />
         <reference name="footer" >
             <block type="blog/blog" name="copyright.blog.footer" template="aw_blog/copyright.phtml"/>
         </reference>
@@ -97,6 +100,7 @@
         </reference>
     </blog_post_view>
     <blog_cat_view>
+        <remove name="breadcrumbs" /> 
         <reference name="footer" >
             <block type="blog/blog" name="copyright.blog.footer" template="aw_blog/copyright.phtml"/>
         </reference>
@@ -116,6 +120,7 @@
     </blog_cat_view>
 
     <blog_rss_index>
+        <remove name="breadcrumbs" /> 
         <reference name="footer" >
             <block type="blog/blog" name="copyright.blog.footer" template="aw_blog/copyright.phtml"/>
         </reference>
