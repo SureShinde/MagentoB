@@ -251,8 +251,7 @@ Customer account pages, rendered for all tabs in dashboard
             </block>
         </reference>
 		<reference name="left">
-			<remove name="customer_account_navigation" />
-			<block type="customer/account_navigation" name="customer_account_navigation_2" before="-" template="customer/account/navigation.phtml">
+			<block type="customer/account_navigation" name="customer_account_navigation" before="-" template="customer/account/navigation.phtml">
                 <action method="addLink" translate="label" module="customer"><name>account</name><path>customer/account/</path><label>Account Dashboard</label></action>
                 <action method="addLink" translate="label" module="customer"><name>account_edit</name><path>customer/account/edit/</path><label>Personal Details</label></action>
                 <action method="addLink" translate="label" module="customer"><name>address_book</name><path>customer/address/</path><label>Address Books</label></action>
