@@ -91,7 +91,11 @@ Layout for customer login page
             <action method="setTemplate"><template>page/1column.phtml</template></action>
         </reference>
         <reference name="content">
-            <block type="customer/form_login" name="customer_form_login" template="customer/form/login.phtml" />
+            <block type="customer/form_login" name="customer_form_login" template="customer/form/login.phtml" >
+                <block type="customer/form_register" name="customer_form_register2" template="customer/form/register.phtml">
+                    <block type="page/html_wrapper" name="customer.form.register.fields.before" as="form_fields_before" />
+                </block>
+            </block>
         </reference>
     </customer_account_login>
 
