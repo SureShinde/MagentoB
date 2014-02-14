@@ -1853,6 +1853,6 @@ tr.summary-details-excluded { font-style:italic; }
 .buy-later>.add-to-links{
 	position: relative;
 }
-.item .no-rating, .product-view .no-rating, .aw-content .no-rating{
+.item .no-rating, .aw-content .no-rating{
 	display: none;
 }
