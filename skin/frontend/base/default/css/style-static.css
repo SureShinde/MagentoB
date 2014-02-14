@@ -1511,7 +1511,7 @@ z-index: 999;
 /*--------------- Left-menu-static-page --------- */
 
 .left-sp-menu-wrapp {
-	width: 100%;
+	width: 90%;
 	padding: 10px;
 	margin: 5px 0;
 	background: none repeat scroll 0 0 #fcfcfc;
