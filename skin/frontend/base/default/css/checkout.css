@@ -27,12 +27,13 @@
 }
 #checkoutSteps .buttons-set button.button {
     width:88px;
-    background-image:url(../images/btn-buynow.png) no-repeat #FFA01B;
+    background-image:url("../images/btn-buynow.png");
     height:36px;
     line-height:21px;
 }
 #checkoutSteps .buttons-set button.button.btn-checkout {
 	width: auto;
+	background:#FFA01B;
 }
 #checkoutSteps .buttons-set button.button span, #checkoutSteps .buttons-set button.button span span, .opc .buttons-set .back-link a {
 	text-transform: uppercase;
