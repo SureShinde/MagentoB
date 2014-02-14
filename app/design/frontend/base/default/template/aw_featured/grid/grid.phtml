@@ -90,7 +90,7 @@
 					<?php if($this->getShowAddToCartButton()) : ?>
 					<div class="afp-addtocart">
 						<?php if($_product->isSaleable()) : ?>
-						<?php if($_product->isConfigurable()):?>
+						<?php if($_product->getTypeId() != 'simple'):?>
 							<p><a class="link-cart-special" href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($_product->getName(), null, true) ?>"><?php echo $this->__('Buy Now') ?></a></p>
 							<?php else:?>
 						<p><button type="button" title="<?php echo $this->__('Buy Now') ?>" class="button btn-buynow" onclick="setLocation('<?php echo $_abstractBlock->getAddToCartUrl($_product) ?>')"><?php echo $this->__('Buy Now') ?></button></p>
