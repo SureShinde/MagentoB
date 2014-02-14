@@ -613,11 +613,19 @@
 .header .links li:first-child {
 	border-right: 1px solid #f1f1f1; 
 }
+.header .links li.track-order, .header .links li.login {
+	padding-left: 7px;
+	padding-right: 5px;
+}
+.header .links li.login:after
+{ 
+	content:" / ";
+}
 .header .links li {
 	float: none;
 	background: none;
-	padding-left: 7px;
-	padding-right: 5px;
+	padding-left: 0px;
+	padding-right: 0px;
 }
 .header .links li.first {
 	border: none;
@@ -634,7 +642,6 @@
 	padding: 0;
 }
 .header .links li.login {
-	border-left: 1px solid #f1f1f1; 
 	padding-left: 7px;
 	padding-right: 0;
 }
