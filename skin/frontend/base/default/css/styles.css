@@ -1860,3 +1860,7 @@ tr.summary-details-excluded { font-style:italic; }
 .email-friend, .shipsfrom-soldby{
 	display: none;
 }
+
+.megamenu-image{
+	background: none;
+}
