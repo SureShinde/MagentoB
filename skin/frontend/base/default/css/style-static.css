@@ -1026,7 +1026,7 @@ animation-timing-function: linear;
 }
 .static-page-content > h3 {
     font-size: 21px;
-	color:#4ec7da !important;
+	color: #FFA01B !important;
 }
 .static-testi-row {
 	margin:15px 0 0;
@@ -1064,7 +1064,8 @@ animation-timing-function: linear;
     min-height: 350px;
     padding-bottom: 100px;
     position: relative;
-    width: 100%;
+    width: 95%;
+	padding: 10px 5%;
 }
 .contactForm-content {
     font-size: 14px;
@@ -1504,4 +1505,56 @@ z-index: 999;
 }
 
 .gift-menu-wrapp2 .list-gift-left {float: left;width: 100%;text-align: left}
+
+
+
+/*--------------- Left-menu-static-page --------- */
+
+.left-sp-menu-wrapp {
+	width: 100%;
+	padding: 10px;
+	margin: 5px 0;
+	background: none repeat scroll 0 0 #fcfcfc;
+}
+h2.block-grey-title-left {
+	width: 90%;
+	padding: 10px 5% 7px;
+	margin-bottom: 10px;
+	color: #707070;
+    font-family: 'bebasregular' !important;
+    font-size: 1.1em;
+    font-weight: normal;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+	background: #d8d9d9;
+	text-align: left;
+}
+.left-sp-menu-wrapp .gift-pages ul li{
+	background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
+    border-bottom: 1px solid #DADADA;
+	background: url("../images/arrow-2.png") no-repeat scroll right center rgba(0, 0, 0, 0);
+    padding: 7px 0;
+	font-size: 12px;
+}
+.left-sp-menu-wrapp ul li {
+	font-size: 12px;
+    line-height: 1.4em;
+}
+.left-sp-menu-wrapp ul li a{
+	text-decoration: none;
+	color: #707070;
+	line-height: 1.3em;
+	padding-left: 6%;
+}
+.left-sp-menu-wrapp ul li a:hover{
+	text-decoration: none;
+	color: #FFA01B;
+}
+.container-left-com {
+	margin-bottom: 10px;
+}
+
+
+
+
 
