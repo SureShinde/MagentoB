@@ -1854,7 +1854,7 @@ tr.summary-details-excluded { font-style:italic; }
 .buy-later>.add-to-links{
 	position: relative;
 }
-.item .no-rating, .related-product .no-rating, .aw-content .no-rating{
+.item .no-rating, .related-product .no-rating, .aw-content .no-rating, aw-arp-block-content .no-rating{
 	display: none;
 }
 .email-friend, .shipsfrom-soldby{
