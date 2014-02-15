@@ -67,15 +67,15 @@
 			<div class="bottom_thumb_list_product">
 				<?php echo $this->getReviewsSummaryHtml($_item, false, true)?>
 				
-				<?php //if($_item->isSaleable()): ?>
+				<?php if($_item->isSaleable()): ?>
 					<?php if($_item->getTypeId() != 'simple'):?>
                     <a class="link-cart-special" href="<?php echo $_item->getProductUrl() ?>" title="<?php echo $this->stripTags($_item->getName(), null, true) ?>"><?php echo $this->__('Buy Now') ?></a>
                     <?php else:?>
                     <button type="button buynow_awrelated" title="<?php echo $this->__('Buy Now') ?>" class="button btn-cart" onclick="setLocation('<?php echo $this->getAddToCartUrl($_item) ?>')"><span><span><?php echo $this->__('Buy Now') ?></span></span></button>
                     <?php endif; ?>    
-				<?php //else: ?>
+				<?php else: ?>
 					<p class="availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></p>
-				<?php //endif; ?>
+				<?php endif; ?>
             </div>
         </li>
         <?php endforeach ?>
