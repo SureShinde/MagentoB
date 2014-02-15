@@ -1,6 +1,5 @@
 <?php
 
-
 class Bilna_Customreports_Block_Adminhtml_Salesreport extends Mage_Adminhtml_Block_Widget_Grid_Container{
 
 	public function __construct()

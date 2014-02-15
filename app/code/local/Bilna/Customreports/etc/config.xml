@@ -82,6 +82,11 @@
 								<sort_order>0</sort_order>
 								<action>customreports/adminhtml_couponsreport</action>
 							</customcouponsreports>
+							<custominstallmentreport>
+								<title>Installment Report</title>
+								<sort_order>1</sort_order>
+								<action>customreports/adminhtml_installmentreport</action>
+							</custominstallmentreport>
 						</children>
 					</customreports>
 				</children>
