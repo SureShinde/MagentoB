@@ -33,6 +33,10 @@
 ?>
 <?php $_helper = $this->helper('catalog/output'); ?>
 <?php $_product = $this->getProduct(); ?>
+<input type="hidden" id="3rdparty-type" value="product"/>
+<input type="hidden" id="3rdparty-value" value="<?php echo $_product->getId(); ?>" />
+<input type="hidden" id="base-url" value="<?php echo Mage::getBaseUrl(); ?>" />
+<?php $_product = $this->getProduct(); ?>
 <script type="text/javascript">
     var optionsPrice = new Product.OptionsPrice(<?php echo $this->getJsonConfig() ?>);
 </script>
