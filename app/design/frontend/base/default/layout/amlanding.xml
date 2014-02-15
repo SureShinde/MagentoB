@@ -5,6 +5,11 @@
             <action method="addJs"><script>amasty/amlanding/amlanding.js</script></action>
             <action method="addCss"><stylesheet>css/category.css</stylesheet></action>
         </reference>
+		<reference name="left">
+			<remove name="left.permanent.callout"/>
+			<remove name="tags_popular"/>
+			<remove name="left.newsletter"/>
+		</reference>
     </default>
    	<amlanding_page_view>
 	    <reference name="content">
