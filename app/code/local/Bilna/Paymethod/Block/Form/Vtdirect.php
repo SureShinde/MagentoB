@@ -38,14 +38,26 @@ class Bilna_Paymethod_Block_Form_Vtdirect extends Mage_Payment_Block_Form_Ccsave
      * false => zip code is null
      */
     public function checkZipCode() {
-        $customerAddressId = Mage::getSingleton('customer/session')->getCustomer()->getDefaultBilling();
+        $quote = Mage::getSingleton('checkout/session')->getQuote();
+        $billingAddress = $quote->getBillingAddress();
+        $zipCode = $billingAddress->getPostcode();
         
-        if ($customerAddressId) {
-            $address = Mage::getModel('customer/address')->load($customerAddressId);
-            
-            if (!empty ($address->getData('postcode'))) {
-                return true;
+        /**
+         * check customer is guest
+         */
+        if (Mage::getSingleton('customer/session')->getId()) {
+            if (empty ($zipCode)) {
+                $customerAddressId = Mage::getSingleton('customer/session')->getCustomer()->getDefaultBilling();
+
+                if ($customerAddressId) {
+                    $address = Mage::getModel('customer/address')->load($customerAddressId);
+                    $zipCode = $address->getData('postcode');
+                }
             }
+        }
+        
+        if (!empty ($zipCode)) {
+            return true;
         }
         
         return false;
