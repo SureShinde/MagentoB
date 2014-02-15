@@ -1093,6 +1093,9 @@
 	margin: 0 0 5px 20px;
 	background: url(../images/dash.png) no-repeat left bottom;
 }
+.shopby ul:last-child {
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
+}
 .shopby ul.shop-by li {
 	margin: 0 0 2px 0;
 }
