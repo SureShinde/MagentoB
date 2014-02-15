@@ -239,7 +239,7 @@ class Bilna_Paymethod_VtdirectController extends Mage_Core_Controller_Front_Acti
             'address1' => $this->maxChar($shippingAddress->getStreet(1), 100),
             'address2' => $this->maxChar($shippingAddress->getStreet(2), 100),
             'city' => $this->maxChar($shippingAddress->getCity(), 20),
-            'postal_code' => $this->maxChar($shippingAddress->getPostcode(), 10),
+            'postal_code' => $this->maxChar($this->getPostCode($shippingAddress->getPostcode()), 10),
             'phone' => $this->maxChar($shippingAddress->getTelephone(), 19)
         );
         
@@ -253,11 +253,23 @@ class Bilna_Paymethod_VtdirectController extends Mage_Core_Controller_Front_Acti
             'address1' => $this->maxChar($billingAddress->getStreet(1), 100),
             'address2' => $this->maxChar($billingAddress->getStreet(2), 100),
             'city' => $this->maxChar($billingAddress->getCity(), 20),
-            'postal_code' => $this->maxChar($billingAddress->getPostcode(), 10),
+            'postal_code' => $this->maxChar($this->getPostCode($billingAddress->getPostcode()), 10),
             'phone' => $this->maxChar($billingAddress->getTelephone(), 19)
         );
         
         return $result;
+    }
+    
+    private function getPostCode($postCode) {
+        if (empty ($postCode) || $postCode == '') {
+            return $this->getPostCodeSession();
+        }
+        
+        return $postCode;
+    }
+    
+    private function getPostCodeSession() {
+        return Mage::getSingleton('core/session')->getVtdirectZipCode();
     }
     
     private function getAcquiredBank($paymentCode) {

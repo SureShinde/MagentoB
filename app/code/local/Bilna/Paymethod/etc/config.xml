@@ -490,6 +490,16 @@
                 <allowspecific>0</allowspecific>
             </scmc>
             
+            <paninplatinumvisa>
+                <active>1</active>
+                <model>paymethod/method_paninplatinumvisa</model>
+                <order_status>pending</order_status>
+                <title>Credit Card (Panin Platinum Visa)</title>
+                <cctypes>VI</cctypes>
+                
+                <allowspecific>0</allowspecific>
+            </paninplatinumvisa>
+            
             <othervisa>
                 <active>1</active>
                 <model>paymethod/method_othervisa</model>

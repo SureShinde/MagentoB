@@ -103,4 +103,13 @@
             </script>
         </li>
     <?php endif; ?>
+        
+    <?php if ($this->checkZipCode() === false): ?>
+        <li>
+            <label for="<?php echo $_code ?>_cc_zipcode"><?php echo $this->__('Postal Code'); ?> <em>*</em></label>
+            <span class="input-box">
+                <input type="text" title="<?php echo $this->__('Postal Code') ?>" class="input-text required-entry validate-number validate-zip" id="<?php echo $_code ?>_cc_zipcode" name="payment[cc_zipcode]" style="width:100px;" />
+            </span>
+        </li>
+    <?php endif; ?>
 </ul>
