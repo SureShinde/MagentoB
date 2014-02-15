@@ -1864,3 +1864,7 @@ tr.summary-details-excluded { font-style:italic; }
 .megamenu-image{
 	background: none !important;
 }
+.product-shop-right .price-box, .product-shop-right .regular-price, .product-shop-right .price{
+	position: relative;
+	display: block;
+}
