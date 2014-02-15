@@ -1865,6 +1865,6 @@ tr.summary-details-excluded { font-style:italic; }
 	background: none !important;
 }
 .product-shop-right .price-box, .product-shop-right .regular-price, .product-shop-right .price{
-	position: relative;
-	display: block;
+	position: relative !important;
+	display: block !important;
 }
