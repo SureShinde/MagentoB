@@ -1586,7 +1586,7 @@ h2.block-grey-title-left {
 	.content-img img {width:100%;}
 
 	.ribbon-winner {width: 187px; height:23px; background:
-	url(&quot;http://assets.bilna.com/media/wysiwyg/banner-static-page/ribbon-winner.png&quot;) no-repeat; margin: -33px auto 20px;}
+	url("http://assets.bilna.com/media/wysiwyg/banner-static-page/ribbon-winner.png") no-repeat; margin: -33px auto 20px;}
 	.ribbon-winner div {color:#FFF;padding: 2px 0;text-align: center;}
 
 	.text-area {width: 100%; margin: 20px 0 10px 0;}
