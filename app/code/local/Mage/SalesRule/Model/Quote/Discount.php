@@ -203,7 +203,9 @@ class Mage_SalesRule_Model_Quote_Discount extends Mage_Sales_Model_Quote_Address
             
             $i++;
         }
-        
+/*echo '<pre>';        
+print_r($_rulesList);
+echo '</pre>';*/
         foreach ($items as $item) {
             $itemId = $item->getId();       
             $itemDiscount = 0;
@@ -218,15 +220,18 @@ class Mage_SalesRule_Model_Quote_Discount extends Mage_Sales_Model_Quote_Address
                     $itemDiscount       += $list['xItem'][$itemId]['discountAmount'];
                     $itemBaseDiscount   += $list['xItem'][$itemId]['baseDiscountAmount'];
                 }
-//echo $list['totalDiscount'];                
-                $xitemDiscount = min($itemDiscount, $baseItemPrice*$list['xItem'][$itemId]['qty']);
-                $xitemBaseDiscount = min($itemBaseDiscount, $baseItemPrice*$list['xItem'][$itemId]['qty']); 
+/*echo "<br/> $itemId : ".$itemDiscount;
+echo "<br/> $itemId base item price: ".$baseItemPrice;
+echo "<br/> $itemId qty: ".$list['xItem'][$itemId]['qty'];  */              
+                $qty = isset($list['xItem'][$itemId]['qty']) ? $list['xItem'][$itemId]['qty'] : 1;
+                $xitemDiscount = min($itemDiscount, $baseItemPrice*$qty);
+                $xitemBaseDiscount = min($itemBaseDiscount, $baseItemPrice*$qty); 
 //print_r($list['xItem'][$itemId]);                               
             }
             
 //echo $baseItemPrice*$list['xItem'][$itemId]['qty']." | ";
-//echo $xitemBaseDiscount;
-            
+/*echo "<br/>x".$xitemDiscount;
+echo "<br/>x".$xitemBaseDiscount;  */          
 
             $item->setDiscountAmount($xitemDiscount);
             $item->setBaseDiscountAmount($xitemBaseDiscount);

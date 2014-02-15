@@ -30,4 +30,9 @@
             </block>
        </reference>
     </customreports_adminhtml_couponsreport_index>
+	<customreports_adminhtml_installmentreport_index>
+		<reference name="content">
+			<block type="customreports/adminhtml_installmentreport" name="installmentreport" template="customreports/installmentreport.phtml"/>
+		</reference>
+	</customreports_adminhtml_installmentreport_index>
 </layout>

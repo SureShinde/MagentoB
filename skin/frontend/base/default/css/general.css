@@ -491,6 +491,6 @@ a.back-to-top img {
 }
 
 .regular-price .price, .special-price .price{
-	position: absolute;
-	bottom: 0;
+    /*position: absolute;
+    bottom: 0;*/
 }

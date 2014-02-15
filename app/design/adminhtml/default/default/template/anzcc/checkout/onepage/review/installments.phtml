@@ -1,0 +1,27 @@
+<?php if ($this->_getAnzccStatus() && $this->_getPaymentMethod() && $this->_getInstallmentOptionPerOrder()) { ?>
+    <strong style="margin-left:10px;"><?php echo $this->__('Payment type:'); ?></strong>
+    <ul style="margin: 0 0 10px 20px;">
+        <?php
+        $i = 1;
+        
+        foreach ($this->_getInstallmentOption() as $_option) {
+            $_checked = $i == 1 ? 'checked="checked"' : "";
+            $_id = $_option['id'];
+            $_label = $_option['label'];
+            $_value = $_option['value'];
+            $_tenor = $_option['tenor'];
+            $_forId = sprintf("installment-%s", $_id);
+        
+            if (!empty ($_tenor) || $_tenor != '') {
+                if ($this->_getInstallmentFeature() === false) {
+                    continue;
+                }
+            }
+        ?>    
+            <li><input <?php echo $_checked; ?> type="radio" class="validate-one-required" value="<?php echo $_id; ?>" name="installment" id="<?php echo $_forId; ?>" />&nbsp;<label for="<?php echo $_forId; ?>"><?php echo $_label; ?></label></li>
+        <?php
+            $i++;
+        }
+        ?>
+    </ul>
+<?php } ?>
