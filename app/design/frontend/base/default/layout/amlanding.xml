@@ -3,6 +3,7 @@
 	<default>
         <reference name="head">
             <action method="addJs"><script>amasty/amlanding/amlanding.js</script></action>
+            <action method="addCss"><stylesheet>css/category.css</stylesheet></action>
         </reference>
     </default>
    	<amlanding_page_view>
