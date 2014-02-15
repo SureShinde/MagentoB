@@ -15,22 +15,16 @@ jQuery(document).ready(function () {
 		var product		= false;
 		var basket		= false;
 
-		console.log(1);
 		if(event == "category"){
 			product = retrieveCategory(event_value);
-			console.log(2);
 		}else if(event == "product"){
 			product = retrieveProduct(event_value);
-			console.log(3);
 		}else if(event == "cart"){
 			basket = retrieveCart();
-			console.log(4);
 		}else if(event == "cartsuccess"){
 			basket = retrieveCartConfirm(event_value);
-			console.log(5);
 		}else{
 			_sociomanticCall();
-			console.log(6);
 		}
 		
 	};
