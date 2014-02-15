@@ -1335,6 +1335,11 @@ z-index: 999;
 	.submain-area-gift {
 		width: 100%;
 		margin:0 auto;
+		clear:both;
+	}
+	.tittle-gift-pink{
+		text-align:center;
+		margin: 10px 0;
 	}
 	
 	.submain-area-gift .images {
