@@ -1,0 +1,3 @@
+config:
+ default/advancedreports/configuration/crossreport_filters: 1
+ 
