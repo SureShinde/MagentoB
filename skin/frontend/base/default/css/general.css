@@ -260,11 +260,14 @@ a.back-to-top img {
 .al-authorization .form-list li:first-child
  {
 	/*background: url(../images/dash-orange.png) bottom repeat-x; */
-	padding-bottom: 20px;
+	border-bottom: 2px dashed #fe8c08;
+    margin: 0 0 15px;
+    padding-bottom: 8px;
 }
 .al-authorization .form-list li:last-child {
 	/*background: url(../images/dash-orange.png) bottom repeat-x; */
 	padding-bottom: 20px;
+	border-bottom: 2px dashed #fe8c08;
 }
 .al-authorization .form-list .field {
 	width: 100%;
