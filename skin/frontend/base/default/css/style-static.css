@@ -1619,6 +1619,9 @@ h2.block-grey-title-left {
 		text-align: center;
 		width: 30%;
 	}
+	.hide-featured .featured-product-catalog{
+		display:none;
+	}
 /*==============end panin==================*/
 /*====================BNI====================*/
 	
