@@ -1555,8 +1555,7 @@ h2.block-grey-title-left {
 }
 
 /*=============Panin======================*/
-
-	.wrapper-photo {
+.wrapper-photo {
 			width: 100%;
 			margin: 0 auto;
 			padding: 0;
@@ -1607,7 +1606,26 @@ h2.block-grey-title-left {
 	.orange-text {color:#e9aa3a;}
 	.pink-text {color:#fc3274;}
 	.blue-panin {color:#1e83bd}
+	.column_product_static {
+    float: left;
+    margin: 0 0 20px;
+    text-align: center;
+    width: 20%;
+	height:200px;
+	}
+	
+	.column_product_static_center {
+		float: left;
+		text-align: center;
+		width: 30%;
+	}
 /*==============end panin==================*/
-
+/*====================BNI====================*/
+	
+	.orange-text {color:#e9aa3a;}
+	.pink-text {color:#fc3274;}
+	.purple {color:#8d5493}
+	
+/*====================end BNI====================*/
 
 
