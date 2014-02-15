@@ -30,4 +30,24 @@ class Bilna_Paymethod_Block_Form_Vtdirect extends Mage_Payment_Block_Form_Ccsave
     public function getClientKey() {
         return Mage::getStoreConfig('payment/vtdirect/client_key');
     }
+    
+    /**
+     * 
+     * @return boolean
+     * true => zip code ok
+     * false => zip code is null
+     */
+    public function checkZipCode() {
+        $customerAddressId = Mage::getSingleton('customer/session')->getCustomer()->getDefaultBilling();
+        
+        if ($customerAddressId) {
+            $address = Mage::getModel('customer/address')->load($customerAddressId);
+            
+            if (!empty ($address->getData('postcode'))) {
+                return true;
+            }
+        }
+        
+        return false;
+    }
 }
