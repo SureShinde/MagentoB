@@ -317,8 +317,6 @@ echo "<br/>x".$xitemBaseDiscount;  */
     protected function _getItemQty($item, $rule)
     {
         $qty = $item->getTotalQty();
-echo "<br/>qty :".$qty;
-echo "<br/>discount qty :".$rule->getDiscountQty();        
         return $rule->getDiscountQty() ? min($qty, $rule->getDiscountQty()) : $qty;
     }
 }
