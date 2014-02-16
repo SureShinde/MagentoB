@@ -324,7 +324,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstracts extends Varien_Object
 //                 unset($payment[$key]);
 //             }
 //         }
-			$payment = $order->getPayment()->getMethod();
+			$payment = $order->getPayment()->getMethodInstance()->getTitle();
 //         reset($payment);
 
         /* Shipping Address and Method */
