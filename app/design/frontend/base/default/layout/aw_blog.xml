@@ -64,6 +64,10 @@
                 <name>aw_blog/css/style.css</name>
             </action>
         </reference>
+        <reference name="right">
+			<remove name="catalog.compare.sidebar"/>
+			<remove name="cart_sidebar"/>
+        </reference>
     </blog_index_index>
 
     <blog_index_list>
@@ -89,6 +93,10 @@
                 <name>aw_blog/css/style.css</name>
             </action>
         </reference>
+        <reference name="right">
+			<remove name="catalog.compare.sidebar"/>
+			<remove name="cart_sidebar"/>
+        </reference>
     </blog_index_list>
     <blog_post_view>
         <remove name="breadcrumbs" />
@@ -111,6 +119,10 @@
                 <type>skin_css</type>
                 <name>aw_blog/css/style.css</name>
             </action>
+        </reference>
+        <reference name="right">
+			<remove name="catalog.compare.sidebar"/>
+			<remove name="cart_sidebar"/>
         </reference>
     </blog_post_view>
     <blog_cat_view>
@@ -135,6 +147,10 @@
                 <type>skin_css</type>
                 <name>aw_blog/css/style.css</name>
             </action>
+        </reference>
+        <reference name="right">
+			<remove name="catalog.compare.sidebar"/>
+			<remove name="cart_sidebar"/>
         </reference>
     </blog_cat_view>
 
