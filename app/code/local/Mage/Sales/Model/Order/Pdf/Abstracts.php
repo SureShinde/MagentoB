@@ -313,18 +313,19 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstracts extends Varien_Object
         $billingAddress = $this->_formatAddress($order->getBillingAddress()->format('pdf'));
 
         /* Payment */
-        $paymentInfo = Mage::helper('payment')->getInfoBlock($order->getPayment())
-            ->setIsSecureMode(true)
-            ->toPdf();
-		$paymentInfo = htmlspecialchars_decode($paymentInfo, ENT_QUOTES);
-        $paymentInfo = strip_tags($paymentInfo);
-        $payment = explode('{{pdf_row_separator}}', $paymentInfo);
-        foreach ($payment as $key=>$value){
-            if (strip_tags(trim($value)) == '') {
-                unset($payment[$key]);
-            }
-        }
-        reset($payment);
+//         $paymentInfo = Mage::helper('payment')->getInfoBlock($order->getPayment())
+//             ->setIsSecureMode(true)
+//             ->toPdf();
+// 		$paymentInfo = htmlspecialchars_decode($paymentInfo, ENT_QUOTES);
+//         $paymentInfo = strip_tags($paymentInfo);
+//         $payment = explode('{{pdf_row_separator}}', $paymentInfo);
+//         foreach ($payment as $key=>$value){
+//             if (strip_tags(trim($value)) == '') {
+//                 unset($payment[$key]);
+//             }
+//         }
+			$payment = $order->getPayment()->getMethod();
+//         reset($payment);
 
         /* Shipping Address and Method */
         if (!$order->getIsVirtual()) {
