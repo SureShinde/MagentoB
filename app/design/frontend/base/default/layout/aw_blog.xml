@@ -43,12 +43,6 @@
                 <action method="addBlogLink" ifconfig="blog/menu/top"><param>top</param></action>
             </block>
         </reference>
-        <reference name="head">
-            <action method="addItem">
-                <type>skin_css</type>
-                <name>aw_blog/css/style.css</name>
-            </action>
-        </reference>
     </default>
 
     <blog_index_index>
@@ -61,6 +55,10 @@
             <block type="blog/blog" name="blog" template="aw_blog/blog.phtml"/>
         </reference>
         <reference name="head">
+            <action method="addItem">
+                <type>skin_css</type>
+                <name>aw_blog/css/style.css</name>
+            </action>
             <action method="addItem">
                 <type>skin_css</type>
                 <name>aw_blog/css/style.css</name>
@@ -86,6 +84,10 @@
                 <type>skin_css</type>
                 <name>aw_blog/css/style.css</name>
             </action>
+            <action method="addItem">
+                <type>skin_css</type>
+                <name>aw_blog/css/style.css</name>
+            </action>
         </reference>
     </blog_index_list>
     <blog_post_view>
@@ -101,6 +103,10 @@
             </block>
         </reference>
         <reference name="head">
+            <action method="addItem">
+                <type>skin_css</type>
+                <name>aw_blog/css/style.css</name>
+            </action>
             <action method="addItem">
                 <type>skin_css</type>
                 <name>aw_blog/css/style.css</name>
@@ -121,6 +127,10 @@
             </block>
         </reference>
         <reference name="head">
+            <action method="addItem">
+                <type>skin_css</type>
+                <name>aw_blog/css/style.css</name>
+            </action>
             <action method="addItem">
                 <type>skin_css</type>
                 <name>aw_blog/css/style.css</name>
