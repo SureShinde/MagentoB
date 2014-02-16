@@ -37,6 +37,27 @@
 		$j('.tiny div').addClass("viewport");
 		$j('.tiny div ol').addClass("overview");
 		$j('.tiny').tinyscrollbar();	
+		
+		function fixDiv() {
+		    var $div = $j(".show-filter");
+		    if ($j(window).scrollTop() > $div.data("top")) { 
+		        $div.css({'position': 'fixed', 'top': '45px', 'left': '30px', 'width': '167px'}); 
+		    }
+		    else {
+		        $div.css({'position': 'absolute', 'top': 'auto', 'left': '0','width': '167px'});
+		    }
+		}
+		
+		$j(".show-filter").data("top", $j(".show-filter").offset().top); // set original position on load
+		$j(window).scroll(fixDiv);
+		
+		
+		
+		$j(".triger-showfilter").live('click',function() {
+			//console.log("click");
+			$j(".show-filter").css({'position': 'absolute', 'top': 'auto', 'left': '0','width': '167px'});
+			//$j(".sidebar").css({'position': 'fixed', 'top': '45px', 'left': '30px', 'width': '167px'});
+		});
 	});
 </script>
 <?php if($this->canShowBlock()): ?>
@@ -57,6 +78,9 @@
                 <?php $_filters = $this->getFilters() ?>
                 <?php foreach ($_filters as $_filter): ?>
                 <?php if($_filter->getItemsCount()): ?>
+                	<?php if(($this->__($_filter->getName()))=='Price'): ?>
+                		<div class="lbl-filterby"><?php echo $currentCategory->getName().$this->__(' Shop by:'); ?></div>
+                	<?php endif;?>
                     <dt class="<?php echo strtolower($this->__($_filter->getName())) ?>"><?php echo $this->__($_filter->getName()) ?></dt>
                     <dd>
                     	<div class="scrollbar"><div class="track"><div class="thumb"><div class="end"></div></div></div></div>
