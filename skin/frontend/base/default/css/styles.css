@@ -170,7 +170,7 @@ input.input-text:focus,select:focus,textarea:focus { background-color:#edf7fd; }
 .form-list li { margin:0 0 8px; }
 .form-list label { float:left; color:#666; font-weight:bold; position:relative; z-index:0; }
 .form-list label.required {}
-.form-list label.required em { float:right; font-style:normal; color:#eb340a; position:absolute; top:0; right:-8px; }
+.form-list label.required em {font-style:normal; color:#eb340a;}
 .form-list li.control label { float:none; }
 .form-list li.control input.radio,
 .form-list li.control input.checkbox { margin-right:6px; }
@@ -1821,8 +1821,40 @@ tr.summary-details-excluded { font-style:italic; }
 .send-friend .form-list li p:after { display:block; content:"."; clear:both; font-size:0; line-height:0; height:0; overflow:hidden; }
 /* ======================================================================================= */
 
-.guest-select {width:305px !important;}
+/*======================= order ditail form ===============*/
+.container-orderdetailbox .form-list .input-box input, .container-orderdetailbox .form-list .input-box label , .container-orderdetailbox .form-list .input-box button{
 
+    margin: 3px 0 0 37px;
+
+}
+.container-orderdetailbox .form-list .input-box input{
+    height: 23px;
+    width: 208px;
+}
+/*======================= order ditail form ===============*/
+.form-list li label, .form-list li .input-box{float:left; clear:none; font-weight:normal;}
+.form-list li label{width:200px}
+.guest-select {width:305px !important;}
+.form-list li .input-box input{
+	width:215px;
+	height:30px;
+}
+.review-note h4{ color:#404040;}
+.form-add .data-table td input+label{height: 15px; margin-left: -17px; position: absolute; width: 15px; background:url("images/star_grey.jpg") no-repeat; cursor:pointer;}
+.form-add .data-table td input:checked+label{background:url("images/star_color.jpg") no-repeat; cursor:pointer;}
+.form-add .data-table th, .form-add .data-table td{border:none;}
+.form-add .data-table{width:40%;}
+.form-add .buttons-set {margin:0; border:none;}
+.form-add .buttons-set .button{float:left; margin:0 0 0 17%; background:#fd8e17;	}
+
+.form-add .buttons-set .button span { background:none; border:none; padding:10px; font-size:14px;}
+.form-list li .input-box input, .form-list li .input-box textarea{border:none; background:#f7f7f7; 
+
+    -moz-box-shadow:inset 0px 1px 3px #dfdfdf;
+    -webkit-box-shadow:inset 0px 1px 3px #dfdfdf;
+    box-shadow:inset 0px 1px 3px #dfdfdf;
+
+}
 .product-tab-wrapper {margin: 0px;}
 .customer-reviews .form-list {margin: 20px 0;}
 .customer-reviews h3 {font-size: 15px !important; padding: 10px 0 !important;}

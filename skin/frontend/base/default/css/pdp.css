@@ -13,7 +13,7 @@
 }
 .col1-layout .product-view .product-shop {
 	width: 720px;
-	margin-bottom: 30px;
+	margin-bottom: 10px;
 }
 .product-view .product-shop .product-shop-left {
 	float: left;
@@ -712,9 +712,10 @@
 	font-family: 'bebasregular';
 	text-transform: uppercase;
 	color: #fff;
-	font-size: 1.2em;
-	padding-left: 55px;
-	padding-top: 21px;
+	font-size: 1.5em;
+	padding-left: 50px;
+	padding-top: 9px;
+	text-align: left;
 	line-height: 3em;
 }
 #customer-reviews li {
@@ -881,7 +882,7 @@
 	.col1-layout .product-view .product-shop {
 		width: 100%;
 		position: relative;
-		margin-bottom: 30px;
+		margin-bottom: 10px;
 	}
 	.product-view .product-shop .product-shop-left {
 		float: none;
