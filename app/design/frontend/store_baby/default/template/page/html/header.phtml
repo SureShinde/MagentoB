@@ -1506,6 +1506,7 @@ Needs</span></span>
 class="level-top parent-10 giftideas">
                                                 	<span><span>Gift Ideas</span></span>
                                                 </a>
+		<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('giftideas_menu')->toHtml() ?>										
                                         </li>
                                                                                                      
 
@@ -1515,6 +1516,7 @@ class="level-top parent-10 giftideas">
 parent-11 sale">
                                                 	<span><span>SALE</span></span>
                                                 </a>
+												
                                         </li>
                                         <!--<li class="menu-salegift"><div class="menu-sale-
 
@@ -1548,6 +1550,32 @@ if you want to call it from cms page, please use this
 {{block type="core/template" template="page/template/bottommenu.phtml"}}
 -->
 <!--end for testing only-->
+<script>
+ jQuery(document).ready(function(){
+  jQuery(".giftideas").mouseover(function(){
+    jQuery(".nav-10").addClass("hover");
+	jQuery(".nav-10>a").addClass("color_a");
+	jQuery(".gift-menu-wrapp").show();
+  });	
+  jQuery(".giftideas").mouseleave(function(){
+    jQuery(".nav-10").removeClass("hover");
+	jQuery(".nav-10>a").removeClass("color_a");
+	jQuery(".gift-menu-wrapp").hide();
+  });
+  
+  jQuery(".gift-menu-wrapp").mouseover(function(){
+	jQuery(".gift-menu-wrapp").show();
+	jQuery(".parent-10").addClass("over");
+  });
+  jQuery(".gift-menu-wrapp").mouseleave(function(){
+	jQuery(".gift-menu-wrapp").hide();
+	jQuery(".parent-10").removeClass("over");
+  });	
+  
+  
+  
+});
+</script>
 
 <script>
  jQuery(document).ready(function(){
