@@ -1335,6 +1335,11 @@ z-index: 999;
 	.submain-area-gift {
 		width: 100%;
 		margin:0 auto;
+		clear:both;
+	}
+	.tittle-gift-pink{
+		text-align:center;
+		margin: 10px 0;
 	}
 	
 	.submain-area-gift .images {
@@ -1554,7 +1559,105 @@ h2.block-grey-title-left {
 	margin-bottom: 10px;
 }
 
+/*=============Panin======================*/
+.wrapper-photo {
+			width: 100%;
+			margin: 0 auto;
+			padding: 0;
+					font-family:tin_doghouseregular ;
+					font-size: 14px !important;
+	}
 
+	.wrapper-2-column-foto {
+			width: 100%;
+	}
 
+	.foto-2-column {
+			width: 45%;
+			float: left;
+			margin: 10px 2.5%;
+	}
+	.text-2-column {
+			width: 45%;
+			float: left;
+			margin:85px 0 2.5%;
+	}
+	.foto-2-column img {width: 90%; margin: 10px 5%; clear:both;display:block;}
+
+	.main-img {width:100%; margin: 0 0 20px 0;}
+	.main-img img {width: 100%;}
+
+	.content-img {margin: 10px 20%; width: 60%;}
+	.content-img img {width:100%;}
+
+	.ribbon-winner {width: 187px; height:23px; background:
+	url(&quot;http://assets.bilna.com/media/wysiwyg/banner-static-page/ribbon-winner.png&quot;) no-repeat; margin: -33px auto 20px;}
+	.ribbon-winner div {color:#FFF;padding: 2px 0;text-align: center;}
+
+	.text-area {width: 100%; margin: 20px 0 10px 0;}
+	.text-purple {color: #8d5493; font-size:18px !important;}
+	.text-title-static {font-family: 'InsaniburgerRegular'; font-size: 20px;width: 100%;}
+	.text-body {font-family:tin_doghouseregular ; font-size: 14px;}
+
+	.text-area-bottom {width: 100%; padding: 20px 0; border-bottom: 2px dashed #d26dbe; border-top: 2px dashed #d26dbe; font-size:
+	14px; text-align: left; }
+
+	.line-clear-panin {clear: both; border-bottom: 2px dashed #f03d39;width: 100%;}
+	.clear {clear: both;}
+	.center-text {text-align: center; width:80%; margin: 0 10%  !important;}
+
+	.text-area ol li {list-style-type: decimal; margin-left: 5px;}
+
+	.orange-text {color:#e9aa3a;}
+	.pink-text {color:#fc3274;}
+	.blue-panin {color:#1e83bd}
+	.column_product_static {
+		float: left;
+		padding: 10px 0;
+		text-align: center;
+		width: 24%;
+		border-bottom:1px solid #d2d2d2;
+		position:relative;
+		height:200px;
+		border-right:1px solid #d2d2d2;
+	}
+	
+	.column_product_static_center {
+		float: left;
+		padding:10px 0;
+		border-right:1px solid #d2d2d2;
+		text-align: center;
+		width: 24%;
+		position:relative;
+		height:200px;
+	}
+	.column_product_static:nth-child(5){
+		border-right:none;
+	}
+	.column_product_static_center:nth-child(9){
+	 	border-right:none;
+	 }
+	.column_product_static_center img, .column_product_static img{
+		width:60%;
+	}
+	.tindog_static {
+		bottom: 10px;
+		position: absolute;
+		width: 100%;
+	}
+	.pupcat_pink{
+		font-size:18px;
+	}
+/*==============end panin==================*/
+.hide-featured .featured-product-catalog {
+    display: none;
+}
+/*====================BNI====================*/
+	.line-clear {clear: both; border-bottom: 2px dashed #f7d154;width: 100%;}
+	.orange-text {color:#e9aa3a;}
+	.pink-text {color:#fc3274;}
+	.purple {color:#8d5493}
+	
+/*====================end BNI====================*/
 
 

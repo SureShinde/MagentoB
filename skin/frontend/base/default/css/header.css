@@ -613,11 +613,19 @@
 .header .links li:first-child {
 	border-right: 1px solid #f1f1f1; 
 }
+.header .links li.track-order, .header .links li.login {
+	padding-left: 7px;
+	padding-right: 5px;
+}
+.header .links li.login:after
+{ 
+	content:" / ";
+}
 .header .links li {
 	float: none;
 	background: none;
-	padding-left: 7px;
-	padding-right: 5px;
+	padding-left: 0px;
+	padding-right: 0px;
 }
 .header .links li.first {
 	border: none;
@@ -1084,6 +1092,9 @@
 	padding: 0 0 5px 0;
 	margin: 0 0 5px 20px;
 	background: url(../images/dash.png) no-repeat left bottom;
+}
+.shopby ul:last-child {
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 .shopby ul.shop-by li {
 	margin: 0 0 2px 0;

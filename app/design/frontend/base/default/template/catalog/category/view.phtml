@@ -40,6 +40,9 @@
         $_imgHtml = $_helper->categoryAttribute($_category, $_imgHtml, 'image');
     }
 ?>
+<input type="hidden" id="3rdparty-type" value="category"/>
+<input type="hidden" id="3rdparty-value" value="<?php echo $_category->getId(); ?>" />
+<input type="hidden" id="base-url" value="<?php echo Mage::getBaseUrl(); ?>" />
 <div class="page-title category-title">
     <?php if($this->IsRssCatalogEnable() && $this->IsTopCategory()): ?>
         <a href="<?php echo $this->getRssLink() ?>" class="link-rss"><?php echo $this->__('Subscribe to RSS Feed') ?></a>
@@ -60,10 +63,10 @@
     <?php endif; ?>
 
 <?php if($this->isContentMode()): ?>
-    <?php //echo $this->getCmsBlockHtml() ?>
+    <?php echo $this->getCmsBlockHtml() ?>
 
 <?php elseif($this->isMixedMode()): ?>
-    <?php //echo $this->getCmsBlockHtml() ?>
+    <?php echo $this->getCmsBlockHtml() ?>
     <?php echo $this->getProductListHtml() ?>
 
 <?php else: ?>

@@ -38,6 +38,10 @@
                 <type>skin_js</type>
                 <name>js/css_browser_selector.js</name>
             </action>
+            <action method="addItem">
+            	<type>skin_js</type>
+                <name>js/bilna.sociomantic.js</name>
+            </action>
         </reference>
         <reference name="header">
         	<remove name="welcome"/>
@@ -45,7 +49,7 @@
             <block type="newsletter/subscribe" name="header.newsletter" template="newsletter/subscribe.phtml"/>
         </reference>
         <reference name="top.links">
-        	<action method="addLink" translate="label" module="customer"><prepare/><urlParams/></action>
+        	<action method="addLink" translate="label" module="customer"><label>Track Order</label><url>sales/order/history</url><title>Track Order</title><prepare/><urlParams/><position>15</position></action>
         	<!--<action method="removeLinkByUrl"><url helper="customer/getAccountUrl"/></action>-->
         	<remove name="checkout_cart_link" />
         	<remove name="wishlist_link"/>
@@ -71,7 +75,7 @@
         	<action method="removeLinkByUrl"><url helper="customer/getAccountUrl"/></action>
 			<action method="removeLinkByUrl"><url helper="customer/getLoginUrl"/></action>
 			<action method="addLink" translate="label title" module="customer"><label>Login</label><url helper="customer/getLoginUrl"/><title>Login</title><prepare/><urlParams/><position>10</position><liParams><class>signin</class></liParams></action>
-            <action method="addLink" translate="label title" module="customer"><label>Register</label><url helper="customer/getRegisterUrl"/><title>Register</title><prepare/><urlParams/></action>
+            <action method="addLink" translate="label title" module="customer"><label>Register</label><url helper="customer/getRegisterUrl"/><title>Register</title><prepare/><urlParams/><position>11</position></action>
         </reference>
         <remove name="reorder"></remove>
     </customer_logged_out>

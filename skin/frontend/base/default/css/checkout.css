@@ -26,13 +26,15 @@
 	margin-right: 5px;
 }
 #checkoutSteps .buttons-set button.button {
-    width:88px;
-    background-image:url(../images/btn-buynow.png);
+    width:100px;
+    background-image:url("../images/btn-buynow.png");
     height:36px;
     line-height:21px;
 }
 #checkoutSteps .buttons-set button.button.btn-checkout {
 	width: auto;
+	background-image: url("../images/btn-buynow4.png");
+	height:40px;
 }
 #checkoutSteps .buttons-set button.button span, #checkoutSteps .buttons-set button.button span span, .opc .buttons-set .back-link a {
 	text-transform: uppercase;
@@ -48,7 +50,7 @@
 	height: auto;
 }
 #checkoutSteps .buttons-set button.button span span img {
-	margin-top: 3px;
+	/*margin-top: 3px;*/
 }
 .opc .step-title {
 	padding-top: 8px;
@@ -209,17 +211,17 @@
 .data-table .odd, .data-table .even {
 	background: none;
 }
-.autocomplete-w1{
+.autocomplete-w1 .autocomplete{
 	background: none repeat scroll 0 0 #FFFFFF;
     border: 1px solid #999999;
     padding: 5px;
 }
-#Autocomplete_47b3e > div:hover {
+.autocomplete-w1 > div > div:hover {
     background: none repeat scroll 0 0 #D2D2D2;
 }
-#Autocomplete_47b3e > selected{
+.autocomplete-w1 > div > .selected{
     background: none repeat scroll 0 0 #D2D2D2;}
-#Autocomplete_47b3e > div {
+.autocomplete-w1 > div > div {
     cursor: pointer;
     font-size: 14px;
     line-height: 25px;

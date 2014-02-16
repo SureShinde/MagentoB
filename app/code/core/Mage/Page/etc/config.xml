@@ -80,6 +80,11 @@
                     <template>page/2columns-left-gift-ideas.phtml</template>
                     <layout_handle>page_two_columns_left_gift_ideas</layout_handle>
                 </two_columns_left_gift_ideas>
+				<two_columns_left_nofeatured module="page" translate="label">
+                    <label>2 columns with left bar nofeatured</label>
+                    <template>page/2columns-left-nofeatured.phtml</template>
+                    <layout_handle>page_two_columns_left_nofeatured</layout_handle>
+                </two_columns_left_nofeatured>
             </layouts>
         </page>
     </global>
