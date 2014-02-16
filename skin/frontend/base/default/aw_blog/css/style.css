@@ -32,7 +32,7 @@
 
 .postDetails {
 	padding:5px;
-	margin: 10px 0;
+	margin: 10px 0 30px;
 }
 
 .postBookmarks {
@@ -110,9 +110,9 @@
 }
 
 .tags {
-	font-weight: bold;
+	font-weight: normal;
 	padding-bottom: 10px;
-	display: block;
+	display: inline;
 	clear: both;
 }
 
@@ -135,10 +135,10 @@
 	padding: 20px 0 0;
 }
 .tags a {
-	padding: 5px 20px;
+	/* padding: 5px 20px;
 	background: #4ec7da;
-	color: #FFF;
-	font-weight: bold;
+	color: #FFF; */
+	font-weight: normal;
 	border-radius: 5px;
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
@@ -371,7 +371,7 @@ A.awblog_current_comment {
 	margin: 20px 0;
 }
 
-.blog-index-list .col-main {width:75% !important;}
+.blog-index-list .col-main {width:65% !important; padding: 0 5%}
 .blog-index-list .col-right {
 	float: right;
 	padding:0 0 0 3%;
@@ -380,7 +380,7 @@ A.awblog_current_comment {
 
 .postContent img {
 	padding-bottom: 10px;
-	padding:0 20px 0 0;
+	padding: 0 20px 20px 0;
 	width: 45%;
 	
 }
@@ -393,7 +393,7 @@ A.awblog_current_comment {
 	margin: 20px 0;
 }
 
-.blog-post-view .col-main {width:75% !important;}
+.blog-post-view .col-main {width:65% !important; padding: 0 5%}
 .blog-post-view .col-right {
 	float: right;
 	padding:0 0 0 3%;
@@ -481,7 +481,7 @@ A.awblog_current_comment {
 }
 
 .postTitle3 img {
-	width: 47%;
+	width: 27%;
 	display: block;
 	float: left;
 	margin: 0 3% 0 0;
@@ -524,7 +524,7 @@ A.awblog_current_comment {
 }
 
 .col-split2 {
-	width: 48%; float: left;padding: 0 1%;
+	width: 38%; float: left;padding: 0 12% 0 0;
 }
 
 .aw-blog-read-more {
@@ -626,7 +626,11 @@ A.awblog_current_comment {
 	right:3px;
 	top:1px;
 	padding: 5px 0;
-}
+	}
+	.blog-index-list .col-main {
+    padding: 0 5%;
+    width: 90% !important;
+	}
 }
 /* --------------- smaller 959 px layout -------------------- */
 @media only screen and (max-width: 767px) {
@@ -653,7 +657,7 @@ A.awblog_current_comment {
 		background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
 		display: block;
 		padding: 2% !important;
-		width: 96%;
+		width: 96% !important;
 	}
 	.blog-post-view .main, .blog-cat-view .main {
 		background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
@@ -886,3 +890,4 @@ A.awblog_current_comment {
 .blog-cat-view .limiter ul, .blog-cat-view .pager .limiter label{
 	font-weight:bold;
 }
+.blog-post-view .postContent {clear: none !important;}
