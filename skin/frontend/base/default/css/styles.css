@@ -1821,6 +1821,18 @@ tr.summary-details-excluded { font-style:italic; }
 .send-friend .form-list li p:after { display:block; content:"."; clear:both; font-size:0; line-height:0; height:0; overflow:hidden; }
 /* ======================================================================================= */
 
+/*======================= order ditail form ===============*/
+.container-orderdetailbox .form-list .input-box input, .container-orderdetailbox .form-list .input-box label , .container-orderdetailbox .form-list .input-box button{
+
+    margin: 3px 0 0 37px;
+
+}
+.container-orderdetailbox .form-list .input-box input{
+    height: 23px;
+    width: 208px;
+}
+/*======================= order ditail form ===============*/
+
 .guest-select {width:305px !important;}
 
 .product-tab-wrapper {margin: 20px;}
