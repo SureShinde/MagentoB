@@ -169,7 +169,6 @@ class Mage_Sales_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Abst
             $top = 30;
             $value = array();
             $value[] = "Kepuasan Anda adalah Prioritas Bilna.";
-            $value[] = "Apabila ada keluhan apapun terhadap kinerja dari kurir kami, silakan menghubungi kami di 021-5809885 (Departemen Shipping)";
             $font = $this->_setFontRegular($page, 10);
             foreach ($value as $_value){
 	            $page->drawText($_value,
