@@ -127,6 +127,7 @@ Customer account home dashboard layout
                         <action method="setValueProperties"><value>class="last a-right"</value></action>
                         <block type="tax/sales_order_tax" name="tax" template="tax/order/tax.phtml" />
                     </block>
+					
                     <block type="sales/order_comments" name="invoice_comments" template="sales/order/comments.phtml" />
                 </block>
             </block>
