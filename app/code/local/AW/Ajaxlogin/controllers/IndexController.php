@@ -679,6 +679,9 @@ class AW_Ajaxlogin_IndexController extends Mage_Core_Controller_Front_Action {
         if ( $__forceLanding ) {
             $__landing = $__forceLanding;
         }
+        if (strpos($__landing,'checkout/onepage') !== false) {
+        	$__landing = str_replace("http","https", $__landing);
+        }
         
         # Do landing
         if ( ($__landing) and (!$__cancelReloading) and (($__landing != $__location) or ($__forceReloading)) ) {
