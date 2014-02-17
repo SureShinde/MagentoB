@@ -80,7 +80,7 @@ $relatedPost = $this->getRelatedPost($post->getCatId(), $post->getPostId());
     </div>
     <div style="clear:both;height: 20px;"></div>
 
-    <div class="fb-comments" data-href="http://www.stejing.com" data-numposts="25" data-colorscheme="light"></div>
+    <div class="fb-comments" data-href="<?php echo Mage::helper('core/url')->getCurrentUrl(); ?>" data-numposts="25" data-colorscheme="light"></div>
     
 </div>
 
