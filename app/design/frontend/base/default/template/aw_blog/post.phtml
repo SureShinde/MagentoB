@@ -94,7 +94,8 @@ $relatedPost = $this->getRelatedPost($post->getCatId(), $post->getPostId());
 		}(document));</script>   
 		
 		<fb:comments href="<?php echo "http://www.bilna.com/baby/blog/".$post->getIdentifier(); ?>" num_posts="25"></fb:comments> 
-	</div> 
+	</div>
+	<input type="hidden" value="<?php echo "http://www.bilna.com/baby/blog/".$post->getIdentifier(); ?>" />
     <?php $comments = $this->getComment(); ?>
     <div class="postTitle"><a name="commentBox" ></a>
         <h2><?php echo $this->__('Leave A Response') ?></h2>
