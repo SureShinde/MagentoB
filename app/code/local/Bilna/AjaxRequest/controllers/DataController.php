@@ -70,7 +70,7 @@ class Bilna_AjaxRequest_DataController extends Mage_Core_Controller_Front_Action
         	$response['data']['price'] = (int)$product->getFinalPrice();
         	$response['data']['amount'] = (int)$product->getPrice();
         	$response['data']['currency'] = "IDR";
-        	$response['data']['url'] = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB).$product->getUrlPath();
+        	$response['data']['url'] = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB)."baby/".$product->getUrlPath();
 //         	$response['data']['photo'] = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA).$product->getSmallImage();
         	$response['data']['photo'] = $product->getMediaConfig()->getMediaUrl($product->getData('image'));
 
