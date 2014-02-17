@@ -17,13 +17,13 @@
             </bnicc>
         </routers>
         
-        <layout>
+        <!--layout>
             <updates>
                 <bnicc>
                     <file>bilna_bnicc.xml</file>
                 </bnicc>
             </updates>
-        </layout>
+        </layout-->
     </frontend>
     
     <global>

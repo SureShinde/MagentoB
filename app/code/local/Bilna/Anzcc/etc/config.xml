@@ -17,13 +17,13 @@
             </anzcc>
         </routers>
         
-        <layout>
+        <!--layout>
             <updates>
                 <anzcc>
                     <file>anzcc.xml</file>
                 </anzcc>
             </updates>
-        </layout>
+        </layout-->
     </frontend>
      
     <global>

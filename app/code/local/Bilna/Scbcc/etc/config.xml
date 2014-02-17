@@ -17,13 +17,13 @@
             </scbcc>
         </routers>
         
-        <layout>
+        <!--layout>
             <updates>
                 <scbcc>
                     <file>scbcc.xml</file>
                 </scbcc>
             </updates>
-        </layout>
+        </layout-->
     </frontend>
      
     <global>

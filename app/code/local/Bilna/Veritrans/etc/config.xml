@@ -17,13 +17,13 @@
             </veritrans>
         </routers>
         
-        <layout>
+        <!--layout>
             <updates>
                 <veritrans>
                     <file>veritrans.xml</file>
                 </veritrans>
             </updates>
-        </layout>
+        </layout-->
     </frontend>
   
     <global>

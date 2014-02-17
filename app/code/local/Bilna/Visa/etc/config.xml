@@ -17,13 +17,13 @@
             </visa>
         </routers>
         
-        <layout>
+        <!--layout>
             <updates>
                 <visa>
                     <file>visa.xml</file>
                 </visa>
             </updates>
-        </layout>
+        </layout-->
     </frontend>
      
     <global>
