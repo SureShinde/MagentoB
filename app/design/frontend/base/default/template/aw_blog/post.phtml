@@ -79,8 +79,17 @@ $relatedPost = $this->getRelatedPost($post->getCatId(), $post->getPostId());
     <?php endforeach;?>
     </div>
     <div style="clear:both;height: 20px;"></div>
+<div id="comment_box"> 
+<div id="fb-root"></div> 
+<script>(function(d){
+  var js, id = 'facebook-jssdk'; if (d.getElementById(id)) {return;}
+  js = d.createElement('script'); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+  d.getElementsByTagName('head')[0].appendChild(js);
+}(document));</script>   
 
-    <div class="fb-comments" data-href="<?php echo Mage::helper('core/url')->getCurrentUrl(); ?>" data-numposts="25" data-colorscheme="light"></div>
+<fb:comments href="<?php echo Mage::helper('core/url')->getCurrentUrl(); ?>" num_posts="25"></fb:comments> 
+</div> 
     
 </div>
 
