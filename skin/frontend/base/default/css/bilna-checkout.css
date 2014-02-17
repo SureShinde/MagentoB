@@ -7,3 +7,7 @@
 .billingstates, .shippingregion{
 	background-color: #999;
 }
+.al-authorization .form-list li:first-child{
+	border-bottom: 0px;
+	padding: 0px;
+}
