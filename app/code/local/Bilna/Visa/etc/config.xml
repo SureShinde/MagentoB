@@ -1,0 +1,133 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Bilna_Visa>
+            <version>0.1.0</version>
+        </Bilna_Visa>
+    </modules>
+    
+    <frontend>
+        <routers>
+            <visa>
+                <use>standard</use>
+                <args>
+                    <module>Bilna_Visa</module>
+                    <frontName>visa</frontName>
+                </args>
+            </visa>
+        </routers>
+        
+        <layout>
+            <updates>
+                <visa>
+                    <file>visa.xml</file>
+                </visa>
+            </updates>
+        </layout>
+    </frontend>
+     
+    <global>
+        <blocks>
+            <catalog>
+                <rewrite>
+                    <renderer>Bilna_Visa_Block_Checkout_Cart_Item_Renderer</renderer>
+                </rewrite>
+            </catalog>
+        </blocks>
+        
+        <models>
+            <visa>
+                <class>Bilna_Visa_Model</class>
+                <resourceModel>visa_mysql4</resourceModel>
+            </visa>
+            
+            <visa_mysql4>
+                <class>Bilna_Visa_Model_Mysql4</class>
+                <entities>
+                    <bincode>
+                        <table>bin_code</table>
+                    </bincode>
+                </entities>
+            </visa_mysql4>
+        </models>
+        
+        <resources>
+            <visa_setup>
+                <setup>
+                    <module>Bilna_Visa</module>
+                </setup>
+                
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </visa_setup>
+                
+            <visa_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </visa_write>
+            
+            <visa_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </visa_read>
+        </resources>
+        
+        <blocks>
+            <visa>
+                <class>Bilna_Visa_Block</class>
+            </visa>
+        </blocks>
+        
+        <helpers>
+            <visa>
+                <class>Bilna_Visa_Helper</class>
+            </visa>
+        </helpers>
+        
+        <fieldsets>
+             <sales_convert_quote_payment>
+                 <cc_bins>
+                     <to_order_payment>*</to_order_payment>
+                 </cc_bins>
+             </sales_convert_quote_payment>
+        </fieldsets>
+    </global>
+    
+    <default>
+        <payment>
+            <visa>
+                <active>1</active>
+                <model>visa/visa</model>
+                <order_status>pending</order_status>
+                <title>Credit Card (Visa)</title>
+                <allowspecific>0</allowspecific>
+                <group>offline</group>
+            </visa>
+        </payment>
+    </default>
+    
+    <admin>
+        <routers>
+            <visa>
+                <use>admin</use>
+                <args>
+                    <module>Bilna_Visa</module>
+                    <frontName>visa</frontName>
+                </args>
+            </visa>
+        </routers>
+    </admin>
+    
+    <adminhtml>
+        <layout>
+            <updates>
+                <visa>
+                    <file>visa.xml</file>
+                </visa>
+            </updates>
+        </layout>
+    </adminhtml>
+</config>

@@ -1,0 +1,97 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Bilna_Veritrans>
+            <version>0.1.0</version>
+        </Bilna_Veritrans>
+    </modules>
+    
+    <frontend>
+        <routers>
+            <veritrans>
+                <use>standard</use>
+                <args>
+                    <module>Bilna_Veritrans</module>
+                    <frontName>veritrans</frontName>
+                </args>
+            </veritrans>
+        </routers>
+        
+        <layout>
+            <updates>
+                <veritrans>
+                    <file>veritrans.xml</file>
+                </veritrans>
+            </updates>
+        </layout>
+    </frontend>
+  
+    <global>
+        <helpers>
+            <veritrans>
+                <class>Bilna_Veritrans_Helper</class>
+            </veritrans>
+        </helpers>
+	
+        <blocks>
+            <veritrans>
+                <class>Bilna_Veritrans_Block</class>
+            </veritrans>
+        </blocks>
+
+        <models>
+            <veritrans>
+                <class>Bilna_Veritrans_Model</class>
+            </veritrans>
+        </models>
+
+        <!-- declare resource setup for new module -->
+        <resources>
+            <!-- resource identifier -->
+            <veritrans_setup>
+                <!-- specify that this resource is a setup resource and used for upgrades -->
+                <setup>
+                    <!-- which module to look for install/upgrade files in -->
+                    <module>Bilna_Veritrans</module>
+					<class>Bilna_Veritrans_Model_Resource_Setup</class>
+                </setup>
+
+                <!-- specify database connection for this resource -->
+                <connection>
+                    <!-- do not create new connection, use predefined core setup connection -->
+                    <use>core_setup</use>
+                </connection>
+            </veritrans_setup>
+            
+            <veritrans_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </veritrans_write>
+
+            <veritrans_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </veritrans_read>
+        </resources>
+    </global>
+
+    <!-- declare default configuration values for this module -->
+    <default>
+        <!-- 'payment' configuration section (tab) -->
+        <payment>
+            <!-- 'newmodule' configuration group (fieldset) -->
+            <veritrans>
+                <!-- by default this payment method is inactive -->
+                <active>0</active>
+
+                <!-- model to handle logic for this payment method -->
+                <model>veritrans/paymentMethod</model>
+                
+                <!-- order status for new orders paid by this payment method -->
+                <order_status>pending</order_status>
+            </veritrans>
+        </payment>
+    </default>
+</config>
