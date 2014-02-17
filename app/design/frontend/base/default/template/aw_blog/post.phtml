@@ -79,23 +79,22 @@ $relatedPost = $this->getRelatedPost($post->getCatId(), $post->getPostId());
     <?php endforeach;?>
     </div>
     <div style="clear:both;height: 20px;"></div>
-<div id="comment_box"> 
-<div id="fb-root"></div> 
-<script>(function(d){
-  var js, id = 'facebook-jssdk'; if (d.getElementById(id)) {return;}
-  js = d.createElement('script'); js.id = id; js.async = true;
-  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
-  d.getElementsByTagName('head')[0].appendChild(js);
-}(document));</script>   
-
-<fb:comments href="<?php echo "http://www.bilna.com/baby/blog/".$post->getIdentifier(); ?>" num_posts="25"></fb:comments> 
-</div> 
-    
 </div>
 
 <!-- Comment Section -->
 
 <?php if ($this->getCommentsEnabled()): ?>
+	<div id="comment_box"> 
+		<div id="fb-root"></div> 
+		<script>(function(d){
+		  var js, id = 'facebook-jssdk'; if (d.getElementById(id)) {return;}
+		  js = d.createElement('script'); js.id = id; js.async = true;
+		  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+		  d.getElementsByTagName('head')[0].appendChild(js);
+		}(document));</script>   
+		
+		<fb:comments href="<?php echo "http://www.bilna.com/baby/blog/".$post->getIdentifier(); ?>" num_posts="25"></fb:comments> 
+	</div> 
     <?php $comments = $this->getComment(); ?>
     <div class="postTitle"><a name="commentBox" ></a>
         <h2><?php echo $this->__('Leave A Response') ?></h2>
