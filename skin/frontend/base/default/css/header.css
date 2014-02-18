@@ -824,11 +824,13 @@
 
 .gecko div.header .form-search .input-keyword .select-category select {
 	background: inherit;
-	/*width: 96px;*/
+	/*width: 96px;
+	height: 20px;
+	*/
 	line-height: normal;
 	border:inherit;
 	border-radius:inherit;
-	height: 20px;
+	
 	color: #a0cc00;
 	-webkit-appearance: none;
 	margin-right: 5px;
