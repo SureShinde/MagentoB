@@ -796,7 +796,7 @@
 	height: auto;
 	overflow: hidden;
 	padding: 0 10px 0 0;
-	margin: 0px 5px 0 0;
+	/*margin: 7px 5px 0 0;*/
 	background: url(../images/arrow-green.png) no-repeat right center;
 }
 
@@ -818,7 +818,7 @@
 	height: auto;
 	overflow: hidden;
 	padding: 0 0 0 0;
-	margin: 7px 5px 0 0;
+	/*margin: 7px 5px 0 0;*/
 	background: none;
 }
 

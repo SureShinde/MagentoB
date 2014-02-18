@@ -49,21 +49,25 @@
     <?php endif; ?>
     <h1><?php echo $_helper->categoryAttribute($_category, $_category->getName(), 'name') ?></h1>
 </div>
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+
 <?php 
-$cmsBlock = Mage::getModel('cms/block')->load("slider-category-baby-".strtolower($_category->getName())."-1")->getContent();
-if($cmsBlock) {
+$xlCmsBlock = Mage::getModel('cms/block')->load("slider-category-baby-".strtolower($_category->getName())."-4")->getContent();
+$largeCmsBlock = Mage::getModel('cms/block')->load("slider-category-baby-".strtolower($_category->getName())."-1")->getContent();
+if($xlCmsBlock) {
+	echo 	'<div class="wrap_banner_category">'.
+			'<div class="banner_xlarge">'.$this->getLayout()->createBlock('cms/block')->setBlockId("slider-category-baby-".strtolower($_category->getName())."-1")->toHtml().'</div>'.
+			'</div>';
+}else if($largeCmsBlock){
 	echo 	'<div class="wrap_banner_category">'.
 			'<div class="banner_large">'.$this->getLayout()->createBlock('cms/block')->setBlockId("slider-category-baby-".strtolower($_category->getName())."-1")->toHtml().'</div>'.
 			'<div class="banner_small">'.$this->getLayout()->createBlock('cms/block')->setBlockId("slider-category-baby-".strtolower($_category->getName())."-2")->toHtml().'</div>'.
 			'<div class="banner_small">'.$this->getLayout()->createBlock('cms/block')->setBlockId("slider-category-baby-".strtolower($_category->getName())."-3")->toHtml().'</div>'.
 			'</div>';
+}else if($_imgUrl){
+	echo $_imgHtml;
 }
 ?>
-<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
-
-<?php if($_imgUrl): ?>
-    <?php echo $_imgHtml ?>
-<?php endif; ?>
 
 <?php if($_description=$this->getCurrentCategory()->getDescription()): ?>
     <div class="category-description std">
