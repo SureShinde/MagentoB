@@ -186,6 +186,10 @@ div.amshopby-overlay div {
 	div.block-layered-nav, div.amshopby-page-container, div.amshopby-filters-top {
 		padding-top: 40px;
 	}
+}
+
+
+@media only screen and (max-width: 767px) {
 	div.amshopby-filters-left {
 		display: none;
 	}
