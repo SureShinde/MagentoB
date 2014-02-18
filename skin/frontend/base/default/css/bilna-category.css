@@ -9,4 +9,7 @@
 	
 }
 
-.feature-color-custom {}
+.feature-color-custom {
+	height: 10px;
+    padding: 5px 0;
+}
