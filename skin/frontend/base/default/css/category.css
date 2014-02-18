@@ -405,6 +405,10 @@ a.triger-showfilter {
 .filter-toggle {
 		display: none;
 	}
+	
+.catalog-category-view .featured-product-catalog{
+	display: none;
+}
 
 
 @media only screen and (max-width: 1215px) {
