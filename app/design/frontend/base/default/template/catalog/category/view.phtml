@@ -49,7 +49,16 @@
     <?php endif; ?>
     <h1><?php echo $_helper->categoryAttribute($_category, $_category->getName(), 'name') ?></h1>
 </div>
-
+<?php 
+$cmsBlock = Mage::getModel('cms/block')->load("slider-category-baby-".strtolower($_category->getName())."-1")->getContent();
+if($cmsBlock) {
+	echo 	'<div class="wrap_banner_category">'.
+			'<div class="banner_large">'.$this->getLayout()->createBlock('cms/block')->setBlockId("slider-category-baby-".strtolower($_category->getName())."-1")->toHtml().'</div>'.
+			'<div class="banner_small">'.$this->getLayout()->createBlock('cms/block')->setBlockId("slider-category-baby-".strtolower($_category->getName())."-2")->toHtml().'</div>'.
+			'<div class="banner_small">'.$this->getLayout()->createBlock('cms/block')->setBlockId("slider-category-baby-".strtolower($_category->getName())."-3")->toHtml().'</div>'.
+			'</div>';
+}
+?>
 <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
 
 <?php if($_imgUrl): ?>

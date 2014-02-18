@@ -409,6 +409,27 @@ a.triger-showfilter {
 .catalog-category-view .featured-product-catalog{
 	display: none;
 }
+.catalog-category-view .banner_large{
+		margin-right: 5px;
+		width: 60%;
+		min-height:10px;
+	margin:0 0 10px;
+		float:left;
+}
+.catalog-category-view .banner_small{
+		float:left;
+		min-height:10px;
+		width: 18%;
+		margin-right: 5px;
+	margin:0 0 10px;
+}
+
+.catalog-category-view .banner_small:last-child{
+		width: 18%;
+}
+.catalog-category-view .banner_large img, .catalog-category-view .banner_small img{
+	max-width: 100%;
+}
 
 
 @media only screen and (max-width: 1215px) {
