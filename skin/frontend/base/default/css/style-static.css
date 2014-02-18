@@ -1665,3 +1665,52 @@ h2.block-grey-title-left {
 /*====================end BNI====================*/
 
 
+/* --------- Daily Deals ------------------- */
+.wrap_deals{
+				display: block;
+				margin: 0 auto;
+				position: relative;
+				width: 60%;
+			}
+			.banner_large_deals{
+				margin: 10px 0;
+				float:left;
+				width:50%;
+				text-align:center;
+			}
+			.banner_large_deals img{
+				width:94%;
+			}
+			.thumb_small_deals{
+				float: left;
+				margin: 10px 0;
+				text-align: center;
+				width: 33%;
+			}
+			
+			.wrap_small_deals{
+				clear:both;
+				display:block;
+			}
+			.wrap_deals_large{
+				clear:both;
+				display:block;
+			}
+			@media only screen and (max-width: 1215px) { 
+			.thumb_small_deals img{
+				width:90%;
+			}
+			}
+			@media only screen and (max-width: 1024px) { 
+				.wrap_deals{
+					width:100%;
+					}				
+				.banner_large_deals img {
+					width: 90%;
+				}
+				.thumb_small_deals img{
+					width: 90%;
+				}
+			}
+/* ---------------- End Daily Deals -------------------- */
+
