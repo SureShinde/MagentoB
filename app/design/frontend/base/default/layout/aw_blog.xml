@@ -47,6 +47,7 @@
 
     <blog_index_index>
         <remove name="breadcrumbs" /> 
+        <remove name="recently_viewed" /> 
         <reference name="footer" >
             <block type="blog/blog" name="copyright.blog.footer" template="aw_blog/copyright.phtml"/>
         </reference>
@@ -58,11 +59,20 @@
                 <type>skin_css</type>
                 <name>aw_blog/css/style.css</name>
             </action>
+            <action method="addItem">
+                <type>skin_css</type>
+                <name>aw_blog/css/style.css</name>
+            </action>
+        </reference>
+        <reference name="right">
+			<remove name="catalog.compare.sidebar"/>
+			<remove name="cart_sidebar"/>
         </reference>
     </blog_index_index>
 
     <blog_index_list>
         <remove name="breadcrumbs" /> 
+        <remove name="recently_viewed" /> 
         <reference name="footer" >
             <block type="blog/blog" name="copyright.blog.footer" template="aw_blog/copyright.phtml"/>
         </reference>
@@ -78,6 +88,14 @@
                 <type>skin_css</type>
                 <name>aw_blog/css/style.css</name>
             </action>
+            <action method="addItem">
+                <type>skin_css</type>
+                <name>aw_blog/css/style.css</name>
+            </action>
+        </reference>
+        <reference name="right">
+			<remove name="catalog.compare.sidebar"/>
+			<remove name="cart_sidebar"/>
         </reference>
     </blog_index_list>
     <blog_post_view>
@@ -97,10 +115,19 @@
                 <type>skin_css</type>
                 <name>aw_blog/css/style.css</name>
             </action>
+            <action method="addItem">
+                <type>skin_css</type>
+                <name>aw_blog/css/style.css</name>
+            </action>
+        </reference>
+        <reference name="right">
+			<remove name="catalog.compare.sidebar"/>
+			<remove name="cart_sidebar"/>
         </reference>
     </blog_post_view>
     <blog_cat_view>
         <remove name="breadcrumbs" /> 
+        <remove name="recently_viewed" /> 
         <reference name="footer" >
             <block type="blog/blog" name="copyright.blog.footer" template="aw_blog/copyright.phtml"/>
         </reference>
@@ -116,11 +143,20 @@
                 <type>skin_css</type>
                 <name>aw_blog/css/style.css</name>
             </action>
+            <action method="addItem">
+                <type>skin_css</type>
+                <name>aw_blog/css/style.css</name>
+            </action>
+        </reference>
+        <reference name="right">
+			<remove name="catalog.compare.sidebar"/>
+			<remove name="cart_sidebar"/>
         </reference>
     </blog_cat_view>
 
     <blog_rss_index>
         <remove name="breadcrumbs" /> 
+        <remove name="recently_viewed" /> 
         <reference name="footer" >
             <block type="blog/blog" name="copyright.blog.footer" template="aw_blog/copyright.phtml"/>
         </reference>

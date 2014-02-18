@@ -234,11 +234,11 @@ class Bilna_Paymethod_VtdirectController extends Mage_Core_Controller_Front_Acti
     
     private function parseShippingAddress($shippingAddress) {
         $result = array (
-            'first_name' => $this->maxChar($shippingAddress->getFirstname(), 20),
-            'last_name' => $this->maxChar($shippingAddress->getLastname(), 20),
+            'first_name' => $this->maxChar($this->removeSymbols($shippingAddress->getFirstname()), 20),
+            'last_name' => $this->maxChar($this->removeSymbols($shippingAddress->getLastname()), 20),
             'address1' => $this->maxChar($shippingAddress->getStreet(1), 100),
             'address2' => $this->maxChar($shippingAddress->getStreet(2), 100),
-            'city' => $this->maxChar($shippingAddress->getCity(), 20),
+            'city' => $this->maxChar($this->removeSymbols($shippingAddress->getCity()), 20),
             'postal_code' => $this->maxChar($this->getPostCode($shippingAddress->getPostcode()), 10),
             'phone' => $this->maxChar($shippingAddress->getTelephone(), 19)
         );
@@ -248,11 +248,11 @@ class Bilna_Paymethod_VtdirectController extends Mage_Core_Controller_Front_Acti
     
     private function parseBillingAddress($billingAddress) {
         $result = array (
-            'first_name' => $this->maxChar($billingAddress->getFirstname(), 20),
-            'last_name' => $this->maxChar($billingAddress->getLastname(), 20),
+            'first_name' => $this->maxChar($this->removeSymbols($billingAddress->getFirstname()), 20),
+            'last_name' => $this->maxChar($this->removeSymbols($billingAddress->getLastname()), 20),
             'address1' => $this->maxChar($billingAddress->getStreet(1), 100),
             'address2' => $this->maxChar($billingAddress->getStreet(2), 100),
-            'city' => $this->maxChar($billingAddress->getCity(), 20),
+            'city' => $this->maxChar($this->removeSymbols($billingAddress->getCity()), 20),
             'postal_code' => $this->maxChar($this->getPostCode($billingAddress->getPostcode()), 10),
             'phone' => $this->maxChar($billingAddress->getTelephone(), 19)
         );
@@ -342,34 +342,65 @@ class Bilna_Paymethod_VtdirectController extends Mage_Core_Controller_Front_Acti
                 $order->setState(Mage_Sales_Model_Order::STATE_NEW, true, 'Pending for 3D Secure Validation', true)->save();
             }
             else {
-                if ($order->canInvoice()) {
-                    $invoice = Mage::getModel('sales/service_order', $order)->prepareInvoice();
-
-                    if ($invoice->getTotalQty()) {
-                        $invoice->setRequestedCaptureCase(Mage_Sales_Model_Order_Invoice::CAPTURE_OFFLINE);
-                        $invoice->setGrandTotal($order->getGrandTotal());
-                        $invoice->setBaseGrandTotal($order->getBaseGrandTotal());
-                        $invoice->register();
-                        $transaction = Mage::getModel('core/resource_transaction')
-                            ->addObject($invoice)
-                            ->addObject($invoice->getOrder());
-                        $order->setState(Mage_Sales_Model_Order::STATE_PROCESSING, true, $responseCharge->message, true);
-                        $order->save();
-                        $transaction->save();
-                        $invoice->sendEmail(true, '');
-
+                $transactionStatus = $responseCharge->data->transaction_status;
+                
+                if ($transactionStatus == 'deny') {
+                    if ($order->canCancel()) {
+                        $order
+                            ->cancel()
+                            ->setState(Mage_Sales_Model_Order::STATE_CANCELED, true, $responseCharge->message, true)
+                            ->save();
+                            
                         return true;
                     }
+                }
+                else if ($transactionStatus == 'cancel') {
+                    if ($order->canCancel()) {
+                        $order
+                            ->cancel()
+                            ->setState(Mage_Sales_Model_Order::STATE_CANCELED, true, $responseCharge->message, true)
+                            ->save();
+                            
+                        return true;
+                    }
+                }
+                else if ($transactionStatus == 'challenge') {
+                    $order->setState(Mage_Sales_Model_Order::STATE_NEW, 'cc_verification', $responseCharge->message, true);
+                    $order->save();
+                    
+                    return true;
+                }
+                else if ($transactionStatus == 'authorize') {
+                    if ($order->canInvoice()) {
+                        $invoice = Mage::getModel('sales/service_order', $order)->prepareInvoice();
+
+                        if ($invoice->getTotalQty()) {
+                            $invoice->setRequestedCaptureCase(Mage_Sales_Model_Order_Invoice::CAPTURE_OFFLINE);
+                            $invoice->setGrandTotal($order->getGrandTotal());
+                            $invoice->setBaseGrandTotal($order->getBaseGrandTotal());
+                            $invoice->register();
+                            $transaction = Mage::getModel('core/resource_transaction')
+                                ->addObject($invoice)
+                                ->addObject($invoice->getOrder());
+                            $order->setState(Mage_Sales_Model_Order::STATE_PROCESSING, true, $responseCharge->message, true);
+                            $order->save();
+                            $transaction->save();
+                            $invoice->sendEmail(true, '');
+
+                            return true;
+                        }
+                    }
+                }
+                else if ($transactionStatus == 'settlement') {
+                    $order->addStatusHistoryComment($responseCharge->message);
+                    $order->save();
+                }
+                else {
+                    //do nothing
                 }
             }
 
             return false;
-        }
-        else if ($responseCharge->status == 'challenge') {
-            $order->setState(Mage_Sales_Model_Order::STATE_NEW, 'cc_verification', $responseCharge->message, true);
-            $order->save();
-            
-            return true;
         }
         else if ($responseCharge->status == 'failure') {
             $order->addStatusHistoryComment($responseCharge->message);

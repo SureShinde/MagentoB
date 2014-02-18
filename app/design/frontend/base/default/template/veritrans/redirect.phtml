@@ -1,0 +1,36 @@
+<div class="page-title">
+    <h1><?php echo $this->__('Credit Card Confirmation Page'); ?></h1>
+</div>
+
+<?php
+$orderId = $this->getOrderId();
+$veritrans = $this->getTokenVeritrans($orderId);
+?>
+
+<br />
+<form id="form_auto_post" name="form_auto_post" method="post" action="<?php echo $veritrans->url_redirection; ?>">
+    <input type="hidden" name="MERCHANT_ID" value="<?php echo $veritrans->merchant_id; ?>" />
+    <input type="hidden" name="ORDER_ID" value="<?php echo $veritrans->order_id; ?>" />
+    <input type="hidden" name="TOKEN_BROWSER" value="<?php echo $veritrans->token_browser; ?>" />
+    <input type="hidden" name="TOKEN_MERCHANT" value="<?php echo $veritrans->token_merchant; ?>" />
+    
+    <div id="checkoutSteps">
+        <button class="button" onclick="do_submit();" title="<?php echo $this->__('Confirm Redirect'); ?>" type="button">
+            <span>
+                <span><?php echo $this->__('Confirm Redirect'); ?></span>
+            </span>
+        </button>
+    </div>
+</form>
+<br /><br />
+<p><?php echo $this->__($this->getRedirectMessage()); ?></p>
+
+<script language="javascript" type="text/javascript">
+    //<![CDATA[
+    setTimeout('do_submit()', <?php echo $this->getRedirectTimeout(); ?>);
+
+    function do_submit() {
+        document.form_auto_post.submit();
+    }
+    //]]>
+</script>

@@ -401,6 +401,12 @@ a.triger-showfilter {
 .toolbar-mobile .filter {
 	margin-left: 5px;
 }
+
+.filter-toggle {
+		display: none;
+	}
+
+
 @media only screen and (max-width: 1215px) {
 	.advertise ul li {
 		width: 49.4%;
@@ -413,6 +419,10 @@ a.triger-showfilter {
 		height: 49.2%;
 	}
 }
+
+
+
+
 /* --------------- smaller 959 px layout -------------------- */
 @media only screen and (max-width: 767px) {
 	.category-description + p, .featured-product-catalog, .toolbar, .toolbar-mobile .limiter, .custome-nav, .show-filter, .toolbar-mobile .filter {
@@ -430,6 +440,18 @@ a.triger-showfilter {
 	}
 	.pager .pages {
 		margin: 0 auto;
+	}
+	.filter-toggle {
+		display: block;
+		margin: 12px;
+	}
+	.filter-toggle a {
+		border: #707070;
+		background: url("../images/arrow-blue.png") no-repeat scroll right 5px center #FFF;
+		padding: 11px 25px 10px 10px;
+		border: 1px solid #ccc;
+		color: #4EC7DA;
+		cursor: pointer;
 	}
 }
 /* --------------- 320 px layout -------------------- */
