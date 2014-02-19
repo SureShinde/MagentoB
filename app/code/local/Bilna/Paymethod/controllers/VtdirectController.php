@@ -233,11 +233,12 @@ class Bilna_Paymethod_VtdirectController extends Mage_Core_Controller_Front_Acti
     }
     
     private function parseShippingAddress($shippingAddress) {
+        $lastname = empty ($shippingAddress->getLastname()) ? $shippingAddress->getFirstname() : $shippingAddress->getLastname();
         $result = array (
             'first_name' => $this->maxChar($this->removeSymbols($shippingAddress->getFirstname()), 20),
-            'last_name' => $this->maxChar($this->removeSymbols($shippingAddress->getLastname()), 20),
-            'address1' => $this->maxChar($shippingAddress->getStreet(1), 100),
-            'address2' => $this->maxChar($shippingAddress->getStreet(2), 100),
+            'last_name' => $this->maxChar($this->removeSymbols($lastname), 20),
+            'address1' => $this->maxChar($this->removeSymbols($shippingAddress->getStreet(1)), 100),
+            'address2' => $this->maxChar($this->removeSymbols($shippingAddress->getStreet(2)), 100),
             'city' => $this->maxChar($this->removeSymbols($shippingAddress->getCity()), 20),
             'postal_code' => $this->maxChar($this->getPostCode($shippingAddress->getPostcode()), 10),
             'phone' => $this->maxChar($shippingAddress->getTelephone(), 19)
@@ -247,11 +248,12 @@ class Bilna_Paymethod_VtdirectController extends Mage_Core_Controller_Front_Acti
     }
     
     private function parseBillingAddress($billingAddress) {
+        $lastname = empty ($billingAddress->getLastname()) ? $billingAddress->getFirstname() : $billingAddress->getLastname();
         $result = array (
             'first_name' => $this->maxChar($this->removeSymbols($billingAddress->getFirstname()), 20),
-            'last_name' => $this->maxChar($this->removeSymbols($billingAddress->getLastname()), 20),
-            'address1' => $this->maxChar($billingAddress->getStreet(1), 100),
-            'address2' => $this->maxChar($billingAddress->getStreet(2), 100),
+            'last_name' => $this->maxChar($this->removeSymbols($lastname), 20),
+            'address1' => $this->maxChar($this->removeSymbols($billingAddress->getStreet(1)), 100),
+            'address2' => $this->maxChar($this->removeSymbols($billingAddress->getStreet(2)), 100),
             'city' => $this->maxChar($this->removeSymbols($billingAddress->getCity()), 20),
             'postal_code' => $this->maxChar($this->getPostCode($billingAddress->getPostcode()), 10),
             'phone' => $this->maxChar($billingAddress->getTelephone(), 19)

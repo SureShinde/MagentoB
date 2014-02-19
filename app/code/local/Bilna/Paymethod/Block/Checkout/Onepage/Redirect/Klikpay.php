@@ -39,7 +39,7 @@ class Bilna_Paymethod_Block_Checkout_Onepage_Redirect_Klikpay extends Mage_Core_
     
     public function getFormData() {
         $order = $this->_getOrder();
-        $payment = $order->getPayment();
+        //$payment = $order->getPayment();
         $this->_klikpayUserId = Mage::getStoreConfig('payment/klikpay/klikpay_user_id');//$payment->getKlikpayUserId();
         $this->_transactionNo = $order->getIncrementId();
         $this->_transactionAmount = number_format((int) $order->getGrandTotal(), 2, null, '');
