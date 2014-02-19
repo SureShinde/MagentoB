@@ -240,8 +240,8 @@ class Bilna_Paymethod_VtdirectController extends Mage_Core_Controller_Front_Acti
         }
         
         $result = array (
-            'first_name' => $this->maxChar($this->removeSymbols($shippingAddress->getFirstname()), 20),
-            'last_name' => $this->maxChar($this->removeSymbols($lastname), 20),
+            'first_name' => $this->maxChar($this->removeSymbols($shippingAddress->getFirstname(), true), 20),
+            'last_name' => $this->maxChar($this->removeSymbols($lastname, true), 20),
             'address1' => $this->maxChar($this->removeSymbols($shippingAddress->getStreet(1)), 100),
             'address2' => $this->maxChar($this->removeSymbols($shippingAddress->getStreet(2)), 100),
             'city' => $this->maxChar($this->removeSymbols($shippingAddress->getCity()), 20),
@@ -260,8 +260,8 @@ class Bilna_Paymethod_VtdirectController extends Mage_Core_Controller_Front_Acti
         }
         
         $result = array (
-            'first_name' => $this->maxChar($this->removeSymbols($billingAddress->getFirstname()), 20),
-            'last_name' => $this->maxChar($this->removeSymbols($lastname), 20),
+            'first_name' => $this->maxChar($this->removeSymbols($billingAddress->getFirstname(), true), 20),
+            'last_name' => $this->maxChar($this->removeSymbols($lastname, true), 20),
             'address1' => $this->maxChar($this->removeSymbols($billingAddress->getStreet(1)), 100),
             'address2' => $this->maxChar($this->removeSymbols($billingAddress->getStreet(2)), 100),
             'city' => $this->maxChar($this->removeSymbols($billingAddress->getCity()), 20),
@@ -451,8 +451,15 @@ class Bilna_Paymethod_VtdirectController extends Mage_Core_Controller_Front_Acti
         return substr($text, 0, $maxLength);
     }
     
-    private function removeSymbols($text) {
-        return Mage::helper('paymethod/vtdirect')->removeSymbols($text);
+    private function removeSymbols($text, $removeNumber = false) {
+        $result = Mage::helper('paymethod/vtdirect')->removeSymbols($text);
+        $number = array (1,2,3,4,5,6,7,8,9,0);
+        
+        if ($removeNumber) {
+            $result = str_replace($number, ' ', $result);
+        }
+        
+        return $result;
     }
     
     protected function writeLog($type, $logFile, $content) {
