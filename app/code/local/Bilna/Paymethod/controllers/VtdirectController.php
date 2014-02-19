@@ -233,7 +233,12 @@ class Bilna_Paymethod_VtdirectController extends Mage_Core_Controller_Front_Acti
     }
     
     private function parseShippingAddress($shippingAddress) {
-        $lastname = empty ($shippingAddress->getLastname()) ? $shippingAddress->getFirstname() : $shippingAddress->getLastname();
+        $lastname = $shippingAddress->getLastname();
+        
+        if (empty ($lastname)) {
+            $lastname = $shippingAddress->getFirstname();
+        }
+        
         $result = array (
             'first_name' => $this->maxChar($this->removeSymbols($shippingAddress->getFirstname()), 20),
             'last_name' => $this->maxChar($this->removeSymbols($lastname), 20),
@@ -248,7 +253,12 @@ class Bilna_Paymethod_VtdirectController extends Mage_Core_Controller_Front_Acti
     }
     
     private function parseBillingAddress($billingAddress) {
-        $lastname = empty ($billingAddress->getLastname()) ? $billingAddress->getFirstname() : $billingAddress->getLastname();
+        $lastname = $billingAddress->getLastname();
+        
+        if (empty ($lastname)) {
+            $lastname = $billingAddress->getFirstname();
+        }
+        
         $result = array (
             'first_name' => $this->maxChar($this->removeSymbols($billingAddress->getFirstname()), 20),
             'last_name' => $this->maxChar($this->removeSymbols($lastname), 20),
