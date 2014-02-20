@@ -53,7 +53,7 @@
 
 <script type="text/javascript">
     function refreshBlock(){
-        new Ajax.Request('<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK); ?>/fcheckoutpromo/checkoutpromo/ajaxCheckout/', {
+        new Ajax.Request('<?php echo $this->getCheckoutpromoUrl(); ?>', {
             method:'get',
             onSuccess: function(transport){
                 var response = transport.responseText;
