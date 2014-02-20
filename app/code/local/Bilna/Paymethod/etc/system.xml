@@ -326,7 +326,6 @@
                         </sort_order>
                     </fields>
                 </transferbni>
-                
                 <klikbca translate="label">
                     <label>Bilna - KlikBCA</label>
                     <sort_order>130</sort_order>
@@ -732,7 +731,6 @@
                         </sort_order>
                     </fields>
                 </klikpay>
-                
                 <vtdirect translate="label">
                     <label>Bilna - Credit Card (VT-Direct by Veritrans)</label>
                     <sort_order>150</sort_order>
@@ -895,7 +893,6 @@
                         </sort_order>
                     </fields>
                 </vtdirect>
-                
                 <anzvisa translate="label">
                     <label>Bilna - Credit Card (ANZ Visa)</label>
                     <sort_order>160</sort_order>
@@ -1268,7 +1265,6 @@
                         </max_installment_total>
                     </fields>
                 </anzmc>
-                
                 <bukopinvisa translate="label">
                     <label>Bilna - Credit Card (Bukopin Visa)</label>
                     <sort_order>180</sort_order>
@@ -1641,7 +1637,6 @@
                         </max_installment_total>
                     </fields>
                 </bukopinmc>
-                
                 <bcavisa translate="label">
                     <label>Bilna - Credit Card (BCA Visa)</label>
                     <sort_order>200</sort_order>
@@ -2014,7 +2009,6 @@
                         </max_installment_total>
                     </fields>
                 </bcamc>
-                
                 <danamonvisa translate="label">
                     <label>Bilna - Credit Card (Danamon Visa)</label>
                     <sort_order>220</sort_order>
@@ -2387,7 +2381,6 @@
                         </max_installment_total>
                     </fields>
                 </danamonmc>
-                
                 <biivisa translate="label">
                     <label>Bilna - Credit Card (BII Visa)</label>
                     <sort_order>240</sort_order>
@@ -2760,7 +2753,6 @@
                         </max_installment_total>
                     </fields>
                 </biimc>
-                
                 <mandirivisa translate="label">
                     <label>Bilna - Credit Card (Mandiri Visa)</label>
                     <sort_order>260</sort_order>
@@ -3133,7 +3125,6 @@
                         </max_installment_total>
                     </fields>
                 </mandirimc>
-                
                 <megavisa translate="label">
                     <label>Bilna - Credit Card (Mega Visa)</label>
                     <sort_order>280</sort_order>
@@ -3879,7 +3870,6 @@
                         </max_installment_total>
                     </fields>
                 </bnimc>
-                
                 <permatavisa translate="label">
                     <label>Bilna - Credit Card (Permata Visa)</label>
                     <sort_order>320</sort_order>
@@ -4252,7 +4242,6 @@
                         </max_installment_total>
                     </fields>
                 </permatamc>
-                
                 <brivisa translate="label">
                     <label>Bilna - Credit Card (BRI Visa)</label>
                     <sort_order>340</sort_order>
@@ -4625,7 +4614,6 @@
                         </max_installment_total>
                     </fields>
                 </brimc>
-                
                 <cimbvisa translate="label">
                     <label>Bilna - Credit Card (CIMB Visa)</label>
                     <sort_order>360</sort_order>
@@ -4998,7 +4986,6 @@
                         </max_installment_total>
                     </fields>
                 </cimbmc>
-
                 <citibankvisa translate="label">
                     <label>Bilna - Credit Card (Citibank Visa)</label>
                     <sort_order>380</sort_order>
@@ -5371,7 +5358,6 @@
                         </max_installment_total>
                     </fields>
                 </citibankmc>
-
                 <hsbcvisa translate="label">
                     <label>Bilna - Credit Card (HSBC Visa)</label>
                     <sort_order>400</sort_order>
@@ -5744,7 +5730,6 @@
                         </max_installment_total>
                     </fields>
                 </hsbcmc>
-
                 <scvisa translate="label">
                     <label>Bilna - Credit Card (Standard Chartered Visa)</label>
                     <sort_order>420</sort_order>
@@ -6117,7 +6102,6 @@
                         </max_installment_total>
                     </fields>
                 </scmc>
-
                 <paninplatinumvisa translate="label">
                     <label>Bilna - Credit Card (Panin Platinum Visa)</label>
                     <sort_order>430</sort_order>
@@ -6490,7 +6474,6 @@
                         </max_installment_total>
                     </fields>
                 </paningoldvisa>
-
                 <othervisa translate="label">
                     <label>Bilna - Credit Card (Other Visa)</label>
                     <sort_order>1000</sort_order>

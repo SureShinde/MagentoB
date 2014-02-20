@@ -48,8 +48,6 @@ class Bilna_Paymethod_VtdirectController extends Mage_Core_Controller_Front_Acti
             $data['billing_address'] = $this->parseBillingAddress($order->getBillingAddress());
             $data['bank'] = $this->getAcquiredBank($paymentCode);
             
-            
-            
             /**
              * check installment
              */
