@@ -48,18 +48,22 @@ class Bilna_Paymethod_VtdirectController extends Mage_Core_Controller_Front_Acti
             $data['billing_address'] = $this->parseBillingAddress($order->getBillingAddress());
             $data['bank'] = $this->getAcquiredBank($paymentCode);
             
+            
+            
             /**
              * check installment
              */
-            $installmentId = $this->getInstallment($items);
-            
-            if ($installmentId) {
-                $data['type'] = 'installment';
-                $data['installment'] = array (
-                    'bank' => $this->getInstallmentBank($paymentCode),
-                    'term' => $this->getInstallmentTenor($paymentCode, $installmentId),
-                    'type' => $this->getInstallmentTypeCodeBank($paymentCode)
-                );
+            if ($this->getInstallmentProcess($paymentCode) != 'manual') {
+                $installmentId = $this->getInstallment($items);
+
+                if ($installmentId) {
+                    $data['type'] = 'installment';
+                    $data['installment'] = array (
+                        'bank' => $this->getInstallmentBank($paymentCode),
+                        'term' => $this->getInstallmentTenor($paymentCode, $installmentId),
+                        'type' => $this->getInstallmentTypeCodeBank($paymentCode)
+                    );
+                }
             }
             
             $threedsecure = $this->getThreedSecure($paymentCode);
@@ -286,6 +290,10 @@ class Bilna_Paymethod_VtdirectController extends Mage_Core_Controller_Front_Acti
     
     private function getAcquiredBank($paymentCode) {
         return Mage::getStoreConfig('payment/' . $paymentCode . '/bank_acquired');
+    }
+    
+    private function getInstallmentProcess($paymentCode) {
+        return Mage::getStoreConfig('payment/' . $paymentCode . '/installment_process');
     }
     
     private function getInstallment($items) {
