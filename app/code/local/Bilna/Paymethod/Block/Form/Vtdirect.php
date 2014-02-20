@@ -21,7 +21,7 @@ class Bilna_Paymethod_Block_Form_Vtdirect extends Mage_Payment_Block_Form_Ccsave
         if ($quote = Mage::getSingleton('checkout/session')->getQuote()) {
             $billingAddress = $quote->getBillingAddress();
             $firstname = $billingAddress->getData('firstname');
-            $lastname = !empty ($billingAddress->getData('lastname')) ? $billingAddress->getData('lastname') : '';
+            $lastname = $billingAddress->getData('lastname') ? $billingAddress->getData('lastname') : '';
             $fullname = sprintf("%s %s", $firstname, $lastname);
         }
         
