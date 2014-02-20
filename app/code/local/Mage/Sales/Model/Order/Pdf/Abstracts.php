@@ -313,18 +313,19 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstracts extends Varien_Object
         $billingAddress = $this->_formatAddress($order->getBillingAddress()->format('pdf'));
 
         /* Payment */
-        $paymentInfo = Mage::helper('payment')->getInfoBlock($order->getPayment())
-            ->setIsSecureMode(true)
-            ->toPdf();
-		$paymentInfo = htmlspecialchars_decode($paymentInfo, ENT_QUOTES);
-        $paymentInfo = strip_tags($paymentInfo);
-        $payment = explode('{{pdf_row_separator}}', $paymentInfo);
-        foreach ($payment as $key=>$value){
-            if (strip_tags(trim($value)) == '') {
-                unset($payment[$key]);
-            }
-        }
-        reset($payment);
+//         $paymentInfo = Mage::helper('payment')->getInfoBlock($order->getPayment())
+//             ->setIsSecureMode(true)
+//             ->toPdf();
+// 		$paymentInfo = htmlspecialchars_decode($paymentInfo, ENT_QUOTES);
+//         $paymentInfo = strip_tags($paymentInfo);
+//         $payment = explode('{{pdf_row_separator}}', $paymentInfo);
+//         foreach ($payment as $key=>$value){
+//             if (strip_tags(trim($value)) == '') {
+//                 unset($payment[$key]);
+//             }
+//         }
+			$payment = $order->getPayment()->getMethodInstance()->getTitle();
+//         reset($payment);
 
         /* Shipping Address and Method */
         if (!$order->getIsVirtual()) {
@@ -413,17 +414,19 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstracts extends Varien_Object
             $paymentLeft = 285;
         }
 
-        foreach ($payment as $value){
-            if (trim($value) != '') {
-                //Printing "Payment Method" lines
-                $value = preg_replace('/<br[^>]*>/i', "\n", $value);
-                foreach (Mage::helper('core/string')->str_split($value, 45, true, true) as $_value) {
-                    $page->drawText(strip_tags(trim($_value)), $paymentLeft, $yPayments, 'UTF-8');
-                    $yPayments -= 15;
-
-                }
-            }break;
-        }
+        //         foreach ($payment as $value){
+        //             if (trim($value) != '') {
+        //                 //Printing "Payment Method" lines
+        //                 $value = preg_replace('/<br[^>]*>/i', "\n", $value);
+        //                 foreach (Mage::helper('core/string')->str_split($value, 45, true, true) as $_value) {
+        //                     $page->drawText(strip_tags(trim($_value)), $paymentLeft, $yPayments, 'UTF-8');
+        //                     $yPayments -= 15;
+        
+        //                 }
+        //             }break;
+        //         }
+        $page->drawText(strip_tags(trim($payment)), $paymentLeft, $yPayments, 'UTF-8');
+        $yPayments -= 15;
 
         if ($order->getIsVirtual()) {
             // replacement of Shipments-Payments rectangle block

@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <visa_processing_index>
+        <reference name="root">
+            <action method="setTemplate">
+                <template>page/1column.phtml</template>
+            </action>
+        </reference>
+
+        <reference name="content">
+            <block type="visa/processing" name="visa.processing" template="visa/processing.phtml"/>
+        </reference>
+    </visa_processing_index>
+
+    <checkout_onepage_index>
+        <reference name='checkout.onepage'>
+             <action method='setTemplate' ifconfig="payment/visa/active">
+                 <template>visa/checkout/onepage.phtml</template>
+             </action>
+        </reference>
+    </checkout_onepage_index>
+    
+    <checkout_onepage_review>
+        <reference name="root">
+            <action method='setTemplate' ifconfig="payment/visa/active">
+                <template>visa/checkout/onepage/review/info.phtml</template>
+            </action>
+            
+            <action method="addItemRender">
+                <type>default</type>
+                <block>checkout/cart_item_renderer</block>
+                <template>visa/checkout/onepage/review/item.phtml</template>
+            </action>
+            
+            <action method="addItemRender">
+                <type>grouped</type>
+                <block>checkout/cart_item_renderer_grouped</block>
+                <template>visa/checkout/onepage/review/item.phtml</template>
+            </action>
+            
+            <action method="addItemRender">
+                <type>configurable</type>
+                <block>checkout/cart_item_renderer_configurable</block>
+                <template>visa/checkout/onepage/review/item.phtml</template>
+            </action>
+            
+            <!--block
+                type="visa/installment"
+                name="checkout.onepage.visa.installment"
+                as="items_installment_scb"
+                ifconfig="payment/visa/active"
+                template="visa/checkout/onepage/review/installments.phtml"
+            /-->
+        </reference>
+    </checkout_onepage_review>
+</layout>
