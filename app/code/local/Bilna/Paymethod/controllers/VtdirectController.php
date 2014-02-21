@@ -465,6 +465,10 @@ class Bilna_Paymethod_VtdirectController extends Mage_Core_Controller_Front_Acti
             $result = str_replace($number, ' ', $result);
         }
         
+        //TODO: REMOVE THIS LINE
+        //DIRTY CODE
+        $result = preg_replace('/[^\d\sa-z]/i', ' ' , $result);
+        
         return $result;
     }
     
