@@ -782,7 +782,8 @@
 	background: url(../images/txt-search.jpg) no-repeat left top;
 }
 .header .form-search .input-keyword input.input-text {
-	width: 97px;
+
+	width: 155px;
 	height: 26px;
 	border: none;
 	color: #bababa;
@@ -806,6 +807,9 @@
 	line-height: normal;
 	border: 0;
 	border-radius:0;
+
+	width:100px;
+
 	height: 32px;
 	color: #a0cc00;
 	-webkit-appearance: none;
