@@ -15,11 +15,6 @@
 #checkoutSteps .form-list .input-box {
 	width: auto;
 }
-#checkoutSteps input.input-text {
-	padding: 5px;
-	width: 90%;
-	border: 1px solid #dadada;
-}
 #checkoutSteps .buttons-set .back-link {
 	float: right;
 	margin-top: 10px;
