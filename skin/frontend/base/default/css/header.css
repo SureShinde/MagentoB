@@ -773,7 +773,7 @@
 }
 .header .form-search .input-keyword input.input-text {
 	margin: 7px 0 0 5px;
-	width: 97px;
+	width: 165px;
 	border: none;
 	color: #bababa;
 }
@@ -795,6 +795,7 @@
 	border: 0;
 	border-radius:0;
 	height: 20px;
+	width:100px;
 	color: #a0cc00;
 	-webkit-appearance: none;
 	margin-right: 5px;
