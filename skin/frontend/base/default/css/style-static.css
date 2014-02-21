@@ -27,15 +27,16 @@
 .fb-14 {font-size: 14px !important;}
 .fb-15 {font-size: 15px !important;}
 .fb-18 {font-size: 18px !important;}
+.fb-bebas {font-family: 'bebasregular' !important;}
 
 .clear-static {clear: both;}
 
-.fc-base-blue {color:#4ec7da;}
-.fc-base-blue2 {color: #2F93BF;}
-.fc-base-orange {color:#ffa01b;}
-.fc-base-yellow {color:#ffe449;}
-.fc-base-peach {color:#fc8360;}
-.fc-base-green {color:#8dd240;}
+.fc-base-blue {color:#4ec7da !important;}
+.fc-base-blue2 {color: #2F93BF !important;}
+.fc-base-orange {color:#ffa01b !important;}
+.fc-base-yellow {color:#ffe449 !important;}
+.fc-base-peach {color:#fc8360 !important;}
+.fc-base-green {color:#8dd240 !important;}
 
 .fc-base-red {color:#e72b2f;}
 .fc-base-orange-sp {color:#fc6a33;}
@@ -146,8 +147,9 @@ ul.decimal-ul li {
 	width: 94%;
   }
 
-.static-page-area ol li {font-size:16px; margin:0 0 10px;line-height:1.35;}
+.static-page-area ol li {font-size:14px; margin:0 0 10px;line-height:1.35; list-style: decimal outside none;}
 .wrapper-voucher a {text-decoration:none;}
+.line-height-1 {line-height:1 !important;}
 
 
 

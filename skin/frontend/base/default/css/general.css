@@ -260,9 +260,7 @@ a.back-to-top img {
 .al-authorization .form-list li:first-child
  {
 	/*background: url(../images/dash-orange.png) bottom repeat-x; */
-	border-bottom: 2px dashed #fe8c08;
-    margin: 0 0 15px;
-    padding-bottom: 8px;
+	padding-bottom: 20px;
 }
 .al-authorization .form-list li:last-child {
 	/*background: url(../images/dash-orange.png) bottom repeat-x; */
