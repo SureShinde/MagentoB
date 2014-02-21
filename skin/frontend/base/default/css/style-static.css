@@ -106,12 +106,12 @@
 }
 
 .static-page-content table {
-    border: 1px solid #F58D66;
+    border: 1px solid #6ec9e8;
 }
 
 
 .static-page-content table tr th {
-    background: none repeat scroll 0 0 #F58D66;
+    background: none repeat scroll 0 0 #6ec9e8;
     border-right: 1px solid #FFFFFF;
     color: #FFFFFF;
     font-size: 14px;
@@ -119,8 +119,8 @@
 }
 
 .static-page-content table tr td {
-    border-bottom: 1px solid #F58D66;
-    border-right: 1px solid #F58D66;
+    border-bottom: 1px solid #6ec9e8;
+    border-right: 1px solid #6ec9e8;
     color: #666666;
     font-size: 14px;
     padding: 5px;
@@ -1047,7 +1047,7 @@ animation-timing-function: linear;
 	color:#989898;
 }
 .static-page-content table tr td {
-    border-bottom: 1px solid #caefdc;
+    border-bottom: 1px solid #6ec9e8;
     color: #666666;
     font-size: 14px;
     padding: 5px;
@@ -1716,3 +1716,15 @@ h2.block-grey-title-left {
 			}
 /* ---------------- End Daily Deals -------------------- */
 
+/* ---------------- COD -------------------- */
+	.cod_page .title_cod{
+	color: #4EC7DA;
+    font-family: bebasregular;
+    font-size: 20px;
+    margin: 1.8em 0 0.7em;
+    text-transform: uppercase;
+	}
+	.cod_page .text-sp2 > li {
+    margin: 0 0 10px;
+}
+/* ---------------- end COD -------------------- */
