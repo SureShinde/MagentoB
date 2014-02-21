@@ -107,6 +107,7 @@
             $('login:register').observe(
                 'click',
                 function(event) {
+                    $('login:register').checked = false;
                     var __overlapRootNode = $('<?php echo $this->getLayout()->getBlock('authorization_container_overlap')->getHtmlId() ?>');
                     __overlapRootNode.style.display = '';
                     
