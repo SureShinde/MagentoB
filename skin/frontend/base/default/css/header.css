@@ -277,7 +277,7 @@
 }
 .header .menu-top {
 	left: 0;
-	width: 399px;
+	width: 512px;
 }
 .header .menu-blog {
 	right:0;
@@ -307,7 +307,10 @@
 }
 .menu-top ul li:hover, .menu-top ul li.active {
 	background: #95e1f1;
-} 
+}
+.menu-top ul li:nth-child(2):hover, .menu-top ul li.active {
+	background: #daaea4;
+}  
 .menu-top ul li:last-child:hover {
 	background: #ffb39c;
 }
@@ -775,6 +778,8 @@
 	margin: 7px 0 0 5px;
 	width: 97px;
 	border: none;
+	max-width: 140px;
+    min-width: 100px;
 	color: #bababa;
 }
 .header .form-search .input-keyword .select-category {
@@ -784,7 +789,7 @@
 	height: auto;
 	overflow: hidden;
 	padding: 0 10px 0 0;
-	margin: 7px 5px 0 0;
+	margin:0 5px 0 0;
 	background: url(../images/arrow-green.png) no-repeat right center;
 }
 
@@ -794,7 +799,6 @@
 	line-height: normal;
 	border: 0;
 	border-radius:0;
-	height: 20px;
 	color: #a0cc00;
 	-webkit-appearance: none;
 	margin-right: 5px;
@@ -803,10 +807,10 @@
 	float: right;
 	clear: none;
 	width: auto;
+	margin:0 5px 0 0;
 	height: auto;
 	overflow: hidden;
 	padding: 0 0 0 0;
-	margin: 7px 5px 0 0;
 	background: none;
 }
 
@@ -816,7 +820,6 @@
 	line-height: normal;
 	border:inherit;
 	border-radius:inherit;
-	height: 20px;
 	color: #a0cc00;
 	-webkit-appearance: none;
 	margin-right: 5px;
