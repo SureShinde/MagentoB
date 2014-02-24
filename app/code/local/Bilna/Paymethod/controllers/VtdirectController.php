@@ -244,8 +244,8 @@ class Bilna_Paymethod_VtdirectController extends Mage_Core_Controller_Front_Acti
         $result = array (
             'first_name' => $this->maxChar($this->removeSymbols($shippingAddress->getFirstname(), true), 20),
             'last_name' => $this->maxChar($this->removeSymbols($lastname, true), 20),
-            'address1' => trim($this->maxChar($this->removeSymbols($shippingAddress->getCity()), 100)),
-            'address2' => trim($this->maxChar($this->removeSymbols($shippingAddress->getCity()), 100)),
+            'address1' => trim($this->maxChar($this->removeSymbols("BILNA"), 100)),
+            'address2' => trim($this->maxChar($this->removeSymbols("BILNA"), 100)),
             //'address1' => $this->maxChar($this->removeSymbols($shippingAddress->getStreet(1)), 100),
             //'address2' => $this->maxChar($this->removeSymbols($shippingAddress->getStreet(2)), 100),
             'city' => $this->maxChar($this->removeSymbols($shippingAddress->getCity()), 20),
@@ -266,8 +266,8 @@ class Bilna_Paymethod_VtdirectController extends Mage_Core_Controller_Front_Acti
         $result = array (
             'first_name' => $this->maxChar($this->removeSymbols($billingAddress->getFirstname(), true), 20),
             'last_name' => $this->maxChar($this->removeSymbols($lastname, true), 20),
-            'address1' => trim($this->maxChar($this->removeSymbols($billingAddress->getCity()), 100)),
-            'address2' => trim($this->maxChar($this->removeSymbols($billingAddress->getCity()), 100)),
+            'address1' => trim($this->maxChar($this->removeSymbols("BILNA"), 100)),
+            'address2' => trim($this->maxChar($this->removeSymbols("BILNA"), 100)),
             //'address1' => $this->maxChar($this->removeSymbols($billingAddress->getStreet(1)), 100),
             //'address2' => $this->maxChar($this->removeSymbols($billingAddress->getStreet(2)), 100),
             'city' => $this->maxChar($this->removeSymbols($billingAddress->getCity()), 20),
