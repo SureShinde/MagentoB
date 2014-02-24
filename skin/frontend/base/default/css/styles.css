@@ -822,7 +822,7 @@ tr.summary-details-excluded { font-style:italic; }
 .products-grid .product-name { /*min-height:2.7em;*/ margin:0 0 5px; font-weight:bold; font-size:13px; color:#203548; }
 .products-grid .product-name a { color:#203548; }
 .products-grid .price-box { margin:5px 0; }
-.products-grid .availability { line-height:21px; }
+.products-grid .availability { line-height:21px;bottom: 30px; position: absolute; }
 .products-grid .actions { position:absolute; bottom:12px; }
 .col2-left-layout .products-grid,
 .col2-right-layout .products-grid { width:632px; margin:0 auto; }
@@ -986,7 +986,7 @@ tr.summary-details-excluded { font-style:italic; }
 .tier-prices-grouped li .price { font-weight:bold; }
 
 /* Add to Links */
-.add-to-links { font-size:11px;bottom:0;}
+.add-to-links { font-size:11px;bottom:0; position: absolute;}
 .add-to-links .separator { display:none; }
 
 /* Add to Cart */
@@ -1900,3 +1900,14 @@ tr.summary-details-excluded { font-style:italic; }
 	position: relative !important;
 	display: block !important;
 }
+
+
+
+/* --------------- smaller 959 px layout -------------------- */
+@media only screen and (max-width: 767px) {
+.products-grid .availability { line-height:21px;bottom: 30px; position: relative; margin-left: }
+.availability.out-of-stock span {margin-left: 10px;}
+
+}
+
+
