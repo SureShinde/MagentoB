@@ -787,6 +787,7 @@ Payment.prototype = {
                         jQuery('#p_method_' + currPayment).val(response.data.bank_code);
                         jQuery('#payment_form_' + currPayment + ' #' + currPayment + '_cc_bank').val(response.data.bank_code);
                         jQuery('#payment_form_' + currPayment + ' #' + currPayment + '_cc_type').val(response.data.cc_type);
+                        jQuery('#payment_form_' + currPayment + ' #' + currPayment + '_cc_bins').val(cardNo.substring(0,6));
                         responseStatus = true;
                     }
                     else {
