@@ -473,9 +473,35 @@
 	background: #fbfbfb;
 	border: solid #dfe0e0 1px;
 	padding: 10px;
+	position:relative;
+	overflow:hidden;
+	transition:All 1s ease;
+-webkit-transition:All 1s ease;
+-moz-transition:All 1s ease;
+-o-transition:All 1s ease;
+}
+.product-tab-wrapper .tab-container{
+	position:relative;
 }
 .product-tab-wrapper .panel-container {
 	margin-bottom: 10px;
+}
+
+.product-tab-wrapper .hide_desc_button{
+	background: none repeat scroll 0 0 #FBFBFB;
+    border-bottom: 1px solid #DFE0E0;
+    border-left: 1px solid #DFE0E0;
+    border-right: 1px solid #DFE0E0;
+    height: 25px;
+    margin: -36px 0 0;
+    position: relative;
+	padding:10px 0 0;
+    text-align: center;
+}
+.panel-container .std{
+	-moz-column-count:2; /* Firefox */
+	-webkit-column-count:2; /* Safari and Chrome */
+	column-count:2;
 }
 .product-tab-mobile-wrapper {
 	display: none;
