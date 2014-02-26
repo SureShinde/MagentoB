@@ -1,0 +1,533 @@
+<?php
+/**
+ * Description of AW_Featured_Model_Observer_Generatefeatured
+ *
+ * @author Bilna Development Team <development@bilna.com>
+ */
+
+class AW_Featured_Model_Observer_Generatefeatured {
+    private $_data = array ();
+    private $_limit = 100;
+
+    public function process() {
+        $this->getFeaturedList();
+    }
+    
+    private function getFeaturedList() {
+        echo "create/insert table start\n";
+        
+        $collections = Mage::getModel('awfeatured/blocks')->getCollection();
+        $collections->addFieldToFilter('is_active', '1');
+        
+        foreach ($collections as $collection) {
+            $this->_data = array (
+                'id' => $collection->getId(),
+                'store_id' => $collection->getStore(),
+                'block_id' => $collection->getBlockId(),
+                'type_data' => unserialize($collection->getTypeData()),
+                'autoposition' => $collection->getAutoposition(),
+                'automation_type' => $collection->getAutomationType(),
+                'automation_data' => unserialize($collection->getAutomationData())
+            );
+            
+            /**
+             * create table bilna_featured_product_n
+             */
+            if (!$this->createTableBilnaFeaturedProduct()) {
+                break;
+            }
+            
+            /**
+             * get data collection
+             */
+            $productCollection = $this->getProductsCollection();
+            $productCollection->getSelect()->limit($this->_limit);
+            
+            if ($productCollection) {
+                if (!$this->insertProductsCollection($productCollection)) {
+                    break;
+                }
+            }
+        }
+        
+        echo "create/insert table finish\n";
+        exit;
+    }
+    
+    private function createTableBilnaFeaturedProduct() {
+        $write = Mage::getSingleton('core/resource')->getConnection('core_write');
+        $sql = "CREATE TABLE IF NOT EXISTS bilna_featured_product_" . $this->_data['id'] . " (
+            entity_id int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Entity Id',
+            type_id varchar(32) NOT NULL DEFAULT 'simple' COMMENT 'Type Id',
+            attribute_set_id smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Attribute Set Id',
+            visibility smallint(5) unsigned DEFAULT NULL COMMENT 'Visibility',
+            inventory_in_stock smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'cataloginventory_stock_item.is_in_stock',
+            request_path varchar(255) DEFAULT NULL COMMENT 'Request Path',
+            position int(11) DEFAULT NULL COMMENT 'Position',
+            store_id smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Store ID',
+            price decimal(12,4) DEFAULT NULL COMMENT 'Price',
+            tax_class_id smallint(5) unsigned DEFAULT '0' COMMENT 'Tax Class ID',
+            final_price decimal(12,4) DEFAULT NULL COMMENT 'Final Price',
+            minimal_price decimal(12,4) DEFAULT NULL COMMENT 'Minimal Price',
+            min_price decimal(12,4) DEFAULT NULL COMMENT 'Min Price',
+            max_price decimal(12,4) DEFAULT NULL COMMENT 'Max Price',
+            tier_price decimal(12,4) DEFAULT NULL COMMENT 'Tier Price',
+            rating_summary smallint(6) NOT NULL DEFAULT '0' COMMENT 'Summarized rating',
+            reviews_count smallint(6) NOT NULL DEFAULT '0' COMMENT 'Qty of reviews',
+            name varchar(255) DEFAULT NULL COMMENT 'Name',
+            short_description text COMMENT 'Short Description',
+            small_image varchar(255) DEFAULT NULL COMMENT 'Small Image',
+            thumbnail varchar(255) DEFAULT NULL COMMENT 'Thumbnail',
+            msrp decimal(12,4) DEFAULT NULL COMMENT 'Msrp',
+            msrp_enabled smallint(6) DEFAULT NULL COMMENT 'Msrp Enabled',
+            msrp_display_actual_price_type varchar(255) DEFAULT NULL COMMENT 'Msrp Display Actual Price Type',
+            aw_os_category_display smallint(6) DEFAULT NULL COMMENT 'Aw Os Category Display',
+            aw_os_category_position varchar(255) DEFAULT NULL COMMENT 'Aw Os Category Position',
+            aw_os_category_image varchar(255) DEFAULT NULL COMMENT 'Aw Os Category Image',
+            aw_os_category_image_path varchar(255) DEFAULT NULL COMMENT 'Aw Os Category Image Path',
+            aw_os_category_text varchar(255) DEFAULT NULL COMMENT 'Aw Os Category Text',
+            news_from_date datetime DEFAULT NULL COMMENT 'News From Date',
+            news_to_date datetime DEFAULT NULL COMMENT 'News To Date',
+            PRIMARY KEY (entity_id),
+            KEY IDX_BILNA_FEATURED_PRODUCT_" . $this->_data['id'] . "_TYPE_ID (type_id),
+            KEY IDX_BILNA_FEATURED_PRODUCT_" . $this->_data['id'] . "_ATTRIBUTE_SET_ID (attribute_set_id),
+            KEY IDX_BILNA_FEATURED_PRODUCT_" . $this->_data['id'] . "_NAME (name),
+            KEY IDX_BILNA_FEATURED_PRODUCT_" . $this->_data['id'] . "_PRICE (price)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Bilna Featured Product " . $this->_data['id'] . "';
+        TRUNCATE TABLE bilna_featured_product_" . $this->_data['id'] . ";";
+        $query = $write->query($sql);
+        
+        if ($query) {
+            echo "create table bilna_featured_product_" . $this->_data['id'] . " -> success\n";
+            return true;
+        }
+        else {
+            echo "create table bilna_featured_product_" . $this->_data['id'] . " -> failed\n";
+            return false;
+        }
+    }
+    
+    private function insertProductsCollection($productCollection) {
+        $write = Mage::getSingleton('core/resource')->getConnection('core_write');
+        
+        $sql  = sprintf("INSERT INTO bilna_featured_product_%d ", $this->_data['id']);
+        $sql .= "(type_id, attribute_set_id, visibility, inventory_in_stock, request_path, position, price, tax_class_id, final_price, minimal_price, min_price, max_price, tier_price, rating_summary, reviews_count, name, short_description, small_image, thumbnail, msrp, msrp_enabled, msrp_display_actual_price_type, aw_os_category_display, aw_os_category_position, aw_os_category_image, aw_os_category_image_path, aw_os_category_text, news_from_date, news_to_date) ";
+        $sql .= "VALUES ";
+        $separator = false;
+
+        foreach ($productCollection as $product) {
+            /**
+             * insert data to table bilna_featured_product_n
+             */
+            if ($separate) {
+                $sql .= ", ";
+            }
+
+            $sql .= sprintf(
+                "('%s', %d, %d, %d, '%s', %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, '%s', '%s', '%s', '%s', %d, %d, '%s', %d, '%s', '%s', '%s', '%s', '%s', '%s') ",
+                $product->getTypeId(),
+                $product->getAttributeSetId(),
+                $product->getVisibility(),
+                $product->getInventoryInStock(),
+                $product->getRequestPath(),
+                $product->getPosition(),
+                $product->getPrice(),
+                $product->getTaxClassId(),
+                $product->getFinalPrice(),
+                $product->getMinimalPrice(),
+                $product->getMinPrice(),
+                $product->getMaxPrice(),
+                $product->getTierPrice(),
+                $product->getRatingSummary(),
+                $product->getReviewsCount(),
+                $product->getName(),
+                $product->getShortDescription(),
+                $product->getSmallImage(),
+                $product->getThumbnail(),
+                $product->getMsrp(),
+                $product->getMsrpEnabled(),
+                $product->getMsrpDisplayActualPriceType(),
+                $product->getAwOsCategoryDisplay(),
+                $product->getAwOsCategoryPosition(),
+                $product->getAwOsCategoryImage(),
+                $product->getAwOsCategoryImagePath(),
+                $product->getAwOsCategoryText(),
+                $product->getNewsFromDate(),
+                $product->getNewsToDate()
+            );
+            $separate = true;
+        }
+
+        $sql .= ";";
+        $query = $write->query($sql);
+
+        if ($query) {
+            return true;
+        }
+        else {
+            echo "error.. process stop..!!";
+            return false;
+        }
+    }
+    
+    private function getProductsCollection() {
+        $_productCollection = null;
+        
+        if (is_null($_productCollection)) {
+            switch ($data['automation_type']) {
+                case AW_Featured_Model_Source_Automation::NONE:
+                    $_productCollection = $this->_getCollectionForIds();
+                    $automationData = $this->_data['automation_data'];
+                    $productSortingType = $automationData['product_sorting_type'];
+                    
+                    if ($productSortingType == AW_Featured_Model_Source_Automation_Productsort::RANDOM) {
+                        $_productCollection = $this->_getRandomProductsCollection($_productCollection);
+                    }
+                    else if ($productSortingType == AW_Featured_Model_Source_Automation_Productsort::OLDFIRST) {
+                        $_productCollection->getSelect()->order('entity_id asc');
+                    }
+                    else {
+                        $_productCollection->getSelect()->order('entity_id desc');
+                    }
+                    
+                    break;
+                
+                case AW_Featured_Model_Source_Automation::RANDOM:
+                    $_productCollection = $this->_getRandomProductsCollection();
+                    break;
+                
+                case AW_Featured_Model_Source_Automation::TOPSELLERS:
+                    $_productCollection = $this->_getTopSellersCollection();
+                    break;
+                
+                case AW_Featured_Model_Source_Automation::TOPRATED:
+                    $_productCollection = $this->_getTopRatedCollection();
+                    break;
+                
+                case AW_Featured_Model_Source_Automation::MOSTREVIEWED:
+                    $_productCollection = $this->_getMostReviewedCollection();
+                    break;
+                
+                case AW_Featured_Model_Source_Automation::RECENTLYADDED:
+                    $_productCollection = $this->_getRecentlyAddedCollection();
+                    break;
+                
+                case AW_Featured_Model_Source_Automation::CURRENTCATEGORY:
+                    $_productCollection = $this->_getCurrentCategoryCollection();
+                    break;
+                
+                default:
+                    $_productCollection = $this->_prepareCollection(Mage::getModel('awfeatured/product_collection'));
+                    //$this->setIsEmpty(true);
+                    break;
+            }
+            
+            $_productCollection->addMinimalPrice();
+            $_productCollection->joinOveralRating();
+            $_productCollection->joinReviewsCount();
+            $attr = array (
+                'name', 'short_description', 'small_image', 'thumbnail', 'image',
+                'msrp', 'msrp_enabled', 'msrp_display_actual_price_type', 'aw_os_category_display',
+                'aw_os_category_position', 'aw_os_category_image', 'aw_os_category_image_path', 'aw_os_category_text','news_from_date','news_to_date'
+
+            );
+            $_productCollection->addAttributeToSelect($attr);
+        }
+        
+        return $_productCollection;
+    }
+    
+    private function _getCollectionForIds() {
+        $_collection = $this->_prepareCollection(Mage::getModel('awfeatured/product_collection'));
+        
+        if ($this->_data['automation_data']) {
+            $_automationData = $this->_data['automation_data'];
+            $_products = isset ($_automationData['products']) ? @explode(',', $_automationData['products']) : array ();
+            $_products = array_filter($_products, array (Mage::helper('awfeatured'), 'removeEmptyItems'));
+            
+            if ($_products) {
+                $_collection->addAttributeToFilter('entity_id', $_products);
+            }
+            
+            $_collection->getSelect()->joinLeft(
+                array ('pi' => $_collection->getTable('awfeatured/productimages')),
+                '(pi.product_id = e.entity_id) AND (pi.block_id = ' . $this->_data['id'] . ')',
+                array ('image_id')
+            );
+        }
+        
+        return $_collection;
+    }
+    
+    private function _prepareCollection($_collection) {
+        $_visibility = array(
+            Mage_Catalog_Model_Product_Visibility::VISIBILITY_BOTH,
+            Mage_Catalog_Model_Product_Visibility::VISIBILITY_IN_CATALOG
+        );
+        $_collection->addAttributeToFilter('visibility', $_visibility)
+            ->addAttributeToFilter('status', array ("in" => Mage::getSingleton("catalog/product_status")->getVisibleStatusIds()));
+        
+        if (!$this->_getShowOutOfStock()) {
+            Mage::getSingleton('cataloginventory/stock')->addInStockFilterToCollection($_collection);
+        }
+        
+        $_collection->addUrlRewrites()
+            ->addStoreFilter($this->_data['store_id'][0])
+            ->groupByAttribute('entity_id');
+        
+        return $_collection;
+    }
+    
+    protected function _getRandomProductsCollection($collection = null) {
+        $_collection = $collection;
+        
+        if (null === $collection) {
+            $_collection = $this->_prepareCollection(Mage::getModel('awfeatured/product_collection'));
+        }
+        
+        $_collection->addMinimalPrice();
+        
+        if (null === $collection) {
+            $this->_addCategoriesFilter($_collection);
+            $_automationData = $this->_data['automation_data'];
+            $limit = isset ($_automationData['quantity_limit']) ? $_automationData['quantity_limit'] : 10;
+
+            $ids = $_collection->getAllIds();
+
+            $newArr = array ();
+            
+            if ($limit > count($ids)) {
+                $limit = count($ids);
+            }
+            
+            $randomPositions = (array) array_rand($ids, $limit);
+            
+            foreach ($randomPositions as $value) {
+                $newArr[] = $ids[$value];
+            }
+            
+            $ids = $newArr;
+            $_collection->addFieldToFilter('entity_id', array ('in' => array ($ids)));
+        }
+
+        $_collection->getSelect()->order(new Zend_Db_Expr('RAND()'));
+        
+        if (null === $collection) {
+            $this->_postprocessCollection($_collection);
+        }
+        
+        return $_collection;
+    }
+    
+    protected function _getTopSellersCollection($collection = null) {
+        if (null === $collection) {
+            $collection = $this->_prepareCollection(Mage::getModel('awfeatured/product_collection'));
+            $this->_addCategoriesFilter($collection);
+        }
+        $collection
+            ->addOrderedQty()
+            ->sortByOrderedQty();
+        $this->_postprocessCollection($collection);
+        
+        return $collection;
+    }
+    
+    protected function _getTopRatedCollection($collection = null) {
+        $_collection = $collection;
+        
+        if (null === $_collection) {
+            $_collection = $this->_prepareCollection(Mage::getModel('awfeatured/product_collection'));
+        }
+        
+        if (null === $collection) {
+            $this->_addCategoriesFilter($_collection);
+        }
+        
+        $_collection->joinOveralRating();
+        $_collection->sortByRating();
+        
+        if (null === $collection) {
+            $this->_postprocessCollection($_collection);
+        }
+        
+        return $_collection;
+    }
+    
+    protected function _postprocessCollection($collection) {
+        //$_automationData = $this->_data['automation_data'];
+        //$_pSize = isset ($_automationData['quantity_limit']) ? $_automationData['quantity_limit'] : 10;
+        //$collection->setPageSize($_pSize);
+        //$collection->setPageSize($this->_limit);
+        //$collection->setCurPage(1);
+        
+        return $collection;
+    }
+    
+    protected function _getMostReviewedCollection($collection = null) {
+        $_collection = $collection;
+        
+        if (null === $_collection) {
+            $_collection = $this->_prepareCollection(Mage::getModel('awfeatured/product_collection'));
+        }
+        
+        if (null === $collection) {
+            $this->_addCategoriesFilter($_collection);
+        }
+        
+        $_collection->joinReviewsCount();
+        $_collection->sortByReviewsCount();
+        
+        if (null === $collection) {
+            $this->_postprocessCollection($_collection);
+        }
+        
+        return $_collection;
+    }
+    
+    protected function _getRecentlyAddedCollection($collection = null) {
+        $_collection = $collection;
+        
+        if (null === $_collection) {
+            $_collection = $this->_prepareCollection(Mage::getModel('awfeatured/product_collection'));
+        }
+        
+        if (null === $collection) {
+            $this->_addCategoriesFilter($_collection);
+        }
+        
+        $_collection->addAttributeToSort('created_at', 'desc');
+        
+        if (null === $collection) {
+            $this->_postprocessCollection($_collection);
+        }
+        
+        return $_collection;
+    }
+    
+    protected function _getCurrentCategoryCollection($collection = null) {
+        $_collection = $collection;
+        
+        if (null === $_collection) {
+            $_collection = $this->_prepareCollection(Mage::getModel('awfeatured/product_collection'));
+        }
+        
+        if (Mage::registry('current_category') && Mage::registry('current_category')->getId()) {
+            $_collection->addCategoriesFilter(Mage::registry('current_category')->getId(), true);
+            
+            switch ($this->getAFPBlockAutomationData('current_category_type')) {
+                case AW_Featured_Model_Source_Automation_Currentcategory::RANDOM:
+                    $this->_getRandomProductsCollection($_collection);
+                    break;
+                
+                case AW_Featured_Model_Source_Automation_Currentcategory::TOPSELLERS:
+                    $this->_getTopSellersCollection($_collection);
+                    break;
+                
+                case AW_Featured_Model_Source_Automation_Currentcategory::TOPRATED:
+                    $this->_getTopRatedCollection($_collection);
+                    break;
+                
+                case AW_Featured_Model_Source_Automation_Currentcategory::MOSTREVIEWED:
+                    $this->_getMostReviewedCollection($_collection);
+                    break;
+                
+                case AW_Featured_Model_Source_Automation_Currentcategory::RECENTLYADDED:
+                default:
+                    $this->_getRecentlyAddedCollection($_collection);
+                    break;
+            }
+        }
+        //else {
+        //    $this->setIsEmpty(true);
+        //}
+        
+        if (null === $collection) {
+            $this->_postprocessCollection($_collection);
+        }
+        
+        return $_collection;
+    }
+    
+    private function _getShowOutOfStock() {
+        $_show = true;
+        
+        if (($_ciHelper = Mage::helper('cataloginventory')) && method_exists($_ciHelper, 'isShowOutOfStock')) {
+            $_show = $_ciHelper->isShowOutOfStock();
+        }
+        
+        return $_show;
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+//    private function prepareInsertTableBilnaFeaturedProduct($data) {
+//        $this->_productCollection = Mage::getModel('awfeatured/product_collection');
+//        
+//        $_visibility = array (Mage_Catalog_Model_Product_Visibility::VISIBILITY_BOTH, Mage_Catalog_Model_Product_Visibility::VISIBILITY_IN_CATALOG);
+//        $this->_productCollection
+//            ->addAttributeToFilter('visibility', $_visibility)
+//            ->addAttributeToFilter('status', array ('in' => Mage::getSingleton("catalog/product_status")->getVisibleStatusIds()));
+//        
+//        if (!$this->_getShowOutOfStock()) {
+//            Mage::getSingleton('cataloginventory/stock')->addInStockFilterToCollection($this->_productCollection);
+//        }
+//        
+//        $this->_productCollection->addUrlRewrites()
+//            ->addStoreFilter(Mage::app()->getStore()->getId())
+//            ->groupByAttribute('entity_id');
+//        
+//        switch ($data['automation_type']) {
+//            case AW_Featured_Model_Source_Automation::NONE:
+//                $this->_productCollection = $this->_getCollectionForIds();
+//                $automationData = $this->getAFPBlock()->getAutomationData();
+//                $productSortingType = $automationData['product_sorting_type'];
+//                    if ($productSortingType == AW_Featured_Model_Source_Automation_Productsort::RANDOM) {
+//                        $this->_productCollection = $this->_getRandomProductsCollection($this->_productCollection);
+//                    } elseif ($productSortingType == AW_Featured_Model_Source_Automation_Productsort::OLDFIRST) {
+//                        $this->_productCollection->getSelect()->order('entity_id asc');
+//                    } else {
+//                        $this->_productCollection->getSelect()->order('entity_id desc');
+//                    }
+//                    break;
+//                case AW_Featured_Model_Source_Automation::RANDOM:
+//                    $this->_productCollection = $this->_getRandomProductsCollection();
+//                    break;
+//                case AW_Featured_Model_Source_Automation::TOPSELLERS:
+//                    $this->_productCollection = $this->_getTopSellersCollection();
+//                    break;
+//                case AW_Featured_Model_Source_Automation::TOPRATED:
+//                    $this->_productCollection = $this->_getTopRatedCollection();
+//                    break;
+//                case AW_Featured_Model_Source_Automation::MOSTREVIEWED:
+//                    $this->_productCollection = $this->_getMostReviewedCollection();
+//                    break;
+//                case AW_Featured_Model_Source_Automation::RECENTLYADDED:
+//                    $this->_productCollection = $this->_getRecentlyAddedCollection();
+//                    break;
+//                case AW_Featured_Model_Source_Automation::CURRENTCATEGORY:
+//                    $this->_productCollection = $this->_getCurrentCategoryCollection();
+//                    break;
+//                default:
+//                    $this->_productCollection = $this->_prepareCollection(Mage::getModel('awfeatured/product_collection'));
+//                    $this->setIsEmpty(true);
+//                    break;
+//        }
+//        
+//        
+//        
+//        $this->_productCollection->printLogQuery(true);
+//        echo "\n";
+//        exit;
+//    }
+    
+}
