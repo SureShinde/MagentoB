@@ -51,15 +51,17 @@ class Bilna_Paymethod_VtdirectController extends Mage_Core_Controller_Front_Acti
             /**
              * check installment
              */
-            $installmentId = $this->getInstallment($items);
-            
-            if ($installmentId) {
-                $data['type'] = 'installment';
-                $data['installment'] = array (
-                    'bank' => $this->getInstallmentBank($paymentCode),
-                    'term' => $this->getInstallmentTenor($paymentCode, $installmentId),
-                    'type' => $this->getInstallmentTypeCodeBank($paymentCode)
-                );
+            if ($this->getInstallmentProcess($paymentCode) != 'manual') {
+                $installmentId = $this->getInstallment($items);
+
+                if ($installmentId) {
+                    $data['type'] = 'installment';
+                    $data['installment'] = array (
+                        'bank' => $this->getInstallmentBank($paymentCode),
+                        'term' => $this->getInstallmentTenor($paymentCode, $installmentId),
+                        'type' => $this->getInstallmentTypeCodeBank($paymentCode)
+                    );
+                }
             }
             
             $threedsecure = $this->getThreedSecure($paymentCode);
@@ -233,11 +235,19 @@ class Bilna_Paymethod_VtdirectController extends Mage_Core_Controller_Front_Acti
     }
     
     private function parseShippingAddress($shippingAddress) {
+        $lastname = $shippingAddress->getLastname();
+        
+        if (empty ($lastname)) {
+            $lastname = $shippingAddress->getFirstname();
+        }
+        
         $result = array (
-            'first_name' => $this->maxChar($this->removeSymbols($shippingAddress->getFirstname()), 20),
-            'last_name' => $this->maxChar($this->removeSymbols($shippingAddress->getLastname()), 20),
-            'address1' => $this->maxChar($shippingAddress->getStreet(1), 100),
-            'address2' => $this->maxChar($shippingAddress->getStreet(2), 100),
+            'first_name' => $this->maxChar($this->removeSymbols($shippingAddress->getFirstname(), true), 20),
+            'last_name' => $this->maxChar($this->removeSymbols($lastname, true), 20),
+            'address1' => trim($this->maxChar($this->removeSymbols("BILNA"), 100)),
+            'address2' => trim($this->maxChar($this->removeSymbols("BILNA"), 100)),
+            //'address1' => $this->maxChar($this->removeSymbols($shippingAddress->getStreet(1)), 100),
+            //'address2' => $this->maxChar($this->removeSymbols($shippingAddress->getStreet(2)), 100),
             'city' => $this->maxChar($this->removeSymbols($shippingAddress->getCity()), 20),
             'postal_code' => $this->maxChar($this->getPostCode($shippingAddress->getPostcode()), 10),
             'phone' => $this->maxChar($shippingAddress->getTelephone(), 19)
@@ -247,11 +257,19 @@ class Bilna_Paymethod_VtdirectController extends Mage_Core_Controller_Front_Acti
     }
     
     private function parseBillingAddress($billingAddress) {
+        $lastname = $billingAddress->getLastname();
+        
+        if (empty ($lastname)) {
+            $lastname = $billingAddress->getFirstname();
+        }
+        
         $result = array (
-            'first_name' => $this->maxChar($this->removeSymbols($billingAddress->getFirstname()), 20),
-            'last_name' => $this->maxChar($this->removeSymbols($billingAddress->getLastname()), 20),
-            'address1' => $this->maxChar($billingAddress->getStreet(1), 100),
-            'address2' => $this->maxChar($billingAddress->getStreet(2), 100),
+            'first_name' => $this->maxChar($this->removeSymbols($billingAddress->getFirstname(), true), 20),
+            'last_name' => $this->maxChar($this->removeSymbols($lastname, true), 20),
+            'address1' => trim($this->maxChar($this->removeSymbols("BILNA"), 100)),
+            'address2' => trim($this->maxChar($this->removeSymbols("BILNA"), 100)),
+            //'address1' => $this->maxChar($this->removeSymbols($billingAddress->getStreet(1)), 100),
+            //'address2' => $this->maxChar($this->removeSymbols($billingAddress->getStreet(2)), 100),
             'city' => $this->maxChar($this->removeSymbols($billingAddress->getCity()), 20),
             'postal_code' => $this->maxChar($this->getPostCode($billingAddress->getPostcode()), 10),
             'phone' => $this->maxChar($billingAddress->getTelephone(), 19)
@@ -274,6 +292,10 @@ class Bilna_Paymethod_VtdirectController extends Mage_Core_Controller_Front_Acti
     
     private function getAcquiredBank($paymentCode) {
         return Mage::getStoreConfig('payment/' . $paymentCode . '/bank_acquired');
+    }
+    
+    private function getInstallmentProcess($paymentCode) {
+        return Mage::getStoreConfig('payment/' . $paymentCode . '/installment_process');
     }
     
     private function getInstallment($items) {
@@ -439,8 +461,19 @@ class Bilna_Paymethod_VtdirectController extends Mage_Core_Controller_Front_Acti
         return substr($text, 0, $maxLength);
     }
     
-    private function removeSymbols($text) {
-        return Mage::helper('paymethod/vtdirect')->removeSymbols($text);
+    private function removeSymbols($text, $removeNumber = false) {
+        $result = Mage::helper('paymethod/vtdirect')->removeSymbols($text);
+        $number = array (1,2,3,4,5,6,7,8,9,0);
+        
+        if ($removeNumber) {
+            $result = str_replace($number, ' ', $result);
+        }
+        
+        //TODO: REMOVE THIS LINE
+        //DIRTY CODE
+        $result = preg_replace('/[^\d\sa-z]/i', ' ' , $result);
+        
+        return $result;
     }
     
     protected function writeLog($type, $logFile, $content) {

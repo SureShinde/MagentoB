@@ -76,10 +76,10 @@
 	                    <?php endif; ?>
 	                <?php endif; ?>
 	            </p>
-	            <?php if ($_cartQty==1): ?>
-	                <p class="amount"><?php echo $this->__('You have <a id="cart-item-qty" href="%s">1</a> item in your cart.', $this->getUrl('checkout/cart')) ?></p>
+	            <?php if ($_cartQty<4): ?>
+	                <p class="amount"><?php echo $this->__('Showing <a id="cart-item-qty" href="%s">%s</a> item in your cart.', $this->getUrl('checkout/cart'), $_cartQty) ?></p>
 	            <?php else: ?>
-	                <p class="amount"><?php echo $this->__('You have <a id="cart-item-qty" href="%s">%s</a> items in your cart.', $this->getUrl('checkout/cart'), $_cartQty) ?></p>
+	                <p class="amount"><?php echo $this->__('Showing last 3 out of <a id="cart-item-qty" href="%s">%s</a> items in your cart.', $this->getUrl('checkout/cart'), $_cartQty) ?></p>
 	            <?php endif ?>
 	        </div>
 	    <?php endif ?>

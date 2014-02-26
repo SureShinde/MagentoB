@@ -158,7 +158,7 @@ class AW_Affiliate_Model_Transaction_Profit extends Mage_Core_Model_Abstract
                     $amount = $linkedEntity->getData('subtotal');
                 }
                 if ($_discountAmount = $linkedEntity->getData('discount_amount')) {
-                    $amount = max(0, $amount - $_discountAmount);
+                    $amount = max(0, $amount - abs($_discountAmount));
                 }
                 break;
             case AW_Affiliate_Model_Source_Transaction_Profit_Linked::ORDER_ITEM :

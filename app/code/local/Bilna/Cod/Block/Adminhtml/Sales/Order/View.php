@@ -12,6 +12,7 @@ class Bilna_Cod_Block_Adminhtml_Sales_Order_View extends Mage_Adminhtml_Block_Wi
     private $invoceBtnNotAllow = array ('cod');
     private $reorderBtnNotAllow = array ('cod');
     private $statusButtonNotAllow = array (
+        'pending' => array ('ship'),
         'pending_cod' => array ('invoice', 'ship', 'reorder'),
         'processing_cod' => array ('invoice', 'reorder'),
         'shipping_cod' => array ('ship', 'reorder')

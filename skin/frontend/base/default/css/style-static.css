@@ -27,15 +27,16 @@
 .fb-14 {font-size: 14px !important;}
 .fb-15 {font-size: 15px !important;}
 .fb-18 {font-size: 18px !important;}
+.fb-bebas {font-family: 'bebasregular' !important;}
 
 .clear-static {clear: both;}
 
-.fc-base-blue {color:#4ec7da;}
-.fc-base-blue2 {color: #2F93BF;}
-.fc-base-orange {color:#ffa01b;}
-.fc-base-yellow {color:#ffe449;}
-.fc-base-peach {color:#fc8360;}
-.fc-base-green {color:#8dd240;}
+.fc-base-blue {color:#4ec7da !important;}
+.fc-base-blue2 {color: #2F93BF !important;}
+.fc-base-orange {color:#ffa01b !important;}
+.fc-base-yellow {color:#ffe449 !important;}
+.fc-base-peach {color:#fc8360 !important;}
+.fc-base-green {color:#8dd240 !important;}
 
 .fc-base-red {color:#e72b2f;}
 .fc-base-orange-sp {color:#fc6a33;}
@@ -105,12 +106,12 @@
 }
 
 .static-page-content table {
-    border: 1px solid #F58D66;
+    border: 1px solid #6ec9e8;
 }
 
 
 .static-page-content table tr th {
-    background: none repeat scroll 0 0 #F58D66;
+    background: none repeat scroll 0 0 #6ec9e8;
     border-right: 1px solid #FFFFFF;
     color: #FFFFFF;
     font-size: 14px;
@@ -118,8 +119,8 @@
 }
 
 .static-page-content table tr td {
-    border-bottom: 1px solid #F58D66;
-    border-right: 1px solid #F58D66;
+    border-bottom: 1px solid #6ec9e8;
+    border-right: 1px solid #6ec9e8;
     color: #666666;
     font-size: 14px;
     padding: 5px;
@@ -146,8 +147,9 @@ ul.decimal-ul li {
 	width: 94%;
   }
 
-.static-page-area ol li {font-size:16px; margin:0 0 10px;line-height:1.35;}
+.static-page-area ol li {font-size:14px; margin:0 0 10px;line-height:1.35; list-style: decimal outside none;}
 .wrapper-voucher a {text-decoration:none;}
+.line-height-1 {line-height:1 !important;}
 
 
 
@@ -1045,7 +1047,7 @@ animation-timing-function: linear;
 	color:#989898;
 }
 .static-page-content table tr td {
-    border-bottom: 1px solid #caefdc;
+    border-bottom: 1px solid #6ec9e8;
     color: #666666;
     font-size: 14px;
     padding: 5px;
@@ -1714,3 +1716,19 @@ h2.block-grey-title-left {
 			}
 /* ---------------- End Daily Deals -------------------- */
 
+/* ---------------- COD -------------------- */
+	.cod_page{
+	color:#878787;
+	font-family:helvetica;
+	}
+	.cod_page .title_cod{
+	color: #4EC7DA;
+    font-family: bebasregular;
+    font-size: 20px;
+    margin: 1.8em 0 0.7em;
+    text-transform: uppercase;
+	}
+	.cod_page .text-sp2 > li {
+    margin: 0 0 10px;
+}
+/* ---------------- end COD -------------------- */
