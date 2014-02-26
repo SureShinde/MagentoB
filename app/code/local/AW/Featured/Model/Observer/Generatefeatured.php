@@ -45,6 +45,7 @@ class AW_Featured_Model_Observer_Generatefeatured {
             
             if ($productCollection) {
                 if (!$this->insertProductsCollection($productCollection)) {
+                    echo "error";
                     break;
                 }
             }
@@ -57,11 +58,16 @@ class AW_Featured_Model_Observer_Generatefeatured {
     private function createTableBilnaFeaturedProduct() {
         $write = Mage::getSingleton('core/resource')->getConnection('core_write');
         $sql = "CREATE TABLE IF NOT EXISTS bilna_featured_product_" . $this->_data['id'] . " (
-            entity_id int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Entity Id',
+            id int(11) unsigned NOT NULL AUTO_INCREMENT,
+            entity_id int(10) unsigned NOT NULL COMMENT 'Entity Id',
             type_id varchar(32) NOT NULL DEFAULT 'simple' COMMENT 'Type Id',
             attribute_set_id smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Attribute Set Id',
             visibility smallint(5) unsigned DEFAULT NULL COMMENT 'Visibility',
             inventory_in_stock smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'cataloginventory_stock_item.is_in_stock',
+            qty decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'cataloginventory_stock_item.qty',
+            min_qty decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'cataloginventory_stock_item.min_qty',
+            manage_stock smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'cataloginventory_stock_item.manage_stock',
+            backorders smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'cataloginventory_stock_item.backorders',
             request_path varchar(255) DEFAULT NULL COMMENT 'Request Path',
             position int(11) DEFAULT NULL COMMENT 'Position',
             store_id smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Store ID',
@@ -78,6 +84,7 @@ class AW_Featured_Model_Observer_Generatefeatured {
             short_description text COMMENT 'Short Description',
             small_image varchar(255) DEFAULT NULL COMMENT 'Small Image',
             thumbnail varchar(255) DEFAULT NULL COMMENT 'Thumbnail',
+            image varchar(255) DEFAULT NULL COMMENT 'Image',
             msrp decimal(12,4) DEFAULT NULL COMMENT 'Msrp',
             msrp_enabled smallint(6) DEFAULT NULL COMMENT 'Msrp Enabled',
             msrp_display_actual_price_type varchar(255) DEFAULT NULL COMMENT 'Msrp Display Actual Price Type',
@@ -88,8 +95,9 @@ class AW_Featured_Model_Observer_Generatefeatured {
             aw_os_category_text varchar(255) DEFAULT NULL COMMENT 'Aw Os Category Text',
             news_from_date datetime DEFAULT NULL COMMENT 'News From Date',
             news_to_date datetime DEFAULT NULL COMMENT 'News To Date',
-            PRIMARY KEY (entity_id),
-            KEY IDX_BILNA_FEATURED_PRODUCT_" . $this->_data['id'] . "_TYPE_ID (type_id),
+            is_new tinyint(1) DEFAULT 0 NOT NULL COMMENT 'Is new product',
+            PRIMARY KEY (id),
+            KEY IDX_BILNA_FEATURED_PRODUCT_" . $this->_data['id'] . "_ENTITY_ID (entity_id),
             KEY IDX_BILNA_FEATURED_PRODUCT_" . $this->_data['id'] . "_ATTRIBUTE_SET_ID (attribute_set_id),
             KEY IDX_BILNA_FEATURED_PRODUCT_" . $this->_data['id'] . "_NAME (name),
             KEY IDX_BILNA_FEATURED_PRODUCT_" . $this->_data['id'] . "_PRICE (price)
@@ -111,7 +119,7 @@ class AW_Featured_Model_Observer_Generatefeatured {
         $write = Mage::getSingleton('core/resource')->getConnection('core_write');
         
         $sql  = sprintf("INSERT INTO bilna_featured_product_%d ", $this->_data['id']);
-        $sql .= "(type_id, attribute_set_id, visibility, inventory_in_stock, request_path, position, price, tax_class_id, final_price, minimal_price, min_price, max_price, tier_price, rating_summary, reviews_count, name, short_description, small_image, thumbnail, msrp, msrp_enabled, msrp_display_actual_price_type, aw_os_category_display, aw_os_category_position, aw_os_category_image, aw_os_category_image_path, aw_os_category_text, news_from_date, news_to_date) ";
+        $sql .= "(entity_id, type_id, attribute_set_id, visibility, inventory_in_stock, qty, min_qty, manage_stock, backorders, request_path, position, price, tax_class_id, final_price, minimal_price, min_price, max_price, tier_price, rating_summary, reviews_count, name, short_description, small_image, thumbnail, image, msrp, msrp_enabled, msrp_display_actual_price_type, aw_os_category_display, aw_os_category_position, aw_os_category_image, aw_os_category_image_path, aw_os_category_text, news_from_date, news_to_date, is_new) ";
         $sql .= "VALUES ";
         $separator = false;
 
@@ -124,11 +132,16 @@ class AW_Featured_Model_Observer_Generatefeatured {
             }
 
             $sql .= sprintf(
-                "('%s', %d, %d, %d, '%s', %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, '%s', '%s', '%s', '%s', %d, %d, '%s', %d, '%s', '%s', '%s', '%s', '%s', '%s') ",
+                "(%d, '%s', %d, %d, %d, %d, %d, %d, %d, '%s', %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, '%s', '%s', '%s', '%s', '%s', %d, %d, '%s', %d, '%s', '%s', '%s', '%s', '%s', '%s', %d) ",
+                $product->getEntityId(),
                 $product->getTypeId(),
                 $product->getAttributeSetId(),
                 $product->getVisibility(),
                 $product->getInventoryInStock(),
+                $product->getQty(),
+                $product->getMinQty(),
+                $product->getManageStock(),
+                $product->getBackorders(),
                 $product->getRequestPath(),
                 $product->getPosition(),
                 $product->getPrice(),
@@ -144,6 +157,7 @@ class AW_Featured_Model_Observer_Generatefeatured {
                 $product->getShortDescription(),
                 $product->getSmallImage(),
                 $product->getThumbnail(),
+                Mage::helper('awfeatured/images')->getProductImage($product, $product->getData('image_id'))->resize(152,152),
                 $product->getMsrp(),
                 $product->getMsrpEnabled(),
                 $product->getMsrpDisplayActualPriceType(),
@@ -153,7 +167,8 @@ class AW_Featured_Model_Observer_Generatefeatured {
                 $product->getAwOsCategoryImagePath(),
                 $product->getAwOsCategoryText(),
                 $product->getNewsFromDate(),
-                $product->getNewsToDate()
+                $product->getNewsToDate(),
+                $this->_checkProductIsNew($product->getNewsFromDate(), $product->getNewsToDate())
             );
             $separate = true;
         }
@@ -174,7 +189,7 @@ class AW_Featured_Model_Observer_Generatefeatured {
         $_productCollection = null;
         
         if (is_null($_productCollection)) {
-            switch ($data['automation_type']) {
+            switch ($this->_data['automation_type']) {
                 case AW_Featured_Model_Source_Automation::NONE:
                     $_productCollection = $this->_getCollectionForIds();
                     $automationData = $this->_data['automation_data'];
@@ -260,15 +275,15 @@ class AW_Featured_Model_Observer_Generatefeatured {
     }
     
     private function _prepareCollection($_collection) {
-        $_visibility = array(
+        $_visibility = array (
             Mage_Catalog_Model_Product_Visibility::VISIBILITY_BOTH,
             Mage_Catalog_Model_Product_Visibility::VISIBILITY_IN_CATALOG
         );
         $_collection->addAttributeToFilter('visibility', $_visibility)
-            ->addAttributeToFilter('status', array ("in" => Mage::getSingleton("catalog/product_status")->getVisibleStatusIds()));
+            ->addAttributeToFilter('status', array ('in' => Mage::getSingleton('catalog/product_status')->getVisibleStatusIds()));
         
         if (!$this->_getShowOutOfStock()) {
-            Mage::getSingleton('cataloginventory/stock')->addInStockFilterToCollection($_collection);
+            Mage::getSingleton('awfeatured/stock')->addInStockFilterToCollection($_collection);
         }
         
         $_collection->addUrlRewrites()
@@ -448,6 +463,18 @@ class AW_Featured_Model_Observer_Generatefeatured {
         return $_collection;
     }
     
+    protected function _addCategoriesFilter($collection) {
+        $_automationData = $this->_data['automation_data'];
+        $_categories = isset($_automationData['categories']) ? @explode(',', $_automationData['categories']) : array();
+        $_categories = array_filter($_categories, array(Mage::helper('awfeatured'), 'removeEmptyItems'));
+        
+        if ($_categories) {
+            $collection->addCategoriesFilter($_categories);
+        }
+        
+        return $collection;
+    }
+    
     private function _getShowOutOfStock() {
         $_show = true;
         
@@ -458,76 +485,19 @@ class AW_Featured_Model_Observer_Generatefeatured {
         return $_show;
     }
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-//    private function prepareInsertTableBilnaFeaturedProduct($data) {
-//        $this->_productCollection = Mage::getModel('awfeatured/product_collection');
-//        
-//        $_visibility = array (Mage_Catalog_Model_Product_Visibility::VISIBILITY_BOTH, Mage_Catalog_Model_Product_Visibility::VISIBILITY_IN_CATALOG);
-//        $this->_productCollection
-//            ->addAttributeToFilter('visibility', $_visibility)
-//            ->addAttributeToFilter('status', array ('in' => Mage::getSingleton("catalog/product_status")->getVisibleStatusIds()));
-//        
-//        if (!$this->_getShowOutOfStock()) {
-//            Mage::getSingleton('cataloginventory/stock')->addInStockFilterToCollection($this->_productCollection);
-//        }
-//        
-//        $this->_productCollection->addUrlRewrites()
-//            ->addStoreFilter(Mage::app()->getStore()->getId())
-//            ->groupByAttribute('entity_id');
-//        
-//        switch ($data['automation_type']) {
-//            case AW_Featured_Model_Source_Automation::NONE:
-//                $this->_productCollection = $this->_getCollectionForIds();
-//                $automationData = $this->getAFPBlock()->getAutomationData();
-//                $productSortingType = $automationData['product_sorting_type'];
-//                    if ($productSortingType == AW_Featured_Model_Source_Automation_Productsort::RANDOM) {
-//                        $this->_productCollection = $this->_getRandomProductsCollection($this->_productCollection);
-//                    } elseif ($productSortingType == AW_Featured_Model_Source_Automation_Productsort::OLDFIRST) {
-//                        $this->_productCollection->getSelect()->order('entity_id asc');
-//                    } else {
-//                        $this->_productCollection->getSelect()->order('entity_id desc');
-//                    }
-//                    break;
-//                case AW_Featured_Model_Source_Automation::RANDOM:
-//                    $this->_productCollection = $this->_getRandomProductsCollection();
-//                    break;
-//                case AW_Featured_Model_Source_Automation::TOPSELLERS:
-//                    $this->_productCollection = $this->_getTopSellersCollection();
-//                    break;
-//                case AW_Featured_Model_Source_Automation::TOPRATED:
-//                    $this->_productCollection = $this->_getTopRatedCollection();
-//                    break;
-//                case AW_Featured_Model_Source_Automation::MOSTREVIEWED:
-//                    $this->_productCollection = $this->_getMostReviewedCollection();
-//                    break;
-//                case AW_Featured_Model_Source_Automation::RECENTLYADDED:
-//                    $this->_productCollection = $this->_getRecentlyAddedCollection();
-//                    break;
-//                case AW_Featured_Model_Source_Automation::CURRENTCATEGORY:
-//                    $this->_productCollection = $this->_getCurrentCategoryCollection();
-//                    break;
-//                default:
-//                    $this->_productCollection = $this->_prepareCollection(Mage::getModel('awfeatured/product_collection'));
-//                    $this->setIsEmpty(true);
-//                    break;
-//        }
-//        
-//        
-//        
-//        $this->_productCollection->printLogQuery(true);
-//        echo "\n";
-//        exit;
-//    }
-    
+    private function _checkProductIsNew($newFromDate, $newToDate) {
+        $result = 0;
+        
+        if (!empty ($newFromDate) && !empty ($newToDate)) {
+            $now = strtotime(date('Y-m-d'));
+            $newFrom = strtotime(substr($newFromDate, 0, 10));
+            $newTo = strtotime(substr($newToDate, 0, 10));
+
+            if ($newFrom >= $now && $newTo <= $now) {
+                $result = 1;
+            }
+        }
+        
+        return $result;
+    }
 }
