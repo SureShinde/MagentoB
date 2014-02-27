@@ -75,14 +75,14 @@ abstract class Zend_Pdf_FileParserDataSource
      *
      * @throws Zend_Pdf_Exception
      */
-    abstract public function __construct();
+//     abstract public function __construct();
 
     /**
      * Object destructor. Closes the data source.
      *
      * May also perform cleanup tasks such as deleting temporary files.
      */
-    abstract public function __destruct();
+//     abstract public function __destruct();
 
     /**
      * Returns the specified number of raw bytes from the data source at the
