@@ -4,7 +4,7 @@ class Bilna_AjaxRequest_BarcodeController extends Mage_Core_Controller_Front_Act
     	//Create a PDF
 		$pdf				= new Zend_Pdf();
     	//Setting
-		$csvFile			= "media/barcode.csv";
+		$csvFile			= "barcode.csv";
 		$minQty				= 0;
 // 		$backorderMinQty	= 0;
 
@@ -47,26 +47,33 @@ class Bilna_AjaxRequest_BarcodeController extends Mage_Core_Controller_Front_Act
 	                		$page->drawText($name[1], ((($row%3)*101)+8), ($page->getHeight()-15));
 	                		
 	                		// Only the text to draw is required
-	                		$barcodeOptions = array('text' => $barcode);
+	                		$barcodeOptions = array('text' => $barcode, 
+	                								'withQuietZones' => true,
+	                								'withChecksum' => true, 
+	                								'withChecksumInText' => true,
+	                								'stretchText' => false);
 	                		
 	                		// No required options
-	                		$rendererOptions = array();
+	                		$rendererOptions = array('withChecksum' => true, 
+	                								'withQuietZones' => true,
+	                								'withChecksumInText' => true,
+	                								'stretchText' => false);
 	                		
 	                		// Draw the barcode in a new image,
 	                		$imageResource = Zend_Barcode::draw(
 	                			'Code128', 'image', $barcodeOptions, $rendererOptions
 	                		);
-	                		imagejpeg($imageResource, 'media/barcode.jpg', 100);
+	                		imagejpeg($imageResource, 'barcode.jpg', 100);
 	                		
 	                		// Free up memory
 	                		imagedestroy($imageResource);
 	                		
 	                		//Draw image in pdf
-	                		$image = Zend_Pdf_Image::imageWithPath('media/barcode.jpg');
-	                		$page->drawImage($image, ((($row%3)*101)+5), 17, ((($row%3)*101)+95), 32);
+	                		$image = Zend_Pdf_Image::imageWithPath('barcode.jpg');
+	                		$page->drawImage($image, ((($row%3)*101)+5), 15, ((($row%3)*101)+90), 35);
 
 	                		//delete temp image
-	                		unlink('media/barcode.jpg');
+	                		unlink('barcode.jpg');
 	
 	                		if(($row % 3) == 0){
 								$pdf->pages[] = $page;
