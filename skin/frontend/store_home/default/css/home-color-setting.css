@@ -50,6 +50,10 @@
 a.back-to-top {
 	background:#8F554D;
 }
+
+.menu-top ul li:nth-child(2):hover, .menu-top ul li.active {
+	background: #daaea4;
+}
 /*======================Category page===================*/
 
 .toolbar .limiter ul li a{
