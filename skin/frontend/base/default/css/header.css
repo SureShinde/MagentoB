@@ -880,7 +880,7 @@
 }
 .header .search-mobile .form-search .input-keyword input.input-text {
 	width: 50%;
-	margin-top: 14px;
+	margin-top: 7px;
 }
 .header .search-mobile .form-search .input-keyword .select-category {
 	background: url(../images/arrow-blue.png) no-repeat right center;
@@ -892,6 +892,7 @@
 	font-size: 1.2em;
 	height: 25px;
 	width: auto;
+	padding:0;
 }
 .header .search-mobile .form-search .input-keyword button.button {
 	background: url(../images/btn-search-mobile.png) no-repeat center center;
@@ -1385,6 +1386,7 @@
 		width: 170px;
 	}
 	.header .form-search .input-keyword input.input-text {
+		min-width:57px;
 		width: 57px;
 	}
 	.header .form-search input.input-text {

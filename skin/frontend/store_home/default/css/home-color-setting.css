@@ -102,6 +102,24 @@ div.block-layered-nav dd a.amshopby-attr-selected{
 .product-view .product-shop .product-shop-left .discount-product{
 	color: #8F554D;
 }
+.header .search-mobile .form-search .input-keyword button.button {
+    background: url("../images/btn-search-mobile.png") no-repeat scroll center center rgba(0, 0, 0, 0);
+	}
+.toolbar-mobile .sort-by .sort-by-option select, .toolbar-mobile .filter .filter-option select{
+	color:#905350;
+}
+.filter-toggle a{
+	color:#905350;
+}
+.toolbar-mobile .sort-by .sort-by-option, .toolbar-mobile .filter .filter-option{
+	background:url("../images/arrow-maroon.png") no-repeat right;
+}
+.filter-toggle a{
+	background:url("../images/arrow-maroon.png") no-repeat 47px center #fff;
+}
+.product-tab-mobile-wrapper .toggle-tab, #customer-reviews h2{
+	background:url("../images/btn_expand.png") no-repeat scroll 98% 15px;
+}
 /*======================Category page===================*/
 
 
