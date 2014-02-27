@@ -310,9 +310,6 @@
 }
 .menu-top ul li:hover, .menu-top ul li.active {
 	background: #95e1f1;
-}
-.menu-top ul li:nth-child(2):hover, .menu-top ul li.active {
-	background: #daaea4;
 }  
 .menu-top ul li:last-child:hover {
 	background: #ffb39c;
