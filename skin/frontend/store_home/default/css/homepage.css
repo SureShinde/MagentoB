@@ -260,11 +260,23 @@
 	.cms-index-defaultindex .main{
 		width:954px !important;
 	}
+	.cms-index-index .main{
+		width:954px !important;
+	}
 	.cms-index-defaultindex .wrap_banner{
 		margin: 20px 0;
 		display: table;
 	}
-	.cms-index-defaultindex .wrap_banner .col-1, .wrap_banner .col-2, .wrap_banner .col-3{
+	.cms-index-index .wrap_banner{
+		margin: 20px 0;
+		display: table;
+	}
+	.cms-index-defaultindex .wrap_banner .col-1, .cms-index-defaultindex .wrap_banner .col-2, .cms-index-defaultindex .wrap_banner .col-3{
+		display:block;
+		height:356px;
+		float:left;
+	}
+	.cms-index-index .wrap_banner .col-1, .cms-index-index .wrap_banner .col-2, .cms-index-index .wrap_banner .col-3{
 		display:block;
 		height:356px;
 		float:left;
@@ -272,14 +284,27 @@
 	.cms-index-defaultindex .wrap_banner .col-1{
 		width:490px;
 	}
+	.cms-index-index .wrap_banner .col-1{
+		width:490px;
+	}
 	.cms-index-defaultindex .wrap_banner .col-2{
+		margin: 0 8px;
+		width:200px;
+	}
+	.cms-index-index .wrap_banner .col-2{
 		margin: 0 8px;
 		width:200px;
 	}
 	.cms-index-defaultindex .wrap_banner .col-2 img:first-child{
 		margin: 0 0 8px;
 	}
+	.cms-index-index .wrap_banner .col-2 img:first-child{
+		margin: 0 0 8px;
+	}
 	.cms-index-defaultindex .wrap_banner .col-3{
+		width:245px;
+	}
+	.cms-index-index .wrap_banner .col-3{
 		width:245px;
 	}
 	.homepage-bottom ul.block-wrapper li {
