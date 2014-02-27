@@ -8,7 +8,24 @@
 	margin: 0 0 10px;
 	text-align: left;
 	}
+.cms-index-index .products-on-sale h2, .cms-index-index .new-arrival h2, .cms-index-index .most-popular h2{
+	background: url("../images/shd_featured_title.png") repeat-x scroll center bottom rgba(0, 0, 0, 0);
+	color: #707070;
+	padding: 0;
+	position: relative;
+	font-size: 24px;
+	font-family:'bebasregular';
+	margin: 0 0 10px;
+	text-align: left;
+	}
 .cms-index-defaultindex .products-on-sale h2:before, .cms-index-defaultindex .new-arrival h2:before, .cms-index-defaultindex .most-popular h2:before{
+	bottom: 0;
+	content: "";
+	height: 5px;
+	left: 0;
+	position: absolute;
+}
+.cms-index-index .products-on-sale h2:before, .cms-index-index .new-arrival h2:before, .cms-index-index .most-popular h2:before{
 	bottom: 0;
 	content: "";
 	height: 5px;
@@ -19,11 +36,23 @@
 	width: 170px;
 	background: none repeat scroll 0 0 #F76A59;
 }
+.cms-index-index .products-on-sale h2:before{
+	width: 170px;
+	background: none repeat scroll 0 0 #F76A59;
+}
 .cms-index-defaultindex .new-arrival h2:before{
 	width: 130px;
 	background: none repeat scroll 0 0 #7dcd32;
 }
+.cms-index-index .new-arrival h2:before{
+	width: 130px;
+	background: none repeat scroll 0 0 #7dcd32;
+}
 .cms-index-defaultindex .most-popular h2:before{
+	width: 150px;
+	background: none repeat scroll 0 0 #42bcd1;
+}
+.cms-index-index .most-popular h2:before{
 	width: 150px;
 	background: none repeat scroll 0 0 #42bcd1;
 }
