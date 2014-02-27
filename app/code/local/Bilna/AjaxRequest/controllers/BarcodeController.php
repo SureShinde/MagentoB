@@ -4,7 +4,7 @@ class Bilna_AjaxRequest_BarcodeController extends Mage_Core_Controller_Front_Act
     	//Create a PDF
 		$pdf				= new Zend_Pdf();
     	//Setting
-		$csvFile			= "barcode.csv";
+		$csvFile			= "media/barcode.csv";
 		$minQty				= 0;
 // 		$backorderMinQty	= 0;
 
@@ -56,17 +56,17 @@ class Bilna_AjaxRequest_BarcodeController extends Mage_Core_Controller_Front_Act
 	                		$imageResource = Zend_Barcode::draw(
 	                			'Code128', 'image', $barcodeOptions, $rendererOptions
 	                		);
-	                		imagejpeg($imageResource, 'barcode.jpg', 100);
+	                		imagejpeg($imageResource, 'media/barcode.jpg', 100);
 	                		
 	                		// Free up memory
 	                		imagedestroy($imageResource);
 	                		
 	                		//Draw image in pdf
-	                		$image = Zend_Pdf_Image::imageWithPath('barcode.jpg');
+	                		$image = Zend_Pdf_Image::imageWithPath('media/barcode.jpg');
 	                		$page->drawImage($image, ((($row%3)*101)+5), 17, ((($row%3)*101)+95), 32);
 
 	                		//delete temp image
-	                		unlink('barcode.jpg');
+	                		unlink('media/barcode.jpg');
 	
 	                		if(($row % 3) == 0){
 								$pdf->pages[] = $page;
