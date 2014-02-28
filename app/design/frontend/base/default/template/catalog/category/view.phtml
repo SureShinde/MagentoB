@@ -56,7 +56,7 @@ $xlCmsBlock = Mage::getModel('cms/block')->load("slider-category-baby-".strtolow
 $largeCmsBlock = Mage::getModel('cms/block')->load("slider-category-baby-".strtolower($_category->getName())."-1")->getContent();
 if($xlCmsBlock) {
 	echo 	'<div class="wrap_banner_category">'.
-			'<div class="banner_xlarge">'.$this->getLayout()->createBlock('cms/block')->setBlockId("slider-category-baby-".strtolower($_category->getName())."-1")->toHtml().'</div>'.
+			'<div id="slides-banner" class="banner_xlarge">'.$this->getLayout()->createBlock('cms/block')->setBlockId("slider-category-baby-".strtolower($_category->getName())."-4")->toHtml().'</div>'.
 			'</div>';
 }else if($largeCmsBlock){
 	echo 	'<div class="wrap_banner_category">'.
