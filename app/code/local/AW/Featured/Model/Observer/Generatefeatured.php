@@ -121,44 +121,44 @@ class AW_Featured_Model_Observer_Generatefeatured {
         
         $sql  = sprintf("INSERT INTO bilna_featured_product_%d ", $this->_data['id']);
         $sql .= "("
-                . "entity_id,"
-                . "type_id,"
-                . "attribute_set_id,"
-                . "visibility,"
-                . "inventory_in_stock,"
-                . "qty,"
-                . "min_qty,"
-                . "manage_stock,"
-                . "backorders,"
-                . "request_path,"
-                . "position,"
-                . "store_id,"
-                . "currency,"
-                . "price,"
-                . "tax_class_id,"
-                . "final_price,"
-                . "minimal_price,"
-                . "min_price,"
-                . "max_price,"
-                . "tier_price,"
-                . "rating_summary,"
-                . "reviews_count,"
-                . "name,"
-                . "short_description,"
-                . "small_image,"
-                . "thumbnail,"
-                . "image,"
-                . "msrp,"
-                . "msrp_enabled,"
-                . "msrp_display_actual_price_type,"
-                . "aw_os_category_display,"
-                . "aw_os_category_position,"
-                . "aw_os_category_image,"
-                . "aw_os_category_image_path,"
-                . "aw_os_category_text,"
-                . "news_from_date,"
-                . "news_to_date,"
-                . "is_new) ";
+                . "entity_id," //1
+                . "type_id," //2
+                . "attribute_set_id," //3
+                . "visibility," //4
+                . "inventory_in_stock," //5
+                . "qty," //6
+                . "min_qty," //7
+                . "manage_stock," //8
+                . "backorders," //9
+                . "request_path," //10
+                . "position," //11
+                . "store_id," //12
+                . "currency," //13
+                . "price," //14
+                . "tax_class_id," //15
+                . "final_price," //16
+                . "minimal_price," //17
+                . "min_price," //18
+                . "max_price," //19
+                . "tier_price," //20
+                . "rating_summary," //21
+                . "reviews_count," //22
+                . "name," //23
+                . "short_description," //24
+                . "small_image," //25
+                . "thumbnail," //26
+                . "image," //27
+                . "msrp," //28
+                . "msrp_enabled," //29
+                . "msrp_display_actual_price_type," //30
+                . "aw_os_category_display," //31
+                . "aw_os_category_position," //32
+                . "aw_os_category_image," //33
+                . "aw_os_category_image_path," //34
+                . "aw_os_category_text," //35
+                . "news_from_date," //36
+                . "news_to_date," //37
+                . "is_new) "; //38
         $sql .= "VALUES ";
         $separator = false;
 
@@ -171,7 +171,14 @@ class AW_Featured_Model_Observer_Generatefeatured {
             }
 
             $sql .= sprintf(
-                "(%d, '%s', %d, %d, %d, %d, %d, %d, %d, %d, '%s', %d, '%s', %d, %d, %d, %d, %d, %d, %d, %d, %d, '%s', '%s', '%s', '%s', '%s', %d, %d, '%s', %d, '%s', '%s', '%s', '%s', '%s', '%s', %d) ",
+                "(%d, '%s', %d, %d, %d,"
+                . "%d, %d, %d, %d, '%s',"
+                . "%d, %d, '%s', %d, %d,"
+                . "%d, %d, %d, %d, %d,"
+                . "%d, %d, '%s', '%s',"
+                . "'%s', '%s', '%s', %d, %d,"
+                . "'%s', %d, '%s', '%s', '%s',"
+                . "'%s', '%s', '%s', %d) ",
                 $product->getEntityId(),
                 mysql_real_escape_string($product->getTypeId()),
                 $product->getAttributeSetId(),
