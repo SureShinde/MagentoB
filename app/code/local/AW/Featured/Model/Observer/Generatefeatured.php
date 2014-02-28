@@ -71,6 +71,7 @@ class AW_Featured_Model_Observer_Generatefeatured {
             request_path varchar(255) DEFAULT NULL COMMENT 'Request Path',
             position int(11) DEFAULT NULL COMMENT 'Position',
             store_id smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Store ID',
+            currency char(5) DEFAULT NULL COMMENT 'Currency',
             price decimal(12,4) DEFAULT NULL COMMENT 'Price',
             tax_class_id smallint(5) unsigned DEFAULT '0' COMMENT 'Tax Class ID',
             final_price decimal(12,4) DEFAULT NULL COMMENT 'Final Price',
@@ -119,7 +120,45 @@ class AW_Featured_Model_Observer_Generatefeatured {
         $write = Mage::getSingleton('core/resource')->getConnection('core_write');
         
         $sql  = sprintf("INSERT INTO bilna_featured_product_%d ", $this->_data['id']);
-        $sql .= "(entity_id, type_id, attribute_set_id, visibility, inventory_in_stock, qty, min_qty, manage_stock, backorders, request_path, position, price, tax_class_id, final_price, minimal_price, min_price, max_price, tier_price, rating_summary, reviews_count, name, short_description, small_image, thumbnail, image, msrp, msrp_enabled, msrp_display_actual_price_type, aw_os_category_display, aw_os_category_position, aw_os_category_image, aw_os_category_image_path, aw_os_category_text, news_from_date, news_to_date, is_new) ";
+        $sql .= "("
+                . "entity_id,"
+                . "type_id,"
+                . "attribute_set_id,"
+                . "visibility,"
+                . "inventory_in_stock,"
+                . "qty,"
+                . "min_qty,"
+                . "manage_stock,"
+                . "backorders,"
+                . "request_path,"
+                . "position,"
+                . "store_id,"
+                . "currency,"
+                . "price,"
+                . "tax_class_id,"
+                . "final_price,"
+                . "minimal_price,"
+                . "min_price,"
+                . "max_price,"
+                . "tier_price,"
+                . "rating_summary,"
+                . "reviews_count,"
+                . "name,"
+                . "short_description,"
+                . "small_image,"
+                . "thumbnail,"
+                . "image,"
+                . "msrp,"
+                . "msrp_enabled,"
+                . "msrp_display_actual_price_type,"
+                . "aw_os_category_display,"
+                . "aw_os_category_position,"
+                . "aw_os_category_image,"
+                . "aw_os_category_image_path,"
+                . "aw_os_category_text,"
+                . "news_from_date,"
+                . "news_to_date,"
+                . "is_new) ";
         $sql .= "VALUES ";
         $separator = false;
 
@@ -132,9 +171,9 @@ class AW_Featured_Model_Observer_Generatefeatured {
             }
 
             $sql .= sprintf(
-                "(%d, '%s', %d, %d, %d, %d, %d, %d, %d, '%s', %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, '%s', '%s', '%s', '%s', '%s', %d, %d, '%s', %d, '%s', '%s', '%s', '%s', '%s', '%s', %d) ",
+                "(%d, '%s', %d, %d, %d, %d, %d, %d, %d, %d, '%s', %d, '%s', %d, %d, %d, %d, %d, %d, %d, %d, %d, '%s', '%s', '%s', '%s', '%s', %d, %d, '%s', %d, '%s', '%s', '%s', '%s', '%s', '%s', %d) ",
                 $product->getEntityId(),
-                $product->getTypeId(),
+                mysql_real_escape_string($product->getTypeId()),
                 $product->getAttributeSetId(),
                 $product->getVisibility(),
                 $product->getInventoryInStock(),
@@ -144,6 +183,8 @@ class AW_Featured_Model_Observer_Generatefeatured {
                 $product->getBackorders(),
                 $product->getRequestPath(),
                 $product->getPosition(),
+                $this->_data['store_id'][0],
+                mysql_real_escape_string($this->_getCurrentCurrency()),
                 $product->getPrice(),
                 $product->getTaxClassId(),
                 $product->getFinalPrice(),
@@ -153,11 +194,11 @@ class AW_Featured_Model_Observer_Generatefeatured {
                 $product->getTierPrice(),
                 $product->getRatingSummary(),
                 $product->getReviewsCount(),
-                $product->getName(),
-                $product->getShortDescription(),
-                $product->getSmallImage(),
-                $product->getThumbnail(),
-                Mage::helper('awfeatured/images')->getProductImage($product, $product->getData('image_id'))->resize(152,152),
+                mysql_real_escape_string($product->getName()),
+                mysql_real_escape_string($product->getShortDescription()),
+                mysql_real_escape_string($product->getSmallImage()),
+                mysql_real_escape_string($product->getThumbnail()),
+                mysql_real_escape_string(Mage::helper('awfeatured/images')->getProductImage($product, $product->getData('image_id'))->resize(152,152)),
                 $product->getMsrp(),
                 $product->getMsrpEnabled(),
                 $product->getMsrpDisplayActualPriceType(),
@@ -305,7 +346,8 @@ class AW_Featured_Model_Observer_Generatefeatured {
         if (null === $collection) {
             $this->_addCategoriesFilter($_collection);
             $_automationData = $this->_data['automation_data'];
-            $limit = isset ($_automationData['quantity_limit']) ? $_automationData['quantity_limit'] : 10;
+            //$limit = isset ($_automationData['quantity_limit']) ? $_automationData['quantity_limit'] : 10;
+            $limit = $this->_limit;
 
             $ids = $_collection->getAllIds();
 
@@ -499,5 +541,13 @@ class AW_Featured_Model_Observer_Generatefeatured {
         }
         
         return $result;
+    }
+    
+    private function _getCurrentCurrency() {
+        $currencyCode = Mage::app()->getStore()->getCurrentCurrencyCode();
+        //$currencyName = Mage::app()->getLocale()->currency($currencyCode)->getName();
+        $currencySymbol = Mage::app()->getLocale()->currency($currencyCode)->getSymbol();
+        
+        return $currencySymbol;
     }
 }
