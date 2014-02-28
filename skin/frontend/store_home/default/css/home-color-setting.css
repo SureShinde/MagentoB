@@ -191,7 +191,7 @@ div.block-layered-nav dd a.amshopby-attr-selected{
 }
 .product-tab-wrapper .tab-container .panel-container{
     overflow: hidden;
-    padding: 10px 10px 20px 10px;
+    padding: 10px 10px 32px;
 }
 .product-tab-wrapper .hide_desc_button .bx-show, .product-tab-wrapper .hide_desc_button .bx-hide{
 	border: medium none;
