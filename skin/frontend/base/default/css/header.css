@@ -832,7 +832,6 @@
 }
 
 .gecko div.header .form-search .input-keyword .select-category select {
-	background: inherit;
 	/*width: 96px;
 	height: 20px;
 	*/
@@ -880,7 +879,7 @@
 	margin-top: 7px;
 }
 .header .search-mobile .form-search .input-keyword .select-category {
-	background: url(../images/arrow-blue.png) no-repeat right center;
+	background: url(../images/arrow-blue.png) no-repeat right center !important;
 	margin-top: 10px;
 	margin-right: 5px;
 }

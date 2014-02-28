@@ -54,6 +54,19 @@ a.back-to-top {
 .menu-top ul li:nth-child(2):hover, .menu-top ul li.active {
 	background: #daaea4;
 }
+.header .search-mobile .form-search .input-keyword .select-category {
+    background: url("../images/arrow-maroon.png") no-repeat scroll right center rgba(0, 0, 0, 0) !important;
+}
+.header .quick-access .top-cart {
+    border:none;
+	}
+.menu-tablet{
+	height:auto;
+	margin:10px auto 0;
+}
+#nav li.menu-salegift a.sale, #nav a.level-top.sale{
+	width:70px;
+}
 /*======================Category page===================*/
 
 .toolbar .limiter ul li a{
