@@ -1424,6 +1424,16 @@
 	#nav a.level-top {
 		padding: 0px 3px;
 	}
+	
+	/* megamenu-margin */
+	ul.feeding___nursing_hover {margin-left: -50px;}
+	ul.health___safety_hover {margin-left: -110px;}
+	ul.toys___books_hover {margin-right: -305px;}
+	ul.baby_gear___furniture_hover {margin-right: -235px;}
+	ul.for_moms_hover {margin-right: -195px;}
+	/* END megamenu-margin */
+	
+	
 }
 /* --------------- smaller 959 px layout -------------------- */
 @media only screen and (max-width: 767px) {
