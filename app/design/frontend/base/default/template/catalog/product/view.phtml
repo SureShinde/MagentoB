@@ -171,7 +171,7 @@
 				<li class="tab"><a href="#tabs-size-chart">Size Chart</a></li>
 				-->
 				</ul>	
-				<div class="panel-container" style="height:100px;">
+				<div class="panel-container" style="height:90px;">
 					<?php foreach ($this->getChildGroup('detailed_info', 'getChildHtml') as $alias => $html):?>
 						<div id="<?php echo "tabs-{$alias}"?>">
 						    <?php echo $html; ?>
@@ -200,14 +200,22 @@
 				$j("#hide_desc").css("display","block");
 				$j(".hide").css("display","block");
 				};
-
+				
+				if (("document", $j( "#tabs-description" ).height()) < 90){
+					$j(".hide_desc_button").hide();
+					$j(".panel-container").css("height","auto");
+				}else{
+					$j(".hide_desc_button").show();
+				}
+				
 				$j("#hide_desc").css("display","none");
 				$j(".hide").css("display","none");
 				$j( "#show_desc" ).click(function() {
 				heightDiv("document", $j( "#tabs-description" ).height());
 				});
+				
 				$j( "#hide_desc" ).click(function() {
-				$j(".panel-container").css("height","100px");
+				$j(".panel-container").css("height","90px");
 				$j("#show_desc").css("display","block");
 				$j(".show_more").css("display","block");
 				$j("#hide_desc").css("display","none");
