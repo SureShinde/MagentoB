@@ -171,7 +171,7 @@
 				<li class="tab"><a href="#tabs-size-chart">Size Chart</a></li>
 				-->
 				</ul>	
-				<div class="panel-container">
+				<div class="panel-container" style="height:90px;">
 					<?php foreach ($this->getChildGroup('detailed_info', 'getChildHtml') as $alias => $html):?>
 						<div id="<?php echo "tabs-{$alias}"?>">
 						    <?php echo $html; ?>
@@ -183,8 +183,45 @@
 					<div id="tabs-size-chart">
 					<p><!-- <strong>Lorem ipsum dolor sit amet</strong>, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. --></p>
 					</div>
+					
+				</div>
+				<div class="hide_desc_button">
+					<p class="show_more">Show more</p>
+					<p class="hide">Hide</p>
+					<div id="show_desc" class="bx-show"></div>
+					<div id="hide_desc" class="bx-hide"></div>
 				</div>
 			</div>
+			<script type="text/javascript">
+				function heightDiv( element, height ){
+				$j(".panel-container").css("height",height);
+				$j("#show_desc").css("display","none");
+				$j(".show_more").css("display","none");
+				$j("#hide_desc").css("display","block");
+				$j(".hide").css("display","block");
+				};
+				
+				if (("document", $j( "#tabs-description" ).height()) < 90){
+					$j(".hide_desc_button").hide();
+					$j(".panel-container").css("height","auto");
+				}else{
+					$j(".hide_desc_button").show();
+				}
+				
+				$j("#hide_desc").css("display","none");
+				$j(".hide").css("display","none");
+				$j( "#show_desc" ).click(function() {
+				heightDiv("document", $j( "#tabs-description" ).height());
+				});
+				
+				$j( "#hide_desc" ).click(function() {
+				$j(".panel-container").css("height","90px");
+				$j("#show_desc").css("display","block");
+				$j(".show_more").css("display","block");
+				$j("#hide_desc").css("display","none");
+				$j(".hide").css("display","none");
+				});
+				</script>
 			<script type="text/javascript">
 			// <![CDATA[
 				$j(document).ready( function() {
