@@ -24,7 +24,7 @@ class Bilna_Paymethod_Helper_Vtdirect extends Mage_Core_Helper_Abstract {
         
         $this->userAgent = $_SERVER['HTTP_USER_AGENT'];
         $this->compression = 'gzip';
-        $this->timeout = Mage::getStoreConfig('payment/klikbca/confirm_timeout');
+        $this->timeout = (int) Mage::getStoreConfig('payment/vtdirect/charge_timeout');
     }
     
     /**
@@ -57,6 +57,10 @@ class Bilna_Paymethod_Helper_Vtdirect extends Mage_Core_Helper_Abstract {
         $disallowedSymbolArr = explode(' ', $disallowedSymbol);
 
         return str_replace($disallowedSymbolArr, ' ', $text);
+    }
+    
+    public function filterAddress($text) {
+        return preg_replace('/[^\d\sa-z]/i', ' ' , trim($text));
     }
     
     public function getCheckout() {
