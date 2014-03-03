@@ -68,7 +68,7 @@
 }
 
 .postContent2 img { 
-	width: 100%;
+	width: 93%;
 }
 .postContent2 .postTitle {
 	/* border-bottom-width: 1px;
@@ -381,7 +381,7 @@ A.awblog_current_comment {
 .postContent img {
 	padding-bottom: 10px;
 	padding: 0 20px 20px 0;
-	width: 45%;
+	width: 35%;
 	
 }
 
@@ -782,7 +782,7 @@ A.awblog_current_comment {
 		width:21.88% !important;
 		display: none;
 	}
-	.blog-post-view .col-main {width:100% !important;}
+	.blog-post-view .col-main {width:90% !important;}
 	.blog-post-view .col-right {
 		float: right;
 		padding:0 0 0 3%;
@@ -847,12 +847,16 @@ A.awblog_current_comment {
 .post-blog-title-small {
 	font-size: 15px !important;
 	font-weight: bold !important;
+	color: #48d1d9;
 }
 .post-blog-title-small a {color: #48d1d9 !important;}
 .post-blog-title-small2 {
 	font-size: 13px !important;
 	font-weight: bold !important;
 }
+
+.title-col-blue {color: #48d1d9 !important;}
+.title-15 {font-size: 15px; font-weight: bold;}
 
 
 
