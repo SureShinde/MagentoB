@@ -542,7 +542,8 @@ A.awblog_current_comment {
 	font-weight: bold;
 	display: block;
 	background: url("../../images/category-arrow-blog.png") no-repeat scroll 100% center rgba(0, 0, 0, 0);
-	width: 420px;
+	width: 110px;
+	float: left;
 }
 
 .blog-post-view .image-post-main {float: left; margin: 0 20px 10px 0; width: 40%;}
