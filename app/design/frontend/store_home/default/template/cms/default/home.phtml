@@ -24,4 +24,34 @@
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
-There was no Home CMS page configured or found.
+<div class="wrap_banner">
+	<div class="slider col-1">
+		<img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA); ?>wysiwyg/banner_slider/slider_home_1.jpg">
+	</div>
+	<div class="col-2">
+	<img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA); ?>wysiwyg/banner_slider/banner_small_1.jpg">
+	<img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA); ?>wysiwyg/banner_slider/banner_small_2.jpg">
+	</div>
+	<div class="col-3">
+	<img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA); ?>wysiwyg/banner_slider/banner_large_1.jpg">
+	</div>
+</div>
+<div class="products-on-sale">
+	<h2>PRODUCT ON SALE</h2>
+	<?php echo $this->getLayout()->createBlock('awfeatured/block')->setBlockId('products-on-sale')->toHtml() ?>
+</div>
+<div class="new-arrival">
+	<h2>NEW ARRIVAL</h2>
+	<?php echo $this->getLayout()->createBlock('awfeatured/block')->setBlockId('products-on-sale')->toHtml() ?>
+</div>
+<div class="most-popular">
+	<h2>MOST POPULAR</h2>
+	<?php echo $this->getLayout()->createBlock('awfeatured/block')->setBlockId('products-on-sale')->toHtml() ?>
+</div>
+
+<div class="homepage-bottom">
+<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('block_home')->toHtml() ?>
+<?php echo $this->getLayout()->createBlock('core/template')->setTemplate('page/template/testimonial.phtml')->toHtml(); ?>
+<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('media-partner')->toHtml() ?>
+<div class="clear">&nbsp;</div>
+</div>

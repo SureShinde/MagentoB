@@ -220,11 +220,14 @@
 	background: none;
 	width: 90px;
 	line-height: normal;
+	padding:0;
 	border: 0;
 	border-radius:0;
 	/* height: 15px; */
 	/* -webkit-appearance: none;
 	margin-right: 5px; */
+	height: 20px;
+	padding: 0px;
 	color: #707070;
 }
 .sticky-header .sticky-search .form-search button.button {
@@ -277,7 +280,7 @@
 }
 .header .menu-top {
 	left: 0;
-	width: 399px;
+	width: 512px;
 }
 .header .menu-blog {
 	right:0;
@@ -307,7 +310,7 @@
 }
 .menu-top ul li:hover, .menu-top ul li.active {
 	background: #95e1f1;
-} 
+}  
 .menu-top ul li:last-child:hover {
 	background: #ffb39c;
 }
@@ -576,7 +579,14 @@
 	background-color: #ffa01b;
 	background-position: 107px 8px;
 	text-align: center;
-	padding: 2px 45px 2px 30px;
+	padding-top: 6px ;
+	padding-right: 45px;
+	padding-bottom:2px ;
+	padding-left: 30px;
+	-webkit-padding-before: 2px ;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
 }
 .header .mini-cart-mobile {
 	display: none;
@@ -597,7 +607,8 @@
 	line-height: normal;
 }
 .mini-cart .block-cart .actions button.button.btn-checkout span span img, .mini-cart-sticky .block-cart .actions button.button.btn-checkout span span img {
-	/* margin-top: 5px; */ margin: 5px 0 0 8px;
+	/* margin-top: 5px; */ margin: 1px 0 0 8px;
+	-webkit-margin-before: 6px;
 }
 .header .quick-access .left {
 	margin: 4px 50px 0 0;
@@ -772,10 +783,15 @@
 	background: url(../images/txt-search.jpg) no-repeat left top;
 }
 .header .form-search .input-keyword input.input-text {
-	margin: 7px 0 0 5px;
-	width: 97px;
+
+	width: 155px;
+	height: 26px;
 	border: none;
+	max-width: 140px;
+    min-width: 100px;
 	color: #bababa;
+	line-height: 26px;
+	margin: 1px 0px 1px 5px;
 }
 .header .form-search .input-keyword .select-category {
 	float: right;
@@ -784,7 +800,7 @@
 	height: auto;
 	overflow: hidden;
 	padding: 0 10px 0 0;
-	margin: 7px 5px 0 0;
+	margin:0 5px 0 0;
 	background: url(../images/arrow-green.png) no-repeat right center;
 }
 
@@ -794,7 +810,11 @@
 	line-height: normal;
 	border: 0;
 	border-radius:0;
-	height: 20px;
+
+
+	width:100px;
+
+	height: 32px;
 	color: #a0cc00;
 	-webkit-appearance: none;
 	margin-right: 5px;
@@ -803,20 +823,21 @@
 	float: right;
 	clear: none;
 	width: auto;
+	margin:0 5px 0 0;
 	height: auto;
 	overflow: hidden;
 	padding: 0 0 0 0;
-	margin: 7px 5px 0 0;
+
 	background: none;
 }
 
 .gecko div.header .form-search .input-keyword .select-category select {
-	background: inherit;
-	/*width: 96px;*/
+	/*width: 96px;
+	height: 20px;
+	*/
 	line-height: normal;
 	border:inherit;
 	border-radius:inherit;
-	height: 20px;
 	color: #a0cc00;
 	-webkit-appearance: none;
 	margin-right: 5px;
@@ -855,10 +876,10 @@
 }
 .header .search-mobile .form-search .input-keyword input.input-text {
 	width: 50%;
-	margin-top: 14px;
+	margin-top: 7px;
 }
 .header .search-mobile .form-search .input-keyword .select-category {
-	background: url(../images/arrow-blue.png) no-repeat right center;
+	background: url(../images/arrow-blue.png) no-repeat right center !important;
 	margin-top: 10px;
 	margin-right: 5px;
 }
@@ -867,6 +888,7 @@
 	font-size: 1.2em;
 	height: 25px;
 	width: auto;
+	padding:0;
 }
 .header .search-mobile .form-search .input-keyword button.button {
 	background: url(../images/btn-search-mobile.png) no-repeat center center;
@@ -1360,6 +1382,7 @@
 		width: 170px;
 	}
 	.header .form-search .input-keyword input.input-text {
+		min-width:57px;
 		width: 57px;
 	}
 	.header .form-search input.input-text {
@@ -1401,6 +1424,16 @@
 	#nav a.level-top {
 		padding: 0px 3px;
 	}
+	
+	/* megamenu-margin */
+	ul.feeding___nursing_hover {margin-left: -50px;}
+	ul.health___safety_hover {margin-left: -110px;}
+	ul.toys___books_hover {margin-right: -305px;}
+	ul.baby_gear___furniture_hover {margin-right: -235px;}
+	ul.for_moms_hover {margin-right: -195px;}
+	/* END megamenu-margin */
+	
+	
 }
 /* --------------- smaller 959 px layout -------------------- */
 @media only screen and (max-width: 767px) {

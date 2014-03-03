@@ -126,7 +126,8 @@ class Bilna_Customreports_Block_Adminhtml_Installmentreport_Grid extends Mage_Ad
     }
     
     protected function _preparePaymentOrderOption() {
-        $orderPaymentAllowed = Mage::getStoreConfig('payment/customreports/payment_allowed');
+        //$orderPaymentAllowed = Mage::getStoreConfig('payment/customreports/payment_allowed');
+		$orderPaymentAllowed = Mage::getStoreConfig('bilna_customreports/installmentreport/payment_allow');
         $orderPaymentAllowedArr = explode(',', $orderPaymentAllowed);
         
         return $orderPaymentAllowedArr;

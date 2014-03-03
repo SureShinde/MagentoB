@@ -167,6 +167,15 @@
 	background: url(../images/btn_close.png) no-repeat;
 	float: right;
 }
+#shopping-cart-table.cart-table .btn-update span {
+	border: 0;
+	background: #4ec7da;
+	font-family: 'bebasregular';
+	font-size: 1em;
+	/* padding: 5px 14px 10px; */
+	letter-spacing: 0.1em;
+}
+
 #shopping-cart-table.cart-table .btn-update span span {
 	border: 0;
 	background: none;
@@ -421,6 +430,8 @@
 	background: none;
 	border: 0;
 	width: auto;
+	/* tambahan: */
+	margin-right: 74px;
 }
 .cart-collaterals .shipping h2 {
 	background: none;
@@ -436,12 +447,15 @@
 }
 .sum-cart {
 	float: right;
+	/* tambahan: */
+	margin-right: 20px;
 }
 .sum-cart table {
 	margin-top: 15px;
 }
 .sum-cart table .sum-qty {
-	width: 105px;
+	/* width: 105px; */
+	width: 44px;
 }
 .sum-cart table .sum-qty.loggedin {
 	width: 92px;
