@@ -478,10 +478,10 @@ tr.summary-details-excluded { font-style:italic; }
 	width: 107px;
 	background-image: url(../images/btn-buynow.png);
 	height: 36px;
-	bottom: 18px;
+	bottom: 38px !important;
 	line-height: 21px;
 	color: #fff !important;
-	position: absolute;
+	position: absolute !important;
 	font-family: Helvetica;
 	font-size: 1em;
 	font-weight: normal;
@@ -490,7 +490,7 @@ tr.summary-details-excluded { font-style:italic; }
 	text-align: center;
 	line-height: 36px;
 }
-.link-wishlist { color:#dc6809; font-weight:bold; /*position:absolute; bottom:0;*/}
+.link-wishlist { color:#dc6809; font-weight:bold; position:absolute; bottom:5px !important;}
 .link-reorder { font-weight:bold; color:#dc6809 !important; }
 .link-compare { font-weight:bold; }
 .link-print { /*background:url(../images/i_print.gif) 0 2px no-repeat; padding:2px 0 2px 25px;*/ font-weight:bold; color:#dc6809; }
