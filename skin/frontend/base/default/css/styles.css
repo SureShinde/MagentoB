@@ -80,7 +80,7 @@ ul,ol         { list-style:none; }
 .f-left,
 .left         { float:left !important; }
 .f-right,
-.right        { float:right !important; }
+.right        { float:right !important; margin-right: 30px; } /* tambahan: margin-right: 30px; */
 .f-none       { float:none !important; }
 .f-fix        { float:left; width:100%; }
 .no-display   { display:none; }
