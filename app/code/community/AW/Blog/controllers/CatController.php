@@ -54,4 +54,14 @@ class AW_Blog_CatController extends Mage_Core_Controller_Front_Action
             $this->_forward('defaultNoRoute');
         }
     }
+
+    public function searchAction()
+    {
+        $identifier = $this->getRequest()->getParam('identifier', $this->getRequest()->getParam('id', false));
+
+        if (!Mage::helper('blog/cat')->renderPage($this, $identifier)) {
+            $this->_forward('NoRoute');
+        }
+        
+    }
 }
