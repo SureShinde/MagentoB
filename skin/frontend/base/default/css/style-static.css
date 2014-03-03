@@ -27,6 +27,7 @@
 .fb-14 {font-size: 14px !important;}
 .fb-15 {font-size: 15px !important;}
 .fb-18 {font-size: 18px !important;}
+.fb-20 {font-size: 20px !important;}
 .fb-bebas {font-family: 'bebasregular' !important;}
 
 .clear-static {clear: both;}
@@ -150,7 +151,7 @@ ul.decimal-ul li {
 .static-page-area ol li {font-size:14px; margin:0 0 10px;line-height:1.35; list-style: decimal outside none;}
 .wrapper-voucher a {text-decoration:none;}
 .line-height-1 {line-height:1 !important;}
-
+.line-dashed{border-bottom: 2px dashed #A0A0A0; margin:10px 0 15px}
 
 
 /* --------------------------------------------Gift Voucher static page */
@@ -1600,7 +1601,7 @@ h2.block-grey-title-left {
 	url(&quot;http://assets.bilna.com/media/wysiwyg/banner-static-page/ribbon-winner.png&quot;) no-repeat; margin: -33px auto 20px;}
 	.ribbon-winner div {color:#FFF;padding: 2px 0;text-align: center;}
 
-	.text-area {width: 100%; margin: 20px 0 10px 0;}
+	.text-area {width: 100%; margin: 10px 0 20px 0;}
 	.text-purple {color: #8d5493; font-size:18px !important;}
 	.text-title-static {font-family: 'InsaniburgerRegular'; font-size: 20px;width: 100%;}
 	.text-body {font-family:tin_doghouseregular ; font-size: 14px;}

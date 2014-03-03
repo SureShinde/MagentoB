@@ -80,7 +80,7 @@ ul,ol         { list-style:none; }
 .f-left,
 .left         { float:left !important; }
 .f-right,
-.right        { float:right !important; }
+.right        { float:right !important; margin-right: 30px; } /* tambahan: margin-right: 30px; */
 .f-none       { float:none !important; }
 .f-fix        { float:left; width:100%; }
 .no-display   { display:none; }
@@ -1899,7 +1899,6 @@ tr.summary-details-excluded { font-style:italic; }
 .product-shop-right .price-box, .product-shop-right .regular-price, .product-shop-right .price{
 	position: relative !important;
 	display: block !important;
-
 }
 
 
