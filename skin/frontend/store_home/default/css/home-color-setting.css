@@ -67,6 +67,11 @@ a.back-to-top {
 #nav li.menu-salegift a.sale, #nav a.level-top.sale{
 	width:70px;
 }
+
+#nav .shopby{
+	top:48px;
+	padding: 13px 0 0;
+}
 /*======================Category page===================*/
 
 .toolbar .limiter ul li a{
