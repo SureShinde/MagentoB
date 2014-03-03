@@ -280,7 +280,7 @@
 }
 .header .menu-top {
 	left: 0;
-	width: 512px;
+	width: 285px;
 }
 .header .menu-blog {
 	right:0;
@@ -312,7 +312,8 @@
 	background: #95e1f1;
 }  
 .menu-top ul li:last-child:hover {
-	background: #ffb39c;
+	/* background: #ffb39c; */
+	background: #95e1f1;
 }
 .menu-blog span {
 	background: #95e1f1;
