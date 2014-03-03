@@ -101,7 +101,7 @@ $relatedPost = $this->getRelatedPost($post->getCatId(), $post->getPostId());
     <?php $comments = $this->getComment(); ?>
 	<div style="clear:both; border-top: 1px dashed #999;"></div>
     <div class="postTitle" style="border: none !important;"><a name="commentBox" ></a>
-        <h2><?php echo $this->__('Leave A Response') ?></h2>
+        <h2 class="fb-bebas fb-18" style="color: #707070; font-weight: normal;"><?php echo $this->__('Leave A Response') ?></h2>
     </div>
     
     <?php //echo $this->getChildHtml('aw_blog_comments_toolbar'); ?>
@@ -214,7 +214,10 @@ $relatedPost = $this->getRelatedPost($post->getCatId(), $post->getPostId());
                 </div>
             </form>
 <div class="clear"></div>
-
+<div style="clear:both; border-top: 1px dashed #999;"></div>
+    <div class="postTitle" style="border: none !important;"><a name="commentBox" ></a>
+        <h2 class="fb-bebas fb-18" style="color: #707070; font-weight: normal;"><?php echo $this->__('Related Product') ?></h2>
+    </div>
 <div class="awfeature-blog" style="width:100%;clear: both;"><?php echo$this->getLayout()->createBlock('cms/block')->setBlockId('featured-product-on-blog')->toHtml(); ?></div>
 
             <script type="text/javascript">

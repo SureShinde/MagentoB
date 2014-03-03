@@ -196,4 +196,4 @@
 	
 }
 
-.afp-addtocart .availability.out-of-stock span {position: absolute;}
+.afp-addtocart .availability.out-of-stock span {position: absolute; bottom: 50px;}
