@@ -88,7 +88,12 @@
 					
             	<?php endif; ?>
 	        <?php endforeach; ?>
-			<li><a href="#!">▲</a><a href="#!">▼</a></li>
+			<?php if($this->getCurrentDirection() == 'asc'): ?>
+			<a href="<?php echo $this->getOrderUrl($_key, 'asc') ?>" title="<?php echo $this->__('▲') ?>" class="v-middle" alt="<?php echo $this->__('Set Ascending Direction') ?>"><?php echo $this->__('Asc') ?></a>
+		<?php else: ?>
+			<a href="<?php echo $this->getOrderUrl($_key, 'desc') ?>" title="<?php echo $this->__('▼') ?>" class="v-middle" alt="<?php echo $this->__('Set Descending Direction') ?>"><?php echo $this->__('Desc') ?></a>
+		<?php endif; ?>
+			
             </ul>
         </div>
     </div>
