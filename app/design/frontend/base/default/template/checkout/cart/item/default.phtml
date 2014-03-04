@@ -184,7 +184,7 @@ $canApplyMsrp = Mage::helper('catalog')->canApplyMsrp($_item->getProduct(), Mage
     <td class="a-right hi-res">
 		<span>
 		<?php if ($_item->getWeight()):?>
-			<?php echo $this->__('%0.2f Kg', $_item->getWeight()) ?>
+			<?php echo $this->__('%0.2f Kg', $this->getQty() * $_item->getWeight()) ?> <!--Andi Add getQty * getWeight. Originally only getWeight. 28022014-->
 		<?php else: ?>
 			<?php echo $this->__('-') ?>
 		<?php endif; ?>

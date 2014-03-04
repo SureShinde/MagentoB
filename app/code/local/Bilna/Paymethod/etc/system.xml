@@ -852,7 +852,7 @@
                         <server_key translate="label">
                             <label>Server Key</label>
                             <frontend_type>text</frontend_type>
-                            <sort_order>110</sort_order>
+                            <sort_order>109</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -860,20 +860,44 @@
                         <token_expired translate="label">
                             <label>Token ID Expired Time (seconds)</label>
                             <frontend_type>text</frontend_type>
-                            <sort_order>111</sort_order>
+                            <sort_order>110</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </token_expired>
-                        <charge_transaction_url translate="label">
-                            <label>Charge Transaction URL</label>
+                        <charge_timeout translate="label">
+                            <label>Charge Timeout (seconds)</label>
                             <frontend_type>text</frontend_type>
+                            <sort_order>111</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </charge_timeout>
+                        <charge_timeout_message translate="label">
+                            <label>Charge Timeout Message</label>
+                            <frontend_type>textarea</frontend_type>
                             <sort_order>112</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                        </charge_timeout_message>
+                        <charge_transaction_url translate="label">
+                            <label>Charge Transaction URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>113</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
                         </charge_transaction_url>
-                        <log_path translate="label">
+                        <charge_transaction_status_url translate="label">
+                            <label>Charge Transaction Status URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>114</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </charge_transaction_status_url>
+                        <!--log_path translate="label">
                             <label>Log Path</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>120</sort_order>
@@ -881,7 +905,25 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                             <comment>ex: var/log/veritrans/</comment>
-                        </log_path>
+                        </log_path-->
+                        <confirm_log_path translate="label">
+                            <label>Confirmation log path</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>115</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>ex: vtdirect/confirmation/</comment>
+                        </confirm_log_path>
+                        <success_lock_path translate="label">
+                            <label>Success Lock Path</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>116</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>example: success/</comment>
+                        </success_lock_path>
                         <sort_order translate="label">
                             <label>Sort Order</label>
                             <frontend_type>text</frontend_type>
