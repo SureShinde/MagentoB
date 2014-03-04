@@ -868,6 +868,13 @@ A.awblog_current_comment {
 .title-col-blue {color: #48d1d9 !important;}
 .title-15 {font-size: 15px; font-weight: bold;}
 
+h2.small-tittle {
+	line-height: 1.0 !important;
+	overflow: hidden;
+	width: 100%;
+	max-height: 40px;
+}
+
 
 
 
