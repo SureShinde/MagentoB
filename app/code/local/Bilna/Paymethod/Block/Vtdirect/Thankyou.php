@@ -13,4 +13,8 @@ class Bilna_Paymethod_Block_Vtdirect_Thankyou extends Mage_Checkout_Block_Onepag
     public function getResponseCharge() {
         return Mage::registry('response_charge');
     }
+    
+    public function getChargeTimeoutMessage() {
+        return Mage::getStoreConfig('payment/vtdirect/charge_timeout_message');
+    }
 }

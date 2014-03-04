@@ -68,7 +68,7 @@
 }
 
 .postContent2 img { 
-	width: 100%;
+	width: 93%;
 }
 .postContent2 .postTitle {
 	/* border-bottom-width: 1px;
@@ -304,11 +304,16 @@ A.awblog_current_comment {
 	text-align: left;
 }
 
-.blog-post-view .postContent img,
-.blog-cat-view .postContent img {
+.blog-post-view .postContent img {
 	width: 50%;
 	clear: both;
-	margin: 0 0 20px 0;
+	margin: 0 20px 20px 0;
+}
+
+.blog-cat-view .postContent img {
+	width: 35%;
+	clear: both;
+	margin: 0 20px 20px 0;
 }
 
 .blog-post-view .postContent .searchbox button img,
@@ -381,7 +386,7 @@ A.awblog_current_comment {
 .postContent img {
 	padding-bottom: 10px;
 	padding: 0 20px 20px 0;
-	width: 45%;
+	width: 35%;
 	
 }
 
@@ -415,6 +420,8 @@ A.awblog_current_comment {
 	padding: 5px 0;
 	margin: 15px 0 5px;
 }
+
+.blog-cat-view .col-main {width:65% !important; padding: 0 5%}
 
 
 
@@ -528,12 +535,15 @@ A.awblog_current_comment {
 }
 
 .aw-blog-read-more {
-	padding: 20px 0;
+	padding: 10px 0;
 	color: #4ec7da;
 	font-family: helvetica, arial, san-serif;
 	font-size: 14px;
 	font-weight: bold;
 	display: block;
+	background: url("../../images/category-arrow-blog.png") no-repeat scroll 100% center rgba(0, 0, 0, 0);
+	width: 110px;
+	float: left;
 }
 
 .blog-post-view .image-post-main {float: left; margin: 0 20px 10px 0; width: 40%;}
@@ -782,7 +792,7 @@ A.awblog_current_comment {
 		width:21.88% !important;
 		display: none;
 	}
-	.blog-post-view .col-main {width:100% !important;}
+	.blog-post-view .col-main {width:90% !important;}
 	.blog-post-view .col-right {
 		float: right;
 		padding:0 0 0 3%;
@@ -847,12 +857,16 @@ A.awblog_current_comment {
 .post-blog-title-small {
 	font-size: 15px !important;
 	font-weight: bold !important;
+	color: #48d1d9;
 }
 .post-blog-title-small a {color: #48d1d9 !important;}
 .post-blog-title-small2 {
 	font-size: 13px !important;
 	font-weight: bold !important;
 }
+
+.title-col-blue {color: #48d1d9 !important;}
+.title-15 {font-size: 15px; font-weight: bold;}
 
 
 
