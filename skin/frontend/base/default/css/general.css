@@ -215,6 +215,7 @@ a.back-to-top {
 	right: 0;
 	bottom: 15%;
 	background: #4ec7da;
+	z-index:99;
 	color: #fff;
 	-moz-border-radius: 10px 0 0 10px;
 	-webkit-border-radius: 10px 0 0 10px;
@@ -260,9 +261,7 @@ a.back-to-top img {
 .al-authorization .form-list li:first-child
  {
 	/*background: url(../images/dash-orange.png) bottom repeat-x; */
-	border-bottom: 2px dashed #fe8c08;
-    margin: 0 0 15px;
-    padding-bottom: 8px;
+	padding-bottom: 20px;
 }
 .al-authorization .form-list li:last-child {
 	/*background: url(../images/dash-orange.png) bottom repeat-x; */
