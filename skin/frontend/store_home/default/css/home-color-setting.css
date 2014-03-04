@@ -69,8 +69,21 @@ a.back-to-top {
 }
 
 #nav .shopby{
-	top:48px;
-	padding: 13px 0 0;
+	border: 1px solid #8F554D;
+    box-shadow: 5px 5px 5px #999999;
+    padding: 13px;
+    top: 48px;
+    z-index: 99;
+}
+.shopby ul.shop-by{
+	margin:0 0 5px;
+}
+#nav .shopby ul.shop-by li a:hover{
+	color:#8F554D !important;
+}
+
+.shopby ul.shop-by li a:hover {
+    color:#8F554D;
 }
 /*======================Category page===================*/
 
