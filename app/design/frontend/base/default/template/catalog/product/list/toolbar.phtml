@@ -161,7 +161,13 @@
     <?php endif; ?>
 </div>
 <?php endif ?>
-
+	<div class="sort-by">
+		<?php if($this->getCurrentDirection() == 'asc'): ?>
+			<a href="<?php echo $this->getOrderUrl($_key, 'asc') ?>" title="<?php echo $this->__('Set Ascending Direction') ?>" class="v-middle" alt="<?php echo $this->__('Set Ascending Direction') ?>"><?php echo $this->__('Asc') ?></a>
+		<?php else: ?>
+			<a href="<?php echo $this->getOrderUrl($_key, 'desc') ?>" title="<?php echo $this->__('Set Descending Direction') ?>" class="v-middle" alt="<?php echo $this->__('Set Descending Direction') ?>"><?php echo $this->__('Desc') ?></a>
+		<?php endif; ?>
+	</div>
 <style>
 .show-filter-bilna {display: block;}
 .hide-filter-bilna {display: none;}
