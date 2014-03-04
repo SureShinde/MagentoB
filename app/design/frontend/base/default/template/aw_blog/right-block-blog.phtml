@@ -5,19 +5,11 @@
         <div class="postContent">
 			<div>
 				<div class="searchbox">
-					<form id="search_mini_form" action="http://rebirth.bilna/baby/blog/search/index/" method="get">
+					<form id="search_mini_form" action="<?php echo Mage::getUrl('*/search/index');?>" method="get">
 						<div class="form-search blog-form-search">
 							<!--<label for="search">Search:</label-->
 							<input id="search" type="text" name="q" value="" class="input-text blog-search" maxlength="128" placeholder="Search article">
 							<button type="submit" title="Search" class="button blog-submit-search"><img src="<?php echo $this->getSkinUrl('images/search-blog-icon.jpg') ?>"/></button>
-							<!--span class="search_text"><a href="http://www.bilna.com/catalogsearch/advanced/">can't find what you're looking for?</a></span-->
-							<div id="search_autocomplete" class="search-autocomplete"></div>
-							<script type="text/javascript">
-							//<![CDATA[
-								//var searchForm = new Varien.searchForm('search_mini_form', 'search', '');
-								//searchForm.initAutocomplete('', 'search_autocomplete');
-							//]]>
-							</script>
 						</div>
 					</form>
 				</div>
