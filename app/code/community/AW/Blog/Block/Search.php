@@ -13,7 +13,7 @@ class AW_Blog_Block_Search extends AW_Blog_Block_Abstract
         $tag = $this->getRequest()->getParam('q');
         if ($tag) {
             $collection->getSelect()
-                ->where('title LIKE "%'.$tag.'%" OR post_content LIKE "%'.$tag.'%" OR short_content LIKE "%'.$tag.'%"');
+                ->where('main_table.title LIKE "%'.$tag.'%" OR post_content LIKE "%'.$tag.'%" OR short_content LIKE "%'.$tag.'%"');
         }
         /*if ($tag) {
             $collection->addFieldToFilter(

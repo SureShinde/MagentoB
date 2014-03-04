@@ -63,6 +63,10 @@
                 <type>skin_css</type>
                 <name>aw_blog/css/style.css</name>
             </action>
+			<action method="addItem">
+				<type>skin_js</type>
+				<name>aw_blog/js/jquery.slides.min.js</name>
+			</action>
         </reference>
         <reference name="right">
 			<remove name="catalog.compare.sidebar"/>
@@ -92,6 +96,10 @@
                 <type>skin_css</type>
                 <name>aw_blog/css/style.css</name>
             </action>
+			<action method="addItem">
+				<type>skin_js</type>
+				<name>aw_blog/js/jquery.slides.min.js</name>
+			</action>
         </reference>
         <reference name="right">
 			<remove name="catalog.compare.sidebar"/>
