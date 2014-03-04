@@ -206,7 +206,7 @@
                 <order_status>pending</order_status>
                 <title>Credit Card (VT-Direct by Veritrans)</title>
                 <cctypes>VI,MC</cctypes>
-                
+                <payment_action>authorize</payment_action>
                 <allowspecific>0</allowspecific>
             </vtdirect>
             
@@ -216,7 +216,7 @@
                 <order_status>pending</order_status>
                 <title>Credit Card (ANZ Visa)</title>
                 <cctypes>VI</cctypes>
-                
+                <payment_action>authorize</payment_action>
                 <allowspecific>0</allowspecific>
             </anzvisa>
             
@@ -226,7 +226,7 @@
                 <order_status>pending</order_status>
                 <title>Credit Card (ANZ MasterCard)</title>
                 <cctypes>MC</cctypes>
-                
+                <payment_action>authorize</payment_action>
                 <allowspecific>0</allowspecific>
             </anzmc>
             
@@ -236,7 +236,7 @@
                 <order_status>pending</order_status>
                 <title>Credit Card (Bukopin Visa)</title>
                 <cctypes>VI</cctypes>
-                
+                <payment_action>authorize</payment_action>
                 <allowspecific>0</allowspecific>
             </bukopinvisa>
             
@@ -246,7 +246,7 @@
                 <order_status>pending</order_status>
                 <title>Credit Card (Bukopin MasterCard)</title>
                 <cctypes>MC</cctypes>
-                
+                <payment_action>authorize</payment_action>
                 <allowspecific>0</allowspecific>
             </bukopinmc>
             
@@ -256,7 +256,7 @@
                 <order_status>pending</order_status>
                 <title>Credit Card (BCA Visa)</title>
                 <cctypes>VI</cctypes>
-                
+                <payment_action>authorize</payment_action>
                 <allowspecific>0</allowspecific>
             </bcavisa>
             
@@ -266,7 +266,7 @@
                 <order_status>pending</order_status>
                 <title>Credit Card (BCA MasterCard)</title>
                 <cctypes>MC</cctypes>
-                
+                <payment_action>authorize</payment_action>
                 <allowspecific>0</allowspecific>
             </bcamc>
             
@@ -276,7 +276,7 @@
                 <order_status>pending</order_status>
                 <title>Credit Card (Danamon Visa)</title>
                 <cctypes>VI</cctypes>
-                
+                <payment_action>authorize</payment_action>
                 <allowspecific>0</allowspecific>
             </danamonvisa>
             
@@ -286,7 +286,7 @@
                 <order_status>pending</order_status>
                 <title>Credit Card (Danamon MasterCard)</title>
                 <cctypes>MC</cctypes>
-                
+                <payment_action>authorize</payment_action>
                 <allowspecific>0</allowspecific>
             </danamonmc>
             
@@ -296,7 +296,7 @@
                 <order_status>pending</order_status>
                 <title>Credit Card (BII Visa)</title>
                 <cctypes>VI</cctypes>
-                
+                <payment_action>authorize</payment_action>
                 <allowspecific>0</allowspecific>
             </biivisa>
             
@@ -306,7 +306,7 @@
                 <order_status>pending</order_status>
                 <title>Credit Card (BII MasterCard)</title>
                 <cctypes>MC</cctypes>
-                
+                <payment_action>authorize</payment_action>
                 <allowspecific>0</allowspecific>
             </biimc>
             
@@ -316,7 +316,7 @@
                 <order_status>pending</order_status>
                 <title>Credit Card (Mandiri Visa)</title>
                 <cctypes>VI</cctypes>
-                
+                <payment_action>authorize</payment_action>
                 <allowspecific>0</allowspecific>
             </mandirivisa>
             
@@ -326,7 +326,7 @@
                 <order_status>pending</order_status>
                 <title>Credit Card (Mandiri MasterCard)</title>
                 <cctypes>MC</cctypes>
-                
+                <payment_action>authorize</payment_action>
                 <allowspecific>0</allowspecific>
             </mandirimc>
             
@@ -336,7 +336,7 @@
                 <order_status>pending</order_status>
                 <title>Credit Card (Mega Visa)</title>
                 <cctypes>VI</cctypes>
-                
+                <payment_action>authorize</payment_action>
                 <allowspecific>0</allowspecific>
             </megavisa>
             
@@ -346,7 +346,7 @@
                 <order_status>pending</order_status>
                 <title>Credit Card (Mega MasterCard)</title>
                 <cctypes>MC</cctypes>
-                
+                <payment_action>authorize</payment_action>
                 <allowspecific>0</allowspecific>
             </megamc>
             
@@ -356,7 +356,7 @@
                 <order_status>pending</order_status>
                 <title>Credit Card (BNI Visa)</title>
                 <cctypes>VI</cctypes>
-                
+                <payment_action>authorize</payment_action>
                 <allowspecific>0</allowspecific>
             </bnivisa>
             
@@ -366,7 +366,7 @@
                 <order_status>pending</order_status>
                 <title>Credit Card (BNI MasterCard)</title>
                 <cctypes>MC</cctypes>
-                
+                <payment_action>authorize</payment_action>
                 <allowspecific>0</allowspecific>
             </bnimc>
             
@@ -376,7 +376,7 @@
                 <order_status>pending</order_status>
                 <title>Credit Card (Permata Visa)</title>
                 <cctypes>VI</cctypes>
-                
+                <payment_action>authorize</payment_action>
                 <allowspecific>0</allowspecific>
             </permatavisa>
             
@@ -386,7 +386,7 @@
                 <order_status>pending</order_status>
                 <title>Credit Card (Permata MasterCard)</title>
                 <cctypes>MC</cctypes>
-                
+                <payment_action>authorize</payment_action>
                 <allowspecific>0</allowspecific>
             </permatamc>
             
@@ -396,7 +396,7 @@
                 <order_status>pending</order_status>
                 <title>Credit Card (BRI Visa)</title>
                 <cctypes>VI</cctypes>
-                
+                <payment_action>authorize</payment_action>
                 <allowspecific>0</allowspecific>
             </brivisa>
             
@@ -406,7 +406,7 @@
                 <order_status>pending</order_status>
                 <title>Credit Card (BRI MasterCard)</title>
                 <cctypes>MC</cctypes>
-                
+                <payment_action>authorize</payment_action>
                 <allowspecific>0</allowspecific>
             </brimc>
             
@@ -416,7 +416,7 @@
                 <order_status>pending</order_status>
                 <title>Credit Card (CIMB Visa)</title>
                 <cctypes>VI</cctypes>
-                
+                <payment_action>authorize</payment_action>
                 <allowspecific>0</allowspecific>
             </cimbvisa>
             
@@ -426,7 +426,7 @@
                 <order_status>pending</order_status>
                 <title>Credit Card (CIMB MasterCard)</title>
                 <cctypes>MC</cctypes>
-                
+                <payment_action>authorize</payment_action>
                 <allowspecific>0</allowspecific>
             </cimbmc>
             
@@ -436,7 +436,7 @@
                 <order_status>pending</order_status>
                 <title>Credit Card (Citibank Visa)</title>
                 <cctypes>VI</cctypes>
-                
+                <payment_action>authorize</payment_action>
                 <allowspecific>0</allowspecific>
             </citibankvisa>
             
@@ -446,7 +446,7 @@
                 <order_status>pending</order_status>
                 <title>Credit Card (Citibank MasterCard)</title>
                 <cctypes>MC</cctypes>
-                
+                <payment_action>authorize</payment_action>
                 <allowspecific>0</allowspecific>
             </citibankmc>
             
@@ -456,7 +456,7 @@
                 <order_status>pending</order_status>
                 <title>Credit Card (HSBC Visa)</title>
                 <cctypes>VI</cctypes>
-                
+                <payment_action>authorize</payment_action>
                 <allowspecific>0</allowspecific>
             </hsbcvisa>
             
@@ -466,7 +466,7 @@
                 <order_status>pending</order_status>
                 <title>Credit Card (HSBC MasterCard)</title>
                 <cctypes>MC</cctypes>
-                
+                <payment_action>authorize</payment_action>
                 <allowspecific>0</allowspecific>
             </hsbcmc>
             
@@ -476,7 +476,7 @@
                 <order_status>pending</order_status>
                 <title>Credit Card (Standard Chartered Visa)</title>
                 <cctypes>VI</cctypes>
-                
+                <payment_action>authorize</payment_action>
                 <allowspecific>0</allowspecific>
             </scvisa>
             
@@ -486,7 +486,7 @@
                 <order_status>pending</order_status>
                 <title>Credit Card (Standard Chartered MasterCard)</title>
                 <cctypes>MC</cctypes>
-                
+                <payment_action>authorize</payment_action>
                 <allowspecific>0</allowspecific>
             </scmc>
             
@@ -496,7 +496,7 @@
                 <order_status>pending</order_status>
                 <title>Credit Card (Panin Platinum Visa)</title>
                 <cctypes>VI</cctypes>
-                
+                <payment_action>authorize</payment_action>
                 <allowspecific>0</allowspecific>
             </paninplatinumvisa>
             
@@ -506,7 +506,7 @@
                 <order_status>pending</order_status>
                 <title>Credit Card (Panin Gold Visa)</title>
                 <cctypes>VI</cctypes>
-                
+                <payment_action>authorize</payment_action>
                 <allowspecific>0</allowspecific>
             </paningoldvisa>
             
@@ -516,7 +516,7 @@
                 <order_status>pending</order_status>
                 <title>Credit Card (Other Visa)</title>
                 <cctypes>VI</cctypes>
-                
+                <payment_action>authorize</payment_action>
                 <allowspecific>0</allowspecific>
             </othervisa>
             
@@ -526,7 +526,7 @@
                 <order_status>pending</order_status>
                 <title>Credit Card (Other MasterCard)</title>
                 <cctypes>MC</cctypes>
-                
+                <payment_action>authorize</payment_action>
                 <allowspecific>0</allowspecific>
             </othermc>
         </payment>

@@ -44,8 +44,9 @@ class Bilna_Paymethod_VtdirectController extends Mage_Core_Controller_Front_Acti
             $data['order_items'] = $this->getOrderItems($order, $items);
             $data['gross_amount'] = round($order->getGrandTotal());
             $data['email'] = $this->getCustomerEmail($order->getBillingAddress()->getEmail());
-            $data['shipping_address'] = $this->parseShippingAddress($order->getShippingAddress());
             $data['billing_address'] = $this->parseBillingAddress($order->getBillingAddress());
+            $data['shipping_address'] = $this->parseBillingAddress($order->getShippingAddress());
+            //$data['shipping_address'] = $this->parseShippingAddress($order->getShippingAddress());
             $data['bank'] = $this->getAcquiredBank($paymentCode);
             
             /**
@@ -271,11 +272,13 @@ class Bilna_Paymethod_VtdirectController extends Mage_Core_Controller_Front_Acti
     }
     
     private function getPostCode($postCode) {
-        if (empty ($postCode) || $postCode == '') {
-            return $this->getPostCodeSession();
+        $result = Mage::helper('paymethod')->allowOnlyNumber($postCode);
+        
+        if (empty ($result) || $result == '') {
+            $result = Mage::helper('paymethod')->allowOnlyNumber($this->getPostCodeSession());
         }
         
-        return Mage::helper('paymethod')->allowOnlyNumber($postCode);
+        return $result;
     }
     
     private function getPostCodeSession() {
