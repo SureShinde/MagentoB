@@ -69,11 +69,8 @@ a.back-to-top {
 }
 
 #nav .shopby{
-	border: 1px solid #8F554D;
-    box-shadow: 5px 5px 5px #999999;
     padding: 13px;
     top: 48px;
-    z-index: 99;
 }
 .shopby ul.shop-by{
 	margin:0 0 5px;
