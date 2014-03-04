@@ -56,7 +56,7 @@ class Bilna_Paymethod_Block_Form_Vtdirect extends Mage_Payment_Block_Form_Ccsave
     public function checkZipCode() {
         $quote = Mage::getSingleton('checkout/session')->getQuote();
         $billingAddress = $quote->getBillingAddress();
-        $zipCode = $billingAddress->getPostcode();
+        $zipCode = Mage::helper('paymethod')->allowOnlyNumber($billingAddress->getPostcode());
         
         /**
          * check customer is guest

@@ -50,7 +50,6 @@
     <h1><?php echo $_helper->categoryAttribute($_category, $_category->getName(), 'name') ?></h1>
 </div>
 <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
-
 <?php 
 $xlCmsBlock = Mage::getModel('cms/block')->load("slider-category-baby-".strtolower($_category->getUrlKey())."-4")->getContent();
 $largeCmsBlock = Mage::getModel('cms/block')->load("slider-category-baby-".strtolower($_category->getUrlKey())."-1")->getContent();
