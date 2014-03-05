@@ -96,14 +96,23 @@
         <reference name='sales.order.history'>  
             <action method='setTemplate' ifconfig="payment/klikpay/active"><template>klikpay/sales/order/history.phtml</template></action>
         </reference>
-    </sales_order_history>
+    </sales_order_history-->
     
     <sales_order_invoice>
         <reference name='invoice_items'>  
-            <action method="addItemRender"><type>default</type><block>sales/order_item_renderer_default</block><template>klikpay/sales/order/invoice/items/renderer/default.phtml</template></action>
-            <action method="addItemRender"><type>grouped</type><block>sales/order_item_renderer_grouped</block><template>klikpay/sales/order/invoice/items/renderer/default.phtml</template></action>
+            <action method="addItemRender">
+                <type>default</type>
+                <block>sales/order_item_renderer_default</block>
+                <template>paymethod/sales/order/invoice/items/renderer/default.phtml</template>
+            </action>
+            
+            <action method="addItemRender">
+                <type>grouped</type>
+                <block>sales/order_item_renderer_grouped</block>
+                <template>paymethod/sales/order/invoice/items/renderer/default.phtml</template>
+            </action>
         </reference>
-    </sales_order_invoice-->
+    </sales_order_invoice>
     
     <checkout_onepage_paymentmethod>
         <remove name="right"/>

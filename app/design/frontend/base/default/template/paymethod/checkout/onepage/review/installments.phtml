@@ -1,22 +1,30 @@
-<?php if ($this->getInstallmentOptionPerOrder()): ?>
-    <strong style="margin-left:10px;"><?php echo $this->__('Payment type:'); ?></strong>
-    <ul style="margin:0 0 10px 20px;">
-        <?php $i = 1; ?>
-        <?php foreach ($this->getInstallmentOption() as $option): ?>
-            <?php if (!empty ($option['tenor']) || $option['tenor'] != ''): ?>
-                <?php if (!$this->getInstallmentFeature()): ?>
-                    <?php continue; ?>
-                <?php endif; ?>
-            <?php endif; ?>
-        
-            <?php $checked = $i == 1 ? 'checked="checked"' : ""; ?>
-        
+<input type="hidden" name="allow_installment" value="<?php echo $this->getInstallmentSupport(); ?>" />
+
+<?php if ($this->getInstallmentSupport()): ?>
+    <input type="hidden" name="installment_method" value="<?php echo $this->getInstallmentMethod(); ?>" />
+    
+    <?php if ($this->getInstallmentOptionPerOrder()): ?>
+        <strong style="margin-left:10px;"><?php echo $this->__('Payment type:'); ?></strong>
+        <ul style="margin:0 0 10px 20px;">
             <li>
-                <input <?php echo $checked; ?> type="radio" class="validate-one-required" value="<?php echo $option['id']; ?>" name="installment" id="installment-<?php echo $option['id']; ?>" />&nbsp;
-                <label for="installment-<?php echo $option['id']; ?>"><?php echo $option['label']; ?></label>
+                <input checked="checked" type="radio" class="validate-one-required" value="1" name="installment" id="installment-0" />&nbsp;
+                <label for="installment-0"><?php echo $this->__('Full Payment'); ?></label>
             </li>
             
-            <?php $i++; ?>
-        <?php endforeach; ?>
-    </ul>
+            <?php foreach ($this->getInstallmentOption() as $option): ?>
+                <?php if (!empty ($option['tenor']) || $option['tenor'] != ''): ?>
+                    <?php if (!$this->getInstallmentFeature()): ?>
+                        <?php continue; ?>
+                    <?php endif; ?>
+                <?php endif; ?>
+
+                <li>
+                    <input type="radio" class="validate-one-required" value="<?php echo $option['tenor']; ?>" name="installment" id="installment-<?php echo $option['id']; ?>" />&nbsp;
+                    <label for="installment-<?php echo $option['id']; ?>"><?php echo $option['label']; ?></label>
+                </li>
+
+                <?php $i++; ?>
+            <?php endforeach; ?>
+        </ul>
+    <?php endif; ?>
 <?php endif; ?>
