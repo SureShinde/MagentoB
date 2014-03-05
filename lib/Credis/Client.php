@@ -130,8 +130,8 @@ class CredisException extends Exception {
  *
  * Scripting:
  * @method string|int    script(string $command, string $arg1 = null)
- * @method string|int|array|bool eval(string $script, int $numkeys, string $key = null, string $arg = null)
- * @method string|int|array|bool evalSha(string $sha1, int $numkeys, string $key = null, string $arg = null)
+ * @method string|int|array|bool eval(string $script, array $keys = NULL, array $args = NULL)
+ * @method string|int|array|bool evalSha(string $script, array $keys = NULL, array $args = NULL)
  */
 class Credis_Client {
 
@@ -155,7 +155,7 @@ class Credis_Client {
      * @var string
      */
     protected $host;
-
+    
     /**
      * Port on which the Redis server is running
      * @var integer
@@ -451,6 +451,15 @@ class Credis_Client {
         // Send request via native PHP
         if($this->standalone)
         {
+            switch ($name) {
+                case 'eval':
+                case 'evalsha':
+                    $script = array_shift($args);
+                    $keys = (array) array_shift($args);
+                    $eArgs = (array) array_shift($args);
+                    $args = array($script, count($keys), $keys, $eArgs);
+                    break;
+            }
             // Flatten arguments
             $argsFlat = NULL;
             foreach($args as $index => $arg) {
@@ -459,12 +468,12 @@ class Credis_Client {
                         $argsFlat = array_slice($args, 0, $index);
                     }
                     if($name == 'mset' || $name == 'msetnx' || $name == 'hmset') {
-                        foreach($arg as $key => $value) {
-                            $argsFlat[] = $key;
-                            $argsFlat[] = $value;
-                        }
+                      foreach($arg as $key => $value) {
+                        $argsFlat[] = $key;
+                        $argsFlat[] = $value;
+                      }
                     } else {
-                        $argsFlat = array_merge($argsFlat, $arg);
+                      $argsFlat = array_merge($argsFlat, $arg);
                     }
                 } else if($argsFlat !== NULL) {
                     $argsFlat[] = $arg;
@@ -576,6 +585,24 @@ class Credis_Client {
                 case 'lrem':
                     $args = array($args[0], $args[2], $args[1]);
                     break;
+                case 'eval':
+                case 'evalsha':
+                    if (isset($args[1]) && is_array($args[1])) {
+                        $cKeys = $args[1];
+                    } elseif (isset($args[1]) && is_string($args[1])) {
+                        $cKeys = array($args[1]);
+                    } else {
+                        $cKeys = array();
+                    }
+                    if (isset($args[2]) && is_array($args[2])) {
+                        $cArgs = $args[2];
+                    } elseif (isset($args[2]) && is_string($args[2])) {
+                        $cArgs = array($args[2]);
+                    } else {
+                        $cArgs = array();
+                    }
+                    $args = array($args[0], array_merge($cKeys, $cArgs), count($cKeys));
+                    break;
                 default:
                     // Flatten arguments
                     $argsFlat = NULL;
@@ -626,9 +653,9 @@ class Credis_Client {
 
                 $response = call_user_func_array(array($this->redis, $name), $args);
             }
-                // Wrap exceptions
+            // Wrap exceptions
             catch(RedisException $e) {
-                throw new CredisException($e->getMessage(), $e->getCode());
+                throw new CredisException($e->getMessage(), $e->getCode(), $e);
             }
 
             #echo "> $name : ".substr(print_r($response, TRUE),0,100)."\n";
@@ -639,16 +666,30 @@ class Credis_Client {
                 case 'hmget':
                     $response = array_values($response);
                     break;
+
                 case 'type':
                     $typeMap = array(
-                        self::TYPE_NONE,
-                        self::TYPE_STRING,
-                        self::TYPE_SET,
-                        self::TYPE_LIST,
-                        self::TYPE_ZSET,
-                        self::TYPE_HASH,
+                      self::TYPE_NONE,
+                      self::TYPE_STRING,
+                      self::TYPE_SET,
+                      self::TYPE_LIST,
+                      self::TYPE_ZSET,
+                      self::TYPE_HASH,
                     );
                     $response = $typeMap[$response];
+                    break;
+
+                // Handle scripting errors
+                case 'eval':
+                case 'evalsha':
+                case 'script':
+                    $error = $this->redis->getLastError();
+                    $this->redis->clearLastError();
+                    if ($error && substr($error,0,8) == 'NOSCRIPT') {
+                        $response = NULL;
+                    } else if ($error) {
+                        throw new CredisException($error);
+                    }
                     break;
             }
         }
@@ -700,15 +741,17 @@ class Credis_Client {
             case '-':
                 if($this->isMulti || $this->usePipeline) {
                     $response = FALSE;
+                } else if ($name == 'evalsha' && substr($reply,0,9) == '-NOSCRIPT') {
+                    $response = NULL;
                 } else {
-                    throw new CredisException(substr($reply, 4));
+                    throw new CredisException(substr($reply,0,4) == '-ERR' ? substr($reply, 5) : substr($reply,1));
                 }
                 break;
             /* Inline reply */
             case '+':
                 $response = substr($reply, 1);
                 if($response == 'OK' || $response == 'QUEUED') {
-                    return TRUE;
+                  return TRUE;
                 }
                 break;
             /* Bulk reply */
@@ -727,7 +770,7 @@ class Credis_Client {
 
                 $response = array();
                 for ($i = 0; $i < $count; $i++) {
-                    $response[] = $this->read_reply();
+                        $response[] = $this->read_reply();
                 }
                 break;
             /* Integer reply */
@@ -758,7 +801,7 @@ class Credis_Client {
                 $response = array();
                 foreach($lines as $line) {
                     if ( ! $line || substr($line, 0, 1) == '#') {
-                        continue;
+                      continue;
                     }
                     list($key, $value) = explode(':', $line, 2);
                     $response[$key] = $value;

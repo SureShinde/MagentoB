@@ -170,4 +170,8 @@ class Bilna_Paymethod_Helper_Data extends Mage_Core_Helper_Abstract {
         
         return $result;
     }
+    
+    public function allowOnlyNumber($number) {
+        return preg_replace('/\D/', '', trim($number));
+    }
 }
