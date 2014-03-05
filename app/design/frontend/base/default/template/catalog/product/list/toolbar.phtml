@@ -91,14 +91,14 @@
 		</a>
 	     	<?php else: ?>
 		<a href="<?php echo $this->getOrderUrl($_key, 'desc') ?>" title="<?php echo $this->__('Set Descending Direction') ?>" alt="<?php echo $this->__('Set Ascending Direction') ?>" class="v-middle">
-		<!--span class="sort-active"><?php echo $this->__($_order) ?></span-->
+		<!--span class="sort-active"><?php //echo $this->__($_order) ?></span-->
 		<span class="sort-active"><?php if($_key=="position"){ echo "Popularity"; }else{ echo $this->__($_order); } ?></span>	
 		<label><?php echo $this->__('▲') ?></label>
 		</a>
 		<?php endif; ?>
 	     </li>
              <?php else: ?>
-             <!--li><a href="<?php //echo $this->getOrderUrl($_key, 'asc') ?>"><?php echo $this->__($_order) ?></a></li-->
+             <!--li><a href="<?php //echo $this->getOrderUrl($_key, 'asc') ?>"><?php //echo $this->__($_order) ?></a></li-->
 	     <li><a href="<?php echo $this->getOrderUrl($_key, 'asc') ?>"><?php if($_key=="position"){ echo "Popularity"; }else{ echo $this->__($_order); } ?></a></li>
              <?php endif; ?>
 	<?php endforeach; ?>
@@ -148,24 +148,51 @@
         </p>
         <?php endif; ?>
     
-        <div style="width:auto;">
-			<div class="sort-by" style="float: left">
-				<label><?php echo $this->__('Sort By:') ?></label>
-				<div class="sort-by-option">
-					<select onchange="setLocation(this.value)">
-					<?php foreach($this->getAvailableOrders() as $_key=>$_order): ?>
-						<option value="<?php echo $this->getOrderUrl($_key, 'asc') ?>"<?php if($this->isOrderCurrent($_key)): ?> selected="selected"<?php endif; ?>>
-							<?php echo $this->__($_order) ?>
-						</option>
-					<?php endforeach; ?>
-					</select>
-				</div>
-			</div>
-			<div class="filter-toggle" style="float: left">
-				<a class="button-toggle">Filter</a>
-			</div>
+	<div style="width:auto;">
+		<div class="sort-by" style="float: left">
+		<label><?php echo $this->__('Sort By:') ?></label>
+			<div class="sort-by-option">
+			<select onchange="setLocation(this.value)">
 			
+			<?php foreach($this->getAvailableOrders() as $_key=>$_order): ?>
+			
+			<option value="<?php echo $this->getOrderUrl($_key, 'desc') ?>"<?php if($this->isOrderCurrent($_key) && $this->getCurrentDirection() == 'desc'): ?> selected="selected"<?php endif; ?>>
+			<!--?php //echo $this->__($_order) ?-->
+				<?php 
+				if($_key=="position"){ 
+				echo "Most Popular"; 
+				}
+				if($_key=="name"){ 
+				echo "Name Z-A";
+				}
+				if($_key=="price"){ 
+				echo "Price High to Low";
+				}
+				?>
+			</option>
+			<option value="<?php echo $this->getOrderUrl($_key, 'asc') ?>"<?php if($this->isOrderCurrent($_key) && $this->getCurrentDirection() == 'asc'): ?> selected="selected"<?php endif; ?>>			
+			<!--?php //echo $this->__($_order) ?-->
+				<?php 
+				if($_key=="position"){ 
+				echo "Less Popular"; 
+				}
+				if($_key=="name"){ 
+				echo "Name A-Z";
+				}
+				if($_key=="price"){ 
+				echo "Price Low to High";
+				}
+				?>
+			</option>			
+			<?php endforeach; ?>
+			
+			</select>
+			</div>
 		</div>
+		<div class="filter-toggle" style="float: left">
+		<a class="button-toggle">Filter</a>
+		</div>
+	</div>
         <!--div class="filter">
 	        <div class="filter-option">
 		        <select>
