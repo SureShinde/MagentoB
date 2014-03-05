@@ -81,27 +81,27 @@
             <label><?php echo $this->__('Sort By:') ?></label>
             <ul>
             <?php foreach($this->getAvailableOrders() as $_key=>$_order): ?>
-            	<?php if($this->isOrderCurrent($_key)): ?>
-            		<li>
-						
-						<?php if($this->getCurrentDirection() == 'desc'): ?>
-						
-							<a href="<?php echo $this->getOrderUrl($_key, 'asc') ?>" title="<?php echo $this->__('Set Ascending Direction') ?>" alt="<?php echo $this->__('Set Ascending Direction') ?>" class="v-middle" >
-								<span class="sort-active"><?php echo $this->__($_order) ?></span>
-								<label><?php echo $this->__('▼') ?></label>
-							</a>
-						<?php else: ?>
-							<a href="<?php echo $this->getOrderUrl($_key, 'desc') ?>" title="<?php echo $this->__('Set Descending Direction') ?>" alt="<?php echo $this->__('Set Ascending Direction') ?>" class="v-middle">
-								<span class="sort-active"><?php echo $this->__($_order) ?></span>	
-								<label><?php echo $this->__('▲') ?></label>
-							</a>
-						<?php endif; ?>
-					</li>
-            	<?php else: ?>
-            		<li><a href="<?php echo $this->getOrderUrl($_key, 'asc') ?>"><?php echo $this->__($_order) ?></a></li>
-					
-            	<?php endif; ?>
-	        <?php endforeach; ?>
+             <?php if($this->isOrderCurrent($_key)): ?>
+             <li>
+		<?php if($this->getCurrentDirection() == 'desc'): ?>
+		<a href="<?php echo $this->getOrderUrl($_key, 'asc') ?>" title="<?php echo $this->__('Set Ascending Direction') ?>" alt="<?php echo $this->__('Set Ascending Direction') ?>" class="v-middle" >
+		<!--span class="sort-active"><?php echo $this->__($_order) ?></span-->
+		<span class="sort-active"><?php if($_key=="position"){ echo "Popularity"; }else{ echo $this->__($_order); } ?></span>
+		<label><?php echo $this->__('▼') ?></label>
+		</a>
+	     	<?php else: ?>
+		<a href="<?php echo $this->getOrderUrl($_key, 'desc') ?>" title="<?php echo $this->__('Set Descending Direction') ?>" alt="<?php echo $this->__('Set Ascending Direction') ?>" class="v-middle">
+		<!--span class="sort-active"><?php echo $this->__($_order) ?></span-->
+		<span class="sort-active"><?php if($_key=="position"){ echo "Popularity"; }else{ echo $this->__($_order); } ?></span>	
+		<label><?php echo $this->__('▲') ?></label>
+		</a>
+		<?php endif; ?>
+	     </li>
+             <?php else: ?>
+             <!--li><a href="<?php //echo $this->getOrderUrl($_key, 'asc') ?>"><?php echo $this->__($_order) ?></a></li-->
+	     <li><a href="<?php echo $this->getOrderUrl($_key, 'asc') ?>"><?php if($_key=="position"){ echo "Popularity"; }else{ echo $this->__($_order); } ?></a></li>
+             <?php endif; ?>
+	<?php endforeach; ?>
 						
             </ul>
         </div>
@@ -176,6 +176,7 @@
     </div>
     <?php endif; ?>
 </div>
+
 <?php endif ?>
 <style>
 .show-filter-bilna {display: block;}
