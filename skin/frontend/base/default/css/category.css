@@ -243,6 +243,10 @@ a.triger-showfilter {
 .sorter .view-mode, .sorter .sort-by {
 	float: none;
 }
+.v-middle > label {
+    float: right !important;
+    margin: 0 0 0 5px !important;
+}
 .sorter .sort-by label, .sorter .sort-by span.sort-active, .toolbar .limiter label, .toolbar .limiter ul li span.view-active {
 	font-weight: bold;
 }
