@@ -80,7 +80,7 @@ ul,ol         { list-style:none; }
 .f-left,
 .left         { float:left !important; }
 .f-right,
-.right        { float:right !important; }
+.right        { float:right !important; margin-right: 30px; } /* tambahan: margin-right: 30px; */
 .f-none       { float:none !important; }
 .f-fix        { float:left; width:100%; }
 .no-display   { display:none; }
@@ -478,10 +478,10 @@ tr.summary-details-excluded { font-style:italic; }
 	width: 107px;
 	background-image: url(../images/btn-buynow.png);
 	height: 36px;
-	bottom: 18px;
+	bottom: 20px !important;
 	line-height: 21px;
 	color: #fff !important;
-	position: absolute;
+	position: absolute !important;
 	font-family: Helvetica;
 	font-size: 1em;
 	font-weight: normal;
@@ -490,7 +490,7 @@ tr.summary-details-excluded { font-style:italic; }
 	text-align: center;
 	line-height: 36px;
 }
-.link-wishlist { color:#dc6809; font-weight:bold; /*position:absolute; bottom:0;*/}
+.link-wishlist { color:#dc6809; font-weight:bold; position:absolute; bottom:5px !important;}
 .link-reorder { font-weight:bold; color:#dc6809 !important; }
 .link-compare { font-weight:bold; }
 .link-print { /*background:url(../images/i_print.gif) 0 2px no-repeat; padding:2px 0 2px 25px;*/ font-weight:bold; color:#dc6809; }
@@ -822,7 +822,7 @@ tr.summary-details-excluded { font-style:italic; }
 .products-grid .product-name { /*min-height:2.7em;*/ margin:0 0 5px; font-weight:bold; font-size:13px; color:#203548; }
 .products-grid .product-name a { color:#203548; }
 .products-grid .price-box { margin:5px 0; }
-.products-grid .availability { line-height:21px; }
+.products-grid .availability { line-height:21px;bottom: 30px; position: absolute; }
 .products-grid .actions { position:absolute; bottom:12px; }
 .col2-left-layout .products-grid,
 .col2-right-layout .products-grid { width:632px; margin:0 auto; }
@@ -986,7 +986,7 @@ tr.summary-details-excluded { font-style:italic; }
 .tier-prices-grouped li .price { font-weight:bold; }
 
 /* Add to Links */
-.add-to-links { font-size:11px;bottom:0;}
+.add-to-links { font-size:11px;bottom:0; position: absolute;}
 .add-to-links .separator { display:none; }
 
 /* Add to Cart */
@@ -1900,3 +1900,13 @@ tr.summary-details-excluded { font-style:italic; }
 	position: relative !important;
 	display: block !important;
 }
+
+
+
+/* --------------- smaller 959 px layout -------------------- */
+@media only screen and (max-width: 767px) {
+.products-grid .availability { line-height:21px;bottom: 30px; position: relative; margin-left: }
+.availability.out-of-stock span {margin-left: 10px;}
+
+}
+

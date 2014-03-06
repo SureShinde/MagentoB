@@ -97,23 +97,46 @@ if (count($this->getItems()) == 1){
             if (!is_numeric($toValue)) {
                 $toValue = $max;      
             }
-            
+  
+            $z = floor($min/50000);
+            if($z <= 0)
+            {
+                $min = 0;
+            }else{
+                $min = $z*50000;
+            }
+
+            $a = round($max/50000, 0, PHP_ROUND_HALF_EVEN);
+            $max = $a * 50000;
+
+            $fv = floor($fromValue/50000);
+            if($fv <= 0)
+            {
+                $fromValue = 0;
+            }else{
+                $fromValue = $fv*50000;
+            }
+
+            $tv = round($toValue/50000, 0, PHP_ROUND_HALF_EVEN);
+            $toValue = $tv*50000;
+
             $from = min($fromValue, $min);            
             $to   = max($toValue, $max);
-            
+   
             if ($from < 0.01 && $to < 0.01){
                 $to = sprintf('%.00f', $to);
             }
             
+            $step = round(($to - $from) / 50000);  
             
-            $width = 170;
+            $width = floor(170/$step) * $step;
             
             $ratePP = ($to - $from) / $width;  
             
             $firstOffset =  ($max > 0.01 && !$initialState) ? ($fromValue - $min) / $ratePP : 0;
-            $secondOffset = ($to && $max > 0.01 && $toValue < $max) ? ($toValue - $min) / $ratePP : $width;
+            $secondOffset = ($to && $max > 0.01 && $toValue < $max) ? ($toValue - $min) / $ratePP : $width ;
             
-            $params = implode(',', array($width, $firstOffset, $secondOffset, $to, $prefix, $from, $ratePP, intVal($this->getSliderDecimal())));
+            $params = implode(',', array($width, $step, $firstOffset, $secondOffset, $to, $prefix, $from, $ratePP, intVal($this->getSliderDecimal())));
 ?>
         <?php
         /*
