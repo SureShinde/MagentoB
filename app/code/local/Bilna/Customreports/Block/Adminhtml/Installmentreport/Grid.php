@@ -32,7 +32,8 @@ class Bilna_Customreports_Block_Adminhtml_Installmentreport_Grid extends Mage_Ad
         )->group('main_table.entity_id');
         $collection
             ->addFieldToFilter("{$this->paymentAliasName}.method", array ('in' => $orderPaymentAllowed))
-            ->addFieldToFilter('main_table.status', array ('in' => $orderStatusAllowed));
+            ->addFieldToFilter('main_table.status', array ('in' => $orderStatusAllowed))
+            ->addFieldToFilter("{$this->itemAliasName}.installment", array ('eq' => '1'));
         $this->setCollection($collection);
         
         return parent::_prepareCollection();
@@ -41,7 +42,7 @@ class Bilna_Customreports_Block_Adminhtml_Installmentreport_Grid extends Mage_Ad
     protected function _prepareColumns() {
         $this->addColumn('increment_id', array (
             'header' => Mage::helper('customreports/installmentreport')->__('Order #'),
-            'align' => 'left',
+            'align' => 'center',
             'width' => '80px',
             'index' => 'increment_id',
             'filter_index' => $this->mainAliasName . '.increment_id'
@@ -52,7 +53,7 @@ class Bilna_Customreports_Block_Adminhtml_Installmentreport_Grid extends Mage_Ad
             'index' => 'created_at',
             'filter_index' => $this->mainAliasName . '.created_at',
             'type' => 'datetime',
-            'width' => '100px',
+            'width' => '150px',
         ));
 	  
         $this->addColumn('billing_name', array (
@@ -90,7 +91,7 @@ class Bilna_Customreports_Block_Adminhtml_Installmentreport_Grid extends Mage_Ad
             'index' => 'method',
             'filter_index' => $this->paymentAliasName . '.method',
             'type'  => 'options',
-            'width' => '100px',
+            'width' => '220px',
             'options' => $this->_preparePaymentOption()
         ));
         
@@ -112,12 +113,13 @@ class Bilna_Customreports_Block_Adminhtml_Installmentreport_Grid extends Mage_Ad
         ));
         
         $this->addColumn('installment_type', array(
-            'header' => Mage::helper('customreports/installmentreport')->__('Payment Type'),
+            'header' => Mage::helper('customreports/installmentreport')->__('Tenor'),
             'index' => 'installment_type',
             'filter_index' => $this->itemAliasName . '.installment_type',
-            'width' => '80px',
-            'filter' => false,
-            'renderer' => 'Bilna_Customreports_Block_Adminhtml_Renderer_Column_Installment'
+            'width' => '70px',
+            'align' => 'center'
+            //'filter' => false,
+            //'renderer' => 'Bilna_Customreports_Block_Adminhtml_Renderer_Column_Installment'
         ));
         
         $this->addExportType('*/*/exportCsv', Mage::helper('customreports/installmentreport')->__('CSV'));
@@ -126,15 +128,14 @@ class Bilna_Customreports_Block_Adminhtml_Installmentreport_Grid extends Mage_Ad
     }
     
     protected function _preparePaymentOrderOption() {
-        //$orderPaymentAllowed = Mage::getStoreConfig('payment/customreports/payment_allowed');
-		$orderPaymentAllowed = Mage::getStoreConfig('bilna_customreports/installmentreport/payment_allow');
+        $orderPaymentAllowed = Mage::getStoreConfig('bilna_customreports/installmentreport/payment_allow');
         $orderPaymentAllowedArr = explode(',', $orderPaymentAllowed);
         
         return $orderPaymentAllowedArr;
     }
     
     protected function _prepareStatusOrderOption() {
-        $orderStatusAllowed = Mage::getStoreConfig('payment/customreports/order_status_cicilan');
+        $orderStatusAllowed = Mage::getStoreConfig('bilna_customreports/installmentreport/status_allow');
         $orderStatusAllowedArr = explode(',', $orderStatusAllowed);
         
         return $orderStatusAllowedArr;
@@ -152,7 +153,7 @@ class Bilna_Customreports_Block_Adminhtml_Installmentreport_Grid extends Mage_Ad
     }
     
     protected function _prepareStatusOption() {
-        $status = explode(',', Mage::getStoreConfig('payment/customreports/order_status_cicilan'));
+        $status = $this->_prepareStatusOrderOption();
         $result = array ();
         
         foreach ($status as $key => $value) {
