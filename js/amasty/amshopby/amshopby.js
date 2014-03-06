@@ -85,30 +85,35 @@ function amshopby_price_format(num, decimal){
 }
 
 
-function amshopby_slider(width, from, to, max_value, prefix, min_value, ratePP, decimal) {
+function amshopby_slider(width, step, from, to, max_value, prefix, min_value, ratePP, decimal) {
     
     width = parseFloat(width);
     from = parseFloat(from);
     to = parseFloat(to);
     max_value = parseFloat(max_value);
     min_value = parseFloat(min_value);
-    
+    step = parseFloat(step);
+
+    numArr = Math.round(parseFloat(width/step));
+
     var slider = $(prefix); 
-    //      var allowedVals = new Array(11);
-    //      for (var i=0; i<allowedVals.length; ++i){
-    //          allowedVals[i] = Math.round(i * to /10);
-    //      }
+         var allowedVals = new Array(step + 1);
+         for (var i=0; i<allowedVals.length; ++i){
+             allowedVals[i] = Math.round(i * numArr);
+         }
+       
     return new Control.Slider(slider.select('.handle'), slider, {
         range: $R(0, width),
         sliderValue: [from, to],
         restricted: true,
-        //values: allowedVals,
+        values: allowedVals,
         
         onChange: function (values){
             this.onSlide(values);  
             amshopby_price_click_callback(prefix, decimal);  
         },
         onSlide: function(values) {
+
             var fromValue = (min_value + ratePP * values[0]).toFixed(decimal);
             var toValue   = (min_value + ratePP * values[1]).toFixed(decimal);
 

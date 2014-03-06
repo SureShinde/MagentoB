@@ -121,7 +121,7 @@
         </routers>
     </admin>
     
-    <adminhtml>
+    <!--adminhtml>
         <layout>
             <updates>
                 <visa>
@@ -129,5 +129,5 @@
                 </visa>
             </updates>
         </layout>
-    </adminhtml>
+    </adminhtml-->
 </config>

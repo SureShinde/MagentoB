@@ -24,7 +24,10 @@
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
+
+
 <div class="wrap_banner">
+	<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('shopby')->toHtml() ?> 
 	<div class="slider col-1">
 		<img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA); ?>wysiwyg/banner_slider/slider_home_1.jpg">
 	</div>
@@ -37,15 +40,15 @@
 	</div>
 </div>
 <div class="products-on-sale">
-	<h2>PRODUCT ON SALE</h2>
+	<h2>PRODUCT ON SALE<span><a href="#!">View more products</a></span></h2>
 	<?php echo $this->getLayout()->createBlock('awfeatured/block')->setBlockId('products-on-sale')->toHtml() ?>
 </div>
 <div class="new-arrival">
-	<h2>NEW ARRIVAL</h2>
+	<h2>NEW ARRIVAL<span><a href="#!">View more products</a></span></h2>
 	<?php echo $this->getLayout()->createBlock('awfeatured/block')->setBlockId('products-on-sale')->toHtml() ?>
 </div>
 <div class="most-popular">
-	<h2>MOST POPULAR</h2>
+	<h2>MOST POPULAR<span><a href="#!">View more products</a></span></h2>
 	<?php echo $this->getLayout()->createBlock('awfeatured/block')->setBlockId('products-on-sale')->toHtml() ?>
 </div>
 

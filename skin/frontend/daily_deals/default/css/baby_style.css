@@ -1191,6 +1191,7 @@
 	}
 }
 /* --------------- 960 px layout -------------------- */
+
 @media only screen and (max-width: 1023px) {
 	.header, #nav, .sticky-header {
 		width: 745px;
@@ -1223,6 +1224,9 @@
 	.header .links li.myaccount .toplink-myaccount {
 		left: auto;
 		right: 0;
+	}
+	.header .links li{
+	float:right;
 	}
 	.header .quick-access .left {
 		float: none !important;
