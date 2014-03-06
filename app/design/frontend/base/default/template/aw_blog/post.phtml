@@ -53,6 +53,7 @@ $relatedPost = $this->getRelatedPost($post->getCatId(), $post->getPostId());
         <?php endif; ?><?php echo $this->__("and tagged"); ?> <!--label class="poster"><?php //echo $post->getUser(); ?></label--><?php echo Mage::getBlockSingleton('blog/blog')->getTagsHtml($post) ?>
     </div>
     <div style="clear:both; margin: 20px 0;">
+		<h2 class="fb-bebas fb-13" style="color: #707070; font-weight: normal;"><?php echo $this->__('Share this article on') ?></h2>
         <!-- AddThis Button BEGIN -->
         <div class="addthis_toolbox addthis_default_style addthis_32x32_style">
         <a class="addthis_button_preferred_1"></a>
@@ -67,12 +68,13 @@ $relatedPost = $this->getRelatedPost($post->getCatId(), $post->getPostId());
         <!-- AddThis Button END -->
     </div>
     
-    <div style="width: 100%; clear: both; margin: 10px 0; padding: 20px;border-top: 1px dashed #999;">
+    <div style="width: 100%; clear: both; margin: 10px 0; padding: 20px 0;border-top: 1px dashed #999;">
+	<h2 class="fb-bebas fb-18" style="color: #707070; font-weight: normal;"><?php echo $this->__('Related Post') ?></h2>
     <?php foreach ($relatedPost as $row): ?>
         
         <div class="rel-post">
             <a href="<?php echo $row->getAddress(); ?>">
-				<img src="<?php echo Mage::getBaseUrl();?>media/<?php echo $row->getImageName();?>"/>
+				<img src="<?php echo  Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA); ?><?php echo $row->getImageName();?>"/>
 				<p class="post-blog-title-small">
 					<?php echo $row->getTitle();?>
 				</p>

@@ -1051,3 +1051,55 @@ h2.small-tittle {
 
 
 
+.blog-index-list .breadcrumbs,
+.blog-post-view .breadcrumbs,
+.blog-search-index .breadcrumbs,
+.blog-cat-view .breadcrumbs {
+    font-family: helvetica;
+    font-size: 12px;
+    font-weight: bold;
+    margin: 10px 60px 13px !important;
+}
+
+
+/* FB-custom-right */
+.fb_iframe_widget {
+    display: inline-block;
+    position: relative;
+    width: 100% !important;
+	height: auto !important;
+	min-height: 340px !important;
+}
+
+.fb_iframe_widget span {
+    width: 100% !important;
+	height: auto !important;
+	min-height: 340px !important;
+}
+.fb_iframe_widget iframe {
+	width: 100% !important;
+	height: auto !important;
+	min-height: 340px !important;
+}
+.pluginSkinLight {
+	height: auto !important;
+	display: block !important;
+	clear: both !important;
+}
+
+div._4s7c {
+	height: auto !important;
+	min-height: 340px !important;
+}
+h3.uiHeaderTitle {
+	color: #5e5e5e !important;
+	font-family: 'bebasregular' !important;
+	font-size: 15px !important;
+	font-weight: normal !important;
+	text-transform: uppercase !important;
+	padding: 5px 0 !important;
+	margin: 15px 0 5px !important;
+}
+
+
+
