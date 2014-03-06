@@ -44,7 +44,7 @@ html, body, .container, .main { height: 100%;}
 	z-index: 100;
 }
 
-.cbp-contentslider nav {
+.cbp-contentslider .large_thumb {
 	position: absolute;
 	bottom: 0;
 	right: 0;
@@ -53,7 +53,7 @@ html, body, .container, .main { height: 100%;}
 	overflow: hidden;
 }
 
-.cbp-contentslider nav a {
+.cbp-contentslider .large_thumb a {
 	float: left;
 	display: block;
 	width: 100%;
@@ -69,48 +69,49 @@ html, body, .container, .main { height: 100%;}
 	transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out;
 }
 
-.cbp-contentslider nav a span {
+.cbp-contentslider .large_thumb a span {
 	display: block;
 }
 
-.cbp-contentslider nav a:last-child {
+.cbp-contentslider .large_thumb a:last-child {
 	border: none;
 	box-shadow: 1px 0 #47a3da; /* fills gap caused by rounding */
 }
 
-.cbp-contentslider nav a:hover {
+.cbp-contentslider .large_thumb a:hover {
 	background-color: #f14223;
 	color: #fff;
 }
 
-.cbp-contentslider nav a.rc-active {
+.cbp-contentslider .large_thumb a.rc-active {
 	background-color: #f14223;
 	color: #fff;
 }
-.cbp-contentslider nav .slider_thumb_large img.i{
+.cbp-contentslider .large_thumb .slider_thumb_large img.i{
 	float: left;
     height: 95px;
     width: 94px;
 	margin: 5px;
 }
-.cbp-contentslider nav a.rc-active .slider_thumb_large img.i{
+.cbp-contentslider .large_thumb a.rc-active .slider_thumb_large img.i{
 	display:none;
 }
-.cbp-contentslider nav .slider_thumb_large .t{
+.cbp-contentslider .large_thumb .slider_thumb_large .t{
 	color: #FFFFFF;
     font-size: 17px;
-    margin: 34px 0 0 7px;
-    overflow: hidden;
+    margin: 24px 0 0 7px;
     position: relative;
+	/*overflow: hidden;
     text-overflow: ellipsis;
-    font-weight: bold;
-    white-space: nowrap;
+    white-space: nowrap;*/
 }
 
-.cbp-contentslider nav .slider_thumb_large .c	{
+.cbp-contentslider .large_thumb .slider_thumb_large .c	{
+	font-size:17px;
+	font-weight:bold;
 	padding: 0 0 0 10px;
 }
-/* Iconfont for navigation and headings */
+/* Iconfont for .large_thumbigation and headings */
 .cbp-contentslider [class^="icon-"]:before, 
 .cbp-contentslider [class*=" icon-"]:before {
 	font-family: 'icomoon';
@@ -152,7 +153,7 @@ html, body, .container, .main { height: 100%;}
 
 .cbp-contentslider [class^="icon-"].rc-active:before, 
 .cbp-contentslider [class*=" icon-"].rc-active:before,
-.cbp-contentslider nav a:hover:before {
+.cbp-contentslider .large_thumb a:hover:before {
 	color: rgba(255,255,255,0.9);
 }
 
@@ -213,30 +214,75 @@ html, body, .container, .main { height: 100%;}
 }
 
 
-@media only screen and  (min-width: 1025px) and (max-width: 1215px){
+@media only screen and  (min-width: 1024px) and (max-width: 1215px){
 	.cbp-contentslider li > div{
 		padding-right: 200px;
 	}
 }
 
-@media only screen and (min-width: 769px) and (max-width: 1024px){
+@media only screen and (min-width: 769px) and (max-width: 1023px){
 	.cbp-contentslider li > div{
 		padding-right:163px;
 	}
-	.cbp-contentslider nav{
+	.cbp-contentslider .large_thumb{
 		width:163px;
 	}
 	.cbp-contentslider > ul{
 		width:100%;
 	}
+	.cbp-contentslider {
+	height: 330px;
+	}
+	.cbp-contentslider .large_thumb .slider_thumb_large img.i{
+	height: 75px;
+	width:72px;
+	}
+	.cbp-contentslider .large_thumb .slider_thumb_large .c{
+		font-size:15px;
+	}
+	.cbp-contentslider .large_thumb .slider_thumb_large .t{
+		font-size:14px;
+	}
+	.awcp-buy-button button.awcp-buy span, .orbit-caption button.awcp-buy span{
+		font: bold 18px Arial;
+	}
+	.cbp-contentslider p{
+		line-height: 1;
+	}
+	.price_deals_slider p:nth-child(1){
+		font-size:25px;
+	}
+	.date_slider_deals p:nth-child(2) {
+    font-size: 20px;
+    line-height: 20px;
+	}
+	.date_slider_deals p:nth-child(3){
+		font-size:11px;
+		margin: 0 0 3px;
+	}
+	.date_slider_deals p:nth-child(4) span{
+		font-size: 20px;
+	}
+	.cbp-contentslider .large_thumb a{
+		width:163px !important;
+	}
 }
-
-@media only screen and  (min-width: 320px) and (max-width: 768px){
-	.cbp-contentslider li > div{
-		padding-right:163px;
-	}	
-	.cbp-contentslider nav{
-		width:163px;
+@media only screen and (max-width: 768px){
+	.desc_deals_slider2{
+		width:100%;
+		border-bottom:1px solid #d6d6d6 !important;
+	}
+	.date_slider_deals{
+	border:none !important;
+	padding:10px 10px 0;
+	width: 58%;
+	}
+	.thumb_angka_area{
+		top:138px;
+	}
+		
+	.cbp-contentslider .large_thumb{
+		display:none;
 	}
 	.cbp-contentslider > ul{
 		width:100%;
@@ -247,21 +293,78 @@ html, body, .container, .main { height: 100%;}
 	.awcp-buy-button button.awcp-buy span, .orbit-caption button.awcp-buy span{
 	font-size:18px
 	}
-	
-}
-
-@media only screen and (max-width: 321px) {
 	.cbp-contentslider > ul li{
-		width:320px;
-		height: 380px;
+		height: 345px;
 	}
 	.cbp-contentslider{
-		height:380px;
+		height:345px;
 	}
 	.cbp-contentslider .thumb_image{
 		display:none;
 	}
-	.cbp-contentslider li > div{
-		width:320px;
+	.cbp-contentslider .large_thumb a.rc-active .slider_thumb_small{
+	
 	}
+	.thumb_angka_area .thumb_angka{
+		width:0 !important;
+		display:table;
+	}
+
+.thumb_angka_area{
+	color:#fff;
+	display: table;
+    left: 0;
+    position: absolute;
+    bottom: 110px;
+    z-index: 999;
+}
+.thumb_angka_area .thumb_angka{
+	color:#fff;
+	padding:10px 13px;
+	margin:0 4px 0 0;
+	font-size:12px;
+	background:#3d3d3d;
+	float:left;
+}
+.thumb_angka_area .active{
+	background:#fd8261 !important;
+}
+.desc_featured{	
+	padding: 0 10px;
+	height:195px;
+	background:#000;
+	position:relative;
+	top: 166px;
+}
+#slider2_container img{
+	height:165px !important;
+}
+.desc_deals_slider2{
+	color:#fff;
+	padding:0 15px;
+}
+.date_slider_deals{
+	color:#fff;
+}
+.right_detail_deals{
+	display:block !important;
+}
+.right_detail_deals .awcp-buy{
+	margin:10px 0 0 !important;
+	padding: 10px;
+}
+.right_detail_deals .awcp-buy span{
+	font-size:23px !important;
+}
+.price_deals_slider p:nth-child(1){
+	color:#f75d2b;
+}
+.price_deals_slider .after_price p:nth-child(1){
+	color:#f75d2b;
+}
+}
+
+
+@media only screen and (min-width: 321px) and (max-width: 615px){
+	
 }
