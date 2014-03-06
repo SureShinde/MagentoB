@@ -99,6 +99,7 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
                     }
                     
                     $this->getOnepage()->getQuote()->setPayType($this->_payType)->save();
+                    $this->getOnepage()->getQuote()->setCcBins($this->getRequest()->getPost('cc_bins', false))->save();
                 }
                 else {
                     $result['success'] = false;
@@ -254,13 +255,17 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
                     'cc_number' => $dataCc['cc_number'],
                     'cc_exp_month' => $dataCc['cc_exp_month'],
                     'cc_exp_year' => $dataCc['cc_exp_year'],
-                    'cc_cid' => $dataCc['cc_cid']
+                    'cc_cid' => $dataCc['cc_cid'],
+                    'cc_zipcode' => $dataCc['cc_zipcode'],
+                    'cc_bins' => $dataCc['cc_bins']
                 );
                 
                 Mage::getSingleton('core/session')->unsVtdirectTokenIdCreate();
                 Mage::getSingleton('core/session')->unsVtdirectTokenId();
+                Mage::getSingleton('core/session')->unsVtdirectZipCode();
                 Mage::getSingleton('core/session')->setVtdirectTokenIdCreate(date('Y-m-d H:i:s', Mage::getModel('core/date')->timestamp(time())));
                 Mage::getSingleton('core/session')->setVtdirectTokenId($data['token_id']);
+                Mage::getSingleton('core/session')->setVtdirectZipCode($data['cc_zipcode']);
             }
             
             $result = $this->getOnepage()->savePayment($data);

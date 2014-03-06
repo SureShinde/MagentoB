@@ -66,4 +66,29 @@
 <div class="dash"></div>
 
 <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('giftideas_menu')->toHtml() ?>
-
+<script>
+ jQuery(document).ready(function(){
+  jQuery(".giftideas").mouseover(function(){
+    jQuery(".nav-10").addClass("hover");
+	jQuery(".nav-10>a").addClass("color_a");
+	jQuery(".gift-menu-wrapp").show();
+  });	
+  jQuery(".giftideas").mouseleave(function(){
+    jQuery(".nav-10").removeClass("hover");
+	jQuery(".nav-10>a").removeClass("color_a");
+	jQuery(".gift-menu-wrapp").hide();
+  });
+  
+  jQuery(".gift-menu-wrapp").mouseover(function(){
+	jQuery(".gift-menu-wrapp").show();
+	jQuery(".parent-10").addClass("over");
+  });
+  jQuery(".gift-menu-wrapp").mouseleave(function(){
+	jQuery(".gift-menu-wrapp").hide();
+	jQuery(".parent-10").removeClass("over");
+  });	
+  
+  
+  
+});
+</script>

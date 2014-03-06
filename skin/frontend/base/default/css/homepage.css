@@ -6,12 +6,18 @@
 }
 .homepage-top-block.right {
 	width: 185px;
+	margin: 0;
 }
 .slider-wrapper {
 	width: 750px;
 	height: 333px;
 	position: relative;
 	z-index: 0;
+}
+
+.slidesjs-slide > img {
+    display: block;
+    width: 100%;
 }
 .advertise {
 	margin: 5px 0 0 0;
@@ -66,7 +72,7 @@
 	position: absolute;
 	top: 5px;
 	right: 6px;
-	
+	display:none;
 }
 .homepage-product a.link-viewmore-product:hover {
 	color: #4EC7DA;
@@ -120,7 +126,7 @@
 	padding: 0 25px 0 0;
 }
 .block-bottom p a:hover {
-	text-decoration: none;
+	text-decoration: none;color: #FFA01B;
 }
 .block-bottom p a.link-how-to-buy {
 	width: 58px;
@@ -161,6 +167,7 @@
 	color: #fff;
 	text-decoration: underline;
 }
+.block-bottom table tr td a:hover {color: #FFA01B;}
 .block-bottom table tr td a img {
 	margin-left: 5px;
 	margin-top: 3px;

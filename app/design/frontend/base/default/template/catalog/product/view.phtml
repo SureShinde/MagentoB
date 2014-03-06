@@ -33,6 +33,10 @@
 ?>
 <?php $_helper = $this->helper('catalog/output'); ?>
 <?php $_product = $this->getProduct(); ?>
+<input type="hidden" id="3rdparty-type" value="product"/>
+<input type="hidden" id="3rdparty-value" value="<?php echo $_product->getId(); ?>" />
+<input type="hidden" id="base-url" value="<?php echo Mage::getBaseUrl(); ?>" />
+<?php $_product = $this->getProduct(); ?>
 <script type="text/javascript">
     var optionsPrice = new Product.OptionsPrice(<?php echo $this->getJsonConfig() ?>);
 </script>
@@ -132,12 +136,13 @@
 				
 				<div class="share-button">
 					<div class="addthis_toolbox addthis_default_style addthis_32x32_style">
-						<a class="addthis_button_preferred_1"></a>
-						<a class="addthis_button_preferred_2"></a>
-						<a class="addthis_button_preferred_3"></a>
-						<a class="addthis_button_preferred_4"></a>
-						<a class="addthis_button_compact"></a>
-						<a class="addthis_counter addthis_bubble_style"></a>
+						<a class="addthis_button_preferred_1"></a><!--Facebook-->
+						<a class="addthis_button_preferred_2"></a><!--Twitter-->
+						<a class="addthis_button_google_plusone_badge"></a><!--G+-->
+						<a class="addthis_button_preferred_3"></a><!--Email-->						
+						<!--a class="addthis_button_preferred_4"></a--><!--Print-->
+						<!--a class="addthis_button_compact"></a-->
+						<!--a class="addthis_counter addthis_bubble_style"></a-->
 					</div>
 					<script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
 					<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-52ca915500b92b8f"></script>
@@ -166,7 +171,7 @@
 				<li class="tab"><a href="#tabs-size-chart">Size Chart</a></li>
 				-->
 				</ul>	
-				<div class="panel-container">
+				<div class="panel-container" style="height:90px;">
 					<?php foreach ($this->getChildGroup('detailed_info', 'getChildHtml') as $alias => $html):?>
 						<div id="<?php echo "tabs-{$alias}"?>">
 						    <?php echo $html; ?>
@@ -178,8 +183,45 @@
 					<div id="tabs-size-chart">
 					<p><!-- <strong>Lorem ipsum dolor sit amet</strong>, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. --></p>
 					</div>
+					
+				</div>
+				<div class="hide_desc_button">
+					<p class="show_more">Show more</p>
+					<p class="hide">Hide</p>
+					<div id="show_desc" class="bx-show"></div>
+					<div id="hide_desc" class="bx-hide"></div>
 				</div>
 			</div>
+			<script type="text/javascript">
+				function heightDiv( element, height ){
+				$j(".panel-container").css("height",height);
+				$j("#show_desc").css("display","none");
+				$j(".show_more").css("display","none");
+				$j("#hide_desc").css("display","block");
+				$j(".hide").css("display","block");
+				};
+				
+				if (("document", $j( "#tabs-description" ).height()) < 90){
+					$j(".hide_desc_button").hide();
+					$j(".panel-container").css("height","auto");
+				}else{
+					$j(".hide_desc_button").show();
+				}
+				
+				$j("#hide_desc").css("display","none");
+				$j(".hide").css("display","none");
+				$j( "#show_desc" ).click(function() {
+				heightDiv("document", $j( "#tabs-description" ).height());
+				});
+				
+				$j( "#hide_desc" ).click(function() {
+				$j(".panel-container").css("height","90px");
+				$j("#show_desc").css("display","block");
+				$j(".show_more").css("display","block");
+				$j("#hide_desc").css("display","none");
+				$j(".hide").css("display","none");
+				});
+				</script>
 			<script type="text/javascript">
 			// <![CDATA[
 				$j(document).ready( function() {

@@ -40,19 +40,19 @@ $relatedPost = $this->getRelatedPost($post->getCatId(), $post->getPostId());
 
     <div class="postContent"><?php echo $post->getPostContent(); ?></div>
     <?php echo $this->getBookmarkHtml($post) ?>
-    <div class="tags"><?php echo Mage::getBlockSingleton('blog/blog')->getTagsHtml($post) ?></div>
+    <!--div class="tags"><?php //echo Mage::getBlockSingleton('blog/blog')->getTagsHtml($post) ?></div-->
     <div class="postDetails">
         <?php $postCats = $post->getCats(); ?>
         <?php if (!empty($postCats)): ?>
-            <?php echo Mage::helper('blog')->__('Posted in'); ?>
+            <?php echo Mage::helper('blog')->__('This entry was posted in'); ?>
             <?php foreach ($postCats as $title => $url): ?>
-                <a href="<?php echo $url; ?>"><?php echo $title; ?></a>
+                <a style="color:#4EC7DA;" href="<?php echo $url; ?>"><?php echo $title; ?></a>
             <?php endforeach; ?>
         <?php else: ?>
-            <?php echo Mage::helper('blog')->__('Posted'); ?>
-        <?php endif; ?><?php echo $this->__("By"); ?> <h4 class="poster"><?php echo $post->getUser(); ?></h4>
+            <?php //echo Mage::helper('blog')->__('Posted'); ?>
+        <?php endif; ?><?php echo $this->__("and tagged"); ?> <!--label class="poster"><?php //echo $post->getUser(); ?></label--><?php echo Mage::getBlockSingleton('blog/blog')->getTagsHtml($post) ?>
     </div>
-    <div style="clear:both; margin: 10px 0;">
+    <div style="clear:both; margin: 20px 0;">
         <!-- AddThis Button BEGIN -->
         <div class="addthis_toolbox addthis_default_style addthis_32x32_style">
         <a class="addthis_button_preferred_1"></a>
@@ -67,29 +67,41 @@ $relatedPost = $this->getRelatedPost($post->getCatId(), $post->getPostId());
         <!-- AddThis Button END -->
     </div>
     
-    <div style="width: 100%; clear: both; margin: 10px 0;">
+    <div style="width: 100%; clear: both; margin: 10px 0; padding: 20px;border-top: 1px dashed #999;">
     <?php foreach ($relatedPost as $row): ?>
         
         <div class="rel-post">
-            <img src="<?php echo Mage::getBaseUrl();?>media/<?php echo $row->getImageName();?>"/>
-            <p class="post-blog-title-small">
-                <?php echo $row->getTitle();?>
-            </p>
+            <a href="<?php echo $row->getAddress(); ?>">
+				<img src="<?php echo Mage::getBaseUrl();?>media/<?php echo $row->getImageName();?>"/>
+				<p class="post-blog-title-small">
+					<?php echo $row->getTitle();?>
+				</p>
+			</a>
         </div>
     <?php endforeach;?>
     </div>
     <div style="clear:both;height: 20px;"></div>
-
-    <div class="fb-comments" data-href="http://www.stejing.com" data-numposts="25" data-colorscheme="light"></div>
-    
 </div>
 
 <!-- Comment Section -->
 
 <?php if ($this->getCommentsEnabled()): ?>
+	<div id="comment_box"> 
+		<div id="fb-root"></div> 
+		<script>(function(d){
+		  var js, id = 'facebook-jssdk'; if (d.getElementById(id)) {return;}
+		  js = d.createElement('script'); js.id = id; js.async = true;
+		  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+		  d.getElementsByTagName('head')[0].appendChild(js);
+		}(document));</script>   
+		
+		<fb:comments href="<?php echo "http://www.bilna.com/baby/blog/".$post->getIdentifier(); ?>" num_posts="25"></fb:comments> 
+	</div>
+	<input type="hidden" value="<?php echo "http://www.bilna.com/baby/blog/".$post->getIdentifier(); ?>" />
     <?php $comments = $this->getComment(); ?>
-    <div class="postTitle"><a name="commentBox" ></a>
-        <h2><?php echo $this->__('Leave A Response') ?></h2>
+	<div style="clear:both; border-top: 1px dashed #999;"></div>
+    <div class="postTitle" style="border: none !important;"><a name="commentBox" ></a>
+        <h2 class="fb-bebas fb-18" style="color: #707070; font-weight: normal;"><?php echo $this->__('Leave A Response') ?></h2>
     </div>
     
     <?php //echo $this->getChildHtml('aw_blog_comments_toolbar'); ?>
@@ -202,7 +214,10 @@ $relatedPost = $this->getRelatedPost($post->getCatId(), $post->getPostId());
                 </div>
             </form>
 <div class="clear"></div>
-
+<div style="clear:both; border-top: 1px dashed #999;"></div>
+    <div class="postTitle" style="border: none !important;"><a name="commentBox" ></a>
+        <h2 class="fb-bebas fb-18" style="color: #707070; font-weight: normal;"><?php echo $this->__('Related Product') ?></h2>
+    </div>
 <div class="awfeature-blog" style="width:100%;clear: both;"><?php echo$this->getLayout()->createBlock('cms/block')->setBlockId('featured-product-on-blog')->toHtml(); ?></div>
 
             <script type="text/javascript">

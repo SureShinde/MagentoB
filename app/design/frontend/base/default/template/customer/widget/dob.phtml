@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
@@ -49,7 +49,8 @@ NOTE: Regarding styles - if we leave it this way, we'll move it to boxes.css
  * @see Mage_Customer_Block_Widget_Dob
  */
 ?>
-<label for="<?php echo $this->getFieldId('month')?>"<?php if ($this->isRequired()) echo ' class="required"' ?>><?php if ($this->isRequired()) echo '<em>*</em>' ?><?php echo $this->__('Date of Birth') ?></label>
+<label for="<?php echo $this->getFieldId('month')?>"<?php if ($this->isRequired()) echo ' class="required"' ?>><?php if ($this->isRequired()) echo '' ?><?php echo $this->__('Date of Birth') ?></label>
+
 <div class="input-box customer-dob">
 <?php
     $this->setDateInput('d',
@@ -77,11 +78,13 @@ NOTE: Regarding styles - if we leave it this way, we'll move it to boxes.css
     <div class="dob-full" style="display:none;">
         <input type="hidden" id="<?php echo $this->getFieldId('dob')?>" name="<?php echo $this->getFieldName('dob')?>" />
     </div>
-
+	
     <div class="validation-advice" style="display:none;"></div>
 </div>
+
 <script type="text/javascript">
 //<![CDATA[
     var customer_dob = new Varien.DOB('.customer-dob', <?php echo $this->isRequired() ? 'true' : 'false' ?>, '<?php echo $this->getDateFormat() ?>');
 //]]>
 </script>
+	

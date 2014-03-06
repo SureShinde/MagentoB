@@ -531,13 +531,11 @@ AW_AjaxCartProUpdater.prototype = {
             target.parentNode.replaceChild(part, target);
         });
         
-        if(this.name == 'sidebar') {
-        	jQuery('.mini-cart').html(html);
-        	var totalqty = 0;
-        	jQuery('.mini-cart-sticky .mini-products-list tbody tr.item').each(function(){
-	        	totalqty += parseInt(jQuery(this).find('.input-text.qty').val());
-        	});
-        	jQuery('.link-minicart-sticky, .link-minicart').html('View Cart('+totalqty+')');
+        if (this.name == 'sidebar') {
+            jQuery('.mini-cart').html(html);
+            var totalqty = 0;
+            totalqty = jQuery('a#cart-item-qty').html();
+            jQuery('.link-minicart-sticky, .link-minicart').html('View Cart(' + totalqty + ')');
         }
         
         delete storage;

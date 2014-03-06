@@ -41,7 +41,7 @@
     font-size:12px; color:#000;
 }
 .awafpgrid .awafptitle {
-	max-height: 45px;
+	height: 45px;
 	overflow: hidden;
 	text-overflow: ellipsis;
 }
@@ -64,7 +64,7 @@
     color: #707070;
 }
 .awafpgrid .price-box {
-	height: 50px;
+	height: 35px;
 	position: relative;
 }
 .awafpgrid .price-box .price {
@@ -113,6 +113,8 @@
 	font-size: 12px;
 	color: #ffa01b;
 	margin-left: 5px;
+	position: absolute;
+	bottom: 10px;
 }
 .afp-thumbnail .onsale-category-container-list {
     float:none!important;
@@ -137,15 +139,19 @@
 	width: 15.05% !important;
 }
 .top_thumb_list_product{
-	height:270px;
+	height:260px;
 	position:relative;
 }
 
 .bottom_thumb_list_product .ratings{
 	margin:0;
 }
+.bottom_thumb_list_product .btn-cart{
+	position:absolute;
+	bottom:20px;
+}
 .bottom_thumb_list_product{
-	height:75px;
+	height:95px;
 	position:relative;
 }
 @media only screen and (max-width: 1215px) {
@@ -189,3 +195,5 @@
 @media only screen and (max-width: 479px) { 
 	
 }
+
+.afp-addtocart .availability.out-of-stock span {position: absolute; bottom: 50px;}

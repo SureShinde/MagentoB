@@ -22,13 +22,18 @@ body {
 }
 .main {}
 .col2-left-layout .main {}
-
-
+.col2-left-layout .main .col-left.sidebar, .col2-right-layout .main .col-right.sidebar {
+	width: 167px;
+	position:relative;
+}
+.col2-left-layout .main .col-main, .col2-right-layout .main .col-main {
+	width: 1032px;
+}
 .breadcrumbs {
-	font-size: 15px;
+	font-size: 12px;
 	font-family: helvetica;
 	font-weight: bold;
-	margin: 30px 0 10px;
+        margin: 0 0 13px;
 } 
 .breadcrumbs a {
 	color: #4ec7da;
@@ -63,23 +68,27 @@ body {
 .price-box .old-price .price-label, .price-box .special-price .price-label {
 	display: none;
 }
-.price-box .old-price {
-	margin-bottom: 5px;
-}
+.price-box .old-price {}
 .products-grid {
 	background: none;
 	border-bottom: none;
 }
 .products-grid li.item {
-	width: 149px;
+	width: 152px;
 	padding-bottom: 12px;
-	height: 355px;
+
     /*float:left;
     margin:15px 0 10px 0;
     padding: 7.6px;*/
     zoom: 1;
     position: relative;
     /*width: 13% !important;*/
+}
+
+.top_thumb_list_product .special-price,
+.top_thumb_list_product .old-price,
+.top_thumb_list_product .discount-product {
+    margin: 0;
 }
 .products-grid li.item:hover {
 	background-color: #fff;
@@ -102,7 +111,7 @@ body {
 	height:auto;
 }
 .products-grid .product-name, .products-grid .price-box {
-	max-height: 50px;
+	height: 55px;
 	text-overflow: ellipsis;
 	overflow: hidden;
 }
@@ -121,7 +130,6 @@ body {
 	font-size: 1em;
 }
 .products-grid .product-info-wrapper {
-	/*height: 150px;*/
 }
 .products-grid .price-box .price, .products-grid .price-box .regular-price .price {
 	color: #707070;
@@ -129,6 +137,7 @@ body {
 }
 .products-grid .price-box {
 	position: relative;
+	height: 40px;
 }
 .products-grid .price-box .discount-product {
 	color: #4ec7da;
@@ -139,22 +148,42 @@ body {
 	bottom: 18px;
 }
 .products-grid .actions {
-	/*position: relative;*/
-	position: static;
+	position: relative;
+}
+.category-products .actions{
+	position:static;
+}
+.category-products .pos-abs {
+    bottom: 20px;
+    position: absolute;
+}
+.top_thumb_list_product .regular-price{
+	position:absolute;
+	bottom:0;
 }
 button.btn-cart {
-    width:107px;
+    width:88px;
     background-image:url(../images/btn-buynow.png);
     height:36px;
-	bottom: 18px;
     line-height:21px;
     color: #fff;
-	position:absolute;
-    font-family: Helvetica;
+	font-family: Helvetica;
     font-size: 1em;
     font-weight: normal;
     text-transform: uppercase;
-	background-size: 107px 36px;
+}
+button.buynow_awrelated {
+    background-image: url("../images/btn-buynow.png");
+    color: #FFFFFF;
+    font-family: Helvetica;
+    font-size: 1em;
+    font-weight: normal;
+    height: 36px;
+    line-height: 21px;
+    position: absolute;
+    text-transform: uppercase;
+    top: 25px;
+    width: 88px;
 }
 button.btn-cart span, button.btn-cart span span {
 	background: none;
@@ -184,8 +213,9 @@ a.back-to-top {
 	display: none;
 	position: fixed;
 	right: 0;
-	bottom: 50%;
+	bottom: 15%;
 	background: #4ec7da;
+	z-index:99;
 	color: #fff;
 	-moz-border-radius: 10px 0 0 10px;
 	-webkit-border-radius: 10px 0 0 10px;
@@ -228,10 +258,15 @@ a.back-to-top img {
 	color: #343334;
 	word-spacing: 2px;
 }
-.al-authorization .form-list li:first-child, 
-.al-authorization .form-list li:last-child {
-	background: url(../images/dash-orange.png) bottom repeat-x;
+.al-authorization .form-list li:first-child
+ {
+	/*background: url(../images/dash-orange.png) bottom repeat-x; */
 	padding-bottom: 20px;
+}
+.al-authorization .form-list li:last-child {
+	/*background: url(../images/dash-orange.png) bottom repeat-x; */
+	padding-bottom: 20px;
+	border-bottom: 2px dashed #fe8c08;
 }
 .al-authorization .form-list .field {
 	width: 100%;
@@ -255,7 +290,7 @@ a.back-to-top img {
 	float: left;
 }
 .al-authorization .form-list input.input-text {
-	width: 200px;
+	width: 220px;
 	background: #f8f8f8;
 	padding: 5px;
 	border-color: #d8d8d8;
@@ -391,7 +426,7 @@ a.back-to-top img {
 	}
 	.products-grid .actions .add-to-links {
 		margin-top: 0;
-		margin-left: 10px;
+		margin-left: 150px;
 	}
 	.add-to-links li a {
 		margin-top: 11px;
@@ -403,7 +438,7 @@ a.back-to-top img {
 		float: none;
 	}
 	.products-grid .actions .add-to-links {
-		margin-left: 0;
+		margin-left: 120px;
 	}
 
 /* -------blog custom-------- */
@@ -452,4 +487,9 @@ a.back-to-top img {
 		margin-right: auto;
 		width: 132px;
 	}
+}
+
+.regular-price .price, .special-price .price{
+    /*position: absolute;
+    bottom: 0;*/
 }

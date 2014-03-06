@@ -49,7 +49,7 @@
 }
 .block-layered-nav dd li {
 	/* margin-top: 3px; */
-	margin: 10px 0;
+	margin: 5px 0;
 }
 .block-layered-nav dt.category + dd li {
 	border-top: 1px solid #dadada;
@@ -109,7 +109,7 @@ ol.added-menu li a.link-onsale {
 }
 /* Tiny Scrollbar */
 .tiny { width: auto; /* margin: 20px 0 10px; */ margin: 0 0 10px; }
-.tiny .viewport { width: auto; height: 80px; overflow: hidden; position: relative; }
+.tiny .viewport { width: auto; height: 145px; overflow: hidden; position: relative; }
 .tiny .overview { list-style: none; position: absolute; left: 0; top: 0; padding: 0; margin: 0; }
 .tiny .scrollbar{ background: #dfe0e0 /*url(../images/bg-scrollbar-track-y.png) no-repeat 0 0*/ url(../images/scroll-up.png) no-repeat; position: relative; background-position: 0 0; float: right; width: 15px; -webkit-border-radius: 10px;-moz-border-radius: 10px;border-radius: 10px;}
 .tiny .track { background: #dfe0e0 /*url(../images/bg-scrollbar-trackend-y.png) no-repeat 0 100%*/url(../images/scroll-down.png) no-repeat center bottom; height: 100%; width:13px; position: relative; padding: 0 1px; }
@@ -186,7 +186,7 @@ a.triger-showfilter {
 }
 .category-image {
 	float: left;
-	width: 60%;
+	width: 100%;
 }
 .category-image img {
 	width: 100%;
@@ -381,13 +381,14 @@ a.triger-showfilter {
 	width: auto;
 	height: auto;
 	overflow: hidden;
+	float:left;
 	padding: 0 0 0 0;
 	margin: 0 0 0 0;
 	background: url(../images/arrow-blue.png) no-repeat right center;
 }
 .toolbar-mobile .sort-by .sort-by-option select, .toolbar-mobile .filter .filter-option select {
 	color: #42bcd1;
-	font-size: 1.2em;
+	font-size: 100%;
 	height: 25px;
 	background: none;
 	width: 80px;
@@ -401,18 +402,107 @@ a.triger-showfilter {
 .toolbar-mobile .filter {
 	margin-left: 5px;
 }
+
+.filter-toggle {
+	display: none;
+}
+	
+.catalog-category-view .featured-product-catalog{
+	display: none;
+}
+.catalog-category-view .banner_xlarge{
+	margin-right: 5px;
+	width: 100%;
+	min-height:10px;
+	margin:0 0 10px;
+	float:left;
+	
+}
+.catalog-category-view .banner_large{
+	margin-right: 5px;
+	position:relative;
+	width: 60%;
+	min-height:10px;
+	margin:0 0 10px;
+	float:left;
+}
+.catalog-category-view .banner_large #slides-banner{
+	height:179px;
+	background:#f2f2f2;
+}
+.catalog-category-view .banner_small{
+	float:left;
+	min-height:10px;
+	width: 18%;
+	margin-right: 5px;
+	margin:0 1% 10px;
+}
+.label_slider_ctegory{
+	left: 10px;
+    position: absolute;
+    bottom:9px;
+}
+.catalog-category-view .slidesjs-pagination{
+	left:36%;
+	bottom: 9px !important;
+}
+.catalog-category-view .slidesjs-pagination .slidesjs-pagination-item a{
+	 background: none repeat scroll 0 0 #C7C7C7 !important;
+    border-radius: 10px;
+    color: #FFFFFF;
+    font-size: 15px;
+    font-weight: bold;
+    text-align: center;
+    text-indent: 0 !important;
+}
+.catalog-category-view .slidesjs-pagination .slidesjs-pagination-item a.active{
+	background:#ff9f1c !important;
+}
+.catalog-category-view .banner_small:last-child{
+	width: 18%;
+}
+.catalog-category-view .banner_large img, .catalog-category-view .banner_small img{
+	max-width: 100%;
+}
+
+
 @media only screen and (max-width: 1215px) {
 	.advertise ul li {
 		width: 49.4%;
 		height: 49.4%;
 	}
+	.catalog-category-view .banner_large #slides-banner{
+		height: 146px;
+	}
+	.catalog-category-view .slidesjs-pagination{
+		left: 46%;
+	}
 }
 @media only screen and (max-width: 1023px) { 
+	.wrap_banner_category {
+		display: block;
+	}
 	.advertise ul li {
 		width: 49.2%;
 		height: 49.2%;
 	}
+	.catalog-category-view .banner_large #slides-banner{
+		height: 101px;
+	}
+	.label_slider_ctegory {
+    bottom: 3px;
+	}
+	.catalog-category-view .slidesjs-pagination {
+    left: 68%;
+	}
+	.catalog-category-view .slidesjs-pagination {
+    bottom: 4px !important;
+	}
 }
+
+
+
+
 /* --------------- smaller 959 px layout -------------------- */
 @media only screen and (max-width: 767px) {
 	.category-description + p, .featured-product-catalog, .toolbar, .toolbar-mobile .limiter, .custome-nav, .show-filter, .toolbar-mobile .filter {
@@ -431,6 +521,22 @@ a.triger-showfilter {
 	.pager .pages {
 		margin: 0 auto;
 	}
+	.filter-toggle {
+		display: block;
+		margin: 12px;
+	}
+	.filter-toggle a {
+		border: #707070;
+		background: url("../images/arrow-blue.png") no-repeat scroll right 5px center #FFF;
+		padding: 11px 25px 10px 10px;
+		border: 1px solid #ccc;
+		color: #4EC7DA;
+		cursor: pointer;
+	}
+	.wrap_banner_category {
+		display: none;
+	}
+	
 }
 /* --------------- 320 px layout -------------------- */
 @media only screen and (max-width: 479px) { 
