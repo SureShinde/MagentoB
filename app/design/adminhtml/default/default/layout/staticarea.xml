@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+  <!-- <staticarea_adminhtml_staticareabackend_index>
+	<reference name="content">
+	  <block type="staticarea/adminhtml_staticareabackend" name="staticareabackend" template="staticarea/staticareabackend.phtml"/>
+	</reference>
+  </staticarea_adminhtml_staticareabackend_index> -->
+  <staticarea_adminhtml_index_index>
+        <reference name="content">
+            <block type="staticarea/adminhtml_index" name="staticarea.manage" />
+        </reference>
+    </staticarea_adminhtml_index_edit>
+</layout>

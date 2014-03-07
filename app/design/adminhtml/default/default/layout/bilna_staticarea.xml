@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layout version="0.1.0">
+    <bilnastaticarea_admin_adminhtml_slider_list>
+        <reference name="content">
+            <block type="staticarea/adminhtml_slider" name="awislider.sliders.list" />
+        </reference>
+    </bilnastaticarea_admin_adminhtml_slider_list>
+</layout>
