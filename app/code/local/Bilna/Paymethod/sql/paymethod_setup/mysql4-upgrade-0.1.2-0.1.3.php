@@ -4,11 +4,9 @@ $installer->startSetup();
 $installer->run("
     ALTER TABLE `{$installer->getTable('sales/quote_item')}`
         ADD COLUMN `installment` tinyint(1) DEFAULT 0 COMMENT '0->false;1->true',
-        ADD COLUMN `installment_method` varchar(10) DEFAULT NULL COMMENT '0->manual;1->automatic';
+        ADD COLUMN `installment_method` varchar(10) DEFAULT NULL COMMENT 'manual,automatic';
     ALTER TABLE `{$installer->getTable('sales/order_item')}`
         ADD COLUMN `installment` tinyint(1) DEFAULT 0 COMMENT '0->false;1->true',
         ADD COLUMN `installment_method` varchar(10) DEFAULT NULL COMMENT 'manual,automatic';
-    ALTER TABLE `{$installer->getTable('sales/quote_item')}` MODIFY COLUMN `installment_type` int(2) AFTER `installment_method`;
-    ALTER TABLE `{$installer->getTable('sales/order_item')}` MODIFY COLUMN `installment_type` int(2) AFTER `installment_method`;
 ");
 $installer->endSetup();
