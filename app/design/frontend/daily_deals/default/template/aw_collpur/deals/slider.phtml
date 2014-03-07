@@ -23,11 +23,38 @@
  * @copyright  Copyright (c) 2010-2012 aheadWorks Co. (http://www.aheadworks.com)
  * @license    http://ecommerce.aheadworks.com/AW-LICENSE.txt
  */
-?>
+?><script>
+	
 
+jQuery( document ).ready(function() {
+	// Start with a fall back
+var newCss = { 'zoom' : 1 };
+
+// Replace with transform, if supported
+if('WebkitTransform' in document.body.style) 
+{
+    newCss = { '-webkit-transform': 'scale(' + 1 + ')'};
+}
+// repeat for supported browsers
+else if('transform' in document.body.style) 
+{
+    newCss = { 'transform': 'scale(' + 1 + ')'};
+}
+
+// Set the CSS
+jQuery('.cbp-contentslider').css(newCss);
+
+				//jQuery('.cbp-contentslider').css({
+		//'-moz-transform': 'scale(' + 1 + ')',
+		//'-webkit-transform': 'scale(' + 1 + ')',
+		//});
+});
+</script>
 	<script src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_JS);?>aw_collpur/jquery.cbpContentSlider.min.js"></script>
 	<script>
+	
 		jQuery( document ).ready(function() {
+		
 			/*
 			- how to call the plugin:
 			$( selector ).cbpContentSlider( [options] );
@@ -91,7 +118,7 @@ $max = count($dealSliders); ?>
 								<p>SOLD: <span><?php echo $this->getPurchasesCount($dealSlider->getId()); ?></span></p>
 							</div>
 							<div class="column large-3 medium-3 small-3">
-								<form action="<?php echo Mage::getUrl('checkout/cart/add', array('_secure'=>true,'product' => $dealSlider->getProduct()->getId(), 'deal_id' => $dealSlider->getId(), 'form_key' => Mage::getSingleton('core/session')->getFormKey())) ?>" method="post" class="right_detail_deals" id="product_addtocart_form">
+								<form action="<?php echo Mage::getUrl('checkout/cart/add', array('_secure'=>true,'product' => $dealSlider->getProduct()->getId(), 'deal_id' => $dealSlider->getId(), 'form_key' => Mage::getSingleton('core/session')->getFormKey())) ?>" method="post" class="right_detail_deals_slider" id="product_addtocart_form">
 									<div class="awcp-buy-button ">
 										<!-- POPUP -->
 										<div id="awcp-popup-options<?php echo $dealSlider->getId(); ?>" style="display: none;" class="awcp-popup awcp-popup-shown">
