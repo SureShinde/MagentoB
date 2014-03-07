@@ -23,33 +23,20 @@
  * @copyright  Copyright (c) 2010-2012 aheadWorks Co. (http://www.aheadworks.com)
  * @license    http://ecommerce.aheadworks.com/AW-LICENSE.txt
  */
-?><script>
+?>
+<script type="text/javascript">
+
+/*
+* How to detect browser width
+*/
+$j(window).ready(function() {
 	
-
-jQuery( document ).ready(function() {
-	// Start with a fall back
-var newCss = { 'zoom' : 1 };
-
-// Replace with transform, if supported
-if('WebkitTransform' in document.body.style) 
-{
-    newCss = { '-webkit-transform': 'scale(' + 1 + ')'};
-}
-// repeat for supported browsers
-else if('transform' in document.body.style) 
-{
-    newCss = { 'transform': 'scale(' + 1 + ')'};
-}
-
-// Set the CSS
-jQuery('.cbp-contentslider').css(newCss);
-
-				//jQuery('.cbp-contentslider').css({
-		//'-moz-transform': 'scale(' + 1 + ')',
-		//'-webkit-transform': 'scale(' + 1 + ')',
-		//});
+			
+		     
 });
-</script>
+				
+				
+				</script>
 	<script src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_JS);?>aw_collpur/jquery.cbpContentSlider.min.js"></script>
 	<script>
 	
@@ -70,9 +57,36 @@ jQuery('.cbp-contentslider').css(newCss);
 			- destroy:
 			$( selector ).cbpContentSlider( 'destroy' );
 			*/
-			console.log(123);
+			
 			jQuery( '#cbp-contentslider' ).cbpContentSlider();
-		});
+			
+			
+				
+			 jQuery(window).resize(function() {
+			 console.log(1);
+				var wi = $j(window).width();
+				
+					if (wi <= 767) {
+			 console.log(2);
+						$j(".cbp-contentslider").css("height", $j( ".wrap_li_slider" ).height());
+							
+					};
+				
+			
+			});       
+			
+			 console.log(3);
+				var wi = $j(window).width();
+				if (wi <= 767) {
+					$j(".slider_img0").load(function(){
+			 console.log($j( ".wrap_li_slider" ).height());
+					$j(".cbp-contentslider").css("height", $j( ".cbp-contentslider .wrap_li_slider" ).height());
+			 console.log(5);
+					}); 
+				}; 
+			
+			});
+			
 	</script>
 <!--Big Slider-->
 <?php $dealSliders = $this->getFeaturedSliders();
@@ -93,7 +107,7 @@ $max = count($dealSliders); ?>
 		$originalProduct = $this->getOriginalProduct ( $dealSlider );
 		$dealInfo = $this->getDealPricesSpare ( $originalProduct, $product );
 		?>
-		<li id="slide<?php echo $i; ?>">
+		<li id="slide<?php echo $i; ?>" class="wrap_li_slider">
 			<img class="slider_img<?php echo $i; ?>" src="<?php echo $url; ?>"/>
 			<div>
 				<div class="cbp-content">					

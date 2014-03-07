@@ -317,7 +317,7 @@ html, body, .container, .main { height: 100%;}
 	display: table;
     left: 0;
     position: absolute;
-    bottom: 240px;
+    bottom: 206px;
     z-index: 999;
 }
 .thumb_angka_area .thumb_angka{
