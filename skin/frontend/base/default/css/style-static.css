@@ -20,24 +20,24 @@
 	line-height: 1;
 }
 
-.font-base-text {font-family: helvetica, arial;}
-.font-base-text-bold {font-family: helvetica, arial; font-weight: bold;}
+.static-page-wrapper .font-base-text {font-family: helvetica, arial;}
+.static-page-wrapper .font-base-text-bold {font-family: helvetica, arial; font-weight: bold;}
 
-.fb-13 {font-size: 13px !important;}
-.fb-14 {font-size: 14px !important;}
-.fb-15 {font-size: 15px !important;}
-.fb-18 {font-size: 18px !important;}
-.fb-20 {font-size: 20px !important;}
-.fb-bebas {font-family: 'bebasregular' !important;}
+.static-page-wrapper .fb-13 {font-size: 13px !important;}
+.static-page-wrapper .fb-14 {font-size: 14px !important;}
+.static-page-wrapper .fb-15 {font-size: 15px !important;}
+.static-page-wrapper .fb-18 {font-size: 18px !important;}
+.static-page-wrapper .fb-20 {font-size: 20px !important;}
+.static-page-wrapper.fb-bebas {font-family: 'bebasregular' !important;}
 
 .clear-static {clear: both;}
 
-.fc-base-blue {color:#4ec7da !important;}
-.fc-base-blue2 {color: #2F93BF !important;}
-.fc-base-orange {color:#ffa01b !important;}
-.fc-base-yellow {color:#ffe449 !important;}
-.fc-base-peach {color:#fc8360 !important;}
-.fc-base-green {color:#8dd240 !important;}
+.static-page-wrapper .fc-base-blue {color:#4ec7da !important;}
+.static-page-wrapper .fc-base-blue2 {color: #2F93BF !important;}
+.static-page-wrapper .fc-base-orange {color:#ffa01b !important;}
+.static-page-wrapper .fc-base-yellow {color:#ffe449 !important;}
+.static-page-wrapper .fc-base-peach {color:#fc8360 !important;}
+.static-page-wrapper .fc-base-green {color:#8dd240 !important;}
 
 .fc-base-red {color:#e72b2f;}
 .fc-base-orange-sp {color:#fc6a33;}
