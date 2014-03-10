@@ -26,21 +26,20 @@
 ?>
 
 <div id="messages_product_view"><?php echo $this->getMessagesBlock()->getGroupedHtml() ?></div>
-<div class>
-</div>
-<?php //if($this->isNative()): ?>
-<!--<div class="awcp-navigation">
- <ul class="row">
-    <?php //foreach($this->getMenus() as $menu): ?>
-       <?php //if($this->_tabIsAllowed($menu)): ?>
-            <li <?php //echo $this->checkCurrentTab($menu['key']); ?>><a
-			href="<?php //echo $this->getDealTabUrl($menu['key']); ?>"><?php //echo $menu['title']; ?></a></li>
-       <?php //endif; ?>
-    <?php //endforeach; ?>
- </ul>
+
+<?php if($this->isNative()): ?>
+<div class="awcp-navigation">
+	<ul class="row">
+		<?php foreach($this->getMenus() as $menu): ?>
+		   <?php if($this->_tabIsAllowed($menu)): ?>
+				<li <?php echo $this->checkCurrentTab($menu['key']); ?>><a
+				href="<?php echo $this->getDealTabUrl($menu['key']); ?>"><?php echo $menu['title']; ?></a></li>
+		   <?php endif; ?>
+		<?php endforeach; ?>
+	</ul>
 	<div class="clearer"></div>
-</div>-->
-<?php //endif; ?>
+</div>
+<?php endif; ?>
 <?php if($this->getAvailableDeals()->count() == 0):  ?>
 <h2 id="awcp-nodeals-available"><?php echo $this->__('No deals available'); ?></h2>
 <?php return; ?>
