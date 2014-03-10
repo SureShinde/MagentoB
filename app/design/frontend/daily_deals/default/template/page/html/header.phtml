@@ -29,6 +29,8 @@
 ?>
 <!--Mobile Menu-->
 <script type="text/javascript">
+
+
 wwidth = $j(window).width();
 $j(document).ready(function(){
 	$j(window).scroll(function(){
@@ -46,6 +48,7 @@ $j(document).ready(function(){
 			$j('.nav-container').slideToggle();
 		});
 		$j('#link-minicart').click(function(e){
+			console.log(123);
 			e.preventDefault();
 			$j('.nav-container').slideUp();
 			$j('.my-account-mobile').slideUp();

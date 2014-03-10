@@ -24,10 +24,24 @@
  * @license    http://ecommerce.aheadworks.com/AW-LICENSE.txt
  */
 ?>
+<script type="text/javascript">
 
+/*
+* How to detect browser width
+*/
+$j(window).ready(function() {
+	
+			
+		     
+});
+				
+				
+				</script>
 	<script src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_JS);?>aw_collpur/jquery.cbpContentSlider.min.js"></script>
 	<script>
+	
 		jQuery( document ).ready(function() {
+		
 			/*
 			- how to call the plugin:
 			$( selector ).cbpContentSlider( [options] );
@@ -43,9 +57,36 @@
 			- destroy:
 			$( selector ).cbpContentSlider( 'destroy' );
 			*/
-			console.log(123);
+			
 			jQuery( '#cbp-contentslider' ).cbpContentSlider();
-		});
+			
+			
+				
+			 jQuery(window).resize(function() {
+			 console.log(1);
+				var wi = $j(window).width();
+				
+					if (wi <= 767) {
+			 console.log(2);
+						$j(".cbp-contentslider").css("height", $j( ".wrap_li_slider" ).height());
+							
+					};
+				
+			
+			});       
+			
+			 console.log(3);
+				var wi = $j(window).width();
+				if (wi <= 767) {
+					$j(".slider_img0").load(function(){
+			 console.log($j( ".wrap_li_slider" ).height());
+					$j(".cbp-contentslider").css("height", $j( ".cbp-contentslider .wrap_li_slider" ).height());
+			 console.log(5);
+					}); 
+				}; 
+			
+			});
+			
 	</script>
 <!--Big Slider-->
 <?php $dealSliders = $this->getFeaturedSliders();
@@ -66,7 +107,7 @@ $max = count($dealSliders); ?>
 		$originalProduct = $this->getOriginalProduct ( $dealSlider );
 		$dealInfo = $this->getDealPricesSpare ( $originalProduct, $product );
 		?>
-		<li id="slide<?php echo $i; ?>">
+		<li id="slide<?php echo $i; ?>" class="wrap_li_slider">
 			<img class="slider_img<?php echo $i; ?>" src="<?php echo $url; ?>"/>
 			<div>
 				<div class="cbp-content">					
@@ -91,7 +132,7 @@ $max = count($dealSliders); ?>
 								<p>SOLD: <span><?php echo $this->getPurchasesCount($dealSlider->getId()); ?></span></p>
 							</div>
 							<div class="column large-3 medium-3 small-3">
-								<form action="<?php echo Mage::getUrl('checkout/cart/add', array('_secure'=>true,'product' => $dealSlider->getProduct()->getId(), 'deal_id' => $dealSlider->getId(), 'form_key' => Mage::getSingleton('core/session')->getFormKey())) ?>" method="post" class="right_detail_deals" id="product_addtocart_form">
+								<form action="<?php echo Mage::getUrl('checkout/cart/add', array('_secure'=>true,'product' => $dealSlider->getProduct()->getId(), 'deal_id' => $dealSlider->getId(), 'form_key' => Mage::getSingleton('core/session')->getFormKey())) ?>" method="post" class="right_detail_deals_slider" id="product_addtocart_form">
 									<div class="awcp-buy-button ">
 										<!-- POPUP -->
 										<div id="awcp-popup-options<?php echo $dealSlider->getId(); ?>" style="display: none;" class="awcp-popup awcp-popup-shown">
