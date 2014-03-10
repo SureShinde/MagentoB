@@ -47,4 +47,9 @@ class AW_Blog_IndexController extends Mage_Core_Controller_Front_Action
         $this->getLayout()->getBlock('root')->setTemplate(Mage::helper('blog')->getLayout());
         $this->renderLayout();
     }
+
+    public function searchAction()
+    {
+        die('cascasca');
+    }
 }

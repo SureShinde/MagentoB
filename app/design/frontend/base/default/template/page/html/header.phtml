@@ -171,7 +171,7 @@ $j(document).ready(function(){
 	    	<ul>
 		    	<li class="active"><a href="/baby"><?php echo $this->__('Mom &amp; Baby') ?></a></li>
 		    	<!--<li><a href="/home"><?php //echo $this->__('Home') ?></a></li>-->
-		    	<li><a href="/baby/dailydeals"><?php echo $this->__('Daily Deals') ?></a></li>
+		    	<!--li><a href="/baby/dailydeals"><?php //echo $this->__('Daily Deals') ?></a></li-->
 	    	</ul>
     	</div>
     	<?php if ($this->getIsHomePage()):?>
@@ -181,7 +181,7 @@ $j(document).ready(function(){
         <?php endif?>
         <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('keypoint')->toHtml() ?>
         <div class="quick-access">
-        	<a href="#" class="link-blog-mobile"><?php echo $this->__('Blog') ?></a>
+        	<a href="<?php echo $this->getUrl('blog'); ?>" class="link-blog-mobile"><?php echo $this->__('Blog') ?></a>
         	<a href="#" class="link-myaccount-mobile"><?php echo $this->__('My Account') ?></a>
         	<div class="top-cart">
         		<?php $_totalItem = $this->helper('checkout/cart')->getSummaryCount();  //get total items in cart ?>
@@ -523,71 +523,54 @@ clothing___accessories_hover">
         <h2>Clothing &amp; Accessories</h2>
         <div class="view-box">
                         <ul>
-                            <li>
-                	                	
-		                			                		<a 
+	<li><a href="http://www.bilna.com/baby/pakaian-dan-aksesoris/baju-atasan-bayi-dan-anak.html" class="tops">
+							<span>Tops</span></a>
+	</li>
+	
+	<li><a href="http://www.bilna.com/baby/pakaian-dan-aksesoris/baju-bawahan-bayi-dan-anak.html" class="bottoms">
+							<span>Bottoms</span></a>
+	</li>
+	
+	<li><a href="http://www.bilna.com/baby/pakaian-dan-aksesoris/pakaian-lucu-bayi-dan-anak.html" class="dress">
+							<span>Dress</span></a>
+	</li>
 
-href="http://www.bilna.com/baby/pakaian-dan-aksesoris/pakaian-bayi-dan-anak.html" 
+	<li><a href="http://www.bilna.com/baby/pakaian-dan-aksesoris/pakaian-bayi-dan-anak.html" class="sets">
+							<span>Sets</span></a>
+	</li>
 
-class="everydayclothing">
-                		<span>Everyday Clothing</span></a>
-		                	                		
-                	
-                </li>
-                                            <li>
-                	                	
-		                			                		<a 
+	<li><a href="http://www.bilna.com/baby/pakaian-dan-aksesoris/baju-terusan-bayi-dan-anak.html" class="jumper">
+							<span>Jumper</span></a>
+	</li>
 
-href="http://www.bilna.com/baby/pakaian-dan-aksesoris/piyama-bayi-dan-anak.html" class="sleepwear">
-                		<span>Sleepwear</span></a>
-		                	                		
-                	
-                </li>
-                                            <li>
-                	                	
-		                			                		<a 
+	<li> <a href="http://www.bilna.com/baby/pakaian-dan-aksesoris/piyama-bayi-dan-anak.html" class="sleepwear">
+							<span>Sleepwear</span></a>
+	</li>
 
-href="http://www.bilna.com/baby/pakaian-dan-aksesoris/pakaian-lucu-bayi-dan-anak.html" 
+	<li><a href="http://www.bilna.com/baby/pakaian-dan-aksesoris/pakaian-renang-bayi-dan-anak.html" class="swimwear">
+							<span>Swimwear</span></a>
+	</li>
 
-class="fashionableclothing">
-                		<span>Fashionable Clothing</span></a>
-		                	                		
-                	
-                </li>
-                                            <li>
-                	                	
-		                			                		<a 
+	<li><a href="http://www.bilna.com/baby/pakaian-dan-aksesoris/sepatu-dan-kaos-kaki-bayi-dan-anak.html" class="socksandshoes">
+							<span>Socks and Shoes</span></a>
+	</li>
 
-href="http://www.bilna.com/baby/pakaian-dan-aksesoris/sepatu-dan-kaos-kaki-bayi-dan-anak.html" 
+	<li><a href="http://www.bilna.com/baby/pakaian-dan-aksesoris/aksesoris-bayi-dan-anak.html" class="accessories">
+							<span>Accessories</span></a>
+	</li>
+	
+	<li><a href="http://www.bilna.com/baby/pakaian-dan-aksesoris/bedong-bayi.html" class="swaddle">
+							<span>Swaddle</span></a>
+	</li>
 
-class="socksandshoes">
-                		<span>Socks and Shoes</span></a>
-		                	                		
-                	
-                </li>
-                                            <li>
-                	                	
-		                			                		<a 
-
-href="http://www.bilna.com/baby/pakaian-dan-aksesoris/aksesoris-bayi-dan-anak.html" 
-
-class="accessories">
-                		<span>Accessories</span></a>
-		                	                		
-                	
-                </li>
-                                            <li>
-                	                	
-		                			                		<a 
-
-href="http://www.bilna.com/baby/pakaian-dan-aksesoris/pembersih-pakaian-bayi.html" 
-
-class="laundryneeds">
-                		<span>Laundry Needs</span></a>
-		                	                		
-                	
-                </li>
-                                        </ul>
+	<li><a href="http://www.bilna.com/baby/pakaian-dan-aksesoris/pembersih-pakaian-bayi.html" class="laundryneeds">
+							<span>Laundry Needs</span></a>
+	</li>
+	
+	<li><a href="http://www.bilna.com/baby/pakaian-dan-aksesoris/set-hadiah.html" class="giftsets">
+							<span>Gift Sets</span></a>
+	</li>
+</ul>
             <div class="clear"></div>
         </div>
         <div class="devider"></div>
@@ -752,9 +735,7 @@ src="http://assets.bilna.com/media/wysiwyg/megamenu4-bathskincare-img.png" alt="
 
    </div>
     <div class="clear"></div>
-    <a href="http://www.bilna.com/baby/peralatan-mandi-dan-perawatan-kulit.html" class="browse-
-
-all">Browse All</a>
+    <a href="http://www.bilna.com/baby/peralatan-mandi-dan-perawatan-kulit.html" class="browse-all">Browse All</a>
 </li>
                             </ul>
                                         </li>
@@ -934,9 +915,7 @@ src="http://assets.bilna.com/media/wysiwyg/megamenu5-feedingnursing-img.png" alt
 
    </div>
     <div class="clear"></div>
-    <a href="http://www.bilna.com/baby/perlengkapan-makan-bayi.html" class="browse-all">Browse 
-
-All</a>
+    <a href="http://www.bilna.com/baby/perlengkapan-makan-bayi.html" class="browse-all">Browse All</a>
 </li>
                             </ul>
                                         </li>
@@ -1066,6 +1045,17 @@ class="medicineandvitamins">
 		                	                		
                 	
                 </li>
+											<li>
+                	                	
+		                			                		<a 
+
+href="http://www.bilna.com/baby/kesehatan-dan-keamanan-bayi-dan-balita/home-cleaner.html" 
+
+class="homeandlaundrycleaner">
+                		<span>Home and Laundry Cleaner</span></a>
+		                	                		
+                	
+                </li>
                                         </ul>
             <div class="clear"></div>
         </div>
@@ -1107,9 +1097,7 @@ src="http://assets.bilna.com/media/wysiwyg/megamenu6-healthsafety-img.png" alt="
 
    </div>
     <div class="clear"></div>
-    <a href="http://www.bilna.com/baby/kesehatan-dan-keamanan-bayi-dan-balita.html" class="browse-
-
-all">Browse All</a>
+    <a href="http://www.bilna.com/baby/kesehatan-dan-keamanan-bayi-dan-balita.html" class="browse-all">Browse All</a>
 </li>
                             </ul>
                                         </li>

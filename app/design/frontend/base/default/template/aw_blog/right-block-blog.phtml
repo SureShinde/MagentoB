@@ -5,22 +5,14 @@
         <div class="postContent">
 			<div>
 				<div class="searchbox">
-					<form id="search_mini_form" action="http://www.bilna.com/catalogsearch/result/" method="get">
+					<form id="search_mini_form" action="<?php echo Mage::getUrl('*/search/index');?>" method="get">
 						<div class="form-search blog-form-search">
 							<!--<label for="search">Search:</label-->
 							<input id="search" type="text" name="q" value="" class="input-text blog-search" maxlength="128" placeholder="Search article">
 							<button type="submit" title="Search" class="button blog-submit-search"><img src="<?php echo $this->getSkinUrl('images/search-blog-icon.jpg') ?>"/></button>
-							<!--span class="search_text"><a href="http://www.bilna.com/catalogsearch/advanced/">can't find what you're looking for?</a></span-->
-							<div id="search_autocomplete" class="search-autocomplete"></div>
-							<script type="text/javascript">
-							//<![CDATA[
-								//var searchForm = new Varien.searchForm('search_mini_form', 'search', '');
-								//searchForm.initAutocomplete('', 'search_autocomplete');
-							//]]>
-							</script>
 						</div>
 					</form>
-					  </div>
+				</div>
 			</div>
 			<div style="clear:both;"></div>
 		</div>
@@ -119,6 +111,20 @@
 		</div>
 	<?php endif; ?>
 	</div>
+	
+	<div id="fb-root"></div>
+	<script>(function(d, s, id) {
+	  var js, fjs = d.getElementsByTagName(s)[0];
+	  if (d.getElementById(id)) return;
+	  js = d.createElement(s); js.id = id;
+	  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+	  fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));</script>
+	
+	<div class="fb-like-box" style="clear: both; display: block; padding: 20px 0;" data-href="http://www.facebook.com/myBilna" data-colorscheme="light" data-show-faces="true" data-header="true" data-stream="false" data-show-border="false" ></div>
+	<div style="clear:both;"></div>
+	
+	
 </div>
 
 

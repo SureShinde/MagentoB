@@ -14,7 +14,7 @@
 	padding: 0 3%;
 }
 
-.static-page-wrapper p {
+.static-page-wrapper p, .static-page-wrapper label, .static-page-wrapper li{
 	color: #707070;
 	font:12px/1.55 Arial, Helvetica, sans-serif;
 	line-height: 1;
@@ -151,7 +151,7 @@ ul.decimal-ul li {
 .static-page-area ol li {font-size:14px; margin:0 0 10px;line-height:1.35; list-style: decimal outside none;}
 .wrapper-voucher a {text-decoration:none;}
 .line-height-1 {line-height:1 !important;}
-
+.line-dashed{border-bottom: 2px dashed #A0A0A0; margin:10px 0 15px}
 
 
 /* --------------------------------------------Gift Voucher static page */
