@@ -1,13 +1,18 @@
 <?xml version="1.0"?>
 <layout version="0.1.0">
-  <!-- <staticarea_adminhtml_staticareabackend_index>
-	<reference name="content">
-	  <block type="staticarea/adminhtml_staticareabackend" name="staticareabackend" template="staticarea/staticareabackend.phtml"/>
-	</reference>
-  </staticarea_adminhtml_staticareabackend_index> -->
-  <staticarea_adminhtml_index_index>
+  <staticarea_adminhtml_manage_index>
         <reference name="content">
-            <block type="staticarea/adminhtml_index" name="staticarea.manage" />
+            <block type="staticarea/adminhtml_manage" name="staticarea.manage" />
         </reference>
-    </staticarea_adminhtml_index_edit>
+  </staticarea_adminhtml_manage_index>
+  <staticarea_adminhtml_manage_new>
+        <reference name="head">
+            <action method="addJs"><script>prototype/window.js</script></action>
+            <action method="addJs"><script>aw_islider/settings.js</script></action>
+            <action method="addJs"><script>aw_islider/backend/ajaxForm.js</script></action>
+            <action method="addCss"><name>aw_islider/style.css</name></action>
+            <action method="addItem"><type>js_css</type><name>prototype/windows/themes/default.css</name></action>
+            <action method="addItem"><type>js_css</type><name>prototype/windows/themes/magento.css</name></action>
+        </reference>
+    </staticarea_adminhtml_manage_new>
 </layout>
