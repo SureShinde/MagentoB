@@ -27,6 +27,15 @@
 	margin: 0 0 10px;
 	text-align: left;
 	}
+.cms-index-index .products-on-sale h2 span, .cms-index-index .new-arrival h2 span, .cms-index-index .most-popular h2 span{
+	background: url("../images/arrow-2.png") no-repeat scroll right center rgba(0, 0, 0, 0);
+    float: right;
+    font-family: helvetica;
+    font-size: 12px;
+    font-weight: bold;
+    margin: 9px 5px 0 0;
+    padding: 0 24px 0 0;
+}
 .cms-index-defaultindex .products-on-sale h2:before, .cms-index-defaultindex .new-arrival h2:before, .cms-index-defaultindex .most-popular h2:before{
 	bottom: 0;
 	content: "";
