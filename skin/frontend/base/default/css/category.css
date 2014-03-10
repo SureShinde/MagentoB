@@ -236,6 +236,7 @@ a.triger-showfilter {
 }
 .toolbar .limiter ul li a {
 	color: #4ec7da;
+	float:left;
 }
 .toolbar .sorter {
 	margin-top: 10px;
@@ -249,6 +250,7 @@ a.triger-showfilter {
 }
 .sorter .sort-by label, .sorter .sort-by span.sort-active, .toolbar .limiter label, .toolbar .limiter ul li span.view-active {
 	font-weight: bold;
+	float:left;
 }
 .sorter .sort-by label, .toolbar .limiter label {
 	display: block;
@@ -273,6 +275,7 @@ a.triger-showfilter {
 .sorter .sort-by a, .sorter .sort-by span {
 	display: inline-block;
 	color: #838383;
+	vertical-align: middle;
 }
 .pager .pages {
 	font-weight: bold;
