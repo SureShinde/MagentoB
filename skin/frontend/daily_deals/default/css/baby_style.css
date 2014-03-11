@@ -550,6 +550,9 @@
 	float: none;
 	font-family: Helvetica;
 }
+.header .quick-access .store-phone{
+	margin-left:6px;
+}
 .store-phone p{
 	font-size:12px;
 }
@@ -578,7 +581,7 @@
 	background: url(../images/slash.png) no-repeat left center !important;
 }
 .header .links a {
-	color: #4ec7da;
+	color: #f75a2e;
 }
 .header .links a:hover {
 	text-decoration: underline;
@@ -1129,7 +1132,7 @@
 		width: 277px;
 	}
 	.header .quick-access .left {
-		margin-right: 0;
+		margin: 0;
 	}
 	.header .links li {
 		padding-left: 4px;
@@ -1237,6 +1240,7 @@
 	.sticky-header .sticky-search .form-search .input-keyword .select-category, .header .quick-access .store-phone, .header .form-language, .header .quick-access .top-cart a.link-checkout {
 		display: none;
 	}
+	
 	.header .form-search {
 		margin-left: 0;
 	}
