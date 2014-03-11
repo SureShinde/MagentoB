@@ -15,6 +15,15 @@ class Bilna_Staticarea_Block_Adminhtml_Manage_Edit extends Mage_Adminhtml_Block_
 		$this->_updateButton('save', 'label', Mage::helper('staticarea')->__('Save Static Area'));
 		$this->_updateButton('delete', 'label', Mage::helper('staticarea')->__('Delete Static Area'));
 	
+		if($this->getRequest()->getParam('id')) {
+            $this->_addButton('addcontent', array(
+                'label' => $this->__('Add Content'),
+                'onclick' => 'bilnaisAddContent()',
+                'class' => 'add',
+                'id' => 'bilna-add-content'
+            ), 0);
+        }
+
 		$this->_addButton('saveandcontinue', array(
 				'label' => Mage::helper('staticarea')->__('Save And Continue Edit'),
 				'onclick' => 'saveAndContinueEdit()',
@@ -22,43 +31,26 @@ class Bilna_Staticarea_Block_Adminhtml_Manage_Edit extends Mage_Adminhtml_Block_
 		), -100);
 	
 		$this->_formScripts[] = "
-            function toggleEditor() {
-                if (tinyMCE.getInstanceById('banner_content') == null) {
-                    tinyMCE.execCommand('mceAddControl', false, 'banner_content');
-                } else {
-                    tinyMCE.execCommand('mceRemoveControl', false, 'banner_content');
-                }
-            }
+        function bilnaisAddContent() {
+            staticarea_tabsJsTabs.tabs[1].show();
+            bilnaISAjaxForm.showForm(".$this->getRequest()->getParam('id').");
+        }
+        function awis_prepareForm() {
+        }
+        function awisSaveAndContinueEdit() {
+            if($('edit_form').action.indexOf('continue/1/')<0)
+                $('edit_form').action += 'continue/1/';
+            if($('edit_form').action.indexOf('continue_tab/')<0)
+                $('edit_form').action += 'continue_tab/'+staticarea_tabsJsTabs.activeTab.name+'/';
+            awis_prepareForm();
+            editForm.submit();
+        }
+        if(bilnaISSettings)
+            bilnaISSettings.setOption('imagesAjaxFormUrl', '{$this->getUrl('staticarea/adminhtml_manage/ajaxform')}');
 	
-            function saveAndContinueEdit(){
-                editForm.submit($('edit_form').action+'back/edit/');
-            }
-	
-            function showTypeContents(){
-                var typeId=$('banner_type').value;
-                var show = ((typeId==0)?'block':'none');
-                var hide = ((typeId==0)?'none':'block');
-                $('filename').setStyle({display:show});
-                $('filename_delete').setStyle({display:show});
-                $('banner_content').setStyle({display:hide});
-                setTimeout('bannerContentType()',1000);
-                alert($('filename').getStyle('display'))
-            }
-     
-            function bannerContentType(){
-                var typeId=$('banner_type').value;
-                var hide = ((typeId==0)?'none':'block');
-                $('buttonsbanner_content').setStyle({display:hide});
-                $('banner_content_parent').setStyle({display:hide});
-            }
-	
-	
-            /* Event.observe('banner_type', 'change', function(){
-                    showTypeContents();
-                });
-            Event.observe(window, 'load', function(){
-                    showTypeContents();
-                }); */
+        function saveAndContinueEdit(){
+            editForm.submit($('edit_form').action+'back/edit/');
+        }
         ";
 	}
 	

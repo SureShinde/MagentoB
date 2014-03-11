@@ -57,9 +57,9 @@
                         <table>bilna_staticarea</table>
                     </manage>
                 
-                    <content_area>
+                    <contents>
                         <table>bilna_staticarea_content</table>
-                    </content_area>
+                    </contents>
                 </entities>
             </staticarea_mysql4>
         </models>

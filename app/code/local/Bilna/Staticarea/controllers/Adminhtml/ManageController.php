@@ -18,7 +18,6 @@ class Bilna_Staticarea_Adminhtml_ManageController extends Mage_Adminhtml_Control
 	}
 	public function editAction()
 	{			    
-	    $this->_title($this->__("Manage Static Area"));
 	    $this->_title($this->__("Edit Static Area"));
 		
 		$id = $this->getRequest()->getParam("id");
@@ -32,7 +31,7 @@ class Bilna_Staticarea_Adminhtml_ManageController extends Mage_Adminhtml_Control
 			$this->getLayout()->getBlock("head")->setCanLoadExtJs(true);
 
 			$this->_addBreadcrumb(Mage::helper("adminhtml")->__("Manage Static Area"), Mage::helper("adminhtml")->__("Add New Static Area"));
-			//$this->_addBreadcrumb(Mage::helper("adminhtml")->__("Manage Description"), Mage::helper("adminhtml")->__("Manage Description"));
+			$this->_addBreadcrumb(Mage::helper("adminhtml")->__("Manage Description"), Mage::helper("adminhtml")->__("Manage Description"));
 
 
 			$this->_addContent($this->getLayout()->createBlock("staticarea/adminhtml_manage_edit"))
@@ -132,7 +131,10 @@ class Bilna_Staticarea_Adminhtml_ManageController extends Mage_Adminhtml_Control
 			$this->_redirect("*/*/");
 	}
 
-	
+	protected function gridAction() {
+        $this->getResponse()->setBody($this->getLayout()->createBlock('staticarea/adminhtml_manage_edit_tab_contents')->toHtml());
+    }
+
 	/**
 	 * Export order grid to CSV format
 	 */
@@ -151,4 +153,20 @@ class Bilna_Staticarea_Adminhtml_ManageController extends Mage_Adminhtml_Control
 		$grid       = $this->getLayout()->createBlock('couponsreport/adminhtml_report_grid');
 		$this->_prepareDownloadResponse($fileName, $grid->getExcelFile($fileName));
 	}
+
+	protected function ajaxformAction() {
+        if($this->getRequest()->getParam('id')) {
+            //loading image
+            $_content = Mage::getModel('staticarea/contents')->load($this->getRequest()->getParam('id'));
+            if($_content->getData()) {
+                Mage::helper('staticarea')->setFormDataImage($_content);
+            } else {
+                $this->_getSession()->addError('Couldn\'t load image');
+            }
+        }
+        $_block = $this->getLayout()->createBlock('staticarea/adminhtml_manage_edit_tab_contents_container');
+        $_block->setData('content_id', $this->getRequest()->getParam('id'));
+        $_block->setData('content_pid', $this->getRequest()->getParam('pid'));
+        $this->getResponse()->setBody($_block->toHtml());
+    }
 }

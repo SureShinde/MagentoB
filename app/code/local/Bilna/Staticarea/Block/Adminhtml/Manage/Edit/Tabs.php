@@ -10,18 +10,22 @@ class Bilna_Staticarea_Block_Adminhtml_Manage_Edit_Tabs extends Mage_Adminhtml_B
     }
 
     protected function _beforeToHtml() {
-        $this->addTab('form_section', array(
+        $this->addTab('general', array(
             'label' => Mage::helper('staticarea')->__('General'),
 			'title' => Mage::helper('staticarea')->__('General'),
-			'content' => $this->getLayout()->createBlock('staticarea/adminhtml_manage_edit_tab_general')->toHtml(),
-            'active' => true
+			'content' => $this->getLayout()->createBlock('staticarea/adminhtml_manage_edit_tab_general')->toHtml()
         ));
-
+        //Bilna_Staticarea_Block_Adminhtml_Manage_Edit_Tab_Contents
         $this->addTab('contents', array(
             'label' => $this->__('Contents'),
             'title' => $this->__('Contents'),
-            'content' => $this->getLayout()->createBlock('staticarea/adminhtml_manage_edit_tab_contents')->toHtml()
+            'content' => $this->getLayout()->createBlock('staticarea/adminhtml_manage_edit_tab_contents')
+                ->setData('bilnastaticarea_pid', $this->getRequest()->getParam('id'))
+                ->toHtml()
         ));
+        
+        if($this->getRequest()->getParam('continue_tab'))
+            $this->setActiveTab($this->getRequest()->getParam('continue_tab'));
         
         return parent::_beforeToHtml();
     }
