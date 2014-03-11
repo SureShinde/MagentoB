@@ -247,3 +247,20 @@ div.block-layered-nav dd a.amshopby-attr-selected{
 	line-height: 1.5em;
 }
 /*======================end product page===================*/
+
+
+@media only screen and (max-width: 767px){
+	.nav-container:after{
+		display:none;
+	}
+	.nav-container{
+		background:none;
+	}
+	.header .search-mobile .form-search .input-keyword input.input-text{
+		max-width:none;
+		width:50%;
+	}
+	.nav-container #nav li.level-top.parent {
+    background: url("../images/arrow-menu-mobile.png") no-repeat scroll 98% 17px rgba(0, 0, 0, 0);
+	}
+}
