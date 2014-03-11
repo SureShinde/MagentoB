@@ -757,7 +757,7 @@
 }
 /*header menu*/
 .nav-container {
-	background: #4ec7da;
+	background: #fb816c;
 }
 
 .dash {
@@ -812,7 +812,6 @@
 }
 #nav li.level-top {
 	position: relative;
-	width: 98px;
 	float: left;
 	display: block;
 	vertical-align: middle;
@@ -1191,6 +1190,7 @@
 	}
 }
 /* --------------- 960 px layout -------------------- */
+
 @media only screen and (max-width: 1023px) {
 	.header, #nav, .sticky-header {
 		width: 745px;
@@ -1223,6 +1223,9 @@
 	.header .links li.myaccount .toplink-myaccount {
 		left: auto;
 		right: 0;
+	}
+	.header .links li{
+	float:right;
 	}
 	.header .quick-access .left {
 		float: none !important;
