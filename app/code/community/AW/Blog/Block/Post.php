@@ -235,6 +235,9 @@ class AW_Blog_Block_Post extends AW_Blog_Block_Abstract
             ->addPresentFilter()
             ->addEnableFilter(AW_Blog_Model_Status::STATUS_ENABLED)
             ->addStoreFilter()
+            ->addFieldToSelect('title')
+            ->addFieldToSelect('created_time')
+            ->addFieldToSelect('image_name')
             ->setOrder('created_time', 'desc');
         $posts->addFieldToFilter("awblog_post_cat.cat_id", array ('in' => $catId));
         $posts->addFieldToFilter("main_table.post_id", array ('neq' => $postId));
@@ -246,6 +249,7 @@ class AW_Blog_Block_Post extends AW_Blog_Block_Abstract
                     'cat_id' => 'awblog_post_cat.cat_id'
                 ))
             ->limit(5);
+            
         return parent::_processCollection($posts);
     }
 }
