@@ -1832,7 +1832,7 @@ tr.summary-details-excluded { font-style:italic; }
     width: 208px;
 }
 /*======================= order ditail form ===============*/
-.form-list li label, .form-list li .input-box{float:left; clear:none; font-weight:normal;}
+.form-list li label, .form-list li .input-box{float:left; clear:none; font-weight:normal; text-align: left;}
 .form-list li label{width:200px}
 .guest-select {width:305px !important;}
 .form-list li .input-box input{
