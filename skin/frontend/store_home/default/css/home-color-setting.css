@@ -99,6 +99,12 @@ a.back-to-top {
 	.menu-top ul li:last-child:hover {
     background: none repeat scroll 0 0 #ffb29d;
 }
+#slides-banner{
+	position:relative;
+}
+#slides-banner .slidesjs-container{
+	height:356px !important; 
+}
 /*======================Category page===================*/
 
 .toolbar .limiter ul li a{
