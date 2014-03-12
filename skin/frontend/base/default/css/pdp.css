@@ -792,6 +792,8 @@
 }
 #customer-reviews li .review-detail {
 	width: 45%;
+	text-align: left;
+	margin-bottom: 20px;
 }
 #customer-reviews li .review-detail .review-title {
 	font-size: 1.6em;

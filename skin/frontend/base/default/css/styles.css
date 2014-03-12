@@ -475,7 +475,7 @@ tr.summary-details-excluded { font-style:italic; }
 	font-weight: bold;	
 }
 .link-cart-special { 
-	width: 107px;
+	width: 88px;
 	background-image: url(../images/btn-buynow.png);
 	height: 36px;
 	bottom: 20px !important;
@@ -484,13 +484,13 @@ tr.summary-details-excluded { font-style:italic; }
 	position: absolute !important;
 	font-family: Helvetica;
 	font-size: 1em;
-	font-weight: normal;
+	font-weight: bold;
 	text-transform: uppercase;
-	background-size: 107px 36px;
+	background-size: 88px 36px;
 	text-align: center;
 	line-height: 36px;
 }
-.link-wishlist { color:#dc6809; font-weight:bold; position:absolute; bottom:5px !important;}
+.link-wishlist { color:#dc6809; font-weight:bold; position:absolute; bottom:5px !important; width: 90px;}
 .link-reorder { font-weight:bold; color:#dc6809 !important; }
 .link-compare { font-weight:bold; }
 .link-print { /*background:url(../images/i_print.gif) 0 2px no-repeat; padding:2px 0 2px 25px;*/ font-weight:bold; color:#dc6809; }
@@ -1832,7 +1832,7 @@ tr.summary-details-excluded { font-style:italic; }
     width: 208px;
 }
 /*======================= order ditail form ===============*/
-.form-list li label, .form-list li .input-box{float:left; clear:none; font-weight:normal;}
+.form-list li label, .form-list li .input-box{float:left; clear:none; font-weight:normal; text-align: left;}
 .form-list li label{width:200px}
 .guest-select {width:305px !important;}
 .form-list li .input-box input{
