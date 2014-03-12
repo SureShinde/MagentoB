@@ -484,7 +484,7 @@ tr.summary-details-excluded { font-style:italic; }
 	position: absolute !important;
 	font-family: Helvetica;
 	font-size: 1em;
-	font-weight: normal;
+	font-weight: bold;
 	text-transform: uppercase;
 	background-size: 88px 36px;
 	text-align: center;
