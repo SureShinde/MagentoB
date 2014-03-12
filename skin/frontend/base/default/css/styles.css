@@ -1910,3 +1910,24 @@ tr.summary-details-excluded { font-style:italic; }
 
 }
 
+
+/* back-to-top css */
+#backtotop {
+    bottom: 0;
+    display: none;
+    margin-bottom: 20px;
+    position: fixed;
+    right: 0;
+    z-index: 99;
+}
+#backtotop a {
+    background: none repeat scroll 0 0 #4ec7da;
+    border: 0 none;
+    border-bottom-left-radius: 5px;
+    border-top-left-radius: 5px;
+    color: #FFFFFF !important;
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    text-transform: uppercase;
+}

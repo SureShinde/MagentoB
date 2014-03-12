@@ -123,9 +123,9 @@ $j(document).ready(function(){
 
 </script>
 
-<a name="Top"></a>
-<a href="#Top" class="back-to-top"><?php echo $this->__('Back to Top') ?><img src="<?php echo $this->getSkinUrl(); ?>images/backtotop.png" /></a>
+
 <div class="header-container">
+	<?php echo $this->getLayout()->createBlock('page/html')->setTemplate('page/html/back-top.phtml')->toHtml(); ?>
 	<div class="sticky-header-wrapper">
 		<div class="sticky-header">
 			<a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="sticky-logo"><img src="<?php echo $this->getSkinUrl(); ?>images/logo-sticky.png" alt="<?php echo $this->getLogoAlt() ?>" /></a>
