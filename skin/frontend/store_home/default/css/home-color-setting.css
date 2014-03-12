@@ -82,6 +82,17 @@ a.back-to-top {
 .shopby ul.shop-by li a:hover {
     color:#8F554D;
 }
+#nav .level-hover{
+	width:auto;
+	padding:0;
+}
+#nav ul li .left-columns{
+	width:165px;
+	padding:20px 10px 5px;
+}
+#nav ul li a, #nav ul li a:hover{
+	background:url("../images/arrow-menu.png") no-repeat scroll right center rgba(0, 0, 0, 0);
+}
 /*======================Category page===================*/
 
 .toolbar .limiter ul li a{

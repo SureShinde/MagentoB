@@ -478,7 +478,7 @@ tr.summary-details-excluded { font-style:italic; }
 	width: 107px;
 	background-image: url(../images/btn-buynow.png);
 	height: 36px;
-	bottom: 38px !important;
+	bottom: 20px !important;
 	line-height: 21px;
 	color: #fff !important;
 	position: absolute !important;

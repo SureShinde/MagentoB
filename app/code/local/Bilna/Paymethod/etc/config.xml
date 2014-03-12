@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Bilna_Paymethod>
-            <version>0.1.1</version>
+            <version>0.1.3</version>
         </Bilna_Paymethod>
     </modules>
     
@@ -76,6 +76,14 @@
         
         <fieldsets>
             <sales_convert_quote_item>
+                <installment>
+                    <to_order_item>*</to_order_item>
+                </installment>
+                
+                <installment_method>
+                    <to_order_item>*</to_order_item>
+                </installment_method>
+                
                 <installment_type>
                     <to_order_item>*</to_order_item>
                 </installment_type>
