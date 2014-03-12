@@ -133,7 +133,8 @@ $j(document).ready(function(){
 				</li>
 				<li class="link-customer-care td-contact-sticky">
 					<a href="#"><?php echo $this->__('Customer Care Center') ?></a></br>
-					<div class="td-contact-sticky-cont"><?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('contact-sticky-detail')->toHtml() ?></div>
+					<div class="td-contact-sticky-cont"><?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('contact-sticky-detail')->toHtml() ?>
+					</div>
 				</li>
 				<li class="link-customer-care2"><a href="#" ><?php echo $this->__('Care Center') ?></a></li>
 				<div class="clear"></div>
@@ -158,8 +159,8 @@ $j(document).ready(function(){
     	<div class="menu-top">
 	    	<ul>
 		    	<li class="active"><a href="/baby"><?php echo $this->__('Mom &amp; Baby') ?></a></li>
-		    	<!--<li><a href="/home"><?php //echo $this->__('Home') ?></a></li>-->
-		    	<li><a href="/baby/dailydeals"><?php echo $this->__('Daily Deals') ?></a></li>
+		    	<!--<li><a href="/home"><?php //echo $this->__('Home') ?></a></li>
+		    	<li><a href="/baby/dailydeals"><?php //echo $this->__('Daily Deals') ?></a></li>-->
 	    	</ul>
     	</div>
     	<?php if ($this->getIsHomePage()):?>

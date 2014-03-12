@@ -98,7 +98,7 @@ html, body, .container, .main { height: 100%;}
 }
 .cbp-contentslider .large_thumb .slider_thumb_large .t{
 	color: #FFFFFF;
-    font-size: 17px;
+    font-size: 14px;
     margin: 24px 0 0 7px;
     position: relative;
 	/*overflow: hidden;
@@ -203,11 +203,14 @@ html, body, .container, .main { height: 100%;}
 	line-height: 1.6;
 }
 
-.main, .container > header {
+.cms-index-defaultindex .main, .cms-index-defaultindex .container > header, .cms-index-index .main, .cms-index-index .container > header {
     margin: 0 auto;
     max-width: 1143px;
     width: 90%;
 	padding:0;
+}
+.customer .main, .container > header{
+    max-width: auto;
 }
 .slider_img{
 	width:100%;

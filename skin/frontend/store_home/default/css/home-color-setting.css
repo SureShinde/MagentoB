@@ -93,6 +93,9 @@ a.back-to-top {
 #nav ul li a, #nav ul li a:hover{
 	background:url("../images/arrow-menu.png") no-repeat scroll right center rgba(0, 0, 0, 0);
 }
+.header .menu-top:before {
+    background: none repeat scroll 0 0 #DAAEA4;
+	}
 /*======================Category page===================*/
 
 .toolbar .limiter ul li a{
