@@ -77,8 +77,13 @@ class Bilna_Paymethod_Model_Observer_Installmentmapping {
             null,
             'left'
         );
-        $orderCollection->getSelect()->limit(5000);
+        //$orderCollection->setCurPage(1)->setPageSize(20);
+        $orderCollection->addAttributeToFilter('main_table.entity_id', array ('gteq' => 1));
+        $orderCollection->addAttributeToFilter('main_table.entity_id', array ('lteq' => 10000));
+
+        //$orderCollection->getSelect()->limit(5000);
         //$orderCollection->printLogQuery(true);
+        //echo "\n";
         //exit;
         
         return $orderCollection;
