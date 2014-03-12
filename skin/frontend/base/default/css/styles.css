@@ -475,7 +475,7 @@ tr.summary-details-excluded { font-style:italic; }
 	font-weight: bold;	
 }
 .link-cart-special { 
-	width: 107px;
+	width: 88px;
 	background-image: url(../images/btn-buynow.png);
 	height: 36px;
 	bottom: 20px !important;
@@ -486,7 +486,7 @@ tr.summary-details-excluded { font-style:italic; }
 	font-size: 1em;
 	font-weight: normal;
 	text-transform: uppercase;
-	background-size: 107px 36px;
+	background-size: 88px 36px;
 	text-align: center;
 	line-height: 36px;
 }
