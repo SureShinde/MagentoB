@@ -83,7 +83,7 @@ $responseStatus = $responseCharge->status;
                         <?php echo $this->__('Your order no is'); ?>: <?php echo $orderNoLink; ?>.
                         <br/>
                         
-                        <span><?php echo $responseCharge->message; ?></span>
+                        <span><?php echo $this->getDefaultResponseMessage($responseStatus, $responseCharge->message); ?></span>
                         
                         <br/><br/>
                         <?php echo $this->__('Click <a href="%s">here</a> to continue shopping.', $this->getUrl()); ?>
@@ -107,7 +107,7 @@ $responseStatus = $responseCharge->status;
                 <?php echo $this->__('Your order no is'); ?>: <?php echo $orderNoLink; ?>.
                 <br/>
                 
-                <span><?php echo $responseCharge->message; ?></span>
+                <span><?php echo $this->getDefaultResponseMessage($responseStatus, $responseCharge->message); ?></span>
                 
                 <br/><br/>
                 <?php echo $this->__('Click <a href="%s">here</a> to continue shopping.', $this->getUrl()); ?>
