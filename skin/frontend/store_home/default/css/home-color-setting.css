@@ -96,6 +96,9 @@ a.back-to-top {
 .header .menu-top:before {
     background: none repeat scroll 0 0 #DAAEA4;
 	}
+	.menu-top ul li:last-child:hover {
+    background: none repeat scroll 0 0 #ffb29d;
+}
 /*======================Category page===================*/
 
 .toolbar .limiter ul li a{
