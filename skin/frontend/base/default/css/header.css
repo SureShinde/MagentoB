@@ -279,8 +279,19 @@
 	text-align: right;
 }
 .header .menu-top {
-	left: 0;
-	width: 285px;
+	left: 175px;
+    width: auto;
+}
+
+.header .menu-top:before {
+    background: none repeat scroll 0 0 #95E1F1;
+    content: "";
+    height: 4px;
+    left: -200%;
+    position: absolute;
+    right: 0;
+    top: -4px;
+    width: 200%;
 }
 .header .menu-blog {
 	right:0;
@@ -1255,9 +1266,6 @@
 }
 .menu-tablet .form-language, .menu-tablet .store-phone, .menu-tablet ul.links {
 	float: right;
-}
-.menu-tablet .form-language, .menu-tablet .store-phone {
-	margin-top: 5px;
 }
 .menu-tablet .form-language {
 	margin-right: 10px;
