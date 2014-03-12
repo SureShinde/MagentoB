@@ -287,11 +287,11 @@
     background: none repeat scroll 0 0 #95E1F1;
     content: "";
     height: 4px;
-    left: -200%;
+    left: -300%;
     position: absolute;
     right: 0;
     top: -4px;
-    width: 200%;
+    width: 300%;
 }
 .header .menu-blog {
 	right:0;
