@@ -181,7 +181,7 @@ $j(document).ready(function(){
         <?php endif?>
         <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('keypoint')->toHtml() ?>
         <div class="quick-access">
-        	<a href="#" class="link-blog-mobile"><?php echo $this->__('Blog') ?></a>
+        	<a href="<?php echo $this->getUrl('blog'); ?>" class="link-blog-mobile"><?php echo $this->__('Blog') ?></a>
         	<a href="#" class="link-myaccount-mobile"><?php echo $this->__('My Account') ?></a>
         	<div class="top-cart">
         		<?php $_totalItem = $this->helper('checkout/cart')->getSummaryCount();  //get total items in cart ?>
@@ -1042,6 +1042,17 @@ href="http://www.bilna.com/baby/kesehatan-dan-keamanan-bayi-dan-balita/medicine-
 
 class="medicineandvitamins">
                 		<span>Medicine and  Vitamins</span></a>
+		                	                		
+                	
+                </li>
+											<li>
+                	                	
+		                			                		<a 
+
+href="http://www.bilna.com/baby/kesehatan-dan-keamanan-bayi-dan-balita/home-cleaner.html" 
+
+class="homeandlaundrycleaner">
+                		<span>Home and Laundry Cleaner</span></a>
 		                	                		
                 	
                 </li>
