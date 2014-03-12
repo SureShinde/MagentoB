@@ -360,7 +360,8 @@ class Bilna_Paymethod_VtdirectController extends Mage_Core_Controller_Front_Acti
             }
             else {
                 $transactionStatus = $responseCharge->data->transaction_status;
-                $message = $responseCharge->message;
+                $message = "Transaction status: " . $transactionStatus . ". ";
+                $message .= $this->getDefaultResponseMessage($responseCharge->status, $responseCharge->message);
                 
                 if ($transactionStatus == 'deny') {
                     $order->addStatusHistoryComment($message);
@@ -415,7 +416,9 @@ class Bilna_Paymethod_VtdirectController extends Mage_Core_Controller_Front_Acti
             return false;
         }
         else if ($responseCharge->status == 'failure') {
-            $order->addStatusHistoryComment($responseCharge->message);
+            $message = "Transaction status: " . $responseCharge->status . ". ";
+            $message .= $this->getDefaultResponseMessage($responseCharge->status, $responseCharge->message);
+            $order->addStatusHistoryComment($message);
             $order->save();
             
             return true;
@@ -436,6 +439,28 @@ class Bilna_Paymethod_VtdirectController extends Mage_Core_Controller_Front_Acti
         }
     }
     
+    protected function getDefaultResponseMessage($status, $message) {
+        $result = '';
+        
+        if ($message) {
+            $result = $message;
+        }
+        else {
+            if ($status == 'success') {
+                $result = Mage::getStoreConfig('payment/vtdirect/default_response_message_success');
+            }
+            else if ($status == 'failure') {
+                $result = Mage::getStoreConfig('payment/vtdirect/default_response_message_failure');
+            }
+            else {
+                $result = Mage::getStoreConfig('payment/vtdirect/charge_timeout_message');
+            }
+        }
+        
+        return $result;
+    }
+
+
     protected function getRequestData($key, $type = 'POST') {
         $result = '';
         

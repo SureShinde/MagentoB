@@ -95,7 +95,7 @@
                             </customcouponsreports>
 
                             <custominstallmentreport>
-                                <title>Installment Report</title>
+                                <title>Credit Card Report</title>
                                 <sort_order>1</sort_order>
                                 <action>customreports/adminhtml_installmentreport</action>
                             </custominstallmentreport>
