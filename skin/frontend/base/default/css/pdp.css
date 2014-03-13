@@ -792,6 +792,8 @@
 }
 #customer-reviews li .review-detail {
 	width: 45%;
+	text-align: left;
+	margin-bottom: 20px;
 }
 #customer-reviews li .review-detail .review-title {
 	font-size: 1.6em;
@@ -1091,5 +1093,17 @@
     margin: 1em 0 0;
     padding: 8px 0 0;
     text-align: right;
+}
+
+/* reserved product button */
+.reserved-prod-btn {clear: both; display: block; margin: 0 0 10px 0;}
+.reserved-prod-btn button {
+	padding: 5px 10px; 
+	background: #ffa01b; 
+	color: #fff;
+	border:none;
+}
+.reserved-prod-btn button:hover {
+	opacity: 0.8;
 }
 
