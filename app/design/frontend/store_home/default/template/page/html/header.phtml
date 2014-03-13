@@ -171,8 +171,6 @@ $j(document).ready(function(){
     	<div class="menu-top">
 	    	<ul>
 		    	<li><a href="/baby"><?php echo $this->__('Mom &amp; Baby') ?></a></li>
-		    	<li class="active"><a href="/home"><?php echo $this->__('Home') ?></a></li>
-		    	<li><a href="/dailydeals"><?php echo $this->__('Daily Deals') ?></a></li>
 	    	</ul>
     	</div>
     	<?php if ($this->getIsHomePage()):?>
@@ -182,7 +180,7 @@ $j(document).ready(function(){
         <?php endif?>
         <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('keypoint')->toHtml() ?>
         <div class="quick-access">
-        	<a href="#" class="link-blog-mobile"><?php echo $this->__('Blog') ?></a>
+        	<a href="<?php echo Mage::getBaseUrl(); ?>blog" class="link-blog-mobile"><?php echo $this->__('Blog') ?></a>
         	<a href="#" class="link-myaccount-mobile"><?php echo $this->__('My Account') ?></a>
         	<div class="top-cart">
         		<?php $_totalItem = $this->helper('checkout/cart')->getSummaryCount();  //get total items in cart ?>
