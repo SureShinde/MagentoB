@@ -68,7 +68,7 @@ abstract class Mage_Sales_Controller_Abstract extends Mage_Core_Controller_Front
 
         $navigationBlock = $this->getLayout()->getBlock('customer_account_navigation');
         if ($navigationBlock) {
-            $navigationBlock->setActive('sales/order/history');
+//             $navigationBlock->setActive('sales/order/history');
         }
         $this->renderLayout();
     }

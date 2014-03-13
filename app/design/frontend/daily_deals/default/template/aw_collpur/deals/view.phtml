@@ -121,6 +121,7 @@
                             <div class="awcp-mark-right">
 								<div class="">
                                     <div class="content">
+                                    <?php if($dealInfo->getPercentDiscount() > 0 ){ ?>
                                         <table class="awcp-pricedata" cellspacing="0">
                                             <!--<tr>
 												<th><?php //echo $this->__('Discount'); ?></th>
@@ -135,6 +136,7 @@
                                                 <!--<td class="last"><?php //echo $dealInfo->getSaveAmount(); ?></td>-->
                                             </tr>
                                         </table>
+                                    <?php } ?>
                                     </div>
                                 </div>
                             </div>

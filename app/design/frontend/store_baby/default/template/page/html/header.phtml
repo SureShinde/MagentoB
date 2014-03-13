@@ -110,10 +110,10 @@ $j(document).ready(function(){
 });
 </script>
 
-<a name="Top"></a>
-<a href="#Top" class="back-to-top"><?php echo $this->__('Back to Top') ?><img src="<?php echo $this->getSkinUrl(); ?>images/backtotop.png" /></a>
+
 
 <div class="header-container">
+	<?php echo $this->getLayout()->createBlock('page/html')->setTemplate('page/html/back-top.phtml')->toHtml(); ?>
 	<div class="sticky-header-wrapper">
 		<div class="sticky-header">
 			<a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="sticky-logo"><img src="<?php echo $this->getSkinUrl(); ?>images/logo-sticky.png" alt="<?php echo $this->getLogoAlt() ?>" /></a>
@@ -218,7 +218,7 @@ top link-shopby">Shop by</a>
 <li><a href="<?php echo Mage::getBaseUrl(); ?>mamypoko.html">Mamy Poko</a></li>
 <li><a href="<?php echo Mage::getBaseUrl(); ?>pampers">Pampers</a></li>
 <li><a href="<?php echo Mage::getBaseUrl(); ?>goon">Goon</a></li>
-<li><a href="<?php echo Mage::getBaseUrl(); ?>nutrilon">Nutrilon</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>nutrilon-royal.html">Nutrilon Royal</a></li>
 <li><a href="<?php echo Mage::getBaseUrl(); ?>bebelac">Bebelac</a></li>
 <li><a href="<?php echo Mage::getBaseUrl(); ?>morinaga.html">Morinaga</a></li>
 <li><a href="<?php echo Mage::getBaseUrl(); ?>nan.html">Nan</a></li>
@@ -233,6 +233,7 @@ top link-shopby">Shop by</a>
 <li><a href="<?php echo Mage::getBaseUrl(); ?>bright-stars">Bright Starts</a></li>
 <li><a href="<?php echo Mage::getBaseUrl(); ?>vtech.html">Vtech</a></li>
 <li><a class="link-seemore" href="<?php echo Mage::getBaseUrl(); ?>paling-dicari.html">See more</a></li>
+
 </ul>
 <ul class="shop-by">
 <li><span class="title">Gift Ideas</span></li>
@@ -461,13 +462,15 @@ href="<?php echo Mage::getBaseUrl(); ?>susu-dan-makanan-pendamping/susu-khusus.h
 
 class="title">Popular Brands</span>
 <ul>
-<li><a href="<?php echo Mage::getBaseUrl(); ?>nutrilon">Nutrilon</a></li>
+
+<li><a href="<?php echo Mage::getBaseUrl(); ?>nutrilon-royal.html">Nutrilon Royal</li>
 <li><a href="<?php echo Mage::getBaseUrl(); ?>morinaga.html">Morinaga</a></li>
 <li><a href="<?php echo Mage::getBaseUrl(); ?>nan.html">NAN</a></li>
 <li><a href="<?php echo Mage::getBaseUrl(); ?>heinz.html">Heinz</a></li>
 <li><a href="<?php echo Mage::getBaseUrl(); ?>raffertys-garden.html">Raffertys Garden</a></li>
 <li><a href="<?php echo Mage::getBaseUrl(); ?>bebelac.html">Bebelac</a></li>
 <li><a href="<?php echo Mage::getBaseUrl(); ?>dancownutrigold.html">Dancow Nutrigold</a></li>
+
 </ul>
 </div>
 <div class="submenu our-choice"><span class="title">Our Choice</span>
@@ -512,72 +515,63 @@ clothing___accessories_hover">
     <div class="left-columns">
         <h2>Clothing &amp; Accessories</h2>
         <div class="view-box">
-                        <ul>
-                            <li>
-                	                	
-		                			                		<a 
+<ul>
+	<li><a href="<?php echo Mage::getBaseUrl(); ?>pakaian-dan-aksesoris/baju-atasan-bayi-dan-anak.html" class="tops">
+							<span>Tops</span></a>
+	</li>
+	
+	<li><a href="<?php echo Mage::getBaseUrl(); ?>pakaian-dan-aksesoris/baju-bawahan-bayi-dan-anak.html" class="bottoms">
+							<span>Bottoms</span></a>
+	</li>
+	
+	<li><a href="<?php echo Mage::getBaseUrl(); ?>pakaian-dan-aksesoris/pakaian-lucu-bayi-dan-anak.html" class="dress">
+							<span>Dress</span></a>
+	</li>
 
-href="<?php echo Mage::getBaseUrl(); ?>pakaian-dan-aksesoris/pakaian-bayi-dan-anak.html" 
+	<li><a href="<?php echo Mage::getBaseUrl(); ?>pakaian-dan-aksesoris/pakaian-bayi-dan-anak.html" class="sets">
+							<span>Sets</span></a>
+	</li>
 
-class="everydayclothing">
-                		<span>Everyday Clothing</span></a>
-		                	                		
-                	
-                </li>
-                                            <li>
-                	                	
-		                			                		<a 
+	<li><a href="<?php echo Mage::getBaseUrl(); ?>pakaian-dan-aksesoris/baju-terusan-bayi-dan-anak.html" class="jumper">
+							<span>Jumper</span></a>
+	</li>
+	
+	<li><a href="<?php echo Mage::getBaseUrl(); ?>pakaian-dan-aksesoris/pakaian-dalam.html" class="underwear">
+							<span>Underwear</span></a>
+	</li>
+	
+	<li><a href="<?php echo Mage::getBaseUrl(); ?>pakaian-dan-aksesoris/outwear.html" class="outwear">
+							<span>Outwear</span></a>
+	</li>
 
-href="<?php echo Mage::getBaseUrl(); ?>pakaian-dan-aksesoris/piyama-bayi-dan-anak.html" class="sleepwear">
-                		<span>Sleepwear</span></a>
-		                	                		
-                	
-                </li>
-                                            <li>
-                	                	
-		                			                		<a 
+	<li> <a href="<?php echo Mage::getBaseUrl(); ?>pakaian-dan-aksesoris/piyama-bayi-dan-anak.html" class="sleepwear">
+							<span>Sleepwear</span></a>
+	</li>
 
-href="<?php echo Mage::getBaseUrl(); ?>pakaian-dan-aksesoris/pakaian-lucu-bayi-dan-anak.html" 
+	<li><a href="<?php echo Mage::getBaseUrl(); ?>pakaian-dan-aksesoris/pakaian-renang-bayi-dan-anak.html" class="swimwear">
+							<span>Swimwear</span></a>
+	</li>
 
-class="fashionableclothing">
-                		<span>Fashionable Clothing</span></a>
-		                	                		
-                	
-                </li>
-                                            <li>
-                	                	
-		                			                		<a 
+	<li><a href="<?php echo Mage::getBaseUrl(); ?>pakaian-dan-aksesoris/sepatu-dan-kaos-kaki-bayi-dan-anak.html" class="socksandshoes">
+							<span>Socks and Shoes</span></a>
+	</li>
 
-href="<?php echo Mage::getBaseUrl(); ?>pakaian-dan-aksesoris/sepatu-dan-kaos-kaki-bayi-dan-anak.html" 
+	<li><a href="<?php echo Mage::getBaseUrl(); ?>pakaian-dan-aksesoris/aksesoris-bayi-dan-anak.html" class="accessories">
+							<span>Accessories</span></a>
+	</li>
+	
+	<li><a href="<?php echo Mage::getBaseUrl(); ?>pakaian-dan-aksesoris/bedong-bayi.html" class="swaddle">
+							<span>Swaddle</span></a>
+	</li>
 
-class="socksandshoes">
-                		<span>Socks and Shoes</span></a>
-		                	                		
-                	
-                </li>
-                                            <li>
-                	                	
-		                			                		<a 
-
-href="<?php echo Mage::getBaseUrl(); ?>pakaian-dan-aksesoris/aksesoris-bayi-dan-anak.html" 
-
-class="accessories">
-                		<span>Accessories</span></a>
-		                	                		
-                	
-                </li>
-                                            <li>
-                	                	
-		                			                		<a 
-
-href="<?php echo Mage::getBaseUrl(); ?>pakaian-dan-aksesoris/pembersih-pakaian-bayi.html" 
-
-class="laundryneeds">
-                		<span>Laundry Needs</span></a>
-		                	                		
-                	
-                </li>
-                                        </ul>
+	<li><a href="<?php echo Mage::getBaseUrl(); ?>pakaian-dan-aksesoris/pembersih-pakaian-bayi.html" class="laundryneeds">
+							<span>Laundry Needs</span></a>
+	</li>
+	
+	<li><a href="<?php echo Mage::getBaseUrl(); ?>pakaian-dan-aksesoris/set-hadiah.html" class="giftsets">
+							<span>Gift Sets</span></a>
+	</li>
+</ul>
             <div class="clear"></div>
         </div>
         <div class="devider"></div>

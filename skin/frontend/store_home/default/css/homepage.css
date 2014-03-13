@@ -256,7 +256,6 @@
 }
 .homepage-bottom .media-partners {
 	float: right;
-	margin: 0 148px 0 0;
 }
 .media-partners span.title {
 	display: block;
@@ -379,6 +378,14 @@
 	height: 20px;
     line-height: 20px;
 }
+.nav-container-mobile{
+	clear:both;
+}
+
+
+.nav-container-mobile ul li.cat-leveltop {
+    background: url("../images/arrow-menu-mobile.png") no-repeat scroll 98% 17px rgba(0, 0, 0, 0);
+}
 @media only screen and (max-width: 1215px) {
 	.shopby{ 	
 		display:none;
@@ -390,11 +397,18 @@
 }
 /* --------------- 960 px layout -------------------- */
 @media only screen and (max-width: 1023px) {
-	#nav li.shop-by:hover .shopby {
+	.homepage-bottom .testimonial-wrapper{
+		width:100%;
+	}
+	.homepage-bottom .media-partners #nav li.shop-by:hover .shopby {
 		display: block;
 	}
 	.cms-index-defaultindex .main{
 		width:954px;
+	}
+	.homepage-bottom .media-partners{
+		width:100%;
+		text-align:center;
 	}
 	.cms-index-index .main{
 	width:954px;
@@ -425,7 +439,7 @@
 }
 	
 /* --------------- smaller 959 px layout -------------------- */
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 767px) {
 	#nav li.shop-by:hover .shopby {
 		display: block;
 	}
@@ -445,5 +459,8 @@
 }
 /* --------------- 320 px layout -------------------- */
 @media only screen and (max-width: 479px) { 
-	
+	.header .search-mobile .form-search .input-keyword input.input-text{
+		max-width:none;
+		width:40%;
+	}
 }
