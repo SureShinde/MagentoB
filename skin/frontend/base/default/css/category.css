@@ -82,6 +82,15 @@
 	color: #fc8360 !important; 
 	background-image: url(../images/arrow-red-circle.png) !important;
 }
+.block-layered-nav dt.category + dd li a.onsale {
+	color: #fc8360 !important; 
+	background-image: url(../images/arrow-red-circle.png) !important;
+}
+.block-layered-nav dt.category + dd li a.whatsonsale {
+	color: #fc8360 !important; 
+	background-image: url(../images/arrow-red-circle.png) !important;
+	font-weight: bold;
+}
 .block-layered-nav dt.category + dd.odd {
 	border-bottom: none;
 }

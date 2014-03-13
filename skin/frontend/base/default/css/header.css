@@ -935,7 +935,7 @@
 	letter-spacing: normal;
 	background: url(../images/arrow-menu.png) no-repeat right center;
 }
-#nav ul li a.bestseller, #nav ul li a.whatsnew, #nav ul li a.onsale {
+#nav ul li a.bestseller, #nav ul li a.whatsnew, #nav ul li a.onsale, #nav ul li a.whatsonsale {
 	font-weight: bold !important;
 	background-image: url(../images/arrow-color.png);
 	background-repeat: no-repeat;
@@ -951,6 +951,10 @@
 #nav ul li a.onsale {
 	color: #fc8360 !important; 
 	background-position: right -45px;
+}
+#nav ul li a.whatsonsale {
+	color: #fc8360 !important; 
+	background-position: right -43px;
 }
 #nav ul li.level-top {
 	position: relative;
