@@ -24,7 +24,18 @@
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
-<?php /* @var $this Mage_ProductAlert_Block_Product_View */?>
-<p class="<?php echo $this->getHtmlClass() ?> reserved-prod-btn">
-    <a href="<?php echo $this->escapeHtml($this->getSignupUrl()) ?>" title="<?php echo $this->escapeHtml($this->__($this->getSignupLabel())); ?>">Reserved Product</a>
-</p>
+<?php
+/**
+ * Top menu for store
+ *
+ * @see Mage_Page_Block_Html_Topmenu
+ */
+?>
+<?php $_menu = $this->getHtml('level-top') ?>
+<?php if($_menu): ?>
+<div class="nav-container">
+    <ul id="nav" class="row">
+        <?php echo $_menu ?>
+    </ul>
+</div>
+<?php endif ?>

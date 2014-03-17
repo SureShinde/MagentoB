@@ -1097,13 +1097,13 @@
 
 /* reserved product button */
 .reserved-prod-btn {clear: both; display: block; margin: 0 0 10px 0;}
-.reserved-prod-btn button {
+.reserved-prod-btn a {
 	padding: 5px 10px; 
 	background: #ffa01b; 
 	color: #fff;
 	border:none;
 }
-.reserved-prod-btn button:hover {
+.reserved-prod-btn a:hover {
 	opacity: 0.8;
 }
 
