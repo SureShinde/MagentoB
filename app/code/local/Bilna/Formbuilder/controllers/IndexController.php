@@ -2,100 +2,171 @@
 class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Action 
 {
 	public function indexAction()
-    {
+	{	echo 5; die;
 		$this->loadLayout();     
-		$this->renderLayout();
-    }
-	
-	public function submitAction() {
+		$this->renderLayout();										
+	}
+
+	public function submitAction() 
+	{		
+		$title = $this->getRequest()->getPost('name');		
+		$static_info = $this->getRequest()->getPost('static_info');
+		$static_thank = $this->getRequest()->getPost('static_thank');
+		$url = $this->getRequest()->getPost('url');
+		$active_from = $this->getRequest()->getPost('active_from');
+		$active_to = $this->getRequest()->getPost('active_to');
+		$status = $this->getRequest()->getPost('status');
+		
+			$insertForm = $this->_insertForm();
+
 		$form_id = $this->getRequest()->getPost('form_id');
 		$name = $this->getRequest()->getPost('name');
-        $email = $this->getRequest()->getPost('email');
-        $phone = $this->getRequest()->getPost('phone');
-        $comment = $this->getRequest()->getPost('comment');
-        $templateId = $this->getRequest()->getPost('template_email');
-		
-		$insertData = $this->_insertData();
-		
+		$group = $this->getRequest()->getPost('group');
+		$title = $this->getRequest()->getPost('title');
+		$type = $this->getRequest()->getPost('type');
+		$required = $this->getRequest()->getPost('required');
+		$unique = $this->getRequest()->getPost('unique');
+		$order = $this->getRequest()->getPost('order');
+
+			$insertInput = $this->_insertInput();
+
+		$form_id = $this->getRequest()->getPost('form_id');
+		$record_id = $this->getRequest()->getPost('record_id');
+		$type = $this->getRequest()->getPost('type');
+		$value = $this->getRequest()->getPost('value');
+		$created_at = $this->getRequest()->getPost('created_at');
+
+			$insertData = $this->_insertData();
+
 		if ($insertData) {
-			
+
 			$urlform = $this->_backurl($form_id);
 			$redirectPage = Mage::getBaseUrl().$urlform;
-			$this->_prepareEmail($name, $email, $phone, $comment, $templateId);
-			
-			$message = "<div style='word-spacing:2px;'><p style='margin:0; padding:0;'>".$this->__('Terima kasih atas pertanyaan Anda. Tim ahli kami akan segera menjawab pertanyaan Anda.')."</p>"."<p style='margin:0; padding:0;'>".$this->__('Kami akan mengirimkan jawabannya ke email Anda atau Anda dapat juga melihat jawabannya di : ')."<a href='http://www.facebook.com/MyBilna' style='color: blue; text-decoration:none;'>"."<b>".$this->__('Facebook Bilna')."</b>"."</a> ".$this->__('atau')." <a href='http://www.bilna.com/blog/' style='color: blue; text-decoration:none;'>"."<b>".$this->__('Blog Bilna')."</b>"."</a>"."</p></div>";
+			$this->_prepareEmail($name, $type, $value, $templateId);
+
+			$message = $this->getRequest()->getPost('static_thank');
+
 			Mage::getSingleton('core/session')->addSuccess($message);
-						
+
 			$this->_redirectPage($redirectPage);
-		
-		}
-        else { 
-            echo "failed";
+
 			}
-    }
-	
-	private function _prepareEmail($name, $email, $phone, $comment, $templateId) {
-        $emailVars = array (
-			'name_from' => $name,
-			'email' => $email,
-            'phone' => $phone,
-            'comment' => $comment,
-			'name_to' => 'CS Bilna',
-			'email_to' => 'cs@bilna.com'
-        );
+			else 
+			{ 
+			echo "failed";
+			}
+	}
 
-        $this->_sendEmail($name, $email, $emailVars, $templateId);
-    }
-			
+	private function _prepareEmail($name, $type, $value) 
+	{
+		$emailVars = array (
+		'name_from' => $name,
+		'email' => $type,
+		'phone' => $value,
+		'name_to' => 'CS Bilna',
+		'email_to' => 'cs@bilna.com'
+		);
+
+		$this->_sendEmail($name, $type, $emailVars);
+	}
+
 	// Redirect Page Function
-    private function _redirectPage($url) {
-        header("location:".$url);
-        exit;
-    }
-    // End Redirect Page Function
-	
-	private function _sendEmail($name, $email, $emailVars, $templateId) {
-        $emailSender = array (
-            'name' => $name,
-            'email' => $email
-        );
-        $storeId = Mage::app()->getStore()->getId();
-        $translate = Mage::getSingleton('core/translate');
-        $sendEmail = Mage::getModel('core/email_template')
-            ->sendTransactional($templateId, $emailSender, $emailVars['email'], $emailVars['name'], $emailVars, $storeId);
-        $translate->setTranslateInline(true);
+	private function _redirectPage($url) {
+	header("location:".$url);
+	exit;
+	}
+	// End Redirect Page Function
 
-        if ($sendEmail) {
-            return true;
-        }
+	private function _sendEmail($name, $email, $emailVars, $templateId) 
+	{
+		$emailSender = array (
+				'name' => $name,
+				'email' => $email
+				);
+		$storeId = Mage::app()->getStore()->getId();
+		$translate = Mage::getSingleton('core/translate');
+		$sendEmail = Mage::getModel('core/email_template')
+		->sendTransactional($templateId, $emailSender, $emailVars['email'], $emailVars['name'], $emailVars, $storeId);
+		$translate->setTranslateInline(true);
 
-        return false;
-    }
-	
-	private function _insertData() {
-        $write = Mage::getSingleton('core/resource')->getConnection('core_write');
-		$submit_date=date("Y-m-d H:i:s");
-        $dataArr = array (
+		if ($sendEmail) 
+		{
+			return true;
+		}
+
+		return false;
+	}
+
+	private function _insertForm() 
+	{
+		$write = Mage::getSingleton('core/resource')->getConnection('core_write');
+		$dataArr = array (
+			$this->getRequest()->getPost('name'),
+			$this->getRequest()->getPost('static_info'),
+			$this->getRequest()->getPost('static_thank'),
+			$this->getRequest()->getPost('url'),
+			$this->getRequest()->getPost('active_from'),
+			$this->getRequest()->getPost('active_to'),
+			$this->getRequest()->getPost('status')
+			);
+
+		$sql = "insert into bilna_formbuilder_form (title, static_info, static_thank, url, active_from, active_to, status) values (?,?,?,?,?,?,?)";
+		$query = $write->query($sql, $dataArr);
+
+		if ($query)
+		return true;
+		else
+		return false;
+	}
+
+	private function _insertInput() 
+	{
+		$write = Mage::getSingleton('core/resource')->getConnection('core_write');
+		$dataArr = array (
 			$this->getRequest()->getPost('form_id'),
-            $this->getRequest()->getPost('name'),
-            $this->getRequest()->getPost('email'),
-            $this->getRequest()->getPost('phone'),
-            $this->getRequest()->getPost('comment'),
-			$submit_date
-        );
+			$this->getRequest()->getPost('name'),
+			$this->getRequest()->getPost('group'),
+			$this->getRequest()->getPost('title'),
+			$this->getRequest()->getPost('type'),
+			$this->getRequest()->getPost('required'),
+			$this->getRequest()->getPost('unique'),
+			$this->getRequest()->getPost('order')
+			);
 
-        $sql = "insert into bilna_form_data (form_id, name, email, phone, comment, submit_date) values (?,?,?,?,?,?)";
-        $query = $write->query($sql, $dataArr);
+		$sql = "insert into bilna_formbuilder_input (form_id, name, group, title, type, required, unique, order) values (?,?,?,?,?,?,?,?)";
+		$query = $write->query($sql, $dataArr);
 
-        if ($query)
-            return true;
-        else
-            return false;
-    }
-	
-	private function _backurl($form_id) {
+		if ($query)
+		return true;
+		else
+		return false;
+	}
+
+	private function _insertData() 
+	{
+		$write = Mage::getSingleton('core/resource')->getConnection('core_write');
+		$created_at = date("Y-m-d H:i:s");
+		$dataArr = array (
+			$this->getRequest()->getPost('form_id'),
+			$this->getRequest()->getPost('record_id'),
+			$this->getRequest()->getPost('type'),
+			$this->getRequest()->getPost('value'),
+			$created_at
+			);
+
+		$sql = "insert into bilna_formbuilder_data (form_id, record_id, type, value, created_at) values (?,?,?,?,?)";
+		$query = $write->query($sql, $dataArr);
+
+		if ($query)
+		return true;
+		else
+		return false;
+	}
+
+	private function _backurl($form_id) 
+	{
 		$connection = Mage::getSingleton('core/resource')->getConnection('core_read');
-		$sql        = "select url from bilna_form where id=".$form_id." group by url";
+		$sql        = "select url from bilna_formbuilder_form where id=".$form_id." group by url";
 		$row       = $connection->fetchRow($sql);
 		$result 	= $row['url'];
 		return $result;
