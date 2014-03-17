@@ -630,6 +630,11 @@ A.awblog_current_comment {
 		margin-bottom: 10px;
 }
 
+/* --------------post-comment-style------------- */
+.field-width-comment {
+	width: 55%;
+}
+
  
 
 /* --------------- 960 px layout -------------------- */
@@ -830,6 +835,9 @@ A.awblog_current_comment {
 		display: block;
 		float: left;
 		width: 100%;
+	}
+	.field-width-comment {
+		width: 80%;
 	}
 }
 
@@ -1100,6 +1108,8 @@ h3.uiHeaderTitle {
 	padding: 5px 0 !important;
 	margin: 15px 0 5px !important;
 }
+
+
 
 
 
