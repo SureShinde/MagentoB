@@ -1,16 +1,16 @@
 
-<div id="awis_imageformcontainer">
+<div id="staticarea_contentformcontainer" style="background: #fff">
     <iframe name="awis_loader" id="awis_loader" style="display: none;"></iframe>
-    <form enctype="multipart/form-data" method="post" action="<?php echo $this->getUrl('awislider_admin/adminhtml_image/saveimage', array('id' => $this->getData('image_id'))) ?>" id="awis_imageform" target="awis_loader">
+    <form enctype="multipart/form-data" method="post" action="<?php echo $this->getUrl('staticarea/adminhtml_manage/savecontent', array('id' => $this->getData('content_id'))) ?>" id="staticarea_contentform" target="awis_loader">
         <?php echo ($this->getFormKeyHtml()) ?>
         <div class="content-header" style="margin-top: 6px;">
             <table cellspacing="0">
                 <tr>
                     <td style="width:50%;"><h3 class="icon-head head-products"><?php echo $this->getHeaderText() ?></h3></td>
                     <td class="a-right">
-                        <?php if(Mage::getSingleton('admin/session')->isAllowed('cms/awislider/new')) : ?>
+                        <?php //if(Mage::getSingleton('admin/session')->isAllowed('cms/awislider/new')) : ?>
                         <?php echo $this->getButtonsHtml() ?>
-                        <?php endif ?>
+                        <?php //endif ?>
                     </td>
                 </tr>
             </table>

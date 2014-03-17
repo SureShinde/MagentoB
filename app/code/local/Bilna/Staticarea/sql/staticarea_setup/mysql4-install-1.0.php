@@ -18,7 +18,7 @@ CREATE TABLE `bilna_staticarea` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `area_name` char(100) NOT NULL,
   `block_id` int(11) NOT NULL,
-  `status` enum('1','0') NOT NULL DEFAULT '1',
+  `status_area` enum('1','0') NOT NULL DEFAULT '1',
   `type` char(100) NOT NULL,
   `storeview` char(250) NOT NULL,
   `area_createddate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,

@@ -1,0 +1,8 @@
+<?php
+if($this->getBlock())
+{
+    foreach($this->getBlock() as $block) {
+        echo ($this->getHtmlCode($block));
+    }
+}
+?>

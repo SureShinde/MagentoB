@@ -78,20 +78,18 @@ class Bilna_Staticarea_Adminhtml_ManageController extends Mage_Adminhtml_Control
 	}
 	public function saveAction()
 	{
-
 		$post_data=$this->getRequest()->getPost();
-
-
 			if ($post_data) {
-
+				$post_data['storeview'] = implode(",", $post_data['storeview']);	
+				$post_data['area_createddate'] = date("Y-m-d H:i:s");
 				try {
 
-					$model = Mage::getModel("wrappinggiftevent/manage")
+					$model = Mage::getModel("staticarea/manage")
 					->addData($post_data)
 					->setId($this->getRequest()->getParam("id"))
 					->save();
 
-					Mage::getSingleton("adminhtml/session")->addSuccess(Mage::helper("adminhtml")->__("Wrap Type was successfully saved"));
+					Mage::getSingleton("adminhtml/session")->addSuccess(Mage::helper("adminhtml")->__("Static area was successfully saved"));
 					Mage::getSingleton("adminhtml/session")->setReportData(false);
 
 					if ($this->getRequest()->getParam("back")) {
@@ -116,19 +114,19 @@ class Bilna_Staticarea_Adminhtml_ManageController extends Mage_Adminhtml_Control
 
 	public function deleteAction()
 	{
-			if( $this->getRequest()->getParam("id") > 0 ) {
-				try {
-					$model = Mage::getModel("wrappinggiftevent/manage");
-					$model->setId($this->getRequest()->getParam("id"))->delete();
-					Mage::getSingleton("adminhtml/session")->addSuccess(Mage::helper("adminhtml")->__("Item was successfully deleted"));
-					$this->_redirect("*/*/");
-				} 
-				catch (Exception $e) {
-					Mage::getSingleton("adminhtml/session")->addError($e->getMessage());
-					$this->_redirect("*/*/edit", array("id" => $this->getRequest()->getParam("id")));
-				}
-			}
-			$this->_redirect("*/*/");
+		// if( $this->getRequest()->getParam("id") > 0 ) {
+		// 	try {
+		// 		$model = Mage::getModel("wrappinggiftevent/manage");
+		// 		$model->setId($this->getRequest()->getParam("id"))->delete();
+		// 		Mage::getSingleton("adminhtml/session")->addSuccess(Mage::helper("adminhtml")->__("Item was successfully deleted"));
+		// 		$this->_redirect("*/*/");
+		// 	} 
+		// 	catch (Exception $e) {
+		// 		Mage::getSingleton("adminhtml/session")->addError($e->getMessage());
+		// 		$this->_redirect("*/*/edit", array("id" => $this->getRequest()->getParam("id")));
+		// 	}
+		// }
+		// $this->_redirect("*/*/");
 	}
 
 	protected function gridAction() {
@@ -140,18 +138,18 @@ class Bilna_Staticarea_Adminhtml_ManageController extends Mage_Adminhtml_Control
 	 */
 	public function exportCsvAction()
 	{
-		$fileName   = 'report.csv';
+		/*$fileName   = 'report.csv';
 		$grid       = $this->getLayout()->createBlock('couponsreport/adminhtml_report_grid');
-		$this->_prepareDownloadResponse($fileName, $grid->getCsvFile());
+		$this->_prepareDownloadResponse($fileName, $grid->getCsvFile());*/
 	} 
 	/**
 	 *  Export order grid to Excel XML format
 	 */
 	public function exportExcelAction()
 	{
-		$fileName   = 'report.xml';
-		$grid       = $this->getLayout()->createBlock('couponsreport/adminhtml_report_grid');
-		$this->_prepareDownloadResponse($fileName, $grid->getExcelFile($fileName));
+		// $fileName   = 'report.xml';
+		// $grid       = $this->getLayout()->createBlock('couponsreport/adminhtml_report_grid');
+		// $this->_prepareDownloadResponse($fileName, $grid->getExcelFile($fileName));
 	}
 
 	protected function ajaxformAction() {
@@ -159,14 +157,87 @@ class Bilna_Staticarea_Adminhtml_ManageController extends Mage_Adminhtml_Control
             //loading image
             $_content = Mage::getModel('staticarea/contents')->load($this->getRequest()->getParam('id'));
             if($_content->getData()) {
-                Mage::helper('staticarea')->setFormDataImage($_content);
+                Mage::helper('staticarea')->setFormDataContent($_content);
             } else {
                 $this->_getSession()->addError('Couldn\'t load image');
             }
         }
+        
         $_block = $this->getLayout()->createBlock('staticarea/adminhtml_manage_edit_tab_contents_container');
         $_block->setData('content_id', $this->getRequest()->getParam('id'));
         $_block->setData('content_pid', $this->getRequest()->getParam('pid'));
         $this->getResponse()->setBody($_block->toHtml());
     }
+
+    protected function savecontentAction()
+    {
+    	$_result = array();
+        $_request = $this->getRequest();
+
+        $_data = array();
+        $_errors = array();
+
+        $_data['id'] = $_request->getParam('id');
+        $_data['staticarea_id'] = $_request->getParam('staticarea_id');
+        $_data['status'] = $_request->getParam('status');
+        $_data['active_from'] = $_request->getParam('active_from');
+        $_data['active_to'] = $_request->getParam('active_to');
+        $_data['order'] = $_request->getParam('sort_order');
+        $_data['content'] = $_request->getParam('content');
+        $_data['url'] = $_request->getParam('url');
+        $_data['url_action'] = $_request->getParam('url_action');
+
+        $active_from = Mage::app()->getLocale()->date($_data['active_from'],null,null,false);
+        $active_to = Mage::app()->getLocale()->date($_data['active_to'],null,null,false);
+
+        if($_data['active_from'] != NULL ) {
+            $_data['active_from'] = $active_from->toString(Varien_Date::DATE_INTERNAL_FORMAT);
+        }
+        if($_data['active_to'] != NULL) {
+            $_data['active_to'] = $active_to->toString(Varien_Date::DATE_INTERNAL_FORMAT);
+        }
+
+        // Additional checks
+        $_datesCheck = true;
+        if($_data['active_from'] && $active_from->toValue() < 1) {
+            $_errors[] = $this->__('Wrong value for \'Date From\' field');
+            $_datesCheck = false;
+        }
+        if($_data['active_to'] && $active_to->toValue() < 1) {
+            $_errors[] = $this->__('Wrong value for \'Date To\' field');
+            $_datesCheck = false;
+        }
+        if($_data['active_from'] && $_data['active_to'] && $_datesCheck && $active_to->toValue() < $active_from->toValue())
+            $_errors[] = $this->__('Value of \'Date To\' should be equal or greater than value of \'Date From\' field');
+        if(filter_var($_data['order'], FILTER_VALIDATE_INT) === false)
+            $_errors[] = $this->__('Sort order should be integer');
+
+        $_content = Mage::getModel('staticarea/contents')->load($_request->getParam('id'));
+
+        if(!$_errors)
+        {
+        	$_content->setData($_data);
+            $_content->save();
+        }else {
+            $_messagesBlock = Mage::getSingleton('core/layout')->getMessagesBlock();
+            foreach($_errors as $error) {
+                $_messagesBlock->addMessage(Mage::getModel('core/message')->error($error));
+            }
+            $_errors = $_messagesBlock->getGroupedHtml();
+        }
+
+        $_result = array(
+            's' => $_errors ? false : true,
+            'errors' => $_errors
+        );
+
+        $_responseBlock = $this->getLayout()->createBlock('adminhtml/template')
+            ->setTemplate('bilna_staticarea/contents/ajaxresponse.phtml');
+        $_responseBlock->setData('resp_object', Zend_Json::encode($_result));
+        
+        $response = Mage::app()->getResponse();
+        $response->setBody($_responseBlock->toHtml());
+
+    }
+
 }

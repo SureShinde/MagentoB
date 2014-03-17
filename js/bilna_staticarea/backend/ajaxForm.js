@@ -2,21 +2,21 @@
 
 var BilnaStaticareaImagesAjaxForm = Class.create({
     initialize: function(name) {
-        this.imageFormSubmitId = 'awis_imagesavebutton';
-        this.imageFormErrorsId = 'awis_image_error';
-        this.imageFormId = 'awis_imageform';
-        this.imageFormContainerId = 'awis_imageformcontainer';
-        this.imageFormIframeId = 'awis_loader';
-        this.typeSelectorId = 'image_type';
+        this.contentFormSubmitId = 'bilna_contentsavebutton';
+        this.contentFormErrorsId = 'awis_image_error';
+        this.contentFormId = 'staticarea_contentform';
+        this.contentFormContainerId = 'staticarea_contentformcontainer';
+        this.contentFormIframeId = 'awis_loader';
+        /*this.typeSelectorId = 'image_type';
         this.typeFileFileId = 'image_file';
-        this.typeFileRemoteId = 'image_remote';
+        this.typeFileRemoteId = 'image_remote';*/
         this.typeFileFile = 1;
         this.typeFileRemote = 2;
         this.pid = null;
 
         this.selectors = {
-            dateFromButton: 'image_from_trig',
-            dateToButton: 'image_to_trig'
+            dateFromButton: 'content_from_trig',
+            dateToButton: 'content_to_trig'
         }
 
         this.varienForm = null;
@@ -48,20 +48,20 @@ var BilnaStaticareaImagesAjaxForm = Class.create({
         var pos = $(this.selectors.dateFromButton).cumulativeOffset();
         Calendar._TT["TT_DATE_FORMAT"] = Calendar._TT.DEF_DATE_FORMAT;
         Calendar.setup({
-            inputField: "image_from",
+            inputField: "active_from",
             ifFormat: Calendar._TT.DEF_DATE_FORMAT,
             showsTime: false,
-            button: "image_from_trig",
+            button: "content_from_trig",
             align: "Bl",
             singleClick : true,
             position: pos
         });
         pos = $(this.selectors.dateToButton).cumulativeOffset();
         Calendar.setup({
-            inputField: "image_to",
+            inputField: "active_to",
             ifFormat: Calendar._TT.DEF_DATE_FORMAT,
             showsTime: false,
-            button: "image_to_trig",
+            button: "content_to_trig",
             align: "Bl",
             singleClick : true,
             position: pos
@@ -69,28 +69,28 @@ var BilnaStaticareaImagesAjaxForm = Class.create({
     },
 
     prepareForm: function() {
-        this.varienForm = new varienForm(this.imageFormId);
+        this.varienForm = new varienForm(this.contentFormId);
         this._pe = new PeriodicalExecuter(this._resizeWindow.bind(this), 0.1);
         this.typeChanged();
-        $(this.typeSelectorId).observe('change', this.global[this._getSelfObjectName()].typeChanged.bind(this));
+        //$(this.typeSelectorId).observe('change', this.global[this._getSelfObjectName()].typeChanged.bind(this));
         /*observe iframe onload and form onsubmit events*/
-        $(this.imageFormId).observe('submit', this.global[this._getSelfObjectName()].formBeforePost.bind(this));
+        $(this.contentFormId).observe('submit', this.global[this._getSelfObjectName()].formBeforePost.bind(this));
         setTimeout(this.prepareCalendar.bind(this), 1000);
     },
 
     _resizeWindow: function() {
-        if(this.imageFormContainerId && $(this.imageFormContainerId) && $(this.imageFormContainerId).getWidth() && $(this.imageFormContainerId).getHeight()) {
+        if(this.contentFormContainerId && $(this.contentFormContainerId) && $(this.contentFormContainerId).getWidth() && $(this.contentFormContainerId).getHeight()) {
             if(this._pe) {
                 this._pe.stop();
                 this._pe = null;
             }
             if(this.window)
-                this.window.setSize(Math.max(550, $(this.imageFormContainerId).getWidth()), $(this.imageFormContainerId).getHeight()+30);
+                this.window.setSize(Math.max(550, $(this.contentFormContainerId).getWidth()), $(this.contentFormContainerId).getHeight()+30);
         }
     },
 
     typeChanged: function() {
-        $(this.typeFileFileId).removeClassName('required-entry');
+        /*$(this.typeFileFileId).removeClassName('required-entry');
         if($(this.typeSelectorId).value == this.typeFileFile) {
             $(this.typeFileRemoteId).removeClassName('required-entry');
             $(this.typeFileFileId).addClassName('required-entry');
@@ -105,7 +105,7 @@ var BilnaStaticareaImagesAjaxForm = Class.create({
         }
         if($(this.typeSelectorId).value == this.typeFileFile && $('note_image_file')) {
             $(this.typeFileFileId).removeClassName('required-entry');
-        }
+        }*/
     },
 
     _getSelfObjectName: function() {
@@ -128,7 +128,7 @@ var BilnaStaticareaImagesAjaxForm = Class.create({
 //console.log(pid);
         this.window = new Window({
             className: 'magento',
-            width: 550,
+            width: 900,
             height: 500,
             destroyOnClose: true,
             recenterAuto:false,
@@ -145,14 +145,16 @@ var BilnaStaticareaImagesAjaxForm = Class.create({
     },
 
     formAfterPost: function(resp) {
-        $(this.imageFormSubmitId).removeClassName('disabled').writeAttribute('disabled', null);
+        $(this.contentFormSubmitId).removeClassName('disabled').writeAttribute('disabled', null);
+console.log(resp);        
         if(resp.s) {
             this.window.close();
-            if(awislider_imagesJsObject)
-                awislider_imagesJsObject.reload();
+            if(staticarea_contentsJsObject)
+                staticarea_contentsJsObject.reload();
         } else {
             a = resp;
-            $(this.imageFormErrorsId).innerHTML = resp.errors;
+            $(this.contentFormErrorsId).innerHTML = resp.errors;
+console.log(resp.errors);            
             this._resizeWindow();
         }
     },
@@ -162,7 +164,7 @@ var BilnaStaticareaImagesAjaxForm = Class.create({
         if(this.varienForm && this.varienForm.validate() == false) {
             return false;
         }
-        $(this.imageFormSubmitId).addClassName('disabled').writeAttribute('disabled', 'disabled');
+        $(this.contentFormSubmitId).addClassName('disabled').writeAttribute('disabled', 'disabled');
         return true;
     }
 });

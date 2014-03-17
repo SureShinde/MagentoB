@@ -44,12 +44,16 @@ class Bilna_Staticarea_Block_Adminhtml_Manage_Grid extends Mage_Adminhtml_Block_
 			"index" => "block_id",
 		));
 
-		$this->addColumn("status", array(
+		$this->addColumn("status_area", array(
 			"header" => Mage::helper("staticarea")->__("Status"),
 			"align" =>"left",
 			"width" => "50px",
-		    "type" => "text",
-			"index" => "status",
+		    "type" => "options",
+			"index" => "status_area",
+			'options' => array(
+                 1 => Mage::helper('blog')->__('Enabled'),
+                 0 => Mage::helper('blog')->__('Disabled')
+            )
 		));
 
 		$this->addColumn("type", array(
@@ -72,7 +76,7 @@ class Bilna_Staticarea_Block_Adminhtml_Manage_Grid extends Mage_Adminhtml_Block_
 			"header" => Mage::helper("staticarea")->__("Created Date"),
 			"align" =>"left",
 			"width" => "50px",
-		    "type" => "date",
+		    "type" => "datetime",
 			"index" => "area_createddate",
 		));
 
@@ -80,7 +84,7 @@ class Bilna_Staticarea_Block_Adminhtml_Manage_Grid extends Mage_Adminhtml_Block_
 			"header" => Mage::helper("staticarea")->__("Update Date"),
 			"align" =>"left",
 			"width" => "50px",
-		    "type" => "date",
+		    "type" => "datetime",
 			"index" => "area_updatedate",
 		));
 

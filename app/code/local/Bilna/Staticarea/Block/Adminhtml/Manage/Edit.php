@@ -26,23 +26,24 @@ class Bilna_Staticarea_Block_Adminhtml_Manage_Edit extends Mage_Adminhtml_Block_
 
 		$this->_addButton('saveandcontinue', array(
 				'label' => Mage::helper('staticarea')->__('Save And Continue Edit'),
-				'onclick' => 'saveAndContinueEdit()',
+				'onclick' => 'bilnaStaticareaSaveAndContinueEdit()',
 				'class' => 'save',
-		), -100);
+				'id' => 'bilnastaticarea-save-and-continue'
+		), -200);
 	
 		$this->_formScripts[] = "
         function bilnaisAddContent() {
             staticarea_tabsJsTabs.tabs[1].show();
             bilnaISAjaxForm.showForm(".$this->getRequest()->getParam('id').");
         }
-        function awis_prepareForm() {
+        function bilnastaticarea_prepareForm() {
         }
-        function awisSaveAndContinueEdit() {
+        function bilnaStaticareaSaveAndContinueEdit() {
             if($('edit_form').action.indexOf('continue/1/')<0)
                 $('edit_form').action += 'continue/1/';
             if($('edit_form').action.indexOf('continue_tab/')<0)
                 $('edit_form').action += 'continue_tab/'+staticarea_tabsJsTabs.activeTab.name+'/';
-            awis_prepareForm();
+            bilnastaticarea_prepareForm();
             editForm.submit();
         }
         if(bilnaISSettings)
@@ -60,6 +61,13 @@ class Bilna_Staticarea_Block_Adminhtml_Manage_Edit extends Mage_Adminhtml_Block_
 		} else {
 			return Mage::helper('staticarea')->__('Add Static Area');
 		}
+	}
+
+	protected function _prepareLayout() {
+	    parent::_prepareLayout();
+	    if (Mage::getSingleton('cms/wysiwyg_config')->isEnabled()) {
+	        $this->getLayout()->getBlock('head')->setCanLoadTinyMce(true);
+	    }
 	}
 	
 }

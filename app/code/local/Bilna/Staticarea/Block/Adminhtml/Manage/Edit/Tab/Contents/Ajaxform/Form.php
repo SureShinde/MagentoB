@@ -3,33 +3,27 @@
 class Bilna_Staticarea_Block_Adminhtml_Manage_Edit_Tab_Contents_Ajaxform_Form extends Mage_Adminhtml_Block_Widget_Form {
     protected function _prepareForm() {
         $_form = new Varien_Data_Form(array(
-            'id' => 'edit_image_form',
+            'id' => 'edit_content_form',
             'method' => 'post'
         ));
         $this->setForm($_form);
 
-        $_formData = Mage::helper('awislider')->getFormDataImage($this->getRequest()->getParam('id'));
+        $_formData = Mage::helper('staticarea')->getFormDataContent($this->getRequest()->getParam('id'));
+        
         if(is_object($_formData) && $_formData->getData()) {
             $_formData->setData(array(
-                'image_id' => $_formData->getData('id'),
-                'image_pid' => $_formData->getData('pid'),
-                'image_type' => $_formData->getData('type'),
-                'image_remote' => $_formData->getData('type') == AW_Islider_Model_Source_Images_Type::FILE ? '' : $_formData->getData('location'),
-                'image_title' => $_formData->getData('title'),
-                'image_is_active' => $_formData->getData('is_active'),
-                'image_from' => !$_formData->getData('active_from') || @strtotime ($_formData->getData('active_from')) < 1 ? '' : $_formData->getData('active_from'),
-                'image_to' => !$_formData->getData('active_to') || @strtotime ($_formData->getData('active_to')) < 1 ? '' : $_formData->getData('active_to'),
-                'sort_order' => $_formData->getData('sort_order'),
-                'image_url' => $_formData->getData('url'),
-                'image_in_new_window' => $_formData->getData('new_window'),
-                'image_nofollow' => $_formData->getData('nofollow'),
-                'location' => $_formData->getData('location')
+                'status' => $_formData->getData('status'),
+                'staticarea_id' => $_formData->getData('staticarea_id'),
+                'content' => $_formData->getData('content'),
+                'active_from' => !$_formData->getData('active_from') || @strtotime ($_formData->getData('active_from')) < 1 ? '' : $_formData->getData('active_from'),
+                'active_to' => !$_formData->getData('active_to') || @strtotime ($_formData->getData('active_to')) < 1 ? '' : $_formData->getData('active_to'),
+                'sort_order' => $_formData->getData('order'),
+                'url' => $_formData->getData('url'),
+                'url_action' => $_formData->getData('url_action')
             ));
         } else {
             $_formData = array(
-                'image_pid' => $this->getRequest()->getParam('pid'),
-                'image_tmp_id' => uniqid(),
-                'image_is_active' => 1,
+                'staticarea_id' => $this->getRequest()->getParam('pid'),
                 'sort_order' => 0
             );
         }
@@ -38,12 +32,12 @@ class Bilna_Staticarea_Block_Adminhtml_Manage_Edit_Tab_Contents_Ajaxform_Form ex
             'legend' => $this->__('General Information')
         ));
 
-        $_fieldset->addField('image_pid', 'hidden', array(
-            'name' => 'image_pid',
+        $_fieldset->addField('staticarea_id', 'hidden', array(
+            'name' => 'staticarea_id',
             'value' => $this->getRequest()->getParam('pid')
         ));
 
-        if($this->getRequest()->getParam('id')) {
+        /*if($this->getRequest()->getParam('id')) {
             $_fieldset->addField('image_id', 'hidden', array(
                 'name' => 'image_id'
             ));
@@ -51,86 +45,77 @@ class Bilna_Staticarea_Block_Adminhtml_Manage_Edit_Tab_Contents_Ajaxform_Form ex
             $_fieldset->addField('image_tmp_id', 'hidden', array(
                 'name' => 'image_tmp_id'
             ));
+        }*/
+
+        $_fieldset->addField('status', 'select', array(
+            'name' => 'status',
+            'label' => $this->__('Status'),
+            'values' => Mage::getModel('staticarea/source_status')->toOptionArray(),
+            'required' => true
+        ));
+
+        $_fieldset->addField('active_from', 'date', array (
+            'label' => Mage::helper('staticarea')->__('Content Start Date'),
+            'title' => Mage::helper('staticarea')->__('Content Start Date'),
+            'name' => 'active_from',
+            'image' => $this->getSkinUrl('images/grid-cal.gif'),
+            'format' => "dd-MMM-yyyy",
+            'value' => 'active_from',
+            'required' => true,
+        ));
+
+        $_fieldset->addField('active_to', 'date', array (
+            'label' => Mage::helper('staticarea')->__('Content End Date'),
+            'title' => Mage::helper('staticarea')->__('Content End Date'),
+            'name' => 'active_to',
+            'image' => $this->getSkinUrl('images/grid-cal.gif'),
+            'format' => "dd-MMM-yyyy",
+            'value' => 'active_to',
+            'required' => true,
+        ));
+
+        $_fieldset->addField('url', 'text', array(
+            'name' => 'url',
+            'label' => $this->__('URL'),
+            'required' => true
+        ));
+
+        $_fieldset->addField('url_action', 'text', array(
+            'name' => 'url_action',
+            'label' => $this->__('URL Action'),
+            'required' => true
+        ));
+
+        try {
+            $config = Mage::getSingleton('cms/wysiwyg_config')->getConfig();
+            $config->setData(
+                Mage::helper('blog')->recursiveReplace(
+                    '/staticarea/',
+                    '/' . (string)Mage::app()->getConfig()->getNode('admin/routers/adminhtml/args/frontName') . '/',
+                    $config->getData()
+                )
+            );
+        } catch (Exception $ex) {
+            $config = null;
         }
 
-        $_fieldset->addField('image_type', 'select', array(
-            'name' => 'image_type',
-            'label' => $this->__('Image Type'),
-            'values' => Mage::getModel('awislider/source_images_type')->toOptionArray()
-        ));
-
-        $_fieldset->addField('image_file', 'file', array(
-            'name' => 'image_file',
-            'label' => $this->__('Image'),
-            'required' => true,
-            'note' => is_object($_formData) && $_formData->getData('image_type') == AW_Islider_Model_Source_Images_Type::FILE ? $this->__('Current file: %s', $_formData->getData('location')) : null
-        ));
-
-        $_fieldset->addField('image_remote', 'text', array(
-            'name' => 'image_remote',
-            'label' => $this->__('Image'),
-            'required' => true
-        ));
-
-        $_fieldset->addField('image_title', 'text', array(
-            'name' => 'image_title',
-            'label' => $this->__('Image Title'),
-            'required' => false
-        ));
-
-        $_fieldset->addField('image_is_active', 'select', array(
-            'name' => 'image_is_active',
-            'label' => $this->__('Status'),
-            'values' => Mage::getModel('awislider/source_status')->toOptionArray()
-        ));
-
-        $dateFormatIso = Mage::app()->getLocale()->getDateFormat(Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM);
+        $_fieldset->addField(
+            'content',
+            'editor',
+            array(
+                 'name'   => 'content',
+                 'label'  => Mage::helper('staticarea')->__('Content'),
+                 'title'  => Mage::helper('staticarea')->__('Content'),
+                 'style'  => 'width:350px; height:200px;',
+                 'config' => $config,
+                 'wysiwyg'   => true
+            )
+        ); 
         
-        $_fieldset->addField('image_from', 'date', array(
-            'name' => 'image_from',
-            'label' => $this->__('Date From'),
-            'image'  => $this->getSkinUrl('images/grid-cal.gif'),
-            'input_format' => Varien_Date::DATE_INTERNAL_FORMAT,
-            'format'       => $dateFormatIso,
-            'locale'       => Mage::app()->getLocale()->getLocaleCode(),
-            'required' => true
-        ));
-
-        $_fieldset->addField('image_to', 'date', array(
-            'name' => 'image_to',
-            'label' => $this->__('Date To'),
-            'image'  => $this->getSkinUrl('images/grid-cal.gif'),
-            'input_format' => Varien_Date::DATE_INTERNAL_FORMAT,
-            'format'       => $dateFormatIso,
-            'locale'       => Mage::app()->getLocale()->getLocaleCode(),
-            'required' => true
-        ));
-
         $_fieldset->addField('sort_order', 'text', array(
-            'name' => 'image_sort_order',
+            'name' => 'sort_order',
             'label' => $this->__('Sort Order'),
             'required' => true
-        ));
-
-        $_fieldset = $_form->addFieldset('url_settings', array(
-            'legend' => $this->__('URL Settings')
-        ));
-
-        $_fieldset->addField('image_url', 'text', array(
-            'name' => 'image_url',
-            'label' => $this->__('URL')
-        ));
-
-        $_fieldset->addField('image_in_new_window', 'select', array(
-            'name' => 'image_in_new_window',
-            'label' => $this->__('Open URL in new window'),
-            'values' => Mage::getModel('adminhtml/system_config_source_yesno')->toOptionArray()
-        ));
-
-        $_fieldset->addField('image_nofollow', 'select', array(
-            'name' => 'image_nofollow',
-            'label' => $this->__('Add \'No follow\' to URL'),
-            'values' => Mage::getModel('adminhtml/system_config_source_yesno')->toOptionArray()
         ));
 
         $_form->setValues($_formData);

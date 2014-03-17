@@ -6,23 +6,25 @@
         </reference>
   </staticarea_adminhtml_manage_index>
   <staticarea_adminhtml_manage_new>
+        <update handle="editor" />
         <reference name="head">
-            <!-- <action method="addJs"><script>prototype/window.js</script></action>-->
+             <action method="addJs"><script>prototype/window.js</script></action>
             <action method="addJs"><script>bilna_staticarea/settings.js</script></action> 
             <action method="addJs"><script>bilna_staticarea/backend/ajaxForm.js</script></action>
             <!-- <action method="addCss"><name>aw_islider/style.css</name></action> -->
-            <!-- <action method="addItem"><type>js_css</type><name>prototype/windows/themes/default.css</name></action>
-            <action method="addItem"><type>js_css</type><name>prototype/windows/themes/magento.css</name></action> -->
+            <action method="addItem"><type>js_css</type><name>prototype/windows/themes/default.css</name></action>
+            <action method="addItem"><type>js_css</type><name>prototype/windows/themes/magento.css</name></action>
         </reference>
     </staticarea_adminhtml_manage_new>
     <staticarea_adminhtml_manage_edit>
+        <update handle="editor" />
         <reference name="head">
-            <!-- <action method="addJs"><script>prototype/window.js</script></action>-->
+             <action method="addJs"><script>prototype/window.js</script></action>
             <action method="addJs"><script>bilna_staticarea/settings.js</script></action> 
             <action method="addJs"><script>bilna_staticarea/backend/ajaxForm.js</script></action>
-            <!-- <action method="addCss"><name>aw_islider/style.css</name></action>
+            <!-- <action method="addCss"><name>aw_islider/style.css</name></action> -->
             <action method="addItem"><type>js_css</type><name>prototype/windows/themes/default.css</name></action>
-            <action method="addItem"><type>js_css</type><name>prototype/windows/themes/magento.css</name></action> -->
+            <action method="addItem"><type>js_css</type><name>prototype/windows/themes/magento.css</name></action>
         </reference>
     </staticarea_adminhtml_manage_edit>
 </layout>

@@ -29,15 +29,15 @@ class Bilna_Staticarea_Block_Adminhtml_Manage_Edit_Tab_General extends Mage_Admi
         /*if(is_null($_data->getData('status')))
             $_data->setData('status', TRUE);*/
 
-        $fieldset->addField('status', 'select', array(
-            'name' => 'status',
+        $fieldset->addField('status_area', 'select', array(
+            'name' => 'status_area',
             'label' => $this->__('Status'),
             'required' => TRUE,
             'values' => Mage::getModel('staticarea/source_status')->toOptionArray()
         ));
 
-        $fieldset->addField('store', 'multiselect', array(
-            'name'      => 'store[]',
+        $fieldset->addField('storeview', 'multiselect', array(
+            'name'      => 'storeview[]',
             'label'     => $this->__('Store View'),
             'required'  => TRUE,
             'values'    => Mage::getSingleton('adminhtml/system_store')->getStoreValuesForForm(FALSE, TRUE),

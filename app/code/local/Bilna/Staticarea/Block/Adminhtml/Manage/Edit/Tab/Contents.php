@@ -27,7 +27,7 @@ class Bilna_Staticarea_Block_Adminhtml_Manage_Edit_Tab_Contents extends Mage_Adm
         $this->addColumn('content', array(
             'header' => $this->__('Content'),
             'index' => 'content',
-            'type' => 'text',
+            'type' => 'textarea',
             'width' => '200px',
             'sortable' => false
         ));
@@ -99,7 +99,7 @@ class Bilna_Staticarea_Block_Adminhtml_Manage_Edit_Tab_Contents extends Mage_Adm
     }
 
     public function getRowUrl($row) {
-        return null; //'javascript:awISAjaxForm.showForm(null, '.$row->getId().');';
+        return 'javascript:bilnaISAjaxForm.showForm(null, '.$row->getId().');';
     }
 
 }
