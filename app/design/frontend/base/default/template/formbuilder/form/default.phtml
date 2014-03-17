@@ -1,6 +1,33 @@
-asdasd
-<?php 
-foreach($block as $input) {
-	echo $input->getTitle().":";die;
-}
-?>
+<form id="formbuilder-<?php echo $input->form_id; ?>" action="http://www.bilna.com/baby/formbuilder/index/submit" method="post">
+	<input id="form_id" type="hidden" name="form_id" value="<?php echo $input->form_id; ?>">
+	<div class="formbuilder-header"><?php echo $input->static_block; ?></div>
+	<div class="formbuilder-form">
+		<ul>
+		<?php 
+		foreach($this->block as $input){
+		?>
+		<li>
+			<div>
+				<label class="required" for="<?php echo $input->name; ?>"><?php echo $input->title; ?><em><?php if($input->required == true) echo '*'; ?></em></label>
+			</div>
+			<div>:</div>
+			<div>
+			<?php if($input->type == "text"){ ?>
+				<input id="<?php echo $input->name; ?>" class="formbuilder-input" title="<?php echo $input->title; ?>" type="<?php echo $input->dropdown; ?>" name="<?php echo $input->name; ?>" />
+			<?php }else if($input->type == "dropdown"){ ?>
+			<select><option>asdasd</option></select>
+			<?php } ?>
+			</div>
+		</li>
+		<?php 
+		}
+		?>
+		</ul>
+	</div>
+	<div class="formbuilder-info">
+		<p class="required">*Required Fields</p>
+	</div>
+	<div class="formbuilder-submit">
+		<button class="button" title="" type="submit">Submit</button>
+	</div>
+</form>
