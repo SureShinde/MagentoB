@@ -872,6 +872,7 @@ tr.summary-details-excluded { font-style:italic; }
 .availability span { font-weight:bold; }
 .availability.in-stock span {}
 .availability.out-of-stock span { color:#d83820; }
+.bottom_thumb_list_product .availability.out-of-stock span { color:#d83820; font-weight: bold; }
 
 .availability-only { margin:10px 0 7px; line-height:16px; background:url(../images/i_availability_only.gif) 0 50% no-repeat; padding-left:15px; display: none;}
 .availability-only span,
@@ -887,6 +888,9 @@ tr.summary-details-excluded { font-style:italic; }
 
 .product-view .product-shop .availability { font-size:11px; }
 .product-view .product-shop .availability span { font-weight:normal; }
+.product-view .product-shop .availability.out-of-stock span {
+    font-weight: bold;
+}
 
 /* Email to a Friend */
 .email-friend { margin:0; }
