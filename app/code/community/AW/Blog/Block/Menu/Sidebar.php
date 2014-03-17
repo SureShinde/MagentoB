@@ -81,6 +81,7 @@ class AW_Blog_Block_Menu_Sidebar extends AW_Blog_Block_Abstract
                 "main_table.post_id = awblog_post.post_id",
                 array(
                     'image_name' => 'awblog_post.image_name',
+                    'identifier' => 'awblog_post.identifier',
                     'title'      => 'awblog_post.title',
                 )
         	)
