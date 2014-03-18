@@ -2,59 +2,52 @@
 class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Action 
 {
 	public function indexAction()
-	{	echo 5; die;
-		$this->loadLayout();     
-		$this->renderLayout();										
+	{	
+	$this->loadLayout();     
+	$this->renderLayout();										
 	}
 
 	public function submitAction() 
-	{		
-		$title = $this->getRequest()->getPost('name');		
-		$static_info = $this->getRequest()->getPost('static_info');
-		$static_thank = $this->getRequest()->getPost('static_thank');
-		$url = $this->getRequest()->getPost('url');
-		$active_from = $this->getRequest()->getPost('active_from');
-		$active_to = $this->getRequest()->getPost('active_to');
-		$status = $this->getRequest()->getPost('status');
-		
-			$insertForm = $this->_insertForm();
+	{
+ 		$postData = $this->getRequest()->getPost();
+		$form_id = $postData['form_id'];
+		$create_date = now("Y-m-d H:i:s");
 
-		$form_id = $this->getRequest()->getPost('form_id');
-		$name = $this->getRequest()->getPost('name');
-		$group = $this->getRequest()->getPost('group');
-		$title = $this->getRequest()->getPost('title');
-		$type = $this->getRequest()->getPost('type');
-		$required = $this->getRequest()->getPost('required');
-		$unique = $this->getRequest()->getPost('unique');
-		$order = $this->getRequest()->getPost('order');
+		//$record_id = $this->getRequest()->getPost('record_id');
+		$connection = Mage::getSingleton('core/resource')->getConnection('core_read');
+		$sql = "select max(record_id) from bilna_formbuilder_data where form_id = $form_id";
+		$row = $connection->fetchRow($sql);
 
-			$insertInput = $this->_insertInput();
+		if(is_null($row['record_id'])){
+			$record_id = 1;
+		}else{
+			$record_id = $row['record_id']+1;
+		}
 
-		$form_id = $this->getRequest()->getPost('form_id');
-		$record_id = $this->getRequest()->getPost('record_id');
-		$type = $this->getRequest()->getPost('type');
-		$value = $this->getRequest()->getPost('value');
-		$created_at = $this->getRequest()->getPost('created_at');
+		foreach($postData["inputs"] as $type=>$value){				
+			$insertData = $this->_insertData($form_id,$record_id,$create_date,$type,$value);			
+			//echo $form_id."-".$record_id."-".$create_date."-".$type."-".$value;
+		}
 
-			$insertData = $this->_insertData();
+		//$insertData = $this->_insertData();
 
-		if ($insertData) {
+		//if ($insertData) {
 
-			$urlform = $this->_backurl($form_id);
-			$redirectPage = Mage::getBaseUrl().$urlform;
-			$this->_prepareEmail($name, $type, $value, $templateId);
+		//	$urlform = $this->_backurl($form_id);
+		//	$redirectPage = Mage::getBaseUrl().$urlform;
+		//	$this->_prepareEmail($name, $type, $value, $templateId);
 
-			$message = $this->getRequest()->getPost('static_thank');
+		//	$message = $this->getRequest()->getPost('static_thank');
 
-			Mage::getSingleton('core/session')->addSuccess($message);
+		//	Mage::getSingleton('core/session')->addSuccess($message);
 
-			$this->_redirectPage($redirectPage);
+		//	$this->_redirectPage($redirectPage);
 
-			}
-			else 
-			{ 
-			echo "failed";
-			}
+		//	}
+		//	else 
+		//	{ 
+		//	echo "failed";
+		//	}
 	}
 
 	private function _prepareEmail($name, $type, $value) 
@@ -97,64 +90,20 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
 		return false;
 	}
 
-	private function _insertForm() 
+	private function _insertData($form_id,$record_id,$type,$value,$create_date) 
 	{
 		$write = Mage::getSingleton('core/resource')->getConnection('core_write');
+		//$created_at = date("Y-m-d H:i:s");
 		$dataArr = array (
-			$this->getRequest()->getPost('name'),
-			$this->getRequest()->getPost('static_info'),
-			$this->getRequest()->getPost('static_thank'),
-			$this->getRequest()->getPost('url'),
-			$this->getRequest()->getPost('active_from'),
-			$this->getRequest()->getPost('active_to'),
-			$this->getRequest()->getPost('status')
+			$form_id,
+			$record_id,
+			$type,
+			$value
+			//$created_at
 			);
 
-		$sql = "insert into bilna_formbuilder_form (title, static_info, static_thank, url, active_from, active_to, status) values (?,?,?,?,?,?,?)";
-		$query = $write->query($sql, $dataArr);
+		$sql = "insert into bilna_formbuilder_data (form_id, record_id, type, value, create_date) values ('$form_id','$record_id','$type','$value','$create_date')";
 
-		if ($query)
-		return true;
-		else
-		return false;
-	}
-
-	private function _insertInput() 
-	{
-		$write = Mage::getSingleton('core/resource')->getConnection('core_write');
-		$dataArr = array (
-			$this->getRequest()->getPost('form_id'),
-			$this->getRequest()->getPost('name'),
-			$this->getRequest()->getPost('group'),
-			$this->getRequest()->getPost('title'),
-			$this->getRequest()->getPost('type'),
-			$this->getRequest()->getPost('required'),
-			$this->getRequest()->getPost('unique'),
-			$this->getRequest()->getPost('order')
-			);
-
-		$sql = "insert into bilna_formbuilder_input (form_id, name, group, title, type, required, unique, order) values (?,?,?,?,?,?,?,?)";
-		$query = $write->query($sql, $dataArr);
-
-		if ($query)
-		return true;
-		else
-		return false;
-	}
-
-	private function _insertData() 
-	{
-		$write = Mage::getSingleton('core/resource')->getConnection('core_write');
-		$created_at = date("Y-m-d H:i:s");
-		$dataArr = array (
-			$this->getRequest()->getPost('form_id'),
-			$this->getRequest()->getPost('record_id'),
-			$this->getRequest()->getPost('type'),
-			$this->getRequest()->getPost('value'),
-			$created_at
-			);
-
-		$sql = "insert into bilna_formbuilder_data (form_id, record_id, type, value, created_at) values (?,?,?,?,?)";
 		$query = $write->query($sql, $dataArr);
 
 		if ($query)
