@@ -1,6 +1,7 @@
-<form id="formbuilder-<?php echo $input->form_id; ?>" action="http://www.bilna.com/baby/formbuilder/index/submit" method="post">
-	<input id="form_id" type="hidden" name="form_id" value="<?php echo $input->form_id; ?>">
-	<div class="formbuilder-header"><?php echo $input->static_block; ?></div>
+<form id="formbuilder-<?php echo $this->blockId; ?>" action="/baby/formbuilder/index/submit" method="post">
+
+	<input id="form_id" type="hidden" name="form_id" value="<?php echo $this->blockId; ?>">
+	<div class="formbuilder-header"><?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('tanya-ahli')->toHtml(); ?></div>
 	<div class="formbuilder-form">
 		<ul>
 		<?php 
@@ -13,9 +14,9 @@
 			<div>:</div>
 			<div>
 			<?php if($input->type == "text"){ ?>
-				<input id="<?php echo $input->name; ?>" class="formbuilder-input" title="<?php echo $input->title; ?>" type="<?php echo $input->dropdown; ?>" name="<?php echo $input->name; ?>" />
+				<input id="<?php echo $input->name; ?>" class="formbuilder-input" title="<?php echo $input->title; ?>" type="<?php echo $input->dropdown; ?>" name="inputs[<?php echo $input->group; ?>]" />
 			<?php }else if($input->type == "dropdown"){ ?>
-			<select><option>asdasd</option></select>
+			<select><option>dropdown</option></select>
 			<?php } ?>
 			</div>
 		</li>
