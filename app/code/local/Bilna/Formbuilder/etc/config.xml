@@ -33,10 +33,16 @@
 		<bilna_formbuilder_mysql4>
 			<class>Bilna_Formbuilder_Model_Mysql4</class>
 			<entities>
-				<formbuilder>
+				<form>
 					<!--table>bilna_form_data</table-->
 					<table>bilna_formbuilder_form</table>
-				</formbuilder>
+				</form>
+				<data>
+					<table>bilna_formbuilder_data</table>
+				</data>
+				<input>
+					<table>bilna_formbuilder_input</table>
+				</input>
 			</entities>
 		</bilna_formbuilder_mysql4>
 	</models>

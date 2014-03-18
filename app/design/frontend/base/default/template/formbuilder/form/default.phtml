@@ -1,11 +1,10 @@
 <form id="formbuilder-<?php echo $this->blockId; ?>" action="/baby/formbuilder/index/submit" method="post">
-
 	<input id="form_id" type="hidden" name="form_id" value="<?php echo $this->blockId; ?>">
-	<div class="formbuilder-header"><?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('tanya-ahli')->toHtml(); ?></div>
+	<div class="formbuilder-header"><?php echo $this->getLayout()->createBlock('cms/block')->setBlockId($this->block->static_info)->toHtml(); ?></div>
 	<div class="formbuilder-form">
 		<ul>
 		<?php 
-		foreach($this->block as $input){
+		foreach($this->inputs as $input){
 		?>
 		<li>
 			<div>
@@ -14,9 +13,9 @@
 			<div>:</div>
 			<div>
 			<?php if($input->type == "text"){ ?>
-				<input id="<?php echo $input->name; ?>" class="formbuilder-input" title="<?php echo $input->title; ?>" type="<?php echo $input->dropdown; ?>" name="inputs[<?php echo $input->group; ?>]" />
-			<?php }else if($input->type == "dropdown"){ ?>
-			<select><option>dropdown</option></select>
+				<input id="<?php echo $input->name; ?>" class="formbuilder-input" title="<?php echo $input->title; ?>" name="inputs[<?php echo $input->group; ?>]" />
+			<?php }else if($input->type == "textarea"){ ?>
+				<textarea id="<?php echo $input->name; ?>" class="formbuilder-textarea" title="<?php echo $input->title; ?>" name="inputs[<?php echo $input->group; ?>]"></textarea>
 			<?php } ?>
 			</div>
 		</li>
@@ -32,3 +31,5 @@
 		<button class="button" title="" type="submit">Submit</button>
 	</div>
 </form>
+
+<div class="formbuilder-success"><?php echo $this->getLayout()->createBlock('cms/block')->setBlockId($this->block->static_success)->toHtml(); ?></div>

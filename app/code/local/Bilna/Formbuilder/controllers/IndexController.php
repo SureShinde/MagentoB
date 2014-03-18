@@ -15,7 +15,7 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
 
 		//$record_id = $this->getRequest()->getPost('record_id');
 		$connection = Mage::getSingleton('core/resource')->getConnection('core_read');
-		$sql = "select max(record_id) from bilna_formbuilder_data where form_id = $form_id";
+		$sql = "select max(record_id) as record_id from bilna_formbuilder_data where form_id = $form_id";
 		$row = $connection->fetchRow($sql);
 
 		if(is_null($row['record_id'])){
@@ -23,31 +23,46 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
 		}else{
 			$record_id = $row['record_id']+1;
 		}
-
-		foreach($postData["inputs"] as $type=>$value){				
-			$insertData = $this->_insertData($form_id,$record_id,$create_date,$type,$value);			
-			//echo $form_id."-".$record_id."-".$create_date."-".$type."-".$value;
+		
+		//CHECK INPUTS SETTING
+		$block = Mage::getModel('bilna_formbuilder/form')->getCollection();
+		$block->getSelect()->join('bilna_formbuilder_input', 'main_table.id = bilna_formbuilder_input.form_id');
+		$block->addFieldToFilter('main_table.id', $form_id);
+		
+		foreach($block as $field){
+			if($field["required"]==true){
+				if(!isset($postData["inputs"][$field["group"]]) || empty($postData["inputs"][$field["group"]]) || is_null($postData["inputs"][$field["group"]])){
+					Mage::getSingleton('core/session')->addError($field["title"].' cannot be empty');
+					
+					$redirectPage = Mage::getBaseUrl().$field["url"];
+					$this->_redirectPage($redirectPage);
+				}
+			}
+			if($field["unique"]==true){
+				$collection = Mage::getModel('bilna_formbuilder/data')->getCollection();
+				$collection->getSelect('main_table.form_id');
+				$collection->addFieldToFilter('main_table.form_id', $form_id);
+				$collection->addFieldToFilter('main_table.type', $field["group"]);
+				$collection->addFieldToFilter('main_table.value', $postData["inputs"][$field["group"]]);
+				
+				$exist = $collection->getFirstItem();
+				
+				if(!is_null($exist["form_id"])){
+					Mage::getSingleton('core/session')->addError($field["title"].' must be unique');
+						
+					$redirectPage = Mage::getBaseUrl().$field["url"];
+					$this->_redirectPage($redirectPage);
+				}
+			}
 		}
 
-		//$insertData = $this->_insertData();
+		foreach($postData["inputs"] as $type=>$value){				
+			$insertData = $this->_insertData($form_id,$record_id,$type,$value,$create_date);			
+		}
 
-		//if ($insertData) {
-
-		//	$urlform = $this->_backurl($form_id);
-		//	$redirectPage = Mage::getBaseUrl().$urlform;
-		//	$this->_prepareEmail($name, $type, $value, $templateId);
-
-		//	$message = $this->getRequest()->getPost('static_thank');
-
-		//	Mage::getSingleton('core/session')->addSuccess($message);
-
-		//	$this->_redirectPage($redirectPage);
-
-		//	}
-		//	else 
-		//	{ 
-		//	echo "failed";
-		//	}
+		Mage::getSingleton('core/session')->addSuccess('Saved');
+		$redirectPage = Mage::getBaseUrl().$field["url"];
+		$this->_redirectPage($redirectPage);
 	}
 
 	private function _prepareEmail($name, $type, $value) 
