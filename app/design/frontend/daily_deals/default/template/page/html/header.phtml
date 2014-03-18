@@ -48,7 +48,6 @@ $j(document).ready(function(){
 			$j('.nav-container').slideToggle();
 		});
 		$j('#link-minicart').click(function(e){
-			console.log(123);
 			e.preventDefault();
 			$j('.nav-container').slideUp();
 			$j('.my-account-mobile').slideUp();
@@ -205,7 +204,7 @@ $j(document).ready(function(){
         <div class="my-account-mobile"><?php echo $this->getChildHtml('topLinks') ?></div>
     </div>
 </div>
-<?php echo $this->getChildHtml('topMenu') ?>
+<?php //echo $this->getChildHtml('topMenu') ?>
 
 <!--this is for testing only-->
 <?php //echo $this->getLayout()->createBlock("core/template")->setTemplate("page/template/bottommenu.phtml")->toHtml(); ?>

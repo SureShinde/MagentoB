@@ -906,10 +906,26 @@
                             <show_in_store>1</show_in_store>
                             <comment>ex: var/log/veritrans/</comment>
                         </log_path-->
+                        <default_response_message_success translate="label">
+                            <label>Default Response Message Success</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>115</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </default_response_message_success>
+                        <default_response_message_failure translate="label">
+                            <label>Default Response Message Failure</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>116</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </default_response_message_failure>
                         <confirm_log_path translate="label">
                             <label>Confirmation log path</label>
                             <frontend_type>text</frontend_type>
-                            <sort_order>115</sort_order>
+                            <sort_order>120</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -918,7 +934,7 @@
                         <success_lock_path translate="label">
                             <label>Success Lock Path</label>
                             <frontend_type>text</frontend_type>
-                            <sort_order>116</sort_order>
+                            <sort_order>121</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>

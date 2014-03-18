@@ -86,7 +86,6 @@
 				</div>
 				
 				<?php echo $this->getTierPriceHtml() ?>
-				<?php echo $this->getChildHtml('alert_urls') ?>
 				<?php echo $this->getChildHtml('extrahint') ?>
 
 				<?php if ($_product->getShortDescription()):?>
@@ -106,6 +105,7 @@
 			</div>
 			
 			<div class="product-shop-right">
+				<?php echo $this->getChildHtml('alert_urls') ?>
 				<?php if (!$this->hasOptions()):?>
 					<div class="add-to-box">
 						<?php if($_product->isSaleable()): ?>
