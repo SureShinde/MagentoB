@@ -97,8 +97,24 @@
                 <name>aw_blog/css/style.css</name>
             </action>
 			<action method="addItem">
+                <type>skin_css</type>
+                <name>aw_blog/css/main-slider-blog.css</name>
+            </action>
+			<action method="addItem">
+                <type>skin_css</type>
+                <name>aw_blog/css/content-slider-blog.css</name>
+            </action>
+			<action method="addItem">
 				<type>skin_js</type>
 				<name>aw_blog/js/jquery.slides.min.js</name>
+			</action>
+			<action method="addItem">
+				<type>skin_js</type>
+				<name>aw_blog/js/bilna-custom-blog-1.3.min.js</name>
+			</action>
+			<action method="addItem">
+				<type>skin_js</type>
+				<name>aw_blog/js/jquery.bilna-blog-secret-jquery.min.js</name>
 			</action>
         </reference>
         <reference name="right">
