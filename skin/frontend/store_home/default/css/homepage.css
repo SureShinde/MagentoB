@@ -225,10 +225,13 @@
 	top:auto;
 	background-color: #ddd;
 }
-#slides-banner .slidesjs-navigation {
+#slides-banner-home{
+	position:relative;
+}
+#slides-banner-home .slidesjs-navigation {
 	display: none;
 }
-#slides-banner .slidesjs-pagination {
+#slides-banner-home .slidesjs-pagination {
 	position: absolute;
 	right: 10px;
 	bottom: 0;
@@ -236,22 +239,22 @@
 	z-index: 99;
 	padding: 0;
 }
-#slides-banner .slidesjs-pagination li {
+#slides-banner-home .slidesjs-pagination li {
 	display: inline-block;
 	margin: 0 0 0 5px;
 }
-#slides-banner .slidesjs-pagination li:first-child {
+#slides-banner-home .slidesjs-pagination li:first-child {
 	margin-left: 0;
 }
 
-#slides-banner .slidesjs-pagination li.slidesjs-pagination-item a {
+#slides-banner-home .slidesjs-pagination li.slidesjs-pagination-item a {
 	display: block;
 	width: 19px;
 	height: 19px;
 	text-indent: -999999px;
 	background: url(../images/node.png) no-repeat center center;
 }
-#slides-banner .slidesjs-pagination li.slidesjs-pagination-item a.active {
+#slides-banner-home .slidesjs-pagination li.slidesjs-pagination-item a.active {
 	background: url(../images/node-active.png) no-repeat center center;
 }
 .homepage-bottom .media-partners {
