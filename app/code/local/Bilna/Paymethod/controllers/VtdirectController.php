@@ -59,7 +59,8 @@ class Bilna_Paymethod_VtdirectController extends Mage_Core_Controller_Front_Acti
                     $data['type'] = 'installment';
                     $data['installment'] = array (
                         'bank' => $this->getInstallmentBank($paymentCode),
-                        'term' => $this->getInstallmentTenor($paymentCode, $installmentId),
+                        'term' => $installmentId,
+                        //'term' => $this->getInstallmentTenor($paymentCode, $installmentId),
                         'type' => $this->getInstallmentTypeCodeBank($paymentCode)
                     );
                 }
