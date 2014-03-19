@@ -34,7 +34,11 @@ $relatedPost = $this->getRelatedPost($post->getCatId(), $post->getPostId());
         <img alt="" src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA);?><?php echo $post->getImageName();?>" class="image-post-main" />
         <div class="postTitle">
         <h2><?php echo $post->getTitle(); ?></h2>
-        <h3><?php echo $post->getCreatedTime(); ?></h3>
+        <h3><?php echo $post->getCreatedTime(); ?>
+			<?php if ($this->getCommentsEnabled()): ?>
+                    <?php echo $post->getCommentCount(); ?> | <a href="<?php echo $post->getAddress(); ?>#commentBox" >Comments</a>
+                <?php endif; ?>
+		</h3>
     </div>
     </p>
 
@@ -53,6 +57,7 @@ $relatedPost = $this->getRelatedPost($post->getCatId(), $post->getPostId());
         <?php endif; ?><?php echo $this->__("and tagged"); ?> <!--label class="poster"><?php //echo $post->getUser(); ?></label--><?php echo Mage::getBlockSingleton('blog/blog')->getTagsHtml($post) ?>
     </div>
     <div style="clear:both; margin: 20px 0;">
+		<h2 class="fb-bebas fb-13" style="color: #707070; font-weight: normal;"><?php echo $this->__('Share this article on') ?></h2>
         <!-- AddThis Button BEGIN -->
         <div class="addthis_toolbox addthis_default_style addthis_32x32_style">
         <a class="addthis_button_preferred_1"></a>
@@ -67,12 +72,13 @@ $relatedPost = $this->getRelatedPost($post->getCatId(), $post->getPostId());
         <!-- AddThis Button END -->
     </div>
     
-    <div style="width: 100%; clear: both; margin: 10px 0; padding: 20px;border-top: 1px dashed #999;">
+    <div style="width: 100%; clear: both; margin: 10px 0; padding: 20px 0;border-top: 1px dashed #999;">
+	<h2 class="fb-bebas fb-18" style="color: #707070; font-weight: normal;"><?php echo $this->__('Related Post') ?></h2>
     <?php foreach ($relatedPost as $row): ?>
         
         <div class="rel-post">
             <a href="<?php echo $row->getAddress(); ?>">
-				<img src="<?php echo Mage::getBaseUrl();?>media/<?php echo $row->getImageName();?>"/>
+				<img src="<?php echo  Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA); ?><?php echo $row->getImageName();?>"/>
 				<p class="post-blog-title-small">
 					<?php echo $row->getTitle();?>
 				</p>
@@ -164,7 +170,7 @@ $relatedPost = $this->getRelatedPost($post->getCatId(), $post->getPostId());
                     <ul class="form-list">
                         <li>
                             
-                            <div style="width: 45%; padding: 0 2.5% 0 0; float:left;">
+                            <div class="field-width-comment" style="padding: 0 2.5% 0 0; float:left;">
                                 <div class="input-box">
                                     <label for="name" class="required"><?php echo Mage::helper('blog')->__('Name') ?><em>*</em></label><br />
                                     <input name="user" id="user" value="<?php echo $this->getCommentName(); ?>" title="<?php echo $this->__('Name') ?>" class="required-entry input-text" type="text" />
@@ -175,15 +181,15 @@ $relatedPost = $this->getRelatedPost($post->getCatId(), $post->getPostId());
                                     <input name="email" id="email" value="<?php echo $this->getCommentEmail(); ?>" title="<?php echo $this->__('Email') ?>" class="required-entry input-text validate-email" type="text" />
                                 </div>
                                 
-                                <div class="input-box">
-                                    <label for="website" class="required"><?php echo Mage::helper('blog')->__('Website') ?></label><br />
-                                    <input name="website" id="website" value="<?php echo $this->getCommentName(); ?>" title="<?php echo $this->__('Website') ?>" class="input-text" type="text" />
-                                </div>
+                                <!--div class="input-box">
+                                    <label for="website" class="required"><?php //echo Mage::helper('blog')->__('Website') ?></label><br />
+                                    <input name="website" id="website" value="<?php //echo $this->getCommentName(); ?>" title="<?php //echo $this->__('Website') ?>" class="input-text" type="text" />
+                                </div-->
 
                                 <div class="clear"></div>
                             </div>
                             
-                            <div style="width: 50%; padding: 0 2.5% 0 0; float:left;">
+                            <div class="field-width-comment" style="padding: 0 2.5% 0 0; float:left;">
                                 <div class="input-box aw-blog-comment-area">
                                     <label for="comment" class="required"><?php echo Mage::helper('blog')->__('Comment') ?><em>*</em></label><br />
                                     <textarea name="comment" id="comment" title="<?php echo Mage::helper('blog')->__('Comment') ?>" class="required-entry input-text" style="height:141px;width:100%; max-width:100%; min-width:100%;margin:0;padding: 8px;" cols="50" rows="5"><?php echo $this->getCommentText(); ?></textarea>

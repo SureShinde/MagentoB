@@ -29,7 +29,7 @@
 <div class="wrap_banner">
 	<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('shopby')->toHtml() ?> 
 	<div class="slider col-1">
-		<img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA); ?>wysiwyg/banner_slider/slider_home_1.jpg">
+		 <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('slider_home')->toHtml() ?> 
 	</div>
 	<div class="col-2">
 	<img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA); ?>wysiwyg/banner_slider/banner_small_1.jpg">
@@ -58,3 +58,5 @@
 <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('media-partner')->toHtml() ?>
 <div class="clear">&nbsp;</div>
 </div>
+
+<?php echo $this->getLayout()->createBlock('core/template')->setTemplate('page/template/bottommenu.phtml')->toHtml(); ?>

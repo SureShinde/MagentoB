@@ -110,10 +110,10 @@ $j(document).ready(function(){
 });
 </script>
 
-<a name="Top"></a>
-<a href="#Top" class="back-to-top"><?php echo $this->__('Back to Top') ?><img src="<?php echo $this->getSkinUrl(); ?>images/backtotop.png" /></a>
+
 
 <div class="header-container">
+	<?php echo $this->getLayout()->createBlock('page/html')->setTemplate('page/html/back-top.phtml')->toHtml(); ?>
 	<div class="sticky-header-wrapper">
 		<div class="sticky-header">
 			<a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="sticky-logo"><img src="<?php echo $this->getSkinUrl(); ?>images/logo-sticky.png" alt="<?php echo $this->getLogoAlt() ?>" /></a>
@@ -133,7 +133,8 @@ $j(document).ready(function(){
 				</li>
 				<li class="link-customer-care td-contact-sticky">
 					<a href="#"><?php echo $this->__('Customer Care Center') ?></a></br>
-					<div class="td-contact-sticky-cont"><?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('contact-sticky-detail')->toHtml() ?></div>
+					<div class="td-contact-sticky-cont"><?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('contact-sticky-detail')->toHtml() ?>
+					</div>
 				</li>
 				<li class="link-customer-care2"><a href="#" ><?php echo $this->__('Care Center') ?></a></li>
 				<div class="clear"></div>
@@ -158,8 +159,8 @@ $j(document).ready(function(){
     	<div class="menu-top">
 	    	<ul>
 		    	<li class="active"><a href="/baby"><?php echo $this->__('Mom &amp; Baby') ?></a></li>
-		    	<!--<li><a href="/home"><?php //echo $this->__('Home') ?></a></li>-->
-		    	<!--li><a href="/baby/dailydeals"><?php //echo $this->__('Daily Deals') ?></a></li-->
+		    	<!--<li><a href="/home"><?php //echo $this->__('Home') ?></a></li>
+		    	<li><a href="/baby/dailydeals"><?php //echo $this->__('Daily Deals') ?></a></li>-->
 	    	</ul>
     	</div>
     	<?php if ($this->getIsHomePage()):?>
@@ -169,7 +170,7 @@ $j(document).ready(function(){
         <?php endif?>
         <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('keypoint')->toHtml() ?>
         <div class="quick-access">
-        	<a href="#" class="link-blog-mobile"><?php echo $this->__('Blog') ?></a>
+        	<a href="<?php echo $this->getUrl('blog'); ?>" class="link-blog-mobile"><?php echo $this->__('Blog') ?></a>
         	<a href="#" class="link-myaccount-mobile"><?php echo $this->__('My Account') ?></a>
         	<div class="top-cart">
         		<?php $_totalItem = $this->helper('checkout/cart')->getSummaryCount();  //get total items in cart ?>
@@ -214,40 +215,41 @@ top link-shopby">Shop by</a>
         	 <div class="shopby">
 <ul class="shop-by">
 <li><span class="title">Popular Brand</span></li>
-<li><a href="http://www.bilna.com/baby/mamypoko.html">Mamy Poko</a></li>
-<li><a href="http://www.bilna.com/baby/pampers">Pampers</a></li>
-<li><a href="http://www.bilna.com/baby/goon">Goon</a></li>
-<li><a href="http://www.bilna.com/baby/nutrilon">Nutrilon</a></li>
-<li><a href="http://www.bilna.com/baby/bebelac">Bebelac</a></li>
-<li><a href="http://www.bilna.com/baby/morinaga.html">Morinaga</a></li>
-<li><a href="http://www.bilna.com/baby/nan.html">Nan</a></li>
-<li><a href="http://www.bilna.com/baby/dancow.html">Dancow</a></li>
-<li><a href="http://www.bilna.com/baby/sebamed.html">Sebamed</a></li>
-<li><a href="http://www.bilna.com/baby/cussons">Cussons</a></li>
-<li><a href="http://www.bilna.com/baby/zwitsal.html">Zwitsal</a></li>
-<li><a href="http://www.bilna.com/baby/philips-avent.html">Philips Avent</a></li>
-<li><a href="http://www.bilna.com/baby/dr-browns.html">Dr. Browns</a></li>
-<li><a href="http://www.bilna.com/baby/velvet">Velvet</a></li>
-<li><a href="http://www.bilna.com/baby/chicco.html">Chicco</a></li>
-<li><a href="http://www.bilna.com/baby/bright-stars">Bright Starts</a></li>
-<li><a href="http://www.bilna.com/baby/vtech.html">Vtech</a></li>
-<li><a class="link-seemore" href="http://www.bilna.com/baby/paling-dicari.html">See more</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>mamypoko.html">Mamy Poko</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>pampers">Pampers</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>goon">Goon</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>nutrilon-royal.html">Nutrilon Royal</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>bebelac">Bebelac</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>morinaga.html">Morinaga</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>nan.html">Nan</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>dancow.html">Dancow</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>sebamed.html">Sebamed</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>cussons">Cussons</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>zwitsal.html">Zwitsal</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>philips-avent.html">Philips Avent</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>dr-browns.html">Dr. Browns</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>velvet">Velvet</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>chicco.html">Chicco</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>bright-stars">Bright Starts</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>vtech.html">Vtech</a></li>
+<li><a class="link-seemore" href="<?php echo Mage::getBaseUrl(); ?>paling-dicari.html">See more</a></li>
+
 </ul>
 <ul class="shop-by">
 <li><span class="title">Gift Ideas</span></li>
-<li><a href="http://www.bilna.com/baby/set-hadiah-bayi-dan-anak/new-mom-check-list.html">Checklist 
+<li><a href="<?php echo Mage::getBaseUrl(); ?>set-hadiah-bayi-dan-anak/new-mom-check-list.html">Checklist 
 
 For New Moms</a></li>
-<li><a href="http://www.bilna.com/baby/set-hadiah-bayi-dan-anak/hospital-bag.html">Hospital Bag 
+<li><a href="<?php echo Mage::getBaseUrl(); ?>set-hadiah-bayi-dan-anak/hospital-bag.html">Hospital Bag 
 
 Checklist</a></li>
-<li><a href="http://www.bilna.com/baby/set-hadiah-bayi-dan-anak/birthday-gift.html">Birthday Gift 
+<li><a href="<?php echo Mage::getBaseUrl(); ?>set-hadiah-bayi-dan-anak/birthday-gift.html">Birthday Gift 
 
 Ideas</a></li>
-<li><a href="http://www.bilna.com/baby/set-hadiah-bayi-dan-anak/baby-shower.html">Baby Shower Gift 
+<li><a href="<?php echo Mage::getBaseUrl(); ?>set-hadiah-bayi-dan-anak/baby-shower.html">Baby Shower Gift 
 
 Ideas</a></li>
-<li><a class="link-seemore" href="http://www.bilna.com/baby/set-hadiah-bayi-dan-anak.html">See 
+<li><a class="link-seemore" href="<?php echo Mage::getBaseUrl(); ?>set-hadiah-bayi-dan-anak.html">See 
 
 more</a></li>
 </ul>
@@ -261,7 +263,7 @@ more</a></li>
                                                                                                      
 
        <li class="level  level-top parent-0 parent">
-                        <a href="http://www.bilna.com/baby/popok-bayi-dan-balita.html" 
+                        <a href="<?php echo Mage::getBaseUrl(); ?>popok-bayi-dan-balita.html" 
 
 class="level-top parent-0 diapering">
                                                 	<span><span>Diapering</span></span>
@@ -276,7 +278,7 @@ class="level-top parent-0 diapering">
                 	                	
 		                			                		<a 
 
-href="http://www.bilna.com/baby/popok-bayi-dan-balita/popok-bayi.html" class="diapers">
+href="<?php echo Mage::getBaseUrl(); ?>popok-bayi-dan-balita/popok-bayi.html" class="diapers">
                 		<span>Diapers</span></a>
 		                	                		
                 	
@@ -285,7 +287,7 @@ href="http://www.bilna.com/baby/popok-bayi-dan-balita/popok-bayi.html" class="di
                 	                	
 		                			                		<a 
 
-href="http://www.bilna.com/baby/popok-bayi-dan-balita/popok-kain.html" class="reusablediaper">
+href="<?php echo Mage::getBaseUrl(); ?>popok-bayi-dan-balita/popok-kain.html" class="reusablediaper">
                 		<span>Reusable diaper</span></a>
 		                	                		
                 	
@@ -294,7 +296,7 @@ href="http://www.bilna.com/baby/popok-bayi-dan-balita/popok-kain.html" class="re
                 	                	
 		                			                		<a 
 
-href="http://www.bilna.com/baby/popok-bayi-dan-balita/krim-bayi.html" class="creams">
+href="<?php echo Mage::getBaseUrl(); ?>popok-bayi-dan-balita/krim-bayi.html" class="creams">
                 		<span>Creams</span></a>
 		                	                		
                 	
@@ -303,7 +305,7 @@ href="http://www.bilna.com/baby/popok-bayi-dan-balita/krim-bayi.html" class="cre
                 	                	
 		                			                		<a 
 
-href="http://www.bilna.com/baby/popok-bayi-dan-balita/tisu-basah.html" class="babywipes">
+href="<?php echo Mage::getBaseUrl(); ?>popok-bayi-dan-balita/tisu-basah.html" class="babywipes">
                 		<span>Baby Wipes</span></a>
 		                	                		
                 	
@@ -312,7 +314,7 @@ href="http://www.bilna.com/baby/popok-bayi-dan-balita/tisu-basah.html" class="ba
                 	                	
 		                			                		<a 
 
-href="http://www.bilna.com/baby/popok-bayi-dan-balita/tas-bayi.html" class="diapersack/bag">
+href="<?php echo Mage::getBaseUrl(); ?>popok-bayi-dan-balita/tas-bayi.html" class="diapersack/bag">
                 		<span>Diaper Sack/Bag</span></a>
 		                	                		
                 	
@@ -321,7 +323,7 @@ href="http://www.bilna.com/baby/popok-bayi-dan-balita/tas-bayi.html" class="diap
                 	                	
 		                			                		<a 
 
-href="http://www.bilna.com/baby/popok-bayi-dan-balita/pembersih-pakaian-bayi.html" 
+href="<?php echo Mage::getBaseUrl(); ?>popok-bayi-dan-balita/pembersih-pakaian-bayi.html" 
 
 class="detergentorcleaner">
                 		<span>Detergent or Cleaner</span></a>
@@ -332,7 +334,7 @@ class="detergentorcleaner">
                 	                	
 		                			                		<a 
 
-href="http://www.bilna.com/baby/popok-bayi-dan-balita/best-seller.html" class="bestseller">
+href="<?php echo Mage::getBaseUrl(); ?>popok-bayi-dan-balita/best-seller.html" class="bestseller">
                 		<span>Best Seller</span></a>
 		                	                		
                 	
@@ -348,18 +350,18 @@ href="http://www.bilna.com/baby/popok-bayi-dan-balita/best-seller.html" class="b
 
 class="title">Popular Brands</span>
 <ul>
-<li><a href="http://www.bilna.com/baby/mamypoko.html">MamyPoko</a></li>
-<li><a href="http://www.bilna.com/baby/pampers">Pampers</a></li>
-<li><a href="http://www.bilna.com/baby/merries.html">Merries</a></li>
-<li><a href="http://www.bilna.com/baby/rumparooz.html">Rumparooz</a></li>
-<li><a href="http://www.bilna.com/baby/okiedog.html">Okiedog</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>mamypoko.html">MamyPoko</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>pampers">Pampers</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>merries.html">Merries</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>rumparooz.html">Rumparooz</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>okiedog.html">Okiedog</a></li>
 </ul>
 </div>
 <div class="submenu our-choice"><span class="title">Our Choice</span>
 <ul>
-<li><a href="http://www.bilna.com/baby/popok-bayi-dan-balita/whats-hot">Diaper-licious!</a></li>
-<li><a href="http://www.bilna.com/baby/popok-bayi-dan-balita-new">Whats New</a></li>
-<li><a href="http://www.bilna.com/baby/popok-bayi-dan-balita-sale">Whats on Sale</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>popok-bayi-dan-balita/whats-hot">Diaper-licious!</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>popok-bayi-dan-balita-new">Whats New</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>popok-bayi-dan-balita-sale">Whats on Sale</a></li>
 </ul>
 </div>
 <div class="clear">&nbsp;</div>
@@ -369,14 +371,14 @@ src="http://assets.bilna.com/media/wysiwyg/megamenu1-diapering-img.png" alt=""> 
 
    </div>
     <div class="clear"></div>
-    <a href="http://www.bilna.com/baby/popok-bayi-dan-balita.html" class="browse-all">Browse All</a>
+    <a href="<?php echo Mage::getBaseUrl(); ?>popok-bayi-dan-balita.html" class="browse-all">Browse All</a>
 </li>
                             </ul>
                                         </li>
                                                                                                      
 
            <li class="level  level-top parent-1 parent">
-                        <a href="http://www.bilna.com/baby/susu-dan-makanan-pendamping.html" 
+                        <a href="<?php echo Mage::getBaseUrl(); ?>susu-dan-makanan-pendamping.html" 
 
 class="level-top parent-1 formulafood">
                                                 	<span><span>Formula <br>&amp; 
@@ -393,7 +395,7 @@ Food</span></span>
                 	                	
 		                			                		<a 
 
-href="http://www.bilna.com/baby/susu-dan-makanan-pendamping/susu-bayi-dan-anak.html" class="milk">
+href="<?php echo Mage::getBaseUrl(); ?>susu-dan-makanan-pendamping/susu-bayi-dan-anak.html" class="milk">
                 		<span>Milk</span></a>
 		                	                		
                 	
@@ -402,7 +404,7 @@ href="http://www.bilna.com/baby/susu-dan-makanan-pendamping/susu-bayi-dan-anak.h
                 	                	
 		                			                		<a 
 
-href="http://www.bilna.com/baby/susu-dan-makanan-pendamping/cereal.html" 
+href="<?php echo Mage::getBaseUrl(); ?>susu-dan-makanan-pendamping/cereal.html" 
 
 class="cerealsandmultigrain">
                 		<span>Cereals and Multigrain</span></a>
@@ -413,7 +415,7 @@ class="cerealsandmultigrain">
                 	                	
 		                			                		<a 
 
-href="http://www.bilna.com/baby/susu-dan-makanan-pendamping/snack-bayi-dan-anak.html" 
+href="<?php echo Mage::getBaseUrl(); ?>susu-dan-makanan-pendamping/snack-bayi-dan-anak.html" 
 
 class="snacks">
                 		<span>Snacks</span></a>
@@ -424,7 +426,7 @@ class="snacks">
                 	                	
 		                			                		<a 
 
-href="http://www.bilna.com/baby/susu-dan-makanan-pendamping/baby-food.html" class="babyfood">
+href="<?php echo Mage::getBaseUrl(); ?>susu-dan-makanan-pendamping/baby-food.html" class="babyfood">
                 		<span>Baby Food</span></a>
 		                	                		
                 	
@@ -433,7 +435,7 @@ href="http://www.bilna.com/baby/susu-dan-makanan-pendamping/baby-food.html" clas
                 	                	
 		                			                		<a 
 
-href="http://www.bilna.com/baby/susu-dan-makanan-pendamping/suplemen-bayi-dan-anak.html" 
+href="<?php echo Mage::getBaseUrl(); ?>susu-dan-makanan-pendamping/suplemen-bayi-dan-anak.html" 
 
 class="supplement">
                 		<span>Supplement</span></a>
@@ -444,7 +446,7 @@ class="supplement">
                 	                	
 		                			                		<a 
 
-href="http://www.bilna.com/baby/susu-dan-makanan-pendamping/susu-khusus.html" class="specialtymilk">
+href="<?php echo Mage::getBaseUrl(); ?>susu-dan-makanan-pendamping/susu-khusus.html" class="specialtymilk">
                 		<span>Specialty Milk</span></a>
 		                	                		
                 	
@@ -460,25 +462,27 @@ href="http://www.bilna.com/baby/susu-dan-makanan-pendamping/susu-khusus.html" cl
 
 class="title">Popular Brands</span>
 <ul>
-<li><a href="http://www.bilna.com/baby/nutrilon">Nutrilon</a></li>
-<li><a href="http://www.bilna.com/baby/morinaga.html">Morinaga</a></li>
-<li><a href="http://www.bilna.com/baby/nan.html">NAN</a></li>
-<li><a href="http://www.bilna.com/baby/heinz.html">Heinz</a></li>
-<li><a href="http://www.bilna.com/baby/raffertys-garden.html">Raffertys Garden</a></li>
-<li><a href="http://www.bilna.com/baby/bebelac.html">Bebelac</a></li>
-<li><a href="http://www.bilna.com/baby/dancownutrigold.html">Dancow Nutrigold</a></li>
+
+<li><a href="<?php echo Mage::getBaseUrl(); ?>nutrilon-royal.html">Nutrilon Royal</li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>morinaga.html">Morinaga</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>nan.html">NAN</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>heinz.html">Heinz</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>raffertys-garden.html">Raffertys Garden</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>bebelac.html">Bebelac</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>dancownutrigold.html">Dancow Nutrigold</a></li>
+
 </ul>
 </div>
 <div class="submenu our-choice"><span class="title">Our Choice</span>
 <ul>
-<li><a href="http://www.bilna.com/baby/susu-dan-makanan-pendamping/whats-hot">Munchy Crunchy!
+<li><a href="<?php echo Mage::getBaseUrl(); ?>susu-dan-makanan-pendamping/whats-hot">Munchy Crunchy!
 
 </a></li>
-<li><a href="http://www.bilna.com/baby/friso.html">Friso</a></li>
-<li><a href="http://www.bilna.com/baby/susu-dan-makanan-pendamping-new">Whats New</a></li>
-<li><a href="http://www.bilna.com/baby/susu-dan-makanan-pendamping-sale">Whats on Sale</a></li>
-<li><a href="http://www.bilna.com/baby/imported-milk.html">Imported Milk</a></li>
-<li><a href="http://www.bilna.com/baby/imported-food.html">Imported Food</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>friso.html">Friso</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>susu-dan-makanan-pendamping-new">Whats New</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>susu-dan-makanan-pendamping-sale">Whats on Sale</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>imported-milk.html">Imported Milk</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>imported-food.html">Imported Food</a></li>
 </ul>
 </div>
 <div class="clear">&nbsp;</div>
@@ -488,7 +492,7 @@ src="http://assets.bilna.com/media/wysiwyg/megamenu2-milkformulafood-img.png" al
 
         </div>
     <div class="clear"></div>
-    <a href="http://www.bilna.com/baby/susu-dan-makanan-pendamping.html" class="browse-all">Browse 
+    <a href="<?php echo Mage::getBaseUrl(); ?>susu-dan-makanan-pendamping.html" class="browse-all">Browse 
 
 All</a>
 </li>
@@ -497,7 +501,7 @@ All</a>
                                                                                                      
 
            <li class="level  level-top parent-2 parent">
-                        <a href="http://www.bilna.com/baby/pakaian-dan-aksesoris.html" 
+                        <a href="<?php echo Mage::getBaseUrl(); ?>pakaian-dan-aksesoris.html" 
 
 class="level-top parent-2 clothingaccessories">
                                                 	<span><span>Clothing <br>&amp; 
@@ -511,72 +515,63 @@ clothing___accessories_hover">
     <div class="left-columns">
         <h2>Clothing &amp; Accessories</h2>
         <div class="view-box">
-                        <ul>
-                            <li>
-                	                	
-		                			                		<a 
+<ul>
+	<li><a href="<?php echo Mage::getBaseUrl(); ?>pakaian-dan-aksesoris/baju-atasan-bayi-dan-anak.html" class="tops">
+							<span>Tops</span></a>
+	</li>
+	
+	<li><a href="<?php echo Mage::getBaseUrl(); ?>pakaian-dan-aksesoris/baju-bawahan-bayi-dan-anak.html" class="bottoms">
+							<span>Bottoms</span></a>
+	</li>
+	
+	<li><a href="<?php echo Mage::getBaseUrl(); ?>pakaian-dan-aksesoris/pakaian-lucu-bayi-dan-anak.html" class="dress">
+							<span>Dress</span></a>
+	</li>
 
-href="http://www.bilna.com/baby/pakaian-dan-aksesoris/pakaian-bayi-dan-anak.html" 
+	<li><a href="<?php echo Mage::getBaseUrl(); ?>pakaian-dan-aksesoris/pakaian-bayi-dan-anak.html" class="sets">
+							<span>Sets</span></a>
+	</li>
 
-class="everydayclothing">
-                		<span>Everyday Clothing</span></a>
-		                	                		
-                	
-                </li>
-                                            <li>
-                	                	
-		                			                		<a 
+	<li><a href="<?php echo Mage::getBaseUrl(); ?>pakaian-dan-aksesoris/baju-terusan-bayi-dan-anak.html" class="jumper">
+							<span>Jumper</span></a>
+	</li>
+	
+	<li><a href="<?php echo Mage::getBaseUrl(); ?>pakaian-dan-aksesoris/pakaian-dalam.html" class="underwear">
+							<span>Underwear</span></a>
+	</li>
+	
+	<li><a href="<?php echo Mage::getBaseUrl(); ?>pakaian-dan-aksesoris/outwear.html" class="outwear">
+							<span>Outwear</span></a>
+	</li>
 
-href="http://www.bilna.com/baby/pakaian-dan-aksesoris/piyama-bayi-dan-anak.html" class="sleepwear">
-                		<span>Sleepwear</span></a>
-		                	                		
-                	
-                </li>
-                                            <li>
-                	                	
-		                			                		<a 
+	<li> <a href="<?php echo Mage::getBaseUrl(); ?>pakaian-dan-aksesoris/piyama-bayi-dan-anak.html" class="sleepwear">
+							<span>Sleepwear</span></a>
+	</li>
 
-href="http://www.bilna.com/baby/pakaian-dan-aksesoris/pakaian-lucu-bayi-dan-anak.html" 
+	<li><a href="<?php echo Mage::getBaseUrl(); ?>pakaian-dan-aksesoris/pakaian-renang-bayi-dan-anak.html" class="swimwear">
+							<span>Swimwear</span></a>
+	</li>
 
-class="fashionableclothing">
-                		<span>Fashionable Clothing</span></a>
-		                	                		
-                	
-                </li>
-                                            <li>
-                	                	
-		                			                		<a 
+	<li><a href="<?php echo Mage::getBaseUrl(); ?>pakaian-dan-aksesoris/sepatu-dan-kaos-kaki-bayi-dan-anak.html" class="socksandshoes">
+							<span>Socks and Shoes</span></a>
+	</li>
 
-href="http://www.bilna.com/baby/pakaian-dan-aksesoris/sepatu-dan-kaos-kaki-bayi-dan-anak.html" 
+	<li><a href="<?php echo Mage::getBaseUrl(); ?>pakaian-dan-aksesoris/aksesoris-bayi-dan-anak.html" class="accessories">
+							<span>Accessories</span></a>
+	</li>
+	
+	<li><a href="<?php echo Mage::getBaseUrl(); ?>pakaian-dan-aksesoris/bedong-bayi.html" class="swaddle">
+							<span>Swaddle</span></a>
+	</li>
 
-class="socksandshoes">
-                		<span>Socks and Shoes</span></a>
-		                	                		
-                	
-                </li>
-                                            <li>
-                	                	
-		                			                		<a 
-
-href="http://www.bilna.com/baby/pakaian-dan-aksesoris/aksesoris-bayi-dan-anak.html" 
-
-class="accessories">
-                		<span>Accessories</span></a>
-		                	                		
-                	
-                </li>
-                                            <li>
-                	                	
-		                			                		<a 
-
-href="http://www.bilna.com/baby/pakaian-dan-aksesoris/pembersih-pakaian-bayi.html" 
-
-class="laundryneeds">
-                		<span>Laundry Needs</span></a>
-		                	                		
-                	
-                </li>
-                                        </ul>
+	<li><a href="<?php echo Mage::getBaseUrl(); ?>pakaian-dan-aksesoris/pembersih-pakaian-bayi.html" class="laundryneeds">
+							<span>Laundry Needs</span></a>
+	</li>
+	
+	<li><a href="<?php echo Mage::getBaseUrl(); ?>pakaian-dan-aksesoris/set-hadiah.html" class="giftsets">
+							<span>Gift Sets</span></a>
+	</li>
+</ul>
             <div class="clear"></div>
         </div>
         <div class="devider"></div>
@@ -587,18 +582,18 @@ class="laundryneeds">
 
 class="title">Popular Brands</span>
 <ul>
-<li><a href="http://www.bilna.com/baby/velvet-junior.html">Velvet Junior</a></li>
-<li><a href="http://www.bilna.com/baby/owlie-birdie.html">Owlie and Birdie</a></li>
-<li><a href="http://www.bilna.com/baby/maoo.html">Maoo Baby</a></li>
-<li><a href="http://www.bilna.com/baby/boogy-baby.html">Boogybaby</a></li>
-<li><a href="http://www.bilna.com/baby/sleek.html">Sleek</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>velvet-junior.html">Velvet Junior</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>owlie-birdie.html">Owlie and Birdie</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>maoo.html">Maoo Baby</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>boogy-baby.html">Boogybaby</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>sleek.html">Sleek</a></li>
 </ul>
 </div>
 <div class="submenu our-choice"><span class="title">Our Choice</span>
 <ul>
-<li><a href="http://www.bilna.com/baby/pakaian-dan-aksesoris/whats-hot.html">Pajamas Party!</a></li>
-<li><a href="http://www.bilna.com/baby/pakaian-dan-aksesoris-new">Whats New</a></li>
-<li><a href="http://www.bilna.com/baby/pakaian-dan-aksesoris-sale">Whats on Sale</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>pakaian-dan-aksesoris/whats-hot.html">Pajamas Party!</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>pakaian-dan-aksesoris-new">Whats New</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>pakaian-dan-aksesoris-sale">Whats on Sale</a></li>
 </ul>
 </div>
 <div class="clear">&nbsp;</div>
@@ -608,14 +603,14 @@ src="http://assets.bilna.com/media/wysiwyg/megamenu3-clothingacc-img.png" alt=""
 
    </div>
     <div class="clear"></div>
-    <a href="http://www.bilna.com/baby/pakaian-dan-aksesoris.html" class="browse-all">Browse All</a>
+    <a href="<?php echo Mage::getBaseUrl(); ?>pakaian-dan-aksesoris.html" class="browse-all">Browse All</a>
 </li>
                             </ul>
                                         </li>
                                                                                                      
 
            <li class="level  level-top parent-3 parent">
-                        <a href="http://www.bilna.com/baby/peralatan-mandi-dan-perawatan-kulit.html" 
+                        <a href="<?php echo Mage::getBaseUrl(); ?>peralatan-mandi-dan-perawatan-kulit.html" 
 
 class="level-top parent-3 bathskincare">
                                                 	<span><span>Bath <br>&amp; 
@@ -632,7 +627,7 @@ Skincare</span></span>
                 	                	
 		                			                		<a 
 
-href="http://www.bilna.com/baby/peralatan-mandi-dan-perawatan-kulit/sabun-bayi-dan-anak.html" 
+href="<?php echo Mage::getBaseUrl(); ?>peralatan-mandi-dan-perawatan-kulit/sabun-bayi-dan-anak.html" 
 
 class="bathandbodywash">
                 		<span>Bath and Body Wash</span></a>
@@ -643,7 +638,7 @@ class="bathandbodywash">
                 	                	
 		                			                		<a 
 
-href="http://www.bilna.com/baby/peralatan-mandi-dan-perawatan-kulit/perawatan-rambut-bayi-dan-
+href="<?php echo Mage::getBaseUrl(); ?>peralatan-mandi-dan-perawatan-kulit/perawatan-rambut-bayi-dan-
 
 balita.html" class="haircare">
                 		<span>Hair Care</span></a>
@@ -654,7 +649,7 @@ balita.html" class="haircare">
                 	                	
 		                			                		<a 
 
-href="http://www.bilna.com/baby/peralatan-mandi-dan-perawatan-kulit/pelembab-bayi-dan-balita.html" 
+href="<?php echo Mage::getBaseUrl(); ?>peralatan-mandi-dan-perawatan-kulit/pelembab-bayi-dan-balita.html" 
 
 class="lotion,powder,sunscreen,oil">
                 		<span>Lotion, Powder, Sunscreen, Oil</span></a>
@@ -665,7 +660,7 @@ class="lotion,powder,sunscreen,oil">
                 	                	
 		                			                		<a 
 
-href="http://www.bilna.com/baby/peralatan-mandi-dan-perawatan-kulit/handuk-bayi-dan-balita.html" 
+href="<?php echo Mage::getBaseUrl(); ?>peralatan-mandi-dan-perawatan-kulit/handuk-bayi-dan-balita.html" 
 
 class="towelsandmatt">
                 		<span>Towels and Matt</span></a>
@@ -676,7 +671,7 @@ class="towelsandmatt">
                 	                	
 		                			                		<a 
 
-href="http://www.bilna.com/baby/peralatan-mandi-dan-perawatan-kulit/keperluan-mandi-bayi-dan-
+href="<?php echo Mage::getBaseUrl(); ?>peralatan-mandi-dan-perawatan-kulit/keperluan-mandi-bayi-dan-
 
 balita.html" class="bathingaccessories">
                 		<span>Bathing Accessories</span></a>
@@ -687,7 +682,7 @@ balita.html" class="bathingaccessories">
                 	                	
 		                			                		<a 
 
-href="http://www.bilna.com/baby/peralatan-mandi-dan-perawatan-kulit/perlengkapan-tambahan-bayi-dan-
+href="<?php echo Mage::getBaseUrl(); ?>peralatan-mandi-dan-perawatan-kulit/perlengkapan-tambahan-bayi-dan-
 
 balita.html" class="scissorsandtools">
                 		<span>Scissors and Tools</span></a>
@@ -698,7 +693,7 @@ balita.html" class="scissorsandtools">
                 	                	
 		                			                		<a 
 
-href="http://www.bilna.com/baby/peralatan-mandi-dan-perawatan-kulit/perawatan-gigi-mulut-bayi-dan-
+href="<?php echo Mage::getBaseUrl(); ?>peralatan-mandi-dan-perawatan-kulit/perawatan-gigi-mulut-bayi-dan-
 
 balita.html" class="dentalandoralcare">
                 		<span>Dental and Oral Care</span></a>
@@ -716,22 +711,22 @@ balita.html" class="dentalandoralcare">
 
 class="title">Popular Brands</span>
 <ul>
-<li><a href="http://www.bilna.com/baby/pigeon">Pigeon</a></li>
-<li><a href="http://www.bilna.com/baby/sebamed.html">Sebamed</a></li>
-<li><a href="http://www.bilna.com/baby/pupu.html">Pupu</a></li>
-<li><a href="http://www.bilna.com/baby/zwitsal.html">Zwitsal</a></li>
-<li><a href="http://www.bilna.com/baby/kukui.html">Kukui</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>pigeon">Pigeon</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>sebamed.html">Sebamed</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>pupu.html">Pupu</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>zwitsal.html">Zwitsal</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>kukui.html">Kukui</a></li>
 </ul>
 </div>
 <div class="submenu our-choice"><span class="title">Our Choice</span>
 <ul>
-<li><a href="http://www.bilna.com/baby/peralatan-mandi-dan-perawatan-kulit/whats-hot.html">Warm Babies!</a></li>
-<li><a href="http://www.bilna.com/baby/peralatan-mandi-dan-perawatan-kulit-new">Whats New</a></li>
-<li><a href="http://www.bilna.com/baby/peralatan-mandi-dan-perawatan-kulit-sale">Whats on 
+<li><a href="<?php echo Mage::getBaseUrl(); ?>peralatan-mandi-dan-perawatan-kulit/whats-hot.html">Warm Babies!</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>peralatan-mandi-dan-perawatan-kulit-new">Whats New</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>peralatan-mandi-dan-perawatan-kulit-sale">Whats on 
 
 Sale</a></li>
-<li><a href="http://www.bilna.com/baby/peralatan-mandi-dan-perawatan-kulit/whats-hot-2">Special Treats with Care</a></li>
-<li><a href="http://www.bilna.com/baby/peralatan-mandi-dan-perawatan-kulit/whats-hot-3.html">Bath is Fun!</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>peralatan-mandi-dan-perawatan-kulit/whats-hot-2">Special Treats with Care</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>peralatan-mandi-dan-perawatan-kulit/whats-hot-3.html">Bath is Fun!</a></li>
 </ul>
 </div>
 <div class="clear">&nbsp;</div>
@@ -741,7 +736,7 @@ src="http://assets.bilna.com/media/wysiwyg/megamenu4-bathskincare-img.png" alt="
 
    </div>
     <div class="clear"></div>
-    <a href="http://www.bilna.com/baby/peralatan-mandi-dan-perawatan-kulit.html" class="browse-
+    <a href="<?php echo Mage::getBaseUrl(); ?>peralatan-mandi-dan-perawatan-kulit.html" class="browse-
 
 all">Browse All</a>
 </li>
@@ -750,7 +745,7 @@ all">Browse All</a>
                                                                                                      
 
            <li class="level  level-top parent-4 parent">
-                        <a href="http://www.bilna.com/baby/perlengkapan-makan-bayi.html" 
+                        <a href="<?php echo Mage::getBaseUrl(); ?>perlengkapan-makan-bayi.html" 
 
 class="level-top parent-4 feedingnursing">
                                                 	<span><span>Feeding <br>&amp; 
@@ -769,7 +764,7 @@ feeding___nursing_hover">
                 	                	
 		                			                		<a 
 
-href="http://www.bilna.com/baby/perlengkapan-makan-bayi/botol-susu-bayi-dan-balita.html" 
+href="<?php echo Mage::getBaseUrl(); ?>perlengkapan-makan-bayi/botol-susu-bayi-dan-balita.html" 
 
 class="bottlesandnipples">
                 		<span>Bottles and Nipples</span></a>
@@ -780,7 +775,7 @@ class="bottlesandnipples">
                 	                	
 		                			                		<a 
 
-href="http://www.bilna.com/baby/perlengkapan-makan-bayi/aksesoris-botol-susu.html" 
+href="<?php echo Mage::getBaseUrl(); ?>perlengkapan-makan-bayi/aksesoris-botol-susu.html" 
 
 class="bottlesaccesories">
                 		<span>Bottles Accesories</span></a>
@@ -791,7 +786,7 @@ class="bottlesaccesories">
                 	                	
 		                			                		<a 
 
-href="http://www.bilna.com/baby/perlengkapan-makan-bayi/perlengkapan-botol-susu.html" 
+href="<?php echo Mage::getBaseUrl(); ?>perlengkapan-makan-bayi/perlengkapan-botol-susu.html" 
 
 class="bottlesequipments">
                 		<span>Bottles Equipments</span></a>
@@ -802,7 +797,7 @@ class="bottlesequipments">
                 	                	
 		                			                		<a 
 
-href="http://www.bilna.com/baby/perlengkapan-makan-bayi/celemek-bayi.html" 
+href="<?php echo Mage::getBaseUrl(); ?>perlengkapan-makan-bayi/celemek-bayi.html" 
 
 class="bibsandburpclothes">
                 		<span>BIbs and burp clothes</span></a>
@@ -813,7 +808,7 @@ class="bibsandburpclothes">
                 	                	
 		                			                		<a 
 
-href="http://www.bilna.com/baby/perlengkapan-makan-bayi/perlengkapan-menyusui.html" 
+href="<?php echo Mage::getBaseUrl(); ?>perlengkapan-makan-bayi/perlengkapan-menyusui.html" 
 
 class="breastfeeding">
                 		<span>Breast Feeding</span></a>
@@ -824,7 +819,7 @@ class="breastfeeding">
                 	                	
 		                			                		<a 
 
-href="http://www.bilna.com/baby/perlengkapan-makan-bayi/tas-bayi-dan-anak.html" 
+href="<?php echo Mage::getBaseUrl(); ?>perlengkapan-makan-bayi/tas-bayi-dan-anak.html" 
 
 class="backpackandlunchboxes">
                 		<span>Backpack and lunchboxes</span></a>
@@ -835,7 +830,7 @@ class="backpackandlunchboxes">
                 	                	
 		                			                		<a 
 
-href="http://www.bilna.com/baby/perlengkapan-makan-bayi/tempat-dan-alat-makan.html" 
+href="<?php echo Mage::getBaseUrl(); ?>perlengkapan-makan-bayi/tempat-dan-alat-makan.html" 
 
 class="foodstorageandutensils">
                 		<span>Food Storage and Utensils</span></a>
@@ -846,7 +841,7 @@ class="foodstorageandutensils">
                 	                	
 		                			                		<a 
 
-href="http://www.bilna.com/baby/perlengkapan-makan-bayi/kursi-makan-bayi-dan-balita.html" 
+href="<?php echo Mage::getBaseUrl(); ?>perlengkapan-makan-bayi/kursi-makan-bayi-dan-balita.html" 
 
 class="feedingchairs">
                 		<span>Feeding chairs</span></a>
@@ -857,7 +852,7 @@ class="feedingchairs">
                 	                	
 		                			                		<a 
 
-href="http://www.bilna.com/baby/perlengkapan-makan-bayi/dot-bayi.html" class="pacifiersandteethers">
+href="<?php echo Mage::getBaseUrl(); ?>perlengkapan-makan-bayi/dot-bayi.html" class="pacifiersandteethers">
                 		<span>Pacifiers and Teethers</span></a>
 		                	                		
                 	
@@ -866,7 +861,7 @@ href="http://www.bilna.com/baby/perlengkapan-makan-bayi/dot-bayi.html" class="pa
                 	                	
 		                			                		<a 
 
-href="http://www.bilna.com/baby/perlengkapan-makan-bayi/aksesoris-menyusui.html" 
+href="<?php echo Mage::getBaseUrl(); ?>perlengkapan-makan-bayi/aksesoris-menyusui.html" 
 
 class="nursingaccesories">
                 		<span>Nursing Accesories</span></a>
@@ -877,7 +872,7 @@ class="nursingaccesories">
                 	                	
 		                			                		<a 
 
-href="http://www.bilna.com/baby/perlengkapan-makan-bayi/perlengkapan-makan-bayi-dan-balita.html" 
+href="<?php echo Mage::getBaseUrl(); ?>perlengkapan-makan-bayi/perlengkapan-makan-bayi-dan-balita.html" 
 
 class="feedingequipments">
                 		<span>Feeding Equipments</span></a>
@@ -895,23 +890,23 @@ class="feedingequipments">
 
 class="title">Popular Brands</span>
 <ul>
-<li><a href="http://www.bilna.com/baby/dr-browns.html">Dr. Brown’s</a></li>
-<li><a href="http://www.bilna.com/baby/philips-avent.html">Phillips Avent</a></li>
-<li><a href="http://www.bilna.com/baby/simba.html">Simba</a></li>
-<li><a href="http://www.bilna.com/baby/skiphop.html">SkipHop</a></li>
-<li><a href="http://www.bilna.com/baby/medela.html">Medela</a></li>
-<li><a href="http://www.bilna.com/baby/ameda">Ameda</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>dr-browns.html">Dr. Brown’s</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>philips-avent.html">Phillips Avent</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>simba.html">Simba</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>skiphop.html">SkipHop</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>medela.html">Medela</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>ameda">Ameda</a></li>
 </ul>
 </div>
 <div class="submenu our-choice"><span class="title">Our Choice</span>
 <ul>
-<li><a href="http://www.bilna.com/baby/perlengkapan-makan-bayi/whats-hot">Mom's Milky Way!</a></li>
-<li><a href="http://www.bilna.com/baby/perlengkapan-makan-bayi-new">Whats New</a></li>
-<li><a href="http://www.bilna.com/baby/perlengkapan-makan-bayi-sale">Whats on Sale</a></li>
-<li><a href="http://www.bilna.com/baby/perlengkapan-makan-bayi/whats-hot-2.html">The Hotties!
+<li><a href="<?php echo Mage::getBaseUrl(); ?>perlengkapan-makan-bayi/whats-hot">Mom's Milky Way!</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>perlengkapan-makan-bayi-new">Whats New</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>perlengkapan-makan-bayi-sale">Whats on Sale</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>perlengkapan-makan-bayi/whats-hot-2.html">The Hotties!
 
 </a></li>
-<li><a href="http://www.bilna.com/baby/perlengkapan-makan-bayi/whats-hot-3.html">Ready for Picnic?
+<li><a href="<?php echo Mage::getBaseUrl(); ?>perlengkapan-makan-bayi/whats-hot-3.html">Ready for Picnic?
 
 </a></li>
 </ul>
@@ -923,7 +918,7 @@ src="http://assets.bilna.com/media/wysiwyg/megamenu5-feedingnursing-img.png" alt
 
    </div>
     <div class="clear"></div>
-    <a href="http://www.bilna.com/baby/perlengkapan-makan-bayi.html" class="browse-all">Browse 
+    <a href="<?php echo Mage::getBaseUrl(); ?>perlengkapan-makan-bayi.html" class="browse-all">Browse 
 
 All</a>
 </li>
@@ -932,7 +927,7 @@ All</a>
                                                                                                      
 
            <li class="level  level-top parent-5 parent">
-                        <a href="http://www.bilna.com/baby/kesehatan-dan-keamanan-bayi-dan-
+                        <a href="<?php echo Mage::getBaseUrl(); ?>kesehatan-dan-keamanan-bayi-dan-
 
 balita.html" class="level-top parent-5 healthsafety">
                                                 	<span><span>Health <br>&amp; 
@@ -949,7 +944,7 @@ Safety</span></span>
                 	                	
 		                			                		<a 
 
-href="http://www.bilna.com/baby/kesehatan-dan-keamanan-bayi-dan-balita/pagar-pengaman-bayi-dan-
+href="<?php echo Mage::getBaseUrl(); ?>kesehatan-dan-keamanan-bayi-dan-balita/pagar-pengaman-bayi-dan-
 
 balita.html" class="gates">
                 		<span>Gates </span></a>
@@ -960,7 +955,7 @@ balita.html" class="gates">
                 	                	
 		                			                		<a 
 
-href="http://www.bilna.com/baby/kesehatan-dan-keamanan-bayi-dan-balita/perlengkapan-pengaman-bayi-
+href="<?php echo Mage::getBaseUrl(); ?>kesehatan-dan-keamanan-bayi-dan-balita/perlengkapan-pengaman-bayi-
 
 dan-balita.html" class="babyproofing">
                 		<span>Babyproofing </span></a>
@@ -971,7 +966,7 @@ dan-balita.html" class="babyproofing">
                 	                	
 		                			                		<a 
 
-href="http://www.bilna.com/baby/kesehatan-dan-keamanan-bayi-dan-balita/alat-bantu-monitor-bayi-dan-
+href="<?php echo Mage::getBaseUrl(); ?>kesehatan-dan-keamanan-bayi-dan-balita/alat-bantu-monitor-bayi-dan-
 
 anak.html" class="monitors">
                 		<span>Monitors </span></a>
@@ -982,7 +977,7 @@ anak.html" class="monitors">
                 	                	
 		                			                		<a 
 
-href="http://www.bilna.com/baby/kesehatan-dan-keamanan-bayi-dan-balita/perlengkapan-tidur-bayi-dan-
+href="<?php echo Mage::getBaseUrl(); ?>kesehatan-dan-keamanan-bayi-dan-balita/perlengkapan-tidur-bayi-dan-
 
 balita.html" class="sleepsafety">
                 		<span>Sleep Safety </span></a>
@@ -993,7 +988,7 @@ balita.html" class="sleepsafety">
                 	                	
 		                			                		<a 
 
-href="http://www.bilna.com/baby/kesehatan-dan-keamanan-bayi-dan-balita/termometer-bayi-dan-
+href="<?php echo Mage::getBaseUrl(); ?>kesehatan-dan-keamanan-bayi-dan-balita/termometer-bayi-dan-
 
 balita.html" class="thermometer">
                 		<span>Thermometer </span></a>
@@ -1004,7 +999,7 @@ balita.html" class="thermometer">
                 	                	
 		                			                		<a 
 
-href="http://www.bilna.com/baby/kesehatan-dan-keamanan-bayi-dan-balita/alat-kesehatan-hidung-
+href="<?php echo Mage::getBaseUrl(); ?>kesehatan-dan-keamanan-bayi-dan-balita/alat-kesehatan-hidung-
 
 bayi.html" class="nasalhygiene">
                 		<span>Nasal Hygiene </span></a>
@@ -1015,7 +1010,7 @@ bayi.html" class="nasalhygiene">
                 	                	
 		                			                		<a 
 
-href="http://www.bilna.com/baby/kesehatan-dan-keamanan-bayi-dan-balita/alas-bayi-dan-balita.html" 
+href="<?php echo Mage::getBaseUrl(); ?>kesehatan-dan-keamanan-bayi-dan-balita/alas-bayi-dan-balita.html" 
 
 class="floormatt">
                 		<span>Floor Matt</span></a>
@@ -1026,7 +1021,7 @@ class="floormatt">
                 	                	
 		                			                		<a 
 
-href="http://www.bilna.com/baby/kesehatan-dan-keamanan-bayi-dan-balita/pembersih-udara.html" 
+href="<?php echo Mage::getBaseUrl(); ?>kesehatan-dan-keamanan-bayi-dan-balita/pembersih-udara.html" 
 
 class="purifiersandhumidifiers">
                 		<span>Purifiers and Humidifiers </span></a>
@@ -1037,7 +1032,7 @@ class="purifiersandhumidifiers">
                 	                	
 		                			                		<a 
 
-href="http://www.bilna.com/baby/kesehatan-dan-keamanan-bayi-dan-balita/perlengkapan-kesehatan-dan-
+href="<?php echo Mage::getBaseUrl(); ?>kesehatan-dan-keamanan-bayi-dan-balita/perlengkapan-kesehatan-dan-
 
 keamanan-bayi.html" class="generalhealthandsafety">
                 		<span>General Health and Safety</span></a>
@@ -1048,10 +1043,21 @@ keamanan-bayi.html" class="generalhealthandsafety">
                 	                	
 		                			                		<a 
 
-href="http://www.bilna.com/baby/kesehatan-dan-keamanan-bayi-dan-balita/medicine-vitamins.html" 
+href="<?php echo Mage::getBaseUrl(); ?>kesehatan-dan-keamanan-bayi-dan-balita/medicine-vitamins.html" 
 
 class="medicineandvitamins">
                 		<span>Medicine and  Vitamins</span></a>
+		                	                		
+                	
+                </li>
+				                                            <li>
+                	                	
+		                			                		<a 
+
+href="http://www.bilna.com/baby/kesehatan-dan-keamanan-bayi-dan-balita/home-cleaner.html" 
+
+class="homeandlaundrycleaner">
+                		<span>Home and Laundry Cleaner</span></a>
 		                	                		
                 	
                 </li>
@@ -1066,25 +1072,25 @@ class="medicineandvitamins">
 
 class="title">Popular Brands</span>
 <ul>
-<li><a href="http://www.bilna.com/baby/amanbayiku.html">Aman Bayiku</a></li>
-<li><a href="http://www.bilna.com/baby/bremed.html">Bremed</a></li>
-<li><a href="http://www.bilna.com/baby/chicco.html">Chicco</a></li>
-<li><a href="http://www.bilna.com/baby/dreambaby.html">Dreambaby</a></li>
-<li><a href="http://www.bilna.com/baby/keia-baby-proofing.html">Kei and Mom</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>amanbayiku.html">Aman Bayiku</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>bremed.html">Bremed</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>chicco.html">Chicco</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>dreambaby.html">Dreambaby</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>keia-baby-proofing.html">Kei and Mom</a></li>
 </ul>
 </div>
 <div class="submenu our-choice"><span class="title">Our Choice</span>
 <ul>
-<li><a href="http://www.bilna.com/baby/kesehatan-dan-keamanan-bayi-dan-balita/whats-hot">Playful 
+<li><a href="<?php echo Mage::getBaseUrl(); ?>kesehatan-dan-keamanan-bayi-dan-balita/whats-hot">Playful 
 
 House!</a></li>
-<li><a href="http://www.bilna.com/baby/kesehatan-dan-keamanan-bayi-dan-balita/sweet-
+<li><a href="<?php echo Mage::getBaseUrl(); ?>kesehatan-dan-keamanan-bayi-dan-balita/sweet-
 
 dream.html">Sweet Dream</a></li>
-<li><a href="http://www.bilna.com/baby/kesehatan-dan-keamanan-bayi-dan-balita-new">Whats 
+<li><a href="<?php echo Mage::getBaseUrl(); ?>kesehatan-dan-keamanan-bayi-dan-balita-new">Whats 
 
 New</a></li>
-<li><a href="http://www.bilna.com/baby/kesehatan-dan-keamanan-bayi-dan-balita-sale">Whats on 
+<li><a href="<?php echo Mage::getBaseUrl(); ?>kesehatan-dan-keamanan-bayi-dan-balita-sale">Whats on 
 
 Sale</a></li>
 </ul>
@@ -1096,7 +1102,7 @@ src="http://assets.bilna.com/media/wysiwyg/megamenu6-healthsafety-img.png" alt="
 
    </div>
     <div class="clear"></div>
-    <a href="http://www.bilna.com/baby/kesehatan-dan-keamanan-bayi-dan-balita.html" class="browse-
+    <a href="<?php echo Mage::getBaseUrl(); ?>kesehatan-dan-keamanan-bayi-dan-balita.html" class="browse-
 
 all">Browse All</a>
 </li>
@@ -1105,7 +1111,7 @@ all">Browse All</a>
                                                                                                      
 
            <li class="level  level-top parent-6 parent">
-                        <a href="http://www.bilna.com/baby/buku-dan-mainan.html" class="level-top 
+                        <a href="<?php echo Mage::getBaseUrl(); ?>buku-dan-mainan.html" class="level-top 
 
 parent-6 toysbooks">
                                                 	<span><span>Toys <br>&amp; 
@@ -1122,7 +1128,7 @@ Books</span></span>
                 	                	
 		                			                		<a 
 
-href="http://www.bilna.com/baby/buku-dan-mainan/mainan-bayi-dan-balita.html" 
+href="<?php echo Mage::getBaseUrl(); ?>buku-dan-mainan/mainan-bayi-dan-balita.html" 
 
 class="babyandtoddlertoys">
                 		<span>Baby and Toddler Toys</span></a>
@@ -1133,7 +1139,7 @@ class="babyandtoddlertoys">
                 	                	
 		                			                		<a 
 
-href="http://www.bilna.com/baby/buku-dan-mainan/mainan-edukatif-bayi-dan-balita.html" 
+href="<?php echo Mage::getBaseUrl(); ?>buku-dan-mainan/mainan-edukatif-bayi-dan-balita.html" 
 
 class="educational">
                 		<span>Educational </span></a>
@@ -1144,7 +1150,7 @@ class="educational">
                 	                	
 		                			                		<a 
 
-href="http://www.bilna.com/baby/buku-dan-mainan/peralatan-seni-dan-kreatif-bayi.html" 
+href="<?php echo Mage::getBaseUrl(); ?>buku-dan-mainan/peralatan-seni-dan-kreatif-bayi.html" 
 
 class="artandcreativity">
                 		<span>Art and Creativity</span></a>
@@ -1155,7 +1161,7 @@ class="artandcreativity">
                 	                	
 		                			                		<a 
 
-href="http://www.bilna.com/baby/buku-dan-mainan/buku-dan-audio.html" class="audioandbooks">
+href="<?php echo Mage::getBaseUrl(); ?>buku-dan-mainan/buku-dan-audio.html" class="audioandbooks">
                 		<span>Audio and Books</span></a>
 		                	                		
                 	
@@ -1164,7 +1170,7 @@ href="http://www.bilna.com/baby/buku-dan-mainan/buku-dan-audio.html" class="audi
                 	                	
 		                			                		<a 
 
-href="http://www.bilna.com/baby/buku-dan-mainan/stationary.html" class="stationary">
+href="<?php echo Mage::getBaseUrl(); ?>buku-dan-mainan/stationary.html" class="stationary">
                 		<span>Stationary</span></a>
 		                	                		
                 	
@@ -1173,7 +1179,7 @@ href="http://www.bilna.com/baby/buku-dan-mainan/stationary.html" class="stationa
                 	                	
 		                			                		<a 
 
-href="http://www.bilna.com/baby/buku-dan-mainan/video-untuk-bayi-dan-anak.html" class="movies">
+href="<?php echo Mage::getBaseUrl(); ?>buku-dan-mainan/video-untuk-bayi-dan-anak.html" class="movies">
                 		<span>Movies </span></a>
 		                	                		
                 	
@@ -1182,7 +1188,7 @@ href="http://www.bilna.com/baby/buku-dan-mainan/video-untuk-bayi-dan-anak.html" 
                 	                	
 		                			                		<a 
 
-href="http://www.bilna.com/baby/buku-dan-mainan/mainan-boneka.html" class="plushtoys">
+href="<?php echo Mage::getBaseUrl(); ?>buku-dan-mainan/mainan-boneka.html" class="plushtoys">
                 		<span>Plush Toys</span></a>
 		                	                		
                 	
@@ -1191,7 +1197,7 @@ href="http://www.bilna.com/baby/buku-dan-mainan/mainan-boneka.html" class="plush
                 	                	
 		                			                		<a 
 
-href="http://www.bilna.com/baby/buku-dan-mainan/mainan-luar-ruangan.html" class="outdoortoys">
+href="<?php echo Mage::getBaseUrl(); ?>buku-dan-mainan/mainan-luar-ruangan.html" class="outdoortoys">
                 		<span>Outdoor Toys</span></a>
 		                	                		
                 	
@@ -1207,26 +1213,26 @@ href="http://www.bilna.com/baby/buku-dan-mainan/mainan-luar-ruangan.html" class=
 
 class="title">Popular Brands</span>
 <ul>
-<li><a href="http://www.bilna.com/baby/tolo.html">Tolo</a></li>
-<li><a href="http://www.bilna.com/baby/megabloks.html">Megabloks</a></li>
-<li><a href="http://www.bilna.com/baby/alex-toys.html">Alex Toys</a></li>
-<li><a href="http://www.bilna.com/baby/crayola.html">Crayola</a></li>
-<li><a href="http://www.bilna.com/baby/unibooks.html">Unibooks</a></li>
-<li><a href="http://www.bilna.com/baby/play-doh">Play Doh</a></li>
-<li><a href="http://www.bilna.com/baby/hello-kitty">Hello Kitty</a></li>
-<li><a href="http://www.bilna.com/baby/wii-wash.html">Wii-Wash</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>tolo.html">Tolo</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>megabloks.html">Megabloks</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>alex-toys.html">Alex Toys</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>crayola.html">Crayola</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>unibooks.html">Unibooks</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>play-doh">Play Doh</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>hello-kitty">Hello Kitty</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>wii-wash.html">Wii-Wash</a></li>
 </ul>
 </div>
 <div class="submenu our-choice"><span class="title">Our Choice</span>
 <ul>
-<li><a href="http://www.bilna.com/baby/buku-dan-mainan/whats-hot">It's Reading Time!</a></li>
-<li><a href="http://www.bilna.com/baby/buku-dan-mainan/whats-hot-2">Let's Be Creative!</a></li>
-<li><a href="http://www.bilna.com/baby/buku-dan-mainan/whats-hot-3.html">Let's Play Outside!
+<li><a href="<?php echo Mage::getBaseUrl(); ?>buku-dan-mainan/whats-hot">It's Reading Time!</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>buku-dan-mainan/whats-hot-2">Let's Be Creative!</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>buku-dan-mainan/whats-hot-3.html">Let's Play Outside!
 
 </a></li>
-<li><a href="http://www.bilna.com/baby/buku-dan-mainan/whats-hot-4.html">First Time Toys</a></li>
-<li><a href="http://www.bilna.com/baby/buku-dan-mainan-new">Whats New</a></li>
-<li><a href="http://www.bilna.com/baby/buku-dan-mainan-sale">Whats on Sale</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>buku-dan-mainan/whats-hot-4.html">First Time Toys</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>buku-dan-mainan-new">Whats New</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>buku-dan-mainan-sale">Whats on Sale</a></li>
 </ul>
 </div>
 <div class="clear">&nbsp;</div>
@@ -1236,14 +1242,14 @@ src="http://assets.bilna.com/media/wysiwyg/megamenu7-toysbooks-img.png" alt=""> 
 
    </div>
     <div class="clear"></div>
-    <a href="http://www.bilna.com/baby/buku-dan-mainan.html" class="browse-all">Browse All</a>
+    <a href="<?php echo Mage::getBaseUrl(); ?>buku-dan-mainan.html" class="browse-all">Browse All</a>
 </li>
                             </ul>
                                         </li>
                                                                                                      
 
            <li class="level  level-top parent-7 parent">
-                        <a href="http://www.bilna.com/baby/perlengkapan-bayi.html" class="level-top 
+                        <a href="<?php echo Mage::getBaseUrl(); ?>perlengkapan-bayi.html" class="level-top 
 
 parent-7 babygearfurniture">
                                                 	<span><span>Baby Gear <br>&amp; 
@@ -1262,7 +1268,7 @@ baby_gear___furniture_hover">
                 	                	
 		                			                		<a 
 
-href="http://www.bilna.com/baby/perlengkapan-bayi/kereta-bayi.html" class="strollers">
+href="<?php echo Mage::getBaseUrl(); ?>perlengkapan-bayi/kereta-bayi.html" class="strollers">
                 		<span>Strollers</span></a>
 		                	                		
                 	
@@ -1271,7 +1277,7 @@ href="http://www.bilna.com/baby/perlengkapan-bayi/kereta-bayi.html" class="strol
                 	                	
 		                			                		<a 
 
-href="http://www.bilna.com/baby/perlengkapan-bayi/bangku-bayi.html" class="carseats">
+href="<?php echo Mage::getBaseUrl(); ?>perlengkapan-bayi/bangku-bayi.html" class="carseats">
                 		<span>Car Seats</span></a>
 		                	                		
                 	
@@ -1280,7 +1286,7 @@ href="http://www.bilna.com/baby/perlengkapan-bayi/bangku-bayi.html" class="carse
                 	                	
 		                			                		<a 
 
-href="http://www.bilna.com/baby/perlengkapan-bayi/gendongan-bayi.html" class="carriers">
+href="<?php echo Mage::getBaseUrl(); ?>perlengkapan-bayi/gendongan-bayi.html" class="carriers">
                 		<span>Carriers</span></a>
 		                	                		
                 	
@@ -1289,7 +1295,7 @@ href="http://www.bilna.com/baby/perlengkapan-bayi/gendongan-bayi.html" class="ca
                 	                	
 		                			                		<a 
 
-href="http://www.bilna.com/baby/perlengkapan-bayi/bouncer-rocker.html" 
+href="<?php echo Mage::getBaseUrl(); ?>perlengkapan-bayi/bouncer-rocker.html" 
 
 class="bouncer,rockerandactivity">
                 		<span>Bouncer, Rocker and Activity</span></a>
@@ -1300,7 +1306,7 @@ class="bouncer,rockerandactivity">
                 	                	
 		                			                		<a 
 
-href="http://www.bilna.com/baby/perlengkapan-bayi/potty-training.html" class="pottytraining">
+href="<?php echo Mage::getBaseUrl(); ?>perlengkapan-bayi/potty-training.html" class="pottytraining">
                 		<span>Potty Training </span></a>
 		                	                		
                 	
@@ -1309,7 +1315,7 @@ href="http://www.bilna.com/baby/perlengkapan-bayi/potty-training.html" class="po
                 	                	
 		                			                		<a 
 
-href="http://www.bilna.com/baby/perlengkapan-bayi/perabotan-bayi.html" class="furniture">
+href="<?php echo Mage::getBaseUrl(); ?>perlengkapan-bayi/perabotan-bayi.html" class="furniture">
                 		<span>Furniture </span></a>
 		                	                		
                 	
@@ -1318,7 +1324,7 @@ href="http://www.bilna.com/baby/perlengkapan-bayi/perabotan-bayi.html" class="fu
                 	                	
 		                			                		<a 
 
-href="http://www.bilna.com/baby/perlengkapan-bayi/perlengkapan-tempat-tidur-bayi.html" 
+href="<?php echo Mage::getBaseUrl(); ?>perlengkapan-bayi/perlengkapan-tempat-tidur-bayi.html" 
 
 class="bedding">
                 		<span>Bedding</span></a>
@@ -1329,7 +1335,7 @@ class="bedding">
                 	                	
 		                			                		<a 
 
-href="http://www.bilna.com/baby/perlengkapan-bayi/dekorasi-kamar-bayi.html" class="decorations">
+href="<?php echo Mage::getBaseUrl(); ?>perlengkapan-bayi/dekorasi-kamar-bayi.html" class="decorations">
                 		<span>Decorations</span></a>
 		                	                		
                 	
@@ -1345,18 +1351,18 @@ href="http://www.bilna.com/baby/perlengkapan-bayi/dekorasi-kamar-bayi.html" clas
 
 class="title">Popular Brands</span>
 <ul>
-<li><a href="http://www.bilna.com/baby/baby-ktan.html">Baby K'Tan</a></li>
-<li><a href="http://www.bilna.com/baby/graco.html">Graco</a></li>
-<li><a href="http://www.bilna.com/baby/boba">Boba Wrap</a></li>
-<li><a href="http://www.bilna.com/baby/babybelle">BabyBelle</a></li>
-<li><a href="http://www.bilna.com/baby/easywalker">Easy Walker</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>baby-ktan.html">Baby K'Tan</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>fedora.html">Fedora</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>boba">Boba Wrap</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>babybelle">BabyBelle</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>easywalker">Easy Walker</a></li>
 </ul>
 </div>
 <div class="submenu our-choice"><span class="title">Our Choice</span>
 <ul>
-<li><a href="http://www.bilna.com/baby/perlengkapan-bayi/whats-hot">Explore The City!</a></li>
-<li><a href="http://www.bilna.com/baby/perlengkapan-bayi-new">Whats New</a></li>
-<li><a href="http://www.bilna.com/baby/perlengkapan-bayi-sale">Whats on Sale</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>perlengkapan-bayi/whats-hot">Explore The City!</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>perlengkapan-bayi-new">Whats New</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>perlengkapan-bayi-sale">Whats on Sale</a></li>
 </ul>
 </div>
 <div class="clear">&nbsp;</div>
@@ -1366,14 +1372,14 @@ src="http://assets.bilna.com/media/wysiwyg/megamenu8-babygearfurniture-img.png" 
 
         </div>
     <div class="clear"></div>
-    <a href="http://www.bilna.com/baby/perlengkapan-bayi.html" class="browse-all">Browse All</a>
+    <a href="<?php echo Mage::getBaseUrl(); ?>perlengkapan-bayi.html" class="browse-all">Browse All</a>
 </li>
                             </ul>
                                         </li>
                                                                                                      
 
            <li class="level  level-top parent-8 parent">
-                        <a href="http://www.bilna.com/baby/untuk-ibu.html" class="level-top parent-8 
+                        <a href="<?php echo Mage::getBaseUrl(); ?>untuk-ibu.html" class="level-top parent-8 
 
 formoms">
                                                     <span><span>For<br>Moms</span></span>
@@ -1388,7 +1394,7 @@ formoms">
                 	                	
 		                			                		<a 
 
-href="http://www.bilna.com/baby/untuk-ibu/pakaian-ibu-hamil-dan-menyusui.html" 
+href="<?php echo Mage::getBaseUrl(); ?>untuk-ibu/pakaian-ibu-hamil-dan-menyusui.html" 
 
 class="maternityandnursingfashion">
                 		<span>Maternity and Nursing Fashion</span></a>
@@ -1399,7 +1405,7 @@ class="maternityandnursingfashion">
                 	                	
 		                			                		<a 
 
-href="http://www.bilna.com/baby/untuk-ibu/nutrisi-tambahan-ibu-hamil.html" class="mom'snutrition">
+href="<?php echo Mage::getBaseUrl(); ?>untuk-ibu/nutrisi-tambahan-ibu-hamil.html" class="mom'snutrition">
                 		<span>Mom's Nutrition</span></a>
 		                	                		
                 	
@@ -1408,7 +1414,7 @@ href="http://www.bilna.com/baby/untuk-ibu/nutrisi-tambahan-ibu-hamil.html" class
                 	                	
 		                			                		<a 
 
-href="http://www.bilna.com/baby/untuk-ibu/personal-care.html" class="personalcare">
+href="<?php echo Mage::getBaseUrl(); ?>untuk-ibu/personal-care.html" class="personalcare">
                 		<span>Personal Care</span></a>
 		                	                		
                 	
@@ -1417,7 +1423,7 @@ href="http://www.bilna.com/baby/untuk-ibu/personal-care.html" class="personalcar
                 	                	
 		                			                		<a 
 
-href="http://www.bilna.com/baby/untuk-ibu/fertility-feminine-care.html" 
+href="<?php echo Mage::getBaseUrl(); ?>untuk-ibu/fertility-feminine-care.html" 
 
 class="fertility&amp;femininecare">
                 		<span>Fertility &amp; Feminine Care</span></a>
@@ -1428,7 +1434,7 @@ class="fertility&amp;femininecare">
                 	                	
 		                			                		<a 
 
-href="http://www.bilna.com/baby/untuk-ibu/tas-perlengkapan-bayi.html" class="bags">
+href="<?php echo Mage::getBaseUrl(); ?>untuk-ibu/tas-perlengkapan-bayi.html" class="bags">
                 		<span>Bags</span></a>
 		                	                		
                 	
@@ -1437,7 +1443,7 @@ href="http://www.bilna.com/baby/untuk-ibu/tas-perlengkapan-bayi.html" class="bag
                 	                	
 		                			                		<a 
 
-href="http://www.bilna.com/baby/untuk-ibu/food-storage.html" class="foodstorage">
+href="<?php echo Mage::getBaseUrl(); ?>untuk-ibu/food-storage.html" class="foodstorage">
                 		<span>Food Storage</span></a>
 		                	                		
                 	
@@ -1453,18 +1459,18 @@ href="http://www.bilna.com/baby/untuk-ibu/food-storage.html" class="foodstorage"
 
 class="title">Popular Brands</span>
 <ul>
-<li><a href="http://www.bilna.com/baby/prenagen">Prenagen</a></li>
-<li><a href="http://www.bilna.com/baby/lactamil.html">Lactamil</a></li>
-<li><a href="http://www.bilna.com/baby/carriwell.html">Carriwell</a></li>
-<li><a href="http://www.bilna.com/baby/porvous">Porvous</a></li>
-<li><a href="http://www.bilna.com/baby/dacco">Dacco</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>prenagen">Prenagen</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>lactamil.html">Lactamil</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>carriwell.html">Carriwell</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>porvous">Porvous</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>dacco">Dacco</a></li>
 </ul>
 </div>
 <div class="submenu our-choice"><span class="title">Our Choice</span>
 <ul>
-<li><a href="http://www.bilna.com/baby/untuk-ibu/whats-hot">Baby Bump!</a></li>
-<li><a href="http://www.bilna.com/baby/untuk-ibu-new">Whats New</a></li>
-<li><a href="http://www.bilna.com/baby/untuk-ibu-sale">Whats on Sale</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>untuk-ibu/whats-hot">Baby Bump!</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>untuk-ibu-new">Whats New</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>untuk-ibu-sale">Whats on Sale</a></li>
 </ul>
 </div>
 <div class="clear">&nbsp;</div>
@@ -1474,14 +1480,14 @@ src="http://assets.bilna.com/media/wysiwyg/megamenu9-formoms-img.png" alt=""> </
 
    </div>
     <div class="clear"></div>
-    <a href="http://www.bilna.com/baby/untuk-ibu.html" class="browse-all">Browse All</a>
+    <a href="<?php echo Mage::getBaseUrl(); ?>untuk-ibu.html" class="browse-all">Browse All</a>
 </li>
                             </ul>
                                         </li>
                                                                                                      
 
            <li class="level  level-top parent-9">
-                        <a href="http://www.bilna.com/baby/kebutuhan-khusus-bayi-dan-balita.html" 
+                        <a href="<?php echo Mage::getBaseUrl(); ?>kebutuhan-khusus-bayi-dan-balita.html" 
 
 class="level-top parent-9 organicspecialneeds">
                                                 	<span><span>Organic <br>&amp; Special 
@@ -1492,7 +1498,7 @@ Needs</span></span>
                                                                                                      
 
            <li class="level  level-top parent-10">
-                        <a href="http://www.bilna.com/baby/set-hadiah-bayi-dan-anak.html" 
+                        <a href="<?php echo Mage::getBaseUrl(); ?>set-hadiah-bayi-dan-anak.html" 
 
 class="level-top parent-10 giftideas">
                                                 	<span><span>Gift Ideas</span></span>
@@ -1502,7 +1508,7 @@ class="level-top parent-10 giftideas">
                                                                                                      
 
            <li class="level  level-top parent-11">
-                        <a href="http://www.bilna.com/baby/produk-diskon.html" class="level-top 
+                        <a href="<?php echo Mage::getBaseUrl(); ?>produk-diskon.html" class="level-top 
 
 parent-11 sale">
                                                 	<span><span>SALE</span></span>
@@ -1511,9 +1517,9 @@ parent-11 sale">
                                         </li>
                                         <!--<li class="menu-salegift"><div class="menu-sale-
 
-giftideas"><a class="sale" href="http://www.bilna.com/baby/sale.html">Sale</a> <a class="giftideas" 
+giftideas"><a class="sale" href="<?php echo Mage::getBaseUrl(); ?>sale.html">Sale</a> <a class="giftideas" 
 
-href="http://www.bilna.com/baby/set-hadiah-bayi-dan-anak.html">Gift Ideas</a>
+href="<?php echo Mage::getBaseUrl(); ?>set-hadiah-bayi-dan-anak.html">Gift Ideas</a>
 <div class="clear">&nbsp;</div>
 </div></li>-->
 			

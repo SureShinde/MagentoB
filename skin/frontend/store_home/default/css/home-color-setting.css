@@ -82,6 +82,29 @@ a.back-to-top {
 .shopby ul.shop-by li a:hover {
     color:#8F554D;
 }
+#nav .level-hover{
+	width:auto;
+	padding:0;
+}
+#nav ul li .left-columns{
+	width:165px;
+	padding:20px 10px 5px;
+}
+#nav ul li a, #nav ul li a:hover{
+	background:url("../images/arrow-menu.png") no-repeat scroll right center rgba(0, 0, 0, 0);
+}
+.header .menu-top:before {
+    background: none repeat scroll 0 0 #DAAEA4;
+	}
+	.menu-top ul li:last-child:hover {
+    background: none repeat scroll 0 0 #ffb29d;
+}
+#slides-banner{
+	position:relative;
+}
+#slides-banner .slidesjs-container{
+	height:356px !important; 
+}
 /*======================Category page===================*/
 
 .toolbar .limiter ul li a{
@@ -236,3 +259,20 @@ div.block-layered-nav dd a.amshopby-attr-selected{
 	line-height: 1.5em;
 }
 /*======================end product page===================*/
+
+
+@media only screen and (max-width: 767px){
+	.nav-container:after{
+		display:none;
+	}
+	.nav-container{
+		background:none;
+	}
+	.header .search-mobile .form-search .input-keyword input.input-text{
+		max-width:none;
+		width:50%;
+	}
+	.nav-container #nav li.level-top.parent {
+    background: url("../images/arrow-menu-mobile.png") no-repeat scroll 98% 17px rgba(0, 0, 0, 0);
+	}
+}
