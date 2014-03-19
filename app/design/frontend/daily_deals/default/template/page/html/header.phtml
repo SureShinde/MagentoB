@@ -165,9 +165,10 @@ $j(document).ready(function(){
         		<div class="mini-cart"><?php echo $this->getChildHtml('topcart') ?></div>
         	</div>
 			<div class="menu-tablet">
-				<div class="header-container"><div class="store-phone">
-					<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('store_phone')->toHtml() ?>
-				</div>
+				<div class="header-container">
+					<div class="store-phone">
+						<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('store_phone')->toHtml() ?>
+					</div>
 				<?php echo $this->getChildHtml('topLinks') ?>
 				
 				<?php echo $this->getChildHtml('store_language') ?>
