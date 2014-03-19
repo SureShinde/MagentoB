@@ -1097,13 +1097,43 @@
 
 /* reserved product button */
 .reserved-prod-btn {clear: both; display: block; margin: 0 0 10px 0;}
-.reserved-prod-btn button {
+.reserved-prod-btn a {
 	padding: 5px 10px; 
 	background: #ffa01b; 
 	color: #fff;
 	border:none;
 }
-.reserved-prod-btn button:hover {
+.reserved-prod-btn a:hover {
 	opacity: 0.8;
 }
+
+.product-view .product-shop-right .block.block-related .block-content .aw-arp-item .aw-arp-addtocart  {
+	margin-top: 0;
+	float: right;
+	background: none;
+	width: 0;
+	height: 0;
+	color: white;
+}
+
+.product-view .product-shop-right .block.block-related .block-content .aw-arp-item .aw-arp-addtocart .link-cart {
+	margin-top: 20px;
+	float: right;
+	background: url(../images/btn-buynow.png) no-repeat;
+	width: 88px;
+	height: 36px;
+	color: white;
+	padding: 1px 0;
+    text-align: center;
+}
+.product-view .product-shop-right .block.block-related .block-content .aw-arp-item .aw-arp-addtocart .availability.out-of-stock {
+	margin-top: 20px;
+	float: right;
+	background: none;
+	width: 88px;
+	height: 36px;
+	font-weight: bold;
+	padding: 11px;
+}
+
 

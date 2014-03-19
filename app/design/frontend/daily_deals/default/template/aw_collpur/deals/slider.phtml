@@ -279,9 +279,12 @@ $max = count($dealSliders); ?>
 		$dealInfo = $this->getDealPricesSpare ( $originalProduct, $product );
 		?>
 		<li id="slide<?php echo $i; ?>" class="wrap_li_slider">
+			<a class="" href="<?php echo $this->getDealPageLink($dealSlider->getId()); ?>">
 			<img class="slider_img<?php echo $i; ?>" src="<?php echo $url; ?>"/>
+			</a>
 			<div>
-				<div class="cbp-content">					
+				<div class="cbp-content">			
+					<a class="" href="<?php echo $this->getDealPageLink($dealSlider->getId()); ?>">		
 					<div style="display: block; color: #fff; font-size: 16px; font-weight: bold; ">
 						<div class="orbit-caption">
 							<div class="column large-5 medium-5 small-5 desc_deals_slider2">
@@ -334,6 +337,7 @@ $max = count($dealSliders); ?>
 						</div>
 					</div>
 				</div>
+				</a>
 			</div>
 		</li>
 		<?php

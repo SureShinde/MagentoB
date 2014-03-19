@@ -170,7 +170,7 @@ $relatedPost = $this->getRelatedPost($post->getCatId(), $post->getPostId());
                     <ul class="form-list">
                         <li>
                             
-                            <div style="width: 45%; padding: 0 2.5% 0 0; float:left;">
+                            <div class="field-width-comment" style="padding: 0 2.5% 0 0; float:left;">
                                 <div class="input-box">
                                     <label for="name" class="required"><?php echo Mage::helper('blog')->__('Name') ?><em>*</em></label><br />
                                     <input name="user" id="user" value="<?php echo $this->getCommentName(); ?>" title="<?php echo $this->__('Name') ?>" class="required-entry input-text" type="text" />
@@ -181,15 +181,15 @@ $relatedPost = $this->getRelatedPost($post->getCatId(), $post->getPostId());
                                     <input name="email" id="email" value="<?php echo $this->getCommentEmail(); ?>" title="<?php echo $this->__('Email') ?>" class="required-entry input-text validate-email" type="text" />
                                 </div>
                                 
-                                <div class="input-box">
-                                    <label for="website" class="required"><?php echo Mage::helper('blog')->__('Website') ?></label><br />
-                                    <input name="website" id="website" value="<?php echo $this->getCommentName(); ?>" title="<?php echo $this->__('Website') ?>" class="input-text" type="text" />
-                                </div>
+                                <!--div class="input-box">
+                                    <label for="website" class="required"><?php //echo Mage::helper('blog')->__('Website') ?></label><br />
+                                    <input name="website" id="website" value="<?php //echo $this->getCommentName(); ?>" title="<?php //echo $this->__('Website') ?>" class="input-text" type="text" />
+                                </div-->
 
                                 <div class="clear"></div>
                             </div>
                             
-                            <div style="width: 50%; padding: 0 2.5% 0 0; float:left;">
+                            <div class="field-width-comment" style="padding: 0 2.5% 0 0; float:left;">
                                 <div class="input-box aw-blog-comment-area">
                                     <label for="comment" class="required"><?php echo Mage::helper('blog')->__('Comment') ?><em>*</em></label><br />
                                     <textarea name="comment" id="comment" title="<?php echo Mage::helper('blog')->__('Comment') ?>" class="required-entry input-text" style="height:141px;width:100%; max-width:100%; min-width:100%;margin:0;padding: 8px;" cols="50" rows="5"><?php echo $this->getCommentText(); ?></textarea>
