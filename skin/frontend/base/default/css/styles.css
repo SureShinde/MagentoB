@@ -173,7 +173,7 @@ input.input-text:focus,select:focus,textarea:focus { background-color:#edf7fd; }
 .form-list label.required em {font-style:normal; color:#eb340a;}
 .form-list li.control label { float:none; }
 .form-list li.control input.radio,
-.form-list li.control input.checkbox { margin-right:6px; }
+.form-list li.control input.checkbox { margin-right:6px; width: auto; }
 .form-list li.control .input-box { clear:none; display:inline; width:auto; }
 /*.form-list li.fields { margin-right:-15px; }*/
 .form-list .input-box { display:block; clear:both; width:260px; }
@@ -1836,8 +1836,9 @@ tr.summary-details-excluded { font-style:italic; }
     width: 208px;
 }
 /*======================= order ditail form ===============*/
-.form-list li label, .form-list li .input-box{float:left; clear:none; font-weight:normal; text-align: left;}
-.form-list li label{width:200px}
+.form-list li label, .form-list li .input-box{float:left; clear:both; font-weight:normal; text-align: left;}
+.form-list li label{width:200px; padding: 5px 0;}
+.form-list li label.subs_newsletter {padding: 5px 0;}
 .guest-select {width:305px !important;}
 .form-list li .input-box input{
 	width:215px;
