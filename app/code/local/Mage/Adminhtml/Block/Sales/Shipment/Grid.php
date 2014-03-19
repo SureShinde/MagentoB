@@ -62,12 +62,14 @@ class Mage_Adminhtml_Block_Sales_Shipment_Grid extends Mage_Adminhtml_Block_Widg
     {
         $collection = Mage::getResourceModel($this->_getCollectionClass());
 
+        //$collection->addFieldToSelect('tracking_number', 'GROUP_CONCAT(track_number)');
         $collection->getSelect()
             ->joinLeft(
-                array('sales_flat_shipment_track' => Mage::getSingleton('core/resource')->getTableName('sales/shipment_track') ),
+                //array('sales_flat_shipment_track' => Mage::getSingleton('core/resource')->getTableName('sales/shipment_track') ),
+                array('sales_flat_shipment_track' => new Zend_Db_Expr('(SELECT parent_id, GROUP_CONCAT(track_number) AS tracking_number FROM sales_flat_shipment_track GROUP BY parent_id)') ),
                 "main_table.entity_id = sales_flat_shipment_track.parent_id",
                 array(
-                    "tracking_number"        => "GROUP_CONCAT(track_number)"
+                    "tracking_number"        => "sales_flat_shipment_track.tracking_number"
                 )
             )
             /*->joinInner(
