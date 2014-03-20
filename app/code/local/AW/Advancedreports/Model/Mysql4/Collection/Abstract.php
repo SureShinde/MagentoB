@@ -68,7 +68,14 @@ class AW_Advancedreports_Model_Mysql4_Collection_Abstract extends AW_Advancedrep
     		$this->getSelect()
 	    		->where("sales_flat_order_status_history.created_at >= ?", $from)
 	    		->where("sales_flat_order_status_history.created_at <= ?", $to);
-    	}else{
+    	}elseif($filterField == "shipment_created_at"){
+            $salesShipmentAtribute = $this->_helper()->getSql()->getTable('sales_flat_shipment');
+            $this->getSelect()
+                ->joinLeft(array('sales_flat_shipment' => $salesShipmentAtribute), "sales_flat_shipment.order_id = main_table.entity_id", array());
+            $this->getSelect()
+                ->where("sales_flat_shipment.created_at >= ?", $from)
+                ->where("sales_flat_shipment.created_at <= ?", $to);
+        }else{
     		if ($this->_helper()->checkSalesVersion('1.4.0.0')) {
     			$this->getSelect()
 	    			->where("main_table.{$filterField} >= ?", $from)
