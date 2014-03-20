@@ -1136,4 +1136,8 @@
 	padding: 11px;
 }
 
+.catalog-product-view .super-products .availability.out-of-stock {
+    bottom: 30px;
+    position: absolute;
+}
 
