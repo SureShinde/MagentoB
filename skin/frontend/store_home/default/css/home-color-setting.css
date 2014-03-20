@@ -102,9 +102,9 @@ a.back-to-top {
 #slides-banner{
 	position:relative;
 }
-#slides-banner .slidesjs-container{
+/*#slides-banner .slidesjs-container{
 	height:356px !important; 
-}
+}*/
 /*======================Category page===================*/
 
 .toolbar .limiter ul li a{
