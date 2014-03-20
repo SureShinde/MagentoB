@@ -83,7 +83,8 @@ class Mage_Adminhtml_Block_Sales_Shipment_Grid extends Mage_Adminhtml_Block_Widg
                 array('sales_flat_shipment_comment' => new Zend_Db_Expr('(SELECT parent_id, MAX(is_customer_notified) AS is_customer_notified FROM sales_flat_shipment_comment GROUP BY parent_id)') ),
                 "main_table.entity_id = sales_flat_shipment_comment.parent_id",
                 array(
-                    "is_customer_notified2" => "IF(sales_flat_shipment_comment.is_customer_notified =1, 'Yes', 'No')" 
+                    //"is_customer_notified" => "IF(sales_flat_shipment_comment.is_customer_notified =1, 'Yes', 'No')" 
+                    "is_customer_notified" => "sales_flat_shipment_comment.is_customer_notified" 
                 )
             );
         $collection->getSelect()->group(array('sales_flat_shipment_track.parent_id'));
@@ -146,10 +147,14 @@ class Mage_Adminhtml_Block_Sales_Shipment_Grid extends Mage_Adminhtml_Block_Widg
             'type'  => 'text',
         ));*/
 
-        $this->addColumn('is_customer_notified2', array(
+        $this->addColumn('is_customer_notified', array(
             'header' => Mage::helper('sales')->__('Customer Notified (Shipment Prosess)'),
-            'index' => 'is_customer_notified2',
-            'type'  => 'text',
+            'index' => 'is_customer_notified',
+            'type'  => 'options',
+            'options' => array(
+                1 => Mage::helper('sales')->__('Yes'),
+                0 => Mage::helper('sales')->__('No')
+            )
         ));
 
         $this->addColumn('action',
