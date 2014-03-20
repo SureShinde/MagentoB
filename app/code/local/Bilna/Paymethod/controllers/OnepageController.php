@@ -22,6 +22,9 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
             $result = array ();
                
             try {
+                /**
+                 * installment
+                 */
                 if ($allowInstallment = $this->getRequest()->getPost('allow_installment', false)) {
                     //save installment options in quote item table
                     $installmentMethod = $this->getRequest()->getPost('installment_method', false);
@@ -116,6 +119,11 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
 
                         return;
                     }
+                }
+                else {
+                    $this->_payType = $this->getPaymentTypeTransaction($paymentCode, 'full');
+                    $this->getOnepage()->getQuote()->setPayType($this->_payType)->save();
+                    $this->getOnepage()->getQuote()->setCcBins($this->getRequest()->getPost('cc_bins', false))->save();
                 }
                    
                 if ($requiredAgreements = Mage::helper('checkout')->getRequiredAgreementIds()) {
