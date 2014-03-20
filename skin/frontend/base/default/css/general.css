@@ -424,10 +424,10 @@ a.back-to-top img {
 	.products-grid .actions button.btn-cart, .products-grid .actions .add-to-links {
 		float: left;
 	}
-	.products-grid .actions .add-to-links {
+	/* .products-grid .actions .add-to-links {
 		margin-top: 0;
 		margin-left: 150px;
-	}
+	} */
 	.add-to-links li a {
 		margin-top: 11px;
 	}
@@ -437,9 +437,9 @@ a.back-to-top img {
 	.products-grid .actions button.btn-cart, .products-grid .actions .add-to-links {
 		float: none;
 	}
-	.products-grid .actions .add-to-links {
+	/* .products-grid .actions .add-to-links {
 		margin-left: 120px;
-	}
+	} */
 
 /* -------blog custom-------- */
 /* .blog-index-list .main {
