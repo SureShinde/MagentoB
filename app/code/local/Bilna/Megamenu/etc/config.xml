@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Bilna_Megamenu>
+            <version>0.1.0</version>
+        </Bilna_Megamenu>
+    </modules>
+    
+    <global>
+        <models>
+            <megamenu>
+                <class>Bilna_Megamenu_Model</class>
+            </megamenu>
+        </models>
+        
+        <blocks>
+            <megamenu>
+                <class>Bilna_Megamenu_Block</class>
+            </megamenu>
+            
+            <!--adminhtml>
+                <rewrite>
+                    <catalog_category_tabs>Bilna_Megamenu_Block_Adminhtml_Catalog_Category_Tabs</catalog_category_tabs>
+                </rewrite>
+            </adminhtml-->
+        </blocks>
+        
+        <resources>
+            <megamenu_setup>
+                <setup>
+                    <module>Bilna_Megamenu</module>
+                    <class>Mage_Catalog_Model_Resource_Eav_Mysql4_Setup</class>
+                </setup>
+                
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </megamenu_setup>
+            
+            <megamenu_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </megamenu_write>
+            
+            <megamenu_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </megamenu_read>
+        </resources>
+    </global>
+    
+    <frontend>
+        <category>
+            <collection>
+                <attributes>
+                    <megamenu_block/>
+                </attributes>
+            </collection>
+        </category>
+        
+        <layout>
+            <updates>
+                <megamenu>
+                    <file>bilna_megamenu.xml</file>
+                </megamenu>
+            </updates>
+        </layout>
+    </frontend>
+    
+    <adminhtml>
+        <events>
+            <catalog_product_delete_before>
+                <observers>
+                    <megamenu_catalog>
+                        <type>singleton</type>
+                        <class>bilna_megamenu/observer</class>
+                        <method>productDelete</method>
+                    </megamenu_catalog>
+                </observers>
+            </catalog_product_delete_before>
+        </events>
+    </adminhtml>
+</config>
