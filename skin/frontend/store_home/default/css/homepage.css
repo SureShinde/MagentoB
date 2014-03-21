@@ -299,7 +299,7 @@
 	width:490px;
 }
 .cms-index-index .wrap_banner .col-1{
-	width:490px;
+	width:527px;
 }
 .cms-index-defaultindex .wrap_banner .col-2{
 	margin: 0 8px;
@@ -307,7 +307,7 @@
 }
 .cms-index-index .wrap_banner .col-2{
 	margin: 0 8px;
-	width:200px;
+	width:216px;
 }
 .cms-index-defaultindex .wrap_banner .col-2 img:first-child{
 	margin: 0 0 8px;
@@ -370,8 +370,8 @@
 }
 .shopby{
 	float: left;
-    margin: 0 35px 0 0;
-    width: 230px; 
+    margin: 0 20px 0 0;
+    width: 175px; 
 	}
 #nav li.shop-by:hover .shopby {
     display: none;
