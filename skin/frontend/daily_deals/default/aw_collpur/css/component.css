@@ -101,6 +101,7 @@ html, body, .container, .main { height: 100%;}
     font-size: 14px;
     margin: 24px 0 0 7px;
     position: relative;
+	max-height:50px;
 	/*overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;*/
@@ -313,6 +314,10 @@ html, body, .container, .main { height: 100%;}
 	.thumb_angka_area .thumb_angka{
 		width:0 !important;
 		display:table;
+	}
+		.cbp-contentslider nav a.rc-active {
+		background-color:#F14223;
+		color: #FFFFFF;
 	}
 
 .thumb_angka_area{

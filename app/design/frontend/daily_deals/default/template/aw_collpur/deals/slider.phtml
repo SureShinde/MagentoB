@@ -378,11 +378,13 @@ $max = count($dealSliders); ?>
 	$originalProduct = $this->getOriginalProduct ( $dealSlider );
 	$dealInfo = $this->getDealPricesSpare ( $originalProduct, $product );
 	?>
-		<a href="#slide<?php echo $i; ?>">
+		<a href="#slide<?php echo $i; ?>" class="thumb_large">
 			<div u="thumb" class="slider_thumb_large" style="width: 100%; height: 100%; border: medium none; position: absolute;">
 				<img class="i" src="<?php echo $url; ?>">
-				<div class="t"><?php echo $dealSlider->getDealName(); ?></div>
-				<div class="c"><?php if($dealInfo->getPercentDiscount() <> "0") { echo $dealInfo->getPercentDiscount(); ?>% OFF<?php } ?></div>
+				<div class="wrap_harga_thumb">
+					<div class="t"><?php echo $dealSlider->getDealName(); ?></div>
+					<div class="c"><?php if($dealInfo->getPercentDiscount() <> "0") { echo $dealInfo->getPercentDiscount(); ?>% OFF<?php } ?></div>
+				</div>
 			</div>
 		</a>
 	<?php

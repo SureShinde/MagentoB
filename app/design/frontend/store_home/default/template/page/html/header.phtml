@@ -171,7 +171,7 @@ $j(document).ready(function(){
     	<div class="menu-top">
 	    	<ul>
 		    	<li><a href="/baby"><?php echo $this->__('Mom &amp; Baby') ?></a></li>
-		    	<li class="active"><a href="/home"><?php echo $this->__('Home') ?></a></li>
+				<li class="active"><a href="/home"><?php echo $this->__('Home') ?></a></li>
 		    	<li><a href="/dailydeals"><?php echo $this->__('Daily Deals') ?></a></li>
 	    	</ul>
     	</div>
@@ -182,7 +182,7 @@ $j(document).ready(function(){
         <?php endif?>
         <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('keypoint')->toHtml() ?>
         <div class="quick-access">
-        	<a href="#" class="link-blog-mobile"><?php echo $this->__('Blog') ?></a>
+        	<!--<a href="<?php //echo Mage::getBaseUrl(); ?>blog" class="link-blog-mobile"><?php //echo $this->__('Blog') ?></a>-->
         	<a href="#" class="link-myaccount-mobile"><?php echo $this->__('My Account') ?></a>
         	<div class="top-cart">
         		<?php $_totalItem = $this->helper('checkout/cart')->getSummaryCount();  //get total items in cart ?>
@@ -193,7 +193,7 @@ $j(document).ready(function(){
 	    			<a href="#" class="link-minicart" id="link-minicart"><?php echo $this->__('View Cart(').$_totalItem.$this->__(')') ?></a>
 	    			<?php endif;?>
         		<a href="<?php echo $this->getUrl('checkout/cart'); ?>" class="link-checkout"><?php echo $this->__('Checkout') ?></a>
-        		<a href="<?php echo $this->getUrl('blog'); ?>" class="link-blog"><span><?php echo $this->__('Blog') ?></span></a>
+        		<!--<a href="<?php //echo $this->getUrl('blog'); ?>" class="link-blog"><span><?php //echo $this->__('Blog') ?></span></a>-->
         		<div class="clear"></div>
         		<div class="mini-cart"><?php echo $this->getChildHtml('topcart') ?></div>
         	</div>
@@ -225,49 +225,33 @@ $j(document).ready(function(){
         	 <div class="shopby">
 <ul class="shop-by">
 <li><span class="title">Popular Brand</span></li>
-<li><a href="<?php echo Mage::getBaseUrl(); ?>mamypoko.html">Mamy Poko</a></li>
-<li><a href="<?php echo Mage::getBaseUrl(); ?>pampers">Pampers</a></li>
-<li><a href="<?php echo Mage::getBaseUrl(); ?>goon">Goon</a></li>
-<li><a href="<?php echo Mage::getBaseUrl(); ?>nutrilon">Nutrilon</a></li>
-<li><a href="<?php echo Mage::getBaseUrl(); ?>bebelac">Bebelac</a></li>
-<li><a href="<?php echo Mage::getBaseUrl(); ?>morinaga.html">Morinaga</a></li>
-<li><a href="<?php echo Mage::getBaseUrl(); ?>nan.html">Nan</a></li>
-<li><a href="<?php echo Mage::getBaseUrl(); ?>sebamed.html">Sebamed</a></li>
-<li><a href="<?php echo Mage::getBaseUrl(); ?>cussons">Cussons</a></li>
-<li><a href="<?php echo Mage::getBaseUrl(); ?>zwitsal.html">Zwitsal</a></li>
-<li><a href="<?php echo Mage::getBaseUrl(); ?>philips-avent.html">Philips Avent</a></li>
-<li><a href="<?php echo Mage::getBaseUrl(); ?>dr-browns.html">Dr. Browns</a></li>
-<li><a href="<?php echo Mage::getBaseUrl(); ?>velvet">Velvet</a></li>
-<li><a href="<?php echo Mage::getBaseUrl(); ?>chicco.html">Chicco</a></li>
-<li><a href="<?php echo Mage::getBaseUrl(); ?>bright-stars">Bright Starts</a></li>
-<li><a href="<?php echo Mage::getBaseUrl(); ?>vtech.html">Vtech</a></li>
-<li><a class="link-seemore" href="http://www.bilna.com/paling-dicari.html">See more</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>perlengkapan_rumah/rubbermaid.html">Rubbermaid</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>perlengkapan_rumah/victorinox.html">Victorinox</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>perlengkapan_rumah/brabantia.html">Branbantia</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>perlengkapan_rumah/retota-sakti.html">Retota Sakti</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>perlengkapan_rumah/nakami.html">Nakami</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>perlengkapan_rumah/princess.html">Princess</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>perlengkapan_rumah/wahl.html">Wahl</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>perlengkapan_rumah/cuisinart.html">Cuisinart</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>perlengkapan_rumah/good-night.html">Good Night</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>perlengkapan_rumah/ashlyn-&amp;-co.html">Ashlyn &amp; Co.</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>perlengkapan_rumah/tefal.html">Tefal</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>perlengkapan_rumah/richardson-shiefflied.html">Richardson Shieffield</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>perlengkapan_rumah/green-pan.html">Green Pan</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>perlengkapan_rumah/royal-albert.html">Royal Albert</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>perlengkapan_rumah/breville.html">Breville</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>perlengkapan_rumah/breville.html">Grelide</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>perlengkapan_rumah/grelide.html">Idealife</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>perlengkapan_rumah/rowenta.html">Rowenta</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>perlengkapan_rumah/green-life.html">Green Life</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>perlengkapan_rumah/home-line.html">Home Line</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>perlengkapan_rumah/bloomindale.html">Bloomingdale</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>perlengkapan_rumah/solace.html">Solace</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>perlengkapan_rumah/kite-design-studio.html">Kite Design Studio</a></li>
+<li><a class="link-seemore" href="<?php echo Mage::getBaseUrl(); ?>baby/paling-dicari.html">See more</a></li>
 </ul>
-<ul class="shop-by">
-<li><span class="title">Gift Ideas</span></li>
-<li><a href="<?php echo Mage::getBaseUrl(); ?>set-hadiah-bayi-dan-anak/new-mom-check-list.html">Checklist 
-
-For New Moms</a></li>
-<li><a href="<?php echo Mage::getBaseUrl(); ?>set-hadiah-bayi-dan-anak/hospital-bag.html">Hospital Bag 
-
-Checklist</a></li>
-<li><a href="<?php echo Mage::getBaseUrl(); ?>set-hadiah-bayi-dan-anak/birthday-gift.html">Birthday Gift 
-
-Ideas</a></li>
-<li><a href="<?php echo Mage::getBaseUrl(); ?>set-hadiah-bayi-dan-anak/baby-shower.html">Baby Shower Gift 
-
-Ideas</a></li>
-<li><a class="link-seemore" href="http://www.bilna.com/set-hadiah-bayi-dan-anak.html">See 
-
-more</a></li>
-</ul>
-<!--<ul class="shop-by" style="background: none;">
-<li><span class="title">Product Highlights</span></li>
-<li><a href="{{config path="#">Baby Monitor</a></li>
-<li><a href="{{config path="#">Stroller</a></li>
-<li><a href="{{config path="#">Baby Box</a></li>
-<li><a class="link-seemore" href="#">See more</a></li>
-</ul>--></div>        	</li>
+</div> 
+    	</li>
                                                                                                      
 
 <li class="level  level-top parent-0 parent">
@@ -897,24 +881,24 @@ Needs</span></span>
                                         </li>-->
                                                                                                      
 
-           <li class="level  level-top parent-10">
-                        <a href="<?php echo Mage::getBaseUrl(); ?>set-hadiah-bayi-dan-anak.html" 
+           <!--<li class="level  level-top parent-10">
+                        <a href="<?php //echo Mage::getBaseUrl(); ?>set-hadiah-bayi-dan-anak.html" 
 
 class="level-top parent-10 giftideas">
                                                 	<span><span>Gift Ideas</span></span>
                                                 </a>
-		<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('giftideas_menu')->toHtml() ?>										
-                                        </li>
+		<?php //echo $this->getLayout()->createBlock('cms/block')->setBlockId('giftideas_menu')->toHtml() ?>										
+                                        </li>-->
                                                                                                      
 
-           <li class="level  level-top parent-11">
+           <!--<li class="level  level-top parent-11">
                         <a href="<?php echo Mage::getBaseUrl(); ?>produk-diskon.html" class="level-top 
 
 parent-11 sale">
                                                 	<span><span>SALE</span></span>
                                                 </a>
 												
-                                        </li>
+                                        </li>-->
                                         <!--<li class="menu-salegift"><div class="menu-sale-
 
 giftideas"><a class="sale" href="http://www.bilna.com/sale.html">Sale</a> <a class="giftideas" 
