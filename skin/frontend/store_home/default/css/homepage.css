@@ -172,6 +172,7 @@
 .homepage-bottom .testimonial-wrapper {
 	float: left;
 	width: 45%;
+	position: relative;
 }
 .testimonial-wrapper h4, .media-partners span.title {
 	font-size: 18px;
