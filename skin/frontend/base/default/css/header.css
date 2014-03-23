@@ -322,12 +322,12 @@
 .menu-top ul li:hover, .menu-top ul li.active {
 	background: #95e1f1;
 }  
-.menu-top ul li.home-menu:hover {
-	background: #ffb29d;
-}
 .menu-top ul li:last-child:hover {
 	/* background: #ffb39c; */
 	background: #95e1f1;
+}
+.menu-top ul li.home-menu:hover {
+	background: #ffb29d;
 }
 .menu-blog span {
 	background: #95e1f1;
