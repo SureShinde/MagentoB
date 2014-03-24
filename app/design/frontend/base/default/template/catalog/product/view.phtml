@@ -171,7 +171,7 @@
 				<li class="tab"><a href="#tabs-size-chart">Size Chart</a></li>
 				-->
 				</ul>	
-				<div class="panel-container" style="height:90px;">
+				<div class="panel-container">
 					<?php foreach ($this->getChildGroup('detailed_info', 'getChildHtml') as $alias => $html):?>
 						<div id="<?php echo "tabs-{$alias}"?>">
 						    <?php echo $html; ?>
@@ -185,41 +185,25 @@
 					</div>
 					
 				</div>
-				<div class="hide_desc_button">
+				<!--<div class="hide_desc_button">
 					<p class="show_more">Show more</p>
 					<p class="hide">Hide</p>
 					<div id="show_desc" class="bx-show"></div>
 					<div id="hide_desc" class="bx-hide"></div>
-				</div>
+				</div>-->
 			</div>
 			<script type="text/javascript">
-				function heightDiv( element, height ){
-				$j(".panel-container").css("height",height);
-				$j("#show_desc").css("display","none");
-				$j(".show_more").css("display","none");
-				$j("#hide_desc").css("display","block");
-				$j(".hide").css("display","block");
-				};
-				
-				if (("document", $j( "#tabs-description" ).height()) < 90){
-					$j(".hide_desc_button").hide();
-					$j(".panel-container").css("height","auto");
-				}else{
-					$j(".hide_desc_button").show();
-				}
-				
-				$j("#hide_desc").css("display","none");
-				$j(".hide").css("display","none");
-				$j( "#show_desc" ).click(function() {
-				heightDiv("document", $j( "#tabs-description" ).height());
-				});
-				
-				$j( "#hide_desc" ).click(function() {
-				$j(".panel-container").css("height","90px");
-				$j("#show_desc").css("display","block");
-				$j(".show_more").css("display","block");
-				$j("#hide_desc").css("display","none");
-				$j(".hide").css("display","none");
+			$j(document).ready( function() {
+					$j( "#show" ).click(function() {
+						$j("#hide").css("display","block");
+						$j("#show").css("display","none");
+						$j(".wrap-row.last").css("height","100%");
+					});
+						$j( "#hide" ).click(function() {
+						$j(".wrap-row.last").css("height","0");
+						$j("#show").css("display","block");
+						$j("#hide").css("display","none");
+					});
 				});
 				</script>
 			<script type="text/javascript">
