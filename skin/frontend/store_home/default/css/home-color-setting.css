@@ -11,6 +11,10 @@
     top: 42px;
     width: 100%;
 }
+.header .links li.register, .menu-tablet .links li.register{
+	background:none !important;
+	padding:0;
+}
 #nav a.link-shopby{
 	background:#fee13a;
 }
@@ -27,8 +31,8 @@
 
 	color:#D96708 !important;
 }
-#nav li.menu-salegift a.sale, #nav a.level-top.sale{
-	background:url("../images/sale.png") no-repeat;	
+#nav li.menu-salegift a.our-choice, #nav a.level-top.our-choice{
+	background:url("../images/our-choice.png") no-repeat;	
 }
 .header .menu-top, .header .menu-blog, .header .quick-access .top-cart{
 	border-top: 4px solid #daaea4;
@@ -64,8 +68,8 @@ a.back-to-top {
 	height:auto;
 	margin:10px auto 0;
 }
-#nav li.menu-salegift a.sale, #nav a.level-top.sale{
-	width:70px;
+#nav li.menu-our-choicegift a.our-choice, #nav a.level-top.our-choice{
+	width:100px;
 }
 
 #nav .shopby{
@@ -75,6 +79,7 @@ a.back-to-top {
 .shopby ul.shop-by{
 	margin:0 0 5px;
 }
+
 #nav .shopby ul.shop-by li a:hover{
 	color:#8F554D !important;
 }

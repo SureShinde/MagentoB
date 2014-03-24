@@ -299,7 +299,7 @@
 	width:490px;
 }
 .cms-index-index .wrap_banner .col-1{
-	width:490px;
+	width:527px;
 }
 .cms-index-defaultindex .wrap_banner .col-2{
 	margin: 0 8px;
@@ -307,7 +307,7 @@
 }
 .cms-index-index .wrap_banner .col-2{
 	margin: 0 8px;
-	width:200px;
+	width:216px;
 }
 .cms-index-defaultindex .wrap_banner .col-2 img:first-child{
 	margin: 0 0 8px;
@@ -370,8 +370,8 @@
 }
 .shopby{
 	float: left;
-    margin: 0 35px 0 0;
-    width: 230px; 
+    margin: 0 20px 0 0;
+    width: 175px; 
 	}
 #nav li.shop-by:hover .shopby {
     display: none;
@@ -389,7 +389,7 @@
 .nav-container-mobile ul li.cat-leveltop {
     background: url("../images/arrow-menu-mobile.png") no-repeat scroll 98% 17px rgba(0, 0, 0, 0);
 }
-@media only screen and (max-width: 1215px) {
+@media only screen and ( max-width: 1215px) {
 	.shopby{ 	
 		display:none;
 	}
@@ -397,6 +397,33 @@
 		display: block;
 	}
 	
+}
+@media only screen and (min-width: 1023px) and (max-width: 1215px) {
+	.shopby{ 	
+		display:none;
+	}
+	#nav li.shop-by:hover .shopby {
+		display: block;
+	}
+	#slides-banner-home{
+		height:371px;
+		width:510px;
+	}
+	.cms-index-index .wrap_banner .col-1{
+		width:510px;
+	}
+	.cms-index-index .wrap_banner .col-2{
+		width:210px;
+	}
+	.cms-index-index .wrap_banner .col-3{
+		width:257px;
+	}
+	.cms-index-index .wrap_banner .col-2 img{
+		width:100%;
+	}
+	.cms-index-index .wrap_banner .col-3 img{
+		width:100%;
+	}
 }
 /* --------------- 960 px layout -------------------- */
 @media only screen and (max-width: 1023px) {
