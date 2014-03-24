@@ -180,6 +180,25 @@ div.block-layered-nav dd a.amshopby-attr-selected{
 .product-tab-mobile-wrapper .toggle-tab, #customer-reviews h2{
 	background:url("../images/btn_expand.png") no-repeat scroll 98% 15px;
 }
+.tiny .thumb, .tiny .thumb .end{
+	background:url("../images/track.png") no-repeat 50% top;
+	}
+.tiny .track{
+	background:url("../images/scroll-down.png") no-repeat center bottom #DFE0E0;
+	}
+.tiny .scrollbar {
+    background: url("../images/scroll-up.png") no-repeat 0 0;
+}
+.block-layered-nav dt.category + dd li a {
+    background: url("../images/arrow-2.png") no-repeat scroll right center rgba(0, 0, 0, 0);
+	height:16px;
+	}
+.amshopby-collapsed ~ .tiny .viewport, .amshopby-collapsed ~ .tiny .viewport{
+	height:0 !important;
+}
+.tiny .overview{
+	position:relative;
+}
 /*======================Category page===================*/
 
 
