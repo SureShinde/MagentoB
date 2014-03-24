@@ -507,27 +507,29 @@
 /*detail desc*/
 
 
-#tabs-description #hide .wrap_show, #tabs-description #show .wrap_show{
+#tab-container #hide .wrap_show, #tab-container #show .wrap_show{
 	border: medium none;
     height: 32px;
 	margin:0 auto;
     position: relative;
     width: 30px;
 }
-#tabs-description #hide, #tabs-description #show{
+#tab-container #hide, #tab-container #show{
 	width:100%;
     cursor: pointer;
 	float:left;
+	margin-top: -39px;
+    position: relative;
 	text-align:center;
 }
-#tabs-description #hide{
+#tab-container #hide{
 display:none;
 }
-#tabs-description #hide .wrap_show{
+#tab-container #hide .wrap_show{
 	background: url("../images/arrow-nav-thumb-image.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
  
-#tabs-description #show .wrap_show{
+#tab-container #show .wrap_show{
 	background: url("../images/arrow-nav-thumb-image.png") no-repeat scroll -30px 0 rgba(0, 0, 0, 0);
 }
 .colomn{
