@@ -533,6 +533,7 @@ display:none;
 	background: url("../images/arrow-nav-thumb-image.png") no-repeat scroll -30px 0 rgba(0, 0, 0, 0);
 }
 .colomn{
+	width:48%;
 	float:left;
 }
 .wrap-row{
