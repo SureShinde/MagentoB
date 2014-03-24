@@ -72,13 +72,21 @@ class Mage_Adminhtml_Block_Sales_Shipment_Grid extends Mage_Adminhtml_Block_Widg
    
         $collection->getSelect()
             ->joinLeft(
+                array('sales_flat_shipment_track' => Mage::getSingleton('core/resource')->getTableName('sales/shipment_track') ),
+                "main_table.entity_id = sales_flat_shipment_track.parent_id",
+                array(
+                    "tracking_number"        => "GROUP_CONCAT(track_number)"
+                )
+            )
+        	/*
+            ->joinLeft(
                 //array('sales_flat_shipment_track' => Mage::getSingleton('core/resource')->getTableName('sales/shipment_track') ),
                 array('sales_flat_shipment_track' => new Zend_Db_Expr('(SELECT order_id, GROUP_CONCAT(track_number) AS tracking_number FROM sales_flat_shipment_track GROUP BY order_id)') ),
                 "main_table.order_id = sales_flat_shipment_track.order_id",
                 array(
                     "tracking_number"        => "sales_flat_shipment_track.tracking_number"
                 )
-            )
+            )*/
             /*->joinInner(
                 array('sales_flat_order_status_history' => new Zend_Db_Expr('(SELECT * FROM (SELECT * FROM sales_flat_order_status_history ORDER BY created_at DESC)x GROUP BY parent_id)') ),
                 "main_table.order_id = sales_flat_order_status_history.parent_id",
@@ -107,7 +115,7 @@ class Mage_Adminhtml_Block_Sales_Shipment_Grid extends Mage_Adminhtml_Block_Widg
             $from = date('Y-m-d H:i:s', strtotime(str_replace('-', '/', $params['created_at']['from'] . '00:00:00')));
             $to   = date('Y-m-d H:i:s', strtotime(str_replace('-', '/', $params['created_at']['to'] . ' 23:59:59')));
             
-            $collection->addFieldToFilter("created_at", array('from' => $from, 'to' => $to, 'datetime' => true));
+            $collection->addFieldToFilter("main_table.created_at", array('from' => $from, 'to' => $to, 'datetime' => true));
             
         }
 
@@ -116,7 +124,7 @@ class Mage_Adminhtml_Block_Sales_Shipment_Grid extends Mage_Adminhtml_Block_Widg
             $from = date('Y-m-d H:i:s', strtotime(str_replace('-', '/', $params['order_created_at']['from'] . '00:00:00')));
             $to   = date('Y-m-d H:i:s', strtotime(str_replace('-', '/', $params['order_created_at']['to'] . ' 23:59:59')));
             
-            $collection->addFieldToFilter("order_created_at", array('from' => $from, 'to' => $to, 'datetime' => true));
+            $collection->addFieldToFilter("main_table.order_created_at", array('from' => $from, 'to' => $to, 'datetime' => true));
             
         }
 
@@ -148,7 +156,9 @@ class Mage_Adminhtml_Block_Sales_Shipment_Grid extends Mage_Adminhtml_Block_Widg
         {
             $collection->addFieldToFilter("increment_id", array('like' => '%'.$params['increment_id'].'%'));
         }
-        //$collection->getSelect()->group(array('sales_flat_shipment_track.order_id'));
+
+        $collection->getSelect()->group(array('sales_flat_shipment_track.parent_id'));
+        //$collection->printLogQuery(true);die;
 
         $this->setCollection($collection);
         return parent::_prepareCollection();
