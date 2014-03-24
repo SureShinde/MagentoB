@@ -193,9 +193,7 @@ div.block-layered-nav dd a.amshopby-attr-selected{
     background: url("../images/arrow-2.png") no-repeat scroll right center rgba(0, 0, 0, 0);
 	height:16px;
 	}
-.amshopby-collapsed ~ .tiny .viewport, .amshopby-collapsed ~ .tiny .viewport{
-	height:0 !important;
-}
+
 .tiny .overview{
 	position:relative;
 }
