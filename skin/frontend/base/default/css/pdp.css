@@ -536,6 +536,9 @@ display:none;
 	width:48%;
 	float:left;
 }
+.colomn p{ 
+margin: 0 1% ;
+}
 .wrap-row{
 	float:left;
 	margin:0 0 10px;
@@ -1023,7 +1026,12 @@ display:none;
 		background: #fbfbfb;
 		border: solid #dfe0e0 1px;
 	}
-	
+	.product-tab-mobile-wrapper .content-tab .std{
+		display:table;
+	}
+	.product-tab-mobile-wrapper .content-tab .std .wrap-row.last{
+		height:auto;
+	}
 	#customer-reviews {
 		margin: 0 15px 30px;
 	}
