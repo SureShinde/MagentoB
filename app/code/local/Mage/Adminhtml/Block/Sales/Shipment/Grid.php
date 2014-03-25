@@ -105,7 +105,7 @@ class Mage_Adminhtml_Block_Sales_Shipment_Grid extends Mage_Adminhtml_Block_Widg
 
         if(isset($params['is_customer_notified']) && $params['is_customer_notified']==0)
         {
-            $collection->addFieldToFilter("is_customer_notified", array('null'=>'is_customer_notified'));
+            $collection->addFieldToFilter("is_customer_notified", array('neq'=>'1'));
         }elseif(isset($params['is_customer_notified']) && $params['is_customer_notified']==1){
             $collection->addFieldToFilter("is_customer_notified", array('eq' => $params['is_customer_notified']));
         }
@@ -128,10 +128,10 @@ class Mage_Adminhtml_Block_Sales_Shipment_Grid extends Mage_Adminhtml_Block_Widg
             
         }
 
-        if( isset($params['total_qty']['from']) && isset($params['total_qty']['to']) )
+        if( isset($params['total_qty']['from']) || isset($params['total_qty']['to']) )
         {
-            $from = $params['total_qty']['from'];
-            $to   = $params['total_qty']['to'];
+            $from = (!empty($params['total_qty']['from']))?$params['total_qty']['from']:$params['total_qty']['to'];
+            $to   = (!empty($params['total_qty']['to']))?$params['total_qty']['to']:$params['total_qty']['from'];
             
             $collection->addFieldToFilter("total_qty", array('from' => $from, 'to' => $to));
             
@@ -157,8 +157,8 @@ class Mage_Adminhtml_Block_Sales_Shipment_Grid extends Mage_Adminhtml_Block_Widg
             $collection->addFieldToFilter("increment_id", array('like' => '%'.$params['increment_id'].'%'));
         }
 
-        $collection->getSelect()->group(array('sales_flat_shipment_track.parent_id'));
-        //$collection->printLogQuery(true);die;
+        $collection->getSelect()->group(array('main_table.entity_id', 'sales_flat_shipment_track.parent_id'));
+        $collection->printLogQuery(true);die;
 
         $this->setCollection($collection);
         return parent::_prepareCollection();
