@@ -107,6 +107,9 @@ a.back-to-top {
 #slides-banner{
 	position:relative;
 }
+#backtotop a{
+	background:#8F554D;
+}
 /*#slides-banner .slidesjs-container{
 	height:356px !important; 
 }*/
