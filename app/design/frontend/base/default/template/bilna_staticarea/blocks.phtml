@@ -4,12 +4,12 @@ if($this->getBlock())
     foreach($this->getBlock() as $block) {
     	if($block->getType() == 'single')
     	{
-    		echo '<a href="'.$block->getUrl().'" alt="'.$block->getAreaName().'" target="_parent">';
+    		echo '<a href="'.$block->getUrl().'" alt="'.$block->getAreaName().'" target="'.$block->getUrlAction().'">';
     		echo ($this->getHtmlCode($block));
     		echo '</a>';
     		break;	
     	}else{
-    		echo '<a href="'.$block->getUrl().'" alt="'.$block->getAreaName().'" target="_parent">';
+    		echo '<a href="'.$block->getUrl().'" alt="'.$block->getAreaName().'" target="'.$block->getUrlAction().'">';
     		echo ($this->getHtmlCode($block));
     		echo '</a>';
     	}
