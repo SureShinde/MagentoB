@@ -9,7 +9,10 @@ $installer->addAttribute('catalog_category', 'megamenu_static_block', array (
     'label' => 'Megamenu static block',
     'required' => false,
     'visible' => true,
+    'visible_on_front' => true,
+    'filterable' => true,
     'default' => '0',
+    'user_defined' => true,
     'global' => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE,
     'sort_order' => 26
 ));
@@ -20,6 +23,10 @@ $installer->addAttribute('catalog_category', 'megamenu_image', array (
     'input' => 'image',
     'backend' => 'catalog/category_attribute_backend_image',
     'required' => false,
+    'visible' => true,
+    'visible_on_front' => true,
+    'filterable' => true,
+    'user_defined' => true,
     'global' => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE,
     'sort_order' => 27
 ));
