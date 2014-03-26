@@ -32,12 +32,28 @@
             </div>
         <?php endif;?>
         <p class="rating-links">
-            <a class="review-count" href="<?php echo $this->getReviewsUrl() ?>"><?php echo $this->__('%d Review(s)', $this->getReviewsCount()) ?></a>
+            <a class="review-count" href="#customer-reviews"><?php echo $this->__('%d Review(s)', $this->getReviewsCount()) ?></a>
             <span class="separator">|</span>
             <!-- <a class="review-rating-links" href="<?php //echo $this->getReviewsUrl() ?>#review-form"><?php //echo $this->__('Review this product') ?></a> -->
-            <a class="review-rating-links" href="#review-form"><?php echo $this->__('Review this product') ?></a>
+            <a class="review-rating-links smooth-scroll" href="#review-form"><?php echo $this->__('Review this product') ?></a>
         </p>
     </div>
 <?php else: ?>
-    <p class="no-rating"><a href="<?php echo $this->getReviewsUrl() ?>#review-form"><?php echo $this->__('Be the first to review this product') ?></a></p>
+    <p class="no-rating"><a href="#review-form" class="smooth-scroll"><?php echo $this->__('Be the first to review this product') ?></a></p>
 <?php endif; ?>
+
+
+<script type="text/javascript">
+	jQuery(document).ready(function(){
+		jQuery('a.smooth-scroll').on('click',function (e) {
+			e.preventDefault();
+			var target = this.hash,
+				targetx = jQuery(target);
+			jQuery('html, body').stop().animate({
+				'scrollTop': targetx.offset().top
+			}, 500, 'swing', function () {
+				window.location.hash = target;
+			});
+		});
+	});
+	</script>

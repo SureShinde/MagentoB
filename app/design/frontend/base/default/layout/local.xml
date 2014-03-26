@@ -42,6 +42,10 @@
                 <type>skin_js</type>
                 <name>js/bilna.sociomantic.js</name>
             </action>
+            <action method="addItem">
+                <type>skin_js</type>
+                <name>js/smooth-scrolling.js</name>
+            </action>
         </reference>
         <reference name="header">
             <remove name="welcome"/>
