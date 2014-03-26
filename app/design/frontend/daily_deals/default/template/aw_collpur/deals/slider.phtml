@@ -91,7 +91,7 @@ $j(window).ready(function() {
 			            // the items
 			            this.$items = this.$el.find( 'ul > li' ).hide();
 			            // the tabs
-			            this.$tabs = this.$el.find( 'nav > a' );
+			            this.$tabs = this.$el.find( '.slider_deals > a' );
 			            // total tabs
 			            var tabsCount = this.$tabs.length;
 			            // set each tab width
@@ -352,24 +352,7 @@ $max = count($dealSliders); ?>
 		  $i = 0;
 		  $max = count($dealSliders); ?>
 	<!--Sidebar Thumbnail-->	  
-	<nav class="thumb_angka_area">
-		<?php
-		$i = 1;
-		//echo "<pre>";
-		//var_dump($dealSliders);exit;
-		foreach($dealSliders as $dealSlider){
-		?>
-						<a href="#slide<?php echo $i; ?>" class="thumb_angka">
-						
-			
-						<?php echo $i; ?>
-						</a>
-		<?php
-		$i++;
-		}
-		?>		
-						</nav>
-	<nav class="large_thumb">
+	<nav class="large_thumb slider_deals">
 	<?php
 	$i = 0;
 	foreach($dealSliders as $dealSlider){
@@ -392,6 +375,24 @@ $max = count($dealSliders); ?>
 	}
 	?>
 	</nav>
+	<nav class="thumb_angka_area slider_deals">
+		<?php
+		$i = 1;
+		//echo "<pre>";
+		//var_dump($dealSliders);exit;
+		foreach($dealSliders as $dealSlider){
+		?>
+						<a href="#slide<?php echo $i; ?>" class="thumb_angka">
+						
+			
+						<?php echo $i; ?>
+						</a>
+		<?php
+		$i++;
+		}
+		?>		
+						</nav>
+	
 	<!--Sidebar Thumbnail // End-->
 	</div>	
 </div>	
