@@ -19,17 +19,21 @@ class Bilna_Staticarea_Block_Block extends Mage_Core_Block_Template {
             if($this->getData('id')){
                 $this->_block = Mage::getModel('staticarea/contents')->getCollection();
                 $this->_block->addFieldToSelect("content", "content");
+                $this->_block->addFieldToSelect("url", "url");
                 $this->_block->addFieldToFilter("staticarea.block_id", array ('eq' => $this->getData('id'))); 
                 $this->_block->addFieldToFilter("staticarea.storeview", array ('like' => '%'.$store_id.'%'));
+                $this->_block->addFieldToFilter("DATE(NOW())", array ('gteq' => new Zend_Db_Expr('active_from')));
+                $this->_block->addFieldToFilter("DATE(NOW())", array ('lteq' => new Zend_Db_Expr('active_to')));
                 $this->_block->getSelect()
 					->joinLeft(
 						array( 'staticarea' => Mage::getSingleton('core/resource')->getTableName('staticarea/manage') ),
 						"main_table.staticarea_id = staticarea.id",
 						array( 
-							'area_name' => 'staticarea.area_name'
+							'area_name' => 'staticarea.area_name',
+                            'type' => 'staticarea.type'
 						)
 					);
-
+                $this->_block->setOrder('`order`', 'ASC');
             }
             if(!$this->_block->getData())
                 $this->_block = null;

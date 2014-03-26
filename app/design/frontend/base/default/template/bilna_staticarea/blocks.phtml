@@ -2,7 +2,17 @@
 if($this->getBlock())
 {
     foreach($this->getBlock() as $block) {
-        echo ($this->getHtmlCode($block));
+    	if($block->getType() == 'single')
+    	{
+    		echo '<a href="'.$block->getUrl().'" alt="'.$block->getAreaName().'" target="_parent">';
+    		echo ($this->getHtmlCode($block));
+    		echo '</a>';
+    		break;	
+    	}else{
+    		echo '<a href="'.$block->getUrl().'" alt="'.$block->getAreaName().'" target="_parent">';
+    		echo ($this->getHtmlCode($block));
+    		echo '</a>';
+    	}
     }
 }
 ?>

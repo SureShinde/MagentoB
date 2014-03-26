@@ -80,10 +80,14 @@ class Bilna_Staticarea_Block_Adminhtml_Manage_Edit_Tab_Contents_Ajaxform_Form ex
             'required' => true
         ));
 
-        $_fieldset->addField('url_action', 'text', array(
+        $_fieldset->addField('url_action', 'select', array(
             'name' => 'url_action',
             'label' => $this->__('URL Action'),
-            'required' => true
+            'type' => 'options',
+            'options'=> array(
+                '_blank' => Mage::helper('staticarea')->__('open in new browser'),
+                '_parent' => Mage::helper('staticarea')->__('open in current tab')
+            )
         ));
 
         try {
