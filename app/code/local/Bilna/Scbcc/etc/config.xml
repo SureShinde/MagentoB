@@ -121,7 +121,7 @@
         </routers>
     </admin>
     
-    <adminhtml>
+    <!--adminhtml>
         <layout>
             <updates>
                 <scbcc>
@@ -129,5 +129,5 @@
                 </scbcc>
             </updates>
         </layout>
-    </adminhtml>
+    </adminhtml-->
 </config>

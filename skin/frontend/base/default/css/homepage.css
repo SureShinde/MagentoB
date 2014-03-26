@@ -6,6 +6,7 @@
 }
 .homepage-top-block.right {
 	width: 185px;
+	margin: 0;
 }
 .slider-wrapper {
 	width: 750px;
@@ -93,6 +94,10 @@
 	width: 28.25%;
 	background: #dad8d5;
 	vertical-align: top;
+}
+.homepage-bottom ul.block-wrapper li.image-bottom-cust {
+	padding: 0;
+	width: 30.8%;
 }
 .homepage-bottom ul.block-wrapper li:last-child {}
 .block-bottom {
@@ -369,6 +374,10 @@
 		margin-right: 2.5px;
 		margin-bottom: 8px;
 		width: 30.95%;
+	}
+	.homepage-bottom ul.block-wrapper li.image-bottom-cust {
+		padding: 0;
+		width: 32.2%;
 	}
 	.block-bottom {
 		height: 111px;

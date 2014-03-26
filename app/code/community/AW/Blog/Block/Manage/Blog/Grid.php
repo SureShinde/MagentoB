@@ -45,6 +45,11 @@ class AW_Blog_Block_Manage_Blog_Grid extends Mage_Adminhtml_Block_Widget_Grid
     protected function _prepareCollection()
     {
         $collection = Mage::getModel('blog/blog')->getCollection();
+		$collection->getSelect()
+			->join(array('apc' => $collection->getTable('blog/post_cat')), 'main_table.post_id = apc.post_id')
+			->join(array('ac' => $collection->getTable('blog/cat')), 'apc.cat_id = ac.cat_id', array(
+					'category' => 'ac.title',
+				));		
         $store = $this->_getStore();
         if ($store->getId()) {
             $collection->addStoreFilter($store);
@@ -131,6 +136,22 @@ class AW_Blog_Block_Manage_Blog_Grid extends Mage_Adminhtml_Block_Widget_Grid
                  ),
             )
         );
+		
+		// $cat = Mage::getResourceModel('aw/blog_cat')
+            // ->setStoreFilter()
+            // ->load()
+            // ->toOptionHash('cat_id', 'value');
+			
+		$this->addColumn(
+            'category',
+            array(
+                 'header'  => Mage::helper('blog')->__('Category'),
+                 'align'   => 'left',
+                 'width'   => '80px',
+                 'index'   => 'category'//,
+                 //'type'    => 'options',
+                 //'options' => $cat
+        ));	
 
         $this->addColumn(
             'action',

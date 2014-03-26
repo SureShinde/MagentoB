@@ -220,6 +220,7 @@
 	background: none;
 	width: 90px;
 	line-height: normal;
+	padding:0;
 	border: 0;
 	border-radius:0;
 	/* height: 15px; */
@@ -278,8 +279,19 @@
 	text-align: right;
 }
 .header .menu-top {
-	left: 0;
-	width: 399px;
+	left: 175px;
+    width: auto;
+}
+
+.header .menu-top:before {
+    background: none repeat scroll 0 0 #95E1F1;
+    content: "";
+    height: 4px;
+    left: -300%;
+    position: absolute;
+    right: 0;
+    top: -4px;
+    width: 300%;
 }
 .header .menu-blog {
 	right:0;
@@ -309,9 +321,10 @@
 }
 .menu-top ul li:hover, .menu-top ul li.active {
 	background: #95e1f1;
-} 
+}  
 .menu-top ul li:last-child:hover {
-	background: #ffb39c;
+	/* background: #ffb39c; */
+	background: #95e1f1;
 }
 .menu-blog span {
 	background: #95e1f1;
@@ -786,6 +799,8 @@
 	width: 155px;
 	height: 26px;
 	border: none;
+	max-width: 140px;
+    min-width: 100px;
 	color: #bababa;
 	line-height: 26px;
 	margin: 1px 0px 1px 5px;
@@ -797,7 +812,7 @@
 	height: auto;
 	overflow: hidden;
 	padding: 0 10px 0 0;
-	margin: 0 5px 0 0;
+	margin:0 5px 0 0;
 	background: url(../images/arrow-green.png) no-repeat right center;
 }
 
@@ -807,6 +822,7 @@
 	line-height: normal;
 	border: 0;
 	border-radius:0;
+
 
 	width:100px;
 
@@ -819,22 +835,21 @@
 	float: right;
 	clear: none;
 	width: auto;
+	margin:0 5px 0 0;
 	height: auto;
 	overflow: hidden;
 	padding: 0 0 0 0;
-	/*margin: 7px 5px 0 0;*/
+
 	background: none;
 }
 
 .gecko div.header .form-search .input-keyword .select-category select {
-	background: inherit;
 	/*width: 96px;
 	height: 20px;
 	*/
 	line-height: normal;
 	border:inherit;
 	border-radius:inherit;
-	
 	color: #a0cc00;
 	-webkit-appearance: none;
 	margin-right: 5px;
@@ -873,10 +888,10 @@
 }
 .header .search-mobile .form-search .input-keyword input.input-text {
 	width: 50%;
-	margin-top: 14px;
+	margin-top: 7px;
 }
 .header .search-mobile .form-search .input-keyword .select-category {
-	background: url(../images/arrow-blue.png) no-repeat right center;
+	background: url(../images/arrow-blue.png) no-repeat right center !important;
 	margin-top: 10px;
 	margin-right: 5px;
 }
@@ -885,6 +900,7 @@
 	font-size: 1.2em;
 	height: 25px;
 	width: auto;
+	padding:0;
 }
 .header .search-mobile .form-search .input-keyword button.button {
 	background: url(../images/btn-search-mobile.png) no-repeat center center;
@@ -930,7 +946,7 @@
 	letter-spacing: normal;
 	background: url(../images/arrow-menu.png) no-repeat right center;
 }
-#nav ul li a.bestseller, #nav ul li a.whatsnew, #nav ul li a.onsale {
+#nav ul li a.bestseller, #nav ul li a.whatsnew, #nav ul li a.onsale, #nav ul li a.whatsonsale {
 	font-weight: bold !important;
 	background-image: url(../images/arrow-color.png);
 	background-repeat: no-repeat;
@@ -946,6 +962,10 @@
 #nav ul li a.onsale {
 	color: #fc8360 !important; 
 	background-position: right -45px;
+}
+#nav ul li a.whatsonsale {
+	color: #fc8360 !important; 
+	background-position: right -43px;
 }
 #nav ul li.level-top {
 	position: relative;
@@ -1156,7 +1176,11 @@
 	left:0;
 	z-index: 9;
 	padding-top: 10px;
+	-webkit-box-shadow: 1px 1px 4px 0 #ccc;
+		-moz-box-shadow: 1px 1px 4px 0 #ccc;
+		box-shadow: 1px 1px 4px 0 #ccc;
 }
+
 #nav .shopby ul.shop-by {
 	margin-right: 20px;
 }
@@ -1246,9 +1270,6 @@
 }
 .menu-tablet .form-language, .menu-tablet .store-phone, .menu-tablet ul.links {
 	float: right;
-}
-.menu-tablet .form-language, .menu-tablet .store-phone {
-	margin-top: 5px;
 }
 .menu-tablet .form-language {
 	margin-right: 10px;
@@ -1378,6 +1399,7 @@
 		width: 170px;
 	}
 	.header .form-search .input-keyword input.input-text {
+		min-width:57px;
 		width: 57px;
 	}
 	.header .form-search input.input-text {
@@ -1419,6 +1441,16 @@
 	#nav a.level-top {
 		padding: 0px 3px;
 	}
+	
+	/* megamenu-margin */
+	ul.feeding___nursing_hover {margin-left: -50px;}
+	ul.health___safety_hover {margin-left: -110px;}
+	ul.toys___books_hover {margin-right: -305px;}
+	ul.baby_gear___furniture_hover {margin-right: -235px;}
+	ul.for_moms_hover {margin-right: -195px;}
+	/* END megamenu-margin */
+	
+	
 }
 /* --------------- smaller 959 px layout -------------------- */
 @media only screen and (max-width: 767px) {
@@ -1625,7 +1657,7 @@
 		background-size: 100% auto;
 	}
 	.header .search-mobile .form-search .input-keyword input.input-text {
-		width: 40%;
+		width: 35%;
 	}
 	.header .search-mobile .form-search .input-keyword .select-category select {
 		width: 105px;

@@ -42,6 +42,10 @@
                 <type>skin_js</type>
                 <name>js/bilna.sociomantic.js</name>
             </action>
+            <action method="addItem">
+                <type>skin_js</type>
+                <name>js/smooth-scrolling.js</name>
+            </action>
         </reference>
         <reference name="header">
             <remove name="welcome"/>
@@ -49,10 +53,15 @@
             <block type="newsletter/subscribe" name="header.newsletter" template="newsletter/subscribe.phtml"/>
         </reference>
         <reference name="top.links">
-            <action method="addLink" translate="label" module="customer"><label>Track Order</label><url>sales/order/history</url><title>Track Order</title><prepare/><urlParams/><position>15</position></action>
-            <!--<action method="removeLinkByUrl"><url helper="customer/getAccountUrl"/></action>-->
-            <remove name="checkout_cart_link" />
-            <remove name="wishlist_link"/>
+
+        	<action method="addLink" translate="label" module="customer">
+				<label></label>
+				<url>sales/order/history</url>
+				<title>Track Order</title><prepare/><urlParams/><position>15</position>
+			</action>
+        	<!--<action method="removeLinkByUrl"><url helper="customer/getAccountUrl"/></action>-->
+        	<remove name="checkout_cart_link" />
+        	<remove name="wishlist_link"/>
         </reference>
         <remove name="footer_links"/>
         <reference name="footer">

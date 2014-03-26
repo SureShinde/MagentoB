@@ -31,11 +31,11 @@ $cat = $catposts['cat'];
 			
 			<?php else:?>
 			<div class="layout-4-content">
-			  <div class="postTitle3">
+			  <div class="postTitle3 cust-size-img">
 				<img alt="" src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA);?><?php echo $row->getImageName();?>" style="float: left;" />
-				<div style="float: left;width: 45%;">
-				  <h2>
-					<a href="<?php echo $row->getAddress(); ?>" ><?php echo $row->getTitle(); ?></a>
+				<div style="float: left;width: 60%;">
+				  <h2 class="small-tittle">
+					<a href="<?php echo $row->getAddress(); ?>" class="title-col-blue title-15"><?php echo $row->getTitle(); ?></a>
 				  </h2>
 				  <?php $d = new DateTime($row->getCreatedTime());?>
 					<h3><?php echo $d->format('l d, F Y h:i:s A'); ?></h3>
