@@ -149,7 +149,7 @@ class Mage_Adminhtml_Block_Sales_Shipment_Grid extends Mage_Adminhtml_Block_Widg
             $collection->addFieldToFilter("increment_id", array('like' => '%'.$params['increment_id'].'%'));
         }
         //$collection->getSelect()->group(array('sales_flat_shipment_track.order_id'));
-$collection->printLogQuery(true);
+
         $this->setCollection($collection);
         return parent::_prepareCollection();
     }
