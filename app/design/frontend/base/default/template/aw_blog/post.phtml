@@ -25,6 +25,7 @@
  */
 ?><?php $post = $this->getPost(); 
 $relatedPost = $this->getRelatedPost($post->getCatId(), $post->getPostId());
+$commentCount = $this->getCommentCount();
 ?>
 
 <div id="messages_product_view"><?php echo $this->getMessagesBlock()->getGroupedHtml() ?></div>
@@ -34,7 +35,11 @@ $relatedPost = $this->getRelatedPost($post->getCatId(), $post->getPostId());
         <img alt="" src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA);?><?php echo $post->getImageName();?>" class="image-post-main" />
         <div class="postTitle">
         <h2><?php echo $post->getTitle(); ?></h2>
-        <h3><?php echo $post->getCreatedTime(); ?></h3>
+        <h3><?php echo $post->getCreatedTime(); ?> 
+            <?php if ($this->getCommentsEnabled() && $commentCount > 0): ?>
+                | <?php echo $commentCount; ?> <a href="#commentBox" >Comments</a>
+            <?php endif; ?>
+        </h3>
     </div>
     </p>
 
