@@ -61,7 +61,7 @@
                 <li class="wide">
                     <label for="billing:street1" class="required"><em>*</em><?php echo $this->__('Address') ?></label>
                     <div class="input-box">
-                        <input type="text" title="<?php echo $this->__('Street Address') ?>" name="billing[street][]" id="billing:street1" value="<?php echo $this->escapeHtml($this->getAddress()->getStreet(1)) ?>" class="billing-address input-text <?php echo $_streetValidationClass ?>" />
+                        <textarea type="text" title="<?php echo $this->__('Street Address') ?>" name="billing[street][]" id="billing:street1" value="<?php echo $this->escapeHtml($this->getAddress()->getStreet(1)) ?>" class="billing-address input-text <?php echo $_streetValidationClass ?>"></textarea>
                     </div>
                 </li>
         <?php $_streetValidationClass = trim(str_replace('required-entry', '', $_streetValidationClass)); ?>
@@ -69,7 +69,7 @@
                 <li class="wide">
                     <label for="billing:street1" class="required"><?php echo $this->__('Additional Address') ?></label>
                     <div class="input-box">
-                        <input type="text" title="<?php echo $this->__('Street Address %s', $_i) ?>" name="billing[street][]" id="billing:street<?php echo $_i ?>" value="<?php echo $this->escapeHtml($this->getAddress()->getStreet($_i)) ?>" class="billing-address2 input-text <?php echo $_streetValidationClass ?>" />
+                        <textarea type="text" title="<?php echo $this->__('Street Address %s', $_i) ?>" name="billing[street][]" id="billing:street<?php echo $_i ?>" value="<?php echo $this->escapeHtml($this->getAddress()->getStreet($_i)) ?>" class="billing-address2 input-text <?php echo $_streetValidationClass ?>"></textarea>
                     </div>
                 </li>
         <?php endfor; ?>

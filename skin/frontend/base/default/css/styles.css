@@ -1857,7 +1857,7 @@ tr.summary-details-excluded { font-style:italic; }
     -moz-box-shadow:inset 0px 1px 3px #dfdfdf;
     -webkit-box-shadow:inset 0px 1px 3px #dfdfdf;
     box-shadow:inset 0px 1px 3px #dfdfdf;
-
+    padding: 5px;
 }
 .product-tab-wrapper {margin: 0px;}
 .customer-reviews .form-list {margin: 20px 0;}
