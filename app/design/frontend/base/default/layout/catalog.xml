@@ -77,6 +77,10 @@ Category default layout
 				<type>skin_js</type>
 				<name>js/jquery.slides.min.js</name>
 			</action>
+			<action method="addItem">
+				<type>skin_js</type>
+				<name>js/jquery.nicescroll.min.js</name>
+			</action>
         </reference>
         <reference name="left">
             <block type="catalog/navigation" name="catalog.leftnav" after="currency" template="catalog/navigation/left.phtml"/>
@@ -118,6 +122,10 @@ Category layered navigation layout
 			<action method="addItem">
 				<type>skin_js</type>
 				<name>js/jquery.slides.min.js</name>
+			</action>
+			<action method="addItem">
+				<type>skin_js</type>
+				<name>js/jquery.nicescroll.min.js</name>
 			</action>
         </reference>
         <reference name="left">
