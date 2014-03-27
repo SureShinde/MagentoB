@@ -59,6 +59,7 @@ class AW_Blog_Block_Blog extends AW_Blog_Block_Abstract
                 ->addFieldToSelect('created_time')
                 ->addFieldToSelect('image_name')
                 ->addFieldToSelect('short_content')
+                ->addFieldToSelect('identifier')
                 ->setOrder('created_time', 'desc');
             $posts->addFieldToFilter("awblog_post_cat.cat_id", array ('eq' => $catId));
             $posts->getSelect()
@@ -71,7 +72,7 @@ class AW_Blog_Block_Blog extends AW_Blog_Block_Abstract
             	)
                 ->limit(5);
         
-            parent::_processCollection($posts);    
+            $posts = parent::_processCollection($posts);    
 
             $data[$row->getCatId()]['post'] = $posts;
         }
