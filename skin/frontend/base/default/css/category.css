@@ -26,8 +26,14 @@
 .block-layered-nav dd {
 	background: none;
 	border-bottom: 1px solid #dadada;
-	padding: 0 0 12px;
+	/* padding: 0 0 12px; */
 	margin: 0 12px 12px;
+	padding: 0;
+	max-height:145px;
+	overflow-y:scroll;
+}
+.hide-filter-bilna dd{
+	overflow-y:scroll !important;
 }
 .block-layered-nav dt, .demo label, .block-layered-nav .block-title strong span, .block-layered-nav .lbl-filterby, a.back-to-top {
 	text-transform: uppercase;
