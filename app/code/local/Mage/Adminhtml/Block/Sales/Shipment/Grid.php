@@ -57,7 +57,7 @@ class Mage_Adminhtml_Block_Sales_Shipment_Grid extends Mage_Adminhtml_Block_Widg
     {
 
     }
-
+     
     /**
      * Prepare and set collection of grid
      *
