@@ -97,7 +97,7 @@ class Mage_Adminhtml_Block_Sales_Shipment_Grid extends Mage_Adminhtml_Block_Widg
 
         if(isset($params['is_customer_notified']) && $params['is_customer_notified']==0)
         {
-            $collection->addFieldToFilter("is_customer_notified", array('null'=>'is_customer_notified'));
+            $collection->addFieldToFilter(array("is_customer_notified", "is_customer_notified"),  array(array('null'=>'is_customer_notified'), array('eq'=>0)));
         }elseif(isset($params['is_customer_notified']) && $params['is_customer_notified']==1){
             $collection->addFieldToFilter("is_customer_notified", array('eq' => $params['is_customer_notified']));
         }
@@ -149,7 +149,7 @@ class Mage_Adminhtml_Block_Sales_Shipment_Grid extends Mage_Adminhtml_Block_Widg
             $collection->addFieldToFilter("increment_id", array('like' => '%'.$params['increment_id'].'%'));
         }
         //$collection->getSelect()->group(array('sales_flat_shipment_track.order_id'));
-
+$collection->printLogQuery(true);
         $this->setCollection($collection);
         return parent::_prepareCollection();
     }
