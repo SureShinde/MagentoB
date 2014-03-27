@@ -60,6 +60,12 @@
         <?php else: ?>
             <input type="hidden" name="checkout_method" id="login:register" value="register" checked="checked" />
         <?php endif; ?>
+        <div class="col-1">
+        <div class="buttons-set">
+                <p class="required">&nbsp;</p>
+                <button type="button" class="button" onclick="checkout.setMethod();"><span><span><?php echo ($this->getQuote()->isAllowedGuestCheckout() ? $this->__('Continue') : $this->__('Register')) ?></span></span></button>
+            </div>
+        </div>
     </div>
     <div class="col-2">
         <h3><?php echo $this->__('Login') ?></h3>
@@ -69,6 +75,7 @@
         <?php echo $this->getChildHtml('authorization') ?>
     </div>
 </div>
+<?php /*
 <div class="col2-set">
     <div class="col-1">
         <div class="buttons-set">
@@ -76,14 +83,8 @@
             <button type="button" class="button" onclick="checkout.setMethod();"><span><span><?php echo ($this->getQuote()->isAllowedGuestCheckout() ? $this->__('Continue') : $this->__('Register')) ?></span></span></button>
         </div>
     </div>
-    <div class="col-2">
-        <div class="buttons-set">
-            <p class="required"><?php echo $this->__('* Required Fields') ?></p>
-            <a href="" class="f-left"><?php echo $this->__('Forgot your password?') ?></a>
-            <button type="submit" class="button"><span><span><?php echo $this->__('Login') ?></span></span></button>
-        </div>
-    </div>
 </div>
+*/?>
 
 <script type="text/javascript">
     Event.observe(
