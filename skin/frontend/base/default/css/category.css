@@ -475,6 +475,13 @@ a.triger-showfilter {
 }
 .catalog-category-view .slidesjs-pagination .slidesjs-pagination-item a.active{
 	background:#ff9f1c !important;
+
+}
+.catalog-category-view .banner_small img:first-child, .catalog-category-view .banner_small a:first-child{
+	display:block;
+}
+.catalog-category-view .banner_small img, .catalog-category-view .banner_small a{
+	display:none;
 }
 .catalog-category-view .banner_small:last-child{
 	width: 18%;
