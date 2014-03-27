@@ -110,6 +110,10 @@ a.back-to-top {
 #backtotop a{
 	background:#8F554D;
 }
+.footer li a:hover {
+    color: #8F554D;
+}
+
 /*#slides-banner .slidesjs-container{
 	height:356px !important; 
 }*/
