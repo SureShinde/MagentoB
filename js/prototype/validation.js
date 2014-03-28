@@ -836,7 +836,17 @@ Validation.addAllThese([
              return false;
          }
          return true;
-     }]
+     }],
+    ['validate-phone-ext', 'Please enter a valid phone number. Ex: 02129022090 ext 123.', function(v, elm) {
+        var val = v;
+        
+        if (v.substring(0,2) == 62) {
+            $(elm.id).value = v.replace(62, 0);
+            val = v.replace(62, 0);
+        }
+        
+        return Validation.get('IsEmpty').test(val) || /^[ext0-9 ]+$/.test(val);
+    }],
 ]);
 
 function removeDelimiters (v) {

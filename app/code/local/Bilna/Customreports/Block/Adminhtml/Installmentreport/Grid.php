@@ -28,11 +28,12 @@ class Bilna_Customreports_Block_Adminhtml_Installmentreport_Grid extends Mage_Ad
         )->joinLeft(
             array ($this->itemAliasName => Mage::getSingleton('core/resource')->getTableName('sales/order_item')),
             "main_table.entity_id = {$this->itemAliasName}.order_id",
-            array ("{$this->itemAliasName}.installment_type")
+            array ("{$this->itemAliasName}.installment", "{$this->itemAliasName}.installment_type")
         )->group('main_table.entity_id');
         $collection
             ->addFieldToFilter("{$this->paymentAliasName}.method", array ('in' => $orderPaymentAllowed))
             ->addFieldToFilter('main_table.status', array ('in' => $orderStatusAllowed));
+            //->addFieldToFilter("{$this->itemAliasName}.installment", array ('eq' => '1'));
         $this->setCollection($collection);
         
         return parent::_prepareCollection();
@@ -41,7 +42,7 @@ class Bilna_Customreports_Block_Adminhtml_Installmentreport_Grid extends Mage_Ad
     protected function _prepareColumns() {
         $this->addColumn('increment_id', array (
             'header' => Mage::helper('customreports/installmentreport')->__('Order #'),
-            'align' => 'left',
+            'align' => 'center',
             'width' => '80px',
             'index' => 'increment_id',
             'filter_index' => $this->mainAliasName . '.increment_id'
@@ -52,13 +53,14 @@ class Bilna_Customreports_Block_Adminhtml_Installmentreport_Grid extends Mage_Ad
             'index' => 'created_at',
             'filter_index' => $this->mainAliasName . '.created_at',
             'type' => 'datetime',
-            'width' => '100px',
+            'width' => '150px',
         ));
 	  
         $this->addColumn('billing_name', array (
             'header' => Mage::helper('customreports/installmentreport')->__('Bill to Name'),
             'align' => 'left',
-            'index' => 'billing_name'
+            'index' => 'billing_name',
+            'width' => '150px'
         ));
         
         $this->addColumn('telephone', array (
@@ -66,7 +68,7 @@ class Bilna_Customreports_Block_Adminhtml_Installmentreport_Grid extends Mage_Ad
             'align' => 'left',
             'index' => 'telephone',
             'filter_index' => $this->addressAliasName . '.telephone',
-            'width' => '130px'
+            'width' => '90px'
         ));
         
         $this->addColumn('base_grand_total', array (
@@ -90,7 +92,7 @@ class Bilna_Customreports_Block_Adminhtml_Installmentreport_Grid extends Mage_Ad
             'index' => 'method',
             'filter_index' => $this->paymentAliasName . '.method',
             'type'  => 'options',
-            'width' => '100px',
+            'width' => '220px',
             'options' => $this->_preparePaymentOption()
         ));
         
@@ -111,12 +113,23 @@ class Bilna_Customreports_Block_Adminhtml_Installmentreport_Grid extends Mage_Ad
             'filter_index' => $this->paymentAliasName . '.cc_bins'
         ));
         
-        $this->addColumn('installment_type', array(
+        $this->addColumn('installment', array (
             'header' => Mage::helper('customreports/installmentreport')->__('Payment Type'),
+            'align' => 'center',
+            'width' => '70px',
+            'type'  => 'options',
+            'index' => 'installment',
+            'filter_index' => $this->itemAliasName . '.installment',
+            'options' => $this->_preparePaymentTypeOption()
+        ));
+        
+        $this->addColumn('installment_type', array(
+            'header' => Mage::helper('customreports/installmentreport')->__('Tenor'),
             'index' => 'installment_type',
             'filter_index' => $this->itemAliasName . '.installment_type',
-            'width' => '80px',
-            'filter' => false,
+            'width' => '40px',
+            'align' => 'center',
+            //'filter' => false,
             'renderer' => 'Bilna_Customreports_Block_Adminhtml_Renderer_Column_Installment'
         ));
         
@@ -126,14 +139,14 @@ class Bilna_Customreports_Block_Adminhtml_Installmentreport_Grid extends Mage_Ad
     }
     
     protected function _preparePaymentOrderOption() {
-        $orderPaymentAllowed = Mage::getStoreConfig('payment/customreports/payment_allowed');
+        $orderPaymentAllowed = Mage::getStoreConfig('bilna_customreports/installmentreport/payment_allow');
         $orderPaymentAllowedArr = explode(',', $orderPaymentAllowed);
         
         return $orderPaymentAllowedArr;
     }
     
     protected function _prepareStatusOrderOption() {
-        $orderStatusAllowed = Mage::getStoreConfig('payment/customreports/order_status_cicilan');
+        $orderStatusAllowed = Mage::getStoreConfig('bilna_customreports/installmentreport/status_allow');
         $orderStatusAllowedArr = explode(',', $orderStatusAllowed);
         
         return $orderStatusAllowedArr;
@@ -151,7 +164,7 @@ class Bilna_Customreports_Block_Adminhtml_Installmentreport_Grid extends Mage_Ad
     }
     
     protected function _prepareStatusOption() {
-        $status = explode(',', Mage::getStoreConfig('payment/customreports/order_status_cicilan'));
+        $status = $this->_prepareStatusOrderOption();
         $result = array ();
         
         foreach ($status as $key => $value) {
@@ -171,6 +184,15 @@ class Bilna_Customreports_Block_Adminhtml_Installmentreport_Grid extends Mage_Ad
         }
         
         return '';
+    }
+    
+    protected function _preparePaymentTypeOption() {
+        $result = array (
+            0 => 'Full Payment',
+            1 => 'Installment'
+        );
+        
+        return $result;
     }
     
     /**

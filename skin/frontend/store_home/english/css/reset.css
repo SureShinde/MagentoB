@@ -1,0 +1,84 @@
+/**************************
+	Reset
+**************************/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td {
+	margin: 0;
+	padding: 0;
+	outline: 0;
+	border: 0;
+	text-decoration: none;
+	font-size: 100%;
+}
+body {
+	background:none;
+	line-height: 16px;
+}
+h1, h2, h3, h4, h5, h6 {
+	font-weight: normal;
+}
+ol, ul {
+	margin: 0px;
+	padding: 0px;
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+
+.clear {
+	clear: both;
+	line-height: 0;
+	}
+
+/* remember to define focus styles! */
+:focus {
+	outline: 0;
+}
+
+/* remember to highlight inserts somehow! */
+ins {
+	text-decoration: none;
+}
+del {
+	text-decoration: line-through;
+}
+
+
+
+/* tables still need 'cellspacing="0"' in the markup */
+table {
+	border-spacing: 0;
+	border-collapse: collapse;
+}
+p {
+	margin: 0px;
+	padding: 0px;
+}
+img {
+	/* max-width:100%; */
+}
+a {
+	color:#585958;
+}
+input[type="text"], input[type="button"], input[type="submit"], input[type="email"], input[type="search"], input[type="password"], input[type="file"], textarea {
+	-webkit-border-radius: 0px;
+	-moz-border-radius: 0px;
+  	border-radius: 0px;
+  	-webkit-appearance: none;
+  	-moz-appearance: none; /* mobile firefox too! */
+  	-khtml-appearance: none;
+}
+/*Placeholder*/
+::-webkit-input-placeholder { color:#a0a0a0;}
+::-moz-placeholder { color:#a0a0a0;} /* firefox 19+ */
+:-ms-input-placeholder { color:#a0a0a0; } /* ie */
+input:-moz-placeholder { color:#a0a0a0;}

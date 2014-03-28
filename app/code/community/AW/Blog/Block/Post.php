@@ -238,9 +238,10 @@ class AW_Blog_Block_Post extends AW_Blog_Block_Abstract
             ->addFieldToSelect('title')
             ->addFieldToSelect('created_time')
             ->addFieldToSelect('image_name')
+            ->addFieldToSelect('identifier')
             ->setOrder('created_time', 'desc');
-        $posts->addFieldToFilter("awblog_post_cat.cat_id", array ('in' => $catId));
-        $posts->addFieldToFilter("main_table.post_id", array ('neq' => $postId));
+//         $posts->addFieldToFilter("awblog_post_cat.cat_id", array ('in' => $catId));
+//         $posts->addFieldToFilter("main_table.post_id", array ('neq' => $postId));
         $posts->getSelect()
             ->joinLeft(
                 array( 'awblog_post_cat' => Mage::getSingleton('core/resource')->getTableName('blog/post_cat') ),

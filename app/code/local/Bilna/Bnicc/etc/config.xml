@@ -119,7 +119,7 @@
         </routers>
     </admin>
     
-    <adminhtml>
+    <!--adminhtml>
         <layout>
             <updates>
                 <bnicc>
@@ -127,5 +127,5 @@
                 </bnicc>
             </updates>
         </layout>
-    </adminhtml>
+    </adminhtml-->
 </config>

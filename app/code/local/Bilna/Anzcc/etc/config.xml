@@ -127,7 +127,7 @@
         </routers>
     </admin>
   
-    <adminhtml>
+    <!--adminhtml>
         <menu>
             <bilna module="anzcc">
                 <title>Bilna</title>
@@ -171,5 +171,5 @@
                 </anzcc>
             </updates>
         </layout>
-    </adminhtml>
+    </adminhtml-->
 </config>

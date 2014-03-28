@@ -456,11 +456,14 @@
 	margin: 0;
 	border: 0;
 	border-top: 1px #bcbcbc solid;
-	padding: 10px 10px 30px;
-	/* width: auto; */
+	
+	/* width: auto;
+padding: 10px 10px 30px;	
+	margin: 0 2%;
+	*/
 	float: left;
-    margin: 0 2%;
     width: 100%;
+    
 }
 .my-account .order-info-box {
 	background: none;
