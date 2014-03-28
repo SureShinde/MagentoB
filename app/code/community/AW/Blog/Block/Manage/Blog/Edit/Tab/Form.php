@@ -142,6 +142,25 @@ class AW_Blog_Block_Manage_Blog_Edit_Tab_Form extends Mage_Adminhtml_Block_Widge
         );
 
         $fieldset->addField(
+            'is_slider',
+            'select',
+            array(
+                 'label'              => Mage::helper('blog')->__('Use On Slider'),
+                 'name'               => 'is_slider',
+                 'values'             => array(
+                     array(
+                         'value' => 1,
+                         'label' => Mage::helper('blog')->__('Yes'),
+                     ),
+                     array(
+                         'value' => 2,
+                         'label' => Mage::helper('blog')->__('No'),
+                     ),
+                 )
+            )
+        );
+
+        $fieldset->addField(
             'comments',
             'select',
             array(
