@@ -1660,7 +1660,7 @@
 		background-size: 100% auto;
 	}
 	.header .search-mobile .form-search .input-keyword input.input-text {
-		width: 40%;
+		width: 35%;
 	}
 	.header .search-mobile .form-search .input-keyword .select-category select {
 		width: 105px;
