@@ -182,12 +182,12 @@ class AW_Collpur_Block_Dealview extends AW_Collpur_Block_BaseDeal {
 
         $priceInfo = new Varien_Object();
         $price = $this->_currencyHelper->currency($deal->getPrice());
-        $save = $this->_currencyHelper->currency($orig->getFinalPrice() - $deal->getPrice(), true, false);
+        $save = $this->_currencyHelper->currency($orig->getOriginalPrice() - $deal->getPrice(), true, false);
 
         /* Avoide devision by zero */
         $discount = 0;
-        if ($orig->getFinalPrice()) {
-            $discount = ($orig->getFinalPrice() - $deal->getPrice()) / $orig->getFinalPrice() * 100;
+        if ($orig->getOriginalPrice()) {
+            $discount = ($orig->getOriginalPrice() - $deal->getPrice()) / $orig->getOriginalPrice() * 100;
         }
 
         $priceInfo->setPrice($price)
