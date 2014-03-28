@@ -18,6 +18,10 @@
 	color: #707070;
 	font:12px/1.55 Arial, Helvetica, sans-serif;
 }
+.static-page-wrapper ol, .static-page-wrapper ul{
+	list-style:decimal;
+	margin:0 0 0 22px;
+}
 .center-text-sp{text-align:center;}
 .font-base-text {font-family: helvetica, arial;}
 .font-base-text-bold {font-family: helvetica, arial; font-weight: bold;}
