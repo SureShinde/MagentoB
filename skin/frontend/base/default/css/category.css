@@ -29,10 +29,12 @@
 	/* padding: 0 0 12px; */
 	margin: 0 12px 12px;
 	padding: 0;
+}
+.block-layered-nav .lbl-filterby~dd {
 	max-height:145px;
 	overflow-y:auto;
-}
-.hide-filter-bilna dd{
+	}
+.hide-filter-bilna .lbl-filterby~dd{
 	overflow-y:auto !important;
 }
 .block-layered-nav dt, .demo label, .block-layered-nav .block-title strong span, .block-layered-nav .lbl-filterby, a.back-to-top {
