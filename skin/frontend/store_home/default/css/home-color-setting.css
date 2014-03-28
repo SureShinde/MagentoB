@@ -87,10 +87,7 @@ a.back-to-top {
 .shopby ul.shop-by li a:hover {
     color:#8F554D;
 }
-#nav .level-hover{
-	width:auto;
-	padding:0;
-}
+
 #nav ul li .left-columns{
 	width:165px;
 	padding:20px 10px 5px;
