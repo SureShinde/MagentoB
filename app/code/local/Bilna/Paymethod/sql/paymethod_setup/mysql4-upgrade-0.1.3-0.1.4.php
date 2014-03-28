@@ -11,6 +11,6 @@ $installer->run("
 	('458785','megavisa','Visa','Bank Mega'),
 	('464933','megavisa','Visa','Bank Mega'),
 	('472670','megavisa','Visa','Bank Mega'),
-	('524261','megavmc','MasterCard','Bank Mega');
+	('524261','megamc','MasterCard','Bank Mega');
 ");
 $installer->endSetup();
