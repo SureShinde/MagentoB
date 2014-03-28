@@ -42,7 +42,7 @@ class Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Grid extends Mage_Adminhtml_
 		$collection = Mage::getModel('bilna_formbuilder/data')->getCollection();
         $collection->getSelect()->reset(Zend_Db_Select::COLUMNS); //hanya menampilkan kolom yg dipilih
 		$collection->getSelect()
-			->join(array('bff' => 'bilna_formbuilder_form'), 'main_table.form_id = bff.id',array('main_table.record_id', 'main_table.form_id', 'bff.title','main_table.create_date'));
+			->join(array('bff' => 'bilna_formbuilder_form'), 'main_table.form_id = bff.id',array('main_table.record_id', 'bff.title','main_table.create_date'));
 		$collection->getSelect()
 			->joinLeft(array('bfd_name' => 'bilna_formbuilder_data'), "main_table.record_id = bfd_name.record_id AND bfd_name.type = 'g-name'",array('Name' => 'bfd_name.value'));
 		$collection->getSelect()
@@ -72,6 +72,7 @@ class Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Grid extends Mage_Adminhtml_
 		    	'field_name' => 'checkbox_name',
 		    	'values'   => array(1,2),
 			'header_css_class'=>'a-center'
+
 	));
 	*/
 
@@ -157,16 +158,16 @@ class Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Grid extends Mage_Adminhtml_
     {
         $this->setMassactionIdField('form_id');
         $this->getMassactionBlock()->setFormFieldName('formbuilder');
-
+		$this->getMassactionBlock()->setUseSelectAll(true);
         $this->getMassactionBlock()->addItem('delete',
             array(
                 'label' => Mage::helper('bilna_formbuilder')->__('Delete'),
                 'url' => $this->getUrl('*/*/massDelete'),
-                'confirm' => Mage::helper('bilna_formbuilder')->__('Are you sure?')
+                'confirm' => $this->__('Are you sure?')
             ));
 	}
 
-	 /**
+	    /**
      * Grid with Ajax Request
      */
     public function getGridUrl() {
@@ -175,7 +176,7 @@ class Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Grid extends Mage_Adminhtml_
 
     public function getRowUrl($row)
     {
-        return $this->getUrl('*/*/edit', array('record_id' => $row->getRecordId(),'form_id' => $row->getFormId()));
+        return $this->getUrl('*/*/edit', array('id' => $row->getId()));
     }	  
 
 }

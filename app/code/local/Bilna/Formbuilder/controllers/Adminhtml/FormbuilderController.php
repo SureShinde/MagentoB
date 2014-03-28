@@ -8,78 +8,55 @@ class Bilna_Formbuilder_Adminhtml_FormbuilderController extends Mage_Adminhtml_C
         $this->loadLayout();
         $this->_setActiveMenu('bilna/bilna');
         $this->_addContent($this->getLayout()->createBlock('bilna_formbuilder/adminhtml_formbuilder'));
-        //$this->renderLayout();
-		$this->_initAction()
-			 ->renderLayout();
+        $this->renderLayout();
+
+    }
+
+	public function editAction()
+    {
+				$record_id = $this->getRequest()->getParam('record_id');
+				$form_id = $this->getRequest()->getParam('form_id');
+				$recform = array('record_id' => $record_id, 'form_id' => $form_id);
+
+				$collection = Mage::getModel('bilna_formbuilder/data')->getCollection();
+				$collection->getSelect()->where('record_id = '.$record_id.' and form_id = '.$form_id);
+
+				Mage::register('formbuilder_form', $recform);
+
+				if ($collection->count()>0) {
+						
+						$this->loadLayout();
+						$this->_setActiveMenu('bilna/bilna');
+						$this->_addContent($this->getLayout()->createBlock('bilna_formbuilder/adminhtml_formbuilder_edit'))
+								 ->_addLeft($this->getLayout()->createBlock('bilna_formbuilder/adminhtml_formbuilder_edit_tabs'));
+						$this->renderLayout();
+				}
+				else {
+							$this->_redirect('*/*/index');
+              return;
+				}
+
+/*Mage::register('collpur_deal', $deal);
+ if ($deal->getId()) {
+
+                if(!Mage::getModel('catalog/product')->load($deal->getProductId())->getId()) {
+                      Mage::getSingleton('adminhtml/session')->addError(Mage::helper('collpur')->__('Error: associated product has been deleted'));
+                      return $this->_redirect('*//*/');
+                }
+            $breadcrumbTitle = $breadcrumbLabel = Mage::helper('collpur')->__('Edit Deal');
+            $this->displayTitle('Edit Deal');
+        } else {
+            $breadcrumbTitle = $breadcrumbLabel = Mage::helper('collpur')->__('New Deal');
+            $this->displayTitle('New Deal');
+        }*/
+
     }
 
 	public function newAction()
 	{
 		//forward new action to a blank edit form
 		$this->_forward('edit');
-	}
-
-	public function editAction()
-	{
-		$this->_initAction()
-
-		//get id if available
-		$form_id = $this->getRequest()->getParam('form_id');
-		$model = Mage::getModel('bilna_formbuilder/formbuilder');
-
-		if ($form_id) {
-			//load record
-			$model->load($form_id);
-
-			//check if record is loaded
-			if (!$model->getForm_Id) {
-				Mage::getSingleton('adminhtml/session')->addError($this->__('This formbuilder no longer exists.'));
-				$this->_redirect('*/*/');
-
-				return;
-			}
-		}
-
-		$this->_title($model->getForm_Id() ? $model->getName() : $this->__('New Formbuilder'));
-
-		$data = Mage::getSingleton('adminhtml/session')->getFormbuilderData(true);
-		if (!empty($data)) {
-			$model->setData($data);		
-		}
-
-		Mage::register('bilna_formbuilder', $model);
-
-		$this->_initAction()
-			->_addBreadcrumb($form_id ? $this->__('Edit Formbuilder') : $this->__('New Formbuilder'), $form_id ? $this->__('Edit Formbuilder') : $this->__('New Formbuilder'))
-			->_addContent($this->getLayout()->createBlock('bilna_formbuilder/adminhtml_formbuilder_edit')->setData('action', $this->getUrl('*/*/save')))
-			->renderLayout();
-	}
-
-	public function saveAction()
-	{
-		if ($postData = $this->getrequest()->getPost()) {
-		$model = Mage::getSingleton('bilna_formbuilder/formbuilder');
-		$model->setData($postData);
-
-		try {
-				$model->save();
-
-				Mage::getSingleton('adminhtml/session')->addSuccess($this->__('The formbuilder has been saved'));
-				$this->_redirect('*/*/');
-
-				return;
-			}
-			catch (Mage_Core_Exception $e) {
-				Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
-			}
-			catch (Exception $e) {
-				Mage::getSingleton('adminhtml/session')->addError($this->__('An error occured while saving this formbuilder'));
-			}
-
-			Mage::getSingleton('adminhtml/session')->setFormbuilderData($postData);
-			$this->_redirectReferer();
-		}
-	}
+	}	
 
 	public function messageAction()
     {
@@ -89,9 +66,7 @@ class Bilna_Formbuilder_Adminhtml_FormbuilderController extends Mage_Adminhtml_C
 
 	/**
      * Initialize action
-     *
      * Here, we set the breadcrumbs and the active menu
-     *
      * @return Mage_Adminhtml_Controller_Action
      */
     protected function _initAction()
@@ -108,7 +83,6 @@ class Bilna_Formbuilder_Adminhtml_FormbuilderController extends Mage_Adminhtml_C
 
 	/**
      * Check currently called action by permissions for current user
-     *
      * @return bool
      */
     protected function _isAllowed()
@@ -123,16 +97,17 @@ class Bilna_Formbuilder_Adminhtml_FormbuilderController extends Mage_Adminhtml_C
             $this->getLayout()->createBlock('bilna_formbuilder/adminhtml_formbuilder_grid')->toHtml()
         );
     }
-	/** 
+
+		/** 
      * Export order grid to CSV format 
      */ 
     public function exportCsvAction() 
     { 
-        $fileName   = 'bilna_formbuilder'. date('dmYHis') .'.csv';
-        $grid       = $this->getLayout()->createBlock('Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Grid');
-		//$grid       = $this->getLayout()->createBlock('adminhtml/bilna_formbuilder_grid');
-        //$this->_prepareDownloadResponse($fileName, $grid->getCsv());
-		$this->_prepareDownloadResponse($fileName, $grid->getCsvFile()); 
+      $fileName   = 'bilna_formbuilder'. date('dmYHis') .'.csv';
+      $grid       = $this->getLayout()->createBlock('Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Grid');
+			//$grid       = $this->getLayout()->createBlock('adminhtml/bilna_formbuilder_grid');
+      //$this->_prepareDownloadResponse($fileName, $grid->getCsv());
+			$this->_prepareDownloadResponse($fileName, $grid->getCsvFile()); 
     }
 
 }

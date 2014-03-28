@@ -2,54 +2,49 @@
 
 class Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Edit_Form extends Mage_Adminhtml_Block_Widget_Form
 {
-    /**
-     * Init class
-     */
-    public function __construct()
-    {  
+
+	   public function __construct()
+   {
         parent::__construct();
-     
-        $this->setId('bilna_formbuilder_formbuilder_form');
-        $this->setTitle($this->__('Formbuilder Information'));
-    }  
-     
-    /**
-     * Setup form fields for inserts/updates
-     *
-     * return Mage_Adminhtml_Block_Widget_Form
-     */
-    protected function _prepareForm()
-    {  
-        $model = Mage::registry('bilna_formbuilder');
-     
-        $form = new Varien_Data_Form(array(
-            'form_id'	=> 'edit_form',
-            'action'    => $this->getUrl('*/*/save', array('form_id' => $this->getRequest()->getParam('form_id'))),
-            'method'    => 'post'
-        ));
-     
-        $fieldset = $form->addFieldset('base_fieldset', array(
-            'legend'    => Mage::helper('bilna_formbuilder')->__('Formbuilder Information'),
-            'class'     => 'fieldset-wide',
-        ));
-     
-        if ($model->getId()) {
-            $fieldset->addField('form_id', 'hidden', array(
-                'name' => 'form_id',
-            ));
-        }  
-     
-        $fieldset->addField('name', 'text', array(
-            'name'      => 'name',
-            'label'     => Mage::helper('bilna_formbuilder')->__('Name'),
-            'title'     => Mage::helper('bilna_formbuilder')->__('Name'),
-            'required'  => true,
-        ));
-     
-        $form->setValues($model->getData());
-        $form->setUseContainer(true);
-        $this->setForm($form);
-     
+        $this->setId('formbuilder_tabs');
+        //$this->setDestElementId('edit_form');
+        //$this->setTitle('Form Information');
+				$this->setTitle(Mage::helper('bilna_formbuilder')->__('Form Information'));
+    }
+
+   protected function _prepareForm()
+   {
+			//$formbuilder = Mage::registry('formbuilder_formbuilder');
+      //$form = new Varien_Data_Form();
+			$form = new Varien_Data_Form(array('id' => 'edit_form', 'action' => $this->getData('action'), 'method' => 'post', 'enctype' => 'multipart/form-data'));
+			$form->setUseContainer(true);
+			$this->setForm($form);
+      return parent::_prepareForm();
+
+        //$form = new Varien_Data_Form(array('id' => 'edit_form', 'action' => $this->getData('action'), 'method' => 'post', 'enctype' => 'multipart/form-data'));
+        //$form->setUseContainer(true);
+        //$this->setForm($form);
         return parent::_prepareForm();
-    } 
+
+     /* $fieldset = $form->addFieldset('formbuilder_form',
+          array(
+								'legend' => Mage::helper('bilna_formbuilder')->__('Form Details'),
+								)
+																	);
+			$form->setHtmlIdPrefix('formbuilder_');
+
+      $fieldset->addField('Name', 'text',
+             array(
+                'name' => 'name',
+                'label' => Mage::helper('bilna_formbuilder')->__('Name'),
+                'title' => Mage::helper('bilna_formbuilder')->__('Name'),
+								'readonly' => true,
+								'index' => 'Name',
+								'value' => 'Name',
+          ));*/
+
+        //$form->setValues($deal->getData());
+        //$this->setForm($form);
+        //return parent::_prepareForm();
+		}
 }
