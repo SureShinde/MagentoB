@@ -153,7 +153,7 @@ class AW_Blog_Block_Manage_Blog_Edit_Tab_Form extends Mage_Adminhtml_Block_Widge
                          'label' => Mage::helper('blog')->__('Yes'),
                      ),
                      array(
-                         'value' => 2,
+                         'value' => 0,
                          'label' => Mage::helper('blog')->__('No'),
                      ),
                  )

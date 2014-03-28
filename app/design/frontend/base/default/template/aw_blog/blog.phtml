@@ -1,4 +1,6 @@
-<?php $posts = $this->getCategoriesPosts(); ?>
+<?php $posts = $this->getCategoriesPosts(); 
+$slider = $this->getSliderPost();
+?>
 
     <div>
 		
@@ -11,19 +13,20 @@
 					<div id="banner-slide">
 
 						<ul class="bjqs">
+						  <?php foreach ($slider as $row): ?>
 						  <li>
-								<img src="http://assets.bilna.com/media/aw_islider/TANYA-AHLI-SLIDER-RESIZE2.jpg" /></br>
+								<img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA);?><?php echo $row->getImageName();?>" /></br>
 								<div class="postTitle" style="clear: both;">
-									<h2>Bagaimana cara mengajarkan anak salto</h2>
+									<h2><?php echo $row->getTitle(); ?></h2>
 									<p style="padding-right: 10px;">
-										Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod 
-										tincidunt ut laoreet dolore magna aliquam erat volutpat.
+										<?php echo $row->getShortContent(); ?>
 									</p>
-									<a class="aw-blog-read-more">Read more</a>
+									<a class="aw-blog-read-more" href="<?php echo $row->getAddress(); ?>">Read more</a>
 								</div>
 								<div style="clear: both;"></div>
 						  </li>
-						  <li>
+							<?php endforeach; ?> 
+						  <!-- <li>
 								<img src="http://assets.bilna.com/media/aw_islider/VITALAC-SLIDER-RESIZE%20(1).jpg" />
 								<div class="postTitle" style="clear: both;">
 									<h2>Cara anak minum menggunakan telinga</h2>
@@ -44,7 +47,7 @@
 									</p>
 									<a class="aw-blog-read-more">Read more</a>
 								</div>
-						  </li>
+						  </li> -->
 						</ul>
 						
 					</div>
