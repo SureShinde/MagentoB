@@ -56,6 +56,7 @@ class AW_Blog_Block_Blog extends AW_Blog_Block_Abstract
                 ->addEnableFilter(AW_Blog_Model_Status::STATUS_ENABLED)
                 ->addStoreFilter()
                 ->addFieldToSelect('title')
+                ->addFieldToSelect('identifier')
                 ->addFieldToSelect('created_time')
                 ->addFieldToSelect('image_name')
                 ->addFieldToSelect('short_content')
