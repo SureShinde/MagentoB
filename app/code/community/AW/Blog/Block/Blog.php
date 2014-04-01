@@ -79,6 +79,22 @@ class AW_Blog_Block_Blog extends AW_Blog_Block_Abstract
         return $data;
     }
 
+    public function getSliderPost()
+    {
+        $collection = Mage::getModel("blog/blog")->getCollection()
+                ->addPresentFilter()
+                ->addEnableFilter(AW_Blog_Model_Status::STATUS_ENABLED)
+                ->addStoreFilter()
+                ->addFieldToSelect('title')
+                ->addFieldToSelect('created_time')
+                ->addFieldToSelect('image_name')
+                ->addFieldToSelect('short_content')
+                ->setOrder('created_time', 'desc');
+        $collection->addFieldToFilter("main_table.is_slider", array ('eq' => 1));
+
+        return $collection;              
+    }
+
     public function getCategory()
     {
         return Mage::getSingleton('blog/cat');
