@@ -10,6 +10,7 @@ class Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Edit_Tabs_Form extends Mage_
 		$this->setForm($form);
 		$form->setHtmlIdPrefix('formbuilder_');
 		$fieldset = $form->addFieldset('formbuilder_form', array('legend' => Mage::helper('bilna_formbuilder')->__('Details')));
+echo $fieldset;
 
 		$collection = Mage::getModel('bilna_formbuilder/data')->getCollection();
 		$collection->getSelect()->join(array('bfi' => 'bilna_formbuilder_input'), 'main_table.form_id = bfi.form_id AND main_table.`type` = bfi.`group`', array('bfi.title'));
@@ -24,32 +25,15 @@ WHERE `main_table`.form_id = '1' AND `main_table`.record_id = '1'*/
 		$this->setCollection($collection);
 		$collection->printLogQuery(true);
 		foreach($collection->getData() as $detail){
-		Zend_Debug::dump($detail);//die;
-
-		}
-
-				$fieldset->addField('value', 'label', array(
-             'label'     => Mage::helper('bilna_formbuilder')->__('Name'),
-             'class'     => 'required-entry',
+				$fieldset->addField($detail['type'], 'label', array(
+             'label'     => $detail['title'],
+             //'class'     => 'required-entry',
              //'required'  => true,
-             'name'      => 'g-name',
+             'name'      => 'type',
+             'value'      => $detail['value'],
              //'note'     => Mage::helper('bilna_formbuilder')->__('The name of the example.'),
         ));
-
-				$fieldset->addField('g-email', 'label', array(
-             'label'     => Mage::helper('bilna_formbuilder')->__('Email'),
-             'class'     => 'required-entry',
-             //'required'  => true,
-             'name'      => 'g-email',
-        ));
-
-
-				$fieldset->addField('g-phone', 'label', array(
-             'label'     => Mage::helper('bilna_formbuilder')->__('Phone'),
-             'class'     => 'required-entry',
-             //'required'  => true,
-             'name'      => 'g-phone',
-        ));
+		}
  
         return parent::_prepareForm();
 	}
