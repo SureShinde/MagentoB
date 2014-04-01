@@ -83,7 +83,7 @@ class AW_Blog_Block_Blog extends AW_Blog_Block_Abstract
     public function getSliderPost()
     {
         $collection = Mage::getModel("blog/blog")->getCollection()
-                ->addPresentFilter()
+                //->addPresentFilter()
                 ->addEnableFilter(AW_Blog_Model_Status::STATUS_ENABLED)
                 ->addStoreFilter()
                 ->addFieldToSelect('title')
