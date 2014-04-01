@@ -43,6 +43,10 @@ class AW_Advancedreports_Model_System_Config_Source_Datefilter
                 'value' => 'invoice_created_at',
                 'label' => Mage::helper('advancedreports')->__('Invoice Created Date')
             ),
+            array(
+                'value' => 'shipment_created_at',
+                'label' => Mage::helper('advancedreports')->__('Shipment Created Date')
+            ),
         );
     }
 }

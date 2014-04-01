@@ -279,8 +279,19 @@
 	text-align: right;
 }
 .header .menu-top {
-	left: 0;
-	width: 285px;
+	left: 175px;
+    width: auto;
+}
+
+.header .menu-top:before {
+    background: none repeat scroll 0 0 #95E1F1;
+    content: "";
+    height: 4px;
+    left: -300%;
+    position: absolute;
+    right: 0;
+    top: -4px;
+    width: 300%;
 }
 .header .menu-blog {
 	right:0;
@@ -314,6 +325,9 @@
 .menu-top ul li:last-child:hover {
 	/* background: #ffb39c; */
 	background: #95e1f1;
+}
+.menu-top ul li.home-menu:hover {
+	background: #ffb29d;
 }
 .menu-blog span {
 	background: #95e1f1;
@@ -633,6 +647,10 @@
 { 
 	content:" / ";
 }
+.header .my-account-mobile .links li.login:after
+{ 
+	content:" ";
+}
 .header .links li {
 	float: none;
 	background: none;
@@ -681,7 +699,7 @@
 .header .links li.myaccount .toplink-myaccount, .menu-tablet .links li.myaccount .toplink-myaccount {
 	display: none;
 	position: absolute;
-	top: 18px;
+	top: 0px;
 	left: 0;
 	background: #fff;
 	padding: 10px;
@@ -689,7 +707,7 @@
 	-webkit-box-shadow: 1px 1px 4px 0 #ccc;
 	-moz-box-shadow: 1px 1px 4px 0 #ccc;
 	box-shadow: 1px 1px 4px 0 #ccc;
-	width: 130px;
+	width: 97%;
 }
 .header .links li.myaccount .toplink-myaccount ul li, .menu-tablet .links li.myaccount .toplink-myaccount ul li  {
 	border-top: 1px solid #dadada;
@@ -898,6 +916,8 @@
 }
 .header .my-account-mobile {
 	display: none;
+    width: 94%;
+    padding: 0 3%;
 }
 /*header menu*/
 .nav-container {
@@ -935,7 +955,7 @@
 	letter-spacing: normal;
 	background: url(../images/arrow-menu.png) no-repeat right center;
 }
-#nav ul li a.bestseller, #nav ul li a.whatsnew, #nav ul li a.onsale {
+#nav ul li a.bestseller, #nav ul li a.whatsnew, #nav ul li a.onsale, #nav ul li a.whatsonsale {
 	font-weight: bold !important;
 	background-image: url(../images/arrow-color.png);
 	background-repeat: no-repeat;
@@ -951,6 +971,10 @@
 #nav ul li a.onsale {
 	color: #fc8360 !important; 
 	background-position: right -45px;
+}
+#nav ul li a.whatsonsale {
+	color: #fc8360 !important; 
+	background-position: right -43px;
 }
 #nav ul li.level-top {
 	position: relative;
@@ -1255,9 +1279,6 @@
 }
 .menu-tablet .form-language, .menu-tablet .store-phone, .menu-tablet ul.links {
 	float: right;
-}
-.menu-tablet .form-language, .menu-tablet .store-phone {
-	margin-top: 5px;
 }
 .menu-tablet .form-language {
 	margin-right: 10px;
@@ -1645,7 +1666,7 @@
 		background-size: 100% auto;
 	}
 	.header .search-mobile .form-search .input-keyword input.input-text {
-		width: 40%;
+		width: 35%;
 	}
 	.header .search-mobile .form-search .input-keyword .select-category select {
 		width: 105px;

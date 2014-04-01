@@ -48,7 +48,6 @@ $j(document).ready(function(){
 			$j('.nav-container').slideToggle();
 		});
 		$j('#link-minicart').click(function(e){
-			console.log(123);
 			e.preventDefault();
 			$j('.nav-container').slideUp();
 			$j('.my-account-mobile').slideUp();
@@ -114,7 +113,11 @@ $j(document).ready(function(){
 		<div class="sticky-header">
 			<a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="sticky-logo"><img src="<?php echo $this->getSkinUrl(); ?>images/logo-sticky.png" alt="<?php echo $this->getLogoAlt() ?>" /></a>
 			<ul class="sticky-menu">
-				<li><a href="#"><?php echo $this->__('Today\'s Promo') ?></a></li>
+				<li class="td-promo"><a class="td-promo" href="#"><?php echo $this->__('Today\'s Promo') ?></a>
+					<div class="td-promo-cont">
+						<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('today-promo-block')->toHtml() ?>
+					</div>
+				</li>
 				<li class="link-free-voucher">
 					<a href="#"><?php echo $this->__('Get Free Voucher!') ?></a>
 					<div class="free-voucher-info">
@@ -123,7 +126,11 @@ $j(document).ready(function(){
 						<div class="header-newsletter"><?php echo $this->getChildHtml('header.newsletter'); ?></div>
 					</div>
 				</li>
-				<li class="link-customer-care"><a href="#" ><?php echo $this->__('Customer Care Center') ?></a></li>
+				<li class="link-customer-care td-contact-sticky">
+					<a href="#"><?php echo $this->__('Customer Care Center') ?></a></br>
+					<div class="td-contact-sticky-cont"><?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('contact-sticky-detail')->toHtml() ?>
+					</div>
+				</li>
 				<div class="clear"></div>
 			</ul>
 			<div class="sticky-top-cart">
@@ -146,24 +153,28 @@ $j(document).ready(function(){
 		    	<li class="active"><a href="/deals"><?php echo $this->__('Daily Deals') ?></a></li>
 	    	</ul>
     	</div>
-    	<!--<div class="menu-blog"><span><a href="#"><?php echo $this->__('Blog') ?></a></span></div>-->
-        <?php if ($this->getIsHomePage()):?>
-        <h1 class="logo"><strong><?php echo $this->getLogoAlt() ?></strong><a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="logo"><img src="<?php echo $this->getSkinUrl(); ?>images/logo.png" alt="<?php echo $this->getLogoAlt() ?>" /></a></h1>
-        <?php else:?>
-        <a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="logo"><strong><?php echo $this->getLogoAlt() ?></strong><img src="<?php echo $this->getSkinUrl(); ?>images/logo.png" alt="<?php echo $this->getLogoAlt() ?>" /></a>
-        <?php endif?>
-        <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('keypoint')->toHtml() ?>
-        <div class="quick-access">
+		<div class="quick-access">
         	<a href="#" class="link-blog-mobile"><?php echo $this->__('Blog') ?></a>
         	<a href="#" class="link-myaccount-mobile"><?php echo $this->__('My Account') ?></a>
         	<div class="top-cart">
         		<?php $_totalItem = $this->helper('checkout/cart')->getSummaryCount();  //get total items in cart ?>
         		<a href="#" class="link-minicart" id="link-minicart"><?php echo $this->__('View Cart(').$_totalItem.$this->__(')') ?></a>
-        		<a href="<?php echo $this->getCheckoutUrl() ?>" class="link-checkout"><?php echo $this->__('Checkout') ?></a>
+        		<a href="<?php echo $this->getUrl('checkout/cart'); ?>" class="link-checkout"><?php echo $this->__('Checkout') ?></a>
         		<!--<a href="#" class="link-blog"><span><?php //echo $this->__('Blog') ?></span></a>-->
         		<div class="clear"></div>
         		<div class="mini-cart"><?php echo $this->getChildHtml('topcart') ?></div>
         	</div>
+			<div class="menu-tablet">
+				<div class="header-container">
+					<div class="store-phone">
+						<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('store_phone')->toHtml() ?>
+					</div>
+				<?php echo $this->getChildHtml('topLinks') ?>
+				
+				<?php echo $this->getChildHtml('store_language') ?>
+				<div class="clear"></div>
+				</div>
+			</div>
         	<div class="left">
 	        	<div class="store-phone">
 	        		<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('store_phone')->toHtml() ?>
@@ -179,6 +190,14 @@ $j(document).ready(function(){
             <?php echo $this->getChildHtml('store_language') ?>
             <div class="clear"></div>
         </div>
+    	<!--<div class="menu-blog"><span><a href="#"><?php echo $this->__('Blog') ?></a></span></div>-->
+        <?php if ($this->getIsHomePage()):?>
+        <h1 class="logo"><strong><?php echo $this->getLogoAlt() ?></strong><a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="logo"><img src="<?php echo $this->getSkinUrl(); ?>images/logo.png" alt="<?php echo $this->getLogoAlt() ?>" /></a></h1>
+        <?php else:?>
+        <a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="logo"><strong><?php echo $this->getLogoAlt() ?></strong><img src="<?php echo $this->getSkinUrl(); ?>images/logo.png" alt="<?php echo $this->getLogoAlt() ?>" /></a>
+        <?php endif?>
+        <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('keypoint')->toHtml() ?>
+        
         <?php echo $this->getChildHtml('topContainer'); ?>
         <div class="nav-mobile"><?php //echo $this->getChildHtml('topMenu') ?></div>
         <div class="mini-cart-mobile"><?php echo $this->getChildHtml('topcart') ?></div>
@@ -186,7 +205,7 @@ $j(document).ready(function(){
         <div class="my-account-mobile"><?php echo $this->getChildHtml('topLinks') ?></div>
     </div>
 </div>
-<?php echo $this->getChildHtml('topMenu') ?>
+<?php //echo $this->getChildHtml('topMenu') ?>
 
 <!--this is for testing only-->
 <?php //echo $this->getLayout()->createBlock("core/template")->setTemplate("page/template/bottommenu.phtml")->toHtml(); ?>
@@ -195,3 +214,26 @@ if you want to call it from cms page, please use this
 {{block type="core/template" template="page/template/bottommenu.phtml"}}
 -->
 <!--end for testing only-->
+
+<script>
+ jQuery(document).ready(function(){
+  jQuery(".td-promo").mouseover(function(){
+    jQuery(".td-promo-cont").show();
+	jQuery(".td-promo").addClass('bg-white');
+  });	
+  jQuery(".td-promo").mouseleave(function(){
+    jQuery(".td-promo-cont").hide();
+	jQuery(".td-promo").removeClass('bg-white');
+  });
+  
+  jQuery(".td-contact-sticky").mouseover(function(){
+    jQuery(".td-contact-sticky-cont ").show();
+	jQuery(".td-contact-sticky").addClass('bg-white');
+  });	
+  jQuery(".td-contact-sticky").mouseleave(function(){
+    jQuery(".td-contact-sticky-cont ").hide();
+	jQuery(".td-contact-sticky").removeClass('bg-white');
+  });
+  
+});
+</script>

@@ -750,7 +750,7 @@ class AW_Ajaxlogin_IndexController extends Mage_Core_Controller_Front_Action {
     protected function __relatedToCustomerAccountRoutine($location) {
         $__customerAccountRoutines = array(
             Mage::getUrl('customer'),
-            Mage::getUrl('sales/order/history'),
+//             Mage::getUrl('sales/order/history'),
             Mage::getUrl('sales/billing_agreement'),
             Mage::getUrl('sales/recurring_profile'),
             Mage::getUrl('review/customer'),

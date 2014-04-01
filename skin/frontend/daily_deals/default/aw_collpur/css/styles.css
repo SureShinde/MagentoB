@@ -242,10 +242,9 @@ button.awcp-button span span {
 }
 
 .awcp-product-img-box .awcp-product-img {
-    padding: 2px;
     background-color: #FFF;
 	width:100%;
-	width:798px;
+	width:907px;
 	max-width:none;
 	position:absolute;
 }
@@ -408,9 +407,7 @@ table.awcp-pricedata th.last {
     font-weight: bold;
 }
 
-.awcp-deal-mark2 .content {
-    background: #f7f7f7 url(../images/icon-check-huge.png) 0 50% no-repeat;
-}
+
 
 .awcp-deal-mark2 .awcp-bought {
     font-weight: bold;
@@ -590,6 +587,7 @@ LI#googleplusli {
 /*detail deals*/
 .awcp-options .awcp-buy{
 }
+
 .orbit-caption .awcp-buy{
 	margin:0 !important;
 }
@@ -618,11 +616,14 @@ LI#googleplusli {
 	list-style:decimal;
 }
 .share{
-	display:table;
     float: right;
     position: absolute;
     right:0;
 	bottom:45px;
+	display:table;
+}
+.share a{
+	float:left;
 }
 .awcp-product-name p{
 	font-size:12px;
@@ -780,7 +781,7 @@ table.awcp-pricedata tr:nth-child(1) td{
 	display:block;
 	content:"";
 	border-color:transparent transparent transparent #f75a2f;
-	border-width:20px 20px 20px 20px;
+	border-width:20px 16px;
 	position:absolute;
 	top:0;
 	border-style:solid none solid solid;
@@ -1072,8 +1073,10 @@ table.awcp-pricedata tr:nth-child(1) td{
 		padding:5px 18px;
 	}
 	
+	
 	}
-@media only screen and (max-width: 40em) { 
+@media only screen and (max-width: 40em) {
+
 	
 .slider2_container 	
 	.prev_page{
@@ -1182,5 +1185,18 @@ table.awcp-pricedata tr:nth-child(1) td{
 	}
 	
 }
-
-
+@media only screen and (min-width: 40.063em) and (max-width: 64em) { 
+.awcp-product-img-box .awcp-product-img{
+	width:inherit;
+	height:386px;
+}
+} 
+@media only screen and (min-width: 64.063em){
+.wrapper > div.page > div.main-container.col1-layout > div > div > div.row.main_detail > div.large-4.medium-4.columns.left_detail{
+	width: 25% !important;
+	height:384px;
+}
+.wrapper > div.page > div.main-container.col1-layout > div > div > div.row.main_detail > div.large-8.medium-8.columns.right_detail {
+width: 75% !important;
+}
+}

@@ -5,7 +5,7 @@
  * @author Bilna Development Team <development@bilna.com>
  */
 
-class Bilna_Customreports_Adminhtml_InstallmentreportController extends Mage_Adminhtml_Controller_action {
+class Bilna_Customreports_Adminhtml_InstallmentreportController extends Mage_Adminhtml_Controller_Action {
     public function indexAction() {
         $this->_title($this->__('Credit Card Report'));
         $this->loadLayout();
