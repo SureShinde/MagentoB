@@ -14,9 +14,10 @@
  *
  * @category   Brim
  * @package    Brim_PageCache
- * @copyright  Copyright (c) 2011-2013 Brim LLC
+ * @copyright  Copyright (c) 2011-2014 Brim LLC
  * @license    http://ecommerce.brimllc.com/license
  */
+
 
 class Brim_PageCache_Model_Cron
 {
@@ -36,5 +37,35 @@ class Brim_PageCache_Model_Cron
         }
 
         $engine->getCache()->clean(Zend_Cache::CLEANING_MODE_OLD);
+    }
+
+    /**
+     * Clean up the database cache tags.
+     *
+     * @param Mage_Cron_Model_Schedule $schedule
+     * @return $this
+     */
+    public function cleanOrphanedTags(Mage_Cron_Model_Schedule $schedule) {
+
+        try {
+
+            if (Mage::getStoreConfig(Brim_PageCache_Model_Config::XML_PATH_STORAGE_TYPE) == Brim_PageCache_Model_Config::STORAGE_TYPE_DATABASE
+                || Mage::getStoreConfig(Brim_PageCache_Model_Config::XML_PATH_STORAGE_SLOW_BACKEND) == Brim_PageCache_Model_Config::STORAGE_TYPE_DATABASE) {
+
+                /** @var Mage_Core_Model_Resource $resource */
+                $resource     = Mage::getSingleton('core/resource');
+
+                $dataTable    = $resource->getTableName('brim_pagecache/cache');
+                $tagsTable    = $resource->getTableName('brim_pagecache/cache_tag');
+
+                $resource->getConnection('core_write')->delete($tagsTable, "cache_id NOT IN (SELECT id FROM {$dataTable})");
+
+            }
+
+        } catch (Exception $e) {
+            Mage::logException($e);
+        }
+
+        return $this;
     }
 }
