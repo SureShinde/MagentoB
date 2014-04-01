@@ -279,8 +279,19 @@
 	text-align: right;
 }
 .header .menu-top {
-	left: 0;
-	width: 285px;
+	left: 175px;
+    width: auto;
+}
+
+.header .menu-top:before {
+    background: none repeat scroll 0 0 #95E1F1;
+    content: "";
+    height: 4px;
+    left: -300%;
+    position: absolute;
+    right: 0;
+    top: -4px;
+    width: 300%;
 }
 .header .menu-blog {
 	right:0;
@@ -314,6 +325,9 @@
 .menu-top ul li:last-child:hover {
 	/* background: #ffb39c; */
 	background: #95e1f1;
+}
+.menu-top ul li.home-menu:hover {
+	background: #ffb29d;
 }
 .menu-blog span {
 	background: #95e1f1;
@@ -935,7 +949,7 @@
 	letter-spacing: normal;
 	background: url(../images/arrow-menu.png) no-repeat right center;
 }
-#nav ul li a.bestseller, #nav ul li a.whatsnew, #nav ul li a.onsale {
+#nav ul li a.bestseller, #nav ul li a.whatsnew, #nav ul li a.onsale, #nav ul li a.whatsonsale {
 	font-weight: bold !important;
 	background-image: url(../images/arrow-color.png);
 	background-repeat: no-repeat;
@@ -951,6 +965,10 @@
 #nav ul li a.onsale {
 	color: #fc8360 !important; 
 	background-position: right -45px;
+}
+#nav ul li a.whatsonsale {
+	color: #fc8360 !important; 
+	background-position: right -43px;
 }
 #nav ul li.level-top {
 	position: relative;
@@ -1161,7 +1179,11 @@
 	left:0;
 	z-index: 9;
 	padding-top: 10px;
+	-webkit-box-shadow: 1px 1px 4px 0 #ccc;
+		-moz-box-shadow: 1px 1px 4px 0 #ccc;
+		box-shadow: 1px 1px 4px 0 #ccc;
 }
+
 #nav .shopby ul.shop-by {
 	margin-right: 20px;
 }
@@ -1251,9 +1273,6 @@
 }
 .menu-tablet .form-language, .menu-tablet .store-phone, .menu-tablet ul.links {
 	float: right;
-}
-.menu-tablet .form-language, .menu-tablet .store-phone {
-	margin-top: 5px;
 }
 .menu-tablet .form-language {
 	margin-right: 10px;

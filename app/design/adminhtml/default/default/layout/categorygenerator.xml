@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<layout>
+    <categorygenerator_admin_adminhtml_generator_index>
+        <reference name="content">
+            <block type="categorygenerator/adminhtml_generator" name="categorygenerator" />
+        </reference>
+    </categorygenerator_admin_adminhtml_generator_index>
+    <categorygenerator_admin_adminhtml_generator_edit>
+    	<reference name="head">
+            <action method="setCanLoadExtJs"><flag>1</flag></action>
+            <action method="setCanLoadRulesJs"><flag>1</flag></action>
+            <action method="addJs"><script>prototype/window.js</script></action>
+            <action method="addJs"><script>extjs/ext-tree.js</script></action>
+            <action method="addJs"><script>extjs/ext-tree-checkbox.js</script></action>
+        </reference>
+    	<reference name="left">
+    		<block type="categorygenerator/adminhtml_generator_edit_tabs" name="generator_adminhtml_edit_tabs">
+    			<block type="categorygenerator/adminhtml_generator_edit_tab_main" name="generator_adminhtml_edit_tab_main"/>
+    			<block type="categorygenerator/adminhtml_generator_edit_tab_conditions" name="generator_adminhtml_edit_tab_conditions"/>
+    			<block type="categorygenerator/adminhtml_generator_edit_tab_categories" name="generator_adminhtml_edit_tab_categories"/>
+    			<action method="addTab"><name>main_section</name><block>generator_adminhtml_edit_tab_main</block></action>
+                <action method="addTab"><name>conditions_section</name><block>generator_adminhtml_edit_tab_conditions</block></action>
+                <action method="addTab"><name>categories_section</name><block>generator_adminhtml_edit_tab_categories</block></action>
+    		</block>
+    	</reference>
+        <reference name="content">
+            <block type="categorygenerator/adminhtml_generator_edit" name="categorygenerator_edit" />
+        </reference>
+    </categorygenerator_admin_adminhtml_generator_edit>
+</layout>
