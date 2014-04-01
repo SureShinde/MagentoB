@@ -10,10 +10,10 @@
 }
 .account-login .content {
 	background: none;
-	-webkit-border-radius: 20px;
+	/* -webkit-border-radius: 20px;
 	-moz-border-radius: 20px;
 	border-radius: 20px;
-	border-bottom: 1px solid #bbb6a5;
+	border-bottom: 1px solid #bbb6a5; */
 }
 .account-login .new-users h2, 
 .account-login .registered-users h2 {
@@ -42,6 +42,9 @@
 .account-login .buttons-set {
 	background: none;
 	border: 0;
+    background: url(../images/dash-orange.png) top repeat-x;
+    padding-top: 30px;
+    margin-top: 20px !important;
 }
 .account-login .buttons-set button.button span {
 	border: 0;
@@ -91,6 +94,9 @@
 	border-top: 0;
 	margin-top: 0;
 	margin-left: 15px;
+    background: url(../images/dash-orange.png) top repeat-x;
+    padding-top: 30px;
+    margin-top: 20px;
 }
 .account-create .buttons-set .required, 
 .account-create .buttons-set .back-link {
@@ -166,6 +172,8 @@
 	margin: 0 0 15px;
 	width: auto;
 }
+.customer-account-login .page-title {display:none;}
+.customer-account-login .account-create .fieldset .legend {display:none !important;}
 .page-title h1 {
 	color: white;
 	font-family: 'bebasregular';

@@ -293,7 +293,7 @@ $max = count($dealSliders); ?>
 								<div class="price_deals_slider">
 									<p><?php echo Mage::helper('core')->currency($dealSlider->getPrice(), true, false); ?></p>
 										<div class="after_price">
-											<?php if($originalProduct->getFinalPrice() > 0) echo "<p>".Mage::helper('core')->currency($originalProduct->getFinalPrice(), true, false)."</p>"; ?>
+											<?php if($originalProduct->getPrice() > 0) echo "<p>".Mage::helper('core')->currency($originalProduct->getPrice(), true, false)."</p>"; ?>
 											<p><?php if($dealInfo->getPercentDiscount() <> "0") { echo $dealInfo->getPercentDiscount(); ?>% OFF<?php } ?></p>
 
 										</div>
@@ -303,7 +303,7 @@ $max = count($dealSliders); ?>
 								<label>PROMO END IN:</label>
 								<p><?php echo $this->getTimeLeftToBuy($dealSlider); ?></p>
 								<p>hour(s) minute(s) second(s)</p>
-								<p>SOLD: <span><?php echo $this->getPurchasesCount($dealSlider->getId()); ?></span></p>
+								<p class="hide">SOLD: <span><?php echo $this->getPurchasesCount($dealSlider->getId()); ?></span></p>
 							</div>
 							<div class="column large-3 medium-3 small-3">
 								<form action="<?php echo Mage::getUrl('checkout/cart/add', array('_secure'=>true,'product' => $dealSlider->getProduct()->getId(), 'deal_id' => $dealSlider->getId(), 'form_key' => Mage::getSingleton('core/session')->getFormKey())) ?>" method="post" class="right_detail_deals_slider" id="product_addtocart_form">

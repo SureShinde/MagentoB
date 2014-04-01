@@ -16,6 +16,7 @@
 	-moz-box-shadow: 1px 1px 4px 0 #ccc;
 	box-shadow: 1px 1px 4px 0 #ccc;
 }
+
 .header, #nav, .sticky-header {
 	width: 1216px;
 	padding: 0;
@@ -325,9 +326,6 @@
 .menu-top ul li:last-child:hover {
 	/* background: #ffb39c; */
 	background: #95e1f1;
-}
-.menu-top ul li.home-menu:hover {
-	background: #ffb29d;
 }
 .menu-blog span {
 	background: #95e1f1;
@@ -984,9 +982,9 @@
 	position: absolute;
 	top:42px;
 	left: auto;
+	padding:0;
 	background: #fff url(../images/shadow.png) repeat-x left top;
-	width: 500px;
-	padding: 20px 10px 0;
+	width: 420px;
 	-webkit-box-shadow: 1px 1px 4px 0 #ccc;
 	-moz-box-shadow: 1px 1px 4px 0 #ccc;
 	box-shadow: 1px 1px 4px 0 #ccc;
@@ -1095,7 +1093,14 @@
 
 #nav ul li .right-columns {
 	float: right;
-	width: 65%;
+    margin: 10px;
+}
+#nav .parent-3  ul .right-columns{
+	margin-top:100px;
+}
+#nav .parent-5  ul .right-columns
+{
+	margin-top:125px
 }
 #nav ul li .right-columns .submenu {
 	width: 45%;
@@ -1129,18 +1134,6 @@
 .nav-container-mobile .cat-sub li a {
 	padding-left: 25px;
 	padding-right: 25px;
-}
-.nav-container-mobile .cat-sub li a.bestseller {
-    color: #FFA01B !important;
-    font-weight: bold;
-}
-.nav-container-mobile .cat-sub li a.whatsonsale {
-    color: #FC8360 !important;
-    font-weight: bold;
-}
-.nav-container-mobile .cat-sub li a.whatsnew {
-    color: #8DD240 !important;
-    font-weight: bold;
 }
 .shopby {
 	text-align: left;
@@ -1253,9 +1246,6 @@
 .nav-container-mobile ul li:first-child {
 	border-top: none;
 }
-.nav-container-mobile ul li.cat-leveltop {
-    background: url("../images/arrow-menu-mobile.png") no-repeat scroll 98% 17px rgba(0, 0, 0, 0);
-}
 .nav-container-mobile .cat-leveltop a {
 	padding-top: 20px;
 	padding-bottom: 20px;
@@ -1271,10 +1261,6 @@
 	padding-right: 12px;
 }
 
-.nav-container-mobile .cat-leveltop a.sale {
-    color: #FC8360;
-    font-weight: bold;
-}
 .nav-container-mobile ul li.cat-leveltop.parent {
 	background: url(../images/arrow-menu-mobile.png) no-repeat 98% 17px;
 	
