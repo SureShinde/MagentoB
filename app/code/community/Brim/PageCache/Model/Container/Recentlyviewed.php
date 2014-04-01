@@ -14,9 +14,10 @@
  *
  * @category   Brim
  * @package    Brim_PageCache
- * @copyright  Copyright (c) 2011-2012 Brim LLC
+ * @copyright  Copyright (c) 2011-2014 Brim LLC
  * @license    http://ecommerce.brimllc.com/license
  */
+
 
 class Brim_PageCache_Model_Container_Recentlyviewed
     extends Brim_PageCache_Model_Container_Abstract
@@ -39,8 +40,6 @@ class Brim_PageCache_Model_Container_Recentlyviewed
         if ($request->getModuleName() == 'catalog'
             && $request->getControllerName() == 'product'
             && $request->getActionName() == 'view') {
-            // Simulates current product to support excluded products for the recently viewed abstract model
-            Mage::register('current_product', new Varien_Object(array('id' => $request->getParam('id'))));
 
             // removes current product from the list.
             $productIds = array_diff($productIds, array($request->getParam('id')));

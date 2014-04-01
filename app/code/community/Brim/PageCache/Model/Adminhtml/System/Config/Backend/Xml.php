@@ -14,9 +14,10 @@
  *
  * @category   Brim
  * @package    Brim_PageCache
- * @copyright  Copyright (c) 2011-2012 Brim LLC
+ * @copyright  Copyright (c) 2011-2014 Brim LLC
  * @license    http://ecommerce.brimllc.com/license
  */
+
 
 class Brim_PageCache_Model_Adminhtml_System_Config_Backend_Xml extends Mage_Core_Model_Config_Data
 {
@@ -24,10 +25,13 @@ class Brim_PageCache_Model_Adminhtml_System_Config_Backend_Xml extends Mage_Core
     {
         $value = $this->getValue();
 
-        if ($value != '' && simplexml_load_string($value) == false) {
+        try {
+            if ($value != '' && simplexml_load_string($value) == false) {
+                Mage::throwException('Invalid XML can not save!');
+            }
+        } catch (Exception $e) {
             Mage::throwException('Invalid XML can not save!');
         }
-
         return $this;
     }
 }
