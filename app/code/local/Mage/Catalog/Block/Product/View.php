@@ -266,4 +266,18 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
         
         return $result;
     }
+    
+    public function checkProductAttributeYesNo($attribute) {
+        $result = false;
+        
+        if ($productAttribute = $this->getProduct()->getResource()->getAttribute($attribute)) {
+            if (is_object($productAttribute)) {
+                if ($this->getProduct()->getData($attribute)) {
+                    $result = true;
+                }
+            }
+        }
+        
+        return $result;
+    }
 }
