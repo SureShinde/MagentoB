@@ -57,7 +57,7 @@ class Mage_Adminhtml_Block_Sales_Shipment_Grid extends Mage_Adminhtml_Block_Widg
     {
 
     }
-
+     
     /**
      * Prepare and set collection of grid
      *
@@ -81,8 +81,8 @@ class Mage_Adminhtml_Block_Sales_Shipment_Grid extends Mage_Adminhtml_Block_Widg
         	/*
             ->joinLeft(
                 //array('sales_flat_shipment_track' => Mage::getSingleton('core/resource')->getTableName('sales/shipment_track') ),
-                array('sales_flat_shipment_track' => new Zend_Db_Expr('(SELECT order_id, GROUP_CONCAT(track_number) AS tracking_number FROM sales_flat_shipment_track GROUP BY order_id)') ),
-                "main_table.order_id = sales_flat_shipment_track.order_id",
+                array('sales_flat_shipment_track' => new Zend_Db_Expr('(SELECT parent_id, order_id, GROUP_CONCAT(track_number) AS tracking_number FROM sales_flat_shipment_track GROUP BY parent_id)') ),
+                "main_table.entity_id = sales_flat_shipment_track.parent_id",
                 array(
                     "tracking_number"        => "sales_flat_shipment_track.tracking_number"
                 )
@@ -105,7 +105,7 @@ class Mage_Adminhtml_Block_Sales_Shipment_Grid extends Mage_Adminhtml_Block_Widg
 
         if(isset($params['is_customer_notified']) && $params['is_customer_notified']==0)
         {
-            $collection->addFieldToFilter("is_customer_notified", array('neq'=>'1'));
+            $collection->addFieldToFilter(array("is_customer_notified", "is_customer_notified"),  array(array('null'=>'is_customer_notified'), array('eq'=>0)));
         }elseif(isset($params['is_customer_notified']) && $params['is_customer_notified']==1){
             $collection->addFieldToFilter("is_customer_notified", array('eq' => $params['is_customer_notified']));
         }
