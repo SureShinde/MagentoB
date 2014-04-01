@@ -68,6 +68,9 @@
                     <cache>
                         <table>custom</table>
                     </cache>
+                    <premiumrate>
+                        <table>shipping_premiumrate</table>
+                    </premiumrate>
                 </entities>
             </advancedreports_mysql4>
         </models>
