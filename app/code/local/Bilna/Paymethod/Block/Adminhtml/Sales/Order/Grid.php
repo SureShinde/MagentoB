@@ -27,6 +27,12 @@ class Bilna_Paymethod_Block_Adminhtml_Sales_Order_Grid extends Mage_Adminhtml_Bl
     protected function _prepareCollection() {
         $collection = Mage::getResourceModel($this->_getCollectionClass());
         $collection->join(array ('payment'=>'sales/order_payment'),'main_table.entity_id=parent_id','method');
+        $collection->join(array('customer'=>'customer/entity'),
+            'main_table.customer_id=customer.entity_id',
+            array(
+                'group_id' => 'customer.group_id'
+            )
+        );
         $this->setCollection($collection);
 
         return Mage_Adminhtml_Block_Widget_Grid::_prepareCollection();
@@ -76,6 +82,18 @@ class Bilna_Paymethod_Block_Adminhtml_Sales_Order_Grid extends Mage_Adminhtml_Bl
             'index' => 'shipping_name',
         ));
 		
+        $groups = Mage::getResourceModel('customer/group_collection')
+            ->addFieldToFilter('customer_group_id', array('gt'=> 0))
+            ->load()
+            ->toOptionHash();
+
+        $this->addColumn('group', array(
+            'header'    =>  Mage::helper('sales')->__('Group'),
+            'index'     =>  'group_id',
+            'type'      =>  'options',
+            'options'   =>  $groups,
+        ));
+
         $this->addColumn('method', array (
             'header' => Mage::helper('sales')->__('Payment Method'),
             'index' => 'method',
