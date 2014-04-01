@@ -10,7 +10,6 @@ class Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Edit_Tabs_Form extends Mage_
 		$this->setForm($form);
 		$form->setHtmlIdPrefix('formbuilder_');
 		$fieldset = $form->addFieldset('formbuilder_form', array('legend' => Mage::helper('bilna_formbuilder')->__('Details')));
-echo $fieldset;
 
 		$collection = Mage::getModel('bilna_formbuilder/data')->getCollection();
 		$collection->getSelect()->join(array('bfi' => 'bilna_formbuilder_input'), 'main_table.form_id = bfi.form_id AND main_table.`type` = bfi.`group`', array('bfi.title'));

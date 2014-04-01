@@ -23,21 +23,23 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
 		}else{
 			$record_id = $row['record_id']+1;
 		}
-		
+
 		//CHECK INPUTS SETTING
 		$block = Mage::getModel('bilna_formbuilder/form')->getCollection();
 		$block->getSelect()->join('bilna_formbuilder_input', 'main_table.id = bilna_formbuilder_input.form_id');
 		$block->addFieldToFilter('main_table.id', $form_id);
-		
-		foreach($block as $field){
+
+		foreach($block->getData() as $field){
 			if($field["required"]==true){
 				if(!isset($postData["inputs"][$field["group"]]) || empty($postData["inputs"][$field["group"]]) || is_null($postData["inputs"][$field["group"]])){
+
 					Mage::getSingleton('core/session')->addError($field["title"].' cannot be empty');
 					
 					$redirectPage = Mage::getBaseUrl().$field["url"];
 					$this->_redirectPage($redirectPage);
 				}
 			}
+
 			if($field["unique"]==true){
 				$collection = Mage::getModel('bilna_formbuilder/data')->getCollection();
 				$collection->getSelect('main_table.form_id');
@@ -46,7 +48,7 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
 				$collection->addFieldToFilter('main_table.value', $postData["inputs"][$field["group"]]);
 				
 				$exist = $collection->getFirstItem();
-				
+
 				if(!is_null($exist["form_id"])){
 					Mage::getSingleton('core/session')->addError($field["title"].' must be unique');
 						

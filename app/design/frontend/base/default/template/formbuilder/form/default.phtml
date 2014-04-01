@@ -4,18 +4,18 @@
 	<div class="formbuilder-form">
 		<ul>
 		<?php 
-		foreach($this->inputs as $input){
+		foreach($this->inputs->getData() as $input){
 		?>
 		<li>
 			<div>
-				<label class="required" for="<?php echo $input->name; ?>"><?php echo $input->title; ?><em><?php if($input->required == true) echo '*'; ?></em></label>
+				<label class="required" for="<?php echo $input["name"]; ?>"><?php echo $input["title"]; ?><em><?php if($input["required"] == true) echo '*'; ?></em></label>
 			</div>
 			<div>:</div>
 			<div>
-			<?php if($input->type == "text"){ ?>
-				<input id="<?php echo $input->name; ?>" class="formbuilder-input" title="<?php echo $input->title; ?>" name="inputs[<?php echo $input->group; ?>]" />
-			<?php }else if($input->type == "textarea"){ ?>
-				<textarea id="<?php echo $input->name; ?>" class="formbuilder-textarea" title="<?php echo $input->title; ?>" name="inputs[<?php echo $input->group; ?>]"></textarea>
+			<?php if($input["type"] == "text"){ ?>
+				<input id="<?php echo $input["name"]; ?>" class="formbuilder-input" title="<?php echo $input["title"]; ?>" name="inputs[<?php echo $input["group"]; ?>]" />
+			<?php }else if($input["type"] == "textarea"){ ?>
+				<textarea id="<?php echo $input["name"]; ?>" class="formbuilder-textarea" title="<?php echo $input["title"]; ?>" name="inputs[<?php echo $input["group"]; ?>]"></textarea>
 			<?php } ?>
 			</div>
 		</li>
