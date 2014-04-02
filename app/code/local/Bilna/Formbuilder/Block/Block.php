@@ -1,8 +1,6 @@
 <?php
 
-/**
- * Cms block content block
- */
+//Cms block content block
 class Bilna_Formbuilder_Block_Block extends Mage_Core_Block_Template
 {
     public function __construct()

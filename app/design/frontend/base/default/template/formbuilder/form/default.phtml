@@ -3,33 +3,35 @@
 	<div class="formbuilder-header"><?php echo $this->getLayout()->createBlock('cms/block')->setBlockId($this->block->static_info)->toHtml(); ?></div>
 	<div class="formbuilder-form">
 		<ul>
+<?php echo Mage::registry('test');?>
 		<?php 
 		foreach($this->inputs->getData() as $input){
 		?>
 		<li>
-			<div>
-				<label class="required" for="<?php echo $input["name"]; ?>"><?php echo $input["title"]; ?><em><?php if($input["required"] == true) echo '*'; ?></em></label>
+			<div style="clear: both;">
+				<label class="required" style="float: left; width: 140px;" for="<?php echo $input["name"]; ?>"><?php echo $input["title"]; ?><em><?php if($input["required"] == true) echo '*'; ?></em></label>
+
 			</div>
 			<div>:</div>
-			<div>
+			<div style="clear: both; margin-bottom: 20px;">
 			<?php if($input["type"] == "text"){ ?>
-				<input id="<?php echo $input["name"]; ?>" class="formbuilder-input" title="<?php echo $input["title"]; ?>" name="inputs[<?php echo $input["group"]; ?>]" />
+				<input id="<?php echo $input["name"]; ?>" class="input-text required-entry validate-digits" min="1" max="2" style="height: 26px !important; width: 40% !important; background: none repeat scroll 0 0 #F9F9F9; border: none; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) inset; color: #666666; padding: 7px 5px; float: left; margin-right: 60px;" title="<?php echo $input["title"]; ?>" name="inputs[<?php echo $input["group"]; ?>]" />
 			<?php }else if($input["type"] == "textarea"){ ?>
-				<textarea id="<?php echo $input["name"]; ?>" class="formbuilder-textarea" title="<?php echo $input["title"]; ?>" name="inputs[<?php echo $input["group"]; ?>]"></textarea>
+				<textarea id="<?php echo $input["name"]; ?>" class="required-entry input-text" style="height: 100px !important; width: 40% !important; background: none repeat scroll 0 0 #F9F9F9; border: none; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) inset; color: #666666; padding: 7px 5px; float: left; margin-right: 60px;" rows="3" cols="5" title="<?php echo $input["title"]; ?>" name="inputs[<?php echo $input["group"]; ?>]"></textarea>
 			<?php } ?>
 			</div>
 		</li>
+
 		<?php 
 		}
 		?>
 		</ul>
 	</div>
-	<div class="formbuilder-info">
-		<p class="required">*Required Fields</p>
-	</div>
-	<div class="formbuilder-submit">
-		<button class="button" title="" type="submit">Submit</button>
-	</div>
+<div style="float: left; padding-left: 11.5em; margin-top: -30px;">
+<p class="required" style="float: left; color: #eb340a;">*Required Fields</p>
+<input id="hideit" style="display: none !important;" type="text" name="hideit" /><br /><button class="button" title="" type="submit"> <span class="fb-bebas fb-15" style="padding: 10px 20px; border: none; background: #ffa01b; font-weight: normal;">Submit</span></button></div>
+</div>
+
 </form>
 
 <div class="formbuilder-success"><?php echo $this->getLayout()->createBlock('cms/block')->setBlockId($this->block->static_success)->toHtml(); ?></div>

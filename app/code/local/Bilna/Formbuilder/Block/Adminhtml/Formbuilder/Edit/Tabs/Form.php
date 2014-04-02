@@ -16,11 +16,6 @@ class Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Edit_Tabs_Form extends Mage_
 		$collection->addFieldToFilter('main_table.form_id', (int) $this->getRequest()->getParam('form_id'));
 		$collection->addFieldToFilter('main_table.record_id', (int) $this->getRequest()->getParam('record_id'));
 
-/*SELECT `main_table`.*,  bfi.`title`
-FROM `bilna_formbuilder_data` AS `main_table`
-INNER JOIN bilna_formbuilder_input bfi ON `main_table`.form_id = bfi.form_id AND `main_table`.type = bfi.`group`
-WHERE `main_table`.form_id = '1' AND `main_table`.record_id = '1'*/
-
 		$this->setCollection($collection);
 		$collection->printLogQuery(true);
 		foreach($collection->getData() as $detail){

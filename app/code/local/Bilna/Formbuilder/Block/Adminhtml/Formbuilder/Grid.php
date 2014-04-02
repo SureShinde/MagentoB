@@ -40,7 +40,7 @@ class Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Grid extends Mage_Adminhtml_
 
 		//$collection = Mage::getResourceModel($this->_getCollectionClass()); //Formbuilder lama
 		$collection = Mage::getModel('bilna_formbuilder/data')->getCollection();
-        $collection->getSelect()->reset(Zend_Db_Select::COLUMNS); //hanya menampilkan kolom yg dipilih
+    $collection->getSelect()->reset(Zend_Db_Select::COLUMNS); //hanya menampilkan kolom yg dipilih
 		$collection->getSelect()
 			->join(array('bff' => 'bilna_formbuilder_form'), 'main_table.form_id = bff.id',array('main_table.record_id', 'main_table.form_id', 'bff.title','main_table.create_date'));
 		$collection->getSelect()
@@ -61,36 +61,13 @@ class Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Grid extends Mage_Adminhtml_
     }
 
   protected function _prepareColumns()
-  {	
-	
-	/*
-	$this->addColumn('id_check', 
-		array(
-		    	'type'     => 'checkbox',
-		    	'align'    => 'center',
-		    	'index'    => 'id',
-		    	'field_name' => 'checkbox_name',
-		    	'values'   => array(1,2),
-			'header_css_class'=>'a-center'
-	));
-	*/
-
-	/*
-	$this->addColumn('id', 
-		array(
-			'header'=> $this->__('ID'),
-			'align' =>'right',
-			'width' => '50px',
-			'index' => 'id',
-			'header_css_class'=>'a-center'
-	));		
-	*/	
+  {
 	
 	$combobox = $this->getComboForm();
 	
 	$this->addColumn('title',
 		array(
-			'header' =>Mage::helper('bilna_formbuilder')->__('Title'),
+			'header' =>Mage::helper('bilna_formbuilder')->__('Form'),
 			'align' =>'right',
 			'width' => '30px',
 			'index' => 'title',
@@ -151,31 +128,30 @@ class Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Grid extends Mage_Adminhtml_
 		}
 		
 		return $result;
-	}
+		}
 
     protected function _prepareMassaction()
     {
-        $this->setMassactionIdField('form_id');
-        $this->getMassactionBlock()->setFormFieldName('formbuilder');
+      $this->setMassactionIdField('form_id');
+      $this->getMassactionBlock()->setFormFieldName('formbuilder');
 
-        $this->getMassactionBlock()->addItem('delete',
-            array(
-                'label' => Mage::helper('bilna_formbuilder')->__('Delete'),
-                'url' => $this->getUrl('*/*/massDelete'),
-                'confirm' => Mage::helper('bilna_formbuilder')->__('Are you sure?')
-            ));
-	}
+      $this->getMassactionBlock()->addItem('delete',
+        array(
+          'label' => Mage::helper('bilna_formbuilder')->__('Delete'),
+          'url' => $this->getUrl('*/*/massDelete'),
+          'confirm' => Mage::helper('bilna_formbuilder')->__('Are you sure?')
+        ));
+		}
 
-	 /**
-     * Grid with Ajax Request
-     */
-    public function getGridUrl() {
-        return $this->getUrl('*/*/grid', array ('_current' => true));
+    //Grid with Ajax Request
+    public function getGridUrl() 
+		{
+      return $this->getUrl('*/*/grid', array ('_current' => true));
     }
 
     public function getRowUrl($row)
     {
-        return $this->getUrl('*/*/edit', array('record_id' => $row->getRecordId(),'form_id' => $row->getFormId()));
+      return $this->getUrl('*/*/edit', array('record_id' => $row->getRecordId(),'form_id' => $row->getFormId()));
     }	  
 
 }

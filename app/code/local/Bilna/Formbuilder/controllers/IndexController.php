@@ -1,6 +1,7 @@
 <?php
 class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Action 
 {
+  
 	public function indexAction()
 	{	
 	$this->loadLayout();     
@@ -64,6 +65,9 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
 
 		Mage::getSingleton('core/session')->addSuccess('Saved');
 		$redirectPage = Mage::getBaseUrl().$field["url"];
+
+		Mage::registry('test', 'ok');
+
 		$this->_redirectPage($redirectPage);
 	}
 
