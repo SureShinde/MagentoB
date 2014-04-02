@@ -14,10 +14,11 @@
  * to support@brimllc.com so we can send you a copy immediately.
  *
  * @category   Brim
- * @package    Brim_Groupedoptions
- * @copyright  Copyright (c) 2011-2012 Brim LLC
+ * @package    Brim_PageCache
+ * @copyright  Copyright (c) 2011-2014 Brim LLC
  * @license    http://ecommerce.brimllc.com/license
  */
+
 -->
 <config>
     <acl>

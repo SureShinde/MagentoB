@@ -14,9 +14,10 @@
  *
  * @category   Brim
  * @package    Brim_PageCache
- * @copyright  Copyright (c) 2011-2012 Brim LLC
+ * @copyright  Copyright (c) 2011-2014 Brim LLC
  * @license    http://ecommerce.brimllc.com/license
  */
+
 
 class Brim_PageCache_Model_Processor_Level1 {
 
@@ -163,6 +164,8 @@ class Brim_PageCache_Model_Processor_Level1 {
                     $response->setHeader('Pragma', 'no-cache');
                     $response->setHeader('Expires', 'Sat, 26 Jul 1997 05:00:00 GMT');
 
+                    $response->setHeader('X-Fpc', 'Hit');
+
                     // Renew frontend cookie.
                     $this->getCookie()->setParams($storageObject->getCookieParams())->renew('frontend');
                 }
@@ -249,6 +252,11 @@ class Brim_PageCache_Model_Processor_Level1 {
         }
 
         if (isset($_GET['___store'])) {
+            return false;
+        }
+
+        $maxParams = Mage::getStoreConfig(Brim_PageCache_Model_Config::XML_PATH_CONDITIONS_MAX_PARAMS);
+        if ($maxParams != -1 && count($_GET) > $maxParams) {
             return false;
         }
 

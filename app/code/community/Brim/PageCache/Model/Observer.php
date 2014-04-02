@@ -14,9 +14,10 @@
  *
  * @category   Brim
  * @package    Brim_PageCache
- * @copyright  Copyright (c) 2011-2012 Brim LLC
+ * @copyright  Copyright (c) 2011-2014 Brim LLC
  * @license    http://ecommerce.brimllc.com/license
  */
+
 
 /**
  * Observes magento events in order to cache and serve cached pages.
@@ -32,6 +33,11 @@ class Brim_PageCache_Model_Observer extends Varien_Event_Observer
      * @var Brim_PageCache_Model_Engine
      */
     protected $_engine = null;
+
+    /**
+     * @var null
+     */
+    protected $_blockUpdates = null;
 
     /**
      * @return Brim_PageCache_Model_Engine|Mage_Core_Model_Abstract
@@ -157,12 +163,37 @@ class Brim_PageCache_Model_Observer extends Varien_Event_Observer
         $layout = $observer->getLayout();
         $update = $layout->getUpdate();
 
-        if (($blockUpdates = Mage::getStoreConfig(Brim_PageCache_Model_Config::XML_PATH_LAYOUT_BLOCK_UPDATES)) != '') {
 
-            foreach (explode("\n", $blockUpdates) as $blockUpdate) {
-                @list($blockName, $containerName) = explode(",", trim($blockUpdate));
+        /*
+         * Process additional handles
+         */
+        $addHandleUpdates   = '';
+        $additionalHandles  = Mage::getStoreConfig(Brim_PageCache_Model_Config::XML_PATH_LAYOUT_ADD_HANDLES);
+        $currentHandles     = $layout->getUpdate()->getHandles();
+        if (is_array($additionalHandles) && count($additionalHandles) > 0) {
+            foreach ($additionalHandles as $handle) {
+                if (in_array($handle['handle'], $currentHandles)) {
+                    if ($handle['enabled'] == 1) {
+                        $addHandleUpdates .= '<update handle="brim_pagecache_default" />';
+                    } else {
+                        $addHandleUpdates .= '<reference name="root"><action method="setCachePageFlag"><cache>0</cache></action></reference>';
+                    }
+                }
+            }
+            $update->addUpdate($addHandleUpdates);
+        }
 
-                if (empty($containerName)) {
+
+        /*
+         * Adds additional block updates
+         */
+        if (($blockUpdates = Mage::getStoreConfig(Brim_PageCache_Model_Config::XML_PATH_LAYOUT_BLOCK_UPDATES))) {
+
+            foreach ($blockUpdates as $blockUpdate) {
+                $blockName = $blockUpdate['block_name'];
+                if (!empty($blockUpdate['container'])) {
+                    $containerName = $blockUpdate['container'];
+                } else {
                     $containerName = 'brim_pagecache/container_default';
                 }
 
@@ -174,9 +205,31 @@ EOT;
 
                 $update->addUpdate($layoutXml);
             }
-
         }
 
+        /*
+         * When not using categories in the urls breadcrumbs and the menu needs to be updated.
+         */
+        if (!Mage::getStoreConfig(Mage_Catalog_Helper_Product::XML_PATH_PRODUCT_URL_USE_CATEGORY)) {
+            // If category path is not in url.  menu nav and breadcrumbs need to be updated.
+            $updateHandles = $update->getHandles();
+            if (array_key_exists('catalog_product_view', $updateHandles) || in_array('catalog_product_view', $updateHandles)) {
+$layoutXml = <<< EOT
+    <reference name="breadcrumbs">
+        <action method="setDynamicBlockContainer" ><container>brim_pagecache/container_product_breadcrumbs</container></action>
+    </reference>
+    <reference name="top.menu">
+        <action method="setDynamicBlockContainer"><container>brim_pagecache/container_topmenu</container></action>
+    </reference>
+EOT;
+
+                $update->addUpdate($layoutXml);
+            }
+        }
+
+        /*
+         * Appends the system config's custom layout xml.
+         */
         if (($customXml = Mage::getStoreConfig(Brim_PageCache_Model_Config::XML_PATH_LAYOUT_CUSTOM_XML)) != '') {
             $customSimpleXml = simplexml_load_string("<update_xml>" . $customXml . "</update_xml>", $update->getElementClass());
 
@@ -197,8 +250,7 @@ EOT;
     }
 
     /**
-     * Wraps blocks with a dynamic marker.  Used to ID blocks in cached pages
-     * supporting dynamic updates.
+     * Wraps blocks with a dynamic marker, used to identify blocks in cached pages.
      *
      * @param Varien_Event_Observer $observer
      * @return void
@@ -207,7 +259,6 @@ EOT;
         /**
          * @var $engine Brim_PageCache_Model_Engine
          */
-
         $engine = Mage::getSingleton('brim_pagecache/engine');
 
         if (!$engine->isEnabled()) {
@@ -215,22 +266,23 @@ EOT;
         }
 
         if ($engine->isPageCachable()) {
-            $block      = $observer->getEvent()->getBlock();
-            if ($block->getDynamicBlockContainer() != '') {
 
-                $engine->debug($block->getDynamicBlockContainer());
+            $block      = $observer->getEvent()->getBlock();
+            if (($containerName = $block->getDynamicBlockContainer()) != ''
+                || ($containerName  = $this->_getContainerByBlockType($block)) != '') {
+
+                $engine->debug($containerName);
 
                 // create container model
-                $container  = $block->getDynamicBlockContainer();
-                $modelClass = Mage::app()->getConfig()->getModelClassName($container);
+                $modelClass = Mage::app()->getConfig()->getModelClassName($containerName);
 
                 $argsArray  = array_merge(
-                    array('container' => $container),
+                    array('container' => $containerName),
                     // using call_user_func for pre PHP 5.3 compat
                     call_user_func("$modelClass::getContainerArgs", $block)
                 );
 
-                $transport  = $observer->getEvent()->getTransport();
+                $transport = $observer->getEvent()->getTransport();
                 if ($transport != null) {
                     // mark the dynamic content, Magento 1.4.1.1+
                     $engine->markContentViaTransport($argsArray, $transport);
@@ -241,6 +293,38 @@ EOT;
                 }
             }
         }
+    }
+
+    /**
+     * Returns a container name based on the block type.
+     *
+     * @return boolean|string
+     */
+    protected function _getContainerByBlockType($block) {
+        if ($this->_blockUpdates == null) {
+            $this->_blockUpdates = array();
+            if (($blockUpdates = Mage::getStoreConfig(Brim_PageCache_Model_Config::XML_PATH_LAYOUT_BLOCK_UPDATES)) != '') {
+                if (is_array($blockUpdates)) {
+                    foreach ($blockUpdates as $blockUpdate) {
+                        $blockName = $blockUpdate['block_name'];
+                        if (!empty($blockUpdate['container'])) {
+                            $containerName = $blockUpdate['container'];
+                        } else {
+                            $containerName = 'brim_pagecache/container_default';
+                        }
+                        $this->_blockUpdates[$blockName] = $containerName;
+                    }
+                }
+            }
+        }
+
+        $names = array(get_class($block), $block->getType()); // type in "core/block" form
+        foreach ($names as $name) {
+            if (isset($this->_blockUpdates[$name])) {
+                return $this->_blockUpdates[$name];
+            }
+        }
+        return false;
     }
 
     /**
