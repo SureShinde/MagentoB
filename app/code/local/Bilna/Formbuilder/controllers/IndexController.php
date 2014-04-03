@@ -1,11 +1,32 @@
 <?php
 class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Action 
 {
-  
+  protected $ty=false;
+
+	public function __construct()
+	{
+		echo 'xxxxxxxxxxxxxxxxx';die;		
+		parent::__construct();
+	}
+
 	public function indexAction()
 	{	
-	$this->loadLayout();     
-	$this->renderLayout();										
+
+	$this->loadLayout();    
+	//$this->getLayout()->getBlock('bilna_formbuilder')->assign('data', array('gjg'=>$this->ty)); 
+
+	/*$layout  = $this->getLayout();
+	$block = $layout->getBlock('bilna_formbuilder');
+	$this->setTemplate('formbuilder/form/default.phtml');
+	$block->setVar('halo');	*/
+	
+	if($this->ty){
+
+		Mage::getSingleton('core/session')->unsStatusForm();	
+		$this->ty = false;
+	}
+
+	$this->renderLayout();									
 	}
 
 	public function submitAction() 
@@ -66,7 +87,9 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
 		Mage::getSingleton('core/session')->addSuccess('Saved');
 		$redirectPage = Mage::getBaseUrl().$field["url"];
 
-		Mage::registry('test', 'ok');
+		Mage::getSingleton('core/session')->setStatusForm('Saved');
+	
+		$this->ty=true;
 
 		$this->_redirectPage($redirectPage);
 	}
@@ -135,10 +158,11 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
 
 	private function _backurl($form_id) 
 	{
-		$connection = Mage::getSingleton('core/resource')->getConnection('core_read');
-		$sql        = "select url from bilna_formbuilder_form where id=".$form_id." group by url";
-		$row       = $connection->fetchRow($sql);
-		$result 	= $row['url'];
+		$connection	= Mage::getSingleton('core/resource')->getConnection('core_read');
+		$sql				= "select url from bilna_formbuilder_form where id=".$form_id." group by url";
+		$row				= $connection->fetchRow($sql);
+		$result			= $row['url'];
 		return $result;
 	}
+
 }
