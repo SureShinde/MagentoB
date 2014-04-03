@@ -117,9 +117,12 @@ ol.added-menu li a.link-onsale {
 	
 }
 /* Tiny Scrollbar */
+.amshopby-collapsed ~ .tiny .viewport, .amshopby-collapsed ~ .tiny .viewport{
+	height:0 !important;
+}
 .tiny { width: auto; /* margin: 20px 0 10px; */ margin: 0 0 10px; }
 .tiny .viewport { width: auto; height: 145px; overflow: hidden; position: relative; }
-.tiny .overview { list-style: none; position: absolute; left: 0; top: 0; padding: 0; margin: 0; }
+.tiny .overview { list-style: none; position: relative; left: 0; top: 0; padding: 0; margin: 0; }
 .tiny .scrollbar{ background: #dfe0e0 /*url(../images/bg-scrollbar-track-y.png) no-repeat 0 0*/ url(../images/scroll-up.png) no-repeat; position: relative; background-position: 0 0; float: right; width: 15px; -webkit-border-radius: 10px;-moz-border-radius: 10px;border-radius: 10px;}
 .tiny .track { background: #dfe0e0 /*url(../images/bg-scrollbar-trackend-y.png) no-repeat 0 100%*/url(../images/scroll-down.png) no-repeat center bottom; height: 100%; width:13px; position: relative; padding: 0 1px; }
 .tiny .thumb { background: transparent /*url(../images/bg-scrollbar-thumb-y.png)*/url(../images/track.png) no-repeat 50% top; height: 20px; width: 25px; cursor: pointer; overflow: hidden; position: absolute; top: 0; left: -5px; }
@@ -472,6 +475,13 @@ a.triger-showfilter {
 }
 .catalog-category-view .slidesjs-pagination .slidesjs-pagination-item a.active{
 	background:#ff9f1c !important;
+
+}
+.catalog-category-view .banner_small img:first-child, .catalog-category-view .banner_small a:first-child{
+	display:block;
+}
+.catalog-category-view .banner_small img, .catalog-category-view .banner_small a{
+	display:none;
 }
 .catalog-category-view .banner_small:last-child{
 	width: 18%;

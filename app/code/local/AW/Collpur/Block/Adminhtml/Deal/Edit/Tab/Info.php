@@ -38,7 +38,7 @@ class AW_Collpur_Block_Adminhtml_Deal_Edit_Tab_Info extends Mage_Adminhtml_Block
             $progressOptions = Mage::getModel('collpur/source_progress')->toOptionArray();
 
 
-            $deal->setData('current_product_price', Mage::helper('core')->currency($product->getFinalPrice(), true, false));
+            $deal->setData('current_product_price', Mage::helper('core')->currency($product->getOriginalPrice(), true, false));
             $deal->setData('product_name_label_info', $product->getName());
             $deal->setData('condition', $progressOptions[$deal->getProgress()]);
             if ($deal->getData('available_to')) {

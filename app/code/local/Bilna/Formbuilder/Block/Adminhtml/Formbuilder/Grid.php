@@ -66,13 +66,25 @@ class Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Grid extends Mage_Adminhtml_
 			'header'=> $this->__('Phone'),
 			'index' => 'phone'
 	));
+
+	$this->addColumn('age',
+		array(
+			'header'=> $this->__('Age'),
+			'index' => 'age'
+	));
+
+	$this->addColumn('child',
+		array(
+			'header'=> $this->__('Child'),
+			'index' => 'child'
+	));
 	  
 	$this->addColumn('comment',
 		array(
 			'header'=> $this->__('Comment'),
 			'index' => 'comment'
 	));
-	
+
 	$this->addColumn('submit_date',
 		array(
 			'header'=> $this->__('Submit Date'),

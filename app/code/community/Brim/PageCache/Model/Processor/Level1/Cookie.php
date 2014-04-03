@@ -14,9 +14,10 @@
  *
  * @category   Brim
  * @package    Brim_PageCache
- * @copyright  Copyright (c) 2011-2012 Brim LLC
+ * @copyright  Copyright (c) 2011-2014 Brim LLC
  * @license    http://ecommerce.brimllc.com/license
  */
+
 
 class Brim_PageCache_Model_Processor_Level1_Cookie extends Mage_Core_Model_Cookie {
 

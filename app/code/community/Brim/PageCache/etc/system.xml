@@ -15,9 +15,10 @@
  *
  * @category   Brim
  * @package    Brim_PageCache
- * @copyright  Copyright (c) 2011-2012 Brim LLC
+ * @copyright  Copyright (c) 2011-2014 Brim LLC
  * @license    http://ecommerce.brimllc.com/license
  */
+
 -->
 <config>
     <tabs>
@@ -113,6 +114,7 @@
                         </invalidate_clean>
                         <expires translate="label">
                             <label>Page Expires (seconds)</label>
+                            <backend_model>brim_pagecache/adminhtml_system_config_backend_expires</backend_model>
                             <frontend_type>text</frontend_type>
                             <sort_order>60</sort_order>
                             <show_in_default>1</show_in_default>
@@ -149,26 +151,72 @@
                     <show_in_store>0</show_in_store>
                     <sort_order>125</sort_order>
                     <fields>
+                        <use_customer_group translate="label">
+                            <label>Use Customer Group In Cache Key</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>0</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment><![CDATA[
+                                This can be turned off if you are not using any customer group functionality such as
+                                catalog price rules based on customer groups.
+                            ]]></comment>
+                        </use_customer_group>
+
+                        <combine_visitor_general_groups translate="label">
+                            <label>Share pages between NOT LOGGED IN and General Customers</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends>
+                                <use_customer_group>1</use_customer_group>
+                            </depends>
+                            <comment><![CDATA[
+                                Treats the NOT LOGGED IN and General customer groups and the same.  Useful if pricing is the
+                                same for both customer groups and no other customer group features are used.
+                            ]]></comment>
+                        </combine_visitor_general_groups>
+
+                        <max_params translate="label">
+                            <label>Maximum Query Parameters to Cache</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment><![CDATA[
+                                If a request contains more than the set number of parameters the request will NOT be cached.
+                                -1 allows unlimited parameters, but is not recommended.
+                            ]]></comment>
+                        </max_params>
+
                         <session_vars translate="label">
                             <label>Session Variables</label>
-                            <frontend_type>textarea</frontend_type>
+                            <frontend_model>brim_pagecache/adminhtml_system_config_form_field_sessionvariables</frontend_model>
+                            <backend_model>brim_pagecache/adminhtml_system_config_backend_serialized_array</backend_model>
                             <sort_order>50</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
                             <comment><![CDATA[
-                                Comma separated list of session variables to include in a pages cache key.
+                               List of session variables to include in a pages cache key.
                             ]]></comment>
                         </session_vars>
                         <ignore_params translate="label">
                             <label>Ignored Url Parameters</label>
-                            <frontend_type>textarea</frontend_type>
+                            <frontend_model>brim_pagecache/adminhtml_system_config_form_field_ignoreparams</frontend_model>
+                            <backend_model>brim_pagecache/adminhtml_system_config_backend_serialized_array</backend_model>
                             <sort_order>100</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
                             <comment><![CDATA[
-                                Comma separated list of parameter keys to ignore when generating a page's cache key.
+                                List of parameter keys to ignore when generating a page's cache key.
                                 ie: gclid
                             ]]></comment>
                         </ignore_params>
@@ -183,17 +231,31 @@
                     <fields>
                         <custom_block_updates translate="label">
                             <label>Custom Block Updates</label>
-                            <frontend_type>textarea</frontend_type>
+                            <frontend_model>brim_pagecache/adminhtml_system_config_form_field_blockupdates</frontend_model>
+                            <backend_model>brim_pagecache/adminhtml_system_config_backend_serialized_array</backend_model>
+
                             <sort_order>100</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
-                            <comment><![CDATA[List custom block names to dynamically update.]]></comment>
+                            <comment><![CDATA[List of custom block names to dynamically update (holepunch).]]></comment>
                         </custom_block_updates>
+                        <additional_handles translate="label">
+                            <label>Cache Additional Page Types</label>
+                            <frontend_model>brim_pagecache/adminhtml_system_config_form_field_additionalhandles</frontend_model>
+                            <backend_model>brim_pagecache/adminhtml_system_config_backend_serialized_array</backend_model>
+
+                            <sort_order>200</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment><![CDATA[List of additional page types (layout xml handles) to cache. Entries will
+                            override the brim_pagecache.xml layout file.]]></comment>
+                        </additional_handles>
                         <custom_xml translate="label">
                             <label>Custom Layout XML</label>
                             <frontend_type>textarea</frontend_type>
-                            <sort_order>200</sort_order>
+                            <sort_order>300</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
@@ -323,6 +385,19 @@
                             </depends>
                             <comment>See user guide for details.</comment>
                         </memcached_servers>
+                        <redis_config_xml>
+                            <label>Redis Config XML</label>
+                            <frontend_type>textarea</frontend_type>
+                            <backend_model>brim_pagecache/adminhtml_system_config_backend_xml</backend_model>
+                            <sort_order>400</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <depends>
+                                <type>redis</type>
+                                <system_cache>0</system_cache>
+                            </depends>
+                            <comment>See user guide for details.</comment>
+                        </redis_config_xml>
                     </fields>
                 </storage>
                 <config>
@@ -333,6 +408,16 @@
                     <show_in_website>1</show_in_website>
                     <show_in_store>1</show_in_store>
                     <fields>
+                        <autowrite>
+                            <label>Auto Write XML Config to Disk</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment><![CDATA[Disable if you prefer to manually create and maintain app/etc/brim_pagecache.xml]]></comment>
+                        </autowrite>
                         <xml translate="label">
                             <label>XML</label>
                             <frontend_type>textarea</frontend_type>
@@ -354,7 +439,7 @@
                     <comment><![CDATA[
                         <h3>Get help when you need it</h3>
                         <p>
-                            Checkout our <strong><a target="_blank" href="https://brimllc.zendesk.com/forums">Knowledge Base</a></strong>
+                            Checkout our <strong><a target="_blank" href="http://docs.brimllc.com/">Documentation</a></strong>
                             for answers to some common questions or <strong><a target="_blank" href="https://brimllc.zendesk.com/">Submit a Ticket</a></strong>
                             if you need additional help.
                         </p>

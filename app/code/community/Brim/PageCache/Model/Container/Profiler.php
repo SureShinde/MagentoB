@@ -14,12 +14,21 @@
  *
  * @category   Brim
  * @package    Brim_PageCache
- * @copyright  Copyright (c) 2011-2012 Brim LLC
+ * @copyright  Copyright (c) 2011-2014 Brim LLC
  * @license    http://ecommerce.brimllc.com/license
  */
 
-class Brim_PageCache_Model_Container_Profiler extends Brim_PageCache_Model_Container_Abstract
+
+class Brim_PageCache_Model_Container_Profiler extends Brim_PageCache_Model_Container_Default
 {
 
+
+    protected function _createBlock() {
+        return false;
+    }
+
+    protected function _renderBlock() {
+        return ' ';
+    }
 }
 

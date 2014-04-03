@@ -8,20 +8,22 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
     }
 	
 	public function submitAction() {
-		$form_id = $this->getRequest()->getPost('form_id');
-		$name = $this->getRequest()->getPost('name');
-        $email = $this->getRequest()->getPost('email');
-        $phone = $this->getRequest()->getPost('phone');
-        $comment = $this->getRequest()->getPost('comment');
-        $templateId = $this->getRequest()->getPost('template_email');
+		$form_id		= $this->getRequest()->getPost('form_id');
+		$name				= $this->getRequest()->getPost('name');
+    $email			= $this->getRequest()->getPost('email');
+    $phone			= $this->getRequest()->getPost('phone');
+    $comment		= $this->getRequest()->getPost('comment');
+		$age				= $this->getRequest()->getPost('age');
+		$child			= $this->getRequest()->getPost('child');
+    $templateId = $this->getRequest()->getPost('template_email');
 		
 		$insertData = $this->_insertData();
 		
 		if ($insertData) {
 			
-			$urlform = $this->_backurl($form_id);
+			$urlform 			= $this->_backurl($form_id);
 			$redirectPage = Mage::getBaseUrl().$urlform;
-			$this->_prepareEmail($name, $email, $phone, $comment, $templateId);
+			$this->_prepareEmail($name, $email, $phone, $comment, $age, $child, $templateId);
 			
 			$message = "<div style='word-spacing:2px;'><p style='margin:0; padding:0;'>".$this->__('Terima kasih atas pertanyaan Anda. Tim ahli kami akan segera menjawab pertanyaan Anda.')."</p>"."<p style='margin:0; padding:0;'>".$this->__('Kami akan mengirimkan jawabannya ke email Anda atau Anda dapat juga melihat jawabannya di : ')."<a href='http://www.facebook.com/MyBilna' style='color: blue; text-decoration:none;'>"."<b>".$this->__('Facebook Bilna')."</b>"."</a> ".$this->__('atau')." <a href='http://www.bilna.com/blog/' style='color: blue; text-decoration:none;'>"."<b>".$this->__('Blog Bilna')."</b>"."</a>"."</p></div>";
 			Mage::getSingleton('core/session')->addSuccess($message);
@@ -34,14 +36,16 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
 			}
     }
 	
-	private function _prepareEmail($name, $email, $phone, $comment, $templateId) {
-        $emailVars = array (
+	private function _prepareEmail($name, $email, $phone, $comment, $age, $child, $templateId) {
+      $emailVars	= array (
 			'name_from' => $name,
-			'email' => $email,
-            'phone' => $phone,
-            'comment' => $comment,
-			'name_to' => 'CS Bilna',
-			'email_to' => 'cs@bilna.com'
+			'email'			=> $email,
+      'phone'			=> $phone,
+      'comment'		=> $comment,
+			'age'				=> $age,
+			'child'			=> $child,
+			'name_to'		=> 'CS Bilna',
+			'email_to'	=> 'cs@bilna.com'
         );
 
         $this->_sendEmail($name, $email, $emailVars, $templateId);
@@ -73,18 +77,20 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
     }
 	
 	private function _insertData() {
-        $write = Mage::getSingleton('core/resource')->getConnection('core_write');
+    $write = Mage::getSingleton('core/resource')->getConnection('core_write');
 		$submit_date=date("Y-m-d H:i:s");
-        $dataArr = array (
-			$this->getRequest()->getPost('form_id'),
-            $this->getRequest()->getPost('name'),
-            $this->getRequest()->getPost('email'),
-            $this->getRequest()->getPost('phone'),
-            $this->getRequest()->getPost('comment'),
-			$submit_date
+    $dataArr = array (
+		$this->getRequest()->getPost('form_id'),
+      $this->getRequest()->getPost('name'),
+      $this->getRequest()->getPost('email'),
+      $this->getRequest()->getPost('phone'),
+      $this->getRequest()->getPost('comment'),
+			$submit_date,
+			$this->getRequest()->getPost('age'),
+			$this->getRequest()->getPost('child'),
         );
 
-        $sql = "insert into bilna_form_data (form_id, name, email, phone, comment, submit_date) values (?,?,?,?,?,?)";
+        $sql = "insert into bilna_form_data (form_id, name, email, phone, comment, submit_date, age, child) values (?,?,?,?,?,?,?,?)";
         $query = $write->query($sql, $dataArr);
 
         if ($query)

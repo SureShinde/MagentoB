@@ -647,6 +647,10 @@
 { 
 	content:" / ";
 }
+.header .my-account-mobile .links li.login:after
+{ 
+	content:" ";
+}
 .header .links li {
 	float: none;
 	background: none;
@@ -695,7 +699,7 @@
 .header .links li.myaccount .toplink-myaccount, .menu-tablet .links li.myaccount .toplink-myaccount {
 	display: none;
 	position: absolute;
-	top: 18px;
+	top: 0px;
 	left: 0;
 	background: #fff;
 	padding: 10px;
@@ -703,7 +707,7 @@
 	-webkit-box-shadow: 1px 1px 4px 0 #ccc;
 	-moz-box-shadow: 1px 1px 4px 0 #ccc;
 	box-shadow: 1px 1px 4px 0 #ccc;
-	width: 130px;
+	width: 97%;
 }
 .header .links li.myaccount .toplink-myaccount ul li, .menu-tablet .links li.myaccount .toplink-myaccount ul li  {
 	border-top: 1px solid #dadada;
@@ -912,6 +916,8 @@
 }
 .header .my-account-mobile {
 	display: none;
+    width: 94%;
+    padding: 0 3%;
 }
 /*header menu*/
 .nav-container {
@@ -1660,7 +1666,7 @@
 		background-size: 100% auto;
 	}
 	.header .search-mobile .form-search .input-keyword input.input-text {
-		width: 40%;
+		width: 35%;
 	}
 	.header .search-mobile .form-search .input-keyword .select-category select {
 		width: 105px;

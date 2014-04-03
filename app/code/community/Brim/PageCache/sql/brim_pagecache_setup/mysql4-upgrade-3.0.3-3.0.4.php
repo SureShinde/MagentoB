@@ -14,9 +14,10 @@
  *
  * @category   Brim
  * @package    Brim_PageCache
- * @copyright  Copyright (c) 2011-2013 Brim LLC
+ * @copyright  Copyright (c) 2011-2014 Brim LLC
  * @license    http://ecommerce.brimllc.com/license
  */
+
 
 /** @var Mage_Core_Model_Resource_Setup $installer */
 
