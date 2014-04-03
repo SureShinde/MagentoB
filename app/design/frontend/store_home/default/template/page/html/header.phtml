@@ -201,6 +201,13 @@ $j(document).ready(function(){
         <?php echo $this->getChildHtml('topContainer'); ?>
         <div class="nav-mobile"><?php //echo $this->getChildHtml('topMenu') ?></div>
         <div class="mini-cart-mobile"><?php echo $this->getChildHtml('topcart') ?></div>
+        <div class="menu-top-mobile home-top-mob">
+	    	<ul>
+		    	<li class="mobile-baby"><a href="/baby"><?php echo $this->__('Mom &amp; Baby') ?></a></li>
+				<li class="mobile-home active"><a href="/home"><?php echo $this->__('Home') ?></a></li>
+		    	<li class="mobile-deals"><a href="/dailydeals"><?php echo $this->__('Daily Deals') ?></a></li>
+	    	</ul>
+    	</div>
         <div class="search-mobile"><?php echo $this->getChildHtml('topSearch') ?></div>
         <div class="my-account-mobile"><?php echo $this->getChildHtml('topLinks') ?></div>
     </div>

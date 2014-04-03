@@ -32,7 +32,7 @@
         
                 <li class="cat-leveltop <?php echo ($hasActiveChildren)?('parent'):('')?>">
                     <?php $url = Mage::getModel("catalog/category")->load($category->getId())->getUrl(); ?>
-                    <a class="categories" href="<?php echo $url ?>"><?php echo $category->getName(); ?></a>
+                    <a class="categories <?php echo strtolower(str_replace(array ("&"," ","'"), "", $category->getName())); ?>" href="<?php echo $url ?>"><?php echo $category->getName(); ?></a>
                     <?php if ($hasActiveChildren): ?>
                         <ul class="cat-sub">
                             <li>
@@ -56,7 +56,7 @@
                                                     ?>
                                                         
                                                     <?php $url = Mage::getModel("catalog/category")->load($activeChild->getId())->getUrl(); ?>
-                                                    <a href="<?php if ($hasActiveChildren2): ?>javascript:void(0)<?php else:?><?php echo $url; ?><?php endif;?>" rel="<?php echo $url ?>" class="subcategories<?php if ($hasActiveChildren2): ?> haschild<?php endif;?>"><?php echo ucwords(strtolower($activeChild->getName())); ?><?php if ($hasActiveChildren2): ?><span class="arrow"></span><?php endif;?></a>
+                                                    <a href="<?php if ($hasActiveChildren2): ?>javascript:void(0)<?php else:?><?php echo $url; ?><?php endif;?>" rel="<?php echo $url ?>" class="subcategories <?php echo strtolower(str_replace(array ("&"," ","'"), "", $activeChild->getName())); ?> <?php if ($hasActiveChildren2): ?> haschild<?php endif;?>"><?php echo ucwords(strtolower($activeChild->getName())); ?><?php if ($hasActiveChildren2): ?><span class="arrow"></span><?php endif;?></a>
                                                     
                                                     <?php if ($hasActiveChildren2): ?>
                                                         <div class="subsubcategories">
