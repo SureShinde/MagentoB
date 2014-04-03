@@ -82,6 +82,21 @@ class AW_Blog_Block_Post extends AW_Blog_Block_Abstract
         return $this->getData('commentCollection');
     }
 
+    public function getCommentCount()
+    {
+        if (!$this->hasData('commentCountCollection')) {
+            $collection = Mage::getModel('blog/comment')
+                ->getCollection()
+                ->addPostFilter($this->getPost()->getPostId())
+                ->setOrder('created_time', 'DESC')
+                ->addApproveFilter(2)
+            ;
+            
+            $this->setData('commentCountCollection', $collection->count());
+        }
+        return $this->getData('commentCountCollection');
+    }
+
     public function getCommentsEnabled()
     {
         return Mage::getStoreConfig('blog/comments/enabled');
