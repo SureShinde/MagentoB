@@ -38,6 +38,12 @@ $j(window).ready(function() {
 				
 				</script>
 	<script src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_JS);?>aw_collpur/jquery.cbpContentSlider.min.js"></script>
+	<script src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_JS);?>counter/jquery.plugin.js"></script>
+	<script src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_JS);?>counter/jquery.countdown.js"></script>
+	<link rel="stylesheet" href="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_JS);?>counter/jquery.countdown.css">
+	<style type="text/css">
+	#defaultCountdown { width: 240px; height: 45px; font-weight: normal }
+	</style>
 	<script>
 	
 		jQuery( document ).ready(function() {
@@ -301,8 +307,32 @@ $max = count($dealSliders); ?>
 							</div>
 							<div class="column large-4 medium-4 small-4 date_slider_deals">
 								<label>PROMO END IN:</label>
-								<p><?php echo $this->getTimeLeftToBuy($dealSlider); ?></p>
-								<p>hour(s) minute(s) second(s)</p>
+								<?php 
+								$year = date("Y", strtotime($dealSlider->getAvailableTo()));
+								$month = date("m", strtotime($dealSlider->getAvailableTo()));
+								$day = date("d", strtotime($dealSlider->getAvailableTo()));
+								$hours = date("H", strtotime($dealSlider->getAvailableTo()));
+								$minutes = date("i", strtotime($dealSlider->getAvailableTo()));
+								$seconds = date("s", strtotime($dealSlider->getAvailableTo()));
+								?>								
+								<script>
+								jQuery(function () {
+									var promoEnd = new Date();
+									var year = <?php echo $year; ?>;
+									var month = <?php echo $month; ?>;
+									var day = <?php echo $day; ?>;
+									var hours = <?php echo $hours; ?>;
+									var minutes = <?php echo $minutes; ?>;
+									var seconds = <?php echo $seconds; ?>;
+
+									promoEnd = new Date(parseInt(year), parseInt(month), parseInt(day), parseInt(hours), parseInt(minutes), parseInt(seconds));
+									jQuery('#defaultCountdown').countdown({until: promoEnd});
+								});
+								</script>
+								<p><?php //echo $this->getTimeLeftToBuy($dealSlider); ?>
+									<div id="defaultCountdown"></div>
+								</p>
+								<!-- <p>hour(s) minute(s) second(s)</p> -->
 								<p>SOLD: <span><?php echo $this->getPurchasesCount($dealSlider->getId()); ?></span></p>
 							</div>
 							<div class="column large-3 medium-3 small-3">
