@@ -44,6 +44,14 @@ class AW_Advancedreports_Model_Mysql4_Collection_Additional_Manufacturer
 	            'order_created_at' => 'created_at',
 	            'order_id' => 'parent_id',
 	        ));
+        }elseif($filterField == "shipment_created_at"){
+            $orderTable = $this->_helper()->getSql()->getTable('sales_flat_shipment');
+            
+            $this->getSelect()->reset();
+            $this->getSelect()->from(array($this->_getSalesCollectionTableAlias()=>$orderTable), array(
+                'order_created_at' => 'created_at',
+                'order_id' => 'order_id',
+            ));
         }else{
 	        if ($this->_helper()->checkSalesVersion('1.4.0.0')){
 	            $orderTable = $this->_helper()->getSql()->getTable('sales_flat_order');
@@ -74,6 +82,12 @@ class AW_Advancedreports_Model_Mysql4_Collection_Additional_Manufacturer
             $this->getSelect()
                     ->join( array('item'=>$itemTable), "(item.order_id = main_table.entity_id AND item.parent_item_id IS NULL)" )
                     ->order("sales_flat_order_status_history.created_at DESC")
+                    ;
+        }elseif($filterField == "shipment_created_at"){
+            $itemTable = $this->_helper()->getSql()->getTable('sales_flat_shipment');
+            $this->getSelect()
+                    ->join( array('item'=>$itemTable), "(item.order_id = main_table.entity_id)" )
+                    ->order("sales_flat_shipment.created_at DESC")
                     ;
         }else{
 	        if ($this->_helper()->checkSalesVersion('1.4.0.0')){

@@ -55,6 +55,11 @@ class AW_Blog_Block_Blog extends AW_Blog_Block_Abstract
                 ->addPresentFilter()
                 ->addEnableFilter(AW_Blog_Model_Status::STATUS_ENABLED)
                 ->addStoreFilter()
+                ->addFieldToSelect('identifier')
+                ->addFieldToSelect('title')
+                ->addFieldToSelect('created_time')
+                ->addFieldToSelect('image_name')
+                ->addFieldToSelect('short_content')
                 ->setOrder('created_time', 'desc');
             $posts->addFieldToFilter("awblog_post_cat.cat_id", array ('eq' => $catId));
             $posts->getSelect()
@@ -66,6 +71,7 @@ class AW_Blog_Block_Blog extends AW_Blog_Block_Abstract
                     )
             	)
                 ->limit(5);
+        
             parent::_processCollection($posts);    
 
             $data[$row->getCatId()]['post'] = $posts;

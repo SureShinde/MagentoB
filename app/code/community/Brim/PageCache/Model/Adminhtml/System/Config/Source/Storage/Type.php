@@ -14,9 +14,10 @@
  *
  * @category   Brim
  * @package    Brim_PageCache
- * @copyright  Copyright (c) 2011-2012 Brim LLC
+ * @copyright  Copyright (c) 2011-2014 Brim LLC
  * @license    http://ecommerce.brimllc.com/license
  */
+
 
 class Brim_PageCache_Model_Adminhtml_System_Config_Source_Storage_Type
 {
@@ -27,7 +28,7 @@ class Brim_PageCache_Model_Adminhtml_System_Config_Source_Storage_Type
      */
     public function toOptionArray()
     {
-        return array(
+        $options = array(
             array(
                 'value' => Brim_PageCache_Model_Config::STORAGE_TYPE_FILE,
                 'label'=>Mage::helper('brim_pagecache')->__('File')
@@ -39,15 +40,38 @@ class Brim_PageCache_Model_Adminhtml_System_Config_Source_Storage_Type
             array(
                 'value' => Brim_PageCache_Model_Config::STORAGE_TYPE_DATABASE,
                 'label'=>Mage::helper('brim_pagecache')->__('Database')
-            ),
-            array(
+            )
+        );
+
+        if (extension_loaded('apc')) {
+            $options[] = array(
                 'value' => Brim_PageCache_Model_Config::STORAGE_TYPE_APC,
                 'label'=>Mage::helper('brim_pagecache')->__('APC')
-            ),
-            array(
+            );
+        }
+
+        if (extension_loaded('memcache') || extension_loaded('memcached')) {
+            $options[] = array(
                 'value' => Brim_PageCache_Model_Config::STORAGE_TYPE_MEMCACHED,
                 'label'=>Mage::helper('brim_pagecache')->__('Memcached')
-            ),
-        );
+            );
+        }
+
+        if ((@class_exists('Mage_Cache_Backend_File') || @class_exists('Cm_Cache_Backend_File'))) {
+            $options[] = array(
+                'value' => Brim_PageCache_Model_Config::STORAGE_TYPE_OPT_FILE,
+                'label'=>Mage::helper('brim_pagecache')->__('Optimized File')
+            );
+        }
+
+        if (extension_loaded('redis') &&
+            (@class_exists('Mage_Cache_Backend_Redis') || @class_exists('Cm_Cache_Backend_Redis'))) {
+            $options[] = array(
+                'value' => Brim_PageCache_Model_Config::STORAGE_TYPE_REDIS,
+                'label'=>Mage::helper('brim_pagecache')->__('Redis')
+            );
+        }
+
+        return $options;
     }
 }

@@ -91,7 +91,7 @@ $j(window).ready(function() {
 			            // the items
 			            this.$items = this.$el.find( 'ul > li' ).hide();
 			            // the tabs
-			            this.$tabs = this.$el.find( 'nav > a' );
+			            this.$tabs = this.$el.find( '.slider_deals > a' );
 			            // total tabs
 			            var tabsCount = this.$tabs.length;
 			            // set each tab width
@@ -293,7 +293,7 @@ $max = count($dealSliders); ?>
 								<div class="price_deals_slider">
 									<p><?php echo Mage::helper('core')->currency($dealSlider->getPrice(), true, false); ?></p>
 										<div class="after_price">
-											<?php if($originalProduct->getFinalPrice() > 0) echo "<p>".Mage::helper('core')->currency($originalProduct->getFinalPrice(), true, false)."</p>"; ?>
+											<?php if($originalProduct->getPrice() > 0) echo "<p>".Mage::helper('core')->currency($originalProduct->getPrice(), true, false)."</p>"; ?>
 											<p><?php if($dealInfo->getPercentDiscount() <> "0") { echo $dealInfo->getPercentDiscount(); ?>% OFF<?php } ?></p>
 
 										</div>
@@ -303,7 +303,7 @@ $max = count($dealSliders); ?>
 								<label>PROMO END IN:</label>
 								<p><?php echo $this->getTimeLeftToBuy($dealSlider); ?></p>
 								<p>hour(s) minute(s) second(s)</p>
-								<p>SOLD: <span><?php echo $this->getPurchasesCount($dealSlider->getId()); ?></span></p>
+								<p class="hide">SOLD: <span><?php echo $this->getPurchasesCount($dealSlider->getId()); ?></span></p>
 							</div>
 							<div class="column large-3 medium-3 small-3">
 								<form action="<?php echo Mage::getUrl('checkout/cart/add', array('_secure'=>true,'product' => $dealSlider->getProduct()->getId(), 'deal_id' => $dealSlider->getId(), 'form_key' => Mage::getSingleton('core/session')->getFormKey())) ?>" method="post" class="right_detail_deals_slider" id="product_addtocart_form">
@@ -352,24 +352,7 @@ $max = count($dealSliders); ?>
 		  $i = 0;
 		  $max = count($dealSliders); ?>
 	<!--Sidebar Thumbnail-->	  
-	<nav class="thumb_angka_area">
-		<?php
-		$i = 1;
-		//echo "<pre>";
-		//var_dump($dealSliders);exit;
-		foreach($dealSliders as $dealSlider){
-		?>
-						<a href="#slide<?php echo $i; ?>" class="thumb_angka">
-						
-			
-						<?php echo $i; ?>
-						</a>
-		<?php
-		$i++;
-		}
-		?>		
-						</nav>
-	<nav class="large_thumb">
+	<nav class="large_thumb slider_deals">
 	<?php
 	$i = 0;
 	foreach($dealSliders as $dealSlider){
@@ -392,6 +375,24 @@ $max = count($dealSliders); ?>
 	}
 	?>
 	</nav>
+	<nav class="thumb_angka_area slider_deals">
+		<?php
+		$i = 1;
+		//echo "<pre>";
+		//var_dump($dealSliders);exit;
+		foreach($dealSliders as $dealSlider){
+		?>
+						<a href="#slide<?php echo $i; ?>" class="thumb_angka">
+						
+			
+						<?php echo $i; ?>
+						</a>
+		<?php
+		$i++;
+		}
+		?>		
+						</nav>
+	
 	<!--Sidebar Thumbnail // End-->
 	</div>	
 </div>	
