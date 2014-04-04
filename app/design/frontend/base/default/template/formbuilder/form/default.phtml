@@ -1,25 +1,18 @@
-<script type="text/javascript">
-jQuery(function(){
-	var x = '<?php echo Mage::getSingleton('core/session')->getStatusForm(); ?>';
-console.log(x);
-	if(x=='Saved')
-	{
-		document.getElementById("formbuilder-form").style.display="none";
-	}else{
-		document.getElementById("formbuilder-form").style.display="block";
-	}
-});
-</script>
-
 <form id="formbuilder-<?php echo $this->blockId; ?>" action="/baby/formbuilder/index/submit" method="post">
 	<input id="form_id" type="hidden" name="form_id" value="<?php echo $this->blockId; ?>">
 	<div class="formbuilder-header"><?php echo $this->getLayout()->createBlock('cms/block')->setBlockId($this->block->static_info)->toHtml(); ?></div>
 	<div class="formbuilder-form" id="formbuilder-form" style="margin: 0 15%; width: 60%;">
 		<ul>
-
 		<?php 
 		foreach($this->inputs->getData() as $input){
 		?>
+		<?php if($input["type"] == "checkbox"){ ?>
+		<li style="list-style-type: none;">
+			<div class="">
+				<input id="<?php echo $input["name"]; ?>" type="checkbox" name="inputs[<?php echo $input["group"]; ?>]"><label for="<?php echo $input["name"]; ?>"><?php echo $input["title"]; ?></label>
+			</div>
+		</li>
+		<?php }else{ ?>
 		<li style="list-style-type: none;">
 			<div style="clear: both; margin-bottom: 20px;">
 				<label class="required" style="float: left; width: 140px;" for="<?php echo $input["name"]; ?>"><?php echo $input["title"]; ?><em><?php if($input["required"] == true) echo '*'; ?></em></label>
@@ -32,8 +25,8 @@ console.log(x);
 			<div style="clear: both;">
 			</div>
 		</li>
-
 		<?php 
+		}
 		}
 		?>
 		</ul>
@@ -43,7 +36,4 @@ console.log(x);
 	</div>
 <div style="padding-left: 40em; margin-top: -30px; clear: both; width: 60%; padding: 0 15%;">
 </div>
-
 </form>
-
-<div class="formbuilder-success" style="margin-left: 270px !important;"><?php echo $this->getLayout()->createBlock('cms/block')->setBlockId($this->block->static_success)->toHtml(); ?></div>

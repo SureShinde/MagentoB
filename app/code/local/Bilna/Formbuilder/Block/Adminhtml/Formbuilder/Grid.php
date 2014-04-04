@@ -97,18 +97,6 @@ class Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Grid extends Mage_Adminhtml_
 			'header_css_class'=>'a-center'
 	));
 
-	$this->addColumn('age',
-		array(
-			'header'=> $this->__('Age'),
-			'index' => 'age'
-	));
-
-	$this->addColumn('child',
-		array(
-			'header'=> $this->__('Child'),
-			'index' => 'child'
-	));
-	  
 	$this->addColumn('Comment',
 		array(
 			'header'=> $this->__('Comment'),

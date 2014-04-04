@@ -1,34 +1,6 @@
 <?php
 class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Action 
 {
-  protected $ty=false;
-
-	public function __construct()
-	{
-		echo 'xxxxxxxxxxxxxxxxx';die;		
-		parent::__construct();
-	}
-
-	public function indexAction()
-	{	
-
-	$this->loadLayout();    
-	//$this->getLayout()->getBlock('bilna_formbuilder')->assign('data', array('gjg'=>$this->ty)); 
-
-	/*$layout  = $this->getLayout();
-	$block = $layout->getBlock('bilna_formbuilder');
-	$this->setTemplate('formbuilder/form/default.phtml');
-	$block->setVar('halo');	*/
-	
-	if($this->ty){
-
-		Mage::getSingleton('core/session')->unsStatusForm();	
-		$this->ty = false;
-	}
-
-	$this->renderLayout();									
-	}
-
 	public function submitAction() 
 	{
  		$postData = $this->getRequest()->getPost();
@@ -53,10 +25,21 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
 
 		foreach($block->getData() as $field){
 			if($field["required"]==true){
+				if($field["type"]=="checkbox"){
+					$message = "You must agree with terms and conditions";
+				}else{
+					$message = $field["title"].' cannot be empty';
+				}
+				
 				if(!isset($postData["inputs"][$field["group"]]) || empty($postData["inputs"][$field["group"]]) || is_null($postData["inputs"][$field["group"]])){
-
-					Mage::getSingleton('core/session')->addError($field["title"].' cannot be empty');
+					Mage::getSingleton('core/session')->addError($message);
 					
+					$redirectPage = Mage::getBaseUrl().$field["url"];
+					$this->_redirectPage($redirectPage);
+				}
+				if($field["type"]=="checkbox" && $postData["inputs"][$field["group"]] <> 1){
+					Mage::getSingleton('core/session')->addError($message);
+						
 					$redirectPage = Mage::getBaseUrl().$field["url"];
 					$this->_redirectPage($redirectPage);
 				}
@@ -84,12 +67,8 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
 			$insertData = $this->_insertData($form_id,$record_id,$type,$value,$create_date);			
 		}
 
-		Mage::getSingleton('core/session')->addSuccess('Saved');
+		Mage::getSingleton('core/session')->addSuccess("Terima Kasih telah melakukan registrasi, Voucher code akan dikirim ke alamat email anda berdasarkan tanggal di static page");
 		$redirectPage = Mage::getBaseUrl().$field["url"];
-
-		Mage::getSingleton('core/session')->setStatusForm('Saved');
-	
-		$this->ty=true;
 
 		$this->_redirectPage($redirectPage);
 	}
