@@ -356,7 +356,7 @@ class Bilna_Paymethod_VtdirectController extends Mage_Core_Controller_Front_Acti
     private function updateOrder($order, $paymentCode, $responseCharge) {
         if ($responseCharge->status == 'success') {
             if ($this->getThreedSecure($paymentCode)) {
-                $order->setState(Mage_Sales_Model_Order::STATE_NEW, true, 'Pending for 3D Secure Validation', true)->save();
+                $order->setState(Mage_Sales_Model_Order::STATE_NEW, 'cc_verification', 'Pending for 3D Secure Validation', true)->save();
             }
             else {
                 $transactionStatus = $responseCharge->data->transaction_status;
@@ -364,13 +364,27 @@ class Bilna_Paymethod_VtdirectController extends Mage_Core_Controller_Front_Acti
                 $message .= $this->getDefaultResponseMessage($responseCharge->status, $responseCharge->message);
                 
                 if ($transactionStatus == 'deny') {
-                    $order->addStatusHistoryComment($message);
+                    //$order->addStatusHistoryComment($message);
+                    $history = $order->addStatusHistoryComment($message);
+                    $history->setIsCustomerNotified(true);
+            
+                    if ($order->canCancel()) {
+                        $order->cancel();
+                    }
+            
                     $order->save();
                             
                     return true;
                 }
                 else if ($transactionStatus == 'cancel') {
-                    $order->addStatusHistoryComment($message);
+                    //$order->addStatusHistoryComment($message);
+                    $history = $order->addStatusHistoryComment($message);
+                    $history->setIsCustomerNotified(true);
+            
+                    if ($order->canCancel()) {
+                        $order->cancel();
+                    }
+            
                     $order->save();
                     
                     return true;
@@ -418,7 +432,13 @@ class Bilna_Paymethod_VtdirectController extends Mage_Core_Controller_Front_Acti
         else if ($responseCharge->status == 'failure') {
             $message = "Transaction status: " . $responseCharge->status . ". ";
             $message .= $this->getDefaultResponseMessage($responseCharge->status, $responseCharge->message);
-            $order->addStatusHistoryComment($message);
+            $history = $order->addStatusHistoryComment($message);
+            $history->setIsCustomerNotified(true);
+            
+            if ($order->canCancel()) {
+                $order->cancel();
+            }
+            
             $order->save();
             
             return true;
