@@ -3,10 +3,10 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
 {
 	public function submitAction() 
 	{
- 		$postData = $this->getRequest()->getPost();
-		$form_id = $postData['form_id'];
-		$create_date = now("Y-m-d H:i:s");
-		$templateId = $this->getRequest()->getPost('template_email');
+ 		$postData		= $this->getRequest()->getPost();
+		$form_id		= $postData['form_id'];
+		$create_date	= now("Y-m-d H:i:s");
+		$data			= array();
 
 		//$record_id = $this->getRequest()->getPost('record_id');
 		$connection = Mage::getSingleton('core/resource')->getConnection('core_read');
@@ -52,57 +52,66 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
 				$collection->addFieldToFilter('main_table.form_id', $form_id);
 				$collection->addFieldToFilter('main_table.type', $field["group"]);
 				$collection->addFieldToFilter('main_table.value', $postData["inputs"][$field["group"]]);
-				
-						$exist = $collection->getFirstItem();
+		
+				$exist = $collection->getFirstItem();
 
-						if(!is_null($exist["form_id"])){
-							Mage::getSingleton('core/session')->addError($field["title"].' must be unique');
-						
-							$redirectPage = Mage::getBaseUrl().$field["url"];
-							$this->_redirectPage($redirectPage);
-						}
-					}
+				if(!is_null($exist["form_id"])){
+					Mage::getSingleton('core/session')->addError($field["title"].' must be unique');
+				
+					$redirectPage = Mage::getBaseUrl().$field["url"];
+					$this->_redirectPage($redirectPage);
+				}
+			}
 		}
 
 		foreach($postData["inputs"] as $type=>$value){				
-			$insertData = $this->_insertData($form_id,$record_id,$type,$value,$create_date);			
+			$insertData = $this->_insertData($form_id,$record_id,$type,$value,$create_date);
+
+			if($row["sent_email"] == 1 && isset($postData["inputs"]["email"])){
+				$data["email"] = $postData["inputs"]["email"];
+				$data["name"] = (isset($postData["inputs"]["name"]))?$postData["inputs"]["name"]:"";
+				$data["phone"] = (isset($postData["inputs"]["phone"]))?$postData["inputs"]["phone"]:"";
+				$data["comment"] = (isset($postData["inputs"]["comment"]))?$postData["inputs"]["comment"]:"";
+
+				$this->_prepareEmail($data, $row["email_id"]);
+			}
 		}
 
-		Mage::getSingleton('core/session')->addSuccess("Terima Kasih telah melakukan registrasi, Voucher code akan dikirim ke alamat email anda berdasarkan tanggal di static page");
+		if(!is_null($row["success_message"])){
+			Mage::getSingleton('core/session')->addSuccess($row["success_message"]);
+		}
 		$redirectPage = Mage::getBaseUrl().$field["url"];
-
-		$this->_prepareEmail("Andi", "andi@bilna.com", "0219829873", "Tes", "25", "2", "18");
 		
 		$this->_redirectPage($redirectPage);
 	}
 
-	//private function _prepareEmail($name, $email, $phone, $comment, $age, $child, $templateId)
-	private function _prepareEmail($name, $email, $phone, $comment, $age, $child, $templateId)
+	private function _prepareEmail($data, $templateId)
 	{
 		$emailVars = array (
-		'name_from' => $name,
-		'email' => $type,
-		'phone' => $value,
-		'name_to' => 'CS Bilna',
-		'email_to' => 'cs@bilna.com'
+			'name_from' => $data["name"],
+			'email' => $data["email"],
+			'phone' => $data["phone"],
+			'comment' => $data["comment"],
+			'name_to' => 'CS Bilna',
+			'email_to' => 'cs@bilna.com'
 		);
 
-		$this->_sendEmail($form_id, $type, $emailVars, $templateId);
+		$this->_sendEmail($data, $emailVars, $templateId);
 	}
 
 	// Redirect Page Function
 	private function _redirectPage($url) {
-	header("location:".$url);
-	exit;
+		header("location:".$url);
+		exit;
 	}
 	// End Redirect Page Function
 
-	private function _sendEmail($name, $email, $emailVars, $templateId) 
+	private function _sendEmail($data, $emailVars, $templateId) 
 	{
 		$emailSender = array (
-				'name' => $name,
-				'email' => $email
-				);
+			'name' => $data["name"],
+			'email' => $data["email"]
+		);
 		//$storeId = Mage::app()->getStore()->getId();
 		$translate = Mage::getSingleton('core/translate');
 		$sendEmail = Mage::getModel('core/email_template')
