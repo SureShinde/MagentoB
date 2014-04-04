@@ -258,4 +258,54 @@ class Mage_Page_Block_Html_Topmenu extends Mage_Core_Block_Template
         }
         return $this->_currentEntityKey;
     }
+    
+    public function getCurrentCategoryFrontend() {
+        if (Mage::registry('current_category')) {
+            return Mage::registry('current_category')->getId();
+        }
+        
+        return 2;
+    }
+    
+    public function getCurrentMainCategory() {
+        $mainCategory = array ('beby', 'home', 'dailydeals');
+        $result = '';
+        
+        if ($categoryId = $this->getCurrentCategoryFrontend()) {
+        //if ($categoryId = Mage::getModel('catalog/layer')->getCurrentCategory()->getId()) {
+        //if (Mage::registry('current_category')) {
+            //echo "category_id: " . Mage::registry('current_category')->getId() . "<br/>";
+            //$categoryId = Mage::registry('current_category')->getId();
+            echo "masup sini: " . $this->getCategoryName($categoryId) . "<br/>";
+            
+            if (in_array($this->getCategoryName($categoryId), $mainCategory)) {
+                
+                $result = $this->getCategoryName($categoryId);
+            }
+            else {
+                $parentCategoryId = Mage::getModel('catalog/category')->load($categoryId)->getParentId();
+                //$parentCategoryId = Mage::registry('current_category')->getParentId();
+                $categoryId = Mage::getModel('catalog/category')->load($parentCategoryId)->getId();
+                
+                if (in_array($this->getCategoryName($categoryId), $mainCategory)) {
+                    $result = $this->getCategoryName($categoryId);
+                }
+                else {
+                    $parentCategoryId = Mage::getModel('catalog/category')->load($categoryId)->getParentId();
+                    //$parentCategoryId = Mage::registry('current_category')->getParentId();
+                    $categoryId = Mage::getModel('catalog/category')->load($parentCategoryId)->getParentId();
+                    
+                    if (in_array($this->getCategoryName($categoryId), $mainCategory)) {
+                        $result = $this->getCategoryName($categoryId);
+                    }
+                }
+            }
+        }
+        
+        return $result;
+    }
+    
+    public function getCategoryName($categoryId) {
+        return strtolower(Mage::getModel('catalog/category')->load($categoryId)->getName());
+    }
 }
