@@ -19,6 +19,10 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
 			$record_id = $row['record_id']+1;
 		}
 
+		$connection = Mage::getSingleton('core/resource')->getConnection('core_read');
+		$sql = "select * from bilna_formbuilder_data where form_id = $form_id";
+		$row = $connection->fetchRow($sql);
+
 		//CHECK INPUTS SETTING
 		$block = Mage::getModel('bilna_formbuilder/form')->getCollection();
 		$block->getSelect()->join('bilna_formbuilder_input', 'main_table.id = bilna_formbuilder_input.form_id');
