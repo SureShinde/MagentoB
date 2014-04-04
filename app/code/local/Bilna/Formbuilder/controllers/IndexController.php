@@ -20,7 +20,7 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
 		}
 
 		$connection = Mage::getSingleton('core/resource')->getConnection('core_read');
-		$sql = "select * from bilna_formbuilder_data where form_id = $form_id";
+		$sql = "select * from bilna_formbuilder_form where id = $form_id";
 		$row = $connection->fetchRow($sql);
 
 		//CHECK INPUTS SETTING
