@@ -17,7 +17,7 @@ class Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Edit_Tabs_Form extends Mage_
 		$collection->addFieldToFilter('main_table.record_id', (int) $this->getRequest()->getParam('record_id'));
 
 		$this->setCollection($collection);
-		$collection->printLogQuery(true);
+		//$collection->printLogQuery(true);
 		foreach($collection->getData() as $detail){
 				$fieldset->addField($detail['type'], 'label', array(
              'label'     => $detail['title'],

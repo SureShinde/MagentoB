@@ -6,6 +6,7 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
  		$postData = $this->getRequest()->getPost();
 		$form_id = $postData['form_id'];
 		$create_date = now("Y-m-d H:i:s");
+		$templateId = $this->getRequest()->getPost('template_email');
 
 		//$record_id = $this->getRequest()->getPost('record_id');
 		$connection = Mage::getSingleton('core/resource')->getConnection('core_read');
@@ -52,15 +53,15 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
 				$collection->addFieldToFilter('main_table.type', $field["group"]);
 				$collection->addFieldToFilter('main_table.value', $postData["inputs"][$field["group"]]);
 				
-				$exist = $collection->getFirstItem();
+						$exist = $collection->getFirstItem();
 
-				if(!is_null($exist["form_id"])){
-					Mage::getSingleton('core/session')->addError($field["title"].' must be unique');
+						if(!is_null($exist["form_id"])){
+							Mage::getSingleton('core/session')->addError($field["title"].' must be unique');
 						
-					$redirectPage = Mage::getBaseUrl().$field["url"];
-					$this->_redirectPage($redirectPage);
-				}
-			}
+							$redirectPage = Mage::getBaseUrl().$field["url"];
+							$this->_redirectPage($redirectPage);
+						}
+					}
 		}
 
 		foreach($postData["inputs"] as $type=>$value){				
@@ -70,10 +71,13 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
 		Mage::getSingleton('core/session')->addSuccess("Terima Kasih telah melakukan registrasi, Voucher code akan dikirim ke alamat email anda berdasarkan tanggal di static page");
 		$redirectPage = Mage::getBaseUrl().$field["url"];
 
-		$this->_redirectPage($redirectPage);
+$this->_redirectPage($redirectPage);
+		//$this->_prepareEmail($name, $email, $phone, $comment, $age, $child, $templateId);
+		$this->_prepareEmail("Andi", "andi@bilna.com", "0219829873", "Tes", "25", "2", "18");
 	}
 
-	private function _prepareEmail($name, $type, $value) 
+	//private function _prepareEmail($name, $email, $phone, $comment, $age, $child, $templateId)
+	private function _prepareEmail($name, $email, $phone, $comment, $age, $child, $templateId)
 	{
 		$emailVars = array (
 		'name_from' => $name,
@@ -83,7 +87,7 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
 		'email_to' => 'cs@bilna.com'
 		);
 
-		$this->_sendEmail($name, $type, $emailVars);
+		$this->_sendEmail($form_id, $type, $emailVars, $templateId);
 	}
 
 	// Redirect Page Function
@@ -99,10 +103,10 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
 				'name' => $name,
 				'email' => $email
 				);
-		$storeId = Mage::app()->getStore()->getId();
+		//$storeId = Mage::app()->getStore()->getId();
 		$translate = Mage::getSingleton('core/translate');
 		$sendEmail = Mage::getModel('core/email_template')
-		->sendTransactional($templateId, $emailSender, $emailVars['email'], $emailVars['name'], $emailVars, $storeId);
+		->sendTransactional($templateId, $emailSender, $emailVars['email'], $emailVars['name'], $emailVars);
 		$translate->setTranslateInline(true);
 
 		if ($sendEmail) 
