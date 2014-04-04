@@ -163,14 +163,16 @@
                                                                 <div class="awcp-status" id = "<?php echo $container; ?>"><?php echo $this->getTimeLeftToBuy($deal, $time = 'available_from'); ?></div>
                                                      <?php elseif ($deal->isRunning() && $deal->getAvailableTo()): ?>
                                                         <div class="awcp-title"><?php echo $this->__('PROMO ENDS IN:'); ?></div>
-                                                        <?php 
-                                                        $year = date("Y", strtotime($deal->getAvailableTo()));
-                                                        $month = date("m", strtotime($deal->getAvailableTo()));
-                                                        $day = date("d", strtotime($deal->getAvailableTo()));
-                                                        $hours = date("H", strtotime($deal->getAvailableTo()));
-                                                        $minutes = date("i", strtotime($deal->getAvailableTo()));
-                                                        $seconds = date("s", strtotime($deal->getAvailableTo()));
-                                                        ?>                              
+                                                        <?php
+                                                        $availableTo = Mage::getModel('core/date')->timestamp(strtotime($deal->getAvailableTo()));
+
+                                                        $year = date("Y", $availableTo);
+                                                        $month = date("m", $availableTo);
+                                                        $day = date("d", $availableTo);
+                                                        $hours = date("H", $availableTo);
+                                                        $minutes = date("i", $availableTo);
+                                                        $seconds = date("s", $availableTo);
+                                                        ?>                            
                                                         <script>
                                                         jQuery(function () {
                                                             var promoEnd = new Date();
@@ -181,7 +183,7 @@
                                                             var minutes = <?php echo $minutes; ?>;
                                                             var seconds = <?php echo $seconds; ?>;
 
-                                                            promoEnd = new Date(parseInt(year), parseInt(month), parseInt(day), parseInt(hours), parseInt(minutes), parseInt(seconds));
+                                                            promoEnd = new Date(parseInt(year), parseInt(month)-1, parseInt(day), parseInt(hours), parseInt(minutes), parseInt(seconds));
                                                             jQuery('#defaultCountdown').countdown({until: promoEnd});
                                                         });
                                                         </script>
