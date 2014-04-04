@@ -264,41 +264,24 @@ class Mage_Page_Block_Html_Topmenu extends Mage_Core_Block_Template
             return Mage::registry('current_category')->getId();
         }
         
-        return 2;
+        return false;
     }
     
     public function getCurrentMainCategory() {
-        $mainCategory = array ('beby', 'home', 'dailydeals');
+        $mainCategory = array ('mom-baby', 'home', 'daily-deals');
         $result = '';
         
         if ($categoryId = $this->getCurrentCategoryFrontend()) {
-        //if ($categoryId = Mage::getModel('catalog/layer')->getCurrentCategory()->getId()) {
-        //if (Mage::registry('current_category')) {
-            //echo "category_id: " . Mage::registry('current_category')->getId() . "<br/>";
-            //$categoryId = Mage::registry('current_category')->getId();
-            echo "masup sini: " . $this->getCategoryName($categoryId) . "<br/>";
-            
             if (in_array($this->getCategoryName($categoryId), $mainCategory)) {
-                
                 $result = $this->getCategoryName($categoryId);
             }
-            else {
-                $parentCategoryId = Mage::getModel('catalog/category')->load($categoryId)->getParentId();
-                //$parentCategoryId = Mage::registry('current_category')->getParentId();
-                $categoryId = Mage::getModel('catalog/category')->load($parentCategoryId)->getId();
-                
-                if (in_array($this->getCategoryName($categoryId), $mainCategory)) {
-                    $result = $this->getCategoryName($categoryId);
-                }
-                else {
-                    $parentCategoryId = Mage::getModel('catalog/category')->load($categoryId)->getParentId();
-                    //$parentCategoryId = Mage::registry('current_category')->getParentId();
-                    $categoryId = Mage::getModel('catalog/category')->load($parentCategoryId)->getParentId();
-                    
-                    if (in_array($this->getCategoryName($categoryId), $mainCategory)) {
-                        $result = $this->getCategoryName($categoryId);
-                    }
-                }
+            
+            if (in_array($this->getCategoryName(Mage::getModel('catalog/category')->load($categoryId)->getParentId()), $mainCategory)) {
+                $result = $this->getCategoryName(Mage::getModel('catalog/category')->load($categoryId)->getParentId());
+            }
+            
+            if (in_array($this->getCategoryName(Mage::getModel('catalog/category')->load(Mage::getModel('catalog/category')->load($categoryId)->getParentId())->getParentId()), $mainCategory)) {
+                $result = $this->getCategoryName(Mage::getModel('catalog/category')->load(Mage::getModel('catalog/category')->load($categoryId)->getParentId())->getParentId());
             }
         }
         
@@ -306,6 +289,10 @@ class Mage_Page_Block_Html_Topmenu extends Mage_Core_Block_Template
     }
     
     public function getCategoryName($categoryId) {
-        return strtolower(Mage::getModel('catalog/category')->load($categoryId)->getName());
+        return strtolower(str_replace(array (' & ', ' '), array ('-', '-'), Mage::getModel('catalog/category')->load($categoryId)->getName()));
+    }
+    
+    public function replaceCategoryName($categoryName) {
+        return str_replace('&', '<br/>&', $categoryName);
     }
 }

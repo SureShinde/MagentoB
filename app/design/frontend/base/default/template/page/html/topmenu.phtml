@@ -17,16 +17,15 @@
  */
 ?>
 
-<?php echo "currenctCategoryFrontend: " . $this->getCurrentCategoryFrontend(); ?><br/>
-
 <?php $_helper = Mage::helper('catalog/category') ?>
 <?php $_storeCategories = $_helper->getStoreCategories(); ?>
 <?php if (count($_storeCategories) > 0): ?>
-    <div class="menu-top-mobile baby-top-mob">
+    <div class="menu-top">
         <ul>
             <?php foreach ($_storeCategories as $_storeCategory): ?>
                 <?php
                 $_storeCategory = Mage::getModel('megamenu/catalog_category')->load($_storeCategory->getId());
+                $_storeCategoryClass = $this->getCategoryName($_storeCategory->getId()) == $this->getCurrentMainCategory() ? "active" : "";
                 
                 /**
                  * check if category is active
@@ -40,7 +39,33 @@
                 endif;
                 ?>
             
-                <li class="mobile-<?php echo $this->getCategoryName($_storeCategory->getId()); ?>">
+                <li class="web-<?php echo $this->getCategoryName($_storeCategory->getId()); ?> <?php echo $_storeCategoryClass; ?>">
+                    <a href="<?php echo $_helper->getCategoryUrl($_storeCategory); ?>"><?php echo $this->__($_storeCategory->getName()); ?></a>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+
+    <div class="menu-top-mobile baby-top-mob">
+        <ul>
+            <?php foreach ($_storeCategories as $_storeCategory): ?>
+                <?php
+                $_storeCategory = Mage::getModel('megamenu/catalog_category')->load($_storeCategory->getId());
+                $_storeCategoryClass = $this->getCategoryName($_storeCategory->getId()) == $this->getCurrentMainCategory() ? "active" : "";
+                
+                /**
+                 * check if category is active
+                 */
+                if (!$_storeCategory->getIsActive()):
+                    continue;
+                endif;
+
+                if (!$_storeCategory->getIncludeInMenu()):
+                    continue;
+                endif;
+                ?>
+            
+                <li class="mobile-<?php echo $this->getCategoryName($_storeCategory->getId()); ?> <?php echo $_storeCategoryClass; ?>">
                     <a href="<?php echo $_helper->getCategoryUrl($_storeCategory); ?>"><?php echo $this->__($_storeCategory->getName()); ?></a>
                 </li>
             <?php endforeach; ?>
@@ -50,12 +75,8 @@
 
     <?php foreach ($_storeCategories as $_storeCategory): ?>
         <?php
-        //echo "store_category: " . $this->getCategoryName($_storeCategory->getId()) . "<br/>";
-        //echo "current_category: " . $this->getCurrentMainCategory() . "<br/>";
         $_storeCategory = Mage::getModel('megamenu/catalog_category')->load($_storeCategory->getId());
-        $_storeCategoryClass = strtolower($this->getCategoryName($_storeCategory->getId())) == $this->getCurrentMainCategory() ? "" : "display:none;";
-        echo "storeCategory: " . strtolower($this->getCategoryName($_storeCategory->getId())) . "<br/>";
-        echo "currentStoreCategoryClass: " . $this->getCurrentMainCategory() . "<br/>";
+        $_storeCategoryClass = $this->getCategoryName($_storeCategory->getId()) == $this->getCurrentMainCategory() ? "" : "display:none;";
         
         /**
          * check if category is active
@@ -69,7 +90,7 @@
         endif;
         ?>
 
-        <div id="nav-<?php echo $_storeCategory->getId(); ?>" class="nav-container container" style="<?php echo $_storeCategoryClass; ?>">
+        <div id="nav-<?php echo $_storeCategory->getId(); ?>" class="nav-container container <?php echo $this->getCategoryName($_storeCategory->getId()); ?>" style="<?php echo $_storeCategoryClass; ?>">
             <?php $_categories = $_storeCategory->getChildrenCategories(); ?>
             <?php if (count($_categories) > 0): ?>
                 <ul id="nav" class="nav">
@@ -92,7 +113,7 @@
                         ?>
                         <li class="level level-top parent-<?php echo $_category->getId(); ?> parent">
                             <a href="<?php echo $_helper->getCategoryUrl($_category); ?>" class="level-top parent-<?php echo $_category->getId(); ?>">
-                                <span><span><?php echo $categoryName; ?></span></span>
+                                <span><span><?php echo $this->__($this->replaceCategoryName($categoryName)); ?></span></span>
                             </a>
                             <?php $_subCategories = $_category->getChildrenCategories(); ?>
                             <?php if (count($_subCategories) > 0): ?>
