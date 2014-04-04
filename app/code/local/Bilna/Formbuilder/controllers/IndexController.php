@@ -1,39 +1,13 @@
 <?php
 class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Action 
 {
-  protected $ty=false;
-
-	public function __construct()
-	{
-		echo 'xxxxxxxxxxxxxxxxx';die;		
-		parent::__construct();
-	}
-
-	public function indexAction()
-	{	
-
-	$this->loadLayout();    
-	//$this->getLayout()->getBlock('bilna_formbuilder')->assign('data', array('gjg'=>$this->ty)); 
-
-	/*$layout  = $this->getLayout();
-	$block = $layout->getBlock('bilna_formbuilder');
-	$this->setTemplate('formbuilder/form/default.phtml');
-	$block->setVar('halo');	*/
-	
-	if($this->ty){
-
-		Mage::getSingleton('core/session')->unsStatusForm();	
-		$this->ty = false;
-	}
-
-	$this->renderLayout();									
-	}
 
 	public function submitAction() 
 	{
  		$postData = $this->getRequest()->getPost();
 		$form_id = $postData['form_id'];
 		$create_date = now("Y-m-d H:i:s");
+		$templateId = $this->getRequest()->getPost('template_email');
 
 		//$record_id = $this->getRequest()->getPost('record_id');
 		$connection = Mage::getSingleton('core/resource')->getConnection('core_read');
@@ -52,49 +26,68 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
 		$block->addFieldToFilter('main_table.id', $form_id);
 
 		foreach($block->getData() as $field){
-			if($field["required"]==true){
-				if(!isset($postData["inputs"][$field["group"]]) || empty($postData["inputs"][$field["group"]]) || is_null($postData["inputs"][$field["group"]])){
+					if($field["required"]==true){
+								if($field["type"]=="checkbox"){
+										$message = "You must agree with terms and conditions";
+											}
+									else
+										{
+										$message = $field["title"].' cannot be empty';
+									}
+									if(!isset($postData["inputs"][$field["group"]]) || empty($postData["inputs"][$field["group"]]) || is_null($postData["inputs"][$field["group"]])){
 
-					Mage::getSingleton('core/session')->addError($field["title"].' cannot be empty');
+									//Mage::getSingleton('core/session')->addError($field["title"].' cannot be empty');
+									Mage::getSingleton('core/session')->addError($message);
 					
-					$redirectPage = Mage::getBaseUrl().$field["url"];
-					$this->_redirectPage($redirectPage);
-				}
-			}
+									$redirectPage = Mage::getBaseUrl().$field["url"];
+									$this->_redirectPage($redirectPage);
+								}
+									if($field["type"]=="checkbox" && $postData["inputs"][$field["group"]]<>"on"){
+											Mage::getSingleton('core/session')->addError($message);
+											$redirectPage = Mage::getBaseUrl().$field["url"];
+											$this->_redirectPage($redirectPage);
+									}
 
-			if($field["unique"]==true){
-				$collection = Mage::getModel('bilna_formbuilder/data')->getCollection();
-				$collection->getSelect('main_table.form_id');
-				$collection->addFieldToFilter('main_table.form_id', $form_id);
-				$collection->addFieldToFilter('main_table.type', $field["group"]);
-				$collection->addFieldToFilter('main_table.value', $postData["inputs"][$field["group"]]);
+					}
+
+					if($field["unique"]==true){
+						$collection = Mage::getModel('bilna_formbuilder/data')->getCollection();
+						$collection->getSelect('main_table.form_id');
+						$collection->addFieldToFilter('main_table.form_id', $form_id);
+						$collection->addFieldToFilter('main_table.type', $field["group"]);
+						$collection->addFieldToFilter('main_table.value', $postData["inputs"][$field["group"]]);
 				
-				$exist = $collection->getFirstItem();
+						$exist = $collection->getFirstItem();
 
-				if(!is_null($exist["form_id"])){
-					Mage::getSingleton('core/session')->addError($field["title"].' must be unique');
+						if(!is_null($exist["form_id"])){
+							Mage::getSingleton('core/session')->addError($field["title"].' must be unique');
 						
-					$redirectPage = Mage::getBaseUrl().$field["url"];
-					$this->_redirectPage($redirectPage);
-				}
-			}
+							$redirectPage = Mage::getBaseUrl().$field["url"];
+							$this->_redirectPage($redirectPage);
+						}
+					}
 		}
 
 		foreach($postData["inputs"] as $type=>$value){				
 			$insertData = $this->_insertData($form_id,$record_id,$type,$value,$create_date);			
 		}
 
-		Mage::getSingleton('core/session')->addSuccess('Saved');
+		//Mage::getSingleton('core/session')->addSuccess('Saved');
+		Mage::getSingleton('core/session')->addSuccess("Terima kasih telah melakukan registrasi, Voucher code akan dikirim ke alamat email anda berdasarkan tanggal di static page");
+		
 		$redirectPage = Mage::getBaseUrl().$field["url"];
 
-		Mage::getSingleton('core/session')->setStatusForm('Saved');
+		//Mage::getSingleton('core/session')->setStatusForm('Saved');
 	
-		$this->ty=true;
+		//$this->ty=true;
 
 		$this->_redirectPage($redirectPage);
+		//$this->_prepareEmail($name, $email, $phone, $comment, $age, $child, $templateId);
+		$this->_prepareEmail("Andi", "andi@bilna.com", "0219829873", "Tes", "25", "2", "18");
 	}
 
-	private function _prepareEmail($name, $type, $value) 
+	//private function _prepareEmail($name, $email, $phone, $comment, $age, $child, $templateId)
+	private function _prepareEmail($name, $email, $phone, $comment, $age, $child, $templateId)
 	{
 		$emailVars = array (
 		'name_from' => $name,
@@ -104,7 +97,7 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
 		'email_to' => 'cs@bilna.com'
 		);
 
-		$this->_sendEmail($name, $type, $emailVars);
+		$this->_sendEmail($form_id, $type, $emailVars, $templateId);
 	}
 
 	// Redirect Page Function
@@ -120,10 +113,10 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
 				'name' => $name,
 				'email' => $email
 				);
-		$storeId = Mage::app()->getStore()->getId();
+		//$storeId = Mage::app()->getStore()->getId();
 		$translate = Mage::getSingleton('core/translate');
 		$sendEmail = Mage::getModel('core/email_template')
-		->sendTransactional($templateId, $emailSender, $emailVars['email'], $emailVars['name'], $emailVars, $storeId);
+		->sendTransactional($templateId, $emailSender, $emailVars['email'], $emailVars['name'], $emailVars);
 		$translate->setTranslateInline(true);
 
 		if ($sendEmail) 
