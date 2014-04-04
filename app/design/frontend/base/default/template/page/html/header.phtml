@@ -110,10 +110,8 @@ $j(document).ready(function(){
 });
 </script>
 
-<a name="Top"></a>
-<a href="#Top" class="back-to-top"><?php echo $this->__('Back to Top') ?><img src="<?php echo $this->getSkinUrl(); ?>images/backtotop.png" /></a>
-
 <div class="header-container">
+	<?php echo $this->getLayout()->createBlock('page/html')->setTemplate('page/html/back-top.phtml')->toHtml(); ?>
 	<div class="sticky-header-wrapper">
 		<div class="sticky-header">
 			<a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="sticky-logo"><img src="<?php echo $this->getSkinUrl(); ?>images/logo-sticky.png" alt="<?php echo $this->getLogoAlt() ?>" /></a>
@@ -155,13 +153,37 @@ $j(document).ready(function(){
 	</div>
     <div class="header">
     	<a href="#" class="nav-mobile-trigger"><?php echo $this->__('Menu') ?></a>
-    	<div class="menu-top">
-	    	<ul>
-		    	<li class="active"><a href="/baby"><?php echo $this->__('Mom &amp; Baby') ?></a></li>
-		    	<!--<li><a href="/home"><?php //echo $this->__('Home') ?></a></li>-->
-		    	<!--li><a href="/baby/dailydeals"><?php //echo $this->__('Daily Deals') ?></a></li-->
-	    	</ul>
-    	</div>
+        
+        <?php $_helper = Mage::helper('megamenu'); ?>
+        <?php $_storeCategories = $_helper->getStoreCategories(); ?>
+        <?php if (count($_storeCategories) > 0): ?>
+            <div class="menu-top">
+                <ul>
+                    <?php foreach ($_storeCategories as $_storeCategory): ?>
+                        <?php
+                        $_storeCategory = Mage::getModel('catalog/category')->load($_storeCategory->getId());
+                        $_storeCategoryClass = $_helper->getCategoryName($_storeCategory->getId()) == $_helper->getCurrentMainCategory() ? "active" : "";
+
+                        /**
+                         * check if category is active
+                         */
+                        if (!$_storeCategory->getIsActive()):
+                            continue;
+                        endif;
+
+                        if (!$_storeCategory->getIncludeInMenu()):
+                            continue;
+                        endif;
+                        ?>
+
+                        <li class="web-<?php echo $_helper->getCategoryName($_storeCategory->getId()); ?> <?php echo $_storeCategoryClass; ?>">
+                            <a href="<?php echo $_helper->getCategoryUrl($_storeCategory); ?>"><?php echo $this->__($_storeCategory->getName()); ?></a>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+        <?php endif; ?>
+        
     	<?php if ($this->getIsHomePage()):?>
         <h1 class="logo"><strong><?php echo $this->getLogoAlt() ?></strong><a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="logo"><img src="<?php echo $this->getSkinUrl(); ?>images/logo.png" alt="<?php echo $this->getLogoAlt() ?>" /></a></h1>
         <?php else:?>
@@ -169,7 +191,7 @@ $j(document).ready(function(){
         <?php endif?>
         <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('keypoint')->toHtml() ?>
         <div class="quick-access">
-        	<a href="#" class="link-blog-mobile"><?php echo $this->__('Blog') ?></a>
+        	<a href="<?php echo $this->getUrl('blog'); ?>" class="link-blog-mobile"><?php echo $this->__('Blog') ?></a>
         	<a href="#" class="link-myaccount-mobile"><?php echo $this->__('My Account') ?></a>
         	<div class="top-cart">
         		<?php $_totalItem = $this->helper('checkout/cart')->getSummaryCount();  //get total items in cart ?>
@@ -201,6 +223,38 @@ $j(document).ready(function(){
         <?php echo $this->getChildHtml('topContainer'); ?>
         <div class="nav-mobile"><?php //echo $this->getChildHtml('topMenu') ?></div>
         <div class="mini-cart-mobile"><?php echo $this->getChildHtml('topcart') ?></div>
+        
+        <div class="menu-top-mobile baby-top-mob">
+            <ul>
+                <?php $_helper = Mage::helper('megamenu'); ?>
+                <?php $_storeCategories = $_helper->getStoreCategories(); ?>
+                <?php if (count($_storeCategories) > 0): ?>
+                    <?php foreach ($_storeCategories as $_storeCategory): ?>
+                        <?php
+                        $_storeCategory = Mage::getModel('catalog/category')->load($_storeCategory->getId());
+                        $_storeCategoryClass = $_helper->getCategoryName($_storeCategory->getId()) == $_helper->getCurrentMainCategory() ? "active" : "";
+
+                        /**
+                         * check if category is active
+                         */
+                        if (!$_storeCategory->getIsActive()):
+                            continue;
+                        endif;
+
+                        if (!$_storeCategory->getIncludeInMenu()):
+                            continue;
+                        endif;
+                        ?>
+
+                        <li class="mobile-<?php echo $_helper->getCategoryName($_storeCategory->getId()); ?> <?php echo $_storeCategoryClass; ?>">
+                            <a href="<?php echo $_helper->getCategoryUrl($_storeCategory); ?>"><?php echo $this->__($_storeCategory->getName()); ?></a>
+                        </li>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            </ul>
+        </div>
+        <div class="menu-top-mobile-wood"></div>
+        
         <div class="search-mobile"><?php echo $this->getChildHtml('topSearch') ?></div>
         <div class="my-account-mobile"><?php echo $this->getChildHtml('topLinks') ?></div>
     </div>

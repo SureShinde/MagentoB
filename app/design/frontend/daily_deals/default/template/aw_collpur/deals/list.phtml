@@ -25,22 +25,23 @@
  */
 ?>
 
-<div id="messages_product_view"><?php echo $this->getMessagesBlock()->getGroupedHtml() ?></div>
+<!--div id="messages_product_view"><?php //echo $this->getMessagesBlock()->getGroupedHtml() ?></div>
 <div class>
-</div>
-<?php //if($this->isNative()): ?>
+</div-->
+
+<?php if ($this->isNative()): ?>
 <!--<div class="awcp-navigation">
- <ul class="row">
-    <?php //foreach($this->getMenus() as $menu): ?>
-       <?php //if($this->_tabIsAllowed($menu)): ?>
-            <li <?php //echo $this->checkCurrentTab($menu['key']); ?>><a
-			href="<?php //echo $this->getDealTabUrl($menu['key']); ?>"><?php //echo $menu['title']; ?></a></li>
-       <?php //endif; ?>
-    <?php //endforeach; ?>
- </ul>
+	<ul class="row">
+		<?php //foreach($this->getMenus() as $menu): ?>
+		   <?php //if($this->_tabIsAllowed($menu)): ?>
+				<li <?php //echo $this->checkCurrentTab($menu['key']); ?>><a
+				href="<?php //echo $this->getDealTabUrl($menu['key']); ?>"><?php //echo $menu['title']; ?></a></li>
+		   <?php //endif; ?>
+		<?php //endforeach; ?>
+	</ul>
 	<div class="clearer"></div>
 </div>-->
-<?php //endif; ?>
+<?php endif; ?>
 <?php if($this->getAvailableDeals()->count() == 0):  ?>
 <h2 id="awcp-nodeals-available"><?php echo $this->__('No deals available'); ?></h2>
 <?php return; ?>
@@ -134,8 +135,8 @@
 									</button>
 								</div>
 							</form>
-						<?php if($originalProduct->getFinalPrice() != 0){ ?>
-						<p class="product_price"><?php echo Mage::helper('core')->currency($originalProduct->getFinalPrice(), true, false); ?></p>
+						<?php if($originalProduct->getPrice() != 0){ ?>
+						<p class="product_price"><?php echo Mage::helper('core')->currency($originalProduct->getPrice(), true, false); ?></p>
 							<p class="discount"><?php echo $dealInfo->getPercentDiscount(); ?>% OFF</p>
 						<?php } ?>
 						<form id="product_addtocart_form" class="right_detail_deals_2"
@@ -152,8 +153,8 @@
 										<div class="awcp-popup-center-left">
 											<div class="awcp-popup-center-right">
 												<div class="awcp-popup-content">
-											<?php echo $this->getChildHtml('main_collpur_block'); ?>
-										</div>
+													<?php echo $this->getChildHtml('main_collpur_block'); ?>
+												</div>
 											</div>
 										</div>
 										<div class="awcp-popup-bottom-left">
@@ -171,8 +172,8 @@
 										onclick="Effect.toggle($('awcp-popup-options<?php echo $deal->getId(); ?>'),'appear');return false;"
 										<?php endif; ?>>
 										<span>
-											<?php echo $this->__('BUY NOW'); ?>
-									</span>
+												<?php echo $this->__('BUY NOW'); ?>
+										</span>
 									</button>
 								</div>
 							</form>

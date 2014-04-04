@@ -75,7 +75,7 @@
 <div class="large-8 medium-8 columns right_detail">
 <div id="messages_product_view"><?php echo $this->getMessagesBlock()->getGroupedHtml() ?></div>
 	<div class="awcp-product-img-box">
-		<img class="awcp-product-img" src="<?php echo $this->getDealImage($deal->getDealImage()); ?>" alt="<?php echo $deal->getDealName(); ?>" />
+		<img class="awcp-product-img" src="<?php echo $this->getDealImage($deal->getDealImageSlider()); ?>" alt="<?php echo $deal->getDealName(); ?>" />
 	</div>	
 </div>
 <div class="large-4 medium-4 columns left_detail">
@@ -121,6 +121,7 @@
                             <div class="awcp-mark-right">
 								<div class="">
                                     <div class="content">
+                                    <?php if($dealInfo->getPercentDiscount() > 0 ){ ?>
                                         <table class="awcp-pricedata" cellspacing="0">
                                             <!--<tr>
 												<th><?php //echo $this->__('Discount'); ?></th>
@@ -128,13 +129,14 @@
                                                 <th class="last"><?php //echo $this->__('You save'); ?></th>
                                             </tr>-->
                                             <tr>
-                                                <td><?php echo Mage::helper('core')->currency($originalProduct->getFinalPrice(), true, false); ?></td>
+                                                <td><?php echo Mage::helper('core')->currency($originalProduct->getPrice(), true, false); ?></td>
 											</tr>
 											<tr>
 												<td><?php echo $dealInfo->getPercentDiscount(); ?>% OFF</td>
                                                 <!--<td class="last"><?php //echo $dealInfo->getSaveAmount(); ?></td>-->
                                             </tr>
                                         </table>
+                                    <?php } ?>
                                     </div>
                                 </div>
                             </div>
@@ -188,7 +190,7 @@
                                     <div class="awcp-mark-right">
                                         <div class="">
                                             <div class="content">
-                                                <div class="awcp-bought"><?php echo $this->__('SOLD :<span> %s </span> ', $this->getPurchasesCount($deal->getId())); ?></div>
+                                                <div class="awcp-bought hide"><?php echo $this->__('SOLD :<span> %s </span> ', $this->getPurchasesCount($deal->getId())); ?></div>
                                                 <div class="awcp-status"><?php echo $this->__('%s LEFT', $this->getPurchasesToReach($deal)); ?></div>
                                             </div>
                                         </div>

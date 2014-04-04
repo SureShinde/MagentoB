@@ -200,6 +200,10 @@
 		color: #494949;
 		font-size: 14px;
 	}
+    .footer li a {
+        color: #FD8E17;
+        text-decoration: none !important;
+    }
 }
 /* --------------- 320 px layout -------------------- */
 @media only screen and (max-width: 479px) { 

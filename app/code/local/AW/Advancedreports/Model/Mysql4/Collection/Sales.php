@@ -50,6 +50,18 @@ class AW_Advancedreports_Model_Mysql4_Collection_Sales extends AW_Advancedreport
         	$this->getSelect()->join(	array('sfosh' => 'sales_flat_order_status_history'),
         			"sfosh.parent_id = main_table.entity_id and entity_name = 'invoice'",
         			array('order_created_at'=>'created_at'));
+        }elseif($filterField == "shipment_created_at"){
+            $orderTable = $this->_helper()->getSql()->getTable('sales_flat_order');
+            
+            $this->getSelect()->reset();
+            $this->getSelect()->from(array($this->_getSalesCollectionTableAlias()=>$orderTable), array(
+                    'order_id' => 'entity_id',
+                    'order_increment_id' => 'increment_id'
+            ));
+
+            $this->getSelect()->join(   array('sfs' => 'sales_flat_shipment'),
+                    "sfs.order_id = main_table.entity_id",
+                    array('order_created_at'=>'created_at'));
         }else{
         	if ($this->_helper()->checkSalesVersion('1.4.0.0')) {
         		$orderTable = $this->_helper()->getSql()->getTable('sales_flat_order');
@@ -66,7 +78,7 @@ class AW_Advancedreports_Model_Mysql4_Collection_Sales extends AW_Advancedreport
         	));
         }
 
-    	if($filterField == "invoice_created_at") $filterField = "created_at";
+    	if($filterField == "invoice_created_at" || $filterField == "shipment_created_at") $filterField = "created_at";
 
         $this->getSelect()
         # name
@@ -125,6 +137,9 @@ class AW_Advancedreports_Model_Mysql4_Collection_Sales extends AW_Advancedreport
         if($filterField == "invoice_created_at"){
         	$tableOrder = "sales_flat_order_status_history";
         	$filterField = "created_at";
+        }elseif($filterField == "shipment_created_at"){
+            $tableOrder = "sales_flat_shipment";
+            $filterField = "created_at";
         }else{
         	$tableOrder = $tableAlias;
         }

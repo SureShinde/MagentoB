@@ -45,8 +45,7 @@ class Bilna_Paymethod_VtdirectController extends Mage_Core_Controller_Front_Acti
             $data['gross_amount'] = round($order->getGrandTotal());
             $data['email'] = $this->getCustomerEmail($order->getBillingAddress()->getEmail());
             $data['billing_address'] = $this->parseBillingAddress($order->getBillingAddress());
-            $data['shipping_address'] = $this->parseBillingAddress($order->getShippingAddress());
-            //$data['shipping_address'] = $this->parseShippingAddress($order->getShippingAddress());
+            $data['shipping_address'] = $this->parseBillingAddress($order->getBillingAddress());
             $data['bank'] = $this->getAcquiredBank($paymentCode);
             
             /**

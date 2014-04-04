@@ -106,6 +106,8 @@
     font-size: 1em;
     font-weight: bold;
     text-transform: uppercase;
+	position: absolute;
+	bottom: 20px;
 }
 .awafpgrid .afp-addtocart a {
 	display: inline-block;
@@ -196,4 +198,4 @@
 	
 }
 
-.afp-addtocart .availability.out-of-stock span {position: absolute; bottom: 50px;}
+.afp-addtocart .availability.out-of-stock span {position: absolute; bottom: 30px;}

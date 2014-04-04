@@ -617,16 +617,16 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
                     if ($this->getBackorders() == Mage_CatalogInventory_Model_Stock::BACKORDERS_YES_NOTIFY) {
                         if (!$this->getIsChildItem()) {
                             $result->setMessage(
-                                Mage::helper('cataloginventory')->__('This product is not available in the requested quantity. %s of the items will be backordered.', ($backorderQty * 1))
+                                Mage::helper('cataloginventory')->__('Product will be available 3-5 days.')
                             );
                         } else {
                             $result->setMessage(
-                                Mage::helper('cataloginventory')->__('"%s" is not available in the requested quantity. %s of the items will be backordered.', $this->getProductName(), ($backorderQty * 1))
+                                Mage::helper('cataloginventory')->__('Product will be available 3-5 days.')
                             );
                         }
                     } elseif (Mage::app()->getStore()->isAdmin()) {
                         $result->setMessage(
-                            Mage::helper('cataloginventory')->__('The requested quantity for "%s" is not available.', $this->getProductName())
+                            Mage::helper('cataloginventory')->__('Product will be available 3-5 days.')
                         );
                     }
                 }

@@ -181,6 +181,11 @@ class AW_Advancedreports_Block_Advanced_Sales_Grid extends AW_Advancedreports_Bl
         		"child_brand.entity_id = _product.entity_id",
         		array('brand'=>'child_brand.brand'));
 
+        /*add*/
+        /*$collection->getSelect()->joinLeft( array('sfs' => 'sales_flat_shipment'),
+                "sfs.order_id = main_table.entity_id",
+                array('shipment_created_at'=>'sfs.created_at'));*/
+        /*end add*/
         //EOF: CREATE A SUBQUERY FOR GETTING A BRAND
 		
 // 		$collection->getSelect()->join('catalog_product_entity_int', '_product.entity_id = catalog_product_entity_int.entity_id', array());
@@ -189,7 +194,7 @@ class AW_Advancedreports_Block_Advanced_Sales_Grid extends AW_Advancedreports_Bl
 // 		$collection->getSelect()->join('eav_attribute', 'eav_attribute_option.attribute_id = eav_attribute.attribute_id AND eav_attribute.attribute_code = "brand" ', array());
         
 //         echo $collection->getSelect();die;
-        
+//$collection->printLogQuery(true);           
         $this->setCollection($collection);
         $this->_prepareData();
         
@@ -219,6 +224,7 @@ class AW_Advancedreports_Block_Advanced_Sales_Grid extends AW_Advancedreports_Bl
         }
         $this->_saveFilters();
         $this->_setColumnFilters();
+//$collection->printLogQuery(true);                
     }
 
     protected function _addOptionToCache($id, $value)

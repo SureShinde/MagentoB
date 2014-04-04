@@ -13,6 +13,12 @@
             </megamenu>
         </models>
         
+        <helpers>
+            <megamenu>
+                <class>Bilna_Megamenu_Helper</class>
+            </megamenu>
+        </helpers>
+        
         <blocks>
             <megamenu>
                 <class>Bilna_Megamenu_Block</class>
