@@ -37,7 +37,7 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
 					$redirectPage = Mage::getBaseUrl().$field["url"];
 					$this->_redirectPage($redirectPage);
 				}
-				if($field["type"]=="checkbox" && $postData["inputs"][$field["group"]] <> 1){
+				if($field["type"]=="checkbox" && $postData["inputs"][$field["group"]] <> "on"){
 					Mage::getSingleton('core/session')->addError($message);
 						
 					$redirectPage = Mage::getBaseUrl().$field["url"];
