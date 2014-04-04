@@ -71,9 +71,9 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
 		Mage::getSingleton('core/session')->addSuccess("Terima Kasih telah melakukan registrasi, Voucher code akan dikirim ke alamat email anda berdasarkan tanggal di static page");
 		$redirectPage = Mage::getBaseUrl().$field["url"];
 
-$this->_redirectPage($redirectPage);
-		//$this->_prepareEmail($name, $email, $phone, $comment, $age, $child, $templateId);
 		$this->_prepareEmail("Andi", "andi@bilna.com", "0219829873", "Tes", "25", "2", "18");
+		
+		$this->_redirectPage($redirectPage);
 	}
 
 	//private function _prepareEmail($name, $email, $phone, $comment, $age, $child, $templateId)

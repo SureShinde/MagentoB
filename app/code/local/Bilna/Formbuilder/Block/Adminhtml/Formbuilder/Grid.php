@@ -44,18 +44,16 @@ class Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Grid extends Mage_Adminhtml_
 		$collection->getSelect()
 			->join(array('bff' => 'bilna_formbuilder_form'), 'main_table.form_id = bff.id',array('main_table.record_id', 'main_table.form_id', 'bff.title','main_table.create_date'));
 		$collection->getSelect()
-			->joinLeft(array('bfd_name' => 'bilna_formbuilder_data'), "main_table.record_id = bfd_name.record_id AND bfd_name.type = 'name'",array('Name' => 'bfd_name.value'));
+			->joinLeft(array('bfd_name' => 'bilna_formbuilder_data'), "main_table.record_id = bfd_name.record_id AND bfd_name.type = 'name' AND bfd_name.type = main_table.form_id",array('Name' => 'bfd_name.value'));
 		$collection->getSelect()
-			->joinLeft(array('bfd_email' => 'bilna_formbuilder_data'), "main_table.record_id = bfd_email.record_id AND bfd_email.type = 'email'",array('Email' => 'bfd_email.value'));
+			->joinLeft(array('bfd_email' => 'bilna_formbuilder_data'), "main_table.record_id = bfd_email.record_id AND bfd_email.type = 'email' AND bfd_email.type = main_table.form_id",array('Email' => 'bfd_email.value'));
 		$collection->getSelect()
-			->joinLeft(array('bfd_phone' => 'bilna_formbuilder_data'), "main_table.record_id = bfd_phone.record_id AND bfd_phone.type = 'phone'",array('Phone' => 'bfd_phone.value'));
+			->joinLeft(array('bfd_phone' => 'bilna_formbuilder_data'), "main_table.record_id = bfd_phone.record_id AND bfd_phone.type = 'phone' AND bfd_phone.type = main_table.form_id",array('Phone' => 'bfd_phone.value'));
 		$collection->getSelect()
-			->joinLeft(array('bfd_comment' => 'bilna_formbuilder_data'), "main_table.record_id = bfd_comment.record_id AND bfd_comment.type = 'comment'",array('Comment' => 'bfd_comment.value'));
-		$collection->getSelect()
-			->joinLeft(array('bfd_birth' => 'bilna_formbuilder_data'), "main_table.record_id = bfd_birth.record_id AND bfd_birth.type = 'birth'",array('Birth' => 'bfd_birth.value'));
+			->joinLeft(array('bfd_comment' => 'bilna_formbuilder_data'), "main_table.record_id = bfd_comment.record_id AND bfd_comment.type = 'comment' AND bfd_comment.type = main_table.form_id",array('Comment' => 'bfd_comment.value'));
 		$collection->getSelect()->group('main_table.record_id');
 		$collection->getSelect()->group('main_table.form_id');
-		//$collection->printLogQuery(true); //die;
+		$collection->printLogQuery(true); //die;
 		$this->setCollection($collection);		 
 		return parent::_prepareCollection();
     }
