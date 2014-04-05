@@ -1,0 +1,42 @@
+<form id="formbuilder-<?php echo $this->blockId; ?>" action="/baby/formbuilder/index/submit" method="post">
+	<input id="send_email" type="hidden" name="send_email" value="yes" />
+	<input id="template_email" type="hidden" name="template_email" value="12" /> 	
+	<input id="form_id" type="hidden" name="form_id" value="<?php echo $this->blockId; ?>">
+	<div class="formbuilder-header"><?php echo $this->getLayout()->createBlock('cms/block')->setBlockId($this->block->static_info)->toHtml(); ?></div>
+	<div class="formbuilder-form" id="formbuilder-form" style="margin: 0 15%; width: 60%;">
+		<ul>
+		<?php 
+		foreach($this->inputs->getData() as $input){
+		?>
+		<?php if($input["type"] == "checkbox"){ ?>
+		<li style="list-style-type: none;">
+			<div class="">
+				<input id="<?php echo $input["name"]; ?>" type="checkbox" name="inputs[<?php echo $input["group"]; ?>]"><label for="<?php echo $input["name"]; ?>"><?php echo $input["title"]; ?></label>
+			</div>
+		</li>
+		<?php }else{ ?>
+		<li style="list-style-type: none;">
+			<div style="clear: both; margin-bottom: 20px;">
+				<label class="required" style="float: left; width: 140px;" for="<?php echo $input["name"]; ?>"><?php echo $input["title"]; ?><em><?php if($input["required"] == true) echo '*'; ?></em></label>
+			<?php if($input["type"] == "text"){ ?>
+				<input id="<?php echo $input["name"]; ?>" class="input-text required-entry validate-digits" min="1" max="2" style="height: 26px !important; width: 40% !important; background: none repeat scroll 0 0 #F9F9F9; border: none; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) inset; color: #666666; padding: 7px 5px; float: left; margin-right: 60px;" title="<?php echo $input["title"]; ?>" name="inputs[<?php echo $input["group"]; ?>]" />
+			<?php }else if($input["type"] == "textarea"){ ?>
+				<textarea id="<?php echo $input["name"]; ?>" class="required-entry input-text" style="height: 100px !important; width: 40% !important; background: none repeat scroll 0 0 #F9F9F9; border: none; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) inset; color: #666666; padding: 7px 5px; float: left; margin-right: 60px;" rows="3" cols="5" title="<?php echo $input["title"]; ?>" name="inputs[<?php echo $input["group"]; ?>]"></textarea>
+			<?php } ?>
+			</div>
+			<div style="clear: both;">
+			</div>
+		</li>
+		<?php 
+		}
+		}
+		?>
+		</ul>
+
+	<div style="clear: both;"></div>
+<p class="required" style="float: left; color: #eb340a; margin-left: 160px;">*Required Fields</p>
+<input id="hideit" style="display: none !important;" type="text" name="hideit" /><br /><button class="button" title="" type="submit" style="margin-left: -80px !important;"> <span class="fb-bebas fb-15" style="padding: 10px 20px; border: none; background: #ffa01b; font-weight: normal;">Submit</span></button>
+	</div>
+<div style="padding-left: 40em; margin-top: -30px; clear: both; width: 60%; padding: 0 15%;">
+</div>
+</form>
