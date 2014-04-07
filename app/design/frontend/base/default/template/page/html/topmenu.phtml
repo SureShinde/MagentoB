@@ -22,7 +22,7 @@
 <?php if (count($_storeCategories) > 0): ?>
     <?php foreach ($_storeCategories as $_storeCategory): ?>
         <?php
-        $_storeCategory = Mage::getModel('catalog/category')->load($_storeCategory->getId());
+        $_storeCategory = Mage::getModel('megamenu/catalog_category')->load($_storeCategory->getId());
         $_storeCategoryClass = $_helper->getCategoryName($_storeCategory->getId()) == $_helper->getCurrentMainCategory() ? "" : "display:none;";
         
         /**
@@ -37,7 +37,7 @@
         endif;
         ?>
 
-        <div id="nav-<?php echo $_storeCategory->getId(); ?>" class="nav-container container <?php echo $_helper->getCategoryName($_storeCategory->getId()); ?>" style="<?php echo $_storeCategoryClass; ?>">
+        <div id="nav-<?php echo $_storeCategory->getId(); ?>" class="nav-container container nav-<?php echo $_helper->getCategoryName($_storeCategory->getId()); ?>" style="<?php echo $_storeCategoryClass; ?>">
             <?php $_categories = $_storeCategory->getChildrenCategories(); ?>
             <?php if (count($_categories) > 0): ?>
                 <ul id="nav" class="nav">
@@ -52,9 +52,9 @@
                         </li>
                     <?php endif; ?>
                     
-                    <?php foreach ($_categories as $_category): ?>
+                   <?php foreach ($_categories as $_category): ?>
                         <?php
-                        $_category = Mage::getModel('catalog/category')->load($_category->getId());
+                        $_category = Mage::getModel('megamenu/catalog_category')->load($_category->getId());
                         
                         /**
                          * check if category is active
@@ -83,7 +83,7 @@
                                                 <ul>
                                                     <?php foreach ($_subCategories as $_subCategory): ?>
                                                         <?php
-                                                        $_subCategory = Mage::getModel('catalog/category')->load($_subCategory->getId());
+                                                        $_subCategory = Mage::getModel('megamenu/catalog_category')->load($_subCategory->getId());
                                                         
                                                         /**
                                                          * check if category is active
