@@ -62,11 +62,12 @@ class AW_Blog_Block_Manage_Blog_Grid extends Mage_Adminhtml_Block_Widget_Grid
     {
         $this->addColumn(
             'post_id',
-            array(
-                 'header' => Mage::helper('blog')->__('ID'),
-                 'align'  => 'right',
-                 'width'  => '50px',
-                 'index'  => 'post_id',
+            array (
+                'header' => Mage::helper('blog')->__('ID'),
+                'align' => 'right',
+                'width' => '50px',
+                'index' => 'post_id',
+                'filter_index' => 'main_table.post_id',
             )
         );
 
