@@ -23,7 +23,9 @@ class Bilna_Formbuilder_Block_Block extends Mage_Core_Block_Template
 			
 				$this->inputs = Mage::getModel('bilna_formbuilder/form')->getCollection();
 				$this->inputs->getSelect()->join('bilna_formbuilder_input', 'main_table.id = bilna_formbuilder_input.form_id');
-				$this->inputs->addFieldToFilter('main_table.id', $this->blockId);
+				$this->inputs->addFieldToFilter('main_table.id', $this->blockId)
+							->addOrder('bilna_formbuilder_input.order', 'ASC')
+							->addOrder('bilna_formbuilder_input.group', 'ASC');
       }
 
         $html = $this->renderView();
