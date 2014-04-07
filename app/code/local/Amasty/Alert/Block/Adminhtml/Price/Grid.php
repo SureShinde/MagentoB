@@ -22,7 +22,7 @@ class Amasty_Alert_Block_Adminhtml_Price_Grid extends Mage_Adminhtml_Block_Widge
             //->joinInner(array('cust'=> $cust), 'main_table.customer_id = cust.entity_id', array('email'))
             ->group(array('website_id', 'product_id'))
         ;
-$c->printLogQuery(true);
+
         $this->setCollection($c);
         return parent::_prepareCollection();
     }
