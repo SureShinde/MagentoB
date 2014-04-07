@@ -31,12 +31,12 @@ class Amasty_Alert_Block_Adminhtml_Stock_Grid extends Mage_Adminhtml_Block_Widge
         $hlp =  Mage::helper('amalert'); 
     
         if (!Mage::app()->isSingleStoreMode()) {
-            $this->addColumn('websites',
+            $this->addColumn('website_id',
                 array(
                     'header'=> Mage::helper('catalog')->__('Websites'),
                     'width' => '100px',
                     'sortable'  => false,
-                    'index'     => 'websites',
+                    'index'     => 'website_id',
                     'type'      => 'options',
                     'options'   => Mage::getModel('core/website')->getCollection()->toOptionHash(),
             ));
