@@ -363,10 +363,11 @@
 	display: block;
 	text-transform: uppercase;
 	font-family: 'bebasregular';
+    font-size: 11px;
 }
 .keypoint ul li p {
 	line-height: 12px;
-	font-size: 10px;
+	font-size: 9px;
 	color: #707070;
 }
 .keypoint ul li.free-shipping {
@@ -1853,6 +1854,7 @@ searchbar #nav-search-in {
     
     .language-select-option {
         margin: 8px 0 0 0;
+        display: none;
     }
     #nav-searchbar {
         border-radius: 4px;
@@ -1898,6 +1900,13 @@ searchbar #nav-search-in {
         margin-top: 0;
     }
     #nav a.link-shopby:hover { color: #D96708 !important;}
+    
+    .search-container-new {
+        display: block;
+        float: left;
+        max-width: 420px;
+        width: 100%;
+    }
 }
 	
 
