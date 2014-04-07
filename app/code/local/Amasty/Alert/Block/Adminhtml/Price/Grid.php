@@ -14,15 +14,15 @@ class Amasty_Alert_Block_Adminhtml_Price_Grid extends Mage_Adminhtml_Block_Widge
     protected function _prepareCollection()
     {
         $productsTable = Mage::getSingleton('core/resource')->getTableName('catalog/product');
-        //$cust = Mage::getSingleton('core/resource')->getTableName('customer/entity');
+        $cust = Mage::getSingleton('core/resource')->getTableName('customer/entity');
         $c = Mage::getModel('productalert/price')->getCollection();
         $c->getSelect()
             ->columns(array('cnt' => 'count(*)', 'last_d'=>'MAX(add_date)', 'first_d'=>'MIN(add_date)', 'min_p'=>'MIN(price)', 'max_p'=>'MAX(price)'))
             ->joinInner(array('e'=> $productsTable), 'e.entity_id = product_id', array('sku'))
-            //->joinInner(array('cust'=> $cust), 'main_table.customer_id = cust.entity_id', array('email'))
-            ->group(array('website_id', 'product_id'))
+            ->joinInner(array('cust'=> $cust), 'main_table.customer_id = cust.entity_id', array('email'))
+            ->group(array('main_table.website_id', 'main_table.product_id'))
         ;
-
+			
         $this->setCollection($c);
         return parent::_prepareCollection();
     }
@@ -42,6 +42,11 @@ class Amasty_Alert_Block_Adminhtml_Price_Grid extends Mage_Adminhtml_Block_Widge
                     'options'   => Mage::getModel('core/website')->getCollection()->toOptionHash(),
             ));
         } 
+        
+        $this->addColumn('email', array(
+            'header'    => $hlp->__('Customer Email'),
+            'index'     => 'email',
+        ));
         
         $this->addColumn('sku', array(
             'header'    => $hlp->__('SKU'),
