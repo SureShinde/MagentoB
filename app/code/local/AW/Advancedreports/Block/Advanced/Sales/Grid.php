@@ -631,6 +631,19 @@ class AW_Advancedreports_Block_Advanced_Sales_Grid extends AW_Advancedreports_Bl
             'ddl_options' => array('nullable' => true),
         ));
 
+        $this->addColumn('shipping_split_amount', array (
+            'header' => $this->_helper()->__('Shipping Amount'),
+            'index' => 'shipping_split_amount',
+            'type' => 'currency',
+            'currency_code' => $this->getCurrentCurrencyCode(),
+            'total' => 'sum',
+            'column_css_class' => 'nowrap',
+            'default' => $def_value,
+            'ddl_type' => Varien_Db_Ddl_Table::TYPE_DECIMAL,
+            'ddl_size' => '12,4',
+            'ddl_options' => array ('nullable' => true)
+        ));
+        
         $this->addColumn('base_row_xtotal_incl_tax', array(
             'header' => $this->_helper()->__('Total Incl. Tax'),
             'width' => '80px',
