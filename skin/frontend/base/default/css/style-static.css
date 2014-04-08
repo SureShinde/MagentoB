@@ -1736,6 +1736,13 @@ h2.block-grey-title-left {
 
 
 /* --------------------------------------- Start FORM BUILDER --------------------------------------- */
+.formbuilder-form .std ul {
+    list-style: disc outside none;
+    padding-left: 0em !important;
+}
+.formbuilder-form ul li  {
+    margin: 0 0 0 11px;
+}
 .formbuilder-form ul li  {
     list-style-type: none;
     clear: both;
@@ -1756,7 +1763,7 @@ h2.block-grey-title-left {
     margin-left:0px;
 }
 .formbuilder-form ul li div.form-radio input{
-    margin: 2px 5px;
+    margin: 2px 5px 0 0;
     width: 20px !important;
 }
 .formbuilder-form ul li div.form-radio label{
@@ -1766,7 +1773,7 @@ h2.block-grey-title-left {
 
 .formbuilder-form ul li label  {
     float: left;
-    width: 140px;
+    width: 135px;
 }
 
 .formbuilder-form ul li div.form-checkbox{
@@ -1774,7 +1781,7 @@ h2.block-grey-title-left {
     margin: 40px 0 0 0;
 }
 .formbuilder-form ul li div.form-checkbox input{
-    margin: 2px 5px;
+    margin: 2px 5px 0 0;
     width: 20px !important;
 }
 .formbuilder-form ul li div.form-checkbox label{
@@ -1800,11 +1807,11 @@ h2.block-grey-title-left {
     color: #FF0000;
     float: left;
     font-size: 11px;
-    margin: 0 2em;
+    margin: 0 32px;
     padding: 0;
 }
 .formbuilder-form button.button {
-    width: 44%;
+    width: 42%;
 }
 .formbuilder-form button.button span {
     background: none repeat scroll 0 0 #FFA01B;
@@ -1839,7 +1846,7 @@ h2.block-grey-title-left {
         display: block;
     }
     .formbuilder-form button.button {
-        width: 75%;
+        width: 72%;
     }
 
 }
