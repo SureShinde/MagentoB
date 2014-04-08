@@ -1923,7 +1923,7 @@ tr.summary-details-excluded { font-style:italic; }
         .header .menu-top-mobile ul li {
         display: inline-block;
         width: 32.75%; 
-        background: none repeat scroll 0 0 #E0E0E0; 
+        background: none repeat scroll 0 0 #4EC7DA; 
         text-align: center;
         padding: 7px 0;
         border-radius: 7px 7px 0 0;
@@ -1941,11 +1941,11 @@ tr.summary-details-excluded { font-style:italic; }
         padding: 5px 0;
     }
     .menu-top-mobile ul li:hover, .menu-top-mobile ul li.active {
-        background: none repeat scroll 0 0 #95E1F1;
+        background: none repeat scroll 0 0 #e4c29c;
     }
-    .menu-top-mobile ul li.mobile-baby:hover,.menu-top-mobile ul li.mobile-baby.active {background: #95E1F1;}
+    /* .menu-top-mobile ul li.mobile-baby:hover,.menu-top-mobile ul li.mobile-baby.active {background: #95E1F1;}
     .menu-top-mobile ul li.mobile-home:hover,.menu-top-mobile ul li.mobile-home.active {background: #DAAEA4;}
-    .menu-top-mobile ul li.mobile-deals:hover,.menu-top-mobile ul li.mobile-deals.active {background: #FFB29D;}
+    .menu-top-mobile ul li.mobile-deals:hover,.menu-top-mobile ul li.mobile-deals.active {background: #FFB29D;} */
 /* -------- menu top mobile END ------------ */
 
 }

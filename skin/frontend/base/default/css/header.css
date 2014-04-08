@@ -281,7 +281,7 @@
     width: auto;
     bottom: 5px;
     left: 175px;
-    margin-left: 10px;
+    /* margin-left: 10px; */
     position: absolute;
     display: block;
 }
@@ -314,7 +314,7 @@
 	letter-spacing: 1px;
 }
 .menu-top ul li {
-	background: #e0e0e0;
+	background: #4EC7DA;
 	width: 110px;
 	padding: 7px 0 3px;
 }
@@ -323,7 +323,8 @@
 	color: #fff;
 }
 .menu-top ul li:hover, .menu-top ul li.active {
-	background: #e4c29c;
+	background: #e4c29c !important;
+    box-shadow: 0 -4px 18px rgba(0, 0, 0, 0.1) inset;
 }  
 .menu-top ul li:last-child:hover {
 	/* background: #ffb39c; */
@@ -637,6 +638,7 @@
 .header .quick-access .store-phone, .header .links, .menu-tablet .links {
 	float: none;
 	font-family: Helvetica;
+    display: block;
 }
 .header .links {
 	margin: 2px 0 0 0;
@@ -1019,6 +1021,9 @@
 	display: block;
 	vertical-align: middle;
 }
+#nav li.level-top.nav-for-moms, #nav li.level-top.nav-gift-sets {
+    max-width: 63px;
+}
 #nav li.level-top:hover {
 	background: #fff;
 }
@@ -1026,7 +1031,7 @@
 	color: #dadada;
 }
 #nav li.level-top.parent-10, #nav li.level-top.parent-11 {
-	float: right;
+	float: left;
 	width: auto;
 }
 #nav li.level-top.parent-10:hover, #nav li.level-top.parent-11:hover {
@@ -1040,15 +1045,19 @@
 	float: left;
 	width: auto;
 }
-#nav li.menu-salegift a.sale, #nav li.menu-salegift a.giftideas {
+#nav li.menu-salegift a.sale, #nav li.menu-salegift a.giftideas, #nav li.nav-sale {
 	text-indent: -99999px;
 	padding: 0;
 }
-#nav li.menu-salegift a.sale, #nav a.level-top.sale {
+#nav li.menu-salegift a.sale, #nav a.level-top.sale, #nav li.nav-sale {
 	width: 68px;
 	height: 42px;
 	background: url(../images/sale.png) no-repeat center center;
 }
+#nav li.nav-sale {float: right;}
+#nav li.nav-sale a span span {display: none;}
+#nav li.nav-gift-sets {float: right;}
+#nav li.nav-gift-sets a span span {color: #FEE13A;}
 #nav li.menu-salegift a.giftideas, #nav a.level-top.giftideas {
 	width: 43px;
 	height: 42px;
@@ -1224,7 +1233,7 @@ top: 49px;
 	width: 215px;
 	background: #fff;
 	position: absolute;
-	top:50px;
+	top:53px;
 	left:0;
 	z-index: 9;
 	padding-top: 10px;
@@ -1747,8 +1756,19 @@ searchbar #nav-search-in {
 	}
     
     .header .quick-access .left {
-        display: none;
+        display: block;
         margin-right: 5px;
+        position: absolute;
+        top: 133px;
+        right: 0;
+    }
+    .header .quick-access .store-phone, .header .links, .menu-tablet .links {
+        float: left;
+        font-family: Helvetica;
+    }
+    
+    .header .links {
+        margin: 0 0 0 10px;
     }
 }
 /* --------------- 960 px layout -------------------- */
@@ -1798,6 +1818,7 @@ searchbar #nav-search-in {
 	.header .quick-access .left {
 		float: none !important;
 		text-align: right;
+        display: block;
 	}
 	/* .sticky-header .sticky-search .form-search .input-keyword .select-category,  */
 	.header .links, .header .quick-access .store-phone, .header .form-language, .header .quick-access .top-cart a.link-checkout {
@@ -1835,7 +1856,7 @@ searchbar #nav-search-in {
 		left: 0;
 		z-index: 99;
 	}
-	#nav li.menu-salegift a.sale, #nav a.level-top.sale {
+	#nav li.menu-salegift a.sale, #nav a.level-top.sale, #nav li.nav-sale {
 		width: 50px;
 		background-size: 100% auto;
 	}
@@ -1846,6 +1867,9 @@ searchbar #nav-search-in {
 	#nav a.level-top.sale, #nav a.level-top.giftideas {
 		padding: 0;
 	}
+    #nav li.level-top.nav-for-moms, #nav li.level-top.nav-gift-sets {
+        max-width: 40px;
+    }
 	.menu-tablet {
 		display: block;
 	}
@@ -1917,6 +1941,14 @@ searchbar #nav-search-in {
         max-width: 420px;
         width: 70%;
     }
+    .header .quick-access .left {
+        display: none !important;
+        margin: -1px;
+	}
+    .header .quick-access .left .store-phone, .header .quick-access .left .links {
+        display: block;
+        float: right;
+    }
 }
 	
 
@@ -1950,6 +1982,9 @@ searchbar #nav-search-in {
 		text-transform: capitalize;
 		padding: 42px 0 0 0;
 		line-height: normal;
+	}
+    .header .quick-access .left {
+        display: none !important;
 	}
 	.header a.nav-mobile-trigger {
 		display: block;

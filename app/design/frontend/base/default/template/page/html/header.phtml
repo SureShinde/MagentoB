@@ -29,8 +29,8 @@
 ?>
 <!--Mobile Menu-->
 <script type="text/javascript">
-wwidth = $j(window).width();
-$j(document).ready(function(){
+    wwidth = $j(window).width();
+    $j(document).ready(function(){
 	$j(window).scroll(function(){
 		  if ($j(this).scrollTop() > 100) {
 	          $j(".header-container .sticky-header-wrapper").fadeIn();
@@ -112,7 +112,20 @@ $j(document).ready(function(){
 		}
 
 	});
-});
+
+        
+         
+        $j('div.menu-top a.menu-top-hover').hover(
+            function() {
+                $j('div.nav-container').hide();
+                $j('div.nav-' + $j(this).attr('id')).show();
+            },
+            function() {
+                $j('div.nav-container').hide();
+                $j('div.nav-' + $j('div.menu-top ul li.active').attr('id')).show();
+            }
+        );
+    });
 </script>
 
 <div class="header-container">
@@ -171,8 +184,8 @@ $j(document).ready(function(){
                         endif;
                         ?>
 
-                        <li class="web-<?php echo $_helper->getCategoryName($_storeCategory->getId()); ?> <?php echo $_storeCategoryClass; ?>">
-                            <a href="<?php echo $_helper->getCategoryUrl($_storeCategory); ?>"><?php echo $this->__($_storeCategory->getName()); ?></a>
+                        <li id="<?php echo $_helper->getCategoryName($_storeCategory->getId()); ?>" class="web-<?php echo $_helper->getCategoryName($_storeCategory->getId()); ?> <?php echo $_storeCategoryClass; ?>">
+                            <a id="<?php echo $_helper->getCategoryName($_storeCategory->getId()); ?>" class="menu-top-hover" href="<?php echo $_helper->getCategoryUrl($_storeCategory); ?>"><?php echo $this->__($_storeCategory->getName()); ?></a>
                         </li>
                     <?php endforeach; ?>
                 </ul>
@@ -279,12 +292,12 @@ if you want to call it from cms page, please use this
 <!--end for testing only-->
 <script>
  jQuery(document).ready(function(){
-  jQuery(".giftideas").mouseover(function(){
+  jQuery(".nav-gift-sets").mouseover(function(){
     jQuery(".nav-10").addClass("hover");
 	jQuery(".nav-10>a").addClass("color_a");
 	jQuery(".gift-menu-wrapp").show();
   });	
-  jQuery(".giftideas").mouseleave(function(){
+  jQuery(".nav-gift-sets").mouseleave(function(){
     jQuery(".nav-10").removeClass("hover");
 	jQuery(".nav-10>a").removeClass("color_a");
 	jQuery(".gift-menu-wrapp").hide();
