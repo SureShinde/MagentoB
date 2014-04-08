@@ -58,7 +58,7 @@ class AW_Blog_Controller_Router extends Mage_Core_Controller_Varien_Router_Abstr
         $identifier = substr_replace($request->getPathInfo(), '', 0, strlen("/" . $route . "/"));
         $identifier = str_replace('.html', '', $identifier);
         $identifier = str_replace('.htm', '', $identifier);
-
+error_log("\n$identifier", 3, '/tmp/mag_blog.log');
         if ($identifier == '') {
             $request->setModuleName('blog')
                 ->setControllerName('index')
@@ -69,10 +69,10 @@ class AW_Blog_Controller_Router extends Mage_Core_Controller_Varien_Router_Abstr
         if (strpos($identifier, '/')) {
             $page = substr($identifier, strpos($identifier, '/') + 1);
         }
-
+error_log("\n$page | ".strpos($identifier, '/'), 3, '/tmp/mag_blog.log');
         if (substr($identifier, 0, strlen('tag/')) == 'tag/') {
             $identifier = substr_replace($identifier, '', 0, strlen('cat/'));
-
+error_log("\ntag", 3, '/tmp/mag_blog.log');
             if (strpos($identifier, '/page/')) {
                 $page = substr($identifier, strpos($identifier, '/page/') + 6);
                 $identifier = substr_replace($identifier, '', strpos($identifier, '/page/'), strlen($page) + 6);
@@ -102,12 +102,12 @@ class AW_Blog_Controller_Router extends Mage_Core_Controller_Varien_Router_Abstr
             }
         } elseif (substr($identifier, 0, strlen('cat/')) == 'cat/') {
             $identifier = substr_replace($identifier, '', 0, strlen('cat/'));
-
+error_log("\ncat", 3, '/tmp/mag_blog.log');error_log("\ncat : $identifier", 3, '/tmp/mag_blog.log');
             if (strpos($identifier, '/page/')) {
                 $page = substr($identifier, strpos($identifier, '/page/') + 6);
                 $identifier = substr_replace($identifier, '', strpos($identifier, '/page/'), strlen($page) + 6);
             }
-
+error_log("\npage : $page", 3, '/tmp/mag_blog.log');
             if (strpos($identifier, '/post/')) {
                 $postident = substr($identifier, strpos($identifier, '/post/') + 6);
                 $identifier = substr_replace($identifier, '', strpos($identifier, '/post/'), strlen($postident) + 6);
@@ -158,7 +158,7 @@ class AW_Blog_Controller_Router extends Mage_Core_Controller_Varien_Router_Abstr
         } else {
             if (substr($identifier, 0, strlen('page/')) == 'page/') {
                 $identifier = substr_replace($identifier, '', 0, strlen('page/'));
-
+error_log("\npage", 3, '/tmp/mag_blog.log');error_log("\npage : $identifier", 3, '/tmp/mag_blog.log');
                 $request->setModuleName('blog')
                     ->setControllerName('index')
                     ->setActionName('index');
@@ -175,26 +175,46 @@ class AW_Blog_Controller_Router extends Mage_Core_Controller_Varien_Router_Abstr
                         ->setActionName('index');
                     return true;
                 } else {
+error_log("\npagex : $identifier", 3, '/tmp/mag_blog.log');
+                    $numOfIdentifier = explode("/", trim($identifier, "/") );
 
-                    $identifier = str_replace('/', '', $identifier);
+                    if( count($numOfIdentifier) == 1 || count($numOfIdentifier) == 2 )
+                    {
+error_log("\ncount : ".count($numOfIdentifier), 3, '/tmp/mag_blog.log');                    
+error_log("\ncat : ".$numOfIdentifier[count($numOfIdentifier)-1], 3, '/tmp/mag_blog.log');
 
-                    $post = Mage::getSingleton('blog/post');
-                    if (!$post->load($identifier)->getId()) {
-                        if (!$post->load($identifier . ".htm")->getId()) {
-                            if (!$post->load($identifier . ".html")->getId()) {
-                                return false;
+                        $identifier = $numOfIdentifier[count($numOfIdentifier)-1];
+
+                        $request->setModuleName('blog')
+                            ->setControllerName('cat')
+                            ->setActionName('view')
+                            ->setParam('identifier', $identifier);
+                        if (isset($page)) {
+                            $request->setParam('page', $page);
+                        }
+                        return true;
+                    }elseif( count($numOfIdentifier) == 3 ){
+                        //$identifier = str_replace('/', '', $identifier);
+                        $identifier = str_replace('/', '', $numOfIdentifier[2]);
+
+                        $post = Mage::getSingleton('blog/post');
+                        if (!$post->load($identifier)->getId()) {
+                            if (!$post->load($identifier . ".htm")->getId()) {
+                                if (!$post->load($identifier . ".html")->getId()) {
+                                    return false;
+                                }
                             }
                         }
-                    }
 
-                    $request->setModuleName('blog')
-                        ->setControllerName('post')
-                        ->setActionName('view')
-                        ->setParam('identifier', $identifier);
-                    if (isset($page)) {
-                        $request->setParam('page', $page);
+                        $request->setModuleName('blog')
+                            ->setControllerName('post')
+                            ->setActionName('view')
+                            ->setParam('identifier', $identifier);
+                        if (isset($page)) {
+                            $request->setParam('page', $page);
+                        }
+                        return true;
                     }
-                    return true;
                 }
             }
         }

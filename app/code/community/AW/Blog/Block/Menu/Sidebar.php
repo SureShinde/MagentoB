@@ -57,7 +57,7 @@ class AW_Blog_Block_Menu_Sidebar extends AW_Blog_Block_Abstract
             ->setOrder('sort_order', 'asc')
         ;
         foreach ($collection as $item) {
-            $item->setAddress($this->getBlogUrl(array(self::$_catUriParam, $item->getIdentifier())));
+            $item->setAddress($this->getBlogUrl(array($item->getIdentifier())));
         }
         return $collection;
     }
