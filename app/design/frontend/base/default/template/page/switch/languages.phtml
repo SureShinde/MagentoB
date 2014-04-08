@@ -49,8 +49,9 @@
 <?php endif; */?>
 
 <div class="language-select-option">
-    <select class="bg-select-arrow">
-        <option style="background:url("<?php echo $this->getSkinUrl('images/language-english.gif'); ?>")">ENG</option>
-        <option style="background:url("<?php echo $this->getSkinUrl('images/language-Indonesia.gif'); ?>")">IND</option>
+    <select class="country" style="position: relative; z-index: 1;">
+        <option class="call-eng">ENG</option>
+        <option class="call-ind">IND</option>
     </select>
+    <div style="position: absolute; top: 51px; right: 9px; z-index: 0;"><img src="http://192.168.2.31/bilna-baru/skin/frontend/base/default/images/select-arrow-new.png"/></div>
 </div>

@@ -117,15 +117,29 @@
          
         $j('div.menu-top a.menu-top-hover').hover(
             function() {
-                $j('div.nav-container').hide();
-                $j('div.nav-' + $j(this).attr('id')).show();
+                $j('div.nav-container').hide('');
+                $j('div.nav-' + $j(this).attr('id')).show('');
             },
             function() {
-                $j('div.nav-container').hide();
-                $j('div.nav-' + $j('div.menu-top ul li.active').attr('id')).show();
+                $j('div.nav-container').hide('');
+                $j('div.nav-' + $j('div.menu-top ul li.active').attr('id')).show('');
             }
         );
     });
+</script>
+
+<script>
+     $j(document).ready(function(){
+      $j("option.call-eng").click(function(){
+        $j("select.country").addClass("english-lang");
+        $j("select.country").removeClass("indonesia-lang");
+      });
+      
+      $j("option.call-ind").click(function(){
+        $j("select.country").removeClass("english-lang");
+        $j("select.country").addClass("indonesia-lang");
+      });
+});
 </script>
 
 <div class="header-container">
@@ -269,7 +283,7 @@
         <div class="my-account-mobile"><?php echo $this->getChildHtml('topLinks') ?></div>
     </div>
 </div>
-
+<div class="menu-homepage-wood"></div>
 <?php echo $this->getChildHtml('topMenu'); ?>
 
 
