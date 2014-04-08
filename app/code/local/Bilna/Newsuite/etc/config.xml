@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Bilna_Netsuite>
+            <version>0.1.0</version>
+        </Bilna_Netsuite>
+    </modules>
+    
+    <global>
+        <helpers>
+            <netsuite>
+                <class>Bilna_Netsuite_Helper</class>
+            </netsuite>
+        </helpers>
+    </global>
+</config>
