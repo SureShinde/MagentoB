@@ -34,16 +34,20 @@ class AW_Blog_Block_Menu_Sidebar extends AW_Blog_Block_Abstract
             $size = $this->getBlogWidgetRecentCount();
         } else {
             // standard output
-            $size = self::$_helper->getRecentPage();
+            $size = 4;//self::$_helper->getRecentPage();
         }
 
         if ($size) {
             $collection = clone self::$_collection;
             $collection->setPageSize($size);
+            $collection->addFieldToSelect('title');
+            $collection->addFieldToSelect('created_time');
+            $collection->addFieldToSelect('image_name');
 
             foreach ($collection as $item) {
                 $item->setAddress($this->getBlogUrl($item->getIdentifier()));
             }
+
             return $collection;
         }
         return false;
@@ -66,7 +70,11 @@ class AW_Blog_Block_Menu_Sidebar extends AW_Blog_Block_Abstract
     {
         $collection = Mage::getModel('blog/comment')
             ->getCollection()
+            ->addFieldToSelect('created_time')
+            ->addFieldToSelect('user')
+            ->addFieldToSelect('email')
             ->setOrder('created_time', 'DESC');
+
         $collection->addFieldToFilter("main_table.status", array ('eq' => 2));
         $collection->getSelect()
             ->joinLeft(
@@ -91,13 +99,16 @@ class AW_Blog_Block_Menu_Sidebar extends AW_Blog_Block_Abstract
             $size = $this->getBlogWidgetRecentCount();
         } else {
             // standard output
-            $size = self::$_helper->getRecentPage();
+            $size = 4;//self::$_helper->getRecentPage();
         }
 
         if ($size) {
             $collection = clone self::$_collection;
             $collection->setPageSize($size);
-
+            $collection->addFieldToSelect('title');
+            $collection->addFieldToSelect('created_time');
+            $collection->addFieldToSelect('image_name');
+            
             foreach ($collection as $item) {
                 $item->setAddress($this->getBlogUrl($item->getIdentifier()));
             }
