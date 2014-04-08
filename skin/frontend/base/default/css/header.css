@@ -1072,7 +1072,7 @@
     }
     
     #nav li.level-top.nav-our-choice:hover {
-        background: url("../images/our-choice.png") no-repeat scroll center center / 100px auto #A27E79;
+        background: url("../images/our-choice.png") no-repeat scroll center center / 100px auto #4EC7DA;
     }
 
 #nav a.level-top.sale, #nav a.level-top.giftideas {
@@ -1346,13 +1346,14 @@ top: 49px;
 	display: none;
 	margin: 3px auto 0;
 	font-size: 11px;
-	height: 23px;
+    width: 1216px;
 }
 .menu-tablet .form-language, .menu-tablet .store-phone, .menu-tablet ul.links {
 	float: right;
 }
 .menu-tablet .form-language {
 	margin-right: 10px;
+    display: none;
 }
 .menu-tablet ul.links {
 	margin-left: 20px;
@@ -1366,7 +1367,7 @@ top: 49px;
 /*------------------------------------------------------ Style for new Header ------------------------------------------*/
 
 
-.language-select-option {width: 20%; float: right;margin: 0; display: block;}
+.language-select-option {width: 65px; float: right;margin: 0; display: block;}
 .language-select-option select {
     width: 100%;
     -webkit-appearance: none;
@@ -1393,7 +1394,7 @@ top: 49px;
 /* NEW SEARCH FIELD */
 .search-container-new {
     max-width: 420px;
-    width: 78%;
+    width: 86%;
     float: left;
     display: block;
 }
@@ -1685,9 +1686,10 @@ searchbar #nav-search-in {
     top: 1px;
     display: block;
     z-index: 2;
-    width: 336px;
+    width: 33%;
     padding-right: 33%;
     margin-left: -93px;
+    max-width: inherit;
 }
 
 .cart-for-sticky {
@@ -1788,7 +1790,7 @@ searchbar #nav-search-in {
 	}
     
     .header .quick-access .left {
-        display: block;
+        display: none;
         margin-right: 5px;
         position: absolute;
         top: 133px;
@@ -1801,6 +1803,26 @@ searchbar #nav-search-in {
     
     .header .links {
         margin: 0 0 0 10px;
+    }
+    .search-container-new {
+        width: 83%;
+    }
+    .header .quick-access .left {
+        display: none;
+    }
+    .menu-tablet {
+        display: block;
+        width: 994px;
+    }
+    .search-for-sticky {
+        position:fixed;
+        top: 1px;
+        display: block;
+        z-index: 2;
+        width: 33% !important;
+        padding-right: 33%;
+        margin-left: -93px;
+        max-width: inherit !important;
     }
 }
 /* --------------- 960 px layout -------------------- */
@@ -1984,6 +2006,15 @@ searchbar #nav-search-in {
     .header .quick-access .left .store-phone, .header .quick-access .left .links {
         display: block;
         float: right;
+    }
+    .header .quick-access .left {
+        display: none;
+    }
+    .menu-tablet {
+        display: block;
+        margin: 3px auto 0;
+        font-size: 11px;
+        width:745px;
     }
 }
 	
