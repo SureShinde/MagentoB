@@ -1,7 +1,7 @@
 <form id="formbuilder-<?php echo $this->blockId; ?>" action="/baby/formbuilder/index/submit" method="post">
 	<input id="form_id" type="hidden" name="form_id" value="<?php echo $this->blockId; ?>">
 	<div class="formbuilder-header"><?php echo $this->getLayout()->createBlock('cms/block')->setBlockId($this->block->static_info)->toHtml(); ?></div>
-	<div class="formbuilder-form" id="formbuilder-form">
+	<div class="formbuilder-form static-page-wrapper" id="formbuilder-form">
 		<ul>
 		<?php
 		$group = "";
@@ -39,6 +39,7 @@
 		}
 		?>
 		</ul>
+        <div style="clear:both"></div>
 		<p class="required">* Required Fields</p>
 		<button class="button" title="" type="submit"><span class="fb-bebas fb-15">Submit</span></button>
 	</div>
