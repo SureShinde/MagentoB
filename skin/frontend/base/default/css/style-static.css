@@ -1736,3 +1736,20 @@ h2.block-grey-title-left {
     margin: 0 0 10px;
 }
 /* ---------------- end COD -------------------- */
+
+/* ---------------- ETUDE -------------------- */
+.etude li span.right{
+	display:inline-flex;
+	float:none !important;
+}
+.etude li {
+	margin:0 !important;
+}
+.etude ul{
+	list-style-type:none;
+}
+.etude span.left{
+width:68px;
+}
+
+/* ---------------- ETUDE -------------------- */
