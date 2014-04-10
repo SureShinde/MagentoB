@@ -7,6 +7,12 @@
     </modules>
     
     <global>
+        <models>
+            <netsuite>
+                <class>Bilna_Netsuite_Model</class>
+            </netsuite>
+        </models>
+        
         <helpers>
             <netsuite>
                 <class>Bilna_Netsuite_Helper</class>
