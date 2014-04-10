@@ -1130,6 +1130,18 @@
 	padding-left: 25px;
 	padding-right: 25px;
 }
+.nav-container-mobile .cat-sub li a.bestseller {
+    color: #FFA01B !important;
+    font-weight: bold;
+}
+.nav-container-mobile .cat-sub li a.whatsonsale {
+    color: #FC8360 !important;
+    font-weight: bold;
+}
+.nav-container-mobile .cat-sub li a.whatsnew {
+    color: #8DD240 !important;
+    font-weight: bold;
+}
 .shopby {
 	text-align: left;
 	background: #fff;
@@ -1241,6 +1253,9 @@
 .nav-container-mobile ul li:first-child {
 	border-top: none;
 }
+.nav-container-mobile ul li.cat-leveltop {
+    background: url("../images/arrow-menu-mobile.png") no-repeat scroll 98% 17px rgba(0, 0, 0, 0);
+}
 .nav-container-mobile .cat-leveltop a {
 	padding-top: 20px;
 	padding-bottom: 20px;
@@ -1256,6 +1271,10 @@
 	padding-right: 12px;
 }
 
+.nav-container-mobile .cat-leveltop a.sale {
+    color: #FC8360;
+    font-weight: bold;
+}
 .nav-container-mobile ul li.cat-leveltop.parent {
 	background: url(../images/arrow-menu-mobile.png) no-repeat 98% 17px;
 	
