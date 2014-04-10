@@ -168,9 +168,11 @@ function amshopby_category_show(evt){
 
 function amshopby_filter_show(evt){
     var dt = Event.findElement(evt, 'dt');
-    
+	
     dt.next('dd').toggle();
+	
     dt.toggleClassName('amshopby-collapsed'); 
+	
   
     Event.stop(evt);
     return false;
