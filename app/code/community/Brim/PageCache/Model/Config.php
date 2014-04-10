@@ -14,9 +14,10 @@
  *
  * @category   Brim
  * @package    Brim_PageCache
- * @copyright  Copyright (c) 2011-2012 Brim LLC
+ * @copyright  Copyright (c) 2011-2014 Brim LLC
  * @license    http://ecommerce.brimllc.com/license
  */
+
 
 class Brim_PageCache_Model_Config {
 
@@ -30,6 +31,9 @@ class Brim_PageCache_Model_Config {
     const XML_PATH_DEBUG                    = 'brim_pagecache/settings/debug';
     const XML_PATH_DEBUG_RESPONSE           = 'brim_pagecache/settings/debug_response';
 
+    const XML_PATH_CONDITIONS_USE_CTR_GRP   = 'brim_pagecache/conditions/use_customer_group';
+    const XML_PATH_CONDITIONS_CMB_CTR_GRP   = 'brim_pagecache/conditions/combine_visitor_general_groups';
+    const XML_PATH_CONDITIONS_MAX_PARAMS    = 'brim_pagecache/conditions/max_params';
     const XML_PATH_CONDITIONS_SESSION_VARS  = 'brim_pagecache/conditions/session_vars';
     const XML_PATH_CONDITIONS_IGNORE_PARAMS = 'brim_pagecache/conditions/ignore_params';
 
@@ -37,6 +41,7 @@ class Brim_PageCache_Model_Config {
     const XML_PATH_MOBILE_USER_AGENT        = 'brim_pagecache/mobile/user_agent';
 
     const XML_PATH_LAYOUT_BLOCK_UPDATES     = 'brim_pagecache/layout/custom_block_updates';
+    const XML_PATH_LAYOUT_ADD_HANDLES       = 'brim_pagecache/layout/additional_handles';
     const XML_PATH_LAYOUT_CUSTOM_XML        = 'brim_pagecache/layout/custom_xml';
 
     const XML_PATH_STORAGE_USE_SYSTEM_CACHE = 'brim_pagecache/storage/system_cache';
@@ -45,7 +50,9 @@ class Brim_PageCache_Model_Config {
     const XML_PATH_STORAGE_SLOW_BACKEND     = 'brim_pagecache/storage/slow_backend';
     const XML_PATH_STORAGE_FILE_PATH        = 'brim_pagecache/storage/file_path';
     const XML_PATH_STORAGE_MEMCACHED_SERVERS= 'brim_pagecache/storage/memcached_servers';
+    const XML_PATH_STORAGE_REDIS_CONFIG_XML = 'brim_pagecache/storage/redis_config_xml';
 
+    const XML_PATH_CONFIG_AUTOWRITE         = 'brim_pagecache/config/autowrite';
 
     const INVALIDATE_FLAG                   = 0;
     const FORCE_CLEAN_FLAG                  = 1;
@@ -57,6 +64,8 @@ class Brim_PageCache_Model_Config {
     const STORAGE_TYPE_MEMCACHED            = 'memcached';
     const STORAGE_TYPE_XCACHE               = 'xcache';
     const STORAGE_TYPE_DATABASE             = 'database';
+    const STORAGE_TYPE_REDIS                = 'redis';
+    const STORAGE_TYPE_OPT_FILE             = 'Mage_Cache_Backend_File';
 
     const SESSION_VARS_COOKIE_NAME          = 'FPC_SVARS';
 
@@ -75,7 +84,7 @@ class Brim_PageCache_Model_Config {
             $config['backend'] = $backend;
 
             // File Backend options
-            if ($backend == '' || $backend == self::STORAGE_TYPE_FILE_SCALE) {
+            if ($backend == '' || $backend == self::STORAGE_TYPE_FILE_SCALE || $backend == self::STORAGE_TYPE_OPT_FILE) {
                 if (($cacheDir = Mage::getStoreConfig(Brim_PageCache_Model_Config::XML_PATH_STORAGE_FILE_PATH)) != '') {
                     if (!isset($options['relative_dir']) || $options['relative_dir'] == false) {
                         $cacheDir = Mage::getBaseDir('var') . DS . $cacheDir;
@@ -93,9 +102,8 @@ class Brim_PageCache_Model_Config {
                     'data_table'    => $resource->getTableName('brim_pagecache/cache'),
                     'tags_table'    => $resource->getTableName('brim_pagecache/cache_tag')
                 );
-            }
-
-            if (in_array($backend, array(self::STORAGE_TYPE_APC, self::STORAGE_TYPE_MEMCACHED))) {
+            // APC/Memcached config
+            } else if (in_array($backend, array(self::STORAGE_TYPE_APC, self::STORAGE_TYPE_MEMCACHED))) {
                 $slowBackend = Mage::getStoreConfig(Brim_PageCache_Model_Config::XML_PATH_STORAGE_SLOW_BACKEND);
 
                 // File is the default don't set as an exception is thrown
@@ -121,14 +129,34 @@ class Brim_PageCache_Model_Config {
                         );
                     }
                 }
-            }
+                if ($backend == self::STORAGE_TYPE_MEMCACHED) {
+                    $servers = Mage::getStoreConfig(Brim_PageCache_Model_Config::XML_PATH_STORAGE_MEMCACHED_SERVERS);
 
-            if ($backend == self::STORAGE_TYPE_MEMCACHED) {
-                $servers = Mage::getStoreConfig(Brim_PageCache_Model_Config::XML_PATH_STORAGE_MEMCACHED_SERVERS);
+                    $memcachedServers = simplexml_load_string($servers, 'Mage_Core_Model_Config_Element');
 
-                $memcachedServers = simplexml_load_string($servers, 'Mage_Core_Model_Config_Element');
+                    $config[self::STORAGE_TYPE_MEMCACHED]['servers'] = $memcachedServers->asArray();
+                }
 
-                $config[self::STORAGE_TYPE_MEMCACHED]['servers'] = $memcachedServers->asArray();
+            } else if ($backend == self::STORAGE_TYPE_OPT_FILE) {
+
+                if (!class_exists($fileClass = 'Mage_Cache_Backend_File')) {
+                    $fileClass = 'Cm_Cache_Backend_File';
+                }
+
+                $config['backend'] = $fileClass;
+
+            // REDIS
+            } else if ($backend == self::STORAGE_TYPE_REDIS) {
+
+                if (!class_exists($redisClass = 'Mage_Cache_Backend_Redis')) {
+                    $redisClass = 'Cm_Cache_Backend_Redis';
+                }
+
+                $config['backend'] = $redisClass;
+                $servers        = Mage::getStoreConfig(Brim_PageCache_Model_Config::XML_PATH_STORAGE_REDIS_CONFIG_XML);
+                $redisServers   = simplexml_load_string($servers, 'Mage_Core_Model_Config_Element');
+
+                $config['backend_options'] = $redisServers->asArray();
             }
         }
 

@@ -135,8 +135,8 @@
 									</button>
 								</div>
 							</form>
-						<?php if($originalProduct->getFinalPrice() != 0){ ?>
-						<p class="product_price"><?php echo Mage::helper('core')->currency($originalProduct->getFinalPrice(), true, false); ?></p>
+						<?php if($originalProduct->getPrice() != 0){ ?>
+						<p class="product_price"><?php echo Mage::helper('core')->currency($originalProduct->getPrice(), true, false); ?></p>
 							<p class="discount"><?php echo $dealInfo->getPercentDiscount(); ?>% OFF</p>
 						<?php } ?>
 						<form id="product_addtocart_form" class="right_detail_deals_2"

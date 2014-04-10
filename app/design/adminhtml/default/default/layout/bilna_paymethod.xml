@@ -69,4 +69,10 @@
             </action>
         </reference>
     </adminhtml_sales_order_creditmemo_view>
+    
+    <paymethod_adminhtml_binmanage_edit>
+        <reference name="content">
+            <block type="paymethod/adminhtml_binmanage_edit" name="binamanage_edit"></block>
+        </reference>
+    </paymethod_adminhtml_binmanage_edit>
 </layout>

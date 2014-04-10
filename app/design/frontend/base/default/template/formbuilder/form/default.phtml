@@ -1,0 +1,45 @@
+<form id="formbuilder-<?php echo $this->blockId; ?>" action="/baby/formbuilder/index/submit" method="post">
+	<input id="form_id" type="hidden" name="form_id" value="<?php echo $this->blockId; ?>">
+	<div class="formbuilder-header"><?php echo $this->getLayout()->createBlock('cms/block')->setBlockId($this->block->static_info)->toHtml(); ?></div>
+	<div class="formbuilder-form" id="formbuilder-form">
+		<ul>
+		<?php
+		$group = "";
+		$i = 0;
+		foreach($this->inputs->getData() as $input){
+		?>
+			<?php if($input["group"] !== $group){
+				if($group!==""){ ?></li><?php } ?>
+				<li>
+			<?php } ?>
+			<?php if($input["type"] == "checkbox"){ ?>
+				<div class="form-checkbox">
+					<input id="<?php echo $input["name"]; ?>" type="checkbox" name="inputs[<?php echo $input["group"]; ?>]"><label for="<?php echo $input["name"]; ?>"><?php echo $input["value"]; ?></label>
+				</div>
+			<?php }else if($input["type"] == "radio"){ ?>
+			<?php if($input["group"] !== $group){ ?><div class="form-question"><?php echo $input["title"]; ?></div><?php } ?>
+				<div class="form-radio">
+					<input id="<?php echo $input["name"]; ?>" type="radio" name="inputs[<?php echo $input["group"]; ?>]" value="<?php echo $input["value"]; ?>"><label for="<?php echo $input["name"]; ?>"><?php echo $input["value"]; ?></label>
+				</div>
+			<?php }else{ ?>
+				<div class="form-text">
+					<label class="required" for="<?php echo $input["name"]; ?>"><?php echo $input["value"]; ?><em><?php if($input["required"] == true) echo '*'; ?></em></label>
+				<?php if($input["type"] == "text"){ ?>
+					<input id="<?php echo $input["name"]; ?>" class="input-text required-entry validate-digits" min="1" max="2" title="<?php echo $input["value"]; ?>" name="inputs[<?php echo $input["group"]; ?>]" placeholder="<?php echo $input["helper_message"]; ?>" />
+				<?php }else if($input["type"] == "textarea"){ ?>
+					<textarea id="<?php echo $input["name"]; ?>" class="required-entry input-text" rows="3" cols="5" title="<?php echo $input["value"]; ?>" name="inputs[<?php echo $input["group"]; ?>]"></textarea>
+				<?php } ?>
+				</div>
+			<?php 
+			}
+			$group = $input["group"];
+			$i++;
+			
+			if($i == count($this->inputs->getData())){ ?></li><?php }
+		}
+		?>
+		</ul>
+		<p class="required">* Required Fields</p>
+		<button class="button" title="" type="submit"><span class="fb-bebas fb-15">Submit</span></button>
+	</div>
+</form>

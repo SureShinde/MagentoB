@@ -109,19 +109,6 @@ $j(document).ready(function(){
 	 /*end krisna*/ 
 });
 </script>
-<script type="text/javascript">
-
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-36607168-1']);
-  _gaq.push(['_trackPageview']);
-
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-
-</script>
 <!--
 <a name="Top"></a>
 <a href="#Top" class="back-to-top"><?php //echo $this->__('Back to Top ▲') ?></a>-->
@@ -172,8 +159,7 @@ $j(document).ready(function(){
     	<div class="menu-top">
 	    	<ul>
 		    	<li><a href="/baby"><?php echo $this->__('Mom &amp; Baby') ?></a></li>
-				<li class="active"><a href="/home"><?php echo $this->__('Home') ?></a></li>
-		    	<li><a href="/dailydeals"><?php echo $this->__('Daily Deals') ?></a></li>
+				<li class="active"><a href="/perlengkapan_rumah"><?php echo $this->__('Home') ?></a></li>
 	    	</ul>
     	</div>
     	<?php if ($this->getIsHomePage()):?>
@@ -215,6 +201,13 @@ $j(document).ready(function(){
         <?php echo $this->getChildHtml('topContainer'); ?>
         <div class="nav-mobile"><?php //echo $this->getChildHtml('topMenu') ?></div>
         <div class="mini-cart-mobile"><?php echo $this->getChildHtml('topcart') ?></div>
+        <div class="menu-top-mobile home-top-mob">
+	    	<ul>
+		    	<li class="mobile-baby"><a href="/baby"><?php echo $this->__('Mom &amp; Baby') ?></a></li>
+				<li class="mobile-home active"><a href="/home"><?php echo $this->__('Home') ?></a></li>
+		    	<li class="mobile-deals"><a href="/dailydeals"><?php echo $this->__('Daily Deals') ?></a></li>
+	    	</ul>
+    	</div>
         <div class="search-mobile"><?php echo $this->getChildHtml('topSearch') ?></div>
         <div class="my-account-mobile"><?php echo $this->getChildHtml('topLinks') ?></div>
     </div>
@@ -228,16 +221,14 @@ $j(document).ready(function(){
 <li><span class="title">Popular Brand</span></li>
 <li><a href="<?php echo Mage::getBaseUrl(); ?>rubbermaid.html">Rubbermaid</a></li>
 <li><a href="<?php echo Mage::getBaseUrl(); ?>victorinox.html">Victorinox</a></li>
-<li><a href="<?php echo Mage::getBaseUrl(); ?>brabantia.html">Branbantia</a></li>
-<li><a href="<?php echo Mage::getBaseUrl(); ?>retota-sakti.html">Retota Sakti</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>brabantia.html">Brabantia</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>retota-sakti.html">Retota</a></li>
 <li><a href="<?php echo Mage::getBaseUrl(); ?>nakami.html">Nakami</a></li>
 <li><a href="<?php echo Mage::getBaseUrl(); ?>princess.html">Princess</a></li>
 <li><a href="<?php echo Mage::getBaseUrl(); ?>wahl.html">Wahl</a></li>
 <li><a href="<?php echo Mage::getBaseUrl(); ?>cuisinart.html">Cuisinart</a></li>
-<li><a href="<?php echo Mage::getBaseUrl(); ?>good-night.html">Good Night</a></li>
-<li><a href="<?php echo Mage::getBaseUrl(); ?>ashlyn-&amp;-co.html">Ashlyn &amp; Co.</a></li>
 <li><a href="<?php echo Mage::getBaseUrl(); ?>tefal.html">Tefal</a></li>
-<li><a href="<?php echo Mage::getBaseUrl(); ?>richardson-sheffield.html">Richardson Shieffield</a></li>
+<li><a href="<?php echo Mage::getBaseUrl(); ?>richardson-sheffield.html">Richardson Sheffield</a></li>
 <li><a href="<?php echo Mage::getBaseUrl(); ?>green-pan.html">Green Pan</a></li>
 <li><a href="<?php echo Mage::getBaseUrl(); ?>royal-albert.html">Royal Albert</a></li>
 <li><a href="<?php echo Mage::getBaseUrl(); ?>breville.html">Breville</a></li>
@@ -246,9 +237,6 @@ $j(document).ready(function(){
 <li><a href="<?php echo Mage::getBaseUrl(); ?>rowenta.html">Rowenta</a></li>
 <li><a href="<?php echo Mage::getBaseUrl(); ?>green-life.html">Green Life</a></li>
 <li><a href="<?php echo Mage::getBaseUrl(); ?>home-line.html">Home Line</a></li>
-<li><a href="<?php echo Mage::getBaseUrl(); ?>bloomindale.html">Bloomingdale</a></li>
-<li><a href="<?php echo Mage::getBaseUrl(); ?>solace.html">Solace</a></li>
-<li><a href="<?php echo Mage::getBaseUrl(); ?>kite-design-studio.html">Kite Design Studio</a></li>
 </ul>
 </div> 
     	</li>
@@ -272,8 +260,8 @@ $j(document).ready(function(){
 						</li>
 						<li>
 
-							<a href="<?php echo Mage::getBaseUrl(); ?>perlengkapan-kamar-tidur/seprei-set.html" class="reusablediaper">
-						<span>Seprei</span></a>
+							<a href="<?php echo Mage::getBaseUrl(); ?>perlengkapan-kamar-tidur/sprei-set.html" class="reusablediaper">
+						<span>Sprei</span></a>
 								
 
 						</li>
@@ -286,15 +274,15 @@ $j(document).ready(function(){
 						</li>
 						<li>
 
-							<a href="<?php echo Mage::getBaseUrl(); ?>perlengkapan-kamar-tidur/seprei-mahal.html" class="babywipes">
-						<span>Seprei Eksklusif</span></a>
+							<a href="<?php echo Mage::getBaseUrl(); ?>perlengkapan-kamar-tidur/sprei-mahal.html" class="babywipes">
+						<span>Sprei Eksklusif</span></a>
 								
 
 						</li>
 						<li>
 
-							<a href="<?php echo Mage::getBaseUrl(); ?>perlengkapan-kamar-tidur/seprei-set.html" class="diapersack/bag">
-						<span>Seprei Set</span></a>
+							<a href="<?php echo Mage::getBaseUrl(); ?>perlengkapan-kamar-tidur/sprei-set.html" class="diapersack/bag">
+						<span>Sprei Set</span></a>
 								
 
 						</li>
@@ -304,8 +292,9 @@ $j(document).ready(function(){
 				</div>
 				<div class="devider"></div>
 			</div>
-			<!--<div class="right-columns">
-			<div class="clear"></div>
+			<div class="right-columns">
+			 <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('img-megamenu-cat1')->toHtml() ?> 
+			<!--<div class="clear"></div>
 			<div class="submenu popular-brand">
 				<span class="title">Popular Brands</span>
 				<ul>
@@ -326,9 +315,9 @@ $j(document).ready(function(){
 			<div class="clear">&nbsp;</div>
 			<div class="megamenu-product">
 				<a class="megamenu-image" href="http://www.bilna.com"> <img src="http://assets.bilna.com/media/wysiwyg/megamenu1-diapering-img.png" alt=""> </a>
-			</div>	     
+			</div>	 -->    
 
-			</div>
+			<!--</div>
 			<div class="clear"></div>
 			<a href="<?php echo Mage::getBaseUrl(); ?>perlengkapan-kamar-tidur.html" class="browse-all">Browse All</a>-->
 		</li>
@@ -365,8 +354,9 @@ $j(document).ready(function(){
 				</div>
 				<div class="devider"></div>
 			</div>
-    <!--<div class="right-columns">
-        <div class="clear"></div>
+    <div class="right-columns">
+	<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('img-megamenu-cat2')->toHtml() ?> 
+        <!--<div class="clear"></div>
     	<div class="submenu popular-brand"><span class="title">Popular Brands</span>
 			<ul>
 				<li><a href="<?php echo Mage::getBaseUrl(); ?>nutrilon">Nutrilon</a></li>
@@ -391,9 +381,9 @@ $j(document).ready(function(){
 			<div class="clear">&nbsp;</div>
 		<div class="megamenu-product">
 			<a class="megamenu-image" href="http://www.bilna.com"> <img src="http://assets.bilna.com/media/wysiwyg/megamenu2-milkformulafood-img.png" alt=""> </a>
-		</div>	
+		</div>	-->
 	</div>
-			<div class="clear"></div>
+			<!--<div class="clear"></div>
 			<a href="<?php echo Mage::getBaseUrl(); ?>perlengkapan-kamar-mandi.html" class="browse-all">Browse All</a>-->
 		</li>
     </ul>
@@ -432,8 +422,9 @@ $j(document).ready(function(){
 				</div>
 			<div class="devider"></div>
 			</div>
-			<!--<div class="right-columns">
-			<div class="clear"></div>
+			<div class="right-columns">
+	<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('img-megamenu-cat3')->toHtml() ?> 
+			<!--<div class="clear"></div>
 										<div class="submenu popular-brand"><span 
 
 			class="title">Popular Brands</span>
@@ -455,10 +446,10 @@ $j(document).ready(function(){
 			<div class="clear">&nbsp;</div>
 			<div class="megamenu-product"><a class="megamenu-image" href="http://www.bilna.com"> <img 
 
-			src="http://assets.bilna.com/media/wysiwyg/megamenu3-clothingacc-img.png" alt=""> </a></div>	     
+			src="http://assets.bilna.com/media/wysiwyg/megamenu3-clothingacc-img.png" alt=""> </a></div>-->	     
 
 			</div>
-			<div class="clear"></div>
+			<!--<div class="clear"></div>
 			<a href="<?php echo Mage::getBaseUrl(); ?>pakaian-dan-aksesoris.html" class="browse-all">Browse All</a>-->
 		</li>
 	</ul>
@@ -513,8 +504,9 @@ $j(document).ready(function(){
 				</div>
 				<div class="devider"></div>
 			</div>
-			<!--<div class="right-columns">
-				<div class="clear"></div>
+			<div class="right-columns">
+			<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('img-megamenu-cat4')->toHtml() ?> 
+				<!--<div class="clear"></div>
 				<div class="submenu popular-brand"><span class="title">Popular Brands</span>
 					<ul>
 					<li><a href="<?php echo Mage::getBaseUrl(); ?>pigeon">Pigeon</a></li>
@@ -536,10 +528,10 @@ $j(document).ready(function(){
 				<div class="clear">&nbsp;</div>
 				<div class="megamenu-product"><a class="megamenu-image" href="http://www.bilna.com">
 					<img src="http://assets.bilna.com/media/wysiwyg/megamenu4-bathskincare-img.png" alt=""> </a>
-				</div>	     
+				</div>	     -->
 
 			</div>
-			<div class="clear"></div>
+			<!--<div class="clear"></div>
 			<a href="<?php echo Mage::getBaseUrl(); ?>peralatan-mandi-dan-perawatan-kulit.html" class="browse-all">Browse All</a>-->
 		</li>
 	</ul>
@@ -582,8 +574,9 @@ $j(document).ready(function(){
 				</div>
 				<div class="devider"></div>
 			</div>
-    <!--<div class="right-columns">
-          	<div class="clear"></div>
+    <div class="right-columns">
+		<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('img-megamenu-cat5')->toHtml() ?> 
+        <!--<div class="clear"></div>
     		    <div class="submenu popular-brand"><span class="title">Popular Brands</span>
 		<ul>
 		<li><a href="<?php echo Mage::getBaseUrl(); ?>dr-browns.html">Dr. Brown’s</a></li>
@@ -610,9 +603,10 @@ $j(document).ready(function(){
 		<div class="clear">&nbsp;</div>
 		<div class="megamenu-product"><a class="megamenu-image" href="http://www.bilna.com"> 
 		<img src="http://assets.bilna.com/media/wysiwyg/megamenu5-feedingnursing-img.png" alt=""> </a>
-		</div>	     
+		</div>	     -->
 
    </div>
+   <!--
     <div class="clear"></div>
     <a href="<?php echo Mage::getBaseUrl(); ?>perlengkapan-makan-bayi.html" class="browse-all">Browse All</a>-->
 		</li>
@@ -676,7 +670,9 @@ $j(document).ready(function(){
 				</div>
 				<div class="devider"></div>
 			</div>
-    <!--<div class="right-columns">
+    <div class="right-columns">
+		<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('img-megamenu-cat6')->toHtml() ?> 
+		<!--
           	<div class="clear"></div>
     		    <div class="submenu popular-brand"><span class="title">Popular Brands</span>
 <ul>
@@ -697,9 +693,9 @@ $j(document).ready(function(){
 </div>
 <div class="clear">&nbsp;</div>
 <div class="megamenu-product"><a class="megamenu-image" href="http://www.bilna.com"> <img src="http://assets.bilna.com/media/wysiwyg/megamenu6-healthsafety-img.png" alt=""> </a></div>	     
-
+-->
    </div>
-    <div class="clear"></div>
+   <!-- <div class="clear"></div>
     <a href="<?php echo Mage::getBaseUrl(); ?>kesehatan-dan-keamanan-bayi-dan-balita.html" class="browse-all">Browse All</a>-->
 	</li>
     </ul>
@@ -734,8 +730,9 @@ $j(document).ready(function(){
 		</div>
 <div class="devider"></div>
 </div>
-<!--<div class="right-columns">
-<div class="clear"></div>
+<div class="right-columns">
+<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('img-megamenu-cat7')->toHtml() ?> 
+<!--<div class="clear"></div>
 						<div class="submenu popular-brand"><span 
 
 class="title">Popular Brands</span>
@@ -766,9 +763,9 @@ class="title">Popular Brands</span>
 <div class="megamenu-product"><a class="megamenu-image" href="http://www.bilna.com"> <img 
 
 src="http://assets.bilna.com/media/wysiwyg/megamenu7-toysbooks-img.png" alt=""> </a></div>	     
-
+-->
 </div>
-<div class="clear"></div>
+<!--<div class="clear"></div>
 <a href="<?php echo Mage::getBaseUrl(); ?>buku-dan-mainan.html" class="browse-all">Browse All</a>-->
 		</li>
 	</ul>
@@ -904,7 +901,7 @@ class="level-top parent-10 giftideas">
                                                                                                      
 
            <li class="level  level-top parent-11">
-                        <a href="#!" class="level-top 
+                        <a href="<?php echo Mage::getBaseUrl(); ?>pilihan-kami.html" class="level-top 
 
 parent-11 our-choice">
                                                 	<span><span></span></span>

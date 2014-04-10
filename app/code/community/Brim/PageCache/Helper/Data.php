@@ -14,9 +14,10 @@
  *
  * @category   Brim
  * @package    Brim_PageCache
- * @copyright  Copyright (c) 2011-2012 Brim LLC
+ * @copyright  Copyright (c) 2011-2014 Brim LLC
  * @license    http://ecommerce.brimllc.com/license
  */
+
 
 class Brim_PageCache_Helper_Data extends Mage_Core_Helper_Abstract {
 
@@ -83,6 +84,40 @@ class Brim_PageCache_Helper_Data extends Mage_Core_Helper_Abstract {
     }
 
     /**
+     * Filters out complex values from a data array.
+     *
+     * @param $data
+     * @return mixed
+     */
+    public function filterComplexValues($data) {
+        foreach ($data as $i => $v) {
+            if (is_object($v) || is_array($v)) {
+                unset($data[$i]);
+            }
+        }
+        return $data;
+    }
+
+    /**
+     * Detects html content by looking at the response headers.
+     *
+     * @param $response
+     * @return bool
+     */
+    public function isHTML($response) {
+
+        $result = false;
+        foreach ($response->getHeaders() as $header) {
+            if (strcasecmp($header['name'], 'content-type') === 0 && strpos($header['value'], 'html') !== false) {
+                $result = true;
+                break;
+            }
+        }
+
+        return $result;
+    }
+
+    /**
      * Strips a uri of params that should be ignored for the purposes of the cache key.  Appends session defined
      * session variables to the uri.
      *
@@ -94,9 +129,18 @@ class Brim_PageCache_Helper_Data extends Mage_Core_Helper_Abstract {
 
         if ($ignoreParams === null) {
             $ignoreParams = Mage::getStoreConfig('brim_pagecache/conditions/ignore_params');
+
+            if (is_array($ignoreParams)) {
+                foreach ($ignoreParams as $k => $v) {
+                    if (isset($v['parameter'])) {
+                        $ignoreParams[$k] = $v['parameter'];
+                    }
+                }
+            }
         }
 
         if (is_string($ignoreParams)) {
+            // need for the l1 cache.  params are comma separated.
             $ignoreParams = explode(',', $ignoreParams);
         }
 
@@ -117,7 +161,11 @@ class Brim_PageCache_Helper_Data extends Mage_Core_Helper_Abstract {
                 ->get(Brim_PageCache_Model_Config::SESSION_VARS_COOKIE_NAME);
         }
         if ($sessionVars != '') {
-            $params = array_merge($params, Zend_Json::decode($sessionVars));
+            try {
+                $params = array_merge($params, Zend_Json::decode($sessionVars));
+            } catch (Zend_Json_Exception $e) {
+                // ignore if session vars are not json encoded.
+            }
         }
 
         // remove params set to be ignored

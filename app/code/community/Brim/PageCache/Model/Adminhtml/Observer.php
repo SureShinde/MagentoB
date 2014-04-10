@@ -14,9 +14,10 @@
  *
  * @category   Brim
  * @package    Brim_PageCache
- * @copyright  Copyright (c) 2011-2012 Brim LLC
+ * @copyright  Copyright (c) 2011-2014 Brim LLC
  * @license    http://ecommerce.brimllc.com/license
  */
+
 
 class Brim_PageCache_Model_Adminhtml_Observer extends Varien_Event_Observer {
     /**
@@ -136,8 +137,10 @@ class Brim_PageCache_Model_Adminhtml_Observer extends Varien_Event_Observer {
         $localConfig= $etcDir . DS . 'brim_pagecache.xml';
 
         // Ensure the brim_pagecache.xml can be created or updated based on directory and file permissions.
-        if ((!file_exists($localConfig) && !is_writable($etcDir)) || (file_exists($localConfig) && !is_writable($localConfig))) {
-            Mage::throwException("Unable to create and/or modify $localConfig");
+        if (Mage::getStoreConfig(Brim_PageCache_Model_Config::XML_PATH_CONFIG_AUTOWRITE)) {
+            if ((!file_exists($localConfig) && !is_writable($etcDir)) || (file_exists($localConfig) && !is_writable($localConfig))) {
+                Mage::throwException("Unable to create and/or modify $localConfig");
+            }
         }
 
         if (!file_exists($localConfig)) {
@@ -196,12 +199,18 @@ class Brim_PageCache_Model_Adminhtml_Observer extends Varien_Event_Observer {
                 $pageCacheConditions= $pageCacheConfig->addChild('conditions');
 
                 if ($ignoreParams != false) {
-                    $pageCacheConditions->addChild('ignore_params', $ignoreParams);
+                    $ignoreParamsArray = array();
+                    foreach ($ignoreParams as $param) {
+                        $ignoreParamsArray[] = $param['parameter'];
+                    }
+
+                    $pageCacheConditions->addChild('ignore_params', join(',', $ignoreParamsArray));
                 }
 
-                if ($sessionVariables != false) {
-                    $pageCacheConditions->addChild('session_vars', $sessionVariables);
-                }
+                // Not needed for the level 1 cache. active session vars are read from the cookie there.
+//                if ($sessionVariables != false) {
+//                    $pageCacheConditions->addChild('session_vars', $sessionVariables);
+//                }
             }
 
             if (($mobileEnable = Mage::getStoreConfig(Brim_PageCache_Model_Config::XML_PATH_MOBILE_ENABLE)) != false) {
@@ -245,11 +254,91 @@ class Brim_PageCache_Model_Adminhtml_Observer extends Varien_Event_Observer {
 
             Mage::app()->getConfig()->deleteConfig('brim_pagecache/config/xml');
         } else {
-            $niceXML = $sxml->asNiceXml($localConfig);
+            if (Mage::getStoreConfig(Brim_PageCache_Model_Config::XML_PATH_CONFIG_AUTOWRITE)) {
+                $niceXML = $sxml->asNiceXml($localConfig);
+            } else {
+                $niceXML = $sxml->asNiceXml();
+            }
 
             Mage::app()->getConfig()->saveConfig('brim_pagecache/config/xml', $niceXML);
         }
 
         Mage::app()->cleanCache(array('CONFIG'));
     }
+
+    /**
+     * Adds multiple dependencies to settings when the feature is available.
+     *
+     * @param $observer
+     */
+    public function updateSystemConfig($observer) {
+
+        if (version_compare(Mage::getVersion(), '1.7.0.0', 'ge')) {
+            /** @var Mage_Core_Model_Config_Element $config */
+            $config = $observer->getConfig();
+
+            /** @var Mage_Core_Model_Config_Element $section */
+            $section= current($config->getXpath('//brim_pagecache'));
+
+            /** @var Mage_Core_Model_Config_Element $storageFields */
+            $storageFields = $section->groups->storage->fields;
+
+            $storageFields->slow_backend->depends
+                ->addChild('type', 'apc,memcached')
+                ->addAttribute('separator', ',');
+
+            $storageFields->file_path->depends
+                ->addChild('type', 'file,Brim_PageCache_Model_Backend_File_Scalable,Mage_Cache_Backend_File')
+                ->addAttribute('separator', ',');
+        }
+
+        return $this;
+    }
+
+    /**
+     * Adds a button to flush a category and all products associated with it from the cache.
+     */
+    public function addCategoryFlushButton($observer) {
+
+        /** @var Mage_Core_Model_Layout $layout */
+        $layout = $observer->getLayout();
+
+        /** @var Mage_Adminhtml_Block_Catalog_Category_Edit $editBlock */
+        $editBlock = $layout->getBlock('category.edit');
+
+        if ($editBlock != null) {
+            /** @var Mage_Adminhtml_Block_Catalog_Category_Edit_Form $formBlock */
+            $formBlock = $editBlock->getChild('form');
+
+            if ($formBlock != null) {
+                /** @var $engine Brim_PageCache_Model_Engine */
+                $engine = Mage::getSingleton('brim_pagecache/engine');
+
+                if (!$engine->isExtensionEnabled()) {
+                    return;
+                }
+
+                $engine->debug(__METHOD__);
+                $engine->debug($observer->getEvent()->getName());
+
+                /** @var Mage_Adminhtml_Catalog_CategoryController $action */
+                $action = $observer->getAction();
+
+                if (($category = Mage::registry('category')) == null) {
+                    $category = Mage::registry('current_category');
+                }
+
+                if ($category && $category->getId() > 0) {
+                    $flushUrl = $action->getUrl('*/pagecache_category/flush', array('id' => $category->getId()));
+                    $formBlock->addAdditionalButton('flushCache', array(
+                        'name'      => 'flush_cache',
+                        'label'     => Mage::helper('catalog')->__('Flush FPC By Category'),
+                        'onclick'   => "categoryFlush('" . $flushUrl . "', true)",
+                        'class'     => 'flush'
+                    ));
+                }
+            }
+        }
+    }
+
 }
