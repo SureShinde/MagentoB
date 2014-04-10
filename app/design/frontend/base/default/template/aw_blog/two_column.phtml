@@ -1,6 +1,7 @@
 <?php $catposts = $this->getData('catPosts'); 
 $posts = $catposts['posts'];
 $cat = $catposts['cat'];
+$subCat = $catposts['subCat'];
 ?>
 
 
@@ -10,7 +11,7 @@ $cat = $catposts['cat'];
 	<div class="postContent">
 		<div class="line-yellow"></div>
 		<div class="cat-title">
-			<h2><?php echo $cat;?></h2>
+			<h2><?php echo $subCat;?></h2>
 		</div>
 		<p>
 			<img alt="" src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA);?><?php echo $row->getImageName();?>" style="float: left;" />

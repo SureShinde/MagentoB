@@ -40,16 +40,45 @@ class AW_Blog_Block_Blog extends AW_Blog_Block_Abstract
 
     public function getCategoriesPosts()
     {
+        $identifier = $this->getRequest()->getParam('identifier');
         $collection = Mage::getModel("blog/cat")->getCollection()
-            ->addFieldToFilter("title", array ('neq' => 'Uncategorized'))
-            ->setOrder('sort_order', 'ASC');
+            ->addFieldToFilter("main_table.title", array ('neq' => 'Uncategorized'))
+            ->addFieldToFilter("main_table.parent_id", array ('eq' => 0))
+            ->addFieldToSelect('title')
+            ->addFieldToSelect('layout')
+            ->addFieldToSelect('identifier');
+            //->setOrder('main_table.sort_order', 'ASC');
+        
+        if($identifier !=''){
+            $collection->addFieldToFilter("main_table.identifier", array ('eq' => $identifier));
+        }else{
+            $collection->getSelect()->group('main_table.parent_id');
+        }
+        $collection->getSelect()->order('awblog_cat.sort_order', 'ASC')->order('awblog_cat.cat_id', 'ASC');
+        $collection->getSelect()
+            ->joinLeft(
+                array( 'awblog_cat' => Mage::getSingleton('core/resource')->getTableName('blog/cat') ),
+                "main_table.cat_id = awblog_cat.parent_id",
+                array(
+                    'parent_id' => 'main_table.cat_id',
+                    'cat_id' => 'awblog_cat.cat_id',
+                    'sub_title' => 'awblog_cat.title'
+                )
+            );    
         $collection->getSelect()->limit(6);
+
         $data = array();
         foreach ($collection as $row) {
             $data[$row->getCatId()]['layout'] = $row->getLayout(); 
             $data[$row->getCatId()]['catName'] = $row->getTitle();
+            $data[$row->getCatId()]['subName'] = $row->getSubTitle();
 
-            $catId = $row->getCatId();
+            if($identifier !=''){
+                $catId = $row->getCatId();
+            }else{
+                $catId = $row->getParentId();
+            }
+            
 
             $posts = Mage::getModel("blog/blog")->getCollection()
                 ->addPresentFilter()
@@ -58,9 +87,13 @@ class AW_Blog_Block_Blog extends AW_Blog_Block_Abstract
                 ->addFieldToSelect('title')
                 ->addFieldToSelect('created_time')
                 ->addFieldToSelect('image_name')
+                ->addFieldToSelect('identifier')
                 ->addFieldToSelect('short_content')
                 ->setOrder('created_time', 'desc');
-            $posts->addFieldToFilter("awblog_post_cat.cat_id", array ('eq' => $catId));
+            $posts->addFieldToFilter("awblog_post_cat.cat_id", array('eq' => $row->getCatId()) );
+            //$posts->addFieldToFilter("awblog_post_cat.cat_id", array(array ('eq' => $row->getParentId()), array('eq' => $catId)));
+            //$posts->addFieldToFilter("awblog_post_cat.post_id", array('in' => array($row->getParentId(), $catId) ));
+            $posts->addFieldToFilter("awblog_post_cat.post_id", array('in' => array( new Zend_Db_Expr('(SELECT post_id FROM aw_blog_post_cat WHERE cat_id='.$row->getParentId().')') ) ));
             $posts->getSelect()
                 ->joinLeft(
                     array( 'awblog_post_cat' => Mage::getSingleton('core/resource')->getTableName('blog/post_cat') ),
@@ -70,7 +103,6 @@ class AW_Blog_Block_Blog extends AW_Blog_Block_Abstract
                     )
             	)
                 ->limit(5);
-        
             parent::_processCollection($posts);    
 
             $data[$row->getCatId()]['post'] = $posts;
