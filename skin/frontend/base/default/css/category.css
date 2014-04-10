@@ -128,6 +128,9 @@ ol.added-menu li a.link-onsale {
 .color.amshopby-collapsed ~ div.tiny:first-child {
 	display:none;
 }
+dd.relative{
+	position:relative !important;
+}
 .even .viewport:nth-child(2), .odd .viewport:nth-child(2){
 	 height:auto !important;
 }
