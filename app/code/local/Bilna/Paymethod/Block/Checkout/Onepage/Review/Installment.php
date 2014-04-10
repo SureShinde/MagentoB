@@ -18,6 +18,14 @@ class Bilna_Paymethod_Block_Checkout_Onepage_Review_Installment extends Mage_Cor
         return false;
     }
     
+    public function getInstallmentSupport() {
+        return Mage::getStoreConfig('payment/' . $this->getPaymentMethod() . '/allow_installment');
+    }
+    
+    public function getInstallmentMethod() {
+        return Mage::getStoreConfig('payment/' . $this->getPaymentMethod() . '/installment_process');
+    }
+    
     public function getInstallmentOptionPerOrder() {
         if (Mage::getStoreConfig('payment/' . $this->getPaymentMethod() . '/installment_option') == 2) {
             return true;
@@ -25,7 +33,7 @@ class Bilna_Paymethod_Block_Checkout_Onepage_Review_Installment extends Mage_Cor
         
         return false;
     }
-    
+
     public function getInstallmentOption() {
         return unserialize(Mage::getStoreConfig('payment/' . $this->getPaymentMethod() . '/installment'));
     }

@@ -1,10 +1,87 @@
-<?php $posts = $this->getCategoriesPosts(); ?>
+<?php $posts = $this->getCategoriesPosts(); 
+$slider = $this->getSliderPost();
+?>
 
     <div>
 		
 		<div class="postWrapper">
-				<div style="width: 100%;clear: both;">
-					<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('blog-islider')->toHtml() ?>
+				<div style="padding:0 0 55px 0 ;margin: 0 2%; max-width: 762px; clear: both;border: 8px solid #FFFFFF; box-shadow: 0 0 7px rgba(0, 0, 0, 0.22); display: none;">
+					<?php //echo $this->getLayout()->createBlock('cms/block')->setBlockId('blog-islider')->toHtml() ?>
+					
+					<!--slide jcobb-->
+					
+					<div id="banner-slide" style="display: none;">
+
+						<ul class="bjqs">
+						  <?php foreach ($slider as $row): ?>
+						  <li>
+								<img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA);?><?php echo $row->getImageName();?>" /></br>
+								<div class="postTitle" style="clear: both;">
+									<h2><?php echo $row->getTitle(); ?></h2>
+									<p style="padding-right: 10px;">
+										<?php echo $row->getShortContent(); ?>
+									</p>
+									<a class="aw-blog-read-more" href="<?php echo $row->getAddress(); ?>">Read more</a>
+								</div>
+								<div style="clear: both;"></div>
+						  </li>
+							<?php endforeach; ?> 
+						  <!-- <li>
+								<img src="http://assets.bilna.com/media/aw_islider/VITALAC-SLIDER-RESIZE%20(1).jpg" />
+								<div class="postTitle" style="clear: both;">
+									<h2>Cara anak minum menggunakan telinga</h2>
+									<p style="padding-right: 10px;">
+										Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod 
+										tincidunt ut laoreet dolore magna aliquam erat volutpat.
+									</p>
+									<a class="aw-blog-read-more">Read more</a>
+								</div>
+						  </li>
+						  <li>
+								<img src="http://assets.bilna.com/media/aw_islider/BNI10-SLIDER.jpg" />
+								<div class="postTitle" style="clear: both;">
+									<h2>Cara memenangkan undian di BNI</h2>
+									<p style="padding-right: 10px;">
+										Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod 
+										tincidunt ut laoreet dolore magna aliquam erat volutpat.
+									</p>
+									<a class="aw-blog-read-more">Read more</a>
+								</div>
+						  </li> -->
+						</ul>
+						
+					</div>
+					
+					<script class="secret-source">
+						jQuery(document).ready(function($) {
+						  
+						  $('#banner-slide').bjqs({
+							animtype      : 'slide',
+							height        : 446,
+							width         : 762,
+							responsive    : true,
+							randomstart   : true,
+							responsive 	  : true
+						  });
+						  
+						});
+					</script>
+					
+					<script>
+						jQuery(function($) {
+
+							$('.secret-source').secretSource({
+								includeTag: false
+							});
+
+						});
+					</script>
+					
+					
+					
+					
+					
+					<!--END slide jcobb-->
 					<div style="clear: both;"></div>
 				</div>
 		</div>

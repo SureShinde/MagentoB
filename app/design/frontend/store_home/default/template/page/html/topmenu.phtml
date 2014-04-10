@@ -1,27 +1,12 @@
 <?php
 /**
- * Magento
+ * Magento Enterprise Edition
  *
- * NOTICE OF LICENSE
- *
- * This source file is subject to the Academic Free License (AFL 3.0)
- * that is bundled with this package in the file LICENSE_AFL.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/afl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magentocommerce.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magentocommerce.com for more information.
- *
+ * @author      Guidance Magento Team <magento@guidance.com>
  * @category    design
- * @package     base_default
- * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
- * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @package     enterprise_rtb
+ * @copyright   Copyright (c) 2013 Guidance Solutions (http://www.guidance.com)
+ *
  */
 ?>
 <?php
@@ -31,11 +16,79 @@
  * @see Mage_Page_Block_Html_Topmenu
  */
 ?>
-<?php $_menu = $this->getHtml('level-top') ?>
-<?php if($_menu): ?>
-<div class="nav-container">
-    <ul id="nav">
-        <?php echo $_menu ?>
-    </ul>
-</div>
+<?php $menuTree = $this->getHtml('level-top') ?>
+<?php if($menuTree): ?>
+    <div class="nav-container container">
+        <ul id="nav" class="nav">
+        	<li class="level0 level-top shop-by"><span><?php echo $this->__('Shop by') ?></span><a href="#" class="level-top link-shopby"><?php echo $this->__('Shop by') ?></a>
+        	 <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('shopby')->toHtml() ?>
+        	</li>
+            <?php
+            $children = $this->addFeaturedProductData($menuTree->getChildren());
+            $parentLevel = $menuTree->getLevel();
+            $childLevel = is_null($parentLevel) ? 0 : $parentLevel + 1;
+            $parentsCount = $children->count();
+            $counter = 0;
+            ?>
+            <?php foreach ($children as $child): ?>
+                <?php
+                $outermostClassCode = '';
+                $outermostClass = $menuTree->getOutermostClass()." parent-".$counter;
+                ?>
+                <?php if ($childLevel == 0 && $outermostClass): ?>
+                    <?php $outermostClassCode = ' class="' . $outermostClass . ' '. strtolower(str_replace(array('&',' '), "", $child->getName())).'" ';
+                    $child->setClass($outermostClass); ?>
+                <?php endif; ?>
+                <li <?php echo $this->_getRenderedMenuItemAttributes($child)?>>
+                        <a href="<?php echo $child->getUrl()?>" <?php echo $outermostClassCode ?>>
+                        <?php if (strtolower($child->getName()) == 'for moms') :?>
+                            <span><span><?php echo str_replace(' ','<br>',$child->getName()) ?></span></span>
+                        <?php else : ?>
+                        	<span><span><?php echo str_replace('&','<br>&',$child->getName()) ?></span></span>
+                        <?php endif; ?>
+                        </a>
+                        <?php if ($child->hasChildren()): ?>
+                            <ul class="level-hover <?php echo $childLevel ." ".strtolower(str_replace(array('&',' '), "_", $child->getName()))."_hover";?>">
+                                <?php echo $this->getSubMenuHtml($child) ?>
+                            </ul>
+                        <?php endif; ?>
+                </li>
+                <?php $counter++;?>
+            <?php endforeach; ?>
+            <!--<li class="menu-salegift"><?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('sale_giftideas')->toHtml() ?></li>-->
+			
+			
+            <div class="clear"></div>
+			
+        </ul>
+    </div>
 <?php endif ?>
+<div class="dash"></div>
+
+<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('giftideas_menu')->toHtml() ?>
+<script>
+ jQuery(document).ready(function(){
+  jQuery(".giftideas").mouseover(function(){
+    jQuery(".nav-10").addClass("hover");
+	jQuery(".nav-10>a").addClass("color_a");
+	jQuery(".gift-menu-wrapp").show();
+  });	
+  jQuery(".giftideas").mouseleave(function(){
+    jQuery(".nav-10").removeClass("hover");
+	jQuery(".nav-10>a").removeClass("color_a");
+	jQuery(".gift-menu-wrapp").hide();
+  });
+  
+  jQuery(".gift-menu-wrapp").mouseover(function(){
+	jQuery(".gift-menu-wrapp").show();
+	jQuery(".parent-10").addClass("over");
+  });
+  jQuery(".gift-menu-wrapp").mouseleave(function(){
+	jQuery(".gift-menu-wrapp").hide();
+	jQuery(".parent-10").removeClass("over");
+  });	
+  
+  
+  
+});
+</script>

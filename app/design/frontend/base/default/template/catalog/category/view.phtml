@@ -50,19 +50,18 @@
     <h1><?php echo $_helper->categoryAttribute($_category, $_category->getName(), 'name') ?></h1>
 </div>
 <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
-
 <?php 
-$xlCmsBlock = Mage::getModel('cms/block')->load("slider-category-baby-".strtolower($_category->getName())."-4")->getContent();
-$largeCmsBlock = Mage::getModel('cms/block')->load("slider-category-baby-".strtolower($_category->getName())."-1")->getContent();
+$xlCmsBlock = Mage::getModel('cms/block')->load("slider-category-baby-".strtolower($_category->getUrlKey())."-4")->getContent();
+$largeCmsBlock = Mage::getModel('cms/block')->load("slider-category-baby-".strtolower($_category->getUrlKey())."-1")->getContent();
 if($xlCmsBlock) {
 	echo 	'<div class="wrap_banner_category">'.
-			'<div class="banner_xlarge">'.$this->getLayout()->createBlock('cms/block')->setBlockId("slider-category-baby-".strtolower($_category->getName())."-1")->toHtml().'</div>'.
+			'<div id="slides-banner" class="banner_xlarge">'.$this->getLayout()->createBlock('cms/block')->setBlockId("slider-category-baby-".strtolower($_category->getUrlKey())."-4")->toHtml().'</div>'.
 			'</div>';
 }else if($largeCmsBlock){
 	echo 	'<div class="wrap_banner_category">'.
-			'<div class="banner_large">'.$this->getLayout()->createBlock('cms/block')->setBlockId("slider-category-baby-".strtolower($_category->getName())."-1")->toHtml().'</div>'.
-			'<div class="banner_small">'.$this->getLayout()->createBlock('cms/block')->setBlockId("slider-category-baby-".strtolower($_category->getName())."-2")->toHtml().'</div>'.
-			'<div class="banner_small">'.$this->getLayout()->createBlock('cms/block')->setBlockId("slider-category-baby-".strtolower($_category->getName())."-3")->toHtml().'</div>'.
+			'<div class="banner_large">'.$this->getLayout()->createBlock('cms/block')->setBlockId("slider-category-baby-".strtolower($_category->getUrlKey())."-1")->toHtml().'<p class="label_slider_ctegory fb-14 fb-bebas">ON PROMO!! FOR A LIMITED TIME ONLY :</p></div>'.
+			'<div class="banner_small">'.$this->getLayout()->createBlock('cms/block')->setBlockId("slider-category-baby-".strtolower($_category->getUrlKey())."-2")->toHtml().'</div>'.
+			'<div class="banner_small">'.$this->getLayout()->createBlock('cms/block')->setBlockId("slider-category-baby-".strtolower($_category->getUrlKey())."-3")->toHtml().'</div>'.
 			'</div>';
 }else if($_imgUrl){
 	echo $_imgHtml;
@@ -84,4 +83,26 @@ if($xlCmsBlock) {
 
 <?php else: ?>
     <?php echo $this->getProductListHtml() ?>
+<?php endif; ?>
+
+<!-- static block pop-up ASI Disclaimer -->
+<?php if ($this->checkCategoryAttributeYesNo('asi_disclaimer')): ?>
+    <style type="text/css">
+        .popup-asi_disclaimer {
+            background: none repeat scroll 0 0 #FCFCFC;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            /*display: none;
+            left: -1px;*/
+            padding: 18px 20px;
+            /*position: absolute;*/
+            text-align: left;
+            top: 35px;
+            width: 313px;
+            border: 1px solid #888888;
+        }
+    </style>
+
+    <div class="popup-asi_disclaimer">
+        <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('asi_disclaimer')->toHtml(); ?>
+    </div>
 <?php endif; ?>

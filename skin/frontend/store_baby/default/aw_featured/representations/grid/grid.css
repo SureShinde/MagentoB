@@ -106,6 +106,8 @@
     font-size: 1em;
     font-weight: bold;
     text-transform: uppercase;
+	position: absolute;
+	bottom: 20px;
 }
 .awafpgrid .afp-addtocart a {
 	display: inline-block;
@@ -113,6 +115,8 @@
 	font-size: 12px;
 	color: #ffa01b;
 	margin-left: 5px;
+	position: absolute;
+	bottom: 10px;
 }
 .afp-thumbnail .onsale-category-container-list {
     float:none!important;
@@ -193,3 +197,5 @@
 @media only screen and (max-width: 479px) { 
 	
 }
+
+.afp-addtocart .availability.out-of-stock span {position: absolute; bottom: 30px;}
