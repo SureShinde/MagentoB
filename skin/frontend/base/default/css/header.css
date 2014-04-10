@@ -2230,6 +2230,7 @@ searchbar #nav-search-in {
         float: right;
         max-width: 767px !important;
         width: 100%;
+        position: relative;
     }
     
     .cart-block-detail {
