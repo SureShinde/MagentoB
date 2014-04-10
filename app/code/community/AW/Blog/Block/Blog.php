@@ -52,7 +52,7 @@ class AW_Blog_Block_Blog extends AW_Blog_Block_Abstract
         if($identifier !=''){
             $collection->addFieldToFilter("main_table.identifier", array ('eq' => $identifier));
         }else{
-            $collection->getSelect()->group('main_table.parent_id');
+            $collection->getSelect()->group('main_table.cat_id');
         }
         $collection->getSelect()->order('awblog_cat.sort_order', 'ASC')->order('awblog_cat.cat_id', 'ASC');
         $collection->getSelect()
@@ -66,13 +66,17 @@ class AW_Blog_Block_Blog extends AW_Blog_Block_Abstract
                 )
             );    
         $collection->getSelect()->limit(6);
-$collection->printLogQuery(true);
+//$collection->printLogQuery(true);
         $data = array();
         foreach ($collection as $row) {
             $data[$row->getCatId()]['layout'] = $row->getLayout(); 
             $data[$row->getCatId()]['catName'] = $row->getTitle();
-            $data[$row->getCatId()]['subName'] = $row->getSubTitle();
-
+            if($identifier !=''){
+                $data[$row->getCatId()]['subName'] = $row->getSubTitle();
+            }else{
+                $data[$row->getCatId()]['subName'] = $row->getTitle();
+            }
+                
             if($identifier !=''){
                 $catId = $row->getCatId();
             }else{
@@ -92,22 +96,27 @@ $collection->printLogQuery(true);
                 ->addFieldToSelect('short_content')
                 ->addFieldToSelect('identifier')
                 ->setOrder('created_time', 'desc');
-            $posts->addFieldToFilter("apc.cat_id", array('eq' => $row->getCatId()) );
+            //$posts->addFieldToFilter("apc.cat_id", array('eq' => $row->getCatId()) );
             //$posts->addFieldToFilter("awblog_post_cat.cat_id", array(array ('eq' => $row->getParentId()), array('eq' => $catId)));
             //$posts->addFieldToFilter("awblog_post_cat.post_id", array('in' => array($row->getParentId(), $catId) ));
-            $posts->addFieldToFilter("apc.post_id", array('in' => array( new Zend_Db_Expr('(SELECT post_id FROM aw_blog_post_cat WHERE cat_id='.$row->getParentId().')') ) ));
+            if($identifier !=''){
+                $posts->addFieldToFilter("awblog_post_cat.cat_id", array('eq' => $row->getCatId()) );
+                $posts->addFieldToFilter("awblog_post_cat.post_id", array('in' => array( new Zend_Db_Expr('(SELECT post_id FROM aw_blog_post_cat WHERE cat_id='.$row->getParentId().')') ) ));
+            }else{
+                $posts->addFieldToFilter("awblog_post_cat.cat_id", array('eq' => $row->getParentId()) );
+            }
             $posts->getSelect()
-                /*->joinLeft(
+                ->joinLeft(
                     array( 'awblog_post_cat' => Mage::getSingleton('core/resource')->getTableName('blog/post_cat') ),
                     "main_table.post_id = awblog_post_cat.post_id",
                     array(
                         'cat_id' => 'awblog_post_cat.cat_id'
                     )
-            	)*/
+            	)
                 ->limit(5);
         
             $posts = parent::_processCollection($posts);    
-
+//$posts->printLogQuery(true);
             $data[$row->getCatId()]['post'] = $posts;
         }
 
