@@ -479,7 +479,10 @@ class Bilna_Paymethod_VtdirectController extends Mage_Core_Controller_Front_Acti
         
         return $result;
     }
-
+    
+    protected function getUpdateStatusOrderIgnore() {
+        return Mage::getStoreConfig('payment/vtdirect/update_order_status');
+    }
 
     protected function getRequestData($key, $type = 'POST') {
         $result = '';
