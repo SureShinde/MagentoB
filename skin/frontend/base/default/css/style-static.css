@@ -1732,3 +1732,62 @@ h2.block-grey-title-left {
     margin: 0 0 10px;
 }
 /* ---------------- end COD -------------------- */
+
+
+/* POP UP - ASI DISCLAIMER */
+.popup-asi_disclaimer {
+    background: none ;
+    position: fixed;
+    background: #000;
+    width: 100%;
+    height: 100%;
+}
+.popup-asi_disclaimer-inner {
+    background: rgba(0,0,0,0.6);
+    bottom: 0;
+    color: #707070;
+    height: 100%;
+    left: 0;
+    position: fixed;
+    text-align: left;
+    width: 100%;
+    height: 100%;
+    z-index: 999;
+}
+
+.popup-asi_disclaimer-inner .box-asi {
+    width: 60%;
+    max-width: 380px;
+    background: #fff;
+    padding: 20px;
+    margin:10% auto 0;
+    box-shadow: 0 0 10px #222;
+    border-radius: 10px;
+}
+.dash-yellow {
+    border-bottom: 2px dashed #fd8e17;
+    margin: 5px 0;
+}
+.close-asi {
+    clear: both;
+    cursor: pointer;
+}
+.fl-right {float: right;}
+.fl-none {float: none;}
+button.button span.lanjut-button {
+    background: #fd8e17;
+    padding: 5px 20px;
+    max-width: 200px;
+    text-align: center;
+    width: auto;
+    border: none;
+    margin: 10px auto 5px;
+    max-width: 80px;
+}
+button.button-area {
+    width: 100% !important;
+}
+.close-now {}
+
+/* END ------------ POP UP - ASI DISCLAIMER */
+
