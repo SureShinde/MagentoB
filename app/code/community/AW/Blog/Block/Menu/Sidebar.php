@@ -86,9 +86,9 @@ class AW_Blog_Block_Menu_Sidebar extends AW_Blog_Block_Abstract
                     'title'      => 'awblog_post.title',
                 )
         	)
-            ->limit(5);
+            ->limit(4);
 
-        $collection->getSelect()->limit(5);
+        $collection->getSelect()->limit(4);
 
         return $collection;
     }
