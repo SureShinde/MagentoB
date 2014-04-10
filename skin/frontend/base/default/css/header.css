@@ -1698,7 +1698,7 @@
 	.header .links li.myaccount .toplink-myaccount, .menu-tablet .links li.myaccount .toplink-myaccount {
 	display: none;
 	position: absolute;
-	top: 0px;
+	top: 15px;
 	left: 0;
 	background: #fff;
 	padding: 10px;
