@@ -50,6 +50,7 @@ $j(document).ready(function(){
 			$j('.my-account-mobile').slideUp();
 			$j('.nav-container').slideToggle();
 		});
+		
 		$j('#link-minicart').click(function(e){
 			e.preventDefault();
 			$j('.nav-container').slideUp();
@@ -61,6 +62,11 @@ $j(document).ready(function(){
 			$j('.nav-container').slideUp();
 			$j('.mini-cart-mobile').slideUp();
 			$j('.my-account-mobile').slideToggle();	
+		});
+		$j('.my-account-mobile').click(function(e){
+			e.preventDefault();
+			$j('.toplink-myaccount').toggle();
+			/* $j('.toplink-myaccount').css({"position":"relative","display":"block"}); */
 		});
 	 }
 	 else {
