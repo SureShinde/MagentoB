@@ -359,6 +359,11 @@ class Bilna_Paymethod_VtdirectController extends Mage_Core_Controller_Front_Acti
                 $order->setState(Mage_Sales_Model_Order::STATE_NEW, 'cc_verification', 'Pending for 3D Secure Validation', true)->save();
             }
             else {
+                // check order status if processing/complete then ignore
+                if (in_array($order->getStatus(), $this->getStatusOrderIgnore())) {
+                    return true;
+                }
+                
                 $transactionStatus = $responseCharge->data->transaction_status;
                 $message = "Transaction status: " . $transactionStatus . ". ";
                 $message .= $this->getDefaultResponseMessage($responseCharge->status, $responseCharge->message);
@@ -480,8 +485,11 @@ class Bilna_Paymethod_VtdirectController extends Mage_Core_Controller_Front_Acti
         return $result;
     }
     
-    protected function getUpdateStatusOrderIgnore() {
-        return Mage::getStoreConfig('payment/vtdirect/update_order_status');
+    protected function getStatusOrderIgnore() {
+        $orders = Mage::getStoreConfig('payment/vtdirect/update_order_status');
+        $ordersArr = explode(',', $orders);
+        
+        return $ordersArr;
     }
 
     protected function getRequestData($key, $type = 'POST') {

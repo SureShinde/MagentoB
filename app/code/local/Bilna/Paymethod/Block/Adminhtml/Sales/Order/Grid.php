@@ -26,7 +26,15 @@ class Bilna_Paymethod_Block_Adminhtml_Sales_Order_Grid extends Mage_Adminhtml_Bl
     
     protected function _prepareCollection() {
         $collection = Mage::getResourceModel($this->_getCollectionClass());
-        $collection->join(array ('payment'=>'sales/order_payment'),'main_table.entity_id=parent_id','method');
+        $collection->join(array ('payment' => 'sales/order_payment'),'main_table.entity_id = parent_id', 'method');
+        $collection->addFilterToMap('increment_id', 'main_table.increment_id');
+        //$collection->join(
+        $collection->getSelect()->joinLeft(
+            array ('customer' => 'customer_entity'),
+            'main_table.customer_id = customer.entity_id',
+            array ('group_id' => 'customer.group_id')
+        );
+        $collection->printLogQuery(true);
         $this->setCollection($collection);
 
         return Mage_Adminhtml_Block_Widget_Grid::_prepareCollection();
@@ -62,6 +70,7 @@ class Bilna_Paymethod_Block_Adminhtml_Sales_Order_Grid extends Mage_Adminhtml_Bl
         $this->addColumn('created_at', array (
             'header' => Mage::helper('sales')->__('Purchased On'),
             'index' => 'created_at',
+            'filter_index' => 'main_table.created_at',
             'type' => 'datetime',
             'width' => '100px',
         ));
@@ -74,6 +83,18 @@ class Bilna_Paymethod_Block_Adminhtml_Sales_Order_Grid extends Mage_Adminhtml_Bl
         $this->addColumn('shipping_name', array (
             'header' => Mage::helper('sales')->__('Ship to Name'),
             'index' => 'shipping_name',
+        ));
+        
+        $groups = Mage::getResourceModel('customer/group_collection')
+            ->addFieldToFilter('customer_group_id', array ('gt' => 0))
+            ->load()
+            ->toOptionHash();
+
+        $this->addColumn('group', array (
+            'header' => Mage::helper('sales')->__('Group'),
+            'index' => 'group_id',
+            'type' => 'options',
+            'options' => $groups,
         ));
 		
         $this->addColumn('method', array (
