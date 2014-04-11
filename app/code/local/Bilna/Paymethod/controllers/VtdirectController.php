@@ -360,7 +360,7 @@ class Bilna_Paymethod_VtdirectController extends Mage_Core_Controller_Front_Acti
             }
             else {
                 // check order status if processing/complete then ignore
-                if (in_array($order->getStatus(), $this->getStatusOrderIgnore())) {
+                if (in_array($order->getStatus(), Mage::helper('paymethod/vtdirect')->getStatusOrderIgnore())) {
                     return true;
                 }
                 
