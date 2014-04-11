@@ -42,9 +42,9 @@ class AW_Blog_Model_Mysql4_Blog_Collection extends Mage_Core_Model_Mysql4_Collec
     public function addPresentFilter()
     {
         $this->getSelect()
-            ->join(array('apc' => 'aw_blog_post_cat'), 'main_table.post_id = apc.post_id')
+            /*->join(array('apc' => 'aw_blog_post_cat'), 'main_table.post_id = apc.post_id')
             ->join(array('ac' => 'aw_blog_cat'), 'apc.cat_id = ac.cat_id', array('category' => 'ac.title'))
-            ->where('ac.`title` <> "Advetorial" ')
+            ->where('ac.`title` <> "Advetorial" ')*/
             ->where('main_table.created_time<=?', date('Y-m-d'));
         return $this;
     }

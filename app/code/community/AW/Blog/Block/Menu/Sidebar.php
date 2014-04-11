@@ -58,10 +58,24 @@ class AW_Blog_Block_Menu_Sidebar extends AW_Blog_Block_Abstract
         $collection = Mage::getModel('blog/cat')
             ->getCollection()
             ->addStoreFilter(Mage::app()->getStore()->getId())
+            ->addFieldToFilter("main_table.title", array ('neq' => 'Uncategorized'))
+            ->addFieldToFilter("main_table.parent_id", array ('eq' => 0))
             ->setOrder('sort_order', 'asc')
         ;
+        $collection->getSelect()
+            ->joinLeft(
+                array( 'awblog_cat' => Mage::getSingleton('core/resource')->getTableName('blog/cat') ),
+                "main_table.cat_id = awblog_cat.parent_id",
+                array(
+                    'cat_id' => 'awblog_cat.cat_id',
+                    'identifier_parent' => 'main_table.identifier',
+                    'title' => 'awblog_cat.title',
+                    'identifier' => 'awblog_cat.identifier'
+                )
+            );
+
         foreach ($collection as $item) {
-            $item->setAddress($this->getBlogUrl(array(self::$_catUriParam, $item->getIdentifier())));
+            $item->setAddress($this->getBlogUrl(array($item->getIdentifierParent(), $item->getIdentifier())));
         }
         return $collection;
     }
@@ -86,9 +100,9 @@ class AW_Blog_Block_Menu_Sidebar extends AW_Blog_Block_Abstract
                     'title'      => 'awblog_post.title',
                 )
         	)
-            ->limit(5);
+            ->limit(4);
 
-        $collection->getSelect()->limit(5);
+        $collection->getSelect()->limit(4);
 
         return $collection;
     }

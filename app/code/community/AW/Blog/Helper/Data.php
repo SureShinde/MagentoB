@@ -51,7 +51,7 @@ class AW_Blog_Helper_Data extends Mage_Core_Helper_Abstract
     const XML_PATH_TITLE = 'blog/blog/title';
     const XML_PATH_KEYWORDS = 'blog/blog/keywords';
     const XML_PATH_DESCRIPTION = 'blog/blog/description';
-    const DEFAULT_PAGE_COUNT = 10;
+    const DEFAULT_PAGE_COUNT = 1;
     const DEFAULT_ROOT = 'blog';
 
     /* url constants */
