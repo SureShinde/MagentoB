@@ -187,3 +187,38 @@ var google_remarketing_only = false;
 <div class="buttons-set">
     <button type="button" class="button" title="<?php echo $this->__('Continue Shopping') ?>" onclick="window.location='<?php echo $this->getUrl() ?>'"><span><span><?php echo $this->__('Continue Shopping') ?></span></span></button>
 </div>
+<div id="tag_tracking_code">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx</div>
+<script type="text/javascript">
+jQuery(document).ready(function () {
+
+    requestOrderDetail();
+    var requestOrderDetail = function(){
+        var ajaxURL = '<?php echo Mage::getBaseUrl();?>/ajaxrequest/data/retrieveconfirm/';
+
+        var data = {};
+        data.orderId = '<?php echo $this->escapeHtml($this->getOrderId()))?>';
+
+        jQuery.ajax({
+            type: "POST",
+            url : ajaxURL,
+            data: { data: data },
+            success: function(data){
+                response = jQuery.parseJSON(data);
+                if(response.status == true){
+                    jQuery('#tag_tracking_code').append($('<img>', { 
+                        src : 'https://www.tagserve.asia/saleServlet?MID=135&PID=201&CRID='+response.data.customer_id+'&ORDERID='+data.orderId+'&ORDERAMNT='+response.data.amount+'&NUMOFITEMS='+response.data.numofitem+'&CUR=IDR&SUBID=', 
+                        width : 1, 
+                        height : 1,
+
+                    }));
+                }else{
+                    return false;
+                }
+            },
+            error: function() {
+                return false;
+            }
+        });
+  }
+});
+</script>
