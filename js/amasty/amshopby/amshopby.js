@@ -19,7 +19,9 @@ function amshopby_start(){
     $$('.block-layered-nav dt').each(function (dt){
         dt.observe('click', amshopby_filter_show);
     });
+	
     
+	
     $$('.block-layered-nav dt img').each(function (img){
         img.observe('mouseover', amshopby_tooltip_show);
         img.observe('mouseout', amshopby_tooltip_hide);
