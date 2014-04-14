@@ -10,6 +10,11 @@ class Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Edit extends Mage_Adminhtml_
 	$this->_controller = 'adminhtml_formbuilder';
 	$this->_removeButton('reset');	//remove reset button
 	$this->_removeButton('save');		//remove save button
+	$this->_mode = 'edit';
+	$newOrEdit = $this->getRequest()->getParam('id')
+            ? $this->__('Edit')
+            : $this->__('New');
+        //$this->_headerText =  $newOrEdit . ' ' . $this->__('Brand');
 	}
 
 	public function getHeaderText()

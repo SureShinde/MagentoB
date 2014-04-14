@@ -15,10 +15,12 @@ class Bilna_Formbuilder_Adminhtml_FormbuilderController extends Mage_Adminhtml_C
     {
 			$record_id = $this->getRequest()->getParam('record_id');
 			$form_id = $this->getRequest()->getParam('form_id');
+			$id = $this->getRequest()->getParam('id');
 			$recform = array('record_id' => $record_id, 'form_id' => $form_id);
 
-			$collection = Mage::getModel('bilna_formbuilder/data')->getCollection();
-			$collection->getSelect()->where('record_id = '.$record_id.' and form_id = '.$form_id);
+			$collection = Mage::getModel('bilna_formbuilder/form')->getCollection();
+			//$collection->getSelect()->where('record_id = '.$record_id.' and form_id = '.$form_id);
+			$collection->getSelect()->where('id = '.$id);
 
 			Mage::register('formbuilder_form', $recform);
 
