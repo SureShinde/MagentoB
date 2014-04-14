@@ -1858,7 +1858,7 @@ tr.summary-details-excluded { font-style:italic; }
     -moz-box-shadow:inset 0px 1px 3px #dfdfdf;
     -webkit-box-shadow:inset 0px 1px 3px #dfdfdf;
     box-shadow:inset 0px 1px 3px #dfdfdf;
-
+    padding: 5px;
 }
 .product-tab-wrapper {margin: 0px;}
 .customer-reviews .form-list {margin: 20px 0;}
@@ -1906,15 +1906,56 @@ tr.summary-details-excluded { font-style:italic; }
 	display: block !important;
 }
 
-
+.menu-top-mobile {display: none;}
 
 /* --------------- smaller 959 px layout -------------------- */
 @media only screen and (max-width: 767px) {
 .products-grid .availability { line-height:21px;bottom: 30px; position: relative; margin-left: }
 .availability.out-of-stock span {margin-left: 10px;}
 
+/* -------- menu top mobile START ------------ */
+.menu-top-mobile {display: block;}
+    .header .menu-top-mobile {text-align: left; clear: both; padding: 5px 1% 0; width: 98%;}
+    .header .menu-top-mobile.home-top-mob { border-bottom: 4px solid #8F554D;}
+    .header .menu-top-mobile.baby-top-mob { border-bottom: 4px solid #95E1F1;}
+    .header .menu-top-mobile.deals-top-mob { border-bottom: 4px solid #FFB29D;}
+        .header .menu-top-mobile ul li {
+        display: inline-block;
+        width: 32.75%; 
+        background: none repeat scroll 0 0 #E0E0E0; 
+        text-align: center;
+        padding: 7px 0;
+        border-radius: 7px 7px 0 0;
+        margin: 0;
+    }
+    .menu-top-mobile ul li a {
+        color: #FFFFFF;
+        font-family: 'bebasregular';
+        font-size: 14px;
+        font-weight: normal;
+        letter-spacing: 1px;
+        text-align: center;
+        text-transform: uppercase;
+        width: 100%;
+        padding: 5px 0;
+    }
+    .menu-top-mobile ul li:hover, .menu-top-mobile ul li.active {
+        background: none repeat scroll 0 0 #95E1F1;
+    }
+    .menu-top-mobile ul li.mobile-baby:hover,.menu-top-mobile ul li.mobile-baby.active {background: #95E1F1;}
+    .menu-top-mobile ul li.mobile-home:hover,.menu-top-mobile ul li.mobile-home.active {background: #DAAEA4;}
+    .menu-top-mobile ul li.mobile-deals:hover,.menu-top-mobile ul li.mobile-deals.active {background: #FFB29D;}
+/* -------- menu top mobile END ------------ */
+
 }
 
+/* -------- menu top mobile start ------------ */
+@media only screen and (max-width: 349px){
+    .header .menu-top-mobile ul li {
+        width: 32%;
+    }
+}
+/* -------- menu top mobile END ------------ */
 
 /* back-to-top css */
 #backtotop {

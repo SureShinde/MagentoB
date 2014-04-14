@@ -201,6 +201,13 @@ $j(document).ready(function(){
         <?php echo $this->getChildHtml('topContainer'); ?>
         <div class="nav-mobile"><?php //echo $this->getChildHtml('topMenu') ?></div>
         <div class="mini-cart-mobile"><?php echo $this->getChildHtml('topcart') ?></div>
+        <div class="menu-top-mobile home-top-mob">
+	    	<ul>
+		    	<li class="mobile-baby"><a href="/baby"><?php echo $this->__('Mom &amp; Baby') ?></a></li>
+				<li class="mobile-home active"><a href="/home"><?php echo $this->__('Home') ?></a></li>
+		    	<li class="mobile-deals"><a href="/dailydeals"><?php echo $this->__('Daily Deals') ?></a></li>
+	    	</ul>
+    	</div>
         <div class="search-mobile"><?php echo $this->getChildHtml('topSearch') ?></div>
         <div class="my-account-mobile"><?php echo $this->getChildHtml('topLinks') ?></div>
     </div>
@@ -285,8 +292,9 @@ $j(document).ready(function(){
 				</div>
 				<div class="devider"></div>
 			</div>
-			<!--<div class="right-columns">
-			<div class="clear"></div>
+			<div class="right-columns">
+			 <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('img-megamenu-cat1')->toHtml() ?> 
+			<!--<div class="clear"></div>
 			<div class="submenu popular-brand">
 				<span class="title">Popular Brands</span>
 				<ul>
@@ -307,9 +315,9 @@ $j(document).ready(function(){
 			<div class="clear">&nbsp;</div>
 			<div class="megamenu-product">
 				<a class="megamenu-image" href="http://www.bilna.com"> <img src="http://assets.bilna.com/media/wysiwyg/megamenu1-diapering-img.png" alt=""> </a>
-			</div>	     
+			</div>	 -->    
 
-			</div>
+			<!--</div>
 			<div class="clear"></div>
 			<a href="<?php echo Mage::getBaseUrl(); ?>perlengkapan-kamar-tidur.html" class="browse-all">Browse All</a>-->
 		</li>
@@ -346,8 +354,9 @@ $j(document).ready(function(){
 				</div>
 				<div class="devider"></div>
 			</div>
-    <!--<div class="right-columns">
-        <div class="clear"></div>
+    <div class="right-columns">
+	<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('img-megamenu-cat2')->toHtml() ?> 
+        <!--<div class="clear"></div>
     	<div class="submenu popular-brand"><span class="title">Popular Brands</span>
 			<ul>
 				<li><a href="<?php echo Mage::getBaseUrl(); ?>nutrilon">Nutrilon</a></li>
@@ -372,9 +381,9 @@ $j(document).ready(function(){
 			<div class="clear">&nbsp;</div>
 		<div class="megamenu-product">
 			<a class="megamenu-image" href="http://www.bilna.com"> <img src="http://assets.bilna.com/media/wysiwyg/megamenu2-milkformulafood-img.png" alt=""> </a>
-		</div>	
+		</div>	-->
 	</div>
-			<div class="clear"></div>
+			<!--<div class="clear"></div>
 			<a href="<?php echo Mage::getBaseUrl(); ?>perlengkapan-kamar-mandi.html" class="browse-all">Browse All</a>-->
 		</li>
     </ul>
@@ -413,8 +422,9 @@ $j(document).ready(function(){
 				</div>
 			<div class="devider"></div>
 			</div>
-			<!--<div class="right-columns">
-			<div class="clear"></div>
+			<div class="right-columns">
+	<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('img-megamenu-cat3')->toHtml() ?> 
+			<!--<div class="clear"></div>
 										<div class="submenu popular-brand"><span 
 
 			class="title">Popular Brands</span>
@@ -436,10 +446,10 @@ $j(document).ready(function(){
 			<div class="clear">&nbsp;</div>
 			<div class="megamenu-product"><a class="megamenu-image" href="http://www.bilna.com"> <img 
 
-			src="http://assets.bilna.com/media/wysiwyg/megamenu3-clothingacc-img.png" alt=""> </a></div>	     
+			src="http://assets.bilna.com/media/wysiwyg/megamenu3-clothingacc-img.png" alt=""> </a></div>-->	     
 
 			</div>
-			<div class="clear"></div>
+			<!--<div class="clear"></div>
 			<a href="<?php echo Mage::getBaseUrl(); ?>pakaian-dan-aksesoris.html" class="browse-all">Browse All</a>-->
 		</li>
 	</ul>
@@ -494,8 +504,9 @@ $j(document).ready(function(){
 				</div>
 				<div class="devider"></div>
 			</div>
-			<!--<div class="right-columns">
-				<div class="clear"></div>
+			<div class="right-columns">
+			<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('img-megamenu-cat4')->toHtml() ?> 
+				<!--<div class="clear"></div>
 				<div class="submenu popular-brand"><span class="title">Popular Brands</span>
 					<ul>
 					<li><a href="<?php echo Mage::getBaseUrl(); ?>pigeon">Pigeon</a></li>
@@ -517,10 +528,10 @@ $j(document).ready(function(){
 				<div class="clear">&nbsp;</div>
 				<div class="megamenu-product"><a class="megamenu-image" href="http://www.bilna.com">
 					<img src="http://assets.bilna.com/media/wysiwyg/megamenu4-bathskincare-img.png" alt=""> </a>
-				</div>	     
+				</div>	     -->
 
 			</div>
-			<div class="clear"></div>
+			<!--<div class="clear"></div>
 			<a href="<?php echo Mage::getBaseUrl(); ?>peralatan-mandi-dan-perawatan-kulit.html" class="browse-all">Browse All</a>-->
 		</li>
 	</ul>
@@ -563,8 +574,9 @@ $j(document).ready(function(){
 				</div>
 				<div class="devider"></div>
 			</div>
-    <!--<div class="right-columns">
-          	<div class="clear"></div>
+    <div class="right-columns">
+		<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('img-megamenu-cat5')->toHtml() ?> 
+        <!--<div class="clear"></div>
     		    <div class="submenu popular-brand"><span class="title">Popular Brands</span>
 		<ul>
 		<li><a href="<?php echo Mage::getBaseUrl(); ?>dr-browns.html">Dr. Brown’s</a></li>
@@ -591,9 +603,10 @@ $j(document).ready(function(){
 		<div class="clear">&nbsp;</div>
 		<div class="megamenu-product"><a class="megamenu-image" href="http://www.bilna.com"> 
 		<img src="http://assets.bilna.com/media/wysiwyg/megamenu5-feedingnursing-img.png" alt=""> </a>
-		</div>	     
+		</div>	     -->
 
    </div>
+   <!--
     <div class="clear"></div>
     <a href="<?php echo Mage::getBaseUrl(); ?>perlengkapan-makan-bayi.html" class="browse-all">Browse All</a>-->
 		</li>
@@ -657,7 +670,9 @@ $j(document).ready(function(){
 				</div>
 				<div class="devider"></div>
 			</div>
-    <!--<div class="right-columns">
+    <div class="right-columns">
+		<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('img-megamenu-cat6')->toHtml() ?> 
+		<!--
           	<div class="clear"></div>
     		    <div class="submenu popular-brand"><span class="title">Popular Brands</span>
 <ul>
@@ -678,9 +693,9 @@ $j(document).ready(function(){
 </div>
 <div class="clear">&nbsp;</div>
 <div class="megamenu-product"><a class="megamenu-image" href="http://www.bilna.com"> <img src="http://assets.bilna.com/media/wysiwyg/megamenu6-healthsafety-img.png" alt=""> </a></div>	     
-
+-->
    </div>
-    <div class="clear"></div>
+   <!-- <div class="clear"></div>
     <a href="<?php echo Mage::getBaseUrl(); ?>kesehatan-dan-keamanan-bayi-dan-balita.html" class="browse-all">Browse All</a>-->
 	</li>
     </ul>
@@ -715,8 +730,9 @@ $j(document).ready(function(){
 		</div>
 <div class="devider"></div>
 </div>
-<!--<div class="right-columns">
-<div class="clear"></div>
+<div class="right-columns">
+<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('img-megamenu-cat7')->toHtml() ?> 
+<!--<div class="clear"></div>
 						<div class="submenu popular-brand"><span 
 
 class="title">Popular Brands</span>
@@ -747,9 +763,9 @@ class="title">Popular Brands</span>
 <div class="megamenu-product"><a class="megamenu-image" href="http://www.bilna.com"> <img 
 
 src="http://assets.bilna.com/media/wysiwyg/megamenu7-toysbooks-img.png" alt=""> </a></div>	     
-
+-->
 </div>
-<div class="clear"></div>
+<!--<div class="clear"></div>
 <a href="<?php echo Mage::getBaseUrl(); ?>buku-dan-mainan.html" class="browse-all">Browse All</a>-->
 		</li>
 	</ul>
