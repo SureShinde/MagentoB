@@ -35,12 +35,12 @@
 		  if ($j(this).scrollTop() > 100) {
 	          $j(".header-container .sticky-header-wrapper").fadeIn();
               $j(".search-container-new").addClass("search-for-sticky");
-              $j(".link-minicart, .link-checkout").addClass("cart-for-sticky");
+              $j(".link-minicart").addClass("cart-for-sticky");
               $j(".mini-cart").addClass("cart-block-detail");
 	      } else {
 	          $j(".header-container .sticky-header-wrapper").fadeOut();
               $j(".search-container-new").removeClass("search-for-sticky");
-              $j(".link-minicart, .link-checkout").removeClass("cart-for-sticky");
+              $j(".link-minicart").removeClass("cart-for-sticky");
               $j(".mini-cart").removeClass("cart-block-detail");
 	      }
 	      if ($j(this).scrollTop() > 100) {
