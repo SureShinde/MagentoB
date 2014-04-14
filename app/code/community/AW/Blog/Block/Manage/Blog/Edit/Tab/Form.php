@@ -92,14 +92,45 @@ class AW_Blog_Block_Manage_Blog_Edit_Tab_Form extends Mage_Adminhtml_Block_Widge
         }
 
         $categories = array();
-        $collection = Mage::getModel('blog/cat')->getCollection()->setOrder('sort_order', 'asc');
+        $collection = Mage::getModel('blog/cat')->getCollection()
+            ->addFieldToFilter('parent_id', array('eq' => 0))
+            ->setOrder('sort_order', 'asc');
         foreach ($collection as $cat) {
-            $categories[] = (array(
-                'label' => (string)$cat->getTitle(),
+
+            $subCat = Mage::getModel('blog/cat')->getCollection()
+                ->addFieldToFilter('parent_id', array('eq' => $cat->getCatId()))
+                ->setOrder('sort_order', 'asc');
+            $subCategories[] = (array(
+                'label' => str_repeat(html_entity_decode('&#160;', ENT_NOQUOTES, 'UTF-8'),4).(string)$cat->getTitle(),
                 'value' => $cat->getCatId()
             ));
-        }
 
+            foreach ($subCat as $row) {
+                /*if($row->getParentId() == $cat->getCatId())
+                {
+                    $subCategories[] = (array(
+                        'label' => (string)$cat->getTitle(),
+                        'value' => $cat->getCatId()
+                    ));
+echo "<br/>". $row->getParentId();      
+echo "<br/>". $cat->getCatId();             
+                }*/
+                $subCategories[] = (array(
+                    'label' => str_repeat(html_entity_decode('&#160;', ENT_NOQUOTES, 'UTF-8'),4).(string)$row->getTitle(),
+                    'value' => $row->getCatId()
+                ));
+            }    
+
+            $categories[] = (array(
+                'label' => (string)$cat->getTitle(),
+                'value' =>  $subCategories
+            ));
+
+            unset($subCategories);
+        }
+/*echo '<pre>';        
+print_r($categories);
+echo '</pre>';*/
         $fieldset->addField(
             'cat_id',
             'multiselect',
