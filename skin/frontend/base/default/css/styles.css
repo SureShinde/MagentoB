@@ -561,55 +561,55 @@ tr.summary-details-excluded { font-style:italic; }
 
 /********** < Navigation */
 .nav-container { background:#0a263d url(../images/bkg_nav0.jpg) 50% 0 repeat-y; }
-#nav { width:918px; margin:0 auto; padding:0 16px; font-size:13px; }
+#nav, #nav-baby { width:918px; margin:0 auto; padding:0 16px; font-size:13px; }
 
 /* All Levels */ /* Style consistent throughout all nav levels */
-#nav li { position:relative; text-align:left; }
-#nav li.over { z-index:998; }
-#nav a,
-#nav a:hover { display:block; line-height:1.3em; text-decoration:none; }
-#nav span { display:block; cursor:pointer; white-space:nowrap; }
-#nav li ul span {white-space:normal; }
-#nav ul li.parent a { background:url(../images/bkg_nav2.gif) 100% 100% no-repeat; }
-#nav ul li.parent li a { background-image:none; }
+#nav li, #nav-baby li { position:relative; text-align:left; }
+#nav li.over, #nav-baby li.over { z-index:998; }
+#nav a, #nav-baby a,
+#nav a:hover, #nav-baby a:hover { display:block; line-height:1.3em; text-decoration:none; }
+#nav span, #nav-baby span { display:block; cursor:pointer; white-space:nowrap; }
+#nav li ul span, #nav-baby li ul span {white-space:normal; }
+#nav ul li.parent a, #nav-baby ul li.parent a { background:url(../images/bkg_nav2.gif) 100% 100% no-repeat; }
+#nav ul li.parent li a, #nav-baby ul li.parent li a { background-image:none; }
 
 /* 0 Level */
-#nav li { float:left; }
-#nav li.active a { color:#d96708; }
-#nav a { float:left; padding:5px 12px 6px 8px; color:#a7c6dd; font-weight:bold; }
-#nav li.over a,
-#nav a:hover { color:#d96708; }
+#nav li, #nav-baby li { float:left; }
+#nav li.active a, #nav-baby li.active a { color:#d96708; }
+#nav a, #nav-baby a { float:left; padding:5px 12px 6px 8px; color:#a7c6dd; font-weight:bold; }
+#nav li.over a, #nav-baby li.over a,
+#nav a:hover, #nav-baby a:hover { color:#d96708; }
 
 /* 1st Level */
-#nav ul li,
-#nav ul li.active { float:none; margin:0; padding-bottom:1px; background:#ecf3f6 url(../images/bkg_nav1.gif) 0 100% repeat-x; }
-#nav ul li.last { background:#ecf3f6; padding-bottom:0; }
+#nav ul li, #nav-baby ul li,
+#nav ul li.active, #nav-baby ul li.active { float:none; margin:0; padding-bottom:1px; background:#ecf3f6 url(../images/bkg_nav1.gif) 0 100% repeat-x; }
+#nav ul li.last, #nav-baby ul li.last { background:#ecf3f6; padding-bottom:0; }
 
-#nav ul a,
-#nav ul a:hover { float:none; padding:0; background:none; }
-#nav ul li a { font-weight:normal !important; }
+#nav ul a, #nav-baby ul a,
+#nav ul a:hover, #nav-baby ul a:hover { float:none; padding:0; background:none; }
+#nav ul li a, #nav-baby ul li a { font-weight:normal !important; }
 
 /* 2nd Level */
-#nav ul,
-#nav div { position:absolute; width:15em; top:27px; left:-10000px; border:1px solid #899ba5; }
-#nav div ul { position:static; width:auto; border:none; }
+#nav ul, #nav-baby ul,
+#nav div, #nav-baby div { position:absolute; width:15em; top:27px; left:-10000px; border:1px solid #899ba5; }
+#nav div ul, #nav-baby div ul { position:static; width:auto; border:none; }
 
 /* 3rd+ Level */
-#nav ul ul,
-#nav ul div { top:5px; }
+#nav ul ul, #nav-baby ul ul,
+#nav ul div, #nav-baby ul div { top:5px; }
 
-#nav ul li a { background:#ecf3f6; }
-#nav ul li a:hover { background:#d5e4eb; }
-#nav ul li a,
-#nav ul li a:hover { color:#2f2f2f !important; }
-#nav ul span,
-#nav ul li.last li span { padding:3px 15px 4px 15px; }
+#nav ul li a, #nav-baby ul li a { background:#ecf3f6; }
+#nav ul li a:hover, #nav-baby ul li a:hover { background:#d5e4eb; }
+#nav ul li a, #nav-baby ul li a,
+#nav ul li a:hover, #nav-baby ul li a:hover { color:#2f2f2f !important; }
+#nav ul span, #nav-baby ul span,
+#nav ul li.last li span, #nav-baby ul li.last li span { padding:3px 15px 4px 15px; }
 
 /* Show menu */
-#nav li ul.shown-sub,
-#nav li div.shown-sub { left:0; z-index:999; }
-#nav li .shown-sub ul.shown-sub,
-#nav li .shown-sub li div.shown-sub { left:100px; }
+#nav li ul.shown-sub, #nav-baby li ul.shown-sub,
+#nav li div.shown-sub, #nav-baby li div.shown-sub { left:0; z-index:999; }
+#nav li .shown-sub ul.shown-sub, #nav-baby li .shown-sub ul.shown-sub,
+#nav li .shown-sub li div.shown-sub, #nav-baby li .shown-sub li div.shown-sub { left:100px; }
 /********** Navigation > */
 /* ======================================================================================= */
 
@@ -1774,6 +1774,7 @@ tr.summary-details-excluded { font-style:italic; }
 .header:after,
 .header .quick-access:after,
 #nav:after,
+#nav-baby:after,
 .main:after,
 .footer:after,
 .footer-container .bottom-container:after,
@@ -1922,7 +1923,7 @@ tr.summary-details-excluded { font-style:italic; }
         .header .menu-top-mobile ul li {
         display: inline-block;
         width: 32.75%; 
-        background: none repeat scroll 0 0 #E0E0E0; 
+        background: none repeat scroll 0 0 #4EC7DA; 
         text-align: center;
         padding: 7px 0;
         border-radius: 7px 7px 0 0;
@@ -1940,11 +1941,11 @@ tr.summary-details-excluded { font-style:italic; }
         padding: 5px 0;
     }
     .menu-top-mobile ul li:hover, .menu-top-mobile ul li.active {
-        background: none repeat scroll 0 0 #95E1F1;
+        background: none repeat scroll 0 0 #e4c29c;
     }
-    .menu-top-mobile ul li.mobile-baby:hover,.menu-top-mobile ul li.mobile-baby.active {background: #95E1F1;}
+    /* .menu-top-mobile ul li.mobile-baby:hover,.menu-top-mobile ul li.mobile-baby.active {background: #95E1F1;}
     .menu-top-mobile ul li.mobile-home:hover,.menu-top-mobile ul li.mobile-home.active {background: #DAAEA4;}
-    .menu-top-mobile ul li.mobile-deals:hover,.menu-top-mobile ul li.mobile-deals.active {background: #FFB29D;}
+    .menu-top-mobile ul li.mobile-deals:hover,.menu-top-mobile ul li.mobile-deals.active {background: #FFB29D;} */
 /* -------- menu top mobile END ------------ */
 
 }
@@ -1977,3 +1978,727 @@ tr.summary-details-excluded { font-style:italic; }
     text-decoration: none;
     text-transform: uppercase;
 }
+
+
+
+/* ------------------------ HOME CSS APRIL 2014 ----------------------- */
+
+.bilna-home #slides-banner{
+	position:relative;
+}
+.bilna-home #backtotop a{
+	background:#8F554D;
+}
+.bilna-home .footer li a:hover {
+    color: #8F554D;
+}
+
+
+/*#slides-banner .slidesjs-container{
+	height:356px !important; 
+}*/
+/*======================Category page===================*/
+
+.bilna-home .toolbar .limiter ul li a{
+	color:#905350;
+}
+.bilna-home .category-products{
+	border-top: 3px dashed #905350;
+}
+.bilna-home .featured-product-catalog{
+	background:0;
+	display:none;
+}
+.bilna-home .featured-product-catalog h2{
+	color:#707070;
+	background:url('../images/shd_featured_title.png') bottom repeat-x;
+	padding:0;
+	text-align:left;
+	position:relative;
+}
+.bilna-home .featured-product-catalog h2:before{
+	width:200px;
+	background:#f76a59;
+	height:5px;
+	content:"";
+	bottom:0;
+	position:absolute;
+	left:0;
+}
+.bilna-home .breadcrumbs{
+	margin:10px 0;
+	}
+.bilna-home div.block-layered-nav dd a.amshopby-attr{
+	background:url("../images/checkbox.png") no-repeat;
+}
+.bilna-home div.block-layered-nav dd a.amshopby-attr-selected{
+	background:url("../images/checked.png") no-repeat;
+}
+.bilna-home .breadcrumbs a{
+	color:#905350;
+}
+.bilna-home .products-grid .price-box .discount-product{
+	color:#905350;
+}
+.bilna-home .amshopby-slider-bar{
+	background:url("../images/slide-bar-current.png") repeat-x scroll 50% 50% rgba(0, 0, 0, 0);
+}
+.bilna-home .header .links a, .menu-tablet .links a{
+	color: #8F554D;
+}
+.bilna-home .product-view .product-shop .product-shop-left .discount-product{
+	color: #8F554D;
+}
+.bilna-home .header .search-mobile .form-search .input-keyword button.button {
+    background: url("../images/btn-search-mobile.png") no-repeat scroll center center rgba(0, 0, 0, 0);
+	}
+.bilna-home .toolbar-mobile .sort-by .sort-by-option select, .bilna-home .toolbar-mobile .filter .filter-option select{
+	color:#905350;
+}
+.bilna-home .filter-toggle a{
+	color:#905350;
+}
+.bilna-home .toolbar-mobile .sort-by .sort-by-option, .bilna-home .toolbar-mobile .filter .filter-option{
+	background:url("../images/arrow-maroon.png") no-repeat right;
+}
+.bilna-home .filter-toggle a{
+	background:url("../images/arrow-maroon.png") no-repeat 47px center #fff;
+}
+.bilna-home .product-tab-mobile-wrapper .toggle-tab, #customer-reviews h2{
+	background:url("../images/btn_expand.png") no-repeat scroll 98% 15px;
+}
+.bilna-home .tiny .thumb, .bilna-home .tiny .thumb .end{
+	background:url("../images/track.png") no-repeat 50% top;
+	}
+.bilna-home .tiny .track{
+	background:url("../images/scroll-down.png") no-repeat center bottom #DFE0E0;
+	}
+.bilna-home .tiny .scrollbar {
+    background: url("../images/scroll-up.png") no-repeat 0 0;
+}
+.bilna-home .block-layered-nav dt.category + dd li a {
+    background: url("../images/arrow-2.png") no-repeat scroll right center rgba(0, 0, 0, 0);
+	height:16px;
+	}
+
+.bilna-home .tiny .overview{
+	position:relative;
+}
+/*======================Category page===================*/
+
+
+/*======================product page===================*/
+.bilna-home .catalog-product-view .breadcrumbs a{
+	color:#905350;
+}
+.bilna-home .product-view .product-img-box .more-views .bx-wrapper .bx-prev{
+	background: url("../images/arrow-nav-thumb-image.png") no-repeat ;
+}
+.bilna-home .product-view .product-img-box .more-views .bx-wrapper .bx-next{
+	background: url("../images/arrow-nav-thumb-image.png") -30px 0 no-repeat ;
+	bottom: -15%;}
+.bilna-home .product-view .product-img-box .more-views .bx-wrapper .bx-controls-direction a{
+	margin-top: -23px;
+	width: 31px;
+	height: 31px;
+}
+.bilna-home .onsale-product-container-inside{
+	height: 109px !important;
+    left: -31px !important;
+    top: -47px;
+    width: 110px !important;
+	}
+.bilna-home .product-view .product-shop .product-shop-right .add-to-cart{
+	background:none;
+}
+.bilna-home .product-view .product-shop .product-shop-right .add-to-cart button.button{
+	background:#ffa01b;
+	margin: 3px 0 0;
+    width: 158px;
+	border: 1px solid #fff;
+	-moz-box-shadow: 2px 2px 3px #D0CFCF;
+    -webkit-box-shadow: 2px 2px 3px #D0CFCF;
+    box-shadow: 2px 2px 3px #D0CFCF;
+}
+.bilna-home .product-tab-wrapper .tab.active{
+	background:#905350;
+	}
+.bilna-home .product-tab-wrapper .tab.active:after{
+	border-color: #905350 rgba(0, 0, 0, 0) rgba(0, 0, 0, 0);
+    border-style: solid;
+    border-width: 10px 14px;
+    content: "";
+    margin: -1px -14px 0 0;
+    position: absolute;
+    right: 50%;
+	z-index:99;
+}
+.bilna-home .product-tab-wrapper .tab a.active{
+	color:#fff;
+}
+.bilna-home .product-tab-wrapper .tab-container .panel-container{
+    overflow: hidden;
+    padding: 10px 10px 32px;
+}
+.bilna-home .product-tab-wrapper .hide_desc_button .bx-show, .bilna-home .product-tab-wrapper .hide_desc_button .bx-hide{
+	border: medium none;
+    height: 32px;
+	cursor:pointer;
+    left: 50%;
+    margin-left: -16px;
+    position: absolute;
+    width: 30px;
+}
+.bilna-home .product-tab-wrapper .hide_desc_button .bx-show {
+	background: url("../images/arrow-nav-thumb-image.png") no-repeat scroll -30px 0 rgba(0, 0, 0, 0);
+	}
+.bilna-home .product-tab-wrapper .hide_desc_button .bx-hide {
+	background: url("../images/arrow-nav-thumb-image.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+	}
+.bilna-home .related-product .block-title{
+	background:none;
+}
+.bilna-home .related-product .block-related .block-title strong, .bilna-home .aw-mini-related-items .head strong{
+	text-align:left;
+	background:url("../images/shd_featured_title.png") repeat-x 0 bottom;
+}
+.bilna-home .related-product .block-title strong span, .bilna-home .aw-mini-related-items .head strong{
+	color:#707070;
+	border-bottom:5px solid #FFE449;
+	line-height: 1.5em;
+}
+/*======================end product page===================*/
+
+/* .menu-top-mobile {display: none;} */
+
+@media only screen and (max-width: 767px){
+	.nav-container:after{
+		display:none;
+	}
+	.nav-container{
+		background:none;
+	}
+	.header .search-mobile .form-search .input-keyword input.input-text{
+		max-width:none;
+		width:35%;
+	}
+	.bilna-home .nav-container-mobile ul li.cat-leveltop.parent {
+    background: url("../images/arrow-menu-mobile.png") no-repeat scroll 98% 17px rgba(0, 0, 0, 0);
+	}
+    .bilna-home .awafpgrid {display: none;}
+}
+
+
+/* ------------- ADD from homepage.css ----------------- */
+
+.bilna-home .cms-index-defaultindex .products-on-sale h2, .bilna-home .cms-index-defaultindex .new-arrival h2, .bilna-home .cms-index-defaultindex .most-popular h2{
+	background: url("../images/shd_featured_title.png") repeat-x scroll center bottom rgba(0, 0, 0, 0);
+	color: #707070;
+	padding: 0;
+	position: relative;
+	font-size: 24px;
+	font-family:'bebasregular';
+	margin: 0 0 10px;
+	text-align: left;
+	}
+.bilna-home .cms-index-defaultindex .products-on-sale h2 span, .bilna-home .cms-index-defaultindex .new-arrival h2 span, .bilna-home .cms-index-defaultindex .most-popular h2 span{
+	background: url("../images/arrow-2.png") no-repeat scroll right center rgba(0, 0, 0, 0);
+    float: right;
+    font-family: helvetica;
+    font-size: 12px;
+    font-weight: bold;
+    margin: 9px 5px 0 0;
+    padding: 0 24px 0 0;
+}
+.bilna-home .cms-index-index .products-on-sale h2, .bilna-home .cms-index-index .new-arrival h2, .bilna-home .cms-index-index .most-popular h2{
+	background: url("../images/shd_featured_title.png") repeat-x scroll center bottom rgba(0, 0, 0, 0);
+	color: #707070;
+	padding: 0;
+	position: relative;
+	font-size: 24px;
+	font-family:'bebasregular';
+	margin: 0 0 10px;
+	text-align: left;
+	}
+.bilna-home .cms-index-index .products-on-sale h2 span, .bilna-home .cms-index-index .new-arrival h2 span, .bilna-home .cms-index-index .most-popular h2 span{
+	background: url("../images/arrow-2.png") no-repeat scroll right center rgba(0, 0, 0, 0);
+    float: right;
+    font-family: helvetica;
+    font-size: 12px;
+    font-weight: bold;
+    margin: 9px 5px 0 0;
+    padding: 0 24px 0 0;
+}
+.bilna-home .cms-index-defaultindex .products-on-sale h2:before, .bilna-home .cms-index-defaultindex .new-arrival h2:before, .bilna-home .cms-index-defaultindex .most-popular h2:before{
+	bottom: 0;
+	content: "";
+	height: 5px;
+	left: 0;
+	position: absolute;
+}
+.bilna-home .cms-index-index .products-on-sale h2:before, .bilna-home .cms-index-index .new-arrival h2:before, .bilna-home .cms-index-index .most-popular h2:before{
+	bottom: 0;
+	content: "";
+	height: 5px;
+	left: 0;
+	position: absolute;
+}
+.bilna-home .cms-index-defaultindex .products-on-sale h2:before{
+	width: 170px;
+	background: none repeat scroll 0 0 #F76A59;
+}
+.bilna-home .cms-index-index .products-on-sale h2:before{
+	width: 170px;
+	background: none repeat scroll 0 0 #F76A59;
+}
+.bilna-home .cms-index-defaultindex .new-arrival h2:before{
+	width: 130px;
+	background: none repeat scroll 0 0 #7dcd32;
+}
+.bilna-home .cms-index-index .new-arrival h2:before{
+	width: 130px;
+	background: none repeat scroll 0 0 #7dcd32;
+}
+.bilna-home .cms-index-defaultindex .most-popular h2:before{
+	width: 150px;
+	background: none repeat scroll 0 0 #42bcd1;
+}
+.bilna-home .cms-index-index .most-popular h2:before{
+	width: 150px;
+	background: none repeat scroll 0 0 #42bcd1;
+}
+
+.bilna-home .homepage-bottom {
+	clear: both;
+}
+.bilna-home .homepage-bottom ul.block-wrapper {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+.bilna-home .homepage-bottom ul.block-wrapper li {
+	display: inline-block;
+	margin: 0 14px 34px;
+	padding:10px 15px;
+	width: 28.25%;
+	background: #dad8d5;
+	vertical-align: top;
+}
+.bilna-home .homepage-bottom ul.block-wrapper li:last-child {}
+.bilna-home .block-bottom {
+	text-align: center;
+	text-transform: uppercase;
+	color: #fff;
+	border-top: 2px dashed #fff;
+	border-bottom: 2px dashed #fff;	
+	padding: 12px 0;
+	height: 100px;
+}
+.bilna-home .block-bottom span {
+	display: block;
+	font-size: 23px;
+	font-family: 'Fredoka One', cursive;
+}
+.bilna-home .block-bottom p {
+	font-family: 'bebasregular';
+	font-size: 14px;
+	margin: 0;
+}
+.bilna-home .block-bottom p a {
+	display: inline-block;
+	text-decoration: underline;
+	text-align: left;
+	color: #fff;
+	/*background-image: url(../images/arrow-1.png);
+	background-repeat: no-repeat;
+	background-position: right 5px;*/
+	padding: 0 5px 0 0;
+	line-height:19px;
+}
+.bilna-home .block-bottom p a:hover {
+	text-decoration: none;color: #FFA01B;
+}
+.bilna-home .block-bottom p a.link-how-to-buy {
+	width: 58px;
+	background-position: 40px 28px;
+}
+.bilna-home .block-bottom p a.link-shipping-table {
+	width: 101px;
+	background-position: 50px 28px;
+}
+.bilna-home .block-bottom p a.link-other-help {
+	width: 66px;
+	background-position: 50px 28px;
+	padding-left: 0;
+}
+.bilna-home .block-bottom p a.link-bilna-credit {
+	width: 80px;
+	background-position: 61px 28px;
+}
+.bilna-home .block-bottom p a.link-reseller-program {
+	width: 90px;
+	background-position: 71px 28px;
+}
+.bilna-home .block-bottom p a.link-gift-voucher {
+	width: 80px;
+	background-position: 67px 28px;
+}
+.bilna-home .block-bottom p a img {
+	margin-left: 5px;
+	margin-top: 3px;
+}
+.bilna-home .block-bottom table tr td {
+	padding: 0 15px;
+}
+.bilna-home .block-bottom table tr td a {
+	font-family: 'bebasregular';
+	font-size: 14px;
+	font-weight: normal;
+	color: #fff;
+	text-decoration: underline;
+}
+.bilna-home .block-bottom table tr td a:hover {color: #FFA01B;}
+.bilna-home .block-bottom table tr td a img {
+	margin-left: 5px;
+	margin-top: 3px;
+}
+.bilna-home .homepage-bottom .testimonial-wrapper {
+	float: left;
+	width: 45%;
+	position: relative;
+}
+.bilna-home .testimonial-wrapper h4, .bilna-home .media-partners span.title {
+	font-size: 18px;
+	font-weight: normal;
+	font-family: 'bebasregular';
+}
+.bilna-home .testimonial-wrapper h4 {
+	background: url(../images/label.png) no-repeat left top;
+	color: #fff;
+	width: 279px;
+	height: 58px;
+	margin: 0 0 10px 0;
+}
+.bilna-home .testimonial-wrapper h4 span {
+	display: inline-block;
+	margin: 18px 0 0 55px;
+}
+.bilna-home .testimonial {
+	margin: 0 40px;
+}
+.bilna-home #slides {
+	  position:relative;
+}
+.bilna-home #slides .slidesjs-navigation {
+  position:absolute;
+  top:40px;
+  z-index:10;
+  height: 30px;
+  width: 30px;
+  background-repeat: no-repeat;
+  background-position: center center;
+  display:block;
+  text-indent: -9999px;
+  cursor: pointer;
+}
+.bilna-home #slides .slidesjs-previous {
+  left:0;
+  background-image: url(../images/arrow-prev.png);
+}
+#slides .slidesjs-next {
+  background-image: url(../images/arrow-next.png);
+}
+.bilna-home #slides .slidesjs-next {
+	right: 0;
+}
+.bilna-home #slides-popup .slidesjs-next {
+	left: 30px;
+}
+.bilna-home #slides-popup .slidesjs-navigation {
+	bottom: 12px;
+	top:auto;
+	background-color: #ddd;
+}
+.bilna-home #slides-banner-home{
+	position:relative;
+}
+.bilna-home #slides-banner-home .slidesjs-navigation {
+	display: none;
+}
+.bilna-home #slides-banner-home .slidesjs-pagination {
+	position: absolute;
+	right: 10px;
+	bottom: 0;
+	list-style: none;
+	z-index: 99;
+	padding: 0;
+}
+.bilna-home #slides-banner-home .slidesjs-pagination li {
+	display: inline-block;
+	margin: 0 0 0 5px;
+}
+.bilna-home #slides-banner-home .slidesjs-pagination li:first-child {
+	margin-left: 0;
+}
+
+.bilna-home #slides-banner-home .slidesjs-pagination li.slidesjs-pagination-item a {
+	display: block;
+	width: 19px;
+	height: 19px;
+	text-indent: -999999px;
+	background: url(../images/node.png) no-repeat center center;
+}
+.bilna-home #slides-banner-home .slidesjs-pagination li.slidesjs-pagination-item a.active {
+	background: url(../images/node-active.png) no-repeat center center;
+}
+.bilna-home .homepage-bottom .media-partners {
+	float: right;
+}
+.bilna-home .media-partners span.title {
+	display: block;
+}
+.bilna-home .media-partners ul.media-partners-wrapper {
+	list-style: none;
+	margin: 30px 0 0 0;
+	padding: 0;
+}
+.bilna-home .media-partners ul.media-partners-wrapper li {
+	display: inline-block;
+	vertical-align: middle;
+	margin: 0 0 0 20px;
+}
+.bilna-home .media-partners ul.media-partners-wrapper li:first-child {
+	margin: 0;
+}
+
+.bilna-home .cms-index-defaultindex .wrap_banner{
+	margin: 20px auto;
+	display: table;
+}
+.bilna-home .cms-index-index .wrap_banner{
+	margin: 20px 0;
+	display: table;
+}
+.bilna-home .cms-index-defaultindex .wrap_banner .col-1, .bilna-home .cms-index-defaultindex .wrap_banner .col-2, .bilna-home .cms-index-defaultindex .wrap_banner .col-3{
+	display:block;
+	min-height:50px;
+	float:left;
+}
+.bilna-home .cms-index-index .wrap_banner .col-1, .bilna-home .cms-index-index .wrap_banner .col-2, .bilna-home .cms-index-index .wrap_banner .col-3{
+	display:block;
+	min-height:50px;
+	float:left;
+}
+.bilna-home .cms-index-defaultindex .wrap_banner .col-1{
+	width:490px;
+}
+.bilna-home .cms-index-index .wrap_banner .col-1{
+	width:527px;
+}
+.bilna-home .cms-index-defaultindex .wrap_banner .col-2{
+	margin: 0 8px;
+	width:200px;
+}
+.bilna-home .cms-index-index .wrap_banner .col-2{
+	margin: 0 8px;
+	width:216px;
+}
+.bilna-home .cms-index-defaultindex .wrap_banner .col-2 img:first-child{
+	margin: 0 0 8px;
+}
+.bilna-home .cms-index-index .wrap_banner .col-2 img:first-child{
+	margin: 0 0 8px;
+}
+.bilna-home .cms-index-defaultindex .wrap_banner .col-3{
+	width:245px;
+}
+.bilna-home .cms-index-index .wrap_banner .col-3{
+	width:245px;
+}
+.bilna-home .homepage-bottom ul.block-wrapper li {
+	width: 28.79%;
+	margin: 0 8px 34px;
+}
+.bilna-home .homepage-bottom ul.block-wrapper li:nth-child(2){
+	margin:0 17px 15px;
+}
+.bilna-home .block-bottom span {
+	display: block;
+	font-size: 23px;
+	font-family: 'Fredoka One', cursive;
+}
+.bilna-home .block-bottom p {
+	font-size: 14px;
+}
+.bilna-home .block-bottom p a {
+	background-position: right center;
+}
+.bilna-home .block-bottom p a.link-how-to-buy {
+	width: 51px;
+	background-position: 34px 20px;
+}
+.bilna-home .block-bottom p a.link-shipping-table {
+	width: 84px;
+	background-position: 40px 20px;
+}
+.bilna-home .block-bottom p a.link-other-help {
+	width: 30px;
+	background-position: 38px 20px
+}
+.bilna-home .block-bottom p a.link-bilna-credit {
+	width: 62px;
+	background-position: 51px 20px;
+}
+.bilna-home .block-bottom p a.link-reseller-program {
+	width: 68px;
+	background-position: 60px 20px;
+}
+.bilna-home .block-bottom p a.link-gift-voucher {
+	width: 60px;
+	background-position: 55px 20px
+}
+.bilna-home .block-bottom table tr td {
+	padding: 0 15px;
+}
+.bilna-home .homepage-bottom .media-partners {
+	margin: 0;
+	
+}
+.bilna-home .shopby{
+	float: left;
+    margin: 0 20px 0 0;
+    width: 175px; 
+	}
+.bilna-home #nav li.shop-by:hover .shopby {
+    display: none;
+}
+.bilna-home .shopby ul.shop-by li a.link-seemore, .bilna-home .homepage-product a.link-viewmore-product, .bilna-home #nav .shopby ul.shop-by li a.link-seemore, .bilna-home #nav ul li a.browse-all{
+	background:url("../images/arrow-2.png") no-repeat right;
+	height: 20px;
+    line-height: 20px;
+}
+.bilna-home .nav-container-mobile{
+	clear:both;
+}
+.bilna-home .testimonial-wrapper .view_all{
+	display: table;
+	font-size: 13px;
+	font-weight: bold;
+	position: absolute;
+	right: 0;
+	top: 39px;
+}
+.bilna-home .testimonial-wrapper .view_all a{
+	text-decoration: underline;
+	color: #A6A6A6;
+}
+
+
+.bilna-home .nav-container-mobile ul li.cat-leveltop {
+    background: url("../images/arrow-menu-mobile.png") no-repeat scroll 98% 17px rgba(0, 0, 0, 0);
+}
+@media only screen and ( max-width: 1215px) {
+	.bilna-home .shopby{ 	
+		display:none;
+	}
+	.bilna-home #nav li.shop-by:hover .shopby {
+		display: block;
+	}
+	
+}
+@media only screen and (min-width: 1023px) and (max-width: 1215px) {
+	.bilna-home .shopby{ 	
+		display:none;
+	}
+	.bilna-home #nav li.shop-by:hover .shopby {
+		display: block;
+	}
+	.bilna-home #slides-banner-home{
+		height:371px;
+		width:510px;
+	}
+	.bilna-home .cms-index-index .wrap_banner .col-1{
+		width:510px;
+	}
+	.bilna-home .cms-index-index .wrap_banner .col-2{
+		width:210px;
+	}
+	.bilna-home .cms-index-index .wrap_banner .col-3{
+		width:257px;
+	}
+	.bilna-home .cms-index-index .wrap_banner .col-2 img{
+		width:100%;
+	}
+	.bilna-home .cms-index-index .wrap_banner .col-3 img{
+		width:100%;
+	}
+}
+/* --------------- 960 px layout -------------------- */
+@media only screen and (max-width: 1023px) {
+	.bilna-home .homepage-bottom .testimonial-wrapper{
+		width:100%;
+	}
+	.bilna-home .homepage-bottom .media-partners #nav li.shop-by:hover .shopby {
+		display: block;
+	}
+	.bilna-home .cms-index-defaultindex .main{
+		width:954px;
+	}
+	.bilna-home .homepage-bottom .media-partners{
+		width:100%;
+		text-align:center;
+	}
+	.bilna-home .cms-index-index .main{
+	width:954px;
+	}
+	.bilna-home .cms-index-defaultindex .col1-layout .main .col-main, .bilna-home .cms-index-index .col1-layout .main .col-main{
+		width:744px;
+	}
+	.bilna-home .cms-index-defaultindex .wrap_banner .col-1, .bilna-home .cms-index-index .wrap_banner .col-1{
+		width:380px;
+	}
+	.bilna-home .cms-index-defaultindex .wrap_banner .col-1 img, .bilna-home .cms-index-index .wrap_banner .col-1 img, .bilna-home .cms-index-defaultindex .wrap_banner .col-2 img, .bilna-home .cms-index-index .wrap_banner .col-2 img, .bilna-home .cms-index-defaultindex .wrap_banner .col-3 img, .bilna-home .cms-index-index .wrap_banner .col-3 img{
+		width:100%;
+	}
+	.bilna-home .cms-index-defaultindex .wrap_banner .col-2, .bilna-home .cms-index-index .wrap_banner .col-2{
+		margin: 0 8px;
+		width: 154px;
+	}
+	.bilna-home .cms-index-defaultindex .wrap_banner .col-3, .bilna-home .cms-index-index .wrap_banner .col-3{
+		width:190px;
+	}
+	.bilna-home .homepage-bottom ul.block-wrapper li:nth-child(2){
+	margin:0 2px 15px;
+	}
+	/*#nav li.level-top.shop-by{
+		position:relative;
+		bottom:0;
+	}*/
+}
+	
+/* --------------- smaller 959 px layout -------------------- */
+@media only screen and (max-width: 767px) {
+	.bilna-home #nav li.shop-by:hover .shopby {
+		display: block;
+	}
+	.bilna-home .cms-index-defaultindex .wrap_banner .col-1, .bilna-home .cms-index-index .wrap_banner .col-1{
+		width:100%;
+		margin:0 0 20px;
+	}
+	.bilna-home .cms-index-defaultindex .wrap_banner, .bilna-home .cms-index-index .wrap_banner{
+		display:block;
+	}
+	.bilna-home .cms-index-defaultindex .wrap_banner .col-2, .bilna-home .cms-index-index .wrap_banner .col-2, .bilna-home .cms-index-defaultindex .wrap_banner .col-3, .bilna-home .cms-index-index .wrap_banner .col-3, .bilna-home .products-on-sale, .bilna-home .new-arrival, .bilna-home .most-popular, .bilna-home .homepage-bottom {
+		display:none;
+	}
+	.bilna-home .cms-index-defaultindex .col1-layout .main .col-main, .bilna-home .cms-index-index .col1-layout .main .col-main{
+		width:100%;
+	}
+}
+/* ------------------- **** ------------------ /
+
+
+
+
+
+/* --------------------------------------------- END HOME CSS APRIL 2014 -------------------------------------------------- */

@@ -65,3 +65,43 @@
     
 </div>
 <?php endif ?>
+
+
+<script type="text/javascript">
+	$j(function() {
+      $j('#slides-banner-home').slidesjs({
+        width: 523,
+        height: 383,
+        pagination: {
+	      active: true,
+	        // [string] Can be either "slide" or "fade".
+	    },
+	     play: {
+		     auto: true,
+		     interval: 5000,
+	     },
+	      effect: {
+		      slide: {
+		      		speed : 2000
+		      		}
+		      }
+      });
+    });
+</script>
+<?php $helper = Mage::helper('awislider') ?>
+<?php if($this->canDisplay() && $this->getSlides()->getSize()) : ?>
+<div id="slides-banner-home">
+  <?php $_i = 0 ?>
+    <?php foreach($this->getSlides() as $slide) : ?>
+ 		<?php if($slide->getData('url')) : ?>
+        <a href="<?php echo $helper->getUseDirectLinks() ? $slide->getData('url') : $this->getUrl('awislider/link/out', array('sid' => $slide->getData('id'))) ?>"<?php if($slide->getData('new_window')) : ?> onclick="return !window.open(this.href)"<?php endif ?><?php if($slide->getData('nofollow')) : ?> rel="nofollow"<?php endif ?>>
+        <?php endif ?>
+            <img src="<?php echo ($slide->getUriLocation()) ?>" title="<?php echo htmlspecialchars($slide->getData('title')) ?>" alt="<?php echo htmlspecialchars($slide->getData('title')) ?>" />
+        <?php if($slide->getData('url')) : ?>
+        </a>
+        <?php endif ?>
+    <?php $_i++ ?>
+    <?php endforeach ?>
+    
+</div>
+<?php endif ?>
