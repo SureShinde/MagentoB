@@ -187,3 +187,31 @@ var google_remarketing_only = false;
 <div class="buttons-set">
     <button type="button" class="button" title="<?php echo $this->__('Continue Shopping') ?>" onclick="window.location='<?php echo $this->getUrl() ?>'"><span><span><?php echo $this->__('Continue Shopping') ?></span></span></button>
 </div>
+<script type="text/javascript">
+jQuery(document).ready(function () {    
+    var ajaxURL = '<?php echo Mage::getBaseUrl();?>/ajaxrequest/data/retrieveconfirm2/';
+
+    var data = {};
+    data.orderId = '<?php echo $this->escapeHtml($this->getOrderId())?>';
+
+    jQuery.ajax({
+        type: "POST",
+        url : ajaxURL,
+        data: { data: data },
+        success: function(data){
+            response = jQuery.parseJSON(data);
+            if(response.status == true){
+                dataLayer.push({'customer': JSON.stringify(response.data.customer)});
+                dataLayer.push( {'order': JSON.stringify(response.data.order)} );
+                dataLayer.push({'event': 'salesConversionEvent'});
+                
+            }else{
+                return false;
+            }
+        },
+        error: function() {
+            return false;
+        }
+    });
+});
+</script>
