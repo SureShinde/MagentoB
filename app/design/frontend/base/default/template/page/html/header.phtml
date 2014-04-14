@@ -35,12 +35,12 @@
 		  if ($j(this).scrollTop() > 100) {
 	          $j(".header-container .sticky-header-wrapper").fadeIn();
               $j(".search-container-new").addClass("search-for-sticky");
-              $j(".link-minicart").addClass("cart-for-sticky");
+              $j(".link-minicart, .link-checkout").addClass("cart-for-sticky");
               $j(".mini-cart").addClass("cart-block-detail");
 	      } else {
 	          $j(".header-container .sticky-header-wrapper").fadeOut();
               $j(".search-container-new").removeClass("search-for-sticky");
-              $j(".link-minicart").removeClass("cart-for-sticky");
+              $j(".link-minicart, .link-checkout").removeClass("cart-for-sticky");
               $j(".mini-cart").removeClass("cart-block-detail");
 	      }
 	      if ($j(this).scrollTop() > 100) {
@@ -114,17 +114,18 @@
 	});
 
         
-         
         $j('div.menu-top a.menu-top-hover').hover(
             function() {
                 $j('div.nav-container').hide('');
                 $j('div.nav-' + $j(this).attr('id')).show('');
             },
             function() {
-                $j('div.nav-container').hide('');
-                $j('div.nav-' + $j('div.menu-top ul li.active').attr('id')).show('');
+                $j('div.nav-container').hide();
+                $j('div.nav-' + $j('div.menu-top ul li.active').attr('id')).show();
             }
         );
+        
+        
     });
 </script>
 
@@ -146,7 +147,7 @@
 	<?php echo $this->getLayout()->createBlock('page/html')->setTemplate('page/html/back-top.phtml')->toHtml(); ?>
 	<div class="sticky-header-wrapper">
 		<div class="sticky-header">
-			<a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="sticky-logo"><img src="<?php echo $this->getSkinUrl(); ?>images/logo-sticky.png" alt="<?php echo $this->getLogoAlt() ?>" /></a>
+			<a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="sticky-logo"><img src="<?php echo $this->getSkinUrl(); ?>images/logo-sticky-bilna.png" alt="<?php echo $this->getLogoAlt() ?>" /></a>
 			<ul class="sticky-menu">
 				<li class="td-promo"><a class="td-promo" href="#"><?php echo $this->__('Today\'s Promo') ?></a>
 					<div class="td-promo-cont">
@@ -209,7 +210,7 @@
     	<?php if ($this->getIsHomePage()):?>
         <h1 class="logo"><strong><?php echo $this->getLogoAlt() ?></strong><a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="logo"><img src="<?php echo $this->getSkinUrl(); ?>images/logo.png" alt="<?php echo $this->getLogoAlt() ?>" /></a></h1>
         <?php else:?>
-        <a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="logo"><strong><?php echo $this->getLogoAlt() ?></strong><img src="<?php echo $this->getSkinUrl(); ?>images/logo.png" alt="<?php echo $this->getLogoAlt() ?>" /></a>
+        <a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="logo"><strong><?php echo $this->getLogoAlt() ?></strong><img src="<?php echo $this->getSkinUrl(); ?>images/Logo-bilna.png" alt="<?php echo $this->getLogoAlt() ?>" /></a>
         <?php endif?>
         <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('keypoint')->toHtml() ?>
         <div class="quick-access">

@@ -32,6 +32,7 @@
 	display: block;
 	background: none;
 	height: 34px;
+    padding: 3px 0 0;
 }
 .sticky-header ul.sticky-menu {
 	margin: 0 0 0 40px;
@@ -272,12 +273,12 @@
 	padding: 0 0 15px;
 	/* background: #fff; */
 }
-.header .menu-top, .header .menu-blog {
+.header .menu-top, .header .menu-blog, .menu-top {
 	clear: both;
     float: left;
 	text-align: center;
 }
-.header .menu-top {
+.header .menu-top, .menu-top {
     width: auto;
     bottom: 0;
     left: 175px;
@@ -1027,16 +1028,19 @@
 #nav li.level-top:hover {
 	background: #fff;
 }
-#nav li.level-top:hover a.level-top {
-	color: #dadada;
+#nav li.level-top.nav-sale:hover {
+	background: url("../images/sale.png") no-repeat scroll center center #fff;
 }
-#nav li.level-top.parent-10, #nav li.level-top.parent-11 {
+#nav li.level-top:hover a.level-top {
+	color: #4EC7DA;
+}
+/* #nav li.level-top.parent-10, #nav li.level-top.parent-11 {
 	float: left;
 	width: auto;
 }
 #nav li.level-top.parent-10:hover, #nav li.level-top.parent-11:hover {
 	background:none;
-}
+} */
 #nav li.menu-salegift {
 	float: right;
 }
@@ -1115,7 +1119,7 @@
 	padding: 9px 0 0 10px !important;
 }
 #nav a.link-shopby {
-    background: #a27e79;
+    background: url("../images/arrow-down.png") no-repeat scroll 30px 32px #a27e79;
     margin-top: -5px;
 }
 #nav a.link-shopby:after {
@@ -1472,7 +1476,7 @@ top: 49px;
     cursor: pointer;
     z-index: 1;
     border: 1px solid;
-    border-color: #4ec7da;
+    border-color: #4EC7DA #4EC7DA #3C9AA8;
     background: -webkit-linear-gradient(#4ec7da,#3c9aa8); /* For Safari 5.1 to 6.0 */
     background: -o-linear-gradient(#4ec7da,#3c9aa8); /* For Opera 11.1 to 12.0 */
     background: -moz-linear-gradient(#4ec7da,#3c9aa8); /* For Firefox 3.6 to 15 */
@@ -1988,10 +1992,10 @@ searchbar #nav-search-in {
     }
     
     #nav a.link-shopby {
-        background: none repeat scroll 0 0 #A27E79;
+        background: url("../images/arrow-down.png") no-repeat scroll 28px 25px #A27E79;
         margin-top: 0;
     }
-    #nav a.link-shopby:hover { color: #D96708 !important;}
+    #nav a.link-shopby:hover { color: #E4C29C !important;}
     
     .search-container-new {
         display: block;

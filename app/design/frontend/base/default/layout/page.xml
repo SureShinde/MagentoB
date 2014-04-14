@@ -48,13 +48,16 @@ Default layout, loads most of the pages
                 <action method="addJs"><script>varien/menu.js</script></action>
                 <action method="addJs"><script>mage/translate.js</script></action>
                 <action method="addJs"><script>mage/cookies.js</script></action>
+				
 				<action method="addJs"><script>jssor.core.js</script></action>
 				<action method="addJs"><script>jssor.slider.js</script></action>
 				<action method="addJs"><script>jssor.utils.js</script></action>
 
                 <block type="page/js_cookie" name="js_cookies" template="page/js/cookie.phtml"/>
 
-                <action method="addCss"><stylesheet>css/styles.css</stylesheet></action>
+				
+				<action method="addCss"><stylesheet>css/styles.css</stylesheet></action>
+                <action method="addCss"><stylesheet>css/homepage.css</stylesheet></action>
 				<action method="addCss"><stylesheet>css/style-static.css</stylesheet></action>
 				<action method="addCss"><stylesheet>css/bilna-category.css</stylesheet></action>
                 <action method="addItem"><type>skin_css</type><name>css/styles-ie.css</name><params/><if>lt IE 8</if></action>
