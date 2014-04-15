@@ -28,13 +28,12 @@ class Bilna_Paymethod_Block_Adminhtml_Sales_Order_Grid extends Mage_Adminhtml_Bl
         $collection = Mage::getResourceModel($this->_getCollectionClass());
         $collection->join(array ('payment' => 'sales/order_payment'),'main_table.entity_id = parent_id', 'method');
         $collection->addFilterToMap('increment_id', 'main_table.increment_id');
-        //$collection->join(
+        $collection->addFilterToMap('group_id', 'customer_entity.group_id');
         $collection->getSelect()->joinLeft(
-            array ('customer' => 'customer_entity'),
-            'main_table.customer_id = customer.entity_id',
-            array ('group_id' => 'customer.group_id')
+            array ('customer_entity'),
+            'main_table.customer_id = customer_entity.entity_id',
+            array ('group_id' => 'customer_entity.group_id')
         );
-        $collection->printLogQuery(true);
         $this->setCollection($collection);
 
         return Mage_Adminhtml_Block_Widget_Grid::_prepareCollection();
@@ -90,7 +89,7 @@ class Bilna_Paymethod_Block_Adminhtml_Sales_Order_Grid extends Mage_Adminhtml_Bl
             ->load()
             ->toOptionHash();
 
-        $this->addColumn('group', array (
+        $this->addColumn('group_id', array (
             'header' => Mage::helper('sales')->__('Group'),
             'index' => 'group_id',
             'type' => 'options',
