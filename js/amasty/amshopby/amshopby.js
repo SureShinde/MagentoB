@@ -135,8 +135,8 @@ function amshopby_slider(width, step, from, to, max_value, prefix, min_value, ra
             }
 
             if ($(prefix + '-from-slider')) {
-                $(prefix + '-from-slider').update(fromValue);
-                $(prefix + '-to-slider').update(toValue);
+                $(prefix + '-from-slider').update('Rp'+parseInt(fromValue).toLocaleString());
+                $(prefix + '-to-slider').update('Rp'+parseInt(toValue).toLocaleString());
             }
         }
     });
@@ -261,7 +261,6 @@ function amshopby_attr_search(searchBox){
         }
 	});
 }
-
 
 
 document.observe("dom:loaded", function() { amshopby_start(); }); 
