@@ -25,12 +25,12 @@ class Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Edit_Tabs_General extends Ma
 		}die;*/
 
 		$fieldset->addField('title', 'label', array(
-         'label'     => 'TITLE',
+         'label'     => 'Title',
          //'class'     => 'required-entry',
          //'required'  => true,
          'name'      => 'title',
          'value'      => $data["title"],
-         //'note'     => Mage::helper('bilna_formbuilder')->__('The name of the example.'),
+         //'note'     => Mage::helper('bilna_formbuilder')->__('Nama form / promo'),
     ));
 
 		$fieldset->addField('url', 'label', array(
@@ -43,7 +43,7 @@ class Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Edit_Tabs_General extends Ma
     ));
 
 		$fieldset->addField('active_from', 'label', array(
-         'label'     => 'AKTIF DARI',
+         'label'     => 'Aktif Dari',
          //'class'     => 'required-entry',
          //'required'  => true,
          'name'      => 'active_from',
@@ -52,7 +52,7 @@ class Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Edit_Tabs_General extends Ma
     ));
 
 		$fieldset->addField('active_to', 'label', array(
-         'label'     => 'AKTIF SAMPAI',
+         'label'     => 'Aktif Sampai',
          //'class'     => 'required-entry',
          //'required'  => true,
          'name'      => 'active_to',
@@ -61,16 +61,16 @@ class Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Edit_Tabs_General extends Ma
     ));
 
 		$fieldset->addField('status', 'label', array(
-         'label'     => 'STATUS',
+         'label'     => 'Status',
          //'class'     => 'required-entry',
          //'required'  => true,
          'name'      => 'status',
          'value'      => $data["status"],
-         //'note'     => Mage::helper('bilna_formbuilder')->__('The name of the example.'),
+         'note'     => Mage::helper('bilna_formbuilder')->__('Status Note:</br>0=Enabled</br>1=Disabled'),
     ));
 
 
 
-        return parent::_prepareForm();
+    return parent::_prepareForm();
 	}
 }

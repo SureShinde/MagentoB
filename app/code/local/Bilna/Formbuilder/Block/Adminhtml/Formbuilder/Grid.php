@@ -11,41 +11,17 @@ class Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Grid extends Mage_Adminhtml_
 	$this->setSaveParametersInSession(true);
   }
 
-    protected function _prepareCollection()
-    {
-
-		$collection = Mage::getModel('bilna_formbuilder/form')->getCollection();
-
-    //$collection->getSelect()->reset(Zend_Db_Select::COLUMNS); //hanya menampilkan kolom yg dipilih
-
-		/*$collection->getSelect()
-			->join(array('bff' => 'bilna_formbuilder_form'), 'bff.id = main_table.form_id', array(
-					'bff.id', 
-					'bff.title',
-					'bff.url', 
-					'bff.active_from', 
-					'bff.active_to', 
-					'bff.status'));*/
-
-		//$collection->getSelect()->group('bff.title');
-
-		//$collection->printLogQuery(true); die;
-		$this->setCollection($collection);		 
-		return parent::_prepareCollection();
-    }
+  protected function _prepareCollection()
+  {
+	$collection = Mage::getModel('bilna_formbuilder/form')->getCollection();
+	//$collection->printLogQuery(true); die;
+	$this->setCollection($collection);		 
+	return parent::_prepareCollection();
+  }
 
   protected function _prepareColumns()
-  {
-	
-	$combobox = $this->getComboForm();
-
-  /*$this->addColumn('id', array(
-      'header' =>Mage::helper('bilna_formbuilder')->__('ID'),
-      'align' => 'right',
-      'width' => '50px',
-      'index' => 'id',
-  ));*/
-	
+  {	
+	$combobox = $this->getComboForm();	
 	$this->addColumn('title',
 		array(
 			'header' =>Mage::helper('bilna_formbuilder')->__('Title'),
@@ -55,43 +31,7 @@ class Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Grid extends Mage_Adminhtml_
 			'type'  => 'options',
 			'options' => $combobox,
 			'header_css_class'=>'a-center'
-	));
-	  
-	/*$this->addColumn('Name',
-		array(
-			'header'=> $this->__('Name'),
-			'index' => 'Name',
-			'header_css_class'=>'a-center'
-	));
-
-	$this->addColumn('Email',
-		array(
-			'header'=> $this->__('Email'),
-			'index' => 'Email',
-			'header_css_class'=>'a-center'
-	));
-	  
-	$this->addColumn('Phone',
-		array(
-			'header'=> $this->__('Phone'),
-			'index' => 'Phone',
-			'header_css_class'=>'a-center'
-	));
-
-	$this->addColumn('Comment',
-		array(
-			'header'=> $this->__('Comment'),
-			'index' => 'Comment',
-			'header_css_class'=>'a-center'
-	));
-	
-	$this->addColumn('create_date',
-		array(
-			'header'=> $this->__('Submit Date'),
-			'type' => 'date',
-			'index' => 'create_date',
-			'header_css_class'=>'a-center'
-	));*/
+	));	  
 
 	$this->addColumn('url',
 		array(
@@ -126,10 +66,8 @@ class Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Grid extends Mage_Adminhtml_
 				'1'=>'Disabled'),
 			'header_css_class'=>'a-center'
 	));
-		
-	//$this->addExportType('*/*/exportCsv', Mage::helper('bilna_formbuilder')->__('CSV'));
 	  
-      return parent::_prepareColumns();
+  return parent::_prepareColumns();
   }
   
 	private function getComboForm() {
@@ -145,27 +83,27 @@ class Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Grid extends Mage_Adminhtml_
 		return $result;
 		}
 
-    protected function _prepareMassaction()
-    {
-      $this->setMassactionIdField('id');
-      $this->getMassactionBlock()->setFormFieldName('formbuilder');
+  protected function _prepareMassaction()
+  {
+    $this->setMassactionIdField('id');
+    $this->getMassactionBlock()->setFormFieldName('formbuilder');
 
-      $this->getMassactionBlock()->addItem('delete',
-        array(
-          'label' => Mage::helper('bilna_formbuilder')->__('Delete'),
-          'url' => $this->getUrl('*/*/massDelete'),
-          'confirm' => Mage::helper('bilna_formbuilder')->__('Are you sure?')
-        ));
-		}
+    $this->getMassactionBlock()->addItem('delete',
+      array(
+        'label' => Mage::helper('bilna_formbuilder')->__('Delete'),
+        'url' => $this->getUrl('*/*/massDelete'),
+        'confirm' => Mage::helper('bilna_formbuilder')->__('Are you sure?')
+      ));
+	}
 
-    //Grid with Ajax Request
-    public function getGridUrl() 
-		{
-      return $this->getUrl('*/*/grid', array ('_current' => true));
-    }
+  //Grid with Ajax Request
+  public function getGridUrl() 
+	{
+    return $this->getUrl('*/*/grid', array ('_current' => true));
+  }
 
-    public function getRowUrl($row)
-    {
-      return $this->getUrl('*/*/edit', array('id' => $row->getId()));
-    }	  
+  public function getRowUrl($row)
+  {
+    return $this->getUrl('*/*/edit', array('id' => $row->getId()));
+  }	  
 }
