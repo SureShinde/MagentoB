@@ -716,6 +716,10 @@
 	box-shadow: 1px 1px 4px 0 #ccc;
 	width: 97%;
 }
+.header .links li.myaccount .toplink-myaccount {
+	min-width: 190px;
+    top: 18px;
+}
 .header .links li.myaccount .toplink-myaccount ul li, .menu-tablet .links li.myaccount .toplink-myaccount ul li  {
 	border-top: 1px solid #dadada;
 	border-left: none;
