@@ -87,21 +87,13 @@ if($xlCmsBlock) {
 
 <!-- static block pop-up ASI Disclaimer -->
 <?php if ($this->checkCategoryAttributeYesNo('asi_disclaimer')): ?>
-    <style type="text/css">
-        .popup-asi_disclaimer {
-            background: none repeat scroll 0 0 #FCFCFC;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-            /*display: none;
-            left: -1px;*/
-            padding: 18px 20px;
-            /*position: absolute;*/
-            text-align: left;
-            top: 35px;
-            width: 313px;
-            border: 1px solid #888888;
-        }
-    </style>
-
+    <script>
+        jQuery(document).ready(function(){
+            jQuery(".close-now").click(function(){
+                jQuery(".popup-asi_disclaimer").hide();
+            });
+        });
+    </script>
     <div class="popup-asi_disclaimer">
         <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('asi_disclaimer')->toHtml(); ?>
     </div>
