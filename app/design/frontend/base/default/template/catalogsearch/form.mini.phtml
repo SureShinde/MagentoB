@@ -52,17 +52,15 @@ $_helper = Mage::helper('catalog/category');
 
 
 <div class="search-container-new">
-    <form id="nav-searchbar" action="<?php echo $catalogSearchHelper->getResultUrl() ?>" method="get" name="site-search" role="search" accept-charset="utf-8" ,="" class="nav-searchbar-inner">
-              
-              
+    <form id="nav-searchbar" action="<?php echo $catalogSearchHelper->getResultUrl() ?>" method="get" name="site-search" role="search" accept-charset="utf-8" ,="" class="nav-searchbar-inner">              
                 <div class="nav-submit-button nav-sprite">
-                  <input type="submit" value="<?php echo $catalogSearchHelper->getEscapedQueryText() ?>" class="nav-submit-input" title=""><img style="margin: 5px 10px 0 0;" src="<?php echo $this->getSkinUrl('images/search-icon-new.png'); ?> " maxlength="<?php echo $catalogSearchHelper->getMaxQueryLength();?>"/></input>
+                  <input type="submit" value="" class="nav-submit-input" title=""><img style="margin: 5px 10px 0 0;" src="<?php echo $this->getSkinUrl('images/search-icon-new.png'); ?> " maxlength="<?php echo $catalogSearchHelper->getMaxQueryLength();?>"/></input>
                 </div>
 
                 <span id="nav-search-in" class="nav-sprite nav-facade-active" style="width: auto;">
                   <span id="nav-search-in-content" data-value="search-alias=aps" style="width: auto; overflow: visible;">All Category</span>
                   <span class="nav-down-arrow"></span>
-                  <select data-nav-digest="bDT22wibLRgrc0Gc07TKBa9Syl4" data-nav-selected="0" name="url" id="searchDropdownBox" class="searchSelect" title="Search in" style="top: 3px;">
+                  <select data-nav-digest="bDT22wibLRgrc0Gc07TKBa9Syl4" data-nav-selected="0" name="cat" id="searchDropdownBox" class="searchSelect" title="Search in" style="top: 3px;">
                     <option value="all-category">All Category</option>
                     <?php foreach ($_categories as $_category) :?>
                     <option value="<?php echo $_category->getId();?>"><?php echo $_category->getName();?></option>
@@ -79,7 +77,7 @@ $_helper = Mage::helper('catalog/category');
 
                 <div class="nav-searchfield-width">
                   <div id="nav-iss-attach">
-                    <input type="text" id="twotabsearchtextbox" title="Search For" value="" name="field-keywords" autocomplete="off" placeholder="Search...">
+                    <input type="text" id="twotabsearchtextbox" title="Search For" value="<?php echo $catalogSearchHelper->getEscapedQueryText() ?>" name="q" autocomplete="off" placeholder="Search...">
                   </div>
                 </div>
     </form>
