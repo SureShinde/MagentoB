@@ -62,7 +62,8 @@ class Mage_Catalog_Block_Product_View_Attributes extends Mage_Core_Block_Templat
                 $value = $attribute->getFrontend()->getValue($product);
 
                 if (!$product->hasData($attribute->getAttributeCode())) {
-                    $value = Mage::helper('catalog')->__('N/A');
+                    //$value = Mage::helper('catalog')->__('N/A');
+                    $value = '';
                 } elseif ((string)$value == '') {
                     /*$value = Mage::helper('catalog')->__('No');*/
                     $value = '';
@@ -70,7 +71,7 @@ class Mage_Catalog_Block_Product_View_Attributes extends Mage_Core_Block_Templat
                     $value = Mage::app()->getStore()->convertPrice($value, true);
                 }
 
-                if (is_string($value) && strlen($value)) {
+                if (is_string($value) && strlen($value) && !empty($value)) {
                     $data[$attribute->getAttributeCode()] = array(
                         'label' => $attribute->getStoreLabel(),
                         'value' => $value,

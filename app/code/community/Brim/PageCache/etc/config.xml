@@ -15,14 +15,15 @@
  *
  * @category   Brim
  * @package    Brim_PageCache
- * @copyright  Copyright (c) 2011-2012 Brim LLC
+ * @copyright  Copyright (c) 2011-2014 Brim LLC
  * @license    http://ecommerce.brimllc.com/license
  */
+
 -->
 <config>
 	<modules>
 		<Brim_PageCache>
-			<version>3.0.5</version>
+			<version>3.1.0</version>
 		</Brim_PageCache>
 	</modules>
 	<global>
@@ -80,69 +81,6 @@
             </expires>
         </cache>
 		<events>
-            <adminhtml_cache_refresh_type>
-				<observers>
-					<brim_pagecache>
-						<type>singleton</type>
-						<class>brim_pagecache/adminhtml_observer</class>
-						<method>handleTypeRefresh</method>
-					</brim_pagecache>
-				</observers>
-            </adminhtml_cache_refresh_type>
-            <adminhtml_cache_flush_all>
-                <observers>
-                    <brim_pagecache>
-                        <type>singleton</type>
-                        <class>brim_pagecache/adminhtml_observer</class>
-                        <method>cleanPageCache</method>
-                    </brim_pagecache>
-                </observers>
-            </adminhtml_cache_flush_all>
-            <adminhtml_cache_flush_system>
-                <observers>
-                    <brim_pagecache>
-                        <type>singleton</type>
-                        <class>brim_pagecache/adminhtml_observer</class>
-                        <method>cleanPageCache</method>
-                    </brim_pagecache>
-                </observers>
-            </adminhtml_cache_flush_system>
-            <controller_action_postdispatch_adminhtml_cache_flushSystem>
-				<observers>
-					<brim_pagecache>
-						<type>singleton</type>
-						<class>brim_pagecache/adminhtml_observer</class>
-						<method>cleanPageCache</method>
-					</brim_pagecache>
-				</observers>
-            </controller_action_postdispatch_adminhtml_cache_flushSystem>
-            <controller_action_postdispatch_adminhtml_catalog_product_action_attribute_save>
-                <observers>
-                    <brim_pagecache>
-                        <type>singleton</type>
-                        <class>brim_pagecache/adminhtml_observer</class>
-                        <method>invalidateCache</method>
-                    </brim_pagecache>
-                </observers>
-            </controller_action_postdispatch_adminhtml_catalog_product_action_attribute_save>
-            <controller_action_postdispatch_adminhtml_catalog_product_massStatus>
-                <observers>
-                    <brim_pagecache>
-                        <type>singleton</type>
-                        <class>brim_pagecache/adminhtml_observer</class>
-                        <method>invalidateCache</method>
-                    </brim_pagecache>
-                </observers>
-            </controller_action_postdispatch_adminhtml_catalog_product_massStatus>
-            <admin_system_config_changed_section_brim_pagecache>
-                <observers>
-                    <brim_pagecache>
-                        <type>singleton</type>
-                        <class>brim_pagecache/adminhtml_observer</class>
-                        <method>configChanged</method>
-                    </brim_pagecache>
-                </observers>
-            </admin_system_config_changed_section_brim_pagecache>
             <catalog_product_save_commit_after>
                 <observers>
                     <brim_pagecache>
@@ -261,6 +199,8 @@
                     </brim_pagecache>
                 </observers>
             </controller_front_send_response_after>
+
+            <!-- Marks and updates blocks -->
             <core_block_abstract_to_html_before>
                 <observers>
                     <brim_pagecache>
@@ -293,6 +233,8 @@
                     </brim_pagecache>
                 </observers>
             </catalog_block_product_list_collection>
+
+            <!-- Updates block cache key variables -->
             <sales_quote_save_commit_after>
                 <observers>
                     <brim_pagecache>
@@ -381,16 +323,124 @@
             </actions>
         </brim_pagecache>
     </frontend>
+    <adminhtml>
+        <layout>
+            <updates>
+                <brim_pagecache>
+                    <file>brim-page-cache.xml</file>
+                </brim_pagecache>
+            </updates>
+        </layout>
+        <events>
+            <adminhtml_cache_refresh_type>
+				<observers>
+					<brim_pagecache>
+						<type>singleton</type>
+						<class>brim_pagecache/adminhtml_observer</class>
+						<method>handleTypeRefresh</method>
+					</brim_pagecache>
+				</observers>
+            </adminhtml_cache_refresh_type>
+            <adminhtml_cache_flush_all>
+                <observers>
+                    <brim_pagecache>
+                        <type>singleton</type>
+                        <class>brim_pagecache/adminhtml_observer</class>
+                        <method>cleanPageCache</method>
+                    </brim_pagecache>
+                </observers>
+            </adminhtml_cache_flush_all>
+            <adminhtml_cache_flush_system>
+                <observers>
+                    <brim_pagecache>
+                        <type>singleton</type>
+                        <class>brim_pagecache/adminhtml_observer</class>
+                        <method>cleanPageCache</method>
+                    </brim_pagecache>
+                </observers>
+            </adminhtml_cache_flush_system>
+
+            <controller_action_postdispatch_adminhtml_cache_flushSystem>
+				<observers>
+					<brim_pagecache>
+						<type>singleton</type>
+						<class>brim_pagecache/adminhtml_observer</class>
+						<method>cleanPageCache</method>
+					</brim_pagecache>
+				</observers>
+            </controller_action_postdispatch_adminhtml_cache_flushSystem>
+            <controller_action_postdispatch_adminhtml_catalog_product_action_attribute_save>
+                <observers>
+                    <brim_pagecache>
+                        <type>singleton</type>
+                        <class>brim_pagecache/adminhtml_observer</class>
+                        <method>invalidateCache</method>
+                    </brim_pagecache>
+                </observers>
+            </controller_action_postdispatch_adminhtml_catalog_product_action_attribute_save>
+            <controller_action_postdispatch_adminhtml_catalog_product_massStatus>
+                <observers>
+                    <brim_pagecache>
+                        <type>singleton</type>
+                        <class>brim_pagecache/adminhtml_observer</class>
+                        <method>invalidateCache</method>
+                    </brim_pagecache>
+                </observers>
+            </controller_action_postdispatch_adminhtml_catalog_product_massStatus>
+
+            <adminhtml_init_system_config>
+                <observers>
+                    <brim_pagecache>
+                        <type>singleton</type>
+                        <class>brim_pagecache/adminhtml_observer</class>
+                        <method>updateSystemConfig</method>
+                    </brim_pagecache>
+                </observers>
+            </adminhtml_init_system_config>
+
+            <controller_action_layout_generate_blocks_after>
+                <observers>
+                    <brim_pagecache>
+                        <type>singleton</type>
+                        <class>brim_pagecache/adminhtml_observer</class>
+                        <method>addCategoryFlushButton</method>
+                    </brim_pagecache>
+                </observers>
+            </controller_action_layout_generate_blocks_after>
+
+            <admin_system_config_changed_section_brim_pagecache>
+                <observers>
+                    <brim_pagecache>
+                        <type>singleton</type>
+                        <class>brim_pagecache/adminhtml_observer</class>
+                        <method>configChanged</method>
+                    </brim_pagecache>
+                </observers>
+            </admin_system_config_changed_section_brim_pagecache>
+
+        </events>
+    </adminhtml>
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <Brim_PageCache before="Mage_Adminhtml">Brim_PageCache_Adminhtml</Brim_PageCache>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
     <crontab>
         <jobs>
             <brim_pagecache_cleanoldcache>
-                <schedule>
-                    <cron_expr>*/15 * * * *</cron_expr>
-                </schedule>
-                <run>
-                    <model>brim_pagecache/cron::cleanOldCache</model>
-                </run>
+                <schedule><cron_expr>*/15 * * * *</cron_expr></schedule>
+                <run><model>brim_pagecache/cron::cleanOldCache</model></run>
             </brim_pagecache_cleanoldcache>
+            <brim_pagecache_cleanorphanedtags>
+                <schedule><cron_expr>40 3 * * *</cron_expr></schedule>
+                <run><model>brim_pagecache/cron::cleanOrphanedTags</model></run>
+            </brim_pagecache_cleanorphanedtags>
         </jobs>
     </crontab>
     <default>
@@ -400,13 +450,21 @@
                 <cache_block_updates>0</cache_block_updates>
                 <enable_minify_html>0</enable_minify_html>
                 <expires>7200</expires>
-                <invalidate_clean>0</invalidate_clean>
+                <invalidate_clean>1</invalidate_clean>
                 <debug>0</debug>
                 <debug_response>0</debug_response>
             </settings>
             <conditions>
-                <ignore_params>gclid</ignore_params>
+                <use_customer_group>1</use_customer_group>
+                <combine_visitor_general_groups>0</combine_visitor_general_groups>
+                <max_params>3</max_params>
+                <ignore_params backend_model="brim_pagecache/adminhtml_system_config_backend_serialized_array">gclid</ignore_params>
+                <session_vars backend_model="brim_pagecache/adminhtml_system_config_backend_serialized_array" />
             </conditions>
+            <layout>
+                <additional_handles backend_model="brim_pagecache/adminhtml_system_config_backend_serialized_array" />
+                <custom_block_updates backend_model="brim_pagecache/adminhtml_system_config_backend_serialized_array" />
+            </layout>
             <mobile>
                 <enable>0</enable>
                 <user_agent>iPhone|iPod|BlackBerry|Pre|Palm|Googlebot-Mobile|mobi|Safari Mobile|Windows Mobile|Android|Opera Mini|mobile</user_agent>
@@ -415,6 +473,9 @@
                 <system_cache>1</system_cache>
                 <override_system_file>0</override_system_file>
             </storage>
+            <config>
+                <autowrite>1</autowrite>
+            </config>
         </brim_pagecache>
     </default>
 </config>

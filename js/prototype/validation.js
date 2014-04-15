@@ -841,9 +841,9 @@ Validation.addAllThese([
         var val = v.replace('+', '');
         $(elm.id).value = val;
         
-        if (v.substring(0,2) == 62) {
-            $(elm.id).value = v.replace(62, 0);
-            val = v.replace(62, 0);
+        if (val.substring(0,2) == 62) {
+            $(elm.id).value = val.replace(62, 0);
+            val = val.replace(62, 0);
         }
         
         return Validation.get('IsEmpty').test(val) || /^[ext0-9 ]+$/.test(val);

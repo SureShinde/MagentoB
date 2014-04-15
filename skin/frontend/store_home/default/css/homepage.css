@@ -172,6 +172,7 @@
 .homepage-bottom .testimonial-wrapper {
 	float: left;
 	width: 45%;
+	position: relative;
 }
 .testimonial-wrapper h4, .media-partners span.title {
 	font-size: 18px;
@@ -323,13 +324,15 @@
 }
 .homepage-bottom ul.block-wrapper li {
 	width: 28.79%;
-	margin:0;
+	margin: 0 8px 34px;
 }
 .homepage-bottom ul.block-wrapper li:nth-child(2){
 	margin:0 17px 15px;
 }
 .block-bottom span {
-	font-size: 19px;
+	display: block;
+	font-size: 23px;
+	font-family: 'Fredoka One', cursive;
 }
 .block-bottom p {
 	font-size: 14px;
@@ -362,7 +365,7 @@
 	background-position: 55px 20px
 }
 .block-bottom table tr td {
-	padding: 0 5px;
+	padding: 0 15px;
 }
 .homepage-bottom .media-partners {
 	margin: 0;
@@ -383,6 +386,18 @@
 }
 .nav-container-mobile{
 	clear:both;
+}
+.testimonial-wrapper .view_all{
+	display: table;
+	font-size: 13px;
+	font-weight: bold;
+	position: absolute;
+	right: 0;
+	top: 39px;
+}
+.testimonial-wrapper .view_all a{
+	text-decoration: underline;
+	color: #A6A6A6;
 }
 
 

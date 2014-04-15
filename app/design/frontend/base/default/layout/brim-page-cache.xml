@@ -15,9 +15,10 @@
  *
  * @category   Brim
  * @package    Brim_PageCache
- * @copyright  Copyright (c) 2011-2012 Brim LLC
+ * @copyright  Copyright (c) 2011-2014 Brim LLC
  * @license    http://ecommerce.brimllc.com/license
  */
+
 -->
 <layout version="0.1.0">
 
@@ -35,6 +36,9 @@
             <!-- Welcome is not an actual block so need to set the welcome message before the block is rendered -->
             <action method="setDynamicBlockCall"><execute>brim_pagecache/container_welcome::setWelcomeWrapper</execute></action>
         </reference>
+        <reference name="welcome">
+            <action method="setDynamicBlockContainer"><container>brim_pagecache/container_welcome</container></action>
+        </reference>
         <reference name="top.links">
             <action method="setDynamicBlockContainer"><container>brim_pagecache/container_accountlinks</container></action>
         </reference>
@@ -50,6 +54,9 @@
         <reference name="right.reports.product.viewed">
             <action method="setDynamicBlockContainer"><container>brim_pagecache/container_recentlyviewed</container></action>
         </reference>
+        <!--<reference name="core_profiler">-->
+            <!--<action method="setDynamicBlockContainer"><container>brim_pagecache/container_profiler</container></action>-->
+        <!--</reference>-->
     </default>
 
     <cms_page translate="label">
@@ -87,4 +94,10 @@
             <action method="setCachePageFlag"><cache>0</cache></action>
         </reference>
     </cms_index_defaultnoroute>
+
+    <checkout_cart_configure>
+        <reference name="root">
+            <action method="setCachePageFlag"><cache>0</cache></action>
+        </reference>
+    </checkout_cart_configure>
 </layout>

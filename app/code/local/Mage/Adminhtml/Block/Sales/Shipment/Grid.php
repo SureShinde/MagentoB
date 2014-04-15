@@ -53,6 +53,11 @@ class Mage_Adminhtml_Block_Sales_Shipment_Grid extends Mage_Adminhtml_Block_Widg
         return 'sales/order_shipment_grid_collection';
     }
 
+    protected function _addColumnFilterToCollection($column)
+    {
+
+    }
+     
     /**
      * Prepare and set collection of grid
      *
@@ -62,12 +67,16 @@ class Mage_Adminhtml_Block_Sales_Shipment_Grid extends Mage_Adminhtml_Block_Widg
     {
         $collection = Mage::getResourceModel($this->_getCollectionClass());
 
+        $filter = $this->getRequest()->getParam('filter');
+        $params = Mage::helper('adminhtml')->prepareFilterString($filter);
+   
         $collection->getSelect()
             ->joinLeft(
-                array('sales_flat_shipment_track' => Mage::getSingleton('core/resource')->getTableName('sales/shipment_track') ),
+                //array('sales_flat_shipment_track' => Mage::getSingleton('core/resource')->getTableName('sales/shipment_track') ),
+                array('sales_flat_shipment_track' => new Zend_Db_Expr('(SELECT parent_id, order_id, GROUP_CONCAT(track_number) AS tracking_number FROM sales_flat_shipment_track GROUP BY parent_id)') ),
                 "main_table.entity_id = sales_flat_shipment_track.parent_id",
                 array(
-                    "tracking_number"        => "GROUP_CONCAT(track_number)"
+                    "tracking_number"        => "sales_flat_shipment_track.tracking_number"
                 )
             )
             /*->joinInner(
@@ -81,10 +90,65 @@ class Mage_Adminhtml_Block_Sales_Shipment_Grid extends Mage_Adminhtml_Block_Widg
                 array('sales_flat_shipment_comment' => new Zend_Db_Expr('(SELECT parent_id, MAX(is_customer_notified) AS is_customer_notified FROM sales_flat_shipment_comment GROUP BY parent_id)') ),
                 "main_table.entity_id = sales_flat_shipment_comment.parent_id",
                 array(
-                    "is_customer_notified2" => "IF(sales_flat_shipment_comment.is_customer_notified =1, 'Yes', 'No')" 
+                    "is_customer_notified" => "IF(sales_flat_shipment_comment.is_customer_notified =1, 1, 0)" 
+                    //"is_customer_notified" => "sales_flat_shipment_comment.is_customer_notified" 
                 )
             );
-        $collection->getSelect()->group(array('sales_flat_shipment_track.parent_id'));
+
+        if(isset($params['is_customer_notified']) && $params['is_customer_notified']==0)
+        {
+            $collection->addFieldToFilter(array("is_customer_notified", "is_customer_notified"),  array(array('null'=>'is_customer_notified'), array('eq'=>0)));
+        }elseif(isset($params['is_customer_notified']) && $params['is_customer_notified']==1){
+            $collection->addFieldToFilter("is_customer_notified", array('eq' => $params['is_customer_notified']));
+        }
+
+        if( isset($params['created_at']['from']) && isset($params['created_at']['to']) )
+        {
+            $from = date('Y-m-d H:i:s', strtotime(str_replace('-', '/', $params['created_at']['from'] . '00:00:00')));
+            $to   = date('Y-m-d H:i:s', strtotime(str_replace('-', '/', $params['created_at']['to'] . ' 23:59:59')));
+            
+            $collection->addFieldToFilter("created_at", array('from' => $from, 'to' => $to, 'datetime' => true));
+            
+        }
+
+        if( isset($params['order_created_at']['from']) && isset($params['order_created_at']['to']) )
+        {
+            $from = date('Y-m-d H:i:s', strtotime(str_replace('-', '/', $params['order_created_at']['from'] . '00:00:00')));
+            $to   = date('Y-m-d H:i:s', strtotime(str_replace('-', '/', $params['order_created_at']['to'] . ' 23:59:59')));
+            
+            $collection->addFieldToFilter("order_created_at", array('from' => $from, 'to' => $to, 'datetime' => true));
+            
+        }
+
+        if( isset($params['total_qty']['from']) && isset($params['total_qty']['to']) )
+        {
+            $from = $params['total_qty']['from'];
+            $to   = $params['total_qty']['to'];
+            
+            $collection->addFieldToFilter("total_qty", array('from' => $from, 'to' => $to));
+            
+        }
+
+        if( isset($params['tracking_number']) )
+        {
+            $collection->addFieldToFilter("tracking_number", array('like' => '%'.$params['tracking_number'].'%'));
+        }
+
+        if( isset($params['shipping_name']) )
+        {
+            $collection->addFieldToFilter("shipping_name", array('like' => '%'.$params['shipping_name'].'%'));
+        }
+
+        if( isset($params['order_increment_id']) )
+        {
+            $collection->addFieldToFilter("order_increment_id", array('like' => '%'.$params['order_increment_id'].'%'));
+        }
+
+        if( isset($params['increment_id']) )
+        {
+            $collection->addFieldToFilter("increment_id", array('like' => '%'.$params['increment_id'].'%'));
+        }
+        //$collection->getSelect()->group(array('sales_flat_shipment_track.order_id'));
 
         $this->setCollection($collection);
         return parent::_prepareCollection();
@@ -144,10 +208,14 @@ class Mage_Adminhtml_Block_Sales_Shipment_Grid extends Mage_Adminhtml_Block_Widg
             'type'  => 'text',
         ));*/
 
-        $this->addColumn('is_customer_notified2', array(
+        $this->addColumn('is_customer_notified', array(
             'header' => Mage::helper('sales')->__('Customer Notified (Shipment Prosess)'),
-            'index' => 'is_customer_notified2',
-            'type'  => 'text',
+            'index' => 'is_customer_notified',
+            'type'  => 'options',
+            'options' => array(
+                1 => Mage::helper('sales')->__('Yes'),
+                0 => Mage::helper('sales')->__('No')
+            )
         ));
 
         $this->addColumn('action',

@@ -109,21 +109,6 @@ $j(document).ready(function(){
 	 /*end krisna*/ 
 });
 </script>
-<script type="text/javascript">
-
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-36607168-1']);
-  _gaq.push(['_trackPageview']);
-
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-
-</script>
-
-
 <div class="header-container">
 	<?php echo $this->getLayout()->createBlock('page/html')->setTemplate('page/html/back-top.phtml')->toHtml(); ?>
 	<div class="sticky-header-wrapper">
@@ -170,7 +155,7 @@ $j(document).ready(function(){
     	<div class="menu-top">
 	    	<ul>
 		    	<li class="active"><a href="/baby"><?php echo $this->__('Mom &amp; Baby') ?></a></li>
-		    	<!--<li><a href="/home"><?php //echo $this->__('Home') ?></a></li>-->
+		    	<li class="home-menu"><a href="/perlengkapan_rumah"><?php echo $this->__('Home') ?></a></li>
 		    	<!--li><a href="/baby/dailydeals"><?php //echo $this->__('Daily Deals') ?></a></li-->
 	    	</ul>
     	</div>
@@ -213,6 +198,13 @@ $j(document).ready(function(){
         <?php echo $this->getChildHtml('topContainer'); ?>
         <div class="nav-mobile"><?php //echo $this->getChildHtml('topMenu') ?></div>
         <div class="mini-cart-mobile"><?php echo $this->getChildHtml('topcart') ?></div>
+        <div class="menu-top-mobile baby-top-mob">
+	    	<ul>
+		    	<li class="mobile-baby active"><a href="/baby"><?php echo $this->__('Mom &amp; Baby') ?></a></li>
+				<li class="mobile-home"><a href="/home"><?php echo $this->__('Home') ?></a></li>
+		    	<li class="mobile-deals"><a href="/dailydeals"><?php echo $this->__('Daily Deals') ?></a></li>
+	    	</ul>
+    	</div>
         <div class="search-mobile"><?php echo $this->getChildHtml('topSearch') ?></div>
         <div class="my-account-mobile"><?php echo $this->getChildHtml('topLinks') ?></div>
     </div>
@@ -1530,7 +1522,7 @@ href="http://www.bilna.com/baby/set-hadiah-bayi-dan-anak.html">Gift Ideas</a>
 			
         </ul>
     </div>
-
+<div class="dash"></div>
 <?php //echo $this->getChildHtml('topMenu') ?>
 <div class="menu-tablet">
 	<div class="header-container">

@@ -18,6 +18,10 @@
 	color: #707070;
 	font:12px/1.55 Arial, Helvetica, sans-serif;
 }
+.static-page-wrapper ol, .static-page-wrapper ul{
+	list-style:decimal;
+	margin:0 0 0 22px;
+}
 .center-text-sp{text-align:center;}
 .font-base-text {font-family: helvetica, arial;}
 .font-base-text-bold {font-family: helvetica, arial; font-weight: bold;}
@@ -1732,3 +1736,139 @@ h2.block-grey-title-left {
     margin: 0 0 10px;
 }
 /* ---------------- end COD -------------------- */
+
+
+/* --------------------------------------- Start FORM BUILDER --------------------------------------- */
+.formbuilder-form .std ul {
+    list-style: disc outside none;
+    padding-left: 0em !important;
+}
+.formbuilder-form ul li  {
+    margin: 0 0 0 11px;
+}
+.formbuilder-form ul li  {
+    list-style-type: none;
+    clear: both;
+}
+.formbuilder-form ul li em{color: #FF0000;}
+.formbuilder-form ul li .form-text {clear: both;}
+.formbuilder-form ul li .form-question {
+    clear: both;
+    margin-left:0px;
+    font-weight: bold;
+    /* max-width: 414px; */
+    padding: 0 0 5px;
+    width: 56%;
+    border-bottom: 1px solid #ebebeb;
+}
+.formbuilder-form ul li div.form-radio{
+    clear: both;
+    margin-left:0px;
+}
+.formbuilder-form ul li div.form-radio input{
+    margin: 2px 5px 0 0;
+    width: 20px !important;
+}
+.formbuilder-form ul li div.form-radio label{
+    margin: 6px 0px;
+    width: auto !important;
+}
+
+.formbuilder-form ul li label  {
+    float: left;
+    width: 135px;
+}
+
+.formbuilder-form ul li div.form-checkbox{
+    clear: both;
+    margin: 40px 0 0 0;
+}
+.formbuilder-form ul li div.form-checkbox input{
+    margin: 2px 5px 0 0;
+    width: 20px !important;
+}
+.formbuilder-form ul li div.form-checkbox label{
+    margin: 6px 0px;
+    width: auto !important;
+}
+
+.formbuilder-form ul li input{
+    background: none repeat scroll 0 0 #F9F9F9;
+    border: medium none;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) inset;
+    color: #666666;
+    float: left;
+    height: 26px !important;
+    margin-right: 60px;
+    padding: 7px 5px;
+    width: 40% !important;
+    margin-bottom: 20px;
+    display: block;
+}
+.formbuilder-form p.required {
+    clear: both;
+    color: #FF0000;
+    float: left;
+    font-size: 11px;
+    margin: 0 32px;
+    padding: 0;
+}
+.formbuilder-form button.button {
+    width: 42%;
+}
+.formbuilder-form button.button span {
+    background: none repeat scroll 0 0 #FFA01B;
+    border: medium none;
+    font-weight: normal;
+    padding: 10px 20px;
+    margin-left: 160px;
+    margin-top: 20px;
+    max-width: 100px;
+    float: right;
+}
+
+@media only screen and (max-width: 1023px) {
+    .formbuilder-form ul li .form-question, .formbuilder-form ul li div.form-radio, .formbuilder-form ul li label, .formbuilder-form ul li div.form-checkbox {
+        margin-left: 0px !important;
+    }
+    .formbuilder-form ul li .form-question {width: 100%;}
+    .formbuilder-form button.button span {
+        margin-left: 0px !important;
+    }
+    .formbuilder-form ul li input{
+        background: none repeat scroll 0 0 #F9F9F9;
+        border: medium none;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) inset;
+        color: #666666;
+        float: left;
+        height: 26px !important;
+        margin-right: 0;
+        padding: 7px 5px;
+        width: 70% !important;
+        margin-bottom: 20px;
+        display: block;
+    }
+    .formbuilder-form button.button {
+        width: 72%;
+    }
+
+}
+
+
+/* --------------------------------------- END FORM BUILDER --------------------------------------- */
+/* ---------------- ETUDE -------------------- */
+.etude li span.right{
+	display:inline-flex;
+	float:none !important;
+}
+.etude li {
+	margin:0 !important;
+}
+.etude ul{
+	list-style-type:none;
+}
+.etude span.left{
+width:68px;
+}
+
+/* ---------------- ETUDE -------------------- */
