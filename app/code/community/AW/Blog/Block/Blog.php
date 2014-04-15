@@ -62,15 +62,15 @@ class AW_Blog_Block_Blog extends AW_Blog_Block_Abstract
                 ->addFieldToSelect('short_content')
                 ->addFieldToSelect('identifier')
                 ->setOrder('created_time', 'desc');
-            $posts->addFieldToFilter("awblog_post_cat.cat_id", array ('eq' => $catId));
+            $posts->addFieldToFilter("apc.cat_id", array ('eq' => $catId));
             $posts->getSelect()
-                ->joinLeft(
-                    array( 'awblog_post_cat' => Mage::getSingleton('core/resource')->getTableName('blog/post_cat') ),
-                    "main_table.post_id = awblog_post_cat.post_id",
-                    array(
-                        'cat_id' => 'awblog_post_cat.cat_id'
-                    )
-            	)
+                //->joinLeft(
+                //    array( 'awblog_post_cat' => Mage::getSingleton('core/resource')->getTableName('blog/post_cat') ),
+                //    "main_table.post_id = awblog_post_cat.post_id",
+                //    array(
+                //        'cat_id' => 'awblog_post_cat.cat_id'
+                //    )
+            	//)
                 ->limit(5);
         
             $posts = parent::_processCollection($posts);    
@@ -80,7 +80,7 @@ class AW_Blog_Block_Blog extends AW_Blog_Block_Abstract
 
         return $data;
     }
-
+    
     public function getSliderPost()
     {
         $collection = Mage::getModel("blog/blog")->getCollection()
@@ -93,11 +93,11 @@ class AW_Blog_Block_Blog extends AW_Blog_Block_Abstract
                 ->addFieldToSelect('image_name')
                 ->addFieldToSelect('short_content')
                 ->setOrder('created_time', 'desc');
-        $collection->addFieldToFilter("main_table.is_slider", array ('eq' => 1));
+        //$collection->addFieldToFilter("main_table.is_slider", array ('eq' => 1));
 
         return $collection;              
     }
-
+    
     public function getCategory()
     {
         return Mage::getSingleton('blog/cat');
