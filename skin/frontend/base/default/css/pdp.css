@@ -523,7 +523,7 @@
 	text-align:center;
 }
 
-li.active:before {
+li.tab.active:before {
     border-color: #83DEF2 rgba(0, 0, 0, 0) rgba(0, 0, 0, 0);
     border-style: solid;
     border-width: 10px;
