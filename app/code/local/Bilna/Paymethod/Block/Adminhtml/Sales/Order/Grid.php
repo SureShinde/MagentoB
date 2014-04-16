@@ -69,6 +69,7 @@ class Bilna_Paymethod_Block_Adminhtml_Sales_Order_Grid extends Mage_Adminhtml_Bl
         $this->addColumn('created_at', array (
             'header' => Mage::helper('sales')->__('Purchased On'),
             'index' => 'created_at',
+            'filter_index' => 'main_table.created_at',
             'type' => 'datetime',
             'width' => '100px',
         ));
@@ -82,17 +83,17 @@ class Bilna_Paymethod_Block_Adminhtml_Sales_Order_Grid extends Mage_Adminhtml_Bl
             'header' => Mage::helper('sales')->__('Ship to Name'),
             'index' => 'shipping_name',
         ));
-		
+        
         $groups = Mage::getResourceModel('customer/group_collection')
-            ->addFieldToFilter('customer_group_id', array('gt'=> 0))
+            ->addFieldToFilter('customer_group_id', array ('gt' => 0))
             ->load()
             ->toOptionHash();
 
-        $this->addColumn('group', array(
-            'header'    =>  Mage::helper('sales')->__('Group'),
-            'index'     =>  'group_id',
-            'type'      =>  'options',
-            'options'   =>  $groups,
+        $this->addColumn('group_id', array (
+            'header' => Mage::helper('sales')->__('Group'),
+            'index' => 'group_id',
+            'type' => 'options',
+            'options' => $groups,
         ));
 
         $this->addColumn('method', array (

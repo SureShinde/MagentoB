@@ -70,4 +70,11 @@ class Bilna_Paymethod_Helper_Vtdirect extends Mage_Core_Helper_Abstract {
     public function getOrderId() {
         return $this->getCheckout()->getLastOrderId();
     }
+    
+    public function getStatusOrderIgnore() {
+        $orders = Mage::getStoreConfig('payment/vtdirect/update_order_status');
+        $ordersArr = explode(',', $orders);
+        
+        return $ordersArr;
+    }
 }
