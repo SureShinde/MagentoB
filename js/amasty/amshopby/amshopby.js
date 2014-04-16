@@ -19,7 +19,9 @@ function amshopby_start(){
     $$('.block-layered-nav dt').each(function (dt){
         dt.observe('click', amshopby_filter_show);
     });
+	
     
+	
     $$('.block-layered-nav dt img').each(function (img){
         img.observe('mouseover', amshopby_tooltip_show);
         img.observe('mouseout', amshopby_tooltip_hide);
@@ -168,9 +170,10 @@ function amshopby_category_show(evt){
 
 function amshopby_filter_show(evt){
     var dt = Event.findElement(evt, 'dt');
-    
     dt.next('dd').toggle();
     dt.toggleClassName('amshopby-collapsed'); 
+    dt.next('dd').toggleClassName('relative'); 
+	
   
     Event.stop(evt);
     return false;
