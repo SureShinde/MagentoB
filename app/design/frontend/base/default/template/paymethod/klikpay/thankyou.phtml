@@ -33,35 +33,31 @@ endif;
     
     <div class="col_right"></div>
 </div>
-<div id="tag_tracking_code"></div>
 <script type="text/javascript">
-jQuery(document).ready(function () {
-  var ajaxURL = '<?php echo Mage::getBaseUrl();?>ajaxrequest/data/retrieveconfirm/';
+jQuery(document).ready(function () {    
+    var ajaxURL = '<?php echo Mage::getBaseUrl();?>/ajaxrequest/data/retrieveconfirm2/';
 
-  var data = {};
-  data.orderId = '<?php echo $this->escapeHtml($this->getOrderId());?>';
+    var data = {};
+    data.orderId = '<?php echo $this->escapeHtml($this->getOrderId())?>';
 
-  jQuery.ajax({
-      type: "POST",
-      url : ajaxURL,
-      data: { data: data },
-      success: function(response){
-          response = jQuery.parseJSON(response);
-          if(response.status == true){
-              jQuery('#tag_tracking_code').append(jQuery('<img>', { 
-                  src : 'https://www.tagserve.asia/saleServlet?MID=135&PID=201&CRID='+response.data.customer_id+'&ORDERID='+data.orderId+'&ORDERAMNT='+response.data.amount+'&NUMOFITEMS='+response.data.numofitem+'&CUR=IDR&SUBID=', 
-                  width : 1, 
-                  height : 1,
-
-              }));
-          }else{
-              return false;
-          }
-      },
-      error: function() {
-          return false;
-      }
-  });
-  
+    jQuery.ajax({
+        type: "POST",
+        url : ajaxURL,
+        data: { data: data },
+        success: function(data){
+            response = jQuery.parseJSON(data);
+            if(response.status == true){
+                dataLayer.push({'customer': JSON.stringify(response.data.customer)});
+                dataLayer.push( {'order': JSON.stringify(response.data.order)} );
+                dataLayer.push({'event': 'salesConversionEvent'});
+                
+            }else{
+                return false;
+            }
+        },
+        error: function() {
+            return false;
+        }
+    });
 });
 </script>
