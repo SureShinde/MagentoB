@@ -34,9 +34,9 @@
 <script type="text/javascript">
   $j(document).ready(function() {
 	
-    var nicesx = $j("dd").niceScroll({touchbehavior:false,cursorminheight:20,cursorcolor:"#4EC7DA",cursoropacitymax:1,cursorwidth:10,autohidemode:false,background:"#DFE0E0"});
+    var nicesx = $j(".lbl-filterby~dd").niceScroll({touchbehavior:false,cursorminheight:20,cursorcolor:"#4EC7DA",cursoropacitymax:1,cursorwidth:10,autohidemode:false,background:"#DFE0E0"});
     $j('.button-toggle').click(function(){
-		var nicesx = $j("dd").niceScroll({touchbehavior:true,cursorminheight:20,cursorcolor:"#4EC7DA",cursoropacitymax:1,cursorwidth:10,autohidemode:false,background:"#DFE0E0"});
+		var nicesx = $j(".lbl-filterby~dd").niceScroll({touchbehavior:true,cursorminheight:20,cursorcolor:"#4EC7DA",cursoropacitymax:1,cursorwidth:10,autohidemode:false,background:"#DFE0E0"});
 	});
   });
   
@@ -94,7 +94,6 @@
                 	<?php endif;?>
                     <dt class="<?php echo strtolower($this->__($_filter->getName())) ?>"><?php echo $this->__($_filter->getName()) ?></dt>
                     <dd>
-                    	<div class="scrollbar"><div class="track"><div class="thumb"><div class="end"></div></div></div></div>
                     	<?php echo $_filter->getHtml() ?>
                     </dd>
                     
