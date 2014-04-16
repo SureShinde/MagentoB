@@ -63,12 +63,12 @@ $_helper = Mage::helper('catalog/category');
                   <select data-nav-digest="bDT22wibLRgrc0Gc07TKBa9Syl4" data-nav-selected="0" name="cat" id="searchDropdownBox" class="searchSelect" title="Search in" style="top: 3px;">
                     <option value="all-category">All Category</option>
                     <?php foreach ($_categories as $_category) :?>
-                    <option value="<?php echo $_category->getId();?>"><?php echo $_category->getName();?></option>
+                    <option class="search-title-drop" style="font-weight: bold; font-size: 20px; text-align: center;" value="<?php echo $_category->getId();?>"><?php echo $_category->getName();?></option>
                     <?php $_category = Mage::getModel('catalog/category')->load($_category->getId()) ?>
                     <?php $_subcategories = $_category->getChildrenCategories() ?>
                     <?php if (count($_subcategories) > 0): ?>
                       <?php foreach($_subcategories as $_subcategory): ?>
-                        <option value="<?php echo $_subcategory->getId();?>"><?php echo $_subcategory->getName();?></option>
+                        <option class="search-subtitle-drop" value="<?php echo $_subcategory->getId();?>"><?php echo $_subcategory->getName();?></option>
                       <?php endforeach; ?>
                     <?php endif; ?>
                   <?php endforeach;?>
