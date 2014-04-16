@@ -7,6 +7,7 @@ class Bilna_AjaxRequest_DataController extends Mage_Core_Controller_Front_Action
 	    $response['status'] = true;
 
 	    $cart = Mage::getSingleton('checkout/session')->getQuote();
+        $i=0;
         foreach ($cart->getAllItems() as $item) {
 			$product = array();
 			$product["identifier"] = $item->getSku();
@@ -31,19 +32,21 @@ class Bilna_AjaxRequest_DataController extends Mage_Core_Controller_Front_Action
         }else{
 	        $order = Mage::getModel('sales/order')->loadByIncrementId($orderId);
 	        $response['status'] = true;
-
+            $i=1;
 	        foreach ($order->getAllItems() as $item) {
 				$product = array();
 				$product["identifier"] = $item->getSku();
 				$product["amount"] = (int) $item->getPrice();
 				$product["currency"] = "IDR";
 				$product["quantity"] = $item->getQtyOrdered();
-			    $response['data']['products'][] = $product;
-	        }
-	
+			    $response['data']["numofitem"] = $response['data']["numofitem"] + $item->getQtyOrdered();
+                $response['data']['products'][] = $product;
+	        } 
 		    $response['data']['transaction'] = (int)$order->getIncrementId();
 		    $response['data']['amount'] = (int)$order->getGrandTotal();
 		    $response['data']['currency'] = "IDR";
+            $response['data']["customer_id"] = $item->getCustomerId();
+             
         }
 		
         echo json_encode($response);
