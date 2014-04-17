@@ -1687,7 +1687,27 @@ searchbar #nav-search-in {
 }
 
 .search-container-new #nav-searchbar select.select-style {
-    style="background: none;"
+    background: none;
+}
+.search-container-new #nav-searchbar option.style-search-top {
+    font-size: 13px;
+    text-align: left;
+    padding: 5px;
+}
+.search-container-new #nav-searchbar option.style-search-cat {
+    font-weight: bold;
+    font-size: 13px; 
+    text-align: center; 
+    padding: 5px 0;
+    -webkit-border-bottom: 2px dashed #FEE13A;
+    -moz-border-bottom: 2px dashed #FEE13A;
+    -o-border-bottom: 2px dashed #FEE13A;
+    border-bottom: 2px dashed #FEE13A;
+}
+.search-container-new #nav-searchbar option.style-search-subcat {
+    font-size: 13px;
+    text-align: left;
+    padding: 5px
 }
 
 /* END NEW SEARCH FIELD */
