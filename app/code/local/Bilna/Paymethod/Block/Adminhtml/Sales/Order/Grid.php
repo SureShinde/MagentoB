@@ -26,8 +26,10 @@ class Bilna_Paymethod_Block_Adminhtml_Sales_Order_Grid extends Mage_Adminhtml_Bl
     
     protected function _prepareCollection() {
         $collection = Mage::getResourceModel($this->_getCollectionClass());
-        $collection->join(array ('payment' => 'sales/order_payment'),'main_table.entity_id = parent_id', 'method');
+        $collection->join(array ('payment' => 'sales/order_payment'), 'main_table.entity_id = parent_id', 'method');
         $collection->addFilterToMap('increment_id', 'main_table.increment_id');
+        $collection->addFilterToMap('store_id', 'main_table.store_id');
+        $collection->addFilterToMap('created_at', 'main_table.created_at');
         $collection->addFilterToMap('group_id', 'customer_entity.group_id');
         $collection->getSelect()->joinLeft(
             array ('customer_entity'),
