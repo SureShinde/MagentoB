@@ -372,7 +372,7 @@
 	.advertise ul li a img {
 		width: 100%;
 	}
-	.homepage-top-block.right {
+	.homepage-top-block.right, .category-mom-baby .homepage-top-block.right {
 		width: 20%;
 	}
 	.homepage-top-block.right a {
@@ -482,3 +482,5 @@
 @media only screen and (max-width: 479px) { 
 	
 }
+
+

@@ -2330,7 +2330,7 @@ searchbar #nav-search-in {
 }
 .indonesia-lang {
     background: url(../images/language-indonesia.gif) center left 2px no-repeat !important;
-	.header .links li.myaccount .toplink-myaccount, .menu-tablet .links li.myaccount .toplink-myaccount {
+/* 	.header .links li.myaccount .toplink-myaccount, .menu-tablet .links li.myaccount .toplink-myaccount {
 	display: none;
 	position: relative;
 	top: 0px;
@@ -2343,7 +2343,7 @@ searchbar #nav-search-in {
 	-moz-box-shadow: 1px 1px 4px 0 #ccc;
 	box-shadow: 1px 1px 4px 0 #ccc;
 	width: 97%;
-}
+} */
 }
 @media only screen and (min-width: 482px) {
 	.header .links li.myaccount:hover .toplink-myaccount, .menu-tablet .links li.myaccount:hover .toplink-myaccount {
