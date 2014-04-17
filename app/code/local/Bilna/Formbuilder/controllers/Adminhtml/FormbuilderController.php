@@ -12,31 +12,60 @@ class Bilna_Formbuilder_Adminhtml_FormbuilderController extends Mage_Adminhtml_C
   }
 
 	public function editAction()
-		{
-			$record_id = $this->getRequest()->getParam('record_id');
-			$form_id = $this->getRequest()->getParam('form_id');
-			$id = $this->getRequest()->getParam('id');
-			$recform = array('record_id' => $record_id, 'form_id' => $form_id);
+	{
+		$record_id	= $this->getRequest()->getParam('record_id');
+		$form_id 		= $this->getRequest()->getParam('form_id');
+		$id 				= $this->getRequest()->getParam('id');
+		$recform 		= array('record_id' => $record_id, 'form_id' => $form_id);
 
-			$collection = Mage::getModel('bilna_formbuilder/form')->getCollection();
-			//$collection->getSelect()->where('record_id = '.$record_id.' and form_id = '.$form_id);
-			$collection->getSelect()->where('id = '.$id);
+		$collection = Mage::getModel('bilna_formbuilder/form')->getCollection();
+		//$collection->getSelect()->where('record_id = '.$record_id.' and form_id = '.$form_id);
+		$collection->getSelect()->where('id = '.$id);
 
-			Mage::register('formbuilder_form', $recform);
+		Mage::register('formbuilder_form', $recform);
 
-			if ($collection->count()>0) {
-				
-					$this->loadLayout();
-					$this->_setActiveMenu('bilna/bilna');
-					$this->_addContent($this->getLayout()->createBlock('bilna_formbuilder/adminhtml_formbuilder_edit'))
-							 ->_addLeft($this->getLayout()->createBlock('bilna_formbuilder/adminhtml_formbuilder_edit_tabs'));
-					$this->renderLayout();
-			}
-			else {
-						$this->_redirect('*/*/index');
-		        return;
-			}
+		if ($collection->count()>0) {
+			
+			$this->loadLayout();
+			$this->_setActiveMenu('bilna/bilna');
+			$this->_addContent($this->getLayout()->createBlock('bilna_formbuilder/adminhtml_formbuilder_edit'))
+					 ->_addLeft($this->getLayout()->createBlock('bilna_formbuilder/adminhtml_formbuilder_edit_tabs'));
+			$this->renderLayout();
 		}
+		else {
+			$this->_redirect('*/*/index');
+      return;
+		}
+	}
+
+	public function editInputAction()
+	{
+		$record_id	= $this->getRequest()->getParam('record_id');
+		$form_id 		= $this->getRequest()->getParam('form_id');
+		$id 				= $this->getRequest()->getParam('id');
+		$recform 		= array('record_id' => $record_id, 'form_id' => $form_id);
+
+		$collection = Mage::getModel('bilna_formbuilder/input')->getCollection();
+		//$collection->getSelect()->where('record_id = '.$record_id.' and form_id = '.$form_id);
+		$collection->getSelect()->where('id = '.$id);
+		//$collection->printLogQuery(true); //die;
+		Mage::register('formbuilder_form', $recform);
+
+		if ($collection->count()>0) {
+			
+			$this->loadLayout();
+			$this->_setActiveMenu('bilna/bilna');
+			$this->_addContent($this->getLayout()->createBlock('bilna_formbuilder/adminhtml_formbuilder_edit_tabs_edit'))//pakai tab samping kiri
+			//$this->_addContent($this->getLayout()->createBlock('bilna_formbuilder/adminhtml_formbuilder_edit_tabs_edit_detail'))
+					 ->_addLeft($this->getLayout()->createBlock('bilna_formbuilder/adminhtml_formbuilder_edit_tabs_edit_tabs'))//pakai tab samping kiri
+						;
+			$this->renderLayout();
+		}
+		else {
+			$this->_redirect('*/*/index');
+      return;
+		}
+	}
 
 	public function newAction()
 	{
@@ -56,11 +85,11 @@ class Bilna_Formbuilder_Adminhtml_FormbuilderController extends Mage_Adminhtml_C
   protected function _initAction()
   {
     $this->loadLayout()
-        // Make the active menu match the menu config nodes (without 'children' inbetween)
-        ->_setActiveMenu('bilna/bilna_formbuilder_formbuilder')
-        ->_title($this->__('Bilna'))->_title($this->__('Formbuilder'))
-        ->_addBreadcrumb($this->__('Bilna'), $this->__('Bilna'))
-        ->_addBreadcrumb($this->__('Formbuilder'), $this->__('Formbuilder'));
+      // Make the active menu match the menu config nodes (without 'children' inbetween)
+      ->_setActiveMenu('bilna/bilna_formbuilder_formbuilder')
+      ->_title($this->__('Bilna'))->_title($this->__('Formbuilder'))
+      ->_addBreadcrumb($this->__('Bilna'), $this->__('Bilna'))
+      ->_addBreadcrumb($this->__('Formbuilder'), $this->__('Formbuilder'));
      
     return $this;
   }
@@ -76,7 +105,23 @@ class Bilna_Formbuilder_Adminhtml_FormbuilderController extends Mage_Adminhtml_C
   {
     $this->loadLayout();
     $this->getResponse()->setBody(
-        $this->getLayout()->createBlock('bilna_formbuilder/adminhtml_formbuilder_grid')->toHtml()
+    $this->getLayout()->createBlock('bilna_formbuilder/adminhtml_formbuilder_grid')->toHtml()
+    );
+  }
+
+  public function gridInputsAction()
+  {
+    $this->loadLayout();
+    $this->getResponse()->setBody(
+    $this->getLayout()->createBlock('bilna_formbuilder/adminhtml_formbuilder_edit_tabs_inputs')->toHtml()
+    );
+  }
+
+  public function gridDataAction()
+  {
+    $this->loadLayout();
+    $this->getResponse()->setBody(
+    $this->getLayout()->createBlock('bilna_formbuilder/adminhtml_formbuilder_edit_tabs_data')->toHtml()
     );
   }
 
@@ -121,9 +166,42 @@ $collection->getSelect()
   public function exportCsvAction()
   {
     //$fileName = 'bilna_formbuilder.csv';
-		$fileName   = 'bilna_formbuilder'. date('dmYHis') .'.csv';
-    //$grid = $this->getLayout()->createBlock('Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Grid');
-		$grid = $this->getLayout()->createBlock('Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Edit_Tabs_Data');																								 
+		$fileName		= 'bilna_formbuilder'. date('dmYHis') .'.csv';
+    //$grid 		= $this->getLayout()->createBlock('Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Grid');
+		$grid 			= $this->getLayout()->createBlock('Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Edit_Tabs_Data');																								 
     $this->_prepareDownloadResponse($fileName, $grid->getCsvFile());
-  } 
+  }
+
+	public function ajaxTabGeneralAction()
+	{
+		$this->loadLayout();
+		$this->getResponse()->setBody(
+		$this->getLayout()->createBlock('Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Edit_Tabs_General')->toHtml()
+		);
+	}
+
+	public function ajaxTabInputsAction()
+	{
+		$this->loadLayout();
+		$this->getResponse()->setBody(
+		$this->getLayout()->createBlock('Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Edit_Tabs_Inputs')->toHtml()
+		);
+	}
+
+	public function ajaxTabDataAction()
+	{
+		$this->loadLayout();
+		$this->getResponse()->setBody(
+		$this->getLayout()->createBlock('Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Edit_Tabs_Data')->toHtml()
+		);
+	}
+
+		public function ajaxTabDetailAction()
+	{
+		$this->loadLayout();
+		$this->getResponse()->setBody(
+		$this->getLayout()->createBlock('Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Edit_Tabs_Edit_Tabs_Detail')->toHtml()
+		);
+	}
+
 }

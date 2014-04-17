@@ -4,11 +4,12 @@ class Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Edit_Tabs_Data extends Mage_
 {
 	public function __construct()
   {
-		parent::__construct();
-		$this->setId('bilna_formbuilder_formbuilder_grid');
-		$this->setDefaultSort('id');
-		$this->setDefaultDir('ASC');
-		$this->setSaveParametersInSession(true);
+	parent::__construct();
+	$this->setId('bilna_formbuilder_formbuilder_edit_tabs_data');
+	$this->setDefaultSort('id');
+	$this->setDefaultDir('ASC');
+	$this->setSaveParametersInSession(true);
+	$this->setUseAjax(true);
   }
 
   protected function _prepareCollection()
@@ -26,11 +27,11 @@ class Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Edit_Tabs_Data extends Mage_
 		$collection->getSelect()
 			->joinLeft(array('bfd_age' => 'bilna_formbuilder_data'), "main_table.record_id = bfd_age.record_id AND bfd_age.type = 'age' AND bfd_age.form_id = main_table.form_id",array('Age' => 'bfd_age.value'));
 		$collection->getSelect()
-			->joinLeft(array('bfd_child' => 'bilna_formbuilder_data'), "main_table.record_id = bfd_child.record_id AND bfd_child.type = 'child' AND bfd_child.form_id = main_table.form_id",array('Child' => 'bfd_child.value'));
+			->joinLeft(array('bfd_child' => 'bilna_formbuilder_data'), "main_table.record_id = bfd_child.record_id AND bfd_child.`type` = 'child' AND bfd_child.form_id = main_table.form_id",array('Child' => 'bfd_child.value'));
 		$collection->addFieldToFilter('main_table.form_id', (int) $this->getRequest()->getParam('id'));
 		$collection->getSelect()->group('main_table.record_id');
 		$collection->getSelect()->group('main_table.form_id');
-		//$collection->printLogQuery(true); //die;
+		$collection->printLogQuery(true); //die;
 		$this->setCollection($collection);		 
 		return parent::_prepareCollection();
   }
@@ -84,8 +85,8 @@ class Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Edit_Tabs_Data extends Mage_
 
     $this->getMassactionBlock()->addItem('delete',
       array(
-        'label' => Mage::helper('bilna_formbuilder')->__('Delete'),
-        'url' => $this->getUrl('*/*/massDelete'),
+        'label' 	=> Mage::helper('bilna_formbuilder')->__('Delete'),
+        'url' 		=> $this->getUrl('*/*/massDelete'),
         'confirm' => Mage::helper('bilna_formbuilder')->__('Are you sure?')
       ));
 	}
@@ -93,12 +94,11 @@ class Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Edit_Tabs_Data extends Mage_
   //Grid with Ajax Request
   public function getGridUrl() 
 	{
-    return $this->getUrl('*/*/grid', array ('_current' => true));
+    return $this->getUrl('*/*/gridData', array ('_current' => true));
   }
 
   public function getRowUrl($row)
   {
-    //return $this->getUrl('*/*/edit', array('record_id' => $row->getRecordId(),'form_id' => $row->getFormId()));
-		//dimatikan sementara.kalau tab dalam Data.php sudah jadi, dihidupkan kembali
+    return $this->getUrl('*/*/edit', array('record_id' => $row->getRecordId(),'form_id' => $row->getFormId()));
   }	
 }

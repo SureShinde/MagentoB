@@ -25,51 +25,49 @@ class Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Edit_Tabs_General extends Ma
 		}die;*/
 
 		$fieldset->addField('title', 'label', array(
-         'label'     => 'Title',
-         //'class'     => 'required-entry',
-         //'required'  => true,
-         'name'      => 'title',
-         'value'      => $data["title"],
-         //'note'     => Mage::helper('bilna_formbuilder')->__('Nama form / promo'),
+		   'label'     => 'Title',
+		   //'class'   => 'required-entry',
+		   //'required'=> true,
+		   'name'      => 'title',
+		   'value'     => $data["title"],
+		   //'note'    => Mage::helper('bilna_formbuilder')->__('Nama form / promo'),
     ));
 
 		$fieldset->addField('url', 'label', array(
-         'label'     => 'URL',
-         //'class'     => 'required-entry',
-         //'required'  => true,
-         'name'      => 'url',
-         'value'      => $data["url"],
-         //'note'     => Mage::helper('bilna_formbuilder')->__('The name of the example.'),
+       'label'     => 'URL',
+       //'class'   => 'required-entry',
+       //'required'=> true,
+       'name'      => 'url',
+       'value'     => $data["url"],
+       //'note'    => Mage::helper('bilna_formbuilder')->__('The name of the example.'),
     ));
 
 		$fieldset->addField('active_from', 'label', array(
-         'label'     => 'Aktif Dari',
-         //'class'     => 'required-entry',
-         //'required'  => true,
-         'name'      => 'active_from',
-         'value'      => $data["active_from"],
-         //'note'     => Mage::helper('bilna_formbuilder')->__('The name of the example.'),
+       'label'     => 'Aktif Dari',
+       //'class'   => 'required-entry',
+       //'required'=> true,
+       'name'      => 'active_from',
+       'value'     => $data["active_from"],
+       //'note'    => Mage::helper('bilna_formbuilder')->__('The name of the example.'),
     ));
 
 		$fieldset->addField('active_to', 'label', array(
-         'label'     => 'Aktif Sampai',
-         //'class'     => 'required-entry',
-         //'required'  => true,
-         'name'      => 'active_to',
-         'value'      => $data["active_to"],
-         //'note'     => Mage::helper('bilna_formbuilder')->__('The name of the example.'),
+       'label'     => 'Aktif Sampai',
+       //'class'   => 'required-entry',
+       //'required'=> true,
+       'name'      => 'active_to',
+       'value'     => $data["active_to"],
+       //'note'    => Mage::helper('bilna_formbuilder')->__('The name of the example.'),
     ));
 
 		$fieldset->addField('status', 'label', array(
-         'label'     => 'Status',
-         //'class'     => 'required-entry',
-         //'required'  => true,
-         'name'      => 'status',
-         'value'      => $data["status"],
-         'note'     => Mage::helper('bilna_formbuilder')->__('Status Note:</br>0=Enabled</br>1=Disabled'),
+       'label'     => 'Status',
+       //'class'   => 'required-entry',
+       //'required'=> true,
+       'name'      => 'status',
+       'value'     => $data["status"],
+       'note'      => Mage::helper('bilna_formbuilder')->__('Status Note:</br>0=Enabled</br>1=Disabled'),
     ));
-
-
 
     return parent::_prepareForm();
 	}
