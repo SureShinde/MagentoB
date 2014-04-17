@@ -773,6 +773,15 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </order_status>
+                        <update_order_status translate="label">
+                            <label>Update order status</label>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>adminhtml/system_config_source_order_status</source_model>
+                            <sort_order>32</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </update_order_status>
                         <cctypes translate="label">
                             <label>Credit Card Types</label>
                             <frontend_type>multiselect</frontend_type>
