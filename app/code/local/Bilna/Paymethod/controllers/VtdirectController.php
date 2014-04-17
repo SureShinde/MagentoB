@@ -307,6 +307,10 @@ class Bilna_Paymethod_VtdirectController extends Mage_Core_Controller_Front_Acti
     }
     
     private function getInstallmentBank($paymentCode) {
+		if (strtolower($paymentCode) == 'bnikartinivisa' || strtolower($paymentCode) == 'bnikartinimc') {
+			return 'bni';
+		}
+		
         $result = '';
         
         if (substr($paymentCode, -4) == 'visa') {
