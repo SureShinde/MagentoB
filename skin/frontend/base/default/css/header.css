@@ -1685,6 +1685,11 @@ searchbar #nav-search-in {
     top: 6px;
     width: 100%;
 }
+
+.search-container-new #nav-searchbar select.select-style {
+    style="background: none;"
+}
+
 /* END NEW SEARCH FIELD */
 
 .search-for-sticky {
