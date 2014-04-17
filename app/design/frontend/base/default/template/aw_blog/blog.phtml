@@ -90,7 +90,7 @@ $slider = $this->getSliderPost();
 				<?php 
 					echo $this->getLayout()->createBlock('core/template')
 						->setTemplate('aw_blog/'.$post['layout'])
-						->setData('catPosts', array('posts' => $post['post'], 'cat' => $post['catName']) )
+						->setData('catPosts', array('posts' => $post['post'], 'cat' => $post['catName'], 'subCat' => $post['subName']) )
 						->toHtml();
 				?>
 			<?php $j++; endforeach; ?> 

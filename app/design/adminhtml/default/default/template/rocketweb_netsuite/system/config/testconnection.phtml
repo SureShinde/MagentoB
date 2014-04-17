@@ -1,0 +1,38 @@
+<script type="text/javascript">
+    function testConnection(elementId) {
+        var elem = $(elementId);
+        var prefix = elem.id.replace('test_connection','');
+        console.log(prefix);
+
+        params = {
+            host: $('rocketweb_netsuite_general_host').value,
+            end_point: $('rocketweb_netsuite_general_end_point').options[$('rocketweb_netsuite_general_end_point').selectedIndex].value,
+            account_id: $('rocketweb_netsuite_general_account_id').value,
+            email: $(prefix+'email').value,
+            password: $(prefix+'password').value,
+            role_id: $(prefix+'role_id').value
+        };
+
+        new Ajax.Request('<?php echo $this->getAjaxUrl() ?>', {
+            parameters: params,
+            onSuccess: function(response) {
+                
+                try {
+                    response = JSON.parse(response.responseText);
+                    if (response.status == 'success') {
+                        result = '<?php echo $this->__('Successful! Test again?') ?>';
+                        elem.removeClassName('fail').addClassName('success')
+                    } else {
+                    	result = response.message;
+                    }
+                } catch (e) {
+                    elem.removeClassName('success').addClassName('fail')
+                }
+                $(elementId+'_span').update(result);
+            }
+        });
+    }
+</script>
+<button onclick="javascript:testConnection('<?php echo $this->getHtmlId() ?>'); return false;" class="scalable" type="button" id="<?php echo $this->getHtmlId() ?>">
+    <span><span><span id="<?php echo $this->getHtmlId() ?>_span"><?php echo $this->escapeHtml($this->getButtonLabel()) ?></span></span></span>
+</button>

@@ -44,12 +44,18 @@ class AW_Blog_Block_Manage_Blog_Grid extends Mage_Adminhtml_Block_Widget_Grid
 
     protected function _prepareCollection()
     {
-        $collection = Mage::getModel('blog/blog')->getCollection();
+        $collection = Mage::getModel('blog/blog')->getCollection()
+            ->addFieldToSelect('post_id')
+            ->addFieldToSelect('title')
+            ->addFieldToSelect('identifier')
+            ->addFieldToSelect('user')
+            ->addFieldToSelect('created_time')
+            ->addFieldToSelect('update_time')
+            ->addFieldToSelect('status');
 		$collection->getSelect()
-			->join(array('apc' => $collection->getTable('blog/post_cat')), 'main_table.post_id = apc.post_id')
-			->join(array('ac' => $collection->getTable('blog/cat')), 'apc.cat_id = ac.cat_id', array(
-					'category' => 'ac.title',
-				));		
+            ->joinInner( array('xxx' => new Zend_Db_Expr('(select post_id, group_concat(title) as category from `aw_blog_post_cat` apc inner join aw_blog_cat ac on apc.cat_id = ac.cat_id group by post_id)') ), 
+                 'main_table.post_id = xxx.post_id'               
+                );             		
         $store = $this->_getStore();
         if ($store->getId()) {
             $collection->addStoreFilter($store);
