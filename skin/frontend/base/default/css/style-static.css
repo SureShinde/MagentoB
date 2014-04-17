@@ -1856,6 +1856,20 @@ h2.block-grey-title-left {
 
 
 /* --------------------------------------- END FORM BUILDER --------------------------------------- */
+/* ---------------- ETUDE -------------------- */
+.etude li span.right{
+	display:inline-flex;
+	float:none !important;
+}
+.etude li {
+	margin:0 !important;
+}
+.etude ul{
+	list-style-type:none;
+}
+.etude span.left{
+width:68px;
+}
 
 /* ---------------- ETUDE -------------------- */
 
@@ -1916,4 +1930,3 @@ button.button-area {
 .close-now {}
 
 /* END ------------ POP UP - ASI DISCLAIMER */
-
