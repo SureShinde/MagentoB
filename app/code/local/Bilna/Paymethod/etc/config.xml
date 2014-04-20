@@ -431,6 +431,26 @@
                 <allowspecific>0</allowspecific>
             </bnimc>
             
+            <bnikartinivisa>
+                <active>1</active>
+                <model>paymethod/method_bnikartinivisa</model>
+                <order_status>pending</order_status>
+                <title>Credit Card (BNI Kartini Visa)</title>
+                <cctypes>VI</cctypes>
+                <!--payment_action>authorize</payment_action-->
+                <allowspecific>0</allowspecific>
+            </bnikartinivisa>
+            
+            <bnikartinimc>
+                <active>1</active>
+                <model>paymethod/method_bnikartinimc</model>
+                <order_status>pending</order_status>
+                <title>Credit Card (BNI Kartini MasterCard)</title>
+                <cctypes>MC</cctypes>
+                <!--payment_action>authorize</payment_action-->
+                <allowspecific>0</allowspecific>
+            </bnikartinimc>
+            
             <permatavisa>
                 <active>1</active>
                 <model>paymethod/method_permatavisa</model>
