@@ -19,9 +19,11 @@ class Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Edit_Tabs_Inputs extends Mag
 		->joinInner(array('bff' => 'bilna_formbuilder_form'), 'main_table.form_id = bff.id',array('bff.title'));
 		$collection->addFilterToMap('group', 'main_table.group');
 		$collection->addFilterToMap('title', 'main_table.title');
+		$collection->addFilterToMap('title', 'bff.title');
 		$collection->addFilterToMap('type', 'main_table.type');
 		$collection->addFilterToMap('unique', 'main_table.unique');
 		$collection->addFilterToMap('order', 'main_table.order');
+		$collection->addFieldToFilter('main_table.form_id', (int) $this->getRequest()->getParam('id'));
 		//$collection->printLogQuery(true); die;
 		$this->setCollection($collection);		 
 		return parent::_prepareCollection();
