@@ -42,7 +42,7 @@ endif;
 </div>
 <script type="text/javascript">
 jQuery(document).ready(function () {    
-    var ajaxURL = '<?php echo Mage::getBaseUrl();?>/ajaxrequest/data/retrieveconfirm2/';
+    var ajaxURL = "<?php echo Mage::getUrl('ajaxrequest/data/retrieveconfirm2/',array('_secure'=>true);?>";
 
     var data = {};
     data.orderId = '<?php echo $this->escapeHtml($this->getOrderId())?>';
