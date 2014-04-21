@@ -14,69 +14,60 @@ class Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Edit_Tabs_Data extends Mage_
 
   protected function _prepareCollection()
   {
-		$collection = Mage::getModel('bilna_formbuilder/data')->getCollection();
-		$collection->getSelect()->reset(Zend_Db_Select::COLUMNS); //hanya menampilkan kolom yg dipilih
-		$collection->getSelect()
-			->join(array('bff' => 'bilna_formbuilder_input'), 'main_table.form_id = bff.form_id AND main_table.`type` = bff.`name`',array('main_table.record_id', 'main_table.form_id', 'main_table.create_date'));
-		$collection->getSelect()
-			->joinLeft(array('bfd_name' => 'bilna_formbuilder_data'), "main_table.record_id = bfd_name.record_id AND bfd_name.`type` = 'name' AND bfd_name.form_id = main_table.form_id",array('Name' => 'bfd_name.value'));
-		$collection->getSelect()
-			->joinLeft(array('bfd_email' => 'bilna_formbuilder_data'), "main_table.record_id = bfd_email.record_id AND bfd_email.`type` = 'email' AND bfd_email.form_id = main_table.form_id",array('Email' => 'bfd_email.value'));
-		$collection->getSelect()
-			->joinLeft(array('bfd_phone' => 'bilna_formbuilder_data'), "main_table.record_id = bfd_phone.record_id AND bfd_phone.`type` = 'phone' AND bfd_phone.form_id = main_table.form_id",array('Phone' => 'bfd_phone.value'));
-		$collection->getSelect()
-			->joinLeft(array('bfd_age' => 'bilna_formbuilder_data'), "main_table.record_id = bfd_age.record_id AND bfd_age.`type` = 'age' AND bfd_age.form_id = main_table.form_id",array('Age' => 'bfd_age.value'));
-		$collection->getSelect()
-			->joinLeft(array('bfd_child' => 'bilna_formbuilder_data'), "main_table.record_id = bfd_child.record_id AND bfd_child.`type` = 'child' AND bfd_child.form_id = main_table.form_id",array('Child' => 'bfd_child.value'));
-		$collection->addFieldToFilter('main_table.form_id', (int) $this->getRequest()->getParam('id'));
-		$collection->getSelect()->group('main_table.record_id');
-		$collection->getSelect()->group('main_table.form_id');
-		//$collection->printLogQuery(true); //die;
+		$inputs = Mage::getModel('bilna_formbuilder/input')->getCollection();
+		$inputs->getSelect();
+		$inputs	->addFieldToFilter('main_table.form_id', (int) $this->getRequest()->getParam('id'));
+		$inputs->getSelect()->order(array('required DESC'));
+		$inputs->getSelect()->group('group');
+		
+		$i = 0;
+		foreach($inputs as $input){
+			if($i == 0){
+				$collection = Mage::getModel('bilna_formbuilder/data')->getCollection();
+				$collection->getSelect()->reset(Zend_Db_Select::COLUMNS)->columns(array('record_id'=>'record_id', $input["group"]=>'value', 'create_date'=>'create_date'));
+				$collection->addFieldToFilter('main_table.form_id', (int) $this->getRequest()->getParam('id'));
+				$collection->addFieldToFilter('main_table.type', $input["group"]);
+			}else{
+				$collection->getSelect()->joinLeft(	array("input_".$input["group"] => "bilna_formbuilder_data"), 
+										"main_table.record_id = input_".$input["group"].".record_id AND main_table.form_id = input_".$input["group"].".form_id AND input_".$input["group"].".`type` ='".$input["group"]."'",
+										array($input["group"]=>'value'));
+			}
+			
+			$i++;
+		}
+  	
 		$this->setCollection($collection);		 
 		return parent::_prepareCollection();
   }
 
   protected function _prepareColumns()
-  {	  
-	$this->addColumn('Name',
-		array(
-			'header'=> $this->__('Name'),
-			'index' => 'Name',
-			'header_css_class'=>'a-center'
-	));
-
-	$this->addColumn('Email',
-		array(
-			'header'=> $this->__('Email'),
-			'index' => 'Email',
-			'header_css_class'=>'a-center'
-	));
-	  
-	$this->addColumn('Phone',
-		array(
-			'header'=> $this->__('Phone'),
-			'index' => 'Phone',
-			'header_css_class'=>'a-center'
-	));
-
-	$this->addColumn('Age',
-		array(
-			'header'=> $this->__('Age'),
-			'index' => 'Age',
-			'header_css_class'=>'a-center'
-	));
-	
-	$this->addColumn('Child',
-		array(
-			'header'=> $this->__('Child'),
-			'index' => 'Child',
-			'header_css_class'=>'a-center'
-	));
+  {
+	  	$inputs = Mage::getModel('bilna_formbuilder/input')->getCollection();
+	  	$inputs->getSelect();
+	  	$inputs	->addFieldToFilter('main_table.form_id', (int) $this->getRequest()->getParam('id'));
+		$inputs->getSelect()->order(array('required DESC'));
+	  	$inputs->getSelect()->group('group');
+	  	
+	  	foreach($inputs as $input){
+			$this->addColumn($input["title"],
+				array(
+					'header'=> $input["title"],
+					'index' => $input["group"],
+					'header_css_class'=>'a-center'
+			));
+	  	}
+	  	
+		$this->addColumn("Created Date",
+			array(
+				'header'=> $this->__("Created Date"),
+				'index' => "create_date",
+				'header_css_class'=>'a-center'
+		));
 		
-	$this->addExportType('*/*/exportCsv', Mage::helper('bilna_formbuilder')->__('CSV'));
-	  
-  return parent::_prepareColumns();
-  }
+		$this->addExportType('*/*/exportCsv', Mage::helper('bilna_formbuilder')->__('CSV'));
+
+		return parent::_prepareColumns();
+	}
 
   protected function _prepareMassaction()
   {
