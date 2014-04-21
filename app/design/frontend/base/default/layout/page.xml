@@ -52,7 +52,7 @@ Default layout, loads most of the pages
 				<action method="addJs"><script>jssor.core.js</script></action>
 				<action method="addJs"><script>jssor.slider.js</script></action>
 				<action method="addJs"><script>jssor.utils.js</script></action>
-                <action method="addItem"><type>skin_js</type><name>js/swingin-and-scroll.js</name>
+                <action method="addItem"><type>skin_js</type><name>js/swingin-and-scroll.js</name></action>
 
                 <block type="page/js_cookie" name="js_cookies" template="page/js/cookie.phtml"/>
 
@@ -67,8 +67,7 @@ Default layout, loads most of the pages
 
                 <action method="addItem"><type>js</type><name>lib/ds-sleight.js</name><params/><if>lt IE 7</if></action>
                 <action method="addItem"><type>skin_js</type><name>js/ie6.js</name><params/><if>lt IE 7</if></action>
-                <action method="addItem"><type>skin_js</type><name>js/smooth-scrolling.js</name>
-            </action>
+                <action method="addItem"><type>skin_js</type><name>js/smooth-scrolling.js</name></action>
                 
             </block>
 
