@@ -49,7 +49,9 @@ class AW_Blog_Block_Manage_Blog_Grid extends Mage_Adminhtml_Block_Widget_Grid
 			->join(array('apc' => $collection->getTable('blog/post_cat')), 'main_table.post_id = apc.post_id')
 			->join(array('ac' => $collection->getTable('blog/cat')), 'apc.cat_id = ac.cat_id', array(
 					'category' => 'ac.title',
-				));		
+				));
+        $collection->addFilterToMap('title', 'main_table.title');
+        $collection->getSelect()->group('main_table.post_id');        		
         $store = $this->_getStore();
         if ($store->getId()) {
             $collection->addStoreFilter($store);
