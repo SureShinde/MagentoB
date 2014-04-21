@@ -122,7 +122,7 @@ class AW_Blog_Block_Blog extends AW_Blog_Block_Abstract
 
         return $data;
     }
-    
+
     public function getSliderPost()
     {
         $collection = Mage::getModel("blog/blog")->getCollection()
