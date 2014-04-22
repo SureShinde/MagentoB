@@ -2040,6 +2040,10 @@ button.button-area {
 #numb-seven li{
 	color:#0bc91d;
 }
+.container-menu-kredit{
+	display:table;
+	margin:0 auto;
+}
 @media (max-width: 1215px){
 
 	.wrap-menu-kredit {
@@ -2125,7 +2129,13 @@ button.button-area {
 		background-position: -435px 0;
 	}
 }
-@media (max-width: 479px){
+/* @media (max-width: 607px){
+	.wrap-menu-kredit {
+		margin: 0;
+		width: 100%;
+	}
+} */
+@media (max-width: 607px){
 	.title-bilna-kredit{
 		padding:20px 0;	
 		font-size:17px;
@@ -2133,5 +2143,9 @@ button.button-area {
 	.invite, .special-promotion{
 		margin-top:0;
 	}
+	.container-menu-kredit{
+		width: 285px;
+	}
 }
+
 /*-------------end of bilna kredit-----------------*/
