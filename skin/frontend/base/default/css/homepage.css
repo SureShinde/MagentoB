@@ -1,4 +1,5 @@
 .homepage {margin: 15px 0 0 0;}
+.cms-home .homepage {margin: 15px 23px;}
 .homepage-top {
 }
 .homepage-top-block {
@@ -14,7 +15,30 @@
 	position: relative;
 	z-index: 0;
 }
-
+.cms-home .slider-wrapper {
+	width: 759px;
+	height: 338px;
+	position: relative;
+	z-index: 0;
+}
+.banner-left-mainhomepage {
+    width: 194px; 
+    height: 338px; 
+    text-align: center; 
+    float: left; 
+    background: rgb(95, 158, 160); 
+    color: #fff;
+    margin: 0 10px 0 0;
+}
+.banner-right-mainhomepage {
+    width: 194px; 
+    height: 338px; 
+    text-align: center; 
+    float: left; 
+    background: rgb(95, 158, 160); 
+    color: #fff;
+    margin: 0 0 0 10px;
+}
 .slidesjs-slide > img {
     display: block;
     width: 100%;
@@ -49,14 +73,14 @@
 .homepage-product {
 	position: relative;
 }
-.homepage-product.onsale {
+.style-mom-baby .homepage-product.onsale {
 	background: url(../images/label-list-product.png) no-repeat center top, url(../images/dash-2.png) repeat-x left 21px;
 }
-.homepage-product.newarrival {
-	background: url(../images/label-new-arrival.png) no-repeat center top, url(../images/dash-2.png) repeat-x left 21px;
+.style-mom-baby .homepage-product.newarrival {
+	background: url(../images/label.homepage-product.newarrival.png) no-repeat center top, url(../images/dash-2.png) repeat-x left 21px;
 }
-.homepage-product.mostpopular {
-	background: url(../images/label-most-popular.png) no-repeat center top, url(../images/dash-2.png) repeat-x left 21px;
+.style-mom-baby .homepage-product.mostpopular {
+	background: url(../images/label.homepage-product.mostpopular.png) no-repeat center top, url(../images/dash-2.png) repeat-x left 21px;
 }
 .homepage-product h2 {
 	color: #fff;
@@ -77,6 +101,101 @@
 .homepage-product a.link-viewmore-product:hover {
 	color: #4EC7DA;
 }
+
+/* ----------------------------- CSS Aditional on HOMEPAGE NEW ----------------------------- */
+.cms-index-index .homepage-product.onsale h2, .cms-index-index .homepage-product.newarrival h2, .cms-index-index .homepage-product.mostpopular h2{
+	background: url("../images/shd_featured_title.png") repeat-x scroll center bottom rgba(0, 0, 0, 0);
+	color: #707070;
+	padding: 0;
+	position: relative;
+	font-size: 24px;
+	font-family:'bebasregular';
+	margin: 0 0 10px;
+	text-align: left;
+	}
+.cms-home .homepage-product.onsale h2, .cms-home .homepage-product.newarrival h2, .cms-home .homepage-product.mostpopular h2{
+	background: url("../images/shd_featured_title.png") repeat-x scroll center bottom rgba(0, .cms-home 0, .cms-home 0, .cms-home 0);
+	color: #707070;
+	padding: 0;
+	position: relative;
+	font-size: 24px;
+	font-family:'bebasregular';
+	margin: 0 0 10px;
+	text-align: left;
+	}
+.cms-home .homepage-product.onsale h2 span, .cms-home .homepage-product.newarrival h2 span, .cms-home .homepage-product.mostpopular h2 span{
+	background: url("../images/arrow-2.png") no-repeat scroll right center rgba(0, .cms-home 0, .cms-home 0, .cms-home 0);
+    float: right;
+    font-family: helvetica;
+    font-size: 12px;
+    font-weight: bold;
+    margin: 9px 5px 0 0;
+    padding: 0 24px 0 0;
+}
+.cms-home .homepage-product.onsale h2, .cms-home .homepage-product.newarrival h2, .cms-home .homepage-product.mostpopular h2{
+	background: url("../images/shd_featured_title.png") repeat-x scroll center bottom rgba(0, .cms-home 0, .cms-home 0, .cms-home 0);
+	color: #707070;
+	padding: 0;
+	position: relative;
+	font-size: 24px;
+	font-family:'bebasregular';
+	margin: 0 0 10px;
+	text-align: left;
+	}
+.cms-home .homepage-product.onsale h2 span, .cms-home .homepage-product.newarrival h2 span, .cms-home .homepage-product.mostpopular h2 span{
+	background: url("../images/arrow-2.png") no-repeat scroll right center rgba(0, .cms-home 0, .cms-home 0, .cms-home 0);
+    float: right;
+    font-family: helvetica;
+    font-size: 12px;
+    font-weight: bold;
+    margin: 9px 5px 0 0;
+    padding: 0 24px 0 0;
+}
+.cms-home .homepage-product.onsale h2:before, .cms-home .homepage-product.newarrival h2:before, .cms-home .homepage-product.mostpopular h2:before{
+	bottom: 0;
+	content: "";
+	height: 5px;
+	left: 0;
+	position: absolute;
+}
+.cms-home .homepage-product.onsale h2:before, .cms-home .homepage-product.newarrival h2:before, .cms-home .homepage-product.mostpopular h2:before{
+	bottom: 0;
+	content: "";
+	height: 5px;
+	left: 0;
+	position: absolute;
+}
+.cms-home .homepage-product.onsale h2:before{
+	width: 170px;
+	background: none repeat scroll 0 0 #F76A59;
+}
+.cms-home .homepage-product.onsale h2:before{
+	width: 210px;
+	background: none repeat scroll 0 0 #F76A59;
+}
+.cms-home .homepage-product.newarrival h2:before{
+	width: 130px;
+	background: none repeat scroll 0 0 #7dcd32;
+}
+.cms-home .homepage-product.newarrival h2:before{
+	width: 140px;
+	background: none repeat scroll 0 0 #7dcd32;
+}
+.cms-home .homepage-product.mostpopular h2:before{
+	width: 150px;
+	background: none repeat scroll 0 0 #42bcd1;
+}
+.cms-home .homepage-product.mostpopular h2:before{
+	width: 160px;
+	background: none repeat scroll 0 0 #42bcd1;
+}
+
+/* -----END additional homepage new------ */
+
+
+
+
+
 
 .homepage-bottom {
 	clear: both;
@@ -303,6 +422,12 @@
 		margin: 0 auto;
 		position: relative;
 	}
+    .cms-home .slider-wrapper {
+        width: 759px;
+        height: 338px;
+        position: relative;
+        z-index: 0;
+    }
 	.homepage-bottom ul.block-wrapper li {
 		margin-left: 6px;
 		margin-right: 6px;
