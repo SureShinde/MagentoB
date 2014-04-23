@@ -1918,7 +1918,7 @@ tr.summary-details-excluded { font-style:italic; }
 .menu-top-mobile {display: block;}
     .header .menu-top-mobile {text-align: left; clear: both; padding: 5px 1% 0; width: 98%;}
     .header .menu-top-mobile.home-top-mob { border-bottom: 4px solid #8F554D;}
-    .header .menu-top-mobile.baby-top-mob { border-bottom: 4px solid #95E1F1;}
+    .header .menu-top-mobile.baby-top-mob { /* border-bottom: 4px solid #95E1F1; */border-bottom: none;}
     .header .menu-top-mobile.deals-top-mob { border-bottom: 4px solid #FFB29D;}
         .header .menu-top-mobile ul li {
         display: inline-block;

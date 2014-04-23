@@ -2247,7 +2247,7 @@ searchbar #nav-search-in {
         width: auto;
     }
     .search-for-sticky {
-    display: none;
+        display: none !important;
     }
 
     .cart-for-sticky {
