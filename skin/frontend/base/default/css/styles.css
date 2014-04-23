@@ -1983,13 +1983,13 @@ tr.summary-details-excluded { font-style:italic; }
 
 /* ------------------------ HOME CSS APRIL 2014 ----------------------- */
 
-.style-home #slides-banner{
+.style-perlengkapan-rumah #slides-banner{
 	position:relative;
 }
-.style-home #backtotop a{
+.style-perlengkapan-rumah #backtotop a{
 	background:#8F554D;
 }
-.style-home .footer li a:hover {
+.style-perlengkapan-rumah .footer li a:hover {
     color: #8F554D;
 }
 
@@ -1999,24 +1999,24 @@ tr.summary-details-excluded { font-style:italic; }
 }*/
 /*======================Category page===================*/
 
-.style-home .toolbar .limiter ul li a{
+.style-perlengkapan-rumah .toolbar .limiter ul li a{
 	color:#905350;
 }
-.style-home .category-products{
+.style-perlengkapan-rumah .category-products{
 	border-top: 3px dashed #905350;
 }
-.style-home .featured-product-catalog{
+.style-perlengkapan-rumah .featured-product-catalog{
 	background:0;
 	display:none;
 }
-.style-home .featured-product-catalog h2{
+.style-perlengkapan-rumah .featured-product-catalog h2{
 	color:#707070;
 	background:url('../images/shd_featured_title.png') bottom repeat-x;
 	padding:0;
 	text-align:left;
 	position:relative;
 }
-.style-home .featured-product-catalog h2:before{
+.style-perlengkapan-rumah .featured-product-catalog h2:before{
 	width:200px;
 	background:#f76a59;
 	height:5px;
@@ -2025,93 +2025,93 @@ tr.summary-details-excluded { font-style:italic; }
 	position:absolute;
 	left:0;
 }
-.style-home .breadcrumbs{
+.style-perlengkapan-rumah .breadcrumbs{
 	margin:10px 0;
 	}
-.style-home div.block-layered-nav dd a.amshopby-attr{
+.style-perlengkapan-rumah div.block-layered-nav dd a.amshopby-attr{
 	background:url("../images/checkbox.png") no-repeat;
 }
-.style-home div.block-layered-nav dd a.amshopby-attr-selected{
+.style-perlengkapan-rumah div.block-layered-nav dd a.amshopby-attr-selected{
 	background:url("../images/checked.png") no-repeat;
 }
-.style-home .breadcrumbs a{
+.style-perlengkapan-rumah .breadcrumbs a{
 	color:#905350;
 }
-.style-home .products-grid .price-box .discount-product{
+.style-perlengkapan-rumah .products-grid .price-box .discount-product{
 	color:#905350;
 }
-.style-home .amshopby-slider-bar{
+.style-perlengkapan-rumah .amshopby-slider-bar{
 	background:url("../images/slide-bar-current.png") repeat-x scroll 50% 50% rgba(0, 0, 0, 0);
 }
-.style-home .header .links a, .menu-tablet .links a{
+.style-perlengkapan-rumah .header .links a, .menu-tablet .links a{
 	color: #8F554D;
 }
-.style-home .product-view .product-shop .product-shop-left .discount-product{
+.style-perlengkapan-rumah .product-view .product-shop .product-shop-left .discount-product{
 	color: #8F554D;
 }
-.style-home .header .search-mobile .form-search .input-keyword button.button {
+.style-perlengkapan-rumah .header .search-mobile .form-search .input-keyword button.button {
     background: url("../images/btn-search-mobile.png") no-repeat scroll center center rgba(0, 0, 0, 0);
 	}
-.style-home .toolbar-mobile .sort-by .sort-by-option select, .style-home .toolbar-mobile .filter .filter-option select{
+.style-perlengkapan-rumah .toolbar-mobile .sort-by .sort-by-option select, .style-perlengkapan-rumah .toolbar-mobile .filter .filter-option select{
 	color:#905350;
 }
-.style-home .filter-toggle a{
+.style-perlengkapan-rumah .filter-toggle a{
 	color:#905350;
 }
-.style-home .toolbar-mobile .sort-by .sort-by-option, .style-home .toolbar-mobile .filter .filter-option{
+.style-perlengkapan-rumah .toolbar-mobile .sort-by .sort-by-option, .style-perlengkapan-rumah .toolbar-mobile .filter .filter-option{
 	background:url("../images/arrow-maroon.png") no-repeat right;
 }
-.style-home .filter-toggle a{
+.style-perlengkapan-rumah .filter-toggle a{
 	background:url("../images/arrow-maroon.png") no-repeat 47px center #fff;
 }
-.style-home .product-tab-mobile-wrapper .toggle-tab, #customer-reviews h2{
+.style-perlengkapan-rumah .product-tab-mobile-wrapper .toggle-tab, #customer-reviews h2{
 	background:url("../images/btn_expand.png") no-repeat scroll 98% 15px;
 }
-.style-home .tiny .thumb, .style-home .tiny .thumb .end{
+.style-perlengkapan-rumah .tiny .thumb, .style-perlengkapan-rumah .tiny .thumb .end{
 	background:url("../images/track.png") no-repeat 50% top;
 	}
-.style-home .tiny .track{
+.style-perlengkapan-rumah .tiny .track{
 	background:url("../images/scroll-down.png") no-repeat center bottom #DFE0E0;
 	}
-.style-home .tiny .scrollbar {
+.style-perlengkapan-rumah .tiny .scrollbar {
     background: url("../images/scroll-up.png") no-repeat 0 0;
 }
-.style-home .block-layered-nav dt.category + dd li a {
+.style-perlengkapan-rumah .block-layered-nav dt.category + dd li a {
     background: url("../images/arrow-2.png") no-repeat scroll right center rgba(0, 0, 0, 0);
 	height:16px;
 	}
 
-.style-home .tiny .overview{
+.style-perlengkapan-rumah .tiny .overview{
 	position:relative;
 }
 /*======================Category page===================*/
 
 
 /*======================product page===================*/
-.style-home .catalog-product-view .breadcrumbs a{
+.style-perlengkapan-rumah .catalog-product-view .breadcrumbs a{
 	color:#905350;
 }
-.style-home .product-view .product-img-box .more-views .bx-wrapper .bx-prev{
+.style-perlengkapan-rumah .product-view .product-img-box .more-views .bx-wrapper .bx-prev{
 	background: url("../images/arrow-nav-thumb-image.png") no-repeat ;
 }
-.style-home .product-view .product-img-box .more-views .bx-wrapper .bx-next{
+.style-perlengkapan-rumah .product-view .product-img-box .more-views .bx-wrapper .bx-next{
 	background: url("../images/arrow-nav-thumb-image.png") -30px 0 no-repeat ;
 	bottom: -15%;}
-.style-home .product-view .product-img-box .more-views .bx-wrapper .bx-controls-direction a{
+.style-perlengkapan-rumah .product-view .product-img-box .more-views .bx-wrapper .bx-controls-direction a{
 	margin-top: -23px;
 	width: 31px;
 	height: 31px;
 }
-.style-home .onsale-product-container-inside{
+.style-perlengkapan-rumah .onsale-product-container-inside{
 	height: 109px !important;
     left: -31px !important;
     top: -47px;
     width: 110px !important;
 	}
-.style-home .product-view .product-shop .product-shop-right .add-to-cart{
+.style-perlengkapan-rumah .product-view .product-shop .product-shop-right .add-to-cart{
 	background:none;
 }
-.style-home .product-view .product-shop .product-shop-right .add-to-cart button.button{
+.style-perlengkapan-rumah .product-view .product-shop .product-shop-right .add-to-cart button.button{
 	background:#ffa01b;
 	margin: 3px 0 0;
     width: 158px;
@@ -2120,10 +2120,10 @@ tr.summary-details-excluded { font-style:italic; }
     -webkit-box-shadow: 2px 2px 3px #D0CFCF;
     box-shadow: 2px 2px 3px #D0CFCF;
 }
-.style-home .product-tab-wrapper .tab.active{
+.style-perlengkapan-rumah .product-tab-wrapper .tab.active{
 	background:#905350;
 	}
-.style-home .product-tab-wrapper .tab.active:after{
+.style-perlengkapan-rumah .product-tab-wrapper .tab.active:after{
 	border-color: #905350 rgba(0, 0, 0, 0) rgba(0, 0, 0, 0);
     border-style: solid;
     border-width: 10px 14px;
@@ -2133,14 +2133,14 @@ tr.summary-details-excluded { font-style:italic; }
     right: 50%;
 	z-index:99;
 }
-.style-home .product-tab-wrapper .tab a.active{
+.style-perlengkapan-rumah .product-tab-wrapper .tab a.active{
 	color:#fff;
 }
-.style-home .product-tab-wrapper .tab-container .panel-container{
+.style-perlengkapan-rumah .product-tab-wrapper .tab-container .panel-container{
     overflow: hidden;
     padding: 10px 10px 32px;
 }
-.style-home .product-tab-wrapper .hide_desc_button .bx-show, .style-home .product-tab-wrapper .hide_desc_button .bx-hide{
+.style-perlengkapan-rumah .product-tab-wrapper .hide_desc_button .bx-show, .style-perlengkapan-rumah .product-tab-wrapper .hide_desc_button .bx-hide{
 	border: medium none;
     height: 32px;
 	cursor:pointer;
@@ -2149,20 +2149,20 @@ tr.summary-details-excluded { font-style:italic; }
     position: absolute;
     width: 30px;
 }
-.style-home .product-tab-wrapper .hide_desc_button .bx-show {
+.style-perlengkapan-rumah .product-tab-wrapper .hide_desc_button .bx-show {
 	background: url("../images/arrow-nav-thumb-image.png") no-repeat scroll -30px 0 rgba(0, 0, 0, 0);
 	}
-.style-home .product-tab-wrapper .hide_desc_button .bx-hide {
+.style-perlengkapan-rumah .product-tab-wrapper .hide_desc_button .bx-hide {
 	background: url("../images/arrow-nav-thumb-image.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 	}
-.style-home .related-product .block-title{
+.style-perlengkapan-rumah .related-product .block-title{
 	background:none;
 }
-.style-home .related-product .block-related .block-title strong, .style-home .aw-mini-related-items .head strong{
+.style-perlengkapan-rumah .related-product .block-related .block-title strong, .style-perlengkapan-rumah .aw-mini-related-items .head strong{
 	text-align:left;
 	background:url("../images/shd_featured_title.png") repeat-x 0 bottom;
 }
-.style-home .related-product .block-title strong span, .style-home .aw-mini-related-items .head strong{
+.style-perlengkapan-rumah .related-product .block-title strong span, .style-perlengkapan-rumah .aw-mini-related-items .head strong{
 	color:#707070;
 	border-bottom:5px solid #FFE449;
 	line-height: 1.5em;
@@ -2182,16 +2182,16 @@ tr.summary-details-excluded { font-style:italic; }
 		max-width:none;
 		width:35%;
 	}
-	.style-home .nav-container-mobile ul li.cat-leveltop.parent {
+	.style-perlengkapan-rumah .nav-container-mobile ul li.cat-leveltop.parent {
     background: url("../images/arrow-menu-mobile.png") no-repeat scroll 98% 17px rgba(0, 0, 0, 0);
 	}
-    .style-home .awafpgrid {display: none;}
+    .style-perlengkapan-rumah .awafpgrid {display: none;}
 }
 
 
 /* ------------- ADD from homepage.css ----------------- */
 
-.style-home .cms-index-defaultindex .products-on-sale h2, .style-home .cms-index-defaultindex .new-arrival h2, .style-home .cms-index-defaultindex .most-popular h2{
+.style-perlengkapan-rumah .cms-index-defaultindex .products-on-sale h2, .style-perlengkapan-rumah .cms-index-defaultindex .new-arrival h2, .style-perlengkapan-rumah .cms-index-defaultindex .most-popular h2{
 	background: url("../images/shd_featured_title.png") repeat-x scroll center bottom rgba(0, 0, 0, 0);
 	color: #707070;
 	padding: 0;
@@ -2201,7 +2201,7 @@ tr.summary-details-excluded { font-style:italic; }
 	margin: 0 0 10px;
 	text-align: left;
 	}
-.style-home .cms-index-defaultindex .products-on-sale h2 span, .style-home .cms-index-defaultindex .new-arrival h2 span, .style-home .cms-index-defaultindex .most-popular h2 span{
+.style-perlengkapan-rumah .cms-index-defaultindex .products-on-sale h2 span, .style-perlengkapan-rumah .cms-index-defaultindex .new-arrival h2 span, .style-perlengkapan-rumah .cms-index-defaultindex .most-popular h2 span{
 	background: url("../images/arrow-2.png") no-repeat scroll right center rgba(0, 0, 0, 0);
     float: right;
     font-family: helvetica;
@@ -2210,7 +2210,7 @@ tr.summary-details-excluded { font-style:italic; }
     margin: 9px 5px 0 0;
     padding: 0 24px 0 0;
 }
-.style-home .cms-index-index .products-on-sale h2, .style-home .cms-index-index .new-arrival h2, .style-home .cms-index-index .most-popular h2{
+.style-perlengkapan-rumah .cms-index-index .products-on-sale h2, .style-perlengkapan-rumah .cms-index-index .new-arrival h2, .style-perlengkapan-rumah .cms-index-index .most-popular h2{
 	background: url("../images/shd_featured_title.png") repeat-x scroll center bottom rgba(0, 0, 0, 0);
 	color: #707070;
 	padding: 0;
@@ -2220,7 +2220,7 @@ tr.summary-details-excluded { font-style:italic; }
 	margin: 0 0 10px;
 	text-align: left;
 	}
-.style-home .cms-index-index .products-on-sale h2 span, .style-home .cms-index-index .new-arrival h2 span, .style-home .cms-index-index .most-popular h2 span{
+.style-perlengkapan-rumah .cms-index-index .products-on-sale h2 span, .style-perlengkapan-rumah .cms-index-index .new-arrival h2 span, .style-perlengkapan-rumah .cms-index-index .most-popular h2 span{
 	background: url("../images/arrow-2.png") no-repeat scroll right center rgba(0, 0, 0, 0);
     float: right;
     font-family: helvetica;
@@ -2229,54 +2229,54 @@ tr.summary-details-excluded { font-style:italic; }
     margin: 9px 5px 0 0;
     padding: 0 24px 0 0;
 }
-.style-home .cms-index-defaultindex .products-on-sale h2:before, .style-home .cms-index-defaultindex .new-arrival h2:before, .style-home .cms-index-defaultindex .most-popular h2:before{
+.style-perlengkapan-rumah .cms-index-defaultindex .products-on-sale h2:before, .style-perlengkapan-rumah .cms-index-defaultindex .new-arrival h2:before, .style-perlengkapan-rumah .cms-index-defaultindex .most-popular h2:before{
 	bottom: 0;
 	content: "";
 	height: 5px;
 	left: 0;
 	position: absolute;
 }
-.style-home .cms-index-index .products-on-sale h2:before, .style-home .cms-index-index .new-arrival h2:before, .style-home .cms-index-index .most-popular h2:before{
+.style-perlengkapan-rumah .cms-index-index .products-on-sale h2:before, .style-perlengkapan-rumah .cms-index-index .new-arrival h2:before, .style-perlengkapan-rumah .cms-index-index .most-popular h2:before{
 	bottom: 0;
 	content: "";
 	height: 5px;
 	left: 0;
 	position: absolute;
 }
-.style-home .cms-index-defaultindex .products-on-sale h2:before{
+.style-perlengkapan-rumah .cms-index-defaultindex .products-on-sale h2:before{
 	width: 170px;
 	background: none repeat scroll 0 0 #F76A59;
 }
-.style-home .cms-index-index .products-on-sale h2:before{
+.style-perlengkapan-rumah .cms-index-index .products-on-sale h2:before{
 	width: 170px;
 	background: none repeat scroll 0 0 #F76A59;
 }
-.style-home .cms-index-defaultindex .new-arrival h2:before{
+.style-perlengkapan-rumah .cms-index-defaultindex .new-arrival h2:before{
 	width: 130px;
 	background: none repeat scroll 0 0 #7dcd32;
 }
-.style-home .cms-index-index .new-arrival h2:before{
+.style-perlengkapan-rumah .cms-index-index .new-arrival h2:before{
 	width: 130px;
 	background: none repeat scroll 0 0 #7dcd32;
 }
-.style-home .cms-index-defaultindex .most-popular h2:before{
+.style-perlengkapan-rumah .cms-index-defaultindex .most-popular h2:before{
 	width: 150px;
 	background: none repeat scroll 0 0 #42bcd1;
 }
-.style-home .cms-index-index .most-popular h2:before{
+.style-perlengkapan-rumah .cms-index-index .most-popular h2:before{
 	width: 150px;
 	background: none repeat scroll 0 0 #42bcd1;
 }
 
-.style-home .homepage-bottom {
+.style-perlengkapan-rumah .homepage-bottom {
 	clear: both;
 }
-.style-home .homepage-bottom ul.block-wrapper {
+.style-perlengkapan-rumah .homepage-bottom ul.block-wrapper {
 	list-style: none;
 	padding: 0;
 	margin: 0;
 }
-.style-home .homepage-bottom ul.block-wrapper li {
+.style-perlengkapan-rumah .homepage-bottom ul.block-wrapper li {
 	display: inline-block;
 	margin: 0 14px 34px;
 	padding:10px 15px;
@@ -2284,8 +2284,8 @@ tr.summary-details-excluded { font-style:italic; }
 	background: #dad8d5;
 	vertical-align: top;
 }
-.style-home .homepage-bottom ul.block-wrapper li:last-child {}
-.style-home .block-bottom {
+.style-perlengkapan-rumah .homepage-bottom ul.block-wrapper li:last-child {}
+.style-perlengkapan-rumah .block-bottom {
 	text-align: center;
 	text-transform: uppercase;
 	color: #fff;
@@ -2294,17 +2294,17 @@ tr.summary-details-excluded { font-style:italic; }
 	padding: 12px 0;
 	height: 100px;
 }
-.style-home .block-bottom span {
+.style-perlengkapan-rumah .block-bottom span {
 	display: block;
 	font-size: 23px;
 	font-family: 'Fredoka One', cursive;
 }
-.style-home .block-bottom p {
+.style-perlengkapan-rumah .block-bottom p {
 	font-family: 'bebasregular';
 	font-size: 14px;
 	margin: 0;
 }
-.style-home .block-bottom p a {
+.style-perlengkapan-rumah .block-bottom p a {
 	display: inline-block;
 	text-decoration: underline;
 	text-align: left;
@@ -2315,81 +2315,81 @@ tr.summary-details-excluded { font-style:italic; }
 	padding: 0 5px 0 0;
 	line-height:19px;
 }
-.style-home .block-bottom p a:hover {
+.style-perlengkapan-rumah .block-bottom p a:hover {
 	text-decoration: none;color: #FFA01B;
 }
-.style-home .block-bottom p a.link-how-to-buy {
+.style-perlengkapan-rumah .block-bottom p a.link-how-to-buy {
 	width: 58px;
 	background-position: 40px 28px;
 }
-.style-home .block-bottom p a.link-shipping-table {
+.style-perlengkapan-rumah .block-bottom p a.link-shipping-table {
 	width: 101px;
 	background-position: 50px 28px;
 }
-.style-home .block-bottom p a.link-other-help {
+.style-perlengkapan-rumah .block-bottom p a.link-other-help {
 	width: 66px;
 	background-position: 50px 28px;
 	padding-left: 0;
 }
-.style-home .block-bottom p a.link-bilna-credit {
+.style-perlengkapan-rumah .block-bottom p a.link-bilna-credit {
 	width: 80px;
 	background-position: 61px 28px;
 }
-.style-home .block-bottom p a.link-reseller-program {
+.style-perlengkapan-rumah .block-bottom p a.link-reseller-program {
 	width: 90px;
 	background-position: 71px 28px;
 }
-.style-home .block-bottom p a.link-gift-voucher {
+.style-perlengkapan-rumah .block-bottom p a.link-gift-voucher {
 	width: 80px;
 	background-position: 67px 28px;
 }
-.style-home .block-bottom p a img {
+.style-perlengkapan-rumah .block-bottom p a img {
 	margin-left: 5px;
 	margin-top: 3px;
 }
-.style-home .block-bottom table tr td {
+.style-perlengkapan-rumah .block-bottom table tr td {
 	padding: 0 15px;
 }
-.style-home .block-bottom table tr td a {
+.style-perlengkapan-rumah .block-bottom table tr td a {
 	font-family: 'bebasregular';
 	font-size: 14px;
 	font-weight: normal;
 	color: #fff;
 	text-decoration: underline;
 }
-.style-home .block-bottom table tr td a:hover {color: #FFA01B;}
-.style-home .block-bottom table tr td a img {
+.style-perlengkapan-rumah .block-bottom table tr td a:hover {color: #FFA01B;}
+.style-perlengkapan-rumah .block-bottom table tr td a img {
 	margin-left: 5px;
 	margin-top: 3px;
 }
-.style-home .homepage-bottom .testimonial-wrapper {
+.style-perlengkapan-rumah .homepage-bottom .testimonial-wrapper {
 	float: left;
 	width: 45%;
 	position: relative;
 }
-.style-home .testimonial-wrapper h4, .style-home .media-partners span.title {
+.style-perlengkapan-rumah .testimonial-wrapper h4, .style-perlengkapan-rumah .media-partners span.title {
 	font-size: 18px;
 	font-weight: normal;
 	font-family: 'bebasregular';
 }
-.style-home .testimonial-wrapper h4 {
+.style-perlengkapan-rumah .testimonial-wrapper h4 {
 	background: url(../images/label.png) no-repeat left top;
 	color: #fff;
 	width: 279px;
 	height: 58px;
 	margin: 0 0 10px 0;
 }
-.style-home .testimonial-wrapper h4 span {
+.style-perlengkapan-rumah .testimonial-wrapper h4 span {
 	display: inline-block;
 	margin: 18px 0 0 55px;
 }
-.style-home .testimonial {
+.style-perlengkapan-rumah .testimonial {
 	margin: 0 40px;
 }
-.style-home #slides {
+.style-perlengkapan-rumah #slides {
 	  position:relative;
 }
-.style-home #slides .slidesjs-navigation {
+.style-perlengkapan-rumah #slides .slidesjs-navigation {
   position:absolute;
   top:40px;
   z-index:10;
@@ -2401,31 +2401,31 @@ tr.summary-details-excluded { font-style:italic; }
   text-indent: -9999px;
   cursor: pointer;
 }
-.style-home #slides .slidesjs-previous {
+.style-perlengkapan-rumah #slides .slidesjs-previous {
   left:0;
   background-image: url(../images/arrow-prev.png);
 }
 #slides .slidesjs-next {
   background-image: url(../images/arrow-next.png);
 }
-.style-home #slides .slidesjs-next {
+.style-perlengkapan-rumah #slides .slidesjs-next {
 	right: 0;
 }
-.style-home #slides-popup .slidesjs-next {
+.style-perlengkapan-rumah #slides-popup .slidesjs-next {
 	left: 30px;
 }
-.style-home #slides-popup .slidesjs-navigation {
+.style-perlengkapan-rumah #slides-popup .slidesjs-navigation {
 	bottom: 12px;
 	top:auto;
 	background-color: #ddd;
 }
-.style-home #slides-banner-home{
+.style-perlengkapan-rumah #slides-banner-home{
 	position:relative;
 }
-.style-home #slides-banner-home .slidesjs-navigation {
+.style-perlengkapan-rumah #slides-banner-home .slidesjs-navigation {
 	display: none;
 }
-.style-home #slides-banner-home .slidesjs-pagination {
+.style-perlengkapan-rumah #slides-banner-home .slidesjs-pagination {
 	position: absolute;
 	right: 10px;
 	bottom: 0;
@@ -2433,164 +2433,164 @@ tr.summary-details-excluded { font-style:italic; }
 	z-index: 99;
 	padding: 0;
 }
-.style-home #slides-banner-home .slidesjs-pagination li {
+.style-perlengkapan-rumah #slides-banner-home .slidesjs-pagination li {
 	display: inline-block;
 	margin: 0 0 0 5px;
 }
-.style-home #slides-banner-home .slidesjs-pagination li:first-child {
+.style-perlengkapan-rumah #slides-banner-home .slidesjs-pagination li:first-child {
 	margin-left: 0;
 }
 
-.style-home #slides-banner-home .slidesjs-pagination li.slidesjs-pagination-item a {
+.style-perlengkapan-rumah #slides-banner-home .slidesjs-pagination li.slidesjs-pagination-item a {
 	display: block;
 	width: 19px;
 	height: 19px;
 	text-indent: -999999px;
 	background: url(../images/node.png) no-repeat center center;
 }
-.style-home #slides-banner-home .slidesjs-pagination li.slidesjs-pagination-item a.active {
+.style-perlengkapan-rumah #slides-banner-home .slidesjs-pagination li.slidesjs-pagination-item a.active {
 	background: url(../images/node-active.png) no-repeat center center;
 }
-.style-home .homepage-bottom .media-partners {
+.style-perlengkapan-rumah .homepage-bottom .media-partners {
 	float: right;
 }
-.style-home .media-partners span.title {
+.style-perlengkapan-rumah .media-partners span.title {
 	display: block;
 }
-.style-home .media-partners ul.media-partners-wrapper {
+.style-perlengkapan-rumah .media-partners ul.media-partners-wrapper {
 	list-style: none;
 	margin: 30px 0 0 0;
 	padding: 0;
 }
-.style-home .media-partners ul.media-partners-wrapper li {
+.style-perlengkapan-rumah .media-partners ul.media-partners-wrapper li {
 	display: inline-block;
 	vertical-align: middle;
 	margin: 0 0 0 20px;
 }
-.style-home .media-partners ul.media-partners-wrapper li:first-child {
+.style-perlengkapan-rumah .media-partners ul.media-partners-wrapper li:first-child {
 	margin: 0;
 }
 
-.style-home .cms-index-defaultindex .wrap_banner, .style-home .wrap_banner{
+.style-perlengkapan-rumah .cms-index-defaultindex .wrap_banner, .style-perlengkapan-rumah .wrap_banner{
 	margin: 20px auto;
 	display: table;
 }
-.style-home .cms-index-index .wrap_banner, .style-home .wrap_banner{
+.style-perlengkapan-rumah .cms-index-index .wrap_banner, .style-perlengkapan-rumah .wrap_banner{
 	margin: 20px 0;
 	display: table;
 }
-.style-home .cms-index-defaultindex .wrap_banner .col-1, .style-home .cms-index-defaultindex .wrap_banner .col-2, .style-home .cms-index-defaultindex .wrap_banner .col-3,
-.style-home .wrap_banner .col-1, .style-home .wrap_banner .col-2, .style-home .wrap_banner .col-3{
+.style-perlengkapan-rumah .cms-index-defaultindex .wrap_banner .col-1, .style-perlengkapan-rumah .cms-index-defaultindex .wrap_banner .col-2, .style-perlengkapan-rumah .cms-index-defaultindex .wrap_banner .col-3,
+.style-perlengkapan-rumah .wrap_banner .col-1, .style-perlengkapan-rumah .wrap_banner .col-2, .style-perlengkapan-rumah .wrap_banner .col-3{
 	display:block;
 	min-height:50px;
 	float:left;
 }
-.style-home .cms-index-index .wrap_banner .col-1, .style-home .cms-index-index .wrap_banner .col-2, .style-home .cms-index-index .wrap_banner .col-3,
-.style-home.wrap_banner .col-1, .style-home .wrap_banner .col-2, .style-home .wrap_banner .col-3{
+.style-perlengkapan-rumah .cms-index-index .wrap_banner .col-1, .style-perlengkapan-rumah .cms-index-index .wrap_banner .col-2, .style-perlengkapan-rumah .cms-index-index .wrap_banner .col-3,
+.style-perlengkapan-rumah.wrap_banner .col-1, .style-perlengkapan-rumah .wrap_banner .col-2, .style-perlengkapan-rumah .wrap_banner .col-3{
 	display:block;
 	min-height:50px;
 	float:left;
 }
-.style-home .cms-index-defaultindex .wrap_banner .col-1,
-.style-home .wrap_banner .col-1{
+.style-perlengkapan-rumah .cms-index-defaultindex .wrap_banner .col-1,
+.style-perlengkapan-rumah .wrap_banner .col-1{
 	width:490px;
 }
-.style-home .cms-index-index .wrap_banner .col-1,
-.style-home .wrap_banner .col-1{
+.style-perlengkapan-rumah .cms-index-index .wrap_banner .col-1,
+.style-perlengkapan-rumah .wrap_banner .col-1{
 	width:527px;
 }
-.style-home .cms-index-defaultindex .wrap_banner .col-2,
-.style-home .wrap_banner .col-2{
+.style-perlengkapan-rumah .cms-index-defaultindex .wrap_banner .col-2,
+.style-perlengkapan-rumah .wrap_banner .col-2{
 	margin: 0 8px;
 	width:200px;
 }
-.style-home .cms-index-index .wrap_banner .col-2,
-.style-home .wrap_banner .col-2{
+.style-perlengkapan-rumah .cms-index-index .wrap_banner .col-2,
+.style-perlengkapan-rumah .wrap_banner .col-2{
 	margin: 0 8px;
 	width:216px;
 }
-.style-home .cms-index-defaultindex .wrap_banner .col-2 img:first-child,
-.style-home .wrap_banner .col-2 img:first-child{
+.style-perlengkapan-rumah .cms-index-defaultindex .wrap_banner .col-2 img:first-child,
+.style-perlengkapan-rumah .wrap_banner .col-2 img:first-child{
 	margin: 0 0 8px;
 }
-.style-home .cms-index-index .wrap_banner .col-2 img:first-child,
-.style-home .wrap_banner .col-2 img:first-child{
+.style-perlengkapan-rumah .cms-index-index .wrap_banner .col-2 img:first-child,
+.style-perlengkapan-rumah .wrap_banner .col-2 img:first-child{
 	margin: 0 0 8px;
 }
-.style-home .cms-index-defaultindex .wrap_banner .col-3,
-.style-home .wrap_banner .col-3{
+.style-perlengkapan-rumah .cms-index-defaultindex .wrap_banner .col-3,
+.style-perlengkapan-rumah .wrap_banner .col-3{
 	width:245px;
 }
-.style-home .cms-index-index .wrap_banner .col-3,
-.style-home .wrap_banner .col-3{
+.style-perlengkapan-rumah .cms-index-index .wrap_banner .col-3,
+.style-perlengkapan-rumah .wrap_banner .col-3{
 	width:245px;
 }
-.style-home .homepage-bottom ul.block-wrapper li {
+.style-perlengkapan-rumah .homepage-bottom ul.block-wrapper li {
 	width: 28.79%;
 	margin: 0 8px 34px;
 }
-.style-home .homepage-bottom ul.block-wrapper li:nth-child(2){
+.style-perlengkapan-rumah .homepage-bottom ul.block-wrapper li:nth-child(2){
 	margin:0 17px 15px;
 }
-.style-home .block-bottom span {
+.style-perlengkapan-rumah .block-bottom span {
 	display: block;
 	font-size: 23px;
 	font-family: 'Fredoka One', cursive;
 }
-.style-home .block-bottom p {
+.style-perlengkapan-rumah .block-bottom p {
 	font-size: 14px;
 }
-.style-home .block-bottom p a {
+.style-perlengkapan-rumah .block-bottom p a {
 	background-position: right center;
 }
-.style-home .block-bottom p a.link-how-to-buy {
+.style-perlengkapan-rumah .block-bottom p a.link-how-to-buy {
 	width: 51px;
 	background-position: 34px 20px;
 }
-.style-home .block-bottom p a.link-shipping-table {
+.style-perlengkapan-rumah .block-bottom p a.link-shipping-table {
 	width: 84px;
 	background-position: 40px 20px;
 }
-.style-home .block-bottom p a.link-other-help {
+.style-perlengkapan-rumah .block-bottom p a.link-other-help {
 	width: 30px;
 	background-position: 38px 20px
 }
-.style-home .block-bottom p a.link-bilna-credit {
+.style-perlengkapan-rumah .block-bottom p a.link-bilna-credit {
 	width: 62px;
 	background-position: 51px 20px;
 }
-.style-home .block-bottom p a.link-reseller-program {
+.style-perlengkapan-rumah .block-bottom p a.link-reseller-program {
 	width: 68px;
 	background-position: 60px 20px;
 }
-.style-home .block-bottom p a.link-gift-voucher {
+.style-perlengkapan-rumah .block-bottom p a.link-gift-voucher {
 	width: 60px;
 	background-position: 55px 20px
 }
-.style-home .block-bottom table tr td {
+.style-perlengkapan-rumah .block-bottom table tr td {
 	padding: 0 15px;
 }
-.style-home .homepage-bottom .media-partners {
+.style-perlengkapan-rumah .homepage-bottom .media-partners {
 	margin: 0;
 	
 }
-.style-home .shopby{
+.style-perlengkapan-rumah .shopby{
 	float: left;
     margin: 0 20px 0 0;
     width: 175px; 
 	}
-.style-home #nav li.shop-by:hover .shopby {
+.style-perlengkapan-rumah #nav li.shop-by:hover .shopby {
     display: none;
 }
-.style-home .shopby ul.shop-by li a.link-seemore, .style-home .homepage-product a.link-viewmore-product, .style-home #nav .shopby ul.shop-by li a.link-seemore, .style-home #nav ul li a.browse-all{
+.style-perlengkapan-rumah .shopby ul.shop-by li a.link-seemore, .style-perlengkapan-rumah .homepage-product a.link-viewmore-product, .style-perlengkapan-rumah #nav .shopby ul.shop-by li a.link-seemore, .style-perlengkapan-rumah #nav ul li a.browse-all{
 	background:url("../images/arrow-2.png") no-repeat right;
 	height: 20px;
     line-height: 20px;
 }
-.style-home .nav-container-mobile{
+.style-perlengkapan-rumah .nav-container-mobile{
 	clear:both;
 }
-.style-home .testimonial-wrapper .view_all{
+.style-perlengkapan-rumah .testimonial-wrapper .view_all{
 	display: table;
 	font-size: 13px;
 	font-weight: bold;
@@ -2598,95 +2598,95 @@ tr.summary-details-excluded { font-style:italic; }
 	right: 0;
 	top: 39px;
 }
-.style-home .testimonial-wrapper .view_all a{
+.style-perlengkapan-rumah .testimonial-wrapper .view_all a{
 	text-decoration: underline;
 	color: #A6A6A6;
 }
 
 
-.style-home .nav-container-mobile ul li.cat-leveltop {
+.style-perlengkapan-rumah .nav-container-mobile ul li.cat-leveltop {
     background: url("../images/arrow-menu-mobile.png") no-repeat scroll 98% 17px rgba(0, 0, 0, 0);
 }
 @media only screen and ( max-width: 1215px) {
-	.style-home .shopby{ 	
+	.style-perlengkapan-rumah .shopby{ 	
 		display:none;
 	}
-	.style-home #nav li.shop-by:hover .shopby {
+	.style-perlengkapan-rumah #nav li.shop-by:hover .shopby {
 		display: block;
 	}
 	
 }
 @media only screen and (min-width: 1023px) and (max-width: 1215px) {
-	.style-home .shopby{ 	
+	.style-perlengkapan-rumah .shopby{ 	
 		display:none;
 	}
-	.style-home #nav li.shop-by:hover .shopby {
+	.style-perlengkapan-rumah #nav li.shop-by:hover .shopby {
 		display: block;
 	}
-	.style-home #slides-banner-home{
+	.style-perlengkapan-rumah #slides-banner-home{
 		height:371px;
 		width:510px;
 	}
-	.style-home .cms-index-index .wrap_banner .col-1,
-    .style-home .wrap_banner .col-1{
+	.style-perlengkapan-rumah .cms-index-index .wrap_banner .col-1,
+    .style-perlengkapan-rumah .wrap_banner .col-1{
 		width:510px;
 	}
-	.style-home .cms-index-index .wrap_banner .col-2,
-    .style-home .wrap_banner .col-2{
+	.style-perlengkapan-rumah .cms-index-index .wrap_banner .col-2,
+    .style-perlengkapan-rumah .wrap_banner .col-2{
 		width:210px;
 	}
-	.style-home .cms-index-index .wrap_banner .col-3,
-    .style-home .wrap_banner .col-3{
+	.style-perlengkapan-rumah .cms-index-index .wrap_banner .col-3,
+    .style-perlengkapan-rumah .wrap_banner .col-3{
 		width:257px;
 	}
-	.style-home .cms-index-index .wrap_banner .col-2 img,
-    .style-home .wrap_banner .col-2 img{
+	.style-perlengkapan-rumah .cms-index-index .wrap_banner .col-2 img,
+    .style-perlengkapan-rumah .wrap_banner .col-2 img{
 		width:100%;
 	}
-	.style-home .cms-index-index .wrap_banner .col-3 img,
-    .style-home .wrap_banner .col-3 img{
+	.style-perlengkapan-rumah .cms-index-index .wrap_banner .col-3 img,
+    .style-perlengkapan-rumah .wrap_banner .col-3 img{
 		width:100%;
 	}
 }
 /* --------------- 960 px layout -------------------- */
 @media only screen and (max-width: 1023px) {
-	.style-home .homepage-bottom .testimonial-wrapper{
+	.style-perlengkapan-rumah .homepage-bottom .testimonial-wrapper{
 		width:100%;
 	}
-	.style-home .homepage-bottom .media-partners #nav li.shop-by:hover .shopby {
+	.style-perlengkapan-rumah .homepage-bottom .media-partners #nav li.shop-by:hover .shopby {
 		display: block;
 	}
-	.style-home .cms-index-defaultindex .main{
+	.style-perlengkapan-rumah .cms-index-defaultindex .main{
 		width:954px;
 	}
-	.style-home .homepage-bottom .media-partners{
+	.style-perlengkapan-rumah .homepage-bottom .media-partners{
 		width:100%;
 		text-align:center;
 	}
-	.style-home .cms-index-index .main{
+	.style-perlengkapan-rumah .cms-index-index .main{
 	width:954px;
 	}
-	.style-home .cms-index-defaultindex .col1-layout .main .col-main, .style-home .cms-index-index .col1-layout .main .col-main{
+	.style-perlengkapan-rumah .cms-index-defaultindex .col1-layout .main .col-main, .style-perlengkapan-rumah .cms-index-index .col1-layout .main .col-main{
 		width:744px;
 	}
-	.style-home .cms-index-defaultindex .wrap_banner .col-1, .style-home .cms-index-index .wrap_banner .col-1,
-    .style-home .wrap_banner .col-1, .style-home .wrap_banner .col-1{
+	.style-perlengkapan-rumah .cms-index-defaultindex .wrap_banner .col-1, .style-perlengkapan-rumah .cms-index-index .wrap_banner .col-1,
+    .style-perlengkapan-rumah .wrap_banner .col-1, .style-perlengkapan-rumah .wrap_banner .col-1{
 		width:380px;
 	}
-	.style-home .cms-index-defaultindex .wrap_banner .col-1 img, .style-home .cms-index-index .wrap_banner .col-1 img, .style-home .cms-index-defaultindex .wrap_banner .col-2 img, .style-home .cms-index-index .wrap_banner .col-2 img, .style-home .cms-index-defaultindex .wrap_banner .col-3 img, .style-home .cms-index-index .wrap_banner .col-3 img,
-    .style-home .wrap_banner .col-1 img, .style-home  .wrap_banner .col-1 img, .style-home .wrap_banner .col-2 img, .style-home .wrap_banner .col-2 img, .style-home .wrap_banner .col-3 img, .style-home .wrap_banner .col-3 img {
+	.style-perlengkapan-rumah .cms-index-defaultindex .wrap_banner .col-1 img, .style-perlengkapan-rumah .cms-index-index .wrap_banner .col-1 img, .style-perlengkapan-rumah .cms-index-defaultindex .wrap_banner .col-2 img, .style-perlengkapan-rumah .cms-index-index .wrap_banner .col-2 img, .style-perlengkapan-rumah .cms-index-defaultindex .wrap_banner .col-3 img, .style-perlengkapan-rumah .cms-index-index .wrap_banner .col-3 img,
+    .style-perlengkapan-rumah .wrap_banner .col-1 img, .style-perlengkapan-rumah  .wrap_banner .col-1 img, .style-perlengkapan-rumah .wrap_banner .col-2 img, .style-perlengkapan-rumah .wrap_banner .col-2 img, .style-perlengkapan-rumah .wrap_banner .col-3 img, .style-perlengkapan-rumah .wrap_banner .col-3 img {
 		width:100%;
 	}
-	.style-home .cms-index-defaultindex .wrap_banner .col-2, .style-home .cms-index-index .wrap_banner .col-2,
-    .style-home .wrap_banner .col-2, .style-home .wrap_banner .col-2{
+	.style-perlengkapan-rumah .cms-index-defaultindex .wrap_banner .col-2, .style-perlengkapan-rumah .cms-index-index .wrap_banner .col-2,
+    .style-perlengkapan-rumah .wrap_banner .col-2, .style-perlengkapan-rumah .wrap_banner .col-2{
 		margin: 0 8px;
 		width: 154px;
 	}
-	.style-home .cms-index-defaultindex .wrap_banner .col-3, .style-home .cms-index-index .wrap_banner .col-3,
-    .style-home .wrap_banner .col-3, .style-home .wrap_banner .col-3{
+	.style-perlengkapan-rumah .cms-index-defaultindex .wrap_banner .col-3, .style-perlengkapan-rumah .cms-index-index .wrap_banner .col-3,
+    .style-perlengkapan-rumah .wrap_banner .col-3, .style-perlengkapan-rumah .wrap_banner .col-3{
 		width:190px;
 	}
-	.style-home .homepage-bottom ul.block-wrapper li:nth-child(2){
+	.style-perlengkapan-rumah .homepage-bottom ul.block-wrapper li:nth-child(2){
 	margin:0 2px 15px;
 	}
 	/*#nav li.level-top.shop-by{
@@ -2697,23 +2697,23 @@ tr.summary-details-excluded { font-style:italic; }
 	
 /* --------------- smaller 959 px layout -------------------- */
 @media only screen and (max-width: 767px) {
-	.style-home #nav li.shop-by:hover .shopby {
+	.style-perlengkapan-rumah #nav li.shop-by:hover .shopby {
 		display: block;
 	}
-	.style-home .cms-index-defaultindex .wrap_banner .col-1, .style-home .cms-index-index .wrap_banner .col-1,
-    .style-home .wrap_banner .col-1, .style-home .wrap_banner .col-1{
+	.style-perlengkapan-rumah .cms-index-defaultindex .wrap_banner .col-1, .style-perlengkapan-rumah .cms-index-index .wrap_banner .col-1,
+    .style-perlengkapan-rumah .wrap_banner .col-1, .style-perlengkapan-rumah .wrap_banner .col-1{
 		width:100%;
 		margin:0 0 20px;
 	}
-	.style-home .cms-index-defaultindex .wrap_banner, .style-home .cms-index-index .wrap_banner,
-    .style-home .wrap_banner, .style-home .wrap_banner{
+	.style-perlengkapan-rumah .cms-index-defaultindex .wrap_banner, .style-perlengkapan-rumah .cms-index-index .wrap_banner,
+    .style-perlengkapan-rumah .wrap_banner, .style-perlengkapan-rumah .wrap_banner{
 		display:block;
 	}
-	.style-home .cms-index-defaultindex .wrap_banner .col-2, .style-home .cms-index-index .wrap_banner .col-2, .style-home .cms-index-defaultindex .wrap_banner .col-3, .style-home .cms-index-index .wrap_banner .col-3, .style-home .products-on-sale, .style-home .new-arrival, .style-home .most-popular, .style-home .homepage-bottom,
-    .style-home .wrap_banner .col-2, .style-home .wrap_banner .col-2, .style-home .wrap_banner .col-3, .style-home .wrap_banner .col-3 {
+	.style-perlengkapan-rumah .cms-index-defaultindex .wrap_banner .col-2, .style-perlengkapan-rumah .cms-index-index .wrap_banner .col-2, .style-perlengkapan-rumah .cms-index-defaultindex .wrap_banner .col-3, .style-perlengkapan-rumah .cms-index-index .wrap_banner .col-3, .style-perlengkapan-rumah .products-on-sale, .style-perlengkapan-rumah .new-arrival, .style-perlengkapan-rumah .most-popular, .style-perlengkapan-rumah .homepage-bottom,
+    .style-perlengkapan-rumah .wrap_banner .col-2, .style-perlengkapan-rumah .wrap_banner .col-2, .style-perlengkapan-rumah .wrap_banner .col-3, .style-perlengkapan-rumah .wrap_banner .col-3 {
 		display:none;
 	}
-	.style-home .cms-index-defaultindex .col1-layout .main .col-main, .style-home .cms-index-index .col1-layout .main .col-main{
+	.style-perlengkapan-rumah .cms-index-defaultindex .col1-layout .main .col-main, .style-perlengkapan-rumah .cms-index-index .col1-layout .main .col-main{
 		width:100%;
 	}
 }

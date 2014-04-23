@@ -27,7 +27,8 @@
  */
 ?><?php
 ?>
-<?php $_currentCategory = Mage::helper('megamenu')->getCurrentMainCategory(); ?>
+<?php $_helper = Mage::helper('megamenu'); ?>
+<?php $_currentCategory = $_helper->getUrlKey($_helper->getCurrentMainCategory()); ?>
 <?php if ($_currentCategory == 'baby'): ?>
     <script type="text/javascript">
         $j(function() {
@@ -67,10 +68,10 @@
         
     </div>
     <?php endif ?>
-<?php elseif ($_currentCategory == 'home'): ?>
+<?php elseif ($_currentCategory == 'perlengkapan-rumah'): ?>
     <script type="text/javascript">
         $j(function() {
-          $j('body.style-home #slides-banner-home').slidesjs({
+          $j('body.style-perlengkapan-rumah #slides-banner-home').slidesjs({
             width: 523,
             height: 383,
             pagination: {

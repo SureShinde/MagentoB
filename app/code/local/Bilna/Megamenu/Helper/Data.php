@@ -49,7 +49,7 @@ class Bilna_Megamenu_Helper_Data extends Mage_Catalog_Helper_Category {
         return $result;
     }
     
-    protected function getUrlKey($categoryId) {
+    public function getUrlKey($categoryId) {
         return Mage::getModel('catalog/category')->load($categoryId)->getUrlKey();
     }
     
