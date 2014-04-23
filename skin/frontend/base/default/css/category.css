@@ -479,6 +479,11 @@ a.triger-showfilter {
 	left:36%;
 	bottom: 9px !important;
 }
+.style-mom-baby.catalog-category-view.category-mom-baby .slidesjs-pagination,
+.style-home.catalog-category-view.category-bome .slidesjs-pagination{
+	left:10px;
+	bottom: 9px !important;
+}
 .catalog-category-view .slidesjs-pagination .slidesjs-pagination-item a{
 	 background: none repeat scroll 0 0 #C7C7C7 !important;
     border-radius: 10px;
@@ -879,7 +884,7 @@ a.triger-showfilter {
 	margin-left: 0;
 }
 
-.style-home.category-home #slides-banner-home .slidesjs-pagination li.slidesjs-pagination-item a {
+/* .style-home.category-home #slides-banner-home .slidesjs-pagination li.slidesjs-pagination-item a {
 	display: block;
 	width: 19px;
 	height: 19px;
@@ -888,7 +893,7 @@ a.triger-showfilter {
 }
 .style-home #slides-banner-home .slidesjs-pagination li.slidesjs-pagination-item a.active {
 	background: url(../images/node-active.png) no-repeat center center;
-}
+} */
 .style-home .homepage-bottom .media-partners {
 	float: right;
 }

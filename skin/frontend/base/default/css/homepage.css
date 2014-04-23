@@ -5,6 +5,10 @@
 .homepage-top-block {
 	float: left;
 }
+/* .cms-index-index .homepage-top-block {
+    float: left;
+    margin: 0;
+} */
 .homepage-top-block.right {
 	width: 185px;
 	margin: 0;
@@ -21,23 +25,23 @@
 	position: relative;
 	z-index: 0;
 }
-.banner-left-mainhomepage {
+.banner-left-mainhomepage, .banner-right-mainhomepage {
     width: 194px; 
     height: 338px; 
     text-align: center; 
     float: left; 
     background: rgb(95, 158, 160); 
     color: #fff;
+    display: block;
+}
+.banner-left-mainhomepage {
     margin: 0 10px 0 0;
 }
 .banner-right-mainhomepage {
-    width: 194px; 
-    height: 338px; 
-    text-align: center; 
-    float: left; 
-    background: rgb(95, 158, 160); 
-    color: #fff;
     margin: 0 0 0 10px;
+}
+.banner-left-mainhomepage img, .banner-right-mainhomepage img {
+    width: 100%;
 }
 .slidesjs-slide > img {
     display: block;
@@ -417,15 +421,25 @@
 	.homepage-top-block.left {
 		display: none;
 	}
+    .cms-index-index .homepage-top-block {
+        float: left;
+        margin: 0;
+    }
+    .banner-left-mainhomepage, .banner-right-mainhomepage {
+        height: 272px;
+        text-align: center;
+        width: 156px;
+        display: block;
+    }
 	.homepage-top {
 		width: 955px;
 		margin: 0 auto;
 		position: relative;
 	}
     .cms-home .slider-wrapper {
-        width: 759px;
-        height: 338px;
+        height: 272px;
         position: relative;
+        width: 610px;
         z-index: 0;
     }
 	.homepage-bottom ul.block-wrapper li {
@@ -479,8 +493,35 @@
 	.homepage-top {
 		width: 717px;
 	}
+    
+    .cms-index-index .homepage-top-block {
+        float: left;
+        margin: 0;
+    }
+    .banner-left-mainhomepage, .banner-right-mainhomepage {
+        height: 199px;
+        text-align: center;
+        width: 114px;
+        display: block;
+    }
+	.homepage-top {
+		width: 955px;
+		margin: 0 auto;
+		position: relative;
+	}
+    .cms-home .slider-wrapper {
+        height: 200px;
+        position: relative;
+        width: 450px;
+        z-index: 0;
+    }
+    
+    
 	.homepage-top-block.middle {
 		width: 78%;
+	}
+    .cms-home .homepage-top-block.middle {
+		width: 64%;
 	}
 	.slider-wrapper {
 		width: 100%;
@@ -591,6 +632,16 @@
 	}
 	.homepage-top-block.middle {
 		width: 100%;
+	}
+    .banner-left-mainhomepage, .banner-right-mainhomepage {
+        display: none;
+    }
+    .cms-home .homepage-top-block.middle {
+		width: 100%;
+	}
+    .cms-home .slider-wrapper {
+		width: auto;
+        height: auto;
 	}
 	.slider-wrapper {
 		height: auto;
