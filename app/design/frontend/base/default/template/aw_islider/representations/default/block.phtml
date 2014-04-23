@@ -28,10 +28,10 @@
 ?><?php
 ?>
 <?php $_currentCategory = Mage::helper('megamenu')->getCurrentMainCategory(); ?>
-<?php if ($_currentCategory == 'mom-baby'): ?>
+<?php if ($_currentCategory == 'baby'): ?>
     <script type="text/javascript">
         $j(function() {
-          $j('body.style-mom-baby #slides-banner').slidesjs({
+          $j('body.style-baby #slides-banner').slidesjs({
             width: 750,
             height: 333,
             pagination: {
@@ -58,7 +58,7 @@
             <?php if($slide->getData('url')) : ?>
             <a href="<?php echo $helper->getUseDirectLinks() ? $slide->getData('url') : $this->getUrl('awislider/link/out', array('sid' => $slide->getData('id'))) ?>"<?php if($slide->getData('new_window')) : ?> onclick="return !window.open(this.href)"<?php endif ?><?php if($slide->getData('nofollow')) : ?> rel="nofollow"<?php endif ?>>
             <?php endif ?>
-                <img src="<?php echo ($slide->getUriLocation()) ?>" title="<?php echo htmlspecialchars($slide->getData('title')) ?>" alt="<?php echo htmlspecialchars($slide->getData('title')) ?>" onclick="_gaq.push(['_trackEvent','Banner','MainSlider','<?php echo ($slide->getUriLocation()) ?>',1,true]);"/>
+                <img src="<?php echo ($slide->getUriLocation()) ?>" title="<?php echo htmlspecialchars($slide->getData('title')) ?>" alt="<?php echo htmlspecialchars($slide->getData('title')) ?>"/>
             <?php if($slide->getData('url')) : ?>
             </a>
             <?php endif ?>

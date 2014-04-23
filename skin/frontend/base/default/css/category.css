@@ -479,8 +479,8 @@ a.triger-showfilter {
 	left:36%;
 	bottom: 9px !important;
 }
-.style-mom-baby.catalog-category-view.category-mom-baby .slidesjs-pagination,
-.style-home.catalog-category-view.category-bome .slidesjs-pagination{
+.style-baby.catalog-category-view.category-baby .slidesjs-pagination,
+.style-home.catalog-category-view.category-home .slidesjs-pagination{
 	left:10px;
 	bottom: 9px !important;
 }
@@ -510,15 +510,15 @@ a.triger-showfilter {
 	max-width: 100%;
 }
 
-.category-mom-baby .homepage-top-block.right {
+.category-baby .homepage-top-block.right {
     width: 185px;
     margin: 0 !important; 
 }
-.category-mom-baby .homepage-top-block.middle .advertise {
+.category-baby .homepage-top-block.middle .advertise {
     float: left;
     width: 100%;
 }
-.category-mom-baby .homepage-top-block.middle .advertise ul li {
+.category-baby .homepage-top-block.middle .advertise ul li {
     width: 48.8%;
 }
 
@@ -555,7 +555,7 @@ a.triger-showfilter {
 	.catalog-category-view .slidesjs-pagination {
     bottom: 4px !important;
 	}
-    .category-mom-baby .homepage-top-block.right {
+    .category-baby .homepage-top-block.right {
 		width: 20%;
 	}
 }
@@ -862,13 +862,16 @@ a.triger-showfilter {
 	top:auto;
 	background-color: #ddd;
 }
-.style-home.category-home #slides-banner-home{
+.style-home.category-home #slides-banner-home,
+.style-home.category-perlengkapan-rumah #slides-banner-home{
 	position:relative;
 }
-.style-home.category-home #slides-banner-home .slidesjs-navigation {
+.style-home.category-home #slides-banner-home .slidesjs-navigation,
+.style-home.category-perlengkapan-rumah #slides-banner-home .slidesjs-navigation {
 	display: none;
 }
-.style-home.category-home #slides-banner-home .slidesjs-pagination {
+.style-home.category-home #slides-banner-home .slidesjs-pagination,
+.style-home.category-perlengkapan-rumah #slides-banner-home .slidesjs-pagination {
 	position: absolute;
 	right: 10px;
 	bottom: 0;
@@ -876,11 +879,13 @@ a.triger-showfilter {
 	z-index: 99;
 	padding: 0;
 }
-.style-home.category-home #slides-banner-home .slidesjs-pagination li {
+.style-home.category-home #slides-banner-home .slidesjs-pagination li,
+.style-home.category-perlengkapan-rumah #slides-banner-home .slidesjs-pagination li {
 	display: inline-block;
 	margin: 0 0 0 5px;
 }
-.style-home.category-home #slides-banner-home .slidesjs-pagination li:first-child {
+.style-home.category-home #slides-banner-home .slidesjs-pagination li:first-child,
+.style-home.category-perlengkapan-rumah #slides-banner-home .slidesjs-pagination li:first-child {
 	margin-left: 0;
 }
 

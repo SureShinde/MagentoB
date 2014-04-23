@@ -77,13 +77,16 @@
 .homepage-product {
 	position: relative;
 }
-.style-mom-baby .homepage-product.onsale {
+.style-mom-baby .homepage-product.onsale,
+.style-baby .homepage-product.onsale {
 	background: url(../images/label-list-product.png) no-repeat center top, url(../images/dash-2.png) repeat-x left 21px;
 }
-.style-mom-baby .homepage-product.newarrival {
+.style-mom-baby .homepage-product.newarrival,
+.style-baby .homepage-product.newarrival {
 	background: url(../images/label.homepage-product.newarrival.png) no-repeat center top, url(../images/dash-2.png) repeat-x left 21px;
 }
-.style-mom-baby .homepage-product.mostpopular {
+.style-mom-baby .homepage-product.mostpopular,
+ .style-baby .homepage-product.mostpopular{
 	background: url(../images/label.homepage-product.mostpopular.png) no-repeat center top, url(../images/dash-2.png) repeat-x left 21px;
 }
 .homepage-product h2 {
@@ -538,7 +541,8 @@
 	.advertise ul li a img {
 		width: 100%;
 	}
-	.homepage-top-block.right, .category-mom-baby .homepage-top-block.right {
+	.homepage-top-block.right, .category-mom-baby .homepage-top-block.right,
+    .homepage-top-block.right, .category-baby .homepage-top-block.right    {
 		width: 20%;
 	}
 	.homepage-top-block.right a {

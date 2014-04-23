@@ -199,7 +199,7 @@
                         endif;
                         ?>
 
-                        <li id="<?php echo $_helper->getCategoryName($_storeCategory->getId()); ?>" class="web-<?php echo $_helper->getCategoryName($_storeCategory->getId()); ?> <?php echo $_storeCategoryClass; ?>">
+                        <li id="<?php echo $_storeCategory->getUrl(); ?>" class="web-<?php echo $_storeCategory->getUrl(); ?> <?php echo $_storeCategoryClass; ?>">
                             <a id="<?php echo $_helper->getCategoryName($_storeCategory->getId()); ?>" class="menu-top-hover" href="<?php echo $_helper->getCategoryUrl($_storeCategory); ?>"><?php echo $this->__($_storeCategory->getName()); ?></a>
                         </li>
                     <?php endforeach; ?>

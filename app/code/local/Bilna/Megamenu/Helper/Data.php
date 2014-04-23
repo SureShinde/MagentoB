@@ -15,7 +15,7 @@ class Bilna_Megamenu_Helper_Data extends Mage_Catalog_Helper_Category {
     }
     
     public function getCurrentMainCategory() {
-        $mainCategory = array ('mom-baby', 'home', 'daily-deals');
+        $mainCategory = array ('baby', 'home', 'daily-deals');
         $result = '';
         
         if ($categoryId = $this->getCurrentCategoryFrontend()) {
