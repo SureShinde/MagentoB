@@ -123,7 +123,14 @@ $j(document).ready(function(){
 			<ul class="sticky-menu">
 				<li class="td-promo"><a class="td-promo" href="#"><?php echo $this->__('Today\'s Promo') ?></a>
 					<div class="td-promo-cont">
-						<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('today-promo-block')->toHtml() ?>
+						<div class="today-promo-area">
+						<?php //echo $this->getLayout()->createBlock('cms/block')->setBlockId('today-promo-block')->toHtml() ?>
+						<?php echo $this->getLayout()->createBlock('staticarea/block')->setId('today-promo-area')->toHtml() ?>
+							<p class="text-sp font-base-text">
+								<a href="http://www.bilna.com/baby/produk-diskon.html" style="text-decoration: none;">See more products on sale!<img alt="" src="http://www.bilna.com/skin/frontend/store_baby/default/images/arrow-orange.png" style="padding: 10px 5px;">
+								</a>
+							</p>
+						</div>
 					</div>
 				</li>
 				<li class="link-free-voucher">
