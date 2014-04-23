@@ -1,18 +1,24 @@
 <?php
 if($this->getBlock())
 {
-    foreach($this->getBlock() as $block) {
-    	if($block->getType() == 'single')
-    	{
-    		echo '<a href="'.$block->getUrl().'" alt="'.$block->getAreaName().'" target="'.$block->getUrlAction().'">';
-    		echo ($this->getHtmlCode($block));
-    		echo '</a>';
-    		break;	
-    	}else{
-    		echo '<a href="'.$block->getUrl().'" alt="'.$block->getAreaName().'" target="'.$block->getUrlAction().'">';
-    		echo ($this->getHtmlCode($block));
-    		echo '</a>';
-    	}
+    $store_id = Mage::app()->getStore()->getStoreId();    
+    foreach($this->getBlock() as $block)
+    {
+        $storeIdArray = explode(",", $block->getStoreview());
+        if( $block->getStoreview()==0 || in_array($store_id, $storeIdArray) )
+        {
+        	if($block->getType() == 'single')
+        	{
+        		echo '<a href="'.$block->getUrl().'" alt="'.$block->getAreaName().'" target="'.$block->getUrlAction().'">';
+        		echo ($this->getHtmlCode($block));
+        		echo '</a>';
+        		break;	
+        	}else{
+        		echo '<a href="'.$block->getUrl().'" alt="'.$block->getAreaName().'" target="'.$block->getUrlAction().'">';
+        		echo ($this->getHtmlCode($block));
+        		echo '</a>';
+        	}
+        }
     }
 }
 ?>
