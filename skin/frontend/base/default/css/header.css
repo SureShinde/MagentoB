@@ -1685,6 +1685,31 @@ searchbar #nav-search-in {
     top: 6px;
     width: 100%;
 }
+
+.search-container-new #nav-searchbar select.select-style {
+    background: none;
+}
+.search-container-new #nav-searchbar option.style-search-top {
+    font-size: 13px;
+    text-align: left;
+    padding: 5px;
+}
+.search-container-new #nav-searchbar option.style-search-cat {
+    font-weight: bold;
+    font-size: 13px; 
+    text-align: center; 
+    padding: 5px 0;
+    -webkit-border-bottom: 2px dashed #FEE13A;
+    -moz-border-bottom: 2px dashed #FEE13A;
+    -o-border-bottom: 2px dashed #FEE13A;
+    border-bottom: 2px dashed #FEE13A;
+}
+.search-container-new #nav-searchbar option.style-search-subcat {
+    font-size: 13px;
+    text-align: left;
+    padding: 5px
+}
+
 /* END NEW SEARCH FIELD */
 
 .search-for-sticky {
@@ -2305,7 +2330,7 @@ searchbar #nav-search-in {
 }
 .indonesia-lang {
     background: url(../images/language-indonesia.gif) center left 2px no-repeat !important;
-	.header .links li.myaccount .toplink-myaccount, .menu-tablet .links li.myaccount .toplink-myaccount {
+/* 	.header .links li.myaccount .toplink-myaccount, .menu-tablet .links li.myaccount .toplink-myaccount {
 	display: none;
 	position: relative;
 	top: 0px;
@@ -2318,7 +2343,7 @@ searchbar #nav-search-in {
 	-moz-box-shadow: 1px 1px 4px 0 #ccc;
 	box-shadow: 1px 1px 4px 0 #ccc;
 	width: 97%;
-}
+} */
 }
 @media only screen and (min-width: 482px) {
 	.header .links li.myaccount:hover .toplink-myaccount, .menu-tablet .links li.myaccount:hover .toplink-myaccount {

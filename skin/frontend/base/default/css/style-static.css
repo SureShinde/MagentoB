@@ -1010,6 +1010,7 @@ animation-timing-function: linear;
 
 
 
+
 	/*END For Mobile Moms & Baby World */
 
 
@@ -1530,6 +1531,7 @@ z-index: 999;
 	padding: 10px;
 	margin: 5px 0;
 	background: none repeat scroll 0 0 #fcfcfc;
+    display: block;
 }
 h2.block-grey-title-left {
 	width: 90%;
@@ -1567,6 +1569,12 @@ h2.block-grey-title-left {
 }
 .container-left-com {
 	margin-bottom: 10px;
+}
+
+@media only screen and (max-width: 767px) {     
+    .left-sp-menu-wrapp {
+        display: none !important;
+    }
 }
 
 /*=============Panin======================*/
@@ -1856,6 +1864,7 @@ h2.block-grey-title-left {
 
 
 /* --------------------------------------- END FORM BUILDER --------------------------------------- */
+
 /* ---------------- ETUDE -------------------- */
 .etude li span.right{
 	display:inline-flex;
