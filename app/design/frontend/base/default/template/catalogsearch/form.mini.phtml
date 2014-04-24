@@ -27,7 +27,7 @@
 /* @var $catalogSearchHelper Mage_Catalogsearch_Helper_Data */
 $catalogSearchHelper =  $this->helper('catalogsearch');
 ?>
-<form id="search_mini_form" action="<?php echo $catalogSearchHelper->getResultUrl() ?>" method="get">
+<?php /*<form id="search_mini_form" action="<?php echo $catalogSearchHelper->getResultUrl() ?>" method="get">
     <div class="form-search">
     	<div class="input-keyword">
 	    	<input id="search" type="text" name="<?php echo $catalogSearchHelper->getQueryParamName() ?>" value="<?php echo $catalogSearchHelper->getEscapedQueryText() ?>" class="input-text" maxlength="<?php echo $catalogSearchHelper->getMaxQueryLength();?>" placeholder="Search" />
@@ -45,4 +45,27 @@ $catalogSearchHelper =  $this->helper('catalogsearch');
         //]]>
         </script>
     </div>
-</form>
+</form>*/?>
+
+
+<div class="search-container-new">
+    <form id="nav-searchbar" action="/s/ref=nb_sb_noss" method="get" name="site-search" role="search" accept-charset="utf-8" ,="" class="nav-searchbar-inner">
+              
+              
+                <div class="nav-submit-button nav-sprite">
+                  <input type="submit" value="" class="nav-submit-input" title=""><img style="margin: 5px 10px 0 0;" src="<?php echo $this->getSkinUrl('images/search-icon-new.png'); ?> "/></input>
+                </div>
+
+                <span id="nav-search-in" class="nav-sprite nav-facade-active" style="width: auto;">
+                  <span id="nav-search-in-content" data-value="search-alias=aps" style="width: auto; overflow: visible;">Automotive</span>
+                  <span class="nav-down-arrow"></span>
+                  <select data-nav-digest="bDT22wibLRgrc0Gc07TKBa9Syl4" data-nav-selected="0" name="url" id="searchDropdownBox" class="searchSelect" title="Search in" style="top: 3px;"><option value="search-alias=aps" selected="selected">All Departments</option><option value="search-alias=instant-video">Amazon Instant Video</option><option value="search-alias=appliances">Appliances</option><option value="search-alias=mobile-apps">Apps for Android</option><option value="search-alias=arts-crafts">Arts, Crafts &amp; Sewing</option><option value="search-alias=automotive">Automotive</option><option value="search-alias=baby-products">Baby</option><option value="search-alias=beauty">Beauty</option><option value="search-alias=stripbooks">Books</option><option value="search-alias=mobile">Cell Phones &amp; Accessories</option><option value="search-alias=apparel">Clothing &amp; Accessories</option><option value="search-alias=collectibles">Collectibles &amp; Fine Art</option><option value="search-alias=computers">Computers</option><option value="search-alias=financial">Credit Cards</option><option value="search-alias=electronics">Electronics</option><option value="search-alias=gift-cards">Gift Cards Store</option><option value="search-alias=grocery">Grocery &amp; Gourmet Food</option><option value="search-alias=hpc">Health &amp; Personal Care</option><option value="search-alias=garden">Home &amp; Kitchen</option><option value="search-alias=industrial">Industrial &amp; Scientific</option><option value="search-alias=jewelry">Jewelry</option><option value="search-alias=digital-text">Kindle Store</option><option value="search-alias=magazines">Magazine Subscriptions</option><option value="search-alias=movies-tv">Movies &amp; TV</option><option value="search-alias=digital-music">MP3 Music</option><option value="search-alias=popular">Music</option><option value="search-alias=mi">Musical Instruments</option><option value="search-alias=office-products">Office Products</option><option value="search-alias=lawngarden">Patio, Lawn &amp; Garden</option><option value="search-alias=pets">Pet Supplies</option><option value="search-alias=shoes">Shoes</option><option value="search-alias=software">Software</option><option value="search-alias=sporting">Sports &amp; Outdoors</option><option value="search-alias=tools">Tools &amp; Home Improvement</option><option value="search-alias=toys-and-games">Toys &amp; Games</option><option value="search-alias=videogames">Video Games</option><option value="search-alias=watches">Watches</option><option value="search-alias=wine">Wine</option></select>
+                </span>
+
+                <div class="nav-searchfield-width">
+                  <div id="nav-iss-attach">
+                    <input type="text" id="twotabsearchtextbox" title="Search For" value="" name="field-keywords" autocomplete="off" placeholder="Search...">
+                  </div>
+                </div>
+    </form>
+</div>

@@ -51,6 +51,7 @@ Default layout, loads most of the pages
 				<action method="addJs"><script>jssor.core.js</script></action>
 				<action method="addJs"><script>jssor.slider.js</script></action>
 				<action method="addJs"><script>jssor.utils.js</script></action>
+                <action method="addItem"><type>skin_js</type><name>js/swingin-and-scroll.js</name>
 
                 <block type="page/js_cookie" name="js_cookies" template="page/js/cookie.phtml"/>
 

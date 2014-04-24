@@ -97,7 +97,6 @@ class Bilna_Paymethod_Block_Adminhtml_Sales_Order_Grid extends Mage_Adminhtml_Bl
             'type' => 'options',
             'options' => $groups,
         ));
-
         $this->addColumn('method', array (
             'header' => Mage::helper('sales')->__('Payment Method'),
             'index' => 'method',

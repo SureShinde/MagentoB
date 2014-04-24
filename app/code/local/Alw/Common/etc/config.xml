@@ -31,11 +31,11 @@
             </common>
 		</helpers>
 	     <blocks>
-            <page>
+            <!--page>
                 <rewrite>
                     <html_topmenu>Alw_Common_Block_Html_Topmenu</html_topmenu>
                 </rewrite>
-            </page>
+            </page-->
 			<review>
 					<rewrite>
 						<product_view>Alw_Common_Block_Product_View</product_view>
