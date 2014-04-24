@@ -185,7 +185,7 @@
                     <?php foreach ($_storeCategories as $_storeCategory): ?>
                         <?php
                         $_storeCategory = Mage::getModel('catalog/category')->load($_storeCategory->getId());
-                        $_storeCategoryClass = $_helper->getCategoryName($_storeCategory->getId()) == $_helper->getCurrentMainCategory() ? "active" : "";
+                        $_storeCategoryClass = $_storeCategory->getId() == $_helper->getCurrentMainCategory() ? "active" : "";
 
                         /**
                          * check if category is active
@@ -199,8 +199,8 @@
                         endif;
                         ?>
 
-                        <li id="<?php echo $_helper->getCategoryName($_storeCategory->getId()); ?>" class="web-<?php echo $_helper->getCategoryName($_storeCategory->getId()); ?> <?php echo $_storeCategoryClass; ?>">
-                            <a id="<?php echo $_helper->getCategoryName($_storeCategory->getId()); ?>" class="menu-top-hover" href="<?php echo $_helper->getCategoryUrl($_storeCategory); ?>"><?php echo $this->__($_storeCategory->getName()); ?></a>
+                        <li id="<?php echo $_storeCategory->getUrlKey(); ?>" class="web-<?php echo $_storeCategory->getUrlKey(); ?> <?php echo $_storeCategoryClass; ?>">
+                            <a id="<?php echo $_storeCategory->getUrlKey(); ?>" class="menu-top-hover" href="<?php echo $_helper->getCategoryUrl($_storeCategory); ?>"><?php echo $this->__($_storeCategory->getName()); ?></a>
                         </li>
                     <?php endforeach; ?>
                 </ul>
@@ -255,7 +255,7 @@
                     <?php foreach ($_storeCategories as $_storeCategory): ?>
                         <?php
                         $_storeCategory = Mage::getModel('catalog/category')->load($_storeCategory->getId());
-                        $_storeCategoryClass = $_helper->getCategoryName($_storeCategory->getId()) == $_helper->getCurrentMainCategory() ? "active" : "";
+                        $_storeCategoryClass = $_storeCategory->getId() == $_helper->getCurrentMainCategory() ? "active" : "";
 
                         /**
                          * check if category is active
@@ -269,7 +269,7 @@
                         endif;
                         ?>
 
-                        <li class="mobile-<?php echo $_helper->getCategoryName($_storeCategory->getId()); ?> <?php echo $_storeCategoryClass; ?>">
+                        <li class="mobile-<?php echo $_storeCategory->getUrlKey(); ?> <?php echo $_storeCategoryClass; ?>">
                             <a href="<?php echo $_helper->getCategoryUrl($_storeCategory); ?>"><?php echo $this->__($_storeCategory->getName()); ?></a>
                         </li>
                     <?php endforeach; ?>

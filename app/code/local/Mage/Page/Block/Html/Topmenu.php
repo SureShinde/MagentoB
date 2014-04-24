@@ -268,7 +268,7 @@ class Mage_Page_Block_Html_Topmenu extends Mage_Core_Block_Template
     }
     
     public function getCurrentMainCategory() {
-        $mainCategory = array ('mom-baby', 'home', 'daily-deals');
+        $mainCategory = array ('baby', 'home', 'daily-deals');
         $result = '';
         
         if ($categoryId = $this->getCurrentCategoryFrontend()) {

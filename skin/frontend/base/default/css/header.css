@@ -317,11 +317,12 @@
 .menu-top ul li {
 	background: #4EC7DA;
 	width: 110px;
-	padding: 7px 0 3px;
+	/* padding: 7px 0 3px; */
 }
 .menu-top ul li a {
 	display: block;
 	color: #fff;
+    padding: 7px 0 3px;
 }
 .menu-top ul li:hover, .menu-top ul li.active {
 	background: #e4c29c !important;
@@ -2246,7 +2247,7 @@ searchbar #nav-search-in {
         width: auto;
     }
     .search-for-sticky {
-    display: none;
+        display: none !important;
     }
 
     .cart-for-sticky {

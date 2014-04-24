@@ -23,7 +23,7 @@
     <?php foreach ($_storeCategories as $_storeCategory): ?>
         <?php
         $_storeCategory = Mage::getModel('megamenu/catalog_category')->load($_storeCategory->getId());
-        $_storeCategoryClass = $_helper->getCategoryName($_storeCategory->getId()) == $_helper->getCurrentMainCategory() ? "" : "display:none;";
+        $_storeCategoryClass = $_storeCategory->getId() == $_helper->getCurrentMainCategory() ? "" : "display:none;";
         
         /**
          * check if category is active
@@ -37,11 +37,11 @@
         endif;
         ?>
 
-        <div id="nav-<?php echo $_storeCategory->getId(); ?>" class="nav-container container nav-<?php echo $_helper->getCategoryName($_storeCategory->getId()); ?>" style="<?php echo $_storeCategoryClass; ?>">
+        <div id="nav-<?php echo $_storeCategory->getId(); ?>" class="nav-container container nav-<?php echo $_storeCategory->getUrlKey(); ?>" style="<?php echo $_storeCategoryClass; ?>">
             <?php $_categories = $_storeCategory->getChildrenCategories(); ?>
             <?php if (count($_categories) > 0): ?>
                 <ul id="nav" class="nav">
-                    <?php $shopbyStaticBlock = Mage::getModel('cms/block')->load('shopby-' . $_helper->getCategoryName($_storeCategory->getId())); ?>
+                    <?php $shopbyStaticBlock = Mage::getModel('cms/block')->load('shopby-' . $_storeCategory->getUrlKey()); ?>
                     <?php if ($shopbyStaticBlock->getIsActive() == 1): ?>
                         <li class="level0 level-top shop-by">
                             <span>Shop by</span>
@@ -69,7 +69,7 @@
                         
                         $categoryName = $_category->getName();
                         ?>
-                        <li class="level level-top parent-<?php echo $_category->getId(); ?> parent nav-<?php echo $_helper->getCategoryName($_category->getId()); ?>">
+                        <li class="level level-top parent-<?php echo $_category->getId(); ?> parent nav-<?php echo $_category->getUrlKey(); ?>">
                             <a href="<?php echo $_helper->getCategoryUrl($_category); ?>" class="level-top parent-<?php echo $_category->getId(); ?>">
                                 <span><span><?php echo $this->__($_helper->replaceCategoryName($categoryName)); ?></span></span>
                             </a>
