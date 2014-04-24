@@ -1,8 +1,8 @@
 <?php
 
-require_once "NSPHPClient.php";
+require_once dirname(__FILE__).DS."NSPHPClient.php";
 
-if (!class_exists("RecordType")) {
+if (!class_exists("RecordType",false)){
 /**
  * RecordType
  */
@@ -114,10 +114,6 @@ class RecordType {
 	 * @var string
 	 */
 	const check = "check";
-	/**
-	 * @var string
-	 */
-	const charge = "charge";
 	/**
 	 * @var string
 	 */
@@ -274,10 +270,6 @@ class RecordType {
 	 * @var string
 	 */
 	const inventoryAdjustment = "inventoryAdjustment";
-	/**
-	 * @var string
-	 */
-	const inventoryCostRevaluation = "inventoryCostRevaluation";
 	/**
 	 * @var string
 	 */
@@ -489,10 +481,6 @@ class RecordType {
 	/**
 	 * @var string
 	 */
-	const resourceAllocation = "resourceAllocation";
-	/**
-	 * @var string
-	 */
 	const returnAuthorization = "returnAuthorization";
 	/**
 	 * @var string
@@ -585,10 +573,6 @@ class RecordType {
 	/**
 	 * @var string
 	 */
-	const taxAcct = "taxAcct";
-	/**
-	 * @var string
-	 */
 	const taxGroup = "taxGroup";
 	/**
 	 * @var string
@@ -668,7 +652,7 @@ class RecordType {
 	const workOrderClose = "workOrderClose";
 }}
 
-if (!class_exists("SearchRecordType")) {
+if (!class_exists("SearchRecordType",false)){
 /**
  * SearchRecordType
  */
@@ -843,10 +827,6 @@ class SearchRecordType {
 	/**
 	 * @var string
 	 */
-	const resourceAllocation = "resourceAllocation";
-	/**
-	 * @var string
-	 */
 	const revRecSchedule = "revRecSchedule";
 	/**
 	 * @var string
@@ -898,7 +878,7 @@ class SearchRecordType {
 	const vendor = "vendor";
 }}
 
-if (!class_exists("GetAllRecordType")) {
+if (!class_exists("GetAllRecordType",false)){
 /**
  * GetAllRecordType
  */
@@ -992,7 +972,7 @@ class GetAllRecordType {
 	const taxType = "taxType";
 }}
 
-if (!class_exists("GetCustomizationType")) {
+if (!class_exists("GetCustomizationType",false)){
 /**
  * GetCustomizationType
  */
@@ -1042,7 +1022,7 @@ class GetCustomizationType {
 	const transactionColumnCustomField = "transactionColumnCustomField";
 }}
 
-if (!class_exists("InitializeType")) {
+if (!class_exists("InitializeType",false)){
 /**
  * InitializeType
  */
@@ -1148,7 +1128,7 @@ class InitializeType {
 	const workOrderClose = "workOrderClose";
 }}
 
-if (!class_exists("InitializeRefType")) {
+if (!class_exists("InitializeRefType",false)){
 /**
  * InitializeRefType
  */
@@ -1246,7 +1226,7 @@ class InitializeRefType {
 	const workOrder = "workOrder";
 }}
 
-if (!class_exists("InitializeAuxRefType")) {
+if (!class_exists("InitializeAuxRefType",false)){
 /**
  * InitializeAuxRefType
  */
@@ -1268,7 +1248,7 @@ class InitializeAuxRefType {
 	const apAccount = "apAccount";
 }}
 
-if (!class_exists("DeletedRecordType")) {
+if (!class_exists("DeletedRecordType",false)){
 /**
  * DeletedRecordType
  */
@@ -1316,10 +1296,6 @@ class DeletedRecordType {
 	 * @var string
 	 */
 	const cashSale = "cashSale";
-	/**
-	 * @var string
-	 */
-	const charge = "charge";
 	/**
 	 * @var string
 	 */
@@ -1432,10 +1408,6 @@ class DeletedRecordType {
 	 * @var string
 	 */
 	const inventoryAdjustment = "inventoryAdjustment";
-	/**
-	 * @var string
-	 */
-	const inventoryCostRevaluation = "inventoryCostRevaluation";
 	/**
 	 * @var string
 	 */
@@ -1611,10 +1583,6 @@ class DeletedRecordType {
 	/**
 	 * @var string
 	 */
-	const resourceAllocation = "resourceAllocation";
-	/**
-	 * @var string
-	 */
 	const returnAuthorization = "returnAuthorization";
 	/**
 	 * @var string
@@ -1726,7 +1694,7 @@ class DeletedRecordType {
 	const workOrderClose = "workOrderClose";
 }}
 
-if (!class_exists("AsyncStatusType")) {
+if (!class_exists("AsyncStatusType",false)){
 /**
  * AsyncStatusType
  */
@@ -1756,7 +1724,7 @@ class AsyncStatusType {
 	const finished = "finished";
 }}
 
-if (!class_exists("SearchStringFieldOperator")) {
+if (!class_exists("SearchStringFieldOperator",false)){
 /**
  * SearchStringFieldOperator
  */
@@ -1802,7 +1770,7 @@ class SearchStringFieldOperator {
 	const startsWith = "startsWith";
 }}
 
-if (!class_exists("SearchLongFieldOperator")) {
+if (!class_exists("SearchLongFieldOperator",false)){
 /**
  * SearchLongFieldOperator
  */
@@ -1868,7 +1836,7 @@ class SearchLongFieldOperator {
 	const notLessThanOrEqualTo = "notLessThanOrEqualTo";
 }}
 
-if (!class_exists("SearchTextNumberFieldOperator")) {
+if (!class_exists("SearchTextNumberFieldOperator",false)){
 /**
  * SearchTextNumberFieldOperator
  */
@@ -1934,7 +1902,7 @@ class SearchTextNumberFieldOperator {
 	const notLessThanOrEqualTo = "notLessThanOrEqualTo";
 }}
 
-if (!class_exists("SearchDoubleFieldOperator")) {
+if (!class_exists("SearchDoubleFieldOperator",false)){
 /**
  * SearchDoubleFieldOperator
  */
@@ -2000,7 +1968,7 @@ class SearchDoubleFieldOperator {
 	const notLessThanOrEqualTo = "notLessThanOrEqualTo";
 }}
 
-if (!class_exists("SearchDateFieldOperator")) {
+if (!class_exists("SearchDateFieldOperator",false)){
 /**
  * SearchDateFieldOperator
  */
@@ -2066,7 +2034,7 @@ class SearchDateFieldOperator {
 	const within = "within";
 }}
 
-if (!class_exists("SearchEnumMultiSelectFieldOperator")) {
+if (!class_exists("SearchEnumMultiSelectFieldOperator",false)){
 /**
  * SearchEnumMultiSelectFieldOperator
  */
@@ -2084,7 +2052,7 @@ class SearchEnumMultiSelectFieldOperator {
 	const noneOf = "noneOf";
 }}
 
-if (!class_exists("SearchMultiSelectFieldOperator")) {
+if (!class_exists("SearchMultiSelectFieldOperator",false)){
 /**
  * SearchMultiSelectFieldOperator
  */
@@ -2102,7 +2070,7 @@ class SearchMultiSelectFieldOperator {
 	const noneOf = "noneOf";
 }}
 
-if (!class_exists("SearchDate")) {
+if (!class_exists("SearchDate",false)){
 /**
  * SearchDate
  */
@@ -2684,7 +2652,7 @@ class SearchDate {
 	const yesterday = "yesterday";
 }}
 
-if (!class_exists("DurationUnit")) {
+if (!class_exists("DurationUnit",false)){
 /**
  * DurationUnit
  */
@@ -2698,7 +2666,7 @@ class DurationUnit {
 	const hour = "hour";
 }}
 
-if (!class_exists("CalendarEventAttendeeResponse")) {
+if (!class_exists("CalendarEventAttendeeResponse",false)){
 /**
  * CalendarEventAttendeeResponse
  */
@@ -2724,7 +2692,7 @@ class CalendarEventAttendeeResponse {
 	const _tentative = "_tentative";
 }}
 
-if (!class_exists("GetSelectValueFilterOperator")) {
+if (!class_exists("GetSelectValueFilterOperator",false)){
 /**
  * GetSelectValueFilterOperator
  */
@@ -2746,7 +2714,7 @@ class GetSelectValueFilterOperator {
 	const startsWith = "startsWith";
 }}
 
-if (!class_exists("StatusDetailType")) {
+if (!class_exists("StatusDetailType",false)){
 /**
  * StatusDetailType
  */
@@ -2768,7 +2736,7 @@ class StatusDetailType {
 	const INFO = "INFO";
 }}
 
-if (!class_exists("StatusDetailCodeType")) {
+if (!class_exists("StatusDetailCodeType",false)){
 /**
  * StatusDetailCodeType
  */
@@ -6419,10 +6387,6 @@ class StatusDetailCodeType {
 	/**
 	 * @var string
 	 */
-	const NO_UPSERT = "NO_UPSERT";
-	/**
-	 * @var string
-	 */
 	const NULL_CHECK_NUMBER = "NULL_CHECK_NUMBER";
 	/**
 	 * @var string
@@ -7750,7 +7714,7 @@ class StatusDetailCodeType {
 	const ZIP_FILE_CONTAINS_VIRUS = "ZIP_FILE_CONTAINS_VIRUS";
 }}
 
-if (!class_exists("FaultCodeType")) {
+if (!class_exists("FaultCodeType",false)){
 /**
  * FaultCodeType
  */
@@ -7852,7 +7816,7 @@ class FaultCodeType {
 	const WS_LOG_IN_REQD = "WS_LOG_IN_REQD";
 }}
 
-if (!class_exists("Passport")) {
+if (!class_exists("Passport",false)){
 /**
  * Passport
  */
@@ -7886,7 +7850,7 @@ class Passport {
 	);
 }}
 
-if (!class_exists("SsoPassport")) {
+if (!class_exists("SsoPassport",false)){
 /**
  * SsoPassport
  */
@@ -7914,7 +7878,7 @@ class SsoPassport {
 	);
 }}
 
-if (!class_exists("SsoCredentials")) {
+if (!class_exists("SsoCredentials",false)){
 /**
  * SsoCredentials
  */
@@ -7960,7 +7924,7 @@ class SsoCredentials {
 	);
 }}
 
-if (!class_exists("ChangePassword")) {
+if (!class_exists("ChangePassword",false)){
 /**
  * ChangePassword
  */
@@ -7994,7 +7958,7 @@ class ChangePassword {
 	);
 }}
 
-if (!class_exists("ChangeEmail")) {
+if (!class_exists("ChangeEmail",false)){
 /**
  * ChangeEmail
  */
@@ -8028,7 +7992,7 @@ class ChangeEmail {
 	);
 }}
 
-if (!class_exists("StatusDetail")) {
+if (!class_exists("StatusDetail",false)){
 /**
  * StatusDetail
  */
@@ -8056,7 +8020,7 @@ class StatusDetail {
 	);
 }}
 
-if (!class_exists("Status")) {
+if (!class_exists("Status",false)){
 /**
  * Status
  */
@@ -8078,7 +8042,7 @@ class Status {
 	);
 }}
 
-if (!class_exists("WsRole")) {
+if (!class_exists("WsRole",false)){
 /**
  * WsRole
  */
@@ -8112,7 +8076,7 @@ class WsRole {
 	);
 }}
 
-if (!class_exists("WsRoleList")) {
+if (!class_exists("WsRoleList",false)){
 /**
  * WsRoleList
  */
@@ -8128,7 +8092,7 @@ class WsRoleList {
 	);
 }}
 
-if (!class_exists("Record")) {
+if (!class_exists("Record",false)){
 /**
  * Record
  */
@@ -8144,7 +8108,7 @@ class Record {
 	);
 }}
 
-if (!class_exists("NullField")) {
+if (!class_exists("NullField",false)){
 /**
  * NullField
  */
@@ -8160,7 +8124,7 @@ class NullField {
 	);
 }}
 
-if (!class_exists("SearchRecord")) {
+if (!class_exists("SearchRecord",false)){
 /**
  * SearchRecord
  */
@@ -8170,17 +8134,7 @@ class SearchRecord {
 	);
 }}
 
-if (!class_exists("SearchRecordBasic")) {
-/**
- * SearchRecordBasic
- */
-class SearchRecordBasic extends SearchRecord {
-
-	static $paramtypesmap = array(
-	);
-}}
-
-if (!class_exists("SearchRow")) {
+if (!class_exists("SearchRow",false)){
 /**
  * SearchRow
  */
@@ -8190,17 +8144,7 @@ class SearchRow {
 	);
 }}
 
-if (!class_exists("SearchRowBasic")) {
-/**
- * SearchRowBasic
- */
-class SearchRowBasic extends SearchRow {
-
-	static $paramtypesmap = array(
-	);
-}}
-
-if (!class_exists("SearchResult")) {
+if (!class_exists("SearchResult",false)){
 /**
  * SearchResult
  */
@@ -8258,7 +8202,7 @@ class SearchResult {
 	);
 }}
 
-if (!class_exists("AsyncStatusResult")) {
+if (!class_exists("AsyncStatusResult",false)){
 /**
  * AsyncStatusResult
  */
@@ -8292,7 +8236,7 @@ class AsyncStatusResult {
 	);
 }}
 
-if (!class_exists("GetAllResult")) {
+if (!class_exists("GetAllResult",false)){
 /**
  * GetAllResult
  */
@@ -8320,7 +8264,7 @@ class GetAllResult {
 	);
 }}
 
-if (!class_exists("GetSavedSearchResult")) {
+if (!class_exists("GetSavedSearchResult",false)){
 /**
  * GetSavedSearchResult
  */
@@ -8348,7 +8292,7 @@ class GetSavedSearchResult {
 	);
 }}
 
-if (!class_exists("GetCustomizationIdResult")) {
+if (!class_exists("GetCustomizationIdResult",false)){
 /**
  * GetCustomizationIdResult
  */
@@ -8376,7 +8320,7 @@ class GetCustomizationIdResult {
 	);
 }}
 
-if (!class_exists("GetSelectValueResult")) {
+if (!class_exists("GetSelectValueResult",false)){
 /**
  * GetSelectValueResult
  */
@@ -8410,7 +8354,7 @@ class GetSelectValueResult {
 	);
 }}
 
-if (!class_exists("RecordList")) {
+if (!class_exists("RecordList",false)){
 /**
  * RecordList
  */
@@ -8426,7 +8370,7 @@ class RecordList {
 	);
 }}
 
-if (!class_exists("SearchRowList")) {
+if (!class_exists("SearchRowList",false)){
 /**
  * SearchRowList
  */
@@ -8442,7 +8386,7 @@ class SearchRowList {
 	);
 }}
 
-if (!class_exists("RecordRefList")) {
+if (!class_exists("RecordRefList",false)){
 /**
  * RecordRefList
  */
@@ -8458,7 +8402,7 @@ class RecordRefList {
 	);
 }}
 
-if (!class_exists("BaseRef")) {
+if (!class_exists("BaseRef",false)){
 /**
  * BaseRef
  */
@@ -8474,7 +8418,7 @@ class BaseRef {
 	);
 }}
 
-if (!class_exists("BaseRefList")) {
+if (!class_exists("BaseRefList",false)){
 /**
  * BaseRefList
  */
@@ -8490,7 +8434,7 @@ class BaseRefList {
 	);
 }}
 
-if (!class_exists("RecordRef")) {
+if (!class_exists("RecordRef",false)){
 /**
  * RecordRef
  */
@@ -8518,7 +8462,7 @@ class RecordRef extends BaseRef {
 	);
 }}
 
-if (!class_exists("Duration")) {
+if (!class_exists("Duration",false)){
 /**
  * Duration
  */
@@ -8540,7 +8484,7 @@ class Duration {
 	);
 }}
 
-if (!class_exists("CustomRecordRef")) {
+if (!class_exists("CustomRecordRef",false)){
 /**
  * CustomRecordRef
  */
@@ -8568,23 +8512,41 @@ class CustomRecordRef extends BaseRef {
 	);
 }}
 
-if (!class_exists("CustomizationRef")) {
+if (!class_exists("CustomizationRef",false)){
 /**
  * CustomizationRef
  */
-class CustomizationRef extends RecordRef {
+class CustomizationRef extends BaseRef {
+	/**
+	 * @access public
+	 * @var string
+	 */
+	public $internalId;
+	/**
+	 * @access public
+	 * @var string
+	 */
+	public $externalId;
 	/**
 	 * @access public
 	 * @var string
 	 */
 	public $scriptId;
+	/**
+	 * @access public
+	 * @var RecordType
+	 */
+	public $type;
 
 	static $paramtypesmap = array(
+		"internalId" => "string",
+		"externalId" => "string",
 		"scriptId" => "string",
+		"type" => "RecordType",
 	);
 }}
 
-if (!class_exists("CustomizationRefList")) {
+if (!class_exists("CustomizationRefList",false)){
 /**
  * CustomizationRefList
  */
@@ -8600,7 +8562,7 @@ class CustomizationRefList {
 	);
 }}
 
-if (!class_exists("InitializeRecord")) {
+if (!class_exists("InitializeRecord",false)){
 /**
  * InitializeRecord
  */
@@ -8634,7 +8596,7 @@ class InitializeRecord {
 	);
 }}
 
-if (!class_exists("InitializeRef")) {
+if (!class_exists("InitializeRef",false)){
 /**
  * InitializeRef
  */
@@ -8662,7 +8624,7 @@ class InitializeRef extends BaseRef {
 	);
 }}
 
-if (!class_exists("InitializeRefList")) {
+if (!class_exists("InitializeRefList",false)){
 /**
  * InitializeRefList
  */
@@ -8678,7 +8640,7 @@ class InitializeRefList {
 	);
 }}
 
-if (!class_exists("InitializeAuxRef")) {
+if (!class_exists("InitializeAuxRef",false)){
 /**
  * InitializeAuxRef
  */
@@ -8706,7 +8668,7 @@ class InitializeAuxRef extends BaseRef {
 	);
 }}
 
-if (!class_exists("UpdateInviteeStatusReference")) {
+if (!class_exists("UpdateInviteeStatusReference",false)){
 /**
  * UpdateInviteeStatusReference
  */
@@ -8728,7 +8690,7 @@ class UpdateInviteeStatusReference {
 	);
 }}
 
-if (!class_exists("GetAllRecord")) {
+if (!class_exists("GetAllRecord",false)){
 /**
  * GetAllRecord
  */
@@ -8744,7 +8706,7 @@ class GetAllRecord {
 	);
 }}
 
-if (!class_exists("GetSavedSearchRecord")) {
+if (!class_exists("GetSavedSearchRecord",false)){
 /**
  * GetSavedSearchRecord
  */
@@ -8760,7 +8722,7 @@ class GetSavedSearchRecord {
 	);
 }}
 
-if (!class_exists("CustomizationType")) {
+if (!class_exists("CustomizationType",false)){
 /**
  * CustomizationType
  */
@@ -8776,7 +8738,7 @@ class CustomizationType {
 	);
 }}
 
-if (!class_exists("ListOrRecordRef")) {
+if (!class_exists("ListOrRecordRef",false)){
 /**
  * ListOrRecordRef
  */
@@ -8810,29 +8772,17 @@ class ListOrRecordRef {
 	);
 }}
 
-if (!class_exists("CustomFieldRef")) {
+if (!class_exists("CustomFieldRef",false)){
 /**
  * CustomFieldRef
  */
 class CustomFieldRef {
-	/**
-	 * @access public
-	 * @var string
-	 */
-	public $internalId;
-	/**
-	 * @access public
-	 * @var string
-	 */
-	public $scriptId;
 
 	static $paramtypesmap = array(
-		"internalId" => "string",
-		"scriptId" => "string",
 	);
 }}
 
-if (!class_exists("LongCustomFieldRef")) {
+if (!class_exists("LongCustomFieldRef",false)){
 /**
  * LongCustomFieldRef
  */
@@ -8842,13 +8792,19 @@ class LongCustomFieldRef extends CustomFieldRef {
 	 * @var integer
 	 */
 	public $value;
+	/**
+	 * @access public
+	 * @var string
+	 */
+	public $internalId;
 
 	static $paramtypesmap = array(
 		"value" => "integer",
+		"internalId" => "string",
 	);
 }}
 
-if (!class_exists("DoubleCustomFieldRef")) {
+if (!class_exists("DoubleCustomFieldRef",false)){
 /**
  * DoubleCustomFieldRef
  */
@@ -8858,13 +8814,19 @@ class DoubleCustomFieldRef extends CustomFieldRef {
 	 * @var float
 	 */
 	public $value;
+	/**
+	 * @access public
+	 * @var string
+	 */
+	public $internalId;
 
 	static $paramtypesmap = array(
 		"value" => "float",
+		"internalId" => "string",
 	);
 }}
 
-if (!class_exists("BooleanCustomFieldRef")) {
+if (!class_exists("BooleanCustomFieldRef",false)){
 /**
  * BooleanCustomFieldRef
  */
@@ -8874,13 +8836,19 @@ class BooleanCustomFieldRef extends CustomFieldRef {
 	 * @var boolean
 	 */
 	public $value;
+	/**
+	 * @access public
+	 * @var string
+	 */
+	public $internalId;
 
 	static $paramtypesmap = array(
 		"value" => "boolean",
+		"internalId" => "string",
 	);
 }}
 
-if (!class_exists("StringCustomFieldRef")) {
+if (!class_exists("StringCustomFieldRef",false)){
 /**
  * StringCustomFieldRef
  */
@@ -8890,13 +8858,19 @@ class StringCustomFieldRef extends CustomFieldRef {
 	 * @var string
 	 */
 	public $value;
+	/**
+	 * @access public
+	 * @var string
+	 */
+	public $internalId;
 
 	static $paramtypesmap = array(
 		"value" => "string",
+		"internalId" => "string",
 	);
 }}
 
-if (!class_exists("DateCustomFieldRef")) {
+if (!class_exists("DateCustomFieldRef",false)){
 /**
  * DateCustomFieldRef
  */
@@ -8906,13 +8880,19 @@ class DateCustomFieldRef extends CustomFieldRef {
 	 * @var dateTime
 	 */
 	public $value;
+	/**
+	 * @access public
+	 * @var string
+	 */
+	public $internalId;
 
 	static $paramtypesmap = array(
 		"value" => "dateTime",
+		"internalId" => "string",
 	);
 }}
 
-if (!class_exists("SelectCustomFieldRef")) {
+if (!class_exists("SelectCustomFieldRef",false)){
 /**
  * SelectCustomFieldRef
  */
@@ -8922,13 +8902,19 @@ class SelectCustomFieldRef extends CustomFieldRef {
 	 * @var ListOrRecordRef
 	 */
 	public $value;
+	/**
+	 * @access public
+	 * @var string
+	 */
+	public $internalId;
 
 	static $paramtypesmap = array(
 		"value" => "ListOrRecordRef",
+		"internalId" => "string",
 	);
 }}
 
-if (!class_exists("MultiSelectCustomFieldRef")) {
+if (!class_exists("MultiSelectCustomFieldRef",false)){
 /**
  * MultiSelectCustomFieldRef
  */
@@ -8938,13 +8924,19 @@ class MultiSelectCustomFieldRef extends CustomFieldRef {
 	 * @var ListOrRecordRef[]
 	 */
 	public $value;
+	/**
+	 * @access public
+	 * @var string
+	 */
+	public $internalId;
 
 	static $paramtypesmap = array(
 		"value" => "ListOrRecordRef[]",
+		"internalId" => "string",
 	);
 }}
 
-if (!class_exists("CustomFieldList")) {
+if (!class_exists("CustomFieldList",false)){
 /**
  * CustomFieldList
  */
@@ -8960,7 +8952,7 @@ class CustomFieldList {
 	);
 }}
 
-if (!class_exists("SearchBooleanField")) {
+if (!class_exists("SearchBooleanField",false)){
 /**
  * SearchBooleanField
  */
@@ -8976,7 +8968,7 @@ class SearchBooleanField {
 	);
 }}
 
-if (!class_exists("SearchStringField")) {
+if (!class_exists("SearchStringField",false)){
 /**
  * SearchStringField
  */
@@ -8998,7 +8990,7 @@ class SearchStringField {
 	);
 }}
 
-if (!class_exists("SearchLongField")) {
+if (!class_exists("SearchLongField",false)){
 /**
  * SearchLongField
  */
@@ -9026,7 +9018,7 @@ class SearchLongField {
 	);
 }}
 
-if (!class_exists("SearchTextNumberField")) {
+if (!class_exists("SearchTextNumberField",false)){
 /**
  * SearchTextNumberField
  */
@@ -9054,7 +9046,7 @@ class SearchTextNumberField {
 	);
 }}
 
-if (!class_exists("SearchDoubleField")) {
+if (!class_exists("SearchDoubleField",false)){
 /**
  * SearchDoubleField
  */
@@ -9082,7 +9074,7 @@ class SearchDoubleField {
 	);
 }}
 
-if (!class_exists("SearchDateField")) {
+if (!class_exists("SearchDateField",false)){
 /**
  * SearchDateField
  */
@@ -9116,7 +9108,7 @@ class SearchDateField {
 	);
 }}
 
-if (!class_exists("SearchEnumMultiSelectField")) {
+if (!class_exists("SearchEnumMultiSelectField",false)){
 /**
  * SearchEnumMultiSelectField
  */
@@ -9138,7 +9130,7 @@ class SearchEnumMultiSelectField {
 	);
 }}
 
-if (!class_exists("SearchMultiSelectField")) {
+if (!class_exists("SearchMultiSelectField",false)){
 /**
  * SearchMultiSelectField
  */
@@ -9160,29 +9152,17 @@ class SearchMultiSelectField {
 	);
 }}
 
-if (!class_exists("SearchCustomField")) {
+if (!class_exists("SearchCustomField",false)){
 /**
  * SearchCustomField
  */
 class SearchCustomField {
-	/**
-	 * @access public
-	 * @var string
-	 */
-	public $internalId;
-	/**
-	 * @access public
-	 * @var string
-	 */
-	public $scriptId;
 
 	static $paramtypesmap = array(
-		"internalId" => "string",
-		"scriptId" => "string",
 	);
 }}
 
-if (!class_exists("SearchBooleanCustomField")) {
+if (!class_exists("SearchBooleanCustomField",false)){
 /**
  * SearchBooleanCustomField
  */
@@ -9192,13 +9172,19 @@ class SearchBooleanCustomField extends SearchCustomField {
 	 * @var boolean
 	 */
 	public $searchValue;
+	/**
+	 * @access public
+	 * @var string
+	 */
+	public $internalId;
 
 	static $paramtypesmap = array(
 		"searchValue" => "boolean",
+		"internalId" => "string",
 	);
 }}
 
-if (!class_exists("SearchStringCustomField")) {
+if (!class_exists("SearchStringCustomField",false)){
 /**
  * SearchStringCustomField
  */
@@ -9210,17 +9196,23 @@ class SearchStringCustomField extends SearchCustomField {
 	public $searchValue;
 	/**
 	 * @access public
+	 * @var string
+	 */
+	public $internalId;
+	/**
+	 * @access public
 	 * @var SearchStringFieldOperator
 	 */
 	public $operator;
 
 	static $paramtypesmap = array(
 		"searchValue" => "string",
+		"internalId" => "string",
 		"operator" => "SearchStringFieldOperator",
 	);
 }}
 
-if (!class_exists("SearchLongCustomField")) {
+if (!class_exists("SearchLongCustomField",false)){
 /**
  * SearchLongCustomField
  */
@@ -9237,6 +9229,11 @@ class SearchLongCustomField extends SearchCustomField {
 	public $searchValue2;
 	/**
 	 * @access public
+	 * @var string
+	 */
+	public $internalId;
+	/**
+	 * @access public
 	 * @var SearchLongFieldOperator
 	 */
 	public $operator;
@@ -9244,11 +9241,12 @@ class SearchLongCustomField extends SearchCustomField {
 	static $paramtypesmap = array(
 		"searchValue" => "integer",
 		"searchValue2" => "integer",
+		"internalId" => "string",
 		"operator" => "SearchLongFieldOperator",
 	);
 }}
 
-if (!class_exists("SearchDoubleCustomField")) {
+if (!class_exists("SearchDoubleCustomField",false)){
 /**
  * SearchDoubleCustomField
  */
@@ -9265,6 +9263,11 @@ class SearchDoubleCustomField extends SearchCustomField {
 	public $searchValue2;
 	/**
 	 * @access public
+	 * @var string
+	 */
+	public $internalId;
+	/**
+	 * @access public
 	 * @var SearchDoubleFieldOperator
 	 */
 	public $operator;
@@ -9272,11 +9275,12 @@ class SearchDoubleCustomField extends SearchCustomField {
 	static $paramtypesmap = array(
 		"searchValue" => "float",
 		"searchValue2" => "float",
+		"internalId" => "string",
 		"operator" => "SearchDoubleFieldOperator",
 	);
 }}
 
-if (!class_exists("SearchDateCustomField")) {
+if (!class_exists("SearchDateCustomField",false)){
 /**
  * SearchDateCustomField
  */
@@ -9298,6 +9302,11 @@ class SearchDateCustomField extends SearchCustomField {
 	public $searchValue2;
 	/**
 	 * @access public
+	 * @var string
+	 */
+	public $internalId;
+	/**
+	 * @access public
 	 * @var SearchDateFieldOperator
 	 */
 	public $operator;
@@ -9306,11 +9315,12 @@ class SearchDateCustomField extends SearchCustomField {
 		"predefinedSearchValue" => "SearchDate",
 		"searchValue" => "dateTime",
 		"searchValue2" => "dateTime",
+		"internalId" => "string",
 		"operator" => "SearchDateFieldOperator",
 	);
 }}
 
-if (!class_exists("SearchEnumMultiSelectCustomField")) {
+if (!class_exists("SearchEnumMultiSelectCustomField",false)){
 /**
  * SearchEnumMultiSelectCustomField
  */
@@ -9322,17 +9332,23 @@ class SearchEnumMultiSelectCustomField extends SearchCustomField {
 	public $searchValue;
 	/**
 	 * @access public
+	 * @var string
+	 */
+	public $internalId;
+	/**
+	 * @access public
 	 * @var SearchEnumMultiSelectFieldOperator
 	 */
 	public $operator;
 
 	static $paramtypesmap = array(
 		"searchValue" => "string[]",
+		"internalId" => "string",
 		"operator" => "SearchEnumMultiSelectFieldOperator",
 	);
 }}
 
-if (!class_exists("SearchMultiSelectCustomField")) {
+if (!class_exists("SearchMultiSelectCustomField",false)){
 /**
  * SearchMultiSelectCustomField
  */
@@ -9344,17 +9360,23 @@ class SearchMultiSelectCustomField extends SearchCustomField {
 	public $searchValue;
 	/**
 	 * @access public
+	 * @var string
+	 */
+	public $internalId;
+	/**
+	 * @access public
 	 * @var SearchMultiSelectFieldOperator
 	 */
 	public $operator;
 
 	static $paramtypesmap = array(
 		"searchValue" => "ListOrRecordRef[]",
+		"internalId" => "string",
 		"operator" => "SearchMultiSelectFieldOperator",
 	);
 }}
 
-if (!class_exists("SearchCustomFieldList")) {
+if (!class_exists("SearchCustomFieldList",false)){
 /**
  * SearchCustomFieldList
  */
@@ -9370,7 +9392,7 @@ class SearchCustomFieldList {
 	);
 }}
 
-if (!class_exists("SearchColumnField")) {
+if (!class_exists("SearchColumnField",false)){
 /**
  * SearchColumnField
  */
@@ -9386,7 +9408,7 @@ class SearchColumnField {
 	);
 }}
 
-if (!class_exists("SearchColumnBooleanField")) {
+if (!class_exists("SearchColumnBooleanField",false)){
 /**
  * SearchColumnBooleanField
  */
@@ -9402,7 +9424,7 @@ class SearchColumnBooleanField extends SearchColumnField {
 	);
 }}
 
-if (!class_exists("SearchColumnStringField")) {
+if (!class_exists("SearchColumnStringField",false)){
 /**
  * SearchColumnStringField
  */
@@ -9418,7 +9440,7 @@ class SearchColumnStringField extends SearchColumnField {
 	);
 }}
 
-if (!class_exists("SearchColumnLongField")) {
+if (!class_exists("SearchColumnLongField",false)){
 /**
  * SearchColumnLongField
  */
@@ -9434,7 +9456,7 @@ class SearchColumnLongField extends SearchColumnField {
 	);
 }}
 
-if (!class_exists("SearchColumnTextNumberField")) {
+if (!class_exists("SearchColumnTextNumberField",false)){
 /**
  * SearchColumnTextNumberField
  */
@@ -9450,7 +9472,7 @@ class SearchColumnTextNumberField extends SearchColumnField {
 	);
 }}
 
-if (!class_exists("SearchColumnDoubleField")) {
+if (!class_exists("SearchColumnDoubleField",false)){
 /**
  * SearchColumnDoubleField
  */
@@ -9466,7 +9488,7 @@ class SearchColumnDoubleField extends SearchColumnField {
 	);
 }}
 
-if (!class_exists("SearchColumnDateField")) {
+if (!class_exists("SearchColumnDateField",false)){
 /**
  * SearchColumnDateField
  */
@@ -9482,7 +9504,7 @@ class SearchColumnDateField extends SearchColumnField {
 	);
 }}
 
-if (!class_exists("SearchColumnEnumSelectField")) {
+if (!class_exists("SearchColumnEnumSelectField",false)){
 /**
  * SearchColumnEnumSelectField
  */
@@ -9498,7 +9520,7 @@ class SearchColumnEnumSelectField extends SearchColumnField {
 	);
 }}
 
-if (!class_exists("SearchColumnSelectField")) {
+if (!class_exists("SearchColumnSelectField",false)){
 /**
  * SearchColumnSelectField
  */
@@ -9514,7 +9536,7 @@ class SearchColumnSelectField extends SearchColumnField {
 	);
 }}
 
-if (!class_exists("SearchColumnCustomField")) {
+if (!class_exists("SearchColumnCustomField",false)){
 /**
  * SearchColumnCustomField
  */
@@ -9524,25 +9546,13 @@ class SearchColumnCustomField {
 	 * @var string
 	 */
 	public $customLabel;
-	/**
-	 * @access public
-	 * @var string
-	 */
-	public $internalId;
-	/**
-	 * @access public
-	 * @var string
-	 */
-	public $scriptId;
 
 	static $paramtypesmap = array(
 		"customLabel" => "string",
-		"internalId" => "string",
-		"scriptId" => "string",
 	);
 }}
 
-if (!class_exists("SearchColumnBooleanCustomField")) {
+if (!class_exists("SearchColumnBooleanCustomField",false)){
 /**
  * SearchColumnBooleanCustomField
  */
@@ -9552,13 +9562,19 @@ class SearchColumnBooleanCustomField extends SearchColumnCustomField {
 	 * @var boolean
 	 */
 	public $searchValue;
+	/**
+	 * @access public
+	 * @var string
+	 */
+	public $internalId;
 
 	static $paramtypesmap = array(
 		"searchValue" => "boolean",
+		"internalId" => "string",
 	);
 }}
 
-if (!class_exists("SearchColumnStringCustomField")) {
+if (!class_exists("SearchColumnStringCustomField",false)){
 /**
  * SearchColumnStringCustomField
  */
@@ -9568,13 +9584,19 @@ class SearchColumnStringCustomField extends SearchColumnCustomField {
 	 * @var string
 	 */
 	public $searchValue;
+	/**
+	 * @access public
+	 * @var string
+	 */
+	public $internalId;
 
 	static $paramtypesmap = array(
 		"searchValue" => "string",
+		"internalId" => "string",
 	);
 }}
 
-if (!class_exists("SearchColumnLongCustomField")) {
+if (!class_exists("SearchColumnLongCustomField",false)){
 /**
  * SearchColumnLongCustomField
  */
@@ -9584,13 +9606,19 @@ class SearchColumnLongCustomField extends SearchColumnCustomField {
 	 * @var integer
 	 */
 	public $searchValue;
+	/**
+	 * @access public
+	 * @var string
+	 */
+	public $internalId;
 
 	static $paramtypesmap = array(
 		"searchValue" => "integer",
+		"internalId" => "string",
 	);
 }}
 
-if (!class_exists("SearchColumnDoubleCustomField")) {
+if (!class_exists("SearchColumnDoubleCustomField",false)){
 /**
  * SearchColumnDoubleCustomField
  */
@@ -9600,13 +9628,19 @@ class SearchColumnDoubleCustomField extends SearchColumnCustomField {
 	 * @var float
 	 */
 	public $searchValue;
+	/**
+	 * @access public
+	 * @var string
+	 */
+	public $internalId;
 
 	static $paramtypesmap = array(
 		"searchValue" => "float",
+		"internalId" => "string",
 	);
 }}
 
-if (!class_exists("SearchColumnDateCustomField")) {
+if (!class_exists("SearchColumnDateCustomField",false)){
 /**
  * SearchColumnDateCustomField
  */
@@ -9616,13 +9650,19 @@ class SearchColumnDateCustomField extends SearchColumnCustomField {
 	 * @var dateTime
 	 */
 	public $searchValue;
+	/**
+	 * @access public
+	 * @var string
+	 */
+	public $internalId;
 
 	static $paramtypesmap = array(
 		"searchValue" => "dateTime",
+		"internalId" => "string",
 	);
 }}
 
-if (!class_exists("SearchColumnEnumMultiSelectCustomField")) {
+if (!class_exists("SearchColumnEnumMultiSelectCustomField",false)){
 /**
  * SearchColumnEnumMultiSelectCustomField
  */
@@ -9632,13 +9672,19 @@ class SearchColumnEnumMultiSelectCustomField extends SearchColumnCustomField {
 	 * @var string[]
 	 */
 	public $searchValue;
+	/**
+	 * @access public
+	 * @var string
+	 */
+	public $internalId;
 
 	static $paramtypesmap = array(
 		"searchValue" => "string[]",
+		"internalId" => "string",
 	);
 }}
 
-if (!class_exists("SearchColumnSelectCustomField")) {
+if (!class_exists("SearchColumnSelectCustomField",false)){
 /**
  * SearchColumnSelectCustomField
  */
@@ -9648,13 +9694,19 @@ class SearchColumnSelectCustomField extends SearchColumnCustomField {
 	 * @var ListOrRecordRef
 	 */
 	public $searchValue;
+	/**
+	 * @access public
+	 * @var string
+	 */
+	public $internalId;
 
 	static $paramtypesmap = array(
 		"searchValue" => "ListOrRecordRef",
+		"internalId" => "string",
 	);
 }}
 
-if (!class_exists("SearchColumnMultiSelectCustomField")) {
+if (!class_exists("SearchColumnMultiSelectCustomField",false)){
 /**
  * SearchColumnMultiSelectCustomField
  */
@@ -9664,13 +9716,19 @@ class SearchColumnMultiSelectCustomField extends SearchColumnCustomField {
 	 * @var ListOrRecordRef[]
 	 */
 	public $searchValue;
+	/**
+	 * @access public
+	 * @var string
+	 */
+	public $internalId;
 
 	static $paramtypesmap = array(
 		"searchValue" => "ListOrRecordRef[]",
+		"internalId" => "string",
 	);
 }}
 
-if (!class_exists("SearchColumnCustomFieldList")) {
+if (!class_exists("SearchColumnCustomFieldList",false)){
 /**
  * SearchColumnCustomFieldList
  */
@@ -9686,7 +9744,7 @@ class SearchColumnCustomFieldList {
 	);
 }}
 
-if (!class_exists("ItemAvailabilityFilter")) {
+if (!class_exists("ItemAvailabilityFilter",false)){
 /**
  * ItemAvailabilityFilter
  */
@@ -9708,7 +9766,7 @@ class ItemAvailabilityFilter {
 	);
 }}
 
-if (!class_exists("ItemAvailability")) {
+if (!class_exists("ItemAvailability",false)){
 /**
  * ItemAvailability
  */
@@ -9784,7 +9842,7 @@ class ItemAvailability {
 	);
 }}
 
-if (!class_exists("ItemAvailabilityList")) {
+if (!class_exists("ItemAvailabilityList",false)){
 /**
  * ItemAvailabilityList
  */
@@ -9800,7 +9858,7 @@ class ItemAvailabilityList {
 	);
 }}
 
-if (!class_exists("GetItemAvailabilityResult")) {
+if (!class_exists("GetItemAvailabilityResult",false)){
 /**
  * GetItemAvailabilityResult
  */
@@ -9822,7 +9880,7 @@ class GetItemAvailabilityResult {
 	);
 }}
 
-if (!class_exists("BudgetExchangeRateFilter")) {
+if (!class_exists("BudgetExchangeRateFilter",false)){
 /**
  * BudgetExchangeRateFilter
  */
@@ -9850,7 +9908,7 @@ class BudgetExchangeRateFilter {
 	);
 }}
 
-if (!class_exists("BudgetExchangeRate")) {
+if (!class_exists("BudgetExchangeRate",false)){
 /**
  * BudgetExchangeRate
  */
@@ -9896,7 +9954,7 @@ class BudgetExchangeRate {
 	);
 }}
 
-if (!class_exists("BudgetExchangeRateList")) {
+if (!class_exists("BudgetExchangeRateList",false)){
 /**
  * BudgetExchangeRateList
  */
@@ -9912,7 +9970,7 @@ class BudgetExchangeRateList {
 	);
 }}
 
-if (!class_exists("GetBudgetExchangeRateResult")) {
+if (!class_exists("GetBudgetExchangeRateResult",false)){
 /**
  * GetBudgetExchangeRateResult
  */
@@ -9934,7 +9992,7 @@ class GetBudgetExchangeRateResult {
 	);
 }}
 
-if (!class_exists("ConsolidatedExchangeRateFilter")) {
+if (!class_exists("ConsolidatedExchangeRateFilter",false)){
 /**
  * ConsolidatedExchangeRateFilter
  */
@@ -9962,7 +10020,7 @@ class ConsolidatedExchangeRateFilter {
 	);
 }}
 
-if (!class_exists("ConsolidatedExchangeRate")) {
+if (!class_exists("ConsolidatedExchangeRate",false)){
 /**
  * ConsolidatedExchangeRate
  */
@@ -10008,7 +10066,7 @@ class ConsolidatedExchangeRate {
 	);
 }}
 
-if (!class_exists("ConsolidatedExchangeRateList")) {
+if (!class_exists("ConsolidatedExchangeRateList",false)){
 /**
  * ConsolidatedExchangeRateList
  */
@@ -10024,7 +10082,7 @@ class ConsolidatedExchangeRateList {
 	);
 }}
 
-if (!class_exists("GetConsolidatedExchangeRateResult")) {
+if (!class_exists("GetConsolidatedExchangeRateResult",false)){
 /**
  * GetConsolidatedExchangeRateResult
  */
@@ -10046,7 +10104,7 @@ class GetConsolidatedExchangeRateResult {
 	);
 }}
 
-if (!class_exists("CurrencyRateFilter")) {
+if (!class_exists("CurrencyRateFilter",false)){
 /**
  * CurrencyRateFilter
  */
@@ -10074,7 +10132,7 @@ class CurrencyRateFilter {
 	);
 }}
 
-if (!class_exists("CurrencyRate")) {
+if (!class_exists("CurrencyRate",false)){
 /**
  * CurrencyRate
  */
@@ -10114,7 +10172,7 @@ class CurrencyRate extends Record {
 	);
 }}
 
-if (!class_exists("CurrencyRateList")) {
+if (!class_exists("CurrencyRateList",false)){
 /**
  * CurrencyRateList
  */
@@ -10130,7 +10188,7 @@ class CurrencyRateList {
 	);
 }}
 
-if (!class_exists("GetCurrencyRateResult")) {
+if (!class_exists("GetCurrencyRateResult",false)){
 /**
  * GetCurrencyRateResult
  */
@@ -10152,7 +10210,7 @@ class GetCurrencyRateResult {
 	);
 }}
 
-if (!class_exists("DataCenterUrls")) {
+if (!class_exists("DataCenterUrls",false)){
 /**
  * DataCenterUrls
  */
@@ -10180,7 +10238,7 @@ class DataCenterUrls {
 	);
 }}
 
-if (!class_exists("GetDataCenterUrlsResult")) {
+if (!class_exists("GetDataCenterUrlsResult",false)){
 /**
  * GetDataCenterUrlsResult
  */
@@ -10202,7 +10260,7 @@ class GetDataCenterUrlsResult {
 	);
 }}
 
-if (!class_exists("PostingTransactionSummaryField")) {
+if (!class_exists("PostingTransactionSummaryField",false)){
 /**
  * PostingTransactionSummaryField
  */
@@ -10266,7 +10324,7 @@ class PostingTransactionSummaryField {
 	);
 }}
 
-if (!class_exists("PostingTransactionSummaryFilter")) {
+if (!class_exists("PostingTransactionSummaryFilter",false)){
 /**
  * PostingTransactionSummaryFilter
  */
@@ -10330,7 +10388,7 @@ class PostingTransactionSummaryFilter {
 	);
 }}
 
-if (!class_exists("PostingTransactionSummary")) {
+if (!class_exists("PostingTransactionSummary",false)){
 /**
  * PostingTransactionSummary
  */
@@ -10400,7 +10458,7 @@ class PostingTransactionSummary {
 	);
 }}
 
-if (!class_exists("PostingTransactionSummaryList")) {
+if (!class_exists("PostingTransactionSummaryList",false)){
 /**
  * PostingTransactionSummaryList
  */
@@ -10416,7 +10474,7 @@ class PostingTransactionSummaryList {
 	);
 }}
 
-if (!class_exists("GetPostingTransactionSummaryResult")) {
+if (!class_exists("GetPostingTransactionSummaryResult",false)){
 /**
  * GetPostingTransactionSummaryResult
  */
@@ -10462,7 +10520,7 @@ class GetPostingTransactionSummaryResult {
 	);
 }}
 
-if (!class_exists("GetSelectValueFieldDescription")) {
+if (!class_exists("GetSelectValueFieldDescription",false)){
 /**
  * GetSelectValueFieldDescription
  */
@@ -10514,7 +10572,7 @@ class GetSelectValueFieldDescription {
 	);
 }}
 
-if (!class_exists("GetSelectValueFilter")) {
+if (!class_exists("GetSelectValueFilter",false)){
 /**
  * GetSelectValueFilter
  */
@@ -10536,7 +10594,7 @@ class GetSelectValueFilter {
 	);
 }}
 
-if (!class_exists("GetSelectFilterByFieldValueList")) {
+if (!class_exists("GetSelectFilterByFieldValueList",false)){
 /**
  * GetSelectFilterByFieldValueList
  */
@@ -10552,7 +10610,7 @@ class GetSelectFilterByFieldValueList {
 	);
 }}
 
-if (!class_exists("GetSelectFilterByFieldValue")) {
+if (!class_exists("GetSelectFilterByFieldValue",false)){
 /**
  * GetSelectFilterByFieldValue
  */
@@ -10580,7 +10638,7 @@ class GetSelectFilterByFieldValue {
 	);
 }}
 
-if (!class_exists("GetServerTimeResult")) {
+if (!class_exists("GetServerTimeResult",false)){
 /**
  * GetServerTimeResult
  */
@@ -10602,7 +10660,7 @@ class GetServerTimeResult {
 	);
 }}
 
-if (!class_exists("DeletedRecord")) {
+if (!class_exists("DeletedRecord",false)){
 /**
  * DeletedRecord
  */
@@ -10624,7 +10682,7 @@ class DeletedRecord {
 	);
 }}
 
-if (!class_exists("DeletedRecordList")) {
+if (!class_exists("DeletedRecordList",false)){
 /**
  * DeletedRecordList
  */
@@ -10640,7 +10698,7 @@ class DeletedRecordList {
 	);
 }}
 
-if (!class_exists("GetDeletedResult")) {
+if (!class_exists("GetDeletedResult",false)){
 /**
  * GetDeletedResult
  */
@@ -10662,7 +10720,7 @@ class GetDeletedResult {
 	);
 }}
 
-if (!class_exists("GetDeletedFilter")) {
+if (!class_exists("GetDeletedFilter",false)){
 /**
  * GetDeletedFilter
  */
@@ -10684,7 +10742,7 @@ class GetDeletedFilter {
 	);
 }}
 
-if (!class_exists("AttachReference")) {
+if (!class_exists("AttachReference",false)){
 /**
  * AttachReference
  */
@@ -10700,7 +10758,7 @@ class AttachReference {
 	);
 }}
 
-if (!class_exists("DetachReference")) {
+if (!class_exists("DetachReference",false)){
 /**
  * DetachReference
  */
@@ -10716,7 +10774,7 @@ class DetachReference {
 	);
 }}
 
-if (!class_exists("AttachContactReference")) {
+if (!class_exists("AttachContactReference",false)){
 /**
  * AttachContactReference
  */
@@ -10738,7 +10796,7 @@ class AttachContactReference extends AttachReference {
 	);
 }}
 
-if (!class_exists("AttachBasicReference")) {
+if (!class_exists("AttachBasicReference",false)){
 /**
  * AttachBasicReference
  */
@@ -10754,7 +10812,7 @@ class AttachBasicReference extends AttachReference {
 	);
 }}
 
-if (!class_exists("DetachBasicReference")) {
+if (!class_exists("DetachBasicReference",false)){
 /**
  * DetachBasicReference
  */
@@ -10770,7 +10828,7 @@ class DetachBasicReference extends DetachReference {
 	);
 }}
 
-if (!class_exists("NSSoapFault")) {
+if (!class_exists("NSSoapFault",false)){
 /**
  * NSSoapFault
  */
@@ -10792,7 +10850,7 @@ class NSSoapFault {
 	);
 }}
 
-if (!class_exists("InsufficientPermissionFault")) {
+if (!class_exists("InsufficientPermissionFault",false)){
 /**
  * InsufficientPermissionFault
  */
@@ -10802,7 +10860,7 @@ class InsufficientPermissionFault extends NSSoapFault {
 	);
 }}
 
-if (!class_exists("InvalidAccountFault")) {
+if (!class_exists("InvalidAccountFault",false)){
 /**
  * InvalidAccountFault
  */
@@ -10812,7 +10870,7 @@ class InvalidAccountFault extends NSSoapFault {
 	);
 }}
 
-if (!class_exists("InvalidCredentialsFault")) {
+if (!class_exists("InvalidCredentialsFault",false)){
 /**
  * InvalidCredentialsFault
  */
@@ -10822,7 +10880,7 @@ class InvalidCredentialsFault extends NSSoapFault {
 	);
 }}
 
-if (!class_exists("InvalidSessionFault")) {
+if (!class_exists("InvalidSessionFault",false)){
 /**
  * InvalidSessionFault
  */
@@ -10832,7 +10890,7 @@ class InvalidSessionFault extends NSSoapFault {
 	);
 }}
 
-if (!class_exists("ExceededRequestLimitFault")) {
+if (!class_exists("ExceededRequestLimitFault",false)){
 /**
  * ExceededRequestLimitFault
  */
@@ -10842,7 +10900,7 @@ class ExceededRequestLimitFault extends NSSoapFault {
 	);
 }}
 
-if (!class_exists("ExceededUsageLimitFault")) {
+if (!class_exists("ExceededUsageLimitFault",false)){
 /**
  * ExceededUsageLimitFault
  */
@@ -10852,7 +10910,7 @@ class ExceededUsageLimitFault extends NSSoapFault {
 	);
 }}
 
-if (!class_exists("ExceededRecordCountFault")) {
+if (!class_exists("ExceededRecordCountFault",false)){
 /**
  * ExceededRecordCountFault
  */
@@ -10862,7 +10920,7 @@ class ExceededRecordCountFault extends NSSoapFault {
 	);
 }}
 
-if (!class_exists("InvalidVersionFault")) {
+if (!class_exists("InvalidVersionFault",false)){
 /**
  * InvalidVersionFault
  */
@@ -10872,7 +10930,7 @@ class InvalidVersionFault extends NSSoapFault {
 	);
 }}
 
-if (!class_exists("ExceededRequestSizeFault")) {
+if (!class_exists("ExceededRequestSizeFault",false)){
 /**
  * ExceededRequestSizeFault
  */
@@ -10882,7 +10940,7 @@ class ExceededRequestSizeFault extends NSSoapFault {
 	);
 }}
 
-if (!class_exists("AsyncFault")) {
+if (!class_exists("AsyncFault",false)){
 /**
  * AsyncFault
  */
@@ -10892,7 +10950,7 @@ class AsyncFault extends NSSoapFault {
 	);
 }}
 
-if (!class_exists("UnexpectedErrorFault")) {
+if (!class_exists("UnexpectedErrorFault",false)){
 /**
  * UnexpectedErrorFault
  */
@@ -10902,7 +10960,7 @@ class UnexpectedErrorFault extends NSSoapFault {
 	);
 }}
 
-if (!class_exists("ApplicationInfo")) {
+if (!class_exists("ApplicationInfo",false)){
 /**
  * ApplicationInfo
  */
@@ -10918,7 +10976,7 @@ class ApplicationInfo {
 	);
 }}
 
-if (!class_exists("PartnerInfo")) {
+if (!class_exists("PartnerInfo",false)){
 /**
  * PartnerInfo
  */
@@ -10934,7 +10992,7 @@ class PartnerInfo {
 	);
 }}
 
-if (!class_exists("DocumentInfo")) {
+if (!class_exists("DocumentInfo",false)){
 /**
  * DocumentInfo
  */
@@ -10950,7 +11008,7 @@ class DocumentInfo {
 	);
 }}
 
-if (!class_exists("Preferences")) {
+if (!class_exists("Preferences",false)){
 /**
  * Preferences
  */
@@ -10984,7 +11042,7 @@ class Preferences {
 	);
 }}
 
-if (!class_exists("SearchPreferences")) {
+if (!class_exists("SearchPreferences",false)){
 /**
  * SearchPreferences
  */
@@ -11012,7 +11070,7 @@ class SearchPreferences {
 	);
 }}
 
-if (!class_exists("SessionResponse")) {
+if (!class_exists("SessionResponse",false)){
 /**
  * SessionResponse
  */
@@ -11040,7 +11098,7 @@ class SessionResponse {
 	);
 }}
 
-if (!class_exists("WriteResponse")) {
+if (!class_exists("WriteResponse",false)){
 /**
  * WriteResponse
  */
@@ -11062,7 +11120,7 @@ class WriteResponse {
 	);
 }}
 
-if (!class_exists("ReadResponse")) {
+if (!class_exists("ReadResponse",false)){
 /**
  * ReadResponse
  */
@@ -11084,7 +11142,7 @@ class ReadResponse {
 	);
 }}
 
-if (!class_exists("WriteResponseList")) {
+if (!class_exists("WriteResponseList",false)){
 /**
  * WriteResponseList
  */
@@ -11100,7 +11158,7 @@ class WriteResponseList {
 	);
 }}
 
-if (!class_exists("ReadResponseList")) {
+if (!class_exists("ReadResponseList",false)){
 /**
  * ReadResponseList
  */
@@ -11116,7 +11174,7 @@ class ReadResponseList {
 	);
 }}
 
-if (!class_exists("LoginResponse")) {
+if (!class_exists("LoginResponse",false)){
 /**
  * LoginResponse
  */
@@ -11132,7 +11190,7 @@ class LoginResponse {
 	);
 }}
 
-if (!class_exists("SsoLoginResponse")) {
+if (!class_exists("SsoLoginResponse",false)){
 /**
  * SsoLoginResponse
  */
@@ -11148,7 +11206,7 @@ class SsoLoginResponse {
 	);
 }}
 
-if (!class_exists("MapSsoResponse")) {
+if (!class_exists("MapSsoResponse",false)){
 /**
  * MapSsoResponse
  */
@@ -11164,7 +11222,7 @@ class MapSsoResponse {
 	);
 }}
 
-if (!class_exists("ChangePasswordResponse")) {
+if (!class_exists("ChangePasswordResponse",false)){
 /**
  * ChangePasswordResponse
  */
@@ -11180,7 +11238,7 @@ class ChangePasswordResponse {
 	);
 }}
 
-if (!class_exists("ChangeEmailResponse")) {
+if (!class_exists("ChangeEmailResponse",false)){
 /**
  * ChangeEmailResponse
  */
@@ -11196,7 +11254,7 @@ class ChangeEmailResponse {
 	);
 }}
 
-if (!class_exists("LogoutResponse")) {
+if (!class_exists("LogoutResponse",false)){
 /**
  * LogoutResponse
  */
@@ -11212,7 +11270,7 @@ class LogoutResponse {
 	);
 }}
 
-if (!class_exists("AddResponse")) {
+if (!class_exists("AddResponse",false)){
 /**
  * AddResponse
  */
@@ -11228,7 +11286,7 @@ class AddResponse {
 	);
 }}
 
-if (!class_exists("AddListResponse")) {
+if (!class_exists("AddListResponse",false)){
 /**
  * AddListResponse
  */
@@ -11244,7 +11302,7 @@ class AddListResponse {
 	);
 }}
 
-if (!class_exists("UpdateResponse")) {
+if (!class_exists("UpdateResponse",false)){
 /**
  * UpdateResponse
  */
@@ -11260,7 +11318,7 @@ class UpdateResponse {
 	);
 }}
 
-if (!class_exists("UpdateListResponse")) {
+if (!class_exists("UpdateListResponse",false)){
 /**
  * UpdateListResponse
  */
@@ -11276,7 +11334,7 @@ class UpdateListResponse {
 	);
 }}
 
-if (!class_exists("UpsertResponse")) {
+if (!class_exists("UpsertResponse",false)){
 /**
  * UpsertResponse
  */
@@ -11292,7 +11350,7 @@ class UpsertResponse {
 	);
 }}
 
-if (!class_exists("UpsertListResponse")) {
+if (!class_exists("UpsertListResponse",false)){
 /**
  * UpsertListResponse
  */
@@ -11308,7 +11366,7 @@ class UpsertListResponse {
 	);
 }}
 
-if (!class_exists("DeleteResponse")) {
+if (!class_exists("DeleteResponse",false)){
 /**
  * DeleteResponse
  */
@@ -11324,7 +11382,7 @@ class DeleteResponse {
 	);
 }}
 
-if (!class_exists("DeleteListResponse")) {
+if (!class_exists("DeleteListResponse",false)){
 /**
  * DeleteListResponse
  */
@@ -11340,7 +11398,7 @@ class DeleteListResponse {
 	);
 }}
 
-if (!class_exists("SearchResponse")) {
+if (!class_exists("SearchResponse",false)){
 /**
  * SearchResponse
  */
@@ -11356,7 +11414,7 @@ class SearchResponse {
 	);
 }}
 
-if (!class_exists("SearchMoreResponse")) {
+if (!class_exists("SearchMoreResponse",false)){
 /**
  * SearchMoreResponse
  */
@@ -11372,7 +11430,7 @@ class SearchMoreResponse {
 	);
 }}
 
-if (!class_exists("SearchMoreWithIdResponse")) {
+if (!class_exists("SearchMoreWithIdResponse",false)){
 /**
  * SearchMoreWithIdResponse
  */
@@ -11388,7 +11446,7 @@ class SearchMoreWithIdResponse {
 	);
 }}
 
-if (!class_exists("SearchNextResponse")) {
+if (!class_exists("SearchNextResponse",false)){
 /**
  * SearchNextResponse
  */
@@ -11404,7 +11462,7 @@ class SearchNextResponse {
 	);
 }}
 
-if (!class_exists("GetResponse")) {
+if (!class_exists("GetResponse",false)){
 /**
  * GetResponse
  */
@@ -11420,7 +11478,7 @@ class GetResponse {
 	);
 }}
 
-if (!class_exists("GetListResponse")) {
+if (!class_exists("GetListResponse",false)){
 /**
  * GetListResponse
  */
@@ -11436,7 +11494,7 @@ class GetListResponse {
 	);
 }}
 
-if (!class_exists("GetAllResponse")) {
+if (!class_exists("GetAllResponse",false)){
 /**
  * GetAllResponse
  */
@@ -11452,7 +11510,7 @@ class GetAllResponse {
 	);
 }}
 
-if (!class_exists("GetSavedSearchResponse")) {
+if (!class_exists("GetSavedSearchResponse",false)){
 /**
  * GetSavedSearchResponse
  */
@@ -11468,7 +11526,7 @@ class GetSavedSearchResponse {
 	);
 }}
 
-if (!class_exists("GetCustomizationIdResponse")) {
+if (!class_exists("GetCustomizationIdResponse",false)){
 /**
  * GetCustomizationIdResponse
  */
@@ -11484,7 +11542,7 @@ class GetCustomizationIdResponse {
 	);
 }}
 
-if (!class_exists("InitializeResponse")) {
+if (!class_exists("InitializeResponse",false)){
 /**
  * InitializeResponse
  */
@@ -11500,7 +11558,7 @@ class InitializeResponse {
 	);
 }}
 
-if (!class_exists("InitializeListResponse")) {
+if (!class_exists("InitializeListResponse",false)){
 /**
  * InitializeListResponse
  */
@@ -11516,7 +11574,7 @@ class InitializeListResponse {
 	);
 }}
 
-if (!class_exists("getSelectValueResponse")) {
+if (!class_exists("getSelectValueResponse",false)){
 /**
  * getSelectValueResponse
  */
@@ -11532,7 +11590,7 @@ class getSelectValueResponse {
 	);
 }}
 
-if (!class_exists("GetItemAvailabilityResponse")) {
+if (!class_exists("GetItemAvailabilityResponse",false)){
 /**
  * GetItemAvailabilityResponse
  */
@@ -11548,7 +11606,7 @@ class GetItemAvailabilityResponse {
 	);
 }}
 
-if (!class_exists("GetBudgetExchangeRateResponse")) {
+if (!class_exists("GetBudgetExchangeRateResponse",false)){
 /**
  * GetBudgetExchangeRateResponse
  */
@@ -11564,7 +11622,7 @@ class GetBudgetExchangeRateResponse {
 	);
 }}
 
-if (!class_exists("GetConsolidatedExchangeRateResponse")) {
+if (!class_exists("GetConsolidatedExchangeRateResponse",false)){
 /**
  * GetConsolidatedExchangeRateResponse
  */
@@ -11580,7 +11638,7 @@ class GetConsolidatedExchangeRateResponse {
 	);
 }}
 
-if (!class_exists("GetCurrencyRateResponse")) {
+if (!class_exists("GetCurrencyRateResponse",false)){
 /**
  * GetCurrencyRateResponse
  */
@@ -11596,7 +11654,7 @@ class GetCurrencyRateResponse {
 	);
 }}
 
-if (!class_exists("GetDataCenterUrlsResponse")) {
+if (!class_exists("GetDataCenterUrlsResponse",false)){
 /**
  * GetDataCenterUrlsResponse
  */
@@ -11612,7 +11670,7 @@ class GetDataCenterUrlsResponse {
 	);
 }}
 
-if (!class_exists("GetPostingTransactionSummaryResponse")) {
+if (!class_exists("GetPostingTransactionSummaryResponse",false)){
 /**
  * GetPostingTransactionSummaryResponse
  */
@@ -11628,7 +11686,7 @@ class GetPostingTransactionSummaryResponse {
 	);
 }}
 
-if (!class_exists("GetServerTimeResponse")) {
+if (!class_exists("GetServerTimeResponse",false)){
 /**
  * GetServerTimeResponse
  */
@@ -11644,7 +11702,7 @@ class GetServerTimeResponse {
 	);
 }}
 
-if (!class_exists("AttachResponse")) {
+if (!class_exists("AttachResponse",false)){
 /**
  * AttachResponse
  */
@@ -11660,7 +11718,7 @@ class AttachResponse {
 	);
 }}
 
-if (!class_exists("DetachResponse")) {
+if (!class_exists("DetachResponse",false)){
 /**
  * DetachResponse
  */
@@ -11676,7 +11734,7 @@ class DetachResponse {
 	);
 }}
 
-if (!class_exists("UpdateInviteeStatusResponse")) {
+if (!class_exists("UpdateInviteeStatusResponse",false)){
 /**
  * UpdateInviteeStatusResponse
  */
@@ -11692,7 +11750,7 @@ class UpdateInviteeStatusResponse {
 	);
 }}
 
-if (!class_exists("UpdateInviteeStatusListResponse")) {
+if (!class_exists("UpdateInviteeStatusListResponse",false)){
 /**
  * UpdateInviteeStatusListResponse
  */
@@ -11708,7 +11766,7 @@ class UpdateInviteeStatusListResponse {
 	);
 }}
 
-if (!class_exists("AsyncStatusResponse")) {
+if (!class_exists("AsyncStatusResponse",false)){
 /**
  * AsyncStatusResponse
  */
@@ -11724,7 +11782,7 @@ class AsyncStatusResponse {
 	);
 }}
 
-if (!class_exists("GetAsyncResultResponse")) {
+if (!class_exists("GetAsyncResultResponse",false)){
 /**
  * GetAsyncResultResponse
  */
@@ -11740,7 +11798,7 @@ class GetAsyncResultResponse {
 	);
 }}
 
-if (!class_exists("AsyncResult")) {
+if (!class_exists("AsyncResult",false)){
 /**
  * AsyncResult
  */
@@ -11750,7 +11808,7 @@ class AsyncResult {
 	);
 }}
 
-if (!class_exists("AsyncAddListResult")) {
+if (!class_exists("AsyncAddListResult",false)){
 /**
  * AsyncAddListResult
  */
@@ -11766,7 +11824,7 @@ class AsyncAddListResult extends AsyncResult {
 	);
 }}
 
-if (!class_exists("AsyncUpdateListResult")) {
+if (!class_exists("AsyncUpdateListResult",false)){
 /**
  * AsyncUpdateListResult
  */
@@ -11782,7 +11840,7 @@ class AsyncUpdateListResult extends AsyncResult {
 	);
 }}
 
-if (!class_exists("AsyncUpsertListResult")) {
+if (!class_exists("AsyncUpsertListResult",false)){
 /**
  * AsyncUpsertListResult
  */
@@ -11798,7 +11856,7 @@ class AsyncUpsertListResult extends AsyncResult {
 	);
 }}
 
-if (!class_exists("AsyncDeleteListResult")) {
+if (!class_exists("AsyncDeleteListResult",false)){
 /**
  * AsyncDeleteListResult
  */
@@ -11814,7 +11872,7 @@ class AsyncDeleteListResult extends AsyncResult {
 	);
 }}
 
-if (!class_exists("AsyncGetListResult")) {
+if (!class_exists("AsyncGetListResult",false)){
 /**
  * AsyncGetListResult
  */
@@ -11830,7 +11888,7 @@ class AsyncGetListResult extends AsyncResult {
 	);
 }}
 
-if (!class_exists("AsyncSearchResult")) {
+if (!class_exists("AsyncSearchResult",false)){
 /**
  * AsyncSearchResult
  */
@@ -11846,23 +11904,23 @@ class AsyncSearchResult extends AsyncResult {
 	);
 }}
 
-if (!class_exists("AsyncInitializeListResult")) {
+if (!class_exists("AsyncInitializeListResult",false)){
 /**
  * AsyncInitializeListResult
  */
 class AsyncInitializeListResult extends AsyncResult {
 	/**
 	 * @access public
-	 * @var ReadResponseList
+	 * @var WriteResponseList
 	 */
-	public $readResponseList;
+	public $writeResponseList;
 
 	static $paramtypesmap = array(
-		"readResponseList" => "ReadResponseList",
+		"writeResponseList" => "WriteResponseList",
 	);
 }}
 
-if (!class_exists("GetDeletedResponse")) {
+if (!class_exists("GetDeletedResponse",false)){
 /**
  * GetDeletedResponse
  */
@@ -11878,7 +11936,7 @@ class GetDeletedResponse {
 	);
 }}
 
-if (!class_exists("LoginRequest")) {
+if (!class_exists("LoginRequest",false)){
 /**
  * LoginRequest
  */
@@ -11894,7 +11952,7 @@ class LoginRequest {
 	);
 }}
 
-if (!class_exists("SsoLoginRequest")) {
+if (!class_exists("SsoLoginRequest",false)){
 /**
  * SsoLoginRequest
  */
@@ -11910,7 +11968,7 @@ class SsoLoginRequest {
 	);
 }}
 
-if (!class_exists("MapSsoRequest")) {
+if (!class_exists("MapSsoRequest",false)){
 /**
  * MapSsoRequest
  */
@@ -11926,7 +11984,7 @@ class MapSsoRequest {
 	);
 }}
 
-if (!class_exists("ChangePasswordRequest")) {
+if (!class_exists("ChangePasswordRequest",false)){
 /**
  * ChangePasswordRequest
  */
@@ -11942,7 +12000,7 @@ class ChangePasswordRequest {
 	);
 }}
 
-if (!class_exists("ChangeEmailRequest")) {
+if (!class_exists("ChangeEmailRequest",false)){
 /**
  * ChangeEmailRequest
  */
@@ -11958,7 +12016,7 @@ class ChangeEmailRequest {
 	);
 }}
 
-if (!class_exists("LogoutRequest")) {
+if (!class_exists("LogoutRequest",false)){
 /**
  * LogoutRequest
  */
@@ -11968,7 +12026,7 @@ class LogoutRequest {
 	);
 }}
 
-if (!class_exists("AddRequest")) {
+if (!class_exists("AddRequest",false)){
 /**
  * AddRequest
  */
@@ -11984,7 +12042,7 @@ class AddRequest {
 	);
 }}
 
-if (!class_exists("DeleteRequest")) {
+if (!class_exists("DeleteRequest",false)){
 /**
  * DeleteRequest
  */
@@ -12000,7 +12058,7 @@ class DeleteRequest {
 	);
 }}
 
-if (!class_exists("SearchRequest")) {
+if (!class_exists("SearchRequest",false)){
 /**
  * SearchRequest
  */
@@ -12016,7 +12074,7 @@ class SearchRequest {
 	);
 }}
 
-if (!class_exists("SearchMoreRequest")) {
+if (!class_exists("SearchMoreRequest",false)){
 /**
  * SearchMoreRequest
  */
@@ -12032,7 +12090,7 @@ class SearchMoreRequest {
 	);
 }}
 
-if (!class_exists("SearchMoreWithIdRequest")) {
+if (!class_exists("SearchMoreWithIdRequest",false)){
 /**
  * SearchMoreWithIdRequest
  */
@@ -12054,7 +12112,7 @@ class SearchMoreWithIdRequest {
 	);
 }}
 
-if (!class_exists("SearchNextRequest")) {
+if (!class_exists("SearchNextRequest",false)){
 /**
  * SearchNextRequest
  */
@@ -12064,7 +12122,7 @@ class SearchNextRequest {
 	);
 }}
 
-if (!class_exists("UpdateRequest")) {
+if (!class_exists("UpdateRequest",false)){
 /**
  * UpdateRequest
  */
@@ -12080,7 +12138,7 @@ class UpdateRequest {
 	);
 }}
 
-if (!class_exists("UpsertRequest")) {
+if (!class_exists("UpsertRequest",false)){
 /**
  * UpsertRequest
  */
@@ -12096,7 +12154,7 @@ class UpsertRequest {
 	);
 }}
 
-if (!class_exists("AddListRequest")) {
+if (!class_exists("AddListRequest",false)){
 /**
  * AddListRequest
  */
@@ -12112,7 +12170,7 @@ class AddListRequest {
 	);
 }}
 
-if (!class_exists("DeleteListRequest")) {
+if (!class_exists("DeleteListRequest",false)){
 /**
  * DeleteListRequest
  */
@@ -12128,7 +12186,7 @@ class DeleteListRequest {
 	);
 }}
 
-if (!class_exists("UpdateListRequest")) {
+if (!class_exists("UpdateListRequest",false)){
 /**
  * UpdateListRequest
  */
@@ -12144,7 +12202,7 @@ class UpdateListRequest {
 	);
 }}
 
-if (!class_exists("UpsertListRequest")) {
+if (!class_exists("UpsertListRequest",false)){
 /**
  * UpsertListRequest
  */
@@ -12160,7 +12218,7 @@ class UpsertListRequest {
 	);
 }}
 
-if (!class_exists("GetRequest")) {
+if (!class_exists("GetRequest",false)){
 /**
  * GetRequest
  */
@@ -12176,7 +12234,7 @@ class GetRequest {
 	);
 }}
 
-if (!class_exists("GetListRequest")) {
+if (!class_exists("GetListRequest",false)){
 /**
  * GetListRequest
  */
@@ -12192,7 +12250,7 @@ class GetListRequest {
 	);
 }}
 
-if (!class_exists("GetAllRequest")) {
+if (!class_exists("GetAllRequest",false)){
 /**
  * GetAllRequest
  */
@@ -12208,7 +12266,7 @@ class GetAllRequest {
 	);
 }}
 
-if (!class_exists("GetSavedSearchRequest")) {
+if (!class_exists("GetSavedSearchRequest",false)){
 /**
  * GetSavedSearchRequest
  */
@@ -12224,7 +12282,7 @@ class GetSavedSearchRequest {
 	);
 }}
 
-if (!class_exists("GetCustomizationIdRequest")) {
+if (!class_exists("GetCustomizationIdRequest",false)){
 /**
  * GetCustomizationIdRequest
  */
@@ -12246,7 +12304,7 @@ class GetCustomizationIdRequest {
 	);
 }}
 
-if (!class_exists("InitializeRequest")) {
+if (!class_exists("InitializeRequest",false)){
 /**
  * InitializeRequest
  */
@@ -12262,7 +12320,7 @@ class InitializeRequest {
 	);
 }}
 
-if (!class_exists("InitializeListRequest")) {
+if (!class_exists("InitializeListRequest",false)){
 /**
  * InitializeListRequest
  */
@@ -12278,7 +12336,7 @@ class InitializeListRequest {
 	);
 }}
 
-if (!class_exists("getSelectValueRequest")) {
+if (!class_exists("getSelectValueRequest",false)){
 /**
  * getSelectValueRequest
  */
@@ -12300,7 +12358,7 @@ class getSelectValueRequest {
 	);
 }}
 
-if (!class_exists("GetItemAvailabilityRequest")) {
+if (!class_exists("GetItemAvailabilityRequest",false)){
 /**
  * GetItemAvailabilityRequest
  */
@@ -12316,7 +12374,7 @@ class GetItemAvailabilityRequest {
 	);
 }}
 
-if (!class_exists("GetBudgetExchangeRateRequest")) {
+if (!class_exists("GetBudgetExchangeRateRequest",false)){
 /**
  * GetBudgetExchangeRateRequest
  */
@@ -12332,7 +12390,7 @@ class GetBudgetExchangeRateRequest {
 	);
 }}
 
-if (!class_exists("GetConsolidatedExchangeRateRequest")) {
+if (!class_exists("GetConsolidatedExchangeRateRequest",false)){
 /**
  * GetConsolidatedExchangeRateRequest
  */
@@ -12348,7 +12406,7 @@ class GetConsolidatedExchangeRateRequest {
 	);
 }}
 
-if (!class_exists("GetCurrencyRateRequest")) {
+if (!class_exists("GetCurrencyRateRequest",false)){
 /**
  * GetCurrencyRateRequest
  */
@@ -12364,7 +12422,7 @@ class GetCurrencyRateRequest {
 	);
 }}
 
-if (!class_exists("GetDataCenterUrlsRequest")) {
+if (!class_exists("GetDataCenterUrlsRequest",false)){
 /**
  * GetDataCenterUrlsRequest
  */
@@ -12380,7 +12438,7 @@ class GetDataCenterUrlsRequest {
 	);
 }}
 
-if (!class_exists("GetPostingTransactionSummaryRequest")) {
+if (!class_exists("GetPostingTransactionSummaryRequest",false)){
 /**
  * GetPostingTransactionSummaryRequest
  */
@@ -12408,7 +12466,7 @@ class GetPostingTransactionSummaryRequest {
 	);
 }}
 
-if (!class_exists("GetServerTimeRequest")) {
+if (!class_exists("GetServerTimeRequest",false)){
 /**
  * GetServerTimeRequest
  */
@@ -12418,7 +12476,7 @@ class GetServerTimeRequest {
 	);
 }}
 
-if (!class_exists("AttachRequest")) {
+if (!class_exists("AttachRequest",false)){
 /**
  * AttachRequest
  */
@@ -12434,7 +12492,7 @@ class AttachRequest {
 	);
 }}
 
-if (!class_exists("DetachRequest")) {
+if (!class_exists("DetachRequest",false)){
 /**
  * DetachRequest
  */
@@ -12450,7 +12508,7 @@ class DetachRequest {
 	);
 }}
 
-if (!class_exists("AsyncAddListRequest")) {
+if (!class_exists("AsyncAddListRequest",false)){
 /**
  * AsyncAddListRequest
  */
@@ -12466,7 +12524,7 @@ class AsyncAddListRequest {
 	);
 }}
 
-if (!class_exists("UpdateInviteeStatusRequest")) {
+if (!class_exists("UpdateInviteeStatusRequest",false)){
 /**
  * UpdateInviteeStatusRequest
  */
@@ -12482,7 +12540,7 @@ class UpdateInviteeStatusRequest {
 	);
 }}
 
-if (!class_exists("UpdateInviteeStatusListRequest")) {
+if (!class_exists("UpdateInviteeStatusListRequest",false)){
 /**
  * UpdateInviteeStatusListRequest
  */
@@ -12498,7 +12556,7 @@ class UpdateInviteeStatusListRequest {
 	);
 }}
 
-if (!class_exists("AsyncUpdateListRequest")) {
+if (!class_exists("AsyncUpdateListRequest",false)){
 /**
  * AsyncUpdateListRequest
  */
@@ -12514,7 +12572,7 @@ class AsyncUpdateListRequest {
 	);
 }}
 
-if (!class_exists("AsyncUpsertListRequest")) {
+if (!class_exists("AsyncUpsertListRequest",false)){
 /**
  * AsyncUpsertListRequest
  */
@@ -12530,7 +12588,7 @@ class AsyncUpsertListRequest {
 	);
 }}
 
-if (!class_exists("AsyncDeleteListRequest")) {
+if (!class_exists("AsyncDeleteListRequest",false)){
 /**
  * AsyncDeleteListRequest
  */
@@ -12546,7 +12604,7 @@ class AsyncDeleteListRequest {
 	);
 }}
 
-if (!class_exists("AsyncGetListRequest")) {
+if (!class_exists("AsyncGetListRequest",false)){
 /**
  * AsyncGetListRequest
  */
@@ -12562,7 +12620,7 @@ class AsyncGetListRequest {
 	);
 }}
 
-if (!class_exists("AsyncInitializeListRequest")) {
+if (!class_exists("AsyncInitializeListRequest",false)){
 /**
  * AsyncInitializeListRequest
  */
@@ -12578,7 +12636,7 @@ class AsyncInitializeListRequest {
 	);
 }}
 
-if (!class_exists("AsyncSearchRequest")) {
+if (!class_exists("AsyncSearchRequest",false)){
 /**
  * AsyncSearchRequest
  */
@@ -12594,7 +12652,7 @@ class AsyncSearchRequest {
 	);
 }}
 
-if (!class_exists("CheckAsyncStatusRequest")) {
+if (!class_exists("CheckAsyncStatusRequest",false)){
 /**
  * CheckAsyncStatusRequest
  */
@@ -12610,7 +12668,7 @@ class CheckAsyncStatusRequest {
 	);
 }}
 
-if (!class_exists("GetAsyncResultRequest")) {
+if (!class_exists("GetAsyncResultRequest",false)){
 /**
  * GetAsyncResultRequest
  */
@@ -12632,7 +12690,7 @@ class GetAsyncResultRequest {
 	);
 }}
 
-if (!class_exists("GetDeletedRequest")) {
+if (!class_exists("GetDeletedRequest",false)){
 /**
  * GetDeletedRequest
  */
@@ -12648,7 +12706,7 @@ class GetDeletedRequest {
 	);
 }}
 
-if (!class_exists("Country")) {
+if (!class_exists("Country",false)){
 /**
  * Country
  */
@@ -13666,7 +13724,7 @@ class Country {
 	const _zimbabwe = "_zimbabwe";
 }}
 
-if (!class_exists("Language")) {
+if (!class_exists("Language",false)){
 /**
  * Language
  */
@@ -13848,7 +13906,7 @@ class Language {
 	const _vietnamese = "_vietnamese";
 }}
 
-if (!class_exists("AvsMatchCode")) {
+if (!class_exists("AvsMatchCode",false)){
 /**
  * AvsMatchCode
  */
@@ -13870,7 +13928,7 @@ class AvsMatchCode {
 	const _y = "_y";
 }}
 
-if (!class_exists("CscMatchCode")) {
+if (!class_exists("CscMatchCode",false)){
 /**
  * CscMatchCode
  */
@@ -13892,7 +13950,7 @@ class CscMatchCode {
 	const _y = "_y";
 }}
 
-if (!class_exists("VsoeSopGroup")) {
+if (!class_exists("VsoeSopGroup",false)){
 /**
  * VsoeSopGroup
  */
@@ -13914,7 +13972,7 @@ class VsoeSopGroup {
 	const _software = "_software";
 }}
 
-if (!class_exists("VsoeDeferral")) {
+if (!class_exists("VsoeDeferral",false)){
 /**
  * VsoeDeferral
  */
@@ -13932,7 +13990,7 @@ class VsoeDeferral {
 	const _deferUntilItemDelivered = "_deferUntilItemDelivered";
 }}
 
-if (!class_exists("VsoePermitDiscount")) {
+if (!class_exists("VsoePermitDiscount",false)){
 /**
  * VsoePermitDiscount
  */
@@ -13950,7 +14008,7 @@ class VsoePermitDiscount {
 	const _never = "_never";
 }}
 
-if (!class_exists("RevenueStatus")) {
+if (!class_exists("RevenueStatus",false)){
 /**
  * RevenueStatus
  */
@@ -13976,7 +14034,7 @@ class RevenueStatus {
 	const _onRevCommitment = "_onRevCommitment";
 }}
 
-if (!class_exists("RevenueCommitStatus")) {
+if (!class_exists("RevenueCommitStatus",false)){
 /**
  * RevenueCommitStatus
  */
@@ -13998,7 +14056,7 @@ class RevenueCommitStatus {
 	const _pendingCommitment = "_pendingCommitment";
 }}
 
-if (!class_exists("PostingPeriodDate")) {
+if (!class_exists("PostingPeriodDate",false)){
 /**
  * PostingPeriodDate
  */
@@ -14100,7 +14158,7 @@ class PostingPeriodDate {
 	const _thisQuarter = "_thisQuarter";
 }}
 
-if (!class_exists("PermissionLevel")) {
+if (!class_exists("PermissionLevel",false)){
 /**
  * PermissionLevel
  */
@@ -14130,7 +14188,7 @@ class PermissionLevel {
 	const _view = "_view";
 }}
 
-if (!class_exists("Source")) {
+if (!class_exists("Source",false)){
 /**
  * Source
  */
@@ -14158,10 +14216,6 @@ class Source {
 	 * @var string
 	 */
 	const _ebay = "_ebay";
-	/**
-	 * @var string
-	 */
-	const _mobile = "_mobile";
 	/**
 	 * @var string
 	 */
@@ -14200,7 +14254,7 @@ class Source {
 	const _yahoo = "_yahoo";
 }}
 
-if (!class_exists("GlobalSubscriptionStatus")) {
+if (!class_exists("GlobalSubscriptionStatus",false)){
 /**
  * GlobalSubscriptionStatus
  */
@@ -14226,7 +14280,7 @@ class GlobalSubscriptionStatus {
 	const _softOptOut = "_softOptOut";
 }}
 
-if (!class_exists("ItemCostEstimateType")) {
+if (!class_exists("ItemCostEstimateType",false)){
 /**
  * ItemCostEstimateType
  */
@@ -14268,7 +14322,7 @@ class ItemCostEstimateType {
 	const _purchasePrice = "_purchasePrice";
 }}
 
-if (!class_exists("PresentationItemType")) {
+if (!class_exists("PresentationItemType",false)){
 /**
  * PresentationItemType
  */
@@ -14294,7 +14348,7 @@ class PresentationItemType {
 	const _presentationCategory = "_presentationCategory";
 }}
 
-if (!class_exists("LandedCostSource")) {
+if (!class_exists("LandedCostSource",false)){
 /**
  * LandedCostSource
  */
@@ -14320,7 +14374,7 @@ class LandedCostSource {
 	const _thisTransaction = "_thisTransaction";
 }}
 
-if (!class_exists("LandedCostMethod")) {
+if (!class_exists("LandedCostMethod",false)){
 /**
  * LandedCostMethod
  */
@@ -14340,13 +14394,9 @@ class LandedCostMethod {
 	 * @var string
 	 */
 	const _weight = "_weight";
-	/**
-	 * @var string
-	 */
-	const _line = "_line";
 }}
 
-if (!class_exists("SitemapPriority")) {
+if (!class_exists("SitemapPriority",false)){
 /**
  * SitemapPriority
  */
@@ -14404,7 +14454,7 @@ class SitemapPriority {
 	const _auto = "_auto";
 }}
 
-if (!class_exists("TimeItemTimeType")) {
+if (!class_exists("TimeItemTimeType",false)){
 /**
  * TimeItemTimeType
  */
@@ -14422,7 +14472,7 @@ class TimeItemTimeType {
 	const _plannedTime = "_plannedTime";
 }}
 
-if (!class_exists("PermissionCode")) {
+if (!class_exists("PermissionCode",false)){
 /**
  * PermissionCode
  */
@@ -14434,10 +14484,6 @@ class PermissionCode {
 	 * @var string
 	 */
 	const _accountDetail = "_accountDetail";
-	/**
-	 * @var string
-	 */
-	const _accountingBook = "_accountingBook";
 	/**
 	 * @var string
 	 */
@@ -14649,14 +14695,6 @@ class PermissionCode {
 	/**
 	 * @var string
 	 */
-	const _chargeRule = "_chargeRule";
-	/**
-	 * @var string
-	 */
-	const _chargeRunRules = "_chargeRunRules";
-	/**
-	 * @var string
-	 */
 	const _check = "_check";
 	/**
 	 * @var string
@@ -14666,10 +14704,6 @@ class PermissionCode {
 	 * @var string
 	 */
 	const _classes = "_classes";
-	/**
-	 * @var string
-	 */
-	const _classSegmentMapping = "_classSegmentMapping";
 	/**
 	 * @var string
 	 */
@@ -14690,10 +14724,6 @@ class PermissionCode {
 	 * @var string
 	 */
 	const _commissionReports = "_commissionReports";
-	/**
-	 * @var string
-	 */
-	const _commitOrders = "_commitOrders";
 	/**
 	 * @var string
 	 */
@@ -14742,10 +14772,6 @@ class PermissionCode {
 	 * @var string
 	 */
 	const _copyChartOfAccountsToNewCompany = "_copyChartOfAccountsToNewCompany";
-	/**
-	 * @var string
-	 */
-	const _costedBillOfMaterialsInquiry = "_costedBillOfMaterialsInquiry";
 	/**
 	 * @var string
 	 */
@@ -14957,10 +14983,6 @@ class PermissionCode {
 	/**
 	 * @var string
 	 */
-	const _departmentSegmentMapping = "_departmentSegmentMapping";
-	/**
-	 * @var string
-	 */
 	const _deposit = "_deposit";
 	/**
 	 * @var string
@@ -14978,10 +15000,6 @@ class PermissionCode {
 	 * @var string
 	 */
 	const _documentsAndFiles = "_documentsAndFiles";
-	/**
-	 * @var string
-	 */
-	const _duplicateCaseManagement = "_duplicateCaseManagement";
 	/**
 	 * @var string
 	 */
@@ -15062,10 +15080,6 @@ class PermissionCode {
 	 * @var string
 	 */
 	const _enterYearToDatePayrollAdjustments = "_enterYearToDatePayrollAdjustments";
-	/**
-	 * @var string
-	 */
-	const _entityAccountMapping = "_entityAccountMapping";
 	/**
 	 * @var string
 	 */
@@ -15205,19 +15219,11 @@ class PermissionCode {
 	/**
 	 * @var string
 	 */
-	const _generateSingleOrderRevenueContracts = "_generateSingleOrderRevenueContracts";
-	/**
-	 * @var string
-	 */
 	const _generateStatements = "_generateStatements";
 	/**
 	 * @var string
 	 */
 	const _genericAdminPermission = "_genericAdminPermission";
-	/**
-	 * @var string
-	 */
-	const _globalAccountMapping = "_globalAccountMapping";
 	/**
 	 * @var string
 	 */
@@ -15285,10 +15291,6 @@ class PermissionCode {
 	/**
 	 * @var string
 	 */
-	const _inventoryCostTemplate = "_inventoryCostTemplate";
-	/**
-	 * @var string
-	 */
 	const _invoice = "_invoice";
 	/**
 	 * @var string
@@ -15306,10 +15308,6 @@ class PermissionCode {
 	 * @var string
 	 */
 	const _issueSetup = "_issueSetup";
-	/**
-	 * @var string
-	 */
-	const _itemAccountMapping = "_itemAccountMapping";
 	/**
 	 * @var string
 	 */
@@ -15389,10 +15387,6 @@ class PermissionCode {
 	/**
 	 * @var string
 	 */
-	const _locationSegmentMapping = "_locationSegmentMapping";
-	/**
-	 * @var string
-	 */
 	const _lockTransactions = "_lockTransactions";
 	/**
 	 * @var string
@@ -15466,10 +15460,6 @@ class PermissionCode {
 	 * @var string
 	 */
 	const _memorizedTransactions = "_memorizedTransactions";
-	/**
-	 * @var string
-	 */
-	const _mobileDeviceAccess = "_mobileDeviceAccess";
 	/**
 	 * @var string
 	 */
@@ -15825,14 +15815,6 @@ class PermissionCode {
 	/**
 	 * @var string
 	 */
-	const _resourceAllocationApproval = "_resourceAllocationApproval";
-	/**
-	 * @var string
-	 */
-	const _resourceAllocationReports = "_resourceAllocationReports";
-	/**
-	 * @var string
-	 */
 	const _resourceAllocations = "_resourceAllocations";
 	/**
 	 * @var string
@@ -15858,10 +15840,6 @@ class PermissionCode {
 	 * @var string
 	 */
 	const _revenueCommitmentReversal = "_revenueCommitmentReversal";
-	/**
-	 * @var string
-	 */
-	const _revenueContracts = "_revenueContracts";
 	/**
 	 * @var string
 	 */
@@ -16205,10 +16183,6 @@ class PermissionCode {
 	/**
 	 * @var string
 	 */
-	const _transactionNumberingAuditLog = "_transactionNumberingAuditLog";
-	/**
-	 * @var string
-	 */
 	const _transferFunds = "_transferFunds";
 	/**
 	 * @var string
@@ -16360,7 +16334,7 @@ class PermissionCode {
 	const _workplaces = "_workplaces";
 }}
 
-if (!class_exists("IntercoStatus")) {
+if (!class_exists("IntercoStatus",false)){
 /**
  * IntercoStatus
  */
@@ -16382,7 +16356,7 @@ class IntercoStatus {
 	const _rejected = "_rejected";
 }}
 
-if (!class_exists("CurrencySymbolPlacement")) {
+if (!class_exists("CurrencySymbolPlacement",false)){
 /**
  * CurrencySymbolPlacement
  */
@@ -16400,131 +16374,7 @@ class CurrencySymbolPlacement {
 	const _beforeNumber = "_beforeNumber";
 }}
 
-if (!class_exists("RecurrenceFrequency")) {
-/**
- * RecurrenceFrequency
- */
-class RecurrenceFrequency {
-
-	static $paramtypesmap = array(
-	);
-	/**
-	 * @var string
-	 */
-	const _none = "_none";
-	/**
-	 * @var string
-	 */
-	const _day = "_day";
-	/**
-	 * @var string
-	 */
-	const _week = "_week";
-	/**
-	 * @var string
-	 */
-	const _month = "_month";
-	/**
-	 * @var string
-	 */
-	const _year = "_year";
-}}
-
-if (!class_exists("RecurrenceDow")) {
-/**
- * RecurrenceDow
- */
-class RecurrenceDow {
-
-	static $paramtypesmap = array(
-	);
-	/**
-	 * @var string
-	 */
-	const _sunday = "_sunday";
-	/**
-	 * @var string
-	 */
-	const _monday = "_monday";
-	/**
-	 * @var string
-	 */
-	const _tuesday = "_tuesday";
-	/**
-	 * @var string
-	 */
-	const _wednesday = "_wednesday";
-	/**
-	 * @var string
-	 */
-	const _thursday = "_thursday";
-	/**
-	 * @var string
-	 */
-	const _friday = "_friday";
-	/**
-	 * @var string
-	 */
-	const _saturday = "_saturday";
-}}
-
-if (!class_exists("RecurrenceDowim")) {
-/**
- * RecurrenceDowim
- */
-class RecurrenceDowim {
-
-	static $paramtypesmap = array(
-	);
-	/**
-	 * @var string
-	 */
-	const _first = "_first";
-	/**
-	 * @var string
-	 */
-	const _second = "_second";
-	/**
-	 * @var string
-	 */
-	const _third = "_third";
-	/**
-	 * @var string
-	 */
-	const _fourth = "_fourth";
-	/**
-	 * @var string
-	 */
-	const _last = "_last";
-}}
-
-if (!class_exists("ChargeRuleType")) {
-/**
- * ChargeRuleType
- */
-class ChargeRuleType {
-
-	static $paramtypesmap = array(
-	);
-	/**
-	 * @var string
-	 */
-	const _fixedDate = "_fixedDate";
-	/**
-	 * @var string
-	 */
-	const _projectProgress = "_projectProgress";
-	/**
-	 * @var string
-	 */
-	const _milestone = "_milestone";
-	/**
-	 * @var string
-	 */
-	const _timeBased = "_timeBased";
-}}
-
-if (!class_exists("ShipAddress")) {
+if (!class_exists("ShipAddress",false)){
 /**
  * ShipAddress
  */
@@ -16600,7 +16450,7 @@ class ShipAddress {
 	);
 }}
 
-if (!class_exists("BillAddress")) {
+if (!class_exists("BillAddress",false)){
 /**
  * BillAddress
  */
@@ -16670,7 +16520,7 @@ class BillAddress {
 	);
 }}
 
-if (!class_exists("PresentationItem")) {
+if (!class_exists("PresentationItem",false)){
 /**
  * PresentationItem
  */
@@ -16710,7 +16560,7 @@ class PresentationItem {
 	);
 }}
 
-if (!class_exists("Partners")) {
+if (!class_exists("Partners",false)){
 /**
  * Partners
  */
@@ -16744,71 +16594,11 @@ class Partners {
 	);
 }}
 
-if (!class_exists("LandedCost")) {
+if (!class_exists("LandedCost",false)){
 /**
  * LandedCost
  */
-class LandedCost extends Record {
-	/**
-	 * @access public
-	 * @var LandedCostDataList
-	 */
-	public $landedCostDataList;
-
-	static $paramtypesmap = array(
-		"landedCostDataList" => "LandedCostDataList",
-	);
-}}
-
-if (!class_exists("LandedCostDataList")) {
-/**
- * LandedCostDataList
- */
-class LandedCostDataList {
-	/**
-	 * @access public
-	 * @var LandedCostData[]
-	 */
-	public $landedCostData;
-	/**
-	 * @access public
-	 * @var boolean
-	 */
-	public $replaceAll;
-
-	static $paramtypesmap = array(
-		"landedCostData" => "LandedCostData[]",
-		"replaceAll" => "boolean",
-	);
-}}
-
-if (!class_exists("LandedCostData")) {
-/**
- * LandedCostData
- */
-class LandedCostData {
-	/**
-	 * @access public
-	 * @var RecordRef
-	 */
-	public $costCategory;
-	/**
-	 * @access public
-	 * @var float
-	 */
-	public $amount;
-
-	static $paramtypesmap = array(
-		"costCategory" => "RecordRef",
-		"amount" => "float",
-	);
-}}
-
-if (!class_exists("LandedCostSummary")) {
-/**
- * LandedCostSummary
- */
-class LandedCostSummary {
+class LandedCost {
 	/**
 	 * @access public
 	 * @var RecordRef
@@ -16838,7 +16628,7 @@ class LandedCostSummary {
 	);
 }}
 
-if (!class_exists("CustomerSalesTeam")) {
+if (!class_exists("CustomerSalesTeam",false)){
 /**
  * CustomerSalesTeam
  */
@@ -16872,7 +16662,7 @@ class CustomerSalesTeam {
 	);
 }}
 
-if (!class_exists("TimeItem")) {
+if (!class_exists("TimeItem",false)){
 /**
  * TimeItem
  */
@@ -16949,21 +16739,6 @@ class TimeItem {
 	public $hours;
 	/**
 	 * @access public
-	 * @var RecordRef
-	 */
-	public $price;
-	/**
-	 * @access public
-	 * @var float
-	 */
-	public $rate;
-	/**
-	 * @access public
-	 * @var boolean
-	 */
-	public $overrideRate;
-	/**
-	 * @access public
 	 * @var Duration
 	 */
 	public $hoursTotal;
@@ -17008,9 +16783,6 @@ class TimeItem {
 		"class" => "RecordRef",
 		"location" => "RecordRef",
 		"hours" => "Duration",
-		"price" => "RecordRef",
-		"rate" => "float",
-		"overrideRate" => "boolean",
 		"hoursTotal" => "Duration",
 		"caseTaskEvent" => "RecordRef",
 		"memo" => "string",
@@ -17020,7 +16792,7 @@ class TimeItem {
 	);
 }}
 
-if (!class_exists("InventoryDetail")) {
+if (!class_exists("InventoryDetail",false)){
 /**
  * InventoryDetail
  */
@@ -17042,23 +16814,7 @@ class InventoryDetail extends Record {
 	);
 }}
 
-if (!class_exists("RecurrenceDowMaskList")) {
-/**
- * RecurrenceDowMaskList
- */
-class RecurrenceDowMaskList {
-	/**
-	 * @access public
-	 * @var RecurrenceDow
-	 */
-	public $recurrenceDowMask;
-
-	static $paramtypesmap = array(
-		"recurrenceDowMask" => "RecurrenceDow",
-	);
-}}
-
-if (!class_exists("InventoryAssignmentList")) {
+if (!class_exists("InventoryAssignmentList",false)){
 /**
  * InventoryAssignmentList
  */
@@ -17080,7 +16836,7 @@ class InventoryAssignmentList {
 	);
 }}
 
-if (!class_exists("InventoryAssignment")) {
+if (!class_exists("InventoryAssignment",false)){
 /**
  * InventoryAssignment
  */
@@ -17138,11 +16894,11 @@ class InventoryAssignment {
 	);
 }}
 
-if (!class_exists("InventoryDetailSearchBasic")) {
+if (!class_exists("InventoryDetailSearchBasic",false)){
 /**
  * InventoryDetailSearchBasic
  */
-class InventoryDetailSearchBasic extends SearchRecordBasic {
+class InventoryDetailSearchBasic extends SearchRecord {
 	/**
 	 * @access public
 	 * @var SearchMultiSelectField
@@ -17190,11 +16946,11 @@ class InventoryDetailSearchBasic extends SearchRecordBasic {
 	);
 }}
 
-if (!class_exists("InventoryDetailSearchRowBasic")) {
+if (!class_exists("InventoryDetailSearchRowBasic",false)){
 /**
  * InventoryDetailSearchRowBasic
  */
-class InventoryDetailSearchRowBasic extends SearchRowBasic {
+class InventoryDetailSearchRowBasic {
 	/**
 	 * @access public
 	 * @var SearchColumnSelectField[]
@@ -17230,11 +16986,11 @@ class InventoryDetailSearchRowBasic extends SearchRowBasic {
 	);
 }}
 
-if (!class_exists("EntitySearchBasic")) {
+if (!class_exists("EntitySearchBasic",false)){
 /**
  * EntitySearchBasic
  */
-class EntitySearchBasic extends SearchRecordBasic {
+class EntitySearchBasic extends SearchRecord {
 	/**
 	 * @access public
 	 * @var SearchStringField
@@ -17444,11 +17200,11 @@ class EntitySearchBasic extends SearchRecordBasic {
 	);
 }}
 
-if (!class_exists("EntitySearchRowBasic")) {
+if (!class_exists("EntitySearchRowBasic",false)){
 /**
  * EntitySearchRowBasic
  */
-class EntitySearchRowBasic extends SearchRowBasic {
+class EntitySearchRowBasic {
 	/**
 	 * @access public
 	 * @var SearchColumnStringField[]
@@ -17838,11 +17594,11 @@ class EntitySearchRowBasic extends SearchRowBasic {
 	);
 }}
 
-if (!class_exists("ContactSearchBasic")) {
+if (!class_exists("ContactSearchBasic",false)){
 /**
  * ContactSearchBasic
  */
-class ContactSearchBasic extends SearchRecordBasic {
+class ContactSearchBasic extends SearchRecord {
 	/**
 	 * @access public
 	 * @var SearchStringField
@@ -18142,11 +17898,11 @@ class ContactSearchBasic extends SearchRecordBasic {
 	);
 }}
 
-if (!class_exists("ContactSearchRowBasic")) {
+if (!class_exists("ContactSearchRowBasic",false)){
 /**
  * ContactSearchRowBasic
  */
-class ContactSearchRowBasic extends SearchRowBasic {
+class ContactSearchRowBasic {
 	/**
 	 * @access public
 	 * @var SearchColumnStringField[]
@@ -18626,11 +18382,11 @@ class ContactSearchRowBasic extends SearchRowBasic {
 	);
 }}
 
-if (!class_exists("CustomerSearchBasic")) {
+if (!class_exists("CustomerSearchBasic",false)){
 /**
  * CustomerSearchBasic
  */
-class CustomerSearchBasic extends SearchRecordBasic {
+class CustomerSearchBasic extends SearchRecord {
 	/**
 	 * @access public
 	 * @var SearchStringField
@@ -18846,11 +18602,6 @@ class CustomerSearchBasic extends SearchRecordBasic {
 	 * @var SearchLongField
 	 */
 	public $daysOverdue;
-	/**
-	 * @access public
-	 * @var SearchDoubleField
-	 */
-	public $defaultOrderPriority;
 	/**
 	 * @access public
 	 * @var SearchDoubleField
@@ -19416,7 +19167,6 @@ class CustomerSearchBasic extends SearchRecordBasic {
 		"dateClosed" => "SearchDateField",
 		"dateCreated" => "SearchDateField",
 		"daysOverdue" => "SearchLongField",
-		"defaultOrderPriority" => "SearchDoubleField",
 		"depositBalance" => "SearchDoubleField",
 		"deptBought" => "SearchMultiSelectField",
 		"drAccount" => "SearchMultiSelectField",
@@ -19524,11 +19274,11 @@ class CustomerSearchBasic extends SearchRecordBasic {
 	);
 }}
 
-if (!class_exists("CustomerSearchRowBasic")) {
+if (!class_exists("CustomerSearchRowBasic",false)){
 /**
  * CustomerSearchRowBasic
  */
-class CustomerSearchRowBasic extends SearchRowBasic {
+class CustomerSearchRowBasic {
 	/**
 	 * @access public
 	 * @var SearchColumnStringField[]
@@ -19824,11 +19574,6 @@ class CustomerSearchRowBasic extends SearchRowBasic {
 	 * @var SearchColumnLongField[]
 	 */
 	public $daysOverdue;
-	/**
-	 * @access public
-	 * @var SearchColumnDoubleField[]
-	 */
-	public $defaultOrderPriority;
 	/**
 	 * @access public
 	 * @var SearchColumnDoubleField[]
@@ -20445,7 +20190,6 @@ class CustomerSearchRowBasic extends SearchRowBasic {
 		"dateClosed" => "SearchColumnDateField[]",
 		"dateCreated" => "SearchColumnDateField[]",
 		"daysOverdue" => "SearchColumnLongField[]",
-		"defaultOrderPriority" => "SearchColumnDoubleField[]",
 		"depositBalance" => "SearchColumnDoubleField[]",
 		"drAccount" => "SearchColumnStringField[]",
 		"email" => "SearchColumnStringField[]",
@@ -20560,11 +20304,11 @@ class CustomerSearchRowBasic extends SearchRowBasic {
 	);
 }}
 
-if (!class_exists("CalendarEventSearchBasic")) {
+if (!class_exists("CalendarEventSearchBasic",false)){
 /**
  * CalendarEventSearchBasic
  */
-class CalendarEventSearchBasic extends SearchRecordBasic {
+class CalendarEventSearchBasic extends SearchRecord {
 	/**
 	 * @access public
 	 * @var SearchMultiSelectField
@@ -20696,11 +20440,11 @@ class CalendarEventSearchBasic extends SearchRecordBasic {
 	);
 }}
 
-if (!class_exists("CalendarEventSearchRowBasic")) {
+if (!class_exists("CalendarEventSearchRowBasic",false)){
 /**
  * CalendarEventSearchRowBasic
  */
-class CalendarEventSearchRowBasic extends SearchRowBasic {
+class CalendarEventSearchRowBasic {
 	/**
 	 * @access public
 	 * @var SearchColumnSelectField[]
@@ -20856,11 +20600,11 @@ class CalendarEventSearchRowBasic extends SearchRowBasic {
 	);
 }}
 
-if (!class_exists("TaskSearchBasic")) {
+if (!class_exists("TaskSearchBasic",false)){
 /**
  * TaskSearchBasic
  */
-class TaskSearchBasic extends SearchRecordBasic {
+class TaskSearchBasic extends SearchRecord {
 	/**
 	 * @access public
 	 * @var SearchDoubleField
@@ -21028,11 +20772,11 @@ class TaskSearchBasic extends SearchRecordBasic {
 	);
 }}
 
-if (!class_exists("TaskSearchRowBasic")) {
+if (!class_exists("TaskSearchRowBasic",false)){
 /**
  * TaskSearchRowBasic
  */
-class TaskSearchRowBasic extends SearchRowBasic {
+class TaskSearchRowBasic {
 	/**
 	 * @access public
 	 * @var SearchColumnStringField[]
@@ -21218,11 +20962,11 @@ class TaskSearchRowBasic extends SearchRowBasic {
 	);
 }}
 
-if (!class_exists("OpportunitySearchBasic")) {
+if (!class_exists("OpportunitySearchBasic",false)){
 /**
  * OpportunitySearchBasic
  */
-class OpportunitySearchBasic extends SearchRecordBasic {
+class OpportunitySearchBasic extends SearchRecord {
 	/**
 	 * @access public
 	 * @var SearchDoubleField
@@ -21618,11 +21362,11 @@ class OpportunitySearchBasic extends SearchRecordBasic {
 	);
 }}
 
-if (!class_exists("OpportunitySearchRowBasic")) {
+if (!class_exists("OpportunitySearchRowBasic",false)){
 /**
  * OpportunitySearchRowBasic
  */
-class OpportunitySearchRowBasic extends SearchRowBasic {
+class OpportunitySearchRowBasic {
 	/**
 	 * @access public
 	 * @var SearchColumnStringField[]
@@ -22006,11 +21750,11 @@ class OpportunitySearchRowBasic extends SearchRowBasic {
 	);
 }}
 
-if (!class_exists("EmployeeSearchBasic")) {
+if (!class_exists("EmployeeSearchBasic",false)){
 /**
  * EmployeeSearchBasic
  */
-class EmployeeSearchBasic extends SearchRecordBasic {
+class EmployeeSearchBasic extends SearchRecord {
 	/**
 	 * @access public
 	 * @var SearchStringField
@@ -22634,11 +22378,11 @@ class EmployeeSearchBasic extends SearchRecordBasic {
 	);
 }}
 
-if (!class_exists("EmployeeSearchRowBasic")) {
+if (!class_exists("EmployeeSearchRowBasic",false)){
 /**
  * EmployeeSearchRowBasic
  */
-class EmployeeSearchRowBasic extends SearchRowBasic {
+class EmployeeSearchRowBasic {
 	/**
 	 * @access public
 	 * @var SearchColumnStringField[]
@@ -23418,11 +23162,11 @@ class EmployeeSearchRowBasic extends SearchRowBasic {
 	);
 }}
 
-if (!class_exists("PhoneCallSearchBasic")) {
+if (!class_exists("PhoneCallSearchBasic",false)){
 /**
  * PhoneCallSearchBasic
  */
-class PhoneCallSearchBasic extends SearchRecordBasic {
+class PhoneCallSearchBasic extends SearchRecord {
 	/**
 	 * @access public
 	 * @var SearchMultiSelectField
@@ -23542,11 +23286,11 @@ class PhoneCallSearchBasic extends SearchRecordBasic {
 	);
 }}
 
-if (!class_exists("PhoneCallSearchRowBasic")) {
+if (!class_exists("PhoneCallSearchRowBasic",false)){
 /**
  * PhoneCallSearchRowBasic
  */
-class PhoneCallSearchRowBasic extends SearchRowBasic {
+class PhoneCallSearchRowBasic {
 	/**
 	 * @access public
 	 * @var SearchColumnStringField[]
@@ -23678,11 +23422,11 @@ class PhoneCallSearchRowBasic extends SearchRowBasic {
 	);
 }}
 
-if (!class_exists("SupportCaseSearchBasic")) {
+if (!class_exists("SupportCaseSearchBasic",false)){
 /**
  * SupportCaseSearchBasic
  */
-class SupportCaseSearchBasic extends SearchRecordBasic {
+class SupportCaseSearchBasic extends SearchRecord {
 	/**
 	 * @access public
 	 * @var SearchMultiSelectField
@@ -23922,11 +23666,11 @@ class SupportCaseSearchBasic extends SearchRecordBasic {
 	);
 }}
 
-if (!class_exists("SupportCaseSearchRowBasic")) {
+if (!class_exists("SupportCaseSearchRowBasic",false)){
 /**
  * SupportCaseSearchRowBasic
  */
-class SupportCaseSearchRowBasic extends SearchRowBasic {
+class SupportCaseSearchRowBasic {
 	/**
 	 * @access public
 	 * @var SearchColumnSelectField[]
@@ -24136,11 +23880,11 @@ class SupportCaseSearchRowBasic extends SearchRowBasic {
 	);
 }}
 
-if (!class_exists("MessageSearchBasic")) {
+if (!class_exists("MessageSearchBasic",false)){
 /**
  * MessageSearchBasic
  */
-class MessageSearchBasic extends SearchRecordBasic {
+class MessageSearchBasic extends SearchRecord {
 	/**
 	 * @access public
 	 * @var SearchMultiSelectField
@@ -24242,11 +23986,11 @@ class MessageSearchBasic extends SearchRecordBasic {
 	);
 }}
 
-if (!class_exists("MessageSearchRowBasic")) {
+if (!class_exists("MessageSearchRowBasic",false)){
 /**
  * MessageSearchRowBasic
  */
-class MessageSearchRowBasic extends SearchRowBasic {
+class MessageSearchRowBasic {
 	/**
 	 * @access public
 	 * @var SearchColumnSelectField[]
@@ -24348,11 +24092,11 @@ class MessageSearchRowBasic extends SearchRowBasic {
 	);
 }}
 
-if (!class_exists("NoteSearchBasic")) {
+if (!class_exists("NoteSearchBasic",false)){
 /**
  * NoteSearchBasic
  */
-class NoteSearchBasic extends SearchRecordBasic {
+class NoteSearchBasic extends SearchRecord {
 	/**
 	 * @access public
 	 * @var SearchMultiSelectField
@@ -24418,11 +24162,11 @@ class NoteSearchBasic extends SearchRecordBasic {
 	);
 }}
 
-if (!class_exists("NoteSearchRowBasic")) {
+if (!class_exists("NoteSearchRowBasic",false)){
 /**
  * NoteSearchRowBasic
  */
-class NoteSearchRowBasic extends SearchRowBasic {
+class NoteSearchRowBasic {
 	/**
 	 * @access public
 	 * @var SearchColumnSelectField[]
@@ -24476,11 +24220,11 @@ class NoteSearchRowBasic extends SearchRowBasic {
 	);
 }}
 
-if (!class_exists("CustomRecordSearchBasic")) {
+if (!class_exists("CustomRecordSearchBasic",false)){
 /**
  * CustomRecordSearchBasic
  */
-class CustomRecordSearchBasic extends SearchRecordBasic {
+class CustomRecordSearchBasic extends SearchRecord {
 	/**
 	 * @access public
 	 * @var RecordRef
@@ -24570,11 +24314,11 @@ class CustomRecordSearchBasic extends SearchRecordBasic {
 	);
 }}
 
-if (!class_exists("CustomRecordSearchRowBasic")) {
+if (!class_exists("CustomRecordSearchRowBasic",false)){
 /**
  * CustomRecordSearchRowBasic
  */
-class CustomRecordSearchRowBasic extends SearchRowBasic {
+class CustomRecordSearchRowBasic {
 	/**
 	 * @access public
 	 * @var RecordRef
@@ -24658,11 +24402,11 @@ class CustomRecordSearchRowBasic extends SearchRowBasic {
 	);
 }}
 
-if (!class_exists("AccountSearchBasic")) {
+if (!class_exists("AccountSearchBasic",false)){
 /**
  * AccountSearchBasic
  */
-class AccountSearchBasic extends SearchRecordBasic {
+class AccountSearchBasic extends SearchRecord {
 	/**
 	 * @access public
 	 * @var SearchDoubleField
@@ -24764,11 +24508,11 @@ class AccountSearchBasic extends SearchRecordBasic {
 	);
 }}
 
-if (!class_exists("AccountSearchRowBasic")) {
+if (!class_exists("AccountSearchRowBasic",false)){
 /**
  * AccountSearchRowBasic
  */
-class AccountSearchRowBasic extends SearchRowBasic {
+class AccountSearchRowBasic {
 	/**
 	 * @access public
 	 * @var SearchColumnDoubleField[]
@@ -24852,11 +24596,11 @@ class AccountSearchRowBasic extends SearchRowBasic {
 	);
 }}
 
-if (!class_exists("RevRecScheduleSearchBasic")) {
+if (!class_exists("RevRecScheduleSearchBasic",false)){
 /**
  * RevRecScheduleSearchBasic
  */
-class RevRecScheduleSearchBasic extends SearchRecordBasic {
+class RevRecScheduleSearchBasic extends SearchRecord {
 	/**
 	 * @access public
 	 * @var SearchDoubleField
@@ -24946,11 +24690,11 @@ class RevRecScheduleSearchBasic extends SearchRecordBasic {
 	);
 }}
 
-if (!class_exists("RevRecScheduleSearchRowBasic")) {
+if (!class_exists("RevRecScheduleSearchRowBasic",false)){
 /**
  * RevRecScheduleSearchRowBasic
  */
-class RevRecScheduleSearchRowBasic extends SearchRowBasic {
+class RevRecScheduleSearchRowBasic {
 	/**
 	 * @access public
 	 * @var SearchColumnDoubleField[]
@@ -25034,11 +24778,11 @@ class RevRecScheduleSearchRowBasic extends SearchRowBasic {
 	);
 }}
 
-if (!class_exists("RevRecTemplateSearchBasic")) {
+if (!class_exists("RevRecTemplateSearchBasic",false)){
 /**
  * RevRecTemplateSearchBasic
  */
-class RevRecTemplateSearchBasic extends SearchRecordBasic {
+class RevRecTemplateSearchBasic extends SearchRecord {
 	/**
 	 * @access public
 	 * @var SearchEnumMultiSelectField
@@ -25140,11 +24884,11 @@ class RevRecTemplateSearchBasic extends SearchRecordBasic {
 	);
 }}
 
-if (!class_exists("RevRecTemplateSearchRowBasic")) {
+if (!class_exists("RevRecTemplateSearchRowBasic",false)){
 /**
  * RevRecTemplateSearchRowBasic
  */
-class RevRecTemplateSearchRowBasic extends SearchRowBasic {
+class RevRecTemplateSearchRowBasic {
 	/**
 	 * @access public
 	 * @var SearchColumnStringField[]
@@ -25234,11 +24978,11 @@ class RevRecTemplateSearchRowBasic extends SearchRowBasic {
 	);
 }}
 
-if (!class_exists("BinSearchBasic")) {
+if (!class_exists("BinSearchBasic",false)){
 /**
  * BinSearchBasic
  */
-class BinSearchBasic extends SearchRecordBasic {
+class BinSearchBasic extends SearchRecord {
 	/**
 	 * @access public
 	 * @var SearchStringField
@@ -25286,11 +25030,11 @@ class BinSearchBasic extends SearchRecordBasic {
 	);
 }}
 
-if (!class_exists("BinSearchRowBasic")) {
+if (!class_exists("BinSearchRowBasic",false)){
 /**
  * BinSearchRowBasic
  */
-class BinSearchRowBasic extends SearchRowBasic {
+class BinSearchRowBasic {
 	/**
 	 * @access public
 	 * @var SearchColumnStringField[]
@@ -25332,11 +25076,11 @@ class BinSearchRowBasic extends SearchRowBasic {
 	);
 }}
 
-if (!class_exists("DepartmentSearchBasic")) {
+if (!class_exists("DepartmentSearchBasic",false)){
 /**
  * DepartmentSearchBasic
  */
-class DepartmentSearchBasic extends SearchRecordBasic {
+class DepartmentSearchBasic extends SearchRecord {
 	/**
 	 * @access public
 	 * @var SearchMultiSelectField
@@ -25396,11 +25140,11 @@ class DepartmentSearchBasic extends SearchRecordBasic {
 	);
 }}
 
-if (!class_exists("DepartmentSearchRowBasic")) {
+if (!class_exists("DepartmentSearchRowBasic",false)){
 /**
  * DepartmentSearchRowBasic
  */
-class DepartmentSearchRowBasic extends SearchRowBasic {
+class DepartmentSearchRowBasic {
 	/**
 	 * @access public
 	 * @var SearchColumnSelectField[]
@@ -25448,11 +25192,11 @@ class DepartmentSearchRowBasic extends SearchRowBasic {
 	);
 }}
 
-if (!class_exists("LocationSearchBasic")) {
+if (!class_exists("LocationSearchBasic",false)){
 /**
  * LocationSearchBasic
  */
-class LocationSearchBasic extends SearchRecordBasic {
+class LocationSearchBasic extends SearchRecord {
 	/**
 	 * @access public
 	 * @var SearchStringField
@@ -25578,11 +25322,11 @@ class LocationSearchBasic extends SearchRecordBasic {
 	);
 }}
 
-if (!class_exists("LocationSearchRowBasic")) {
+if (!class_exists("LocationSearchRowBasic",false)){
 /**
  * LocationSearchRowBasic
  */
-class LocationSearchRowBasic extends SearchRowBasic {
+class LocationSearchRowBasic {
 	/**
 	 * @access public
 	 * @var SearchColumnStringField[]
@@ -25702,11 +25446,11 @@ class LocationSearchRowBasic extends SearchRowBasic {
 	);
 }}
 
-if (!class_exists("ClassificationSearchBasic")) {
+if (!class_exists("ClassificationSearchBasic",false)){
 /**
  * ClassificationSearchBasic
  */
-class ClassificationSearchBasic extends SearchRecordBasic {
+class ClassificationSearchBasic extends SearchRecord {
 	/**
 	 * @access public
 	 * @var SearchMultiSelectField
@@ -25766,11 +25510,11 @@ class ClassificationSearchBasic extends SearchRecordBasic {
 	);
 }}
 
-if (!class_exists("ClassificationSearchRowBasic")) {
+if (!class_exists("ClassificationSearchRowBasic",false)){
 /**
  * ClassificationSearchRowBasic
  */
-class ClassificationSearchRowBasic extends SearchRowBasic {
+class ClassificationSearchRowBasic {
 	/**
 	 * @access public
 	 * @var SearchColumnSelectField[]
@@ -25818,11 +25562,11 @@ class ClassificationSearchRowBasic extends SearchRowBasic {
 	);
 }}
 
-if (!class_exists("TransactionSearchBasic")) {
+if (!class_exists("TransactionSearchBasic",false)){
 /**
  * TransactionSearchBasic
  */
-class TransactionSearchBasic extends SearchRecordBasic {
+class TransactionSearchBasic extends SearchRecord {
 	/**
 	 * @access public
 	 * @var SearchMultiSelectField
@@ -26030,11 +25774,6 @@ class TransactionSearchBasic extends SearchRecordBasic {
 	public $binNumberQuantity;
 	/**
 	 * @access public
-	 * @var SearchDoubleField
-	 */
-	public $bomQuantity;
-	/**
-	 * @access public
 	 * @var SearchBooleanField
 	 */
 	public $buildEntireAssembly;
@@ -26070,11 +25809,6 @@ class TransactionSearchBasic extends SearchRecordBasic {
 	public $ccNumber;
 	/**
 	 * @access public
-	 * @var SearchEnumMultiSelectField
-	 */
-	public $chargeType;
-	/**
-	 * @access public
 	 * @var SearchMultiSelectField
 	 */
 	public $class;
@@ -26108,11 +25842,6 @@ class TransactionSearchBasic extends SearchRecordBasic {
 	 * @var SearchEnumMultiSelectField
 	 */
 	public $commit;
-	/**
-	 * @access public
-	 * @var SearchDoubleField
-	 */
-	public $componentYield;
 	/**
 	 * @access public
 	 * @var SearchStringField
@@ -26577,11 +26306,6 @@ class TransactionSearchBasic extends SearchRecordBasic {
 	 * @access public
 	 * @var SearchBooleanField
 	 */
-	public $isMultiShipTo;
-	/**
-	 * @access public
-	 * @var SearchBooleanField
-	 */
 	public $isPayPalMeth;
 	/**
 	 * @access public
@@ -26635,11 +26359,6 @@ class TransactionSearchBasic extends SearchRecordBasic {
 	public $itemSubOf;
 	/**
 	 * @access public
-	 * @var SearchBooleanField
-	 */
-	public $landedCostPerLine;
-	/**
-	 * @access public
 	 * @var SearchDateField
 	 */
 	public $lastModifiedDate;
@@ -26663,11 +26382,6 @@ class TransactionSearchBasic extends SearchRecordBasic {
 	 * @var SearchMultiSelectField
 	 */
 	public $mainName;
-	/**
-	 * @access public
-	 * @var SearchMultiSelectField
-	 */
-	public $manufacturingRouting;
 	/**
 	 * @access public
 	 * @var SearchBooleanField
@@ -26740,11 +26454,6 @@ class TransactionSearchBasic extends SearchRecordBasic {
 	public $opportunity;
 	/**
 	 * @access public
-	 * @var SearchDoubleField
-	 */
-	public $orderPriority;
-	/**
-	 * @access public
 	 * @var SearchTextNumberField
 	 */
 	public $otherRefNum;
@@ -26753,11 +26462,6 @@ class TransactionSearchBasic extends SearchRecordBasic {
 	 * @var SearchTextNumberField
 	 */
 	public $otherRefNumNonDeposit;
-	/**
-	 * @access public
-	 * @var SearchMultiSelectField
-	 */
-	public $overheadParentItem;
 	/**
 	 * @access public
 	 * @var SearchLongField
@@ -26798,11 +26502,6 @@ class TransactionSearchBasic extends SearchRecordBasic {
 	 * @var SearchMultiSelectField
 	 */
 	public $payingTransaction;
-	/**
-	 * @access public
-	 * @var SearchBooleanField
-	 */
-	public $paymentApproved;
 	/**
 	 * @access public
 	 * @var SearchDateField
@@ -26953,11 +26652,6 @@ class TransactionSearchBasic extends SearchRecordBasic {
 	 * @var SearchStringField
 	 */
 	public $recordType;
-	/**
-	 * @access public
-	 * @var SearchLongField
-	 */
-	public $refNumber;
 	/**
 	 * @access public
 	 * @var SearchEnumMultiSelectField
@@ -27411,7 +27105,6 @@ class TransactionSearchBasic extends SearchRecordBasic {
 		"billZip" => "SearchStringField",
 		"binNumber" => "SearchStringField",
 		"binNumberQuantity" => "SearchDoubleField",
-		"bomQuantity" => "SearchDoubleField",
 		"buildEntireAssembly" => "SearchBooleanField",
 		"buildVariance" => "SearchDoubleField",
 		"built" => "SearchDoubleField",
@@ -27419,7 +27112,6 @@ class TransactionSearchBasic extends SearchRecordBasic {
 		"ccExpireDate" => "SearchDateField",
 		"ccName" => "SearchStringField",
 		"ccNumber" => "SearchStringField",
-		"chargeType" => "SearchEnumMultiSelectField",
 		"class" => "SearchMultiSelectField",
 		"cleared" => "SearchBooleanField",
 		"closed" => "SearchBooleanField",
@@ -27427,7 +27119,6 @@ class TransactionSearchBasic extends SearchRecordBasic {
 		"cogs" => "SearchBooleanField",
 		"commissionEffectiveDate" => "SearchDateField",
 		"commit" => "SearchEnumMultiSelectField",
-		"componentYield" => "SearchDoubleField",
 		"confirmationNumber" => "SearchStringField",
 		"contribution" => "SearchLongField",
 		"costComponentAmount" => "SearchDoubleField",
@@ -27520,7 +27211,6 @@ class TransactionSearchBasic extends SearchRecordBasic {
 		"isGcoPaymentGuaranteed" => "SearchBooleanField",
 		"isGcoRefundConfirmed" => "SearchBooleanField",
 		"isIntercompanyAdjustment" => "SearchBooleanField",
-		"isMultiShipTo" => "SearchBooleanField",
 		"isPayPalMeth" => "SearchBooleanField",
 		"isReversal" => "SearchBooleanField",
 		"isRevRecTransaction" => "SearchBooleanField",
@@ -27532,13 +27222,11 @@ class TransactionSearchBasic extends SearchRecordBasic {
 		"item" => "SearchMultiSelectField",
 		"itemRevision" => "SearchMultiSelectField",
 		"itemSubOf" => "SearchMultiSelectField",
-		"landedCostPerLine" => "SearchBooleanField",
 		"lastModifiedDate" => "SearchDateField",
 		"leadSource" => "SearchMultiSelectField",
 		"location" => "SearchMultiSelectField",
 		"mainLine" => "SearchBooleanField",
 		"mainName" => "SearchMultiSelectField",
-		"manufacturingRouting" => "SearchMultiSelectField",
 		"matchBillToReceipt" => "SearchBooleanField",
 		"memo" => "SearchStringField",
 		"memoMain" => "SearchStringField",
@@ -27553,10 +27241,8 @@ class TransactionSearchBasic extends SearchRecordBasic {
 		"nonReimbursable" => "SearchBooleanField",
 		"number" => "SearchLongField",
 		"opportunity" => "SearchMultiSelectField",
-		"orderPriority" => "SearchDoubleField",
 		"otherRefNum" => "SearchTextNumberField",
 		"otherRefNumNonDeposit" => "SearchTextNumberField",
-		"overheadParentItem" => "SearchMultiSelectField",
 		"packageCount" => "SearchLongField",
 		"paidTransaction" => "SearchMultiSelectField",
 		"parent" => "SearchLongField",
@@ -27565,7 +27251,6 @@ class TransactionSearchBasic extends SearchRecordBasic {
 		"partnerRole" => "SearchMultiSelectField",
 		"partnerTeamMember" => "SearchMultiSelectField",
 		"payingTransaction" => "SearchMultiSelectField",
-		"paymentApproved" => "SearchBooleanField",
 		"paymentEventDate" => "SearchDateField",
 		"paymentEventHoldReason" => "SearchEnumMultiSelectField",
 		"paymentEventPurchaseCardUsed" => "SearchBooleanField",
@@ -27596,7 +27281,6 @@ class TransactionSearchBasic extends SearchRecordBasic {
 		"quantityShipRecv" => "SearchDoubleField",
 		"recognizedRevenue" => "SearchDoubleField",
 		"recordType" => "SearchStringField",
-		"refNumber" => "SearchLongField",
 		"revCommitStatus" => "SearchEnumMultiSelectField",
 		"revCommittingStatus" => "SearchBooleanField",
 		"revCommittingTransaction" => "SearchMultiSelectField",
@@ -27682,11 +27366,11 @@ class TransactionSearchBasic extends SearchRecordBasic {
 	);
 }}
 
-if (!class_exists("TransactionSearchRowBasic")) {
+if (!class_exists("TransactionSearchRowBasic",false)){
 /**
  * TransactionSearchRowBasic
  */
-class TransactionSearchRowBasic extends SearchRowBasic {
+class TransactionSearchRowBasic {
 	/**
 	 * @access public
 	 * @var SearchColumnStringField[]
@@ -27909,11 +27593,6 @@ class TransactionSearchRowBasic extends SearchRowBasic {
 	public $binNumberQuantity;
 	/**
 	 * @access public
-	 * @var SearchColumnDoubleField[]
-	 */
-	public $bomQuantity;
-	/**
-	 * @access public
 	 * @var SearchColumnBooleanField[]
 	 */
 	public $buildEntireAssembly;
@@ -27992,11 +27671,6 @@ class TransactionSearchRowBasic extends SearchRowBasic {
 	 * @var SearchColumnEnumSelectField[]
 	 */
 	public $commit;
-	/**
-	 * @access public
-	 * @var SearchColumnDoubleField[]
-	 */
-	public $componentYield;
 	/**
 	 * @access public
 	 * @var SearchColumnStringField[]
@@ -28456,11 +28130,6 @@ class TransactionSearchRowBasic extends SearchRowBasic {
 	 * @access public
 	 * @var SearchColumnBooleanField[]
 	 */
-	public $isMultiShipTo;
-	/**
-	 * @access public
-	 * @var SearchColumnBooleanField[]
-	 */
 	public $isReversal;
 	/**
 	 * @access public
@@ -28499,11 +28168,6 @@ class TransactionSearchRowBasic extends SearchRowBasic {
 	public $itemRevision;
 	/**
 	 * @access public
-	 * @var SearchColumnBooleanField[]
-	 */
-	public $landedCostPerLine;
-	/**
-	 * @access public
 	 * @var SearchColumnDateField[]
 	 */
 	public $lastModifiedDate;
@@ -28537,11 +28201,6 @@ class TransactionSearchRowBasic extends SearchRowBasic {
 	 * @var SearchColumnStringField[]
 	 */
 	public $mainName;
-	/**
-	 * @access public
-	 * @var SearchColumnSelectField[]
-	 */
-	public $manufacturingRouting;
 	/**
 	 * @access public
 	 * @var SearchColumnBooleanField[]
@@ -28614,11 +28273,6 @@ class TransactionSearchRowBasic extends SearchRowBasic {
 	public $options;
 	/**
 	 * @access public
-	 * @var SearchColumnDoubleField[]
-	 */
-	public $orderPriority;
-	/**
-	 * @access public
 	 * @var SearchColumnEnumSelectField[]
 	 */
 	public $originator;
@@ -28627,11 +28281,6 @@ class TransactionSearchRowBasic extends SearchRowBasic {
 	 * @var SearchColumnTextNumberField[]
 	 */
 	public $otherRefNum;
-	/**
-	 * @access public
-	 * @var SearchColumnSelectField[]
-	 */
-	public $overheadParentItem;
 	/**
 	 * @access public
 	 * @var SearchColumnLongField[]
@@ -28677,11 +28326,6 @@ class TransactionSearchRowBasic extends SearchRowBasic {
 	 * @var SearchColumnSelectField[]
 	 */
 	public $payingTransaction;
-	/**
-	 * @access public
-	 * @var SearchColumnBooleanField[]
-	 */
-	public $paymentApproved;
 	/**
 	 * @access public
 	 * @var SearchColumnDateField[]
@@ -28847,11 +28491,6 @@ class TransactionSearchRowBasic extends SearchRowBasic {
 	 * @var SearchColumnStringField[]
 	 */
 	public $recordType;
-	/**
-	 * @access public
-	 * @var SearchColumnLongField[]
-	 */
-	public $refNumber;
 	/**
 	 * @access public
 	 * @var SearchColumnEnumSelectField[]
@@ -29323,7 +28962,6 @@ class TransactionSearchRowBasic extends SearchRowBasic {
 		"billZip" => "SearchColumnStringField[]",
 		"binNumber" => "SearchColumnStringField[]",
 		"binNumberQuantity" => "SearchColumnDoubleField[]",
-		"bomQuantity" => "SearchColumnDoubleField[]",
 		"buildEntireAssembly" => "SearchColumnBooleanField[]",
 		"buildVariance" => "SearchColumnDoubleField[]",
 		"built" => "SearchColumnDoubleField[]",
@@ -29340,7 +28978,6 @@ class TransactionSearchRowBasic extends SearchRowBasic {
 		"cogsAmount" => "SearchColumnDoubleField[]",
 		"commissionEffectiveDate" => "SearchColumnDateField[]",
 		"commit" => "SearchColumnEnumSelectField[]",
-		"componentYield" => "SearchColumnDoubleField[]",
 		"confirmationNumber" => "SearchColumnStringField[]",
 		"contribution" => "SearchColumnDoubleField[]",
 		"contributionPrimary" => "SearchColumnDoubleField[]",
@@ -29432,7 +29069,6 @@ class TransactionSearchRowBasic extends SearchRowBasic {
 		"isGcoPaymentGuaranteed" => "SearchColumnBooleanField[]",
 		"isGcoRefundConfirmed" => "SearchColumnBooleanField[]",
 		"isIntercompanyAdjustment" => "SearchColumnBooleanField[]",
-		"isMultiShipTo" => "SearchColumnBooleanField[]",
 		"isReversal" => "SearchColumnBooleanField[]",
 		"isRevRecTransaction" => "SearchColumnBooleanField[]",
 		"isScrap" => "SearchColumnBooleanField[]",
@@ -29441,7 +29077,6 @@ class TransactionSearchRowBasic extends SearchRowBasic {
 		"isWip" => "SearchColumnBooleanField[]",
 		"item" => "SearchColumnSelectField[]",
 		"itemRevision" => "SearchColumnSelectField[]",
-		"landedCostPerLine" => "SearchColumnBooleanField[]",
 		"lastModifiedDate" => "SearchColumnDateField[]",
 		"leadSource" => "SearchColumnSelectField[]",
 		"line" => "SearchColumnLongField[]",
@@ -29449,7 +29084,6 @@ class TransactionSearchRowBasic extends SearchRowBasic {
 		"location" => "SearchColumnSelectField[]",
 		"mainLine" => "SearchColumnBooleanField[]",
 		"mainName" => "SearchColumnStringField[]",
-		"manufacturingRouting" => "SearchColumnSelectField[]",
 		"matchBillToReceipt" => "SearchColumnBooleanField[]",
 		"memo" => "SearchColumnStringField[]",
 		"memoMain" => "SearchColumnStringField[]",
@@ -29464,10 +29098,8 @@ class TransactionSearchRowBasic extends SearchRowBasic {
 		"nonReimbursable" => "SearchColumnBooleanField[]",
 		"opportunity" => "SearchColumnSelectField[]",
 		"options" => "SearchColumnStringField[]",
-		"orderPriority" => "SearchColumnDoubleField[]",
 		"originator" => "SearchColumnEnumSelectField[]",
 		"otherRefNum" => "SearchColumnTextNumberField[]",
-		"overheadParentItem" => "SearchColumnSelectField[]",
 		"packageCount" => "SearchColumnLongField[]",
 		"paidAmount" => "SearchColumnDoubleField[]",
 		"paidTransaction" => "SearchColumnSelectField[]",
@@ -29477,7 +29109,6 @@ class TransactionSearchRowBasic extends SearchRowBasic {
 		"partnerTeamMember" => "SearchColumnSelectField[]",
 		"payingAmount" => "SearchColumnDoubleField[]",
 		"payingTransaction" => "SearchColumnSelectField[]",
-		"paymentApproved" => "SearchColumnBooleanField[]",
 		"paymentEventDate" => "SearchColumnDateField[]",
 		"paymentEventHoldReason" => "SearchColumnEnumSelectField[]",
 		"paymentEventPurchaseCardUsed" => "SearchColumnBooleanField[]",
@@ -29511,7 +29142,6 @@ class TransactionSearchRowBasic extends SearchRowBasic {
 		"realizedGainPostingTransaction" => "SearchColumnStringField[]",
 		"recognizedRevenue" => "SearchColumnDoubleField[]",
 		"recordType" => "SearchColumnStringField[]",
-		"refNumber" => "SearchColumnLongField[]",
 		"revCommitStatus" => "SearchColumnEnumSelectField[]",
 		"revCommittingTransaction" => "SearchColumnSelectField[]",
 		"revenueStatus" => "SearchColumnEnumSelectField[]",
@@ -29600,11 +29230,11 @@ class TransactionSearchRowBasic extends SearchRowBasic {
 	);
 }}
 
-if (!class_exists("ItemSearchBasic")) {
+if (!class_exists("ItemSearchBasic",false)){
 /**
  * ItemSearchBasic
  */
-class ItemSearchBasic extends SearchRecordBasic {
+class ItemSearchBasic extends SearchRecord {
 	/**
 	 * @access public
 	 * @var SearchMultiSelectField
@@ -29677,11 +29307,6 @@ class ItemSearchBasic extends SearchRecordBasic {
 	public $binOnHandCount;
 	/**
 	 * @access public
-	 * @var SearchDoubleField
-	 */
-	public $bomQuantity;
-	/**
-	 * @access public
 	 * @var SearchBooleanField
 	 */
 	public $buildEntireAssembly;
@@ -29722,11 +29347,6 @@ class ItemSearchBasic extends SearchRecordBasic {
 	public $componentOf;
 	/**
 	 * @access public
-	 * @var SearchDoubleField
-	 */
-	public $componentYield;
-	/**
-	 * @access public
 	 * @var SearchBooleanField
 	 */
 	public $copyDescription;
@@ -29760,11 +29380,6 @@ class ItemSearchBasic extends SearchRecordBasic {
 	 * @var SearchDoubleField
 	 */
 	public $cost;
-	/**
-	 * @access public
-	 * @var SearchEnumMultiSelectField
-	 */
-	public $costAccountingStatus;
 	/**
 	 * @access public
 	 * @var SearchMultiSelectField
@@ -30147,11 +29762,6 @@ class ItemSearchBasic extends SearchRecordBasic {
 	public $locationCost;
 	/**
 	 * @access public
-	 * @var SearchEnumMultiSelectField
-	 */
-	public $locationCostAccountingStatus;
-	/**
-	 * @access public
 	 * @var SearchDoubleField
 	 */
 	public $locationDefaultReturnCost;
@@ -30165,11 +29775,6 @@ class ItemSearchBasic extends SearchRecordBasic {
 	 * @var SearchDoubleField
 	 */
 	public $locationFixedLotSize;
-	/**
-	 * @access public
-	 * @var SearchMultiSelectField
-	 */
-	public $locationInventoryCostTemplate;
 	/**
 	 * @access public
 	 * @var SearchEnumMultiSelectField
@@ -30422,11 +30027,6 @@ class ItemSearchBasic extends SearchRecordBasic {
 	public $overallQuantityPricingType;
 	/**
 	 * @access public
-	 * @var SearchEnumMultiSelectField
-	 */
-	public $overheadType;
-	/**
-	 * @access public
 	 * @var SearchStringField
 	 */
 	public $pageTitle;
@@ -30545,11 +30145,6 @@ class ItemSearchBasic extends SearchRecordBasic {
 	 * @var SearchMultiSelectField
 	 */
 	public $revRecSchedule;
-	/**
-	 * @access public
-	 * @var SearchBooleanField
-	 */
-	public $roundUpAsComponent;
 	/**
 	 * @access public
 	 * @var SearchDoubleField
@@ -30764,11 +30359,6 @@ class ItemSearchBasic extends SearchRecordBasic {
 	 * @access public
 	 * @var SearchBooleanField
 	 */
-	public $useComponentYield;
-	/**
-	 * @access public
-	 * @var SearchBooleanField
-	 */
 	public $useMarginalRates;
 	/**
 	 * @access public
@@ -30856,7 +30446,6 @@ class ItemSearchBasic extends SearchRecordBasic {
 		"binNumber" => "SearchStringField",
 		"binOnHandAvail" => "SearchDoubleField",
 		"binOnHandCount" => "SearchDoubleField",
-		"bomQuantity" => "SearchDoubleField",
 		"buildEntireAssembly" => "SearchBooleanField",
 		"buildTime" => "SearchDoubleField",
 		"buyItNowPrice" => "SearchDoubleField",
@@ -30865,7 +30454,6 @@ class ItemSearchBasic extends SearchRecordBasic {
 		"class" => "SearchMultiSelectField",
 		"component" => "SearchMultiSelectField",
 		"componentOf" => "SearchMultiSelectField",
-		"componentYield" => "SearchDoubleField",
 		"copyDescription" => "SearchBooleanField",
 		"correlatedItem" => "SearchMultiSelectField",
 		"correlatedItemCorrelation" => "SearchDoubleField",
@@ -30873,7 +30461,6 @@ class ItemSearchBasic extends SearchRecordBasic {
 		"correlatedItemLift" => "SearchDoubleField",
 		"correlatedItemPurchaseRate" => "SearchDoubleField",
 		"cost" => "SearchDoubleField",
-		"costAccountingStatus" => "SearchEnumMultiSelectField",
 		"costCategory" => "SearchMultiSelectField",
 		"costEstimate" => "SearchDoubleField",
 		"costEstimateType" => "SearchEnumMultiSelectField",
@@ -30950,11 +30537,9 @@ class ItemSearchBasic extends SearchRecordBasic {
 		"locationAverageCost" => "SearchDoubleField",
 		"locationBuildTime" => "SearchDoubleField",
 		"locationCost" => "SearchDoubleField",
-		"locationCostAccountingStatus" => "SearchEnumMultiSelectField",
 		"locationDefaultReturnCost" => "SearchDoubleField",
 		"locationDemandSource" => "SearchEnumMultiSelectField",
 		"locationFixedLotSize" => "SearchDoubleField",
-		"locationInventoryCostTemplate" => "SearchMultiSelectField",
 		"locationInvtClassification" => "SearchEnumMultiSelectField",
 		"locationInvtCountInterval" => "SearchLongField",
 		"locationLastInvtCountDate" => "SearchDateField",
@@ -31005,7 +30590,6 @@ class ItemSearchBasic extends SearchRecordBasic {
 		"otherVendor" => "SearchMultiSelectField",
 		"outOfStockBehavior" => "SearchMultiSelectField",
 		"overallQuantityPricingType" => "SearchEnumMultiSelectField",
-		"overheadType" => "SearchEnumMultiSelectField",
 		"pageTitle" => "SearchStringField",
 		"parent" => "SearchMultiSelectField",
 		"periodicLotSizeDays" => "SearchLongField",
@@ -31030,7 +30614,6 @@ class ItemSearchBasic extends SearchRecordBasic {
 		"reorderPoint" => "SearchDoubleField",
 		"reservePrice" => "SearchDoubleField",
 		"revRecSchedule" => "SearchMultiSelectField",
-		"roundUpAsComponent" => "SearchBooleanField",
 		"safetyStockLevel" => "SearchDoubleField",
 		"safetyStockLevelDays" => "SearchLongField",
 		"salesDescription" => "SearchStringField",
@@ -31073,7 +30656,6 @@ class ItemSearchBasic extends SearchRecordBasic {
 		"upcCode" => "SearchStringField",
 		"urlComponent" => "SearchStringField",
 		"useBins" => "SearchBooleanField",
-		"useComponentYield" => "SearchBooleanField",
 		"useMarginalRates" => "SearchBooleanField",
 		"vendor" => "SearchMultiSelectField",
 		"vendorCode" => "SearchStringField",
@@ -31092,11 +30674,11 @@ class ItemSearchBasic extends SearchRecordBasic {
 	);
 }}
 
-if (!class_exists("ItemSearchRowBasic")) {
+if (!class_exists("ItemSearchRowBasic",false)){
 /**
  * ItemSearchRowBasic
  */
-class ItemSearchRowBasic extends SearchRowBasic {
+class ItemSearchRowBasic {
 	/**
 	 * @access public
 	 * @var SearchColumnSelectField[]
@@ -31189,11 +30771,6 @@ class ItemSearchRowBasic extends SearchRowBasic {
 	public $binOnHandCount;
 	/**
 	 * @access public
-	 * @var SearchColumnDoubleField[]
-	 */
-	public $bomQuantity;
-	/**
-	 * @access public
 	 * @var SearchColumnBooleanField[]
 	 */
 	public $buildEntireAssembly;
@@ -31222,11 +30799,6 @@ class ItemSearchRowBasic extends SearchRowBasic {
 	 * @var SearchColumnSelectField[]
 	 */
 	public $class;
-	/**
-	 * @access public
-	 * @var SearchColumnDoubleField[]
-	 */
-	public $componentYield;
 	/**
 	 * @access public
 	 * @var SearchColumnBooleanField[]
@@ -31262,11 +30834,6 @@ class ItemSearchRowBasic extends SearchRowBasic {
 	 * @var SearchColumnDoubleField[]
 	 */
 	public $cost;
-	/**
-	 * @access public
-	 * @var SearchColumnEnumSelectField[]
-	 */
-	public $costAccountingStatus;
 	/**
 	 * @access public
 	 * @var SearchColumnStringField[]
@@ -31679,11 +31246,6 @@ class ItemSearchRowBasic extends SearchRowBasic {
 	public $locationCost;
 	/**
 	 * @access public
-	 * @var SearchColumnEnumSelectField[]
-	 */
-	public $locationCostAccountingStatus;
-	/**
-	 * @access public
 	 * @var SearchColumnDoubleField[]
 	 */
 	public $locationDefaultReturnCost;
@@ -31697,11 +31259,6 @@ class ItemSearchRowBasic extends SearchRowBasic {
 	 * @var SearchColumnDoubleField[]
 	 */
 	public $locationFixedLotSize;
-	/**
-	 * @access public
-	 * @var SearchColumnStringField[]
-	 */
-	public $locationInventoryCostTemplate;
 	/**
 	 * @access public
 	 * @var SearchColumnEnumSelectField[]
@@ -31979,11 +31536,6 @@ class ItemSearchRowBasic extends SearchRowBasic {
 	public $overallQuantityPricingType;
 	/**
 	 * @access public
-	 * @var SearchColumnEnumSelectField[]
-	 */
-	public $overheadType;
-	/**
-	 * @access public
 	 * @var SearchColumnStringField[]
 	 */
 	public $pageTitle;
@@ -32117,11 +31669,6 @@ class ItemSearchRowBasic extends SearchRowBasic {
 	 * @var SearchColumnSelectField[]
 	 */
 	public $revRecSchedule;
-	/**
-	 * @access public
-	 * @var SearchColumnBooleanField[]
-	 */
-	public $roundUpAsComponent;
 	/**
 	 * @access public
 	 * @var SearchColumnDoubleField[]
@@ -32366,11 +31913,6 @@ class ItemSearchRowBasic extends SearchRowBasic {
 	 * @access public
 	 * @var SearchColumnBooleanField[]
 	 */
-	public $useComponentYield;
-	/**
-	 * @access public
-	 * @var SearchColumnBooleanField[]
-	 */
 	public $useMarginalRates;
 	/**
 	 * @access public
@@ -32487,14 +32029,12 @@ class ItemSearchRowBasic extends SearchRowBasic {
 		"binNumber" => "SearchColumnStringField[]",
 		"binOnHandAvail" => "SearchColumnDoubleField[]",
 		"binOnHandCount" => "SearchColumnDoubleField[]",
-		"bomQuantity" => "SearchColumnDoubleField[]",
 		"buildEntireAssembly" => "SearchColumnBooleanField[]",
 		"buildTime" => "SearchColumnDoubleField[]",
 		"buyItNowPrice" => "SearchColumnDoubleField[]",
 		"category" => "SearchColumnStringField[]",
 		"categoryPreferred" => "SearchColumnStringField[]",
 		"class" => "SearchColumnSelectField[]",
-		"componentYield" => "SearchColumnDoubleField[]",
 		"copyDescription" => "SearchColumnBooleanField[]",
 		"correlatedItem" => "SearchColumnSelectField[]",
 		"correlatedItemCorrelation" => "SearchColumnDoubleField[]",
@@ -32502,7 +32042,6 @@ class ItemSearchRowBasic extends SearchRowBasic {
 		"correlatedItemLift" => "SearchColumnDoubleField[]",
 		"correlatedItemPurchaseRate" => "SearchColumnDoubleField[]",
 		"cost" => "SearchColumnDoubleField[]",
-		"costAccountingStatus" => "SearchColumnEnumSelectField[]",
 		"costCategory" => "SearchColumnStringField[]",
 		"costEstimate" => "SearchColumnDoubleField[]",
 		"costEstimateType" => "SearchColumnEnumSelectField[]",
@@ -32585,11 +32124,9 @@ class ItemSearchRowBasic extends SearchRowBasic {
 		"locationBinQuantityAvailable" => "SearchColumnStringField[]",
 		"locationBuildTime" => "SearchColumnDoubleField[]",
 		"locationCost" => "SearchColumnDoubleField[]",
-		"locationCostAccountingStatus" => "SearchColumnEnumSelectField[]",
 		"locationDefaultReturnCost" => "SearchColumnDoubleField[]",
 		"locationDemandSource" => "SearchColumnEnumSelectField[]",
 		"locationFixedLotSize" => "SearchColumnDoubleField[]",
-		"locationInventoryCostTemplate" => "SearchColumnStringField[]",
 		"locationInvtClassification" => "SearchColumnEnumSelectField[]",
 		"locationInvtCountInterval" => "SearchColumnLongField[]",
 		"locationLastInvtCountDate" => "SearchColumnDateField[]",
@@ -32645,7 +32182,6 @@ class ItemSearchRowBasic extends SearchRowBasic {
 		"outOfStockBehavior" => "SearchColumnStringField[]",
 		"outOfStockMessage" => "SearchColumnStringField[]",
 		"overallQuantityPricingType" => "SearchColumnEnumSelectField[]",
-		"overheadType" => "SearchColumnEnumSelectField[]",
 		"pageTitle" => "SearchColumnStringField[]",
 		"parent" => "SearchColumnSelectField[]",
 		"periodicLotSizeDays" => "SearchColumnLongField[]",
@@ -32673,7 +32209,6 @@ class ItemSearchRowBasic extends SearchRowBasic {
 		"reOrderPoint" => "SearchColumnDoubleField[]",
 		"reservePrice" => "SearchColumnDoubleField[]",
 		"revRecSchedule" => "SearchColumnSelectField[]",
-		"roundUpAsComponent" => "SearchColumnBooleanField[]",
 		"safetyStockLevel" => "SearchColumnDoubleField[]",
 		"safetyStockLevelDays" => "SearchColumnLongField[]",
 		"salesDescription" => "SearchColumnStringField[]",
@@ -32722,7 +32257,6 @@ class ItemSearchRowBasic extends SearchRowBasic {
 		"upcCode" => "SearchColumnStringField[]",
 		"urlComponent" => "SearchColumnStringField[]",
 		"useBins" => "SearchColumnBooleanField[]",
-		"useComponentYield" => "SearchColumnBooleanField[]",
 		"useMarginalRates" => "SearchColumnBooleanField[]",
 		"vendor" => "SearchColumnSelectField[]",
 		"vendorCode" => "SearchColumnStringField[]",
@@ -32746,11 +32280,11 @@ class ItemSearchRowBasic extends SearchRowBasic {
 	);
 }}
 
-if (!class_exists("PartnerSearchBasic")) {
+if (!class_exists("PartnerSearchBasic",false)){
 /**
  * PartnerSearchBasic
  */
-class PartnerSearchBasic extends SearchRecordBasic {
+class PartnerSearchBasic extends SearchRecord {
 	/**
 	 * @access public
 	 * @var SearchStringField
@@ -33092,11 +32626,11 @@ class PartnerSearchBasic extends SearchRecordBasic {
 	);
 }}
 
-if (!class_exists("PartnerSearchRowBasic")) {
+if (!class_exists("PartnerSearchRowBasic",false)){
 /**
  * PartnerSearchRowBasic
  */
-class PartnerSearchRowBasic extends SearchRowBasic {
+class PartnerSearchRowBasic {
 	/**
 	 * @access public
 	 * @var SearchColumnStringField[]
@@ -33624,11 +33158,11 @@ class PartnerSearchRowBasic extends SearchRowBasic {
 	);
 }}
 
-if (!class_exists("VendorSearchBasic")) {
+if (!class_exists("VendorSearchBasic",false)){
 /**
  * VendorSearchBasic
  */
-class VendorSearchBasic extends SearchRecordBasic {
+class VendorSearchBasic extends SearchRecord {
 	/**
 	 * @access public
 	 * @var SearchStringField
@@ -34048,11 +33582,11 @@ class VendorSearchBasic extends SearchRecordBasic {
 	);
 }}
 
-if (!class_exists("VendorSearchRowBasic")) {
+if (!class_exists("VendorSearchRowBasic",false)){
 /**
  * VendorSearchRowBasic
  */
-class VendorSearchRowBasic extends SearchRowBasic {
+class VendorSearchRowBasic {
 	/**
 	 * @access public
 	 * @var SearchColumnStringField[]
@@ -34682,11 +34216,11 @@ class VendorSearchRowBasic extends SearchRowBasic {
 	);
 }}
 
-if (!class_exists("SiteCategorySearchBasic")) {
+if (!class_exists("SiteCategorySearchBasic",false)){
 /**
  * SiteCategorySearchBasic
  */
-class SiteCategorySearchBasic extends SearchRecordBasic {
+class SiteCategorySearchBasic extends SearchRecord {
 	/**
 	 * @access public
 	 * @var SearchDateField
@@ -34746,11 +34280,11 @@ class SiteCategorySearchBasic extends SearchRecordBasic {
 	);
 }}
 
-if (!class_exists("SiteCategorySearchRowBasic")) {
+if (!class_exists("SiteCategorySearchRowBasic",false)){
 /**
  * SiteCategorySearchRowBasic
  */
-class SiteCategorySearchRowBasic extends SearchRowBasic {
+class SiteCategorySearchRowBasic {
 	/**
 	 * @access public
 	 * @var SearchColumnDateField[]
@@ -34834,11 +34368,11 @@ class SiteCategorySearchRowBasic extends SearchRowBasic {
 	);
 }}
 
-if (!class_exists("TimeBillSearchBasic")) {
+if (!class_exists("TimeBillSearchBasic",false)){
 /**
  * TimeBillSearchBasic
  */
-class TimeBillSearchBasic extends SearchRecordBasic {
+class TimeBillSearchBasic extends SearchRecord {
 	/**
 	 * @access public
 	 * @var SearchBooleanField
@@ -35018,11 +34552,11 @@ class TimeBillSearchBasic extends SearchRecordBasic {
 	);
 }}
 
-if (!class_exists("TimeBillSearchRowBasic")) {
+if (!class_exists("TimeBillSearchRowBasic",false)){
 /**
  * TimeBillSearchRowBasic
  */
-class TimeBillSearchRowBasic extends SearchRowBasic {
+class TimeBillSearchRowBasic {
 	/**
 	 * @access public
 	 * @var SearchColumnStringField[]
@@ -35220,11 +34754,11 @@ class TimeBillSearchRowBasic extends SearchRowBasic {
 	);
 }}
 
-if (!class_exists("SolutionSearchBasic")) {
+if (!class_exists("SolutionSearchBasic",false)){
 /**
  * SolutionSearchBasic
  */
-class SolutionSearchBasic extends SearchRecordBasic {
+class SolutionSearchBasic extends SearchRecord {
 	/**
 	 * @access public
 	 * @var SearchStringField
@@ -35344,11 +34878,11 @@ class SolutionSearchBasic extends SearchRecordBasic {
 	);
 }}
 
-if (!class_exists("SolutionSearchRowBasic")) {
+if (!class_exists("SolutionSearchRowBasic",false)){
 /**
  * SolutionSearchRowBasic
  */
-class SolutionSearchRowBasic extends SearchRowBasic {
+class SolutionSearchRowBasic {
 	/**
 	 * @access public
 	 * @var SearchColumnSelectField[]
@@ -35444,11 +34978,11 @@ class SolutionSearchRowBasic extends SearchRowBasic {
 	);
 }}
 
-if (!class_exists("TopicSearchBasic")) {
+if (!class_exists("TopicSearchBasic",false)){
 /**
  * TopicSearchBasic
  */
-class TopicSearchBasic extends SearchRecordBasic {
+class TopicSearchBasic extends SearchRecord {
 	/**
 	 * @access public
 	 * @var SearchStringField
@@ -35496,11 +35030,11 @@ class TopicSearchBasic extends SearchRecordBasic {
 	);
 }}
 
-if (!class_exists("TopicSearchRowBasic")) {
+if (!class_exists("TopicSearchRowBasic",false)){
 /**
  * TopicSearchRowBasic
  */
-class TopicSearchRowBasic extends SearchRowBasic {
+class TopicSearchRowBasic {
 	/**
 	 * @access public
 	 * @var SearchColumnStringField[]
@@ -35536,11 +35070,11 @@ class TopicSearchRowBasic extends SearchRowBasic {
 	);
 }}
 
-if (!class_exists("SubsidiarySearchBasic")) {
+if (!class_exists("SubsidiarySearchBasic",false)){
 /**
  * SubsidiarySearchBasic
  */
-class SubsidiarySearchBasic extends SearchRecordBasic {
+class SubsidiarySearchBasic extends SearchRecord {
 	/**
 	 * @access public
 	 * @var SearchStringField
@@ -35678,11 +35212,11 @@ class SubsidiarySearchBasic extends SearchRecordBasic {
 	);
 }}
 
-if (!class_exists("SubsidiarySearchRowBasic")) {
+if (!class_exists("SubsidiarySearchRowBasic",false)){
 /**
  * SubsidiarySearchRowBasic
  */
-class SubsidiarySearchRowBasic extends SearchRowBasic {
+class SubsidiarySearchRowBasic {
 	/**
 	 * @access public
 	 * @var SearchColumnStringField[]
@@ -35886,11 +35420,11 @@ class SubsidiarySearchRowBasic extends SearchRowBasic {
 	);
 }}
 
-if (!class_exists("GiftCertificateSearchBasic")) {
+if (!class_exists("GiftCertificateSearchBasic",false)){
 /**
  * GiftCertificateSearchBasic
  */
-class GiftCertificateSearchBasic extends SearchRecordBasic {
+class GiftCertificateSearchBasic extends SearchRecord {
 	/**
 	 * @access public
 	 * @var SearchDoubleField
@@ -36004,11 +35538,11 @@ class GiftCertificateSearchBasic extends SearchRecordBasic {
 	);
 }}
 
-if (!class_exists("GiftCertificateSearchRowBasic")) {
+if (!class_exists("GiftCertificateSearchRowBasic",false)){
 /**
  * GiftCertificateSearchRowBasic
  */
-class GiftCertificateSearchRowBasic extends SearchRowBasic {
+class GiftCertificateSearchRowBasic {
 	/**
 	 * @access public
 	 * @var SearchColumnDoubleField[]
@@ -36116,11 +35650,11 @@ class GiftCertificateSearchRowBasic extends SearchRowBasic {
 	);
 }}
 
-if (!class_exists("FolderSearchBasic")) {
+if (!class_exists("FolderSearchBasic",false)){
 /**
  * FolderSearchBasic
  */
-class FolderSearchBasic extends SearchRecordBasic {
+class FolderSearchBasic extends SearchRecord {
 	/**
 	 * @access public
 	 * @var SearchMultiSelectField
@@ -36246,11 +35780,11 @@ class FolderSearchBasic extends SearchRecordBasic {
 	);
 }}
 
-if (!class_exists("FolderSearchRowBasic")) {
+if (!class_exists("FolderSearchRowBasic",false)){
 /**
  * FolderSearchRowBasic
  */
-class FolderSearchRowBasic extends SearchRowBasic {
+class FolderSearchRowBasic {
 	/**
 	 * @access public
 	 * @var SearchColumnSelectField[]
@@ -36346,11 +35880,11 @@ class FolderSearchRowBasic extends SearchRowBasic {
 	);
 }}
 
-if (!class_exists("FileSearchBasic")) {
+if (!class_exists("FileSearchBasic",false)){
 /**
  * FileSearchBasic
  */
-class FileSearchBasic extends SearchRecordBasic {
+class FileSearchBasic extends SearchRecord {
 	/**
 	 * @access public
 	 * @var SearchBooleanField
@@ -36458,11 +35992,11 @@ class FileSearchBasic extends SearchRecordBasic {
 	);
 }}
 
-if (!class_exists("FileSearchRowBasic")) {
+if (!class_exists("FileSearchRowBasic",false)){
 /**
  * FileSearchRowBasic
  */
-class FileSearchRowBasic extends SearchRowBasic {
+class FileSearchRowBasic {
 	/**
 	 * @access public
 	 * @var SearchColumnBooleanField[]
@@ -36564,11 +36098,11 @@ class FileSearchRowBasic extends SearchRowBasic {
 	);
 }}
 
-if (!class_exists("JobSearchBasic")) {
+if (!class_exists("JobSearchBasic",false)){
 /**
  * JobSearchBasic
  */
-class JobSearchBasic extends SearchRecordBasic {
+class JobSearchBasic extends SearchRecord {
 	/**
 	 * @access public
 	 * @var SearchStringField
@@ -36619,11 +36153,6 @@ class JobSearchBasic extends SearchRecordBasic {
 	 * @var SearchBooleanField
 	 */
 	public $allowTime;
-	/**
-	 * @access public
-	 * @var SearchBooleanField
-	 */
-	public $applyProjectExpenseTypeToAll;
 	/**
 	 * @access public
 	 * @var SearchStringField
@@ -36921,11 +36450,6 @@ class JobSearchBasic extends SearchRecordBasic {
 	public $projectedEndDateBaseline;
 	/**
 	 * @access public
-	 * @var SearchMultiSelectField
-	 */
-	public $projectExpenseType;
-	/**
-	 * @access public
 	 * @var SearchDateField
 	 */
 	public $startDate;
@@ -36981,7 +36505,6 @@ class JobSearchBasic extends SearchRecordBasic {
 		"allowAllResourcesForTasks" => "SearchBooleanField",
 		"allowExpenses" => "SearchBooleanField",
 		"allowTime" => "SearchBooleanField",
-		"applyProjectExpenseTypeToAll" => "SearchBooleanField",
 		"attention" => "SearchStringField",
 		"billingSchedule" => "SearchMultiSelectField",
 		"calculatedEndDate" => "SearchDateField",
@@ -37041,7 +36564,6 @@ class JobSearchBasic extends SearchRecordBasic {
 		"phone" => "SearchStringField",
 		"phoneticName" => "SearchStringField",
 		"projectedEndDateBaseline" => "SearchDateField",
-		"projectExpenseType" => "SearchMultiSelectField",
 		"startDate" => "SearchDateField",
 		"startDateBaseline" => "SearchDateField",
 		"state" => "SearchStringField",
@@ -37054,11 +36576,11 @@ class JobSearchBasic extends SearchRecordBasic {
 	);
 }}
 
-if (!class_exists("JobSearchRowBasic")) {
+if (!class_exists("JobSearchRowBasic",false)){
 /**
  * JobSearchRowBasic
  */
-class JobSearchRowBasic extends SearchRowBasic {
+class JobSearchRowBasic {
 	/**
 	 * @access public
 	 * @var SearchColumnStringField[]
@@ -37496,11 +37018,6 @@ class JobSearchRowBasic extends SearchRowBasic {
 	public $projectedEndDateBaseline;
 	/**
 	 * @access public
-	 * @var SearchColumnSelectField[]
-	 */
-	public $projectExpenseType;
-	/**
-	 * @access public
 	 * @var SearchColumnStringField[]
 	 */
 	public $shipAddress1;
@@ -37698,7 +37215,6 @@ class JobSearchRowBasic extends SearchRowBasic {
 		"phoneticName" => "SearchColumnStringField[]",
 		"projectedEndDate" => "SearchColumnDateField[]",
 		"projectedEndDateBaseline" => "SearchColumnDateField[]",
-		"projectExpenseType" => "SearchColumnSelectField[]",
 		"shipAddress1" => "SearchColumnStringField[]",
 		"shipAddress2" => "SearchColumnStringField[]",
 		"shipAddress3" => "SearchColumnStringField[]",
@@ -37724,11 +37240,11 @@ class JobSearchRowBasic extends SearchRowBasic {
 	);
 }}
 
-if (!class_exists("IssueSearchBasic")) {
+if (!class_exists("IssueSearchBasic",false)){
 /**
  * IssueSearchBasic
  */
-class IssueSearchBasic extends SearchRecordBasic {
+class IssueSearchBasic extends SearchRecord {
 	/**
 	 * @access public
 	 * @var SearchLongField
@@ -37938,21 +37454,6 @@ class IssueSearchBasic extends SearchRecordBasic {
 	 * @access public
 	 * @var SearchMultiSelectField
 	 */
-	public $relatedIssue;
-	/**
-	 * @access public
-	 * @var SearchEnumMultiSelectField
-	 */
-	public $relationship;
-	/**
-	 * @access public
-	 * @var SearchStringField
-	 */
-	public $relationshipComment;
-	/**
-	 * @access public
-	 * @var SearchMultiSelectField
-	 */
 	public $reportedBy;
 	/**
 	 * @access public
@@ -38072,9 +37573,6 @@ class IssueSearchBasic extends SearchRecordBasic {
 		"priority" => "SearchMultiSelectField",
 		"product" => "SearchMultiSelectField",
 		"productTeam" => "SearchMultiSelectField",
-		"relatedIssue" => "SearchMultiSelectField",
-		"relationship" => "SearchEnumMultiSelectField",
-		"relationshipComment" => "SearchStringField",
 		"reportedBy" => "SearchMultiSelectField",
 		"reproduce" => "SearchMultiSelectField",
 		"resolved" => "SearchDateField",
@@ -38094,11 +37592,11 @@ class IssueSearchBasic extends SearchRecordBasic {
 	);
 }}
 
-if (!class_exists("IssueSearchRowBasic")) {
+if (!class_exists("IssueSearchRowBasic",false)){
 /**
  * IssueSearchRowBasic
  */
-class IssueSearchRowBasic extends SearchRowBasic {
+class IssueSearchRowBasic {
 	/**
 	 * @access public
 	 * @var SearchColumnLongField[]
@@ -38273,21 +37771,6 @@ class IssueSearchRowBasic extends SearchRowBasic {
 	 * @access public
 	 * @var SearchColumnSelectField[]
 	 */
-	public $relatedIssue;
-	/**
-	 * @access public
-	 * @var SearchColumnEnumSelectField[]
-	 */
-	public $relationship;
-	/**
-	 * @access public
-	 * @var SearchColumnStringField[]
-	 */
-	public $relationshipComment;
-	/**
-	 * @access public
-	 * @var SearchColumnSelectField[]
-	 */
 	public $reportedBy;
 	/**
 	 * @access public
@@ -38390,9 +37873,6 @@ class IssueSearchRowBasic extends SearchRowBasic {
 		"priority" => "SearchColumnSelectField[]",
 		"product" => "SearchColumnSelectField[]",
 		"productTeam" => "SearchColumnSelectField[]",
-		"relatedIssue" => "SearchColumnSelectField[]",
-		"relationship" => "SearchColumnEnumSelectField[]",
-		"relationshipComment" => "SearchColumnStringField[]",
 		"reportedBy" => "SearchColumnSelectField[]",
 		"reproduce" => "SearchColumnSelectField[]",
 		"resolved" => "SearchColumnDateField[]",
@@ -38410,11 +37890,11 @@ class IssueSearchRowBasic extends SearchRowBasic {
 	);
 }}
 
-if (!class_exists("GroupMemberSearchBasic")) {
+if (!class_exists("GroupMemberSearchBasic",false)){
 /**
  * GroupMemberSearchBasic
  */
-class GroupMemberSearchBasic extends SearchRecordBasic {
+class GroupMemberSearchBasic extends SearchRecord {
 	/**
 	 * @access public
 	 * @var SearchMultiSelectField
@@ -38426,11 +37906,11 @@ class GroupMemberSearchBasic extends SearchRecordBasic {
 	);
 }}
 
-if (!class_exists("CampaignSearchBasic")) {
+if (!class_exists("CampaignSearchBasic",false)){
 /**
  * CampaignSearchBasic
  */
-class CampaignSearchBasic extends SearchRecordBasic {
+class CampaignSearchBasic extends SearchRecord {
 	/**
 	 * @access public
 	 * @var SearchMultiSelectField
@@ -38688,11 +38168,11 @@ class CampaignSearchBasic extends SearchRecordBasic {
 	);
 }}
 
-if (!class_exists("CampaignSearchRowBasic")) {
+if (!class_exists("CampaignSearchRowBasic",false)){
 /**
  * CampaignSearchRowBasic
  */
-class CampaignSearchRowBasic extends SearchRowBasic {
+class CampaignSearchRowBasic {
 	/**
 	 * @access public
 	 * @var SearchColumnSelectField[]
@@ -38944,11 +38424,11 @@ class CampaignSearchRowBasic extends SearchRowBasic {
 	);
 }}
 
-if (!class_exists("EntityGroupSearchBasic")) {
+if (!class_exists("EntityGroupSearchBasic",false)){
 /**
  * EntityGroupSearchBasic
  */
-class EntityGroupSearchBasic extends SearchRecordBasic {
+class EntityGroupSearchBasic extends SearchRecord {
 	/**
 	 * @access public
 	 * @var SearchStringField
@@ -39056,11 +38536,11 @@ class EntityGroupSearchBasic extends SearchRecordBasic {
 	);
 }}
 
-if (!class_exists("EntityGroupSearchRowBasic")) {
+if (!class_exists("EntityGroupSearchRowBasic",false)){
 /**
  * EntityGroupSearchRowBasic
  */
-class EntityGroupSearchRowBasic extends SearchRowBasic {
+class EntityGroupSearchRowBasic {
 	/**
 	 * @access public
 	 * @var SearchColumnStringField[]
@@ -39168,11 +38648,11 @@ class EntityGroupSearchRowBasic extends SearchRowBasic {
 	);
 }}
 
-if (!class_exists("PromotionCodeSearchBasic")) {
+if (!class_exists("PromotionCodeSearchBasic",false)){
 /**
  * PromotionCodeSearchBasic
  */
-class PromotionCodeSearchBasic extends SearchRecordBasic {
+class PromotionCodeSearchBasic extends SearchRecord {
 	/**
 	 * @access public
 	 * @var SearchEnumMultiSelectField
@@ -39286,11 +38766,11 @@ class PromotionCodeSearchBasic extends SearchRecordBasic {
 	);
 }}
 
-if (!class_exists("PromotionCodeSearchRowBasic")) {
+if (!class_exists("PromotionCodeSearchRowBasic",false)){
 /**
  * PromotionCodeSearchRowBasic
  */
-class PromotionCodeSearchRowBasic extends SearchRowBasic {
+class PromotionCodeSearchRowBasic {
 	/**
 	 * @access public
 	 * @var SearchColumnStringField[]
@@ -39368,11 +38848,11 @@ class PromotionCodeSearchRowBasic extends SearchRowBasic {
 	);
 }}
 
-if (!class_exists("BudgetSearchBasic")) {
+if (!class_exists("BudgetSearchBasic",false)){
 /**
  * BudgetSearchBasic
  */
-class BudgetSearchBasic extends SearchRecordBasic {
+class BudgetSearchBasic extends SearchRecord {
 	/**
 	 * @access public
 	 * @var SearchMultiSelectField
@@ -39468,11 +38948,11 @@ class BudgetSearchBasic extends SearchRecordBasic {
 	);
 }}
 
-if (!class_exists("BudgetSearchRowBasic")) {
+if (!class_exists("BudgetSearchRowBasic",false)){
 /**
  * BudgetSearchRowBasic
  */
-class BudgetSearchRowBasic extends SearchRowBasic {
+class BudgetSearchRowBasic {
 	/**
 	 * @access public
 	 * @var SearchColumnStringField[]
@@ -39586,11 +39066,11 @@ class BudgetSearchRowBasic extends SearchRowBasic {
 	);
 }}
 
-if (!class_exists("ProjectTaskSearchBasic")) {
+if (!class_exists("ProjectTaskSearchBasic",false)){
 /**
  * ProjectTaskSearchBasic
  */
-class ProjectTaskSearchBasic extends SearchRecordBasic {
+class ProjectTaskSearchBasic extends SearchRecord {
 	/**
 	 * @access public
 	 * @var SearchDoubleField
@@ -39703,11 +39183,6 @@ class ProjectTaskSearchBasic extends SearchRecordBasic {
 	public $externalIdString;
 	/**
 	 * @access public
-	 * @var SearchDateField
-	 */
-	public $finishByDate;
-	/**
-	 * @access public
 	 * @var SearchLongField
 	 */
 	public $id;
@@ -39721,11 +39196,6 @@ class ProjectTaskSearchBasic extends SearchRecordBasic {
 	 * @var SearchLongField
 	 */
 	public $internalIdNumber;
-	/**
-	 * @access public
-	 * @var SearchBooleanField
-	 */
-	public $isMilestone;
 	/**
 	 * @access public
 	 * @var SearchBooleanField
@@ -39830,11 +39300,9 @@ class ProjectTaskSearchBasic extends SearchRecordBasic {
 		"estimatedWorkVariancePercent" => "SearchDoubleField",
 		"externalId" => "SearchMultiSelectField",
 		"externalIdString" => "SearchStringField",
-		"finishByDate" => "SearchDateField",
 		"id" => "SearchLongField",
 		"internalId" => "SearchMultiSelectField",
 		"internalIdNumber" => "SearchLongField",
-		"isMilestone" => "SearchBooleanField",
 		"isSummaryTask" => "SearchBooleanField",
 		"lastModifiedDate" => "SearchDateField",
 		"owner" => "SearchMultiSelectField",
@@ -39854,11 +39322,11 @@ class ProjectTaskSearchBasic extends SearchRecordBasic {
 	);
 }}
 
-if (!class_exists("ProjectTaskSearchRowBasic")) {
+if (!class_exists("ProjectTaskSearchRowBasic",false)){
 /**
  * ProjectTaskSearchRowBasic
  */
-class ProjectTaskSearchRowBasic extends SearchRowBasic {
+class ProjectTaskSearchRowBasic {
 	/**
 	 * @access public
 	 * @var SearchColumnDoubleField[]
@@ -39961,11 +39429,6 @@ class ProjectTaskSearchRowBasic extends SearchRowBasic {
 	public $externalId;
 	/**
 	 * @access public
-	 * @var SearchColumnDateField[]
-	 */
-	public $finishByDate;
-	/**
-	 * @access public
 	 * @var SearchColumnLongField[]
 	 */
 	public $id;
@@ -39974,11 +39437,6 @@ class ProjectTaskSearchRowBasic extends SearchRowBasic {
 	 * @var SearchColumnSelectField[]
 	 */
 	public $internalId;
-	/**
-	 * @access public
-	 * @var SearchColumnBooleanField[]
-	 */
-	public $isMilestone;
 	/**
 	 * @access public
 	 * @var SearchColumnBooleanField[]
@@ -40014,11 +39472,6 @@ class ProjectTaskSearchRowBasic extends SearchRowBasic {
 	 * @var SearchColumnSelectField[]
 	 */
 	public $predecessor;
-	/**
-	 * @access public
-	 * @var SearchColumnDoubleField[]
-	 */
-	public $predecessorLagDays;
 	/**
 	 * @access public
 	 * @var SearchColumnStringField[]
@@ -40101,10 +39554,8 @@ class ProjectTaskSearchRowBasic extends SearchRowBasic {
 		"estimatedWorkVariance" => "SearchColumnDoubleField[]",
 		"estimatedWorkVariancePercent" => "SearchColumnDoubleField[]",
 		"externalId" => "SearchColumnSelectField[]",
-		"finishByDate" => "SearchColumnDateField[]",
 		"id" => "SearchColumnLongField[]",
 		"internalId" => "SearchColumnSelectField[]",
-		"isMilestone" => "SearchColumnBooleanField[]",
 		"isSummaryTask" => "SearchColumnBooleanField[]",
 		"lastModifiedDate" => "SearchColumnDateField[]",
 		"message" => "SearchColumnStringField[]",
@@ -40112,7 +39563,6 @@ class ProjectTaskSearchRowBasic extends SearchRowBasic {
 		"parent" => "SearchColumnSelectField[]",
 		"percentWorkComplete" => "SearchColumnDoubleField[]",
 		"predecessor" => "SearchColumnSelectField[]",
-		"predecessorLagDays" => "SearchColumnDoubleField[]",
 		"predecessors" => "SearchColumnStringField[]",
 		"predecessorType" => "SearchColumnStringField[]",
 		"priority" => "SearchColumnEnumSelectField[]",
@@ -40128,11 +39578,11 @@ class ProjectTaskSearchRowBasic extends SearchRowBasic {
 	);
 }}
 
-if (!class_exists("ProjectTaskAssignmentSearchBasic")) {
+if (!class_exists("ProjectTaskAssignmentSearchBasic",false)){
 /**
  * ProjectTaskAssignmentSearchBasic
  */
-class ProjectTaskAssignmentSearchBasic extends SearchRecordBasic {
+class ProjectTaskAssignmentSearchBasic extends SearchRecord {
 	/**
 	 * @access public
 	 * @var SearchDoubleField
@@ -40240,11 +39690,6 @@ class ProjectTaskAssignmentSearchBasic extends SearchRecordBasic {
 	public $unitPriceBase;
 	/**
 	 * @access public
-	 * @var SearchDoubleField
-	 */
-	public $units;
-	/**
-	 * @access public
 	 * @var SearchMultiSelectField
 	 */
 	public $workCalendar;
@@ -40271,16 +39716,15 @@ class ProjectTaskAssignmentSearchBasic extends SearchRecordBasic {
 		"unitCostBase" => "SearchDoubleField",
 		"unitPrice" => "SearchDoubleField",
 		"unitPriceBase" => "SearchDoubleField",
-		"units" => "SearchDoubleField",
 		"workCalendar" => "SearchMultiSelectField",
 	);
 }}
 
-if (!class_exists("ProjectTaskAssignmentSearchRowBasic")) {
+if (!class_exists("ProjectTaskAssignmentSearchRowBasic",false)){
 /**
  * ProjectTaskAssignmentSearchRowBasic
  */
-class ProjectTaskAssignmentSearchRowBasic extends SearchRowBasic {
+class ProjectTaskAssignmentSearchRowBasic {
 	/**
 	 * @access public
 	 * @var SearchColumnDoubleField[]
@@ -40383,11 +39827,6 @@ class ProjectTaskAssignmentSearchRowBasic extends SearchRowBasic {
 	public $unitPriceBase;
 	/**
 	 * @access public
-	 * @var SearchColumnDoubleField[]
-	 */
-	public $units;
-	/**
-	 * @access public
 	 * @var SearchColumnSelectField[]
 	 */
 	public $workCalendar;
@@ -40413,16 +39852,15 @@ class ProjectTaskAssignmentSearchRowBasic extends SearchRowBasic {
 		"unitCostBase" => "SearchColumnDoubleField[]",
 		"unitPrice" => "SearchColumnDoubleField[]",
 		"unitPriceBase" => "SearchColumnDoubleField[]",
-		"units" => "SearchColumnDoubleField[]",
 		"workCalendar" => "SearchColumnSelectField[]",
 	);
 }}
 
-if (!class_exists("AccountingPeriodSearchBasic")) {
+if (!class_exists("AccountingPeriodSearchBasic",false)){
 /**
  * AccountingPeriodSearchBasic
  */
-class AccountingPeriodSearchBasic extends SearchRecordBasic {
+class AccountingPeriodSearchBasic extends SearchRecord {
 	/**
 	 * @access public
 	 * @var SearchBooleanField
@@ -40530,11 +39968,11 @@ class AccountingPeriodSearchBasic extends SearchRecordBasic {
 	);
 }}
 
-if (!class_exists("AccountingPeriodSearchRowBasic")) {
+if (!class_exists("AccountingPeriodSearchRowBasic",false)){
 /**
  * AccountingPeriodSearchRowBasic
  */
-class AccountingPeriodSearchRowBasic extends SearchRowBasic {
+class AccountingPeriodSearchRowBasic {
 	/**
 	 * @access public
 	 * @var SearchColumnBooleanField[]
@@ -40636,11 +40074,11 @@ class AccountingPeriodSearchRowBasic extends SearchRowBasic {
 	);
 }}
 
-if (!class_exists("ContactCategorySearchBasic")) {
+if (!class_exists("ContactCategorySearchBasic",false)){
 /**
  * ContactCategorySearchBasic
  */
-class ContactCategorySearchBasic extends SearchRecordBasic {
+class ContactCategorySearchBasic extends SearchRecord {
 	/**
 	 * @access public
 	 * @var SearchMultiSelectField
@@ -40694,11 +40132,11 @@ class ContactCategorySearchBasic extends SearchRecordBasic {
 	);
 }}
 
-if (!class_exists("ContactCategorySearchRowBasic")) {
+if (!class_exists("ContactCategorySearchRowBasic",false)){
 /**
  * ContactCategorySearchRowBasic
  */
-class ContactCategorySearchRowBasic extends SearchRowBasic {
+class ContactCategorySearchRowBasic {
 	/**
 	 * @access public
 	 * @var SearchColumnSelectField[]
@@ -40740,11 +40178,11 @@ class ContactCategorySearchRowBasic extends SearchRowBasic {
 	);
 }}
 
-if (!class_exists("ContactRoleSearchBasic")) {
+if (!class_exists("ContactRoleSearchBasic",false)){
 /**
  * ContactRoleSearchBasic
  */
-class ContactRoleSearchBasic extends SearchRecordBasic {
+class ContactRoleSearchBasic extends SearchRecord {
 	/**
 	 * @access public
 	 * @var SearchStringField
@@ -40792,11 +40230,11 @@ class ContactRoleSearchBasic extends SearchRecordBasic {
 	);
 }}
 
-if (!class_exists("ContactRoleSearchRowBasic")) {
+if (!class_exists("ContactRoleSearchRowBasic",false)){
 /**
  * ContactRoleSearchRowBasic
  */
-class ContactRoleSearchRowBasic extends SearchRowBasic {
+class ContactRoleSearchRowBasic {
 	/**
 	 * @access public
 	 * @var SearchColumnStringField[]
@@ -40832,11 +40270,11 @@ class ContactRoleSearchRowBasic extends SearchRowBasic {
 	);
 }}
 
-if (!class_exists("CustomerCategorySearchBasic")) {
+if (!class_exists("CustomerCategorySearchBasic",false)){
 /**
  * CustomerCategorySearchBasic
  */
-class CustomerCategorySearchBasic extends SearchRecordBasic {
+class CustomerCategorySearchBasic extends SearchRecord {
 	/**
 	 * @access public
 	 * @var SearchMultiSelectField
@@ -40878,11 +40316,11 @@ class CustomerCategorySearchBasic extends SearchRecordBasic {
 	);
 }}
 
-if (!class_exists("CustomerCategorySearchRowBasic")) {
+if (!class_exists("CustomerCategorySearchRowBasic",false)){
 /**
  * CustomerCategorySearchRowBasic
  */
-class CustomerCategorySearchRowBasic extends SearchRowBasic {
+class CustomerCategorySearchRowBasic {
 	/**
 	 * @access public
 	 * @var SearchColumnSelectField[]
@@ -40912,11 +40350,11 @@ class CustomerCategorySearchRowBasic extends SearchRowBasic {
 	);
 }}
 
-if (!class_exists("CustomerStatusSearchBasic")) {
+if (!class_exists("CustomerStatusSearchBasic",false)){
 /**
  * CustomerStatusSearchBasic
  */
-class CustomerStatusSearchBasic extends SearchRecordBasic {
+class CustomerStatusSearchBasic extends SearchRecord {
 	/**
 	 * @access public
 	 * @var SearchStringField
@@ -40976,11 +40414,11 @@ class CustomerStatusSearchBasic extends SearchRecordBasic {
 	);
 }}
 
-if (!class_exists("CustomerStatusSearchRowBasic")) {
+if (!class_exists("CustomerStatusSearchRowBasic",false)){
 /**
  * CustomerStatusSearchRowBasic
  */
-class CustomerStatusSearchRowBasic extends SearchRowBasic {
+class CustomerStatusSearchRowBasic {
 	/**
 	 * @access public
 	 * @var SearchColumnStringField[]
@@ -41028,11 +40466,11 @@ class CustomerStatusSearchRowBasic extends SearchRowBasic {
 	);
 }}
 
-if (!class_exists("ExpenseCategorySearchBasic")) {
+if (!class_exists("ExpenseCategorySearchBasic",false)){
 /**
  * ExpenseCategorySearchBasic
  */
-class ExpenseCategorySearchBasic extends SearchRecordBasic {
+class ExpenseCategorySearchBasic extends SearchRecord {
 	/**
 	 * @access public
 	 * @var SearchMultiSelectField
@@ -41073,11 +40511,6 @@ class ExpenseCategorySearchBasic extends SearchRecordBasic {
 	 * @var SearchStringField
 	 */
 	public $name;
-	/**
-	 * @access public
-	 * @var SearchBooleanField
-	 */
-	public $rateRequired;
 	/**
 	 * @access public
 	 * @var SearchCustomFieldList
@@ -41093,16 +40526,15 @@ class ExpenseCategorySearchBasic extends SearchRecordBasic {
 		"internalIdNumber" => "SearchLongField",
 		"isInactive" => "SearchBooleanField",
 		"name" => "SearchStringField",
-		"rateRequired" => "SearchBooleanField",
 		"customFieldList" => "SearchCustomFieldList",
 	);
 }}
 
-if (!class_exists("ExpenseCategorySearchRowBasic")) {
+if (!class_exists("ExpenseCategorySearchRowBasic",false)){
 /**
  * ExpenseCategorySearchRowBasic
  */
-class ExpenseCategorySearchRowBasic extends SearchRowBasic {
+class ExpenseCategorySearchRowBasic {
 	/**
 	 * @access public
 	 * @var SearchColumnSelectField[]
@@ -41135,11 +40567,6 @@ class ExpenseCategorySearchRowBasic extends SearchRowBasic {
 	public $name;
 	/**
 	 * @access public
-	 * @var SearchColumnBooleanField[]
-	 */
-	public $rateRequired;
-	/**
-	 * @access public
 	 * @var SearchColumnCustomFieldList
 	 */
 	public $customFieldList;
@@ -41151,16 +40578,15 @@ class ExpenseCategorySearchRowBasic extends SearchRowBasic {
 		"internalId" => "SearchColumnSelectField[]",
 		"isInactive" => "SearchColumnBooleanField[]",
 		"name" => "SearchColumnStringField[]",
-		"rateRequired" => "SearchColumnBooleanField[]",
 		"customFieldList" => "SearchColumnCustomFieldList",
 	);
 }}
 
-if (!class_exists("JobStatusSearchBasic")) {
+if (!class_exists("JobStatusSearchBasic",false)){
 /**
  * JobStatusSearchBasic
  */
-class JobStatusSearchBasic extends SearchRecordBasic {
+class JobStatusSearchBasic extends SearchRecord {
 	/**
 	 * @access public
 	 * @var SearchStringField
@@ -41208,11 +40634,11 @@ class JobStatusSearchBasic extends SearchRecordBasic {
 	);
 }}
 
-if (!class_exists("JobStatusSearchRowBasic")) {
+if (!class_exists("JobStatusSearchRowBasic",false)){
 /**
  * JobStatusSearchRowBasic
  */
-class JobStatusSearchRowBasic extends SearchRowBasic {
+class JobStatusSearchRowBasic {
 	/**
 	 * @access public
 	 * @var SearchColumnStringField[]
@@ -41248,11 +40674,11 @@ class JobStatusSearchRowBasic extends SearchRowBasic {
 	);
 }}
 
-if (!class_exists("JobTypeSearchBasic")) {
+if (!class_exists("JobTypeSearchBasic",false)){
 /**
  * JobTypeSearchBasic
  */
-class JobTypeSearchBasic extends SearchRecordBasic {
+class JobTypeSearchBasic extends SearchRecord {
 	/**
 	 * @access public
 	 * @var SearchMultiSelectField
@@ -41300,11 +40726,11 @@ class JobTypeSearchBasic extends SearchRecordBasic {
 	);
 }}
 
-if (!class_exists("JobTypeSearchRowBasic")) {
+if (!class_exists("JobTypeSearchRowBasic",false)){
 /**
  * JobTypeSearchRowBasic
  */
-class JobTypeSearchRowBasic extends SearchRowBasic {
+class JobTypeSearchRowBasic {
 	/**
 	 * @access public
 	 * @var SearchColumnSelectField[]
@@ -41340,11 +40766,11 @@ class JobTypeSearchRowBasic extends SearchRowBasic {
 	);
 }}
 
-if (!class_exists("NoteTypeSearchBasic")) {
+if (!class_exists("NoteTypeSearchBasic",false)){
 /**
  * NoteTypeSearchBasic
  */
-class NoteTypeSearchBasic extends SearchRecordBasic {
+class NoteTypeSearchBasic extends SearchRecord {
 	/**
 	 * @access public
 	 * @var SearchStringField
@@ -41392,11 +40818,11 @@ class NoteTypeSearchBasic extends SearchRecordBasic {
 	);
 }}
 
-if (!class_exists("NoteTypeSearchRowBasic")) {
+if (!class_exists("NoteTypeSearchRowBasic",false)){
 /**
  * NoteTypeSearchRowBasic
  */
-class NoteTypeSearchRowBasic extends SearchRowBasic {
+class NoteTypeSearchRowBasic {
 	/**
 	 * @access public
 	 * @var SearchColumnStringField[]
@@ -41432,11 +40858,11 @@ class NoteTypeSearchRowBasic extends SearchRowBasic {
 	);
 }}
 
-if (!class_exists("PartnerCategorySearchBasic")) {
+if (!class_exists("PartnerCategorySearchBasic",false)){
 /**
  * PartnerCategorySearchBasic
  */
-class PartnerCategorySearchBasic extends SearchRecordBasic {
+class PartnerCategorySearchBasic extends SearchRecord {
 	/**
 	 * @access public
 	 * @var SearchMultiSelectField
@@ -41484,11 +40910,11 @@ class PartnerCategorySearchBasic extends SearchRecordBasic {
 	);
 }}
 
-if (!class_exists("PartnerCategorySearchRowBasic")) {
+if (!class_exists("PartnerCategorySearchRowBasic",false)){
 /**
  * PartnerCategorySearchRowBasic
  */
-class PartnerCategorySearchRowBasic extends SearchRowBasic {
+class PartnerCategorySearchRowBasic {
 	/**
 	 * @access public
 	 * @var SearchColumnSelectField[]
@@ -41524,11 +40950,11 @@ class PartnerCategorySearchRowBasic extends SearchRowBasic {
 	);
 }}
 
-if (!class_exists("PaymentMethodSearchBasic")) {
+if (!class_exists("PaymentMethodSearchBasic",false)){
 /**
  * PaymentMethodSearchBasic
  */
-class PaymentMethodSearchBasic extends SearchRecordBasic {
+class PaymentMethodSearchBasic extends SearchRecord {
 	/**
 	 * @access public
 	 * @var SearchMultiSelectField
@@ -41588,11 +41014,11 @@ class PaymentMethodSearchBasic extends SearchRecordBasic {
 	);
 }}
 
-if (!class_exists("PaymentMethodSearchRowBasic")) {
+if (!class_exists("PaymentMethodSearchRowBasic",false)){
 /**
  * PaymentMethodSearchRowBasic
  */
-class PaymentMethodSearchRowBasic extends SearchRowBasic {
+class PaymentMethodSearchRowBasic {
 	/**
 	 * @access public
 	 * @var SearchColumnSelectField[]
@@ -41640,11 +41066,11 @@ class PaymentMethodSearchRowBasic extends SearchRowBasic {
 	);
 }}
 
-if (!class_exists("PriceLevelSearchBasic")) {
+if (!class_exists("PriceLevelSearchBasic",false)){
 /**
  * PriceLevelSearchBasic
  */
-class PriceLevelSearchBasic extends SearchRecordBasic {
+class PriceLevelSearchBasic extends SearchRecord {
 	/**
 	 * @access public
 	 * @var SearchDoubleField
@@ -41698,11 +41124,11 @@ class PriceLevelSearchBasic extends SearchRecordBasic {
 	);
 }}
 
-if (!class_exists("PriceLevelSearchRowBasic")) {
+if (!class_exists("PriceLevelSearchRowBasic",false)){
 /**
  * PriceLevelSearchRowBasic
  */
-class PriceLevelSearchRowBasic extends SearchRowBasic {
+class PriceLevelSearchRowBasic {
 	/**
 	 * @access public
 	 * @var SearchColumnDoubleField[]
@@ -41744,11 +41170,11 @@ class PriceLevelSearchRowBasic extends SearchRowBasic {
 	);
 }}
 
-if (!class_exists("SalesRoleSearchBasic")) {
+if (!class_exists("SalesRoleSearchBasic",false)){
 /**
  * SalesRoleSearchBasic
  */
-class SalesRoleSearchBasic extends SearchRecordBasic {
+class SalesRoleSearchBasic extends SearchRecord {
 	/**
 	 * @access public
 	 * @var SearchStringField
@@ -41796,11 +41222,11 @@ class SalesRoleSearchBasic extends SearchRecordBasic {
 	);
 }}
 
-if (!class_exists("SalesRoleSearchRowBasic")) {
+if (!class_exists("SalesRoleSearchRowBasic",false)){
 /**
  * SalesRoleSearchRowBasic
  */
-class SalesRoleSearchRowBasic extends SearchRowBasic {
+class SalesRoleSearchRowBasic {
 	/**
 	 * @access public
 	 * @var SearchColumnStringField[]
@@ -41836,11 +41262,11 @@ class SalesRoleSearchRowBasic extends SearchRowBasic {
 	);
 }}
 
-if (!class_exists("TermSearchBasic")) {
+if (!class_exists("TermSearchBasic",false)){
 /**
  * TermSearchBasic
  */
-class TermSearchBasic extends SearchRecordBasic {
+class TermSearchBasic extends SearchRecord {
 	/**
 	 * @access public
 	 * @var SearchBooleanField
@@ -41936,11 +41362,11 @@ class TermSearchBasic extends SearchRecordBasic {
 	);
 }}
 
-if (!class_exists("TermSearchRowBasic")) {
+if (!class_exists("TermSearchRowBasic",false)){
 /**
  * TermSearchRowBasic
  */
-class TermSearchRowBasic extends SearchRowBasic {
+class TermSearchRowBasic {
 	/**
 	 * @access public
 	 * @var SearchColumnBooleanField[]
@@ -42024,11 +41450,11 @@ class TermSearchRowBasic extends SearchRowBasic {
 	);
 }}
 
-if (!class_exists("VendorCategorySearchBasic")) {
+if (!class_exists("VendorCategorySearchBasic",false)){
 /**
  * VendorCategorySearchBasic
  */
-class VendorCategorySearchBasic extends SearchRecordBasic {
+class VendorCategorySearchBasic extends SearchRecord {
 	/**
 	 * @access public
 	 * @var SearchMultiSelectField
@@ -42076,11 +41502,11 @@ class VendorCategorySearchBasic extends SearchRecordBasic {
 	);
 }}
 
-if (!class_exists("VendorCategorySearchRowBasic")) {
+if (!class_exists("VendorCategorySearchRowBasic",false)){
 /**
  * VendorCategorySearchRowBasic
  */
-class VendorCategorySearchRowBasic extends SearchRowBasic {
+class VendorCategorySearchRowBasic {
 	/**
 	 * @access public
 	 * @var SearchColumnSelectField[]
@@ -42116,11 +41542,11 @@ class VendorCategorySearchRowBasic extends SearchRowBasic {
 	);
 }}
 
-if (!class_exists("WinLossReasonSearchBasic")) {
+if (!class_exists("WinLossReasonSearchBasic",false)){
 /**
  * WinLossReasonSearchBasic
  */
-class WinLossReasonSearchBasic extends SearchRecordBasic {
+class WinLossReasonSearchBasic extends SearchRecord {
 	/**
 	 * @access public
 	 * @var SearchMultiSelectField
@@ -42162,11 +41588,11 @@ class WinLossReasonSearchBasic extends SearchRecordBasic {
 	);
 }}
 
-if (!class_exists("WinLossReasonSearchRowBasic")) {
+if (!class_exists("WinLossReasonSearchRowBasic",false)){
 /**
  * WinLossReasonSearchRowBasic
  */
-class WinLossReasonSearchRowBasic extends SearchRowBasic {
+class WinLossReasonSearchRowBasic {
 	/**
 	 * @access public
 	 * @var SearchColumnSelectField[]
@@ -42196,11 +41622,11 @@ class WinLossReasonSearchRowBasic extends SearchRowBasic {
 	);
 }}
 
-if (!class_exists("OriginatingLeadSearchBasic")) {
+if (!class_exists("OriginatingLeadSearchBasic",false)){
 /**
  * OriginatingLeadSearchBasic
  */
-class OriginatingLeadSearchBasic extends SearchRecordBasic {
+class OriginatingLeadSearchBasic extends SearchRecord {
 	/**
 	 * @access public
 	 * @var SearchStringField
@@ -42782,11 +42208,11 @@ class OriginatingLeadSearchBasic extends SearchRecordBasic {
 	);
 }}
 
-if (!class_exists("OriginatingLeadSearchRowBasic")) {
+if (!class_exists("OriginatingLeadSearchRowBasic",false)){
 /**
  * OriginatingLeadSearchRowBasic
  */
-class OriginatingLeadSearchRowBasic extends SearchRowBasic {
+class OriginatingLeadSearchRowBasic {
 	/**
 	 * @access public
 	 * @var SearchColumnStringField[]
@@ -43332,11 +42758,11 @@ class OriginatingLeadSearchRowBasic extends SearchRowBasic {
 	);
 }}
 
-if (!class_exists("UnitsTypeSearchBasic")) {
+if (!class_exists("UnitsTypeSearchBasic",false)){
 /**
  * UnitsTypeSearchBasic
  */
-class UnitsTypeSearchBasic extends SearchRecordBasic {
+class UnitsTypeSearchBasic extends SearchRecord {
 	/**
 	 * @access public
 	 * @var SearchStringField
@@ -43414,11 +42840,11 @@ class UnitsTypeSearchBasic extends SearchRecordBasic {
 	);
 }}
 
-if (!class_exists("UnitsTypeSearchRowBasic")) {
+if (!class_exists("UnitsTypeSearchRowBasic",false)){
 /**
  * UnitsTypeSearchRowBasic
  */
-class UnitsTypeSearchRowBasic extends SearchRowBasic {
+class UnitsTypeSearchRowBasic {
 	/**
 	 * @access public
 	 * @var SearchColumnStringField[]
@@ -43484,11 +42910,11 @@ class UnitsTypeSearchRowBasic extends SearchRowBasic {
 	);
 }}
 
-if (!class_exists("CustomListSearchBasic")) {
+if (!class_exists("CustomListSearchBasic",false)){
 /**
  * CustomListSearchBasic
  */
-class CustomListSearchBasic extends SearchRecordBasic {
+class CustomListSearchBasic extends SearchRecord {
 	/**
 	 * @access public
 	 * @var SearchStringField
@@ -43542,11 +42968,11 @@ class CustomListSearchBasic extends SearchRecordBasic {
 	);
 }}
 
-if (!class_exists("CustomListSearchRowBasic")) {
+if (!class_exists("CustomListSearchRowBasic",false)){
 /**
  * CustomListSearchRowBasic
  */
-class CustomListSearchRowBasic extends SearchRowBasic {
+class CustomListSearchRowBasic {
 	/**
 	 * @access public
 	 * @var SearchColumnStringField[]
@@ -43594,11 +43020,11 @@ class CustomListSearchRowBasic extends SearchRowBasic {
 	);
 }}
 
-if (!class_exists("PricingGroupSearchBasic")) {
+if (!class_exists("PricingGroupSearchBasic",false)){
 /**
  * PricingGroupSearchBasic
  */
-class PricingGroupSearchBasic extends SearchRecordBasic {
+class PricingGroupSearchBasic extends SearchRecord {
 	/**
 	 * @access public
 	 * @var SearchMultiSelectField
@@ -43640,11 +43066,11 @@ class PricingGroupSearchBasic extends SearchRecordBasic {
 	);
 }}
 
-if (!class_exists("PricingGroupSearchRowBasic")) {
+if (!class_exists("PricingGroupSearchRowBasic",false)){
 /**
  * PricingGroupSearchRowBasic
  */
-class PricingGroupSearchRowBasic extends SearchRowBasic {
+class PricingGroupSearchRowBasic {
 	/**
 	 * @access public
 	 * @var SearchColumnSelectField[]
@@ -43674,11 +43100,11 @@ class PricingGroupSearchRowBasic extends SearchRowBasic {
 	);
 }}
 
-if (!class_exists("InventoryNumberSearchBasic")) {
+if (!class_exists("InventoryNumberSearchBasic",false)){
 /**
  * InventoryNumberSearchBasic
  */
-class InventoryNumberSearchBasic extends SearchRecordBasic {
+class InventoryNumberSearchBasic extends SearchRecord {
 	/**
 	 * @access public
 	 * @var SearchDateField
@@ -43774,11 +43200,11 @@ class InventoryNumberSearchBasic extends SearchRecordBasic {
 	);
 }}
 
-if (!class_exists("InventoryNumberSearchRowBasic")) {
+if (!class_exists("InventoryNumberSearchRowBasic",false)){
 /**
  * InventoryNumberSearchRowBasic
  */
-class InventoryNumberSearchRowBasic extends SearchRowBasic {
+class InventoryNumberSearchRowBasic {
 	/**
 	 * @access public
 	 * @var SearchColumnDateField[]
@@ -43862,159 +43288,11 @@ class InventoryNumberSearchRowBasic extends SearchRowBasic {
 	);
 }}
 
-if (!class_exists("InventoryNumberBinSearchBasic")) {
-/**
- * InventoryNumberBinSearchBasic
- */
-class InventoryNumberBinSearchBasic extends SearchRecordBasic {
-	/**
-	 * @access public
-	 * @var SearchMultiSelectField
-	 */
-	public $binNumber;
-	/**
-	 * @access public
-	 * @var SearchStringField
-	 */
-	public $inventoryNumber;
-	/**
-	 * @access public
-	 * @var SearchMultiSelectField
-	 */
-	public $location;
-	/**
-	 * @access public
-	 * @var SearchDoubleField
-	 */
-	public $quantityAvailable;
-	/**
-	 * @access public
-	 * @var SearchDoubleField
-	 */
-	public $quantityOnHand;
-
-	static $paramtypesmap = array(
-		"binNumber" => "SearchMultiSelectField",
-		"inventoryNumber" => "SearchStringField",
-		"location" => "SearchMultiSelectField",
-		"quantityAvailable" => "SearchDoubleField",
-		"quantityOnHand" => "SearchDoubleField",
-	);
-}}
-
-if (!class_exists("InventoryNumberBinSearchRowBasic")) {
-/**
- * InventoryNumberBinSearchRowBasic
- */
-class InventoryNumberBinSearchRowBasic extends SearchRowBasic {
-	/**
-	 * @access public
-	 * @var SearchColumnSelectField[]
-	 */
-	public $binNumber;
-	/**
-	 * @access public
-	 * @var SearchColumnStringField[]
-	 */
-	public $inventoryNumber;
-	/**
-	 * @access public
-	 * @var SearchColumnSelectField[]
-	 */
-	public $location;
-	/**
-	 * @access public
-	 * @var SearchColumnDoubleField[]
-	 */
-	public $quantityAvailable;
-	/**
-	 * @access public
-	 * @var SearchColumnDoubleField[]
-	 */
-	public $quantityOnHand;
-
-	static $paramtypesmap = array(
-		"binNumber" => "SearchColumnSelectField[]",
-		"inventoryNumber" => "SearchColumnStringField[]",
-		"location" => "SearchColumnSelectField[]",
-		"quantityAvailable" => "SearchColumnDoubleField[]",
-		"quantityOnHand" => "SearchColumnDoubleField[]",
-	);
-}}
-
-if (!class_exists("ItemBinNumberSearchBasic")) {
-/**
- * ItemBinNumberSearchBasic
- */
-class ItemBinNumberSearchBasic extends SearchRecordBasic {
-	/**
-	 * @access public
-	 * @var SearchMultiSelectField
-	 */
-	public $binNumber;
-	/**
-	 * @access public
-	 * @var SearchMultiSelectField
-	 */
-	public $location;
-	/**
-	 * @access public
-	 * @var SearchDoubleField
-	 */
-	public $quantityAvailable;
-	/**
-	 * @access public
-	 * @var SearchDoubleField
-	 */
-	public $quantityOnHand;
-
-	static $paramtypesmap = array(
-		"binNumber" => "SearchMultiSelectField",
-		"location" => "SearchMultiSelectField",
-		"quantityAvailable" => "SearchDoubleField",
-		"quantityOnHand" => "SearchDoubleField",
-	);
-}}
-
-if (!class_exists("ItemBinNumberSearchRowBasic")) {
-/**
- * ItemBinNumberSearchRowBasic
- */
-class ItemBinNumberSearchRowBasic extends SearchRowBasic {
-	/**
-	 * @access public
-	 * @var SearchColumnSelectField[]
-	 */
-	public $binNumber;
-	/**
-	 * @access public
-	 * @var SearchColumnSelectField[]
-	 */
-	public $location;
-	/**
-	 * @access public
-	 * @var SearchColumnDoubleField[]
-	 */
-	public $quantityAvailable;
-	/**
-	 * @access public
-	 * @var SearchColumnDoubleField[]
-	 */
-	public $quantityOnHand;
-
-	static $paramtypesmap = array(
-		"binNumber" => "SearchColumnSelectField[]",
-		"location" => "SearchColumnSelectField[]",
-		"quantityAvailable" => "SearchColumnDoubleField[]",
-		"quantityOnHand" => "SearchColumnDoubleField[]",
-	);
-}}
-
-if (!class_exists("AppDefinitionSearchBasic")) {
+if (!class_exists("AppDefinitionSearchBasic",false)){
 /**
  * AppDefinitionSearchBasic
  */
-class AppDefinitionSearchBasic extends SearchRecordBasic {
+class AppDefinitionSearchBasic extends SearchRecord {
 	/**
 	 * @access public
 	 * @var SearchStringField
@@ -44056,11 +43334,11 @@ class AppDefinitionSearchBasic extends SearchRecordBasic {
 	);
 }}
 
-if (!class_exists("AppDefinitionSearchRowBasic")) {
+if (!class_exists("AppDefinitionSearchRowBasic",false)){
 /**
  * AppDefinitionSearchRowBasic
  */
-class AppDefinitionSearchRowBasic extends SearchRowBasic {
+class AppDefinitionSearchRowBasic {
 	/**
 	 * @access public
 	 * @var SearchColumnStringField[]
@@ -44090,11 +43368,11 @@ class AppDefinitionSearchRowBasic extends SearchRowBasic {
 	);
 }}
 
-if (!class_exists("AppPackageSearchBasic")) {
+if (!class_exists("AppPackageSearchBasic",false)){
 /**
  * AppPackageSearchBasic
  */
-class AppPackageSearchBasic extends SearchRecordBasic {
+class AppPackageSearchBasic extends SearchRecord {
 	/**
 	 * @access public
 	 * @var SearchMultiSelectField
@@ -44142,11 +43420,11 @@ class AppPackageSearchBasic extends SearchRecordBasic {
 	);
 }}
 
-if (!class_exists("AppPackageSearchRowBasic")) {
+if (!class_exists("AppPackageSearchRowBasic",false)){
 /**
  * AppPackageSearchRowBasic
  */
-class AppPackageSearchRowBasic extends SearchRowBasic {
+class AppPackageSearchRowBasic {
 	/**
 	 * @access public
 	 * @var SearchColumnSelectField[]
@@ -44194,11 +43472,11 @@ class AppPackageSearchRowBasic extends SearchRowBasic {
 	);
 }}
 
-if (!class_exists("NexusSearchBasic")) {
+if (!class_exists("NexusSearchBasic",false)){
 /**
  * NexusSearchBasic
  */
-class NexusSearchBasic extends SearchRecordBasic {
+class NexusSearchBasic extends SearchRecord {
 	/**
 	 * @access public
 	 * @var SearchEnumMultiSelectField
@@ -44246,11 +43524,11 @@ class NexusSearchBasic extends SearchRecordBasic {
 	);
 }}
 
-if (!class_exists("NexusSearchRowBasic")) {
+if (!class_exists("NexusSearchRowBasic",false)){
 /**
  * NexusSearchRowBasic
  */
-class NexusSearchRowBasic extends SearchRowBasic {
+class NexusSearchRowBasic {
 	/**
 	 * @access public
 	 * @var SearchColumnEnumSelectField[]
@@ -44286,11 +43564,11 @@ class NexusSearchRowBasic extends SearchRowBasic {
 	);
 }}
 
-if (!class_exists("OtherNameCategorySearchBasic")) {
+if (!class_exists("OtherNameCategorySearchBasic",false)){
 /**
  * OtherNameCategorySearchBasic
  */
-class OtherNameCategorySearchBasic extends SearchRecordBasic {
+class OtherNameCategorySearchBasic extends SearchRecord {
 	/**
 	 * @access public
 	 * @var SearchMultiSelectField
@@ -44332,11 +43610,11 @@ class OtherNameCategorySearchBasic extends SearchRecordBasic {
 	);
 }}
 
-if (!class_exists("OtherNameCategorySearchRowBasic")) {
+if (!class_exists("OtherNameCategorySearchRowBasic",false)){
 /**
  * OtherNameCategorySearchRowBasic
  */
-class OtherNameCategorySearchRowBasic extends SearchRowBasic {
+class OtherNameCategorySearchRowBasic {
 	/**
 	 * @access public
 	 * @var SearchColumnStringField[]
@@ -44366,11 +43644,11 @@ class OtherNameCategorySearchRowBasic extends SearchRowBasic {
 	);
 }}
 
-if (!class_exists("CustomerMessageSearchBasic")) {
+if (!class_exists("CustomerMessageSearchBasic",false)){
 /**
  * CustomerMessageSearchBasic
  */
-class CustomerMessageSearchBasic extends SearchRecordBasic {
+class CustomerMessageSearchBasic extends SearchRecord {
 	/**
 	 * @access public
 	 * @var SearchStringField
@@ -44424,11 +43702,11 @@ class CustomerMessageSearchBasic extends SearchRecordBasic {
 	);
 }}
 
-if (!class_exists("CustomerMessageSearchRowBasic")) {
+if (!class_exists("CustomerMessageSearchRowBasic",false)){
 /**
  * CustomerMessageSearchRowBasic
  */
-class CustomerMessageSearchRowBasic extends SearchRowBasic {
+class CustomerMessageSearchRowBasic {
 	/**
 	 * @access public
 	 * @var SearchColumnStringField[]
@@ -44470,11 +43748,11 @@ class CustomerMessageSearchRowBasic extends SearchRowBasic {
 	);
 }}
 
-if (!class_exists("ItemDemandPlanSearchBasic")) {
+if (!class_exists("ItemDemandPlanSearchBasic",false)){
 /**
  * ItemDemandPlanSearchBasic
  */
-class ItemDemandPlanSearchBasic extends SearchRecordBasic {
+class ItemDemandPlanSearchBasic extends SearchRecord {
 	/**
 	 * @access public
 	 * @var SearchMultiSelectField
@@ -44594,11 +43872,11 @@ class ItemDemandPlanSearchBasic extends SearchRecordBasic {
 	);
 }}
 
-if (!class_exists("ItemDemandPlanSearchRowBasic")) {
+if (!class_exists("ItemDemandPlanSearchRowBasic",false)){
 /**
  * ItemDemandPlanSearchRowBasic
  */
-class ItemDemandPlanSearchRowBasic extends SearchRowBasic {
+class ItemDemandPlanSearchRowBasic {
 	/**
 	 * @access public
 	 * @var SearchColumnSelectField[]
@@ -44712,11 +43990,11 @@ class ItemDemandPlanSearchRowBasic extends SearchRowBasic {
 	);
 }}
 
-if (!class_exists("ItemSupplyPlanSearchBasic")) {
+if (!class_exists("ItemSupplyPlanSearchBasic",false)){
 /**
  * ItemSupplyPlanSearchBasic
  */
-class ItemSupplyPlanSearchBasic extends SearchRecordBasic {
+class ItemSupplyPlanSearchBasic extends SearchRecord {
 	/**
 	 * @access public
 	 * @var SearchMultiSelectField
@@ -44818,11 +44096,11 @@ class ItemSupplyPlanSearchBasic extends SearchRecordBasic {
 	);
 }}
 
-if (!class_exists("ItemSupplyPlanSearchRowBasic")) {
+if (!class_exists("ItemSupplyPlanSearchRowBasic",false)){
 /**
  * ItemSupplyPlanSearchRowBasic
  */
-class ItemSupplyPlanSearchRowBasic extends SearchRowBasic {
+class ItemSupplyPlanSearchRowBasic {
 	/**
 	 * @access public
 	 * @var SearchColumnSelectField[]
@@ -44918,11 +44196,11 @@ class ItemSupplyPlanSearchRowBasic extends SearchRowBasic {
 	);
 }}
 
-if (!class_exists("CurrencyRateSearchBasic")) {
+if (!class_exists("CurrencyRateSearchBasic",false)){
 /**
  * CurrencyRateSearchBasic
  */
-class CurrencyRateSearchBasic extends SearchRecordBasic {
+class CurrencyRateSearchBasic extends SearchRecord {
 	/**
 	 * @access public
 	 * @var SearchMultiSelectField
@@ -44964,11 +44242,11 @@ class CurrencyRateSearchBasic extends SearchRecordBasic {
 	);
 }}
 
-if (!class_exists("CurrencyRateSearchRowBasic")) {
+if (!class_exists("CurrencyRateSearchRowBasic",false)){
 /**
  * CurrencyRateSearchRowBasic
  */
-class CurrencyRateSearchRowBasic extends SearchRowBasic {
+class CurrencyRateSearchRowBasic {
 	/**
 	 * @access public
 	 * @var SearchColumnSelectField[]
@@ -45004,11 +44282,11 @@ class CurrencyRateSearchRowBasic extends SearchRowBasic {
 	);
 }}
 
-if (!class_exists("ItemRevisionSearchBasic")) {
+if (!class_exists("ItemRevisionSearchBasic",false)){
 /**
  * ItemRevisionSearchBasic
  */
-class ItemRevisionSearchBasic extends SearchRecordBasic {
+class ItemRevisionSearchBasic extends SearchRecord {
 	/**
 	 * @access public
 	 * @var SearchDateField
@@ -45062,11 +44340,11 @@ class ItemRevisionSearchBasic extends SearchRecordBasic {
 	);
 }}
 
-if (!class_exists("ItemRevisionSearchRowBasic")) {
+if (!class_exists("ItemRevisionSearchRowBasic",false)){
 /**
  * ItemRevisionSearchRowBasic
  */
-class ItemRevisionSearchRowBasic extends SearchRowBasic {
+class ItemRevisionSearchRowBasic {
 	/**
 	 * @access public
 	 * @var SearchColumnDateField[]
@@ -45120,11 +44398,11 @@ class ItemRevisionSearchRowBasic extends SearchRowBasic {
 	);
 }}
 
-if (!class_exists("CouponCodeSearchBasic")) {
+if (!class_exists("CouponCodeSearchBasic",false)){
 /**
  * CouponCodeSearchBasic
  */
-class CouponCodeSearchBasic extends SearchRecordBasic {
+class CouponCodeSearchBasic extends SearchRecord {
 	/**
 	 * @access public
 	 * @var SearchStringField
@@ -45184,11 +44462,11 @@ class CouponCodeSearchBasic extends SearchRecordBasic {
 	);
 }}
 
-if (!class_exists("CouponCodeSearchRowBasic")) {
+if (!class_exists("CouponCodeSearchRowBasic",false)){
 /**
  * CouponCodeSearchRowBasic
  */
-class CouponCodeSearchRowBasic extends SearchRowBasic {
+class CouponCodeSearchRowBasic {
 	/**
 	 * @access public
 	 * @var SearchColumnStringField[]
@@ -45242,11 +44520,11 @@ class CouponCodeSearchRowBasic extends SearchRowBasic {
 	);
 }}
 
-if (!class_exists("PayrollItemSearchBasic")) {
+if (!class_exists("PayrollItemSearchBasic",false)){
 /**
  * PayrollItemSearchBasic
  */
-class PayrollItemSearchBasic extends SearchRecordBasic {
+class PayrollItemSearchBasic extends SearchRecord {
 	/**
 	 * @access public
 	 * @var SearchMultiSelectField
@@ -45318,11 +44596,11 @@ class PayrollItemSearchBasic extends SearchRecordBasic {
 	);
 }}
 
-if (!class_exists("PayrollItemSearchRowBasic")) {
+if (!class_exists("PayrollItemSearchRowBasic",false)){
 /**
  * PayrollItemSearchRowBasic
  */
-class PayrollItemSearchRowBasic extends SearchRowBasic {
+class PayrollItemSearchRowBasic {
 	/**
 	 * @access public
 	 * @var SearchColumnStringField[]
@@ -45382,11 +44660,11 @@ class PayrollItemSearchRowBasic extends SearchRowBasic {
 	);
 }}
 
-if (!class_exists("ManufacturingCostTemplateSearchBasic")) {
+if (!class_exists("ManufacturingCostTemplateSearchBasic",false)){
 /**
  * ManufacturingCostTemplateSearchBasic
  */
-class ManufacturingCostTemplateSearchBasic extends SearchRecordBasic {
+class ManufacturingCostTemplateSearchBasic extends SearchRecord {
 	/**
 	 * @access public
 	 * @var SearchMultiSelectField
@@ -45452,11 +44730,11 @@ class ManufacturingCostTemplateSearchBasic extends SearchRecordBasic {
 	);
 }}
 
-if (!class_exists("ManufacturingCostTemplateSearchRowBasic")) {
+if (!class_exists("ManufacturingCostTemplateSearchRowBasic",false)){
 /**
  * ManufacturingCostTemplateSearchRowBasic
  */
-class ManufacturingCostTemplateSearchRowBasic extends SearchRowBasic {
+class ManufacturingCostTemplateSearchRowBasic {
 	/**
 	 * @access public
 	 * @var SearchColumnStringField[]
@@ -45510,11 +44788,11 @@ class ManufacturingCostTemplateSearchRowBasic extends SearchRowBasic {
 	);
 }}
 
-if (!class_exists("ManufacturingRoutingSearchBasic")) {
+if (!class_exists("ManufacturingRoutingSearchBasic",false)){
 /**
  * ManufacturingRoutingSearchBasic
  */
-class ManufacturingRoutingSearchBasic extends SearchRecordBasic {
+class ManufacturingRoutingSearchBasic extends SearchRecord {
 	/**
 	 * @access public
 	 * @var SearchMultiSelectField
@@ -45634,11 +44912,11 @@ class ManufacturingRoutingSearchBasic extends SearchRecordBasic {
 	);
 }}
 
-if (!class_exists("ManufacturingRoutingSearchRowBasic")) {
+if (!class_exists("ManufacturingRoutingSearchRowBasic",false)){
 /**
  * ManufacturingRoutingSearchRowBasic
  */
-class ManufacturingRoutingSearchRowBasic extends SearchRowBasic {
+class ManufacturingRoutingSearchRowBasic {
 	/**
 	 * @access public
 	 * @var SearchColumnStringField[]
@@ -45746,11 +45024,11 @@ class ManufacturingRoutingSearchRowBasic extends SearchRowBasic {
 	);
 }}
 
-if (!class_exists("ManufacturingOperationTaskSearchBasic")) {
+if (!class_exists("ManufacturingOperationTaskSearchBasic",false)){
 /**
  * ManufacturingOperationTaskSearchBasic
  */
-class ManufacturingOperationTaskSearchBasic extends SearchRecordBasic {
+class ManufacturingOperationTaskSearchBasic extends SearchRecord {
 	/**
 	 * @access public
 	 * @var SearchDoubleField
@@ -45918,11 +45196,11 @@ class ManufacturingOperationTaskSearchBasic extends SearchRecordBasic {
 	);
 }}
 
-if (!class_exists("ManufacturingOperationTaskSearchRowBasic")) {
+if (!class_exists("ManufacturingOperationTaskSearchRowBasic",false)){
 /**
  * ManufacturingOperationTaskSearchRowBasic
  */
-class ManufacturingOperationTaskSearchRowBasic extends SearchRowBasic {
+class ManufacturingOperationTaskSearchRowBasic {
 	/**
 	 * @access public
 	 * @var SearchColumnDoubleField[]
@@ -46096,517 +45374,7 @@ class ManufacturingOperationTaskSearchRowBasic extends SearchRowBasic {
 	);
 }}
 
-if (!class_exists("ResourceAllocationSearchBasic")) {
-/**
- * ResourceAllocationSearchBasic
- */
-class ResourceAllocationSearchBasic extends SearchRecordBasic {
-	/**
-	 * @access public
-	 * @var SearchMultiSelectField
-	 */
-	public $allocationType;
-	/**
-	 * @access public
-	 * @var SearchEnumMultiSelectField
-	 */
-	public $allocationUnit;
-	/**
-	 * @access public
-	 * @var SearchMultiSelectField
-	 */
-	public $customer;
-	/**
-	 * @access public
-	 * @var SearchDateField
-	 */
-	public $endDate;
-	/**
-	 * @access public
-	 * @var SearchMultiSelectField
-	 */
-	public $externalId;
-	/**
-	 * @access public
-	 * @var SearchStringField
-	 */
-	public $externalIdString;
-	/**
-	 * @access public
-	 * @var SearchMultiSelectField
-	 */
-	public $internalId;
-	/**
-	 * @access public
-	 * @var SearchLongField
-	 */
-	public $internalIdNumber;
-	/**
-	 * @access public
-	 * @var SearchStringField
-	 */
-	public $notes;
-	/**
-	 * @access public
-	 * @var SearchDoubleField
-	 */
-	public $numberHours;
-	/**
-	 * @access public
-	 * @var SearchDoubleField
-	 */
-	public $percentOfTime;
-	/**
-	 * @access public
-	 * @var SearchMultiSelectField
-	 */
-	public $project;
-	/**
-	 * @access public
-	 * @var SearchMultiSelectField
-	 */
-	public $requestedBy;
-	/**
-	 * @access public
-	 * @var SearchMultiSelectField
-	 */
-	public $resource;
-	/**
-	 * @access public
-	 * @var SearchDateField
-	 */
-	public $startDate;
-	/**
-	 * @access public
-	 * @var SearchCustomFieldList
-	 */
-	public $customFieldList;
-
-	static $paramtypesmap = array(
-		"allocationType" => "SearchMultiSelectField",
-		"allocationUnit" => "SearchEnumMultiSelectField",
-		"customer" => "SearchMultiSelectField",
-		"endDate" => "SearchDateField",
-		"externalId" => "SearchMultiSelectField",
-		"externalIdString" => "SearchStringField",
-		"internalId" => "SearchMultiSelectField",
-		"internalIdNumber" => "SearchLongField",
-		"notes" => "SearchStringField",
-		"numberHours" => "SearchDoubleField",
-		"percentOfTime" => "SearchDoubleField",
-		"project" => "SearchMultiSelectField",
-		"requestedBy" => "SearchMultiSelectField",
-		"resource" => "SearchMultiSelectField",
-		"startDate" => "SearchDateField",
-		"customFieldList" => "SearchCustomFieldList",
-	);
-}}
-
-if (!class_exists("ResourceAllocationSearchRowBasic")) {
-/**
- * ResourceAllocationSearchRowBasic
- */
-class ResourceAllocationSearchRowBasic extends SearchRowBasic {
-	/**
-	 * @access public
-	 * @var SearchColumnSelectField[]
-	 */
-	public $allocationType;
-	/**
-	 * @access public
-	 * @var SearchColumnEnumSelectField[]
-	 */
-	public $allocationUnit;
-	/**
-	 * @access public
-	 * @var SearchColumnSelectField[]
-	 */
-	public $customer;
-	/**
-	 * @access public
-	 * @var SearchColumnDateField[]
-	 */
-	public $endDate;
-	/**
-	 * @access public
-	 * @var SearchColumnStringField[]
-	 */
-	public $externalId;
-	/**
-	 * @access public
-	 * @var SearchColumnSelectField[]
-	 */
-	public $internalId;
-	/**
-	 * @access public
-	 * @var SearchColumnStringField[]
-	 */
-	public $notes;
-	/**
-	 * @access public
-	 * @var SearchColumnDoubleField[]
-	 */
-	public $numberHours;
-	/**
-	 * @access public
-	 * @var SearchColumnDoubleField[]
-	 */
-	public $percentOfTime;
-	/**
-	 * @access public
-	 * @var SearchColumnSelectField[]
-	 */
-	public $project;
-	/**
-	 * @access public
-	 * @var SearchColumnSelectField[]
-	 */
-	public $requestedBy;
-	/**
-	 * @access public
-	 * @var SearchColumnSelectField[]
-	 */
-	public $resource;
-	/**
-	 * @access public
-	 * @var SearchColumnDateField[]
-	 */
-	public $startDate;
-	/**
-	 * @access public
-	 * @var SearchColumnCustomFieldList
-	 */
-	public $customFieldList;
-
-	static $paramtypesmap = array(
-		"allocationType" => "SearchColumnSelectField[]",
-		"allocationUnit" => "SearchColumnEnumSelectField[]",
-		"customer" => "SearchColumnSelectField[]",
-		"endDate" => "SearchColumnDateField[]",
-		"externalId" => "SearchColumnStringField[]",
-		"internalId" => "SearchColumnSelectField[]",
-		"notes" => "SearchColumnStringField[]",
-		"numberHours" => "SearchColumnDoubleField[]",
-		"percentOfTime" => "SearchColumnDoubleField[]",
-		"project" => "SearchColumnSelectField[]",
-		"requestedBy" => "SearchColumnSelectField[]",
-		"resource" => "SearchColumnSelectField[]",
-		"startDate" => "SearchColumnDateField[]",
-		"customFieldList" => "SearchColumnCustomFieldList",
-	);
-}}
-
-if (!class_exists("CustomSearchJoin")) {
-/**
- * CustomSearchJoin
- */
-class CustomSearchJoin {
-	/**
-	 * @access public
-	 * @var CustomizationRef
-	 */
-	public $customizationRef;
-	/**
-	 * @access public
-	 * @var SearchRecordBasic
-	 */
-	public $searchRecordBasic;
-
-	static $paramtypesmap = array(
-		"customizationRef" => "CustomizationRef",
-		"searchRecordBasic" => "SearchRecordBasic",
-	);
-}}
-
-if (!class_exists("CustomSearchRowBasic")) {
-/**
- * CustomSearchRowBasic
- */
-class CustomSearchRowBasic {
-	/**
-	 * @access public
-	 * @var CustomizationRef
-	 */
-	public $customizationRef;
-	/**
-	 * @access public
-	 * @var SearchRowBasic
-	 */
-	public $searchRowBasic;
-
-	static $paramtypesmap = array(
-		"customizationRef" => "CustomizationRef",
-		"searchRowBasic" => "SearchRowBasic",
-	);
-}}
-
-if (!class_exists("ChargeSearchBasic")) {
-/**
- * ChargeSearchBasic
- */
-class ChargeSearchBasic extends SearchRecordBasic {
-	/**
-	 * @access public
-	 * @var SearchDoubleField
-	 */
-	public $amount;
-	/**
-	 * @access public
-	 * @var SearchMultiSelectField
-	 */
-	public $billingItem;
-	/**
-	 * @access public
-	 * @var SearchMultiSelectField
-	 */
-	public $billTo;
-	/**
-	 * @access public
-	 * @var SearchDateField
-	 */
-	public $chargeDate;
-	/**
-	 * @access public
-	 * @var SearchEnumMultiSelectField
-	 */
-	public $chargeType;
-	/**
-	 * @access public
-	 * @var SearchDateField
-	 */
-	public $createdDate;
-	/**
-	 * @access public
-	 * @var SearchMultiSelectField
-	 */
-	public $currency;
-	/**
-	 * @access public
-	 * @var SearchMultiSelectField
-	 */
-	public $externalId;
-	/**
-	 * @access public
-	 * @var SearchStringField
-	 */
-	public $externalIdString;
-	/**
-	 * @access public
-	 * @var SearchMultiSelectField
-	 */
-	public $internalId;
-	/**
-	 * @access public
-	 * @var SearchLongField
-	 */
-	public $internalIdNumber;
-	/**
-	 * @access public
-	 * @var SearchDateField
-	 */
-	public $modifiedDate;
-	/**
-	 * @access public
-	 * @var RecordRef
-	 */
-	public $postingPeriod;
-	/**
-	 * @access public
-	 * @var PostingPeriodDate
-	 */
-	public $postingPeriodRelative;
-	/**
-	 * @access public
-	 * @var SearchDoubleField
-	 */
-	public $quantity;
-	/**
-	 * @access public
-	 * @var SearchDoubleField
-	 */
-	public $rate;
-	/**
-	 * @access public
-	 * @var SearchMultiSelectField
-	 */
-	public $rule;
-	/**
-	 * @access public
-	 * @var SearchStringField
-	 */
-	public $runId;
-	/**
-	 * @access public
-	 * @var SearchLongField
-	 */
-	public $salesOrder;
-	/**
-	 * @access public
-	 * @var SearchEnumMultiSelectField
-	 */
-	public $stage;
-	/**
-	 * @access public
-	 * @var SearchEnumMultiSelectField
-	 */
-	public $use;
-	/**
-	 * @access public
-	 * @var SearchCustomFieldList
-	 */
-	public $customFieldList;
-
-	static $paramtypesmap = array(
-		"amount" => "SearchDoubleField",
-		"billingItem" => "SearchMultiSelectField",
-		"billTo" => "SearchMultiSelectField",
-		"chargeDate" => "SearchDateField",
-		"chargeType" => "SearchEnumMultiSelectField",
-		"createdDate" => "SearchDateField",
-		"currency" => "SearchMultiSelectField",
-		"externalId" => "SearchMultiSelectField",
-		"externalIdString" => "SearchStringField",
-		"internalId" => "SearchMultiSelectField",
-		"internalIdNumber" => "SearchLongField",
-		"modifiedDate" => "SearchDateField",
-		"postingPeriod" => "RecordRef",
-		"postingPeriodRelative" => "PostingPeriodDate",
-		"quantity" => "SearchDoubleField",
-		"rate" => "SearchDoubleField",
-		"rule" => "SearchMultiSelectField",
-		"runId" => "SearchStringField",
-		"salesOrder" => "SearchLongField",
-		"stage" => "SearchEnumMultiSelectField",
-		"use" => "SearchEnumMultiSelectField",
-		"customFieldList" => "SearchCustomFieldList",
-	);
-}}
-
-if (!class_exists("ChargeSearchRowBasic")) {
-/**
- * ChargeSearchRowBasic
- */
-class ChargeSearchRowBasic extends SearchRowBasic {
-	/**
-	 * @access public
-	 * @var SearchColumnDoubleField[]
-	 */
-	public $amount;
-	/**
-	 * @access public
-	 * @var SearchColumnSelectField[]
-	 */
-	public $billingItem;
-	/**
-	 * @access public
-	 * @var SearchColumnSelectField[]
-	 */
-	public $billTo;
-	/**
-	 * @access public
-	 * @var SearchColumnDateField[]
-	 */
-	public $chargeDate;
-	/**
-	 * @access public
-	 * @var SearchColumnEnumSelectField[]
-	 */
-	public $chargeType;
-	/**
-	 * @access public
-	 * @var SearchColumnDateField[]
-	 */
-	public $createdDate;
-	/**
-	 * @access public
-	 * @var SearchColumnSelectField[]
-	 */
-	public $currency;
-	/**
-	 * @access public
-	 * @var SearchColumnStringField[]
-	 */
-	public $externalId;
-	/**
-	 * @access public
-	 * @var SearchColumnSelectField[]
-	 */
-	public $internalId;
-	/**
-	 * @access public
-	 * @var SearchColumnDateField[]
-	 */
-	public $modifiedDate;
-	/**
-	 * @access public
-	 * @var SearchColumnStringField[]
-	 */
-	public $postingPeriod;
-	/**
-	 * @access public
-	 * @var SearchColumnStringField[]
-	 */
-	public $quantity;
-	/**
-	 * @access public
-	 * @var SearchColumnStringField[]
-	 */
-	public $rate;
-	/**
-	 * @access public
-	 * @var SearchColumnSelectField[]
-	 */
-	public $rule;
-	/**
-	 * @access public
-	 * @var SearchColumnStringField[]
-	 */
-	public $runId;
-	/**
-	 * @access public
-	 * @var SearchColumnStringField[]
-	 */
-	public $salesOrder;
-	/**
-	 * @access public
-	 * @var SearchColumnEnumSelectField[]
-	 */
-	public $stage;
-	/**
-	 * @access public
-	 * @var SearchColumnEnumSelectField[]
-	 */
-	public $use;
-	/**
-	 * @access public
-	 * @var SearchColumnCustomFieldList
-	 */
-	public $customFieldList;
-
-	static $paramtypesmap = array(
-		"amount" => "SearchColumnDoubleField[]",
-		"billingItem" => "SearchColumnSelectField[]",
-		"billTo" => "SearchColumnSelectField[]",
-		"chargeDate" => "SearchColumnDateField[]",
-		"chargeType" => "SearchColumnEnumSelectField[]",
-		"createdDate" => "SearchColumnDateField[]",
-		"currency" => "SearchColumnSelectField[]",
-		"externalId" => "SearchColumnStringField[]",
-		"internalId" => "SearchColumnSelectField[]",
-		"modifiedDate" => "SearchColumnDateField[]",
-		"postingPeriod" => "SearchColumnStringField[]",
-		"quantity" => "SearchColumnStringField[]",
-		"rate" => "SearchColumnStringField[]",
-		"rule" => "SearchColumnSelectField[]",
-		"runId" => "SearchColumnStringField[]",
-		"salesOrder" => "SearchColumnStringField[]",
-		"stage" => "SearchColumnEnumSelectField[]",
-		"use" => "SearchColumnEnumSelectField[]",
-		"customFieldList" => "SearchColumnCustomFieldList",
-	);
-}}
-
-if (!class_exists("CalendarEventAccessLevel")) {
+if (!class_exists("CalendarEventAccessLevel",false)){
 /**
  * CalendarEventAccessLevel
  */
@@ -46628,7 +45396,7 @@ class CalendarEventAccessLevel {
 	const _showAsBusy = "_showAsBusy";
 }}
 
-if (!class_exists("CalendarEventAttendeeAttendance")) {
+if (!class_exists("CalendarEventAttendeeAttendance",false)){
 /**
  * CalendarEventAttendeeAttendance
  */
@@ -46646,7 +45414,105 @@ class CalendarEventAttendeeAttendance {
 	const _required = "_required";
 }}
 
-if (!class_exists("CalendarEventReminderMinutes")) {
+if (!class_exists("CalendarEventFrequency",false)){
+/**
+ * CalendarEventFrequency
+ */
+class CalendarEventFrequency {
+
+	static $paramtypesmap = array(
+	);
+	/**
+	 * @var string
+	 */
+	const _none = "_none";
+	/**
+	 * @var string
+	 */
+	const _day = "_day";
+	/**
+	 * @var string
+	 */
+	const _week = "_week";
+	/**
+	 * @var string
+	 */
+	const _month = "_month";
+	/**
+	 * @var string
+	 */
+	const _year = "_year";
+}}
+
+if (!class_exists("CalendarEventDow",false)){
+/**
+ * CalendarEventDow
+ */
+class CalendarEventDow {
+
+	static $paramtypesmap = array(
+	);
+	/**
+	 * @var string
+	 */
+	const _sunday = "_sunday";
+	/**
+	 * @var string
+	 */
+	const _monday = "_monday";
+	/**
+	 * @var string
+	 */
+	const _tuesday = "_tuesday";
+	/**
+	 * @var string
+	 */
+	const _wednesday = "_wednesday";
+	/**
+	 * @var string
+	 */
+	const _thursday = "_thursday";
+	/**
+	 * @var string
+	 */
+	const _friday = "_friday";
+	/**
+	 * @var string
+	 */
+	const _saturday = "_saturday";
+}}
+
+if (!class_exists("CalendarEventDowim",false)){
+/**
+ * CalendarEventDowim
+ */
+class CalendarEventDowim {
+
+	static $paramtypesmap = array(
+	);
+	/**
+	 * @var string
+	 */
+	const _first = "_first";
+	/**
+	 * @var string
+	 */
+	const _second = "_second";
+	/**
+	 * @var string
+	 */
+	const _third = "_third";
+	/**
+	 * @var string
+	 */
+	const _fourth = "_fourth";
+	/**
+	 * @var string
+	 */
+	const _last = "_last";
+}}
+
+if (!class_exists("CalendarEventReminderMinutes",false)){
 /**
  * CalendarEventReminderMinutes
  */
@@ -46724,7 +45590,7 @@ class CalendarEventReminderMinutes {
 	const _8hours = "_8hours";
 }}
 
-if (!class_exists("CalendarEventReminderType")) {
+if (!class_exists("CalendarEventReminderType",false)){
 /**
  * CalendarEventReminderType
  */
@@ -46746,7 +45612,7 @@ class CalendarEventReminderType {
 	const _popupWindow = "_popupWindow";
 }}
 
-if (!class_exists("CalendarEventStatus")) {
+if (!class_exists("CalendarEventStatus",false)){
 /**
  * CalendarEventStatus
  */
@@ -46772,7 +45638,7 @@ class CalendarEventStatus {
 	const _tentative = "_tentative";
 }}
 
-if (!class_exists("TaskPriority")) {
+if (!class_exists("TaskPriority",false)){
 /**
  * TaskPriority
  */
@@ -46794,7 +45660,7 @@ class TaskPriority {
 	const _medium = "_medium";
 }}
 
-if (!class_exists("TaskReminderMinutes")) {
+if (!class_exists("TaskReminderMinutes",false)){
 /**
  * TaskReminderMinutes
  */
@@ -46868,7 +45734,7 @@ class TaskReminderMinutes {
 	const _8hours = "_8hours";
 }}
 
-if (!class_exists("TaskReminderType")) {
+if (!class_exists("TaskReminderType",false)){
 /**
  * TaskReminderType
  */
@@ -46886,7 +45752,7 @@ class TaskReminderType {
 	const _popupWindow = "_popupWindow";
 }}
 
-if (!class_exists("TaskStatus")) {
+if (!class_exists("TaskStatus",false)){
 /**
  * TaskStatus
  */
@@ -46908,7 +45774,7 @@ class TaskStatus {
 	const _notStarted = "_notStarted";
 }}
 
-if (!class_exists("PhoneCallPriority")) {
+if (!class_exists("PhoneCallPriority",false)){
 /**
  * PhoneCallPriority
  */
@@ -46930,7 +45796,7 @@ class PhoneCallPriority {
 	const _medium = "_medium";
 }}
 
-if (!class_exists("PhoneCallReminderMinutes")) {
+if (!class_exists("PhoneCallReminderMinutes",false)){
 /**
  * PhoneCallReminderMinutes
  */
@@ -47004,7 +45870,7 @@ class PhoneCallReminderMinutes {
 	const _8hours = "_8hours";
 }}
 
-if (!class_exists("PhoneCallReminderType")) {
+if (!class_exists("PhoneCallReminderType",false)){
 /**
  * PhoneCallReminderType
  */
@@ -47022,7 +45888,7 @@ class PhoneCallReminderType {
 	const _popupWindow = "_popupWindow";
 }}
 
-if (!class_exists("PhoneCallStatus")) {
+if (!class_exists("PhoneCallStatus",false)){
 /**
  * PhoneCallStatus
  */
@@ -47040,7 +45906,7 @@ class PhoneCallStatus {
 	const _scheduled = "_scheduled";
 }}
 
-if (!class_exists("ProjectTaskPriority")) {
+if (!class_exists("ProjectTaskPriority",false)){
 /**
  * ProjectTaskPriority
  */
@@ -47062,7 +45928,7 @@ class ProjectTaskPriority {
 	const _medium = "_medium";
 }}
 
-if (!class_exists("ProjectTaskStatus")) {
+if (!class_exists("ProjectTaskStatus",false)){
 /**
  * ProjectTaskStatus
  */
@@ -47084,7 +45950,7 @@ class ProjectTaskStatus {
 	const _notStarted = "_notStarted";
 }}
 
-if (!class_exists("ProjectTaskConstraintType")) {
+if (!class_exists("ProjectTaskConstraintType",false)){
 /**
  * ProjectTaskConstraintType
  */
@@ -47102,7 +45968,7 @@ class ProjectTaskConstraintType {
 	const _fixedStart = "_fixedStart";
 }}
 
-if (!class_exists("ProjectTaskPredecessorPredecessorType")) {
+if (!class_exists("ProjectTaskPredecessorPredecessorType",false)){
 /**
  * ProjectTaskPredecessorPredecessorType
  */
@@ -47113,40 +45979,14 @@ class ProjectTaskPredecessorPredecessorType {
 	/**
 	 * @var string
 	 */
-	const _finishToFinish = "_finishToFinish";
-	/**
-	 * @var string
-	 */
 	const _finishToStart = "_finishToStart";
-	/**
-	 * @var string
-	 */
-	const _startToFinish = "_startToFinish";
 	/**
 	 * @var string
 	 */
 	const _startToStart = "_startToStart";
 }}
 
-if (!class_exists("ResourceAllocationAllocationUnit")) {
-/**
- * ResourceAllocationAllocationUnit
- */
-class ResourceAllocationAllocationUnit {
-
-	static $paramtypesmap = array(
-	);
-	/**
-	 * @var string
-	 */
-	const _hours = "_hours";
-	/**
-	 * @var string
-	 */
-	const _percentOfTime = "_percentOfTime";
-}}
-
-if (!class_exists("CalendarEvent")) {
+if (!class_exists("CalendarEvent",false)){
 /**
  * CalendarEvent
  */
@@ -47178,7 +46018,7 @@ class CalendarEvent extends Record {
 	public $period;
 	/**
 	 * @access public
-	 * @var RecurrenceFrequency
+	 * @var CalendarEventFrequency
 	 */
 	public $frequency;
 	/**
@@ -47188,12 +46028,12 @@ class CalendarEvent extends Record {
 	public $recurrenceDowMaskList;
 	/**
 	 * @access public
-	 * @var RecurrenceDow
+	 * @var CalendarEventDow
 	 */
 	public $recurrenceDow;
 	/**
 	 * @access public
-	 * @var RecurrenceDowim
+	 * @var CalendarEventDowim
 	 */
 	public $recurrenceDowim;
 	/**
@@ -47343,10 +46183,10 @@ class CalendarEvent extends Record {
 		"supportCase" => "RecordRef",
 		"transaction" => "RecordRef",
 		"period" => "integer",
-		"frequency" => "RecurrenceFrequency",
+		"frequency" => "CalendarEventFrequency",
 		"recurrenceDowMaskList" => "RecurrenceDowMaskList",
-		"recurrenceDow" => "RecurrenceDow",
-		"recurrenceDowim" => "RecurrenceDowim",
+		"recurrenceDow" => "CalendarEventDow",
+		"recurrenceDowim" => "CalendarEventDowim",
 		"seriesStartDate" => "dateTime",
 		"endByDate" => "dateTime",
 		"noEndDate" => "boolean",
@@ -47378,7 +46218,7 @@ class CalendarEvent extends Record {
 	);
 }}
 
-if (!class_exists("ExclusionDateList")) {
+if (!class_exists("ExclusionDateList",false)){
 /**
  * ExclusionDateList
  */
@@ -47394,7 +46234,23 @@ class ExclusionDateList {
 	);
 }}
 
-if (!class_exists("CalendarEventAttendee")) {
+if (!class_exists("RecurrenceDowMaskList",false)){
+/**
+ * RecurrenceDowMaskList
+ */
+class RecurrenceDowMaskList {
+	/**
+	 * @access public
+	 * @var CalendarEventDow
+	 */
+	public $recurrenceDowMask;
+
+	static $paramtypesmap = array(
+		"recurrenceDowMask" => "CalendarEventDow",
+	);
+}}
+
+if (!class_exists("CalendarEventAttendee",false)){
 /**
  * CalendarEventAttendee
  */
@@ -47428,7 +46284,7 @@ class CalendarEventAttendee {
 	);
 }}
 
-if (!class_exists("CalendarEventAttendeeList")) {
+if (!class_exists("CalendarEventAttendeeList",false)){
 /**
  * CalendarEventAttendeeList
  */
@@ -47450,7 +46306,7 @@ class CalendarEventAttendeeList {
 	);
 }}
 
-if (!class_exists("CalendarEventResource")) {
+if (!class_exists("CalendarEventResource",false)){
 /**
  * CalendarEventResource
  */
@@ -47472,7 +46328,7 @@ class CalendarEventResource {
 	);
 }}
 
-if (!class_exists("CalendarEventResourceList")) {
+if (!class_exists("CalendarEventResourceList",false)){
 /**
  * CalendarEventResourceList
  */
@@ -47494,7 +46350,7 @@ class CalendarEventResourceList {
 	);
 }}
 
-if (!class_exists("CalendarEventSearch")) {
+if (!class_exists("CalendarEventSearch",false)){
 /**
  * CalendarEventSearch
  */
@@ -47554,11 +46410,6 @@ class CalendarEventSearch extends SearchRecord {
 	 * @var NoteSearchBasic
 	 */
 	public $userNotesJoin;
-	/**
-	 * @access public
-	 * @var CustomSearchJoin[]
-	 */
-	public $customSearchJoin;
 
 	static $paramtypesmap = array(
 		"basic" => "CalendarEventSearchBasic",
@@ -47572,11 +46423,10 @@ class CalendarEventSearch extends SearchRecord {
 		"transactionJoin" => "TransactionSearchBasic",
 		"userJoin" => "EmployeeSearchBasic",
 		"userNotesJoin" => "NoteSearchBasic",
-		"customSearchJoin" => "CustomSearchJoin[]",
 	);
 }}
 
-if (!class_exists("CalendarEventSearchAdvanced")) {
+if (!class_exists("CalendarEventSearchAdvanced",false)){
 /**
  * CalendarEventSearchAdvanced
  */
@@ -47610,7 +46460,7 @@ class CalendarEventSearchAdvanced extends SearchRecord {
 	);
 }}
 
-if (!class_exists("CalendarEventSearchRow")) {
+if (!class_exists("CalendarEventSearchRow",false)){
 /**
  * CalendarEventSearchRow
  */
@@ -47670,11 +46520,6 @@ class CalendarEventSearchRow extends SearchRow {
 	 * @var NoteSearchRowBasic
 	 */
 	public $userNotesJoin;
-	/**
-	 * @access public
-	 * @var CustomSearchRowBasic[]
-	 */
-	public $customSearchJoin;
 
 	static $paramtypesmap = array(
 		"basic" => "CalendarEventSearchRowBasic",
@@ -47688,11 +46533,10 @@ class CalendarEventSearchRow extends SearchRow {
 		"transactionJoin" => "TransactionSearchRowBasic",
 		"userJoin" => "EmployeeSearchRowBasic",
 		"userNotesJoin" => "NoteSearchRowBasic",
-		"customSearchJoin" => "CustomSearchRowBasic[]",
 	);
 }}
 
-if (!class_exists("Task")) {
+if (!class_exists("Task",false)){
 /**
  * Task
  */
@@ -47912,7 +46756,7 @@ class Task extends Record {
 	);
 }}
 
-if (!class_exists("TaskContact")) {
+if (!class_exists("TaskContact",false)){
 /**
  * TaskContact
  */
@@ -47934,7 +46778,7 @@ class TaskContact {
 	);
 }}
 
-if (!class_exists("TaskContactList")) {
+if (!class_exists("TaskContactList",false)){
 /**
  * TaskContactList
  */
@@ -47956,7 +46800,7 @@ class TaskContactList {
 	);
 }}
 
-if (!class_exists("TaskSearch")) {
+if (!class_exists("TaskSearch",false)){
 /**
  * TaskSearch
  */
@@ -48026,11 +46870,6 @@ class TaskSearch extends SearchRecord {
 	 * @var NoteSearchBasic
 	 */
 	public $userNotesJoin;
-	/**
-	 * @access public
-	 * @var CustomSearchJoin[]
-	 */
-	public $customSearchJoin;
 
 	static $paramtypesmap = array(
 		"basic" => "TaskSearchBasic",
@@ -48046,11 +46885,10 @@ class TaskSearch extends SearchRecord {
 		"transactionJoin" => "TransactionSearchBasic",
 		"userJoin" => "EmployeeSearchBasic",
 		"userNotesJoin" => "NoteSearchBasic",
-		"customSearchJoin" => "CustomSearchJoin[]",
 	);
 }}
 
-if (!class_exists("TaskSearchAdvanced")) {
+if (!class_exists("TaskSearchAdvanced",false)){
 /**
  * TaskSearchAdvanced
  */
@@ -48084,7 +46922,7 @@ class TaskSearchAdvanced extends SearchRecord {
 	);
 }}
 
-if (!class_exists("TaskSearchRow")) {
+if (!class_exists("TaskSearchRow",false)){
 /**
  * TaskSearchRow
  */
@@ -48154,11 +46992,6 @@ class TaskSearchRow extends SearchRow {
 	 * @var NoteSearchRowBasic
 	 */
 	public $userNotesJoin;
-	/**
-	 * @access public
-	 * @var CustomSearchRowBasic[]
-	 */
-	public $customSearchJoin;
 
 	static $paramtypesmap = array(
 		"basic" => "TaskSearchRowBasic",
@@ -48174,11 +47007,10 @@ class TaskSearchRow extends SearchRow {
 		"transactionJoin" => "TransactionSearchRowBasic",
 		"userJoin" => "EmployeeSearchRowBasic",
 		"userNotesJoin" => "NoteSearchRowBasic",
-		"customSearchJoin" => "CustomSearchRowBasic[]",
 	);
 }}
 
-if (!class_exists("PhoneCall")) {
+if (!class_exists("PhoneCall",false)){
 /**
  * PhoneCall
  */
@@ -48356,7 +47188,7 @@ class PhoneCall extends Record {
 	);
 }}
 
-if (!class_exists("PhoneCallContact")) {
+if (!class_exists("PhoneCallContact",false)){
 /**
  * PhoneCallContact
  */
@@ -48390,7 +47222,7 @@ class PhoneCallContact {
 	);
 }}
 
-if (!class_exists("PhoneCallContactList")) {
+if (!class_exists("PhoneCallContactList",false)){
 /**
  * PhoneCallContactList
  */
@@ -48412,7 +47244,7 @@ class PhoneCallContactList {
 	);
 }}
 
-if (!class_exists("PhoneCallSearch")) {
+if (!class_exists("PhoneCallSearch",false)){
 /**
  * PhoneCallSearch
  */
@@ -48459,11 +47291,6 @@ class PhoneCallSearch extends SearchRecord {
 	public $originatingLeadJoin;
 	/**
 	 * @access public
-	 * @var EntitySearchBasic
-	 */
-	public $participantJoin;
-	/**
-	 * @access public
 	 * @var TransactionSearchBasic
 	 */
 	public $transactionJoin;
@@ -48477,11 +47304,6 @@ class PhoneCallSearch extends SearchRecord {
 	 * @var NoteSearchBasic
 	 */
 	public $userNotesJoin;
-	/**
-	 * @access public
-	 * @var CustomSearchJoin[]
-	 */
-	public $customSearchJoin;
 
 	static $paramtypesmap = array(
 		"basic" => "PhoneCallSearchBasic",
@@ -48492,15 +47314,13 @@ class PhoneCallSearch extends SearchRecord {
 		"fileJoin" => "FileSearchBasic",
 		"opportunityJoin" => "OpportunitySearchBasic",
 		"originatingLeadJoin" => "OriginatingLeadSearchBasic",
-		"participantJoin" => "EntitySearchBasic",
 		"transactionJoin" => "TransactionSearchBasic",
 		"userJoin" => "EmployeeSearchBasic",
 		"userNotesJoin" => "NoteSearchBasic",
-		"customSearchJoin" => "CustomSearchJoin[]",
 	);
 }}
 
-if (!class_exists("PhoneCallSearchAdvanced")) {
+if (!class_exists("PhoneCallSearchAdvanced",false)){
 /**
  * PhoneCallSearchAdvanced
  */
@@ -48534,7 +47354,7 @@ class PhoneCallSearchAdvanced extends SearchRecord {
 	);
 }}
 
-if (!class_exists("PhoneCallSearchRow")) {
+if (!class_exists("PhoneCallSearchRow",false)){
 /**
  * PhoneCallSearchRow
  */
@@ -48581,11 +47401,6 @@ class PhoneCallSearchRow extends SearchRow {
 	public $originatingLeadJoin;
 	/**
 	 * @access public
-	 * @var EntitySearchRowBasic
-	 */
-	public $participantJoin;
-	/**
-	 * @access public
 	 * @var TransactionSearchRowBasic
 	 */
 	public $transactionJoin;
@@ -48599,11 +47414,6 @@ class PhoneCallSearchRow extends SearchRow {
 	 * @var NoteSearchRowBasic
 	 */
 	public $userNotesJoin;
-	/**
-	 * @access public
-	 * @var CustomSearchRowBasic[]
-	 */
-	public $customSearchJoin;
 
 	static $paramtypesmap = array(
 		"basic" => "PhoneCallSearchRowBasic",
@@ -48614,15 +47424,13 @@ class PhoneCallSearchRow extends SearchRow {
 		"fileJoin" => "FileSearchRowBasic",
 		"opportunityJoin" => "OpportunitySearchRowBasic",
 		"originatingLeadJoin" => "OriginatingLeadSearchRowBasic",
-		"participantJoin" => "EntitySearchRowBasic",
 		"transactionJoin" => "TransactionSearchRowBasic",
 		"userJoin" => "EmployeeSearchRowBasic",
 		"userNotesJoin" => "NoteSearchRowBasic",
-		"customSearchJoin" => "CustomSearchRowBasic[]",
 	);
 }}
 
-if (!class_exists("ProjectTask")) {
+if (!class_exists("ProjectTask",false)){
 /**
  * ProjectTask
  */
@@ -48711,11 +47519,6 @@ class ProjectTask extends Record {
 	 * @access public
 	 * @var dateTime
 	 */
-	public $finishByDate;
-	/**
-	 * @access public
-	 * @var dateTime
-	 */
 	public $endDateBaseline;
 	/**
 	 * @access public
@@ -48732,31 +47535,6 @@ class ProjectTask extends Record {
 	 * @var string
 	 */
 	public $message;
-	/**
-	 * @access public
-	 * @var boolean
-	 */
-	public $isMilestone;
-	/**
-	 * @access public
-	 * @var string
-	 */
-	public $isOnCriticalPath;
-	/**
-	 * @access public
-	 * @var float
-	 */
-	public $slackMinutes;
-	/**
-	 * @access public
-	 * @var dateTime
-	 */
-	public $lateEnd;
-	/**
-	 * @access public
-	 * @var dateTime
-	 */
-	public $lateStart;
 	/**
 	 * @access public
 	 * @var ProjectTaskStatus
@@ -48810,16 +47588,10 @@ class ProjectTask extends Record {
 		"startDate" => "dateTime",
 		"startDateBaseline" => "dateTime",
 		"endDate" => "dateTime",
-		"finishByDate" => "dateTime",
 		"endDateBaseline" => "dateTime",
 		"actualWork" => "float",
 		"remainingWork" => "float",
 		"message" => "string",
-		"isMilestone" => "boolean",
-		"isOnCriticalPath" => "string",
-		"slackMinutes" => "float",
-		"lateEnd" => "dateTime",
-		"lateStart" => "dateTime",
 		"status" => "ProjectTaskStatus",
 		"assigneeList" => "ProjectTaskAssigneeList",
 		"predecessorList" => "ProjectTaskPredecessorList",
@@ -48830,7 +47602,7 @@ class ProjectTask extends Record {
 	);
 }}
 
-if (!class_exists("ProjectTaskPredecessor")) {
+if (!class_exists("ProjectTaskPredecessor",false)){
 /**
  * ProjectTaskPredecessor
  */
@@ -48847,11 +47619,6 @@ class ProjectTaskPredecessor {
 	public $type;
 	/**
 	 * @access public
-	 * @var float
-	 */
-	public $lagDays;
-	/**
-	 * @access public
 	 * @var dateTime
 	 */
 	public $startDate;
@@ -48864,13 +47631,12 @@ class ProjectTaskPredecessor {
 	static $paramtypesmap = array(
 		"task" => "RecordRef",
 		"type" => "ProjectTaskPredecessorPredecessorType",
-		"lagDays" => "float",
 		"startDate" => "dateTime",
 		"endDate" => "dateTime",
 	);
 }}
 
-if (!class_exists("ProjectTaskPredecessorList")) {
+if (!class_exists("ProjectTaskPredecessorList",false)){
 /**
  * ProjectTaskPredecessorList
  */
@@ -48892,7 +47658,7 @@ class ProjectTaskPredecessorList {
 	);
 }}
 
-if (!class_exists("ProjectTaskAssignee")) {
+if (!class_exists("ProjectTaskAssignee",false)){
 /**
  * ProjectTaskAssignee
  */
@@ -48950,7 +47716,7 @@ class ProjectTaskAssignee {
 	);
 }}
 
-if (!class_exists("ProjectTaskAssigneeList")) {
+if (!class_exists("ProjectTaskAssigneeList",false)){
 /**
  * ProjectTaskAssigneeList
  */
@@ -48972,7 +47738,7 @@ class ProjectTaskAssigneeList {
 	);
 }}
 
-if (!class_exists("ProjectTaskSearch")) {
+if (!class_exists("ProjectTaskSearch",false)){
 /**
  * ProjectTaskSearch
  */
@@ -49017,11 +47783,6 @@ class ProjectTaskSearch extends SearchRecord {
 	 * @var NoteSearchBasic
 	 */
 	public $userNotesJoin;
-	/**
-	 * @access public
-	 * @var CustomSearchJoin[]
-	 */
-	public $customSearchJoin;
 
 	static $paramtypesmap = array(
 		"basic" => "ProjectTaskSearchBasic",
@@ -49032,11 +47793,10 @@ class ProjectTaskSearch extends SearchRecord {
 		"timeJoin" => "TimeBillSearchBasic",
 		"userJoin" => "EmployeeSearchBasic",
 		"userNotesJoin" => "NoteSearchBasic",
-		"customSearchJoin" => "CustomSearchJoin[]",
 	);
 }}
 
-if (!class_exists("ProjectTaskSearchAdvanced")) {
+if (!class_exists("ProjectTaskSearchAdvanced",false)){
 /**
  * ProjectTaskSearchAdvanced
  */
@@ -49070,7 +47830,7 @@ class ProjectTaskSearchAdvanced extends SearchRecord {
 	);
 }}
 
-if (!class_exists("ProjectTaskSearchRow")) {
+if (!class_exists("ProjectTaskSearchRow",false)){
 /**
  * ProjectTaskSearchRow
  */
@@ -49115,11 +47875,6 @@ class ProjectTaskSearchRow extends SearchRow {
 	 * @var NoteSearchRowBasic
 	 */
 	public $userNotesJoin;
-	/**
-	 * @access public
-	 * @var CustomSearchRowBasic[]
-	 */
-	public $customSearchJoin;
 
 	static $paramtypesmap = array(
 		"basic" => "ProjectTaskSearchRowBasic",
@@ -49130,11 +47885,10 @@ class ProjectTaskSearchRow extends SearchRow {
 		"timeJoin" => "TimeBillSearchRowBasic",
 		"userJoin" => "EmployeeSearchRowBasic",
 		"userNotesJoin" => "NoteSearchRowBasic",
-		"customSearchJoin" => "CustomSearchRowBasic[]",
 	);
 }}
 
-if (!class_exists("PhoneCallTimeItemList")) {
+if (!class_exists("PhoneCallTimeItemList",false)){
 /**
  * PhoneCallTimeItemList
  */
@@ -49156,7 +47910,7 @@ class PhoneCallTimeItemList {
 	);
 }}
 
-if (!class_exists("CalendarEventTimeItemList")) {
+if (!class_exists("CalendarEventTimeItemList",false)){
 /**
  * CalendarEventTimeItemList
  */
@@ -49178,7 +47932,7 @@ class CalendarEventTimeItemList {
 	);
 }}
 
-if (!class_exists("TaskTimeItemList")) {
+if (!class_exists("TaskTimeItemList",false)){
 /**
  * TaskTimeItemList
  */
@@ -49200,7 +47954,7 @@ class TaskTimeItemList {
 	);
 }}
 
-if (!class_exists("ProjectTaskTimeItemList")) {
+if (!class_exists("ProjectTaskTimeItemList",false)){
 /**
  * ProjectTaskTimeItemList
  */
@@ -49222,263 +47976,7 @@ class ProjectTaskTimeItemList {
 	);
 }}
 
-if (!class_exists("ResourceAllocation")) {
-/**
- * ResourceAllocation
- */
-class ResourceAllocation extends Record {
-	/**
-	 * @access public
-	 * @var RecordRef
-	 */
-	public $requestedby;
-	/**
-	 * @access public
-	 * @var RecordRef
-	 */
-	public $allocationResource;
-	/**
-	 * @access public
-	 * @var RecordRef
-	 */
-	public $project;
-	/**
-	 * @access public
-	 * @var string
-	 */
-	public $notes;
-	/**
-	 * @access public
-	 * @var dateTime
-	 */
-	public $startDate;
-	/**
-	 * @access public
-	 * @var dateTime
-	 */
-	public $endDate;
-	/**
-	 * @access public
-	 * @var float
-	 */
-	public $allocationAmount;
-	/**
-	 * @access public
-	 * @var ResourceAllocationAllocationUnit
-	 */
-	public $allocationUnit;
-	/**
-	 * @access public
-	 * @var float
-	 */
-	public $numberHours;
-	/**
-	 * @access public
-	 * @var float
-	 */
-	public $percentOfTime;
-	/**
-	 * @access public
-	 * @var RecordRef
-	 */
-	public $allocationType;
-	/**
-	 * @access public
-	 * @var CustomFieldList
-	 */
-	public $customFieldList;
-	/**
-	 * @access public
-	 * @var string
-	 */
-	public $internalId;
-	/**
-	 * @access public
-	 * @var string
-	 */
-	public $externalId;
-
-	static $paramtypesmap = array(
-		"requestedby" => "RecordRef",
-		"allocationResource" => "RecordRef",
-		"project" => "RecordRef",
-		"notes" => "string",
-		"startDate" => "dateTime",
-		"endDate" => "dateTime",
-		"allocationAmount" => "float",
-		"allocationUnit" => "ResourceAllocationAllocationUnit",
-		"numberHours" => "float",
-		"percentOfTime" => "float",
-		"allocationType" => "RecordRef",
-		"customFieldList" => "CustomFieldList",
-		"internalId" => "string",
-		"externalId" => "string",
-	);
-}}
-
-if (!class_exists("ResourceAllocationSearch")) {
-/**
- * ResourceAllocationSearch
- */
-class ResourceAllocationSearch extends SearchRecord {
-	/**
-	 * @access public
-	 * @var ResourceAllocationSearchBasic
-	 */
-	public $basic;
-	/**
-	 * @access public
-	 * @var CustomerSearchBasic
-	 */
-	public $customerJoin;
-	/**
-	 * @access public
-	 * @var EmployeeSearchBasic
-	 */
-	public $employeeJoin;
-	/**
-	 * @access public
-	 * @var JobSearchBasic
-	 */
-	public $jobJoin;
-	/**
-	 * @access public
-	 * @var EntitySearchBasic
-	 */
-	public $requestedByJoin;
-	/**
-	 * @access public
-	 * @var EntitySearchBasic
-	 */
-	public $resourceJoin;
-	/**
-	 * @access public
-	 * @var EmployeeSearchBasic
-	 */
-	public $userJoin;
-	/**
-	 * @access public
-	 * @var VendorSearchBasic
-	 */
-	public $vendorJoin;
-	/**
-	 * @access public
-	 * @var CustomSearchJoin[]
-	 */
-	public $customSearchJoin;
-
-	static $paramtypesmap = array(
-		"basic" => "ResourceAllocationSearchBasic",
-		"customerJoin" => "CustomerSearchBasic",
-		"employeeJoin" => "EmployeeSearchBasic",
-		"jobJoin" => "JobSearchBasic",
-		"requestedByJoin" => "EntitySearchBasic",
-		"resourceJoin" => "EntitySearchBasic",
-		"userJoin" => "EmployeeSearchBasic",
-		"vendorJoin" => "VendorSearchBasic",
-		"customSearchJoin" => "CustomSearchJoin[]",
-	);
-}}
-
-if (!class_exists("ResourceAllocationSearchAdvanced")) {
-/**
- * ResourceAllocationSearchAdvanced
- */
-class ResourceAllocationSearchAdvanced extends SearchRecord {
-	/**
-	 * @access public
-	 * @var ResourceAllocationSearch
-	 */
-	public $criteria;
-	/**
-	 * @access public
-	 * @var ResourceAllocationSearchRow
-	 */
-	public $columns;
-	/**
-	 * @access public
-	 * @var string
-	 */
-	public $savedSearchId;
-	/**
-	 * @access public
-	 * @var string
-	 */
-	public $savedSearchScriptId;
-
-	static $paramtypesmap = array(
-		"criteria" => "ResourceAllocationSearch",
-		"columns" => "ResourceAllocationSearchRow",
-		"savedSearchId" => "string",
-		"savedSearchScriptId" => "string",
-	);
-}}
-
-if (!class_exists("ResourceAllocationSearchRow")) {
-/**
- * ResourceAllocationSearchRow
- */
-class ResourceAllocationSearchRow extends SearchRow {
-	/**
-	 * @access public
-	 * @var ResourceAllocationSearchRowBasic
-	 */
-	public $basic;
-	/**
-	 * @access public
-	 * @var CustomerSearchRowBasic
-	 */
-	public $customerJoin;
-	/**
-	 * @access public
-	 * @var EmployeeSearchRowBasic
-	 */
-	public $employeeJoin;
-	/**
-	 * @access public
-	 * @var JobSearchRowBasic
-	 */
-	public $jobJoin;
-	/**
-	 * @access public
-	 * @var EntitySearchRowBasic
-	 */
-	public $requestedByJoin;
-	/**
-	 * @access public
-	 * @var EntitySearchRowBasic
-	 */
-	public $resourceJoin;
-	/**
-	 * @access public
-	 * @var EmployeeSearchRowBasic
-	 */
-	public $userJoin;
-	/**
-	 * @access public
-	 * @var VendorSearchRowBasic
-	 */
-	public $vendorJoin;
-	/**
-	 * @access public
-	 * @var CustomSearchRowBasic[]
-	 */
-	public $customSearchJoin;
-
-	static $paramtypesmap = array(
-		"basic" => "ResourceAllocationSearchRowBasic",
-		"customerJoin" => "CustomerSearchRowBasic",
-		"employeeJoin" => "EmployeeSearchRowBasic",
-		"jobJoin" => "JobSearchRowBasic",
-		"requestedByJoin" => "EntitySearchRowBasic",
-		"resourceJoin" => "EntitySearchRowBasic",
-		"userJoin" => "EmployeeSearchRowBasic",
-		"vendorJoin" => "VendorSearchRowBasic",
-		"customSearchJoin" => "CustomSearchRowBasic[]",
-	);
-}}
-
-if (!class_exists("NoteDirection")) {
+if (!class_exists("NoteDirection",false)){
 /**
  * NoteDirection
  */
@@ -49496,7 +47994,7 @@ class NoteDirection {
 	const _outgoing = "_outgoing";
 }}
 
-if (!class_exists("MessageMessageType")) {
+if (!class_exists("MessageMessageType",false)){
 /**
  * MessageMessageType
  */
@@ -49526,7 +48024,7 @@ class MessageMessageType {
 	const _print = "_print";
 }}
 
-if (!class_exists("File")) {
+if (!class_exists("File",false)){
 /**
  * File
  */
@@ -49722,7 +48220,7 @@ class File extends Record {
 	);
 }}
 
-if (!class_exists("FileSiteCategory")) {
+if (!class_exists("FileSiteCategory",false)){
 /**
  * FileSiteCategory
  */
@@ -49756,7 +48254,7 @@ class FileSiteCategory {
 	);
 }}
 
-if (!class_exists("FileSiteCategoryList")) {
+if (!class_exists("FileSiteCategoryList",false)){
 /**
  * FileSiteCategoryList
  */
@@ -49778,7 +48276,7 @@ class FileSiteCategoryList {
 	);
 }}
 
-if (!class_exists("FileSearch")) {
+if (!class_exists("FileSearch",false)){
 /**
  * FileSearch
  */
@@ -49806,7 +48304,7 @@ class FileSearch extends SearchRecord {
 	);
 }}
 
-if (!class_exists("FileSearchAdvanced")) {
+if (!class_exists("FileSearchAdvanced",false)){
 /**
  * FileSearchAdvanced
  */
@@ -49840,7 +48338,7 @@ class FileSearchAdvanced extends SearchRecord {
 	);
 }}
 
-if (!class_exists("FileSearchRow")) {
+if (!class_exists("FileSearchRow",false)){
 /**
  * FileSearchRow
  */
@@ -49868,7 +48366,7 @@ class FileSearchRow extends SearchRow {
 	);
 }}
 
-if (!class_exists("Folder")) {
+if (!class_exists("Folder",false)){
 /**
  * Folder
  */
@@ -49968,7 +48466,7 @@ class Folder extends Record {
 	);
 }}
 
-if (!class_exists("FolderSearch")) {
+if (!class_exists("FolderSearch",false)){
 /**
  * FolderSearch
  */
@@ -49996,7 +48494,7 @@ class FolderSearch extends SearchRecord {
 	);
 }}
 
-if (!class_exists("FolderSearchAdvanced")) {
+if (!class_exists("FolderSearchAdvanced",false)){
 /**
  * FolderSearchAdvanced
  */
@@ -50030,7 +48528,7 @@ class FolderSearchAdvanced extends SearchRecord {
 	);
 }}
 
-if (!class_exists("FolderSearchRow")) {
+if (!class_exists("FolderSearchRow",false)){
 /**
  * FolderSearchRow
  */
@@ -50058,7 +48556,7 @@ class FolderSearchRow extends SearchRow {
 	);
 }}
 
-if (!class_exists("Note")) {
+if (!class_exists("Note",false)){
 /**
  * Note
  */
@@ -50176,7 +48674,7 @@ class Note extends Record {
 	);
 }}
 
-if (!class_exists("NoteSearch")) {
+if (!class_exists("NoteSearch",false)){
 /**
  * NoteSearch
  */
@@ -50306,7 +48804,7 @@ class NoteSearch extends SearchRecord {
 	);
 }}
 
-if (!class_exists("NoteSearchAdvanced")) {
+if (!class_exists("NoteSearchAdvanced",false)){
 /**
  * NoteSearchAdvanced
  */
@@ -50340,7 +48838,7 @@ class NoteSearchAdvanced extends SearchRecord {
 	);
 }}
 
-if (!class_exists("NoteSearchRow")) {
+if (!class_exists("NoteSearchRow",false)){
 /**
  * NoteSearchRow
  */
@@ -50470,7 +48968,7 @@ class NoteSearchRow extends SearchRow {
 	);
 }}
 
-if (!class_exists("Message")) {
+if (!class_exists("Message",false)){
 /**
  * Message
  */
@@ -50594,7 +49092,7 @@ class Message extends Record {
 	);
 }}
 
-if (!class_exists("MessageMediaItemList")) {
+if (!class_exists("MessageMediaItemList",false)){
 /**
  * MessageMediaItemList
  */
@@ -50616,7 +49114,7 @@ class MessageMediaItemList {
 	);
 }}
 
-if (!class_exists("MessageSearch")) {
+if (!class_exists("MessageSearch",false)){
 /**
  * MessageSearch
  */
@@ -50722,7 +49220,7 @@ class MessageSearch extends SearchRecord {
 	);
 }}
 
-if (!class_exists("MessageSearchAdvanced")) {
+if (!class_exists("MessageSearchAdvanced",false)){
 /**
  * MessageSearchAdvanced
  */
@@ -50756,7 +49254,7 @@ class MessageSearchAdvanced extends SearchRecord {
 	);
 }}
 
-if (!class_exists("MessageSearchRow")) {
+if (!class_exists("MessageSearchRow",false)){
 /**
  * MessageSearchRow
  */
@@ -50862,7 +49360,7 @@ class MessageSearchRow extends SearchRow {
 	);
 }}
 
-if (!class_exists("EntityType")) {
+if (!class_exists("EntityType",false)){
 /**
  * EntityType
  */
@@ -50912,7 +49410,7 @@ class EntityType {
 	const _vendor = "_vendor";
 }}
 
-if (!class_exists("CustomerStatusStage")) {
+if (!class_exists("CustomerStatusStage",false)){
 /**
  * CustomerStatusStage
  */
@@ -50934,7 +49432,7 @@ class CustomerStatusStage {
 	const _prospect = "_prospect";
 }}
 
-if (!class_exists("ContactType")) {
+if (!class_exists("ContactType",false)){
 /**
  * ContactType
  */
@@ -50964,7 +49462,7 @@ class ContactType {
 	const _vendor = "_vendor";
 }}
 
-if (!class_exists("CustomerStage")) {
+if (!class_exists("CustomerStage",false)){
 /**
  * CustomerStage
  */
@@ -50986,7 +49484,7 @@ class CustomerStage {
 	const _prospect = "_prospect";
 }}
 
-if (!class_exists("CustomerCreditHoldOverride")) {
+if (!class_exists("CustomerCreditHoldOverride",false)){
 /**
  * CustomerCreditHoldOverride
  */
@@ -51008,7 +49506,7 @@ class CustomerCreditHoldOverride {
 	const _off = "_off";
 }}
 
-if (!class_exists("CustomerMonthlyClosing")) {
+if (!class_exists("CustomerMonthlyClosing",false)){
 /**
  * CustomerMonthlyClosing
  */
@@ -51046,7 +49544,7 @@ class CustomerMonthlyClosing {
 	const _endOfTheMonth = "_endOfTheMonth";
 }}
 
-if (!class_exists("EmailPreference")) {
+if (!class_exists("EmailPreference",false)){
 /**
  * EmailPreference
  */
@@ -51068,7 +49566,7 @@ class EmailPreference {
 	const _pDF = "_pDF";
 }}
 
-if (!class_exists("EntityGroupType")) {
+if (!class_exists("EntityGroupType",false)){
 /**
  * EntityGroupType
  */
@@ -51098,7 +49596,7 @@ class EntityGroupType {
 	const _vendor = "_vendor";
 }}
 
-if (!class_exists("EntityGroupDailyTime")) {
+if (!class_exists("EntityGroupDailyTime",false)){
 /**
  * EntityGroupDailyTime
  */
@@ -51300,7 +49798,7 @@ class EntityGroupDailyTime {
 	const _1130pm = "_1130pm";
 }}
 
-if (!class_exists("EntityGroupDefView")) {
+if (!class_exists("EntityGroupDefView",false)){
 /**
  * EntityGroupDefView
  */
@@ -51322,7 +49820,7 @@ class EntityGroupDefView {
 	const _monthly = "_monthly";
 }}
 
-if (!class_exists("EntityGroupPeriodSize")) {
+if (!class_exists("EntityGroupPeriodSize",false)){
 /**
  * EntityGroupPeriodSize
  */
@@ -51352,7 +49850,7 @@ class EntityGroupPeriodSize {
 	const _oneHour = "_oneHour";
 }}
 
-if (!class_exists("TaxFractionUnit")) {
+if (!class_exists("TaxFractionUnit",false)){
 /**
  * TaxFractionUnit
  */
@@ -51382,7 +49880,7 @@ class TaxFractionUnit {
 	const _1andBelow = "_1andBelow";
 }}
 
-if (!class_exists("TaxRounding")) {
+if (!class_exists("TaxRounding",false)){
 /**
  * TaxRounding
  */
@@ -51404,7 +49902,7 @@ class TaxRounding {
 	const _roundUp = "_roundUp";
 }}
 
-if (!class_exists("JobBillingType")) {
+if (!class_exists("JobBillingType",false)){
 /**
  * JobBillingType
  */
@@ -51419,10 +49917,6 @@ class JobBillingType {
 	/**
 	 * @var string
 	 */
-	const _chargeBased = "_chargeBased";
-	/**
-	 * @var string
-	 */
 	const _fixedBidInterval = "_fixedBidInterval";
 	/**
 	 * @var string
@@ -51434,7 +49928,7 @@ class JobBillingType {
 	const _timeAndMaterials = "_timeAndMaterials";
 }}
 
-if (!class_exists("PartnerOtherRelationships")) {
+if (!class_exists("PartnerOtherRelationships",false)){
 /**
  * PartnerOtherRelationships
  */
@@ -51456,7 +49950,7 @@ class PartnerOtherRelationships {
 	const _vendor = "_vendor";
 }}
 
-if (!class_exists("CustomerOtherRelationships")) {
+if (!class_exists("CustomerOtherRelationships",false)){
 /**
  * CustomerOtherRelationships
  */
@@ -51478,7 +49972,7 @@ class CustomerOtherRelationships {
 	const _vendor = "_vendor";
 }}
 
-if (!class_exists("VendorOtherRelationships")) {
+if (!class_exists("VendorOtherRelationships",false)){
 /**
  * VendorOtherRelationships
  */
@@ -51500,7 +49994,7 @@ class VendorOtherRelationships {
 	const _partner = "_partner";
 }}
 
-if (!class_exists("CustomerNegativeNumberFormat")) {
+if (!class_exists("CustomerNegativeNumberFormat",false)){
 /**
  * CustomerNegativeNumberFormat
  */
@@ -51518,7 +50012,7 @@ class CustomerNegativeNumberFormat {
 	const _minusSigned = "_minusSigned";
 }}
 
-if (!class_exists("CustomerNumberFormat")) {
+if (!class_exists("CustomerNumberFormat",false)){
 /**
  * CustomerNumberFormat
  */
@@ -51552,7 +50046,7 @@ class CustomerNumberFormat {
 	const _apostropheAsDigitGroupSeparatorAndDecimalPoint = "_apostropheAsDigitGroupSeparatorAndDecimalPoint";
 }}
 
-if (!class_exists("Subscriptions")) {
+if (!class_exists("Subscriptions",false)){
 /**
  * Subscriptions
  */
@@ -51580,7 +50074,7 @@ class Subscriptions {
 	);
 }}
 
-if (!class_exists("SubscriptionsList")) {
+if (!class_exists("SubscriptionsList",false)){
 /**
  * SubscriptionsList
  */
@@ -51602,7 +50096,7 @@ class SubscriptionsList {
 	);
 }}
 
-if (!class_exists("Contact")) {
+if (!class_exists("Contact",false)){
 /**
  * Contact
  */
@@ -51834,7 +50328,7 @@ class Contact extends Record {
 	);
 }}
 
-if (!class_exists("CategoryList")) {
+if (!class_exists("CategoryList",false)){
 /**
  * CategoryList
  */
@@ -51850,7 +50344,7 @@ class CategoryList {
 	);
 }}
 
-if (!class_exists("ContactAddressbook")) {
+if (!class_exists("ContactAddressbook",false)){
 /**
  * ContactAddressbook
  */
@@ -51956,7 +50450,7 @@ class ContactAddressbook {
 	);
 }}
 
-if (!class_exists("ContactAddressbookList")) {
+if (!class_exists("ContactAddressbookList",false)){
 /**
  * ContactAddressbookList
  */
@@ -51978,7 +50472,7 @@ class ContactAddressbookList {
 	);
 }}
 
-if (!class_exists("ContactSearch")) {
+if (!class_exists("ContactSearch",false)){
 /**
  * ContactSearch
  */
@@ -52055,26 +50549,6 @@ class ContactSearch extends SearchRecord {
 	public $opportunityJoin;
 	/**
 	 * @access public
-	 * @var CustomerSearchBasic
-	 */
-	public $parentCustomerJoin;
-	/**
-	 * @access public
-	 * @var JobSearchBasic
-	 */
-	public $parentJobJoin;
-	/**
-	 * @access public
-	 * @var PartnerSearchBasic
-	 */
-	public $parentPartnerJoin;
-	/**
-	 * @access public
-	 * @var VendorSearchBasic
-	 */
-	public $parentVendorJoin;
-	/**
-	 * @access public
 	 * @var PartnerSearchBasic
 	 */
 	public $partnerJoin;
@@ -52085,11 +50559,6 @@ class ContactSearch extends SearchRecord {
 	public $partnerPrimaryJoin;
 	/**
 	 * @access public
-	 * @var ItemSearchBasic
-	 */
-	public $purchasedItemJoin;
-	/**
-	 * @access public
 	 * @var TaskSearchBasic
 	 */
 	public $taskJoin;
@@ -52098,11 +50567,6 @@ class ContactSearch extends SearchRecord {
 	 * @var TransactionSearchBasic
 	 */
 	public $transactionJoin;
-	/**
-	 * @access public
-	 * @var ItemSearchBasic
-	 */
-	public $upsellItemJoin;
 	/**
 	 * @access public
 	 * @var EmployeeSearchBasic
@@ -52123,11 +50587,6 @@ class ContactSearch extends SearchRecord {
 	 * @var VendorSearchBasic
 	 */
 	public $vendorPrimaryJoin;
-	/**
-	 * @access public
-	 * @var CustomSearchJoin[]
-	 */
-	public $customSearchJoin;
 
 	static $paramtypesmap = array(
 		"basic" => "ContactSearchBasic",
@@ -52144,25 +50603,18 @@ class ContactSearch extends SearchRecord {
 		"messagesFromJoin" => "MessageSearchBasic",
 		"messagesToJoin" => "MessageSearchBasic",
 		"opportunityJoin" => "OpportunitySearchBasic",
-		"parentCustomerJoin" => "CustomerSearchBasic",
-		"parentJobJoin" => "JobSearchBasic",
-		"parentPartnerJoin" => "PartnerSearchBasic",
-		"parentVendorJoin" => "VendorSearchBasic",
 		"partnerJoin" => "PartnerSearchBasic",
 		"partnerPrimaryJoin" => "PartnerSearchBasic",
-		"purchasedItemJoin" => "ItemSearchBasic",
 		"taskJoin" => "TaskSearchBasic",
 		"transactionJoin" => "TransactionSearchBasic",
-		"upsellItemJoin" => "ItemSearchBasic",
 		"userJoin" => "EmployeeSearchBasic",
 		"userNotesJoin" => "NoteSearchBasic",
 		"vendorJoin" => "VendorSearchBasic",
 		"vendorPrimaryJoin" => "VendorSearchBasic",
-		"customSearchJoin" => "CustomSearchJoin[]",
 	);
 }}
 
-if (!class_exists("ContactSearchAdvanced")) {
+if (!class_exists("ContactSearchAdvanced",false)){
 /**
  * ContactSearchAdvanced
  */
@@ -52196,7 +50648,7 @@ class ContactSearchAdvanced extends SearchRecord {
 	);
 }}
 
-if (!class_exists("ContactSearchRow")) {
+if (!class_exists("ContactSearchRow",false)){
 /**
  * ContactSearchRow
  */
@@ -52273,26 +50725,6 @@ class ContactSearchRow extends SearchRow {
 	public $opportunityJoin;
 	/**
 	 * @access public
-	 * @var CustomerSearchRowBasic
-	 */
-	public $parentCustomerJoin;
-	/**
-	 * @access public
-	 * @var JobSearchRowBasic
-	 */
-	public $parentJobJoin;
-	/**
-	 * @access public
-	 * @var PartnerSearchRowBasic
-	 */
-	public $parentPartnerJoin;
-	/**
-	 * @access public
-	 * @var VendorSearchRowBasic
-	 */
-	public $parentVendorJoin;
-	/**
-	 * @access public
 	 * @var PartnerSearchRowBasic
 	 */
 	public $partnerJoin;
@@ -52303,11 +50735,6 @@ class ContactSearchRow extends SearchRow {
 	public $partnerPrimaryJoin;
 	/**
 	 * @access public
-	 * @var ItemSearchRowBasic
-	 */
-	public $purchasedItemJoin;
-	/**
-	 * @access public
 	 * @var TaskSearchRowBasic
 	 */
 	public $taskJoin;
@@ -52316,11 +50743,6 @@ class ContactSearchRow extends SearchRow {
 	 * @var TransactionSearchRowBasic
 	 */
 	public $transactionJoin;
-	/**
-	 * @access public
-	 * @var ItemSearchRowBasic
-	 */
-	public $upsellItemJoin;
 	/**
 	 * @access public
 	 * @var EmployeeSearchRowBasic
@@ -52341,11 +50763,6 @@ class ContactSearchRow extends SearchRow {
 	 * @var VendorSearchRowBasic
 	 */
 	public $vendorPrimaryJoin;
-	/**
-	 * @access public
-	 * @var CustomSearchRowBasic[]
-	 */
-	public $customSearchJoin;
 
 	static $paramtypesmap = array(
 		"basic" => "ContactSearchRowBasic",
@@ -52362,25 +50779,18 @@ class ContactSearchRow extends SearchRow {
 		"messagesFromJoin" => "MessageSearchRowBasic",
 		"messagesToJoin" => "MessageSearchRowBasic",
 		"opportunityJoin" => "OpportunitySearchRowBasic",
-		"parentCustomerJoin" => "CustomerSearchRowBasic",
-		"parentJobJoin" => "JobSearchRowBasic",
-		"parentPartnerJoin" => "PartnerSearchRowBasic",
-		"parentVendorJoin" => "VendorSearchRowBasic",
 		"partnerJoin" => "PartnerSearchRowBasic",
 		"partnerPrimaryJoin" => "PartnerSearchRowBasic",
-		"purchasedItemJoin" => "ItemSearchRowBasic",
 		"taskJoin" => "TaskSearchRowBasic",
 		"transactionJoin" => "TransactionSearchRowBasic",
-		"upsellItemJoin" => "ItemSearchRowBasic",
 		"userJoin" => "EmployeeSearchRowBasic",
 		"userNotesJoin" => "NoteSearchRowBasic",
 		"vendorJoin" => "VendorSearchRowBasic",
 		"vendorPrimaryJoin" => "VendorSearchRowBasic",
-		"customSearchJoin" => "CustomSearchRowBasic[]",
 	);
 }}
 
-if (!class_exists("Customer")) {
+if (!class_exists("Customer",false)){
 /**
  * Customer
  */
@@ -52612,11 +51022,6 @@ class Customer extends Record {
 	public $creditHoldOverride;
 	/**
 	 * @access public
-	 * @var CustomerMonthlyClosing
-	 */
-	public $monthlyClosing;
-	/**
-	 * @access public
 	 * @var boolean
 	 */
 	public $overrideCurrencyFormat;
@@ -52820,11 +51225,6 @@ class Customer extends Record {
 	 * @var RecordRef
 	 */
 	public $fxAccount;
-	/**
-	 * @access public
-	 * @var float
-	 */
-	public $defaultOrderPriority;
 	/**
 	 * @access public
 	 * @var string
@@ -53052,7 +51452,6 @@ class Customer extends Record {
 		"terms" => "RecordRef",
 		"creditLimit" => "float",
 		"creditHoldOverride" => "CustomerCreditHoldOverride",
-		"monthlyClosing" => "CustomerMonthlyClosing",
 		"overrideCurrencyFormat" => "boolean",
 		"displaySymbol" => "string",
 		"symbolPlacement" => "CurrencySymbolPlacement",
@@ -53094,7 +51493,6 @@ class Customer extends Record {
 		"receivablesAccount" => "RecordRef",
 		"drAccount" => "RecordRef",
 		"fxAccount" => "RecordRef",
-		"defaultOrderPriority" => "float",
 		"webLead" => "string",
 		"referrer" => "string",
 		"keywords" => "string",
@@ -53134,7 +51532,7 @@ class Customer extends Record {
 	);
 }}
 
-if (!class_exists("CustomerDownload")) {
+if (!class_exists("CustomerDownload",false)){
 /**
  * CustomerDownload
  */
@@ -53168,7 +51566,7 @@ class CustomerDownload {
 	);
 }}
 
-if (!class_exists("CustomerDownloadList")) {
+if (!class_exists("CustomerDownloadList",false)){
 /**
  * CustomerDownloadList
  */
@@ -53190,7 +51588,7 @@ class CustomerDownloadList {
 	);
 }}
 
-if (!class_exists("ContactAccessRoles")) {
+if (!class_exists("ContactAccessRoles",false)){
 /**
  * ContactAccessRoles
  */
@@ -53242,7 +51640,7 @@ class ContactAccessRoles {
 	);
 }}
 
-if (!class_exists("ContactAccessRolesList")) {
+if (!class_exists("ContactAccessRolesList",false)){
 /**
  * ContactAccessRolesList
  */
@@ -53264,7 +51662,7 @@ class ContactAccessRolesList {
 	);
 }}
 
-if (!class_exists("CustomerSalesTeamList")) {
+if (!class_exists("CustomerSalesTeamList",false)){
 /**
  * CustomerSalesTeamList
  */
@@ -53286,7 +51684,7 @@ class CustomerSalesTeamList {
 	);
 }}
 
-if (!class_exists("CustomerAddressbook")) {
+if (!class_exists("CustomerAddressbook",false)){
 /**
  * CustomerAddressbook
  */
@@ -53398,7 +51796,7 @@ class CustomerAddressbook {
 	);
 }}
 
-if (!class_exists("CustomerAddressbookList")) {
+if (!class_exists("CustomerAddressbookList",false)){
 /**
  * CustomerAddressbookList
  */
@@ -53420,7 +51818,7 @@ class CustomerAddressbookList {
 	);
 }}
 
-if (!class_exists("CustomerCreditCards")) {
+if (!class_exists("CustomerCreditCards",false)){
 /**
  * CustomerCreditCards
  */
@@ -53484,7 +51882,7 @@ class CustomerCreditCards {
 	);
 }}
 
-if (!class_exists("CustomerCreditCardsList")) {
+if (!class_exists("CustomerCreditCardsList",false)){
 /**
  * CustomerCreditCardsList
  */
@@ -53506,7 +51904,7 @@ class CustomerCreditCardsList {
 	);
 }}
 
-if (!class_exists("CustomerGroupPricing")) {
+if (!class_exists("CustomerGroupPricing",false)){
 /**
  * CustomerGroupPricing
  */
@@ -53528,7 +51926,7 @@ class CustomerGroupPricing {
 	);
 }}
 
-if (!class_exists("CustomerGroupPricingList")) {
+if (!class_exists("CustomerGroupPricingList",false)){
 /**
  * CustomerGroupPricingList
  */
@@ -53550,7 +51948,7 @@ class CustomerGroupPricingList {
 	);
 }}
 
-if (!class_exists("CustomerItemPricing")) {
+if (!class_exists("CustomerItemPricing",false)){
 /**
  * CustomerItemPricing
  */
@@ -53584,7 +51982,7 @@ class CustomerItemPricing {
 	);
 }}
 
-if (!class_exists("CustomerItemPricingList")) {
+if (!class_exists("CustomerItemPricingList",false)){
 /**
  * CustomerItemPricingList
  */
@@ -53606,7 +52004,7 @@ class CustomerItemPricingList {
 	);
 }}
 
-if (!class_exists("CustomerPartnersList")) {
+if (!class_exists("CustomerPartnersList",false)){
 /**
  * CustomerPartnersList
  */
@@ -53628,7 +52026,7 @@ class CustomerPartnersList {
 	);
 }}
 
-if (!class_exists("CustomerSearch")) {
+if (!class_exists("CustomerSearch",false)){
 /**
  * CustomerSearch
  */
@@ -53725,16 +52123,6 @@ class CustomerSearch extends SearchRecord {
 	public $partnerJoin;
 	/**
 	 * @access public
-	 * @var ItemSearchBasic
-	 */
-	public $purchasedItemJoin;
-	/**
-	 * @access public
-	 * @var ResourceAllocationSearchBasic
-	 */
-	public $resourceAllocationJoin;
-	/**
-	 * @access public
 	 * @var EmployeeSearchBasic
 	 */
 	public $salesRepJoin;
@@ -53765,11 +52153,6 @@ class CustomerSearch extends SearchRecord {
 	public $transactionJoin;
 	/**
 	 * @access public
-	 * @var ItemSearchBasic
-	 */
-	public $upsellItemJoin;
-	/**
-	 * @access public
 	 * @var EmployeeSearchBasic
 	 */
 	public $userJoin;
@@ -53788,11 +52171,6 @@ class CustomerSearch extends SearchRecord {
 	 * @var ItemSearchBasic
 	 */
 	public $webSiteItemJoin;
-	/**
-	 * @access public
-	 * @var CustomSearchJoin[]
-	 */
-	public $customSearchJoin;
 
 	static $paramtypesmap = array(
 		"basic" => "CustomerSearchBasic",
@@ -53813,24 +52191,20 @@ class CustomerSearch extends SearchRecord {
 		"originatingLeadJoin" => "OriginatingLeadSearchBasic",
 		"parentCustomerJoin" => "CustomerSearchBasic",
 		"partnerJoin" => "PartnerSearchBasic",
-		"purchasedItemJoin" => "ItemSearchBasic",
-		"resourceAllocationJoin" => "ResourceAllocationSearchBasic",
 		"salesRepJoin" => "EmployeeSearchBasic",
 		"subCustomerJoin" => "CustomerSearchBasic",
 		"taskJoin" => "TaskSearchBasic",
 		"timeJoin" => "TimeBillSearchBasic",
 		"topLevelParentJoin" => "CustomerSearchBasic",
 		"transactionJoin" => "TransactionSearchBasic",
-		"upsellItemJoin" => "ItemSearchBasic",
 		"userJoin" => "EmployeeSearchBasic",
 		"userNotesJoin" => "NoteSearchBasic",
 		"webSiteCategoryJoin" => "SiteCategorySearchBasic",
 		"webSiteItemJoin" => "ItemSearchBasic",
-		"customSearchJoin" => "CustomSearchJoin[]",
 	);
 }}
 
-if (!class_exists("CustomerSearchAdvanced")) {
+if (!class_exists("CustomerSearchAdvanced",false)){
 /**
  * CustomerSearchAdvanced
  */
@@ -53864,7 +52238,7 @@ class CustomerSearchAdvanced extends SearchRecord {
 	);
 }}
 
-if (!class_exists("CustomerSearchRow")) {
+if (!class_exists("CustomerSearchRow",false)){
 /**
  * CustomerSearchRow
  */
@@ -53961,16 +52335,6 @@ class CustomerSearchRow extends SearchRow {
 	public $partnerJoin;
 	/**
 	 * @access public
-	 * @var ItemSearchRowBasic
-	 */
-	public $purchasedItemJoin;
-	/**
-	 * @access public
-	 * @var ResourceAllocationSearchRowBasic
-	 */
-	public $resourceAllocationJoin;
-	/**
-	 * @access public
 	 * @var EmployeeSearchRowBasic
 	 */
 	public $salesRepJoin;
@@ -54001,11 +52365,6 @@ class CustomerSearchRow extends SearchRow {
 	public $transactionJoin;
 	/**
 	 * @access public
-	 * @var ItemSearchRowBasic
-	 */
-	public $upsellItemJoin;
-	/**
-	 * @access public
 	 * @var EmployeeSearchRowBasic
 	 */
 	public $userJoin;
@@ -54024,11 +52383,6 @@ class CustomerSearchRow extends SearchRow {
 	 * @var ItemSearchRowBasic
 	 */
 	public $webSiteItemJoin;
-	/**
-	 * @access public
-	 * @var CustomSearchRowBasic[]
-	 */
-	public $customSearchJoin;
 
 	static $paramtypesmap = array(
 		"basic" => "CustomerSearchRowBasic",
@@ -54049,24 +52403,20 @@ class CustomerSearchRow extends SearchRow {
 		"originatingLeadJoin" => "OriginatingLeadSearchRowBasic",
 		"parentCustomerJoin" => "CustomerSearchRowBasic",
 		"partnerJoin" => "PartnerSearchRowBasic",
-		"purchasedItemJoin" => "ItemSearchRowBasic",
-		"resourceAllocationJoin" => "ResourceAllocationSearchRowBasic",
 		"salesRepJoin" => "EmployeeSearchRowBasic",
 		"subCustomerJoin" => "CustomerSearchRowBasic",
 		"taskJoin" => "TaskSearchRowBasic",
 		"timeJoin" => "TimeBillSearchRowBasic",
 		"topLevelParentJoin" => "CustomerSearchRowBasic",
 		"transactionJoin" => "TransactionSearchRowBasic",
-		"upsellItemJoin" => "ItemSearchRowBasic",
 		"userJoin" => "EmployeeSearchRowBasic",
 		"userNotesJoin" => "NoteSearchRowBasic",
 		"webSiteCategoryJoin" => "SiteCategorySearchRowBasic",
 		"webSiteItemJoin" => "ItemSearchRowBasic",
-		"customSearchJoin" => "CustomSearchRowBasic[]",
 	);
 }}
 
-if (!class_exists("CustomerStatus")) {
+if (!class_exists("CustomerStatus",false)){
 /**
  * CustomerStatus
  */
@@ -54124,7 +52474,7 @@ class CustomerStatus extends Record {
 	);
 }}
 
-if (!class_exists("Partner")) {
+if (!class_exists("Partner",false)){
 /**
  * Partner
  */
@@ -54476,7 +52826,7 @@ class Partner extends Record {
 	);
 }}
 
-if (!class_exists("PartnerPromoCode")) {
+if (!class_exists("PartnerPromoCode",false)){
 /**
  * PartnerPromoCode
  */
@@ -54504,7 +52854,7 @@ class PartnerPromoCode {
 	);
 }}
 
-if (!class_exists("PartnerPromoCodeList")) {
+if (!class_exists("PartnerPromoCodeList",false)){
 /**
  * PartnerPromoCodeList
  */
@@ -54526,7 +52876,7 @@ class PartnerPromoCodeList {
 	);
 }}
 
-if (!class_exists("PartnerAddressbook")) {
+if (!class_exists("PartnerAddressbook",false)){
 /**
  * PartnerAddressbook
  */
@@ -54632,7 +52982,7 @@ class PartnerAddressbook {
 	);
 }}
 
-if (!class_exists("PartnerAddressbookList")) {
+if (!class_exists("PartnerAddressbookList",false)){
 /**
  * PartnerAddressbookList
  */
@@ -54654,7 +53004,7 @@ class PartnerAddressbookList {
 	);
 }}
 
-if (!class_exists("PartnerSearch")) {
+if (!class_exists("PartnerSearch",false)){
 /**
  * PartnerSearch
  */
@@ -54724,11 +53074,6 @@ class PartnerSearch extends SearchRecord {
 	 * @var NoteSearchBasic
 	 */
 	public $userNotesJoin;
-	/**
-	 * @access public
-	 * @var CustomSearchJoin[]
-	 */
-	public $customSearchJoin;
 
 	static $paramtypesmap = array(
 		"basic" => "PartnerSearchBasic",
@@ -54744,11 +53089,10 @@ class PartnerSearch extends SearchRecord {
 		"transactionJoin" => "TransactionSearchBasic",
 		"userJoin" => "EmployeeSearchBasic",
 		"userNotesJoin" => "NoteSearchBasic",
-		"customSearchJoin" => "CustomSearchJoin[]",
 	);
 }}
 
-if (!class_exists("PartnerSearchAdvanced")) {
+if (!class_exists("PartnerSearchAdvanced",false)){
 /**
  * PartnerSearchAdvanced
  */
@@ -54782,7 +53126,7 @@ class PartnerSearchAdvanced extends SearchRecord {
 	);
 }}
 
-if (!class_exists("PartnerSearchRow")) {
+if (!class_exists("PartnerSearchRow",false)){
 /**
  * PartnerSearchRow
  */
@@ -54852,11 +53196,6 @@ class PartnerSearchRow extends SearchRow {
 	 * @var NoteSearchRowBasic
 	 */
 	public $userNotesJoin;
-	/**
-	 * @access public
-	 * @var CustomSearchRowBasic[]
-	 */
-	public $customSearchJoin;
 
 	static $paramtypesmap = array(
 		"basic" => "PartnerSearchRowBasic",
@@ -54872,11 +53211,10 @@ class PartnerSearchRow extends SearchRow {
 		"transactionJoin" => "TransactionSearchRowBasic",
 		"userJoin" => "EmployeeSearchRowBasic",
 		"userNotesJoin" => "NoteSearchRowBasic",
-		"customSearchJoin" => "CustomSearchRowBasic[]",
 	);
 }}
 
-if (!class_exists("Vendor")) {
+if (!class_exists("Vendor",false)){
 /**
  * Vendor
  */
@@ -55318,7 +53656,7 @@ class Vendor extends Record {
 	);
 }}
 
-if (!class_exists("VendorPricingSchedule")) {
+if (!class_exists("VendorPricingSchedule",false)){
 /**
  * VendorPricingSchedule
  */
@@ -55340,7 +53678,7 @@ class VendorPricingSchedule {
 	);
 }}
 
-if (!class_exists("VendorPricingScheduleList")) {
+if (!class_exists("VendorPricingScheduleList",false)){
 /**
  * VendorPricingScheduleList
  */
@@ -55362,7 +53700,7 @@ class VendorPricingScheduleList {
 	);
 }}
 
-if (!class_exists("VendorAddressbook")) {
+if (!class_exists("VendorAddressbook",false)){
 /**
  * VendorAddressbook
  */
@@ -55468,7 +53806,7 @@ class VendorAddressbook {
 	);
 }}
 
-if (!class_exists("VendorAddressbookList")) {
+if (!class_exists("VendorAddressbookList",false)){
 /**
  * VendorAddressbookList
  */
@@ -55490,7 +53828,7 @@ class VendorAddressbookList {
 	);
 }}
 
-if (!class_exists("VendorRoles")) {
+if (!class_exists("VendorRoles",false)){
 /**
  * VendorRoles
  */
@@ -55506,7 +53844,7 @@ class VendorRoles {
 	);
 }}
 
-if (!class_exists("VendorRolesList")) {
+if (!class_exists("VendorRolesList",false)){
 /**
  * VendorRolesList
  */
@@ -55528,7 +53866,7 @@ class VendorRolesList {
 	);
 }}
 
-if (!class_exists("VendorSearch")) {
+if (!class_exists("VendorSearch",false)){
 /**
  * VendorSearch
  */
@@ -55588,11 +53926,6 @@ class VendorSearch extends SearchRecord {
 	 * @var NoteSearchBasic
 	 */
 	public $userNotesJoin;
-	/**
-	 * @access public
-	 * @var CustomSearchJoin[]
-	 */
-	public $customSearchJoin;
 
 	static $paramtypesmap = array(
 		"basic" => "VendorSearchBasic",
@@ -55606,11 +53939,10 @@ class VendorSearch extends SearchRecord {
 		"transactionJoin" => "TransactionSearchBasic",
 		"userJoin" => "EmployeeSearchBasic",
 		"userNotesJoin" => "NoteSearchBasic",
-		"customSearchJoin" => "CustomSearchJoin[]",
 	);
 }}
 
-if (!class_exists("VendorSearchAdvanced")) {
+if (!class_exists("VendorSearchAdvanced",false)){
 /**
  * VendorSearchAdvanced
  */
@@ -55644,7 +53976,7 @@ class VendorSearchAdvanced extends SearchRecord {
 	);
 }}
 
-if (!class_exists("VendorSearchRow")) {
+if (!class_exists("VendorSearchRow",false)){
 /**
  * VendorSearchRow
  */
@@ -55704,11 +54036,6 @@ class VendorSearchRow extends SearchRow {
 	 * @var NoteSearchRowBasic
 	 */
 	public $userNotesJoin;
-	/**
-	 * @access public
-	 * @var CustomSearchRowBasic[]
-	 */
-	public $customSearchJoin;
 
 	static $paramtypesmap = array(
 		"basic" => "VendorSearchRowBasic",
@@ -55722,11 +54049,10 @@ class VendorSearchRow extends SearchRow {
 		"transactionJoin" => "TransactionSearchRowBasic",
 		"userJoin" => "EmployeeSearchRowBasic",
 		"userNotesJoin" => "NoteSearchRowBasic",
-		"customSearchJoin" => "CustomSearchRowBasic[]",
 	);
 }}
 
-if (!class_exists("EntityGroup")) {
+if (!class_exists("EntityGroup",false)){
 /**
  * EntityGroup
  */
@@ -55910,7 +54236,7 @@ class EntityGroup extends Record {
 	);
 }}
 
-if (!class_exists("EntityGroupSearch")) {
+if (!class_exists("EntityGroupSearch",false)){
 /**
  * EntityGroupSearch
  */
@@ -55930,21 +54256,15 @@ class EntityGroupSearch extends SearchRecord {
 	 * @var EmployeeSearchBasic
 	 */
 	public $userJoin;
-	/**
-	 * @access public
-	 * @var CustomSearchJoin[]
-	 */
-	public $customSearchJoin;
 
 	static $paramtypesmap = array(
 		"basic" => "EntityGroupSearchBasic",
 		"groupMemberJoin" => "EntitySearchBasic",
 		"userJoin" => "EmployeeSearchBasic",
-		"customSearchJoin" => "CustomSearchJoin[]",
 	);
 }}
 
-if (!class_exists("EntityGroupSearchAdvanced")) {
+if (!class_exists("EntityGroupSearchAdvanced",false)){
 /**
  * EntityGroupSearchAdvanced
  */
@@ -55978,7 +54298,7 @@ class EntityGroupSearchAdvanced extends SearchRecord {
 	);
 }}
 
-if (!class_exists("EntityGroupSearchRow")) {
+if (!class_exists("EntityGroupSearchRow",false)){
 /**
  * EntityGroupSearchRow
  */
@@ -55998,21 +54318,15 @@ class EntityGroupSearchRow extends SearchRow {
 	 * @var EmployeeSearchRowBasic
 	 */
 	public $userJoin;
-	/**
-	 * @access public
-	 * @var CustomSearchRowBasic[]
-	 */
-	public $customSearchJoin;
 
 	static $paramtypesmap = array(
 		"basic" => "EntityGroupSearchRowBasic",
 		"groupMemberJoin" => "EntitySearchRowBasic",
 		"userJoin" => "EmployeeSearchRowBasic",
-		"customSearchJoin" => "CustomSearchRowBasic[]",
 	);
 }}
 
-if (!class_exists("Job")) {
+if (!class_exists("Job",false)){
 /**
  * Job
  */
@@ -56299,16 +54613,6 @@ class Job extends Record {
 	public $estimatedGrossProfitPercent;
 	/**
 	 * @access public
-	 * @var RecordRef
-	 */
-	public $projectExpenseType;
-	/**
-	 * @access public
-	 * @var boolean
-	 */
-	public $applyProjectExpenseTypeToAll;
-	/**
-	 * @access public
 	 * @var boolean
 	 */
 	public $allowAllResourcesForTasks;
@@ -56450,8 +54754,6 @@ class Job extends Record {
 		"estimatedLaborRevenue" => "float",
 		"estimatedGrossProfit" => "float",
 		"estimatedGrossProfitPercent" => "float",
-		"projectExpenseType" => "RecordRef",
-		"applyProjectExpenseTypeToAll" => "boolean",
 		"allowAllResourcesForTasks" => "boolean",
 		"jobPrice" => "float",
 		"isUtilizedTime" => "boolean",
@@ -56472,7 +54774,7 @@ class Job extends Record {
 	);
 }}
 
-if (!class_exists("JobAddressbook")) {
+if (!class_exists("JobAddressbook",false)){
 /**
  * JobAddressbook
  */
@@ -56584,7 +54886,7 @@ class JobAddressbook {
 	);
 }}
 
-if (!class_exists("JobAddressbookList")) {
+if (!class_exists("JobAddressbookList",false)){
 /**
  * JobAddressbookList
  */
@@ -56606,7 +54908,7 @@ class JobAddressbookList {
 	);
 }}
 
-if (!class_exists("JobResources")) {
+if (!class_exists("JobResources",false)){
 /**
  * JobResources
  */
@@ -56634,7 +54936,7 @@ class JobResources {
 	);
 }}
 
-if (!class_exists("JobResourcesList")) {
+if (!class_exists("JobResourcesList",false)){
 /**
  * JobResourcesList
  */
@@ -56656,7 +54958,7 @@ class JobResourcesList {
 	);
 }}
 
-if (!class_exists("JobMilestones")) {
+if (!class_exists("JobMilestones",false)){
 /**
  * JobMilestones
  */
@@ -56696,7 +54998,7 @@ class JobMilestones {
 	);
 }}
 
-if (!class_exists("JobMilestonesList")) {
+if (!class_exists("JobMilestonesList",false)){
 /**
  * JobMilestonesList
  */
@@ -56718,7 +55020,7 @@ class JobMilestonesList {
 	);
 }}
 
-if (!class_exists("JobCreditCards")) {
+if (!class_exists("JobCreditCards",false)){
 /**
  * JobCreditCards
  */
@@ -56782,7 +55084,7 @@ class JobCreditCards {
 	);
 }}
 
-if (!class_exists("JobCreditCardsList")) {
+if (!class_exists("JobCreditCardsList",false)){
 /**
  * JobCreditCardsList
  */
@@ -56804,7 +55106,7 @@ class JobCreditCardsList {
 	);
 }}
 
-if (!class_exists("JobSearch")) {
+if (!class_exists("JobSearch",false)){
 /**
  * JobSearch
  */
@@ -56831,11 +55133,6 @@ class JobSearch extends SearchRecord {
 	public $projectTaskJoin;
 	/**
 	 * @access public
-	 * @var ResourceAllocationSearchBasic
-	 */
-	public $resourceAllocationJoin;
-	/**
-	 * @access public
 	 * @var TaskSearchBasic
 	 */
 	public $taskJoin;
@@ -56844,25 +55141,18 @@ class JobSearch extends SearchRecord {
 	 * @var TimeBillSearchBasic
 	 */
 	public $timeJoin;
-	/**
-	 * @access public
-	 * @var CustomSearchJoin[]
-	 */
-	public $customSearchJoin;
 
 	static $paramtypesmap = array(
 		"basic" => "JobSearchBasic",
 		"contactPrimaryJoin" => "ContactSearchBasic",
 		"customerJoin" => "CustomerSearchBasic",
 		"projectTaskJoin" => "ProjectTaskSearchBasic",
-		"resourceAllocationJoin" => "ResourceAllocationSearchBasic",
 		"taskJoin" => "TaskSearchBasic",
 		"timeJoin" => "TimeBillSearchBasic",
-		"customSearchJoin" => "CustomSearchJoin[]",
 	);
 }}
 
-if (!class_exists("JobSearchAdvanced")) {
+if (!class_exists("JobSearchAdvanced",false)){
 /**
  * JobSearchAdvanced
  */
@@ -56896,7 +55186,7 @@ class JobSearchAdvanced extends SearchRecord {
 	);
 }}
 
-if (!class_exists("JobSearchRow")) {
+if (!class_exists("JobSearchRow",false)){
 /**
  * JobSearchRow
  */
@@ -56923,11 +55213,6 @@ class JobSearchRow extends SearchRow {
 	public $projectTaskJoin;
 	/**
 	 * @access public
-	 * @var ResourceAllocationSearchRowBasic
-	 */
-	public $resourceAllocationJoin;
-	/**
-	 * @access public
 	 * @var TaskSearchRowBasic
 	 */
 	public $taskJoin;
@@ -56936,25 +55221,18 @@ class JobSearchRow extends SearchRow {
 	 * @var TimeBillSearchRowBasic
 	 */
 	public $timeJoin;
-	/**
-	 * @access public
-	 * @var CustomSearchRowBasic[]
-	 */
-	public $customSearchJoin;
 
 	static $paramtypesmap = array(
 		"basic" => "JobSearchRowBasic",
 		"contactPrimaryJoin" => "ContactSearchRowBasic",
 		"customerJoin" => "CustomerSearchRowBasic",
 		"projectTaskJoin" => "ProjectTaskSearchRowBasic",
-		"resourceAllocationJoin" => "ResourceAllocationSearchRowBasic",
 		"taskJoin" => "TaskSearchRowBasic",
 		"timeJoin" => "TimeBillSearchRowBasic",
-		"customSearchJoin" => "CustomSearchRowBasic[]",
 	);
 }}
 
-if (!class_exists("JobType")) {
+if (!class_exists("JobType",false)){
 /**
  * JobType
  */
@@ -56994,7 +55272,7 @@ class JobType extends Record {
 	);
 }}
 
-if (!class_exists("JobStatus")) {
+if (!class_exists("JobStatus",false)){
 /**
  * JobStatus
  */
@@ -57034,7 +55312,7 @@ class JobStatus extends Record {
 	);
 }}
 
-if (!class_exists("CustomerStatusSearch")) {
+if (!class_exists("CustomerStatusSearch",false)){
 /**
  * CustomerStatusSearch
  */
@@ -57056,7 +55334,7 @@ class CustomerStatusSearch extends SearchRecord {
 	);
 }}
 
-if (!class_exists("CustomerStatusSearchAdvanced")) {
+if (!class_exists("CustomerStatusSearchAdvanced",false)){
 /**
  * CustomerStatusSearchAdvanced
  */
@@ -57090,7 +55368,7 @@ class CustomerStatusSearchAdvanced extends SearchRecord {
 	);
 }}
 
-if (!class_exists("CustomerStatusSearchRow")) {
+if (!class_exists("CustomerStatusSearchRow",false)){
 /**
  * CustomerStatusSearchRow
  */
@@ -57112,7 +55390,7 @@ class CustomerStatusSearchRow extends SearchRow {
 	);
 }}
 
-if (!class_exists("JobStatusSearch")) {
+if (!class_exists("JobStatusSearch",false)){
 /**
  * JobStatusSearch
  */
@@ -57134,7 +55412,7 @@ class JobStatusSearch extends SearchRecord {
 	);
 }}
 
-if (!class_exists("JobStatusSearchAdvanced")) {
+if (!class_exists("JobStatusSearchAdvanced",false)){
 /**
  * JobStatusSearchAdvanced
  */
@@ -57168,7 +55446,7 @@ class JobStatusSearchAdvanced extends SearchRecord {
 	);
 }}
 
-if (!class_exists("JobStatusSearchRow")) {
+if (!class_exists("JobStatusSearchRow",false)){
 /**
  * JobStatusSearchRow
  */
@@ -57190,7 +55468,7 @@ class JobStatusSearchRow extends SearchRow {
 	);
 }}
 
-if (!class_exists("JobTypeSearch")) {
+if (!class_exists("JobTypeSearch",false)){
 /**
  * JobTypeSearch
  */
@@ -57212,7 +55490,7 @@ class JobTypeSearch extends SearchRecord {
 	);
 }}
 
-if (!class_exists("JobTypeSearchAdvanced")) {
+if (!class_exists("JobTypeSearchAdvanced",false)){
 /**
  * JobTypeSearchAdvanced
  */
@@ -57246,7 +55524,7 @@ class JobTypeSearchAdvanced extends SearchRecord {
 	);
 }}
 
-if (!class_exists("JobTypeSearchRow")) {
+if (!class_exists("JobTypeSearchRow",false)){
 /**
  * JobTypeSearchRow
  */
@@ -57268,7 +55546,7 @@ class JobTypeSearchRow extends SearchRow {
 	);
 }}
 
-if (!class_exists("OriginatingLeadSearch")) {
+if (!class_exists("OriginatingLeadSearch",false)){
 /**
  * OriginatingLeadSearch
  */
@@ -57278,19 +55556,13 @@ class OriginatingLeadSearch extends SearchRecord {
 	 * @var OriginatingLeadSearchBasic
 	 */
 	public $basic;
-	/**
-	 * @access public
-	 * @var CustomSearchJoin[]
-	 */
-	public $customSearchJoin;
 
 	static $paramtypesmap = array(
 		"basic" => "OriginatingLeadSearchBasic",
-		"customSearchJoin" => "CustomSearchJoin[]",
 	);
 }}
 
-if (!class_exists("OriginatingLeadSearchRow")) {
+if (!class_exists("OriginatingLeadSearchRow",false)){
 /**
  * OriginatingLeadSearchRow
  */
@@ -57300,19 +55572,13 @@ class OriginatingLeadSearchRow extends SearchRow {
 	 * @var OriginatingLeadSearchRowBasic
 	 */
 	public $basic;
-	/**
-	 * @access public
-	 * @var CustomSearchRowBasic[]
-	 */
-	public $customSearchJoin;
 
 	static $paramtypesmap = array(
 		"basic" => "OriginatingLeadSearchRowBasic",
-		"customSearchJoin" => "CustomSearchRowBasic[]",
 	);
 }}
 
-if (!class_exists("CustomerCurrency")) {
+if (!class_exists("CustomerCurrency",false)){
 /**
  * CustomerCurrency
  */
@@ -57394,7 +55660,7 @@ class CustomerCurrency {
 	);
 }}
 
-if (!class_exists("CustomerCurrencyList")) {
+if (!class_exists("CustomerCurrencyList",false)){
 /**
  * CustomerCurrencyList
  */
@@ -57416,7 +55682,7 @@ class CustomerCurrencyList {
 	);
 }}
 
-if (!class_exists("VendorCurrency")) {
+if (!class_exists("VendorCurrency",false)){
 /**
  * VendorCurrency
  */
@@ -57444,7 +55710,7 @@ class VendorCurrency {
 	);
 }}
 
-if (!class_exists("VendorCurrencyList")) {
+if (!class_exists("VendorCurrencyList",false)){
 /**
  * VendorCurrencyList
  */
@@ -57466,7 +55732,7 @@ class VendorCurrencyList {
 	);
 }}
 
-if (!class_exists("SupportCaseStatusStage")) {
+if (!class_exists("SupportCaseStatusStage",false)){
 /**
  * SupportCaseStatusStage
  */
@@ -57488,7 +55754,7 @@ class SupportCaseStatusStage {
 	const _open = "_open";
 }}
 
-if (!class_exists("SupportCaseStage")) {
+if (!class_exists("SupportCaseStage",false)){
 /**
  * SupportCaseStage
  */
@@ -57510,7 +55776,7 @@ class SupportCaseStage {
 	const _open = "_open";
 }}
 
-if (!class_exists("SolutionStatus")) {
+if (!class_exists("SolutionStatus",false)){
 /**
  * SolutionStatus
  */
@@ -57528,7 +55794,7 @@ class SolutionStatus {
 	const _unapproved = "_unapproved";
 }}
 
-if (!class_exists("IssueEventStatus")) {
+if (!class_exists("IssueEventStatus",false)){
 /**
  * IssueEventStatus
  */
@@ -57554,7 +55820,7 @@ class IssueEventStatus {
 	const _resolved = "_resolved";
 }}
 
-if (!class_exists("IssueTrackCode")) {
+if (!class_exists("IssueTrackCode",false)){
 /**
  * IssueTrackCode
  */
@@ -57588,61 +55854,7 @@ class IssueTrackCode {
 	const _whenBaseStatusIsResolved = "_whenBaseStatusIsResolved";
 }}
 
-if (!class_exists("IssueRelationship")) {
-/**
- * IssueRelationship
- */
-class IssueRelationship {
-
-	static $paramtypesmap = array(
-	);
-	/**
-	 * @var string
-	 */
-	const _blocks = "_blocks";
-	/**
-	 * @var string
-	 */
-	const _dependsOn = "_dependsOn";
-	/**
-	 * @var string
-	 */
-	const _duplicatedBy = "_duplicatedBy";
-	/**
-	 * @var string
-	 */
-	const _duplicates = "_duplicates";
-	/**
-	 * @var string
-	 */
-	const _followedUpBy = "_followedUpBy";
-	/**
-	 * @var string
-	 */
-	const _followUpFor = "_followUpFor";
-	/**
-	 * @var string
-	 */
-	const _injectedBy = "_injectedBy";
-	/**
-	 * @var string
-	 */
-	const _injects = "_injects";
-	/**
-	 * @var string
-	 */
-	const _isBlockedBy = "_isBlockedBy";
-	/**
-	 * @var string
-	 */
-	const _isRequiredFor = "_isRequiredFor";
-	/**
-	 * @var string
-	 */
-	const _relatedTo = "_relatedTo";
-}}
-
-if (!class_exists("SupportCase")) {
+if (!class_exists("SupportCase",false)){
 /**
  * SupportCase
  */
@@ -57904,7 +56116,7 @@ class SupportCase extends Record {
 	);
 }}
 
-if (!class_exists("EmailEmployeesList")) {
+if (!class_exists("EmailEmployeesList",false)){
 /**
  * EmailEmployeesList
  */
@@ -57920,7 +56132,7 @@ class EmailEmployeesList {
 	);
 }}
 
-if (!class_exists("SupportCaseEscalateTo")) {
+if (!class_exists("SupportCaseEscalateTo",false)){
 /**
  * SupportCaseEscalateTo
  */
@@ -57948,7 +56160,7 @@ class SupportCaseEscalateTo {
 	);
 }}
 
-if (!class_exists("SupportCaseEscalateToList")) {
+if (!class_exists("SupportCaseEscalateToList",false)){
 /**
  * SupportCaseEscalateToList
  */
@@ -57970,7 +56182,7 @@ class SupportCaseEscalateToList {
 	);
 }}
 
-if (!class_exists("SupportCaseSolutions")) {
+if (!class_exists("SupportCaseSolutions",false)){
 /**
  * SupportCaseSolutions
  */
@@ -57998,7 +56210,7 @@ class SupportCaseSolutions {
 	);
 }}
 
-if (!class_exists("SupportCaseSolutionsList")) {
+if (!class_exists("SupportCaseSolutionsList",false)){
 /**
  * SupportCaseSolutionsList
  */
@@ -58020,7 +56232,7 @@ class SupportCaseSolutionsList {
 	);
 }}
 
-if (!class_exists("SupportCaseTimeItemList")) {
+if (!class_exists("SupportCaseTimeItemList",false)){
 /**
  * SupportCaseTimeItemList
  */
@@ -58042,7 +56254,7 @@ class SupportCaseTimeItemList {
 	);
 }}
 
-if (!class_exists("SupportCaseSearch")) {
+if (!class_exists("SupportCaseSearch",false)){
 /**
  * SupportCaseSearch
  */
@@ -58102,11 +56314,6 @@ class SupportCaseSearch extends SearchRecord {
 	 * @var NoteSearchBasic
 	 */
 	public $userNotesJoin;
-	/**
-	 * @access public
-	 * @var CustomSearchJoin[]
-	 */
-	public $customSearchJoin;
 
 	static $paramtypesmap = array(
 		"basic" => "SupportCaseSearchBasic",
@@ -58120,11 +56327,10 @@ class SupportCaseSearch extends SearchRecord {
 		"timeJoin" => "TimeBillSearchBasic",
 		"userJoin" => "EmployeeSearchBasic",
 		"userNotesJoin" => "NoteSearchBasic",
-		"customSearchJoin" => "CustomSearchJoin[]",
 	);
 }}
 
-if (!class_exists("SupportCaseSearchAdvanced")) {
+if (!class_exists("SupportCaseSearchAdvanced",false)){
 /**
  * SupportCaseSearchAdvanced
  */
@@ -58158,7 +56364,7 @@ class SupportCaseSearchAdvanced extends SearchRecord {
 	);
 }}
 
-if (!class_exists("SupportCaseSearchRow")) {
+if (!class_exists("SupportCaseSearchRow",false)){
 /**
  * SupportCaseSearchRow
  */
@@ -58218,11 +56424,6 @@ class SupportCaseSearchRow extends SearchRow {
 	 * @var NoteSearchRowBasic
 	 */
 	public $userNotesJoin;
-	/**
-	 * @access public
-	 * @var CustomSearchRowBasic[]
-	 */
-	public $customSearchJoin;
 
 	static $paramtypesmap = array(
 		"basic" => "SupportCaseSearchRowBasic",
@@ -58236,11 +56437,10 @@ class SupportCaseSearchRow extends SearchRow {
 		"timeJoin" => "TimeBillSearchRowBasic",
 		"userJoin" => "EmployeeSearchRowBasic",
 		"userNotesJoin" => "NoteSearchRowBasic",
-		"customSearchJoin" => "CustomSearchRowBasic[]",
 	);
 }}
 
-if (!class_exists("SupportCaseStatus")) {
+if (!class_exists("SupportCaseStatus",false)){
 /**
  * SupportCaseStatus
  */
@@ -58304,7 +56504,7 @@ class SupportCaseStatus extends Record {
 	);
 }}
 
-if (!class_exists("SupportCaseType")) {
+if (!class_exists("SupportCaseType",false)){
 /**
  * SupportCaseType
  */
@@ -58350,7 +56550,7 @@ class SupportCaseType extends Record {
 	);
 }}
 
-if (!class_exists("SupportCaseOrigin")) {
+if (!class_exists("SupportCaseOrigin",false)){
 /**
  * SupportCaseOrigin
  */
@@ -58396,7 +56596,7 @@ class SupportCaseOrigin extends Record {
 	);
 }}
 
-if (!class_exists("SupportCaseIssue")) {
+if (!class_exists("SupportCaseIssue",false)){
 /**
  * SupportCaseIssue
  */
@@ -58442,7 +56642,7 @@ class SupportCaseIssue extends Record {
 	);
 }}
 
-if (!class_exists("SupportCasePriority")) {
+if (!class_exists("SupportCasePriority",false)){
 /**
  * SupportCasePriority
  */
@@ -58488,7 +56688,7 @@ class SupportCasePriority extends Record {
 	);
 }}
 
-if (!class_exists("Solution")) {
+if (!class_exists("Solution",false)){
 /**
  * Solution
  */
@@ -58594,7 +56794,7 @@ class Solution extends Record {
 	);
 }}
 
-if (!class_exists("SolutionTopics")) {
+if (!class_exists("SolutionTopics",false)){
 /**
  * SolutionTopics
  */
@@ -58610,7 +56810,7 @@ class SolutionTopics {
 	);
 }}
 
-if (!class_exists("SolutionTopicsList")) {
+if (!class_exists("SolutionTopicsList",false)){
 /**
  * SolutionTopicsList
  */
@@ -58632,7 +56832,7 @@ class SolutionTopicsList {
 	);
 }}
 
-if (!class_exists("Solutions")) {
+if (!class_exists("Solutions",false)){
 /**
  * Solutions
  */
@@ -58654,7 +56854,7 @@ class Solutions {
 	);
 }}
 
-if (!class_exists("SolutionsList")) {
+if (!class_exists("SolutionsList",false)){
 /**
  * SolutionsList
  */
@@ -58676,7 +56876,7 @@ class SolutionsList {
 	);
 }}
 
-if (!class_exists("SolutionSearch")) {
+if (!class_exists("SolutionSearch",false)){
 /**
  * SolutionSearch
  */
@@ -58711,11 +56911,6 @@ class SolutionSearch extends SearchRecord {
 	 * @var NoteSearchBasic
 	 */
 	public $userNotesJoin;
-	/**
-	 * @access public
-	 * @var CustomSearchJoin[]
-	 */
-	public $customSearchJoin;
 
 	static $paramtypesmap = array(
 		"basic" => "SolutionSearchBasic",
@@ -58724,11 +56919,10 @@ class SolutionSearch extends SearchRecord {
 		"topicJoin" => "TopicSearchBasic",
 		"userJoin" => "EmployeeSearchBasic",
 		"userNotesJoin" => "NoteSearchBasic",
-		"customSearchJoin" => "CustomSearchJoin[]",
 	);
 }}
 
-if (!class_exists("SolutionSearchAdvanced")) {
+if (!class_exists("SolutionSearchAdvanced",false)){
 /**
  * SolutionSearchAdvanced
  */
@@ -58762,7 +56956,7 @@ class SolutionSearchAdvanced extends SearchRecord {
 	);
 }}
 
-if (!class_exists("SolutionSearchRow")) {
+if (!class_exists("SolutionSearchRow",false)){
 /**
  * SolutionSearchRow
  */
@@ -58797,11 +56991,6 @@ class SolutionSearchRow extends SearchRow {
 	 * @var NoteSearchRowBasic
 	 */
 	public $userNotesJoin;
-	/**
-	 * @access public
-	 * @var CustomSearchRowBasic[]
-	 */
-	public $customSearchJoin;
 
 	static $paramtypesmap = array(
 		"basic" => "SolutionSearchRowBasic",
@@ -58810,11 +56999,10 @@ class SolutionSearchRow extends SearchRow {
 		"topicJoin" => "TopicSearchRowBasic",
 		"userJoin" => "EmployeeSearchRowBasic",
 		"userNotesJoin" => "NoteSearchRowBasic",
-		"customSearchJoin" => "CustomSearchRowBasic[]",
 	);
 }}
 
-if (!class_exists("Topic")) {
+if (!class_exists("Topic",false)){
 /**
  * Topic
  */
@@ -58872,7 +57060,7 @@ class Topic extends Record {
 	);
 }}
 
-if (!class_exists("TopicSolution")) {
+if (!class_exists("TopicSolution",false)){
 /**
  * TopicSolution
  */
@@ -58894,7 +57082,7 @@ class TopicSolution {
 	);
 }}
 
-if (!class_exists("TopicSolutionList")) {
+if (!class_exists("TopicSolutionList",false)){
 /**
  * TopicSolutionList
  */
@@ -58916,7 +57104,7 @@ class TopicSolutionList {
 	);
 }}
 
-if (!class_exists("TopicSearch")) {
+if (!class_exists("TopicSearch",false)){
 /**
  * TopicSearch
  */
@@ -58944,7 +57132,7 @@ class TopicSearch extends SearchRecord {
 	);
 }}
 
-if (!class_exists("TopicSearchAdvanced")) {
+if (!class_exists("TopicSearchAdvanced",false)){
 /**
  * TopicSearchAdvanced
  */
@@ -58978,7 +57166,7 @@ class TopicSearchAdvanced extends SearchRecord {
 	);
 }}
 
-if (!class_exists("TopicSearchRow")) {
+if (!class_exists("TopicSearchRow",false)){
 /**
  * TopicSearchRow
  */
@@ -59006,7 +57194,7 @@ class TopicSearchRow extends SearchRow {
 	);
 }}
 
-if (!class_exists("Issue")) {
+if (!class_exists("Issue",false)){
 /**
  * Issue
  */
@@ -59066,6 +57254,11 @@ class Issue extends Record {
 	 * @var RecordRef
 	 */
 	public $reproduce;
+	/**
+	 * @access public
+	 * @var RecordRef
+	 */
+	public $duplicateOf;
 	/**
 	 * @access public
 	 * @var RecordRef
@@ -59173,11 +57366,6 @@ class Issue extends Record {
 	public $fixedInVersionList;
 	/**
 	 * @access public
-	 * @var IssueRelatedIssuesList
-	 */
-	public $relatedIssuesList;
-	/**
-	 * @access public
 	 * @var CustomFieldList
 	 */
 	public $customFieldList;
@@ -59204,6 +57392,7 @@ class Issue extends Record {
 		"source" => "RecordRef",
 		"reportedBy" => "RecordRef",
 		"reproduce" => "RecordRef",
+		"duplicateOf" => "RecordRef",
 		"severity" => "RecordRef",
 		"priority" => "RecordRef",
 		"isShowStopper" => "boolean",
@@ -59225,14 +57414,13 @@ class Issue extends Record {
 		"brokenInVersionList" => "IssueVersionList",
 		"targetVersionList" => "IssueVersionList",
 		"fixedInVersionList" => "IssueVersionList",
-		"relatedIssuesList" => "IssueRelatedIssuesList",
 		"customFieldList" => "CustomFieldList",
 		"internalId" => "string",
 		"externalId" => "string",
 	);
 }}
 
-if (!class_exists("IssueVersion")) {
+if (!class_exists("IssueVersion",false)){
 /**
  * IssueVersion
  */
@@ -59260,7 +57448,7 @@ class IssueVersion {
 	);
 }}
 
-if (!class_exists("IssueVersionList")) {
+if (!class_exists("IssueVersionList",false)){
 /**
  * IssueVersionList
  */
@@ -59282,7 +57470,7 @@ class IssueVersionList {
 	);
 }}
 
-if (!class_exists("IssueSearch")) {
+if (!class_exists("IssueSearch",false)){
 /**
  * IssueSearch
  */
@@ -59317,11 +57505,6 @@ class IssueSearch extends SearchRecord {
 	 * @var NoteSearchBasic
 	 */
 	public $userNotesJoin;
-	/**
-	 * @access public
-	 * @var CustomSearchJoin[]
-	 */
-	public $customSearchJoin;
 
 	static $paramtypesmap = array(
 		"basic" => "IssueSearchBasic",
@@ -59330,11 +57513,10 @@ class IssueSearch extends SearchRecord {
 		"fileJoin" => "FileSearchBasic",
 		"userJoin" => "EmployeeSearchBasic",
 		"userNotesJoin" => "NoteSearchBasic",
-		"customSearchJoin" => "CustomSearchJoin[]",
 	);
 }}
 
-if (!class_exists("IssueSearchAdvanced")) {
+if (!class_exists("IssueSearchAdvanced",false)){
 /**
  * IssueSearchAdvanced
  */
@@ -59368,7 +57550,7 @@ class IssueSearchAdvanced extends SearchRecord {
 	);
 }}
 
-if (!class_exists("IssueSearchRow")) {
+if (!class_exists("IssueSearchRow",false)){
 /**
  * IssueSearchRow
  */
@@ -59403,11 +57585,6 @@ class IssueSearchRow extends SearchRow {
 	 * @var NoteSearchRowBasic
 	 */
 	public $userNotesJoin;
-	/**
-	 * @access public
-	 * @var CustomSearchRowBasic[]
-	 */
-	public $customSearchJoin;
 
 	static $paramtypesmap = array(
 		"basic" => "IssueSearchRowBasic",
@@ -59416,61 +57593,10 @@ class IssueSearchRow extends SearchRow {
 		"fileJoin" => "FileSearchRowBasic",
 		"userJoin" => "EmployeeSearchRowBasic",
 		"userNotesJoin" => "NoteSearchRowBasic",
-		"customSearchJoin" => "CustomSearchRowBasic[]",
 	);
 }}
 
-if (!class_exists("IssueRelatedIssues")) {
-/**
- * IssueRelatedIssues
- */
-class IssueRelatedIssues {
-	/**
-	 * @access public
-	 * @var IssueRelationship
-	 */
-	public $relationship;
-	/**
-	 * @access public
-	 * @var RecordRef
-	 */
-	public $issueNumber;
-	/**
-	 * @access public
-	 * @var string
-	 */
-	public $relationshipComment;
-
-	static $paramtypesmap = array(
-		"relationship" => "IssueRelationship",
-		"issueNumber" => "RecordRef",
-		"relationshipComment" => "string",
-	);
-}}
-
-if (!class_exists("IssueRelatedIssuesList")) {
-/**
- * IssueRelatedIssuesList
- */
-class IssueRelatedIssuesList {
-	/**
-	 * @access public
-	 * @var IssueRelatedIssues[]
-	 */
-	public $issueRelatedIssues;
-	/**
-	 * @access public
-	 * @var boolean
-	 */
-	public $replaceAll;
-
-	static $paramtypesmap = array(
-		"issueRelatedIssues" => "IssueRelatedIssues[]",
-		"replaceAll" => "boolean",
-	);
-}}
-
-if (!class_exists("CurrencyLocale")) {
+if (!class_exists("CurrencyLocale",false)){
 /**
  * CurrencyLocale
  */
@@ -60456,7 +58582,7 @@ class CurrencyLocale {
 	const _zambiaEnglish = "_zambiaEnglish";
 }}
 
-if (!class_exists("AccountType")) {
+if (!class_exists("AccountType",false)){
 /**
  * AccountType
  */
@@ -60542,7 +58668,7 @@ class AccountType {
 	const _unbilledReceivable = "_unbilledReceivable";
 }}
 
-if (!class_exists("ItemCostingMethod")) {
+if (!class_exists("ItemCostingMethod",false)){
 /**
  * ItemCostingMethod
  */
@@ -60576,7 +58702,7 @@ class ItemCostingMethod {
 	const _standard = "_standard";
 }}
 
-if (!class_exists("ItemProductFeed")) {
+if (!class_exists("ItemProductFeed",false)){
 /**
  * ItemProductFeed
  */
@@ -60606,7 +58732,7 @@ class ItemProductFeed {
 	const _yahooShopping = "_yahooShopping";
 }}
 
-if (!class_exists("ItemType")) {
+if (!class_exists("ItemType",false)){
 /**
  * ItemType
  */
@@ -60672,7 +58798,7 @@ class ItemType {
 	const _subtotal = "_subtotal";
 }}
 
-if (!class_exists("ItemWeightUnit")) {
+if (!class_exists("ItemWeightUnit",false)){
 /**
  * ItemWeightUnit
  */
@@ -60698,7 +58824,7 @@ class ItemWeightUnit {
 	const _oz = "_oz";
 }}
 
-if (!class_exists("ItemPreferenceCriterion")) {
+if (!class_exists("ItemPreferenceCriterion",false)){
 /**
  * ItemPreferenceCriterion
  */
@@ -60732,7 +58858,7 @@ class ItemPreferenceCriterion {
 	const _F = "_F";
 }}
 
-if (!class_exists("ItemOverallQuantityPricingType")) {
+if (!class_exists("ItemOverallQuantityPricingType",false)){
 /**
  * ItemOverallQuantityPricingType
  */
@@ -60758,7 +58884,7 @@ class ItemOverallQuantityPricingType {
 	const _byOverallScheduleQuantity = "_byOverallScheduleQuantity";
 }}
 
-if (!class_exists("ScheduleBCode")) {
+if (!class_exists("ScheduleBCode",false)){
 /**
  * ScheduleBCode
  */
@@ -60900,7 +59026,7 @@ class ScheduleBCode {
 	const _ton = "_ton";
 }}
 
-if (!class_exists("ItemSubType")) {
+if (!class_exists("ItemSubType",false)){
 /**
  * ItemSubType
  */
@@ -60922,7 +59048,7 @@ class ItemSubType {
 	const _forSale = "_forSale";
 }}
 
-if (!class_exists("CurrencyCurrencyPrecision")) {
+if (!class_exists("CurrencyCurrencyPrecision",false)){
 /**
  * CurrencyCurrencyPrecision
  */
@@ -60944,7 +59070,7 @@ class CurrencyCurrencyPrecision {
 	const _zero = "_zero";
 }}
 
-if (!class_exists("CurrencyFxRateUpdateTimezone")) {
+if (!class_exists("CurrencyFxRateUpdateTimezone",false)){
 /**
  * CurrencyFxRateUpdateTimezone
  */
@@ -60970,7 +59096,7 @@ class CurrencyFxRateUpdateTimezone {
 	const _europeParis = "_europeParis";
 }}
 
-if (!class_exists("SalesTaxItemAvailable")) {
+if (!class_exists("SalesTaxItemAvailable",false)){
 /**
  * SalesTaxItemAvailable
  */
@@ -60992,7 +59118,7 @@ class SalesTaxItemAvailable {
 	const _sale = "_sale";
 }}
 
-if (!class_exists("ItemEbayAuctionDuration")) {
+if (!class_exists("ItemEbayAuctionDuration",false)){
 /**
  * ItemEbayAuctionDuration
  */
@@ -61042,7 +59168,7 @@ class ItemEbayAuctionDuration {
 	const _goodUntilCancelled = "_goodUntilCancelled";
 }}
 
-if (!class_exists("ItemOutOfStockBehavior")) {
+if (!class_exists("ItemOutOfStockBehavior",false)){
 /**
  * ItemOutOfStockBehavior
  */
@@ -61072,7 +59198,7 @@ class ItemOutOfStockBehavior {
 	const _removeItemWhenOutOfStock = "_removeItemWhenOutOfStock";
 }}
 
-if (!class_exists("ItemEbayRelistingOption")) {
+if (!class_exists("ItemEbayRelistingOption",false)){
 /**
  * ItemEbayRelistingOption
  */
@@ -61098,7 +59224,7 @@ class ItemEbayRelistingOption {
 	const _relistWhenItemIsSoldExpires = "_relistWhenItemIsSoldExpires";
 }}
 
-if (!class_exists("ConsolidatedRate")) {
+if (!class_exists("ConsolidatedRate",false)){
 /**
  * ConsolidatedRate
  */
@@ -61120,7 +59246,7 @@ class ConsolidatedRate {
 	const _historical = "_historical";
 }}
 
-if (!class_exists("CashFlowRateType")) {
+if (!class_exists("CashFlowRateType",false)){
 /**
  * CashFlowRateType
  */
@@ -61142,7 +59268,7 @@ class CashFlowRateType {
 	const _historical = "_historical";
 }}
 
-if (!class_exists("GeneralRateType")) {
+if (!class_exists("GeneralRateType",false)){
 /**
  * GeneralRateType
  */
@@ -61164,7 +59290,7 @@ class GeneralRateType {
 	const _historical = "_historical";
 }}
 
-if (!class_exists("ItemMatrixType")) {
+if (!class_exists("ItemMatrixType",false)){
 /**
  * ItemMatrixType
  */
@@ -61182,7 +59308,7 @@ class ItemMatrixType {
 	const _child = "_child";
 }}
 
-if (!class_exists("ItemDemandSource")) {
+if (!class_exists("ItemDemandSource",false)){
 /**
  * ItemDemandSource
  */
@@ -61208,7 +59334,7 @@ class ItemDemandSource {
 	const _forecastFromDemandPlan = "_forecastFromDemandPlan";
 }}
 
-if (!class_exists("ItemSupplyLotSizingMethod")) {
+if (!class_exists("ItemSupplyLotSizingMethod",false)){
 /**
  * ItemSupplyLotSizingMethod
  */
@@ -61230,7 +59356,7 @@ class ItemSupplyLotSizingMethod {
 	const _periodsOfSupply = "_periodsOfSupply";
 }}
 
-if (!class_exists("ItemSupplyType")) {
+if (!class_exists("ItemSupplyType",false)){
 /**
  * ItemSupplyType
  */
@@ -61248,7 +59374,7 @@ class ItemSupplyType {
 	const _purchase = "_purchase";
 }}
 
-if (!class_exists("ItemSupplyReplenishmentMethod")) {
+if (!class_exists("ItemSupplyReplenishmentMethod",false)){
 /**
  * ItemSupplyReplenishmentMethod
  */
@@ -61266,7 +59392,7 @@ class ItemSupplyReplenishmentMethod {
 	const _timePhased = "_timePhased";
 }}
 
-if (!class_exists("RevRecScheduleRecogIntervalSrc")) {
+if (!class_exists("RevRecScheduleRecogIntervalSrc",false)){
 /**
  * RevRecScheduleRecogIntervalSrc
  */
@@ -61292,7 +59418,7 @@ class RevRecScheduleRecogIntervalSrc {
 	const _revRecDatesSpecifiedOnSalesOrder = "_revRecDatesSpecifiedOnSalesOrder";
 }}
 
-if (!class_exists("RevRecScheduleRecurrenceType")) {
+if (!class_exists("RevRecScheduleRecurrenceType",false)){
 /**
  * RevRecScheduleRecurrenceType
  */
@@ -61322,7 +59448,7 @@ class RevRecScheduleRecurrenceType {
 	const _straightLineUsingExactDays = "_straightLineUsingExactDays";
 }}
 
-if (!class_exists("RevRecScheduleAmortizationType")) {
+if (!class_exists("RevRecScheduleAmortizationType",false)){
 /**
  * RevRecScheduleAmortizationType
  */
@@ -61340,7 +59466,7 @@ class RevRecScheduleAmortizationType {
 	const _variable = "_variable";
 }}
 
-if (!class_exists("CostCategoryItemCostType")) {
+if (!class_exists("CostCategoryItemCostType",false)){
 /**
  * CostCategoryItemCostType
  */
@@ -61394,7 +59520,7 @@ class CostCategoryItemCostType {
 	const _machineSetupOverhead = "_machineSetupOverhead";
 }}
 
-if (!class_exists("ItemAtpMethod")) {
+if (!class_exists("ItemAtpMethod",false)){
 /**
  * ItemAtpMethod
  */
@@ -61412,7 +59538,7 @@ class ItemAtpMethod {
 	const _discreteAtp = "_discreteAtp";
 }}
 
-if (!class_exists("AssemblyItemEffectiveBomControl")) {
+if (!class_exists("AssemblyItemEffectiveBomControl",false)){
 /**
  * AssemblyItemEffectiveBomControl
  */
@@ -61430,7 +59556,7 @@ class AssemblyItemEffectiveBomControl {
 	const _revisionControl = "_revisionControl";
 }}
 
-if (!class_exists("ItemInvtClassification")) {
+if (!class_exists("ItemInvtClassification",false)){
 /**
  * ItemInvtClassification
  */
@@ -61452,7 +59578,7 @@ class ItemInvtClassification {
 	const _c = "_c";
 }}
 
-if (!class_exists("PeriodicLotSizeType")) {
+if (!class_exists("PeriodicLotSizeType",false)){
 /**
  * PeriodicLotSizeType
  */
@@ -61474,7 +59600,7 @@ class PeriodicLotSizeType {
 	const _weekly = "_weekly";
 }}
 
-if (!class_exists("HazmatPackingGroup")) {
+if (!class_exists("HazmatPackingGroup",false)){
 /**
  * HazmatPackingGroup
  */
@@ -61496,7 +59622,7 @@ class HazmatPackingGroup {
 	const _iii = "_iii";
 }}
 
-if (!class_exists("ItemCarrier")) {
+if (!class_exists("ItemCarrier",false)){
 /**
  * ItemCarrier
  */
@@ -61514,73 +59640,7 @@ class ItemCarrier {
 	const _ups = "_ups";
 }}
 
-if (!class_exists("TaxAcctType")) {
-/**
- * TaxAcctType
- */
-class TaxAcctType {
-
-	static $paramtypesmap = array(
-	);
-	/**
-	 * @var string
-	 */
-	const _sale = "_sale";
-	/**
-	 * @var string
-	 */
-	const _purchase = "_purchase";
-}}
-
-if (!class_exists("ItemOverheadType")) {
-/**
- * ItemOverheadType
- */
-class ItemOverheadType {
-
-	static $paramtypesmap = array(
-	);
-	/**
-	 * @var string
-	 */
-	const _amountBaseUnit = "_amountBaseUnit";
-	/**
-	 * @var string
-	 */
-	const _percentOfMaterial = "_percentOfMaterial";
-	/**
-	 * @var string
-	 */
-	const _percentOfTotal = "_percentOfTotal";
-}}
-
-if (!class_exists("ItemCostAccountingStatus")) {
-/**
- * ItemCostAccountingStatus
- */
-class ItemCostAccountingStatus {
-
-	static $paramtypesmap = array(
-	);
-	/**
-	 * @var string
-	 */
-	const _complete = "_complete";
-	/**
-	 * @var string
-	 */
-	const _failed = "_failed";
-	/**
-	 * @var string
-	 */
-	const _pending = "_pending";
-	/**
-	 * @var string
-	 */
-	const _processing = "_processing";
-}}
-
-if (!class_exists("ClassTranslation")) {
+if (!class_exists("ClassTranslation",false)){
 /**
  * ClassTranslation
  */
@@ -61608,7 +59668,7 @@ class ClassTranslation {
 	);
 }}
 
-if (!class_exists("ClassTranslationList")) {
+if (!class_exists("ClassTranslationList",false)){
 /**
  * ClassTranslationList
  */
@@ -61630,7 +59690,7 @@ class ClassTranslationList {
 	);
 }}
 
-if (!class_exists("ContactCategory")) {
+if (!class_exists("ContactCategory",false)){
 /**
  * ContactCategory
  */
@@ -61676,7 +59736,7 @@ class ContactCategory extends Record {
 	);
 }}
 
-if (!class_exists("CustomerCategory")) {
+if (!class_exists("CustomerCategory",false)){
 /**
  * CustomerCategory
  */
@@ -61710,7 +59770,7 @@ class CustomerCategory extends Record {
 	);
 }}
 
-if (!class_exists("SalesRole")) {
+if (!class_exists("SalesRole",false)){
 /**
  * SalesRole
  */
@@ -61756,7 +59816,7 @@ class SalesRole extends Record {
 	);
 }}
 
-if (!class_exists("PriceLevel")) {
+if (!class_exists("PriceLevel",false)){
 /**
  * PriceLevel
  */
@@ -61808,7 +59868,7 @@ class PriceLevel extends Record {
 	);
 }}
 
-if (!class_exists("WinLossReason")) {
+if (!class_exists("WinLossReason",false)){
 /**
  * WinLossReason
  */
@@ -61842,7 +59902,7 @@ class WinLossReason extends Record {
 	);
 }}
 
-if (!class_exists("Term")) {
+if (!class_exists("Term",false)){
 /**
  * Term
  */
@@ -61930,7 +59990,7 @@ class Term extends Record {
 	);
 }}
 
-if (!class_exists("NoteType")) {
+if (!class_exists("NoteType",false)){
 /**
  * NoteType
  */
@@ -61970,7 +60030,7 @@ class NoteType extends Record {
 	);
 }}
 
-if (!class_exists("PaymentMethod")) {
+if (!class_exists("PaymentMethod",false)){
 /**
  * PaymentMethod
  */
@@ -62058,7 +60118,7 @@ class PaymentMethod extends Record {
 	);
 }}
 
-if (!class_exists("LeadSource")) {
+if (!class_exists("LeadSource",false)){
 /**
  * LeadSource
  */
@@ -62098,7 +60158,7 @@ class LeadSource extends Record {
 	);
 }}
 
-if (!class_exists("Price")) {
+if (!class_exists("Price",false)){
 /**
  * Price
  */
@@ -62120,7 +60180,7 @@ class Price {
 	);
 }}
 
-if (!class_exists("PriceList")) {
+if (!class_exists("PriceList",false)){
 /**
  * PriceList
  */
@@ -62136,7 +60196,7 @@ class PriceList {
 	);
 }}
 
-if (!class_exists("Pricing")) {
+if (!class_exists("Pricing",false)){
 /**
  * Pricing
  */
@@ -62170,7 +60230,7 @@ class Pricing {
 	);
 }}
 
-if (!class_exists("PricingMatrix")) {
+if (!class_exists("PricingMatrix",false)){
 /**
  * PricingMatrix
  */
@@ -62192,7 +60252,7 @@ class PricingMatrix {
 	);
 }}
 
-if (!class_exists("Rate")) {
+if (!class_exists("Rate",false)){
 /**
  * Rate
  */
@@ -62214,7 +60274,7 @@ class Rate {
 	);
 }}
 
-if (!class_exists("RateList")) {
+if (!class_exists("RateList",false)){
 /**
  * RateList
  */
@@ -62230,7 +60290,7 @@ class RateList {
 	);
 }}
 
-if (!class_exists("BillingRates")) {
+if (!class_exists("BillingRates",false)){
 /**
  * BillingRates
  */
@@ -62258,7 +60318,7 @@ class BillingRates {
 	);
 }}
 
-if (!class_exists("BillingRatesMatrix")) {
+if (!class_exists("BillingRatesMatrix",false)){
 /**
  * BillingRatesMatrix
  */
@@ -62280,7 +60340,7 @@ class BillingRatesMatrix {
 	);
 }}
 
-if (!class_exists("Translation")) {
+if (!class_exists("Translation",false)){
 /**
  * Translation
  */
@@ -62368,7 +60428,7 @@ class Translation {
 	);
 }}
 
-if (!class_exists("TranslationList")) {
+if (!class_exists("TranslationList",false)){
 /**
  * TranslationList
  */
@@ -62390,7 +60450,7 @@ class TranslationList {
 	);
 }}
 
-if (!class_exists("ItemOptionsList")) {
+if (!class_exists("ItemOptionsList",false)){
 /**
  * ItemOptionsList
  */
@@ -62406,7 +60466,7 @@ class ItemOptionsList {
 	);
 }}
 
-if (!class_exists("ItemVendor")) {
+if (!class_exists("ItemVendor",false)){
 /**
  * ItemVendor
  */
@@ -62464,7 +60524,7 @@ class ItemVendor {
 	);
 }}
 
-if (!class_exists("ItemVendorList")) {
+if (!class_exists("ItemVendorList",false)){
 /**
  * ItemVendorList
  */
@@ -62486,7 +60546,7 @@ class ItemVendorList {
 	);
 }}
 
-if (!class_exists("SiteCategory")) {
+if (!class_exists("SiteCategory",false)){
 /**
  * SiteCategory
  */
@@ -62634,7 +60694,7 @@ class SiteCategory extends Record {
 	);
 }}
 
-if (!class_exists("SiteCategoryList")) {
+if (!class_exists("SiteCategoryList",false)){
 /**
  * SiteCategoryList
  */
@@ -62656,7 +60716,7 @@ class SiteCategoryList {
 	);
 }}
 
-if (!class_exists("ProductFeedList")) {
+if (!class_exists("ProductFeedList",false)){
 /**
  * ProductFeedList
  */
@@ -62672,7 +60732,7 @@ class ProductFeedList {
 	);
 }}
 
-if (!class_exists("ItemMember")) {
+if (!class_exists("ItemMember",false)){
 /**
  * ItemMember
  */
@@ -62682,16 +60742,6 @@ class ItemMember {
 	 * @var string
 	 */
 	public $memberDescr;
-	/**
-	 * @access public
-	 * @var float
-	 */
-	public $componentYield;
-	/**
-	 * @access public
-	 * @var float
-	 */
-	public $bomQuantity;
 	/**
 	 * @access public
 	 * @var float
@@ -62765,8 +60815,6 @@ class ItemMember {
 
 	static $paramtypesmap = array(
 		"memberDescr" => "string",
-		"componentYield" => "float",
-		"bomQuantity" => "float",
 		"quantity" => "float",
 		"memberUnit" => "string",
 		"vsoeDeferral" => "VsoeDeferral",
@@ -62784,7 +60832,7 @@ class ItemMember {
 	);
 }}
 
-if (!class_exists("ItemMemberList")) {
+if (!class_exists("ItemMemberList",false)){
 /**
  * ItemMemberList
  */
@@ -62806,7 +60854,7 @@ class ItemMemberList {
 	);
 }}
 
-if (!class_exists("InventoryItem")) {
+if (!class_exists("InventoryItem",false)){
 /**
  * InventoryItem
  */
@@ -63066,11 +61114,6 @@ class InventoryItem extends Record {
 	 * @var Country
 	 */
 	public $countryOfManufacture;
-	/**
-	 * @access public
-	 * @var boolean
-	 */
-	public $roundUpAsComponent;
 	/**
 	 * @access public
 	 * @var RecordRef
@@ -63854,7 +61897,6 @@ class InventoryItem extends Record {
 		"manufacturerState" => "string",
 		"manufacturerZip" => "string",
 		"countryOfManufacture" => "Country",
-		"roundUpAsComponent" => "boolean",
 		"defaultItemShipMethod" => "RecordRef",
 		"itemCarrier" => "ItemCarrier",
 		"itemShipMethodList" => "RecordRefList",
@@ -64004,7 +62046,7 @@ class InventoryItem extends Record {
 	);
 }}
 
-if (!class_exists("MatrixOptionList")) {
+if (!class_exists("MatrixOptionList",false)){
 /**
  * MatrixOptionList
  */
@@ -64020,7 +62062,7 @@ class MatrixOptionList {
 	);
 }}
 
-if (!class_exists("InventoryItemBinNumber")) {
+if (!class_exists("InventoryItemBinNumber",false)){
 /**
  * InventoryItemBinNumber
  */
@@ -64060,7 +62102,7 @@ class InventoryItemBinNumber {
 	);
 }}
 
-if (!class_exists("InventoryItemBinNumberList")) {
+if (!class_exists("InventoryItemBinNumberList",false)){
 /**
  * InventoryItemBinNumberList
  */
@@ -64082,7 +62124,7 @@ class InventoryItemBinNumberList {
 	);
 }}
 
-if (!class_exists("InventoryItemLocations")) {
+if (!class_exists("InventoryItemLocations",false)){
 /**
  * InventoryItemLocations
  */
@@ -64144,11 +62186,6 @@ class InventoryItemLocations {
 	public $cost;
 	/**
 	 * @access public
-	 * @var RecordRef
-	 */
-	public $inventoryCostTemplate;
-	/**
-	 * @access public
 	 * @var float
 	 */
 	public $buildTime;
@@ -64177,11 +62214,6 @@ class InventoryItemLocations {
 	 * @var ItemInvtClassification
 	 */
 	public $invtClassification;
-	/**
-	 * @access public
-	 * @var float
-	 */
-	public $costingLotSize;
 	/**
 	 * @access public
 	 * @var float
@@ -64270,14 +62302,12 @@ class InventoryItemLocations {
 		"defaultReturnCost" => "float",
 		"safetyStockLevel" => "float",
 		"cost" => "float",
-		"inventoryCostTemplate" => "RecordRef",
 		"buildTime" => "float",
 		"lastInvtCountDate" => "dateTime",
 		"nextInvtCountDate" => "dateTime",
 		"isWip" => "boolean",
 		"invtCountInterval" => "integer",
 		"invtClassification" => "ItemInvtClassification",
-		"costingLotSize" => "float",
 		"quantityOnOrder" => "float",
 		"quantityCommitted" => "float",
 		"quantityAvailable" => "float",
@@ -64296,7 +62326,7 @@ class InventoryItemLocations {
 	);
 }}
 
-if (!class_exists("InventoryItemLocationsList")) {
+if (!class_exists("InventoryItemLocationsList",false)){
 /**
  * InventoryItemLocationsList
  */
@@ -64318,7 +62348,7 @@ class InventoryItemLocationsList {
 	);
 }}
 
-if (!class_exists("PresentationItemList")) {
+if (!class_exists("PresentationItemList",false)){
 /**
  * PresentationItemList
  */
@@ -64340,7 +62370,7 @@ class PresentationItemList {
 	);
 }}
 
-if (!class_exists("DescriptionItem")) {
+if (!class_exists("DescriptionItem",false)){
 /**
  * DescriptionItem
  */
@@ -64452,7 +62482,7 @@ class DescriptionItem extends Record {
 	);
 }}
 
-if (!class_exists("DiscountItem")) {
+if (!class_exists("DiscountItem",false)){
 /**
  * DiscountItem
  */
@@ -64648,7 +62678,7 @@ class DiscountItem extends Record {
 	);
 }}
 
-if (!class_exists("DownloadItem")) {
+if (!class_exists("DownloadItem",false)){
 /**
  * DownloadItem
  */
@@ -65066,7 +63096,7 @@ class DownloadItem extends Record {
 	);
 }}
 
-if (!class_exists("MarkupItem")) {
+if (!class_exists("MarkupItem",false)){
 /**
  * MarkupItem
  */
@@ -65262,7 +63292,7 @@ class MarkupItem extends Record {
 	);
 }}
 
-if (!class_exists("PaymentItem")) {
+if (!class_exists("PaymentItem",false)){
 /**
  * PaymentItem
  */
@@ -65398,7 +63428,7 @@ class PaymentItem extends Record {
 	);
 }}
 
-if (!class_exists("SubtotalItem")) {
+if (!class_exists("SubtotalItem",false)){
 /**
  * SubtotalItem
  */
@@ -65516,7 +63546,7 @@ class SubtotalItem extends Record {
 	);
 }}
 
-if (!class_exists("NonInventoryPurchaseItem")) {
+if (!class_exists("NonInventoryPurchaseItem",false)){
 /**
  * NonInventoryPurchaseItem
  */
@@ -65778,7 +63808,7 @@ class NonInventoryPurchaseItem extends Record {
 	);
 }}
 
-if (!class_exists("NonInventorySaleItem")) {
+if (!class_exists("NonInventorySaleItem",false)){
 /**
  * NonInventorySaleItem
  */
@@ -66514,7 +64544,7 @@ class NonInventorySaleItem extends Record {
 	);
 }}
 
-if (!class_exists("NonInventoryResaleItem")) {
+if (!class_exists("NonInventoryResaleItem",false)){
 /**
  * NonInventoryResaleItem
  */
@@ -67352,7 +65382,7 @@ class NonInventoryResaleItem extends Record {
 	);
 }}
 
-if (!class_exists("OtherChargeResaleItem")) {
+if (!class_exists("OtherChargeResaleItem",false)){
 /**
  * OtherChargeResaleItem
  */
@@ -67788,7 +65818,7 @@ class OtherChargeResaleItem extends Record {
 	);
 }}
 
-if (!class_exists("OtherChargePurchaseItem")) {
+if (!class_exists("OtherChargePurchaseItem",false)){
 /**
  * OtherChargePurchaseItem
  */
@@ -67955,11 +65985,6 @@ class OtherChargePurchaseItem extends Record {
 	public $costCategory;
 	/**
 	 * @access public
-	 * @var ItemOverheadType
-	 */
-	public $overheadType;
-	/**
-	 * @access public
 	 * @var string
 	 */
 	public $currency;
@@ -68047,7 +66072,6 @@ class OtherChargePurchaseItem extends Record {
 		"amortizationPeriod" => "integer",
 		"isFulfillable" => "boolean",
 		"costCategory" => "RecordRef",
-		"overheadType" => "ItemOverheadType",
 		"currency" => "string",
 		"itemOptionsList" => "ItemOptionsList",
 		"matrixOptionList" => "MatrixOptionList",
@@ -68062,7 +66086,7 @@ class OtherChargePurchaseItem extends Record {
 	);
 }}
 
-if (!class_exists("ServiceResaleItem")) {
+if (!class_exists("ServiceResaleItem",false)){
 /**
  * ServiceResaleItem
  */
@@ -68666,7 +66690,7 @@ class ServiceResaleItem extends Record {
 	);
 }}
 
-if (!class_exists("ServicePurchaseItem")) {
+if (!class_exists("ServicePurchaseItem",false)){
 /**
  * ServicePurchaseItem
  */
@@ -68934,7 +66958,7 @@ class ServicePurchaseItem extends Record {
 	);
 }}
 
-if (!class_exists("ServiceSaleItem")) {
+if (!class_exists("ServiceSaleItem",false)){
 /**
  * ServiceSaleItem
  */
@@ -69454,7 +67478,7 @@ class ServiceSaleItem extends Record {
 	);
 }}
 
-if (!class_exists("OtherChargeSaleItem")) {
+if (!class_exists("OtherChargeSaleItem",false)){
 /**
  * OtherChargeSaleItem
  */
@@ -69806,7 +67830,7 @@ class OtherChargeSaleItem extends Record {
 	);
 }}
 
-if (!class_exists("Currency")) {
+if (!class_exists("Currency",false)){
 /**
  * Currency
  */
@@ -69906,7 +67930,7 @@ class Currency extends Record {
 	);
 }}
 
-if (!class_exists("ExpenseCategory")) {
+if (!class_exists("ExpenseCategory",false)){
 /**
  * ExpenseCategory
  */
@@ -69938,21 +67962,6 @@ class ExpenseCategory extends Record {
 	public $isInactive;
 	/**
 	 * @access public
-	 * @var boolean
-	 */
-	public $rateRequired;
-	/**
-	 * @access public
-	 * @var float
-	 */
-	public $defaultRate;
-	/**
-	 * @access public
-	 * @var ExpenseCategoryRatesList
-	 */
-	public $ratesList;
-	/**
-	 * @access public
 	 * @var TranslationList
 	 */
 	public $translationsList;
@@ -69978,9 +67987,6 @@ class ExpenseCategory extends Record {
 		"description" => "string",
 		"expenseAcct" => "RecordRef",
 		"isInactive" => "boolean",
-		"rateRequired" => "boolean",
-		"defaultRate" => "float",
-		"ratesList" => "ExpenseCategoryRatesList",
 		"translationsList" => "TranslationList",
 		"customFieldList" => "CustomFieldList",
 		"internalId" => "string",
@@ -69988,7 +67994,7 @@ class ExpenseCategory extends Record {
 	);
 }}
 
-if (!class_exists("Account")) {
+if (!class_exists("Account",false)){
 /**
  * Account
  */
@@ -70166,7 +68172,7 @@ class Account extends Record {
 	);
 }}
 
-if (!class_exists("AccountTranslationList")) {
+if (!class_exists("AccountTranslationList",false)){
 /**
  * AccountTranslationList
  */
@@ -70188,7 +68194,7 @@ class AccountTranslationList {
 	);
 }}
 
-if (!class_exists("AccountSearch")) {
+if (!class_exists("AccountSearch",false)){
 /**
  * AccountSearch
  */
@@ -70203,20 +68209,14 @@ class AccountSearch extends SearchRecord {
 	 * @var EmployeeSearchBasic
 	 */
 	public $userJoin;
-	/**
-	 * @access public
-	 * @var CustomSearchJoin[]
-	 */
-	public $customSearchJoin;
 
 	static $paramtypesmap = array(
 		"basic" => "AccountSearchBasic",
 		"userJoin" => "EmployeeSearchBasic",
-		"customSearchJoin" => "CustomSearchJoin[]",
 	);
 }}
 
-if (!class_exists("AccountSearchAdvanced")) {
+if (!class_exists("AccountSearchAdvanced",false)){
 /**
  * AccountSearchAdvanced
  */
@@ -70250,7 +68250,7 @@ class AccountSearchAdvanced extends SearchRecord {
 	);
 }}
 
-if (!class_exists("AccountSearchRow")) {
+if (!class_exists("AccountSearchRow",false)){
 /**
  * AccountSearchRow
  */
@@ -70265,20 +68265,14 @@ class AccountSearchRow extends SearchRow {
 	 * @var EmployeeSearchRowBasic
 	 */
 	public $userJoin;
-	/**
-	 * @access public
-	 * @var CustomSearchRowBasic[]
-	 */
-	public $customSearchJoin;
 
 	static $paramtypesmap = array(
 		"basic" => "AccountSearchRowBasic",
 		"userJoin" => "EmployeeSearchRowBasic",
-		"customSearchJoin" => "CustomSearchRowBasic[]",
 	);
 }}
 
-if (!class_exists("Department")) {
+if (!class_exists("Department",false)){
 /**
  * Department
  */
@@ -70342,7 +68336,7 @@ class Department extends Record {
 	);
 }}
 
-if (!class_exists("DepartmentSearch")) {
+if (!class_exists("DepartmentSearch",false)){
 /**
  * DepartmentSearch
  */
@@ -70357,20 +68351,14 @@ class DepartmentSearch extends SearchRecord {
 	 * @var EmployeeSearchBasic
 	 */
 	public $userJoin;
-	/**
-	 * @access public
-	 * @var CustomSearchJoin[]
-	 */
-	public $customSearchJoin;
 
 	static $paramtypesmap = array(
 		"basic" => "DepartmentSearchBasic",
 		"userJoin" => "EmployeeSearchBasic",
-		"customSearchJoin" => "CustomSearchJoin[]",
 	);
 }}
 
-if (!class_exists("DepartmentSearchAdvanced")) {
+if (!class_exists("DepartmentSearchAdvanced",false)){
 /**
  * DepartmentSearchAdvanced
  */
@@ -70404,7 +68392,7 @@ class DepartmentSearchAdvanced extends SearchRecord {
 	);
 }}
 
-if (!class_exists("DepartmentSearchRow")) {
+if (!class_exists("DepartmentSearchRow",false)){
 /**
  * DepartmentSearchRow
  */
@@ -70419,20 +68407,14 @@ class DepartmentSearchRow extends SearchRow {
 	 * @var EmployeeSearchRowBasic
 	 */
 	public $userJoin;
-	/**
-	 * @access public
-	 * @var CustomSearchRowBasic[]
-	 */
-	public $customSearchJoin;
 
 	static $paramtypesmap = array(
 		"basic" => "DepartmentSearchRowBasic",
 		"userJoin" => "EmployeeSearchRowBasic",
-		"customSearchJoin" => "CustomSearchRowBasic[]",
 	);
 }}
 
-if (!class_exists("Classification")) {
+if (!class_exists("Classification",false)){
 /**
  * Classification
  */
@@ -70496,7 +68478,7 @@ class Classification extends Record {
 	);
 }}
 
-if (!class_exists("ClassificationSearch")) {
+if (!class_exists("ClassificationSearch",false)){
 /**
  * ClassificationSearch
  */
@@ -70511,20 +68493,14 @@ class ClassificationSearch extends SearchRecord {
 	 * @var EmployeeSearchBasic
 	 */
 	public $userJoin;
-	/**
-	 * @access public
-	 * @var CustomSearchJoin[]
-	 */
-	public $customSearchJoin;
 
 	static $paramtypesmap = array(
 		"basic" => "ClassificationSearchBasic",
 		"userJoin" => "EmployeeSearchBasic",
-		"customSearchJoin" => "CustomSearchJoin[]",
 	);
 }}
 
-if (!class_exists("ClassificationSearchAdvanced")) {
+if (!class_exists("ClassificationSearchAdvanced",false)){
 /**
  * ClassificationSearchAdvanced
  */
@@ -70558,7 +68534,7 @@ class ClassificationSearchAdvanced extends SearchRecord {
 	);
 }}
 
-if (!class_exists("ClassificationSearchRow")) {
+if (!class_exists("ClassificationSearchRow",false)){
 /**
  * ClassificationSearchRow
  */
@@ -70573,20 +68549,14 @@ class ClassificationSearchRow extends SearchRow {
 	 * @var EmployeeSearchRowBasic
 	 */
 	public $userJoin;
-	/**
-	 * @access public
-	 * @var CustomSearchRowBasic[]
-	 */
-	public $customSearchJoin;
 
 	static $paramtypesmap = array(
 		"basic" => "ClassificationSearchRowBasic",
 		"userJoin" => "EmployeeSearchRowBasic",
-		"customSearchJoin" => "CustomSearchRowBasic[]",
 	);
 }}
 
-if (!class_exists("Location")) {
+if (!class_exists("Location",false)){
 /**
  * Location
  */
@@ -70746,7 +68716,7 @@ class Location extends Record {
 	);
 }}
 
-if (!class_exists("LocationSearch")) {
+if (!class_exists("LocationSearch",false)){
 /**
  * LocationSearch
  */
@@ -70761,20 +68731,14 @@ class LocationSearch extends SearchRecord {
 	 * @var EmployeeSearchBasic
 	 */
 	public $userJoin;
-	/**
-	 * @access public
-	 * @var CustomSearchJoin[]
-	 */
-	public $customSearchJoin;
 
 	static $paramtypesmap = array(
 		"basic" => "LocationSearchBasic",
 		"userJoin" => "EmployeeSearchBasic",
-		"customSearchJoin" => "CustomSearchJoin[]",
 	);
 }}
 
-if (!class_exists("LocationSearchAdvanced")) {
+if (!class_exists("LocationSearchAdvanced",false)){
 /**
  * LocationSearchAdvanced
  */
@@ -70808,7 +68772,7 @@ class LocationSearchAdvanced extends SearchRecord {
 	);
 }}
 
-if (!class_exists("LocationSearchRow")) {
+if (!class_exists("LocationSearchRow",false)){
 /**
  * LocationSearchRow
  */
@@ -70823,20 +68787,14 @@ class LocationSearchRow extends SearchRow {
 	 * @var EmployeeSearchRowBasic
 	 */
 	public $userJoin;
-	/**
-	 * @access public
-	 * @var CustomSearchRowBasic[]
-	 */
-	public $customSearchJoin;
 
 	static $paramtypesmap = array(
 		"basic" => "LocationSearchRowBasic",
 		"userJoin" => "EmployeeSearchRowBasic",
-		"customSearchJoin" => "CustomSearchRowBasic[]",
 	);
 }}
 
-if (!class_exists("UnitsType")) {
+if (!class_exists("UnitsType",false)){
 /**
  * UnitsType
  */
@@ -70876,7 +68834,7 @@ class UnitsType extends Record {
 	);
 }}
 
-if (!class_exists("UnitsTypeUom")) {
+if (!class_exists("UnitsTypeUom",false)){
 /**
  * UnitsTypeUom
  */
@@ -70928,7 +68886,7 @@ class UnitsTypeUom {
 	);
 }}
 
-if (!class_exists("UnitsTypeUomList")) {
+if (!class_exists("UnitsTypeUomList",false)){
 /**
  * UnitsTypeUomList
  */
@@ -70950,7 +68908,7 @@ class UnitsTypeUomList {
 	);
 }}
 
-if (!class_exists("ItemSearch")) {
+if (!class_exists("ItemSearch",false)){
 /**
  * ItemSearch
  */
@@ -70965,11 +68923,6 @@ class ItemSearch extends SearchRecord {
 	 * @var BinSearchBasic
 	 */
 	public $binNumberJoin;
-	/**
-	 * @access public
-	 * @var ItemBinNumberSearchBasic
-	 */
-	public $binOnHandJoin;
 	/**
 	 * @access public
 	 * @var ItemSearchBasic
@@ -71000,11 +68953,6 @@ class ItemSearch extends SearchRecord {
 	 * @var InventoryNumberSearchBasic
 	 */
 	public $inventoryNumberJoin;
-	/**
-	 * @access public
-	 * @var InventoryNumberBinSearchBasic
-	 */
-	public $inventoryNumberBinOnHandJoin;
 	/**
 	 * @access public
 	 * @var ItemSearchBasic
@@ -71055,23 +69003,16 @@ class ItemSearch extends SearchRecord {
 	 * @var VendorSearchBasic
 	 */
 	public $vendorJoin;
-	/**
-	 * @access public
-	 * @var CustomSearchJoin[]
-	 */
-	public $customSearchJoin;
 
 	static $paramtypesmap = array(
 		"basic" => "ItemSearchBasic",
 		"binNumberJoin" => "BinSearchBasic",
-		"binOnHandJoin" => "ItemBinNumberSearchBasic",
 		"correlatedItemJoin" => "ItemSearchBasic",
 		"effectiveRevisionJoin" => "ItemRevisionSearchBasic",
 		"fileJoin" => "FileSearchBasic",
 		"inventoryDetailJoin" => "InventoryDetailSearchBasic",
 		"inventoryLocationJoin" => "LocationSearchBasic",
 		"inventoryNumberJoin" => "InventoryNumberSearchBasic",
-		"inventoryNumberBinOnHandJoin" => "InventoryNumberBinSearchBasic",
 		"memberItemJoin" => "ItemSearchBasic",
 		"obsoleteRevisionJoin" => "ItemRevisionSearchBasic",
 		"parentJoin" => "ItemSearchBasic",
@@ -71082,11 +69023,10 @@ class ItemSearch extends SearchRecord {
 		"userJoin" => "EmployeeSearchBasic",
 		"userNotesJoin" => "NoteSearchBasic",
 		"vendorJoin" => "VendorSearchBasic",
-		"customSearchJoin" => "CustomSearchJoin[]",
 	);
 }}
 
-if (!class_exists("ItemSearchAdvanced")) {
+if (!class_exists("ItemSearchAdvanced",false)){
 /**
  * ItemSearchAdvanced
  */
@@ -71120,7 +69060,7 @@ class ItemSearchAdvanced extends SearchRecord {
 	);
 }}
 
-if (!class_exists("ItemSearchRow")) {
+if (!class_exists("ItemSearchRow",false)){
 /**
  * ItemSearchRow
  */
@@ -71135,11 +69075,6 @@ class ItemSearchRow extends SearchRow {
 	 * @var BinSearchRowBasic
 	 */
 	public $binNumberJoin;
-	/**
-	 * @access public
-	 * @var ItemBinNumberSearchRowBasic
-	 */
-	public $binOnHandJoin;
 	/**
 	 * @access public
 	 * @var ItemSearchRowBasic
@@ -71170,11 +69105,6 @@ class ItemSearchRow extends SearchRow {
 	 * @var InventoryNumberSearchRowBasic
 	 */
 	public $inventoryNumberJoin;
-	/**
-	 * @access public
-	 * @var InventoryNumberBinSearchRowBasic
-	 */
-	public $inventoryNumberBinOnHandJoin;
 	/**
 	 * @access public
 	 * @var ItemSearchRowBasic
@@ -71225,23 +69155,16 @@ class ItemSearchRow extends SearchRow {
 	 * @var VendorSearchRowBasic
 	 */
 	public $vendorJoin;
-	/**
-	 * @access public
-	 * @var CustomSearchRowBasic[]
-	 */
-	public $customSearchJoin;
 
 	static $paramtypesmap = array(
 		"basic" => "ItemSearchRowBasic",
 		"binNumberJoin" => "BinSearchRowBasic",
-		"binOnHandJoin" => "ItemBinNumberSearchRowBasic",
 		"correlatedItemJoin" => "ItemSearchRowBasic",
 		"effectiveRevisionJoin" => "ItemRevisionSearchRowBasic",
 		"fileJoin" => "FileSearchRowBasic",
 		"inventoryDetailJoin" => "InventoryDetailSearchRowBasic",
 		"inventoryLocationJoin" => "LocationSearchRowBasic",
 		"inventoryNumberJoin" => "InventoryNumberSearchRowBasic",
-		"inventoryNumberBinOnHandJoin" => "InventoryNumberBinSearchRowBasic",
 		"memberItemJoin" => "ItemSearchRowBasic",
 		"obsoleteRevisionJoin" => "ItemRevisionSearchRowBasic",
 		"parentJoin" => "ItemSearchRowBasic",
@@ -71252,11 +69175,10 @@ class ItemSearchRow extends SearchRow {
 		"userJoin" => "EmployeeSearchRowBasic",
 		"userNotesJoin" => "NoteSearchRowBasic",
 		"vendorJoin" => "VendorSearchRowBasic",
-		"customSearchJoin" => "CustomSearchRowBasic[]",
 	);
 }}
 
-if (!class_exists("ContactRole")) {
+if (!class_exists("ContactRole",false)){
 /**
  * ContactRole
  */
@@ -71296,7 +69218,7 @@ class ContactRole extends Record {
 	);
 }}
 
-if (!class_exists("Bin")) {
+if (!class_exists("Bin",false)){
 /**
  * Bin
  */
@@ -71348,7 +69270,7 @@ class Bin extends Record {
 	);
 }}
 
-if (!class_exists("BinSearch")) {
+if (!class_exists("BinSearch",false)){
 /**
  * BinSearch
  */
@@ -71363,20 +69285,14 @@ class BinSearch extends SearchRecord {
 	 * @var EmployeeSearchBasic
 	 */
 	public $userJoin;
-	/**
-	 * @access public
-	 * @var CustomSearchJoin[]
-	 */
-	public $customSearchJoin;
 
 	static $paramtypesmap = array(
 		"basic" => "BinSearchBasic",
 		"userJoin" => "EmployeeSearchBasic",
-		"customSearchJoin" => "CustomSearchJoin[]",
 	);
 }}
 
-if (!class_exists("BinSearchAdvanced")) {
+if (!class_exists("BinSearchAdvanced",false)){
 /**
  * BinSearchAdvanced
  */
@@ -71410,7 +69326,7 @@ class BinSearchAdvanced extends SearchRecord {
 	);
 }}
 
-if (!class_exists("BinSearchRow")) {
+if (!class_exists("BinSearchRow",false)){
 /**
  * BinSearchRow
  */
@@ -71425,20 +69341,14 @@ class BinSearchRow extends SearchRow {
 	 * @var EmployeeSearchRowBasic
 	 */
 	public $userJoin;
-	/**
-	 * @access public
-	 * @var CustomSearchRowBasic[]
-	 */
-	public $customSearchJoin;
 
 	static $paramtypesmap = array(
 		"basic" => "BinSearchRowBasic",
 		"userJoin" => "EmployeeSearchRowBasic",
-		"customSearchJoin" => "CustomSearchRowBasic[]",
 	);
 }}
 
-if (!class_exists("SalesTaxItem")) {
+if (!class_exists("SalesTaxItem",false)){
 /**
  * SalesTaxItem
  */
@@ -71500,16 +69410,6 @@ class SalesTaxItem extends Record {
 	public $validUntil;
 	/**
 	 * @access public
-	 * @var RecordRefList
-	 */
-	public $subsidiaryList;
-	/**
-	 * @access public
-	 * @var boolean
-	 */
-	public $includeChildren;
-	/**
-	 * @access public
 	 * @var boolean
 	 */
 	public $eccode;
@@ -71523,11 +69423,6 @@ class SalesTaxItem extends Record {
 	 * @var RecordRef
 	 */
 	public $parent;
-	/**
-	 * @access public
-	 * @var boolean
-	 */
-	public $service;
 	/**
 	 * @access public
 	 * @var boolean
@@ -71606,12 +69501,9 @@ class SalesTaxItem extends Record {
 		"isInactive" => "boolean",
 		"effectiveFrom" => "dateTime",
 		"validUntil" => "dateTime",
-		"subsidiaryList" => "RecordRefList",
-		"includeChildren" => "boolean",
 		"eccode" => "boolean",
 		"reverseCharge" => "boolean",
 		"parent" => "RecordRef",
-		"service" => "boolean",
 		"exempt" => "boolean",
 		"isDefault" => "boolean",
 		"excludeFromTaxReports" => "boolean",
@@ -71628,7 +69520,7 @@ class SalesTaxItem extends Record {
 	);
 }}
 
-if (!class_exists("TaxGroup")) {
+if (!class_exists("TaxGroup",false)){
 /**
  * TaxGroup
  */
@@ -71648,11 +69540,6 @@ class TaxGroup extends Record {
 	 * @var string
 	 */
 	public $state;
-	/**
-	 * @access public
-	 * @var RecordRefList
-	 */
-	public $subsidiaryList;
 	/**
 	 * @access public
 	 * @var RecordRef
@@ -71743,7 +69630,6 @@ class TaxGroup extends Record {
 		"itemId" => "string",
 		"description" => "string",
 		"state" => "string",
-		"subsidiaryList" => "RecordRefList",
 		"taxitem1" => "RecordRef",
 		"unitprice1" => "string",
 		"taxitem2" => "RecordRef",
@@ -71764,7 +69650,7 @@ class TaxGroup extends Record {
 	);
 }}
 
-if (!class_exists("TaxGroupTaxItem")) {
+if (!class_exists("TaxGroupTaxItem",false)){
 /**
  * TaxGroupTaxItem
  */
@@ -71798,7 +69684,7 @@ class TaxGroupTaxItem {
 	);
 }}
 
-if (!class_exists("TaxGroupTaxItemList")) {
+if (!class_exists("TaxGroupTaxItemList",false)){
 /**
  * TaxGroupTaxItemList
  */
@@ -71820,7 +69706,7 @@ class TaxGroupTaxItemList {
 	);
 }}
 
-if (!class_exists("TaxType")) {
+if (!class_exists("TaxType",false)){
 /**
  * TaxType
  */
@@ -71860,7 +69746,7 @@ class TaxType extends Record {
 	);
 }}
 
-if (!class_exists("TaxTypeNexusesTax")) {
+if (!class_exists("TaxTypeNexusesTax",false)){
 /**
  * TaxTypeNexusesTax
  */
@@ -71894,7 +69780,7 @@ class TaxTypeNexusesTax {
 	);
 }}
 
-if (!class_exists("TaxTypeNexusesTaxList")) {
+if (!class_exists("TaxTypeNexusesTaxList",false)){
 /**
  * TaxTypeNexusesTaxList
  */
@@ -71916,7 +69802,7 @@ class TaxTypeNexusesTaxList {
 	);
 }}
 
-if (!class_exists("SerializedInventoryItem")) {
+if (!class_exists("SerializedInventoryItem",false)){
 /**
  * SerializedInventoryItem
  */
@@ -72311,11 +70197,6 @@ class SerializedInventoryItem extends Record {
 	 * @var ItemCarrier
 	 */
 	public $itemCarrier;
-	/**
-	 * @access public
-	 * @var boolean
-	 */
-	public $roundUpAsComponent;
 	/**
 	 * @access public
 	 * @var RecordRefList
@@ -72966,7 +70847,6 @@ class SerializedInventoryItem extends Record {
 		"countryOfManufacture" => "Country",
 		"defaultItemShipMethod" => "RecordRef",
 		"itemCarrier" => "ItemCarrier",
-		"roundUpAsComponent" => "boolean",
 		"itemShipMethodList" => "RecordRefList",
 		"manufacturerTaxId" => "string",
 		"scheduleBNumber" => "string",
@@ -73084,7 +70964,7 @@ class SerializedInventoryItem extends Record {
 	);
 }}
 
-if (!class_exists("SerializedInventoryItemLocations")) {
+if (!class_exists("SerializedInventoryItemLocations",false)){
 /**
  * SerializedInventoryItemLocations
  */
@@ -73156,11 +71036,6 @@ class SerializedInventoryItemLocations {
 	public $cost;
 	/**
 	 * @access public
-	 * @var RecordRef
-	 */
-	public $inventoryCostTemplate;
-	/**
-	 * @access public
 	 * @var float
 	 */
 	public $buildTime;
@@ -73184,11 +71059,6 @@ class SerializedInventoryItemLocations {
 	 * @var ItemInvtClassification
 	 */
 	public $invtClassification;
-	/**
-	 * @access public
-	 * @var float
-	 */
-	public $costingLotSize;
 	/**
 	 * @access public
 	 * @var float
@@ -73279,13 +71149,11 @@ class SerializedInventoryItemLocations {
 		"isWip" => "boolean",
 		"safetyStockLevel" => "float",
 		"cost" => "float",
-		"inventoryCostTemplate" => "RecordRef",
 		"buildTime" => "float",
 		"lastInvtCountDate" => "dateTime",
 		"nextInvtCountDate" => "dateTime",
 		"invtCountInterval" => "integer",
 		"invtClassification" => "ItemInvtClassification",
-		"costingLotSize" => "float",
 		"quantityOnOrder" => "float",
 		"quantityCommitted" => "float",
 		"quantityAvailable" => "float",
@@ -73304,7 +71172,7 @@ class SerializedInventoryItemLocations {
 	);
 }}
 
-if (!class_exists("SerializedInventoryItemLocationsList")) {
+if (!class_exists("SerializedInventoryItemLocationsList",false)){
 /**
  * SerializedInventoryItemLocationsList
  */
@@ -73326,7 +71194,7 @@ class SerializedInventoryItemLocationsList {
 	);
 }}
 
-if (!class_exists("SerializedInventoryItemNumbers")) {
+if (!class_exists("SerializedInventoryItemNumbers",false)){
 /**
  * SerializedInventoryItemNumbers
  */
@@ -73342,7 +71210,7 @@ class SerializedInventoryItemNumbers {
 	);
 }}
 
-if (!class_exists("SerializedInventoryItemNumbersList")) {
+if (!class_exists("SerializedInventoryItemNumbersList",false)){
 /**
  * SerializedInventoryItemNumbersList
  */
@@ -73364,7 +71232,7 @@ class SerializedInventoryItemNumbersList {
 	);
 }}
 
-if (!class_exists("LotNumberedInventoryItem")) {
+if (!class_exists("LotNumberedInventoryItem",false)){
 /**
  * LotNumberedInventoryItem
  */
@@ -73739,11 +71607,6 @@ class LotNumberedInventoryItem extends Record {
 	 * @var ItemCarrier
 	 */
 	public $itemCarrier;
-	/**
-	 * @access public
-	 * @var boolean
-	 */
-	public $roundUpAsComponent;
 	/**
 	 * @access public
 	 * @var RecordRefList
@@ -74415,7 +72278,6 @@ class LotNumberedInventoryItem extends Record {
 		"countryOfManufacture" => "Country",
 		"defaultItemShipMethod" => "RecordRef",
 		"itemCarrier" => "ItemCarrier",
-		"roundUpAsComponent" => "boolean",
 		"itemShipMethodList" => "RecordRefList",
 		"manufacturerTaxId" => "string",
 		"scheduleBNumber" => "string",
@@ -74538,7 +72400,7 @@ class LotNumberedInventoryItem extends Record {
 	);
 }}
 
-if (!class_exists("LotNumberedInventoryItemLocations")) {
+if (!class_exists("LotNumberedInventoryItemLocations",false)){
 /**
  * LotNumberedInventoryItemLocations
  */
@@ -74610,11 +72472,6 @@ class LotNumberedInventoryItemLocations {
 	public $cost;
 	/**
 	 * @access public
-	 * @var RecordRef
-	 */
-	public $inventoryCostTemplate;
-	/**
-	 * @access public
 	 * @var float
 	 */
 	public $buildTime;
@@ -74643,11 +72500,6 @@ class LotNumberedInventoryItemLocations {
 	 * @var ItemInvtClassification
 	 */
 	public $invtClassification;
-	/**
-	 * @access public
-	 * @var float
-	 */
-	public $costingLotSize;
 	/**
 	 * @access public
 	 * @var float
@@ -74748,14 +72600,12 @@ class LotNumberedInventoryItemLocations {
 		"defaultReturnCost" => "float",
 		"safetyStockLevel" => "float",
 		"cost" => "float",
-		"inventoryCostTemplate" => "RecordRef",
 		"buildTime" => "float",
 		"lastInvtCountDate" => "dateTime",
 		"nextInvtCountDate" => "dateTime",
 		"isWip" => "boolean",
 		"invtCountInterval" => "integer",
 		"invtClassification" => "ItemInvtClassification",
-		"costingLotSize" => "float",
 		"quantityOnOrder" => "float",
 		"quantityCommitted" => "float",
 		"quantityAvailable" => "float",
@@ -74776,7 +72626,7 @@ class LotNumberedInventoryItemLocations {
 	);
 }}
 
-if (!class_exists("LotNumberedInventoryItemLocationsList")) {
+if (!class_exists("LotNumberedInventoryItemLocationsList",false)){
 /**
  * LotNumberedInventoryItemLocationsList
  */
@@ -74798,7 +72648,7 @@ class LotNumberedInventoryItemLocationsList {
 	);
 }}
 
-if (!class_exists("LotNumberedInventoryItemNumbers")) {
+if (!class_exists("LotNumberedInventoryItemNumbers",false)){
 /**
  * LotNumberedInventoryItemNumbers
  */
@@ -74826,7 +72676,7 @@ class LotNumberedInventoryItemNumbers {
 	);
 }}
 
-if (!class_exists("LotNumberedInventoryItemNumbersList")) {
+if (!class_exists("LotNumberedInventoryItemNumbersList",false)){
 /**
  * LotNumberedInventoryItemNumbersList
  */
@@ -74848,7 +72698,7 @@ class LotNumberedInventoryItemNumbersList {
 	);
 }}
 
-if (!class_exists("GiftCertificateItem")) {
+if (!class_exists("GiftCertificateItem",false)){
 /**
  * GiftCertificateItem
  */
@@ -75236,7 +73086,7 @@ class GiftCertificateItem extends Record {
 	);
 }}
 
-if (!class_exists("GiftCertificateItemAuthCodes")) {
+if (!class_exists("GiftCertificateItemAuthCodes",false)){
 /**
  * GiftCertificateItemAuthCodes
  */
@@ -75258,7 +73108,7 @@ class GiftCertificateItemAuthCodes {
 	);
 }}
 
-if (!class_exists("GiftCertificateItemAuthCodesList")) {
+if (!class_exists("GiftCertificateItemAuthCodesList",false)){
 /**
  * GiftCertificateItemAuthCodesList
  */
@@ -75280,7 +73130,7 @@ class GiftCertificateItemAuthCodesList {
 	);
 }}
 
-if (!class_exists("Subsidiary")) {
+if (!class_exists("Subsidiary",false)){
 /**
  * Subsidiary
  */
@@ -75698,7 +73548,7 @@ class Subsidiary extends Record {
 	);
 }}
 
-if (!class_exists("SubsidiaryNexus")) {
+if (!class_exists("SubsidiaryNexus",false)){
 /**
  * SubsidiaryNexus
  */
@@ -75720,7 +73570,7 @@ class SubsidiaryNexus {
 	);
 }}
 
-if (!class_exists("SubsidiaryNexusList")) {
+if (!class_exists("SubsidiaryNexusList",false)){
 /**
  * SubsidiaryNexusList
  */
@@ -75742,7 +73592,7 @@ class SubsidiaryNexusList {
 	);
 }}
 
-if (!class_exists("SubsidiarySearch")) {
+if (!class_exists("SubsidiarySearch",false)){
 /**
  * SubsidiarySearch
  */
@@ -75757,20 +73607,14 @@ class SubsidiarySearch extends SearchRecord {
 	 * @var EmployeeSearchBasic
 	 */
 	public $userJoin;
-	/**
-	 * @access public
-	 * @var CustomSearchJoin[]
-	 */
-	public $customSearchJoin;
 
 	static $paramtypesmap = array(
 		"basic" => "SubsidiarySearchBasic",
 		"userJoin" => "EmployeeSearchBasic",
-		"customSearchJoin" => "CustomSearchJoin[]",
 	);
 }}
 
-if (!class_exists("SubsidiarySearchAdvanced")) {
+if (!class_exists("SubsidiarySearchAdvanced",false)){
 /**
  * SubsidiarySearchAdvanced
  */
@@ -75804,7 +73648,7 @@ class SubsidiarySearchAdvanced extends SearchRecord {
 	);
 }}
 
-if (!class_exists("SubsidiarySearchRow")) {
+if (!class_exists("SubsidiarySearchRow",false)){
 /**
  * SubsidiarySearchRow
  */
@@ -75819,20 +73663,14 @@ class SubsidiarySearchRow extends SearchRow {
 	 * @var EmployeeSearchRowBasic
 	 */
 	public $userJoin;
-	/**
-	 * @access public
-	 * @var CustomSearchRowBasic[]
-	 */
-	public $customSearchJoin;
 
 	static $paramtypesmap = array(
 		"basic" => "SubsidiarySearchRowBasic",
 		"userJoin" => "EmployeeSearchRowBasic",
-		"customSearchJoin" => "CustomSearchRowBasic[]",
 	);
 }}
 
-if (!class_exists("GiftCertificate")) {
+if (!class_exists("GiftCertificate",false)){
 /**
  * GiftCertificate
  */
@@ -75908,7 +73746,7 @@ class GiftCertificate extends Record {
 	);
 }}
 
-if (!class_exists("GiftCertificateSearch")) {
+if (!class_exists("GiftCertificateSearch",false)){
 /**
  * GiftCertificateSearch
  */
@@ -75923,20 +73761,14 @@ class GiftCertificateSearch extends SearchRecord {
 	 * @var EmployeeSearchBasic
 	 */
 	public $userJoin;
-	/**
-	 * @access public
-	 * @var CustomSearchJoin[]
-	 */
-	public $customSearchJoin;
 
 	static $paramtypesmap = array(
 		"basic" => "GiftCertificateSearchBasic",
 		"userJoin" => "EmployeeSearchBasic",
-		"customSearchJoin" => "CustomSearchJoin[]",
 	);
 }}
 
-if (!class_exists("GiftCertificateSearchAdvanced")) {
+if (!class_exists("GiftCertificateSearchAdvanced",false)){
 /**
  * GiftCertificateSearchAdvanced
  */
@@ -75970,7 +73802,7 @@ class GiftCertificateSearchAdvanced extends SearchRecord {
 	);
 }}
 
-if (!class_exists("GiftCertificateSearchRow")) {
+if (!class_exists("GiftCertificateSearchRow",false)){
 /**
  * GiftCertificateSearchRow
  */
@@ -75985,20 +73817,14 @@ class GiftCertificateSearchRow extends SearchRow {
 	 * @var EmployeeSearchRowBasic
 	 */
 	public $userJoin;
-	/**
-	 * @access public
-	 * @var CustomSearchRowBasic[]
-	 */
-	public $customSearchJoin;
 
 	static $paramtypesmap = array(
 		"basic" => "GiftCertificateSearchRowBasic",
 		"userJoin" => "EmployeeSearchRowBasic",
-		"customSearchJoin" => "CustomSearchRowBasic[]",
 	);
 }}
 
-if (!class_exists("PartnerCategory")) {
+if (!class_exists("PartnerCategory",false)){
 /**
  * PartnerCategory
  */
@@ -76038,7 +73864,7 @@ class PartnerCategory extends Record {
 	);
 }}
 
-if (!class_exists("VendorCategory")) {
+if (!class_exists("VendorCategory",false)){
 /**
  * VendorCategory
  */
@@ -76078,7 +73904,7 @@ class VendorCategory extends Record {
 	);
 }}
 
-if (!class_exists("KitItem")) {
+if (!class_exists("KitItem",false)){
 /**
  * KitItem
  */
@@ -76760,7 +74586,7 @@ class KitItem extends Record {
 	);
 }}
 
-if (!class_exists("AssemblyItem")) {
+if (!class_exists("AssemblyItem",false)){
 /**
  * AssemblyItem
  */
@@ -76910,11 +74736,6 @@ class AssemblyItem extends Record {
 	 * @var RecordRef
 	 */
 	public $salesTaxCode;
-	/**
-	 * @access public
-	 * @var boolean
-	 */
-	public $useComponentYield;
 	/**
 	 * @access public
 	 * @var RecordRef
@@ -77080,11 +74901,6 @@ class AssemblyItem extends Record {
 	 * @var string
 	 */
 	public $defaultRevision;
-	/**
-	 * @access public
-	 * @var boolean
-	 */
-	public $roundUpAsComponent;
 	/**
 	 * @access public
 	 * @var RecordRef
@@ -77711,7 +75527,6 @@ class AssemblyItem extends Record {
 		"billExchRateVarianceAcct" => "RecordRef",
 		"gainLossAccount" => "RecordRef",
 		"salesTaxCode" => "RecordRef",
-		"useComponentYield" => "boolean",
 		"wipVarianceAcct" => "RecordRef",
 		"purchaseTaxCode" => "RecordRef",
 		"scrapAcct" => "RecordRef",
@@ -77745,7 +75560,6 @@ class AssemblyItem extends Record {
 		"countryOfManufacture" => "Country",
 		"effectiveBomControl" => "AssemblyItemEffectiveBomControl",
 		"defaultRevision" => "string",
-		"roundUpAsComponent" => "boolean",
 		"defaultItemShipMethod" => "RecordRef",
 		"itemCarrier" => "ItemCarrier",
 		"itemShipMethodList" => "RecordRefList",
@@ -77868,7 +75682,7 @@ class AssemblyItem extends Record {
 	);
 }}
 
-if (!class_exists("SerializedAssemblyItem")) {
+if (!class_exists("SerializedAssemblyItem",false)){
 /**
  * SerializedAssemblyItem
  */
@@ -77953,11 +75767,6 @@ class SerializedAssemblyItem extends Record {
 	 * @var boolean
 	 */
 	public $offerSupport;
-	/**
-	 * @access public
-	 * @var boolean
-	 */
-	public $useComponentYield;
 	/**
 	 * @access public
 	 * @var boolean
@@ -78258,11 +76067,6 @@ class SerializedAssemblyItem extends Record {
 	 * @var ItemCarrier
 	 */
 	public $itemCarrier;
-	/**
-	 * @access public
-	 * @var boolean
-	 */
-	public $roundUpAsComponent;
 	/**
 	 * @access public
 	 * @var RecordRefList
@@ -78856,7 +76660,6 @@ class SerializedAssemblyItem extends Record {
 		"invtClassification" => "ItemInvtClassification",
 		"isGcoCompliant" => "boolean",
 		"offerSupport" => "boolean",
-		"useComponentYield" => "boolean",
 		"isInactive" => "boolean",
 		"subsidiaryList" => "RecordRefList",
 		"availableToPartners" => "boolean",
@@ -78917,7 +76720,6 @@ class SerializedAssemblyItem extends Record {
 		"defaultRevision" => "string",
 		"defaultItemShipMethod" => "RecordRef",
 		"itemCarrier" => "ItemCarrier",
-		"roundUpAsComponent" => "boolean",
 		"itemShipMethodList" => "RecordRefList",
 		"manufacturerTaxId" => "string",
 		"scheduleBNumber" => "string",
@@ -79036,7 +76838,7 @@ class SerializedAssemblyItem extends Record {
 	);
 }}
 
-if (!class_exists("LotNumberedAssemblyItem")) {
+if (!class_exists("LotNumberedAssemblyItem",false)){
 /**
  * LotNumberedAssemblyItem
  */
@@ -79105,11 +76907,6 @@ class LotNumberedAssemblyItem extends Record {
 	 * @access public
 	 * @var boolean
 	 */
-	public $useComponentYield;
-	/**
-	 * @access public
-	 * @var boolean
-	 */
 	public $isInactive;
 	/**
 	 * @access public
@@ -79141,11 +76938,6 @@ class LotNumberedAssemblyItem extends Record {
 	 * @var RecordRef
 	 */
 	public $location;
-	/**
-	 * @access public
-	 * @var RecordRef
-	 */
-	public $costCategory;
 	/**
 	 * @access public
 	 * @var string
@@ -79391,11 +77183,6 @@ class LotNumberedAssemblyItem extends Record {
 	 * @var ItemCarrier
 	 */
 	public $itemCarrier;
-	/**
-	 * @access public
-	 * @var boolean
-	 */
-	public $roundUpAsComponent;
 	/**
 	 * @access public
 	 * @var RecordRefList
@@ -79985,7 +77772,6 @@ class LotNumberedAssemblyItem extends Record {
 		"isOnline" => "boolean",
 		"isGcoCompliant" => "boolean",
 		"offerSupport" => "boolean",
-		"useComponentYield" => "boolean",
 		"isInactive" => "boolean",
 		"availableToPartners" => "boolean",
 		"subsidiaryList" => "RecordRefList",
@@ -79993,7 +77779,6 @@ class LotNumberedAssemblyItem extends Record {
 		"includeChildren" => "boolean",
 		"class" => "RecordRef",
 		"location" => "RecordRef",
-		"costCategory" => "RecordRef",
 		"description" => "string",
 		"cogsAccount" => "RecordRef",
 		"incomeAccount" => "RecordRef",
@@ -80043,7 +77828,6 @@ class LotNumberedAssemblyItem extends Record {
 		"defaultRevision" => "string",
 		"defaultItemShipMethod" => "RecordRef",
 		"itemCarrier" => "ItemCarrier",
-		"roundUpAsComponent" => "boolean",
 		"itemShipMethodList" => "RecordRefList",
 		"scheduleBNumber" => "string",
 		"scheduleBQuantity" => "integer",
@@ -80162,7 +77946,7 @@ class LotNumberedAssemblyItem extends Record {
 	);
 }}
 
-if (!class_exists("ServiceItemTaskTemplates")) {
+if (!class_exists("ServiceItemTaskTemplates",false)){
 /**
  * ServiceItemTaskTemplates
  */
@@ -80190,7 +77974,7 @@ class ServiceItemTaskTemplates {
 	);
 }}
 
-if (!class_exists("ServiceItemTaskTemplatesList")) {
+if (!class_exists("ServiceItemTaskTemplatesList",false)){
 /**
  * ServiceItemTaskTemplatesList
  */
@@ -80212,7 +77996,7 @@ class ServiceItemTaskTemplatesList {
 	);
 }}
 
-if (!class_exists("State")) {
+if (!class_exists("State",false)){
 /**
  * State
  */
@@ -80246,7 +78030,7 @@ class State extends Record {
 	);
 }}
 
-if (!class_exists("AccountingPeriod")) {
+if (!class_exists("AccountingPeriod",false)){
 /**
  * AccountingPeriod
  */
@@ -80358,7 +78142,7 @@ class AccountingPeriod extends Record {
 	);
 }}
 
-if (!class_exists("BudgetCategory")) {
+if (!class_exists("BudgetCategory",false)){
 /**
  * BudgetCategory
  */
@@ -80392,7 +78176,7 @@ class BudgetCategory extends Record {
 	);
 }}
 
-if (!class_exists("AccountingPeriodSearch")) {
+if (!class_exists("AccountingPeriodSearch",false)){
 /**
  * AccountingPeriodSearch
  */
@@ -80420,7 +78204,7 @@ class AccountingPeriodSearch extends SearchRecord {
 	);
 }}
 
-if (!class_exists("AccountingPeriodSearchAdvanced")) {
+if (!class_exists("AccountingPeriodSearchAdvanced",false)){
 /**
  * AccountingPeriodSearchAdvanced
  */
@@ -80454,7 +78238,7 @@ class AccountingPeriodSearchAdvanced extends SearchRecord {
 	);
 }}
 
-if (!class_exists("AccountingPeriodSearchRow")) {
+if (!class_exists("AccountingPeriodSearchRow",false)){
 /**
  * AccountingPeriodSearchRow
  */
@@ -80482,7 +78266,7 @@ class AccountingPeriodSearchRow extends SearchRow {
 	);
 }}
 
-if (!class_exists("ContactCategorySearch")) {
+if (!class_exists("ContactCategorySearch",false)){
 /**
  * ContactCategorySearch
  */
@@ -80504,7 +78288,7 @@ class ContactCategorySearch extends SearchRecord {
 	);
 }}
 
-if (!class_exists("ContactCategorySearchAdvanced")) {
+if (!class_exists("ContactCategorySearchAdvanced",false)){
 /**
  * ContactCategorySearchAdvanced
  */
@@ -80538,7 +78322,7 @@ class ContactCategorySearchAdvanced extends SearchRecord {
 	);
 }}
 
-if (!class_exists("ContactCategorySearchRow")) {
+if (!class_exists("ContactCategorySearchRow",false)){
 /**
  * ContactCategorySearchRow
  */
@@ -80560,7 +78344,7 @@ class ContactCategorySearchRow extends SearchRow {
 	);
 }}
 
-if (!class_exists("ContactRoleSearch")) {
+if (!class_exists("ContactRoleSearch",false)){
 /**
  * ContactRoleSearch
  */
@@ -80582,7 +78366,7 @@ class ContactRoleSearch extends SearchRecord {
 	);
 }}
 
-if (!class_exists("ContactRoleSearchAdvanced")) {
+if (!class_exists("ContactRoleSearchAdvanced",false)){
 /**
  * ContactRoleSearchAdvanced
  */
@@ -80616,7 +78400,7 @@ class ContactRoleSearchAdvanced extends SearchRecord {
 	);
 }}
 
-if (!class_exists("ContactRoleSearchRow")) {
+if (!class_exists("ContactRoleSearchRow",false)){
 /**
  * ContactRoleSearchRow
  */
@@ -80638,7 +78422,7 @@ class ContactRoleSearchRow extends SearchRow {
 	);
 }}
 
-if (!class_exists("CustomerCategorySearch")) {
+if (!class_exists("CustomerCategorySearch",false)){
 /**
  * CustomerCategorySearch
  */
@@ -80660,7 +78444,7 @@ class CustomerCategorySearch extends SearchRecord {
 	);
 }}
 
-if (!class_exists("CustomerCategorySearchAdvanced")) {
+if (!class_exists("CustomerCategorySearchAdvanced",false)){
 /**
  * CustomerCategorySearchAdvanced
  */
@@ -80694,7 +78478,7 @@ class CustomerCategorySearchAdvanced extends SearchRecord {
 	);
 }}
 
-if (!class_exists("CustomerCategorySearchRow")) {
+if (!class_exists("CustomerCategorySearchRow",false)){
 /**
  * CustomerCategorySearchRow
  */
@@ -80716,7 +78500,7 @@ class CustomerCategorySearchRow extends SearchRow {
 	);
 }}
 
-if (!class_exists("ExpenseCategorySearch")) {
+if (!class_exists("ExpenseCategorySearch",false)){
 /**
  * ExpenseCategorySearch
  */
@@ -80731,20 +78515,14 @@ class ExpenseCategorySearch extends SearchRecord {
 	 * @var EmployeeSearchBasic
 	 */
 	public $userJoin;
-	/**
-	 * @access public
-	 * @var CustomSearchJoin[]
-	 */
-	public $customSearchJoin;
 
 	static $paramtypesmap = array(
 		"basic" => "ExpenseCategorySearchBasic",
 		"userJoin" => "EmployeeSearchBasic",
-		"customSearchJoin" => "CustomSearchJoin[]",
 	);
 }}
 
-if (!class_exists("ExpenseCategorySearchAdvanced")) {
+if (!class_exists("ExpenseCategorySearchAdvanced",false)){
 /**
  * ExpenseCategorySearchAdvanced
  */
@@ -80778,7 +78556,7 @@ class ExpenseCategorySearchAdvanced extends SearchRecord {
 	);
 }}
 
-if (!class_exists("ExpenseCategorySearchRow")) {
+if (!class_exists("ExpenseCategorySearchRow",false)){
 /**
  * ExpenseCategorySearchRow
  */
@@ -80793,20 +78571,14 @@ class ExpenseCategorySearchRow extends SearchRow {
 	 * @var EmployeeSearchRowBasic
 	 */
 	public $userJoin;
-	/**
-	 * @access public
-	 * @var CustomSearchRowBasic[]
-	 */
-	public $customSearchJoin;
 
 	static $paramtypesmap = array(
 		"basic" => "ExpenseCategorySearchRowBasic",
 		"userJoin" => "EmployeeSearchRowBasic",
-		"customSearchJoin" => "CustomSearchRowBasic[]",
 	);
 }}
 
-if (!class_exists("NoteTypeSearch")) {
+if (!class_exists("NoteTypeSearch",false)){
 /**
  * NoteTypeSearch
  */
@@ -80828,7 +78600,7 @@ class NoteTypeSearch extends SearchRecord {
 	);
 }}
 
-if (!class_exists("NoteTypeSearchAdvanced")) {
+if (!class_exists("NoteTypeSearchAdvanced",false)){
 /**
  * NoteTypeSearchAdvanced
  */
@@ -80862,7 +78634,7 @@ class NoteTypeSearchAdvanced extends SearchRecord {
 	);
 }}
 
-if (!class_exists("NoteTypeSearchRow")) {
+if (!class_exists("NoteTypeSearchRow",false)){
 /**
  * NoteTypeSearchRow
  */
@@ -80884,7 +78656,7 @@ class NoteTypeSearchRow extends SearchRow {
 	);
 }}
 
-if (!class_exists("PartnerCategorySearch")) {
+if (!class_exists("PartnerCategorySearch",false)){
 /**
  * PartnerCategorySearch
  */
@@ -80906,7 +78678,7 @@ class PartnerCategorySearch extends SearchRecord {
 	);
 }}
 
-if (!class_exists("PartnerCategorySearchAdvanced")) {
+if (!class_exists("PartnerCategorySearchAdvanced",false)){
 /**
  * PartnerCategorySearchAdvanced
  */
@@ -80940,7 +78712,7 @@ class PartnerCategorySearchAdvanced extends SearchRecord {
 	);
 }}
 
-if (!class_exists("PartnerCategorySearchRow")) {
+if (!class_exists("PartnerCategorySearchRow",false)){
 /**
  * PartnerCategorySearchRow
  */
@@ -80962,7 +78734,7 @@ class PartnerCategorySearchRow extends SearchRow {
 	);
 }}
 
-if (!class_exists("PaymentMethodSearch")) {
+if (!class_exists("PaymentMethodSearch",false)){
 /**
  * PaymentMethodSearch
  */
@@ -80984,7 +78756,7 @@ class PaymentMethodSearch extends SearchRecord {
 	);
 }}
 
-if (!class_exists("PaymentMethodSearchAdvanced")) {
+if (!class_exists("PaymentMethodSearchAdvanced",false)){
 /**
  * PaymentMethodSearchAdvanced
  */
@@ -81018,7 +78790,7 @@ class PaymentMethodSearchAdvanced extends SearchRecord {
 	);
 }}
 
-if (!class_exists("PaymentMethodSearchRow")) {
+if (!class_exists("PaymentMethodSearchRow",false)){
 /**
  * PaymentMethodSearchRow
  */
@@ -81040,7 +78812,7 @@ class PaymentMethodSearchRow extends SearchRow {
 	);
 }}
 
-if (!class_exists("PriceLevelSearch")) {
+if (!class_exists("PriceLevelSearch",false)){
 /**
  * PriceLevelSearch
  */
@@ -81062,7 +78834,7 @@ class PriceLevelSearch extends SearchRecord {
 	);
 }}
 
-if (!class_exists("PriceLevelSearchAdvanced")) {
+if (!class_exists("PriceLevelSearchAdvanced",false)){
 /**
  * PriceLevelSearchAdvanced
  */
@@ -81096,7 +78868,7 @@ class PriceLevelSearchAdvanced extends SearchRecord {
 	);
 }}
 
-if (!class_exists("PriceLevelSearchRow")) {
+if (!class_exists("PriceLevelSearchRow",false)){
 /**
  * PriceLevelSearchRow
  */
@@ -81118,7 +78890,7 @@ class PriceLevelSearchRow extends SearchRow {
 	);
 }}
 
-if (!class_exists("SalesRoleSearch")) {
+if (!class_exists("SalesRoleSearch",false)){
 /**
  * SalesRoleSearch
  */
@@ -81140,7 +78912,7 @@ class SalesRoleSearch extends SearchRecord {
 	);
 }}
 
-if (!class_exists("SalesRoleSearchAdvanced")) {
+if (!class_exists("SalesRoleSearchAdvanced",false)){
 /**
  * SalesRoleSearchAdvanced
  */
@@ -81174,7 +78946,7 @@ class SalesRoleSearchAdvanced extends SearchRecord {
 	);
 }}
 
-if (!class_exists("SalesRoleSearchRow")) {
+if (!class_exists("SalesRoleSearchRow",false)){
 /**
  * SalesRoleSearchRow
  */
@@ -81196,7 +78968,7 @@ class SalesRoleSearchRow extends SearchRow {
 	);
 }}
 
-if (!class_exists("TermSearch")) {
+if (!class_exists("TermSearch",false)){
 /**
  * TermSearch
  */
@@ -81218,7 +78990,7 @@ class TermSearch extends SearchRecord {
 	);
 }}
 
-if (!class_exists("TermSearchAdvanced")) {
+if (!class_exists("TermSearchAdvanced",false)){
 /**
  * TermSearchAdvanced
  */
@@ -81252,7 +79024,7 @@ class TermSearchAdvanced extends SearchRecord {
 	);
 }}
 
-if (!class_exists("TermSearchRow")) {
+if (!class_exists("TermSearchRow",false)){
 /**
  * TermSearchRow
  */
@@ -81274,7 +79046,7 @@ class TermSearchRow extends SearchRow {
 	);
 }}
 
-if (!class_exists("VendorCategorySearch")) {
+if (!class_exists("VendorCategorySearch",false)){
 /**
  * VendorCategorySearch
  */
@@ -81296,7 +79068,7 @@ class VendorCategorySearch extends SearchRecord {
 	);
 }}
 
-if (!class_exists("VendorCategorySearchAdvanced")) {
+if (!class_exists("VendorCategorySearchAdvanced",false)){
 /**
  * VendorCategorySearchAdvanced
  */
@@ -81330,7 +79102,7 @@ class VendorCategorySearchAdvanced extends SearchRecord {
 	);
 }}
 
-if (!class_exists("VendorCategorySearchRow")) {
+if (!class_exists("VendorCategorySearchRow",false)){
 /**
  * VendorCategorySearchRow
  */
@@ -81352,7 +79124,7 @@ class VendorCategorySearchRow extends SearchRow {
 	);
 }}
 
-if (!class_exists("WinLossReasonSearch")) {
+if (!class_exists("WinLossReasonSearch",false)){
 /**
  * WinLossReasonSearch
  */
@@ -81374,7 +79146,7 @@ class WinLossReasonSearch extends SearchRecord {
 	);
 }}
 
-if (!class_exists("WinLossReasonSearchAdvanced")) {
+if (!class_exists("WinLossReasonSearchAdvanced",false)){
 /**
  * WinLossReasonSearchAdvanced
  */
@@ -81408,7 +79180,7 @@ class WinLossReasonSearchAdvanced extends SearchRecord {
 	);
 }}
 
-if (!class_exists("WinLossReasonSearchRow")) {
+if (!class_exists("WinLossReasonSearchRow",false)){
 /**
  * WinLossReasonSearchRow
  */
@@ -81430,7 +79202,7 @@ class WinLossReasonSearchRow extends SearchRow {
 	);
 }}
 
-if (!class_exists("UnitsTypeSearch")) {
+if (!class_exists("UnitsTypeSearch",false)){
 /**
  * UnitsTypeSearch
  */
@@ -81452,7 +79224,7 @@ class UnitsTypeSearch extends SearchRecord {
 	);
 }}
 
-if (!class_exists("UnitsTypeSearchAdvanced")) {
+if (!class_exists("UnitsTypeSearchAdvanced",false)){
 /**
  * UnitsTypeSearchAdvanced
  */
@@ -81486,7 +79258,7 @@ class UnitsTypeSearchAdvanced extends SearchRecord {
 	);
 }}
 
-if (!class_exists("UnitsTypeSearchRow")) {
+if (!class_exists("UnitsTypeSearchRow",false)){
 /**
  * UnitsTypeSearchRow
  */
@@ -81508,7 +79280,7 @@ class UnitsTypeSearchRow extends SearchRow {
 	);
 }}
 
-if (!class_exists("PricingGroup")) {
+if (!class_exists("PricingGroup",false)){
 /**
  * PricingGroup
  */
@@ -81542,7 +79314,7 @@ class PricingGroup extends Record {
 	);
 }}
 
-if (!class_exists("PricingGroupSearch")) {
+if (!class_exists("PricingGroupSearch",false)){
 /**
  * PricingGroupSearch
  */
@@ -81564,7 +79336,7 @@ class PricingGroupSearch extends SearchRecord {
 	);
 }}
 
-if (!class_exists("PricingGroupSearchAdvanced")) {
+if (!class_exists("PricingGroupSearchAdvanced",false)){
 /**
  * PricingGroupSearchAdvanced
  */
@@ -81598,7 +79370,7 @@ class PricingGroupSearchAdvanced extends SearchRecord {
 	);
 }}
 
-if (!class_exists("PricingGroupSearchRow")) {
+if (!class_exists("PricingGroupSearchRow",false)){
 /**
  * PricingGroupSearchRow
  */
@@ -81620,7 +79392,7 @@ class PricingGroupSearchRow extends SearchRow {
 	);
 }}
 
-if (!class_exists("InventoryNumber")) {
+if (!class_exists("InventoryNumber",false)){
 /**
  * InventoryNumber
  */
@@ -81690,7 +79462,7 @@ class InventoryNumber extends Record {
 	);
 }}
 
-if (!class_exists("InventoryNumberLocations")) {
+if (!class_exists("InventoryNumberLocations",false)){
 /**
  * InventoryNumberLocations
  */
@@ -81730,7 +79502,7 @@ class InventoryNumberLocations {
 	);
 }}
 
-if (!class_exists("InventoryNumberLocationsList")) {
+if (!class_exists("InventoryNumberLocationsList",false)){
 /**
  * InventoryNumberLocationsList
  */
@@ -81752,7 +79524,7 @@ class InventoryNumberLocationsList {
 	);
 }}
 
-if (!class_exists("InventoryNumberSearch")) {
+if (!class_exists("InventoryNumberSearch",false)){
 /**
  * InventoryNumberSearch
  */
@@ -81772,21 +79544,15 @@ class InventoryNumberSearch extends SearchRecord {
 	 * @var EmployeeSearchBasic
 	 */
 	public $userJoin;
-	/**
-	 * @access public
-	 * @var CustomSearchJoin[]
-	 */
-	public $customSearchJoin;
 
 	static $paramtypesmap = array(
 		"basic" => "InventoryNumberSearchBasic",
 		"itemJoin" => "ItemSearchBasic",
 		"userJoin" => "EmployeeSearchBasic",
-		"customSearchJoin" => "CustomSearchJoin[]",
 	);
 }}
 
-if (!class_exists("InventoryNumberSearchAdvanced")) {
+if (!class_exists("InventoryNumberSearchAdvanced",false)){
 /**
  * InventoryNumberSearchAdvanced
  */
@@ -81820,7 +79586,7 @@ class InventoryNumberSearchAdvanced extends SearchRecord {
 	);
 }}
 
-if (!class_exists("InventoryNumberSearchRow")) {
+if (!class_exists("InventoryNumberSearchRow",false)){
 /**
  * InventoryNumberSearchRow
  */
@@ -81840,21 +79606,15 @@ class InventoryNumberSearchRow extends SearchRow {
 	 * @var EmployeeSearchRowBasic
 	 */
 	public $userJoin;
-	/**
-	 * @access public
-	 * @var CustomSearchRowBasic[]
-	 */
-	public $customSearchJoin;
 
 	static $paramtypesmap = array(
 		"basic" => "InventoryNumberSearchRowBasic",
 		"itemJoin" => "ItemSearchRowBasic",
 		"userJoin" => "EmployeeSearchRowBasic",
-		"customSearchJoin" => "CustomSearchRowBasic[]",
 	);
 }}
 
-if (!class_exists("RevRecSchedule")) {
+if (!class_exists("RevRecSchedule",false)){
 /**
  * RevRecSchedule
  */
@@ -81936,7 +79696,7 @@ class RevRecSchedule extends Record {
 	);
 }}
 
-if (!class_exists("RevRecScheduleRecurrence")) {
+if (!class_exists("RevRecScheduleRecurrence",false)){
 /**
  * RevRecScheduleRecurrence
  */
@@ -81964,7 +79724,7 @@ class RevRecScheduleRecurrence {
 	);
 }}
 
-if (!class_exists("RevRecScheduleRecurrenceList")) {
+if (!class_exists("RevRecScheduleRecurrenceList",false)){
 /**
  * RevRecScheduleRecurrenceList
  */
@@ -81986,7 +79746,7 @@ class RevRecScheduleRecurrenceList {
 	);
 }}
 
-if (!class_exists("RevRecTemplate")) {
+if (!class_exists("RevRecTemplate",false)){
 /**
  * RevRecTemplate
  */
@@ -82068,7 +79828,7 @@ class RevRecTemplate extends Record {
 	);
 }}
 
-if (!class_exists("RevRecTemplateRecurrence")) {
+if (!class_exists("RevRecTemplateRecurrence",false)){
 /**
  * RevRecTemplateRecurrence
  */
@@ -82096,7 +79856,7 @@ class RevRecTemplateRecurrence {
 	);
 }}
 
-if (!class_exists("RevRecTemplateRecurrenceList")) {
+if (!class_exists("RevRecTemplateRecurrenceList",false)){
 /**
  * RevRecTemplateRecurrenceList
  */
@@ -82118,7 +79878,7 @@ class RevRecTemplateRecurrenceList {
 	);
 }}
 
-if (!class_exists("RevRecScheduleSearch")) {
+if (!class_exists("RevRecScheduleSearch",false)){
 /**
  * RevRecScheduleSearch
  */
@@ -82140,7 +79900,7 @@ class RevRecScheduleSearch extends SearchRecord {
 	);
 }}
 
-if (!class_exists("RevRecScheduleSearchAdvanced")) {
+if (!class_exists("RevRecScheduleSearchAdvanced",false)){
 /**
  * RevRecScheduleSearchAdvanced
  */
@@ -82174,7 +79934,7 @@ class RevRecScheduleSearchAdvanced extends SearchRecord {
 	);
 }}
 
-if (!class_exists("RevRecScheduleSearchRow")) {
+if (!class_exists("RevRecScheduleSearchRow",false)){
 /**
  * RevRecScheduleSearchRow
  */
@@ -82196,7 +79956,7 @@ class RevRecScheduleSearchRow extends SearchRow {
 	);
 }}
 
-if (!class_exists("RevRecTemplateSearch")) {
+if (!class_exists("RevRecTemplateSearch",false)){
 /**
  * RevRecTemplateSearch
  */
@@ -82218,7 +79978,7 @@ class RevRecTemplateSearch extends SearchRecord {
 	);
 }}
 
-if (!class_exists("RevRecTemplateSearchAdvanced")) {
+if (!class_exists("RevRecTemplateSearchAdvanced",false)){
 /**
  * RevRecTemplateSearchAdvanced
  */
@@ -82252,7 +80012,7 @@ class RevRecTemplateSearchAdvanced extends SearchRecord {
 	);
 }}
 
-if (!class_exists("RevRecTemplateSearchRow")) {
+if (!class_exists("RevRecTemplateSearchRow",false)){
 /**
  * RevRecTemplateSearchRow
  */
@@ -82274,7 +80034,7 @@ class RevRecTemplateSearchRow extends SearchRow {
 	);
 }}
 
-if (!class_exists("CostCategory")) {
+if (!class_exists("CostCategory",false)){
 /**
  * CostCategory
  */
@@ -82320,7 +80080,7 @@ class CostCategory extends Record {
 	);
 }}
 
-if (!class_exists("Nexus")) {
+if (!class_exists("Nexus",false)){
 /**
  * Nexus
  */
@@ -82378,7 +80138,7 @@ class Nexus extends Record {
 	);
 }}
 
-if (!class_exists("NexusSearch")) {
+if (!class_exists("NexusSearch",false)){
 /**
  * NexusSearch
  */
@@ -82400,7 +80160,7 @@ class NexusSearch extends SearchRecord {
 	);
 }}
 
-if (!class_exists("NexusSearchAdvanced")) {
+if (!class_exists("NexusSearchAdvanced",false)){
 /**
  * NexusSearchAdvanced
  */
@@ -82434,7 +80194,7 @@ class NexusSearchAdvanced extends SearchRecord {
 	);
 }}
 
-if (!class_exists("NexusSearchRow")) {
+if (!class_exists("NexusSearchRow",false)){
 /**
  * NexusSearchRow
  */
@@ -82456,7 +80216,7 @@ class NexusSearchRow extends SearchRow {
 	);
 }}
 
-if (!class_exists("CustomerMessage")) {
+if (!class_exists("CustomerMessage",false)){
 /**
  * CustomerMessage
  */
@@ -82502,7 +80262,7 @@ class CustomerMessage extends Record {
 	);
 }}
 
-if (!class_exists("OtherNameCategory")) {
+if (!class_exists("OtherNameCategory",false)){
 /**
  * OtherNameCategory
  */
@@ -82536,7 +80296,7 @@ class OtherNameCategory extends Record {
 	);
 }}
 
-if (!class_exists("OtherNameCategorySearch")) {
+if (!class_exists("OtherNameCategorySearch",false)){
 /**
  * OtherNameCategorySearch
  */
@@ -82558,7 +80318,7 @@ class OtherNameCategorySearch extends SearchRecord {
 	);
 }}
 
-if (!class_exists("OtherNameCategorySearchAdvanced")) {
+if (!class_exists("OtherNameCategorySearchAdvanced",false)){
 /**
  * OtherNameCategorySearchAdvanced
  */
@@ -82592,7 +80352,7 @@ class OtherNameCategorySearchAdvanced extends SearchRecord {
 	);
 }}
 
-if (!class_exists("OtherNameCategorySearchRow")) {
+if (!class_exists("OtherNameCategorySearchRow",false)){
 /**
  * OtherNameCategorySearchRow
  */
@@ -82614,7 +80374,7 @@ class OtherNameCategorySearchRow extends SearchRow {
 	);
 }}
 
-if (!class_exists("CustomerMessageSearch")) {
+if (!class_exists("CustomerMessageSearch",false)){
 /**
  * CustomerMessageSearch
  */
@@ -82636,7 +80396,7 @@ class CustomerMessageSearch extends SearchRecord {
 	);
 }}
 
-if (!class_exists("CustomerMessageSearchAdvanced")) {
+if (!class_exists("CustomerMessageSearchAdvanced",false)){
 /**
  * CustomerMessageSearchAdvanced
  */
@@ -82670,7 +80430,7 @@ class CustomerMessageSearchAdvanced extends SearchRecord {
 	);
 }}
 
-if (!class_exists("CustomerMessageSearchRow")) {
+if (!class_exists("CustomerMessageSearchRow",false)){
 /**
  * CustomerMessageSearchRow
  */
@@ -82692,7 +80452,7 @@ class CustomerMessageSearchRow extends SearchRow {
 	);
 }}
 
-if (!class_exists("ItemGroup")) {
+if (!class_exists("ItemGroup",false)){
 /**
  * ItemGroup
  */
@@ -82870,7 +80630,7 @@ class ItemGroup extends Record {
 	);
 }}
 
-if (!class_exists("CurrencyRateSearch")) {
+if (!class_exists("CurrencyRateSearch",false)){
 /**
  * CurrencyRateSearch
  */
@@ -82880,19 +80640,13 @@ class CurrencyRateSearch extends SearchRecord {
 	 * @var CurrencyRateSearchBasic
 	 */
 	public $basic;
-	/**
-	 * @access public
-	 * @var EmployeeSearchBasic
-	 */
-	public $userJoin;
 
 	static $paramtypesmap = array(
 		"basic" => "CurrencyRateSearchBasic",
-		"userJoin" => "EmployeeSearchBasic",
 	);
 }}
 
-if (!class_exists("CurrencyRateSearchAdvanced")) {
+if (!class_exists("CurrencyRateSearchAdvanced",false)){
 /**
  * CurrencyRateSearchAdvanced
  */
@@ -82926,7 +80680,7 @@ class CurrencyRateSearchAdvanced extends SearchRecord {
 	);
 }}
 
-if (!class_exists("CurrencyRateSearchRow")) {
+if (!class_exists("CurrencyRateSearchRow",false)){
 /**
  * CurrencyRateSearchRow
  */
@@ -82936,19 +80690,13 @@ class CurrencyRateSearchRow extends SearchRow {
 	 * @var CurrencyRateSearchRowBasic
 	 */
 	public $basic;
-	/**
-	 * @access public
-	 * @var EmployeeSearchRowBasic
-	 */
-	public $userJoin;
 
 	static $paramtypesmap = array(
 		"basic" => "CurrencyRateSearchRowBasic",
-		"userJoin" => "EmployeeSearchRowBasic",
 	);
 }}
 
-if (!class_exists("ItemRevision")) {
+if (!class_exists("ItemRevision",false)){
 /**
  * ItemRevision
  */
@@ -83006,7 +80754,7 @@ class ItemRevision extends Record {
 	);
 }}
 
-if (!class_exists("ItemRevisionSearch")) {
+if (!class_exists("ItemRevisionSearch",false)){
 /**
  * ItemRevisionSearch
  */
@@ -83034,7 +80782,7 @@ class ItemRevisionSearch extends SearchRecord {
 	);
 }}
 
-if (!class_exists("ItemRevisionSearchAdvanced")) {
+if (!class_exists("ItemRevisionSearchAdvanced",false)){
 /**
  * ItemRevisionSearchAdvanced
  */
@@ -83068,7 +80816,7 @@ class ItemRevisionSearchAdvanced extends SearchRecord {
 	);
 }}
 
-if (!class_exists("ItemRevisionSearchRow")) {
+if (!class_exists("ItemRevisionSearchRow",false)){
 /**
  * ItemRevisionSearchRow
  */
@@ -83096,7 +80844,7 @@ class ItemRevisionSearchRow extends SearchRow {
 	);
 }}
 
-if (!class_exists("AccountingPeriodFiscalCalendars")) {
+if (!class_exists("AccountingPeriodFiscalCalendars",false)){
 /**
  * AccountingPeriodFiscalCalendars
  */
@@ -83118,7 +80866,7 @@ class AccountingPeriodFiscalCalendars {
 	);
 }}
 
-if (!class_exists("AccountingPeriodFiscalCalendarsList")) {
+if (!class_exists("AccountingPeriodFiscalCalendarsList",false)){
 /**
  * AccountingPeriodFiscalCalendarsList
  */
@@ -83140,115 +80888,7 @@ class AccountingPeriodFiscalCalendarsList {
 	);
 }}
 
-if (!class_exists("TaxAcct")) {
-/**
- * TaxAcct
- */
-class TaxAcct extends Record {
-	/**
-	 * @access public
-	 * @var string
-	 */
-	public $name;
-	/**
-	 * @access public
-	 * @var string
-	 */
-	public $description;
-	/**
-	 * @access public
-	 * @var RecordRef
-	 */
-	public $nexus;
-	/**
-	 * @access public
-	 * @var Country
-	 */
-	public $country;
-	/**
-	 * @access public
-	 * @var TaxAcctType
-	 */
-	public $taxAcctType;
-	/**
-	 * @access public
-	 * @var boolean
-	 */
-	public $isInactive;
-	/**
-	 * @access public
-	 * @var string
-	 */
-	public $internalId;
-	/**
-	 * @access public
-	 * @var string
-	 */
-	public $externalId;
-
-	static $paramtypesmap = array(
-		"name" => "string",
-		"description" => "string",
-		"nexus" => "RecordRef",
-		"country" => "Country",
-		"taxAcctType" => "TaxAcctType",
-		"isInactive" => "boolean",
-		"internalId" => "string",
-		"externalId" => "string",
-	);
-}}
-
-if (!class_exists("ExpenseCategoryRates")) {
-/**
- * ExpenseCategoryRates
- */
-class ExpenseCategoryRates {
-	/**
-	 * @access public
-	 * @var RecordRef
-	 */
-	public $subsidiary;
-	/**
-	 * @access public
-	 * @var RecordRef
-	 */
-	public $currency;
-	/**
-	 * @access public
-	 * @var float
-	 */
-	public $defaultRate;
-
-	static $paramtypesmap = array(
-		"subsidiary" => "RecordRef",
-		"currency" => "RecordRef",
-		"defaultRate" => "float",
-	);
-}}
-
-if (!class_exists("ExpenseCategoryRatesList")) {
-/**
- * ExpenseCategoryRatesList
- */
-class ExpenseCategoryRatesList {
-	/**
-	 * @access public
-	 * @var ExpenseCategoryRates[]
-	 */
-	public $expenseCategoryRates;
-	/**
-	 * @access public
-	 * @var boolean
-	 */
-	public $replaceAll;
-
-	static $paramtypesmap = array(
-		"expenseCategoryRates" => "ExpenseCategoryRates[]",
-		"replaceAll" => "boolean",
-	);
-}}
-
-if (!class_exists("SalesOrderItemCommitInventory")) {
+if (!class_exists("SalesOrderItemCommitInventory",false)){
 /**
  * SalesOrderItemCommitInventory
  */
@@ -83270,7 +80910,7 @@ class SalesOrderItemCommitInventory {
 	const _doNotCommit = "_doNotCommit";
 }}
 
-if (!class_exists("SalesOrderItemCreatePo")) {
+if (!class_exists("SalesOrderItemCreatePo",false)){
 /**
  * SalesOrderItemCreatePo
  */
@@ -83288,7 +80928,7 @@ class SalesOrderItemCreatePo {
 	const _specialOrder = "_specialOrder";
 }}
 
-if (!class_exists("SalesOrderOrderStatus")) {
+if (!class_exists("SalesOrderOrderStatus",false)){
 /**
  * SalesOrderOrderStatus
  */
@@ -83334,7 +80974,7 @@ class SalesOrderOrderStatus {
 	const _undefined = "_undefined";
 }}
 
-if (!class_exists("ItemFulfillmentExportTypeUps")) {
+if (!class_exists("ItemFulfillmentExportTypeUps",false)){
 /**
  * ItemFulfillmentExportTypeUps
  */
@@ -83356,7 +80996,7 @@ class ItemFulfillmentExportTypeUps {
 	const _foreignMilitarySales = "_foreignMilitarySales";
 }}
 
-if (!class_exists("ItemFulfillmentLicenseExceptionUps")) {
+if (!class_exists("ItemFulfillmentLicenseExceptionUps",false)){
 /**
  * ItemFulfillmentLicenseExceptionUps
  */
@@ -83438,7 +81078,7 @@ class ItemFulfillmentLicenseExceptionUps {
 	const _tsu = "_tsu";
 }}
 
-if (!class_exists("ItemFulfillmentMethodOfTransportUps")) {
+if (!class_exists("ItemFulfillmentMethodOfTransportUps",false)){
 /**
  * ItemFulfillmentMethodOfTransportUps
  */
@@ -83508,7 +81148,7 @@ class ItemFulfillmentMethodOfTransportUps {
 	const _truckContainerized = "_truckContainerized";
 }}
 
-if (!class_exists("ItemFulfillmentThirdPartyTypeUps")) {
+if (!class_exists("ItemFulfillmentThirdPartyTypeUps",false)){
 /**
  * ItemFulfillmentThirdPartyTypeUps
  */
@@ -83530,7 +81170,7 @@ class ItemFulfillmentThirdPartyTypeUps {
 	const _thirdPartyBilling = "_thirdPartyBilling";
 }}
 
-if (!class_exists("ItemFulfillmentPackageUpsCodMethodUps")) {
+if (!class_exists("ItemFulfillmentPackageUpsCodMethodUps",false)){
 /**
  * ItemFulfillmentPackageUpsCodMethodUps
  */
@@ -83548,7 +81188,7 @@ class ItemFulfillmentPackageUpsCodMethodUps {
 	const _checkCashiersCheckMoneyOrder = "_checkCashiersCheckMoneyOrder";
 }}
 
-if (!class_exists("ItemFulfillmentPackageUpsDeliveryConfUps")) {
+if (!class_exists("ItemFulfillmentPackageUpsDeliveryConfUps",false)){
 /**
  * ItemFulfillmentPackageUpsDeliveryConfUps
  */
@@ -83574,7 +81214,7 @@ class ItemFulfillmentPackageUpsDeliveryConfUps {
 	const _signatureRequired = "_signatureRequired";
 }}
 
-if (!class_exists("ItemFulfillmentPackageUpsPackagingUps")) {
+if (!class_exists("ItemFulfillmentPackageUpsPackagingUps",false)){
 /**
  * ItemFulfillmentPackageUpsPackagingUps
  */
@@ -83604,7 +81244,7 @@ class ItemFulfillmentPackageUpsPackagingUps {
 	const _yourPackaging = "_yourPackaging";
 }}
 
-if (!class_exists("ItemFulfillmentPackageUspsDeliveryConfUsps")) {
+if (!class_exists("ItemFulfillmentPackageUspsDeliveryConfUsps",false)){
 /**
  * ItemFulfillmentPackageUspsDeliveryConfUsps
  */
@@ -83622,7 +81262,7 @@ class ItemFulfillmentPackageUspsDeliveryConfUsps {
 	const _signatureConfirmation = "_signatureConfirmation";
 }}
 
-if (!class_exists("ItemFulfillmentPackageUspsPackagingUsps")) {
+if (!class_exists("ItemFulfillmentPackageUspsPackagingUsps",false)){
 /**
  * ItemFulfillmentPackageUspsPackagingUsps
  */
@@ -83668,7 +81308,7 @@ class ItemFulfillmentPackageUspsPackagingUsps {
 	const _oversizedPackage = "_oversizedPackage";
 }}
 
-if (!class_exists("ItemFulfillmentB13AFilingOptionFedEx")) {
+if (!class_exists("ItemFulfillmentB13AFilingOptionFedEx",false)){
 /**
  * ItemFulfillmentB13AFilingOptionFedEx
  */
@@ -83694,7 +81334,7 @@ class ItemFulfillmentB13AFilingOptionFedEx {
 	const _summaryReporting = "_summaryReporting";
 }}
 
-if (!class_exists("ItemFulfillmentHomeDeliveryTypeFedEx")) {
+if (!class_exists("ItemFulfillmentHomeDeliveryTypeFedEx",false)){
 /**
  * ItemFulfillmentHomeDeliveryTypeFedEx
  */
@@ -83716,7 +81356,7 @@ class ItemFulfillmentHomeDeliveryTypeFedEx {
 	const _evening = "_evening";
 }}
 
-if (!class_exists("ItemFulfillmentThirdPartyTypeFedEx")) {
+if (!class_exists("ItemFulfillmentThirdPartyTypeFedEx",false)){
 /**
  * ItemFulfillmentThirdPartyTypeFedEx
  */
@@ -83738,7 +81378,7 @@ class ItemFulfillmentThirdPartyTypeFedEx {
 	const _noneSelected = "_noneSelected";
 }}
 
-if (!class_exists("ItemFulfillmentPackageFedExAdmPackageTypeFedEx")) {
+if (!class_exists("ItemFulfillmentPackageFedExAdmPackageTypeFedEx",false)){
 /**
  * ItemFulfillmentPackageFedExAdmPackageTypeFedEx
  */
@@ -83864,7 +81504,7 @@ class ItemFulfillmentPackageFedExAdmPackageTypeFedEx {
 	const _unit = "_unit";
 }}
 
-if (!class_exists("ItemFulfillmentPackageFedExCodMethodFedEx")) {
+if (!class_exists("ItemFulfillmentPackageFedExCodMethodFedEx",false)){
 /**
  * ItemFulfillmentPackageFedExCodMethodFedEx
  */
@@ -83886,7 +81526,7 @@ class ItemFulfillmentPackageFedExCodMethodFedEx {
 	const _guaranteedFunds = "_guaranteedFunds";
 }}
 
-if (!class_exists("ItemFulfillmentPackageFedExDeliveryConfFedEx")) {
+if (!class_exists("ItemFulfillmentPackageFedExDeliveryConfFedEx",false)){
 /**
  * ItemFulfillmentPackageFedExDeliveryConfFedEx
  */
@@ -83900,7 +81540,7 @@ class ItemFulfillmentPackageFedExDeliveryConfFedEx {
 	const _signatureRequired = "_signatureRequired";
 }}
 
-if (!class_exists("ItemFulfillmentPackageFedExPackagingFedEx")) {
+if (!class_exists("ItemFulfillmentPackageFedExPackagingFedEx",false)){
 /**
  * ItemFulfillmentPackageFedExPackagingFedEx
  */
@@ -83938,7 +81578,7 @@ class ItemFulfillmentPackageFedExPackagingFedEx {
 	const _yourPackaging = "_yourPackaging";
 }}
 
-if (!class_exists("ItemFulfillmentPackageFedExSignatureOptionsFedEx")) {
+if (!class_exists("ItemFulfillmentPackageFedExSignatureOptionsFedEx",false)){
 /**
  * ItemFulfillmentPackageFedExSignatureOptionsFedEx
  */
@@ -83960,7 +81600,7 @@ class ItemFulfillmentPackageFedExSignatureOptionsFedEx {
 	const _indirect = "_indirect";
 }}
 
-if (!class_exists("ItemFulfillmentTermsOfSaleFedEx")) {
+if (!class_exists("ItemFulfillmentTermsOfSaleFedEx",false)){
 /**
  * ItemFulfillmentTermsOfSaleFedEx
  */
@@ -83982,7 +81622,7 @@ class ItemFulfillmentTermsOfSaleFedEx {
 	const _cif = "_cif";
 }}
 
-if (!class_exists("ItemFulfillmentShipStatus")) {
+if (!class_exists("ItemFulfillmentShipStatus",false)){
 /**
  * ItemFulfillmentShipStatus
  */
@@ -84004,7 +81644,7 @@ class ItemFulfillmentShipStatus {
 	const _shipped = "_shipped";
 }}
 
-if (!class_exists("OpportunityStatus")) {
+if (!class_exists("OpportunityStatus",false)){
 /**
  * OpportunityStatus
  */
@@ -84030,7 +81670,7 @@ class OpportunityStatus {
 	const _issuedEstimate = "_issuedEstimate";
 }}
 
-if (!class_exists("TransactionType")) {
+if (!class_exists("TransactionType",false)){
 /**
  * TransactionType
  */
@@ -84101,10 +81741,6 @@ class TransactionType {
 	/**
 	 * @var string
 	 */
-	const _inventoryCostRevaluation = "_inventoryCostRevaluation";
-	/**
-	 * @var string
-	 */
 	const _inventoryTransfer = "_inventoryTransfer";
 	/**
 	 * @var string
@@ -84169,7 +81805,7 @@ class TransactionType {
 	/**
 	 * @var string
 	 */
-	const _workOrderClose = "_workOrderClose";
+	const _workOrderIssue = "_workOrderIssue";
 	/**
 	 * @var string
 	 */
@@ -84177,10 +81813,10 @@ class TransactionType {
 	/**
 	 * @var string
 	 */
-	const _workOrderIssue = "_workOrderIssue";
+	const _workOrderClose = "_workOrderClose";
 }}
 
-if (!class_exists("TransactionStatus")) {
+if (!class_exists("TransactionStatus",false)){
 /**
  * TransactionStatus
  */
@@ -84650,7 +82286,7 @@ class TransactionStatus {
 	const _workOrderPendingBuild = "_workOrderPendingBuild";
 }}
 
-if (!class_exists("TransactionPaymentEventResult")) {
+if (!class_exists("TransactionPaymentEventResult",false)){
 /**
  * TransactionPaymentEventResult
  */
@@ -84676,7 +82312,7 @@ class TransactionPaymentEventResult {
 	const _reject = "_reject";
 }}
 
-if (!class_exists("TransactionPaymentEventType")) {
+if (!class_exists("TransactionPaymentEventType",false)){
 /**
  * TransactionPaymentEventType
  */
@@ -84710,7 +82346,7 @@ class TransactionPaymentEventType {
 	const _saleRequest = "_saleRequest";
 }}
 
-if (!class_exists("TransactionPaymentEventHoldReason")) {
+if (!class_exists("TransactionPaymentEventHoldReason",false)){
 /**
  * TransactionPaymentEventHoldReason
  */
@@ -84756,7 +82392,7 @@ class TransactionPaymentEventHoldReason {
 	const _verificationRequired = "_verificationRequired";
 }}
 
-if (!class_exists("ItemFulfillmentPackageFedExCodFreightTypeFedEx")) {
+if (!class_exists("ItemFulfillmentPackageFedExCodFreightTypeFedEx",false)){
 /**
  * ItemFulfillmentPackageFedExCodFreightTypeFedEx
  */
@@ -84790,7 +82426,7 @@ class ItemFulfillmentPackageFedExCodFreightTypeFedEx {
 	const _totalCharge = "_totalCharge";
 }}
 
-if (!class_exists("TransactionLinkType")) {
+if (!class_exists("TransactionLinkType",false)){
 /**
  * TransactionLinkType
  */
@@ -84818,10 +82454,6 @@ class TransactionLinkType {
 	 * @var string
 	 */
 	const _commission = "_commission";
-	/**
-	 * @var string
-	 */
-	const _deferredRevenueReallocation = "_deferredRevenueReallocation";
 	/**
 	 * @var string
 	 */
@@ -84933,10 +82565,6 @@ class TransactionLinkType {
 	/**
 	 * @var string
 	 */
-	const _sourceOfRevenueContract = "_sourceOfRevenueContract";
-	/**
-	 * @var string
-	 */
 	const _specialOrder = "_specialOrder";
 	/**
 	 * @var string
@@ -84952,7 +82580,7 @@ class TransactionLinkType {
 	const _workOrderBuild = "_workOrderBuild";
 }}
 
-if (!class_exists("ForecastType")) {
+if (!class_exists("ForecastType",false)){
 /**
  * ForecastType
  */
@@ -84978,7 +82606,7 @@ class ForecastType {
 	const _upside = "_upside";
 }}
 
-if (!class_exists("TransactionLineType")) {
+if (!class_exists("TransactionLineType",false)){
 /**
  * TransactionLineType
  */
@@ -85018,10 +82646,6 @@ class TransactionLineType {
 	 * @var string
 	 */
 	const _item = "_item";
-	/**
-	 * @var string
-	 */
-	const _materialOverhead = "_materialOverhead";
 	/**
 	 * @var string
 	 */
@@ -85084,7 +82708,7 @@ class TransactionLineType {
 	const _workInProcessVariance = "_workInProcessVariance";
 }}
 
-if (!class_exists("TransactionApprovalStatus")) {
+if (!class_exists("TransactionApprovalStatus",false)){
 /**
  * TransactionApprovalStatus
  */
@@ -85106,7 +82730,7 @@ class TransactionApprovalStatus {
 	const _rejected = "_rejected";
 }}
 
-if (!class_exists("ItemFulfillmentPackageFedExPriorityAlertTypeFedEx")) {
+if (!class_exists("ItemFulfillmentPackageFedExPriorityAlertTypeFedEx",false)){
 /**
  * ItemFulfillmentPackageFedExPriorityAlertTypeFedEx
  */
@@ -85128,7 +82752,7 @@ class ItemFulfillmentPackageFedExPriorityAlertTypeFedEx {
 	const _noneSelected = "_noneSelected";
 }}
 
-if (!class_exists("ItemFulfillmentHazmatTypeFedEx")) {
+if (!class_exists("ItemFulfillmentHazmatTypeFedEx",false)){
 /**
  * ItemFulfillmentHazmatTypeFedEx
  */
@@ -85146,7 +82770,7 @@ class ItemFulfillmentHazmatTypeFedEx {
 	const _hazmat = "_hazmat";
 }}
 
-if (!class_exists("ItemFulfillmentAncillaryEndorsementFedEx")) {
+if (!class_exists("ItemFulfillmentAncillaryEndorsementFedEx",false)){
 /**
  * ItemFulfillmentAncillaryEndorsementFedEx
  */
@@ -85176,7 +82800,7 @@ class ItemFulfillmentAncillaryEndorsementFedEx {
 	const _returnService = "_returnService";
 }}
 
-if (!class_exists("ItemFulfillmentAccessibilityTypeFedEx")) {
+if (!class_exists("ItemFulfillmentAccessibilityTypeFedEx",false)){
 /**
  * ItemFulfillmentAccessibilityTypeFedEx
  */
@@ -85194,57 +82818,7 @@ class ItemFulfillmentAccessibilityTypeFedEx {
 	const _inaccessible = "_inaccessible";
 }}
 
-if (!class_exists("TransactionChargeType")) {
-/**
- * TransactionChargeType
- */
-class TransactionChargeType {
-
-	static $paramtypesmap = array(
-	);
-	/**
-	 * @var string
-	 */
-	const _concession = "_concession";
-	/**
-	 * @var string
-	 */
-	const _fixedDate = "_fixedDate";
-	/**
-	 * @var string
-	 */
-	const _fixedUsage = "_fixedUsage";
-	/**
-	 * @var string
-	 */
-	const _milestone = "_milestone";
-	/**
-	 * @var string
-	 */
-	const _oneTime = "_oneTime";
-	/**
-	 * @var string
-	 */
-	const _penalty = "_penalty";
-	/**
-	 * @var string
-	 */
-	const _projectProgress = "_projectProgress";
-	/**
-	 * @var string
-	 */
-	const _recurringService = "_recurringService";
-	/**
-	 * @var string
-	 */
-	const _timeBased = "_timeBased";
-	/**
-	 * @var string
-	 */
-	const _variableUsage = "_variableUsage";
-}}
-
-if (!class_exists("Opportunity")) {
+if (!class_exists("Opportunity",false)){
 /**
  * Opportunity
  */
@@ -85638,7 +83212,7 @@ class Opportunity extends Record {
 	);
 }}
 
-if (!class_exists("OpportunitySalesTeam")) {
+if (!class_exists("OpportunitySalesTeam",false)){
 /**
  * OpportunitySalesTeam
  */
@@ -85672,7 +83246,7 @@ class OpportunitySalesTeam {
 	);
 }}
 
-if (!class_exists("OpportunitySalesTeamList")) {
+if (!class_exists("OpportunitySalesTeamList",false)){
 /**
  * OpportunitySalesTeamList
  */
@@ -85694,7 +83268,7 @@ class OpportunitySalesTeamList {
 	);
 }}
 
-if (!class_exists("OpportunityItem")) {
+if (!class_exists("OpportunityItem",false)){
 /**
  * OpportunityItem
  */
@@ -85872,7 +83446,7 @@ class OpportunityItem {
 	);
 }}
 
-if (!class_exists("OpportunityItemList")) {
+if (!class_exists("OpportunityItemList",false)){
 /**
  * OpportunityItemList
  */
@@ -85894,7 +83468,7 @@ class OpportunityItemList {
 	);
 }}
 
-if (!class_exists("OpportunityCompetitors")) {
+if (!class_exists("OpportunityCompetitors",false)){
 /**
  * OpportunityCompetitors
  */
@@ -85934,7 +83508,7 @@ class OpportunityCompetitors {
 	);
 }}
 
-if (!class_exists("OpportunityCompetitorsList")) {
+if (!class_exists("OpportunityCompetitorsList",false)){
 /**
  * OpportunityCompetitorsList
  */
@@ -85956,7 +83530,7 @@ class OpportunityCompetitorsList {
 	);
 }}
 
-if (!class_exists("OpportunitySearch")) {
+if (!class_exists("OpportunitySearch",false)){
 /**
  * OpportunitySearch
  */
@@ -86003,11 +83577,6 @@ class OpportunitySearch extends SearchRecord {
 	public $fileJoin;
 	/**
 	 * @access public
-	 * @var ItemSearchBasic
-	 */
-	public $itemJoin;
-	/**
-	 * @access public
 	 * @var CampaignSearchBasic
 	 */
 	public $leadSourceJoin;
@@ -86046,11 +83615,6 @@ class OpportunitySearch extends SearchRecord {
 	 * @var NoteSearchBasic
 	 */
 	public $userNotesJoin;
-	/**
-	 * @access public
-	 * @var CustomSearchJoin[]
-	 */
-	public $customSearchJoin;
 
 	static $paramtypesmap = array(
 		"basic" => "OpportunitySearchBasic",
@@ -86061,7 +83625,6 @@ class OpportunitySearch extends SearchRecord {
 		"estimateJoin" => "TransactionSearchBasic",
 		"eventJoin" => "CalendarEventSearchBasic",
 		"fileJoin" => "FileSearchBasic",
-		"itemJoin" => "ItemSearchBasic",
 		"leadSourceJoin" => "CampaignSearchBasic",
 		"messagesJoin" => "MessageSearchBasic",
 		"orderJoin" => "TransactionSearchBasic",
@@ -86070,11 +83633,10 @@ class OpportunitySearch extends SearchRecord {
 		"salesRepJoin" => "EmployeeSearchBasic",
 		"taskJoin" => "TaskSearchBasic",
 		"userNotesJoin" => "NoteSearchBasic",
-		"customSearchJoin" => "CustomSearchJoin[]",
 	);
 }}
 
-if (!class_exists("OpportunitySearchAdvanced")) {
+if (!class_exists("OpportunitySearchAdvanced",false)){
 /**
  * OpportunitySearchAdvanced
  */
@@ -86108,7 +83670,7 @@ class OpportunitySearchAdvanced extends SearchRecord {
 	);
 }}
 
-if (!class_exists("OpportunitySearchRow")) {
+if (!class_exists("OpportunitySearchRow",false)){
 /**
  * OpportunitySearchRow
  */
@@ -86155,11 +83717,6 @@ class OpportunitySearchRow extends SearchRow {
 	public $fileJoin;
 	/**
 	 * @access public
-	 * @var ItemSearchRowBasic
-	 */
-	public $itemJoin;
-	/**
-	 * @access public
 	 * @var CampaignSearchRowBasic
 	 */
 	public $leadSourceJoin;
@@ -86198,11 +83755,6 @@ class OpportunitySearchRow extends SearchRow {
 	 * @var NoteSearchRowBasic
 	 */
 	public $userNotesJoin;
-	/**
-	 * @access public
-	 * @var CustomSearchRowBasic[]
-	 */
-	public $customSearchJoin;
 
 	static $paramtypesmap = array(
 		"basic" => "OpportunitySearchRowBasic",
@@ -86213,7 +83765,6 @@ class OpportunitySearchRow extends SearchRow {
 		"estimateJoin" => "TransactionSearchRowBasic",
 		"eventJoin" => "CalendarEventSearchRowBasic",
 		"fileJoin" => "FileSearchRowBasic",
-		"itemJoin" => "ItemSearchRowBasic",
 		"leadSourceJoin" => "CampaignSearchRowBasic",
 		"messagesJoin" => "MessageSearchRowBasic",
 		"orderJoin" => "TransactionSearchRowBasic",
@@ -86222,11 +83773,10 @@ class OpportunitySearchRow extends SearchRow {
 		"salesRepJoin" => "EmployeeSearchRowBasic",
 		"taskJoin" => "TaskSearchRowBasic",
 		"userNotesJoin" => "NoteSearchRowBasic",
-		"customSearchJoin" => "CustomSearchRowBasic[]",
 	);
 }}
 
-if (!class_exists("OpportunityPartnersList")) {
+if (!class_exists("OpportunityPartnersList",false)){
 /**
  * OpportunityPartnersList
  */
@@ -86248,7 +83798,7 @@ class OpportunityPartnersList {
 	);
 }}
 
-if (!class_exists("SalesOrder")) {
+if (!class_exists("SalesOrder",false)){
 /**
  * SalesOrder
  */
@@ -87074,7 +84624,7 @@ class SalesOrder extends Record {
 	);
 }}
 
-if (!class_exists("SalesOrderSalesTeam")) {
+if (!class_exists("SalesOrderSalesTeam",false)){
 /**
  * SalesOrderSalesTeam
  */
@@ -87108,7 +84658,7 @@ class SalesOrderSalesTeam {
 	);
 }}
 
-if (!class_exists("SalesOrderSalesTeamList")) {
+if (!class_exists("SalesOrderSalesTeamList",false)){
 /**
  * SalesOrderSalesTeamList
  */
@@ -87130,7 +84680,7 @@ class SalesOrderSalesTeamList {
 	);
 }}
 
-if (!class_exists("SalesOrderItem")) {
+if (!class_exists("SalesOrderItem",false)){
 /**
  * SalesOrderItem
  */
@@ -87205,11 +84755,6 @@ class SalesOrderItem {
 	 * @var SalesOrderItemCommitInventory
 	 */
 	public $commitInventory;
-	/**
-	 * @access public
-	 * @var float
-	 */
-	public $orderPriority;
 	/**
 	 * @access public
 	 * @var string
@@ -87315,11 +84860,6 @@ class SalesOrderItem {
 	 * @var float
 	 */
 	public $grossAmt;
-	/**
-	 * @access public
-	 * @var boolean
-	 */
-	public $excludeFromRateRequest;
 	/**
 	 * @access public
 	 * @var boolean
@@ -87487,11 +85027,6 @@ class SalesOrderItem {
 	public $expectedShipDate;
 	/**
 	 * @access public
-	 * @var ChargeRuleType
-	 */
-	public $chargeType;
-	/**
-	 * @access public
 	 * @var CustomFieldList
 	 */
 	public $customFieldList;
@@ -87511,7 +85046,6 @@ class SalesOrderItem {
 		"amount" => "float",
 		"isTaxable" => "boolean",
 		"commitInventory" => "SalesOrderItemCommitInventory",
-		"orderPriority" => "float",
 		"licenseCode" => "string",
 		"options" => "CustomFieldList",
 		"department" => "RecordRef",
@@ -87533,7 +85067,6 @@ class SalesOrderItem {
 		"billingSchedule" => "RecordRef",
 		"fromJob" => "boolean",
 		"grossAmt" => "float",
-		"excludeFromRateRequest" => "boolean",
 		"isEstimate" => "boolean",
 		"line" => "integer",
 		"percentComplete" => "float",
@@ -87567,12 +85100,11 @@ class SalesOrderItem {
 		"vsoePermitDiscount" => "VsoePermitDiscount",
 		"vsoeDelivered" => "boolean",
 		"expectedShipDate" => "dateTime",
-		"chargeType" => "ChargeRuleType",
 		"customFieldList" => "CustomFieldList",
 	);
 }}
 
-if (!class_exists("SalesOrderItemList")) {
+if (!class_exists("SalesOrderItemList",false)){
 /**
  * SalesOrderItemList
  */
@@ -87594,7 +85126,7 @@ class SalesOrderItemList {
 	);
 }}
 
-if (!class_exists("SalesOrderPartnersList")) {
+if (!class_exists("SalesOrderPartnersList",false)){
 /**
  * SalesOrderPartnersList
  */
@@ -87616,7 +85148,7 @@ class SalesOrderPartnersList {
 	);
 }}
 
-if (!class_exists("SalesOrderShipGroupList")) {
+if (!class_exists("SalesOrderShipGroupList",false)){
 /**
  * SalesOrderShipGroupList
  */
@@ -87638,7 +85170,7 @@ class SalesOrderShipGroupList {
 	);
 }}
 
-if (!class_exists("TransactionSearch")) {
+if (!class_exists("TransactionSearch",false)){
 /**
  * TransactionSearch
  */
@@ -87805,19 +85337,9 @@ class TransactionSearch extends SearchRecord {
 	public $paidTransactionJoin;
 	/**
 	 * @access public
-	 * @var PartnerSearchBasic
-	 */
-	public $partnerJoin;
-	/**
-	 * @access public
 	 * @var TransactionSearchBasic
 	 */
 	public $payingTransactionJoin;
-	/**
-	 * @access public
-	 * @var PayrollItemSearchBasic
-	 */
-	public $payrollItemJoin;
 	/**
 	 * @access public
 	 * @var TransactionSearchBasic
@@ -87878,11 +85400,6 @@ class TransactionSearch extends SearchRecord {
 	 * @var VendorSearchBasic
 	 */
 	public $vendorJoin;
-	/**
-	 * @access public
-	 * @var CustomSearchJoin[]
-	 */
-	public $customSearchJoin;
 
 	static $paramtypesmap = array(
 		"basic" => "TransactionSearchBasic",
@@ -87917,9 +85434,7 @@ class TransactionSearch extends SearchRecord {
 		"messagesJoin" => "MessageSearchBasic",
 		"opportunityJoin" => "OpportunitySearchBasic",
 		"paidTransactionJoin" => "TransactionSearchBasic",
-		"partnerJoin" => "PartnerSearchBasic",
 		"payingTransactionJoin" => "TransactionSearchBasic",
-		"payrollItemJoin" => "PayrollItemSearchBasic",
 		"purchaseOrderJoin" => "TransactionSearchBasic",
 		"requestorJoin" => "EmployeeSearchBasic",
 		"revCommittingTransactionJoin" => "TransactionSearchBasic",
@@ -87932,11 +85447,10 @@ class TransactionSearch extends SearchRecord {
 		"userJoin" => "EmployeeSearchBasic",
 		"userNotesJoin" => "NoteSearchBasic",
 		"vendorJoin" => "VendorSearchBasic",
-		"customSearchJoin" => "CustomSearchJoin[]",
 	);
 }}
 
-if (!class_exists("TransactionSearchAdvanced")) {
+if (!class_exists("TransactionSearchAdvanced",false)){
 /**
  * TransactionSearchAdvanced
  */
@@ -87970,7 +85484,7 @@ class TransactionSearchAdvanced extends SearchRecord {
 	);
 }}
 
-if (!class_exists("TransactionSearchRow")) {
+if (!class_exists("TransactionSearchRow",false)){
 /**
  * TransactionSearchRow
  */
@@ -88137,19 +85651,9 @@ class TransactionSearchRow extends SearchRow {
 	public $paidTransactionJoin;
 	/**
 	 * @access public
-	 * @var PartnerSearchRowBasic
-	 */
-	public $partnerJoin;
-	/**
-	 * @access public
 	 * @var TransactionSearchRowBasic
 	 */
 	public $payingTransactionJoin;
-	/**
-	 * @access public
-	 * @var PayrollItemSearchRowBasic
-	 */
-	public $payrollItemJoin;
 	/**
 	 * @access public
 	 * @var TransactionSearchRowBasic
@@ -88210,11 +85714,6 @@ class TransactionSearchRow extends SearchRow {
 	 * @var VendorSearchRowBasic
 	 */
 	public $vendorJoin;
-	/**
-	 * @access public
-	 * @var CustomSearchRowBasic[]
-	 */
-	public $customSearchJoin;
 
 	static $paramtypesmap = array(
 		"basic" => "TransactionSearchRowBasic",
@@ -88249,9 +85748,7 @@ class TransactionSearchRow extends SearchRow {
 		"messagesJoin" => "MessageSearchRowBasic",
 		"opportunityJoin" => "OpportunitySearchRowBasic",
 		"paidTransactionJoin" => "TransactionSearchRowBasic",
-		"partnerJoin" => "PartnerSearchRowBasic",
 		"payingTransactionJoin" => "TransactionSearchRowBasic",
-		"payrollItemJoin" => "PayrollItemSearchRowBasic",
 		"purchaseOrderJoin" => "TransactionSearchRowBasic",
 		"requestorJoin" => "EmployeeSearchRowBasic",
 		"revCommittingTransactionJoin" => "TransactionSearchRowBasic",
@@ -88264,11 +85761,10 @@ class TransactionSearchRow extends SearchRow {
 		"userJoin" => "EmployeeSearchRowBasic",
 		"userNotesJoin" => "NoteSearchRowBasic",
 		"vendorJoin" => "VendorSearchRowBasic",
-		"customSearchJoin" => "CustomSearchRowBasic[]",
 	);
 }}
 
-if (!class_exists("ItemFulfillment")) {
+if (!class_exists("ItemFulfillment",false)){
 /**
  * ItemFulfillment
  */
@@ -88824,7 +86320,7 @@ class ItemFulfillment extends Record {
 	);
 }}
 
-if (!class_exists("ItemFulfillmentItem")) {
+if (!class_exists("ItemFulfillmentItem",false)){
 /**
  * ItemFulfillmentItem
  */
@@ -88966,7 +86462,7 @@ class ItemFulfillmentItem {
 	);
 }}
 
-if (!class_exists("ItemFulfillmentItemList")) {
+if (!class_exists("ItemFulfillmentItemList",false)){
 /**
  * ItemFulfillmentItemList
  */
@@ -88988,7 +86484,7 @@ class ItemFulfillmentItemList {
 	);
 }}
 
-if (!class_exists("ItemFulfillmentPackage")) {
+if (!class_exists("ItemFulfillmentPackage",false)){
 /**
  * ItemFulfillmentPackage
  */
@@ -89016,7 +86512,7 @@ class ItemFulfillmentPackage {
 	);
 }}
 
-if (!class_exists("ItemFulfillmentPackageList")) {
+if (!class_exists("ItemFulfillmentPackageList",false)){
 /**
  * ItemFulfillmentPackageList
  */
@@ -89038,7 +86534,7 @@ class ItemFulfillmentPackageList {
 	);
 }}
 
-if (!class_exists("ItemFulfillmentPackageUps")) {
+if (!class_exists("ItemFulfillmentPackageUps",false)){
 /**
  * ItemFulfillmentPackageUps
  */
@@ -89144,7 +86640,7 @@ class ItemFulfillmentPackageUps {
 	);
 }}
 
-if (!class_exists("ItemFulfillmentPackageUpsList")) {
+if (!class_exists("ItemFulfillmentPackageUpsList",false)){
 /**
  * ItemFulfillmentPackageUpsList
  */
@@ -89166,7 +86662,7 @@ class ItemFulfillmentPackageUpsList {
 	);
 }}
 
-if (!class_exists("ItemFulfillmentPackageUsps")) {
+if (!class_exists("ItemFulfillmentPackageUsps",false)){
 /**
  * ItemFulfillmentPackageUsps
  */
@@ -89248,7 +86744,7 @@ class ItemFulfillmentPackageUsps {
 	);
 }}
 
-if (!class_exists("ItemFulfillmentPackageUspsList")) {
+if (!class_exists("ItemFulfillmentPackageUspsList",false)){
 /**
  * ItemFulfillmentPackageUspsList
  */
@@ -89270,7 +86766,7 @@ class ItemFulfillmentPackageUspsList {
 	);
 }}
 
-if (!class_exists("ItemFulfillmentPackageFedEx")) {
+if (!class_exists("ItemFulfillmentPackageFedEx",false)){
 /**
  * ItemFulfillmentPackageFedEx
  */
@@ -89424,7 +86920,7 @@ class ItemFulfillmentPackageFedEx {
 	);
 }}
 
-if (!class_exists("ItemFulfillmentPackageFedExList")) {
+if (!class_exists("ItemFulfillmentPackageFedExList",false)){
 /**
  * ItemFulfillmentPackageFedExList
  */
@@ -89446,7 +86942,7 @@ class ItemFulfillmentPackageFedExList {
 	);
 }}
 
-if (!class_exists("ItemFulfillmentShipGroupList")) {
+if (!class_exists("ItemFulfillmentShipGroupList",false)){
 /**
  * ItemFulfillmentShipGroupList
  */
@@ -89468,7 +86964,7 @@ class ItemFulfillmentShipGroupList {
 	);
 }}
 
-if (!class_exists("Invoice")) {
+if (!class_exists("Invoice",false)){
 /**
  * Invoice
  */
@@ -90276,7 +87772,7 @@ class Invoice extends Record {
 	);
 }}
 
-if (!class_exists("InvoiceSalesTeam")) {
+if (!class_exists("InvoiceSalesTeam",false)){
 /**
  * InvoiceSalesTeam
  */
@@ -90310,7 +87806,7 @@ class InvoiceSalesTeam {
 	);
 }}
 
-if (!class_exists("InvoiceSalesTeamList")) {
+if (!class_exists("InvoiceSalesTeamList",false)){
 /**
  * InvoiceSalesTeamList
  */
@@ -90332,7 +87828,7 @@ class InvoiceSalesTeamList {
 	);
 }}
 
-if (!class_exists("InvoiceItem")) {
+if (!class_exists("InvoiceItem",false)){
 /**
  * InvoiceItem
  */
@@ -90614,16 +88110,6 @@ class InvoiceItem {
 	public $vsoeDelivered;
 	/**
 	 * @access public
-	 * @var ChargeRuleType
-	 */
-	public $chargeType;
-	/**
-	 * @access public
-	 * @var RecordRefList
-	 */
-	public $chargesList;
-	/**
-	 * @access public
 	 * @var CustomFieldList
 	 */
 	public $customFieldList;
@@ -90684,13 +88170,11 @@ class InvoiceItem {
 		"vsoeDeferral" => "VsoeDeferral",
 		"vsoePermitDiscount" => "VsoePermitDiscount",
 		"vsoeDelivered" => "boolean",
-		"chargeType" => "ChargeRuleType",
-		"chargesList" => "RecordRefList",
 		"customFieldList" => "CustomFieldList",
 	);
 }}
 
-if (!class_exists("InvoiceItemList")) {
+if (!class_exists("InvoiceItemList",false)){
 /**
  * InvoiceItemList
  */
@@ -90712,7 +88196,7 @@ class InvoiceItemList {
 	);
 }}
 
-if (!class_exists("InvoiceItemCost")) {
+if (!class_exists("InvoiceItemCost",false)){
 /**
  * InvoiceItemCost
  */
@@ -90872,7 +88356,7 @@ class InvoiceItemCost {
 	);
 }}
 
-if (!class_exists("InvoiceItemCostList")) {
+if (!class_exists("InvoiceItemCostList",false)){
 /**
  * InvoiceItemCostList
  */
@@ -90894,7 +88378,7 @@ class InvoiceItemCostList {
 	);
 }}
 
-if (!class_exists("InvoiceExpCost")) {
+if (!class_exists("InvoiceExpCost",false)){
 /**
  * InvoiceExpCost
  */
@@ -91036,7 +88520,7 @@ class InvoiceExpCost {
 	);
 }}
 
-if (!class_exists("InvoiceExpCostList")) {
+if (!class_exists("InvoiceExpCostList",false)){
 /**
  * InvoiceExpCostList
  */
@@ -91058,7 +88542,7 @@ class InvoiceExpCostList {
 	);
 }}
 
-if (!class_exists("InvoiceTime")) {
+if (!class_exists("InvoiceTime",false)){
 /**
  * InvoiceTime
  */
@@ -91206,7 +88690,7 @@ class InvoiceTime {
 	);
 }}
 
-if (!class_exists("InvoiceTimeList")) {
+if (!class_exists("InvoiceTimeList",false)){
 /**
  * InvoiceTimeList
  */
@@ -91228,7 +88712,7 @@ class InvoiceTimeList {
 	);
 }}
 
-if (!class_exists("InvoicePartnersList")) {
+if (!class_exists("InvoicePartnersList",false)){
 /**
  * InvoicePartnersList
  */
@@ -91250,7 +88734,7 @@ class InvoicePartnersList {
 	);
 }}
 
-if (!class_exists("InvoiceShipGroupList")) {
+if (!class_exists("InvoiceShipGroupList",false)){
 /**
  * InvoiceShipGroupList
  */
@@ -91272,7 +88756,7 @@ class InvoiceShipGroupList {
 	);
 }}
 
-if (!class_exists("CashSale")) {
+if (!class_exists("CashSale",false)){
 /**
  * CashSale
  */
@@ -92194,7 +89678,7 @@ class CashSale extends Record {
 	);
 }}
 
-if (!class_exists("CashSaleSalesTeam")) {
+if (!class_exists("CashSaleSalesTeam",false)){
 /**
  * CashSaleSalesTeam
  */
@@ -92228,7 +89712,7 @@ class CashSaleSalesTeam {
 	);
 }}
 
-if (!class_exists("CashSaleSalesTeamList")) {
+if (!class_exists("CashSaleSalesTeamList",false)){
 /**
  * CashSaleSalesTeamList
  */
@@ -92250,7 +89734,7 @@ class CashSaleSalesTeamList {
 	);
 }}
 
-if (!class_exists("CashSaleItem")) {
+if (!class_exists("CashSaleItem",false)){
 /**
  * CashSaleItem
  */
@@ -92532,16 +90016,6 @@ class CashSaleItem {
 	public $vsoeDelivered;
 	/**
 	 * @access public
-	 * @var ChargeRuleType
-	 */
-	public $chargeType;
-	/**
-	 * @access public
-	 * @var RecordRefList
-	 */
-	public $chargesList;
-	/**
-	 * @access public
 	 * @var CustomFieldList
 	 */
 	public $customFieldList;
@@ -92602,13 +90076,11 @@ class CashSaleItem {
 		"vsoeDeferral" => "VsoeDeferral",
 		"vsoePermitDiscount" => "VsoePermitDiscount",
 		"vsoeDelivered" => "boolean",
-		"chargeType" => "ChargeRuleType",
-		"chargesList" => "RecordRefList",
 		"customFieldList" => "CustomFieldList",
 	);
 }}
 
-if (!class_exists("CashSaleItemList")) {
+if (!class_exists("CashSaleItemList",false)){
 /**
  * CashSaleItemList
  */
@@ -92630,7 +90102,7 @@ class CashSaleItemList {
 	);
 }}
 
-if (!class_exists("CashSaleItemCost")) {
+if (!class_exists("CashSaleItemCost",false)){
 /**
  * CashSaleItemCost
  */
@@ -92790,7 +90262,7 @@ class CashSaleItemCost {
 	);
 }}
 
-if (!class_exists("CashSaleItemCostList")) {
+if (!class_exists("CashSaleItemCostList",false)){
 /**
  * CashSaleItemCostList
  */
@@ -92812,7 +90284,7 @@ class CashSaleItemCostList {
 	);
 }}
 
-if (!class_exists("CashSaleExpCost")) {
+if (!class_exists("CashSaleExpCost",false)){
 /**
  * CashSaleExpCost
  */
@@ -92954,7 +90426,7 @@ class CashSaleExpCost {
 	);
 }}
 
-if (!class_exists("CashSaleExpCostList")) {
+if (!class_exists("CashSaleExpCostList",false)){
 /**
  * CashSaleExpCostList
  */
@@ -92976,7 +90448,7 @@ class CashSaleExpCostList {
 	);
 }}
 
-if (!class_exists("CashSaleTime")) {
+if (!class_exists("CashSaleTime",false)){
 /**
  * CashSaleTime
  */
@@ -93124,7 +90596,7 @@ class CashSaleTime {
 	);
 }}
 
-if (!class_exists("CashSaleTimeList")) {
+if (!class_exists("CashSaleTimeList",false)){
 /**
  * CashSaleTimeList
  */
@@ -93146,7 +90618,7 @@ class CashSaleTimeList {
 	);
 }}
 
-if (!class_exists("CashSalePartnersList")) {
+if (!class_exists("CashSalePartnersList",false)){
 /**
  * CashSalePartnersList
  */
@@ -93168,7 +90640,7 @@ class CashSalePartnersList {
 	);
 }}
 
-if (!class_exists("CashSaleShipGroupList")) {
+if (!class_exists("CashSaleShipGroupList",false)){
 /**
  * CashSaleShipGroupList
  */
@@ -93190,7 +90662,7 @@ class CashSaleShipGroupList {
 	);
 }}
 
-if (!class_exists("Estimate")) {
+if (!class_exists("Estimate",false)){
 /**
  * Estimate
  */
@@ -93740,7 +91212,7 @@ class Estimate extends Record {
 	);
 }}
 
-if (!class_exists("EstimateItem")) {
+if (!class_exists("EstimateItem",false)){
 /**
  * EstimateItem
  */
@@ -93912,11 +91384,6 @@ class EstimateItem {
 	public $expectedShipDate;
 	/**
 	 * @access public
-	 * @var ChargeRuleType
-	 */
-	public $chargeType;
-	/**
-	 * @access public
 	 * @var CustomFieldList
 	 */
 	public $customFieldList;
@@ -93955,12 +91422,11 @@ class EstimateItem {
 		"shipAddress" => "RecordRef",
 		"shipMethod" => "RecordRef",
 		"expectedShipDate" => "dateTime",
-		"chargeType" => "ChargeRuleType",
 		"customFieldList" => "CustomFieldList",
 	);
 }}
 
-if (!class_exists("EstimateItemList")) {
+if (!class_exists("EstimateItemList",false)){
 /**
  * EstimateItemList
  */
@@ -93982,7 +91448,7 @@ class EstimateItemList {
 	);
 }}
 
-if (!class_exists("EstimateSalesTeam")) {
+if (!class_exists("EstimateSalesTeam",false)){
 /**
  * EstimateSalesTeam
  */
@@ -94016,7 +91482,7 @@ class EstimateSalesTeam {
 	);
 }}
 
-if (!class_exists("EstimateSalesTeamList")) {
+if (!class_exists("EstimateSalesTeamList",false)){
 /**
  * EstimateSalesTeamList
  */
@@ -94038,7 +91504,7 @@ class EstimateSalesTeamList {
 	);
 }}
 
-if (!class_exists("EstimatePartnersList")) {
+if (!class_exists("EstimatePartnersList",false)){
 /**
  * EstimatePartnersList
  */
@@ -94060,7 +91526,7 @@ class EstimatePartnersList {
 	);
 }}
 
-if (!class_exists("EstimateShipGroupList")) {
+if (!class_exists("EstimateShipGroupList",false)){
 /**
  * EstimateShipGroupList
  */
@@ -94082,7 +91548,7 @@ class EstimateShipGroupList {
 	);
 }}
 
-if (!class_exists("GiftCertRedemption")) {
+if (!class_exists("GiftCertRedemption",false)){
 /**
  * GiftCertRedemption
  */
@@ -94116,7 +91582,7 @@ class GiftCertRedemption {
 	);
 }}
 
-if (!class_exists("GiftCertRedemptionList")) {
+if (!class_exists("GiftCertRedemptionList",false)){
 /**
  * GiftCertRedemptionList
  */
@@ -94138,7 +91604,7 @@ class GiftCertRedemptionList {
 	);
 }}
 
-if (!class_exists("TransactionShipGroup")) {
+if (!class_exists("TransactionShipGroup",false)){
 /**
  * TransactionShipGroup
  */
@@ -94286,7 +91752,7 @@ class TransactionShipGroup {
 	);
 }}
 
-if (!class_exists("PurchaseOrderOrderStatus")) {
+if (!class_exists("PurchaseOrderOrderStatus",false)){
 /**
  * PurchaseOrderOrderStatus
  */
@@ -94328,7 +91794,7 @@ class PurchaseOrderOrderStatus {
 	const _rejectedBySupervisor = "_rejectedBySupervisor";
 }}
 
-if (!class_exists("TransactionBillVarianceStatus")) {
+if (!class_exists("TransactionBillVarianceStatus",false)){
 /**
  * TransactionBillVarianceStatus
  */
@@ -94350,7 +91816,7 @@ class TransactionBillVarianceStatus {
 	const _noVariances = "_noVariances";
 }}
 
-if (!class_exists("VendorReturnAuthorizationOrderStatus")) {
+if (!class_exists("VendorReturnAuthorizationOrderStatus",false)){
 /**
  * VendorReturnAuthorizationOrderStatus
  */
@@ -94396,14 +91862,14 @@ class VendorReturnAuthorizationOrderStatus {
 	const _undefined = "_undefined";
 }}
 
-if (!class_exists("PurchLandedCostList")) {
+if (!class_exists("PurchLandedCostList",false)){
 /**
  * PurchLandedCostList
  */
 class PurchLandedCostList {
 	/**
 	 * @access public
-	 * @var LandedCostSummary[]
+	 * @var LandedCost[]
 	 */
 	public $landedCost;
 	/**
@@ -94413,12 +91879,12 @@ class PurchLandedCostList {
 	public $replaceAll;
 
 	static $paramtypesmap = array(
-		"landedCost" => "LandedCostSummary[]",
+		"landedCost" => "LandedCost[]",
 		"replaceAll" => "boolean",
 	);
 }}
 
-if (!class_exists("VendorBill")) {
+if (!class_exists("VendorBill",false)){
 /**
  * VendorBill
  */
@@ -94570,11 +92036,6 @@ class VendorBill extends Record {
 	public $landedCostMethod;
 	/**
 	 * @access public
-	 * @var boolean
-	 */
-	public $landedCostPerLine;
-	/**
-	 * @access public
 	 * @var VendorBillExpenseList
 	 */
 	public $expenseList;
@@ -94639,7 +92100,6 @@ class VendorBill extends Record {
 		"location" => "RecordRef",
 		"status" => "string",
 		"landedCostMethod" => "LandedCostMethod",
-		"landedCostPerLine" => "boolean",
 		"expenseList" => "VendorBillExpenseList",
 		"itemList" => "VendorBillItemList",
 		"landedCostsList" => "PurchLandedCostList",
@@ -94650,7 +92110,7 @@ class VendorBill extends Record {
 	);
 }}
 
-if (!class_exists("VendorBillExpense")) {
+if (!class_exists("VendorBillExpense",false)){
 /**
  * VendorBillExpense
  */
@@ -94792,7 +92252,7 @@ class VendorBillExpense {
 	);
 }}
 
-if (!class_exists("VendorBillExpenseList")) {
+if (!class_exists("VendorBillExpenseList",false)){
 /**
  * VendorBillExpenseList
  */
@@ -94814,7 +92274,7 @@ class VendorBillExpenseList {
 	);
 }}
 
-if (!class_exists("VendorBillItem")) {
+if (!class_exists("VendorBillItem",false)){
 /**
  * VendorBillItem
  */
@@ -94981,11 +92441,6 @@ class VendorBillItem {
 	public $amortizationResidual;
 	/**
 	 * @access public
-	 * @var LandedCost
-	 */
-	public $landedCost;
-	/**
-	 * @access public
 	 * @var CustomFieldList
 	 */
 	public $customFieldList;
@@ -95023,12 +92478,11 @@ class VendorBillItem {
 		"amortizStartDate" => "dateTime",
 		"amortizationEndDate" => "dateTime",
 		"amortizationResidual" => "string",
-		"landedCost" => "LandedCost",
 		"customFieldList" => "CustomFieldList",
 	);
 }}
 
-if (!class_exists("VendorBillItemList")) {
+if (!class_exists("VendorBillItemList",false)){
 /**
  * VendorBillItemList
  */
@@ -95050,7 +92504,7 @@ class VendorBillItemList {
 	);
 }}
 
-if (!class_exists("PurchaseOrder")) {
+if (!class_exists("PurchaseOrder",false)){
 /**
  * PurchaseOrder
  */
@@ -95390,7 +92844,7 @@ class PurchaseOrder extends Record {
 	);
 }}
 
-if (!class_exists("PurchaseOrderExpense")) {
+if (!class_exists("PurchaseOrderExpense",false)){
 /**
  * PurchaseOrderExpense
  */
@@ -95502,7 +92956,7 @@ class PurchaseOrderExpense {
 	);
 }}
 
-if (!class_exists("PurchaseOrderExpenseList")) {
+if (!class_exists("PurchaseOrderExpenseList",false)){
 /**
  * PurchaseOrderExpenseList
  */
@@ -95524,7 +92978,7 @@ class PurchaseOrderExpenseList {
 	);
 }}
 
-if (!class_exists("PurchaseOrderItem")) {
+if (!class_exists("PurchaseOrderItem",false)){
 /**
  * PurchaseOrderItem
  */
@@ -95720,7 +93174,7 @@ class PurchaseOrderItem {
 	);
 }}
 
-if (!class_exists("PurchaseOrderItemList")) {
+if (!class_exists("PurchaseOrderItemList",false)){
 /**
  * PurchaseOrderItemList
  */
@@ -95742,7 +93196,7 @@ class PurchaseOrderItemList {
 	);
 }}
 
-if (!class_exists("ItemReceipt")) {
+if (!class_exists("ItemReceipt",false)){
 /**
  * ItemReceipt
  */
@@ -95824,11 +93278,6 @@ class ItemReceipt extends Record {
 	public $landedCostMethod;
 	/**
 	 * @access public
-	 * @var boolean
-	 */
-	public $landedCostPerLine;
-	/**
-	 * @access public
 	 * @var ItemReceiptItemList
 	 */
 	public $itemList;
@@ -95874,7 +93323,6 @@ class ItemReceipt extends Record {
 		"memo" => "string",
 		"currency" => "RecordRef",
 		"landedCostMethod" => "LandedCostMethod",
-		"landedCostPerLine" => "boolean",
 		"itemList" => "ItemReceiptItemList",
 		"expenseList" => "ItemReceiptExpenseList",
 		"landedCostsList" => "PurchLandedCostList",
@@ -95884,7 +93332,7 @@ class ItemReceipt extends Record {
 	);
 }}
 
-if (!class_exists("ItemReceiptItem")) {
+if (!class_exists("ItemReceiptItem",false)){
 /**
  * ItemReceiptItem
  */
@@ -96006,11 +93454,6 @@ class ItemReceiptItem {
 	public $options;
 	/**
 	 * @access public
-	 * @var LandedCost
-	 */
-	public $landedCost;
-	/**
-	 * @access public
 	 * @var CustomFieldList
 	 */
 	public $customFieldList;
@@ -96039,12 +93482,11 @@ class ItemReceiptItem {
 		"billVarianceStatus" => "TransactionBillVarianceStatus",
 		"isDropShipment" => "boolean",
 		"options" => "CustomFieldList",
-		"landedCost" => "LandedCost",
 		"customFieldList" => "CustomFieldList",
 	);
 }}
 
-if (!class_exists("ItemReceiptItemList")) {
+if (!class_exists("ItemReceiptItemList",false)){
 /**
  * ItemReceiptItemList
  */
@@ -96066,7 +93508,7 @@ class ItemReceiptItemList {
 	);
 }}
 
-if (!class_exists("ItemReceiptExpense")) {
+if (!class_exists("ItemReceiptExpense",false)){
 /**
  * ItemReceiptExpense
  */
@@ -96118,7 +93560,7 @@ class ItemReceiptExpense {
 	);
 }}
 
-if (!class_exists("ItemReceiptExpenseList")) {
+if (!class_exists("ItemReceiptExpenseList",false)){
 /**
  * ItemReceiptExpenseList
  */
@@ -96140,7 +93582,7 @@ class ItemReceiptExpenseList {
 	);
 }}
 
-if (!class_exists("VendorPayment")) {
+if (!class_exists("VendorPayment",false)){
 /**
  * VendorPayment
  */
@@ -96336,7 +93778,7 @@ class VendorPayment extends Record {
 	);
 }}
 
-if (!class_exists("VendorPaymentApply")) {
+if (!class_exists("VendorPaymentApply",false)){
 /**
  * VendorPaymentApply
  */
@@ -96430,7 +93872,7 @@ class VendorPaymentApply {
 	);
 }}
 
-if (!class_exists("VendorPaymentApplyList")) {
+if (!class_exists("VendorPaymentApplyList",false)){
 /**
  * VendorPaymentApplyList
  */
@@ -96452,7 +93894,7 @@ class VendorPaymentApplyList {
 	);
 }}
 
-if (!class_exists("VendorPaymentCredit")) {
+if (!class_exists("VendorPaymentCredit",false)){
 /**
  * VendorPaymentCredit
  */
@@ -96528,7 +93970,7 @@ class VendorPaymentCredit {
 	);
 }}
 
-if (!class_exists("VendorPaymentCreditList")) {
+if (!class_exists("VendorPaymentCreditList",false)){
 /**
  * VendorPaymentCreditList
  */
@@ -96550,7 +93992,7 @@ class VendorPaymentCreditList {
 	);
 }}
 
-if (!class_exists("VendorCredit")) {
+if (!class_exists("VendorCredit",false)){
 /**
  * VendorCredit
  */
@@ -96728,7 +94170,7 @@ class VendorCredit extends Record {
 	);
 }}
 
-if (!class_exists("VendorCreditExpense")) {
+if (!class_exists("VendorCreditExpense",false)){
 /**
  * VendorCreditExpense
  */
@@ -96864,7 +94306,7 @@ class VendorCreditExpense {
 	);
 }}
 
-if (!class_exists("VendorCreditExpenseList")) {
+if (!class_exists("VendorCreditExpenseList",false)){
 /**
  * VendorCreditExpenseList
  */
@@ -96886,7 +94328,7 @@ class VendorCreditExpenseList {
 	);
 }}
 
-if (!class_exists("VendorCreditItem")) {
+if (!class_exists("VendorCreditItem",false)){
 /**
  * VendorCreditItem
  */
@@ -97064,7 +94506,7 @@ class VendorCreditItem {
 	);
 }}
 
-if (!class_exists("VendorCreditItemList")) {
+if (!class_exists("VendorCreditItemList",false)){
 /**
  * VendorCreditItemList
  */
@@ -97086,7 +94528,7 @@ class VendorCreditItemList {
 	);
 }}
 
-if (!class_exists("VendorCreditApply")) {
+if (!class_exists("VendorCreditApply",false)){
 /**
  * VendorCreditApply
  */
@@ -97156,7 +94598,7 @@ class VendorCreditApply {
 	);
 }}
 
-if (!class_exists("VendorCreditApplyList")) {
+if (!class_exists("VendorCreditApplyList",false)){
 /**
  * VendorCreditApplyList
  */
@@ -97178,7 +94620,7 @@ class VendorCreditApplyList {
 	);
 }}
 
-if (!class_exists("VendorReturnAuthorization")) {
+if (!class_exists("VendorReturnAuthorization",false)){
 /**
  * VendorReturnAuthorization
  */
@@ -97332,7 +94774,7 @@ class VendorReturnAuthorization extends Record {
 	);
 }}
 
-if (!class_exists("VendorReturnAuthorizationExpense")) {
+if (!class_exists("VendorReturnAuthorizationExpense",false)){
 /**
  * VendorReturnAuthorizationExpense
  */
@@ -97468,7 +94910,7 @@ class VendorReturnAuthorizationExpense {
 	);
 }}
 
-if (!class_exists("VendorReturnAuthorizationExpenseList")) {
+if (!class_exists("VendorReturnAuthorizationExpenseList",false)){
 /**
  * VendorReturnAuthorizationExpenseList
  */
@@ -97490,7 +94932,7 @@ class VendorReturnAuthorizationExpenseList {
 	);
 }}
 
-if (!class_exists("VendorReturnAuthorizationItem")) {
+if (!class_exists("VendorReturnAuthorizationItem",false)){
 /**
  * VendorReturnAuthorizationItem
  */
@@ -97680,7 +95122,7 @@ class VendorReturnAuthorizationItem {
 	);
 }}
 
-if (!class_exists("VendorReturnAuthorizationItemList")) {
+if (!class_exists("VendorReturnAuthorizationItemList",false)){
 /**
  * VendorReturnAuthorizationItemList
  */
@@ -97702,7 +95144,7 @@ class VendorReturnAuthorizationItemList {
 	);
 }}
 
-if (!class_exists("ReturnAuthorizationOrderStatus")) {
+if (!class_exists("ReturnAuthorizationOrderStatus",false)){
 /**
  * ReturnAuthorizationOrderStatus
  */
@@ -97720,47 +95162,7 @@ class ReturnAuthorizationOrderStatus {
 	const _pendingReceipt = "_pendingReceipt";
 }}
 
-if (!class_exists("ChargeStage")) {
-/**
- * ChargeStage
- */
-class ChargeStage {
-
-	static $paramtypesmap = array(
-	);
-	/**
-	 * @var string
-	 */
-	const _hold = "_hold";
-	/**
-	 * @var string
-	 */
-	const _processed = "_processed";
-	/**
-	 * @var string
-	 */
-	const _ready = "_ready";
-}}
-
-if (!class_exists("ChargeUse")) {
-/**
- * ChargeUse
- */
-class ChargeUse {
-
-	static $paramtypesmap = array(
-	);
-	/**
-	 * @var string
-	 */
-	const _actual = "_actual";
-	/**
-	 * @var string
-	 */
-	const _forecast = "_forecast";
-}}
-
-if (!class_exists("CashRefund")) {
+if (!class_exists("CashRefund",false)){
 /**
  * CashRefund
  */
@@ -98388,7 +95790,7 @@ class CashRefund extends Record {
 	);
 }}
 
-if (!class_exists("CashRefundItem")) {
+if (!class_exists("CashRefundItem",false)){
 /**
  * CashRefundItem
  */
@@ -98600,16 +96002,6 @@ class CashRefundItem {
 	public $vsoeDelivered;
 	/**
 	 * @access public
-	 * @var ChargeRuleType
-	 */
-	public $chargeType;
-	/**
-	 * @access public
-	 * @var RecordRefList
-	 */
-	public $chargesList;
-	/**
-	 * @access public
 	 * @var CustomFieldList
 	 */
 	public $customFieldList;
@@ -98656,13 +96048,11 @@ class CashRefundItem {
 		"vsoeDeferral" => "VsoeDeferral",
 		"vsoePermitDiscount" => "VsoePermitDiscount",
 		"vsoeDelivered" => "boolean",
-		"chargeType" => "ChargeRuleType",
-		"chargesList" => "RecordRefList",
 		"customFieldList" => "CustomFieldList",
 	);
 }}
 
-if (!class_exists("CashRefundItemList")) {
+if (!class_exists("CashRefundItemList",false)){
 /**
  * CashRefundItemList
  */
@@ -98684,7 +96074,7 @@ class CashRefundItemList {
 	);
 }}
 
-if (!class_exists("CashRefundSalesTeam")) {
+if (!class_exists("CashRefundSalesTeam",false)){
 /**
  * CashRefundSalesTeam
  */
@@ -98718,7 +96108,7 @@ class CashRefundSalesTeam {
 	);
 }}
 
-if (!class_exists("CashRefundSalesTeamList")) {
+if (!class_exists("CashRefundSalesTeamList",false)){
 /**
  * CashRefundSalesTeamList
  */
@@ -98740,7 +96130,7 @@ class CashRefundSalesTeamList {
 	);
 }}
 
-if (!class_exists("CashRefundPartnersList")) {
+if (!class_exists("CashRefundPartnersList",false)){
 /**
  * CashRefundPartnersList
  */
@@ -98762,7 +96152,7 @@ class CashRefundPartnersList {
 	);
 }}
 
-if (!class_exists("CustomerPayment")) {
+if (!class_exists("CustomerPayment",false)){
 /**
  * CustomerPayment
  */
@@ -99096,7 +96486,7 @@ class CustomerPayment extends Record {
 	);
 }}
 
-if (!class_exists("CustomerPaymentApply")) {
+if (!class_exists("CustomerPaymentApply",false)){
 /**
  * CustomerPaymentApply
  */
@@ -99190,7 +96580,7 @@ class CustomerPaymentApply {
 	);
 }}
 
-if (!class_exists("CustomerPaymentApplyList")) {
+if (!class_exists("CustomerPaymentApplyList",false)){
 /**
  * CustomerPaymentApplyList
  */
@@ -99212,7 +96602,7 @@ class CustomerPaymentApplyList {
 	);
 }}
 
-if (!class_exists("CustomerPaymentCredit")) {
+if (!class_exists("CustomerPaymentCredit",false)){
 /**
  * CustomerPaymentCredit
  */
@@ -99288,7 +96678,7 @@ class CustomerPaymentCredit {
 	);
 }}
 
-if (!class_exists("CustomerPaymentCreditList")) {
+if (!class_exists("CustomerPaymentCreditList",false)){
 /**
  * CustomerPaymentCreditList
  */
@@ -99310,7 +96700,7 @@ class CustomerPaymentCreditList {
 	);
 }}
 
-if (!class_exists("CustomerPaymentDeposit")) {
+if (!class_exists("CustomerPaymentDeposit",false)){
 /**
  * CustomerPaymentDeposit
  */
@@ -99374,7 +96764,7 @@ class CustomerPaymentDeposit {
 	);
 }}
 
-if (!class_exists("CustomerPaymentDepositList")) {
+if (!class_exists("CustomerPaymentDepositList",false)){
 /**
  * CustomerPaymentDepositList
  */
@@ -99396,7 +96786,7 @@ class CustomerPaymentDepositList {
 	);
 }}
 
-if (!class_exists("ReturnAuthorization")) {
+if (!class_exists("ReturnAuthorization",false)){
 /**
  * ReturnAuthorization
  */
@@ -99976,7 +97366,7 @@ class ReturnAuthorization extends Record {
 	);
 }}
 
-if (!class_exists("ReturnAuthorizationItem")) {
+if (!class_exists("ReturnAuthorizationItem",false)){
 /**
  * ReturnAuthorizationItem
  */
@@ -100274,7 +97664,7 @@ class ReturnAuthorizationItem {
 	);
 }}
 
-if (!class_exists("ReturnAuthorizationItemList")) {
+if (!class_exists("ReturnAuthorizationItemList",false)){
 /**
  * ReturnAuthorizationItemList
  */
@@ -100296,7 +97686,7 @@ class ReturnAuthorizationItemList {
 	);
 }}
 
-if (!class_exists("ReturnAuthorizationSalesTeam")) {
+if (!class_exists("ReturnAuthorizationSalesTeam",false)){
 /**
  * ReturnAuthorizationSalesTeam
  */
@@ -100330,7 +97720,7 @@ class ReturnAuthorizationSalesTeam {
 	);
 }}
 
-if (!class_exists("ReturnAuthorizationSalesTeamList")) {
+if (!class_exists("ReturnAuthorizationSalesTeamList",false)){
 /**
  * ReturnAuthorizationSalesTeamList
  */
@@ -100352,7 +97742,7 @@ class ReturnAuthorizationSalesTeamList {
 	);
 }}
 
-if (!class_exists("ReturnAuthorizationPartnersList")) {
+if (!class_exists("ReturnAuthorizationPartnersList",false)){
 /**
  * ReturnAuthorizationPartnersList
  */
@@ -100374,7 +97764,7 @@ class ReturnAuthorizationPartnersList {
 	);
 }}
 
-if (!class_exists("CreditMemo")) {
+if (!class_exists("CreditMemo",false)){
 /**
  * CreditMemo
  */
@@ -100924,7 +98314,7 @@ class CreditMemo extends Record {
 	);
 }}
 
-if (!class_exists("CreditMemoSalesTeam")) {
+if (!class_exists("CreditMemoSalesTeam",false)){
 /**
  * CreditMemoSalesTeam
  */
@@ -100958,7 +98348,7 @@ class CreditMemoSalesTeam {
 	);
 }}
 
-if (!class_exists("CreditMemoSalesTeamList")) {
+if (!class_exists("CreditMemoSalesTeamList",false)){
 /**
  * CreditMemoSalesTeamList
  */
@@ -100980,7 +98370,7 @@ class CreditMemoSalesTeamList {
 	);
 }}
 
-if (!class_exists("CreditMemoItem")) {
+if (!class_exists("CreditMemoItem",false)){
 /**
  * CreditMemoItem
  */
@@ -101202,16 +98592,6 @@ class CreditMemoItem {
 	public $vsoeDelivered;
 	/**
 	 * @access public
-	 * @var ChargeRuleType
-	 */
-	public $chargeType;
-	/**
-	 * @access public
-	 * @var RecordRefList
-	 */
-	public $chargesList;
-	/**
-	 * @access public
 	 * @var CustomFieldList
 	 */
 	public $customFieldList;
@@ -101260,13 +98640,11 @@ class CreditMemoItem {
 		"vsoeDeferral" => "VsoeDeferral",
 		"vsoePermitDiscount" => "VsoePermitDiscount",
 		"vsoeDelivered" => "boolean",
-		"chargeType" => "ChargeRuleType",
-		"chargesList" => "RecordRefList",
 		"customFieldList" => "CustomFieldList",
 	);
 }}
 
-if (!class_exists("CreditMemoItemList")) {
+if (!class_exists("CreditMemoItemList",false)){
 /**
  * CreditMemoItemList
  */
@@ -101288,7 +98666,7 @@ class CreditMemoItemList {
 	);
 }}
 
-if (!class_exists("CreditMemoApply")) {
+if (!class_exists("CreditMemoApply",false)){
 /**
  * CreditMemoApply
  */
@@ -101364,7 +98742,7 @@ class CreditMemoApply {
 	);
 }}
 
-if (!class_exists("CreditMemoApplyList")) {
+if (!class_exists("CreditMemoApplyList",false)){
 /**
  * CreditMemoApplyList
  */
@@ -101386,7 +98764,7 @@ class CreditMemoApplyList {
 	);
 }}
 
-if (!class_exists("CreditMemoPartnersList")) {
+if (!class_exists("CreditMemoPartnersList",false)){
 /**
  * CreditMemoPartnersList
  */
@@ -101408,7 +98786,7 @@ class CreditMemoPartnersList {
 	);
 }}
 
-if (!class_exists("CustomerRefund")) {
+if (!class_exists("CustomerRefund",false)){
 /**
  * CustomerRefund
  */
@@ -101676,7 +99054,7 @@ class CustomerRefund extends Record {
 	);
 }}
 
-if (!class_exists("CustomerRefundApply")) {
+if (!class_exists("CustomerRefundApply",false)){
 /**
  * CustomerRefundApply
  */
@@ -101746,7 +99124,7 @@ class CustomerRefundApply {
 	);
 }}
 
-if (!class_exists("CustomerRefundApplyList")) {
+if (!class_exists("CustomerRefundApplyList",false)){
 /**
  * CustomerRefundApplyList
  */
@@ -101768,7 +99146,7 @@ class CustomerRefundApplyList {
 	);
 }}
 
-if (!class_exists("CustomerRefundDeposit")) {
+if (!class_exists("CustomerRefundDeposit",false)){
 /**
  * CustomerRefundDeposit
  */
@@ -101832,7 +99210,7 @@ class CustomerRefundDeposit {
 	);
 }}
 
-if (!class_exists("CustomerRefundDepositList")) {
+if (!class_exists("CustomerRefundDepositList",false)){
 /**
  * CustomerRefundDepositList
  */
@@ -101854,7 +99232,7 @@ class CustomerRefundDepositList {
 	);
 }}
 
-if (!class_exists("CustomerDeposit")) {
+if (!class_exists("CustomerDeposit",false)){
 /**
  * CustomerDeposit
  */
@@ -102146,7 +99524,7 @@ class CustomerDeposit extends Record {
 	);
 }}
 
-if (!class_exists("CustomerDepositApply")) {
+if (!class_exists("CustomerDepositApply",false)){
 /**
  * CustomerDepositApply
  */
@@ -102210,7 +99588,7 @@ class CustomerDepositApply {
 	);
 }}
 
-if (!class_exists("CustomerDepositApplyList")) {
+if (!class_exists("CustomerDepositApplyList",false)){
 /**
  * CustomerDepositApplyList
  */
@@ -102232,7 +99610,7 @@ class CustomerDepositApplyList {
 	);
 }}
 
-if (!class_exists("DepositApplication")) {
+if (!class_exists("DepositApplication",false)){
 /**
  * DepositApplication
  */
@@ -102386,7 +99764,7 @@ class DepositApplication extends Record {
 	);
 }}
 
-if (!class_exists("DepositApplicationApply")) {
+if (!class_exists("DepositApplicationApply",false)){
 /**
  * DepositApplicationApply
  */
@@ -102462,7 +99840,7 @@ class DepositApplicationApply {
 	);
 }}
 
-if (!class_exists("DepositApplicationApplyList")) {
+if (!class_exists("DepositApplicationApplyList",false)){
 /**
  * DepositApplicationApplyList
  */
@@ -102484,263 +99862,7 @@ class DepositApplicationApplyList {
 	);
 }}
 
-if (!class_exists("Charge")) {
-/**
- * Charge
- */
-class Charge extends Record {
-	/**
-	 * @access public
-	 * @var RecordRef
-	 */
-	public $customForm;
-	/**
-	 * @access public
-	 * @var RecordRef
-	 */
-	public $salesOrder;
-	/**
-	 * @access public
-	 * @var RecordRef
-	 */
-	public $billTo;
-	/**
-	 * @access public
-	 * @var ChargeStage
-	 */
-	public $stage;
-	/**
-	 * @access public
-	 * @var dateTime
-	 */
-	public $chargeDate;
-	/**
-	 * @access public
-	 * @var ChargeUse
-	 */
-	public $use;
-	/**
-	 * @access public
-	 * @var ChargeRuleType
-	 */
-	public $chargeType;
-	/**
-	 * @access public
-	 * @var RecordRef
-	 */
-	public $projectTask;
-	/**
-	 * @access public
-	 * @var string
-	 */
-	public $description;
-	/**
-	 * @access public
-	 * @var dateTime
-	 */
-	public $createdDate;
-	/**
-	 * @access public
-	 * @var RecordRef
-	 */
-	public $timeRecord;
-	/**
-	 * @access public
-	 * @var string
-	 */
-	public $rate;
-	/**
-	 * @access public
-	 * @var float
-	 */
-	public $quantity;
-	/**
-	 * @access public
-	 * @var float
-	 */
-	public $amount;
-	/**
-	 * @access public
-	 * @var RecordRef
-	 */
-	public $billingItem;
-	/**
-	 * @access public
-	 * @var RecordRef
-	 */
-	public $currency;
-	/**
-	 * @access public
-	 * @var RecordRef
-	 */
-	public $salesOrderLine;
-	/**
-	 * @access public
-	 * @var RecordRef
-	 */
-	public $invoice;
-	/**
-	 * @access public
-	 * @var RecordRef
-	 */
-	public $invoiceLine;
-	/**
-	 * @access public
-	 * @var string
-	 */
-	public $runId;
-	/**
-	 * @access public
-	 * @var string
-	 */
-	public $internalId;
-	/**
-	 * @access public
-	 * @var string
-	 */
-	public $externalId;
-
-	static $paramtypesmap = array(
-		"customForm" => "RecordRef",
-		"salesOrder" => "RecordRef",
-		"billTo" => "RecordRef",
-		"stage" => "ChargeStage",
-		"chargeDate" => "dateTime",
-		"use" => "ChargeUse",
-		"chargeType" => "ChargeRuleType",
-		"projectTask" => "RecordRef",
-		"description" => "string",
-		"createdDate" => "dateTime",
-		"timeRecord" => "RecordRef",
-		"rate" => "string",
-		"quantity" => "float",
-		"amount" => "float",
-		"billingItem" => "RecordRef",
-		"currency" => "RecordRef",
-		"salesOrderLine" => "RecordRef",
-		"invoice" => "RecordRef",
-		"invoiceLine" => "RecordRef",
-		"runId" => "string",
-		"internalId" => "string",
-		"externalId" => "string",
-	);
-}}
-
-if (!class_exists("ChargeSearch")) {
-/**
- * ChargeSearch
- */
-class ChargeSearch extends SearchRecord {
-	/**
-	 * @access public
-	 * @var ChargeSearchBasic
-	 */
-	public $basic;
-	/**
-	 * @access public
-	 * @var JobSearchBasic
-	 */
-	public $jobJoin;
-	/**
-	 * @access public
-	 * @var TimeBillSearchBasic
-	 */
-	public $timeJoin;
-	/**
-	 * @access public
-	 * @var EmployeeSearchBasic
-	 */
-	public $userJoin;
-	/**
-	 * @access public
-	 * @var CustomSearchJoin[]
-	 */
-	public $customSearchJoin;
-
-	static $paramtypesmap = array(
-		"basic" => "ChargeSearchBasic",
-		"jobJoin" => "JobSearchBasic",
-		"timeJoin" => "TimeBillSearchBasic",
-		"userJoin" => "EmployeeSearchBasic",
-		"customSearchJoin" => "CustomSearchJoin[]",
-	);
-}}
-
-if (!class_exists("ChargeSearchAdvanced")) {
-/**
- * ChargeSearchAdvanced
- */
-class ChargeSearchAdvanced extends SearchRecord {
-	/**
-	 * @access public
-	 * @var ChargeSearch
-	 */
-	public $criteria;
-	/**
-	 * @access public
-	 * @var ChargeSearchRow
-	 */
-	public $columns;
-	/**
-	 * @access public
-	 * @var string
-	 */
-	public $savedSearchId;
-	/**
-	 * @access public
-	 * @var string
-	 */
-	public $savedSearchScriptId;
-
-	static $paramtypesmap = array(
-		"criteria" => "ChargeSearch",
-		"columns" => "ChargeSearchRow",
-		"savedSearchId" => "string",
-		"savedSearchScriptId" => "string",
-	);
-}}
-
-if (!class_exists("ChargeSearchRow")) {
-/**
- * ChargeSearchRow
- */
-class ChargeSearchRow extends SearchRow {
-	/**
-	 * @access public
-	 * @var ChargeSearchRowBasic
-	 */
-	public $basic;
-	/**
-	 * @access public
-	 * @var JobSearchRowBasic
-	 */
-	public $jobJoin;
-	/**
-	 * @access public
-	 * @var TimeBillSearchRowBasic
-	 */
-	public $timeJoin;
-	/**
-	 * @access public
-	 * @var EmployeeSearchRowBasic
-	 */
-	public $userJoin;
-	/**
-	 * @access public
-	 * @var CustomSearchRowBasic[]
-	 */
-	public $customSearchJoin;
-
-	static $paramtypesmap = array(
-		"basic" => "ChargeSearchRowBasic",
-		"jobJoin" => "JobSearchRowBasic",
-		"timeJoin" => "TimeBillSearchRowBasic",
-		"userJoin" => "EmployeeSearchRowBasic",
-		"customSearchJoin" => "CustomSearchRowBasic[]",
-	);
-}}
-
-if (!class_exists("BudgetBudgetType")) {
+if (!class_exists("BudgetBudgetType",false)){
 /**
  * BudgetBudgetType
  */
@@ -102758,7 +99880,7 @@ class BudgetBudgetType {
 	const _local = "_local";
 }}
 
-if (!class_exists("Budget")) {
+if (!class_exists("Budget",false)){
 /**
  * Budget
  */
@@ -102918,7 +100040,7 @@ class Budget extends Record {
 	);
 }}
 
-if (!class_exists("BudgetSearch")) {
+if (!class_exists("BudgetSearch",false)){
 /**
  * BudgetSearch
  */
@@ -102934,7 +100056,7 @@ class BudgetSearch extends SearchRecord {
 	);
 }}
 
-if (!class_exists("BudgetSearchAdvanced")) {
+if (!class_exists("BudgetSearchAdvanced",false)){
 /**
  * BudgetSearchAdvanced
  */
@@ -102968,7 +100090,7 @@ class BudgetSearchAdvanced extends SearchRecord {
 	);
 }}
 
-if (!class_exists("BudgetSearchRow")) {
+if (!class_exists("BudgetSearchRow",false)){
 /**
  * BudgetSearchRow
  */
@@ -102984,14 +100106,14 @@ class BudgetSearchRow extends SearchRow {
 	);
 }}
 
-if (!class_exists("CheckLandedCostList")) {
+if (!class_exists("CheckLandedCostList",false)){
 /**
  * CheckLandedCostList
  */
 class CheckLandedCostList {
 	/**
 	 * @access public
-	 * @var LandedCostSummary[]
+	 * @var LandedCost[]
 	 */
 	public $landedCost;
 	/**
@@ -103001,12 +100123,12 @@ class CheckLandedCostList {
 	public $replaceAll;
 
 	static $paramtypesmap = array(
-		"landedCost" => "LandedCostSummary[]",
+		"landedCost" => "LandedCost[]",
 		"replaceAll" => "boolean",
 	);
 }}
 
-if (!class_exists("Check")) {
+if (!class_exists("Check",false)){
 /**
  * Check
  */
@@ -103133,11 +100255,6 @@ class Check extends Record {
 	public $landedCostMethod;
 	/**
 	 * @access public
-	 * @var boolean
-	 */
-	public $landedCostPerLine;
-	/**
-	 * @access public
 	 * @var CheckExpenseList
 	 */
 	public $expenseList;
@@ -103197,7 +100314,6 @@ class Check extends Record {
 		"location" => "RecordRef",
 		"userTotal" => "float",
 		"landedCostMethod" => "LandedCostMethod",
-		"landedCostPerLine" => "boolean",
 		"expenseList" => "CheckExpenseList",
 		"itemList" => "CheckItemList",
 		"landedCostsList" => "CheckLandedCostList",
@@ -103208,7 +100324,7 @@ class Check extends Record {
 	);
 }}
 
-if (!class_exists("CheckExpense")) {
+if (!class_exists("CheckExpense",false)){
 /**
  * CheckExpense
  */
@@ -103314,7 +100430,7 @@ class CheckExpense {
 	);
 }}
 
-if (!class_exists("CheckExpenseList")) {
+if (!class_exists("CheckExpenseList",false)){
 /**
  * CheckExpenseList
  */
@@ -103336,7 +100452,7 @@ class CheckExpenseList {
 	);
 }}
 
-if (!class_exists("CheckItem")) {
+if (!class_exists("CheckItem",false)){
 /**
  * CheckItem
  */
@@ -103458,11 +100574,6 @@ class CheckItem {
 	public $isBillable;
 	/**
 	 * @access public
-	 * @var LandedCost
-	 */
-	public $landedCost;
-	/**
-	 * @access public
 	 * @var CustomFieldList
 	 */
 	public $customFieldList;
@@ -103491,12 +100602,11 @@ class CheckItem {
 		"location" => "RecordRef",
 		"customer" => "RecordRef",
 		"isBillable" => "boolean",
-		"landedCost" => "LandedCost",
 		"customFieldList" => "CustomFieldList",
 	);
 }}
 
-if (!class_exists("CheckItemList")) {
+if (!class_exists("CheckItemList",false)){
 /**
  * CheckItemList
  */
@@ -103518,7 +100628,7 @@ class CheckItemList {
 	);
 }}
 
-if (!class_exists("TransferOrderItemCommitInventory")) {
+if (!class_exists("TransferOrderItemCommitInventory",false)){
 /**
  * TransferOrderItemCommitInventory
  */
@@ -103540,7 +100650,7 @@ class TransferOrderItemCommitInventory {
 	const _doNotCommit = "_doNotCommit";
 }}
 
-if (!class_exists("TransferOrderOrderStatus")) {
+if (!class_exists("TransferOrderOrderStatus",false)){
 /**
  * TransferOrderOrderStatus
  */
@@ -103586,7 +100696,7 @@ class TransferOrderOrderStatus {
 	const _undefined = "_undefined";
 }}
 
-if (!class_exists("WorkOrderItemItemCreatePo")) {
+if (!class_exists("WorkOrderItemItemCreatePo",false)){
 /**
  * WorkOrderItemItemCreatePo
  */
@@ -103604,7 +100714,7 @@ class WorkOrderItemItemCreatePo {
 	const _specialOrder = "_specialOrder";
 }}
 
-if (!class_exists("WorkOrderItemItemCommitInventory")) {
+if (!class_exists("WorkOrderItemItemCommitInventory",false)){
 /**
  * WorkOrderItemItemCommitInventory
  */
@@ -103626,7 +100736,7 @@ class WorkOrderItemItemCommitInventory {
 	const _doNotCommit = "_doNotCommit";
 }}
 
-if (!class_exists("InventoryAdjustment")) {
+if (!class_exists("InventoryAdjustment",false)){
 /**
  * InventoryAdjustment
  */
@@ -103750,7 +100860,7 @@ class InventoryAdjustment extends Record {
 	);
 }}
 
-if (!class_exists("InventoryAdjustmentInventory")) {
+if (!class_exists("InventoryAdjustmentInventory",false)){
 /**
  * InventoryAdjustmentInventory
  */
@@ -103868,7 +100978,7 @@ class InventoryAdjustmentInventory {
 	);
 }}
 
-if (!class_exists("InventoryAdjustmentInventoryList")) {
+if (!class_exists("InventoryAdjustmentInventoryList",false)){
 /**
  * InventoryAdjustmentInventoryList
  */
@@ -103890,7 +101000,7 @@ class InventoryAdjustmentInventoryList {
 	);
 }}
 
-if (!class_exists("AssemblyBuild")) {
+if (!class_exists("AssemblyBuild",false)){
 /**
  * AssemblyBuild
  */
@@ -104056,7 +101166,7 @@ class AssemblyBuild extends Record {
 	);
 }}
 
-if (!class_exists("AssemblyUnbuild")) {
+if (!class_exists("AssemblyUnbuild",false)){
 /**
  * AssemblyUnbuild
  */
@@ -104204,7 +101314,7 @@ class AssemblyUnbuild extends Record {
 	);
 }}
 
-if (!class_exists("AssemblyComponent")) {
+if (!class_exists("AssemblyComponent",false)){
 /**
  * AssemblyComponent
  */
@@ -104250,7 +101360,7 @@ class AssemblyComponent {
 	);
 }}
 
-if (!class_exists("AssemblyComponentList")) {
+if (!class_exists("AssemblyComponentList",false)){
 /**
  * AssemblyComponentList
  */
@@ -104272,7 +101382,7 @@ class AssemblyComponentList {
 	);
 }}
 
-if (!class_exists("TransferOrder")) {
+if (!class_exists("TransferOrder",false)){
 /**
  * TransferOrder
  */
@@ -104510,7 +101620,7 @@ class TransferOrder extends Record {
 	);
 }}
 
-if (!class_exists("TransferOrderItem")) {
+if (!class_exists("TransferOrderItem",false)){
 /**
  * TransferOrderItem
  */
@@ -104607,11 +101717,6 @@ class TransferOrderItem {
 	public $commitInventory;
 	/**
 	 * @access public
-	 * @var float
-	 */
-	public $orderPriority;
-	/**
-	 * @access public
 	 * @var CustomFieldList
 	 */
 	public $options;
@@ -104675,7 +101780,6 @@ class TransferOrderItem {
 		"inventoryDetail" => "InventoryDetail",
 		"serialNumbers" => "string",
 		"commitInventory" => "TransferOrderItemCommitInventory",
-		"orderPriority" => "float",
 		"options" => "CustomFieldList",
 		"isClosed" => "boolean",
 		"department" => "RecordRef",
@@ -104688,7 +101792,7 @@ class TransferOrderItem {
 	);
 }}
 
-if (!class_exists("TransferOrderItemList")) {
+if (!class_exists("TransferOrderItemList",false)){
 /**
  * TransferOrderItemList
  */
@@ -104710,7 +101814,7 @@ class TransferOrderItemList {
 	);
 }}
 
-if (!class_exists("InterCompanyTransferOrder")) {
+if (!class_exists("InterCompanyTransferOrder",false)){
 /**
  * InterCompanyTransferOrder
  */
@@ -104954,7 +102058,7 @@ class InterCompanyTransferOrder extends Record {
 	);
 }}
 
-if (!class_exists("InterCompanyTransferOrderItem")) {
+if (!class_exists("InterCompanyTransferOrderItem",false)){
 /**
  * InterCompanyTransferOrderItem
  */
@@ -105090,7 +102194,7 @@ class InterCompanyTransferOrderItem {
 	);
 }}
 
-if (!class_exists("InterCompanyTransferOrderItemList")) {
+if (!class_exists("InterCompanyTransferOrderItemList",false)){
 /**
  * InterCompanyTransferOrderItemList
  */
@@ -105112,7 +102216,7 @@ class InterCompanyTransferOrderItemList {
 	);
 }}
 
-if (!class_exists("WorkOrder")) {
+if (!class_exists("WorkOrder",false)){
 /**
  * WorkOrder
  */
@@ -105314,7 +102418,7 @@ class WorkOrder extends Record {
 	);
 }}
 
-if (!class_exists("WorkOrderItem")) {
+if (!class_exists("WorkOrderItem",false)){
 /**
  * WorkOrderItem
  */
@@ -105329,16 +102433,6 @@ class WorkOrderItem {
 	 * @var RecordRef
 	 */
 	public $item;
-	/**
-	 * @access public
-	 * @var float
-	 */
-	public $componentYield;
-	/**
-	 * @access public
-	 * @var float
-	 */
-	public $bomQuantity;
 	/**
 	 * @access public
 	 * @var float
@@ -105389,11 +102483,6 @@ class WorkOrderItem {
 	 * @var string
 	 */
 	public $serialNumbers;
-	/**
-	 * @access public
-	 * @var float
-	 */
-	public $orderPriority;
 	/**
 	 * @access public
 	 * @var CustomFieldList
@@ -105463,8 +102552,6 @@ class WorkOrderItem {
 	static $paramtypesmap = array(
 		"line" => "integer",
 		"item" => "RecordRef",
-		"componentYield" => "float",
-		"bomQuantity" => "float",
 		"quantityCommitted" => "float",
 		"quantityBackOrdered" => "float",
 		"quantityAvailable" => "float",
@@ -105475,7 +102562,6 @@ class WorkOrderItem {
 		"units" => "RecordRef",
 		"inventoryDetail" => "InventoryDetail",
 		"serialNumbers" => "string",
-		"orderPriority" => "float",
 		"options" => "CustomFieldList",
 		"department" => "RecordRef",
 		"class" => "RecordRef",
@@ -105492,7 +102578,7 @@ class WorkOrderItem {
 	);
 }}
 
-if (!class_exists("WorkOrderItemList")) {
+if (!class_exists("WorkOrderItemList",false)){
 /**
  * WorkOrderItemList
  */
@@ -105514,7 +102600,7 @@ class WorkOrderItemList {
 	);
 }}
 
-if (!class_exists("SalesTeamList")) {
+if (!class_exists("SalesTeamList",false)){
 /**
  * SalesTeamList
  */
@@ -105536,7 +102622,7 @@ class SalesTeamList {
 	);
 }}
 
-if (!class_exists("PartnersList")) {
+if (!class_exists("PartnersList",false)){
 /**
  * PartnersList
  */
@@ -105558,7 +102644,7 @@ class PartnersList {
 	);
 }}
 
-if (!class_exists("InventoryTransfer")) {
+if (!class_exists("InventoryTransfer",false)){
 /**
  * InventoryTransfer
  */
@@ -105652,7 +102738,7 @@ class InventoryTransfer extends Record {
 	);
 }}
 
-if (!class_exists("InventoryTransferInventory")) {
+if (!class_exists("InventoryTransferInventory",false)){
 /**
  * InventoryTransferInventory
  */
@@ -105722,7 +102808,7 @@ class InventoryTransferInventory {
 	);
 }}
 
-if (!class_exists("InventoryTransferInventoryList")) {
+if (!class_exists("InventoryTransferInventoryList",false)){
 /**
  * InventoryTransferInventoryList
  */
@@ -105744,7 +102830,7 @@ class InventoryTransferInventoryList {
 	);
 }}
 
-if (!class_exists("BinTransfer")) {
+if (!class_exists("BinTransfer",false)){
 /**
  * BinTransfer
  */
@@ -105814,7 +102900,7 @@ class BinTransfer extends Record {
 	);
 }}
 
-if (!class_exists("BinTransferInventory")) {
+if (!class_exists("BinTransferInventory",false)){
 /**
  * BinTransferInventory
  */
@@ -105878,7 +102964,7 @@ class BinTransferInventory {
 	);
 }}
 
-if (!class_exists("BinTransferInventoryList")) {
+if (!class_exists("BinTransferInventoryList",false)){
 /**
  * BinTransferInventoryList
  */
@@ -105900,7 +102986,7 @@ class BinTransferInventoryList {
 	);
 }}
 
-if (!class_exists("BinWorksheet")) {
+if (!class_exists("BinWorksheet",false)){
 /**
  * BinWorksheet
  */
@@ -105964,7 +103050,7 @@ class BinWorksheet extends Record {
 	);
 }}
 
-if (!class_exists("BinWorksheetItem")) {
+if (!class_exists("BinWorksheetItem",false)){
 /**
  * BinWorksheetItem
  */
@@ -106046,7 +103132,7 @@ class BinWorksheetItem {
 	);
 }}
 
-if (!class_exists("BinWorksheetItemList")) {
+if (!class_exists("BinWorksheetItemList",false)){
 /**
  * BinWorksheetItemList
  */
@@ -106068,7 +103154,7 @@ class BinWorksheetItemList {
 	);
 }}
 
-if (!class_exists("WorkOrderIssue")) {
+if (!class_exists("WorkOrderIssue",false)){
 /**
  * WorkOrderIssue
  */
@@ -106186,7 +103272,7 @@ class WorkOrderIssue extends Record {
 	);
 }}
 
-if (!class_exists("WorkOrderIssueComponent")) {
+if (!class_exists("WorkOrderIssueComponent",false)){
 /**
  * WorkOrderIssueComponent
  */
@@ -106220,7 +103306,7 @@ class WorkOrderIssueComponent {
 	);
 }}
 
-if (!class_exists("WorkOrderIssueComponentList")) {
+if (!class_exists("WorkOrderIssueComponentList",false)){
 /**
  * WorkOrderIssueComponentList
  */
@@ -106242,7 +103328,7 @@ class WorkOrderIssueComponentList {
 	);
 }}
 
-if (!class_exists("WorkOrderCompletion")) {
+if (!class_exists("WorkOrderCompletion",false)){
 /**
  * WorkOrderCompletion
  */
@@ -106432,7 +103518,7 @@ class WorkOrderCompletion extends Record {
 	);
 }}
 
-if (!class_exists("WorkOrderCompletionComponent")) {
+if (!class_exists("WorkOrderCompletionComponent",false)){
 /**
  * WorkOrderCompletionComponent
  */
@@ -106472,7 +103558,7 @@ class WorkOrderCompletionComponent {
 	);
 }}
 
-if (!class_exists("WorkOrderCompletionComponentList")) {
+if (!class_exists("WorkOrderCompletionComponentList",false)){
 /**
  * WorkOrderCompletionComponentList
  */
@@ -106494,7 +103580,7 @@ class WorkOrderCompletionComponentList {
 	);
 }}
 
-if (!class_exists("WorkOrderClose")) {
+if (!class_exists("WorkOrderClose",false)){
 /**
  * WorkOrderClose
  */
@@ -106624,7 +103710,7 @@ class WorkOrderClose extends Record {
 	);
 }}
 
-if (!class_exists("WorkOrderCompletionOperation")) {
+if (!class_exists("WorkOrderCompletionOperation",false)){
 /**
  * WorkOrderCompletionOperation
  */
@@ -106718,7 +103804,7 @@ class WorkOrderCompletionOperation {
 	);
 }}
 
-if (!class_exists("WorkOrderCompletionOperationList")) {
+if (!class_exists("WorkOrderCompletionOperationList",false)){
 /**
  * WorkOrderCompletionOperationList
  */
@@ -106740,199 +103826,7 @@ class WorkOrderCompletionOperationList {
 	);
 }}
 
-if (!class_exists("InventoryCostRevaluation")) {
-/**
- * InventoryCostRevaluation
- */
-class InventoryCostRevaluation extends Record {
-	/**
-	 * @access public
-	 * @var dateTime
-	 */
-	public $createdDate;
-	/**
-	 * @access public
-	 * @var dateTime
-	 */
-	public $lastModifiedDate;
-	/**
-	 * @access public
-	 * @var RecordRef
-	 */
-	public $customForm;
-	/**
-	 * @access public
-	 * @var RecordRef
-	 */
-	public $subsidiary;
-	/**
-	 * @access public
-	 * @var dateTime
-	 */
-	public $tranDate;
-	/**
-	 * @access public
-	 * @var RecordRef
-	 */
-	public $postingPeriod;
-	/**
-	 * @access public
-	 * @var string
-	 */
-	public $tranId;
-	/**
-	 * @access public
-	 * @var RecordRef
-	 */
-	public $account;
-	/**
-	 * @access public
-	 * @var RecordRef
-	 */
-	public $item;
-	/**
-	 * @access public
-	 * @var RecordRef
-	 */
-	public $department;
-	/**
-	 * @access public
-	 * @var RecordRef
-	 */
-	public $class;
-	/**
-	 * @access public
-	 * @var RecordRef
-	 */
-	public $location;
-	/**
-	 * @access public
-	 * @var string
-	 */
-	public $memo;
-	/**
-	 * @access public
-	 * @var float
-	 */
-	public $total;
-	/**
-	 * @access public
-	 * @var float
-	 */
-	public $inventoryValue;
-	/**
-	 * @access public
-	 * @var float
-	 */
-	public $unitCost;
-	/**
-	 * @access public
-	 * @var InventoryCostRevaluationCostComponentList
-	 */
-	public $costComponentList;
-	/**
-	 * @access public
-	 * @var CustomFieldList
-	 */
-	public $customFieldList;
-	/**
-	 * @access public
-	 * @var string
-	 */
-	public $internalId;
-	/**
-	 * @access public
-	 * @var string
-	 */
-	public $externalId;
-
-	static $paramtypesmap = array(
-		"createdDate" => "dateTime",
-		"lastModifiedDate" => "dateTime",
-		"customForm" => "RecordRef",
-		"subsidiary" => "RecordRef",
-		"tranDate" => "dateTime",
-		"postingPeriod" => "RecordRef",
-		"tranId" => "string",
-		"account" => "RecordRef",
-		"item" => "RecordRef",
-		"department" => "RecordRef",
-		"class" => "RecordRef",
-		"location" => "RecordRef",
-		"memo" => "string",
-		"total" => "float",
-		"inventoryValue" => "float",
-		"unitCost" => "float",
-		"costComponentList" => "InventoryCostRevaluationCostComponentList",
-		"customFieldList" => "CustomFieldList",
-		"internalId" => "string",
-		"externalId" => "string",
-	);
-}}
-
-if (!class_exists("InventoryCostRevaluationCostComponent")) {
-/**
- * InventoryCostRevaluationCostComponent
- */
-class InventoryCostRevaluationCostComponent {
-	/**
-	 * @access public
-	 * @var float
-	 */
-	public $cost;
-	/**
-	 * @access public
-	 * @var RecordRef
-	 */
-	public $componentItem;
-	/**
-	 * @access public
-	 * @var float
-	 */
-	public $quantity;
-	/**
-	 * @access public
-	 * @var RecordRef
-	 */
-	public $units;
-	/**
-	 * @access public
-	 * @var RecordRef
-	 */
-	public $costCategory;
-
-	static $paramtypesmap = array(
-		"cost" => "float",
-		"componentItem" => "RecordRef",
-		"quantity" => "float",
-		"units" => "RecordRef",
-		"costCategory" => "RecordRef",
-	);
-}}
-
-if (!class_exists("InventoryCostRevaluationCostComponentList")) {
-/**
- * InventoryCostRevaluationCostComponentList
- */
-class InventoryCostRevaluationCostComponentList {
-	/**
-	 * @access public
-	 * @var InventoryCostRevaluationCostComponent[]
-	 */
-	public $costComponent;
-	/**
-	 * @access public
-	 * @var boolean
-	 */
-	public $replaceAll;
-
-	static $paramtypesmap = array(
-		"costComponent" => "InventoryCostRevaluationCostComponent[]",
-		"replaceAll" => "boolean",
-	);
-}}
-
-if (!class_exists("JournalEntry")) {
+if (!class_exists("JournalEntry",false)){
 /**
  * JournalEntry
  */
@@ -107080,7 +103974,7 @@ class JournalEntry extends Record {
 	);
 }}
 
-if (!class_exists("JournalEntryLine")) {
+if (!class_exists("JournalEntryLine",false)){
 /**
  * JournalEntryLine
  */
@@ -107210,7 +104104,7 @@ class JournalEntryLine {
 	);
 }}
 
-if (!class_exists("JournalEntryLineList")) {
+if (!class_exists("JournalEntryLineList",false)){
 /**
  * JournalEntryLineList
  */
@@ -107232,7 +104126,7 @@ class JournalEntryLineList {
 	);
 }}
 
-if (!class_exists("InterCompanyJournalEntry")) {
+if (!class_exists("InterCompanyJournalEntry",false)){
 /**
  * InterCompanyJournalEntry
  */
@@ -107380,7 +104274,7 @@ class InterCompanyJournalEntry extends Record {
 	);
 }}
 
-if (!class_exists("InterCompanyJournalEntryLine")) {
+if (!class_exists("InterCompanyJournalEntryLine",false)){
 /**
  * InterCompanyJournalEntryLine
  */
@@ -107540,7 +104434,7 @@ class InterCompanyJournalEntryLine {
 	);
 }}
 
-if (!class_exists("InterCompanyJournalEntryLineList")) {
+if (!class_exists("InterCompanyJournalEntryLineList",false)){
 /**
  * InterCompanyJournalEntryLineList
  */
@@ -107562,7 +104456,7 @@ class InterCompanyJournalEntryLineList {
 	);
 }}
 
-if (!class_exists("CustomizationFieldType")) {
+if (!class_exists("CustomizationFieldType",false)){
 /**
  * CustomizationFieldType
  */
@@ -107660,7 +104554,7 @@ class CustomizationFieldType {
 	const _timeOfDay = "_timeOfDay";
 }}
 
-if (!class_exists("CustomizationDynamicDefault")) {
+if (!class_exists("CustomizationDynamicDefault",false)){
 /**
  * CustomizationDynamicDefault
  */
@@ -107694,7 +104588,7 @@ class CustomizationDynamicDefault {
 	const _currentUsersSubsidiary = "_currentUsersSubsidiary";
 }}
 
-if (!class_exists("CustomizationDisplayType")) {
+if (!class_exists("CustomizationDisplayType",false)){
 /**
  * CustomizationDisplayType
  */
@@ -107724,7 +104618,7 @@ class CustomizationDisplayType {
 	const _showAsList = "_showAsList";
 }}
 
-if (!class_exists("CustomizationFilterCompareType")) {
+if (!class_exists("CustomizationFilterCompareType",false)){
 /**
  * CustomizationFilterCompareType
  */
@@ -107758,7 +104652,7 @@ class CustomizationFilterCompareType {
 	const _notEqual = "_notEqual";
 }}
 
-if (!class_exists("CustomRecordTypePermissionsPermittedLevel")) {
+if (!class_exists("CustomRecordTypePermissionsPermittedLevel",false)){
 /**
  * CustomRecordTypePermissionsPermittedLevel
  */
@@ -107788,7 +104682,7 @@ class CustomRecordTypePermissionsPermittedLevel {
 	const _view = "_view";
 }}
 
-if (!class_exists("CustomRecordTypePermissionsRestriction")) {
+if (!class_exists("CustomRecordTypePermissionsRestriction",false)){
 /**
  * CustomRecordTypePermissionsRestriction
  */
@@ -107806,7 +104700,7 @@ class CustomRecordTypePermissionsRestriction {
 	const _viewingAndEditing = "_viewingAndEditing";
 }}
 
-if (!class_exists("ItemCustomFieldItemSubType")) {
+if (!class_exists("ItemCustomFieldItemSubType",false)){
 /**
  * ItemCustomFieldItemSubType
  */
@@ -107828,7 +104722,7 @@ class ItemCustomFieldItemSubType {
 	const _sale = "_sale";
 }}
 
-if (!class_exists("CustomizationAccessLevel")) {
+if (!class_exists("CustomizationAccessLevel",false)){
 /**
  * CustomizationAccessLevel
  */
@@ -107850,7 +104744,7 @@ class CustomizationAccessLevel {
 	const _view = "_view";
 }}
 
-if (!class_exists("CustomizationSearchLevel")) {
+if (!class_exists("CustomizationSearchLevel",false)){
 /**
  * CustomizationSearchLevel
  */
@@ -107872,7 +104766,7 @@ class CustomizationSearchLevel {
 	const _run = "_run";
 }}
 
-if (!class_exists("CustomRecordTypeAccessType")) {
+if (!class_exists("CustomRecordTypeAccessType",false)){
 /**
  * CustomRecordTypeAccessType
  */
@@ -107894,7 +104788,7 @@ class CustomRecordTypeAccessType {
 	const _usePermissionList = "_usePermissionList";
 }}
 
-if (!class_exists("CustomRecord")) {
+if (!class_exists("CustomRecord",false)){
 /**
  * CustomRecord
  */
@@ -107989,11 +104883,6 @@ class CustomRecord extends Record {
 	 * @var boolean
 	 */
 	public $isNumberingUpdateable;
-	/**
-	 * @access public
-	 * @var CustomRecordTranslationsList
-	 */
-	public $translationsList;
 	/**
 	 * @access public
 	 * @var boolean
@@ -108124,7 +105013,6 @@ class CustomRecord extends Record {
 		"numberingCurrentNumber" => "integer",
 		"allowNumberingOverride" => "boolean",
 		"isNumberingUpdateable" => "boolean",
-		"translationsList" => "CustomRecordTranslationsList",
 		"includeName" => "boolean",
 		"showId" => "boolean",
 		"showCreationDate" => "boolean",
@@ -108150,7 +105038,7 @@ class CustomRecord extends Record {
 	);
 }}
 
-if (!class_exists("CustomRecordSearch")) {
+if (!class_exists("CustomRecordSearch",false)){
 /**
  * CustomRecordSearch
  */
@@ -108185,11 +105073,6 @@ class CustomRecordSearch extends SearchRecord {
 	 * @var NoteSearchBasic
 	 */
 	public $userNotesJoin;
-	/**
-	 * @access public
-	 * @var CustomSearchJoin[]
-	 */
-	public $customSearchJoin;
 
 	static $paramtypesmap = array(
 		"basic" => "CustomRecordSearchBasic",
@@ -108198,11 +105081,10 @@ class CustomRecordSearch extends SearchRecord {
 		"ownerJoin" => "EmployeeSearchBasic",
 		"userJoin" => "EmployeeSearchBasic",
 		"userNotesJoin" => "NoteSearchBasic",
-		"customSearchJoin" => "CustomSearchJoin[]",
 	);
 }}
 
-if (!class_exists("CustomRecordSearchAdvanced")) {
+if (!class_exists("CustomRecordSearchAdvanced",false)){
 /**
  * CustomRecordSearchAdvanced
  */
@@ -108236,7 +105118,7 @@ class CustomRecordSearchAdvanced extends SearchRecord {
 	);
 }}
 
-if (!class_exists("CustomRecordSearchRow")) {
+if (!class_exists("CustomRecordSearchRow",false)){
 /**
  * CustomRecordSearchRow
  */
@@ -108271,11 +105153,6 @@ class CustomRecordSearchRow extends SearchRow {
 	 * @var NoteSearchRowBasic
 	 */
 	public $userNotesJoin;
-	/**
-	 * @access public
-	 * @var CustomSearchRowBasic[]
-	 */
-	public $customSearchJoin;
 
 	static $paramtypesmap = array(
 		"basic" => "CustomRecordSearchRowBasic",
@@ -108284,11 +105161,10 @@ class CustomRecordSearchRow extends SearchRow {
 		"ownerJoin" => "EmployeeSearchRowBasic",
 		"userJoin" => "EmployeeSearchRowBasic",
 		"userNotesJoin" => "NoteSearchRowBasic",
-		"customSearchJoin" => "CustomSearchRowBasic[]",
 	);
 }}
 
-if (!class_exists("CustomList")) {
+if (!class_exists("CustomList",false)){
 /**
  * CustomList
  */
@@ -108364,7 +105240,7 @@ class CustomList extends Record {
 	);
 }}
 
-if (!class_exists("CustomListCustomValue")) {
+if (!class_exists("CustomListCustomValue",false)){
 /**
  * CustomListCustomValue
  */
@@ -108404,7 +105280,7 @@ class CustomListCustomValue {
 	);
 }}
 
-if (!class_exists("CustomListCustomValueList")) {
+if (!class_exists("CustomListCustomValueList",false)){
 /**
  * CustomListCustomValueList
  */
@@ -108426,7 +105302,7 @@ class CustomListCustomValueList {
 	);
 }}
 
-if (!class_exists("CustomListTranslations")) {
+if (!class_exists("CustomListTranslations",false)){
 /**
  * CustomListTranslations
  */
@@ -108454,7 +105330,7 @@ class CustomListTranslations {
 	);
 }}
 
-if (!class_exists("CustomListTranslationsList")) {
+if (!class_exists("CustomListTranslationsList",false)){
 /**
  * CustomListTranslationsList
  */
@@ -108476,7 +105352,7 @@ class CustomListTranslationsList {
 	);
 }}
 
-if (!class_exists("CustomRecordType")) {
+if (!class_exists("CustomRecordType",false)){
 /**
  * CustomRecordType
  */
@@ -108575,11 +105451,6 @@ class CustomRecordType extends Record {
 	 * @access public
 	 * @var boolean
 	 */
-	public $enableNameTranslation;
-	/**
-	 * @access public
-	 * @var boolean
-	 */
 	public $isInactive;
 	/**
 	 * @access public
@@ -108626,6 +105497,11 @@ class CustomRecordType extends Record {
 	 * @var boolean
 	 */
 	public $isNumberingUpdateable;
+	/**
+	 * @access public
+	 * @var string
+	 */
+	public $scriptId;
 	/**
 	 * @access public
 	 * @var RecordRef
@@ -108688,11 +105564,6 @@ class CustomRecordType extends Record {
 	public $translationsList;
 	/**
 	 * @access public
-	 * @var string
-	 */
-	public $scriptId;
-	/**
-	 * @access public
 	 * @var CustomRecordTypeFieldList
 	 */
 	public $customFieldList;
@@ -108721,7 +105592,6 @@ class CustomRecordType extends Record {
 		"isAvailableOffline" => "boolean",
 		"allowQuickSearch" => "boolean",
 		"enableDle" => "boolean",
-		"enableNameTranslation" => "boolean",
 		"isInactive" => "boolean",
 		"disclaimer" => "string",
 		"enableNumbering" => "boolean",
@@ -108732,6 +105602,7 @@ class CustomRecordType extends Record {
 		"numberingCurrentNumber" => "integer",
 		"allowNumberingOverride" => "boolean",
 		"isNumberingUpdateable" => "boolean",
+		"scriptId" => "string",
 		"owner" => "RecordRef",
 		"description" => "string",
 		"tabsList" => "CustomRecordTypeTabsList",
@@ -108744,13 +105615,12 @@ class CustomRecordType extends Record {
 		"childrenList" => "CustomRecordTypeChildrenList",
 		"parentsList" => "CustomRecordTypeParentsList",
 		"translationsList" => "CustomRecordTypeTranslationsList",
-		"scriptId" => "string",
 		"customFieldList" => "CustomRecordTypeFieldList",
 		"internalId" => "string",
 	);
 }}
 
-if (!class_exists("CustomRecordTypeFieldList")) {
+if (!class_exists("CustomRecordTypeFieldList",false)){
 /**
  * CustomRecordTypeFieldList
  */
@@ -108772,7 +105642,7 @@ class CustomRecordTypeFieldList {
 	);
 }}
 
-if (!class_exists("CustomRecordTypeTabs")) {
+if (!class_exists("CustomRecordTypeTabs",false)){
 /**
  * CustomRecordTypeTabs
  */
@@ -108800,7 +105670,7 @@ class CustomRecordTypeTabs {
 	);
 }}
 
-if (!class_exists("CustomRecordTypeTabsList")) {
+if (!class_exists("CustomRecordTypeTabsList",false)){
 /**
  * CustomRecordTypeTabsList
  */
@@ -108822,7 +105692,7 @@ class CustomRecordTypeTabsList {
 	);
 }}
 
-if (!class_exists("CustomRecordTypeForms")) {
+if (!class_exists("CustomRecordTypeForms",false)){
 /**
  * CustomRecordTypeForms
  */
@@ -108850,7 +105720,7 @@ class CustomRecordTypeForms {
 	);
 }}
 
-if (!class_exists("CustomRecordTypeFormsList")) {
+if (!class_exists("CustomRecordTypeFormsList",false)){
 /**
  * CustomRecordTypeFormsList
  */
@@ -108872,7 +105742,7 @@ class CustomRecordTypeFormsList {
 	);
 }}
 
-if (!class_exists("CustomRecordTypeOnlineForms")) {
+if (!class_exists("CustomRecordTypeOnlineForms",false)){
 /**
  * CustomRecordTypeOnlineForms
  */
@@ -108900,7 +105770,7 @@ class CustomRecordTypeOnlineForms {
 	);
 }}
 
-if (!class_exists("CustomRecordTypeOnlineFormsList")) {
+if (!class_exists("CustomRecordTypeOnlineFormsList",false)){
 /**
  * CustomRecordTypeOnlineFormsList
  */
@@ -108922,7 +105792,7 @@ class CustomRecordTypeOnlineFormsList {
 	);
 }}
 
-if (!class_exists("CustomRecordTypePermissions")) {
+if (!class_exists("CustomRecordTypePermissions",false)){
 /**
  * CustomRecordTypePermissions
  */
@@ -109010,7 +105880,7 @@ class CustomRecordTypePermissions {
 	);
 }}
 
-if (!class_exists("CustomRecordTypePermissionsList")) {
+if (!class_exists("CustomRecordTypePermissionsList",false)){
 /**
  * CustomRecordTypePermissionsList
  */
@@ -109032,7 +105902,7 @@ class CustomRecordTypePermissionsList {
 	);
 }}
 
-if (!class_exists("CustomRecordTypeLinks")) {
+if (!class_exists("CustomRecordTypeLinks",false)){
 /**
  * CustomRecordTypeLinks
  */
@@ -109060,7 +105930,7 @@ class CustomRecordTypeLinks {
 	);
 }}
 
-if (!class_exists("CustomRecordTypeLinksList")) {
+if (!class_exists("CustomRecordTypeLinksList",false)){
 /**
  * CustomRecordTypeLinksList
  */
@@ -109082,7 +105952,7 @@ class CustomRecordTypeLinksList {
 	);
 }}
 
-if (!class_exists("CustomRecordTypeManagers")) {
+if (!class_exists("CustomRecordTypeManagers",false)){
 /**
  * CustomRecordTypeManagers
  */
@@ -109098,7 +105968,7 @@ class CustomRecordTypeManagers {
 	);
 }}
 
-if (!class_exists("CustomRecordTypeManagersList")) {
+if (!class_exists("CustomRecordTypeManagersList",false)){
 /**
  * CustomRecordTypeManagersList
  */
@@ -109120,7 +105990,7 @@ class CustomRecordTypeManagersList {
 	);
 }}
 
-if (!class_exists("CustomRecordTypeChildren")) {
+if (!class_exists("CustomRecordTypeChildren",false)){
 /**
  * CustomRecordTypeChildren
  */
@@ -109142,7 +106012,7 @@ class CustomRecordTypeChildren {
 	);
 }}
 
-if (!class_exists("CustomRecordTypeChildrenList")) {
+if (!class_exists("CustomRecordTypeChildrenList",false)){
 /**
  * CustomRecordTypeChildrenList
  */
@@ -109164,7 +106034,7 @@ class CustomRecordTypeChildrenList {
 	);
 }}
 
-if (!class_exists("CustomRecordTypeParents")) {
+if (!class_exists("CustomRecordTypeParents",false)){
 /**
  * CustomRecordTypeParents
  */
@@ -109180,7 +106050,7 @@ class CustomRecordTypeParents {
 	);
 }}
 
-if (!class_exists("CustomRecordTypeParentsList")) {
+if (!class_exists("CustomRecordTypeParentsList",false)){
 /**
  * CustomRecordTypeParentsList
  */
@@ -109202,7 +106072,7 @@ class CustomRecordTypeParentsList {
 	);
 }}
 
-if (!class_exists("CustomRecordTypeTranslations")) {
+if (!class_exists("CustomRecordTypeTranslations",false)){
 /**
  * CustomRecordTypeTranslations
  */
@@ -109230,7 +106100,7 @@ class CustomRecordTypeTranslations {
 	);
 }}
 
-if (!class_exists("CustomRecordTypeTranslationsList")) {
+if (!class_exists("CustomRecordTypeTranslationsList",false)){
 /**
  * CustomRecordTypeTranslationsList
  */
@@ -109252,7 +106122,7 @@ class CustomRecordTypeTranslationsList {
 	);
 }}
 
-if (!class_exists("CustomRecordTypeSublists")) {
+if (!class_exists("CustomRecordTypeSublists",false)){
 /**
  * CustomRecordTypeSublists
  */
@@ -109292,7 +106162,7 @@ class CustomRecordTypeSublists {
 	);
 }}
 
-if (!class_exists("CustomRecordTypeSublistsList")) {
+if (!class_exists("CustomRecordTypeSublistsList",false)){
 /**
  * CustomRecordTypeSublistsList
  */
@@ -109314,33 +106184,11 @@ class CustomRecordTypeSublistsList {
 	);
 }}
 
-if (!class_exists("CustomFieldType")) {
-/**
- * CustomFieldType
- */
-class CustomFieldType extends Record {
-	/**
-	 * @access public
-	 * @var CustomizationFieldType
-	 */
-	public $fieldType;
-	/**
-	 * @access public
-	 * @var string
-	 */
-	public $scriptId;
-
-	static $paramtypesmap = array(
-		"fieldType" => "CustomizationFieldType",
-		"scriptId" => "string",
-	);
-}}
-
-if (!class_exists("EntityCustomField")) {
+if (!class_exists("EntityCustomField",false)){
 /**
  * EntityCustomField
  */
-class EntityCustomField extends CustomFieldType {
+class EntityCustomField extends Record {
 	/**
 	 * @access public
 	 * @var string
@@ -109351,6 +106199,11 @@ class EntityCustomField extends CustomFieldType {
 	 * @var RecordRef
 	 */
 	public $owner;
+	/**
+	 * @access public
+	 * @var CustomizationFieldType
+	 */
+	public $fieldType;
 	/**
 	 * @access public
 	 * @var string
@@ -109476,16 +106329,6 @@ class EntityCustomField extends CustomFieldType {
 	 * @var CustomizationDynamicDefault
 	 */
 	public $dynamicDefault;
-	/**
-	 * @access public
-	 * @var RecordRef
-	 */
-	public $searchDefault;
-	/**
-	 * @access public
-	 * @var RecordRef
-	 */
-	public $searchCompareField;
 	/**
 	 * @access public
 	 * @var RecordRef
@@ -109605,6 +106448,7 @@ class EntityCustomField extends CustomFieldType {
 	static $paramtypesmap = array(
 		"label" => "string",
 		"owner" => "RecordRef",
+		"fieldType" => "CustomizationFieldType",
 		"description" => "string",
 		"selectRecordType" => "RecordRef",
 		"storeValue" => "boolean",
@@ -109630,8 +106474,6 @@ class EntityCustomField extends CustomFieldType {
 		"isFormula" => "boolean",
 		"defaultSelection" => "RecordRef",
 		"dynamicDefault" => "CustomizationDynamicDefault",
-		"searchDefault" => "RecordRef",
-		"searchCompareField" => "RecordRef",
 		"sourceList" => "RecordRef",
 		"sourceFrom" => "RecordRef",
 		"sourceFilterBy" => "RecordRef",
@@ -109658,7 +106500,7 @@ class EntityCustomField extends CustomFieldType {
 	);
 }}
 
-if (!class_exists("EntityCustomFieldFilter")) {
+if (!class_exists("EntityCustomFieldFilter",false)){
 /**
  * EntityCustomFieldFilter
  */
@@ -109704,7 +106546,7 @@ class EntityCustomFieldFilter {
 	);
 }}
 
-if (!class_exists("EntityCustomFieldFilterList")) {
+if (!class_exists("EntityCustomFieldFilterList",false)){
 /**
  * EntityCustomFieldFilterList
  */
@@ -109726,7 +106568,7 @@ class EntityCustomFieldFilterList {
 	);
 }}
 
-if (!class_exists("FldFilterSelList")) {
+if (!class_exists("FldFilterSelList",false)){
 /**
  * FldFilterSelList
  */
@@ -109742,11 +106584,11 @@ class FldFilterSelList {
 	);
 }}
 
-if (!class_exists("CrmCustomField")) {
+if (!class_exists("CrmCustomField",false)){
 /**
  * CrmCustomField
  */
-class CrmCustomField extends CustomFieldType {
+class CrmCustomField extends Record {
 	/**
 	 * @access public
 	 * @var string
@@ -109757,6 +106599,11 @@ class CrmCustomField extends CustomFieldType {
 	 * @var RecordRef
 	 */
 	public $owner;
+	/**
+	 * @access public
+	 * @var CustomizationFieldType
+	 */
+	public $fieldType;
 	/**
 	 * @access public
 	 * @var string
@@ -109881,16 +106728,6 @@ class CrmCustomField extends CustomFieldType {
 	 * @access public
 	 * @var RecordRef
 	 */
-	public $searchDefault;
-	/**
-	 * @access public
-	 * @var RecordRef
-	 */
-	public $searchCompareField;
-	/**
-	 * @access public
-	 * @var RecordRef
-	 */
 	public $sourceList;
 	/**
 	 * @access public
@@ -109907,11 +106744,6 @@ class CrmCustomField extends CustomFieldType {
 	 * @var boolean
 	 */
 	public $appliesToTask;
-	/**
-	 * @access public
-	 * @var boolean
-	 */
-	public $appliesToMfgProjectTask;
 	/**
 	 * @access public
 	 * @var boolean
@@ -110011,6 +106843,7 @@ class CrmCustomField extends CustomFieldType {
 	static $paramtypesmap = array(
 		"label" => "string",
 		"owner" => "RecordRef",
+		"fieldType" => "CustomizationFieldType",
 		"description" => "string",
 		"selectRecordType" => "RecordRef",
 		"storeValue" => "boolean",
@@ -110035,13 +106868,10 @@ class CrmCustomField extends CustomFieldType {
 		"isFormula" => "boolean",
 		"defaultSelection" => "RecordRef",
 		"dynamicDefault" => "CustomizationDynamicDefault",
-		"searchDefault" => "RecordRef",
-		"searchCompareField" => "RecordRef",
 		"sourceList" => "RecordRef",
 		"sourceFrom" => "RecordRef",
 		"sourceFilterBy" => "RecordRef",
 		"appliesToTask" => "boolean",
-		"appliesToMfgProjectTask" => "boolean",
 		"appliesToProjectTask" => "boolean",
 		"appliesToPhoneCall" => "boolean",
 		"appliesToEvent" => "boolean",
@@ -110064,7 +106894,7 @@ class CrmCustomField extends CustomFieldType {
 	);
 }}
 
-if (!class_exists("CrmCustomFieldFilter")) {
+if (!class_exists("CrmCustomFieldFilter",false)){
 /**
  * CrmCustomFieldFilter
  */
@@ -110110,7 +106940,7 @@ class CrmCustomFieldFilter {
 	);
 }}
 
-if (!class_exists("CrmCustomFieldFilterList")) {
+if (!class_exists("CrmCustomFieldFilterList",false)){
 /**
  * CrmCustomFieldFilterList
  */
@@ -110132,11 +106962,11 @@ class CrmCustomFieldFilterList {
 	);
 }}
 
-if (!class_exists("OtherCustomField")) {
+if (!class_exists("OtherCustomField",false)){
 /**
  * OtherCustomField
  */
-class OtherCustomField extends CustomFieldType {
+class OtherCustomField extends Record {
 	/**
 	 * @access public
 	 * @var RecordRef
@@ -110152,6 +106982,11 @@ class OtherCustomField extends CustomFieldType {
 	 * @var RecordRef
 	 */
 	public $owner;
+	/**
+	 * @access public
+	 * @var CustomizationFieldType
+	 */
+	public $fieldType;
 	/**
 	 * @access public
 	 * @var string
@@ -110256,16 +107091,6 @@ class OtherCustomField extends CustomFieldType {
 	 * @access public
 	 * @var RecordRef
 	 */
-	public $searchDefault;
-	/**
-	 * @access public
-	 * @var RecordRef
-	 */
-	public $searchCompareField;
-	/**
-	 * @access public
-	 * @var RecordRef
-	 */
 	public $sourceList;
 	/**
 	 * @access public
@@ -110322,6 +107147,7 @@ class OtherCustomField extends CustomFieldType {
 		"recType" => "RecordRef",
 		"label" => "string",
 		"owner" => "RecordRef",
+		"fieldType" => "CustomizationFieldType",
 		"description" => "string",
 		"selectRecordType" => "RecordRef",
 		"storeValue" => "boolean",
@@ -110342,8 +107168,6 @@ class OtherCustomField extends CustomFieldType {
 		"isFormula" => "boolean",
 		"defaultSelection" => "RecordRef",
 		"dynamicDefault" => "CustomizationDynamicDefault",
-		"searchDefault" => "RecordRef",
-		"searchCompareField" => "RecordRef",
 		"sourceList" => "RecordRef",
 		"sourceFrom" => "RecordRef",
 		"sourceFilterBy" => "RecordRef",
@@ -110358,7 +107182,7 @@ class OtherCustomField extends CustomFieldType {
 	);
 }}
 
-if (!class_exists("OtherCustomFieldFilter")) {
+if (!class_exists("OtherCustomFieldFilter",false)){
 /**
  * OtherCustomFieldFilter
  */
@@ -110404,7 +107228,7 @@ class OtherCustomFieldFilter {
 	);
 }}
 
-if (!class_exists("OtherCustomFieldFilterList")) {
+if (!class_exists("OtherCustomFieldFilterList",false)){
 /**
  * OtherCustomFieldFilterList
  */
@@ -110426,11 +107250,11 @@ class OtherCustomFieldFilterList {
 	);
 }}
 
-if (!class_exists("ItemCustomField")) {
+if (!class_exists("ItemCustomField",false)){
 /**
  * ItemCustomField
  */
-class ItemCustomField extends CustomFieldType {
+class ItemCustomField extends Record {
 	/**
 	 * @access public
 	 * @var string
@@ -110451,6 +107275,11 @@ class ItemCustomField extends CustomFieldType {
 	 * @var string
 	 */
 	public $description;
+	/**
+	 * @access public
+	 * @var CustomizationFieldType
+	 */
+	public $fieldType;
 	/**
 	 * @access public
 	 * @var RecordRef
@@ -110566,16 +107395,6 @@ class ItemCustomField extends CustomFieldType {
 	 * @var CustomizationDynamicDefault
 	 */
 	public $dynamicDefault;
-	/**
-	 * @access public
-	 * @var RecordRef
-	 */
-	public $searchDefault;
-	/**
-	 * @access public
-	 * @var RecordRef
-	 */
-	public $searchCompareField;
 	/**
 	 * @access public
 	 * @var RecordRef
@@ -110687,6 +107506,7 @@ class ItemCustomField extends CustomFieldType {
 		"owner" => "RecordRef",
 		"itemMatrix" => "boolean",
 		"description" => "string",
+		"fieldType" => "CustomizationFieldType",
 		"selectRecordType" => "RecordRef",
 		"storeValue" => "boolean",
 		"showInList" => "boolean",
@@ -110710,8 +107530,6 @@ class ItemCustomField extends CustomFieldType {
 		"isFormula" => "boolean",
 		"defaultSelection" => "RecordRef",
 		"dynamicDefault" => "CustomizationDynamicDefault",
-		"searchDefault" => "RecordRef",
-		"searchCompareField" => "RecordRef",
 		"sourceList" => "RecordRef",
 		"sourceFrom" => "RecordRef",
 		"sourceFilterBy" => "RecordRef",
@@ -110736,7 +107554,7 @@ class ItemCustomField extends CustomFieldType {
 	);
 }}
 
-if (!class_exists("ItemCustomFieldFilter")) {
+if (!class_exists("ItemCustomFieldFilter",false)){
 /**
  * ItemCustomFieldFilter
  */
@@ -110782,7 +107600,7 @@ class ItemCustomFieldFilter {
 	);
 }}
 
-if (!class_exists("ItemCustomFieldFilterList")) {
+if (!class_exists("ItemCustomFieldFilterList",false)){
 /**
  * ItemCustomFieldFilterList
  */
@@ -110804,11 +107622,11 @@ class ItemCustomFieldFilterList {
 	);
 }}
 
-if (!class_exists("TransactionBodyCustomField")) {
+if (!class_exists("TransactionBodyCustomField",false)){
 /**
  * TransactionBodyCustomField
  */
-class TransactionBodyCustomField extends CustomFieldType {
+class TransactionBodyCustomField extends Record {
 	/**
 	 * @access public
 	 * @var string
@@ -110819,6 +107637,11 @@ class TransactionBodyCustomField extends CustomFieldType {
 	 * @var RecordRef
 	 */
 	public $owner;
+	/**
+	 * @access public
+	 * @var CustomizationFieldType
+	 */
+	public $fieldType;
 	/**
 	 * @access public
 	 * @var string
@@ -110944,16 +107767,6 @@ class TransactionBodyCustomField extends CustomFieldType {
 	 * @var CustomizationDynamicDefault
 	 */
 	public $dynamicDefault;
-	/**
-	 * @access public
-	 * @var RecordRef
-	 */
-	public $searchDefault;
-	/**
-	 * @access public
-	 * @var RecordRef
-	 */
-	public $searchCompareField;
 	/**
 	 * @access public
 	 * @var RecordRef
@@ -111123,6 +107936,7 @@ class TransactionBodyCustomField extends CustomFieldType {
 	static $paramtypesmap = array(
 		"label" => "string",
 		"owner" => "RecordRef",
+		"fieldType" => "CustomizationFieldType",
 		"description" => "string",
 		"selectRecordType" => "RecordRef",
 		"storeValue" => "boolean",
@@ -111148,8 +107962,6 @@ class TransactionBodyCustomField extends CustomFieldType {
 		"isFormula" => "boolean",
 		"defaultSelection" => "RecordRef",
 		"dynamicDefault" => "CustomizationDynamicDefault",
-		"searchDefault" => "RecordRef",
-		"searchCompareField" => "RecordRef",
 		"sourceList" => "RecordRef",
 		"sourceFrom" => "RecordRef",
 		"sourceFilterBy" => "RecordRef",
@@ -111186,7 +107998,7 @@ class TransactionBodyCustomField extends CustomFieldType {
 	);
 }}
 
-if (!class_exists("TransactionBodyCustomFieldFilter")) {
+if (!class_exists("TransactionBodyCustomFieldFilter",false)){
 /**
  * TransactionBodyCustomFieldFilter
  */
@@ -111232,7 +108044,7 @@ class TransactionBodyCustomFieldFilter {
 	);
 }}
 
-if (!class_exists("TransactionBodyCustomFieldFilterList")) {
+if (!class_exists("TransactionBodyCustomFieldFilterList",false)){
 /**
  * TransactionBodyCustomFieldFilterList
  */
@@ -111254,11 +108066,11 @@ class TransactionBodyCustomFieldFilterList {
 	);
 }}
 
-if (!class_exists("TransactionColumnCustomField")) {
+if (!class_exists("TransactionColumnCustomField",false)){
 /**
  * TransactionColumnCustomField
  */
-class TransactionColumnCustomField extends CustomFieldType {
+class TransactionColumnCustomField extends Record {
 	/**
 	 * @access public
 	 * @var string
@@ -111269,6 +108081,11 @@ class TransactionColumnCustomField extends CustomFieldType {
 	 * @var RecordRef
 	 */
 	public $owner;
+	/**
+	 * @access public
+	 * @var CustomizationFieldType
+	 */
+	public $fieldType;
 	/**
 	 * @access public
 	 * @var string
@@ -111538,6 +108355,7 @@ class TransactionColumnCustomField extends CustomFieldType {
 	static $paramtypesmap = array(
 		"label" => "string",
 		"owner" => "RecordRef",
+		"fieldType" => "CustomizationFieldType",
 		"description" => "string",
 		"selectRecordType" => "RecordRef",
 		"storeValue" => "boolean",
@@ -111594,7 +108412,7 @@ class TransactionColumnCustomField extends CustomFieldType {
 	);
 }}
 
-if (!class_exists("TransactionColumnCustomFieldFilter")) {
+if (!class_exists("TransactionColumnCustomFieldFilter",false)){
 /**
  * TransactionColumnCustomFieldFilter
  */
@@ -111640,7 +108458,7 @@ class TransactionColumnCustomFieldFilter {
 	);
 }}
 
-if (!class_exists("TransactionColumnCustomFieldFilterList")) {
+if (!class_exists("TransactionColumnCustomFieldFilterList",false)){
 /**
  * TransactionColumnCustomFieldFilterList
  */
@@ -111662,11 +108480,11 @@ class TransactionColumnCustomFieldFilterList {
 	);
 }}
 
-if (!class_exists("ItemOptionCustomField")) {
+if (!class_exists("ItemOptionCustomField",false)){
 /**
  * ItemOptionCustomField
  */
-class ItemOptionCustomField extends CustomFieldType {
+class ItemOptionCustomField extends Record {
 	/**
 	 * @access public
 	 * @var string
@@ -111677,6 +108495,11 @@ class ItemOptionCustomField extends CustomFieldType {
 	 * @var RecordRef
 	 */
 	public $owner;
+	/**
+	 * @access public
+	 * @var CustomizationFieldType
+	 */
+	public $fieldType;
 	/**
 	 * @access public
 	 * @var string
@@ -111767,16 +108590,6 @@ class ItemOptionCustomField extends CustomFieldType {
 	 * @var CustomizationDynamicDefault
 	 */
 	public $dynamicDefault;
-	/**
-	 * @access public
-	 * @var RecordRef
-	 */
-	public $searchDefault;
-	/**
-	 * @access public
-	 * @var RecordRef
-	 */
-	public $searchCompareField;
 	/**
 	 * @access public
 	 * @var RecordRef
@@ -111886,6 +108699,7 @@ class ItemOptionCustomField extends CustomFieldType {
 	static $paramtypesmap = array(
 		"label" => "string",
 		"owner" => "RecordRef",
+		"fieldType" => "CustomizationFieldType",
 		"description" => "string",
 		"selectRecordType" => "RecordRef",
 		"storeValue" => "boolean",
@@ -111904,8 +108718,6 @@ class ItemOptionCustomField extends CustomFieldType {
 		"isFormula" => "boolean",
 		"defaultSelection" => "RecordRef",
 		"dynamicDefault" => "CustomizationDynamicDefault",
-		"searchDefault" => "RecordRef",
-		"searchCompareField" => "RecordRef",
 		"sourceList" => "RecordRef",
 		"sourceFrom" => "RecordRef",
 		"sourceFilterBy" => "RecordRef",
@@ -111930,7 +108742,7 @@ class ItemOptionCustomField extends CustomFieldType {
 	);
 }}
 
-if (!class_exists("ItemsList")) {
+if (!class_exists("ItemsList",false)){
 /**
  * ItemsList
  */
@@ -111946,7 +108758,7 @@ class ItemsList {
 	);
 }}
 
-if (!class_exists("ItemOptionCustomFieldFilter")) {
+if (!class_exists("ItemOptionCustomFieldFilter",false)){
 /**
  * ItemOptionCustomFieldFilter
  */
@@ -111992,7 +108804,7 @@ class ItemOptionCustomFieldFilter {
 	);
 }}
 
-if (!class_exists("ItemOptionCustomFieldFilterList")) {
+if (!class_exists("ItemOptionCustomFieldFilterList",false)){
 /**
  * ItemOptionCustomFieldFilterList
  */
@@ -112014,11 +108826,11 @@ class ItemOptionCustomFieldFilterList {
 	);
 }}
 
-if (!class_exists("CustomRecordCustomField")) {
+if (!class_exists("CustomRecordCustomField",false)){
 /**
  * CustomRecordCustomField
  */
-class CustomRecordCustomField extends CustomFieldType {
+class CustomRecordCustomField extends Record {
 	/**
 	 * @access public
 	 * @var string
@@ -112029,6 +108841,11 @@ class CustomRecordCustomField extends CustomFieldType {
 	 * @var RecordRef
 	 */
 	public $owner;
+	/**
+	 * @access public
+	 * @var CustomizationFieldType
+	 */
+	public $fieldType;
 	/**
 	 * @access public
 	 * @var string
@@ -112153,16 +108970,6 @@ class CustomRecordCustomField extends CustomFieldType {
 	 * @access public
 	 * @var RecordRef
 	 */
-	public $searchDefault;
-	/**
-	 * @access public
-	 * @var RecordRef
-	 */
-	public $searchCompareField;
-	/**
-	 * @access public
-	 * @var RecordRef
-	 */
 	public $sourceList;
 	/**
 	 * @access public
@@ -112228,6 +109035,7 @@ class CustomRecordCustomField extends CustomFieldType {
 	static $paramtypesmap = array(
 		"label" => "string",
 		"owner" => "RecordRef",
+		"fieldType" => "CustomizationFieldType",
 		"description" => "string",
 		"selectRecordType" => "RecordRef",
 		"storeValue" => "boolean",
@@ -112252,8 +109060,6 @@ class CustomRecordCustomField extends CustomFieldType {
 		"isFormula" => "boolean",
 		"defaultSelection" => "RecordRef",
 		"dynamicDefault" => "CustomizationDynamicDefault",
-		"searchDefault" => "RecordRef",
-		"searchCompareField" => "RecordRef",
 		"sourceList" => "RecordRef",
 		"sourceFrom" => "RecordRef",
 		"sourcefilterby" => "RecordRef",
@@ -112270,7 +109076,7 @@ class CustomRecordCustomField extends CustomFieldType {
 	);
 }}
 
-if (!class_exists("CustomRecordCustomFieldFilter")) {
+if (!class_exists("CustomRecordCustomFieldFilter",false)){
 /**
  * CustomRecordCustomFieldFilter
  */
@@ -112316,7 +109122,7 @@ class CustomRecordCustomFieldFilter {
 	);
 }}
 
-if (!class_exists("CustomRecordCustomFieldFilterList")) {
+if (!class_exists("CustomRecordCustomFieldFilterList",false)){
 /**
  * CustomRecordCustomFieldFilterList
  */
@@ -112338,7 +109144,7 @@ class CustomRecordCustomFieldFilterList {
 	);
 }}
 
-if (!class_exists("CustomFieldRoleAccess")) {
+if (!class_exists("CustomFieldRoleAccess",false)){
 /**
  * CustomFieldRoleAccess
  */
@@ -112366,7 +109172,7 @@ class CustomFieldRoleAccess {
 	);
 }}
 
-if (!class_exists("CustomFieldRoleAccessList")) {
+if (!class_exists("CustomFieldRoleAccessList",false)){
 /**
  * CustomFieldRoleAccessList
  */
@@ -112388,7 +109194,7 @@ class CustomFieldRoleAccessList {
 	);
 }}
 
-if (!class_exists("CustomFieldDepartmentAccess")) {
+if (!class_exists("CustomFieldDepartmentAccess",false)){
 /**
  * CustomFieldDepartmentAccess
  */
@@ -112416,7 +109222,7 @@ class CustomFieldDepartmentAccess {
 	);
 }}
 
-if (!class_exists("CustomFieldDepartmentAccessList")) {
+if (!class_exists("CustomFieldDepartmentAccessList",false)){
 /**
  * CustomFieldDepartmentAccessList
  */
@@ -112438,7 +109244,7 @@ class CustomFieldDepartmentAccessList {
 	);
 }}
 
-if (!class_exists("CustomFieldSubAccess")) {
+if (!class_exists("CustomFieldSubAccess",false)){
 /**
  * CustomFieldSubAccess
  */
@@ -112466,7 +109272,7 @@ class CustomFieldSubAccess {
 	);
 }}
 
-if (!class_exists("CustomFieldSubAccessList")) {
+if (!class_exists("CustomFieldSubAccessList",false)){
 /**
  * CustomFieldSubAccessList
  */
@@ -112488,7 +109294,7 @@ class CustomFieldSubAccessList {
 	);
 }}
 
-if (!class_exists("LanguageValue")) {
+if (!class_exists("LanguageValue",false)){
 /**
  * LanguageValue
  */
@@ -112510,7 +109316,7 @@ class LanguageValue {
 	);
 }}
 
-if (!class_exists("LanguageValueList")) {
+if (!class_exists("LanguageValueList",false)){
 /**
  * LanguageValueList
  */
@@ -112532,7 +109338,7 @@ class LanguageValueList {
 	);
 }}
 
-if (!class_exists("CustomFieldTranslations")) {
+if (!class_exists("CustomFieldTranslations",false)){
 /**
  * CustomFieldTranslations
  */
@@ -112566,7 +109372,7 @@ class CustomFieldTranslations {
 	);
 }}
 
-if (!class_exists("CustomFieldTranslationsList")) {
+if (!class_exists("CustomFieldTranslationsList",false)){
 /**
  * CustomFieldTranslationsList
  */
@@ -112588,11 +109394,11 @@ class CustomFieldTranslationsList {
 	);
 }}
 
-if (!class_exists("ItemNumberCustomField")) {
+if (!class_exists("ItemNumberCustomField",false)){
 /**
  * ItemNumberCustomField
  */
-class ItemNumberCustomField extends CustomFieldType {
+class ItemNumberCustomField extends Record {
 	/**
 	 * @access public
 	 * @var string
@@ -112608,6 +109414,11 @@ class ItemNumberCustomField extends CustomFieldType {
 	 * @var string
 	 */
 	public $description;
+	/**
+	 * @access public
+	 * @var CustomizationFieldType
+	 */
+	public $fieldType;
 	/**
 	 * @access public
 	 * @var RecordRef
@@ -112707,16 +109518,6 @@ class ItemNumberCustomField extends CustomFieldType {
 	 * @access public
 	 * @var RecordRef
 	 */
-	public $searchDefault;
-	/**
-	 * @access public
-	 * @var RecordRef
-	 */
-	public $searchCompareField;
-	/**
-	 * @access public
-	 * @var RecordRef
-	 */
 	public $sourceList;
 	/**
 	 * @access public
@@ -112793,6 +109594,7 @@ class ItemNumberCustomField extends CustomFieldType {
 		"label" => "string",
 		"owner" => "RecordRef",
 		"description" => "string",
+		"fieldType" => "CustomizationFieldType",
 		"selectRecordType" => "RecordRef",
 		"storeValue" => "boolean",
 		"showInList" => "boolean",
@@ -112812,8 +109614,6 @@ class ItemNumberCustomField extends CustomFieldType {
 		"isFormula" => "boolean",
 		"defaultSelection" => "RecordRef",
 		"dynamicDefault" => "CustomizationDynamicDefault",
-		"searchDefault" => "RecordRef",
-		"searchCompareField" => "RecordRef",
 		"sourceList" => "RecordRef",
 		"sourceFrom" => "RecordRef",
 		"sourceFilterBy" => "RecordRef",
@@ -112832,7 +109632,7 @@ class ItemNumberCustomField extends CustomFieldType {
 	);
 }}
 
-if (!class_exists("ItemNumberCustomFieldFilter")) {
+if (!class_exists("ItemNumberCustomFieldFilter",false)){
 /**
  * ItemNumberCustomFieldFilter
  */
@@ -112884,7 +109684,7 @@ class ItemNumberCustomFieldFilter {
 	);
 }}
 
-if (!class_exists("ItemNumberCustomFieldFilterList")) {
+if (!class_exists("ItemNumberCustomFieldFilterList",false)){
 /**
  * ItemNumberCustomFieldFilterList
  */
@@ -112906,7 +109706,7 @@ class ItemNumberCustomFieldFilterList {
 	);
 }}
 
-if (!class_exists("CustomListSearch")) {
+if (!class_exists("CustomListSearch",false)){
 /**
  * CustomListSearch
  */
@@ -112928,41 +109728,7 @@ class CustomListSearch extends SearchRecord {
 	);
 }}
 
-if (!class_exists("CustomListSearchAdvanced")) {
-/**
- * CustomListSearchAdvanced
- */
-class CustomListSearchAdvanced extends SearchRecord {
-	/**
-	 * @access public
-	 * @var CustomListSearch
-	 */
-	public $criteria;
-	/**
-	 * @access public
-	 * @var CustomListSearchRow
-	 */
-	public $columns;
-	/**
-	 * @access public
-	 * @var string
-	 */
-	public $savedSearchId;
-	/**
-	 * @access public
-	 * @var string
-	 */
-	public $savedSearchScriptId;
-
-	static $paramtypesmap = array(
-		"criteria" => "CustomListSearch",
-		"columns" => "CustomListSearchRow",
-		"savedSearchId" => "string",
-		"savedSearchScriptId" => "string",
-	);
-}}
-
-if (!class_exists("CustomListSearchRow")) {
+if (!class_exists("CustomListSearchRow",false)){
 /**
  * CustomListSearchRow
  */
@@ -112984,7 +109750,7 @@ class CustomListSearchRow extends SearchRow {
 	);
 }}
 
-if (!class_exists("AppDefinition")) {
+if (!class_exists("AppDefinition",false)){
 /**
  * AppDefinition
  */
@@ -113024,7 +109790,7 @@ class AppDefinition extends Record {
 	);
 }}
 
-if (!class_exists("AppDefinitionPackages")) {
+if (!class_exists("AppDefinitionPackages",false)){
 /**
  * AppDefinitionPackages
  */
@@ -113034,7 +109800,7 @@ class AppDefinitionPackages {
 	);
 }}
 
-if (!class_exists("AppDefinitionPackagesList")) {
+if (!class_exists("AppDefinitionPackagesList",false)){
 /**
  * AppDefinitionPackagesList
  */
@@ -113056,7 +109822,7 @@ class AppDefinitionPackagesList {
 	);
 }}
 
-if (!class_exists("AppDefinitionSearch")) {
+if (!class_exists("AppDefinitionSearch",false)){
 /**
  * AppDefinitionSearch
  */
@@ -113090,7 +109856,7 @@ class AppDefinitionSearch extends SearchRecord {
 	);
 }}
 
-if (!class_exists("AppDefinitionSearchAdvanced")) {
+if (!class_exists("AppDefinitionSearchAdvanced",false)){
 /**
  * AppDefinitionSearchAdvanced
  */
@@ -113124,7 +109890,7 @@ class AppDefinitionSearchAdvanced extends SearchRecord {
 	);
 }}
 
-if (!class_exists("AppDefinitionSearchRow")) {
+if (!class_exists("AppDefinitionSearchRow",false)){
 /**
  * AppDefinitionSearchRow
  */
@@ -113158,7 +109924,7 @@ class AppDefinitionSearchRow extends SearchRow {
 	);
 }}
 
-if (!class_exists("AppPackage")) {
+if (!class_exists("AppPackage",false)){
 /**
  * AppPackage
  */
@@ -113210,7 +109976,7 @@ class AppPackage extends Record {
 	);
 }}
 
-if (!class_exists("AppPackageSearch")) {
+if (!class_exists("AppPackageSearch",false)){
 /**
  * AppPackageSearch
  */
@@ -113250,7 +110016,7 @@ class AppPackageSearch extends SearchRecord {
 	);
 }}
 
-if (!class_exists("AppPackageSearchAdvanced")) {
+if (!class_exists("AppPackageSearchAdvanced",false)){
 /**
  * AppPackageSearchAdvanced
  */
@@ -113284,7 +110050,7 @@ class AppPackageSearchAdvanced extends SearchRecord {
 	);
 }}
 
-if (!class_exists("AppPackageSearchRow")) {
+if (!class_exists("AppPackageSearchRow",false)){
 /**
  * AppPackageSearchRow
  */
@@ -113324,57 +110090,7 @@ class AppPackageSearchRow extends SearchRow {
 	);
 }}
 
-if (!class_exists("CustomRecordTranslations")) {
-/**
- * CustomRecordTranslations
- */
-class CustomRecordTranslations {
-	/**
-	 * @access public
-	 * @var Language
-	 */
-	public $locale;
-	/**
-	 * @access public
-	 * @var string
-	 */
-	public $language;
-	/**
-	 * @access public
-	 * @var string
-	 */
-	public $label;
-
-	static $paramtypesmap = array(
-		"locale" => "Language",
-		"language" => "string",
-		"label" => "string",
-	);
-}}
-
-if (!class_exists("CustomRecordTranslationsList")) {
-/**
- * CustomRecordTranslationsList
- */
-class CustomRecordTranslationsList {
-	/**
-	 * @access public
-	 * @var CustomRecordTranslations[]
-	 */
-	public $customRecordTranslations;
-	/**
-	 * @access public
-	 * @var boolean
-	 */
-	public $replaceAll;
-
-	static $paramtypesmap = array(
-		"customRecordTranslations" => "CustomRecordTranslations[]",
-		"replaceAll" => "boolean",
-	);
-}}
-
-if (!class_exists("EmployeePayFrequency")) {
+if (!class_exists("EmployeePayFrequency",false)){
 /**
  * EmployeePayFrequency
  */
@@ -113452,7 +110168,7 @@ class EmployeePayFrequency {
 	const _weekly = "_weekly";
 }}
 
-if (!class_exists("EmployeeUseTimeData")) {
+if (!class_exists("EmployeeUseTimeData",false)){
 /**
  * EmployeeUseTimeData
  */
@@ -113470,7 +110186,7 @@ class EmployeeUseTimeData {
 	const _salary = "_salary";
 }}
 
-if (!class_exists("EmployeeCommissionPaymentPreference")) {
+if (!class_exists("EmployeeCommissionPaymentPreference",false)){
 /**
  * EmployeeCommissionPaymentPreference
  */
@@ -113492,7 +110208,7 @@ class EmployeeCommissionPaymentPreference {
 	const _systemPreference = "_systemPreference";
 }}
 
-if (!class_exists("Gender")) {
+if (!class_exists("Gender",false)){
 /**
  * Gender
  */
@@ -113514,7 +110230,7 @@ class Gender {
 	const _male = "_male";
 }}
 
-if (!class_exists("EmployeeAccruedTimeAccrualMethod")) {
+if (!class_exists("EmployeeAccruedTimeAccrualMethod",false)){
 /**
  * EmployeeAccruedTimeAccrualMethod
  */
@@ -113536,7 +110252,7 @@ class EmployeeAccruedTimeAccrualMethod {
 	const _perPayPeriod = "_perPayPeriod";
 }}
 
-if (!class_exists("EmployeeDirectDepositAccountStatus")) {
+if (!class_exists("EmployeeDirectDepositAccountStatus",false)){
 /**
  * EmployeeDirectDepositAccountStatus
  */
@@ -113566,7 +110282,7 @@ class EmployeeDirectDepositAccountStatus {
 	const _inactive = "_inactive";
 }}
 
-if (!class_exists("PayrollItemItemTypeNoHierarchy")) {
+if (!class_exists("PayrollItemItemTypeNoHierarchy",false)){
 /**
  * PayrollItemItemTypeNoHierarchy
  */
@@ -113652,7 +110368,7 @@ class PayrollItemItemTypeNoHierarchy {
 	const _wage = "_wage";
 }}
 
-if (!class_exists("Employee")) {
+if (!class_exists("Employee",false)){
 /**
  * Employee
  */
@@ -114196,7 +110912,7 @@ class Employee extends Record {
 	);
 }}
 
-if (!class_exists("EmployeeSubscriptions")) {
+if (!class_exists("EmployeeSubscriptions",false)){
 /**
  * EmployeeSubscriptions
  */
@@ -114224,7 +110940,7 @@ class EmployeeSubscriptions {
 	);
 }}
 
-if (!class_exists("EmployeeSubscriptionsList")) {
+if (!class_exists("EmployeeSubscriptionsList",false)){
 /**
  * EmployeeSubscriptionsList
  */
@@ -114246,7 +110962,7 @@ class EmployeeSubscriptionsList {
 	);
 }}
 
-if (!class_exists("EmployeeAddressbook")) {
+if (!class_exists("EmployeeAddressbook",false)){
 /**
  * EmployeeAddressbook
  */
@@ -114352,7 +111068,7 @@ class EmployeeAddressbook {
 	);
 }}
 
-if (!class_exists("EmployeeAddressbookList")) {
+if (!class_exists("EmployeeAddressbookList",false)){
 /**
  * EmployeeAddressbookList
  */
@@ -114374,7 +111090,7 @@ class EmployeeAddressbookList {
 	);
 }}
 
-if (!class_exists("EmployeeRoles")) {
+if (!class_exists("EmployeeRoles",false)){
 /**
  * EmployeeRoles
  */
@@ -114390,7 +111106,7 @@ class EmployeeRoles {
 	);
 }}
 
-if (!class_exists("EmployeeRolesList")) {
+if (!class_exists("EmployeeRolesList",false)){
 /**
  * EmployeeRolesList
  */
@@ -114412,7 +111128,7 @@ class EmployeeRolesList {
 	);
 }}
 
-if (!class_exists("EmployeeSearch")) {
+if (!class_exists("EmployeeSearch",false)){
 /**
  * EmployeeSearch
  */
@@ -114459,11 +111175,6 @@ class EmployeeSearch extends SearchRecord {
 	public $messagesToJoin;
 	/**
 	 * @access public
-	 * @var ResourceAllocationSearchBasic
-	 */
-	public $resourceAllocationJoin;
-	/**
-	 * @access public
 	 * @var SubsidiarySearchBasic
 	 */
 	public $subsidiaryJoin;
@@ -114487,11 +111198,6 @@ class EmployeeSearch extends SearchRecord {
 	 * @var NoteSearchBasic
 	 */
 	public $userNotesJoin;
-	/**
-	 * @access public
-	 * @var CustomSearchJoin[]
-	 */
-	public $customSearchJoin;
 
 	static $paramtypesmap = array(
 		"basic" => "EmployeeSearchBasic",
@@ -114502,17 +111208,15 @@ class EmployeeSearch extends SearchRecord {
 		"messagesJoin" => "MessageSearchBasic",
 		"messagesFromJoin" => "MessageSearchBasic",
 		"messagesToJoin" => "MessageSearchBasic",
-		"resourceAllocationJoin" => "ResourceAllocationSearchBasic",
 		"subsidiaryJoin" => "SubsidiarySearchBasic",
 		"timeJoin" => "TimeBillSearchBasic",
 		"transactionJoin" => "TransactionSearchBasic",
 		"userJoin" => "EmployeeSearchBasic",
 		"userNotesJoin" => "NoteSearchBasic",
-		"customSearchJoin" => "CustomSearchJoin[]",
 	);
 }}
 
-if (!class_exists("EmployeeSearchAdvanced")) {
+if (!class_exists("EmployeeSearchAdvanced",false)){
 /**
  * EmployeeSearchAdvanced
  */
@@ -114546,7 +111250,7 @@ class EmployeeSearchAdvanced extends SearchRecord {
 	);
 }}
 
-if (!class_exists("EmployeeSearchRow")) {
+if (!class_exists("EmployeeSearchRow",false)){
 /**
  * EmployeeSearchRow
  */
@@ -114593,11 +111297,6 @@ class EmployeeSearchRow extends SearchRow {
 	public $messagesToJoin;
 	/**
 	 * @access public
-	 * @var ResourceAllocationSearchRowBasic
-	 */
-	public $resourceAllocationJoin;
-	/**
-	 * @access public
 	 * @var SubsidiarySearchRowBasic
 	 */
 	public $subsidiaryJoin;
@@ -114621,11 +111320,6 @@ class EmployeeSearchRow extends SearchRow {
 	 * @var NoteSearchRowBasic
 	 */
 	public $userNotesJoin;
-	/**
-	 * @access public
-	 * @var CustomSearchRowBasic[]
-	 */
-	public $customSearchJoin;
 
 	static $paramtypesmap = array(
 		"basic" => "EmployeeSearchRowBasic",
@@ -114636,17 +111330,15 @@ class EmployeeSearchRow extends SearchRow {
 		"messagesJoin" => "MessageSearchRowBasic",
 		"messagesFromJoin" => "MessageSearchRowBasic",
 		"messagesToJoin" => "MessageSearchRowBasic",
-		"resourceAllocationJoin" => "ResourceAllocationSearchRowBasic",
 		"subsidiaryJoin" => "SubsidiarySearchRowBasic",
 		"timeJoin" => "TimeBillSearchRowBasic",
 		"transactionJoin" => "TransactionSearchRowBasic",
 		"userJoin" => "EmployeeSearchRowBasic",
 		"userNotesJoin" => "NoteSearchRowBasic",
-		"customSearchJoin" => "CustomSearchRowBasic[]",
 	);
 }}
 
-if (!class_exists("EmployeeEmergencyContact")) {
+if (!class_exists("EmployeeEmergencyContact",false)){
 /**
  * EmployeeEmergencyContact
  */
@@ -114686,7 +111378,7 @@ class EmployeeEmergencyContact {
 	);
 }}
 
-if (!class_exists("EmployeeEmergencyContactList")) {
+if (!class_exists("EmployeeEmergencyContactList",false)){
 /**
  * EmployeeEmergencyContactList
  */
@@ -114708,7 +111400,7 @@ class EmployeeEmergencyContactList {
 	);
 }}
 
-if (!class_exists("EmployeeHrEducation")) {
+if (!class_exists("EmployeeHrEducation",false)){
 /**
  * EmployeeHrEducation
  */
@@ -114736,7 +111428,7 @@ class EmployeeHrEducation {
 	);
 }}
 
-if (!class_exists("EmployeeHrEducationList")) {
+if (!class_exists("EmployeeHrEducationList",false)){
 /**
  * EmployeeHrEducationList
  */
@@ -114758,7 +111450,7 @@ class EmployeeHrEducationList {
 	);
 }}
 
-if (!class_exists("EmployeeAccruedTime")) {
+if (!class_exists("EmployeeAccruedTime",false)){
 /**
  * EmployeeAccruedTime
  */
@@ -114828,7 +111520,7 @@ class EmployeeAccruedTime {
 	);
 }}
 
-if (!class_exists("EmployeeAccruedTimeList")) {
+if (!class_exists("EmployeeAccruedTimeList",false)){
 /**
  * EmployeeAccruedTimeList
  */
@@ -114850,7 +111542,7 @@ class EmployeeAccruedTimeList {
 	);
 }}
 
-if (!class_exists("EmployeeDeduction")) {
+if (!class_exists("EmployeeDeduction",false)){
 /**
  * EmployeeDeduction
  */
@@ -114896,7 +111588,7 @@ class EmployeeDeduction {
 	);
 }}
 
-if (!class_exists("EmployeeDeductionList")) {
+if (!class_exists("EmployeeDeductionList",false)){
 /**
  * EmployeeDeductionList
  */
@@ -114918,7 +111610,7 @@ class EmployeeDeductionList {
 	);
 }}
 
-if (!class_exists("EmployeeCompanyContribution")) {
+if (!class_exists("EmployeeCompanyContribution",false)){
 /**
  * EmployeeCompanyContribution
  */
@@ -114964,7 +111656,7 @@ class EmployeeCompanyContribution {
 	);
 }}
 
-if (!class_exists("EmployeeCompanyContributionList")) {
+if (!class_exists("EmployeeCompanyContributionList",false)){
 /**
  * EmployeeCompanyContributionList
  */
@@ -114986,7 +111678,7 @@ class EmployeeCompanyContributionList {
 	);
 }}
 
-if (!class_exists("EmployeeEarning")) {
+if (!class_exists("EmployeeEarning",false)){
 /**
  * EmployeeEarning
  */
@@ -115044,7 +111736,7 @@ class EmployeeEarning {
 	);
 }}
 
-if (!class_exists("EmployeeEarningList")) {
+if (!class_exists("EmployeeEarningList",false)){
 /**
  * EmployeeEarningList
  */
@@ -115066,7 +111758,7 @@ class EmployeeEarningList {
 	);
 }}
 
-if (!class_exists("EmployeeDirectDeposit")) {
+if (!class_exists("EmployeeDirectDeposit",false)){
 /**
  * EmployeeDirectDeposit
  */
@@ -115148,7 +111840,7 @@ class EmployeeDirectDeposit {
 	);
 }}
 
-if (!class_exists("EmployeeDirectDepositList")) {
+if (!class_exists("EmployeeDirectDepositList",false)){
 /**
  * EmployeeDirectDepositList
  */
@@ -115170,7 +111862,7 @@ class EmployeeDirectDepositList {
 	);
 }}
 
-if (!class_exists("PayrollItem")) {
+if (!class_exists("PayrollItem",false)){
 /**
  * PayrollItem
  */
@@ -115246,7 +111938,7 @@ class PayrollItem extends Record {
 	);
 }}
 
-if (!class_exists("PayrollItemSearch")) {
+if (!class_exists("PayrollItemSearch",false)){
 /**
  * PayrollItemSearch
  */
@@ -115256,53 +111948,13 @@ class PayrollItemSearch extends SearchRecord {
 	 * @var PayrollItemSearchBasic
 	 */
 	public $basic;
-	/**
-	 * @access public
-	 * @var CustomSearchJoin[]
-	 */
-	public $customSearchJoin;
 
 	static $paramtypesmap = array(
 		"basic" => "PayrollItemSearchBasic",
-		"customSearchJoin" => "CustomSearchJoin[]",
 	);
 }}
 
-if (!class_exists("PayrollItemSearchAdvanced")) {
-/**
- * PayrollItemSearchAdvanced
- */
-class PayrollItemSearchAdvanced extends SearchRecord {
-	/**
-	 * @access public
-	 * @var PayrollItemSearch
-	 */
-	public $criteria;
-	/**
-	 * @access public
-	 * @var PayrollItemSearchRow
-	 */
-	public $columns;
-	/**
-	 * @access public
-	 * @var string
-	 */
-	public $savedSearchId;
-	/**
-	 * @access public
-	 * @var string
-	 */
-	public $savedSearchScriptId;
-
-	static $paramtypesmap = array(
-		"criteria" => "PayrollItemSearch",
-		"columns" => "PayrollItemSearchRow",
-		"savedSearchId" => "string",
-		"savedSearchScriptId" => "string",
-	);
-}}
-
-if (!class_exists("PayrollItemSearchRow")) {
+if (!class_exists("PayrollItemSearchRow",false)){
 /**
  * PayrollItemSearchRow
  */
@@ -115312,19 +111964,13 @@ class PayrollItemSearchRow extends SearchRow {
 	 * @var PayrollItemSearchRowBasic
 	 */
 	public $basic;
-	/**
-	 * @access public
-	 * @var CustomSearchRowBasic[]
-	 */
-	public $customSearchJoin;
 
 	static $paramtypesmap = array(
 		"basic" => "PayrollItemSearchRowBasic",
-		"customSearchJoin" => "CustomSearchRowBasic[]",
 	);
 }}
 
-if (!class_exists("MediaType")) {
+if (!class_exists("MediaType",false)){
 /**
  * MediaType
  */
@@ -115490,7 +112136,7 @@ class MediaType {
 	const _ZIP = "_ZIP";
 }}
 
-if (!class_exists("FileAttachFrom")) {
+if (!class_exists("FileAttachFrom",false)){
 /**
  * FileAttachFrom
  */
@@ -115508,7 +112154,7 @@ class FileAttachFrom {
 	const _web = "_web";
 }}
 
-if (!class_exists("FileEncoding")) {
+if (!class_exists("FileEncoding",false)){
 /**
  * FileEncoding
  */
@@ -115534,7 +112180,7 @@ class FileEncoding {
 	const _windows1252 = "_windows1252";
 }}
 
-if (!class_exists("TextFileEncoding")) {
+if (!class_exists("TextFileEncoding",false)){
 /**
  * TextFileEncoding
  */
@@ -115576,7 +112222,7 @@ class TextFileEncoding {
 	const _windows1252 = "_windows1252";
 }}
 
-if (!class_exists("SiteCategoryTranslation")) {
+if (!class_exists("SiteCategoryTranslation",false)){
 /**
  * SiteCategoryTranslation
  */
@@ -115622,7 +112268,7 @@ class SiteCategoryTranslation {
 	);
 }}
 
-if (!class_exists("SiteCategoryTranslationList")) {
+if (!class_exists("SiteCategoryTranslationList",false)){
 /**
  * SiteCategoryTranslationList
  */
@@ -115644,7 +112290,7 @@ class SiteCategoryTranslationList {
 	);
 }}
 
-if (!class_exists("SiteCategoryPresentationItemList")) {
+if (!class_exists("SiteCategoryPresentationItemList",false)){
 /**
  * SiteCategoryPresentationItemList
  */
@@ -115666,7 +112312,7 @@ class SiteCategoryPresentationItemList {
 	);
 }}
 
-if (!class_exists("SiteCategorySearch")) {
+if (!class_exists("SiteCategorySearch",false)){
 /**
  * SiteCategorySearch
  */
@@ -115694,7 +112340,7 @@ class SiteCategorySearch extends SearchRecord {
 	);
 }}
 
-if (!class_exists("SiteCategorySearchAdvanced")) {
+if (!class_exists("SiteCategorySearchAdvanced",false)){
 /**
  * SiteCategorySearchAdvanced
  */
@@ -115728,7 +112374,7 @@ class SiteCategorySearchAdvanced extends SearchRecord {
 	);
 }}
 
-if (!class_exists("SiteCategorySearchRow")) {
+if (!class_exists("SiteCategorySearchRow",false)){
 /**
  * SiteCategorySearchRow
  */
@@ -115756,7 +112402,7 @@ class SiteCategorySearchRow extends SearchRow {
 	);
 }}
 
-if (!class_exists("TimeBillTimeType")) {
+if (!class_exists("TimeBillTimeType",false)){
 /**
  * TimeBillTimeType
  */
@@ -115771,14 +112417,10 @@ class TimeBillTimeType {
 	/**
 	 * @var string
 	 */
-	const _allocatedTime = "_allocatedTime";
-	/**
-	 * @var string
-	 */
 	const _plannedTime = "_plannedTime";
 }}
 
-if (!class_exists("TimeBill")) {
+if (!class_exists("TimeBill",false)){
 /**
  * TimeBill
  */
@@ -115962,7 +112604,7 @@ class TimeBill extends Record {
 	);
 }}
 
-if (!class_exists("TimeBillSearch")) {
+if (!class_exists("TimeBillSearch",false)){
 /**
  * TimeBillSearch
  */
@@ -115984,19 +112626,9 @@ class TimeBillSearch extends SearchRecord {
 	public $caseJoin;
 	/**
 	 * @access public
-	 * @var ClassificationSearchBasic
-	 */
-	public $classJoin;
-	/**
-	 * @access public
 	 * @var CustomerSearchBasic
 	 */
 	public $customerJoin;
-	/**
-	 * @access public
-	 * @var DepartmentSearchBasic
-	 */
-	public $departmentJoin;
 	/**
 	 * @access public
 	 * @var EmployeeSearchBasic
@@ -116019,24 +112651,9 @@ class TimeBillSearch extends SearchRecord {
 	public $jobJoin;
 	/**
 	 * @access public
-	 * @var LocationSearchBasic
-	 */
-	public $locationJoin;
-	/**
-	 * @access public
 	 * @var ProjectTaskSearchBasic
 	 */
 	public $projectTaskJoin;
-	/**
-	 * @access public
-	 * @var ProjectTaskAssignmentSearchBasic
-	 */
-	public $projectTaskAssignmentJoin;
-	/**
-	 * @access public
-	 * @var ResourceAllocationSearchBasic
-	 */
-	public $resourceAllocationJoin;
 	/**
 	 * @access public
 	 * @var TaskSearchBasic
@@ -116047,40 +112664,23 @@ class TimeBillSearch extends SearchRecord {
 	 * @var EmployeeSearchBasic
 	 */
 	public $userJoin;
-	/**
-	 * @access public
-	 * @var VendorSearchBasic
-	 */
-	public $vendorJoin;
-	/**
-	 * @access public
-	 * @var CustomSearchJoin[]
-	 */
-	public $customSearchJoin;
 
 	static $paramtypesmap = array(
 		"basic" => "TimeBillSearchBasic",
 		"callJoin" => "PhoneCallSearchBasic",
 		"caseJoin" => "SupportCaseSearchBasic",
-		"classJoin" => "ClassificationSearchBasic",
 		"customerJoin" => "CustomerSearchBasic",
-		"departmentJoin" => "DepartmentSearchBasic",
 		"employeeJoin" => "EmployeeSearchBasic",
 		"eventJoin" => "CalendarEventSearchBasic",
 		"itemJoin" => "ItemSearchBasic",
 		"jobJoin" => "JobSearchBasic",
-		"locationJoin" => "LocationSearchBasic",
 		"projectTaskJoin" => "ProjectTaskSearchBasic",
-		"projectTaskAssignmentJoin" => "ProjectTaskAssignmentSearchBasic",
-		"resourceAllocationJoin" => "ResourceAllocationSearchBasic",
 		"taskJoin" => "TaskSearchBasic",
 		"userJoin" => "EmployeeSearchBasic",
-		"vendorJoin" => "VendorSearchBasic",
-		"customSearchJoin" => "CustomSearchJoin[]",
 	);
 }}
 
-if (!class_exists("TimeBillSearchAdvanced")) {
+if (!class_exists("TimeBillSearchAdvanced",false)){
 /**
  * TimeBillSearchAdvanced
  */
@@ -116114,7 +112714,7 @@ class TimeBillSearchAdvanced extends SearchRecord {
 	);
 }}
 
-if (!class_exists("TimeBillSearchRow")) {
+if (!class_exists("TimeBillSearchRow",false)){
 /**
  * TimeBillSearchRow
  */
@@ -116136,19 +112736,9 @@ class TimeBillSearchRow extends SearchRow {
 	public $caseJoin;
 	/**
 	 * @access public
-	 * @var ClassificationSearchRowBasic
-	 */
-	public $classJoin;
-	/**
-	 * @access public
 	 * @var CustomerSearchRowBasic
 	 */
 	public $customerJoin;
-	/**
-	 * @access public
-	 * @var DepartmentSearchRowBasic
-	 */
-	public $departmentJoin;
 	/**
 	 * @access public
 	 * @var EmployeeSearchRowBasic
@@ -116171,24 +112761,9 @@ class TimeBillSearchRow extends SearchRow {
 	public $jobJoin;
 	/**
 	 * @access public
-	 * @var LocationSearchRowBasic
-	 */
-	public $locationJoin;
-	/**
-	 * @access public
 	 * @var ProjectTaskSearchRowBasic
 	 */
 	public $projectTaskJoin;
-	/**
-	 * @access public
-	 * @var ProjectTaskAssignmentSearchRowBasic
-	 */
-	public $projectTaskAssignmentJoin;
-	/**
-	 * @access public
-	 * @var ResourceAllocationSearchRowBasic
-	 */
-	public $resourceAllocationJoin;
 	/**
 	 * @access public
 	 * @var TaskSearchRowBasic
@@ -116199,40 +112774,23 @@ class TimeBillSearchRow extends SearchRow {
 	 * @var EmployeeSearchRowBasic
 	 */
 	public $userJoin;
-	/**
-	 * @access public
-	 * @var VendorSearchRowBasic
-	 */
-	public $vendorJoin;
-	/**
-	 * @access public
-	 * @var CustomSearchRowBasic[]
-	 */
-	public $customSearchJoin;
 
 	static $paramtypesmap = array(
 		"basic" => "TimeBillSearchRowBasic",
 		"callJoin" => "PhoneCallSearchRowBasic",
 		"caseJoin" => "SupportCaseSearchRowBasic",
-		"classJoin" => "ClassificationSearchRowBasic",
 		"customerJoin" => "CustomerSearchRowBasic",
-		"departmentJoin" => "DepartmentSearchRowBasic",
 		"employeeJoin" => "EmployeeSearchRowBasic",
 		"eventJoin" => "CalendarEventSearchRowBasic",
 		"itemJoin" => "ItemSearchRowBasic",
 		"jobJoin" => "JobSearchRowBasic",
-		"locationJoin" => "LocationSearchRowBasic",
 		"projectTaskJoin" => "ProjectTaskSearchRowBasic",
-		"projectTaskAssignmentJoin" => "ProjectTaskAssignmentSearchRowBasic",
-		"resourceAllocationJoin" => "ResourceAllocationSearchRowBasic",
 		"taskJoin" => "TaskSearchRowBasic",
 		"userJoin" => "EmployeeSearchRowBasic",
-		"vendorJoin" => "VendorSearchRowBasic",
-		"customSearchJoin" => "CustomSearchRowBasic[]",
 	);
 }}
 
-if (!class_exists("ExpenseReport")) {
+if (!class_exists("ExpenseReport",false)){
 /**
  * ExpenseReport
  */
@@ -116422,7 +112980,7 @@ class ExpenseReport extends Record {
 	);
 }}
 
-if (!class_exists("ExpenseReportExpense")) {
+if (!class_exists("ExpenseReportExpense",false)){
 /**
  * ExpenseReportExpense
  */
@@ -116442,16 +113000,6 @@ class ExpenseReportExpense {
 	 * @var RecordRef
 	 */
 	public $category;
-	/**
-	 * @access public
-	 * @var float
-	 */
-	public $quantity;
-	/**
-	 * @access public
-	 * @var float
-	 */
-	public $rate;
 	/**
 	 * @access public
 	 * @var float
@@ -116529,11 +113077,6 @@ class ExpenseReportExpense {
 	public $isBillable;
 	/**
 	 * @access public
-	 * @var RecordRef
-	 */
-	public $expMediaItem;
-	/**
-	 * @access public
 	 * @var boolean
 	 */
 	public $isNonReimbursable;
@@ -116544,11 +113087,6 @@ class ExpenseReportExpense {
 	public $receipt;
 	/**
 	 * @access public
-	 * @var integer
-	 */
-	public $refNumber;
-	/**
-	 * @access public
 	 * @var CustomFieldList
 	 */
 	public $customFieldList;
@@ -116557,8 +113095,6 @@ class ExpenseReportExpense {
 		"line" => "integer",
 		"expenseDate" => "dateTime",
 		"category" => "RecordRef",
-		"quantity" => "float",
-		"rate" => "float",
 		"foreignAmount" => "float",
 		"currency" => "RecordRef",
 		"exchangeRate" => "float",
@@ -116574,15 +113110,13 @@ class ExpenseReportExpense {
 		"customer" => "RecordRef",
 		"location" => "RecordRef",
 		"isBillable" => "boolean",
-		"expMediaItem" => "RecordRef",
 		"isNonReimbursable" => "boolean",
 		"receipt" => "boolean",
-		"refNumber" => "integer",
 		"customFieldList" => "CustomFieldList",
 	);
 }}
 
-if (!class_exists("ExpenseReportExpenseList")) {
+if (!class_exists("ExpenseReportExpenseList",false)){
 /**
  * ExpenseReportExpenseList
  */
@@ -116604,7 +113138,7 @@ class ExpenseReportExpenseList {
 	);
 }}
 
-if (!class_exists("PaycheckJournal")) {
+if (!class_exists("PaycheckJournal",false)){
 /**
  * PaycheckJournal
  */
@@ -116740,7 +113274,7 @@ class PaycheckJournal extends Record {
 	);
 }}
 
-if (!class_exists("PaycheckJournalCompanyTax")) {
+if (!class_exists("PaycheckJournalCompanyTax",false)){
 /**
  * PaycheckJournalCompanyTax
  */
@@ -116792,7 +113326,7 @@ class PaycheckJournalCompanyTax {
 	);
 }}
 
-if (!class_exists("PaycheckJournalCompanyTaxList")) {
+if (!class_exists("PaycheckJournalCompanyTaxList",false)){
 /**
  * PaycheckJournalCompanyTaxList
  */
@@ -116814,7 +113348,7 @@ class PaycheckJournalCompanyTaxList {
 	);
 }}
 
-if (!class_exists("PaycheckJournalDeduction")) {
+if (!class_exists("PaycheckJournalDeduction",false)){
 /**
  * PaycheckJournalDeduction
  */
@@ -116866,7 +113400,7 @@ class PaycheckJournalDeduction {
 	);
 }}
 
-if (!class_exists("PaycheckJournalDeductionList")) {
+if (!class_exists("PaycheckJournalDeductionList",false)){
 /**
  * PaycheckJournalDeductionList
  */
@@ -116888,7 +113422,7 @@ class PaycheckJournalDeductionList {
 	);
 }}
 
-if (!class_exists("PaycheckJournalCompanyContribution")) {
+if (!class_exists("PaycheckJournalCompanyContribution",false)){
 /**
  * PaycheckJournalCompanyContribution
  */
@@ -116940,7 +113474,7 @@ class PaycheckJournalCompanyContribution {
 	);
 }}
 
-if (!class_exists("PaycheckJournalCompanyContributionList")) {
+if (!class_exists("PaycheckJournalCompanyContributionList",false)){
 /**
  * PaycheckJournalCompanyContributionList
  */
@@ -116962,7 +113496,7 @@ class PaycheckJournalCompanyContributionList {
 	);
 }}
 
-if (!class_exists("PaycheckJournalEarning")) {
+if (!class_exists("PaycheckJournalEarning",false)){
 /**
  * PaycheckJournalEarning
  */
@@ -117020,7 +113554,7 @@ class PaycheckJournalEarning {
 	);
 }}
 
-if (!class_exists("PaycheckJournalEarningList")) {
+if (!class_exists("PaycheckJournalEarningList",false)){
 /**
  * PaycheckJournalEarningList
  */
@@ -117042,7 +113576,7 @@ class PaycheckJournalEarningList {
 	);
 }}
 
-if (!class_exists("PaycheckJournalEmployeeTax")) {
+if (!class_exists("PaycheckJournalEmployeeTax",false)){
 /**
  * PaycheckJournalEmployeeTax
  */
@@ -117094,7 +113628,7 @@ class PaycheckJournalEmployeeTax {
 	);
 }}
 
-if (!class_exists("PaycheckJournalEmployeeTaxList")) {
+if (!class_exists("PaycheckJournalEmployeeTaxList",false)){
 /**
  * PaycheckJournalEmployeeTaxList
  */
@@ -117116,7 +113650,7 @@ class PaycheckJournalEmployeeTaxList {
 	);
 }}
 
-if (!class_exists("CampaignCampaignDirectMailStatus")) {
+if (!class_exists("CampaignCampaignDirectMailStatus",false)){
 /**
  * CampaignCampaignDirectMailStatus
  */
@@ -117142,7 +113676,7 @@ class CampaignCampaignDirectMailStatus {
 	const _notStarted = "_notStarted";
 }}
 
-if (!class_exists("CampaignCampaignEmailStatus")) {
+if (!class_exists("CampaignCampaignEmailStatus",false)){
 /**
  * CampaignCampaignEmailStatus
  */
@@ -117168,7 +113702,7 @@ class CampaignCampaignEmailStatus {
 	const _sent = "_sent";
 }}
 
-if (!class_exists("CampaignCampaignEventStatus")) {
+if (!class_exists("CampaignCampaignEventStatus",false)){
 /**
  * CampaignCampaignEventStatus
  */
@@ -117194,7 +113728,7 @@ class CampaignCampaignEventStatus {
 	const _notStarted = "_notStarted";
 }}
 
-if (!class_exists("CampaignChannelEventType")) {
+if (!class_exists("CampaignChannelEventType",false)){
 /**
  * CampaignChannelEventType
  */
@@ -117220,7 +113754,7 @@ class CampaignChannelEventType {
 	const _other = "_other";
 }}
 
-if (!class_exists("CampaignResponseResponse")) {
+if (!class_exists("CampaignResponseResponse",false)){
 /**
  * CampaignResponseResponse
  */
@@ -117262,7 +113796,7 @@ class CampaignResponseResponse {
 	const _unsubscribed = "_unsubscribed";
 }}
 
-if (!class_exists("CampaignCampaignEventType")) {
+if (!class_exists("CampaignCampaignEventType",false)){
 /**
  * CampaignCampaignEventType
  */
@@ -117296,7 +113830,7 @@ class CampaignCampaignEventType {
 	const _other = "_other";
 }}
 
-if (!class_exists("CampaignResponse")) {
+if (!class_exists("CampaignResponse",false)){
 /**
  * CampaignResponse
  */
@@ -117366,7 +113900,7 @@ class CampaignResponse extends Record {
 	);
 }}
 
-if (!class_exists("CampaignStatus")) {
+if (!class_exists("CampaignStatus",false)){
 /**
  * CampaignStatus
  */
@@ -117404,7 +113938,7 @@ class CampaignStatus {
 	const _toPrint = "_toPrint";
 }}
 
-if (!class_exists("PromotionCodeApplyDiscountTo")) {
+if (!class_exists("PromotionCodeApplyDiscountTo",false)){
 /**
  * PromotionCodeApplyDiscountTo
  */
@@ -117422,7 +113956,7 @@ class PromotionCodeApplyDiscountTo {
 	const _firstSaleOnly = "_firstSaleOnly";
 }}
 
-if (!class_exists("CampaignResponseCategory")) {
+if (!class_exists("CampaignResponseCategory",false)){
 /**
  * CampaignResponseCategory
  */
@@ -117468,7 +114002,7 @@ class CampaignResponseCategory {
 	const _unsubscribed = "_unsubscribed";
 }}
 
-if (!class_exists("PromotionCodeUseType")) {
+if (!class_exists("PromotionCodeUseType",false)){
 /**
  * PromotionCodeUseType
  */
@@ -117486,7 +114020,7 @@ class PromotionCodeUseType {
 	const _singleUse = "_singleUse";
 }}
 
-if (!class_exists("Campaign")) {
+if (!class_exists("Campaign",false)){
 /**
  * Campaign
  */
@@ -117718,7 +114252,7 @@ class Campaign extends Record {
 	);
 }}
 
-if (!class_exists("CampaignEmail")) {
+if (!class_exists("CampaignEmail",false)){
 /**
  * CampaignEmail
  */
@@ -117794,7 +114328,7 @@ class CampaignEmail {
 	);
 }}
 
-if (!class_exists("CampaignEmailList")) {
+if (!class_exists("CampaignEmailList",false)){
 /**
  * CampaignEmailList
  */
@@ -117816,7 +114350,7 @@ class CampaignEmailList {
 	);
 }}
 
-if (!class_exists("CampaignDirectMail")) {
+if (!class_exists("CampaignDirectMail",false)){
 /**
  * CampaignDirectMail
  */
@@ -117892,7 +114426,7 @@ class CampaignDirectMail {
 	);
 }}
 
-if (!class_exists("CampaignDirectMailList")) {
+if (!class_exists("CampaignDirectMailList",false)){
 /**
  * CampaignDirectMailList
  */
@@ -117914,7 +114448,7 @@ class CampaignDirectMailList {
 	);
 }}
 
-if (!class_exists("CampaignEvent")) {
+if (!class_exists("CampaignEvent",false)){
 /**
  * CampaignEvent
  */
@@ -117984,7 +114518,7 @@ class CampaignEvent {
 	);
 }}
 
-if (!class_exists("CampaignEventList")) {
+if (!class_exists("CampaignEventList",false)){
 /**
  * CampaignEventList
  */
@@ -118006,7 +114540,7 @@ class CampaignEventList {
 	);
 }}
 
-if (!class_exists("CampaignEventResponse")) {
+if (!class_exists("CampaignEventResponse",false)){
 /**
  * CampaignEventResponse
  */
@@ -118100,7 +114634,7 @@ class CampaignEventResponse {
 	);
 }}
 
-if (!class_exists("CampaignEventResponseList")) {
+if (!class_exists("CampaignEventResponseList",false)){
 /**
  * CampaignEventResponseList
  */
@@ -118122,7 +114656,7 @@ class CampaignEventResponseList {
 	);
 }}
 
-if (!class_exists("CampaignSearch")) {
+if (!class_exists("CampaignSearch",false)){
 /**
  * CampaignSearch
  */
@@ -118172,11 +114706,6 @@ class CampaignSearch extends SearchRecord {
 	 * @var NoteSearchBasic
 	 */
 	public $userNotesJoin;
-	/**
-	 * @access public
-	 * @var CustomSearchJoin[]
-	 */
-	public $customSearchJoin;
 
 	static $paramtypesmap = array(
 		"basic" => "CampaignSearchBasic",
@@ -118188,11 +114717,10 @@ class CampaignSearch extends SearchRecord {
 		"transactionJoin" => "TransactionSearchBasic",
 		"userJoin" => "EmployeeSearchBasic",
 		"userNotesJoin" => "NoteSearchBasic",
-		"customSearchJoin" => "CustomSearchJoin[]",
 	);
 }}
 
-if (!class_exists("CampaignSearchAdvanced")) {
+if (!class_exists("CampaignSearchAdvanced",false)){
 /**
  * CampaignSearchAdvanced
  */
@@ -118226,7 +114754,7 @@ class CampaignSearchAdvanced extends SearchRecord {
 	);
 }}
 
-if (!class_exists("CampaignSearchRow")) {
+if (!class_exists("CampaignSearchRow",false)){
 /**
  * CampaignSearchRow
  */
@@ -118276,11 +114804,6 @@ class CampaignSearchRow extends SearchRow {
 	 * @var NoteSearchRowBasic
 	 */
 	public $userNotesJoin;
-	/**
-	 * @access public
-	 * @var CustomSearchRowBasic[]
-	 */
-	public $customSearchJoin;
 
 	static $paramtypesmap = array(
 		"basic" => "CampaignSearchRowBasic",
@@ -118292,11 +114815,10 @@ class CampaignSearchRow extends SearchRow {
 		"transactionJoin" => "TransactionSearchRowBasic",
 		"userJoin" => "EmployeeSearchRowBasic",
 		"userNotesJoin" => "NoteSearchRowBasic",
-		"customSearchJoin" => "CustomSearchRowBasic[]",
 	);
 }}
 
-if (!class_exists("CampaignCategory")) {
+if (!class_exists("CampaignCategory",false)){
 /**
  * CampaignCategory
  */
@@ -118354,7 +114876,7 @@ class CampaignCategory extends Record {
 	);
 }}
 
-if (!class_exists("CampaignAudience")) {
+if (!class_exists("CampaignAudience",false)){
 /**
  * CampaignAudience
  */
@@ -118394,7 +114916,7 @@ class CampaignAudience extends Record {
 	);
 }}
 
-if (!class_exists("CampaignFamily")) {
+if (!class_exists("CampaignFamily",false)){
 /**
  * CampaignFamily
  */
@@ -118434,7 +114956,7 @@ class CampaignFamily extends Record {
 	);
 }}
 
-if (!class_exists("CampaignSearchEngine")) {
+if (!class_exists("CampaignSearchEngine",false)){
 /**
  * CampaignSearchEngine
  */
@@ -118474,7 +114996,7 @@ class CampaignSearchEngine extends Record {
 	);
 }}
 
-if (!class_exists("CampaignChannel")) {
+if (!class_exists("CampaignChannel",false)){
 /**
  * CampaignChannel
  */
@@ -118520,7 +115042,7 @@ class CampaignChannel extends Record {
 	);
 }}
 
-if (!class_exists("CampaignOffer")) {
+if (!class_exists("CampaignOffer",false)){
 /**
  * CampaignOffer
  */
@@ -118560,7 +115082,7 @@ class CampaignOffer extends Record {
 	);
 }}
 
-if (!class_exists("CampaignResponseResponses")) {
+if (!class_exists("CampaignResponseResponses",false)){
 /**
  * CampaignResponseResponses
  */
@@ -118594,7 +115116,7 @@ class CampaignResponseResponses {
 	);
 }}
 
-if (!class_exists("CampaignResponseResponsesList")) {
+if (!class_exists("CampaignResponseResponsesList",false)){
 /**
  * CampaignResponseResponsesList
  */
@@ -118616,7 +115138,7 @@ class CampaignResponseResponsesList {
 	);
 }}
 
-if (!class_exists("CampaignVertical")) {
+if (!class_exists("CampaignVertical",false)){
 /**
  * CampaignVertical
  */
@@ -118656,7 +115178,7 @@ class CampaignVertical extends Record {
 	);
 }}
 
-if (!class_exists("CampaignSubscription")) {
+if (!class_exists("CampaignSubscription",false)){
 /**
  * CampaignSubscription
  */
@@ -118720,7 +115242,7 @@ class CampaignSubscription extends Record {
 	);
 }}
 
-if (!class_exists("PromotionCode")) {
+if (!class_exists("PromotionCode",false)){
 /**
  * PromotionCode
  */
@@ -118880,7 +115402,7 @@ class PromotionCode extends Record {
 	);
 }}
 
-if (!class_exists("PromotionCodePartners")) {
+if (!class_exists("PromotionCodePartners",false)){
 /**
  * PromotionCodePartners
  */
@@ -118902,7 +115424,7 @@ class PromotionCodePartners {
 	);
 }}
 
-if (!class_exists("PromotionCodePartnersList")) {
+if (!class_exists("PromotionCodePartnersList",false)){
 /**
  * PromotionCodePartnersList
  */
@@ -118924,7 +115446,7 @@ class PromotionCodePartnersList {
 	);
 }}
 
-if (!class_exists("PromotionCodeItems")) {
+if (!class_exists("PromotionCodeItems",false)){
 /**
  * PromotionCodeItems
  */
@@ -118940,7 +115462,7 @@ class PromotionCodeItems {
 	);
 }}
 
-if (!class_exists("PromotionCodeItemsList")) {
+if (!class_exists("PromotionCodeItemsList",false)){
 /**
  * PromotionCodeItemsList
  */
@@ -118962,7 +115484,7 @@ class PromotionCodeItemsList {
 	);
 }}
 
-if (!class_exists("PromotionCodeSearch")) {
+if (!class_exists("PromotionCodeSearch",false)){
 /**
  * PromotionCodeSearch
  */
@@ -118977,20 +115499,14 @@ class PromotionCodeSearch extends SearchRecord {
 	 * @var EmployeeSearchBasic
 	 */
 	public $userJoin;
-	/**
-	 * @access public
-	 * @var CustomSearchJoin[]
-	 */
-	public $customSearchJoin;
 
 	static $paramtypesmap = array(
 		"basic" => "PromotionCodeSearchBasic",
 		"userJoin" => "EmployeeSearchBasic",
-		"customSearchJoin" => "CustomSearchJoin[]",
 	);
 }}
 
-if (!class_exists("PromotionCodeSearchAdvanced")) {
+if (!class_exists("PromotionCodeSearchAdvanced",false)){
 /**
  * PromotionCodeSearchAdvanced
  */
@@ -119024,7 +115540,7 @@ class PromotionCodeSearchAdvanced extends SearchRecord {
 	);
 }}
 
-if (!class_exists("PromotionCodeSearchRow")) {
+if (!class_exists("PromotionCodeSearchRow",false)){
 /**
  * PromotionCodeSearchRow
  */
@@ -119039,20 +115555,14 @@ class PromotionCodeSearchRow extends SearchRow {
 	 * @var EmployeeSearchRowBasic
 	 */
 	public $userJoin;
-	/**
-	 * @access public
-	 * @var CustomSearchRowBasic[]
-	 */
-	public $customSearchJoin;
 
 	static $paramtypesmap = array(
 		"basic" => "PromotionCodeSearchRowBasic",
 		"userJoin" => "EmployeeSearchRowBasic",
-		"customSearchJoin" => "CustomSearchRowBasic[]",
 	);
 }}
 
-if (!class_exists("PromotionCodeCurrency")) {
+if (!class_exists("PromotionCodeCurrency",false)){
 /**
  * PromotionCodeCurrency
  */
@@ -119074,7 +115584,7 @@ class PromotionCodeCurrency {
 	);
 }}
 
-if (!class_exists("PromotionCodeCurrencyList")) {
+if (!class_exists("PromotionCodeCurrencyList",false)){
 /**
  * PromotionCodeCurrencyList
  */
@@ -119096,7 +115606,7 @@ class PromotionCodeCurrencyList {
 	);
 }}
 
-if (!class_exists("CouponCode")) {
+if (!class_exists("CouponCode",false)){
 /**
  * CouponCode
  */
@@ -119154,7 +115664,7 @@ class CouponCode extends Record {
 	);
 }}
 
-if (!class_exists("CouponCodeSearch")) {
+if (!class_exists("CouponCodeSearch",false)){
 /**
  * CouponCodeSearch
  */
@@ -119176,7 +115686,7 @@ class CouponCodeSearch extends SearchRecord {
 	);
 }}
 
-if (!class_exists("CouponCodeSearchAdvanced")) {
+if (!class_exists("CouponCodeSearchAdvanced",false)){
 /**
  * CouponCodeSearchAdvanced
  */
@@ -119210,7 +115720,7 @@ class CouponCodeSearchAdvanced extends SearchRecord {
 	);
 }}
 
-if (!class_exists("CouponCodeSearchRow")) {
+if (!class_exists("CouponCodeSearchRow",false)){
 /**
  * CouponCodeSearchRow
  */
@@ -119232,7 +115742,7 @@ class CouponCodeSearchRow extends SearchRow {
 	);
 }}
 
-if (!class_exists("DemandPlanCalendarType")) {
+if (!class_exists("DemandPlanCalendarType",false)){
 /**
  * DemandPlanCalendarType
  */
@@ -119254,7 +115764,7 @@ class DemandPlanCalendarType {
 	const _weekly = "_weekly";
 }}
 
-if (!class_exists("DemandPlanMonth")) {
+if (!class_exists("DemandPlanMonth",false)){
 /**
  * DemandPlanMonth
  */
@@ -119312,7 +115822,7 @@ class DemandPlanMonth {
 	const _september = "_september";
 }}
 
-if (!class_exists("DayOfTheWeek")) {
+if (!class_exists("DayOfTheWeek",false)){
 /**
  * DayOfTheWeek
  */
@@ -119350,7 +115860,7 @@ class DayOfTheWeek {
 	const _saturday = "_saturday";
 }}
 
-if (!class_exists("ItemDemandPlanProjectionMethod")) {
+if (!class_exists("ItemDemandPlanProjectionMethod",false)){
 /**
  * ItemDemandPlanProjectionMethod
  */
@@ -119376,7 +115886,7 @@ class ItemDemandPlanProjectionMethod {
 	const _seasonalAverage = "_seasonalAverage";
 }}
 
-if (!class_exists("ItemSupplyPlanOrderType")) {
+if (!class_exists("ItemSupplyPlanOrderType",false)){
 /**
  * ItemSupplyPlanOrderType
  */
@@ -119394,7 +115904,7 @@ class ItemSupplyPlanOrderType {
 	const _workOrder = "_workOrder";
 }}
 
-if (!class_exists("ItemDemandPlan")) {
+if (!class_exists("ItemDemandPlan",false)){
 /**
  * ItemDemandPlan
  */
@@ -119494,7 +116004,7 @@ class ItemDemandPlan extends Record {
 	);
 }}
 
-if (!class_exists("DemandPlan")) {
+if (!class_exists("DemandPlan",false)){
 /**
  * DemandPlan
  */
@@ -119528,7 +116038,7 @@ class DemandPlan {
 	);
 }}
 
-if (!class_exists("DemandPlanMatrix")) {
+if (!class_exists("DemandPlanMatrix",false)){
 /**
  * DemandPlanMatrix
  */
@@ -119550,7 +116060,7 @@ class DemandPlanMatrix {
 	);
 }}
 
-if (!class_exists("PeriodDemandPlanList")) {
+if (!class_exists("PeriodDemandPlanList",false)){
 /**
  * PeriodDemandPlanList
  */
@@ -119566,7 +116076,7 @@ class PeriodDemandPlanList {
 	);
 }}
 
-if (!class_exists("PeriodDemandPlan")) {
+if (!class_exists("PeriodDemandPlan",false)){
 /**
  * PeriodDemandPlan
  */
@@ -119588,7 +116098,7 @@ class PeriodDemandPlan {
 	);
 }}
 
-if (!class_exists("ItemDemandPlanSearch")) {
+if (!class_exists("ItemDemandPlanSearch",false)){
 /**
  * ItemDemandPlanSearch
  */
@@ -119618,11 +116128,6 @@ class ItemDemandPlanSearch extends SearchRecord {
 	 * @var EmployeeSearchBasic
 	 */
 	public $userJoin;
-	/**
-	 * @access public
-	 * @var CustomSearchJoin[]
-	 */
-	public $customSearchJoin;
 
 	static $paramtypesmap = array(
 		"basic" => "ItemDemandPlanSearchBasic",
@@ -119630,45 +116135,10 @@ class ItemDemandPlanSearch extends SearchRecord {
 		"lastAlternateSourceItemJoin" => "ItemSearchBasic",
 		"locationJoin" => "LocationSearchBasic",
 		"userJoin" => "EmployeeSearchBasic",
-		"customSearchJoin" => "CustomSearchJoin[]",
 	);
 }}
 
-if (!class_exists("ItemDemandPlanSearchAdvanced")) {
-/**
- * ItemDemandPlanSearchAdvanced
- */
-class ItemDemandPlanSearchAdvanced extends SearchRecord {
-	/**
-	 * @access public
-	 * @var ItemDemandPlanSearch
-	 */
-	public $criteria;
-	/**
-	 * @access public
-	 * @var ItemDemandPlanSearchRow
-	 */
-	public $columns;
-	/**
-	 * @access public
-	 * @var string
-	 */
-	public $savedSearchId;
-	/**
-	 * @access public
-	 * @var string
-	 */
-	public $savedSearchScriptId;
-
-	static $paramtypesmap = array(
-		"criteria" => "ItemDemandPlanSearch",
-		"columns" => "ItemDemandPlanSearchRow",
-		"savedSearchId" => "string",
-		"savedSearchScriptId" => "string",
-	);
-}}
-
-if (!class_exists("ItemDemandPlanSearchRow")) {
+if (!class_exists("ItemDemandPlanSearchRow",false)){
 /**
  * ItemDemandPlanSearchRow
  */
@@ -119698,11 +116168,6 @@ class ItemDemandPlanSearchRow extends SearchRow {
 	 * @var EmployeeSearchRowBasic
 	 */
 	public $userJoin;
-	/**
-	 * @access public
-	 * @var CustomSearchRowBasic[]
-	 */
-	public $customSearchJoin;
 
 	static $paramtypesmap = array(
 		"basic" => "ItemDemandPlanSearchRowBasic",
@@ -119710,11 +116175,10 @@ class ItemDemandPlanSearchRow extends SearchRow {
 		"lastAlternateSourceItemJoin" => "ItemSearchRowBasic",
 		"locationJoin" => "LocationSearchRowBasic",
 		"userJoin" => "EmployeeSearchRowBasic",
-		"customSearchJoin" => "CustomSearchRowBasic[]",
 	);
 }}
 
-if (!class_exists("ItemSupplyPlan")) {
+if (!class_exists("ItemSupplyPlan",false)){
 /**
  * ItemSupplyPlan
  */
@@ -119784,7 +116248,7 @@ class ItemSupplyPlan extends Record {
 	);
 }}
 
-if (!class_exists("ItemSupplyPlanOrder")) {
+if (!class_exists("ItemSupplyPlanOrder",false)){
 /**
  * ItemSupplyPlanOrder
  */
@@ -119830,7 +116294,7 @@ class ItemSupplyPlanOrder {
 	);
 }}
 
-if (!class_exists("ItemSupplyPlanOrderList")) {
+if (!class_exists("ItemSupplyPlanOrderList",false)){
 /**
  * ItemSupplyPlanOrderList
  */
@@ -119852,7 +116316,7 @@ class ItemSupplyPlanOrderList {
 	);
 }}
 
-if (!class_exists("ItemSupplyPlanSearch")) {
+if (!class_exists("ItemSupplyPlanSearch",false)){
 /**
  * ItemSupplyPlanSearch
  */
@@ -119877,56 +116341,16 @@ class ItemSupplyPlanSearch extends SearchRecord {
 	 * @var EmployeeSearchBasic
 	 */
 	public $userJoin;
-	/**
-	 * @access public
-	 * @var CustomSearchJoin[]
-	 */
-	public $customSearchJoin;
 
 	static $paramtypesmap = array(
 		"basic" => "ItemSupplyPlanSearchBasic",
 		"itemJoin" => "ItemSearchBasic",
 		"locationJoin" => "LocationSearchBasic",
 		"userJoin" => "EmployeeSearchBasic",
-		"customSearchJoin" => "CustomSearchJoin[]",
 	);
 }}
 
-if (!class_exists("ItemSupplyPlanSearchAdvanced")) {
-/**
- * ItemSupplyPlanSearchAdvanced
- */
-class ItemSupplyPlanSearchAdvanced extends SearchRecord {
-	/**
-	 * @access public
-	 * @var ItemSupplyPlanSearch
-	 */
-	public $criteria;
-	/**
-	 * @access public
-	 * @var ItemSupplyPlanSearchRow
-	 */
-	public $columns;
-	/**
-	 * @access public
-	 * @var string
-	 */
-	public $savedSearchId;
-	/**
-	 * @access public
-	 * @var string
-	 */
-	public $savedSearchScriptId;
-
-	static $paramtypesmap = array(
-		"criteria" => "ItemSupplyPlanSearch",
-		"columns" => "ItemSupplyPlanSearchRow",
-		"savedSearchId" => "string",
-		"savedSearchScriptId" => "string",
-	);
-}}
-
-if (!class_exists("ItemSupplyPlanSearchRow")) {
+if (!class_exists("ItemSupplyPlanSearchRow",false)){
 /**
  * ItemSupplyPlanSearchRow
  */
@@ -119951,22 +116375,16 @@ class ItemSupplyPlanSearchRow extends SearchRow {
 	 * @var EmployeeSearchRowBasic
 	 */
 	public $userJoin;
-	/**
-	 * @access public
-	 * @var CustomSearchRowBasic[]
-	 */
-	public $customSearchJoin;
 
 	static $paramtypesmap = array(
 		"basic" => "ItemSupplyPlanSearchRowBasic",
 		"itemJoin" => "ItemSearchRowBasic",
 		"locationJoin" => "LocationSearchRowBasic",
 		"userJoin" => "EmployeeSearchRowBasic",
-		"customSearchJoin" => "CustomSearchRowBasic[]",
 	);
 }}
 
-if (!class_exists("ManufacturingOperationTaskStatus")) {
+if (!class_exists("ManufacturingOperationTaskStatus",false)){
 /**
  * ManufacturingOperationTaskStatus
  */
@@ -119988,7 +116406,7 @@ class ManufacturingOperationTaskStatus {
 	const _notStarted = "_notStarted";
 }}
 
-if (!class_exists("ManufacturingCostTemplate")) {
+if (!class_exists("ManufacturingCostTemplate",false)){
 /**
  * ManufacturingCostTemplate
  */
@@ -120052,7 +116470,7 @@ class ManufacturingCostTemplate extends Record {
 	);
 }}
 
-if (!class_exists("ManufacturingCostDetail")) {
+if (!class_exists("ManufacturingCostDetail",false)){
 /**
  * ManufacturingCostDetail
  */
@@ -120086,7 +116504,7 @@ class ManufacturingCostDetail {
 	);
 }}
 
-if (!class_exists("ManufacturingCostDetailList")) {
+if (!class_exists("ManufacturingCostDetailList",false)){
 /**
  * ManufacturingCostDetailList
  */
@@ -120108,7 +116526,7 @@ class ManufacturingCostDetailList {
 	);
 }}
 
-if (!class_exists("ManufacturingCostTemplateSearch")) {
+if (!class_exists("ManufacturingCostTemplateSearch",false)){
 /**
  * ManufacturingCostTemplateSearch
  */
@@ -120128,21 +116546,15 @@ class ManufacturingCostTemplateSearch extends SearchRecord {
 	 * @var EmployeeSearchBasic
 	 */
 	public $userJoin;
-	/**
-	 * @access public
-	 * @var CustomSearchJoin[]
-	 */
-	public $customSearchJoin;
 
 	static $paramtypesmap = array(
 		"basic" => "ManufacturingCostTemplateSearchBasic",
 		"itemJoin" => "ItemSearchBasic",
 		"userJoin" => "EmployeeSearchBasic",
-		"customSearchJoin" => "CustomSearchJoin[]",
 	);
 }}
 
-if (!class_exists("ManufacturingCostTemplateSearchAdvanced")) {
+if (!class_exists("ManufacturingCostTemplateSearchAdvanced",false)){
 /**
  * ManufacturingCostTemplateSearchAdvanced
  */
@@ -120176,7 +116588,7 @@ class ManufacturingCostTemplateSearchAdvanced extends SearchRecord {
 	);
 }}
 
-if (!class_exists("ManufacturingCostTemplateSearchRow")) {
+if (!class_exists("ManufacturingCostTemplateSearchRow",false)){
 /**
  * ManufacturingCostTemplateSearchRow
  */
@@ -120196,21 +116608,15 @@ class ManufacturingCostTemplateSearchRow extends SearchRow {
 	 * @var EmployeeSearchRowBasic
 	 */
 	public $userJoin;
-	/**
-	 * @access public
-	 * @var CustomSearchRowBasic[]
-	 */
-	public $customSearchJoin;
 
 	static $paramtypesmap = array(
 		"basic" => "ManufacturingCostTemplateSearchRowBasic",
 		"itemJoin" => "ItemSearchRowBasic",
 		"userJoin" => "EmployeeSearchRowBasic",
-		"customSearchJoin" => "CustomSearchRowBasic[]",
 	);
 }}
 
-if (!class_exists("ManufacturingRouting")) {
+if (!class_exists("ManufacturingRouting",false)){
 /**
  * ManufacturingRouting
  */
@@ -120292,7 +116698,7 @@ class ManufacturingRouting extends Record {
 	);
 }}
 
-if (!class_exists("ManufacturingRoutingRoutingStep")) {
+if (!class_exists("ManufacturingRoutingRoutingStep",false)){
 /**
  * ManufacturingRoutingRoutingStep
  */
@@ -120350,7 +116756,7 @@ class ManufacturingRoutingRoutingStep {
 	);
 }}
 
-if (!class_exists("ManufacturingRoutingRoutingStepList")) {
+if (!class_exists("ManufacturingRoutingRoutingStepList",false)){
 /**
  * ManufacturingRoutingRoutingStepList
  */
@@ -120372,7 +116778,7 @@ class ManufacturingRoutingRoutingStepList {
 	);
 }}
 
-if (!class_exists("ManufacturingRoutingSearch")) {
+if (!class_exists("ManufacturingRoutingSearch",false)){
 /**
  * ManufacturingRoutingSearch
  */
@@ -120407,11 +116813,6 @@ class ManufacturingRoutingSearch extends SearchRecord {
 	 * @var EmployeeSearchBasic
 	 */
 	public $userJoin;
-	/**
-	 * @access public
-	 * @var CustomSearchJoin[]
-	 */
-	public $customSearchJoin;
 
 	static $paramtypesmap = array(
 		"basic" => "ManufacturingRoutingSearchBasic",
@@ -120420,11 +116821,10 @@ class ManufacturingRoutingSearch extends SearchRecord {
 		"manufacturingCostTemplateJoin" => "ManufacturingCostTemplateSearchBasic",
 		"manufacturingWorkCenterJoin" => "EntityGroupSearchBasic",
 		"userJoin" => "EmployeeSearchBasic",
-		"customSearchJoin" => "CustomSearchJoin[]",
 	);
 }}
 
-if (!class_exists("ManufacturingRoutingSearchAdvanced")) {
+if (!class_exists("ManufacturingRoutingSearchAdvanced",false)){
 /**
  * ManufacturingRoutingSearchAdvanced
  */
@@ -120458,7 +116858,7 @@ class ManufacturingRoutingSearchAdvanced extends SearchRecord {
 	);
 }}
 
-if (!class_exists("ManufacturingRoutingSearchRow")) {
+if (!class_exists("ManufacturingRoutingSearchRow",false)){
 /**
  * ManufacturingRoutingSearchRow
  */
@@ -120493,11 +116893,6 @@ class ManufacturingRoutingSearchRow extends SearchRow {
 	 * @var EmployeeSearchRowBasic
 	 */
 	public $userJoin;
-	/**
-	 * @access public
-	 * @var CustomSearchRowBasic[]
-	 */
-	public $customSearchJoin;
 
 	static $paramtypesmap = array(
 		"basic" => "ManufacturingRoutingSearchRowBasic",
@@ -120506,11 +116901,10 @@ class ManufacturingRoutingSearchRow extends SearchRow {
 		"manufacturingCostTemplateJoin" => "ManufacturingCostTemplateSearchRowBasic",
 		"manufacturingWorkCenterJoin" => "EntityGroupSearchRowBasic",
 		"userJoin" => "EmployeeSearchRowBasic",
-		"customSearchJoin" => "CustomSearchRowBasic[]",
 	);
 }}
 
-if (!class_exists("ManufacturingOperationTask")) {
+if (!class_exists("ManufacturingOperationTask",false)){
 /**
  * ManufacturingOperationTask
  */
@@ -120664,7 +117058,7 @@ class ManufacturingOperationTask extends Record {
 	);
 }}
 
-if (!class_exists("ManufacturingOperationTaskSearch")) {
+if (!class_exists("ManufacturingOperationTaskSearch",false)){
 /**
  * ManufacturingOperationTaskSearch
  */
@@ -120674,37 +117068,13 @@ class ManufacturingOperationTaskSearch extends SearchRecord {
 	 * @var ManufacturingOperationTaskSearchBasic
 	 */
 	public $basic;
-	/**
-	 * @access public
-	 * @var ManufacturingOperationTaskSearchBasic
-	 */
-	public $predecessorJoin;
-	/**
-	 * @access public
-	 * @var EmployeeSearchBasic
-	 */
-	public $userJoin;
-	/**
-	 * @access public
-	 * @var TransactionSearchBasic
-	 */
-	public $workOrderJoin;
-	/**
-	 * @access public
-	 * @var CustomSearchJoin[]
-	 */
-	public $customSearchJoin;
 
 	static $paramtypesmap = array(
 		"basic" => "ManufacturingOperationTaskSearchBasic",
-		"predecessorJoin" => "ManufacturingOperationTaskSearchBasic",
-		"userJoin" => "EmployeeSearchBasic",
-		"workOrderJoin" => "TransactionSearchBasic",
-		"customSearchJoin" => "CustomSearchJoin[]",
 	);
 }}
 
-if (!class_exists("ManufacturingOperationTaskSearchAdvanced")) {
+if (!class_exists("ManufacturingOperationTaskSearchAdvanced",false)){
 /**
  * ManufacturingOperationTaskSearchAdvanced
  */
@@ -120738,7 +117108,7 @@ class ManufacturingOperationTaskSearchAdvanced extends SearchRecord {
 	);
 }}
 
-if (!class_exists("ManufacturingOperationTaskSearchRow")) {
+if (!class_exists("ManufacturingOperationTaskSearchRow",false)){
 /**
  * ManufacturingOperationTaskSearchRow
  */
@@ -120748,44 +117118,20 @@ class ManufacturingOperationTaskSearchRow extends SearchRow {
 	 * @var ManufacturingOperationTaskSearchRowBasic
 	 */
 	public $basic;
-	/**
-	 * @access public
-	 * @var ManufacturingOperationTaskSearchRowBasic
-	 */
-	public $predecessorJoin;
-	/**
-	 * @access public
-	 * @var EmployeeSearchRowBasic
-	 */
-	public $userJoin;
-	/**
-	 * @access public
-	 * @var TransactionSearchRowBasic
-	 */
-	public $workOrderJoin;
-	/**
-	 * @access public
-	 * @var CustomSearchRowBasic[]
-	 */
-	public $customSearchJoin;
 
 	static $paramtypesmap = array(
 		"basic" => "ManufacturingOperationTaskSearchRowBasic",
-		"predecessorJoin" => "ManufacturingOperationTaskSearchRowBasic",
-		"userJoin" => "EmployeeSearchRowBasic",
-		"workOrderJoin" => "TransactionSearchRowBasic",
-		"customSearchJoin" => "CustomSearchRowBasic[]",
 	);
 }}
 
-if (!class_exists("NetSuiteService")) {
+if (!class_exists("NetSuiteService",false)){
 /**
  * NetSuiteService
  * @author NetSuite, Inc
  */
 class NetSuiteService extends NSPHPClient {
 
-	public $generated_from_endpoint = "2013_2";
+	public $generated_from_endpoint = "2013_1";
 	/**
 	 * Class map for wsdl=>php
 	 * @var array
@@ -120826,9 +117172,7 @@ class NetSuiteService extends NSPHPClient {
 		"Record" => "Record",
 		"NullField" => "NullField",
 		"SearchRecord" => "SearchRecord",
-		"SearchRecordBasic" => "SearchRecordBasic",
 		"SearchRow" => "SearchRow",
-		"SearchRowBasic" => "SearchRowBasic",
 		"SearchResult" => "SearchResult",
 		"AsyncStatusResult" => "AsyncStatusResult",
 		"GetAllResult" => "GetAllResult",
@@ -121075,22 +117419,14 @@ class NetSuiteService extends NSPHPClient {
 		"PermissionCode" => "PermissionCode",
 		"IntercoStatus" => "IntercoStatus",
 		"CurrencySymbolPlacement" => "CurrencySymbolPlacement",
-		"RecurrenceFrequency" => "RecurrenceFrequency",
-		"RecurrenceDow" => "RecurrenceDow",
-		"RecurrenceDowim" => "RecurrenceDowim",
-		"ChargeRuleType" => "ChargeRuleType",
 		"ShipAddress" => "ShipAddress",
 		"BillAddress" => "BillAddress",
 		"PresentationItem" => "PresentationItem",
 		"Partners" => "Partners",
 		"LandedCost" => "LandedCost",
-		"LandedCostDataList" => "LandedCostDataList",
-		"LandedCostData" => "LandedCostData",
-		"LandedCostSummary" => "LandedCostSummary",
 		"CustomerSalesTeam" => "CustomerSalesTeam",
 		"TimeItem" => "TimeItem",
 		"InventoryDetail" => "InventoryDetail",
-		"RecurrenceDowMaskList" => "RecurrenceDowMaskList",
 		"InventoryAssignmentList" => "InventoryAssignmentList",
 		"InventoryAssignment" => "InventoryAssignment",
 		"InventoryDetailSearchBasic" => "InventoryDetailSearchBasic",
@@ -121216,10 +117552,6 @@ class NetSuiteService extends NSPHPClient {
 		"PricingGroupSearchRowBasic" => "PricingGroupSearchRowBasic",
 		"InventoryNumberSearchBasic" => "InventoryNumberSearchBasic",
 		"InventoryNumberSearchRowBasic" => "InventoryNumberSearchRowBasic",
-		"InventoryNumberBinSearchBasic" => "InventoryNumberBinSearchBasic",
-		"InventoryNumberBinSearchRowBasic" => "InventoryNumberBinSearchRowBasic",
-		"ItemBinNumberSearchBasic" => "ItemBinNumberSearchBasic",
-		"ItemBinNumberSearchRowBasic" => "ItemBinNumberSearchRowBasic",
 		"AppDefinitionSearchBasic" => "AppDefinitionSearchBasic",
 		"AppDefinitionSearchRowBasic" => "AppDefinitionSearchRowBasic",
 		"AppPackageSearchBasic" => "AppPackageSearchBasic",
@@ -121248,14 +117580,11 @@ class NetSuiteService extends NSPHPClient {
 		"ManufacturingRoutingSearchRowBasic" => "ManufacturingRoutingSearchRowBasic",
 		"ManufacturingOperationTaskSearchBasic" => "ManufacturingOperationTaskSearchBasic",
 		"ManufacturingOperationTaskSearchRowBasic" => "ManufacturingOperationTaskSearchRowBasic",
-		"ResourceAllocationSearchBasic" => "ResourceAllocationSearchBasic",
-		"ResourceAllocationSearchRowBasic" => "ResourceAllocationSearchRowBasic",
-		"CustomSearchJoin" => "CustomSearchJoin",
-		"CustomSearchRowBasic" => "CustomSearchRowBasic",
-		"ChargeSearchBasic" => "ChargeSearchBasic",
-		"ChargeSearchRowBasic" => "ChargeSearchRowBasic",
 		"CalendarEventAccessLevel" => "CalendarEventAccessLevel",
 		"CalendarEventAttendeeAttendance" => "CalendarEventAttendeeAttendance",
+		"CalendarEventFrequency" => "CalendarEventFrequency",
+		"CalendarEventDow" => "CalendarEventDow",
+		"CalendarEventDowim" => "CalendarEventDowim",
 		"CalendarEventReminderMinutes" => "CalendarEventReminderMinutes",
 		"CalendarEventReminderType" => "CalendarEventReminderType",
 		"CalendarEventStatus" => "CalendarEventStatus",
@@ -121271,9 +117600,9 @@ class NetSuiteService extends NSPHPClient {
 		"ProjectTaskStatus" => "ProjectTaskStatus",
 		"ProjectTaskConstraintType" => "ProjectTaskConstraintType",
 		"ProjectTaskPredecessorPredecessorType" => "ProjectTaskPredecessorPredecessorType",
-		"ResourceAllocationAllocationUnit" => "ResourceAllocationAllocationUnit",
 		"CalendarEvent" => "CalendarEvent",
 		"ExclusionDateList" => "ExclusionDateList",
+		"RecurrenceDowMaskList" => "RecurrenceDowMaskList",
 		"CalendarEventAttendee" => "CalendarEventAttendee",
 		"CalendarEventAttendeeList" => "CalendarEventAttendeeList",
 		"CalendarEventResource" => "CalendarEventResource",
@@ -121305,10 +117634,6 @@ class NetSuiteService extends NSPHPClient {
 		"CalendarEventTimeItemList" => "CalendarEventTimeItemList",
 		"TaskTimeItemList" => "TaskTimeItemList",
 		"ProjectTaskTimeItemList" => "ProjectTaskTimeItemList",
-		"ResourceAllocation" => "ResourceAllocation",
-		"ResourceAllocationSearch" => "ResourceAllocationSearch",
-		"ResourceAllocationSearchAdvanced" => "ResourceAllocationSearchAdvanced",
-		"ResourceAllocationSearchRow" => "ResourceAllocationSearchRow",
 		"NoteDirection" => "NoteDirection",
 		"MessageMessageType" => "MessageMessageType",
 		"File" => "File",
@@ -121433,7 +117758,6 @@ class NetSuiteService extends NSPHPClient {
 		"SolutionStatus" => "SolutionStatus",
 		"IssueEventStatus" => "IssueEventStatus",
 		"IssueTrackCode" => "IssueTrackCode",
-		"IssueRelationship" => "IssueRelationship",
 		"SupportCase" => "SupportCase",
 		"EmailEmployeesList" => "EmailEmployeesList",
 		"SupportCaseEscalateTo" => "SupportCaseEscalateTo",
@@ -121469,8 +117793,6 @@ class NetSuiteService extends NSPHPClient {
 		"IssueSearch" => "IssueSearch",
 		"IssueSearchAdvanced" => "IssueSearchAdvanced",
 		"IssueSearchRow" => "IssueSearchRow",
-		"IssueRelatedIssues" => "IssueRelatedIssues",
-		"IssueRelatedIssuesList" => "IssueRelatedIssuesList",
 		"CurrencyLocale" => "CurrencyLocale",
 		"AccountType" => "AccountType",
 		"ItemCostingMethod" => "ItemCostingMethod",
@@ -121505,9 +117827,6 @@ class NetSuiteService extends NSPHPClient {
 		"PeriodicLotSizeType" => "PeriodicLotSizeType",
 		"HazmatPackingGroup" => "HazmatPackingGroup",
 		"ItemCarrier" => "ItemCarrier",
-		"TaxAcctType" => "TaxAcctType",
-		"ItemOverheadType" => "ItemOverheadType",
-		"ItemCostAccountingStatus" => "ItemCostAccountingStatus",
 		"ClassTranslation" => "ClassTranslation",
 		"ClassTranslationList" => "ClassTranslationList",
 		"ContactCategory" => "ContactCategory",
@@ -121717,9 +118036,6 @@ class NetSuiteService extends NSPHPClient {
 		"ItemRevisionSearchRow" => "ItemRevisionSearchRow",
 		"AccountingPeriodFiscalCalendars" => "AccountingPeriodFiscalCalendars",
 		"AccountingPeriodFiscalCalendarsList" => "AccountingPeriodFiscalCalendarsList",
-		"TaxAcct" => "TaxAcct",
-		"ExpenseCategoryRates" => "ExpenseCategoryRates",
-		"ExpenseCategoryRatesList" => "ExpenseCategoryRatesList",
 		"SalesOrderItemCommitInventory" => "SalesOrderItemCommitInventory",
 		"SalesOrderItemCreatePo" => "SalesOrderItemCreatePo",
 		"SalesOrderOrderStatus" => "SalesOrderOrderStatus",
@@ -121757,7 +118073,6 @@ class NetSuiteService extends NSPHPClient {
 		"ItemFulfillmentHazmatTypeFedEx" => "ItemFulfillmentHazmatTypeFedEx",
 		"ItemFulfillmentAncillaryEndorsementFedEx" => "ItemFulfillmentAncillaryEndorsementFedEx",
 		"ItemFulfillmentAccessibilityTypeFedEx" => "ItemFulfillmentAccessibilityTypeFedEx",
-		"TransactionChargeType" => "TransactionChargeType",
 		"Opportunity" => "Opportunity",
 		"OpportunitySalesTeam" => "OpportunitySalesTeam",
 		"OpportunitySalesTeamList" => "OpportunitySalesTeamList",
@@ -121864,8 +118179,6 @@ class NetSuiteService extends NSPHPClient {
 		"VendorReturnAuthorizationItem" => "VendorReturnAuthorizationItem",
 		"VendorReturnAuthorizationItemList" => "VendorReturnAuthorizationItemList",
 		"ReturnAuthorizationOrderStatus" => "ReturnAuthorizationOrderStatus",
-		"ChargeStage" => "ChargeStage",
-		"ChargeUse" => "ChargeUse",
 		"CashRefund" => "CashRefund",
 		"CashRefundItem" => "CashRefundItem",
 		"CashRefundItemList" => "CashRefundItemList",
@@ -121904,10 +118217,6 @@ class NetSuiteService extends NSPHPClient {
 		"DepositApplication" => "DepositApplication",
 		"DepositApplicationApply" => "DepositApplicationApply",
 		"DepositApplicationApplyList" => "DepositApplicationApplyList",
-		"Charge" => "Charge",
-		"ChargeSearch" => "ChargeSearch",
-		"ChargeSearchAdvanced" => "ChargeSearchAdvanced",
-		"ChargeSearchRow" => "ChargeSearchRow",
 		"BudgetBudgetType" => "BudgetBudgetType",
 		"Budget" => "Budget",
 		"BudgetSearch" => "BudgetSearch",
@@ -121959,9 +118268,6 @@ class NetSuiteService extends NSPHPClient {
 		"WorkOrderClose" => "WorkOrderClose",
 		"WorkOrderCompletionOperation" => "WorkOrderCompletionOperation",
 		"WorkOrderCompletionOperationList" => "WorkOrderCompletionOperationList",
-		"InventoryCostRevaluation" => "InventoryCostRevaluation",
-		"InventoryCostRevaluationCostComponent" => "InventoryCostRevaluationCostComponent",
-		"InventoryCostRevaluationCostComponentList" => "InventoryCostRevaluationCostComponentList",
 		"JournalEntry" => "JournalEntry",
 		"JournalEntryLine" => "JournalEntryLine",
 		"JournalEntryLineList" => "JournalEntryLineList",
@@ -122009,7 +118315,6 @@ class NetSuiteService extends NSPHPClient {
 		"CustomRecordTypeTranslationsList" => "CustomRecordTypeTranslationsList",
 		"CustomRecordTypeSublists" => "CustomRecordTypeSublists",
 		"CustomRecordTypeSublistsList" => "CustomRecordTypeSublistsList",
-		"CustomFieldType" => "CustomFieldType",
 		"EntityCustomField" => "EntityCustomField",
 		"EntityCustomFieldFilter" => "EntityCustomFieldFilter",
 		"EntityCustomFieldFilterList" => "EntityCustomFieldFilterList",
@@ -122050,7 +118355,6 @@ class NetSuiteService extends NSPHPClient {
 		"ItemNumberCustomFieldFilter" => "ItemNumberCustomFieldFilter",
 		"ItemNumberCustomFieldFilterList" => "ItemNumberCustomFieldFilterList",
 		"CustomListSearch" => "CustomListSearch",
-		"CustomListSearchAdvanced" => "CustomListSearchAdvanced",
 		"CustomListSearchRow" => "CustomListSearchRow",
 		"AppDefinition" => "AppDefinition",
 		"AppDefinitionPackages" => "AppDefinitionPackages",
@@ -122062,8 +118366,6 @@ class NetSuiteService extends NSPHPClient {
 		"AppPackageSearch" => "AppPackageSearch",
 		"AppPackageSearchAdvanced" => "AppPackageSearchAdvanced",
 		"AppPackageSearchRow" => "AppPackageSearchRow",
-		"CustomRecordTranslations" => "CustomRecordTranslations",
-		"CustomRecordTranslationsList" => "CustomRecordTranslationsList",
 		"EmployeePayFrequency" => "EmployeePayFrequency",
 		"EmployeeUseTimeData" => "EmployeeUseTimeData",
 		"EmployeeCommissionPaymentPreference" => "EmployeeCommissionPaymentPreference",
@@ -122097,7 +118399,6 @@ class NetSuiteService extends NSPHPClient {
 		"EmployeeDirectDepositList" => "EmployeeDirectDepositList",
 		"PayrollItem" => "PayrollItem",
 		"PayrollItemSearch" => "PayrollItemSearch",
-		"PayrollItemSearchAdvanced" => "PayrollItemSearchAdvanced",
 		"PayrollItemSearchRow" => "PayrollItemSearchRow",
 		"MediaType" => "MediaType",
 		"FileAttachFrom" => "FileAttachFrom",
@@ -122186,13 +118487,11 @@ class NetSuiteService extends NSPHPClient {
 		"PeriodDemandPlanList" => "PeriodDemandPlanList",
 		"PeriodDemandPlan" => "PeriodDemandPlan",
 		"ItemDemandPlanSearch" => "ItemDemandPlanSearch",
-		"ItemDemandPlanSearchAdvanced" => "ItemDemandPlanSearchAdvanced",
 		"ItemDemandPlanSearchRow" => "ItemDemandPlanSearchRow",
 		"ItemSupplyPlan" => "ItemSupplyPlan",
 		"ItemSupplyPlanOrder" => "ItemSupplyPlanOrder",
 		"ItemSupplyPlanOrderList" => "ItemSupplyPlanOrderList",
 		"ItemSupplyPlanSearch" => "ItemSupplyPlanSearch",
-		"ItemSupplyPlanSearchAdvanced" => "ItemSupplyPlanSearchAdvanced",
 		"ItemSupplyPlanSearchRow" => "ItemSupplyPlanSearchRow",
 		"ManufacturingOperationTaskStatus" => "ManufacturingOperationTaskStatus",
 		"ManufacturingCostTemplate" => "ManufacturingCostTemplate",
@@ -122218,7 +118517,7 @@ class NetSuiteService extends NSPHPClient {
 	 * @param string $wsdl WSDL location for this service
 	 * @param array $options Options for the SoapClient
 	 */
-	public function __construct($wsdl=null, $options=array()) {
+	public function __construct($wsdl=null, $options=array()){
 		parent::__construct($wsdl, $options);
 	}
 
