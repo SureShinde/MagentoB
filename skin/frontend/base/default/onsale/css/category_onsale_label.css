@@ -10,7 +10,7 @@ div.onsale-category-container-list {
 .onsale-category-container {
 	cursor: pointer;
 	position: absolute;
-	z-index: 100;
+	z-index: 9;
 }
 
 div.onsale-category-label {
@@ -41,6 +41,21 @@ div.custom-onsale-category-label-text {
     font-size:11px;
     font-weight:bold;
 }
-
+/* --------------- smaller 959 px layout -------------------- */
+@media only screen and (max-width: 767px) {
+	div.onsale-category-container-grid {
+		float: left;
+	}
+}
+/* --------------- 320 px layout -------------------- */
+@media only screen and (max-width: 479px) { 
+	div.onsale-category-container-grid {
+		width: 45%;
+		height: auto;
+	}
+	.products-grid .product-info-wrapper {
+		width: 51%;
+	}
+}
 
 

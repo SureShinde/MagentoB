@@ -16,6 +16,7 @@
     margin:15px 0 10px 0;
     padding: 7.6px;
     zoom: 1;
+	height:355px;
     position: relative;
     width: 13% !important;
 }
@@ -23,7 +24,7 @@
 }
 .awafpgrid ul li:hover {
 	background-color: #fff;
-	z-index: 2; /* change form "10" to "2" by dodo */
+	z-index: 10;
 	margin-left:0;
 	margin-right: 0;
 	border-color: transparent;
@@ -40,7 +41,7 @@
     font-size:12px; color:#000;
 }
 .awafpgrid .awafptitle {
-	height: 50px;
+	height: 45px;
 	overflow: hidden;
 	text-overflow: ellipsis;
 }
@@ -63,7 +64,7 @@
     color: #707070;
 }
 .awafpgrid .price-box {
-	height: 50px;
+	height: 35px;
 	position: relative;
 }
 .awafpgrid .price-box .price {
@@ -105,6 +106,8 @@
     font-size: 1em;
     font-weight: bold;
     text-transform: uppercase;
+	position: absolute;
+	bottom: 20px;
 }
 .awafpgrid .afp-addtocart a {
 	display: inline-block;
@@ -112,6 +115,8 @@
 	font-size: 12px;
 	color: #ffa01b;
 	margin-left: 5px;
+	position: absolute;
+	bottom: 10px;
 }
 .afp-thumbnail .onsale-category-container-list {
     float:none!important;
@@ -134,6 +139,22 @@
 }
 .featured-category .awafpgrid ul li {
 	width: 15.05% !important;
+}
+.top_thumb_list_product{
+	height:260px;
+	position:relative;
+}
+
+.bottom_thumb_list_product .ratings{
+	margin:0;
+}
+.bottom_thumb_list_product .btn-cart{
+	position:absolute;
+	bottom:20px;
+}
+.bottom_thumb_list_product{
+	height:95px;
+	position:relative;
 }
 @media only screen and (max-width: 1215px) {
 	.onsale-category-container-list, .awafpgrid .afp-thumbnail, .awafpgrid .afp-thumbnail a.product-image img {
@@ -164,23 +185,17 @@
 	.awis-r-default-item img {
 		width: 100%;
 	}
-	.awafpgrid ul {
-		height: 395px;
-	}
-	.featured-category .awafpgrid ul {
-		margin-left: 0;
-		padding-left: 10px;
-	}
 	.featured-category .awafpgrid ul li {
-		width: 22% !important;
+		width: 22.33% !important;
 	}
 }
 /* --------------- smaller 959 px layout -------------------- */
 @media only screen and (max-width: 767px) {
-	
 	
 }
 /* --------------- 320 px layout -------------------- */
 @media only screen and (max-width: 479px) { 
 	
 }
+
+.afp-addtocart .availability.out-of-stock span {position: absolute; bottom: 30px;}

@@ -121,7 +121,7 @@
 	text-align: left;
 	}
 .cms-home .homepage-product.onsale h2, .cms-home .homepage-product.newarrival h2, .cms-home .homepage-product.mostpopular h2{
-	background: url("../images/shd_featured_title.png") repeat-x scroll center bottom rgba(0, .cms-home 0, .cms-home 0, .cms-home 0);
+	background: url("../images/shd_featured_title.png") repeat-x scroll center bottom rgba(0, 0, 0, 0);
 	color: #707070;
 	padding: 0;
 	position: relative;
@@ -131,7 +131,7 @@
 	text-align: left;
 	}
 .cms-home .homepage-product.onsale h2 span, .cms-home .homepage-product.newarrival h2 span, .cms-home .homepage-product.mostpopular h2 span{
-	background: url("../images/arrow-2.png") no-repeat scroll right center rgba(0, .cms-home 0, .cms-home 0, .cms-home 0);
+	background: url("../images/arrow-2.png") no-repeat scroll right center rgba(0, 0, 0, 0);
     float: right;
     font-family: helvetica;
     font-size: 12px;
@@ -140,7 +140,7 @@
     padding: 0 24px 0 0;
 }
 .cms-home .homepage-product.onsale h2, .cms-home .homepage-product.newarrival h2, .cms-home .homepage-product.mostpopular h2{
-	background: url("../images/shd_featured_title.png") repeat-x scroll center bottom rgba(0, .cms-home 0, .cms-home 0, .cms-home 0);
+	background: url("../images/shd_featured_title.png") repeat-x scroll center bottom rgba(0, 0, 0, 0);
 	color: #707070;
 	padding: 0;
 	position: relative;
@@ -150,7 +150,7 @@
 	text-align: left;
 	}
 .cms-home .homepage-product.onsale h2 span, .cms-home .homepage-product.newarrival h2 span, .cms-home .homepage-product.mostpopular h2 span{
-	background: url("../images/arrow-2.png") no-repeat scroll right center rgba(0, .cms-home 0, .cms-home 0, .cms-home 0);
+	background: url("../images/arrow-2.png") no-repeat scroll right center rgba(0, 0, 0, 0);
     float: right;
     font-family: helvetica;
     font-size: 12px;
