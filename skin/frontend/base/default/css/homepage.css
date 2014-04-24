@@ -451,6 +451,12 @@
 		margin-bottom: 16px;
 		width: 28.79%;
 	}
+        .homepage-bottom ul.block-wrapper li.image-bottom-cust {
+            margin-bottom: 16px;
+            margin-left: 6px;
+            margin-right: 6px;
+            width: 31.79%;
+        }
 	.block-bottom span {
 		font-size: 19px;
 	}
@@ -560,7 +566,7 @@
 	}
 	.homepage-bottom ul.block-wrapper li.image-bottom-cust {
 		padding: 0;
-		width: 32.2%;
+		width: 31.2%;
 	}
 	.block-bottom {
 		height: 111px;
