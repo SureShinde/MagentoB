@@ -40,7 +40,7 @@ class Bilna_Paymethod_VtdirectController extends Mage_Core_Controller_Front_Acti
             $data = array ();
             $data['token_id'] = $this->getTokenId();
             $data['order_id'] = $this->maxChar($order->getIncrementId(), 20);
-            //$data['bins'] = $this->getBins($order, $paymentCode);
+            $data['bins'] = $this->getBins($order, $paymentCode);
             $data['order_items'] = $this->getOrderItems($order, $items);
             $data['gross_amount'] = round($order->getGrandTotal());
             $data['email'] = $this->getCustomerEmail($order->getBillingAddress()->getEmail());
@@ -202,7 +202,8 @@ class Bilna_Paymethod_VtdirectController extends Mage_Core_Controller_Front_Acti
     }
     
     private function getBins($order, $paymentCode) {
-        $digit = ($paymentCode == 'othervisa' || $paymentCode == 'othermc') ? 1 : 6;
+        $digit = 6;
+        //$digit = ($paymentCode == 'othervisa' || $paymentCode == 'othermc') ? 1 : 6;
         $result = substr($order->getPayment()->getCcBins(), 0, $digit);
         
         return array ($result);
@@ -306,6 +307,10 @@ class Bilna_Paymethod_VtdirectController extends Mage_Core_Controller_Front_Acti
     }
     
     private function getInstallmentBank($paymentCode) {
+		if (strtolower($paymentCode) == 'bnikartinivisa' || strtolower($paymentCode) == 'bnikartinimc') {
+			return 'bni';
+		}
+		
         $result = '';
         
         if (substr($paymentCode, -4) == 'visa') {

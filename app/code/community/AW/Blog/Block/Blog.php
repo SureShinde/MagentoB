@@ -97,7 +97,7 @@ class AW_Blog_Block_Blog extends AW_Blog_Block_Abstract
 
         return $collection;              
     }
-    
+
     public function getCategory()
     {
         return Mage::getSingleton('blog/cat');

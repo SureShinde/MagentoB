@@ -7,6 +7,7 @@ class Bilna_AjaxRequest_DataController extends Mage_Core_Controller_Front_Action
 	    $response['status'] = true;
 
 	    $cart = Mage::getSingleton('checkout/session')->getQuote();
+        $i=0;
         foreach ($cart->getAllItems() as $item) {
 			$product = array();
 			$product["identifier"] = $item->getSku();
@@ -31,25 +32,67 @@ class Bilna_AjaxRequest_DataController extends Mage_Core_Controller_Front_Action
         }else{
 	        $order = Mage::getModel('sales/order')->loadByIncrementId($orderId);
 	        $response['status'] = true;
-
+            $i=1;
 	        foreach ($order->getAllItems() as $item) {
 				$product = array();
 				$product["identifier"] = $item->getSku();
 				$product["amount"] = (int) $item->getPrice();
 				$product["currency"] = "IDR";
 				$product["quantity"] = $item->getQtyOrdered();
-			    $response['data']['products'][] = $product;
-	        }
-	
+			    $response['data']["numofitem"] = $response['data']["numofitem"] + $item->getQtyOrdered();
+                $response['data']['products'][] = $product;
+	        } 
 		    $response['data']['transaction'] = (int)$order->getIncrementId();
 		    $response['data']['amount'] = (int)$order->getGrandTotal();
 		    $response['data']['currency'] = "IDR";
+            $response['data']["customer_id"] = $item->getCustomerId();
+            $response['data']["customer_email"] = $item->getCustomerEmail();
+             
         }
 		
         echo json_encode($response);
         exit;
     }
 	
+    public function Retrieveconfirm2Action() {
+        $response   = array();
+        $data       = $this->getRequest()->getPost('data');
+        $orderId    = $data["orderId"];
+        
+        if (!isset ($orderId) || empty ($orderId)) {
+            $response['status'] = false;
+            $response['message'] = 'OrderId is not valid';
+        }else{
+            $order = Mage::getModel('sales/order')->loadByIncrementId($orderId);
+            $response['status'] = true;
+            $i=1;
+            foreach ($order->getAllItems() as $item) {
+                $product = array();
+                $product["id"] = $item->getProductId();
+                $product["sku"] = $item->getSku();
+                $product["name"] = $item->getName();
+                $product["qty"] = $item->getQtyOrdered();
+                $product["price"] = (int) $item->getPrice();
+                $product["total_price"] = $product["qty"]*$product["price"];
+                $response['data']["numofitem"] = $response['data']["numofitem"] + $item->getQtyOrdered();
+                $response['data']['products'][] = $product;
+            } 
+            $response['data']['order']['id'] = (int)$order->getIncrementId();
+            $response['data']['order']['currency'] = "IDR";
+            $response['data']['order']['amount'] = (int)$order->getGrandTotal();
+            $response['data']['order']['quantity'] = (int)$response['data']["numofitem"];
+            $response['data']['order']['paymethod'] = "";
+            $response['data']['order']['products'] = $response['data']['products'];
+            $response['data']['customer']["id"] = $item->getCustomerId();
+            $response['data']['customer']["email"] = $item->getCustomerEmail();
+            $response['data']['customer']["type"] = "";
+             
+        }
+        
+        echo json_encode($response);
+        exit;
+    }
+
 	public function RetrieveproductAction() {
     	$response	= array();
         $data		= $this->getRequest()->getPost('data');

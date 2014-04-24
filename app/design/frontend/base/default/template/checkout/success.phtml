@@ -27,127 +27,6 @@
 
 <input type="hidden" id="3rdparty-type" value="cartsuccess"/>
 <input type="hidden" id="3rdparty-value" value="<?php echo $this->getOrderId(); ?>" />
-<!-- Micro Blade GL -->
-<script type="text/javascript">// <![CDATA[
-var microad_blade_gl = microad_blade_gl || { 'params' : new Array(), 'complete_map' : new Object() };
-(function() {
-var param = {'co_account_id' : '5639', 'group_id' : 'convtrack17263', 'country_id' : '2', 'ver' : '2.1.0'};
-microad_blade_gl.params.push(param);
-
-var src = (location.protocol == 'https:')
-? 'https://d-cache.microadinc.com/js/blade_track_gl.js' : 'http://d-cache.microadinc.com/js/blade_track_gl.js';
-
-var bs = document.createElement('script');
-bs.type = 'text/javascript'; bs.async = true;
-bs.charset = 'utf-8'; bs.src = src;
-
-var s = document.getElementsByTagName('script')[0];
-s.parentNode.insertBefore(bs, s);
-})();
-// ]]></script>
-<!-- end Micro Blade GL -->
-
-<!-- Google Code for Purchase Online Conversion Page -->
-<script type="text/javascript">
-/* <![CDATA[ */
-var google_conversion_id = 992345613;
-var google_conversion_language = "en";
-var google_conversion_format = "3";
-var google_conversion_color = "ffffff";
-var google_conversion_label = "PpH8CMu4rwgQjfyX2QM";
-var google_conversion_value = 0;
-var google_remarketing_only = false;
-/* ]]> */
-</script>
-<script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js">
-</script>
-<noscript>
-<div style="display:inline;">
-<img height="1" width="1" style="border-style:none;" alt="" src="//www.googleadservices.com/pagead/conversion/992345613/?value=0&amp;label=PpH8CMu4rwgQjfyX2QM&amp;guid=ON&amp;script=0"/>
-</div>
-</noscript>
-
-<!-- Facebook Conversion Code for Conversion Tracking 2014 -->
-<script type="text/javascript">// <![CDATA[
-var fb_param = {};
-fb_param.pixel_id = '6010975460261';
-fb_param.value = '0.00';
-fb_param.currency = 'USD';
-(function(){
-  var fpw = document.createElement('script');
-  fpw.async = true;
-  fpw.src = '//connect.facebook.net/en_US/fp.js';
-  var ref = document.getElementsByTagName('script')[0];
-  ref.parentNode.insertBefore(fpw, ref);
-})();
-// ]]></script>
-<noscript><img height="1" width="1" alt="" style="display:none" src="https://www.facebook.com/offsite_event.php?id=6010975460261&amp;amp;value=0&amp;amp;currency=USD" /></noscript><!-- Facebook Tracking Code for Pampers Promo -->
-<script type="text/javascript">// <![CDATA[
-/* <![CDATA[ */
-	var fb_param = {};
-	fb_param.pixel_id = '6006933691972';
-	fb_param.value = '0.00';
-
-	(function(){
-  		var fpw = document.createElement('script');
-  		fpw.async = true;
-  		fpw.src = '//connect.facebook.net/en_US/fp.js';
-  		var ref = document.getElementsByTagName('script')[0];
-  		ref.parentNode.insertBefore(fpw, ref);
-	})();
-/* ]]> */
-// ]]></script>
-<noscript><img height="1" width="1" alt="" style="display:none" src="https://www.facebook.com/offsite_event.php?id=6006933691972&value=0" /></noscript><!-- end Facebook Tracking Code -->
-<script type="text/javascript" src="http://www.bilna.com/skin/frontend/default/2013/js/bilna.versatag.order.js"></script>
-<!--/*
-  *
-  *  In order for the adserver to track variables for this conversion,
-  *  they must be provided by the client.
-  *
-  *  The 'SALES_VALUE' should be replaced with the actual value of item/ total value of collected item.
-  *
-  */-->
-
-<!--/*
-  *
-  *  Place this code at the top of your thank-you page, just after the <body> tag,
-  *  below any definitions of Javascript variables that need to be tracked.
-  * 
-  */-->
-<script type="text/javascript">// <![CDATA[
-    var uid = 1;
-    var userid = 1;
-    var sales = SALES_VALUE;
-// ]]></script>
-<script type="text/javascript">// <![CDATA[
-    var OA_p = (location.protocol=='https:'?'https://jts.poin-web.co.id/delivery/tjs.php':'http://jts.poin-web.co.id/delivery/tjs.php');
-
-    var OA_r=Math.floor(Math.random()*999999);
-    document.write ("<" + "script language='JavaScript' ");
-    document.write ("type='text/javascript' src='"+OA_p);
-    document.write ("?trackerid=13&amp;append=0&amp;r="+OA_r+"'><" + "\/script>");
-// ]]></script>
-
-<!-- Google Code for Sales 2014 Conversion Page -->
-<script type="text/javascript">
-/* <![CDATA[ */
-var google_conversion_id = 980419114;
-var google_conversion_language = "en";
-var google_conversion_format = "3";
-var google_conversion_color = "ffffff";
-var google_conversion_label = "zSmCCKaXgggQqoTA0wM";
-var google_remarketing_only = false;
-/* ]]> */
-</script>
-<script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js">
-</script>
-<noscript>
-<div style="display:inline;">
-<img height="1" width="1" style="border-style:none;" alt="" src="//www.googleadservices.com/pagead/conversion/980419114/?label=zSmCCKaXgggQqoTA0wM&amp;guid=ON&amp;script=0"/>
-</div>
-</noscript>
-  
-<img src="http://tracker.pw.telunjuk.com/track.png?id_situs=bln212&id_transaksi=<?php echo $this->getOrderId(); ?>" />
 
 <div class="page-title">
     <h1><?php echo $this->__('Your order has been received.') ?></h1>
@@ -187,3 +66,31 @@ var google_remarketing_only = false;
 <div class="buttons-set">
     <button type="button" class="button" title="<?php echo $this->__('Continue Shopping') ?>" onclick="window.location='<?php echo $this->getUrl() ?>'"><span><span><?php echo $this->__('Continue Shopping') ?></span></span></button>
 </div>
+<script type="text/javascript">
+jQuery(document).ready(function () {    
+    var ajaxURL = 'https://www.bilna.com/baby/ajaxrequest/data/retrieveconfirm2/';
+
+    var data = {};
+    data.orderId = '<?php echo $this->escapeHtml($this->getOrderId())?>';
+
+    jQuery.ajax({
+        type: "POST",
+        url : ajaxURL,
+        data: { data: data },
+        success: function(data){
+            response = jQuery.parseJSON(data);
+            if(response.status == true){
+                dataLayer.push({'customer': JSON.stringify(response.data.customer)});
+                dataLayer.push( {'order': JSON.stringify(response.data.order)} );
+                dataLayer.push({'event': 'salesConversionEvent'});
+                
+            }else{
+                return false;
+            }
+        },
+        error: function() {
+            return false;
+        }
+    });
+});
+</script>
