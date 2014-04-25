@@ -107,6 +107,19 @@ $j(document).ready(function(){
 
 	});
 	 /*end krisna*/ 
+	 
+	  $j(".close_button").click(function(){
+		$j(".popup_succes_facebook").hide();
+		$j(".bg_popup").hide();
+	  });
+	  $j(".bg_popup").click(function(){
+		$j(".popup_succes_facebook").hide();
+		$j(".bg_popup").hide();
+	  });
+	  $j(".wrap_input_email label").click(function(){
+		$j(".popup_succes_facebook").show();
+		$j(".bg_popup").show();
+	  });
 });
 </script>
 <!--
