@@ -89,7 +89,7 @@ error_log("\nlogin", 3, '/tmp/alerts.log');
             $customer_id = Mage::getSingleton('customer/session')->getId();
 error_log("\n".print_r($customer,1), 3, '/tmp/alerts.log');            
         }else{
-            $customer = Mage::getModel('customer/customer')->setWebsiteId(Mage::app()->getWebsite()->getId())->loadByEmail($post['email']);
+            $customer = Mage::getModel('customer/customer')->loadByEmail($post['email']);
             if($customer->getEmail())
             {
                 $email = $customer->getEmail();
@@ -103,8 +103,8 @@ error_log("\n".print_r(Mage::getSingleton('customer/session'),1), 3, '/tmp/alert
 
         try {
             $model  = Mage::getModel('productalert/price')
-                ->setCustomerId($customer_id)
-                ->setEmail($email)
+                ->setCustomerId(Mage::getSingleton('customer/session')->getId())
+                ->setEmail($post['email'])
                 ->setProductId($product->getId())
                 ->setPrice($product->getFinalPrice())
                 ->setWebsiteId(Mage::app()->getStore()->getWebsiteId());
@@ -150,10 +150,9 @@ error_log("\nlogin", 3, '/tmp/alerts.log');
             $customer = Mage::getModel('customer/customer')->load(Mage::getSingleton('customer/session')->getId());
             $email = $customer->getEmail();
             $customer_id = Mage::getSingleton('customer/session')->getId();
-error_log("\nemail".print_r($email,1), 3, '/tmp/alerts.log');            
-error_log("\ncustomer_id".print_r($customer_id,1), 3, '/tmp/alerts.log');            
+error_log("\n".print_r($customer,1), 3, '/tmp/alerts.log');            
         }else{
-            $customer = Mage::getModel('customer/customer')->setWebsiteId(Mage::app()->getWebsite()->getId())->loadByEmail($post['email']);
+            $customer = Mage::getModel('customer/customer')->loadByEmail($post['email']);
             if($customer->getEmail())
             {
                 $email = $customer->getEmail();
@@ -162,11 +161,8 @@ error_log("\ncustomer_id".print_r($customer_id,1), 3, '/tmp/alerts.log');
                 $email = $post['email'];
                 $customer_id = 0;
             }
-error_log("\nemail".print_r($email,1), 3, '/tmp/alerts.log');            
-error_log("\ncustomer_id".print_r($customer_id,1), 3, '/tmp/alerts.log');                 
         }
-//error_log("\n".print_r(Mage::getSingleton('customer/session'),1), 3, '/tmp/alerts.log');
-
+error_log("\n".print_r(Mage::getSingleton('customer/session'),1), 3, '/tmp/alerts.log');
         try {
             $model = Mage::getModel('productalert/stock')
                 ->setCustomerId($customer_id)
