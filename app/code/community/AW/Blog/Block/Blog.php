@@ -90,6 +90,7 @@ class AW_Blog_Block_Blog extends AW_Blog_Block_Abstract
                 ->addStoreFilter()
                 ->addFieldToSelect('identifier')
                 ->addFieldToSelect('title')
+                ->addFieldToSelect('identifier')
                 ->addFieldToSelect('created_time')
                 ->addFieldToSelect('image_name')
                 ->addFieldToSelect('identifier')
@@ -126,7 +127,7 @@ class AW_Blog_Block_Blog extends AW_Blog_Block_Abstract
     public function getSliderPost()
     {
         $collection = Mage::getModel("blog/blog")->getCollection()
-                ->addPresentFilter()
+                //->addPresentFilter()
                 ->addEnableFilter(AW_Blog_Model_Status::STATUS_ENABLED)
                 ->addStoreFilter()
                 ->addFieldToSelect('identifier')
