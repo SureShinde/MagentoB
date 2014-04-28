@@ -1019,7 +1019,7 @@ animation-timing-function: linear;
 
 /*style Tanya Ahli */
 .registered-users ul.form-list{
-	list-style-type:;
+/*	list-style-type:;*/
 }
 
 /*style Tanya Ahli */
@@ -1473,7 +1473,7 @@ z-index: 999;
 		padding: 10px 3%;
 		margin-top: 0px;
 	}
-}
+
 
 	.submain-area-gift a.blue {font-size: 15px; color:#04BEEF;}
 	.submain-area-gift a.green {font-size: 15px; color:#86B940;}
