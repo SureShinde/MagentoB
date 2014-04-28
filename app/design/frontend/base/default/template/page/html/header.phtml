@@ -120,11 +120,15 @@
                 $j('div.nav-' + $j(this).attr('id')).show('');
             },
             function() {
-                $j('div.nav-container').hide();
-                $j('div.nav-' + $j('div.menu-top ul li.active').attr('id')).show();
+                //$j('div.nav-container').hide();
+                //$j('div.nav-' + $j('div.menu-top ul li.active').attr('id')).show();
             }
         );
-        
+
+        $j('div.nav-container').hover(
+            $j(this).hide();
+            $j('div.nav-' + $j('div.menu-top ul li.active').attr('id')).show();
+        );
         
     });
 </script>
