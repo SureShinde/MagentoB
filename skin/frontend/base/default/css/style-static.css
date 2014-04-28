@@ -1261,10 +1261,21 @@ z-index: 999;
 .td-promo-cont {
 	display: none;
 	position: absolute;
-	top: 35px;
-	/* left: 14%; */
+	/* top: 35px;
+	left: 14%; */
 	z-index: 9999999999;
 	margin-left: -15px;
+}
+.today-promo-area > a:nth-child(n+2) {
+    border-top: 1px solid #EBEBEB;
+}
+.today-promo-area{
+	background: none repeat scroll 0 0 #FCFCFC;
+    box-shadow: 0 0 20px #999999;
+    display: block;
+    padding: 20px 20px 10px;
+    text-align: left;
+    width: auto;
 }
 .td-promo-cont {background:none;}
 .td-promo-cont:hover {background:#fff;}
