@@ -45,17 +45,23 @@
 
 <div class="product-view">
     <!-- static block pop-up ASI Disclaimer -->
-    <?php if ($this->checkProductAttributeYesNo('asi_disclaimer')): ?>
-        <script>
-            jQuery(document).ready(function(){
-                jQuery(".close-now").click(function(){
-                    jQuery(".popup-asi_disclaimer").hide();
+    <?php echo "sini dah";exit; ?>
+    <?php if (!$this->checkProductAttributeCookie('asi_disclaimer')): ?>
+        <?php if ($this->checkProductAttributeYesNo('asi_disclaimer')): ?>
+            <script>
+                jQuery(document).ready(function(){
+                    jQuery(".close-now").click(function(){
+                        //save cookie
+
+
+                        jQuery(".popup-asi_disclaimer").hide();
+                    });
                 });
-            });
-        </script>
-        <div class="popup-asi_disclaimer">
-            <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('asi_disclaimer')->toHtml(); ?>
-        </div>
+            </script>
+            <div class="popup-asi_disclaimer">
+                <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('asi_disclaimer')->toHtml(); ?>
+            </div>
+        <?php endif; ?>
     <?php endif; ?>
     
     <div class="product-essential">
