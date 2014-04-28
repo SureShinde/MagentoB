@@ -1950,3 +1950,222 @@ button.button-area {
 .close-now {}
 
 /* END ------------ POP UP - ASI DISCLAIMER */
+
+/*---------------bilna kredit-------------------------*/
+.title-bilna-kredit{
+		font-family: helvetica, arial, san-serif; 
+		font-weight: bold; 
+		width:100%; 
+		height:20px; 
+		float:left;
+		text-transform:uppercase;
+		color:#0faa1e;
+		font-size: 22px;
+		text-align:center;
+		padding:20px 0;
+		margin-bottom:20px;
+	}
+.menu-tahap-bilna-kredit{
+	background: url('http://assets.bilna.com/media/wysiwyg/how-to-buy/button-bc-top.png') #0fa1aa;
+	font-family: helvetica, arial, san-serif; 
+	font-weight: bold; 
+	width:110px; 
+	height:110px; 
+	float:left; 
+	border-radius:55px; 
+	background-size:cover;
+	margin-right:5px;
+	margin-left:5px;
+}
+.wrap-menu-kredit{
+	margin: 0 10%; 
+	width: 80%;
+	float:left;
+}
+.sign-in{
+	margin-bottom:20px;
+	background: url('http://assets.bilna.com/media/wysiwyg/how-to-buy/button-bc-top.png') #0faa9a;
+	background-position: 0 0;
+	
+}
+.shop{
+	margin-top:20px;
+	background: url('http://assets.bilna.com/media/wysiwyg/how-to-buy/button-bc-top.png') #0faa9a;
+	background-position: -110px 0px;
+}
+.priview{
+	margin-bottom:20px;
+	background: url('http://assets.bilna.com/media/wysiwyg/how-to-buy/button-bc-top.png') #0faa9a;
+	background-position: -220px 0px;
+}
+.invite{
+	margin-top:20px;
+	background: url('http://assets.bilna.com/media/wysiwyg/how-to-buy/button-bc-top.png') #0faa6a;
+	background-position: -330px 0px;
+}
+.friends-shop{
+	margin-bottom:20px;
+	background: url('http://assets.bilna.com/media/wysiwyg/how-to-buy/button-bc-top.png') #0faa42;
+	background-position: -440px 0px;
+}
+.special-promotion{
+	margin-top:20px;
+	background: url('http://assets.bilna.com/media/wysiwyg/how-to-buy/button-bc-top.png') #0faa1e;
+	background-position: -550px 0px;
+}
+#numb-one .title-desc-kredit{
+	background:url("http://assets.bilna.com/media/wysiwyg/static-page-img/bilna-kredit/bg_signup.jpg") no-repeat center, url("http://assets.bilna.com/media/wysiwyg/static-page-img/bilna-kredit/dashed_signup.jpg") repeat-x center;
+	width:100%;
+}
+#numb-two .title-desc-kredit{
+	background:url("http://assets.bilna.com/media/wysiwyg/static-page-img/bilna-kredit/bg_shop.jpg") no-repeat center, url("http://assets.bilna.com/media/wysiwyg/static-page-img/bilna-kredit/dashed_shop.jpg") repeat-x center;
+	width:100%;
+}
+#numb-three .title-desc-kredit{
+	background:url("http://assets.bilna.com/media/wysiwyg/static-page-img/bilna-kredit/bg_review.jpg") no-repeat center, url("http://assets.bilna.com/media/wysiwyg/static-page-img/bilna-kredit/dashed_review.jpg") repeat-x center;
+	width:100%;
+}
+#numb-four .title-desc-kredit{
+	background:url("http://assets.bilna.com/media/wysiwyg/static-page-img/bilna-kredit/bg_invite_friend.jpg") no-repeat center, url("http://assets.bilna.com/media/wysiwyg/static-page-img/bilna-kredit/dashed_invite_friend.jpg") repeat-x center;
+	width:100%;
+}
+#numb-five .title-desc-kredit{
+	background:url("http://assets.bilna.com/media/wysiwyg/static-page-img/bilna-kredit/bg_friends_shop.jpg") no-repeat center, url("http://assets.bilna.com/media/wysiwyg/static-page-img/bilna-kredit/dashed_friends_shop.jpg") repeat-x center;
+	width:100%;
+}
+#numb-six .title-desc-kredit{
+	background:url("http://assets.bilna.com/media/wysiwyg/static-page-img/bilna-kredit/bg_special_promotion.jpg") no-repeat center, url("http://assets.bilna.com/media/wysiwyg/static-page-img/bilna-kredit/dashed_special_promotion.jpg") repeat-x center;
+	width:100%;
+}
+#numb-seven .title-desc-kredit{
+	background:url("http://assets.bilna.com/media/wysiwyg/static-page-img/bilna-kredit/bg_syaratdanketentuan.jpg") no-repeat center, url("http://assets.bilna.com/media/wysiwyg/static-page-img/bilna-kredit/dashed_syaratdanketentuan.jpg") repeat-x center;
+	width:100%;
+}
+
+.title-desc-kredit p{
+	margin:0;
+	padding:10px 0;
+	color:#fff;
+	text-align:center;
+}
+.desc-kredit{
+	color:#0fa1aa;
+	height:auto; float:left;
+	font-size: 13px;
+	text-align:left;
+	padding:20px;
+	margin: 10px 0px 0px 0px; 
+	line-height: 15px;
+}
+#numb-seven li{
+	color:#0bc91d;
+}
+.container-menu-kredit{
+	display:table;
+	margin:0 auto;
+}
+@media (max-width: 1215px){
+
+	.wrap-menu-kredit {
+		margin: 0 2%;
+		width: 96%;
+	}
+}
+@media (max-width: 1023px){ 
+	.wrap-menu-kredit{
+		width:80%;
+		margin:0 10%;
+	}
+	.menu-tahap-bilna-kredit{
+		width:100px;
+		height:100px;
+		background-size:600px 102px;
+		margin-right:20px;
+		margin-left:20px;
+	}
+	.sign-in{
+		background: url('http://assets.bilna.com/media/wysiwyg/how-to-buy/button-bc-top.png') #0faa9a;
+		background-position: -5px 0;
+	}
+	.shop{
+		margin-top:20px;
+		background-position: -100px 0px;
+	}
+	.priview{
+		background-position: -200px 0px;
+	}
+	.invite{
+		margin-bottom:20px;
+		margin-top:0px;
+		background-position: -300px 0px;
+	}
+	.friends-shop{
+		margin-top:20px;
+		background-position: -400px 0px;
+	}
+	.special-promotion{
+		margin-bottom:20px;
+		margin-top:0px;
+		background-position: -500px 0px;
+	}
+	
+}
+@media (max-width: 767px){
+	.title-bilna-kredit{
+		padding-right:0;
+		padding-left:0;
+	}
+	.wrap-menu-kredit{
+		width:100%;
+		margin:0;
+		
+	}
+	.menu-tahap-bilna-kredit{
+		width:85px;
+		margin-right:5px;
+		margin-left:5px;
+		height:85px;
+		background-size:520px 84px;
+	}
+	.sign-in{
+		background-position: 0 0;
+	}
+	.shop{
+		margin-top:20px;
+		background-position: -90px 9px;
+	}
+	.priview{
+		background-position: -176px 0;
+	}
+	.invite{
+		margin-top:20px;
+		background-position: -260px 0;
+	}
+	.friends-shop{
+		background-position: -348px 0;
+	}
+	.special-promotion{
+		margin-top:20px;
+		background-position: -435px 0;
+	}
+}
+/* @media (max-width: 607px){
+	.wrap-menu-kredit {
+		margin: 0;
+		width: 100%;
+	}
+} */
+@media (max-width: 607px){
+	.title-bilna-kredit{
+		padding:20px 0;	
+		font-size:17px;
+	}
+	.invite, .special-promotion{
+		margin-top:0;
+	}
+	.container-menu-kredit{
+		width: 285px;
+	}
+}
+
+/*-------------end of bilna kredit-----------------*/
