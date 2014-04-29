@@ -22,6 +22,7 @@ class Icube_CategoryGenerator_Model_Mysql4_Generator extends Mage_Rule_Model_Mys
         Varien_Profiler::stop('__MATCH_PRODUCTS__');
         
         if (empty($productIds)) {
+        	Mage::getSingleton('adminhtml/session')->addWarning('There is no product matching with the conditions');
             return $this;
         }
         
