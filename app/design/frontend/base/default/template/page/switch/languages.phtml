@@ -31,7 +31,7 @@
  * @see Mage_Page_Block_Switch
  */
 ?>
-<?php /* if(count($this->getStores())>1): ?>
+<?php  /*if(count($this->getStores())>1): ?>
 <div class="form-language">
 	<span class="icon-language" ></span>
     <select id="select-language" title="<?php echo $this->__('Your Language') ?>"  onchange="window.location.href=this.value">
@@ -48,16 +48,14 @@
 </div>
 <?php endif; */?>
 
+
+
 <div class="language-select-option">
-    <select class="country" style="position: relative; z-index: 1;">
-        <option <?php ((Mage::app()->getStore()->getCode() == 'en') ? 'selected="selected"' : '' )?> class="call-eng">ENG</option>
-        <option <?php ((Mage::app()->getStore()->getCode() == 'id') ? 'selected="selected"' : '' )?> class="call-ind">IND</option>
+    <select class="country" style="position: relative; z-index: 1;" onchange="window.location.href=this.value">
+        <?php foreach ($this->getStores() as $_lang): ?>
+            <?php $_selected = ($_lang->getId() == $this->getCurrentStoreId()) ? ' selected="selected"' : '' ?>
+            <option class="call-<?php echo $_lang->getCode();?>" value="<?php echo $_lang->getCurrentUrl() ?>"<?php echo $_selected ?>><?php echo $this->escapeHtml($_lang->getName()) ?></option>
+        <?php endforeach; ?>
     </select>
     <div style="position: absolute; top: 53px; right: 0; z-index: 0;"><img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN); ?>frontend/base/default/images/select-arrow-new.png"/></div>
 </div>
-<script type="text/javascript">
-jQuery( ".language-select-option" ).change(function() {
-    alert( "Handler for .change() called." );
-    window.location = window.location + '/?___store=id';
-});
-</script>
