@@ -98,8 +98,8 @@
 
                                                         $subCategoryName = $_subCategory->getName();
                                                         ?>
-                                                        <li>
-                                                            <a href="<?php echo $_helper->getCategoryUrl($_subCategory); ?>">
+                                                        <li class="nav-<?php echo $_subCategory->getUrlKey(); ?>">
+                                                            <a href="<?php echo $_helper->getCategoryUrl($_subCategory); ?>" class="<?php echo $_subCategory->getUrlKey(); ?>">
                                                                 <span><?php echo $subCategoryName; ?></span>
                                                             </a>
                                                         </li>
