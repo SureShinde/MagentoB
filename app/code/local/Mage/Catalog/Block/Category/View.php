@@ -165,11 +165,17 @@ class Mage_Catalog_Block_Category_View extends Mage_Core_Block_Template
     }
     
     public function checkCategoryAttributeCookie($name) {
+        $cookie = Mage::getModel('core/cookie');
         $result = false;
-        echo "masups ini";exit;
         
-        if (Mage::getModel('core/cookie')->get('category_' . $name)) {
-            Mage::getModel('core/cookie')->set('category_' . $name, 'yes');
+        //$cookie->set('category_' . $name, true);
+        //echo "cookie_asi_disclaimer: " . $cookie->get('category_' . $name);
+//        echo "<pre>";
+//        var_dump($cookie->get());
+//        echo "</pre>";
+        
+        if ($cookie->get('category_' . $name)) {
+        //if (Mage::getModel('core/cookie')->get('category_' . $name)) {
             $result = true;
         }
         

@@ -86,6 +86,11 @@ if($xlCmsBlock) {
 <?php endif; ?>
 
 <!-- static block pop-up ASI Disclaimer -->
+<?php
+$cookie = Mage::getModel('core/cookie');
+$result = false;
+$cookie->set('category_' . $name, true);
+?>
 <?php if (!$this->checkCategoryAttributeCookie('asi_disclaimer')): ?>
     <?php if ($this->checkCategoryAttributeYesNo('asi_disclaimer')): ?>
         <script>
