@@ -39,24 +39,24 @@ class Mage_Adminhtml_Block_Catalog_Product_Grid extends Mage_Adminhtml_Block_Wid
 		//->addAttributeToSelect('backorders');		
 		/* --- */				
 		
-		$brandTable = Mage::getModel('catalog/product')->getCollection()
-                            ->addAttributeToSelect('entity_id');
-        $brandTable->getSelect()->join(    array('cpei' => 'catalog_product_entity_int'),
-                "e.entity_id = cpei.entity_id",
-                array());
-        $brandTable->getSelect()->join(    array('eaov' => 'eav_attribute_option_value'),
-                "cpei.value = eaov.option_id",
-                array('brand' => 'value'));
-        $brandTable->getSelect()->join(    array('eao' => 'eav_attribute_option'),
-                "eaov.option_id = eao.option_id",
-                array());
-        $brandTable->getSelect()->join(    array('ea' => 'eav_attribute'),
-                "eao.attribute_id = ea.attribute_id AND ea.attribute_code = 'brand'",
-                array());
+// 		$brandTable = Mage::getModel('catalog/product')->getCollection()
+//                             ->addAttributeToSelect('entity_id');
+//         $brandTable->getSelect()->join(    array('cpei' => 'catalog_product_entity_int'),
+//                 "e.entity_id = cpei.entity_id",
+//                 array());
+//         $brandTable->getSelect()->join(    array('eaov' => 'eav_attribute_option_value'),
+//                 "cpei.value = eaov.option_id",
+//                 array('brand' => 'value'));
+//         $brandTable->getSelect()->join(    array('eao' => 'eav_attribute_option'),
+//                 "eaov.option_id = eao.option_id",
+//                 array());
+//         $brandTable->getSelect()->join(    array('ea' => 'eav_attribute'),
+//                 "eao.attribute_id = ea.attribute_id AND ea.attribute_code = 'brand'",
+//                 array());
 
-        $collection->getSelect()->joinLeft(    array('child_brand' => new Zend_Db_Expr( '(' . $brandTable->getSelect() . ')')),
-                "child_brand.entity_id = e.entity_id",
-                array('brand'=>'child_brand.brand'));
+//         $collection->getSelect()->joinLeft(    array('child_brand' => new Zend_Db_Expr( '(' . $brandTable->getSelect() . ')')),
+//                 "child_brand.entity_id = e.entity_id",
+//                 array('brand'=>'child_brand.brand'));
 				
 		if (Mage::helper('catalog')->isModuleEnabled('Mage_CatalogInventory')) {
             $collection->joinField('qty',                
@@ -201,20 +201,20 @@ class Mage_Adminhtml_Block_Catalog_Product_Grid extends Mage_Adminhtml_Block_Wid
         ));
 		
 		/* -- Kolom Brand dari Attribute -- */
-		$attribute = Mage::getModel('eav/config')->getAttribute('catalog_product', 'brand');
-		$options =	array();
-					foreach( $attribute->getSource()->getAllOptions(true, true) as $option ) {
-					$options[$option['value']] = $option['label'];
-					}
+// 		$attribute = Mage::getModel('eav/config')->getAttribute('catalog_product', 'brand');
+// 		$options =	array();
+// 					foreach( $attribute->getSource()->getAllOptions(true, true) as $option ) {
+// 					$options[$option['value']] = $option['label'];
+// 					}
 					
-		$this->addColumn('brand',
-			array(
-				'header'=> Mage::helper('catalog')->__('Brand'),
-				'width' => '80px',
-				'index' => 'brand',
-				'type'  => 'options',
-				'options' => $options,
-		)); 
+// 		$this->addColumn('brand',
+// 			array(
+// 				'header'=> Mage::helper('catalog')->__('Brand'),
+// 				'width' => '80px',
+// 				'index' => 'brand',
+// 				'type'  => 'options',
+// 				'options' => $options,
+// 		)); 
 		/* --- End Kolom Brand --- */		
 
         $store = $this->_getStore();
