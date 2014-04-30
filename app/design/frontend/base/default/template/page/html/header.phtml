@@ -113,7 +113,6 @@
 
 	});
 
-        
         $j('div.menu-top a.menu-top-hover').hover(
             function() {
                 $j('div.nav-container').hide('');
@@ -125,10 +124,10 @@
             }
         );
 
-        $j('div.nav-container').hover(
+        $j( "div.nav-container" ).mouseleave(function() {
             $j(this).hide();
             $j('div.nav-' + $j('div.menu-top ul li.active').attr('id')).show();
-        );
+        });
         
     });
 </script>
