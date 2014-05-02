@@ -1966,7 +1966,7 @@ button.button-area {
 		text-transform:uppercase;
 		font-size:24px;
 		color:#714943;
-		font-family:insaniburger;
+		font-family:InsaniburgerRegular;
 	}
 	.input_form{
 		float:left;
@@ -1991,7 +1991,7 @@ button.button-area {
 		color:#fff;
 	}
 	.footer_facebook_page{
-		font-family:insaniburger;
+		font-family:InsaniburgerRegular;
 		font-size:18px;
 		text-transform:uppercase;
 		color:#714943;
@@ -2044,6 +2044,14 @@ button.button-area {
 		margin: 6px;
 		width: 25px;
 	}
+	.thanks_popup{
+		color: #714943;
+    font-family:InsaniburgerRegular;
+    font-size: 18px;
+    text-align: center;
+	margin:0 0 20px;
+    text-transform: uppercase;
+	}
 @media only screen and (max-width: 1023px){
 	.main-image{
 		background:url(http://im.bilna.com/media/wysiwyg/static-page-img/free-voucher/main_img_facebook_768.jpg) no-repeat center;
@@ -2084,7 +2092,7 @@ button.button-area {
 		width:100%;
 	}
 	.popup_succes_facebook img {
-    margin: 20px auto 38px;
+    margin: 20px auto;
 	}
 	.input_form{
 		height:27px;

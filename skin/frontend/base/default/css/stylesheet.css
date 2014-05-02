@@ -35,3 +35,16 @@
     font-style: normal;
 
 }
+
+	
+@font-face {
+font-family: 'InsaniburgerRegular';
+src: url('../fonts/insanibu_0.eot');
+src: url('../fonts/insanibu_0.eot') format('embedded-opentype'),
+	 url('../fonts/insanibu_0.woff') format('woff'),
+	 url('../fonts/insanibu_0.ttf') format('truetype'),
+	 url('../fonts/insanibu_0.svg#InsaniburgerRegular') format('svg');
+
+font-weight: normal;
+font-style: normal;
+}
