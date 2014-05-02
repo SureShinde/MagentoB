@@ -168,14 +168,7 @@ class Mage_Catalog_Block_Category_View extends Mage_Core_Block_Template
         $cookie = Mage::getModel('core/cookie');
         $result = false;
         
-        //$cookie->set('category_' . $name, true);
-        //echo "cookie_asi_disclaimer: " . $cookie->get('category_' . $name);
-//        echo "<pre>";
-//        var_dump($cookie->get());
-//        echo "</pre>";
-        
         if ($cookie->get('category_' . $name)) {
-        //if (Mage::getModel('core/cookie')->get('category_' . $name)) {
             $result = true;
         }
         

@@ -252,11 +252,22 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
         return $attribute;
     }
     
-    public function checkProductAttributeCookie($name) {
+    public function checkCategoryAttributeCookie($name) {
+        $cookie = Mage::getModel('core/cookie');
         $result = false;
         
-        if (Mage::getModel('core/cookie')->get($name)) {
-            Mage::getModel('core/cookie')->set($name, true);
+        if ($cookie->get('category_' . $name)) {
+            $result = true;
+        }
+        
+        return $result;
+    }
+    
+    public function checkProductAttributeCookie($name) {
+        $cookie = Mage::getModel('core/cookie');
+        $result = false;
+        
+        if ($cookie->get('product_' . $name)) {
             $result = true;
         }
         

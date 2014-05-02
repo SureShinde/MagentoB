@@ -50,10 +50,22 @@
             <script>
                 jQuery(document).ready(function(){
                     jQuery(".close-now").click(function(){
-                        //save cookie
+                        var dataPost = 'cookie_name=product_asi_disclaimer';
+                        dataPost += '&cookie_value=true';
 
-
-                        jQuery(".popup-asi_disclaimer").hide();
+                        jQuery.ajax({
+                            type: 'POST',
+                            url: "<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB) . 'webservice/asidisclaimer/savecookie.php'; ?>",
+                            data: dataPost,
+                            success: function(response) {
+                                if (response.status == true) {
+                                    jQuery('.popup-asi_disclaimer').hide();
+                                }
+                                else {
+                                    alert('failed, please refresh page..')
+                                }
+                            }
+                        });
                     });
                 });
             </script>
