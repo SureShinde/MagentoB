@@ -322,7 +322,7 @@ class AW_Affiliate_Customer_AffiliateController extends Mage_Core_Controller_Fro
         }
 
         $campaignImageName  = Mage::registry('current_campaign')->getImageName();
-        $response->setData('image', Mage::getBaseUrl().'media' . DS .$campaignImageName);
+        $response->setData('image', Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) .$campaignImageName);
 
 
         $response->setMessages($messages);

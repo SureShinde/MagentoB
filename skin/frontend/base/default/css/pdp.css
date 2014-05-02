@@ -300,7 +300,7 @@
 }
 .aw-arp-block-1 .top_thumb_list_product{
 	height:0;
-    z-index: 888;
+    z-index: 1;
 }
 .bottom_thumb_list_product .ratings{
 	margin:0;
@@ -1181,4 +1181,8 @@ margin: 0 1% ;
 	padding: 11px;
 }
 
+.catalog-product-view .super-products .availability.out-of-stock {
+    bottom: 30px;
+    position: absolute;
+}
 

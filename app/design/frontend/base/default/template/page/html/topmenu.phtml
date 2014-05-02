@@ -16,79 +16,150 @@
  * @see Mage_Page_Block_Html_Topmenu
  */
 ?>
-<?php $menuTree = $this->getHtml('level-top') ?>
-<?php if($menuTree): ?>
-    <div class="nav-container container">
-        <ul id="nav" class="nav">
-        	<li class="level0 level-top shop-by"><span><?php echo $this->__('Shop by') ?></span><a href="#" class="level-top link-shopby"><?php echo $this->__('Shop by') ?></a>
-        	 <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('shopby')->toHtml() ?>
-        	</li>
-            <?php
-            $children = $this->addFeaturedProductData($menuTree->getChildren());
-            $parentLevel = $menuTree->getLevel();
-            $childLevel = is_null($parentLevel) ? 0 : $parentLevel + 1;
-            $parentsCount = $children->count();
-            $counter = 0;
-            ?>
-            <?php foreach ($children as $child): ?>
-                <?php
-                $outermostClassCode = '';
-                $outermostClass = $menuTree->getOutermostClass()." parent-".$counter;
-                ?>
-                <?php if ($childLevel == 0 && $outermostClass): ?>
-                    <?php $outermostClassCode = ' class="' . $outermostClass . ' '. strtolower(str_replace(array('&',' '), "", $child->getName())).'" ';
-                    $child->setClass($outermostClass); ?>
-                <?php endif; ?>
-                <li <?php echo $this->_getRenderedMenuItemAttributes($child)?>>
-                        <a href="<?php echo $child->getUrl()?>" <?php echo $outermostClassCode ?>>
-                        <?php if (strtolower($child->getName()) == 'for moms') :?>
-                            <span><span><?php echo str_replace(' ','<br>',$child->getName()) ?></span></span>
-                        <?php else : ?>
-                        	<span><span><?php echo str_replace('&','<br>&',$child->getName()) ?></span></span>
-                        <?php endif; ?>
-                        </a>
-                        <?php if ($child->hasChildren()): ?>
-                            <ul class="level-hover <?php echo $childLevel ." ".strtolower(str_replace(array('&',' '), "_", $child->getName()))."_hover";?>">
-                                <?php echo $this->getSubMenuHtml($child) ?>
-                            </ul>
-                        <?php endif; ?>
-                </li>
-                <?php $counter++;?>
-            <?php endforeach; ?>
-            <!--<li class="menu-salegift"><?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('sale_giftideas')->toHtml() ?></li>-->
-			
-			
-            <div class="clear"></div>
-			
-        </ul>
-    </div>
-<?php endif ?>
-<div class="dash"></div>
 
-<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('giftideas_menu')->toHtml() ?>
+<?php $_helper = Mage::helper('megamenu'); ?>
+<?php $_storeCategories = $_helper->getStoreCategories(); ?>
+<?php if (count($_storeCategories) > 0): ?>
+    <?php foreach ($_storeCategories as $_storeCategory): ?>
+        <?php
+        $_storeCategory = Mage::getModel('megamenu/catalog_category')->load($_storeCategory->getId());
+        $_storeCategoryClass = $_storeCategory->getId() == $_helper->getCurrentMainCategory() ? "" : "display:none;";
+        
+        /**
+         * check if category is active
+         */
+        if (!$_storeCategory->getIsActive()):
+            continue;
+        endif;
+        
+        if (!$_storeCategory->getIncludeInMenu()):
+            continue;
+        endif;
+        ?>
+
+        <div id="nav-<?php echo $_storeCategory->getId(); ?>" class="nav-container container nav-<?php echo $_storeCategory->getUrlKey(); ?>" style="<?php echo $_storeCategoryClass; ?>">
+            <?php $_categories = $_storeCategory->getChildrenCategories(); ?>
+            <?php if (count($_categories) > 0): ?>
+                <ul id="nav" class="nav">
+                    <?php $shopbyStaticBlock = Mage::getModel('cms/block')->load('shopby-' . $_storeCategory->getUrlKey()); ?>
+                    <?php if ($shopbyStaticBlock->getIsActive() == 1): ?>
+                        <li class="level0 level-top shop-by">
+                            <span>Shop by</span>
+                            <a class="level-top link-shopby" href="#">Shop by</a>
+                            <div class="shopby">
+                                <?php echo $shopbyStaticBlock->getContent(); ?>
+                            </div>
+                        </li>
+                    <?php endif; ?>
+                    
+                   <?php foreach ($_categories as $_category): ?>
+                        <?php
+                        $_category = Mage::getModel('megamenu/catalog_category')->load($_category->getId());
+                        
+                        /**
+                         * check if category is active
+                         */
+                        if (!$_category->getIsActive()):
+                            continue;
+                        endif;
+                        
+                        if (!$_category->getIncludeInMenu()):
+                            continue;
+                        endif;
+                        
+                        $categoryName = $_category->getName();
+                        ?>
+                        <li class="level level-top parent-<?php echo $_category->getId(); ?> parent nav-<?php echo $_category->getUrlKey(); ?>">
+                            <a href="<?php echo $_helper->getCategoryUrl($_category); ?>" class="level-top parent-<?php echo $_category->getId(); ?>">
+                                <span><span><?php echo $this->__($_helper->replaceCategoryName($categoryName)); ?></span></span>
+                            </a>
+                            <?php $_subCategories = $_category->getChildrenCategories(); ?>
+                            <?php if (count($_subCategories) > 0): ?>
+                                <ul class="level-hover 0">
+                                    <li class="">
+                                        <div class="left-columns">
+                                            <h2><?php echo $categoryName; ?></h2>
+                                            <div class="view-box">
+                                                <ul>
+                                                    <?php foreach ($_subCategories as $_subCategory): ?>
+                                                        <?php
+                                                        $_subCategory = Mage::getModel('megamenu/catalog_category')->load($_subCategory->getId());
+                                                        
+                                                        /**
+                                                         * check if category is active
+                                                         */
+                                                        if (!$_subCategory->getIsActive()):
+                                                            continue;
+                                                        endif;
+                                                        
+                                                        if (!$_subCategory->getIncludeInMenu()):
+                                                            continue;
+                                                        endif;
+
+                                                        $subCategoryName = $_subCategory->getName();
+                                                        ?>
+                                                        <li class="nav-<?php echo $_subCategory->getUrlKey(); ?>">
+                                                            <a href="<?php echo $_helper->getCategoryUrl($_subCategory); ?>" class="<?php echo $_subCategory->getUrlKey(); ?>">
+                                                                <span><?php echo $subCategoryName; ?></span>
+                                                            </a>
+                                                        </li>
+                                                    <?php endforeach; ?>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="right-columns">
+                                            <?php
+                                            if ($_category->getMegamenuStaticBlock()):
+                                                echo $this->getLayout()->createBlock('cms/block')->setBlockId($_category->getMegamenuStaticBlock())->toHtml();
+                                            endif;
+                                            ?>
+                                            
+                                            <div class="megamenu-product">
+                                                <a href="#" class="megamenu-image">
+                                                    <img alt="" src="<?php echo $_category->getMegamenuImageUrl($_category->getMegamenuImage()); ?>">
+                                                </a>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="clear"></div>
+                                        
+                                        <a class="browse-all" href="<?php echo $_helper->getCategoryUrl($_category); ?>">Browse All</a>
+                                    </li>
+                                </ul>
+                            <?php endif; ?>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+            <?php endif; ?>
+        </div>
+    <?php endforeach; ?>
+<?php endif; ?>
+
+<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('giftideas_menu')->toHtml(); ?>
+
 <script>
- jQuery(document).ready(function(){
-  jQuery(".giftideas").mouseover(function(){
-    jQuery(".nav-10").addClass("hover");
-	jQuery(".nav-10>a").addClass("color_a");
-	jQuery(".gift-menu-wrapp").show();
-  });	
-  jQuery(".giftideas").mouseleave(function(){
-    jQuery(".nav-10").removeClass("hover");
-	jQuery(".nav-10>a").removeClass("color_a");
-	jQuery(".gift-menu-wrapp").hide();
-  });
+    jQuery(document).ready(function() {
+        jQuery(".giftideas").mouseover(function() {
+            jQuery(".nav-10").addClass("hover");
+            jQuery(".nav-10>a").addClass("color_a");
+            jQuery(".gift-menu-wrapp").show();
+        });	
   
-  jQuery(".gift-menu-wrapp").mouseover(function(){
-	jQuery(".gift-menu-wrapp").show();
-	jQuery(".parent-10").addClass("over");
-  });
-  jQuery(".gift-menu-wrapp").mouseleave(function(){
-	jQuery(".gift-menu-wrapp").hide();
-	jQuery(".parent-10").removeClass("over");
-  });	
+        jQuery(".giftideas").mouseleave(function() {
+            jQuery(".nav-10").removeClass("hover");
+            jQuery(".nav-10>a").removeClass("color_a");
+            jQuery(".gift-menu-wrapp").hide();
+        });
   
-  
-  
-});
+        jQuery(".gift-menu-wrapp").mouseover(function() {
+            jQuery(".gift-menu-wrapp").show();
+            jQuery(".parent-10").addClass("over");
+        });
+    
+        jQuery(".gift-menu-wrapp").mouseleave(function() {
+            jQuery(".gift-menu-wrapp").hide();
+            jQuery(".parent-10").removeClass("over");
+        });
+    });
 </script>
