@@ -1,0 +1,8 @@
+<config>
+    <modules>
+        <Bilna_Megamenu>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Bilna_Megamenu>
+    </modules>
+</config>

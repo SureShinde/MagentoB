@@ -1731,9 +1731,7 @@ tr.summary-details-excluded { font-style:italic; }
 	content:"";
 }
 
-.row{
-	max-width:1216px;
-	}
+
 #backtotop {
 	position: fixed;
 	right:0;
@@ -1773,6 +1771,9 @@ tr.summary-details-excluded { font-style:italic; }
 	margin:auto;
 	padding:20px;
 }
+.row{
+	max-width:1216px;
+	}
 @media only screen and (min-width: 1215px){
 .row-list{
 	width:1145px;

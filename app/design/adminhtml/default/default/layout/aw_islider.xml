@@ -6,6 +6,7 @@
         </reference>
     </awislider_admin_adminhtml_slider_list>
     <awislider_admin_adminhtml_slider_edit>
+        <update handle="editor" />
         <reference name="head">
             <action method="addJs"><script>prototype/window.js</script></action>
             <action method="addJs"><script>aw_islider/settings.js</script></action>

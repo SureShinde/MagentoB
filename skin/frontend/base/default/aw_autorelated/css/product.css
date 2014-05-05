@@ -37,7 +37,10 @@
 .aw-arp-block-content .aw-arp-addtocart>p {
     margin-bottom: 5px;
 }
-
+.aw-arp-block-content .buttom_related_product{
+	height: 55px;
+    position: relative;
+}
 .aw-arp-product-item {
     margin: 0 0 20px;
 }
