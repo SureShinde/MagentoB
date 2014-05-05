@@ -1950,6 +1950,166 @@ button.button-area {
 
 /* END ------------ POP UP - ASI DISCLAIMER */
 
+/*---------promo free voucher april------*/
+	.logo_free_voucher{
+		padding:30px 0 0;
+		text-align:center;
+	}
+	.main-image{
+		margin:10px 0 0;
+		background:url(http://im.bilna.com/media/wysiwyg/static-page-img/free-voucher/main_img_facebook.jpg) no-repeat center;
+		height:338px;
+	}
+	.title_form{
+		text-align:center;
+		text-transform:uppercase;
+		font-size:24px;
+		color:#714943;
+		font-family:InsaniburgerRegular;
+	}
+	.input_form{
+		float:left;
+		font-size:18px;
+		text-indent:10px;
+		width:421px;
+		-moz-box-shadow:inset 3px 7px 8px #ebebeb;
+		-webkit-box-shadow:inset 3px 7px 8px #ebebeb;
+		box-shadow:inset 3px 7px 8px #ebebeb;
+		height:32px;
+		border:2px solid #cbcbcb;
+	}
+	.wrap_input_email{
+		display:table;
+		margin:30px auto;
+	}
+	.wrap_input_email label{
+		float:left;
+		padding: 12px 10px;
+		cursor:pointer;
+		background:#fb6248;
+		color:#fff;
+	}
+	.footer_facebook_page{
+		font-family:InsaniburgerRegular;
+		font-size:18px;
+		text-transform:uppercase;
+		color:#714943;
+		text-align:center;
+		margin:0 66px;
+		padding:20px 0 70px 0;
+		border-top:2px dashed #714943;
+	}
+	.popup_succes_facebook{
+		display:none;
+		position:fixed;
+		width:662px;
+		height:382px;
+		background:#f5ebe2;
+		border-radius:20px;
+		-moz-border-radius:20px;
+		-webkit-border-radius:20px;
+		margin:-148px auto 0 -331px;
+		top:50%;
+		z-index:11;
+		left:50%;
+	}
+	.popup_succes_facebook img{
+		display:block;
+		width:100%;
+		margin:40px auto 0;
+	}
+	.bg_popup{
+		display:none;
+		position:fixed;
+		width:100%;
+		height:100%;
+		background-color: rgba(0, 0, 0, 0.9);
+		background: rgba(0, 0, 0, 0.9);
+		color: rgba(0, 0, 0, 0.9);
+		top:0;
+		left:0;
+		z-index:10;
+	}
+	.popup_succes_facebook{
+		height: 280px;
+		margin: -140px auto 0 -250px;
+		width: 500px;
+	}
+	.close_button{
+		background:url("http://im.bilna.com/skin/frontend/base/default/images/btn_close_big.png") no-repeat;
+		float: right;
+		cursor:pointer;
+		height: 25px;
+		margin: 6px;
+		width: 25px;
+	}
+	.thanks_popup{
+		color: #714943;
+    font-family:InsaniburgerRegular;
+    font-size: 18px;
+    text-align: center;
+	margin:0 0 20px;
+    text-transform: uppercase;
+	}
+@media only screen and (max-width: 1023px){
+	.main-image{
+		background:url(http://im.bilna.com/media/wysiwyg/static-page-img/free-voucher/main_img_facebook_768.jpg) no-repeat center;
+	}
+}
+@media (max-width: 767px){ 
+	
+	.footer_facebook_page{
+		margin:0 45px;
+	}
+	.input_form{
+		width:332px;
+	}
+	
+}
+@media (max-width: 479px){ 
+	.main-image{
+		height:260px;
+		background:url(http://im.bilna.com/media/wysiwyg/static-page-img/free-voucher/main_img_facebook_320.jpg) no-repeat center;
+	}
+	.popup_succes_facebook{
+		height: auto;
+		margin: -140px auto 0 -39%;
+		width: 78%;
+	}
+	.footer_facebook_page{
+		margin:0 20px;
+		font-size:14px;
+	}
+	.popup_succes_facebook img{
+		width:100%;
+		margin:40px auto;
+	}
+	.input_form{
+		width:60%;
+	}
+	.form_email{
+		width:100%;
+	}
+	.popup_succes_facebook img {
+    margin: 20px auto;
+	}
+	.input_form{
+		height:27px;
+		font-size:14px;
+	}
+	.wrap_input_email label{
+		float:left;
+		padding: 9px 10px;
+		background:#fb6248;
+		color:#fff;
+	}
+	.title_form{
+		font-size:19px;
+	}
+}
+/*-----------------------end of free voucher--------------------------------*/
+
+
 /*---------------bilna kredit-------------------------*/
 .title-bilna-kredit{
 		font-family: helvetica, arial, san-serif; 
@@ -2167,4 +2327,4 @@ button.button-area {
 	}
 }
 
-/*-------------end of bilna kredit-----------------*/
+/*-------------end of bilna kredit-----------------*/\
