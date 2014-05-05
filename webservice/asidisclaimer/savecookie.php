@@ -12,16 +12,15 @@ Mage::app();
 $name = $_POST['cookie_name'];
 $value = $_POST['cookie_value'];
 
-//load the model
-$model = Mage::getModel('catalog/webservice_asidisclaimer');
+$cookie = Mage::getModel('core/cookie');
+$status = false;
+$message = 'failed';
 
-if ($model->saveCookieAction($name, $value)) {
-    $status = true;
-    $message = '';
-}
-else {
-    $status = false;
-    $message = 'failed';
+if (!empty ($name) || !empty ($value)) { 
+    if ($cookie->set($name, $value, null, '/')) {
+        $status = true;
+        $message = '';
+    }
 }
 
 echo json_encode(array ('status' => $status, 'message' => $message));
