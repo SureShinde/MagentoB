@@ -38,9 +38,14 @@ class Mage_Adminhtml_Block_Catalog_Product_Grid extends Mage_Adminhtml_Block_Wid
 		->addAttributeToSelect('stock_status');
 		//->addAttributeToSelect('backorders');		
 		/* --- */				
+
+        $filter = $this->getRequest()->getParam('product_filter');
+        $params = Mage::helper('adminhtml')->prepareFilterString($filter);
 		
-		$brandTable = Mage::getModel('catalog/product')->getCollection()
-                            ->addAttributeToSelect('entity_id');
+		$brandTable = Mage::getModel('catalog/product')->getCollection();
+        
+        $brandTable->addAttributeToSelect('entity_id');
+
         $brandTable->getSelect()->join(    array('cpei' => 'catalog_product_entity_int'),
                 "e.entity_id = cpei.entity_id",
                 array());
@@ -54,7 +59,45 @@ class Mage_Adminhtml_Block_Catalog_Product_Grid extends Mage_Adminhtml_Block_Wid
                 "eao.attribute_id = ea.attribute_id AND ea.attribute_code = 'brand'",
                 array());
 
-        $collection->getSelect()->joinLeft(    array('child_brand' => new Zend_Db_Expr( '(' . $brandTable->getSelect() . ')')),
+        if( isset($params['entity_id']) )
+        {
+            if( isset($params['entity_id']['from']) && isset($params['entity_id']['to']) )
+            {
+                $brandTable->addAttributeToFilter('entity_id', array('from' => $params['entity_id']['from'], 'to' => $params['entity_id']['to']) );    
+            }elseif ( isset($params['entity_id']['from']) ) {
+                $brandTable->addAttributeToFilter('entity_id', array('from' => $params['entity_id']['from']) );
+            }elseif ( isset($params['entity_id']['to']) ) {
+                $brandTable->addAttributeToFilter('entity_id', array('to' => $params['entity_id']['to']) );
+            }
+            
+        }
+
+        /*if( isset($params['name']) )
+        {
+            $brandTable->addAttributeToFilter('name', array('like' => $params['name']) );
+        }*/
+
+        if( isset($params['type']) )
+        {
+            $brandTable->addAttributeToFilter('type_id', array('eq' => $params['type']) );
+        }
+
+        if( isset($params['set_name']) )
+        {
+            $brandTable->addAttributeToFilter('attribute_set_id', array('eq' => $params['set_name']) );
+        }
+
+        if( isset($params['sku']) )
+        {
+            $brandTable->addAttributeToFilter('sku', array('like' => "%".$params['sku']."%") );
+        }
+
+        /*if( isset($params['brand']) )
+        {
+            $brandTable->addAttributeToFilter('cpei.value', array('eq' => $params['brand']) );
+        }*/
+
+        $collection->getSelect()->joinInner(    array('child_brand' => new Zend_Db_Expr( '(' . $brandTable->getSelect() . ')')),
                 "child_brand.entity_id = e.entity_id",
                 array('brand'=>'child_brand.brand'));
 				
@@ -118,14 +161,15 @@ class Mage_Adminhtml_Block_Catalog_Product_Grid extends Mage_Adminhtml_Block_Wid
             $collection->joinAttribute('visibility', 'catalog_product/visibility', 'entity_id', null, 'inner');
         }
 
-		/* Debug */
-		//$collection->printlogquery(true); 
-		//die;
-		/* End Debug */
+
 		
         $this->setCollection($collection);
 		
         parent::_prepareCollection();
+        /* Debug */
+        //$collection->printlogquery(true); 
+        //die;
+        /* End Debug */        
         $this->getCollection()->addWebsiteNamesToResult();
         return $this;
     }
