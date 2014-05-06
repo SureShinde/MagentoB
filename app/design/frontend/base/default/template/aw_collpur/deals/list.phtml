@@ -43,8 +43,8 @@
 </div>-->
 <?php endif; ?>
 <?php if($this->getAvailableDeals()->count() == 0):  ?>
-<h2 id="awcp-nodeals-available"><?php echo $this->__('No deals available'); ?></h2>
-<?php return; ?>
+    <h2 id = "awcp-nodeals-available"><?php echo $this->__('No deals available'); ?></h2>
+    <?php return; ?>
 <?php endif; ?>
 <div class="row-list">
 	<?php if(is_null($this->getType()) || $this->getType()<>"detail"){ ?>
@@ -53,6 +53,7 @@
 	<!--end slider-->
 	<div class="row">
 	<?php echo $this->getChildHtml('available_deals_pager'); ?>
+	</div>
 	</div>
 	<?php } ?>
 	<ul class="awcp-category-grid medium-block-grid-3 large-block-grid-3">
@@ -188,15 +189,11 @@
 	<?php if(is_null($this->getType()) || $this->getType()<>"detail"){ ?>
 	<div class="clearer"></div>
 	<div class="row">
-	<?php echo $this->getChildHtml('available_deals_pager_extra'); ?>
+	<?php echo $this->getChildHtml('available_deals_pager'); ?>
 	</div>
 	<?php } ?>
 </div>
-
-
  <!-- Incorrect view of buttons in catalog -->
  <style>
  button.button span span {height:auto!important;}
  </style>
-
-

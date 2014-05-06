@@ -10,7 +10,7 @@ div.onsale-category-container-list {
 .onsale-category-container {
 	cursor: pointer;
 	position: absolute;
-	z-index: 2;
+	z-index: 9;
 }
 
 div.onsale-category-label {

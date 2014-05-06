@@ -105,6 +105,7 @@ $responseStatus = $responseCharge->status;
             </div>
         <?php endif; ?>
     <?php endif; ?>
+
     <script type="text/javascript">
 jQuery(document).ready(function () {    
     var ajaxURL = "<?php echo Mage::getUrl('ajaxrequest/data/retrieveconfirm2/',array('_secure'=>true));?>";
@@ -133,6 +134,7 @@ jQuery(document).ready(function () {
     });
 });
 </script>
+
 <?php elseif ($responseStatus == 'failure'): ?>
     <div class="wrapper_failure_page">
         <div class="col_left">

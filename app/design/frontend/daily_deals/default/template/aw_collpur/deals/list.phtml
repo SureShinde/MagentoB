@@ -54,6 +54,7 @@
 	<div class="row">
 	<?php echo $this->getChildHtml('available_deals_pager'); ?>
 	</div>
+	
 	<?php } ?>
 	<ul class="awcp-category-grid medium-block-grid-3 large-block-grid-3">
     <?php $i = 0; foreach($this->getAvailableDeals() as $deal): ?>
@@ -170,7 +171,7 @@
 									<button class="button awcp-button"
 										<?php if ($this->hasOptions($deal)): ?>
 										onclick="Effect.toggle($('awcp-popup-options<?php echo $deal->getId(); ?>'),'appear');return false;"
-										<?php endif; ?>>
+										<?php endif; ?>
 										<span>
 												<?php echo $this->__('BUY NOW'); ?>
 										</span>
@@ -193,7 +194,7 @@
 	<?php } ?>
 </div>
 
-
+<?php echo $this->getChildHtml('available_deals_pager'); ?>
  <!-- Incorrect view of buttons in catalog -->
  <style>
  button.button span span {height:auto!important;}
