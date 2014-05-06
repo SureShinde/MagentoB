@@ -1058,9 +1058,6 @@ table.awcp-pricedata tr:nth-child(1) td{
 .sticky-header-wrapper ~ .header #nav-searchbar{
 	width:420px;
 }
-.header .quick-access .top-cart a.link-minicart, .sticky-header .sticky-top-cart a.link-minicart-sticky{
-	width:124px;
-}
 .footer .about-us, .footer address {
 	font-size:12px;
 	color:#767676;
