@@ -299,7 +299,7 @@ $max = count($dealSliders); ?>
 								<div class="price_deals_slider">
 									<p><?php echo Mage::helper('core')->currency($dealSlider->getPrice(), true, false); ?></p>
 										<div class="after_price">
-											<?php if($originalProduct->getFinalPrice() > 0) echo "<p>".Mage::helper('core')->currency($originalProduct->getFinalPrice(), true, false)."</p>"; ?>
+											<?php if($originalProduct->getPrice() > 0) echo "<p>".Mage::helper('core')->currency($originalProduct->getPrice(), true, false)."</p>"; ?>
 											<p><?php if($dealInfo->getPercentDiscount() <> "0") { echo $dealInfo->getPercentDiscount(); ?>% OFF<?php } ?></p>
 
 										</div>
