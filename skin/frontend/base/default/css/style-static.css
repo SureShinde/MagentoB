@@ -1211,10 +1211,10 @@ z-index: 999;
     /* margin-left: 440px; */
     padding: 20px !important;
     position: absolute !important;
-    top: 42px !important;
-    width: 460px !important;
+    top: 134px !important;
+    width: 490px !important;
 	display: none;
-	right: 0 !important;
+	right: 4.9% !important;
 	z-index: 99999 !important;
 }
 .title-gift-megamenu {
@@ -1506,7 +1506,7 @@ z-index: 999;
 .title-gift-megamenu {
 	text-align: left;
 	margin-bottom: 10px;
-	padding: 20px;
+	padding: 0 20px;
 }
 .title-gift-megamenu h2 {
 	color: #707070;
