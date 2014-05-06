@@ -270,7 +270,7 @@ $j(window).ready(function() {
 $i = 0;
 $max = count($dealSliders); ?>
 
-<div class="main">
+<div class="main slider-deals">
 	<div id="cbp-contentslider" class="cbp-contentslider">
 
 	<ul>
@@ -299,7 +299,7 @@ $max = count($dealSliders); ?>
 								<div class="price_deals_slider">
 									<p><?php echo Mage::helper('core')->currency($dealSlider->getPrice(), true, false); ?></p>
 										<div class="after_price">
-											<?php if($originalProduct->getFinalPrice() > 0) echo "<p>".Mage::helper('core')->currency($originalProduct->getFinalPrice(), true, false)."</p>"; ?>
+											<?php if($originalProduct->getPrice() > 0) echo "<p>".Mage::helper('core')->currency($originalProduct->getPrice(), true, false)."</p>"; ?>
 											<p><?php if($dealInfo->getPercentDiscount() <> "0") { echo $dealInfo->getPercentDiscount(); ?>% OFF<?php } ?></p>
 
 										</div>
@@ -328,11 +328,11 @@ $max = count($dealSliders); ?>
 									var seconds = <?php echo $seconds; ?>;
 
 									promoEnd = new Date(parseInt(year), parseInt(month)-1, parseInt(day), parseInt(hours), parseInt(minutes), parseInt(seconds));
-									jQuery('#defaultCountdown').countdown({until: promoEnd});
+									jQuery('#defaultCountdown_'+<?php echo $dealSlider->getId(); ?>).countdown({until: promoEnd});
 								});
 								</script>
 								<p><?php //echo $this->getTimeLeftToBuy($dealSlider); ?>
-									<div id="defaultCountdown"></div>
+									<div id="defaultCountdown_<?php echo $dealSlider->getId(); ?>"></div>
 								</p>
 								<!-- <p>hour(s) minute(s) second(s)</p> -->
 								<p>SOLD: <span><?php echo $this->getPurchasesCount($dealSlider->getId()); ?></span></p>

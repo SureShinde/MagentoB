@@ -135,7 +135,7 @@
                                                 <th class="last"><?php //echo $this->__('You save'); ?></th>
                                             </tr>-->
                                             <tr>
-                                                <td><?php echo Mage::helper('core')->currency($originalProduct->getFinalPrice(), true, false); ?></td>
+                                                <td><?php echo Mage::helper('core')->currency($originalProduct->getPrice(), true, false); ?></td>
 											</tr>
 											<tr>
 												<td><?php echo $dealInfo->getPercentDiscount(); ?>% OFF</td>
@@ -223,7 +223,7 @@
                                     <div class="awcp-mark-right">
                                         <div class="">
                                             <div class="content">
-                                                <div class="awcp-bought"><?php echo $this->__('SOLD :<span> %s </span> ', $this->getPurchasesCount($deal->getId())); ?></div>
+                                                <div class="awcp-bought hide"><?php echo $this->__('SOLD :<span> %s </span> ', $this->getPurchasesCount($deal->getId())); ?></div>
                                                 <div class="awcp-status"><?php echo $this->__('%s LEFT', $this->getPurchasesToReach($deal)); ?></div>
                                             </div>
                                         </div>

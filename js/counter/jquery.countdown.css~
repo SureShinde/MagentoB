@@ -51,4 +51,8 @@
 .countdown-descr {
 	display: block;
 	width: 100%;
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 06009bb5bc00f944a5ce648b0f5a16226d7281d5
