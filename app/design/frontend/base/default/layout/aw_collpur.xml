@@ -18,6 +18,10 @@
             <action method="addCss" ifconfig="collpur/general/enable">
                 <stylesheet>aw_collpur/css/styles.css</stylesheet>
             </action>
+			 <action method="addCss" ifconfig="collpur/general/enable">
+                <stylesheet>aw_collpur/css/component.css</stylesheet>
+            </action>
+			
         </reference>
         <reference name="top.links" ifconfig="collpur/general/enable">
             <block type="collpur/links" name="deal_link">
@@ -56,14 +60,14 @@
     <awcollpur_deals_list>
         <reference name="root">
             <action method="setTemplate">
-                <template>page/2columns-left.phtml</template>
+                <template>page/1column-deals.phtml</template>
             </action>
         </reference>
     </awcollpur_deals_list>
     <awcollpur_deals_view>
         <reference name="root">
             <action method="setTemplate">
-                <template>page/2columns-left.phtml</template>
+                <template>page/1column-deals.phtml</template>
             </action>
         </reference>
         <reference name="content">

@@ -191,8 +191,8 @@ jQuery(document).ready(function () {
 	        success: function(data){
 	            response = jQuery.parseJSON(data);
 	            if(response.status == true){
-	                dataLayer.push({'customer': JSON.stringify(response.data.customer)});
-	                dataLayer.push( {'order': JSON.stringify(response.data.order)} );
+	                dataLayer.push({'customer': response.data.customer});
+	                dataLayer.push( {'order': response.data.order} );
 	                dataLayer.push({'event': 'salesConversionEvent'});
 	                
 	            }else{

@@ -264,6 +264,7 @@ class AW_Blog_Block_Post extends AW_Blog_Block_Abstract
                 array(
                     'cat_id' => 'awblog_post_cat.cat_id'
                 ))
+     	    ->group('main_table.post_id')
             ->limit(5);
             
         return parent::_processCollection($posts);
