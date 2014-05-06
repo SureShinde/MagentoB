@@ -37,11 +37,13 @@
               $j(".search-container-new").addClass("search-for-sticky");
               $j(".link-minicart").addClass("cart-for-sticky");
               $j(".mini-cart").addClass("cart-block-detail");
+              $j(".link-checkout").addClass("checkout-for-sticky");
 	      } else {
 	          $j(".header-container .sticky-header-wrapper").fadeOut();
               $j(".search-container-new").removeClass("search-for-sticky");
               $j(".link-minicart").removeClass("cart-for-sticky");
               $j(".mini-cart").removeClass("cart-block-detail");
+              $j(".link-checkout").removeClass("checkout-for-sticky");
 	      }
 	      if ($j(this).scrollTop() > 100) {
 	          $j(".back-to-top").fadeIn();
@@ -170,7 +172,7 @@
 					</div>
 				</li>
 				<li class="link-customer-care td-contact-sticky">
-					<a href="#"><?php echo $this->__('Customer Care Center') ?></a></br>
+					<a href="#"><?php echo $this->__('Care Center') ?></a></br>
 					<div class="td-contact-sticky-cont"><?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('contact-sticky-detail')->toHtml() ?></div>
 				</li>
 				<li class="link-customer-care2"><a href="#" ><?php echo $this->__('Care Center') ?></a></li>

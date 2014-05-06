@@ -24,7 +24,7 @@
 }
 .awafpgrid ul li:hover {
 	background-color: #fff;
-	z-index: 10;
+	z-index: 1;
 	margin-left:0;
 	margin-right: 0;
 	border-color: transparent;
@@ -131,7 +131,7 @@
 }
 .awafpgrid .afp-thumbnail a img {
 	display: block;
-	z-index: 2;
+	z-index: 1;
 	position: relative;
 }
 .featured-category .awafpgrid ul {

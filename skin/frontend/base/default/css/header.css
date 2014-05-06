@@ -155,7 +155,7 @@
 	background: url(../images/icon-phone.png) no-repeat left top;
 	padding-left: 45px;
 	height: 28px;
-	line-height: 1.7em;
+	line-height: 2em;
 }
 .sticky-header ul.sticky-menu li.link-customer-care2 {
 	display: none;
@@ -647,6 +647,9 @@
 }
 .header .links li:first-child {
 	border-right: 1px solid #f1f1f1; 
+}
+.toplink-myaccount .header .links li:first-child {
+    border-right: none !important;
 }
 .header .links li.track-order, .header .links li.login {
 	padding-left: 7px;
@@ -1374,6 +1377,8 @@ top: 49px;
 .menu-tablet .links li.myaccount .toplink-myaccount {
 	left: auto;
 	right: 0;
+    min-width: 190px;
+    text-align: left;
 }
 
 
@@ -1726,7 +1731,7 @@ searchbar #nav-search-in {
     z-index: 2;
     width: 33%;
     padding-right: 33%;
-    margin-left: -93px;
+    margin-left: -173px;
     max-width: inherit;
 }
 
@@ -1737,9 +1742,27 @@ searchbar #nav-search-in {
     display: block;
     z-index: 3;
     width: 70px;
+    margin-right: 10.5%;
+    padding-bottom: 6px !important;
+    padding-top: 12px !important;
+    background-image: none !important;
+    padding-left: 10px !important;
+}
+
+.checkout-for-sticky {
+    position:fixed;
+    top: 0;
+    right: 0;
+    display: block;
+    z-index: 3;
+    width: 80px;
     margin-right: 4.9%;
-    padding-bottom: 7px !important;
-    padding-top: 8px !important;
+    padding-bottom: 6px !important;
+    padding-top: 12px !important;
+    background-image: none !important;
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+    text-align: center;
 }
 
 .header .menu-top-mobile-wood {
@@ -1761,7 +1784,7 @@ searchbar #nav-search-in {
 
 .cart-block-detail {
     position: fixed !important;
-    top: 37px !important;
+    top: 40px !important;
     right: 0 !important;
     margin-right: 4.9%;
     display: block;
@@ -1857,10 +1880,16 @@ searchbar #nav-search-in {
         top: 1px;
         display: block;
         z-index: 2;
-        width: 33% !important;
+        width: 28% !important;
         padding-right: 33%;
         margin-left: -93px;
         max-width: inherit !important;
+    }
+    .cart-for-sticky {
+        margin-right: 11.2%;
+    }
+    .checkout-for-sticky {
+        margin-right: 4.5%;
     }
 }
 /* --------------- 960 px layout -------------------- */
@@ -2023,6 +2052,9 @@ searchbar #nav-search-in {
         top: 2px;
         width: 32% !important;
         z-index: 2;
+    }
+    .cart-for-sticky {
+        margin-right: 4.9%;
     }
     
     #nav a.link-shopby {
