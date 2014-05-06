@@ -112,12 +112,12 @@ class AW_Affiliate_Adminhtml_CampaignController extends Mage_Adminhtml_Controlle
             }
             /*start added for save image/banner*/
             $imagedata = array();
-            if (!empty($_FILES['filename']['name']))
+            if (!empty($_FILES['image_name']['name']))
             {
                 try {
-                    $ext = substr($_FILES['filename']['name'], strrpos($_FILES['filename']['name'], '.') + 1);
+                    $ext = substr($_FILES['image_name']['name'], strrpos($_FILES['image_name']['name'], '.') + 1);
                     $fname = 'File-' . time() . '.' . $ext;
-                    $uploader = new Varien_File_Uploader('filename');
+                    $uploader = new Varien_File_Uploader('image_name');
                     $uploader->setAllowedExtensions(array('jpg', 'jpeg', 'gif', 'png'));
                     $uploader->setAllowRenameFiles(true);
                     $uploader->setFilesDispersion(false);
