@@ -83,11 +83,11 @@
 }
 .style-mom-baby .homepage-product.newarrival,
 .style-baby .homepage-product.newarrival {
-	background: url(../images/label.homepage-product.newarrival.png) no-repeat center top, url(../images/dash-2.png) repeat-x left 21px;
+	background: url(../images/label-new-arrival.png) no-repeat center top, url(../images/dash-2.png) repeat-x left 21px;
 }
 .style-mom-baby .homepage-product.mostpopular,
  .style-baby .homepage-product.mostpopular{
-	background: url(../images/label.homepage-product.mostpopular.png) no-repeat center top, url(../images/dash-2.png) repeat-x left 21px;
+	background: url(../images/label-most-popular.png) no-repeat center top, url(../images/dash-2.png) repeat-x left 21px;
 }
 .homepage-product h2 {
 	color: #fff;
