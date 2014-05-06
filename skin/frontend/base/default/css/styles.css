@@ -149,7 +149,7 @@ input.qty { width:2.5em !important; }
 button.button::-moz-focus-inner { padding:0; border:0; } /* FF Fix */
 button.button { -webkit-border-fit:lines; } /* <- Safari & Google Chrome Fix */
 button.button { overflow:visible; width:auto; border:0; padding:0; margin:0; background:transparent; cursor:pointer; }
-button.button span { display:block; height:19px; border:1px solid #de5400; background:#f18200; padding:0 8px; font:bold 12px/19px Arial, Helvetica, sans-serif; text-align:center; white-space:nowrap; color:#fff; }
+button.button span { display:block; height:39px; border:1px solid #de5400; background:#f18200; padding:0 8px; font:bold 12px/19px Arial, Helvetica, sans-serif; text-align:center; white-space:nowrap; color:#fff; }
 button.button span span { border:0; padding:0; }
 button.disabled span { border-color:#bbb !important; background:#bbb !important; }
 
@@ -2030,10 +2030,10 @@ tr.summary-details-excluded { font-style:italic; }
 	margin:10px 0;
 	}
 .style-perlengkapan-rumah div.block-layered-nav dd a.amshopby-attr{
-	background:url("../images/checkbox.png") no-repeat;
+	background:url("../images/checkbox-home.png") no-repeat;
 }
 .style-perlengkapan-rumah div.block-layered-nav dd a.amshopby-attr-selected{
-	background:url("../images/checked.png") no-repeat;
+	background:url("../images/checked-home.png") no-repeat;
 }
 .style-perlengkapan-rumah .breadcrumbs a{
 	color:#905350;
@@ -2042,7 +2042,7 @@ tr.summary-details-excluded { font-style:italic; }
 	color:#905350;
 }
 .style-perlengkapan-rumah .amshopby-slider-bar{
-	background:url("../images/slide-bar-current.png") repeat-x scroll 50% 50% rgba(0, 0, 0, 0);
+	background:url("../images/slide-bar-current-home.png") repeat-x scroll 50% 50% rgba(0, 0, 0, 0);
 }
 .style-perlengkapan-rumah .header .links a, .menu-tablet .links a{
 	color: #8F554D;
@@ -2078,14 +2078,14 @@ tr.summary-details-excluded { font-style:italic; }
     background: url("../images/scroll-up.png") no-repeat 0 0;
 }
 .style-perlengkapan-rumah .block-layered-nav dt.category + dd li a {
-    background: url("../images/arrow-2.png") no-repeat scroll right center rgba(0, 0, 0, 0);
+    background: url("../images/arrow-left-home.png") no-repeat scroll right center rgba(0, 0, 0, 0);
 	height:16px;
 	}
 
 .style-perlengkapan-rumah .tiny .overview{
 	position:relative;
 }
-/*======================Category page===================*/
+z/*======================Category page===================*/
 
 
 /*======================product page===================*/
@@ -2093,10 +2093,10 @@ tr.summary-details-excluded { font-style:italic; }
 	color:#905350;
 }
 .style-perlengkapan-rumah .product-view .product-img-box .more-views .bx-wrapper .bx-prev{
-	background: url("../images/arrow-nav-thumb-image.png") no-repeat ;
+	background: url("../images/arrow-nav-thumb-image-home.png") no-repeat ;
 }
 .style-perlengkapan-rumah .product-view .product-img-box .more-views .bx-wrapper .bx-next{
-	background: url("../images/arrow-nav-thumb-image.png") -30px 0 no-repeat ;
+	background: url("../images/arrow-nav-thumb-image-home.png") -30px 0 no-repeat ;
 	bottom: -15%;}
 .style-perlengkapan-rumah .product-view .product-img-box .more-views .bx-wrapper .bx-controls-direction a{
 	margin-top: -23px;
@@ -2151,10 +2151,10 @@ tr.summary-details-excluded { font-style:italic; }
     width: 30px;
 }
 .style-perlengkapan-rumah .product-tab-wrapper .hide_desc_button .bx-show {
-	background: url("../images/arrow-nav-thumb-image.png") no-repeat scroll -30px 0 rgba(0, 0, 0, 0);
+	background: url("../images/arrow-nav-thumb-image-home.png") no-repeat scroll -30px 0 rgba(0, 0, 0, 0);
 	}
 .style-perlengkapan-rumah .product-tab-wrapper .hide_desc_button .bx-hide {
-	background: url("../images/arrow-nav-thumb-image.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+	background: url("../images/arrow-nav-thumb-image-home.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 	}
 .style-perlengkapan-rumah .related-product .block-title{
 	background:none;
@@ -2184,7 +2184,7 @@ tr.summary-details-excluded { font-style:italic; }
 		width:35%;
 	}
 	.style-perlengkapan-rumah .nav-container-mobile ul li.cat-leveltop.parent {
-    background: url("../images/arrow-menu-mobile.png") no-repeat scroll 98% 17px rgba(0, 0, 0, 0);
+    background: url("../images/arrow-menu-mobile-home.png") no-repeat scroll 98% 17px rgba(0, 0, 0, 0);
 	}
     .style-perlengkapan-rumah .awafpgrid {display: none;}
 }
@@ -2606,7 +2606,7 @@ tr.summary-details-excluded { font-style:italic; }
 
 
 .style-perlengkapan-rumah .nav-container-mobile ul li.cat-leveltop {
-    background: url("../images/arrow-menu-mobile.png") no-repeat scroll 98% 17px rgba(0, 0, 0, 0);
+    background: url("../images/arrow-menu-mobile-home.png") no-repeat scroll 98% 17px rgba(0, 0, 0, 0);
 }
 @media only screen and ( max-width: 1215px) {
 	.style-perlengkapan-rumah .shopby{ 	
