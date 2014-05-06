@@ -328,11 +328,11 @@ $max = count($dealSliders); ?>
 									var seconds = <?php echo $seconds; ?>;
 
 									promoEnd = new Date(parseInt(year), parseInt(month)-1, parseInt(day), parseInt(hours), parseInt(minutes), parseInt(seconds));
-									jQuery('#defaultCountdown').countdown({until: promoEnd});
+									jQuery('#defaultCountdown_'+<?php echo $dealSlider->getId(); ?>).countdown({until: promoEnd});
 								});
 								</script>
 								<p><?php //echo $this->getTimeLeftToBuy($dealSlider); ?>
-									<div id="defaultCountdown"></div>
+									<div id="defaultCountdown_<?php echo $dealSlider->getId(); ?>"></div>
 								</p>
 								<!-- <p>hour(s) minute(s) second(s)</p> -->
 								<p>SOLD: <span><?php echo $this->getPurchasesCount($dealSlider->getId()); ?></span></p>

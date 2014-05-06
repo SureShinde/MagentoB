@@ -90,7 +90,6 @@
 	 background:rgba(140, 140, 140, 0.9);
     padding: 5px;
 	position:absolute;
-	left:0;
 	bottom:0;
 	right:0;
 }
@@ -1041,9 +1040,11 @@ table.awcp-pricedata tr:nth-child(1) td{
 	}
 .share_label{
 	font-family:'bebasregular';
+	margin:10px 0;
 }
 .store-phone{
 	font-size:12px;
+	color:#707070;
 }
 .awcollpur-deals-view .awcp-buy-button  span{
 	background:none;
@@ -1059,6 +1060,13 @@ table.awcp-pricedata tr:nth-child(1) td{
 }
 .header .quick-access .top-cart a.link-minicart, .sticky-header .sticky-top-cart a.link-minicart-sticky{
 	width:124px;
+}
+.footer .about-us, .footer address {
+	font-size:12px;
+	color:#767676;
+}
+.awcollpur-deals-list .awcp-buy-button span{
+	background:none;
 }
 @media only screen and (min-width: 767px){
 	.right_detail {
@@ -1231,7 +1239,7 @@ table.awcp-pricedata tr:nth-child(1) td{
 		margin:15px 10px;
 	}
 	.row{
-	width:745px;
+		width:745px;
 	}
 }
 @media only screen and (max-width: 767px){
