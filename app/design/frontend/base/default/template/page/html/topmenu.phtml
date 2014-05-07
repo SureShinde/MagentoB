@@ -46,10 +46,8 @@
                         <li class="level0 level-top shop-by">
                             <span>Shop by</span>
                             <a class="level-top link-shopby" href="#">Shop by</a>
-                            <div class="shopby">
 								<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('shopby-' . $_storeCategory->getUrlKey())->toHtml() ?>
                                 <?php //echo $shopbyStaticBlock->getContent(); ?>
-                            </div>
                         </li>
                     <?php //endif; ?>
                     
