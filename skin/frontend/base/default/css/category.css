@@ -715,12 +715,7 @@ a.triger-showfilter {
 	clear: both;
     margin: 0 0 20px;
 }
-.style-baby .homepage-bottom ul.block-wrapper,
-.style-perlengkapan-rumah .homepage-bottom ul.block-wrapper {
-	list-style: none;
-	padding: 0;
-	margin: 0;
-}
+
 
 .style-baby .homepage-bottom ul.block-wrapper li,
 .style-perlengkapan-rumah .homepage-bottom ul.block-wrapper li{
