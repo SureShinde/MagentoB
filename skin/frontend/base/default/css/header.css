@@ -1036,6 +1036,9 @@
 #nav li.level-top.nav-for-moms, #nav li.level-top.nav-gift-sets, #nav li.level-top.nav-set-hadiah-bayi-dan-anak {
     max-width: 63px;
 }
+#nav li.level-top.nav-gift-sets a.level-top, #nav li.nav-set-hadiah-bayi-dan-anak a.level-top {
+        width: 63px;
+}
 #nav li.level-top:hover {
 	background: #fff;
 }
@@ -1069,6 +1072,9 @@
 	width: 68px;
 	height: 42px;
 	background: url(../images/sale.png) no-repeat center center;
+}
+#nav li.nav-sale a.level-top, #nav li.nav-produk-diskon a.level-top {
+		width: 68px;
 }
 #nav li.nav-sale, #nav li.nav-produk-diskon {float: right;}
 #nav li.nav-sale a span span, #nav li.nav-produk-diskon a span span {display: none;}
@@ -1982,6 +1988,10 @@ searchbar #nav-search-in {
 		width: 50px;
 		background-size: 100% auto;
 	}
+    #nav li.nav-sale a.level-top, #nav li.nav-produk-diskon a.level-top {
+		width: 50px;
+		background-size: 100% auto;
+	}
 	#nav li.menu-salegift a.giftideas, #nav a.level-top.giftideas {
 		width: 35px;
 		background-size: 100% auto;
@@ -1990,7 +2000,10 @@ searchbar #nav-search-in {
 		padding: 0;
 	}
     #nav li.level-top.nav-for-moms, #nav li.level-top.nav-gift-sets, #nav li.nav-set-hadiah-bayi-dan-anak {
-        max-width: 40px;
+        max-width: 30px;
+    }
+    #nav li.level-top.nav-gift-sets a.level-top, #nav li.nav-set-hadiah-bayi-dan-anak a.level-top {
+        width: 30px;
     }
 	.menu-tablet {
 		display: block;
