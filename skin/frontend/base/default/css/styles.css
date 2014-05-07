@@ -2195,7 +2195,7 @@ tr.summary-details-excluded { font-style:italic; }
     float: left;
     margin: 0 9px 34px;
 }
-.style-baby .homepage-bottom .block-wrapper,
+.cms-home .homepage-bottom .block-wrapper, .style-baby .homepage-bottom .block-wrapper,
 .style-perlengkapan-rumah .homepage-bottom .block-wrapper
  {
 	clear: both;
