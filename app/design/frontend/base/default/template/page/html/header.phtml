@@ -135,6 +135,29 @@
 </script>
 
 <script>
+$j(document).ready(function(){
+    $j("ul#nav li.parent a, .level-hover").hover(
+            function() {
+                $j('#nav-perlengkapan-rumah ul#nav li.parent').removeClass('over');
+                $j('#nav-perlengkapan-rumah ul#nav li.parent a').removeClass('over');
+                $j(this).parent().addClass('over');
+                $j(this).addClass('over');
+                $j(this).parent().children('ul').addClass('shown-sub');
+
+                if (wwidth < 768) {
+                    return  false;
+                }
+            },
+            function() {
+                $j(this).parent().removeClass('over');
+                $j(this).removeClass('over');
+                $j(this).parent().children('ul').removeClass('shown-sub');
+            }
+        );
+});
+</script>
+
+<script>
      $j(document).ready(function(){
       $j("option.call-eng").click(function(){
         $j("select.country").addClass("english-lang");
