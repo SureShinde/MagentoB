@@ -1088,6 +1088,29 @@ table.awcp-pricedata tr:nth-child(1) td{
 	padding:6px 9px !important;
 	display:table !important;
 }
+.pager .limiter.deals label,.pager .limiter.deals ul, .pager .limiter.deals ul li{
+	float:left;
+}
+.pager .limiter.deals label{
+	margin:0 5px 0 0;
+}
+.pager .limiter.deals li a{
+	text-decoration:none;
+	color:#fd552e;
+ }
+.pager .limiter.deals li.active-page a{
+	color:#9d9d9d;
+}
+.pager .limiter.deals li a:after{
+	margin:0 5px;	
+	content:"/";
+}
+.pager .limiter.deals li:last-child a:after{
+	content:"";
+}
+.pager .limiter.deals li:last-child:after{
+	content:"";
+}
 @media only screen and (min-width: 767px){
 	.right_detail {
     padding-right: 0;
