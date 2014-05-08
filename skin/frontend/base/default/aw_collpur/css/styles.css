@@ -696,7 +696,6 @@ table.awcp-pricedata tr:nth-child(1) td{
 .awcp-mark-center .desc_short_deals{
 	font-size:12px;
 	color:#fff;
-	max-height:17px;
 	overflow:hidden;
 	display:block;
 	margin:0 0 2px;
@@ -1271,8 +1270,14 @@ table.awcp-pricedata tr:nth-child(1) td{
 	.slider_image{
 	width:1143px !important;
 	}
+	.sticky-header-wrapper ~ .header #nav-searchbar{
+		width:300px;
+	}
 }
 @media only screen and (max-width: 1023px){
+	.sticky-header-wrapper ~ .header #nav-searchbar{
+		width:225px;
+	}
 	.awcp-buy-button .awcp-buy, .orbit-caption .awcp-buy{
 		margin:15px 10px;
 	}

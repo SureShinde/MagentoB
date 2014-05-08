@@ -272,17 +272,21 @@ html, body, .container, .main { height: 100%;}
 	}
 }
 @media only screen and (max-width: 768px){
+
 	.desc_deals_slider2{
 		width:100%;
-		border-bottom:1px solid #d6d6d6 !important;
 	}
 	.right_detail_deals{
 		display:none !important;
 	}
 	.date_slider_deals{
+	 border-left: 1px solid #FFFFFF !important;
+    border-right: 1px solid #FFFFFF !important;
 	border:none !important;
-	padding:10px 10px 0;
 	width: 58%;
+	}
+	.cbp-contentslider > ul li img {
+    margin-bottom: 110px;
 	}
 	.cbp-contentslider .large_thumb{
 		display:none;
@@ -299,9 +303,7 @@ html, body, .container, .main { height: 100%;}
 	.cbp-contentslider > ul li{
 		height: auto;
 	}
-	.cbp-contentslider > ul li img {
-		margin-bottom: 203px;
-	}
+	
 	.cbp-contentslider{
 		height:500px;
 	}
@@ -325,7 +327,7 @@ html, body, .container, .main { height: 100%;}
 	display: table;
     left: 0;
     position: absolute;
-    bottom: 206px;
+    bottom: 112px;
     z-index: 999;
 }
 .thumb_angka_area .thumb_angka{
@@ -392,8 +394,17 @@ html, body, .container, .main { height: 100%;}
 	width:100% !important;
 }
 }
-
-
-@media only screen and (min-width: 321px) and (max-width: 615px){
-	
+@media only screen and (max-width: 640px){
+	.thumb_angka_area{
+		bottom: 206px;
+	}
+	.cbp-contentslider > ul li img {
+		margin-bottom: 203px;
+	}
+	.desc_deals_slider2{
+		border-bottom:1px solid #d6d6d6 !important;
+	}
+	.date_slider_deals{
+	padding:10px 10px 0;
+	}
 }
