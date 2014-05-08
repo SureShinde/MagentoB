@@ -385,6 +385,12 @@ html, body, .container, .main { height: 100%;}
 .price_deals_slider_slider .after_price p:nth-child(1){
 	color:#f75d2b;
 }
+.sticky-header-wrapper ~ .header #nav-searchbar{
+	width:auto;
+}
+.search-container-new-mobile{
+	width:100% !important;
+}
 }
 
 
