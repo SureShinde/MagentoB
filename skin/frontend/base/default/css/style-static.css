@@ -1213,7 +1213,7 @@ z-index: 999;
     position: absolute !important;
     top: 134px !important;
     width: 490px !important;
-	display: none;
+	display: block;
 	right: 4.9% !important;
 	z-index: 99999 !important;
 }

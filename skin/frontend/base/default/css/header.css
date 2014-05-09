@@ -1024,6 +1024,12 @@
 	box-shadow: 1px 1px 4px 0 #ccc;
 	z-index: 99;
 }
+#nav li.nav-set-hadiah-bayi-dan-anak .level-hover {
+    background: #fcfcfc url(../images/shadow.png) repeat-x left top;
+}
+#nav li.nav-set-hadiah-bayi-dan-anak .level-hover .view-box li a:hover {
+    color: #36CCAF !important;
+}
 #nav .level-hover.shown-sub {
 	display: block;
 }
@@ -1033,13 +1039,17 @@
 	display: block;
 	vertical-align: middle;
 }
-#nav li.level-top.nav-for-moms, #nav li.level-top.nav-gift-sets {
+#nav li.level-top.nav-for-moms, #nav li.level-top.nav-gift-sets, #nav li.level-top.nav-set-hadiah-bayi-dan-anak {
     max-width: 63px;
+}
+#nav li.level-top.nav-gift-sets a.level-top, #nav li.nav-set-hadiah-bayi-dan-anak a.level-top {
+        width: 63px;
 }
 #nav li.level-top:hover {
 	background: #fff;
 }
-#nav li.level-top.nav-sale:hover {
+#nav li.level-top.nav-sale:hover,
+#nav li.level-top.nav-produk-diskon:hover {
 	background: url("../images/sale.png") no-repeat scroll center center #fff;
 }
 #nav li.level-top:hover a.level-top {
@@ -1060,19 +1070,22 @@
 	float: left;
 	width: auto;
 }
-#nav li.menu-salegift a.sale, #nav li.menu-salegift a.giftideas, #nav li.nav-sale, nav li.nav-our-choice {
+#nav li.menu-salegift a.sale, #nav li.menu-salegift a.giftideas, #nav li.nav-sale, #nav li.nav-produk-diskon, nav li.nav-our-choice {
 	text-indent: -99999px;
 	padding: 0;
 }
-#nav li.menu-salegift a.sale, #nav a.level-top.sale, #nav li.nav-sale {
+#nav li.menu-salegift a.sale, #nav a.level-top.sale, #nav li.nav-sale, #nav li.nav-produk-diskon {
 	width: 68px;
 	height: 42px;
 	background: url(../images/sale.png) no-repeat center center;
 }
-#nav li.nav-sale {float: right;}
-#nav li.nav-sale a span span {display: none;}
-#nav li.nav-gift-sets {float: right;}
-#nav li.nav-gift-sets a span span {color: #FEE13A;}
+#nav li.nav-sale a.level-top, #nav li.nav-produk-diskon a.level-top {
+		width: 68px;
+}
+#nav li.nav-sale, #nav li.nav-produk-diskon {float: right;}
+#nav li.nav-sale a span span, #nav li.nav-produk-diskon a span span {display: none;}
+#nav li.nav-gift-sets, #nav li.nav-set-hadiah-bayi-dan-anak {float: right;}
+#nav li.nav-gift-sets a span span, #nav li.nav-set-hadiah-bayi-dan-anak a span span {color: #FEE13A;}
 #nav li.nav-our-choice {float: right;}
 #nav li.nav-our-choice a span span {display: none;}
 #nav li.menu-salegift a.giftideas, #nav a.level-top.giftideas {
@@ -1095,7 +1108,7 @@
 	padding: 0 5px;
 }
 
-#nav li.level-top.parent-6 ul.shown-sub, #nav li.level-top.parent-7 ul.shown-sub, #nav li.level-top.parent-8 ul.shown-sub, #nav li.level-top.parent-9 ul.shown-sub, #nav li.level-top.parent-10 ul.shown-sub, #nav li.level-top.parent-11 ul.shown-sub {
+#nav li.level-top.parent-8 ul.shown-sub, #nav li.level-top.parent-9 ul.shown-sub, #nav li.level-top.parent-10 ul.shown-sub, #nav li.level-top.parent-11 ul.shown-sub, #nav li.level-top.nav-set-hadiah-bayi-dan-anak ul.shown-sub {
 	right: 0;
 	left: auto;
 }
@@ -2148,6 +2161,10 @@ searchbar #nav-search-in {
 }
 
 @media only screen and (max-width: 1215px) {
+    #nav li.level-top.parent-8 ul.shown-sub {
+        right: auto;
+        left: 0;
+    }
 	.header, #nav, .sticky-header {
 		width: 994px;
 	}
@@ -2334,7 +2351,11 @@ searchbar #nav-search-in {
 		left: 0;
 		z-index: 99;
 	}
-	#nav li.menu-salegift a.sale, #nav a.level-top.sale, #nav li.nav-sale {
+	#nav li.menu-salegift a.sale, #nav a.level-top.sale, #nav li.nav-sale, #nav li.nav-produk-diskon {
+		width: 50px;
+		background-size: 100% auto;
+	}
+    #nav li.nav-sale a.level-top, #nav li.nav-produk-diskon a.level-top {
 		width: 50px;
 		background-size: 100% auto;
 	}
@@ -2345,8 +2366,11 @@ searchbar #nav-search-in {
 	#nav a.level-top.sale, #nav a.level-top.giftideas {
 		padding: 0;
 	}
-    #nav li.level-top.nav-for-moms, #nav li.level-top.nav-gift-sets {
-        max-width: 40px;
+    #nav li.level-top.nav-for-moms, #nav li.level-top.nav-gift-sets, #nav li.nav-set-hadiah-bayi-dan-anak {
+        max-width: 30px;
+    }
+    #nav li.level-top.nav-gift-sets a.level-top, #nav li.nav-set-hadiah-bayi-dan-anak a.level-top {
+        width: 30px;
     }
 	.menu-tablet {
 		display: block;
