@@ -12,8 +12,8 @@ class Bilna_Staticarea_Block_Adminhtml_Manage_Edit extends Mage_Adminhtml_Block_
 		$this->_blockGroup = 'staticarea';
 		$this->_controller = 'adminhtml_manage';
 	
-		$this->_updateButton('save', 'label', Mage::helper('staticarea')->__('Save Static Area'));
-		$this->_updateButton('delete', 'label', Mage::helper('staticarea')->__('Delete Static Area'));
+		//$this->_updateButton('save', 'label', Mage::helper('staticarea')->__('Save Static Area'));
+		//$this->_updateButton('delete', 'label', Mage::helper('staticarea')->__('Delete Static Area'));
 	
 		if($this->getRequest()->getParam('id')) {
             $this->_addButton('addcontent', array(
@@ -24,7 +24,7 @@ class Bilna_Staticarea_Block_Adminhtml_Manage_Edit extends Mage_Adminhtml_Block_
             ), 0);
         }
 
-		$this->_addButton('saveandcontinue', array(
+		$this->_addButton('saveandcontinueedit', array(
 				'label' => Mage::helper('staticarea')->__('Save And Continue Edit'),
 				'onclick' => 'bilnaStaticareaSaveAndContinueEdit()',
 				'class' => 'save',
@@ -37,21 +37,23 @@ class Bilna_Staticarea_Block_Adminhtml_Manage_Edit extends Mage_Adminhtml_Block_
             bilnaISAjaxForm.showForm(".$this->getRequest()->getParam('id').");
         }
         function bilnastaticarea_prepareForm() {
+
         }
         function bilnaStaticareaSaveAndContinueEdit() {
-            if($('edit_form').action.indexOf('continue/1/')<0)
+            if($('edit_form').action.indexOf('continue/1/')<0){
                 $('edit_form').action += 'continue/1/';
-            if($('edit_form').action.indexOf('continue_tab/')<0)
+            }
+            if($('edit_form').action.indexOf('continue_tab/')<0){
                 $('edit_form').action += 'continue_tab/'+staticarea_tabsJsTabs.activeTab.name+'/';
+			}                
             bilnastaticarea_prepareForm();
-            editForm.submit();
+            editForm.submit($('edit_form').action+'back/edit/');
         }
+
         if(bilnaISSettings)
             bilnaISSettings.setOption('imagesAjaxFormUrl', '{$this->getUrl('staticarea/adminhtml_manage/ajaxform')}');
 	
-        function saveAndContinueEdit(){
-            editForm.submit($('edit_form').action+'back/edit/');
-        }
+        
         ";
 	}
 	
