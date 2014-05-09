@@ -31,7 +31,11 @@
  * @see Mage_Page_Block_Html_Pager
  */
 ?>
-<?php if($this->getCollection()->getSize()): ?>
+<?php 
+if($this->getPageVarName() == "deals"){
+
+}else{
+	if($this->getCollection()->getSize()): ?>
     <?php if($this->getUseContainer()): ?>
     	<div class="pager">
     		<div class="pager-wrapper">
@@ -148,5 +152,7 @@
    
     <?php if($this->getUseContainer()): ?>
     </div>
-    <?php endif ?>
-<?php endif ?>
+    <?php endif;
+    endif;
+}
+?>
