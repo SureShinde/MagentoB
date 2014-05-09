@@ -362,6 +362,13 @@
     float: left;
     height:auto;
 }
+.awcollpur-deals-list .keypoint ul li, .awcollpur-deals-view .keypoint ul li {
+	display: inline-block;
+	padding: 0 0 0 40px;
+	width: 28%;
+    float: left;
+    height:auto;
+}
 .keypoint ul li span {
 	display: block;
 	text-transform: uppercase;
@@ -1153,7 +1160,7 @@ border-width: 7px 25px;
 content: "";
 position: absolute;
 right: 0;
-top: 49px;
+top: 48px;
 }
 #nav span {
 	white-space: inherit;

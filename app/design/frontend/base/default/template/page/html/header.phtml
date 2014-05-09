@@ -234,7 +234,11 @@ $j(document).ready(function(){
                         <li id="<?php echo $_storeCategory->getUrlKey(); ?>" class="web-<?php echo $_storeCategory->getUrlKey(); ?> <?php echo $_storeCategoryClass; ?>">
                             <a id="<?php echo $_storeCategory->getUrlKey(); ?>" class="menu-top-hover" href="<?php echo $_helper->getCategoryUrl($_storeCategory); ?>"><?php echo $this->__($_storeCategory->getName()); ?></a>
                         </li>
+						
                     <?php endforeach; ?>
+						<li id="baby" class="web-deals">
+                            <a id="deals" class="menu-top-hover" href="<?php echo Mage::getBaseUrl(); ?>deals">deals</a>
+                        </li>
                 </ul>
             </div>
         <?php endif; ?>
@@ -306,6 +310,9 @@ $j(document).ready(function(){
                         </li>
                     <?php endforeach; ?>
                 <?php endif; ?>
+						<li class="mobile-deals">
+                            <a href="<?php echo Mage::getBaseUrl(); ?>deals">DEALS</a>
+                        </li>
             </ul>
         </div>
         <div class="menu-top-mobile-wood"></div>

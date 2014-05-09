@@ -293,7 +293,7 @@ $max = count($dealSliders); ?>
 					<a class="" href="<?php echo $this->getDealPageLink($dealSlider->getId()); ?>">		
 					<div style="display: block; color: #fff; font-size: 16px; font-weight: bold; ">
 						<div class="orbit-caption">
-							<div class="column large-5 medium-5 small-5 desc_deals_slider2">
+							<div class="column large-5 medium-5 small-12 desc_deals_slider2">
 								<label>TODAY'S DEALS</label>
 								<p class="judul_deals_slider"><?php echo $dealSlider->getDealName(); ?></p>
 								<div class="price_deals_slider">
@@ -305,7 +305,7 @@ $max = count($dealSliders); ?>
 										</div>
 								</div>
 							</div>
-							<div class="column large-4 medium-4 small-4 date_slider_deals">
+							<div class="column large-4 medium-4 small-7 date_slider_deals">
 								<label>PROMO END IN:</label>
 								<?php
                                 $availableTo = Mage::getModel('core/date')->timestamp(strtotime($dealSlider->getAvailableTo()));
@@ -337,7 +337,7 @@ $max = count($dealSliders); ?>
 								<!-- <p>hour(s) minute(s) second(s)</p> -->
 								<p>SOLD: <span><?php echo $this->getPurchasesCount($dealSlider->getId()); ?></span></p>
 							</div>
-							<div class="column large-3 medium-3 small-3">
+							<div class="column large-3 medium-3 small-5">
 								<form action="<?php echo Mage::getUrl('checkout/cart/add', array('_secure'=>true,'product' => $dealSlider->getProduct()->getId(), 'deal_id' => $dealSlider->getId(), 'form_key' => Mage::getSingleton('core/session')->getFormKey())) ?>" method="post" class="right_detail_deals_slider" id="product_addtocart_form">
 									<div class="awcp-buy-button ">
 										<!-- POPUP -->

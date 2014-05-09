@@ -629,9 +629,12 @@ LI#googleplusli {
 	font-size:12px;
 }
 .left_detail{
-	padding: 0;
+	padding: 0 !important;
 	color:#fff;
 	background-color:#e0e0e0;
+}
+div.awcp-full-description ol li{
+	line-height:18px;
 }
 table.awcp-pricedata tr:nth-child(2){
 	background:none;
@@ -693,7 +696,6 @@ table.awcp-pricedata tr:nth-child(1) td{
 .awcp-mark-center .desc_short_deals{
 	font-size:12px;
 	color:#fff;
-	max-height:17px;
 	overflow:hidden;
 	display:block;
 	margin:0 0 2px;
@@ -786,7 +788,7 @@ table.awcp-pricedata tr:nth-child(1) td{
 	position:absolute;
 	top:0;
 	border-style:solid none solid solid;
-	right:-1px;
+	right:-5px;
 }
 .also_like{
 	font-size:14px;
@@ -1033,10 +1035,10 @@ table.awcp-pricedata tr:nth-child(1) td{
 	content:"►";
 }
 .left_detail{
-		float:left;
+		float:left !important;
 	}
 .right_detail{
-		float:right;
+		float:right !important;
 	}
 .share_label{
 	font-family:'bebasregular';
@@ -1064,6 +1066,49 @@ table.awcp-pricedata tr:nth-child(1) td{
 }
 .awcollpur-deals-list .awcp-buy-button span{
 	background:none;
+}
+.footer .payment-partners{
+	display:table;
+}
+.link-checkout.checkout-for-sticky, .link-minicart.cart-for-sticky {
+    line-height: 22px !important;
+    padding: 8px !important;
+    width: 91px;
+}
+.link-minicart.cart-for-sticky{
+	margin-right:11%;
+}
+#backtotop a{
+	background:#F75A2F;
+}
+.awcollpur-deals-view #nav a.link-shopby, .awcollpur-deals-list #nav a.link-shopby{
+	height:auto !important;
+	width:auto !important;
+	padding:6px 9px !important;
+	display:table !important;
+}
+.pager .limiter.deals label,.pager .limiter.deals ul, .pager .limiter.deals ul li{
+	float:left;
+}
+.pager .limiter.deals label{
+	margin:0 5px 0 0;
+}
+.pager .limiter.deals li a{
+	text-decoration:none;
+	color:#fd552e;
+ }
+.pager .limiter.deals li.active-page a{
+	color:#9d9d9d;
+}
+.pager .limiter.deals li a:after{
+	margin:0 5px;	
+	content:"/";
+}
+.pager .limiter.deals li:last-child a:after{
+	content:"";
+}
+.pager .limiter.deals li:last-child:after{
+	content:"";
 }
 @media only screen and (min-width: 767px){
 	.right_detail {
@@ -1145,12 +1190,7 @@ table.awcp-pricedata tr:nth-child(1) td{
 	.awcp-item:hover .awcp-mark-center{
 		padding:none;
 	}
-	.shiping_partner,.payment_partner,.footer .about-us, .back_list, .also_like {
-		display:none;
-	}
-	.footer-bottom{
-	margin:20px;
-	}
+	
 	.share{
 	position:relative;
 	top:10px;
@@ -1190,10 +1230,10 @@ table.awcp-pricedata tr:nth-child(1) td{
 	.main_detail{
 	}
 	.left_detail{
-		float:right;
+		float:right ;
 	}
 	.right_detail{
-		float:left;
+		float:left ;
 	}
 	.awcp-product-img-box .awcp-product-img{
 		position: relative;
@@ -1212,7 +1252,7 @@ table.awcp-pricedata tr:nth-child(1) td{
 }
 
 .row{
-	max-width:1216px;
+	max-width:1216px !important;
 	}
 @media only screen and (min-width: 1215px){
 .row-list{
@@ -1230,8 +1270,14 @@ table.awcp-pricedata tr:nth-child(1) td{
 	.slider_image{
 	width:1143px !important;
 	}
+	.sticky-header-wrapper ~ .header #nav-searchbar{
+		width:300px;
+	}
 }
 @media only screen and (max-width: 1023px){
+	.sticky-header-wrapper ~ .header #nav-searchbar{
+		width:225px;
+	}
 	.awcp-buy-button .awcp-buy, .orbit-caption .awcp-buy{
 		margin:15px 10px;
 	}
