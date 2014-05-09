@@ -33,7 +33,27 @@
 ?>
 <?php 
 if($this->getPageVarName() == "deals"){
-
+?>
+<!-------Deals pager-------------->
+	<?php if($this->getShowPerPage()): ?>
+    <div class="limiter deals" style="">
+        <label><?php echo $this->__('View') ?></label>
+		<ul>
+        <?php foreach ($this->getAvailableLimit() as  $_key=>$_limit): ?>
+			<li<?php if($this->isLimitCurrent($_key)): ?> class="active-page"<?php endif ?>><a href="<?php echo $this->getLimitUrl($_key) ?>"><?php echo $_limit; ?></a></li>
+        <?php endforeach; ?>
+		</ul>
+        <!--<select onchange="setLocation(this.value)">
+        <?php foreach ($this->getAvailableLimit() as  $_key=>$_limit): ?>
+            <option value="<?php echo $this->getLimitUrl($_key) ?>"<?php if($this->isLimitCurrent($_key)): ?> selected="selected"<?php endif ?>>
+                <?php echo $_limit ?>
+            </option>
+        <?php endforeach; ?>
+        </select> <?php echo $this->__('per page') ?>-->
+    </div>
+    <?php endif ?>
+		<!-------Deals pager-------------->
+		<?php 
 }else{
 	if($this->getCollection()->getSize()): ?>
     <?php if($this->getUseContainer()): ?>
@@ -63,26 +83,6 @@ if($this->getPageVarName() == "deals"){
 	        </select> <?php echo $this->__('per page') ?>
 	    </div>
 	    <?php endif ?>
-		
-		<!-------Deals pager-------------->
-	<?php if($this->getShowPerPage()): ?>
-    <div class="limiter deals" style="display:none;">
-        <label><?php echo $this->__('View') ?></label>
-		<ul>
-        <?php foreach ($this->getAvailableLimit() as  $_key=>$_limit): ?>
-			<li<?php if($this->isLimitCurrent($_key)): ?> class="active-page"<?php endif ?>><a href="<?php echo $this->getLimitUrl($_key) ?>"><?php echo $_limit; ?></a></li>
-        <?php endforeach; ?>
-		</ul>
-        <!--<select onchange="setLocation(this.value)">
-        <?php foreach ($this->getAvailableLimit() as  $_key=>$_limit): ?>
-            <option value="<?php echo $this->getLimitUrl($_key) ?>"<?php if($this->isLimitCurrent($_key)): ?> selected="selected"<?php endif ?>>
-                <?php echo $_limit ?>
-            </option>
-        <?php endforeach; ?>
-        </select> <?php echo $this->__('per page') ?>-->
-    </div>
-    <?php endif ?>
-		<!-------Deals pager-------------->
 		
 	    <?php if($this->getLastPageNum()>1): ?>
 	    <div class="pages">
