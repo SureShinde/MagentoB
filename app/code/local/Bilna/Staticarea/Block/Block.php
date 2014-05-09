@@ -28,7 +28,7 @@ class Bilna_Staticarea_Block_Block extends Mage_Core_Block_Template {
                 $this->_block->getSelect()
 					->joinLeft(
 						array( 'staticarea' => Mage::getSingleton('core/resource')->getTableName('staticarea/manage') ),
-						"main_table.staticarea_id = staticarea.id",
+						"main_table.staticarea_id = staticarea.id AND staticarea.status_area=1",
 						array( 
 							'area_name' => 'staticarea.area_name',
                             'type' => 'staticarea.type'
