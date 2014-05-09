@@ -1241,7 +1241,10 @@ top: 49px;
 }
 
 .shopby ul.shop-by li a:hover {color: #4EC7DA;}
-
+.homepage-top-block .shopby ul a{
+	clear:both;
+	display:block;
+}
 .shopby ul.shop-by li span.title, .submenu span.title, #nav ul li .left-columns h2 {
 	color: #707070;
 	font-size: 1.1em;
@@ -1296,7 +1299,7 @@ top: 49px;
 #nav .shopby ul.shop-by li span.title {
 	padding: 0;
 }
-#nav .shopby ul.shop-by li a {
+#nav .shopby ul.shop-by li a, #nav .shopby ul.shop-by a li, #nav .shopby ul.shop-by a {
 	font-size: 0.9em;
 	color: #707070 !important;
 	font-family: Helvetica;
@@ -1304,7 +1307,7 @@ top: 49px;
 	text-transform: capitalize;
 	letter-spacing: normal;
 }
-#nav .shopby ul.shop-by li a:hover {color: #4EC7DA !important;}
+#nav .shopby ul.shop-by a li:hover, #nav .shopby ul.shop-by li a:hover {color: #4EC7DA !important;}
 #nav li .shown-sub li div.shown-sub { left:0; }
 .header a.nav-mobile-trigger, .nav-mobile, .nav-mobile .nav-container #nav li.shop-by {
 	display: none;

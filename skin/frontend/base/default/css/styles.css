@@ -2191,7 +2191,18 @@ z/*======================Category page===================*/
 
 
 /* ------------- ADD from homepage.css ----------------- */
-
+.homepage-bottom .block-wrapper > a {
+    float: left;
+    margin: 0 9px 34px;
+}
+.cms-home .homepage-bottom .block-wrapper, .style-baby .homepage-bottom .block-wrapper,
+.style-perlengkapan-rumah .homepage-bottom .block-wrapper
+ {
+	clear: both;
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
 .style-perlengkapan-rumah .cms-index-defaultindex .products-on-sale h2, .style-perlengkapan-rumah .cms-index-defaultindex .new-arrival h2, .style-perlengkapan-rumah .cms-index-defaultindex .most-popular h2{
 	background: url("../images/shd_featured_title.png") repeat-x scroll center bottom rgba(0, 0, 0, 0);
 	color: #707070;
