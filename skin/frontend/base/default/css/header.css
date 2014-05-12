@@ -1070,7 +1070,7 @@
 	float: left;
 	width: auto;
 }
-#nav li.menu-salegift a.sale, #nav li.menu-salegift a.giftideas, #nav li.nav-sale, #nav li.nav-produk-diskon, nav li.nav-our-choice {
+#nav li.menu-salegift a.sale, #nav li.menu-salegift a.giftideas, #nav li.nav-sale, #nav li.nav-produk-diskon, nav li.nav-our-choice, nav li.nav-pilihan-kami {
 	text-indent: -99999px;
 	padding: 0;
 }
@@ -1086,20 +1086,20 @@
 #nav li.nav-sale a span span, #nav li.nav-produk-diskon a span span {display: none;}
 #nav li.nav-gift-sets, #nav li.nav-set-hadiah-bayi-dan-anak {float: right;}
 #nav li.nav-gift-sets a span span, #nav li.nav-set-hadiah-bayi-dan-anak a span span {color: #FEE13A;}
-#nav li.nav-our-choice {float: right;}
-#nav li.nav-our-choice a span span {display: none;}
+#nav li.nav-our-choice, #nav li.nav-pilihan-kami {float: right;}
+#nav li.nav-our-choice a span span, #nav li.nav-pilihan-kami a span span {display: none;}
 #nav li.menu-salegift a.giftideas, #nav a.level-top.giftideas {
 	width: 43px;
 	height: 42px;
 	background: url(../images/gift-ideas.png) no-repeat center center;
 }
 
-    #nav li.menu-salegift a.our-choice, #nav a.level-top.our-choice, #nav li.nav-our-choice {
+    #nav li.menu-salegift a.our-choice, #nav a.level-top.our-choice, #nav li.nav-our-choice, #nav li.nav-pilihan-kami {
         background: url("../images/our-choice.png") no-repeat scroll center center / 100px auto rgba(0, 0, 0, 0);
         width: 100px;
     }
     
-    #nav li.level-top.nav-our-choice:hover {
+    #nav li.level-top.nav-our-choice:hover, #nav li.level-top.nav-pilihan-kami:hover {
         background: url("../images/our-choice.png") no-repeat scroll center center / 100px auto #4EC7DA;
     }
 
