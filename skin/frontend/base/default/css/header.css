@@ -31,8 +31,10 @@
 .sticky-header a.sticky-logo {
 	display: block;
 	background: none;
-	height: 34px;
     padding: 3px 0 0;
+}
+.awcollpur-deals-list .td-contact-sticky-cont > div, .awcollpur-deals-view .td-contact-sticky-cont > div{
+	width:auto!important;
 }
 .sticky-header ul.sticky-menu {
 	margin: 0 0 0 40px;
@@ -71,6 +73,9 @@
 	-moz-box-shadow: 0 0 20px rgba(0,0,0,0.2);
 	-webkit-box-shadow: 0 0 20px rgba(0,0,0,0.2);
 	box-shadow: 0 0 20px rgba(0,0,0,0.2);
+}
+.awcollpur-deals-list .free-voucher-info, .awcollpur-deals-view .free-voucher-info {
+	width: 355px;
 }
 .free-voucher-info h3 {
 	color: #ffa01b;

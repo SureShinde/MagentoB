@@ -206,7 +206,6 @@ html, body, .container, .main { height: 100%;}
 
 .awcollpur-deals-list .main, .awcollpur-deals-list .container > header, .awcollpur-deals-list .main, .awcollpur-deals-list .container > header {
     margin: 0 auto;
-    max-width: 1143px;
     width: 90%;
 	padding:0;
 }

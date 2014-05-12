@@ -782,7 +782,8 @@ tr.summary-details-excluded { font-style:italic; }
 .block-subscribe input.input-text { display:block; width:167px; margin:3px 0; }
 .block-subscribe .actions { background:none; padding:0; margin:3px 0 0; text-align:left; }
 .block-subscribe .actions button.button { float:none; }
-.block-subscribe .actions button.button span { border-color:#406a83; background:#618499; }
+.block-subscribe .actions button.button span { border-color:#406a83; background:#618499; height:20px; line-height:22px;}
+
 
 /* Block: Reorder */
 .block-reorder .block-title strong { background-image:url(../images/i_block-list.gif); }
@@ -2000,6 +2001,10 @@ tr.summary-details-excluded { font-style:italic; }
 }*/
 /*======================Category page===================*/
 
+.style-perlengkapan-rumah .shopby .shop-by a{
+	display:block;
+	clear:both;
+}
 .style-perlengkapan-rumah .toolbar .limiter ul li a{
 	color:#905350;
 }
@@ -2194,6 +2199,10 @@ z/*======================Category page===================*/
 .homepage-bottom .block-wrapper > a {
     float: left;
     margin: 0 9px 34px;
+}
+.block-wrapper a p img {
+    height: 150px;
+	width:370px;
 }
 .cms-home .homepage-bottom .block-wrapper, .style-baby .homepage-bottom .block-wrapper,
 .style-perlengkapan-rumah .homepage-bottom .block-wrapper
@@ -2626,6 +2635,10 @@ z/*======================Category page===================*/
 	.style-perlengkapan-rumah #nav li.shop-by:hover .shopby {
 		display: block;
 	}
+	.block-wrapper a p img {
+    height: 125px;
+    width: 305px;
+	}
 	
 }
 @media only screen and (min-width: 1023px) and (max-width: 1215px) {
@@ -2659,6 +2672,12 @@ z/*======================Category page===================*/
     .style-perlengkapan-rumah .wrap_banner .col-3 img{
 		width:100%;
 	}
+	.block-wrapper a p img {
+	 height: 125px;
+    width: 305px;
+    
+	}
+	
 }
 /* --------------- 960 px layout -------------------- */
 @media only screen and (max-width: 1023px) {
@@ -2705,6 +2724,13 @@ z/*======================Category page===================*/
 		position:relative;
 		bottom:0;
 	}*/
+	.block-wrapper a p img {
+	height: 100px;
+    width: 240px;
+	}
+	.homepage-bottom .block-wrapper > a {
+    margin: 0 4px 10px;
+	}	
 }
 	
 /* --------------- smaller 959 px layout -------------------- */

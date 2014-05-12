@@ -1285,7 +1285,7 @@ z-index: 999;
 .td-contact-sticky-cont {
 	display: none;
 	position: absolute;
-	top: 35px;
+	top: 36px;
 	/* left: 14%; */
 	z-index: 9999999999;
 	margin-left: -15px;
