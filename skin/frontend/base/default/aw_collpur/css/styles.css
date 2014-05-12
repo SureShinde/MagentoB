@@ -1058,7 +1058,7 @@ table.awcp-pricedata tr:nth-child(1) td{
 	margin-bottom:20px !important;
 	max-width:1143px;
 }
-.row-list + .row{
+.row-list .row{
 	margin:0 0 20px;
 }
 .sticky-header-wrapper ~ .header #nav-searchbar{
