@@ -34,19 +34,6 @@ class AW_Blog_Block_Manage_Blog_Edit_Tab_Options extends Mage_Adminhtml_Block_Wi
         $fieldset = $form->addFieldset('blog_form', array('legend' => Mage::helper('blog')->__('Meta Data')));
 
         $fieldset->addField(
-            'meta_title',
-            'text',
-            array (
-                'name' => 'meta_title',
-                'label' => Mage::helper('blog')->__('Title'),
-                'title' => Mage::helper('blog')->__('Meta Title'),
-                'style' => 'width: 520px;',
-                'class' => 'required-entry',
-                'required' => true,
-            )
-        );
-        
-        $fieldset->addField(
             'meta_keywords',
             'editor',
             array(

@@ -68,6 +68,7 @@ class AW_Blog_Model_Mysql4_Cat_Collection extends Mage_Core_Model_Mysql4_Collect
                     array()
                 )
                 ->where("store_table.store_id = 0 OR store_table.store_id = {$store} OR store_table.store_id IS NULL")
+		->group('main_table.cat_id');
             ;
             return $this;
         }

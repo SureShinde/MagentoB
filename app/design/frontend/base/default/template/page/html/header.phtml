@@ -29,13 +29,21 @@
 ?>
 <!--Mobile Menu-->
 <script type="text/javascript">
-wwidth = $j(window).width();
-$j(document).ready(function(){
+    wwidth = $j(window).width();
+    $j(document).ready(function(){
 	$j(window).scroll(function(){
 		  if ($j(this).scrollTop() > 100) {
 	          $j(".header-container .sticky-header-wrapper").fadeIn();
+              $j(".search-container-new").addClass("search-for-sticky");
+              $j(".link-minicart").addClass("cart-for-sticky");
+              $j(".mini-cart").addClass("cart-block-detail");
+              $j(".link-checkout").addClass("checkout-for-sticky");
 	      } else {
 	          $j(".header-container .sticky-header-wrapper").fadeOut();
+              $j(".search-container-new").removeClass("search-for-sticky");
+              $j(".link-minicart").removeClass("cart-for-sticky");
+              $j(".mini-cart").removeClass("cart-block-detail");
+              $j(".link-checkout").removeClass("checkout-for-sticky");
 	      }
 	      if ($j(this).scrollTop() > 100) {
 	          $j(".back-to-top").fadeIn();
@@ -73,8 +81,8 @@ $j(document).ready(function(){
 			$j('.mini-cart-sticky').slideToggle();
 		});	
 	}	
+
 	
-	/*added by krisna*/
 	$j(".nav-container ul#nav li.parent a").live("mouseover",function(){
 		if(wwidth < 768) { return  false; }
 	});
@@ -106,14 +114,87 @@ $j(document).ready(function(){
 		}
 
 	});
-	 /*end krisna*/ 
+
+        $j('div.menu-top a.menu-top-hover').hover(
+            function() {
+                $j('div.nav-container').hide('');
+                $j('div.nav-' + $j(this).attr('id')).show('');
+            },
+            function() {
+                //$j('div.nav-container').hide();
+                //$j('div.nav-' + $j('div.menu-top ul li.active').attr('id')).show();
+            }
+        );
+
+        $j( "div.nav-container" ).mouseleave(function() {
+            $j(this).hide();
+            $j('div.nav-' + $j('div.menu-top ul li.active').attr('id')).show();
+        });
+        
+    });
+</script>
+
+<script>
+$j(document).ready(function(){
+    $j(".cms-index-index ul#nav li.shop-by a, .style-baby ul#nav li.shop-by a, .style-perlengkapan-rumah ul#nav li.shop-by a, .level-top.shop-by .shopby ").hover(function(){
+        $j(".level-top.shop-by").addClass("over");
+        $j("a.link-shopby").addClass("over shown-sub");
+        $j("#nav .shopby").show();
+    });
+    
+    $j(".cms-index-index ul#nav li.shop-by a, .style-baby ul#nav li.shop-by a, .style-perlengkapan-rumah ul#nav li.shop-by a, .level-top.shop-by .shopby ").mouseleave(function(){
+        $j(".level-top.shop-by").removeClass("over");
+        $j("a.link-shopby").removeClass("over shown-sub");
+        $j("#nav .shopby").hide();
+    });
+});
+
+
+$j(document).ready(function(){
+    $j("ul#nav li.parent a, .level-hover").hover(
+            function() {
+                $j('#nav-perlengkapan-rumah ul#nav li.parent').removeClass('over');
+                $j('#nav-perlengkapan-rumah ul#nav li.parent a').removeClass('over');
+                $j(this).parent().addClass('over');
+                $j(this).addClass('over');
+                $j(this).parent().children('ul').addClass('shown-sub');
+
+                if (wwidth < 768) {
+                    return  false;
+                }
+            },
+            function() {
+                $j(this).parent().removeClass('over');
+                $j(this).removeClass('over');
+                $j(this).parent().children('ul').removeClass('shown-sub');
+            }
+        );
 });
 </script>
+
+<script>
+     $j(document).ready(function(){
+      $j("option.call-eng").click(function(){
+        $j("select.country").addClass("english-lang");
+        $j("select.country").removeClass("indonesia-lang");
+      });
+      
+      $j("option.call-ind").click(function(){
+        $j("select.country").removeClass("english-lang");
+        $j("select.country").addClass("indonesia-lang");
+      });
+      
+      $j(".link-trigger-myaccount, .toplink-myaccount").hover(function(){
+        $j(".toplink-myaccount").toggle();
+      });
+});
+</script>
+
 <div class="header-container">
 	<?php echo $this->getLayout()->createBlock('page/html')->setTemplate('page/html/back-top.phtml')->toHtml(); ?>
 	<div class="sticky-header-wrapper">
 		<div class="sticky-header">
-			<a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="sticky-logo"><img src="<?php echo $this->getSkinUrl(); ?>images/logo-sticky.png" alt="<?php echo $this->getLogoAlt() ?>" /></a>
+			<a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="sticky-logo"><img src="<?php echo $this->getSkinUrl(); ?>images/logo-sticky-bilna.png" alt="<?php echo $this->getLogoAlt() ?>" /></a>
 			<ul class="sticky-menu">
 				<li class="td-promo"><a class="td-promo" href="#"><?php echo $this->__('Today\'s Promo') ?></a>
 					<div class="td-promo-cont">
@@ -129,40 +210,58 @@ $j(document).ready(function(){
 					</div>
 				</li>
 				<li class="link-customer-care td-contact-sticky">
-					<a href="#"><?php echo $this->__('Customer Care Center') ?></a></br>
+					<a href="#"><?php echo $this->__('Care Center') ?></a></br>
 					<div class="td-contact-sticky-cont"><?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('contact-sticky-detail')->toHtml() ?></div>
 				</li>
 				<li class="link-customer-care2"><a href="#" ><?php echo $this->__('Care Center') ?></a></li>
 				<div class="clear"></div>
 			</ul>
-			<div class="sticky-top-cart">
-	    		<?php $_totalItem = $this->helper('checkout/cart')->getSummaryCount();  //get total items in cart ?>
-	    		<?php if($_totalItem == 0):?>
-	    			<a href="#" class="link-minicart-sticky" id="link-minicart-sticky"><?php echo $this->__('View Cart(0)') ?></a>
-	    		<?php else:?>
-	    			<a href="#" class="link-minicart-sticky" id="link-minicart-sticky"><?php echo $this->__('View Cart(').$_totalItem.$this->__(')') ?></a>
-	    		<?php endif;?>
-	    		<a href="<?php echo $this->getUrl('checkout/cart'); ?>" class="link-checkout"><?php echo $this->__('Checkout') ?></a>
-	    		<div class="clear"></div>
-	    		<div class="mini-cart-sticky"><?php echo $this->getChildHtml('topcart') ?></div>
-	    	</div>
-			<div class="sticky-search"><?php echo $this->getChildHtml('topSearch') ?></div>
+			
+			<!--div class="sticky-search"><?php //echo $this->getChildHtml('topSearch') ?></div-->
 			<div class="clear"></div>
     	</div>
 	</div>
     <div class="header">
     	<a href="#" class="nav-mobile-trigger"><?php echo $this->__('Menu') ?></a>
-    	<div class="menu-top">
-	    	<ul>
-		    	<li class="active"><a href="/baby"><?php echo $this->__('Mom &amp; Baby') ?></a></li>
-		    	<li class="home-menu"><a href="/perlengkapan_rumah"><?php echo $this->__('Home') ?></a></li>
-		    	<!--li><a href="/baby/dailydeals"><?php //echo $this->__('Daily Deals') ?></a></li-->
-	    	</ul>
-    	</div>
+
+        <?php $_helper = Mage::helper('megamenu'); ?>
+        <?php $_storeCategories = $_helper->getStoreCategories(); ?>
+        <?php if (count($_storeCategories) > 0): ?>
+            <div class="menu-top">
+                <ul>
+                    <?php foreach ($_storeCategories as $_storeCategory): ?>
+                        <?php
+                        $_storeCategory = Mage::getModel('catalog/category')->load($_storeCategory->getId());
+                        $_storeCategoryClass = $_storeCategory->getId() == $_helper->getCurrentMainCategory() ? "active" : "";
+
+                        /**
+                         * check if category is active
+                         */
+                        if (!$_storeCategory->getIsActive()):
+                            continue;
+                        endif;
+
+                        if (!$_storeCategory->getIncludeInMenu()):
+                            continue;
+                        endif;
+                        ?>
+
+                        <li id="<?php echo $_storeCategory->getUrlKey(); ?>" class="web-<?php echo $_storeCategory->getUrlKey(); ?> <?php echo $_storeCategoryClass; ?>">
+                            <a id="<?php echo $_storeCategory->getUrlKey(); ?>" class="menu-top-hover" href="<?php echo $_helper->getCategoryUrl($_storeCategory); ?>"><?php echo $this->__($_storeCategory->getName()); ?></a>
+                        </li>
+						
+                    <?php endforeach; ?>
+						<li id="baby" class="web-deals">
+                            <a id="deals" class="menu-top-hover" href="<?php echo Mage::getBaseUrl(); ?>deals">deals</a>
+                        </li>
+                </ul>
+            </div>
+        <?php endif; ?>
+        
     	<?php if ($this->getIsHomePage()):?>
-        <h1 class="logo"><strong><?php echo $this->getLogoAlt() ?></strong><a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="logo"><img src="<?php echo $this->getSkinUrl(); ?>images/logo.png" alt="<?php echo $this->getLogoAlt() ?>" /></a></h1>
+        <h1 class="logo"><strong><?php echo $this->getLogoAlt() ?></strong><a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="logo"><img src="<?php echo $this->getSkinUrl(); ?>images/Logo-bilna.png" alt="<?php echo $this->getLogoAlt() ?>" /></a></h1>
         <?php else:?>
-        <a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="logo"><strong><?php echo $this->getLogoAlt() ?></strong><img src="<?php echo $this->getSkinUrl(); ?>images/logo.png" alt="<?php echo $this->getLogoAlt() ?>" /></a>
+        <a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="logo"><strong><?php echo $this->getLogoAlt() ?></strong><img src="<?php echo $this->getSkinUrl(); ?>images/Logo-bilna.png" alt="<?php echo $this->getLogoAlt() ?>" /></a>
         <?php endif?>
         <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('keypoint')->toHtml() ?>
         <div class="quick-access">
@@ -179,14 +278,14 @@ $j(document).ready(function(){
         		<a href="<?php echo $this->getUrl('checkout/cart'); ?>" class="link-checkout"><?php echo $this->__('Checkout') ?></a>
         		<a href="<?php echo $this->getUrl('blog'); ?>" class="link-blog"><span><?php echo $this->__('Blog') ?></span></a>
         		<div class="clear"></div>
-        		<div class="mini-cart"><?php echo $this->getChildHtml('topcart') ?></div>
+        		<div class="mini-cart" style="display: none !important;"><?php echo $this->getChildHtml('topcart') ?></div>
         	</div>
         	<div class="left">
 	        	<div class="store-phone">
 	        		<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('store_phone')->toHtml() ?>
 	        	</div>
 	        	<?php echo $this->getChildHtml('topLinks') ?>
-	        	<?php echo $this->getChildHtml('store_language') ?>
+	        	<?php //echo $this->getChildHtml('store_language') ?>
 	        </div>
         	<div class="clear"></div>
         	<p class="welcome-msg"><?php echo $this->getChildHtml('welcome') ?> <?php echo $this->getAdditionalHtml() ?></p>
@@ -198,1343 +297,60 @@ $j(document).ready(function(){
         <?php echo $this->getChildHtml('topContainer'); ?>
         <div class="nav-mobile"><?php //echo $this->getChildHtml('topMenu') ?></div>
         <div class="mini-cart-mobile"><?php echo $this->getChildHtml('topcart') ?></div>
+
         <div class="menu-top-mobile baby-top-mob">
-	    	<ul>
-		    	<li class="mobile-baby active"><a href="/baby"><?php echo $this->__('Mom &amp; Baby') ?></a></li>
-				<li class="mobile-home"><a href="/home"><?php echo $this->__('Home') ?></a></li>
-		    	<li class="mobile-deals"><a href="/dailydeals"><?php echo $this->__('Daily Deals') ?></a></li>
-	    	</ul>
-    	</div>
-        <div class="search-mobile"><?php echo $this->getChildHtml('topSearch') ?></div>
+            <ul>
+                <?php $_helper = Mage::helper('megamenu'); ?>
+                <?php $_storeCategories = $_helper->getStoreCategories(); ?>
+                <?php if (count($_storeCategories) > 0): ?>
+                    <?php foreach ($_storeCategories as $_storeCategory): ?>
+                        <?php
+                        $_storeCategory = Mage::getModel('catalog/category')->load($_storeCategory->getId());
+                        $_storeCategoryClass = $_storeCategory->getId() == $_helper->getCurrentMainCategory() ? "active" : "";
+
+                        /**
+                         * check if category is active
+                         */
+                        if (!$_storeCategory->getIsActive()):
+                            continue;
+                        endif;
+
+                        if (!$_storeCategory->getIncludeInMenu()):
+                            continue;
+                        endif;
+                        ?>
+
+                        <li class="mobile-<?php echo $_storeCategory->getUrlKey(); ?> <?php echo $_storeCategoryClass; ?>">
+                            <a href="<?php echo $_helper->getCategoryUrl($_storeCategory); ?>"><?php echo $this->__($_storeCategory->getName()); ?></a>
+                        </li>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+						<li class="mobile-deals">
+                            <a href="<?php echo Mage::getBaseUrl(); ?>deals">DEALS</a>
+                        </li>
+            </ul>
+        </div>
+        <div class="menu-top-mobile-wood"></div>
+
+        <div class="search-container-new-mobile">
+            <?php echo $this->getChildHtml('topSearch') ?>
+        </div>
         <div class="my-account-mobile"><?php echo $this->getChildHtml('topLinks') ?></div>
     </div>
 </div>
+<div class="menu-homepage-wood"></div>
+<?php echo $this->getChildHtml('topMenu'); ?>
 
-<div class="nav-container container">
-        <ul id="nav" class="nav">
-        	<li class="level0 level-top shop-by"><span>Shop by</span><a href="#" class="level-
 
-top link-shopby">Shop by</a>
-        	 <div class="shopby">
-<ul class="shop-by">
-<li><span class="title">Popular Brand</span></li>
-<li><a href="http://www.bilna.com/baby/mamypoko.html">Mamy Poko</a></li>
-<li><a href="http://www.bilna.com/baby/pampers">Pampers</a></li>
-<li><a href="http://www.bilna.com/baby/goon">Goon</a></li>
-<li><a href="http://www.bilna.com/baby/nutrilon">Nutrilon</a></li>
-<li><a href="http://www.bilna.com/baby/bebelac">Bebelac</a></li>
-<li><a href="http://www.bilna.com/baby/morinaga.html">Morinaga</a></li>
-<li><a href="http://www.bilna.com/baby/nan.html">Nan</a></li>
-<li><a href="http://www.bilna.com/baby/sebamed.html">Sebamed</a></li>
-<li><a href="http://www.bilna.com/baby/cussons">Cussons</a></li>
-<li><a href="http://www.bilna.com/baby/zwitsal.html">Zwitsal</a></li>
-<li><a href="http://www.bilna.com/baby/philips-avent.html">Philips Avent</a></li>
-<li><a href="http://www.bilna.com/baby/dr-browns.html">Dr. Browns</a></li>
-<li><a href="http://www.bilna.com/baby/velvet">Velvet</a></li>
-<li><a href="http://www.bilna.com/baby/chicco.html">Chicco</a></li>
-<li><a href="http://www.bilna.com/baby/bright-stars">Bright Starts</a></li>
-<li><a href="http://www.bilna.com/baby/vtech.html">Vtech</a></li>
-<li><a class="link-seemore" href="http://www.bilna.com/baby/paling-dicari.html">See more</a></li>
-</ul>
-<ul class="shop-by">
-<li><span class="title">Gift Ideas</span></li>
-<li><a href="http://www.bilna.com/baby/set-hadiah-bayi-dan-anak/new-mom-check-list.html">Checklist 
-
-For New Moms</a></li>
-<li><a href="http://www.bilna.com/baby/set-hadiah-bayi-dan-anak/hospital-bag.html">Hospital Bag 
-
-Checklist</a></li>
-<li><a href="http://www.bilna.com/baby/set-hadiah-bayi-dan-anak/birthday-gift.html">Birthday Gift 
-
-Ideas</a></li>
-<li><a href="http://www.bilna.com/baby/set-hadiah-bayi-dan-anak/baby-shower.html">Baby Shower Gift 
-
-Ideas</a></li>
-<li><a class="link-seemore" href="http://www.bilna.com/baby/set-hadiah-bayi-dan-anak.html">See 
-
-more</a></li>
-</ul>
-<!--<ul class="shop-by" style="background: none;">
-<li><span class="title">Product Highlights</span></li>
-<li><a href="{{config path="#">Baby Monitor</a></li>
-<li><a href="{{config path="#">Stroller</a></li>
-<li><a href="{{config path="#">Baby Box</a></li>
-<li><a class="link-seemore" href="#">See more</a></li>
-</ul>--></div>        	</li>
-                                                                                                     
-
-       <li class="level  level-top parent-0 parent">
-                        <a href="http://www.bilna.com/baby/popok-bayi-dan-balita.html" 
-
-class="level-top parent-0 diapering">
-                                                	<span><span>Diapering</span></span>
-                                                </a>
-                                                    <ul class="level-hover 0 diapering_hover">
-                                <li class="">
-    <div class="left-columns">
-        <h2>Diapering</h2>
-        <div class="view-box">
-                        <ul>
-                            <li>
-                	                	
-		                			                		<a 
-
-href="http://www.bilna.com/baby/popok-bayi-dan-balita/popok-bayi.html" class="diapers">
-                		<span>Diapers</span></a>
-		                	                		
-                	
-                </li>
-                                            <li>
-                	                	
-		                			                		<a 
-
-href="http://www.bilna.com/baby/popok-bayi-dan-balita/popok-kain.html" class="reusablediaper">
-                		<span>Reusable diaper</span></a>
-		                	                		
-                	
-                </li>
-                                            <li>
-                	                	
-		                			                		<a 
-
-href="http://www.bilna.com/baby/popok-bayi-dan-balita/krim-bayi.html" class="creams">
-                		<span>Creams</span></a>
-		                	                		
-                	
-                </li>
-                                            <li>
-                	                	
-		                			                		<a 
-
-href="http://www.bilna.com/baby/popok-bayi-dan-balita/tisu-basah.html" class="babywipes">
-                		<span>Baby Wipes</span></a>
-		                	                		
-                	
-                </li>
-                                            <li>
-                	                	
-		                			                		<a 
-
-href="http://www.bilna.com/baby/popok-bayi-dan-balita/tas-bayi.html" class="diapersack/bag">
-                		<span>Diaper Sack/Bag</span></a>
-		                	                		
-                	
-                </li>
-                                            <li class="">
-                	                	
-		                			                		<a 
-
-href="http://www.bilna.com/baby/popok-bayi-dan-balita/pembersih-pakaian-bayi.html" 
-
-class="detergentorcleaner">
-                		<span>Detergent or Cleaner</span></a>
-		                	                		
-                	
-                </li>
-                                            <li>
-                	                	
-		                			                		<a 
-
-href="http://www.bilna.com/baby/popok-bayi-dan-balita/best-seller.html" class="bestseller">
-                		<span>Best Seller</span></a>
-		                	                		
-                	
-                </li>
-                                        </ul>
-            <div class="clear"></div>
-        </div>
-        <div class="devider"></div>
-    </div>
-    <div class="right-columns">
-          	<div class="clear"></div>
-    		    	                    <div class="submenu popular-brand"><span 
-
-class="title">Popular Brands</span>
-<ul>
-<li><a href="http://www.bilna.com/baby/mamypoko.html">MamyPoko</a></li>
-<li><a href="http://www.bilna.com/baby/pampers">Pampers</a></li>
-<li><a href="http://www.bilna.com/baby/merries.html">Merries</a></li>
-<li><a href="http://www.bilna.com/baby/rumparooz.html">Rumparooz</a></li>
-<li><a href="http://www.bilna.com/baby/okiedog.html">Okiedog</a></li>
-</ul>
-</div>
-<div class="submenu our-choice"><span class="title">Our Choice</span>
-<ul>
-<li><a href="http://www.bilna.com/baby/popok-bayi-dan-balita/whats-hot">Diaper-licious!</a></li>
-<li><a href="http://www.bilna.com/baby/popok-bayi-dan-balita-new">Whats New</a></li>
-<li><a href="http://www.bilna.com/baby/popok-bayi-dan-balita-sale">Whats on Sale</a></li>
-</ul>
-</div>
-<div class="clear">&nbsp;</div>
-<div class="megamenu-product"><a class="megamenu-image" href="http://www.bilna.com"> <img 
-
-src="http://assets.bilna.com/media/wysiwyg/megamenu1-diapering-img.png" alt=""> </a></div>	     
-
-   </div>
-    <div class="clear"></div>
-    <a href="http://www.bilna.com/baby/popok-bayi-dan-balita.html" class="browse-all">Browse All</a>
-</li>
-                            </ul>
-                                        </li>
-                                                                                                     
-
-           <li class="level  level-top parent-1 parent">
-                        <a href="http://www.bilna.com/baby/susu-dan-makanan-pendamping.html" 
-
-class="level-top parent-1 formulafood">
-                                                	<span><span>Formula <br>&amp; 
-
-Food</span></span>
-                                                </a>
-                                                    <ul class="level-hover 0 formula___food_hover">
-                                <li>
-    <div class="left-columns">
-        <h2>Formula &amp; Food</h2>
-        <div class="view-box">
-                        <ul>
-                            <li>
-                	                	
-		                			                		<a 
-
-href="http://www.bilna.com/baby/susu-dan-makanan-pendamping/susu-bayi-dan-anak.html" class="milk">
-                		<span>Milk</span></a>
-		                	                		
-                	
-                </li>
-                                            <li>
-                	                	
-		                			                		<a 
-
-href="http://www.bilna.com/baby/susu-dan-makanan-pendamping/cereal.html" 
-
-class="cerealsandmultigrain">
-                		<span>Cereals and Multigrain</span></a>
-		                	                		
-                	
-                </li>
-                                            <li>
-                	                	
-		                			                		<a 
-
-href="http://www.bilna.com/baby/susu-dan-makanan-pendamping/snack-bayi-dan-anak.html" 
-
-class="snacks">
-                		<span>Snacks</span></a>
-		                	                		
-                	
-                </li>
-                                            <li>
-                	                	
-		                			                		<a 
-
-href="http://www.bilna.com/baby/susu-dan-makanan-pendamping/baby-food.html" class="babyfood">
-                		<span>Baby Food</span></a>
-		                	                		
-                	
-                </li>
-                                            <li>
-                	                	
-		                			                		<a 
-
-href="http://www.bilna.com/baby/susu-dan-makanan-pendamping/suplemen-bayi-dan-anak.html" 
-
-class="supplement">
-                		<span>Supplement</span></a>
-		                	                		
-                	
-                </li>
-                                            <li>
-                	                	
-		                			                		<a 
-
-href="http://www.bilna.com/baby/susu-dan-makanan-pendamping/susu-khusus.html" class="specialtymilk">
-                		<span>Specialty Milk</span></a>
-		                	                		
-                	
-                </li>
-                                        </ul>
-            <div class="clear"></div>
-        </div>
-        <div class="devider"></div>
-    </div>
-    <div class="right-columns">
-          	<div class="clear"></div>
-    		    	                    <div class="submenu popular-brand"><span 
-
-class="title">Popular Brands</span>
-<ul>
-<li><a href="http://www.bilna.com/baby/nutrilon">Nutrilon</a></li>
-<li><a href="http://www.bilna.com/baby/morinaga.html">Morinaga</a></li>
-<li><a href="http://www.bilna.com/baby/nan.html">NAN</a></li>
-<li><a href="http://www.bilna.com/baby/heinz.html">Heinz</a></li>
-<li><a href="http://www.bilna.com/baby/raffertys-garden.html">Raffertys Garden</a></li>
-<li><a href="http://www.bilna.com/baby/bebelac.html">Bebelac</a></li>
-<li><a href="http://www.bilna.com/baby/dancow.html">Dancow</a></li>
-</ul>
-</div>
-<div class="submenu our-choice"><span class="title">Our Choice</span>
-<ul>
-<li><a href="http://www.bilna.com/baby/susu-dan-makanan-pendamping/whats-hot">Munchy Crunchy!
-
-</a></li>
-<li><a href="http://www.bilna.com/baby/friso.html">Friso</a></li>
-<li><a href="http://www.bilna.com/baby/susu-dan-makanan-pendamping-new">Whats New</a></li>
-<li><a href="http://www.bilna.com/baby/susu-dan-makanan-pendamping-sale">Whats on Sale</a></li>
-<li><a href="http://www.bilna.com/baby/imported-milk.html">Imported Milk</a></li>
-<li><a href="http://www.bilna.com/baby/imported-food.html">Imported Food</a></li>
-</ul>
-</div>
-<div class="clear">&nbsp;</div>
-<div class="megamenu-product"><a class="megamenu-image" href="http://www.bilna.com"> <img 
-
-src="http://assets.bilna.com/media/wysiwyg/megamenu2-milkformulafood-img.png" alt=""> </a></div>	
-
-        </div>
-    <div class="clear"></div>
-    <a href="http://www.bilna.com/baby/susu-dan-makanan-pendamping.html" class="browse-all">Browse 
-
-All</a>
-</li>
-                            </ul>
-                                        </li>
-                                                                                                     
-
-           <li class="level  level-top parent-2 parent">
-                        <a href="http://www.bilna.com/baby/pakaian-dan-aksesoris.html" 
-
-class="level-top parent-2 clothingaccessories">
-                                                	<span><span>Clothing <br>&amp; 
-
-Accessories</span></span>
-                                                </a>
-                                                    <ul class="level-hover 0 
-
-clothing___accessories_hover">
-                                <li>
-    <div class="left-columns">
-        <h2>Clothing &amp; Accessories</h2>
-        <div class="view-box">
-<ul>
-	<li><a href="<?php echo Mage::getBaseUrl(); ?>pakaian-dan-aksesoris/baju-atasan-bayi-dan-anak.html" class="tops">
-							<span>Tops</span></a>
-	</li>
-	
-	<li><a href="<?php echo Mage::getBaseUrl(); ?>pakaian-dan-aksesoris/baju-bawahan-bayi-dan-anak.html" class="bottoms">
-							<span>Bottoms</span></a>
-	</li>
-	
-	<li><a href="<?php echo Mage::getBaseUrl(); ?>pakaian-dan-aksesoris/pakaian-lucu-bayi-dan-anak.html" class="dress">
-							<span>Dress</span></a>
-	</li>
-
-	<li><a href="<?php echo Mage::getBaseUrl(); ?>pakaian-dan-aksesoris/pakaian-bayi-dan-anak.html" class="sets">
-							<span>Sets</span></a>
-	</li>
-
-	<li><a href="<?php echo Mage::getBaseUrl(); ?>pakaian-dan-aksesoris/baju-terusan-bayi-dan-anak.html" class="jumper">
-							<span>Jumper</span></a>
-	</li>
-	
-	<li><a href="<?php echo Mage::getBaseUrl(); ?>pakaian-dan-aksesoris/pakaian-dalam.html" class="underwear">
-							<span>Underwear</span></a>
-	</li>
-	
-	<li><a href="<?php echo Mage::getBaseUrl(); ?>pakaian-dan-aksesoris/outwear.html" class="outwear">
-							<span>Outwear</span></a>
-	</li>
-
-	<li> <a href="<?php echo Mage::getBaseUrl(); ?>pakaian-dan-aksesoris/piyama-bayi-dan-anak.html" class="sleepwear">
-							<span>Sleepwear</span></a>
-	</li>
-
-	<li><a href="<?php echo Mage::getBaseUrl(); ?>pakaian-dan-aksesoris/pakaian-renang-bayi-dan-anak.html" class="swimwear">
-							<span>Swimwear</span></a>
-	</li>
-
-	<li><a href="<?php echo Mage::getBaseUrl(); ?>pakaian-dan-aksesoris/sepatu-dan-kaos-kaki-bayi-dan-anak.html" class="socksandshoes">
-							<span>Socks and Shoes</span></a>
-	</li>
-
-	<li><a href="<?php echo Mage::getBaseUrl(); ?>pakaian-dan-aksesoris/aksesoris-bayi-dan-anak.html" class="accessories">
-							<span>Accessories</span></a>
-	</li>
-	
-	<li><a href="<?php echo Mage::getBaseUrl(); ?>pakaian-dan-aksesoris/bedong-bayi.html" class="swaddle">
-							<span>Swaddle</span></a>
-	</li>
-
-	<li><a href="<?php echo Mage::getBaseUrl(); ?>pakaian-dan-aksesoris/pembersih-pakaian-bayi.html" class="laundryneeds">
-							<span>Laundry Needs</span></a>
-	</li>
-	
-	<li><a href="<?php echo Mage::getBaseUrl(); ?>pakaian-dan-aksesoris/set-hadiah.html" class="giftsets">
-							<span>Gift Sets</span></a>
-	</li>
-</ul>
-            <div class="clear"></div>
-        </div>
-        <div class="devider"></div>
-    </div>
-    <div class="right-columns">
-          	<div class="clear"></div>
-    		    	                    <div class="submenu popular-brand"><span 
-
-class="title">Popular Brands</span>
-<ul>
-<li><a href="http://www.bilna.com/baby/velvet-junior.html">Velvet Junior</a></li>
-<li><a href="http://www.bilna.com/baby/torio.html">Torio</a></li>
-<li><a href="http://www.bilna.com/baby/owlie-birdie.html">Owlie and Birdie</a></li>
-<li><a href="http://www.bilna.com/baby/maoo.html">Maoo Baby</a></li>
-<li><a href="http://www.bilna.com/baby/boogy-baby.html">Boogybaby</a></li>
-<li><a href="http://www.bilna.com/baby/sleek.html">Sleek</a></li>
-</ul>
-</div>
-<div class="submenu our-choice"><span class="title">Our Choice</span>
-<ul>
-<li><a href="http://www.bilna.com/baby/whats-hot">Pajamas Party!</a></li>
-<li><a href="http://www.bilna.com/baby/pakaian-dan-aksesoris-new">Whats New</a></li>
-<li><a href="http://www.bilna.com/baby/pakaian-dan-aksesoris-sale">Whats on Sale</a></li>
-</ul>
-</div>
-<div class="clear">&nbsp;</div>
-<div class="megamenu-product"><a class="megamenu-image" href="http://www.bilna.com"> <img 
-
-src="http://assets.bilna.com/media/wysiwyg/megamenu3-clothingacc-img.png" alt=""> </a></div>	     
-
-   </div>
-    <div class="clear"></div>
-    <a href="http://www.bilna.com/baby/pakaian-dan-aksesoris.html" class="browse-all">Browse All</a>
-</li>
-                            </ul>
-                                        </li>
-                                                                                                     
-
-           <li class="level  level-top parent-3 parent">
-                        <a href="http://www.bilna.com/baby/peralatan-mandi-dan-perawatan-kulit.html" 
-
-class="level-top parent-3 bathskincare">
-                                                	<span><span>Bath <br>&amp; 
-
-Skincare</span></span>
-                                                </a>
-                                                    <ul class="level-hover 0 bath___skincare_hover">
-                                <li>
-    <div class="left-columns">
-        <h2>Bath &amp; Skincare</h2>
-        <div class="view-box">
-                        <ul>
-                            <li>
-                	                	
-		                			                		<a 
-
-href="http://www.bilna.com/baby/peralatan-mandi-dan-perawatan-kulit/sabun-bayi-dan-anak.html" 
-
-class="bathandbodywash">
-                		<span>Bath and Body Wash</span></a>
-		                	                		
-                	
-                </li>
-                                            <li>
-                	                	
-		                			                		<a 
-
-href="http://www.bilna.com/baby/peralatan-mandi-dan-perawatan-kulit/perawatan-rambut-bayi-dan-
-
-balita.html" class="haircare">
-                		<span>Hair Care</span></a>
-		                	                		
-                	
-                </li>
-                                            <li>
-                	                	
-		                			                		<a 
-
-href="http://www.bilna.com/baby/peralatan-mandi-dan-perawatan-kulit/pelembab-bayi-dan-balita.html" 
-
-class="lotion,powder,sunscreen,oil">
-                		<span>Lotion, Powder, Sunscreen, Oil</span></a>
-		                	                		
-                	
-                </li>
-                                            <li>
-                	                	
-		                			                		<a 
-
-href="http://www.bilna.com/baby/peralatan-mandi-dan-perawatan-kulit/handuk-bayi-dan-balita.html" 
-
-class="towelsandmatt">
-                		<span>Towels and Matt</span></a>
-		                	                		
-                	
-                </li>
-                                            <li>
-                	                	
-		                			                		<a 
-
-href="http://www.bilna.com/baby/peralatan-mandi-dan-perawatan-kulit/keperluan-mandi-bayi-dan-
-
-balita.html" class="bathingaccessories">
-                		<span>Bathing Accessories</span></a>
-		                	                		
-                	
-                </li>
-                                            <li>
-                	                	
-		                			                		<a 
-
-href="http://www.bilna.com/baby/peralatan-mandi-dan-perawatan-kulit/perlengkapan-tambahan-bayi-dan-
-
-balita.html" class="scissorsandtools">
-                		<span>Scissors and Tools</span></a>
-		                	                		
-                	
-                </li>
-                                            <li>
-                	                	
-		                			                		<a 
-
-href="http://www.bilna.com/baby/peralatan-mandi-dan-perawatan-kulit/perawatan-gigi-mulut-bayi-dan-
-
-balita.html" class="dentalandoralcare">
-                		<span>Dental and Oral Care</span></a>
-		                	                		
-                	
-                </li>
-                                        </ul>
-            <div class="clear"></div>
-        </div>
-        <div class="devider"></div>
-    </div>
-    <div class="right-columns">
-          	<div class="clear"></div>
-    		    	                    <div class="submenu popular-brand"><span 
-
-class="title">Popular Brands</span>
-<ul>
-<li><a href="http://www.bilna.com/baby/pigeon">Pigeon</a></li>
-<li><a href="http://www.bilna.com/baby/sebamed.html">Sebamed</a></li>
-<li><a href="http://www.bilna.com/baby/pupu.html">Pupu</a></li>
-<li><a href="http://www.bilna.com/baby/zwitsal.html">Zwitsal</a></li>
-<li><a href="http://www.bilna.com/baby/kukui.html">Kukui</a></li>
-</ul>
-</div>
-<div class="submenu our-choice"><span class="title">Our Choice</span>
-<ul>
-<li><a href="http://www.bilna.com/baby/whats-hot">Warm Babies!</a></li>
-<li><a href="http://www.bilna.com/baby/peralatan-mandi-dan-perawatan-kulit-new">Whats New</a></li>
-<li><a href="http://www.bilna.com/baby/peralatan-mandi-dan-perawatan-kulit-sale">Whats on 
-
-Sale</a></li>
-<li><a href="http://www.bilna.com/baby/whats-hot-2.html">Special Treats with Care</a></li>
-<li><a href="http://www.bilna.com/baby/whats-hot-3.html">Bath is Fun!</a></li>
-</ul>
-</div>
-<div class="clear">&nbsp;</div>
-<div class="megamenu-product"><a class="megamenu-image" href="http://www.bilna.com"> <img 
-
-src="http://assets.bilna.com/media/wysiwyg/megamenu4-bathskincare-img.png" alt=""> </a></div>	     
-
-   </div>
-    <div class="clear"></div>
-    <a href="http://www.bilna.com/baby/peralatan-mandi-dan-perawatan-kulit.html" class="browse-all">Browse All</a>
-</li>
-                            </ul>
-                                        </li>
-                                                                                                     
-
-           <li class="level  level-top parent-4 parent">
-                        <a href="http://www.bilna.com/baby/perlengkapan-makan-bayi.html" 
-
-class="level-top parent-4 feedingnursing">
-                                                	<span><span>Feeding <br>&amp; 
-
-Nursing</span></span>
-                                                </a>
-                                                    <ul class="level-hover 0 
-
-feeding___nursing_hover">
-                                <li>
-    <div class="left-columns">
-        <h2>Feeding &amp; Nursing</h2>
-        <div class="view-box">
-                        <ul>
-                            <li>
-                	                	
-		                			                		<a 
-
-href="http://www.bilna.com/baby/perlengkapan-makan-bayi/botol-susu-bayi-dan-balita.html" 
-
-class="bottlesandnipples">
-                		<span>Bottles and Nipples</span></a>
-		                	                		
-                	
-                </li>
-                                            <li>
-                	                	
-		                			                		<a 
-
-href="http://www.bilna.com/baby/perlengkapan-makan-bayi/aksesoris-botol-susu.html" 
-
-class="bottlesaccesories">
-                		<span>Bottles Accesories</span></a>
-		                	                		
-                	
-                </li>
-                                            <li>
-                	                	
-		                			                		<a 
-
-href="http://www.bilna.com/baby/perlengkapan-makan-bayi/perlengkapan-botol-susu.html" 
-
-class="bottlesequipments">
-                		<span>Bottles Equipments</span></a>
-		                	                		
-                	
-                </li>
-                                            <li>
-                	                	
-		                			                		<a 
-
-href="http://www.bilna.com/baby/perlengkapan-makan-bayi/celemek-bayi.html" 
-
-class="bibsandburpclothes">
-                		<span>BIbs and burp clothes</span></a>
-		                	                		
-                	
-                </li>
-                                            <li>
-                	                	
-		                			                		<a 
-
-href="http://www.bilna.com/baby/perlengkapan-makan-bayi/perlengkapan-menyusui.html" 
-
-class="breastfeeding">
-                		<span>Breast Feeding</span></a>
-		                	                		
-                	
-                </li>
-                                            <li>
-                	                	
-		                			                		<a 
-
-href="http://www.bilna.com/baby/perlengkapan-makan-bayi/tas-bayi-dan-anak.html" 
-
-class="backpackandlunchboxes">
-                		<span>Backpack and lunchboxes</span></a>
-		                	                		
-                	
-                </li>
-                                            <li>
-                	                	
-		                			                		<a 
-
-href="http://www.bilna.com/baby/perlengkapan-makan-bayi/tempat-dan-alat-makan.html" 
-
-class="foodstorageandutensils">
-                		<span>Food Storage and Utensils</span></a>
-		                	                		
-                	
-                </li>
-                                            <li>
-                	                	
-		                			                		<a 
-
-href="http://www.bilna.com/baby/perlengkapan-makan-bayi/kursi-makan-bayi-dan-balita.html" 
-
-class="feedingchairs">
-                		<span>Feeding chairs</span></a>
-		                	                		
-                	
-                </li>
-                                            <li>
-                	                	
-		                			                		<a 
-
-href="http://www.bilna.com/baby/perlengkapan-makan-bayi/dot-bayi.html" class="pacifiersandteethers">
-                		<span>Pacifiers and Teethers</span></a>
-		                	                		
-                	
-                </li>
-                                            <li>
-                	                	
-		                			                		<a 
-
-href="http://www.bilna.com/baby/perlengkapan-makan-bayi/aksesoris-menyusui.html" 
-
-class="nursingaccesories">
-                		<span>Nursing Accesories</span></a>
-		                	                		
-                	
-                </li>
-                                            <li>
-                	                	
-		                			                		<a 
-
-href="http://www.bilna.com/baby/perlengkapan-makan-bayi/perlengkapan-makan-bayi-dan-balita.html" 
-
-class="feedingequipments">
-                		<span>Feeding Equipments</span></a>
-		                	                		
-                	
-                </li>
-                                        </ul>
-            <div class="clear"></div>
-        </div>
-        <div class="devider"></div>
-    </div>
-    <div class="right-columns">
-          	<div class="clear"></div>
-    		    	                    <div class="submenu popular-brand"><span 
-
-class="title">Popular Brands</span>
-<ul>
-<li><a href="http://www.bilna.com/baby/dr-browns.html">Dr. Brown’s</a></li>
-<li><a href="http://www.bilna.com/baby/philips-avent.html">Phillips Avent</a></li>
-<li><a href="http://www.bilna.com/baby/simba.html">Simba</a></li>
-<li><a href="http://www.bilna.com/baby/skiphop.html">SkipHop</a></li>
-<li><a href="http://www.bilna.com/baby/medela.html">Medela</a></li>
-<li><a href="http://www.bilna.com/baby/ameda">Ameda</a></li>
-</ul>
-</div>
-<div class="submenu our-choice"><span class="title">Our Choice</span>
-<ul>
-<li><a href="http://www.bilna.com/baby/perlengkapan-makan-bayi/whats-hot">Mom's Milky Way!</a></li>
-<li><a href="http://www.bilna.com/baby/perlengkapan-makan-bayi-new">Whats New</a></li>
-<li><a href="http://www.bilna.com/baby/perlengkapan-makan-bayi-sale">Whats on Sale</a></li>
-<li><a href="http://www.bilna.com/baby/perlengkapan-makan-bayi/whats-hot-2.html">The Hotties!
-
-</a></li>
-<li><a href="http://www.bilna.com/baby/perlengkapan-makan-bayi/whats-hot-3.html">Ready for Picnic?
-
-</a></li>
-</ul>
-</div>
-<div class="clear">&nbsp;</div>
-<div class="megamenu-product"><a class="megamenu-image" href="http://www.bilna.com"> <img 
-
-src="http://assets.bilna.com/media/wysiwyg/megamenu5-feedingnursing-img.png" alt=""> </a></div>	     
-
-   </div>
-    <div class="clear"></div>
-    <a href="http://www.bilna.com/baby/perlengkapan-makan-bayi.html" class="browse-all">Browse All</a>
-</li>
-                            </ul>
-                                        </li>
-                                                                                                     
-
-           <li class="level  level-top parent-5 parent">
-                        <a href="http://www.bilna.com/baby/kesehatan-dan-keamanan-bayi-dan-
-
-balita.html" class="level-top parent-5 healthsafety">
-                                                	<span><span>Health <br>&amp; 
-
-Safety</span></span>
-                                                </a>
-                                                    <ul class="level-hover 0 health___safety_hover">
-                                <li>
-    <div class="left-columns">
-        <h2>Health &amp; Safety</h2>
-        <div class="view-box">
-                        <ul>
-                            <li>
-                	                	
-		                			                		<a 
-
-href="http://www.bilna.com/baby/kesehatan-dan-keamanan-bayi-dan-balita/pagar-pengaman-bayi-dan-
-
-balita.html" class="gates">
-                		<span>Gates </span></a>
-		                	                		
-                	
-                </li>
-                                            <li>
-                	                	
-		                			                		<a 
-
-href="http://www.bilna.com/baby/kesehatan-dan-keamanan-bayi-dan-balita/perlengkapan-pengaman-bayi-
-
-dan-balita.html" class="babyproofing">
-                		<span>Babyproofing </span></a>
-		                	                		
-                	
-                </li>
-                                            <li>
-                	                	
-		                			                		<a 
-
-href="http://www.bilna.com/baby/kesehatan-dan-keamanan-bayi-dan-balita/alat-bantu-monitor-bayi-dan-
-
-anak.html" class="monitors">
-                		<span>Monitors </span></a>
-		                	                		
-                	
-                </li>
-                                            <li>
-                	                	
-		                			                		<a 
-
-href="http://www.bilna.com/baby/kesehatan-dan-keamanan-bayi-dan-balita/perlengkapan-tidur-bayi-dan-
-
-balita.html" class="sleepsafety">
-                		<span>Sleep Safety </span></a>
-		                	                		
-                	
-                </li>
-                                            <li>
-                	                	
-		                			                		<a 
-
-href="http://www.bilna.com/baby/kesehatan-dan-keamanan-bayi-dan-balita/termometer-bayi-dan-
-
-balita.html" class="thermometer">
-                		<span>Thermometer </span></a>
-		                	                		
-                	
-                </li>
-                                            <li>
-                	                	
-		                			                		<a 
-
-href="http://www.bilna.com/baby/kesehatan-dan-keamanan-bayi-dan-balita/alat-kesehatan-hidung-
-
-bayi.html" class="nasalhygiene">
-                		<span>Nasal Hygiene </span></a>
-		                	                		
-                	
-                </li>
-                                            <li>
-                	                	
-		                			                		<a 
-
-href="http://www.bilna.com/baby/kesehatan-dan-keamanan-bayi-dan-balita/alas-bayi-dan-balita.html" 
-
-class="floormatt">
-                		<span>Floor Matt</span></a>
-		                	                		
-                	
-                </li>
-                                            <li>
-                	                	
-		                			                		<a 
-
-href="http://www.bilna.com/baby/kesehatan-dan-keamanan-bayi-dan-balita/pembersih-udara.html" 
-
-class="purifiersandhumidifiers">
-                		<span>Purifiers and Humidifiers </span></a>
-		                	                		
-                	
-                </li>
-                                            <li>
-                	                	
-		                			                		<a 
-
-href="http://www.bilna.com/baby/kesehatan-dan-keamanan-bayi-dan-balita/perlengkapan-kesehatan-dan-
-
-keamanan-bayi.html" class="generalhealthandsafety">
-                		<span>General Health and Safety</span></a>
-		                	                		
-                	
-                </li>
-                                            <li>
-                	                	
-		                			                		<a 
-
-href="http://www.bilna.com/baby/kesehatan-dan-keamanan-bayi-dan-balita/medicine-vitamins.html" 
-
-class="medicineandvitamins">
-                		<span>Medicine and  Vitamins</span></a>
-		                	                		
-                	
-                </li>
-											<li>
-                	                	
-		                			                		<a 
-
-href="http://www.bilna.com/baby/kesehatan-dan-keamanan-bayi-dan-balita/home-cleaner.html" 
-
-class="homeandlaundrycleaner">
-                		<span>Home and Laundry Cleaner</span></a>
-		                	                		
-                	
-                </li>
-                                        </ul>
-            <div class="clear"></div>
-        </div>
-        <div class="devider"></div>
-    </div>
-    <div class="right-columns">
-          	<div class="clear"></div>
-    		    	                    <div class="submenu popular-brand"><span 
-
-class="title">Popular Brands</span>
-<ul>
-<li><a href="http://www.bilna.com/baby/amanbayiku.html">Aman Bayiku</a></li>
-<li><a href="http://www.bilna.com/baby/bremed.html">Bremed</a></li>
-<li><a href="http://www.bilna.com/baby/chicco.html">Chicco</a></li>
-<li><a href="http://www.bilna.com/baby/dreambaby.html">Dreambaby</a></li>
-<li><a href="http://www.bilna.com/baby/keia-baby-proofing.html">Kei and Mom</a></li>
-</ul>
-</div>
-<div class="submenu our-choice"><span class="title">Our Choice</span>
-<ul>
-<li><a href="http://www.bilna.com/baby/kesehatan-dan-keamanan-bayi-dan-balita/whats-hot">Playful 
-
-House!</a></li>
-<li><a href="http://www.bilna.com/baby/kesehatan-dan-keamanan-bayi-dan-balita/sweet-
-
-dream.html">Sweet Dream</a></li>
-<li><a href="http://www.bilna.com/baby/kesehatan-dan-keamanan-bayi-dan-balita-new">Whats 
-
-New</a></li>
-<li><a href="http://www.bilna.com/baby/kesehatan-dan-keamanan-bayi-dan-balita-sale">Whats on 
-
-Sale</a></li>
-</ul>
-</div>
-<div class="clear">&nbsp;</div>
-<div class="megamenu-product"><a class="megamenu-image" href="http://www.bilna.com"> <img 
-
-src="http://assets.bilna.com/media/wysiwyg/megamenu6-healthsafety-img.png" alt=""> </a></div>	     
-
-   </div>
-    <div class="clear"></div>
-    <a href="http://www.bilna.com/baby/kesehatan-dan-keamanan-bayi-dan-balita.html" class="browse-all">Browse All</a>
-</li>
-                            </ul>
-                                        </li>
-                                                                                                     
-
-           <li class="level  level-top parent-6 parent">
-                        <a href="http://www.bilna.com/baby/buku-dan-mainan.html" class="level-top 
-
-parent-6 toysbooks">
-                                                	<span><span>Toys <br>&amp; 
-
-Books</span></span>
-                                                </a>
-                                                    <ul class="level-hover 0 toys___books_hover">
-                                <li>
-    <div class="left-columns">
-        <h2>Toys &amp; Books</h2>
-        <div class="view-box">
-                        <ul>
-                            <li>
-                	                	
-		                			                		<a 
-
-href="http://www.bilna.com/baby/buku-dan-mainan/mainan-bayi-dan-balita.html" 
-
-class="babyandtoddlertoys">
-                		<span>Baby and Toddler Toys</span></a>
-		                	                		
-                	
-                </li>
-                                            <li>
-                	                	
-		                			                		<a 
-
-href="http://www.bilna.com/baby/buku-dan-mainan/mainan-edukatif-bayi-dan-balita.html" 
-
-class="educational">
-                		<span>Educational </span></a>
-		                	                		
-                	
-                </li>
-                                            <li>
-                	                	
-		                			                		<a 
-
-href="http://www.bilna.com/baby/buku-dan-mainan/peralatan-seni-dan-kreatif-bayi.html" 
-
-class="artandcreativity">
-                		<span>Art and Creativity</span></a>
-		                	                		
-                	
-                </li>
-                                            <li>
-                	                	
-		                			                		<a 
-
-href="http://www.bilna.com/baby/buku-dan-mainan/buku-dan-audio.html" class="audioandbooks">
-                		<span>Audio and Books</span></a>
-		                	                		
-                	
-                </li>
-                                            <li>
-                	                	
-		                			                		<a 
-
-href="http://www.bilna.com/baby/buku-dan-mainan/stationary.html" class="stationary">
-                		<span>Stationary</span></a>
-		                	                		
-                	
-                </li>
-                                            <li>
-                	                	
-		                			                		<a 
-
-href="http://www.bilna.com/baby/buku-dan-mainan/video-untuk-bayi-dan-anak.html" class="movies">
-                		<span>Movies </span></a>
-		                	                		
-                	
-                </li>
-                                            <li>
-                	                	
-		                			                		<a 
-
-href="http://www.bilna.com/baby/buku-dan-mainan/mainan-boneka.html" class="plushtoys">
-                		<span>Plush Toys</span></a>
-		                	                		
-                	
-                </li>
-                                            <li>
-                	                	
-		                			                		<a 
-
-href="http://www.bilna.com/baby/buku-dan-mainan/mainan-luar-ruangan.html" class="outdoortoys">
-                		<span>Outdoor Toys</span></a>
-		                	                		
-                	
-                </li>
-                                        </ul>
-            <div class="clear"></div>
-        </div>
-        <div class="devider"></div>
-    </div>
-    <div class="right-columns">
-          	<div class="clear"></div>
-    		    	                    <div class="submenu popular-brand"><span 
-
-class="title">Popular Brands</span>
-<ul>
-<li><a href="http://www.bilna.com/baby/tolo.html">Tolo</a></li>
-<li><a href="http://www.bilna.com/baby/megabloks.html">Megabloks</a></li>
-<li><a href="http://www.bilna.com/baby/alex-toys.html">Alex Toys</a></li>
-<li><a href="http://www.bilna.com/baby/crayola.html">Crayola</a></li>
-<li><a href="http://www.bilna.com/baby/unibooks.html">Unibooks</a></li>
-<li><a href="http://www.bilna.com/baby/play-doh">Play Doh</a></li>
-<li><a href="http://www.bilna.com/baby/hello-kitty">Hello Kitty</a></li>
-<li><a href="http://www.bilna.com/baby/wii-wash.html">Wii-Wash</a></li>
-</ul>
-</div>
-<div class="submenu our-choice"><span class="title">Our Choice</span>
-<ul>
-<li><a href="http://www.bilna.com/baby/buku-dan-mainan/whats-hot">It's Reading Time!</a></li>
-<li><a href="http://www.bilna.com/baby/buku-dan-mainan/whats-hot-2">Let's Be Creative!</a></li>
-<li><a href="http://www.bilna.com/baby/buku-dan-mainan/whats-hot-3.html">Let's Play Outside!
-
-</a></li>
-<li><a href="http://www.bilna.com/baby/buku-dan-mainan/whats-hot-4.html">First Time Toys</a></li>
-<li><a href="http://www.bilna.com/baby/buku-dan-mainan-new">Whats New</a></li>
-<li><a href="http://www.bilna.com/baby/buku-dan-mainan-sale">Whats on Sale</a></li>
-</ul>
-</div>
-<div class="clear">&nbsp;</div>
-<div class="megamenu-product"><a class="megamenu-image" href="http://www.bilna.com"> <img 
-
-src="http://assets.bilna.com/media/wysiwyg/megamenu7-toysbooks-img.png" alt=""> </a></div>	     
-
-   </div>
-    <div class="clear"></div>
-    <a href="http://www.bilna.com/baby/buku-dan-mainan.html" class="browse-all">Browse All</a>
-</li>
-                            </ul>
-                                        </li>
-                                                                                                     
-
-           <li class="level  level-top parent-7 parent">
-                        <a href="http://www.bilna.com/baby/perlengkapan-bayi.html" class="level-top 
-
-parent-7 babygearfurniture">
-                                                	<span><span>Baby Gear <br>&amp; 
-
-Furniture</span></span>
-                                                </a>
-                                                    <ul class="level-hover 0 
-
-baby_gear___furniture_hover">
-                                <li>
-    <div class="left-columns">
-        <h2>Baby Gear &amp; Furniture</h2>
-        <div class="view-box">
-                        <ul>
-                            <li>
-                	                	
-		                			                		<a 
-
-href="http://www.bilna.com/baby/perlengkapan-bayi/kereta-bayi.html" class="strollers">
-                		<span>Strollers</span></a>
-		                	                		
-                	
-                </li>
-                                            <li>
-                	                	
-		                			                		<a 
-
-href="http://www.bilna.com/baby/perlengkapan-bayi/bangku-bayi.html" class="carseats">
-                		<span>Car Seats</span></a>
-		                	                		
-                	
-                </li>
-                                            <li>
-                	                	
-		                			                		<a 
-
-href="http://www.bilna.com/baby/perlengkapan-bayi/gendongan-bayi.html" class="carriers">
-                		<span>Carriers</span></a>
-		                	                		
-                	
-                </li>
-                                            <li>
-                	                	
-		                			                		<a 
-
-href="http://www.bilna.com/baby/perlengkapan-bayi/bouncer-rocker.html" 
-
-class="bouncer,rockerandactivity">
-                		<span>Bouncer, Rocker and Activity</span></a>
-		                	                		
-                	
-                </li>
-                                            <li>
-                	                	
-		                			                		<a 
-
-href="http://www.bilna.com/baby/perlengkapan-bayi/potty-training.html" class="pottytraining">
-                		<span>Potty Training </span></a>
-		                	                		
-                	
-                </li>
-                                            <li>
-                	                	
-		                			                		<a 
-
-href="http://www.bilna.com/baby/perlengkapan-bayi/perabotan-bayi.html" class="furniture">
-                		<span>Furniture </span></a>
-		                	                		
-                	
-                </li>
-                                            <li>
-                	                	
-		                			                		<a 
-
-href="http://www.bilna.com/baby/perlengkapan-bayi/perlengkapan-tempat-tidur-bayi.html" 
-
-class="bedding">
-                		<span>Bedding</span></a>
-		                	                		
-                	
-                </li>
-                                            <li>
-                	                	
-		                			                		<a 
-
-href="http://www.bilna.com/baby/perlengkapan-bayi/dekorasi-kamar-bayi.html" class="decorations">
-                		<span>Decorations</span></a>
-		                	                		
-                	
-                </li>
-                                        </ul>
-            <div class="clear"></div>
-        </div>
-        <div class="devider"></div>
-    </div>
-    <div class="right-columns">
-          	<div class="clear"></div>
-    		    	                    <div class="submenu popular-brand"><span 
-
-class="title">Popular Brands</span>
-<ul>
-<li><a href="http://www.bilna.com/baby/baby-ktan.html">Baby K'Tan</a></li>
-<li><a href="http://www.bilna.com/baby/graco.html">Graco</a></li>
-<li><a href="http://www.bilna.com/baby/boba">Boba Wrap</a></li>
-<li><a href="http://www.bilna.com/baby/babybelle">BabyBelle</a></li>
-<li><a href="http://www.bilna.com/baby/easywalker">Easy Walker</a></li>
-</ul>
-</div>
-<div class="submenu our-choice"><span class="title">Our Choice</span>
-<ul>
-<li><a href="http://www.bilna.com/baby/perlengkapan-bayi/whats-hot">Explore The City!</a></li>
-<li><a href="http://www.bilna.com/baby/perlengkapan-bayi-new">Whats New</a></li>
-<li><a href="http://www.bilna.com/baby/perlengkapan-bayi-sale">Whats on Sale</a></li>
-</ul>
-</div>
-<div class="clear">&nbsp;</div>
-<div class="megamenu-product"><a class="megamenu-image" href="http://www.bilna.com"> <img 
-
-src="http://assets.bilna.com/media/wysiwyg/megamenu8-babygearfurniture-img.png" alt=""> </a></div>	
-
-        </div>
-    <div class="clear"></div>
-    <a href="http://www.bilna.com/baby/perlengkapan-bayi.html" class="browse-all">Browse All</a>
-</li>
-                            </ul>
-                                        </li>
-                                                                                                     
-
-           <li class="level  level-top parent-8 parent">
-                        <a href="http://www.bilna.com/baby/untuk-ibu.html" class="level-top parent-8 
-
-formoms">
-                                                    <span><span>For<br>Moms</span></span>
-                                                </a>
-                                                    <ul class="level-hover 0 for_moms_hover">
-                                <li>
-    <div class="left-columns">
-        <h2>For Moms</h2>
-        <div class="view-box">
-                        <ul>
-                            <li>
-                	                	
-		                			                		<a 
-
-href="http://www.bilna.com/baby/untuk-ibu/pakaian-ibu-hamil-dan-menyusui.html" 
-
-class="maternityandnursingfashion">
-                		<span>Maternity and Nursing Fashion</span></a>
-		                	                		
-                	
-                </li>
-                                            <li>
-                	                	
-		                			                		<a 
-
-href="http://www.bilna.com/baby/untuk-ibu/nutrisi-tambahan-ibu-hamil.html" class="mom'snutrition">
-                		<span>Mom's Nutrition</span></a>
-		                	                		
-                	
-                </li>
-                                            <li>
-                	                	
-		                			                		<a 
-
-href="http://www.bilna.com/baby/untuk-ibu/personal-care.html" class="personalcare">
-                		<span>Personal Care</span></a>
-		                	                		
-                	
-                </li>
-                                            <li>
-                	                	
-		                			                		<a 
-
-href="http://www.bilna.com/baby/untuk-ibu/fertility-feminine-care.html" 
-
-class="fertility&amp;femininecare">
-                		<span>Fertility &amp; Feminine Care</span></a>
-		                	                		
-                	
-                </li>
-                                            <li>
-                	                	
-		                			                		<a 
-
-href="http://www.bilna.com/baby/untuk-ibu/tas-perlengkapan-bayi.html" class="bags">
-                		<span>Bags</span></a>
-		                	                		
-                	
-                </li>
-                                            <li>
-                	                	
-		                			                		<a 
-
-href="http://www.bilna.com/baby/untuk-ibu/food-storage.html" class="foodstorage">
-                		<span>Food Storage</span></a>
-		                	                		
-                	
-                </li>
-                                        </ul>
-            <div class="clear"></div>
-        </div>
-        <div class="devider"></div>
-    </div>
-    <div class="right-columns">
-          	<div class="clear"></div>
-    		    	                    <div class="submenu popular-brand"><span 
-
-class="title">Popular Brands</span>
-<ul>
-<li><a href="<?php echo Mage::getBaseUrl(); ?>prenagen.html">Prenagen</a></li>
-<li><a href="<?php echo Mage::getBaseUrl(); ?>lactamil.html">Lactamil</a></li>
-<li><a href="<?php echo Mage::getBaseUrl(); ?>carriwell.html">Carriwell</a></li>
-<li><a href="<?php echo Mage::getBaseUrl(); ?>porvous">Porvous</a></li>
-<li><a href="<?php echo Mage::getBaseUrl(); ?>dacco">Dacco</a></li>
-<li><a href="<?php echo Mage::getBaseUrl(); ?>wii-wash.html">Wii-Wash</a></li>
-<li><a href="<?php echo Mage::getBaseUrl(); ?>mamaway.html">Mamaway</a></li>
-</ul>
-</div>
-<div class="submenu our-choice"><span class="title">Our Choice</span>
-<ul>
-<li><a href="http://www.bilna.com/baby/untuk-ibu/whats-hot">Baby Bump!</a></li>
-<li><a href="http://www.bilna.com/baby/untuk-ibu-new">Whats New</a></li>
-<li><a href="http://www.bilna.com/baby/untuk-ibu-sale">Whats on Sale</a></li>
-</ul>
-</div>
-<div class="clear">&nbsp;</div>
-<div class="megamenu-product"><a class="megamenu-image" href="http://www.bilna.com"> <img 
-
-src="http://assets.bilna.com/media/wysiwyg/megamenu9-formoms-img.png" alt=""> </a></div>	     
-
-   </div>
-    <div class="clear"></div>
-    <a href="http://www.bilna.com/baby/untuk-ibu.html" class="browse-all">Browse All</a>
-</li>
-                            </ul>
-                                        </li>
-                                                                                                     
-
-           <li class="level  level-top parent-9">
-                        <a href="http://www.bilna.com/baby/kebutuhan-khusus-bayi-dan-balita.html" 
-
-class="level-top parent-9 organicspecialneeds">
-                                                	<span><span>Organic <br>&amp; Special 
-
-Needs</span></span>
-                                                </a>
-                                        </li>
-                                                                                                     
-
-           <li class="level  level-top parent-10">
-                        <a href="http://www.bilna.com/baby/set-hadiah-bayi-dan-anak.html" 
-
-class="level-top parent-10 giftideas">
-                                                	<span><span>Gift Ideas</span></span>
-                                                </a>
-		<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('giftideas_menu')->toHtml() ?>										
-                                        </li>
-                                                                                                     
-
-           <li class="level  level-top parent-11">
-                        <a href="http://www.bilna.com/baby/produk-diskon.html" class="level-top 
-
-parent-11 sale">
-                                                	<span><span>SALE</span></span>
-                                                </a>
-												
-                                        </li>
-                                        <!--<li class="menu-salegift"><div class="menu-sale-
-
-giftideas"><a class="sale" href="http://www.bilna.com/baby/sale.html">Sale</a> <a class="giftideas" 
-
-href="http://www.bilna.com/baby/set-hadiah-bayi-dan-anak.html">Gift Ideas</a>
-<div class="clear">&nbsp;</div>
-</div></li>-->
-			
-			
-            <div class="clear"></div>
-			
-        </ul>
-    </div>
-<div class="dash"></div>
-<?php //echo $this->getChildHtml('topMenu') ?>
 <div class="menu-tablet">
-	<div class="header-container">
+    <div class="header-container">
 	<?php echo $this->getChildHtml('topLinks') ?>
 	<div class="store-phone">
-		<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('store_phone')->toHtml() ?>
+            <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('store_phone')->toHtml() ?>
 	</div>
-	<?php echo $this->getChildHtml('store_language') ?>
+	<?php //echo $this->getChildHtml('store_language') ?>
 	<div class="clear"></div>
-	</div>
+    </div>
 </div>
 <!--this is for testing only-->
 <?php //echo $this->getLayout()->createBlock("core/template")->setTemplate("page/template/bottommenu.phtml")->toHtml(); ?>
@@ -1545,12 +361,12 @@ if you want to call it from cms page, please use this
 <!--end for testing only-->
 <script>
  jQuery(document).ready(function(){
-  jQuery(".giftideas").mouseover(function(){
+  jQuery(".nav-gift-sets").mouseover(function(){
     jQuery(".nav-10").addClass("hover");
 	jQuery(".nav-10>a").addClass("color_a");
 	jQuery(".gift-menu-wrapp").show();
   });	
-  jQuery(".giftideas").mouseleave(function(){
+  jQuery(".nav-gift-sets").mouseleave(function(){
     jQuery(".nav-10").removeClass("hover");
 	jQuery(".nav-10>a").removeClass("color_a");
 	jQuery(".gift-menu-wrapp").hide();

@@ -30,7 +30,7 @@ jQuery(document).ready(function () {
 	};
 
 	var retrieveCategory = function (category_id){
-	    var ajaxURL     = window.location.protocol+"//"+window.location.host+"/baby/ajaxrequest/data/retrievecategory";
+	    var ajaxURL     = window.location.protocol+"//"+window.location.host+"/ajaxrequest/data/retrievecategory";
 	    
 		var data = {};
 		data.categoryId = category_id;
@@ -65,7 +65,7 @@ jQuery(document).ready(function () {
 	};
  
 	var retrieveProduct = function (product_id){
-	    var ajaxURL     = window.location.protocol+"//"+window.location.host+"/baby/ajaxrequest/data/retrieveproduct";
+	    var ajaxURL     = window.location.protocol+"//"+window.location.host+"/ajaxrequest/data/retrieveproduct";
 	    
 		var data = {};
 		data.productId = product_id;
@@ -100,7 +100,7 @@ jQuery(document).ready(function () {
 	};
  
 	var retrieveCart = function (){
-	    var ajaxURL     = window.location.protocol+"//"+window.location.host+"/baby/ajaxrequest/data/retrievecart";
+	    var ajaxURL     = window.location.protocol+"//"+window.location.host+"/ajaxrequest/data/retrievecart";
 	    jQuery.ajax({
 	        type: "POST",
 	        url : ajaxURL,
@@ -131,7 +131,7 @@ jQuery(document).ready(function () {
 	};
  
 	var retrieveCartConfirm = function (order_id){
-	    var ajaxURL     = window.location.protocol+"//"+window.location.host+"/baby/ajaxrequest/data/retrieveconfirm";
+	    var ajaxURL     = window.location.protocol+"//"+window.location.host+"/ajaxrequest/data/retrieveconfirm";
 	    
 		var data = {};
 		data.orderId = order_id;
