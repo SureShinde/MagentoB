@@ -215,20 +215,6 @@
 				</div>
 				
 			</div>
-			<script type="text/javascript">
-			$j(document).ready( function() {
-					$j( "#show" ).click(function() {
-						$j("#hide").css("display","block");
-						$j("#show").css("display","none");
-						$j(".wrap-row.last").css("height","100%");
-					});
-						$j( "#hide" ).click(function() {
-						$j(".wrap-row.last").css("height","0");
-						$j("#show").css("display","block");
-						$j("#hide").css("display","none");
-					});
-				});
-				</script>
 		</div>
     </form>
     <script type="text/javascript">
@@ -283,6 +269,7 @@
                     });
                     // ]]>
                 </script>
+				
             </div>
 			
 		<?php if ($_product->getShortDescription()):?>
@@ -330,6 +317,16 @@
                         $j('.toggle-tab').click(function() {
                             $j(this).next().slideToggle('slow');
                         });
+						$j( "#show" ).click(function() {
+							$j("#hide").css("display","block");
+							$j("#show").css("display","none");
+							$j(".wrap-row.last").css("height","100%");
+						});
+						$j( "#hide" ).click(function() {
+							$j(".wrap-row.last").css("height","0");
+							$j("#show").css("display","block");
+							$j("#hide").css("display","none");
+						});
                     });
                     // ]]>
                 </script>
@@ -398,6 +395,7 @@
     <div class="related-product">
         <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('related_product')->toHtml() ?>
     </div>
+	
     <script type="text/javascript">
         // <![CDATA[
         $j(document).ready(function() {
