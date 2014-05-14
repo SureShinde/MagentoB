@@ -72,7 +72,7 @@ class Mage_Cms_IndexController extends Mage_Core_Controller_Front_Action
         $url = Mage::helper('core/url')->getCurrentUrl();
         if (strpos($url,'?superdonkey') == false) {
 	        $currentUrl = Mage::helper('core/url')->getCurrentUrl();
-	        $pattern = '/http:\/\/bilna.local\/([a-z0-9-_]*)?((\/[a-zA-Z0-9-_]*(\.html)?)*)?/';
+	        $pattern = '/http:\/\/www.bilna.com\/([a-z0-9-_]*)?((\/[a-zA-Z0-9-_]*(\.html)?)*)?/';
 	        preg_match($pattern, $url, $matches);
 	        $storeview = $matches[1];
 	        $mainUrl = $matches[2];
