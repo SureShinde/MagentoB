@@ -18,12 +18,6 @@
                 <type>skin_js</type>
                 <name>js/bundle.js</name>
             </action>
-            <action method="addCss" ifconfig="collpur/general/enable">
-                <stylesheet>aw_collpur/css/styles.css</stylesheet>
-            </action>
-			 <action method="addCss" ifconfig="collpur/general/enable">
-                <stylesheet>aw_collpur/css/component.css</stylesheet>
-            </action>
         </reference>
         <reference name="top.links" ifconfig="collpur/general/enable">
             <block type="collpur/links" name="deal_link">
