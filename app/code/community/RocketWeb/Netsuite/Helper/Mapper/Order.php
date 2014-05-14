@@ -63,6 +63,7 @@ class RocketWeb_Netsuite_Helper_Mapper_Order extends RocketWeb_Netsuite_Helper_M
             }
         }
 
+        $customFieldsConfig = $this->getCustomFieldList();
 
         $netsuiteOrderItems = array();
         foreach($magentoOrder->getAllItems() as $item) {
@@ -113,7 +114,7 @@ class RocketWeb_Netsuite_Helper_Mapper_Order extends RocketWeb_Netsuite_Helper_M
                 $price = 0;
             }
             $netsuiteOrderItem->amount = $price;
-            $netsuiteOrderItem->rate = $price;
+            
             if(!is_null($taxItem)) {
                 $netsuiteOrderItem->taxCode = clone $taxItem;
                 $netsuiteOrderItem->isTaxable = true;
@@ -127,6 +128,41 @@ class RocketWeb_Netsuite_Helper_Mapper_Order extends RocketWeb_Netsuite_Helper_M
                 $netsuiteOrderItem->tax1Amt = 0;
             }
 
+            //custom fields item
+            if(Mage::helper('core')->isModuleEnabled('AW_Points')) {
+                $pointsTransaction = Mage::getModel('points/transaction')->loadByOrder($magentoOrder);
+            }
+            
+            if(is_array($customFieldsConfig) && count($customFieldsConfig)) {
+                $customFields = array();
+                $totalDiscount = 0;
+                foreach($customFieldsConfig as $customFieldsConfigItem) {
+                    switch ($customFieldsConfigItem['netsuite_field_name']) {
+                        case 'custcol_discountitem':
+                            $customField = $this->_initCustomField($customFieldsConfigItem,$item);
+                            $customFields[]=$customField;
+                            $totalDiscount += (float) $item->getData('discount_amount');
+                            break;
+                        case 'custcol_bilnacredit':
+                            $bilna_credit = $item->getQtyOrdered() * (float) $pointsTransaction->getData('base_points_to_money')/$magentoOrder->getTotalQtyOrdered();
+                            $pointsTransaction->setData('base_points_to_money', $bilna_credit);
+                            $customField = $this->_initCustomField($customFieldsConfigItem,$pointsTransaction);
+                            $customFields[]=$customField;
+                            $totalDiscount += $bilna_credit;
+                            break;
+                        case 'custcol_pricebeforediscount':
+                            $customField = $this->_initCustomField($customFieldsConfigItem,$item);
+                            $customFields[]=$customField;
+                            break;
+
+                    }
+                }
+            
+                $netsuiteOrderItem->customFieldList =new CustomFieldList();
+                $netsuiteOrderItem->customFieldList->customField = $customFields;
+            }
+
+            $netsuiteOrderItem->rate = $price + $totalDiscount;
 
             $netsuiteOrderItems[]=$netsuiteOrderItem;
         }
@@ -238,12 +274,21 @@ class RocketWeb_Netsuite_Helper_Mapper_Order extends RocketWeb_Netsuite_Helper_M
             $netsuiteOrder->location->internalId = $locationId;
         }
 
-
+        /*$wrapping = Mage::getModel('wrappinggiftevent/custom_order')->loadByOrderId($magentoOrder);
+error_log("\n".print_r($wrapping,1), 3, '/tmp/netsuite1.log');*/
         //custom fields
-        $customFieldsConfig = $this->getCustomFieldList();
+        //$customFieldsConfig = $this->getCustomFieldList(); // already initialize above
         if(is_array($customFieldsConfig) && count($customFieldsConfig)) {
             $customFields = array();
             foreach($customFieldsConfig as $customFieldsConfigItem) {
+                /*if( $customFieldsConfigItem['netsuite_field_name'] == 'custbody_wrappingcost' )
+                {
+                    $customField = $this->_initCustomField($customFieldsConfigItem,$wrapping);
+                    $customFields[]=$customField;
+
+error_log("\n".print_r($customFields,1), 3, '/tmp/netsuite1.log');                    
+                    continue;
+                }*/
                 if($customFieldsConfigItem['netsuite_field_type'] == 'standard') {
                     $netsuiteOrder->{$customFieldsConfigItem['netsuite_field_name']} = $this->_getCustomFieldValueFromMagentoData($customFieldsConfigItem,$magentoOrder);
                 }
