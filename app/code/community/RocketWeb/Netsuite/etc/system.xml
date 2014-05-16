@@ -439,8 +439,8 @@
                     </fields>
             	</forms>
             	<products>
-            		<label>Product synchronization</label>
-            		<frontend_type>text</frontend_type>
+                    <label>Product synchronization</label>
+                    <frontend_type>text</frontend_type>
                     <sort_order>40</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
@@ -909,9 +909,46 @@
                         </invoices_netsuite_type>
                     </fields>
                 </orders>
+                <exports>
+                    <label>Export Settings</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>80</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <product_default_id>
+                            <label>Product Default Internal ID</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>Product default Netsuite</comment>
+                        </product_default_id>
+                        <max_entity_id>
+                            <label>Max. Order ID</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>Max. Order ID/EntityID magento</comment>
+                        </max_entity_id>
+                        <limit>
+                            <label>Order Collection Limit</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <!--comment>Max. Order ID/EntityID magento</comment-->
+                        </limit>
+                    </fields>
+                </exports>
             	<developer translate="label">
-            		<label>Developer</label>
-            		<frontend_type>text</frontend_type>
+                    <label>Developer</label>
+                    <frontend_type>text</frontend_type>
                     <sort_order>100</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>

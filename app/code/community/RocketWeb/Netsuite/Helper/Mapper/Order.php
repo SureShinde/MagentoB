@@ -78,7 +78,7 @@ class RocketWeb_Netsuite_Helper_Mapper_Order extends RocketWeb_Netsuite_Helper_M
             $netsuiteOrderItem->quantity = $item->getQtyOrdered();
             $netsuiteOrderItem->quantityCommitted = $item->getQtyOrdered();
             $netsuiteOrderItem->item = new RecordRef();
-            $netsuiteOrderItem->item->internalId = $product->getNetsuiteInternalId();
+            $netsuiteOrderItem->item->internalId = $product->getNetsuiteInternalId() ? $product->getNetsuiteInternalId() : $this->getProductDefaultInternalId();
             $netsuiteOrderItem->price->internalId = -1;
 
             $netsuiteLocationId = Mage::helper('rocketweb_netsuite')->getNetsuiteLocationForStockDeduction();
@@ -542,4 +542,7 @@ class RocketWeb_Netsuite_Helper_Mapper_Order extends RocketWeb_Netsuite_Helper_M
         return $collection->getFirstItem();
     }
 
+    protected function getProductDefaultInternalId() {
+        return Mage::getStoreConfig('rocketweb_netsuite/exports/product_default_id');
+    }
 }
