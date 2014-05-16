@@ -1034,7 +1034,7 @@
 	-webkit-box-shadow: 1px 1px 4px 0 #ccc;
 	-moz-box-shadow: 1px 1px 4px 0 #ccc;
 	box-shadow: 1px 1px 4px 0 #ccc;
-	z-index: 99;
+	z-index: 2;
 }
 #nav li.nav-set-hadiah-bayi-dan-anak .level-hover {
     background: #fcfcfc url(../images/shadow.png) repeat-x left top;
