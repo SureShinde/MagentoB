@@ -87495,7 +87495,12 @@ class SalesOrderItem {
 	 * @var CustomFieldList
 	 */
 	public $customFieldList;
-
+	/**
+	 * @access public
+	 * @var custcolDiscountitem
+	 */
+	public $custcolDiscountitem;
+	
 	static $paramtypesmap = array(
 		"job" => "RecordRef",
 		"item" => "RecordRef",
