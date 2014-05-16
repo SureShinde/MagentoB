@@ -1774,7 +1774,7 @@ searchbar #nav-search-in {
     right: 0;
     display: block;
     z-index: 3;
-    width: 70px;
+    width: 80px !important;
     margin-right: 10.5%;
     padding-bottom: 6px !important;
     padding-top: 12px !important;
@@ -1788,7 +1788,7 @@ searchbar #nav-search-in {
     right: 0;
     display: block;
     z-index: 3;
-    width: 80px;
+    width: 70px !important;
     margin-right: 4.9%;
     padding-bottom: 6px !important;
     padding-top: 12px !important;
@@ -2279,8 +2279,11 @@ searchbar #nav-search-in {
         margin-left: -93px;
         max-width: inherit !important;
     }
+    .search-container-new #nav-searchbar {
+        width: 100% !important;
+    }
     .cart-for-sticky {
-        margin-right: 11.2%;
+        margin-right: 11.3% !important;
     }
     .checkout-for-sticky {
         margin-right: 4.5%;
@@ -2455,7 +2458,7 @@ searchbar #nav-search-in {
         z-index: 2;
     }
     .cart-for-sticky {
-        margin-right: 4.9%;
+        margin-right: 4.9% !important;
     }
     
     #nav a.link-shopby {
@@ -2469,6 +2472,9 @@ searchbar #nav-search-in {
         float: right;
         max-width: 420px;
         width: 70%;
+    }
+    .search-container-new #nav-searchbar {
+        width: 105% !important;
     }
     .header .quick-access .left {
         display: none !important;
