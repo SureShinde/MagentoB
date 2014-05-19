@@ -68,12 +68,15 @@ abstract class AW_Blog_Block_Abstract extends Mage_Core_Block_Template
             /* prepare urls depnding on mode */
             if ($category && $categoryUrl) {
                 $item->setAddress(
-                    $this->getBlogUrl(
+                    /*$this->getBlogUrl(
                         null,
                         array(
                              self::$_catUriParam  => $category->getIdentifier(),
                              self::$_postUriParam => $item->getIdentifier()
                         )
+                    )*/
+		    $this->getBlogUrl(
+                        $item->getIdentifier()
                     )
                 );
             } else {

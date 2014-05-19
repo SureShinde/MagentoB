@@ -61,7 +61,7 @@ class AW_Collpur_Block_Customer_Deals extends AW_Collpur_Block_Customer_Basedeal
         $pager = $this->getLayout()->createBlock('page/html_pager', 'awcp_customer_deals_pager');
         //$pager->setAvailableLimit(array("10" => "10", "15" => "15", "25" => "25"));
         $pager->setLimitVarName('custlimit');
-        $pager->setPageVarName('castvarname');
+        $pager->setPageVarName('deals');
         $pager->setCollection($this->getCustomerPurchases());
         $this->setChild('awcp_customer_deals_pager', $pager);
     }

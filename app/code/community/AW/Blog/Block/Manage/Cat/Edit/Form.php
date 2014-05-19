@@ -85,17 +85,34 @@ class AW_Blog_Block_Manage_Cat_Edit_Form extends Mage_Adminhtml_Block_Widget_For
             )
         );
 
-        /*$fieldset->addField(
-            'layoutx',
+        $categories = array(
+            array(
+                'label' => 'Choose as Parent',
+                'value' =>  0,
+        ));
+
+        $collection = Mage::getModel('blog/cat')->getCollection()
+            ->addFieldToFilter('parent_id', array('eq' => 0))
+            ->setOrder('sort_order', 'asc');
+        foreach ($collection as $cat) {
+
+            $categories[] = (array(
+                'label' => (string)$cat->getTitle(),
+                'value' =>  $cat->getCatId(),
+            ));
+        }
+
+        $fieldset->addField(
+            'parent_id',
             'select',
             array(
-                 'name'     => 'layoutx',
-                 'label'    => Mage::helper('cms')->__('Store View'),
-                 'title'    => Mage::helper('cms')->__('Store View'),
-                 'required' => true,
-                 'values'   => $layout,
+                'name'     => 'parent_id',
+                'label'    => Mage::helper('cms')->__('Choose Parent Category'),
+                'title'    => Mage::helper('cms')->__('Choose Parent Category'),
+                'values'   => $categories,
             )
-        );*/
+        );
+
         /**
          * Check is single store mode
          */

@@ -14,6 +14,8 @@
 			<block type="cms/block" name="Blog_Banner_bottom_right">
 				<action method="setBlockId"><block_id>blog-banner-bottom-right</block_id></action>
 			</block> 
+            <remove name="right.reports.product.viewed"/>
+            <remove name="recently_viewed" />
         </reference>
         <reference name="footer_links">
             <block type="blog/blog" name="add.blog.footer">
@@ -71,6 +73,8 @@
         <reference name="right">
 			<remove name="catalog.compare.sidebar"/>
 			<remove name="cart_sidebar"/>
+            <remove name="right.reports.product.viewed"/>
+            <remove name="recently_viewed" />
         </reference>
     </blog_index_index>
 
@@ -120,6 +124,8 @@
         <reference name="right">
 			<remove name="catalog.compare.sidebar"/>
 			<remove name="cart_sidebar"/>
+            <remove name="right.reports.product.viewed"/>
+            <remove name="recently_viewed" />
         </reference>
     </blog_index_list>
     <blog_post_view>
@@ -147,6 +153,8 @@
         <reference name="right">
 			<remove name="catalog.compare.sidebar"/>
 			<remove name="cart_sidebar"/>
+            <remove name="right.reports.product.viewed"/>
+            <remove name="recently_viewed" />
         </reference>
     </blog_post_view>
     <blog_cat_view>
@@ -175,6 +183,8 @@
         <reference name="right">
 			<remove name="catalog.compare.sidebar"/>
 			<remove name="cart_sidebar"/>
+            <remove name="right.reports.product.viewed"/>
+            <remove name="recently_viewed" />
         </reference>
     </blog_cat_view>
     <blog_cat_search>
@@ -203,6 +213,8 @@
         <reference name="right">
             <remove name="catalog.compare.sidebar"/>
             <remove name="cart_sidebar"/>
+            <remove name="right.reports.product.viewed"/>
+            <remove name="recently_viewed" />
         </reference>
     </blog_cat_search>
 
@@ -228,6 +240,8 @@
         <reference name="right">
             <remove name="catalog.compare.sidebar"/>
             <remove name="cart_sidebar"/>
+            <remove name="right.reports.product.viewed"/>
+            <remove name="recently_viewed" />
         </reference>
     </blog_search_index>
 

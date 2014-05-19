@@ -11,12 +11,12 @@
             <action method="addJs" ifconfig="collpur/general/enable">
                 <script>varien/product.js</script>
             </action>
+			<action method="addJs" ifconfig="collpur/general/enable">
+			<script>aw_collpur/modernizr.custom.js</script>
+			</action>
             <action method="addItem" ifconfig="collpur/general/enable">
                 <type>skin_js</type>
                 <name>js/bundle.js</name>
-            </action>
-            <action method="addCss" ifconfig="collpur/general/enable">
-                <stylesheet>aw_collpur/css/styles.css</stylesheet>
             </action>
         </reference>
         <reference name="top.links" ifconfig="collpur/general/enable">
@@ -39,6 +39,7 @@
         <reference name="my.account.wrapper">
             <block type="collpur/customer_deals" name="awcp.deals.list"/>
         </reference>
+		
     </awcollpur_customer_index>
     <awcollpur_customer_view>
         <update handle="customer_account"/>
@@ -54,16 +55,40 @@
         </reference>
     </awcollpur_customer_printcoupon>
     <awcollpur_deals_list>
+	<reference name="head">
+		<action method="addCss" ifconfig="collpur/general/enable">
+			<stylesheet>aw_collpur/css/foundation.min.css</stylesheet>
+		</action>
+		<action method="addCss" ifconfig="collpur/general/enable">
+			<stylesheet>aw_collpur/css/styles.css</stylesheet>
+		</action>
+		
+		 <action method="addCss" ifconfig="collpur/general/enable">
+			<stylesheet>aw_collpur/css/component.css</stylesheet>
+		</action>
+	</reference>
         <reference name="root">
             <action method="setTemplate">
-                <template>page/2columns-left.phtml</template>
+                <template>page/1column-deals.phtml</template>
             </action>
         </reference>
     </awcollpur_deals_list>
     <awcollpur_deals_view>
+		<reference name="head">
+			<action method="addCss" ifconfig="collpur/general/enable">
+				<stylesheet>aw_collpur/css/foundation.min.css</stylesheet>
+			</action>
+            <action method="addCss" ifconfig="collpur/general/enable">
+                <stylesheet>aw_collpur/css/styles.css</stylesheet>
+            </action>
+			
+			 <action method="addCss" ifconfig="collpur/general/enable">
+                <stylesheet>aw_collpur/css/component.css</stylesheet>
+            </action>
+		</reference>
         <reference name="root">
             <action method="setTemplate">
-                <template>page/2columns-left.phtml</template>
+                <template>page/1column-deals.phtml</template>
             </action>
         </reference>
         <reference name="content">

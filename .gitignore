@@ -110,3 +110,5 @@ wp/wp-config.php
 wp/wp-config.php
 
 includes
+
+lib/Netsuite/nslog/

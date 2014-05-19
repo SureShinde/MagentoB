@@ -110,24 +110,17 @@ class Bilna_Staticarea_Adminhtml_ManageController extends Mage_Adminhtml_Control
 			$this->_redirect("*/*/");
 	}
 
-
-
-	public function deleteAction()
-	{
-		// if( $this->getRequest()->getParam("id") > 0 ) {
-		// 	try {
-		// 		$model = Mage::getModel("wrappinggiftevent/manage");
-		// 		$model->setId($this->getRequest()->getParam("id"))->delete();
-		// 		Mage::getSingleton("adminhtml/session")->addSuccess(Mage::helper("adminhtml")->__("Item was successfully deleted"));
-		// 		$this->_redirect("*/*/");
-		// 	} 
-		// 	catch (Exception $e) {
-		// 		Mage::getSingleton("adminhtml/session")->addError($e->getMessage());
-		// 		$this->_redirect("*/*/edit", array("id" => $this->getRequest()->getParam("id")));
-		// 	}
-		// }
-		// $this->_redirect("*/*/");
-	}
+	protected function deleteAction() {
+        $_area = Mage::getModel('staticarea/manage')->load($this->getRequest()->getParam('id'));
+        if($_area->getData()) {
+            foreach($_area->getContentCollection() as $content) {
+                $content->delete();
+            }
+            $_area->delete();
+            $this->_getSession()->addSuccess($this->__('Static Area has been successfully deleted'));
+        }
+        return $this->_redirect('*/*/index');
+    }
 
 	protected function gridAction() {
         $this->getResponse()->setBody($this->getLayout()->createBlock('staticarea/adminhtml_manage_edit_tab_contents')->toHtml());

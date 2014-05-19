@@ -300,7 +300,7 @@
 }
 .aw-arp-block-1 .top_thumb_list_product{
 	height:0;
-    z-index: 888;
+    z-index: 1;
 }
 .bottom_thumb_list_product .ratings{
 	margin:0;
@@ -792,6 +792,17 @@ margin: 0 1% ;
 	float: left;
 }
 
+
+.product-tab-mobile-wrapper .tab-container {
+    margin: 0 15px;
+}
+
+.product-tab-mobile-wrapper .colomn{
+	width:auto;
+}
+.product-tab-mobile-wrapper #show{
+	display:none;
+}
 #customer-reviews {
 	margin-bottom: 50px;
 	clear: both;
@@ -1181,4 +1192,8 @@ margin: 0 1% ;
 	padding: 11px;
 }
 
+.catalog-product-view .super-products .availability.out-of-stock {
+    bottom: 30px;
+    position: absolute;
+}
 

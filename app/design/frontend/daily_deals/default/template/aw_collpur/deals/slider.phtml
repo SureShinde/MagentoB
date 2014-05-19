@@ -38,6 +38,12 @@ $j(window).ready(function() {
 				
 				</script>
 	<script src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_JS);?>aw_collpur/jquery.cbpContentSlider.min.js"></script>
+	<script src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_JS);?>counter/jquery.plugin.js"></script>
+	<script src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_JS);?>counter/jquery.countdown.js"></script>
+	<link rel="stylesheet" href="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_JS);?>counter/jquery.countdown.css">
+	<style type="text/css">
+	#defaultCountdown { width: 240px; height: 45px; font-weight: normal }
+	</style>
 	<script>
 	
 		jQuery( document ).ready(function() {
@@ -293,7 +299,7 @@ $max = count($dealSliders); ?>
 								<div class="price_deals_slider">
 									<p><?php echo Mage::helper('core')->currency($dealSlider->getPrice(), true, false); ?></p>
 										<div class="after_price">
-											<?php if($originalProduct->getPrice() > 0) echo "<p>".Mage::helper('core')->currency($originalProduct->getPrice(), true, false)."</p>"; ?>
+											<?php if($originalProduct->getFinalPrice() > 0) echo "<p>".Mage::helper('core')->currency($originalProduct->getFinalPrice(), true, false)."</p>"; ?>
 											<p><?php if($dealInfo->getPercentDiscount() <> "0") { echo $dealInfo->getPercentDiscount(); ?>% OFF<?php } ?></p>
 
 										</div>
@@ -301,9 +307,35 @@ $max = count($dealSliders); ?>
 							</div>
 							<div class="column large-4 medium-4 small-4 date_slider_deals">
 								<label>PROMO END IN:</label>
-								<p><?php echo $this->getTimeLeftToBuy($dealSlider); ?></p>
-								<p>hour(s) minute(s) second(s)</p>
-								<p class="hide">SOLD: <span><?php echo $this->getPurchasesCount($dealSlider->getId()); ?></span></p>
+								<?php
+                                $availableTo = Mage::getModel('core/date')->timestamp(strtotime($dealSlider->getAvailableTo()));
+
+                                $year = date("Y", $availableTo);
+                                $month = date("m", $availableTo);
+                                $day = date("d", $availableTo);
+                                $hours = date("H", $availableTo);
+                                $minutes = date("i", $availableTo);
+                                $seconds = date("s", $availableTo);
+                                ?> 								
+								<script>
+								jQuery(function () {
+									var promoEnd = new Date();
+									var year = <?php echo $year; ?>;
+									var month = <?php echo $month; ?>;
+									var day = <?php echo $day; ?>;
+									var hours = <?php echo $hours; ?>;
+									var minutes = <?php echo $minutes; ?>;
+									var seconds = <?php echo $seconds; ?>;
+
+									promoEnd = new Date(parseInt(year), parseInt(month)-1, parseInt(day), parseInt(hours), parseInt(minutes), parseInt(seconds));
+									jQuery('#defaultCountdown').countdown({until: promoEnd});
+								});
+								</script>
+								<p><?php //echo $this->getTimeLeftToBuy($dealSlider); ?>
+									<div id="defaultCountdown"></div>
+								</p>
+								<!-- <p>hour(s) minute(s) second(s)</p> -->
+								<p>SOLD: <span><?php echo $this->getPurchasesCount($dealSlider->getId()); ?></span></p>
 							</div>
 							<div class="column large-3 medium-3 small-3">
 								<form action="<?php echo Mage::getUrl('checkout/cart/add', array('_secure'=>true,'product' => $dealSlider->getProduct()->getId(), 'deal_id' => $dealSlider->getId(), 'form_key' => Mage::getSingleton('core/session')->getFormKey())) ?>" method="post" class="right_detail_deals_slider" id="product_addtocart_form">
