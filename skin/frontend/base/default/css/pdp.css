@@ -792,6 +792,17 @@ margin: 0 1% ;
 	float: left;
 }
 
+
+.product-tab-mobile-wrapper .tab-container {
+    margin: 0 15px;
+}
+
+.product-tab-mobile-wrapper .colomn{
+	width:auto;
+}
+.product-tab-mobile-wrapper #show{
+	display:none;
+}
 #customer-reviews {
 	margin-bottom: 50px;
 	clear: both;

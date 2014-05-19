@@ -33,7 +33,8 @@ $_helper = Mage::helper('catalog/category');
 <div class="search-container-new">
     <form id="nav-searchbar" action="<?php echo $catalogSearchHelper->getResultUrl() ?>" method="get" name="site-search" role="search" accept-charset="utf-8" ,="" class="nav-searchbar-inner">              
                 <div class="nav-submit-button nav-sprite">
-                  <input type="submit" value="" class="nav-submit-input" title=""><img style="margin: 5px 10px 0 0;" src="<?php echo $this->getSkinUrl('images/search-icon-new.png'); ?> " maxlength="<?php echo $catalogSearchHelper->getMaxQueryLength();?>"/></input>
+                  <input type="submit" value="" class="nav-submit-input" title="">
+				  <img style="margin: 5px 10px 0;" src="<?php echo $this->getSkinUrl('images/search-icon-new.png'); ?> " maxlength="<?php echo $catalogSearchHelper->getMaxQueryLength();?>"/></input>
                 </div>
 
                 <span id="nav-search-in" class="nav-sprite nav-facade-active" style="width: auto;">
