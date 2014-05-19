@@ -1036,6 +1036,9 @@
 	box-shadow: 1px 1px 4px 0 #ccc;
 	z-index: 99;
 }
+#nav li.nav-kebutuhan-khusus-bayi-dan-balita ul.level-hover,
+#nav li.nav-buku-dan-mainan ul.level-hover,
+#nav li.nav-kesehatan-dan-keamanan-bayi-dan-balita ul.level-hover,
 #nav li.nav-perlengkapan-bayi ul.level-hover,
 #nav li.nav-untuk-ibu ul.level-hover{
 	left:auto;
@@ -2181,6 +2184,17 @@ searchbar #nav-search-in {
 }
 
 @media only screen and (max-width: 1215px) {
+	#nav li.nav-kebutuhan-khusus-bayi-dan-balita ul.level-hover{
+		left:auto;
+		right:-68px;
+	}
+	#nav li.nav-buku-dan-mainan ul.level-hover,
+	#nav li.nav-kesehatan-dan-keamanan-bayi-dan-balita ul.level-hover,
+	#nav li.nav-perlengkapan-bayi ul.level-hover,
+	#nav li.nav-untuk-ibu ul.level-hover{
+		left:auto;
+		right:-100px;
+	}
     #nav li.level-top.parent-8 ul.shown-sub {
         right: auto;
         left: 0;
