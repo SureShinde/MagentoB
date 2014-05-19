@@ -10,14 +10,11 @@ require_once dirname(__FILE__) . '/../abstract.php';
 class Bilna_Netsuitesync_Shell_NetsuiteExportInvoice extends Mage_Shell_Abstract {
     public function run() {
         $this->writeLog("Started export invoices ...");
-        $orderCollection = $this->getOrderCollection();
-        $this->writeLog("Processing {$orderCollection->getSize()} orders ...");
+        $invoiceCollection = $this->getInvoiceCollection();
+        $this->writeLog("Processing {$invoiceCollection->getSize()} invoices ...");
         
-        foreach ($orderCollection as $order) {
-            $magentoInvoice = Mage::getModel('sales/order_invoice')
-                ->getCollection()
-                ->addAttributeToFilter('order_id', $order->getEntityId())
-                ->getFirstItem();
+        foreach ($invoiceCollection as $invoice) {
+            $magentoInvoice = Mage::getModel('sales/order_invoice')->load($invoice->getEntityId());
             
             if (!$magentoInvoice->getEntityId()) {
                 $this->writeLog("Cannot load invoice with id #{$magentoInvoice->getEntityId()} from Magento!");
@@ -31,13 +28,12 @@ class Bilna_Netsuitesync_Shell_NetsuiteExportInvoice extends Mage_Shell_Abstract
             }
             
             $netsuiteService = Mage::helper('rocketweb_netsuite')->getNetsuiteService();
-            $magentoOrder = $magentoInvoice->getOrder();
+            $magentoOrder = Mage::getModel('sales/order')->load($magentoInvoice->getOrderId());
             
             $initializeObject = new InitializeRecord();
             $initializeObject->reference = new InitializeRef();
             $initializeObject->reference->type = RecordType::salesOrder;
             $initializeObject->reference->internalId = $magentoOrder->getNetsuiteInternalId();
-            //$initializeObject->reference->internalId = $magentoOrder->getIncrementId();
             
             if ($this->isNetsuiteCashSaleType()) {
                 $initializeObject->type = RecordType::cashSale;
@@ -70,6 +66,8 @@ class Bilna_Netsuitesync_Shell_NetsuiteExportInvoice extends Mage_Shell_Abstract
                 $request = new AddRequest();
                 $request->record = $cashSale;
                 $response = $netsuiteService->add($request);
+                $this->writeLog("requestCashSale: " . json_encode($request));
+                $this->writeLog("responseCashSale: " . json_encode($response));
 
                 if ($response->writeResponse->status->isSuccess) {
                     $netsuiteId = $response->writeResponse->baseRef->internalId;
@@ -101,6 +99,8 @@ class Bilna_Netsuitesync_Shell_NetsuiteExportInvoice extends Mage_Shell_Abstract
                         $request = new AddRequest();
                         $request->record = $customerPayment;
                         $response = $netsuiteService->add($request);
+                        $this->writeLog("requestCustomerPayment: " . json_encode($request));
+                        $this->writeLog("responseCustomerPayment: " . json_encode($response));
 
                         if ($response->writeResponse->status->isSuccess) {
                             //$this->writeLog("response: " . $response->writeResponse->status->isSuccess);
@@ -126,14 +126,18 @@ class Bilna_Netsuitesync_Shell_NetsuiteExportInvoice extends Mage_Shell_Abstract
         $this->writeLog("Ended export invoices ...");
     }
     
-    protected function getOrderCollection() {
-        $orderCollection = Mage::getModel('sales/order')->getCollection();
-        $orderCollection->addAttributeToFilter('netsuite_internal_id', array ('neq' => ''));
-        $orderCollection->addAttributeToFilter('entity_id', array ('lteq' => $this->getMaxOrderId()));
-        $orderCollection->addAttributeToSort('entity_id', 'DESC');
-        $orderCollection->getSelect()->limit($this->getOrderCollectionLimit());
+    protected function getInvoiceCollection() {
+        $invoiceCollection = Mage::getModel("sales/order_invoice")->getCollection();
+        $invoiceCollection->addAttributeToFilter('netsuite_internal_id', array ('eq' => ''));
+        
+        if ($this->getMaxOrderId()) {
+            $invoiceCollection->addAttributeToFilter('entity_id', array ('lteq' => $this->getMaxOrderId()));
+        }
+        
+        $invoiceCollection->addAttributeToSort('entity_id', 'DESC');
+        $invoiceCollection->getSelect()->limit($this->getInvoiceCollectionLimit());
 
-        return $orderCollection;
+        return $invoiceCollection;
     }
     
     protected function isNetsuiteInvoiceType() {
@@ -150,10 +154,10 @@ class Bilna_Netsuitesync_Shell_NetsuiteExportInvoice extends Mage_Shell_Abstract
     }
     
     protected function getMaxOrderId() {
-        return Mage::getStoreConfig('rocketweb_netsuite/exports/max_entity_id');
+        return Mage::getStoreConfig('rocketweb_netsuite/exports/max_invoice_entity_id');
     }
 
-    protected function getOrderCollectionLimit() {
+    protected function getInvoiceCollectionLimit() {
         return (int) Mage::getStoreConfig('rocketweb_netsuite/exports/limit');
     }
     

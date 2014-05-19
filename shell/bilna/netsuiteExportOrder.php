@@ -57,7 +57,7 @@ class Bilna_Netsuitesync_Shell_NetsuiteExportOrder extends Mage_Shell_Abstract {
     }
     
     protected function getMaxOrderId() {
-        return Mage::getStoreConfig('rocketweb_netsuite/exports/max_entity_id');
+        return Mage::getStoreConfig('rocketweb_netsuite/exports/max_order_entity_id');
     }
 
     protected function getOrderCollectionLimit() {

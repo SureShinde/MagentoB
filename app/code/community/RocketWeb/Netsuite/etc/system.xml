@@ -926,15 +926,24 @@
                             <show_in_store>0</show_in_store>
                             <comment>Product default Netsuite</comment>
                         </product_default_id>
-                        <max_entity_id>
-                            <label>Max. Order ID</label>
+                        <max_order_entity_id>
+                            <label>Max. Order EntityId</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>20</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
                             <comment>Max. Order ID/EntityID magento</comment>
-                        </max_entity_id>
+                        </max_order_entity_id>
+                        <max_invoice_entity_id>
+                            <label>Max. Invoice EntityId</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>21</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>Max. Invoice ID/EntityID magento</comment>
+                        </max_invoice_entity_id>
                         <limit>
                             <label>Order Collection Limit</label>
                             <frontend_type>text</frontend_type>

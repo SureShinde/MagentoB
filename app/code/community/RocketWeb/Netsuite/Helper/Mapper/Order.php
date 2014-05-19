@@ -273,34 +273,31 @@ class RocketWeb_Netsuite_Helper_Mapper_Order extends RocketWeb_Netsuite_Helper_M
             $netsuiteOrder->location->type = RecordType::location;
             $netsuiteOrder->location->internalId = $locationId;
         }
-
-        /*$wrapping = Mage::getModel('wrappinggiftevent/custom_order')->loadByOrderId($magentoOrder);
-error_log("\n".print_r($wrapping,1), 3, '/tmp/netsuite1.log');*/
-        //custom fields
-        //$customFieldsConfig = $this->getCustomFieldList(); // already initialize above
-        if(is_array($customFieldsConfig) && count($customFieldsConfig)) {
-            $customFields = array();
-            foreach($customFieldsConfig as $customFieldsConfigItem) {
-                /*if( $customFieldsConfigItem['netsuite_field_name'] == 'custbody_wrappingcost' )
-                {
-                    $customField = $this->_initCustomField($customFieldsConfigItem,$wrapping);
-                    $customFields[]=$customField;
-
-error_log("\n".print_r($customFields,1), 3, '/tmp/netsuite1.log');                    
-                    continue;
-                }*/
-                if($customFieldsConfigItem['netsuite_field_type'] == 'standard') {
-                    $netsuiteOrder->{$customFieldsConfigItem['netsuite_field_name']} = $this->_getCustomFieldValueFromMagentoData($customFieldsConfigItem,$magentoOrder);
+        
+        if (is_array($customFieldsConfig) && count($customFieldsConfig)) {
+            $customFields = array ();
+            
+            foreach ($customFieldsConfig as $customFieldsConfigItem) {
+                if ($customFieldsConfigItem['netsuite_field_type'] == 'standard') {
+                    $netsuiteOrder->{$customFieldsConfigItem['netsuite_field_name']} = $this->_getCustomFieldValueFromMagentoData($customFieldsConfigItem, $magentoOrder);
                 }
                 else {
-                    $customField = $this->_initCustomField($customFieldsConfigItem,$magentoOrder);
-                    $customFields[]=$customField;
+                    $customField = $this->_initCustomField($customFieldsConfigItem, $magentoOrder);
+                    $customFields[] = $customField;
                 }
             }
-            $netsuiteOrder->customFieldList =new CustomFieldList();
+            
+            //add custom field paymentMethod
+            $customPaymentMethod = new StringCustomFieldRef();
+            $customPaymentMethod->internalId = 'custbody_paymentmethod';
+            $customPaymentMethod->value = $paymentMethodNetsuiteId;
+            $customFields[] = $customPaymentMethod;
+            
+            $netsuiteOrder->customFieldList = new CustomFieldList();
             $netsuiteOrder->customFieldList->customField = $customFields;
         }
-
+        
+        //add custom field for paymentMethod
 
         return $netsuiteOrder;
     }
