@@ -88,3 +88,12 @@
 .form-list .ajaxlogin-customer-dob-extra .dob-month input.input-text { width:46px; }
 .form-list .ajaxlogin-customer-dob-extra .dob-year { width:140px; }
 .form-list .ajaxlogin-customer-dob-extra .dob-year input.input-text { width:134px; }
+
+.al-authorization-container-overlap .buttons-set p.required {
+    float: right;
+}
+
+@media (max-width: 767px){ 
+    .al-authorization-container-overlap { position: fixed; width: 100%; height: 100%; left: 0; top: 0; z-index: 999; overflow-y: hidden; overflow: scroll; } }
+    .al-authorization-container-overlap .Shadow {height: 150%;}
+}
