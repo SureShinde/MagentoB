@@ -105,6 +105,9 @@
 	right: 6px;
 	display:none;
 }
+.cms-index-index .homepage-product a.link-viewmore-product {
+	display:none !important;
+}
 .homepage-product a.link-viewmore-product:hover {
 	color: #4EC7DA;
 }
