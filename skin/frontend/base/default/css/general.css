@@ -506,6 +506,14 @@ a.back-to-top img {
 }
 .special-1 .onsale-category-container {
     top: -18px !important;
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+
+@media only screen and (max-width: 676px){
+    .special-1 .onsale-category-container {
+        width: 100% !important;
+    }
 }
 
 /* -------------------------------END SPECIAL CATEGORY PAGE------------------------------- */
