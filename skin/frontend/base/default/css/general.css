@@ -508,11 +508,13 @@ a.back-to-top img {
     top: -18px !important;
     background-size: 100%;
     background-repeat: no-repeat;
+    width: 100% !important;
 }
 
-@media only screen and (max-width: 676px){
+@media only screen and (max-width: 767px){
     .special-1 .onsale-category-container {
         width: 100% !important;
+        top: -8px !important;
     }
 }
 
