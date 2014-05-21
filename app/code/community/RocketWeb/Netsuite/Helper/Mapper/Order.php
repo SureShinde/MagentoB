@@ -46,7 +46,8 @@ class RocketWeb_Netsuite_Helper_Mapper_Order extends RocketWeb_Netsuite_Helper_M
         $netsuiteOrder->entity->internalId = $netsuiteCustomerId;
 
 
-        $netsuiteOrder->orderStatus = Mage::helper('rocketweb_netsuite/transform')->orderStateMagentoToNetsuite($magentoOrder->getState());
+        $netsuiteOrder->orderStatus = $this->getOrderStatusMap($magentoOrder->getState());
+        //$netsuiteOrder->orderStatus = Mage::helper('rocketweb_netsuite/transform')->orderStateMagentoToNetsuite($magentoOrder->getState());
         $fixedPriceBundles = array();
 
         //taxes
@@ -64,11 +65,10 @@ class RocketWeb_Netsuite_Helper_Mapper_Order extends RocketWeb_Netsuite_Helper_M
         }
 
         $customFieldsConfig = $this->getCustomFieldList();
-
-        $netsuiteOrderItems = array();
-        foreach($magentoOrder->getAllItems() as $item) {
-
-            if(in_array($item->getProductType(),array('configurable'))) {
+        $netsuiteOrderItems = array ();
+        
+        foreach ($magentoOrder->getAllItems() as $item) {
+            if (in_array($item->getProductType(), array ('configurable'))) {
                 continue;
             }
 
@@ -81,15 +81,22 @@ class RocketWeb_Netsuite_Helper_Mapper_Order extends RocketWeb_Netsuite_Helper_M
             $netsuiteOrderItem->item = new RecordRef();
             $netsuiteOrderItem->item->internalId = $product->getNetsuiteInternalId() ? $product->getNetsuiteInternalId() : $this->getProductDefaultInternalId();
             $netsuiteOrderItem->price->internalId = -1;
+            
+            //set item status
+            if ($netsuiteOrder->orderStatus == '_closed') {
+                $netsuiteOrderItem->isClosed = true;
+            }
 
             $netsuiteLocationId = Mage::helper('rocketweb_netsuite')->getNetsuiteLocationForStockDeduction();
-            if($netsuiteLocationId) {
+            
+            if ($netsuiteLocationId) {
                 $netsuiteLocation = new RecordRef();
                 $netsuiteLocation->type = RecordType::location;
                 $netsuiteLocation->internalId = $netsuiteLocationId;
                 $netsuiteOrderItem->location = $netsuiteLocation;
             }
-            if(!((float)$item->getRowTotal()) && $item->getParentItemId()) {
+            
+            if (!((float) $item->getRowTotal()) && $item->getParentItemId()) {
                 $parentItem = Mage::getModel('sales/order_item')->load($item->getParentItemId());
                 $price = $parentItem->getRowTotal();
                 $taxPercent = $parentItem->getTaxPercent();
@@ -99,8 +106,8 @@ class RocketWeb_Netsuite_Helper_Mapper_Order extends RocketWeb_Netsuite_Helper_M
                 $taxPercent = $item->getTaxPercent();
             }
 
-            if($item->getProductType() == 'bundle') {
-                if($item->getProduct()->getPrice() == 0) {
+            if ($item->getProductType() == 'bundle') {
+                if ($item->getProduct()->getPrice() == 0) {
                     //We remove the price and tax here as a zero-priced bundle has the price of its parts.
                     //Since we list the parts as simple products, the price will be doubled otherwise
                     $price = 0;
@@ -110,12 +117,14 @@ class RocketWeb_Netsuite_Helper_Mapper_Order extends RocketWeb_Netsuite_Helper_M
                     $fixedPriceBundles[$item->getId()] = true;
                 }
             }
-            if($item->getProductType() == 'simple' && $item->getParentItemId() && isset($fixedPriceBundles[$item->getParentItemId()])) {
+            
+            if ($item->getProductType() == 'simple' && $item->getParentItemId() && isset ($fixedPriceBundles[$item->getParentItemId()])) {
                 $price = 0;
             }
-            $netsuiteOrderItem->amount = $price;
             
-            if(!is_null($taxItem)) {
+            //$netsuiteOrderItem->amount = $price;
+            
+            if (!is_null($taxItem)) {
                 $netsuiteOrderItem->taxCode = clone $taxItem;
                 $netsuiteOrderItem->isTaxable = true;
                 $netsuiteOrderItem->taxRate1 = $taxPercent;
@@ -129,42 +138,46 @@ class RocketWeb_Netsuite_Helper_Mapper_Order extends RocketWeb_Netsuite_Helper_M
             }
 
             //custom fields item
-            if(Mage::helper('core')->isModuleEnabled('AW_Points')) {
+            if (Mage::helper('core')->isModuleEnabled('AW_Points')) {
                 $pointsTransaction = Mage::getModel('points/transaction')->loadByOrder($magentoOrder);
             }
             
-            if(is_array($customFieldsConfig) && count($customFieldsConfig)) {
-                $customFields = array();
+            $priceBeforeDiscount = 0;
+            
+            if (is_array($customFieldsConfig) && count($customFieldsConfig)) {
+                $customFields = array ();
                 $totalDiscount = 0;
-                foreach($customFieldsConfig as $customFieldsConfigItem) {
+                
+                foreach ($customFieldsConfig as $customFieldsConfigItem) {
                     switch ($customFieldsConfigItem['netsuite_field_name']) {
                         case 'custcol_discountitem':
-                            $customField = $this->_initCustomField($customFieldsConfigItem,$item);
-                            $customFields[]=$customField;
-                            $totalDiscount += (float) $item->getData('discount_amount');
+                            $discountPerItem = (float) ($item->getData('price') / $magentoOrder->getData('subtotal')) * $magentoOrder->getData('discount_amount');
+                            $item->setData($customFieldsConfigItem['value'], $discountPerItem);
+                            $customField = $this->_initCustomField($customFieldsConfigItem, $item);
+                            $customFields[] = $customField;
+                            $totalDiscount += (float) $discountPerItem;
                             break;
                         case 'custcol_bilnacredit':
-                            $bilna_credit = $item->getQtyOrdered() * (float) $pointsTransaction->getData('base_points_to_money')/$magentoOrder->getTotalQtyOrdered();
+                            $bilna_credit = (float) round($pointsTransaction->getData('base_points_to_money') / $magentoOrder->getTotalQtyOrdered(), 3);
                             $pointsTransaction->setData('base_points_to_money', $bilna_credit);
-                            $customField = $this->_initCustomField($customFieldsConfigItem,$pointsTransaction);
-                            $customFields[]=$customField;
+                            $customField = $this->_initCustomField($customFieldsConfigItem, $pointsTransaction);
+                            $customFields[] = $customField;
                             $totalDiscount += $bilna_credit;
                             break;
                         case 'custcol_pricebeforediscount':
-                            $customField = $this->_initCustomField($customFieldsConfigItem,$item);
-                            $customFields[]=$customField;
+                            $priceBeforeDiscount = $this->_getCustomFieldValueFromMagentoData($customFieldsConfigItem, $item);
+                            $customField = $this->_initCustomField($customFieldsConfigItem, $item);
+                            $customFields[] = $customField;
                             break;
-
                     }
                 }
             
-                $netsuiteOrderItem->customFieldList =new CustomFieldList();
+                $netsuiteOrderItem->customFieldList = new CustomFieldList();
                 $netsuiteOrderItem->customFieldList->customField = $customFields;
             }
 
-            $netsuiteOrderItem->rate = $price + $totalDiscount;
-
-            $netsuiteOrderItems[]=$netsuiteOrderItem;
+            $netsuiteOrderItem->rate = round($priceBeforeDiscount + $totalDiscount, 3);
+            $netsuiteOrderItems[] = $netsuiteOrderItem;
         }
 
         $netsuiteOrder->itemList = new SalesOrderItemList();
@@ -183,12 +196,12 @@ class RocketWeb_Netsuite_Helper_Mapper_Order extends RocketWeb_Netsuite_Helper_M
 
 
 
-        if($discountSum) {
-            $netsuiteOrder->discountItem = new RecordRef();
-            $netsuiteOrder->discountItem->internalId = $this->getDiscountItemInternalNetsuiteId();
-            $netsuiteOrder->discountItem->type = RecordType::discountItem;
-            $netsuiteOrder->discountRate = $discountSum;
-        }
+        //if ($discountSum) {
+        //    $netsuiteOrder->discountItem = new RecordRef();
+        //    $netsuiteOrder->discountItem->internalId = $this->getDiscountItemInternalNetsuiteId();
+        //    $netsuiteOrder->discountItem->type = RecordType::discountItem;
+        //    $netsuiteOrder->discountRate = 0;
+        //}
 
 
         //addresses
@@ -282,22 +295,25 @@ class RocketWeb_Netsuite_Helper_Mapper_Order extends RocketWeb_Netsuite_Helper_M
                     $netsuiteOrder->{$customFieldsConfigItem['netsuite_field_name']} = $this->_getCustomFieldValueFromMagentoData($customFieldsConfigItem, $magentoOrder);
                 }
                 else {
-                    $customField = $this->_initCustomField($customFieldsConfigItem, $magentoOrder);
-                    $customFields[] = $customField;
+                    if (in_array($customFieldsConfigItem['netsuite_field_name'], array ('custcol_discountitem', 'custcol_bilnacredit', 'custcol_pricebeforediscount'))) {
+                        continue;
+                    }
+                    elseif ($customFieldsConfigItem['netsuite_field_name'] == 'custbody_paymentmethod') {
+                        $customPaymentMethod = new StringCustomFieldRef();
+                        $customPaymentMethod->internalId = $customFieldsConfigItem['netsuite_field_name'];
+                        $customPaymentMethod->value = $paymentMethodNetsuiteId;
+                        $customFields[] = $customPaymentMethod;
+                    }
+                    else {
+                        $customField = $this->_initCustomField($customFieldsConfigItem, $magentoOrder);
+                        $customFields[] = $customField;
+                    }
                 }
             }
-            
-            //add custom field paymentMethod
-            $customPaymentMethod = new StringCustomFieldRef();
-            $customPaymentMethod->internalId = 'custbody_paymentmethod';
-            $customPaymentMethod->value = $paymentMethodNetsuiteId;
-            $customFields[] = $customPaymentMethod;
             
             $netsuiteOrder->customFieldList = new CustomFieldList();
             $netsuiteOrder->customFieldList->customField = $customFields;
         }
-        
-        //add custom field for paymentMethod
 
         return $netsuiteOrder;
     }
@@ -528,8 +544,23 @@ class RocketWeb_Netsuite_Helper_Mapper_Order extends RocketWeb_Netsuite_Helper_M
     protected function getCustomFieldList() {
         return unserialize(Mage::getStoreConfig('rocketweb_netsuite/orders/custom_fields_mapping'));
     }
+    
     protected function getCanSetTranId() {
         return Mage::getStoreConfig('rocketweb_netsuite/orders/set_tran_id');
+    }
+    
+    protected function getOrderStatusMap($magentoOrderState) {
+        $result = null;
+        $orderStatusMaps = unserialize(Mage::getStoreConfig('rocketweb_netsuite/orders/status_map'));
+        
+        foreach ($orderStatusMaps as $orderStatusMap) {
+            if ($orderStatusMap['magento_status'] == $magentoOrderState) {
+                $result = $orderStatusMap['netsuite_status'];
+                break;
+            }
+        }
+        
+        return $result;
     }
 
     protected function getPaymentProcessor(Mage_Sales_Model_Order $magentoOrder) {
