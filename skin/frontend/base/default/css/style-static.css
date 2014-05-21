@@ -2333,6 +2333,7 @@ button.button-area {
 		clear:both;
 		width:100%;
 		display:table;
+		margin:0 0 20px;
 	}
 	.cms-pestadiskon19 .telkomsel-promo p{
 		line-height:18px;
