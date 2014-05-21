@@ -2375,6 +2375,13 @@ button.button-area {
 	.cms-syarat-ketentuan-semarak19 ol li{
 		font-size:12px;
 	}
+	.banner-telkomsel-19{
+		display:none;
+	}
+	.cms-syarat-ketentuan-semarak19 .button-telkomesel {
+		margin: 20px 0;
+		text-align: center;
+	}
 	@media only screen and (max-width: 1023px){
 		.cms-pestadiskon19 .category-link{
 			padding:50px 2%;
@@ -2382,13 +2389,20 @@ button.button-area {
 		}
 	}
 	@media only screen and (max-width: 768px) {
-		.telkomsel-promo-19 .column_product_static{
+		.promo-telkomsel-19 .column_product_static{
 			width:32%;
 		}
 	}
 	@media only screen and (max-width: 468px) {
-		.telkomsel-promo-19 .column_product_static{
+		.promo-telkomsel-19 .column_product_static{
 			width:50%;
+		}
+		.banner-telkomsel-19{
+			display:block;
+			margin:0 0 10px
+		}
+		.banner-telkomsel-19 img{
+			width:100%;
 		}
 	}
 /*=============================end style telkomsel promo=============================*/
