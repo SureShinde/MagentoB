@@ -474,6 +474,7 @@ a.triger-showfilter {
 	left: 10px;
     position: absolute;
     bottom:9px;
+    display: block;
 }
 .catalog-category-view .slidesjs-pagination{
 	left:36%;
@@ -559,6 +560,12 @@ a.triger-showfilter {
     .category-baby .homepage-top-block.right {
 		width: 20%;
 	}
+    .style-baby.catalog-category-view .label_slider_ctegory, .style-perlengkapan-rumah.catalog-category-view  .label_slider_ctegory{
+        left: 10px;
+        position: absolute;
+        bottom:9px;
+        display: none;
+    }
 }
 
 
