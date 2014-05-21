@@ -2339,14 +2339,15 @@ button.button-area {
 		padding:0 20px;
 	}
 	.cms-pestadiskon19 .box-banner {
-		width:32%;
-		min-height:200px;
+		width:22%;
 		background:#d2d2d2;
 		float:left;
 		text-align:center;
 	}
-	.cms-pestadiskon19 .box-banner:nth-child(2) {
-		margin:0 2%;
+	.cms-pestadiskon19 a:nth-child(1) .box-banner,
+	.cms-pestadiskon19 a:nth-child(2) .box-banner,
+	.cms-pestadiskon19 a:nth-child(3) .box-banner{
+		margin:0 4% 0 0;
 	}
 	.cms-pestadiskon19 .wrap-category-link{
 		width:100%;
@@ -2354,12 +2355,10 @@ button.button-area {
 		clear:both;
 	}
 	.cms-pestadiskon19 .category-link{
-		padding:50px 10%;
 		margin:0 0 20px;
 		text-align:center;
-		width:29%;
+		width:49%;
 		float:left;
-		background:#5bc8d9;
 	}
 	.cms-pestadiskon19 .category-link img{
 		width:100%;
@@ -2383,10 +2382,7 @@ button.button-area {
 		text-align: center;
 	}
 	@media only screen and (max-width: 1023px){
-		.cms-pestadiskon19 .category-link{
-			padding:50px 2%;
-			width:45%;
-		}
+		
 	}
 	@media only screen and (max-width: 768px) {
 		.promo-telkomsel-19 .column_product_static{
@@ -2394,8 +2390,18 @@ button.button-area {
 		}
 	}
 	@media only screen and (max-width: 468px) {
+		.cms-pestadiskon19 .box-banner {
+			width:46%;
+			background:#d2d2d2;
+			float:left;
+			text-align:center;
+		}
+		
+		.cms-pestadiskon19 a .box-banner{
+			margin: 2% 2% !important;
+		}
 		.promo-telkomsel-19 .column_product_static{
-			width:50%;
+			width:46%;
 		}
 		.banner-telkomsel-19{
 			display:block;
@@ -2403,6 +2409,12 @@ button.button-area {
 		}
 		.banner-telkomsel-19 img{
 			width:100%;
+		}
+		.cms-pestadiskon19 .category-link {
+			margin: 0 2% 1% !important;
+		}
+		.cms-pestadiskon19 .category-link{
+			width:96%;
 		}
 	}
 /*=============================end style telkomsel promo=============================*/
