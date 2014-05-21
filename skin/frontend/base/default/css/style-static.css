@@ -2327,3 +2327,58 @@ button.button-area {
 }
 
 /*-------------end of bilna kredit-----------------*/
+
+/*=============================style telkomsel promo===============================*/
+	.cms-pestadiskon19 .wrapper-box-banner{
+		clear:both;
+		width:100%;
+		display:table;
+	}
+	.cms-pestadiskon19 p{
+		line-height:18px;
+		padding:0 20px;
+	}
+	.cms-pestadiskon19 .box-banner {
+		width:32%;
+		min-height:200px;
+		background:#d2d2d2;
+		float:left;
+		text-align:center;
+	}
+	.cms-pestadiskon19 .box-banner:nth-child(2) {
+		margin:0 2%;
+	}
+	.cms-pestadiskon19 .wrap-category-link{
+		width:100%;
+		display:table;
+		clear:both;
+	}
+	.cms-pestadiskon19 .category-link{
+		padding:50px 10%;
+		margin:0 0 20px;
+		text-align:center;
+		width:29%;
+		float:left;
+		background:#5bc8d9;
+	}
+	.cms-pestadiskon19 .category-link img{
+		width:100%;
+	}
+	.cms-pestadiskon19 .category-link:nth-child(1){
+		margin:0 2% 0 0;
+	}
+	.cms-pestadiskon19 a{
+		color:#5bc8d9;
+		font-weight:bold;
+		text-decoration:underline;
+	}
+	.cms-syarat-ketentuan-semarak19 ol li{
+		font-size:12px;
+	}
+@media only screen and (max-width: 1023px){
+		.cms-pestadiskon19 .category-link{
+			padding:50px 2%;
+			width:45%;
+		}
+	}
+/*=============================end style telkomsel promo===============================*/
