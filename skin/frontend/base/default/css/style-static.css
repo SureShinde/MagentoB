@@ -2388,6 +2388,12 @@ button.button-area {
 	@media only screen and (max-width: 768px) {
 		.promo-telkomsel-19 .column_product_static{
 			width:32%;
+		}.banner-telkomsel-19{
+			display:block;
+			margin:0 0 10px
+		}
+		.banner-telkomsel-19 img{
+			width:100%;
 		}
 	}
 	@media only screen and (max-width: 468px) {
@@ -2404,13 +2410,7 @@ button.button-area {
 		.promo-telkomsel-19 .column_product_static{
 			width:46%;
 		}
-		.banner-telkomsel-19{
-			display:block;
-			margin:0 0 10px
-		}
-		.banner-telkomsel-19 img{
-			width:100%;
-		}
+		
 		.cms-pestadiskon19 .category-link {
 			margin: 0 2% 1% !important;
 		}
