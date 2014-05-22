@@ -2327,3 +2327,95 @@ button.button-area {
 }
 
 /*-------------end of bilna kredit-----------------*/
+
+/*=============================style telkomsel promo===============================*/
+	.cms-pestadiskon19 .wrapper-box-banner{
+		clear:both;
+		width:100%;
+		display:table;
+		margin:0 0 20px;
+	}
+	.cms-pestadiskon19 .telkomsel-promo p{
+		line-height:18px;
+		padding:0 20px;
+	}
+	.cms-pestadiskon19 .box-banner {
+		width:22%;
+		background:#d2d2d2;
+		float:left;
+		text-align:center;
+	}
+	.cms-pestadiskon19 a:nth-child(1) .box-banner,
+	.cms-pestadiskon19 a:nth-child(2) .box-banner,
+	.cms-pestadiskon19 a:nth-child(3) .box-banner{
+		margin:0 4% 0 0;
+	}
+	.cms-pestadiskon19 .wrap-category-link{
+		width:100%;
+		display:table;
+		clear:both;
+	}
+	.cms-pestadiskon19 .category-link{
+		margin:0 0 20px;
+		text-align:center;
+		width:49%;
+		float:left;
+	}
+	.cms-pestadiskon19 .category-link img{
+		width:100%;
+	}
+	.cms-pestadiskon19 .category-link:nth-child(1){
+		margin:0 2% 0 0;
+	}
+	.cms-pestadiskon19 .telkomsel-promo a{
+		color:#5bc8d9;
+		font-weight:bold;
+		text-decoration:underline;
+	}
+	.cms-syarat-ketentuan-semarak19 ol li{
+		font-size:12px;
+	}
+	.banner-telkomsel-19{
+		display:none;
+	}
+	.cms-syarat-ketentuan-semarak19 .button-telkomesel {
+		margin: 20px 0;
+		text-align: center;
+	}
+	@media only screen and (max-width: 1023px){
+		
+	}
+	@media only screen and (max-width: 768px) {
+		.promo-telkomsel-19 .column_product_static{
+			width:32%;
+		}.banner-telkomsel-19{
+			display:block;
+			margin:0 0 10px
+		}
+		.banner-telkomsel-19 img{
+			width:100%;
+		}
+	}
+	@media only screen and (max-width: 468px) {
+		.cms-pestadiskon19 .box-banner {
+			width:46%;
+			background:#d2d2d2;
+			float:left;
+			text-align:center;
+		}
+		
+		.cms-pestadiskon19 a .box-banner{
+			margin: 2% 2% !important;
+		}
+		.promo-telkomsel-19 .column_product_static{
+			width:46%;
+		}
+		
+		.cms-pestadiskon19 .category-link {
+			margin: 0 2% 1% !important;
+		}
+		.cms-pestadiskon19 .category-link{
+			width:96%;
+		}
+	}
+/*=============================end style telkomsel promo=============================*/
