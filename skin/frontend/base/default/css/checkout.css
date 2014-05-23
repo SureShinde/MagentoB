@@ -163,8 +163,11 @@
 	border:none;
 }
 .data-table td {
-	padding:8px 20px;
+	padding:8px 30px;
 }
+/* #product-review-table .data-table td.value {
+    padding: 8px 30px;
+} */
 .data-table thead th {
 	background: #5d5d5d;
 	color: #fff;
