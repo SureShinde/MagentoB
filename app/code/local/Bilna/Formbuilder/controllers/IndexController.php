@@ -70,15 +70,15 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
 
 		foreach($postData["inputs"] as $type=>$value){				
 			$insertData = $this->_insertData($form_id,$record_id,$type,$value,$create_date);
+		}
 
-			if($row["sent_email"] == 1 && isset($postData["inputs"]["email"])){
-				$data["email"] = $postData["inputs"]["email"];
-				$data["name"] = (isset($postData["inputs"]["name"]))?$postData["inputs"]["name"]:"";
-				$data["phone"] = (isset($postData["inputs"]["phone"]))?$postData["inputs"]["phone"]:"";
-				$data["comment"] = (isset($postData["inputs"]["comment"]))?$postData["inputs"]["comment"]:"";
+		if($row["sent_email"] == 1 && isset($postData["inputs"]["email"])){
+			$data["email"] = $postData["inputs"]["email"];
+			$data["name"] = (isset($postData["inputs"]["name"]))?$postData["inputs"]["name"]:"";
+			$data["phone"] = (isset($postData["inputs"]["phone"]))?$postData["inputs"]["phone"]:"";
+			$data["comment"] = (isset($postData["inputs"]["comment"]))?$postData["inputs"]["comment"]:"";
 
-				$this->_prepareEmail($data, $row["email_id"]);
-			}
+			$this->_prepareEmail($data, $row["email_id"]);
 		}
 
 		if(!is_null($row["success_message"])){
@@ -91,73 +91,51 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
 
 	private function _prepareEmail($data, $templateId)
 	{
-		$emailVars = array (
-			'name_from' => $data["name"],
-			'email' => $data["email"],
-			'phone' => $data["phone"],
-			'comment' => $data["comment"],
-			'name_to' => 'CS Bilna',
-			'email_to' => 'cs@bilna.com'
-		);
-
-		$this->_sendEmail($data, $emailVars, $templateId);
+		$this->_sendEmail($data, $templateId);
 	}
 
-	// Redirect Page Function
 	private function _redirectPage($url) {
 		header("location:".$url);
 		exit;
 	}
-	// End Redirect Page Function
 
 	private function _sendEmail($data, $emailVars, $templateId) 
 	{
-		$emailSender = array (
-			'name' => $data["name"],
-			'email' => $data["email"]
-		);
-		//$storeId = Mage::app()->getStore()->getId();
+		$sender = array('name' => Mage::getStoreConfig('trans_email/ident_support/name'),
+						'email' => Mage::getStoreConfig('trans_email/ident_support/email'));
+
 		$translate = Mage::getSingleton('core/translate');
-		$sendEmail = Mage::getModel('core/email_template')
-		->sendTransactional($templateId, $emailSender, $emailVars['email'], $emailVars['name'], $emailVars);
+		$sendEmail = Mage::getModel('core/email_template')->sendTransactional($templateId, $sender, $data['email'], $data['name'], $data);
 		$translate->setTranslateInline(true);
 
-		if ($sendEmail) 
-		{
-			return true;
-		}
-
+		if ($sendEmail) return true;
 		return false;
 	}
 
 	private function _insertData($form_id,$record_id,$type,$value,$create_date) 
 	{
 		$write = Mage::getSingleton('core/resource')->getConnection('core_write');
-		//$created_at = date("Y-m-d H:i:s");
 		$dataArr = array (
 			$form_id,
 			$record_id,
 			$type,
 			$value
-			//$created_at
 			);
 
 		$sql = "insert into bilna_formbuilder_data (form_id, record_id, type, value, create_date) values ('$form_id','$record_id','$type','$value','$create_date')";
-
 		$query = $write->query($sql, $dataArr);
 
-		if ($query)
-		return true;
-		else
+		if ($query) return true;
 		return false;
 	}
 
 	private function _backurl($form_id) 
 	{
 		$connection	= Mage::getSingleton('core/resource')->getConnection('core_read');
-		$sql				= "select url from bilna_formbuilder_form where id=".$form_id." group by url";
-		$row				= $connection->fetchRow($sql);
-		$result			= $row['url'];
+		$sql		= "select url from bilna_formbuilder_form where id=".$form_id." group by url";
+		$row		= $connection->fetchRow($sql);
+		$result		= $row['url'];
+		
 		return $result;
 	}
 }

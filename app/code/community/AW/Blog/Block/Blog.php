@@ -60,24 +60,42 @@ class AW_Blog_Block_Blog extends AW_Blog_Block_Abstract
                 ->addFieldToSelect('created_time')
                 ->addFieldToSelect('image_name')
                 ->addFieldToSelect('short_content')
+                ->addFieldToSelect('identifier')
                 ->setOrder('created_time', 'desc');
-            $posts->addFieldToFilter("awblog_post_cat.cat_id", array ('eq' => $catId));
+            $posts->addFieldToFilter("apc.cat_id", array ('eq' => $catId));
             $posts->getSelect()
-                ->joinLeft(
-                    array( 'awblog_post_cat' => Mage::getSingleton('core/resource')->getTableName('blog/post_cat') ),
-                    "main_table.post_id = awblog_post_cat.post_id",
-                    array(
-                        'cat_id' => 'awblog_post_cat.cat_id'
-                    )
-            	)
+                //->joinLeft(
+                //    array( 'awblog_post_cat' => Mage::getSingleton('core/resource')->getTableName('blog/post_cat') ),
+                //    "main_table.post_id = awblog_post_cat.post_id",
+                //    array(
+                //        'cat_id' => 'awblog_post_cat.cat_id'
+                //    )
+            	//)
                 ->limit(5);
         
-            parent::_processCollection($posts);    
+            $posts = parent::_processCollection($posts);    
 
             $data[$row->getCatId()]['post'] = $posts;
         }
 
         return $data;
+    }
+    
+    public function getSliderPost()
+    {
+        $collection = Mage::getModel("blog/blog")->getCollection()
+                ->addPresentFilter()
+                ->addEnableFilter(AW_Blog_Model_Status::STATUS_ENABLED)
+                ->addStoreFilter()
+                ->addFieldToSelect('identifier')
+                ->addFieldToSelect('title')
+                ->addFieldToSelect('created_time')
+                ->addFieldToSelect('image_name')
+                ->addFieldToSelect('short_content')
+                ->setOrder('created_time', 'desc');
+        //$collection->addFieldToFilter("main_table.is_slider", array ('eq' => 1));
+
+        return $collection;              
     }
 
     public function getCategory()
