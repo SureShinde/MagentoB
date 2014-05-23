@@ -1010,6 +1010,7 @@ animation-timing-function: linear;
 
 
 
+
 	/*END For Mobile Moms & Baby World */
 
 
@@ -1018,7 +1019,7 @@ animation-timing-function: linear;
 
 /*style Tanya Ahli */
 .registered-users ul.form-list{
-	list-style-type:;
+/*	list-style-type:;*/
 }
 
 /*style Tanya Ahli */
@@ -1210,10 +1211,10 @@ z-index: 999;
     /* margin-left: 440px; */
     padding: 20px !important;
     position: absolute !important;
-    top: 42px !important;
-    width: 460px !important;
-	display: none;
-	right: 0 !important;
+    top: 134px !important;
+    width: 490px !important;
+	display: block;
+	right: 4.9% !important;
 	z-index: 99999 !important;
 }
 .title-gift-megamenu {
@@ -1260,10 +1261,21 @@ z-index: 999;
 .td-promo-cont {
 	display: none;
 	position: absolute;
-	top: 35px;
-	/* left: 14%; */
+	/* top: 35px;
+	left: 14%; */
 	z-index: 9999999999;
 	margin-left: -15px;
+}
+.today-promo-area > a:nth-child(n+2) {
+    border-top: 1px solid #EBEBEB;
+}
+.today-promo-area{
+	background: none repeat scroll 0 0 #FCFCFC;
+    box-shadow: 0 0 20px #999999;
+    display: block;
+    padding: 20px 20px 10px;
+    text-align: left;
+    width: auto;
 }
 .td-promo-cont {background:none;}
 .td-promo-cont:hover {background:#fff;}
@@ -1273,7 +1285,7 @@ z-index: 999;
 .td-contact-sticky-cont {
 	display: none;
 	position: absolute;
-	top: 35px;
+	top: 36px;
 	/* left: 14%; */
 	z-index: 9999999999;
 	margin-left: -15px;
@@ -1461,7 +1473,7 @@ z-index: 999;
 		padding: 10px 3%;
 		margin-top: 0px;
 	}
-}
+
 
 	.submain-area-gift a.blue {font-size: 15px; color:#04BEEF;}
 	.submain-area-gift a.green {font-size: 15px; color:#86B940;}
@@ -1494,7 +1506,7 @@ z-index: 999;
 .title-gift-megamenu {
 	text-align: left;
 	margin-bottom: 10px;
-	padding: 20px;
+	padding: 0 20px;
 }
 .title-gift-megamenu h2 {
 	color: #707070;
@@ -1530,6 +1542,7 @@ z-index: 999;
 	padding: 10px;
 	margin: 5px 0;
 	background: none repeat scroll 0 0 #fcfcfc;
+    display: block;
 }
 h2.block-grey-title-left {
 	width: 90%;
@@ -1567,6 +1580,12 @@ h2.block-grey-title-left {
 }
 .container-left-com {
 	margin-bottom: 10px;
+}
+
+@media only screen and (max-width: 767px) {     
+    .left-sp-menu-wrapp {
+        display: none !important;
+    }
 }
 
 /*=============Panin======================*/
@@ -1737,7 +1756,6 @@ h2.block-grey-title-left {
 }
 /* ---------------- end COD -------------------- */
 
-
 /* --------------------------------------- Start FORM BUILDER --------------------------------------- */
 .formbuilder-form .std ul {
     list-style: disc outside none;
@@ -1856,6 +1874,7 @@ h2.block-grey-title-left {
 
 
 /* --------------------------------------- END FORM BUILDER --------------------------------------- */
+
 /* ---------------- ETUDE -------------------- */
 .etude li span.right{
 	display:inline-flex;
@@ -1930,3 +1949,473 @@ button.button-area {
 .close-now {}
 
 /* END ------------ POP UP - ASI DISCLAIMER */
+
+/*---------promo free voucher april------*/
+	.logo_free_voucher{
+		padding:30px 0 0;
+		text-align:center;
+	}
+	.main-image{
+		margin:10px 0 0;
+		background:url(http://im.bilna.com/media/wysiwyg/static-page-img/free-voucher/main_img_facebook.jpg) no-repeat center;
+		height:338px;
+	}
+	.title_form{
+		text-align:center;
+		text-transform:uppercase;
+		font-size:24px;
+		color:#714943;
+		font-family:InsaniburgerRegular;
+	}
+	.input_form{
+		float:left;
+		font-size:18px;
+		text-indent:10px;
+		width:421px;
+		-moz-box-shadow:inset 3px 7px 8px #ebebeb;
+		-webkit-box-shadow:inset 3px 7px 8px #ebebeb;
+		box-shadow:inset 3px 7px 8px #ebebeb;
+		height:32px;
+		border:2px solid #cbcbcb;
+	}
+	.wrap_input_email{
+		display:table;
+		margin:30px auto;
+	}
+	.wrap_input_email label{
+		float:left;
+		padding: 12px 10px;
+		cursor:pointer;
+		background:#fb6248;
+		color:#fff;
+	}
+	.footer_facebook_page{
+		font-family:InsaniburgerRegular;
+		font-size:18px;
+		text-transform:uppercase;
+		color:#714943;
+		text-align:center;
+		margin:0 66px;
+		padding:20px 0 70px 0;
+		border-top:2px dashed #714943;
+	}
+	.popup_succes_facebook{
+		display:none;
+		position:fixed;
+		width:662px;
+		height:382px;
+		background:#f5ebe2;
+		border-radius:20px;
+		-moz-border-radius:20px;
+		-webkit-border-radius:20px;
+		margin:-148px auto 0 -331px;
+		top:50%;
+		z-index:11;
+		left:50%;
+	}
+	.popup_succes_facebook img{
+		display:block;
+		width:100%;
+		margin:40px auto 0;
+	}
+	.bg_popup{
+		display:none;
+		position:fixed;
+		width:100%;
+		height:100%;
+		background-color: rgba(0, 0, 0, 0.9);
+		background: rgba(0, 0, 0, 0.9);
+		color: rgba(0, 0, 0, 0.9);
+		top:0;
+		left:0;
+		z-index:10;
+	}
+	.popup_succes_facebook{
+		height: 280px;
+		margin: -140px auto 0 -250px;
+		width: 500px;
+	}
+	.close_button{
+		background:url("http://im.bilna.com/skin/frontend/base/default/images/btn_close_big.png") no-repeat;
+		float: right;
+		cursor:pointer;
+		height: 25px;
+		margin: 6px;
+		width: 25px;
+	}
+	.thanks_popup{
+		color: #714943;
+    font-family:InsaniburgerRegular;
+    font-size: 18px;
+    text-align: center;
+	margin:0 0 20px;
+    text-transform: uppercase;
+	}
+@media only screen and (max-width: 1023px){
+	.main-image{
+		background:url(http://im.bilna.com/media/wysiwyg/static-page-img/free-voucher/main_img_facebook_768.jpg) no-repeat center;
+	}
+}
+@media (max-width: 767px){ 
+	
+	.footer_facebook_page{
+		margin:0 45px;
+	}
+	.input_form{
+		width:332px;
+	}
+	
+}
+@media (max-width: 479px){ 
+	.main-image{
+		height:260px;
+		background:url(http://im.bilna.com/media/wysiwyg/static-page-img/free-voucher/main_img_facebook_320.jpg) no-repeat center;
+	}
+	.popup_succes_facebook{
+		height: auto;
+		margin: -140px auto 0 -39%;
+		width: 78%;
+	}
+	.footer_facebook_page{
+		margin:0 20px;
+		font-size:14px;
+	}
+	.popup_succes_facebook img{
+		width:100%;
+		margin:40px auto;
+	}
+	.input_form{
+		width:60%;
+	}
+	.form_email{
+		width:100%;
+	}
+	.popup_succes_facebook img {
+    margin: 20px auto;
+	}
+	.input_form{
+		height:27px;
+		font-size:14px;
+	}
+	.wrap_input_email label{
+		float:left;
+		padding: 9px 10px;
+		background:#fb6248;
+		color:#fff;
+	}
+	.title_form{
+		font-size:19px;
+	}
+}
+/*-----------------------end of free voucher--------------------------------*/
+
+/*---------------bilna kredit-------------------------*/
+.title-bilna-kredit{
+		font-family: helvetica, arial, san-serif; 
+		font-weight: bold; 
+		width:100%; 
+		height:20px; 
+		float:left;
+		text-transform:uppercase;
+		color:#0faa1e;
+		font-size: 22px;
+		text-align:center;
+		padding:20px 0;
+		margin-bottom:20px;
+	}
+.menu-tahap-bilna-kredit{
+	background: url('http://assets.bilna.com/media/wysiwyg/how-to-buy/button-bc-top.png') #0fa1aa;
+	font-family: helvetica, arial, san-serif; 
+	font-weight: bold; 
+	width:110px; 
+	height:110px; 
+	float:left; 
+	border-radius:55px; 
+	background-size:cover;
+	margin-right:5px;
+	margin-left:5px;
+}
+.wrap-menu-kredit{
+	margin: 0 10%; 
+	width: 80%;
+	float:left;
+}
+.sign-in{
+	margin-bottom:20px;
+	background: url('http://assets.bilna.com/media/wysiwyg/how-to-buy/button-bc-top.png') #0faa9a;
+	background-position: 0 0;
+	
+}
+.shop{
+	margin-top:20px;
+	background: url('http://assets.bilna.com/media/wysiwyg/how-to-buy/button-bc-top.png') #0faa9a;
+	background-position: -110px 0px;
+}
+.priview{
+	margin-bottom:20px;
+	background: url('http://assets.bilna.com/media/wysiwyg/how-to-buy/button-bc-top.png') #0faa9a;
+	background-position: -220px 0px;
+}
+.invite{
+	margin-top:20px;
+	background: url('http://assets.bilna.com/media/wysiwyg/how-to-buy/button-bc-top.png') #0faa6a;
+	background-position: -330px 0px;
+}
+.friends-shop{
+	margin-bottom:20px;
+	background: url('http://assets.bilna.com/media/wysiwyg/how-to-buy/button-bc-top.png') #0faa42;
+	background-position: -440px 0px;
+}
+.special-promotion{
+	margin-top:20px;
+	background: url('http://assets.bilna.com/media/wysiwyg/how-to-buy/button-bc-top.png') #0faa1e;
+	background-position: -550px 0px;
+}
+#numb-one .title-desc-kredit{
+	background:url("http://assets.bilna.com/media/wysiwyg/static-page-img/bilna-kredit/bg_signup.jpg") no-repeat center, url("http://assets.bilna.com/media/wysiwyg/static-page-img/bilna-kredit/dashed_signup.jpg") repeat-x center;
+	width:100%;
+}
+#numb-two .title-desc-kredit{
+	background:url("http://assets.bilna.com/media/wysiwyg/static-page-img/bilna-kredit/bg_shop.jpg") no-repeat center, url("http://assets.bilna.com/media/wysiwyg/static-page-img/bilna-kredit/dashed_shop.jpg") repeat-x center;
+	width:100%;
+}
+#numb-three .title-desc-kredit{
+	background:url("http://assets.bilna.com/media/wysiwyg/static-page-img/bilna-kredit/bg_review.jpg") no-repeat center, url("http://assets.bilna.com/media/wysiwyg/static-page-img/bilna-kredit/dashed_review.jpg") repeat-x center;
+	width:100%;
+}
+#numb-four .title-desc-kredit{
+	background:url("http://assets.bilna.com/media/wysiwyg/static-page-img/bilna-kredit/bg_invite_friend.jpg") no-repeat center, url("http://assets.bilna.com/media/wysiwyg/static-page-img/bilna-kredit/dashed_invite_friend.jpg") repeat-x center;
+	width:100%;
+}
+#numb-five .title-desc-kredit{
+	background:url("http://assets.bilna.com/media/wysiwyg/static-page-img/bilna-kredit/bg_friends_shop.jpg") no-repeat center, url("http://assets.bilna.com/media/wysiwyg/static-page-img/bilna-kredit/dashed_friends_shop.jpg") repeat-x center;
+	width:100%;
+}
+#numb-six .title-desc-kredit{
+	background:url("http://assets.bilna.com/media/wysiwyg/static-page-img/bilna-kredit/bg_special_promotion.jpg") no-repeat center, url("http://assets.bilna.com/media/wysiwyg/static-page-img/bilna-kredit/dashed_special_promotion.jpg") repeat-x center;
+	width:100%;
+}
+#numb-seven .title-desc-kredit{
+	background:url("http://assets.bilna.com/media/wysiwyg/static-page-img/bilna-kredit/bg_syaratdanketentuan.jpg") no-repeat center, url("http://assets.bilna.com/media/wysiwyg/static-page-img/bilna-kredit/dashed_syaratdanketentuan.jpg") repeat-x center;
+	width:100%;
+}
+
+.title-desc-kredit p{
+	margin:0;
+	padding:10px 0;
+	color:#fff;
+	text-align:center;
+}
+.desc-kredit{
+	color:#0fa1aa;
+	height:auto; float:left;
+	font-size: 13px;
+	text-align:left;
+	padding:20px;
+	margin: 10px 0px 0px 0px; 
+	line-height: 15px;
+}
+#numb-seven li{
+	color:#0bc91d;
+}
+.container-menu-kredit{
+	display:table;
+	margin:0 auto;
+}
+@media (max-width: 1215px){
+
+	.wrap-menu-kredit {
+		margin: 0 2%;
+		width: 96%;
+	}
+}
+@media (max-width: 1023px){ 
+	.wrap-menu-kredit{
+		width:80%;
+		margin:0 10%;
+	}
+	.menu-tahap-bilna-kredit{
+		width:100px;
+		height:100px;
+		background-size:600px 102px;
+		margin-right:20px;
+		margin-left:20px;
+	}
+	.sign-in{
+		background: url('http://assets.bilna.com/media/wysiwyg/how-to-buy/button-bc-top.png') #0faa9a;
+		background-position: -5px 0;
+	}
+	.shop{
+		margin-top:20px;
+		background-position: -100px 0px;
+	}
+	.priview{
+		background-position: -200px 0px;
+	}
+	.invite{
+		margin-bottom:20px;
+		margin-top:0px;
+		background-position: -300px 0px;
+	}
+	.friends-shop{
+		margin-top:20px;
+		background-position: -400px 0px;
+	}
+	.special-promotion{
+		margin-bottom:20px;
+		margin-top:0px;
+		background-position: -500px 0px;
+	}
+	
+}
+@media (max-width: 767px){
+	.title-bilna-kredit{
+		padding-right:0;
+		padding-left:0;
+	}
+	.wrap-menu-kredit{
+		width:100%;
+		margin:0;
+		
+	}
+	.menu-tahap-bilna-kredit{
+		width:85px;
+		margin-right:5px;
+		margin-left:5px;
+		height:85px;
+		background-size:520px 84px;
+	}
+	.sign-in{
+		background-position: 0 0;
+	}
+	.shop{
+		margin-top:20px;
+		background-position: -90px 9px;
+	}
+	.priview{
+		background-position: -176px 0;
+	}
+	.invite{
+		margin-top:20px;
+		background-position: -260px 0;
+	}
+	.friends-shop{
+		background-position: -348px 0;
+	}
+	.special-promotion{
+		margin-top:20px;
+		background-position: -435px 0;
+	}
+}
+/* @media (max-width: 607px){
+	.wrap-menu-kredit {
+		margin: 0;
+		width: 100%;
+	}
+} */
+@media (max-width: 607px){
+	.title-bilna-kredit{
+		padding:20px 0;	
+		font-size:17px;
+	}
+	.invite, .special-promotion{
+		margin-top:0;
+	}
+	.container-menu-kredit{
+		width: 285px;
+	}
+}
+
+/*-------------end of bilna kredit-----------------*/
+
+/*=============================style telkomsel promo===============================*/
+	.cms-pestadiskon19 .wrapper-box-banner{
+		clear:both;
+		width:100%;
+		display:table;
+		margin:0 0 20px;
+	}
+	.cms-pestadiskon19 .telkomsel-promo p{
+		line-height:18px;
+		padding:0 20px;
+	}
+	.cms-pestadiskon19 .box-banner {
+		width:22%;
+		background:#d2d2d2;
+		float:left;
+		text-align:center;
+	}
+	.cms-pestadiskon19 a:nth-child(1) .box-banner,
+	.cms-pestadiskon19 a:nth-child(2) .box-banner,
+	.cms-pestadiskon19 a:nth-child(3) .box-banner{
+		margin:0 4% 0 0;
+	}
+	.cms-pestadiskon19 .wrap-category-link{
+		width:100%;
+		display:table;
+		clear:both;
+	}
+	.cms-pestadiskon19 .category-link{
+		margin:0 0 20px;
+		text-align:center;
+		width:49%;
+		float:left;
+	}
+	.cms-pestadiskon19 .category-link img{
+		width:100%;
+	}
+	.cms-pestadiskon19 .category-link:nth-child(1){
+		margin:0 2% 0 0;
+	}
+	.cms-pestadiskon19 .telkomsel-promo a{
+		color:#5bc8d9;
+		font-weight:bold;
+		text-decoration:underline;
+	}
+	.cms-syarat-ketentuan-semarak19 ol li{
+		font-size:12px;
+	}
+	.banner-telkomsel-19{
+		display:none;
+	}
+	.cms-syarat-ketentuan-semarak19 .button-telkomesel {
+		margin: 20px 0;
+		text-align: center;
+	}
+	@media only screen and (max-width: 1023px){
+		
+	}
+	@media only screen and (max-width: 768px) {
+		.promo-telkomsel-19 .column_product_static{
+			width:32%;
+		}.banner-telkomsel-19{
+			display:block;
+			margin:0 0 10px
+		}
+		.banner-telkomsel-19 img{
+			width:100%;
+		}
+	}
+	@media only screen and (max-width: 468px) {
+		.cms-pestadiskon19 .box-banner {
+			width:46%;
+			background:#d2d2d2;
+			float:left;
+			text-align:center;
+		}
+		
+		.cms-pestadiskon19 a .box-banner{
+			margin: 2% 2% !important;
+		}
+		.promo-telkomsel-19 .column_product_static{
+			width:46%;
+		}
+		
+		.cms-pestadiskon19 .category-link {
+			margin: 0 2% 1% !important;
+		}
+		.cms-pestadiskon19 .category-link{
+			width:96%;
+		}
+	}
+/*=============================end style telkomsel promo=============================*/

@@ -152,13 +152,15 @@ if (count($this->getItems()) == 1){
         </div>
         <div class="amshopby-slider-price amshopby-slider-price-from">
         <?php
-            $value = '<span id="' . $prefix .'-from-slider">' . $fromValue . '</span>';
+            $value = '<span id="' . $prefix .'-from-slider">' . Mage::helper('core')->currency($fromValue, true, false) . '</span>';
+             $valueLabel = '';
              echo amshopby_render_label($valuePlacement, $valueLabel, $value); 
          ?>
         </div>
         <div class="amshopby-slider-price amshopby-slider-price-to">
         <?php
-            $value = '<span id="' . $prefix .'-to-slider">' . $toValue . '</span>';
+            $value = '<span id="' . $prefix .'-to-slider">' . Mage::helper('core')->currency($toValue, true, false) . '</span>';
+            $valueLabel = ''; 
              echo amshopby_render_label($valuePlacement, $valueLabel, $value); 
          ?>
         </div>
@@ -176,11 +178,11 @@ if (count($this->getItems()) == 1){
         </div>
                     
             
-            <div class="amshopby-slider-price amshopby-slider-price-from"><?php echo amshopby_render_label($valuePlacement, $valueLabel, $from) ?></div>
-            <div class="amshopby-slider-price amshopby-slider-price-to"><?php echo amshopby_render_label($valuePlacement, $valueLabel, $to) ?></div>
+            <div class="amshopby-slider-price amshopby-slider-price-from"><?php echo amshopby_render_label($valuePlacement, $valueLabel, Mage::helper('core')->currency($from, true, false)) ?></div>
+            <div class="amshopby-slider-price amshopby-slider-price-to"><?php echo amshopby_render_label($valuePlacement, $valueLabel, Mage::helper('core')->currency($to, true, false)) ?></div>
             <div class="amshopby-slider-price-range">
-                    <span id="<?php echo $prefix?>-from-slider"><?php echo $fromValue ?></span>&nbsp;-&nbsp;
-                    <span id="<?php echo $prefix?>-to-slider"><?php echo $toValue ?></span>
+                    <span id="<?php echo $prefix?>-from-slider"><?php echo Mage::helper('core')->currency($fromValue, true, false) ?></span>&nbsp;-&nbsp;
+                    <span id="<?php echo $prefix?>-to-slider"><?php echo Mage::helper('core')->currency($toValue, true, false) ?></span>
             </div>
         <?php } ?>
         <input type="hidden" class="amshopby-slider-param" value="<?php echo $params ?>" />

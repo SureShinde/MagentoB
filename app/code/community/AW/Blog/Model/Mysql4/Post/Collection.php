@@ -58,6 +58,7 @@ class AW_Blog_Model_Mysql4_Post_Collection extends Mage_Core_Model_Mysql4_Collec
                     array()
                 )
                 ->where('store_table.store_id in (?)', array($store))
+		//->group('main_table.cat_id');
             ;
         }
 

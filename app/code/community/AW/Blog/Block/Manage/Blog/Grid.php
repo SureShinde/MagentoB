@@ -44,12 +44,24 @@ class AW_Blog_Block_Manage_Blog_Grid extends Mage_Adminhtml_Block_Widget_Grid
 
     protected function _prepareCollection()
     {
-        $collection = Mage::getModel('blog/blog')->getCollection();
+        $collection = Mage::getModel('blog/blog')->getCollection()
+            ->addFieldToSelect('post_id')
+            ->addFieldToSelect('title')
+            ->addFieldToSelect('identifier')
+            ->addFieldToSelect('user')
+            ->addFieldToSelect('created_time')
+            ->addFieldToSelect('update_time')
+            ->addFieldToSelect('status');
 		$collection->getSelect()
 			->join(array('apc' => $collection->getTable('blog/post_cat')), 'main_table.post_id = apc.post_id')
 			->join(array('ac' => $collection->getTable('blog/cat')), 'apc.cat_id = ac.cat_id', array(
 					'category' => 'ac.title',
-				));		
+				));
+        $collection->addFilterToMap('post_id', 'main_table.post_id');
+        $collection->addFilterToMap('title', 'main_table.title');
+        $collection->addFilterToMap('identifier', 'main_table.identifier');
+        $collection->addFilterToMap('category', 'ac.title');
+        $collection->getSelect()->group('main_table.post_id');        		
         $store = $this->_getStore();
         if ($store->getId()) {
             $collection->addStoreFilter($store);
@@ -62,12 +74,11 @@ class AW_Blog_Block_Manage_Blog_Grid extends Mage_Adminhtml_Block_Widget_Grid
     {
         $this->addColumn(
             'post_id',
-            array (
-                'header' => Mage::helper('blog')->__('ID'),
-                'align' => 'right',
-                'width' => '50px',
-                'index' => 'post_id',
-                'filter_index' => 'main_table.post_id',
+            array(
+                 'header' => Mage::helper('blog')->__('ID'),
+                 'align'  => 'right',
+                 'width'  => '50px',
+                 'index'  => 'post_id',
             )
         );
 

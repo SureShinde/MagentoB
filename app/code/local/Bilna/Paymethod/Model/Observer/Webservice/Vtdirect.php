@@ -6,6 +6,9 @@
  */
 
 class Bilna_Paymethod_Model_Observer_Webservice_Vtdirect {
+    protected $_code = 'vtdirect';
+    protected $_typeTransaction = 'transaction';
+    
     public function notificationAction() {
         $notification = json_decode(file_get_contents('php://input'));
         $contentRequest = sprintf("%s | request_vtdirect: %s", $notification->data->order_id, json_encode($notification));

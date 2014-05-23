@@ -33,7 +33,7 @@ body {
 	font-size: 12px;
 	font-family: helvetica;
 	font-weight: bold;
-        margin: 0 0 13px;
+        margin: 13px 0;
 } 
 .breadcrumbs a {
 	color: #4ec7da;
@@ -376,6 +376,9 @@ a.back-to-top img {
 		width: 100%;
 		height: auto;
 	}
+    .breadcrumbs {
+        margin:0 0 13px 0;
+    } 
 }
 /* --------------- 960 px layout -------------------- */
 @media only screen and (max-width: 1023px) {
@@ -391,6 +394,11 @@ a.back-to-top img {
 	.products-grid li.item {
 		width: 122px;
 	}
+    .breadcrumbs {
+        margin: 0 0 13px 60px;
+        position: absolute;
+        top: 140px;
+    }
 	
 }
 /* --------------- smaller 959 px layout -------------------- */
