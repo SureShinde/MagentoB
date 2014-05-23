@@ -1859,6 +1859,7 @@ tr.summary-details-excluded { font-style:italic; }
 .form-add .data-table td input:checked+label{background:url("images/star_color.jpg") no-repeat; cursor:pointer;}
 .form-add .data-table th, .form-add .data-table td{border:none;}
 .form-add .data-table{width:40%;}
+.form-add #product-review-table.data-table{width:40%;}
 .form-add .buttons-set {margin:0; border:none;}
 .form-add .buttons-set .button{float:left; margin:0 0 0 17%; background:#fd8e17;	}
 
@@ -2646,6 +2647,7 @@ z/*======================Category page===================*/
     height: 125px;
     width: 305px;
 	}
+    .form-add #product-review-table.data-table{width:50%;}
 	
 }
 @media only screen and (min-width: 1023px) and (max-width: 1215px) {
@@ -2684,6 +2686,7 @@ z/*======================Category page===================*/
     width: 305px;
     
 	}
+    .form-add #product-review-table.data-table{width:50%;}
 	
 }
 /* --------------- 960 px layout -------------------- */
@@ -2738,6 +2741,7 @@ z/*======================Category page===================*/
 	.homepage-bottom .block-wrapper > a {
     margin: 0 4px 10px;
 	}	
+    .form-add #product-review-table.data-table{width:66%;}
 }
 	
 /* --------------- smaller 959 px layout -------------------- */
@@ -2761,6 +2765,11 @@ z/*======================Category page===================*/
 	.style-perlengkapan-rumah .cms-index-defaultindex .col1-layout .main .col-main, .style-perlengkapan-rumah .cms-index-index .col1-layout .main .col-main{
 		width:100%;
 	}
+    .form-add #product-review-table.data-table{width:490px;}
+}
+
+@media only screen and (max-width: 482px) {
+    .form-add #product-review-table.data-table{width:278px;}
 }
 /* ------------------- **** ------------------ /
 

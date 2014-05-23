@@ -252,4 +252,8 @@
 		padding-left: 5px;
 		padding-right: 5px;
 	}
+    #product-review-table .data-table thead th, .data-table td {
+        padding-left: 20px;
+        padding-right: 5px;
+    }
 }
