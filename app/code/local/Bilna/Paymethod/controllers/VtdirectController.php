@@ -40,7 +40,7 @@ class Bilna_Paymethod_VtdirectController extends Mage_Core_Controller_Front_Acti
             $data = array ();
             $data['token_id'] = $this->getTokenId();
             $data['order_id'] = $this->maxChar($order->getIncrementId(), 20);
-            //$data['bins'] = $this->getBins($order, $paymentCode);
+            $data['bins'] = $this->getBins($order, $paymentCode);
             $data['order_items'] = $this->getOrderItems($order, $items);
             $data['gross_amount'] = round($order->getGrandTotal());
             $data['email'] = $this->getCustomerEmail($order->getBillingAddress()->getEmail());
@@ -202,7 +202,8 @@ class Bilna_Paymethod_VtdirectController extends Mage_Core_Controller_Front_Acti
     }
     
     private function getBins($order, $paymentCode) {
-        $digit = ($paymentCode == 'othervisa' || $paymentCode == 'othermc') ? 1 : 6;
+        $digit = 6;
+        //$digit = ($paymentCode == 'othervisa' || $paymentCode == 'othermc') ? 1 : 6;
         $result = substr($order->getPayment()->getCcBins(), 0, $digit);
         
         return array ($result);
@@ -306,6 +307,10 @@ class Bilna_Paymethod_VtdirectController extends Mage_Core_Controller_Front_Acti
     }
     
     private function getInstallmentBank($paymentCode) {
+		if (strtolower($paymentCode) == 'bnikartinivisa' || strtolower($paymentCode) == 'bnikartinimc') {
+			return 'bni';
+		}
+		
         $result = '';
         
         if (substr($paymentCode, -4) == 'visa') {
@@ -356,21 +361,40 @@ class Bilna_Paymethod_VtdirectController extends Mage_Core_Controller_Front_Acti
     private function updateOrder($order, $paymentCode, $responseCharge) {
         if ($responseCharge->status == 'success') {
             if ($this->getThreedSecure($paymentCode)) {
-                $order->setState(Mage_Sales_Model_Order::STATE_NEW, true, 'Pending for 3D Secure Validation', true)->save();
+                $order->setState(Mage_Sales_Model_Order::STATE_NEW, 'cc_verification', 'Pending for 3D Secure Validation', true)->save();
             }
             else {
+                // check order status if processing/complete then ignore
+                if (in_array($order->getStatus(), Mage::helper('paymethod/vtdirect')->getStatusOrderIgnore())) {
+                    return true;
+                }
+                
                 $transactionStatus = $responseCharge->data->transaction_status;
                 $message = "Transaction status: " . $transactionStatus . ". ";
                 $message .= $this->getDefaultResponseMessage($responseCharge->status, $responseCharge->message);
                 
                 if ($transactionStatus == 'deny') {
-                    $order->addStatusHistoryComment($message);
+                    //$order->addStatusHistoryComment($message);
+                    $history = $order->addStatusHistoryComment($message);
+                    $history->setIsCustomerNotified(true);
+            
+                    if ($order->canCancel()) {
+                        $order->cancel();
+                    }
+            
                     $order->save();
                             
                     return true;
                 }
                 else if ($transactionStatus == 'cancel') {
-                    $order->addStatusHistoryComment($message);
+                    //$order->addStatusHistoryComment($message);
+                    $history = $order->addStatusHistoryComment($message);
+                    $history->setIsCustomerNotified(true);
+            
+                    if ($order->canCancel()) {
+                        $order->cancel();
+                    }
+            
                     $order->save();
                     
                     return true;
@@ -418,7 +442,13 @@ class Bilna_Paymethod_VtdirectController extends Mage_Core_Controller_Front_Acti
         else if ($responseCharge->status == 'failure') {
             $message = "Transaction status: " . $responseCharge->status . ". ";
             $message .= $this->getDefaultResponseMessage($responseCharge->status, $responseCharge->message);
-            $order->addStatusHistoryComment($message);
+            $history = $order->addStatusHistoryComment($message);
+            $history->setIsCustomerNotified(true);
+            
+            if ($order->canCancel()) {
+                $order->cancel();
+            }
+            
             $order->save();
             
             return true;
@@ -459,7 +489,13 @@ class Bilna_Paymethod_VtdirectController extends Mage_Core_Controller_Front_Acti
         
         return $result;
     }
-
+    
+    protected function getStatusOrderIgnore() {
+        $orders = Mage::getStoreConfig('payment/vtdirect/update_order_status');
+        $ordersArr = explode(',', $orders);
+        
+        return $ordersArr;
+    }
 
     protected function getRequestData($key, $type = 'POST') {
         $result = '';

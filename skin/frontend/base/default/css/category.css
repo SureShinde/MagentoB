@@ -26,8 +26,16 @@
 .block-layered-nav dd {
 	background: none;
 	border-bottom: 1px solid #dadada;
-	padding: 0 0 12px;
+	/* padding: 0 0 12px; */
 	margin: 0 12px 12px;
+	padding: 0;
+}
+.block-layered-nav .lbl-filterby~dd {
+	max-height:145px;
+	overflow-y:auto;
+	}
+.hide-filter-bilna .lbl-filterby~dd{
+	overflow-y:auto !important;
 }
 .block-layered-nav dt, .demo label, .block-layered-nav .block-title strong span, .block-layered-nav .lbl-filterby, a.back-to-top {
 	text-transform: uppercase;
@@ -117,11 +125,18 @@ ol.added-menu li a.link-onsale {
 	
 }
 /* Tiny Scrollbar */
-.amshopby-collapsed ~ .tiny .viewport, .amshopby-collapsed ~ .tiny .viewport{
-	height:0 !important;
+.color.amshopby-collapsed ~ div.tiny:first-child {
+	display:none;
 }
+dd.relative{
+	position:relative !important;
+}
+.even .viewport:nth-child(2), .odd .viewport:nth-child(2){
+	 height:auto !important;
+}
+
 .tiny { width: auto; /* margin: 20px 0 10px; */ margin: 0 0 10px; }
-.tiny .viewport { width: auto; height: 145px; overflow: hidden; position: relative; }
+.tiny .viewport { width: auto; height:145px; max-height: 145px; overflow: hidden; position: relative; }
 .tiny .overview { list-style: none; position: relative; left: 0; top: 0; padding: 0; margin: 0; }
 .tiny .scrollbar{ background: #dfe0e0 /*url(../images/bg-scrollbar-track-y.png) no-repeat 0 0*/ url(../images/scroll-up.png) no-repeat; position: relative; background-position: 0 0; float: right; width: 15px; -webkit-border-radius: 10px;-moz-border-radius: 10px;border-radius: 10px;}
 .tiny .track { background: #dfe0e0 /*url(../images/bg-scrollbar-trackend-y.png) no-repeat 0 100%*/url(../images/scroll-down.png) no-repeat center bottom; height: 100%; width:13px; position: relative; padding: 0 1px; }

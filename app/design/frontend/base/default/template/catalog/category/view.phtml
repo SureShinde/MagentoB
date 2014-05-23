@@ -84,3 +84,17 @@ if($xlCmsBlock) {
 <?php else: ?>
     <?php echo $this->getProductListHtml() ?>
 <?php endif; ?>
+
+<!-- static block pop-up ASI Disclaimer -->
+<?php if ($this->checkCategoryAttributeYesNo('asi_disclaimer')): ?>
+    <script>
+        jQuery(document).ready(function(){
+            jQuery(".close-now").click(function(){
+                jQuery(".popup-asi_disclaimer").hide();
+            });
+        });
+    </script>
+    <div class="popup-asi_disclaimer">
+        <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('asi_disclaimer')->toHtml(); ?>
+    </div>
+<?php endif; ?>
