@@ -38,7 +38,7 @@ class AW_Islider_Model_Mysql4_Image_Collection extends Mage_Core_Model_Mysql4_Co
     }
 
     public function addActualDateFilter() {
-        $today = date('Y-m-d H:i:s', Mage::getModel('core/date')->timestamp(time()));
+        $today = date('Y-m-d', Mage::getModel('core/date')->timestamp(time()));
         $this->getSelect()->where('(active_from IS NULL OR active_from <= ?) AND (active_to IS NULL OR active_to >= ?)', $today, $today);
         return $this;
     }
