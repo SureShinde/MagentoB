@@ -592,8 +592,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
         }else{
 	        try {
 	            $mobileUserAgent = $this->__checkUserAgent();
-	
-	            if( ($mobileUserAgent == $result['mobile'] ) || $result['web'] == 1 )
+	            if( ($mobileUserAgent == "true" && $result['mobile'] == 1 ) || ($mobileUserAgent == false && $result['web'] == 1 ))
 	            {
 	                $message['status'] = 1; 
 	                $message['desc'] = 'success';                
@@ -645,4 +644,3 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
 
     }
 }
- 
