@@ -184,8 +184,12 @@ $j(document).ready(function(){
         $j("select.country").addClass("indonesia-lang");
       });
       
-      $j(".link-trigger-myaccount, .toplink-myaccount").hover(function(){
-        $j(".toplink-myaccount").toggle();
+      $j(".menu-tablet .link-trigger-myaccount, .menu-tablet .toplink-myaccount").hover(function(){
+        $j(".menu-tablet .toplink-myaccount").toggle();
+      });
+      
+      $j(".header .link-trigger-myaccount, .header .toplink-myaccount").hover(function(){
+        $j(".header .toplink-myaccount").toggle();
       });
 });
 </script>
