@@ -174,4 +174,23 @@ class Mage_Page_Block_Html extends Mage_Core_Block_Template
     {
         return $this->_afterCacheUrl($html);
     }
+    
+    public function getStoreCategoryIdentifier() {
+        $_helper = Mage::helper('megamenu');
+        $_storeCategories = $_helper->getStoreCategories();
+        $_storeCategoryIdentifier = '';
+        
+        if (count($_storeCategories) > 0) {
+            foreach ($_storeCategories as $_storeCategory) {
+                $_storeCategory = Mage::getModel('megamenu/catalog_category')->load($_storeCategory->getId());
+                
+                if ($_storeCategory->getId() == $_helper->getCurrentMainCategory()) {
+                    $_storeCategoryIdentifier = "style-" . $_storeCategory->getUrlKey();
+                    break;
+                }
+            }
+        }
+        
+        return $_storeCategoryIdentifier;
+    }
 }

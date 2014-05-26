@@ -37,6 +37,12 @@
             <div class="clearer"></div>
       </div>-->
 <?php //endif; ?>
+<script src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_JS);?>counter/jquery.plugin.js"></script>
+<script src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_JS);?>counter/jquery.countdown.js"></script>
+<link rel="stylesheet" href="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_JS);?>counter/jquery.countdown.css">
+<style type="text/css">
+#defaultCountdown { width: 200px; height: 8px; font-weight: normal; font-size: 11px; margin: 5px 5px 5px 5px;}
+</style>
 <script>
 	jQuery(document).ready(function(){
 	jQuery(".desc_one").click(function(){
@@ -129,7 +135,7 @@
                                                 <th class="last"><?php //echo $this->__('You save'); ?></th>
                                             </tr>-->
                                             <tr>
-                                                <td><?php echo Mage::helper('core')->currency($originalProduct->getPrice(), true, false); ?></td>
+                                                <td><?php echo Mage::helper('core')->currency($originalProduct->getFinalPrice(), true, false); ?></td>
 											</tr>
 											<tr>
 												<td><?php echo $dealInfo->getPercentDiscount(); ?>% OFF</td>
@@ -157,9 +163,36 @@
                                                                 <div class="awcp-status" id = "<?php echo $container; ?>"><?php echo $this->getTimeLeftToBuy($deal, $time = 'available_from'); ?></div>
                                                      <?php elseif ($deal->isRunning() && $deal->getAvailableTo()): ?>
                                                         <div class="awcp-title"><?php echo $this->__('PROMO ENDS IN:'); ?></div>
-                                                         <div class="awcp-status"><?php echo $this->getTimeLeftToBuy($deal); ?></div>
+                                                        <?php
+                                                        $availableTo = Mage::getModel('core/date')->timestamp(strtotime($deal->getAvailableTo()));
+
+                                                        $year = date("Y", $availableTo);
+                                                        $month = date("m", $availableTo);
+                                                        $day = date("d", $availableTo);
+                                                        $hours = date("H", $availableTo);
+                                                        $minutes = date("i", $availableTo);
+                                                        $seconds = date("s", $availableTo);
+                                                        ?>                            
+                                                        <script>
+                                                        jQuery(function () {
+                                                            var promoEnd = new Date();
+                                                            var year = <?php echo $year; ?>;
+                                                            var month = <?php echo $month; ?>;
+                                                            var day = <?php echo $day; ?>;
+                                                            var hours = <?php echo $hours; ?>;
+                                                            var minutes = <?php echo $minutes; ?>;
+                                                            var seconds = <?php echo $seconds; ?>;
+
+                                                            promoEnd = new Date(parseInt(year), parseInt(month)-1, parseInt(day), parseInt(hours), parseInt(minutes), parseInt(seconds));
+                                                            jQuery('#defaultCountdown').countdown({until: promoEnd});
+                                                        });
+                                                        </script>
+                                                         
+                                                         <div class="awcp-status"><?php //echo $this->getTimeLeftToBuy($deal); ?>
+                                                            <div id="defaultCountdown"></div>
+                                                         </div>
                                                          <!-- <div class="awcp-status" id = "<?php //echo $container; ?>"><?php //echo $this->getTimeLeftToBuy($deal); ?></div> -->
-														 <div class="awcp_time_label">hour(s) minute(s) second(s)</div>
+														 <!-- <div class="awcp_time_label">hour(s) minute(s) second(s)</div> -->
                                                      <?php endif; ?>
                                                 </div>
                                             <?php endif; ?>
@@ -190,7 +223,7 @@
                                     <div class="awcp-mark-right">
                                         <div class="">
                                             <div class="content">
-                                                <div class="awcp-bought hide"><?php echo $this->__('SOLD :<span> %s </span> ', $this->getPurchasesCount($deal->getId())); ?></div>
+                                                <div class="awcp-bought"><?php echo $this->__('SOLD :<span> %s </span> ', $this->getPurchasesCount($deal->getId())); ?></div>
                                                 <div class="awcp-status"><?php echo $this->__('%s LEFT', $this->getPurchasesToReach($deal)); ?></div>
                                             </div>
                                         </div>

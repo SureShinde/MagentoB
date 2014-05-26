@@ -26,7 +26,7 @@ class Bilna_Paymethod_Block_Adminhtml_Sales_Order_Grid extends Mage_Adminhtml_Bl
     
     protected function _prepareCollection() {
         $collection = Mage::getResourceModel($this->_getCollectionClass());
-        $collection->join(array ('payment' => 'sales/order_payment'), 'main_table.entity_id = parent_id', 'method');
+        $collection->join(array ('payment' => 'sales/order_payment'),'main_table.entity_id = parent_id', 'method');
         $collection->addFilterToMap('increment_id', 'main_table.increment_id');
         $collection->addFilterToMap('store_id', 'main_table.store_id');
         $collection->addFilterToMap('created_at', 'main_table.created_at');
@@ -36,6 +36,7 @@ class Bilna_Paymethod_Block_Adminhtml_Sales_Order_Grid extends Mage_Adminhtml_Bl
             'main_table.customer_id = customer_entity.entity_id',
             array ('group_id' => 'customer_entity.group_id')
         );
+        
         $this->setCollection($collection);
 
         return Mage_Adminhtml_Block_Widget_Grid::_prepareCollection();
@@ -62,6 +63,7 @@ class Bilna_Paymethod_Block_Adminhtml_Sales_Order_Grid extends Mage_Adminhtml_Bl
             $this->addColumn('store_id', array (
                 'header' => Mage::helper('sales')->__('Purchased From (Store)'),
                 'index' => 'store_id',
+                'filter_index' => 'main_table.store_id',
                 'type' => 'store',
                 'store_view' => true,
                 'display_deleted' => true,
@@ -97,7 +99,7 @@ class Bilna_Paymethod_Block_Adminhtml_Sales_Order_Grid extends Mage_Adminhtml_Bl
             'type' => 'options',
             'options' => $groups,
         ));
-
+		
         $this->addColumn('method', array (
             'header' => Mage::helper('sales')->__('Payment Method'),
             'index' => 'method',

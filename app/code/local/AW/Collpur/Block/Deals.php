@@ -109,18 +109,18 @@ class AW_Collpur_Block_Deals extends AW_Collpur_Block_BaseDeal
     protected function _prepareLayout()
     {
         $pager = $this->getLayout()->createBlock('page/html_pager', 'available_deals_pager');
-        $pager->setAvailableLimit(array("15" => "15", "30" => "30", "60" => "60", "all" => "all"));
+        $pager->setAvailableLimit(array("1"=> "1", "15" => "15", "30" => "30", "60" => "60", "all" => "all"));
         $pager->setLimitVarName('dealslimit' . $this->_limitParam);
-        $pager->setPageVarName('dealsvarname' . $this->_limitParam);
+        $pager->setPageVarName('deals');
         $pager->setPrevNext(false);
         $pager->setCollection($this->getAvailableDeals());
         $this->setChild('available_deals_pager', $pager);
         
 
         $pager = $this->getLayout()->createBlock('page/html_pager', 'available_deals_pager_extra');
-        $pager->setAvailableLimit(array("15" => "15", "30" => "30", "60" => "60", "all" => "all"));
+        $pager->setAvailableLimit(array("1"=> "1", "15" => "15", "30" => "30", "60" => "60", "all" => "all"));
         $pager->setLimitVarName('dealslimit' . $this->_limitParam);
-        $pager->setPageVarName('dealsvarname' . $this->_limitParam);
+        $pager->setPageVarName('deals');
         $pager->setPrevNext(true);
         $pager->setCollection($this->getAvailableDeals());
         $this->setChild('available_deals_pager_extra', $pager);
@@ -153,12 +153,12 @@ class AW_Collpur_Block_Deals extends AW_Collpur_Block_BaseDeal
 
         $priceInfo = new Varien_Object();
         $price = $this->_currencyHelper->currency($deal->getPrice());
-        $save = $this->_currencyHelper->currency($orig->getOriginalPrice() - $deal->getPrice(), true, false);
+        $save = $this->_currencyHelper->currency($orig->getPrice() - $deal->getPrice(), true, false);
 
         /* Avoide devision by zero */
         $discount = 0;
-        if ($orig->getOriginalPrice()) {
-            $discount = ($orig->getOriginalPrice() - $deal->getPrice()) / $orig->getOriginalPrice() * 100;
+        if ($orig->getPrice()) {
+            $discount = ($orig->getPrice() - $deal->getPrice()) / $orig->getPrice() * 100;
         }
 
         $priceInfo->setPrice($price)

@@ -123,14 +123,14 @@ class AW_Affiliate_Block_Adminhtml_Campaign_Edit_Tab_General
             'name' => 'url',
             'label' => Mage::helper('awaffiliate')->__('URL Redirect'),
             'title' => Mage::helper('awaffiliate')->__('URL Redirect'),
-            'note' => Mage::helper('awaffiliate')->__('For banner campaign yype only'),
+            'note' => Mage::helper('awaffiliate')->__('For banner campaign type only'),
         ));
 
         $fieldset->addField('filename', 'image', array(
             'label' => Mage::helper('awaffiliate')->__('Image'),
             'required' => false,
-            'name' => 'filename',
-            'note' => Mage::helper('awaffiliate')->__('For banner campaign yype only'),
+            'name' => 'image_name',
+            'note' => Mage::helper('awaffiliate')->__('For banner campaign type only, Current file: %s', $campaign->getImageName()),
         ));
         /*end added image/banner upload*/
 

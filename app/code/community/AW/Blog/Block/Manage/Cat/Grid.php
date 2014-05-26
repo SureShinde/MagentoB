@@ -79,6 +79,15 @@ class AW_Blog_Block_Manage_Cat_Grid extends Mage_Adminhtml_Block_Widget_Grid
         );
 
         $this->addColumn(
+            'title',
+            array(
+                 'header' => Mage::helper('blog')->__('Parent Category'),
+                 'align'  => 'left',
+                 'index'  => 'title',
+            )
+        );
+
+        $this->addColumn(
             'identifier',
             array(
                  'header' => Mage::helper('blog')->__('Identifier'),

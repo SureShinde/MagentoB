@@ -26,4 +26,7 @@
 ?>
 <?php if (!Mage::helper('core/cookie')->isUserNotAllowSaveCookie()): ?>
 <?php $accountId = Mage::getStoreConfig(Mage_GoogleAnalytics_Helper_Data::XML_PATH_ACCOUNT) ?>
+<script type="text/javascript">
+<?php echo $this->_getOrdersTrackingCode() ?>
+</script>
 <?php endif; ?>
