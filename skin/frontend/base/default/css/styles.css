@@ -570,7 +570,7 @@ tr.summary-details-excluded { font-style:italic; }
 
 /* All Levels */ /* Style consistent throughout all nav levels */
 #nav li, #nav-baby li { position:relative; text-align:left; }
-#nav li.over, #nav-baby li.over { z-index:998; }
+#nav li.over, #nav-baby li.over { z-index:99; }
 #nav a, #nav-baby a,
 #nav a:hover, #nav-baby a:hover { display:block; line-height:1.3em; text-decoration:none; }
 #nav span, #nav-baby span { display:block; cursor:pointer; white-space:nowrap; }
