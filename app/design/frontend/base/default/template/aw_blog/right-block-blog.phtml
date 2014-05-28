@@ -121,9 +121,20 @@
 	  fjs.parentNode.insertBefore(js, fjs);
 	}(document, 'script', 'facebook-jssdk'));</script>
 	
+	<!--FACEBOOK-->
 	<div class="fb-like-box" style="clear: both; display: block; padding: 20px 0;" data-href="http://www.facebook.com/myBilna" data-colorscheme="light" data-show-faces="true" data-header="true" data-stream="false" data-show-border="false" ></div>
 	<div style="clear:both;"></div>
-	
+
+	<!--RSS BLOG-->
+	<div style="margin: 1px 0 0 !important; display: block; clear: both;" class="block block-rss">
+	<div style="text-align: left;" class="block-title">
+	<a target="_blank" type="application/rss+xml" rel="alternate" href="<?php echo Mage::getBaseUrl(); ?>blog/rss" style="margin: 0 0 0 10px;">
+	<img style="border:0" alt="" src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA); ?>wysiwyg/blog/feed-icon32x32.png">
+	</a>
+	</div>
+	<div class="block-content"></div>
+	</div>
+	<div style="clear:both;"></div>
 	
 </div>
 

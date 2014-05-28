@@ -111,34 +111,32 @@ _gaq.push(['_trackPageview'{$optPageURL}]);
         $collection = Mage::getResourceModel('sales/order_collection')
             ->addFieldToFilter('entity_id', array('in' => $orderIds))
         ;
-        $result = array();
+
+        $aOrders = array();
         foreach ($collection as $order) {
-            if ($order->getIsVirtual()) {
-                $address = $order->getBillingAddress();
-            } else {
-                $address = $order->getShippingAddress();
-            }
-            $result[] = sprintf("_gaq.push(['_addTrans', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s']);",
-                $order->getIncrementId(),
-                $this->jsQuoteEscape(Mage::app()->getStore()->getFrontendName()),
-                $order->getBaseGrandTotal(),
-                $order->getBaseTaxAmount(),
-                $order->getBaseShippingAmount(),
-                $this->jsQuoteEscape(Mage::helper('core')->escapeHtml($address->getCity())),
-                $this->jsQuoteEscape(Mage::helper('core')->escapeHtml($address->getRegion())),
-                $this->jsQuoteEscape(Mage::helper('core')->escapeHtml($address->getCountry()))
-            );
+            $objOrder = new stdClass();
+            $objOrder->transactionId = $order->getIncrementId();
+            $objOrder->transactionAffiliation = Mage::app()->getStore()->getFrontendName();
+            $objOrder->transactionTotal = $order->getBaseGrandTotal();
+            $objOrder->transactionTax = $order->getBaseTaxAmount();
+            $objOrder->transactionShipping = $order->getBaseShippingAmount();
+
+            $aItems = array();
             foreach ($order->getAllVisibleItems() as $item) {
-                $result[] = sprintf("_gaq.push(['_addItem', '%s', '%s', '%s', '%s', '%s', '%s']);",
-                    $order->getIncrementId(),
-                    $this->jsQuoteEscape($item->getSku()), $this->jsQuoteEscape($item->getName()),
-                    null, // there is no "category" defined for the order item
-                    $item->getBasePrice(), $item->getQtyOrdered()
-                );
+                $objItem = array();
+                $objItem['sku'] = $item->getSku();
+                $objItem['name'] = $item->getName();
+                $objItem['category'] = null; //todo
+                $objItem['price'] = $item->getBasePrice();
+                $objItem['quantity'] = $item->getQtyOrdered();
+                $aItems[] = (object) $objItem;
             }
-            $result[] = "_gaq.push(['_trackTrans']);";
+
+            $objOrder->transactionProducts = $aItems;
+            $aOrders[] = $objOrder;
         }
-        return implode("\n", $result);
+
+        return (empty($aOrders))? null : sprintf('dataLayer = %s;', json_encode($aOrders));
     }
 
     /**
