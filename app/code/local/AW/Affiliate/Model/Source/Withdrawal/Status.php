@@ -33,11 +33,13 @@ class AW_Affiliate_Model_Source_Withdrawal_Status extends AW_Affiliate_Model_Sou
     const PAID = 'paid';
     const REJECTED = 'rejected';
     const FAILED = 'failed';
+    const APPROVED = 'approved';
 
     const PENDING_LABEL = 'Pending';
     const PAID_LABEL = 'Paid';
     const REJECTED_LABEL = 'Rejected';
     const FAILED_LABEL = 'Failed';
+    const APPROVED_LABEL = 'Approved';
 
     const INITIAL_STATUS = self::PENDING;
 
@@ -49,6 +51,7 @@ class AW_Affiliate_Model_Source_Withdrawal_Status extends AW_Affiliate_Model_Sou
             array('value' => self::PAID, 'label' => $helper->__(self::PAID_LABEL)),
             array('value' => self::REJECTED, 'label' => $helper->__(self::REJECTED_LABEL)),
             array('value' => self::FAILED, 'label' => $helper->__(self::FAILED_LABEL)),
+            array('value' => self::APPROVED, 'label' => $helper->__(self::APPROVED_LABEL)),
         );
     }
 }
