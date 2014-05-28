@@ -140,9 +140,9 @@ class Bilna_Paymethod_Model_Method_Vtdirect extends Mage_Payment_Model_Method_Cc
         return $this;
     }
 
-    public function getOrderPlaceRedirectUrl() {
-        return Mage::getUrl('paymethod/vtdirect/thankyou', array ('_secure' => true));
-    }
+    //public function getOrderPlaceRedirectUrl() {
+    //    return Mage::getUrl('paymethod/vtdirect/thankyou', array ('_secure' => true));
+    //}
     
     public function getCode() {
         if (empty ($this->_code)) {

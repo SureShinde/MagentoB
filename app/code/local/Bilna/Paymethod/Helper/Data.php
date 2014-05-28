@@ -6,6 +6,27 @@
  */
 
 class Bilna_Paymethod_Helper_Data extends Mage_Core_Helper_Abstract {
+    public function getPaymentMethodBankTransfer() {
+        $payment = Mage::getStoreConfig('bilna_module/success_page/payment_transfer');
+        $result = explode(',', $payment);
+        
+        return $result;
+    }
+    
+    public function getPaymentMethodKlikpay() {
+        $payment = Mage::getStoreConfig('bilna_module/success_page/payment_klikpay');
+        $result = explode(',', $payment);
+        
+        return $result;
+    }
+    
+    public function getPaymentMethodCc() {
+        $payment = Mage::getStoreConfig('bilna_module/success_page/payment_cc');
+        $result = explode(',', $payment);
+        
+        return $result;
+    }
+    
     public function getInstallmentOption($paymentMethod, $id, $returnKey = 'label') {
         $installmentOptions = unserialize(Mage::getStoreConfig('payment/' . $paymentMethod . '/installment'));
         

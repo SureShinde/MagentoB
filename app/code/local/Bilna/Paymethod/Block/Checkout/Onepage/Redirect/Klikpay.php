@@ -44,10 +44,11 @@ class Bilna_Paymethod_Block_Checkout_Onepage_Redirect_Klikpay extends Mage_Core_
         $this->_transactionNo = $order->getIncrementId();
         $this->_transactionAmount = number_format((int) $order->getGrandTotal(), 2, null, '');
         $this->_payType = $order->getPayType();
-        $this->_callBackUrl = Mage::getStoreConfig('payment/klikpay/call_back_url');
+        $this->_callBackUrl = $this->getUrl() . "checkout/onepage/success/order_no/" . $this->_transactionNo;
+        //$this->_callBackUrl = Mage::getStoreConfig('payment/klikpay/call_back_url');
         $this->_transactionDate = date('d/m/Y H:i:s', strtotime($order->getCreatedAt()));
         $this->_clearKey = Mage::getStoreConfig('payment/klikpay/klikpay_clearkey'); //Mage::helper('core')->uniqHash();
-        $this->_signature = Mage::helper('paymethod/klikpay')->signature($this->_klikpayUserId,$this->_transactionNo, $this->_currency, $this->_clearKey, $this->_transactionDate, $this->_transactionAmount);
+        $this->_signature = Mage::helper('paymethod/klikpay')->signature($this->_klikpayUserId, $this->_transactionNo, $this->_currency, $this->_clearKey, $this->_transactionDate, $this->_transactionAmount);
         
         $data = array (
             'klikPayCode' => $this->_klikpayUserId,
@@ -55,7 +56,7 @@ class Bilna_Paymethod_Block_Checkout_Onepage_Redirect_Klikpay extends Mage_Core_
             'totalAmount' => $this->_transactionAmount,
             'currency' => $this->_currency,
             'payType' => $this->_payType,
-            'callback' => $this->_callBackUrl . $this->_transactionNo,
+            'callback' => $this->_callBackUrl,
             'transactionDate' => $this->_transactionDate,
             'descp' => $this->_description,
             'miscFee' => $this->_miscFee,
