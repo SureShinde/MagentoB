@@ -83,9 +83,9 @@ class RocketWeb_Netsuite_Helper_Mapper_Order extends RocketWeb_Netsuite_Helper_M
             $netsuiteOrderItem->price->internalId = -1;
             
             //set item status
-            if ($netsuiteOrder->orderStatus == '_closed') {
-                $netsuiteOrderItem->isClosed = true;
-            }
+            //if ($netsuiteOrder->orderStatus == '_closed') {
+            //    $netsuiteOrderItem->isClosed = true;
+            //}
 
             $netsuiteLocationId = Mage::helper('rocketweb_netsuite')->getNetsuiteLocationForStockDeduction();
             
@@ -303,6 +303,20 @@ class RocketWeb_Netsuite_Helper_Mapper_Order extends RocketWeb_Netsuite_Helper_M
                         $customPaymentMethod->internalId = $customFieldsConfigItem['netsuite_field_name'];
                         $customPaymentMethod->value = $paymentMethodNetsuiteId;
                         $customFields[] = $customPaymentMethod;
+                    }
+                    elseif ($customFieldsConfigItem['netsuite_field_name'] == 'custbody_magentostatus') {
+                        if ($orderHistorical = $this->getOrderHistorical()) {
+                            $customOrderHistorical = new StringCustomFieldRef();
+                            $customOrderHistorical->internalId = 'custbody_magentohistorical';
+                            //$customOrderHistorical->value = 'F';
+                            $customOrderHistorical->value = $orderHistorical ? 'T' : 'F';
+                            $customFields[] = $customOrderHistorical;
+                            
+                            $customMagentoStatus = new StringCustomFieldRef();
+                            $customMagentoStatus->internalId = $customFieldsConfigItem['netsuite_field_name'];
+                            $customMagentoStatus->value = $magentoOrder->getStatusLabel();
+                            $customFields[] = $customMagentoStatus;
+                        }
                     }
                     else {
                         $customField = $this->_initCustomField($customFieldsConfigItem, $magentoOrder);
@@ -617,5 +631,9 @@ class RocketWeb_Netsuite_Helper_Mapper_Order extends RocketWeb_Netsuite_Helper_M
 
     protected function getProductDefaultInternalId() {
         return Mage::getStoreConfig('rocketweb_netsuite/exports/product_default_id');
+    }
+    
+    protected function getOrderHistorical() {
+        return Mage::getStoreConfig('rocketweb_netsuite/exports/order_historical');
     }
 }
