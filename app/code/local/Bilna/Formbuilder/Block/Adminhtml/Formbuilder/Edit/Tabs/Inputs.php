@@ -16,7 +16,7 @@ class Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Edit_Tabs_Inputs extends Mag
 	{
 		$collection = Mage::getModel('bilna_formbuilder/input')->getCollection();
 		$collection->getSelect()
-		->joinInner(array('bff' => 'bilna_formbuilder_form'), 'main_table.form_id = bff.id',array('bff.title'));
+		->joinInner(array('bff' => 'bilna_formbuilder_form'), 'main_table.form_id = bff.id',array('Title' => 'bff.title'));
 		$collection->addFilterToMap('group', 'main_table.group');
 		$collection->addFilterToMap('title', 'main_table.title');
 		$collection->addFilterToMap('title', 'bff.title');
@@ -24,7 +24,7 @@ class Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Edit_Tabs_Inputs extends Mag
 		$collection->addFilterToMap('unique', 'main_table.unique');
 		$collection->addFilterToMap('order', 'main_table.order');
 		$collection->addFieldToFilter('main_table.form_id', (int) $this->getRequest()->getParam('id'));
-		//$collection->printLogQuery(true); die;
+		//$collection->printLogQuery(true); //die;
 		$this->setCollection($collection);		 
 		return parent::_prepareCollection();
 	}
@@ -76,8 +76,8 @@ class Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Edit_Tabs_Inputs extends Mag
 			'index' 	=> 'unique',
 			'type'		=> 'options',
 			'options' => array(
-					'0' 	=> 'No',
-					'1' 	=> 'Yes',),
+					'0' 	=> 'Yes',
+					'1' 	=> 'No',),
 			'header_css_class'=>'a-center'
 	));
 
@@ -112,6 +112,6 @@ class Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Edit_Tabs_Inputs extends Mag
 
   public function getRowUrl($row)
   {
-		return $this->getUrl('*/*/editInput', array('id' => $row->getId()));
+		return $this->getUrl('*/*/editInput', array('id' => $row->getId(), 'form_id' => $this->getRequest()->getParam('id')));
   }	 
 }

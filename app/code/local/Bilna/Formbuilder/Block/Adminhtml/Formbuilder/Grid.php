@@ -59,9 +59,9 @@ class Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Grid extends Mage_Adminhtml_
 
 	$this->addColumn('status',
 		array(
-			'header'=> $this->__('Status'),
-			'index' => 'status',
-			'type'  => 'options',
+			'header'	=> $this->__('Status'),
+			'index' 	=> 'status',
+			'type'  	=> 'options',
       'options' => array(
 				'0'			=>'Enabled',
 				'1'			=>'Disabled'),

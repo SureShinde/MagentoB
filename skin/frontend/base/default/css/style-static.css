@@ -1951,6 +1951,29 @@ button.button-area {
 /* END ------------ POP UP - ASI DISCLAIMER */
 
 /*---------promo free voucher april------*/
+	.wrap_input_email p{
+		display:none;
+	}
+	.wrap_input_email button span{
+		float:left;
+		padding:8px 20px !important;
+		height:auto;
+	}
+	.wrap_input_email button{
+		float:left;
+		margin:0 !important;
+		padding:21px 0;
+	}
+	.wrap_input_email ul li input{
+		width:300px;
+	}
+	.wrap_input_email ul{
+		float:left;
+		display:table;
+	}
+	.wrap_input_email label{
+		display:none;
+	}
 	.logo_free_voucher{
 		padding:30px 0 0;
 		text-align:center;
@@ -2000,7 +2023,7 @@ button.button-area {
 		border-top:2px dashed #714943;
 	}
 	.popup_succes_facebook{
-		display:none;
+		/*display:none;*/
 		position:fixed;
 		width:662px;
 		height:382px;
@@ -2010,7 +2033,7 @@ button.button-area {
 		-webkit-border-radius:20px;
 		margin:-148px auto 0 -331px;
 		top:50%;
-		z-index:11;
+		z-index:999;
 		left:50%;
 	}
 	.popup_succes_facebook img{
@@ -2019,7 +2042,7 @@ button.button-area {
 		margin:40px auto 0;
 	}
 	.bg_popup{
-		display:none;
+		/*display:none;*/
 		position:fixed;
 		width:100%;
 		height:100%;
@@ -2028,7 +2051,7 @@ button.button-area {
 		color: rgba(0, 0, 0, 0.9);
 		top:0;
 		left:0;
-		z-index:10;
+		z-index:999;
 	}
 	.popup_succes_facebook{
 		height: 280px;
@@ -2052,21 +2075,55 @@ button.button-area {
     text-transform: uppercase;
 	}
 @media only screen and (max-width: 1023px){
+	.wrap_input_email ul{
+		width:70%;
+	}
+	.wrap_input_email{
+		width:70%;
+	}
+	.wrap_input_email ul li input {
+    width: 295px !important;
+}
 	.main-image{
 		background:url(http://im.bilna.com/media/wysiwyg/static-page-img/free-voucher/main_img_facebook_768.jpg) no-repeat center;
 	}
 }
 @media (max-width: 767px){ 
-	
+	.wrap_input_email ul li input {
+		width: 100% !important;
+	}
+	.wrap_input_email ul{
+		padding: 0 !important;
+	}
+	.wrap_input_email ul li .required{
+		width:20%;
+		display:none !important;
+	}
 	.footer_facebook_page{
 		margin:0 45px;
 	}
 	.input_form{
 		width:332px;
 	}
-	
+	.wrap_input_email button{
+		width:30%;
+	}
+	.wrap_input_email button span{
+		width:100%;
+	}
+
 }
 @media (max-width: 479px){ 
+	.wrap_input_email button span {
+		max-width: none !important;
+		padding: 8px 0 !important;
+		width: 100%;
+	}
+	.wrap_input_email ul li input {
+    padding: 5px 5% !important;
+    width: 90% !important;
+}
+
 	.main-image{
 		height:260px;
 		background:url(http://im.bilna.com/media/wysiwyg/static-page-img/free-voucher/main_img_facebook_320.jpg) no-repeat center;
@@ -2090,6 +2147,7 @@ button.button-area {
 	.form_email{
 		width:100%;
 	}
+
 	.popup_succes_facebook img {
     margin: 20px auto;
 	}
@@ -2106,6 +2164,16 @@ button.button-area {
 	.title_form{
 		font-size:19px;
 	}
+	.wrap_input_email ul{
+		width:100%;
+	}
+	.wrap_input_email ul li{
+		margin:0 !important;
+	}
+	.wrap_input_email button{
+		width:100%;
+		padding:0;
+	}	
 }
 /*-----------------------end of free voucher--------------------------------*/
 
