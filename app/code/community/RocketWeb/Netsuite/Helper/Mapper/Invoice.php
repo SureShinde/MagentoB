@@ -42,26 +42,43 @@ class RocketWeb_Netsuite_Helper_Mapper_Invoice extends RocketWeb_Netsuite_Helper
         return $cashSale;
     }
 
-    public function cleanupNetsuiteInvoice(Invoice $invoice,Mage_Sales_Model_Order_Invoice $magentoInvoice) {
+    public function cleanupNetsuiteInvoice(Invoice $invoice, Mage_Sales_Model_Order_Invoice $magentoInvoice) {
         $invoice->createdFrom = new RecordRef();
         $invoice->createdFrom->internalId = $magentoInvoice->getOrder()->getNetsuiteInternalId();
         $invoice->createdFrom->type = RecordType::salesOrder;
 
         //adjust invoice elements (an invoice may not have all elements or the same quantity as the order
-        foreach($invoice->itemList->item as &$netsuiteItem) {
+        foreach ($invoice->itemList->item as &$netsuiteItem) {
             $found = false;
-            foreach($magentoInvoice->getAllItems() as $magentoItem) {
-                if($magentoItem->getSku() == $netsuiteItem->item->name) {
+            
+            foreach ($magentoInvoice->getAllItems() as $magentoItem) {
+                if ($magentoItem->getSku() == $netsuiteItem->item->name) {
                     $netsuiteItem->quantity = $magentoItem->getQty();
                     $netsuiteItem->amount = $magentoItem->getRowTotal();
                     $found = true;
                     break;
                 }
             }
-            if(!$found) {
-                unset($netsuiteItem);
+            
+            if (!$found) {
+                unset ($netsuiteItem);
             }
         }
+        
+        //set tranId
+        if ($magentoInvoice->getIncrementId()) {
+            $invoice->tranId = $magentoInvoice->getIncrementId();
+        }
+        
+        //set magento invoice date
+        if ($magentoInvoice->getCreatedAt()) {
+            $customMagentoInvoiceDate = new StringCustomFieldRef();
+            $customMagentoInvoiceDate->internalId = 'custbody_magentoinvoicedate';
+            $customMagentoInvoiceDate->value = date("d/m/Y", strtotime($magentoInvoice->getCreatedAt()));
+            $invoice->customFieldList->customField[] = $customMagentoInvoiceDate;
+        }
+        
+        //$netsuiteOrderItem->customFieldList->customField = $customFields;
 
         return $invoice;
     }

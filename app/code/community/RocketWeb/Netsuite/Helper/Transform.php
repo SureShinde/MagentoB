@@ -38,7 +38,7 @@ class RocketWeb_Netsuite_Helper_Transform extends Mage_Core_Helper_Data {
         $statusToStateMap = Mage::getSingleton('rocketweb_netsuite/config')->convertDefaultMapOrderstatuses();
         foreach($statusToStateMap as $statusToStateMapItem) {
             if($statusToStateMapItem['magento_status'] == $magentoOrderState) {
-                return $statusToStateMapItem['netsuite_Status'];
+                return $statusToStateMapItem['netsuite_status'];
             }
         }
         return null;

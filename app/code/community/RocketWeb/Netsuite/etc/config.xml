@@ -65,65 +65,65 @@
     		</rocketweb_netsuite_setup>
     	</resources>
     	<events>
-    		<customer_save_after>
-    			<observers>
-    				<queue_customer_for_netsuite>
-    					<type>singleton</type>
-    					<class>rocketweb_netsuite/observer</class>
-    					<method>queueCustomerForNetsuite</method>
-    				</queue_customer_for_netsuite>
-    			</observers>
-    		</customer_save_after>
-    		<customer_address_save_after>
-    			<observers>
-    				<queue_customer_for_netsuite>
-    					<type>singleton</type>
-    					<class>rocketweb_netsuite/observer</class>
-    					<method>queueCustomerForNetsuiteBasedOnAddress</method>
-    				</queue_customer_for_netsuite>
-    			</observers>
-    		</customer_address_save_after>
-    		<customer_delete_after>
-    			<observers>
-    				<queue_customer_delete_for_netsuite>
-    					<type>singleton</type>
-    					<class>rocketweb_netsuite/observer</class>
-    					<method>queueCustomerDelete</method>
-    				</queue_customer_delete_for_netsuite>
+            <customer_save_after>
+                <observers>
+                    <queue_customer_for_netsuite>
+                        <type>singleton</type>
+                        <class>rocketweb_netsuite/observer</class>
+                        <method>queueCustomerForNetsuite</method>
+                    </queue_customer_for_netsuite>
+                </observers>
+            </customer_save_after>
+            <customer_address_save_after>
+                <observers>
+                    <queue_customer_for_netsuite>
+                        <type>singleton</type>
+                        <class>rocketweb_netsuite/observer</class>
+                        <method>queueCustomerForNetsuiteBasedOnAddress</method>
+                    </queue_customer_for_netsuite>
+                </observers>
+            </customer_address_save_after>
+            <customer_delete_after>
+                <observers>
+                    <queue_customer_delete_for_netsuite>
+                        <type>singleton</type>
+                        <class>rocketweb_netsuite/observer</class>
+                        <method>queueCustomerDelete</method>
+                    </queue_customer_delete_for_netsuite>
                     <delete_customer_from_netsuite_export_queue>
                         <type>singleton</type>
                         <class>rocketweb_netsuite/observer</class>
                         <method>deleteCustomerFromExportQueue</method>
                     </delete_customer_from_netsuite_export_queue>
-    			</observers>
-    		</customer_delete_after>
-    		<log_log_clean_after>
-    			<observers>
-    				<clean_api_log>
-    					<type>singleton</type>
-    					<class>rocketweb_netsuite/observer</class>
-    					<method>cleanApiLog</method>
-    				</clean_api_log>
-    			</observers>
-    		</log_log_clean_after>
-    		<sales_order_place_after>
-    			<observers>
-    				<queue_order_place_for_netsuite>
-    					<type>singleton</type>
-    					<class>rocketweb_netsuite/observer</class>
-    					<method>queueOrderPlaceForNetsuite</method>
-    				</queue_order_place_for_netsuite>
-    			</observers>
-    		</sales_order_place_after>
-    		<catalog_product_save_after>
-    			<observers>
-    				<queue_product_save_for_netsuite>
-    					<type>singleton</type>
-    					<class>rocketweb_netsuite/observer</class>
-    					<method>queueProductSaveForNetsuite</method>
-    				</queue_product_save_for_netsuite>
-    			</observers>
-    		</catalog_product_save_after>
+                </observers>
+            </customer_delete_after>
+            <log_log_clean_after>
+                <observers>
+                    <clean_api_log>
+                        <type>singleton</type>
+                        <class>rocketweb_netsuite/observer</class>
+                        <method>cleanApiLog</method>
+                    </clean_api_log>
+                </observers>
+            </log_log_clean_after>
+            <sales_order_place_after>
+                <observers>
+                    <queue_order_place_for_netsuite>
+                        <type>singleton</type>
+                        <class>rocketweb_netsuite/observer</class>
+                        <method>queueOrderPlaceForNetsuite</method>
+                    </queue_order_place_for_netsuite>
+                </observers>
+            </sales_order_place_after>
+            <catalog_product_save_after>
+                <observers>
+                    <queue_product_save_for_netsuite>
+                        <type>singleton</type>
+                        <class>rocketweb_netsuite/observer</class>
+                        <method>queueProductSaveForNetsuite</method>
+                    </queue_product_save_for_netsuite>
+                </observers>
+            </catalog_product_save_after>
             <sales_order_invoice_save_after>
                 <observers>
                     <queue_invoice_save_for_netsuite>

@@ -15,5 +15,8 @@ class Bilna_Wrappinggiftevent_Model_Custom_Order extends Mage_Core_Model_Abstrac
 		return $this->_getResource()->getByOrder($order_id);
 	}
 	
-	
+	public function loadByOrder($order) {
+        $this->getResource()->loadByOrderId($this, $order->getEntityId());
+        return $this;
+    }
 }
