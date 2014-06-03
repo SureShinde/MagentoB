@@ -43,9 +43,9 @@ class AW_Points_Block_Adminhtml_Rule_Edit_Tab_Actions extends Mage_Adminhtml_Blo
         		'name'      => 'apply_on',
         		'options'    => array(
         				Mage_SalesRule_Model_Rule::BY_PERCENT_ACTION => Mage::helper('salesrule')->__('Percent of product price discount'),
-        				Mage_SalesRule_Model_Rule::BY_PERCENT_PRODUCT => Mage::helper('salesrule')->__('Percent point reward for qualifying items'),
+//         				Mage_SalesRule_Model_Rule::BY_PERCENT_PRODUCT => Mage::helper('salesrule')->__('Percent point reward for qualifying items'),
         				Mage_SalesRule_Model_Rule::BY_FIXED_ACTION => Mage::helper('salesrule')->__('Fixed amount discount'),
-        				Mage_SalesRule_Model_Rule::BY_FIXED_PRODUCT => Mage::helper('salesrule')->__('Fixed point reward for each item qualified items'),
+//         				Mage_SalesRule_Model_Rule::BY_FIXED_PRODUCT => Mage::helper('salesrule')->__('Fixed point reward for each item qualified items'),
         				Mage_SalesRule_Model_Rule::CART_FIXED_ACTION => Mage::helper('salesrule')->__('Fixed amount discount for whole cart'),
         		),
         ));
