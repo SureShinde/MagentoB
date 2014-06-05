@@ -610,6 +610,7 @@ A.awblog_current_comment {
 
 .banner-bottom-size img {
 	width: 100%;
+	margin:5px 0;
 }
 
 .blog-index-list .postContent2 .layout-4-content { width: 50%; margin-left:5px 2% 5px 2%; float:left; display: block;}
