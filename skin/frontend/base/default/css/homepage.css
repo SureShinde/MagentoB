@@ -424,6 +424,12 @@
 .media-partners ul.media-partners-wrapper li:first-child {
 	margin: 0;
 }
+
+.banner-right-mainhomepage p, .banner-left-mainhomepage p {margin: margin: 0 0 0.25em !important;}
+
+
+
+
 @media only screen and (max-width: 1215px) {
 	.cms-home .homepage-bottom .block-wrapper > a{
     margin: 10px 8px;
