@@ -1942,6 +1942,7 @@ button.button span.lanjut-button {
     border: none;
     margin: 10px auto 5px;
     max-width: 80px;
+    height: 19px;
 }
 button.button-area {
     width: 100% !important;
