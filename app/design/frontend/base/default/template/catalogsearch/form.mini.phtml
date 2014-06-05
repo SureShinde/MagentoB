@@ -28,7 +28,8 @@
 $catalogSearchHelper =  $this->helper('catalogsearch');
 $cat = $catalogSearchHelper->getCategories();
 $_helper = Mage::helper('catalog/category');
-        $_categories = $_helper->getStoreCategories()
+$_categories = $_helper->getStoreCategories();
+$_cat = !is_null($this->getRequest()->getParam('cat')) ? $this->getRequest()->getParam('cat') : '';
 ?>
 <div class="search-container-new">
     <form id="nav-searchbar" action="<?php echo $catalogSearchHelper->getResultUrl() ?>" method="get" name="site-search" role="search" accept-charset="utf-8" ,="" class="nav-searchbar-inner">              
@@ -48,7 +49,7 @@ $_helper = Mage::helper('catalog/category');
                     <?php $_subcategories = $_category->getChildrenCategories() ?>
                     <?php if (count($_subcategories) > 0): ?>
                       <?php foreach($_subcategories as $_subcategory): ?>
-                        <option class="search-subtitle-drop style-search-subcat" value="<?php echo $_subcategory->getId();?>"><?php echo $_subcategory->getName();?></option>
+                        <option class="search-subtitle-drop style-search-subcat" value="<?php echo $_subcategory->getId();?>" <?php if($_subcategory->getId()==$_cat){echo 'selected="selected"';}?> ><?php echo $_subcategory->getName();?></option>
                       <?php endforeach; ?>
                     <?php endif; ?>
                   <?php endforeach;?>
@@ -70,5 +71,8 @@ jQuery('#searchDropdownBox').change(function() {
   });
 
   jQuery("#nav-search-in-content").text( str );
+  
 });
+
+jQuery("#nav-search-in-content").text(jQuery( "#searchDropdownBox option:selected" ).text());
 </script>
