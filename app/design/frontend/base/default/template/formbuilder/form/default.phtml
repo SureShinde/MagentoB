@@ -25,6 +25,10 @@
 				if($group!==""){ ?></li><?php } ?><li>
 			<?php } ?>
 			<?php if($input["type"] == "checkbox"){ ?>
+				<?php if($input["name"]=="terms" && $this->block->termsconditions){ ?>
+		        <div style="clear:both"></div>
+		        <?php echo $this->block->termsconditions; ?>
+				<?php } ?>
 				<div class="form-checkbox">
 					<input style="margin: 0px 12px 0px 140px;" id="<?php echo $input["name"]; ?>" type="checkbox" name="inputs[<?php echo $input["group"]; ?>]">
 					<label for="<?php echo $input["name"]; ?>"><?php echo $input["value"]; ?></label>
@@ -57,10 +61,6 @@
 		}
 		?>
 		</ul>
-		<?php if($this->block->termsconditions){ ?>
-        <div style="clear:both"></div>
-        <?php echo $this->block->termsconditions; ?>
-		<?php } ?>
         <div style="clear:both"></div>
 		<p class="required" style="float: left; color: #eb340a; margin-left: 160px;">* Required Fields</p>
 			<input id="hideit" style="display: none !important;" type="text" name="hideit" />

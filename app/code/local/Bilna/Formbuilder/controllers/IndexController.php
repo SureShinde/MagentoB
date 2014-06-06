@@ -68,6 +68,25 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
 		foreach($postData["inputs"] as $type=>$value){				
 			$insertData = $this->_insertData($form_id,$record_id,$type,$value,$create_date);
 		}
+		
+		$freeProducts = json_decode($row["freeproducts"]);
+		foreach($freeProducts->sku as $sku){
+			$productModel = Mage::getModel('catalog/product');
+			$productId = $productModel->getIdBySku($sku);
+			
+			if(!is_null($productId)){
+				$params = array(
+						'product' => $productId,
+						'qty' => 1,
+				);
+				$cart = Mage::getSingleton('checkout/cart');
+				$product = new Mage_Catalog_Model_Product();
+				$product->load($productId);
+				$cart->addProduct($product, $params);
+				$cart->save();
+				Mage::getSingleton('checkout/session')->setCartWasUpdated(true);
+			}
+		}
 
 		if($row["sent_email"] == 1 && isset($postData["inputs"]["email"])){
 
@@ -90,8 +109,10 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
 			$this->_prepareEmail($data, $row['email_id']);
 		}
 			
-		if(!is_null($row["success_message"])){
+		if(is_null($row["success_message"]) || $row["success_message"]==""){
 			Mage::getSingleton('core/session')->setFormbuilderSuccess(true);
+		}else{
+			Mage::getSingleton('core/session')->addSuccess($row["success_message"]);
 		}
 		$redirectPage = Mage::getBaseUrl().$field["url"];
 		
