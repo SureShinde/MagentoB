@@ -75,16 +75,28 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
 			$productId = $productModel->getIdBySku($sku);
 			
 			if(!is_null($productId)){
-				$params = array(
-						'product' => $productId,
-						'qty' => 1,
-				);
-				$cart = Mage::getSingleton('checkout/cart');
-				$product = new Mage_Catalog_Model_Product();
-				$product->load($productId);
-				$cart->addProduct($product, $params);
-				$cart->save();
-				Mage::getSingleton('checkout/session')->setCartWasUpdated(true);
+				$productOnCart	= false;
+				
+				//Check if product already exist on the cart
+		        $quote = Mage::getSingleton('checkout/session')->getQuote();
+		        foreach ($quote->getAllItems() as $item) {
+		        	if($item->getSku() == $sku){
+		        		$productOnCart	= true;
+		        	}
+		        }
+		        
+	        	if($productOnCart!==true){
+	        		$params = array(
+	        				'product' => $productId,
+	        				'qty' => 1,
+	        		);
+	        		$cart = Mage::getSingleton('checkout/cart');
+	        		$product = new Mage_Catalog_Model_Product();
+	        		$product->load($productId);
+	        		$cart->addProduct($product, $params);
+	        		$cart->save();
+	        		Mage::getSingleton('checkout/session')->setCartWasUpdated(true);
+	        	}
 			}
 		}
 
