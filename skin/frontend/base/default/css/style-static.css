@@ -1794,7 +1794,6 @@ h2.block-grey-title-left {
 
 .formbuilder-form ul li label  {
     float: left;
-    width: 135px;
 }
 
 .formbuilder-form ul li div.form-checkbox{
@@ -1817,10 +1816,7 @@ h2.block-grey-title-left {
     color: #666666;
     float: left;
     height: 26px !important;
-    margin-right: 60px;
     padding: 7px 5px;
-    width: 40% !important;
-    margin-bottom: 20px;
     display: block;
 }
 .formbuilder-form p.required {
@@ -1832,15 +1828,13 @@ h2.block-grey-title-left {
     padding: 0;
 }
 .formbuilder-form button.button {
-    width: 42%;
+    display:table;
 }
 .formbuilder-form button.button span {
     background: none repeat scroll 0 0 #FFA01B;
     border: medium none;
     font-weight: normal;
     padding: 10px 20px;
-    margin-left: 160px;
-    margin-top: 20px;
     max-width: 100px;
     float: right;
 }
@@ -1866,9 +1860,7 @@ h2.block-grey-title-left {
         margin-bottom: 20px;
         display: block;
     }
-    .formbuilder-form button.button {
-        width: 72%;
-    }
+    
 
 }
 
@@ -1955,23 +1947,27 @@ button.button-area {
 	.wrap_input_email p{
 		display:none;
 	}
+	.onefield .formbuilder-form ul{
+		padding: 0;
+		width: 73%;
+	}
+	.onefield .formbuilder-form div{
+		clear:none !important;
+	}
 	.wrap_input_email button span{
-		float:left;
-		padding:8px 20px !important;
+		float:left !important;
+		padding:10px 20px !important;
 		height:auto;
 	}
 	.wrap_input_email button{
 		float:left;
 		margin:0 !important;
-		padding:21px 0;
+		padding:0;
 	}
 	.wrap_input_email ul li input{
 		width:300px;
 	}
-	.wrap_input_email ul{
-		float:left;
-		display:table;
-	}
+	
 	.wrap_input_email label{
 		display:none;
 	}
@@ -2075,6 +2071,17 @@ button.button-area {
 	margin:0 0 20px;
     text-transform: uppercase;
 	}
+	.onefield input{
+		margin:0 !important;
+		width: 100% !important;
+	}
+	.onefield{
+		width:300px;
+	}
+	.onefield .formbuilder-form{
+		width:500px !important;
+		display:table;
+	}
 @media only screen and (max-width: 1023px){
 	.wrap_input_email ul{
 		width:70%;
@@ -2091,7 +2098,6 @@ button.button-area {
 }
 @media (max-width: 767px){ 
 	.wrap_input_email ul li input {
-		width: 100% !important;
 	}
 	.wrap_input_email ul{
 		padding: 0 !important;
@@ -2115,6 +2121,10 @@ button.button-area {
 
 }
 @media (max-width: 479px){ 
+	.onefield .formbuilder-form {
+		display: table;
+		width: 100% !important;
+	}
 	.wrap_input_email button span {
 		max-width: none !important;
 		padding: 8px 0 !important;
@@ -2122,6 +2132,7 @@ button.button-area {
 	}
 	.wrap_input_email ul li input {
     padding: 5px 5% !important;
+	margin: 0 0 10px !important;
     width: 90% !important;
 }
 
@@ -2175,6 +2186,10 @@ button.button-area {
 		width:100%;
 		padding:0;
 	}	
+	.onefield .formbuilder-form ul{
+		padding: 0;
+		width: 100%;
+	}
 }
 /*-----------------------end of free voucher--------------------------------*/
 
