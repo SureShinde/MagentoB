@@ -2503,3 +2503,77 @@ button.button-area {
 		}
 	}
 /*=============================end style telkomsel promo=============================*/
+
+
+/* ------------------------------ Pampers free Product ------------------------------- */
+    .fc-greenpampers {color: #00a9a2;}
+    .bg-full {
+        background: url("http://stagex.bilna.com/media/wysiwyg/banner-static-page/bg-pampers-june2014-2.jpg") no-repeat #f5e8dd;
+        background-size: 100%;
+        min-height: 685px;
+    }
+    .pampers-form .formbuilder-form {
+        margin: 0 1% !important;
+        width: 100% !important;
+    }
+    .content-area-pampers {
+        margin: 0;
+        max-width: 500px;
+        padding: 0;
+        width: 100%;
+    }
+    .pampers-form form ul {
+        list-style: none outside none !important;
+        margin: 0 !important;
+    }
+    .bg-full .pampers-form ol li {
+        list-style: decimal outside none !important;
+    }
+    .bg-full .pampers-form .formbuilder-form p.required {
+        display: none !important;
+    }
+    .bg-full .static-page-wrapper .pampers-form ol, .bg-full .static-page-wrapper .pampers-form ul {
+        margin: 0 !important;
+    }
+    .bg-full .formbuilder-form button.button {
+        background: none;
+        border: none;
+        margin: 10px 0 0 20% !important;
+    }
+    .bg-full .formbuilder-form .fieldset {
+        background: none;
+        border: none;
+        margin: 10px 0;
+        padding: 0;
+    }
+    .bg-full .formbuilder-form input {
+        background: none repeat scroll 0 0 #F9F9F9;
+        border: medium none;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) inset;
+        color: #666666;
+        float: left;
+        height: 26px !important;
+        margin-right: 0;
+        max-width: 260px !important;
+        padding: 7px 5px !important;
+        width: 100% !important;
+    }
+    .bg-full .formbuilder-form label {
+        float: left;
+        margin-right: 10px !important;
+        width: 80px !important;
+    }
+    .bg-full .formbuilder-form .form-checkbox input {
+        margin: 0 10px 0 0 !important;
+    }
+    .pampers-form .formbuilder-form button.button span {
+        background: url("http://stagex.bilna.com/media/wysiwyg/banner-static-page/button-pampers-fix.png") no-repeat !important;
+        padding: 8px 17px !important;
+    }
+    .bg-full .formbuilder-form ul li div.form-checkbox label {
+        width: 80% !important;
+    }
+    .bg-full .pampers-form .std ul {
+        padding-left: 0 !important;
+    }
+/* ------------------------------ END Pampers free Product ------------------------------- */
