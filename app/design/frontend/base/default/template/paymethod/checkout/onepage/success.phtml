@@ -167,7 +167,7 @@ endif;
 <?php if ($retrieveConfirm2): ?>
     <script type="text/javascript">
         jQuery(document).ready(function() {
-            var ajaxURL = "<?php echo Mage::getUrl('ajaxrequest/data/retrieveconfirm2/', array ('_secure' => true)); ?>";
+    	    var ajaxURL = 'https://www.bilna.com/ajaxrequest/data/retrieveconfirm2/';
 
             var data = {};
             data.orderId = '<?php echo $this->escapeHtml($this->getOrderId()); ?>';

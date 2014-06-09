@@ -168,10 +168,7 @@
 										<div class="awcp-popup-tail"></div>
 									</div>
 									<!-- popup -->
-									<button class="button awcp-button"
-										<?php if ($this->hasOptions($deal)): ?>
-										onclick="Effect.toggle($('awcp-popup-options<?php echo $deal->getId(); ?>'),'appear');return false;"
-										<?php endif; ?>
+									<button class="button awcp-button" <?php if ($this->hasOptions($deal)): ?>onclick="Effect.toggle($('awcp-popup-options<?php echo $deal->getId(); ?>'),'appear');return false;"<?php endif; ?>>
 										<span>
 												<?php echo $this->__('BUY NOW'); ?>
 										</span>
