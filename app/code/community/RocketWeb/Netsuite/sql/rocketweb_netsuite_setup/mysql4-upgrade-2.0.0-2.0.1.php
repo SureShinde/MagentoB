@@ -4,7 +4,7 @@ $installer->startSetup();
 
 $setup = new Mage_Eav_Model_Entity_Setup('core_setup');
 $setup->addAttribute('catalog_product', 'expected_cost', array (
-    'type' => 'float',
+    'type' => 'int',
     'label' => 'Expected Cost',
     'input' => 'text',
     'sort_order' => 200,
@@ -13,7 +13,7 @@ $setup->addAttribute('catalog_product', 'expected_cost', array (
     'required' => false
 ));
 $setup->addAttribute('catalog_product', 'event_cost', array (
-    'type' => 'float',
+    'type' => 'int',
     'label' => 'Event Cost',
     'input' => 'text',
     'sort_order' => 210,
@@ -22,7 +22,7 @@ $setup->addAttribute('catalog_product', 'event_cost', array (
     'required' => false
 ));
 $setup->addAttribute('catalog_product', 'event_start_date', array (
-    'type' => 'date',
+    'type' => 'datetime',
     'label' => 'Event Start Date',
     'input' => 'date',
     'sort_order' => 220,
@@ -31,7 +31,7 @@ $setup->addAttribute('catalog_product', 'event_start_date', array (
     'required' => false
 ));
 $setup->addAttribute('catalog_product', 'event_end_date', array (
-    'type' => 'date',
+    'type' => 'datetime',
     'label' => 'Event End Date',
     'input' => 'date',
     'sort_order' => 230,
