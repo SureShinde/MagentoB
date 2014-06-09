@@ -76,27 +76,37 @@ function getNetsuiteFormatProduct($magentoProduct) {
     $customFieldList->customField[] = $customFieldExpectedCost;
 
     //- event cost
-    if ($eventCost = $magentoProduct->getEventCost()) {
-        if ($eventCost == null || $eventCost == 0) {
-            $eventCost = 0;
-        }
-        else {
-            if ($eventStartDate = $magentoProduct->getEventStartDate() && $eventEndDate = $magentoProduct->getEventEndDate()) {
-                if (strtotime(getDateOnly(getMagentoDate())) >= strtotime(getDateOnly($eventStartDate)) && strtotime(getDateOnly(getMagentoDate())) <= strtotime(getDateOnly($eventEndDate))) {
-                    $eventCost = $magentoProduct->getEventCost();
-                }
-                else {
-                    $eventCost = 0;
-                }
-            }
-            else {
-                $eventCost = 0;
-            }
-        }
+    $eventStartDate = $magentoProduct->getEventStartDate();
+    $eventEndDate = $magentoProduct->getEventEndDate();
+    
+    if (($eventStartDate) && ($eventEndDate) && (strtotime(getDateOnly(getMagentoDate())) >= strtotime(getDateOnly($eventStartDate)) && strtotime(getDateOnly(getMagentoDate())) <= strtotime(getDateOnly($eventEndDate)))) {
+        $eventCost = $magentoProduct->getEventCost();
     }
     else {
         $eventCost = 0;
     }
+    
+    //if ($eventCost = $magentoProduct->getEventCost()) {
+    //    if ($eventCost == null || $eventCost == 0) {
+    //        $eventCost = 0;
+    //    }
+    //    else {
+    //        if ($eventStartDate = $magentoProduct->getEventStartDate() && $eventEndDate = $magentoProduct->getEventEndDate()) {
+    //            if (strtotime(getDateOnly(getMagentoDate())) >= strtotime(getDateOnly($eventStartDate)) && strtotime(getDateOnly(getMagentoDate())) <= strtotime(getDateOnly($eventEndDate))) {
+    //                $eventCost = $magentoProduct->getEventCost();
+    //            }
+    //            else {
+    //                $eventCost = 0;
+    //            }
+    //        }
+    //        else {
+    //            $eventCost = 0;
+    //        }
+    //    }
+    //}
+    //else {
+    //    $eventCost = 0;
+    //}
 
     $customFieldEventCost = new StringCustomFieldRef();
     $customFieldEventCost->scriptId = 'custitem_eventcost';

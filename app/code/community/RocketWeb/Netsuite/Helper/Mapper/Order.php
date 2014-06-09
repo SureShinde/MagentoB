@@ -151,11 +151,11 @@ class RocketWeb_Netsuite_Helper_Mapper_Order extends RocketWeb_Netsuite_Helper_M
                 foreach ($customFieldsConfig as $customFieldsConfigItem) {
                     switch ($customFieldsConfigItem['netsuite_field_name']) {
                         case 'custcol_discountitem':
-                            $discountPerItem = (float) round($magentoOrder->getData('discount_amount') / $magentoOrder->getTotalQtyOrdered(), 3);
-                            $item->setData($customFieldsConfigItem['value'], $discountPerItem);
+                            $discountPerItem = - (float) round(($item->getData('discount_amount') / $item->getData('qty_ordered')), 3);
+                            $totalDiscount += $discountPerItem;
+                            $item->setData('discount_amount', $discountPerItem);
                             $customField = $this->_initCustomField($customFieldsConfigItem, $item);
                             $customFields[] = $customField;
-                            $totalDiscount += (float) $item->getData('discount_amount');
                             break;
                         case 'custcol_bilnacredit':
                             $bilna_credit = (float) round($pointsTransaction->getData('base_points_to_money') / $magentoOrder->getTotalQtyOrdered(), 3);
