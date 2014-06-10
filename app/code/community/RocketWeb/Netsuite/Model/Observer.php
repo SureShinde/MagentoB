@@ -246,7 +246,37 @@ class RocketWeb_Netsuite_Model_Observer {
 		
 		return $this;
 	}
-
+        
+    /**
+     * @param type $observer
+     * @return \RocketWeb_Netsuite_Model_Observer
+     */
+    public function queueProductSaveCostNetsuite($observer) {
+        if (!Mage::helper('rocketweb_netsuite')->isEnabled()) {
+            return $this;
+        }
+        
+        $product = $observer->getEvent()->getProduct();
+        $dataArr = array (
+            'product_id' => $product->getId(),
+            'expected_cost' => $product->getExpectedCost(),
+            'event_cost' => $product->getEventCost(),
+            'event_start_date' => $product->getEventStartDate(),
+            'event_end_date' => $product->getEventEndDate(),
+            'netsuite_internal_id' => $product->getNetsuiteInternalId()
+        );
+        $model = Mage::getModel('rocketweb_netsuite/productcost')->setData($dataArr);
+        
+        try {
+            $insertId = $model->save()->getId();
+            Mage::log("insert queueProductSaveCostNetsuite #" . $product->getId() . " : successfully", null, "netsuite.log");
+        }
+        catch (Exception $e) {
+            Mage::log("insert queueProductSaveCostNetsuite #" . $product->getId() . " : failed, " . $e->getMessage(), null, "netsuite.log");
+        }
+                
+        return $this;
+    }
 
     public function processStockImport($logger=null) {
         //The following 2 if conditions are redundant, Mage::helper('rocketweb_netsuite/stock')->shouldRun cheks for them too. Keeping them here so we save the

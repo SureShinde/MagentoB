@@ -1,7 +1,7 @@
 <config>
     <modules>
         <RocketWeb_Netsuite>
-            <version>2.0.1</version>
+            <version>2.0.2</version>
         </RocketWeb_Netsuite>
     </modules>
     <global>
@@ -36,6 +36,9 @@
                     <changelog>
                         <table>netsuite_changelog</table>
                     </changelog>
+                    <productcost>
+                        <table>netsuite_product_cost</table>
+                    </productcost>
                 </entities>
             </rocketweb_netsuite_resource>
             <tax>
@@ -122,6 +125,11 @@
                         <class>rocketweb_netsuite/observer</class>
                         <method>queueProductSaveForNetsuite</method>
                     </queue_product_save_for_netsuite>
+                    <queue_product_save_cost_netsuite>
+                        <type>singleton</type>
+                        <class>rocketweb_netsuite/observer</class>
+                        <method>queueProductSaveCostNetsuite</method>
+                    </queue_product_save_cost_netsuite>
                 </observers>
             </catalog_product_save_after>
             <sales_order_invoice_save_after>
