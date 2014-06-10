@@ -1,4 +1,3 @@
-<script type="text/javascript">
 jQuery(document).ready(function(){
     jQuery('.cmon-swingin').on('click',function (e) {
     e.preventDefault();
@@ -11,7 +10,6 @@ jQuery(document).ready(function(){
     });
 });
 }); 
-</script>
 
 
 // note: Just add ".cmon-swingin" class on your div 
