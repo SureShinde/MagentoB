@@ -27,7 +27,9 @@
     <div  id="awcp_customerdeals-history-box" >
     <?php $purchases = $this->getCustomerPurchases(); ?>
     <?php if($purchases->getSize()): ?>
-        <h4><?php echo $this->__('Deal Information') ?></h4>
+		<div class="page-title">
+			<h1><?php echo $this->__('Deal Information') ?></h1>
+		</div>
         <?php echo $this->getPagerHtml(); ?>
         <table class="data-table" id="points-history-table">
             <col class="id" />
