@@ -257,22 +257,40 @@ class RocketWeb_Netsuite_Model_Observer {
         }
         
         $product = $observer->getEvent()->getProduct();
-        $dataArr = array (
-            'product_id' => $product->getId(),
-            'expected_cost' => $product->getExpectedCost(),
-            'event_cost' => $product->getEventCost(),
-            'event_start_date' => $product->getEventStartDate(),
-            'event_end_date' => $product->getEventEndDate(),
-            'netsuite_internal_id' => $product->getNetsuiteInternalId()
-        );
-        $model = Mage::getModel('rocketweb_netsuite/productcost')->setData($dataArr);
         
-        try {
-            $insertId = $model->save()->getId();
-            Mage::log("insert queueProductSaveCostNetsuite #" . $product->getId() . " : successfully", null, "netsuite.log");
+        // original value
+        $origExpectedCost = $product->getOrigData('expected_cost');
+        $origEventCost = $product->getOrigData('event_cost');
+        $origEventStartDate = date('Y-m-d', strtotime($product->getOrigData('event_start_date')));
+        $origEventEndDate = date('Y-m-d', strtotime($product->getOrigData('event_end_date')));
+        
+        // new value
+        $newExpectedCost = $product->getData('expected_cost');
+        $newEventCost = $product->getData('event_cost');
+        $newEventStartDate = date('Y-m-d', strtotime($product->getData('event_start_date')));
+        $newEventEndDate = date('Y-m-d', strtotime($product->getData('event_end_date')));
+        
+        if (($origExpectedCost == $newExpectedCost) && ($origEventCost == $newEventCost) && ($origEventStartDate == $newEventStartDate) && ($origEventEndDate == $newEventEndDate)) {
+            return $this;
         }
-        catch (Exception $e) {
-            Mage::log("insert queueProductSaveCostNetsuite #" . $product->getId() . " : failed, " . $e->getMessage(), null, "netsuite.log");
+        else {
+            $dataArr = array (
+                'product_id' => $product->getId(),
+                'expected_cost' => $newExpectedCost,
+                'event_cost' => $newEventCost,
+                'event_start_date' => $newEventStartDate,
+                'event_end_date' => $newEventEndDate,
+                'netsuite_internal_id' => $product->getNetsuiteInternalId()
+            );
+            $model = Mage::getModel('rocketweb_netsuite/productcost')->setData($dataArr);
+
+            try {
+                $insertId = $model->save()->getId();
+                //Mage::log("insert queueProductSaveCostNetsuite #" . $product->getId() . " : successfully", null, "netsuite.log");
+            }
+            catch (Exception $e) {
+                Mage::log("insert queueProductSaveCostNetsuite #" . $product->getId() . " : failed, " . $e->getMessage(), null, "netsuite.log");
+            }
         }
                 
         return $this;
