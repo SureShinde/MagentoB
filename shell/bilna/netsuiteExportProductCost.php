@@ -39,11 +39,8 @@ class Bilna_Netsuitesync_Shell_NetsuiteExportProductCost extends Mage_Shell_Abst
                 
                 if ($response->writeResponse->status->isSuccess) {
                     // delete product cost queue
-                    if ($deleteProductCostQueue = Mage::helper('rocketweb_netsuite/mapper_productcost')->deleteProductCostQueue($product->getId())) {
+                    if ($deleteProductCostQueue = Mage::helper('rocketweb_netsuite/mapper_productcost')->deleteProductCostQueue($product)) {
                         $this->writeLog("delete queueProductSaveCostNetsuite #{$product->getId()} successfully");
-                    }
-                    else {
-                        $this->writeLog("delete queueProductSaveCostNetsuite #{$product->getId()} failed");
                     }
                 }
                 else {

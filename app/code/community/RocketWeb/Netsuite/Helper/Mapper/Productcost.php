@@ -52,10 +52,18 @@ class RocketWeb_Netsuite_Helper_Mapper_Productcost extends RocketWeb_Netsuite_He
      * @param type $id
      * @return boolean
      */
-    public function deleteProductCostQueue($id) {
+    public function deleteProductCostQueue($product) {
+        $id = $product->getId();
+        $eventEndDate = $this->getDateOnly($product->getEventEndDate());
+        $today = $this->getDateOnly($this->getMagentoDate());
+        
+        if (strtotime($eventEndDate) < strtotime($today)) {
+            return false;
+        }
+        
         $model = Mage::getModel('rocketweb_netsuite/productcost');
 
-        if ($model->setId($id)->delete()) {
+        if ($model->setId($product->getId())->delete()) {
             return true;
         }
         
