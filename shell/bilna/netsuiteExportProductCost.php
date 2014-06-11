@@ -8,10 +8,22 @@
 require_once dirname(__FILE__) . '/../abstract.php';
 
 class Bilna_Netsuitesync_Shell_NetsuiteExportProductCost extends Mage_Shell_Abstract {
+    const PROCESS_ID = 'cron_productcost';
+    protected $_lockFile = null;
+    //protected $_isLocked = null;
+
     public function run() {
-        $this->writeLog("Start export product cost ...");
+        $this->_start();
+                        
+        // checking process locking file
+        if ($this->_isLocked()) {
+            $this->writeLog(sprintf("Another '%s' process is running! Abort", self::PROCESS_ID));
+            $this->_end();
+            exit;
+        }
+        
         $productCostCollection = $this->getProductCostCollection();
-        $this->writeLog("Processing {$productCostCollection->getSize()} products ...");
+        $this->writeLog("Processing {$productCostCollection->getSize()} product cost ...");
         
         foreach ($productCostCollection as $product) {
             if ($product->getProductId()) {
@@ -27,7 +39,12 @@ class Bilna_Netsuitesync_Shell_NetsuiteExportProductCost extends Mage_Shell_Abst
                 
                 if ($response->writeResponse->status->isSuccess) {
                     // delete product cost queue
-                    $this->deleteProductCostQueue($product->getId());
+                    if ($deleteProductCostQueue = Mage::helper('rocketweb_netsuite/mapper_productcost')->deleteProductCostQueue($product->getId())) {
+                        $this->writeLog("delete queueProductSaveCostNetsuite #{$product->getId()} successfully");
+                    }
+                    else {
+                        $this->writeLog("delete queueProductSaveCostNetsuite #{$product->getId()} failed");
+                    }
                 }
                 else {
                     $this->writeLog("failed export product cost #" . $product->getProductId());
@@ -38,30 +55,67 @@ class Bilna_Netsuitesync_Shell_NetsuiteExportProductCost extends Mage_Shell_Abst
             }
         }
         
-        $this->writeLog("End export product cost ...");
+        // Remove the lock.
+        $this->_unlock();
+        $this->_end();
     }
     
+    protected function _start() {
+        $this->writeLog("Start export product cost ...");
+    }
+    
+    protected function _end() {
+        $this->writeLog("End export product cost ...");
+    }
+
     protected function getProductCostCollection() {
         $productCostCollection = Mage::getModel('rocketweb_netsuite/productcost')->getCollection();
 
         return $productCostCollection;
     }
-    
-    protected function deleteProductCostQueue($id) {
-        $model = Mage::getModel('rocketweb_netsuite/productcost');
-
-        if ($model->setId($id)->delete()) {
-            $this->writeLog("delete queueProductSaveCostNetsuite #{$id} successfully");
-            return true;
-        }
-        else {
-            $this->writeLog("delete queueProductSaveCostNetsuite #{$id} failed");
-            return false;
-        }
-    }
 
     protected function writeLog($message) {
         Mage::log($message, null, "netsuite_product_cost.log");
+    }
+    
+    protected function _lock() {
+        $handle = fopen($this->_lockFile, 'w');
+        $content = date('Y-m-d H:i:s', Mage::getModel('core/date')->timestamp(time()));
+        
+        fwrite($handle, $content);
+        fclose($handle);
+    }
+    
+    protected function _unlock() {
+        if (file_exists($this->_lockFile)) {
+            unlink($this->_lockFile);
+            
+            return true;
+        }
+        
+        return false;
+    }
+
+    protected function _isLocked() {
+        if ($this->_lockFile == null) {
+            $this->_lockFile = $this->_getLockFile();
+        }
+        
+        if (file_exists($this->_lockFile)) {
+            return true;
+        }
+        
+        //create lock file
+        $this->_lock();
+        
+        return false;
+    }
+    
+    protected function _getLockFile() {
+        $varDir = Mage::getConfig()->getVarDir('locks');
+        $this->_lockFile = $varDir . DS . self::PROCESS_ID . '.lock';
+        
+        return $this->_lockFile;
     }
 }
 

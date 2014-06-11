@@ -5,7 +5,11 @@
  * @author Bilna Development Team <development@bilna.com>
  */
 
-class RocketWeb_Netsuite_Helper_Mapper_Productcost extends RocketWeb_Netsuite_Helper_Mapper {
+class RocketWeb_Netsuite_Helper_Mapper_Productcost extends RocketWeb_Netsuite_Helper_Mapper_Product {
+    /**
+     * @param object $magentoProduct
+     * @return object $InventoryItem
+     */
     public function getNetsuiteFormat($magentoProduct) {
         $inventoryItem = new InventoryItem();
         $inventoryItem->internalId = $magentoProduct->getNetsuiteInternalId();
@@ -19,7 +23,7 @@ class RocketWeb_Netsuite_Helper_Mapper_Productcost extends RocketWeb_Netsuite_He
         }
 
         $customFieldExpectedCost = new StringCustomFieldRef();
-        $customFieldExpectedCost->scriptId = 'custitem_expectedcost';
+        $customFieldExpectedCost->internalId = 'custitem_expectedcost';
         $customFieldExpectedCost->value = utf8_encode($expectedCost);
         $customFieldList->customField[] = $customFieldExpectedCost;
 
@@ -35,7 +39,7 @@ class RocketWeb_Netsuite_Helper_Mapper_Productcost extends RocketWeb_Netsuite_He
         }
 
         $customFieldEventCost = new StringCustomFieldRef();
-        $customFieldEventCost->scriptId = 'custitem_eventcost';
+        $customFieldEventCost->internalId = 'custitem_eventcost';
         $customFieldEventCost->value = utf8_encode($eventCost);
         $customFieldList->customField[] = $customFieldEventCost;
 
@@ -44,10 +48,31 @@ class RocketWeb_Netsuite_Helper_Mapper_Productcost extends RocketWeb_Netsuite_He
         return $inventoryItem;
     }
     
+    /**
+     * @param type $id
+     * @return boolean
+     */
+    public function deleteProductCostQueue($id) {
+        $model = Mage::getModel('rocketweb_netsuite/productcost');
+
+        if ($model->setId($id)->delete()) {
+            return true;
+        }
+        
+        return false;
+    }
+    
+    /**
+     * @return string
+     */
     protected function getMagentoDate() {
         return date('Y-m-d H:i:s', Mage::getModel('core/date')->timestamp(time()));
     }
 
+    /**
+     * @param string $date
+     * @return string
+     */
     protected function getDateOnly($date) {
         return date('Y-m-d', strtotime($date));
     }
