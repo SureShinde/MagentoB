@@ -9,7 +9,7 @@ $setup->addAttribute('catalog_product', 'expected_cost', array (
     'input' => 'text',
     'sort_order' => 200,
     'global' => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE,
-    'group' => 'General',
+    'group' => 'Prices',
     'required' => false
 ));
 $setup->addAttribute('catalog_product', 'event_cost', array (
@@ -18,7 +18,7 @@ $setup->addAttribute('catalog_product', 'event_cost', array (
     'input' => 'text',
     'sort_order' => 210,
     'global' => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE,
-    'group' => 'General',
+    'group' => 'Prices',
     'required' => false
 ));
 $setup->addAttribute('catalog_product', 'event_start_date', array (
@@ -27,7 +27,7 @@ $setup->addAttribute('catalog_product', 'event_start_date', array (
     'input' => 'date',
     'sort_order' => 220,
     'global' => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE,
-    'group' => 'General',
+    'group' => 'Prices',
     'required' => false
 ));
 $setup->addAttribute('catalog_product', 'event_end_date', array (
@@ -36,7 +36,7 @@ $setup->addAttribute('catalog_product', 'event_end_date', array (
     'input' => 'date',
     'sort_order' => 230,
     'global' => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE,
-    'group' => 'General',
+    'group' => 'Prices',
     'required' => false
 ));
 

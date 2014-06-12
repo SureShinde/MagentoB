@@ -13,9 +13,32 @@ class RocketWeb_Netsuite_Helper_Mapper_Productcost extends RocketWeb_Netsuite_He
     public function getNetsuiteFormat($magentoProduct) {
         $inventoryItem = new InventoryItem();
         $inventoryItem->internalId = $magentoProduct->getNetsuiteInternalId();
+        
         $customFieldList = new CustomFieldList();
+        $customFieldList->customField[] = $this->getNetsuiteCustomFieldCost($magentoProduct); //- cost
+        $customFieldList->customField[] = $this->getNetsuiteCustomFieldExpectedCost($magentoProduct); //- expected cost
+        $customFieldList->customField[] = $this->getNetsuiteCustomFieldEventCost($magentoProduct); //- event cost
+        
+        $inventoryItem->customFieldList = $customFieldList;
 
-        //- expected cost
+        return $inventoryItem;
+    }
+    
+    protected function getNetsuiteCustomFieldCost($magentoProduct) {
+        $cost = $magentoProduct->getCost();
+        
+        if ($cost == null || $cost == 0) {
+            $cost = 0;
+        }
+        
+        $customFieldCost = new StringCustomFieldRef();
+        $customFieldCost->internalId = 'custitem_cost';
+        $customFieldCost->value = utf8_encode($cost);
+        
+        return $customFieldCost;
+    }
+
+    protected function getNetsuiteCustomFieldExpectedCost($magentoProduct) {
         $expectedCost = $magentoProduct->getExpectedCost();
 
         if ($expectedCost == null || $expectedCost == 0) {
@@ -25,9 +48,11 @@ class RocketWeb_Netsuite_Helper_Mapper_Productcost extends RocketWeb_Netsuite_He
         $customFieldExpectedCost = new StringCustomFieldRef();
         $customFieldExpectedCost->internalId = 'custitem_expectedcost';
         $customFieldExpectedCost->value = utf8_encode($expectedCost);
-        $customFieldList->customField[] = $customFieldExpectedCost;
-
-        //- event cost
+        
+        return $customFieldExpectedCost;
+    }
+    
+    protected function getNetsuiteCustomFieldEventCost($magentoProduct) {
         $eventStartDate = $magentoProduct->getEventStartDate();
         $eventEndDate = $magentoProduct->getEventEndDate();
 
@@ -41,13 +66,10 @@ class RocketWeb_Netsuite_Helper_Mapper_Productcost extends RocketWeb_Netsuite_He
         $customFieldEventCost = new StringCustomFieldRef();
         $customFieldEventCost->internalId = 'custitem_eventcost';
         $customFieldEventCost->value = utf8_encode($eventCost);
-        $customFieldList->customField[] = $customFieldEventCost;
-
-        $inventoryItem->customFieldList = $customFieldList;
-
-        return $inventoryItem;
+        
+        return $customFieldEventCost;
     }
-    
+
     /**
      * @param type $id
      * @return boolean

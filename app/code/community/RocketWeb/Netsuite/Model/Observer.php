@@ -260,18 +260,20 @@ class RocketWeb_Netsuite_Model_Observer {
         $productId = $product->getId();
         
         // original value
+        $origCost = $product->getOrigData('cost');
         $origExpectedCost = $product->getOrigData('expected_cost');
         $origEventCost = $product->getOrigData('event_cost');
         $origEventStartDate = date('Y-m-d', strtotime($product->getOrigData('event_start_date')));
         $origEventEndDate = date('Y-m-d', strtotime($product->getOrigData('event_end_date')));
         
         // new value
+        $newCost = $product->getData('cost');
         $newExpectedCost = $product->getData('expected_cost');
         $newEventCost = $product->getData('event_cost');
         $newEventStartDate = date('Y-m-d', strtotime($product->getData('event_start_date')));
         $newEventEndDate = date('Y-m-d', strtotime($product->getData('event_end_date')));
         
-        if (($origExpectedCost == $newExpectedCost) && ($origEventCost == $newEventCost) && ($origEventStartDate == $newEventStartDate) && ($origEventEndDate == $newEventEndDate)) {
+        if (($origCost == $newCost) && ($origExpectedCost == $newExpectedCost) && ($origEventCost == $newEventCost) && ($origEventStartDate == $newEventStartDate) && ($origEventEndDate == $newEventEndDate)) {
             return $this;
         }
         else {
@@ -282,6 +284,7 @@ class RocketWeb_Netsuite_Model_Observer {
             if ($productCost->getProductId()) {
                 $id = $productCost->getId();
                 $dataArr = array (
+                    'cost' => $newCost,
                     'expected_cost' => $newExpectedCost,
                     'event_cost' => $newEventCost,
                     'event_start_date' => $newEventStartDate,
@@ -296,6 +299,7 @@ class RocketWeb_Netsuite_Model_Observer {
             else {
                 $dataArr = array (
                     'product_id' => $productId,
+                    'cost' => $newCost,
                     'expected_cost' => $newExpectedCost,
                     'event_cost' => $newEventCost,
                     'event_start_date' => $newEventStartDate,
