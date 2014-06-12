@@ -57,14 +57,12 @@ class RocketWeb_Netsuite_Helper_Mapper_Productcost extends RocketWeb_Netsuite_He
         $eventEndDate = $this->getDateOnly($product->getEventEndDate());
         $today = $this->getDateOnly($this->getMagentoDate());
         
-        if (strtotime($eventEndDate) < strtotime($today)) {
-            return false;
-        }
-        
-        $model = Mage::getModel('rocketweb_netsuite/productcost');
+        if (strtotime($eventEndDate) < strtotime($today)) {        
+            $model = Mage::getModel('rocketweb_netsuite/productcost');
 
-        if ($model->setId($product->getId())->delete()) {
-            return true;
+            if ($model->setId($product->getId())->delete()) {
+                return true;
+            }
         }
         
         return false;
