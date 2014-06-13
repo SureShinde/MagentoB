@@ -1944,7 +1944,12 @@ button.button-area {
 /* END ------------ POP UP - ASI DISCLAIMER */
 
 /*---------promo free voucher april------*/
-	.wrap_input_email p{
+	.static-page-area.baby-voucher {
+        background: #ffc962;
+        display: block;
+    }
+    
+    .wrap_input_email p{
 		display:none;
 	}
 	.onefield .formbuilder-form ul{
@@ -1979,6 +1984,9 @@ button.button-area {
 		margin:10px 0 0;
 		background:url(http://im.bilna.com/media/wysiwyg/static-page-img/free-voucher/main_img_facebook.jpg) no-repeat center;
 		height:338px;
+	}
+    .baby-voucher .main-image{
+		background:url(http://im.bilna.com/media/wysiwyg/static-page-img/free-voucher/main-image-fb-landing-baby-june.jpg) no-repeat center;
 	}
 	.title_form{
 		text-align:center;
@@ -2082,6 +2090,55 @@ button.button-area {
 		width:500px !important;
 		display:table;
 	}
+    .baby-voucher .formbuilder-form button.button span {background:#4ec7da !important;}
+    .baby-voucher .logo_free_voucher {padding: 0;}
+    .baby-voucher .logo_free_voucher a {
+        background: none repeat scroll 0 0 #fff;
+        -moz-border-radius: 100px;
+        -webkit-border-radius: 100px;
+        border-radius: 100px;
+        color: #585958;
+        display: block;
+        height: 110px;
+        /* margin: 0 auto; */
+        padding: 10px;
+        width: 110px;
+    }
+    .baby-voucher .logo_free_voucher img {padding: 31px 0 0;width: 110px;}
+    
+    .cms-perlengkapan-rumah-freevoucher .messages, .cms-baby-freevoucher .messages {
+        display: block;
+        left: 2%;
+        margin: -20px;
+        overflow: hidden;
+        position: absolute;
+        top: 20px;
+        width: 96%;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+        border-radius: 5px;
+    }
+    .cms-perlengkapan-rumah-freevoucher .messages li li, .cms-baby-freevoucher .messages li li {
+        margin: 3px 0 !important;
+    }
+    
+    .cms-perlengkapan-rumah-freevoucher .error-msg, .cms-baby-freevoucher .error-msg, 
+    .cms-perlengkapan-rumah-freevoucher .success-msg, .cms-baby-freevoucher .success-msg, 
+    .cms-perlengkapan-rumah-freevoucher .note-msg, .cms-baby-freevoucher .note-msg, 
+    .cms-perlengkapan-rumah-freevoucher .notice-msg, .cms-baby-freevoucher .notice-msg {
+        background-position: 10px 9px !important;
+        background-repeat: no-repeat !important;
+        border-style: solid !important;
+        border-width: 2px !important;
+        font-size: 11px !important;
+        font-weight: bold !important;
+        min-height: 24px !important;
+        padding: 8px 8px 8px 32px !important;
+        border-radius: 5px !important;
+    }
+    .cms-perlengkapan-rumah-freevoucher .messages li, .cms-baby-freevoucher .messages li {
+        margin: 0 !important;
+    }
+    
 @media only screen and (max-width: 1023px){
 	.wrap_input_email ul{
 		width:70%;
@@ -2094,6 +2151,9 @@ button.button-area {
 }
 	.main-image{
 		background:url(http://im.bilna.com/media/wysiwyg/static-page-img/free-voucher/main_img_facebook_768.jpg) no-repeat center;
+	}
+    .baby-voucher .main-image{
+		background:url(http://im.bilna.com/media/wysiwyg/static-page-img/free-voucher/main-image-fb-landing-baby-june-768.jpg) no-repeat center;
 	}
 }
 @media (max-width: 767px){ 
@@ -2139,6 +2199,9 @@ button.button-area {
 	.main-image{
 		height:260px;
 		background:url(http://im.bilna.com/media/wysiwyg/static-page-img/free-voucher/main_img_facebook_320.jpg) no-repeat center;
+	}
+    .baby-voucher .main-image{
+		background:url(http://im.bilna.com/media/wysiwyg/static-page-img/free-voucher/main-image-fb-landing-baby-june-320.jpg) no-repeat center;
 	}
 	.popup_succes_facebook{
 		height: auto;

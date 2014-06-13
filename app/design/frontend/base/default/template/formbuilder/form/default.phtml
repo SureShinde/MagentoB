@@ -1,5 +1,5 @@
 
-<form id="formbuilder-<?php echo $this->blockId; ?>" class="<?php echo $this->block->class; ?>" action="/formbuilder/index/submit" method="post">
+<form id="formbuilder-<?php echo $this->blockId; ?>" class="<?php echo $this->block->class; ?>" action="<?php echo $this->getBaseUrl(); ?>formbuilder/index/submit" method="post">
 
 	<?php 
 	$formbuilderSuccess = Mage::getSingleton('core/session')->getFormbuilderSuccess();
