@@ -318,6 +318,12 @@ class RocketWeb_Netsuite_Helper_Mapper_Order extends RocketWeb_Netsuite_Helper_M
                             $customFields[] = $customMagentoStatus;
                         }
                     }
+                    elseif ($customFieldsConfigItem['netsuite_field_name'] == 'custbody_deliverytype') {
+                        $customPaymentMethod = new StringCustomFieldRef();
+                        $customPaymentMethod->internalId = 'custbody_deliverytype';
+                        $customPaymentMethod->value = preg_replace('/^(\w+) - /', '', $magentoOrder->getShippingDescription());
+                        $customFields[] = $customPaymentMethod;
+                    }
                     else {
                         $customField = $this->_initCustomField($customFieldsConfigItem, $magentoOrder);
                         $customFields[] = $customField;
