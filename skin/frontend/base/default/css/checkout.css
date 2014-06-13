@@ -22,9 +22,12 @@
 }
 #checkoutSteps .buttons-set button.button {
     width:100px;
-    background-image:url("../images/btn-buynow.png");
+    /* background-image:url("../images/btn-buynow.png"); */
     height:36px;
     line-height:21px;
+}
+#checkoutSteps .buttons-set button.button {
+    background:#ffa01b;
 }
 #checkoutSteps .buttons-set button.button.btn-checkout {
 	width: auto;

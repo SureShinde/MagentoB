@@ -149,7 +149,7 @@ input.qty { width:2.5em !important; }
 button.button::-moz-focus-inner { padding:0; border:0; } /* FF Fix */
 button.button { -webkit-border-fit:lines; } /* <- Safari & Google Chrome Fix */
 button.button { overflow:visible; width:auto; border:0; padding:0; margin:0; background:transparent; cursor:pointer; }
-button.button span { display:block; height:39px; border:1px solid #de5400; background:#f18200; padding:0 8px; font:bold 12px/19px Arial, Helvetica, sans-serif; text-align:center; white-space:nowrap; color:#fff; }
+button.button span { display:block; height:auto; border:1px solid #de5400; background:#f18200; padding:0 8px; font:bold 12px/19px Arial, Helvetica, sans-serif; text-align:center; white-space:nowrap; color:#fff; }
 button.button span span { border:0; padding:0; }
 button.disabled span { border-color:#bbb !important; background:#bbb !important; }
 
@@ -290,6 +290,10 @@ input.input-text:focus,select:focus,textarea:focus { background-color:#edf7fd; }
 .buttons-set p.required { margin:0 0 10px; }
 .buttons-set .back-link { float:left; margin:0; }
 .buttons-set button.button { float:right; margin-left:5px; }
+.al-authorization-container-overlap .buttons-set button.button { display: none; }
+.al-authorization-container-overlap .buttons-set button#send2.button,
+.al-authorization-container-overlap .al-authorizationform-register .buttons-set button.button { display: block; }
+
 
 .buttons-set-order { margin:10px 0 0; }
 .buttons-set-order .please-wait { padding:12px 7px 0 0; }
@@ -2762,3 +2766,13 @@ z/*======================Category page===================*/
 
 
 /* --------------------------------------------- END HOME CSS APRIL 2014 -------------------------------------------------- */
+
+
+/*NEW CSS ALERT*/
+
+.product-shop .product-shop-right input#alert_email {
+	display: block;
+    margin: 0 0 10px;
+    padding: 5px;
+    width: 90%;
+}

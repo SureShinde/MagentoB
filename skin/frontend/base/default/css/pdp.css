@@ -1152,12 +1152,16 @@ margin: 0 1% ;
 }
 
 /* reserved product button */
-.reserved-prod-btn {clear: both; display: block; margin: 0 0 10px 0;}
+.reserved-prod-btn {clear: both; display: block; margin: 0 0 30px 0;}
 .reserved-prod-btn a {
-	padding: 5px 10px; 
-	background: #ffa01b; 
-	color: #fff;
-	border:none;
+	background: none repeat scroll 0 0 #FFA01B;
+    border: medium none;
+    color: #FFFFFF;
+    display: block;
+    margin: 5px 0;
+    max-width: 90px;
+    padding: 5px 10px;
+    text-align: center;
 }
 .reserved-prod-btn a:hover {
 	opacity: 0.8;
@@ -1196,4 +1200,16 @@ margin: 0 1% ;
     bottom: 30px;
     position: absolute;
 }
+
+/*NEW CSS ALERT*/
+
+input#alert_email {
+	display: block;
+    margin: 0 0 5px;
+    padding: 5px;
+    width: 90%;
+    border: 1px solid #ebebeb;
+    background:#fff;
+}
+
 

@@ -25,9 +25,16 @@
  */
 ?>
 <?php /* @var $this Mage_ProductAlert_Block_Product_View */?>
+<style>
+div#spinner
+{
+    display: none;
+}   
+</style>
 <script type="text/javascript">
 /*jQuery(document).ready(function () {*/
   function postPrice(url){
+    jQuery('#spinner').show();
     var ajaxURL = url;
 
     var data = {};
@@ -39,14 +46,19 @@
         data: { data: data },
         success: function(){
             window.location.reload();
+            jQuery('#spinner').hide();
         },
         error: function() {
             return false;
         }
     });
   }
+
 /*}*/
 </script>
 <?php if( !Mage::helper('customer')->isLoggedIn() ) :?>
 <input name="alert_email" id="alert_email" type="text" value="">
+<div id="spinner">
+    <img src="<?php echo $this->getSkinUrl("ajaxlogin/ajax-loader-tr.gif")?>" title="Loading..." alt="Loading..." border="0" />
+</div>
 <?php endif; ?>

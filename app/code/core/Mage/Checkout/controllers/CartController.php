@@ -592,8 +592,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
         }else{
 	        try {
 	            $mobileUserAgent = $this->__checkUserAgent();
-	
-	            if( ($mobileUserAgent == $result['mobile'] ) || $result['web'] == 1 )
+	            if( ($mobileUserAgent == "true" && $result['mobile'] == 1 ) || ($mobileUserAgent == false && $result['web'] == 1 ))
 	            {
 	                $message['status'] = 1; 
 	                $message['desc'] = 'success';                
@@ -635,17 +634,13 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
     }
 
     private function __checkUserAgent()
-    {        
-        $file = getcwd().'/files/useragent.txt';
-        $lines = file(str_replace(array("\n","\r","\r\n","\t"), '', trim($file)));
+    {   
+        include_once getcwd().'/lib/terawurfl/inc/wurfl_config_standard.php';
 
-        $user_agent = $_SERVER['HTTP_USER_AGENT'];
-    
-        foreach ($lines as $line) {
-            if( md5(strtolower(trim($line))) == md5(strtolower(trim($user_agent))) )
-                return true;
-        }
+        $wurflInfo = $wurflManager->getWURFLInfo();
+        $requestingDevice = $wurflManager->getDeviceForHttpRequest($_SERVER);
 
-        return false;
+        return $requestingDevice->getCapability('is_wireless_device');
+
     }
 }
