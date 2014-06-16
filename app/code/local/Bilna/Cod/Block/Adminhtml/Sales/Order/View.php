@@ -143,14 +143,16 @@ class Bilna_Cod_Block_Adminhtml_Sales_Order_View extends Mage_Adminhtml_Block_Wi
             }
         }
 
-        if (!$this->hideButton('invoice')) {
-            if ($this->_isAllowedAction('invoice') && $order->canInvoice()) {
-                $_label = $order->getForcedDoShipmentWithInvoice() ? Mage::helper('sales')->__('Invoice and Ship') : Mage::helper('sales')->__('Invoice');
-                $this->_addButton('order_invoice', array (
-                    'label' => Mage::helper('sales')->__($this->getButtonLabel($_label)),
-                    'onclick' => 'setLocation(\'' . $this->getInvoiceUrl() . '\')',
-                    'class' => 'go'
-                ));
+        if (!$this->disabledInvoiceButtonAdminForNetsuite()) {
+            if (!$this->hideButton('invoice')) {
+                if ($this->_isAllowedAction('invoice') && $order->canInvoice()) {
+                    $_label = $order->getForcedDoShipmentWithInvoice() ? Mage::helper('sales')->__('Invoice and Ship') : Mage::helper('sales')->__('Invoice');
+                    $this->_addButton('order_invoice', array (
+                        'label' => Mage::helper('sales')->__($this->getButtonLabel($_label)),
+                        'onclick' => 'setLocation(\'' . $this->getInvoiceUrl() . '\')',
+                        'class' => 'go'
+                    ));
+                }
             }
         }
         
@@ -311,5 +313,17 @@ class Bilna_Cod_Block_Adminhtml_Sales_Order_View extends Mage_Adminhtml_Block_Wi
         }
         
         return false;
+    }
+    
+    protected function disabledInvoiceButtonAdminForNetsuite() {
+        $result = false;
+        
+        if (Mage::helper('rocketweb_netsuite')->isEnabled()) {
+            if (Mage::getStoreConfig('rocketweb_netsuite/orders/disabled_button_invoice_admin')) {
+                $result = true;
+            }
+        }
+        
+        return $result;
     }
 }
