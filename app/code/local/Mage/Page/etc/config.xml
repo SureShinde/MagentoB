@@ -90,6 +90,12 @@
                     <template>page/2columns-left-nofeatured.phtml</template>
                     <layout_handle>page_two_columns_left_nofeatured</layout_handle>
                 </two_columns_left_nofeatured>
+                
+                <two_columns_special_1 module="page" translate="label">
+                    <label>2 columns left special 1</label>
+                    <template>page/2columns-left-special-1.phtml</template>
+                    <layout_handle>page_two_columns_special_one</layout_handle>
+                </two_columns_special_1>
 				
             </layouts>
         </page>

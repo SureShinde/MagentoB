@@ -501,3 +501,40 @@ a.back-to-top img {
     /*position: absolute;
     bottom: 0;*/
 }
+
+
+
+/* -------------------------------SPECIAL CATEGORY PAGE------------------------------- */
+
+.wrapper.special-1 {
+    background: url("../images/bg-krem.png")repeat;
+}
+.special-1 .toolbar {
+    margin-bottom: 15px;
+}
+.special-1 .header-container {
+    background: none repeat scroll 0 0 #FFFFFF !important;
+}
+.special-1 .onsale-category-container {
+    top: -18px !important;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    width: 100% !important;
+}
+@media only screen and (max-width: 1023px){
+    .special-1 .onsale-category-container {
+        width: 100% !important;
+        top: -12px !important;
+    }
+}
+
+@media only screen and (max-width: 767px){
+    .special-1 .onsale-category-container {
+        width: 100% !important;
+        top: -8px !important;
+    }
+}
+
+/* -------------------------------END SPECIAL CATEGORY PAGE------------------------------- */
+
+
