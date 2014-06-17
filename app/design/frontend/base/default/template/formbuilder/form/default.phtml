@@ -1,6 +1,7 @@
-
-<form id="formbuilder-<?php echo $this->blockId; ?>" class="<?php echo $this->block->class; ?>" action="/formbuilder/index/submit" method="post">
-
+<?php if(!isset($_POST["submit-form"])  && ($this->block->force_flow !== "")){
+	header("Location: ".Mage::getBaseUrl().$this->block->force_flow);exit();
+} ?>
+<form id="formbuilder-<?php echo $this->blockId; ?>" class="<?php echo $this->block->class; ?>" action="<?php echo $this->getBaseUrl(); ?>formbuilder/index/submit" method="post">
 	<?php 
 	$formbuilderSuccess = Mage::getSingleton('core/session')->getFormbuilderSuccess();
 	if($formbuilderSuccess){
@@ -8,6 +9,12 @@
 	<div class="formbuilder-header"><?php echo $this->getLayout()->createBlock('cms/block')->setBlockId($this->block->static_success)->toHtml(); ?></div>
 	<?php
 		Mage::getSingleton('core/session')->unsetData('formbuilder_success');
+	}
+	$formbuilderFailed = Mage::getSingleton('core/session')->getFormbuilderFailed();
+	if($formbuilderFailed){
+	?>
+	<div class="formbuilder-header"><?php echo $this->getLayout()->createBlock('cms/block')->setBlockId($this->block->static_failed)->toHtml(); ?></div>
+	<?php
 	}
 	?>
 	<input id="form_id" type="hidden" name="form_id" value="<?php echo $this->blockId; ?>">
@@ -28,7 +35,9 @@
 				<?php if($input["name"]=="terms" && $this->block->termsconditions){ ?>
 		        <div style="clear:both"></div>
 		        <?php echo $this->block->termsconditions; ?>
-				<?php } ?>
+				<?php }else if($input["group"] !== $group){ ?>
+				<div class="form-question title-checkbox"><?php echo $input["title"]; ?></div>
+                <?php } ?>
 				<div class="form-checkbox">
 					<input style="margin: 0px 12px 0px 140px;" id="<?php echo $input["name"]; ?>" type="checkbox" name="inputs[<?php echo $input["group"]; ?>]">
 					<label for="<?php echo $input["name"]; ?>"><?php echo $input["value"]; ?></label>
@@ -40,12 +49,12 @@
 					<input id="<?php echo $input["name"]; ?>" type="radio" name="inputs[<?php echo $input["group"]; ?>]" value="<?php echo $input["value"]; ?>">
 					<label for="<?php echo $input["name"]; ?>"><?php echo $input["value"]; ?></label>
 				</div>
+			</li>
 			<?php }else{ ?>
 				<div style="clear: both; margin-bottom: 20px;">
 					<label class="required" style="float: left; width: 140px;" for="<?php echo $input["name"]; ?>"><?php echo $input["value"]; ?><em><?php if($input["required"] == true) echo '*'; ?></em></label>
 				<?php if($input["type"] == "text"){ ?>
 					<input id="<?php echo $input["name"]; ?>" class="<?php if ($input["required"]) {echo "required-entry";}?> <?php echo (!empty($input["validation"])) ? 'validate-'.$input["validation"] : ''; ?>" style="height: 26px !important; width: 40%; background: none repeat scroll 0 0 #F9F9F9; border: none; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) inset; color: #666666; padding: 7px 5px; float: left; margin-right: 60px;" title="<?php echo $input["value"]; ?>" name="inputs[<?php echo $input["group"]; ?>]" placeholder="<?php echo $input["helper_message"]; ?>" />
-
 				<?php }else if($input["type"] == "textarea"){ ?>
 					<textarea id="<?php echo $input["name"]; ?>" class="<?php if ($input["required"]) {echo "required-entry";}?> input-text" style="height: 100px !important; width: 40% !important; background: none repeat scroll 0 0 #F9F9F9; border: none; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) inset; color: #666666; padding: 7px 5px; float: left; margin-right: 60px;" rows="3" cols="5" title="<?php echo $input["value"]; ?>" name="inputs[<?php echo $input["group"]; ?>]"></textarea>
 				<?php } ?>
@@ -67,5 +76,4 @@
 			<button id="fb-button" type="submit" name="submit" class="button" title="" style="margin-left: 160px; margin-top: 10px;"><span class="fb-bebas fb-15" style="padding: 10px 20px; border: none; background: #ffa01b; font-weight: normal;"><?php echo $this->block->button_text; ?></span></button>
 	</div>
 <div style="padding-left: 40em; margin-top: -30px; clear: both; width: 60%; padding: 0 15%; margin-bottom: 70px;"></div>
-
 </form>

@@ -19,7 +19,7 @@ class Bilna_Formbuilder_Block_Block extends Mage_Core_Block_Template
 			$this->block->getSelect();
 			$this->block->addFieldToFilter('main_table.id', $this->blockId);
 			$this->block = $this->block->getFirstItem();
-// 			echo $this->block->getTermsconditions();die;
+			//echo $this->block->getTitle();die;
 	
 			$this->inputs = Mage::getModel('bilna_formbuilder/form')->getCollection();
 			$this->inputs->getSelect()->join('bilna_formbuilder_input', 'main_table.id = bilna_formbuilder_input.form_id');
