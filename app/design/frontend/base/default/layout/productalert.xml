@@ -36,7 +36,7 @@
                         <action method="preparePriceAlertData"/>
                         <action method="setHtmlClass"><value>alert-price link-price-alert</value></action>
                         <action method="setSignupLabel" translate="value"><value>Sign up for price alert</value></action>
-                        <action method="setNotifyLabel" translate="value"><value>Notify Me</value></action>
+                        <action method="setNotifyLabel" translate="value"><value>Notify Me for Price</value></action>
                         <action method="setValueHidden" translate="value"><value>price</value></action>
                     </block>
                     <block type="productalert/product_view" name="productalert.stock" as="productalert_stock" template="productalert/product/view.phtml">

@@ -1152,15 +1152,15 @@ margin: 0 1% ;
 }
 
 /* reserved product button */
-.reserved-prod-btn {clear: both; display: block; margin: 0 0 30px 0;}
+.reserved-prod-btn {clear: both; display: inline-block; margin: 0 0 30px 0; width: 119px;}
 .reserved-prod-btn a {
 	background: none repeat scroll 0 0 #FFA01B;
     border: medium none;
     color: #FFFFFF;
     display: block;
     margin: 5px 0;
-    max-width: 90px;
-    padding: 5px 10px;
+    /* max-width: 90px; */
+    padding: 5px 0px;
     text-align: center;
 }
 .reserved-prod-btn a:hover {
@@ -1199,6 +1199,15 @@ margin: 0 1% ;
 .catalog-product-view .super-products .availability.out-of-stock {
     bottom: 30px;
     position: absolute;
+}
+.alert-price.reserved-prod-btn a {
+    background: #4ec7da !important;
+}
+.alert-stock.reserved-prod-btn a {
+    background: #aad37d !important;
+}
+.product-shop .product-shop-right input#alert_email {
+    margin: 0 0 2px !important;
 }
 
 /*NEW CSS ALERT*/
