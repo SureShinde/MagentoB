@@ -54,6 +54,7 @@ class Mage_ProductAlert_AddController extends Mage_Core_Controller_Front_Action
 
     public function priceAction()
     {
+error_log("\nppppppppppp", 3, '/tmp/alerts.log');        
         $session = Mage::getSingleton('catalog/session');
         $backUrl    = $this->getRequest()->getParam(Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED);
         $productId  = (int) $this->getRequest()->getParam('product_id');
@@ -76,13 +77,19 @@ class Mage_ProductAlert_AddController extends Mage_Core_Controller_Front_Action
             }
             return ;
         }
+error_log("\nxxxxxxxxxxxxxxx", 3, '/tmp/alert.log');
+
+
+        
 
         if( Mage::helper('customer')->isLoggedIn() ){
+error_log("\nlogin", 3, '/tmp/alerts.log');            
             $customer = Mage::getModel('customer/customer')->load(Mage::getSingleton('customer/session')->getId());
             $email = $customer->getEmail();
             $customer_id = Mage::getSingleton('customer/session')->getId();
+error_log("\n".print_r($customer,1), 3, '/tmp/alerts.log');            
         }else{
-            $customer = Mage::getModel('customer/customer')->setWebsiteId(Mage::app()->getWebsite()->getId())->loadByEmail($post['email']);
+            $customer = Mage::getModel('customer/customer')->loadByEmail($post['email']);
             if($customer->getEmail())
             {
                 $email = $customer->getEmail();
@@ -92,31 +99,27 @@ class Mage_ProductAlert_AddController extends Mage_Core_Controller_Front_Action
                 $customer_id = 0;
             }
         }
+error_log("\n".print_r(Mage::getSingleton('customer/session'),1), 3, '/tmp/alerts.log');
 
-        $checkEmail  = Mage::getModel('productalert/price')->getCollection();
-        $checkEmail->getSelect()->where('email = ? ', $email);
-
-        if( !$checkEmail->getData() )
-        {         
-            try {
-                $model  = Mage::getModel('productalert/price')
-                    ->setCustomerId($customer_id)
-                    ->setEmail($email)
-                    ->setProductId($product->getId())
-                    ->setPrice($product->getFinalPrice())
-                    ->setWebsiteId(Mage::app()->getStore()->getWebsiteId());
-                $model->save();
-                $session->addSuccess($this->__('The alert subscription has been saved.'));
-            }
-            catch (Exception $e) {
-                $session->addException($e, $this->__('Unable to update the alert subscription.'));
-            }
+        try {
+            $model  = Mage::getModel('productalert/price')
+                ->setCustomerId(Mage::getSingleton('customer/session')->getId())
+                ->setEmail($post['email'])
+                ->setProductId($product->getId())
+                ->setPrice($product->getFinalPrice())
+                ->setWebsiteId(Mage::app()->getStore()->getWebsiteId());
+            $model->save();
+            $session->addSuccess($this->__('The alert subscription has been saved.'));
+        }
+        catch (Exception $e) {
+            $session->addException($e, $this->__('Unable to update the alert subscription.'));
         }
         $this->_redirectReferer();
     }
 
     public function stockAction()
     {
+error_log("\naaaaaaaaaaaa", 3, '/tmp/alerts.log');        
         $session = Mage::getSingleton('catalog/session');
         /* @var $session Mage_Catalog_Model_Session */
         $backUrl    = $this->getRequest()->getParam(Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED);
@@ -137,13 +140,19 @@ class Mage_ProductAlert_AddController extends Mage_Core_Controller_Front_Action
             $this->_redirectUrl($backUrl);
             return ;
         }
+error_log("\nqqqqq", 3, '/tmp/alert.log');
+
+
+        
 
         if( Mage::helper('customer')->isLoggedIn() ){
+error_log("\nlogin", 3, '/tmp/alerts.log');            
             $customer = Mage::getModel('customer/customer')->load(Mage::getSingleton('customer/session')->getId());
             $email = $customer->getEmail();
             $customer_id = Mage::getSingleton('customer/session')->getId();
+error_log("\n".print_r($customer,1), 3, '/tmp/alerts.log');            
         }else{
-            $customer = Mage::getModel('customer/customer')->setWebsiteId(Mage::app()->getWebsite()->getId())->loadByEmail($post['email']);
+            $customer = Mage::getModel('customer/customer')->loadByEmail($post['email']);
             if($customer->getEmail())
             {
                 $email = $customer->getEmail();
@@ -153,24 +162,18 @@ class Mage_ProductAlert_AddController extends Mage_Core_Controller_Front_Action
                 $customer_id = 0;
             }
         }
-
-        $checkEmail  = Mage::getModel('productalert/stock')->getCollection();
-        $checkEmail->getSelect()->where('email = ? ', $email);
-
-        if( !$checkEmail->getData() )
-        {       
-            try {
-                $model = Mage::getModel('productalert/stock')
-                    ->setCustomerId($customer_id)
-                    ->setEmail($email)
-                    ->setProductId($product->getId())
-                    ->setWebsiteId(Mage::app()->getStore()->getWebsiteId());
-                $model->save();
-                $session->addSuccess($this->__('Alert subscription has been saved.'));
-            }
-            catch (Exception $e) {
-                $session->addException($e, $this->__('Unable to update the alert subscription.'));
-            }
+error_log("\n".print_r(Mage::getSingleton('customer/session'),1), 3, '/tmp/alerts.log');
+        try {
+            $model = Mage::getModel('productalert/stock')
+                ->setCustomerId($customer_id)
+                ->setEmail($email)
+                ->setProductId($product->getId())
+                ->setWebsiteId(Mage::app()->getStore()->getWebsiteId());
+            $model->save();
+            $session->addSuccess($this->__('Alert subscription has been saved.'));
+        }
+        catch (Exception $e) {
+            $session->addException($e, $this->__('Unable to update the alert subscription.'));
         }
         $this->_redirectReferer();
     }

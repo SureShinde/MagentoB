@@ -25,8 +25,40 @@
  */
 ?>
 <?php /* @var $this Mage_ProductAlert_Block_Product_View */?>
-<input type="hidden" value="<?php echo $this->escapeHtml($this->__($this->getValueHidden())); ?>">
-<p class="<?php echo $this->getHtmlClass() ?> reserved-prod-btn">
-    <a href="#" title="<?php echo $this->escapeHtml($this->__($this->getSignupLabel())); ?>" onclick="return postPrice('<?php echo $this->escapeHtml($this->getSignupUrl()) ?>')">
-    	<?php echo $this->escapeHtml($this->__($this->getNotifyLabel())); ?></a>
-</p>
+<style>
+div#spinner
+{
+    display: none;
+}   
+</style>
+<script type="text/javascript">
+/*jQuery(document).ready(function () {*/
+  function postPrice(url){
+    jQuery('#spinner').show();
+    var ajaxURL = url;
+
+    var data = {};
+    data.email = jQuery('#alert_email').val();
+
+    jQuery.ajax({
+        type: "POST",
+        url : ajaxURL,
+        data: { data: data },
+        success: function(){
+            window.location.reload();
+            jQuery('#spinner').hide();
+        },
+        error: function() {
+            return false;
+        }
+    });
+  }
+
+/*}*/
+</script>
+<?php if( !Mage::helper('customer')->isLoggedIn() ) :?>
+<input name="alert_email" id="alert_email" type="text" value="">
+<div id="spinner">
+    <img src="<?php echo $this->getSkinUrl("ajaxlogin/ajax-loader-tr.gif")?>" title="Loading..." alt="Loading..." border="0" />
+</div>
+<?php endif; ?>

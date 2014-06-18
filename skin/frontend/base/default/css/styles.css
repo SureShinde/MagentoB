@@ -2782,3 +2782,13 @@ z/*======================Category page===================*/
 
 
 /* --------------------------------------------- END HOME CSS APRIL 2014 -------------------------------------------------- */
+
+
+/*NEW CSS ALERT*/
+
+.product-shop .product-shop-right input#alert_email {
+	display: block;
+    margin: 0 0 10px;
+    padding: 5px;
+    width: 90%;
+}

@@ -1,0 +1,65 @@
+<?xml version="1.0"?> 
+<!--
+    Copyright (c) 2010 Amasty (http://www.amasty.com) 
+-->
+<config>
+        <menu>
+		    <report>
+                <children>
+                    <amalert translate="title" module="amalert">
+                        <title>Alerts</title>
+                        <sort_order>900</sort_order>
+                        <children>
+                            <stock translate="title" module="amalert">
+                                <title>Stock Alerts</title>
+                                <action>amalert/adminhtml_stock</action>
+                                <sort_order>10</sort_order>
+                            </stock>
+                            <price translate="title" module="amalert">
+                                <title>Price Alerts</title>
+                                <action>amalert/adminhtml_price</action>
+                                <sort_order>20</sort_order>
+                            </price>
+                        </children>
+                    </amalert>
+                </children>
+            </report>
+		</menu>     
+   
+		<acl>
+			<resources>
+				<all>
+					<title>Allow Everything</title>
+				</all>
+                <admin>
+                    <children>
+                        <report>
+                            <children>
+                                <amalert translate="title" module="amalert">
+                                    <title>Alerts</title>
+                                    <sort_order>900</sort_order>
+                                    <children>
+                                    <stock translate="title" module="amalert">
+                                        <title>Stock Alerts</title>
+                                     </stock>
+                                     <price translate="title" module="amalert">
+                                        <title>Price Alerts</title>
+                                     </price>
+                                     </children>
+                                </amalert>
+                            </children>
+                        </report>
+                     </children>
+                </admin>
+			</resources>
+		</acl>
+        <translate>
+            <modules>
+                <Amasty_Alert>
+                    <files>
+                        <default>Amasty_Alert.csv</default>
+                    </files>
+                </Amasty_Alert>
+            </modules>
+        </translate>
+</config> 
