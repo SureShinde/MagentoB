@@ -2,12 +2,12 @@
 	$formbuilderSubmited = Mage::getSingleton('core/session')->getFormbuilderSubmited();
 	$formbuilderSuccess = Mage::getSingleton('core/session')->getFormbuilderSuccess();
 	$formbuilderFailed = Mage::getSingleton('core/session')->getFormbuilderFailed();
-
+	Mage::getSingleton('core/session')->unsetData('formbuilder_submited');
+	
 	if((!isset($_POST["submit-form"]) && 
 			!is_null($this->block->force_flow) && 
 			($this->block->force_flow !== "")) &&
 			!($formbuilderSubmited)){
-		Mage::getSingleton('core/session')->unsetData('formbuilder_submited');
 		header("Location: ".Mage::getBaseUrl().$this->block->force_flow);exit();
 	} 
 ?>
