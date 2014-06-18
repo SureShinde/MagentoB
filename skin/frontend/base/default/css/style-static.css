@@ -2587,6 +2587,12 @@ button.button-area {
         background-position: bottom right;
         box-shadow: 0 0 210px rgba(0, 0, 0, 0.2) inset;
     }
+    .bg-pampers-june.pampers-page-form {
+        background: url("http://im.bilna.co.id/media/wysiwyg/static-page-img/bg-pampers-form.jpg") no-repeat #66CBC7;
+        background-size: 100% auto;
+        background-position: top right;
+        box-shadow: 0 0 210px rgba(0, 0, 0, 0.2) inset;
+    }
     .bg-pampers-june .box-vid-pampers {
         background: #fff;
         width: 92%;
