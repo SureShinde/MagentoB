@@ -13,6 +13,7 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
 		$sql            = "select max(record_id) as record_id from bilna_formbuilder_data where form_id = $form_id";
 		$row            = $connection->fetchRow($sql);
 		$session        = Mage::getSingleton('core/session');
+		Mage::getSingleton('core/session')->setFormbuilderSubmited(true);
 
 		if(is_null($row['record_id'])){
 			$record_id = 1;
@@ -38,13 +39,21 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
 				}
 				
 				if(!isset($postData["inputs"][$field["group"]]) || empty($postData["inputs"][$field["group"]]) || is_null($postData["inputs"][$field["group"]])){
-					Mage::getSingleton('core/session')->addError($message);					
+					if(!is_null($row["static_failed"]) || $row["static_failed"]!==""){
+						Mage::getSingleton('core/session')->setFormbuilderFailed(true);
+					}else{
+						Mage::getSingleton('core/session')->addError($message);
+					}
 					$redirectPage = Mage::getBaseUrl().$field["url"];
 					$this->_redirectPage($redirectPage);
 				}
 
 				if($field["type"]=="checkbox" && $postData["inputs"][$field["group"]] <> "on"){
-					Mage::getSingleton('core/session')->addError($message);						
+					if(!is_null($row["static_failed"]) || $row["static_failed"]!==""){
+						Mage::getSingleton('core/session')->setFormbuilderFailed(true);
+					}else{
+						Mage::getSingleton('core/session')->addError($message);	
+					}					
 					$redirectPage = Mage::getBaseUrl().$field["url"];
 					$this->_redirectPage($redirectPage);
 				}
@@ -58,7 +67,11 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
 				$collection->addFieldToFilter('main_table.value', $postData["inputs"][$field["group"]]);
 				$jumlah=$collection->getSize();
 				if($jumlah!=0){
-					Mage::getSingleton('core/session')->addError($field["title"].' already exists in our database');
+					if(!is_null($row["static_failed"]) || $row["static_failed"]!==""){
+						Mage::getSingleton('core/session')->setFormbuilderFailed(true);
+					}else{
+						Mage::getSingleton('core/session')->addError($field["title"].' already exists in our database');
+					}			
 					$redirectPage = Mage::getBaseUrl().$field["url"];
 					$this->_redirectPage($redirectPage);
 				}
