@@ -135,6 +135,8 @@ if($this->getPageVarName() == "deals"){
         <?php endif;?>
 		</div>
 	<?php endif; ?>
+	</div>
+	</div>
 		<?php 
 }else{
 	if($this->getCollection()->getSize()): ?>
@@ -231,9 +233,10 @@ if($this->getPageVarName() == "deals"){
         <?php endif;?>
 		</div>
 	<?php endif; ?>
-   
-    <?php if($this->getUseContainer()): ?>
     </div>
+    </div>
+    <?php if($this->getUseContainer()): ?>
+   
     <?php endif;
     endif;
 }
