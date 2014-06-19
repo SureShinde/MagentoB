@@ -2713,5 +2713,107 @@ button.button-area {
 /* ------------------------------ END Pampers get 5% ----------------------------------------- */
 
 
+/*=============================style jakarta great sale===============================*/
+	.cms-jakarta-great-online-sale .wrapper-box-banner{
+		clear:both;
+		width:100%;
+		display:table;
+		margin:0 0 20px;
+	}
+	.cms-jakarta-great-online-sale .jakarta-gs p{
+		line-height:18px;
+		padding:0 20px;
+	}
+	.cms-jakarta-great-online-sale .box-banner {
+		width:22%;
+		background:#d2d2d2;
+		float:left;
+		text-align:center;
+	}
+	.cms-jakarta-great-online-sale a:nth-child(1) .box-banner,
+	.cms-jakarta-great-online-sale a:nth-child(2) .box-banner,
+	.cms-jakarta-great-online-sale a:nth-child(3) .box-banner{
+		margin:0 4% 0 0;
+	}
+	.cms-jakarta-great-online-sale .wrap-category-link{
+		width:100%;
+		display:table;
+		clear:both;
+	}
+	.cms-jakarta-great-online-sale .category-link{
+		margin:0 0 20px;
+		text-align:center;
+		width:49%;
+		float:left;
+	}
+	.cms-jakarta-great-online-sale .category-link img{
+		width:100%;
+	}
+	.cms-jakarta-great-online-sale .category-link:nth-child(1){
+		margin:0 2% 0 0;
+	}
+	.cms-jakarta-great-online-sale .jakarta-gs a{
+		color:#5bc8d9;
+		font-weight:bold;
+		text-decoration:underline;
+	}
+	.cms-syarat-dan-ketentuan-jgos ol li{
+		font-size:12px;
+	}
+	.banner-telkomsel-19{
+		display:none;
+	}
+	.cms-syarat-dan-ketentuan-jgos .button-jgs{
+		margin: 20px 0;
+		text-align: center;
+		padding:10px 20px;
+		font-size:16px;
+		font-weight:bold;
+		border-radius:5px;
+		-moz-border-radius:5px;
+		-webkit-border-radius:5px;
+		background:#4ec7da;
+		display:table;
+	}
+	.cms-syarat-dan-ketentuan-jgs .static-page-wrapper .button-jgs a{
+		color:#fff !important;
+	}
+	@media only screen and (max-width: 1023px){
+		
+	}
+	@media only screen and (max-width: 768px) {
+		.promo-telkomsel-19 .column_product_static{
+			width:32%;
+		}.banner-telkomsel-19{
+			display:block;
+			margin:0 0 10px
+		}
+		.banner-telkomsel-19 img{
+			width:100%;
+		}
+	}
+	@media only screen and (max-width: 468px) {
+		.cms-jakarta-great-online-sale .box-banner {
+			width:46%;
+			background:#d2d2d2;
+			float:left;
+			text-align:center;
+		}
+		
+		.cms-jakarta-great-online-sale a .box-banner{
+			margin: 2% 2% !important;
+		}
+		.promo-telkomsel-19 .column_product_static{
+			width:46%;
+		}
+		
+		.cms-jakarta-great-online-sale .category-link {
+			margin: 0 2% 1% !important;
+		}
+		.cms-jakarta-great-online-sale .category-link{
+			width:96%;
+		}
+	}
+/*=============================end style jakarta great sale=============================*/
 
 
