@@ -41,9 +41,8 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
 				if(!isset($postData["inputs"][$field["group"]]) || empty($postData["inputs"][$field["group"]]) || is_null($postData["inputs"][$field["group"]])){
 					if(!is_null($row["static_failed"]) || $row["static_failed"]!==""){
 						Mage::getSingleton('core/session')->setFormbuilderFailed(true);
-					}else{
-						Mage::getSingleton('core/session')->addError($message);
 					}
+					Mage::getSingleton('core/session')->addError($message);
 					$redirectPage = Mage::getBaseUrl().$field["url"];
 					$this->_redirectPage($redirectPage);
 				}
@@ -51,9 +50,8 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
 				if($field["type"]=="checkbox" && $postData["inputs"][$field["group"]] <> "on"){
 					if(!is_null($row["static_failed"]) || $row["static_failed"]!==""){
 						Mage::getSingleton('core/session')->setFormbuilderFailed(true);
-					}else{
-						Mage::getSingleton('core/session')->addError($message);	
-					}					
+					}
+					Mage::getSingleton('core/session')->addError($message);	
 					$redirectPage = Mage::getBaseUrl().$field["url"];
 					$this->_redirectPage($redirectPage);
 				}
@@ -69,9 +67,8 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
 				if($jumlah!=0){
 					if(!is_null($row["static_failed"]) || $row["static_failed"]!==""){
 						Mage::getSingleton('core/session')->setFormbuilderFailed(true);
-					}else{
-						Mage::getSingleton('core/session')->addError($field["title"].' already exists in our database');
-					}			
+					}
+					Mage::getSingleton('core/session')->addError($field["title"].' already exists in our database');
 					$redirectPage = Mage::getBaseUrl().$field["url"];
 					$this->_redirectPage($redirectPage);
 				}
@@ -136,9 +133,8 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
 			
 		if(is_null($row["success_message"]) || $row["success_message"]==""){
 			Mage::getSingleton('core/session')->setFormbuilderSuccess(true);
-		}else{
-			Mage::getSingleton('core/session')->addSuccess($row["success_message"]);
 		}
+		Mage::getSingleton('core/session')->addSuccess($row["success_message"]);
 		$redirectPage = Mage::getBaseUrl().$field["url"];
 		
 		$this->_redirectPage($redirectPage);
