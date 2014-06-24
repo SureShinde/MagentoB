@@ -2879,4 +2879,70 @@ button.button-area {
 	}
 /*=============================end style jakarta great sale=============================*/
 
+/*=============================style event july mom n jo=============================*/
+.momnjo .keterangan li span{
+	display: block;
+    float: left;
+    width: 110px;
+}
+.momnjo .keterangan li{
+	list-style-type:none;
+	font-weight:bold;
+}
+.momnjo .keterangan li:last-child{
+	padding: 0 0 0 116px;
+	}
+.momnjo .keseruan li  .judul{
+	font-weight:bold;
+}
+.momnjo .keseruan li {
+	clear:both;
+	font-weight:bold;
+}
+.momnjo ol.keseruan{
+	display:table;
+}
+.momnjo .keseruan li, .momnjo .keseruan li {
+	font-weight:bold;
+}
+.momnjo .keseruan li img{
+	margin:0 10px 30px 0;
+}
+.momnjo .keseruan li img, .momnjo .keseruan li .desc_photo{
+	float:left;
+}
+
+	@media only screen and (max-width: 1023px){
+		.momnjo .keseruan li img {
+			margin: 0 10px 10px 0;
+		}
+		.momnjo .maps{
+			width:100%;
+		}
+		.momnjo .keterangan li:last-child{
+			padding:0;
+		}
+		.momnjo .keterangan li span{
+			height:23px;
+		}
+		.momnjo .keterangan li{
+			display:table;
+		}
+	}
+	@media only screen and (max-width: 468px) {
+		.momnjo .keterangan{
+			margin-left: 0;
+			padding-left: 0;
+		}
+		.momnjo .keterangan li:nth-child(2) span, .momnjo .keterangan li:last-child span{
+			height:60px;
+		}
+		.momnjo .keterangan li span{
+			width:85px;
+		}
+		.momnjo .keseruan li img{
+			width:100%;
+		}
+	}
+/*=============================end style event july mom n jo=============================*/
 
