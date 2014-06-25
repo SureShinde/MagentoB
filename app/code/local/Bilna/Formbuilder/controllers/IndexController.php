@@ -130,8 +130,8 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
 			//Zend_Debug::Dump($collection->printLogQuery(true)); die;
 			$this->_prepareEmail($data, $row['email_id']);
 		}
-			
-		if(is_null($row["success_message"]) || $row["success_message"]==""){
+
+		if(!is_null($row["static_success"]) || $row["static_success"]!==""){
 			Mage::getSingleton('core/session')->setFormbuilderSuccess(true);
 		}
 		Mage::getSingleton('core/session')->addSuccess($row["success_message"]);
