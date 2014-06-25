@@ -408,71 +408,84 @@ class RocketWeb_Netsuite_Helper_Mapper_Order extends RocketWeb_Netsuite_Helper_M
     public function getMagentoFormat(SalesOrder $netsuiteOrder) {
         $orderCollection = Mage::getModel('sales/order')->getCollection();
         $orderCollection->addFieldToFilter('netsuite_internal_id',$netsuiteOrder->internalId);
-        if(!$orderCollection->count()) {
+        
+        if (!$orderCollection->count()) {
             throw new Exception("Order with internal Netsuite id #{$netsuiteOrder->internalId} not found!");
         }
+        
         /** @var Mage_Sales_Model_Order $magentoOrder */
         $magentoOrder = $orderCollection->getFirstItem();
-
         $netsuiteCustomer = Mage::helper('rocketweb_netsuite/mapper_customer')->getByInternalId($netsuiteOrder->entity->internalId);
 
         //re-save the billing and shipping addresses
-        if(!$magentoOrder->hasInvoices()) {
-            if($netsuiteOrder->transactionBillAddress) {
-                $magentoBillingAddress = Mage::helper('rocketweb_netsuite/mapper_address')->getBillingAddressMagentoFormatFromNetsuiteAddress($netsuiteOrder->transactionBillAddress,
-                    $netsuiteCustomer,
-                    $magentoOrder);
-                $magentoBillingAddress->setId($magentoOrder->getBillingAddressId());
-                $magentoBillingAddress->save();
-            }
-        }
+        //if(!$magentoOrder->hasInvoices()) {
+        //    if($netsuiteOrder->transactionBillAddress) {
+        //        $magentoBillingAddress = Mage::helper('rocketweb_netsuite/mapper_address')->getBillingAddressMagentoFormatFromNetsuiteAddress($netsuiteOrder->transactionBillAddress,
+        //            $netsuiteCustomer,
+        //            $magentoOrder);
+        //        $magentoBillingAddress->setId($magentoOrder->getBillingAddressId());
+        //        $magentoBillingAddress->save();
+        //    }
+        //}
 
 
-        if(!$magentoOrder->hasShipments()) {
-            if($netsuiteOrder->transactionShipAddress) {
-                $magentoShippingAddress = Mage::helper('rocketweb_netsuite/mapper_address')->getShippingAddressMagentoFormatFromNetsuiteAddress($netsuiteOrder->transactionShipAddress,
-                    $netsuiteCustomer,
-                    $magentoOrder);
-                $magentoShippingAddress->setId($magentoOrder->getShippingAddressId());
-                $magentoShippingAddress->save();
-            }
-        }
+        //if(!$magentoOrder->hasShipments()) {
+        //    if($netsuiteOrder->transactionShipAddress) {
+        //        $magentoShippingAddress = Mage::helper('rocketweb_netsuite/mapper_address')->getShippingAddressMagentoFormatFromNetsuiteAddress($netsuiteOrder->transactionShipAddress,
+        //            $netsuiteCustomer,
+        //            $magentoOrder);
+        //        $magentoShippingAddress->setId($magentoOrder->getShippingAddressId());
+        //        $magentoShippingAddress->save();
+        //    }
+        //}
 
         //Re-save the shipping method, but only if there are no shipments. This is because Net Suite allows storing different shipping data at order and shipment level.
         //In case item fulfillments are defined in Net Suite, they will be controlling the order.
-        if(!$magentoOrder->hasShipments() && is_object($netsuiteOrder->shipMethod)) {
-            $magentoOrder->setShippingDescription($netsuiteOrder->shipMethod->name);
+        if (!$magentoOrder->hasShipments() && is_object($netsuiteOrder->shipMethod)) {
+            //$magentoOrder->setShippingDescription($netsuiteOrder->shipMethod->name);
             $magentoOrder->setShippingAmount($netsuiteOrder->shippingCost);
             $magentoOrder->setBaseShippingAmount($netsuiteOrder->shippingCost);
         }
 
         $magentoOrderState = Mage::helper('rocketweb_netsuite/transform')->netsuiteStatusToMagentoOrderState($netsuiteOrder->orderStatus);
-        if(!is_null($magentoOrderState)) {
+        
+        if (!is_null($magentoOrderState)) {
             $magentoOrder->setData('state',$magentoOrderState);
             $magentoOrder->setStatus($this->getStatusForState($magentoOrderState)->getStatus());
-            $magentoOrder->addStatusHistoryComment('Net Suite status change',$magentoOrderState);
+            $magentoOrder->addStatusHistoryComment('Net Suite status change', $magentoOrderState);
             $magentoOrder->getStatusHistoryCollection()->save();
         }
 
         //save changes to quantity & prices for each order item
-        $itemMap = array();
-        foreach($netsuiteOrder->itemList->item as $netsuiteOrderItem) {
+        $itemMap = array ();
+        
+        foreach ($netsuiteOrder->itemList->item as $netsuiteOrderItem) {
             $found = false;
-            foreach($magentoOrder->getAllItems() as $magentoOrderItem) {
-
-                if(Mage::getModel('catalog/product')->load($magentoOrderItem->getProductId())->getNetsuiteInternalId() == $netsuiteOrderItem->item->internalId) {
-                    $itemMap[] = array('netsuiteItem' => $netsuiteOrderItem,'magentoItem' => $magentoOrderItem);
+            
+            foreach ($magentoOrder->getAllItems() as $magentoOrderItem) {
+                if (Mage::getModel('catalog/product')->load($magentoOrderItem->getProductId())->getNetsuiteInternalId() == $netsuiteOrderItem->item->internalId) {
+                    $itemMap[] = array ('netsuiteItem' => $netsuiteOrderItem, 'magentoItem' => $magentoOrderItem);
                     $found = true;
                 }
             }
-            if(!$found) {
+            
+            if (!$found) {
                 //new line item added in Net Suite
-                $itemMap[] = array('netsuiteItem' => $netsuiteOrderItem,'magentoItem' => null);
+                $itemMap[] = array ('netsuiteItem' => $netsuiteOrderItem,'magentoItem' => null);
             }
         }
+        
+        $_netsuiteSubTotal = 0;
 
-        foreach($itemMap as $orderMapItem) {
-            if(is_null($orderMapItem['magentoItem'])) {
+        foreach ($itemMap as $orderMapItem) {
+            /**
+             * skip if item is wrapping
+             */
+            if (preg_match('/^(\wrapping)/', $orderMapItem['netsuiteItem']->item->name)) {
+                continue;
+            }
+            
+            if (is_null($orderMapItem['magentoItem'])) {
                 $orderMapItem['magentoItem'] = Mage::getModel('sales/order_item');
                 $orderMapItem['magentoItem']->setOrderId($magentoOrder->getId());
                 $orderMapItem['magentoItem']->setStoreId($magentoOrder->getStoreId());
@@ -480,40 +493,45 @@ class RocketWeb_Netsuite_Helper_Mapper_Order extends RocketWeb_Netsuite_Helper_M
                 $orderMapItem['magentoItem']->setSku($orderMapItem['netsuiteItem']->item->name);
                 $orderMapItem['magentoItem']->setName($orderMapItem['netsuiteItem']->description);
             }
+            
             $orderMapItem['magentoItem']->setQtyOrdered($orderMapItem['netsuiteItem']->quantity);
-            $orderMapItem['magentoItem']->setPrice($orderMapItem['netsuiteItem']->rate);
-            $orderMapItem['magentoItem']->setBasePrice($orderMapItem['netsuiteItem']->rate);
+            $_netsuitePrice = $this->getNetsuitePrice($orderMapItem['netsuiteItem']->customFieldList->customField);
+            $_netsuiteRowTotal = $_netsuitePrice * $orderMapItem['netsuiteItem']->quantity;
+            $_netsuiteSubTotal += $_netsuiteRowTotal;
+            $orderMapItem['magentoItem']->setPrice($_netsuitePrice);
+            $orderMapItem['magentoItem']->setBasePrice($_netsuitePrice);
             $orderMapItem['magentoItem']->setTaxPercent($orderMapItem['netsuiteItem']->taxRate1);
-            $orderMapItem['magentoItem']->setRowTotal($orderMapItem['netsuiteItem']->amount);
-            $orderMapItem['magentoItem']->setBaseRowTotal($orderMapItem['netsuiteItem']->amount);
-            $taxAmount = round($orderMapItem['netsuiteItem']->taxRate1/100*$orderMapItem['netsuiteItem']->amount);
+            $orderMapItem['magentoItem']->setRowTotal($_netsuiteRowTotal);
+            $orderMapItem['magentoItem']->setBaseRowTotal($_netsuiteRowTotal);
+            $taxAmount = round($orderMapItem['netsuiteItem']->taxRate1 / 100 * $_netsuiteRowTotal);
             $orderMapItem['magentoItem']->setTaxAmount($taxAmount);
             $orderMapItem['magentoItem']->setBaseTaxAmount($taxAmount);
             $orderMapItem['magentoItem']->save();
         }
 
-
         //check if any order item was deleted.
-        $validOrderItemIds = array();
+        $validOrderItemIds = array ();
         //create an array with all order item ids that still have a Netsuite correspondent
-        foreach($itemMap as $orderMapItem) {
-            if($orderMapItem['magentoItem']) {
-                $validOrderItemIds[]=$orderMapItem['magentoItem']->getItemId();
+        foreach ($itemMap as $orderMapItem) {
+            if ($orderMapItem['magentoItem']) {
+                $validOrderItemIds[] = $orderMapItem['magentoItem']->getItemId();
             }
         }
+        
         //since we never send configurables to netsuite, we never need to delete them
-        foreach($magentoOrder->getAllItems() as $orderItem) {
-            if(in_array($orderItem->getProductType(),array('configurable'))) {
+        foreach ($magentoOrder->getAllItems() as $orderItem) {
+            if (in_array($orderItem->getProductType(), array ('configurable'))) {
                 $validOrderItemIds[] = $orderItem->getItemId();
             }
         }
-        foreach($magentoOrder->getAllItems() as $orderItem) {
-            if(!in_array($orderItem->getItemId(),$validOrderItemIds)) {
+        
+        foreach ($magentoOrder->getAllItems() as $orderItem) {
+            if (!in_array($orderItem->getItemId(), $validOrderItemIds)) {
                 $orderItem->delete();
             }
         }
 
-        if(isset($netsuiteOrder->paymentMethod)) {
+        if (isset ($netsuiteOrder->paymentMethod)) {
             $magentoPayment = $magentoOrder->getPayment();
             $newPaymentCodeAndCard = $this->getMagentoPaymentMethodCodeAndCard($netsuiteOrder->paymentMethod);
             $magentoPayment->setMethod($newPaymentCodeAndCard->getCode());
@@ -521,8 +539,8 @@ class RocketWeb_Netsuite_Helper_Mapper_Order extends RocketWeb_Netsuite_Helper_M
             $magentoPayment->save();
         }
 
-        $magentoOrder->setSubtotal($netsuiteOrder->subTotal);
-        $magentoOrder->setBaseSubtotal($netsuiteOrder->subTotal);
+        $magentoOrder->setSubtotal($_netsuiteSubTotal);
+        $magentoOrder->setBaseSubtotal($_netsuiteSubTotal);
         $magentoOrder->setGrandTotal($netsuiteOrder->total);
         $magentoOrder->setBaseSubtotal($netsuiteOrder->total);
         $magentoOrder->setTaxAmount($netsuiteOrder->taxTotal);
@@ -641,5 +659,18 @@ class RocketWeb_Netsuite_Helper_Mapper_Order extends RocketWeb_Netsuite_Helper_M
     
     protected function getOrderHistorical() {
         return Mage::getStoreConfig('rocketweb_netsuite/exports/order_historical');
+    }
+    
+    protected function getNetsuitePrice($itemCustomField) {
+        $result = 0;
+        
+        foreach ($itemCustomField as $item) {
+            if ($item->internalId == 'custcol_pricebeforediscount') {
+                $result = $item->value;
+                break;
+            }
+        }
+        
+        return $result;
     }
 }

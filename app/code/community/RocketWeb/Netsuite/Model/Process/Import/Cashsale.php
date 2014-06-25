@@ -34,30 +34,34 @@ class RocketWeb_Netsuite_Model_Process_Import_Cashsale extends RocketWeb_Netsuit
     }
 
     public function process(Record $cashSale) {
+        $this->log("process import cashsale start");
+        //$this->log("cashSale: " . json_encode($cashSale));
+        
         /** @var CashSale $cashSale */
         $magentoInvoice = Mage::helper('rocketweb_netsuite/mapper_invoice')->getMagentoFormatFromCashSale($cashSale);
-
         $existingInvoice = $this->getExistingInvoice($cashSale);
-        if($existingInvoice) {
-            foreach($existingInvoice->getAllItems() as $item) {
+        
+        if ($existingInvoice) {
+            foreach ($existingInvoice->getAllItems() as $item) {
                 $item->delete();
             }
+            
             $magentoInvoice->setId($existingInvoice->getId());
         }
 
         $magentoInvoice->setNetsuiteInternalId($cashSale->internalId);
         $magentoInvoice->setLastImportDate(Mage::helper('rocketweb_netsuite')->convertNetsuiteDateToSqlFormat($cashSale->lastModifiedDate));
 
-        if(!$magentoInvoice->getCommentsCollection()->count()) {
+        if (!$magentoInvoice->getCommentsCollection()->count()) {
             //we only want to add an auto-comment when the shipment is created, i.e. when there are no comments
-            $magentoInvoice->addComment("Imported from Net Suite - cash sale transaction id #{$cashSale->tranId}",false,false);
+            $magentoInvoice->addComment("Imported from Net Suite - cash sale transaction id #{$cashSale->tranId}", false, false);
         }
 
-        Mage::register('skip_invoice_export_queue_push',1);
+        Mage::register('skip_invoice_export_queue_push', 1);
         $magentoInvoice->collectTotals();
         $magentoInvoice->save();
 
-        $this->updatePrices($magentoInvoice,$cashSale);
+        $this->updatePrices($magentoInvoice, $cashSale);
     }
 
     //check if an order with the item fullfilment's createFrom internalId exists in Magento. If not, the record is not for a Magento order
@@ -113,36 +117,81 @@ class RocketWeb_Netsuite_Model_Process_Import_Cashsale extends RocketWeb_Netsuit
     /*
      * Force price updates. Magento does not allow changing the prices in the invoices, but Net Suite does.
      */
-    protected function updatePrices(Mage_Sales_Model_Order_Invoice $magentoInvoice,CashSale $cashSale) {
+    protected function updatePrices(Mage_Sales_Model_Order_Invoice $magentoInvoice, CashSale $cashSale) {
         $grandSubtotal = 0;
         $grandTax = 0;
         $grandTotal = 0;
+        $totalQty = 0;
+        $bilnaCredit = 0;
 
-        foreach($magentoInvoice->getAllItems() as $magentoInvoiceItem) {
+        foreach ($magentoInvoice->getAllItems() as $magentoInvoiceItem) {
             $productInternalNetsuiteId = Mage::getModel('catalog/product')->load($magentoInvoiceItem->getOrderItem()->getProductId())->getNetsuiteInternalId();
-            foreach($cashSale->itemList->item as $netsuiteItem) {
-                if($productInternalNetsuiteId && $netsuiteItem->item->internalId == $productInternalNetsuiteId) {
-                    $magentoInvoiceItem->setPrice($netsuiteItem->amount/$netsuiteItem->quantity);
-                    $magentoInvoiceItem->setRowTotal($netsuiteItem->amount);
-                    $magentoInvoiceItem->setTaxAmount(round($netsuiteItem->amount/100*$netsuiteItem->taxRate1,2));
+            
+            foreach ($cashSale->itemList->item as $netsuiteItem) {
+                if ($productInternalNetsuiteId && $netsuiteItem->item->internalId == $productInternalNetsuiteId) {
+                    $_netsuitePrice = $this->getNetsuitePrice($netsuiteItem->customFieldList->customField);
+                    $_netsuiteRowTotal = $_netsuitePrice * $netsuiteItem->quantity;
+                    //$_netsuiteSubTotal += $_netsuiteRowTotal;
+                    $magentoInvoiceItem->setPrice($_netsuitePrice);
+                    $magentoInvoiceItem->setRowTotal($_netsuiteRowTotal);
+                    $magentoInvoiceItem->setTaxAmount(round($_netsuiteRowTotal / 100 * $netsuiteItem->taxRate1, 2));
+                    $magentoInvoiceItem->getOrderItem()->setQtyInvoiced($netsuiteItem->quantity);
                     $magentoInvoiceItem->save();
 
-                    $grandTax+=$magentoInvoiceItem->getTaxAmount();
-                    $grandSubtotal+=$magentoInvoiceItem->getRowTotal();
-                    $grandTotal+=$grandTax+$grandSubtotal;
+                    $grandTax += $magentoInvoiceItem->getTaxAmount();
+                    $grandSubtotal += $magentoInvoiceItem->getRowTotal();
+                    $grandTotal += $grandTax + $grandSubtotal;
+                    $totalQty += $netsuiteItem->quantity;
+                    $bilnaCredit += $this->getNetsuiteBilnaCredit($netsuiteItem->customFieldList->customField);
                 }
             }
         }
 
+        $magentoInvoice->setTotalQty($totalQty);
         $magentoInvoice->setTaxAmount($grandTax);
+        $magentoInvoice->setBaseTaxAmount($grandTax);
         $magentoInvoice->setSubtotal($grandSubtotal);
+        $magentoInvoice->setBaseSubtotal($grandSubtotal);
         $magentoInvoice->setGrandTotal($cashSale->total);
+        $magentoInvoice->setBaseGrandTotal($cashSale->total);
+        $magentoInvoice->setMoneyForPoints($bilnaCredit);
+        $magentoInvoice->setBaseMoneyForPoints($bilnaCredit);
+        $magentoInvoice->getOrder()->setTotalPaid($magentoInvoice->getOrder()->getTotalPaid() + $magentoInvoice->getGrandTotal());
+        $magentoInvoice->getOrder()->setBaseTotalPaid($magentoInvoice->getOrder()->getBaseTotalPaid() + $magentoInvoice->getBaseGrandTotal());
+        $magentoInvoice->getOrder()->save();
         $magentoInvoice->getResource()->save($magentoInvoice);
-
+        $magentoInvoice->sendEmail(true, '');
+        
         //update the invoice grid
         $dbConnection = Mage::getSingleton('core/resource')->getConnection('core_write');
         $tableName = Mage::getSingleton('core/resource')->getTableName('sales_flat_invoice_grid');
-        $query = "UPDATE $tableName SET grand_total={$cashSale->total}, base_grand_total={$cashSale->total} WHERE entity_id = {$magentoInvoice->getId()}";
+        $query = "UPDATE $tableName SET grand_total = {$cashSale->total}, base_grand_total = {$cashSale->total} WHERE entity_id = {$magentoInvoice->getId()}";
         $dbConnection->query($query);
+    }
+    
+    protected function getNetsuitePrice($itemCustomField) {
+        $result = 0;
+        
+        foreach ($itemCustomField as $item) {
+            if ($item->internalId == 'custcol_pricebeforediscount') {
+                $result = $item->value;
+                break;
+            }
+        }
+        
+        return $result;
+    }
+    
+    protected function getNetsuiteBilnaCredit($itemCustomField) {
+        $result = 0;
+        
+        foreach ($itemCustomField as $item) {
+            if ($item->internalId == 'custcol_bilnacredit') {
+                $result = $item->value;
+                break;
+            }
+        }
+        
+        return $result;
     }
 }

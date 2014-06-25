@@ -26,6 +26,9 @@ class RocketWeb_Netsuite_Model_Process_Import_Invoice extends RocketWeb_Netsuite
     }
 
     public function process(Record $invoice) {
+        //$this->log("process import invoice start");
+        //$this->log("invoice: " . json_encode($cashSale));
+        
         /** @var Invoice $invoice */
         $magentoInvoice = Mage::helper('rocketweb_netsuite/mapper_invoice')->getMagentoFormatFromInvoice($invoice);
 

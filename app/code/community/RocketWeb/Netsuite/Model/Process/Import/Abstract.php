@@ -16,6 +16,7 @@
  */
 
 abstract class RocketWeb_Netsuite_Model_Process_Import_Abstract {
+    protected $_logFilename = 'netsuite_import.log';
 
     //checks whether an entry is Magento importable, i.e. if the associated order also exists in Magento. The orders that
     //are created directly in Net Suite are not to be imported and managed in Magento
@@ -153,5 +154,9 @@ abstract class RocketWeb_Netsuite_Model_Process_Import_Abstract {
     //checks whether the element is already present in Magento
     public function isQueued(RocketWeb_Netsuite_Model_Queue_Message $message) {
         return Mage::helper('rocketweb_netsuite/queue')->messageExistsInQueue($message);
+    }
+    
+    protected function log($message) {
+        Mage::helper('rocketweb_netsuite')->log($message, $this->_logFilename);
     }
 }

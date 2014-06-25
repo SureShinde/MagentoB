@@ -22,4 +22,8 @@ class RocketWeb_Netsuite_Helper_Mapper extends Mage_Core_Helper_Data {
     protected function _getNetsuiteService() {
         return Mage::helper('rocketweb_netsuite')->getNetsuiteService();
     }
+    
+    protected function log($message) {
+        Mage::helper('rocketweb_netsuite')->log($message);
+    }
 }

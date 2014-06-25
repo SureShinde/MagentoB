@@ -85,58 +85,64 @@ class RocketWeb_Netsuite_Helper_Mapper_Invoice extends RocketWeb_Netsuite_Helper
 
     public function getMagentoFormatFromCashSale(CashSale $cashSale) {
         $magentoInvoice = Mage::getModel('sales/order_invoice');
-
         $netsuiteOrderId = $cashSale->createdFrom->internalId;
-        $magentoOrders = Mage::getModel('sales/order')->getCollection()->addFieldToFilter('netsuite_internal_id',$netsuiteOrderId);
-        /** @var Mage_Sales_Model_Order $magentoOrder */
+        $magentoOrders = Mage::getModel('sales/order')->getCollection()->addFieldToFilter('netsuite_internal_id', $netsuiteOrderId);
         $magentoOrder = $magentoOrders->getFirstItem();
-        if(!is_object($magentoOrder) || !$magentoOrder->getId()) {
+        
+        if (!is_object($magentoOrder) || !$magentoOrder->getId()) {
             throw new Exception("Order with netsuite internal id {$cashSale->createdFrom->internalId} not found in Magento!");
         }
 
         $netsuiteCustomer = Mage::helper('rocketweb_netsuite/mapper_customer')->getByInternalId($cashSale->entity->internalId);
-        $magentoInvoice->setOrder($magentoOrder)
-            ->setStoreId($magentoOrder->getStoreId())
-            ->setCustomerId($magentoOrder->getCustomerId());
+        $magentoInvoice->setOrder($magentoOrder)->setStoreId($magentoOrder->getStoreId())->setCustomerId($magentoOrder->getCustomerId());
 
         Mage::helper('core')->copyFieldset('sales_convert_order', 'to_invoice', $magentoOrder, $magentoInvoice);
 
-        if($cashSale->transactionBillAddress) {
-            $magentoBillingAddress = Mage::helper('rocketweb_netsuite/mapper_address')->getBillingAddressMagentoFormatFromNetsuiteAddress($cashSale->transactionBillAddress,
-                $netsuiteCustomer,
-                $magentoOrder);
-            $magentoBillingAddress->setId($magentoOrder->getBillingAddressId());
-            $magentoBillingAddress->save();
-        }
-
+        //if($cashSale->transactionBillAddress) {
+        //    $magentoBillingAddress = Mage::helper('rocketweb_netsuite/mapper_address')->getBillingAddressMagentoFormatFromNetsuiteAddress($cashSale->transactionBillAddress,
+        //        $netsuiteCustomer,
+        //        $magentoOrder);
+        //    $magentoBillingAddress->setId($magentoOrder->getBillingAddressId());
+        //    $magentoBillingAddress->save();
+        //}
+        
         $magentoInvoice->setBillingAddressId($magentoOrder->getBillingAddressId())->setShippingAddressId($magentoOrder->getShippingAddressId());
-
-        $itemMap = array();
-        foreach($cashSale->itemList->item as $netsuiteItem) {
-            foreach($magentoOrder->getAllItems() as $magentoOrderItem) {
-                if($netsuiteItem->item->internalId == Mage::getModel('catalog/product')->load($magentoOrderItem->getProductId())->getNetsuiteInternalId()) {
-                    $item = array();
+        $itemMap = array ();
+        
+        foreach ($cashSale->itemList->item as $netsuiteItem) {
+            foreach ($magentoOrder->getAllItems() as $magentoOrderItem) {
+                if ($netsuiteItem->item->internalId == Mage::getModel('catalog/product')->load($magentoOrderItem->getProductId())->getNetsuiteInternalId()) {
+                    $item = array ();
                     $item['netsuite_object'] = $netsuiteItem;
                     $item['magento_orderitem_object'] = $magentoOrderItem;
-                    $itemMap[]=$item;
+                    $itemMap[] = $item;
                 }
             }
         }
+        
         $totalQuantity = 0;
-        if(is_array($itemMap)) {
-            foreach($itemMap as $item) {
+        
+        if (is_array($itemMap)) {
+            foreach ($itemMap as $item) {
                 $magentoInvoiceItem = Mage::getModel('sales/order_invoice_item');
                 Mage::helper('core')->copyFieldset('sales_convert_order_item', 'to_invoice_item', $item['magento_orderitem_object'], $magentoInvoiceItem);
                 $magentoInvoiceItem->setOrderItem($item['magento_orderitem_object']);
                 $magentoInvoiceItem->setProductId(Mage::getModel('catalog/product')->load($item['magento_orderitem_object']->getProductId())->getId());
                 //intentionally using setData instead of ->setQty as at this point we dont care about out of stock exceptions
-                $magentoInvoiceItem->setData('qty',$item['netsuite_object']->quantity);
+                $magentoInvoiceItem->setData('qty', $item['netsuite_object']->quantity);
                 $magentoInvoice->addItem($magentoInvoiceItem);
-                $totalQuantity+=$item['netsuite_object']->quantity;
+                $totalQuantity += $item['netsuite_object']->quantity;
             }
         }
+        
         $magentoInvoice->setState(Mage_Sales_Model_Order_Invoice::STATE_PAID);
         $magentoInvoice->setTotalQty($totalQuantity);
+        
+        //$_totalPaid = $cashSale->total;
+        //$_totalDue = $magentoInvoice->getOrder()->getGrandTotal() - $_totalPaid;
+        //$magentoInvoice->getOrder()->setTotalPaid($_totalPaid)->setBaseTotalPaid($_totalPaid);
+        //$magentoInvoice->getOrder()->setTotalDue($_totalDue)->setBaseTotalDue($_totalDue);
+        
         return $magentoInvoice;
     }
 
@@ -189,7 +195,6 @@ class RocketWeb_Netsuite_Helper_Mapper_Invoice extends RocketWeb_Netsuite_Helper
 
                 //intentionally using setData instead of ->setQty as at this point we dont care about out of stock exceptions
                 $magentoInvoiceItem->setData('qty',$item['netsuite_object']->quantity);
-
                 $magentoInvoice->addItem($magentoInvoiceItem);
                 $totalQuantity+=$item['netsuite_object']->quantity;
             }
