@@ -2107,7 +2107,7 @@ button.button-area {
     }
     .baby-voucher .logo_free_voucher img {padding: 31px 0 0;width: 110px;}
     
-    .cms-perlengkapan-rumah-freevoucher .messages, .cms-baby-freevoucher .messages {
+    .cms-perlengkapan-rumah-freevoucher .messages, .cms-baby-freevoucher-html .messages {
         display: block;
         left: 2%;
         margin: -20px;
@@ -2118,14 +2118,14 @@ button.button-area {
         box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
         border-radius: 5px;
     }
-    .cms-perlengkapan-rumah-freevoucher .messages li li, .cms-baby-freevoucher .messages li li {
+    .cms-perlengkapan-rumah-freevoucher .messages li li, .cms-baby-freevoucher-html .messages li li {
         margin: 3px 0 !important;
     }
     
-    .cms-perlengkapan-rumah-freevoucher .error-msg, .cms-baby-freevoucher .error-msg, 
-    .cms-perlengkapan-rumah-freevoucher .success-msg, .cms-baby-freevoucher .success-msg, 
-    .cms-perlengkapan-rumah-freevoucher .note-msg, .cms-baby-freevoucher .note-msg, 
-    .cms-perlengkapan-rumah-freevoucher .notice-msg, .cms-baby-freevoucher .notice-msg {
+    .cms-perlengkapan-rumah-freevoucher .error-msg, .cms-baby-freevoucher-html .error-msg, 
+    .cms-perlengkapan-rumah-freevoucher .success-msg, .cms-baby-freevoucher-html .success-msg, 
+    .cms-perlengkapan-rumah-freevoucher .note-msg, .cms-baby-freevoucher-html .note-msg, 
+    .cms-perlengkapan-rumah-freevoucher .notice-msg, .cms-baby-freevoucher-html .notice-msg {
         background-position: 10px 9px !important;
         background-repeat: no-repeat !important;
         border-style: solid !important;
@@ -2136,7 +2136,7 @@ button.button-area {
         padding: 8px 8px 8px 32px !important;
         border-radius: 5px !important;
     }
-    .cms-perlengkapan-rumah-freevoucher .messages li, .cms-baby-freevoucher .messages li {
+    .cms-perlengkapan-rumah-freevoucher .messages li, .cms-baby-freevoucher-html .messages li {
         margin: 0 !important;
     }
     
