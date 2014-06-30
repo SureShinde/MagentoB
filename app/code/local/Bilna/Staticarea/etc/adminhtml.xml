@@ -35,6 +35,11 @@
 					<children>
 						<staticarea>
 							<title>Static Area</title>
+							<children>
+								<manage>
+									<title>Manage Static Area</title>
+								</manage>
+							</children>
 						</staticarea>
 					</children>
 			  </bilna>
