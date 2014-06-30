@@ -22,6 +22,7 @@ class RocketWeb_Netsuite_Helper_Permissions extends Mage_Core_Helper_Abstract {
     const GET_CASH_SALES = 'get_cash_sales';
     const GET_STOCK_UPDATES = 'get_stock_updates';
     const GET_PRODUCTS = 'get_products';
+    const GET_CREDITMEMO = 'get_creditmemo';
 
     public function isFeatureEnabled($featureCode) {
         $systemVar = 'rocketweb_netsuite/enable_disable_features/';
@@ -47,6 +48,9 @@ class RocketWeb_Netsuite_Helper_Permissions extends Mage_Core_Helper_Abstract {
                 break;
             case self::GET_PRODUCTS:
                 $systemVar.='get_products';
+                break;
+            case self::GET_CREDITMEMO:
+                $systemVar .= 'get_creditmemo';
                 break;
             default:
                 $systemVar.='INVALID';

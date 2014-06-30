@@ -38,54 +38,57 @@ abstract class RocketWeb_Netsuite_Model_Process_Import_Abstract {
 
     public abstract function getPermissionName();
 
-
     //queries Netsuite for latest modified entries (shipments, invoices etc)
     public function queryNetsuite($startDateTime) {
         static $response = null;
         static $currentPage = 2;
 
         $permissionName = $this->getPermissionName();
-        if(trim($permissionName) && !Mage::helper('rocketweb_netsuite/permissions')->isFeatureEnabled($permissionName)) {
+        
+        if (trim($permissionName) && !Mage::helper('rocketweb_netsuite/permissions')->isFeatureEnabled($permissionName)) {
             return false;
         }
 
         $netsuiteService = $this->_getNetsuiteService();
         $this->setSearchPreferences();
 
-        if(is_null($response)) {
+        if (is_null($response)) {
             $searchRequest = $this->getNetsuiteRequest($this->getRecordType(),$startDateTime);
             $response = $netsuiteService->search($searchRequest);
-            if($response->searchResult->status->isSuccess) {
+            $this->log("searchRequest: " . json_encode($searchRequest));
+            $this->log("response: " . json_encode($response));
+            
+            if ($response->searchResult->status->isSuccess) {
                 return $response->searchResult->recordList->record;
             }
             else {
-                throw new Exception((string) print_r($response->searchResult->status->statusDetail,true));
+                throw new Exception((string) print_r($response->searchResult->status->statusDetail, true));
             }
         }
         else {
             $totalPages = $response->searchResult->totalPages;
             $searchId = $response->searchResult->searchId;
 
-            if($currentPage > $totalPages) {
+            if ($currentPage > $totalPages) {
                 return false;
             }
 
             $searchMoreRequest = new SearchMoreWithIdRequest();
             $searchMoreRequest->pageIndex = $currentPage;
             $searchMoreRequest->searchId = $searchId;
-
             $searchResponse = $netsuiteService->searchMoreWithId($searchMoreRequest);
             $currentPage++;
+            
+            $this->log("searchMoreRequest: " . json_encode($searchMoreRequest));
+            $this->log("searchResponse: " . json_encode($searchResponse));
+            
             if ($searchResponse->searchResult->status->isSuccess) {
                 return $searchResponse->searchResult->recordList->record;
             }
             else {
-                throw new Exception((string) print_r($searchResponse->searchResult->status->statusDetail,true));
+                throw new Exception((string) print_r($searchResponse->searchResult->status->statusDetail, true));
             }
-
         }
-
-
     }
 
     public function queryNetsuiteForDeletedRecords($updatedFrom) {

@@ -123,6 +123,7 @@ class RocketWeb_Netsuite_Model_Process_Import_Order_Fulfillment extends RocketWe
         foreach ($magentoShipmentCollection as $magentoShipmentCollectionItem) {
             if ($magentoShipmentCollectionItem->getId() != $magentoShipment->getId()) {
                 $shippingPriceFromOtherShipments += $magentoShipmentCollectionItem->getShippingAmount();
+                $magentoShipmentCollectionItem->getOrderItem()->setQtyShipped($netsuiteItem->quantity)->save();
             }
         }
         

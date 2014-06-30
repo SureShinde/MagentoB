@@ -1,7 +1,7 @@
 <config>
     <modules>
         <RocketWeb_Netsuite>
-            <version>2.0.2</version>
+            <version>2.0.3</version>
         </RocketWeb_Netsuite>
     </modules>
     <global>
@@ -229,6 +229,7 @@
             <cashsale>Cash Sale</cashsale>
             <invoice>Invoice</invoice>
             <inventoryitem>Inventory Item</inventoryitem>
+            <creditmemo>Credit Memo</creditmemo>
         </import_entities>
         <mappings>
             <country_codes>
@@ -621,6 +622,7 @@
                 <get_cash_sales>1</get_cash_sales>
                 <get_stock_updates>1</get_stock_updates>
                 <get_products>1</get_products>
+                <get_creditmemo>1</get_creditmemo>
             </enable_disable_features>
             <stock>
                 <custom_search_page_size>500</custom_search_page_size>
