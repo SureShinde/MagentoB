@@ -44,3 +44,33 @@
 <?php echo $this->getChildHtml() ?>
 <?php echo $this->helper('core/js')->getTranslatorScript() ?>
 <?php echo $this->getIncludes() ?>
+
+<!-- Google Tag Manager -->
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-NZ9MZS"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-NJ766V');</script>
+<!-- End Google Tag Manager -->
+
+<!-- Facebook Open Graph -->
+<?php
+	if ( $this->getTitle() )
+	{
+		?>
+		<meta property="og:site_name" content="<?php echo Mage::getStoreConfig('general/store_information/name'); ?>"/>
+		<!--cara penulisan Store Information lihat di app/code/core/Mage/Core/etc/system.xml-->
+		<meta property="og:url" content="<?php echo Mage::helper('core/url')->getCurrentUrl();?>"/>
+		<?php $post = $this->getPost(); ?>
+		<?php if ($post): ?>
+			<meta property="og:title" content="<?php echo htmlspecialchars($post->getTitle()); ?>"/>
+			<meta property="og:description" content="<?php echo $post->getShortContent(); ?>"/>
+		<?php endif; ?>
+		<meta property="og:type" content="website"/>
+		<meta property="og:image" content="<?php echo  Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA); ?><?php echo $post->getImageName();?>"/>
+		<?php
+	}
+?>
+<!-- End Facebook Open Graph -->
