@@ -96,8 +96,8 @@ class RocketWeb_Netsuite_Model_Process_Import_Creditmemo extends RocketWeb_Netsu
         $_adjustmentRefund = $this->getAdjustmentRefund($netsuiteCreditmemo);
         $_adjustmentFee = $this->getAdjustmentFee($netsuiteCreditmemo);
         
-        $this->log("adjustmentRefund: " . $_adjustmentRefund);
-        $this->log("adjustmentFee: " . $_adjustmentFee);
+        //$this->log("adjustmentRefund: " . $_adjustmentRefund);
+        //$this->log("adjustmentFee: " . $_adjustmentFee);
         
         $magentoCreditmemo->setAdjustment($_adjustmentRefund * -1);
         $magentoCreditmemo->setBaseAdjustment($_adjustmentRefund * -1);
@@ -115,7 +115,7 @@ class RocketWeb_Netsuite_Model_Process_Import_Creditmemo extends RocketWeb_Netsu
         $dbConnection = Mage::getSingleton('core/resource')->getConnection('core_write');
         $tableName = Mage::getSingleton('core/resource')->getTableName('sales_flat_creditmemo_grid');
         $query = "UPDATE $tableName SET grand_total = {$netsuiteCreditmemo->total}, base_grand_total = {$netsuiteCreditmemo->total} WHERE entity_id = {$magentoCreditmemo->getId()}";
-        $this->log("queryCreditMemo: " . $query);
+        //$this->log("queryCreditMemo: " . $query);
         $dbConnection->query($query);
     }
 

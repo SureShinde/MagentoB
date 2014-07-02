@@ -70,9 +70,6 @@ class RocketWeb_Netsuite_Model_Process_Import_Order extends RocketWeb_Netsuite_M
     }
 
     public function process(Record $salesOrder) {
-        $this->log("process import order start");
-        //$this->log("salesOrder: " . json_encode($salesOrder));
-        
         /** @var SalesOrder $salesOrder */
         $magentoOrder = Mage::helper('rocketweb_netsuite/mapper_order')->getMagentoFormat($salesOrder);
         $magentoOrder->setNetsuiteInternalId($salesOrder->internalId);

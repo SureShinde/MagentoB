@@ -113,6 +113,10 @@ class RocketWeb_Netsuite_Model_Process {
                                 $request->baseRef->type = $importableEntityModel->getRecordType();
                                 $getResponse = Mage::helper('rocketweb_netsuite')->getNetsuiteService()->get($request);
                                 
+                                $logger->logProgress("request {$name}: " . json_encode($request));
+                                $logger->logProgress("response {$name}: " . json_encode($getResponse));
+                                $logger->logProgress("----------------------------------------------------------------------------------------");
+                                
                                 if (!$getResponse->readResponse->status->isSuccess) {
                                     throw new Exception((string) print_r($getResponse->readResponse->status->statusDetail, true));
                                 }

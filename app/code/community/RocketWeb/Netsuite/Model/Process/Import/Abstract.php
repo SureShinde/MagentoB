@@ -55,8 +55,8 @@ abstract class RocketWeb_Netsuite_Model_Process_Import_Abstract {
         if (is_null($response)) {
             $searchRequest = $this->getNetsuiteRequest($this->getRecordType(),$startDateTime);
             $response = $netsuiteService->search($searchRequest);
-            $this->log("searchRequest: " . json_encode($searchRequest));
-            $this->log("response: " . json_encode($response));
+            //$this->log("searchRequest: " . json_encode($searchRequest));
+            //$this->log("response: " . json_encode($response));
             
             if ($response->searchResult->status->isSuccess) {
                 return $response->searchResult->recordList->record;
@@ -160,6 +160,6 @@ abstract class RocketWeb_Netsuite_Model_Process_Import_Abstract {
     }
     
     protected function log($message) {
-        Mage::helper('rocketweb_netsuite')->log($message, $this->_logFilename);
+        //Mage::helper('rocketweb_netsuite')->log($message, $this->_logFilename);
     }
 }

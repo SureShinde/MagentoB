@@ -34,34 +34,33 @@ class RocketWeb_Netsuite_Model_Process_Import_Cashsale extends RocketWeb_Netsuit
     }
 
     public function process(Record $cashSale) {
-        $this->log("process import cashsale start");
-        //$this->log("cashSale: " . json_encode($cashSale));
-        
-        /** @var CashSale $cashSale */
         $magentoInvoice = Mage::helper('rocketweb_netsuite/mapper_invoice')->getMagentoFormatFromCashSale($cashSale);
-        $existingInvoice = $this->getExistingInvoice($cashSale);
         
-        if ($existingInvoice) {
-            foreach ($existingInvoice->getAllItems() as $item) {
-                $item->delete();
+        if ($magentoInvoice) {
+            $existingInvoice = $this->getExistingInvoice($cashSale);
+
+            if ($existingInvoice) {
+                foreach ($existingInvoice->getAllItems() as $item) {
+                    $item->delete();
+                }
+
+                $magentoInvoice->setId($existingInvoice->getId());
             }
-            
-            $magentoInvoice->setId($existingInvoice->getId());
+
+            $magentoInvoice->setNetsuiteInternalId($cashSale->internalId);
+            $magentoInvoice->setLastImportDate(Mage::helper('rocketweb_netsuite')->convertNetsuiteDateToSqlFormat($cashSale->lastModifiedDate));
+
+            if (!$magentoInvoice->getCommentsCollection()->count()) {
+                //we only want to add an auto-comment when the shipment is created, i.e. when there are no comments
+                $magentoInvoice->addComment("Imported from Netsuite - cashSale transactionId #{$cashSale->tranId}", false, false);
+            }
+
+            Mage::register('skip_invoice_export_queue_push', 1);
+            $magentoInvoice->collectTotals();
+            $magentoInvoice->save();
+
+            $this->updatePrices($magentoInvoice, $cashSale);
         }
-
-        $magentoInvoice->setNetsuiteInternalId($cashSale->internalId);
-        $magentoInvoice->setLastImportDate(Mage::helper('rocketweb_netsuite')->convertNetsuiteDateToSqlFormat($cashSale->lastModifiedDate));
-
-        if (!$magentoInvoice->getCommentsCollection()->count()) {
-            //we only want to add an auto-comment when the shipment is created, i.e. when there are no comments
-            $magentoInvoice->addComment("Imported from Net Suite - cash sale transaction id #{$cashSale->tranId}", false, false);
-        }
-
-        Mage::register('skip_invoice_export_queue_push', 1);
-        $magentoInvoice->collectTotals();
-        $magentoInvoice->save();
-
-        $this->updatePrices($magentoInvoice, $cashSale);
     }
 
     //check if an order with the item fullfilment's createFrom internalId exists in Magento. If not, the record is not for a Magento order
@@ -131,6 +130,7 @@ class RocketWeb_Netsuite_Model_Process_Import_Cashsale extends RocketWeb_Netsuit
                 if ($productInternalNetsuiteId && $netsuiteItem->item->internalId == $productInternalNetsuiteId) {
                     $_netsuitePrice = $this->getNetsuitePrice($netsuiteItem->customFieldList->customField);
                     $_netsuiteRowTotal = $_netsuitePrice * $netsuiteItem->quantity;
+                    
                     //$_netsuiteSubTotal += $_netsuiteRowTotal;
                     $magentoInvoiceItem->setPrice($_netsuitePrice);
                     $magentoInvoiceItem->setRowTotal($_netsuiteRowTotal);

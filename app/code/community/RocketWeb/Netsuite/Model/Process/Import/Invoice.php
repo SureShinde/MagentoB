@@ -1,4 +1,20 @@
 <?php
+/**
+ * Rocket Web Inc.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is available through the world-wide-web at this URL:
+ * http://www.rocketweb.com/RW-LICENSE.txt
+ *
+ * @category   RocketWeb
+ * @package    RocketWeb_Netsuite
+ * @copyright  Copyright (c) 2013 RocketWeb (http://www.rocketweb.com)
+ * @author     Rocket Web Inc.
+ * @license    http://www.rocketweb.com/RW-LICENSE.txt
+ */
+
 class RocketWeb_Netsuite_Model_Process_Import_Invoice extends RocketWeb_Netsuite_Model_Process_Import_Abstract {
     public function getPermissionName() {
         return RocketWeb_Netsuite_Helper_Permissions::GET_CASH_SALES;
@@ -9,7 +25,7 @@ class RocketWeb_Netsuite_Model_Process_Import_Invoice extends RocketWeb_Netsuite
     }
 
     public function isActive() {
-        if(Mage::helper('rocketweb_netsuite')->getInvoiceTypeInNetsuite() == RocketWeb_Netsuite_Model_Adminhtml_System_Config_Source_Invoicenetsuitetype::TYPE_INVOICE) {
+        if (Mage::helper('rocketweb_netsuite')->getInvoiceTypeInNetsuite() == RocketWeb_Netsuite_Model_Adminhtml_System_Config_Source_Invoicenetsuitetype::TYPE_INVOICE) {
             return true;
         }
         else {
@@ -26,39 +42,37 @@ class RocketWeb_Netsuite_Model_Process_Import_Invoice extends RocketWeb_Netsuite
     }
 
     public function process(Record $invoice) {
-        //$this->log("process import invoice start");
-        //$this->log("invoice: " . json_encode($cashSale));
-        
-        /** @var Invoice $invoice */
         $magentoInvoice = Mage::helper('rocketweb_netsuite/mapper_invoice')->getMagentoFormatFromInvoice($invoice);
-
         $existingInvoice = $this->getExistingInvoice($invoice);
-        if($existingInvoice) {
-            foreach($existingInvoice->getAllItems() as $item) {
+        
+        if ($existingInvoice) {
+            foreach ($existingInvoice->getAllItems() as $item) {
                 $item->delete();
             }
+            
             $magentoInvoice->setId($existingInvoice->getId());
         }
 
         $magentoInvoice->setNetsuiteInternalId($invoice->internalId);
         $magentoInvoice->setLastImportDate(Mage::helper('rocketweb_netsuite')->convertNetsuiteDateToSqlFormat($invoice->lastModifiedDate));
 
-        if(!$magentoInvoice->getCommentsCollection()->count()) {
+        if (!$magentoInvoice->getCommentsCollection()->count()) {
             //we only want to add an auto-comment when the shipment is created, i.e. when there are no comments
-            $magentoInvoice->addComment("Imported from Net Suite - invoice transaction id #{$invoice->tranId}",false,false);
+            $magentoInvoice->addComment("Imported from Net Suite - invoice transaction id #{$invoice->tranId}", false, false);
         }
 
-        Mage::register('skip_invoice_export_queue_push',1);
+        Mage::register('skip_invoice_export_queue_push', 1);
         $magentoInvoice->collectTotals();
         $magentoInvoice->save();
 
-        $this->updatePrices($magentoInvoice,$invoice);
+        $this->updatePrices($magentoInvoice, $invoice);
     }
 
     protected function getExistingInvoice($record) {
         $invoiceCollection = Mage::getModel('sales/order_invoice')->getCollection();
-        $invoiceCollection->addFieldToFilter('netsuite_internal_id',$record->internalId);
-        if($invoiceCollection->count()) {
+        $invoiceCollection->addFieldToFilter('netsuite_internal_id', $record->internalId);
+        
+        if ($invoiceCollection->count()) {
             return $invoiceCollection->getFirstItem();
         }
         else {
@@ -66,49 +80,51 @@ class RocketWeb_Netsuite_Model_Process_Import_Invoice extends RocketWeb_Netsuite
         }
     }
 
-    /*
-     * Force price updates. Magento does not allow changing the prices in the invoices, but Net Suite does.
+    /**
+     * Force price updates. Magento does not allow changing the prices in the invoices, but Netsuite does.
      */
-    protected function updatePrices(Mage_Sales_Model_Order_Invoice $magentoInvoice,Invoice $invoice) {
+    protected function updatePrices(Mage_Sales_Model_Order_Invoice $magentoInvoice, Invoice $invoice) {
         $grandSubtotal = 0;
         $grandTax = 0;
         $grandTotal = 0;
 
-        foreach($magentoInvoice->getAllItems() as $magentoInvoiceItem) {
+        foreach ($magentoInvoice->getAllItems() as $magentoInvoiceItem) {
             $productInternalNetsuiteId = Mage::getModel('catalog/product')->load($magentoInvoiceItem->getOrderItem()->getProductId())->getNetsuiteInternalId();
-            foreach($invoice->itemList->item as $netsuiteItem) {
-                if($productInternalNetsuiteId && $netsuiteItem->item->internalId == $productInternalNetsuiteId) {
-                    $magentoInvoiceItem->setPrice($netsuiteItem->amount/$netsuiteItem->quantity);
-                    $magentoInvoiceItem->setRowTotal($netsuiteItem->amount);
-                    $magentoInvoiceItem->setTaxAmount(round($netsuiteItem->amount/100*$netsuiteItem->taxRate1,2));
-                    $magentoInvoiceItem->save();
+            
+            foreach ($invoice->itemList->item as $netsuiteItem) {
+                if ($productInternalNetsuiteId && $netsuiteItem->item->internalId == $productInternalNetsuiteId) {
+                    //$magentoInvoiceItem->setPrice($netsuiteItem->amount / $netsuiteItem->quantity);
+                    //$magentoInvoiceItem->setRowTotal($netsuiteItem->amount);
+                    //$magentoInvoiceItem->setTaxAmount(round($netsuiteItem->amount / 100 * $netsuiteItem->taxRate1, 2));
+                    //$magentoInvoiceItem->save();
 
-                    $grandTax+=$magentoInvoiceItem->getTaxAmount();
-                    $grandSubtotal+=$magentoInvoiceItem->getRowTotal();
-                    $grandTotal+=$grandTax+$grandSubtotal;
+                    $grandTax += $magentoInvoiceItem->getTaxAmount();
+                    $grandSubtotal += $magentoInvoiceItem->getRowTotal();
+                    $grandTotal += $grandTax + $grandSubtotal;
                 }
             }
         }
 
-        $magentoInvoice->setTaxAmount($grandTax);
-        $magentoInvoice->setSubtotal($grandSubtotal);
-        $magentoInvoice->setGrandTotal($invoice->total);
+        //$magentoInvoice->setTaxAmount($grandTax);
+        //$magentoInvoice->setSubtotal($grandSubtotal);
+        //$magentoInvoice->setGrandTotal($invoice->total);
         $magentoInvoice->getResource()->save($magentoInvoice);
 
-        //update the invoice grid
-        $dbConnection = Mage::getSingleton('core/resource')->getConnection('core_write');
-        $tableName = Mage::getSingleton('core/resource')->getTableName('sales_flat_invoice_grid');
-        $query = "UPDATE $tableName SET grand_total={$invoice->total}, base_grand_total={$invoice->total} WHERE entity_id = {$magentoInvoice->getId()}";
-        $dbConnection->query($query);
+        // update the invoice grid
+        //$dbConnection = Mage::getSingleton('core/resource')->getConnection('core_write');
+        //$tableName = Mage::getSingleton('core/resource')->getTableName('sales_flat_invoice_grid');
+        //$query = "UPDATE $tableName SET grand_total={$invoice->total}, base_grand_total={$invoice->total} WHERE entity_id = {$magentoInvoice->getId()}";
+        //$dbConnection->query($query);
     }
 
     public function isAlreadyImported(Record $record) {
         $shipmentCollection = Mage::getModel('sales/order_invoice')->getCollection();
-        $shipmentCollection->addFieldToFilter('netsuite_internal_id',$record->internalId);
+        $shipmentCollection->addFieldToFilter('netsuite_internal_id', $record->internalId);
         $netsuiteUpdateDatetime = Mage::helper('rocketweb_netsuite')->convertNetsuiteDateToSqlFormat($record->lastModifiedDate);
-        $shipmentCollection->addFieldToFilter('last_import_date',array('gteq'=>$netsuiteUpdateDatetime));
+        $shipmentCollection->addFieldToFilter('last_import_date', array ('gteq' => $netsuiteUpdateDatetime));
         $shipmentCollection->load();
-        if($shipmentCollection->count()) {
+        
+        if ($shipmentCollection->count()) {
             return true;
         }
         else {
@@ -118,13 +134,15 @@ class RocketWeb_Netsuite_Model_Process_Import_Invoice extends RocketWeb_Netsuite
 
     //check if an order with the item fullfilment's createFrom internalId exists in Magento. If not, the record is not for a Magento order
     public function isMagentoImportable(Record $invoice) {
-        if(is_null($invoice->createdFrom)) {
+        if (is_null($invoice->createdFrom)) {
             return false;
         }
+        
         $netsuiteOrderId = $invoice->createdFrom->internalId;
-        $magentoOrders = Mage::getModel('sales/order')->getCollection()->addFieldToFilter('netsuite_internal_id',$netsuiteOrderId);
+        $magentoOrders = Mage::getModel('sales/order')->getCollection()->addFieldToFilter('netsuite_internal_id', $netsuiteOrderId);
         $magentoOrders->load();
-        if(!$magentoOrders->getSize()) {
+        
+        if (!$magentoOrders->getSize()) {
             return false;
         }
         else {
