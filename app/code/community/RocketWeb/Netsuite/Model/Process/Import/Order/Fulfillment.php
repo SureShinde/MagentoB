@@ -70,48 +70,13 @@ class RocketWeb_Netsuite_Model_Process_Import_Order_Fulfillment extends RocketWe
         return true;
     }
 
-    public function process(Record $itemFulfillment) {
-        //$this->log("process import orderFullfilment start");
-        //$this->log("itemFullfillment: " . json_encode($itemFulfillment));
-        
-        /** @var ItemFulfillment $itemFulfillment */
-        $magentoShipping = Mage::helper('rocketweb_netsuite/mapper_shipment')->getMagentoFormat($itemFulfillment);
-        $sendTrackingInformation = $this->getSendTrackingInformation($itemFulfillment);
-        $existingShipping = $this->getExistingShipping($itemFulfillment);
-        
-        if ($existingShipping) {
-            foreach ($existingShipping->getAllItems() as $item) {
-                $item->delete();
-            }
-            
-            foreach ($existingShipping->getTracksCollection() as $track) {
-                $track->delete();
-            }
-            
-            $magentoShipping->setId($existingShipping->getId());
-        }
+    public function process(Record $netsuiteShipment) {
+        $magentoShipment = Mage::helper('rocketweb_netsuite/mapper_shipment')->getMagentoFormat($netsuiteShipment);
+        $magentoShipment->setNetsuiteInternalId($netsuiteShipment->internalId);
+        $magentoShipment->setLastImportDate(Mage::helper('rocketweb_netsuite')->convertNetsuiteDateToSqlFormat($netsuiteShipment->lastModifiedDate));
+        $magentoShipment->save();
 
-        $magentoShipping->setNetsuiteInternalId($itemFulfillment->internalId);
-        $magentoShipping->setLastImportDate(Mage::helper('rocketweb_netsuite')->convertNetsuiteDateToSqlFormat($itemFulfillment->lastModifiedDate));
-
-        if (!$magentoShipping->getCommentsCollection()->count()) {
-            //we only want to add an auto-comment when the shipment is created, i.e. when there are no comments
-            $magentoShipping->addComment("Imported from Net Suite - fulfillment transaction id #{$itemFulfillment->tranId}", false, false);
-        }
-
-        if ($sendTrackingInformation) {
-            $magentoShipping->sendEmail(true)->setEmailSent(true);
-        }
-
-        Mage::dispatchEvent('netsuite_item_fulfillment_import_save_before', array ('netsuite_shipping' => $itemFulfillment, 'magento_shipping' => $magentoShipping));
-
-        if (!$magentoShipping->getEmailSent()) {
-            $magentoShipping->sendEmail(true);
-            $magentoShipping->setEmailSent(true);
-        }
-
-        $magentoShipping->save();
-        $this->updateShippingPrice($magentoShipping, $itemFulfillment);
+        Mage::dispatchEvent('netsuite_item_fulfillment_import_save_before', array ('netsuite_shipping' => $netsuiteShipment, 'magento_shipping' => $magentoShipment));
     }
 
     protected function updateShippingPrice(Mage_Sales_Model_Order_Shipment $magentoShipment, ItemFulfillment $netsuiteShipment) {
@@ -120,10 +85,18 @@ class RocketWeb_Netsuite_Model_Process_Import_Order_Fulfillment extends RocketWe
         $shippingPriceFromOtherShipments = 0;
         $magentoShipmentCollection = $magentoOrder->getShipmentsCollection();
         
-        foreach ($magentoShipmentCollection as $magentoShipmentCollectionItem) {
-            if ($magentoShipmentCollectionItem->getId() != $magentoShipment->getId()) {
-                $shippingPriceFromOtherShipments += $magentoShipmentCollectionItem->getShippingAmount();
-                $magentoShipmentCollectionItem->getOrderItem()->setQtyShipped($netsuiteItem->quantity)->save();
+        $_magentoQtyInvoiced = 0;
+        $_netsuiteQtyShipped = 0;
+        
+        foreach ($magentoShipment->getAllItems() as $magentoShipmentItem) {
+            $productInternalNetsuiteId = Mage::getModel('catalog/product')->load($magentoShipmentItem->getOrderItem()->getProductId())->getNetsuiteInternalId();
+            
+            foreach ($cashSale->itemList->item as $netsuiteItem) {
+                if ($productInternalNetsuiteId && $netsuiteItem->item->internalId == $productInternalNetsuiteId) {
+                    //$magentoShipmentItem->getOrderItem()->setQtyShipped($netsuiteItem->quantity);
+                    $_magentoQtyInvoiced += $magentoShipmentItem->getOrderItem()->getQtyInvoiced();
+                    $_netsuiteQtyShipped += $netsuiteItem->quantity;
+                }
             }
         }
         
@@ -134,6 +107,21 @@ class RocketWeb_Netsuite_Model_Process_Import_Order_Fulfillment extends RocketWe
         $magentoOrder->setBaseShippingInclTax($shippingCost);
         $magentoOrder->setGrandTotal($magentoOrder->getGrandTotal() - $shippingPriceDifference);
         $magentoOrder->setBaseGrandTotal($magentoOrder->getBaseGrandTotal() - $shippingPriceDifference);
+        
+        /**
+         * set status magento order
+         * if shipment has created, status is COMPLETE
+         * else status is PROCESSING
+         */
+        if ($magentoOrder->hasInvoices() && ($_magentoQtyInvoiced == $_netsuiteQtyShipped)) {
+            $_state = Mage_Sales_Model_Order::STATE_COMPLETE;
+        }
+        else {
+            $_state = Mage_Sales_Model_Order::STATE_PROCESSING;
+        }
+        
+        $_comment = "Change order status from Netsuite";
+        $magentoOrder->setState($_state, true, $_comment);
         $magentoOrder->getResource()->save($magentoOrder);
 
         $dbConnection = Mage::getSingleton('core/resource')->getConnection('core_write');
