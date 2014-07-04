@@ -25,7 +25,7 @@ class RocketWeb_Netsuite_Helper_Mapper_Creditmemo extends RocketWeb_Netsuite_Hel
         //$magentoCreditmemo->setBillingAddressId($magentoOrder->getBillingAddressId())->setShippingAddressId($magentoOrder->getShippingAddressId());
         $itemMap = array (); // save changes to quantity & prices for each order item
         
-        foreach ($cashSale->itemList->item as $netsuiteItem) {
+        foreach ($creditmemo->itemList->item as $netsuiteItem) {
             foreach ($magentoOrder->getAllItems() as $magentoOrderItem) {
                 if ($netsuiteItem->item->internalId == Mage::getModel('catalog/product')->load($magentoOrderItem->getProductId())->getNetsuiteInternalId()) {
                     $item = array ();

@@ -224,7 +224,7 @@
             </shipment_view>
         </netsuite_links>
         <import_entities>
-            <!--order>Sales Order</order--> <!-- Keep orders first. New fulfillments & cash sales will trigger order save operations.-->
+            <order>Sales Order</order> <!-- Keep orders first. New fulfillments & cash sales will trigger order save operations.-->
             <order_fulfillment>Order Fulfillment</order_fulfillment>
             <!--cashsale>Cash Sale</cashsale-->
             <invoice>Invoice</invoice>
