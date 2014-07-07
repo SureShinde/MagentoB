@@ -16,7 +16,6 @@
  */
 
 class RocketWeb_Netsuite_Helper_Mapper_Invoice extends RocketWeb_Netsuite_Helper_Mapper {
-
     public function cleanupNetsuiteCashSale(CashSale $cashSale,Mage_Sales_Model_Order_Invoice $magentoInvoice) {
 
         $cashSale->createdFrom = new RecordRef();
@@ -82,8 +81,87 @@ class RocketWeb_Netsuite_Helper_Mapper_Invoice extends RocketWeb_Netsuite_Helper
 
         return $invoice;
     }
-
+    
     public function getMagentoFormatFromCashSale(CashSale $cashSale) {
+        $netsuiteInvoiceInternalId = $cashSale->internalId;
+        $magentoInvoice = $this->getMagentoInvoice($cashSale);
+        
+        if (!$magentoInvoice) {
+            $netsuiteOrderId = $cashSale->createdFrom->internalId;
+            $magentoOrders = Mage::getModel('sales/order')->getCollection()->addFieldToFilter('netsuite_internal_id', $netsuiteOrderId);
+            $magentoOrder = $magentoOrders->getFirstItem(); // @var Mage_Sales_Model_Order $magentoOrder
+
+            if (!is_object($magentoOrder) || !$magentoOrder->getId()) {
+                throw new Exception("Order with netsuite internal id {$cashSale->createdFrom->internalId} not found in Magento!");
+            }
+
+            $netsuiteCustomer = Mage::helper('rocketweb_netsuite/mapper_customer')->getByInternalId($cashSale->entity->internalId);
+            $magentoInvoice = $this->createMagentoInvoice($cashSale, $magentoOrder);
+        }
+        
+        return $magentoInvoice;
+    }
+    
+    protected function getMagentoInvoice(CashSale $cashSale) {
+        $invoiceCollection = Mage::getModel('sales/order_invoice')->getCollection();
+        $invoiceCollection->addFieldToFilter('netsuite_internal_id', $cashSale->internalId);
+        
+        if ($invoiceCollection->count()) {
+            return $invoiceCollection->getFirstItem();
+        }
+        
+        return null;
+    }
+    
+    protected function createMagentoInvoice(CashSale $cashSale, Mage_Sales_Model_Order $magentoOrder) {
+        $invoiceMap = array ();
+        $itemQty = array ();
+        
+        foreach ($magentoOrder->getAllItems() as $magentoOrderItem) {
+            $itemQty[$magentoOrderItem->getId()] = $magentoOrderItem->getQtyOrdered();
+        }
+        
+        /**
+         * Check shipment create availability
+         */
+        if (!$magentoOrder->canInvoice()) {
+             throw new Exception("{$magentoOrder->getId()}: Cannot do shipment for this order!");
+        }
+            
+        $magentoInvoice = $magentoOrder->prepareInvoice($itemQty);
+        
+        if ($magentoInvoice) {
+            $magentoInvoice->register();
+            $magentoInvoice->addComment("Create Shipment from Netsuite #{$cashSale->internalId}");
+            $magentoInvoice->getOrder()->setIsInProcess(true);
+            $magentoInvoice->setGrandTotal($cashSale->total);
+            $magentoInvoice->setBaseGrandTotal($cashSale->total);
+            $magentoInvoice->getOrder()->setTotalPaid($cashSale->total);
+            $magentoInvoice->getOrder()->setBaseTotalPaid($cashSale->total);
+            $magentoInvoice->getOrder()->save();
+            
+            Mage::register('skip_invoice_export_queue_push', 1);
+            
+            try {
+                $transactionSave = Mage::getModel('core/resource_transaction')
+                    ->addObject($magentoInvoice)
+                    ->addObject($magentoInvoice->getOrder())
+                    ->save();
+                
+                $magentoInvoice->setEmailSent(true);
+                $magentoInvoice->sendEmail(true);
+                
+                return $magentoInvoice;
+            }
+            catch (Mage_Core_Exception $e) {
+                throw new Exception("{$magentoOrder->getId()}: {$e->getMessage()}");
+            }
+        }
+        
+        return null;
+    }
+
+    public function getMagentoFormatFromCashSaleOld(CashSale $cashSale) {
         $netsuiteOrderId = $cashSale->createdFrom->internalId;
         $magentoOrders = Mage::getModel('sales/order')->getCollection()->addFieldToFilter('netsuite_internal_id', $netsuiteOrderId);
         $magentoOrder = $magentoOrders->getFirstItem();
@@ -186,6 +264,26 @@ class RocketWeb_Netsuite_Helper_Mapper_Invoice extends RocketWeb_Netsuite_Helper
     }
 
     public function getMagentoFormatFromInvoice(Invoice $invoice) {
+        $netsuiteInvoiceInternalId = $invoice->internalId;
+        $magentoInvoice = $this->getMagentoInvoice($invoice);
+        
+        if (!$magentoInvoice) {
+            $netsuiteOrderId = $invoice->createdFrom->internalId;
+            $magentoOrders = Mage::getModel('sales/order')->getCollection()->addFieldToFilter('netsuite_internal_id', $netsuiteOrderId);
+            $magentoOrder = $magentoOrders->getFirstItem(); // @var Mage_Sales_Model_Order $magentoOrder
+
+            if (!is_object($magentoOrder) || !$magentoOrder->getId()) {
+                throw new Exception("Order with netsuite internal id {$invoice->createdFrom->internalId} not found in Magento!");
+            }
+
+            $netsuiteCustomer = Mage::helper('rocketweb_netsuite/mapper_customer')->getByInternalId($invoice->entity->internalId);
+            $magentoInvoice = $this->createMagentoInvoice($invoice, $magentoOrder);
+        }
+        
+        return $magentoInvoice;
+    }
+    
+    public function getMagentoFormatFromInvoiceold(Invoice $invoice) {
         $magentoInvoice = Mage::getModel('sales/order_invoice');
         $netsuiteOrderId = $invoice->createdFrom->internalId;
         $magentoOrders = Mage::getModel('sales/order')->getCollection()->addFieldToFilter('netsuite_internal_id', $netsuiteOrderId);

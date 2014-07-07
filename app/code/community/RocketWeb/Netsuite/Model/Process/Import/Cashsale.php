@@ -16,7 +16,6 @@
  */
 
 class RocketWeb_Netsuite_Model_Process_Import_Cashsale extends RocketWeb_Netsuite_Model_Process_Import_Abstract {
-
     public function getPermissionName() {
         return RocketWeb_Netsuite_Helper_Permissions::GET_CASH_SALES;
     }
@@ -32,8 +31,15 @@ class RocketWeb_Netsuite_Model_Process_Import_Cashsale extends RocketWeb_Netsuit
     public function getDeleteMessageType() {
         return RocketWeb_Netsuite_Model_Queue_Message::CASHSALE_DELETED;
     }
-
+    
     public function process(Record $cashSale) {
+        $magentoInvoice = Mage::helper('rocketweb_netsuite/mapper_invoice')->getMagentoFormatFromCashSale($cashSale);
+        $magentoInvoice->setNetsuiteInternalId($cashSale->internalId);
+        $magentoInvoice->setLastImportDate(Mage::helper('rocketweb_netsuite')->convertNetsuiteDateToSqlFormat($cashSale->lastModifiedDate));
+        $magentoInvoice->save();
+    }
+
+    public function processOld(Record $cashSale) {
         $magentoInvoice = Mage::helper('rocketweb_netsuite/mapper_invoice')->getMagentoFormatFromCashSale($cashSale);
         
         if ($magentoInvoice) {
