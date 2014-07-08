@@ -80,8 +80,10 @@ class RocketWeb_Netsuite_Helper_Mapper_Shipment extends RocketWeb_Netsuite_Helpe
     }
     
     public function getMagentoFormat(ItemFulfillment $netsuiteShipment) {
+        $lastModifiedDate = Mage::helper('rocketweb_netsuite')->convertNetsuiteDateToSqlFormat($netsuiteShipment->lastModifiedDate);
         $netsuiteShipmentInternalId = $netsuiteShipment->internalId;
         $magentoShipment = $this->getMagentoShipment($netsuiteShipment);
+        $magentoOrder = null;
         
         if (!$magentoShipment) {
             $netsuiteOrderId = $netsuiteShipment->createdFrom->internalId;
@@ -94,19 +96,60 @@ class RocketWeb_Netsuite_Helper_Mapper_Shipment extends RocketWeb_Netsuite_Helpe
 
             $netsuiteCustomer = Mage::helper('rocketweb_netsuite/mapper_customer')->getByInternalId($netsuiteShipment->entity->internalId);
             $magentoShipment = $this->createMagentoShipment($netsuiteShipment, $magentoOrder);
+            
+            if ($magentoOrder->getPayment()->getMethodInstance()->getCode() == 'cod') {
+                if ($magentoOrder->getStatus() == 'processing_cod') {
+                    $magentoOrder->setStatus('shipping_cod');
+                    $magentoOrder->addStatusHistoryComment('Net Suite status change', 'shipping_cod');
+                    $magentoOrder->getStatusHistoryCollection()->save();
+                    $magentoOrder->save();
+                }
+            }
         }
         
+        /**
+         * save tracking number
+         */
         $trackingNumbers = Mage::helper('rocketweb_netsuite/mapper_trackingnumber')->getNormalizedTrackingNumberData($netsuiteShipment);
 
         if (count($trackingNumbers)) {
             foreach ($trackingNumbers as $trackingNumberData) {
                 $magentoTrackingNumber = Mage::helper('rocketweb_netsuite/mapper_trackingnumber')->getMagentoFormat($trackingNumberData, $netsuiteShipment->shipMethod);
                 $magentoShipment->addTrack($magentoTrackingNumber);
+                $magentoShipment->sendEmail(true, ''); 
+            }
+        }
+        else {
+            /**
+             * shipping status comment
+             * picked - packed - shipped
+             */
+            if (in_array($netsuiteShipment->shipStatus, array ('_picked', '_packed', '_shipped'))) {
+                if (!$magentoOrder) {
+                    $magentoOrder = $magentoShipment->getOrder();
+                }
+                
+                if ($magentoOrder->getPayment()->getMethodInstance()->getCode() == 'cod') {
+                    $magentoOrderStatus = 'shipping_cod';
+                }
+                else {
+                    $magentoOrderStatus = $magentoOrder->getStatus();
+                }
+                
+                $shipStatus = str_replace('_', '', $netsuiteShipment->shipStatus);
+                //$magentoOrder->setStatus($magentoOrderStatus);
+                $magentoOrder->addStatusHistoryComment("The order was {$shipStatus} at {$lastModifiedDate}", $magentoOrderStatus);
+                $magentoOrder->getStatusHistoryCollection()->save();
+                $magentoOrder->save();
             }
         }
         
-        $magentoShipment->setEmailSent(true);
-        $magentoShipment->sendEmail(true);
+        if (!$magentoShipment->getEmailSent()) {
+            $magentoShipment->sendEmail(true);
+            $magentoShipment->setEmailSent(true);
+        }
+        
+        $magentoShipment->save();
         
         return $magentoShipment;
     }
@@ -126,8 +169,8 @@ class RocketWeb_Netsuite_Helper_Mapper_Shipment extends RocketWeb_Netsuite_Helpe
         $shipmentMap = array ();
         $itemQty = array ();
         
-        foreach ($netsuiteShipment->itemList->item as $netsuiteShipmentItem) {
-            foreach ($magentoOrder->getAllItems() as $magentoOrderItem) {
+        foreach ($magentoOrder->getAllItems() as $magentoOrderItem) {
+            foreach ($netsuiteShipment->itemList->item as $netsuiteShipmentItem) {
                 if ($netsuiteShipmentItem->item->internalId == Mage::getModel('catalog/product')->load($magentoOrderItem->getProductId())->getNetsuiteInternalId()) {
                     $shipmentMapItem = array ();
                     $shipmentMapItem['netsuite_object'] = $netsuiteShipmentItem;
@@ -139,6 +182,12 @@ class RocketWeb_Netsuite_Helper_Mapper_Shipment extends RocketWeb_Netsuite_Helpe
         
         if (is_array($shipmentMap)) {
             foreach ($shipmentMap as $shipmentMapItem) {
+                if ($shipmentMapItem['magento_orderitem_object']->getParentItemId()) {
+                    if (!array_key_exists($shipmentMapItem['magento_orderitem_object']->getParentItemId(), $itemQty)) {
+                        $itemQty[$shipmentMapItem['magento_orderitem_object']->getParentItemId()] = (int) $shipmentMapItem['magento_orderitem_object']->getQtyOrdered / $shipmentMapItem['netsuite_object']->quantity;
+                    }
+                }
+                
                 $itemQty[$shipmentMapItem['magento_orderitem_object']->getId()] = $shipmentMapItem['netsuite_object']->quantity;
             }
         }

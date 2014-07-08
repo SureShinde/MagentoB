@@ -424,29 +424,6 @@ class RocketWeb_Netsuite_Helper_Mapper_Order extends RocketWeb_Netsuite_Helper_M
             if ($magentoOrderState == 'closed') {
                 $magentoOrderState = 'canceled';
             }
-            //re-save the billing and shipping addresses
-            //if(!$magentoOrder->hasInvoices()) {
-            //    if($netsuiteOrder->transactionBillAddress) {
-            //        $magentoBillingAddress = Mage::helper('rocketweb_netsuite/mapper_address')->getBillingAddressMagentoFormatFromNetsuiteAddress($netsuiteOrder->transactionBillAddress,
-            //            $netsuiteCustomer,
-            //            $magentoOrder);
-            //        $magentoBillingAddress->setId($magentoOrder->getBillingAddressId());
-            //        $magentoBillingAddress->save();
-            //    }
-            //}
-
-
-            //if(!$magentoOrder->hasShipments()) {
-            //    if($netsuiteOrder->transactionShipAddress) {
-            //        $magentoShippingAddress = Mage::helper('rocketweb_netsuite/mapper_address')->getShippingAddressMagentoFormatFromNetsuiteAddress($netsuiteOrder->transactionShipAddress,
-            //            $netsuiteCustomer,
-            //            $magentoOrder);
-            //        $magentoShippingAddress->setId($magentoOrder->getShippingAddressId());
-            //        $magentoShippingAddress->save();
-            //    }
-            //}
-
-
 
             /**
              * Re-save the shipping method, but only if there are no shipments. This is because Net Suite allows storing different shipping data at order and shipment level.
@@ -555,6 +532,17 @@ class RocketWeb_Netsuite_Helper_Mapper_Order extends RocketWeb_Netsuite_Helper_M
             $magentoOrder->setBaseSubtotal($netsuiteOrder->total);
             $magentoOrder->setTaxAmount($netsuiteOrder->taxTotal);
             $magentoOrder->setBaseTaxAmount($netsuiteOrder->taxTotal);
+        }
+        
+        /**
+         * COD handling
+         */
+        if ($magentoOrderState == 'processing') {
+            if ($magentoOrder->getPayment()->getMethodInstance()->getCode() == 'cod') {
+                $magentoOrder->setStatus('processing_cod');
+                $magentoOrder->addStatusHistoryComment('Net Suite status change', 'processing_cod');
+                $magentoOrder->getStatusHistoryCollection()->save();
+            }
         }
 
         return $magentoOrder;

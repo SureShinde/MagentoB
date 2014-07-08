@@ -127,7 +127,8 @@ class RocketWeb_Netsuite_Helper_Mapper_Invoice extends RocketWeb_Netsuite_Helper
         if (!$magentoOrder->canInvoice()) {
              throw new Exception("{$magentoOrder->getId()}: Cannot do shipment for this order!");
         }
-            
+        
+        Mage::register('skip_invoice_export_queue_push', 1);
         $magentoInvoice = $magentoOrder->prepareInvoice($itemQty);
         
         if ($magentoInvoice) {
@@ -139,8 +140,6 @@ class RocketWeb_Netsuite_Helper_Mapper_Invoice extends RocketWeb_Netsuite_Helper
             $magentoInvoice->getOrder()->setTotalPaid($cashSale->total);
             $magentoInvoice->getOrder()->setBaseTotalPaid($cashSale->total);
             $magentoInvoice->getOrder()->save();
-            
-            Mage::register('skip_invoice_export_queue_push', 1);
             
             try {
                 $transactionSave = Mage::getModel('core/resource_transaction')
