@@ -30,22 +30,22 @@ class AW_Blog_Block_Rss extends Mage_Rss_Block_Abstract
     protected function _construct()
     {
         // Setting cache to save the rss for 10 minutes
-        $this->setCacheKey(
+        /*$this->setCacheKey(
             'rss_catalog_category_'
             . Mage::app()->getStore()->getId() . '_'
             . $this->getRequest()->getParam('cid') . '_'
             . $this->getRequest()->getParam('sid')
         );
-        $this->setCacheLifetime(600);
+        $this->setCacheLifetime(600);*/
     }
 
     protected function _toHtml()
     {
         $rssObj = Mage::getModel('rss/rss');
-        $route = Mage::helper('blog')->getRoute();
-        $url = $this->getUrl($route);
-        $title = Mage::getStoreConfig('blog/blog/title');
-        $data = array(
+        $route  = Mage::helper('blog')->getRoute();
+        $url    = $this->getUrl($route);
+        $title  = Mage::getStoreConfig('blog/blog/title');
+        $data   = array(
             'title'       => $title,
             'description' => $title,
             'link'        => $url,
@@ -77,8 +77,10 @@ class AW_Blog_Block_Rss extends Mage_Rss_Block_Abstract
 
         Mage::getSingleton('blog/status')->addEnabledFilterToCollection($collection);
 
+        $p = isset($_GET['p']) ? $_GET['p'] : 1;
+        
         $collection->setPageSize((int)Mage::getStoreConfig('blog/rss/posts'));
-        $collection->setCurPage(1);
+        $collection->setCurPage($p);
 
         if ($collection->getSize()) {
             $processor = Mage::helper('cms')->getBlockTemplateProcessor();
