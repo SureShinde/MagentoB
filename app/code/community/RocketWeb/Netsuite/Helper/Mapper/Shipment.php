@@ -184,10 +184,20 @@ class RocketWeb_Netsuite_Helper_Mapper_Shipment extends RocketWeb_Netsuite_Helpe
             foreach ($shipmentMap as $shipmentMapItem) {
                 if ($shipmentMapItem['magento_orderitem_object']->getParentItemId()) {
                     if (!array_key_exists($shipmentMapItem['magento_orderitem_object']->getParentItemId(), $itemQty)) {
-                        $itemQty[$shipmentMapItem['magento_orderitem_object']->getParentItemId()] = (int) $shipmentMapItem['magento_orderitem_object']->getQtyOrdered / $shipmentMapItem['netsuite_object']->quantity;
+                        $_bundleConfigurableQty = 0;
+
+                        if (in_array($shipmentMapItem['magento_orderitem_object']->getProductType(), array ('configurable'))) {
+                            $_bundleConfigurableQty = $shipmentMapItem['netsuite_object']->quantity;
+                        }
+
+                        if (in_array($shipmentMapItem['magento_orderitem_object']->getProductType(), array ('bundle'))) {
+                            $_bundleConfigurableQty = $shipmentMapItem['magento_orderitem_object']->getQtyOrdered() / $shipmentMapItem['netsuite_object']->quantity;
+                        }
+
+                        $itemQty[$shipmentMapItem['magento_orderitem_object']->getParentItemId()] = (int) $_bundleConfigurableQty;
                     }
                 }
-                
+
                 $itemQty[$shipmentMapItem['magento_orderitem_object']->getId()] = $shipmentMapItem['netsuite_object']->quantity;
             }
         }
