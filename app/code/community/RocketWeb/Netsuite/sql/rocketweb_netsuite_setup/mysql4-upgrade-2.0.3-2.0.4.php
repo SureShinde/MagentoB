@@ -13,7 +13,7 @@ $installer->run(
         `order_increment_id` int(11) unsigned NOT NULL,
         `sku` varchar(255) DEFAULT NULL,
         `qty_shipped` decimal(12,4) DEFAULT NULL,
-        `import_date` date DEFAULT NULL,
+        `import_date` datetime DEFAULT NULL,
         PRIMARY KEY (`id`)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8;"
 );

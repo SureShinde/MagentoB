@@ -166,39 +166,45 @@ class RocketWeb_Netsuite_Helper_Mapper_Shipment extends RocketWeb_Netsuite_Helpe
     }
     
     protected function createMagentoShipment(ItemFulfillment $netsuiteShipment, Mage_Sales_Model_Order $magentoOrder) {
-        $shipmentMap = array ();
-        $itemQty = array ();
-        
-        foreach ($magentoOrder->getAllItems() as $magentoOrderItem) {
-            foreach ($netsuiteShipment->itemList->item as $netsuiteShipmentItem) {
+		$shipmentMap = array ();
+        $itemParents = array ();
+        $itemShip = array ();
+		
+        foreach ($netsuiteShipment->itemList->item as $netsuiteShipmentItem) {
+			foreach ($magentoOrder->getAllItems() as $magentoOrderItem) {
                 if ($netsuiteShipmentItem->item->internalId == Mage::getModel('catalog/product')->load($magentoOrderItem->getProductId())->getNetsuiteInternalId()) {
                     $shipmentMapItem = array ();
                     $shipmentMapItem['netsuite_object'] = $netsuiteShipmentItem;
                     $shipmentMapItem['magento_orderitem_object'] = $magentoOrderItem;
                     $shipmentMap[] = $shipmentMapItem;
+
+                    if (!$magentoOrderItem->getParentItemId()) {
+                        $itemParent[$magentoOrderItem->getId()] = array (
+							'sku' => $magentoOrderItem->getSku(),
+                            'qty' => $magentoOrderItem->getQtyOrdered() - $magentoOrderItem->getQtyShipped()
+                        );
+                    }
+
+					break;
                 }
             }
         }
+
+		echo "[{$magentoOrder->getIncrementId()}]: " . json_encode($shipmentMap) . "\n";
+		echo "[{$magentoOrder->getIncrementId()}] totalShipmentMap: " . count($shipmentMap) . "\n";
+		echo "[{$magentoOrder->getIncrementId()}] totalItemParent: " . count($itemParent) . "\n";
+		//exit;
         
         if (is_array($shipmentMap)) {
             foreach ($shipmentMap as $shipmentMapItem) {
-                if ($shipmentMapItem['magento_orderitem_object']->getParentItemId()) {
-                    if (!array_key_exists($shipmentMapItem['magento_orderitem_object']->getParentItemId(), $itemQty)) {
-                        $_bundleConfigurableQty = 0;
-
-                        if (in_array($shipmentMapItem['magento_orderitem_object']->getProductType(), array ('configurable'))) {
-                            $_bundleConfigurableQty = $shipmentMapItem['netsuite_object']->quantity;
-                        }
-
-                        if (in_array($shipmentMapItem['magento_orderitem_object']->getProductType(), array ('bundle'))) {
-                            $_bundleConfigurableQty = $shipmentMapItem['magento_orderitem_object']->getQtyOrdered() / $shipmentMapItem['netsuite_object']->quantity;
-                        }
-
-                        $itemQty[$shipmentMapItem['magento_orderitem_object']->getParentItemId()] = (int) $_bundleConfigurableQty;
-                    }
+                //if ($this->checkItemParent($shipmentMapItem['magento_orderitem_object']->getId(), $itemParent)) {
+				if ($itemParent[$shipmentMapItem['magento_orderitem_object']->getId()] && ($shipmentMapItem['netsuite_object']->quantity <= $itemParent[$shipmentMapItem['magento_orderitem_object']->getId()]['qty'])) {
+	                $itemShip[$shipmentMapItem['magento_orderitem_object']->getId()] = $shipmentMapItem['netsuite_object']->quantity;
+                    $itemParent[$shipmentMapItem['magento_orderitem_object']->getId()]['qty'] = $itemParent[$shipmentMapItem['magento_orderitem_object']->getId()]['qty'] - $shipmentMapItem['netsuite_object']->quantity;
                 }
-
-                $itemQty[$shipmentMapItem['magento_orderitem_object']->getId()] = $shipmentMapItem['netsuite_object']->quantity;
+				else {
+					$this->saveBundleConfigurable($netsuiteShipment, $shipmentMapItem['netsuite_object'], $shipmentMapItem['magento_orderitem_object']);
+				}
             }
         }
         
@@ -208,8 +214,14 @@ class RocketWeb_Netsuite_Helper_Mapper_Shipment extends RocketWeb_Netsuite_Helpe
         if (!$magentoOrder->canShip()) {
              throw new Exception("{$magentoOrder->getId()}: Cannot do shipment for this order!");
         }
-            
-        $magentoShipment = $magentoOrder->prepareShipment($itemQty);
+        
+        if (count($itemShip) == 0) {
+            throw new Exception("{$magentoOrder->getId()}: Cannot create shipment, because there is no order item!");
+        }
+        
+        echo $magentoOrder->getIncrementId() . ": itemParent: " . json_encode($itemParent) . "\n";
+        echo $magentoOrder->getIncrementId() . ": itemShip: " . json_encode($itemShip) . "\n";
+        $magentoShipment = $magentoOrder->prepareShipment($itemShip);		
         
         if ($magentoShipment) {
             $magentoShipment->register();
@@ -230,5 +242,33 @@ class RocketWeb_Netsuite_Helper_Mapper_Shipment extends RocketWeb_Netsuite_Helpe
         }
         
         return null;
+    }
+
+	protected function checkItemParent($itemId, $itemParent) {
+        foreach ($itemParent as $key => $value) {
+            if ($itemId == $key) {
+				echo "$sku - $key\n";
+                return true;
+            }
+        }
+        
+        return false;
+    }
+
+    protected function saveBundleConfigurable(ItemFulfillment $netsuiteShipment, $netsuiteShipmentItem, Mage_Sales_Model_Order_Item $magentoOrderItem) {
+		$resource = Mage::getSingleton('core/resource');
+        $writeConnection = $resource->getConnection('core_write');
+        $table = 'netsuite_shipment_bundle';
+        $query = sprintf(
+            "INSERT INTO %s(order_increment_id, sku, qty_shipped, import_date)
+            VALUES(%s, '%s', %d, '%s')",
+            $table,
+            $magentoOrderItem->getOrder()->getIncrementId(),
+            $magentoOrderItem->getSku(),
+            $netsuiteShipmentItem->quantity,
+            Mage::helper('rocketweb_netsuite')->convertNetsuiteDateToSqlFormat($netsuiteShipment->lastModifiedDate)
+        );
+		echo $magentoOrderItem->getOrder()->getIncrementId() . ": " . $query . "\n";
+        $writeConnection->query($query);
     }
 }

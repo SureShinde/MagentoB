@@ -11,7 +11,7 @@ class Bilna_Netsuitesync_Shell_NetsuiteExportOrder extends Mage_Shell_Abstract {
     public function run() {
         $this->writeLog("Started export orders ...");
         $orderCollection = $this->getOrderCollection();
-        $this->writeLog("Processing {$orderCollection->getSize()} orders ...");
+        //$this->writeLog("Processing {$orderCollection->getSize()} orders ...");
         
         foreach ($orderCollection as $order) {
             if (!$order || !$order->getEntityId()) {
@@ -47,11 +47,21 @@ class Bilna_Netsuitesync_Shell_NetsuiteExportOrder extends Mage_Shell_Abstract {
     }
     
     protected function getOrderCollection() {
+        $maxOrderId = $this->getMaxOrderId();
+        $orderCollectionLimit = $this->getOrderCollectionLimit();
+        
         $orderCollection = Mage::getModel('sales/order')->getCollection();
         $orderCollection->addAttributeToFilter('netsuite_internal_id', array ('eq' => ''));
-        $orderCollection->addAttributeToFilter('entity_id', array ('lteq' => $this->getMaxOrderId()));
+        
+        if ($maxOrderId && $maxOrderId > 0) {
+            $orderCollection->addAttributeToFilter('entity_id', array ('lteq' => $this->getMaxOrderId()));
+        }
+        
         $orderCollection->addAttributeToSort('entity_id', 'DESC');
-        $orderCollection->getSelect()->limit($this->getOrderCollectionLimit());
+        
+        if ($orderCollectionLimit && $orderCollectionLimit > 0) {
+            $orderCollection->getSelect()->limit($this->getOrderCollectionLimit());
+        }
 
         return $orderCollection;
     }
@@ -67,7 +77,8 @@ class Bilna_Netsuitesync_Shell_NetsuiteExportOrder extends Mage_Shell_Abstract {
     protected function writeLog($message) {
         $filename = "netsuite.order." . date('Ymd', Mage::getModel('core/date')->timestamp(time())) . ".log";
         $datetime = date('Y-m-d H:i:s', Mage::getModel('core/date')->timestamp(time()));
-        @error_log("{$datetime} | {$message}\n", 3, "/usr/share/nginx/html/bilna.2014.new/var/log/netsuite/order/{$filename}");
+        //@error_log("{$datetime} | {$message}\n", 3, "/usr/share/nginx/html/bilna.2014.new/var/log/netsuite/order/{$filename}");
+        Mage::log($message, null, "netsuite_migration_order.log");
     }
 }
 

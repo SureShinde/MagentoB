@@ -39,6 +39,9 @@
                     <productcost>
                         <table>netsuite_product_cost</table>
                     </productcost>
+                    <itembundle>
+                        <table>netsuite_shipment_bundle</table>
+                    </itembundle>
                 </entities>
             </rocketweb_netsuite_resource>
             <tax>
