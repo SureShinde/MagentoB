@@ -1799,7 +1799,13 @@ h2.block-grey-title-left {
 
 .formbuilder-form ul li div.form-checkbox{
     clear: both;
-    margin: 40px 0 0 0;
+    margin: 0px 0 20px 0;
+    /* margin: 40px 0 0 0; */
+}
+.form-question.title-checkbox {
+    font-weight: normal !important;
+    border-bottom: none !important;
+    margin-top: 20px !important;
 }
 .formbuilder-form ul li div.form-checkbox input{
     margin: 2px 5px 0 0;
@@ -2945,4 +2951,99 @@ button.button-area {
 		}
 	}
 /*=============================end style event july mom n jo=============================*/
+
+/*=============================style tanya nadia=============================*/
+
+.tanya-nadia .col{
+	float:left;
+	width:50%;
+	margin:40px 0 0;
+}
+.tanya-nadia .formbuilder-form #submit-form{
+	float:right !important;
+	margin:0 10px 0 0 !important;
+}
+.tanya-nadia .formbuilder-form{
+	width:90% !important;
+}
+
+.tanya-nadia .formbuilder-form ul li{
+	width:100%;
+}
+.tanya-nadia textarea#question {
+    margin: 0 !important;
+    width: 62% !important;
+}
+.tanya-nadia .required-entry{
+    margin: 0 !important;
+    width: 180px !important;
+}
+.tanya-nadia .col ol li span{
+	font-style:italic;
+	font-size:20px;
+}
+.tanya-nadia .col iframe{
+	min-height: 315px;
+    width: 90%;
+}
+
+@media only screen and (max-width: 1215px){
+		.tanya-nadia .col{
+		width:50%;
+		float:left;
+		margin:40px 0 0;
+	}
+	.tanya-nadia .col .form-checkbox input{
+		margin:0 !important;
+	}
+	.tanya-nadia .col .formbuilder-form .required{
+		margin:5px 0;
+	}
+	.tanya-nadia .col .formbuilder-form .input-text{
+		width:100% !important;
+	}
+}
+@media only screen and (max-width: 1023px){
+	.tanya-nadia .col iframe{
+	min-height: 225px;
+	}
+	.tanya-nadia .col{
+		width:100%;
+		margin:40px 0 0;
+	}
+}
+@media only screen and (max-width: 768px) {
+	.tanya-nadia .col{
+		width:100%;
+		margin:40px 0 0;
+	}
+	.tanya-nadia .col .form-checkbox input{
+		margin:0 !important;
+	}
+	.tanya-nadia .col .formbuilder-form .required{
+		margin:5px 0;
+	}
+	.tanya-nadia .col .formbuilder-form .input-text{
+		width:100%;
+	}
+	.tanya-nadia {
+		width:96%;
+		padding:0 2%;
+	}
+	.tanya-nadia .col iframe{
+	min-height: 360px;
+    width: 90%;
+	}
+}
+@media only screen and (max-width: 468px) {
+	
+	.tanya-nadia .col{
+		width:100%;
+		margin:40px 0 0;
+	}
+	.tanya-nadia .col iframe{
+	min-height: 195px;
+	}
+}
+/*=============================end style tanya nadia=============================*/
 
