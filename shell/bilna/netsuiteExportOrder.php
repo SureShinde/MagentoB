@@ -8,6 +8,8 @@
 require_once dirname(__FILE__) . '/../abstract.php';
 
 class Bilna_Netsuitesync_Shell_NetsuiteExportOrder extends Mage_Shell_Abstract {
+    protected $orderStatusAllow = array ('pending', 'pending_cod');
+    
     public function run() {
         $this->writeLog("Started export orders ...");
         $orderCollection = $this->getOrderCollection();
@@ -52,6 +54,7 @@ class Bilna_Netsuitesync_Shell_NetsuiteExportOrder extends Mage_Shell_Abstract {
         
         $orderCollection = Mage::getModel('sales/order')->getCollection();
         $orderCollection->addAttributeToFilter('netsuite_internal_id', array ('eq' => ''));
+        $orderCollection->addAttributeToFilter('status', array ('in' => $this->orderStatusAllow));
         
         if ($maxOrderId && $maxOrderId > 0) {
             $orderCollection->addAttributeToFilter('entity_id', array ('lteq' => $this->getMaxOrderId()));
