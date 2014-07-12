@@ -116,7 +116,7 @@ class RocketWeb_Netsuite_Helper_Mapper_Shipment extends RocketWeb_Netsuite_Helpe
             foreach ($trackingNumbers as $trackingNumberData) {
                 $magentoTrackingNumber = Mage::helper('rocketweb_netsuite/mapper_trackingnumber')->getMagentoFormat($trackingNumberData, $netsuiteShipment->shipMethod);
                 $magentoShipment->addTrack($magentoTrackingNumber);
-                $magentoShipment->sendEmail(true, ''); 
+//                 $magentoShipment->sendEmail(true, ''); 
             }
         }
         else {
@@ -144,10 +144,10 @@ class RocketWeb_Netsuite_Helper_Mapper_Shipment extends RocketWeb_Netsuite_Helpe
             }
         }
         
-        if (!$magentoShipment->getEmailSent()) {
+//         if (!$magentoShipment->getEmailSent()) { 
             $magentoShipment->sendEmail(true);
             $magentoShipment->setEmailSent(true);
-        }
+//         }
         
         $magentoShipment->save();
         

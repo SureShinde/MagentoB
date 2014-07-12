@@ -142,13 +142,13 @@ class RocketWeb_Netsuite_Helper_Mapper_Invoice extends RocketWeb_Netsuite_Helper
             $magentoInvoice->getOrder()->save();
             
             try {
+                $magentoInvoice->sendEmail(true);
+                $magentoInvoice->setEmailSent(true); 
+                
                 $transactionSave = Mage::getModel('core/resource_transaction')
                     ->addObject($magentoInvoice)
                     ->addObject($magentoInvoice->getOrder())
                     ->save();
-                
-                $magentoInvoice->setEmailSent(true);
-                $magentoInvoice->sendEmail(true);
                 
                 return $magentoInvoice;
             }
