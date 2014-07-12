@@ -475,7 +475,12 @@ class RocketWeb_Netsuite_Helper_Mapper_Order extends RocketWeb_Netsuite_Helper_M
     protected function _initSimpleCustomField($customFieldsConfigItem,$magentoOrder) {
         $customField = new StringCustomFieldRef();
         $customField->internalId = $customFieldsConfigItem['netsuite_field_name'];
-        $customField->value = $this->_getCustomFieldValueFromMagentoData($customFieldsConfigItem,$magentoOrder);
+
+        if ($customFieldsConfigItem['netsuite_field_name'] == 'custbody_deliverytype') {
+        	$customField->value = str_replace("Pilih - ", "", $this->_getCustomFieldValueFromMagentoData($customFieldsConfigItem,$magentoOrder));
+        }else{
+        	$customField->value = $this->_getCustomFieldValueFromMagentoData($customFieldsConfigItem,$magentoOrder);
+        }
 
         return $customField;
     }
