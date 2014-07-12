@@ -246,7 +246,76 @@ class RocketWeb_Netsuite_Model_Observer {
 		
 		return $this;
 	}
+        
+    /**
+     * @param type $observer
+     * @return \RocketWeb_Netsuite_Model_Observer
+     */
+    public function queueProductSaveCostNetsuite($observer) {
+        if (!Mage::helper('rocketweb_netsuite')->isEnabled()) {
+            return $this;
+        }
+        
+        $product = $observer->getEvent()->getProduct();
+        $productId = $product->getId();
+        
+        // original value
+        $origCost = $product->getOrigData('cost');
+        $origExpectedCost = $product->getOrigData('expected_cost');
+        $origEventCost = $product->getOrigData('event_cost');
+        $origEventStartDate = date('Y-m-d', strtotime($product->getOrigData('event_start_date')));
+        $origEventEndDate = date('Y-m-d', strtotime($product->getOrigData('event_end_date')));
+        
+        // new value
+        $newCost = $product->getData('cost');
+        $newExpectedCost = $product->getData('expected_cost');
+        $newEventCost = $product->getData('event_cost');
+        $newEventStartDate = date('Y-m-d', strtotime($product->getData('event_start_date')));
+        $newEventEndDate = date('Y-m-d', strtotime($product->getData('event_end_date')));
+        
+        if (($origCost == $newCost) && ($origExpectedCost == $newExpectedCost) && ($origEventCost == $newEventCost) && ($origEventStartDate == $newEventStartDate) && ($origEventEndDate == $newEventEndDate)) {
+            return $this;
+        }
+        else {
+            $model = Mage::getModel('rocketweb_netsuite/productcost');
+            $productCost = $model->getCollection()->addFieldToFilter('product_id', $productId)->addFieldToSelect('id')->addFieldToSelect('product_id')->getFirstItem();
+            
+            // if productId exist, just update row
+            if ($productCost->getProductId()) {
+                $id = $productCost->getId();
+                $dataArr = array (
+                    'cost' => $newCost,
+                    'expected_cost' => $newExpectedCost,
+                    'event_cost' => $newEventCost,
+                    'event_start_date' => $newEventStartDate,
+                    'event_end_date' => $newEventEndDate
+                );
+                $update = $model->load($id)->addData($dataArr);
+                
+                if (!$update->setId($id)->save()) {
+                    Mage::log("update queueProductSaveCostNetsuite #" . $product->getId() . " : failed, " . $e->getMessage(), null, "netsuite_product_cost.log");
+                }
+            }
+            else {
+                $dataArr = array (
+                    'product_id' => $productId,
+                    'cost' => $newCost,
+                    'expected_cost' => $newExpectedCost,
+                    'event_cost' => $newEventCost,
+                    'event_start_date' => $newEventStartDate,
+                    'event_end_date' => $newEventEndDate,
+                    'netsuite_internal_id' => $product->getNetsuiteInternalId()
+                );
+                $insert = $model->setData($dataArr);
 
+                if (!$insertId = $insert->save()->getId()) {
+                    Mage::log("insert queueProductSaveCostNetsuite #" . $product->getId() . " : failed", null, "netsuite_product_cost.log");
+                }
+            }
+        }
+                
+        return $this;
+    }
 
     public function processStockImport($logger=null) {
         //The following 2 if conditions are redundant, Mage::helper('rocketweb_netsuite/stock')->shouldRun cheks for them too. Keeping them here so we save the

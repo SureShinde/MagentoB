@@ -29,7 +29,7 @@ class RocketWeb_Netsuite_Shell_NetsuiteCron extends Mage_Shell_Abstract
                         Mage::getModel('rocketweb_netsuite/observer')->processStockImport();
                         break;
                     case 'import':
-                        Mage::getModel('rocketweb_netsuite/process')->processImport();
+                        Mage::getModel('rocketweb_netsuite/process')->processImport($this);
                         break;
                     case 'export':
                         Mage::getModel('rocketweb_netsuite/process')->processExport();
@@ -79,7 +79,7 @@ class RocketWeb_Netsuite_Shell_NetsuiteCron extends Mage_Shell_Abstract
 
     public function logProgress($message) {
         if($this->getArg('verbose')) {
-            echo $message;
+            echo $message . "\n";
         }
     }
 

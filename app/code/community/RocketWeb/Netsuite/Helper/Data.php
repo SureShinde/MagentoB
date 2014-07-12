@@ -126,9 +126,10 @@ class RocketWeb_Netsuite_Helper_Data extends Mage_Core_Helper_Data {
 
     }
 	
-	public function log($message) {
-		Mage::log($message,Zend_Log::DEBUG,self::LOG_FILE_NAME);
-	}
+    public function log($message, $filename = '') {
+        $filename = empty ($filename) ? self::LOG_FILE_NAME : $filename;
+        Mage::log($message, Zend_Log::DEBUG, $filename);
+    }
 
     public function getNetsuiteShippingMethodInternalId($magentoShippingMethodCode) {
         $shippingMapping = unserialize(Mage::getStoreConfig('rocketweb_netsuite/shipping_methods/netsuite_mapping'));

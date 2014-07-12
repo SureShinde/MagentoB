@@ -8,7 +8,7 @@
     </tabs>
     <sections>
     	<rocketweb_netsuite translate="label" module="rocketweb_netsuite">
-    		<label>Netsuite Integration</label>
+            <label>Netsuite Integration</label>
             <tab>rocketweb_tab</tab>
             <frontend_type>text</frontend_type>
             <sort_order>400</sort_order>
@@ -371,6 +371,15 @@
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
                         </get_products>
+                        <get_creditmemo>
+                            <label>Enable getting Credit Memo data from NetSuite</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>100</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </get_creditmemo>
                     </fields>
                 </enable_disable_features>
             	<queue_processing translate="label">
@@ -907,6 +916,15 @@
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
                         </invoices_netsuite_type>
+                        <disabled_button_invoice_admin>
+                            <label>Disable Invoice button Admin Magento</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>100</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </disabled_button_invoice_admin>
                     </fields>
                 </orders>
                 <exports>
@@ -917,6 +935,15 @@
                     <show_in_website>1</show_in_website>
                     <show_in_store>1</show_in_store>
                     <fields>
+                        <order_historical translate="label">
+                            <label>Order Historical</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>9</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </order_historical>
                         <product_default_id>
                             <label>Product Default Internal ID</label>
                             <frontend_type>text</frontend_type>

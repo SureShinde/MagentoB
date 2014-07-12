@@ -76,7 +76,8 @@ class RocketWeb_Netsuite_Helper_Stock extends Mage_Core_Helper_Data {
         $netsuiteService = Mage::helper('rocketweb_netsuite')->getNetsuiteService();
         $netsuiteService->setSearchPreferences(true,$pageSize);
 
-        $search = new ItemSearchAdvanced();
+        //$search = new ItemSearchAdvanced();
+        $search = new CustomRecordSearchAdvanced();
         $search->savedSearchId = $savedSearchId;
 
         $request = new SearchRequest();

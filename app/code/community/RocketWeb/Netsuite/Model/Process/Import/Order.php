@@ -20,7 +20,6 @@ class RocketWeb_Netsuite_Model_Process_Import_Order extends RocketWeb_Netsuite_M
         return RocketWeb_Netsuite_Helper_Permissions::GET_ORDER_CHANGES;
     }
 
-
     public function isMagentoImportable(Record $salesOrder) {
         /** @var SalesOrder $salesOrder */
 
@@ -69,20 +68,16 @@ class RocketWeb_Netsuite_Model_Process_Import_Order extends RocketWeb_Netsuite_M
         return true;
     }
 
-    public function process(Record $salesOrder) {
-        /** @var SalesOrder $salesOrder */
-        $magentoOrder = Mage::helper('rocketweb_netsuite/mapper_order')->getMagentoFormat($salesOrder);
-        $magentoOrder->setNetsuiteInternalId($salesOrder->internalId);
-        $magentoOrder->setLastImportDate(Mage::helper('rocketweb_netsuite')->convertNetsuiteDateToSqlFormat($salesOrder->lastModifiedDate));
+    public function process(Record $netsuiteOrder) {
+        $magentoOrder = Mage::helper('rocketweb_netsuite/mapper_order')->getMagentoFormat($netsuiteOrder);
+        $magentoOrder->setNetsuiteInternalId($netsuiteOrder->internalId);
+        $magentoOrder->setLastImportDate(Mage::helper('rocketweb_netsuite')->convertNetsuiteDateToSqlFormat($netsuiteOrder->lastModifiedDate));
         $magentoOrder->getResource()->save($magentoOrder);
 
         //update the order grid
         $dbConnection = Mage::getSingleton('core/resource')->getConnection('core_write');
         $tableName = Mage::getSingleton('core/resource')->getTableName('sales_flat_order_grid');
-        $query = "UPDATE $tableName SET grand_total={$magentoOrder->getGrandTotal()}, base_grand_total={$magentoOrder->getGrandTotal()}, status='{$magentoOrder->getStatus()}' WHERE entity_id = {$magentoOrder->getId()}";
+        $query = "UPDATE $tableName SET grand_total = {$magentoOrder->getGrandTotal()}, base_grand_total = {$magentoOrder->getGrandTotal()}, status = '{$magentoOrder->getStatus()}' WHERE entity_id = {$magentoOrder->getId()}";
         $dbConnection->query($query);
-
     }
-
-
 }
