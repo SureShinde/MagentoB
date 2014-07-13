@@ -3,15 +3,17 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
 {
 	public function submitAction() 
 	{
- 		$postData		= $this->getRequest()->getPost();
-		$form_id		= $postData['form_id'];
-		$create_date	= now("Y-m-d H:i:s");
-		$data			= array();
-
-		//$record_id = $this->getRequest()->getPost('record_id');
-		$connection = Mage::getSingleton('core/resource')->getConnection('core_read');
-		$sql = "select max(record_id) as record_id from bilna_formbuilder_data where form_id = $form_id";
-		$row = $connection->fetchRow($sql);
+ 		$postData       = $this->getRequest()->getPost();
+		$form_id        = $postData['form_id'];
+		//$create_date  = datetime('Y-m-d H:i:s');
+		$create_date    = Mage::getModel('core/date')->date();
+		$data           = array();
+		//$record_id    = $this->getRequest()->getPost('record_id');
+		$connection     = Mage::getSingleton('core/resource')->getConnection('core_read');
+		$sql            = "select max(record_id) as record_id from bilna_formbuilder_data where form_id = $form_id";
+		$row            = $connection->fetchRow($sql);
+		$session        = Mage::getSingleton('core/session');
+		Mage::getSingleton('core/session')->setFormbuilderSubmited(true);
 
 		if(is_null($row['record_id'])){
 			$record_id = 1;
@@ -20,10 +22,10 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
 		}
 
 		$connection = Mage::getSingleton('core/resource')->getConnection('core_read');
-		$sql = "select * from bilna_formbuilder_form where id = $form_id";
-		$row = $connection->fetchRow($sql);
+		$sql        = "select * from bilna_formbuilder_form where id = $form_id";
+		$row        = $connection->fetchRow($sql);
 
-		//CHECK INPUTS SETTING
+// 		//CHECK INPUTS SETTING
 		$block = Mage::getModel('bilna_formbuilder/form')->getCollection();
 		$block->getSelect()->join('bilna_formbuilder_input', 'main_table.id = bilna_formbuilder_input.form_id');
 		$block->addFieldToFilter('main_table.id', $form_id);
@@ -37,14 +39,19 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
 				}
 				
 				if(!isset($postData["inputs"][$field["group"]]) || empty($postData["inputs"][$field["group"]]) || is_null($postData["inputs"][$field["group"]])){
+					if(!is_null($row["static_failed"]) || $row["static_failed"]!==""){
+						Mage::getSingleton('core/session')->setFormbuilderFailed(true);
+					}
 					Mage::getSingleton('core/session')->addError($message);
-					
 					$redirectPage = Mage::getBaseUrl().$field["url"];
 					$this->_redirectPage($redirectPage);
 				}
+
 				if($field["type"]=="checkbox" && $postData["inputs"][$field["group"]] <> "on"){
-					Mage::getSingleton('core/session')->addError($message);
-						
+					if(!is_null($row["static_failed"]) || $row["static_failed"]!==""){
+						Mage::getSingleton('core/session')->setFormbuilderFailed(true);
+					}
+					Mage::getSingleton('core/session')->addError($message);	
 					$redirectPage = Mage::getBaseUrl().$field["url"];
 					$this->_redirectPage($redirectPage);
 				}
@@ -56,12 +63,12 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
 				$collection->addFieldToFilter('main_table.form_id', $form_id);
 				$collection->addFieldToFilter('main_table.type', $field["group"]);
 				$collection->addFieldToFilter('main_table.value', $postData["inputs"][$field["group"]]);
-		
-				$exist = $collection->getFirstItem();
-
-				if(!is_null($exist["form_id"])){
-					Mage::getSingleton('core/session')->addError($field["title"].' must be unique');
-				
+				$jumlah=$collection->getSize();
+				if($jumlah!=0){
+					if(!is_null($row["static_failed"]) || $row["static_failed"]!==""){
+						Mage::getSingleton('core/session')->setFormbuilderFailed(true);
+					}
+					Mage::getSingleton('core/session')->addError($field["title"].' already exists in our database');
 					$redirectPage = Mage::getBaseUrl().$field["url"];
 					$this->_redirectPage($redirectPage);
 				}
@@ -71,19 +78,63 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
 		foreach($postData["inputs"] as $type=>$value){				
 			$insertData = $this->_insertData($form_id,$record_id,$type,$value,$create_date);
 		}
+		
+		$freeProducts = json_decode($row["freeproducts"]);
+		foreach($freeProducts->sku as $sku){
+			$productModel = Mage::getModel('catalog/product');
+			$productId = $productModel->getIdBySku($sku);
+			
+			if(!is_null($productId)){
+				$productOnCart	= false;
+				
+				//Check if product already exist on the cart
+		        $quote = Mage::getSingleton('checkout/session')->getQuote();
+		        foreach ($quote->getAllItems() as $item) {
+		        	if($item->getSku() == $sku){
+		        		$productOnCart	= true;
+		        	}
+		        }
+		        
+	        	if($productOnCart!==true){
+	        		$params = array(
+	        				'product' => $productId,
+	        				'qty' => 1,
+	        		);
+	        		$cart = Mage::getSingleton('checkout/cart');
+	        		$product = new Mage_Catalog_Model_Product();
+	        		$product->load($productId);
+	        		$cart->addProduct($product, $params);
+	        		$cart->save();
+	        		Mage::getSingleton('checkout/session')->setCartWasUpdated(true);
+	        	}
+			}
+		}
 
 		if($row["sent_email"] == 1 && isset($postData["inputs"]["email"])){
-			$data["email"] = $postData["inputs"]["email"];
-			$data["name"] = (isset($postData["inputs"]["name"]))?$postData["inputs"]["name"]:"";
-			$data["phone"] = (isset($postData["inputs"]["phone"]))?$postData["inputs"]["phone"]:"";
-			$data["comment"] = (isset($postData["inputs"]["comment"]))?$postData["inputs"]["comment"]:"";
 
-			$this->_prepareEmail($data, $row["email_id"]);
+			$collection = Mage::getModel('bilna_formbuilder/data')->getCollection();
+			$collection->getSelect()->reset(Zend_Db_Select::COLUMNS)->columns(array(
+				'record_id'=>'record_id',
+				'type'     =>'type',
+				'value'    =>'value'
+			));
+			$collection->addFieldToFilter('main_table.form_id', (int) $form_id);
+			$collection->addFieldToFilter('main_table.record_id', (int) $record_id);
+
+			$data = array ();
+
+			foreach ($collection as $collect) {
+				$data[$collect->getType()] = $collect->getValue();
+			}
+
+			//Zend_Debug::Dump($collection->printLogQuery(true)); die;
+			$this->_prepareEmail($data, $row['email_id']);
 		}
 
-		if(!is_null($row["success_message"])){
-			Mage::getSingleton('core/session')->addSuccess($row["success_message"]);
+		if(!is_null($row["static_success"]) || $row["static_success"]!==""){
+			Mage::getSingleton('core/session')->setFormbuilderSuccess(true);
 		}
+		Mage::getSingleton('core/session')->addSuccess($row["success_message"]);
 		$redirectPage = Mage::getBaseUrl().$field["url"];
 		
 		$this->_redirectPage($redirectPage);
@@ -99,9 +150,9 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
 		exit;
 	}
 
-	private function _sendEmail($data, $emailVars, $templateId) 
+	private function _sendEmail($data, $templateId) 
 	{
-		$sender = array('name' => Mage::getStoreConfig('trans_email/ident_support/name'),
+		$sender = array('name'  => Mage::getStoreConfig('trans_email/ident_support/name'),
 						'email' => Mage::getStoreConfig('trans_email/ident_support/email'));
 
 		$translate = Mage::getSingleton('core/translate');
@@ -114,7 +165,7 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
 
 	private function _insertData($form_id,$record_id,$type,$value,$create_date) 
 	{
-		$write = Mage::getSingleton('core/resource')->getConnection('core_write');
+		$write   = Mage::getSingleton('core/resource')->getConnection('core_write');
 		$dataArr = array (
 			$form_id,
 			$record_id,
@@ -122,7 +173,7 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
 			$value
 			);
 
-		$sql = "insert into bilna_formbuilder_data (form_id, record_id, type, value, create_date) values ('$form_id','$record_id','$type','$value','$create_date')";
+		$sql   = "insert into bilna_formbuilder_data (form_id, record_id, type, value, create_date) values ('$form_id','$record_id','$type','$value','$create_date')";
 		$query = $write->query($sql, $dataArr);
 
 		if ($query) return true;
@@ -131,10 +182,10 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
 
 	private function _backurl($form_id) 
 	{
-		$connection	= Mage::getSingleton('core/resource')->getConnection('core_read');
-		$sql		= "select url from bilna_formbuilder_form where id=".$form_id." group by url";
-		$row		= $connection->fetchRow($sql);
-		$result		= $row['url'];
+		$connection = Mage::getSingleton('core/resource')->getConnection('core_read');
+		$sql        = "select url from bilna_formbuilder_form where id=".$form_id." group by url";
+		$row        = $connection->fetchRow($sql);
+		$result     = $row['url'];
 		
 		return $result;
 	}

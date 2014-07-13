@@ -735,6 +735,10 @@
 	min-width: 190px;
     top: 18px;
 }
+.menu-tablet .links li.myaccount .toplink-myaccount {
+	min-width: 190px;
+    top: 18px;
+}
 .header .links li.myaccount .toplink-myaccount ul li, .menu-tablet .links li.myaccount .toplink-myaccount ul li  {
 	border-top: 1px solid #dadada;
 	border-left: none;
@@ -1034,7 +1038,15 @@
 	-webkit-box-shadow: 1px 1px 4px 0 #ccc;
 	-moz-box-shadow: 1px 1px 4px 0 #ccc;
 	box-shadow: 1px 1px 4px 0 #ccc;
-	z-index: 99;
+	z-index: 2;
+}
+#nav li.nav-kebutuhan-khusus-bayi-dan-balita ul.level-hover,
+#nav li.nav-buku-dan-mainan ul.level-hover,
+#nav li.nav-kesehatan-dan-keamanan-bayi-dan-balita ul.level-hover,
+#nav li.nav-perlengkapan-bayi ul.level-hover,
+#nav li.nav-untuk-ibu ul.level-hover{
+	left:auto;
+	right:0;
 }
 #nav li.nav-set-hadiah-bayi-dan-anak .level-hover {
     background: #fcfcfc url(../images/shadow.png) repeat-x left top;
@@ -1051,7 +1063,7 @@
 	display: block;
 	vertical-align: middle;
 }
-#nav li.level-top.nav-for-moms, #nav li.level-top.nav-gift-sets, #nav li.level-top.nav-set-hadiah-bayi-dan-anak {
+#nav li.level-top.nav-for-moms, #nav li.level-top.nav-gift-sets, #nav li.level-top.nav-set-hadiah-bayi-dan-anak, #nav li.level-top.nav-untuk-ibu {
     max-width: 63px;
 }
 #nav li.level-top.nav-gift-sets a.level-top, #nav li.nav-set-hadiah-bayi-dan-anak a.level-top {
@@ -1120,7 +1132,8 @@
 	padding: 0 5px;
 }
 
-#nav li.level-top.parent-8 ul.shown-sub, #nav li.level-top.parent-9 ul.shown-sub, #nav li.level-top.parent-10 ul.shown-sub, #nav li.level-top.parent-11 ul.shown-sub, #nav li.level-top.nav-set-hadiah-bayi-dan-anak ul.shown-sub {
+#nav li.level-top.parent-8 ul.shown-sub, #nav li.level-top.parent-9 ul.shown-sub, #nav li.level-top.parent-10 ul.shown-sub, #nav li.level-top.parent-11 ul.shown-sub,
+#nav li.level-top.nav-kesehatan-dan-keamanan-bayi-dan-balita ul.shown-sub, #nav li.level-top.nav-buku-dan-mainan ul.shown-sub, #nav li.level-top.nav-perlengkapan-bayi ul.shown-sub, #nav li.level-top.nav-untuk-ibu ul.shown-sub, #nav li.level-top.nav-set-hadiah-bayi-dan-anak ul.shown-sub {
 	right: 0;
 	left: auto;
 }
@@ -1774,7 +1787,7 @@ searchbar #nav-search-in {
     right: 0;
     display: block;
     z-index: 3;
-    width: 70px;
+    width: 80px !important;
     margin-right: 10.5%;
     padding-bottom: 6px !important;
     padding-top: 12px !important;
@@ -1788,7 +1801,7 @@ searchbar #nav-search-in {
     right: 0;
     display: block;
     z-index: 3;
-    width: 80px;
+    width: 70px !important;
     margin-right: 4.9%;
     padding-bottom: 6px !important;
     padding-top: 12px !important;
@@ -1956,16 +1969,11 @@ searchbar #nav-search-in {
     color: #FFFFFF;
     cursor: pointer;
     display: inline-block;
-    font-family: "arial","sans-serif";
-    font-size: 13px;
-    font-weight: bold;
     height: 100%;
-    line-height: 33px;
-    margin: 0 2px;
+    width: 100%;
+	position:absolute;
     outline: medium none;
     padding: 0;
-    text-align: center;
-    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
     vertical-align: middle;
 }
 
@@ -2181,6 +2189,17 @@ searchbar #nav-search-in {
 }
 
 @media only screen and (max-width: 1215px) {
+	#nav li.nav-kebutuhan-khusus-bayi-dan-balita ul.level-hover{
+		left:auto;
+		right:-68px;
+	}
+	#nav li.nav-buku-dan-mainan ul.level-hover,
+	#nav li.nav-kesehatan-dan-keamanan-bayi-dan-balita ul.level-hover,
+	#nav li.nav-perlengkapan-bayi ul.level-hover,
+	#nav li.nav-untuk-ibu ul.level-hover{
+		left:auto;
+		right:-100px;
+	}
     #nav li.level-top.parent-8 ul.shown-sub {
         right: auto;
         left: 0;
@@ -2279,8 +2298,11 @@ searchbar #nav-search-in {
         margin-left: -93px;
         max-width: inherit !important;
     }
+    .search-container-new #nav-searchbar {
+        width: 100% !important;
+    }
     .cart-for-sticky {
-        margin-right: 11.2%;
+        margin-right: 11.3% !important;
     }
     .checkout-for-sticky {
         margin-right: 4.5%;
@@ -2455,7 +2477,7 @@ searchbar #nav-search-in {
         z-index: 2;
     }
     .cart-for-sticky {
-        margin-right: 4.9%;
+        margin-right: 4.9% !important;
     }
     
     #nav a.link-shopby {
@@ -2469,6 +2491,9 @@ searchbar #nav-search-in {
         float: right;
         max-width: 420px;
         width: 70%;
+    }
+    .search-container-new #nav-searchbar {
+        width: 105% !important;
     }
     .header .quick-access .left {
         display: none !important;

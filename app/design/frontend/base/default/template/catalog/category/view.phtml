@@ -86,15 +86,33 @@ if($xlCmsBlock) {
 <?php endif; ?>
 
 <!-- static block pop-up ASI Disclaimer -->
-<?php if ($this->checkCategoryAttributeYesNo('asi_disclaimer')): ?>
-    <script>
-        jQuery(document).ready(function(){
-            jQuery(".close-now").click(function(){
-                jQuery(".popup-asi_disclaimer").hide();
+<?php if ($this->checkCategoryAttributeCookie('asi_disclaimer') === false): ?>
+    <?php if ($this->checkCategoryAttributeYesNo('asi_disclaimer')): ?>
+        <script>
+            jQuery(document).ready(function(){
+                jQuery(".close-now").click(function() {
+                    var dataPost = 'cookie_name=category_asi_disclaimer';
+                    dataPost += '&cookie_value=true';
+                    
+                    jQuery.ajax({
+                        type: 'POST',
+                        url: "<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB) . 'webservice/asidisclaimer/savecookie.php'; ?>",
+                        data: dataPost,
+                        dataType: 'json',
+                        success: function(response) {
+                            if (response.status == true) {
+                                jQuery('.popup-asi_disclaimer').hide();
+                            }
+                            else {
+                                alert('failed, please refresh page..')
+                            }
+                        }
+                    });
+                });
             });
-        });
-    </script>
-    <div class="popup-asi_disclaimer">
-        <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('asi_disclaimer')->toHtml(); ?>
-    </div>
+        </script>
+        <div class="popup-asi_disclaimer">
+            <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('asi_disclaimer')->toHtml(); ?>
+        </div>
+    <?php endif; ?>
 <?php endif; ?>

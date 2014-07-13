@@ -17,26 +17,28 @@ class Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Edit_Tabs_Edit extends Mage_
 	$this->setUseAjax(true);
 
   /*$this->_addButton('back', array(
-    'label'   => Mage::helper('bilna_formbuilder')->__('Back'),
-    'onclick' => 'setLocation(\'' . $this->getUrl('*//*/edit') . '\')',
+    'label'   => Mage::helper('bilna_formbuilder')->__('Back nih'),
+    'onclick' => 'setLocation(\'' . $this->getUrl('*//*/edit', array('id' => $this->getRequest()->getParam('form_id'))) . '\')',
     'class'   => 'back',
-  ),-1,5);*/
+  ),-1,5);
 
-	/*$data = array(
-        'label' =>  'Back',
-        'onclick'   => 'setLocation(\'' . $this->getUrl('*//*/*') . '\')',
-        'class'     =>  'back'
-   );
-	$this->addButton ('my_back', $data, 0, 100,  'header');*/
+		$this->_addButton('saveandcontinue', array (
+      'label' => Mage::helper('adminhtml')->__('Save And Continue Edit'),
+      'onclick' => 'saveAndContinueEdit()',
+      'class' => 'save',
+  ), -100);
+
+  $this->_updateButton('saveInput', 'label', Mage::helper('bilna_formbuilder')->__('Save'));*/
+
 	}
 
 	public function getHeaderText()
   {
     if (Mage::registry('formbuilder_formbuilder') && Mage::registry('formbuilder_formbuilder')->getRecordId())
     {
-        return Mage::helper('bilna_formbuilder')->__('Formbuilder Detail "%s"', $this->htmlEscape(Mage::registry('formbuilder_formbuilder')->getName()));
+      return Mage::helper('bilna_formbuilder')->__('Formbuilder Detail "%s"', $this->htmlEscape(Mage::registry('formbuilder_formbuilder')->getName()));
     } else {
-        return Mage::helper('bilna_formbuilder')->__('Formbuilder Details');
+      return Mage::helper('bilna_formbuilder')->__('Formbuilder Details');
     }
   }
 }

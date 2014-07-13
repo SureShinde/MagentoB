@@ -93,7 +93,7 @@ class RocketWeb_Netsuite_Helper_Mapper_Shipment extends RocketWeb_Netsuite_Helpe
             if (!is_object($magentoOrder) || !$magentoOrder->getId()) {
                 throw new Exception("Order with netsuite internal id {$netsuiteShipment->createdFrom->internalId} not found in Magento!");
             }
-
+            
             $netsuiteCustomer = Mage::helper('rocketweb_netsuite/mapper_customer')->getByInternalId($netsuiteShipment->entity->internalId);
             $magentoShipment = $this->createMagentoShipment($netsuiteShipment, $magentoOrder);
             
@@ -116,7 +116,16 @@ class RocketWeb_Netsuite_Helper_Mapper_Shipment extends RocketWeb_Netsuite_Helpe
             foreach ($trackingNumbers as $trackingNumberData) {
                 $magentoTrackingNumber = Mage::helper('rocketweb_netsuite/mapper_trackingnumber')->getMagentoFormat($trackingNumberData, $netsuiteShipment->shipMethod);
                 $magentoShipment->addTrack($magentoTrackingNumber);
-                $magentoShipment->sendEmail(true, ''); 
+//                 $magentoShipment->sendEmail(true, ''); 
+            }
+            
+            if (!$magentoOrder) {
+                $magentoOrder = $magentoShipment->getOrder();
+            }
+            if ($magentoOrder->getPayment()->getMethodInstance()->getCode() == 'cod') {
+            	$magentoOrderStatus = 'shipping_cod';
+                $magentoOrder->setStatus($magentoOrderStatus);
+                $magentoOrder->save();
             }
         }
         else {
@@ -131,6 +140,7 @@ class RocketWeb_Netsuite_Helper_Mapper_Shipment extends RocketWeb_Netsuite_Helpe
                 
                 if ($magentoOrder->getPayment()->getMethodInstance()->getCode() == 'cod') {
                     $magentoOrderStatus = 'shipping_cod';
+                    $magentoOrder->setStatus($magentoOrderStatus);
                 }
                 else {
                     $magentoOrderStatus = $magentoOrder->getStatus();
@@ -144,11 +154,8 @@ class RocketWeb_Netsuite_Helper_Mapper_Shipment extends RocketWeb_Netsuite_Helpe
             }
         }
         
-        if (!$magentoShipment->getEmailSent()) {
-            $magentoShipment->sendEmail(true);
-            $magentoShipment->setEmailSent(true);
-        }
-        
+        $magentoShipment->sendEmail(true);
+        $magentoShipment->setEmailSent(true);
         $magentoShipment->save();
         
         return $magentoShipment;
@@ -166,45 +173,60 @@ class RocketWeb_Netsuite_Helper_Mapper_Shipment extends RocketWeb_Netsuite_Helpe
     }
     
     protected function createMagentoShipment(ItemFulfillment $netsuiteShipment, Mage_Sales_Model_Order $magentoOrder) {
-		$shipmentMap = array ();
-        $itemParents = array ();
-        $itemShip = array ();
-		
+        // array of netsuite product
+        $netProducts = array();
+        // array of magento product
+        $itemParent = array ();
+        // array of product to be saved
+        $prodToSaved = array ();
+        // array of product to be shiped
+        $prodToShiped = array ();
+        
+        /**
+         * collect data from netsuite
+         */
         foreach ($netsuiteShipment->itemList->item as $netsuiteShipmentItem) {
-			foreach ($magentoOrder->getAllItems() as $magentoOrderItem) {
-                if ($netsuiteShipmentItem->item->internalId == Mage::getModel('catalog/product')->load($magentoOrderItem->getProductId())->getNetsuiteInternalId()) {
-                    $shipmentMapItem = array ();
-                    $shipmentMapItem['netsuite_object'] = $netsuiteShipmentItem;
-                    $shipmentMapItem['magento_orderitem_object'] = $magentoOrderItem;
-                    $shipmentMap[] = $shipmentMapItem;
-
-                    if (!$magentoOrderItem->getParentItemId()) {
-                        $itemParent[$magentoOrderItem->getId()] = array (
-							'sku' => $magentoOrderItem->getSku(),
-                            'qty' => $magentoOrderItem->getQtyOrdered() - $magentoOrderItem->getQtyShipped()
-                        );
-                    }
-
-					break;
-                }
+            if (isset ($netProducts[$netsuiteShipmentItem->description]['quantity'])) {
+                $netProducts[$netsuiteShipmentItem->description]['quantity'] += $netsuiteShipmentItem->quantity;
+            }
+            else {
+                $netProducts[$netsuiteShipmentItem->description]['quantity'] = $netsuiteShipmentItem->quantity;
+            }
+	
+            $netProducts[$netsuiteShipmentItem->description]['sku'] = $netsuiteShipmentItem->description;
+            $netProducts[$netsuiteShipmentItem->description]['internalId'] = $netsuiteShipmentItem->item->internalId;
+        }
+        
+        /**
+         * collect data from magento order
+         */
+        foreach ($magentoOrder->getAllItems() as $magentoOrderItem) {
+            if (!$magentoOrderItem->getParentItemId()) {
+                $itemParent[$magentoOrderItem->getSku()] = array (
+                    'sku' => $magentoOrderItem->getSku(),
+                    'qty' => $magentoOrderItem->getQtyOrdered() - $magentoOrderItem->getQtyShipped(),
+                    'item_id' => $magentoOrderItem->getId(),
+                    'product_id' => $magentoOrderItem->getProductId(),
+                    'netsuite_internal_id' => $magentoOrderItem->getNetsuiteInternalId()
+                );
             }
         }
-
-		echo "[{$magentoOrder->getIncrementId()}]: " . json_encode($shipmentMap) . "\n";
-		echo "[{$magentoOrder->getIncrementId()}] totalShipmentMap: " . count($shipmentMap) . "\n";
-		echo "[{$magentoOrder->getIncrementId()}] totalItemParent: " . count($itemParent) . "\n";
-		//exit;
         
-        if (is_array($shipmentMap)) {
-            foreach ($shipmentMap as $shipmentMapItem) {
-                //if ($this->checkItemParent($shipmentMapItem['magento_orderitem_object']->getId(), $itemParent)) {
-				if ($itemParent[$shipmentMapItem['magento_orderitem_object']->getId()] && ($shipmentMapItem['netsuite_object']->quantity <= $itemParent[$shipmentMapItem['magento_orderitem_object']->getId()]['qty'])) {
-	                $itemShip[$shipmentMapItem['magento_orderitem_object']->getId()] = $shipmentMapItem['netsuite_object']->quantity;
-                    $itemParent[$shipmentMapItem['magento_orderitem_object']->getId()]['qty'] = $itemParent[$shipmentMapItem['magento_orderitem_object']->getId()]['qty'] - $shipmentMapItem['netsuite_object']->quantity;
+        /**
+         * compare data
+         */
+        foreach ($netProducts as $key => $netProduct) {
+            if (array_key_exists($key, $itemParent)) {
+                $prodToShiped[$itemParent[$key]['item_id']] = $netProduct['quantity'];
+
+                if ($netProduct['quantity'] > $itemParent[$key]['qty']) {
+                    $qty = $netProduct['quantity'] - $itemParent[$key]['qty'];
+                    $this->saveBundleConfigurable($magentoOrder->getIncrementId(), $netProduct['sku'], $qty, $netsuiteShipment->lastModifiedDate);
                 }
-				else {
-					$this->saveBundleConfigurable($netsuiteShipment, $shipmentMapItem['netsuite_object'], $shipmentMapItem['magento_orderitem_object']);
-				}
+            }
+            else {
+                $qty = $netProduct['quantity'];
+                $this->saveBundleConfigurable($magentoOrder->getIncrementId(), $netProduct['sku'], $qty, $netsuiteShipment->lastModifiedDate);
             }
         }
         
@@ -215,13 +237,11 @@ class RocketWeb_Netsuite_Helper_Mapper_Shipment extends RocketWeb_Netsuite_Helpe
              throw new Exception("{$magentoOrder->getId()}: Cannot do shipment for this order!");
         }
         
-        if (count($itemShip) == 0) {
+        if (count($prodToShiped) == 0) {
             throw new Exception("{$magentoOrder->getId()}: Cannot create shipment, because there is no order item!");
         }
         
-        echo $magentoOrder->getIncrementId() . ": itemParent: " . json_encode($itemParent) . "\n";
-        echo $magentoOrder->getIncrementId() . ": itemShip: " . json_encode($itemShip) . "\n";
-        $magentoShipment = $magentoOrder->prepareShipment($itemShip);		
+        $magentoShipment = $magentoOrder->prepareShipment($prodToShiped);
         
         if ($magentoShipment) {
             $magentoShipment->register();
@@ -237,38 +257,26 @@ class RocketWeb_Netsuite_Helper_Mapper_Shipment extends RocketWeb_Netsuite_Helpe
                 return $magentoShipment;
             }
             catch (Mage_Core_Exception $e) {
-                throw new Exception("{$magentoOrder->getId()}: {$e->getMessage()}");
+                throw new Exception("{$magentoOrder->getIncrementId()}: {$e->getMessage()}");
             }
         }
         
         return null;
     }
 
-	protected function checkItemParent($itemId, $itemParent) {
-        foreach ($itemParent as $key => $value) {
-            if ($itemId == $key) {
-				echo "$sku - $key\n";
-                return true;
-            }
-        }
-        
-        return false;
-    }
-
-    protected function saveBundleConfigurable(ItemFulfillment $netsuiteShipment, $netsuiteShipmentItem, Mage_Sales_Model_Order_Item $magentoOrderItem) {
-		$resource = Mage::getSingleton('core/resource');
+    protected function saveBundleConfigurable($magentoOrderIncrementId, $magentoOrderItemSku, $qty, $lastModifiedDate) {
+        $resource = Mage::getSingleton('core/resource');
         $writeConnection = $resource->getConnection('core_write');
         $table = 'netsuite_shipment_bundle';
         $query = sprintf(
             "INSERT INTO %s(order_increment_id, sku, qty_shipped, import_date)
             VALUES(%s, '%s', %d, '%s')",
             $table,
-            $magentoOrderItem->getOrder()->getIncrementId(),
-            $magentoOrderItem->getSku(),
-            $netsuiteShipmentItem->quantity,
-            Mage::helper('rocketweb_netsuite')->convertNetsuiteDateToSqlFormat($netsuiteShipment->lastModifiedDate)
+            $magentoOrderIncrementId,
+            $magentoOrderItemSku,
+            $qty,
+            Mage::helper('rocketweb_netsuite')->convertNetsuiteDateToSqlFormat($lastModifiedDate)
         );
-		echo $magentoOrderItem->getOrder()->getIncrementId() . ": " . $query . "\n";
         $writeConnection->query($query);
     }
 }

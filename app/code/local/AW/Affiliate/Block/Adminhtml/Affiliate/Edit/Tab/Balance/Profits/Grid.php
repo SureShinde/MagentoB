@@ -52,6 +52,7 @@ class AW_Affiliate_Block_Adminhtml_Affiliate_Edit_Tab_Balance_Profits_Grid exten
     {
         $affiliate = Mage::registry('current_affiliate');
         $collection = $affiliate->getProfitTransactions();
+      
         $this->setCollection($collection);
         return parent::_prepareCollection();
     }
@@ -69,6 +70,18 @@ class AW_Affiliate_Block_Adminhtml_Affiliate_Edit_Tab_Balance_Profits_Grid exten
             'header' => $helper->__('Campaign Id'),
             'index' => 'campaign_id',
             'type' => 'number',
+            'width' => '25px',
+        ));
+        $this->addColumn('linked_entity_id', array(
+            'header' => $helper->__('Order Id'),
+            'index' => 'linked_entity_id',
+            'type' => 'number',
+            'width' => '25px',
+        ));
+        $this->addColumn('order_status', array(
+            'header' => $helper->__('Status'),
+            'index' => 'order_status',
+            'type' => 'text',
             'width' => '25px',
         ));
         $_currencyCode = Mage::helper('awaffiliate')->getDefaultCurrencyCode();

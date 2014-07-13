@@ -46,6 +46,14 @@
                 <type>skin_js</type>
                 <name>js/smooth-scrolling.js</name>
             </action>
+            <action method="addItem">
+                <type>skin_js</type>
+                <name>js/smooth-scrolling.js</name>
+            </action>
+            <action method="addItem">
+                <type>skin_js</type>
+                <name>js/swingin-and-scroll.js</name>
+            </action>
         </reference>
         <reference name="header">
             <remove name="welcome"/>

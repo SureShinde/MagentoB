@@ -132,6 +132,14 @@ USAGE;
         $typeField->searchValue = RecordType::inventoryItem;
         $this->netsuiteRequest->searchRecord->type = $typeField;
 
+
+
+/* $iField = new SearchMultiSelectField();
+        $iField->searchValue = new RecordRef();
+        $iField->searchValue->internalId = 41292;
+        $iField->operator = SearchMultiSelectFieldOperator::anyOf;
+        $this->netsuiteRequest->searchRecord->internalId = $iField;*/
+
         if($this->getArg('from-date')) {
             $dateString = $this->getArg('from-date');
 

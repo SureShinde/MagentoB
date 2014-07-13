@@ -10,17 +10,17 @@ class Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Edit_Tabs_Edit_Tabs extends 
 	$this->setTitle(Mage::helper('bilna_formbuilder')->__('Form Information'));
   }
 
-	  protected function _beforeToHtml()
+	protected function _beforeToHtml()
   {
 	$this->addTab('general_section', array(
-    'label'		=> Mage::helper('bilna_formbuilder')->__('Detail'),
-    'title' 	=> Mage::helper('bilna_formbuilder')->__('Detail'),  
-		'alt' 		=> Mage::helper('bilna_formbuilder')->__('Detail'),  
+    'label'		=> Mage::helper('bilna_formbuilder')->__('Inputs Detail'),
+    'title' 	=> Mage::helper('bilna_formbuilder')->__('Inputs Detail'),  
+		'alt' 		=> Mage::helper('bilna_formbuilder')->__('Inputs Detail'),  
 		'url' 		=> $this->getUrl('*/*/ajaxTabDetail', array('_current' => true)),
 		'class' 	=> 'ajax',        
 		'content' => $this->getLayout()->createBlock('Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Edit_Tabs_Edit_Tabs_Detail')->toHtml(),
 		//'active' => Mage::registry('formbuilder_form')->getRecordId() ? false : true
-  ));
+));
 
 	return parent::_beforeToHtml();
 	}

@@ -25,6 +25,11 @@
                         <method>setAndImportCategories</method>
                     </setAndImportCategories>
                     -->
+                    <setVisibility>
+                        <type>singleton</type>
+                        <class>rocketweb_netsuitecustom/observer</class>
+                        <method>setVisibility</method>
+                    </setVisibility>
                     <setBrand>
                         <type>singleton</type>
                         <class>rocketweb_netsuitecustom/observer</class>

@@ -98,6 +98,8 @@ class Bilna_Paymethod_VtdirectController extends Mage_Core_Controller_Front_Acti
         
         $session->clear();
         $this->loadLayout();
+        $this->_initLayoutMessages('checkout/session');
+        Mage::dispatchEvent('checkout_onepage_controller_success_action', array ('order_ids' => array ($lastOrderId)));
         $this->getLayout()->getBlock('head')->setTitle($this->__('Thankyou Page'));
         $this->renderLayout();
     }

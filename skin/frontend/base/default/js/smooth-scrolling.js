@@ -1,4 +1,3 @@
-<script type="text/javascript">
 	jQuery(document).ready(function(){
 		jQuery('a.smooth-scroll').on('click',function (e) {
 			e.preventDefault();
@@ -11,4 +10,3 @@
 			});
 		});
 	});
-</script>

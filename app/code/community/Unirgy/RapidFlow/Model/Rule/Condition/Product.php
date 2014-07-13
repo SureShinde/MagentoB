@@ -129,8 +129,13 @@ class Unirgy_RapidFlow_Model_Rule_Condition_Product extends Mage_CatalogRule_Mod
         } else {
             $attr = Mage::getSingleton('eav/config')->getAttribute('catalog_product', $a);
 
-            if ($attr->getId() && $attr->getBackendType()=='datetime' && !is_int($ve)) {
-                $ve = strtotime($ve);
+            if ($attr->getId() && $attr->getBackendType() == 'datetime') {
+                if (!is_int($ve)) {
+                    $timestamp = strtotime($ve);
+                } else {
+                    $timestamp = $ve;
+                }
+                $ve = date('Y-m-d H:i:s', $timestamp);
             }
 
             // whether attribute is multivalue

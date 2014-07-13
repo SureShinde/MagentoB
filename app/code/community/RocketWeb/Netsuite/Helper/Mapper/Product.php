@@ -25,50 +25,50 @@ class RocketWeb_Netsuite_Helper_Mapper_Product extends RocketWeb_Netsuite_Helper
      */
     public function getNetsuiteFormat(Mage_Catalog_Model_Product $magentoProduct) {
 
-		$inventoryItem = new InventoryItem();
-		
-		$inventoryItem->externalId = $magentoProduct->getId();
-		$inventoryItem->originalItemType = ItemType::_inventoryItem;
-		$inventoryItem->originalItemSubtype = ItemSubType::_forSale;
-		$inventoryItem->salesDescription = substr($magentoProduct->getDescription(),0,900);
-		$inventoryItem->manufacturer = $magentoProduct->getAttributeText('manufacturer');
-		$inventoryItem->mpn = $magentoProduct->getSku();
-		$inventoryItem->cost = $magentoProduct->getCost();
-		$inventoryItem->itemId = $magentoProduct->getSku();
-		$inventoryItem->displayName = $magentoProduct->getName();
-		$inventoryItem->upcCode = $magentoProduct->getSku();
+        $inventoryItem = new InventoryItem();
+        
+        $inventoryItem->externalId = $magentoProduct->getId();
+        $inventoryItem->originalItemType = ItemType::_inventoryItem;
+        $inventoryItem->originalItemSubtype = ItemSubType::_forSale;
+        $inventoryItem->salesDescription = substr($magentoProduct->getDescription(),0,900);
+        $inventoryItem->manufacturer = $magentoProduct->getAttributeText('manufacturer');
+        $inventoryItem->mpn = $magentoProduct->getSku();
+        $inventoryItem->cost = $magentoProduct->getCost();
+        $inventoryItem->itemId = $magentoProduct->getSku();
+        $inventoryItem->displayName = $magentoProduct->getName();
+        $inventoryItem->upcCode = $magentoProduct->getSku();
 
-		
-		$prices = array();
-		$prices[0] = new Price();
-		$prices[0]->value = $magentoProduct->getPrice();
-		$prices[0]->quantity = 0;
-		
-		$currency = new Currency();
-		$currency->internalId = 1;
-		$priceLevel = new PriceLevel();
-		$priceLevel->internalId = 1;
-		
-		$pricing = array();
-		$pricing[0] = new Pricing();
-		$pricing[0]->currency = $currency;
-		$pricing[0]->priceList = $prices;
-		$pricing[0]->discount = 0;
-		$pricing[0]->priceLevel = $priceLevel;
-		
-		$pricingMatrix = new PricingMatrix();
-		$pricingMatrix->pricing = $pricing;
-		$pricingMatrix->replaceAll = true;
+        
+        $prices = array();
+        $prices[0] = new Price();
+        $prices[0]->value = $magentoProduct->getPrice();
+        $prices[0]->quantity = 0;
+        
+        $currency = new Currency();
+        $currency->internalId = 1;
+        $priceLevel = new PriceLevel();
+        $priceLevel->internalId = 1;
+        
+        $pricing = array();
+        $pricing[0] = new Pricing();
+        $pricing[0]->currency = $currency;
+        $pricing[0]->priceList = $prices;
+        $pricing[0]->discount = 0;
+        $pricing[0]->priceLevel = $priceLevel;
+        
+        $pricingMatrix = new PricingMatrix();
+        $pricingMatrix->pricing = $pricing;
+        $pricingMatrix->replaceAll = true;
 
-		$inventoryItem->pricingMatrix = $pricingMatrix;
-		
-		
-		if($magentoProduct->getStockItem()->getManageStock()) {
-			$inventoryItem->quantityAvailable = $magentoProduct->getStockItem()->getQty();
-		}
-		
-		return $inventoryItem;
-	}
+        $inventoryItem->pricingMatrix = $pricingMatrix;
+        
+        
+        if($magentoProduct->getStockItem()->getManageStock()) {
+            $inventoryItem->quantityAvailable = $magentoProduct->getStockItem()->getQty();
+        }
+        
+        return $inventoryItem;
+    }
 
     /**
      * @param Mage_Catalog_Model_Product $magentoProduct
@@ -76,29 +76,29 @@ class RocketWeb_Netsuite_Helper_Mapper_Product extends RocketWeb_Netsuite_Helper
      */
     public function productExistsInNetsuite(Mage_Catalog_Model_Product $magentoProduct) {
 
-		$netsuiteService = $this->_getNetsuiteService();
-		
-		$netsuiteLinkFieldId = Mage::getStoreConfig('rocketweb_netsuite/products/netsuite_link_field');
-		$magentoLinkFieldId = Mage::getStoreConfig('rocketweb_netsuite/products/magento_link_field');
-		$searchField = new SearchStringField();
-		$searchField->operator = "is";
-		$searchField->searchValue = ($magentoLinkFieldId == 'id')?$magentoProduct->getId():$magentoProduct->getData($magentoLinkFieldId);
-		
-		$search = new ItemSearchBasic();
-		$search->{$netsuiteLinkFieldId} = $searchField;
-		
-		$request = new SearchRequest();
-		$request->searchRecord = $search;
-		
-		$searchResponse = $netsuiteService->search($request);
-		if($searchResponse->searchResult->totalRecords != 0) {
-			return true;
-		}
-		else {
-			return false;
-		}
-		
-	}
+        $netsuiteService = $this->_getNetsuiteService();
+        
+        $netsuiteLinkFieldId = Mage::getStoreConfig('rocketweb_netsuite/products/netsuite_link_field');
+        $magentoLinkFieldId = Mage::getStoreConfig('rocketweb_netsuite/products/magento_link_field');
+        $searchField = new SearchStringField();
+        $searchField->operator = "is";
+        $searchField->searchValue = ($magentoLinkFieldId == 'id')?$magentoProduct->getId():$magentoProduct->getData($magentoLinkFieldId);
+        
+        $search = new ItemSearchBasic();
+        $search->{$netsuiteLinkFieldId} = $searchField;
+        
+        $request = new SearchRequest();
+        $request->searchRecord = $search;
+        
+        $searchResponse = $netsuiteService->search($request);
+        if($searchResponse->searchResult->totalRecords != 0) {
+            return true;
+        }
+        else {
+            return false;
+        }
+        
+    }
 
     public function getProductDescription(Mage_Sales_Model_Order_Item $item) {
         $description = $item->getName();
@@ -159,6 +159,44 @@ class RocketWeb_Netsuite_Helper_Mapper_Product extends RocketWeb_Netsuite_Helper
             $magentoProduct = Mage::getModel('catalog/product');
         }
 
+        $fieldMap = Mage::getModel('rocketweb_netsuite/config')->getConfigVarMapProductColumns('field_map',null,'products');
+
+        $customValues = array();
+        foreach($fieldMap as $fieldData) {
+            $customValueListKey = RocketWeb_Netsuite_Model_Product_Map_Value::getCustomValueListKey($fieldData['magento']);
+
+            if(isset($customValues[$customValueListKey])) {
+                $productMapValue = $customValues[$customValueListKey];
+                $productMapValue->addDefaultValue($fieldData['netsuite'],$fieldData['netsuite_field_value']);
+
+
+            }
+            else {
+                $productMapValue = new RocketWeb_Netsuite_Model_Product_Map_Value($fieldData['netsuite'],
+                    $fieldData['magento'],
+                    $fieldData['netsuite_field_type'],
+                    $fieldData['netsuite_list_id'],
+                    $fieldData['netsuite_field_value'],
+                    $fieldData['netsuite_field_search_class_name'],
+                    $fieldData['netsuite_field_name_field']);
+
+                $customValues[$customValueListKey] = $productMapValue;
+            }
+
+            $productMapValue->extractValue($inventoryItem,$fieldData['netsuite'],$fieldData['netsuite_field_type']);
+        }
+
+        $custitem_qtyso_pendingapproval = 0;
+        foreach($customValues as $productMapValue) {
+            if ( $productMapValue->getNetsuiteFieldId() == 'custitem_qtyso_pendingapproval' )
+            {
+                $custitem_qtyso_pendingapproval = $this->getValueForMagento($productMapValue);
+                continue;
+            }
+            $valueForMagento = $this->getValueForMagento($productMapValue);
+            $magentoProduct->setData($productMapValue->getMagentoFieldId() ,$valueForMagento);
+        }
+
         if(!$magentoProduct->getId()) {
             $magentoProduct = $this->addDefaultFieldsForNewProduct($magentoProduct,$inventoryItem);
 
@@ -187,39 +225,40 @@ class RocketWeb_Netsuite_Helper_Mapper_Product extends RocketWeb_Netsuite_Helper
                 ));
             }
 
-        }
+        }else{
+            $stock_obj = Mage::getModel('cataloginventory/stock_item')->loadByProduct($magentoProduct->getId());
+            $stockData = $stock_obj->getData();
 
-        $fieldMap = Mage::getModel('rocketweb_netsuite/config')->getConfigVarMapProductColumns('field_map',null,'products');
+            if(isset($inventoryItem->locationsList->locations)) {
+                $qty = 0;
+                foreach($inventoryItem->locationsList->locations as $location) {
+                    
+                    switch($location->locationId->internalId)
+                    {
+                        case 2 :
+                            $quantityAvailableWH = $location->quantityAvailable;
+                            break;
+                        case 5 :
+                            $quantityOnOrderFullfilment = $location->quantityOnOrder;
+                            $quantityBackOrderedFullfilment = $location->quantityBackOrdered;
+                            break;
 
-        $customValues = array();
-        foreach($fieldMap as $fieldData) {
-            $customValueListKey = RocketWeb_Netsuite_Model_Product_Map_Value::getCustomValueListKey($fieldData['magento']);
+                    }
+                }
 
-            if(isset($customValues[$customValueListKey])) {
-                $productMapValue = $customValues[$customValueListKey];
-                $productMapValue->addDefaultValue($fieldData['netsuite'],$fieldData['netsuite_field_value']);
-
+                $stockData['is_in_stock'] = 1;
+                //$stockData['qty'] = ($quantityOnHandWH + $quantityOnOrderFullfilment) - $quantityBackOrderedFullfilment - $custitem_qtyso_pendingapproval;
+                $stockData['qty'] = ($quantityAvailableWH + $quantityOnOrderFullfilment) - $quantityBackOrderedFullfilment;
+                $stockData['manage_stock'] = 1;
+                $stock_obj->setData($stockData);
+                $stock_obj->save();
+                
 
             }
-            else {
-                $productMapValue = new RocketWeb_Netsuite_Model_Product_Map_Value($fieldData['netsuite'],
-                    $fieldData['magento'],
-                    $fieldData['netsuite_field_type'],
-                    $fieldData['netsuite_list_id'],
-                    $fieldData['netsuite_field_value'],
-                    $fieldData['netsuite_field_search_class_name'],
-                    $fieldData['netsuite_field_name_field']);
 
-                $customValues[$customValueListKey] = $productMapValue;
-            }
-
-            $productMapValue->extractValue($inventoryItem,$fieldData['netsuite'],$fieldData['netsuite_field_type']);
         }
 
-        foreach($customValues as $productMapValue) {
-            $valueForMagento = $this->getValueForMagento($productMapValue);
-            $magentoProduct->setData($productMapValue->getMagentoFieldId() ,$valueForMagento);
-        }
+        
 
 
         if(!trim($magentoProduct->getSku())) {
@@ -229,7 +268,8 @@ class RocketWeb_Netsuite_Helper_Mapper_Product extends RocketWeb_Netsuite_Helper
 
 
         $magentoProduct->setUrlKey(Mage::getModel('catalog/product_url')->formatUrlKey($magentoProduct->getName()));
-        $magentoProduct->setStatus(Mage_Catalog_Model_Product_Status::STATUS_ENABLED);
+        
+        //$magentoProduct->setStatus(Mage_Catalog_Model_Product_Status::STATUS_ENABLED);
 
         //add price, including tier prices if any
         if($inventoryItem->pricingMatrix && is_array($inventoryItem->pricingMatrix->pricing)) {

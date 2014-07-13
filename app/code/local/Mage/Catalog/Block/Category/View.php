@@ -164,6 +164,17 @@ class Mage_Catalog_Block_Category_View extends Mage_Core_Block_Template
         return array_merge(parent::getCacheTags(), $this->getCurrentCategory()->getCacheIdTags());
     }
     
+    public function checkCategoryAttributeCookie($name) {
+        $cookie = Mage::getModel('core/cookie');
+        $result = false;
+        
+        if ($cookie->get('category_' . $name)) {
+            $result = true;
+        }
+        
+        return $result;
+    }
+    
     public function checkCategoryAttributeYesNo($attribute) {
         $category = $this->getCurrentCategory();
         $result = false;

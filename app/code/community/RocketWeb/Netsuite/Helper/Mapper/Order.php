@@ -64,9 +64,42 @@ class RocketWeb_Netsuite_Helper_Mapper_Order extends RocketWeb_Netsuite_Helper_M
 
         $customFieldsConfig = $this->getCustomFieldList();
         $netsuiteOrderItems = array ();
-        
+       
+        $confProduct = array();
+        $bundProduct = array();
         foreach ($magentoOrder->getAllItems() as $item) {
-            if (in_array($item->getProductType(), array ('configurable'))) {
+            if ( $item->getProductType() == 'configurable' ) {
+                $confProduct[$item->getData('item_id')] = $item->getData('price');
+                $confProductDiscount[$item->getData('item_id')] = $item->getData('discount_amount');
+            }elseif( $item->getProductType() == 'bundle' ){
+                $parentItemId = $item->getData('parent_item_id');
+                if( $parentItemId == '' || $parentItemId == 0 || empty($parentItemId) ){
+                    $parentItemId = $item->getData('item_id');
+                } 
+                $productOptions = unserialize($item->getData('product_options'));
+                $bundleOptions = $productOptions['bundle_options'];
+                $totalPriceItemBundle = 0;
+                foreach($bundleOptions as $option){
+                    foreach($option['value'] as $value){
+                        $totalPriceItemBundle += $value['price'];
+                    }
+                }
+
+                $bundProduct[$item->getData('item_id')][$parentItemId]['price'] = $item->getData('price');
+                $bundProduct[$item->getData('item_id')][$parentItemId]['qty']   = $item->getData('qty_ordered');
+                $bundProduct[$item->getData('item_id')]['totalQtyBundle']   = $item->getData('qty_ordered');
+                $bundProduct[$item->getData('item_id')]['priceBundle']   = $item->getData('price') - $totalPriceItemBundle;
+                $bundProduct[$item->getData('item_id')]['priceBundle2']   = $item->getData('price');
+                $bundProduct[$item->getData('item_id')]['discountAmount']   = $item->getData('discount_amount');
+            }elseif( isset($bundProduct[$item->getData('parent_item_id')]) ){
+                $bundProduct[$item->getData('parent_item_id')]['totalQty']   += $item->getData('qty_ordered');
+                $bundProduct[$item->getData('parent_item_id')][$item->getData('item_id')]['itemQty']   = $item->getData('qty_ordered');
+            }
+        }
+
+        foreach ($magentoOrder->getAllItems() as $item) {        
+
+            if (in_array($item->getProductType(), array ('configurable', 'bundle'))) {
                 continue;
             }
 
@@ -145,36 +178,114 @@ class RocketWeb_Netsuite_Helper_Mapper_Order extends RocketWeb_Netsuite_Helper_M
             if (is_array($customFieldsConfig) && count($customFieldsConfig)) {
                 $customFields = array ();
                 $totalDiscount = 0;
-                
+                $productOptions = unserialize($item->getData('product_options'));
+                if( $item->getProductType() == 'simple' && $item->getData('price') == 0 || $item->getData('parent_item_id') != '' ){
+                    if( isset( $productOptions['bundle_selection_attributes'] ) ){
+                        $bundleSelectionAttributes = unserialize($productOptions['bundle_selection_attributes']);
+                        $priceItemOnBundle = $bundleSelectionAttributes['price'] / $bundleSelectionAttributes['qty'];
+                        //$bundlePrice = $bundProduct[$item->getData('parent_item_id')][''] 
+                        //$priceItemOnBundle = $bundProduct[$item->getData('parent_item_id')][$item->getData('item_id')]['price'];
+                        $pricePerBundle = $bundProduct[$item->getData('parent_item_id')]['priceBundle'] * $bundProduct[$item->getData('parent_item_id')]['totalQtyBundle'];
+                        //$pricePerBundle = $bundProduct[$item->getData('parent_item_id')]['priceBundle'];
+//                        $pricePerBundle = $bundProduct[$item->getData('parent_item_id')][$item->getData('parent_item_id')]['price'] / $bundProduct[$item->getData('parent_item_id')]['totalQtyBundle'];
+                        $totalQty = $bundProduct[$item->getData('parent_item_id')]['totalQty'];
+                        $finalPriceItem = $priceItemOnBundle + ( $pricePerBundle / $totalQty ) ;
+                        //$item->setData('price', $finalPriceItem);
+                    }
+                    if(!empty($confProduct) && $confProduct[$item->getData('parent_item_id')] > 0 ){
+                        $finalPriceItem = $confProduct[$item->getData('parent_item_id')];
+                    }
+                }
+
                 foreach ($customFieldsConfig as $customFieldsConfigItem) {
+                    
                     switch ($customFieldsConfigItem['netsuite_field_name']) {
                         case 'custcol_discountitem':
-                            $discountPerItem = - (float) round(($item->getData('discount_amount') / $item->getData('qty_ordered')), 3);
+                            if (in_array($item->getProductType(), array ('bundle'))) {
+                                continue;
+                            }
+                            $bundleDiscount = 0;
+                            $discountPerItem = 0;
+                            if( (isset( $productOptions['bundle_selection_attributes'] )) && ($item->getProductType() == 'simple' && $item->getData('price') == 0 || $item->getData('parent_item_id') != '') ){
+                                $discountAmount = $bundProduct[$item->getData('parent_item_id')]['discountAmount'];
+                                $priceBundle = $bundProduct[$item->getData('parent_item_id')]['priceBundle2'] * $bundProduct[$item->getData('parent_item_id')]['totalQtyBundle'];
+                                //$totalQty = $bundProduct[$item->getData('parent_item_id')]['totalQty'];
+                                //$totalQtyBundle = $bundProduct[$item->getData('parent_item_id')]['totalQtyBundle'];
+
+                                $bundleDiscount = (($discountAmount / $priceBundle) * $finalPriceItem );
+
+                            }
+                            if( isset($confProductDiscount[$item->getData('parent_item_id')]) ){
+                                $disc = $confProductDiscount[$item->getData('parent_item_id')];
+                                $discountPerItem = - (float) (round(($disc / $item->getData('qty_ordered')),3));
+                            }else{
+                                $discountPerItem = - (float) ($bundleDiscount + round(($item->getData('discount_amount') / $item->getData('qty_ordered')),3));
+                            }
+                            
                             $totalDiscount += $discountPerItem;
                             $item->setData('discount_amount', $discountPerItem);
                             $customField = $this->_initCustomField($customFieldsConfigItem, $item);
                             $customFields[] = $customField;
                             break;
                         case 'custcol_bilnacredit':
-                            $bilna_credit = (float) round($pointsTransaction->getData('base_points_to_money') / $magentoOrder->getTotalQtyOrdered(), 3);
-                            $pointsTransaction->setData('base_points_to_money', $bilna_credit);
+                            if (in_array($item->getProductType(), array ('bundle'))) {
+                                continue;
+                            }
+
+                            if( $item->getProductType() == 'simple' && $item->getData('price') == 0 || $item->getData('parent_item_id') != '' ){
+                                if( isset( $productOptions['bundle_selection_attributes'] ) ){
+                                    $bilna_credit = $pointsTransaction->getData('base_points_to_money');
+                                    $subTotal = $magentoOrder->getSubtotal();
+                                    $bilnaCreditItem = $finalPriceItem * ($bilna_credit / $subTotal);
+                                }
+                                if(!empty($confProduct) && $confProduct[$item->getData('parent_item_id')] > 0 ){                                
+                                    $bilnaCreditItem = $confProduct[$item->getData('parent_item_id')] * ($bilna_credit / $subTotal);
+                                }
+                            }else{
+                                $bilna_credit = $pointsTransaction->getData('base_points_to_money');
+                                $subTotal = $magentoOrder->getSubtotal();
+                                $bilnaCreditItem = $item->getData('price') * ($bilna_credit / $subTotal);
+                            }
+                            
+                            $pointsTransaction->setData('base_points_to_money', $bilnaCreditItem);
                             $customField = $this->_initCustomField($customFieldsConfigItem, $pointsTransaction);
                             $customFields[] = $customField;
-                            $totalDiscount += $bilna_credit;
+                            $totalDiscount += $bilnaCreditItem;
                             break;
                         case 'custcol_pricebeforediscount':
+
+                            if( $item->getProductType() == 'bundle' ){
+                                $item->setData('price', 0);
+                            }elseif( $item->getProductType() == 'simple' && $item->getData('price') == 0 ){
+                                if( isset( $productOptions['bundle_selection_attributes'] ) ){
+                                    
+                                    $item->setData('price', $finalPriceItem);
+                                }
+                                if(!empty($confProduct) && $confProduct[$item->getData('parent_item_id')] > 0 ){
+                                    $item->setData('price', $confProduct[$item->getData('parent_item_id')]);
+                                }
+                            }
+
                             $priceBeforeDiscount = $this->_getCustomFieldValueFromMagentoData($customFieldsConfigItem, $item);
                             $customField = $this->_initCustomField($customFieldsConfigItem, $item);
                             $customFields[] = $customField;
                             break;
                     }
                 }
-            
+
                 $netsuiteOrderItem->customFieldList = new CustomFieldList();
                 $netsuiteOrderItem->customFieldList->customField = $customFields;
             }
-
-            $netsuiteOrderItem->rate = round($priceBeforeDiscount + $totalDiscount, 3);
+            
+            if(!empty($confProduct) && $confProduct[$item->getData('parent_item_id')] > 0 ){
+                $priceBeforeDiscount = $confProduct[$item->getData('parent_item_id')];
+            }           
+            if($item->getProductType() == 'bundle'){
+                //$priceBeforeDiscount = 0;               
+                $netsuiteOrderItem->rate = 0;
+            }else{
+                $netsuiteOrderItem->rate = round($priceBeforeDiscount + $totalDiscount, 3);
+            }
             $netsuiteOrderItems[] = $netsuiteOrderItem;
         }
 
@@ -394,6 +505,8 @@ class RocketWeb_Netsuite_Helper_Mapper_Order extends RocketWeb_Netsuite_Helper_M
         $request->baseRef->type = RecordType::customList;
 
         $getResponse = Mage::helper('rocketweb_netsuite')->getNetsuiteService()->get($request);
+		echo "_getCustomList request: " . json_encode($request) . "\n";
+		echo "_getCustomList response: " . json_encode($getResponse) . "\n";
         if (!$getResponse->readResponse->status->isSuccess) {
             throw new Exception((string) print_r($getResponse->readResponse->status->statusDetail,true));
         }
@@ -424,7 +537,7 @@ class RocketWeb_Netsuite_Helper_Mapper_Order extends RocketWeb_Netsuite_Helper_M
             if ($magentoOrderState == 'closed') {
                 $magentoOrderState = 'canceled';
             }
-
+            
             /**
              * Re-save the shipping method, but only if there are no shipments. This is because Net Suite allows storing different shipping data at order and shipment level.
              * In case item fulfillments are defined in Net Suite, they will be controlling the order.
@@ -511,7 +624,7 @@ class RocketWeb_Netsuite_Helper_Mapper_Order extends RocketWeb_Netsuite_Helper_M
                     $validOrderItemIds[] = $orderItem->getItemId();
                 }
             }
-
+            
             foreach ($magentoOrder->getAllItems() as $orderItem) {
                 if (!in_array($orderItem->getItemId(), $validOrderItemIds)) {
                     $orderItem->delete();
@@ -532,17 +645,6 @@ class RocketWeb_Netsuite_Helper_Mapper_Order extends RocketWeb_Netsuite_Helper_M
             $magentoOrder->setBaseSubtotal($netsuiteOrder->total);
             $magentoOrder->setTaxAmount($netsuiteOrder->taxTotal);
             $magentoOrder->setBaseTaxAmount($netsuiteOrder->taxTotal);
-        }
-        
-        /**
-         * COD handling
-         */
-        if ($magentoOrderState == 'processing') {
-            if ($magentoOrder->getPayment()->getMethodInstance()->getCode() == 'cod') {
-                $magentoOrder->setStatus('processing_cod');
-                $magentoOrder->addStatusHistoryComment('Net Suite status change', 'processing_cod');
-                $magentoOrder->getStatusHistoryCollection()->save();
-            }
         }
 
         return $magentoOrder;

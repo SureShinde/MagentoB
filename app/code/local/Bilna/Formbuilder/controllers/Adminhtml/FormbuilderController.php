@@ -55,10 +55,37 @@ class Bilna_Formbuilder_Adminhtml_FormbuilderController extends Mage_Adminhtml_C
 			
 			$this->loadLayout();
 			$this->_setActiveMenu('bilna/bilna');
-			$this->_addContent($this->getLayout()->createBlock('bilna_formbuilder/adminhtml_formbuilder_edit_tabs_edit'))//pakai tab samping kiri
+			$this->_addContent($this->getLayout()->createBlock('bilna_formbuilder/adminhtml_formbuilder_edit_tabs_edit'))
 			//$this->_addContent($this->getLayout()->createBlock('bilna_formbuilder/adminhtml_formbuilder_edit_tabs_edit_detail'))
-					 ->_addLeft($this->getLayout()->createBlock('bilna_formbuilder/adminhtml_formbuilder_edit_tabs_edit_tabs'))//pakai tab samping kiri
-						;
+					 ->_addLeft($this->getLayout()->createBlock('bilna_formbuilder/adminhtml_formbuilder_edit_tabs_edit_tabs'));
+			$this->renderLayout();
+		}
+		else {
+			$this->_redirect('*/*/index');
+      return;
+		}
+	}
+
+	public function editDataAction()
+	{
+		$record_id	= $this->getRequest()->getParam('record_id');
+		$form_id 		= $this->getRequest()->getParam('form_id');
+		$id 				= $this->getRequest()->getParam('id');
+		$recform 		= array('record_id' => $record_id, 'form_id' => $form_id);
+
+		$collection = Mage::getModel('bilna_formbuilder/input')->getCollection();
+		//$collection->getSelect()->joinInner(array('bfd' => 'bilna_formbuilder_data'), 'main_table.form_id = bfd.form_id','');
+		//$collection->getSelect()->where('bfd.record_id = '.$record_id.' and main_table.form_id = '.$form_id);
+		$collection->getSelect()->where('form_id = '.$form_id);
+		//$collection->printLogQuery(true); //die;
+		Mage::register('formbuilder_form', $recform);
+
+		if ($collection->count()>0) {
+			
+			$this->loadLayout();
+			$this->_setActiveMenu('bilna/bilna');
+			$this->_addContent($this->getLayout()->createBlock('bilna_formbuilder/adminhtml_formbuilder_edit_tabs_edits'))
+					 ->_addLeft($this->getLayout()->createBlock('bilna_formbuilder/adminhtml_formbuilder_edit_tabs_edit_tab'));
 			$this->renderLayout();
 		}
 		else {
@@ -165,11 +192,11 @@ $collection->getSelect()
 
   public function exportCsvAction()
   {
-    //$fileName = 'bilna_formbuilder.csv';
-		$fileName		= 'bilna_formbuilder'. date('dmYHis') .'.csv';
-    //$grid 		= $this->getLayout()->createBlock('Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Grid');
+		//$fileName = 'bilna_formbuilder.csv';
+		$fileName		= 'bilna_formbuilder'.'_'.date('dmYHis').'.csv';
+		//$grid 		= $this->getLayout()->createBlock('Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Grid');
 		$grid 			= $this->getLayout()->createBlock('Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Edit_Tabs_Data');																								 
-    $this->_prepareDownloadResponse($fileName, $grid->getCsvFile());
+		$this->_prepareDownloadResponse($fileName, $grid->getCsvFile());
   }
 
 	public function ajaxTabGeneralAction()
@@ -196,12 +223,49 @@ $collection->getSelect()
 		);
 	}
 
-		public function ajaxTabDetailAction()
+	public function ajaxTabDetailAction()
 	{
 		$this->loadLayout();
 		$this->getResponse()->setBody(
 		$this->getLayout()->createBlock('Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Edit_Tabs_Edit_Tabs_Detail')->toHtml()
 		);
+	}
+
+	public function ajaxTabDetailsAction()
+	{
+		$this->loadLayout();
+		$this->getResponse()->setBody(
+		$this->getLayout()->createBlock('Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Edit_Tabs_Edit_Tabs_Details')->toHtml()
+		);
+	}
+
+	public function saveAction() {
+		if ($data = $this->getRequest()->getPost()) {
+
+			$model = Mage::getModel('bilna_formbuilder/form');
+			$model->setId($this->getRequest()->getParam('id'));
+
+			try {
+				//title, url, active_from, active_to, status
+				$activeform	= Mage::getModel('core/date')->date('Y-m-d H:i:s', $data['active_from']);
+				$activeto	= Mage::getModel('core/date')->date('Y-m-d H:i:s', $data['active_to']);
+
+				$model->setTitle($data['title']);
+				$model->setUrl($data['url']);
+				$model->setActiveFrom($activeform);
+				$model->setActiveTo($activeto);
+				$model->setStatus($data['status']);
+				$model->save(); 
+
+				$this->_redirect('*/*/');
+				return;
+			}
+			catch (Exception $e) {
+				//die (print_r ($e));
+			}
+	}
+				$this->_redirect('*/*/');
+				return;
 	}
 
 }

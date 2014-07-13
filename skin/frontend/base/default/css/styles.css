@@ -144,12 +144,17 @@ select.multiselect option { border-bottom:1px solid #b6b6b6; padding:2px 5px; }
 select.multiselect option:last-child { border-bottom:0; }
 textarea { overflow:auto; }
 input.radio { margin-right:3px; }
+#product-review-table input.radio { 
+    -moz-appearance: none;
+    appearance: none;
+    display: none;
+}
 input.checkbox { margin-right:3px; }
 input.qty { width:2.5em !important; }
 button.button::-moz-focus-inner { padding:0; border:0; } /* FF Fix */
 button.button { -webkit-border-fit:lines; } /* <- Safari & Google Chrome Fix */
 button.button { overflow:visible; width:auto; border:0; padding:0; margin:0; background:transparent; cursor:pointer; }
-button.button span { display:block; height:39px; border:1px solid #de5400; background:#f18200; padding:0 8px; font:bold 12px/19px Arial, Helvetica, sans-serif; text-align:center; white-space:nowrap; color:#fff; }
+button.button span { display:block; height:auto; border:1px solid #de5400; background:#f18200; padding:0 8px; font:bold 12px/19px Arial, Helvetica, sans-serif; text-align:center; white-space:nowrap; color:#fff; }
 button.button span span { border:0; padding:0; }
 button.disabled span { border-color:#bbb !important; background:#bbb !important; }
 
@@ -287,9 +292,14 @@ input.input-text:focus,select:focus,textarea:focus { background-color:#edf7fd; }
 .form-list .customer-dob .dob-year input.input-text { width:134px; }*/
 
 .buttons-set { clear:both; margin:4em 0 0; padding:8px 0 0; border-top:1px solid #e4e4e4; text-align:right; }
+#review-form .buttons-set { clear:both; margin:4em 0 0; padding:18px 0 0; border-top:1px solid #e4e4e4; text-align:right; }
 .buttons-set p.required { margin:0 0 10px; }
 .buttons-set .back-link { float:left; margin:0; }
 .buttons-set button.button { float:right; margin-left:5px; }
+.al-authorization-container-overlap .buttons-set button.button { display: none; }
+.al-authorization-container-overlap .buttons-set button#send2.button,
+.al-authorization-container-overlap .al-authorizationform-register .buttons-set button.button { display: block; }
+
 
 .buttons-set-order { margin:10px 0 0; }
 .buttons-set-order .please-wait { padding:12px 7px 0 0; }
@@ -566,7 +576,7 @@ tr.summary-details-excluded { font-style:italic; }
 
 /* All Levels */ /* Style consistent throughout all nav levels */
 #nav li, #nav-baby li { position:relative; text-align:left; }
-#nav li.over, #nav-baby li.over { z-index:998; }
+#nav li.over, #nav-baby li.over { z-index:99; }
 #nav a, #nav-baby a,
 #nav a:hover, #nav-baby a:hover { display:block; line-height:1.3em; text-decoration:none; }
 #nav span, #nav-baby span { display:block; cursor:pointer; white-space:nowrap; }
@@ -1840,6 +1850,7 @@ tr.summary-details-excluded { font-style:italic; }
 }
 /*======================= order ditail form ===============*/
 .form-list li label, .form-list li .input-box{float:left; clear:both; font-weight:normal; text-align: left;}
+#customer-reviews .form-list li label, #customer-reviews .form-list li .input-box{float:left; clear:none; font-weight:normal; text-align: left;}
 .form-list li label{width:200px; padding: 5px 0;}
 .form-list li label.subs_newsletter {padding: 5px 0;}
 .guest-select {width:305px !important;}
@@ -1852,6 +1863,7 @@ tr.summary-details-excluded { font-style:italic; }
 .form-add .data-table td input:checked+label{background:url("images/star_color.jpg") no-repeat; cursor:pointer;}
 .form-add .data-table th, .form-add .data-table td{border:none;}
 .form-add .data-table{width:40%;}
+.form-add #product-review-table.data-table{width:40%;}
 .form-add .buttons-set {margin:0; border:none;}
 .form-add .buttons-set .button{float:left; margin:0 0 0 17%; background:#fd8e17;	}
 
@@ -2639,6 +2651,7 @@ z/*======================Category page===================*/
     height: 125px;
     width: 305px;
 	}
+    .form-add #product-review-table.data-table{width:50%;}
 	
 }
 @media only screen and (min-width: 1023px) and (max-width: 1215px) {
@@ -2677,6 +2690,7 @@ z/*======================Category page===================*/
     width: 305px;
     
 	}
+    .form-add #product-review-table.data-table{width:50%;}
 	
 }
 /* --------------- 960 px layout -------------------- */
@@ -2731,6 +2745,7 @@ z/*======================Category page===================*/
 	.homepage-bottom .block-wrapper > a {
     margin: 0 4px 10px;
 	}	
+    .form-add #product-review-table.data-table{width:66%;}
 }
 	
 /* --------------- smaller 959 px layout -------------------- */
@@ -2754,6 +2769,11 @@ z/*======================Category page===================*/
 	.style-perlengkapan-rumah .cms-index-defaultindex .col1-layout .main .col-main, .style-perlengkapan-rumah .cms-index-index .col1-layout .main .col-main{
 		width:100%;
 	}
+    .form-add #product-review-table.data-table{width:490px;}
+}
+
+@media only screen and (max-width: 482px) {
+    .form-add #product-review-table.data-table{width:278px;}
 }
 /* ------------------- **** ------------------ /
 

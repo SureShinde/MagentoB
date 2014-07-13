@@ -32,6 +32,7 @@
 .fb-18 {font-size: 18px !important;}
 .fb-20 {font-size: 20px !important;}
 .fb-bebas {font-family: 'bebasregular' !important;}
+.fb-arial-rounded {font-family: 'arial_rounded' !important;}
 
 .clear-static {clear: both;}
 
@@ -1794,12 +1795,17 @@ h2.block-grey-title-left {
 
 .formbuilder-form ul li label  {
     float: left;
-    width: 135px;
 }
 
 .formbuilder-form ul li div.form-checkbox{
     clear: both;
-    margin: 40px 0 0 0;
+    margin: 0px 0 20px 0;
+    /* margin: 40px 0 0 0; */
+}
+.form-question.title-checkbox {
+    font-weight: normal !important;
+    border-bottom: none !important;
+    margin-top: 20px !important;
 }
 .formbuilder-form ul li div.form-checkbox input{
     margin: 2px 5px 0 0;
@@ -1817,10 +1823,7 @@ h2.block-grey-title-left {
     color: #666666;
     float: left;
     height: 26px !important;
-    margin-right: 60px;
     padding: 7px 5px;
-    width: 40% !important;
-    margin-bottom: 20px;
     display: block;
 }
 .formbuilder-form p.required {
@@ -1832,15 +1835,13 @@ h2.block-grey-title-left {
     padding: 0;
 }
 .formbuilder-form button.button {
-    width: 42%;
+    display:table;
 }
 .formbuilder-form button.button span {
     background: none repeat scroll 0 0 #FFA01B;
     border: medium none;
     font-weight: normal;
     padding: 10px 20px;
-    margin-left: 160px;
-    margin-top: 20px;
     max-width: 100px;
     float: right;
 }
@@ -1866,9 +1867,7 @@ h2.block-grey-title-left {
         margin-bottom: 20px;
         display: block;
     }
-    .formbuilder-form button.button {
-        width: 72%;
-    }
+    
 
 }
 
@@ -1942,6 +1941,7 @@ button.button span.lanjut-button {
     border: none;
     margin: 10px auto 5px;
     max-width: 80px;
+    height: 19px;
 }
 button.button-area {
     width: 100% !important;
@@ -1951,6 +1951,38 @@ button.button-area {
 /* END ------------ POP UP - ASI DISCLAIMER */
 
 /*---------promo free voucher april------*/
+	.static-page-area.baby-voucher {
+        background: #ffc962;
+        display: block;
+    }
+    
+    .wrap_input_email p{
+		display:none;
+	}
+	.onefield .formbuilder-form ul{
+		padding: 0;
+		width: 73%;
+	}
+	.onefield .formbuilder-form div{
+		clear:none !important;
+	}
+	.wrap_input_email button span{
+		float:left !important;
+		padding:10px 20px !important;
+		height:auto;
+	}
+	.wrap_input_email button{
+		float:left;
+		margin:0 !important;
+		padding:0;
+	}
+	.wrap_input_email ul li input{
+		width:300px;
+	}
+	
+	.wrap_input_email label{
+		display:none;
+	}
 	.logo_free_voucher{
 		padding:30px 0 0;
 		text-align:center;
@@ -1959,6 +1991,9 @@ button.button-area {
 		margin:10px 0 0;
 		background:url(http://im.bilna.com/media/wysiwyg/static-page-img/free-voucher/main_img_facebook.jpg) no-repeat center;
 		height:338px;
+	}
+    .baby-voucher .main-image{
+		background:url(http://im.bilna.com/media/wysiwyg/static-page-img/free-voucher/main-image-fb-landing-baby-june.jpg) no-repeat center;
 	}
 	.title_form{
 		text-align:center;
@@ -2000,7 +2035,7 @@ button.button-area {
 		border-top:2px dashed #714943;
 	}
 	.popup_succes_facebook{
-		display:none;
+		/*display:none;*/
 		position:fixed;
 		width:662px;
 		height:382px;
@@ -2010,7 +2045,7 @@ button.button-area {
 		-webkit-border-radius:20px;
 		margin:-148px auto 0 -331px;
 		top:50%;
-		z-index:11;
+		z-index:999;
 		left:50%;
 	}
 	.popup_succes_facebook img{
@@ -2019,7 +2054,7 @@ button.button-area {
 		margin:40px auto 0;
 	}
 	.bg_popup{
-		display:none;
+		/*display:none;*/
 		position:fixed;
 		width:100%;
 		height:100%;
@@ -2028,7 +2063,7 @@ button.button-area {
 		color: rgba(0, 0, 0, 0.9);
 		top:0;
 		left:0;
-		z-index:10;
+		z-index:999;
 	}
 	.popup_succes_facebook{
 		height: 280px;
@@ -2051,25 +2086,129 @@ button.button-area {
 	margin:0 0 20px;
     text-transform: uppercase;
 	}
+	.onefield input{
+		margin:0 !important;
+		width: 100% !important;
+	}
+	.onefield{
+		width:300px;
+	}
+	.onefield .formbuilder-form{
+		width:500px !important;
+		display:table;
+	}
+    .baby-voucher .formbuilder-form button.button span {background:#4ec7da !important;}
+    .baby-voucher .logo_free_voucher {padding: 0;}
+    .baby-voucher .logo_free_voucher a {
+        background: none repeat scroll 0 0 #fff;
+        -moz-border-radius: 100px;
+        -webkit-border-radius: 100px;
+        border-radius: 100px;
+        color: #585958;
+        display: block;
+        height: 110px;
+        /* margin: 0 auto; */
+        padding: 10px;
+        width: 110px;
+    }
+    .baby-voucher .logo_free_voucher img {padding: 31px 0 0;width: 110px;}
+    
+    .cms-perlengkapan-rumah-freevoucher .messages, .cms-baby-freevoucher-html .messages {
+        display: block;
+        left: 2%;
+        margin: -20px;
+        overflow: hidden;
+        position: absolute;
+        top: 20px;
+        width: 96%;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+        border-radius: 5px;
+    }
+    .cms-perlengkapan-rumah-freevoucher .messages li li, .cms-baby-freevoucher-html .messages li li {
+        margin: 3px 0 !important;
+    }
+    
+    .cms-perlengkapan-rumah-freevoucher .error-msg, .cms-baby-freevoucher-html .error-msg, 
+    .cms-perlengkapan-rumah-freevoucher .success-msg, .cms-baby-freevoucher-html .success-msg, 
+    .cms-perlengkapan-rumah-freevoucher .note-msg, .cms-baby-freevoucher-html .note-msg, 
+    .cms-perlengkapan-rumah-freevoucher .notice-msg, .cms-baby-freevoucher-html .notice-msg {
+        background-position: 10px 9px !important;
+        background-repeat: no-repeat !important;
+        border-style: solid !important;
+        border-width: 2px !important;
+        font-size: 11px !important;
+        font-weight: bold !important;
+        min-height: 24px !important;
+        padding: 8px 8px 8px 32px !important;
+        border-radius: 5px !important;
+    }
+    .cms-perlengkapan-rumah-freevoucher .messages li, .cms-baby-freevoucher-html .messages li {
+        margin: 0 !important;
+    }
+    
 @media only screen and (max-width: 1023px){
+	.wrap_input_email ul{
+		width:70%;
+	}
+	.wrap_input_email{
+		width:70%;
+	}
+	.wrap_input_email ul li input {
+    width: 295px !important;
+}
 	.main-image{
 		background:url(http://im.bilna.com/media/wysiwyg/static-page-img/free-voucher/main_img_facebook_768.jpg) no-repeat center;
 	}
+    .baby-voucher .main-image{
+		background:url(http://im.bilna.com/media/wysiwyg/static-page-img/free-voucher/main-image-fb-landing-baby-june-768.jpg) no-repeat center;
+	}
 }
 @media (max-width: 767px){ 
-	
+	.wrap_input_email ul li input {
+	}
+	.wrap_input_email ul{
+		padding: 0 !important;
+	}
+	.wrap_input_email ul li .required{
+		width:20%;
+		display:none !important;
+	}
 	.footer_facebook_page{
 		margin:0 45px;
 	}
 	.input_form{
 		width:332px;
 	}
-	
+	.wrap_input_email button{
+		width:30%;
+	}
+	.wrap_input_email button span{
+		width:100%;
+	}
+
 }
 @media (max-width: 479px){ 
+	.onefield .formbuilder-form {
+		display: table;
+		width: 100% !important;
+	}
+	.wrap_input_email button span {
+		max-width: none !important;
+		padding: 8px 0 !important;
+		width: 100%;
+	}
+	.wrap_input_email ul li input {
+    padding: 5px 5% !important;
+	margin: 0 0 10px !important;
+    width: 90% !important;
+}
+
 	.main-image{
 		height:260px;
 		background:url(http://im.bilna.com/media/wysiwyg/static-page-img/free-voucher/main_img_facebook_320.jpg) no-repeat center;
+	}
+    .baby-voucher .main-image{
+		background:url(http://im.bilna.com/media/wysiwyg/static-page-img/free-voucher/main-image-fb-landing-baby-june-320.jpg) no-repeat center;
 	}
 	.popup_succes_facebook{
 		height: auto;
@@ -2090,6 +2229,7 @@ button.button-area {
 	.form_email{
 		width:100%;
 	}
+
 	.popup_succes_facebook img {
     margin: 20px auto;
 	}
@@ -2105,6 +2245,20 @@ button.button-area {
 	}
 	.title_form{
 		font-size:19px;
+	}
+	.wrap_input_email ul{
+		width:100%;
+	}
+	.wrap_input_email ul li{
+		margin:0 !important;
+	}
+	.wrap_input_email button{
+		width:100%;
+		padding:0;
+	}	
+	.onefield .formbuilder-form ul{
+		padding: 0;
+		width: 100%;
 	}
 }
 /*-----------------------end of free voucher--------------------------------*/
@@ -2327,3 +2481,569 @@ button.button-area {
 }
 
 /*-------------end of bilna kredit-----------------*/
+
+/*=============================style telkomsel promo===============================*/
+	.cms-pestadiskon19 .wrapper-box-banner{
+		clear:both;
+		width:100%;
+		display:table;
+		margin:0 0 20px;
+	}
+	.cms-pestadiskon19 .telkomsel-promo p{
+		line-height:18px;
+		padding:0 20px;
+	}
+	.cms-pestadiskon19 .box-banner {
+		width:22%;
+		background:#d2d2d2;
+		float:left;
+		text-align:center;
+	}
+	.cms-pestadiskon19 a:nth-child(1) .box-banner,
+	.cms-pestadiskon19 a:nth-child(2) .box-banner,
+	.cms-pestadiskon19 a:nth-child(3) .box-banner{
+		margin:0 4% 0 0;
+	}
+	.cms-pestadiskon19 .wrap-category-link{
+		width:100%;
+		display:table;
+		clear:both;
+	}
+	.cms-pestadiskon19 .category-link{
+		margin:0 0 20px;
+		text-align:center;
+		width:49%;
+		float:left;
+	}
+	.cms-pestadiskon19 .category-link img{
+		width:100%;
+	}
+	.cms-pestadiskon19 .category-link:nth-child(1){
+		margin:0 2% 0 0;
+	}
+	.cms-pestadiskon19 .telkomsel-promo a{
+		color:#5bc8d9;
+		font-weight:bold;
+		text-decoration:underline;
+	}
+	.cms-syarat-ketentuan-semarak19 ol li{
+		font-size:12px;
+	}
+	.banner-telkomsel-19{
+		display:none;
+	}
+	.cms-syarat-ketentuan-semarak19 .button-telkomesel {
+		margin: 20px 0;
+		text-align: center;
+	}
+	@media only screen and (max-width: 1023px){
+		
+	}
+	@media only screen and (max-width: 768px) {
+		.promo-telkomsel-19 .column_product_static{
+			width:32%;
+		}.banner-telkomsel-19{
+			display:block;
+			margin:0 0 10px
+		}
+		.banner-telkomsel-19 img{
+			width:100%;
+		}
+	}
+	@media only screen and (max-width: 468px) {
+		.cms-pestadiskon19 .box-banner {
+			width:46%;
+			background:#d2d2d2;
+			float:left;
+			text-align:center;
+		}
+		
+		.cms-pestadiskon19 a .box-banner{
+			margin: 2% 2% !important;
+		}
+		.promo-telkomsel-19 .column_product_static{
+			width:46%;
+		}
+		
+		.cms-pestadiskon19 .category-link {
+			margin: 0 2% 1% !important;
+		}
+		.cms-pestadiskon19 .category-link{
+			width:96%;
+		}
+	}
+/*=============================end style telkomsel promo=============================*/
+
+
+/* ------------------------------ Pampers free Product ------------------------------- */
+    .fc-greenpampers {color: #00a9a2;}
+    .bg-full {
+        background: url("http://stagex.bilna.com/media/wysiwyg/banner-static-page/bg-pampers-june2014-2.jpg") no-repeat #f5e8dd;
+        background-size: 100%;
+        min-height: 685px;
+    }
+    .pampers-form .formbuilder-form {
+        margin: 0 1% !important;
+        width: 100% !important;
+    }
+    .content-area-pampers {
+        margin: 0;
+        max-width: 500px;
+        padding: 0;
+        width: 100%;
+    }
+    .pampers-form form ul {
+        list-style: none outside none !important;
+        margin: 0 !important;
+    }
+    .bg-full .pampers-form ol li {
+        list-style: decimal outside none !important;
+    }
+    .bg-full .pampers-form .formbuilder-form p.required {
+        display: none !important;
+    }
+    .bg-full .static-page-wrapper .pampers-form ol, .bg-full .static-page-wrapper .pampers-form ul {
+        margin: 0 !important;
+    }
+    .bg-full .formbuilder-form button.button {
+        background: none;
+        border: none;
+        margin: 10px 0 0 20% !important;
+    }
+    .bg-full .formbuilder-form .fieldset {
+        background: none;
+        border: none;
+        margin: 10px 0;
+        padding: 0;
+    }
+    .bg-full .formbuilder-form input {
+        background: none repeat scroll 0 0 #F9F9F9;
+        border: medium none;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) inset;
+        color: #666666;
+        float: left;
+        height: 26px !important;
+        margin-right: 0;
+        max-width: 260px !important;
+        padding: 7px 5px !important;
+        width: 100% !important;
+    }
+    .bg-full .formbuilder-form label {
+        float: left;
+        margin-right: 10px !important;
+        width: 80px !important;
+    }
+    .bg-full .formbuilder-form .form-checkbox input {
+        margin: 0 10px 0 0 !important;
+    }
+    .pampers-form .formbuilder-form button.button span {
+        background: url("http://stagex.bilna.com/media/wysiwyg/banner-static-page/button-pampers-fix.png") no-repeat !important;
+        padding: 8px 17px !important;
+    }
+    .bg-full .formbuilder-form ul li div.form-checkbox label {
+        width: 80% !important;
+    }
+    .bg-full .pampers-form .std ul {
+        padding-left: 0 !important;
+    }
+/* ------------------------------ END Pampers free Product ------------------------------- */
+
+/* ------------------------------ Pampers get 5% ----------------------------------------- */
+
+    .bg-pampers-june {
+        background: url("http://im.bilna.co.id/media/wysiwyg/static-page-img/pampers-bumil.jpg") no-repeat #d4d4d3;
+        background-size: 25% auto;
+        background-position: bottom right;
+        box-shadow: 0 0 210px rgba(0, 0, 0, 0.2) inset;
+    }
+    .bg-pampers-june.pampers-page-form {
+        background: url("http://im.bilna.co.id/media/wysiwyg/static-page-img/bg-pampers-form.jpg") no-repeat #66CBC7;
+        background-size: 100% auto;
+        background-position: top right;
+        box-shadow: 0 0 210px rgba(0, 0, 0, 0.2) inset;
+    }
+    .bg-pampers-june .box-vid-pampers {
+        background: #fff;
+        width: 92%;
+        max-width: 600px;
+        padding: 1.5%;
+        margin: 0 2%;
+        border-radius: 10px;
+    }
+    .bg-pampers-june .box-image-pampers {
+        border-radius: 10px;
+        margin: 0 2%;
+        max-width: 640px;
+        width: 95%;
+    }
+    .bg-pampers-june .box-image-pampers img {
+        border-radius: 10px;
+    }
+    .bg-pampers-june .box-vid-pampers-inner {
+        width: 94%;
+        padding: 10px 3% 0;
+        border: 2px dashed #d4d4d3;
+        border-radius: 10px;
+    }
+    .bg-pampers-june .video-pampers {
+        width: 100%;
+        max-width: 460px;
+        margin: 10px auto;
+    }
+    .bg-pampers-june .blue-box {
+        width: 94%;
+        padding: 10px 3%;
+        text-transform: uppercase;
+        max-width: 460px;
+        margin: 10px auto 20px;
+        text-align: center;
+        background: #74ccc8;
+        border-radius: 5px;
+        color: #fff;
+        font-weight: normal;
+        font-size: 15px;
+    }
+    .bg-pampers-june .container-bottom {
+        width: 96%;
+        max-width: 600px;
+        padding: 3%;
+        margin: 0 2%;
+    }
+    .bg-pampers-june .container-bottom {
+        color: #fff;
+        font-weight: normal;
+        text-shadow: 0 0 5px #999;
+    }
+    .bg-pampers-june .logo-pampers {
+        width: 30%;
+        padding: 2%;
+    }
+    .bg-pampers-june .logo-pampers img {
+        max-width: 242px;
+    }
+    .bg-pampers-june .container-share {
+        color: #fff;
+        font-weight: normal;
+        text-shadow: 0 0 5px #999;
+        padding: 10px 2%;
+    }
+    
+    .container-filled {
+        width: 100%;
+    }
+    .container-filled .right {
+        width: 25%;
+        float: right;
+    }
+    .container-filled .left {
+        width: 66%;
+        float: left;
+    }
+    ol.fc-greenpampers li {color: #00a9a2;}
+    .static-page-wrapper .container-filled .formbuilder-form ul{
+        margin: 0 !important;
+    }
+    .static-page-wrapper .container-filled .formbuilder-form ul li label {
+        width:auto !important;
+    }
+    .static-page-wrapper .container-filled .formbuilder-form ul li input {
+        margin: 0 0 0 0 !important;
+        float: right !important;
+        width: 60% !important;
+    }
+    .bg-pampers-june .pampers-form .formbuilder-form button.button span {
+        background: #00a9a2 !important;
+        padding: 8px 17px !important;
+    }
+    .bg-pampers-june .formbuilder-form button.button {
+        display: table;
+        float: right;
+    }
+    @media only screen and (max-width: 768px) {
+		.container-filled .right {
+            width: 90%;
+        }
+        .container-filled .left {
+            width: 90%;
+        }
+	}
+    @media only screen and (max-width: 468px) {
+        .static-page-wrapper .container-filled .formbuilder-form ul li input {
+            float: left !important;
+            margin: 10px 0 !important;
+            width: 95% !important;
+        }
+        .bg-pampers-june .container-filled .formbuilder-form p.required {
+            clear: none;
+            margin: 0 32px !important;
+        }
+    }
+
+/* ------------------------------ END Pampers get 5% ----------------------------------------- */
+
+
+/*=============================style jakarta great sale===============================*/
+	.cms-jakarta-great-online-sale .wrapper-box-banner{
+		clear:both;
+		width:100%;
+		display:table;
+		margin:0 0 20px;
+	}
+	.cms-jakarta-great-online-sale .jakarta-gs p{
+		line-height:18px;
+		padding:0 20px;
+	}
+	.cms-jakarta-great-online-sale .box-banner {
+		width:22%;
+		background:#d2d2d2;
+		float:left;
+		text-align:center;
+	}
+	.cms-jakarta-great-online-sale a:nth-child(1) .box-banner,
+	.cms-jakarta-great-online-sale a:nth-child(2) .box-banner,
+	.cms-jakarta-great-online-sale a:nth-child(3) .box-banner{
+		margin:0 4% 0 0;
+	}
+	.cms-jakarta-great-online-sale .wrap-category-link{
+		width:100%;
+		display:table;
+		clear:both;
+	}
+	.cms-jakarta-great-online-sale .category-link{
+		margin:0 0 20px;
+		text-align:center;
+		width:49%;
+		float:left;
+	}
+	.cms-jakarta-great-online-sale .category-link img{
+		width:100%;
+	}
+	.cms-jakarta-great-online-sale .category-link:nth-child(1){
+		margin:0 2% 0 0;
+	}
+	.cms-jakarta-great-online-sale .jakarta-gs a{
+		color:#5bc8d9;
+		font-weight:bold;
+		text-decoration:underline;
+	}
+	.cms-syarat-dan-ketentuan-jgos ol li{
+		font-size:12px;
+	}
+	.banner-telkomsel-19{
+		display:none;
+	}
+	.cms-syarat-dan-ketentuan-jgos .button-jgs{
+		margin: 20px 0;
+		text-align: center;
+		padding:10px 20px;
+		font-size:16px;
+		font-weight:bold;
+		border-radius:5px;
+		-moz-border-radius:5px;
+		-webkit-border-radius:5px;
+		background:#4ec7da;
+		display:table;
+	}
+	.cms-syarat-dan-ketentuan-jgs .static-page-wrapper .button-jgs a{
+		color:#fff !important;
+	}
+	@media only screen and (max-width: 1023px){
+		
+	}
+	@media only screen and (max-width: 768px) {
+		.promo-telkomsel-19 .column_product_static{
+			width:32%;
+		}.banner-telkomsel-19{
+			display:block;
+			margin:0 0 10px
+		}
+		.banner-telkomsel-19 img{
+			width:100%;
+		}
+	}
+	@media only screen and (max-width: 468px) {
+		.cms-jakarta-great-online-sale .box-banner {
+			width:46%;
+			background:#d2d2d2;
+			float:left;
+			text-align:center;
+		}
+		
+		.cms-jakarta-great-online-sale a .box-banner{
+			margin: 2% 2% !important;
+		}
+		.promo-telkomsel-19 .column_product_static{
+			width:46%;
+		}
+		
+		.cms-jakarta-great-online-sale .category-link {
+			margin: 0 2% 1% !important;
+		}
+		.cms-jakarta-great-online-sale .category-link{
+			width:96%;
+		}
+	}
+/*=============================end style jakarta great sale=============================*/
+
+/*=============================style event july mom n jo=============================*/
+.momnjo .keterangan li span{
+	display: block;
+    float: left;
+    width: 110px;
+}
+.momnjo .keterangan li{
+	list-style-type:none;
+	font-weight:bold;
+}
+.momnjo .keterangan li:last-child{
+	padding: 0 0 0 116px;
+	}
+.momnjo .keseruan li  .judul{
+	font-weight:bold;
+}
+.momnjo .keseruan li {
+	clear:both;
+	font-weight:bold;
+}
+.momnjo ol.keseruan{
+	display:table;
+}
+.momnjo .keseruan li, .momnjo .keseruan li {
+	font-weight:bold;
+}
+.momnjo .keseruan li img{
+	margin:0 10px 30px 0;
+}
+.momnjo .keseruan li img, .momnjo .keseruan li .desc_photo{
+	float:left;
+}
+
+	@media only screen and (max-width: 1023px){
+		.momnjo .keseruan li img {
+			margin: 0 10px 10px 0;
+		}
+		.momnjo .maps{
+			width:100%;
+		}
+		.momnjo .keterangan li:last-child{
+			padding:0;
+		}
+		.momnjo .keterangan li span{
+			height:23px;
+		}
+		.momnjo .keterangan li{
+			display:table;
+		}
+	}
+	@media only screen and (max-width: 468px) {
+		.momnjo .keterangan{
+			margin-left: 0;
+			padding-left: 0;
+		}
+		.momnjo .keterangan li:nth-child(2) span, .momnjo .keterangan li:last-child span{
+			height:60px;
+		}
+		.momnjo .keterangan li span{
+			width:85px;
+		}
+		.momnjo .keseruan li img{
+			width:100%;
+		}
+	}
+/*=============================end style event july mom n jo=============================*/
+
+/*=============================style tanya nadia=============================*/
+
+.tanya-nadia .col{
+	float:left;
+	width:50%;
+	margin:40px 0 0;
+}
+.tanya-nadia .formbuilder-form #submit-form{
+	float:right !important;
+	margin:0 10px 0 0 !important;
+}
+.tanya-nadia .formbuilder-form{
+	width:90% !important;
+}
+
+.tanya-nadia .formbuilder-form ul li{
+	width:100%;
+}
+.tanya-nadia textarea#question {
+    margin: 0 !important;
+    width: 62% !important;
+}
+.tanya-nadia .required-entry{
+    margin: 0 !important;
+    width: 180px !important;
+}
+.tanya-nadia .col ol li span{
+	font-style:italic;
+	font-size:20px;
+}
+.tanya-nadia .col iframe{
+	min-height: 315px;
+    width: 90%;
+}
+
+@media only screen and (max-width: 1215px){
+		.tanya-nadia .col{
+		width:50%;
+		float:left;
+		margin:40px 0 0;
+	}
+	.tanya-nadia .col .form-checkbox input{
+		margin:0 !important;
+	}
+	.tanya-nadia .col .formbuilder-form .required{
+		margin:5px 0;
+	}
+	.tanya-nadia .col .formbuilder-form .input-text{
+		width:100% !important;
+	}
+}
+@media only screen and (max-width: 1023px){
+	.tanya-nadia .col iframe{
+	min-height: 225px;
+	}
+	.tanya-nadia .col{
+		width:100%;
+		margin:40px 0 0;
+	}
+}
+@media only screen and (max-width: 768px) {
+	.tanya-nadia .col{
+		width:100%;
+		margin:40px 0 0;
+	}
+	.tanya-nadia .col .form-checkbox input{
+		margin:0 !important;
+	}
+	.tanya-nadia .col .formbuilder-form .required{
+		margin:5px 0;
+	}
+	.tanya-nadia .col .formbuilder-form .input-text{
+		width:100%;
+	}
+	.tanya-nadia {
+		width:96%;
+		padding:0 2%;
+	}
+	.tanya-nadia .col iframe{
+	min-height: 360px;
+    width: 90%;
+	}
+}
+@media only screen and (max-width: 468px) {
+	
+	.tanya-nadia .col{
+		width:100%;
+		margin:40px 0 0;
+	}
+	.tanya-nadia .col iframe{
+	min-height: 195px;
+	}
+}
+/*=============================end style tanya nadia=============================*/
+

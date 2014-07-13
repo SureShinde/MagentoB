@@ -65,10 +65,42 @@ class RocketWeb_Netsuitecustom_Model_Observer {
         }
     }
 
+    public function setVisibility($observer) {
+        $magentoProduct = $observer->getEvent()->getMagentoProduct();
+        /** @var InventoryItem $inventoryItem */
+        $inventoryItem = $observer->getEvent()->getNetsuiteProduct();
+
+        foreach($inventoryItem->customFieldList->customField as $customField) {
+            if($customField->internalId == 'custitem_visibility') {
+                $visibilityValue = Mage::helper('rocketweb_netsuite')->getListValue($customField->value->typeId,$customField->value->internalId);
+                $visibilityId = $this->cekAttributeVisibility($visibilityValue);
+                if($visibilityId) {
+                    $magentoProduct->setVisibility($visibilityId);
+                }
+            }
+        }
+    }
+
+    protected function cekAttributeVisibility($arg_value)
+    {
+        $catalog_product_model = Mage::getModel('catalog/product_visibility');
+        $options               = $catalog_product_model->getAllOptions(false);
+
+        foreach($options as $option)
+        {
+            if ($option['label'] == $arg_value)
+            {
+                return $option['value'];
+            }
+        }
+
+        return false;
+    }
+
     protected function attributeValueExists($arg_attribute, $arg_value)
     {
         $attribute_model        = Mage::getModel('eav/entity_attribute');
-        $attribute_options_model= Mage::getModel('eav/entity_attribute_source_table') ;
+        $attribute_options_model= Mage::getModel('eav/entity_attribute_source_table');
 
         $attribute_code         = $attribute_model->getIdByCode('catalog_product', $arg_attribute);
         $attribute              = $attribute_model->load($attribute_code);
@@ -106,14 +138,26 @@ class RocketWeb_Netsuitecustom_Model_Observer {
             $attribute->save();
         }
 
-        foreach($options as $option)
-        {
-            if ($option['label'] == $arg_value)
-            {
+        return $this->_getOptionIdByOptionLabel($arg_attribute,$arg_value);
+    }
+
+    protected function _getOptionIdByOptionLabel($attributeCode,$label) {
+        $attribute = Mage::getSingleton('eav/config')->getAttribute('catalog_product', $attributeCode);
+        //I am not using Mage_Eav_Model_Entity_Attribute_Source_Table::getAllOptions since that will cache the first request
+        $options = Mage::getResourceModel('eav/entity_attribute_option_collection')
+            ->setPositionOrder('asc')
+            ->setAttributeFilter($attribute->getId())
+            ->setStoreFilter($attribute->getStoreId())
+            ->load()
+            ->toOptionArray();
+
+        foreach($options as $option) {
+            if($option['label'] == $label) {
                 return $option['value'];
             }
         }
-        return true;
+
+        return null;
     }
 
     protected function getAttributeValue($arg_attribute, $arg_option_id)
@@ -159,6 +203,7 @@ class RocketWeb_Netsuitecustom_Model_Observer {
 
     public function initCustomRecords($observer) {
         //Cache custom record types that we need. This is because I cannot do a search inside another search
+        //Mage::helper('rocketweb_netsuitecustom')->getCustomRecord(36,1);
         Mage::helper('rocketweb_netsuitecustom')->getCustomRecord(36,1);
         Mage::helper('rocketweb_netsuitecustom')->getCustomRecord(31,1);
     }
