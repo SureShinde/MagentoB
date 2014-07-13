@@ -118,6 +118,10 @@ class RocketWeb_Netsuite_Helper_Mapper_Shipment extends RocketWeb_Netsuite_Helpe
                 $magentoShipment->addTrack($magentoTrackingNumber);
 //                 $magentoShipment->sendEmail(true, ''); 
             }
+            
+            if (!$magentoOrder) {
+                $magentoOrder = $magentoShipment->getOrder();
+            }
             if ($magentoOrder->getPayment()->getMethodInstance()->getCode() == 'cod') {
             	$magentoOrderStatus = 'shipping_cod';
                 $magentoOrder->setStatus($magentoOrderStatus);
