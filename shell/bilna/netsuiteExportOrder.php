@@ -8,7 +8,8 @@
 require_once dirname(__FILE__) . '/../abstract.php';
 
 class Bilna_Netsuitesync_Shell_NetsuiteExportOrder extends Mage_Shell_Abstract {
-    protected $orderStatusAllow = array ('pending', 'pending_cod');
+// 	protected $orderStatusAllow = array ('pending', 'pending_cod', 'processing_cod', 'cc_verification');
+	protected $orderStatusAllow = array ('shipping_cod');
     
     public function run() {
         $this->writeLog("Started export orders ...");
