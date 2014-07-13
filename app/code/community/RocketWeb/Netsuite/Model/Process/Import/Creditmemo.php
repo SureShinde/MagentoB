@@ -51,6 +51,7 @@ class RocketWeb_Netsuite_Model_Process_Import_Creditmemo extends RocketWeb_Netsu
         $grandTotal = 0;
         $totalQty = 0;
         $bilnaCredit = 0;
+
 //error_log("\nmagentoCreditMemo".print_r($magentoCreditmemo,1),3,'/tmp/netCreditMemo.log');        
 error_log("\nnetsuiteCreditMemo".print_r($netsuiteCreditmemo,1),3,'/tmp/netCreditMemo6.log');        
         foreach ($magentoCreditmemo->getAllItems() as $magentoCreditmemoItem) {
@@ -63,6 +64,7 @@ error_log("\nnetsuiteCreditMemo".print_r($netsuiteCreditmemo,1),3,'/tmp/netCredi
                     $_quantity = $netsuiteItem->quantity;
                     $_rowTotal = $_price * $_quantity;
                     $_discount = ($_price - $netsuiteItem->rate) * $_quantity;
+
 error_log("\nprice ".print_r($_price,1),3,'/tmp/netCreditMemo.log');        
 error_log("\nquantity ".print_r($_quantity,1),3,'/tmp/netCreditMemo.log');        
 error_log("\nrowTotal ".print_r($_rowTotal,1),3,'/tmp/netCreditMemo.log');        

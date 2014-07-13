@@ -221,7 +221,7 @@ class RocketWeb_Netsuite_Helper_Mapper_Order extends RocketWeb_Netsuite_Helper_M
                             }else{
                                 $discountPerItem = - (float) ($bundleDiscount + round(($item->getData('discount_amount') / $item->getData('qty_ordered')),3));
                             }
-
+                            
                             $totalDiscount += $discountPerItem;
                             $item->setData('discount_amount', $discountPerItem);
                             $customField = $this->_initCustomField($customFieldsConfigItem, $item);
@@ -427,6 +427,12 @@ class RocketWeb_Netsuite_Helper_Mapper_Order extends RocketWeb_Netsuite_Helper_M
                             $customFields[] = $customMagentoStatus;
                         }
                     }
+                    elseif ($customFieldsConfigItem['netsuite_field_name'] == 'custbody_deliverytype') {
+                        $customPaymentMethod = new StringCustomFieldRef();
+                        $customPaymentMethod->internalId = 'custbody_deliverytype';
+                        $customPaymentMethod->value = preg_replace('/^(\w+) - /', '', $magentoOrder->getShippingDescription());
+                        $customFields[] = $customPaymentMethod;
+                    }
                     else {
                         $customField = $this->_initCustomField($customFieldsConfigItem, $magentoOrder);
                         $customFields[] = $customField;
@@ -475,12 +481,7 @@ class RocketWeb_Netsuite_Helper_Mapper_Order extends RocketWeb_Netsuite_Helper_M
     protected function _initSimpleCustomField($customFieldsConfigItem,$magentoOrder) {
         $customField = new StringCustomFieldRef();
         $customField->internalId = $customFieldsConfigItem['netsuite_field_name'];
-
-        if ($customFieldsConfigItem['netsuite_field_name'] == 'custbody_deliverytype') {
-        	$customField->value = str_replace("Pilih - ", "", $this->_getCustomFieldValueFromMagentoData($customFieldsConfigItem,$magentoOrder));
-        }else{
-        	$customField->value = $this->_getCustomFieldValueFromMagentoData($customFieldsConfigItem,$magentoOrder);
-        }
+        $customField->value = $this->_getCustomFieldValueFromMagentoData($customFieldsConfigItem,$magentoOrder);
 
         return $customField;
     }
@@ -536,31 +537,7 @@ class RocketWeb_Netsuite_Helper_Mapper_Order extends RocketWeb_Netsuite_Helper_M
             if ($magentoOrderState == 'closed') {
                 $magentoOrderState = 'canceled';
             }
-
-            //re-save the billing and shipping addresses
-            //if(!$magentoOrder->hasInvoices()) {
-            //    if($netsuiteOrder->transactionBillAddress) {
-            //        $magentoBillingAddress = Mage::helper('rocketweb_netsuite/mapper_address')->getBillingAddressMagentoFormatFromNetsuiteAddress($netsuiteOrder->transactionBillAddress,
-            //            $netsuiteCustomer,
-            //            $magentoOrder);
-            //        $magentoBillingAddress->setId($magentoOrder->getBillingAddressId());
-            //        $magentoBillingAddress->save();
-            //    }
-            //}
-
-
-            //if(!$magentoOrder->hasShipments()) {
-            //    if($netsuiteOrder->transactionShipAddress) {
-            //        $magentoShippingAddress = Mage::helper('rocketweb_netsuite/mapper_address')->getShippingAddressMagentoFormatFromNetsuiteAddress($netsuiteOrder->transactionShipAddress,
-            //            $netsuiteCustomer,
-            //            $magentoOrder);
-            //        $magentoShippingAddress->setId($magentoOrder->getShippingAddressId());
-            //        $magentoShippingAddress->save();
-            //    }
-            //}
-
-
-
+            
             /**
              * Re-save the shipping method, but only if there are no shipments. This is because Net Suite allows storing different shipping data at order and shipment level.
              * In case item fulfillments are defined in Net Suite, they will be controlling the order.
@@ -647,7 +624,7 @@ class RocketWeb_Netsuite_Helper_Mapper_Order extends RocketWeb_Netsuite_Helper_M
                     $validOrderItemIds[] = $orderItem->getItemId();
                 }
             }
-
+            
             foreach ($magentoOrder->getAllItems() as $orderItem) {
                 if (!in_array($orderItem->getItemId(), $validOrderItemIds)) {
                     $orderItem->delete();

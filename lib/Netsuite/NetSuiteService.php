@@ -1,6 +1,6 @@
 <?php
 
-require_once dirname(__FILE__).DS."NSPHPClient.php";
+require_once dirname(__FILE__) . "/NSPHPClient.php";
 
 if (!class_exists("RecordType",false)){
 /**
