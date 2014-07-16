@@ -55,7 +55,7 @@ class RocketWeb_Netsuite_Model_Queue_Adapter_Db extends Zend_Queue_Adapter_Db {
                 $query->from($info['name'], array('*'))
                     ->where('queue_id=?', $this->getQueueId($queue->getName()))
                     ->where('handle IS NULL OR timeout+' . (int)$timeout . ' < ' . (int)$microtime)
-                    ->order('priority ASC')
+                    ->order('priority ASC', 'created DESC')
                     ->limit($maxMessages);
 
                 foreach ($db->fetchAll($query) as $data) {
