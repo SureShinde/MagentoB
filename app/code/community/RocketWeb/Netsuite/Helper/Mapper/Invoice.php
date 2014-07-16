@@ -125,10 +125,17 @@ class RocketWeb_Netsuite_Helper_Mapper_Invoice extends RocketWeb_Netsuite_Helper
          * Check shipment create availability
          */
         if (!$magentoOrder->canInvoice()) {
-             throw new Exception("{$magentoOrder->getId()}: Cannot do shipment for this order!");
+           throw new Exception("{$magentoOrder->getId()}: Cannot do shipment for this order!");
+        }
+         
+        /**
+         * check registry skip invoice export
+         */
+        if (!Mage::registry('skip_invoice_export_queue_push')) {
+            Mage::register('skip_invoice_export_queue_push', 1);
         }
         
-        Mage::register('skip_invoice_export_queue_push', 1);
+        //Mage::register('skip_invoice_export_queue_push', 1);
         $magentoInvoice = $magentoOrder->prepareInvoice($itemQty);
         
         if ($magentoInvoice) {
