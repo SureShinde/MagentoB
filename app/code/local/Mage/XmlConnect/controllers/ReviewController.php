@@ -177,7 +177,7 @@ class Mage_XmlConnect_ReviewController extends Mage_XmlConnect_Controller_Action
                 }
             }
         } else {
-            $this->_message($this->__('Unable to post the review.'), self::MESSAGE_STATUS_ERROR);
+            $this->_message($this->__('Unable to post the review. Login or Sign up for review'), self::MESSAGE_STATUS_ERROR);
         }
     }
 
