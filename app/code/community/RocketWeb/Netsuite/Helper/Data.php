@@ -256,7 +256,7 @@ class RocketWeb_Netsuite_Helper_Data extends Mage_Core_Helper_Data {
     }
 
     //Priorities help managing the order the items in the queue are processed, i.e. to make sure a configurable's simples are processed first
-    public function getRecordPriority($record) {
+    public function getRecordPriority2($record) {
         if($record instanceof InventoryItem) {
             if($record->matrixType == ItemMatrixType::_parent) {
                 return 1;
@@ -264,6 +264,27 @@ class RocketWeb_Netsuite_Helper_Data extends Mage_Core_Helper_Data {
             else {
                 return 0;
             }
+        }
+        else {
+            return 0;
+        }
+    }
+
+    public function getRecordPriority($path) {
+        if($path == 'order_fullfilment') {
+            return 30;
+        }
+        elseif($path == 'order') {
+            return 20;
+        }
+        elseif($path == 'cashsale' || $path == 'invoice') {
+            return 10;
+        }
+        elseif($path == 'creditmemo') {
+            return 40;
+        }
+        elseif($path == 'inventoryitem') {
+            return 50;
         }
         else {
             return 0;
