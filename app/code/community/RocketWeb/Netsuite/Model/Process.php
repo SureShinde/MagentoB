@@ -74,7 +74,7 @@ class RocketWeb_Netsuite_Model_Process {
         
         foreach ($importableEntities as $path => $name) {
             if ($logger) {
-                $logger->logProgress("Importing $name");
+                $logger->logProgress("Importing ".$name." \n");
             }
             
             $importableEntityModel = Mage::getModel('rocketweb_netsuite/process_import_' . $path);
@@ -152,12 +152,12 @@ class RocketWeb_Netsuite_Model_Process {
         }
 
         Mage::helper('rocketweb_netsuite/queue')->setLastUpdateAccessDate($time, RocketWeb_Netsuite_Helper_Queue::NETSUITE_IMPORT_QUEUE);
-        $this->processQueue();
+        $this->processQueue($logger);
         $this->populateDeleteQueue();
         $this->processDeleteQueue();
     }
 
-    public function processQueue() {
+    public function processQueue($logger=null) {
         if (!Mage::helper('rocketweb_netsuite')->isEnabled()) {
             return;
         }
@@ -186,6 +186,9 @@ class RocketWeb_Netsuite_Model_Process {
                     $queue->deleteMessage($originalMessage);
                 }
                 catch (Exception $ex) {
+		    if ($logger) {
+		         $logger->logProgress($ex->getMessage());
+		    }
                     Mage::helper('rocketweb_netsuite')->log($ex->getMessage());
                 }
             }
