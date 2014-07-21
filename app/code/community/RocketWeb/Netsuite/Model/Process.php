@@ -111,9 +111,13 @@ class RocketWeb_Netsuite_Model_Process {
                                 $request->baseRef = new RecordRef();
                                 $request->baseRef->internalId = $internalRecordId;
                                 $request->baseRef->type = $importableEntityModel->getRecordType();
+                                
+                                $logger->logProgress("request date " . date("Y-m-d H:i:s"));
+                                $logger->logProgress("request {$name}: " . json_encode($request));
+                                
                                 $getResponse = Mage::helper('rocketweb_netsuite')->getNetsuiteService()->get($request);
                                 
-                                $logger->logProgress("request {$name}: " . json_encode($request));
+                                $logger->logProgress("response date " . date("Y-m-d H:i:s"));
                                 $logger->logProgress("response {$name}: " . json_encode($getResponse));
                                 $logger->logProgress("----------------------------------------------------------------------------------------");
                                 
