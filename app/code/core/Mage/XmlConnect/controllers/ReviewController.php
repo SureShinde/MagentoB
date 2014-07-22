@@ -121,7 +121,7 @@ class Mage_XmlConnect_ReviewController extends Mage_XmlConnect_Controller_Action
         } catch (Mage_Core_Exception $e) {
             $this->_message($e->getMessage(), self::MESSAGE_STATUS_ERROR);
         } catch (Exception $e) {
-            $this->_message($this->__('Unable to load review form.'), self::MESSAGE_STATUS_ERROR);
+            $this->_message($this->__('Unable to post the review. Login or Sign up for review.'), self::MESSAGE_STATUS_ERROR);
             Mage::logException($e);
         }
     }
@@ -165,7 +165,7 @@ class Mage_XmlConnect_ReviewController extends Mage_XmlConnect_Controller_Action
                         $this->__('Your review has been accepted for moderation.'), self::MESSAGE_STATUS_SUCCESS
                     );
                 } catch (Exception $e) {
-                    $this->_message($this->__('Unable to post the review.'), self::MESSAGE_STATUS_ERROR);
+                    $this->_message($this->__('Unable to post the review. Login or Sign up for review.'), self::MESSAGE_STATUS_ERROR);
                     Mage::logException($e);
                 }
             } else {
@@ -173,11 +173,11 @@ class Mage_XmlConnect_ReviewController extends Mage_XmlConnect_Controller_Action
                     $validate = array_map(array($this, '_trimDot'), $validate);
                     $this->_message(implode('. ', $validate) . '.', self::MESSAGE_STATUS_ERROR);
                 } else {
-                    $this->_message($this->__('Unable to post the review.'), self::MESSAGE_STATUS_ERROR);
+                    $this->_message($this->__('Unable to post the review. Login or Sign up for review.'), self::MESSAGE_STATUS_ERROR);
                 }
             }
         } else {
-            $this->_message($this->__('Unable to post the review.'), self::MESSAGE_STATUS_ERROR);
+            $this->_message($this->__('Unable to post the review. Login or Sign up for review.'), self::MESSAGE_STATUS_ERROR);
         }
     }
 
