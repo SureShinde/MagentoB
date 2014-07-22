@@ -121,7 +121,7 @@ class Mage_XmlConnect_ReviewController extends Mage_XmlConnect_Controller_Action
         } catch (Mage_Core_Exception $e) {
             $this->_message($e->getMessage(), self::MESSAGE_STATUS_ERROR);
         } catch (Exception $e) {
-            $this->_message($this->__('Unable to post the review. Login or Sign up for review.'), self::MESSAGE_STATUS_ERROR);
+            $this->_message($this->__('Unable to load review form.'), self::MESSAGE_STATUS_ERROR);
             Mage::logException($e);
         }
     }
