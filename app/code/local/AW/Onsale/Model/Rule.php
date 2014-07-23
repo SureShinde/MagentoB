@@ -146,7 +146,6 @@ class AW_Onsale_Model_Rule extends Mage_Rule_Model_Rule
                 );
             }
         }
-
         return $this->_productIds;
     }
 
@@ -160,10 +159,10 @@ class AW_Onsale_Model_Rule extends Mage_Rule_Model_Rule
     {
         $product = clone $args['product'];
         $product->setData($args['row']);
-
-        if ($this->getConditions()->validate($product)) {
+        //if ($this->getConditions()->validate($product)) 
+        //{
             $this->_productIds[] = $product->getId();
-        }
+        //}
     }
 
     /**
