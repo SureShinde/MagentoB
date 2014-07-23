@@ -257,7 +257,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Backend_Abstract
             if (!$this->getAttribute()->getEntity()->checkAttributeUniqueValue($this->getAttribute(), $object)) {
                 $label = $this->getAttribute()->getFrontend()->getLabel();
                 throw Mage::exception('Mage_Eav',
-                    Mage::helper('eav')->__('The value of attribute "%s" must be unique', $label)
+                    Mage::helper('eav')->__('The value of attribute "%s" "%s" must be unique', $label, $value)
                 );
             }
         }
