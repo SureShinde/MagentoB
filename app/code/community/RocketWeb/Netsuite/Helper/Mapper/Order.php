@@ -200,6 +200,30 @@ class RocketWeb_Netsuite_Helper_Mapper_Order extends RocketWeb_Netsuite_Helper_M
                 foreach ($customFieldsConfig as $customFieldsConfigItem) {
                     
                     switch ($customFieldsConfigItem['netsuite_field_name']) {
+                        case 'custcol_magentoitemid':
+                        case 'custcol_parentid':
+                            $customField = $this->_initCustomField($customFieldsConfigItem, $item);
+                            $customFields[] = $customField;
+                            break;
+                        case 'custcol_parentname':
+                            $productBundleName = $item->getData('name');
+                            if($item->getProductType() == 'bundle')
+                            {
+                                /*
+                                0: separate
+                                1: together
+                                */
+                                if($productOptions['shipment_type']==0)
+                                {
+                                    $item->setData('name', 'Bundle Product Separate - ' . $productBundleName);
+                                }elseif($productOptions['shipment_type']==1){
+                                    $item->setData('name', 'Bundle Product Together - ' . $productBundleName);
+                                }
+                                $customField = $this->_initCustomField($customFieldsConfigItem, $item);
+                                $customFields[] = $customField;
+                            }
+                            
+                            break;
                         case 'custcol_discountitem':
                             if (in_array($item->getProductType(), array ('bundle'))) {
                                 continue;
