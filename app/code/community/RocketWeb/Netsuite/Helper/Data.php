@@ -271,7 +271,7 @@ class RocketWeb_Netsuite_Helper_Data extends Mage_Core_Helper_Data {
     }
 
     public function getRecordPriority($path) {
-        if($path == 'order_fullfilment') {
+        if($path == 'order_fulfillment') {
             return 30;
         }
         elseif($path == 'order') {
