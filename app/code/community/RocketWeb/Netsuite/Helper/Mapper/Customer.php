@@ -45,8 +45,8 @@ class RocketWeb_Netsuite_Helper_Mapper_Customer extends RocketWeb_Netsuite_Helpe
 		$netsuiteCustomer->firstName = $magentoCustomer->getFirstname();
 		$netsuiteCustomer->lastName = $magentoCustomer->getLastname();
 		$netsuiteCustomer->middleName = $magentoCustomer->getMiddlename();
-		$netsuiteCustomer->phone = $magentoCustomer->getTelephone();
-		$netsuiteCustomer->fax = $magentoCustomer->getFax();
+		$netsuiteCustomer->phone = substr($magentoCustomer->getTelephone(), 0, 22);
+		$netsuiteCustomer->fax = intval($magentoCustomer->getFax());
 		$netsuiteCustomer->email = $magentoCustomer->getEmail();
 		$netsuiteCustomer->vatRegNumber = $magentoCustomer->getTaxvat();
 		$netsuiteCustomer->stage = CustomerStage::_customer;
@@ -56,10 +56,10 @@ class RocketWeb_Netsuite_Helper_Mapper_Customer extends RocketWeb_Netsuite_Helpe
 		if($billingAddress) {
 			$netsuiteCustomer->companyName = $billingAddress->getCompany();
 			if(!$magentoCustomer->getTelephone()) {
-				$netsuiteCustomer->phone = $billingAddress->getTelephone();
+				$netsuiteCustomer->phone = substr($billingAddress->getTelephone(), 0, 22);
 			}
 			if(!$magentoCustomer->getFax()) {
-				$netsuiteCustomer->fax = $billingAddress->getFax();
+				$netsuiteCustomer->fax = intval($billingAddress->getFax());
 			}
 				
 		}
@@ -110,7 +110,7 @@ class RocketWeb_Netsuite_Helper_Mapper_Customer extends RocketWeb_Netsuite_Helpe
 			}
 				
 			$netsuiteAddress->addressee = $magentoCustomer->getName();
-			$netsuiteAddress->phone = $magentoAddress->getTelephone();
+			$netsuiteAddress->phone = substr($magentoAddress->getTelephone(), 0, 22);
 			$netsuiteAddress->addr1 = $magentoAddress->getStreet(1);
 			$netsuiteAddress->addr2 = $magentoAddress->getStreet(2);
 			$netsuiteAddress->city = $magentoAddress->getCity();
