@@ -38,12 +38,16 @@
               $j(".link-minicart").addClass("cart-for-sticky");
               $j(".mini-cart").addClass("cart-block-detail");
               $j(".link-checkout").addClass("checkout-for-sticky");
+              $j(".normal-sticky-cart").addClass("add-width-cart");
+              $j(".normal-sticky-cart .link-blog").addClass("no-blog");
 	      } else {
 	          $j(".header-container .sticky-header-wrapper").fadeOut();
               $j(".search-container-new").removeClass("search-for-sticky");
               $j(".link-minicart").removeClass("cart-for-sticky");
               $j(".mini-cart").removeClass("cart-block-detail");
               $j(".link-checkout").removeClass("checkout-for-sticky");
+              $j(".normal-sticky-cart").removeClass("add-width-cart");
+              $j(".normal-sticky-cart .link-blog").removeClass("no-blog");
 	      }
 	      if ($j(this).scrollTop() > 100) {
 	          $j(".back-to-top").fadeIn();
@@ -272,16 +276,19 @@ $j(document).ready(function(){
         	<a href="<?php echo $this->getUrl('blog'); ?>" class="link-blog-mobile"><?php echo $this->__('Blog') ?></a>
         	<a href="#" class="link-myaccount-mobile"><?php echo $this->__('My Account') ?></a>
         	<div class="top-cart">
-        		<?php $_totalItem = $this->helper('checkout/cart')->getSummaryCount();  //get total items in cart ?>
+        		<div class="normal-sticky-cart">
+                    <?php $_totalItem = $this->helper('checkout/cart')->getSummaryCount();  //get total items in cart ?>
+                    
+                    <?php if($_totalItem == 0):?>
+                        <a href="#" class="link-minicart" id="link-minicart"><?php echo $this->__('View Cart(0)') ?></a>
+                    <?php else:?>
+                        <a href="#" class="link-minicart" id="link-minicart"><?php echo $this->__('View Cart(').$_totalItem.$this->__(')') ?></a>
+                        <?php endif;?>
+                    <a href="<?php echo $this->getUrl('checkout/cart'); ?>" class="link-checkout"><?php echo $this->__('Checkout') ?></a>
         		
-        		<?php if($_totalItem == 0):?>
-	    			<a href="#" class="link-minicart" id="link-minicart"><?php echo $this->__('View Cart(0)') ?></a>
-	    		<?php else:?>
-	    			<a href="#" class="link-minicart" id="link-minicart"><?php echo $this->__('View Cart(').$_totalItem.$this->__(')') ?></a>
-	    			<?php endif;?>
-        		<a href="<?php echo $this->getUrl('checkout/cart'); ?>" class="link-checkout"><?php echo $this->__('Checkout') ?></a>
-        		<a href="<?php echo $this->getUrl('blog'); ?>" class="link-blog"><span><?php echo $this->__('Blog') ?></span></a>
-        		<div class="clear"></div>
+                    <a href="<?php echo $this->getUrl('blog'); ?>" class="link-blog"><span><?php echo $this->__('Blog') ?></span></a>
+        		</div>
+                <div class="clear"></div>
         		<div class="mini-cart" style="display: none !important;"><?php echo $this->getChildHtml('topcart') ?></div>
         	</div>
         	<div class="left">
