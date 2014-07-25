@@ -15,95 +15,84 @@ class RocketWeb_Netsuite_Helper_Mapper_Creditmemo extends RocketWeb_Netsuite_Hel
             throw new Exception("Credit Memo with Order IncrementID #{$magentoIncrementId} not found!");
         }
         
-        $netsuiteCustomer = Mage::helper('rocketweb_netsuite/mapper_customer')->getByInternalId($magentoCreditmemo->entity->internalId);
-        //$magentoCreditmemo = $magentoConvertor->toCreditmemo($magentoOrder);
-        //$magentoCreditmemo->setOrder($magentoOrder)
-        //$magentoCreditmemo->setStoreId($magentoOrder->getStoreId())->setCustomerId($magentoOrder->getCustomerId());
-        
-        //Mage::helper('core')->copyFieldset('sales_convert_order', 'to_creditmemo', $magentoOrder, $magentoCreditmemo);
-        
-        //$magentoCreditmemo->setBillingAddressId($magentoOrder->getBillingAddressId())->setShippingAddressId($magentoOrder->getShippingAddressId());
-        $itemMap = array (); // save changes to quantity & prices for each order item
-        
-        foreach ($creditmemo->itemList->item as $netsuiteItem) {
-            foreach ($magentoOrder->getAllItems() as $magentoOrderItem) {
-                if ($netsuiteItem->item->internalId == Mage::getModel('catalog/product')->load($magentoOrderItem->getProductId())->getNetsuiteInternalId()) {
-                    $item = array ();
-                    $item['netsuite_object'] = $netsuiteItem;
-                    $item['magento_orderitem_object'] = $magentoOrderItem;
-                    $itemMap[] = $item;
+        $orderId = $magentoOrder->getId();
+
+        if($magentoOrder->hasInvoices())
+        {
+            $invoiceObjects = $magentoOrder->getInvoiceCollection();
+            $invoiceObj = $invoiceObjects->getFirstItem();
+            $invoice_id = $invoiceObj['entity_id'];
+            foreach ($creditmemo->itemList->item as $netsuiteItem)
+            {
+                foreach ($magentoOrder->getAllItems() as $magentoOrderItem)
+                {
+                    $netId = Mage::getModel('catalog/product')->load($magentoOrderItem->getProductId())->getNetsuiteInternalId();
+                    if ( $netsuiteItem->item->internalId == $netId )
+                    {
+                        $items[$magentoOrderItem->getData('item_id')]['item_id']        = $magentoOrderItem->getData('item_id');
+                        $items[$magentoOrderItem->getData('item_id')]['back_to_stock']  = number_format($netsuiteItem->quantity,0);
+                        $items[$magentoOrderItem->getData('item_id')]['qty']            = number_format($netsuiteItem->quantity,0);
+
+                    }
+
                 }
             }
         }
-        
-        $magentoService = Mage::getModel('sales/service_order', $magentoOrder);
-        $data = array ();
-        $qtys = array ();
-        
-        //$magentoCreditmemo = $magentoConvertor->toCreditmemo($magentoOrder);
-        //$totalQuantity = 0;
-        //$refundQty = 0;
-        
-        if (is_array($itemMap)) {
-            foreach ($itemMap as $item) {
-                // skip if item is wrapping
-                if (preg_match('/^(\wrapping)/', $item['netsuite_object']->item->name)) {
-                    continue;
-                }
-                
-                $quantity = $item['netsuite_object']->quantity;
-                $qtys[] = array ($item['magento_orderitem_object']->getId() => $quantity);
-//                'qtys' => array(
-//                    $orderItem->getId() => 1 //qty to refund.. $orderItem->getQty()
-//                )
-                
-                //$quantity = $item['netsuite_object']->quantity;
-                
-                //$refundOrderItem = Mage::getModel('sales/order_item')->load($item['magento_orderitem_object']->getId());
-                //$refundOrderItem = $magentoOrder->getItemsCollection()->getItemByColumnValue('sku', $item['netsuite_object']->item->description);
-                //$magentoCreditmemoItem = $magentoConvertor->itemToCreditmemoItem($item['magento_orderitem_object']);
-                //$magentoCreditmemoItem->setQty($quantity);
-                //$magentoCreditmemoItem->register();
-                //$magentoCreditmemoItem->setDiscountAmount($refundOi->getDiscountAmount() * ($magentoCreditmemoItem->getQty() / $magentoCreditmemoItem->getOrderItem()->getQtyOrdered()));
-                //$magentoCreditmemoItem->setBaseDiscountAmount($refundOi->getBaseDiscountAmount() * ($magentoCreditmemoItem->getQty() / $magentoCreditmemoItem->getOrderItem()->getQtyOrdered()));
-                //$magentoCreditmemoItem->setTaxAmount($refundOi->getTaxAmount() * ($magentoCreditmemoItem->getQty() / $magentoCreditmemoItem->getOrderItem()->getQtyOrdered()));
-                //$magentoCreditmemoItem->setBaseTaxAmount($refundOi->getBaseTaxAmount() * ($magentoCreditmemoItem->getQty() / $magentoCreditmemoItem->getOrderItem()->getQtyOrdered()));
-                //$magentoCreditmemoItem->setHiddenTaxAmount($refundOi->getHiddenTaxAmount() * ($magentoCreditmemoItem->getQty() / $magentoCreditmemoItem->getOrderItem()->getQtyOrdered()));
-                //$magentoCreditmemoItem->setBaseHiddenTaxAmount($refundOi->getBaseHiddenTaxAmount() * ($magentoCreditmemoItem->getQty() / $magentoCreditmemoItem->getOrderItem()->getQtyOrdered()));
+        $creditmemo = array(
+            'items' =>  $items,
+            'comment_text' => 'Customer canceled the order',
+            'comment_customer_notify' => 'Order Cancel is Successful',
+            'shipping_amount' => 0,
+            'adjustment_positive' => 0,
+            'adjustment_negative' => 0,
+            'do_offline' => 'do_offline',
+            'send_email' => 'YES'
+        );
 
-            
-                //$magentoCreditmemoItem = Mage::getModel('sales/order_creditmemo_item');
-                //Mage::helper('core')->copyFieldset('sales_convert_order_item', 'to_creditmemo_item', $item['magento_orderitem_object'], $magentoCreditmemoItem);
-                //$magentoCreditmemoItem->setOrderItem($item['magento_orderitem_object']);
-                //$magentoCreditmemoItem->setProductId(Mage::getModel('catalog/product')->load($item['magento_orderitem_object']->getProductId())->getId());
-                ////intentionally using setData instead of ->setQty as at this point we dont care about out of stock exceptions
-                //$magentoCreditmemoItem->setData('qty', $item['netsuite_object']->quantity);
-                //$magentoCreditmemo->addItem($magentoCreditmemoItem);
-                
-                $totalQuantity += $quantity;
-            }
+        $data=array(
+            'order_increment_id' => $magentoOrder->getIncrementId(),
+            'invoice_id'         => $invoice_id,
+            'creditmemo'         => $creditmemo
+        );
+
+        $errorMessage = $this->validateCreditMemo($magentoOrder);
+        if($errorMessage == '')
+        {
+            //$details  = $this->initiateCreditMemo($data);
+            return $data;
         }
-        
-        $data[] = $qtys;
-        $magentoCreditmemo = $magentoService->prepareCreditmemo($data)->save();
-        
-        //$magentoCreditmemo->addItem($magentoCreditmemoItem);
-        //$magentoCreditmemo->register();
 
-        //Mage::getModel('core/resource_transaction')
-        //    ->addObject($magentoCreditmemo)
-        //    ->addObject($magentoCreditmemo->getOrder())
-        //    ->save();
-        
-        
-        
-        
-        $magentoCreditmemo->setState(Mage_Sales_Model_Order_Creditmemo::STATE_REFUNDED);
-        //$magentoCreditmemo->setTotalQty($totalQuantity);
-        
-        return $magentoCreditmemo;
+        return false;
     }
     
+    protected function validateCreditMemo($order)
+    {
+        $errorMessage = '';
+        if (!$order->canCreditmemo()) {
+            $errorMessage = 'cannot create credit memo';
+            if(!$order->isPaymentReview())
+            {
+                $errorMessage = 'cannot create credit memo Payment is in review';
+            }
+            if(!$order->canUnhold())
+            {
+                $errorMessage = 'cannot create credit memo Order is on hold';
+            }
+            if(abs($order->getTotalPaid()-$order->getTotalRefunded())<.0001)
+            {
+                $errorMessage = 'cannot create credit memo Amount Paid is equal or less than amount refunded';
+            }
+            if($order->getActionFlag('edit') === false)
+            {
+                $errorMessage = 'cannot create credit memo Action Flag of Edit not set';
+            }
+            if ($order->hasForcedCanCreditmemo()) {
+                $errorMessage = 'cannot create credit memo Can Credit Memo has been forced set';
+            }
+        }
+        return $errorMessage;
+    }
+
     protected function getIncrementIdFromNetsuite(CreditMemo $creditmemo) {
         if ($creditmemo->customFieldList->customField) {
             foreach ($creditmemo->customFieldList->customField as $customField) {
