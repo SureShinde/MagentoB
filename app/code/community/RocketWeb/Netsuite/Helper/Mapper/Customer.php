@@ -159,24 +159,38 @@ class RocketWeb_Netsuite_Helper_Mapper_Customer extends RocketWeb_Netsuite_Helpe
 		$netsuiteCustomer->salutation = $magentoCustomer->getPrefix();
 
         $firstName = $magentoCustomer->getFirstname();
-        if(empty($firstName))
-            $firstName = $firstnamebilling;
-        elseif(empty($firstnamebilling))
-            $firstName = $firstnameshipping;
-        elseif (empty($firstnameshipping))
-            $firstName = $firstnameCustomer;
-        elseif(empty($firstnameCustomer))
-            $firstName = 'GUEST';
+        if(empty($firstName)){
+        	if(empty($firstnamebilling)){
+        		if (empty($firstnameshipping)){
+	        		if (empty($firstnameCustomer)){
+	        			$firstName = 'GUEST';
+	        		}else{
+	        			$firstName = $firstnameCustomer;
+	        		}
+        		}else{
+        			$firstName = $firstnameshipping;
+        		}
+        	}else{
+        		$firstName = $firstnamebilling;
+        	}
+        }
 
         $lastName = $magentoCustomer->getLastname();
-        if(empty($lastName))
-            $lastName = $lastnamebilling;
-        elseif(empty($lastnamebilling))
-            $lastName = $lastnameshipping;
-        elseif (empty($lastnameshipping))
-            $lastName = $lastnameCustomer;
-        elseif( empty($lastnameCustomer))
-            $lastName = 'GUEST';
+        if(empty($lastName)){
+        	if(empty($lastnamebilling)){
+        		if (empty($lastnameshipping)){
+	        		if (empty($lastnameCustomer)){
+	        			$firstName = 'GUEST';
+	        		}else{
+	        			$firstName = $lastnameCustomer;
+	        		}
+        		}else{
+        			$firstName = $lastnameshipping;
+        		}
+        	}else{
+        		$lastName = $lastnamebilling;
+        	}
+        }
 
 //		$netsuiteCustomer->firstName = $magentoCustomer->getFirstname();
 //		$netsuiteCustomer->lastName = $magentoCustomer->getLastname();
