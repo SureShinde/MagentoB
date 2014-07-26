@@ -47,7 +47,7 @@ class RocketWeb_Netsuite_Helper_Mapper_Customer extends RocketWeb_Netsuite_Helpe
 		$netsuiteCustomer->middleName = $magentoCustomer->getMiddlename();
 		$netsuiteCustomer->phone = substr($magentoCustomer->getTelephone(), 0, 22);
 		$fax = (string)preg_replace("/[^0-9]/","", $magentoCustomer->getFax());
-		while(strlen($fax) < 7){ $fax = $fax."+"; }
+		if($fax !== "" or !is_null($fax)){ while(strlen($fax) < 7){ $fax = $fax."+"; } }
 		$netsuiteCustomer->fax = preg_replace("/[^0-9]/","", $fax);
 		$netsuiteCustomer->email = $magentoCustomer->getEmail();
 		$netsuiteCustomer->vatRegNumber = $magentoCustomer->getTaxvat();
@@ -62,7 +62,7 @@ class RocketWeb_Netsuite_Helper_Mapper_Customer extends RocketWeb_Netsuite_Helpe
 			}
 			if(!$magentoCustomer->getFax()) {
 				$fax = (string)preg_replace("/[^0-9]/","", $billingAddress->getFax());
-				while(strlen($fax) < 7){ $fax = $fax."+"; }
+				if($fax !== "" or !is_null($fax)){ while(strlen($fax) < 7){ $fax = $fax."+"; } }
 				$netsuiteCustomer->fax = $fax;
 			}
 				
