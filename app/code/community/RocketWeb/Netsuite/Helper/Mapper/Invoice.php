@@ -127,7 +127,7 @@ class RocketWeb_Netsuite_Helper_Mapper_Invoice extends RocketWeb_Netsuite_Helper
         if (!$magentoOrder->canInvoice()) {
            throw new Exception("{$magentoOrder->getId()}: Cannot do shipment for this order!");
         }
-         
+
         /**
          * check registry skip invoice export
          */
