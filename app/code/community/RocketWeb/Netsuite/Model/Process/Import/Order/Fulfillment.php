@@ -70,8 +70,8 @@ class RocketWeb_Netsuite_Model_Process_Import_Order_Fulfillment extends RocketWe
         return true;
     }
 
-    public function process(Record $netsuiteShipment) {
-        $magentoShipment = Mage::helper('rocketweb_netsuite/mapper_shipment')->getMagentoFormat($netsuiteShipment);
+    public function process(Record $netsuiteShipment, $queueData = null) {
+        $magentoShipment = Mage::helper('rocketweb_netsuite/mapper_shipment')->getMagentoFormat($netsuiteShipment, $queueData);
         $magentoShipment->setNetsuiteInternalId($netsuiteShipment->internalId);
         $magentoShipment->setLastImportDate(Mage::helper('rocketweb_netsuite')->convertNetsuiteDateToSqlFormat($netsuiteShipment->lastModifiedDate));
         $magentoShipment->save();

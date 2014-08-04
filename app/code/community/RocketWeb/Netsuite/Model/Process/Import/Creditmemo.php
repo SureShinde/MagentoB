@@ -33,7 +33,7 @@ class RocketWeb_Netsuite_Model_Process_Import_Creditmemo extends RocketWeb_Netsu
         return RocketWeb_Netsuite_Model_Queue_Message::CREDITMEMO_DELETED;
     }
     
-    public function process(Record $record) {
+    public function process(Record $record, $queueData = null) {
         $magentoCreditmemo = Mage::helper('rocketweb_netsuite/mapper_creditmemo')->getMagentoFormat($record);
         $magentoCreditmemo->setNetsuiteInternalId($record->internalId);
         $magentoCreditmemo->setLastImportDate(Mage::helper('rocketweb_netsuite')->convertNetsuiteDateToSqlFormat($record->lastModifiedDate));

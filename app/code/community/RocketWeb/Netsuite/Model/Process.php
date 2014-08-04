@@ -185,6 +185,15 @@ class RocketWeb_Netsuite_Model_Process {
         $messages = $queue->receive($maxMessages);
 
         foreach ($messages as $originalMessage) {
+            $queueData = array (
+                'message_id' => $originalMessage->__get('message_id'),
+                'queue_id' => $originalMessage->__get('queue_id'),
+                'handle' => $originalMessage->__get('handle'),
+                'body' => $originalMessage->body,
+                'timeout' => $originalMessage->__get('timeout'),
+                'created' => $originalMessage->__get('created'),
+                'priority' => $originalMessage->__get('priority')
+            );
             $message = Mage::getModel('rocketweb_netsuite/queue_message')->unpack($originalMessage->body, RocketWeb_Netsuite_Helper_Queue::NETSUITE_IMPORT_QUEUE);
             $processModelString = 'rocketweb_netsuite/process_import_' . $message->getAction();
             $processModel = Mage::getModel($processModelString);
@@ -195,7 +204,7 @@ class RocketWeb_Netsuite_Model_Process {
             }
             else {
                 try {
-                    $processModel->process($message->getObject());
+                    $processModel->process($message->getObject(), $queueData);
                     $queue->deleteMessage($originalMessage);
                 }
                 catch (Exception $ex) {

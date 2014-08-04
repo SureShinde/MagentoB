@@ -29,7 +29,7 @@ abstract class RocketWeb_Netsuite_Model_Process_Import_Abstract {
     public abstract function getDeleteMessageType();
 
     //process a record returned from Netsuite to be added to Magento
-    public abstract function process(Record $record);
+    public abstract function process(Record $record, $queueData = null);
 
     //return the RecordType name for this entity
     public abstract function getRecordType();

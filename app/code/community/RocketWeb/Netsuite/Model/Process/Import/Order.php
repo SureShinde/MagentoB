@@ -68,7 +68,7 @@ class RocketWeb_Netsuite_Model_Process_Import_Order extends RocketWeb_Netsuite_M
         return true;
     }
 
-    public function process(Record $netsuiteOrder) {
+    public function process(Record $netsuiteOrder, $queueData = null) {
         $magentoOrder = Mage::helper('rocketweb_netsuite/mapper_order')->getMagentoFormat($netsuiteOrder);
         $magentoOrder->setNetsuiteInternalId($netsuiteOrder->internalId);
         $magentoOrder->setLastImportDate(Mage::helper('rocketweb_netsuite')->convertNetsuiteDateToSqlFormat($netsuiteOrder->lastModifiedDate));
