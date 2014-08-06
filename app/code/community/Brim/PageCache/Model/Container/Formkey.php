@@ -1,5 +1,4 @@
-<?xml version="1.0"?>
-<!--
+<?php
 /**
  * Brim LLC Commercial Extension
  *
@@ -19,13 +18,20 @@
  * @license    http://ecommerce.brimllc.com/license
  */
 
--->
-<config>
-    <modules>
-        <Brim_PageCache>
-            <active>true</active>
-            <codePool>community</codePool>
-        </Brim_PageCache>
-    </modules>
-</config>
+
+/**
+ * The default container class.
+ */
+class Brim_PageCache_Model_Container_Formkey extends Brim_PageCache_Model_Container_Abstract
+{
+    /**
+     * Disables block update caching as no info in known about the blocks that may use this container.  This ensures
+     * the block will be re-rendered for each page view.
+     *
+     * @return bool|string
+     */
+    protected function _getCacheId() {
+        return false;
+    }
+}
 
