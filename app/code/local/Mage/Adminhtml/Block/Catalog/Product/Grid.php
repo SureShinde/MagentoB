@@ -41,8 +41,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Grid extends Mage_Adminhtml_Block_Wid
 
         $filter = $this->getRequest()->getParam('product_filter');
         $params = Mage::helper('adminhtml')->prepareFilterString($filter);
-		
-		$brandTable = Mage::getModel('catalog/product')->getCollection();
+
+        $brandTable = Mage::getModel('catalog/product')->getCollection();
         
         $brandTable->addAttributeToSelect('entity_id');
 
@@ -97,9 +97,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Grid extends Mage_Adminhtml_Block_Wid
             $brandTable->addAttributeToFilter('cpei.value', array('eq' => $params['brand']) );
         }*/
 
-        $collection->getSelect()->joinInner(    array('child_brand' => new Zend_Db_Expr( '(' . $brandTable->getSelect() . ')')),
+        /*$collection->getSelect()->joinInner(    array('child_brand' => new Zend_Db_Expr( '(' . $brandTable->getSelect() . ')')),
                 "child_brand.entity_id = e.entity_id",
-                array('brand'=>'child_brand.brand'));
+                array('brand'=>'child_brand.brand'));*/
 				
 		if (Mage::helper('catalog')->isModuleEnabled('Mage_CatalogInventory')) {
             $collection->joinField('qty',                
@@ -109,7 +109,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Grid extends Mage_Adminhtml_Block_Wid
                 '{{table}}.stock_id=1',
                 'left');			
         }
-		
+
         if ($store->getId()) {
             //$collection->setStoreId($store->getId());
             $adminStore = Mage_Core_Model_App::ADMIN_STORE_ID;
@@ -160,11 +160,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Grid extends Mage_Adminhtml_Block_Wid
             $collection->joinAttribute('status', 'catalog_product/status', 'entity_id', null, 'inner');
             $collection->joinAttribute('visibility', 'catalog_product/visibility', 'entity_id', null, 'inner');
         }
-
-
 		
         $this->setCollection($collection);
-		
+
         parent::_prepareCollection();
         /* Debug */
         //$collection->printlogquery(true); 
