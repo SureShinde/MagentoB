@@ -15,5 +15,5 @@
  * @license    http://www.rocketweb.com/RW-LICENSE.txt
  */
 abstract class RocketWeb_Netsuite_Model_Process_Export_Abstract {	
-	public abstract function process(RocketWeb_Netsuite_Model_Queue_Message $message);
+	public abstract function process(RocketWeb_Netsuite_Model_Queue_Message $message, $queueData = array ());
 }

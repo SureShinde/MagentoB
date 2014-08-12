@@ -22,7 +22,7 @@ class RocketWeb_Netsuite_Model_Process_Export_Order_Place extends RocketWeb_Nets
      * @param RocketWeb_Netsuite_Model_Queue_Message $message
      * @throws Exception
      */
-    public function process(RocketWeb_Netsuite_Model_Queue_Message $message) {
+    public function process(RocketWeb_Netsuite_Model_Queue_Message $message, $queueData = array ()) {
 
         if(!$message || !$message->getEntityId()) {
             throw new Exception("Message not initialized");

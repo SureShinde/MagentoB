@@ -34,8 +34,8 @@ class Brim_PageCache_Adminhtml_Pagecache_CategoryController extends Mage_Adminht
                 $engine = Mage::getSingleton('brim_pagecache/engine');
 
                 $tags = array(
-                    $engine::FPC_TAG . '_CATEGORY_' . $category->getId(),
-                    $engine::FPC_TAG . '_PRODUCT_CATEGORY_' . $category->getId(),
+                    Brim_PageCache_Model_Engine::FPC_TAG . '_CATEGORY_' . $category->getId(),
+                    Brim_PageCache_Model_Engine::FPC_TAG . '_PRODUCT_CATEGORY_' . $category->getId(),
                 );
                 $engine->getCacheInstance()->clean($tags);
 

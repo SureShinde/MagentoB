@@ -23,7 +23,7 @@
 <config>
 	<modules>
 		<Brim_PageCache>
-			<version>3.1.0</version>
+			<version>3.1.2</version>
 		</Brim_PageCache>
 	</modules>
 	<global>
@@ -60,11 +60,6 @@
 			<brim_pagecache>
 				<class>Brim_PageCache_Helper</class>
 			</brim_pagecache>
-            <checkout>
-                <rewrite>
-                    <cart>Brim_PageCache_Helper_Checkout_Cart</cart>
-                </rewrite>
-            </checkout>
 		</helpers>
         <cache>
             <types>
@@ -146,13 +141,6 @@
                     <frontName>brim_pagecache</frontName>
                 </args>
             </brim_pagecache>
-            <checkout>
-                <args>
-                    <modules>
-                        <Brim_PageCache before="Mage_Checkout">Brim_PageCache_Checkout</Brim_PageCache>
-                    </modules>
-                </args>
-            </checkout>
         </routers>
         <layout>
             <updates>

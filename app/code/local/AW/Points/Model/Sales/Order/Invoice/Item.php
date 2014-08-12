@@ -26,15 +26,17 @@
  * @license    http://ecommerce.aheadworks.com/AW-LICENSE.txt
  */
 
-
-class AW_Points_Model_Sales_Order_Invoice_Item extends Mage_Sales_Model_Order_Invoice_Item
-{
-    public function getOrderItem()
-    {       
-        if ($this->getInvoice()) {
-           return $this->getInvoice()->getOrder()->getItemById($this->getOrderItemId());
+class AW_Points_Model_Sales_Order_Invoice_Item extends Mage_Sales_Model_Order_Invoice_Item {
+    public function getOrderItem() {
+        if (is_null($this->_orderItem)) {
+            if ($this->getInvoice()) {
+                $this->_orderItem = $this->getInvoice()->getOrder()->getItemById($this->getOrderItemId());
+            }
+            else {
+                $this->_orderItem = Mage::getModel('sales/order_item')->load($this->getOrderItemId());
+            }
         }
- 
-        return parent::getOrderItem();
+        
+        return $this->_orderItem;
     }
 }
