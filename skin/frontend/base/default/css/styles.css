@@ -330,9 +330,9 @@ p.required { font-size:11px; text-align:right; color:#EB340A; }
 .error-msg,
 .success-msg,
 .note-msg,
-.notice-msg { border-style:solid !important; border-width:1px !important; background-position:10px 9px !important; background-repeat:no-repeat !important; min-height:24px !important; padding:8px 8px 8px 32px !important; font-size:11px !important; font-weight:bold !important; }
-.error-msg { border-color:#f16048; background-color:#faebe7; background-image:url(../images/i_msg-error.gif); color:#df280a; }
-.success-msg { border-color:#446423; background-color:#eff5ea; background-image:url(../images/i_msg-success.gif); color:#3d6611; }
+.notice-msg { border-style:solid !important; border-width:1px !important; background-position:10px 5px !important; background-repeat:no-repeat !important; padding:12px 8px 12px 55px !important; font-size:11px !important; font-weight:bold !important; }
+.error-msg 	 { border:none !important; background-color:#ee5859; background-image:url(../images/icon_error_msg.jpg); color:#fff; }
+.success-msg { border:none !important; background-color:#64d42a; background-image:url(../images/icon_success_msg.jpg); color:#fff; }
 .note-msg,
 .notice-msg { border-color:#fcd344; background-color:#fafaec; background-image:url(../images/i_msg-note.gif); color:#3d6611; }
 
