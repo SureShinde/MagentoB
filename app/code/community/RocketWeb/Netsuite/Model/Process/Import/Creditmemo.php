@@ -116,10 +116,10 @@ class RocketWeb_Netsuite_Model_Process_Import_Creditmemo extends RocketWeb_Netsu
         $totalBilnaCredit = 0;
         $pointsTransaction = Mage::getModel('points/transaction')->loadByOrder($order);
 
-        $order->setMoneyForPoints($pointsTransaction->getData('points_to_money'));
+        /*$order->setMoneyForPoints($pointsTransaction->getData('points_to_money'));
         $order->setBaseMoneyForPoints($pointsTransaction->getData('base_points_to_money'));
         $order->setPointsBalanceChange(abs($pointsTransaction->getData('balance_change')));
-        $order->save();
+        $order->save();*/
 
         $service = Mage::getModel('sales/service_order', $order);
         if ($invoice) {

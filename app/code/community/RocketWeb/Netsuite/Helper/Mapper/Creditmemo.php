@@ -24,15 +24,13 @@ class RocketWeb_Netsuite_Helper_Mapper_Creditmemo extends RocketWeb_Netsuite_Hel
             $invoice_id = $invoiceObj['entity_id'];
             foreach ($creditmemo->itemList->item as $netsuiteItem)
             {
-                foreach ($magentoOrder->getAllItems() as $magentoOrderItem)
+                foreach ($netsuiteItem->customFieldList->customField as $customField)
                 {
-                    $netId = Mage::getModel('catalog/product')->load($magentoOrderItem->getProductId())->getNetsuiteInternalId();
-                    if ( $netsuiteItem->item->internalId == $netId )
-                    {
-                        $items[$magentoOrderItem->getData('item_id')]['item_id']        = $magentoOrderItem->getData('item_id');
-                        $items[$magentoOrderItem->getData('item_id')]['back_to_stock']  = number_format($netsuiteItem->quantity,0);
-                        $items[$magentoOrderItem->getData('item_id')]['qty']            = number_format($netsuiteItem->quantity,0);
-
+                    if ($customField->internalId == 'custcol_magentoitemid') {
+                        $item_id = $customField->value;
+                        $items[$item_id]['item_id']        = $item_id; //$magentoOrderItem->getData('item_id');
+                        $items[$item_id]['back_to_stock']  = number_format($netsuiteItem->quantity,0);
+                        $items[$item_id]['qty']            = number_format($netsuiteItem->quantity,0);
                     }
 
                 }
@@ -42,9 +40,9 @@ class RocketWeb_Netsuite_Helper_Mapper_Creditmemo extends RocketWeb_Netsuite_Hel
             'items' =>  $items,
             'comment_text' => 'Customer canceled the order',
             'comment_customer_notify' => 'Order Cancel is Successful',
-            'shipping_amount' => 0,
-            'adjustment_positive' => 0,
-            'adjustment_negative' => 0,
+            'shipping_amount' => $this->getRefundShippingFromNetsuite($creditmemo),
+            'adjustment_positive' => $this->getAdjustmentPositiveFromNetsuite($creditmemo),
+            'adjustment_negative' => $this->getAdjustmentNegativeFromNetsuite($creditmemo),
             'do_offline' => 'do_offline',
             'send_email' => 'YES'
         );
@@ -58,7 +56,6 @@ class RocketWeb_Netsuite_Helper_Mapper_Creditmemo extends RocketWeb_Netsuite_Hel
         $errorMessage = $this->validateCreditMemo($magentoOrder);
         if($errorMessage == '')
         {
-            //$details  = $this->initiateCreditMemo($data);
             return $data;
         }
 
@@ -104,7 +101,46 @@ class RocketWeb_Netsuite_Helper_Mapper_Creditmemo extends RocketWeb_Netsuite_Hel
         
         return false;
     }
-    
+
+    protected function getRefundShippingFromNetsuite(CreditMemo $creditmemo)
+    {
+        if ($creditmemo->customFieldList->customField) {
+            foreach ($creditmemo->customFieldList->customField as $customField) {
+                if ($customField->internalId == 'custbody_refundshipping') {
+                    return (int) $customField->value;
+                }
+            }
+        }
+        
+        return 0;
+    }   
+
+    protected function getAdjustmentPositiveFromNetsuite(CreditMemo $creditmemo)
+    {
+        if ($creditmemo->customFieldList->customField) {
+            foreach ($creditmemo->customFieldList->customField as $customField) {
+                if ($customField->internalId == 'custbody_adjustmentrefund') {
+                    return (int) $customField->value;
+                }
+            }
+        }
+        
+        return 0;
+    }
+
+    protected function getAdjustmentNegativeFromNetsuite(CreditMemo $creditmemo)
+    {
+        if ($creditmemo->customFieldList->customField) {
+            foreach ($creditmemo->customFieldList->customField as $customField) {
+                if ($customField->internalId == 'custbody_adjustmentfee') {
+                    return (int) $customField->value;
+                }
+            }
+        }
+        
+        return 0;
+    }
+ 
     protected function getCreditmemoCollectionFromNetsuite($magentoOrderId) {
         $collection = Mage::getModel('sales/order_creditmemo')->getCollection();
         $collection->addFieldToFilter('order_id', $magentoOrderId);
