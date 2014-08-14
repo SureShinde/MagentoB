@@ -3047,3 +3047,77 @@ button.button-area {
 }
 /*=============================end style tanya nadia=============================*/
 
+
+/*=============================style merdeka madness=============================*/
+
+.merdekamadness .font-base-text{
+	line-height:1.8;
+	font-size: 1.2em;
+}
+.merdekamadness p{
+	margin:0;
+}
+.merdekamadness .category-link{
+	background:#245a55;
+	display: table;
+    float: left;
+    font-size: 24px;
+    margin: 10px 20px 20px 0;
+    padding: 10px;
+    text-align: center;
+}
+.merdekamadness .base-bold, .merdekamadness-home .base-bold{
+	color:#00aeef;
+}
+.merdekamadness .category-link a{
+	color:#fff;
+}
+.merdekamadness .column_product_static {
+	border-bottom: 1px solid #d2d2d2;
+    border-right: 1px solid #d2d2d2;
+    float: left;
+    height: 180px;
+    padding: 20px 0 0;
+    position: relative;
+    text-align: center;
+    width: 20%;
+}
+.merdekamadness-home .column_product_static {
+    height: 180px;
+    width: 25%;
+	border-bottom: 1px solid #d2d2d2;
+    border-right: 1px solid #d2d2d2;
+    float: left;
+    padding: 20px 0 0;
+    position: relative;
+    text-align: center;
+}
+.merdekamadness .column_product_static IMG{
+	width:75%;
+}
+.merdekamadness-home .column_product_static IMG{
+	width:80%;
+}
+
+@media only screen and (max-width: 1023px){
+	.merdekamadness-home .column_product_static, .merdekamadness .column_product_static{
+			width:32%;
+			height:120px;
+		}
+}
+@media only screen and (max-width: 768px) {
+		.merdekamadness-home .column_product_static, .merdekamadness .column_product_static{
+			width:32%;
+			height:145px;
+			
+		}
+	}
+@media only screen and (max-width: 468px) {
+		.merdekamadness-home .column_product_static, .merdekamadness .column_product_static{
+			width:50%;
+		}
+	}
+
+
+/*=============================end style merdeka madness=============================*/
+
