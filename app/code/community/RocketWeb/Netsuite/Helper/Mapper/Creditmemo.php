@@ -38,7 +38,7 @@ class RocketWeb_Netsuite_Helper_Mapper_Creditmemo extends RocketWeb_Netsuite_Hel
         }
         $creditmemo = array(
             'items' =>  $items,
-            'comment_text' => 'Customer canceled the order',
+            'comment_text' => 'Create Creditmemo from Netsuite #' . $creditmemo->internalId,
             'comment_customer_notify' => 'Order Cancel is Successful',
             'shipping_amount' => $this->getRefundShippingFromNetsuite($creditmemo),
             'adjustment_positive' => $this->getAdjustmentPositiveFromNetsuite($creditmemo),
