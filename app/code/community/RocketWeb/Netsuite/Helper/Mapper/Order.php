@@ -64,44 +64,44 @@ class RocketWeb_Netsuite_Helper_Mapper_Order extends RocketWeb_Netsuite_Helper_M
 
         $customFieldsConfig = $this->getCustomFieldList();
         $netsuiteOrderItems = array ();
-       
-        $confProduct = array();
-        $bundProduct = array();
+        $confProduct = array ();
+        $bundProduct = array ();
         foreach ($magentoOrder->getAllItems() as $item) {
-            if ( $item->getProductType() == 'configurable' ) {
+            if ($item->getProductType() == 'configurable') {
                 $confProduct[$item->getData('item_id')] = $item->getData('price');
                 $confProductDiscount[$item->getData('item_id')] = $item->getData('discount_amount');
                 $listProductOnOrder[$item->getData('item_id')]['name'] = $item->getData('name');
-            }elseif( $item->getProductType() == 'bundle' ){
+            }elseif ($item->getProductType() == 'bundle') {
                 $parentItemId = $item->getData('parent_item_id');
-                if( $parentItemId == '' || $parentItemId == 0 || empty($parentItemId) ){
+                if ($parentItemId == '' || $parentItemId == 0 || empty ($parentItemId)) {
                     $parentItemId = $item->getData('item_id');
-                } 
+                }
                 $productOptions = unserialize($item->getData('product_options'));
                 $bundleOptions = $productOptions['bundle_options'];
                 $totalPriceItemBundle = 0;
-                foreach($bundleOptions as $option){
-                    foreach($option['value'] as $value){
+                foreach ($bundleOptions as $option) {
+                    foreach ($option['value'] as $value) {
                         $totalPriceItemBundle += $value['price'];
                     }
                 }
 
                 $bundProduct[$item->getData('item_id')][$parentItemId]['price'] = $item->getData('price');
-                $bundProduct[$item->getData('item_id')][$parentItemId]['qty']   = $item->getData('qty_ordered');
-                $bundProduct[$item->getData('item_id')]['totalQtyBundle']   = $item->getData('qty_ordered');
-                $bundProduct[$item->getData('item_id')]['priceBundle']   = $item->getData('price') - $totalPriceItemBundle;
-                $bundProduct[$item->getData('item_id')]['priceBundle2']   = $item->getData('price');
-                $bundProduct[$item->getData('item_id')]['discountAmount']   = $item->getData('discount_amount');
-                //$bundProduct[$item->getData('item_id')]['name']   = $item->getData('name');
+                $bundProduct[$item->getData('item_id')][$parentItemId]['qty'] = $item->getData('qty_ordered');
+                $bundProduct[$item->getData('item_id')]['totalQtyBundle'] = $item->getData('qty_ordered');
+                $bundProduct[$item->getData('item_id')]['priceBundle'] = $item->getData('price') - $totalPriceItemBundle;
+                $bundProduct[$item->getData('item_id')]['priceBundle2'] = $item->getData('price');
+                $bundProduct[$item->getData('item_id')]['totalPriceItem'] = $totalPriceItemBundle;
+                $bundProduct[$item->getData('item_id')]['discountAmount'] = $item->getData('discount_amount');
+                $bundProduct[$item->getData('item_id')]['productOptions']   = $item->getData('product_options');
                 $listProductOnOrder[$item->getData('item_id')]['name'] = $item->getData('name');
-            }elseif( isset($bundProduct[$item->getData('parent_item_id')]) ){
-                $bundProduct[$item->getData('parent_item_id')]['totalQty']   += $item->getData('qty_ordered');
-                $bundProduct[$item->getData('parent_item_id')][$item->getData('item_id')]['itemQty']   = $item->getData('qty_ordered');
+            }
+            elseif (isset ($bundProduct[$item->getData('parent_item_id')])) {
+                $bundProduct[$item->getData('parent_item_id')]['totalQty'] += $item->getData('qty_ordered');
+                $bundProduct[$item->getData('parent_item_id')][$item->getData('item_id')]['itemQty'] = $item->getData('qty_ordered');
             }
         }
 
-        foreach ($magentoOrder->getAllItems() as $item) {        
-
+        foreach ($magentoOrder->getAllItems() as $item) {
             if (in_array($item->getProductType(), array ('configurable', 'bundle'))) {
                 continue;
             }
@@ -182,26 +182,36 @@ class RocketWeb_Netsuite_Helper_Mapper_Order extends RocketWeb_Netsuite_Helper_M
                 $customFields = array ();
                 $totalDiscount = 0;
                 $productOptions = unserialize($item->getData('product_options'));
-                if( $item->getProductType() == 'simple' && $item->getData('price') == 0 || $item->getData('parent_item_id') != '' ){
-                    if( isset( $productOptions['bundle_selection_attributes'] ) ){
+                
+                if ($item->getProductType() == 'simple' && $item->getData('price') == 0 || $item->getData('parent_item_id') != '') {
+                    if (isset ($productOptions['bundle_selection_attributes'])) {
                         $bundleSelectionAttributes = unserialize($productOptions['bundle_selection_attributes']);
                         $priceItemOnBundle = $bundleSelectionAttributes['price'] / $bundleSelectionAttributes['qty'];
                         //$bundlePrice = $bundProduct[$item->getData('parent_item_id')][''] 
                         //$priceItemOnBundle = $bundProduct[$item->getData('parent_item_id')][$item->getData('item_id')]['price'];
                         $pricePerBundle = $bundProduct[$item->getData('parent_item_id')]['priceBundle'] * $bundProduct[$item->getData('parent_item_id')]['totalQtyBundle'];
                         //$pricePerBundle = $bundProduct[$item->getData('parent_item_id')]['priceBundle'];
-//                        $pricePerBundle = $bundProduct[$item->getData('parent_item_id')][$item->getData('parent_item_id')]['price'] / $bundProduct[$item->getData('parent_item_id')]['totalQtyBundle'];
+                        //$pricePerBundle = $bundProduct[$item->getData('parent_item_id')][$item->getData('parent_item_id')]['price'] / $bundProduct[$item->getData('parent_item_id')]['totalQtyBundle'];
                         $totalQty = $bundProduct[$item->getData('parent_item_id')]['totalQty'];
-                        $finalPriceItem = $priceItemOnBundle + ( $pricePerBundle / $totalQty ) ;
+                        //$finalPriceItem = $priceItemOnBundle + ($pricePerBundle / $totalQty);
+                        //Simple@Price + (BundleFixPrice * (Simple@Price/TotalSimplePrice))'
+                        
+                        //$_simplePrice = $bundProduct[$item->getData('parent_item_id')]['priceBundle2'];
+                        $_simplePrice = $bundleSelectionAttributes['price'] / $bundleSelectionAttributes['qty'];
+                        $_bundleFixPrice = $bundProduct[$item->getData('parent_item_id')]['priceBundle'];
+                        //$_bundleFixPrice = $bundProduct[$item->getData('parent_item_id')]['priceBundle'] * $bundProduct[$item->getData('parent_item_id')]['totalQtyBundle'];
+                        $_totalSimplePrice = $bundProduct[$item->getData('parent_item_id')]['totalPriceItem'];
+                        $finalPriceItem = $_simplePrice + ($_bundleFixPrice * ($_simplePrice / $_totalSimplePrice));
+                        //echo "finalPriceItem: " . $finalPriceItem . " = ". $_simplePrice."+ (".$_bundleFixPrice."*(".$_simplePrice."/".$_totalSimplePrice."))\n";
                         //$item->setData('price', $finalPriceItem);
                     }
-                    if(!empty($confProduct) && $confProduct[$item->getData('parent_item_id')] > 0 ){
+                    
+                    if (!empty ($confProduct) && $confProduct[$item->getData('parent_item_id')] > 0) {
                         $finalPriceItem = $confProduct[$item->getData('parent_item_id')];
                     }
                 }
 
                 foreach ($customFieldsConfig as $customFieldsConfigItem) {
-                    
                     switch ($customFieldsConfigItem['netsuite_field_name']) {
                         case 'custcol_magentoitemid':
                         case 'custcol_parentid':
@@ -216,6 +226,7 @@ class RocketWeb_Netsuite_Helper_Mapper_Order extends RocketWeb_Netsuite_Helper_M
                                 0: separate
                                 1: together
                                 */
+                                $productOptions = unserialize($bundProduct[$item->getData('parent_item_id')]['productOptions']);
                                 if($productOptions['shipment_type']==0)
                                 {
                                     $item->setData('name', 'Bundle Product Separate - ' . $productBundleName);
@@ -535,8 +546,7 @@ class RocketWeb_Netsuite_Helper_Mapper_Order extends RocketWeb_Netsuite_Helper_M
         $request->baseRef->type = RecordType::customList;
 
         $getResponse = Mage::helper('rocketweb_netsuite')->getNetsuiteService()->get($request);
-        echo "_getCustomList request: " . json_encode($request) . "\n";
-        echo "_getCustomList response: " . json_encode($getResponse) . "\n";
+        
         if (!$getResponse->readResponse->status->isSuccess) {
             throw new Exception((string) print_r($getResponse->readResponse->status->statusDetail,true));
         }

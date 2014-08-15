@@ -32,6 +32,15 @@ class RocketWeb_Netsuite_Model_Process {
         $messages = $queue->receive($maxMessages);
         
         foreach ($messages as $originalMessage) {
+            $queueData = array (
+                'message_id' => $originalMessage->__get('message_id'),
+                'queue_id' => $originalMessage->__get('queue_id'),
+                'handle' => $originalMessage->__get('handle'),
+                'body' => $originalMessage->body,
+                'timeout' => $originalMessage->__get('timeout'),
+                'created' => $originalMessage->__get('created'),
+                'priority' => $originalMessage->__get('priority')
+            );
             $message = Mage::getModel('rocketweb_netsuite/queue_message')->unpack($originalMessage->body, RocketWeb_Netsuite_Helper_Queue::NETSUITE_EXPORT_QUEUE);
             $processModelString = 'rocketweb_netsuite/process_export_' . $message->getAction();
             $processModel = Mage::getModel($processModelString);
@@ -47,7 +56,7 @@ class RocketWeb_Netsuite_Model_Process {
                             $logger->logProgress("Export {$message->getAction()} {$message->getEntityId()} \n");
                         }
                         
-                        $processModel->process($message);
+                        $processModel->process($message, $queueData);
                         $this->_processedOperatios[$message->getAction()][$message->getEntityId()] = 1;
                     }
                     
@@ -74,7 +83,7 @@ class RocketWeb_Netsuite_Model_Process {
         
         foreach ($importableEntities as $path => $name) {
             if ($logger) {
-                $logger->logProgress("Importing $name");
+                $logger->logProgress("Importing ".$name." \n");
             }
             
             $importableEntityModel = Mage::getModel('rocketweb_netsuite/process_import_' . $path);
@@ -111,9 +120,13 @@ class RocketWeb_Netsuite_Model_Process {
                                 $request->baseRef = new RecordRef();
                                 $request->baseRef->internalId = $internalRecordId;
                                 $request->baseRef->type = $importableEntityModel->getRecordType();
+                                
+                                $logger->logProgress("request date " . date("Y-m-d H:i:s"));
+                                $logger->logProgress("request {$name}: " . json_encode($request));
+                                
                                 $getResponse = Mage::helper('rocketweb_netsuite')->getNetsuiteService()->get($request);
                                 
-                                $logger->logProgress("request {$name}: " . json_encode($request));
+                                $logger->logProgress("response date " . date("Y-m-d H:i:s"));
                                 $logger->logProgress("response {$name}: " . json_encode($getResponse));
                                 $logger->logProgress("----------------------------------------------------------------------------------------");
                                 
@@ -152,12 +165,12 @@ class RocketWeb_Netsuite_Model_Process {
         }
 
         Mage::helper('rocketweb_netsuite/queue')->setLastUpdateAccessDate($time, RocketWeb_Netsuite_Helper_Queue::NETSUITE_IMPORT_QUEUE);
-        $this->processQueue();
+        $this->processQueue($logger);
         $this->populateDeleteQueue();
         $this->processDeleteQueue();
     }
 
-    public function processQueue() {
+    public function processQueue($logger=null) {
         if (!Mage::helper('rocketweb_netsuite')->isEnabled()) {
             return;
         }
@@ -186,6 +199,9 @@ class RocketWeb_Netsuite_Model_Process {
                     $queue->deleteMessage($originalMessage);
                 }
                 catch (Exception $ex) {
+		    if ($logger) {
+		         $logger->logProgress($ex->getMessage());
+		    }
                     Mage::helper('rocketweb_netsuite')->log($ex->getMessage());
                 }
             }

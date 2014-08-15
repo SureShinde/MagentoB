@@ -54,6 +54,10 @@
         <reference name="right.reports.product.viewed">
             <action method="setDynamicBlockContainer"><container>brim_pagecache/container_recentlyviewed</container></action>
         </reference>
+        <reference name="formkey">
+            <action method="setDynamicBlockContainer"><container>brim_pagecache/container_formkey</container></action>
+        </reference>
+
         <!--<reference name="core_profiler">-->
             <!--<action method="setDynamicBlockContainer"><container>brim_pagecache/container_profiler</container></action>-->
         <!--</reference>-->

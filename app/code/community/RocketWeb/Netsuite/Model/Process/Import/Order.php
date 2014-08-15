@@ -73,11 +73,5 @@ class RocketWeb_Netsuite_Model_Process_Import_Order extends RocketWeb_Netsuite_M
         $magentoOrder->setNetsuiteInternalId($netsuiteOrder->internalId);
         $magentoOrder->setLastImportDate(Mage::helper('rocketweb_netsuite')->convertNetsuiteDateToSqlFormat($netsuiteOrder->lastModifiedDate));
         $magentoOrder->getResource()->save($magentoOrder);
-
-        //update the order grid
-        $dbConnection = Mage::getSingleton('core/resource')->getConnection('core_write');
-        $tableName = Mage::getSingleton('core/resource')->getTableName('sales_flat_order_grid');
-        $query = "UPDATE $tableName SET grand_total = {$magentoOrder->getGrandTotal()}, base_grand_total = {$magentoOrder->getGrandTotal()}, status = '{$magentoOrder->getStatus()}' WHERE entity_id = {$magentoOrder->getId()}";
-        $dbConnection->query($query);
     }
 }
