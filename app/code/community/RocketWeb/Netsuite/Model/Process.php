@@ -218,7 +218,7 @@ class RocketWeb_Netsuite_Model_Process {
     }
 
     public function populateDeleteQueue() {
-        if(!Mage::helper('rocketweb_netsuite')->isEnabled()) {
+        if (!Mage::helper('rocketweb_netsuite')->isEnabled()) {
             return;
         }
 

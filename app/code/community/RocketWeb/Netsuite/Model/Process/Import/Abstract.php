@@ -146,7 +146,7 @@ abstract class RocketWeb_Netsuite_Model_Process_Import_Abstract {
         $tranSearchBasic->lastModifiedDate = $searchDateField;
         $tranSearchBasic->type = $typeField;
 
-        Mage::dispatchEvent('netsuite_import_request_before', array('record_type'=>$this->getRecordType(),'search_object'=>$tranSearchBasic));
+        Mage::dispatchEvent('netsuite_import_request_before', array ('record_type' => $this->getRecordType(), 'search_object' => $tranSearchBasic));
 
         $searchRequest = new SearchRequest();
         $searchRequest->searchRecord = $tranSearchBasic;

@@ -71,7 +71,7 @@ class RocketWeb_Netsuite_Model_Process_Import_Cashsale extends RocketWeb_Netsuit
 
     //check if an order with the item fullfilment's createFrom internalId exists in Magento. If not, the record is not for a Magento order
     public function isMagentoImportable(Record $invoice) {
-        if(is_null($invoice->createdFrom)) {
+        if (is_null($invoice->createdFrom)) {
             return false;
         }
         $netsuiteOrderId = $invoice->createdFrom->internalId;

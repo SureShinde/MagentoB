@@ -212,11 +212,9 @@ class RocketWeb_Netsuite_Model_Process_Import_Order_Fulfillment extends RocketWe
         $magentoOrderIncrementId = $this->getMagentoOrderIncrementId($netsuiteShipment);
         
         if ($type == 1) {
-            //$filename = "shipping_{$messageId}_error_cant_shipment";
             $filename = "shipping_{$messageId}_{$magentoOrderIncrementId}_error_cant_shipment";
         }
         else {
-            //$filename = "shipping_{$messageId}_error_no_item";
             $filename = "shipping_{$messageId}_{$magentoOrderIncrementId}_error_no_item";
         }
         

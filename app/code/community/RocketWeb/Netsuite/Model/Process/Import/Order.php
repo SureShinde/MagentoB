@@ -26,7 +26,7 @@ class RocketWeb_Netsuite_Model_Process_Import_Order extends RocketWeb_Netsuite_M
         //Exclude the orders that have the same creation and last modified date as:
         //  - they are already present in Magento in the same format (Magento sent them to Net Suite)
         //  - they are not part of Magento
-        if($salesOrder->lastModifiedDate == $salesOrder->createdDate) {
+        if ($salesOrder->lastModifiedDate == $salesOrder->createdDate) {
             return false;
         }
 
