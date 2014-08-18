@@ -163,8 +163,4 @@ abstract class RocketWeb_Netsuite_Model_Process_Import_Abstract {
     protected function log($message) {
         Mage::helper('rocketweb_netsuite')->log($message, $this->_logFilename);
     }
-    
-    private function test() {
-        return false;
-    }
 }

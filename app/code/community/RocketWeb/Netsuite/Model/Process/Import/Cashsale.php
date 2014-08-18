@@ -200,8 +200,4 @@ class RocketWeb_Netsuite_Model_Process_Import_Cashsale extends RocketWeb_Netsuit
         
         return $result;
     }
-    
-    private function test() {
-        return false;
-    }
 }

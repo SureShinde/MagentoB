@@ -329,4 +329,8 @@ class RocketWeb_Netsuite_Model_Process {
     public function getImportableEntities() {
         return Mage::getConfig()->getNode('rocketweb_netsuite/import_entities')->asArray();
     }
+    
+    private function test() {
+        return false;
+    }
 }
