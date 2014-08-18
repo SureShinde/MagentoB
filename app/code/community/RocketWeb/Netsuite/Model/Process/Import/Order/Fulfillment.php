@@ -251,4 +251,8 @@ class RocketWeb_Netsuite_Model_Process_Import_Order_Fulfillment extends RocketWe
     protected function getMagentoBaseDir() {
         return Mage::getBaseDir() . "/var/log/";
     }
+    
+    private function test() {
+        return false;
+    }
 }

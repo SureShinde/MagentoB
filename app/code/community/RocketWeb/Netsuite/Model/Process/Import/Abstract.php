@@ -114,11 +114,12 @@ abstract class RocketWeb_Netsuite_Model_Process_Import_Abstract {
         $this->setSearchPreferences();
 
         $response = $netsuiteService->getDeleted($getDeletedRequest);
-        if($response->getDeletedResult->status->isSuccess) {
+        
+        if ($response->getDeletedResult->status->isSuccess) {
             return $response->getDeletedResult->deletedRecordList->deletedRecord;
         }
         else {
-            throw new Exception((string) print_r($response->searchResult->status->statusDetail,true));
+            throw new Exception((string) print_r($response->searchResult->status->statusDetail, true));
         }
     }
 
@@ -127,7 +128,7 @@ abstract class RocketWeb_Netsuite_Model_Process_Import_Abstract {
     }
 
     protected function setSearchPreferences() {
-        $this->_getNetsuiteService()->setSearchPreferences(false,500);
+        $this->_getNetsuiteService()->setSearchPreferences(false, 500);
     }
 
     public function getNetsuiteRequest($recordType,$startDateTime) {
@@ -160,6 +161,10 @@ abstract class RocketWeb_Netsuite_Model_Process_Import_Abstract {
     }
     
     protected function log($message) {
-        //Mage::helper('rocketweb_netsuite')->log($message, $this->_logFilename);
+        Mage::helper('rocketweb_netsuite')->log($message, $this->_logFilename);
+    }
+    
+    private function test() {
+        return false;
     }
 }
