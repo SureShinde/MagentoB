@@ -272,19 +272,21 @@ class RocketWeb_Netsuite_Helper_Mapper_Order extends RocketWeb_Netsuite_Helper_M
                             if (in_array($item->getProductType(), array ('bundle'))) {
                                 continue;
                             }
+                            $bilna_credit = $pointsTransaction->getData('base_points_to_money');
+                            $subTotal = $magentoOrder->getSubtotal();
 
                             if( $item->getProductType() == 'simple' && $item->getData('price') == 0 || $item->getData('parent_item_id') != '' ){
                                 if( isset( $productOptions['bundle_selection_attributes'] ) ){
-                                    $bilna_credit = $pointsTransaction->getData('base_points_to_money');
-                                    $subTotal = $magentoOrder->getSubtotal();
+//                                     $bilna_credit = $pointsTransaction->getData('base_points_to_money');
+//                                     $subTotal = $magentoOrder->getSubtotal();
                                     $bilnaCreditItem = $finalPriceItem * ($bilna_credit / $subTotal);
                                 }
                                 if(!empty($confProduct) && $confProduct[$item->getData('parent_item_id')] > 0 ){                                
                                     $bilnaCreditItem = $confProduct[$item->getData('parent_item_id')] * ($bilna_credit / $subTotal);
                                 }
                             }else{
-                                $bilna_credit = $pointsTransaction->getData('base_points_to_money');
-                                $subTotal = $magentoOrder->getSubtotal();
+//                                 $bilna_credit = $pointsTransaction->getData('base_points_to_money');
+//                                 $subTotal = $magentoOrder->getSubtotal();
                                 $bilnaCreditItem = $item->getData('price') * ($bilna_credit / $subTotal);
                             }
                             
