@@ -157,6 +157,8 @@ class RocketWeb_Netsuite_Helper_Mapper_Product extends RocketWeb_Netsuite_Helper
         $magentoProduct = Mage::getModel('catalog/product')->loadByAttribute('netsuite_internal_id',$inventoryItem->internalId);
         if(!is_object($magentoProduct) || !$magentoProduct->getId()) {
             $magentoProduct = Mage::getModel('catalog/product');
+        }else{
+            $magentoProduct = Mage::getModel('catalog/product')->load($magentoProduct->getId());
         }
 
         $fieldMap = Mage::getModel('rocketweb_netsuite/config')->getConfigVarMapProductColumns('field_map',null,'products');
