@@ -176,7 +176,7 @@ class RocketWeb_Netsuite_Helper_Mapper_Shipment extends RocketWeb_Netsuite_Helpe
         // array of netsuite product
         $netProducts = array();
         // array of magento product
-        $itemParent = array ();
+        $magentoItems = array ();
         // array of product to be saved
         $prodToSaved = array ();
         // array of product to be shiped
@@ -186,55 +186,60 @@ class RocketWeb_Netsuite_Helper_Mapper_Shipment extends RocketWeb_Netsuite_Helpe
          * collect data from netsuite
          */
         foreach ($netsuiteShipment->itemList->item as $netsuiteShipmentItem) {
-            if (isset ($netProducts[$netsuiteShipmentItem->description]['quantity'])) {
-                $netProducts[$netsuiteShipmentItem->description]['quantity'] += $netsuiteShipmentItem->quantity;
+            $netsuiteMagentoItemId = $this->getMagentoObjectFromNetsuite($netsuiteShipmentItem, 'custcol_magentoitemid');
+            
+            if (isset ($netProducts[$netsuiteMagentoItemId]['quantity'])) {
+                $netProducts[$netsuiteMagentoItemId]['quantity'] += $netsuiteShipmentItem->quantity;
             }
             else {
-                $netProducts[$netsuiteShipmentItem->description]['quantity'] = $netsuiteShipmentItem->quantity;
+                $netProducts[$netsuiteMagentoItemId]['quantity'] = $netsuiteShipmentItem->quantity;
             }
 	
-            $netProducts[$netsuiteShipmentItem->description]['sku'] = $netsuiteShipmentItem->description;
-            $netProducts[$netsuiteShipmentItem->description]['internalId'] = $netsuiteShipmentItem->item->internalId;
+            $netProducts[$netsuiteMagentoItemId]['sku'] = $netsuiteShipmentItem->description;
+            $netProducts[$netsuiteMagentoItemId]['internalId'] = $netsuiteShipmentItem->item->internalId;
+            $netProducts[$netsuiteMagentoItemId]['itemId'] = $netsuiteMagentoItemId;
+            $netProducts[$netsuiteMagentoItemId]['parentId'] = $this->getMagentoObjectFromNetsuite($netsuiteShipmentItem, 'custcol_parentid');
+            $netProducts[$netsuiteMagentoItemId]['parentType'] = $this->getMagentoObjectFromNetsuite($netsuiteShipmentItem, 'custcol_parentname');
         }
         
         /**
          * collect data from magento order
          */
         foreach ($magentoOrder->getAllItems() as $magentoOrderItem) {
-            if (!$magentoOrderItem->getParentItemId()) {
-                $itemParent[$magentoOrderItem->getSku()] = array (
-                    'sku' => $magentoOrderItem->getSku(),
-                    'qty' => $magentoOrderItem->getQtyOrdered() - $magentoOrderItem->getQtyShipped(),
-                    'item_id' => $magentoOrderItem->getId(),
-                    'product_id' => $magentoOrderItem->getProductId(),
-                    'netsuite_internal_id' => $magentoOrderItem->getNetsuiteInternalId()
-                );
-            }
+            $magentoItems[$magentoOrderItem->getId()] = array (
+                'sku' => $magentoOrderItem->getSku(),
+                'qty' => $magentoOrderItem->getQtyOrdered() - $magentoOrderItem->getQtyShipped(),
+                'item_id' => $magentoOrderItem->getId(),
+                'parent_id' => $magentoOrderItem->getParentItemId(),
+                'type' => $magentoOrderItem->getProductType(),
+                'product_id' => $magentoOrderItem->getProductId(),
+                'netsuite_internal_id' => $magentoOrderItem->getNetsuiteInternalId()
+            );
         }
         
         /**
          * compare data
          */
         foreach ($netProducts as $key => $netProduct) {
-            if (array_key_exists($key, $itemParent)) {
-                $prodToShiped[$itemParent[$key]['item_id']] = $netProduct['quantity'];
-
-                if ($netProduct['quantity'] > $itemParent[$key]['qty']) {
-                    $qty = $netProduct['quantity'] - $itemParent[$key]['qty'];
-                    $this->saveBundleConfigurable($magentoOrder->getIncrementId(), $netProduct['sku'], $qty, $netsuiteShipment->lastModifiedDate);
+            if (array_key_exists($key, $magentoItems)) {
+                if ($netProduct['quantity'] > $magentoItems[$key]['qty']) {
+                    throw new Exception("{$magentoOrder->getId()}: Error quantity bigger than it should be!");
+                }
+                else {
+                    $prodToShiped[$key] = $netProduct['quantity'];
+                    
+                    if (isset ($magentoItems[$key]['parent_id']) && ($magentoItems[$key]['parent_id'] !== 0)) {
+                        $parentKey = $magentoItems[$key]['parent_id'];
+                        
+                        if ($magentoItems[$parentKey]['type'] == 'configurable') {
+                            $prodToShiped[$parentKey] = $netProduct['quantity'];
+                        }
+                        else if ($magentoItems[$parentKey]['type'] == 'bundle') {
+                            $prodToShiped[$parentKey] = (int) ($magentoItems[$parentKey]['quantity'] * ($magentoItems[$key]['quantity'] / $netProduct['quantity']));
+                        }
+                    }
                 }
             }
-            else {
-                $qty = $netProduct['quantity'];
-                $this->saveBundleConfigurable($magentoOrder->getIncrementId(), $netProduct['sku'], $qty, $netsuiteShipment->lastModifiedDate);
-            }
-        }
-        
-        /**
-         * Check shipment create availability
-         */
-        if (!$magentoOrder->canShip()) {
-             throw new Exception("{$magentoOrder->getId()}: Cannot do shipment for this order!");
         }
         
         if (count($prodToShiped) == 0) {
@@ -242,6 +247,13 @@ class RocketWeb_Netsuite_Helper_Mapper_Shipment extends RocketWeb_Netsuite_Helpe
         }
         
         $magentoShipment = $magentoOrder->prepareShipment($prodToShiped);
+        
+        /**
+         * Check shipment create availability
+         */
+        if (!$magentoOrder->canShip()) {
+            throw new Exception("{$magentoOrder->getId()}: Cannot do shipment for this order!");
+        }
         
         if ($magentoShipment) {
             $magentoShipment->register();
@@ -262,6 +274,16 @@ class RocketWeb_Netsuite_Helper_Mapper_Shipment extends RocketWeb_Netsuite_Helpe
         }
         
         return null;
+    }
+    
+    protected function getMagentoObjectFromNetsuite($netsuiteShipmentItem, $internalId) {
+        foreach ($netsuiteShipmentItem->customFieldList->customField as $customField) {
+            if ($customField->internalId == $internalId) {
+                return $customField->value;
+            }
+        }
+        
+        return '';
     }
 
     protected function saveBundleConfigurable($magentoOrderIncrementId, $magentoOrderItemSku, $qty, $lastModifiedDate) {
