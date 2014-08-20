@@ -64,27 +64,25 @@ class RocketWeb_Netsuite_Helper_Mapper_Order extends RocketWeb_Netsuite_Helper_M
 
         $customFieldsConfig = $this->getCustomFieldList();
         $netsuiteOrderItems = array ();
-        $confProduct = array ();
-        $bundProduct = array ();
-        
+        $confProduct = array();
+        $bundProduct = array();
+
         foreach ($magentoOrder->getAllItems() as $item) {
             if ($item->getProductType() == 'configurable') {
                 $confProduct[$item->getData('item_id')] = $item->getData('price');
                 $confProductDiscount[$item->getData('item_id')] = $item->getData('discount_amount');
             }
-            elseif ($item->getProductType() == 'bundle') {
+            elseif($item->getProductType() == 'bundle'){
                 $parentItemId = $item->getData('parent_item_id');
-                
-                if ($parentItemId == '' || $parentItemId == 0 || empty ($parentItemId)) {
+                if($parentItemId == '' || $parentItemId == 0 || empty($parentItemId)){
                     $parentItemId = $item->getData('item_id');
                 }
-                
                 $productOptions = unserialize($item->getData('product_options'));
                 $bundleOptions = $productOptions['bundle_options'];
                 $totalPriceItemBundle = 0;
-                
-                foreach ($bundleOptions as $option) {
-                    foreach ($option['value'] as $value) {
+
+                foreach($bundleOptions as $option){
+                    foreach($option['value'] as $value){
                         $totalPriceItemBundle += $value['price'];
                     }
                 }
@@ -97,7 +95,7 @@ class RocketWeb_Netsuite_Helper_Mapper_Order extends RocketWeb_Netsuite_Helper_M
                 $bundProduct[$item->getData('item_id')]['totalPriceItem'] = $totalPriceItemBundle;
                 $bundProduct[$item->getData('item_id')]['discountAmount'] = $item->getData('discount_amount');
             }
-            elseif (isset ($bundProduct[$item->getData('parent_item_id')])) {
+            elseif(isset($bundProduct[$item->getData('parent_item_id')])){
                 $bundProduct[$item->getData('parent_item_id')]['totalQty'] += $item->getData('qty_ordered');
                 $bundProduct[$item->getData('parent_item_id')][$item->getData('item_id')]['itemQty'] = $item->getData('qty_ordered');
             }
@@ -185,8 +183,8 @@ class RocketWeb_Netsuite_Helper_Mapper_Order extends RocketWeb_Netsuite_Helper_M
                 $totalDiscount = 0;
                 $productOptions = unserialize($item->getData('product_options'));
                 
-                if ($item->getProductType() == 'simple' && $item->getData('price') == 0 || $item->getData('parent_item_id') != '') {
-                    if (isset ($productOptions['bundle_selection_attributes'])) {
+                if($item->getProductType() == 'simple' && $item->getData('price') == 0 || $item->getData('parent_item_id') != ''){
+                    if(isset($productOptions['bundle_selection_attributes'])) {
                         $bundleSelectionAttributes = unserialize($productOptions['bundle_selection_attributes']);
                         $priceItemOnBundle = $bundleSelectionAttributes['price'] / $bundleSelectionAttributes['qty'];
                         //$bundlePrice = $bundProduct[$item->getData('parent_item_id')][''] 
@@ -207,8 +205,7 @@ class RocketWeb_Netsuite_Helper_Mapper_Order extends RocketWeb_Netsuite_Helper_M
                         echo "finalPriceItem: " . $finalPriceItem . " = ". $_simplePrice."+ (".$_bundleFixPrice."*(".$_simplePrice."/".$_totalSimplePrice."))\n";
                         //$item->setData('price', $finalPriceItem);
                     }
-                    
-                    if (!empty ($confProduct) && $confProduct[$item->getData('parent_item_id')] > 0) {
+                    if(!empty($confProduct) && $confProduct[$item->getData('parent_item_id')] > 0) {
                         $finalPriceItem = $confProduct[$item->getData('parent_item_id')];
                     }
                 }
@@ -236,7 +233,7 @@ class RocketWeb_Netsuite_Helper_Mapper_Order extends RocketWeb_Netsuite_Helper_M
                             }else{
                                 $discountPerItem = - (float) ($bundleDiscount + round(($item->getData('discount_amount') / $item->getData('qty_ordered')),3));
                             }
-                            
+
                             $totalDiscount += $discountPerItem;
                             $item->setData('discount_amount', $discountPerItem);
                             $customField = $this->_initCustomField($customFieldsConfigItem, $item);
@@ -246,19 +243,20 @@ class RocketWeb_Netsuite_Helper_Mapper_Order extends RocketWeb_Netsuite_Helper_M
                             if (in_array($item->getProductType(), array ('bundle'))) {
                                 continue;
                             }
-
+                            $bilna_credit = $pointsTransaction->getData('base_points_to_money');
+                            $subTotal = $magentoOrder->getSubtotal();
                             if( $item->getProductType() == 'simple' && $item->getData('price') == 0 || $item->getData('parent_item_id') != '' ){
                                 if( isset( $productOptions['bundle_selection_attributes'] ) ){
-                                    $bilna_credit = $pointsTransaction->getData('base_points_to_money');
-                                    $subTotal = $magentoOrder->getSubtotal();
+                                    //$bilna_credit = $pointsTransaction->getData('base_points_to_money');
+                                    //$subTotal = $magentoOrder->getSubtotal();
                                     $bilnaCreditItem = $finalPriceItem * ($bilna_credit / $subTotal);
                                 }
                                 if(!empty($confProduct) && $confProduct[$item->getData('parent_item_id')] > 0 ){                                
                                     $bilnaCreditItem = $confProduct[$item->getData('parent_item_id')] * ($bilna_credit / $subTotal);
                                 }
                             }else{
-                                $bilna_credit = $pointsTransaction->getData('base_points_to_money');
-                                $subTotal = $magentoOrder->getSubtotal();
+                                //$bilna_credit = $pointsTransaction->getData('base_points_to_money');
+                                //$subTotal = $magentoOrder->getSubtotal();
                                 $bilnaCreditItem = $item->getData('price') * ($bilna_credit / $subTotal);
                             }
                             
