@@ -70,13 +70,31 @@ class RocketWeb_Netsuite_Model_Process_Import_Order_Fulfillment extends RocketWe
         return true;
     }
 
-    public function process(Record $netsuiteShipment) {
-        $magentoShipment = Mage::helper('rocketweb_netsuite/mapper_shipment')->getMagentoFormat($netsuiteShipment);
-        $magentoShipment->setNetsuiteInternalId($netsuiteShipment->internalId);
-        $magentoShipment->setLastImportDate(Mage::helper('rocketweb_netsuite')->convertNetsuiteDateToSqlFormat($netsuiteShipment->lastModifiedDate));
-        $magentoShipment->save();
+    public function process(Record $netsuiteShipment, $queueData = null) {
+        try {
+            $magentoShipment = Mage::helper('rocketweb_netsuite/mapper_shipment')->getMagentoFormat($netsuiteShipment, $queueData);
+            
+            if (is_array($magentoShipment)) {
+                if ($magentoShipment['status'] == false) {
+                    throw new Exception($magentoShipment['message'], $magentoShipment['code']);
+                }
+                else {
+                    throw new Exception("error process shipment");
+                }
+            }
+            
+            $magentoShipment->setNetsuiteInternalId($netsuiteShipment->internalId);
+            $magentoShipment->setLastImportDate(Mage::helper('rocketweb_netsuite')->convertNetsuiteDateToSqlFormat($netsuiteShipment->lastModifiedDate));
+            $magentoShipment->save();
 
-        Mage::dispatchEvent('netsuite_item_fulfillment_import_save_before', array ('netsuite_shipping' => $netsuiteShipment, 'magento_shipping' => $magentoShipment));
+            Mage::dispatchEvent('netsuite_item_fulfillment_import_save_before', array ('netsuite_shipping' => $netsuiteShipment, 'magento_shipping' => $magentoShipment));
+        }
+        catch (Exception $e) {
+            if (in_array($e->getCode(), array (1, 2))) {
+                $this->createMagentoShipmentLog($netsuiteShipment, $queueData, $e->getCode());
+                return true;
+            }
+        }
     }
 
     protected function updateShippingPrice(Mage_Sales_Model_Order_Shipment $magentoShipment, ItemFulfillment $netsuiteShipment) {
@@ -176,5 +194,61 @@ class RocketWeb_Netsuite_Model_Process_Import_Order_Fulfillment extends RocketWe
         else {
             return null;
         }
+    }
+    
+    protected function getMagentoOrderIncrementId(Record $netsuiteShipment) {
+        $netsuiteOrderInternalId = $netsuiteShipment->createdFrom->internalId;
+        $magentoOrders = Mage::getModel('sales/order')->getCollection()->addFieldToFilter('netsuite_internal_id', $netsuiteOrderInternalId);
+        $magentoOrder = $magentoOrders->getFirstItem();
+        
+        return $magentoOrder->getIncrementId();
+    }
+    
+    protected function createMagentoShipmentLog(Record $netsuiteShipment, $queueData, $type = 1) {
+        $currentTimestamp = Mage::getModel('core/date')->timestamp(time()); //Magento's timestamp function makes a usage of timezone and converts it to timestamp
+        $today = date('Ymd', $currentTimestamp); //The value may differ than above because of the timezone settings.
+        $path = "netsuite/import/shipment/{$today}/";
+        $messageId = $queueData['message_id'];
+        $magentoOrderIncrementId = $this->getMagentoOrderIncrementId($netsuiteShipment);
+        
+        if ($type == 1) {
+            $filename = "shipping_{$messageId}_{$magentoOrderIncrementId}_error_cant_shipment";
+        }
+        else {
+            $filename = "shipping_{$messageId}_{$magentoOrderIncrementId}_error_no_item";
+        }
+        
+        $content = json_encode($queueData);
+        $fullpath = '';
+        $pathArr = explode('/', $path);
+
+        if (is_array($pathArr)) {
+            foreach ($pathArr as $key => $value) {
+                if (empty ($value)) {
+                    continue;
+                }
+                
+                // check folder exist
+                $foldername = empty ($fullpath) ? $value : $fullpath . $value;
+                
+                if (!file_exists($this->getMagentoBaseDir() . $foldername)) {
+                    mkdir($this->getMagentoBaseDir() . $foldername, 0777, true);
+                }
+                
+                $fullpath .= $value . "/";
+            }
+        }
+        
+        $fullFilename = $this->getMagentoBaseDir() . $fullpath . $filename;
+        
+        if (!file_exists($fullFilename)) {
+            $handle = fopen($fullFilename, 'w');
+            fwrite($handle, $content . "\n");
+            fclose($handle);
+        }
+    }
+    
+    protected function getMagentoBaseDir() {
+        return Mage::getBaseDir() . "/var/log/";
     }
 }
