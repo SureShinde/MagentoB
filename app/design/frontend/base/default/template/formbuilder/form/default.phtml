@@ -88,14 +88,14 @@
 					<div><?php echo $input["title"]; ?></div>
 					<div><select id="<?php echo $input["name"]; ?>" type="dropdown" name="inputs[<?php echo $input["group"]; ?>]">
 			<?php } ?>
-				<option value=""><?php echo $input["value"]; ?></option>
+				<option value="<?php echo $input["value"]; ?>"><?php echo $input["value"]; ?></option>
 			<!--End Dropdown Type-->
 			
 			<!--DOB (Date of Birth) Type-->			
 			<?php }else if($input["type"] == "dob"){ ?>
 			<?php if($input["group"] !== $group){ ?>
 					<div><?php echo $input["title"]; ?></div>
-					<div><?php echo $this->_getDateDropdown(); ?></div>
+					<div><?php echo $this->_getDateDropdown($input["type"]); ?></div>
 			<!--End DOB Type-->
 
 			<?php } ?>			
