@@ -542,12 +542,8 @@ padding: 10px 10px 30px;
 	font-weight: bold;
 }
 .form-list li .orange-dash { background: url(../images/dash-orange.png) bottom repeat-x; padding-bottom:20px;}
-.error-msg {
-    border-color: #F16048;
-    background-color: #FFF;
-    background-image: url('../images/i_msg-error.gif');
-    color: #DF280A;
-}
+.error-msg 	 { border:none !important; background-color:#ee5859; background-image:url(../images/icon_error_msg.jpg); color:#fff; }
+
 .no-orders, 
 .no-reviews {
 	margin-left: 7px;
