@@ -229,9 +229,9 @@ class RocketWeb_Netsuite_Helper_Mapper_Order extends RocketWeb_Netsuite_Helper_M
                                 $productOptions = unserialize($bundProduct[$item->getData('parent_item_id')]['productOptions']);
                                 if($productOptions['shipment_type']==0)
                                 {
-                                    $item->setData('name', 'Bundle Product Separate - ' . $productBundleName);
-                                }elseif($productOptions['shipment_type']==1){
                                     $item->setData('name', 'Bundle Product Together - ' . $productBundleName);
+                                }elseif($productOptions['shipment_type']==1){
+                                    $item->setData('name', 'Bundle Product Separate - ' . $productBundleName);
                                 }
                                 $customField = $this->_initCustomField($customFieldsConfigItem, $item);
                                 $customFields[] = $customField;
