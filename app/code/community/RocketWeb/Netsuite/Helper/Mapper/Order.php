@@ -64,27 +64,25 @@ class RocketWeb_Netsuite_Helper_Mapper_Order extends RocketWeb_Netsuite_Helper_M
 
         $customFieldsConfig = $this->getCustomFieldList();
         $netsuiteOrderItems = array ();
-        $confProduct = array ();
-        $bundProduct = array ();
-        
+        $confProduct = array();
+        $bundProduct = array();
+
         foreach ($magentoOrder->getAllItems() as $item) {
             if ($item->getProductType() == 'configurable') {
                 $confProduct[$item->getData('item_id')] = $item->getData('price');
                 $confProductDiscount[$item->getData('item_id')] = $item->getData('discount_amount');
             }
-            elseif ($item->getProductType() == 'bundle') {
+            elseif($item->getProductType() == 'bundle'){
                 $parentItemId = $item->getData('parent_item_id');
-                
-                if ($parentItemId == '' || $parentItemId == 0 || empty ($parentItemId)) {
+                if($parentItemId == '' || $parentItemId == 0 || empty($parentItemId)){
                     $parentItemId = $item->getData('item_id');
                 }
-                
                 $productOptions = unserialize($item->getData('product_options'));
                 $bundleOptions = $productOptions['bundle_options'];
                 $totalPriceItemBundle = 0;
-                
-                foreach ($bundleOptions as $option) {
-                    foreach ($option['value'] as $value) {
+
+                foreach($bundleOptions as $option){
+                    foreach($option['value'] as $value){
                         $totalPriceItemBundle += $value['price'];
                     }
                 }
@@ -97,7 +95,7 @@ class RocketWeb_Netsuite_Helper_Mapper_Order extends RocketWeb_Netsuite_Helper_M
                 $bundProduct[$item->getData('item_id')]['totalPriceItem'] = $totalPriceItemBundle;
                 $bundProduct[$item->getData('item_id')]['discountAmount'] = $item->getData('discount_amount');
             }
-            elseif (isset ($bundProduct[$item->getData('parent_item_id')])) {
+            elseif(isset($bundProduct[$item->getData('parent_item_id')])){
                 $bundProduct[$item->getData('parent_item_id')]['totalQty'] += $item->getData('qty_ordered');
                 $bundProduct[$item->getData('parent_item_id')][$item->getData('item_id')]['itemQty'] = $item->getData('qty_ordered');
             }
@@ -185,8 +183,8 @@ class RocketWeb_Netsuite_Helper_Mapper_Order extends RocketWeb_Netsuite_Helper_M
                 $totalDiscount = 0;
                 $productOptions = unserialize($item->getData('product_options'));
                 
-                if ($item->getProductType() == 'simple' && $item->getData('price') == 0 || $item->getData('parent_item_id') != '') {
-                    if (isset ($productOptions['bundle_selection_attributes'])) {
+                if($item->getProductType() == 'simple' && $item->getData('price') == 0 || $item->getData('parent_item_id') != ''){
+                    if(isset($productOptions['bundle_selection_attributes'])) {
                         $bundleSelectionAttributes = unserialize($productOptions['bundle_selection_attributes']);
                         $priceItemOnBundle = $bundleSelectionAttributes['price'] / $bundleSelectionAttributes['qty'];
                         //$bundlePrice = $bundProduct[$item->getData('parent_item_id')][''] 
@@ -207,8 +205,7 @@ class RocketWeb_Netsuite_Helper_Mapper_Order extends RocketWeb_Netsuite_Helper_M
                         echo "finalPriceItem: " . $finalPriceItem . " = ". $_simplePrice."+ (".$_bundleFixPrice."*(".$_simplePrice."/".$_totalSimplePrice."))\n";
                         //$item->setData('price', $finalPriceItem);
                     }
-                    
-                    if (!empty ($confProduct) && $confProduct[$item->getData('parent_item_id')] > 0) {
+                    if(!empty($confProduct) && $confProduct[$item->getData('parent_item_id')] > 0) {
                         $finalPriceItem = $confProduct[$item->getData('parent_item_id')];
                     }
                 }
@@ -236,7 +233,7 @@ class RocketWeb_Netsuite_Helper_Mapper_Order extends RocketWeb_Netsuite_Helper_M
                             }else{
                                 $discountPerItem = - (float) ($bundleDiscount + round(($item->getData('discount_amount') / $item->getData('qty_ordered')),3));
                             }
-                            
+
                             $totalDiscount += $discountPerItem;
                             $item->setData('discount_amount', $discountPerItem);
                             $customField = $this->_initCustomField($customFieldsConfigItem, $item);
@@ -246,19 +243,20 @@ class RocketWeb_Netsuite_Helper_Mapper_Order extends RocketWeb_Netsuite_Helper_M
                             if (in_array($item->getProductType(), array ('bundle'))) {
                                 continue;
                             }
-
+                            $bilna_credit = $pointsTransaction->getData('base_points_to_money');
+                            $subTotal = $magentoOrder->getSubtotal();
                             if( $item->getProductType() == 'simple' && $item->getData('price') == 0 || $item->getData('parent_item_id') != '' ){
                                 if( isset( $productOptions['bundle_selection_attributes'] ) ){
-                                    $bilna_credit = $pointsTransaction->getData('base_points_to_money');
-                                    $subTotal = $magentoOrder->getSubtotal();
+                                    //$bilna_credit = $pointsTransaction->getData('base_points_to_money');
+                                    //$subTotal = $magentoOrder->getSubtotal();
                                     $bilnaCreditItem = $finalPriceItem * ($bilna_credit / $subTotal);
                                 }
                                 if(!empty($confProduct) && $confProduct[$item->getData('parent_item_id')] > 0 ){                                
                                     $bilnaCreditItem = $confProduct[$item->getData('parent_item_id')] * ($bilna_credit / $subTotal);
                                 }
                             }else{
-                                $bilna_credit = $pointsTransaction->getData('base_points_to_money');
-                                $subTotal = $magentoOrder->getSubtotal();
+                                //$bilna_credit = $pointsTransaction->getData('base_points_to_money');
+                                //$subTotal = $magentoOrder->getSubtotal();
                                 $bilnaCreditItem = $item->getData('price') * ($bilna_credit / $subTotal);
                             }
                             
@@ -532,7 +530,8 @@ class RocketWeb_Netsuite_Helper_Mapper_Order extends RocketWeb_Netsuite_Helper_M
 
     public function getMagentoFormat(SalesOrder $netsuiteOrder) {
         $magentoOrders = Mage::getModel('sales/order')->getCollection()->addFieldToFilter('netsuite_internal_id', $netsuiteOrder->internalId);
-        
+error_log("\nnetsuiteOrder ".print_r($netsuiteOrder,1), 3, '/tmp/nsSOBC3.log');       
+error_log("\nmagentoOrders ".print_r($magentoOrders->getFirstItem(),1), 3, '/tmp/nsSOBC.log');       
         if (!$magentoOrders->count()) {
             throw new Exception("Order with internal Netsuite id #{$netsuiteOrder->internalId} not found!");
         }
@@ -550,11 +549,126 @@ class RocketWeb_Netsuite_Helper_Mapper_Order extends RocketWeb_Netsuite_Helper_M
                 $magentoOrderHistory = $magentoOrder->addStatusHistoryComment('');
                 $magentoOrderHistory->setIsCustomerNotified(true);
             }
-            
-            $magentoOrder->save();
+           
+            try{
+                $magentoOrder->save();
+                               $orders = Mage::getModel('sales/order')->getCollection()->addFieldToFilter('netsuite_internal_id', $netsuiteOrder->internalId);
+                $order  = $orders->getFirstItem();
+error_log("\norder ".print_r($order,1), 3, '/tmp/nsSOBC8.log');            
+                $transaction = Mage::getModel('points/transaction')->loadByOrder($order);
+                $order->setMoneyForPoints($transaction->getData('points_to_money'));
+                $order->setBaseMoneyForPoints($transaction->getData('base_points_to_money'));
+                $order->setPointsBalanceChange(abs($transaction->getData('balance_change')));
+
+                if ($order->getCustomerId()) {
+echo "\ncustomerId 1 ".$order->getCustomerId();
+                    //if (($order->getBaseSubtotalCanceled() - $order->getOrigData('base_subtotal_canceled'))) {
+                    if ($order->getBaseSubtotalCanceled()) {
+echo "\nbaseSubtotalCanceled ".$order->getBaseSubtotalCanceled();
+                        /* refund all points spent on order */
+                        $customer = Mage::getModel('customer/customer')->load($order->getCustomerId());
+                        if ($customer->getId()) {
+echo "\ncustomerId ".$customer->getId();
+                            $helper = Mage::helper('points');
+                            if ($order->getPointsBalanceChange()) {
+echo "\npointBalanceChange ".$order->getPointsBalanceChange();
+                                $applyAfter = Mage::helper('points/config')
+                                                ->getPointsCollectionOrder($order->getStoreId()) == AW_Points_Helper_Config::AFTER_TAX;
+
+                                if ($applyAfter) {
+                                    $baseSubtotal = $order->getBaseSubtotalInclTax() - abs($order->getBaseDiscountAmount());
+                                    $subtotalToCancel =
+                                            $order->getBaseSubtotalCanceled() +
+                                            $order->getBaseTaxCanceled() -
+                                            $order->getBaseDiscountCanceled();
+echo "\ngetBaseDiscountAmount if ".abs($order->getBaseDiscountAmount());
+                                } else {
+                                    $subtotalToCancel =
+                                            $order->getBaseSubtotalCanceled() -
+                                            $order->getBaseDiscountCanceled();
+                                    $baseSubtotal = $order->getBaseSubtotal() - abs($order->getBaseDiscountAmount());
+echo "\ngetBaseSubtotal else ".$order->getBaseSubtotal(); 
+echo "\ngetBaseDiscountAmount else ".abs($order->getBaseDiscountAmount());                   
+                                }
+
+echo "\nsubtotalToCancel ".$subtotalToCancel;
+echo "\nbaseSubtotal ".$baseSubtotal;
+                                $pointsToCancel = floor($order->getPointsBalanceChange() * $subtotalToCancel / $baseSubtotal);
+echo "\npointToCancel ".$pointsToCancel;
+                                if (Mage::helper('points/config')->isRefundPoints($order->getStoreId())) {
+echo "\nhere";
+                                    $comment = $helper->__('Cancelation of order #%s', $order->getIncrementId());
+                                    $data = array('memo' => new Varien_Object(), 'order' => $order, 'customer' => $customer);
+                                    $this->_refundSpentPoints($data, new Varien_Object(
+                                                    array('comment' => $comment, 'points_to_return' => $pointsToCancel)));
+                                }
+                            }
+                        }
+                    }
+                }
+            }catch(Exception $ex){
+                Mage::helper('rocketweb_netsuite')->log($ex->getMessage());
+            }
         }
 
         return $magentoOrder;
+    }
+    
+    /**
+     * Refund earned points
+     * param array $data
+     * public orderRefund() --> _refundEarnedPoints()
+     */
+    protected function _refundSpentPoints($data, $infoObject = null)
+    {
+        $memo = $data['memo'];
+        $order = $data['order'];
+        $customer = $data['customer'];
+        $helper = Mage::helper('points');
+
+        if (!$order->getPointsBalanceChange()) {
+            return;
+        }
+
+        if ($infoObject instanceof Varien_Object) {
+            $pointsToReturn = $infoObject->getPointsToReturn();
+        } else {            
+              $pointsToReturn = round((abs($memo->getBaseMoneyForPoints()) / abs($order->getBaseMoneyForPoints())) 
+                      * $order->getPointsBalanceChange());
+              
+            //$pointsToReturn = ($order->getPointsBalanceChange() / $order->getTotalQtyOrdered()) * $memo->getTotalQty(); 
+        }
+echo "\npointToReturn ".$pointsToReturn;
+        /* Refund spent points */
+        if ($pointsToReturn) {
+            if (!$customer->getId()) {
+                return;
+            }
+
+            if ($infoObject instanceof Varien_Object) {
+                $comment = $infoObject->getComment();
+            } else {
+                $comment = $helper->__('Refund of %d item(s) related to order #%s', 
+                        $memo->getTotalQty(), $order->getIncrementId());
+            }
+
+            try {
+                Mage::getModel('points/api')->addTransaction(
+                        $pointsToReturn, 
+                        'order_refunded', 
+                        $customer, 
+                        null, 
+                        array('comment' => $comment), 
+                        array('store_id' => $order->getStoreId(), 'order_id' => $order->getId(),
+                        'balance_change_type' => AW_Points_Helper_Config::MONEY_SPENT
+                        )
+                );
+echo "\nadd Transaction";
+            } catch (Exception $e) {
+echo "\n".$ex->getMessage();
+                Mage::helper('rocketweb_netsuite')->log($ex->getMessage());
+            }
+        }
     }
 
     protected function getMagentoPaymentMethodCodeAndCard(RecordRef $netsuitePaymentMethod) {
