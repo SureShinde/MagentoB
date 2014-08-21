@@ -19,7 +19,6 @@
 	font:12px/1.55 Arial, Helvetica, sans-serif;
 }
 .static-page-wrapper ol, .static-page-wrapper ul{
-	list-style:decimal;
 	margin:0 0 0 22px;
 }
 .center-text-sp{text-align:center;}
@@ -3120,4 +3119,18 @@ button.button-area {
 
 
 /*=============================end style merdeka madness=============================*/
+
+/*=============================style affiliate=============================*/
+
+.affiliate-page .join-affiliate{
+	background:#51c6d8;
+	display: table;
+    font-size: 23px;
+    padding: 15px 35px;
+	}
+.affiliate-page .join-affiliate a{
+	color: #fff;
+    
+	}
+/*=============================end style affiliate=============================*/
 
