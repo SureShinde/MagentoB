@@ -3047,3 +3047,39 @@ button.button-area {
 }
 /*=============================end style tanya nadia=============================*/
 
+/* ---------- NEW STYLE FOR BOTTOOM INFO - COLOR MODE ---------- */
+.homepage-bottom .block-wrapper.color-bottom a {
+        text-decoration: none  !important;
+        padding: 3px 8px 0px !important; 
+        background: #ffff00; 
+        color: #666 !important;
+        font-weight: normal!important;
+        margin: 5px;
+        -webkit-padding-before: 0px;
+        -webkit-padding-after: 0px;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+    .homepage-bottom .block-wrapper.color-bottom span a {
+        background: none !important;
+        color: inherit !important;
+    }
+    .homepage-bottom .block-wrapper.color-bottom span {
+        font-family: 'InsaniburgerRegular', helvetica, arial, sans-serif !important;
+        line-height:0.9em; 
+        margin-bottom: 10px;
+        font-size: 30px !important;
+        letter-spacing: 0.03em;
+        text-shadow: 0px 0px 6px rgba(0,0,0,0.5);
+        color: #fff;
+    }
+    
+@media only screen and (min-device-width : 768px) and (max-device-width : 1023px) {
+    .homepage-bottom .block-wrapper span {
+        font-size: 24px !important;
+    }
+
+}
+/* ---------- END NEW STYLE FOR BOTTOOM INFO - COLOR MODE ---------- */
+
