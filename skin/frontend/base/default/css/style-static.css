@@ -1853,7 +1853,7 @@ h2.block-grey-title-left {
     .formbuilder-form button.button span {
         margin-left: 0px !important;
     }
-    .formbuilder-form ul li input{
+    .formbuilder-form ul li input, .formbuilder-form ul li textarea{
         background: none repeat scroll 0 0 #F9F9F9;
         border: medium none;
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) inset;
@@ -2784,7 +2784,7 @@ button.button-area {
         }
 	}
     @media only screen and (max-width: 468px) {
-        .static-page-wrapper .container-filled .formbuilder-form ul li input {
+        .static-page-wrapper .container-filled .formbuilder-form ul li input, .formbuilder-form ul li textarea{
             float: left !important;
             margin: 10px 0 !important;
             width: 95% !important;
@@ -3149,5 +3149,30 @@ button.button-area {
 	color: #fff;
     
 	}
+.affiliate-page input, .affiliate-page textarea, .affiliate-page select{
+	border-radius:10px;
+	border:1px solid #d1d1d1;
+}
+
+@media only screen and (max-width: 1023px){
+	.affiliate-page #formbuilder-form ul, .affiliate-page .form ol{
+		padding:0 !important;
+		margin:0 !important ;
+	}
+}
+@media only screen and (max-width: 468px) {
+        .affiliate-page .formbuilder-form ul li input, .affiliate-page .formbuilder-form ul li textarea{
+            float: left !important;
+            margin: 10px 0 !important;
+            width: 95% !important;
+        }
+        .affiliate-page .formbuilder-form p.required {
+            clear: none;
+            margin: 0 32px !important;
+        }
+		.affiliate-page #date_select{
+			clear:both;
+		}
+    }
 /*=============================end style affiliate=============================*/
 
