@@ -34,24 +34,45 @@
 		<ul>
 		<?php
 		$group = "";
+		$type = "";
 		$i = 0;
+		$dropdownCount = 1;
 		//var_dump($this->inputs->getData()); die;
+		
 		foreach($this->inputs->getData() as $input){
-		?>
+		$groupcombine = "";
+
+		?>	
+			<!--Pembukaan untuk foreach-->	
 			<?php if($input["group"] !== $group){
-				if($group!==""){ ?></li><?php } ?><li>
+				if($group!==""){ 
+					if($type == "dropdown"){
+						echo "</select>";
+					}
+			?>
+			<!--End Pembukaan untuk foreach-->
+
+				</li>
+				<?php } ?>
+				<li style="clear: both; margin-bottom: 20px;">
 			<?php } ?>
+
+			<!--Checkbox Type-->
 			<?php if($input["type"] == "checkbox"){ ?>
 				<?php if($input["name"]=="terms" && $this->block->termsconditions){ ?>
 		        <div style="clear:both"></div>
 		        <?php echo $this->block->termsconditions; ?>
-				<?php }else if($input["group"] !== $group){ ?>
+				<?php }
+				else if($input["group"] !== $group){ ?>
 				<div class="form-question title-checkbox"><?php echo $input["title"]; ?></div>
                 <?php } ?>
 				<div class="form-checkbox">
 					<input style="margin: 0px 12px 0px 140px;" id="<?php echo $input["name"]; ?>" type="checkbox" name="inputs[<?php echo $input["group"]; ?>]">
 					<label for="<?php echo $input["name"]; ?>"><?php echo $input["value"]; ?></label>
 				</div>
+			<!--End Checkbox Type-->
+
+			<!--Radio Button Type-->
 			<?php }else if($input["type"] == "radio"){ ?>
 			<?php if($input["group"] !== $group){ ?>
 				<div class="form-question"><?php echo $input["title"]; ?></div><?php } ?>
@@ -59,24 +80,67 @@
 					<input id="<?php echo $input["name"]; ?>" type="radio" name="inputs[<?php echo $input["group"]; ?>]" value="<?php echo $input["value"]; ?>">
 					<label for="<?php echo $input["name"]; ?>"><?php echo $input["value"]; ?></label>
 				</div>
-			</li>
-			<?php }else{ ?>
-				<div style="clear: both; margin-bottom: 20px;">
+			<!--End Radio Button Type-->
+
+			<!--Dropdown Type-->
+			<?php }else if($input["type"] == "dropdown"){ ?>
+					<div>	
+			<?php if($input["group"] !== $group){ ?>
+					<div>
+					<label class="required" style="float: left; width: 140px;"><?php echo $input["title"]; ?></label>
+					<div><select id="<?php echo $input["name"]; ?>" type="dropdown" name="inputs[<?php echo $input["group"]; ?>]">
+					</div>
+			<?php } ?>
+				<option value="<?php echo $input["value"]; ?>"><?php echo $input["value"]; ?></option>
+			<!--End Dropdown Type-->
+			
+			<!--DOB (Date of Birth) Type-->			
+			<?php }else if($input["type"] == "dob"){ ?>
+					<div>	
+			<?php if($input["group"] !== $group){ ?>
+					<div>
+					<label class="required" style="float: left; width: 140px;"><?php echo $input["title"]; ?></label>
+					<div><?php echo $this->_getDateDropdown($input["type"]); ?></div>
+			</div>
+			<!--End DOB Type-->
+
+			<?php } ?>			
+
+			<?php }else{ ?>			
+
+				<div>
 					<label class="required" style="float: left; width: 140px;" for="<?php echo $input["name"]; ?>"><?php echo $input["value"]; ?><em><?php if($input["required"] == true) echo '*'; ?></em></label>
+
+				<!--Text Type-->
 				<?php if($input["type"] == "text"){ ?>
 					<input id="<?php echo $input["name"]; ?>" class="<?php if ($input["required"]) {echo "required-entry";}?> <?php echo (!empty($input["validation"])) ? 'validate-'.$input["validation"] : ''; ?>" style="height: 26px !important; width: 40%; background: none repeat scroll 0 0 #F9F9F9; border: none; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) inset; color: #666666; padding: 7px 5px; float: left; margin-right: 60px;" title="<?php echo $input["value"]; ?>" name="inputs[<?php echo $input["group"]; ?>]" placeholder="<?php echo $input["helper_message"]; ?>" />
+				<!--End Text Type-->
+
+				<!--Textarea Type-->
 				<?php }else if($input["type"] == "textarea"){ ?>
 					<textarea id="<?php echo $input["name"]; ?>" class="<?php if ($input["required"]) {echo "required-entry";}?> input-text" style="height: 100px !important; width: 40%; background: none repeat scroll 0 0 #F9F9F9; border: none; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) inset; color: #666666; padding: 7px 5px; float: left; margin-right: 60px;" rows="3" cols="5" title="<?php echo $input["value"]; ?>" name="inputs[<?php echo $input["group"]; ?>]"></textarea>
 				<?php } ?>
+				<!--Textarea Type-->
+
 				</div>
 				<div style="clear: both;">
 				</div>
 			<?php 
 			}
 			$group = $input["group"];
+			$type = $input["type"];
 			$i++;
 			
-			if($i == count($this->inputs->getData())){ ?></li><?php }
+			//Penutup untuk foreach
+			if($i == count($this->inputs->getData())){ 
+					if($type == "dropdown"){
+						echo "</select>";
+					}
+				?>
+			</li>
+			<?php }
+			//End Penutup untuk foreach
+
 		}
 		?>
 		</ul>

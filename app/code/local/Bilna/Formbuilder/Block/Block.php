@@ -31,4 +31,38 @@ class Bilna_Formbuilder_Block_Block extends Mage_Core_Block_Template
 		$html = $this->renderView();
 		return $html;
 	}
+
+    //Fungsi Date of Birth (DOB)
+	public function _getDateDropdown($input, $year_limit = 0){
+        $html_output = '<div id="date_select" >'."\n";
+        $html_output .= '<label for="date_day"></label>'."\n";
+
+        /*days*/
+        $html_output .= '<select name="inputs['. $input .'][date_day]" id="day_select" >'."\n";
+            for ($day = 1; $day <= 31; $day++) {
+                $html_output .= '<option value="' . $day . '">' . $day . '</option>'."\n";
+            }
+        $html_output .= '</select>'."\n";
+
+        /*months*/
+        $html_output .= '<select name="inputs['. $input .'][date_month]" id="month_select" >'."\n";
+        $months = array("", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
+            for ($month = 1; $month <= 12; $month++) {
+                $html_output .= '               <option value="' . $month . '">' . $months[$month] . '</option>'."\n";
+            }
+        $html_output .= '</select>'."\n";
+
+        /*years*/
+        $html_output .= '<select name="inputs['. $input .'][date_year]" id="year_select">'."\n";
+            //for ($year = 1900; $year <= (date("Y") - $year_limit); $year++) //untuk 1900 - 2014
+            for ($year = 1970; $year <= 2015; $year++)
+            {
+                $html_output .= '<option value="' . $year . '">' . $year . '</option>'."\n";
+            }
+        $html_output .= '</select>'."\n";
+
+        $html_output .= '</div>'."\n";
+    return $html_output;
+	}
+
 }
