@@ -2260,6 +2260,23 @@ button.button-area {
 		width: 100%;
 	}
 }
+
+.bg-voucher-thx-baby {
+    background:#ffca62 !important;
+}
+.bg-voucher-thx-home {
+    background:#f5ebe2 !important;
+}
+.box-inner-freevoucher-pop {
+    max-width: 530px !important;
+}
+.bg-voucher-thx-baby h3, .bg-voucher-thx-home h3 {
+    font-family: "InsaniburgerRegular";
+    font-size: 19px;
+    letter-spacing: 0.05em;
+    text-align: center;
+    color:#724943
+}
 /*-----------------------end of free voucher--------------------------------*/
 
 /*---------------bilna kredit-------------------------*/
