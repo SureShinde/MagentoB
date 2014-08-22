@@ -6,7 +6,8 @@
  */
 
 class RocketWeb_Netsuite_Helper_Mapper_Creditmemo extends RocketWeb_Netsuite_Helper_Mapper {
-    public function getMagentoFormat(CreditMemo $creditmemo) {
+    public function getMagentoFormat(CreditMemo $creditmemo)
+    {
         $magentoIncrementId = $this->getIncrementIdFromNetsuite($creditmemo);
         $magentoOrder = Mage::getModel('sales/order')->loadByIncrementId($magentoIncrementId);
         $magentoConvertor = Mage::getModel('sales/convert_order');
@@ -26,13 +27,15 @@ class RocketWeb_Netsuite_Helper_Mapper_Creditmemo extends RocketWeb_Netsuite_Hel
             {
                 foreach ($netsuiteItem->customFieldList->customField as $customField)
                 {
-                    if ($customField->internalId == 'custcol_magentoitemid') {
-                        $item_id = $customField->value;
-                        $items[$item_id]['item_id']        = $item_id; //$magentoOrderItem->getData('item_id');
-                        $items[$item_id]['back_to_stock']  = number_format($netsuiteItem->quantity,0);
-                        $items[$item_id]['qty']            = number_format($netsuiteItem->quantity,0);
-                    }
-
+                    $nsCustomFieldList[$customField->internalId] = $customField->value;
+                }
+                if(isset($nsCustomFieldList['custcol_parentid']))
+                {
+                    $items[$nsCustomFieldList['custcol_parentid']]['back_to_stock']  = 1;//number_format($netsuiteItem->quantity,0);
+                    $items[$nsCustomFieldList['custcol_parentid']]['qty']            = number_format($netsuiteItem->quantity,0);
+                }elseif(isset($nsCustomFieldList['custcol_magentoitemid'])){
+                    $items[$nsCustomFieldList['custcol_magentoitemid']]['back_to_stock']  = 1;//number_format($netsuiteItem->quantity,0);
+                    $items[$nsCustomFieldList['custcol_magentoitemid']]['qty']            = number_format($netsuiteItem->quantity,0);
                 }
             }
         }
@@ -49,6 +52,7 @@ class RocketWeb_Netsuite_Helper_Mapper_Creditmemo extends RocketWeb_Netsuite_Hel
         );
 
         $data=array(
+            'order_id'           => $orderId,
             'order_increment_id' => $magentoOrder->getIncrementId(),
             'invoice_id'         => $invoice_id,
             'creditmemo'         => $creditmemo
