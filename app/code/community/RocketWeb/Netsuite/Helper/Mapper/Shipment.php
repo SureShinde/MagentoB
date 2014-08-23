@@ -152,6 +152,7 @@ class RocketWeb_Netsuite_Helper_Mapper_Shipment extends RocketWeb_Netsuite_Helpe
                 'parent_id' => $magentoOrderItem->getParentItemId(),
                 'type' => $magentoOrderItem->getProductType(),
                 'product_id' => $magentoOrderItem->getProductId(),
+                'product_options' => unserialize($magentoOrderItem->getData('product_options')),
                 'netsuite_internal_id' => $magentoOrderItem->getNetsuiteInternalId()
             );
         }
@@ -173,12 +174,33 @@ class RocketWeb_Netsuite_Helper_Mapper_Shipment extends RocketWeb_Netsuite_Helpe
                         if ($magentoItems[$parentKey]['type'] == 'configurable') {
                             $prodToShiped[$parentKey] = $netProduct['quantity'];
                         }
-                        else if ($magentoItems[$parentKey]['type'] == 'bundle') {
-                            $prodToShiped[$parentKey] = (int) ($magentoItems[$parentKey]['quantity'] * ($magentoItems[$key]['quantity'] / $netProduct['quantity']));
+                        elseif ($magentoItems[$parentKey]['type'] == 'bundle') {
+                            /**
+                             * bundle_option shipment_type:
+                             * 0 -> together
+                             * 1 -> separately
+                             */
+                            //if ($magentoItems[$parentKey]['product_options']['bundle_options']['shipment_type'] == 0) {
+                            //    $prodToShiped[$parentKey] = (int) ($magentoItems[$parentKey]['quantity'] * ($magentoItems[$key]['quantity'] / $netProduct['quantity']));
+                            //}
+                            //elseif ($magentoItems[$parentKey]['product_options']['bundle_options']['shipment_type'] == 1) {
+                            $prodToShiped[$parentKey] = (int) ($magentoItems[$parentKey]['qty'] * ($magentoItems[$key]['qty'] / $netProduct['quantity']));
+                            //}
                         }
                     }
                 }
             }
+        }
+        
+        /**
+         * Check shipment create availability
+         */
+        if (!$magentoOrder->canShip()) {
+            return array (
+                'status' => false,
+                'message' => "{$magentoOrder->getId()}: Cannot do shipment for this order!",
+                'code' => 1
+            );
         }
         
         /**
@@ -193,13 +215,6 @@ class RocketWeb_Netsuite_Helper_Mapper_Shipment extends RocketWeb_Netsuite_Helpe
         }
         
         $magentoShipment = $magentoOrder->prepareShipment($prodToShiped);
-        
-        /**
-         * Check shipment create availability
-         */
-        if (!$magentoOrder->canShip()) {
-            throw new Exception("{$magentoOrder->getId()}: Cannot do shipment for this order!");
-        }
         
         if ($magentoShipment) {
             $magentoShipment->register();

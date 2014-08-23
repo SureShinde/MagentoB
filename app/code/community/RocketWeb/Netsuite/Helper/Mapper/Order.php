@@ -272,34 +272,6 @@ class RocketWeb_Netsuite_Helper_Mapper_Order extends RocketWeb_Netsuite_Helper_M
                             if (in_array($item->getProductType(), array ('bundle'))) {
                                 continue;
                             }
-                            $bundleDiscount = 0;
-                            $discountPerItem = 0;
-                            if( (isset( $productOptions['bundle_selection_attributes'] )) && ($item->getProductType() == 'simple' && $item->getData('price') == 0 || $item->getData('parent_item_id') != '') ){
-                                $discountAmount = $bundProduct[$item->getData('parent_item_id')]['discountAmount'];
-                                $priceBundle = $bundProduct[$item->getData('parent_item_id')]['priceBundle2'] * $bundProduct[$item->getData('parent_item_id')]['totalQtyBundle'];
-                                //$totalQty = $bundProduct[$item->getData('parent_item_id')]['totalQty'];
-                                //$totalQtyBundle = $bundProduct[$item->getData('parent_item_id')]['totalQtyBundle'];
-
-                                $bundleDiscount = (($discountAmount / $priceBundle) * $finalPriceItem );
-
-                            }
-                            if( isset($confProductDiscount[$item->getData('parent_item_id')]) ){
-                                $disc = $confProductDiscount[$item->getData('parent_item_id')];
-                                $discountPerItem = - (float) (round(($disc / $item->getData('qty_ordered')),3));
-                            }else{
-                                $discountPerItem = - (float) ($bundleDiscount + round(($item->getData('discount_amount') / $item->getData('qty_ordered')),3));
-                            }
-                            
-                            $totalDiscount += $discountPerItem;
-                            $item->setData('discount_amount', $discountPerItem);
-                            $customField = $this->_initCustomField($customFieldsConfigItem, $item);
-                            $customFields[] = $customField;
-                            break;
-                            
-                        case 'custcol_bilnacredit':
-                            if (in_array($item->getProductType(), array ('bundle'))) {
-                                continue;
-                            }
                             
                             $bilna_credit = $pointsTransaction->getData('base_points_to_money');
                             $subTotal = $magentoOrder->getSubtotal();
