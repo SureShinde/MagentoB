@@ -23,21 +23,48 @@ class RocketWeb_Netsuite_Helper_Mapper_Creditmemo extends RocketWeb_Netsuite_Hel
             $invoiceObjects = $magentoOrder->getInvoiceCollection();
             $invoiceObj = $invoiceObjects->getFirstItem();
             $invoice_id = $invoiceObj['entity_id'];
-            foreach ($creditmemo->itemList->item as $netsuiteItem)
+
+            $mgOrder = array();
+            foreach($magentoOrder->getAllItems() as $item)
             {
+                $mgOrder[$item->getData('item_id')]['productType'] = $item->getProductType();
+                $mgOrder[$item->getData('item_id')]['parentItemId'] = $item->getData('parent_item_id');
+            }         
+
+            $nsCreditmemo = array();
+            foreach ($creditmemo->itemList->item as $netsuiteItem)
+            { 
+                $itemId =$itemParentId = null;
                 foreach ($netsuiteItem->customFieldList->customField as $customField)
                 {
-                    $nsCustomFieldList[$customField->internalId] = $customField->value;
+                    if ($customField->internalId == 'custcol_magentoitemid')
+                    {
+                        $itemId =$customField->value;
+                        //$nsCreditmemo[$itemId]['itemId'] = $itemId;
+                    }
+                    if ($customField->internalId == 'custcol_parentid')
+                    {
+                        $itemParentId =$customField->value;
+                        //$nsCreditmemo[$itemId]['parentItemId'] = $itemParentId;
+                    }
+
+
                 }
-                if(isset($nsCustomFieldList['custcol_parentid']))
+
+                if( !is_null($itemParentId) && $mgOrder[$itemParentId]['productType'] == 'bundle' )
                 {
-                    $items[$nsCustomFieldList['custcol_parentid']]['back_to_stock']  = 1;//number_format($netsuiteItem->quantity,0);
-                    $items[$nsCustomFieldList['custcol_parentid']]['qty']            = number_format($netsuiteItem->quantity,0);
-                }elseif(isset($nsCustomFieldList['custcol_magentoitemid'])){
-                    $items[$nsCustomFieldList['custcol_magentoitemid']]['back_to_stock']  = 1;//number_format($netsuiteItem->quantity,0);
-                    $items[$nsCustomFieldList['custcol_magentoitemid']]['qty']            = number_format($netsuiteItem->quantity,0);
+                    $items[$itemId]['back_to_stock']  = 1;//number_format($netsuiteItem->quantity,0);
+                    $items[$itemId]['qty']            = number_format($netsuiteItem->quantity,0);
+                }elseif(!is_null($itemParentId) && $mgOrder[$itemParentId]['productType'] == 'configurable')
+                {
+                    $items[$itemParentId]['back_to_stock']  = 1;//number_format($netsuiteItem->quantity,0);
+                    $items[$itemParentId]['qty']            = number_format($netsuiteItem->quantity,0);
+                }else{
+                    $items[$itemId]['back_to_stock']  = 1;//number_format($netsuiteItem->quantity,0);
+                    $items[$itemId]['qty']            = number_format($netsuiteItem->quantity,0);
                 }
             }
+            
         }
         $creditmemo = array(
             'items' =>  $items,
