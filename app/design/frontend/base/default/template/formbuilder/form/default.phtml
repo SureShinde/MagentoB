@@ -12,6 +12,7 @@
 		header("Location: ".Mage::getBaseUrl().$this->block->force_flow);exit();
 	} 
 ?>
+<?php echo $this->getChildHtml('global_messages') ?>
 <form id="formbuilder-<?php echo $this->blockId; ?>" class="<?php echo $this->block->class; ?>" action="<?php echo $this->getBaseUrl(); ?>formbuilder/index/submit" method="post">
 	<?php 
 	if($formbuilderSuccess){
@@ -54,7 +55,7 @@
 
 				</li>
 				<?php } ?>
-				<li style="clear: both; margin-bottom: 20px;">
+				<li>
 			<?php } ?>
 
 			<!--Checkbox Type-->
@@ -84,31 +85,25 @@
 
 			<!--Dropdown Type-->
 			<?php }else if($input["type"] == "dropdown"){ ?>
-					<div>	
 			<?php if($input["group"] !== $group){ ?>
-					<div>
-					<label class="required" style="float: left; width: 140px;"><?php echo $input["title"]; ?></label>
+					<div><?php echo $input["title"]; ?></div>
 					<div><select id="<?php echo $input["name"]; ?>" type="dropdown" name="inputs[<?php echo $input["group"]; ?>]">
-					</div>
 			<?php } ?>
 				<option value="<?php echo $input["value"]; ?>"><?php echo $input["value"]; ?></option>
 			<!--End Dropdown Type-->
 			
 			<!--DOB (Date of Birth) Type-->			
 			<?php }else if($input["type"] == "dob"){ ?>
-					<div>	
 			<?php if($input["group"] !== $group){ ?>
-					<div>
-					<label class="required" style="float: left; width: 140px;"><?php echo $input["title"]; ?></label>
+					<div><?php echo $input["title"]; ?></div>
 					<div><?php echo $this->_getDateDropdown($input["type"]); ?></div>
-			</div>
 			<!--End DOB Type-->
 
 			<?php } ?>			
 
 			<?php }else{ ?>			
 
-				<div>
+				<div style="clear: both; margin-bottom: 20px;">
 					<label class="required" style="float: left; width: 140px;" for="<?php echo $input["name"]; ?>"><?php echo $input["value"]; ?><em><?php if($input["required"] == true) echo '*'; ?></em></label>
 
 				<!--Text Type-->
