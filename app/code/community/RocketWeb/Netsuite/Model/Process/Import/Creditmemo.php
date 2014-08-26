@@ -117,7 +117,7 @@ class RocketWeb_Netsuite_Model_Process_Import_Creditmemo extends RocketWeb_Netsu
         
         $totalBilnaCredit = 0;
 
-        $invoice = false;
+        //$invoice = false;
         $service = Mage::getModel('sales/service_order', $order);
         if ($invoice) {
             $creditmemo = $service->prepareInvoiceCreditmemo($invoice, $data);
