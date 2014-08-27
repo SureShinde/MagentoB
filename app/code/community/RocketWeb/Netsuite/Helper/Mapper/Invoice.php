@@ -102,7 +102,7 @@ class RocketWeb_Netsuite_Helper_Mapper_Invoice extends RocketWeb_Netsuite_Helper
         return $magentoInvoice;
     }
     
-    protected function getMagentoInvoice(CashSale $cashSale) {
+    protected function getMagentoInvoice(Invoice $cashSale) {
         $invoiceCollection = Mage::getModel('sales/order_invoice')->getCollection();
         $invoiceCollection->addFieldToFilter('netsuite_internal_id', $cashSale->internalId);
         
@@ -113,7 +113,7 @@ class RocketWeb_Netsuite_Helper_Mapper_Invoice extends RocketWeb_Netsuite_Helper
         return null;
     }
     
-    protected function createMagentoInvoice(CashSale $cashSale, Mage_Sales_Model_Order $magentoOrder) {
+    protected function createMagentoInvoice(Invoice $cashSale, Mage_Sales_Model_Order $magentoOrder) {
         $invoiceMap = array ();
         $itemQty = array ();
         
@@ -140,23 +140,29 @@ class RocketWeb_Netsuite_Helper_Mapper_Invoice extends RocketWeb_Netsuite_Helper
         
         if ($magentoInvoice) {
             $magentoInvoice->register();
-            $magentoInvoice->addComment("Create Invoice from Netsuite #{$cashSale->internalId}");
+            $magentoInvoice->addComment("Create Shipment from Netsuite #{$cashSale->internalId}");
             $magentoInvoice->getOrder()->setIsInProcess(true);
             $magentoInvoice->setGrandTotal($cashSale->total);
             $magentoInvoice->setBaseGrandTotal($cashSale->total);
             $magentoInvoice->getOrder()->setTotalPaid($cashSale->total);
             $magentoInvoice->getOrder()->setBaseTotalPaid($cashSale->total);
-            $magentoInvoice->getOrder()->save();
+            //$magentoInvoice->getOrder()->save();
             
             try {
                 $magentoInvoice->sendEmail(true);
                 $magentoInvoice->setEmailSent(true); 
+                $magentoInvoice->setNetsuiteInternalId($cashSale->internalId);
+                $magentoInvoice->setLastImportDate(Mage::helper('rocketweb_netsuite')->convertNetsuiteDateToSqlFormat($cashSale->lastModifiedDate));
+
                 $transactionSave = Mage::getModel('core/resource_transaction')
                     ->addObject($magentoInvoice)
                     ->addObject($magentoInvoice->getOrder())
                     ->save();
                 
-                return $magentoInvoice;
+
+            
+                return true;
+                //return $magentoInvoice;
             }
             catch (Mage_Core_Exception $e) {
                 throw new Exception("{$magentoOrder->getId()}: {$e->getMessage()}");
