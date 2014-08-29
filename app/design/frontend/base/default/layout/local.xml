@@ -154,10 +154,12 @@
             <remove name="product.info.options.wrapper.bottom"/>
         </reference>
         <reference name="content">
-            <block type="relatedproducts/relatedproducts" name="catalog.product.awrelated.community" as="awrelatedproducts" template="catalog/product/list/awrelated.phtml">
+			<block type="relatedproducts/relatedproducts" name="catalog.product.awrelated.community" as="awrelatedproducts" template="catalog/product/list/awrelated.phtml">
                     <action method="disableRelated"/>
             </block>
-            <!-- <block type="review/product_view_list" name="product.info.product_additional_data" as="reviews" template="review/product/view/list.phtml"/> -->
+			<!--<block type="awautorelated/blocks" name="awarp.content.bottom.product" as="awautorelated2" before="catalog.product.awrelated.community"/>
+            
+            <block type="review/product_view_list" name="product.info.product_additional_data" as="reviews" template="review/product/view/list.phtml"/> -->
 
             <block type="review/product_view_list" name="product.info.product_additional_data" as="reviews" template="review/product/view/list.phtml">
                 <block type="review/form" name="product.review.form" as="review_form">
