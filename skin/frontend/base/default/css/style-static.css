@@ -3176,3 +3176,66 @@ button.button-area {
     }
 /*=============================end style affiliate=============================*/
 
+/*=============================winner photo competition agustus=============================*/
+.winner-pc img{
+	width:100%;
+}
+.winner-pc .column_left,
+.winner-pc .column_right{
+	float:left;
+}
+.winner-pc .column_left{
+	width:40%;
+}
+.winner-pc .column_right{
+	width:60%;
+}
+.winner-pc .winner{
+	display:table;
+	clear:both;
+	width:100%;
+}
+.winner-pc .polaroid{
+	margin:0 30px 30px 0;
+	padding:10px;
+	display:table;
+    -moz-box-shadow:0px 0px 5px #d2d2d2;
+    -webkit-box-shadow:0px 0px 5px #d2d2d2;
+    box-shadow:0px 0px 5px #d2d2d2;
+}
+.winner-pc .winner .polaroid .title-photo p{
+	padding:10px 0 0;
+	margin:0;
+	float:left;
+}
+.winner-pc .hiburan .polaroid .title-photo p{
+	width:100%;
+	padding:10px 0 0;
+	margin:0;
+	float:left;
+}
+.winner-pc .polaroid .title-photo .piala{
+	background: url('../../../../../media/wysiwyg/static-page-img/winner-pc/piala-img.jpg') no-repeat left center;
+	float:left;
+	font-size:20px;
+	color:#fff;
+	margin:10px 10px 0 0;
+	padding:10px 22px 25px 17px
+}
+
+@media only screen and (max-width: 468px) {
+	.winner-pc .column_left,
+	.winner-pc .column_right{
+		float:left;
+		width:100%;
+	}
+	
+}
+@media only screen and (max-width: 768px) {
+	.winner-pc .winner .polaroid .title-photo p.fb-15,	
+	.winner-pc .hiburan .polaroid .title-photo p.fb-15{
+		font-size:12px !important;
+	}
+}
+/*=============================end winner photo competition agustus=============================*/
+
