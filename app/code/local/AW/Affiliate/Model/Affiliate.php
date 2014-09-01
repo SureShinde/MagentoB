@@ -157,7 +157,7 @@ class AW_Affiliate_Model_Affiliate extends Mage_Core_Model_Abstract
         if (is_null($this->_profitTransactions) || $recollect) {
             $__affiliateId = $this->getId();
             $this->_profitTransactions = Mage::getModel('awaffiliate/transaction_profit')->getCollection();
-            $this->_profitTransactions->getSelect()->join( array('sales_flat_order'=> Mage::getSingleton('core/resource')->getTableName('sales/order')), 
+            $this->_profitTransactions->getSelect()->joinLeft( array('sales_flat_order'=> Mage::getSingleton('core/resource')->getTableName('sales/order')), 
                 'main_table.linked_entity_id = sales_flat_order.increment_id', 
                 array(
                     'order_id' => 'sales_flat_order.increment_id',
