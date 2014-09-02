@@ -113,3 +113,4 @@ wp/wp-config.php
 includes
 
 lib/Netsuite/nslog/
+files/useragent.txt
