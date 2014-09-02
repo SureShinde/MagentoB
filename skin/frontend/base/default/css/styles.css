@@ -1682,15 +1682,6 @@ tr.summary-details-excluded { font-style:italic; }
 .page-print .price-excl-tax .price,
 .page-print .price-incl-tax .price { display:inline; }
 
-/* My Wishlist */
-.my-wishlist .data-table td { padding:10px; }
-.my-wishlist .product-image { display:block; width:113px; height:113px; margin:0 0 5px; }
-.my-wishlist textarea { display:block; width:97%; height:109px; }
-.my-wishlist .buttons-set { margin-top:2em; }
-.my-wishlist .buttons-set button.button { float:none; }
-.my-wishlist .buttons-set .btn-add span,
-.my-wishlist .buttons-set .btn-share span { border-color:#406a83; background:#618499; }
-#wishlist-table .add-to-links { white-space:nowrap; }
 
 /* My Tags */
 .my-tag-edit { float:left; margin:0 0 10px; }
