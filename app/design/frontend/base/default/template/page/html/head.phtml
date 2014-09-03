@@ -58,8 +58,10 @@
 			<meta property="og:title" content="<?php echo htmlspecialchars($post->getTitle()); ?>"/>
 			<meta property="og:description" content="<?php echo strip_tags($post->getShortContent()); ?>"/>
 		<?php endif; ?>
+		<?php $dt = new DateTime();
+			  $today = $dt->format('YmdHis'); ?>
 		<meta property="og:type" content="website"/>
-		<meta property="og:image" content="<?php echo  Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA); ?><?php echo $post->getImageName();?>"/>		
+		<meta property="og:image" content="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA); ?><?php echo $post->getImageName();?>?id=<?php echo $today; ?>"/>
 		<?php
 	}
 ?>
