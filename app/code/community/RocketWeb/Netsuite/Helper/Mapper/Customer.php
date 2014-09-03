@@ -274,7 +274,6 @@ class RocketWeb_Netsuite_Helper_Mapper_Customer extends RocketWeb_Netsuite_Helpe
      * @throws Exception
      */
     public function createNetsuiteCustomerFromOrder(Mage_Sales_Model_Order $order) {
-
         // Check if the email address already exists. We use 'entityId' instead of 'email' search field because it contains same email
         if ($internalId = $this->findNetsuiteCustomer('email', $this->getExternalIdFromOrder($order))) {
             return $internalId;
@@ -284,7 +283,8 @@ class RocketWeb_Netsuite_Helper_Mapper_Customer extends RocketWeb_Netsuite_Helpe
             $customer->setId(0);
             $customer->setEmail($order->getCustomerEmail());
             $customer->setFirstname($order->getCustomerFirstname());
-            $customer->setLastname($order->getCustomerLastname());
+            $lastName = !empty ($order->getCustomerLastname()) ? $order->getCustomerLastname() : $order->getCustomerFirstname();
+            $customer->setLastname($lastName);
             $customer->setMiddlename($order->getCustomerMiddlename());
             $customer->setPrimaryBillingAddress($order->getBillingAddress());
             $customer->setPrimaryShippingAddress($order->getShippingAddress());
@@ -297,18 +297,24 @@ class RocketWeb_Netsuite_Helper_Mapper_Customer extends RocketWeb_Netsuite_Helpe
             $customer->addAddress($shippingAddr);
 
             $netsuiteCustomer = Mage::helper('rocketweb_netsuite/mapper_customer')->getNetsuiteFormat($customer);
-            if($netsuiteCustomer->externalId == 0) $netsuiteCustomer->externalId = null;
+            
+            if ($netsuiteCustomer->externalId == 0) {
+                $netsuiteCustomer->externalId = null;
+            }
 
-            Mage::dispatchEvent('netsuite_customer_send_before',array('netsuite_customer'=>$netsuiteCustomer));
+            Mage::dispatchEvent('netsuite_customer_send_before', array ('netsuite_customer' => $netsuiteCustomer));
 
             $request = new AddRequest();
             $request->record = $netsuiteCustomer;
+            echo "netsuiteCustomer: " . json_encode($netsuiteCustomer) . "\n";
+            exit;
             $response = $this->_getNetsuiteService()->add($request);
-            if($response->writeResponse->status->isSuccess) {
+            
+            if ($response->writeResponse->status->isSuccess) {
                 return $response->writeResponse->baseRef->internalId;
             }
             else {
-                throw new Exception((string) print_r($response->writeResponse->status->statusDetail,true));
+                throw new Exception((string) print_r($response->writeResponse->status->statusDetail, true));
             }
         }
     }
