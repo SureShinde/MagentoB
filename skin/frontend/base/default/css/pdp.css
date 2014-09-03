@@ -572,6 +572,9 @@ margin: 0 1% ;
 }
 /* _tabs */
 
+.related-product {
+	clear:both;
+}
 .related-product .block {
 	border: 0;
 }
