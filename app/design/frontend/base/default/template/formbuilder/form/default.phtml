@@ -55,7 +55,7 @@
 
 				</li>
 				<?php } ?>
-				<li>
+				<li style="clear: both; margin-bottom: 20px;">
 			<?php } ?>
 
 			<!--Checkbox Type-->
@@ -85,25 +85,31 @@
 
 			<!--Dropdown Type-->
 			<?php }else if($input["type"] == "dropdown"){ ?>
+					<div>	
 			<?php if($input["group"] !== $group){ ?>
-					<div><?php echo $input["title"]; ?></div>
+					<div>
+					<label class="required" style="float: left; width: 140px;"><?php echo $input["title"]; ?><em><?php if($input["required"] == true) echo '*'; ?></em></label>
 					<div><select id="<?php echo $input["name"]; ?>" type="dropdown" name="inputs[<?php echo $input["group"]; ?>]">
+					</div>
 			<?php } ?>
 				<option value="<?php echo $input["value"]; ?>"><?php echo $input["value"]; ?></option>
 			<!--End Dropdown Type-->
 			
 			<!--DOB (Date of Birth) Type-->			
 			<?php }else if($input["type"] == "dob"){ ?>
+					<div>	
 			<?php if($input["group"] !== $group){ ?>
-					<div><?php echo $input["title"]; ?></div>
+					<div>
+					<label class="required" style="float: left; width: 140px;"><?php echo $input["title"]; ?></label>
 					<div><?php echo $this->_getDateDropdown($input["type"]); ?></div>
+			</div>
 			<!--End DOB Type-->
 
 			<?php } ?>			
 
 			<?php }else{ ?>			
 
-				<div style="clear: both; margin-bottom: 20px;">
+				<div>
 					<label class="required" style="float: left; width: 140px;" for="<?php echo $input["name"]; ?>"><?php echo $input["value"]; ?><em><?php if($input["required"] == true) echo '*'; ?></em></label>
 
 				<!--Text Type-->

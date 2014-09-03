@@ -32,6 +32,7 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
         $block->getSelect()->join('bilna_formbuilder_input', 'main_table.id = bilna_formbuilder_input.form_id');
         $block->addFieldToFilter('main_table.id', $form_id);
 
+        //required, checkbox, terms and empty
         foreach($block->getData() as $field){
             if($field["required"]==true){
                 if($field["type"]=="checkbox"){
@@ -49,6 +50,7 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
                     $this->_redirectPage($redirectPage);
                 }
 
+                //type : checkbox
                 if($field["type"]=="checkbox" && $postData["inputs"][$field["group"]] <> "on"){
                     if(!is_null($row["static_failed"]) || $row["static_failed"]!=""){
                         Mage::getSingleton('core/session')->setFormbuilderFailed(false);
@@ -58,6 +60,7 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
                     $this->_redirectPage($redirectPage);
                 }
 
+                //type : dropdown
                 if($field["type"]=="dropdown" && $postData["inputs"][$field["group"]] <> "on"){
                     if(!is_null($row["static_failed"]) || $row["static_failed"]!=""){
                         Mage::getSingleton('core/session')->setFormbuilderFailed(false);
@@ -67,6 +70,7 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
                     $this->_redirectPage($redirectPage);
                 }
 
+                //date of birth (dob)
                 if($field["id"]=="dob" && $postData["inputs"][$field["group"]] <> "on"){
                     if(!is_null($row["static_failed"]) || $row["static_failed"]!=""){
                         Mage::getSingleton('core/session')->setFormbuilderFailed(false);
@@ -78,6 +82,7 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
 
             }
 
+            //unique
             if($field["unique"]==true){
                 $collection = Mage::getModel('bilna_formbuilder/data')->getCollection();
                 $collection->getSelect('main_table.form_id');
@@ -97,6 +102,16 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
                     $this->_redirectPage($redirectPage);
                 }
             }
+
+            //success redirect to url success
+            if($field["success_redirect"]==1){
+                $redirectPage = Mage::getBaseUrl().$field["url_success"];       
+                $this->_redirectPage($redirectPage);
+            }else{
+                $redirectPage = Mage::getBaseUrl().$field["url"];       
+                $this->_redirectPage($redirectPage);
+            }
+
         }
 
         //echo "<pre>";     
@@ -137,6 +152,7 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
             }
         }
 
+        //sent email
         if($row["sent_email"] == 1 && isset($postData["inputs"]["email"])){
 
             $collection = Mage::getModel('bilna_formbuilder/data')->getCollection();
@@ -158,6 +174,7 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
             $this->_prepareEmail($data, $row['email_id']);
         }
 
+        //static block
         if(!is_null($row["static_success"]) || $row["static_success"]!=""){
             Mage::getSingleton('core/session')->setFormbuilderSuccess(true);
         }
@@ -166,6 +183,7 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
         }
         $redirectPage = Mage::getBaseUrl().$field["url"];       
         $this->_redirectPage($redirectPage);
+
     }
 
     private function _prepareEmail($data, $templateId)
