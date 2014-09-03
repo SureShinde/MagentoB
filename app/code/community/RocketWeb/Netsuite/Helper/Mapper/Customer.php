@@ -156,57 +156,61 @@ class RocketWeb_Netsuite_Helper_Mapper_Customer extends RocketWeb_Netsuite_Helpe
         $netsuiteCustomer->addressbookList = $netsuiteAddressList;
         /*end moving up*/
 
-		$netsuiteCustomer->salutation = $magentoCustomer->getPrefix();
-
+        $netsuiteCustomer->salutation = $magentoCustomer->getPrefix();
         $firstName = $magentoCustomer->getFirstname();
-        if(empty($firstName)){
-        	if(empty($firstnamebilling)){
-        		if (empty($firstnameshipping)){
-	        		if (empty($firstnameCustomer)){
-	        			$firstName = 'GUEST';
-	        		}else{
-	        			$firstName = $firstnameCustomer;
-	        		}
-        		}else{
-        			$firstName = $firstnameshipping;
-        		}
-        	}else{
-        		$firstName = $firstnamebilling;
-        	}
+        
+        if (empty ($firstName)) {
+            if (empty ($firstnamebilling)) {
+                if (empty ($firstnameshipping)) {
+                    if (empty ($firstnameCustomer)) {
+                        $firstName = 'GUEST';
+                    }
+                    else {
+                        $firstName = $firstnameCustomer;
+                    }
+                }
+                else {
+                    $firstName = $firstnameshipping;
+                }
+            }
+            else{
+                $firstName = $firstnamebilling;
+            }
         }
 
         $lastName = $magentoCustomer->getLastname();
-        if(empty($lastName)){
-        	if(empty($lastnamebilling)){
-        		if (empty($lastnameshipping)){
-	        		if (empty($lastnameCustomer)){
-	        			$firstName = 'GUEST';
-	        		}else{
-	        			$firstName = $lastnameCustomer;
-	        		}
-        		}else{
-        			$firstName = $lastnameshipping;
-        		}
-        	}else{
-        		$lastName = $lastnamebilling;
-        	}
+        
+        if (empty ($lastName)) {
+            if (empty ($lastnamebilling)) {
+                if (empty ($lastnameshipping)){
+                    if (empty ($lastnameCustomer)){
+                        $lastName = 'GUEST';
+                    }
+                    else {
+                        $lastName = $lastnameCustomer;
+                    }
+                }
+                else {
+                    $lastName = $lastnameshipping;
+                }
+            }
+            else{
+                $lastName = $lastnamebilling;
+            }
         }
 
-//		$netsuiteCustomer->firstName = $magentoCustomer->getFirstname();
-//		$netsuiteCustomer->lastName = $magentoCustomer->getLastname();
         $netsuiteCustomer->firstName = $firstName;
         $netsuiteCustomer->lastName = $lastName;
-
-		$netsuiteCustomer->middleName = $magentoCustomer->getMiddlename();
-		$netsuiteCustomer->phone = $magentoCustomer->getTelephone();
-		$netsuiteCustomer->fax = $magentoCustomer->getFax();
-		$netsuiteCustomer->email = $magentoCustomer->getEmail();
-		$netsuiteCustomer->vatRegNumber = $magentoCustomer->getTaxvat();
-		$netsuiteCustomer->stage = CustomerStage::_customer;
-		$netsuiteCustomer->isPerson = true;
+        $netsuiteCustomer->middleName = $magentoCustomer->getMiddlename();
+        $netsuiteCustomer->phone = $magentoCustomer->getTelephone();
+        $netsuiteCustomer->fax = $magentoCustomer->getFax();
+        $netsuiteCustomer->email = $magentoCustomer->getEmail();
+        $netsuiteCustomer->vatRegNumber = $magentoCustomer->getTaxvat();
+        $netsuiteCustomer->stage = CustomerStage::_customer;
+        $netsuiteCustomer->isPerson = true;
 		
-		return $netsuiteCustomer;
-	}
+        return $netsuiteCustomer;
+    }
 
     /**
      * Search a customer in netsuite,
@@ -283,7 +287,12 @@ class RocketWeb_Netsuite_Helper_Mapper_Customer extends RocketWeb_Netsuite_Helpe
             $customer->setId(0);
             $customer->setEmail($order->getCustomerEmail());
             $customer->setFirstname($order->getCustomerFirstname());
-            $lastName = !empty ($order->getCustomerLastname()) ? $order->getCustomerLastname() : $order->getCustomerFirstname();
+            $lastName = $order->getCustomerLastname();
+            
+            if (empty ($lastName)) {
+                $lastName = $order->getCustomerFirstname();
+            }
+            
             $customer->setLastname($lastName);
             $customer->setMiddlename($order->getCustomerMiddlename());
             $customer->setPrimaryBillingAddress($order->getBillingAddress());
