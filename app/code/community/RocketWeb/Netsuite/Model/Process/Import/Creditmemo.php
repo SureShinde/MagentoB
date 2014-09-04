@@ -142,7 +142,7 @@ class RocketWeb_Netsuite_Model_Process_Import_Creditmemo extends RocketWeb_Netsu
             }
         }
         $creditmemo->setNetsuiteInternalId($data['netsuite_internal_id']);
-        $creditmemo->setLastImportDate(Mage::helper('rocketweb_netsuite')->convertNetsuiteDateToSqlFormat($data->lastModifiedDate));
+        $creditmemo->setLastImportDate(Mage::helper('rocketweb_netsuite')->convertNetsuiteDateToSqlFormat($data['lastModifiedDate']));
         return $creditmemo;
 
     }
