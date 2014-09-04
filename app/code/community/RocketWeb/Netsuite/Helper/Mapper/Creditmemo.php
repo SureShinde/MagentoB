@@ -74,6 +74,7 @@ class RocketWeb_Netsuite_Helper_Mapper_Creditmemo extends RocketWeb_Netsuite_Hel
             'adjustment_positive' => $this->getAdjustmentPositiveFromNetsuite($creditmemo),
             'adjustment_negative' => $this->getAdjustmentNegativeFromNetsuite($creditmemo),
             'netsuite_internal_id'=> $creditmemo->internalId,
+            'lastModifiedDate'=> $creditmemo->lastModifiedDate,
             'do_offline' => 'do_offline',
             'send_email' => 'YES'
         );
