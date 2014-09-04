@@ -125,7 +125,7 @@ class RocketWeb_Netsuite_Model_Process {
                                 $logger->logProgress("request date " . date("Y-m-d H:i:s"));
                                 $logger->logProgress("request {$name}: " . json_encode($request));
                                 
-                                $getResponse = Mage::helper('rocketweb_netsuite')->getNetsuiteService()->get($request);
+                                /*$getResponse = Mage::helper('rocketweb_netsuite')->getNetsuiteService()->get($request);
                                 
                                 $logger->logProgress("response date " . date("Y-m-d H:i:s"));
                                 $logger->logProgress("response {$name}: " . json_encode($getResponse));
@@ -142,7 +142,42 @@ class RocketWeb_Netsuite_Model_Process {
                                     if (!$importableEntityModel->isQueued($message)) {
                                         Mage::helper('rocketweb_netsuite/queue')->getQueue(RocketWeb_Netsuite_Helper_Queue::NETSUITE_IMPORT_QUEUE)->send($message->pack(), Mage::helper('rocketweb_netsuite')->getRecordPriority($path));
                                     }
-                                }
+                                }*/
+
+                                $lastModifiedDate = $updatedFrom;
+                                $x=0;
+                                $tryNumber = 10;
+                                do{
+                                    ++$x;
+                                    $getResponse = Mage::helper('rocketweb_netsuite')->getNetsuiteService()->get($request);
+
+                                    $logger->logProgress("response date " . date("Y-m-d H:i:s"));
+                                    $logger->logProgress("response {$name}: " . json_encode($getResponse));
+                                    $logger->logProgress("----------------------------------------------------------------------------------------");
+
+                                    $error = true;
+                                    if (!$getResponse->readResponse->status->isSuccess) {
+                                    //if (true) {
+                                        //throw new Exception((string) print_r($getResponse->readResponse->status->statusDetail, true));
+                                        $error = false;
+                                        if($x == $tryNumber)
+                                        {
+                                            throw new Exception((string) print_r($getResponse->readResponse->status->statusDetail, true));
+                                        }
+                                        sleep(1);
+                                    }
+                                    else {
+                                        $record = $getResponse->readResponse->record;
+                                        $message = Mage::getModel('rocketweb_netsuite/queue_message');
+                                        $message = $message->create($importableEntityModel->getMessageType(), $record->internalId, RocketWeb_Netsuite_Helper_Queue::NETSUITE_IMPORT_QUEUE, $record);
+                                        
+                                        if (!$importableEntityModel->isQueued($message)) {
+                                            Mage::helper('rocketweb_netsuite/queue')->getQueue(RocketWeb_Netsuite_Helper_Queue::NETSUITE_IMPORT_QUEUE)->send($message->pack(), Mage::helper('rocketweb_netsuite')->getRecordPriority($path));
+                                        }
+                                    }   
+                                }while($error == false && $x <= $tryNumber);
+
+
                             }
                         }
                     }
@@ -166,6 +201,21 @@ class RocketWeb_Netsuite_Model_Process {
         }
 
         Mage::helper('rocketweb_netsuite/queue')->setLastUpdateAccessDate($time, RocketWeb_Netsuite_Helper_Queue::NETSUITE_IMPORT_QUEUE);
+        $this->processQueue($logger);
+        $this->populateDeleteQueue();
+        $this->processDeleteQueue();
+    }
+
+    public function processQueueImport($logger = null) {
+        if (!Mage::helper('rocketweb_netsuite')->isEnabled()) {
+            return;
+        }
+
+        //Mage::dispatchEvent('netsuite_process_import_start_before', array ());
+        //Mage::helper('rocketweb_netsuite')->cacheStandardLists();
+        //$time = Mage::helper('rocketweb_netsuite')->getServerTime();
+
+        //Mage::helper('rocketweb_netsuite/queue')->setLastUpdateAccessDate($time, RocketWeb_Netsuite_Helper_Queue::NETSUITE_IMPORT_QUEUE);
         $this->processQueue($logger);
         $this->populateDeleteQueue();
         $this->processDeleteQueue();
