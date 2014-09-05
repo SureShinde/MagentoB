@@ -78,8 +78,7 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
                     Mage::getSingleton('core/session')->addError($message); 
                     $redirectPage = Mage::getBaseUrl().$field["url"];
                     $this->_redirectPage($redirectPage);
-                }               
-
+                }
             }
 
             //unique
@@ -101,17 +100,7 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
                     $redirectPage = Mage::getBaseUrl().$field["url"];
                     $this->_redirectPage($redirectPage);
                 }
-            }
-
-            //success redirect to url success
-            if($field["success_redirect"]==1){
-                $redirectPage = Mage::getBaseUrl().$field["url_success"];       
-                $this->_redirectPage($redirectPage);
-            }else{
-                $redirectPage = Mage::getBaseUrl().$field["url"];       
-                $this->_redirectPage($redirectPage);
-            }
-
+            }           
         }
 
         //echo "<pre>";     
@@ -172,7 +161,7 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
 
             //Zend_Debug::Dump($collection->printLogQuery(true)); die;
             $this->_prepareEmail($data, $row['email_id']);
-        }
+        } 
 
         //static block
         if(!is_null($row["static_success"]) || $row["static_success"]!=""){
@@ -183,6 +172,15 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
         }
         $redirectPage = Mage::getBaseUrl().$field["url"];       
         $this->_redirectPage($redirectPage);
+
+        //if success_redirect field = 1 then redirect to custom success page
+        if($field["success_redirect"]==1 && !empty($postData["inputs"][$field["group"]]) && !is_null($postData["inputs"][$field["group"]])){
+            if(!is_null($row["static_failed"]) || $row["static_failed"]!=""){
+                Mage::getSingleton('core/session')->setFormbuilderFailed(false);
+            }
+                $redirectPage = Mage::getBaseUrl().$field["url_success"];       
+                $this->_redirectPage($redirectPage);
+        }
 
     }
 
