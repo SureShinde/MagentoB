@@ -12,14 +12,14 @@
  * =================================================================
  *                 MAGENTO EDITION USAGE NOTICE
  * =================================================================
- * This software is designed to work with Magento professional edition and
+ * This software is designed to work with Magento community edition and
  * its use on an edition other than specified is prohibited. aheadWorks does not
  * provide extension support in case of incorrect edition use.
  * =================================================================
  *
  * @category   AW
- * @package    AW_Blog
- * @version    1.3.1
+ * @package    AW_Marketsuite
+ * @version    2.0.4
  * @copyright  Copyright (c) 2010-2012 aheadWorks Co. (http://www.aheadworks.com)
  * @license    http://ecommerce.aheadworks.com/AW-LICENSE.txt
  */
