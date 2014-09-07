@@ -42,7 +42,7 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
                 }
                 
                 if(!isset($postData["inputs"][$field["group"]]) || empty($postData["inputs"][$field["group"]]) || is_null($postData["inputs"][$field["group"]])){
-                    if(!is_null($row["static_failed"]) || $row["static_failed"]!=""){
+                    if(!is_null($row["static_failed"]) || $row["static_failed"]<>""){
                         Mage::getSingleton('core/session')->setFormbuilderFailed(false);
                     }
                     Mage::getSingleton('core/session')->addError($message);
@@ -52,7 +52,7 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
 
                 //type : checkbox
                 if($field["type"]=="checkbox" && $postData["inputs"][$field["group"]] <> "on"){
-                    if(!is_null($row["static_failed"]) || $row["static_failed"]!=""){
+                    if(!is_null($row["static_failed"]) || $row["static_failed"]<>""){
                         Mage::getSingleton('core/session')->setFormbuilderFailed(false);
                     }
                     Mage::getSingleton('core/session')->addError($message); 
@@ -62,7 +62,7 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
 
                 //type : dropdown
                 if($field["type"]=="dropdown" && $postData["inputs"][$field["group"]] <> "on"){
-                    if(!is_null($row["static_failed"]) || $row["static_failed"]!=""){
+                    if(!is_null($row["static_failed"]) || $row["static_failed"]<>""){
                         Mage::getSingleton('core/session')->setFormbuilderFailed(false);
                     }
                     Mage::getSingleton('core/session')->addError($message); 
@@ -72,7 +72,7 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
 
                 //date of birth (dob)
                 if($field["id"]=="dob" && $postData["inputs"][$field["group"]] <> "on"){
-                    if(!is_null($row["static_failed"]) || $row["static_failed"]!=""){
+                    if(!is_null($row["static_failed"]) || $row["static_failed"]<>""){
                         Mage::getSingleton('core/session')->setFormbuilderFailed(false);
                     }
                     Mage::getSingleton('core/session')->addError($message); 
@@ -89,8 +89,8 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
                 $collection->addFieldToFilter('main_table.type', $field["group"]);
                 $collection->addFieldToFilter('main_table.value', $postData["inputs"][$field["group"]]);
                 $jumlah=$collection->getSize();
-                if($jumlah!=0){
-                    if(!is_null($row["static_failed"]) && $row["static_failed"]!=""){
+                if($jumlah <> 0){
+                    if(!is_null($row["static_failed"]) && $row["static_failed"]<>""){
                         Mage::getSingleton('core/session')->setFormbuilderFailed(false);
                     }
                     elseif(is_null($row["static_failed"]) || $row["static_failed"]==""){
@@ -126,7 +126,7 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
                     }
                 }
                 
-                if($productOnCart!=true){
+                if($productOnCart<>true){
                     $params = array(
                             'product' => $productId,
                             'qty' => 1,
@@ -164,7 +164,9 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
         } 
 
         //static block
-        if(!is_null($row["static_success"]) || $row["static_success"]!=""){
+        if($field["success_redirect"]==1){
+            $field["url"] = $field["url_success"];
+        }else if(!is_null($row["static_success"]) || $row["static_success"]<>""){
             Mage::getSingleton('core/session')->setFormbuilderSuccess(true);
         }
         elseif(is_null($row["static_success"]) || $row["static_success"]==""){
@@ -172,15 +174,6 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
         }
         $redirectPage = Mage::getBaseUrl().$field["url"];       
         $this->_redirectPage($redirectPage);
-
-        //if success_redirect field = 1 then redirect to custom success page
-        if($field["success_redirect"]==1 && !empty($postData["inputs"][$field["group"]]) && !is_null($postData["inputs"][$field["group"]])){
-            if(!is_null($row["static_failed"]) || $row["static_failed"]!=""){
-                Mage::getSingleton('core/session')->setFormbuilderFailed(false);
-            }
-                $redirectPage = Mage::getBaseUrl().$field["url_success"];       
-                $this->_redirectPage($redirectPage);
-        }
 
     }
 
