@@ -315,8 +315,6 @@ class RocketWeb_Netsuite_Helper_Mapper_Customer extends RocketWeb_Netsuite_Helpe
 
             $request = new AddRequest();
             $request->record = $netsuiteCustomer;
-            echo "netsuiteCustomer: " . json_encode($netsuiteCustomer) . "\n";
-            exit;
             $response = $this->_getNetsuiteService()->add($request);
             
             if ($response->writeResponse->status->isSuccess) {
