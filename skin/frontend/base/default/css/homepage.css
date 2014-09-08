@@ -1,6 +1,7 @@
 .homepage {margin: 15px 0 0 0;}
 .cms-home .homepage {margin: 15px 23px;}
-.homepage-top {
+.category-baby .homepage-top {
+	margin:0 0 20px;
 }
 .homepage-top-block {
 	float: left;
