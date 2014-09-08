@@ -3276,9 +3276,13 @@ button.button-area {
 
 
 /* checkout promo */
-
 #checkoutpromo{
 	overflow:hidden;
+}
+#checkoutpromo > p{
+	border:1px solid #9d9d9d;
+	background:#f2f2f2;
+	padding:7px 10px;
 }
 #checkoutpromo .freeshipping_label{
 	border:1px solid #9d9d9d;
@@ -3303,6 +3307,11 @@ button.button-area {
 	position:relative;
 	padding:9px 73px 10px 10px;
 	text-shadow:2px 1px 2px #1d8393
+}
+#checkoutpromo .home_link_promo .label_homelink p{
+	font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 1px;
 }
 #checkoutpromo .home_link_promo  .link-home{
 	display:table;
@@ -3330,7 +3339,7 @@ button.button-area {
 	color:#fff;
 	text-decoration:underline;	
 }
-#checkoutpromo > div {
+#checkoutpromo > div, #checkoutpromo > p {
     margin: 0 0 10px;
 }
 @media only screen and (max-width: 1215px) { 
@@ -3359,7 +3368,7 @@ button.button-area {
 		text-transform: lowercase;
 	}
 }
-@media only screen and (max-width: 468px) {
+@media only screen and (max-width: 768px) {
 	#checkoutpromo .home_link_promo .link-home{
 		display:none;
 	}
