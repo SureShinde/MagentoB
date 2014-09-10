@@ -88,7 +88,9 @@ class RocketWeb_Netsuite_Model_Process_Import_Creditmemo extends RocketWeb_Netsu
         $orderIncrementId = $tempData['order_increment_id'];
         $invoiceId        = $tempData['invoice_id'];
         $data             = $tempData['creditmemo'];
-        $order            = Mage::getModel('sales/order')->loadByIncrementId($orderIncrementId);
+        $orderId          = $tempData['order_id'];
+        //$order            = Mage::getModel('sales/order')->loadByIncrementId($orderIncrementId);
+        $order  = Mage::getModel('sales/order')->load($orderId);
 
         if ($invoiceId) {
             $invoice = Mage::getModel('sales/order_invoice')
@@ -114,13 +116,8 @@ class RocketWeb_Netsuite_Model_Process_Import_Creditmemo extends RocketWeb_Netsu
         $data['qtys'] = $qtys;
         
         $totalBilnaCredit = 0;
-        $pointsTransaction = Mage::getModel('points/transaction')->loadByOrder($order);
 
-        /*$order->setMoneyForPoints($pointsTransaction->getData('points_to_money'));
-        $order->setBaseMoneyForPoints($pointsTransaction->getData('base_points_to_money'));
-        $order->setPointsBalanceChange(abs($pointsTransaction->getData('balance_change')));
-        $order->save();*/
-
+        //$invoice = false;
         $service = Mage::getModel('sales/service_order', $order);
         if ($invoice) {
             $creditmemo = $service->prepareInvoiceCreditmemo($invoice, $data);
@@ -144,8 +141,8 @@ class RocketWeb_Netsuite_Model_Process_Import_Creditmemo extends RocketWeb_Netsu
                 $creditmemoItem->setBackToStock(false);
             }
         }
-        $creditmemo->setNetsuiteInternalId($data->internalId);
-        $creditmemo->setLastImportDate(Mage::helper('rocketweb_netsuite')->convertNetsuiteDateToSqlFormat($data->lastModifiedDate));
+        $creditmemo->setNetsuiteInternalId($data['netsuite_internal_id']);
+        $creditmemo->setLastImportDate(Mage::helper('rocketweb_netsuite')->convertNetsuiteDateToSqlFormat($data['lastModifiedDate']));
         return $creditmemo;
 
     }
@@ -160,10 +157,10 @@ class RocketWeb_Netsuite_Model_Process_Import_Creditmemo extends RocketWeb_Netsu
             $transactionSave->addObject($creditmemo->getInvoice());
         }
         $transactionSave->save();
-        $creditmemo->save();
-        $creditMemoId = $creditmemo->getIncrementId();
-        Mage::log('Method :: _saveCreditmemo :: Credit Memo Id :: '.$creditMemoId);
-        return $creditMemoId;
+        //$creditmemo->save();
+        //$creditMemoId = $creditmemo->getIncrementId();
+        //Mage::log('Method :: _saveCreditmemo :: Credit Memo Id :: '.$creditMemoId);
+        return true;//$creditMemoId;
     }
 
     public function getRecordType() {

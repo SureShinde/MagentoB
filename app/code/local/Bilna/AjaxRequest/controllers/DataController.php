@@ -119,6 +119,8 @@ class Bilna_AjaxRequest_DataController extends Mage_Core_Controller_Front_Action
 
         	$response['data']['category'] = array();
         	$categories = $product->getCategoryIds();
+        	
+        	$extendedUrl = false;
         	foreach ($categories as $category_id) {
         		$category = Mage::getModel('catalog/category')->load($category_id) ;
         		if(strtolower(trim($category->getName())) !== "default category"){
@@ -127,8 +129,17 @@ class Bilna_AjaxRequest_DataController extends Mage_Core_Controller_Front_Action
         			if($response['data']['description'] == ''){
         				$response['data']['description'] = $category->getName();
         			}
+        			if($extendedUrl == false && $category->getName() == "Baby"){
+        				$response['data']['url'] .= "?utm_content=BilnaBaby";
+        				$extendedUrl = true;
+        			}
+        			if($extendedUrl == false && $category->getName() == "Home"){
+        				$response['data']['url'] .= "?utm_content=BilnaHome";
+        				$extendedUrl = true;
+		        	}
         		}
         	}
+        	
         	$response['data']['category'] = array_unique($response['data']['category']);
         	$response['data']['description'] = array_unique($response['data']['description']);
 

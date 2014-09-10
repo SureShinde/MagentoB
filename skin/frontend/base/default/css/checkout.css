@@ -235,6 +235,9 @@
 	.checkout-onepage-index .col-main {
 		margin-top: 20px;
 	}
+	.data-table td{
+		padding:0;
+	}
 }
 @media only screen and (max-width: 767px) {
 	.opc {

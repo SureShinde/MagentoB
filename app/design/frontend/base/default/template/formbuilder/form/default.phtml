@@ -12,6 +12,7 @@
 		header("Location: ".Mage::getBaseUrl().$this->block->force_flow);exit();
 	} 
 ?>
+<?php echo $this->getChildHtml('global_messages') ?>
 <form id="formbuilder-<?php echo $this->blockId; ?>" class="<?php echo $this->block->class; ?>" action="<?php echo $this->getBaseUrl(); ?>formbuilder/index/submit" method="post">
 	<?php 
 	if($formbuilderSuccess){
@@ -87,7 +88,7 @@
 					<div>	
 			<?php if($input["group"] !== $group){ ?>
 					<div>
-					<label class="required" style="float: left; width: 140px;"><?php echo $input["title"]; ?></label>
+					<label class="required" style="float: left; width: 140px;"><?php echo $input["title"]; ?><em><?php if($input["required"] == true) echo '*'; ?></em></label>
 					<div><select id="<?php echo $input["name"]; ?>" type="dropdown" name="inputs[<?php echo $input["group"]; ?>]">
 					</div>
 			<?php } ?>

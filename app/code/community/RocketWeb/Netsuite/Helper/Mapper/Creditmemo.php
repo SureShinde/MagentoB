@@ -6,7 +6,8 @@
  */
 
 class RocketWeb_Netsuite_Helper_Mapper_Creditmemo extends RocketWeb_Netsuite_Helper_Mapper {
-    public function getMagentoFormat(CreditMemo $creditmemo) {
+    public function getMagentoFormat(CreditMemo $creditmemo)
+    {
         $magentoIncrementId = $this->getIncrementIdFromNetsuite($creditmemo);
         $magentoOrder = Mage::getModel('sales/order')->loadByIncrementId($magentoIncrementId);
         $magentoConvertor = Mage::getModel('sales/convert_order');
@@ -22,19 +23,48 @@ class RocketWeb_Netsuite_Helper_Mapper_Creditmemo extends RocketWeb_Netsuite_Hel
             $invoiceObjects = $magentoOrder->getInvoiceCollection();
             $invoiceObj = $invoiceObjects->getFirstItem();
             $invoice_id = $invoiceObj['entity_id'];
-            foreach ($creditmemo->itemList->item as $netsuiteItem)
+
+            $mgOrder = array();
+            foreach($magentoOrder->getAllItems() as $item)
             {
+                $mgOrder[$item->getData('item_id')]['productType'] = $item->getProductType();
+                $mgOrder[$item->getData('item_id')]['parentItemId'] = $item->getData('parent_item_id');
+            }         
+
+            $nsCreditmemo = array();
+            foreach ($creditmemo->itemList->item as $netsuiteItem)
+            { 
+                $itemId =$itemParentId = null;
                 foreach ($netsuiteItem->customFieldList->customField as $customField)
                 {
-                    if ($customField->internalId == 'custcol_magentoitemid') {
-                        $item_id = $customField->value;
-                        $items[$item_id]['item_id']        = $item_id; //$magentoOrderItem->getData('item_id');
-                        $items[$item_id]['back_to_stock']  = number_format($netsuiteItem->quantity,0);
-                        $items[$item_id]['qty']            = number_format($netsuiteItem->quantity,0);
+                    if ($customField->internalId == 'custcol_magentoitemid')
+                    {
+                        $itemId =$customField->value;
+                        //$nsCreditmemo[$itemId]['itemId'] = $itemId;
+                    }
+                    if ($customField->internalId == 'custcol_parentid')
+                    {
+                        $itemParentId =$customField->value;
+                        //$nsCreditmemo[$itemId]['parentItemId'] = $itemParentId;
                     }
 
+
+                }
+
+                if( !is_null($itemParentId) && $mgOrder[$itemParentId]['productType'] == 'bundle' )
+                {
+                    $items[$itemId]['back_to_stock']  = 1;//number_format($netsuiteItem->quantity,0);
+                    $items[$itemId]['qty']            = number_format($netsuiteItem->quantity,0);
+                }elseif(!is_null($itemParentId) && $mgOrder[$itemParentId]['productType'] == 'configurable')
+                {
+                    $items[$itemParentId]['back_to_stock']  = 1;//number_format($netsuiteItem->quantity,0);
+                    $items[$itemParentId]['qty']            = number_format($netsuiteItem->quantity,0);
+                }else{
+                    $items[$itemId]['back_to_stock']  = 1;//number_format($netsuiteItem->quantity,0);
+                    $items[$itemId]['qty']            = number_format($netsuiteItem->quantity,0);
                 }
             }
+            
         }
         $creditmemo = array(
             'items' =>  $items,
@@ -44,11 +74,13 @@ class RocketWeb_Netsuite_Helper_Mapper_Creditmemo extends RocketWeb_Netsuite_Hel
             'adjustment_positive' => $this->getAdjustmentPositiveFromNetsuite($creditmemo),
             'adjustment_negative' => $this->getAdjustmentNegativeFromNetsuite($creditmemo),
             'netsuite_internal_id'=> $creditmemo->internalId,
+            'lastModifiedDate'=> $creditmemo->lastModifiedDate,
             'do_offline' => 'do_offline',
             'send_email' => 'YES'
         );
 
         $data=array(
+            'order_id'           => $orderId,
             'order_increment_id' => $magentoOrder->getIncrementId(),
             'invoice_id'         => $invoice_id,
             'creditmemo'         => $creditmemo
