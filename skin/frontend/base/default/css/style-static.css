@@ -19,7 +19,6 @@
 	font:12px/1.55 Arial, Helvetica, sans-serif;
 }
 .static-page-wrapper ol, .static-page-wrapper ul{
-	list-style:decimal;
 	margin:0 0 0 22px;
 }
 .center-text-sp{text-align:center;}
@@ -1854,7 +1853,7 @@ h2.block-grey-title-left {
     .formbuilder-form button.button span {
         margin-left: 0px !important;
     }
-    .formbuilder-form ul li input{
+    .formbuilder-form ul li input, .formbuilder-form ul li textarea{
         background: none repeat scroll 0 0 #F9F9F9;
         border: medium none;
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) inset;
@@ -2260,6 +2259,23 @@ button.button-area {
 		padding: 0;
 		width: 100%;
 	}
+}
+
+.bg-voucher-thx-baby {
+    background:#ffca62 !important;
+}
+.bg-voucher-thx-home {
+    background:#f5ebe2 !important;
+}
+.box-inner-freevoucher-pop {
+    max-width: 530px !important;
+}
+.bg-voucher-thx-baby h3, .bg-voucher-thx-home h3 {
+    font-family: "InsaniburgerRegular";
+    font-size: 19px;
+    letter-spacing: 0.05em;
+    text-align: center;
+    color:#724943
 }
 /*-----------------------end of free voucher--------------------------------*/
 
@@ -2768,7 +2784,7 @@ button.button-area {
         }
 	}
     @media only screen and (max-width: 468px) {
-        .static-page-wrapper .container-filled .formbuilder-form ul li input {
+        .static-page-wrapper .container-filled .formbuilder-form ul li input, .formbuilder-form ul li textarea{
             float: left !important;
             margin: 10px 0 !important;
             width: 95% !important;
@@ -3047,3 +3063,213 @@ button.button-area {
 }
 /*=============================end style tanya nadia=============================*/
 
+/*=============================style merdeka madness=============================*/
+
+.merdekamadness .font-base-text{
+	line-height:1.8;
+	font-size: 1.2em;
+}
+.merdekamadness p{
+	margin:0;
+}
+.merdekamadness .category-link{
+	background:#245a55;
+	display: table;
+    float: left;
+    font-size: 24px;
+    margin: 10px 20px 20px 0;
+    padding: 10px;
+    text-align: center;
+}
+.merdekamadness .base-bold, .merdekamadness-home .base-bold{
+	color:#00aeef;
+}
+.merdekamadness .category-link a{
+	color:#fff;
+}
+.merdekamadness .column_product_static {
+	border-bottom: 1px solid #d2d2d2;
+    border-right: 1px solid #d2d2d2;
+    float: left;
+    height: 180px;
+    padding: 20px 0 0;
+    position: relative;
+    text-align: center;
+    width: 20%;
+}
+.merdekamadness-home .column_product_static {
+    height: 180px;
+    width: 25%;
+	border-bottom: 1px solid #d2d2d2;
+    border-right: 1px solid #d2d2d2;
+    float: left;
+    padding: 20px 0 0;
+    position: relative;
+    text-align: center;
+}
+.merdekamadness .column_product_static IMG{
+	width:75%;
+}
+.merdekamadness-home .column_product_static IMG{
+	width:80%;
+}
+
+@media only screen and (max-width: 1023px){
+	.merdekamadness-home .column_product_static, .merdekamadness .column_product_static{
+			width:32%;
+			height:120px;
+		}
+}
+@media only screen and (max-width: 768px) {
+		.merdekamadness-home .column_product_static, .merdekamadness .column_product_static{
+			width:32%;
+			height:145px;
+			
+		}
+	}
+@media only screen and (max-width: 468px) {
+		.merdekamadness-home .column_product_static, .merdekamadness .column_product_static{
+			width:50%;
+		}
+	}
+
+
+/*=============================end style merdeka madness=============================*/
+
+/*=============================style affiliate=============================*/
+
+.affiliate-page .join-affiliate{
+	background:#51c6d8;
+	display: table;
+    font-size: 23px;
+    padding: 15px 35px;
+	}
+.affiliate-page .join-affiliate a{
+	color: #fff;
+    
+	}
+.affiliate-page input, .affiliate-page textarea, .affiliate-page select{
+	border-radius:10px;
+	border:1px solid #d1d1d1;
+}
+
+@media only screen and (max-width: 1023px){
+	.affiliate-page #formbuilder-form ul, .affiliate-page .form ol{
+		padding:0 !important;
+		margin:0 !important ;
+	}
+}
+@media only screen and (max-width: 468px) {
+        .affiliate-page .formbuilder-form ul li input, .affiliate-page .formbuilder-form ul li textarea{
+            float: left !important;
+            margin: 10px 0 !important;
+            width: 95% !important;
+        }
+        .affiliate-page .formbuilder-form p.required {
+            clear: none;
+            margin: 0 32px !important;
+        }
+		.affiliate-page #date_select{
+			clear:both;
+		}
+    }
+/*=============================end style affiliate=============================*/
+
+/*=============================winner photo competition agustus=============================*/
+.winner-pc img{
+	width:100%;
+}
+.winner-pc .column_left,
+.winner-pc .column_right{
+	float:left;
+}
+.winner-pc .column_left{
+	width:40%;
+}
+.winner-pc .column_right{
+	width:60%;
+}
+.winner-pc .winner{
+	display:table;
+	clear:both;
+	width:100%;
+}
+.winner-pc .polaroid{
+	margin:0 30px 30px 0;
+	padding:10px;
+	display:table;
+    -moz-box-shadow:0px 0px 5px #d2d2d2;
+    -webkit-box-shadow:0px 0px 5px #d2d2d2;
+    box-shadow:0px 0px 5px #d2d2d2;
+}
+.winner-pc .winner .polaroid .title-photo p{
+	padding:10px 0 0;
+	margin:0;
+	float:left;
+}
+.winner-pc .hiburan .polaroid .title-photo p{
+	width:100%;
+	padding:10px 0 0;
+	margin:0;
+	float:left;
+}
+.winner-pc .polaroid .title-photo .piala{
+	background: url('../../../../../media/wysiwyg/static-page-img/winner-pc/piala-img.jpg') no-repeat left center;
+	float:left;
+	font-size:20px;
+	color:#fff;
+	margin:10px 10px 0 0;
+	padding:10px 22px 25px 17px
+}
+
+@media only screen and (max-width: 468px) {
+	.winner-pc .column_left,
+	.winner-pc .column_right{
+		float:left;
+		width:100%;
+	}
+	
+}
+@media only screen and (max-width: 768px) {
+	.winner-pc .winner .polaroid .title-photo p.fb-15,	
+	.winner-pc .hiburan .polaroid .title-photo p.fb-15{
+		font-size:12px !important;
+	}
+}
+/*=============================end winner photo competition agustus=============================*/
+
+/* ---------- NEW STYLE FOR BOTTOOM INFO - COLOR MODE ---------- */
+.homepage-bottom .block-wrapper.color-bottom a {
+        text-decoration: none  !important;
+        padding: 3px 8px 0px !important; 
+        background: #ffff00; 
+        color: #666 !important;
+        font-weight: normal!important;
+        margin: 5px;
+        -webkit-padding-before: 0px;
+        -webkit-padding-after: 0px;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+    .homepage-bottom .block-wrapper.color-bottom span a {
+        background: none !important;
+        color: inherit !important;
+    }
+    .homepage-bottom .block-wrapper.color-bottom span {
+        font-family: 'InsaniburgerRegular', helvetica, arial, sans-serif !important;
+        line-height:0.9em; 
+        margin-bottom: 10px;
+        font-size: 30px !important;
+        letter-spacing: 0.03em;
+        text-shadow: 0px 0px 6px rgba(0,0,0,0.5);
+        color: #fff;
+    }
+    
+@media only screen and (min-device-width : 768px) and (max-device-width : 1023px) {
+    .homepage-bottom .block-wrapper span {
+        font-size: 24px !important;
+    }
+
+}
+/* ---------- END NEW STYLE FOR BOTTOOM INFO - COLOR MODE ---------- */

@@ -591,6 +591,26 @@
                 <allowspecific>0</allowspecific>
             </paningoldvisa>
             
+            <uobvisa>
+                <active>1</active>
+                <model>paymethod/method_uobvisa</model>
+                <order_status>pending</order_status>
+                <title>Credit Card (UOB Visa)</title>
+                <cctypes>VI</cctypes>
+                <!--payment_action>authorize</payment_action-->
+                <allowspecific>0</allowspecific>
+            </uobvisa>
+            
+            <uobmc>
+                <active>1</active>
+                <model>paymethod/method_uobmc</model>
+                <order_status>pending</order_status>
+                <title>Credit Card (UOB MasterCard)</title>
+                <cctypes>MC</cctypes>
+                <!--payment_action>authorize</payment_action-->
+                <allowspecific>0</allowspecific>
+            </uobmc>
+            
             <othervisa>
                 <active>1</active>
                 <model>paymethod/method_othervisa</model>

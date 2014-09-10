@@ -120,6 +120,8 @@ class Brim_PageCache_Model_Observer extends Varien_Event_Observer
             return;
         }
 
+        Mage::app()->getCookie()->set('formkey', Mage::getSingleton('core/session')->getFormKey());
+
         $engine->servePage($this);
     }
 
@@ -191,11 +193,12 @@ class Brim_PageCache_Model_Observer extends Varien_Event_Observer
 
             foreach ($blockUpdates as $blockUpdate) {
                 $blockName = $blockUpdate['block_name'];
-                if (!empty($blockUpdate['container'])) {
-                    $containerName = $blockUpdate['container'];
-                } else {
-                    $containerName = 'brim_pagecache/container_default';
-                }
+                if (!empty($blockName)) {
+                    if (!empty($blockUpdate['container'])) {
+                        $containerName = $blockUpdate['container'];
+                    } else {
+                        $containerName = 'brim_pagecache/container_default';
+                    }
 
 $layoutXml = <<< EOT
 <reference name="$blockName">
@@ -203,7 +206,8 @@ $layoutXml = <<< EOT
 </reference>
 EOT;
 
-                $update->addUpdate($layoutXml);
+                    $update->addUpdate($layoutXml);
+                }
             }
         }
 
@@ -307,12 +311,14 @@ EOT;
                 if (is_array($blockUpdates)) {
                     foreach ($blockUpdates as $blockUpdate) {
                         $blockName = $blockUpdate['block_name'];
-                        if (!empty($blockUpdate['container'])) {
-                            $containerName = $blockUpdate['container'];
-                        } else {
-                            $containerName = 'brim_pagecache/container_default';
+                        if (!empty($blockName)) {
+                            if (!empty($blockUpdate['container'])) {
+                                $containerName = $blockUpdate['container'];
+                            } else {
+                                $containerName = 'brim_pagecache/container_default';
+                            }
+                            $this->_blockUpdates[$blockName] = $containerName;
                         }
-                        $this->_blockUpdates[$blockName] = $containerName;
                     }
                 }
             }

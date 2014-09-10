@@ -33,7 +33,7 @@ class RocketWeb_Netsuite_Model_Process_Import_Inventory extends RocketWeb_Netsui
         return RocketWeb_Netsuite_Model_Queue_Message::INVENTORY_DELETED;
     }
 
-    public function process(Record $inventoryAdjustment) {
+    public function process(Record $inventoryAdjustment, $queueData = null) {
         /** @var InventoryAdjustment $inventoryAdjustment */
         $adjustmentInventory = Mage::getModel('rocketweb_netsuite/adjustmentinventory')->loadByNetsuiteId($inventoryAdjustment->internalId);
 

@@ -26,7 +26,7 @@ class RocketWeb_Netsuite_Model_Process_Import_Order extends RocketWeb_Netsuite_M
         //Exclude the orders that have the same creation and last modified date as:
         //  - they are already present in Magento in the same format (Magento sent them to Net Suite)
         //  - they are not part of Magento
-        if($salesOrder->lastModifiedDate == $salesOrder->createdDate) {
+        if ($salesOrder->lastModifiedDate == $salesOrder->createdDate) {
             return false;
         }
 
@@ -68,16 +68,10 @@ class RocketWeb_Netsuite_Model_Process_Import_Order extends RocketWeb_Netsuite_M
         return true;
     }
 
-    public function process(Record $netsuiteOrder) {
+    public function process(Record $netsuiteOrder, $queueData = null) {
         $magentoOrder = Mage::helper('rocketweb_netsuite/mapper_order')->getMagentoFormat($netsuiteOrder);
         $magentoOrder->setNetsuiteInternalId($netsuiteOrder->internalId);
         $magentoOrder->setLastImportDate(Mage::helper('rocketweb_netsuite')->convertNetsuiteDateToSqlFormat($netsuiteOrder->lastModifiedDate));
         $magentoOrder->getResource()->save($magentoOrder);
-
-        //update the order grid
-        $dbConnection = Mage::getSingleton('core/resource')->getConnection('core_write');
-        $tableName = Mage::getSingleton('core/resource')->getTableName('sales_flat_order_grid');
-        $query = "UPDATE $tableName SET grand_total = {$magentoOrder->getGrandTotal()}, base_grand_total = {$magentoOrder->getGrandTotal()}, status = '{$magentoOrder->getStatus()}' WHERE entity_id = {$magentoOrder->getId()}";
-        $dbConnection->query($query);
     }
 }

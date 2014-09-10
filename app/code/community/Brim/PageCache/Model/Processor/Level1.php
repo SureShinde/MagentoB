@@ -42,6 +42,12 @@ class Brim_PageCache_Model_Processor_Level1 {
     protected $_cookie = null;
 
     /**
+     * Holds the message count before the request is rendered to HTML and messages removed from the session.
+     * @var null|int
+     */
+    protected $_cachedMessageCount = null;
+
+    /**
      * @return Brim_PageCache_Model_Cache|Mage_Core_Model_Cache|mixed
      */
     public function getCache() {
@@ -143,7 +149,7 @@ class Brim_PageCache_Model_Processor_Level1 {
      * @return string
      */
     public function extractContent($content) {
-        if (Mage::app()->getCookie()->get('nocache') != 1) {
+        if (Mage::app()->getCookie()->get('nocache_l1') != 1  && Mage::app()->getCookie()->get('formkey')) {
             try {
                 $cacheData = $this->getCache()->load($this->generateFPCId(Mage::app()->getRequest()));
 
@@ -159,6 +165,12 @@ class Brim_PageCache_Model_Processor_Level1 {
                         $cachedHeaders,
                         $response
                     );
+
+                    // Form Key Update
+                    $formKey    = Mage::app()->getCookie()->get('formkey');
+                    $chars      = Mage_Core_Helper_Data::CHARS_LOWERS . Mage_Core_Helper_Data::CHARS_UPPERS . Mage_Core_Helper_Data::CHARS_DIGITS;
+                    $newBody    = preg_replace("/\\/form_key\\/[$chars]{8,24}\\//siU", "/form_key/{$formKey}/", $content);
+                    if ($newBody !== null) { $content  = $newBody; }
 
                     $response->setHeader('Cache-Control', 'no-cache, must-revalidate');
                     $response->setHeader('Pragma', 'no-cache');
@@ -228,11 +240,15 @@ class Brim_PageCache_Model_Processor_Level1 {
      *  L1 cache uses a cookie to determine if it can be used.
      */
     public function setNoCacheFlag() {
-        if($this->canUseStaticCache()) {
-            Mage::app()->getCookie()->delete('nocache');
+
+        if (!Mage::getStoreConfig(Brim_PageCache_Model_Config::XML_PATH_ENABLE_LEVEL1)) {
+            Mage::app()->getCookie()->delete('nocache_l1');
         } else {
-            Mage::app()->getCookie()->set('nocache', 1);
+            //
+            Mage::app()->getCookie()->delete('nocache_l1');
+            $this->canUseStaticCache(true, true);
         }
+        return $this;
     }
 
     /**
@@ -240,11 +256,21 @@ class Brim_PageCache_Model_Processor_Level1 {
      *
      * @return bool
      */
-    public function canUseStaticCache() {
+    public function canUseStaticCache($setCookie=false, $skipNocacheL1Cookie=false) {
 
         if (!Mage::getStoreConfig(Brim_PageCache_Model_Config::XML_PATH_ENABLE_LEVEL1)) {
             // prevent caching if disabled
             return false;
+        }
+
+        if ($skipNocacheL1Cookie === false && Mage::app()->getCookie()->get('nocache_l1')) {
+            return false;
+        }
+
+        if (!Mage::app()->getCookie()->get('formkey')) {
+            if ($setCookie===true) { Mage::app()->getCookie()->set('nocache_l1', 1); }
+            return false;
+
         }
 
         if (isset($_GET['no_cache'])) {
@@ -260,15 +286,23 @@ class Brim_PageCache_Model_Processor_Level1 {
             return false;
         }
 
+        // we purposefully calculate until we get a number each time called.
+        // If we ever get a positive count we can NOT save the request to the cache.
+        if ($this->_cachedMessageCount === null || $this->_cachedMessageCount === 0) {
+            $this->_cachedMessageCount = Mage::getSingleton('core/session')->getMessages()->count()
+                + Mage::getSingleton('checkout/session')->getMessages()->count()
+                + Mage::getSingleton('customer/session')->getMessages()->count()
+                + Mage::getSingleton('catalog/session')->getMessages()->count();
+        }
+
         if (!empty($_POST)
             || Mage::getSingleton('customer/session')->isLoggedIn()
             || Mage::getSingleton('checkout/session')->getQuote()->hasItems()
             || Mage::helper('catalog/product_compare')->hasItems()
-            || (Mage::getSingleton('core/session')->getMessages()->count()
-                + Mage::getSingleton('checkout/session')->getMessages()->count()
-                + Mage::getSingleton('customer/session')->getMessages()->count()
-                + Mage::getSingleton('catalog/session')->getMessages()->count()) > 0)
+            || ($this->_cachedMessageCount) > 0)
         {
+            // session issue. this deserves a no cache cookie till they are gone
+            if ($setCookie===true) { Mage::app()->getCookie()->set('nocache_l1', 1); }
             return false;
         }
 

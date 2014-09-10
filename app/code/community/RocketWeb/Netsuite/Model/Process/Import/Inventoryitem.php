@@ -56,7 +56,7 @@ class RocketWeb_Netsuite_Model_Process_Import_Inventoryitem extends RocketWeb_Ne
         }
     }
 
-    public function process(Record $inventoryItem) {
+    public function process(Record $inventoryItem, $queueData = null) {
         /** @var InventoryItem $inventoryItem */
         $magentoProduct = Mage::helper('rocketweb_netsuite/mapper_product')->getMagentoFormatFromInventoryItem($inventoryItem);
 

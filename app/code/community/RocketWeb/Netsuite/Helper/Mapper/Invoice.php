@@ -127,7 +127,7 @@ class RocketWeb_Netsuite_Helper_Mapper_Invoice extends RocketWeb_Netsuite_Helper
         if (!$magentoOrder->canInvoice()) {
            throw new Exception("{$magentoOrder->getId()}: Cannot do shipment for this order!");
         }
-         
+
         /**
          * check registry skip invoice export
          */
@@ -140,7 +140,7 @@ class RocketWeb_Netsuite_Helper_Mapper_Invoice extends RocketWeb_Netsuite_Helper
         
         if ($magentoInvoice) {
             $magentoInvoice->register();
-            $magentoInvoice->addComment("Create Shipment from Netsuite #{$cashSale->internalId}");
+            $magentoInvoice->addComment("Create Invoice from Netsuite #{$cashSale->internalId}");
             $magentoInvoice->getOrder()->setIsInProcess(true);
             $magentoInvoice->setGrandTotal($cashSale->total);
             $magentoInvoice->setBaseGrandTotal($cashSale->total);

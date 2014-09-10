@@ -195,7 +195,7 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
                 }
                 catch (Exception $e) {
                     $session->setFormData($data);
-                    $session->addError($this->__('Unable to post the review.'));
+                    $session->addError($this->__('Unable to post the review. Login or Sign up for review.'));
                 }
             }
             else {
@@ -206,7 +206,7 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
                     }
                 }
                 else {
-                    $session->addError($this->__('Unable to post the review.'));
+                    $session->addError($this->__('Unable to post the review. Login or Sign up for review.'));
                 }
             }
         }
