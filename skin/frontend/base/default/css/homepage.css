@@ -386,7 +386,7 @@
 	right: 10px;
 	bottom: 0;
 	list-style: none;
-	z-index: 99;
+	z-index: 99 !important;
 	padding: 0;
 }
 #slides-banner .slidesjs-pagination li {
@@ -430,6 +430,19 @@
 
 .banner-right-mainhomepage p, .banner-left-mainhomepage p {margin: 0 0 0.25em !important;}
 
+.cms-index-index .slidesjs-pagination .slidesjs-pagination-item a{
+	 background: none repeat scroll 0 0 #C7C7C7 !important;
+    border-radius: 10px;
+    color: #FFFFFF;
+    font-size: 15px;
+    font-weight: bold;
+    text-align: center;
+    text-indent: 0 !important;
+}
+.cms-index-index .slidesjs-pagination .slidesjs-pagination-item a.active{
+	background:#ff9f1c !important;
+
+}
 
 
 
