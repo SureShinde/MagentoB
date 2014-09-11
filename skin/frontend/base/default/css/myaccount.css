@@ -717,6 +717,7 @@ padding: 10px 10px 30px;
 }
 .my-account .my-wishlist .price-box{
 	text-align:right;
+	margin:15px 0 0;
 }
 .my-account .my-wishlist .button.btn-cart{
 	background:none;
@@ -875,6 +876,12 @@ padding: 10px 10px 30px;
 		width: 275px;
 		text-align: left;
 		margin-left: 15px;
+	}
+	.my-account .my-wishlist .title-buttons h1{
+		text-align:left;
+	}
+	.my-account .my-wishlist .header-wishlist .column-wishlist:nth-child(2){
+		width:60%;
 	}
 	/*WISHLIST*/
 	
