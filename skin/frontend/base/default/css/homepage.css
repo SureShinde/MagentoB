@@ -26,6 +26,9 @@
 	position: relative;
 	z-index: 0;
 }
+.cms-home .slidesjs-container, .category-baby .slidesjs-container, .category-perlengkapan-rumah .slidesjs-container{
+	z-index: 0 !important;
+}
 .banner-left-mainhomepage, .banner-right-mainhomepage {
     width: 194px; 
     height: 338px; 
