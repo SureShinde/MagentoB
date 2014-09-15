@@ -3375,3 +3375,77 @@ button.button-area {
 		width:100%;
 	}
 }
+
+
+/*=============================style clearence=============================*/
+
+.clearence-page .font-base-text{
+	line-height:1.8;
+	font-size: 1.2em;
+}
+.clearence-page p{
+	margin:0;
+}
+.clearence-page .category-link{
+	background:#ab2820;
+	display: table;
+    float: left;
+    font-size: 24px;
+    margin: 10px 20px 20px 0;
+    padding: 10px;
+    text-align: center;
+}
+.clearence-page .base-bold, .clearence-page-home .base-bold{
+	color:#00aeef;
+}
+.clearence-page .category-link a{
+	color:#fff;
+}
+.clearence-baby .column_product_static {
+	border-bottom: 1px solid #d2d2d2;
+    border-right: 1px solid #d2d2d2;
+    float: left;
+    height: 180px;
+    padding: 20px 0 0;
+    position: relative;
+    text-align: center;
+    width: 20%;
+}
+.clearence-home .column_product_static {
+    height: 180px;
+    width: 25%;
+	border-bottom: 1px solid #d2d2d2;
+    border-right: 1px solid #d2d2d2;
+    float: left;
+    padding: 20px 0 0;
+    position: relative;
+    text-align: center;
+}
+.clearence-baby .column_product_static IMG{
+	width:75%;
+}
+.clearence-home .column_product_static IMG{
+	width:80%;
+}
+
+@media only screen and (max-width: 1023px){
+	.clearence-page-home .column_product_static, .static-page-area .column_product_static{
+			width:32%;
+			height:120px;
+		}
+}
+@media only screen and (max-width: 768px) {
+		.clearence-page-home .column_product_static, .static-page-area .column_product_static{
+			width:32%;
+			height:145px;
+			
+		}
+	}
+@media only screen and (max-width: 468px) {
+		.clearence-page-home .column_product_static, .static-page-area .column_product_static{
+			width:50%;
+		}
+	}
+
+
+/*=============================end style merdeka madness=============================*/
