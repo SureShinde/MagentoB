@@ -25,7 +25,8 @@
 	position: relative;
 	z-index: 0;
 }
-.cms-home .slidesjs-container, .category-baby .slidesjs-container, .category-perlengkapan-rumah .slidesjs-container{
+.cms-home .slidesjs-container, .category-baby .slidesjs-container, .category-perlengkapan-rumah .slidesjs-container,
+ .style-baby.catalog-category-view .slidesjs-container,  .style-perlengkapan-rumah.catalog-category-view .slidesjs-container {
 	z-index: 0 !important;
 }
 .banner-left-mainhomepage, .banner-right-mainhomepage {
@@ -391,6 +392,9 @@
 	list-style: none;
 	z-index: 99;
 	padding: 0;
+}
+.style-baby.catalog-category-view #slides-banner .slidesjs-pagination, .style-perlengkapan-rumah.catalog-category-view #slides-banner .slidesjs-pagination {
+	z-index: 8 !important;
 }
 #slides-banner .slidesjs-pagination li {
 	display: inline-block;
