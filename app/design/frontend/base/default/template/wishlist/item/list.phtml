@@ -27,28 +27,28 @@
 <?php
     $columns = $this->getColumns();
 ?>
-<table class="data-table" id="wishlist-table">
-    <thead>
-        <tr>
-            <?php foreach ($columns as $column): ?>
-                <th><?php echo $column->getTitle();?></th>
+<div class="data-table" id="wishlist-table">
+    <div class="header-wishlist">
+		<div class="row-wishlist">
+		<?php foreach ($columns as $column): ?>
+				<div class="column-wishlist"><p class="header-title"><?php echo $column->getTitle();?></p></div>
             <?php endforeach; ?>
-        </tr>
-    </thead>
-    <tbody>
+		</div>
+	</div>
+    <div class="content-wishlist">
         <?php if (count($this->getItems())): ?>
             <?php foreach ($this->getItems() as $item): ?>
-                <tr id="item_<?php echo $item->getId();?>">
+                <div class="row-wishlist" id="item_<?php echo $item->getId();?>">
                     <?php foreach ($columns as $column): ?>
-                        <td><?php $column->setItem($item); echo $column->toHtml($item);?></td>
+                        <div class="column-wishlist"><?php $column->setItem($item); echo $column->toHtml($item);?></div>
                     <?php endforeach; ?>
-                </tr>
+                </div>
             <?php endforeach ?>
         <?php else: ?>
             <td colspan="<?php echo count($columns);?>" class="wishlist-empty"><?php echo $this->__('This Wishlist has no Items');?></td>
         <?php endif; ?>
-    </tbody>
-</table>
+    </div>
+</div>
 <?php foreach ($columns as $column): ?>
     <?php echo $column->getAdditionalHtml();?>
 <?php endforeach; ?>

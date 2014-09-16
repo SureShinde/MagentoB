@@ -665,15 +665,7 @@
 .total-right table tr td:first-child {
 	display: none;
 }
-#checkoutpromo {
-	padding: 10px 5px;
-	background: #ff7f6e;
-	color: #303030;
-	margin-bottom: 10px;
-}
-#checkoutpromo span {
-	font-weight: bold;
-}
+
 .low-res-cart{
 	display:none;
 }

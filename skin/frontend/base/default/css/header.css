@@ -1782,33 +1782,35 @@ searchbar #nav-search-in {
 }
 
 .cart-for-sticky {
-    position:fixed;
+    /* position:absolute;
     top: 0;
-    right: 0;
+    right: 0; */
     display: block;
     z-index: 3;
     width: 80px !important;
-    margin-right: 10.5%;
+    margin-right: 71px;
     padding-bottom: 6px !important;
-    padding-top: 12px !important;
+    padding-top: 10px !important;
     background-image: none !important;
     padding-left: 10px !important;
+    float: right !important;
 }
 
 .checkout-for-sticky {
-    position:fixed;
+    /* position:absolute;
     top: 0;
-    right: 0;
+    right: 0; */
     display: block;
     z-index: 3;
     width: 70px !important;
-    margin-right: 4.9%;
+    margin-right: -170px;
     padding-bottom: 6px !important;
-    padding-top: 12px !important;
+    padding-top: 10px !important;
     background-image: none !important;
     padding-left: 0px !important;
     padding-right: 0px !important;
     text-align: center;
+    float: right !important;
 }
 
 .header .menu-top-mobile-wood {
@@ -2188,6 +2190,38 @@ searchbar #nav-search-in {
     display: block;
 }
 
+.normal-sticky-cart.add-width-cart {
+    display: block;
+    right: 0;
+    margin: 0 auto;
+    max-width: 172px;
+    padding: 0 5% 0 0 !important;
+    position: fixed;
+    width: 90%;
+    z-index: 1;
+}
+.no-blog {display: none !important}
+
+/*additional screen*/
+@media only screen and (max-width: 1920px) {
+    .normal-sticky-cart.add-width-cart {
+        padding: 0 19% 0 0 !important;
+    }
+}
+@media only screen and (max-width: 1600px) {
+    .normal-sticky-cart.add-width-cart {
+        padding: 0 12% 0 0 !important;
+    }
+}
+@media only screen and (min-width: 1216px) and (max-width: 1599px) {
+    .normal-sticky-cart.add-width-cart {
+        padding: 0 5% 0 0 !important;
+    }
+}
+
+
+/*additional screen*/
+
 @media only screen and (max-width: 1215px) {
 	#nav li.nav-kebutuhan-khusus-bayi-dan-balita ul.level-hover{
 		left:auto;
@@ -2301,11 +2335,22 @@ searchbar #nav-search-in {
     .search-container-new #nav-searchbar {
         width: 100% !important;
     }
+    
+    .normal-sticky-cart.add-width-cart {
+        display: block;
+        right: 0;
+        margin: 0 auto;
+        max-width: 172px;
+        padding: 0 5% 0 0;
+        position: fixed;
+        width: 90%;
+        z-index: 1;
+    }
     .cart-for-sticky {
-        margin-right: 11.3% !important;
+        margin-right: 70px;
     }
     .checkout-for-sticky {
-        margin-right: 4.5%;
+        margin-right: -170px;
     }
 }
 /* --------------- 960 px layout -------------------- */
@@ -2476,9 +2521,7 @@ searchbar #nav-search-in {
         width: 32% !important;
         z-index: 2;
     }
-    .cart-for-sticky {
-        margin-right: 4.9% !important;
-    }
+    
     
     #nav a.link-shopby {
         background: url("../images/arrow-down.png") no-repeat scroll 28px 25px #A27E79;
@@ -2511,6 +2554,23 @@ searchbar #nav-search-in {
         margin: 3px auto 0;
         font-size: 11px;
         width:745px;
+    }
+    
+    .normal-sticky-cart.add-width-cart {
+        display: block;
+        right: 0;
+        margin: 0 auto;
+        max-width: 172px;
+        padding: 0 5% 0 0;
+        position: fixed;
+        width: 90%;
+        z-index: 1;
+    }
+    .cart-for-sticky {
+        margin-right: 0px;
+    }
+    .checkout-for-sticky {
+        margin-right: -170px;
     }
 }
 	

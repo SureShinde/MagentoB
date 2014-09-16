@@ -3270,6 +3270,108 @@ button.button-area {
     .homepage-bottom .block-wrapper span {
         font-size: 24px !important;
     }
-
 }
 /* ---------- END NEW STYLE FOR BOTTOOM INFO - COLOR MODE ---------- */
+
+
+/* checkout promo */
+#checkoutpromo{
+	overflow:hidden;
+}
+#checkoutpromo > p{
+	border:1px solid #9d9d9d;
+	background:#f2f2f2;
+	padding:7px 10px;
+}
+#checkoutpromo .freeshipping_label{
+	border:1px solid #9d9d9d;
+	background: url('../../../../../media/wysiwyg/static-block-img/bg_freeshipping_checkout.jpg') repeat-x left center;
+}
+#checkoutpromo .freeshipping_label p{
+	display:table;
+	padding:7px 45px 7px 10px;
+	background:url("../images/free-shipping.png") no-repeat right #f2f2f2;
+}
+
+#checkoutpromo .home_link_promo{
+	display:table;
+	width:100%;
+	background:#f2f2f2;
+}
+#checkoutpromo .home_link_promo .label_homelink{
+	display:table;
+	float:left;
+	background:#52c5d8;
+	color:#fff;
+	position:relative;
+	padding:9px 73px 10px 10px;
+	text-shadow:2px 1px 2px #1d8393
+}
+#checkoutpromo .home_link_promo .label_homelink p{
+	font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+#checkoutpromo .home_link_promo  .link-home{
+	display:table;
+	float:right;
+	padding:9px 0;
+}
+
+#checkoutpromo .home_link_promo .label_homelink:after {
+    border-color: #52c5d8 transparent transparent #52c5d8;
+    border-left: 17px solid #52c5d8;
+    border-style: solid;
+    border-width: 17px;
+    content: "";
+    position: absolute;
+    right: -34px;
+    top: 0;
+}
+#checkoutpromo .home_link_promo  .link-home ul li{
+	display:inline;
+	color:#277d8a;
+	font-weight:bold;
+	margin:0 20px;
+}
+#checkoutpromo .home_link_promo .label_homelink p a{
+	color:#fff;
+	text-decoration:underline;	
+}
+#checkoutpromo > div, #checkoutpromo > p {
+    margin: 0 0 10px;
+}
+@media only screen and (max-width: 1215px) { 
+	#checkoutpromo .home_link_promo .label_homelink{
+		padding:9px 27px 10px 10px
+	}
+	#checkoutpromo .home_link_promo .link-home ul li{
+		margin:0 10px;
+	}
+}
+
+@media only screen and (max-width: 1023px){
+	#checkoutpromo .home_link_promo .label_homelink {
+		font-size: 11px;
+		padding: 9px 10px 9px 10px;
+	}
+	
+	#checkoutpromo .home_link_promo .label_homelink:after {
+		right: -32px;
+		border-width: 16px;
+	}
+		
+	#checkoutpromo .home_link_promo .link-home ul li {
+		font-size: 10px;
+		margin: 0 7px;
+		text-transform: lowercase;
+	}
+}
+@media only screen and (max-width: 768px) {
+	#checkoutpromo .home_link_promo .link-home{
+		display:none;
+	}
+	#checkoutpromo .home_link_promo .label_homelink{
+		width:100%;
+	}
+}
