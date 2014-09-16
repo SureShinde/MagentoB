@@ -5,7 +5,7 @@
  * @author Bilna Development Team <development@bilna.com>
  */
 
-require_once 'Mage/Checkout/controllers/OnepageController.php';
+//require_once 'Mage/Checkout/controllers/OnepageController.php';
 
 class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController {
     protected $_payType = '';
@@ -390,6 +390,7 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
         }
             
         if (in_array($paymentCode, $this->getPaymentMethodCc())) {
+            //$charge = $this->creditcardCharge($order);
             /**
              * charge credit card
              */
@@ -458,6 +459,56 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
         $this->_initLayoutMessages('checkout/session');
         Mage::dispatchEvent('checkout_onepage_controller_success_action', array ('order_ids' => array ($lastOrderId)));
         $this->renderLayout();
+    }
+    
+    /*public function creditcardCharge($order) {
+        Mage::helper('paymethod')->loadVeritransNamespace();
+        
+        $incrementId = $order->getIncrementId();
+        $tokenId = $this->getTokenId();
+        $grossAmount = round($order->getGrandTotal());
+        $paymentType = 'credit_card'; //hardcode
+      
+        // Optional
+        //$billingAddress = $this->getBillingAddress();
+        //$shippingAddress = $this->getShippingAddress();
+        
+        $paymentCode = $order->getPayment()->getMethodInstance()->getCode();
+        $acquiredBank = $this->getAcquiredBank($paymentCode);
+        
+        // Required
+        $customerDetails = array (
+            'first_name' => $order->getBillingAddress()->getFirstname(),
+            'last_name' => $order->getBillingAddress()->getLastname(),
+            'email' => $this->getCustomerEmail($order->getBillingAddress()->getEmail()),
+            'phone' => $order->getBillingAddress()->getTelephone(),
+            //'billing_address' => $billingAddress,
+            //'shipping_address' => $shippingAddress
+        );
+        $transactionDetails = array (
+            'order_id' => $incrementId,
+            'gross_amount' => $grossAmount
+        );
+
+        //Data that will be sent to request charge transaction with credit card.
+        $transactionData = array(
+            'payment_type' => $paymentType, 
+            'credit_card' => array (
+                'token_id' => $tokenId,
+                'bank' => $acquiredBank
+            ),
+            'transaction_details' => $transactionDetails,
+            'customer_details' => $customerDetails,
+        );
+        
+        $this->logProgress('request: ' . json_encode($transactionData));
+        $result = Veritrans_VtDirect::charge($transactionData);
+        $this->logProgress('response: ' . json_encode($result));
+        exit;
+    }*/
+    
+    protected function logProgress($message) {
+        Mage::log($message, null, 'newstack.log');
     }
     
     public function getCheckout() {

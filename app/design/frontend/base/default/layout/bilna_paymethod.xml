@@ -8,6 +8,16 @@
         </reference>
     </checkout_onepage_index>
     
+    <checkout_cart_totals>
+        <reference name='root'>
+            <action method='setTemplate'>
+                <template>paymethod/checkout/cart/review/info.phtml</template>
+            </action>
+            <block type="checkout/cart_totals" name="checkout.onepage.review.info.totals" as="totals" template="checkout/onepage/review/totals.phtml"/>
+        </reference>
+    </checkout_cart_totals>
+    
+    
     <checkout_onepage_review>
         <reference name='root'>
             <action method='setTemplate'>
@@ -33,6 +43,7 @@
             </action>
             
             <block type="paymethod/checkout_onepage_review_installment" name="items_after" as="items_after" ifconfig="payment/klikpay/active" template="paymethod/checkout/onepage/review/installments.phtml"/>
+            <block type="paymethod/checkout_cart_totals" name="checkout.onepage.review.info.totals" as="totals" template="paymethod/checkout/cart/totals.phtml"/>
         </reference>
     </checkout_onepage_review>
     

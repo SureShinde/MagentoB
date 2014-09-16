@@ -43,6 +43,7 @@
                     <onepage_review_info>Bilna_Paymethod_Block_Checkout_Onepage_Review_Info</onepage_review_info>
                     <onepage_success>Bilna_Paymethod_Block_Checkout_Onepage_Success</onepage_success>
                     <onepage_failure>Bilna_Paymethod_Block_Checkout_Onepage_Failure</onepage_failure>
+                    <cart_totals>Bilna_Paymethod_Block_Checkout_Cart_Totals</cart_totals>
                 </rewrite>
             </checkout>
             
