@@ -51,7 +51,6 @@ class AW_Affiliate_Block_Adminhtml_Affiliate_Edit_Tab_Balance_Profits_Grid exten
     {
         $affiliate = Mage::registry('current_affiliate');
         $collection = $affiliate->getProfitTransactions();
-        $collection->getSelect()->order('main_table.created_at', 'DESC');
       
         $this->setCollection($collection);
         return parent::_prepareCollection();

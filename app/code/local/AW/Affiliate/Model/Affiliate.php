@@ -164,6 +164,8 @@ class AW_Affiliate_Model_Affiliate extends Mage_Core_Model_Abstract
                     'order_status'   => 'sales_flat_order.status'
                 )
             );
+
+            $this->_profitTransactions->getSelect()->order('main_table.created_at DESC');
             $this->_profitTransactions->addAffiliateFilter($__affiliateId);
         }
         return $this->_profitTransactions;
