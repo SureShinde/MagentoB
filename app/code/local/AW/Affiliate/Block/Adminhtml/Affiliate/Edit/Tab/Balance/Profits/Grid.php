@@ -26,7 +26,6 @@
  * @license    http://ecommerce.aheadworks.com/AW-LICENSE.txt
  */
 
-
 class AW_Affiliate_Block_Adminhtml_Affiliate_Edit_Tab_Balance_Profits_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
     public function __construct()
@@ -128,6 +127,7 @@ class AW_Affiliate_Block_Adminhtml_Affiliate_Edit_Tab_Balance_Profits_Grid exten
             Mage::register('current_affiliate', $affiliate);
         }
     }
+    
     protected function _beforeToHtml()
     {
         if (Mage::helper('awaffiliate')->checkExtensionVersion('Mage_Core', '0.8.28', '<=')) {
