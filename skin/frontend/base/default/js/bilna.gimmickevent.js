@@ -38,15 +38,9 @@ jQuery(document).ready(function () {
 		        	
 		        	jQuery("#event-data").val(JSON.stringify(response.data));
 		        	
-		        	if(response.status == true){
-		        		if (document.getElementById('bkg').style.visibility == 'hidden') {
-							document.getElementById('bkg').style.visibility = '';
-						}
-						if (document.getElementById('dlg').style.visibility == 'hidden') {
-							document.getElementById('dlg').style.visibility = '';
-						}
-						jQuery("#bkg").fadeIn(500);
-						jQuery("#dlg").fadeIn(600);
+		        	if(response.status == true){ 
+						jQuery("#bkg").fadeIn(200);
+						jQuery("#dlg, .success-form-popup").fadeIn(200);
 		        	}
 		        }
 	        },
