@@ -10,4 +10,9 @@
             <block type="bilnapromo/adminhtml_giftvoucherapplicant" name="giftvoucher_applicant" />
         </reference>
     </bilnapromo_adminhtml_giftvoucher_applicant>
+    <bilnapromo_adminhtml_gimmickevent_index>
+        <reference name="content">
+            <block type="bilnapromo/adminhtml_gimmickevent" name="gimmickevent" />
+        </reference>
+    </bilnapromo_adminhtml_gimmickevent_index>
 </layout>

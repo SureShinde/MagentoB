@@ -27,6 +27,21 @@
 
 <input type="hidden" id="3rdparty-type" value="cartsuccess"/>
 <input type="hidden" id="3rdparty-value" value="<?php echo $this->getOrderId(); ?>" />
+<!--popup start-->
+	<form target="_blank" action="" method="post" id="event-form" name="event_form">
+	<div class="blockbkg" id="bkg">
+		<div class="cont" id="dlg">asdasd
+			<img id="gimmick-banner" src="" />
+			<div id="gimmick-tos" name="tos" style="-moz-appearance:textfield-multiline;-webkit-appearance:textarea;border:1px solid gray;font:medium-moz-fixed;font:-webkit-small-control;padding:2px;resize:none;overflow-y:scroll; height:167px; font-weight: bold; font-family: 'tin_doghouseregular';"></div>
+			<input id="event-data" name="data" type="hidden" value="" class="hide" />
+			<div class="position_button"> 
+				<img src="http://assets.bilna.com/media/wysiwyg/gimmick-event/BUTTON-JOIN.jpg" class="ok" id="friso-form-submit" onclick="_frisoSave();jQuery('#event-form').submit();" />
+				<img src="http://assets.bilna.com/media/wysiwyg/gimmick-event/BUTTON-NOTJOIN.jpg" class="cancel" id="friso-cancel" />
+			</div>
+		</div>qweqwe
+	</div>
+	</form>
+<!--popup end-->
 
 <div class="page-title">
     <h1><?php echo $this->__('Your order has been received.') ?></h1>
