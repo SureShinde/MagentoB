@@ -1,15 +1,15 @@
 jQuery(document).ready(function () {
 	jQuery("#closebtn").click(function () {
 		jQuery("#dlg").fadeOut();
-		jQuery("#bkg").fadeOut();
+		jQuery("#bkg, .success-form-popup").fadeOut();
 	});
 	jQuery("#bkg").click(function(){
 		jQuery("#dlg").fadeOut();
-		jQuery("#bkg").fadeOut();
+		jQuery("#bkg, .success-form-popup").fadeOut();
 	});
 	jQuery("#friso-cancel").click(function(){
 		jQuery("#dlg").fadeOut();
-		jQuery("#bkg").fadeOut();
+		jQuery("#bkg, .success-form-popup").fadeOut();
 	});
 
 	// Prevent events from getting pass .popup
