@@ -14,7 +14,7 @@ class Bilna_AjaxRequest_GimmickEventController extends Mage_Core_Controller_Fron
         			WHERE	start_date <= '".$nowDate."' and
         					end_date >= '".$nowDate."' and
         					status = '1'
-        			ORDER BY priority DESC limit 1";
+        			ORDER BY priority DESC limit 1"; 
 		$result = $read->fetchAll($sql);
 
         if(empty($result)){
@@ -54,7 +54,7 @@ class Bilna_AjaxRequest_GimmickEventController extends Mage_Core_Controller_Fron
 
 		$order = Mage::getModel('sales/order')->loadByIncrementId($orderId);
 
-		if($response["promo"]["start_date"] > $order->getCreatedAt()){
+		if(strtotime($response["promo"]["start_date"]) > strtotime($order->getCreatedAt())){
 			echo json_encode($response);
 			exit;
 		}

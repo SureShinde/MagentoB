@@ -1,3 +1,23 @@
+<input type="hidden" id="3rdparty-type" value="cartsuccess"/>
+<input type="hidden" id="3rdparty-value" value="<?php echo $this->getOrderId(); ?>" />
+<input type="hidden" id="order-id" value="<?php echo $this->getOrderId(); ?>" />
+
+<!--popup start-->
+	<form target="_blank" action="" method="post" id="event-form" name="event_form">
+	<div class="blockbkg" id="bkg">
+		<div class="cont" id="dlg">
+			<img id="gimmick-banner" src="" />
+			<div id="gimmick-tos" name="tos" style="-moz-appearance:textfield-multiline;-webkit-appearance:textarea;border:1px solid gray;font:medium-moz-fixed;font:-webkit-small-control;padding:2px;resize:none;overflow-y:scroll; height:167px; font-weight: bold; font-family: 'tin_doghouseregular';"></div>
+			<input id="event-data" name="data" type="hidden" value="" class="hide" />
+			<div class="position_button"> 
+				<img src="http://assets.bilna.com/media/wysiwyg/gimmick-event/BUTTON-JOIN.jpg" class="ok" id="friso-form-submit" onclick="_frisoSave();jQuery('#event-form').submit();" />
+				<img src="http://assets.bilna.com/media/wysiwyg/gimmick-event/BUTTON-NOTJOIN.jpg" class="cancel" id="friso-cancel" />
+			</div>
+		</div>
+	</div>
+	</form>
+<!--popup end-->
+	
 <style type="text/css">
     .wrapper_success_page{display:table;background:#4ec7da;width:80%;color:#fff;font-family:arial;position:relative;margin:5%;padding:2%}.wrapper_success_page p{margin:0}.wrapper_success_page .col_left p:nth-of-type(1){font-size:23px;line-height:20px}.wrapper_success_page .col_left p:nth-of-type(2){font-size:67px;line-height:65px;border-bottom:6px dotted;margin:0 0 100px;display:table}.wrapper_success_page .col_left p:nth-of-type(3){font-size:21px}.wrapper_success_page .order_id{color:#403c0a}.wrapper_success_page .say_thanks{border-bottom:7px dotted;margin-top:150px;position:relative}.wrapper_success_page .say_thanks p{padding:0 0 0 10px;background:#4EC7DA;position:absolute;right:-6px;top:-10px}.wrapper_success_page .col_left{float:left;width:62%;padding:2% 5% 2% 2%;border-right:1px #fff solid}.wrapper_success_page .col_right{width:28%;float:left;margin-left:2%;height:200px}
     .wrapper_failure_page{display:table;background:#da4e4e;width:80%;color:#fff;font-family:arial;position:relative;margin:5%;padding:2%}.wrapper_failure_page p{margin:0}.wrapper_failure_page .col_left p:nth-of-type(1){font-size:23px;line-height:20px}.wrapper_failure_page .col_left p:nth-of-type(2){font-size:67px;line-height:65px;border-bottom:6px dotted;margin:0 0 100px;display:table}.wrapper_failure_page .col_left p:nth-of-type(3){font-size:21px}.wrapper_failure_page .order_id{color:#403c0a}.wrapper_failure_page .say_thanks{border-bottom:7px dotted;margin-top:150px;position:relative}.wrapper_failure_page .say_thanks p{padding:0 0 0 10px;background:#da4e4e;position:absolute;right:-6px;top:-10px}.wrapper_failure_page .col_left{float:left;width:62%;padding:2% 5% 2% 2%;border-right:1px #fff solid}.wrapper_failure_page .col_right{width:28%;float:left;margin-left:2%;height:200px}
