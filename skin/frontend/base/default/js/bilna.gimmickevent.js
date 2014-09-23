@@ -8,7 +8,10 @@ jQuery(document).ready(function () {
 	jQuery("#friso-cancel").click(function(){
 		jQuery(".success-form-popup").fadeOut();
 	});
-
+	jQuery("#friso-form-submit").click(function(){
+		jQuery(".success-form-popup").fadeOut();
+	});
+	
 	// Prevent events from getting pass .popup
 	jQuery("#dlg").click(function(e){
 		e.stopPropagation();
