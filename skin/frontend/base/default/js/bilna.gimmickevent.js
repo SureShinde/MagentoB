@@ -40,7 +40,7 @@ jQuery(document).ready(function () {
 		        	
 		        	jQuery("#event-data").val(JSON.stringify(response.data));
 		        	
-					jQuery(".success-form-popup").fadeIn(200);
+//					jQuery(".success-form-popup").fadeIn(200);
 		        }
 	        },
 	        error: function() {
