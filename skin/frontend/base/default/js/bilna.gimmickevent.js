@@ -39,8 +39,7 @@ jQuery(document).ready(function () {
 		        	jQuery("#event-data").val(JSON.stringify(response.data));
 		        	
 		        	if(response.status == true){ 
-						jQuery("#bkg").fadeIn(200);
-						jQuery("#dlg, .success-form-popup").fadeIn(200);
+						jQuery(".success-form-popup").fadeIn(200);
 		        	}
 		        }
 	        },
@@ -67,8 +66,7 @@ var _frisoSave = function (){
         	response = jQuery.parseJSON(data);
         	
         	if(response.status == true){
-        		jQuery("#dlg").fadeOut();
-        		jQuery("#bkg").fadeOut();
+        		jQuery(".success-form-popup").fadeOut();
         	}
         },
         error: function() {
