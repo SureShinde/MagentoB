@@ -30,17 +30,17 @@ jQuery(document).ready(function () {
 	        //dataType: 'json',
 	        success: function(data){
 	        	response = jQuery.parseJSON(data);
+	        	console.log(response.status);
 	        	
 	        	if(response.status == true){
+		        	console.log(response.status);
 		        	jQuery("#event-form").attr("action", response.promo.callback_url);
 		        	jQuery("#gimmick-banner").attr("src", response.promo.banner);
 		        	jQuery("#gimmick-tos").html(response.promo.tos);
 		        	
 		        	jQuery("#event-data").val(JSON.stringify(response.data));
 		        	
-		        	if(response.status == true){ 
-						jQuery(".success-form-popup").fadeIn(200);
-		        	}
+					jQuery(".success-form-popup").fadeIn(200);
 		        }
 	        },
 	        error: function() {
