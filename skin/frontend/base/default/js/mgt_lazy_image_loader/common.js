@@ -1,4 +1,4 @@
-$.noConflict();
+$j.noConflict();
 jQuery(document).ready(function($) {
   jQuery('img.lazy').jail({
     event: 'load+scroll',
