@@ -165,8 +165,14 @@ class AW_Affiliate_Model_Affiliate extends Mage_Core_Model_Abstract
                 )
             );
 
-            $this->_profitTransactions->getSelect()->order('main_table.created_at DESC');
-            $this->_profitTransactions->addAffiliateFilter($__affiliateId);
+            //first load order by created at descending
+            if (Mage::app()->getRequest()->getParam('sort') && Mage::app()->getRequest()->getParam('dir')){                
+                $this->_profitTransactions->addAffiliateFilter($__affiliateId);
+            }else{
+                $this->_profitTransactions->getSelect()->order('main_table.created_at DESC');
+                $this->_profitTransactions->addAffiliateFilter($__affiliateId);
+            } 
+            //$this->_profitTransactions->printLogQuery(true);           
         }
         return $this->_profitTransactions;
     }
