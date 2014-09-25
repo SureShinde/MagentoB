@@ -1,15 +1,15 @@
 jQuery(document).ready(function () {
 	jQuery("#closebtn").click(function () {
-		jQuery(".success-form-popup").fadeOut();
+		jQuery( ".success-form-popup" ).addClass( "hidden" );
 	});
 	jQuery("#bkg").click(function(){
-		jQuery(".success-form-popup").fadeOut();
+		jQuery( ".success-form-popup" ).addClass( "hidden" );
 	});
 	jQuery("#friso-cancel").click(function(){
-		jQuery(".success-form-popup").fadeOut();
+		jQuery( ".success-form-popup" ).addClass( "hidden" );
 	});
 	jQuery("#friso-form-submit").click(function(){
-		jQuery(".success-form-popup").fadeOut();
+		jQuery( ".success-form-popup" ).addClass( "hidden" );
 	});
 	
 	// Prevent events from getting pass .popup
@@ -39,8 +39,8 @@ jQuery(document).ready(function () {
 		        	jQuery("#gimmick-tos").html(response.promo.tos);
 		        	
 		        	jQuery("#event-data").val(JSON.stringify(response.data));
-		        	
-//					jQuery(".success-form-popup").fadeIn(200);
+
+	        		jQuery( ".success-form-popup" ).removeClass( "hidden" );
 		        }
 	        },
 	        error: function() {
@@ -66,7 +66,7 @@ var _frisoSave = function (){
         	response = jQuery.parseJSON(data);
         	
         	if(response.status == true){
-        		jQuery(".success-form-popup").fadeOut();
+        		jQuery( ".success-form-popup" ).addClass( "hidden" );
         	}
         },
         error: function() {
