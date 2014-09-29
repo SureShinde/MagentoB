@@ -33,11 +33,11 @@
             <block type="awautorelated/blocks" name="awarp.content.top.product" before="-"/>
         </reference>
         <reference name="product.info">
-            <block type="awautorelated/blocks" name="awarp.content.inside.product" as="awautorelated2" before="-">
+            <!--<block type="awautorelated/blocks" name="awarp.content.inside.product" as="awautorelated2" before="-">
                 <action method="addToParentGroup">
                     <group>detailed_info</group>
                 </action>
-            </block>
+            </block>-->
         </reference>
         <reference name="right">
             <block type="awautorelated/blocks" name="awarp.content.instead.native" before="-">

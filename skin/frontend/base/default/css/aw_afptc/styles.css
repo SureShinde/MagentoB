@@ -8,12 +8,16 @@
     color: black;
     overflow:  auto;
     min-height:200px;    
-    min-width: 450px;
+    min-width: 200px;
     width: auto;
     height: auto;    
 } 
-
-
+#aw-afptc-popup div img{
+	width:135px;
+}
+#aw-afptc-popup  > form{
+	width:100%;
+}
 #aw-afptc-overlay
 {
     position:fixed;
@@ -29,11 +33,33 @@
 }
  
 
-.aw-afptc-promo-message {
+h2.aw-afptc-promo-message {
     font-size:16px;
+	font-weight:bold;
+}
+p.aw-afptc-promo-message {
+    font-size:14px;
 }
 
 #aw-afptc-popup .product-name {
     font-size:16px;
+}
+
+@media only screen and (max-width: 768px) {
+	#aw-afptc-popup {
+		width:90% !important;
+	}
+	h2.aw-afptc-promo-message{
+		font-size:14px;
+	}
+	#aw-afptc-popup .product-name {
+		font-size:14px;
+	}
+	p.aw-afptc-promo-message {
+		font-size:12px;
+	}
+	#aw-afptc-popup div{
+		margin:5px 0;
+	}
 }
  

@@ -229,7 +229,7 @@
                 <block_class>Mage_Adminhtml_Block_Sales_Order_Creditmemo_View</block_class>
                 <magento_object_registry_variable>current_creditmemo</magento_object_registry_variable>
                 <netsuite_field_id>netsuite_internal_id</netsuite_field_id>
-                <netsuite_relative_url><![CDATA[app/accounting/transactions/custcred.nl?id={{ID}}&whence=]]></netsuite_relative_url>
+                <netsuite_relative_url><![CDATA[app/accounting/transactions/custcred.nl?id={{ID}}]]></netsuite_relative_url>
             </creditmemo_view>
         </netsuite_links>
         <import_entities>
