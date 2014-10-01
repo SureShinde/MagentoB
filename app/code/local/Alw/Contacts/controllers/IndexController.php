@@ -31,6 +31,7 @@
  * @package    Mage_Contacts
  * @author      Magento Core Team <core@magentocommerce.com>
  */
+/*
  # Controllers are not autoloaded so we will have to do it manually:
 require_once 'Mage/Contacts/controllers/IndexController.php';
 class Alw_Contacts_IndexController extends Mage_Contacts_IndexController
@@ -41,7 +42,7 @@ class Alw_Contacts_IndexController extends Mage_Contacts_IndexController
         $post = $this->getRequest()->getPost();
         if ( $post ) {
             $translate = Mage::getSingleton('core/translate');
-            /* @var $translate Mage_Core_Model_Translate */
+            // @var $translate Mage_Core_Model_Translate
             $translate->setTranslateInline(false);
             try {
                 $postObject = new Varien_Object();
@@ -69,7 +70,7 @@ class Alw_Contacts_IndexController extends Mage_Contacts_IndexController
                     throw new Exception();
                 }
                 $mailTemplate = Mage::getModel('core/email_template');
-                /* @var $mailTemplate Mage_Core_Model_Email_Template */
+                // @var $mailTemplate Mage_Core_Model_Email_Template 
                 $mailTemplate->setDesignConfig(array('area' => 'frontend'))
                     ->setReplyTo($post['email'])
                     ->sendTransactional(

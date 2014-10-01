@@ -62,42 +62,46 @@ class Mage_Contacts_IndexController extends Mage_Core_Controller_Front_Action
                 $mailTemplate = Mage::getModel('core/email_template');
                 /* @var $mailTemplate Mage_Core_Model_Email_Template */
 
-                $recipients = explode(",",Mage::getStoreConfig(self::XML_PATH_EMAIL_RECIPIENT));
+                $recipients = explode(',',Mage::getStoreConfig(self::XML_PATH_EMAIL_RECIPIENT));
                 foreach($recipients as $recipient){
                     $mailTemplate->setDesignConfig(array('area' => 'frontend'))
                     ->setReplyTo($post['email'])
                     ->sendTransactional(
                     Mage::getStoreConfig(self::XML_PATH_EMAIL_TEMPLATE),
                     Mage::getStoreConfig(self::XML_PATH_EMAIL_SENDER),
-                    //$recipient,
+                    $recipient,
                     null,
                     array('data' => $postObject)
                     );
-                     
+
                     if (!$mailTemplate->getSentSuccess()) {
                         throw new Exception();
                     }
                 }
-
+                
                 $translate->setTranslateInline(true);
 
                 Mage::getSingleton('customer/session')->addSuccess(Mage::helper('contacts')->__('Your inquiry was submitted and will be responded to as soon as possible. Thank you for contacting us.'));
-                $this->_redirect('*/*/');
+                //$this->_redirect('*/*/');
+                $this->_redirect('contact-us');
 
                 Mage::getSingleton('customer/session')->addSuccess(Mage::helper('contacts')->__('Your inquiry was submitted and will be responded to as soon as possible. Thank you for contacting us.'));
-                $this->_redirect('*/*/');
+                //$this->_redirect('*/*/');
+                $this->_redirect('contact-us');
 
                 return;
                 } catch (Exception $e) {
                     $translate->setTranslateInline(true);
 
                     Mage::getSingleton('customer/session')->addError(Mage::helper('contacts')->__('Unable to submit your request. Please, try again later'));
-                    $this->_redirect('*/*/');
+                    //$this->_redirect('*/*/');
+                    $this->_redirect('contact-us');
                     return;
                 }
 
         } else {
-            $this->_redirect('*/*/');
+            //$this->_redirect('*/*/');
+            $this->_redirect('contact-us');
         }
     }
 
