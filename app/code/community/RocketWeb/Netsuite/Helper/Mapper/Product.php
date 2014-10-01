@@ -302,6 +302,17 @@ class RocketWeb_Netsuite_Helper_Mapper_Product extends RocketWeb_Netsuite_Helper
             }
         }
 
+        /*product[confirm_desc]=0
+          product[confirm_image]=0
+          setup attributes product for images
+        */
+
+        $magentoProduct->addData(
+            array(
+                'confirm_desc' => 0,
+                'confirm_image'=> 0
+        ));
+
         $productType = $this->getProductType($inventoryItem);
         switch($productType) {
             case Mage_Catalog_Model_Product_Type::TYPE_CONFIGURABLE:
