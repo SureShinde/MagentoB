@@ -68,7 +68,7 @@
                         
                         $categoryName = $_category->getName();
                         ?>
-                        <li class="level level-top parent-<?php echo $_category->getId(); ?> parent nav-<?php echo $_category->getUrlKey(); ?>">
+                        <li id="<?php echo $_category->getUrlKey(); ?>" class="level level-top parent-<?php echo $_category->getId(); ?> parent nav-<?php echo $_category->getUrlKey(); ?>">
                             <a href="<?php echo $_helper->getCategoryUrl($_category); ?>" class="level-top parent-<?php echo $_category->getId(); ?>">
                                 <span><span><?php echo $this->__($_helper->replaceCategoryName($categoryName)); ?></span></span>
                             </a>

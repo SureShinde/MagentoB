@@ -319,20 +319,31 @@
 	font-weight: normal;
 	letter-spacing: 1px;
 }
+.cms-home .menu-top ul li, .catalog-category-view .menu-top ul li  {
+	background: #d2d2d2;
+}
 .menu-top ul li {
 	background: #4EC7DA;
-	width: 110px;
-	/* padding: 7px 0 3px; */
+	/*width: 110px;
+	 padding: 7px 0 3px; */
+	 padding:0 15px;
 }
 .menu-top ul li a {
 	display: block;
 	color: #fff;
+	min-width:90px;
     padding: 7px 0 3px;
 }
-.menu-top ul li:hover, .menu-top ul li.active {
-	background: #e4c29c !important;
-    box-shadow: 0 -4px 18px rgba(0, 0, 0, 0.1) inset;
+.menu-top ul li:hover{
+	background: #4ec7da !important;
+    box-shadow: none;
 }  
+.menu-top ul li.active {
+	background:#3c9aa8 !important;
+	box-shadow:none;
+	-moz-box-shadow:none;
+	-webkit-box-shadow:none;
+}
 .menu-top ul li:last-child:hover {
 	/* background: #ffb39c; */
 	background: #95e1f1;
@@ -950,6 +961,9 @@
     padding: 0 3%;
 }
 /*header menu*/
+.cms-home .nav-container:before {
+	background:#4ec7da;
+}
 .nav-container:before {
     background: url(../images/wood-baby.png) repeat-x center center;
     content: "";
@@ -959,13 +973,19 @@
     width: 100%;
     margin-top: -5px;
 }
-.nav-container {
-	background: -webkit-linear-gradient(#3c9aa8, #4ec7da, #4ec7da); /* For Safari 5.1 to 6.0 */
-    background: -o-linear-gradient(#3c9aa8, #4ec7da, #4ec7da); /* For Opera 11.1 to 12.0 */
-    background: -moz-linear-gradient(#3c9aa8, #4ec7da, #4ec7da); /* For Firefox 3.6 to 15 */
-    background: linear-gradient(#3c9aa8, #4ec7da, #4ec7da); /* Standard syntax (must be last) */
-    background-size: 1px 60px;
+.cms-home .nav-container {
+	background:#4ec7da;
 }
+.catalog-category-view .nav-container {
+	background:#3c9aa8;
+}
+/*.nav-container {
+	background: -webkit-linear-gradient(#3c9aa8, #4ec7da, #4ec7da); /* For Safari 5.1 to 6.0 
+    background: -o-linear-gradient(#3c9aa8, #4ec7da, #4ec7da); /* For Opera 11.1 to 12.0 
+    background: -moz-linear-gradient(#3c9aa8, #4ec7da, #4ec7da); /* For Firefox 3.6 to 15 
+    background: linear-gradient(#3c9aa8, #4ec7da, #4ec7da); /* Standard syntax (must be last) 
+    background-size: 1px 60px;
+}*/
 
 .dash {
 	background: url(../images/dash.png) repeat-x center center;
@@ -1820,13 +1840,7 @@ searchbar #nav-search-in {
     width: 100%;
     display: none;
 }
-.menu-homepage-wood {
-    background: url("../images/wood-baby.png") repeat-x;
-    height: 5px;
-    clear: both;
-    width: 100%;
-    display: block;
-}
+
 
 /*------------------------------------------------------ Style for new Header ------------------------------------------*/
 
@@ -2172,12 +2186,18 @@ searchbar #nav-search-in {
     width: 100%;
     display: none;
 }
+.cms-home .menu-homepage-wood {
+	background:#4ec7da;
+}
+.catalog-category-view .nav-container:before {
+	background:#3c9aa8;
+}
 .menu-homepage-wood {
     background: url("../images/wood-baby.png") repeat-x;
     height: 5px;
     clear: both;
     width: 100%;
-    display: block;
+	display: block;
 }
 
 .quick-access .search-container-new {display: block;}
@@ -2201,6 +2221,15 @@ searchbar #nav-search-in {
     z-index: 1;
 }
 .no-blog {display: none !important}
+
+.active_submenu {
+    background: none repeat scroll 0 0 #fff;
+	border-top-left-radius:5px;
+	border-top-right-radius:5px;
+}
+.active_submenu a span span {
+    color: #999;
+}
 
 /*additional screen*/
 @media only screen and (max-width: 1920px) {

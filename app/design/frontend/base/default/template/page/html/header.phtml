@@ -119,19 +119,32 @@
 
 	});
 
-        $j('div.menu-top a.menu-top-hover').hover(
+        $j('.cms-home div.menu-top a.menu-top-hover').hover(
             function() {
                 $j('div.nav-container').hide('');
                 $j('div.nav-' + $j(this).attr('id')).show('');
-            },
-            function() {
-                //$j('div.nav-container').hide();
-                //$j('div.nav-' + $j('div.menu-top ul li.active').attr('id')).show();
             }
         );
-
+		
+		$j('div.nav-baby').hover(
+			function() {
+                $j('li.web-baby').css("background","#4ec7da");
+            }
+		);
+		$j('div.nav-perlengkapan-rumah').hover(
+			function() {
+                $j('li.web-perlengkapan-rumah').css("background","#4ec7da");
+            }
+		);
+		
+		target_breadcrumb = $j('.breadcrumbs > ul > li:nth-of-type(3) > strong, .breadcrumbs > ul > li:nth-of-type(3) > a').html().toLowerCase();
+		console.log(target_breadcrumb);
+                $j('.nav-container > ul > li.nav-'+ target_breadcrumb ).addClass("active_submenu");
+		
+		
         $j( "div.nav-container" ).mouseleave(function() {
             $j(this).hide();
+            $j('li.web-baby, li.web-perlengkapan-rumah').css("background","#d2d2d2");
             $j('div.nav-' + $j('div.menu-top ul li.active').attr('id')).show();
         });
         
