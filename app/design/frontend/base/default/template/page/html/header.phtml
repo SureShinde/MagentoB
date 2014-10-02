@@ -137,12 +137,9 @@
             }
 		);
 		
-		//target_breadcrumb = $j('.breadcrumbs > ul > li:nth-of-type(3) > strong, .breadcrumbs > ul > li:nth-of-type(3) > a').html().toLowerCase();
 		target_data_breadcrumb = $j('.breadcrumbs > ul > li:nth-of-type(3)').attr('data-category');
 		console.log(target_data_breadcrumb);
 		$j(".nav-container > ul > li[data-category='" + target_data_breadcrumb + "']").addClass("active_submenu");
-        //$j('.nav-container > ul > li.nav-'+ target_data_breadcrumb).addClass("active_submenu");
-		
 		
         $j( "div.nav-container" ).mouseleave(function() {
             $j(this).hide();
@@ -170,6 +167,7 @@ $j(document).ready(function(){
 
 
 $j(document).ready(function(){
+	
     $j("ul#nav li.parent a, .level-hover").hover(
             function() {
                 $j('#nav-perlengkapan-rumah ul#nav li.parent').removeClass('over');
@@ -188,6 +186,7 @@ $j(document).ready(function(){
                 $j(this).parent().children('ul').removeClass('shown-sub');
             }
         );
+	
 });
 </script>
 

@@ -1077,6 +1077,9 @@
 #nav .level-hover.shown-sub {
 	display: block;
 }
+.cms-home #nav .level-hover.shown-sub {
+	display: none;
+}
 #nav li.level-top {
 	position: relative;
 	float: left;
