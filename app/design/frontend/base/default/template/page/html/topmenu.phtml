@@ -68,8 +68,8 @@
                         
                         $categoryName = $_category->getName();
                         ?>
-                        <li id="<?php echo $_category->getUrlKey(); ?>" class="level level-top parent-<?php echo $_category->getId(); ?> parent nav-<?php echo $_category->getUrlKey(); ?>">
-                            <a href="<?php echo $_helper->getCategoryUrl($_category); ?>" class="level-top parent-<?php echo $_category->getId(); ?>">
+                        <li id="<?php echo $_category->getUrlKey(); ?>" data-category="category<?php echo $_category->getId(); ?>" class="level level-top parent-<?php echo $_category->getId(); ?> parent nav-<?php echo $_category->getUrlKey(); ?>">
+                            <a href="<?php echo $_helper->getCategoryUrl($_category); ?>" data-category="category<?php echo $_category->getId(); ?>" class="level-top parent-<?php echo $_category->getId(); ?>">
                                 <span><span><?php echo $this->__($_helper->replaceCategoryName($categoryName)); ?></span></span>
                             </a>
                             <?php $_subCategories = $_category->getChildrenCategories(); ?>
