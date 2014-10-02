@@ -224,9 +224,9 @@ class AW_Afptc_Adminhtml_RulesController extends Mage_Adminhtml_Controller_Actio
         $this->_redirect('*/*/index');
     }
 
-    protected function _isAllowed()
-    {
-        return Mage::getSingleton('admin/session')->isAllowed('promo/awauction/auctions');
-    }
+    //protected function _isAllowed()
+    //{
+    //    return Mage::getSingleton('admin/session')->isAllowed('promo/awauction/auctions');
+    //}
 
 }
