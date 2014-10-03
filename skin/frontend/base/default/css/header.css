@@ -1,3 +1,20 @@
+/* logo */
+
+.logo-bilna{
+	display:none;
+}
+.cms-home .logo-general{
+	display:block !important;
+}
+.style-baby .logo-baby{
+	display:block !important;
+}
+.style-perlengkapan-rumah .logo-home{
+	display:block !important;
+}
+
+/* end logo */
+
 .header-container, .sticky-header-wrapper {
 	width: 100%;
 	border: none;
@@ -319,11 +336,9 @@
 	font-weight: normal;
 	letter-spacing: 1px;
 }
-.cms-home .menu-top ul li, .catalog-category-view .menu-top ul li  {
-	background: #d2d2d2;
-}
+
 .menu-top ul li {
-	background: #4EC7DA;
+	background: #d2d2d2;
 	/*width: 110px;
 	 padding: 7px 0 3px; */
 	 padding:0 15px;
@@ -965,7 +980,7 @@
 	background:#4ec7da;
 }
 .nav-container:before {
-    background: url(../images/wood-baby.png) repeat-x center center;
+	background:#4ec7da;
     content: "";
     height: 5px;
     left: 0;
@@ -973,7 +988,7 @@
     width: 100%;
     margin-top: -5px;
 }
-.cms-home .nav-container {
+.nav-container {
 	background:#4ec7da;
 }
 .catalog-category-view .nav-container {
@@ -1074,10 +1089,10 @@
 #nav li.nav-set-hadiah-bayi-dan-anak .level-hover .view-box li a:hover {
     color: #36CCAF !important;
 }
-#nav .level-hover.shown-sub {
+.catalog-category-view #nav .level-hover.shown-sub {
 	display: block;
 }
-.cms-home #nav .level-hover.shown-sub {
+#nav .level-hover.shown-sub {
 	display: none;
 }
 #nav li.level-top {
@@ -1258,6 +1273,9 @@ top: 48px;
 	padding-left: 25px;
 	padding-right: 25px;
 }
+.nav-container-mobile .active-mobile-menu .cat-sub{
+	display:block;
+}
 .nav-container-mobile .cat-sub li a.bestseller {
     color: #FFA01B !important;
     font-weight: bold;
@@ -1407,18 +1425,23 @@ top: 48px;
 	padding-left:12px;
 	padding-right: 12px;
 }
-
+.nav-container-mobile .cat-leveltop > a{
+	font-weight:bold;
+}
 .nav-container-mobile .cat-leveltop a.sale {
     color: #FC8360;
     font-weight: bold;
 }
-.nav-container-mobile ul li.cat-leveltop.parent {
-	background: url(../images/arrow-menu-mobile.png) no-repeat 98% 17px;
-	
-}
+
 .nav-container-mobile .cat-sub {
 	display: none;
 	border-top: 1px solid #dadada;
+}
+.nav-container-mobile .cat-leveltop-44 .cat-sub {
+	border-left:5px solid #4ec7da;
+}
+.nav-container-mobile .cat-leveltop-45 .cat-sub {
+	border-left:5px solid #8f554d
 }
 #nav li.shop-by:hover .shopby {
 	display: block;
@@ -2182,21 +2205,22 @@ searchbar #nav-search-in {
 
 /* END NEW SEARCH FIELD */
 
+.catalog-category-view .header .menu-top-mobile-wood{
+	 background: #3c9aa8;
+}
 .header .menu-top-mobile-wood {
-    background: url("../images/wood-baby.png") repeat-x scroll center center rgba(0, 0, 0, 0);
+    background: #4ec7da;
     height: 5px;
     clear: both;
     width: 100%;
     display: none;
 }
-.cms-home .menu-homepage-wood {
-	background:#4ec7da;
-}
+
 .catalog-category-view .nav-container:before {
 	background:#3c9aa8;
 }
 .menu-homepage-wood {
-    background: url("../images/wood-baby.png") repeat-x;
+	background:#4ec7da;
     height: 5px;
     clear: both;
     width: 100%;
@@ -2872,9 +2896,9 @@ searchbar #nav-search-in {
         padding: 15px 1% 0;
     }
 
-.menu-top-mobile ul li.mobile-baby:hover, .menu-top-mobile ul li.mobile-baby.active {
-    background: none repeat scroll 0 0 #E4C29C;
-}
+	.menu-top-mobile ul li.active {
+		background: none repeat scroll 0 0 #3c9aa8;
+	}
 
 .header .menu-top-mobile.baby-top-mob {
     border-bottom: none;

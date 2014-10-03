@@ -571,7 +571,7 @@ tr.summary-details-excluded { font-style:italic; }
 .header-container .top-container a { font-size:11px; color:#ebbc58; }
 
 /********** < Navigation */
-.nav-container { background:#0a263d url(../images/bkg_nav0.jpg) 50% 0 repeat-y; }
+.nav-container { }
 #nav, #nav-baby { width:918px; margin:0 auto; padding:0 16px; font-size:13px; }
 
 /* All Levels */ /* Style consistent throughout all nav levels */
@@ -1927,8 +1927,8 @@ tr.summary-details-excluded { font-style:italic; }
     .header .menu-top-mobile.deals-top-mob { border-bottom: 4px solid #FFB29D;}
         .header .menu-top-mobile ul li {
         display: inline-block;
-        width: 32.75%; 
-        background: none repeat scroll 0 0 #4EC7DA; 
+        width: 49%; 
+        background: none repeat scroll 0 0 #d2d2d2; 
         text-align: center;
         padding: 7px 0;
         border-radius: 7px 7px 0 0;
@@ -1943,11 +1943,9 @@ tr.summary-details-excluded { font-style:italic; }
         text-align: center;
         text-transform: uppercase;
         width: 100%;
-        padding: 5px 0;
+        padding: 5px 10px;
     }
-    .menu-top-mobile ul li:hover, .menu-top-mobile ul li.active {
-        background: none repeat scroll 0 0 #e4c29c;
-    }
+    
     /* .menu-top-mobile ul li.mobile-baby:hover,.menu-top-mobile ul li.mobile-baby.active {background: #95E1F1;}
     .menu-top-mobile ul li.mobile-home:hover,.menu-top-mobile ul li.mobile-home.active {background: #DAAEA4;}
     .menu-top-mobile ul li.mobile-deals:hover,.menu-top-mobile ul li.mobile-deals.active {background: #FFB29D;} */
@@ -1957,9 +1955,9 @@ tr.summary-details-excluded { font-style:italic; }
 
 /* -------- menu top mobile start ------------ */
 @media only screen and (max-width: 349px){
-    .header .menu-top-mobile ul li {
+    /*.header .menu-top-mobile ul li {
         width: 32%;
-    }
+    }*/
 }
 /* -------- menu top mobile END ------------ */
 
@@ -2191,8 +2189,17 @@ z/*======================Category page===================*/
 		max-width:none;
 		width:35%;
 	}
-	.style-perlengkapan-rumah .nav-container-mobile ul li.cat-leveltop.parent {
-    background: url("../images/arrow-menu-mobile-home.png") no-repeat scroll 98% 17px rgba(0, 0, 0, 0);
+	.nav-container-mobile ul li.cat-leveltop-44.parent {
+		background: url(../images/arrow-menu-mobile.png) no-repeat 98% 17px;	
+	}
+	.nav-container-mobile ul li.cat-leveltop-45.parent {
+		background: url("../images/arrow-menu-mobile-home.png") no-repeat 98% 17px;
+	}
+	.nav-container-mobile ul li.cat-leveltop-44.parent {
+		background: url(../images/arrow-menu-mobile.png) no-repeat 98% 17px;	
+	}
+	.nav-container-mobile ul li.cat-leveltop-45.parent {
+		background: url("../images/arrow-menu-mobile-home.png") no-repeat 98% 17px;
 	}
     .style-perlengkapan-rumah .awafpgrid {display: none;}
 }
@@ -2628,9 +2635,7 @@ z/*======================Category page===================*/
 }
 
 
-.style-perlengkapan-rumah .nav-container-mobile ul li.cat-leveltop {
-    background: url("../images/arrow-menu-mobile-home.png") no-repeat scroll 98% 17px rgba(0, 0, 0, 0);
-}
+
 @media only screen and ( max-width: 1215px) {
 	.style-perlengkapan-rumah .shopby{ 	
 		display:none;
