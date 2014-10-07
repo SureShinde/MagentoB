@@ -3527,6 +3527,10 @@ button.button-area {
 	font-style: italic;
 	margin-top:15px;
 }
+.printerous .ribbon a{
+	margin:0 auto;
+	display:table;
+}
 .printerous .term{
 	border:1px solid #e4e4e4;
 	padding:15px;
@@ -3570,6 +3574,11 @@ button.button-area {
 	.printerous .ribbon > img{
 		width:100%;
 	}
-	
+	.printerous .ribbon a{
+		width:100%;
+	}
+	.printerous .ribbon a img{
+		width:100%;
+	}
 }
 /*=============================end style printerous=============================*/
