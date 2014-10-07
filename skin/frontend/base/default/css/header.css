@@ -3,8 +3,11 @@
 .logo-bilna{
 	display:none;
 }
-.cms-home .logo-general{
-	display:block !important;
+.logo-general{
+	display:block;
+}
+.catalog-category-view .logo-general{
+	display:none;
 }
 .style-baby .logo-baby{
 	display:block !important;
