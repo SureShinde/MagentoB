@@ -4,7 +4,7 @@
 <?php
 $currCategoryId = NULL;
 if (is_object(Mage::registry('current_category'))) {
-	if(Mage::registry('current_category')->getParentId()==3) $currCategoryId = Mage::registry('current_category')->getId();
+	if(Mage::registry('current_category')->getParentId()==2) $currCategoryId = Mage::registry('current_category')->getId();
 }
 ?>
 
@@ -37,7 +37,7 @@ if (is_object(Mage::registry('current_category'))) {
                 $hasActiveChildren = ($activeChildrenCount > 0);
 				
                 ?>
-				
+				<?php //echo $currCategoryId."-".$category->getId(); ?>
                 <li class="cat-leveltop <?php echo "cat-leveltop-".strtolower($category->getId()); ?> <?php echo ($hasActiveChildren)?('parent'):('')?> <?php echo ($currCategoryId==$category->getId())?('active-mobile-menu'):(''); ?>">
                     <?php $url = Mage::getModel("catalog/category")->load($category->getId())->getUrl(); ?>
                     <a class="categories <?php echo strtolower(str_replace(array ("&"," ","'"), "", $category->getName())); ?>" href="<?php echo $url ?>"><?php echo $category->getName(); ?></a>
