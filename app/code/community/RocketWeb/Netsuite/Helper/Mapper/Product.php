@@ -226,7 +226,16 @@ class RocketWeb_Netsuite_Helper_Mapper_Product extends RocketWeb_Netsuite_Helper
                     'manage_stock' => 1
                 ));
             }
+            /*product[confirm_desc]=0
+              product[confirm_image]=0
+              setup attributes product for images
+            */
 
+            $magentoProduct->addData(
+                array(
+                    'confirm_desc' => 0,
+                    'confirm_image'=> 0
+            ));
         }else{
             $stock_obj = Mage::getModel('cataloginventory/stock_item')->loadByProduct($magentoProduct->getId());
             $stockData = $stock_obj->getData();
@@ -301,17 +310,6 @@ class RocketWeb_Netsuite_Helper_Mapper_Product extends RocketWeb_Netsuite_Helper
                 }
             }
         }
-
-        /*product[confirm_desc]=0
-          product[confirm_image]=0
-          setup attributes product for images
-        */
-
-        $magentoProduct->addData(
-            array(
-                'confirm_desc' => 0,
-                'confirm_image'=> 0
-        ));
 
         $productType = $this->getProductType($inventoryItem);
         switch($productType) {
