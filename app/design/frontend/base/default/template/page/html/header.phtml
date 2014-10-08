@@ -42,6 +42,37 @@
 				$j('div.nav-' + $j('div.menu-top ul li.active').attr('id')).show();
 			});
 			
+			$j(".cms-index-index ul#nav li.shop-by a, .style-baby ul#nav li.shop-by a, .style-perlengkapan-rumah ul#nav li.shop-by a, .level-top.shop-by .shopby ").hover(function(){
+				$j(".level-top.shop-by").addClass("over");
+				$j("a.link-shopby").addClass("over shown-sub");
+				$j("#nav .shopby").show();
+			});
+			
+			$j(".cms-index-index ul#nav li.shop-by a, .style-baby ul#nav li.shop-by a, .style-perlengkapan-rumah ul#nav li.shop-by a, .level-top.shop-by .shopby ").mouseleave(function(){
+				$j(".level-top.shop-by").removeClass("over");
+				$j("a.link-shopby").removeClass("over shown-sub");
+				$j("#nav .shopby").hide();
+			});
+			
+			$j("ul#nav li.parent a, .level-hover").hover(
+				function() {
+					$j('#nav-perlengkapan-rumah ul#nav li.parent').removeClass('over');
+					$j('#nav-perlengkapan-rumah ul#nav li.parent a').removeClass('over');
+					$j(this).parent().addClass('over');
+					$j(this).addClass('over');
+					$j(this).parent().children('ul').addClass('shown-sub');
+
+					if (wwidth < 768) {
+						return  false;
+					}
+				},
+				function() {
+					$j(this).parent().removeClass('over');
+					$j(this).removeClass('over');
+					$j(this).parent().children('ul').removeClass('shown-sub');
+				}
+			);
+	
 			
 		}else{
 			//shop by
