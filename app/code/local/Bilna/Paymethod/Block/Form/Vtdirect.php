@@ -13,6 +13,22 @@ class Bilna_Paymethod_Block_Form_Vtdirect extends Mage_Payment_Block_Form_Ccsave
     }
     
     /**
+     * Retrieve Name on card from Billing Address
+     */
+    public function getNameOnCard() {
+        $fullname = '';
+        
+        if ($quote = Mage::getSingleton('checkout/session')->getQuote()) {
+            $billingAddress = $quote->getBillingAddress();
+            $firstname = $billingAddress->getData('firstname');
+            $lastname = $billingAddress->getData('lastname') ? $billingAddress->getData('lastname') : '';
+            $fullname = sprintf("%s %s", $firstname, $lastname);
+        }
+        
+        return $fullname;
+    }
+    
+    /**
      * Retrieve credit card expire months
      *
      * @return array
@@ -40,7 +56,7 @@ class Bilna_Paymethod_Block_Form_Vtdirect extends Mage_Payment_Block_Form_Ccsave
     public function checkZipCode() {
         $quote = Mage::getSingleton('checkout/session')->getQuote();
         $billingAddress = $quote->getBillingAddress();
-        $zipCode = $billingAddress->getPostcode();
+        $zipCode = Mage::helper('paymethod')->allowOnlyNumber($billingAddress->getPostcode());
         
         /**
          * check customer is guest

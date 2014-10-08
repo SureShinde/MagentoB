@@ -69,5 +69,18 @@ class AW_Checkoutpromo_Block_Checkoutpromo extends Mage_Core_Block_Template {
     protected function _toHtml() {
         return parent::_toHtml();
     }
-
+    
+    public function getCheckoutpromoUrl() {
+        $url = $this->getUrl('fcheckoutpromo/checkoutpromo/ajaxCheckout/');
+        
+        /**
+         * if module Bilna Paymethod is active
+         * if http protocol is https, return https url
+         */
+        if (Mage::getConfig()->getModuleConfig('Bilna_Paymethod')->is('active', true)) {
+            $url = Mage::helper('paymethod')->checkHttpsProtocol($url);
+        }
+        
+        return $url;
+    }
 }

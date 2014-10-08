@@ -24,4 +24,15 @@ class Bilna_Wrappinggiftevent_Model_Mysql4_Custom_Order extends Mage_Core_Model_
 
         return $rows;
     }
+
+    public function loadByOrderId($transaction, $order_id) {
+        $select = $this->_getReadAdapter()->select()
+                ->from($this->getMainTable())
+                ->where('order_id = ?', $order_id);
+        $data = $this->_getReadAdapter()->fetchRow($select);
+        if (isset($data['id'])) {
+            $transaction->load($data['id'])->addData($data);
+        }
+        return $this;
+    }
 }

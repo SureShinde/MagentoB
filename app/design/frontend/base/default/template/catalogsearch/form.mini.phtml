@@ -26,23 +26,53 @@
 /* @var $this Mage_Core_Block_Template */
 /* @var $catalogSearchHelper Mage_Catalogsearch_Helper_Data */
 $catalogSearchHelper =  $this->helper('catalogsearch');
+$cat = $catalogSearchHelper->getCategories();
+$_helper = Mage::helper('catalog/category');
+$_categories = $_helper->getStoreCategories();
+$_cat = !is_null($this->getRequest()->getParam('cat')) ? $this->getRequest()->getParam('cat') : '';
 ?>
-<form id="search_mini_form" action="<?php echo $catalogSearchHelper->getResultUrl() ?>" method="get">
-    <div class="form-search">
-    	<div class="input-keyword">
-	    	<input id="search" type="text" name="<?php echo $catalogSearchHelper->getQueryParamName() ?>" value="<?php echo $catalogSearchHelper->getEscapedQueryText() ?>" class="input-text" maxlength="<?php echo $catalogSearchHelper->getMaxQueryLength();?>" placeholder="Search" />
-	    	<button type="submit" title="<?php echo $this->__('Search') ?>" class="button btn-search-mobile"><span><span><?php echo $this->__('Search') ?></span></span></button>
-	    	<div class="select-category"><?php echo $this->getChildHtml('categoriesCombo'); ?></div>
-	    	
-    	</div>
-        
-	<button type="submit" title="<?php echo $this->__('Search') ?>" class="button"><span><span><?php echo $this->__('Search') ?></span></span></button>
-        <div id="search_autocomplete" class="search-autocomplete"></div>
-        <script type="text/javascript">
-        //<![CDATA[
-            var searchForm = new Varien.searchForm('search_mini_form', 'search', '<?php echo $this->__('Search') ?>');
-            searchForm.initAutocomplete('<?php echo $catalogSearchHelper->getSuggestUrl() ?>', 'search_autocomplete');
-        //]]>
-        </script>
-    </div>
-</form>
+<div class="search-container-new">
+    <form id="nav-searchbar" action="<?php echo $catalogSearchHelper->getResultUrl() ?>" method="get" name="site-search" role="search" accept-charset="utf-8" ,="" class="nav-searchbar-inner">              
+                <div class="nav-submit-button nav-sprite">
+                  <input type="submit" value="" class="nav-submit-input" title="">
+				  <img style="margin: 5px 10px 0;" src="<?php echo $this->getSkinUrl('images/search-icon-new.png'); ?> " maxlength="<?php echo $catalogSearchHelper->getMaxQueryLength();?>"/></input>
+                </div>
+
+                <span id="nav-search-in" class="nav-sprite nav-facade-active" style="width: auto;">
+                  <span id="nav-search-in-content" data-value="search-alias=aps" style="width: auto; overflow: visible;">All Category</span>
+                  <span class="nav-down-arrow"></span>
+                  <select data-nav-digest="bDT22wibLRgrc0Gc07TKBa9Syl4" data-nav-selected="0" name="cat" id="searchDropdownBox" class="searchSelect select-style" title="Search in" style="top: 3px;">
+                    <option class="style-search-top" value="all-category">All Category</option>
+                    <?php foreach ($_categories as $_category) :?>
+                    <option  class="search-title-drop style-search-cat" value="<?php echo $_category->getId();?>"><?php echo $_category->getName();?></option>
+                    <?php $_category = Mage::getModel('catalog/category')->load($_category->getId()) ?>
+                    <?php $_subcategories = $_category->getChildrenCategories() ?>
+                    <?php if (count($_subcategories) > 0): ?>
+                      <?php foreach($_subcategories as $_subcategory): ?>
+                        <option class="search-subtitle-drop style-search-subcat" value="<?php echo $_subcategory->getId();?>" <?php if($_subcategory->getId()==$_cat){echo 'selected="selected"';}?> ><?php echo $_subcategory->getName();?></option>
+                      <?php endforeach; ?>
+                    <?php endif; ?>
+                  <?php endforeach;?>
+                  </select>
+                </span>
+
+                <div class="nav-searchfield-width">
+                  <div id="nav-iss-attach">
+                    <input type="text" id="twotabsearchtextbox" title="Search For" value="<?php echo $catalogSearchHelper->getEscapedQueryText() ?>" name="q" autocomplete="off" placeholder="Search...">
+                  </div>
+                </div>
+    </form>
+</div>
+<script type="text/javascript">
+jQuery('#searchDropdownBox').change(function() { 
+  var str = "";
+  jQuery( "#searchDropdownBox option:selected" ).each(function() {
+      str += jQuery( this ).text() + " ";
+  });
+
+  jQuery("#nav-search-in-content").text( str );
+  
+});
+
+jQuery("#nav-search-in-content").text(jQuery( "#searchDropdownBox option:selected" ).text());
+</script>

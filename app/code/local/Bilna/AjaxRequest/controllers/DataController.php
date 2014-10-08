@@ -7,6 +7,7 @@ class Bilna_AjaxRequest_DataController extends Mage_Core_Controller_Front_Action
 	    $response['status'] = true;
 
 	    $cart = Mage::getSingleton('checkout/session')->getQuote();
+        $i=0;
         foreach ($cart->getAllItems() as $item) {
 			$product = array();
 			$product["identifier"] = $item->getSku();
@@ -31,25 +32,67 @@ class Bilna_AjaxRequest_DataController extends Mage_Core_Controller_Front_Action
         }else{
 	        $order = Mage::getModel('sales/order')->loadByIncrementId($orderId);
 	        $response['status'] = true;
-
+            $i=1;
 	        foreach ($order->getAllItems() as $item) {
 				$product = array();
 				$product["identifier"] = $item->getSku();
 				$product["amount"] = (int) $item->getPrice();
 				$product["currency"] = "IDR";
 				$product["quantity"] = $item->getQtyOrdered();
-			    $response['data']['products'][] = $product;
-	        }
-	
+			    $response['data']["numofitem"] = $response['data']["numofitem"] + $item->getQtyOrdered();
+                $response['data']['products'][] = $product;
+	        } 
 		    $response['data']['transaction'] = (int)$order->getIncrementId();
 		    $response['data']['amount'] = (int)$order->getGrandTotal();
 		    $response['data']['currency'] = "IDR";
+            $response['data']["customer_id"] = $item->getCustomerId();
+            $response['data']["customer_email"] = $item->getCustomerEmail();
+             
         }
 		
         echo json_encode($response);
         exit;
     }
 	
+    public function Retrieveconfirm2Action() {
+        $response   = array();
+        $data       = $this->getRequest()->getPost('data');
+        $orderId    = $data["orderId"];
+        
+        if (!isset ($orderId) || empty ($orderId)) {
+            $response['status'] = false;
+            $response['message'] = 'OrderId is not valid';
+        }else{
+            $order = Mage::getModel('sales/order')->loadByIncrementId($orderId);
+            $response['status'] = true;
+            $i=1;
+            foreach ($order->getAllItems() as $item) {
+                $product = array();
+                $product["id"] = $item->getProductId();
+                $product["sku"] = $item->getSku();
+                $product["name"] = $item->getName();
+                $product["qty"] = $item->getQtyOrdered();
+                $product["price"] = (int) $item->getPrice();
+                $product["total_price"] = $product["qty"]*$product["price"];
+                $response['data']["numofitem"] = $response['data']["numofitem"] + $item->getQtyOrdered();
+                $response['data']['products'][] = $product;
+            } 
+            $response['data']['order']['id'] = (int)$order->getIncrementId();
+            $response['data']['order']['currency'] = "IDR";
+            $response['data']['order']['amount'] = (int)$order->getGrandTotal();
+            $response['data']['order']['quantity'] = (int)$response['data']["numofitem"];
+            $response['data']['order']['paymethod'] = "";
+            $response['data']['order']['products'] = $response['data']['products'];
+            $response['data']['customer']["id"] = $item->getCustomerId();
+            $response['data']['customer']["email"] = $item->getCustomerEmail();
+            $response['data']['customer']["type"] = "";
+             
+        }
+        
+        echo json_encode($response);
+        exit;
+    }
+
 	public function RetrieveproductAction() {
     	$response	= array();
         $data		= $this->getRequest()->getPost('data');
@@ -70,12 +113,14 @@ class Bilna_AjaxRequest_DataController extends Mage_Core_Controller_Front_Action
         	$response['data']['price'] = (int)$product->getFinalPrice();
         	$response['data']['amount'] = (int)$product->getPrice();
         	$response['data']['currency'] = "IDR";
-        	$response['data']['url'] = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB)."baby/".$product->getUrlPath();
+        	$response['data']['url'] = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB).$product->getUrlPath();
 //         	$response['data']['photo'] = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA).$product->getSmallImage();
         	$response['data']['photo'] = $product->getMediaConfig()->getMediaUrl($product->getData('image'));
 
         	$response['data']['category'] = array();
         	$categories = $product->getCategoryIds();
+        	
+        	$extendedUrl = false;
         	foreach ($categories as $category_id) {
         		$category = Mage::getModel('catalog/category')->load($category_id) ;
         		if(strtolower(trim($category->getName())) !== "default category"){
@@ -84,8 +129,19 @@ class Bilna_AjaxRequest_DataController extends Mage_Core_Controller_Front_Action
         			if($response['data']['description'] == ''){
         				$response['data']['description'] = $category->getName();
         			}
+        			if($extendedUrl == false && $category->getName() == "Baby"){
+        				$response['data']['url'] .= "?utm_content=BilnaBaby";
+        				$extendedUrl = true;
+        			}
+        			if($extendedUrl == false && $category->getName() == "Home"){
+        				$response['data']['url'] .= "?utm_content=BilnaHome";
+        				$extendedUrl = true;
+		        	}
         		}
         	}
+        	
+        	$response['data']['category'] = array_unique($response['data']['category']);
+        	$response['data']['description'] = array_unique($response['data']['description']);
 
         	if	(($product->getStatus()==1) ||
         			($product->getIsInStock()==1) ||

@@ -572,4 +572,75 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
 
         $this->_goBack();
     }
+
+    public function customCouponPostAction()
+    {
+        /**
+         * No reason continue with empty shopping cart
+         */
+        if (!$this->_getCart()->getQuote()->getItemsCount()) {
+            $this->_goBack();
+            return;
+        }
+
+        $customCouponCode = (string) $this->getRequest()->getParam('custom_coupon_code');
+
+        $result = $this->__checkCouponCode($customCouponCode);
+        if( (empty($result))) {
+        	$message['status'] = 1;
+        	$message['desc'] = 'success';
+        }else{
+	        try {
+	            $mobileUserAgent = $this->__checkUserAgent();
+	            if( ($mobileUserAgent == "true" && $result['mobile'] == 1 ) || ($mobileUserAgent == false && $result['web'] == 1 ))
+	            {
+	                $message['status'] = 1; 
+	                $message['desc'] = 'success';                
+	            }else{
+	                $message['status'] = 0; 
+	                $message['desc'] = 'failed';
+	                $this->_getSession()->addError(
+	                    $this->__('Coupon code "%s" is not valid.', Mage::helper('core')->escapeHtml($customCouponCode))
+	                );
+	            }
+	        } catch (Exception $e) {
+	            $message['status'] = 0; 
+	            $message['desc'] = 'failed';
+	            $this->_getSession()->addError($this->__('Cannot apply the coupon code.'));
+	            Mage::logException($e);
+	        }
+        }
+
+        $this->getResponse()->setHeader('Content-type', 'application/json');
+        $this->getResponse()->setBody(json_encode($message));
+    }
+
+    private function __checkCouponCode($couponCode)
+    {
+        $resource = Mage::getSingleton('core/resource');
+        $adapter = $resource->getConnection('core_read');
+        $tableName = $resource->getTableName('bilna_custom_coupon_code');
+        $select = $adapter->select()
+            ->from(
+                $tableName,
+                new Zend_Db_Expr('*')
+            )
+            ->where("coupon_code = '".$couponCode."'")
+            ->limit(1);
+                
+        $couponCode = $adapter->fetchRow($select);
+
+        return $couponCode;
+    }
+
+    private function __checkUserAgent()
+    {   
+        include_once getcwd().'/lib/terawurfl/inc/wurfl_config_standard.php';
+
+        $wurflInfo = $wurflManager->getWURFLInfo();
+        $requestingDevice = $wurflManager->getDeviceForHttpRequest($_SERVER);
+
+        return $requestingDevice->getCapability('is_wireless_device');
+
+    }
 }

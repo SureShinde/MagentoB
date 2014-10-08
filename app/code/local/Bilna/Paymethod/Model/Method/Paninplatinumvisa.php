@@ -1,6 +1,6 @@
 <?php
 /**
- * Description of Bilna_Paymethod_Model_Method_Paninvisa
+ * Description of Bilna_Paymethod_Model_Method_Paninplatinumvisa
  *
  * @author Bilna Development Team <development@bilna.com>
  */

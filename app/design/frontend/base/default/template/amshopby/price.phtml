@@ -97,23 +97,46 @@ if (count($this->getItems()) == 1){
             if (!is_numeric($toValue)) {
                 $toValue = $max;      
             }
-            
+  
+            $z = floor($min/50000);
+            if($z <= 0)
+            {
+                $min = 0;
+            }else{
+                $min = $z*50000;
+            }
+
+            $a = round($max/50000, 0, PHP_ROUND_HALF_EVEN);
+            $max = $a * 50000;
+
+            $fv = floor($fromValue/50000);
+            if($fv <= 0)
+            {
+                $fromValue = 0;
+            }else{
+                $fromValue = $fv*50000;
+            }
+
+            $tv = round($toValue/50000, 0, PHP_ROUND_HALF_EVEN);
+            $toValue = $tv*50000;
+
             $from = min($fromValue, $min);            
             $to   = max($toValue, $max);
-            
+   
             if ($from < 0.01 && $to < 0.01){
                 $to = sprintf('%.00f', $to);
             }
             
+            $step = round(($to - $from) / 50000);  
             
-            $width = 170;
+            $width = floor(170/$step) * $step;
             
             $ratePP = ($to - $from) / $width;  
             
             $firstOffset =  ($max > 0.01 && !$initialState) ? ($fromValue - $min) / $ratePP : 0;
-            $secondOffset = ($to && $max > 0.01 && $toValue < $max) ? ($toValue - $min) / $ratePP : $width;
+            $secondOffset = ($to && $max > 0.01 && $toValue < $max) ? ($toValue - $min) / $ratePP : $width ;
             
-            $params = implode(',', array($width, $firstOffset, $secondOffset, $to, $prefix, $from, $ratePP, intVal($this->getSliderDecimal())));
+            $params = implode(',', array($width, $step, $firstOffset, $secondOffset, $to, $prefix, $from, $ratePP, intVal($this->getSliderDecimal())));
 ?>
         <?php
         /*
@@ -129,13 +152,15 @@ if (count($this->getItems()) == 1){
         </div>
         <div class="amshopby-slider-price amshopby-slider-price-from">
         <?php
-            $value = '<span id="' . $prefix .'-from-slider">' . $fromValue . '</span>';
+            $value = '<span id="' . $prefix .'-from-slider">' . Mage::helper('core')->currency($fromValue, true, false) . '</span>';
+             $valueLabel = '';
              echo amshopby_render_label($valuePlacement, $valueLabel, $value); 
          ?>
         </div>
         <div class="amshopby-slider-price amshopby-slider-price-to">
         <?php
-            $value = '<span id="' . $prefix .'-to-slider">' . $toValue . '</span>';
+            $value = '<span id="' . $prefix .'-to-slider">' . Mage::helper('core')->currency($toValue, true, false) . '</span>';
+            $valueLabel = ''; 
              echo amshopby_render_label($valuePlacement, $valueLabel, $value); 
          ?>
         </div>
@@ -153,11 +178,11 @@ if (count($this->getItems()) == 1){
         </div>
                     
             
-            <div class="amshopby-slider-price amshopby-slider-price-from"><?php echo amshopby_render_label($valuePlacement, $valueLabel, $from) ?></div>
-            <div class="amshopby-slider-price amshopby-slider-price-to"><?php echo amshopby_render_label($valuePlacement, $valueLabel, $to) ?></div>
+            <div class="amshopby-slider-price amshopby-slider-price-from"><?php echo amshopby_render_label($valuePlacement, $valueLabel, Mage::helper('core')->currency($from, true, false)) ?></div>
+            <div class="amshopby-slider-price amshopby-slider-price-to"><?php echo amshopby_render_label($valuePlacement, $valueLabel, Mage::helper('core')->currency($to, true, false)) ?></div>
             <div class="amshopby-slider-price-range">
-                    <span id="<?php echo $prefix?>-from-slider"><?php echo $fromValue ?></span>&nbsp;-&nbsp;
-                    <span id="<?php echo $prefix?>-to-slider"><?php echo $toValue ?></span>
+                    <span id="<?php echo $prefix?>-from-slider"><?php echo Mage::helper('core')->currency($fromValue, true, false) ?></span>&nbsp;-&nbsp;
+                    <span id="<?php echo $prefix?>-to-slider"><?php echo Mage::helper('core')->currency($toValue, true, false) ?></span>
             </div>
         <?php } ?>
         <input type="hidden" class="amshopby-slider-param" value="<?php echo $params ?>" />

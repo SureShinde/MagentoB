@@ -82,6 +82,21 @@ class AW_Blog_Block_Post extends AW_Blog_Block_Abstract
         return $this->getData('commentCollection');
     }
 
+    public function getCommentCount()
+    {
+        if (!$this->hasData('commentCountCollection')) {
+            $collection = Mage::getModel('blog/comment')
+                ->getCollection()
+                ->addPostFilter($this->getPost()->getPostId())
+                ->setOrder('created_time', 'DESC')
+                ->addApproveFilter(2)
+            ;
+            
+            $this->setData('commentCountCollection', $collection->count());
+        }
+        return $this->getData('commentCountCollection');
+    }
+
     public function getCommentsEnabled()
     {
         return Mage::getStoreConfig('blog/comments/enabled');
@@ -235,9 +250,13 @@ class AW_Blog_Block_Post extends AW_Blog_Block_Abstract
             ->addPresentFilter()
             ->addEnableFilter(AW_Blog_Model_Status::STATUS_ENABLED)
             ->addStoreFilter()
+            ->addFieldToSelect('title')
+            ->addFieldToSelect('created_time')
+            ->addFieldToSelect('image_name')
+            ->addFieldToSelect('identifier')
             ->setOrder('created_time', 'desc');
-        $posts->addFieldToFilter("awblog_post_cat.cat_id", array ('in' => $catId));
-        $posts->addFieldToFilter("main_table.post_id", array ('neq' => $postId));
+//         $posts->addFieldToFilter("awblog_post_cat.cat_id", array ('in' => $catId));
+//         $posts->addFieldToFilter("main_table.post_id", array ('neq' => $postId));
         $posts->getSelect()
             ->joinLeft(
                 array( 'awblog_post_cat' => Mage::getSingleton('core/resource')->getTableName('blog/post_cat') ),
@@ -245,7 +264,9 @@ class AW_Blog_Block_Post extends AW_Blog_Block_Abstract
                 array(
                     'cat_id' => 'awblog_post_cat.cat_id'
                 ))
+     	    ->group('main_table.post_id')
             ->limit(5);
+            
         return parent::_processCollection($posts);
     }
 }

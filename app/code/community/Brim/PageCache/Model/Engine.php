@@ -14,9 +14,10 @@
  *
  * @category   Brim
  * @package    Brim_PageCache
- * @copyright  Copyright (c) 2011-2012 Brim LLC
+ * @copyright  Copyright (c) 2011-2014 Brim LLC
  * @license    http://ecommerce.brimllc.com/license
  */
+
  
 class Brim_PageCache_Model_Engine {
 
@@ -90,12 +91,27 @@ class Brim_PageCache_Model_Engine {
     protected $_cache = null;
 
     /**
+     * @var Brim_PageCache_Helper_Data
+     */
+    protected $_helper = null;
+
+    /**
+     * Holds the message count before the request is rendered to HTML and messages removed from the session.
+     * @var null|int
+     */
+    protected $_cachedMessageCount = null;
+
+    /**
      * Constructs engine.
      *
      * @return void
      */
     public function __construct() {
-
+        // Get message count before page is rendered
+        $this->_cachedMessageCount = Mage::getSingleton('core/session')->getMessages()->count()
+            + Mage::getSingleton('checkout/session')->getMessages()->count()
+            + Mage::getSingleton('customer/session')->getMessages()->count()
+            + Mage::getSingleton('catalog/session')->getMessages()->count();
     }
 
     /**
@@ -141,6 +157,19 @@ class Brim_PageCache_Model_Engine {
     }
 
     /**
+     *
+     *
+     * @return Brim_PageCache_Helper_Data
+     */
+    public function getHelper() {
+        if ($this->_helper == null) {
+            $this->_helper = Mage::helper('brim_pagecache');
+        }
+
+        return $this->_helper;
+    }
+
+    /**
      * Handles logic for caching pages.  Currently checks the root block for the
      * "CachePageFlag".  Pages are only cached if the user is not logged in and does
      * not have items in their cart.
@@ -167,11 +196,15 @@ class Brim_PageCache_Model_Engine {
 
                 $storageObject = Mage::getModel('brim_pagecache/storage');
 
+                $storageObject->setRequest(Mage::app()->getRequest());
+
                 if (Mage::getStoreConfig(Brim_PageCache_Model_Config::XML_PATH_ENABLE_MINIFY_HTML)) {
-                    // Minify the response body.  Helps save on cache storage space
-                    // Basic grouped product page 34k in size was about 28K minified,
-                    $minifyBody = Brim_PageCache_Model_Minify_HTML::minify($response->getBody());
-                    $response->setBody($minifyBody);
+                    if ($this->getHelper()->isHTML($response)) {
+                        // Minify the response body.  Helps save on cache storage space
+                        // Basic grouped product page 34k in size was about 28K minified,
+                        $minifyBody = Brim_PageCache_Model_Minify_HTML::minify($response->getBody());
+                        $response->setBody($minifyBody);
+                    }
                 }
 
                 $storageObject->setResponse($response);
@@ -208,13 +241,28 @@ class Brim_PageCache_Model_Engine {
 
                 $this->debug('Saving page with cache id : ' . $id);
 
+                /** @var $product Mage_Catalog_Model_Product */
                 if (($product = Mage::registry('product')) != null) {
                     $this->devDebug('Registering Tag: '. self::FPC_TAG . '_PRODUCT_' . $product->getId());
                     $this->registerPageTags(self::FPC_TAG . '_PRODUCT_' . $product->getId());
+                    foreach ($product->getCategoryIds() as $cid) {
+                        $this->registerPageTags(self::FPC_TAG . '_PRODUCT_CATEGORY_' . $cid);
+                    }
+                    $productData    = Mage::helper('brim_pagecache')->filterComplexValues($product->getData());
+                    $productData['category_ids'] = $product->getCategoryIds(); // they get filtered out adding back.
+                    $storageObject->setCurrentProduct($productData);
                 }
-                if (($category = Mage::registry('current_category')) != null && $product == null) {
-                    $this->devDebug('Registering Tag: '. self::FPC_TAG . '_CATEGORY_' . $category->getId());
-                    $this->registerPageTags(self::FPC_TAG . '_CATEGORY_' . $category->getId());
+                if (($category = Mage::registry('current_category')) != null) {
+                    // We don't want to store the current category if we have a product defined.  If accessed
+                    // via the homepage there won't be any.
+                    if ($product == null){
+                        $this->devDebug('Registering Tag: '. self::FPC_TAG . '_CATEGORY_' . $category->getId());
+                        $this->registerPageTags(self::FPC_TAG . '_CATEGORY_' . $category->getId());
+                    }
+
+                    $storageObject->setCurrentCategory(
+                        Mage::helper('brim_pagecache')->filterComplexValues($category->getData())
+                    );
                 }
 
                 // Store tags in object
@@ -283,6 +331,8 @@ class Brim_PageCache_Model_Engine {
             return;
         }
 
+//        Varien_Profiler::enable();
+
         Varien_Profiler::start('Brim_PageCache::servepage');
 
         self::$_start_time = microtime(true);
@@ -309,7 +359,12 @@ class Brim_PageCache_Model_Engine {
                     /**
                      * @var $cachedResponse Zend_Controller_Response_Http
                      */
-                    $cachedResponse = $cachedStorage->getResponse();
+                    if (!($cachedResponse = $cachedStorage->getResponse())) {
+                        $this->devDebug("Cached object missing response: " . $id);
+                        return false;
+                    }
+
+                    $cachedRequest = $cachedStorage->getRequest();
 
                     // Check page conditions
                     if ($this->passesConditions($cachedStorage[self::RESPONSE_HEADER_CONDITIONS])) {
@@ -347,6 +402,56 @@ class Brim_PageCache_Model_Engine {
                             $response
                         );
 
+                        $categoryId = null;
+                        if (($productData = $cachedStorage->getCurrentProduct()) != null) {
+                            // product page
+                            $productModel = Mage::getModel('catalog/product')->setData($productData);
+                            Mage::register('current_product', $productModel);
+
+                            $categoryId = $cachedRequest->getParam('category');
+                            if (!$categoryId && $categoryId !== false) {
+                                $categoryId = Mage::getSingleton('catalog/session')->getLastViewedCategoryId();
+                                if (!$productModel->canBeShowInCategory($categoryId)) {
+                                    $categoryId = null;
+                                }
+                            } else if(!$productModel->canBeShowInCategory($categoryId)) {
+                                $categoryId = null;
+                            }
+                        } else if (($categoryData = $cachedStorage->getCurrentCategory()) != null) {
+                            // category page
+                            Mage::getSingleton('catalog/session')->setLastViewedCategoryId($categoryData['entity_id']);
+                            $categoryId = Mage::getSingleton('catalog/session')->getLastViewedCategoryId();
+                        }
+
+                        if ($categoryId) {
+                            // Loading cat drop to 2ms from cache from 50ms from db on dev system
+                            Varien_Profiler::start('Brim_PageCache::servepage::loadCategoryData');
+                            Varien_Profiler::start('Brim_PageCache::servepage::loadCategoryDataFromCache');
+                            $catCacheId = self::FPC_TAG . '_STORE_' . MAge::app()->getStore()->getId() . '_CATEGORY_' . $categoryId;
+                            if (($catData = $cache->load($catCacheId))) {
+                                $catModel = Mage::getModel('catalog/category')->setData(unserialize($catData));
+                                Varien_Profiler::stop('Brim_PageCache::servepage::loadCategoryDataFromCache');
+                            } else {
+                                Varien_Profiler::stop('Brim_PageCache::servepage::loadCategoryDataFromCache');
+
+                                $catModel = Mage::getModel('catalog/category')->load($categoryId);
+                                $catData = Mage::helper('brim_pagecache')->filterComplexValues($catModel->getData());
+                                $cache->save(serialize($catData), $catCacheId, array(self::FPC_TAG . '_CATEGORY_' . $categoryId));
+                            }
+                            Varien_Profiler::stop('Brim_PageCache::servepage::loadCategoryData');
+
+                            Mage::register('current_category', $catModel);
+                        }
+
+                        if (($product = Mage::registry('product')) != null) {
+                            $this->devDebug('Registering Tag: '. self::FPC_TAG . '_PRODUCT_' . $product->getId());
+                            $this->registerPageTags(self::FPC_TAG . '_PRODUCT_' . $product->getId());
+                        }
+                        if (($category = Mage::registry('current_category')) != null && $product == null) {
+                            $this->devDebug('Registering Tag: '. self::FPC_TAG . '_CATEGORY_' . $category->getId());
+                            $this->registerPageTags(self::FPC_TAG . '_CATEGORY_' . $category->getId());
+                        }
+
                         // apply dynamic block updates
                         $body = $cachedResponse->getBody();
 
@@ -368,6 +473,18 @@ class Brim_PageCache_Model_Engine {
 
                         Varien_Profiler::stop('Brim_PageCache::blockupdate');
 
+                        // Form Key Update
+                        $formKey    = Mage::getSingleton('core/session')->getFormKey();
+                        $chars      = Mage_Core_Helper_Data::CHARS_LOWERS . Mage_Core_Helper_Data::CHARS_UPPERS . Mage_Core_Helper_Data::CHARS_DIGITS;
+                        $newBody    = preg_replace("/\\/form_key\\/[$chars]{8,24}\\//siU", "/form_key/{$formKey}/", $body);
+                        if ($newBody !== null) { $body  = $newBody; }
+
+                        // Processes urls like "___SID=U" injecting the proper session id (store switching) if need
+                        // otherwise it's removed.
+                        $urlModel   = Mage::getSingleton('core/url');
+                        $body       = $urlModel->sessionUrlVar($body);
+
+                        // Update response object.
                         $response->setBody($body);
                         $response->sendResponse();
 
@@ -447,7 +564,7 @@ class Brim_PageCache_Model_Engine {
                 . Mage::app()->getStore()->getCurrentCurrencyCode() . '_'
                 // Separate out the cache by customer group.
                 // Helps with Logged in and out users for things like account links
-                . Mage::getSingleton('customer/session')->getCustomerGroupId() . '_'
+                . $this->_getCustomerGroupForCacheKey()
                 //. Mage::helper('persistent')->isShoppingCartPersist() . '_ '
                 . (($isMobile  = Brim_PageCache_Helper_Mobile::isMobile()) !== null ? $isMobile . '_' : '')
                 // using sha1 hash to help limit the key size
@@ -465,10 +582,38 @@ class Brim_PageCache_Model_Engine {
     }
 
     /**
+     * Returns a customer group key based on settings.
+     *
+     * @return string
+     */
+    protected function _getCustomerGroupForCacheKey() {
+
+        $key = '';
+
+        if (Mage::getStoreConfig(Brim_PageCache_Model_Config::XML_PATH_CONDITIONS_USE_CTR_GRP)) {
+            $cgId   = Mage::getSingleton('customer/session')->getCustomerGroupId();
+            if (Mage::getStoreConfig(Brim_PageCache_Model_Config::XML_PATH_CONDITIONS_CMB_CTR_GRP)
+                && ($cgId == Mage_Customer_Model_Group::NOT_LOGGED_IN_ID || $cgId == 1)) {
+                $key = '01_';
+            } else {
+                $key = Mage::getSingleton('customer/session')->getCustomerGroupId() . '_';
+            }
+        }
+
+        return $key;
+    }
+
+    /**
      * @param string $conditionsToCheck
      * @return bool
      */
     public function passesConditions($conditionsToCheck = 'all') {
+        Varien_Profiler::start('Brim_PageCache::passesConditions');
+
+        if (Mage::app()->getCookie()->get('nocache') == 1) {
+            $this->_failed_conditions = 'no_cache_cookie';
+            return false;
+        }
 
         if (isset($_GET['no_cache'])) {
             $this->_failed_conditions = 'no_cache';
@@ -477,6 +622,12 @@ class Brim_PageCache_Model_Engine {
 
         if (isset($_GET['___store'])) {
             $this->_failed_conditions = 'store_change';
+            return false;
+        }
+
+        $maxParams = Mage::getStoreConfig(Brim_PageCache_Model_Config::XML_PATH_CONDITIONS_MAX_PARAMS);
+        if ($maxParams != -1 && count($_GET) > $maxParams) {
+            $this->_failed_conditions = 'max_params';
             return false;
         }
 
@@ -490,7 +641,7 @@ class Brim_PageCache_Model_Engine {
                 + Mage::getSingleton('checkout/session')->getMessages()->count()
                 + Mage::getSingleton('customer/session')->getMessages()->count()
                 + Mage::getSingleton('catalog/session')->getMessages()->count();
-            $this->_conditions['no_messages'] = ($messageTotal == 0);
+            $this->_conditions['no_messages'] = ($messageTotal == 0) && ($this->_cachedMessageCount == 0);
 
             $this->_initConditions = true;
         }
@@ -512,6 +663,8 @@ class Brim_PageCache_Model_Engine {
                 $failed[] = $conditionName;
             }
         }
+
+        Varien_Profiler::stop('Brim_PageCache::passesConditions');
 
         if (count($failed) >0){
             $this->_failed_conditions = join(',', $failed);
@@ -731,19 +884,20 @@ class Brim_PageCache_Model_Engine {
         $svarsCookieValue   = array();
 
         $sessionVarsDef = Mage::getStoreConfig('brim_pagecache/conditions/session_vars');
-        $sessionVarsDef = explode("\n", $sessionVarsDef);
 
         if (is_array($sessionVarsDef) && count($sessionVarsDef) > 0) {
             foreach ($sessionVarsDef as $def) {
                 try {
-                    if (strpos($def, ':') !== false) {
-                        list($model, $var) = explode(':', $def);
-                        if (($value = Mage::getSingleton($model)->getData($var)) != ''){
-                            $svarsCookieValue[$var] = $value;
+                    $variable   = $def['variable'];
+                    $model      = $def['model'];
+
+                    if (!empty($model)) {
+                        if (($value = Mage::getSingleton($model)->getData($variable)) != ''){
+                            $svarsCookieValue[$variable] = $value;
                         }
                     } else {
-                        if (!empty($_SESSION[$def])) {
-                            $svarsCookieValue[$def] = $_SESSION[$def];
+                        if (!empty($_SESSION[$variable])) {
+                            $svarsCookieValue[$variable] = $_SESSION[$variable];
                         }
                     }
                 } catch (Exception $e) {

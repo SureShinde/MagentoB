@@ -12,6 +12,23 @@ class Bilna_Paymethod_KlikpayController extends Mage_Core_Controller_Front_Actio
 
     public function redirectAction() {
         $this->loadLayout();
+        $session = Mage::getSingleton('checkout/session')->getCheckout();
+        
+        if ($session && $session->getLastSuccessQuoteId()) {
+            echo "masup sini";exit;
+            $lastQuoteId = $session->getLastQuoteId();
+            $lastOrderId = $session->getLastOrderId();
+            $lastRecurringProfiles = $session->getLastRecurringProfileIds();
+            
+            if (!$lastQuoteId || (!$lastOrderId && empty ($lastRecurringProfiles))) {
+                $this->_redirect('checkout/cart');
+                return;
+            }
+        
+            $this->_initLayoutMessages('checkout/session');
+            Mage::dispatchEvent('checkout_onepage_controller_success_action', array ('order_ids' => array ($lastOrderId)));
+        }
+        
         $this->getLayout()->getBlock('head')->setTitle($this->__('Redirect Page'));
         $this->renderLayout();
     }

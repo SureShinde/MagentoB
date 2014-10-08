@@ -154,6 +154,7 @@
 #shopping-cart-table .even {
 	background: none; line-height: 2em;
 }
+
 #shopping-cart-table.cart-table .product-name a {
 	color: #515151;
 }
@@ -163,10 +164,20 @@
 	background: url(../images/bg-txt-qty.png) no-repeat;
 	height: 31px;
 }
+
 #shopping-cart-table.cart-table .btn-remove2 {
 	background: url(../images/btn_close.png) no-repeat;
 	float: right;
 }
+#shopping-cart-table.cart-table .btn-update span {
+	border: 0;
+	background: #4ec7da;
+	font-family: 'bebasregular';
+	font-size: 1em;
+	/* padding: 5px 14px 10px; */
+	letter-spacing: 0.1em;
+}
+
 #shopping-cart-table.cart-table .btn-update span span {
 	border: 0;
 	background: none;
@@ -183,6 +194,12 @@
 #shopping-cart-table tfoot tr, 
 #shopping-cart-table tfoot tr.first td {
 	background: none !important;
+}
+#shopping-cart-table .even td{
+	padding:5px 0;
+}
+#shopping-cart-table.data-table .even{
+	border-bottom:1px solid #d2d2d2;
 }
 #shopping-cart-table tfoot .checkout-types {
 	float: right;
@@ -421,6 +438,8 @@
 	background: none;
 	border: 0;
 	width: auto;
+	/* tambahan: */
+	margin-right: 74px;
 }
 .cart-collaterals .shipping h2 {
 	background: none;
@@ -436,12 +455,15 @@
 }
 .sum-cart {
 	float: right;
+	/* tambahan: */
+	margin-right: 20px;
 }
 .sum-cart table {
 	margin-top: 15px;
 }
 .sum-cart table .sum-qty {
-	width: 105px;
+	/* width: 105px; */
+	width: 44px;
 }
 .sum-cart table .sum-qty.loggedin {
 	width: 92px;
@@ -643,16 +665,10 @@
 .total-right table tr td:first-child {
 	display: none;
 }
-#checkoutpromo {
-	padding: 10px 5px;
-	background: #ff7f6e;
-	color: #303030;
-	margin-bottom: 10px;
-}
-#checkoutpromo span {
-	font-weight: bold;
-}
 
+.low-res-cart{
+	display:none;
+}
 @media (max-width: 1215px) {
 	#shopping-cart-table.data-table thead .items.loggedin {
 		width: 20%;
@@ -738,7 +754,7 @@
 		width: 100%;
 	}
 	#shopping-cart-table.data-table thead, 
-	#shopping-cart-table.data-table .hi-res {
+	#shopping-cart-table.data-table .hi-res{
 		display: none;
 	}
 	.cart-table .btn-update {
@@ -782,6 +798,15 @@
 	#checkoutpromo {
 		margin-left: 5px;
 		margin-right: 5px;
+	}
+	#shopping-cart-table.cart-table .cart-price-td{
+	width:20%;
+	}
+	.low-res-cart{
+		display:table-row;
+	}
+	#shopping-cart-table .odd td{
+		padding:10px 0;
 	}
 }
 @media (max-width: 479px) {

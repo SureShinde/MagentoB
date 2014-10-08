@@ -48,11 +48,16 @@ clear:both; font-size:0; line-height:0; height:0; overflow:hidden; }
 
 
 div.block-layered-nav dt {
- cursor:pointer; padding: 13px;
+ cursor:pointer; 
+ margin: 0 13px;
+    padding: 13px 0;
  /* padding-left:15px; */
  /*background:url(../images/amshopby-expanded.gif) center left no-repeat;*/
 }
-div.block-layered-nav dt.amshopby-collapsed {background:url(../images/amshopby-collapsed.gif) center left no-repeat}
+div.block-layered-nav dt.amshopby-collapsed {
+	background:url(../images/arrow-down-blue.png) center right no-repeat;
+	border-bottom: 1px solid #D2D2D2;
+}
 
 
 div.block-layered-nav div.amshopby-slider {
@@ -186,6 +191,10 @@ div.amshopby-overlay div {
 	div.block-layered-nav, div.amshopby-page-container, div.amshopby-filters-top {
 		padding-top: 40px;
 	}
+}
+
+
+@media only screen and (max-width: 767px) {
 	div.amshopby-filters-left {
 		display: none;
 	}

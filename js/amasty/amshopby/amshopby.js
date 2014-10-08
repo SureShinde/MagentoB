@@ -19,7 +19,9 @@ function amshopby_start(){
     $$('.block-layered-nav dt').each(function (dt){
         dt.observe('click', amshopby_filter_show);
     });
+	
     
+	
     $$('.block-layered-nav dt img').each(function (img){
         img.observe('mouseover', amshopby_tooltip_show);
         img.observe('mouseout', amshopby_tooltip_hide);
@@ -85,30 +87,35 @@ function amshopby_price_format(num, decimal){
 }
 
 
-function amshopby_slider(width, from, to, max_value, prefix, min_value, ratePP, decimal) {
+function amshopby_slider(width, step, from, to, max_value, prefix, min_value, ratePP, decimal) {
     
     width = parseFloat(width);
     from = parseFloat(from);
     to = parseFloat(to);
     max_value = parseFloat(max_value);
     min_value = parseFloat(min_value);
-    
+    step = parseFloat(step);
+
+    numArr = Math.round(parseFloat(width/step));
+
     var slider = $(prefix); 
-    //      var allowedVals = new Array(11);
-    //      for (var i=0; i<allowedVals.length; ++i){
-    //          allowedVals[i] = Math.round(i * to /10);
-    //      }
+         var allowedVals = new Array(step + 1);
+         for (var i=0; i<allowedVals.length; ++i){
+             allowedVals[i] = Math.round(i * numArr);
+         }
+       
     return new Control.Slider(slider.select('.handle'), slider, {
         range: $R(0, width),
         sliderValue: [from, to],
         restricted: true,
-        //values: allowedVals,
+        values: allowedVals,
         
         onChange: function (values){
             this.onSlide(values);  
             amshopby_price_click_callback(prefix, decimal);  
         },
         onSlide: function(values) {
+
             var fromValue = (min_value + ratePP * values[0]).toFixed(decimal);
             var toValue   = (min_value + ratePP * values[1]).toFixed(decimal);
 
@@ -130,8 +137,8 @@ function amshopby_slider(width, from, to, max_value, prefix, min_value, ratePP, 
             }
 
             if ($(prefix + '-from-slider')) {
-                $(prefix + '-from-slider').update(fromValue);
-                $(prefix + '-to-slider').update(toValue);
+                $(prefix + '-from-slider').update('Rp'+parseInt(fromValue).toLocaleString());
+                $(prefix + '-to-slider').update('Rp'+parseInt(toValue).toLocaleString());
             }
         }
     });
@@ -163,9 +170,10 @@ function amshopby_category_show(evt){
 
 function amshopby_filter_show(evt){
     var dt = Event.findElement(evt, 'dt');
-    
-    dt.next('dd').down('ol').toggle();
+    dt.next('dd').toggle();
     dt.toggleClassName('amshopby-collapsed'); 
+    dt.next('dd').toggleClassName('relative'); 
+	
   
     Event.stop(evt);
     return false;
@@ -256,7 +264,6 @@ function amshopby_attr_search(searchBox){
         }
 	});
 }
-
 
 
 document.observe("dom:loaded", function() { amshopby_start(); }); 

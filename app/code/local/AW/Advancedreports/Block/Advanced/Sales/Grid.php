@@ -53,14 +53,14 @@ class AW_Advancedreports_Block_Advanced_Sales_Grid extends AW_Advancedreports_Bl
         $this->setFilterVisibility(true);
         $this->setId('gridAdvancedSales');
 
-		$filterField = $this->_helper()->confOrderDateFilter();
+        $filterField = $this->_helper()->confOrderDateFilter();
         # Init aggregator
         //$this->getAggregator()->initAggregator($this, AW_Advancedreports_Helper_Tools_Aggregator::TYPE_LIST, $this->getRoute(), $this->_helper()->confOrderDateFilter());
-		$this->getAggregator()->initAggregator($this, AW_Advancedreports_Helper_Tools_Aggregator::TYPE_LIST, $this->getRoute(), $filterField);
+        $this->getAggregator()->initAggregator($this, AW_Advancedreports_Helper_Tools_Aggregator::TYPE_LIST, $this->getRoute(), $filterField);
         $storeIds = $this->getStoreIds();
         if (count($storeIds)) {
             $this->getAggregator()->setStoreFilter($storeIds);
-        }		
+        }       
     }
 
     public function getHideShowBy()
@@ -144,52 +144,65 @@ class AW_Advancedreports_Block_Advanced_Sales_Grid extends AW_Advancedreports_Bl
         }
 
         //CREATE A JOINING AW POINT SPEND ON ORDER
-        $collection->getSelect()->joinLeft(	array('awpto' => 'aw_points_transaction_orderspend'),
-        		"awpto.order_increment_id = main_table.increment_id",
-        		array('points_to_money'=>'COALESCE(awpto.points_to_money,0)/child_soi.total_item'));
+        $collection->getSelect()->joinLeft( array('awpto' => 'aw_points_transaction_orderspend'),
+                "awpto.order_increment_id = main_table.increment_id",
+                array('points_to_money'=>'COALESCE(awpto.points_to_money,0)/child_soi.total_item'));
         
         //BOF: CREATE A SUBQUERY FOR GETTING A TOTAL ITEM AT ORDER
         $orderTable = Mage::getResourceModel('sales/order_collection')
-        					->addAttributeToSelect('entity_id');
-        $orderTable->getSelect()->joinLeft(	array('sfoi' => 'sales_flat_order_item'),
-        		"sfoi.order_id = main_table.entity_id",
-        		array('total_item'=>'count(sfoi.item_id)'));
+                            ->addAttributeToSelect('entity_id');
+        $orderTable->getSelect()->joinLeft( array('sfoi' => 'sales_flat_order_item'),
+                "sfoi.order_id = main_table.entity_id",
+                array('total_item'=>'count(sfoi.item_id)'));
         $orderTable->getSelect()->group(array("main_table.entity_id"));
 
-        $collection->getSelect()->joinLeft(	array('child_soi' => new Zend_Db_Expr( '(' . $orderTable->getSelect() . ')')),
-        		"child_soi.entity_id = main_table.entity_id",
-        		array('total_item'=>'child_soi.total_item'));
+        $collection->getSelect()->joinLeft( array('child_soi' => new Zend_Db_Expr( '(' . $orderTable->getSelect() . ')')),
+                "child_soi.entity_id = main_table.entity_id",
+                array('total_item'=>'child_soi.total_item'));
         //EOF: CREATE A SUBQUERY FOR GETTING A TOTAL ITEM AT ORDER
         
         //BOF: CREATE A SUBQUERY FOR GETTING A BRAND
         $brandTable = Mage::getModel('catalog/product')->getCollection()
-        					->addAttributeToSelect('entity_id');
-        $brandTable->getSelect()->join(	array('cpei' => 'catalog_product_entity_int'),
-        		"e.entity_id = cpei.entity_id",
-        		array());
-        $brandTable->getSelect()->join(	array('eaov' => 'eav_attribute_option_value'),
-        		"cpei.value = eaov.option_id",
-        		array('brand' => 'value'));
-        $brandTable->getSelect()->join(	array('eao' => 'eav_attribute_option'),
-        		"eaov.option_id = eao.option_id",
-        		array());
-        $brandTable->getSelect()->join(	array('ea' => 'eav_attribute'),
-        		"eao.attribute_id = ea.attribute_id AND ea.attribute_code = 'brand'",
-        		array());
+                            ->addAttributeToSelect('entity_id');
+        $brandTable->getSelect()->join( array('cpei' => 'catalog_product_entity_int'),
+                "e.entity_id = cpei.entity_id",
+                array());
+        $brandTable->getSelect()->join( array('eaov' => 'eav_attribute_option_value'),
+                "cpei.value = eaov.option_id",
+                array('brand' => 'value'));
+        $brandTable->getSelect()->join( array('eao' => 'eav_attribute_option'),
+                "eaov.option_id = eao.option_id",
+                array());
+        $brandTable->getSelect()->join( array('ea' => 'eav_attribute'),
+                "eao.attribute_id = ea.attribute_id AND ea.attribute_code = 'brand'",
+                array());
 
-        $collection->getSelect()->join(	array('child_brand' => new Zend_Db_Expr( '(' . $brandTable->getSelect() . ')')),
-        		"child_brand.entity_id = _product.entity_id",
-        		array('brand'=>'child_brand.brand'));
+        $collection->getSelect()->join( array('child_brand' => new Zend_Db_Expr( '(' . $brandTable->getSelect() . ')')),
+                "child_brand.entity_id = _product.entity_id",
+                array('brand'=>'child_brand.brand'));
 
         //EOF: CREATE A SUBQUERY FOR GETTING A BRAND
-		
-// 		$collection->getSelect()->join('catalog_product_entity_int', '_product.entity_id = catalog_product_entity_int.entity_id', array());
-// 		$collection->getSelect()->join('eav_attribute_option_value', 'catalog_product_entity_int.value = eav_attribute_option_value.option_id', array('brand' => 'value'));	
-// 		$collection->getSelect()->join('eav_attribute_option', 'eav_attribute_option_value.option_id = eav_attribute_option.option_id', array());
-// 		$collection->getSelect()->join('eav_attribute', 'eav_attribute_option.attribute_id = eav_attribute.attribute_id AND eav_attribute.attribute_code = "brand" ', array());
+        
+        $collection->getSelect()->joinLeft(
+            array ('payment' => 'sales_flat_order_payment'),
+            "payment.parent_id = main_table.entity_id",
+            array ('method' => 'payment.method')
+        )->joinLeft(
+            array ('shippment' => 'sales_flat_order'),
+            "shippment.entity_id = main_table.entity_id",
+            array (
+                'shipping_method' => 'shippment.shipping_method',
+                'shipping_split_amount' => 'COALESCE(shippment.shipping_amount, 0) / child_soi.total_item'
+            )
+        );
+
+//      $collection->getSelect()->join('catalog_product_entity_int', '_product.entity_id = catalog_product_entity_int.entity_id', array());
+//      $collection->getSelect()->join('eav_attribute_option_value', 'catalog_product_entity_int.value = eav_attribute_option_value.option_id', array('brand' => 'value')); 
+//      $collection->getSelect()->join('eav_attribute_option', 'eav_attribute_option_value.option_id = eav_attribute_option.option_id', array());
+//      $collection->getSelect()->join('eav_attribute', 'eav_attribute_option.attribute_id = eav_attribute.attribute_id AND eav_attribute.attribute_code = "brand" ', array());
         
 //         echo $collection->getSelect();die;
-        
+    
         $this->setCollection($collection);
         $this->_prepareData();
         
@@ -217,6 +230,7 @@ class AW_Advancedreports_Block_Advanced_Sales_Grid extends AW_Advancedreports_Bl
         } else {
             $collection->addOrder('order_created_at', 'DESC');
         }
+     
         $this->_saveFilters();
         $this->_setColumnFilters();
     }
@@ -293,11 +307,11 @@ class AW_Advancedreports_Block_Advanced_Sales_Grid extends AW_Advancedreports_Bl
                 $row['order_postcode'] = $row['order_bil_postcode'];
             }
             if (is_null($row['customer_email'])) {
-	            if (!is_null($row['order_ship_email'])) {
-	                $row['customer_email'] = $row['order_ship_email'];
-	            } elseif (!is_null($row['order_bil_email'])) {
-	                $row['customer_email'] = $row['order_bil_email'];
-	            }
+                if (!is_null($row['order_ship_email'])) {
+                    $row['customer_email'] = $row['order_ship_email'];
+                } elseif (!is_null($row['order_bil_email'])) {
+                    $row['customer_email'] = $row['order_bil_email'];
+                }
             }
             
 //             if ((!isset($row['customer_email']) || !($row['customer_email'])) && $this->_helper()->checkExtensionVersion('Mage_Sales', '1.4.0.15', '=')) {
@@ -420,6 +434,27 @@ class AW_Advancedreports_Block_Advanced_Sales_Grid extends AW_Advancedreports_Bl
             'ddl_options' => array('nullable' => true),
         ));
 
+        $this->addColumn('shipping_method', array (
+            'header' => $this->_helper()->__('Shipping Method'),
+            'index' => 'shipping_method',
+            //'type' => 'text',
+            'type' => 'options',
+            'options' => $this->getShippingMethods(),
+            'ddl_type' => Varien_Db_Ddl_Table::TYPE_VARCHAR,
+            'ddl_size' => 100,
+            'ddl_options' => array ('nullable' => true),
+        ));
+        
+        $this->addColumn('method', array (
+            'header' => $this->_helper()->__('Payment Method'),
+            'index' => 'method',
+            'type' => 'options',
+            'options' => $this->getPaymentMethods(),
+            'ddl_type' => Varien_Db_Ddl_Table::TYPE_VARCHAR,
+            'ddl_size' => 50,
+            'ddl_options' => array ('nullable' => true),
+        ));
+
         $this->addColumn('name', array(
             'header' => $this->_helper()->__('Product Name'),
             'index' => 'name',
@@ -428,8 +463,8 @@ class AW_Advancedreports_Block_Advanced_Sales_Grid extends AW_Advancedreports_Bl
             'ddl_size' => 255,
             'ddl_options' => array('nullable' => true),
         ));
-		
-		//-------------------------------------------------------Adding column Brand		
+        
+        //-------------------------------------------------------Adding column Brand        
         $this->addColumn('brand', array(
             'header' => $this->_helper()->__('Brand'),
             'index' => 'brand',
@@ -596,6 +631,19 @@ class AW_Advancedreports_Block_Advanced_Sales_Grid extends AW_Advancedreports_Bl
             'ddl_options' => array('nullable' => true),
         ));
 
+        $this->addColumn('shipping_split_amount', array (
+            'header' => $this->_helper()->__('Shipping Amount'),
+            'index' => 'shipping_split_amount',
+            'type' => 'currency',
+            'currency_code' => $this->getCurrentCurrencyCode(),
+            'total' => 'sum',
+            'column_css_class' => 'nowrap',
+            'default' => $def_value,
+            'ddl_type' => Varien_Db_Ddl_Table::TYPE_DECIMAL,
+            'ddl_size' => '12,4',
+            'ddl_options' => array ('nullable' => true)
+        ));
+        
         $this->addColumn('base_row_xtotal_incl_tax', array(
             'header' => $this->_helper()->__('Total Incl. Tax'),
             'width' => '80px',
@@ -747,6 +795,42 @@ class AW_Advancedreports_Block_Advanced_Sales_Grid extends AW_Advancedreports_Bl
         $this->addExportType('*/*/exportOrderedCsv', $this->_helper()->__('CSV'));
         $this->addExportType('*/*/exportOrderedExcel', $this->_helper()->__('Excel'));
         return $this;
+    }
+
+    protected function getShippingMethods() {
+        $collections = Mage::getModel('advancedreports/premiumrate')->getCollection();
+        $collections->getSelect()
+            ->reset(Zend_Db_Select::COLUMNS)
+            ->columns('delivery_type');
+        $collections->getSelect()->group('main_table.delivery_type');
+        $shippingMethods = array ();
+        
+        foreach ($collections as $collection) {
+            $value = $collection->getData('delivery_type');
+            $key = $this->getShippingMethodKey($value);
+            $shippingMethods[$key] = $value;
+        }
+        
+        return $shippingMethods;
+    }
+    
+    protected function getShippingMethodKey($method) {
+        $result = 'premiumrate_' . str_replace(' ', '_', $method);
+        
+        return $result;
+    }
+
+    protected function getPaymentMethods() {
+        //$payments = Mage::getSingleton('payment/config')->getActiveMethods();
+        $payments = Mage::getSingleton('payment/config')->getAllMethods();
+        $methods = array ();
+        
+        foreach ($payments as $paymentCode => $paymentModel) {
+            $paymentTitle = Mage::getStoreConfig('payment/' . $paymentCode . '/title');
+            $methods[$paymentCode] = $paymentTitle;
+        }
+        
+        return $methods;
     }
 
     public function getChartType()

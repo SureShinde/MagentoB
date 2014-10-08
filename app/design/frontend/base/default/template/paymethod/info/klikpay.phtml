@@ -1,11 +1,5 @@
 <p><?php echo $this->getMethod()->getTitle(); ?></p>
 
 <?php if ($this->getMethod()->getConfigData('message')): ?>
-    <table>
-        <tbody>
-            <tr>
-                <td><?php echo nl2br($this->getMethod()->getConfigData('message')); ?></td>
-            </tr>
-        </tbody>
-    </table>
+    <p><?php echo nl2br($this->getMethod()->getConfigData('message')); ?></p>
 <?php endif; ?>

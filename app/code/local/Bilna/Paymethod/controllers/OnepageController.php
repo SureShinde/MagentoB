@@ -22,91 +22,108 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
             $result = array ();
                
             try {
-                //save installment options in quote item table 
-                if ($installmentData = $this->getRequest()->getPost('installment', false)) {
-                    $quote_items = $this->getOnepage()->getQuote()->getAllItems();
-                    $item_ids = array ();
-                       
-                    foreach ($quote_items as $item) {
-                        $item_ids[] = $item->getProductId();  
-                    }
+                /**
+                 * installment
+                 */
+                if ($allowInstallment = $this->getRequest()->getPost('allow_installment', false)) {
+                    //save installment options in quote item table
+                    $installmentMethod = $this->getRequest()->getPost('installment_method', false);
                     
-                    $installmentOptionType = Mage::getStoreConfig('payment/' . $paymentCode . '/installment_option');
-                    
-                    /**
-                     * installment type is per order
-                     */
-                    if ($installmentOptionType == 2) {
-                        if ($installmentData == '') {
-                            $result['success'] = false;
-                            $result['error'] = true;
-                            $result['error_messages'] = $this->__('Please select an installment type before placing the order.');
-                            $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
-                            
-                            return;
-                        }
-                        
+                    if ($installmentTenor = $this->getRequest()->getPost('installment', false)) {
+                        $quote_items = $this->getOnepage()->getQuote()->getAllItems();
+                        $item_ids = array ();
+
                         foreach ($quote_items as $item) {
-                            $item->setInstallmentType($installmentData);
-                            $item->save();
+                            $item_ids[] = $item->getProductId();
                         }
-                        
-                        if ($installmentData == $this->getPaymentTypeTransaction($paymentCode, 'full')) {
-                            $this->_payType = $this->getPaymentTypeTransaction($paymentCode, 'full');
-                        }
-                        else {
-                            $this->_payType = $this->getPaymentTypeTransaction($paymentCode, 'installment');
-                        }
-                    }
-                    else { //if installment type is per item
-                        if (array_diff($item_ids, array_keys($installmentData))) {
-                            $result['success'] = false;
-                            $result['error'] = true;
-                            $result['error_messages'] = $this->__('Please select an installment type before placing the order.');
-                            $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
+
+                        $installmentOptionType = Mage::getStoreConfig('payment/' . $paymentCode . '/installment_option');
+
+                        /**
+                         * installment type is per order
+                         */
+                        if ($installmentOptionType == 2) {
+                            if ($installmentTenor == '') {
+                                $result['success'] = false;
+                                $result['error'] = true;
+                                $result['error_messages'] = $this->__('Please select an installment type before placing the order.');
+                                $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
+
+                                return;
+                            }
                             
-                            return;
-                        }
-                        
-                        foreach ($quote_items as $item) {
-                            foreach ($installmentData as $_productid => $installmentvalue) {
-                                if ($item->getProductId() == $_productid) {
-                                    $item->setInstallmentType($installmentvalue);
+                            if ($installmentTenor > 1) {
+                                foreach ($quote_items as $item) {
+                                    $item->setInstallment($allowInstallment);
+                                    $item->setInstallmentMethod($installmentMethod);
+                                    $item->setInstallmentType($installmentTenor);
                                     $item->save();
                                 }
                             }
-                        }
-                           
-                        //save pay type 
-                        $count = 0;
-                        $arrayCount = count($installmentData);
-                        
-                        foreach ($installmentData as $value) {
-                            if ($value == $this->getPaymentTypeTransaction($paymentCode, 'full')) {
-                                $count++;
+
+                            if ($installmentTenor == $this->getPaymentTypeTransaction($paymentCode, 'full')) {
+                                $this->_payType = $this->getPaymentTypeTransaction($paymentCode, 'full');
+                            }
+                            else {
+                                $this->_payType = $this->getPaymentTypeTransaction($paymentCode, 'installment');
                             }
                         }
-                        
-                        if ($arrayCount == $count) {
-                            $this->_payType = $this->getPaymentTypeTransaction($paymentCode, 'full');
+                        else { //if installment type is per item
+                            if (array_diff($item_ids, array_keys($installmentTenor))) {
+                                $result['success'] = false;
+                                $result['error'] = true;
+                                $result['error_messages'] = $this->__('Please select an installment type before placing the order.');
+                                $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
+
+                                return;
+                            }
+
+                            foreach ($quote_items as $item) {
+                                foreach ($installmentTenor as $_productid => $installmentvalue) {
+                                    if ($item->getProductId() == $_productid) {
+                                        $item->setInstallmentType($installmentvalue);
+                                        $item->save();
+                                    }
+                                }
+                            }
+
+                            //save pay type 
+                            $count = 0;
+                            $arrayCount = count($installmentTenor);
+
+                            foreach ($installmentTenor as $value) {
+                                if ($value == $this->getPaymentTypeTransaction($paymentCode, 'full')) {
+                                    $count++;
+                                }
+                            }
+
+                            if ($arrayCount == $count) {
+                                $this->_payType = $this->getPaymentTypeTransaction($paymentCode, 'full');
+                            }
+                            else if ($count >= 1) {
+                                $this->_payType = $this->getPaymentTypeTransaction($paymentCode, 'combine');
+                            }
+                            else {
+                                $this->_payType = $this->getPaymentTypeTransaction($paymentCode, 'installment');
+                            }
                         }
-                        else if ($count >= 1) {
-                            $this->_payType = $this->getPaymentTypeTransaction($paymentCode, 'combine');
-                        }
-                        else {
-                            $this->_payType = $this->getPaymentTypeTransaction($paymentCode, 'installment');
-                        }
+
+                        $this->getOnepage()->getQuote()->setPayType($this->_payType)->save();
+                        $this->getOnepage()->getQuote()->setCcBins($this->getRequest()->getPost('cc_bins', false))->save();
                     }
-                    
-                    $this->getOnepage()->getQuote()->setPayType($this->_payType)->save();
+                    else {
+                        $result['success'] = false;
+                        $result['error'] = true;
+                        $result['error_messages'] = $this->__('Please select an installment type before placing the order.');
+                        $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
+
+                        return;
+                    }
                 }
                 else {
-                    $result['success'] = false;
-                    $result['error'] = true;
-                    $result['error_messages'] = $this->__('Please select an installment type before placing the order.');
-                    $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
-                    
-                    return;
+                    $this->_payType = $this->getPaymentTypeTransaction($paymentCode, 'full');
+                    $this->getOnepage()->getQuote()->setPayType($this->_payType)->save();
+                    $this->getOnepage()->getQuote()->setCcBins($this->getRequest()->getPost('cc_bins', false))->save();
                 }
                    
                 if ($requiredAgreements = Mage::helper('checkout')->getRequiredAgreementIds()) {
@@ -255,7 +272,8 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
                     'cc_exp_month' => $dataCc['cc_exp_month'],
                     'cc_exp_year' => $dataCc['cc_exp_year'],
                     'cc_cid' => $dataCc['cc_cid'],
-                    'cc_zipcode' => $dataCc['cc_zipcode']
+                    'cc_zipcode' => $dataCc['cc_zipcode'],
+                    'cc_bins' => $dataCc['cc_bins']
                 );
                 
                 Mage::getSingleton('core/session')->unsVtdirectTokenIdCreate();
@@ -326,7 +344,7 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
         exit;
     }
     
-    private function getCcType($bank) {
+    protected function getCcType($bank) {
         //$bankArr = explode('_', $bank);
         $ccType = (strtoupper(substr($bank, -2)) == 'MC') ? 'MC' : 'VI';
         
@@ -334,24 +352,446 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
     }
     
     public function successAction() {
-        $session = $this->getOnepage()->getCheckout();
-        if (!$session->getLastSuccessQuoteId()) {
-            $this->_redirect('checkout/cart');
-            return;
-        }
+        if ($this->getRequest()->getParam('order_no')) {
+            $orderNo = $this->getRequest()->getParam('order_no');
+            
+            /**
+             * Credit Card handling
+             */
+            $order = Mage::getModel('sales/order')->loadByIncrementId($orderNo);
+            $lastOrderId = $order->getId();
+            $paymentCode = $order->getPayment()->getMethodInstance()->getCode();
 
-        $lastQuoteId = $session->getLastQuoteId();
-        $lastOrderId = $session->getLastOrderId();
-        $lastRecurringProfiles = $session->getLastRecurringProfileIds();
-        if (!$lastQuoteId || (!$lastOrderId && empty($lastRecurringProfiles))) {
-            $this->_redirect('checkout/cart');
-            return;
+            if (in_array($paymentCode, $this->getPaymentMethodCc())) {
+                $this->_redirect('checkout/cart');
+                return;
+            }
         }
+        else {
+            $session = $this->getOnepage()->getCheckout();
 
-        //$session->clear();
+            if (!$session->getLastSuccessQuoteId()) {
+                $this->_redirect('checkout/cart');
+                return;
+            }
+
+            $lastQuoteId = $session->getLastQuoteId();
+            $lastOrderId = $session->getLastOrderId();
+            $lastRecurringProfiles = $session->getLastRecurringProfileIds();
+
+            if (!$lastQuoteId || (!$lastOrderId && empty ($lastRecurringProfiles))) {
+                $this->_redirect('checkout/cart');
+                return;
+            }
+            
+            $order = Mage::getModel('sales/order')->load($lastOrderId);
+            $paymentCode = $order->getPayment()->getMethodInstance()->getCode();
+            $session->clear();
+        }
+            
+        if (in_array($paymentCode, $this->getPaymentMethodCc())) {
+            /**
+             * charge credit card
+             */
+            $responseCharge = array ();
+            //$order = $this->getOrder();
+            $items = $order->getAllItems();
+            //$paymentCode = $order->getPayment()->getMethodInstance()->getCode();
+            $url = Mage::getStoreConfig('payment/vtdirect/charge_transaction_url');
+
+            $data = array ();
+            $data['token_id'] = $this->getTokenId();
+            $data['order_id'] = $this->maxChar($order->getIncrementId(), 20);
+            $data['bins'] = $this->getBins($order, $paymentCode);
+            $data['order_items'] = $this->getOrderItems($order, $items);
+            $data['gross_amount'] = round($order->getGrandTotal());
+            $data['email'] = $this->getCustomerEmail($order->getBillingAddress()->getEmail());
+            $data['billing_address'] = $this->parseBillingAddress($order->getBillingAddress());
+            $data['shipping_address'] = $this->parseBillingAddress($order->getBillingAddress());
+            $data['bank'] = $this->getAcquiredBank($paymentCode);
+
+            /**
+             * check installment
+             */
+            if ($this->getInstallmentProcess($paymentCode) != 'manual') {
+                $installmentId = $this->getInstallment($items);
+
+                if ($installmentId) {
+                    $data['type'] = 'installment';
+                    $data['installment'] = array (
+                        'bank' => $this->getInstallmentBank($paymentCode),
+                        'term' => $installmentId,
+                        //'term' => $this->getInstallmentTenor($paymentCode, $installmentId),
+                        'type' => $this->getInstallmentTypeCodeBank($paymentCode)
+                    );
+                }
+            }
+
+            $threedsecure = $this->getThreedSecure($paymentCode);
+
+            if ($threedsecure == true) {
+                $data['3dsecure'] = $threedsecure;
+                $data['3dsecure_callback_url'] = $this->getThreedSecureCallbackUrl($paymentCode);
+                $data['3dsecure_notification_url'] = $this->getThreedSecureNotificationUrl($paymentCode);
+            }
+
+            $responseCharge = json_decode(Mage::helper('paymethod/vtdirect')->postRequest($url, $data));
+
+            $contentRequest = sprintf("%s | request_vtdirect: %s", $order->getIncrementId(), json_encode($data));
+            $contentResponse = sprintf("%s | response_vtdirect: %s", $order->getIncrementId(), json_encode($responseCharge));
+            $this->writeLog($paymentCode, $this->_typeTransaction, 'charge', $contentRequest);
+            $this->writeLog($paymentCode, $this->_typeTransaction, 'charge', $contentResponse);
+
+            /**
+             * processing order
+             */
+            $this->updateOrder($order, $paymentCode, $responseCharge);
+
+            /**
+             * assign data to View
+             */
+            Mage::register('threedsecure', $threedsecure);
+            Mage::register('response_charge', $responseCharge);
+        }
+        
         $this->loadLayout();
         $this->_initLayoutMessages('checkout/session');
-        Mage::dispatchEvent('checkout_onepage_controller_success_action', array('order_ids' => array($lastOrderId)));
+        Mage::dispatchEvent('checkout_onepage_controller_success_action', array ('order_ids' => array ($lastOrderId)));
         $this->renderLayout();
+    }
+    
+    public function getCheckout() {
+        return Mage::getSingleton('checkout/session');
+    }
+    
+    public function getOrderId() {
+        return Mage::getSingleton('checkout/session')->getLastOrderId();
+    }
+    
+    private function updateOrder($order, $paymentCode, $responseCharge) {
+        if ($responseCharge->status == 'success') {
+            if ($this->getThreedSecure($paymentCode)) {
+                $order->setState(Mage_Sales_Model_Order::STATE_NEW, 'cc_verification', 'Pending for 3D Secure Validation', true)->save();
+            }
+            else {
+                // check order status if processing/complete then ignore
+                if (in_array($order->getStatus(), Mage::helper('paymethod/vtdirect')->getStatusOrderIgnore())) {
+                    return true;
+                }
+                
+                $transactionStatus = $responseCharge->data->transaction_status;
+                $message = "Transaction status: " . $transactionStatus . ". ";
+                $message .= $this->getDefaultResponseMessage($responseCharge->status, $responseCharge->message);
+                
+                if ($transactionStatus == 'deny') {
+                    //$order->addStatusHistoryComment($message);
+                    $history = $order->addStatusHistoryComment($message);
+                    $history->setIsCustomerNotified(true);
+            
+                    if ($order->canCancel()) {
+                        $order->cancel();
+                    }
+            
+                    $order->save();
+                            
+                    return true;
+                }
+                else if ($transactionStatus == 'cancel') {
+                    //$order->addStatusHistoryComment($message);
+                    $history = $order->addStatusHistoryComment($message);
+                    $history->setIsCustomerNotified(true);
+            
+                    if ($order->canCancel()) {
+                        $order->cancel();
+                    }
+            
+                    $order->save();
+                    
+                    return true;
+                }
+                else if ($transactionStatus == 'challenge') {
+                    $order->setState(Mage_Sales_Model_Order::STATE_NEW, 'cc_verification', $message, true);
+                    $order->save();
+                    
+                    return true;
+                }
+                else if ($transactionStatus == 'authorize') {
+                    if ($order->canInvoice()) {
+                        $invoice = Mage::getModel('sales/service_order', $order)->prepareInvoice();
+
+                        if ($invoice->getTotalQty()) {
+                            $invoice->setRequestedCaptureCase(Mage_Sales_Model_Order_Invoice::CAPTURE_OFFLINE);
+                            $invoice->setGrandTotal($order->getGrandTotal());
+                            $invoice->setBaseGrandTotal($order->getBaseGrandTotal());
+                            $invoice->register();
+                            $transaction = Mage::getModel('core/resource_transaction')
+                                ->addObject($invoice)
+                                ->addObject($invoice->getOrder());
+                            $order->setState(Mage_Sales_Model_Order::STATE_PROCESSING, true, $message, true);
+                            $order->save();
+                            $transaction->save();
+                            $invoice->sendEmail(true, '');
+
+                            return true;
+                        }
+                    }
+                }
+                else if ($transactionStatus == 'settlement') {
+                    $order->addStatusHistoryComment($message);
+                    $order->save();
+                    
+                    return true;
+                }
+                else {
+                    //do nothing
+                }
+            }
+
+            return false;
+        }
+        else if ($responseCharge->status == 'failure') {
+            $message = "Transaction status: " . $responseCharge->status . ". ";
+            $message .= $this->getDefaultResponseMessage($responseCharge->status, $responseCharge->message);
+            $history = $order->addStatusHistoryComment($message);
+            $history->setIsCustomerNotified(true);
+            
+            if ($order->canCancel()) {
+                $order->cancel();
+            }
+            
+            $order->save();
+            
+            return true;
+        }
+        else {
+            /**
+             * failed get response or timeout
+             */
+            $order->addStatusHistoryComment('failed get response or timeout from Veritrans');
+            $order->save();
+            
+            /**
+             * write log to process confirmation
+             */
+            $this->createLog($paymentCode, $this->maxChar($order->getIncrementId(), 20), 'confirmation', $order->getIncrementId() . "|Response charge is null");
+            
+            return true;
+        }
+    }
+    
+    protected function getDefaultResponseMessage($status, $message) {
+        $result = '';
+        
+        if ($message) {
+            $result = $message;
+        }
+        else {
+            if ($status == 'success') {
+                $result = Mage::getStoreConfig('payment/vtdirect/default_response_message_success');
+            }
+            else if ($status == 'failure') {
+                $result = Mage::getStoreConfig('payment/vtdirect/default_response_message_failure');
+            }
+            else {
+                $result = Mage::getStoreConfig('payment/vtdirect/charge_timeout_message');
+            }
+        }
+        
+        return $result;
+    }
+    
+    protected function getPaymentMethodCc() {
+        return Mage::helper('paymethod')->getPaymentMethodCc();
+    }
+    
+    protected function getTokenId() {
+        $tokenId = Mage::getSingleton('core/session')->getVtdirectTokenId();
+        
+        /**
+         * remove token_id session
+         */
+        Mage::getSingleton("core/session")->unsVtdirectTokenIdCreate();
+        Mage::getSingleton("core/session")->unsVtdirectTokenId();
+        
+        return $tokenId;
+    }
+    
+    protected function maxChar($text, $maxLength = 10) {
+        if (empty ($text)) {
+            return '';
+        }
+        
+        return substr($text, 0, $maxLength);
+    }
+    
+    protected function getBins($order, $paymentCode) {
+        $digit = 6;
+        //$digit = ($paymentCode == 'othervisa' || $paymentCode == 'othermc') ? 1 : 6;
+        $result = substr($order->getPayment()->getCcBins(), 0, $digit);
+        
+        return array ($result);
+    }
+    
+    protected function getOrderItems($order, $items) {
+        $result = array ();
+        
+        //if (count($items) > 0) {
+        //    foreach ($items as $itemId => $item) {
+        //        $result[$itemId]['id'] = $this->maxChar($item->getProductId(), 20);
+        //        $result[$itemId]['price'] = round($item->getPrice());
+        //        $result[$itemId]['qty'] = $item->getQtyToInvoice();
+        //        $result[$itemId]['name'] = $this->maxChar($this->removeSymbols($item->getName()), 20);
+        //    }
+        //}
+        $result[0]['id'] = $order->getId();
+        $result[0]['price'] = round($order->getGrandTotal());
+        $result[0]['qty'] = 1;
+        $result[0]['name'] = $this->maxChar('Item order ' . $order->getIncrementId(), 20);
+        
+        return $result;
+    }
+    
+    protected function getCustomerEmail($email) {
+        if (Mage::getStoreConfig('payment/vtdirect/development_testing')) {
+            return 'vt-testing@veritrans.co.id';
+        }
+        
+        return $email;
+    }
+    
+    protected function parseShippingAddress($shippingAddress) {
+        $firstname = $shippingAddress->getFirstname();
+        $lastname = $shippingAddress->getFirstname();
+        //$lastname = $shippingAddress->getLastname();
+        
+        $result = array (
+            'first_name' => $this->maxChar(Mage::helper('paymethod/vtdirect')->filterAddress($firstname, true), 20),
+            'last_name' => $this->maxChar(Mage::helper('paymethod/vtdirect')->filterAddress($lastname, true), 20),
+            'address1' => $this->maxChar(Mage::helper('paymethod/vtdirect')->filterAddress($shippingAddress->getStreet(1)), 100),
+            'address2' => $this->maxChar(Mage::helper('paymethod/vtdirect')->filterAddress($shippingAddress->getStreet(2)), 100),
+            'city' => $this->maxChar(Mage::helper('paymethod/vtdirect')->filterAddress($shippingAddress->getCity()), 20),
+            'postal_code' => $this->maxChar($this->getPostCode($shippingAddress->getPostcode()), 10),
+            'phone' => $this->maxChar(Mage::helper('paymethod')->allowOnlyNumber($shippingAddress->getTelephone()), 19)
+        );
+        
+        return $result;
+    }
+    
+    protected function parseBillingAddress($billingAddress) {
+        $firstname = $billingAddress->getFirstname();
+        $lastname = $billingAddress->getFirstname();
+        //$lastname = $billingAddress->getLastname();
+        
+        $result = array (
+            'first_name' => $this->maxChar(Mage::helper('paymethod/vtdirect')->filterAddress($firstname, true), 20),
+            'last_name' => $this->maxChar(Mage::helper('paymethod/vtdirect')->filterAddress($lastname, true), 20),
+            'address1' => $this->maxChar(Mage::helper('paymethod/vtdirect')->filterAddress($billingAddress->getStreet(1)), 100),
+            'address2' => $this->maxChar(Mage::helper('paymethod/vtdirect')->filterAddress($billingAddress->getStreet(2)), 100),
+            'city' => $this->maxChar(Mage::helper('paymethod/vtdirect')->filterAddress($billingAddress->getCity()), 20),
+            'postal_code' => $this->maxChar($this->getPostCode($billingAddress->getPostcode()), 10),
+            'phone' => $this->maxChar(Mage::helper('paymethod')->allowOnlyNumber($billingAddress->getTelephone()), 19)
+        );
+        
+        return $result;
+    }
+    
+    protected function getPostCode($postCode) {
+        $result = Mage::helper('paymethod')->allowOnlyNumber($postCode);
+        
+        if (empty ($result) || $result == '') {
+            $result = Mage::helper('paymethod')->allowOnlyNumber($this->getPostCodeSession());
+        }
+        
+        return $result;
+    }
+    
+    protected function getPostCodeSession() {
+        return Mage::getSingleton('core/session')->getVtdirectZipCode();
+    }
+    
+    protected function getAcquiredBank($paymentCode) {
+        return Mage::getStoreConfig('payment/' . $paymentCode . '/bank_acquired');
+    }
+    
+    protected function getInstallmentProcess($paymentCode) {
+        return Mage::getStoreConfig('payment/' . $paymentCode . '/installment_process');
+    }
+    
+    protected function getInstallment($items) {
+        foreach ($items as $itemId => $item) {
+            $installmentType = $item->getInstallmentType();
+            
+            if ($installmentType > 1) {
+                return $installmentType;
+            }
+        }
+        
+        return false;
+    }
+    
+    protected function getInstallmentBank($paymentCode) {
+        if (strtolower($paymentCode) == 'bnikartinivisa' || strtolower($paymentCode) == 'bnikartinimc') {
+            return 'bni';
+        }
+		
+        $result = '';
+        
+        if (substr($paymentCode, -4) == 'visa') {
+            $result = substr($paymentCode, 0, -4);
+        }
+        else if (substr($paymentCode, -2) == 'mc') {
+            $result = substr($paymentCode, 0, -2);
+        }
+        else {
+            //do nothing
+        }
+        
+        return $result;
+    }
+    
+    protected function getInstallmentTypeCodeBank($paymentCode) {
+        return Mage::getStoreConfig('payment/' . $paymentCode . '/installment_type_code');
+    }
+    
+    protected function getThreedSecure($paymentCode) {
+        $result = false;
+        
+        if (Mage::getStoreConfig('payment/' . $paymentCode . '/threedsecure')) {
+            if (Mage::getStoreConfig('payment/' . $paymentCode . '/threedsecure') == 1) {
+                $result = true;
+            }
+        }
+        
+        return $result;
+    }
+    
+    protected function getThreedSecureCallbackUrl($paymentCode) {
+        return Mage::getStoreConfig('payment/' . $paymentCode . '/threedsecure_callback_url');
+    }
+    
+    protected function getThreedSecureNotificationUrl($paymentCode) {
+        return Mage::getStoreConfig('payment/' . $paymentCode . '/threedsecure_notification_url');
+    }
+    
+    protected function writeLog($paymentCode, $type, $logFile, $content) {
+        $tdate = date('Ymd', Mage::getModel('core/date')->timestamp(time()));
+        $filename = sprintf("%s_%s.%s", $paymentCode, $logFile, $tdate);
+        
+        return Mage::helper('paymethod')->writeLogFile($paymentCode, $type, $filename, $content);
+    }
+    
+    protected function createLock($paymentCode, $filename) {
+        return Mage::helper('paymethod')->createLockFile($paymentCode, $filename);
+    }
+    
+    protected function checkLock($paymentCode, $filename) {
+        return Mage::helper('paymethod')->checkLockFile($paymentCode, $filename);
+    }
+    
+    protected function createLog($paymentCode, $filename, $type, $content) {
+        $tdate = date('Y-m-d H:i:s', Mage::getModel('core/date')->timestamp(time()));
+        $content = sprintf("%s|%s", $content, $tdate);
+        
+        return Mage::helper('paymethod')->writeLogFile($paymentCode, $type, $filename, $content, 'normal');
     }
 }

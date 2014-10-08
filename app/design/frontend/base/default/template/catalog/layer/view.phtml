@@ -31,12 +31,65 @@
  * @see Mage_Catalog_Block_Layer_View
  */
 ?>
+<?php 
+//$_storeCategories = $_helper->getStoreCategories();
+//$_storeCategory = load($_storeCategories->getId());
+//$categoryName = $_storeCategory->getName();
+
+//if($categoryName == "perlengkapan-rumah"){
+?>
+
+<script type="text/javascript">
+	$j(document).ready(function() {
+		var styleBody = $j('body').attr('class');
+		var styleBodyArr = styleBody.split(' ');
+		
+		for (x=0;x<styleBodyArr.length;x++) {
+			if (styleBodyArr[x] == 'style-perlengkapan-rumah') {
+					$j("backtotop").css("background-color","#A27E79");
+				$j(".lbl-filterby~dd").niceScroll({touchbehavior:false,cursorminheight:20,cursorcolor:"#8F554D",cursoropacitymax:1,cursorwidth:10,autohidemode:false,background:"#DFE0E0"});
+				break;
+			}
+			else if (styleBodyArr[x] == 'style-baby') {
+				$j("backtotop").css("background-color","#4EC7EA");
+				$j(".lbl-filterby~dd").niceScroll({touchbehavior:false,cursorminheight:20,cursorcolor:"#4EC7DA",cursoropacitymax:1,cursorwidth:10,autohidemode:false,background:"#DFE0E0"});
+				break;
+			}
+			else {
+				//do nothing
+			}
+		}
+	});
+</script>
+<?php /*
+}else{
+?>
+<script type="text/javascript">
+	
+    var nicesx = $j(".lbl-filterby~dd").niceScroll({touchbehavior:false,cursorminheight:20,cursorcolor:"#4EC7DA",cursoropacitymax:1,cursorwidth:10,autohidemode:false,background:"#8F554D"});
+  
+</script>
+<?php 
+}
+*/
+?>
+ <script type="text/javascript">
+  // $j(document).ready(function() {
+	
+    // var nicesx = $j(".lbl-filterby~dd").niceScroll({touchbehavior:false,cursorminheight:20,cursorcolor:"#4EC7DA",cursoropacitymax:1,cursorwidth:10,autohidemode:false,background:"#DFE0E0"});
+    // $j('.button-toggle').click(function(){
+		// var nicesx = $j(".lbl-filterby~dd").niceScroll({touchbehavior:true,cursorminheight:20,cursorcolor:"#4EC7DA",cursoropacitymax:1,cursorwidth:10,autohidemode:false,background:"#DFE0E0"});
+	// });
+  // });
+  
+</script>
 <script type="text/javascript">
 	$j(document).ready(function(){
-		$j('.brand + dd').addClass("tiny");
+		/* $j('.brand + dd').addClass("tiny");
+		$j('.color + dd').addClass("tiny");
 		$j('.tiny div').addClass("viewport");
 		$j('.tiny div ol').addClass("overview");
-		$j('.tiny').tinyscrollbar();	
+		$j('.tiny').tinyscrollbar(); */	
 		
 		function fixDiv() {
 		    var $div = $j(".show-filter");
@@ -83,7 +136,6 @@
                 	<?php endif;?>
                     <dt class="<?php echo strtolower($this->__($_filter->getName())) ?>"><?php echo $this->__($_filter->getName()) ?></dt>
                     <dd>
-                    	<div class="scrollbar"><div class="track"><div class="thumb"><div class="end"></div></div></div></div>
                     	<?php echo $_filter->getHtml() ?>
                     </dd>
                     

@@ -66,6 +66,18 @@
         <?php else: ?>
             <input type="hidden" name="checkout_method" id="login:register" value="register" checked="checked" />
         <?php endif; ?>
+        <div class="buttons-set">
+            <p class="required">&nbsp;</p>
+            <?php if ($this->getQuote()->isAllowedGuestCheckout()): ?>
+                <button id="onepage-guest-register-button" type="button" class="button" onclick="checkout.setMethod();"><span><span><?php echo $this->__('Continue') ?></span></span></button>
+            <?php elseif ($this->helper('checkout')->isCustomerMustBeLogged()): ?>
+                <button id="onepage-guest-register-button" type="button" class="button" onclick="window.location='<?php echo $this->helper('checkout/url')->getRegistrationUrl();?>'"><span><span><?php echo $this->__('Register') ?></span></span></button>
+            <?php else: ?>
+                <form action="<?php echo $this->getUrl('persistent/index/saveMethod'); ?>">
+                    <button id="onepage-guest-register-button" type="submit" class="button"><span><span><?php echo $this->__('Register') ?></span></span></button>
+                </form>
+            <?php endif; ?>
+        </div>
     </div>
     <div class="col-2">
         <h3><?php echo $this->__('Login') ?></h3>
@@ -92,31 +104,38 @@
             </ul>
             <input name="context" type="hidden" value="checkout" />
         </fieldset>
+        
+        <div class="buttons-set">
+            <p class="required"><?php echo $this->__('* Required Fields') ?></p>
+            <button type="submit" class="button" onclick="onepageLogin(this)"><span><span><?php echo $this->__('Login') ?></span></span></button>
+            <a href="<?php echo $this->getUrl('customer/account/forgotpassword') ?>" class="f-right" style="padding: 13px 0 0; color:#FD8E17; text-decoration: underline;"><?php echo $this->__('Forgot your password?') ?></a>
+        </div>
+        
         </form>
     </div>
 </div>
 <div class="col2-set">
-    <div class="col-1">
+    <!--div class="col-1">
         <div class="buttons-set">
             <p class="required">&nbsp;</p>
-            <?php if ($this->getQuote()->isAllowedGuestCheckout()): ?>
-                <button id="onepage-guest-register-button" type="button" class="button" onclick="checkout.setMethod();"><span><span><?php echo $this->__('Continue') ?></span></span></button>
-            <?php elseif ($this->helper('checkout')->isCustomerMustBeLogged()): ?>
-                <button id="onepage-guest-register-button" type="button" class="button" onclick="window.location='<?php echo $this->helper('checkout/url')->getRegistrationUrl();?>'"><span><span><?php echo $this->__('Register') ?></span></span></button>
-            <?php else: ?>
-                <form action="<?php echo $this->getUrl('persistent/index/saveMethod'); ?>">
-                    <button id="onepage-guest-register-button" type="submit" class="button"><span><span><?php echo $this->__('Register') ?></span></span></button>
+            <?php //if ($this->getQuote()->isAllowedGuestCheckout()): ?>
+                <button id="onepage-guest-register-button" type="button" class="button" onclick="checkout.setMethod();"><span><span><?php //echo $this->__('Continue') ?></span></span></button>
+            <?php //elseif ($this->helper('checkout')->isCustomerMustBeLogged()): ?>
+                <button id="onepage-guest-register-button" type="button" class="button" onclick="window.location='<?php //echo $this->helper('checkout/url')->getRegistrationUrl();?>'"><span><span><?php //echo $this->__('Register') ?></span></span></button>
+            <?php //else: ?>
+                <form action="<?php //echo $this->getUrl('persistent/index/saveMethod'); ?>">
+                    <button id="onepage-guest-register-button" type="submit" class="button"><span><span><?php //echo $this->__('Register') ?></span></span></button>
                 </form>
-            <?php endif; ?>
+            <?php //endif; ?>
         </div>
-    </div>
-    <div class="col-2">
+    </div-->
+    <!--div class="col-2">
         <div class="buttons-set">
-            <p class="required"><?php echo $this->__('* Required Fields') ?></p>
-            <a href="<?php echo $this->getUrl('customer/account/forgotpassword') ?>" class="f-left"><?php echo $this->__('Forgot your password?') ?></a>
-            <button type="submit" class="button" onclick="onepageLogin(this)"><span><span><?php echo $this->__('Login') ?></span></span></button>
+            <p class="required"><?php //echo $this->__('* Required Fields') ?></p>
+            <a href="<?php //echo $this->getUrl('customer/account/forgotpassword') ?>" class="f-left"><?php //echo $this->__('Forgot your password?') ?></a>
+            <button type="submit" class="button" onclick="onepageLogin(this)"><span><span><?php //echo $this->__('Login') ?></span></span></button>
         </div>
-    </div>
+    </div-->
 </div>
 <script type="text/javascript">
 //<![CDATA[

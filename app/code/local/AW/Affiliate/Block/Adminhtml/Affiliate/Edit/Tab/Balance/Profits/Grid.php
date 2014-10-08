@@ -26,7 +26,6 @@
  * @license    http://ecommerce.aheadworks.com/AW-LICENSE.txt
  */
 
-
 class AW_Affiliate_Block_Adminhtml_Affiliate_Edit_Tab_Balance_Profits_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
     public function __construct()
@@ -52,6 +51,7 @@ class AW_Affiliate_Block_Adminhtml_Affiliate_Edit_Tab_Balance_Profits_Grid exten
     {
         $affiliate = Mage::registry('current_affiliate');
         $collection = $affiliate->getProfitTransactions();
+      
         $this->setCollection($collection);
         return parent::_prepareCollection();
     }
@@ -69,6 +69,18 @@ class AW_Affiliate_Block_Adminhtml_Affiliate_Edit_Tab_Balance_Profits_Grid exten
             'header' => $helper->__('Campaign Id'),
             'index' => 'campaign_id',
             'type' => 'number',
+            'width' => '25px',
+        ));
+        $this->addColumn('linked_entity_id', array(
+            'header' => $helper->__('Order Id'),
+            'index' => 'linked_entity_id',
+            'type' => 'number',
+            'width' => '25px',
+        ));
+        $this->addColumn('order_status', array(
+            'header' => $helper->__('Status'),
+            'index' => 'order_status',
+            'type' => 'text',
             'width' => '25px',
         ));
         $_currencyCode = Mage::helper('awaffiliate')->getDefaultCurrencyCode();
@@ -115,6 +127,7 @@ class AW_Affiliate_Block_Adminhtml_Affiliate_Edit_Tab_Balance_Profits_Grid exten
             Mage::register('current_affiliate', $affiliate);
         }
     }
+    
     protected function _beforeToHtml()
     {
         if (Mage::helper('awaffiliate')->checkExtensionVersion('Mage_Core', '0.8.28', '<=')) {

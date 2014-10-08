@@ -6,6 +6,9 @@
  */
 
 class Bilna_Paymethod_Model_Observer_Webservice_Vtdirect {
+    protected $_code = 'vtdirect';
+    protected $_typeTransaction = 'transaction';
+    
     public function notificationAction() {
         $notification = json_decode(file_get_contents('php://input'));
         $contentRequest = sprintf("%s | request_vtdirect: %s", $notification->data->order_id, json_encode($notification));
@@ -36,6 +39,12 @@ class Bilna_Paymethod_Model_Observer_Webservice_Vtdirect {
             $order = Mage::getModel('sales/order')->loadByIncrementId($notification->data->order_id);
             
             if ($notification->status == 'success') {
+                // check order status if processing/complete then ignore
+                if (in_array($order->getStatus(), Mage::helper('paymethod/vtdirect')->getStatusOrderIgnore())) {
+                    $contentLog = sprintf("%s | status_order: %s", $notification->data->order_id, $order->getStatus());
+                    $this->writeLog($this->_typeTransaction, 'notification', $contentLog);
+                }
+                
                 if ($order->canInvoice()) {
                     $invoice = Mage::getModel('sales/service_order', $order)->prepareInvoice();
 

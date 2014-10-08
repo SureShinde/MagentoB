@@ -1,17 +1,56 @@
-.homepage {}
-.homepage-top {
+.homepage {margin: 15px 0 0 0;}
+.cms-home .homepage {margin: 15px 23px;}
+.category-baby .homepage-top {
+	margin:0 0 20px;
 }
 .homepage-top-block {
 	float: left;
 }
+/* .cms-index-index .homepage-top-block {
+    float: left;
+    margin: 0;
+} */
 .homepage-top-block.right {
 	width: 185px;
+	margin: 0;
 }
 .slider-wrapper {
 	width: 750px;
 	height: 333px;
 	position: relative;
 	z-index: 0;
+}
+.cms-home .slider-wrapper {
+	width: 759px;
+	height: 338px;
+	position: relative;
+	z-index: 0;
+}
+.cms-home .slidesjs-container, .category-baby .slidesjs-container, .category-perlengkapan-rumah .slidesjs-container,
+ .style-baby.catalog-category-view .slidesjs-container,  .style-perlengkapan-rumah.catalog-category-view .slidesjs-container {
+	z-index: 0 !important;
+}
+.banner-left-mainhomepage, .banner-right-mainhomepage {
+    width: 194px; 
+    height: 338px; 
+    text-align: center; 
+    float: left; 
+    background: #fff;
+    color: #fff;
+    display: block;
+}
+.banner-left-mainhomepage {
+    margin: 0 10px 0 0;
+}
+.banner-right-mainhomepage {
+    margin: 0 0 0 10px;
+}
+.banner-left-mainhomepage img, .banner-right-mainhomepage img {
+    width: 100%;
+}
+.slidesjs-slide > img {
+    display: block;
+    width: 100%;
 }
 .advertise {
 	margin: 5px 0 0 0;
@@ -43,13 +82,16 @@
 .homepage-product {
 	position: relative;
 }
-.homepage-product.onsale {
+.style-mom-baby .homepage-product.onsale,
+.style-baby .homepage-product.onsale {
 	background: url(../images/label-list-product.png) no-repeat center top, url(../images/dash-2.png) repeat-x left 21px;
 }
-.homepage-product.newarrival {
+.style-mom-baby .homepage-product.newarrival,
+.style-baby .homepage-product.newarrival {
 	background: url(../images/label-new-arrival.png) no-repeat center top, url(../images/dash-2.png) repeat-x left 21px;
 }
-.homepage-product.mostpopular {
+.style-mom-baby .homepage-product.mostpopular,
+ .style-baby .homepage-product.mostpopular{
 	background: url(../images/label-most-popular.png) no-repeat center top, url(../images/dash-2.png) repeat-x left 21px;
 }
 .homepage-product h2 {
@@ -68,10 +110,112 @@
 	right: 6px;
 	display:none;
 }
+.cms-index-index .homepage-product a.link-viewmore-product {
+	display:none !important;
+}
 .homepage-product a.link-viewmore-product:hover {
 	color: #4EC7DA;
 }
 
+/* ----------------------------- CSS Aditional on HOMEPAGE NEW ----------------------------- */
+.cms-index-index .homepage-product.onsale h2, .cms-index-index .homepage-product.newarrival h2, .cms-index-index .homepage-product.mostpopular h2{
+	background: url("../images/shd_featured_title.png") repeat-x scroll center bottom rgba(0, 0, 0, 0);
+	color: #707070;
+	padding: 0;
+	position: relative;
+	font-size: 24px;
+	font-family:'bebasregular';
+	margin: 0 0 10px;
+	text-align: left;
+	}
+.cms-home .homepage-product.onsale h2, .cms-home .homepage-product.newarrival h2, .cms-home .homepage-product.mostpopular h2{
+	background: url("../images/shd_featured_title.png") repeat-x scroll center bottom rgba(0, 0, 0, 0);
+	color: #707070;
+	padding: 0;
+	position: relative;
+	font-size: 24px;
+	font-family:'bebasregular';
+	margin: 0 0 10px;
+	text-align: left;
+	}
+.cms-home .homepage-product.onsale h2 span, .cms-home .homepage-product.newarrival h2 span, .cms-home .homepage-product.mostpopular h2 span{
+	background: url("../images/arrow-2.png") no-repeat scroll right center rgba(0, 0, 0, 0);
+    float: right;
+    font-family: helvetica;
+    font-size: 12px;
+    font-weight: bold;
+    margin: 9px 5px 0 0;
+    padding: 0 24px 0 0;
+}
+.cms-home .homepage-product.onsale h2, .cms-home .homepage-product.newarrival h2, .cms-home .homepage-product.mostpopular h2{
+	background: url("../images/shd_featured_title.png") repeat-x scroll center bottom rgba(0, 0, 0, 0);
+	color: #707070;
+	padding: 0;
+	position: relative;
+	font-size: 24px;
+	font-family:'bebasregular';
+	margin: 0 0 10px;
+	text-align: left;
+	}
+.cms-home .homepage-product.onsale h2 span, .cms-home .homepage-product.newarrival h2 span, .cms-home .homepage-product.mostpopular h2 span{
+	background: url("../images/arrow-2.png") no-repeat scroll right center rgba(0, 0, 0, 0);
+    float: right;
+    font-family: helvetica;
+    font-size: 12px;
+    font-weight: bold;
+    margin: 9px 5px 0 0;
+    padding: 0 24px 0 0;
+}
+.cms-home .homepage-product.onsale h2:before, .cms-home .homepage-product.newarrival h2:before, .cms-home .homepage-product.mostpopular h2:before{
+	bottom: 0;
+	content: "";
+	height: 5px;
+	left: 0;
+	position: absolute;
+}
+.cms-home .homepage-product.onsale h2:before, .cms-home .homepage-product.newarrival h2:before, .cms-home .homepage-product.mostpopular h2:before{
+	bottom: 0;
+	content: "";
+	height: 5px;
+	left: 0;
+	position: absolute;
+}
+.cms-home .homepage-product.onsale h2:before{
+	width: 170px;
+	background: none repeat scroll 0 0 #F76A59;
+}
+.cms-home .homepage-product.onsale h2:before{
+	width: 210px;
+	background: none repeat scroll 0 0 #F76A59;
+}
+.cms-home .homepage-product.newarrival h2:before{
+	width: 130px;
+	background: none repeat scroll 0 0 #7dcd32;
+}
+.cms-home .homepage-product.newarrival h2:before{
+	width: 140px;
+	background: none repeat scroll 0 0 #7dcd32;
+}
+.cms-home .homepage-product.mostpopular h2:before{
+	width: 150px;
+	background: none repeat scroll 0 0 #42bcd1;
+}
+.cms-home .homepage-product.mostpopular h2:before{
+	width: 160px;
+	background: none repeat scroll 0 0 #42bcd1;
+}
+
+/* -----END additional homepage new------ */
+
+.cms-home .homepage-bottom .block-wrapper > a{
+	float: left;
+    margin: 10px 18px;
+	width:30.25%;
+}
+.cms-home .block-wrapper a p img{
+	width:100%;
+	height:150px;
+}
 .homepage-bottom {
 	clear: both;
 	margin: 20px 10px 20px;
@@ -88,6 +232,10 @@
 	width: 28.25%;
 	background: #dad8d5;
 	vertical-align: top;
+}
+.homepage-bottom ul.block-wrapper li.image-bottom-cust {
+	padding: 0;
+	width: 30.8%;
 }
 .homepage-bottom ul.block-wrapper li:last-child {}
 .block-bottom {
@@ -168,6 +316,7 @@
 }
 .homepage-bottom .testimonial-wrapper {
 	float: left;
+	position:relative;
 	width: 45%;
 }
 .testimonial-wrapper h4, .media-partners span.title {
@@ -189,6 +338,18 @@
 .testimonial {
 	margin: 0 40px;
 }
+.testimonial-wrapper .view_all{
+	display: table;
+    font-size: 13px;
+    font-weight: bold;
+    position: absolute;
+    right: 0;
+    top: 39px;
+}
+.testimonial-wrapper .view_all a{
+	text-decoration: underline;
+    color:#A6A6A6
+	}
 #slides {
 	  position:relative;
 }
@@ -230,8 +391,11 @@
 	right: 10px;
 	bottom: 0;
 	list-style: none;
-	z-index: 99;
+	z-index: 99 !important;
 	padding: 0;
+}
+.style-baby.catalog-category-view #slides-banner .slidesjs-pagination, .style-perlengkapan-rumah.catalog-category-view #slides-banner .slidesjs-pagination {
+	z-index: 8 !important;
 }
 #slides-banner .slidesjs-pagination li {
 	display: inline-block;
@@ -271,21 +435,69 @@
 .media-partners ul.media-partners-wrapper li:first-child {
 	margin: 0;
 }
+
+.banner-right-mainhomepage p, .banner-left-mainhomepage p {margin: 0 0 0.25em !important;}
+
+.cms-index-index .slidesjs-pagination .slidesjs-pagination-item a{
+	 background: none repeat scroll 0 0 #C7C7C7 !important;
+    border-radius: 10px;
+    color: #FFFFFF;
+    font-size: 15px;
+    font-weight: bold;
+    text-align: center;
+    text-indent: 0 !important;
+}
+.cms-index-index .slidesjs-pagination .slidesjs-pagination-item a.active{
+	background:#ff9f1c !important;
+
+}
+
+
+
 @media only screen and (max-width: 1215px) {
+	.cms-home .homepage-bottom .block-wrapper > a{
+    margin: 10px 8px;
+	width:31.65%;
+	}
+	.cms-home .block-wrapper a p img{
+		height:130px;
+	}
 	.homepage-top-block.left {
 		display: none;
 	}
+    .cms-index-index .homepage-top-block {
+        float: left;
+        margin: 0;
+    }
+    .banner-left-mainhomepage, .banner-right-mainhomepage {
+        height: 272px;
+        text-align: center;
+        width: 156px;
+        display: block;
+    }
 	.homepage-top {
 		width: 955px;
 		margin: 0 auto;
 		position: relative;
 	}
+    .cms-home .slider-wrapper {
+        height: 272px;
+        position: relative;
+        width: 610px;
+        z-index: 0;
+    }
 	.homepage-bottom ul.block-wrapper li {
 		margin-left: 6px;
 		margin-right: 6px;
 		margin-bottom: 16px;
 		width: 28.79%;
 	}
+        .homepage-bottom ul.block-wrapper li.image-bottom-cust {
+            margin-bottom: 16px;
+            margin-left: 6px;
+            margin-right: 6px;
+            width: 31.79%;
+        }
 	.block-bottom span {
 		font-size: 19px;
 	}
@@ -328,11 +540,45 @@
 }
 /* --------------- 960 px layout -------------------- */
 @media only screen and (max-width: 1023px) {
+	.cms-home .homepage-bottom .block-wrapper > a{
+    margin: 0 8px 10px 0;
+	width:31.95%;
+	}
+	.cms-home .block-wrapper a p img{
+		height:100px;
+	}
 	.homepage-top {
 		width: 717px;
 	}
+    
+    .cms-index-index .homepage-top-block {
+        float: left;
+        margin: 0;
+    }
+    .banner-left-mainhomepage, .banner-right-mainhomepage {
+        height: 199px;
+        text-align: center;
+        width: 114px;
+        display: block;
+    }
+	.homepage-top {
+		width: 955px;
+		margin: 0 auto;
+		position: relative;
+	}
+    .cms-home .slider-wrapper {
+        height: 200px;
+        position: relative;
+        width: 450px;
+        z-index: 0;
+    }
+    
+    
 	.homepage-top-block.middle {
 		width: 78%;
+	}
+    .cms-home .homepage-top-block.middle {
+		width: 64%;
 	}
 	.slider-wrapper {
 		width: 100%;
@@ -349,7 +595,8 @@
 	.advertise ul li a img {
 		width: 100%;
 	}
-	.homepage-top-block.right {
+	.homepage-top-block.right, .category-mom-baby .homepage-top-block.right,
+    .homepage-top-block.right, .category-baby .homepage-top-block.right    {
 		width: 20%;
 	}
 	.homepage-top-block.right a {
@@ -364,6 +611,10 @@
 		margin-right: 2.5px;
 		margin-bottom: 8px;
 		width: 30.95%;
+	}
+	.homepage-bottom ul.block-wrapper li.image-bottom-cust {
+		padding: 0;
+		width: 31.2%;
 	}
 	.block-bottom {
 		height: 111px;
@@ -440,6 +691,16 @@
 	.homepage-top-block.middle {
 		width: 100%;
 	}
+    .banner-left-mainhomepage, .banner-right-mainhomepage {
+        display: none;
+    }
+    .cms-home .homepage-top-block.middle {
+		width: 100%;
+	}
+    .cms-home .slider-wrapper {
+		width: auto;
+        height: auto;
+	}
 	.slider-wrapper {
 		height: auto;
 	}
@@ -455,3 +716,5 @@
 @media only screen and (max-width: 479px) { 
 	
 }
+
+

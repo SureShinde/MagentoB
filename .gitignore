@@ -55,7 +55,7 @@ js/index.php
 js/jscolor/
 js/lib/
 #js/mage/
-js/prototype/
+#js/prototype/
 js/scriptaculous/
 js/spacer.gif
 js/tiny_mce/
@@ -71,6 +71,7 @@ lib/PEAR/
 lib/phpseclib/
 lib/Varien/
 lib/Zend/
+lib/terawurfl/
 LICENSE_AFL.txt
 LICENSE.html
 LICENSE.txt
@@ -108,3 +109,10 @@ wp/wp-config.php
 
 /nbproject/
 wp/wp-config.php
+
+includes
+
+lib/Netsuite/nslog/
+files/useragent.txt
+
+!shell/flushCache.php

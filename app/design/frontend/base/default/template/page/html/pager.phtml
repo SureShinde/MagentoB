@@ -30,12 +30,11 @@
  *
  * @see Mage_Page_Block_Html_Pager
  */
-?>
-<?php if($this->getCollection()->getSize()): ?>
-    <?php if($this->getUseContainer()): ?>
-    	<div class="pager">
-    		<div class="pager-wrapper">
-    <?php endif ?>
+	if($this->getCollection()->getSize()): ?>
+	    <?php if($this->getUseContainer()): ?>
+	    	<div class="pager">
+	    		<div class="pager-wrapper">
+	    <?php endif ?>
     
 	    <?php if($this->getShowAmounts()): ?>
 	    <p class="amount">
@@ -59,7 +58,7 @@
 	        </select> <?php echo $this->__('per page') ?>
 	    </div>
 	    <?php endif ?>
-
+		
 	    <?php if($this->getLastPageNum()>1): ?>
 	    <div class="pages">
 	        <strong><?php echo $this->__('Page:') ?></strong>
@@ -125,8 +124,9 @@
         <?php endif;?>
 		</div>
 	<?php endif; ?>
-   
     <?php if($this->getUseContainer()): ?>
     </div>
-    <?php endif ?>
-<?php endif ?>
+    </div>
+    <?php endif;
+    endif;
+?>

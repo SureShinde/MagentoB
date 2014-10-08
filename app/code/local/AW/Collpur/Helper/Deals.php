@@ -57,7 +57,7 @@ class AW_Collpur_Helper_Deals extends Mage_Core_Helper_Abstract
             $seconds = "0{$seconds}";
         }
 
-        $daysPHP = $days > 1 || $days == 0 ? Mage::helper('collpur')->__('days') : Mage::helper('collpur')->__('day');
+//         $daysPHP = $days > 1 || $days == 0 ? Mage::helper('collpur')->__('days') : Mage::helper('collpur')->__('day');
         $hoursPHP = $hours > 1 || $hours == 0 ? Mage::helper('collpur')->__('hours') : Mage::helper('collpur')->__('hours');
         $minutesPHP = $minutes > 1 || $minutes == 0 ? Mage::helper('collpur')->__('minutes') : Mage::helper('collpur')->__('minute');
         $secondsPHP = $seconds > 1 || $seconds == 0 ? Mage::helper('collpur')->__('seconds') : Mage::helper('collpur')->__('second');

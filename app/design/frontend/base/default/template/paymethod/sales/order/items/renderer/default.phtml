@@ -34,10 +34,10 @@
         <?php endif; ?>
         
         <!-- Installment Information -->
-        <?php if ($_item->getInstallmentType()): ?>
+        <?php if ($_item->getInstallment()): ?>
             <div>
-                <strong><?php echo $this->helper('sales')->__('Payment Option'); ?>:</strong>
-                <?php echo $this->getKlikpayInstallmentLabel($_item->getInstallmentType()); ?>
+                <strong><?php echo $this->helper('sales')->__('Installment tenor'); ?>:</strong>
+                <?php echo $_item->getInstallmentType(); ?>
             </div>
         <?php endif; ?>
         

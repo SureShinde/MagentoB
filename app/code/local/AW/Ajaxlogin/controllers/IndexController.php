@@ -684,45 +684,45 @@ class AW_Ajaxlogin_IndexController extends Mage_Core_Controller_Front_Action {
         }
         
         # Do landing
-        if ( ($__landing) and (!$__cancelReloading) and (($__landing != $__location) or ($__forceReloading)) ) {
+//         if ( ($__landing) and (!$__cancelReloading) and (($__landing != $__location) or ($__forceReloading)) ) {
             $this->__addToResponse( array('landing' => $__landing) );
-        }
+//         }
         
         # Do updating
-        if ( (!$__landing) or ($__landing == $__location) or ($__forceUpdating) ) {
-            $this->getLayout()->getUpdate()->addHandle('default');
-            if ( Mage::getSingleton('customer/session')->isLoggedIn() ) {
-                $this->getLayout()->getUpdate()->addHandle('customer_logged_in');
-            }
-            else {
-                $this->getLayout()->getUpdate()->addHandle('customer_logged_out');
-            }
-            $this->loadLayoutUpdates();
-            $this->generateLayoutXml();
-            $this->generateLayoutBlocks();
+//         if ( (!$__landing) or ($__landing == $__location) or ($__forceUpdating) ) {
+//             $this->getLayout()->getUpdate()->addHandle('default');
+//             if ( Mage::getSingleton('customer/session')->isLoggedIn() ) {
+//                 $this->getLayout()->getUpdate()->addHandle('customer_logged_in');
+//             }
+//             else {
+//                 $this->getLayout()->getUpdate()->addHandle('customer_logged_out');
+//             }
+//             $this->loadLayoutUpdates();
+//             $this->generateLayoutXml();
+//             $this->generateLayoutBlocks();
             
-            $__updates = array();
+//             $__updates = array();
             
-            $__block = $this->getLayout()->getBlock('header');
-            if ( $__block ) {
-                $__updates['header_container'] = array(
-                    'selection'        => '.header-container',
-                    'inner'            => true,
-                    'update'           => $__block->toHtml(),
-                    'update_selection' => '.header-container'
-                );
-            }
+//             $__block = $this->getLayout()->getBlock('header');
+//             if ( $__block ) {
+//                 $__updates['header_container'] = array(
+//                     'selection'        => '.header-container',
+//                     'inner'            => true,
+//                     'update'           => $__block->toHtml(),
+//                     'update_selection' => '.header-container'
+//                 );
+//             }
             
-            $__block = $this->getLayout()->getBlock('cart_sidebar');
-            if ( $__block ) {
-                $__updates['cart_sidebar'] = array(
-                    'selection' => '.col-right .block-cart',
-                    'update'    => $__block->toHtml()
-                );
-            }
+//             $__block = $this->getLayout()->getBlock('cart_sidebar');
+//             if ( $__block ) {
+//                 $__updates['cart_sidebar'] = array(
+//                     'selection' => '.col-right .block-cart',
+//                     'update'    => $__block->toHtml()
+//                 );
+//             }
             
-            $this->__addToResponse( array('pageUpdates' => $__updates) );
-        }
+//             $this->__addToResponse( array('pageUpdates' => $__updates) );
+//         }
         
         return $this;
     }
@@ -750,7 +750,7 @@ class AW_Ajaxlogin_IndexController extends Mage_Core_Controller_Front_Action {
     protected function __relatedToCustomerAccountRoutine($location) {
         $__customerAccountRoutines = array(
             Mage::getUrl('customer'),
-            Mage::getUrl('sales/order/history'),
+//             Mage::getUrl('sales/order/history'),
             Mage::getUrl('sales/billing_agreement'),
             Mage::getUrl('sales/recurring_profile'),
             Mage::getUrl('review/customer'),

@@ -1,103 +1,230 @@
 <?php
 class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Action 
 {
-	public function indexAction()
+    public function submitAction() 
     {
-		$this->loadLayout();     
-		$this->renderLayout();
-    }
-	
-	public function submitAction() {
-		$form_id = $this->getRequest()->getPost('form_id');
-		$name = $this->getRequest()->getPost('name');
-        $email = $this->getRequest()->getPost('email');
-        $phone = $this->getRequest()->getPost('phone');
-        $comment = $this->getRequest()->getPost('comment');
-        $templateId = $this->getRequest()->getPost('template_email');
-		
-		$insertData = $this->_insertData();
-		
-		if ($insertData) {
-			
-			$urlform = $this->_backurl($form_id);
-			$redirectPage = Mage::getBaseUrl().$urlform;
-			$this->_prepareEmail($name, $email, $phone, $comment, $templateId);
-			
-			$message = "<div style='word-spacing:2px;'><p style='margin:0; padding:0;'>".$this->__('Terima kasih atas pertanyaan Anda. Tim ahli kami akan segera menjawab pertanyaan Anda.')."</p>"."<p style='margin:0; padding:0;'>".$this->__('Kami akan mengirimkan jawabannya ke email Anda atau Anda dapat juga melihat jawabannya di : ')."<a href='http://www.facebook.com/MyBilna' style='color: blue; text-decoration:none;'>"."<b>".$this->__('Facebook Bilna')."</b>"."</a> ".$this->__('atau')." <a href='http://www.bilna.com/blog/' style='color: blue; text-decoration:none;'>"."<b>".$this->__('Blog Bilna')."</b>"."</a>"."</p></div>";
-			Mage::getSingleton('core/session')->addSuccess($message);
-						
-			$this->_redirectPage($redirectPage);
-		
-		}
-        else { 
-            echo "failed";
-			}
-    }
-	
-	private function _prepareEmail($name, $email, $phone, $comment, $templateId) {
-        $emailVars = array (
-			'name_from' => $name,
-			'email' => $email,
-            'phone' => $phone,
-            'comment' => $comment,
-			'name_to' => 'CS Bilna',
-			'email_to' => 'cs@bilna.com'
-        );
+        $postData       = $this->getRequest()->getPost();
+        $datedrop       = $postData['inputs']['dob']['date_day'].'-'.$postData['inputs']['dob']['date_month'].'-'.$postData['inputs']['dob']['date_year'];
+        $postData['inputs']['dob'] = $datedrop;
+        $form_id        = $postData['form_id'];
+        //$create_date  = datetime('Y-m-d H:i:s');
+        $create_date    = Mage::getModel('core/date')->date();
+        $data           = array();
+        //$record_id    = $this->getRequest()->getPost('record_id');
+        $connection     = Mage::getSingleton('core/resource')->getConnection('core_read');
+        $sql            = "select max(record_id) as record_id from bilna_formbuilder_data where form_id = $form_id";
+        $row            = $connection->fetchRow($sql);
+        $session        = Mage::getSingleton('core/session');
+        //Mage::getSingleton('core/session')->setFormbuilderSubmited(true);
 
-        $this->_sendEmail($name, $email, $emailVars, $templateId);
+        if(is_null($row['record_id'])){
+            $record_id = 1;
+        }else{
+            $record_id = $row['record_id']+1;
+        }
+
+        $connection = Mage::getSingleton('core/resource')->getConnection('core_read');
+        $sql        = "select * from bilna_formbuilder_form where id = $form_id";
+        $row        = $connection->fetchRow($sql);
+
+        //CHECK INPUTS SETTING
+        $block = Mage::getModel('bilna_formbuilder/form')->getCollection();
+        $block->getSelect()->join('bilna_formbuilder_input', 'main_table.id = bilna_formbuilder_input.form_id');
+        $block->addFieldToFilter('main_table.id', $form_id);
+
+        //required, checkbox, terms and empty
+        foreach($block->getData() as $field){
+            if($field["required"]==true){
+                if($field["type"]=="checkbox"){
+                    $message = "You must agree with terms and conditions";
+                }else{
+                    $message = $field["title"].' cannot be empty';
+                }
+                
+                if(!isset($postData["inputs"][$field["group"]]) || empty($postData["inputs"][$field["group"]]) || is_null($postData["inputs"][$field["group"]])){
+                    if(!is_null($row["static_failed"]) || $row["static_failed"]<>""){
+                        Mage::getSingleton('core/session')->setFormbuilderFailed(false);
+                    }
+                    Mage::getSingleton('core/session')->addError($message);
+                    $redirectPage = Mage::getBaseUrl().$field["url"];
+                    $this->_redirectPage($redirectPage);
+                }
+
+                //type : checkbox
+                if($field["type"]=="checkbox" && $postData["inputs"][$field["group"]] <> "on"){
+                    if(!is_null($row["static_failed"]) || $row["static_failed"]<>""){
+                        Mage::getSingleton('core/session')->setFormbuilderFailed(false);
+                    }
+                    Mage::getSingleton('core/session')->addError($message); 
+                    $redirectPage = Mage::getBaseUrl().$field["url"];
+                    $this->_redirectPage($redirectPage);
+                }
+
+                //type : dropdown
+                if($field["type"]=="dropdown" && $postData["inputs"][$field["group"]] <> "on"){
+                    if(!is_null($row["static_failed"]) || $row["static_failed"]<>""){
+                        Mage::getSingleton('core/session')->setFormbuilderFailed(false);
+                    }
+                    Mage::getSingleton('core/session')->addError($message); 
+                    $redirectPage = Mage::getBaseUrl().$field["url"];                   
+                    $this->_redirectPage($redirectPage);
+                }
+
+                //date of birth (dob)
+                if($field["id"]=="dob" && $postData["inputs"][$field["group"]] <> "on"){
+                    if(!is_null($row["static_failed"]) || $row["static_failed"]<>""){
+                        Mage::getSingleton('core/session')->setFormbuilderFailed(false);
+                    }
+                    Mage::getSingleton('core/session')->addError($message); 
+                    $redirectPage = Mage::getBaseUrl().$field["url"];
+                    $this->_redirectPage($redirectPage);
+                }
+            }
+
+            //unique
+            if($field["unique"]==true){
+                $collection = Mage::getModel('bilna_formbuilder/data')->getCollection();
+                $collection->getSelect('main_table.form_id');
+                $collection->addFieldToFilter('main_table.form_id', $form_id);
+                $collection->addFieldToFilter('main_table.type', $field["group"]);
+                $collection->addFieldToFilter('main_table.value', $postData["inputs"][$field["group"]]);
+                $jumlah=$collection->getSize();
+                if($jumlah <> 0){
+                    if(!is_null($row["static_failed"]) && $row["static_failed"]<>""){
+                        Mage::getSingleton('core/session')->setFormbuilderFailed(false);
+                    }
+                    elseif(is_null($row["static_failed"]) || $row["static_failed"]==""){
+                        Mage::getSingleton('core/session')->addError($field["title"].' already exists in our database');
+                    }
+                    
+                    $redirectPage = Mage::getBaseUrl().$field["url"];
+                    $this->_redirectPage($redirectPage);
+                }
+            }           
+        }
+
+        //echo "<pre>";     
+        //print_r($postData["inputs"]); die;
+
+        foreach($postData["inputs"] as $type=>$value){              
+            $insertData = $this->_insertData($form_id,$record_id,$type,$value,$create_date);
+        }
+        
+        $freeProducts = json_decode($row["freeproducts"]);
+        foreach($freeProducts->sku as $sku){
+            $productModel = Mage::getModel('catalog/product');
+            $productId = $productModel->getIdBySku($sku);
+            
+            if(!is_null($productId)){
+                $productOnCart  = false;
+                
+                //Check if product already exist on the cart
+                $quote = Mage::getSingleton('checkout/session')->getQuote();
+                foreach ($quote->getAllItems() as $item) {
+                    if($item->getSku() == $sku){
+                        $productOnCart  = true;
+                    }
+                }
+                
+                if($productOnCart<>true){
+                    $params = array(
+                            'product' => $productId,
+                            'qty' => 1,
+                    );
+                    $cart = Mage::getSingleton('checkout/cart');
+                    $product = new Mage_Catalog_Model_Product();
+                    $product->load($productId);
+                    $cart->addProduct($product, $params);
+                    $cart->save();
+                    Mage::getSingleton('checkout/session')->setCartWasUpdated(true);
+                }
+            }
+        }
+
+        //sent email
+        if($row["sent_email"] == 1 && isset($postData["inputs"]["email"])){
+
+            $collection = Mage::getModel('bilna_formbuilder/data')->getCollection();
+            $collection->getSelect()->reset(Zend_Db_Select::COLUMNS)->columns(array(
+                'record_id'=>'record_id',
+                'type'     =>'type',
+                'value'    =>'value'
+            ));
+            $collection->addFieldToFilter('main_table.form_id', (int) $form_id);
+            $collection->addFieldToFilter('main_table.record_id', (int) $record_id);
+
+            $data = array ();
+
+            foreach ($collection as $collect) {
+                $data[$collect->getType()] = $collect->getValue();
+            }
+
+            //Zend_Debug::Dump($collection->printLogQuery(true)); die;
+            $this->_prepareEmail($data, $row['email_id']);
+        } 
+
+        //static block
+        if($field["success_redirect"]==1){
+            $field["url"] = $field["url_success"]."?formId=".$form_id."&recordId=".$record_id;
+
+        }else if(!is_null($row["static_success"]) || $row["static_success"]<>""){
+            Mage::getSingleton('core/session')->setFormbuilderSuccess(true);
+        }
+        elseif(is_null($row["static_success"]) || $row["static_success"]==""){
+            Mage::getSingleton('core/session')->addSuccess($row["success_message"]);
+        }
+        $redirectPage = Mage::getBaseUrl().$field["url"];       
+        $this->_redirectPage($redirectPage);
+
     }
-			
-	// Redirect Page Function
+
+    private function _prepareEmail($data, $templateId)
+    {
+        $this->_sendEmail($data, $templateId);
+    }
+
     private function _redirectPage($url) {
         header("location:".$url);
         exit;
     }
-    // End Redirect Page Function
-	
-	private function _sendEmail($name, $email, $emailVars, $templateId) {
-        $emailSender = array (
-            'name' => $name,
-            'email' => $email
-        );
-        $storeId = Mage::app()->getStore()->getId();
+
+    private function _sendEmail($data, $templateId) 
+    {
+        $sender = array('name'  => Mage::getStoreConfig('trans_email/ident_support/name'),
+                        'email' => Mage::getStoreConfig('trans_email/ident_support/email'));
+
         $translate = Mage::getSingleton('core/translate');
-        $sendEmail = Mage::getModel('core/email_template')
-            ->sendTransactional($templateId, $emailSender, $emailVars['email'], $emailVars['name'], $emailVars, $storeId);
+        $sendEmail = Mage::getModel('core/email_template')->sendTransactional($templateId, $sender, $data['email'], $data['name'], $data);
         $translate->setTranslateInline(true);
 
-        if ($sendEmail) {
-            return true;
-        }
-
+        if ($sendEmail) return true;
         return false;
     }
-	
-	private function _insertData() {
-        $write = Mage::getSingleton('core/resource')->getConnection('core_write');
-		$submit_date=date("Y-m-d H:i:s");
-        $dataArr = array (
-			$this->getRequest()->getPost('form_id'),
-            $this->getRequest()->getPost('name'),
-            $this->getRequest()->getPost('email'),
-            $this->getRequest()->getPost('phone'),
-            $this->getRequest()->getPost('comment'),
-			$submit_date
-        );
 
-        $sql = "insert into bilna_form_data (form_id, name, email, phone, comment, submit_date) values (?,?,?,?,?,?)";
+    private function _insertData($form_id,$record_id,$type,$value,$create_date) 
+    {
+        $write   = Mage::getSingleton('core/resource')->getConnection('core_write');
+        $dataArr = array (
+            $form_id,
+            $record_id,
+            $type,
+            $value
+            );
+
+        $sql   = "insert into bilna_formbuilder_data (form_id, record_id, type, value, create_date) values ('$form_id','$record_id','$type','$value','$create_date')";
         $query = $write->query($sql, $dataArr);
 
-        if ($query)
-            return true;
-        else
-            return false;
+        if ($query) return true;
+        return false;
     }
-	
-	private function _backurl($form_id) {
-		$connection = Mage::getSingleton('core/resource')->getConnection('core_read');
-		$sql        = "select url from bilna_form where id=".$form_id." group by url";
-		$row       = $connection->fetchRow($sql);
-		$result 	= $row['url'];
-		return $result;
-	}
+
+    private function _backurl($form_id) 
+    {
+        $connection = Mage::getSingleton('core/resource')->getConnection('core_read');
+        $sql        = "select url from bilna_formbuilder_form where id=".$form_id." group by url";
+        $row        = $connection->fetchRow($sql);
+        $result     = $row['url'];
+        
+        return $result;
+    }
 }

@@ -1,121 +1,60 @@
-
 <input type="hidden" id="3rdparty-type" value="cartsuccess"/>
 <input type="hidden" id="3rdparty-value" value="<?php echo $this->getOrderId(); ?>" />
-<!-- Micro Blade GL -->
-<script type="text/javascript">// <![CDATA[
-var microad_blade_gl = microad_blade_gl || { 'params' : new Array(), 'complete_map' : new Object() };
-(function() {
-var param = {'co_account_id' : '5639', 'group_id' : 'convtrack17263', 'country_id' : '2', 'ver' : '2.1.0'};
-microad_blade_gl.params.push(param);
+<input type="hidden" id="order-id" value="<?php echo $this->getOrderId(); ?>" />
 
-var src = (location.protocol == 'https:')
-? 'https://d-cache.microadinc.com/js/blade_track_gl.js' : 'http://d-cache.microadinc.com/js/blade_track_gl.js';
-
-var bs = document.createElement('script');
-bs.type = 'text/javascript'; bs.async = true;
-bs.charset = 'utf-8'; bs.src = src;
-
-var s = document.getElementsByTagName('script')[0];
-s.parentNode.insertBefore(bs, s);
-})();
-// ]]></script>
-<!-- end Micro Blade GL -->
-
-<!-- Google Code CleverAds for Shoping Care Conversion Page -->
-<script type="text/javascript">// <![CDATA[
-	/* <![CDATA[ */
-	var google_conversion_id = 992345613;
-	var google_conversion_language = "en";
-	var google_conversion_format = "2";
-	var google_conversion_color = "ffffff";
-	var google_conversion_label = "A9laCNvkoAQQjfyX2QM";
-	var google_conversion_value = 0;
-
-	/* ]]> */
-// ]]></script>
-<script type="text/javascript" src="http://www.googleadservices.com/pagead/conversion.js"></script>
-<noscript><div style="display:inline;"><img height="1" width="1" style="border-style:none;" alt="" src="http://www.googleadservices.com/pagead/conversion/992345613/?value=0&label=A9laCNvkoAQQjfyX2QM&guid=ON&script=0"/> </div></noscript><!-- end Google Code CleverAds for Shoping Care Conversion Page -->
-
-<!-- Facebook Conversion Code for Conversion Tracking 2014 -->
-<script type="text/javascript">// <![CDATA[
-var fb_param = {};
-fb_param.pixel_id = '6010975460261';
-fb_param.value = '0.00';
-fb_param.currency = 'USD';
-(function(){
-  var fpw = document.createElement('script');
-  fpw.async = true;
-  fpw.src = '//connect.facebook.net/en_US/fp.js';
-  var ref = document.getElementsByTagName('script')[0];
-  ref.parentNode.insertBefore(fpw, ref);
-})();
-// ]]></script>
-<noscript><img height="1" width="1" alt="" style="display:none" src="https://www.facebook.com/offsite_event.php?id=6010975460261&amp;amp;value=0&amp;amp;currency=USD" /></noscript><!-- Facebook Tracking Code for Pampers Promo -->
-<script type="text/javascript">// <![CDATA[
-/* <![CDATA[ */
-	var fb_param = {};
-	fb_param.pixel_id = '6006933691972';
-	fb_param.value = '0.00';
-
-	(function(){
-  		var fpw = document.createElement('script');
-  		fpw.async = true;
-  		fpw.src = '//connect.facebook.net/en_US/fp.js';
-  		var ref = document.getElementsByTagName('script')[0];
-  		ref.parentNode.insertBefore(fpw, ref);
-	})();
-/* ]]> */
-// ]]></script>
-<noscript><img height="1" width="1" alt="" style="display:none" src="https://www.facebook.com/offsite_event.php?id=6006933691972&value=0" /></noscript><!-- end Facebook Tracking Code -->
-<script type="text/javascript" src="http://www.bilna.com/skin/frontend/default/2013/js/bilna.versatag.order.js"></script>
-<!--/*
-  *
-  *  In order for the adserver to track variables for this conversion,
-  *  they must be provided by the client.
-  *
-  *  The 'SALES_VALUE' should be replaced with the actual value of item/ total value of collected item.
-  *
-  */-->
-
-<!--/*
-  *
-  *  Place this code at the top of your thank-you page, just after the <body> tag,
-  *  below any definitions of Javascript variables that need to be tracked.
-  * 
-  */-->
-<script type="text/javascript">// <![CDATA[
-    var uid = 1;
-    var userid = 1;
-    var sales = SALES_VALUE;
-// ]]></script>
-<script type="text/javascript">// <![CDATA[
-    var OA_p = (location.protocol=='https:'?'https://jts.poin-web.co.id/delivery/tjs.php':'http://jts.poin-web.co.id/delivery/tjs.php');
-
-    var OA_r=Math.floor(Math.random()*999999);
-    document.write ("<" + "script language='JavaScript' ");
-    document.write ("type='text/javascript' src='"+OA_p);
-    document.write ("?trackerid=13&amp;append=0&amp;r="+OA_r+"'><" + "\/script>");
-// ]]></script>
-<!-- Google Code for Sales GDN Conversion Page -->
-<script type="text/javascript">// <![CDATA[
-/* <![CDATA[ */
-var google_conversion_id = 980419114;
-var google_conversion_language = "en";
-var google_conversion_format = "3";
-var google_conversion_color = "ffffff";
-var google_conversion_label = "vyjRCK7-mwcQqoTA0wM";
-var google_conversion_value = 0;
-var google_remarketing_only = false;
-/* ]]> */
-// ]]></script>
-<script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js">// <![CDATA[
-
-// ]]></script>
-<noscript><div style="display:inline;"> <img height="1" width="1" style="border-style:none;" alt="" src="//www.googleadservices.com/pagead/conversion/980419114/?value=0&label=vyjRCK7-mwcQqoTA0wM&guid=ONscript=0"/> </div></noscript>
-  
-
+<!--popup start-->
+	<div class="success-form-popup hidden">
+        <div class="popup">
+            <form target="_blank" action="" method="post" id="event-form" name="event_form">
+            <div class="blockbkg" id="bkg">
+                <div class="cont" id="dlg">
+                    <img id="gimmick-banner" src="" />
+                    <div id="gimmick-tos" name="tos" style="-moz-appearance:textfield-multiline;-webkit-appearance:textarea;border:1px solid gray;font:medium-moz-fixed;font:-webkit-small-control;padding:2px;resize:none;overflow-y:scroll; height:167px; font-weight: bold; font-family: 'tin_doghouseregular';"></div>
+                    <input id="event-data" name="data" type="hidden" value="" class="hidden" />
+                    <div class="position_button"> 
+                        <img src="http://assets.bilna.com/media/wysiwyg/gimmick-event/BUTTON-JOIN.jpg" class="ok" id="friso-form-submit" onclick="_frisoSave();jQuery('#event-form').submit();" />
+                        <img src="http://assets.bilna.com/media/wysiwyg/gimmick-event/BUTTON-NOTJOIN.jpg" class="cancel" id="friso-cancel" />
+                    </div>
+                </div>
+            </div>
+            </form>
+            <div style="clear: both;"></div>
+        </div>
+    </div>
+<!--popup end-->
+	
 <style type="text/css">
-    .wrapper_success_page{display:table;background:#dac54e;width:80%;color:#fff;font-family:arial;position:relative;margin:5%;padding:2%}.wrapper_success_page p{margin:0}.wrapper_success_page .col_left p:nth-of-type(1){font-size:23px;line-height:20px}.wrapper_success_page .col_left p:nth-of-type(2){font-size:67px;line-height:65px;border-bottom:6px dotted;margin:0 0 100px;display:table}.wrapper_success_page .col_left p:nth-of-type(3){font-size:21px}.wrapper_success_page .order_id{color:#403c0a}.wrapper_success_page .say_thanks{border-bottom:7px dotted;margin-top:150px;position:relative}.wrapper_success_page .say_thanks p{padding:0 0 0 10px;background:#dac54e;position:absolute;right:-6px;top:-10px}.wrapper_success_page .col_left{float:left;width:62%;padding:2% 5% 2% 2%;border-right:1px #fff solid}.wrapper_success_page .col_right{width:28%;float:left;margin-left:2%;height:200px}
+    .wrapper_success_page{display:table;background:#4ec7da;width:80%;color:#fff;font-family:arial;position:relative;margin:5%;padding:2%}.wrapper_success_page p{margin:0}.wrapper_success_page .col_left p:nth-of-type(1){font-size:23px;line-height:20px}.wrapper_success_page .col_left p:nth-of-type(2){font-size:67px;line-height:65px;border-bottom:6px dotted;margin:0 0 100px;display:table}.wrapper_success_page .col_left p:nth-of-type(3){font-size:21px}.wrapper_success_page .order_id{color:#403c0a}.wrapper_success_page .say_thanks{border-bottom:7px dotted;margin-top:150px;position:relative}.wrapper_success_page .say_thanks p{padding:0 0 0 10px;background:#4EC7DA;position:absolute;right:-6px;top:-10px}.wrapper_success_page .col_left{float:left;width:62%;padding:2% 5% 2% 2%;border-right:1px #fff solid}.wrapper_success_page .col_right{width:28%;float:left;margin-left:2%;height:200px}
+    .wrapper_failure_page{display:table;background:#da4e4e;width:80%;color:#fff;font-family:arial;position:relative;margin:5%;padding:2%}.wrapper_failure_page p{margin:0}.wrapper_failure_page .col_left p:nth-of-type(1){font-size:23px;line-height:20px}.wrapper_failure_page .col_left p:nth-of-type(2){font-size:67px;line-height:65px;border-bottom:6px dotted;margin:0 0 100px;display:table}.wrapper_failure_page .col_left p:nth-of-type(3){font-size:21px}.wrapper_failure_page .order_id{color:#403c0a}.wrapper_failure_page .say_thanks{border-bottom:7px dotted;margin-top:150px;position:relative}.wrapper_failure_page .say_thanks p{padding:0 0 0 10px;background:#da4e4e;position:absolute;right:-6px;top:-10px}.wrapper_failure_page .col_left{float:left;width:62%;padding:2% 5% 2% 2%;border-right:1px #fff solid}.wrapper_failure_page .col_right{width:28%;float:left;margin-left:2%;height:200px}
+    .wrapper_challange_page{display:table;background:#dac54e;width:80%;color:#fff;font-family:arial;position:relative;margin:5%;padding:2%}.wrapper_challange_page p{margin:0}.wrapper_challange_page .col_left p:nth-of-type(1){font-size:23px;line-height:20px}.wrapper_challange_page .col_left p:nth-of-type(2){font-size:67px;line-height:65px;border-bottom:6px dotted;margin:0 0 100px;display:table}.wrapper_challange_page .col_left p:nth-of-type(3){font-size:21px}.wrapper_challange_page .order_id{color:#403c0a}.wrapper_challange_page .say_thanks{border-bottom:7px dotted;margin-top:150px;position:relative}.wrapper_challange_page .say_thanks p{padding:0 0 0 10px;background:#dac54e;position:absolute;right:-6px;top:-10px}.wrapper_challange_page .col_left{float:left;width:62%;padding:2% 5% 2% 2%;border-right:1px #fff solid}.wrapper_challange_page .col_right{width:28%;float:left;margin-left:2%;height:200px}
+    .redirect_area{font-family:arial;display:block}.redirect_area .title_payment h3{color:#4ec7da;font-size:21px}.redirect_area .title_payment h3,.redirect_area .title_payment p{margin:3px 0}.redirect_area p{font-size:14px;color:#ffba5a}.redirect_area .redirect_button{margin:20px 0;background:#ffba5a;font-size:21px;color:#fff;border:0;padding:10px 20px}
+    @media only screen and (max-width: 767px) {
+        .wrapper_success_page .col_left p:nth-of-type(2){font-size:45px;}
+    }
+    @media only screen and (max-width: 483px) {
+        .wrapper_success_page .col_left p:nth-of-type(2){font-size:35px;}
+    }
+    .success-form-popup {
+        background: rgba(0,0,0,0.7);
+        width: 100%;
+        height:100%;
+        padding-top: 5%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 999;
+    }
+    .success-form-popup .popup {
+        width: 90%;
+        max-width: 500px;
+        margin: 5% auto;
+        background: #fff;
+        padding: 2%;
+        border-radius:5px;
+    }
+    .success-form-popup .popup img#gimmick-banner {
+        width: 100%;
+    }
 </style>
 
 <?php
@@ -128,31 +67,174 @@ if ($this->getOrderId()):
 endif;
 ?>
 
-<div class="wrapper_success_page">
-    <div class="col_left">
-        <p><?php echo $this->__('THANK YOU FOR SHOPPING WITH'); ?></p>
-        <p><?php echo $this->__('BILNA.COM'); ?></p>
-        <p>
-            <?php echo $this->__('Your order no is'); ?>: <?php echo $orderNoLink; ?>.
-            <br/>
-            
-            <?php echo $this->__('You will receive an order confirmation email with details of your order and a link to track its progress'); ?>.
-            <br/><br/>
-            
-            <?php if ($this->getCanViewOrder() && $this->getCanPrintOrder()): ?>
-                <?php echo $this->__('Click'); ?> <a href="<?php echo $this->escapeHtml($this->getPrintUrl()); ?>"><?php echo $this->__('here'); ?></a> <?php echo $this->__('to print a copy of your order confirmation'); ?>.
-            <?php endif; ?>
-                
-            <br/><br/>
-            <?php echo $this->__('Click <a href="%s">here</a> to continue shopping.', $this->getUrl()); ?>
-        </p>
-		
-        <div class="say_thanks">
-            <p><?php echo $this->__('Have a great day :)'); ?></p>
-        </div>
-    </div>
+<?php
+$responsePage = '';
+$redirectUrl = '';
+$retrieveConfirm2 = true;
+
+if (in_array($this->getOrderPaymentCode(), $this->getPaymentMethodBankTransfer())):
+    $responsePage = 'success';
+elseif (in_array($this->getOrderPaymentCode(), $this->getPaymentMethodKlikpay())):
+    $responsePage = 'success';
+elseif (in_array($this->getOrderPaymentCode(), $this->getPaymentMethodCc())):
+    $responseCharge = $this->getResponseCharge();
+    $responseStatus = $responseCharge->status;
     
-    <div class="col_right">
-        <?php echo $this->getInstruction(); ?>
+    if ($responseStatus == 'success'):
+        if ($this->getThreedSecure()):
+            if ($responseCharge->data->redirect_url):
+                $responsePage = 'threedsecure';
+                $redirectUrl = $responseCharge->data->redirect_url;
+                $retrieveConfirm2 = false;
+            else:
+                $responsePage = 'failure';
+            endif;
+        else:
+            if ($responseCharge->data->transaction_status == 'authorize'):
+                $responsePage = 'success';
+            else:
+                $responsePage = 'challenge';
+            endif;
+        endif;
+    elseif ($responseStatus == 'failure'):
+        $responsePage = 'failure';
+    else:
+        $responsePage = 'challange';
+    endif;
+else:
+    $responsePage = 'failure';
+endif;
+?>
+
+<?php if ($responsePage == 'success'): ?>
+    <div class="wrapper_success_page">
+        <div class="col_left">
+            <p><?php echo $this->__('THANK YOU FOR SHOPPING WITH'); ?></p>
+            <p><?php echo $this->__('BILNA.COM'); ?></p>
+            <p>
+                <?php echo $this->__('Your order no is'); ?>: <?php echo $orderNoLink; ?>.
+                <br/>
+
+                <?php echo $this->__('You will receive an order confirmation email with details of your order and a link to track its progress'); ?>.
+                <br/><br/>
+
+                <?php if ($this->getCanViewOrder() && $this->getCanPrintOrder()): ?>
+                    <?php echo $this->__('Click'); ?> <a href="<?php echo $this->escapeHtml($this->getPrintUrl()); ?>"><?php echo $this->__('here'); ?></a> <?php echo $this->__('to print a copy of your order confirmation'); ?>.
+                <?php endif; ?>
+
+                <br/><br/>
+                <?php echo $this->__('Click <a href="%s">here</a> to continue shopping.', $this->getUrl()); ?>
+            </p>
+
+            <div class="say_thanks">
+                <p><?php echo $this->__('Have a great day :)'); ?></p>
+            </div>
+        </div>
+
+        <?php if ($this->getInstruction()): ?>
+            <div class="col_right">
+                <?php echo $this->getInstruction(); ?>
+            </div>
+        <?php endif; ?>
     </div>
-</div>
+<?php elseif ($responsePage == 'challenge'): ?>
+    <div class="wrapper_challange_page">
+        <div class="col_left">
+            <p><?php echo $this->__('THANK YOU FOR SHOPPING WITH'); ?></p>
+            <p><?php echo $this->__('BILNA.COM'); ?></p>
+            <p>
+                <?php echo $this->__('Your order no is'); ?>: <?php echo $orderNoLink; ?>.
+                <br/>
+
+                <span><?php echo $this->getDefaultResponseMessage($responseStatus, $responseCharge->message); ?></span>
+
+                <br/><br/>
+                <?php echo $this->__('Click <a href="%s">here</a> to continue shopping.', $this->getUrl()); ?>
+            </p>
+
+            <div class="say_thanks">
+                <p><?php echo $this->__('Have a great day! :)'); ?></p>
+            </div>
+        </div>
+
+        <div class="col_right"></div>
+    </div>
+<?php elseif ($responsePage == 'threedsecure'): ?>
+    <div class="redirect_area">
+        <div class="title_payment">
+            <br/>
+            <h3><?php echo $this->__('Credit Card redirect page'); ?></h3>
+        </div>
+
+        <br/><br/><br/>
+
+        <p><?php echo $this->__('This page will be redirect in 5 seconds.'); ?></p>
+
+        <br/><br/>
+
+        <button class="redirect_button" onclick="window.location='<?php echo $redirectUrl; ?>'">
+            <?php echo $this->__('Redirect'); ?>
+        </button>
+    </div>
+    <script type="text/javascript">
+        setTimeout(function() {
+            document.location = '<?php echo $redirectUrl; ?>';
+        }, 5000);
+    </script>
+<?php elseif ($responsePage == 'failure'): ?>
+    <div class="wrapper_failure_page">
+        <div class="col_left">
+            <p><?php echo $this->__('THANK YOU FOR SHOPPING WITH'); ?></p>
+            <p><?php echo $this->__('BILNA.COM'); ?></p>
+            <p>
+                <?php echo $this->__('Your order no is'); ?>: <?php echo $orderNoLink; ?>.
+                <br/>
+                
+                <span><?php echo $this->getDefaultResponseMessage($responseStatus, $responseCharge->message); ?></span>
+                
+                <br/><br/>
+                <?php echo $this->__('Click <a href="%s">here</a> to continue shopping.', $this->getUrl()); ?>
+            </p>
+		
+            <div class="say_thanks">
+                <p><?php echo $this->__('Have a great day! :)'); ?></p>
+            </div>
+        </div>
+	
+        <div class="col_right"></div>
+    </div>
+<?php else: ?>
+    <!-- do nothing -->
+<?php endif; ?>
+
+<?php if ($retrieveConfirm2): ?>
+    <script type="text/javascript">
+        jQuery(document).ready(function() {
+    	    var ajaxURL = 'https://www.bilna.com/ajaxrequest/data/retrieveconfirm2/';
+
+            var data = {};
+            data.orderId = '<?php echo $this->escapeHtml($this->getOrderId()); ?>';
+
+            jQuery.ajax({
+                type: "POST",
+                url : ajaxURL,
+                data: {data: data},
+                success: function(data) {
+                    response = jQuery.parseJSON(data);
+
+                    if (response.status == true) {
+                        dataLayer.push({'customer': response.data.customer});
+                        dataLayer.push({'order': response.data.order});
+                        dataLayer.push({'event': 'salesConversionEvent'});
+                    }
+                    else {
+                        return false;
+                    }
+                },
+                error: function() {
+                    return false;
+                }
+            });
+        });
+    </script>
+<?php endif; ?>

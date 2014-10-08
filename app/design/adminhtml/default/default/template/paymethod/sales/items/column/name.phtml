@@ -40,10 +40,10 @@
     <?php endif; ?>
 
     <!-- showing installment option -->
-    <?php if ($items->getInstallmentType()): ?>
+    <?php if ($items->getInstallment()): ?>
         <div>
-            <strong><?php echo $this->helper('sales')->__('Payment type:') ?></strong>
-            <?php echo $this->helper('paymethod')->getInstallmentOption($payCode, $items->getInstallmentType(), 'label'); ?>
+            <strong><?php echo $this->helper('sales')->__('Installment tenor:') ?></strong>
+            <?php echo $items->getInstallmentType(); ?>
         </div>
     <?php endif; ?>
     

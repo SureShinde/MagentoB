@@ -100,10 +100,49 @@ class Bilna_Paymethod_Model_Method_Vtdirect extends Mage_Payment_Model_Method_Cc
         
         return $this;
     }
-
-    public function getOrderPlaceRedirectUrl() {
-        return Mage::getUrl('paymethod/vtdirect/thankyou', array ('_secure' => true));
+    
+    public function assignData($data) {
+        if (!($data instanceof Varien_Object)) {
+            $data = new Varien_Object($data);
+        }
+        
+        $info = $this->getInfoInstance();
+        $info->setCcType($data->getCcType())
+            ->setCcOwner($data->getCcOwner())
+            ->setCcLast4(substr($data->getCcNumber(), -4))
+            ->setCcNumber($data->getCcNumber())
+            ->setCcCid($data->getCcCid())
+            ->setCcExpMonth($data->getCcExpMonth())
+            ->setCcExpYear($data->getCcExpYear())
+            ->setCcSsIssue($data->getCcSsIssue())
+            ->setCcSsStartMonth($data->getCcSsStartMonth())
+            ->setCcSsStartYear($data->getCcSsStartYear())
+            ->setCcBins($data->getCcBins());
+        
+        return $this;
     }
+    
+    public function validate() {
+        parent::validate();
+        
+        $info = $this->getInfoInstance();
+        $no = $info->getCcBins();
+        
+        if (empty ($no)) {
+            $errorCode = 'invalid_data';
+            $errorMsg = $this->_getHelper()->__('Bin Number is required field.');
+        }
+        
+        if ($errorMsg) {
+            Mage::throwException($errorMsg);
+        }
+        
+        return $this;
+    }
+
+    //public function getOrderPlaceRedirectUrl() {
+    //    return Mage::getUrl('paymethod/vtdirect/thankyou', array ('_secure' => true));
+    //}
     
     public function getCode() {
         if (empty ($this->_code)) {
@@ -116,12 +155,30 @@ class Bilna_Paymethod_Model_Method_Vtdirect extends Mage_Payment_Model_Method_Cc
     public function getBankCode($cardNo) {
         $read = Mage::getSingleton('core/resource')->getConnection('core_read');
         $binCode = substr($cardNo, 0, 6);
+        $bankCode = '';
         
         $sql = "SELECT issuer ";
         $sql .= "FROM bin_code ";
         $sql .= sprintf("WHERE code = '%s' ", $binCode);
         $sql .= "LIMIT 1 ";
         
-        return $read->fetchOne($sql);
+        $bankCode = $read->fetchOne($sql);
+        
+        /**
+         * check other visa/mastercard
+         */
+        if (empty ($bankCode)) {
+            if ($cardNo[0] == 4) {
+                $bankCode = 'othervisa';
+            }
+            else if ($cardNo[0] == 5) {
+                $bankCode = 'othermc';
+            }
+            else {
+                $bankCode = '';
+            }
+        }
+        
+        return $bankCode;
     }
 }

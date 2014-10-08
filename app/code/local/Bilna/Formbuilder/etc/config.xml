@@ -2,7 +2,7 @@
 <config>
   <modules>
     <Bilna_Formbuilder>
-      <version>1.0.0</version>
+      <version>0.1.11</version>
     </Bilna_Formbuilder>
   </modules>
   
@@ -33,9 +33,16 @@
 		<bilna_formbuilder_mysql4>
 			<class>Bilna_Formbuilder_Model_Mysql4</class>
 			<entities>
-				<formbuilder>
-					<table>bilna_form_data</table>
-				</formbuilder>
+				<form>
+					<!--table>bilna_form_data</table-->
+					<table>bilna_formbuilder_form</table>
+				</form>
+				<data>
+					<table>bilna_formbuilder_data</table>
+				</data>
+				<input>
+					<table>bilna_formbuilder_input</table>
+				</input>
 			</entities>
 		</bilna_formbuilder_mysql4>
 	</models>

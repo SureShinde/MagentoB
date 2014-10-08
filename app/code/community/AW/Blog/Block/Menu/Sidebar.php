@@ -34,16 +34,20 @@ class AW_Blog_Block_Menu_Sidebar extends AW_Blog_Block_Abstract
             $size = $this->getBlogWidgetRecentCount();
         } else {
             // standard output
-            $size = self::$_helper->getRecentPage();
+            $size = 4;//self::$_helper->getRecentPage();
         }
 
         if ($size) {
             $collection = clone self::$_collection;
             $collection->setPageSize($size);
-
+            $collection->addFieldToSelect('title');
+            $collection->addFieldToSelect('created_time');
+            $collection->addFieldToSelect('image_name');
+            $collection->addFieldToSelect('identifier');
             foreach ($collection as $item) {
                 $item->setAddress($this->getBlogUrl($item->getIdentifier()));
             }
+
             return $collection;
         }
         return false;
@@ -54,10 +58,26 @@ class AW_Blog_Block_Menu_Sidebar extends AW_Blog_Block_Abstract
         $collection = Mage::getModel('blog/cat')
             ->getCollection()
             ->addStoreFilter(Mage::app()->getStore()->getId())
+            ->addFieldToFilter("main_table.title", array ('neq' => 'Uncategorized'))
+            ->addFieldToFilter("main_table.parent_id", array ('eq' => 0))
+	    ->addFieldToFilter(array("awblog_cat.cat_id", "awblog_cat.cat_id"),  array(array('notnull'=>'awblog_cat.cat_id'), array('neq'=>0)))
             ->setOrder('sort_order', 'asc')
         ;
+        $collection->getSelect()
+            ->joinLeft(
+                array( 'awblog_cat' => Mage::getSingleton('core/resource')->getTableName('blog/cat') ),
+                "main_table.cat_id = awblog_cat.parent_id",
+                array(
+                    'cat_id' => 'awblog_cat.cat_id',
+                    'identifier_parent' => 'main_table.identifier',
+                    'title' => 'awblog_cat.title',
+                    'identifier' => 'awblog_cat.identifier'
+                )
+            );
+	 $collection->getSelect()->group('awblog_cat.cat_id');
+//$collection->printLogQuery(true);die;
         foreach ($collection as $item) {
-            $item->setAddress($this->getBlogUrl(array(self::$_catUriParam, $item->getIdentifier())));
+            $item->setAddress($this->getBlogUrl(array($item->getIdentifierParent(), $item->getIdentifier())));
         }
         return $collection;
     }
@@ -66,7 +86,11 @@ class AW_Blog_Block_Menu_Sidebar extends AW_Blog_Block_Abstract
     {
         $collection = Mage::getModel('blog/comment')
             ->getCollection()
+            ->addFieldToSelect('created_time')
+            ->addFieldToSelect('user')
+            ->addFieldToSelect('email')
             ->setOrder('created_time', 'DESC');
+
         $collection->addFieldToFilter("main_table.status", array ('eq' => 2));
         $collection->getSelect()
             ->joinLeft(
@@ -74,12 +98,13 @@ class AW_Blog_Block_Menu_Sidebar extends AW_Blog_Block_Abstract
                 "main_table.post_id = awblog_post.post_id",
                 array(
                     'image_name' => 'awblog_post.image_name',
+                    'identifier' => 'awblog_post.identifier',
                     'title'      => 'awblog_post.title',
                 )
         	)
-            ->limit(5);
+            ->limit(4);
 
-        $collection->getSelect()->limit(5);
+        $collection->getSelect()->limit(4);
 
         return $collection;
     }
@@ -91,13 +116,16 @@ class AW_Blog_Block_Menu_Sidebar extends AW_Blog_Block_Abstract
             $size = $this->getBlogWidgetRecentCount();
         } else {
             // standard output
-            $size = self::$_helper->getRecentPage();
+            $size = 4;//self::$_helper->getRecentPage();
         }
 
         if ($size) {
             $collection = clone self::$_collection;
             $collection->setPageSize($size);
-
+            $collection->addFieldToSelect('title');
+            $collection->addFieldToSelect('created_time');
+            $collection->addFieldToSelect('image_name');
+            
             foreach ($collection as $item) {
                 $item->setAddress($this->getBlogUrl($item->getIdentifier()));
             }

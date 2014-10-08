@@ -24,7 +24,7 @@ class Bilna_Paymethod_Helper_Vtdirect extends Mage_Core_Helper_Abstract {
         
         $this->userAgent = $_SERVER['HTTP_USER_AGENT'];
         $this->compression = 'gzip';
-        $this->timeout = Mage::getStoreConfig('payment/klikbca/confirm_timeout');
+        $this->timeout = (int) Mage::getStoreConfig('payment/vtdirect/charge_timeout');
     }
     
     /**
@@ -56,7 +56,11 @@ class Bilna_Paymethod_Helper_Vtdirect extends Mage_Core_Helper_Abstract {
         $disallowedSymbol = Mage::getStoreConfig('payment/vtdirect/disallowed_symbol');
         $disallowedSymbolArr = explode(' ', $disallowedSymbol);
 
-        return str_replace($disallowedSymbolArr, ' ', $text);
+        return str_replace($disallowedSymbolArr, '', $text);
+    }
+    
+    public function filterAddress($text) {
+        return preg_replace('/[^\d\sa-z]/i', '' , trim($text));
     }
     
     public function getCheckout() {
@@ -65,5 +69,12 @@ class Bilna_Paymethod_Helper_Vtdirect extends Mage_Core_Helper_Abstract {
     
     public function getOrderId() {
         return $this->getCheckout()->getLastOrderId();
+    }
+    
+    public function getStatusOrderIgnore() {
+        $orders = Mage::getStoreConfig('payment/vtdirect/update_order_status');
+        $ordersArr = explode(',', $orders);
+        
+        return $ordersArr;
     }
 }

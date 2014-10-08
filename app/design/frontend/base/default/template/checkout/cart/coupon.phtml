@@ -25,7 +25,7 @@
  */
 ?>
 <form id="discount-coupon-form" action="<?php echo $this->getUrl('checkout/cart/couponPost') ?>" method="post">
-    <div class="discount">
+    <div class="discount" style="display:none">
         <h2><?php echo $this->__('Voucher Code') ?></h2>
 		<span class="get-voucher"><a href="#"><?php echo $this->__('Get Voucher Code') ?></a></span>
         <div class="discount-form">
@@ -43,6 +43,29 @@
         </div>
     </div>
 </form>
+<!-- add custom discount coupon form -->
+<form id="custom-discount-coupon-form" onsubmit="return cekCustomVoucher()" method="post">
+    <div class="discount">
+        <h2><?php echo $this->__('Voucher Code') ?></h2>
+        <span class="get-voucher"><a href="#"><?php echo $this->__('Get Voucher Code') ?></a></span>
+        <div class="discount-form">
+            <label for="custom_coupon_code"><?php echo $this->__('Enter your coupon code if you have one.') ?></label>
+            <input type="hidden" name="remove" id="custom-remove-coupone" value="0" />
+            <div class="input-box">
+                <input class="input-text" id="custom_coupon_code" name="custom_coupon_code" value="<?php echo $this->escapeHtml($this->getCouponCode()) ?>" />
+            </div>
+            <div class="buttons-set">
+                <button type="button" title="<?php echo $this->__('Apply Voucher') ?>" class="button" value="<?php echo $this->__('Apply Voucher') ?>" id="custom-apply-voucher"><span><span><?php echo $this->__('Apply Voucher') ?></span></span></button>
+                <?php if(strlen($this->getCouponCode())): ?>
+                    &nbsp; <button type="button" title="<?php echo $this->__('Cancel Voucher') ?>" class="button" onclick="discountForm.submit(true)" value="<?php echo $this->__('Cancel Voucher') ?>"><span><span><?php echo $this->__('Cancel Voucher') ?></span></span></button>
+                <?php endif;?>
+            </div>
+            <div id="feedback"></div>
+        </div>
+    </div>
+</form>
+<!-- end add custom discount coupon form -->
+
 <script type="text/javascript">
 //<![CDATA[
 var discountForm = new VarienForm('discount-coupon-form');
@@ -56,5 +79,42 @@ discountForm.submit = function (isRemove) {
     }
     return VarienForm.prototype.submit.bind(discountForm)();
 }
+
+Event.observe(window, 'load', init, false);
+    
+function init(){
+    Event.observe('custom-apply-voucher', 'click', cekCustomVoucher, false);
+}
+
+function cekCustomVoucher(event){
+
+    var discountForm = this.discountForm; 
+    var url = '<?php echo $this->getUrl('checkout/cart/customCouponPost') ?>';
+    var oOptions = {  
+        method: "POST",  
+        parameters: Form.serialize("custom-discount-coupon-form"),  
+        asynchronous: true,  
+        onFailure: function (oXHR) {  
+            $('feedback').update(oXHR.statusText);  
+        },  
+        onLoading: function (oXHR) {  
+            $('feedback').update('Checking Coupon Code ... <img src="<?php echo $this->getSkinUrl("ajaxlogin/ajax-loader-tr.gif")?>" title="Loading..." alt="Loading..." border="0" />');
+        },                            
+        onSuccess: function(oXHR) {  
+           
+           res = oXHR.responseText.evalJSON();           
+           $('feedback').update(res.responseText);
+           $('coupon_code').value = $F('custom_coupon_code');
+           if(res.status == 1){
+               this.discountForm.submit(false);
+           }else{
+               window.location.reload(true);
+           }
+        }                 
+    };  
+    var oRequest = new Ajax.Updater({success: oOptions.onSuccess.bindAsEventListener(oOptions)}, url, oOptions);
+    return false;
+}
+
 //]]>
 </script>

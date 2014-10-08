@@ -5,96 +5,106 @@ class Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Grid extends Mage_Adminhtml_
   public function __construct()
   {
 	parent::__construct();
-	$this->setDefaultSort('id');
 	$this->setId('bilna_formbuilder_formbuilder_grid');
+	$this->setDefaultSort('id');
 	$this->setDefaultDir('ASC');
 	$this->setSaveParametersInSession(true);
+	$this->setUseAjax(true);
   }
-  
-	protected function _getCollectionClass()
-	{
-		return 'bilna_formbuilder/formbuilder_collection';
-	}
 
-    protected function _prepareCollection()
-    {
-		$collection = Mage::getResourceModel($this->_getCollectionClass());
-		$collection->getSelect()->join('bilna_form', 'main_table.form_id = bilna_form.id',array('title'));
-		$this->setCollection($collection);
-		//$collection->printLogQuery(true);
-		 
-		return parent::_prepareCollection();
-    }
+  protected function _prepareCollection()
+  {
+	$collection = Mage::getModel('bilna_formbuilder/form')->getCollection();
+	//$collection->printLogQuery(true); die;
+	$this->setCollection($collection);		 
+	return parent::_prepareCollection();
+  }
 
   protected function _prepareColumns()
-  {
-
-	$this->addColumn('id',
-		array(
-			'header'=> $this->__('ID'),
-			'align' =>'right',
-			'width' => '50px',
-			'index' => 'id'
-	));			
-	
-	$combobox = $this->getComboForm();
-	
+  {	
+	$combobox = $this->getComboForm();	
 	$this->addColumn('title',
 		array(
-			'header' =>Mage::helper('bilna_formbuilder')->__('Title'),
-			'align' =>'right',
-			'width' => '30px',
-			'index' => 'title',
-			'type'  => 'options',
+			'header'	=>Mage::helper('bilna_formbuilder')->__('Title'),
+			//'align' =>'right',
+			//'width' => '30px',
+			'index' 	=> 'title',
+			'type'  	=> 'options',
 			'options' => $combobox,
-	));
-	  
-	$this->addColumn('name',
+			'header_css_class'=>'a-center'
+	));	  
+
+	$this->addColumn('url',
 		array(
-			'header'=> $this->__('Name'),
-			'index' => 'name'
+			'header'=> $this->__('URL'),
+			'index' => 'url',
+			'header_css_class'=>'a-center'
 	));
 
-	$this->addColumn('email',
+	$this->addColumn('active_from',
 		array(
-			'header'=> $this->__('Email'),
-			'index' => 'email'
+			'header'=> $this->__('Active From'),
+			'type' 	=> 'datetime',
+			'index' => 'active_from',
+			'header_css_class'=>'a-center'
+	));
+
+	$this->addColumn('active_to',
+		array(
+			'header'=> $this->__('Active To'),
+			'type' 	=> 'datetime',
+			'index' => 'active_to',
+			'header_css_class'=>'a-center'
+	));
+
+	$this->addColumn('status',
+		array(
+			'header'	=> $this->__('Status'),
+			'index' 	=> 'status',
+			'type'  	=> 'options',
+      'options' => array(
+				'0'			=>'Enabled',
+				'1'			=>'Disabled'),
+			'header_css_class'=>'a-center'
 	));
 	  
-	$this->addColumn('phone',
-		array(
-			'header'=> $this->__('Phone'),
-			'index' => 'phone'
-	));
-	  
-	$this->addColumn('comment',
-		array(
-			'header'=> $this->__('Comment'),
-			'index' => 'comment'
-	));
-	
-	$this->addColumn('submit_date',
-		array(
-			'header'=> $this->__('Submit Date'),
-			'type' => 'datetime',
-			'index' => 'submit_date'
-	));
-		
-	$this->addExportType('*/*/exportCsv', Mage::helper('bilna_formbuilder')->__('CSV'));
-	  
-      return parent::_prepareColumns();
+  return parent::_prepareColumns();
   }
   
 	private function getComboForm() {
 		$connection = Mage::getSingleton('core/resource')->getConnection('core_read');
-		$sql        = "select title from bilna_form group by title";
+		$sql        = "select title from bilna_formbuilder_form";
 		$rows       = $connection->fetchAll($sql);
-		$result = array ();
+		$result 		= array ();
 				
 		foreach ($rows as $key=>$row) {
 			$result[$row['title']] = $row['title'];
 		}
 		
 		return $result;
+		}
+
+  protected function _prepareMassaction()
+  {
+    $this->setMassactionIdField('id');
+    $this->getMassactionBlock()->setFormFieldName('formbuilder');
+
+    $this->getMassactionBlock()->addItem('delete',
+      array(
+        'label'		=> Mage::helper('bilna_formbuilder')->__('Delete'),
+        'url' 		=> $this->getUrl('*/*/massDelete'),
+        'confirm' => Mage::helper('bilna_formbuilder')->__('Are you sure?')
+      ));
 	}
+
+  //Grid with Ajax Request
+  public function getGridUrl() 
+	{
+    return $this->getUrl('*/*/grid', array ('_current' => true));
+  }
+
+  public function getRowUrl($row)
+  {
+    return $this->getUrl('*/*/edit', array('id' => $row->getId()));
+  }	  
 }

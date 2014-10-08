@@ -40,26 +40,29 @@ class Bilna_Paymethod_VtdirectController extends Mage_Core_Controller_Front_Acti
             $data = array ();
             $data['token_id'] = $this->getTokenId();
             $data['order_id'] = $this->maxChar($order->getIncrementId(), 20);
-            //$data['bins'] = $this->getBins($order, $paymentCode);
+            $data['bins'] = $this->getBins($order, $paymentCode);
             $data['order_items'] = $this->getOrderItems($order, $items);
             $data['gross_amount'] = round($order->getGrandTotal());
             $data['email'] = $this->getCustomerEmail($order->getBillingAddress()->getEmail());
-            $data['shipping_address'] = $this->parseShippingAddress($order->getShippingAddress());
             $data['billing_address'] = $this->parseBillingAddress($order->getBillingAddress());
+            $data['shipping_address'] = $this->parseBillingAddress($order->getBillingAddress());
             $data['bank'] = $this->getAcquiredBank($paymentCode);
             
             /**
              * check installment
              */
-            $installmentId = $this->getInstallment($items);
-            
-            if ($installmentId) {
-                $data['type'] = 'installment';
-                $data['installment'] = array (
-                    'bank' => $this->getInstallmentBank($paymentCode),
-                    'term' => $this->getInstallmentTenor($paymentCode, $installmentId),
-                    'type' => $this->getInstallmentTypeCodeBank($paymentCode)
-                );
+            if ($this->getInstallmentProcess($paymentCode) != 'manual') {
+                $installmentId = $this->getInstallment($items);
+
+                if ($installmentId) {
+                    $data['type'] = 'installment';
+                    $data['installment'] = array (
+                        'bank' => $this->getInstallmentBank($paymentCode),
+                        'term' => $installmentId,
+                        //'term' => $this->getInstallmentTenor($paymentCode, $installmentId),
+                        'type' => $this->getInstallmentTypeCodeBank($paymentCode)
+                    );
+                }
             }
             
             $threedsecure = $this->getThreedSecure($paymentCode);
@@ -95,6 +98,8 @@ class Bilna_Paymethod_VtdirectController extends Mage_Core_Controller_Front_Acti
         
         $session->clear();
         $this->loadLayout();
+        $this->_initLayoutMessages('checkout/session');
+        Mage::dispatchEvent('checkout_onepage_controller_success_action', array ('order_ids' => array ($lastOrderId)));
         $this->getLayout()->getBlock('head')->setTitle($this->__('Thankyou Page'));
         $this->renderLayout();
     }
@@ -199,7 +204,8 @@ class Bilna_Paymethod_VtdirectController extends Mage_Core_Controller_Front_Acti
     }
     
     private function getBins($order, $paymentCode) {
-        $digit = ($paymentCode == 'othervisa' || $paymentCode == 'othermc') ? 1 : 6;
+        $digit = 6;
+        //$digit = ($paymentCode == 'othervisa' || $paymentCode == 'othermc') ? 1 : 6;
         $result = substr($order->getPayment()->getCcBins(), 0, $digit);
         
         return array ($result);
@@ -233,39 +239,49 @@ class Bilna_Paymethod_VtdirectController extends Mage_Core_Controller_Front_Acti
     }
     
     private function parseShippingAddress($shippingAddress) {
+        $firstname = $shippingAddress->getFirstname();
+        $lastname = $shippingAddress->getFirstname();
+        //$lastname = $shippingAddress->getLastname();
+        
         $result = array (
-            'first_name' => $this->maxChar($this->removeSymbols($shippingAddress->getFirstname()), 20),
-            'last_name' => $this->maxChar($this->removeSymbols($shippingAddress->getLastname()), 20),
-            'address1' => $this->maxChar($shippingAddress->getStreet(1), 100),
-            'address2' => $this->maxChar($shippingAddress->getStreet(2), 100),
-            'city' => $this->maxChar($this->removeSymbols($shippingAddress->getCity()), 20),
+            'first_name' => $this->maxChar(Mage::helper('paymethod/vtdirect')->filterAddress($firstname, true), 20),
+            'last_name' => $this->maxChar(Mage::helper('paymethod/vtdirect')->filterAddress($lastname, true), 20),
+            'address1' => $this->maxChar(Mage::helper('paymethod/vtdirect')->filterAddress($shippingAddress->getStreet(1)), 100),
+            'address2' => $this->maxChar(Mage::helper('paymethod/vtdirect')->filterAddress($shippingAddress->getStreet(2)), 100),
+            'city' => $this->maxChar(Mage::helper('paymethod/vtdirect')->filterAddress($shippingAddress->getCity()), 20),
             'postal_code' => $this->maxChar($this->getPostCode($shippingAddress->getPostcode()), 10),
-            'phone' => $this->maxChar($shippingAddress->getTelephone(), 19)
+            'phone' => $this->maxChar(Mage::helper('paymethod')->allowOnlyNumber($shippingAddress->getTelephone()), 19)
         );
         
         return $result;
     }
     
     private function parseBillingAddress($billingAddress) {
+        $firstname = $billingAddress->getFirstname();
+        $lastname = $billingAddress->getFirstname();
+        //$lastname = $billingAddress->getLastname();
+        
         $result = array (
-            'first_name' => $this->maxChar($this->removeSymbols($billingAddress->getFirstname()), 20),
-            'last_name' => $this->maxChar($this->removeSymbols($billingAddress->getLastname()), 20),
-            'address1' => $this->maxChar($billingAddress->getStreet(1), 100),
-            'address2' => $this->maxChar($billingAddress->getStreet(2), 100),
-            'city' => $this->maxChar($this->removeSymbols($billingAddress->getCity()), 20),
+            'first_name' => $this->maxChar(Mage::helper('paymethod/vtdirect')->filterAddress($firstname, true), 20),
+            'last_name' => $this->maxChar(Mage::helper('paymethod/vtdirect')->filterAddress($lastname, true), 20),
+            'address1' => $this->maxChar(Mage::helper('paymethod/vtdirect')->filterAddress($billingAddress->getStreet(1)), 100),
+            'address2' => $this->maxChar(Mage::helper('paymethod/vtdirect')->filterAddress($billingAddress->getStreet(2)), 100),
+            'city' => $this->maxChar(Mage::helper('paymethod/vtdirect')->filterAddress($billingAddress->getCity()), 20),
             'postal_code' => $this->maxChar($this->getPostCode($billingAddress->getPostcode()), 10),
-            'phone' => $this->maxChar($billingAddress->getTelephone(), 19)
+            'phone' => $this->maxChar(Mage::helper('paymethod')->allowOnlyNumber($billingAddress->getTelephone()), 19)
         );
         
         return $result;
     }
     
     private function getPostCode($postCode) {
-        if (empty ($postCode) || $postCode == '') {
-            return $this->getPostCodeSession();
+        $result = Mage::helper('paymethod')->allowOnlyNumber($postCode);
+        
+        if (empty ($result) || $result == '') {
+            $result = Mage::helper('paymethod')->allowOnlyNumber($this->getPostCodeSession());
         }
         
-        return $postCode;
+        return $result;
     }
     
     private function getPostCodeSession() {
@@ -274,6 +290,10 @@ class Bilna_Paymethod_VtdirectController extends Mage_Core_Controller_Front_Acti
     
     private function getAcquiredBank($paymentCode) {
         return Mage::getStoreConfig('payment/' . $paymentCode . '/bank_acquired');
+    }
+    
+    private function getInstallmentProcess($paymentCode) {
+        return Mage::getStoreConfig('payment/' . $paymentCode . '/installment_process');
     }
     
     private function getInstallment($items) {
@@ -289,6 +309,10 @@ class Bilna_Paymethod_VtdirectController extends Mage_Core_Controller_Front_Acti
     }
     
     private function getInstallmentBank($paymentCode) {
+		if (strtolower($paymentCode) == 'bnikartinivisa' || strtolower($paymentCode) == 'bnikartinimc') {
+			return 'bni';
+		}
+		
         $result = '';
         
         if (substr($paymentCode, -4) == 'visa') {
@@ -339,33 +363,46 @@ class Bilna_Paymethod_VtdirectController extends Mage_Core_Controller_Front_Acti
     private function updateOrder($order, $paymentCode, $responseCharge) {
         if ($responseCharge->status == 'success') {
             if ($this->getThreedSecure($paymentCode)) {
-                $order->setState(Mage_Sales_Model_Order::STATE_NEW, true, 'Pending for 3D Secure Validation', true)->save();
+                $order->setState(Mage_Sales_Model_Order::STATE_NEW, 'cc_verification', 'Pending for 3D Secure Validation', true)->save();
             }
             else {
+                // check order status if processing/complete then ignore
+                if (in_array($order->getStatus(), Mage::helper('paymethod/vtdirect')->getStatusOrderIgnore())) {
+                    return true;
+                }
+                
                 $transactionStatus = $responseCharge->data->transaction_status;
+                $message = "Transaction status: " . $transactionStatus . ". ";
+                $message .= $this->getDefaultResponseMessage($responseCharge->status, $responseCharge->message);
                 
                 if ($transactionStatus == 'deny') {
+                    //$order->addStatusHistoryComment($message);
+                    $history = $order->addStatusHistoryComment($message);
+                    $history->setIsCustomerNotified(true);
+            
                     if ($order->canCancel()) {
-                        $order
-                            ->cancel()
-                            ->setState(Mage_Sales_Model_Order::STATE_CANCELED, true, $responseCharge->message, true)
-                            ->save();
-                            
-                        return true;
+                        $order->cancel();
                     }
+            
+                    $order->save();
+                            
+                    return true;
                 }
                 else if ($transactionStatus == 'cancel') {
+                    //$order->addStatusHistoryComment($message);
+                    $history = $order->addStatusHistoryComment($message);
+                    $history->setIsCustomerNotified(true);
+            
                     if ($order->canCancel()) {
-                        $order
-                            ->cancel()
-                            ->setState(Mage_Sales_Model_Order::STATE_CANCELED, true, $responseCharge->message, true)
-                            ->save();
-                            
-                        return true;
+                        $order->cancel();
                     }
+            
+                    $order->save();
+                    
+                    return true;
                 }
                 else if ($transactionStatus == 'challenge') {
-                    $order->setState(Mage_Sales_Model_Order::STATE_NEW, 'cc_verification', $responseCharge->message, true);
+                    $order->setState(Mage_Sales_Model_Order::STATE_NEW, 'cc_verification', $message, true);
                     $order->save();
                     
                     return true;
@@ -382,7 +419,7 @@ class Bilna_Paymethod_VtdirectController extends Mage_Core_Controller_Front_Acti
                             $transaction = Mage::getModel('core/resource_transaction')
                                 ->addObject($invoice)
                                 ->addObject($invoice->getOrder());
-                            $order->setState(Mage_Sales_Model_Order::STATE_PROCESSING, true, $responseCharge->message, true);
+                            $order->setState(Mage_Sales_Model_Order::STATE_PROCESSING, true, $message, true);
                             $order->save();
                             $transaction->save();
                             $invoice->sendEmail(true, '');
@@ -392,8 +429,10 @@ class Bilna_Paymethod_VtdirectController extends Mage_Core_Controller_Front_Acti
                     }
                 }
                 else if ($transactionStatus == 'settlement') {
-                    $order->addStatusHistoryComment($responseCharge->message);
+                    $order->addStatusHistoryComment($message);
                     $order->save();
+                    
+                    return true;
                 }
                 else {
                     //do nothing
@@ -403,17 +442,63 @@ class Bilna_Paymethod_VtdirectController extends Mage_Core_Controller_Front_Acti
             return false;
         }
         else if ($responseCharge->status == 'failure') {
-            $order->addStatusHistoryComment($responseCharge->message);
+            $message = "Transaction status: " . $responseCharge->status . ". ";
+            $message .= $this->getDefaultResponseMessage($responseCharge->status, $responseCharge->message);
+            $history = $order->addStatusHistoryComment($message);
+            $history->setIsCustomerNotified(true);
+            
+            if ($order->canCancel()) {
+                $order->cancel();
+            }
+            
             $order->save();
             
             return true;
         }
         else {
-            //do nothing
+            /**
+             * failed get response or timeout
+             */
+            $order->addStatusHistoryComment('failed get response or timeout from Veritrans');
+            $order->save();
+            
+            /**
+             * write log to process confirmation
+             */
+            $this->createLog($this->maxChar($order->getIncrementId(), 20), 'confirmation', $order->getIncrementId() . "|Response charge is null");
+            
             return true;
         }
     }
     
+    protected function getDefaultResponseMessage($status, $message) {
+        $result = '';
+        
+        if ($message) {
+            $result = $message;
+        }
+        else {
+            if ($status == 'success') {
+                $result = Mage::getStoreConfig('payment/vtdirect/default_response_message_success');
+            }
+            else if ($status == 'failure') {
+                $result = Mage::getStoreConfig('payment/vtdirect/default_response_message_failure');
+            }
+            else {
+                $result = Mage::getStoreConfig('payment/vtdirect/charge_timeout_message');
+            }
+        }
+        
+        return $result;
+    }
+    
+    protected function getStatusOrderIgnore() {
+        $orders = Mage::getStoreConfig('payment/vtdirect/update_order_status');
+        $ordersArr = explode(',', $orders);
+        
+        return $ordersArr;
+    }
+
     protected function getRequestData($key, $type = 'POST') {
         $result = '';
         
@@ -439,8 +524,19 @@ class Bilna_Paymethod_VtdirectController extends Mage_Core_Controller_Front_Acti
         return substr($text, 0, $maxLength);
     }
     
-    private function removeSymbols($text) {
-        return Mage::helper('paymethod/vtdirect')->removeSymbols($text);
+    private function removeSymbols($text, $removeNumber = false) {
+        $result = Mage::helper('paymethod/vtdirect')->removeSymbols($text);
+        $number = array (1,2,3,4,5,6,7,8,9,0);
+        
+        if ($removeNumber) {
+            $result = str_replace($number, ' ', $result);
+        }
+        
+        //TODO: REMOVE THIS LINE
+        //DIRTY CODE
+        $result = preg_replace('/[^\d\sa-z]/i', ' ' , $result);
+        
+        return $result;
     }
     
     protected function writeLog($type, $logFile, $content) {
@@ -456,5 +552,12 @@ class Bilna_Paymethod_VtdirectController extends Mage_Core_Controller_Front_Acti
     
     protected function checkLock($filename) {
         return Mage::helper('paymethod')->checkLockFile($this->_code, $filename);
+    }
+    
+    protected function createLog($filename, $type, $content) {
+        $tdate = date('Y-m-d H:i:s', Mage::getModel('core/date')->timestamp(time()));
+        $content = sprintf("%s|%s", $content, $tdate);
+        
+        return Mage::helper('paymethod')->writeLogFile($this->_code, $type, $filename, $content, 'normal');
     }
 }
