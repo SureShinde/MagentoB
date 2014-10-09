@@ -3290,15 +3290,42 @@ button.button-area {
 	padding:7px 10px;
 }
 #checkoutpromo .freeshipping_label{
+	width:49%;
+	float:left;
 	border:1px solid #9d9d9d;
-	background: url('../../../../../media/wysiwyg/static-block-img/bg_freeshipping_checkout.jpg') repeat-x left center;
+	height:66px;
+	background: url('../../../../../media/wysiwyg/static-block-img/bg_freeshipping_checkout.jpg') repeat-x left center #f2f2f2;
 }
 #checkoutpromo .freeshipping_label p{
+	margin:17px 0 0;
 	display:table;
 	padding:7px 45px 7px 10px;
 	background:url("../images/free-shipping.png") no-repeat right #f2f2f2;
 }
 
+#checkoutpromo .promo-baloon{
+	width:49%;
+	margin:0 1.1% 20px 0;
+	float:left;
+	border:4px solid #52c5d8;
+	background:url('../../../../../media/wysiwyg/static-block-img/baloon.jpg') no-repeat left #4d79d2;
+}
+#checkoutpromo .promo-baloon p{
+	color:#fff;
+	padding: 10px 0 10px 164px;
+	line-height:20px;
+	font-size:14px;
+}
+#checkoutpromo .promo-baloon p span{
+	font-weight:bold;
+	text-transform:uppercase;
+}
+#checkoutpromo .promo-baloon p .gift{
+	color:#ffea3d;
+}
+#checkoutpromo .promo-baloon p .brand{
+	color:#4bf3be;
+}
 #checkoutpromo .home_link_promo{
 	display:table;
 	width:100%;
@@ -3354,6 +3381,12 @@ button.button-area {
 	#checkoutpromo .home_link_promo .link-home ul li{
 		margin:0 10px;
 	}
+	#checkoutpromo .promo-baloon{
+		margin:0 9px 20px 0;
+	}
+	#checkoutpromo .freeshipping_label{
+		height:86px;
+	}
 }
 
 @media only screen and (max-width: 1023px){
@@ -3361,7 +3394,20 @@ button.button-area {
 		font-size: 11px;
 		padding: 9px 10px 9px 10px;
 	}
-	
+	#checkoutpromo .promo-baloon p{
+		padding:10px 0 10px 20px;
+	}
+	#checkoutpromo .freeshipping_label{
+		background: url('../../../../../media/wysiwyg/static-block-img/bg_freeshipping_checkout.jpg') repeat-x left bottom #f2f2f2;
+	}
+	#checkoutpromo .promo-baloon{
+		margin:0 11px 20px 0;
+		width:48%;
+		background:#4d79d2;
+	}
+	#checkoutpromo .freeshipping_label p{
+		margin:20px 0 0;
+	}
 	#checkoutpromo .home_link_promo .label_homelink:after {
 		right: -32px;
 		border-width: 16px;
@@ -3374,13 +3420,38 @@ button.button-area {
 	}
 }
 @media only screen and (max-width: 768px) {
+	#checkoutpromo .promo-baloon{
+		width:98%;
+	}
 	#checkoutpromo .home_link_promo .link-home{
 		display:none;
 	}
 	#checkoutpromo .home_link_promo .label_homelink{
 		width:100%;
 	}
+	#checkoutpromo .promo-baloon{
+		margin:0 5px 20px 0
+	}
+	#checkoutpromo .freeshipping_label{
+		height:auto;
+		width:98%;
+	}
+	#checkoutpromo .freeshipping_label p {
+		margin: 0;
+	}
 }
+@media only screen and (max-width: 468px) {
+	#checkoutpromo .promo-baloon{
+		width:98%;
+		margin:0 11px 10px 0;
+	}
+	#checkoutpromo .freeshipping_label{
+		width:99%;
+		background: url('../../../../../media/wysiwyg/static-block-img/bg_freeshipping_checkout.jpg') repeat-x left center #f2f2f2;
+	}
+}
+
+/* end of checkout promo */
 
 
 /*=============================style clearence=============================*/
