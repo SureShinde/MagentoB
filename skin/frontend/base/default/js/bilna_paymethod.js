@@ -22,6 +22,7 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
+
 var Checkout = Class.create();
 Checkout.prototype = {
     initialize: function(accordion, urls){
@@ -884,11 +885,12 @@ Payment.prototype = {
         if (checkout.loadWaiting!=false) return;
         var validator = new Validation(this.form);
         if (this.validate() && validator.validate()) {
+            checkout.setLoadWaiting('payment');
+            
             if (!this.bankValidate()) {
                 return false;
             }
             
-            checkout.setLoadWaiting('payment');
             var request = new Ajax.Request(
                 this.saveUrl,
                 {
@@ -954,11 +956,13 @@ Review.prototype = {
         this.installmentForm = installmentForm;
         this.onSave = this.nextStep.bindAsEventListener(this);
         this.onComplete = this.resetLoadWaiting.bindAsEventListener(this);
-        this.tokenId = null;
+        //this.tokenId = null;
     },
     
-    saveReview: function() {
+    saveReview: function(tokenId) {
+        console.log('masup sini ajah cuy');
         var params = Form.serialize(payment.form);
+            params += '&token_id=' + tokenId;
         
         if (this.agreementsForm) {
             params += '&' + Form.serialize(this.agreementsForm);
@@ -975,7 +979,7 @@ Review.prototype = {
                 method:'post',
                 parameters:params,
                 onComplete: this.onComplete,
-                //onSuccess: this.onSave,
+                onSuccess: this.onSave,
                 onSuccess: function(response) {
                     var responseJson = response.responseText.evalJSON();
                     
@@ -984,8 +988,8 @@ Review.prototype = {
                         checkout.gotoSection('payment');
                     }
                     else {
-                        //review.nextStep(response);
-                        this.onSave
+                        review.nextStep(response);
+                        //this.onSave
                     }
                 },
                 onFailure: checkout.ajaxFailure.bind(checkout)
@@ -1000,10 +1004,12 @@ Review.prototype = {
         
         checkout.setLoadWaiting('review');
         
+        // get token from veritrans
         if (payment.currentMethod == 'vtdirect') {
             Veritrans.token(_cardSet, callback);
         }
         else {
+        
             var params = Form.serialize(payment.form);
 
             if (this.agreementsForm) {
@@ -1030,8 +1036,8 @@ Review.prototype = {
                             checkout.gotoSection('payment');
                         }
                         else {
-                            //review.nextStep(response);
-                            this.onSave
+                            review.nextStep(response);
+                            //this.onSave
                         }
                     },
                     onFailure: checkout.ajaxFailure.bind(checkout)
@@ -1128,10 +1134,14 @@ function callback(response) {
         //openDialog(response.redirect_url);
     }
     else if (response.status_code == '200') {
-        var currPayment = payment.currentMethod;
-        jQuery('#payment_form_' + currPayment + ' #token_id').val(response.token_id); // store token data in input #token_id
-        //
-        review.saveReview();
+        //tokenId = response.token_id;
+        //alert(response.token_id);
+        //var currPayment = payment.currentMethod;
+        //jQuery('#payment_form_' + currPayment + ' #token_id').val(response.token_id); // store token data in input #token_id
+        //jQuery('#payment_form_' + currPayment + ' #' + currPayment + '_token_id').val(response.token_id);
+        //alert('tokenId: ' + jQuery('#payment_form_' + currPayment + ' #' + currPayment + '_token_id').val());
+        review.saveReview(response.token_id);
+        //return response.token_id;
         
         
         //payment.savePayment();
@@ -1148,6 +1158,7 @@ function callback(response) {
     }
     else {
         alert('failed request token');
+        
         return false;
         // failed request token
         //close 3d secure dialog if any
@@ -1157,6 +1168,4 @@ function callback(response) {
         //$('#message').text(response.status_message);
         //console.log(JSON.stringify(response));
     }
-    
-    return false;
 }

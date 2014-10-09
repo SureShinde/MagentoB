@@ -14,6 +14,16 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
         $paymentCode = Mage::getSingleton('checkout/session')->getQuote()->getPayment()->getMethodInstance()->getCode();
         $paymentSupportInstallment = explode(',', Mage::getStoreConfig('bilna_module/paymethod/payment_support_installment'));
         
+        // set tokenid for credit card
+        if (in_array($paymentCode, $this->getPaymentMethodCc())) {
+            $tokenId = $this->getRequest()->getPost('token_id', false);
+            
+            Mage::getSingleton('core/session')->unsVtdirectTokenIdCreate();
+            Mage::getSingleton('core/session')->unsVtdirectTokenId();
+            Mage::getSingleton('core/session')->setVtdirectTokenIdCreate(date('Y-m-d H:i:s', Mage::getModel('core/date')->timestamp(time())));
+            Mage::getSingleton('core/session')->setVtdirectTokenId($tokenId);
+        }
+        
         if (in_array($paymentCode, $paymentSupportInstallment)) {
             if ($this->_expireAjax()) {
                 return;
@@ -267,7 +277,7 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
                     'cc_owner' => $dataCc['cc_owner'],
                     'cc_type' => $dataCc['cc_type'],
                     'cc_bank' => $dataCc['cc_bank'],
-                    'token_id' => $dataCc['token_id'],
+                    //'token_id' => $dataCc['token_id'],
                     'cc_number' => $dataCc['cc_number'],
                     'cc_exp_month' => $dataCc['cc_exp_month'],
                     'cc_exp_year' => $dataCc['cc_exp_year'],
@@ -276,11 +286,11 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
                     'cc_bins' => $dataCc['cc_bins']
                 );
                 
-                Mage::getSingleton('core/session')->unsVtdirectTokenIdCreate();
-                Mage::getSingleton('core/session')->unsVtdirectTokenId();
+                //Mage::getSingleton('core/session')->unsVtdirectTokenIdCreate();
+                //Mage::getSingleton('core/session')->unsVtdirectTokenId();
                 Mage::getSingleton('core/session')->unsVtdirectZipCode();
-                Mage::getSingleton('core/session')->setVtdirectTokenIdCreate(date('Y-m-d H:i:s', Mage::getModel('core/date')->timestamp(time())));
-                Mage::getSingleton('core/session')->setVtdirectTokenId($data['token_id']);
+                //Mage::getSingleton('core/session')->setVtdirectTokenIdCreate(date('Y-m-d H:i:s', Mage::getModel('core/date')->timestamp(time())));
+                //Mage::getSingleton('core/session')->setVtdirectTokenId($data['token_id']);
                 Mage::getSingleton('core/session')->setVtdirectZipCode($data['cc_zipcode']);
             }
             
@@ -390,69 +400,69 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
         }
             
         if (in_array($paymentCode, $this->getPaymentMethodCc())) {
-            //$charge = $this->creditcardCharge($order);
-            /**
-             * charge credit card
-             */
-            $responseCharge = array ();
+            // charge credit card
+            $charge = $this->creditcardCharge($order);
+            
+            //$responseCharge = array ();
             //$order = $this->getOrder();
-            $items = $order->getAllItems();
+            //$items = $order->getAllItems();
             //$paymentCode = $order->getPayment()->getMethodInstance()->getCode();
-            $url = Mage::getStoreConfig('payment/vtdirect/charge_transaction_url');
+            //$url = Mage::getStoreConfig('payment/vtdirect/charge_transaction_url');
 
-            $data = array ();
-            $data['token_id'] = $this->getTokenId();
-            $data['order_id'] = $this->maxChar($order->getIncrementId(), 20);
-            $data['bins'] = $this->getBins($order, $paymentCode);
-            $data['order_items'] = $this->getOrderItems($order, $items);
-            $data['gross_amount'] = round($order->getGrandTotal());
-            $data['email'] = $this->getCustomerEmail($order->getBillingAddress()->getEmail());
-            $data['billing_address'] = $this->parseBillingAddress($order->getBillingAddress());
-            $data['shipping_address'] = $this->parseBillingAddress($order->getBillingAddress());
-            $data['bank'] = $this->getAcquiredBank($paymentCode);
+            //$data = array ();
+            //$data['token_id'] = $this->getTokenId();
+            //$data['order_id'] = $this->maxChar($order->getIncrementId(), 20);
+            //$data['bins'] = $this->getBins($order, $paymentCode);
+            //$data['order_items'] = $this->getOrderItems($order, $items);
+            //$data['gross_amount'] = round($order->getGrandTotal());
+            //$data['email'] = $this->getCustomerEmail($order->getBillingAddress()->getEmail());
+            //$data['billing_address'] = $this->parseBillingAddress($order->getBillingAddress());
+            //$data['shipping_address'] = $this->parseBillingAddress($order->getBillingAddress());
+            //$data['bank'] = $this->getAcquiredBank($paymentCode);
 
             /**
              * check installment
              */
-            if ($this->getInstallmentProcess($paymentCode) != 'manual') {
-                $installmentId = $this->getInstallment($items);
+            //if ($this->getInstallmentProcess($paymentCode) != 'manual') {
+            //    $installmentId = $this->getInstallment($items);
+//
+            //    if ($installmentId) {
+            //        $data['type'] = 'installment';
+            //        $data['installment'] = array (
+            //            'bank' => $this->getInstallmentBank($paymentCode),
+            //            'term' => $installmentId,
+            //            //'term' => $this->getInstallmentTenor($paymentCode, $installmentId),
+            //            'type' => $this->getInstallmentTypeCodeBank($paymentCode)
+            //        );
+            //    }
+            //}
 
-                if ($installmentId) {
-                    $data['type'] = 'installment';
-                    $data['installment'] = array (
-                        'bank' => $this->getInstallmentBank($paymentCode),
-                        'term' => $installmentId,
-                        //'term' => $this->getInstallmentTenor($paymentCode, $installmentId),
-                        'type' => $this->getInstallmentTypeCodeBank($paymentCode)
-                    );
-                }
-            }
+            //$threedsecure = $this->getThreedSecure($paymentCode);
 
-            $threedsecure = $this->getThreedSecure($paymentCode);
+            //if ($threedsecure == true) {
+            //    $data['3dsecure'] = $threedsecure;
+            //    $data['3dsecure_callback_url'] = $this->getThreedSecureCallbackUrl($paymentCode);
+            //    $data['3dsecure_notification_url'] = $this->getThreedSecureNotificationUrl($paymentCode);
+            //}
 
-            if ($threedsecure == true) {
-                $data['3dsecure'] = $threedsecure;
-                $data['3dsecure_callback_url'] = $this->getThreedSecureCallbackUrl($paymentCode);
-                $data['3dsecure_notification_url'] = $this->getThreedSecureNotificationUrl($paymentCode);
-            }
+            //$responseCharge = json_decode(Mage::helper('paymethod/vtdirect')->postRequest($url, $data));
 
-            $responseCharge = json_decode(Mage::helper('paymethod/vtdirect')->postRequest($url, $data));
-
-            $contentRequest = sprintf("%s | request_vtdirect: %s", $order->getIncrementId(), json_encode($data));
-            $contentResponse = sprintf("%s | response_vtdirect: %s", $order->getIncrementId(), json_encode($responseCharge));
-            $this->writeLog($paymentCode, $this->_typeTransaction, 'charge', $contentRequest);
-            $this->writeLog($paymentCode, $this->_typeTransaction, 'charge', $contentResponse);
+            //$contentRequest = sprintf("%s | request_vtdirect: %s", $order->getIncrementId(), json_encode($data));
+            //$contentResponse = sprintf("%s | response_vtdirect: %s", $order->getIncrementId(), json_encode($responseCharge));
+            //$this->writeLog($paymentCode, $this->_typeTransaction, 'charge', $contentRequest);
+            //$this->writeLog($paymentCode, $this->_typeTransaction, 'charge', $contentResponse);
 
             /**
              * processing order
              */
-            $this->updateOrder($order, $paymentCode, $responseCharge);
+            $this->updateOrder($order, $paymentCode, $charge);
 
             /**
              * assign data to View
              */
-            Mage::register('threedsecure', $threedsecure);
-            Mage::register('response_charge', $responseCharge);
+            //Mage::register('threedsecure', $threedsecure);
+            //Mage::register('response_charge', $responseCharge);
+            Mage::register('response_charge', $charge);
         }
         
         $this->loadLayout();
@@ -461,7 +471,7 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
         $this->renderLayout();
     }
     
-    /*public function creditcardCharge($order) {
+    public function creditcardCharge($order) {
         Mage::helper('paymethod')->loadVeritransNamespace();
         
         $incrementId = $order->getIncrementId();
@@ -504,8 +514,9 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
         $this->logProgress('request: ' . json_encode($transactionData));
         $result = Veritrans_VtDirect::charge($transactionData);
         $this->logProgress('response: ' . json_encode($result));
-        exit;
-    }*/
+        
+        return $result;
+    }
     
     protected function logProgress($message) {
         Mage::log($message, null, 'newstack.log');
@@ -519,115 +530,89 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
         return Mage::getSingleton('checkout/session')->getLastOrderId();
     }
     
-    private function updateOrder($order, $paymentCode, $responseCharge) {
-        if ($responseCharge->status == 'success') {
-            if ($this->getThreedSecure($paymentCode)) {
-                $order->setState(Mage_Sales_Model_Order::STATE_NEW, 'cc_verification', 'Pending for 3D Secure Validation', true)->save();
+    private function updateOrder($order, $paymentCode, $charge) {
+        // check order status if processing/complete then ignore
+        if (in_array($order->getStatus(), Mage::helper('paymethod/vtdirect')->getStatusOrderIgnore())) {
+            return true;
+        }
+                
+        $message = $charge->status_message;
+        $transactionStatus = $charge->transaction_status;
+        $fraudStatus = $charge->fraud_status;
+                
+        if ($transactionStatus == 'capture') {
+            if ($fraudStatus == 'accept') {
+                if ($order->canInvoice()) {
+                    $invoice = Mage::getModel('sales/service_order', $order)->prepareInvoice();
+
+                    if ($invoice->getTotalQty()) {
+                        $invoice->setRequestedCaptureCase(Mage_Sales_Model_Order_Invoice::CAPTURE_OFFLINE);
+                        $invoice->setGrandTotal($order->getGrandTotal());
+                        $invoice->setBaseGrandTotal($order->getBaseGrandTotal());
+                        $invoice->register();
+                        $transaction = Mage::getModel('core/resource_transaction')
+                            ->addObject($invoice)
+                            ->addObject($invoice->getOrder());
+                        $order->setState(Mage_Sales_Model_Order::STATE_PROCESSING, true, $message, true);
+                        $order->save();
+                        $transaction->save();
+                        $invoice->sendEmail(true, '');
+
+                        return true;
+                    }
+                }
+            }
+            elseif ($fraudStatus == 'challenge') {
+                $order->setState(Mage_Sales_Model_Order::STATE_NEW, 'cc_verification', $message, true);
+                $order->save();
+
+                return true;
+            }
+            elseif ($fraudStatus == 'deny') {
+                $history = $order->addStatusHistoryComment($message);
+                $history->setIsCustomerNotified(true);
+
+                if ($order->canCancel()) {
+                    $order->cancel();
+                }
+
+                $order->save();
+
+                return true;
             }
             else {
-                // check order status if processing/complete then ignore
-                if (in_array($order->getStatus(), Mage::helper('paymethod/vtdirect')->getStatusOrderIgnore())) {
-                    return true;
-                }
-                
-                $transactionStatus = $responseCharge->data->transaction_status;
-                $message = "Transaction status: " . $transactionStatus . ". ";
-                $message .= $this->getDefaultResponseMessage($responseCharge->status, $responseCharge->message);
-                
-                if ($transactionStatus == 'deny') {
-                    //$order->addStatusHistoryComment($message);
-                    $history = $order->addStatusHistoryComment($message);
-                    $history->setIsCustomerNotified(true);
-            
-                    if ($order->canCancel()) {
-                        $order->cancel();
-                    }
-            
-                    $order->save();
-                            
-                    return true;
-                }
-                else if ($transactionStatus == 'cancel') {
-                    //$order->addStatusHistoryComment($message);
-                    $history = $order->addStatusHistoryComment($message);
-                    $history->setIsCustomerNotified(true);
-            
-                    if ($order->canCancel()) {
-                        $order->cancel();
-                    }
-            
-                    $order->save();
-                    
-                    return true;
-                }
-                else if ($transactionStatus == 'challenge') {
-                    $order->setState(Mage_Sales_Model_Order::STATE_NEW, 'cc_verification', $message, true);
-                    $order->save();
-                    
-                    return true;
-                }
-                else if ($transactionStatus == 'authorize') {
-                    if ($order->canInvoice()) {
-                        $invoice = Mage::getModel('sales/service_order', $order)->prepareInvoice();
-
-                        if ($invoice->getTotalQty()) {
-                            $invoice->setRequestedCaptureCase(Mage_Sales_Model_Order_Invoice::CAPTURE_OFFLINE);
-                            $invoice->setGrandTotal($order->getGrandTotal());
-                            $invoice->setBaseGrandTotal($order->getBaseGrandTotal());
-                            $invoice->register();
-                            $transaction = Mage::getModel('core/resource_transaction')
-                                ->addObject($invoice)
-                                ->addObject($invoice->getOrder());
-                            $order->setState(Mage_Sales_Model_Order::STATE_PROCESSING, true, $message, true);
-                            $order->save();
-                            $transaction->save();
-                            $invoice->sendEmail(true, '');
-
-                            return true;
-                        }
-                    }
-                }
-                else if ($transactionStatus == 'settlement') {
-                    $order->addStatusHistoryComment($message);
-                    $order->save();
-                    
-                    return true;
-                }
-                else {
-                    //do nothing
-                }
+                // do nothing
             }
-
-            return false;
         }
-        else if ($responseCharge->status == 'failure') {
-            $message = "Transaction status: " . $responseCharge->status . ". ";
-            $message .= $this->getDefaultResponseMessage($responseCharge->status, $responseCharge->message);
+        elseif ($transactionStatus == 'challenge') {
+            $order->setState(Mage_Sales_Model_Order::STATE_NEW, 'cc_verification', $message, true);
+            $order->save();
+                    
+            return true;
+        }
+        elseif ($transactionStatus == 'deny') {
             $history = $order->addStatusHistoryComment($message);
             $history->setIsCustomerNotified(true);
-            
+
             if ($order->canCancel()) {
                 $order->cancel();
             }
-            
+
             $order->save();
-            
+
             return true;
         }
         else {
-            /**
-             * failed get response or timeout
-             */
             $order->addStatusHistoryComment('failed get response or timeout from Veritrans');
             $order->save();
             
-            /**
-             * write log to process confirmation
-             */
+            // write log to process confirmation
             $this->createLog($paymentCode, $this->maxChar($order->getIncrementId(), 20), 'confirmation', $order->getIncrementId() . "|Response charge is null");
             
             return true;
         }
+        
+        return false;
     }
     
     protected function getDefaultResponseMessage($status, $message) {
