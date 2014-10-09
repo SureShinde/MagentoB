@@ -6,15 +6,14 @@
 .logo-general{
 	display:block;
 }
-.catalog-category-view .logo-general{
-	display:none;
-}
-.style-baby .logo-baby{
+.style-baby .logo-baby, .style-perlengkapan-rumah .logo-home{
 	display:block !important;
 }
-.style-perlengkapan-rumah .logo-home{
-	display:block !important;
+
+.style-baby .logo-general, .style-perlengkapan-rumah .logo-general{
+	display:none !important;
 }
+
 
 /* end logo */
 
