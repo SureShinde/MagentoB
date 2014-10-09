@@ -5,7 +5,7 @@
  * @author Bilna Development Team <development@bilna.com>
  */
 
-//require_once 'Mage/Checkout/controllers/OnepageController.php';
+require_once 'Mage/Checkout/controllers/OnepageController.php';
 
 class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController {
     protected $_payType = '';
