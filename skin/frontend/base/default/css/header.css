@@ -1,21 +1,17 @@
-/* logo */
-
-.logo-bilna{
-	display:none;
-}
-.logo-general{
-	display:block;
-}
-.style-baby .logo-baby, .style-perlengkapan-rumah .logo-home{
-	display:block !important;
-}
-
-.style-baby .logo-general, .style-perlengkapan-rumah .logo-general{
-	display:none !important;
-}
 
 
-/* end logo */
+li#perlengkapan-rumah:after{
+	background: url(../images/icon_new_cat.png) no-repeat 5px top;
+	content: "";
+	position: absolute;
+	width: 50px;
+	top: -18px;
+	height: 50px;
+	right: -36px;
+}
+li#perlengkapan-rumah {
+	position: relative;
+}
 
 .header-container, .sticky-header-wrapper {
 	width: 100%;
