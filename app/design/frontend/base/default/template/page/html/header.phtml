@@ -89,12 +89,15 @@
 			});
 		
 			//hover
-			$j("div.menu-top a.menu-top-hover").hover(
+			 $j("div.menu-top a.menu-top-hover").hover(
 				function() {
-					$j('div.nav-container').hide('');
-					$j('div.nav-' + $j(this).attr('id')).show('');   
+				 if($j('li.web-perlengkapan-rumah').hasClass('active') || $j('li.web-baby').hasClass('active')){
+				 }else{
+				  $j('div.nav-container').hide('');
+				  $j('div.nav-' + $j(this).attr('id')).show('');   
+				 }
 				}
-			);
+			   );
 			$j('div.nav-baby').hover(
 				function() {
 					$j('li.web-baby').css("background","#4ec7da");
