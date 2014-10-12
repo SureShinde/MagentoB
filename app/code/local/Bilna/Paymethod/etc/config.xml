@@ -278,7 +278,7 @@
                 <order_status>pending</order_status>
                 <title>Credit Card (ANZ Visa)</title>
                 <cctypes>VI</cctypes>
-                <!--payment_action>authorize</payment_action-->
+                <payment_action>authorize</payment_action>
                 <allowspecific>0</allowspecific>
             </anzvisa>
             
@@ -288,7 +288,7 @@
                 <order_status>pending</order_status>
                 <title>Credit Card (ANZ MasterCard)</title>
                 <cctypes>MC</cctypes>
-                <!--payment_action>authorize</payment_action-->
+                <payment_action>authorize</payment_action>
                 <allowspecific>0</allowspecific>
             </anzmc>
             

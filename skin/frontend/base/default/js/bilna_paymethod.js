@@ -834,6 +834,7 @@ Payment.prototype = {
                         jQuery('#payment_form_' + currPayment + ' #' + currPayment + '_cc_bank').val(response.data.bank_code);
                         jQuery('#payment_form_' + currPayment + ' #' + currPayment + '_cc_type').val(response.data.cc_type);
                         jQuery('#payment_form_' + currPayment + ' #' + currPayment + '_cc_bins').val(cardNo.substring(0,6));
+                        jQuery('#payment_form_' + currPayment + ' #' + currPayment + '_acquired_bank').val(response.data.acquired_bank);
                         responseStatus = true;
                     }
                     else {
@@ -960,7 +961,6 @@ Review.prototype = {
     },
     
     saveReview: function(tokenId) {
-        console.log('masup sini ajah cuy');
         var params = Form.serialize(payment.form);
             params += '&token_id=' + tokenId;
         
@@ -1112,16 +1112,30 @@ Veritrans.client_key = vtDirectClientKey; // please add client-key from veritran
 
 function _cardSet() {
     var currPayment = payment.currentMethod;
+    var result = {};
+    result['card_number'] = jQuery('#payment_form_' + currPayment + ' input.card-number').val();
+    result['card_exp_month'] = jQuery('#payment_form_' + currPayment + ' select.card-expiry-month').val();
+    result['card_exp_year'] = jQuery('#payment_form_' + currPayment + ' select.card-expiry-year').val();
+    result['card_cvv'] = jQuery('#payment_form_' + currPayment + ' input.card-cvv').val();
+    result['bank'] = jQuery('#payment_form_' + currPayment + ' #' + currPayment + '_acquired_bank').val();
+    result['gross_amount'] = jQuery('#gross_amount').val();
+    result['secure'] = false;
     
-    return {
-        'card_number': jQuery('#payment_form_' + currPayment + ' input.card-number').val(),
-        'card_exp_month': jQuery('#payment_form_' + currPayment + ' select.card-expiry-month').val(),
-        'card_exp_year': jQuery('#payment_form_' + currPayment + ' select.card-expiry-year').val(),
-        'card_cvv': jQuery('#payment_form_' + currPayment + ' input.card-cvv').val(),
-        'secure': false,
-        'bank': 'bni',
-        'gross_amount': jQuery('#gross_amount').val()
-    }
+    // installment
+    result['installment'] = true;
+    result['installment_term'] = 12;
+    
+    return result;
+    
+//    return {
+//        'card_number': jQuery('#payment_form_' + currPayment + ' input.card-number').val(),
+//        'card_exp_month': jQuery('#payment_form_' + currPayment + ' select.card-expiry-month').val(),
+//        'card_exp_year': jQuery('#payment_form_' + currPayment + ' select.card-expiry-year').val(),
+//        'card_cvv': jQuery('#payment_form_' + currPayment + ' input.card-cvv').val(),
+//        'secure': false,
+//        'bank': jQuery('#payment_form_' + currPayment + ' #' + currPayment + '_acquired_bank').val(),
+//        'gross_amount': jQuery('#gross_amount').val()
+//    }
 };
 
 function callback(response) {

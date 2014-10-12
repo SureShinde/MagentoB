@@ -343,7 +343,8 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
             $response['status'] = true;
             $response['data'] = array (
                 'bank_code' => $bankCode,
-                'cc_type' => $ccType
+                'cc_type' => $ccType,
+                'acquired_bank' => $this->getAcquiredBank($bankCode),
             );
         }
         else {
@@ -505,7 +506,8 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
             'payment_type' => $paymentType, 
             'credit_card' => array (
                 'token_id' => $tokenId,
-                'bank' => $acquiredBank
+                'bank' => $acquiredBank,
+                'installment_term' => 12,
             ),
             'transaction_details' => $transactionDetails,
             'customer_details' => $customerDetails,
