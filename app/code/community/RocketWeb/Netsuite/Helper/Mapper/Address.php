@@ -2,8 +2,16 @@
 class RocketWeb_Netsuite_Helper_Mapper_Address extends RocketWeb_Netsuite_Helper_Mapper {
     public function getBillingAddressNetsuiteFormatFromOrderAddress(Mage_Sales_Model_Order_Address $address) {
         $netsuiteAddress = new BillAddress();
-        $netsuiteAddress->billAddr1 = $address->getStreet1();
-        $netsuiteAddress->billAddr2 = $address->getStreet2();
+
+        $lengthStreet1 = strlen(trim($address->getStreet1()));
+        $lengthStreet2 = strlen(trim($address->getStreet2()));
+        $street1 = substr(trim($address->getStreet1()), 0, 150);
+        $sisa = "";
+        if( $lengthStreet1 > 150 ) $sisa = substr(trim($address->getStreet1()), 150, $lengthStreet1);
+        $street2 = substr(trim($sisa." ".$address->getStreet2()), 0, 150);
+
+        $netsuiteAddress->billAddr1 = $street1;//$address->getStreet1();
+        $netsuiteAddress->billAddr2 = $street2;//$address->getStreet2();
         $netsuiteAddress->billCity = $address->getCity();
         $country = Mage::getModel('directory/country')->loadByCode($address->getCountry());
         $netsuiteAddress->billCountry = Mage::helper('rocketweb_netsuite/transform')->transformCountryCode($country->getCountryId());
@@ -19,8 +27,16 @@ class RocketWeb_Netsuite_Helper_Mapper_Address extends RocketWeb_Netsuite_Helper
 
     public function getShippingAddressNetsuiteFormatFromOrderAddress(Mage_Sales_Model_Order_Address $address) {
         $netsuiteAddress = new ShipAddress();
-        $netsuiteAddress->shipAddr1 = $address->getStreet1();
-        $netsuiteAddress->shipAddr2 = $address->getStreet2();
+
+        $lengthStreet1 = strlen(trim($address->getStreet1()));
+        $lengthStreet2 = strlen(trim($address->getStreet2()));
+        $street1 = substr(trim($address->getStreet1()), 0, 150);
+        $sisa = "";
+        if( $lengthStreet1 > 150 ) $sisa = substr(trim($address->getStreet1()), 150, $lengthStreet1);
+        $street2 = substr(trim($sisa." ".$address->getStreet2()), 0, 150);
+
+        $netsuiteAddress->shipAddr1 = $street1;//$address->getStreet1();
+        $netsuiteAddress->shipAddr2 = $street2;//$address->getStreet2();
         $netsuiteAddress->shipCity = $address->getCity();
         $country = Mage::getModel('directory/country')->loadByCode($address->getCountry());
         $netsuiteAddress->shipCountry = Mage::helper('rocketweb_netsuite/transform')->transformCountryCode($country->getCountryId());
