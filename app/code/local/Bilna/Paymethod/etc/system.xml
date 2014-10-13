@@ -896,10 +896,18 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </vtdirect_src>
+                        <vtdirect_url translate="label">
+                            <label>VT-Direct Url</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>100</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </vtdirect_url>
                         <client_key translate="label">
                             <label>Client Key</label>
                             <frontend_type>text</frontend_type>
-                            <sort_order>100</sort_order>
+                            <sort_order>101</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>

@@ -835,6 +835,7 @@ Payment.prototype = {
                         jQuery('#payment_form_' + currPayment + ' #' + currPayment + '_cc_type').val(response.data.cc_type);
                         jQuery('#payment_form_' + currPayment + ' #' + currPayment + '_cc_bins').val(cardNo.substring(0,6));
                         jQuery('#payment_form_' + currPayment + ' #' + currPayment + '_acquired_bank').val(response.data.acquired_bank);
+                        jQuery('#payment_form_' + currPayment + ' #' + currPayment + '_secure').val(response.data.secure);
                         responseStatus = true;
                     }
                     else {
@@ -1093,22 +1094,9 @@ Review.prototype = {
 /**
  * VT-Direct Get Token
  */
-Veritrans.url = 'https://api.sandbox.veritrans.co.id/v2/token';
+Veritrans.url = vtDirectUrl;
 Veritrans.client_key = vtDirectClientKey; // please add client-key from veritrans
-
-//var card = function() {
-//    return {
-//        'card_number'     : $("#card-number").val(),
-//        'card_exp_month'  : $("#card-expiry-month").val(),
-//        'card_exp_year'   : $("#card-expiry-year").val(),
-//        'card_cvv'        : $("#card-cvv").val(),
-//
-//        // Set 'secure', 'bank', and 'gross_amount', if the merchant wants transaction to be processed with 3D Secure
-//        'secure'       : true,
-//        'bank'       : 'bni',
-//        'gross_amount'   : $("#price").val()
-//    }
-//};
+console.log('client_key: ' + vtDirectClientKey);
 
 function _cardSet() {
     var currPayment = payment.currentMethod;
@@ -1117,25 +1105,29 @@ function _cardSet() {
     result['card_exp_month'] = jQuery('#payment_form_' + currPayment + ' select.card-expiry-month').val();
     result['card_exp_year'] = jQuery('#payment_form_' + currPayment + ' select.card-expiry-year').val();
     result['card_cvv'] = jQuery('#payment_form_' + currPayment + ' input.card-cvv').val();
+    
+    // 3d secure
+    if (jQuery('#payment_form_' + currPayment + ' #' + currPayment + '_secure').val() == 1) {
+        result['secure'] = true;
+    }
+    else {
+        result['secure'] = false;
+    }
+    
+    // installment-term
+    if (jQuery('input[name=installment]').is(':checked')) {
+        if (jQuery('input[name=installment]:checked').val() > 1) {
+            result['installment'] = true;
+            result['installment_term'] = jQuery('input[name=installment]:checked').val();
+        }
+    }
+    
     result['bank'] = jQuery('#payment_form_' + currPayment + ' #' + currPayment + '_acquired_bank').val();
     result['gross_amount'] = jQuery('#gross_amount').val();
-    result['secure'] = false;
     
-    // installment
-    result['installment'] = true;
-    result['installment_term'] = 12;
+    console.log('request: ' + JSON.stringify(result));
     
     return result;
-    
-//    return {
-//        'card_number': jQuery('#payment_form_' + currPayment + ' input.card-number').val(),
-//        'card_exp_month': jQuery('#payment_form_' + currPayment + ' select.card-expiry-month').val(),
-//        'card_exp_year': jQuery('#payment_form_' + currPayment + ' select.card-expiry-year').val(),
-//        'card_cvv': jQuery('#payment_form_' + currPayment + ' input.card-cvv').val(),
-//        'secure': false,
-//        'bank': jQuery('#payment_form_' + currPayment + ' #' + currPayment + '_acquired_bank').val(),
-//        'gross_amount': jQuery('#gross_amount').val()
-//    }
 };
 
 function callback(response) {
@@ -1143,43 +1135,15 @@ function callback(response) {
     
     if (response.redirect_url) {
         // 3Dsecure transaction. Open 3Dsecure dialog
-      
-        alert('Open Dialog 3Dsecure');
-        //openDialog(response.redirect_url);
+        jQuery('#threedsecure-popup iframe').attr('src', response.redirect_url);
+        jQuery('#threedsecure-popup').show();
     }
     else if (response.status_code == '200') {
-        //tokenId = response.token_id;
-        //alert(response.token_id);
-        //var currPayment = payment.currentMethod;
-        //jQuery('#payment_form_' + currPayment + ' #token_id').val(response.token_id); // store token data in input #token_id
-        //jQuery('#payment_form_' + currPayment + ' #' + currPayment + '_token_id').val(response.token_id);
-        //alert('tokenId: ' + jQuery('#payment_form_' + currPayment + ' #' + currPayment + '_token_id').val());
         review.saveReview(response.token_id);
-        //return response.token_id;
-        
-        
-        //payment.savePayment();
-        // success 3d secure or success normal
-        //close 3d secure dialog if any
-        //closeDialog();
-        //alert(response.token_id);
-        //jQuery('#checkout_token_id').val(response.token_id);
-        //Review.tokenId = response.token_id;
-        //return response;
-        // store token data in input #token_id and then submit form to merchant server
-        //$("#token-id").val(response.token_id);
-        //$("#payment-form").submit();
     }
     else {
-        alert('failed request token');
-        
-        return false;
-        // failed request token
-        //close 3d secure dialog if any
-        //closeDialog();
-        //$('#submit-button').removeAttr('disabled');
-        // Show status message.
-        //$('#message').text(response.status_message);
-        //console.log(JSON.stringify(response));
+        review.resetLoadWaiting();
+        checkout.gotoSection('payment', true);
+        jQuery('#threedsecure-popup').hide();
     }
 }

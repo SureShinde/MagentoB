@@ -345,6 +345,7 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
                 'bank_code' => $bankCode,
                 'cc_type' => $ccType,
                 'acquired_bank' => $this->getAcquiredBank($bankCode),
+                'secure' => $this->getSecureBank($bankCode),
             );
         }
         else {
@@ -472,8 +473,26 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
         $this->renderLayout();
     }
     
+    protected function getVtdirectServerKey() {
+        return Mage::getStoreConfig('payment/vtdirect/server_key');
+    }
+    
+    protected function getVtdirectIsProduction() {
+        $isProduction = Mage::getStoreConfig('payment/vtdirect/development_testing');
+        
+        if ($isProduction) {
+            return false;
+        }
+        
+        return true;
+    }
+
     public function creditcardCharge($order) {
         Mage::helper('paymethod')->loadVeritransNamespace();
+        
+        // setting config vtdirect
+        Veritrans_Config::$serverKey = $this->getVtdirectServerKey();
+        Veritrans_Config::$isProduction = $this->getVtdirectIsProduction();
         
         $incrementId = $order->getIncrementId();
         $tokenId = $this->getTokenId();
@@ -500,18 +519,28 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
             'order_id' => $incrementId,
             'gross_amount' => $grossAmount
         );
-
+        
         //Data that will be sent to request charge transaction with credit card.
-        $transactionData = array(
-            'payment_type' => $paymentType, 
-            'credit_card' => array (
-                'token_id' => $tokenId,
-                'bank' => $acquiredBank,
-                'installment_term' => 12,
-            ),
-            'transaction_details' => $transactionDetails,
-            'customer_details' => $customerDetails,
-        );
+        $transactionData = array ();
+        $transactionData['payment_type'] = $paymentType;
+        $transactionData['credit_card']['token_id'] = $tokenId;
+        $transactionData['credit_card']['bank'] = $acquiredBank;
+        $transactionData['credit_card']['bins'] = $this->getBins($order, $paymentCode);
+        
+        $installmentProcess = $this->getInstallmentProcess($paymentCode);
+        
+        if ($installmentProcess != 'manual') {
+            $items = $order->getAllItems();
+            $installmentId = $this->getInstallment($items);
+            $this->logProgress('installmentTerm: ' . $installmentId);
+
+            if ($installmentId) {
+                $transactionData['credit_card']['installment_term'] = $installmentId;
+            }
+        }
+        
+        $transactionData['transaction_details'] = $transactionDetails;
+        $transactionData['customer_details'] = $customerDetails;
         
         $this->logProgress('request: ' . json_encode($transactionData));
         $result = Veritrans_VtDirect::charge($transactionData);
@@ -751,6 +780,10 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
         return Mage::getStoreConfig('payment/' . $paymentCode . '/bank_acquired');
     }
     
+    protected function getSecureBank($paymentCode) {
+        return Mage::getStoreConfig('payment/' . $paymentCode . '/threedsecure');
+    }
+
     protected function getInstallmentProcess($paymentCode) {
         return Mage::getStoreConfig('payment/' . $paymentCode . '/installment_process');
     }
