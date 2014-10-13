@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <modules>
+        <Mage_Contacts>
+            <active>true</active>
+            <codePool>local</codePool>
+            <depends>
+            </depends>
+            <version>0.1.0</version>
+        </Mage_Contacts>
+    </modules>
+</config>

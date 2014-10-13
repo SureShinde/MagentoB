@@ -3526,3 +3526,130 @@ button.button-area {
 
 
 /*=============================end style merdeka madness=============================*/
+
+
+/*=============================style printerous=============================*/
+
+.printerous .row{
+	clear:both;
+	width:100%;
+	display:inline-block;
+	margin:20px 0;
+}
+.printerous .about > p, .printerous .keutamaan > p{
+	width:48%;
+	font-size:14px;
+}
+.printerous .about > p{
+	float:left;
+}
+.printerous .keutamaan > p{
+	float:right;
+}
+.printerous .about > p img, .printerous .keutamaan > p img{
+	clear:both;
+	display:block;
+	margin-bottom:10px;
+}
+
+.printerous .about > img, .printerous .keutamaan > img{
+	width:48%;
+}
+.printerous .about > img{
+	float:right;
+}
+.printerous .keutamaan > img{
+	float:left;
+}
+.printerous .jenis > img,
+.printerous .step > img,
+.printerous .ribbon > img {
+	margin:0 auto;
+	display:block;
+}
+.printerous .list-jenis > img{
+	margin:0 19px;
+}
+.printerous .step{
+	margin: 0 !important;
+	padding: 20px 0 0 0;
+	background:#fafafa;
+}
+.printerous .step .number_step{
+	width:33%;
+	float:left;
+}
+.printerous .step .number_step > p{
+	width: 50%;
+	margin: 15px auto;
+	font-size: 13px;
+	text-align: center;
+}
+.printerous .step .number_step .numbering{
+	display: table;
+	padding: 15px 18px;
+	margin: 0 auto;
+	font-size: 18px;
+	border-radius: 33px;
+	border: 1px solid #c8c8c8;
+}
+.printerous .ribbon > p{
+	text-align: center;
+	font-style: italic;
+	margin-top:15px;
+}
+.printerous .ribbon a{
+	margin:0 auto;
+	display:table;
+}
+.printerous .term{
+	border:1px solid #e4e4e4;
+	padding:15px;
+}
+.printerous .term h5{
+	font-weight:bold;
+}
+@media only screen and (max-width: 1023px){
+	.printerous .keutamaan > p img{
+		width:100%;
+	}	
+}
+@media only screen and (max-width: 468px) {
+	.printerous .step > img{
+		width:100%;
+	}
+	.printerous .keutamaan > p img{
+		width:auto;
+		max-width:100%;
+	}
+	.printerous .list-jenis > img{
+		margin:0 15px;
+	}
+	.printerous .about > p, .printerous .keutamaan > p{
+		width:100%;
+	}
+	.printerous .about > img, .printerous .keutamaan > img{
+		width:100%;
+	}
+	.printerous .keutamaan > p{
+		float:left;
+		margin:10px 0;
+	}
+	.printerous .step .number_step{
+		width:100%;
+	}
+	.printerous .step .number_step > p {
+		width: 80%;
+		margin: 15px auto 29px;
+	}
+	.printerous .ribbon > img{
+		width:100%;
+	}
+	.printerous .ribbon a{
+		width:100%;
+	}
+	.printerous .ribbon a img{
+		width:100%;
+	}
+}
+/*=============================end style printerous=============================*/
