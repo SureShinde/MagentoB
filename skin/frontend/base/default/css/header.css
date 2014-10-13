@@ -5,9 +5,9 @@ li#perlengkapan-rumah:after{
 	content: "";
 	position: absolute;
 	width: 50px;
-	top: -18px;
+	top: -13px;
 	height: 50px;
-	right: -36px;
+	right: -24px;
 }
 li#perlengkapan-rumah {
 	position: relative;
@@ -974,8 +974,9 @@ li#perlengkapan-rumah {
     padding: 0 3%;
 }
 /*header menu*/
-.cms-home .nav-container:before {
-	background:#4ec7da;
+.catalog-product-view .nav-container:before,
+.catalog-category-view .nav-container:before{
+	background:#3c9aa8;
 }
 .nav-container:before {
 	background:#4ec7da;
@@ -2215,9 +2216,7 @@ searchbar #nav-search-in {
     display: none;
 }
 
-.catalog-category-view .nav-container:before {
-	background:#3c9aa8;
-}
+
 .menu-homepage-wood {
 	background:#4ec7da;
     height: 5px;
@@ -2257,6 +2256,11 @@ searchbar #nav-search-in {
     color: #999;
 }
 
+/*================= left menu ==========================*/
+.mobile-left-menu{
+	display:none;
+}
+/*================= end left menu ==========================*/
 /*additional screen*/
 @media only screen and (max-width: 1920px) {
     .normal-sticky-cart.add-width-cart {
@@ -2853,7 +2857,40 @@ searchbar #nav-search-in {
     .menu-homepage-wood {
         display: none;
     }
-    
+    /*==============mobile-left-menu===============*/
+	.mobile-left-menu{
+		transition:All 1s ease;
+		-webkit-transition:All 1s ease;
+		-moz-transition:All 1s ease;
+		-o-transition:All 1s ease;
+		overflow-y:scroll;
+		overflow-x:hidden;
+		left:0;
+		top:0;
+		width:70%;
+		z-index:99999;
+		left:-70%;
+		background:#d2d2d2;
+		height:100%;
+		position:fixed;
+		display:block;
+	}
+	.mobile-left-menu .wrap-left-menu{
+		padding: 10px;
+		position: relative;
+		max-height: 100%;
+		display: table;
+		overflow-y: scroll;
+	}
+	.wrapper{
+		transition:All 1s ease;
+		-webkit-transition:All 1s ease;
+		-moz-transition:All 1s ease;
+		-o-transition:All 1s ease;
+		float:left;
+	}
+	
+    /*=============end mobile-left-menu==============*/
 }
 /* --------------- 320 px layout -------------------- */
 @media only screen and (max-width: 482px) { 
