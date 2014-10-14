@@ -1,6 +1,6 @@
 
 
-li#perlengkapan-rumah:after, li.mobile-perlengkapan-rumah a:after{
+li#perlengkapan-rumah:after, li.mobile-perlengkapan-rumah:after{
 	background: url(../images/icon_new_cat.png) no-repeat 5px top;
 	content: "";
 	position: absolute;
@@ -9,10 +9,10 @@ li#perlengkapan-rumah:after, li.mobile-perlengkapan-rumah a:after{
 	height: 50px;
 	right: -24px;
 }
-li.mobile-perlengkapan-rumah a:after{
-	right: -30px;
+li.mobile-perlengkapan-rumah:after{
+	right: 0;
 }
-li#perlengkapan-rumah, li.mobile-perlengkapan-rumah a {
+li#perlengkapan-rumah, li.mobile-perlengkapan-rumah {
 	position: relative;
 }
 
@@ -2870,18 +2870,20 @@ searchbar #nav-search-in {
 		overflow-x:hidden;
 		left:0;
 		top:0;
-		width:70%;
+		background:#000;
+		opacity:0.8;
+		width:100%;
 		z-index:99999;
-		left:-70%;
-		background:#d2d2d2;
+		left:-100%;
 		height:100%;
 		position:fixed;
 		display:block;
 	}
 	.mobile-left-menu .wrap-left-menu{
-		padding: 10px;
 		position: relative;
 		max-height: 100%;
+		width:70%;
+		background:#fff;
 		display: table;
 		overflow-y: scroll;
 	}
@@ -2894,6 +2896,53 @@ searchbar #nav-search-in {
 	}
 	.menu-top-mobile ul li.active {
 		background: none repeat scroll 0 0 #3c9aa8;
+	}
+	.mobile-left-menu li{
+		text-align:left;
+		clear:both;
+	}
+	.mobile-left-menu ul{
+		display:table;
+		width:100%;
+	}
+	.mobile-left-menu .back-button{
+		width: 70%;
+		background-image: url(../images/arrow-menu.png);
+		padding: 15px 0;
+		background-position: right;
+		background-repeat: no-repeat;
+		background-color: #fff;
+		text-align: left;
+		text-indent: 10px;
+	}
+	.mobile-left-menu .wrap-left-menu > ul > li.cat-leveltop > a{
+		width:100%;
+		color:#fff;
+		text-transform:uppercase;
+		margin:0 0 10px;
+		padding:10px 0;
+		text-indent:10px;
+	}
+	.mobile-left-menu .wrap-left-menu > ul > li.cat-leveltop:nth-child(1) > a{
+		background: #4ec7da;
+	}
+	.mobile-left-menu .wrap-left-menu > ul > li.cat-leveltop:nth-child(1) ul.cat-sub{
+		border-left: 2px solid #4ec7da;
+	}
+	.mobile-left-menu .wrap-left-menu > ul > li.cat-leveltop:nth-child(2) > a{
+		background: #8f554d;
+	}
+	.mobile-left-menu .wrap-left-menu > ul > li.cat-leveltop:nth-child(2) ul.cat-sub{
+		border-left: 2px solid #8f554d;
+	}
+	.mobile-left-menu li.cat-leveltop a{
+		font-size: 1.2em;
+		width:100%;
+		padding: 10px;
+		float:left;
+	}
+	.mobile-left-menu .wrap-left-menu ul li ul.cat-sub{
+		margin:0 0 10px 4%;
 	}
     /*=============end mobile-left-menu==============*/
 }
