@@ -108,22 +108,30 @@ endif;
 
 <?php if ($responsePage == 'success'): ?>
     <div class="wrapper_success_page">
+        <div class="col_left"><p><?php echo "Dear " . Mage::helper('customer')->getCustomerName() . ","; ?></p></div>
         <div class="col_left">
-            <p><?php echo $this->__('THANK YOU FOR SHOPPING WITH'); ?></p>
-            <p><?php echo $this->__('BILNA.COM'); ?></p>
+        <!--p><?php //echo $this->__('THANK YOU FOR SHOPPING WITH'); ?></p-->
+        <p><?php echo $this->__('Terima kasih Anda telah berbelanja di'); ?></p>          
+            <!--p><?php //echo $this->__('BILNA.COM'); ?></p-->
+            <p><?php echo $this->__('Bilna.com'); ?></p>
             <p>
-                <?php echo $this->__('Your order no is'); ?>: <?php echo $orderNoLink; ?>.
+                <!--<?php //echo $this->__('Your order no is'); ?>: <?php echo $orderNoLink; ?>.-->
+                <?php echo $this->__('Nomor order Anda adalah'); ?>: <?php echo $orderNoLink; ?>.
                 <br/>
 
-                <?php echo $this->__('You will receive an order confirmation email with details of your order and a link to track its progress'); ?>.
+                <!--<?php //echo $this->__('You will receive an order confirmation email with details of your order and a link to track its progress'); ?>.-->
+                <?php echo $this->__(' Anda akan segera menerima email konfirmasi mengenai detail order dan link untuk cek status order.'); ?>
                 <br/><br/>
 
                 <?php if ($this->getCanViewOrder() && $this->getCanPrintOrder()): ?>
-                    <?php echo $this->__('Click'); ?> <a href="<?php echo $this->escapeHtml($this->getPrintUrl()); ?>"><?php echo $this->__('here'); ?></a> <?php echo $this->__('to print a copy of your order confirmation'); ?>.
+                    <!--<?php //echo $this->__('Click'); ?> <a href="<?php //echo $this->escapeHtml($this->getPrintUrl()); ?>"><?php //echo $this->__('here'); ?></a> <?php //echo $this->__('to print a copy of your order confirmation'); ?>.-->
+                    <?php echo $this->__('Klik'); ?> <a href="<?php echo $this->escapeHtml($this->getPrintUrl()); ?>"><?php echo $this->__('di sini'); ?></a> <?php echo $this->__('untuk mencetak konfirmasi order.'); ?>                       
                 <?php endif; ?>
 
                 <br/><br/>
-                <?php echo $this->__('Click <a href="%s">here</a> to continue shopping.', $this->getUrl()); ?>
+                <!--<?php //echo $this->__('Click <a href="%s">here</a> to continue shopping.', $this->getUrl()); ?>-->
+                <?php echo $this->__('Klik <a href="%s">di sini</a> untuk berbelanja kembali.', $this->getUrl()); ?>
+                                       .
             </p>
 
             <div class="say_thanks">
@@ -139,17 +147,22 @@ endif;
     </div>
 <?php elseif ($responsePage == 'challenge'): ?>
     <div class="wrapper_challange_page">
+        <div class="col_left"><p><?php echo "Dear " . Mage::helper('customer')->getCustomerName() . ","; ?></p></div>
         <div class="col_left">
-            <p><?php echo $this->__('THANK YOU FOR SHOPPING WITH'); ?></p>
-            <p><?php echo $this->__('BILNA.COM'); ?></p>
+            <!--<p><?php //echo $this->__('THANK YOU FOR SHOPPING WITH'); ?></p>-->
+            <p><?php echo $this->__('Terima kasih Anda telah berbelanja di'); ?></p>
+            <!--<p><?php //echo $this->__('BILNA.COM'); ?></p>-->
+            <p><?php echo $this->__('Bilna.com'); ?></p>                          
             <p>
-                <?php echo $this->__('Your order no is'); ?>: <?php echo $orderNoLink; ?>.
+                <!--<?php //echo $this->__('Your order no is'); ?>: <?php //echo $orderNoLink; ?>.-->
+                <?php echo $this->__('Nomor order Anda adalah'); ?>: <?php echo $orderNoLink; ?>.
                 <br/>
 
                 <span><?php echo $this->getDefaultResponseMessage($responseStatus, $responseCharge->message); ?></span>
 
                 <br/><br/>
-                <?php echo $this->__('Click <a href="%s">here</a> to continue shopping.', $this->getUrl()); ?>
+                <!--<?php //echo $this->__('Click <a href="%s">here</a> to continue shopping.', $this->getUrl()); ?>-->
+                <?php echo $this->__('Klik <a href="%s">di sini</a> untuk berbelanja kembali.', $this->getUrl()); ?>
             </p>
 
             <div class="say_thanks">
@@ -183,17 +196,22 @@ endif;
     </script>
 <?php elseif ($responsePage == 'failure'): ?>
     <div class="wrapper_failure_page">
+        <div class="col_left"><p><?php echo "Dear " . Mage::helper('customer')->getCustomerName() . ","; ?></p></div>
         <div class="col_left">
-            <p><?php echo $this->__('THANK YOU FOR SHOPPING WITH'); ?></p>
-            <p><?php echo $this->__('BILNA.COM'); ?></p>
+            <!--<p><?php //echo $this->__('THANK YOU FOR SHOPPING WITH'); ?></p>-->
+            <p><?php echo $this->__('Terima kasih Anda telah berbelanja di'); ?></p>
+            <!--<p><?php //echo $this->__('BILNA.COM'); ?></p>-->
+            <p><?php echo $this->__('Bilna.com'); ?></p>
             <p>
-                <?php echo $this->__('Your order no is'); ?>: <?php echo $orderNoLink; ?>.
+                <!--<?php //echo $this->__('Your order no is'); ?>: <?php //echo $orderNoLink; ?>.-->
+                <?php echo $this->__('Nomor order Anda adalah'); ?>: <?php echo $orderNoLink; ?>.
                 <br/>
                 
                 <span><?php echo $this->getDefaultResponseMessage($responseStatus, $responseCharge->message); ?></span>
                 
                 <br/><br/>
-                <?php echo $this->__('Click <a href="%s">here</a> to continue shopping.', $this->getUrl()); ?>
+                <!--<?php //echo $this->__('Click <a href="%s">here</a> to continue shopping.', $this->getUrl()); ?>-->
+                <?php echo $this->__('Klik <a href="%s">di sini</a> untuk berbelanja kembali.', $this->getUrl()); ?>
             </p>
 		
             <div class="say_thanks">
