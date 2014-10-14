@@ -14,7 +14,6 @@
         <reference name="top.menu">
             <remove name="catalog.topnav"/>
             <block type="guidance_megamenu/html_topmenu" name="megamenu.topnav" template="page/html/topmenu.phtml"/>
-            <action method="setCachePageFlag"><cache>0</cache></action>
         </reference>
     </default>
 </layout>
