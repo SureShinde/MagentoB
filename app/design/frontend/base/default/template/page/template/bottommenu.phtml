@@ -1,6 +1,13 @@
 <?php $_helper = Mage::helper('catalog/category') ?>
 <?php $_categories = $_helper->getStoreCategories() ?>
 
+<?php
+$currCategoryId = NULL;
+if (is_object(Mage::registry('current_category'))) {
+	if(Mage::registry('current_category')->getParentId()==2) $currCategoryId = Mage::registry('current_category')->getId();
+}
+?>
+
 <div class="nav-container-mobile">
     <ul>
         <?php foreach ($_categories as $category): ?>
@@ -28,9 +35,10 @@
                     
                 $activeChildrenCount = count($activeChildren);
                 $hasActiveChildren = ($activeChildrenCount > 0);
+				
                 ?>
-        
-                <li class="cat-leveltop <?php echo ($hasActiveChildren)?('parent'):('')?>">
+				<?php //echo $currCategoryId."-".$category->getId(); ?>
+                <li class="cat-leveltop <?php echo "cat-leveltop-".strtolower($category->getId()); ?> <?php echo ($hasActiveChildren)?('parent'):('')?> <?php echo ($currCategoryId==$category->getId())?('active-mobile-menu'):(''); ?>">
                     <?php $url = Mage::getModel("catalog/category")->load($category->getId())->getUrl(); ?>
                     <a class="categories <?php echo strtolower(str_replace(array ("&"," ","'"), "", $category->getName())); ?>" href="<?php echo $url ?>"><?php echo $category->getName(); ?></a>
                     <?php if ($hasActiveChildren): ?>
@@ -56,19 +64,20 @@
                                                     ?>
                                                         
                                                     <?php $url = Mage::getModel("catalog/category")->load($activeChild->getId())->getUrl(); ?>
-                                                    <a href="<?php if ($hasActiveChildren2): ?>javascript:void(0)<?php else:?><?php echo $url; ?><?php endif;?>" rel="<?php echo $url ?>" class="subcategories <?php echo strtolower(str_replace(array ("&"," ","'"), "", $activeChild->getName())); ?> <?php if ($hasActiveChildren2): ?> haschild<?php endif;?>"><?php echo ucwords(strtolower($activeChild->getName())); ?><?php if ($hasActiveChildren2): ?><span class="arrow"></span><?php endif;?></a>
-                                                    
-                                                    <?php if ($hasActiveChildren2): ?>
+                                                    <a href="<?php echo $url; ?>" rel="<?php echo $url ?>" class="subcategories <?php echo strtolower(str_replace(array ("&"," ","'"), "", $activeChild->getName())); ?> <?php if ($hasActiveChildren2): ?> haschild<?php endif;?>"><?php echo ucwords(strtolower($activeChild->getName())); ?><?php if ($hasActiveChildren2): ?><span class="arrow"></span><?php endif;?></a>
+                                                    <!--
+                                                    <?php //if ($hasActiveChildren2): ?>
                                                         <div class="subsubcategories">
                                                             <ul>
-                                                                <?php foreach ($subsubcategories as $subsubcategory): ?>
+                                                                <?php //foreach ($subsubcategories as $subsubcategory): ?>
                                                                     <li>
-                                                                        <a href="<?php echo $this->getCategoryUrl($subsubcategory); ?>"><?php echo ucwords(strtolower($subsubcategory->getName())); ?></a>
+                                                                        <a href="<?php //echo $this->getCategoryUrl($subsubcategory); ?>"><?php //echo ucwords(strtolower($subsubcategory->getName())); ?></a>
                                                                     </li>
-                                                                <?php endforeach; ?>
+                                                                <?php //endforeach; ?>
                                                             </ul>
                                                         </div>
-                                                    <?php endif; ?>
+                                                    <?php //endif; ?>
+													-->
                                                 </li>
 		                            <?php endif; ?>
                                         <?php endforeach; ?>

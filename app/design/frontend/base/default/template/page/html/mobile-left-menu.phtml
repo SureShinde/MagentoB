@@ -1,0 +1,85 @@
+<?php $_helper = Mage::helper('catalog/category'); ?>
+<?php $_categories = $_helper->getStoreCategories(); ?>
+
+<div class="mobile-left-menu">
+	<div class="back-button">
+		BACK
+	</div>
+    <div class="wrap-left-menu">
+        <ul>
+            <?php foreach ($_categories as $category): ?>
+                <?php if ($category->getIsActive()): ?>
+                    <?php 
+                    // get all children
+                    if (Mage::helper('catalog/category_flat')->isEnabled()) {
+                        $children = (array) $category->getChildrenNodes();
+                        $childrenCount = count($children);
+                    }
+                    else {
+                        $children = $category->getChildren();
+                        $childrenCount = $children->count();
+                    }
+                    $hasChildren = ($children && $childrenCount);
+
+                    // select active children
+                    $activeChildren = array ();
+
+                    foreach ($children as $child) {
+                        if ($child->getIsActive()) {
+                            $activeChildren[] = $child;
+                        }
+                    }
+
+                    $activeChildrenCount = count($activeChildren);
+                    $hasActiveChildren = ($activeChildrenCount > 0);
+
+                    ?>
+                    <?php //echo $currCategoryId."-".$category->getId(); ?>
+                    <li class="cat-leveltop <?php echo "cat-leveltop-".strtolower($category->getId()); ?> <?php echo ($hasActiveChildren)?('parent'):('')?> <?php echo ($currCategoryId==$category->getId())?('active-mobile-menu'):(''); ?>">
+                        <?php $url = Mage::getModel("catalog/category")->load($category->getId())->getUrl(); ?>
+                        <a class="categories <?php echo strtolower(str_replace(array ("&"," ","'"), "", $category->getName())); ?>" href="<?php echo $url ?>"><?php echo $category->getName(); ?></a>
+                        <?php if ($hasActiveChildren): ?>
+                            <ul class="cat-sub">
+								<?php foreach ($activeChildren as $activeChild): ?>
+									<?php if(strtolower($activeChild->getName())!='gift card'): ?>
+										<li>
+											<?php $subsubcategories = $activeChild->getChildren() ?>
+											<?php
+											// select active children
+											$activeChildren2 = array ();
+											foreach ($subsubcategories as $child) {
+												if ($child->getIsActive()) {
+													$activeChildren2[] = $child;
+												}
+											}
+
+											$activeChildrenCount2 = count($activeChildren2);
+											$hasActiveChildren2 = ($activeChildrenCount2 > 0);
+											?>
+
+											<?php $url = Mage::getModel("catalog/category")->load($activeChild->getId())->getUrl(); ?>
+											<a href="<?php echo $url; ?>" rel="<?php echo $url ?>" class="subcategories <?php echo strtolower(str_replace(array ("&"," ","'"), "", $activeChild->getName())); ?> <?php if ($hasActiveChildren2): ?> haschild<?php endif;?>"><?php echo ucwords(strtolower($activeChild->getName())); ?><?php if ($hasActiveChildren2): ?><span class="arrow"></span><?php endif;?></a>
+											<!--
+											<?php //if ($hasActiveChildren2): ?>
+												<div class="subsubcategories">
+													<ul>
+														<?php //foreach ($subsubcategories as $subsubcategory): ?>
+															<li>
+																<a href="<?php //echo $this->getCategoryUrl($subsubcategory); ?>"><?php //echo ucwords(strtolower($subsubcategory->getName())); ?></a>
+															</li>
+														<?php //endforeach; ?>
+													</ul>
+												</div>
+											<?php //endif; ?>
+											-->
+										</li>
+									<?php endif; ?>
+								<?php endforeach; ?>
+                            </ul>
+                        <?php endif; ?>
+                    </li>
+                <?php endif; ?>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+</div>
