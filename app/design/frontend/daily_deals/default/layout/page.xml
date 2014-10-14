@@ -159,6 +159,10 @@ Default layout, loads most of the pages
         </block>
     </print>
 
+    <reference name="top.menu">
+        <action method="setCachePageFlag"><cache>0</cache></action>
+    </reference>
+
      <!-- Custom page layout handles -->
     <page_empty translate="label">
         <label>All Empty Layout Pages</label>
