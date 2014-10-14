@@ -23,7 +23,7 @@
     <?php foreach ($_storeCategories as $_storeCategory): ?>
         <?php
         $_storeCategory = Mage::getModel('megamenu/catalog_category')->load($_storeCategory->getId());
-        $_storeCategoryClass = $_storeCategory->getId() == $_helper->getCurrentMainCategory() ? "background: #3c9aa8;" : "display:none;";
+        $_storeCategoryClass = ($_storeCategory->getId() == $_helper->getCurrentMainCategory()) ? "background: #3c9aa8" : "display:none";
         
         /**
          * check if category is active

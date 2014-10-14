@@ -331,6 +331,7 @@ li#perlengkapan-rumah, li.mobile-perlengkapan-rumah a {
 	border-radius: 5px 5px 0 0;
 	text-transform: uppercase;
 	color: #fff;
+	margin:0 1px;
 	font-size: 14px;
 	text-align: center;
 	font-family: 'bebasregular';
@@ -348,7 +349,7 @@ li#perlengkapan-rumah, li.mobile-perlengkapan-rumah a {
 	display: block;
 	color: #fff;
 	min-width:90px;
-    padding: 7px 0 3px;
+    padding: 12px 0 5px;
 }
 .menu-top ul li:hover{
 	background: #4ec7da !important;
@@ -1067,7 +1068,7 @@ li#perlengkapan-rumah, li.mobile-perlengkapan-rumah a {
 #nav .level-hover {
 	display: none;
 	position: absolute;
-	top:42px;
+	top:49px;
 	left: auto;
 	background: #fff url(../images/shadow.png) repeat-x left top;
 	width: 500px;
@@ -1081,7 +1082,10 @@ li#perlengkapan-rumah, li.mobile-perlengkapan-rumah a {
 #nav li.nav-buku-dan-mainan ul.level-hover,
 #nav li.nav-kesehatan-dan-keamanan-bayi-dan-balita ul.level-hover,
 #nav li.nav-perlengkapan-bayi ul.level-hover,
-#nav li.nav-untuk-ibu ul.level-hover{
+#nav li.nav-untuk-ibu ul.level-hover,
+#nav li.nav-dekorasi-rumah ul.level-hover,
+#nav li.nav-peralatan-rumah-tangga ul.level-hover,
+#nav li.nav-kesehatan-dan-kecantikan ul.level-hover{
 	left:auto;
 	right:0;
 }
@@ -1195,14 +1199,14 @@ li#perlengkapan-rumah, li.mobile-perlengkapan-rumah a {
 	vertical-align: middle;
 	float: none;
 	font-size: 1.1em;
-	height: 42px;
+	height: 50px;
 }
 #nav a.link-shopby {
 	position: absolute;
 	top:0;
 	left: 0;
 	width: 39px;
-	height: 40px;
+	height: 46px;
 	background: url(../images/arrow-down.png) no-repeat 28px 25px, url(../images/lbl-shopby.png) no-repeat left top;
 	z-index: 2;
 	padding: 9px 0 0 10px !important;
@@ -1218,7 +1222,7 @@ border-width: 7px 25px;
 content: "";
 position: absolute;
 right: 0;
-top: 48px;
+top: 55px;
 }
 #nav span {
 	white-space: inherit;
@@ -2862,10 +2866,6 @@ searchbar #nav-search-in {
     }
     /*==============mobile-left-menu===============*/
 	.mobile-left-menu{
-		transition:All 1s ease;
-		-webkit-transition:All 1s ease;
-		-moz-transition:All 1s ease;
-		-o-transition:All 1s ease;
 		overflow-y:scroll;
 		overflow-x:hidden;
 		left:0;
@@ -2885,14 +2885,16 @@ searchbar #nav-search-in {
 		display: table;
 		overflow-y: scroll;
 	}
-	.wrapper{
+	.wrapper, .mobile-left-menu{
 		transition:All 1s ease;
 		-webkit-transition:All 1s ease;
 		-moz-transition:All 1s ease;
 		-o-transition:All 1s ease;
 		float:left;
 	}
-	
+	.menu-top-mobile ul li.active {
+		background: none repeat scroll 0 0 #3c9aa8;
+	}
     /*=============end mobile-left-menu==============*/
 }
 /* --------------- 320 px layout -------------------- */
@@ -2935,9 +2937,7 @@ searchbar #nav-search-in {
         padding: 15px 1% 0;
     }
 
-	.menu-top-mobile ul li.active {
-		background: none repeat scroll 0 0 #3c9aa8;
-	}
+	
 
 .header .menu-top-mobile.baby-top-mob {
     border-bottom: none;
