@@ -135,7 +135,8 @@ endif;
             </p>
 
             <div class="say_thanks">
-                <p><?php echo $this->__('Have a great day :)'); ?></p>
+                <!--p><?php //echo $this->__('Have a great day :)'); ?></p-->
+                <p><?php echo $this->__('Selamat beraktifitas! :)'); ?></p>
             </div>
         </div>
 
@@ -157,8 +158,10 @@ endif;
                 <!--<?php //echo $this->__('Your order no is'); ?>: <?php //echo $orderNoLink; ?>.-->
                 <?php echo $this->__('Nomor order Anda adalah'); ?>: <?php echo $orderNoLink; ?>.
                 <br/>
+                <?php echo $this->__('Status pembayaran Anda akan kami informasikan segera.'); ?>
+                <br/>
 
-                <span><?php echo $this->getDefaultResponseMessage($responseStatus, $responseCharge->message); ?></span>
+                <!--span><?php //echo $this->getDefaultResponseMessage($responseStatus, $responseCharge->message); ?></span-->
 
                 <br/><br/>
                 <!--<?php //echo $this->__('Click <a href="%s">here</a> to continue shopping.', $this->getUrl()); ?>-->
@@ -166,7 +169,8 @@ endif;
             </p>
 
             <div class="say_thanks">
-                <p><?php echo $this->__('Have a great day! :)'); ?></p>
+                <!--p><?php //echo $this->__('Have a great day! :)'); ?></p-->
+                <p><?php echo $this->__('Selamat beraktifitas! :)'); ?></p>                
             </div>
         </div>
 
@@ -204,10 +208,12 @@ endif;
             <p><?php echo $this->__('Bilna.com'); ?></p>
             <p>
                 <!--<?php //echo $this->__('Your order no is'); ?>: <?php //echo $orderNoLink; ?>.-->
-                <?php echo $this->__('Nomor order Anda adalah'); ?>: <?php echo $orderNoLink; ?>.
+                <?php echo $this->__('Kami informasikan, transaksi pembayaran untuk nomor order'); ?> [<?php echo $orderNoLink; ?>] <?php echo $this->__('adalah gagal'); ?>.
+                <br/>
+                <?php echo $this->__('Mohon pastikan seluruh detail kartu kredit yang Anda masukan tepat.'); ?>
                 <br/>
                 
-                <span><?php echo $this->getDefaultResponseMessage($responseStatus, $responseCharge->message); ?></span>
+                <!--span><?php //echo $this->getDefaultResponseMessage($responseStatus, $responseCharge->message); ?></span-->
                 
                 <br/><br/>
                 <!--<?php //echo $this->__('Click <a href="%s">here</a> to continue shopping.', $this->getUrl()); ?>-->
@@ -215,10 +221,10 @@ endif;
             </p>
 		
             <div class="say_thanks">
-                <p><?php echo $this->__('Have a great day! :)'); ?></p>
+                <!--p><?php //echo $this->__('Have a great day! :)'); ?></p-->
+                <p><?php echo $this->__('Selamat beraktifitas! :)'); ?></p>
             </div>
-        </div>
-	
+        </div>	
         <div class="col_right"></div>
     </div>
 <?php else: ?>
