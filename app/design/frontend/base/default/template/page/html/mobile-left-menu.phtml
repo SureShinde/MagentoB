@@ -59,19 +59,19 @@
 
 											<?php $url = Mage::getModel("catalog/category")->load($activeChild->getId())->getUrl(); ?>
 											<a href="<?php echo $url; ?>" rel="<?php echo $url ?>" class="subcategories <?php echo strtolower(str_replace(array ("&"," ","'"), "", $activeChild->getName())); ?> <?php if ($hasActiveChildren2): ?> haschild<?php endif;?>"><?php echo ucwords(strtolower($activeChild->getName())); ?><?php if ($hasActiveChildren2): ?><span class="arrow"></span><?php endif;?></a>
-											<!--
-											<?php //if ($hasActiveChildren2): ?>
+											<?php /*
+											<?php if ($hasActiveChildren2): ?>
 												<div class="subsubcategories">
 													<ul>
-														<?php //foreach ($subsubcategories as $subsubcategory): ?>
+														<?php foreach ($subsubcategories as $subsubcategory): ?>
 															<li>
-																<a href="<?php //echo $this->getCategoryUrl($subsubcategory); ?>"><?php //echo ucwords(strtolower($subsubcategory->getName())); ?></a>
+																<a href="<?php echo $this->getCategoryUrl($subsubcategory); ?>"><?php echo ucwords(strtolower($subsubcategory->getName())); ?></a>
 															</li>
-														<?php //endforeach; ?>
+														<?php endforeach; ?>
 													</ul>
 												</div>
-											<?php //endif; ?>
-											-->
+											<?php endif; ?>
+											*/?>
 										</li>
 									<?php endif; ?>
 								<?php endforeach; ?>

@@ -1,10 +1,86 @@
+<?php $_helper = Mage::helper('megamenu'); ?>
+<?php $_storeCategories = $_helper->getStoreCategories(); ?>
+
+<?php if (count($_storeCategories) > 0): ?>
+    <div class="nav-container-mobile">
+        <ul>
+            <?php foreach ($_storeCategories as $_storeCategory): ?>
+                <?php $_storeCategoryDisplay = ($_storeCategory->getId() == $_helper->getCurrentMainCategory()) ? 'style="display:block;"' : ''; ?>
+                <li class="cat-leveltop store-category <?php echo 'cat-leveltop-' . $_storeCategory->getId(); ?>">
+                    <a class="categories <?php echo strtolower(str_replace(array ("&"," ","'"), "", $_storeCategory->getName())); ?>" href="<?php echo $_helper->getCategoryUrl($_storeCategory); ?>">
+                        <?php echo $_storeCategory->getName(); ?>
+                    </a>
+                    <?php $_storeCategories2 = $_storeCategory->getChildrenCategories(); ?>
+                    <?php if (count($_storeCategories2) > 0): ?>
+                        <ul class="store-category-child category-child" <?php echo $_storeCategoryDisplay; ?>>
+                            <?php foreach ($_storeCategories2 as $_storeCategory2): ?>
+                                <li class="store-category2">
+                                    <a class="subcategories" href="<?php echo $_helper->getCategoryUrl($_storeCategory2); ?>">
+                                        <?php echo $_storeCategory2->getName(); ?>
+                                    </a>
+                                    <?php $_storeCategories3 = $_storeCategory2->getChildrenCategories(); ?>
+                                    <?php if (count($_storeCategories3) > 0): ?>
+                                        <ul class="store-category2-child category-child">
+                                            <?php foreach ($_storeCategories3 as $_storeCategory3): ?>
+                                                <li class="store-category3">
+                                                    <a class="subcategories" href="<?php echo $_helper->getCategoryUrl($_storeCategory3); ?>">
+                                                        <?php echo $_storeCategory3->getName(); ?>
+                                                    </a>
+                                                </li>
+                                            <?php endforeach; ?>
+                                        </ul>
+                                    <?php endif; ?>
+                                </li>
+                            <?php endforeach; ?>
+                        </ul>
+                    <?php endif; ?>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+<?php endif; ?>
+
+<style type="text/css">
+    .category-child {
+        display: none;
+    }
+</style>
+
+<script type="text/javascript">
+    jQuery(document).ready(function() {
+        jQuery('.store-category > a').live('click', function() {
+            if (!jQuery(this).next().is(':visible')) {
+                jQuery(this).next().show();
+                jQuery(this).addClass('active');
+                return false;
+            }
+            
+            window.location.href = jQuery(this).attr('href');
+        });
+        
+        jQuery('.store-category2 > a').live('click', function() {
+            if (!jQuery(this).next().is(':visible')) {
+                jQuery(this).next().show();
+                jQuery(this).addClass('active');
+                return false;
+            }
+            
+            window.location.href = jQuery(this).attr('href');
+        });
+    });
+</script>
+
+<?php /*
 <?php $_helper = Mage::helper('catalog/category') ?>
 <?php $_categories = $_helper->getStoreCategories() ?>
 
 <?php
 $currCategoryId = NULL;
+
 if (is_object(Mage::registry('current_category'))) {
-	if(Mage::registry('current_category')->getParentId()==2) $currCategoryId = Mage::registry('current_category')->getId();
+    if (Mage::registry('current_category')->getParentId() == 2) {
+        $currCategoryId = Mage::registry('current_category')->getId();
+    }
 }
 ?>
 
@@ -105,3 +181,4 @@ if (is_object(Mage::registry('current_category'))) {
         });
     });
 </script>
+*/ ?>
