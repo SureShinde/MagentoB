@@ -108,7 +108,15 @@ endif;
 
 <?php if ($responsePage == 'success'): ?>
     <div class="wrapper_success_page">
-        <div class="col_left"><p><?php echo "Dear " . Mage::helper('customer')->getCustomerName() . ","; ?></p></div>
+        <div class="col_left"><p>
+        <?php
+        $custname = trim(Mage::helper('customer')->getCustomerName());
+        if ($custname == "") {
+            echo "Dear Customer,";
+        }else{            
+            echo "Dear " . $custname . ",";
+        }
+        ?></p></div>
         <div class="col_left">
         <!--p><?php //echo $this->__('THANK YOU FOR SHOPPING WITH'); ?></p-->
         <p><?php echo $this->__('Terima kasih Anda telah berbelanja di'); ?></p>          
