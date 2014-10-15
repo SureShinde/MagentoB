@@ -2213,7 +2213,9 @@ z/*======================Category page===================*/
 	.nav-container-mobile .cat-leveltop-1369{
 		background: url("../images/arrow-menu-mobile-home.png") no-repeat 98% 17px;
 	}
-	
+	.nav-container-mobile ul li{
+		list-style-type:none;
+	}
 /*PAK DHANY*/
 }
 
