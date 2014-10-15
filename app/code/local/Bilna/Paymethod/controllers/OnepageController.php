@@ -776,6 +776,7 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
     protected function writeLog($paymentCode, $type, $logFile, $content) {
         $tdate = date('Ymd', Mage::getModel('core/date')->timestamp(time()));
         $filename = sprintf("%s_%s.%s", $paymentCode, $logFile, $tdate);
+        $content = "[" . gethostname() . "] " . $content;
         
         return Mage::helper('paymethod')->writeLogFile($paymentCode, $type, $filename, $content);
     }

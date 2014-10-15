@@ -1,7 +1,7 @@
 <?php
  
 // initialize Magento environment
-include_once "app/Mage.php";
+include_once "../../app/Mage.php";
 Mage::app('admin')->setCurrentStore(0);
  
 $helper = Mage::helper('urapidflow');
@@ -16,3 +16,5 @@ $helper->run(53);
 $helper->run(36);
 // master data category:
 $helper->run(83);
+// Export Product Feed - Elevenia:
+$helper->run(86);
