@@ -2198,11 +2198,21 @@ z/*======================Category page===================*/
 	
     .style-perlengkapan-rumah .awafpgrid {display: none;}
 	/*PAK DHANY*/
-	.nav-container-mobile .cat-leveltop-914 .subcategories{
+	.nav-container-mobile .cat-leveltop-914 .store-category2 .subcategories{
 		border-left:5px solid #4ec7da;
 	}
+	.nav-container-mobile .cat-leveltop-914 .store-category3 .subcategories{
+		border-left:3px solid #4ec7da;
+	}
+	.nav-container-mobile ul li.inactive a {
+		color: #d2d2d2 !important;
+	}
+	
 	.nav-container-mobile .cat-leveltop-1369 .subcategories{
 		border-left:5px solid #8f554d;
+	}
+	.nav-container-mobile .cat-leveltop-1369 .store-category3 .subcategories{
+		border-left:3px solid #8f554d;
 	}
 	.nav-container-mobile .cat-leveltop-914 ul li.store-category3, .nav-container-mobile .cat-leveltop-1369 ul li.store-category3 {
 		margin-left:20px;
@@ -2216,6 +2226,9 @@ z/*======================Category page===================*/
 	.nav-container-mobile ul li{
 		list-style-type:none;
 	}
+	 .category-child {
+        display: none;
+    }
 /*PAK DHANY*/
 }
 
