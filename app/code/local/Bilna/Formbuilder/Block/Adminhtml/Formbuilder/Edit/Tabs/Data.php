@@ -37,7 +37,12 @@ class Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Edit_Tabs_Data extends Mage_
 		
 			$i++;
 		}
-		
+		$sort = $this->getRequest()->getParam('sort');
+        if( isset($sort) && $sort == 'create_date' )
+        {
+            $dir = $this->getRequest()->getParam('dir');
+            $collection->setOrder('main_table.create_date', strtoupper($dir));
+        }
 		//Zend_Debug::Dump($collection->printLogQuery(true)); die;
 		$this->setCollection($collection);		 
 		return parent::_prepareCollection();
