@@ -16,8 +16,14 @@
                     <?php $_currentMainCategory = $_helper->getCurrentMainCategory(); ?>
                     <?php foreach ($_storeCategories as $_storeCategory): ?>
                         <?php
-                        $_storeCategoryDisplay = '';
+                        $_storeCategoryDisplay = ($_storeCategory->getId() != $_currentMainCategory) ? 'style="display:none;"' : '';
                         $_storeCategoryClass = '';
+                        
+                        if ($_currentMainCategory != '' || !empty ($_currentMainCategory)):
+                            if ($_storeCategory->getId() != $_currentMainCategory):
+                                $_storeCategoryClass = 'inactive';
+                            endif;
+                        endif;
                         ?>
                     
                         <li class="cat-leveltop store-category <?php echo 'cat-leveltop-' . $_storeCategory->getId(); ?> <?php echo $_storeCategoryClass; ?>">
