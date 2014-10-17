@@ -27,7 +27,7 @@
                                 
                             <?php $_storeCategories2 = $_storeCategory->getChildrenCategories(); ?>
                             <?php if (count($_storeCategories2) > 0): ?>
-                                <ul class="store-category-child category-child" <?php echo $_storeCategoryDisplay; ?>>
+                                <ul id="ul-<?php echo $_storeCategory->getId(); ?>" class="store-category-child category-child" <?php echo $_storeCategoryDisplay; ?>>
                                     <?php foreach ($_storeCategories2 as $_storeCategory2): ?>
                                         <li class="store-category2">
                                             <a id="<?php echo $_storeCategory2->getId(); ?>" parent="<?php echo $_storeCategory->getId(); ?>" class="subcategories" href="<?php echo $_helper->getCategoryUrl($_storeCategory2); ?>">
