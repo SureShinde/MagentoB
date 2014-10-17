@@ -1176,8 +1176,7 @@ li#perlengkapan-rumah, li.mobile-perlengkapan-rumah {
 	padding: 0 5px;
 }
 
-#nav li.level-top.parent-8 ul.shown-sub, #nav li.level-top.parent-9 ul.shown-sub, #nav li.level-top.parent-10 ul.shown-sub, #nav li.level-top.parent-11 ul.shown-sub,
-#nav li.level-top.nav-kesehatan-dan-keamanan-bayi-dan-balita ul.shown-sub, #nav li.level-top.nav-buku-dan-mainan ul.shown-sub, #nav li.level-top.nav-perlengkapan-bayi ul.shown-sub, #nav li.level-top.nav-untuk-ibu ul.shown-sub, #nav li.level-top.nav-set-hadiah-bayi-dan-anak ul.shown-sub {
+#nav li.level-top.parent-8 ul.shown-sub, #nav li.level-top.parent-9 ul.shown-sub, #nav li.level-top.parent-11 ul.shown-sub, #nav li.level-top.nav-untuk-ibu ul.shown-sub, #nav li.level-top.nav-set-hadiah-bayi-dan-anak ul.shown-sub {
 	right: 0;
 	left: auto;
 }
@@ -2295,9 +2294,10 @@ searchbar #nav-search-in {
 	#nav li.nav-buku-dan-mainan ul.level-hover,
 	#nav li.nav-kesehatan-dan-keamanan-bayi-dan-balita ul.level-hover,
 	#nav li.nav-perlengkapan-bayi ul.level-hover,
+	#nav li.level-top.nav-perlengkapan-bayi ul.shown-sub,
 	#nav li.nav-untuk-ibu ul.level-hover{
 		left:auto;
-		right:-100px;
+		right:-200px;
 	}
     #nav li.level-top.parent-8 ul.shown-sub {
         right: auto;
