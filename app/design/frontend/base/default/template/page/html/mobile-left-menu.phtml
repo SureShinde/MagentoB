@@ -16,11 +16,12 @@
                     <?php $_currentMainCategory = $_helper->getCurrentMainCategory(); ?>
                     <?php foreach ($_storeCategories as $_storeCategory): ?>
                         <?php
-                        $_storeCategoryDisplay = ($_storeCategory->getId() != $_currentMainCategory) ? 'style="display:none;"' : '';
+                        $_storeCategoryDisplay = '';
                         $_storeCategoryClass = '';
                         
                         if ($_currentMainCategory != '' || !empty ($_currentMainCategory)):
                             if ($_storeCategory->getId() != $_currentMainCategory):
+                                $_storeCategoryDisplay = 'style="display:none;"';
                                 $_storeCategoryClass = 'inactive';
                             endif;
                         endif;

@@ -1364,13 +1364,14 @@ tr.summary-details-excluded { font-style:italic; }
 
 /* Checkout Agreements */
 .checkout-agreements li { margin:30px 0; }
-.checkout-agreements .agreement-content { overflow:auto; height:12em; padding:10px; background-color:#fbfaf6; border:1px solid #bbb6a5; }
+.checkout-agreements .agreement-content { /* overflow:auto; height:12em; */ display: block; padding:10px; background-color:#fbfaf6; border:1px solid #bbb6a5; }
 .checkout-agreements .agree { margin:0; padding:10px 0 10px 11px; }
 .checkout-agreements .agree input.checkbox { margin-right:6px; }
 .checkout-agreements .agree label { font-weight:bold; color:#666; }
 
 .opc .checkout-agreements { border:1px solid #d9dde3; border-width:0 1px; padding:5px 30px; }
 .opc .checkout-agreements li { margin:20px 0 0; }
+.opc .checkout-agreements .bank-li li { margin:0 !important; }
 .opc .checkout-agreements .agreement-content { background-color:#fff; border-color:#e4e4e4; padding:5px; }
 .opc .checkout-agreements .agree { padding-left:6px; }
 
@@ -2226,9 +2227,9 @@ z/*======================Category page===================*/
 	.nav-container-mobile ul li{
 		list-style-type:none;
 	}
-	 .category-child {
+	/*.category-child {
         display: none;
-    }
+    }*/
 /*PAK DHANY*/
 }
 
