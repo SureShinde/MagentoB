@@ -19,4 +19,15 @@ $j(window).load(function(){
  $j(window).scroll(function(){
   donkey_lazy();
  });
+ 
+
+ var donkey_check_menuactive = function() {
+	if($j( ".web-perlengkapan-bayi" ).hasClass( "active" )){
+		$j( ".nav-baby" ).removeClass( "hidden" )
+	}else if($j( ".web-perlengkapan-rumah" ).hasClass( "active" )){
+		$j( ".nav-perlengkapan-rumah" ).removeClass( "hidden" )
+	}
+ };
+ 
+ donkey_check_menuactive();
 });

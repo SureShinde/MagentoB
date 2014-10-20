@@ -1,7 +1,7 @@
 
 
 li#perlengkapan-rumah:after, li.mobile-perlengkapan-rumah:after{
-	background: url(../images/icon_new_cat.png) no-repeat 5px top;
+	background: url(../images/new-badge.png) no-repeat 5px top;
 	content: "";
 	position: absolute;
 	width: 50px;
