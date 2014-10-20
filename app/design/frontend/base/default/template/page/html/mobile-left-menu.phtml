@@ -7,8 +7,11 @@
             BACK
         </div>	
         
-        <?php $_helper = Mage::helper('megamenu'); ?>
-        <?php $_storeCategories = $_helper->getStoreCategories(); ?>
+        <?php
+        $_helper = Mage::helper('megamenu');
+        $_storeCategories = $_helper->getStoreCategories();
+        $_storeCurrentCategory = Mage::registry('current_category');
+        ?>
 
         <?php if (count($_storeCategories) > 0): ?>
             <div class="nav-container-mobile-left">
@@ -36,6 +39,17 @@
                             <?php if (count($_storeCategories2) > 0): ?>
                                 <ul id="ul-<?php echo $_storeCategory->getId(); ?>" class="store-category-child category-child" <?php echo $_storeCategoryDisplay; ?>>
                                     <?php foreach ($_storeCategories2 as $_storeCategory2): ?>
+                                        <?php
+                                        $_storeCategoryDisplay2 = '';
+                                        $_storeCategoryClass2 = '';
+                                        
+                                        if ($_currentMainCategory != '' || !empty ($_currentMainCategory)):
+                                            if ($_storeCategory2->getId() == $_storeCurrentCategory->getId() || $_storeCategory2->getId() == $_storeCurrentCategory->getParentId()):
+                                                $_storeCategoryDisplay2 = 'style="display:block;"';
+                                            endif;
+                                        endif;
+                                        ?>
+                        
                                         <li class="store-category2">
                                             <a id="<?php echo $_storeCategory2->getId(); ?>" parent="<?php echo $_storeCategory->getId(); ?>" class="subcategories" href="<?php echo $_helper->getCategoryUrl($_storeCategory2); ?>">
                                                 <?php echo $_storeCategory2->getName(); ?>
@@ -43,7 +57,7 @@
                                                 
                                             <?php $_storeCategories3 = $_storeCategory2->getChildrenCategories(); ?>
                                             <?php if (count($_storeCategories3) > 0): ?>
-                                                <ul class="store-category2-child category-child">
+                                                <ul id="ul-<?php echo $_storeCategory2->getId(); ?>" class="store-category2-child category-child" <?php echo $_storeCategoryDisplay2; ?>>
                                                     <?php foreach ($_storeCategories3 as $_storeCategory3): ?>
                                                         <li class="store-category3">
                                                             <a class="subcategories" href="<?php echo $_helper->getCategoryUrl($_storeCategory3); ?>">
@@ -66,3 +80,107 @@
     
     <div class="back-button back-left"></div>	
 </div>
+
+<script type="text/javascript">
+    jQuery(document).ready(function() {
+        jQuery('.nav-container-mobile .store-category > a').live('click', function() {
+            if (!jQuery(this).next().is(':visible')) {
+                if (jQuery(this).parent().hasClass('inactive')) {
+                    window.location.href = jQuery(this).attr('href');
+                }
+                else {
+                    if (jQuery(this).next().length > 0) {
+                        jQuery('.nav-container-mobile .store-category > ul').hide();
+                        jQuery('.nav-container-mobile .store-category2 > ul').hide();
+                        jQuery(this).next().show();
+                        jQuery(this).addClass('active');
+                        
+                        jQuery('.nav-container-mobile-left .store-category > ul').hide();
+                        jQuery('.nav-container-mobile-left .store-category2 > ul').hide();
+                        jQuery('.nav-container-mobile-left .store-category > ul#ul-' + jQuery(this).attr('id')).show();
+                    }
+                    
+                    return false;
+                }
+            }
+            else {
+                window.location.href = jQuery(this).attr('href');
+            }
+        });
+        
+        jQuery('.nav-container-mobile .store-category2 > a').live('click', function() {
+            if (!jQuery(this).next().is(':visible')) {
+                if (jQuery(this).next().length > 0) {
+                    jQuery('.nav-container-mobile .store-category2 > ul').hide();
+                    jQuery(this).next().show();
+                    jQuery(this).addClass('active');
+
+                    jQuery('.nav-container-mobile-left .store-category > ul').hide();
+                    jQuery('.nav-container-mobile-left .store-category > ul#ul-' + jQuery(this).attr('parent')).show();
+                    jQuery('.nav-container-mobile-left .store-category2 > ul').hide();
+                    jQuery('.nav-container-mobile-left .store-category2 > a#' + jQuery(this).attr('id')).next().show();
+                    jQuery('.nav-container-mobile-left .store-category2 > a#' + jQuery(this).attr('id')).addClass('active');
+                    
+                    return false;
+                }
+            }
+            
+            window.location.href = jQuery(this).attr('href');
+        });
+        
+        jQuery('.nav-container-mobile-left .store-category > a').live('click', function() {
+            if (!jQuery(this).next().is(':visible')) {
+                if (jQuery(this).parent().hasClass('inactive')) {
+                    window.location.href = jQuery(this).attr('href');
+                }
+                else {
+                    if (jQuery(this).next().length > 0) {
+                        jQuery('.nav-container-mobile-left .store-category > ul').hide();
+                        jQuery('.nav-container-mobile-left .store-category2 > ul').hide();
+                        jQuery(this).next().show();
+                        jQuery(this).addClass('active');
+                        
+                        jQuery('.nav-container-mobile .store-category > ul').hide();
+                        jQuery('.nav-container-mobile .store-category2 > ul').hide();
+                        jQuery('.nav-container-mobile .store-category > ul#ul-' + jQuery(this).attr('id')).show();
+                    }
+                }
+                
+                return false;
+            }
+            
+            window.location.href = jQuery(this).attr('href');
+        });
+        
+        jQuery('.nav-container-mobile-left .store-category2 > a').live('click', function() {
+            if (!jQuery(this).next().is(':visible')) {
+                if (jQuery(this).next().length > 0) {
+                    jQuery('.nav-container-mobile-left .store-category > ul').hide();
+                    jQuery('.nav-container-mobile-left .store-category2 > ul').hide();
+                    jQuery('.nav-container-mobile-left .store-category > ul#ul-' + jQuery(this).attr('parent')).show();
+                    jQuery(this).next().show();
+                    jQuery(this).addClass('active');
+                    
+                    if (!jQuery('.nav-container-mobile .store-category > ul#ul-' + jQuery(this).attr('parent')).parent().hasClass('inactive')) {
+                        jQuery('.nav-container-mobile .store-category > ul').hide();
+                        jQuery('.nav-container-mobile .store-category2 > ul').hide();
+                        jQuery('.nav-container-mobile .store-category > ul#ul-' + jQuery(this).attr('parent')).show();
+                        jQuery('.nav-container-mobile .store-category2 > ul#ul-' + jQuery(this).attr('id')).show();
+                        jQuery('.nav-container-mobile .store-category2 > a#' + jQuery(this).attr('id')).addClass('active');
+                    }
+                    else {
+                        jQuery('.nav-container-mobile .store-category2 > ul').hide();
+                    }
+                    
+                    return false;
+                }
+                else  {
+                    window.location.href = jQuery(this).attr('href');
+                }
+            }
+            else {
+                window.location.href = jQuery(this).attr('href');
+            }
+        });
+    });
+</script>
