@@ -60,7 +60,7 @@
                                                 <ul id="ul-<?php echo $_storeCategory2->getId(); ?>" class="store-category2-child category-child" <?php echo $_storeCategoryDisplay2; ?>>
                                                     <?php foreach ($_storeCategories3 as $_storeCategory3): ?>
                                                         <li class="store-category3">
-                                                            <a class="subcategories" href="<?php echo $_helper->getCategoryUrl($_storeCategory3); ?>">
+                                                            <a class="subcategories <?php echo $_helper->getCategoryClass($_storeCategory3->getId()); ?>" href="<?php echo $_helper->getCategoryUrl($_storeCategory3); ?>">
                                                                 <?php echo $_storeCategory3->getName(); ?>
                                                             </a>
                                                         </li>
