@@ -37,7 +37,7 @@
         endif;
         ?>
 
-        <div id="nav-<?php echo $_storeCategory->getId(); ?>" class="nav-container container nav-<?php echo $_storeCategory->getUrlKey(); ?> hidden">
+        <div id="nav-<?php echo $_storeCategory->getId(); ?>" class="nav-container container nav-<?php echo $_storeCategory->getUrlKey(); ?>" style="display:none;">
             <?php $_categories = $_storeCategory->getChildrenCategories(); ?>
             <?php if (count($_categories) > 0): ?>
                 <ul id="nav" class="nav">

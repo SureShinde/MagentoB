@@ -24,8 +24,19 @@ $j(window).load(function(){
  var donkey_check_menuactive = function() {
 	if($j( ".web-perlengkapan-bayi" ).hasClass( "active" )){
 		$j( ".nav-baby" ).removeClass( "hidden" )
+		$j( ".nav-perlengkapan-rumah" ).addClass( "hidden" )
+		$j( ".nav-baby" ).removeAttr( 'style' );
+		$j( ".nav-perlengkapan-rumah" ).removeAttr( 'style' );
+	}else if($j( ".web-baby" ).hasClass( "active" )){
+		$j( ".nav-baby" ).removeClass( "hidden" )
+		$j( ".nav-perlengkapan-rumah" ).addClass( "hidden" )
+		$j( ".nav-baby" ).removeAttr( 'style' );
+		$j( ".nav-perlengkapan-rumah" ).removeAttr( 'style' );
 	}else if($j( ".web-perlengkapan-rumah" ).hasClass( "active" )){
 		$j( ".nav-perlengkapan-rumah" ).removeClass( "hidden" )
+		$j( ".nav-baby" ).addClass( "hidden" )
+		$j( ".nav-baby" ).removeAttr( 'style' );
+		$j( ".nav-perlengkapan-rumah" ).removeAttr( 'style' );
 	}
  };
  
