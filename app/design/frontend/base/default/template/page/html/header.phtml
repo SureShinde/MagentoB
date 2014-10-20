@@ -27,6 +27,124 @@
  * @var Mage_Page_Block_Html_Header $this
  */
 ?>
+
+<!--Mega Menu-->
+<script type="text/javascript">	
+    $j(document).ready(function(){
+		// $j('.nav-mobile-trigger').toggle(
+			// function(){
+				// $j('.wrap-left-menu').css({"width":"70%","left":"0"});
+				// $j('.mobile-left-menu').css({"width":"100%","left":"0"});
+				// $j('.wrapper').css({"float":"left","margin-left":"70%","position":"fixed"});
+				// $j('body').css({"overflow":"hidden"});},
+			// function(){
+				// $j('.wrap-left-menu').css({"left":"-70%"});
+				// $j('.mobile-left-menu').css({"width":"-100%","left":"0"});
+				// $j('.wrapper').css({"float":"none","margin-left":"0","position":"relative"});
+				// $j('body').css({"overflow":"auto"});
+		// });
+		$j('.nav-mobile-trigger').click(
+			function(){
+				//$j('.wrap-left-menu').css({"width":"70%","left":"0"});
+				$j('.mobile-left-menu').css({"width":"100%","left":"0"});
+				$j('.wrapper').css({"float":"left","margin-left":"70%","position":"fixed"});
+				$j('body').css({"overflow":"hidden"});
+		});
+		$j('.back-button').click(
+			function(){
+				//$j('.wrap-left-menu').css({"left":"-70%"});
+				$j('.mobile-left-menu').css({"width":"100%","left":"-100%"});
+				$j('.wrapper').css({"float":"none","margin-left":"0","position":"relative"});
+				$j('body').css({"overflow":"auto"});
+		});
+		if($j( 'body' ).hasClass( "catalog-category-view" )){
+			//hover
+			target_data_breadcrumb = $j('.breadcrumbs > ul > li:nth-of-type(3)').attr('data-category');
+			$j(".nav-container > ul > li[data-category='" + target_data_breadcrumb + "']").addClass("active_submenu");
+			
+			$j( "div.nav-container" ).mouseleave(function() {
+				$j(this).hide();
+				$j('li.web-baby, li.web-perlengkapan-rumah').css("background","#d2d2d2");
+				$j('div.nav-' + $j('div.menu-top ul li.active').attr('id')).show();
+			});
+			
+			$j(".cms-index-index ul#nav li.shop-by a, .style-baby ul#nav li.shop-by a, .style-perlengkapan-rumah ul#nav li.shop-by a, .level-top.shop-by .shopby ").hover(function(){
+				$j(".level-top.shop-by").addClass("over");
+				$j("a.link-shopby").addClass("over shown-sub");
+				$j("#nav .shopby").show();
+			});
+			
+			$j(".cms-index-index ul#nav li.shop-by a, .style-baby ul#nav li.shop-by a, .style-perlengkapan-rumah ul#nav li.shop-by a, .level-top.shop-by .shopby ").mouseleave(function(){
+				$j(".level-top.shop-by").removeClass("over");
+				$j("a.link-shopby").removeClass("over shown-sub");
+				$j("#nav .shopby").hide();
+			});
+			
+			$j("ul#nav li.parent a, .level-hover").hover(
+				function() {
+					$j('#nav-perlengkapan-rumah ul#nav li.parent').removeClass('over');
+					$j('#nav-perlengkapan-rumah ul#nav li.parent a').removeClass('over');
+					$j(this).parent().addClass('over');
+					$j(this).addClass('over');
+					$j(this).parent().children('ul').addClass('shown-sub');
+
+					if (wwidth < 768) {
+						return  false;
+					}
+				},
+				function() {
+					$j(this).parent().removeClass('over');
+					$j(this).removeClass('over');
+					$j(this).parent().children('ul').removeClass('shown-sub');
+				}
+			);
+	
+			
+		}else{
+			//shop by
+			$j(".cms-index-index ul#nav li.shop-by a, .style-baby ul#nav li.shop-by a, .style-perlengkapan-rumah ul#nav li.shop-by a, .level-top.shop-by .shopby ").hover(function(){
+				$j(".level-top.shop-by").addClass("over");
+				$j("a.link-shopby").addClass("over shown-sub");
+				$j("#nav .shopby").show();
+			});
+			
+			$j(".cms-index-index ul#nav li.shop-by a, .style-baby ul#nav li.shop-by a, .style-perlengkapan-rumah ul#nav li.shop-by a, .level-top.shop-by .shopby ").mouseleave(function(){
+				$j(".level-top.shop-by").removeClass("over");
+				$j("a.link-shopby").removeClass("over shown-sub");
+				$j("#nav .shopby").hide();
+			});
+		
+			//hover
+			 $j("div.menu-top a.menu-top-hover").hover(
+				function() {
+				 if($j('li.web-perlengkapan-rumah').hasClass('active') || $j('li.web-baby').hasClass('active')){
+				 }else{
+				  $j('div.nav-container').hide('');
+				  $j('div.nav-' + $j(this).attr('id')).show('');   
+				 }
+				}
+			   );
+			$j('div.nav-baby').hover(
+				function() {
+					$j('li.web-baby').css("background","#4ec7da");
+            }
+			);
+		$j('div.nav-perlengkapan-rumah').hover(
+			function() {
+                $j('li.web-perlengkapan-rumah').css("background","#4ec7da");
+            }
+		);
+			//leave
+			 $j( "div.nav-container" ).mouseleave(function() {
+				$j(this).hide();
+					$j('li.web-baby, li.web-perlengkapan-rumah').css("background","#d2d2d2");
+					$j('div.nav-' + $j('div.menu-top ul li.active').attr('id')).show();
+			});
+			
+		}
+	});
+</script>
+
 <!--Mobile Menu-->
 <script type="text/javascript">
     wwidth = $j(window).width();
@@ -118,62 +236,8 @@
 		}
 
 	});
-
-        $j('div.menu-top a.menu-top-hover').hover(
-            function() {
-                $j('div.nav-container').hide('');
-                $j('div.nav-' + $j(this).attr('id')).show('');
-            },
-            function() {
-                //$j('div.nav-container').hide();
-                //$j('div.nav-' + $j('div.menu-top ul li.active').attr('id')).show();
-            }
-        );
-
-        $j( "div.nav-container" ).mouseleave(function() {
-            $j(this).hide();
-            $j('div.nav-' + $j('div.menu-top ul li.active').attr('id')).show();
-        });
-        
-    });
-</script>
-
-<script>
-$j(document).ready(function(){
-    $j(".cms-index-index ul#nav li.shop-by a, .style-baby ul#nav li.shop-by a, .style-perlengkapan-rumah ul#nav li.shop-by a, .level-top.shop-by .shopby ").hover(function(){
-        $j(".level-top.shop-by").addClass("over");
-        $j("a.link-shopby").addClass("over shown-sub");
-        $j("#nav .shopby").show();
-    });
-    
-    $j(".cms-index-index ul#nav li.shop-by a, .style-baby ul#nav li.shop-by a, .style-perlengkapan-rumah ul#nav li.shop-by a, .level-top.shop-by .shopby ").mouseleave(function(){
-        $j(".level-top.shop-by").removeClass("over");
-        $j("a.link-shopby").removeClass("over shown-sub");
-        $j("#nav .shopby").hide();
-    });
-});
-
-
-$j(document).ready(function(){
-    $j("ul#nav li.parent a, .level-hover").hover(
-            function() {
-                $j('#nav-perlengkapan-rumah ul#nav li.parent').removeClass('over');
-                $j('#nav-perlengkapan-rumah ul#nav li.parent a').removeClass('over');
-                $j(this).parent().addClass('over');
-                $j(this).addClass('over');
-                $j(this).parent().children('ul').addClass('shown-sub');
-
-                if (wwidth < 768) {
-                    return  false;
-                }
-            },
-            function() {
-                $j(this).parent().removeClass('over');
-                $j(this).removeClass('over');
-                $j(this).parent().children('ul').removeClass('shown-sub');
-            }
-        );
-});
+	});
+		
 </script>
 
 <script>
@@ -202,7 +266,10 @@ $j(document).ready(function(){
 	<?php echo $this->getLayout()->createBlock('page/html')->setTemplate('page/html/back-top.phtml')->toHtml(); ?>
 	<div class="sticky-header-wrapper">
 		<div class="sticky-header">
-			<a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="sticky-logo"><img src="<?php echo $this->getSkinUrl(); ?>images/logo-sticky-bilna.png" alt="<?php echo $this->getLogoAlt() ?>" /></a>
+			<a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="sticky-logo">
+				<img src="<?php echo $this->getSkinUrl(); ?>images/logo-sticky-bilna.png" alt="<?php echo $this->getLogoAlt() ?>" />
+				
+			</a>
 			<ul class="sticky-menu">
 				<li class="td-promo"><a class="td-promo" href="#"><?php echo $this->__('Today\'s Promo') ?></a>
 					<div class="td-promo-cont">
@@ -266,11 +333,11 @@ $j(document).ready(function(){
             </div>
         <?php endif; ?>
         
-    	<?php if ($this->getIsHomePage()):?>
-        <h1 class="logo"><strong><?php echo $this->getLogoAlt() ?></strong><a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="logo"><img src="<?php echo $this->getSkinUrl(); ?>images/Logo-bilna.png" alt="<?php echo $this->getLogoAlt() ?>" /></a></h1>
-        <?php else:?>
-        <a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="logo"><strong><?php echo $this->getLogoAlt() ?></strong><img src="<?php echo $this->getSkinUrl(); ?>images/Logo-bilna.png" alt="<?php echo $this->getLogoAlt() ?>" /></a>
-        <?php endif?>
+		
+		<a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="logo"><strong><?php echo $this->getLogoAlt() ?></strong>
+			<img src="<?php echo $this->getSkinUrl(); ?>images/Logo-bilna.png" alt="<?php echo $this->getLogoAlt() ?>" />
+			
+		</a>
         <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('keypoint')->toHtml() ?>
         <div class="quick-access">
         	<a href="<?php echo $this->getUrl('blog'); ?>" class="link-blog-mobile"><?php echo $this->__('Blog') ?></a>

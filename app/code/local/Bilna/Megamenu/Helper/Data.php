@@ -60,4 +60,11 @@ class Bilna_Megamenu_Helper_Data extends Mage_Catalog_Helper_Category {
     public function replaceCategoryName($categoryName) {
         return str_replace('&', '<br/>&', $categoryName);
     }
+    
+    public function getCategoryClass($categoryId) {
+        $search = array ('-', '_');
+        $replace = '';
+        
+        return str_replace($search, $replace, $this->getUrlKey($categoryId));
+    }
 }
