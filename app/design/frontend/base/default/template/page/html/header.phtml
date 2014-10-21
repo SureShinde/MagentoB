@@ -89,7 +89,7 @@
                     $j('div.nav-' + $j(this).attr('id')).show('');   
                 }
             });
-            
+
             $j("ul#nav li.parent a, .level-hover").hover(
 				function() {
 					$j('#nav-perlengkapan-rumah ul#nav li.parent').removeClass('over');
@@ -309,8 +309,11 @@
     <div class="header">
     	<a href="#" class="nav-mobile-trigger"><?php echo $this->__('Menu') ?></a>
 
-        <?php $_helper = Mage::helper('megamenu'); ?>
-        <?php $_storeCategories = $_helper->getStoreCategories(); ?>
+        <?php
+        $_helper = Mage::helper('megamenu');
+        $_storeCategories = $_helper->getStoreCategories();
+        ?>
+        
         <?php if (count($_storeCategories) > 0): ?>
             <div class="menu-top">
                 <ul>
@@ -318,6 +321,7 @@
                         <?php
                         $_storeCategory = Mage::getModel('catalog/category')->load($_storeCategory->getId());
                         $_storeCategoryClass = $_storeCategory->getId() == $_helper->getCurrentMainCategory() ? "active" : "";
+                        
 
                         /**
                          * check if category is active
