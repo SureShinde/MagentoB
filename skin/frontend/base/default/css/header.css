@@ -994,7 +994,7 @@ li#perlengkapan-rumah, li.mobile-perlengkapan-rumah {
 .nav-container {
 	background:#4ec7da;
 }
-.catalog-category-view .nav-container {
+.catalog-category-view .nav-container, .catalog-product-view .nav-container  {
 	background:#3c9aa8;
 }
 /*.nav-container {
