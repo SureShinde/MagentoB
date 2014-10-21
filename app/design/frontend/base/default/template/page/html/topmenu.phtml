@@ -35,9 +35,15 @@
         if (!$_storeCategory->getIncludeInMenu()):
             continue;
         endif;
+        
+        
+        
+        $_currentMainCategory = $_helper->getCurrentMainCategory();
+        //echo "currentMainCategory: " . $_currentMainCategory;
+        $_storeCategorySubClass = !empty ($_currentMainCategory) || $_currentMainCategory != '' ? "sub-active" : "";
         ?>
 
-        <div id="nav-<?php echo $_storeCategory->getId(); ?>" class="nav-container container nav-<?php echo $_storeCategory->getUrlKey(); ?>" style="display:none;">
+        <div id="nav-<?php echo $_storeCategory->getId(); ?>" class="nav-container container nav-<?php echo $_storeCategory->getUrlKey(); ?> <?php echo $_storeCategorySubClass; ?>" style="display:none;">
             <?php $_categories = $_storeCategory->getChildrenCategories(); ?>
             <?php if (count($_categories) > 0): ?>
                 <ul id="nav" class="nav">

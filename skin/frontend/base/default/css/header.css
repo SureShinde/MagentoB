@@ -980,7 +980,7 @@ li#perlengkapan-rumah, li.mobile-perlengkapan-rumah {
 /*header menu*/
 .catalog-product-view .nav-container:before,
 .catalog-category-view .nav-container:before{
-	background:#3c9aa8;
+	/* background:#3c9aa8; */
 }
 .nav-container:before {
 	background:#4ec7da;
@@ -994,8 +994,13 @@ li#perlengkapan-rumah, li.mobile-perlengkapan-rumah {
 .nav-container {
 	background:#4ec7da;
 }
+.sub-active,
+.sub-active:before,
+.sub-active:after {
+	background-color: #3c9aa8;
+}
 .catalog-category-view .nav-container, .catalog-product-view .nav-container  {
-	background:#3c9aa8;
+	/* background:#3c9aa8; */
 }
 /*.nav-container {
 	background: -webkit-linear-gradient(#3c9aa8, #4ec7da, #4ec7da); /* For Safari 5.1 to 6.0 
