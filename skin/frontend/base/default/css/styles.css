@@ -585,7 +585,7 @@ tr.summary-details-excluded { font-style:italic; }
 #nav ul li.parent li a, #nav-baby ul li.parent li a { background-image:none; }
 
 /* 0 Level */
-#nav li, #nav-baby li { float:left; }
+#nav li, #nav-baby li { float:left; z-index:99; }
 #nav li.active a, #nav-baby li.active a { color:#d96708; }
 #nav a, #nav-baby a { float:left; padding:5px 12px 6px 8px; color:#a7c6dd; font-weight:bold; }
 #nav li.over a, #nav-baby li.over a,
