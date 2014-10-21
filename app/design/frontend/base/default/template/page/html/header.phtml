@@ -80,7 +80,17 @@
 				$j("#nav .shopby").hide();
 			});
 			
-			$j("ul#nav li.parent a, .level-hover").hover(
+			$j("div.menu-top a.menu-top-hover").hover(function() {
+                if ($j('li.web-perlengkapan-rumah').hasClass('active') || $j('li.web-baby').hasClass('active')) {
+                    
+                }
+                else {
+                    $j('div.nav-container').hide('');
+                    $j('div.nav-' + $j(this).attr('id')).show('');   
+                }
+            });
+            
+            $j("ul#nav li.parent a, .level-hover").hover(
 				function() {
 					$j('#nav-perlengkapan-rumah ul#nav li.parent').removeClass('over');
 					$j('#nav-perlengkapan-rumah ul#nav li.parent a').removeClass('over');
