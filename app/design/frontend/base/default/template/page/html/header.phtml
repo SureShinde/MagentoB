@@ -58,7 +58,7 @@
 				$j('body').css({"overflow":"auto"});
 		});
 		
-		if($j( 'body' ).hasClass( "style-baby","style-perlengkapan-rumah")){
+		if($j( 'body' ).hasClass( "style-baby" ) || $j( 'body' ).hasClass( "style-perlengkapan-rumah" )){
 			//hover
 			target_data_breadcrumb = $j('.breadcrumbs > ul > li:nth-of-type(3)').attr('data-category');
 			$j(".nav-container > ul > li[data-category='" + target_data_breadcrumb + "']").addClass("active_submenu");
