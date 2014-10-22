@@ -978,7 +978,8 @@ li#perlengkapan-rumah, li.mobile-perlengkapan-rumah {
     padding: 0 3%;
 }
 /*header menu*/
-.catalog-category-view .nav-container:before{
+.style-baby .nav-container:before,
+.style-perlengkapan-rumah .nav-container:before{
 	background:#3c9aa8;
 }
 .nav-container:before {
@@ -993,7 +994,8 @@ li#perlengkapan-rumah, li.mobile-perlengkapan-rumah {
 .nav-container {
 	background:#4ec7da;
 }
-.catalog-category-view .nav-container  {
+.style-baby .nav-container,
+.style-perlengkapan-rumah .nav-container  {
 	background:#3c9aa8;
 }
 /*
