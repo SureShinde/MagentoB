@@ -978,7 +978,6 @@ li#perlengkapan-rumah, li.mobile-perlengkapan-rumah {
     padding: 0 3%;
 }
 /*header menu*/
-.catalog-product-view .nav-container:before,
 .catalog-category-view .nav-container:before{
 	background:#3c9aa8;
 }
@@ -994,10 +993,18 @@ li#perlengkapan-rumah, li.mobile-perlengkapan-rumah {
 .nav-container {
 	background:#4ec7da;
 }
+.catalog-category-view .nav-container  {
+	background:#3c9aa8;
+}
+/*
+.catalog-product-view .nav-container:before,
+.catalog-category-view .nav-container:before{
+	background:#3c9aa8;
+}
 .catalog-category-view .nav-container, .catalog-product-view .nav-container  {
 	background:#3c9aa8;
 }
-/*.nav-container {
+.nav-container {
 	background: -webkit-linear-gradient(#3c9aa8, #4ec7da, #4ec7da); /* For Safari 5.1 to 6.0 
     background: -o-linear-gradient(#3c9aa8, #4ec7da, #4ec7da); /* For Opera 11.1 to 12.0 
     background: -moz-linear-gradient(#3c9aa8, #4ec7da, #4ec7da); /* For Firefox 3.6 to 15 
