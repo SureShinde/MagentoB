@@ -34,9 +34,9 @@ class RocketWeb_Netsuite_Model_Process_Import_Cashsale extends RocketWeb_Netsuit
     
     public function process(Record $cashSale, $queueData = null) {
         $magentoInvoice = Mage::helper('rocketweb_netsuite/mapper_invoice')->getMagentoFormatFromCashSale($cashSale);
-        $magentoInvoice->setNetsuiteInternalId($cashSale->internalId);
+        /*$magentoInvoice->setNetsuiteInternalId($cashSale->internalId);
         $magentoInvoice->setLastImportDate(Mage::helper('rocketweb_netsuite')->convertNetsuiteDateToSqlFormat($cashSale->lastModifiedDate));
-        $magentoInvoice->save();
+        $magentoInvoice->save();*/
     }
 
     public function processOld(Record $cashSale) {
