@@ -1113,7 +1113,7 @@ li#perlengkapan-rumah, li.mobile-perlengkapan-rumah {
 #nav li.level-top.nav-gift-sets a.level-top, #nav li.nav-set-hadiah-bayi-dan-anak a.level-top {
         width: 63px;
 }
-#nav li.level-top.nav-dekorasi-rumah, #nav li.level-top.nav-peralatan-rumah-tangga {
+#nav li.level-top.nav-dekorasi-rumah {
     max-width: 100px;
 }
 
@@ -2425,7 +2425,7 @@ searchbar #nav-search-in {
     .checkout-for-sticky {
         margin-right: -170px;
     }
-    #nav li.level-top.nav-dekorasi-rumah, #nav li.level-top.nav-peralatan-rumah-tangga {
+    #nav li.level-top.nav-dekorasi-rumah {
         max-width: 80px;
     }
 }
@@ -2649,7 +2649,7 @@ searchbar #nav-search-in {
         margin-right: -170px;
     }
     
-    #nav li.level-top.nav-dekorasi-rumah, #nav li.level-top.nav-peralatan-rumah-tangga {
+    #nav li.level-top.nav-dekorasi-rumah {
         max-width: 80px;
     }
 }
