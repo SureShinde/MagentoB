@@ -813,11 +813,10 @@ Payment.prototype = {
     bankValidate: function() {
         var methods = document.getElementsByName('payment[method]');
         var currPayment = $$('input:checked[type=radio][name=payment[method]]')[0].value;
+        var responseStatus = false;
         
-        if (currPayment != 'vtdirect') {
-            responseStatus = true;
-        }
-        else {
+        if (this.inArray(currPayment, creditCardPaymentArr)) {
+            currPayment = 'vtdirect';
             var cardNo = jQuery('#payment_form_' + currPayment + ' #' + currPayment + '_cc_number').val();
             var ajaxURL = bankCheckUrl;
             var responseStatus = false;
@@ -847,8 +846,26 @@ Payment.prototype = {
                 }
             });
         }
+        else {
+            responseStatus = true;
+        }
         
         return responseStatus;
+    },
+    
+    inArray: function(item, arr) {
+        if (!arr) {
+            return false;
+        }
+        else {
+            for (var p = 0; p < arr.length; p++) {
+                if (item == arr[p]) {
+                    return true;
+                }
+            }
+            
+            return false;
+        }
     },
     
     savePayment: function() {
@@ -883,16 +900,16 @@ Payment.prototype = {
         return validateResult;
     },
 
-    save: function(){
+    save: function() {
+        if (!this.bankValidate()) {
+            return false;
+        }
+        
         if (checkout.loadWaiting!=false) return;
+        
         var validator = new Validation(this.form);
         if (this.validate() && validator.validate()) {
             checkout.setLoadWaiting('payment');
-            
-            if (!this.bankValidate()) {
-                return false;
-            }
-            
             var request = new Ajax.Request(
                 this.saveUrl,
                 {
@@ -1096,7 +1113,6 @@ Review.prototype = {
  */
 Veritrans.url = vtDirectUrl;
 Veritrans.client_key = vtDirectClientKey; // please add client-key from veritrans
-console.log('client_key: ' + vtDirectClientKey);
 
 function _cardSet() {
     var currPayment = payment.currentMethod;
@@ -1125,13 +1141,13 @@ function _cardSet() {
     result['bank'] = jQuery('#payment_form_' + currPayment + ' #' + currPayment + '_acquired_bank').val();
     result['gross_amount'] = jQuery('#gross_amount').val();
     
-    console.log('request: ' + JSON.stringify(result));
+    //console.log('request: ' + JSON.stringify(result));
     
     return result;
 };
 
 function callback(response) {
-    console.log('response: ' + JSON.stringify(response));
+    //console.log('response: ' + JSON.stringify(response));
     
     if (response.redirect_url) {
         // 3Dsecure transaction. Open 3Dsecure dialog

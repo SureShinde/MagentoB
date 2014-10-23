@@ -9,6 +9,7 @@ require_once 'Mage/Checkout/controllers/OnepageController.php';
 
 class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController {
     protected $_payType = '';
+    protected $_typeTransaction = 'transaction';
     
     public function saveOrderAction() {
         $paymentCode = Mage::getSingleton('checkout/session')->getQuote()->getPayment()->getMethodInstance()->getCode();
@@ -542,9 +543,15 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
         $transactionData['transaction_details'] = $transactionDetails;
         $transactionData['customer_details'] = $customerDetails;
         
-        $this->logProgress('request: ' . json_encode($transactionData));
-        $result = Veritrans_VtDirect::charge($transactionData);
-        $this->logProgress('response: ' . json_encode($result));
+        try {
+            $this->writeLog($paymentCode, $this->_typeTransaction, 'charge', json_encode($transactionData));
+            $result = Veritrans_VtDirect::charge($transactionData);
+            $this->writeLog($paymentCode, $this->_typeTransaction, 'charge', json_encode($result));
+        }
+        catch (Exception $e) {
+            $this->writeLog($paymentCode, $this->_typeTransaction, 'charge', "error: [" . $incrementId . "] " . $e->getMessage());
+            $result = false;
+        }
         
         return $result;
     }
