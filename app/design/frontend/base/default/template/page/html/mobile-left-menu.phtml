@@ -82,104 +82,104 @@
 </div>
 
 <script type="text/javascript">
-    jQuery(document).ready(function() {
-        jQuery('.nav-container-mobile .store-category > a').live('click', function() {
-            if (!jQuery(this).next().is(':visible')) {
-                if (jQuery(this).parent().hasClass('inactive')) {
-                    window.location.href = jQuery(this).attr('href');
+    $j(document).ready(function() {
+        $j('.nav-container-mobile .store-category > a').live('click', function() {
+            if (!$j(this).next().is(':visible')) {
+                if ($j(this).parent().hasClass('inactive')) {
+                    window.location.href = $j(this).attr('href');
                 }
                 else {
-                    if (jQuery(this).next().length > 0) {
-                        jQuery('.nav-container-mobile .store-category > ul').hide();
-                        jQuery('.nav-container-mobile .store-category2 > ul').hide();
-                        jQuery(this).next().show();
-                        jQuery(this).addClass('active');
+                    if ($j(this).next().length > 0) {
+                        $j('.nav-container-mobile .store-category > ul').hide();
+                        $j('.nav-container-mobile .store-category2 > ul').hide();
+                        $j(this).next().show();
+                        $j(this).addClass('active');
                         
-                        jQuery('.nav-container-mobile-left .store-category > ul').hide();
-                        jQuery('.nav-container-mobile-left .store-category2 > ul').hide();
-                        jQuery('.nav-container-mobile-left .store-category > ul#ul-' + jQuery(this).attr('id')).show();
+                        $j('.nav-container-mobile-left .store-category > ul').hide();
+                        $j('.nav-container-mobile-left .store-category2 > ul').hide();
+                        $j('.nav-container-mobile-left .store-category > ul#ul-' + $j(this).attr('id')).show();
                     }
                     
                     return false;
                 }
             }
             else {
-                window.location.href = jQuery(this).attr('href');
+                window.location.href = $j(this).attr('href');
             }
         });
         
-        jQuery('.nav-container-mobile .store-category2 > a').live('click', function() {
-            if (!jQuery(this).next().is(':visible')) {
-                if (jQuery(this).next().length > 0) {
-                    jQuery('.nav-container-mobile .store-category2 > ul').hide();
-                    jQuery(this).next().show();
-                    jQuery(this).addClass('active');
+        $j('.nav-container-mobile .store-category2 > a').live('click', function() {
+            if (!$j(this).next().is(':visible')) {
+                if ($j(this).next().length > 0) {
+                    $j('.nav-container-mobile .store-category2 > ul').hide();
+                    $j(this).next().show();
+                    $j(this).addClass('active');
 
-                    jQuery('.nav-container-mobile-left .store-category > ul').hide();
-                    jQuery('.nav-container-mobile-left .store-category > ul#ul-' + jQuery(this).attr('parent')).show();
-                    jQuery('.nav-container-mobile-left .store-category2 > ul').hide();
-                    jQuery('.nav-container-mobile-left .store-category2 > a#' + jQuery(this).attr('id')).next().show();
-                    jQuery('.nav-container-mobile-left .store-category2 > a#' + jQuery(this).attr('id')).addClass('active');
+                    $j('.nav-container-mobile-left .store-category > ul').hide();
+                    $j('.nav-container-mobile-left .store-category > ul#ul-' + $j(this).attr('parent')).show();
+                    $j('.nav-container-mobile-left .store-category2 > ul').hide();
+                    $j('.nav-container-mobile-left .store-category2 > a#' + $j(this).attr('id')).next().show();
+                    $j('.nav-container-mobile-left .store-category2 > a#' + $j(this).attr('id')).addClass('active');
                     
                     return false;
                 }
             }
             
-            window.location.href = jQuery(this).attr('href');
+            window.location.href = $j(this).attr('href');
         });
         
-        jQuery('.nav-container-mobile-left .store-category > a').live('click', function() {
-            if (!jQuery(this).next().is(':visible')) {
-                if (jQuery(this).parent().hasClass('inactive')) {
-                    window.location.href = jQuery(this).attr('href');
+        $j('.nav-container-mobile-left .store-category > a').live('click', function() {
+            if (!$j(this).next().is(':visible')) {
+                if ($j(this).parent().hasClass('inactive')) {
+                    window.location.href = $j(this).attr('href');
                 }
                 else {
-                    if (jQuery(this).next().length > 0) {
-                        jQuery('.nav-container-mobile-left .store-category > ul').hide();
-                        jQuery('.nav-container-mobile-left .store-category2 > ul').hide();
-                        jQuery(this).next().show();
-                        jQuery(this).addClass('active');
+                    if ($j(this).next().length > 0) {
+                        $j('.nav-container-mobile-left .store-category > ul').hide();
+                        $j('.nav-container-mobile-left .store-category2 > ul').hide();
+                        $j(this).next().show();
+                        $j(this).addClass('active');
                         
-                        jQuery('.nav-container-mobile .store-category > ul').hide();
-                        jQuery('.nav-container-mobile .store-category2 > ul').hide();
-                        jQuery('.nav-container-mobile .store-category > ul#ul-' + jQuery(this).attr('id')).show();
+                        $j('.nav-container-mobile .store-category > ul').hide();
+                        $j('.nav-container-mobile .store-category2 > ul').hide();
+                        $j('.nav-container-mobile .store-category > ul#ul-' + $j(this).attr('id')).show();
                     }
                 }
                 
                 return false;
             }
             
-            window.location.href = jQuery(this).attr('href');
+            window.location.href = $j(this).attr('href');
         });
         
-        jQuery('.nav-container-mobile-left .store-category2 > a').live('click', function() {
-            if (!jQuery(this).next().is(':visible')) {
-                if (jQuery(this).next().length > 0) {
-                    jQuery('.nav-container-mobile-left .store-category > ul').hide();
-                    jQuery('.nav-container-mobile-left .store-category2 > ul').hide();
-                    jQuery('.nav-container-mobile-left .store-category > ul#ul-' + jQuery(this).attr('parent')).show();
-                    jQuery(this).next().show();
-                    jQuery(this).addClass('active');
+        $j('.nav-container-mobile-left .store-category2 > a').live('click', function() {
+            if (!$j(this).next().is(':visible')) {
+                if ($j(this).next().length > 0) {
+                    $j('.nav-container-mobile-left .store-category > ul').hide();
+                    $j('.nav-container-mobile-left .store-category2 > ul').hide();
+                    $j('.nav-container-mobile-left .store-category > ul#ul-' + $j(this).attr('parent')).show();
+                    $j(this).next().show();
+                    $j(this).addClass('active');
                     
-                    if (!jQuery('.nav-container-mobile .store-category > ul#ul-' + jQuery(this).attr('parent')).parent().hasClass('inactive')) {
-                        jQuery('.nav-container-mobile .store-category > ul').hide();
-                        jQuery('.nav-container-mobile .store-category2 > ul').hide();
-                        jQuery('.nav-container-mobile .store-category > ul#ul-' + jQuery(this).attr('parent')).show();
-                        jQuery('.nav-container-mobile .store-category2 > ul#ul-' + jQuery(this).attr('id')).show();
-                        jQuery('.nav-container-mobile .store-category2 > a#' + jQuery(this).attr('id')).addClass('active');
+                    if (!$j('.nav-container-mobile .store-category > ul#ul-' + $j(this).attr('parent')).parent().hasClass('inactive')) {
+                        $j('.nav-container-mobile .store-category > ul').hide();
+                        $j('.nav-container-mobile .store-category2 > ul').hide();
+                        $j('.nav-container-mobile .store-category > ul#ul-' + $j(this).attr('parent')).show();
+                        $j('.nav-container-mobile .store-category2 > ul#ul-' + $j(this).attr('id')).show();
+                        $j('.nav-container-mobile .store-category2 > a#' + $j(this).attr('id')).addClass('active');
                     }
                     else {
-                        jQuery('.nav-container-mobile .store-category2 > ul').hide();
+                        $j('.nav-container-mobile .store-category2 > ul').hide();
                     }
                     
                     return false;
                 }
                 else  {
-                    window.location.href = jQuery(this).attr('href');
+                    window.location.href = $j(this).attr('href');
                 }
             }
             else {
-                window.location.href = jQuery(this).attr('href');
+                window.location.href = $j(this).attr('href');
             }
         });
     });
