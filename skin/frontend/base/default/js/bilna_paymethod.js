@@ -901,11 +901,11 @@ Payment.prototype = {
     },
 
     save: function() {
+        if (checkout.loadWaiting!=false) return;
+        
         if (!this.bankValidate()) {
             return false;
         }
-        
-        if (checkout.loadWaiting!=false) return;
         
         var validator = new Validation(this.form);
         if (this.validate() && validator.validate()) {
@@ -997,7 +997,7 @@ Review.prototype = {
                 method:'post',
                 parameters:params,
                 onComplete: this.onComplete,
-                onSuccess: this.onSave,
+                //onSuccess: this.onSave,
                 onSuccess: function(response) {
                     var responseJson = response.responseText.evalJSON();
                     
@@ -1023,7 +1023,8 @@ Review.prototype = {
         checkout.setLoadWaiting('review');
         
         // get token from veritrans
-        if (payment.currentMethod == 'vtdirect') {
+        if (payment.inArray(payment.currentMethod, creditCardPaymentArr)) {
+        //if (payment.currentMethod == 'vtdirect') {
             Veritrans.token(_cardSet, callback);
         }
         else {
@@ -1045,7 +1046,7 @@ Review.prototype = {
                     method:'post',
                     parameters:params,
                     onComplete: this.onComplete,
-                    onSuccess: this.onSave,
+                    //onSuccess: this.onSave,
                     onSuccess: function(response) {
                         var responseJson = response.responseText.evalJSON();
 
