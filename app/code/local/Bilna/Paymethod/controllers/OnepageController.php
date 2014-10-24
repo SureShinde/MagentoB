@@ -405,66 +405,10 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
         if (in_array($paymentCode, $this->getPaymentMethodCc())) {
             // charge credit card
             $charge = $this->creditcardCharge($order);
-            
-            //$responseCharge = array ();
-            //$order = $this->getOrder();
-            //$items = $order->getAllItems();
-            //$paymentCode = $order->getPayment()->getMethodInstance()->getCode();
-            //$url = Mage::getStoreConfig('payment/vtdirect/charge_transaction_url');
 
-            //$data = array ();
-            //$data['token_id'] = $this->getTokenId();
-            //$data['order_id'] = $this->maxChar($order->getIncrementId(), 20);
-            //$data['bins'] = $this->getBins($order, $paymentCode);
-            //$data['order_items'] = $this->getOrderItems($order, $items);
-            //$data['gross_amount'] = round($order->getGrandTotal());
-            //$data['email'] = $this->getCustomerEmail($order->getBillingAddress()->getEmail());
-            //$data['billing_address'] = $this->parseBillingAddress($order->getBillingAddress());
-            //$data['shipping_address'] = $this->parseBillingAddress($order->getBillingAddress());
-            //$data['bank'] = $this->getAcquiredBank($paymentCode);
-
-            /**
-             * check installment
-             */
-            //if ($this->getInstallmentProcess($paymentCode) != 'manual') {
-            //    $installmentId = $this->getInstallment($items);
-//
-            //    if ($installmentId) {
-            //        $data['type'] = 'installment';
-            //        $data['installment'] = array (
-            //            'bank' => $this->getInstallmentBank($paymentCode),
-            //            'term' => $installmentId,
-            //            //'term' => $this->getInstallmentTenor($paymentCode, $installmentId),
-            //            'type' => $this->getInstallmentTypeCodeBank($paymentCode)
-            //        );
-            //    }
-            //}
-
-            //$threedsecure = $this->getThreedSecure($paymentCode);
-
-            //if ($threedsecure == true) {
-            //    $data['3dsecure'] = $threedsecure;
-            //    $data['3dsecure_callback_url'] = $this->getThreedSecureCallbackUrl($paymentCode);
-            //    $data['3dsecure_notification_url'] = $this->getThreedSecureNotificationUrl($paymentCode);
-            //}
-
-            //$responseCharge = json_decode(Mage::helper('paymethod/vtdirect')->postRequest($url, $data));
-
-            //$contentRequest = sprintf("%s | request_vtdirect: %s", $order->getIncrementId(), json_encode($data));
-            //$contentResponse = sprintf("%s | response_vtdirect: %s", $order->getIncrementId(), json_encode($responseCharge));
-            //$this->writeLog($paymentCode, $this->_typeTransaction, 'charge', $contentRequest);
-            //$this->writeLog($paymentCode, $this->_typeTransaction, 'charge', $contentResponse);
-
-            /**
-             * processing order
-             */
-            $this->updateOrder($order, $paymentCode, $charge);
-
-            /**
-             * assign data to View
-             */
-            //Mage::register('threedsecure', $threedsecure);
-            //Mage::register('response_charge', $responseCharge);
+            // processing order
+            //$this->updateOrder($order, $paymentCode, $charge);
+            Mage::getModel('paymethod/vtdirect')->updateOrder($order, $paymentCode, $charge);
             Mage::register('response_charge', $charge);
         }
         

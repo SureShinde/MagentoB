@@ -1148,7 +1148,7 @@ function _cardSet() {
 };
 
 function callback(response) {
-    //console.log('response: ' + JSON.stringify(response));
+    console.log('response: ' + JSON.stringify(response));
     
     if (response.redirect_url) {
         // 3Dsecure transaction. Open 3Dsecure dialog
