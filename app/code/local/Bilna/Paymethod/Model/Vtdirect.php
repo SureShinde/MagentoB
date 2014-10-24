@@ -78,6 +78,18 @@ class Bilna_Paymethod_Model_Vtdirect extends Mage_Core_Model_Abstract {
 
             return true;
         }
+        elseif ($transactionStatus == 'cancel') {
+            $history = $order->addStatusHistoryComment($message);
+            $history->setIsCustomerNotified(true);
+
+            if ($order->canCancel()) {
+                $order->cancel();
+            }
+
+            $order->save();
+
+            return true;
+        }
         else {
             $order->addStatusHistoryComment('failed get response or timeout from Veritrans');
             $order->save();
