@@ -15,54 +15,42 @@ class Bilna_Paymethod_Model_Observer_Webservice_Vtdirect {
         $contentRequest = sprintf("%s | request_vtdirect: %s", $incrementId, json_encode($notification));
         $this->writeLog($this->_typeTransaction, 'notification', $contentRequest);
         
-        /**
-         * check order id
-         */
+        // check order id
         if (!isset ($incrementId)) {
             $this->writeLog($this->_typeTransaction, 'notification', $incrementId . ': orderid is empty.');
             exit;
         }
         
-        /**
-         * check transaction already in process
-         */
-        //if ($this->checkLock($incrementId)) {
-        //    $this->writeLog($this->_typeTransaction, 'notification', $incrementId . ': Transaction already in process.');
-        //    exit;
-        //}
-        
-        // create lock file
-        //$this->createLock($incrementId);
-        
         $order = Mage::getModel('sales/order')->loadByIncrementId($incrementId);
+        $orderStatus = $order->getStatus();
+        $orderStatusAllow = $this->getNotificationOrderStatusAllow();
         $message = $notification->status_message;
         $transactionStatus = $notification->transaction_status;
         $fraudStatus = $notification->fraud_status;
         
-        // skip if notification is 'challange' and 'cancel'
-        if (($transactionStatus == 'capture' && $fraudStatus == 'challenge') || ($transactionStatus == 'challenge') || ($transactionStatus == 'cancel')) {
-            $contentLog = sprintf("%s | skip order proccess", $incrementId);
-            $this->writeLog($this->_typeTransaction, 'notification', $contentLog);
-            //$this->removeLock($incrementId);
-            //exit;
-        }
-        else {
+        if (in_array($orderStatus, $orderStatusAllow)) {
             if (Mage::getModel('paymethod/vtdirect')->updateOrder($order, $paymentCode, $notification)) {
-                $contentLog = sprintf("%s | status_order: %s", $incrementId, $order->getStatus());
+                $contentLog = sprintf("%s | status_order: %s", $incrementId, $orderStatus);
                 $this->writeLog($this->_typeTransaction, 'notification', $contentLog);
             }
             else {
                 $contentLog = sprintf("%s | status_order: failed", $incrementId);
                 $this->writeLog($this->_typeTransaction, 'notification', $contentLog);
-                //$this->removeLock($incrementId);    
             }
         }
     }
     
-    private function getServerKey() {
+    protected function getServerKey() {
         return Mage::getStoreConfig('payment/vtdirect/server_key');
     }
     
+    protected function getNotificationOrderStatusAllow() {
+        $statuses = Mage::getStoreConfig('payment/vtdirect/notification_order_status_allow');
+        $statusArr = explode(',', $statuses);
+        
+        return $statusArr;
+    }
+
     protected function writeLog($type, $logFile, $content) {
         $tdate = date('Ymd', Mage::getModel('core/date')->timestamp(time()));
         $filename = sprintf("%s_%s.%s", $this->_code, $logFile, $tdate);
