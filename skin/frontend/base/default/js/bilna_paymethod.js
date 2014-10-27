@@ -1024,8 +1024,9 @@ Review.prototype = {
         
         // get token from veritrans
         if (payment.inArray(payment.currentMethod, creditCardPaymentArr)) {
-        //if (payment.currentMethod == 'vtdirect') {
             Veritrans.token(_cardSet, callback);
+            
+            return false;
         }
         else {
         
@@ -1148,19 +1149,21 @@ function _cardSet() {
 };
 
 function callback(response) {
-    console.log('response: ' + JSON.stringify(response));
+    //console.log('response: ' + JSON.stringify(response));
     
-    if (response.redirect_url) {
-        // 3Dsecure transaction. Open 3Dsecure dialog
-        jQuery('#threedsecure-popup iframe').attr('src', response.redirect_url);
-        jQuery('#threedsecure-popup').show();
-    }
-    else if (response.status_code == '200') {
-        review.saveReview(response.token_id);
+    if (response.status_code == '200') {
+        if (response.redirect_url) {
+            // 3Dsecure transaction. Open 3Dsecure dialog
+            jQuery('#threedsecure-popup iframe').attr('src', response.redirect_url);
+            jQuery('#threedsecure-popup').show();
+        }
+        else {
+            review.saveReview(response.token_id);
+        }
     }
     else {
         review.resetLoadWaiting();
-        checkout.gotoSection('payment', true);
+        checkout.gotoSection('payment', false);
         jQuery('#threedsecure-popup').hide();
     }
 }

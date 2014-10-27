@@ -441,7 +441,7 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
         
         $incrementId = $order->getIncrementId();
         $tokenId = $this->getTokenId();
-        $grossAmount = round($order->getGrandTotal());
+        $grossAmount = $order->getGrandTotal();
         $paymentType = 'credit_card'; //hardcode
       
         // Optional
@@ -656,13 +656,13 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
         //if (count($items) > 0) {
         //    foreach ($items as $itemId => $item) {
         //        $result[$itemId]['id'] = $this->maxChar($item->getProductId(), 20);
-        //        $result[$itemId]['price'] = round($item->getPrice());
+        //        $result[$itemId]['price'] = $item->getPrice();
         //        $result[$itemId]['qty'] = $item->getQtyToInvoice();
         //        $result[$itemId]['name'] = $this->maxChar($this->removeSymbols($item->getName()), 20);
         //    }
         //}
         $result[0]['id'] = $order->getId();
-        $result[0]['price'] = round($order->getGrandTotal());
+        $result[0]['price'] = $order->getGrandTotal();
         $result[0]['qty'] = 1;
         $result[0]['name'] = $this->maxChar('Item order ' . $order->getIncrementId(), 20);
         
@@ -670,9 +670,9 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
     }
     
     protected function getCustomerEmail($email) {
-        if (Mage::getStoreConfig('payment/vtdirect/development_testing')) {
-            return 'vt-testing@veritrans.co.id';
-        }
+        //if (Mage::getStoreConfig('payment/vtdirect/development_testing')) {
+        //    return 'vt-testing@veritrans.co.id';
+        //}
         
         return $email;
     }
