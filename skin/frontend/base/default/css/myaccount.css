@@ -404,8 +404,7 @@
 	color: #6e6e6e;
 	padding: 0 10px;
 }
-.my-account .pager .buttons-set, 
-.my-account .pager-wrapper .pages, 
+.my-account .pager .buttons-set,
 .my-account .custome-nav {
 	display: none;
 }
