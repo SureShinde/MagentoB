@@ -3653,3 +3653,87 @@ button.button-area {
 	}
 }
 /*=============================end style printerous=============================*/
+
+/*=============================style winner go green=============================*/
+.gogreen-winner-pc .row{
+	width:100%;
+	clear:both;
+	display:table;
+}
+.gogreen-winner-pc .juara .polaroid, .gogreen-winner-pc .hiburan .polaroid{
+	padding:1%;
+	margin:0 1%;
+	float:left;
+	width:30%;
+	-moz-box-shadow: 0px 0px 12px #999;
+	-webkit-box-shadow: 0px 0px 12px #999;
+	box-shadow: 0px 0px 12px #999;
+}
+.gogreen-winner-pc .juara .polaroid:nth-child(1){
+	width:26%;
+}
+.gogreen-winner-pc .juara .polaroid:nth-child(2){
+	width:37%;
+}
+.gogreen-winner-pc .juara .polaroid:nth-child(3){
+	width:23%;
+}
+.gogreen-winner-pc .hiburan .polaroid:nth-child(1){
+	width:70%;
+}
+.gogreen-winner-pc .hiburan .polaroid:nth-child(2){
+	width:22%;
+}
+.gogreen-winner-pc .hiburan .polaroid:nth-child(3){
+	width: 51%;
+	margin: 20px 10px;
+}
+.gogreen-winner-pc .hiburan .polaroid:nth-child(1) img{
+	float:left;
+}
+.gogreen-winner-pc .hiburan .polaroid:nth-child(1) img:nth-child(1){
+	width:35%;
+	margin: 0 10px 0 0;
+}
+.gogreen-winner-pc .hiburan .polaroid:nth-child(1) img:nth-child(2){
+	width:63%;
+}
+.gogreen-winner-pc .hiburan .polaroid:nth-child(3) img:nth-child(1){
+	width:48%;
+	margin: 0 10px 0 0;
+}
+.gogreen-winner-pc .hiburan .polaroid:nth-child(3) img:nth-child(2){
+	width:48%;
+}
+.gogreen-winner-pc .juara .polaroid img, .gogreen-winner-pc .hiburan .polaroid img{
+	width:100%;
+}
+.gogreen-winner-pc .polaroid p{
+	text-align:center;
+	float: left;
+	width: 100%;
+	clear:both;
+	margin:10px 0 0;
+	font-size:14px;
+}
+
+@media only screen and (max-width: 1023px){
+	.gogreen-winner-pc .polaroid p{
+		font-size:11px;
+	}
+	.gogreen-winner-pc .hiburan .polaroid:nth-child(1) img:nth-child(2) {
+		width: 62%;
+	}
+	.gogreen-winner-pc .hiburan .polaroid:nth-child(3) img:nth-child(2) {
+		width: 47%;
+	}
+	
+}
+@media only screen and (max-width: 768px) {
+	.gogreen-winner-pc .juara .polaroid, .gogreen-winner-pc .hiburan .polaroid{
+		width:96% !important;
+		margin:10px 0;
+		padding: 2%;
+	}
+}
+/*=============================end style winner go green=============================*/
