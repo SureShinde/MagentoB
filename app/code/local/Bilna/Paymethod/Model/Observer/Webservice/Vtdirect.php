@@ -28,14 +28,16 @@ class Bilna_Paymethod_Model_Observer_Webservice_Vtdirect {
         $transactionStatus = $notification->transaction_status;
         $fraudStatus = $notification->fraud_status;
         
-        if (in_array($orderStatus, $orderStatusAllow)) {
-            if (Mage::getModel('paymethod/vtdirect')->updateOrder($order, $paymentCode, $notification)) {
-                $contentLog = sprintf("%s | status_order: %s", $incrementId, $orderStatus);
-                $this->writeLog($this->_typeTransaction, 'notification', $contentLog);
-            }
-            else {
-                $contentLog = sprintf("%s | status_order: failed", $incrementId);
-                $this->writeLog($this->_typeTransaction, 'notification', $contentLog);
+        if (($transactionStatus == 'capture' && $fraudStatus == 'accept') || ($transactionStatus == 'cancel' && $fraudStatus == 'challenge')) {
+            if (in_array($orderStatus, $orderStatusAllow)) {
+                if (Mage::getModel('paymethod/vtdirect')->updateOrder($order, $paymentCode, $notification)) {
+                    $contentLog = sprintf("%s | updateStatusOrder: %s", $incrementId, $order->getStatus());
+                    $this->writeLog($this->_typeTransaction, 'notification', $contentLog);
+                }
+                else {
+                    $contentLog = sprintf("%s | updateStatusOrder: failed", $incrementId);
+                    $this->writeLog($this->_typeTransaction, 'notification', $contentLog);
+                }
             }
         }
     }

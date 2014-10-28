@@ -45,11 +45,10 @@ class Bilna_Paymethod_Model_Vtdirect extends Mage_Core_Model_Abstract {
                 return true;
             }
             elseif ($fraudStatus == 'deny') {
-                $history = $order->addStatusHistoryComment($message);
-                $history->setIsCustomerNotified(true);
-
                 if ($order->canCancel()) {
                     $order->cancel();
+                    $order->addStatusHistoryComment($message)
+                        ->setIsCustomerNotified(true);
                 }
 
                 $order->save();
@@ -67,11 +66,10 @@ class Bilna_Paymethod_Model_Vtdirect extends Mage_Core_Model_Abstract {
             return true;
         }
         elseif ($transactionStatus == 'deny') {
-            $history = $order->addStatusHistoryComment($message);
-            $history->setIsCustomerNotified(true);
-
             if ($order->canCancel()) {
                 $order->cancel();
+                $order->addStatusHistoryComment($message)
+                    ->setIsCustomerNotified(true);
             }
 
             $order->save();
@@ -79,11 +77,10 @@ class Bilna_Paymethod_Model_Vtdirect extends Mage_Core_Model_Abstract {
             return true;
         }
         elseif ($transactionStatus == 'cancel') {
-            $history = $order->addStatusHistoryComment($message);
-            $history->setIsCustomerNotified(true);
-
             if ($order->canCancel()) {
                 $order->cancel();
+                $order->addStatusHistoryComment($message)
+                    ->setIsCustomerNotified(true);
             }
 
             $order->save();
