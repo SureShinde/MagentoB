@@ -512,4 +512,85 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
         }
         return is_file($filename);
     }
+
+    /*Blog Function adding by andi*/
+
+    const XML_PATH_DATE_FORMAT = 'blog/blog/dateformat';
+    protected static $_helper;
+    protected static $_collection;
+    protected static $_catUriParam = AW_Blog_Helper_Data::CATEGORY_URI_PARAM;
+    protected static $_postUriParam = AW_Blog_Helper_Data::POST_URI_PARAM;
+    protected static $_tagUriParam = AW_Blog_Helper_Data::TAG_URI_PARAM;
+
+    protected function _getStore()
+    {
+        $storeId = (int)$this->getRequest()->getParam('store', 0);
+        return Mage::app()->getStore($storeId);
+    }
+
+    public static function getStoreConfig($path, $store = null)
+    {
+        return self::app()->getStore($store)->getConfig($path);
+    }
+
+    public function conf($code, $store = null)
+    {
+        return Mage::getStoreConfig($code, $store);
+    }
+
+    public function getDateFormat($store = null)
+    {
+        return $this->conf(self::XML_PATH_DATE_FORMAT, $store);
+    }
+
+    protected function _prepareDates($item)
+    {
+        $dateFormat = $this->getDateFormat();
+        $item->setCreatedTime($this->formatTime($item->getCreatedTime(), $dateFormat, true));
+        $item->setUpdateTime($this->formatTime($item->getUpdateTime(), $dateFormat, true));
+
+        return $this;
+    }
+
+    protected function _prepareData($item)
+    {
+        $item->setTitle(htmlspecialchars($item->getTitle()));
+        $item->setShortContent(trim($item->getShortContent()));
+
+        return $this;
+    }
+
+    public function getPost()
+    {
+        if (!$this->hasData('post')) {
+            if ($this->getPostId()) {
+                $post = Mage::getModel('blog/post')->load($this->getPostId());
+            } else {
+                $post = Mage::getSingleton('blog/post');
+            }
+            $category = Mage::getSingleton('blog/cat')->load(
+                $this->getRequest()->getParam(self::$_catUriParam), "identifier"
+            );
+            if ($category->getIdentifier()) {
+                $post->setAddress(
+                    $this->getBlogUrl(
+                        null,
+                        array(
+                            self::$_catUriParam  => $category->getIdentifier(),
+                            self::$_postUriParam => $post->getIdentifier()
+                        )
+                    )
+                );
+            } else {
+                $post->setAddress($this->getBlogUrl($post->getIdentifier()));
+            }
+
+            $this->_prepareData($post)->_prepareDates($post);
+
+            $this->setData('post', $post);
+        }
+
+        return $this->getData('post');
+    }
+        /*End Blog Function adding by andi*/
 }

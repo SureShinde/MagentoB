@@ -410,8 +410,11 @@
     </div>
 	
     <div class="related-product">
-        <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('related_product')->toHtml() ?>
-    </div>
+		<?php echo $this->getLayout()->createBlock('relatedproducts/relatedproducts')->setTemplate('catalog/product/list/awrelated.phtml')->toHtml(); ?>
+	</div>
+	<div class="related-product">	
+		<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('related_product')->toHtml() ?>
+	</div>
 	
     <script type="text/javascript">
         // <![CDATA[

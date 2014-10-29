@@ -165,7 +165,8 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
 
         //static block
         if($field["success_redirect"]==1){
-            $field["url"] = $field["url_success"];
+            $field["url"] = $field["url_success"]."?formId=".$form_id."&recordId=".$record_id;
+
         }else if(!is_null($row["static_success"]) || $row["static_success"]<>""){
             Mage::getSingleton('core/session')->setFormbuilderSuccess(true);
         }

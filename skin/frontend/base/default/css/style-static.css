@@ -155,7 +155,13 @@ ul.decimal-ul li {
 .wrapper-voucher a {text-decoration:none;}
 .line-height-1 {line-height:1 !important;}
 .line-dashed{border-bottom: 2px dashed #A0A0A0; margin:10px 0 15px}
-
+.static-page-area .button{
+	padding:10px;
+	background:#4ec7da;
+	color:#fff;
+	display:table;
+	clear:both;
+}
 
 /* --------------------------------------------Gift Voucher static page */
 
@@ -2294,7 +2300,7 @@ button.button-area {
 		margin-bottom:20px;
 	}
 .menu-tahap-bilna-kredit{
-	background: url('http://assets.bilna.com/media/wysiwyg/how-to-buy/button-bc-top.png') #0fa1aa;
+	background: url('../../../../../media/wysiwyg/how-to-buy/button-bc-top.png') #0fa1aa;
 	font-family: helvetica, arial, san-serif; 
 	font-weight: bold; 
 	width:110px; 
@@ -2312,61 +2318,61 @@ button.button-area {
 }
 .sign-in{
 	margin-bottom:20px;
-	background: url('http://assets.bilna.com/media/wysiwyg/how-to-buy/button-bc-top.png') #0faa9a;
+	background: url('../../../../../media/wysiwyg/how-to-buy/button-bc-top.png') #0faa9a;
 	background-position: 0 0;
 	
 }
 .shop{
 	margin-top:20px;
-	background: url('http://assets.bilna.com/media/wysiwyg/how-to-buy/button-bc-top.png') #0faa9a;
+	background: url('../../../../../media/wysiwyg/how-to-buy/button-bc-top.png') #0faa9a;
 	background-position: -110px 0px;
 }
 .priview{
 	margin-bottom:20px;
-	background: url('http://assets.bilna.com/media/wysiwyg/how-to-buy/button-bc-top.png') #0faa9a;
+	background: url('../../../../../media/wysiwyg/how-to-buy/button-bc-top.png') #0faa9a;
 	background-position: -220px 0px;
 }
 .invite{
 	margin-top:20px;
-	background: url('http://assets.bilna.com/media/wysiwyg/how-to-buy/button-bc-top.png') #0faa6a;
+	background: url('../../../../../media/wysiwyg/how-to-buy/button-bc-top.png') #0faa6a;
 	background-position: -330px 0px;
 }
 .friends-shop{
 	margin-bottom:20px;
-	background: url('http://assets.bilna.com/media/wysiwyg/how-to-buy/button-bc-top.png') #0faa42;
+	background: url('../../../../../media/wysiwyg/how-to-buy/button-bc-top.png') #0faa42;
 	background-position: -440px 0px;
 }
 .special-promotion{
 	margin-top:20px;
-	background: url('http://assets.bilna.com/media/wysiwyg/how-to-buy/button-bc-top.png') #0faa1e;
+	background: url('../../../../../media/wysiwyg/how-to-buy/button-bc-top.png') #0faa1e;
 	background-position: -550px 0px;
 }
 #numb-one .title-desc-kredit{
-	background:url("http://assets.bilna.com/media/wysiwyg/static-page-img/bilna-kredit/bg_signup.jpg") no-repeat center, url("http://assets.bilna.com/media/wysiwyg/static-page-img/bilna-kredit/dashed_signup.jpg") repeat-x center;
+	background:url("../../../../../media/wysiwyg/static-page-img/bilna-kredit/bg_signup.jpg") no-repeat center, url("../../../../../media/wysiwyg/static-page-img/bilna-kredit/dashed_signup.jpg") repeat-x center;
 	width:100%;
 }
 #numb-two .title-desc-kredit{
-	background:url("http://assets.bilna.com/media/wysiwyg/static-page-img/bilna-kredit/bg_shop.jpg") no-repeat center, url("http://assets.bilna.com/media/wysiwyg/static-page-img/bilna-kredit/dashed_shop.jpg") repeat-x center;
+	background:url("../../../../../media/wysiwyg/static-page-img/bilna-kredit/bg_shop.jpg") no-repeat center, url("../../../../../media/wysiwyg/static-page-img/bilna-kredit/dashed_shop.jpg") repeat-x center;
 	width:100%;
 }
 #numb-three .title-desc-kredit{
-	background:url("http://assets.bilna.com/media/wysiwyg/static-page-img/bilna-kredit/bg_review.jpg") no-repeat center, url("http://assets.bilna.com/media/wysiwyg/static-page-img/bilna-kredit/dashed_review.jpg") repeat-x center;
+	background:url("../../../../../media/wysiwyg/static-page-img/bilna-kredit/bg_review.jpg") no-repeat center, url("../../../../../media/wysiwyg/static-page-img/bilna-kredit/dashed_review.jpg") repeat-x center;
 	width:100%;
 }
 #numb-four .title-desc-kredit{
-	background:url("http://assets.bilna.com/media/wysiwyg/static-page-img/bilna-kredit/bg_invite_friend.jpg") no-repeat center, url("http://assets.bilna.com/media/wysiwyg/static-page-img/bilna-kredit/dashed_invite_friend.jpg") repeat-x center;
+	background:url("../../../../../media/wysiwyg/static-page-img/bilna-kredit/bg_invite_friend.jpg") no-repeat center, url("../../../../../media/wysiwyg/static-page-img/bilna-kredit/dashed_invite_friend.jpg") repeat-x center;
 	width:100%;
 }
 #numb-five .title-desc-kredit{
-	background:url("http://assets.bilna.com/media/wysiwyg/static-page-img/bilna-kredit/bg_friends_shop.jpg") no-repeat center, url("http://assets.bilna.com/media/wysiwyg/static-page-img/bilna-kredit/dashed_friends_shop.jpg") repeat-x center;
+	background:url("../../../../../media/wysiwyg/static-page-img/bilna-kredit/bg_friends_shop.jpg") no-repeat center, url("../../../../../media/wysiwyg/static-page-img/bilna-kredit/dashed_friends_shop.jpg") repeat-x center;
 	width:100%;
 }
 #numb-six .title-desc-kredit{
-	background:url("http://assets.bilna.com/media/wysiwyg/static-page-img/bilna-kredit/bg_special_promotion.jpg") no-repeat center, url("http://assets.bilna.com/media/wysiwyg/static-page-img/bilna-kredit/dashed_special_promotion.jpg") repeat-x center;
+	background:url("../../../../../media/wysiwyg/static-page-img/bilna-kredit/bg_special_promotion.jpg") no-repeat center, url("../../../../../media/wysiwyg/static-page-img/bilna-kredit/dashed_special_promotion.jpg") repeat-x center;
 	width:100%;
 }
 #numb-seven .title-desc-kredit{
-	background:url("http://assets.bilna.com/media/wysiwyg/static-page-img/bilna-kredit/bg_syaratdanketentuan.jpg") no-repeat center, url("http://assets.bilna.com/media/wysiwyg/static-page-img/bilna-kredit/dashed_syaratdanketentuan.jpg") repeat-x center;
+	background:url("../../../../../media/wysiwyg/static-page-img/bilna-kredit/bg_syaratdanketentuan.jpg") no-repeat center, url("../../../../../media/wysiwyg/static-page-img/bilna-kredit/dashed_syaratdanketentuan.jpg") repeat-x center;
 	width:100%;
 }
 
@@ -2412,7 +2418,7 @@ button.button-area {
 		margin-left:20px;
 	}
 	.sign-in{
-		background: url('http://assets.bilna.com/media/wysiwyg/how-to-buy/button-bc-top.png') #0faa9a;
+		background: url('../../../../../media/wysiwyg/how-to-buy/button-bc-top.png') #0faa9a;
 		background-position: -5px 0;
 	}
 	.shop{
@@ -3270,6 +3276,464 @@ button.button-area {
     .homepage-bottom .block-wrapper span {
         font-size: 24px !important;
     }
-
 }
 /* ---------- END NEW STYLE FOR BOTTOOM INFO - COLOR MODE ---------- */
+
+
+/* checkout promo */
+#checkoutpromo{
+	overflow:hidden;
+}
+#checkoutpromo > p{
+	border:1px solid #9d9d9d;
+	background:#f2f2f2;
+	padding:7px 10px;
+}
+#checkoutpromo .freeshipping_label{
+	width:49%;
+	float:left;
+	border:1px solid #9d9d9d;
+	height:66px;
+	background: url('../../../../../media/wysiwyg/static-block-img/bg_freeshipping_checkout.jpg') repeat-x left center #f2f2f2;
+}
+#checkoutpromo .freeshipping_label p{
+	margin:17px 0 0;
+	display:table;
+	padding:7px 45px 7px 10px;
+	background:url("../images/free-shipping.png") no-repeat right #f2f2f2;
+}
+
+#checkoutpromo .promo-baloon{
+	width:49%;
+	margin:0 1.1% 20px 0;
+	float:left;
+	border:4px solid #52c5d8;
+	background:url('../../../../../media/wysiwyg/static-block-img/baloon.jpg') no-repeat left #4d79d2;
+}
+#checkoutpromo .promo-baloon p{
+	color:#fff;
+	padding: 10px 0 10px 164px;
+	line-height:20px;
+	font-size:14px;
+}
+#checkoutpromo .promo-baloon p span{
+	font-weight:bold;
+	text-transform:uppercase;
+}
+#checkoutpromo .promo-baloon p .gift{
+	color:#ffea3d;
+}
+#checkoutpromo .promo-baloon p .brand{
+	color:#4bf3be;
+}
+#checkoutpromo .home_link_promo{
+	display:table;
+	width:100%;
+	background:#f2f2f2;
+}
+#checkoutpromo .home_link_promo .label_homelink{
+	display:table;
+	float:left;
+	background:#52c5d8;
+	color:#fff;
+	position:relative;
+	padding:9px 73px 10px 10px;
+	text-shadow:2px 1px 2px #1d8393
+}
+#checkoutpromo .home_link_promo .label_homelink p{
+	font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+#checkoutpromo .home_link_promo  .link-home{
+	display:table;
+	float:right;
+	padding:9px 0;
+}
+
+#checkoutpromo .home_link_promo .label_homelink:after {
+    border-color: #52c5d8 transparent transparent #52c5d8;
+    border-left: 17px solid #52c5d8;
+    border-style: solid;
+    border-width: 17px;
+    content: "";
+    position: absolute;
+    right: -34px;
+    top: 0;
+}
+#checkoutpromo .home_link_promo  .link-home ul li{
+	display:inline;
+	color:#277d8a;
+	font-weight:bold;
+	margin:0 20px;
+}
+#checkoutpromo .home_link_promo .label_homelink p a{
+	color:#fff;
+	text-decoration:underline;	
+}
+#checkoutpromo > div, #checkoutpromo > p {
+    margin: 0 0 10px;
+}
+@media only screen and (max-width: 1215px) { 
+	#checkoutpromo .home_link_promo .label_homelink{
+		padding:9px 27px 10px 10px
+	}
+	#checkoutpromo .home_link_promo .link-home ul li{
+		margin:0 10px;
+	}
+	#checkoutpromo .promo-baloon{
+		margin:0 9px 20px 0;
+	}
+	#checkoutpromo .freeshipping_label{
+		height:86px;
+	}
+}
+
+@media only screen and (max-width: 1023px){
+	#checkoutpromo .home_link_promo .label_homelink {
+		font-size: 11px;
+		padding: 9px 10px 9px 10px;
+	}
+	#checkoutpromo .promo-baloon p{
+		padding:10px 0 10px 20px;
+	}
+	#checkoutpromo .freeshipping_label{
+		background: url('../../../../../media/wysiwyg/static-block-img/bg_freeshipping_checkout.jpg') repeat-x left bottom #f2f2f2;
+	}
+	#checkoutpromo .promo-baloon{
+		margin:0 11px 20px 0;
+		width:48%;
+		background:#4d79d2;
+	}
+	#checkoutpromo .freeshipping_label p{
+		margin:20px 0 0;
+	}
+	#checkoutpromo .home_link_promo .label_homelink:after {
+		right: -32px;
+		border-width: 16px;
+	}
+		
+	#checkoutpromo .home_link_promo .link-home ul li {
+		font-size: 10px;
+		margin: 0 7px;
+		text-transform: lowercase;
+	}
+}
+@media only screen and (max-width: 768px) {
+	#checkoutpromo .promo-baloon{
+		width:98%;
+	}
+	#checkoutpromo .home_link_promo .link-home{
+		display:none;
+	}
+	#checkoutpromo .home_link_promo .label_homelink{
+		width:100%;
+	}
+	#checkoutpromo .promo-baloon{
+		margin:0 5px 20px 0
+	}
+	#checkoutpromo .freeshipping_label{
+		height:auto;
+		width:98%;
+	}
+	#checkoutpromo .freeshipping_label p {
+		margin: 0;
+	}
+}
+@media only screen and (max-width: 468px) {
+	#checkoutpromo .promo-baloon{
+		width:98%;
+		margin:0 11px 10px 0;
+	}
+	#checkoutpromo .freeshipping_label{
+		width:99%;
+		background: url('../../../../../media/wysiwyg/static-block-img/bg_freeshipping_checkout.jpg') repeat-x left center #f2f2f2;
+	}
+}
+
+/* end of checkout promo */
+
+
+/*=============================style clearence=============================*/
+
+.clearence-page .font-base-text{
+	line-height:1.8;
+	font-size: 1.2em;
+}
+.clearence-page p{
+	margin:0;
+}
+.clearence-page .category-link{
+	background:#ab2820;
+	display: table;
+    float: left;
+    font-size: 24px;
+    margin: 10px 20px 20px 0;
+    padding: 10px;
+    text-align: center;
+}
+.clearence-page .base-bold, .clearence-page-home .base-bold{
+	color:#00aeef;
+}
+.clearence-page .category-link a{
+	color:#fff;
+}
+.clearence-baby .column_product_static {
+	border-bottom: 1px solid #d2d2d2;
+    border-right: 1px solid #d2d2d2;
+    float: left;
+    height: 180px;
+    padding: 20px 0 0;
+    position: relative;
+    text-align: center;
+    width: 20%;
+}
+.clearence-home .column_product_static {
+    height: 180px;
+    width: 25%;
+	border-bottom: 1px solid #d2d2d2;
+    border-right: 1px solid #d2d2d2;
+    float: left;
+    padding: 20px 0 0;
+    position: relative;
+    text-align: center;
+}
+.clearence-baby .column_product_static IMG{
+	width:75%;
+}
+.clearence-home .column_product_static IMG{
+	width:80%;
+}
+
+@media only screen and (max-width: 1023px){
+	.clearence-page-home .column_product_static, .static-page-area .column_product_static{
+			width:32%;
+			height:120px;
+		}
+}
+@media only screen and (max-width: 768px) {
+		.clearence-page-home .column_product_static, .static-page-area .column_product_static{
+			width:32%;
+			height:145px;
+			
+		}
+	}
+@media only screen and (max-width: 468px) {
+		.clearence-page-home .column_product_static, .static-page-area .column_product_static{
+			width:50%;
+		}
+	}
+
+
+/*=============================end style merdeka madness=============================*/
+
+
+/*=============================style printerous=============================*/
+
+.printerous .row{
+	clear:both;
+	width:100%;
+	display:inline-block;
+	margin:20px 0;
+}
+.printerous .about > p, .printerous .keutamaan > p{
+	width:48%;
+	font-size:14px;
+}
+.printerous .about > p{
+	float:left;
+}
+.printerous .keutamaan > p{
+	float:right;
+}
+.printerous .about > p img, .printerous .keutamaan > p img{
+	clear:both;
+	display:block;
+	margin-bottom:10px;
+}
+
+.printerous .about > img, .printerous .keutamaan > img{
+	width:48%;
+}
+.printerous .about > img{
+	float:right;
+}
+.printerous .keutamaan > img{
+	float:left;
+}
+.printerous .jenis > img,
+.printerous .step > img,
+.printerous .ribbon > img {
+	margin:0 auto;
+	display:block;
+}
+.printerous .list-jenis > img{
+	margin:0 19px;
+}
+.printerous .step{
+	margin: 0 !important;
+	padding: 20px 0 0 0;
+	background:#fafafa;
+}
+.printerous .step .number_step{
+	width:33%;
+	float:left;
+}
+.printerous .step .number_step > p{
+	width: 50%;
+	margin: 15px auto;
+	font-size: 13px;
+	text-align: center;
+}
+.printerous .step .number_step .numbering{
+	display: table;
+	padding: 15px 18px;
+	margin: 0 auto;
+	font-size: 18px;
+	border-radius: 33px;
+	border: 1px solid #c8c8c8;
+}
+.printerous .ribbon > p{
+	text-align: center;
+	font-style: italic;
+	margin-top:15px;
+}
+.printerous .ribbon a{
+	margin:0 auto;
+	display:table;
+}
+.printerous .term{
+	border:1px solid #e4e4e4;
+	padding:15px;
+}
+.printerous .term h5{
+	font-weight:bold;
+}
+@media only screen and (max-width: 1023px){
+	.printerous .keutamaan > p img{
+		width:100%;
+	}	
+}
+@media only screen and (max-width: 468px) {
+	.printerous .step > img{
+		width:100%;
+	}
+	.printerous .keutamaan > p img{
+		width:auto;
+		max-width:100%;
+	}
+	.printerous .list-jenis > img{
+		margin:0 15px;
+	}
+	.printerous .about > p, .printerous .keutamaan > p{
+		width:100%;
+	}
+	.printerous .about > img, .printerous .keutamaan > img{
+		width:100%;
+	}
+	.printerous .keutamaan > p{
+		float:left;
+		margin:10px 0;
+	}
+	.printerous .step .number_step{
+		width:100%;
+	}
+	.printerous .step .number_step > p {
+		width: 80%;
+		margin: 15px auto 29px;
+	}
+	.printerous .ribbon > img{
+		width:100%;
+	}
+	.printerous .ribbon a{
+		width:100%;
+	}
+	.printerous .ribbon a img{
+		width:100%;
+	}
+}
+/*=============================end style printerous=============================*/
+
+/*=============================style winner go green=============================*/
+.gogreen-winner-pc .row{
+	width:100%;
+	clear:both;
+	display:table;
+}
+.gogreen-winner-pc .juara .polaroid, .gogreen-winner-pc .hiburan .polaroid{
+	padding:1%;
+	margin:0 1%;
+	float:left;
+	width:30%;
+	-moz-box-shadow: 0px 0px 12px #999;
+	-webkit-box-shadow: 0px 0px 12px #999;
+	box-shadow: 0px 0px 12px #999;
+}
+.gogreen-winner-pc .juara .polaroid:nth-child(1){
+	width:26%;
+}
+.gogreen-winner-pc .juara .polaroid:nth-child(2){
+	width:37%;
+}
+.gogreen-winner-pc .juara .polaroid:nth-child(3){
+	width:23%;
+}
+.gogreen-winner-pc .hiburan .polaroid:nth-child(1){
+	width:70%;
+}
+.gogreen-winner-pc .hiburan .polaroid:nth-child(2){
+	width:22%;
+}
+.gogreen-winner-pc .hiburan .polaroid:nth-child(3){
+	width: 51%;
+	margin: 20px 10px;
+}
+.gogreen-winner-pc .hiburan .polaroid:nth-child(1) img{
+	float:left;
+}
+.gogreen-winner-pc .hiburan .polaroid:nth-child(1) img:nth-child(1){
+	width:35%;
+	margin: 0 10px 0 0;
+}
+.gogreen-winner-pc .hiburan .polaroid:nth-child(1) img:nth-child(2){
+	width:63%;
+}
+.gogreen-winner-pc .hiburan .polaroid:nth-child(3) img:nth-child(1){
+	width:48%;
+	margin: 0 10px 0 0;
+}
+.gogreen-winner-pc .hiburan .polaroid:nth-child(3) img:nth-child(2){
+	width:48%;
+}
+.gogreen-winner-pc .juara .polaroid img, .gogreen-winner-pc .hiburan .polaroid img{
+	width:100%;
+}
+.gogreen-winner-pc .polaroid p{
+	text-align:center;
+	float: left;
+	width: 100%;
+	clear:both;
+	margin:10px 0 0;
+	font-size:14px;
+}
+
+@media only screen and (max-width: 1023px){
+	.gogreen-winner-pc .polaroid p{
+		font-size:11px;
+	}
+	.gogreen-winner-pc .hiburan .polaroid:nth-child(1) img:nth-child(2) {
+		width: 62%;
+	}
+	.gogreen-winner-pc .hiburan .polaroid:nth-child(3) img:nth-child(2) {
+		width: 47%;
+	}
+	
+}
+@media only screen and (max-width: 768px) {
+	.gogreen-winner-pc .juara .polaroid, .gogreen-winner-pc .hiburan .polaroid{
+		width:96% !important;
+		margin:10px 0;
+		padding: 2%;
+	}
+}
+/*=============================end style winner go green=============================*/

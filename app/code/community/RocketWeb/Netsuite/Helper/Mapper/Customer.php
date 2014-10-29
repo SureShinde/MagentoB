@@ -101,7 +101,7 @@ class RocketWeb_Netsuite_Helper_Mapper_Customer extends RocketWeb_Netsuite_Helpe
 				
 			$netsuiteAddress = new CustomerAddressbook();
 				
-			if($defaultShippingAddressId && $defaultShippingAddressId == $magentoAddress->getId()) {
+			/*if($defaultShippingAddressId && $defaultShippingAddressId == $magentoAddress->getId()) {
 				$netsuiteAddress->defaultShipping = true;
 			}
 			else {
@@ -113,8 +113,12 @@ class RocketWeb_Netsuite_Helper_Mapper_Customer extends RocketWeb_Netsuite_Helpe
 			}
 			else {
 				$netsuiteAddress->defaultBilling = false;
-			}
-				
+			}*/
+			
+            /*always set default shipping and billing to false, refer to ticket BILNA-847*/
+            $netsuiteAddress->defaultShipping = false;
+            $netsuiteAddress->defaultBilling = false;
+
 			$netsuiteAddress->addressee = $magentoCustomer->getName();
 			$netsuiteAddress->phone = substr($magentoAddress->getTelephone(), 0, 22);
             

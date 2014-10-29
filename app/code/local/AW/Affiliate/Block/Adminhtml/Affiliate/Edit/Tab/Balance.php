@@ -182,7 +182,7 @@ class AW_Affiliate_Block_Adminhtml_Affiliate_Edit_Tab_Balance
         $html .= " awAffiliateProfitConfig.ajaxJsErrorMsg = '" . Mage::helper('awaffiliate')->__('Incorrect response') . "' ; ";
         $html .= " awAffiliateProfitConfig.incorrectValidation = '" . Mage::helper('awaffiliate')->__('Incorrect validation') . "' ; ";
         $html .= " awAffiliateProfitConfig.affiliate_id ='".$affiliate->getId()."' ; ";
-        $html .= " awAffiliateProfitConfig.requestUrl = '" . Mage::getUrl('awaffiliate/adminhtml_affiliate/jsonProfitAdd', array('affiliate_id' => $affiliate->getId())) . "' ; ";
+        $html .= " awAffiliateProfitConfig.requestUrl = '" . Mage::getUrl('awaffiliate_admin/adminhtml_affiliate/jsonProfitAdd', array('affiliate_id' => $affiliate->getId())) . "' ; ";
         $html .= "</script>";
         return $html;
     }

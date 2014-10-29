@@ -37,7 +37,12 @@ class Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Edit_Tabs_Data extends Mage_
 		
 			$i++;
 		}
-		
+		$sort = $this->getRequest()->getParam('sort');
+        if( isset($sort) && $sort == 'create_date' )
+        {
+            $dir = $this->getRequest()->getParam('dir');
+            $collection->setOrder('main_table.create_date', strtoupper($dir));
+        }
 		//Zend_Debug::Dump($collection->printLogQuery(true)); die;
 		$this->setCollection($collection);		 
 		return parent::_prepareCollection();
@@ -48,7 +53,8 @@ class Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Edit_Tabs_Data extends Mage_
   	$inputs = Mage::getModel('bilna_formbuilder/input')->getCollection();
   	$inputs->getSelect();
   	$inputs->addFieldToFilter('main_table.form_id', (int) $this->getRequest()->getParam('id'));
-		$inputs->getSelect()->order(array('required DESC'));
+	//$inputs->getSelect()->order(array('required DESC'));
+  	$inputs->setOrder('`order`', 'ASC');
   	$inputs->getSelect()->group('group');
   	
   	foreach($inputs as $input){

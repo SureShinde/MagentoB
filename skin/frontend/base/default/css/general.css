@@ -107,7 +107,7 @@ body {
 	overflow: hidden;
 }
 .products-grid .product-image img {
-	width: 100%;
+	max-width: 100%;
 	height:auto;
 }
 .products-grid .product-name, .products-grid .price-box {

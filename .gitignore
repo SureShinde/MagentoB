@@ -114,3 +114,5 @@ includes
 
 lib/Netsuite/nslog/
 files/useragent.txt
+
+!shell/flushCache.php

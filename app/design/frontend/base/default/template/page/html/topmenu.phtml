@@ -23,7 +23,7 @@
     <?php foreach ($_storeCategories as $_storeCategory): ?>
         <?php
         $_storeCategory = Mage::getModel('megamenu/catalog_category')->load($_storeCategory->getId());
-        $_storeCategoryClass = $_storeCategory->getId() == $_helper->getCurrentMainCategory() ? "" : "display:none;";
+        //$_storeCategoryClass = ($_storeCategory->getId() == $_helper->getCurrentMainCategory()) ? "background: #3c9aa8" : "display:none";
         
         /**
          * check if category is active
@@ -35,9 +35,15 @@
         if (!$_storeCategory->getIncludeInMenu()):
             continue;
         endif;
+        
+        
+        
+        $_currentMainCategory = $_helper->getCurrentMainCategory();
+        //echo "currentMainCategory: " . $_currentMainCategory;
+        $_storeCategorySubClass = !empty ($_currentMainCategory) || $_currentMainCategory != '' ? "sub-active" : "";
         ?>
 
-        <div id="nav-<?php echo $_storeCategory->getId(); ?>" class="nav-container container nav-<?php echo $_storeCategory->getUrlKey(); ?>" style="<?php echo $_storeCategoryClass; ?>">
+        <div id="nav-<?php echo $_storeCategory->getId(); ?>" class="nav-container container nav-<?php echo $_storeCategory->getUrlKey(); ?> <?php echo $_storeCategorySubClass; ?>" style="display:none;">
             <?php $_categories = $_storeCategory->getChildrenCategories(); ?>
             <?php if (count($_categories) > 0): ?>
                 <ul id="nav" class="nav">
@@ -68,8 +74,8 @@
                         
                         $categoryName = $_category->getName();
                         ?>
-                        <li class="level level-top parent-<?php echo $_category->getId(); ?> parent nav-<?php echo $_category->getUrlKey(); ?>">
-                            <a href="<?php echo $_helper->getCategoryUrl($_category); ?>" class="level-top parent-<?php echo $_category->getId(); ?>">
+                        <li id="<?php echo $_category->getUrlKey(); ?>" data-category="category<?php echo $_category->getId(); ?>" class="level level-top parent-<?php echo $_category->getId(); ?> parent nav-<?php echo $_category->getUrlKey(); ?>">
+                            <a href="<?php echo $_helper->getCategoryUrl($_category); ?>" data-category="category<?php echo $_category->getId(); ?>" class="level-top parent-<?php echo $_category->getId(); ?>">
                                 <span><span><?php echo $this->__($_helper->replaceCategoryName($categoryName)); ?></span></span>
                             </a>
                             <?php $_subCategories = $_category->getChildrenCategories(); ?>

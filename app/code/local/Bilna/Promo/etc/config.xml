@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Bilna_Promo>
-            <version>0.1.1</version>
+            <version>0.2.0</version>
         </Bilna_Promo>
     </modules>
 	<frontend>
@@ -59,6 +59,11 @@
 									</bilnapromogiftvoucherapplicant>
 								</children>
 							</bilnapromogiftvoucher>
+							<bilnapromogimmickevent module="promo">
+								<title>Gimmick Event</title>
+								<sort_order>200</sort_order>
+								<action>bilnapromo/adminhtml_gimmickevent</action>
+							</bilnapromogimmickevent>
 						</children>
 					</bilnapromo>
 				</children>
@@ -92,6 +97,10 @@
 										</bilnapromogiftvoucherapplicant>
 									</children>
 								</bilnapromogiftvoucher>
+								<bilnapromogimmickevent translate="title">
+									<title>Gimmick Event</title>
+									<sort_order>300</sort_order>
+								</bilnapromogimmickevent>
 							</children>
 						</bilnapromo>
 						</children>
@@ -123,6 +132,15 @@
                     <giftvoucherapplicant>
                         <table>bilna_promo_giftvoucher_member</table>
                     </giftvoucherapplicant>
+                    <gimmickevent>
+                        <table>bilna_gimmick_event</table>
+                    </gimmickevent>
+                    <gimmickeventsku>
+                        <table>bilna_gimmick_event_sku</table>
+                    </gimmickeventsku>
+                    <gimmickeventapplicant>
+                        <table>bilna_gimmick_event_applicant</table>
+                    </gimmickeventapplicant>
                 </entities>
             </promo_mysql4>
         </models>

@@ -47,12 +47,6 @@ var awAfptcPopup = Class.create({
         });
         var xy = this.collectPos(el);
         
-        if (xy[0] < 50) {
-            xy[0] = 50;
-            el.setStyle({
-                width: (document.viewport.getWidth() - 100) + 'px'
-            });
-        }
         if (xy[1] < 50) {
             xy[1] = 50;
             el.setStyle({

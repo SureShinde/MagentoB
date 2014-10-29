@@ -1,10 +1,8 @@
 <?xml version="1.0"?>
-
-
 <config>
     <modules>
         <AW_All>
-            <version>2.2.1</version>
+            <version>2.3.0</version><platform>ce</platform>
         </AW_All>
     </modules>
 
@@ -51,7 +49,17 @@
             </awall>
         </helpers>
     </global>
-
+    <admin>
+        <routers>
+            <awall_admin>
+                <use>admin</use>
+                <args>
+                    <module>AW_All</module>
+                    <frontName>awall_admin</frontName>
+                </args>
+            </awall_admin>
+        </routers>
+    </admin>
     <adminhtml>
         <layout>
             <updates>
@@ -106,6 +114,15 @@
                     </awall_upds>
                 </observers>
             </controller_action_predispatch>
+            <adminhtml_block_html_before>
+                <observers>
+                    <awall_tabs_sorting>
+                        <type>singleton</type>
+                        <class>awall/observer</class>
+                        <method>prepareAWTabs</method>
+                    </awall_tabs_sorting>
+                </observers>
+            </adminhtml_block_html_before>
         </events>
     </adminhtml>
     <default>
