@@ -555,9 +555,31 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
                         $this->__('Coupon code "%s" was applied.', Mage::helper('core')->escapeHtml($couponCode))
                     );
                 } else {
-                    $this->_getSession()->addError(
-                        $this->__('Coupon code "%s" is not valid.', Mage::helper('core')->escapeHtml($couponCode))
-                    );
+                    $oCoupon = Mage::getModel('salesrule/coupon')->load($couponCode, 'code');
+                    $oRule = Mage::getModel('salesrule/rule')->load($oCoupon->getRuleId());
+                    $roleId = (int) Mage::getSingleton('customer/session')->getCustomerGroupId();
+                    $customerGroupIds = array_values($oRule->getData('customer_group_ids'));
+                    if( '' == $oRule->getData('to_date') ){
+                        $dateDiff = 1;                        
+                    }else{
+                        $dateDiff = strtotime($oRule->getData('to_date')) - strtotime(date('Y-m-d'));
+                    }
+                   
+                    if( !in_array($roleId, $customerGroupIds) )
+                    {
+                        $this->_getSession()->addError(
+                            $this->__('Coupon code "%s" is not valid. Please sign in or registration', Mage::helper('core')->escapeHtml($couponCode))
+                        ); 
+                    }elseif( $dateDiff <= 0 ){
+                        $this->_getSession()->addError(
+                            $this->__('Coupon code "%s" was expired.', Mage::helper('core')->escapeHtml($couponCode))
+                        );
+                    }else{
+                        $this->_getSession()->addError(
+                            $this->__('Coupon code "%s" is not valid.', Mage::helper('core')->escapeHtml($couponCode))
+                        );
+                    }
+                    
                 }
             } else {
                 $this->_getSession()->addSuccess($this->__('Coupon code was canceled.'));
