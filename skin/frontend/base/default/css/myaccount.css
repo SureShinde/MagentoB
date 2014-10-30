@@ -405,7 +405,6 @@
 	padding: 0 10px;
 }
 .my-account .pager .buttons-set, 
-.my-account .pager-wrapper .pages, 
 .my-account .custome-nav {
 	display: none;
 }
@@ -930,4 +929,10 @@ padding: 10px 10px 30px;
 		margin:10px 0;
 	}
 /*end wishlist*/
+
+
+	/* order history*/
+	.my-account .pager-wrapper .pages{
+		display:none;
+	}
 }
