@@ -102,114 +102,118 @@ class Icube_CategoryGenerator_Adminhtml_GeneratorController extends Mage_Adminht
         );
     }
     
-     public function saveAction()
-     {
+     public function saveAction() {
         $request = Mage::app()->getRequest();
         
         if ($this->getRequest()->getPost()) {
-
             try {
                 $model = Mage::getModel('categorygenerator/generator');
-                Mage::dispatchEvent(
-                        'adminhtml_controller_catalogrule_prepare_save', array('request' => $this->getRequest())
-                );
+                Mage::dispatchEvent('adminhtml_controller_catalogrule_prepare_save', array('request' => $this->getRequest()));
                 $data = $this->getRequest()->getPost();
+                $id = $data["id"];
+                //$id = $this->getRequest()->getParam('id');
                 
-
-                $id = $this->getRequest()->getParam('id');
                 if ($id) {
                     $model->load($id);
+                    
                     if ($id != $model->getId()) {
                         Mage::throwException(Mage::helper('categorygenerator')->__('Wrong generator specified.'));
                     }
                 }
 
                 $validateResult = $model->validateData(new Varien_Object($data));
+                
                 if ($validateResult !== true) {
                     foreach ($validateResult as $errorMessage) {
                         $this->_getSession()->addError($errorMessage);
                     }
+                    
                     $this->_getSession()->setPageData($data);
-                    $this->_redirect('*/*/edit', array('id' => $model->getId()));
+                    $this->_redirect('*/*/edit', array ('id' => $model->getId()));
+                    
                     return;
                 }
 
                 $data['conditions'] = $data['rule']['conditions'];
-                unset($data['rule']);
+                unset ($data['rule']);
 
-                if (empty($data['category_ids'])) {
-	                $this->_getSession()->setPageData($data);
-	                $this->_getSession()->addError(
-                    Mage::helper('categorygenerator')->__('Please select a category.'));
-                    $this->_redirect('*/*/edit', array('id' => $model->getId()));
+                if (empty ($data['category_ids'])) {
+                    $this->_getSession()->setPageData($data);
+                    $this->_getSession()->addError(Mage::helper('categorygenerator')->__('Please select a category.'));
+                    $this->_redirect('*/*/edit', array ('id' => $model->getId()));
+                    
                     return;
                 }
                 
                 $_categories = Mage::helper('categorygenerator')->prepareArray($data['category_ids']);
-		        $data['category_data'] = array('categories' => $_categories);
-		        unset($data['category_ids']);
+                $data['category_data'] = array ('categories' => $_categories);
+                unset ($data['category_ids']);
                 
                 $autoApply = false;
-                if (!empty($data['auto_apply'])) {
-                    $autoApply = true;
-                    unset($data['auto_apply']);
-                }
                 
+                if (!empty ($data['auto_apply'])) {
+                    $autoApply = true;
+                    unset ($data['auto_apply']);
+                }
                 
                 $model->loadPost($data);
-
                 Mage::getSingleton('adminhtml/session')->setPageData($model->getData());
-
                 $model->save();
-
-                Mage::getSingleton('adminhtml/session')->addSuccess(
-                        Mage::helper('categorygenerator')->__('The generator has been saved.')
-                );
+                Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('categorygenerator')->__('The generator has been saved.'));
                 Mage::getSingleton('adminhtml/session')->setPageData(false);
+                
                 if ($autoApply) {
-                    $this->getRequest()->setParam('id', $model->getId());
+                	Mage::getSingleton('core/session')->setCategoryGeneratorId($model->getId());
                     $this->_forward('applyGenerator');
-                } else {
+                }
+                else {
                     Mage::getModel('categorygenerator/flag')->loadSelf()
-                            ->setState(1)
-                            ->save();
+                        ->setState(1)
+                        ->save();
+                    
                     if ($this->getRequest()->getParam('back')) {
-                        $this->_redirect('*/*/edit', array('id' => $model->getId()));
+                        $this->_redirect('*/*/edit', array ('id' => $model->getId()));
+                        
                         return;
                     }
+                    
                     $this->_redirect('*/*/');
                 }
+                
                 return;
-            } catch (Mage_Core_Exception $e) {
+            }
+            catch (Mage_Core_Exception $e) {
                 $this->_getSession()->addError($e->getMessage());
-            } catch (Exception $e) {
-                $this->_getSession()->addError(
-                        Mage::helper('categorygenerator')->__('An error occurred while saving the data. Please review the log and try again.')
-                );
+            }
+            catch (Exception $e) {
+                $this->_getSession()->addError(Mage::helper('categorygenerator')->__('An error occurred while saving the data. Please review the log and try again.'));
                 Mage::logException($e);
                 Mage::getSingleton('adminhtml/session')->setPageData($data);
-                $this->_redirect('*/*/edit', array('id' => $this->getRequest()->getParam('id')));
+                $this->_redirect('*/*/edit', array ('id' => $this->getRequest()->getParam('id')));
+                
                 return;
             }
         }
+        
         $this->_redirect('*/*/');
     }
     
-    public function applyGeneratorAction()
-    {
+    public function applyGeneratorAction() {
         $errorMessage = Mage::helper('categorygenerator')->__('Unable to apply generator.');
+        
         try {
-            Mage::getModel('categorygenerator/generator')->applyAll();
+        	Mage::getModel('categorygenerator/generator')->applyAll();
+            
             Mage::getModel('categorygenerator/flag')->loadSelf()
-                    ->setState(0)
-                    ->save();
+                ->setState(0)
+                ->save();
             $this->_getSession()->addSuccess(Mage::helper('categorygenerator')->__('The generator has been applied.'));
-        } catch (Mage_Core_Exception $e) {
-            $this->_getSession()->addError($errorMessage . ' ' . $e->getMessage());
-        } catch (Exception $e) {
-            $this->_getSession()->addError($errorMessage);
         }
-        $this->_redirect('*/*');
+        catch (Exception $e) {
+            $this->_getSession()->addError($errorMessage . ' ' . $e->getMessage());
+        }
+        
+        $this->_redirect('*/*/index');
     }
     
     public function deleteAction()

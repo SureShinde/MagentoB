@@ -1,9 +1,10 @@
 <?php
 class Icube_CategoryGenerator_Helper_Data extends Mage_Core_Helper_Abstract
 {
-	const FORM_DATA_KEY = 'generator_form_data';
-	
-	public function removeEmptyItems($var)
+    const FORM_DATA_KEY = 'generator_form_data';
+    protected $logfile = 'icube_categorygenerator.log';
+
+    public function removeEmptyItems($var)
     {
         return !empty($var);
     }
@@ -21,5 +22,7 @@ class Icube_CategoryGenerator_Helper_Data extends Mage_Core_Helper_Abstract
         return $var;
     }
 
-
+    public function logprogress($message) {
+        Mage::log($message, null, $this->logfile);
+    }	
 }
