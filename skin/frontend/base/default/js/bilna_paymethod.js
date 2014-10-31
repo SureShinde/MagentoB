@@ -1029,7 +1029,6 @@ Review.prototype = {
             return false;
         }
         else {
-        
             var params = Form.serialize(payment.form);
 
             if (this.agreementsForm) {
@@ -1143,13 +1142,13 @@ function _cardSet() {
     result['bank'] = jQuery('#payment_form_' + currPayment + ' #' + currPayment + '_acquired_bank').val();
     result['gross_amount'] = jQuery('#gross_amount').val();
     
-    //console.log('request: ' + JSON.stringify(result));
+    console.log('request: ' + JSON.stringify(result));
     
     return result;
 };
 
 function callback(response) {
-    //console.log('response: ' + JSON.stringify(response));
+    console.log('response: ' + JSON.stringify(response));
     
     if (response.status_code == '200') {
         if (response.redirect_url) {
@@ -1165,5 +1164,7 @@ function callback(response) {
         review.resetLoadWaiting();
         checkout.gotoSection('payment', false);
         jQuery('#threedsecure-popup').hide();
+        jQuery('#payment-messages li.error-msg ul li span').html(ccDefaultMessageFailure);
+        jQuery('#payment-messages').show();
     }
 }
