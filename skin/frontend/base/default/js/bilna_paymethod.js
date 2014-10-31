@@ -810,6 +810,17 @@ Payment.prototype = {
         return false;
     },
     
+    errorMessage: function(action, message) {
+        if (action == 'show') {
+            jQuery('#payment-messages li.error-msg ul li span').html(message);
+            jQuery('#payment-messages').show();
+        }
+        else {
+            jQuery('#payment-messages li.error-msg ul li span').html('');
+            jQuery('#payment-messages').hide();
+        }
+    },
+    
     bankValidate: function() {
         var methods = document.getElementsByName('payment[method]');
         var currPayment = $$('input:checked[type=radio][name=payment[method]]')[0].value;
@@ -838,11 +849,13 @@ Payment.prototype = {
                         responseStatus = true;
                     }
                     else {
-                        alert(Translator.translate('Please enter a valid credit card number.').stripTags());
+                        //alert(Translator.translate('Please enter a valid credit card number.').stripTags());
+                        this.errorMessage('show', Translator.translate('Please enter a valid credit card number.').stripTags());
                     }
                 },
                 error: function() {
-                    alert(Translator.translate('Please enter a valid credit card number.').stripTags());
+                    //alert(Translator.translate('Please enter a valid credit card number.').stripTags());
+                    this.errorMessage('show', Translator.translate('Please enter a valid credit card number.').stripTags());
                 }
             });
         }
@@ -902,6 +915,8 @@ Payment.prototype = {
 
     save: function() {
         if (checkout.loadWaiting!=false) return;
+        
+        this.errorMessage('hide', '');
         
         if (!this.bankValidate()) {
             return false;
