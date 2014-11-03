@@ -33,6 +33,8 @@
 	width: auto;
 	background-image: url("../images/btn-buynow4.png");
 	height:40px;
+	clear: both;
+	float: right;
 }
 #checkoutSteps .buttons-set button.button span, #checkoutSteps .buttons-set button.button span span, .opc .buttons-set .back-link a {
 	text-transform: uppercase;
@@ -229,7 +231,34 @@
     line-height: 25px;
     text-align: left;
 }
-	
+#checkout-review-submit .discount{
+	float: left !important;
+}
+#checkout-review-submit .discount h2{
+	text-align: left;
+}
+#checkout-review-submit .discount .discount-form{
+	text-align: left;
+}
+#checkout-review-submit .discount .discount-form label{
+	line-height: 20px;
+}
+#checkout-review-submit .discount .input-box input {
+    line-height: 25px;
+}
+#checkout-review-submit .apply-voucher, #checkout-review-submit .cancel-voucher{
+	display: table;
+    padding: 10px;
+    margin: 0 10px 0 0;
+    float: left;
+    width: auto !important;
+}
+#checkout-review-submit .f-left {
+    float: right !important;
+}
+#checkout-review-submit .discount-form .buttons-set{
+	padding: 20px 0;
+}
 @media only screen and (max-width: 1215px) {}
 @media only screen and (max-width: 1023px) {
 	.checkout-onepage-index .col-main {
