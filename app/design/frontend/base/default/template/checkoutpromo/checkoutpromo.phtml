@@ -67,4 +67,37 @@
             }
         });
     }
+    function cekCustomVoucher(isRemove)
+    {
+        var remove = 0;
+        if(isRemove)
+        {
+            remove = 1;
+        }else{
+            remove = 0;
+        }
+        var url = '<?php echo $this->getUrl('checkout/cart/customCheckoutCouponPost') ?>';
+        jQuery.ajax({
+            type: "POST",
+            url : url,
+            data: { coupon_code: jQuery('#coupon_code').val(), remove: remove},
+            beforeSend: function( xhr ) {
+                $('feedback').update('Checking Coupon Code ... <img src="<?php echo $this->getSkinUrl("ajaxlogin/ajax-loader-tr.gif")?>" title="Loading..." alt="Loading..." border="0" />');
+            },
+            success: function(res){
+                if(res.status == 1){
+                    $('feedback').update(res.desc);
+                    payment.save();
+                }else{
+                    $('feedback').update(res.desc);
+                    payment.save();
+                }
+            },
+            error: function() {
+                $('feedback').update(res.desc);
+            }
+        });
+  
+        return false;
+    }
 </script>
