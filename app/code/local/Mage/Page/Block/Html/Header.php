@@ -90,4 +90,72 @@ class Mage_Page_Block_Html_Header extends Mage_Core_Block_Template
 
         return $this->_data['welcome'];
     }
+    
+    public $_categoryPath;
+    public function getCategoryActive() {
+        $path = array ();
+        $categoryActive = array ();
+        
+        if (Mage::getSingleton('cms/page')->getIdentifier() == 'home' && Mage::app()->getFrontController()->getRequest()->getRouteName() == 'cms') {
+            return false;
+        }
+            
+        if ($category = $this->getCategory()) {
+            $pathInStore = $category->getPathInStore();
+            $pathIds = array_reverse(explode(',', $pathInStore));
+            $categories = $category->getParentCategories();
+            $x = 0;
+
+            // add category path breadcrumb
+            foreach ($pathIds as $categoryId) {
+                if (isset ($categories[$categoryId]) && $categories[$categoryId]->getName()) {
+                    $path['category' . $categoryId] = array (
+                        'id' => $categoryId,
+                        'group' => $this->getCategoryGroup($x)
+                    );
+                    $x++;
+                }
+            }
+            
+            $this->_categoryPath = $path;
+        }
+        
+        if (count($this->_categoryPath) > 0) {
+            foreach ($this->_categoryPath as $categoryPath) {
+                $categoryActive[$categoryPath['group']] = $categoryPath['id'];
+            }
+        }
+        
+        return $categoryActive;
+    }
+    
+    public function getCategoryGroup($categoryLevel) {
+        $group = array (
+            0 => 'category',
+            1 => 'subcategory',
+            2 => 'subsubcategory'
+        );
+        
+        return $group[$categoryLevel];
+    }
+
+    public function getCategory() {
+        return Mage::registry('current_category');
+    }
+    
+    public function getProduct() {
+        return Mage::registry('current_product');
+    }
+    
+    public function _isCategoryLink($categoryId) {
+        if ($this->getProduct()) {
+            return true;
+        }
+        
+        if ($categoryId != $this->getCategory()->getId()) {
+            return true;
+        }
+        
+        return false;
+    }
 }

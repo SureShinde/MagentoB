@@ -34,7 +34,8 @@
 <head>
 <?php echo $this->getChildHtml('head') ?>
 </head>
-<body class="<?php echo $this->getStoreCategoryIdentifier(); ?><?php if ($this->getBodyClass()): echo $this->getBodyClass(); endif; ?>">
+    
+<body class="<?php echo $this->getStoreCategoryIdentifier($this->getCategoryActive()); ?><?php if ($this->getBodyClass()): echo $this->getBodyClass(); endif; ?>">
 <?php echo $this->getChildHtml('after_body_start') ?>
 <?php echo $this->getLayout()->createBlock('core/template')->setTemplate('page/html/mobile-left-menu.phtml')->toHtml(); ?>
 <div class="wrapper">

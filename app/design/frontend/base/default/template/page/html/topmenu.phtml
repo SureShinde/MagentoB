@@ -17,8 +17,12 @@
  */
 ?>
 
-<?php $_helper = Mage::helper('megamenu'); ?>
-<?php $_storeCategories = $_helper->getStoreCategories(); ?>
+<?php
+$_helper = Mage::helper('megamenu');
+$_storeCategories = $_helper->getStoreCategories();
+$_categoryActive = $this->getCategoryActive();
+?>
+
 <?php if (count($_storeCategories) > 0): ?>
     <?php foreach ($_storeCategories as $_storeCategory): ?>
         <?php
@@ -36,11 +40,10 @@
             continue;
         endif;
         
-        
-        
         $_currentMainCategory = $_helper->getCurrentMainCategory();
         //echo "currentMainCategory: " . $_currentMainCategory;
-        $_storeCategorySubClass = !empty ($_currentMainCategory) || $_currentMainCategory != '' ? "sub-active" : "";
+        $_storeCategorySubClass = $_storeCategory->getId() == $_categoryActive['subcategory'] ? "sub-active" : "";
+        //$_storeCategorySubClass = !empty ($_currentMainCategory) || $_currentMainCategory != '' ? "sub-active" : "";
         ?>
 
         <div id="nav-<?php echo $_storeCategory->getId(); ?>" class="nav-container container nav-<?php echo $_storeCategory->getUrlKey(); ?> <?php echo $_storeCategorySubClass; ?>" style="display:none;">
@@ -52,8 +55,8 @@
                         <li class="level0 level-top shop-by">
                             <span>Shop by</span>
                             <a class="level-top link-shopby" href="#">Shop by</a>
-								<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('shopby-' . $_storeCategory->getUrlKey())->toHtml() ?>
-                                <?php //echo $shopbyStaticBlock->getContent(); ?>
+                            <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('shopby-' . $_storeCategory->getUrlKey())->toHtml() ?>
+                            <?php //echo $shopbyStaticBlock->getContent(); ?>
                         </li>
                     <?php //endif; ?>
                     

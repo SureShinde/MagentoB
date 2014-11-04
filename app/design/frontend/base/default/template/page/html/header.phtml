@@ -313,6 +313,7 @@
         <?php
         $_helper = Mage::helper('megamenu');
         $_storeCategories = $_helper->getStoreCategories();
+        $_categoryActive = $this->getCategoryActive();
         ?>
         
         <?php if (count($_storeCategories) > 0): ?>
@@ -321,7 +322,8 @@
                     <?php foreach ($_storeCategories as $_storeCategory): ?>
                         <?php
                         $_storeCategory = Mage::getModel('catalog/category')->load($_storeCategory->getId());
-                        $_storeCategoryClass = $_storeCategory->getId() == $_helper->getCurrentMainCategory() ? "active" : "";
+                        //$_storeCategoryClass = $_storeCategory->getId() == $_helper->getCurrentMainCategory() ? "active" : "";
+                        $_storeCategoryClass = $_storeCategory->getId() == $_categoryActive['category'] ? "active" : "";
                         
 
                         /**
