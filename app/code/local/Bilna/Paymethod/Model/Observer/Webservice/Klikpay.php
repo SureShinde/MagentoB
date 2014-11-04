@@ -183,6 +183,9 @@ class Bilna_Paymethod_Model_Observer_Webservice_Klikpay {
                     // create invoice
                     try {
                         if ($order->canInvoice()) {
+                            //create invoice log for debug
+                            Mage::helper('paymethod')->invoiceLog($order);
+                        
                             $invoice = Mage::getModel('sales/service_order', $order)->prepareInvoice();
 
                             if ($invoice->getTotalQty()) {
@@ -195,6 +198,9 @@ class Bilna_Paymethod_Model_Observer_Webservice_Klikpay {
                                 $order->setState(Mage_Sales_Model_Order::STATE_PROCESSING, true)->save();
                                 $transactionSave->save();
                                 $invoice->sendEmail(true, '');
+                                
+                                //create invoice log for debug
+                                Mage::helper('paymethod')->invoiceLog($order, 'after');
                             }
                             else {
                                 $status = '01';

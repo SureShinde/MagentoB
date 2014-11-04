@@ -195,4 +195,18 @@ class Bilna_Paymethod_Helper_Data extends Mage_Core_Helper_Abstract {
     public function allowOnlyNumber($number) {
         return preg_replace('/\D/', '', trim($number));
     }
+    
+    public function invoiceLog($order, $type = 'before') {
+        $dataArr = array (
+            'base_subtotal_invoiced' => $order->getData('base_subtotal_invoiced'),
+            'base_total_invoiced' => $order->getData('base_total_invoiced'),
+            'base_total_paid' => $order->getData('base_total_paid'),
+            'subtotal_invoiced' => $order->getData('subtotal_invoiced'),
+            'total_paid' => $order->getData('total_paid'),
+            'base_total_due' => $order->getData('base_total_due'),
+            'total_due' => $order->getData('total_due')
+        );
+        
+        Mage::log($order->getIncrementId() . " | " . $type . ": " . json_encode($dataArr), null, 'magento_invoice_debug.log');
+    }
 }
