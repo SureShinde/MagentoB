@@ -1170,6 +1170,7 @@ function callback(response) {
             // 3Dsecure transaction. Open 3Dsecure dialog
             jQuery('#threedsecure-popup iframe').attr('src', response.redirect_url);
             jQuery('#threedsecure-popup').show();
+            jQuery('.wrapper').css({"position":"fixed"});
         }
         else {
             review.saveReview(response.token_id);
@@ -1179,6 +1180,7 @@ function callback(response) {
         review.resetLoadWaiting();
         checkout.gotoSection('payment', false);
         jQuery('#threedsecure-popup').hide();
+        jQuery('.wrapper').css({"position":"relative"});
         jQuery('#payment-messages li.error-msg ul li span').html(ccDefaultMessageFailure);
         jQuery('#payment-messages').show();
     }
