@@ -33,6 +33,16 @@
 //]]>
 </script>
 <form action="" id="co-payment-form">
+    <ul id="payment-messages" class="messages" style="display:none;">
+        <li class="error-msg">
+            <ul style="margin:0 !important; padding:9px 0 6px !important;">
+                <li style="padding-left:20px;">
+                    <span></span>
+                </li>
+            </ul>
+        </li>
+    </ul>
+    
     <fieldset>
         <?php echo $this->getChildHtml('methods') ?>
     </fieldset>

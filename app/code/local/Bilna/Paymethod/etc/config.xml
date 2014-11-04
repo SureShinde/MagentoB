@@ -43,6 +43,7 @@
                     <onepage_review_info>Bilna_Paymethod_Block_Checkout_Onepage_Review_Info</onepage_review_info>
                     <onepage_success>Bilna_Paymethod_Block_Checkout_Onepage_Success</onepage_success>
                     <onepage_failure>Bilna_Paymethod_Block_Checkout_Onepage_Failure</onepage_failure>
+                    <cart_totals>Bilna_Paymethod_Block_Checkout_Cart_Totals</cart_totals>
                 </rewrite>
             </checkout>
             
@@ -277,7 +278,7 @@
                 <order_status>pending</order_status>
                 <title>Credit Card (ANZ Visa)</title>
                 <cctypes>VI</cctypes>
-                <!--payment_action>authorize</payment_action-->
+                <payment_action>authorize</payment_action>
                 <allowspecific>0</allowspecific>
             </anzvisa>
             
@@ -287,7 +288,7 @@
                 <order_status>pending</order_status>
                 <title>Credit Card (ANZ MasterCard)</title>
                 <cctypes>MC</cctypes>
-                <!--payment_action>authorize</payment_action-->
+                <payment_action>authorize</payment_action>
                 <allowspecific>0</allowspecific>
             </anzmc>
             
