@@ -347,6 +347,7 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
                 'cc_type' => $ccType,
                 'acquired_bank' => $this->getAcquiredBank($bankCode),
                 'secure' => $this->getSecureBank($bankCode),
+                'installment_process' => $this->getInstallmentProcess($bankCode)
             );
         }
         else {
@@ -488,13 +489,18 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
         $transactionData['customer_details'] = $customerDetails;
         
         try {
-            $this->writeLog($paymentCode, $this->_typeTransaction, 'charge', json_encode($transactionData));
+            $this->writeLog($paymentCode, $this->_typeTransaction, 'charge', 'request: ' . json_encode($transactionData));
             $result = Veritrans_VtDirect::charge($transactionData);
-            $this->writeLog($paymentCode, $this->_typeTransaction, 'charge', json_encode($result));
+            $this->writeLog($paymentCode, $this->_typeTransaction, 'charge', 'response: ' . json_encode($result));
         }
         catch (Exception $e) {
             $this->writeLog($paymentCode, $this->_typeTransaction, 'charge', "error: [" . $incrementId . "] " . $e->getMessage());
-            $result = false;
+            $response = array (
+                'transaction_status' => 'deny',
+                'fraud_status' => 'deny',
+                'status_message' => $e->getMessage()
+            );
+            $result = (object) $response;
         }
         
         return $result;

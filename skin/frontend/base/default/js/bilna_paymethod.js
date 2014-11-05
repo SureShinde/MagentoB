@@ -846,6 +846,7 @@ Payment.prototype = {
                         jQuery('#payment_form_' + currPayment + ' #' + currPayment + '_cc_bins').val(cardNo.substring(0,6));
                         jQuery('#payment_form_' + currPayment + ' #' + currPayment + '_acquired_bank').val(response.data.acquired_bank);
                         jQuery('#payment_form_' + currPayment + ' #' + currPayment + '_secure').val(response.data.secure);
+                        jQuery('#payment_form_' + currPayment + ' #' + currPayment + '_installment_process').val(response.data.installment_process);
                         responseStatus = true;
                     }
                     else {
@@ -1147,10 +1148,12 @@ function _cardSet() {
     }
     
     // installment-term
-    if (jQuery('input[name=installment]').is(':checked')) {
-        if (jQuery('input[name=installment]:checked').val() > 1) {
-            result['installment'] = true;
-            result['installment_term'] = jQuery('input[name=installment]:checked').val();
+    if (jQuery('#payment_form_' + currPayment + ' #' + currPayment + '_installment_process').val() != 'manual') {
+        if (jQuery('input[name=installment]').is(':checked')) {
+            if (jQuery('input[name=installment]:checked').val() > 1) {
+                result['installment'] = true;
+                result['installment_term'] = jQuery('input[name=installment]:checked').val();
+            }
         }
     }
     
