@@ -51,7 +51,7 @@ class AW_Affiliate_Block_Adminhtml_Affiliate_Edit_Tab_Balance_Profits_Grid exten
     {
         $affiliate = Mage::registry('current_affiliate');
         $collection = $affiliate->getProfitTransactions();
-      
+        
         $this->setCollection($collection);
         return parent::_prepareCollection();
     }
@@ -62,6 +62,7 @@ class AW_Affiliate_Block_Adminhtml_Affiliate_Edit_Tab_Balance_Profits_Grid exten
         $this->addColumn('created_at', array(
             'header' => $helper->__('Date'),
             'index' => 'created_at',
+            'filter_index'=>'main_table.created_at',
             'type' => 'datetime',
             'width' => '150px',
         ));
