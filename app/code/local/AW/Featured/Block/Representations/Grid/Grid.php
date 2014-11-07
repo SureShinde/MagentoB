@@ -42,21 +42,6 @@ class AW_Featured_Block_Representations_Grid_Grid extends AW_Featured_Block_Repr
         return $res;
     }
 
-    public function getItemsPerRow() {
-        $_ppr = 1;
-        
-        if ($_ipg = $this->getItemPerGrid()) {
-            $_ppr = $_ipg;
-        }
-        else {
-            if ($this->getAFPBlockTypeData('productsinrow') && $this->getAFPBlockTypeData('productsinrow') > 0) {
-                $_ppr = $this->getAFPBlockTypeData('productsinrow');
-            }
-        }
-        
-        return $_ppr;
-    }
-
     public function getItemWidth()
     {
         return max(array(floor((100-$this->getItemsPerRow())/$this->getItemsPerRow()), 10));
@@ -110,15 +95,5 @@ class AW_Featured_Block_Representations_Grid_Grid extends AW_Featured_Block_Repr
     public function getHeight()
     {
         return $this->getAFPBlockTypeData('height');
-    }
-    
-    protected function getItemPerGrid() {
-        $result = false;
-        
-        if ($limit = Mage::getStoreConfig('awfeatured/configuration/item_per_grid')) {
-            $result = (int) $limit;
-        }
-        
-        return $result;
     }
 }
