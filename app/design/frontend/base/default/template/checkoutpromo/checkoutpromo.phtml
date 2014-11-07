@@ -50,7 +50,10 @@
     }
     ?>
 
-
+<?php
+$url = $this->getUrl('checkout/cart/customCheckoutCouponPost');
+$url = Mage::helper('paymethod')->checkHttpsProtocol($url);
+?>
 <script type="text/javascript">
     function refreshBlock(){
         new Ajax.Request('<?php echo $this->getCheckoutpromoUrl(); ?>', {
@@ -76,7 +79,8 @@
         }else{
             remove = 0;
         }
-        var url = '<?php echo $this->getUrl('checkout/cart/customCheckoutCouponPost') ?>';
+        //var url = '<?php echo $this->getUrl('checkout/cart/customCheckoutCouponPost') ?>';
+        var url = '<?php echo $url; ?>';
         jQuery.ajax({
             type: "POST",
             url : url,
@@ -87,11 +91,12 @@
             success: function(res){
                 if(res.status == 1){
                     $('feedback').update(res.desc);
-                    payment.save();
                 }else{
                     $('feedback').update(res.desc);
-                    payment.save();
                 }
+				setTimeout(function(){
+    				payment.save();
+				}, 5000);
             },
             error: function() {
                 $('feedback').update(res.desc);
