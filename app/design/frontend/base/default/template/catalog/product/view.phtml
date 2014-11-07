@@ -127,7 +127,17 @@
                     <?php echo $this->getChildHtml('extrahint') ?>
                     
                     <div class="product_storename">
-                        <p><?php echo $this->__("Shop by <span>%s</span> and Sold by <span>%s</span>", ($ship_by ? $ship_by : '-'), ($sold_by ? $sold_by : '-')); ?></p>
+                        <p>
+                            <?php
+                            if ($ship_by):
+                                echo $this->__("Shop by <span>%s</span> ", $ship_by);
+                            endif;
+                            
+                            if ($sold_by):
+                                echo $this->__("and Sold by <span>%s</span> ", $sold_by);
+                            endif;
+                            ?>
+                        </p>
                     </div>
                     
                     <?php if ($_product->getShortDescription()): ?>
