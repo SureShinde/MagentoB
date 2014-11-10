@@ -517,6 +517,9 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
                 }
                 else if ($transactionStatus == 'authorize') {
                     if ($order->canInvoice()) {
+                        //create invoice log for debug
+                        Mage::helper('paymethod')->invoiceLog($order);
+                        
                         $invoice = Mage::getModel('sales/service_order', $order)->prepareInvoice();
 
                         if ($invoice->getTotalQty()) {
@@ -531,6 +534,9 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
                             $order->save();
                             $transaction->save();
                             $invoice->sendEmail(true, '');
+                            
+                            //create invoice log for debug
+                            Mage::helper('paymethod')->invoiceLog($order, 'after');
 
                             return true;
                         }
