@@ -3737,3 +3737,22 @@ button.button-area {
 	}
 }
 /*=============================end style winner go green=============================*/
+
+
+/*=================== imbex style ==================================*/
+.imbex .static-page-wrapper .logo img{
+	margin: 10px;
+    width: 180px;
+}
+@media only screen and (max-width: 468px){
+	.imbex .static-page-wrapper .logo img{
+		margin: 10px;
+		width: 42%;
+	}
+}
+@media only screen and (max-width: 1022px) {
+	.imbex .static-page-wrapper .denah{
+		width:100%;
+	}
+}
+/*=================== end imbex style ==================================*/
