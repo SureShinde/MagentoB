@@ -14,6 +14,19 @@ class Bilna_Megamenu_Helper_Data extends Mage_Catalog_Helper_Category {
         return false;
     }
     
+    public function getMegamenuData() {
+        $storeId = Mage::app()->getStore()->getStoreId();
+        $directory = $this->getMegamenuDir();
+        $filename = $directory . $storeId . ".json";
+        $result = array ();
+        
+        if (file_exists($filename)) {
+            $result = json_decode(file_get_contents($filename), true);
+        }
+        
+        return $result;
+    }
+    
     public function getCurrentMainCategory() {
         $mainCategory = $this->getMainCategory();
         $result = '';
@@ -66,5 +79,9 @@ class Bilna_Megamenu_Helper_Data extends Mage_Catalog_Helper_Category {
         $replace = '';
         
         return str_replace($search, $replace, $this->getUrlKey($categoryId));
+    }
+    
+    public function getMegamenuDir() {
+        return Mage::getBaseDir() . "/files/megamenu/";
     }
 }

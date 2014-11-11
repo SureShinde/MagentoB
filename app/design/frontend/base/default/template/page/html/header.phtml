@@ -312,7 +312,7 @@
 
         <?php
         $_helper = Mage::helper('megamenu');
-        $_storeCategories = $_helper->getStoreCategories();
+        $_storeCategories = $_helper->getMegamenuData();
         $_categoryActive = $this->getCategoryActive();
         ?>
         
@@ -321,31 +321,34 @@
                 <ul>
                     <?php foreach ($_storeCategories as $_storeCategory): ?>
                         <?php
-                        $_storeCategory = Mage::getModel('catalog/category')->load($_storeCategory->getId());
+                        //$_storeCategory = Mage::getModel('catalog/category')->load($_storeCategory->getId());
                         //$_storeCategoryClass = $_storeCategory->getId() == $_helper->getCurrentMainCategory() ? "active" : "";
-                        $_storeCategoryClass = $_storeCategory->getId() == $_categoryActive['category'] ? "active" : "";
+                        $_storeCategoryClass = $_storeCategory['id'] == $_categoryActive['category'] ? "active" : "";
                         
 
                         /**
                          * check if category is active
                          */
-                        if (!$_storeCategory->getIsActive()):
-                            continue;
-                        endif;
-
-                        if (!$_storeCategory->getIncludeInMenu()):
-                            continue;
-                        endif;
+//                        if (!$_storeCategory->getIsActive()):
+//                            continue;
+//                        endif;
+//
+//                        if (!$_storeCategory->getIncludeInMenu()):
+//                            continue;
+//                        endif;
+                        
+                        $_id = $_storeCategory['id'];
+                        $_class = $_storeCategory['class'];
+                        $_name = $_storeCategory['name'];
+                        $_url = $_storeCategory['url'];
                         ?>
-
-                        <li id="<?php echo $_storeCategory->getUrlKey(); ?>" class="web-<?php echo $_storeCategory->getUrlKey(); ?> <?php echo $_storeCategoryClass; ?>">
-                            <a id="<?php echo $_storeCategory->getUrlKey(); ?>" class="menu-top-hover" href="<?php echo $_helper->getCategoryUrl($_storeCategory); ?>"><?php echo $this->__($_storeCategory->getName()); ?></a>
+                    
+                        <li id="<?php echo $_class; ?>" class="<?php echo $_class; ?> <?php echo $_storeCategoryClass; ?>">
+                            <a id="<?php echo $_class; ?>" class="menu-top-hover" href="<?php echo $_url; ?>">
+                                <?php echo $_name; ?>
+                            </a>
                         </li>
-						
                     <?php endforeach; ?>
-						<!--li id="baby" class="web-deals">
-                            <a id="deals" class="menu-top-hover" href="<?php echo Mage::getBaseUrl(); ?>deals">deals</a>
-                        </li-->
                 </ul>
             </div>
         <?php endif; ?>

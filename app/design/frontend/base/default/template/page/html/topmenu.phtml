@@ -40,6 +40,10 @@ $_categoryActive = $this->getCategoryActive();
             continue;
         endif;
         
+        //$_currentMainCategory = $_helper->getMegamenuData();
+        
+        //echo json_encode($_currentMainCategory);
+        
         $_currentMainCategory = $_helper->getCurrentMainCategory();
         //echo "currentMainCategory: " . $_currentMainCategory;
         $_storeCategorySubClass = $_storeCategory->getId() == $_categoryActive['subcategory'] ? "sub-active" : "";
