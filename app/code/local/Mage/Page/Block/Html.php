@@ -177,22 +177,20 @@ class Mage_Page_Block_Html extends Mage_Core_Block_Template
     
     public function getStoreCategoryIdentifier($categoryActive = array ()) {
         $_helper = Mage::helper('megamenu');
-        $_storeCategories = $_helper->getStoreCategories();
+        $_storeCategories = $_helper->getMegamenuData();
         $_storeCategoryIdentifier = '';
         
         if (count($_storeCategories) > 0) {
             foreach ($_storeCategories as $_storeCategory) {
-                $_storeCategory = Mage::getModel('megamenu/catalog_category')->load($_storeCategory->getId());
-                
                 if (count($categoryActive)) {
-                    if ($_storeCategory->getId() == $categoryActive['category']) {
-                        $_storeCategoryIdentifier = "style-" . $_storeCategory->getUrlKey();
+                    if ($_storeCategory['id'] == $categoryActive['category']) {
+                        $_storeCategoryIdentifier = "style-" . $_storeCategory['url_key'];
                         break;
                     }
                 }
                 else {
-                    if ($_storeCategory->getId() == $_helper->getCurrentMainCategory()) {
-                        $_storeCategoryIdentifier = "style-" . $_storeCategory->getUrlKey();
+                    if ($_storeCategory['id'] == $_helper->getCurrentMainCategory()) {
+                        $_storeCategoryIdentifier = "style-" . $_storeCategory['url_key'];
                         break;
                     }
                 }

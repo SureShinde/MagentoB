@@ -321,30 +321,16 @@
                 <ul>
                     <?php foreach ($_storeCategories as $_storeCategory): ?>
                         <?php
-                        //$_storeCategory = Mage::getModel('catalog/category')->load($_storeCategory->getId());
-                        //$_storeCategoryClass = $_storeCategory->getId() == $_helper->getCurrentMainCategory() ? "active" : "";
-                        $_storeCategoryClass = $_storeCategory['id'] == $_categoryActive['category'] ? "active" : "";
-                        
-
-                        /**
-                         * check if category is active
-                         */
-//                        if (!$_storeCategory->getIsActive()):
-//                            continue;
-//                        endif;
-//
-//                        if (!$_storeCategory->getIncludeInMenu()):
-//                            continue;
-//                        endif;
-                        
                         $_id = $_storeCategory['id'];
-                        $_class = $_storeCategory['class'];
+                        $_urlKey = $_storeCategory['url_key'];
                         $_name = $_storeCategory['name'];
                         $_url = $_storeCategory['url'];
+                        
+                        $_storeCategoryClass = $_id == $_categoryActive['category'] ? "active" : "";
                         ?>
                     
-                        <li id="<?php echo $_class; ?>" class="<?php echo $_class; ?> <?php echo $_storeCategoryClass; ?>">
-                            <a id="<?php echo $_class; ?>" class="menu-top-hover" href="<?php echo $_url; ?>">
+                        <li id="<?php echo $_urlKey; ?>" class="<?php echo $_urlKey; ?> <?php echo $_storeCategoryClass; ?>">
+                            <a id="<?php echo $_urlKey; ?>" class="menu-top-hover" href="<?php echo $_url; ?>">
                                 <?php echo $_name; ?>
                             </a>
                         </li>
@@ -352,12 +338,11 @@
                 </ul>
             </div>
         <?php endif; ?>
-        
 		
-		<a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="logo"><strong><?php echo $this->getLogoAlt() ?></strong>
-			<img src="<?php echo $this->getSkinUrl(); ?>images/Logo-bilna.png" alt="<?php echo $this->getLogoAlt() ?>" />
-			
-		</a>
+        <a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="logo"><strong><?php echo $this->getLogoAlt() ?></strong>
+            <img src="<?php echo $this->getSkinUrl(); ?>images/Logo-bilna.png" alt="<?php echo $this->getLogoAlt() ?>" />
+        </a>
+        
         <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('keypoint')->toHtml() ?>
         <div class="quick-access">
         	<a href="<?php echo $this->getUrl('blog'); ?>" class="link-blog-mobile"><?php echo $this->__('Blog') ?></a>

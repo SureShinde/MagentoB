@@ -1,5 +1,7 @@
-<?php $_helper = Mage::helper('megamenu'); ?>
-<?php $_storeCategories = $_helper->getStoreCategories(); ?>
+<?php
+$_helper = Mage::helper('megamenu');
+$_storeCategories = $_helper->getMegamenuData();
+?>
 
 <?php if (count($_storeCategories) > 0): ?>
     <div class="nav-container-mobile">
@@ -7,35 +9,70 @@
             <?php $_currentMainCategory = $_helper->getCurrentMainCategory(); ?>
             <?php foreach ($_storeCategories as $_storeCategory): ?>
                 <?php
-                $_storeCategoryDisplay = ($_storeCategory->getId() == $_currentMainCategory) ? 'style="display:block;"' : '';
+                $_id = $_storeCategory['id'];
+                $_name = $_storeCategory['name'];
+                $_url = $_storeCategory['url'];
+                $_urlKey = $_storeCategory['url_key'];
+                
+                $_storeCategoryDisplay = ($_id == $_currentMainCategory) ? 'style="display:block;"' : '';
                 $_storeCategoryClass = '';
                 
                 if ($_currentMainCategory != '' || !empty ($_currentMainCategory)):
-                    if ($_storeCategory->getId() != $_currentMainCategory):
+                    if ($_id != $_currentMainCategory):
                         $_storeCategoryClass = 'inactive';
                     endif;
                 endif;
                 ?>
             
-                <li class="cat-leveltop store-category <?php echo 'cat-leveltop-' . $_storeCategory->getId(); ?> <?php echo $_storeCategoryClass; ?>">
-                    <a id="<?php echo $_storeCategory->getId(); ?>" class="categories <?php echo strtolower(str_replace(array ("&"," ","'"), "", $_storeCategory->getName())); ?>" href="<?php echo $_helper->getCategoryUrl($_storeCategory); ?>">
-                        <?php echo $_storeCategory->getName(); ?>
+                <li class="cat-leveltop store-category <?php echo 'cat-leveltop-' . $_id; ?> <?php echo $_storeCategoryClass; ?>">
+                    <a id="<?php echo $_id; ?>" class="categories <?php echo strtolower(str_replace(array ("&"," ","'"), "", $_name)); ?>" href="<?php echo $_url; ?>">
+                        <?php echo $_name; ?>
                     </a>
-                    <?php $_storeCategories2 = $_storeCategory->getChildrenCategories(); ?>
-                    <?php if (count($_storeCategories2) > 0): ?>
-                        <ul id="ul-<?php echo $_storeCategory->getId(); ?>" class="store-category-child category-child" <?php echo $_storeCategoryDisplay; ?>>
-                            <?php foreach ($_storeCategories2 as $_storeCategory2): ?>
+                    
+                    <?php
+                    $_storeCategoriesChild = array ();
+            
+                    if ($_storeCategory['child'] && count($_storeCategory['child'] > 0)):
+                        $_storeCategoriesChild = $_storeCategory['child'];
+                    endif;
+                    ?>
+                    
+                    <?php if (count($_storeCategoriesChild) > 0): ?>
+                        <ul id="ul-<?php echo $_id; ?>" class="store-category-child category-child" <?php echo $_storeCategoryDisplay; ?>>
+                            <?php foreach ($_storeCategoriesChild as $_storeCategoryChild): ?>
+                                <?php
+                                $_id2 = $_storeCategoryChild['id'];
+                                $_name2 = $_storeCategoryChild['name'];
+                                $_url2 = $_storeCategoryChild['url'];
+                                $_urlKey2 = $_storeCategoryChild['url_key'];
+                                ?>
+                            
                                 <li class="store-category2">
-                                    <a id="<?php echo $_storeCategory2->getId(); ?>" parent="<?php echo $_storeCategory->getId(); ?>" class="subcategories" href="<?php echo $_helper->getCategoryUrl($_storeCategory2); ?>">
-                                        <?php echo $_storeCategory2->getName(); ?>
+                                    <a id="<?php echo $_id2; ?>" parent="<?php echo $_id; ?>" class="subcategories" href="<?php echo $_url2; ?>">
+                                        <?php echo $_name2; ?>
                                     </a>
-                                    <?php $_storeCategories3 = $_storeCategory2->getChildrenCategories(); ?>
-                                    <?php if (count($_storeCategories3) > 0): ?>
-                                        <ul id="ul-<?php echo $_storeCategory2->getId(); ?>" class="store-category2-child category-child">
-                                            <?php foreach ($_storeCategories3 as $_storeCategory3): ?>
+                                    
+                                    <?php
+                                    $_storeCategoriesChildChild = array ();
+            
+                                    if ($_storeCategoryChild['child'] && count($_storeCategoryChild['child'] > 0)):
+                                        $_storeCategoriesChildChild = $_storeCategoryChild['child'];
+                                    endif;
+                                    ?>
+                                    
+                                    <?php if (count($_storeCategoriesChildChild) > 0): ?>
+                                        <ul id="ul-<?php echo $_id2; ?>" class="store-category2-child category-child">
+                                            <?php foreach ($_storeCategoriesChildChild as $_storeCategoryChildChild): ?>
+                                                <?php
+                                                $_id3 = $_storeCategoryChildChild['id'];
+                                                $_name3 = $_storeCategoryChildChild['name'];
+                                                $_url3 = $_storeCategoryChildChild['url'];
+                                                $_urlKey3 = $_storeCategoryChildChild['url_key'];
+                                                ?>
+                                            
                                                 <li class="store-category3">
-                                                    <a class="subcategories <?php echo $_helper->getCategoryClass($_storeCategory3->getId()); ?>" href="<?php echo $_helper->getCategoryUrl($_storeCategory3); ?>">
-                                                        <?php echo $_storeCategory3->getName(); ?>
+                                                    <a class="subcategories <?php echo $_helper->getCategoryClass($_id3); ?>" href="<?php echo $_url3; ?>">
+                                                        <?php echo $_name3; ?>
                                                     </a>
                                                 </li>
                                             <?php endforeach; ?>
