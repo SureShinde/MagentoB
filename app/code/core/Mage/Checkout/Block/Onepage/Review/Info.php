@@ -47,4 +47,9 @@ class Mage_Checkout_Block_Onepage_Review_Info extends Mage_Sales_Block_Items_Abs
     {
         return Mage::getSingleton('checkout/session')->getQuote()->getCouponCode();
     }
+
+    public function getSessionMessage()
+    {   
+        return Mage::getSingleton('core/session')->getSessionCouponMessage();
+    }
 }

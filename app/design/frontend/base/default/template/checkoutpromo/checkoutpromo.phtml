@@ -53,6 +53,7 @@
 <?php
 $url = $this->getUrl('checkout/cart/customCheckoutCouponPost');
 $url = Mage::helper('paymethod')->checkHttpsProtocol($url);
+Mage::getSingleton('core/session')->setSessionCouponMessage('');
 ?>
 <script type="text/javascript">
     function refreshBlock(){
@@ -96,7 +97,7 @@ $url = Mage::helper('paymethod')->checkHttpsProtocol($url);
                 }
 				setTimeout(function(){
     				payment.save();
-				}, 5000);
+				}, 3000);
             },
             error: function() {
                 $('feedback').update(res.desc);

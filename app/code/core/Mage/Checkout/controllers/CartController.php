@@ -604,6 +604,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
         }
         $oldCouponCode = $this->_getQuote()->getCouponCode();
 
+        $message['desc'] = '';
         if (!strlen($couponCode) && !strlen($oldCouponCode)) {
             $message['status'] = 0; 
             $message['desc'] = 'failed';
@@ -662,6 +663,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
             $message['desc']   = $this->__('Cannot apply the coupon code.');
         }
 
+        Mage::getSingleton('core/session')->setSessionCouponMessage($message['desc']);
         $this->getResponse()->setHeader('Content-type', 'application/json');
         $this->getResponse()->setBody(json_encode($message));
 
