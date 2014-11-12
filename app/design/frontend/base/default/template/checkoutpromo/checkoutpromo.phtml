@@ -97,7 +97,7 @@ Mage::getSingleton('core/session')->setSessionCouponMessage('');
                 }
 				setTimeout(function(){
     				payment.save();
-				}, 3000);
+				}, 1000);
             },
             error: function() {
                 $('feedback').update(res.desc);

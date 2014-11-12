@@ -241,10 +241,16 @@
 	text-align: left;
 }
 #checkout-review-submit .discount .discount-form label{
+	clear: both;
+    display: block;
 	line-height: 20px;
 }
+#checkout-review-submit .discount .discount-form #feedback{
+	clear: both;
+}
 #checkout-review-submit .discount .input-box input {
-    line-height: 25px;
+    padding: 9px 0;
+    text-indent: 10px;
 }
 #checkout-review-submit .apply-voucher, #checkout-review-submit .cancel-voucher{
 	display: table;
@@ -257,7 +263,13 @@
     float: right !important;
 }
 #checkout-review-submit .discount-form .buttons-set{
-	padding: 20px 0;
+	clear: none;
+    float: left;
+    padding: 10px 0 10px 10px;
+}
+.discount-form .input-box{
+	float: left;
+	padding: 10px 0;
 }
 @media only screen and (max-width: 1215px) {}
 @media only screen and (max-width: 1023px) {
@@ -292,4 +304,12 @@
         padding-left: 20px;
         padding-right: 5px;
     }
+    #checkout-review-submit .apply-voucher, #checkout-review-submit .cancel-voucher{
+	    margin: 0 5px 0 0;
+	}
+    #checkout-review-submit .discount-form .buttons-set{
+		clear: none;
+	    float: left;
+	    padding: 10px 0;
+	}
 }
