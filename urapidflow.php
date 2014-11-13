@@ -18,8 +18,14 @@ if($argv[1]==1){
 	$helper->run(36);
 	// master data category:
 	$helper->run(83);
-	// Export Product Feed - Elevenia:
-	$helper->run(86);
+	// Export Product Feed Elevenia - Baby & Kids:
+	$helper->run(87);
+	// Export Product Feed Elevenia - Beauty & Health:
+	$helper->run(88);
+	// Export Product Feed Elevenia - Home & Garden:
+	$helper->run(89);
+	// Export Product Feed Elevenia - Fashion:
+	$helper->run(90);
 }
 //import
 else if($argv[1]==2){

@@ -116,6 +116,11 @@
     Options +FollowSymLinks
     RewriteEngine on
 
+## server status
+    RewriteRule ^server\-status - [L]
+    RewriteRule ^status - [L]
+    RewriteRule ^ping - [L]
+
 ############################################
 ## you can put here your magento root folder
 ## path relative to web root
