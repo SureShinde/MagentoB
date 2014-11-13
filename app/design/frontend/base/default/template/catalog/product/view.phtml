@@ -124,7 +124,9 @@
 				
                     <?php echo $this->getTierPriceHtml() ?>
                     <?php echo $this->getChildHtml('extrahint') ?>
-
+					<div class="product_storename">
+						<p>Shop by <span>Bilna</span> and Sold by <span>Bilna</span></p>
+					</div>
                     <?php if ($_product->getShortDescription()): ?>
                         <div class="short-description">
                             <div class="std"><?php echo $_helper->productAttribute($_product, nl2br($_product->getShortDescription()), 'short_description') ?></div>

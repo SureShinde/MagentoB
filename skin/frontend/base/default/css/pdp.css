@@ -86,6 +86,15 @@
 .product-shop-left .product-options-bottom {
 	background-color: #f6f6f6;
 }
+.product-shop-left .product_storename{
+	margin-top:10px;
+}
+.product-shop-left .product_storename p span{
+	color:#ffa01b;
+}
+.product-shop-left .product_storename p{
+	font-size:1em;
+}
 .product-view .product-shop .product-shop-left .stock-left {
 	color: #4ec7da;
 	font-weight: bold;
