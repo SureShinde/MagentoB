@@ -293,6 +293,7 @@ class AW_Featured_Block_Representations_Common extends Mage_Core_Block_Template
 
             );
             $this->_collection->addAttributeToSelect($attr);
+            $this->_collection->getSelect()->limit($this->getItemsPerRow());
         }
         return $this->_collection;
     }
@@ -369,5 +370,30 @@ class AW_Featured_Block_Representations_Common extends Mage_Core_Block_Template
         } else {
             return $this->escapeHtml($data);
         }
+    }
+    
+    public function getItemsPerRow() {
+        $_ppr = 1;
+        
+        if ($_ipg = $this->getItemPerGrid()) {
+            $_ppr = $_ipg;
+        }
+        else {
+            if ($this->getAFPBlockTypeData('productsinrow') && $this->getAFPBlockTypeData('productsinrow') > 0) {
+                $_ppr = $this->getAFPBlockTypeData('productsinrow');
+            }
+        }
+        
+        return $_ppr;
+    }
+    
+    protected function getItemPerGrid() {
+        $result = false;
+        
+        if ($limit = Mage::getStoreConfig('awfeatured/configuration/item_per_grid')) {
+            $result = (int) $limit;
+        }
+        
+        return $result;
     }
 }

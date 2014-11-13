@@ -42,15 +42,6 @@ class AW_Featured_Block_Representations_Grid_Grid extends AW_Featured_Block_Repr
         return $res;
     }
 
-    public function getItemsPerRow()
-    {
-        $_ppr = 1;
-        if ($this->getAFPBlockTypeData('productsinrow') && $this->getAFPBlockTypeData('productsinrow') > 0) {
-            $_ppr = $this->getAFPBlockTypeData('productsinrow');
-        }
-        return $_ppr;
-    }
-
     public function getItemWidth()
     {
         return max(array(floor((100-$this->getItemsPerRow())/$this->getItemsPerRow()), 10));
