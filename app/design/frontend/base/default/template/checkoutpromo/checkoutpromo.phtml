@@ -73,6 +73,7 @@ Mage::getSingleton('core/session')->setSessionCouponMessage('');
     }
     function cekCustomVoucher(isRemove)
     {
+        jQuery(".button btn-checkout").attr("disabled", true);
         var remove = 0;
         if(isRemove)
         {
@@ -96,8 +97,9 @@ Mage::getSingleton('core/session')->setSessionCouponMessage('');
                     $('feedback').update(res.desc);
                 }
 				setTimeout(function(){
-    				payment.save();
+                    jQuery(".button btn-checkout").attr("disabled", false);
 				}, 1000);
+                payment.save();
             },
             error: function() {
                 $('feedback').update(res.desc);
