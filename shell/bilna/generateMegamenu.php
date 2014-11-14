@@ -8,12 +8,27 @@
 require_once dirname(__FILE__) . '/../abstract.php';
 
 class GenerateMegamenu extends Mage_Shell_Abstract {
-    protected $_storeId = 1;
+    protected $_storeId = null;
     protected $_helper = null;
     protected $_model = null;
     protected $_directory = null;
     protected $_activeCategory = array ();
     
+    public function run() {
+        $this->setHelper();
+        $this->setModel();
+        $this->setDirectory();
+        
+        $stores = Mage::app()->getStores();
+        
+        foreach ($stores as $store) {
+            $this->setCurrentStore($store->getId());
+            $this->generate();
+        }
+        
+        exit;
+    }
+
     protected function checkActiveCategory($category) {
         $result = true;
         
@@ -28,12 +43,7 @@ class GenerateMegamenu extends Mage_Shell_Abstract {
         return $result;
     }
 
-    public function run() {
-        $this->setCurrentStore();
-        $this->setHelper();
-        $this->setModel();
-        $this->setDirectory();
-        
+    protected function generate() {
         $storeCategories = $this->_helper->getStoreCategories();
         
         if (count($storeCategories) > 0) {
@@ -94,21 +104,20 @@ class GenerateMegamenu extends Mage_Shell_Abstract {
             }
             
             if ($this->createFile()) {
-                echo "generate file succeed\n";
+                echo "storeId {$this->_storeId}: generate file succeed\n";
             }
             else {
-                echo "generate file failed\n";
+                echo "storeId {$this->_storeId}: generate file failed\n";
             }
         }
         else {
-            echo "cannot generate file\n";
+            echo "storeId {$this->_storeId}: cannot generate file\n";
         }
-        
-        exit;
     }
     
-    protected function setCurrentStore() {
-        Mage::app()->setCurrentStore($this->_storeId);
+    protected function setCurrentStore($storeId) {
+        $this->_storeId = $storeId;
+        Mage::app()->setCurrentStore($storeId);
     }
     
     protected function setHelper() {

@@ -383,34 +383,39 @@
 
         <div class="menu-top-mobile baby-top-mob">
             <ul>
-                <?php $_helper = Mage::helper('megamenu'); ?>
-                <?php $_storeCategories = $_helper->getStoreCategories(); ?>
+                <?php //$_helper = Mage::helper('megamenu'); ?>
+                <?php //$_storeCategories = $_helper->getStoreCategories(); ?>
                 <?php if (count($_storeCategories) > 0): ?>
                     <?php foreach ($_storeCategories as $_storeCategory): ?>
                         <?php
-                        $_storeCategory = Mage::getModel('catalog/category')->load($_storeCategory->getId());
-                        $_storeCategoryClass = $_storeCategory->getId() == $_helper->getCurrentMainCategory() ? "active" : "";
+                        $_id = $_storeCategory['id'];
+                        $_urlKey = $_storeCategory['url_key'];
+                        $_name = $_storeCategory['name'];
+                        $_url = $_storeCategory['url'];
+                        $_storeCategoryClass = $_id == $_categoryActive['category'] ? "active" : "";
+                        
+                        //$_storeCategory = Mage::getModel('catalog/category')->load($_storeCategory->getId());
+                        //$_storeCategoryClass = $_storeCategory->getId() == $_helper->getCurrentMainCategory() ? "active" : "";
 
                         /**
                          * check if category is active
                          */
-                        if (!$_storeCategory->getIsActive()):
-                            continue;
-                        endif;
-
-                        if (!$_storeCategory->getIncludeInMenu()):
-                            continue;
-                        endif;
+//                        if (!$_storeCategory->getIsActive()):
+//                            continue;
+//                        endif;
+//
+//                        if (!$_storeCategory->getIncludeInMenu()):
+//                            continue;
+//                        endif;
                         ?>
 
-                        <li class="mobile-<?php echo $_storeCategory->getUrlKey(); ?> <?php echo $_storeCategoryClass; ?>">
-                            <a href="<?php echo $_helper->getCategoryUrl($_storeCategory); ?>"><?php echo $this->__($_storeCategory->getName()); ?></a>
+                        <li class="mobile-<?php echo $_urlKey; ?> <?php echo $_storeCategoryClass; ?>">
+                            <a href="<?php echo $_url; ?>">
+                                <?php echo $this->__($_name); ?>
+                            </a>
                         </li>
                     <?php endforeach; ?>
                 <?php endif; ?>
-						<!--li class="mobile-deals">
-                            <a href="<?php echo Mage::getBaseUrl(); ?>deals">DEALS</a>
-                        </li-->
             </ul>
         </div>
         <div class="menu-top-mobile-wood"></div>
