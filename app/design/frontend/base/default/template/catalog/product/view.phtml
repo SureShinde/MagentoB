@@ -115,7 +115,10 @@
                     
                     <?php
                     $ship_from = $_helper->productAttribute($_product, $_product->getShipFrom(), 'ship_from');
-                    $sold_by = $_helper->productAttribute($_product, $_product->getSoldBy(), 'sold_by');
+                    //$ship_by = $_helper->productAttribute($_product, $_product->getShipBy(), 'ship_by');
+                    //$sold_by = $_helper->productAttribute($_product, $_product->getSoldBy(), 'sold_by');
+                    $ship_by = $_product->getAttributeText('ship_by');
+                    $sold_by = $_product->getAttributeText('sold_by');
                     ?>
                     
                     <div class="shipsfrom-soldby">
@@ -124,9 +127,28 @@
 				
                     <?php echo $this->getTierPriceHtml() ?>
                     <?php echo $this->getChildHtml('extrahint') ?>
-					<div class="product_storename">
-						<p>Shop by <span>Bilna</span> and Sold by <span>Bilna</span></p>
-					</div>
+                    
+                    <div class="product_storename">
+                        <p>
+                            <?php
+                            $and = false;
+                            
+                            if ($ship_by):
+                                echo $this->__("Ship by <span>%s</span>", $ship_by);
+                                $and = true;
+                            endif;
+                            
+                            if ($sold_by):
+                                if ($and):
+                                    echo $this->__(" and ");
+                                endif;
+                                
+                                echo $this->__("Sold by <span>%s</span>", $sold_by);
+                            endif;
+                            ?>
+                        </p>
+                    </div>
+                    
                     <?php if ($_product->getShortDescription()): ?>
                         <div class="short-description">
                             <div class="std"><?php echo $_helper->productAttribute($_product, nl2br($_product->getShortDescription()), 'short_description') ?></div>
