@@ -86,8 +86,28 @@ abstract class RocketWeb_Netsuite_Model_Process_Import_Abstract {
                 return $searchResponse->searchResult->recordList->record;
             }
             else {
-                throw new Exception((string) print_r($searchResponse->searchResult->status->statusDetail, true));
+                //throw new Exception((string) print_r($searchResponse->searchResult->status->statusDetail, true));
+                $bodyEmail = "totalPages: " . $totalPages . " currentPage: " . $currentPage . "  [failed] -> " . $searchResponse->searchResult->status->statusDetail;
+                $subjectEmail = "Error Notification on processing NS Connector";
+                $this->__sendEmail($bodyEmail, $subjectEmail);
             }
+        }
+    }
+
+    private function __sendEmail($body="", $subject)
+    {
+        $mail = Mage::getModel('core/email');
+        $mail->setToName('Uke Mayendra');
+        $mail->setToEmail('uke.m@bilna.com');
+        $mail->setBody($body);
+        $mail->setSubject($subject);
+        $mail->setFromEmail('taufik.r@bilna.com');
+        $mail->setFromName("Magento NS Connector");
+        $mail->setType('text');
+        try {
+            $mail->send();
+        }catch (Exception $e) {
+            Mage::log("Unable to send Email", null, "email_error.log");
         }
     }
 
