@@ -187,10 +187,14 @@ class RocketWeb_Netsuite_Model_Process {
                                 continue;
                             }
                             
-                            //Performance optimization for product import. we do not load each record fully. Will handle missing data differently.
-                            $message = Mage::getModel('rocketweb_netsuite/queue_message');
-                            $message = $message->create($importableEntityModel->getMessageType(), $record->internalId, RocketWeb_Netsuite_Helper_Queue::NETSUITE_IMPORT_QUEUE, $record);
-                            
+                            try{                        
+                                //Performance optimization for product import. we do not load each record fully. Will handle missing data differently.
+                                $message = Mage::getModel('rocketweb_netsuite/queue_message');
+                                $message = $message->create($importableEntityModel->getMessageType(), $record->internalId, RocketWeb_Netsuite_Helper_Queue::NETSUITE_IMPORT_QUEUE, $record);
+                            }catch(Exception $e){
+                                Mage::helper('rocketweb_netsuite')->log($e->getMessage());
+                            }
+
                             if (!$importableEntityModel->isQueued($message)) {
                                 Mage::helper('rocketweb_netsuite/queue')->getQueue(RocketWeb_Netsuite_Helper_Queue::NETSUITE_IMPORT_QUEUE)->send($message->pack(), Mage::helper('rocketweb_netsuite')->getRecordPriority($path));
                             }
@@ -259,9 +263,9 @@ class RocketWeb_Netsuite_Model_Process {
                     $queue->deleteMessage($originalMessage);
                 }
                 catch (Exception $ex) {
-		    if ($logger) {
-		         $logger->logProgress($ex->getMessage());
-		    }
+        		    if ($logger) {
+        		         $logger->logProgress($ex->getMessage());
+        		    }
                     Mage::helper('rocketweb_netsuite')->log($ex->getMessage());
                 }
             }
@@ -298,9 +302,13 @@ class RocketWeb_Netsuite_Model_Process {
             
             if ($records) {
                 foreach ($records as $record) {
-                    $message = Mage::getModel('rocketweb_netsuite/queue_message');
-                    $message = $message->create($importableEntityModel->getDeleteMessageType(), $record->record->internalId, RocketWeb_Netsuite_Helper_Queue::NETSUITE_DELETE_QUEUE,$record);
-                    
+                    try{
+                        $message = Mage::getModel('rocketweb_netsuite/queue_message');
+                        $message = $message->create($importableEntityModel->getDeleteMessageType(), $record->record->internalId, RocketWeb_Netsuite_Helper_Queue::NETSUITE_DELETE_QUEUE,$record);
+                    }catch(Exception $e){
+                        Mage::helper('rocketweb_netsuite')->log($e->getMessage());
+                    }
+
                     if (!$importableEntityModel->isQueued($message)) {
                         Mage::helper('rocketweb_netsuite/queue')->getQueue(RocketWeb_Netsuite_Helper_Queue::NETSUITE_DELETE_QUEUE)->send($message->pack());
                     }

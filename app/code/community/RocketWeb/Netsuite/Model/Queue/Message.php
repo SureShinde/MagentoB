@@ -124,7 +124,7 @@ class RocketWeb_Netsuite_Model_Queue_Message  extends Mage_Core_Model_Abstract {
         }
         
         if ($queueName == RocketWeb_Netsuite_Helper_Queue::NETSUITE_DELETE_QUEUE) {
-            return array (self::FULFILLMENT_DELETED, self::CASHSALE_DELETED, self::ORDER_DELETED, self::INVENTORY_DELETED, self::PRODUCT_DELETED);
+            return array (self::FULFILLMENT_DELETED, self::CASHSALE_DELETED, self::ORDER_DELETED, self::INVENTORY_DELETED, self::PRODUCT_DELETED, self::CREDITMEMO_DELETED);
         }
         
         return array ();
