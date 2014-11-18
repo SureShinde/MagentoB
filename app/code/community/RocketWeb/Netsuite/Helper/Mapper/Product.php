@@ -187,6 +187,15 @@ class RocketWeb_Netsuite_Helper_Mapper_Product extends RocketWeb_Netsuite_Helper
 
             $productMapValue->extractValue($inventoryItem,$fieldData['netsuite'],$fieldData['netsuite_field_type']);
         }
+        
+        $custitem_backordersmagento = 0;
+        foreach($inventoryItem->customFieldList->customField as $customField) {
+            if($customField->internalId == 'custitem_backordersmagento')
+            {
+                $custitem_backordersmagento = $customField->value->internalId;
+                break;
+            }
+        }
 
         $custitem_qtyso_pendingapproval = 0;
         foreach($customValues as $productMapValue) {
@@ -194,11 +203,6 @@ class RocketWeb_Netsuite_Helper_Mapper_Product extends RocketWeb_Netsuite_Helper
             {
                 $custitem_qtyso_pendingapproval = $this->getValueForMagento($productMapValue);
                 continue;
-            }
-            if ( $productMapValue->getNetsuiteFieldId() == 'custitem_backordersmagento' )
-            {
-                $custitem_backordersmagento = $this->getValueForMagento($productMapValue);
-                $magentoProduct->setData('backorders', $custitem_backordersmagento);
             }
             $valueForMagento = $this->getValueForMagento($productMapValue);
             $magentoProduct->setData($productMapValue->getMagentoFieldId() ,$valueForMagento);
@@ -233,6 +237,7 @@ class RocketWeb_Netsuite_Helper_Mapper_Product extends RocketWeb_Netsuite_Helper
                     'use_config_backorders' => 0
                 ));
             }
+            $magentoProduct->setPrice(0);
 
         }else{
             $stock_obj = Mage::getModel('cataloginventory/stock_item')->loadByProduct($magentoProduct->getId());
@@ -268,14 +273,15 @@ class RocketWeb_Netsuite_Helper_Mapper_Product extends RocketWeb_Netsuite_Helper
 
         }
 
-        
+        $magentoProduct->setStockData(array(
+            'use_config_backorders' => 0,
+            'backorders' => $custitem_backordersmagento
+        ));
 
 
         if(!trim($magentoProduct->getSku())) {
             $magentoProduct->setSku($inventoryItem->internalId);
         }
-
-
 
         $magentoProduct->setUrlKey(Mage::getModel('catalog/product_url')->formatUrlKey($magentoProduct->getName()));
         
