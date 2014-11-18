@@ -195,6 +195,11 @@ class RocketWeb_Netsuite_Helper_Mapper_Product extends RocketWeb_Netsuite_Helper
                 $custitem_qtyso_pendingapproval = $this->getValueForMagento($productMapValue);
                 continue;
             }
+            if ( $productMapValue->getNetsuiteFieldId() == 'custitem_backordersmagento' )
+            {
+                $custitem_backordersmagento = $this->getValueForMagento($productMapValue);
+                $magentoProduct->setData('backorders', $custitem_backordersmagento);
+            }
             $valueForMagento = $this->getValueForMagento($productMapValue);
             $magentoProduct->setData($productMapValue->getMagentoFieldId() ,$valueForMagento);
         }
@@ -211,7 +216,8 @@ class RocketWeb_Netsuite_Helper_Mapper_Product extends RocketWeb_Netsuite_Helper
                             $magentoProduct->setStockData(array(
                                 'is_in_stock' => 1,
                                 'qty' => $qty,
-                                'manage_stock' => 1
+                                'manage_stock' => 1,
+                                'use_config_backorders' => 0
                             ));
                             $quantitySet = true;
                             break;
@@ -223,7 +229,8 @@ class RocketWeb_Netsuite_Helper_Mapper_Product extends RocketWeb_Netsuite_Helper
                 $magentoProduct->setStockData(array(
                     'is_in_stock' => 0,
                     'qty' => 0,
-                    'manage_stock' => 1
+                    'manage_stock' => 1,
+                    'use_config_backorders' => 0
                 ));
             }
 
@@ -252,6 +259,7 @@ class RocketWeb_Netsuite_Helper_Mapper_Product extends RocketWeb_Netsuite_Helper
                 //$stockData['qty'] = ($quantityOnHandWH + $quantityOnOrderFullfilment) - $quantityBackOrderedFullfilment - $custitem_qtyso_pendingapproval;
                 $stockData['qty'] = ($quantityAvailableWH + $quantityOnOrderFullfilment) - $quantityBackOrderedFullfilment;
                 $stockData['manage_stock'] = 1;
+                $stockData['use_config_backorders'] = 0
                 $stock_obj->setData($stockData);
                 $stock_obj->save();
                 
