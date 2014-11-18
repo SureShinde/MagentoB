@@ -259,7 +259,7 @@ class RocketWeb_Netsuite_Helper_Mapper_Product extends RocketWeb_Netsuite_Helper
                 //$stockData['qty'] = ($quantityOnHandWH + $quantityOnOrderFullfilment) - $quantityBackOrderedFullfilment - $custitem_qtyso_pendingapproval;
                 $stockData['qty'] = ($quantityAvailableWH + $quantityOnOrderFullfilment) - $quantityBackOrderedFullfilment;
                 $stockData['manage_stock'] = 1;
-                $stockData['use_config_backorders'] = 0
+                $stockData['use_config_backorders'] = 0;
                 $stock_obj->setData($stockData);
                 $stock_obj->save();
                 
