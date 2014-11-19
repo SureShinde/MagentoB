@@ -43,12 +43,31 @@ class Bilna_Paymethod_Block_Checkout_Onepage_Review_Installment extends Mage_Cor
         $subTotal = round($totals['subtotal']->getValue()); //Subtotal value
         $grandTotal = round($totals['grand_total']->getValue()); //Grandtotal value
         $minOrderTotalInstallment = Mage::getStoreConfig('payment/' . $this->getPaymentMethod() . '/min_installment_total');
+        $maxOrderTotalInstallment = Mage::getStoreConfig('payment/' . $this->getPaymentMethod() . '/max_installment_total');
+        $minOrderTotalCheck = false;
+        $maxOrderTotalCheck = false;
         
+        // check minimum order total
         if (empty ($minOrderTotalInstallment) || $minOrderTotalInstallment == '') {
-            return true;
+            $minOrderTotalCheck = true;
+        }
+        else {
+            if ($grandTotal >= $minOrderTotalInstallment) {
+                $minOrderTotalCheck = true;
+            }
         }
         
-        if ($grandTotal >= $minOrderTotalInstallment) {
+        // check maximum order total
+        if (empty ($maxOrderTotalInstallment) || $maxOrderTotalInstallment == '') {
+            $maxOrderTotalCheck = true;
+        }
+        else {
+            if ($grandTotal <= $maxOrderTotalInstallment) {
+                $maxOrderTotalCheck = true;
+            }
+        }
+        
+        if ($minOrderTotalCheck && $maxOrderTotalCheck) {
             return true;
         }
         
