@@ -129,11 +129,11 @@ class Bilna_AjaxRequest_DataController extends Mage_Core_Controller_Front_Action
         			if($response['data']['description'] == ''){
         				$response['data']['description'] = $category->getName();
         			}
-        			if($extendedUrl == false && $category->getName() == "Baby"){
+        			if($extendedUrl == false && ($category->getName() == "Baby" || $category->getName() == "Baby & Kids")){
         				$response['data']['url'] .= "?utm_content=BilnaBaby";
         				$extendedUrl = true;
         			}
-        			if($extendedUrl == false && $category->getName() == "Home"){
+        			if($extendedUrl == false && ($category->getName() == "Home" || $category->getName() == "Home & Living")){
         				$response['data']['url'] .= "?utm_content=BilnaHome";
         				$extendedUrl = true;
 		        	}
