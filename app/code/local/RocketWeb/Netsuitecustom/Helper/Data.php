@@ -23,7 +23,7 @@ class RocketWeb_Netsuitecustom_Helper_Data extends Mage_Core_Helper_Abstract {
                 $currentPage    = $response->searchResult->pageIndex;
                 $totalPages     = $response->searchResult->totalPages;
                 $searchId               = $response->searchResult->searchId;
-                while ($currentPage <= $totalPages){
+                while ($currentPage < $totalPages){
                     /*more request*/
                     $currentPage++;
                     $request    = new SearchMoreWithIdRequest();
