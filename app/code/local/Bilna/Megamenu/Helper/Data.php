@@ -6,6 +6,41 @@
  */
 
 class Bilna_Megamenu_Helper_Data extends Mage_Catalog_Helper_Category {
+    protected $_rootCategoryId = 2;
+    
+    public function getStoreCategories($sorted = false, $asCollection = false, $toLoad = true) {
+        $parent = $this->_rootCategoryId;
+
+        /**
+         * Check if parent node of the store still exists
+         */
+        $category = Mage::getModel('catalog/category');
+
+        /* @var $category Mage_Catalog_Model_Category */
+        if (!$category->checkId($parent)) {
+            if ($asCollection) {
+                return new Varien_Data_Collection();
+            }
+
+            return array ();
+        }
+
+        $recursionLevel = max(0, (int) Mage::app()->getStore()->getConfig('catalog/navigation/max_depth'));
+        $storeCategories = $category->getCategories($parent, $recursionLevel, $sorted, $asCollection, $toLoad);
+
+        return $storeCategories;
+    }
+    
+    public function getCategoryUrl($data) {
+        $category = Mage::getModel('catalog/category')
+            ->getCollection()
+            ->addUrlRewriteToResult()
+            ->addAttributeToFilter('url_key', $data->getUrlKey())
+            ->getFirstItem();
+        
+        return $category->getUrl();
+    }
+    
     public function getCurrentCategoryFrontend() {
         if (Mage::registry('current_category')) {
             return Mage::registry('current_category')->getId();
