@@ -13,8 +13,8 @@ class RocketWeb_Netsuitecustom_Helper_Data extends Mage_Core_Helper_Abstract {
             $request->searchRecord = $customRecordSearchCriteria;
 	
             $response = $netsuiteService->search($request);
-error_log("\nRecordTypeId ".print_r($recordTypeId,1), 3, '/tmp/netResponse.log');
-error_log("\nResponse ".print_r($response,1), 3, '/tmp/netResponse.log');
+//error_log("\nRecordTypeId ".print_r($recordTypeId,1), 3, '/tmp/netResponse.log');
+//error_log("\nResponse ".print_r($response,1), 3, '/tmp/netResponse.log');
             if($response->searchResult->status->isSuccess) {
                 foreach($response->searchResult->recordList->record as $record) {
                     $_customRecordListCache[$recordTypeId][$record->internalId] = $record->name;
