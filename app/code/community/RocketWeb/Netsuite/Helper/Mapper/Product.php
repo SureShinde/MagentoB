@@ -189,10 +189,11 @@ class RocketWeb_Netsuite_Helper_Mapper_Product extends RocketWeb_Netsuite_Helper
         }
         
         $custitem_backordersmagento = 0;
-        foreach($inventoryItem->customFieldList->customField as $customField) {
-            if($customField->internalId == 'custitem_backordersmagento')
-            {
-                $custitem_backordersmagento = $customField->value->internalId;
+        
+        foreach ($inventoryItem->customFieldList->customField as $customField) {
+            if ($customField->internalId == 'custitem_backordersmagento') {
+                $custitem_backordersmagento = $this->getBackordersByName($customField->value->name);
+                //$custitem_backordersmagento = $customField->value->internalId;
                 break;
             }
         }
@@ -334,6 +335,23 @@ class RocketWeb_Netsuite_Helper_Mapper_Product extends RocketWeb_Netsuite_Helper
 
 
         return $magentoProduct;
+    }
+    
+    protected function getBackordersByName($name) {
+        $backordersArr =  array (
+            0 => 'No Backorders',
+            1 => 'Allow Qty Below 0',
+            2 => 'Allow Qty Below 0 and Notify Customer',
+            '' => 'ALL TYPE of Allow Qty below 0'
+        );
+        
+        foreach ($backordersArr as $key => $value) {
+            if ($name == $value) {
+                return $key;
+            }
+        }
+        
+        return '';
     }
 
 
