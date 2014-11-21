@@ -35,7 +35,7 @@ class Bilna_Megamenu_Helper_Data extends Mage_Catalog_Helper_Category {
         $category = Mage::getModel('catalog/category')
             ->getCollection()
             ->addUrlRewriteToResult()
-            ->addAttributeToFilter('url_key', $data->getUrlKey())
+            ->addAttributeToFilter('entity_id', $data->getId())
             ->getFirstItem();
         
         return $category->getUrl();
