@@ -580,68 +580,71 @@ class RocketWeb_Netsuite_Helper_Mapper_Order extends RocketWeb_Netsuite_Helper_M
         $netsuiteCustomer = Mage::helper('rocketweb_netsuite/mapper_customer')->getByInternalId($netsuiteOrder->entity->internalId);
         $magentoOrderState = Mage::helper('rocketweb_netsuite/transform')->netsuiteStatusToMagentoOrderState($netsuiteOrder->orderStatus);
         
-        /**
-         * check netsuite order status
-         */
-        if ($magentoOrderState == 'canceled' || $magentoOrderState == 'closed') {
-            if ($magentoOrder->canCancel()) {
-                $magentoOrder->cancel();
-                $magentoOrderHistory = $magentoOrder->addStatusHistoryComment('');
-                $magentoOrderHistory->setIsCustomerNotified(true);
-            }
-           
-            try{
-                $magentoOrder->save();
-                $orders = Mage::getModel('sales/order')->getCollection()->addFieldToFilter('netsuite_internal_id', $netsuiteOrder->internalId);
-                $order  = $orders->getFirstItem();
+        /*check order magento status */
+        if($magentoOrder->getStatus() != 'canceled' ){
+            /**
+             * check netsuite order status
+             */
+            if ($magentoOrderState == 'canceled' || $magentoOrderState == 'closed') {
+                if ($magentoOrder->canCancel()) {
+                    $magentoOrder->cancel();
+                    $magentoOrderHistory = $magentoOrder->addStatusHistoryComment('');
+                    $magentoOrderHistory->setIsCustomerNotified(true);
+                }
+               
+                try{
+                    $magentoOrder->save();
+                    $orders = Mage::getModel('sales/order')->getCollection()->addFieldToFilter('netsuite_internal_id', $netsuiteOrder->internalId);
+                    $order  = $orders->getFirstItem();
 
-                $transaction = Mage::getModel('points/transaction')->loadByOrder($order);
-                $order->setMoneyForPoints($transaction->getData('points_to_money'));
-                $order->setBaseMoneyForPoints($transaction->getData('base_points_to_money'));
-                $order->setPointsBalanceChange(abs($transaction->getData('balance_change')));
+                    $transaction = Mage::getModel('points/transaction')->loadByOrder($order);
+                    $order->setMoneyForPoints($transaction->getData('points_to_money'));
+                    $order->setBaseMoneyForPoints($transaction->getData('base_points_to_money'));
+                    $order->setPointsBalanceChange(abs($transaction->getData('balance_change')));
 
-                if ($order->getCustomerId()) {
+                    if ($order->getCustomerId()) {
 
-                    //if (($order->getBaseSubtotalCanceled() - $order->getOrigData('base_subtotal_canceled'))) {
-                    if ($order->getBaseSubtotalCanceled()) {
+                        //if (($order->getBaseSubtotalCanceled() - $order->getOrigData('base_subtotal_canceled'))) {
+                        if ($order->getBaseSubtotalCanceled()) {
 
-                        /* refund all points spent on order */
-                        $customer = Mage::getModel('customer/customer')->load($order->getCustomerId());
-                        if ($customer->getId()) {
+                            /* refund all points spent on order */
+                            $customer = Mage::getModel('customer/customer')->load($order->getCustomerId());
+                            if ($customer->getId()) {
 
-                            $helper = Mage::helper('points');
-                            if ($order->getPointsBalanceChange()) {
+                                $helper = Mage::helper('points');
+                                if ($order->getPointsBalanceChange()) {
 
-                                $applyAfter = Mage::helper('points/config')
-                                                ->getPointsCollectionOrder($order->getStoreId()) == AW_Points_Helper_Config::AFTER_TAX;
+                                    $applyAfter = Mage::helper('points/config')
+                                                    ->getPointsCollectionOrder($order->getStoreId()) == AW_Points_Helper_Config::AFTER_TAX;
 
-                                if ($applyAfter) {
-                                    $baseSubtotal = $order->getBaseSubtotalInclTax() - abs($order->getBaseDiscountAmount());
-                                    $subtotalToCancel =
-                                            $order->getBaseSubtotalCanceled() +
-                                            $order->getBaseTaxCanceled() -
-                                            $order->getBaseDiscountCanceled();
+                                    if ($applyAfter) {
+                                        $baseSubtotal = $order->getBaseSubtotalInclTax() - abs($order->getBaseDiscountAmount());
+                                        $subtotalToCancel =
+                                                $order->getBaseSubtotalCanceled() +
+                                                $order->getBaseTaxCanceled() -
+                                                $order->getBaseDiscountCanceled();
 
-                                } else {
-                                    $subtotalToCancel =
-                                            $order->getBaseSubtotalCanceled() -
-                                            $order->getBaseDiscountCanceled();
-                                    $baseSubtotal = $order->getBaseSubtotal() - abs($order->getBaseDiscountAmount());
-                                }
+                                    } else {
+                                        $subtotalToCancel =
+                                                $order->getBaseSubtotalCanceled() -
+                                                $order->getBaseDiscountCanceled();
+                                        $baseSubtotal = $order->getBaseSubtotal() - abs($order->getBaseDiscountAmount());
+                                    }
 
-                                $pointsToCancel = floor($order->getPointsBalanceChange() * $subtotalToCancel / $baseSubtotal);
-                                if (Mage::helper('points/config')->isRefundPoints($order->getStoreId())) {
-                                    $comment = $helper->__('Cancelation of order #%s', $order->getIncrementId());
-                                    $data = array('memo' => new Varien_Object(), 'order' => $order, 'customer' => $customer);
-                                    $this->_refundSpentPoints($data, new Varien_Object(
-                                                    array('comment' => $comment, 'points_to_return' => $pointsToCancel)));
+                                    $pointsToCancel = floor($order->getPointsBalanceChange() * $subtotalToCancel / $baseSubtotal);
+                                    if (Mage::helper('points/config')->isRefundPoints($order->getStoreId())) {
+                                        $comment = $helper->__('Cancelation of order #%s', $order->getIncrementId());
+                                        $data = array('memo' => new Varien_Object(), 'order' => $order, 'customer' => $customer);
+                                        $this->_refundSpentPoints($data, new Varien_Object(
+                                                        array('comment' => $comment, 'points_to_return' => $pointsToCancel)));
+                                    }
                                 }
                             }
                         }
                     }
+                }catch(Exception $ex){
+                    Mage::helper('rocketweb_netsuite')->log($ex->getMessage());
                 }
-            }catch(Exception $ex){
-                Mage::helper('rocketweb_netsuite')->log($ex->getMessage());
             }
         }
 
