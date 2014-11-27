@@ -19,96 +19,83 @@
 
 <?php
 $_helper = Mage::helper('megamenu');
-$_storeCategories = $_helper->getStoreCategories();
+$_storeCategories = $_helper->getMegamenuData();
 $_categoryActive = $this->getCategoryActive();
 ?>
 
 <?php if (count($_storeCategories) > 0): ?>
     <?php foreach ($_storeCategories as $_storeCategory): ?>
         <?php
-        $_storeCategory = Mage::getModel('megamenu/catalog_category')->load($_storeCategory->getId());
-        //$_storeCategoryClass = ($_storeCategory->getId() == $_helper->getCurrentMainCategory()) ? "background: #3c9aa8" : "display:none";
-        
-        /**
-         * check if category is active
-         */
-        if (!$_storeCategory->getIsActive()):
-            continue;
-        endif;
-        
-        if (!$_storeCategory->getIncludeInMenu()):
-            continue;
-        endif;
+        $_id = $_storeCategory['id'];
+        $_name = $_storeCategory['name'];
+        $_url = $_storeCategory['url'];
+        $_urlKey = $_storeCategory['url_key'];
         
         $_currentMainCategory = $_helper->getCurrentMainCategory();
-        //echo "currentMainCategory: " . $_currentMainCategory;
-        $_storeCategorySubClass = $_storeCategory->getId() == $_categoryActive['subcategory'] ? "sub-active" : "";
-        //$_storeCategorySubClass = !empty ($_currentMainCategory) || $_currentMainCategory != '' ? "sub-active" : "";
+        $_storeCategorySubClass = $_id == $_categoryActive['subcategory'] ? "sub-active" : "";
         ?>
 
-        <div id="nav-<?php echo $_storeCategory->getId(); ?>" class="nav-container container nav-<?php echo $_storeCategory->getUrlKey(); ?> <?php echo $_storeCategorySubClass; ?>" style="display:none;">
-            <?php $_categories = $_storeCategory->getChildrenCategories(); ?>
-            <?php if (count($_categories) > 0): ?>
+        <div id="nav-<?php echo $_id; ?>" class="nav-container container nav-<?php echo $_urlKey; ?> <?php echo $_storeCategorySubClass; ?>" style="display:none;">
+            <?php
+            $_storeCategoriesChild = array ();
+            
+            if ($_storeCategory['child'] && count($_storeCategory['child'] > 0)):
+                $_storeCategoriesChild = $_storeCategory['child'];
+            endif;
+            
+            ?>
+            <?php if (count($_storeCategoriesChild) > 0): ?>
                 <ul id="nav" class="nav">
-                    <?php //$shopbyStaticBlock = Mage::getModel('cms/block')->load('shopby-' . $_storeCategory->getUrlKey()); ?>
-                    <?php //if ($shopbyStaticBlock->getIsActive() == 1): ?>
-                        <li class="level0 level-top shop-by">
-                            <span>Shop by</span>
-                            <a class="level-top link-shopby" href="#">Shop by</a>
-                            <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('shopby-' . $_storeCategory->getUrlKey())->toHtml() ?>
-                            <?php //echo $shopbyStaticBlock->getContent(); ?>
-                        </li>
-                    <?php //endif; ?>
+                    <li class="level0 level-top shop-by">
+                        <span>Shop by</span>
+                        <a class="level-top link-shopby" href="#">Shop by</a>
+                        <?php echo $_storeCategory['shopby']; ?>
+                    </li>
                     
-                   <?php foreach ($_categories as $_category): ?>
+                   <?php foreach ($_storeCategoriesChild as $_storeCategoryChild): ?>
                         <?php
-                        $_category = Mage::getModel('megamenu/catalog_category')->load($_category->getId());
-                        
-                        /**
-                         * check if category is active
-                         */
-                        if (!$_category->getIsActive()):
-                            continue;
-                        endif;
-                        
-                        if (!$_category->getIncludeInMenu()):
-                            continue;
-                        endif;
-                        
-                        $categoryName = $_category->getName();
+                        $_id2 = $_storeCategoryChild['id'];
+                        $_name2 = $_storeCategoryChild['name'];
+                        $_url2 = $_storeCategoryChild['url'];
+                        $_urlKey2 = $_storeCategoryChild['url_key'];
                         ?>
-                        <li id="<?php echo $_category->getUrlKey(); ?>" data-category="category<?php echo $_category->getId(); ?>" class="level level-top parent-<?php echo $_category->getId(); ?> parent nav-<?php echo $_category->getUrlKey(); ?>">
-                            <a href="<?php echo $_helper->getCategoryUrl($_category); ?>" data-category="category<?php echo $_category->getId(); ?>" class="level-top parent-<?php echo $_category->getId(); ?>">
-                                <span><span><?php echo $this->__($_helper->replaceCategoryName($categoryName)); ?></span></span>
+                    
+                        <li id="<?php echo $_urlKey2; ?>" data-category="category<?php echo $_id2; ?>" class="level level-top parent-<?php echo $_id; ?> parent nav-<?php echo $_urlKey2; ?>">
+                            <a href="<?php echo $_url2; ?>" data-category="category<?php echo $_id2; ?>" class="level-top parent-<?php echo $_id2; ?>">
+                                <span>
+                                    <span>
+                                        <?php echo $this->__($_helper->replaceCategoryName($_name2)); ?>
+                                    </span>
+                                </span>
                             </a>
-                            <?php $_subCategories = $_category->getChildrenCategories(); ?>
-                            <?php if (count($_subCategories) > 0): ?>
+                            
+                            <?php
+                            $_storeCategoriesChildChild = array ();
+            
+                            if ($_storeCategoryChild['child'] && count($_storeCategoryChild['child'] > 0)):
+                                $_storeCategoriesChildChild = $_storeCategoryChild['child'];
+                            endif;
+                            ?>
+                            <?php if (count($_storeCategoriesChildChild) > 0): ?>
                                 <ul class="level-hover 0">
                                     <li class="">
                                         <div class="left-columns">
-                                            <h2><?php echo $categoryName; ?></h2>
+                                            <h2><?php echo $_name2; ?></h2>
                                             <div class="view-box">
                                                 <ul>
-                                                    <?php foreach ($_subCategories as $_subCategory): ?>
+                                                    <?php foreach ($_storeCategoriesChildChild as $_storeCategoryChildChild): ?>
                                                         <?php
-                                                        $_subCategory = Mage::getModel('megamenu/catalog_category')->load($_subCategory->getId());
-                                                        
-                                                        /**
-                                                         * check if category is active
-                                                         */
-                                                        if (!$_subCategory->getIsActive()):
-                                                            continue;
-                                                        endif;
-                                                        
-                                                        if (!$_subCategory->getIncludeInMenu()):
-                                                            continue;
-                                                        endif;
-
-                                                        $subCategoryName = $_subCategory->getName();
+                                                        $_id3 = $_storeCategoryChildChild['id'];
+                                                        $_name3 = $_storeCategoryChildChild['name'];
+                                                        $_url3 = $_storeCategoryChildChild['url'];
+                                                        $_urlKey3 = $_storeCategoryChildChild['url_key'];
                                                         ?>
-                                                        <li class="nav-<?php echo $_subCategory->getUrlKey(); ?>">
-                                                            <a href="<?php echo $_helper->getCategoryUrl($_subCategory); ?>" class="<?php echo $_subCategory->getUrlKey(); ?>">
-                                                                <span><?php echo $subCategoryName; ?></span>
+                                                    
+                                                        <li class="nav-<?php echo $_urlKey3; ?>">
+                                                            <a href="<?php echo $_url3; ?>" class="<?php echo $_urlKey3; ?>">
+                                                                <span>
+                                                                    <?php echo $_name3; ?>
+                                                                </span>
                                                             </a>
                                                         </li>
                                                     <?php endforeach; ?>
@@ -117,22 +104,18 @@ $_categoryActive = $this->getCategoryActive();
                                         </div>
                                         
                                         <div class="right-columns">
-                                            <?php
-                                            if ($_category->getMegamenuStaticBlock()):
-                                                echo $this->getLayout()->createBlock('cms/block')->setBlockId($_category->getMegamenuStaticBlock())->toHtml();
-                                            endif;
-                                            ?>
+                                            <?php echo $_storeCategoryChild['megamenu_staticblock']; ?>
                                             
                                             <div class="megamenu-product">
                                                 <a href="#" class="megamenu-image">
-                                                    <img alt="" src="<?php echo $_category->getMegamenuImageUrl($_category->getMegamenuImage()); ?>">
+                                                    <img alt="" src="<?php echo $_storeCategoryChild['megamenu_image']; ?>">
                                                 </a>
                                             </div>
                                         </div>
                                         
                                         <div class="clear"></div>
                                         
-                                        <a class="browse-all" href="<?php echo $_helper->getCategoryUrl($_category); ?>">Browse All</a>
+                                        <a class="browse-all" href="<?php echo $_url2; ?>">Browse All</a>
                                     </li>
                                 </ul>
                             <?php endif; ?>
