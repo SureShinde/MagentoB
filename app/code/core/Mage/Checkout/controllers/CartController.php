@@ -564,11 +564,18 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
                     }else{
                         $dateDiff = strtotime($oRule->getData('to_date')) - strtotime(date('Y-m-d'));
                     }
-                   
-                    if( !in_array($roleId, $customerGroupIds) )
+                    
+                    $isLoggedIn = Mage::getSingleton('customer/session')->isLoggedIn();
+
+                    if( !in_array($roleId, $customerGroupIds) && !$isLoggedIn)
                     {
                         $this->_getSession()->addError(
                             $this->__('Coupon code "%s" is not valid. Please sign in or registration', Mage::helper('core')->escapeHtml($couponCode))
+                        ); 
+                    }elseif( !in_array($roleId, $customerGroupIds))
+                    {
+                        $this->_getSession()->addError(
+                            $this->__('Coupon code "%s" is not valid.', Mage::helper('core')->escapeHtml($couponCode))
                         ); 
                     }elseif( $dateDiff <= 0 ){
                         $this->_getSession()->addError(
