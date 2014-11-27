@@ -313,9 +313,6 @@
 .form-list select {
 	width: 410px;
 }
-#checkoutSteps .form-list select {
-    width: 425px !important;
-}
 .my-account .buttons-set {
 	border-top: 0;
 	width: 590px;
