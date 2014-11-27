@@ -208,5 +208,30 @@ class Bilna_Paymethod_Helper_Data extends Mage_Core_Helper_Abstract {
         );
         
         Mage::log($order->getIncrementId() . " | " . $type . ": " . json_encode($dataArr), null, 'magento_invoice_debug.log');
+	}
+        
+    public function loadVeritransNamespace() {
+        require_once (dirname(__FILE__) . DS . '..' . DS . 'lib' . DS . 'Veritrans.php');
+        
+        Veritrans_Config::$serverKey = $this->getServerKey();
+        Veritrans_Config::$isProduction = $this->getProductionMode();
+    }
+    
+    public function getProductionMode() {
+        $mode = Mage::getStoreConfig('payment/vtdirect/development_testing');
+        
+        if ($mode == 1) {
+            return false;
+        }
+        
+        return true;
+    }
+    
+    public function getServerKey() {
+        return Mage::getStoreConfig('payment/vtdirect/server_key');
+    }
+    
+    public function getClientKey() {
+        return Mage::getStoreConfig('payment/vtdirect/client_key');
     }
 }

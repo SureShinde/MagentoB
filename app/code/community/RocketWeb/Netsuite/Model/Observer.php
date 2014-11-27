@@ -184,23 +184,43 @@ class RocketWeb_Netsuite_Model_Observer {
      * @return $this
      */
     public function queueOrderPlaceForNetsuite($observer) {
-
-		if(!Mage::helper('rocketweb_netsuite')->isEnabled()) {
-			return $this;
-		}
-        if(!Mage::helper('rocketweb_netsuite/permissions')->isFeatureEnabled(RocketWeb_Netsuite_Helper_Permissions::SEND_ORDERS)) {
+        if (!Mage::helper('rocketweb_netsuite')->isEnabled()) {
+            return $this;
+        }
+        
+        if (!Mage::helper('rocketweb_netsuite/permissions')->isFeatureEnabled(RocketWeb_Netsuite_Helper_Permissions::SEND_ORDERS)) {
             return $this;
         }
 		
-		$order = $observer->getEvent()->getOrder();
-		
-		$message = Mage::getModel('rocketweb_netsuite/queue_message');
-		$message->create(RocketWeb_Netsuite_Model_Queue_Message::ORDER_PLACE,$order->getId(),RocketWeb_Netsuite_Helper_Queue::NETSUITE_EXPORT_QUEUE);
-		Mage::helper('rocketweb_netsuite/queue')->getQueue(RocketWeb_Netsuite_Helper_Queue::NETSUITE_EXPORT_QUEUE)->send($message->pack());
-		
-		return $this;
-		
-	}
+        $order = $observer->getEvent()->getOrder();
+        
+        if ($this->checkQueueOrderPlace($order, $observer)) {
+            $message = Mage::getModel('rocketweb_netsuite/queue_message');
+            $message->create(RocketWeb_Netsuite_Model_Queue_Message::ORDER_PLACE, $order->getId(), RocketWeb_Netsuite_Helper_Queue::NETSUITE_EXPORT_QUEUE);
+            Mage::helper('rocketweb_netsuite/queue')->getQueue(RocketWeb_Netsuite_Helper_Queue::NETSUITE_EXPORT_QUEUE)->send($message->pack());
+        }
+        
+        return $this;
+    }
+    
+    protected function checkQueueOrderPlace($order, $observer) {
+        $paymentMethodCode = $order->getPayment()->getMethodInstance()->getCode();
+        $paymentMethodCheck = explode(',', Mage::getStoreConfig('rocketweb_netsuite/exports/order_payment_check'));
+        
+        if (in_array($paymentMethodCode, $paymentMethodCheck)) {
+            $orderStatusAllow = explode(',', Mage::getStoreConfig('rocketweb_netsuite/exports/order_status_allow'));
+            $orderStatus = $order->getStatus();
+            
+            if (in_array($orderStatus, $orderStatusAllow)) {
+                return true;
+            }
+            
+            return false;
+        }
+        
+        return true;
+    }
+
 
     /**
      * @param $observer

@@ -1,5 +1,26 @@
 /**
- * @author     Bilna Development Team <development@bilna.com>
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
 var Checkout = Class.create();
@@ -17,6 +38,8 @@ Checkout.prototype = {
         this.payment = '';
         this.loadWaiting = false;
         this.steps = ['login', 'billing', 'shipping', 'shipping_method', 'payment', 'review'];
+        //We use billing as beginning step since progress bar tracks from billing
+        this.currentStep = 'billing';
 
         this.accordion.sections.each(function(section) {
             Event.observe($(section).down('.step-title'), 'click', this._onSectionClick.bindAsEventListener(this));
@@ -34,7 +57,7 @@ Checkout.prototype = {
         var section = $(Event.element(event).up().up());
         if (section.hasClassName('allow')) {
             Event.stop(event);
-            this.gotoSection(section.readAttribute('id').replace('opc-', ''));
+            this.gotoSection(section.readAttribute('id').replace('opc-', ''), false);
             return false;
         }
     },
@@ -44,10 +67,21 @@ Checkout.prototype = {
     },
 
     reloadProgressBlock: function(toStep) {
-        var updater = new Ajax.Updater('checkout-progress-wrapper', this.progressUrl, {
-            method: 'get',
-            onFailure: this.ajaxFailure.bind(this),
-            parameters: toStep ? {toStep: toStep} : null
+        this.reloadStep(toStep);
+        if (this.syncBillingShipping) {
+            this.syncBillingShipping = false;
+            this.reloadStep('shipping');
+        }
+    },
+
+    reloadStep: function(prevStep) {
+        var updater = new Ajax.Updater(prevStep + '-progress-opcheckout', this.progressUrl, {
+            method:'get',
+            onFailure:this.ajaxFailure.bind(this),
+            onComplete: function(){
+                this.checkout.resetPreviousSteps();
+            },
+            parameters:prevStep ? { prevStep:prevStep } : null
         });
     },
 
@@ -88,12 +122,46 @@ Checkout.prototype = {
         this.loadWaiting = step;
     },
 
-    gotoSection: function(section)
-    {
-        var sectionElement = $('opc-'+section);
+    gotoSection: function (section, reloadProgressBlock) {
+
+        if (reloadProgressBlock) {
+            this.reloadProgressBlock(this.currentStep);
+        }
+        this.currentStep = section;
+        var sectionElement = $('opc-' + section);
         sectionElement.addClassName('allow');
-        this.accordion.openSection('opc-'+section);
-        this.reloadProgressBlock(section);
+        this.accordion.openSection('opc-' + section);
+        if(!reloadProgressBlock) {
+            this.resetPreviousSteps();
+        }
+    },
+
+    resetPreviousSteps: function () {
+        var stepIndex = this.steps.indexOf(this.currentStep);
+
+        //Clear other steps if already populated through javascript
+        for (var i = stepIndex; i < this.steps.length; i++) {
+            var nextStep = this.steps[i];
+            var progressDiv = nextStep + '-progress-opcheckout';
+            if ($(progressDiv)) {
+                //Remove the link
+                $(progressDiv).select('.changelink').each(function (item) {
+                    item.remove();
+                });
+                $(progressDiv).select('dt').each(function (item) {
+                    item.removeClassName('complete');
+                });
+                //Remove the content
+                $(progressDiv).select('dd.complete').each(function (item) {
+                    item.remove();
+                });
+            }
+        }
+    },
+
+    changeSection: function (section) {
+        var changeStep = section.replace('opc-', '');
+        this.gotoSection(changeStep, false);
     },
 
     setMethod: function(){
@@ -104,7 +172,7 @@ Checkout.prototype = {
                 {method: 'post', onFailure: this.ajaxFailure.bind(this), parameters: {method:'guest'}}
             );
             Element.hide('register-customer-password');
-            this.gotoSection('billing');
+            this.gotoSection('billing', true);
         }
         else if($('login:register') && ($('login:register').checked || $('login:register').type == 'hidden')) {
             this.method = 'register';
@@ -113,7 +181,7 @@ Checkout.prototype = {
                 {method: 'post', onFailure: this.ajaxFailure.bind(this), parameters: {method:'register'}}
             );
             Element.show('register-customer-password');
-            this.gotoSection('billing');
+            this.gotoSection('billing', true);
         }
         else{
             alert(Translator.translate('Please choose to register or to checkout as a guest').stripTags());
@@ -126,13 +194,13 @@ Checkout.prototype = {
         if (($('billing:use_for_shipping_yes')) && ($('billing:use_for_shipping_yes').checked)) {
             shipping.syncWithBilling();
             $('opc-shipping').addClassName('allow');
-            this.gotoSection('shipping_method');
+            this.gotoSection('shipping_method', true);
         } else if (($('billing:use_for_shipping_no')) && ($('billing:use_for_shipping_no').checked)) {
             $('shipping:same_as_billing').checked = false;
-            this.gotoSection('shipping');
+            this.gotoSection('shipping', true);
         } else {
             $('shipping:same_as_billing').checked = true;
-            this.gotoSection('shipping');
+            this.gotoSection('shipping', true);
         }
 
         // this refreshes the checkout progress column
@@ -153,19 +221,19 @@ Checkout.prototype = {
 
     setShipping: function() {
         //this.nextStep();
-        this.gotoSection('shipping_method');
+        this.gotoSection('shipping_method', true);
         //this.accordion.openNextSection(true);
     },
 
     setShippingMethod: function() {
         //this.nextStep();
-        this.gotoSection('payment');
+        this.gotoSection('payment', true);
         //this.accordion.openNextSection(true);
     },
 
     setPayment: function() {
         //this.nextStep();
-        this.gotoSection('review');
+        this.gotoSection('review', true);
         //this.accordion.openNextSection(true);
     },
 
@@ -177,7 +245,18 @@ Checkout.prototype = {
 
     back: function(){
         if (this.loadWaiting) return;
-        this.accordion.openPrevSection(true);
+        //Navigate back to the previous available step
+        var stepIndex = this.steps.indexOf(this.currentStep);
+        var section = this.steps[--stepIndex];
+        var sectionElement = $('opc-' + section);
+
+        //Traverse back to find the available section. Ex Virtual product does not have shipping section
+        while (sectionElement === null && stepIndex > 0) {
+            --stepIndex;
+            section = this.steps[stepIndex];
+            sectionElement = $('opc-' + section);
+        }
+        this.changeSection('opc-' + section);
     },
 
     setStepResponse: function(response){
@@ -192,11 +271,12 @@ Checkout.prototype = {
 
         if(response.duplicateBillingInfo)
         {
+            this.syncBillingShipping = true;
             shipping.setSameAsBilling(true);
         }
 
         if (response.goto_section) {
-            this.gotoSection(response.goto_section);
+            this.gotoSection(response.goto_section, true);
             return true;
         }
         if (response.redirect) {
@@ -309,9 +389,9 @@ Billing.prototype = {
     },
 
     /**
-        This method recieves the AJAX response on success.
-        There are 3 options: error, redirect or html with shipping options.
-    */
+     This method recieves the AJAX response on success.
+     There are 3 options: error, redirect or html with shipping options.
+     */
     nextStep: function(transport){
         if (transport && transport.responseText){
             try{
@@ -498,12 +578,12 @@ Shipping.prototype = {
         checkout.setStepResponse(response);
 
         /*
-        var updater = new Ajax.Updater(
-            'checkout-shipping-method-load',
-            this.methodsUrl,
-            {method:'get', onSuccess: checkout.setShipping.bind(checkout)}
-        );
-        */
+         var updater = new Ajax.Updater(
+         'checkout-shipping-method-load',
+         this.methodsUrl,
+         {method:'get', onSuccess: checkout.setShipping.bind(checkout)}
+         );
+         */
         //checkout.setShipping();
     }
 }
@@ -542,15 +622,11 @@ ShippingMethod.prototype = {
         return false;
     },
 
-    save: function(){
-    	//var requestData = new Array();
-    	//requestData['shipping_type'] = jQuery('input[name=shipping_method]:checked').attr("data-type");
-    	//requestData['shipping_method'] = jQuery('input[name=shipping_method]:checked').val();
-        //var requestData  = "shipping_method=" + jQuery('input[name=shipping_method]:checked').val();
-        var requestData  = "&shipping_text=" + jQuery('input[name=shipping_method]:checked').attr("data-text");
-            requestData += "&shipping_type=" + jQuery('input[name=shipping_method]:checked').attr("data-type");
-    	
-    	if (checkout.loadWaiting!=false) return;
+    save: function() {
+        var requestData = "&shipping_text=" + jQuery('input[name=shipping_method]:checked').attr('data-text');
+            requestData += "&shipping_type=" + jQuery('input[name=shipping_method]:checked').attr('data-type');
+            
+        if (checkout.loadWaiting!=false) return;
         if (this.validate()) {
             checkout.setLoadWaiting('shipping-method');
             var request = new Ajax.Request(
@@ -560,7 +636,6 @@ ShippingMethod.prototype = {
                     onComplete: this.onComplete,
                     onSuccess: this.onSave,
                     onFailure: checkout.ajaxFailure.bind(checkout),
-                    //parameters: requestData
                     parameters: Form.serialize(this.form) + requestData
                 }
             );
@@ -593,7 +668,7 @@ ShippingMethod.prototype = {
         payment.initWhatIsCvvListeners();
 
         if (response.goto_section) {
-            checkout.gotoSection(response.goto_section);
+            checkout.gotoSection(response.goto_section, true);
             checkout.reloadProgressBlock();
             return;
         }
@@ -627,7 +702,7 @@ Payment.prototype = {
 
     beforeInit : function() {
         (this.beforeInitFunc).each(function(init){
-           (init.value)();;
+            (init.value)();;
         });
     },
 
@@ -714,34 +789,110 @@ Payment.prototype = {
 
     validate: function() {
         var result = this.beforeValidate();
-        var methods = document.getElementsByName('payment[method]');
-        var checkAfter = true;
-        
         if (result) {
             return true;
         }
-        
-        if (methods.length == 0) {
+        var methods = document.getElementsByName('payment[method]');
+        if (methods.length==0) {
             alert(Translator.translate('Your order cannot be completed at this time as there is no payment methods available for it.').stripTags());
             return false;
         }
-
         for (var i=0; i<methods.length; i++) {
             if (methods[i].checked) {
                 return true;
             }
         }
+        result = this.afterValidate();
+        if (result) {
+            return true;
+        }
+        alert(Translator.translate('Please specify payment method.').stripTags());
+        return false;
+    },
+    
+    errorMessage: function(action, message) {
+        if (action == 'show') {
+            jQuery('#payment-messages li.error-msg ul li span').html(message);
+            jQuery('#payment-messages').show();
+        }
+        else {
+            jQuery('#payment-messages li.error-msg ul li span').html('');
+            jQuery('#payment-messages').hide();
+        }
+    },
+    
+    bankValidate: function() {
+        var methods = document.getElementsByName('payment[method]');
+        var currPayment = $$('input:checked[type=radio][name=payment[method]]')[0].value;
+        var responseStatus = false;
         
-        if (checkAfter == true) {
-            result = this.afterValidate();
-            
-            if (result) {
-                return true;
-            }
-            
-            alert(Translator.translate('Please specify payment method.').stripTags());
+        if (this.inArray(currPayment, creditCardPaymentArr)) {
+            currPayment = 'vtdirect';
+            var cardNo = jQuery('#payment_form_' + currPayment + ' #' + currPayment + '_cc_number').val();
+            var ajaxURL = bankCheckUrl;
+            var responseStatus = false;
+
+            jQuery.ajax({
+                type: 'POST',
+                async: false,
+                url : ajaxURL,
+                data: { card_no: cardNo },
+                dataType: 'json',
+                success: function(response) {
+                    if (response.status == true) {
+                        jQuery('#p_method_' + currPayment).val(response.data.bank_code);
+                        jQuery('#payment_form_' + currPayment + ' #' + currPayment + '_cc_bank').val(response.data.bank_code);
+                        jQuery('#payment_form_' + currPayment + ' #' + currPayment + '_cc_type').val(response.data.cc_type);
+                        jQuery('#payment_form_' + currPayment + ' #' + currPayment + '_cc_bins').val(cardNo.substring(0,6));
+                        jQuery('#payment_form_' + currPayment + ' #' + currPayment + '_acquired_bank').val(response.data.acquired_bank);
+                        jQuery('#payment_form_' + currPayment + ' #' + currPayment + '_secure').val(response.data.secure);
+                        jQuery('#payment_form_' + currPayment + ' #' + currPayment + '_installment_process').val(response.data.installment_process);
+                        responseStatus = true;
+                    }
+                    else {
+                        //alert(Translator.translate('Please enter a valid credit card number.').stripTags());
+                        this.errorMessage('show', Translator.translate('Please enter a valid credit card number.').stripTags());
+                    }
+                },
+                error: function() {
+                    //alert(Translator.translate('Please enter a valid credit card number.').stripTags());
+                    this.errorMessage('show', Translator.translate('Please enter a valid credit card number.').stripTags());
+                }
+            });
+        }
+        else {
+            responseStatus = true;
+        }
+        
+        return responseStatus;
+    },
+    
+    inArray: function(item, arr) {
+        if (!arr) {
             return false;
         }
+        else {
+            for (var p = 0; p < arr.length; p++) {
+                if (item == arr[p]) {
+                    return true;
+                }
+            }
+            
+            return false;
+        }
+    },
+    
+    savePayment: function() {
+        checkout.setLoadWaiting('payment');
+        var request = new Ajax.Request(
+            this.saveUrl, {
+                method: 'post',
+                onComplete: this.onComplete,
+                onSuccess: this.onSave,
+                onFailure: checkout.ajaxFailure.bind(checkout),
+                parameters: Form.serialize(this.form)
+            }
+        );
     },
 
     addAfterValidateFunction : function(code, func) {
@@ -762,87 +913,29 @@ Payment.prototype = {
         }
         return validateResult;
     },
-    
-    bankValidate: function() {
-        var methods = document.getElementsByName('payment[method]');
-        var currPayment = $$('input:checked[type=radio][name=payment[method]]')[0].value;
-        
-        if (currPayment != 'vtdirect') {
-            responseStatus = true;
-        }
-        else {
-            var cardNo = jQuery('#payment_form_' + currPayment + ' #' + currPayment + '_cc_number').val();
-            var ajaxURL = bankCheckUrl;
-            //var ajaxURL = baseUrl + 'paymethod/onepage/bankCheck';
-            var responseStatus = false;
-
-            jQuery.ajax({
-                type: 'POST',
-                async: false,
-                url : ajaxURL,
-                data: { card_no: cardNo },
-                dataType: 'json',
-                success: function(response) {
-                    if (response.status == true) {
-                        jQuery('#p_method_' + currPayment).val(response.data.bank_code);
-                        jQuery('#payment_form_' + currPayment + ' #' + currPayment + '_cc_bank').val(response.data.bank_code);
-                        jQuery('#payment_form_' + currPayment + ' #' + currPayment + '_cc_type').val(response.data.cc_type);
-                        jQuery('#payment_form_' + currPayment + ' #' + currPayment + '_cc_bins').val(cardNo.substring(0,6));
-                        responseStatus = true;
-                    }
-                    else {
-                        alert(Translator.translate('Please enter a valid credit card number.').stripTags());
-                        return false;
-                    }
-                },
-                error: function() {
-                    alert(Translator.translate('Please enter a valid credit card number.').stripTags());
-                    return false;
-                }
-            });
-        }
-        
-        return responseStatus;
-    },
-    
-    savePayment: function() {
-        checkout.setLoadWaiting('payment');
-        var request = new Ajax.Request(
-            this.saveUrl, {
-                method: 'post',
-                onComplete: this.onComplete,
-                onSuccess: this.onSave,
-                onFailure: checkout.ajaxFailure.bind(checkout),
-                parameters: Form.serialize(this.form)
-            }
-        );
-    },
 
     save: function() {
-        if (checkout.loadWaiting != false) {
-            return;
+        if (checkout.loadWaiting!=false) return;
+        
+        this.errorMessage('hide', '');
+        
+        if (!this.bankValidate()) {
+            return false;
         }
         
         var validator = new Validation(this.form);
-        
         if (this.validate() && validator.validate()) {
-            if (this.bankValidate()) {
-                if (this.currentMethod == 'vtdirect') {
-                    Veritrans.tokenGet(_cardSet, _success, _error);
+            checkout.setLoadWaiting('payment');
+            var request = new Ajax.Request(
+                this.saveUrl,
+                {
+                    method:'post',
+                    onComplete: this.onComplete,
+                    onSuccess: this.onSave,
+                    onFailure: checkout.ajaxFailure.bind(checkout),
+                    parameters: Form.serialize(this.form)
                 }
-                else {
-                    checkout.setLoadWaiting('payment');
-                    var request = new Ajax.Request(
-                        this.saveUrl, {
-                            method: 'post',
-                            onComplete: this.onComplete,
-                            onSuccess: this.onSave,
-                            onFailure: checkout.ajaxFailure.bind(checkout),
-                            parameters: Form.serialize(this.form)
-                        }
-                    );
-                }
-            }
+            );
         }
     },
 
@@ -860,8 +953,8 @@ Payment.prototype = {
             }
         }
         /*
-        * if there is an error in payment, need to show error message
-        */
+         * if there is an error in payment, need to show error message
+         */
         if (response.error) {
             if (response.fields) {
                 var fields = response.fields.split(',');
@@ -891,13 +984,51 @@ Payment.prototype = {
 
 var Review = Class.create();
 Review.prototype = {
-    initialize: function(saveUrl, successUrl, agreementsForm , installmentForm){
+    initialize: function(saveUrl, successUrl, agreementsForm, installmentForm) {
         this.saveUrl = saveUrl;
         this.successUrl = successUrl;
         this.agreementsForm = agreementsForm;
         this.installmentForm = installmentForm;
         this.onSave = this.nextStep.bindAsEventListener(this);
         this.onComplete = this.resetLoadWaiting.bindAsEventListener(this);
+        //this.tokenId = null;
+    },
+    
+    saveReview: function(tokenId) {
+        var params = Form.serialize(payment.form);
+            params += '&token_id=' + tokenId;
+        
+        if (this.agreementsForm) {
+            params += '&' + Form.serialize(this.agreementsForm);
+        }
+        
+        if (this.installmentForm) {
+            params += '&' + Form.serialize(this.installmentForm);
+        }
+        
+        params.save = true;
+        var request = new Ajax.Request(
+            this.saveUrl,
+            {
+                method:'post',
+                parameters:params,
+                onComplete: this.onComplete,
+                //onSuccess: this.onSave,
+                onSuccess: function(response) {
+                    var responseJson = response.responseText.evalJSON();
+                    
+                    if (responseJson.success == false && responseJson.error == true) {
+                        alert(responseJson.error_messages);
+                        checkout.gotoSection('payment');
+                    }
+                    else {
+                        review.nextStep(response);
+                        //this.onSave
+                    }
+                },
+                onFailure: checkout.ajaxFailure.bind(checkout)
+            }
+        );
     },
 
     save: function() {
@@ -906,38 +1037,48 @@ Review.prototype = {
         }
         
         checkout.setLoadWaiting('review');
-        var params = Form.serialize(payment.form);
         
-        if (this.agreementsForm) {
-            params += '&'+Form.serialize(this.agreementsForm);
+        // get token from veritrans
+        if (payment.inArray(payment.currentMethod, creditCardPaymentArr)) {
+            Veritrans.token(_cardSet, callback);
+            
+            return false;
         }
-        
-        if (this.installmentForm) {
-            params += '&'+Form.serialize(this.installmentForm);
-        }
-        
-        params.save = true;
-        var request = new Ajax.Request(
-            this.saveUrl, {
-                method: 'post',
-                parameters: params,
-                onComplete: this.onComplete,
-                //onSuccess: this.onSave,
-                onSuccess: function(response) {
-                    var responseJson = response.responseText.evalJSON();
-                    //console.log(responseJson);
-                    
-                    if (responseJson.success == false && responseJson.error == true) {
-                        alert(responseJson.error_messages);
-                        checkout.gotoSection('payment');
-                    }
-                    else {
-                        review.nextStep(response);
-                    }
-                },
-                onFailure: checkout.ajaxFailure.bind(checkout)
+        else {
+            var params = Form.serialize(payment.form);
+
+            if (this.agreementsForm) {
+                params += '&' + Form.serialize(this.agreementsForm);
             }
-        );
+
+            if (this.installmentForm) {
+                params += '&' + Form.serialize(this.installmentForm);
+            }
+
+            params.save = true;
+            var request = new Ajax.Request(
+                this.saveUrl,
+                {
+                    method:'post',
+                    parameters:params,
+                    onComplete: this.onComplete,
+                    //onSuccess: this.onSave,
+                    onSuccess: function(response) {
+                        var responseJson = response.responseText.evalJSON();
+
+                        if (responseJson.success == false && responseJson.error == true) {
+                            alert(responseJson.error_messages);
+                            checkout.gotoSection('payment');
+                        }
+                        else {
+                            review.nextStep(response);
+                            //this.onSave
+                        }
+                    },
+                    onFailure: checkout.ajaxFailure.bind(checkout)
+                }
+            );
+        }
     },
 
     resetLoadWaiting: function(transport){
@@ -976,7 +1117,7 @@ Review.prototype = {
             }
 
             if (response.goto_section) {
-                checkout.gotoSection(response.goto_section);
+                checkout.gotoSection(response.goto_section, true);
             }
         }
     },
@@ -984,33 +1125,66 @@ Review.prototype = {
     isSuccess: false
 }
 
-
+/**
+ * VT-Direct Get Token
+ */
+Veritrans.url = vtDirectUrl;
 Veritrans.client_key = vtDirectClientKey; // please add client-key from veritrans
 
 function _cardSet() {
     var currPayment = payment.currentMethod;
+    var result = {};
+    result['card_number'] = jQuery('#payment_form_' + currPayment + ' input.card-number').val();
+    result['card_exp_month'] = jQuery('#payment_form_' + currPayment + ' select.card-expiry-month').val();
+    result['card_exp_year'] = jQuery('#payment_form_' + currPayment + ' select.card-expiry-year').val();
+    result['card_cvv'] = jQuery('#payment_form_' + currPayment + ' input.card-cvv').val();
     
-    return {
-        "card_number": jQuery('#payment_form_' + currPayment + ' input.card-number').val(),
-        "card_exp_month": jQuery('#payment_form_' + currPayment + ' select.card-expiry-month').val(),
-        "card_exp_year": jQuery('#payment_form_' + currPayment + ' select.card-expiry-year').val(),
-        "card_cvv": jQuery('#payment_form_' + currPayment + ' input.card-cvv').val()
+    // 3d secure
+    if (jQuery('#payment_form_' + currPayment + ' #' + currPayment + '_secure').val() == 1) {
+        result['secure'] = true;
     }
-};
-
-function _success(d) {
-    if (d.data.token_id) {
-        var currPayment = payment.currentMethod;
-        
-        jQuery('#payment_form_' + currPayment + ' #token_id').val(d.data.token_id); // store token data in input #token_id
-        payment.savePayment();
-        
-        return true;
+    else {
+        result['secure'] = false;
     }
     
-    return false;
+    // installment-term
+    if (jQuery('#payment_form_' + currPayment + ' #' + currPayment + '_installment_process').val() != 'manual') {
+        if (jQuery('input[name=installment]').is(':checked')) {
+            if (jQuery('input[name=installment]:checked').val() > 1) {
+                result['installment'] = true;
+                result['installment_term'] = jQuery('input[name=installment]:checked').val();
+            }
+        }
+    }
+    
+    result['bank'] = jQuery('#payment_form_' + currPayment + ' #' + currPayment + '_acquired_bank').val();
+    result['gross_amount'] = jQuery('#gross_amount').val();
+    
+    //console.log('request: ' + JSON.stringify(result));
+    
+    return result;
 };
 
-function _error(d) {
-    alert(d.message); // please customize the error
-};
+function callback(response) {
+    //console.log('response: ' + JSON.stringify(response));
+    
+    if (response.status_code == '200') {
+        if (response.redirect_url) {
+            // 3Dsecure transaction. Open 3Dsecure dialog
+            jQuery('#threedsecure-popup iframe').attr('src', response.redirect_url);
+            jQuery('#threedsecure-popup').show();
+            jQuery('.wrapper').css({"position":"fixed"});
+        }
+        else {
+            review.saveReview(response.token_id);
+        }
+    }
+    else {
+        review.resetLoadWaiting();
+        checkout.gotoSection('payment', false);
+        jQuery('#threedsecure-popup').hide();
+        jQuery('.wrapper').css({"position":"relative"});
+        jQuery('#payment-messages li.error-msg ul li span').html(ccDefaultMessageFailure);
+        jQuery('#payment-messages').show();
+    }
+}

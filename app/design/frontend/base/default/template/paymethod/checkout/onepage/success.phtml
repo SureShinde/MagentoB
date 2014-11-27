@@ -78,25 +78,18 @@ elseif (in_array($this->getOrderPaymentCode(), $this->getPaymentMethodKlikpay())
     $responsePage = 'success';
 elseif (in_array($this->getOrderPaymentCode(), $this->getPaymentMethodCc())):
     $responseCharge = $this->getResponseCharge();
-    $responseStatus = $responseCharge->status;
+    $transactionStatus = $responseCharge->transaction_status;
+    $fraudStatus = $responseCharge->fraud_status;
     
-    if ($responseStatus == 'success'):
-        if ($this->getThreedSecure()):
-            if ($responseCharge->data->redirect_url):
-                $responsePage = 'threedsecure';
-                $redirectUrl = $responseCharge->data->redirect_url;
-                $retrieveConfirm2 = false;
-            else:
-                $responsePage = 'failure';
-            endif;
-        else:
-            if ($responseCharge->data->transaction_status == 'authorize'):
-                $responsePage = 'success';
-            else:
-                $responsePage = 'challenge';
-            endif;
+    if ($transactionStatus == 'capture'):
+        if ($fraudStatus == 'accept'):
+            $responsePage = 'success';
+        elseif ($fraudStatus == 'challenge'):
+            $responsePage = 'challenge';
         endif;
-    elseif ($responseStatus == 'failure'):
+    elseif ($transactionStatus == 'challenge'):
+        $responsePage = 'challenge';
+    elseif ($transactionStatus == 'deny'):
         $responsePage = 'failure';
     else:
         $responsePage = 'challange';
@@ -168,9 +161,7 @@ endif;
                 <br/>
                 <?php echo $this->__('Status pembayaran Anda akan kami informasikan segera.'); ?>
                 <br/>
-
-                <!--span><?php //echo $this->getDefaultResponseMessage($responseStatus, $responseCharge->message); ?></span-->
-
+                
                 <br/><br/>
                 <!--<?php //echo $this->__('Click <a href="%s">here</a> to continue shopping.', $this->getUrl()); ?>-->
                 <?php echo $this->__('Klik <a href="%s">di sini</a> untuk berbelanja kembali.', $this->getUrl()); ?>
@@ -220,8 +211,6 @@ endif;
                 <br/>
                 <?php echo $this->__('Mohon pastikan seluruh detail kartu kredit yang Anda masukan tepat.'); ?>
                 <br/>
-                
-                <!--span><?php //echo $this->getDefaultResponseMessage($responseStatus, $responseCharge->message); ?></span-->
                 
                 <br/><br/>
                 <!--<?php //echo $this->__('Click <a href="%s">here</a> to continue shopping.', $this->getUrl()); ?>-->

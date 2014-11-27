@@ -846,6 +846,10 @@ padding: 10px 10px 30px;
 	.my-account .my-wishlist .content-wishlist .row-wishlist .btn-remove{
 		display:block;
 	}
+	#checkoutSteps .form-list select {
+		width:auto !important;
+		max-width:80% !important;;
+	}
 }
 
 @media (max-width: 479px) {

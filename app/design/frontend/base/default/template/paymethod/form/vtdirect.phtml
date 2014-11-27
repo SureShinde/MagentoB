@@ -17,13 +17,16 @@
     <!-- credit card type box -->
     <input type="hidden" id="<?php echo $_code ?>_cc_type" name="payment[cc_type]" />
     <input type="hidden" id="<?php echo $_code ?>_cc_bank" name="payment[cc_bank]" />
-    <input type="hidden" id="token_id" name="payment[token_id]" />
     <input type="hidden" id="<?php echo $_code ?>_cc_bins" name="payment[cc_bins]" />
+    <input type="hidden" id="<?php echo $_code ?>_acquired_bank" name="payment[acquired_bank]" />
+    <input type="hidden" id="<?php echo $_code ?>_secure" name="payment[secure]" />
+    <input type="hidden" id="<?php echo $_code ?>_installment_process" name="payment[installment_process]" />
     
     <li>
         <label for="<?php echo $_code ?>_expiration" class="required"><em>*</em><?php echo $this->__('Expiration Date') ?></label>
         <div class="input-box">
             <div class="v-fix">
+                
                 <select id="<?php echo $_code ?>_expiration" name="payment[cc_exp_month]" class="month validate-cc-exp required-entry card-expiry-month">
                 <?php $_ccExpMonth = $this->getInfoData('cc_exp_month') ?>
                 <?php foreach ($this->getCcMonths() as $k => $v): ?>
