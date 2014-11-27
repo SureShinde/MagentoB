@@ -297,6 +297,7 @@ input.input-text:focus,select:focus,textarea:focus { background-color:#edf7fd; }
 .buttons-set .back-link { float:left; margin:0; }
 .buttons-set button.button { float:right; margin-left:5px; }
 .al-authorization-container-overlap .buttons-set button.button { display: none; }
+.al-authorization-container-overlap .al-authorizationform-recovery .buttons-set button.button { display: inline-block; }
 .al-authorization-container-overlap .buttons-set button#send2.button,
 .al-authorization-container-overlap .al-authorizationform-register .buttons-set button.button { display: block; }
 
