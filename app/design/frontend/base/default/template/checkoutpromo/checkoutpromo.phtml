@@ -50,7 +50,11 @@
     }
     ?>
 
-
+<?php
+$url = $this->getUrl('checkout/cart/customCheckoutCouponPost');
+$url = Mage::helper('paymethod')->checkHttpsProtocol($url);
+Mage::getSingleton('core/session')->setSessionCouponMessage('');
+?>
 <script type="text/javascript">
     function refreshBlock(){
         new Ajax.Request('<?php echo $this->getCheckoutpromoUrl(); ?>', {
@@ -66,5 +70,42 @@
                 alert('Something went wrong, please try later...')
             }
         });
+    }
+    function cekCustomVoucher(isRemove)
+    {
+        jQuery(".button btn-checkout").attr("disabled", true);
+        var remove = 0;
+        if(isRemove)
+        {
+            remove = 1;
+        }else{
+            remove = 0;
+        }
+        //var url = '<?php echo $this->getUrl('checkout/cart/customCheckoutCouponPost') ?>';
+        var url = '<?php echo $url; ?>';
+        jQuery.ajax({
+            type: "POST",
+            url : url,
+            data: { coupon_code: jQuery('#coupon_code').val(), remove: remove},
+            beforeSend: function( xhr ) {
+                $('feedback').update('Checking Coupon Code ... <img src="<?php echo $this->getSkinUrl("ajaxlogin/ajax-loader-tr.gif")?>" title="Loading..." alt="Loading..." border="0" />');
+            },
+            success: function(res){
+                if(res.status == 1){
+                    $('feedback').update(res.desc);
+                }else{
+                    $('feedback').update(res.desc);
+                }
+				setTimeout(function(){
+                    jQuery(".button btn-checkout").attr("disabled", false);
+				}, 1000);
+                payment.save();
+            },
+            error: function() {
+                $('feedback').update(res.desc);
+            }
+        });
+  
+        return false;
     }
 </script>
