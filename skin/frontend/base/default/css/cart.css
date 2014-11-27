@@ -669,6 +669,11 @@
 .low-res-cart{
 	display:none;
 }
+
+.discount-form .input-box{
+	padding: 0px;
+}
+
 @media (max-width: 1215px) {
 	#shopping-cart-table.data-table thead .items.loggedin {
 		width: 20%;

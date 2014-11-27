@@ -732,6 +732,10 @@ padding: 10px 10px 30px;
 /*end wishlist*/
 
 
+#shipping-address-select, #billing-address-select{
+	width: 425px !important;
+}
+
 @media (max-width: 1215px) {
 	.col2-left-layout .main .col-main {
 		width: 810px;

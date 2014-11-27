@@ -1915,6 +1915,7 @@ tr.summary-details-excluded { font-style:italic; }
 }
 
 .menu-top-mobile {display: none;}
+#total_belanja_di_bilna{display: none;}
 
 /* --------------- smaller 959 px layout -------------------- */
 @media only screen and (max-width: 767px) {
