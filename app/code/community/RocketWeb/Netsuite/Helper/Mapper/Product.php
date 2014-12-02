@@ -209,6 +209,7 @@ class RocketWeb_Netsuite_Helper_Mapper_Product extends RocketWeb_Netsuite_Helper
             $magentoProduct->setData($productMapValue->getMagentoFieldId() ,$valueForMagento);
         }
 
+        $qtyInventoryItem = 0;
         if(!$magentoProduct->getId()) {
             $magentoProduct = $this->addDefaultFieldsForNewProduct($magentoProduct,$inventoryItem);
 
@@ -218,11 +219,13 @@ class RocketWeb_Netsuite_Helper_Mapper_Product extends RocketWeb_Netsuite_Helper
                     if($location->location ==  Mage::getStoreConfig('rocketweb_netsuite/stock/order_location')) {
                         $qty = $location->quantityOnHand;
                         if($qty) {
+                            $qtyInventoryItem = $qty;
                             $magentoProduct->setStockData(array(
                                 'is_in_stock' => 1,
                                 'qty' => $qty,
                                 'manage_stock' => 1,
-                                'use_config_backorders' => 0
+                                'use_config_backorders' => 0,
+                                'backorders' => $custitem_backordersmagento
                             ));
                             $quantitySet = true;
                             break;
@@ -273,8 +276,10 @@ class RocketWeb_Netsuite_Helper_Mapper_Product extends RocketWeb_Netsuite_Helper
                 $stockData['is_in_stock'] = 1;
                 //$stockData['qty'] = ($quantityOnHandWH + $quantityOnOrderFullfilment) - $quantityBackOrderedFullfilment - $custitem_qtyso_pendingapproval;
                 $stockData['qty'] = ($quantityAvailableWH + $quantityOnOrderFullfilment) - $quantityBackOrderedFullfilment;
+                $qtyInventoryItem = $stockData['qty'];
                 $stockData['manage_stock'] = 1;
                 $stockData['use_config_backorders'] = 0;
+                $stockData['backorders'] = $custitem_backordersmagento;
                 $stock_obj->setData($stockData);
                 $stock_obj->save();
                 
@@ -283,10 +288,11 @@ class RocketWeb_Netsuite_Helper_Mapper_Product extends RocketWeb_Netsuite_Helper
 
         }
 
-        $magentoProduct->setStockData(array(
+        /*$magentoProduct->setStockData(array(
             'use_config_backorders' => 0,
-            'backorders' => $custitem_backordersmagento
-        ));
+            'backorders' => $custitem_backordersmagento,
+            'qty' => $qtyInventoryItem
+        ));*/
 
 
         if(!trim($magentoProduct->getSku())) {
