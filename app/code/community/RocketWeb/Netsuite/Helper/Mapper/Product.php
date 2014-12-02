@@ -224,7 +224,8 @@ class RocketWeb_Netsuite_Helper_Mapper_Product extends RocketWeb_Netsuite_Helper
                                 'is_in_stock' => 1,
                                 'qty' => $qty,
                                 'manage_stock' => 1,
-                                'use_config_backorders' => 0
+                                'use_config_backorders' => 0,
+                                'backorders' => $custitem_backordersmagento
                             ));
                             $quantitySet = true;
                             break;
@@ -278,6 +279,7 @@ class RocketWeb_Netsuite_Helper_Mapper_Product extends RocketWeb_Netsuite_Helper
                 $qtyInventoryItem = $stockData['qty'];
                 $stockData['manage_stock'] = 1;
                 $stockData['use_config_backorders'] = 0;
+                $stockData['backorders'] = $custitem_backordersmagento;
                 $stock_obj->setData($stockData);
                 $stock_obj->save();
                 
@@ -286,11 +288,11 @@ class RocketWeb_Netsuite_Helper_Mapper_Product extends RocketWeb_Netsuite_Helper
 
         }
 
-        $magentoProduct->setStockData(array(
+        /*$magentoProduct->setStockData(array(
             'use_config_backorders' => 0,
             'backorders' => $custitem_backordersmagento,
             'qty' => $qtyInventoryItem
-        ));
+        ));*/
 
 
         if(!trim($magentoProduct->getSku())) {
