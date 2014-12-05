@@ -84,6 +84,7 @@ class Bilna_Megamenu_Helper_Data extends Mage_Catalog_Helper_Category {
     }
     
     protected function getMainCategory() {
+        echo "masup sini";
         $categories = $this->getStoreCategories();
         $result = array ();
         

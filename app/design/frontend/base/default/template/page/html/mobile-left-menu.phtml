@@ -13,7 +13,6 @@
         <?php if (count($_storeCategories) > 0): ?>
             <div class="nav-container-mobile-left">
                 <ul>
-                    <?php $_currentMainCategory = $_helper->getCurrentMainCategory(); ?>
                     <?php foreach ($_storeCategories as $_storeCategory): ?>
                         <?php
                         $_storeCategoryDisplay = '';
@@ -24,8 +23,8 @@
                         $_url = $_storeCategory['url'];
                         $_urlKey = $_storeCategory['url_key'];
                         
-                        if ($_currentMainCategory != '' || !empty ($_currentMainCategory)):
-                            if ($_id != $_currentMainCategory):
+                        if ($_storeCurrentCategory):
+                            if ($_id != $_storeCurrentCategory->getId()):
                                 $_storeCategoryDisplay = 'style="display:none;"';
                                 $_storeCategoryClass = 'inactive';
                             endif;
@@ -57,7 +56,7 @@
                                         $_url2 = $_storeCategoryChild['url'];
                                         $_urlKey2 = $_storeCategoryChild['url_key'];
                                         
-                                        if ($_currentMainCategory != '' || !empty ($_currentMainCategory)):
+                                        if ($_storeCurrentCategory):
                                             if ($_id2 == $_storeCurrentCategory->getId() || $_id2 == $_storeCurrentCategory->getParentId()):
                                                 $_storeCategoryDisplay2 = 'style="display:block;"';
                                             endif;

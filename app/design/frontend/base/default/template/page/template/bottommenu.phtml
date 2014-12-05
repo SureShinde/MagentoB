@@ -6,7 +6,7 @@ $_storeCategories = $_helper->getMegamenuData();
 <?php if (count($_storeCategories) > 0): ?>
     <div class="nav-container-mobile">
         <ul>
-            <?php $_currentMainCategory = $_helper->getCurrentMainCategory(); ?>
+            <?php $_currentMainCategory = Mage::registry('current_category'); ?>
             <?php foreach ($_storeCategories as $_storeCategory): ?>
                 <?php
                 $_id = $_storeCategory['id'];
@@ -14,11 +14,14 @@ $_storeCategories = $_helper->getMegamenuData();
                 $_url = $_storeCategory['url'];
                 $_urlKey = $_storeCategory['url_key'];
                 
-                $_storeCategoryDisplay = ($_id == $_currentMainCategory) ? 'style="display:block;"' : '';
                 $_storeCategoryClass = '';
                 
-                if ($_currentMainCategory != '' || !empty ($_currentMainCategory)):
-                    if ($_id != $_currentMainCategory):
+                if ($_currentMainCategory):
+                    if ($_id == $_currentMainCategory->getId()):
+                        $_storeCategoryDisplay = 'style="display:block;"';
+                    endif;
+                
+                    if ($_id != $_currentMainCategory->getId()):
                         $_storeCategoryClass = 'inactive';
                     endif;
                 endif;
