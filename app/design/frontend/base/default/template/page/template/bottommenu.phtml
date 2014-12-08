@@ -15,14 +15,17 @@ $_storeCategories = $_helper->getMegamenuData();
                 $_urlKey = $_storeCategory['url_key'];
                 
                 $_storeCategoryClass = '';
+                $_storeCategoryDisplay = 'style="display:none;"';
                 
                 if ($_currentMainCategory):
-                    if ($_id == $_currentMainCategory->getId()):
-                        $_storeCategoryDisplay = 'style="display:block;"';
-                    endif;
+//                    if ($_id == $_currentMainCategory->getId()):
+//                        $_storeCategoryDisplay = 'style="display:block;"';
+//                    endif;
                 
                     if ($_id != $_currentMainCategory->getId()):
                         $_storeCategoryClass = 'inactive';
+                    else:
+                        $_storeCategoryDisplay = 'style="display:block;"';
                     endif;
                 endif;
                 ?>

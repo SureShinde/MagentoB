@@ -67,6 +67,8 @@ class GenerateMegamenu extends Mage_Shell_Abstract {
                 if (count($storeCategories2) > 0) {
                     foreach ($storeCategories2 as $storeCategory2) {
                         $storeCategory2 = $this->_model->load($storeCategory2->getId());
+                        $_id2 = $storeCategory2->getId();
+                        $_urlKey2 = $storeCategory2->getUrlKey();
                         
                         if (!$this->checkActiveCategory($storeCategory2)) {
                             continue;
@@ -92,6 +94,8 @@ class GenerateMegamenu extends Mage_Shell_Abstract {
                                 $this->_activeCategory[$x]['child'][$y]['child'][$z] = $this->parseStoreCategory($storeCategory3);
                                 $this->_activeCategory[$x]['child'][$y]['child'][$z]['parent_id'] = $_id;
                                 $this->_activeCategory[$x]['child'][$y]['child'][$z]['parent_url_key'] = $_urlKey;
+                                $this->_activeCategory[$x]['child'][$y]['child'][$z]['parent_sub_id'] = $_id2;
+                                $this->_activeCategory[$x]['child'][$y]['child'][$z]['parent_sub_url_key'] = $_urlKey2;
                                 $z++;
                             }
                         }
