@@ -34,7 +34,7 @@
 <head>
 <?php echo $this->getChildHtml('head') ?>
 </head>
-<body class="<?php echo $this->getStoreCategoryIdentifier($this->getCategoryActive()); ?><?php if ($this->getBodyClass()): echo $this->getBodyClass(); endif; ?>">
+<body class="<?php echo $this->getCurrentMainCategoryActive(); ?><?php if ($this->getBodyClass()): echo $this->getBodyClass(); endif; ?>">
 <?php echo $this->getChildHtml('after_body_start') ?>
 <div class="wrapper">
     <?php echo $this->getChildHtml('global_notices') ?>

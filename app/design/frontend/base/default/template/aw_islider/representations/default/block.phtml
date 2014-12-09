@@ -27,8 +27,14 @@
  */
 ?><?php
 ?>
-<?php $_helper = Mage::helper('megamenu'); ?>
-<?php $_currentCategory = $_helper->getUrlKey($_helper->getCurrentMainCategory()); ?>
+<?php
+$_helper = Mage::helper('megamenu');
+$_currentCategory = '';
+
+if (Mage::registry('current_category')) {
+    $_currentCategory = Mage::registry('current_category')->getUrlKey();
+}
+?>
 <?php if ($_currentCategory == 'baby'): ?>
     <script type="text/javascript">
         $j(function() {
