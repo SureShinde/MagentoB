@@ -685,7 +685,11 @@ class AW_Followupemail_Model_Rule extends Mage_Core_Model_Abstract {
         }
         
         //custom params for Friso Register Email
-        $objects['customer_dob'] = date('dmY', strtotime($objects['order']->getCustomerDob()));
+        if (isset ($objects['order'])) {
+            if ($objects['order']->getCustomerDob()) {
+                $objects['customer_dob'] = date('dmY', strtotime($objects['order']->getCustomerDob()));
+            }
+        }
 
         // quote
         if (!isset($objects['quote']))
