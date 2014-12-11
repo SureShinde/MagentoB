@@ -2622,7 +2622,7 @@ searchbar #nav-search-in {
         width: 70%;
     }
     .search-container-new #nav-searchbar {
-        width: 105% !important;
+        width: 100% !important;
     }
     .header .quick-access .left {
         display: none !important;
