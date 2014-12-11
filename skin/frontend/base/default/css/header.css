@@ -1994,7 +1994,7 @@ searchbar #nav-search-in {
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     height: 35px;
-    width: auto;
+    width: 40px;
     overflow: hidden;
     cursor: pointer;
     z-index: 1;
@@ -2011,6 +2011,7 @@ searchbar #nav-search-in {
     background-position: 0px -396px;
     /* content: url(../images/search-icon-new.png); */
 }
+#nav-searchbar .nav-submit-button img {margin: 5px 0 0 !important;}
 
 #nav-searchbar #nav-search-in-content {
     color: #777;
@@ -2621,7 +2622,7 @@ searchbar #nav-search-in {
         width: 70%;
     }
     .search-container-new #nav-searchbar {
-        width: 105% !important;
+        width: 100% !important;
     }
     .header .quick-access .left {
         display: none !important;
