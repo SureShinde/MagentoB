@@ -1,6 +1,15 @@
 
 
-li#perlengkapan-rumah:after, li.mobile-perlengkapan-rumah:after{
+/* li#perlengkapan-rumah:after, li.mobile-perlengkapan-rumah:after{
+	background: url(../images/new-badge.png) no-repeat 5px top;
+	content: "";
+	position: absolute;
+	width: 50px;
+	top: -13px;
+	height: 50px;
+	right: -24px;
+} */
+li#beauty:after {
 	background: url(../images/new-badge.png) no-repeat 5px top;
 	content: "";
 	position: absolute;
@@ -9,6 +18,16 @@ li#perlengkapan-rumah:after, li.mobile-perlengkapan-rumah:after{
 	height: 50px;
 	right: -24px;
 }
+li#groceries:after {
+	background: url(../images/new-badge.png) no-repeat 5px top;
+	content: "";
+	position: absolute;
+	width: 50px;
+	top: -13px;
+	height: 50px;
+	right: 74px;
+}
+li.mobile-groceries:after, li.mobile-beauty:after {display: none;}
 li.mobile-perlengkapan-rumah:after{
 	right: 0;
 }
@@ -348,7 +367,7 @@ li#perlengkapan-rumah, li.mobile-perlengkapan-rumah {
 .menu-top ul li a {
 	display: block;
 	color: #fff;
-	min-width:90px;
+	min-width:63px;
     padding: 12px 0 5px;
 }
 .menu-top ul li:hover{
@@ -2441,7 +2460,10 @@ searchbar #nav-search-in {
 }
 /* --------------- 960 px layout -------------------- */
 @media only screen and (max-width: 1023px) {
-	.header, #nav, .sticky-header, .menu-tablet {
+	.menu-top ul li a {
+        min-width:40px;
+    }
+    .header, #nav, .sticky-header, .menu-tablet {
 		width: 745px;
 	}
 	.sticky-header ul.sticky-menu {
