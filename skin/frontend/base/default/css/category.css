@@ -694,7 +694,7 @@ a.triger-showfilter {
 }
 .style-baby .products-on-sale h2:before,
 .style-perlengkapan-rumah .products-on-sale h2:before{
-	width: 170px;
+	/* width: 170px; */ width: 224px;
 	background: none repeat scroll 0 0 #F76A59;
 }
 .style-baby .new-arrival h2:before,
@@ -704,7 +704,7 @@ a.triger-showfilter {
 }
 .style-baby .new-arrival h2:before,
 .style-perlengkapan-rumah .new-arrival h2:before{
-	width: 130px;
+	/* width: 130px; */ width: 224px;
 	background: none repeat scroll 0 0 #7dcd32;
 }
 .style-baby .most-popular h2:before,
@@ -714,7 +714,7 @@ a.triger-showfilter {
 }
 .style-baby .most-popular h2:before,
 .style-perlengkapan-rumah .most-popular h2:before{
-	width: 150px;
+	/* width: 150px; */ width: 224px;
 	background: none repeat scroll 0 0 #42bcd1;
 }
 
