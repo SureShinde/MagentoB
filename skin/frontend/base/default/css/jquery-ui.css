@@ -129,7 +129,7 @@
 	
 }
 .style-baby .homepage-product a.link-viewmore-product {
-	display: none;
+	/* display: none; */ display: block;
 }
 .homepage-bottom {
 	clear: both;

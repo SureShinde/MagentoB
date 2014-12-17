@@ -111,7 +111,8 @@
 	display:none;
 }
 .cms-index-index .homepage-product a.link-viewmore-product {
-	display:none !important;
+	/* display:none !important; */
+	display: block !important;
 }
 .homepage-product a.link-viewmore-product:hover {
 	color: #4EC7DA;
@@ -185,7 +186,8 @@
 	background: none repeat scroll 0 0 #F76A59;
 }
 .cms-home .homepage-product.onsale h2:before{
-	width: 210px;
+	/* width: 210px; */
+    width: 187px;
 	background: none repeat scroll 0 0 #F76A59;
 }
 .cms-home .homepage-product.newarrival h2:before{
@@ -193,7 +195,8 @@
 	background: none repeat scroll 0 0 #7dcd32;
 }
 .cms-home .homepage-product.newarrival h2:before{
-	width: 140px;
+	/* width: 140px; */
+    width: 256px;
 	background: none repeat scroll 0 0 #7dcd32;
 }
 .cms-home .homepage-product.mostpopular h2:before{
@@ -201,7 +204,8 @@
 	background: none repeat scroll 0 0 #42bcd1;
 }
 .cms-home .homepage-product.mostpopular h2:before{
-	width: 160px;
+	/* width: 160px; */
+    width: 187px;
 	background: none repeat scroll 0 0 #42bcd1;
 }
 
