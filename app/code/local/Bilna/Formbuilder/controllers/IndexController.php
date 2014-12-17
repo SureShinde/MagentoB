@@ -35,7 +35,7 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
         //required, checkbox, terms and empty
         foreach($block->getData() as $field){
             if($field["required"]==true){
-                if($field["type"]=="checkbox" && $field["group"]=="terms"){
+                if($field["type"]=="checkbox"){
                     $message = "You must agree with terms and conditions";
                 }else{
                     $message = $field["title"].' cannot be empty';
