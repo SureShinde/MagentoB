@@ -481,7 +481,7 @@ a.triger-showfilter {
 	bottom: 9px !important;
 }
 .style-baby.catalog-category-view.category-baby .slidesjs-pagination,
-.style-perlengkapan-rumah.catalog-category-view.category-perlengkapan-rumah .slidesjs-pagination,{
+.style-perlengkapan-rumah.catalog-category-view.category-perlengkapan-rumah .slidesjs-pagination,
 .style-groceries.catalog-category-view.category-groceries .slidesjs-pagination,
 .style-beauty.catalog-category-view.category-beauty .slidesjs-pagination {
 	left:auto;
@@ -626,7 +626,8 @@ a.triger-showfilter {
 .style-perlengkapan-rumah .products-on-sale h2, .style-perlengkapan-rumah .new-arrival h2, .style-perlengkapan-rumah .most-popular h2,
 .style-groceries .products-on-sale h2, .style-groceries .new-arrival h2, .style-groceries .most-popular h2,
 .style-beauty .products-on-sale h2, .style-beauty .new-arrival h2, .style-beauty .most-popular h2 {
-	background: url("../images/shd_featured_title.png") repeat-x scroll center bottom rgba(0, 0, 0, 0);
+	/* background: url("../images/shd_featured_title.png") repeat-x scroll center bottom rgba(0, 0, 0, 0); */
+	background: none;
 	color: #707070;
 	padding: 0;
 	position: relative;
@@ -634,6 +635,9 @@ a.triger-showfilter {
 	font-family:'bebasregular';
 	margin: 0 0 10px;
 	text-align: left;
+    width:-moz-fit-content;
+    width:-webkit-fit-content;
+    width:fit-content;
 	}
 .style-baby .products-on-sale h2 span, .style-baby .new-arrival h2 span, .style-baby .most-popular h2 span,
 .style-perlengkapan-rumah .products-on-sale h2 span, .style-perlengkapan-rumah .new-arrival h2 span, .style-perlengkapan-rumah .most-popular h2 span,
@@ -651,7 +655,8 @@ a.triger-showfilter {
 .style-perlengkapan-rumah .products-on-sale h2, .style-perlengkapan-rumah .new-arrival h2, .style-perlengkapan-rumah .most-popular h2,
 .style-groceries .products-on-sale h2, .style-groceries .new-arrival h2, .style-groceries .most-popular h2,
 .style-beauty .products-on-sale h2, .style-beauty .new-arrival h2, .style-beauty .most-popular h2 {
-	background: url("../images/shd_featured_title.png") repeat-x scroll center bottom rgba(0, 0, 0, 0);
+	/* background: url("../images/shd_featured_title.png") repeat-x scroll center bottom rgba(0, 0, 0, 0); */
+	background: none;
 	color: #707070;
 	padding: 0;
 	position: relative;
@@ -659,11 +664,15 @@ a.triger-showfilter {
 	font-family:'bebasregular';
 	margin: 0 0 10px;
 	text-align: left;
+    width:-moz-fit-content;
+    width:-webkit-fit-content;
+    width:fit-content;
 	}
 .style-perlengkapan-rumah.catalog-category-view .products-on-sale h2, .style-perlengkapan-rumah.catalog-category-view .new-arrival h2, .style-perlengkapan-rumah.catalog-category-view .most-popular h2,
 .style-groceries.catalog-category-view .products-on-sale h2, .style-groceries.catalog-category-view .new-arrival h2, .style-groceries.catalog-category-view .most-popular h2,
 .style-beauty.catalog-category-view .products-on-sale h2, .style-beauty.catalog-category-view .new-arrival h2, .style-beauty.catalog-category-view .most-popular h2 {
-	background: url("../images/shd_featured_title.png") repeat-x scroll center bottom rgba(0, 0, 0, 0);
+	/* background: url("../images/shd_featured_title.png") repeat-x scroll center bottom rgba(0, 0, 0, 0); */
+	background: none;
 	color: #707070;
 	padding: 0;
 	position: relative;
@@ -671,6 +680,9 @@ a.triger-showfilter {
 	font-family:'bebasregular';
 	margin: 0 0 10px;
 	text-align: left;
+    width:-moz-fit-content;
+    width:-webkit-fit-content;
+    width:fit-content;
 	}
 .style-baby .products-on-sale h2 span, .style-baby .new-arrival h2 span, .style-baby .most-popular h2 span,
 .style-perlengkapan-rumah .products-on-sale h2 span, .style-perlengkapan-rumah .new-arrival h2 span, .style-perlengkapan-rumah .most-popular h2 span,
@@ -710,13 +722,15 @@ a.triger-showfilter {
 .style-beauty .products-on-sale h2:before{
 	width: 170px;
 	background: none repeat scroll 0 0 #F76A59;
+    display:none;
 }
 .style-baby .products-on-sale h2:before,
 .style-perlengkapan-rumah .products-on-sale h2:before,
 .style-groceries .products-on-sale h2:before,
 .style-beauty .products-on-sale h2:before{
-	/* width: 170px; */ width: 224px;
+	width: 170px;
 	background: none repeat scroll 0 0 #F76A59;
+    display:none;
 }
 .style-baby .new-arrival h2:before,
 .style-perlengkapan-rumah .new-arrival h2:before,
@@ -724,13 +738,15 @@ a.triger-showfilter {
 .style-beauty .new-arrival h2:before{
 	width: 130px;
 	background: none repeat scroll 0 0 #7dcd32;
+    display:none;
 }
 .style-baby .new-arrival h2:before,
 .style-perlengkapan-rumah .new-arrival h2:before,
 .style-groceries .new-arrival h2:before,
 .style-beauty .new-arrival h2:before{
-	/* width: 130px; */ width: 224px;
+	width: 130px;
 	background: none repeat scroll 0 0 #7dcd32;
+    display:none;
 }
 .style-baby .most-popular h2:before,
 .style-perlengkapan-rumah .most-popular h2:before,
@@ -738,14 +754,55 @@ a.triger-showfilter {
 .style-beauty .most-popular h2:before{
 	width: 150px;
 	background: none repeat scroll 0 0 #42bcd1;
+    display:none;
 }
 .style-baby .most-popular h2:before,
 .style-perlengkapan-rumah .most-popular h2:before,
 .style-groceries .most-popular h2:before,
 .style-beauty .most-popular h2:before{
-	/* width: 150px; */ width: 224px;
+	width: 150px;
 	background: none repeat scroll 0 0 #42bcd1;
+    display:none;
 }
+
+/* new updated */
+.style-baby .products-on-sale h2,
+.style-perlengkapan-rumah .products-on-sale h2,
+.style-groceries .products-on-sale h2,
+.style-beauty .products-on-sale h2{
+	border-bottom: 5px solid #F76A59;
+}
+.style-baby .products-on-sale h2,
+.style-perlengkapan-rumah .products-on-sale h2,
+.style-groceries .products-on-sale h2,
+.style-beauty .products-on-sale h2{
+	border-bottom: 5px solid #F76A59;
+}
+.style-baby .new-arrival h2,
+.style-perlengkapan-rumah .new-arrival h2,
+.style-groceries .new-arrival h2,
+.style-beauty .new-arrival h2{
+	border-bottom: 5px solid #7dcd32;
+}
+.style-baby .new-arrival h2,
+.style-perlengkapan-rumah .new-arrival h2,
+.style-groceries .new-arrival h2,
+.style-beauty .new-arrival h2{
+	border-bottom: 5px solid #7dcd32;
+}
+.style-baby .most-popular h2,
+.style-perlengkapan-rumah .most-popular h2,
+.style-groceries .most-popular h2,
+.style-beauty .most-popular h2{
+	border-bottom: 5px solid  #42bcd1;
+}
+.style-baby .most-popular h2,
+.style-perlengkapan-rumah .most-popular h2,
+.style-groceries .most-popular h2,
+.style-beauty .most-popular h2 {
+	border-bottom: 5px solid #42bcd1;
+}
+/* END new updated */
 
 .style-baby .homepage-bottom,
 .style-perlengkapan-rumah .homepage-bottom, 
@@ -2097,7 +2154,6 @@ a.triger-showfilter {
 }
 
 /* ------------------------------------ END OF beauty ------------------------------------ */
-
 
 
 
