@@ -1127,7 +1127,7 @@ li#perlengkapan-rumah, li.mobile-perlengkapan-rumah {
 	display: block;
 }
 #nav .level-hover.shown-sub {
-	display: none;
+	display: block;
 }
 #nav li.level-top {
 	position: relative;
@@ -2829,9 +2829,6 @@ searchbar #nav-search-in {
 	#nav ul li a {
 		padding-top:10px;
 		padding-bottom: 10px;
-	}
-	#nav .level-hover.shown-sub {
-		display: none;
 	}
 	.nav-container #nav ul li a {
 		padding-left: 20px;
