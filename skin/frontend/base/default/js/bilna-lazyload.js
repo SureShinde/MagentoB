@@ -1,19 +1,25 @@
-$j(window).load(function(){
- var donkey_check_menuactive = function() {
-	if($j( "#baby" ).hasClass( "active" )){
-		$j( ".nav-baby" ).removeClass( "hidden" )
-		$j( ".nav-perlengkapan-rumah" ).addClass( "hidden" )
-		$j( ".nav-baby" ).removeAttr( 'style' );
-		$j( ".nav-perlengkapan-rumah" ).removeAttr( 'style' );
-	}else if($j( "#perlengkapan-rumah" ).hasClass( "active" )){
-		$j( ".nav-perlengkapan-rumah" ).removeClass( "hidden" )
-		$j( ".nav-baby" ).addClass( "hidden" )
-		$j( ".nav-baby" ).removeAttr( 'style' );
-		$j( ".nav-perlengkapan-rumah" ).removeAttr( 'style' );
+$j(window).load(function() {
+    var donkey_check_menuactive = function() {
+        $j(('.nav-container')).hide();
+        
+        if ($j('#baby').hasClass('active')) {
+            $j('.nav-container.nav-baby').show();
 	}
- };
+        else if ($j('#perlengkapan-rumah').hasClass('active')) {
+            $j('.nav-container.nav-perlengkapan-rumah').show();
+	}
+        else if ($j('#grocery').hasClass('active')) {
+            $j('.nav-container.nav-grocery').show();
+        }
+        else if ($j('#groceries').hasClass('active')) {
+            $j('.nav-container.nav-groceries').show();
+        }
+        else if ($j('#beauty').hasClass('active')) {
+            $j('.nav-container.nav-beauty').show();
+        }
+    };
  
- donkey_check_menuactive();
+    donkey_check_menuactive();
  
  var donkey_lazy = function() {
   $j('.lazy').each(function(){
