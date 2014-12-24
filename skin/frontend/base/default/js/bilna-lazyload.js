@@ -11,11 +11,11 @@ $j(window).load(function() {
         else if ($j('#grocery').hasClass('active')) {
             $j('.nav-container.nav-grocery').show();
         }
-        else if ($j('#groceries').hasClass('active')) {
-            $j('.nav-container.nav-groceries').show();
+        else if ($j('#supermarket').hasClass('active')) {
+            $j('.nav-container.nav-supermarket').show();
         }
-        else if ($j('#beauty').hasClass('active')) {
-            $j('.nav-container.nav-beauty').show();
+        else if ($j('#kosmetik').hasClass('active')) {
+            $j('.nav-container.nav-kosmetik').show();
         }
     };
  
