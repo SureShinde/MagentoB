@@ -3010,12 +3010,12 @@ searchbar #nav-search-in {
 .nav-container-mobile .cat-leveltop-914 ul li.store-category3, .nav-container-mobile .cat-leveltop-1369 ul li.store-category3 {
     margin-left:20px;
 }
-.nav-container-mobile .cat-leveltop-914 {
+.nav-container-mobile .cat-leveltop {
     background: url(../images/arrow-menu-mobile.png) no-repeat 98% 17px; 
 }
-.nav-container-mobile .cat-leveltop-1369{
+/* .nav-container-mobile .cat-leveltop-1369{
     background: url("../images/arrow-menu-mobile.png") no-repeat 98% 17px;
-}
+} */
 .nav-container-mobile ul li{
     list-style-type:none;
 }
@@ -3093,7 +3093,7 @@ searchbar #nav-search-in {
  .mobile-left-menu .back-top{
   background-image: url(../images/arrow-menu.png);
   padding: 15px 0;
-  background-position: right;
+  background-position: right 10px center;
   background-repeat: no-repeat;
   background-color: #fff;
   text-align: left;
@@ -3126,13 +3126,19 @@ searchbar #nav-search-in {
  .mobile-left-menu .wrap-left-menu .nav-container-mobile-left  > ul > li.cat-leveltop ul{
   padding:0 0 0 5%;
  }
- .mobile-left-menu .wrap-left-menu .nav-container-mobile-left  > ul > li.cat-leveltop:nth-child(2) > a{
+ .mobile-left-menu .wrap-left-menu .nav-container-mobile-left  > ul > li.cat-leveltop:nth-child(2) > a,
+ .mobile-left-menu .wrap-left-menu .nav-container-mobile-left  > ul > li.cat-leveltop:nth-child(3) > a,
+ .mobile-left-menu .wrap-left-menu .nav-container-mobile-left  > ul > li.cat-leveltop:nth-child(4) > a {
   background: #4ec7da;
  }
- .mobile-left-menu .wrap-left-menu  .nav-container-mobile-left  > ul > li.cat-leveltop:nth-child(2) .subcategories{
+ .mobile-left-menu .wrap-left-menu  .nav-container-mobile-left  > ul > li.cat-leveltop:nth-child(2) .subcategories,
+ .mobile-left-menu .wrap-left-menu  .nav-container-mobile-left  > ul > li.cat-leveltop:nth-child(3) .subcategories,
+ .mobile-left-menu .wrap-left-menu  .nav-container-mobile-left  > ul > li.cat-leveltop:nth-child(4) .subcategories {
   border-left: 5px solid #4ec7da;
  }
- .mobile-left-menu .wrap-left-menu .nav-container-mobile-left  > ul > li.cat-leveltop:nth-child(2) .store-category3 .subcategories{
+ .mobile-left-menu .wrap-left-menu .nav-container-mobile-left  > ul > li.cat-leveltop:nth-child(2) .store-category3 .subcategories,
+ .mobile-left-menu .wrap-left-menu .nav-container-mobile-left  > ul > li.cat-leveltop:nth-child(3) .store-category3 .subcategories,
+ .mobile-left-menu .wrap-left-menu .nav-container-mobile-left  > ul > li.cat-leveltop:nth-child(4) .store-category3 .subcategories {
   border-left: 3px solid #4ec7da;
  }
  .mobile-left-menu li.cat-leveltop a{
