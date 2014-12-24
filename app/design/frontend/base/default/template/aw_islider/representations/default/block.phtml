@@ -74,10 +74,10 @@ if (Mage::registry('current_category')) {
         
     </div>
     <?php endif ?>
-<?php elseif ($_currentCategory == 'perlengkapan-rumah'): ?>
+<?php elseif ($_currentCategory == 'perlengkapan-rumah' || $_currentCategory == 'groceries' || $_currentCategory == 'grocery' || $_currentCategory == 'beauty'): ?>
     <script type="text/javascript">
         $j(function() {
-          $j('body.style-perlengkapan-rumah #slides-banner-home').slidesjs({
+          $j('body.style-perlengkapan-rumah #slides-banner-home, body.style-groceries #slides-banner-home, body.style-grocery #slides-banner-home, body.style-beauty #slides-banner-home').slidesjs({
             width: 523,
             height: 383,
             pagination: {
