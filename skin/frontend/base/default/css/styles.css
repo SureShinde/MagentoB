@@ -2806,41 +2806,41 @@ z/*======================Category page===================*/
 /* ------------------- **** ------------------ /
 /* --------------------------------------------- END HOME CSS APRIL 2014 -------------------------------------------------- */
 
-/* ------------------------ Groceries CSS APRIL 2014 ----------------------- */
-.style-groceries #slides-banner{
+/* ------------------------ supermarket CSS APRIL 2014 ----------------------- */
+.style-supermarket #slides-banner{
 	position:relative;
 }
-.style-groceries #backtotop a{
+.style-supermarket #backtotop a{
 	background:#8F554D;
 }
-.style-groceries .footer li a:hover {
+.style-supermarket .footer li a:hover {
     color: #8F554D;
 }
 
 /*======================Category page===================*/
 
-.style-groceries .shopby .shop-by a{
+.style-supermarket .shopby .shop-by a{
 	display:block;
 	clear:both;
 }
-.style-groceries .toolbar .limiter ul li a{
+.style-supermarket .toolbar .limiter ul li a{
 	color:#905350;
 }
-.style-groceries .category-products{
+.style-supermarket .category-products{
 	border-top: 3px dashed #905350;
 }
-.style-groceries .featured-product-catalog{
+.style-supermarket .featured-product-catalog{
 	background:0;
 	display:none;
 }
-.style-groceries .featured-product-catalog h2{
+.style-supermarket .featured-product-catalog h2{
 	color:#707070;
 	background:url('../images/shd_featured_title.png') bottom repeat-x;
 	padding:0;
 	text-align:left;
 	position:relative;
 }
-.style-groceries .featured-product-catalog h2:before{
+.style-supermarket .featured-product-catalog h2:before{
 	width:200px;
 	background:#f76a59;
 	height:5px;
@@ -2849,93 +2849,93 @@ z/*======================Category page===================*/
 	position:absolute;
 	left:0;
 }
-.style-groceries .breadcrumbs{
+.style-supermarket .breadcrumbs{
 	margin:10px 0;
 	}
-.style-groceries div.block-layered-nav dd a.amshopby-attr{
+.style-supermarket div.block-layered-nav dd a.amshopby-attr{
 	background:url("../images/checkbox-home.png") no-repeat;
 }
-.style-groceries div.block-layered-nav dd a.amshopby-attr-selected{
+.style-supermarket div.block-layered-nav dd a.amshopby-attr-selected{
 	background:url("../images/checked-home.png") no-repeat;
 }
-.style-groceries .breadcrumbs a{
+.style-supermarket .breadcrumbs a{
 	color:#905350;
 }
-.style-groceries .products-grid .price-box .discount-product{
+.style-supermarket .products-grid .price-box .discount-product{
 	color:#905350;
 }
-.style-groceries .amshopby-slider-bar{
+.style-supermarket .amshopby-slider-bar{
 	background:url("../images/slide-bar-current-home.png") repeat-x scroll 50% 50% rgba(0, 0, 0, 0);
 }
-.style-groceries .header .links a, .menu-tablet .links a{
+.style-supermarket .header .links a, .menu-tablet .links a{
 	color: #8F554D;
 }
-.style-groceries .product-view .product-shop .product-shop-left .discount-product{
+.style-supermarket .product-view .product-shop .product-shop-left .discount-product{
 	color: #8F554D;
 }
-.style-groceries .header .search-mobile .form-search .input-keyword button.button {
+.style-supermarket .header .search-mobile .form-search .input-keyword button.button {
     background: url("../images/btn-search-mobile.png") no-repeat scroll center center rgba(0, 0, 0, 0);
 	}
-.style-groceries .toolbar-mobile .sort-by .sort-by-option select, .style-groceries .toolbar-mobile .filter .filter-option select{
+.style-supermarket .toolbar-mobile .sort-by .sort-by-option select, .style-supermarket .toolbar-mobile .filter .filter-option select{
 	color:#905350;
 }
-.style-groceries .filter-toggle a{
+.style-supermarket .filter-toggle a{
 	color:#905350;
 }
-.style-groceries .toolbar-mobile .sort-by .sort-by-option, .style-groceries .toolbar-mobile .filter .filter-option{
+.style-supermarket .toolbar-mobile .sort-by .sort-by-option, .style-supermarket .toolbar-mobile .filter .filter-option{
 	background:url("../images/arrow-maroon.png") no-repeat right;
 }
-.style-groceries .filter-toggle a{
+.style-supermarket .filter-toggle a{
 	background:url("../images/arrow-maroon.png") no-repeat 47px center #fff;
 }
-.style-groceries .product-tab-mobile-wrapper .toggle-tab, #customer-reviews h2{
+.style-supermarket .product-tab-mobile-wrapper .toggle-tab, #customer-reviews h2{
 	background:url("../images/btn_expand.png") no-repeat scroll 98% 15px;
 }
-.style-groceries .tiny .thumb, .style-groceries .tiny .thumb .end{
+.style-supermarket .tiny .thumb, .style-supermarket .tiny .thumb .end{
 	background:url("../images/track.png") no-repeat 50% top;
 	}
-.style-groceries .tiny .track{
+.style-supermarket .tiny .track{
 	background:url("../images/scroll-down.png") no-repeat center bottom #DFE0E0;
 	}
-.style-groceries .tiny .scrollbar {
+.style-supermarket .tiny .scrollbar {
     background: url("../images/scroll-up.png") no-repeat 0 0;
 }
-.style-groceries .block-layered-nav dt.category + dd li a {
+.style-supermarket .block-layered-nav dt.category + dd li a {
     background: url("../images/arrow-left-home.png") no-repeat scroll right center rgba(0, 0, 0, 0);
 	height:16px;
 	}
 
-.style-groceries .tiny .overview{
+.style-supermarket .tiny .overview{
 	position:relative;
 }
 z/*======================Category page===================*/
 
 
 /*======================product page===================*/
-.style-groceries .catalog-product-view .breadcrumbs a{
+.style-supermarket .catalog-product-view .breadcrumbs a{
 	color:#905350;
 }
-.style-groceries .product-view .product-img-box .more-views .bx-wrapper .bx-prev{
+.style-supermarket .product-view .product-img-box .more-views .bx-wrapper .bx-prev{
 	background: url("../images/arrow-nav-thumb-image-home.png") no-repeat ;
 }
-.style-groceries .product-view .product-img-box .more-views .bx-wrapper .bx-next{
+.style-supermarket .product-view .product-img-box .more-views .bx-wrapper .bx-next{
 	background: url("../images/arrow-nav-thumb-image-home.png") -30px 0 no-repeat ;
 	bottom: -15%;}
-.style-groceries .product-view .product-img-box .more-views .bx-wrapper .bx-controls-direction a{
+.style-supermarket .product-view .product-img-box .more-views .bx-wrapper .bx-controls-direction a{
 	margin-top: -23px;
 	width: 31px;
 	height: 31px;
 }
-.style-groceries .onsale-product-container-inside{
+.style-supermarket .onsale-product-container-inside{
 	height: 109px !important;
     left: -31px !important;
     top: -47px;
     width: 110px !important;
 	}
-.style-groceries .product-view .product-shop .product-shop-right .add-to-cart{
+.style-supermarket .product-view .product-shop .product-shop-right .add-to-cart{
 	background:none;
 }
-.style-groceries .product-view .product-shop .product-shop-right .add-to-cart button.button{
+.style-supermarket .product-view .product-shop .product-shop-right .add-to-cart button.button{
 	background:#ffa01b;
 	margin: 3px 0 0;
     width: 158px;
@@ -2944,10 +2944,10 @@ z/*======================Category page===================*/
     -webkit-box-shadow: 2px 2px 3px #D0CFCF;
     box-shadow: 2px 2px 3px #D0CFCF;
 }
-.style-groceries .product-tab-wrapper .tab.active{
+.style-supermarket .product-tab-wrapper .tab.active{
 	background:#905350;
 	}
-.style-groceries .product-tab-wrapper .tab.active:after{
+.style-supermarket .product-tab-wrapper .tab.active:after{
 	border-color: #905350 rgba(0, 0, 0, 0) rgba(0, 0, 0, 0);
     border-style: solid;
     border-width: 10px 14px;
@@ -2957,14 +2957,14 @@ z/*======================Category page===================*/
     right: 50%;
 	z-index:99;
 }
-.style-groceries .product-tab-wrapper .tab a.active{
+.style-supermarket .product-tab-wrapper .tab a.active{
 	color:#fff;
 }
-.style-groceries .product-tab-wrapper .tab-container .panel-container{
+.style-supermarket .product-tab-wrapper .tab-container .panel-container{
     overflow: hidden;
     padding: 10px 10px 32px;
 }
-.style-groceries .product-tab-wrapper .hide_desc_button .bx-show, .style-groceries .product-tab-wrapper .hide_desc_button .bx-hide{
+.style-supermarket .product-tab-wrapper .hide_desc_button .bx-show, .style-supermarket .product-tab-wrapper .hide_desc_button .bx-hide{
 	border: medium none;
     height: 32px;
 	cursor:pointer;
@@ -2973,20 +2973,20 @@ z/*======================Category page===================*/
     position: absolute;
     width: 30px;
 }
-.style-groceries .product-tab-wrapper .hide_desc_button .bx-show {
+.style-supermarket .product-tab-wrapper .hide_desc_button .bx-show {
 	background: url("../images/arrow-nav-thumb-image-home.png") no-repeat scroll -30px 0 rgba(0, 0, 0, 0);
 	}
-.style-groceries .product-tab-wrapper .hide_desc_button .bx-hide {
+.style-supermarket .product-tab-wrapper .hide_desc_button .bx-hide {
 	background: url("../images/arrow-nav-thumb-image-home.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 	}
-.style-groceries .related-product .block-title{
+.style-supermarket .related-product .block-title{
 	background:none;
 }
-.style-groceries .related-product .block-related .block-title strong, .style-groceries .aw-mini-related-items .head strong{
+.style-supermarket .related-product .block-related .block-title strong, .style-supermarket .aw-mini-related-items .head strong{
 	text-align:left;
 	background:url("../images/shd_featured_title.png") repeat-x 0 bottom;
 }
-.style-groceries .related-product .block-title strong span, .style-groceries .aw-mini-related-items .head strong{
+.style-supermarket .related-product .block-title strong span, .style-supermarket .aw-mini-related-items .head strong{
 	color:#707070;
 	border-bottom:5px solid #FFE449;
 	line-height: 1.5em;
@@ -2996,20 +2996,20 @@ z/*======================Category page===================*/
 /* .menu-top-mobile {display: none;} */
 
 @media only screen and (max-width: 767px){
-    .style-groceries .awafpgrid {display: none;}
+    .style-supermarket .awafpgrid {display: none;}
 }
 
 
 /* ------------- ADD from homepage.css ----------------- */
 .cms-home .homepage-bottom .block-wrapper, .style-baby .homepage-bottom .block-wrapper,
-.style-groceries .homepage-bottom .block-wrapper
+.style-supermarket .homepage-bottom .block-wrapper
  {
 	clear: both;
 	list-style: none;
 	padding: 0;
 	margin: 0;
 }
-.style-groceries .cms-index-defaultindex .products-on-sale h2, .style-groceries .cms-index-defaultindex .new-arrival h2, .style-groceries .cms-index-defaultindex .most-popular h2{
+.style-supermarket .cms-index-defaultindex .products-on-sale h2, .style-supermarket .cms-index-defaultindex .new-arrival h2, .style-supermarket .cms-index-defaultindex .most-popular h2{
 	background: url("../images/shd_featured_title.png") repeat-x scroll center bottom rgba(0, 0, 0, 0);
 	color: #707070;
 	padding: 0;
@@ -3019,7 +3019,7 @@ z/*======================Category page===================*/
 	margin: 0 0 10px;
 	text-align: left;
 	}
-.style-groceries .cms-index-defaultindex .products-on-sale h2 span, .style-groceries .cms-index-defaultindex .new-arrival h2 span, .style-groceries .cms-index-defaultindex .most-popular h2 span{
+.style-supermarket .cms-index-defaultindex .products-on-sale h2 span, .style-supermarket .cms-index-defaultindex .new-arrival h2 span, .style-supermarket .cms-index-defaultindex .most-popular h2 span{
 	background: url("../images/arrow-2.png") no-repeat scroll right center rgba(0, 0, 0, 0);
     float: right;
     font-family: helvetica;
@@ -3028,7 +3028,7 @@ z/*======================Category page===================*/
     margin: 9px 5px 0 0;
     padding: 0 24px 0 0;
 }
-.style-groceries .cms-index-index .products-on-sale h2, .style-groceries .cms-index-index .new-arrival h2, .style-groceries .cms-index-index .most-popular h2{
+.style-supermarket .cms-index-index .products-on-sale h2, .style-supermarket .cms-index-index .new-arrival h2, .style-supermarket .cms-index-index .most-popular h2{
 	background: url("../images/shd_featured_title.png") repeat-x scroll center bottom rgba(0, 0, 0, 0);
 	color: #707070;
 	padding: 0;
@@ -3038,7 +3038,7 @@ z/*======================Category page===================*/
 	margin: 0 0 10px;
 	text-align: left;
 	}
-.style-groceries .cms-index-index .products-on-sale h2 span, .style-groceries .cms-index-index .new-arrival h2 span, .style-groceries .cms-index-index .most-popular h2 span{
+.style-supermarket .cms-index-index .products-on-sale h2 span, .style-supermarket .cms-index-index .new-arrival h2 span, .style-supermarket .cms-index-index .most-popular h2 span{
 	background: url("../images/arrow-2.png") no-repeat scroll right center rgba(0, 0, 0, 0);
     float: right;
     font-family: helvetica;
@@ -3047,54 +3047,54 @@ z/*======================Category page===================*/
     margin: 9px 5px 0 0;
     padding: 0 24px 0 0;
 }
-.style-groceries .cms-index-defaultindex .products-on-sale h2:before, .style-groceries .cms-index-defaultindex .new-arrival h2:before, .style-groceries .cms-index-defaultindex .most-popular h2:before{
+.style-supermarket .cms-index-defaultindex .products-on-sale h2:before, .style-supermarket .cms-index-defaultindex .new-arrival h2:before, .style-supermarket .cms-index-defaultindex .most-popular h2:before{
 	bottom: 0;
 	content: "";
 	height: 5px;
 	left: 0;
 	position: absolute;
 }
-.style-groceries .cms-index-index .products-on-sale h2:before, .style-groceries .cms-index-index .new-arrival h2:before, .style-groceries .cms-index-index .most-popular h2:before{
+.style-supermarket .cms-index-index .products-on-sale h2:before, .style-supermarket .cms-index-index .new-arrival h2:before, .style-supermarket .cms-index-index .most-popular h2:before{
 	bottom: 0;
 	content: "";
 	height: 5px;
 	left: 0;
 	position: absolute;
 }
-.style-groceries .cms-index-defaultindex .products-on-sale h2:before{
+.style-supermarket .cms-index-defaultindex .products-on-sale h2:before{
 	width: 170px;
 	background: none repeat scroll 0 0 #F76A59;
 }
-.style-groceries .cms-index-index .products-on-sale h2:before{
+.style-supermarket .cms-index-index .products-on-sale h2:before{
 	width: 170px;
 	background: none repeat scroll 0 0 #F76A59;
 }
-.style-groceries .cms-index-defaultindex .new-arrival h2:before{
+.style-supermarket .cms-index-defaultindex .new-arrival h2:before{
 	width: 130px;
 	background: none repeat scroll 0 0 #7dcd32;
 }
-.style-groceries .cms-index-index .new-arrival h2:before{
+.style-supermarket .cms-index-index .new-arrival h2:before{
 	width: 130px;
 	background: none repeat scroll 0 0 #7dcd32;
 }
-.style-groceries .cms-index-defaultindex .most-popular h2:before{
+.style-supermarket .cms-index-defaultindex .most-popular h2:before{
 	width: 150px;
 	background: none repeat scroll 0 0 #42bcd1;
 }
-.style-groceries .cms-index-index .most-popular h2:before{
+.style-supermarket .cms-index-index .most-popular h2:before{
 	width: 150px;
 	background: none repeat scroll 0 0 #42bcd1;
 }
 
-.style-groceries .homepage-bottom {
+.style-supermarket .homepage-bottom {
 	clear: both;
 }
-.style-groceries .homepage-bottom ul.block-wrapper {
+.style-supermarket .homepage-bottom ul.block-wrapper {
 	list-style: none;
 	padding: 0;
 	margin: 0;
 }
-.style-groceries .homepage-bottom ul.block-wrapper li {
+.style-supermarket .homepage-bottom ul.block-wrapper li {
 	display: inline-block;
 	margin: 0 14px 34px;
 	padding:10px 15px;
@@ -3102,8 +3102,8 @@ z/*======================Category page===================*/
 	background: #dad8d5;
 	vertical-align: top;
 }
-.style-groceries .homepage-bottom ul.block-wrapper li:last-child {}
-.style-groceries .block-bottom {
+.style-supermarket .homepage-bottom ul.block-wrapper li:last-child {}
+.style-supermarket .block-bottom {
 	text-align: center;
 	text-transform: uppercase;
 	color: #fff;
@@ -3112,17 +3112,17 @@ z/*======================Category page===================*/
 	padding: 12px 0;
 	height: 100px;
 }
-.style-groceries .block-bottom span {
+.style-supermarket .block-bottom span {
 	display: block;
 	font-size: 23px;
 	font-family: 'Fredoka One', cursive;
 }
-.style-groceries .block-bottom p {
+.style-supermarket .block-bottom p {
 	font-family: 'bebasregular';
 	font-size: 14px;
 	margin: 0;
 }
-.style-groceries .block-bottom p a {
+.style-supermarket .block-bottom p a {
 	display: inline-block;
 	text-decoration: underline;
 	text-align: left;
@@ -3133,81 +3133,81 @@ z/*======================Category page===================*/
 	padding: 0 5px 0 0;
 	line-height:19px;
 }
-.style-groceries .block-bottom p a:hover {
+.style-supermarket .block-bottom p a:hover {
 	text-decoration: none;color: #FFA01B;
 }
-.style-groceries .block-bottom p a.link-how-to-buy {
+.style-supermarket .block-bottom p a.link-how-to-buy {
 	width: 58px;
 	background-position: 40px 28px;
 }
-.style-groceries .block-bottom p a.link-shipping-table {
+.style-supermarket .block-bottom p a.link-shipping-table {
 	width: 101px;
 	background-position: 50px 28px;
 }
-.style-groceries .block-bottom p a.link-other-help {
+.style-supermarket .block-bottom p a.link-other-help {
 	width: 66px;
 	background-position: 50px 28px;
 	padding-left: 0;
 }
-.style-groceries .block-bottom p a.link-bilna-credit {
+.style-supermarket .block-bottom p a.link-bilna-credit {
 	width: 80px;
 	background-position: 61px 28px;
 }
-.style-groceries .block-bottom p a.link-reseller-program {
+.style-supermarket .block-bottom p a.link-reseller-program {
 	width: 90px;
 	background-position: 71px 28px;
 }
-.style-groceries .block-bottom p a.link-gift-voucher {
+.style-supermarket .block-bottom p a.link-gift-voucher {
 	width: 80px;
 	background-position: 67px 28px;
 }
-.style-groceries .block-bottom p a img {
+.style-supermarket .block-bottom p a img {
 	margin-left: 5px;
 	margin-top: 3px;
 }
-.style-groceries .block-bottom table tr td {
+.style-supermarket .block-bottom table tr td {
 	padding: 0 15px;
 }
-.style-groceries .block-bottom table tr td a {
+.style-supermarket .block-bottom table tr td a {
 	font-family: 'bebasregular';
 	font-size: 14px;
 	font-weight: normal;
 	color: #fff;
 	text-decoration: underline;
 }
-.style-groceries .block-bottom table tr td a:hover {color: #FFA01B;}
-.style-groceries .block-bottom table tr td a img {
+.style-supermarket .block-bottom table tr td a:hover {color: #FFA01B;}
+.style-supermarket .block-bottom table tr td a img {
 	margin-left: 5px;
 	margin-top: 3px;
 }
-.style-groceries .homepage-bottom .testimonial-wrapper {
+.style-supermarket .homepage-bottom .testimonial-wrapper {
 	float: left;
 	width: 45%;
 	position: relative;
 }
-.style-groceries .testimonial-wrapper h4, .style-groceries .media-partners span.title {
+.style-supermarket .testimonial-wrapper h4, .style-supermarket .media-partners span.title {
 	font-size: 18px;
 	font-weight: normal;
 	font-family: 'bebasregular';
 }
-.style-groceries .testimonial-wrapper h4 {
+.style-supermarket .testimonial-wrapper h4 {
 	background: url(../images/label.png) no-repeat left top;
 	color: #fff;
 	width: 279px;
 	height: 58px;
 	margin: 0 0 10px 0;
 }
-.style-groceries .testimonial-wrapper h4 span {
+.style-supermarket .testimonial-wrapper h4 span {
 	display: inline-block;
 	margin: 18px 0 0 55px;
 }
-.style-groceries .testimonial {
+.style-supermarket .testimonial {
 	margin: 0 40px;
 }
-.style-groceries #slides {
+.style-supermarket #slides {
 	  position:relative;
 }
-.style-groceries #slides .slidesjs-navigation {
+.style-supermarket #slides .slidesjs-navigation {
   position:absolute;
   top:40px;
   z-index:10;
@@ -3219,31 +3219,31 @@ z/*======================Category page===================*/
   text-indent: -9999px;
   cursor: pointer;
 }
-.style-groceries #slides .slidesjs-previous {
+.style-supermarket #slides .slidesjs-previous {
   left:0;
   background-image: url(../images/arrow-prev.png);
 }
 #slides .slidesjs-next {
   background-image: url(../images/arrow-next.png);
 }
-.style-groceries #slides .slidesjs-next {
+.style-supermarket #slides .slidesjs-next {
 	right: 0;
 }
-.style-groceries #slides-popup .slidesjs-next {
+.style-supermarket #slides-popup .slidesjs-next {
 	left: 30px;
 }
-.style-groceries #slides-popup .slidesjs-navigation {
+.style-supermarket #slides-popup .slidesjs-navigation {
 	bottom: 12px;
 	top:auto;
 	background-color: #ddd;
 }
-.style-groceries #slides-banner-home{
+.style-supermarket #slides-banner-home{
 	position:relative;
 }
-.style-groceries #slides-banner-home .slidesjs-navigation {
+.style-supermarket #slides-banner-home .slidesjs-navigation {
 	display: none;
 }
-.style-groceries #slides-banner-home .slidesjs-pagination {
+.style-supermarket #slides-banner-home .slidesjs-pagination {
 	position: absolute;
 	right: 10px;
 	bottom: 0;
@@ -3251,164 +3251,164 @@ z/*======================Category page===================*/
 	z-index: 99;
 	padding: 0;
 }
-.style-groceries #slides-banner-home .slidesjs-pagination li {
+.style-supermarket #slides-banner-home .slidesjs-pagination li {
 	display: inline-block;
 	margin: 0 0 0 5px;
 }
-.style-groceries #slides-banner-home .slidesjs-pagination li:first-child {
+.style-supermarket #slides-banner-home .slidesjs-pagination li:first-child {
 	margin-left: 0;
 }
 
-.style-groceries #slides-banner-home .slidesjs-pagination li.slidesjs-pagination-item a {
+.style-supermarket #slides-banner-home .slidesjs-pagination li.slidesjs-pagination-item a {
 	display: block;
 	width: 19px;
 	height: 19px;
 	text-indent: -999999px;
 	background: url(../images/node.png) no-repeat center center;
 }
-.style-groceries #slides-banner-home .slidesjs-pagination li.slidesjs-pagination-item a.active {
+.style-supermarket #slides-banner-home .slidesjs-pagination li.slidesjs-pagination-item a.active {
 	background: url(../images/node-active.png) no-repeat center center;
 }
-.style-groceries .homepage-bottom .media-partners {
+.style-supermarket .homepage-bottom .media-partners {
 	float: right;
 }
-.style-groceries .media-partners span.title {
+.style-supermarket .media-partners span.title {
 	display: block;
 }
-.style-groceries .media-partners ul.media-partners-wrapper {
+.style-supermarket .media-partners ul.media-partners-wrapper {
 	list-style: none;
 	margin: 30px 0 0 0;
 	padding: 0;
 }
-.style-groceries .media-partners ul.media-partners-wrapper li {
+.style-supermarket .media-partners ul.media-partners-wrapper li {
 	display: inline-block;
 	vertical-align: middle;
 	margin: 0 0 0 20px;
 }
-.style-groceries .media-partners ul.media-partners-wrapper li:first-child {
+.style-supermarket .media-partners ul.media-partners-wrapper li:first-child {
 	margin: 0;
 }
 
-.style-groceries .cms-index-defaultindex .wrap_banner, .style-groceries .wrap_banner{
+.style-supermarket .cms-index-defaultindex .wrap_banner, .style-supermarket .wrap_banner{
 	margin: 20px auto;
 	display: table;
 }
-.style-groceries .cms-index-index .wrap_banner, .style-groceries .wrap_banner{
+.style-supermarket .cms-index-index .wrap_banner, .style-supermarket .wrap_banner{
 	margin: 20px 0;
 	display: table;
 }
-.style-groceries .cms-index-defaultindex .wrap_banner .col-1, .style-groceries .cms-index-defaultindex .wrap_banner .col-2, .style-groceries .cms-index-defaultindex .wrap_banner .col-3,
-.style-groceries .wrap_banner .col-1, .style-groceries .wrap_banner .col-2, .style-groceries .wrap_banner .col-3{
+.style-supermarket .cms-index-defaultindex .wrap_banner .col-1, .style-supermarket .cms-index-defaultindex .wrap_banner .col-2, .style-supermarket .cms-index-defaultindex .wrap_banner .col-3,
+.style-supermarket .wrap_banner .col-1, .style-supermarket .wrap_banner .col-2, .style-supermarket .wrap_banner .col-3{
 	display:block;
 	min-height:50px;
 	float:left;
 }
-.style-groceries .cms-index-index .wrap_banner .col-1, .style-groceries .cms-index-index .wrap_banner .col-2, .style-groceries .cms-index-index .wrap_banner .col-3,
-.style-groceries.wrap_banner .col-1, .style-groceries .wrap_banner .col-2, .style-groceries .wrap_banner .col-3{
+.style-supermarket .cms-index-index .wrap_banner .col-1, .style-supermarket .cms-index-index .wrap_banner .col-2, .style-supermarket .cms-index-index .wrap_banner .col-3,
+.style-supermarket.wrap_banner .col-1, .style-supermarket .wrap_banner .col-2, .style-supermarket .wrap_banner .col-3{
 	display:block;
 	min-height:50px;
 	float:left;
 }
-.style-groceries .cms-index-defaultindex .wrap_banner .col-1,
-.style-groceries .wrap_banner .col-1{
+.style-supermarket .cms-index-defaultindex .wrap_banner .col-1,
+.style-supermarket .wrap_banner .col-1{
 	width:490px;
 }
-.style-groceries .cms-index-index .wrap_banner .col-1,
-.style-groceries .wrap_banner .col-1{
+.style-supermarket .cms-index-index .wrap_banner .col-1,
+.style-supermarket .wrap_banner .col-1{
 	width:527px;
 }
-.style-groceries .cms-index-defaultindex .wrap_banner .col-2,
-.style-groceries .wrap_banner .col-2{
+.style-supermarket .cms-index-defaultindex .wrap_banner .col-2,
+.style-supermarket .wrap_banner .col-2{
 	margin: 0 8px;
 	width:200px;
 }
-.style-groceries .cms-index-index .wrap_banner .col-2,
-.style-groceries .wrap_banner .col-2{
+.style-supermarket .cms-index-index .wrap_banner .col-2,
+.style-supermarket .wrap_banner .col-2{
 	margin: 0 8px;
 	width:216px;
 }
-.style-groceries .cms-index-defaultindex .wrap_banner .col-2 img:first-child,
-.style-groceries .wrap_banner .col-2 img:first-child{
+.style-supermarket .cms-index-defaultindex .wrap_banner .col-2 img:first-child,
+.style-supermarket .wrap_banner .col-2 img:first-child{
 	margin: 0 0 8px;
 }
-.style-groceries .cms-index-index .wrap_banner .col-2 img:first-child,
-.style-groceries .wrap_banner .col-2 img:first-child{
+.style-supermarket .cms-index-index .wrap_banner .col-2 img:first-child,
+.style-supermarket .wrap_banner .col-2 img:first-child{
 	margin: 0 0 8px;
 }
-.style-groceries .cms-index-defaultindex .wrap_banner .col-3,
-.style-groceries .wrap_banner .col-3{
+.style-supermarket .cms-index-defaultindex .wrap_banner .col-3,
+.style-supermarket .wrap_banner .col-3{
 	width:245px;
 }
-.style-groceries .cms-index-index .wrap_banner .col-3,
-.style-groceries .wrap_banner .col-3{
+.style-supermarket .cms-index-index .wrap_banner .col-3,
+.style-supermarket .wrap_banner .col-3{
 	width:245px;
 }
-.style-groceries .homepage-bottom ul.block-wrapper li {
+.style-supermarket .homepage-bottom ul.block-wrapper li {
 	width: 28.79%;
 	margin: 0 8px 34px;
 }
-.style-groceries .homepage-bottom ul.block-wrapper li:nth-child(2){
+.style-supermarket .homepage-bottom ul.block-wrapper li:nth-child(2){
 	margin:0 17px 15px;
 }
-.style-groceries .block-bottom span {
+.style-supermarket .block-bottom span {
 	display: block;
 	font-size: 23px;
 	font-family: 'Fredoka One', cursive;
 }
-.style-groceries .block-bottom p {
+.style-supermarket .block-bottom p {
 	font-size: 14px;
 }
-.style-groceries .block-bottom p a {
+.style-supermarket .block-bottom p a {
 	background-position: right center;
 }
-.style-groceries .block-bottom p a.link-how-to-buy {
+.style-supermarket .block-bottom p a.link-how-to-buy {
 	width: 51px;
 	background-position: 34px 20px;
 }
-.style-groceries .block-bottom p a.link-shipping-table {
+.style-supermarket .block-bottom p a.link-shipping-table {
 	width: 84px;
 	background-position: 40px 20px;
 }
-.style-groceries .block-bottom p a.link-other-help {
+.style-supermarket .block-bottom p a.link-other-help {
 	width: 30px;
 	background-position: 38px 20px
 }
-.style-groceries .block-bottom p a.link-bilna-credit {
+.style-supermarket .block-bottom p a.link-bilna-credit {
 	width: 62px;
 	background-position: 51px 20px;
 }
-.style-groceries .block-bottom p a.link-reseller-program {
+.style-supermarket .block-bottom p a.link-reseller-program {
 	width: 68px;
 	background-position: 60px 20px;
 }
-.style-groceries .block-bottom p a.link-gift-voucher {
+.style-supermarket .block-bottom p a.link-gift-voucher {
 	width: 60px;
 	background-position: 55px 20px
 }
-.style-groceries .block-bottom table tr td {
+.style-supermarket .block-bottom table tr td {
 	padding: 0 15px;
 }
-.style-groceries .homepage-bottom .media-partners {
+.style-supermarket .homepage-bottom .media-partners {
 	margin: 0;
 	
 }
-.style-groceries .shopby{
+.style-supermarket .shopby{
 	float: left;
     margin: 0 20px 0 0;
     width: 175px; 
 	}
-.style-groceries #nav li.shop-by:hover .shopby {
+.style-supermarket #nav li.shop-by:hover .shopby {
     display: none;
 }
-.style-groceries .shopby ul.shop-by li a.link-seemore, .style-groceries .homepage-product a.link-viewmore-product, .style-groceries #nav .shopby ul.shop-by li a.link-seemore, .style-groceries #nav ul li a.browse-all{
+.style-supermarket .shopby ul.shop-by li a.link-seemore, .style-supermarket .homepage-product a.link-viewmore-product, .style-supermarket #nav .shopby ul.shop-by li a.link-seemore, .style-supermarket #nav ul li a.browse-all{
 	background:url("../images/arrow-2.png") no-repeat right;
 	height: 20px;
     line-height: 20px;
 }
-.style-groceries .nav-container-mobile{
+.style-supermarket .nav-container-mobile{
 	clear:both;
 }
-.style-groceries .testimonial-wrapper .view_all{
+.style-supermarket .testimonial-wrapper .view_all{
 	display: table;
 	font-size: 13px;
 	font-weight: bold;
@@ -3416,7 +3416,7 @@ z/*======================Category page===================*/
 	right: 0;
 	top: 39px;
 }
-.style-groceries .testimonial-wrapper .view_all a{
+.style-supermarket .testimonial-wrapper .view_all a{
 	text-decoration: underline;
 	color: #A6A6A6;
 }
@@ -3424,150 +3424,150 @@ z/*======================Category page===================*/
 
 
 @media only screen and ( max-width: 1215px) {
-	.style-groceries .shopby{ 	
+	.style-supermarket .shopby{ 	
 		display:none;
 	}
-	.style-groceries #nav li.shop-by:hover .shopby {
+	.style-supermarket #nav li.shop-by:hover .shopby {
 		display: block;
 	}
 	
 }
 @media only screen and (min-width: 1023px) and (max-width: 1215px) {
-	.style-groceries .shopby{ 	
+	.style-supermarket .shopby{ 	
 		display:none;
 	}
-	.style-groceries #nav li.shop-by:hover .shopby {
+	.style-supermarket #nav li.shop-by:hover .shopby {
 		display: block;
 	}
-	.style-groceries #slides-banner-home{
+	.style-supermarket #slides-banner-home{
 		height:371px;
 		width:510px;
 	}
-	.style-groceries .cms-index-index .wrap_banner .col-1,
-    .style-groceries .wrap_banner .col-1{
+	.style-supermarket .cms-index-index .wrap_banner .col-1,
+    .style-supermarket .wrap_banner .col-1{
 		width:510px;
 	}
-	.style-groceries .cms-index-index .wrap_banner .col-2,
-    .style-groceries .wrap_banner .col-2{
+	.style-supermarket .cms-index-index .wrap_banner .col-2,
+    .style-supermarket .wrap_banner .col-2{
 		width:210px;
 	}
-	.style-groceries .cms-index-index .wrap_banner .col-3,
-    .style-groceries .wrap_banner .col-3{
+	.style-supermarket .cms-index-index .wrap_banner .col-3,
+    .style-supermarket .wrap_banner .col-3{
 		width:257px;
 	}
-	.style-groceries .cms-index-index .wrap_banner .col-2 img,
-    .style-groceries .wrap_banner .col-2 img{
+	.style-supermarket .cms-index-index .wrap_banner .col-2 img,
+    .style-supermarket .wrap_banner .col-2 img{
 		width:100%;
 	}
-	.style-groceries .cms-index-index .wrap_banner .col-3 img,
-    .style-groceries .wrap_banner .col-3 img{
+	.style-supermarket .cms-index-index .wrap_banner .col-3 img,
+    .style-supermarket .wrap_banner .col-3 img{
 		width:100%;
 	}
 	
 }
 /* --------------- 960 px layout -------------------- */
 @media only screen and (max-width: 1023px) {
-	.style-groceries .homepage-bottom .testimonial-wrapper{
+	.style-supermarket .homepage-bottom .testimonial-wrapper{
 		width:100%;
 	}
-	.style-groceries .homepage-bottom .media-partners #nav li.shop-by:hover .shopby {
+	.style-supermarket .homepage-bottom .media-partners #nav li.shop-by:hover .shopby {
 		display: block;
 	}
-	.style-groceries .cms-index-defaultindex .main{
+	.style-supermarket .cms-index-defaultindex .main{
 		width:954px;
 	}
-	.style-groceries .homepage-bottom .media-partners{
+	.style-supermarket .homepage-bottom .media-partners{
 		width:100%;
 		text-align:center;
 	}
-	.style-groceries .cms-index-index .main{
+	.style-supermarket .cms-index-index .main{
 	width:954px;
 	}
-	.style-groceries .cms-index-defaultindex .col1-layout .main .col-main, .style-groceries .cms-index-index .col1-layout .main .col-main{
+	.style-supermarket .cms-index-defaultindex .col1-layout .main .col-main, .style-supermarket .cms-index-index .col1-layout .main .col-main{
 		width:744px;
 	}
-	.style-groceries .cms-index-defaultindex .wrap_banner .col-1, .style-groceries .cms-index-index .wrap_banner .col-1,
-    .style-groceries .wrap_banner .col-1, .style-groceries .wrap_banner .col-1{
+	.style-supermarket .cms-index-defaultindex .wrap_banner .col-1, .style-supermarket .cms-index-index .wrap_banner .col-1,
+    .style-supermarket .wrap_banner .col-1, .style-supermarket .wrap_banner .col-1{
 		width:380px;
 	}
-	.style-groceries .cms-index-defaultindex .wrap_banner .col-1 img, .style-groceries .cms-index-index .wrap_banner .col-1 img, .style-groceries .cms-index-defaultindex .wrap_banner .col-2 img, .style-groceries .cms-index-index .wrap_banner .col-2 img, .style-groceries .cms-index-defaultindex .wrap_banner .col-3 img, .style-groceries .cms-index-index .wrap_banner .col-3 img,
-    .style-groceries .wrap_banner .col-1 img, .style-groceries  .wrap_banner .col-1 img, .style-groceries .wrap_banner .col-2 img, .style-groceries .wrap_banner .col-2 img, .style-groceries .wrap_banner .col-3 img, .style-groceries .wrap_banner .col-3 img {
+	.style-supermarket .cms-index-defaultindex .wrap_banner .col-1 img, .style-supermarket .cms-index-index .wrap_banner .col-1 img, .style-supermarket .cms-index-defaultindex .wrap_banner .col-2 img, .style-supermarket .cms-index-index .wrap_banner .col-2 img, .style-supermarket .cms-index-defaultindex .wrap_banner .col-3 img, .style-supermarket .cms-index-index .wrap_banner .col-3 img,
+    .style-supermarket .wrap_banner .col-1 img, .style-supermarket  .wrap_banner .col-1 img, .style-supermarket .wrap_banner .col-2 img, .style-supermarket .wrap_banner .col-2 img, .style-supermarket .wrap_banner .col-3 img, .style-supermarket .wrap_banner .col-3 img {
 		width:100%;
 	}
-	.style-groceries .cms-index-defaultindex .wrap_banner .col-2, .style-groceries .cms-index-index .wrap_banner .col-2,
-    .style-groceries .wrap_banner .col-2, .style-groceries .wrap_banner .col-2{
+	.style-supermarket .cms-index-defaultindex .wrap_banner .col-2, .style-supermarket .cms-index-index .wrap_banner .col-2,
+    .style-supermarket .wrap_banner .col-2, .style-supermarket .wrap_banner .col-2{
 		margin: 0 8px;
 		width: 154px;
 	}
-	.style-groceries .cms-index-defaultindex .wrap_banner .col-3, .style-groceries .cms-index-index .wrap_banner .col-3,
-    .style-groceries .wrap_banner .col-3, .style-groceries .wrap_banner .col-3{
+	.style-supermarket .cms-index-defaultindex .wrap_banner .col-3, .style-supermarket .cms-index-index .wrap_banner .col-3,
+    .style-supermarket .wrap_banner .col-3, .style-supermarket .wrap_banner .col-3{
 		width:190px;
 	}
-	.style-groceries .homepage-bottom ul.block-wrapper li:nth-child(2){
+	.style-supermarket .homepage-bottom ul.block-wrapper li:nth-child(2){
 	margin:0 2px 15px;
 	}
 }
 	
 /* --------------- smaller 959 px layout -------------------- */
 @media only screen and (max-width: 767px) {
-	.style-groceries #nav li.shop-by:hover .shopby {
+	.style-supermarket #nav li.shop-by:hover .shopby {
 		display: block;
 	}
-	.style-groceries .cms-index-defaultindex .wrap_banner .col-1, .style-groceries .cms-index-index .wrap_banner .col-1,
-    .style-groceries .wrap_banner .col-1, .style-groceries .wrap_banner .col-1{
+	.style-supermarket .cms-index-defaultindex .wrap_banner .col-1, .style-supermarket .cms-index-index .wrap_banner .col-1,
+    .style-supermarket .wrap_banner .col-1, .style-supermarket .wrap_banner .col-1{
 		width:100%;
 		margin:0 0 20px;
 	}
-	.style-groceries .cms-index-defaultindex .wrap_banner, .style-groceries .cms-index-index .wrap_banner,
-    .style-groceries .wrap_banner, .style-groceries .wrap_banner{
+	.style-supermarket .cms-index-defaultindex .wrap_banner, .style-supermarket .cms-index-index .wrap_banner,
+    .style-supermarket .wrap_banner, .style-supermarket .wrap_banner{
 		display:block;
 	}
-	.style-groceries .cms-index-defaultindex .wrap_banner .col-2, .style-groceries .cms-index-index .wrap_banner .col-2, .style-groceries .cms-index-defaultindex .wrap_banner .col-3, .style-groceries .cms-index-index .wrap_banner .col-3, .style-groceries .products-on-sale, .style-groceries .new-arrival, .style-groceries .most-popular, .style-groceries .homepage-bottom,
-    .style-groceries .wrap_banner .col-2, .style-groceries .wrap_banner .col-2, .style-groceries .wrap_banner .col-3, .style-groceries .wrap_banner .col-3 {
+	.style-supermarket .cms-index-defaultindex .wrap_banner .col-2, .style-supermarket .cms-index-index .wrap_banner .col-2, .style-supermarket .cms-index-defaultindex .wrap_banner .col-3, .style-supermarket .cms-index-index .wrap_banner .col-3, .style-supermarket .products-on-sale, .style-supermarket .new-arrival, .style-supermarket .most-popular, .style-supermarket .homepage-bottom,
+    .style-supermarket .wrap_banner .col-2, .style-supermarket .wrap_banner .col-2, .style-supermarket .wrap_banner .col-3, .style-supermarket .wrap_banner .col-3 {
 		display:none;
 	}
-	.style-groceries .cms-index-defaultindex .col1-layout .main .col-main, .style-groceries .cms-index-index .col1-layout .main .col-main{
+	.style-supermarket .cms-index-defaultindex .col1-layout .main .col-main, .style-supermarket .cms-index-index .col1-layout .main .col-main{
 		width:100%;
 	}
 }
 /* ------------------- **** ------------------ /
-/* --------------------------------------------- END Groceries CSS APRIL 2014 -------------------------------------------------- */
+/* --------------------------------------------- END supermarket CSS APRIL 2014 -------------------------------------------------- */
 
-/* ------------------------ beauty CSS APRIL 2014 ----------------------- */
-.style-beauty #slides-banner{
+/* ------------------------ kosmetik CSS APRIL 2014 ----------------------- */
+.style-kosmetik #slides-banner{
 	position:relative;
 }
-.style-beauty #backtotop a{
+.style-kosmetik #backtotop a{
 	background:#8F554D;
 }
-.style-beauty .footer li a:hover {
+.style-kosmetik .footer li a:hover {
     color: #8F554D;
 }
 
 /*======================Category page===================*/
 
-.style-beauty .shopby .shop-by a{
+.style-kosmetik .shopby .shop-by a{
 	display:block;
 	clear:both;
 }
-.style-beauty .toolbar .limiter ul li a{
+.style-kosmetik .toolbar .limiter ul li a{
 	color:#905350;
 }
-.style-beauty .category-products{
+.style-kosmetik .category-products{
 	border-top: 3px dashed #905350;
 }
-.style-beauty .featured-product-catalog{
+.style-kosmetik .featured-product-catalog{
 	background:0;
 	display:none;
 }
-.style-beauty .featured-product-catalog h2{
+.style-kosmetik .featured-product-catalog h2{
 	color:#707070;
 	background:url('../images/shd_featured_title.png') bottom repeat-x;
 	padding:0;
 	text-align:left;
 	position:relative;
 }
-.style-beauty .featured-product-catalog h2:before{
+.style-kosmetik .featured-product-catalog h2:before{
 	width:200px;
 	background:#f76a59;
 	height:5px;
@@ -3576,93 +3576,93 @@ z/*======================Category page===================*/
 	position:absolute;
 	left:0;
 }
-.style-beauty .breadcrumbs{
+.style-kosmetik .breadcrumbs{
 	margin:10px 0;
 	}
-.style-beauty div.block-layered-nav dd a.amshopby-attr{
+.style-kosmetik div.block-layered-nav dd a.amshopby-attr{
 	background:url("../images/checkbox-home.png") no-repeat;
 }
-.style-beauty div.block-layered-nav dd a.amshopby-attr-selected{
+.style-kosmetik div.block-layered-nav dd a.amshopby-attr-selected{
 	background:url("../images/checked-home.png") no-repeat;
 }
-.style-beauty .breadcrumbs a{
+.style-kosmetik .breadcrumbs a{
 	color:#905350;
 }
-.style-beauty .products-grid .price-box .discount-product{
+.style-kosmetik .products-grid .price-box .discount-product{
 	color:#905350;
 }
-.style-beauty .amshopby-slider-bar{
+.style-kosmetik .amshopby-slider-bar{
 	background:url("../images/slide-bar-current-home.png") repeat-x scroll 50% 50% rgba(0, 0, 0, 0);
 }
-.style-beauty .header .links a, .menu-tablet .links a{
+.style-kosmetik .header .links a, .menu-tablet .links a{
 	color: #8F554D;
 }
-.style-beauty .product-view .product-shop .product-shop-left .discount-product{
+.style-kosmetik .product-view .product-shop .product-shop-left .discount-product{
 	color: #8F554D;
 }
-.style-beauty .header .search-mobile .form-search .input-keyword button.button {
+.style-kosmetik .header .search-mobile .form-search .input-keyword button.button {
     background: url("../images/btn-search-mobile.png") no-repeat scroll center center rgba(0, 0, 0, 0);
 	}
-.style-beauty .toolbar-mobile .sort-by .sort-by-option select, .style-beauty .toolbar-mobile .filter .filter-option select{
+.style-kosmetik .toolbar-mobile .sort-by .sort-by-option select, .style-kosmetik .toolbar-mobile .filter .filter-option select{
 	color:#905350;
 }
-.style-beauty .filter-toggle a{
+.style-kosmetik .filter-toggle a{
 	color:#905350;
 }
-.style-beauty .toolbar-mobile .sort-by .sort-by-option, .style-beauty .toolbar-mobile .filter .filter-option{
+.style-kosmetik .toolbar-mobile .sort-by .sort-by-option, .style-kosmetik .toolbar-mobile .filter .filter-option{
 	background:url("../images/arrow-maroon.png") no-repeat right;
 }
-.style-beauty .filter-toggle a{
+.style-kosmetik .filter-toggle a{
 	background:url("../images/arrow-maroon.png") no-repeat 47px center #fff;
 }
-.style-beauty .product-tab-mobile-wrapper .toggle-tab, #customer-reviews h2{
+.style-kosmetik .product-tab-mobile-wrapper .toggle-tab, #customer-reviews h2{
 	background:url("../images/btn_expand.png") no-repeat scroll 98% 15px;
 }
-.style-beauty .tiny .thumb, .style-beauty .tiny .thumb .end{
+.style-kosmetik .tiny .thumb, .style-kosmetik .tiny .thumb .end{
 	background:url("../images/track.png") no-repeat 50% top;
 	}
-.style-beauty .tiny .track{
+.style-kosmetik .tiny .track{
 	background:url("../images/scroll-down.png") no-repeat center bottom #DFE0E0;
 	}
-.style-beauty .tiny .scrollbar {
+.style-kosmetik .tiny .scrollbar {
     background: url("../images/scroll-up.png") no-repeat 0 0;
 }
-.style-beauty .block-layered-nav dt.category + dd li a {
+.style-kosmetik .block-layered-nav dt.category + dd li a {
     background: url("../images/arrow-left-home.png") no-repeat scroll right center rgba(0, 0, 0, 0);
 	height:16px;
 	}
 
-.style-beauty .tiny .overview{
+.style-kosmetik .tiny .overview{
 	position:relative;
 }
 z/*======================Category page===================*/
 
 
 /*======================product page===================*/
-.style-beauty .catalog-product-view .breadcrumbs a{
+.style-kosmetik .catalog-product-view .breadcrumbs a{
 	color:#905350;
 }
-.style-beauty .product-view .product-img-box .more-views .bx-wrapper .bx-prev{
+.style-kosmetik .product-view .product-img-box .more-views .bx-wrapper .bx-prev{
 	background: url("../images/arrow-nav-thumb-image-home.png") no-repeat ;
 }
-.style-beauty .product-view .product-img-box .more-views .bx-wrapper .bx-next{
+.style-kosmetik .product-view .product-img-box .more-views .bx-wrapper .bx-next{
 	background: url("../images/arrow-nav-thumb-image-home.png") -30px 0 no-repeat ;
 	bottom: -15%;}
-.style-beauty .product-view .product-img-box .more-views .bx-wrapper .bx-controls-direction a{
+.style-kosmetik .product-view .product-img-box .more-views .bx-wrapper .bx-controls-direction a{
 	margin-top: -23px;
 	width: 31px;
 	height: 31px;
 }
-.style-beauty .onsale-product-container-inside{
+.style-kosmetik .onsale-product-container-inside{
 	height: 109px !important;
     left: -31px !important;
     top: -47px;
     width: 110px !important;
 	}
-.style-beauty .product-view .product-shop .product-shop-right .add-to-cart{
+.style-kosmetik .product-view .product-shop .product-shop-right .add-to-cart{
 	background:none;
 }
-.style-beauty .product-view .product-shop .product-shop-right .add-to-cart button.button{
+.style-kosmetik .product-view .product-shop .product-shop-right .add-to-cart button.button{
 	background:#ffa01b;
 	margin: 3px 0 0;
     width: 158px;
@@ -3671,10 +3671,10 @@ z/*======================Category page===================*/
     -webkit-box-shadow: 2px 2px 3px #D0CFCF;
     box-shadow: 2px 2px 3px #D0CFCF;
 }
-.style-beauty .product-tab-wrapper .tab.active{
+.style-kosmetik .product-tab-wrapper .tab.active{
 	background:#905350;
 	}
-.style-beauty .product-tab-wrapper .tab.active:after{
+.style-kosmetik .product-tab-wrapper .tab.active:after{
 	border-color: #905350 rgba(0, 0, 0, 0) rgba(0, 0, 0, 0);
     border-style: solid;
     border-width: 10px 14px;
@@ -3684,14 +3684,14 @@ z/*======================Category page===================*/
     right: 50%;
 	z-index:99;
 }
-.style-beauty .product-tab-wrapper .tab a.active{
+.style-kosmetik .product-tab-wrapper .tab a.active{
 	color:#fff;
 }
-.style-beauty .product-tab-wrapper .tab-container .panel-container{
+.style-kosmetik .product-tab-wrapper .tab-container .panel-container{
     overflow: hidden;
     padding: 10px 10px 32px;
 }
-.style-beauty .product-tab-wrapper .hide_desc_button .bx-show, .style-beauty .product-tab-wrapper .hide_desc_button .bx-hide{
+.style-kosmetik .product-tab-wrapper .hide_desc_button .bx-show, .style-kosmetik .product-tab-wrapper .hide_desc_button .bx-hide{
 	border: medium none;
     height: 32px;
 	cursor:pointer;
@@ -3700,20 +3700,20 @@ z/*======================Category page===================*/
     position: absolute;
     width: 30px;
 }
-.style-beauty .product-tab-wrapper .hide_desc_button .bx-show {
+.style-kosmetik .product-tab-wrapper .hide_desc_button .bx-show {
 	background: url("../images/arrow-nav-thumb-image-home.png") no-repeat scroll -30px 0 rgba(0, 0, 0, 0);
 	}
-.style-beauty .product-tab-wrapper .hide_desc_button .bx-hide {
+.style-kosmetik .product-tab-wrapper .hide_desc_button .bx-hide {
 	background: url("../images/arrow-nav-thumb-image-home.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 	}
-.style-beauty .related-product .block-title{
+.style-kosmetik .related-product .block-title{
 	background:none;
 }
-.style-beauty .related-product .block-related .block-title strong, .style-beauty .aw-mini-related-items .head strong{
+.style-kosmetik .related-product .block-related .block-title strong, .style-kosmetik .aw-mini-related-items .head strong{
 	text-align:left;
 	background:url("../images/shd_featured_title.png") repeat-x 0 bottom;
 }
-.style-beauty .related-product .block-title strong span, .style-beauty .aw-mini-related-items .head strong{
+.style-kosmetik .related-product .block-title strong span, .style-kosmetik .aw-mini-related-items .head strong{
 	color:#707070;
 	border-bottom:5px solid #FFE449;
 	line-height: 1.5em;
@@ -3723,20 +3723,20 @@ z/*======================Category page===================*/
 /* .menu-top-mobile {display: none;} */
 
 @media only screen and (max-width: 767px){
-    .style-beauty .awafpgrid {display: none;}
+    .style-kosmetik .awafpgrid {display: none;}
 }
 
 
 /* ------------- ADD from homepage.css ----------------- */
 .cms-home .homepage-bottom .block-wrapper, .style-baby .homepage-bottom .block-wrapper,
-.style-beauty .homepage-bottom .block-wrapper
+.style-kosmetik .homepage-bottom .block-wrapper
  {
 	clear: both;
 	list-style: none;
 	padding: 0;
 	margin: 0;
 }
-.style-beauty .cms-index-defaultindex .products-on-sale h2, .style-beauty .cms-index-defaultindex .new-arrival h2, .style-beauty .cms-index-defaultindex .most-popular h2{
+.style-kosmetik .cms-index-defaultindex .products-on-sale h2, .style-kosmetik .cms-index-defaultindex .new-arrival h2, .style-kosmetik .cms-index-defaultindex .most-popular h2{
 	background: url("../images/shd_featured_title.png") repeat-x scroll center bottom rgba(0, 0, 0, 0);
 	color: #707070;
 	padding: 0;
@@ -3746,7 +3746,7 @@ z/*======================Category page===================*/
 	margin: 0 0 10px;
 	text-align: left;
 	}
-.style-beauty .cms-index-defaultindex .products-on-sale h2 span, .style-beauty .cms-index-defaultindex .new-arrival h2 span, .style-beauty .cms-index-defaultindex .most-popular h2 span{
+.style-kosmetik .cms-index-defaultindex .products-on-sale h2 span, .style-kosmetik .cms-index-defaultindex .new-arrival h2 span, .style-kosmetik .cms-index-defaultindex .most-popular h2 span{
 	background: url("../images/arrow-2.png") no-repeat scroll right center rgba(0, 0, 0, 0);
     float: right;
     font-family: helvetica;
@@ -3755,7 +3755,7 @@ z/*======================Category page===================*/
     margin: 9px 5px 0 0;
     padding: 0 24px 0 0;
 }
-.style-beauty .cms-index-index .products-on-sale h2, .style-beauty .cms-index-index .new-arrival h2, .style-beauty .cms-index-index .most-popular h2{
+.style-kosmetik .cms-index-index .products-on-sale h2, .style-kosmetik .cms-index-index .new-arrival h2, .style-kosmetik .cms-index-index .most-popular h2{
 	background: url("../images/shd_featured_title.png") repeat-x scroll center bottom rgba(0, 0, 0, 0);
 	color: #707070;
 	padding: 0;
@@ -3765,7 +3765,7 @@ z/*======================Category page===================*/
 	margin: 0 0 10px;
 	text-align: left;
 	}
-.style-beauty .cms-index-index .products-on-sale h2 span, .style-beauty .cms-index-index .new-arrival h2 span, .style-beauty .cms-index-index .most-popular h2 span{
+.style-kosmetik .cms-index-index .products-on-sale h2 span, .style-kosmetik .cms-index-index .new-arrival h2 span, .style-kosmetik .cms-index-index .most-popular h2 span{
 	background: url("../images/arrow-2.png") no-repeat scroll right center rgba(0, 0, 0, 0);
     float: right;
     font-family: helvetica;
@@ -3774,54 +3774,54 @@ z/*======================Category page===================*/
     margin: 9px 5px 0 0;
     padding: 0 24px 0 0;
 }
-.style-beauty .cms-index-defaultindex .products-on-sale h2:before, .style-beauty .cms-index-defaultindex .new-arrival h2:before, .style-beauty .cms-index-defaultindex .most-popular h2:before{
+.style-kosmetik .cms-index-defaultindex .products-on-sale h2:before, .style-kosmetik .cms-index-defaultindex .new-arrival h2:before, .style-kosmetik .cms-index-defaultindex .most-popular h2:before{
 	bottom: 0;
 	content: "";
 	height: 5px;
 	left: 0;
 	position: absolute;
 }
-.style-beauty .cms-index-index .products-on-sale h2:before, .style-beauty .cms-index-index .new-arrival h2:before, .style-beauty .cms-index-index .most-popular h2:before{
+.style-kosmetik .cms-index-index .products-on-sale h2:before, .style-kosmetik .cms-index-index .new-arrival h2:before, .style-kosmetik .cms-index-index .most-popular h2:before{
 	bottom: 0;
 	content: "";
 	height: 5px;
 	left: 0;
 	position: absolute;
 }
-.style-beauty .cms-index-defaultindex .products-on-sale h2:before{
+.style-kosmetik .cms-index-defaultindex .products-on-sale h2:before{
 	width: 170px;
 	background: none repeat scroll 0 0 #F76A59;
 }
-.style-beauty .cms-index-index .products-on-sale h2:before{
+.style-kosmetik .cms-index-index .products-on-sale h2:before{
 	width: 170px;
 	background: none repeat scroll 0 0 #F76A59;
 }
-.style-beauty .cms-index-defaultindex .new-arrival h2:before{
+.style-kosmetik .cms-index-defaultindex .new-arrival h2:before{
 	width: 130px;
 	background: none repeat scroll 0 0 #7dcd32;
 }
-.style-beauty .cms-index-index .new-arrival h2:before{
+.style-kosmetik .cms-index-index .new-arrival h2:before{
 	width: 130px;
 	background: none repeat scroll 0 0 #7dcd32;
 }
-.style-beauty .cms-index-defaultindex .most-popular h2:before{
+.style-kosmetik .cms-index-defaultindex .most-popular h2:before{
 	width: 150px;
 	background: none repeat scroll 0 0 #42bcd1;
 }
-.style-beauty .cms-index-index .most-popular h2:before{
+.style-kosmetik .cms-index-index .most-popular h2:before{
 	width: 150px;
 	background: none repeat scroll 0 0 #42bcd1;
 }
 
-.style-beauty .homepage-bottom {
+.style-kosmetik .homepage-bottom {
 	clear: both;
 }
-.style-beauty .homepage-bottom ul.block-wrapper {
+.style-kosmetik .homepage-bottom ul.block-wrapper {
 	list-style: none;
 	padding: 0;
 	margin: 0;
 }
-.style-beauty .homepage-bottom ul.block-wrapper li {
+.style-kosmetik .homepage-bottom ul.block-wrapper li {
 	display: inline-block;
 	margin: 0 14px 34px;
 	padding:10px 15px;
@@ -3829,8 +3829,8 @@ z/*======================Category page===================*/
 	background: #dad8d5;
 	vertical-align: top;
 }
-.style-beauty .homepage-bottom ul.block-wrapper li:last-child {}
-.style-beauty .block-bottom {
+.style-kosmetik .homepage-bottom ul.block-wrapper li:last-child {}
+.style-kosmetik .block-bottom {
 	text-align: center;
 	text-transform: uppercase;
 	color: #fff;
@@ -3839,17 +3839,17 @@ z/*======================Category page===================*/
 	padding: 12px 0;
 	height: 100px;
 }
-.style-beauty .block-bottom span {
+.style-kosmetik .block-bottom span {
 	display: block;
 	font-size: 23px;
 	font-family: 'Fredoka One', cursive;
 }
-.style-beauty .block-bottom p {
+.style-kosmetik .block-bottom p {
 	font-family: 'bebasregular';
 	font-size: 14px;
 	margin: 0;
 }
-.style-beauty .block-bottom p a {
+.style-kosmetik .block-bottom p a {
 	display: inline-block;
 	text-decoration: underline;
 	text-align: left;
@@ -3860,81 +3860,81 @@ z/*======================Category page===================*/
 	padding: 0 5px 0 0;
 	line-height:19px;
 }
-.style-beauty .block-bottom p a:hover {
+.style-kosmetik .block-bottom p a:hover {
 	text-decoration: none;color: #FFA01B;
 }
-.style-beauty .block-bottom p a.link-how-to-buy {
+.style-kosmetik .block-bottom p a.link-how-to-buy {
 	width: 58px;
 	background-position: 40px 28px;
 }
-.style-beauty .block-bottom p a.link-shipping-table {
+.style-kosmetik .block-bottom p a.link-shipping-table {
 	width: 101px;
 	background-position: 50px 28px;
 }
-.style-beauty .block-bottom p a.link-other-help {
+.style-kosmetik .block-bottom p a.link-other-help {
 	width: 66px;
 	background-position: 50px 28px;
 	padding-left: 0;
 }
-.style-beauty .block-bottom p a.link-bilna-credit {
+.style-kosmetik .block-bottom p a.link-bilna-credit {
 	width: 80px;
 	background-position: 61px 28px;
 }
-.style-beauty .block-bottom p a.link-reseller-program {
+.style-kosmetik .block-bottom p a.link-reseller-program {
 	width: 90px;
 	background-position: 71px 28px;
 }
-.style-beauty .block-bottom p a.link-gift-voucher {
+.style-kosmetik .block-bottom p a.link-gift-voucher {
 	width: 80px;
 	background-position: 67px 28px;
 }
-.style-beauty .block-bottom p a img {
+.style-kosmetik .block-bottom p a img {
 	margin-left: 5px;
 	margin-top: 3px;
 }
-.style-beauty .block-bottom table tr td {
+.style-kosmetik .block-bottom table tr td {
 	padding: 0 15px;
 }
-.style-beauty .block-bottom table tr td a {
+.style-kosmetik .block-bottom table tr td a {
 	font-family: 'bebasregular';
 	font-size: 14px;
 	font-weight: normal;
 	color: #fff;
 	text-decoration: underline;
 }
-.style-beauty .block-bottom table tr td a:hover {color: #FFA01B;}
-.style-beauty .block-bottom table tr td a img {
+.style-kosmetik .block-bottom table tr td a:hover {color: #FFA01B;}
+.style-kosmetik .block-bottom table tr td a img {
 	margin-left: 5px;
 	margin-top: 3px;
 }
-.style-beauty .homepage-bottom .testimonial-wrapper {
+.style-kosmetik .homepage-bottom .testimonial-wrapper {
 	float: left;
 	width: 45%;
 	position: relative;
 }
-.style-beauty .testimonial-wrapper h4, .style-beauty .media-partners span.title {
+.style-kosmetik .testimonial-wrapper h4, .style-kosmetik .media-partners span.title {
 	font-size: 18px;
 	font-weight: normal;
 	font-family: 'bebasregular';
 }
-.style-beauty .testimonial-wrapper h4 {
+.style-kosmetik .testimonial-wrapper h4 {
 	background: url(../images/label.png) no-repeat left top;
 	color: #fff;
 	width: 279px;
 	height: 58px;
 	margin: 0 0 10px 0;
 }
-.style-beauty .testimonial-wrapper h4 span {
+.style-kosmetik .testimonial-wrapper h4 span {
 	display: inline-block;
 	margin: 18px 0 0 55px;
 }
-.style-beauty .testimonial {
+.style-kosmetik .testimonial {
 	margin: 0 40px;
 }
-.style-beauty #slides {
+.style-kosmetik #slides {
 	  position:relative;
 }
-.style-beauty #slides .slidesjs-navigation {
+.style-kosmetik #slides .slidesjs-navigation {
   position:absolute;
   top:40px;
   z-index:10;
@@ -3946,31 +3946,31 @@ z/*======================Category page===================*/
   text-indent: -9999px;
   cursor: pointer;
 }
-.style-beauty #slides .slidesjs-previous {
+.style-kosmetik #slides .slidesjs-previous {
   left:0;
   background-image: url(../images/arrow-prev.png);
 }
 #slides .slidesjs-next {
   background-image: url(../images/arrow-next.png);
 }
-.style-beauty #slides .slidesjs-next {
+.style-kosmetik #slides .slidesjs-next {
 	right: 0;
 }
-.style-beauty #slides-popup .slidesjs-next {
+.style-kosmetik #slides-popup .slidesjs-next {
 	left: 30px;
 }
-.style-beauty #slides-popup .slidesjs-navigation {
+.style-kosmetik #slides-popup .slidesjs-navigation {
 	bottom: 12px;
 	top:auto;
 	background-color: #ddd;
 }
-.style-beauty #slides-banner-home{
+.style-kosmetik #slides-banner-home{
 	position:relative;
 }
-.style-beauty #slides-banner-home .slidesjs-navigation {
+.style-kosmetik #slides-banner-home .slidesjs-navigation {
 	display: none;
 }
-.style-beauty #slides-banner-home .slidesjs-pagination {
+.style-kosmetik #slides-banner-home .slidesjs-pagination {
 	position: absolute;
 	right: 10px;
 	bottom: 0;
@@ -3978,164 +3978,164 @@ z/*======================Category page===================*/
 	z-index: 99;
 	padding: 0;
 }
-.style-beauty #slides-banner-home .slidesjs-pagination li {
+.style-kosmetik #slides-banner-home .slidesjs-pagination li {
 	display: inline-block;
 	margin: 0 0 0 5px;
 }
-.style-beauty #slides-banner-home .slidesjs-pagination li:first-child {
+.style-kosmetik #slides-banner-home .slidesjs-pagination li:first-child {
 	margin-left: 0;
 }
 
-.style-beauty #slides-banner-home .slidesjs-pagination li.slidesjs-pagination-item a {
+.style-kosmetik #slides-banner-home .slidesjs-pagination li.slidesjs-pagination-item a {
 	display: block;
 	width: 19px;
 	height: 19px;
 	text-indent: -999999px;
 	background: url(../images/node.png) no-repeat center center;
 }
-.style-beauty #slides-banner-home .slidesjs-pagination li.slidesjs-pagination-item a.active {
+.style-kosmetik #slides-banner-home .slidesjs-pagination li.slidesjs-pagination-item a.active {
 	background: url(../images/node-active.png) no-repeat center center;
 }
-.style-beauty .homepage-bottom .media-partners {
+.style-kosmetik .homepage-bottom .media-partners {
 	float: right;
 }
-.style-beauty .media-partners span.title {
+.style-kosmetik .media-partners span.title {
 	display: block;
 }
-.style-beauty .media-partners ul.media-partners-wrapper {
+.style-kosmetik .media-partners ul.media-partners-wrapper {
 	list-style: none;
 	margin: 30px 0 0 0;
 	padding: 0;
 }
-.style-beauty .media-partners ul.media-partners-wrapper li {
+.style-kosmetik .media-partners ul.media-partners-wrapper li {
 	display: inline-block;
 	vertical-align: middle;
 	margin: 0 0 0 20px;
 }
-.style-beauty .media-partners ul.media-partners-wrapper li:first-child {
+.style-kosmetik .media-partners ul.media-partners-wrapper li:first-child {
 	margin: 0;
 }
 
-.style-beauty .cms-index-defaultindex .wrap_banner, .style-beauty .wrap_banner{
+.style-kosmetik .cms-index-defaultindex .wrap_banner, .style-kosmetik .wrap_banner{
 	margin: 20px auto;
 	display: table;
 }
-.style-beauty .cms-index-index .wrap_banner, .style-beauty .wrap_banner{
+.style-kosmetik .cms-index-index .wrap_banner, .style-kosmetik .wrap_banner{
 	margin: 20px 0;
 	display: table;
 }
-.style-beauty .cms-index-defaultindex .wrap_banner .col-1, .style-beauty .cms-index-defaultindex .wrap_banner .col-2, .style-beauty .cms-index-defaultindex .wrap_banner .col-3,
-.style-beauty .wrap_banner .col-1, .style-beauty .wrap_banner .col-2, .style-beauty .wrap_banner .col-3{
+.style-kosmetik .cms-index-defaultindex .wrap_banner .col-1, .style-kosmetik .cms-index-defaultindex .wrap_banner .col-2, .style-kosmetik .cms-index-defaultindex .wrap_banner .col-3,
+.style-kosmetik .wrap_banner .col-1, .style-kosmetik .wrap_banner .col-2, .style-kosmetik .wrap_banner .col-3{
 	display:block;
 	min-height:50px;
 	float:left;
 }
-.style-beauty .cms-index-index .wrap_banner .col-1, .style-beauty .cms-index-index .wrap_banner .col-2, .style-beauty .cms-index-index .wrap_banner .col-3,
-.style-beauty.wrap_banner .col-1, .style-beauty .wrap_banner .col-2, .style-beauty .wrap_banner .col-3{
+.style-kosmetik .cms-index-index .wrap_banner .col-1, .style-kosmetik .cms-index-index .wrap_banner .col-2, .style-kosmetik .cms-index-index .wrap_banner .col-3,
+.style-kosmetik.wrap_banner .col-1, .style-kosmetik .wrap_banner .col-2, .style-kosmetik .wrap_banner .col-3{
 	display:block;
 	min-height:50px;
 	float:left;
 }
-.style-beauty .cms-index-defaultindex .wrap_banner .col-1,
-.style-beauty .wrap_banner .col-1{
+.style-kosmetik .cms-index-defaultindex .wrap_banner .col-1,
+.style-kosmetik .wrap_banner .col-1{
 	width:490px;
 }
-.style-beauty .cms-index-index .wrap_banner .col-1,
-.style-beauty .wrap_banner .col-1{
+.style-kosmetik .cms-index-index .wrap_banner .col-1,
+.style-kosmetik .wrap_banner .col-1{
 	width:527px;
 }
-.style-beauty .cms-index-defaultindex .wrap_banner .col-2,
-.style-beauty .wrap_banner .col-2{
+.style-kosmetik .cms-index-defaultindex .wrap_banner .col-2,
+.style-kosmetik .wrap_banner .col-2{
 	margin: 0 8px;
 	width:200px;
 }
-.style-beauty .cms-index-index .wrap_banner .col-2,
-.style-beauty .wrap_banner .col-2{
+.style-kosmetik .cms-index-index .wrap_banner .col-2,
+.style-kosmetik .wrap_banner .col-2{
 	margin: 0 8px;
 	width:216px;
 }
-.style-beauty .cms-index-defaultindex .wrap_banner .col-2 img:first-child,
-.style-beauty .wrap_banner .col-2 img:first-child{
+.style-kosmetik .cms-index-defaultindex .wrap_banner .col-2 img:first-child,
+.style-kosmetik .wrap_banner .col-2 img:first-child{
 	margin: 0 0 8px;
 }
-.style-beauty .cms-index-index .wrap_banner .col-2 img:first-child,
-.style-beauty .wrap_banner .col-2 img:first-child{
+.style-kosmetik .cms-index-index .wrap_banner .col-2 img:first-child,
+.style-kosmetik .wrap_banner .col-2 img:first-child{
 	margin: 0 0 8px;
 }
-.style-beauty .cms-index-defaultindex .wrap_banner .col-3,
-.style-beauty .wrap_banner .col-3{
+.style-kosmetik .cms-index-defaultindex .wrap_banner .col-3,
+.style-kosmetik .wrap_banner .col-3{
 	width:245px;
 }
-.style-beauty .cms-index-index .wrap_banner .col-3,
-.style-beauty .wrap_banner .col-3{
+.style-kosmetik .cms-index-index .wrap_banner .col-3,
+.style-kosmetik .wrap_banner .col-3{
 	width:245px;
 }
-.style-beauty .homepage-bottom ul.block-wrapper li {
+.style-kosmetik .homepage-bottom ul.block-wrapper li {
 	width: 28.79%;
 	margin: 0 8px 34px;
 }
-.style-beauty .homepage-bottom ul.block-wrapper li:nth-child(2){
+.style-kosmetik .homepage-bottom ul.block-wrapper li:nth-child(2){
 	margin:0 17px 15px;
 }
-.style-beauty .block-bottom span {
+.style-kosmetik .block-bottom span {
 	display: block;
 	font-size: 23px;
 	font-family: 'Fredoka One', cursive;
 }
-.style-beauty .block-bottom p {
+.style-kosmetik .block-bottom p {
 	font-size: 14px;
 }
-.style-beauty .block-bottom p a {
+.style-kosmetik .block-bottom p a {
 	background-position: right center;
 }
-.style-beauty .block-bottom p a.link-how-to-buy {
+.style-kosmetik .block-bottom p a.link-how-to-buy {
 	width: 51px;
 	background-position: 34px 20px;
 }
-.style-beauty .block-bottom p a.link-shipping-table {
+.style-kosmetik .block-bottom p a.link-shipping-table {
 	width: 84px;
 	background-position: 40px 20px;
 }
-.style-beauty .block-bottom p a.link-other-help {
+.style-kosmetik .block-bottom p a.link-other-help {
 	width: 30px;
 	background-position: 38px 20px
 }
-.style-beauty .block-bottom p a.link-bilna-credit {
+.style-kosmetik .block-bottom p a.link-bilna-credit {
 	width: 62px;
 	background-position: 51px 20px;
 }
-.style-beauty .block-bottom p a.link-reseller-program {
+.style-kosmetik .block-bottom p a.link-reseller-program {
 	width: 68px;
 	background-position: 60px 20px;
 }
-.style-beauty .block-bottom p a.link-gift-voucher {
+.style-kosmetik .block-bottom p a.link-gift-voucher {
 	width: 60px;
 	background-position: 55px 20px
 }
-.style-beauty .block-bottom table tr td {
+.style-kosmetik .block-bottom table tr td {
 	padding: 0 15px;
 }
-.style-beauty .homepage-bottom .media-partners {
+.style-kosmetik .homepage-bottom .media-partners {
 	margin: 0;
 	
 }
-.style-beauty .shopby{
+.style-kosmetik .shopby{
 	float: left;
     margin: 0 20px 0 0;
     width: 175px; 
 	}
-.style-beauty #nav li.shop-by:hover .shopby {
+.style-kosmetik #nav li.shop-by:hover .shopby {
     display: none;
 }
-.style-beauty .shopby ul.shop-by li a.link-seemore, .style-beauty .homepage-product a.link-viewmore-product, .style-beauty #nav .shopby ul.shop-by li a.link-seemore, .style-beauty #nav ul li a.browse-all{
+.style-kosmetik .shopby ul.shop-by li a.link-seemore, .style-kosmetik .homepage-product a.link-viewmore-product, .style-kosmetik #nav .shopby ul.shop-by li a.link-seemore, .style-kosmetik #nav ul li a.browse-all{
 	background:url("../images/arrow-2.png") no-repeat right;
 	height: 20px;
     line-height: 20px;
 }
-.style-beauty .nav-container-mobile{
+.style-kosmetik .nav-container-mobile{
 	clear:both;
 }
-.style-beauty .testimonial-wrapper .view_all{
+.style-kosmetik .testimonial-wrapper .view_all{
 	display: table;
 	font-size: 13px;
 	font-weight: bold;
@@ -4143,7 +4143,7 @@ z/*======================Category page===================*/
 	right: 0;
 	top: 39px;
 }
-.style-beauty .testimonial-wrapper .view_all a{
+.style-kosmetik .testimonial-wrapper .view_all a{
 	text-decoration: underline;
 	color: #A6A6A6;
 }
@@ -4151,111 +4151,111 @@ z/*======================Category page===================*/
 
 
 @media only screen and ( max-width: 1215px) {
-	.style-beauty .shopby{ 	
+	.style-kosmetik .shopby{ 	
 		display:none;
 	}
-	.style-beauty #nav li.shop-by:hover .shopby {
+	.style-kosmetik #nav li.shop-by:hover .shopby {
 		display: block;
 	}
 	
 }
 @media only screen and (min-width: 1023px) and (max-width: 1215px) {
-	.style-beauty .shopby{ 	
+	.style-kosmetik .shopby{ 	
 		display:none;
 	}
-	.style-beauty #nav li.shop-by:hover .shopby {
+	.style-kosmetik #nav li.shop-by:hover .shopby {
 		display: block;
 	}
-	.style-beauty #slides-banner-home{
+	.style-kosmetik #slides-banner-home{
 		height:371px;
 		width:510px;
 	}
-	.style-beauty .cms-index-index .wrap_banner .col-1,
-    .style-beauty .wrap_banner .col-1{
+	.style-kosmetik .cms-index-index .wrap_banner .col-1,
+    .style-kosmetik .wrap_banner .col-1{
 		width:510px;
 	}
-	.style-beauty .cms-index-index .wrap_banner .col-2,
-    .style-beauty .wrap_banner .col-2{
+	.style-kosmetik .cms-index-index .wrap_banner .col-2,
+    .style-kosmetik .wrap_banner .col-2{
 		width:210px;
 	}
-	.style-beauty .cms-index-index .wrap_banner .col-3,
-    .style-beauty .wrap_banner .col-3{
+	.style-kosmetik .cms-index-index .wrap_banner .col-3,
+    .style-kosmetik .wrap_banner .col-3{
 		width:257px;
 	}
-	.style-beauty .cms-index-index .wrap_banner .col-2 img,
-    .style-beauty .wrap_banner .col-2 img{
+	.style-kosmetik .cms-index-index .wrap_banner .col-2 img,
+    .style-kosmetik .wrap_banner .col-2 img{
 		width:100%;
 	}
-	.style-beauty .cms-index-index .wrap_banner .col-3 img,
-    .style-beauty .wrap_banner .col-3 img{
+	.style-kosmetik .cms-index-index .wrap_banner .col-3 img,
+    .style-kosmetik .wrap_banner .col-3 img{
 		width:100%;
 	}
 	
 }
 /* --------------- 960 px layout -------------------- */
 @media only screen and (max-width: 1023px) {
-	.style-beauty .homepage-bottom .testimonial-wrapper{
+	.style-kosmetik .homepage-bottom .testimonial-wrapper{
 		width:100%;
 	}
-	.style-beauty .homepage-bottom .media-partners #nav li.shop-by:hover .shopby {
+	.style-kosmetik .homepage-bottom .media-partners #nav li.shop-by:hover .shopby {
 		display: block;
 	}
-	.style-beauty .cms-index-defaultindex .main{
+	.style-kosmetik .cms-index-defaultindex .main{
 		width:954px;
 	}
-	.style-beauty .homepage-bottom .media-partners{
+	.style-kosmetik .homepage-bottom .media-partners{
 		width:100%;
 		text-align:center;
 	}
-	.style-beauty .cms-index-index .main{
+	.style-kosmetik .cms-index-index .main{
 	width:954px;
 	}
-	.style-beauty .cms-index-defaultindex .col1-layout .main .col-main, .style-beauty .cms-index-index .col1-layout .main .col-main{
+	.style-kosmetik .cms-index-defaultindex .col1-layout .main .col-main, .style-kosmetik .cms-index-index .col1-layout .main .col-main{
 		width:744px;
 	}
-	.style-beauty .cms-index-defaultindex .wrap_banner .col-1, .style-beauty .cms-index-index .wrap_banner .col-1,
-    .style-beauty .wrap_banner .col-1, .style-beauty .wrap_banner .col-1{
+	.style-kosmetik .cms-index-defaultindex .wrap_banner .col-1, .style-kosmetik .cms-index-index .wrap_banner .col-1,
+    .style-kosmetik .wrap_banner .col-1, .style-kosmetik .wrap_banner .col-1{
 		width:380px;
 	}
-	.style-beauty .cms-index-defaultindex .wrap_banner .col-1 img, .style-beauty .cms-index-index .wrap_banner .col-1 img, .style-beauty .cms-index-defaultindex .wrap_banner .col-2 img, .style-beauty .cms-index-index .wrap_banner .col-2 img, .style-beauty .cms-index-defaultindex .wrap_banner .col-3 img, .style-beauty .cms-index-index .wrap_banner .col-3 img,
-    .style-beauty .wrap_banner .col-1 img, .style-beauty  .wrap_banner .col-1 img, .style-beauty .wrap_banner .col-2 img, .style-beauty .wrap_banner .col-2 img, .style-beauty .wrap_banner .col-3 img, .style-beauty .wrap_banner .col-3 img {
+	.style-kosmetik .cms-index-defaultindex .wrap_banner .col-1 img, .style-kosmetik .cms-index-index .wrap_banner .col-1 img, .style-kosmetik .cms-index-defaultindex .wrap_banner .col-2 img, .style-kosmetik .cms-index-index .wrap_banner .col-2 img, .style-kosmetik .cms-index-defaultindex .wrap_banner .col-3 img, .style-kosmetik .cms-index-index .wrap_banner .col-3 img,
+    .style-kosmetik .wrap_banner .col-1 img, .style-kosmetik  .wrap_banner .col-1 img, .style-kosmetik .wrap_banner .col-2 img, .style-kosmetik .wrap_banner .col-2 img, .style-kosmetik .wrap_banner .col-3 img, .style-kosmetik .wrap_banner .col-3 img {
 		width:100%;
 	}
-	.style-beauty .cms-index-defaultindex .wrap_banner .col-2, .style-beauty .cms-index-index .wrap_banner .col-2,
-    .style-beauty .wrap_banner .col-2, .style-beauty .wrap_banner .col-2{
+	.style-kosmetik .cms-index-defaultindex .wrap_banner .col-2, .style-kosmetik .cms-index-index .wrap_banner .col-2,
+    .style-kosmetik .wrap_banner .col-2, .style-kosmetik .wrap_banner .col-2{
 		margin: 0 8px;
 		width: 154px;
 	}
-	.style-beauty .cms-index-defaultindex .wrap_banner .col-3, .style-beauty .cms-index-index .wrap_banner .col-3,
-    .style-beauty .wrap_banner .col-3, .style-beauty .wrap_banner .col-3{
+	.style-kosmetik .cms-index-defaultindex .wrap_banner .col-3, .style-kosmetik .cms-index-index .wrap_banner .col-3,
+    .style-kosmetik .wrap_banner .col-3, .style-kosmetik .wrap_banner .col-3{
 		width:190px;
 	}
-	.style-beauty .homepage-bottom ul.block-wrapper li:nth-child(2){
+	.style-kosmetik .homepage-bottom ul.block-wrapper li:nth-child(2){
 	margin:0 2px 15px;
 	}
 }
 	
 /* --------------- smaller 959 px layout -------------------- */
 @media only screen and (max-width: 767px) {
-	.style-beauty #nav li.shop-by:hover .shopby {
+	.style-kosmetik #nav li.shop-by:hover .shopby {
 		display: block;
 	}
-	.style-beauty .cms-index-defaultindex .wrap_banner .col-1, .style-beauty .cms-index-index .wrap_banner .col-1,
-    .style-beauty .wrap_banner .col-1, .style-beauty .wrap_banner .col-1{
+	.style-kosmetik .cms-index-defaultindex .wrap_banner .col-1, .style-kosmetik .cms-index-index .wrap_banner .col-1,
+    .style-kosmetik .wrap_banner .col-1, .style-kosmetik .wrap_banner .col-1{
 		width:100%;
 		margin:0 0 20px;
 	}
-	.style-beauty .cms-index-defaultindex .wrap_banner, .style-beauty .cms-index-index .wrap_banner,
-    .style-beauty .wrap_banner, .style-beauty .wrap_banner{
+	.style-kosmetik .cms-index-defaultindex .wrap_banner, .style-kosmetik .cms-index-index .wrap_banner,
+    .style-kosmetik .wrap_banner, .style-kosmetik .wrap_banner{
 		display:block;
 	}
-	.style-beauty .cms-index-defaultindex .wrap_banner .col-2, .style-beauty .cms-index-index .wrap_banner .col-2, .style-beauty .cms-index-defaultindex .wrap_banner .col-3, .style-beauty .cms-index-index .wrap_banner .col-3, .style-beauty .products-on-sale, .style-beauty .new-arrival, .style-beauty .most-popular, .style-beauty .homepage-bottom,
-    .style-beauty .wrap_banner .col-2, .style-beauty .wrap_banner .col-2, .style-beauty .wrap_banner .col-3, .style-beauty .wrap_banner .col-3 {
+	.style-kosmetik .cms-index-defaultindex .wrap_banner .col-2, .style-kosmetik .cms-index-index .wrap_banner .col-2, .style-kosmetik .cms-index-defaultindex .wrap_banner .col-3, .style-kosmetik .cms-index-index .wrap_banner .col-3, .style-kosmetik .products-on-sale, .style-kosmetik .new-arrival, .style-kosmetik .most-popular, .style-kosmetik .homepage-bottom,
+    .style-kosmetik .wrap_banner .col-2, .style-kosmetik .wrap_banner .col-2, .style-kosmetik .wrap_banner .col-3, .style-kosmetik .wrap_banner .col-3 {
 		display:none;
 	}
-	.style-beauty .cms-index-defaultindex .col1-layout .main .col-main, .style-beauty .cms-index-index .col1-layout .main .col-main{
+	.style-kosmetik .cms-index-defaultindex .col1-layout .main .col-main, .style-kosmetik .cms-index-index .col1-layout .main .col-main{
 		width:100%;
 	}
 }
 /* ------------------- **** ------------------ /
-/* --------------------------------------------- END beauty CSS APRIL 2014 -------------------------------------------------- */
+/* --------------------------------------------- END kosmetik CSS APRIL 2014 -------------------------------------------------- */
