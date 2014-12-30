@@ -1119,10 +1119,11 @@ li#perlengkapan-rumah, li.mobile-perlengkapan-rumah {
 #nav li.nav-untuk-ibu ul.level-hover,
 #nav li.nav-dekorasi-rumah ul.level-hover,
 #nav li.nav-peralatan-rumah-tangga ul.level-hover,
-#nav li.nav-kesehatan-dan-kecantikan ul.level-hover{
+#nav li.nav-kesehatan-dan-kecantikan ul.level-hover, #nav li.nav-alat-kuas ul.level-hover, #nav li.nav-pria ul.level-hover {
 	left:auto;
 	right:0;
 }
+.nav-supermarket #nav li.nav-peralatan-rumah-tangga ul.level-hover { left:0 !important; right:auto; }
 #nav li.nav-set-hadiah-bayi-dan-anak .level-hover {
     background: #fcfcfc url(../images/shadow.png) repeat-x left top;
 }
@@ -1150,7 +1151,6 @@ li#perlengkapan-rumah, li.mobile-perlengkapan-rumah {
 #nav li.level-top.nav-dekorasi-rumah {
     max-width: 100px;
 }
-
 #nav li.level-top:hover {
 	background: #fff;
 }
