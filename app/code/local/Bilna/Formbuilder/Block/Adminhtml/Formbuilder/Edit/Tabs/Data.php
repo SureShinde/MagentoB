@@ -1,119 +1,126 @@
 <?php
+/**
+ * Description of Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Edit_Tabs_Data
+ *
+ * @author Bilna Development Team <development@bilna.com>
+ */
 
-class Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Edit_Tabs_Data extends Mage_Adminhtml_Block_Widget_Grid
-{
-	public function __construct()
-  {
+class Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Edit_Tabs_Data extends Mage_Adminhtml_Block_Widget_Grid {
+    protected $tablePrefix = 'bilna_formbuilder_flat_data_';
+    protected $formId = null;
+
+    public function __construct() {
 	parent::__construct();
 	$this->setId('bilna_formbuilder_formbuilder_edit_tabs_data');
-	$this->setDefaultSort('id');
-	$this->setDefaultDir('ASC');
-	$this->setSaveParametersInSession(true);
+        $this->setDefaultSort('created_at');
+	$this->setDefaultDir('DESC');
+	$this->setSaveParametersInSession(false);
 	$this->setUseAjax(true);
-  }
+        
+        $this->formId = (int) $this->getRequest()->getParam('id');
+    }
 
-  protected function _prepareCollection()
-  {
-		$inputs = Mage::getModel('bilna_formbuilder/input')->getCollection();
-		$inputs->getSelect();
-		$inputs	->addFieldToFilter('main_table.form_id', (int) $this->getRequest()->getParam('id'));
-		$inputs->getSelect()->order(array('required DESC'));
-		$inputs->getSelect()->group('group');
+    protected function _prepareCollection() {
+        $collection = Mage::getModel('bilna_formbuilder/flat')->getCollection();
+        $collection->addFilterToMap('created_at', 'main_table.created_at');
+        
+        $this->setCollection($collection);
+        
+        return parent::_prepareCollection();
+    }
 
-		$i = 0;
-		foreach($inputs as $input){
-			if($i == 0){
-				$collection = Mage::getModel('bilna_formbuilder/data')->getCollection();
-				$collection->getSelect()->reset(Zend_Db_Select::COLUMNS)->columns(array('record_id'=>'record_id', $input["group"]=>'value', 'create_date'=>'create_date'));
-				$collection->addFilterToMap($input["group"], 'main_table.value');
-				$collection->addFieldToFilter('main_table.form_id', (int) $this->getRequest()->getParam('id'));
-				$collection->addFieldToFilter('main_table.`type`', $input["group"]);
-			}else{
-				$collection->getSelect()->joinLeft(	array("input_".$input["group"] => "bilna_formbuilder_data"), 
-										"main_table.record_id = input_".$input["group"].".record_id AND main_table.form_id = input_".$input["group"].".form_id AND input_".$input["group"].".`type` ='".$input["group"]."'", array($input["group"]=>'value'));
-				$collection->addFilterToMap($input["group"], 'input_'.$input["group"].'.value');
-				$collection->addFilterToMap('create_date', 'input_'.$input["group"].'.create_date');
-			}
-		
-			$i++;
-		}
-		$sort = $this->getRequest()->getParam('sort');
-        if( isset($sort) && $sort == 'create_date' )
-        {
-            $dir = $this->getRequest()->getParam('dir');
-            $collection->setOrder('main_table.create_date', strtoupper($dir));
+    protected function _prepareColumns() {
+        $columns = $this->_getColumnsData();
+        
+        if ($columns && count($columns) > 0) {
+            foreach ($columns as $column) {
+                $_index = $column['index'];
+                $_title = $column['title'];
+                
+                if ($_index == 'id') {
+                    continue;
+                }
+                
+                if ($_index == 'created_at') {
+//                    $this->addColumn('created_at', array (
+//                        'header' => Mage::helper('sales')->__('Purchased On'),
+//                        'index' => 'created_at',
+//                        'filter_index' => 'main_table.created_at',
+//                        'type' => 'datetime',
+//                        'width' => '100px',
+//                    ));
+                    
+                    $this->addColumn($_index, array (
+                        'header' => $_title,
+                        'type' => 'datetime',
+                        'index' => $_index,
+                        'filter_index' => 'main_table.' . $_index,
+                        'format' => Mage::app()->getLocale()->getDateTimeFormat(Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM),
+                        'width' => '100px',
+                    ));
+                }
+                else {
+                    $this->addColumn($_index, array (
+                        'header' => $_title,
+                        'index' => $_index,
+                        'filter_index' => 'main_table.' . $_index,
+                    ));
+                }
+            }
         }
-		//Zend_Debug::Dump($collection->printLogQuery(true)); die;
-		$this->setCollection($collection);		 
-		return parent::_prepareCollection();
-  }
-
-  protected function _prepareColumns()
-  {
-  	$inputs = Mage::getModel('bilna_formbuilder/input')->getCollection();
-  	$inputs->getSelect();
-  	$inputs->addFieldToFilter('main_table.form_id', (int) $this->getRequest()->getParam('id'));
-	//$inputs->getSelect()->order(array('required DESC'));
-  	$inputs->setOrder('`order`', 'ASC');
-  	$inputs->getSelect()->group('group');
-  	
-  	foreach($inputs as $input){
-		$this->addColumn($input["title"],
-			array(
-				'header'=> $input["title"],
-				'index' => $input["group"],
-				'header_css_class'=>'a-center'
-		));
-  	}
-	  
-		$outputFormat = Mage::app()->getLocale()->getDateTimeFormat(Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM);
-
-		$this->addColumn("create_date",
-			array(
-				'header'=> $this->__("Created Datee"),
-				'type' 	=> 'date',
-				'index' => "create_date",
-			  'format'=> $outputFormat,
-        //'time' 	=> true,
-				'header_css_class'=>'a-center'
-		));
-
-		/*$fieldset->addField('create_date', 'date', array(
-		   'label'	=> $this->__('Create Date'),
-		   'name' 	=> 'create_date',
-			 'title'	=> $this->__('Create Date'),
-		   'value'	=> $data["create_date"],
-			 'image'	=> $this->getSkinUrl('images/grid-cal.gif'),
-			 'format'	=> $outputFormat,
-       'time' 	=> true,
-    ));*/
 		
-		$this->addExportType('*/*/exportCsv', Mage::helper('bilna_formbuilder')->__('CSV'));
+        $this->addExportType('*/*/exportCsv', Mage::helper('bilna_formbuilder')->__('CSV'));
 
-		return parent::_prepareColumns();
-	}
+        return parent::_prepareColumns();
+    }
+        
+    protected function _getColumnsData() {
+        $tableName = Mage::getSingleton('core/resource')->getTableName($this->tablePrefix . $this->formId);
+        $fields = Mage::getSingleton('core/resource')->getConnection('core_read')->describeTable($tableName);
+        $fieldArr = array ();
+        
+        if ($fields && count($fields) > 0) {
+            $total = count($fields);
+            $no = 0;
+            $resetNo = false;
+            
+            foreach ($fields as $row) {
+                $columnName = $row['COLUMN_NAME'];
+                $lastNo = $no;
+                
+                if ($columnName == 'created_at') {
+                    $no = $total;
+                    $resetNo = true;
+                }
+                
+                $fieldArr[$no] = array (
+                    'title' => $this->_getColumnTitle($columnName),
+                    'index' => $columnName
+                );
+                
+                if ($resetNo) {
+                    $no = $lastNo;
+                }
+                
+                $no++;
+            }
+        }
+        
+        //sort array by key
+        ksort($fieldArr);
+        
+        return $fieldArr;
+    }
+    
+    protected function _getColumnTitle($name) {
+        return str_replace('_', ' ', uc_words($name));
+    }
+    
+    protected function _getColumnIndex($name) {
+        return str_replace(' ', '_', strtolower($name));
+    }
 
-  protected function _prepareMassaction()
-  {
-    $this->setMassactionIdField('form_id');
-    $this->getMassactionBlock()->setFormFieldName('formbuilder');
-
-    $this->getMassactionBlock()->addItem('delete',
-      array(
-        'label' 	=> Mage::helper('bilna_formbuilder')->__('Delete'),
-        'url' 		=> $this->getUrl('*/*/massDelete'),
-        'confirm' => Mage::helper('bilna_formbuilder')->__('Are you sure?')
-      ));
-	}
-
-  //Grid with Ajax Request
-  public function getGridUrl() 
-	{
-    return $this->getUrl('*/*/gridData', array ('_current' => 'true'));
-  }
-
-  public function getRowUrl($row)
-  {
-    return $this->getUrl('*/*/editData', array('record_id' => $row->getRecordId(), 'form_id' => $this->getRequest()->getParam('id')));
-  }	
+    public function getGridUrl() {
+        return $this->getUrl('*/*/gridData', array ('_current' => 'true'));
+    }
 }
