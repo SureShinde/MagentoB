@@ -276,6 +276,7 @@ class GenerateFormBuilder extends Mage_Shell_Abstract {
         $newline = false;
         $lastRecordId = null;
         $separateSql = false;
+        $saveLastUpdate = false;
         
         foreach ($importData as $row) {
             if ($lastRecordId != $row->getRecordId()) {
@@ -307,13 +308,17 @@ class GenerateFormBuilder extends Mage_Shell_Abstract {
             try {
                 $this->write->query($sqlRec);
                 $this->logProgress($sqlRec);
+                $saveLastUpdate = true;
             }
             catch (Exception $e) {
                 $this->logProgress($e->getMessage());
+                $saveLastUpdate = false;
             }
         }
         
-        $this->saveLastUpdated($formId);
+        if ($saveLastUpdate) {
+            $this->saveLastUpdated($formId);
+        }
         
         return true;
     }
