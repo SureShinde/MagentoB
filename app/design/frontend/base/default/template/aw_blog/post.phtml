@@ -93,7 +93,7 @@ $commentCount = $this->getCommentCount();
 <!-- Comment Section -->
 
 <?php if ($this->getCommentsEnabled()): ?>
-	<div id="comment_box"> 
+        <div id="comment_box"> 
 		<div id="fb-root"></div> 
 		<script>(function(d){
 		  var js, id = 'facebook-jssdk'; if (d.getElementById(id)) {return;}
@@ -104,6 +104,23 @@ $commentCount = $this->getCommentCount();
 		
 		<fb:comments href="<?php echo "http://www.bilna.com/baby/blog/".$post->getIdentifier(); ?>" num_posts="25"></fb:comments> 
 	</div>
+
+    <div class="related-product-blog">
+        <?php
+        if (!empty ($postCats)):
+            foreach ($postCats as $title => $url):
+                $identifier = strtolower($title);
+                $blockId = sprintf("blog_%s_related_product", $identifier);
+                //$blockId = 'new_arrival_general';
+                $blockHtml = $this->getAwFeaturedProductRelated($blockId);
+
+                echo $blockHtml;
+            endforeach;
+        endif;
+        ?>
+    </div>
+
+
 	<input type="hidden" value="<?php echo "http://www.bilna.com/baby/blog/".$post->getIdentifier(); ?>" />
     <?php $comments = $this->getComment(); ?>
 	<div style="clear:both; border-top: 1px dashed #999;"></div>

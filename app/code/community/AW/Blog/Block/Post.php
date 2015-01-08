@@ -269,4 +269,21 @@ class AW_Blog_Block_Post extends AW_Blog_Block_Abstract
             
         return parent::_processCollection($posts);
     }
+    
+    public function getAwFeaturedProductRelated($blockId) {
+        $result = '';
+        $block = Mage::getModel('awfeatured/blocks')->loadByBlockId($blockId);
+        
+        if ($block) {
+            $block->afterLoad();
+
+            if ($block && $block->getRepresentation() && $block->getRepresentation()->getBlock() && $blockObj = $this->getLayout()->createBlock($block->getRepresentation()->getBlock())) {
+                $blockObj->setAFPBlock($block);
+
+                $result = $blockObj->toHtml();
+            }
+        }
+        
+        return $result;
+    }
 }
