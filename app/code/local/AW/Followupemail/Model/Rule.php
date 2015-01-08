@@ -417,26 +417,30 @@ class AW_Followupemail_Model_Rule extends Mage_Core_Model_Abstract {
 
     protected function _validate($params) {
         $this->_validated = true;
-
-        if (true !== $res = $this->validateByCustomer($params))
-            return $res;
-
-        // MSS check
-        $mssRuleId = false;
-        if (Mage::helper('followupemail')->isMSSInstalled() && $mssRuleId = $this->getMssRuleId()
-        ) {
-            if (isset($params['customer'])) {
-                if (!Mage::getModel('marketsuite/filter')->checkRule($params['customer'], $mssRuleId))
-                    return 'MSS rule d=' . $mssRuleId . ' validation failed';
-                $mssRuleId = false; // preventing further MSS checks
+        
+        if (!isset($params['share_apps'])) {
+            if (true !== $res = $this->validateByCustomer($params)) {
+                return $res;
             }
-        }
 
-        // Check is customer is unsubscribed for this rule
-        if (isset($params['customer']) && $params['customer']->getId()) {
-
-            if (in_array($params['customer']->getId(), $this->getData('unsubscribed_customers'))) {
-                return Mage::helper('followupemail')->__('Customer with ID %s is unsubscribed from rule %s', $params['customer']->getId(), $this->getId());
+            // MSS check
+            $mssRuleId = false;
+        
+            if (Mage::helper('followupemail')->isMSSInstalled() && $mssRuleId = $this->getMssRuleId()) {
+                if (isset ($params['customer'])) {
+                    if (!Mage::getModel('marketsuite/filter')->checkRule($params['customer'], $mssRuleId)) {
+                        return 'MSS rule d=' . $mssRuleId . ' validation failed';
+                    }
+                
+                    $mssRuleId = false; // preventing further MSS checks
+                }
+            }
+            
+            // Check is customer is unsubscribed for this rule
+            if (isset ($params['customer']) && $params['customer']->getId()) {
+                if (in_array($params['customer']->getId(), $this->getData('unsubscribed_customers'))) {
+                    return Mage::helper('followupemail')->__('Customer with ID %s is unsubscribed from rule %s', $params['customer']->getId(), $this->getId());
+                }
             }
         }
 
@@ -447,9 +451,9 @@ class AW_Followupemail_Model_Rule extends Mage_Core_Model_Abstract {
                 break;
 
             case AW_Followupemail_Model_Source_Rule_Types::RULE_TYPE_ABANDONED_CART_NEW :
-                if ($mssRuleId && isset($params['quote']) && !Mage::getModel('marketsuite/filter')->checkRule($params['quote'], $mssRuleId)
-                )
+                if ($mssRuleId && isset($params['quote']) && !Mage::getModel('marketsuite/filter')->checkRule($params['quote'], $mssRuleId)) {
                     return 'MSS rule d=' . $mssRuleId . ' validation failed';
+                }
 
                 return $this->validateOrderOrCart($params, 'quote');
                 break;
@@ -459,6 +463,7 @@ class AW_Followupemail_Model_Rule extends Mage_Core_Model_Abstract {
             case AW_Followupemail_Model_Source_Rule_Types::RULE_TYPE_CUSTOMER_LAST_ACTIVITY :
             case AW_Followupemail_Model_Source_Rule_Types::RULE_TYPE_CUSTOMER_BIRTHDAY :
             case AW_Followupemail_Model_Source_Rule_Types::RULE_TYPE_CUSTOMER_NEW_SUBSCRIPTION :
+            case AW_Followupemail_Model_Source_Rule_Types::RULE_TYPE_SHARE_APPS :
                 // return $this->validateByCustomer($params);
                 return true;
                 break;
@@ -474,14 +479,16 @@ class AW_Followupemail_Model_Rule extends Mage_Core_Model_Abstract {
 
             default :
                 if ($this->_orderStatus) {
-                    if ($mssRuleId && isset($params['order']) && !Mage::getModel('marketsuite/filter')->checkRule($params['order'], $mssRuleId)
-                    )
+                    if ($mssRuleId && isset ($params['order']) && !Mage::getModel('marketsuite/filter')->checkRule($params['order'], $mssRuleId)) {
                         return 'MSS rule d=' . $mssRuleId . ' validation failed';
+                    }
 
                     return $this->validateOrderOrCart($params, 'order');
                 }
+                
                 break;
         }
+        
         return 'Unknown event';
     }
 
@@ -1136,6 +1143,104 @@ class AW_Followupemail_Model_Rule extends Mage_Core_Model_Abstract {
         return false;
     }
 
+    /**
+     * Process rule of 'Email Share Apps' type
+     * @param array $params Initial parameters
+     * @param string $templateId Email template code
+     * @param int $timeDelay Time delay (in days)
+     * @param int $sequenceNumber Sequence number in current chain
+     * @return bool Processing result
+     */
+    public function processShareApps($params, $templateId, $timeDelay, $hourDelay, $sequenceNumber) {
+        $objects = $this->_createObjects($params, array ());
+
+        if (!$this->_validated) {
+            $this->validate($objects);
+        }
+        
+        if ($this->_isValid) {
+            if (!$content = $this->_getContent($objects, $templateId)) {
+                $message = "rule id={$this->getId()} has invalid templateId=" . $templateId . " in sequenceNumber=$sequenceNumber";
+                $subject = "Rule has invalid";
+                Mage::getSingleton('followupemail/log')->logError($message, $this, $subject);
+                
+                return false;
+            }
+            
+            // Generate coupon if it needed
+            if ($this->getCouponEnabled()) {
+                //get content of current email template
+                $emailTemplate = $this->_getTemplate($templateId);
+                $emailTemplateContent = $emailTemplate['content'];
+
+                // checking for presence standard coupon variable ( {{var coupon.code}})
+                $pattern2 = '|{{\s*var\s+coupon.code\s*}}|u';
+
+                if (preg_match_all($pattern2, $emailTemplateContent, $matches) > 0) {
+                    $coupon = Mage::helper('followupemail/coupon')->createNew($this);
+                    $message = 'New coupon ' . $coupon->getCouponCode() . ' is created {' . print_r($coupon->getData(), true) . '}';
+                    $subject = "New coupon is created";
+                    Mage::getSingleton('followupemail/log')->logSuccess($message, $this, $subject);
+
+                    $objects['coupon'] = $coupon;
+                    $message = 'Coupon ' . $coupon->getCouponCode() . ' used {' . print_r($coupon->getData(), true) . '}';
+                    $subject = "Coupon used";
+                    Mage::getSingleton('followupemail/log')->logSuccess($message, $this, $subject);
+                }
+
+                // checking for presence extended coupon variable ( {{var coupons.__ALIAS__.code}})
+                $pattern1 = '|{{\s*var\s+coupons.(.*).code\s*}}|u';
+
+                if (preg_match_all($pattern1, $emailTemplateContent, $matches) > 0) {
+                    // using object for access to variables from AW_Followupemail_Model_Filter::filter()
+                    $coupons = new Varien_Object();
+
+                    foreach ($matches[1] as $couponId) {
+                        $coupon = Mage::helper('followupemail/coupon')->createNew($this);
+                        $message = 'New coupon ' . $coupon->getCouponCode() . ' is created {' . print_r($coupon->getData(), true) . '}';
+                        $subject = "New coupon is created";
+                        Mage::getSingleton('followupemail/log')->logSuccess($message, $this, $subject);
+                        $message = 'Coupon ' . $coupon->getCouponCode() . ' used {' . print_r($coupon->getData(), true) . '}';
+                        $subject = "Coupon used";
+                        Mage::getSingleton('followupemail/log')->logSuccess($message, $this, $subject);
+
+                        $coupons->setData($couponId, $coupon);
+                    }
+
+                    $objects['coupons'] = $coupons;
+                }
+            }
+            
+            $objects['has_coupon'] = isset ($objects['coupon']);
+            
+            $storedParams = $params;
+            unset ($storedParams['object_id']);
+            $scheduleAt = strtotime(date("Y-m-d H:i:s", strtotime("+ " . abs($hourDelay) . " hours")));
+            
+            $queue = Mage::getModel('followupemail/queue');
+            $queue->add(
+                $code,
+                $sequenceNumber,
+                $content['sender_name'],
+                $content['sender_email'],
+                $objects['customer_name'],
+                ($this->_isTest) ? $this->getTestRecipient() : $objects['customer_email'], //$customerEmail, 
+                $this->getId(),
+                $scheduleAt,
+                $content['subject'],
+                $content['content'],
+                $params['object_id'],
+                $storedParams
+            );
+            
+            return true;
+        }
+        
+        Mage::getSingleton('followupemail/log')->logWarning("rule id={$this->getId()} is not valid for emailShareApps event of email={$params['customer_email']}, params=" . AW_Followupemail_Helper_Data::printParams($params), $this);
+        
+        return false;
+    }
+    
     /*
      * Sends test email
      * @param array $params Initial parameters

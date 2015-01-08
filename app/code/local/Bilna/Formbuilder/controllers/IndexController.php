@@ -34,7 +34,8 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
         $sql        = "select * from bilna_formbuilder_form where id = $form_id";
         $row        = $connection->fetchRow($sql);
         
-        $fueId = $row['fue'];
+        $fueRuleId = $row['fue'];
+        $fueUrl = $row['url'];
         
         //CHECK INPUTS SETTING
         $block = Mage::getModel('bilna_formbuilder/form')->getCollection();
@@ -119,7 +120,7 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
                     $redirectPage = Mage::getBaseUrl().$field["url"];
                     $this->_redirectPage($redirectPage);
                 }
-            }           
+            }
         }
 
         //echo "<pre>";     
@@ -171,13 +172,12 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
         }
 
         //sent email
-        if($row["sent_email"] == 1 && isset($postData["inputs"]["email"])){
-
+        if ($row["sent_email"] == 1 && isset ($postData["inputs"]["email"])) {
             $collection = Mage::getModel('bilna_formbuilder/data')->getCollection();
-            $collection->getSelect()->reset(Zend_Db_Select::COLUMNS)->columns(array(
-                'record_id'=>'record_id',
-                'type'     =>'type',
-                'value'    =>'value'
+            $collection->getSelect()->reset(Zend_Db_Select::COLUMNS)->columns(array (
+                'record_id' => 'record_id',
+                'type' => 'type',
+                'value' => 'value'
             ));
             $collection->addFieldToFilter('main_table.form_id', (int) $form_id);
             $collection->addFieldToFilter('main_table.record_id', (int) $record_id);
@@ -188,8 +188,10 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
                 $data[$collect->getType()] = $collect->getValue();
             }
 
-            if ($fueId) {
+            if ($fueRuleId) {
                 //send email via FUE
+                $shareUrl = Mage::getBaseUrl() . $fueUrl . "?ref=" . $valueEncrypt;
+                $this->_sendEmailViaFue($fueRuleId, $record_id, $postData, $shareUrl);
             }
             else {
                 $this->_prepareEmail($data, $row['email_id']);
@@ -221,39 +223,6 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
     private function _prepareEmail($data, $templateId) {
         $this->_sendEmail($data, $templateId);
     }
-    
-    protected function _sendEmailViaFue($fueId, $data) {
-        
-        $code = '';
-        $sequenceNumber = 1;
-        $senderName = Mage::getStoreConfig('trans_email/ident_support/name');
-        $senderEmail = Mage::getStoreConfig('trans_email/ident_support/email');
-        $recipientName = $data['email'];
-        $recipientEmail = $data['email'];
-        $ruleId = $fueId;
-        $scheduledAt = '';
-        $subject = '';
-        $content = '';
-        $objectId = '';
-        $params = '';
-                
-                
-                
-        $queue->add(
-            $code,
-            $sequenceNumber,
-            $content['sender_name'],
-            $content['sender_email'],
-            $objects['customer_name'],
-            ($this->_isTest) ? $this->getTestRecipient() : $objects['customer_email'],
-            $this->getId(),
-            time() + $objects['time_delay'] * 60,
-            ($this->_isTest) ? $testFlag . $content['subject'] : $content['subject'],
-            ($this->_isTest) ? $testFlag . $content['content'] : $content['content'],
-            $objects['object_id'],
-            $params
-        );
-    }
 
     private function _redirectPage($url) {
         header("location:".$url);
@@ -270,6 +239,27 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
 
         if ($sendEmail) return true;
         return false;
+    }
+    
+    private function _sendEmailViaFue($fueRuleId, $recordId, $data, $shareUrl) {
+        $fueRule = Mage::getModel('followupemail/rule')->load($fueRuleId);
+        $sequenceNumber = $recordId;
+        
+        foreach (unserialize($fueRule->getChain()) as $chain) {
+            $params = array ();
+            $params['share_apps'] = true;
+            $params['object_id'] = $recordId;
+            $params['store_id'] = Mage::app()->getStore()->getStoreId();
+            $params['customer_email'] = $data['inputs']['email'];
+            $params['share_url'] = $shareUrl;
+            
+            $templateId = $chain['TEMPLATE_ID'];
+            $timeDelay = $chain['BEFORE'] * $chain['DAYS'];
+            $hourDelay = $chain['BEFORE'] * $chain['HOURS'];
+            
+            AW_Followupemail_Model_Log::log('emailShareApps event processing, rule_id=' . $fueRuleId . ', customerEmail=' . $params['customer_email'] . ', store_id=' . $params['store_id']);
+            $fueRule->processShareApps($params, $templateId, $timeDelay, $hourDelay, $sequenceNumber);
+        }
     }
 
     private function _insertData($form_id,$record_id,$type,$value,$create_date) {
@@ -344,7 +334,7 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
         $this->_redirectPage($redirectPage);
     }
     
-    protected function getFormBuilderData($formId) {
+    private function getFormBuilderData($formId) {
         $sql = sprintf("SELECT * FROM `bilna_formbuilder_form` WHERE `id` = %d LIMIT 1", $formId);
         $result = $this->read->fetchRow($sql);
         
