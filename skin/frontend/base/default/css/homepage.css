@@ -111,7 +111,6 @@
 	display:none;
 }
 .cms-index-index .homepage-product a.link-viewmore-product {
-	/* display:none !important; */
 	display: block !important;
 }
 .homepage-product a.link-viewmore-product:hover {
