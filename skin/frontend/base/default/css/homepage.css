@@ -40,7 +40,8 @@
     display: block;
 }
 .banner-left-mainhomepage {
-    margin: 0 10px 0 0;
+    /* margin: 0 10px 0 0; */ 
+    margin: 0 0 0 10px;
 }
 .banner-right-mainhomepage {
     margin: 0 0 0 10px;
@@ -81,6 +82,7 @@
 }
 .homepage-product {
 	position: relative;
+    background: url("../images/shd_featured_title.png") repeat-x scroll center bottom rgba(0, 0, 0, 0);
 }
 .style-mom-baby .homepage-product.onsale,
 .style-baby .homepage-product.onsale {
@@ -111,7 +113,6 @@
 	display:none;
 }
 .cms-index-index .homepage-product a.link-viewmore-product {
-	/* display:none !important; */
 	display: block !important;
 }
 .homepage-product a.link-viewmore-product:hover {
@@ -120,7 +121,8 @@
 
 /* ----------------------------- CSS Aditional on HOMEPAGE NEW ----------------------------- */
 .cms-index-index .homepage-product.onsale h2, .cms-index-index .homepage-product.newarrival h2, .cms-index-index .homepage-product.mostpopular h2{
-	background: url("../images/shd_featured_title.png") repeat-x scroll center bottom rgba(0, 0, 0, 0);
+	/* background: url("../images/shd_featured_title.png") repeat-x scroll center bottom rgba(0, 0, 0, 0); */
+	background: none;
 	color: #707070;
 	padding: 0;
 	position: relative;
@@ -130,7 +132,8 @@
 	text-align: left;
 	}
 .cms-home .homepage-product.onsale h2, .cms-home .homepage-product.newarrival h2, .cms-home .homepage-product.mostpopular h2{
-	background: url("../images/shd_featured_title.png") repeat-x scroll center bottom rgba(0, 0, 0, 0);
+	/* background: url("../images/shd_featured_title.png") repeat-x scroll center bottom rgba(0, 0, 0, 0); */
+    background: none;
 	color: #707070;
 	padding: 0;
 	position: relative;
@@ -149,7 +152,8 @@
     padding: 0 24px 0 0;
 }
 .cms-home .homepage-product.onsale h2, .cms-home .homepage-product.newarrival h2, .cms-home .homepage-product.mostpopular h2{
-	background: url("../images/shd_featured_title.png") repeat-x scroll center bottom rgba(0, 0, 0, 0);
+	/* background: url("../images/shd_featured_title.png") repeat-x scroll center bottom rgba(0, 0, 0, 0); */
+    background: none;
 	color: #707070;
 	padding: 0;
 	position: relative;
@@ -157,6 +161,10 @@
 	font-family:'bebasregular';
 	margin: 0 0 10px;
 	text-align: left;
+    border-bottom: 5px solid;
+    width:-moz-fit-content;
+    width:-webkit-fit-content;
+    width:fit-content;
 	}
 .cms-home .homepage-product.onsale h2 span, .cms-home .homepage-product.newarrival h2 span, .cms-home .homepage-product.mostpopular h2 span{
 	background: url("../images/arrow-2.png") no-repeat scroll right center rgba(0, 0, 0, 0);
@@ -184,29 +192,61 @@
 .cms-home .homepage-product.onsale h2:before{
 	width: 170px;
 	background: none repeat scroll 0 0 #F76A59;
+    display: none;
 }
 .cms-home .homepage-product.onsale h2:before{
 	/* width: 210px; */
     width: 187px;
 	background: none repeat scroll 0 0 #F76A59;
+    display: none;
 }
 .cms-home .homepage-product.newarrival h2:before{
 	width: 130px;
 	background: none repeat scroll 0 0 #7dcd32;
+    display: none;
 }
 .cms-home .homepage-product.newarrival h2:before{
 	/* width: 140px; */
     width: 256px;
 	background: none repeat scroll 0 0 #7dcd32;
+    display: none;
 }
 .cms-home .homepage-product.mostpopular h2:before{
 	width: 150px;
 	background: none repeat scroll 0 0 #42bcd1;
+    display: none;
 }
 .cms-home .homepage-product.mostpopular h2:before{
 	/* width: 160px; */
     width: 187px;
 	background: none repeat scroll 0 0 #42bcd1;
+    display: none;
+}
+
+
+.cms-home .homepage-product.onsale h2{
+	border-bottom:5px solid #F76A59;
+    background: none;
+}
+.cms-home .homepage-product.onsale h2{
+	border-bottom:5px solid #F76A59;
+    background: none;
+}
+.cms-home .homepage-product.newarrival h2{
+	border-bottom:5px solid #7dcd32;
+    background: none;
+}
+.cms-home .homepage-product.newarrival h2{
+	border-bottom:5px solid #7dcd32;
+    background: none;
+}
+.cms-home .homepage-product.mostpopular h2{
+	border-bottom:5px solid #42bcd1;
+    background: none;
+}
+.cms-home .homepage-product.mostpopular h2{
+	border-bottom:5px solid #42bcd1;
+    background: none;
 }
 
 /* -----END additional homepage new------ */
@@ -440,7 +480,7 @@
 	margin: 0;
 }
 
-.banner-right-mainhomepage p, .banner-left-mainhomepage p {margin: 0 0 0.25em !important;}
+.banner-right-mainhomepage p, .banner-left-mainhomepage p {margin: 0 0 0.8em !important;}
 
 .cms-index-index .slidesjs-pagination .slidesjs-pagination-item a{
 	 background: none repeat scroll 0 0 #C7C7C7 !important;
