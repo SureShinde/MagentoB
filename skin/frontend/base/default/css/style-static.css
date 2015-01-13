@@ -3779,13 +3779,16 @@ button.button-area {
 .landing-page-shareapp .formbuilder-form p.required{
 	display:none;
 }
+.landing-page-shareapp .formbuilder-form li div.validation-advice{
+	display:block;
+}
 .landing-page-shareapp .formbuilder-form li, .landing-page-shareapp .formbuilder-form li div label{
     border-bottom-left-radius: 10px;
     border-top-left-radius: 10px;
     color: #FFFFFF;
     display: block;
     font-size: 20px;
-    padding: 16px 20px;
+    padding: 16px 20px !important;
     position: relative;
     width: 120px;
 }
@@ -3835,7 +3838,7 @@ button.button-area {
     margin: 0 !important;
     padding: 12px 20px !important;;
 }
-.landing-page-shareapp .formbuilder-form li, .landing-page-shareapp .formbuilder-form li div:last-child, .landing-page-shareapp .formbuilder-form > div{
+.landing-page-shareapp .formbuilder-form li, .landing-page-shareapp .formbuilder-form > div{
 	display:none;
 }
 /*end form builder*/
@@ -3844,7 +3847,7 @@ button.button-area {
 	margin:110px auto;
 }
 .landing-page-shareapp.form-page-shareapp .wrap-form{
-	margin:50px auto;	
+	margin:20px auto;	
 }
 .landing-page-shareapp.form-page-shareapp .wrap-form .input-box button{
 	position:absolute;
@@ -3939,6 +3942,20 @@ button.button-area {
 	display:block;
 	clear:both;
 	float:right;
+}
+.landing-page-shareapp.form-page-shareapp .wrap-form .share-social-media{
+	display:table;
+	margin:0 auto;
+}
+.landing-page-shareapp.form-page-shareapp .wrap-form .share-social-media img{
+	margin:0 5px;
+}
+.landing-page-shareapp.form-page-shareapp .wrap-form .validation-advice{
+	color: #fff;
+	position:absolute;
+	bottom:0;
+	background: rgba(0, 0, 0, 0.2);
+	right:0;
 }
 .landing-page-shareapp .wording{
 	clear:both;
