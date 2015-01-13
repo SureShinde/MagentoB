@@ -1,113 +1,54 @@
 <?php echo $this->getChildHtml('global_messages'); ?>
 
-<form id="share-form" method="post" action="<?php echo $this->getBaseUrl(); ?>formbuilder/index/share">
-    <div class="share-url">
-        <label for="url_ref" class="reff-url">Refferal URL:</label>
-        <span class="">
-            <strong><?php echo $this->getShareUrl(); ?></strong>
-        </span>
-        
-        <input type="hidden" name="form_id" value="<?php echo $this->getFormId(); ?>" />
-        <input type="hidden" name="record_id" value="<?php echo $this->getRecordId(); ?>" />
-        <input type="hidden" name="ref" value="<?php echo $this->getRef(); ?>" />
-        <input type="hidden" name="url_ref" value="<?php echo $this->getShareUrl(); ?>" />
+<div class="static-page-area landing-page-shareapp form-page-shareapp">
+    <div class="wrap-form">
+        <form id="share-form" method="post" action="<?php echo $this->getBaseUrl(); ?>formbuilder/index/share">
+            <input type="hidden" name="form_id" value="<?php echo $this->getFormId(); ?>" />
+            <input type="hidden" name="record_id" value="<?php echo $this->getRecordId(); ?>" />
+            <input type="hidden" name="ref" value="<?php echo $this->getRef(); ?>" />
+            <input type="hidden" name="url_ref" value="<?php echo $this->getShareUrl(); ?>" />
+            
+            <?php for ($i = 1; $i <= 5; $i++): ?>
+                <div class="input-box">
+                    <?php
+                    $requiredIcon = '';
+                    $requiredClass = '';
+
+                    if ($i == 1):
+                        $requiredIcon = '<em>*</em>';
+                        $requiredClass = 'required-entry';
+                    endif;
+                    ?>
+
+                    <label for="email_<?php echo $i; ?>" class="">
+                        Email <?php echo $requiredIcon; ?>
+                    </label>
+
+                    <input type="text" name="email[]" title="Email" class="<?php echo $requiredClass; ?> validate-email" id="email_<?php echo $i; ?>" placeholder="join@youremail.com" />
+                </div>
+            <?php endfor; ?>
+            
+            <div class="input-box">
+                <label>Subject:</label>
+                <input type="text" name="subject" id="subject" placeholder="Daftar & dapatkan diskon langsung 25%" />
+            </div>
+            
+            <div class="textarea-box">
+                <textarea type="text" name="content" id="content" placeholder="Ayo daftarkan E-mail di Bilna.com untukmendapatkan promo dan diskon menarik untuk kebutuhan keluarga Anda"></textarea>
+            </div>
+            
+            <button type="submit" class="button">
+                Send
+            </button>
+        </form>
     </div>
-    
-    <?php for ($i = 1; $i <= 5; $i++): ?>
-        <div class="share-email">
-            <?php
-            $requiredIcon = '';
-            $requiredClass = '';
-            
-            if ($i == 1):
-                $requiredIcon = '<em>*</em>';
-                $requiredClass = 'required-entry';
-            endif;
-            ?>
-            
-            <label for="email_<?php echo $i; ?>" class="">
-                Email <?php echo $requiredIcon; ?>
-            </label>
-            
-            <input type="text" name="email[]" title="Email" class="<?php echo $requiredClass; ?> validate-email" id="email_<?php echo $i; ?>" />
-            
-            <div class="clear-both"></div>
-        </div>
-    <?php endfor; ?>
-    
-    <div class="share-submit">
-        <button type="submit" class="button">
-            <span class="fb-bebas fb-15">Submit</span>
-        </button>
-    </div>
-</form>
+</div>
 
 <div class="share-social-media">
     <a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $this->getShareUrl(); ?>" target="_blank">Share on Facebook</a>
     or
     <a href="https://twitter.com/home?status=<?php echo $this->getShareUrl(); ?>" target="_blank">Share on Twitter</a>
 </div>
-
-<style type="text/css">
-    #share-form label {
-        float: left;
-        width: 140px;
-        padding-top: 10px;
-    }
-    #share-form .share-url {
-        margin-bottom: 20px;
-    }
-    #share-form .reff-url {
-        padding-top: 0;
-    }
-    #share-form input[type="text"] {
-        background: none repeat scroll 0 0 #f9f9f9;
-        border: medium none;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) inset;
-        color: #666666;
-        float: left;
-        height: 26px !important;
-        margin-right: 60px;
-        padding: 7px 5px;
-        width: 40%;
-        max-width: 350px;
-    }
-    #share-form .share-email {
-        clear: both;
-        margin-top: 6px;
-    }
-    #share-form .clear-both {
-        clear: both;
-    }
-    #share-form .share-submit {
-        margin-top: 20px;
-        margin-left: 140px;
-    }
-    #share-form .share-submit button {}
-    #share-form .share-submit button span {
-        padding: 10px 20px;
-        border: none;
-        background: #ffa01b;
-        font-weight: normal;
-    }
-    
-    #share-form .validation-advice {
-        margin-left: 140px;
-        padding-top: 10px;
-        background-position: 2px 8px;
-    }
-    
-    .share-social-media {
-        margin-top: 50px;
-    }
-    .share-social-media a {
-        font-weight: bold;
-        text-decoration: none;
-    }
-    .share-social-media a:hover {
-        text-decoration: underline;
-    }
-</style>
 
 <script type="text/javascript">
     //< ![CDATA[

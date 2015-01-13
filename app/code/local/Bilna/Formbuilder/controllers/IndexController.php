@@ -230,14 +230,19 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
     }
 
     private function _sendEmail($data, $templateId) {
-        $sender = array('name'  => Mage::getStoreConfig('trans_email/ident_support/name'),
-                        'email' => Mage::getStoreConfig('trans_email/ident_support/email'));
+        $sender = array(
+            'name'  => Mage::getStoreConfig('trans_email/ident_support/name'),
+            'email' => Mage::getStoreConfig('trans_email/ident_support/email')
+        );
 
         $translate = Mage::getSingleton('core/translate');
         $sendEmail = Mage::getModel('core/email_template')->sendTransactional($templateId, $sender, $data['email'], $data['name'], $data);
         $translate->setTranslateInline(true);
 
-        if ($sendEmail) return true;
+        if ($sendEmail) {
+            return true;
+        }
+        
         return false;
     }
     
@@ -294,50 +299,70 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
         $ref = $posts['ref'];
         $urlRef = $posts['url_ref'];
         $emails = $posts['email'];
+        $subject = $posts['subject'];
+        $content = $posts['content'];
         
         $formBuilder = $this->getFormBuilderData($formId);
-        $urlSuccess = $formBuilder['url_success'];
-        $emailId = $formBuilder['email_id'];
         
-        $emailSuccess = array ();
-        $emailFailed = array ();
-        
-        foreach ($emails as $email) {
-            if (!empty ($email)) {
-                $data = array (
-                    'email' => $email,
-                    'name' => $email,
-                    'url_ref' => $urlRef,
-                );
-                
-                if ($this->_sendEmail($data, $emailId)) {
-                    $emailSuccess[] = $email;
-                }
-                else {
-                    $emailFailed[] = $email;
+        if ($formBuilder) {
+            $urlSuccess = $formBuilder['url_success'];
+            $emailId = $formBuilder['email_id'];
+
+            $emailSuccess = array ();
+            $emailFailed = array ();
+
+            foreach ($emails as $email) {
+                if (!empty ($email)) {
+                    $data = array (
+                        'email' => $email,
+                        'name' => $email,
+                        'url_ref' => $urlRef,
+                        'subject' => $subject,
+                        'content' => $content,
+                    );
+
+                    if ($this->_sendEmail($data, $emailId)) {
+                        $emailSuccess[] = $email;
+                    }
+                    else {
+                        $emailFailed[] = $email;
+                    }
                 }
             }
+
+            if ($emailSuccess && count($emailSuccess) > 0) {
+                $successMessage = "Successfully send an email to: " . implode(', ', $emailSuccess);
+                Mage::getSingleton('core/session')->addSuccess($successMessage);
+            }
+
+            if ($emailFailed && count($emailFailed) > 0) {
+                $failedMessage = "Failed to send an email to: " . implode(', ', $emailFailed);
+                Mage::getSingleton('core/session')->addError($failedMessage);
+            }
         }
-        
-        if ($emailSuccess && count($emailSuccess) > 0) {
-            $successMessage = "Successfully send an email to: " . implode(', ', $emailSuccess);
-            Mage::getSingleton('core/session')->addSuccess($successMessage);
-        }
-        
-        if ($emailFailed && count($emailFailed) > 0) {
-            $failedMessage = "Failed to send an email to: " . implode(', ', $emailFailed);
+        else {
+            $failedMessage = "Failed to send an email.";
             Mage::getSingleton('core/session')->addError($failedMessage);
         }
         
         $queryString = sprintf("?formId=%d&recordId=%d&ref=%s", $formId, $recordId, $ref);
-        $redirectPage = Mage::getBaseUrl() . $urlSuccess . $queryString;
+        $redirectPage = Mage::helper('core/http')->getHttpReferer() ? Mage::helper('core/http')->getHttpReferer() : Mage::getBaseUrl();
+        $redirectPage .= $queryString;
+        
         $this->_redirectPage($redirectPage);
     }
     
     private function getFormBuilderData($formId) {
-        $sql = sprintf("SELECT * FROM `bilna_formbuilder_form` WHERE `id` = %d LIMIT 1", $formId);
-        $result = $this->read->fetchRow($sql);
+        $collection = Mage::getModel('bilna_formbuilder/form')->getCollection();
+        $collection->addFieldToFilter('main_table.id', $formId);
+        $collection->getFirstItem();
         
-        return $result;
+        if ($collection->getSize() > 0) {
+            $collectionData = $collection->getData();
+            
+            return $collectionData[0];
+        }
+        
+        return false;
     }
 }
