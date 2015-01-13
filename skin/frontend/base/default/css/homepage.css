@@ -113,7 +113,6 @@
 	display:none;
 }
 .cms-index-index .homepage-product a.link-viewmore-product {
-	/* display:none !important; */
 	display: block !important;
 }
 .homepage-product a.link-viewmore-product:hover {
@@ -481,7 +480,7 @@
 	margin: 0;
 }
 
-.banner-right-mainhomepage p, .banner-left-mainhomepage p {margin: 0 0 0.25em !important;}
+.banner-right-mainhomepage p, .banner-left-mainhomepage p {margin: 0 0 0.8em !important;}
 
 .cms-index-index .slidesjs-pagination .slidesjs-pagination-item a{
 	 background: none repeat scroll 0 0 #C7C7C7 !important;
