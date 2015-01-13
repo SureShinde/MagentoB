@@ -1770,7 +1770,7 @@ h2.block-grey-title-left {
 .formbuilder-form ul li  {
     margin: 0 0 0 11px;
 }
-.formbuilder-form ul li  {
+.formbuilder-form button.button ul li  {
     list-style-type: none;
     clear: both;
 }
@@ -3763,6 +3763,82 @@ button.button-area {
 .cms-email-register, .cms-email-referral-register, .cms-email-referral-thankyou{
 	padding:0;
 }
+/*with form builder*/
+.landing-page-shareapp .formbuilder-form li:first-child{
+	 background: none repeat scroll 0 0 #DEDEDE !important;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #CDCDCD inset;
+    clear: both;
+    float: left;
+    height: 52px;
+	width:100%;
+    margin: 0 0 10px;
+	padding: 0 !important;
+	display:block;
+}
+.landing-page-shareapp .formbuilder-form p.required{
+	display:none;
+}
+.landing-page-shareapp .formbuilder-form li, .landing-page-shareapp .formbuilder-form li div label{
+    border-bottom-left-radius: 10px;
+    border-top-left-radius: 10px;
+    color: #FFFFFF;
+    display: block;
+    font-size: 20px;
+    padding: 16px 20px;
+    position: relative;
+    width: 120px;
+}
+.landing-page-shareapp .formbuilder-form button{
+	background: url("../images/referall-page/bg_label_input.jpg") repeat-x scroll 0 0 rgba(0, 0, 0, 0);
+    border: 2px solid #DADADA;
+    border-radius: 10px;
+    color: #FFFFFF;
+    cursor: pointer;
+    font-size: 18px;
+    margin: 0 10px;
+    padding: 15px 20px;
+	clear:none;
+ }
+.landing-page-shareapp .formbuilder-form{
+	width:100% !important;
+}
+.landing-page-shareapp .formbuilder-form ul{
+	float:left;
+	padding:0;
+	display:block;
+	margin-right:10px;
+ }
+.landing-page-shareapp .formbuilder-form button span{
+	padding:0 !important;
+	background:none !important;
+}
+ .landing-page-shareapp .formbuilder-form li div label{
+	background: url("../images/referall-page/bg_label_input.jpg") repeat-x scroll 0 0 rgba(0, 0, 0, 0);
+ }
+ .landing-page-shareapp .formbuilder-form li div label:after{
+	background: url("../images/referall-page/arrow-label.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    content: " ";
+    display: block;
+    height: 30px;
+    position: absolute;
+    right: -18px;
+    top: 13px;
+    width: 20px;
+ }
+.landing-page-shareapp .formbuilder-form li input{
+	background: none repeat scroll 0 0 rgba(0, 0, 0, 0) !important;
+    border: 0 none !important;
+    box-shadow: none !important;
+    font-size: 16px !important;
+    line-height: normal !important;
+    margin: 0 !important;
+    padding: 12px 20px !important;;
+}
+.landing-page-shareapp .formbuilder-form li, .landing-page-shareapp .formbuilder-form li div:last-child, .landing-page-shareapp .formbuilder-form > div{
+	display:none;
+}
+/*end form builder*/
 .landing-page-shareapp .wrap-form{
 	display:table;
 	margin:110px auto;
