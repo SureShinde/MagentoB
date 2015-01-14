@@ -25,9 +25,3 @@
  */
 ?>
 <?php /* @var $this Mage_ProductAlert_Block_Product_View */?>
-
-<input type="hidden" value="<?php echo $this->escapeHtml($this->__($this->getValueHidden())); ?>">
-<p class="<?php echo $this->getHtmlClass() ?> reserved-prod-btn">
-    <a href="#" title="<?php echo $this->escapeHtml($this->__($this->getSignupLabel())); ?>" onclick="return postPrice('<?php echo $this->escapeHtml($this->getSignupUrl()) ?>')">
-    	<?php echo $this->escapeHtml($this->__($this->getNotifyLabel())); ?></a>
-</p>

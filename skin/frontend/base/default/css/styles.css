@@ -835,7 +835,7 @@ tr.summary-details-excluded { font-style:italic; }
 .products-grid .product-name { /*min-height:2.7em;*/ margin:0 0 5px; font-weight:bold; font-size:13px; color:#203548; }
 .products-grid .product-name a { color:#203548; }
 .products-grid .price-box { margin:5px 0; }
-.products-grid .availability { line-height:21px;bottom: 30px; position: absolute; }
+.products-grid .availability { line-height:21px;bottom: 30px; position: absolute; background:url(../images/btn-buynow-grey.png) no-repeat; padding:7px 15px; bottom: 20px; position: absolute;}
 .products-grid .actions { position:absolute; bottom:12px; }
 .col2-left-layout .products-grid,
 .col2-right-layout .products-grid { width:632px; margin:0 auto; }
@@ -885,7 +885,7 @@ tr.summary-details-excluded { font-style:italic; }
 .availability span { font-weight:bold; }
 .availability.in-stock span {}
 .availability.out-of-stock span { color:#d83820; }
-.bottom_thumb_list_product .availability.out-of-stock span { color:#d83820; font-weight: bold; }
+.bottom_thumb_list_product .availability.out-of-stock span { color:#fff; font-weight: bold; }
 
 .availability-only { margin:10px 0 7px; line-height:16px; background:url(../images/i_availability_only.gif) 0 50% no-repeat; padding-left:15px; display: none;}
 .availability-only span,
@@ -2908,7 +2908,8 @@ z/*======================Category page===================*/
 .style-supermarket .tiny .overview{
 	position:relative;
 }
-z/*======================Category page===================*/
+/*======================Category page===================*/
+
 
 
 /*======================product page===================*/
@@ -4260,3 +4261,4 @@ z/*======================Category page===================*/
 }
 /* ------------------- **** ------------------ /
 /* --------------------------------------------- END kosmetik CSS APRIL 2014 -------------------------------------------------- */
+
