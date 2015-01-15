@@ -41,6 +41,10 @@
 		//var_dump($this->inputs->getData()); die;
 		
 		foreach($this->inputs->getData() as $input){
+                    if ($input['type'] == 'codeshare') {
+                        continue;
+                    }
+                    
 		$groupcombine = "";
 
 		?>	
@@ -110,18 +114,38 @@
 			<?php }else{ ?>			
 
 				<div>
-					<label class="required" style="float: left; width: 140px;" for="<?php echo $input["name"]; ?>"><?php echo $input["value"]; ?><em><?php if($input["required"] == true) echo '*'; ?></em></label>
+                                    <?php if ($input['type'] != 'ref') { ?>
+                                        <label class="required" style="float:left; width:140px; padding-top:10px;" for="<?php echo $input["name"]; ?>">
+                                            <?php echo $input["value"]; ?><em><?php if($input["required"] == true) echo '*'; ?></em>
+                                        </label>
+                                    <?php } ?>
 
 				<!--Text Type-->
 				<?php if($input["type"] == "text"){ ?>
-					<input id="<?php echo $input["name"]; ?>" class="<?php if ($input["required"]) {echo "required-entry";}?> <?php echo (!empty($input["validation"])) ? 'validate-'.$input["validation"] : ''; ?>" style="height: 26px !important; width: 40%; background: none repeat scroll 0 0 #F9F9F9; border: none; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) inset; color: #666666; padding: 7px 5px; float: left; margin-right: 60px;" title="<?php echo $input["value"]; ?>" name="inputs[<?php echo $input["group"]; ?>]" placeholder="<?php echo $input["helper_message"]; ?>" />
+                                    <?php
+                                    $_validateEmail = '';
+                                    
+                                    if ($input['name'] == 'email') {
+                                        $_validateEmail = 'validate-email';
+                                    }
+                                    ?>
+                                    <input id="<?php echo $input["name"]; ?>" class="<?php if ($input["required"]) {echo "required-entry";}?> <?php echo (!empty($input["validation"])) ? 'validate-'.$input["validation"] : ''; ?> <?php echo $_validateEmail; ?>" style="height: 26px !important; width: 40%; background: none repeat scroll 0 0 #F9F9F9; border: none; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) inset; color: #666666; padding: 7px 5px; float: left; margin-right: 60px;" title="<?php echo $input["value"]; ?>" name="inputs[<?php echo $input["group"]; ?>]" placeholder="<?php echo $input["helper_message"]; ?>" />
 				<!--End Text Type-->
 
 				<!--Textarea Type-->
 				<?php }else if($input["type"] == "textarea"){ ?>
 					<textarea id="<?php echo $input["name"]; ?>" class="<?php if ($input["required"]) {echo "required-entry";}?> input-text" style="height: 100px !important; width: 40%; background: none repeat scroll 0 0 #F9F9F9; border: none; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) inset; color: #666666; padding: 7px 5px; float: left; margin-right: 60px;" rows="3" cols="5" title="<?php echo $input["value"]; ?>" name="inputs[<?php echo $input["group"]; ?>]"></textarea>
-				<?php } ?>
-				<!--Textarea Type-->
+                                <!--Textarea Type-->
+				<?php
+                                }
+                                elseif ($input['type'] == 'ref') {
+                                    $_value = '';
+                                    
+                                    if ($this->getRequest()->getParam($input['type'])) {
+                                        $_value = $this->getRequest()->getParam($input['type']);
+                                    } ?>
+                                    <input id="<?php echo $input['name']; ?>" name="inputs[<?php echo $input['group']; ?>]" type="hidden" value="<?php echo $_value; ?>" />
+                                <?php } ?>
 
 				</div>
 				<div style="clear: both;">
@@ -153,3 +177,17 @@
 	<div style="padding-left: 40em; margin-top: -30px; clear: both; width: 60%; padding: 0 15%; margin-bottom: 70px;"></div>
 	<?php } ?>
 </form>
+
+<style type="text/css">
+    .formbuilder-form .validation-advice {
+        margin-left: 140px;
+        padding-top: 10px;
+        background-position: 2px 8px;
+    }
+</style>
+
+<script type="text/javascript">
+    //< ![CDATA[
+        var customForm = new VarienForm('formbuilder-<?php echo $this->blockId; ?>');
+    //]]>
+</script>
