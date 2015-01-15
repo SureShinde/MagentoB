@@ -234,6 +234,9 @@
 			e.preventDefault();
 			$j('.mini-cart-sticky').slideToggle();
 		});	
+		$j('.wrap-megamenu').click(function (){
+			 $j('.megamenu').slideToggle();
+		});
 	}	
 
 	
@@ -398,6 +401,7 @@
             <?php echo $this->getChildHtml('store_language') ?>
             <div class="clear"></div>
         </div>
+		<?php echo $this->getLayout()->createBlock('page/html')->setTemplate('page/html/megamenu.phtml')->toHtml(); ?>
         <?php echo $this->getChildHtml('topContainer'); ?>
         <div class="nav-mobile"><?php //echo $this->getChildHtml('topMenu') ?></div>
         <div class="mini-cart-mobile"><?php echo $this->getChildHtml('topcart') ?></div>
