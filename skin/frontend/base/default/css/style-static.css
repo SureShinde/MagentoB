@@ -3771,7 +3771,7 @@ button.button-area {
     clear: both;
     float: left;
     height: 52px;
-	width:100%;
+	width:580px;
     margin: 0 0 10px;
 	padding: 0 !important;
 	display:block;
@@ -3826,6 +3826,9 @@ button.button-area {
 .landing-page-shareapp .formbuilder-form{
 	width:100% !important;
 }
+.landing-page-shareapp .formbuilder-form ~ div {
+	display:none;
+}
 .landing-page-shareapp .formbuilder-form ul{
 	float:left;
 	padding:0;
@@ -3864,7 +3867,7 @@ button.button-area {
 /*end form builder*/
 .landing-page-shareapp .wrap-form{
 	display:table;
-	margin:110px auto;
+	margin:80px auto;
 }
 .landing-page-shareapp.form-page-shareapp .wrap-form{
 	margin:20px auto;	
@@ -3890,7 +3893,6 @@ button.button-area {
 	clear:both;
 }
 .landing-page-shareapp.form-page-shareapp .wrap-form .input-box{
-	width:100%;
 	position:relative;
 }
 .landing-page-shareapp .wrap-form .textarea-box{
@@ -3913,11 +3915,12 @@ button.button-area {
 	background:none;
 	border:0;
 	font-size: 18px;
+	width: 322px;
     padding: 15px 20px;
 }
  .landing-page-shareapp.form-page-shareapp .wrap-form .textarea-box textarea{
 	min-height: 80px;
-    width: 190px;
+    width: 325px;
 	font-size:14px;
  }
 .landing-page-shareapp .wrap-form .input-box label{
@@ -3965,6 +3968,7 @@ button.button-area {
 }
 .landing-page-shareapp.form-page-shareapp .wrap-form .share-social-media{
 	display:table;
+	font-size:14px;
 	margin:0 auto;
 }
 .landing-page-shareapp.form-page-shareapp .wrap-form .share-social-media img{
@@ -4012,8 +4016,8 @@ button.button-area {
 	color:#fff; 
 	text-decoration:none
 }
-.landing-page-shareapp  .footer  img{
-	margin:10px;
+.landing-page-shareapp .footer  img{
+	margin:10px 3px;
 }
 .landing-page-shareapp  .footer table{
 	float:right;
@@ -4022,6 +4026,11 @@ button.button-area {
 .thanku-page-shareapp img{
 	display: block;
     margin: 0 auto;
+}
+@media only screen and (min-width: 768px) {
+	.landing-page-shareapp.form-page-shareapp .wrap-form .input-box{
+		width:525px;
+	}
 }
 @media only screen and (max-width: 768px) {
 	.landing-page-shareapp .footer{
@@ -4045,14 +4054,14 @@ button.button-area {
 	}
 	.landing-page-shareapp .wrap-form{
 		margin:40px auto;
-		width:80%;
+		width:90%;
 	}
 	.landing-page-shareapp .wrap-form .input-box label{
 		width:100%;
-		padding-left: 0;
-		padding-right: 0;
+		padding:10px 0;
 		text-align: center;
 		width: 100%;
+		font-size: 16px;
 		border-top-left-radius:10px;
 		-moz-border-top-left-radius:10px;
 		-webkit-border-top-left-radius:10px;
@@ -4082,6 +4091,7 @@ button.button-area {
 		display: table;
 		float: none;
 		height: auto;
+		width:100%;
 		margin: 0 auto 15px;
 	}
 	.landing-page-shareapp .wrap-form button{
@@ -4108,6 +4118,12 @@ button.button-area {
 		line-height: 25px;
 		margin-left: auto;
 		margin-right: auto;
+		width: 90%;
+	}
+	.landing-page-shareapp.form-page-shareapp .wording{
+		font-size: 15px;
+		line-height: 18px;
+		margin: 40px auto;
 		width: 90%;
 	}
 }
