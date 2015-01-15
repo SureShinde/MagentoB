@@ -1268,6 +1268,7 @@ class AW_Followupemail_Model_Rule extends Mage_Core_Model_Abstract {
             case AW_Followupemail_Model_Source_Rule_Types::RULE_TYPE_CUSTOMER_LOGGED_IN :
             case AW_Followupemail_Model_Source_Rule_Types::RULE_TYPE_CUSTOMER_LAST_ACTIVITY :
             case AW_Followupemail_Model_Source_Rule_Types::RULE_TYPE_CUSTOMER_BIRTHDAY :
+            case AW_Followupemail_Model_Source_Rule_Types::RULE_TYPE_SHARE_APPS :
                 $params['object_id'] = $params['customer_id'] ? $params['customer_id'] : $params['customer_email'];
                 break;
 

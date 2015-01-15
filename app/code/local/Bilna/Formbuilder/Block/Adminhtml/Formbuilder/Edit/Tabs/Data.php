@@ -42,29 +42,31 @@ class Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Edit_Tabs_Data extends Mage_
                 }
                 
                 if ($_index == 'created_at') {
-//                    $this->addColumn('created_at', array (
-//                        'header' => Mage::helper('sales')->__('Purchased On'),
-//                        'index' => 'created_at',
-//                        'filter_index' => 'main_table.created_at',
-//                        'type' => 'datetime',
-//                        'width' => '100px',
-//                    ));
-                    
                     $this->addColumn($_index, array (
                         'header' => $_title,
                         'type' => 'datetime',
                         'index' => $_index,
                         'filter_index' => 'main_table.' . $_index,
                         'format' => Mage::app()->getLocale()->getDateTimeFormat(Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM),
-                        'width' => '100px',
+                        'width' => '180px',
                     ));
                 }
                 else {
-                    $this->addColumn($_index, array (
-                        'header' => $_title,
-                        'index' => $_index,
-                        'filter_index' => 'main_table.' . $_index,
-                    ));
+                    if ($_index == 'refferal') {
+                        $this->addColumn($_index, array (
+                            'header' => $_title,
+                            'index' => $_index,
+                            'filter_index' => 'main_table.' . $_index,
+                            'renderer' => 'Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Edit_Tabs_Renderer_Data',
+                        ));
+                    }
+                    else {
+                        $this->addColumn($_index, array (
+                            'header' => $_title,
+                            'index' => $_index,
+                            'filter_index' => 'main_table.' . $_index,
+                        ));
+                    }
                 }
             }
         }

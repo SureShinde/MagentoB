@@ -132,13 +132,12 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
             
             if ($codeShare && $type == 'email') {
                 $type = $codeShareField;
-                $valueEncrypt = md5($value);
+                $helper = Mage::helper('bilna_formbuilder');
+                $valueEncrypt = $helper->encrypt($value);
                 $this->_insertData($form_id, $record_id, $type, $valueEncrypt, $create_date);
                 $codeShare = false;
             }
         }
-        
-        
         
         $freeProducts = json_decode($row["freeproducts"]);
         foreach($freeProducts->sku as $sku){
@@ -301,6 +300,7 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
         $emails = $posts['email'];
         $subject = $posts['subject'];
         $content = $posts['content'];
+        $urlShare = $posts['url_share'];
         
         $formBuilder = $this->getFormBuilderData($formId);
         
@@ -316,6 +316,7 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
                 if (!empty ($email)) {
                     $data = array (
                         'email' => $email,
+                        'email_ref' => Mage::helper('bilna_formbuilder')->decrypt($ref),
                         'name' => $email,
                         'url_ref' => $urlRef,
                         'subject' => $subject,
@@ -341,7 +342,7 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
                 //Mage::getSingleton('core/session')->addError($failedMessage);
             }
             
-            $redirectPage = sprintf("%s%s", Mage::getBaseUrl(), $urlThankyou);
+            $redirectPage = sprintf("%s%s?formId=%s&recordId=%s&ref=%s", Mage::getBaseUrl(), $urlThankyou, $formId, $recordId, $ref);
         }
         else {
             $failedMessage = "Failed to send an email.";

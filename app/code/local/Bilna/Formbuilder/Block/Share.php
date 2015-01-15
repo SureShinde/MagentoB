@@ -7,6 +7,7 @@
 
 class Bilna_Formbuilder_Block_Share extends Mage_Core_Block_Template {
     public $formId = null;
+    public $recordId = null;
     public $formData = null;
     public $currentUrl = null;
     public $ref = null;
@@ -17,6 +18,7 @@ class Bilna_Formbuilder_Block_Share extends Mage_Core_Block_Template {
         $this->setTemplate('formbuilder/form/share.phtml');
         
         $this->formId = $this->getRequest()->getParam('formId');
+        $this->recordId = $this->getRequest()->getParam('recordId');
         $this->formData = $this->getFormData();
         $this->currentUrl = Mage::helper('core/url')->getCurrentUrl();
         $this->ref = $this->getRequest()->getParam('ref');
@@ -36,7 +38,7 @@ class Bilna_Formbuilder_Block_Share extends Mage_Core_Block_Template {
         return false;
     }
     
-    public function getShareUrl() {
+    public function getRefUrl() {
         if (!$this->formData) {
             $this->formData = $this->getFormData();
         }
@@ -45,6 +47,10 @@ class Bilna_Formbuilder_Block_Share extends Mage_Core_Block_Template {
         $shareUrl = $this->getBaseUrl() . $url . "?ref=" . $this->ref;
         
         return $shareUrl;
+    }
+    
+    public function getShareUrl() {
+        return Mage::helper('core/url')->getCurrentUrl();
     }
     
     public function getMediaUrl() {
