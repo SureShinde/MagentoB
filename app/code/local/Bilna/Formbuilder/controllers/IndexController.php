@@ -306,6 +306,7 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
         
         if ($formBuilder) {
             $urlSuccess = $formBuilder['url_success'];
+            $urlThankyou = $formBuilder['static_success'];
             $emailId = $formBuilder['email_id'];
 
             $emailSuccess = array ();
@@ -332,22 +333,24 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
 
             if ($emailSuccess && count($emailSuccess) > 0) {
                 $successMessage = "Successfully send an email to: " . implode(', ', $emailSuccess);
-                Mage::getSingleton('core/session')->addSuccess($successMessage);
+                //Mage::getSingleton('core/session')->addSuccess($successMessage);
             }
 
             if ($emailFailed && count($emailFailed) > 0) {
                 $failedMessage = "Failed to send an email to: " . implode(', ', $emailFailed);
-                Mage::getSingleton('core/session')->addError($failedMessage);
+                //Mage::getSingleton('core/session')->addError($failedMessage);
             }
+            
+            $redirectPage = sprintf("%s%s", Mage::getBaseUrl(), $urlThankyou);
         }
         else {
             $failedMessage = "Failed to send an email.";
             Mage::getSingleton('core/session')->addError($failedMessage);
+            
+            $queryString = sprintf("?formId=%d&recordId=%d&ref=%s", $formId, $recordId, $ref);
+            $redirectPage = Mage::helper('core/http')->getHttpReferer() ? Mage::helper('core/http')->getHttpReferer() : Mage::getBaseUrl();
+            $redirectPage .= $queryString;
         }
-        
-        $queryString = sprintf("?formId=%d&recordId=%d&ref=%s", $formId, $recordId, $ref);
-        $redirectPage = Mage::helper('core/http')->getHttpReferer() ? Mage::helper('core/http')->getHttpReferer() : Mage::getBaseUrl();
-        $redirectPage .= $queryString;
         
         $this->_redirectPage($redirectPage);
     }
