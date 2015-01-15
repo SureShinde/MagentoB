@@ -3771,7 +3771,7 @@ button.button-area {
     clear: both;
     float: left;
     height: 52px;
-	width:100%;
+	width:580px;
     margin: 0 0 10px;
 	padding: 0 !important;
 	display:block;
@@ -3826,6 +3826,9 @@ button.button-area {
 .landing-page-shareapp .formbuilder-form{
 	width:100% !important;
 }
+.landing-page-shareapp .formbuilder-form ~ div {
+	display:none;
+}
 .landing-page-shareapp .formbuilder-form ul{
 	float:left;
 	padding:0;
@@ -3864,7 +3867,7 @@ button.button-area {
 /*end form builder*/
 .landing-page-shareapp .wrap-form{
 	display:table;
-	margin:110px auto;
+	margin:80px auto;
 }
 .landing-page-shareapp.form-page-shareapp .wrap-form{
 	margin:20px auto;	
@@ -4012,8 +4015,8 @@ button.button-area {
 	color:#fff; 
 	text-decoration:none
 }
-.landing-page-shareapp  .footer  img{
-	margin:10px;
+.landing-page-shareapp .footer  img{
+	margin:10px 3px;
 }
 .landing-page-shareapp  .footer table{
 	float:right;
