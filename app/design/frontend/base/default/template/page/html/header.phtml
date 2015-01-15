@@ -30,7 +30,10 @@
 
 <!--Mega Menu-->
 <script type="text/javascript">	
-    $j(document).ready(function() {
+    $j(document).ready(function() {	
+		$j('.wrap-megamenu').click(function (){
+			 $j('.megamenu').slideToggle();
+		});
         $j('.nav-mobile-trigger').click(function() {
             $j('.mobile-left-menu').css({"width":"100%","left":"0"});
             $j('.wrapper').css({"float":"left","margin-left":"70%","position":"fixed"});
@@ -234,9 +237,6 @@
 			e.preventDefault();
 			$j('.mini-cart-sticky').slideToggle();
 		});	
-		$j('.wrap-megamenu').click(function (){
-			 $j('.megamenu').slideToggle();
-		});
 	}	
 
 	

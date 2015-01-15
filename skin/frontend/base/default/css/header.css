@@ -312,7 +312,7 @@ li#perlengkapan-rumah, li.mobile-perlengkapan-rumah {
 .header {
 	position: relative;
 	text-align: left;
-	padding: 0 0 15px;
+	padding: 0;
 	/* background: #fff; */
 }
 .header .menu-top, .header .menu-blog, .menu-top {
