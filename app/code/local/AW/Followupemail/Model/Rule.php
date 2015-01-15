@@ -883,10 +883,8 @@ class AW_Followupemail_Model_Rule extends Mage_Core_Model_Abstract {
         }
         
         if ($this->_isValid) {
-            
             $message = 'rule id=' . $this->getId() . ' validation OK';
             $subject = "validation OK";
-            echo $message;exit;
             Mage::getSingleton('followupemail/log')->logSuccess($message, $this, $subject);
 
             if (!($this->getChain() && count($chain = unserialize($this->getChain())))) {
@@ -1005,8 +1003,6 @@ class AW_Followupemail_Model_Rule extends Mage_Core_Model_Abstract {
             
             return true;
         }
-        
-        echo "masupnya tuh disini";exit;
         
         Mage::getSingleton('followupemail/log')->logWarning('rule id=' . $this->getId() . ' is not valid for event=' . $this->getEventType() . ' reason="' . $this->_validationMessage . '" objectId=' . (isset($objects['object_id']) ? $objects['object_id'] : 'none') . ', params="' . AW_Followupemail_Helper_Data::printParams($params), $this);
 
