@@ -31,21 +31,31 @@
  */
 ?>
 <?php
-    $_helper = $this->helper('catalog/output');
-    $_product = $this->getProduct()
+$_helper = $this->helper('catalog/output');
+$_product = $this->getProduct()
 ?>
-<?php if($_additional = $this->getAdditionalData()): ?>
+
+<?php if ($_additional = $this->getAdditionalData()): ?>
     <table class="data-table" id="product-attribute-specs-table">
         <col width="25%" />
         <col />
         <tbody>
-        <?php foreach ($_additional as $_data): ?>
-            <tr>
-                <th class="label"><?php echo $this->escapeHtml($this->__($_data['label'])) ?></th>
-                <td class="data"><?php echo $_helper->productAttribute($_product, $_data['value'], $_data['code']) ?></td>
-            </tr>
-        <?php endforeach; ?>
+            <?php foreach ($_additional as $_data): ?>
+                <?php
+                $_attribute = Mage::getSingleton('eav/config')->getAttribute(Mage_Catalog_Model_Product::ENTITY, $_data['code']);
+                
+                if ($_attribute->getIsVisibleOnFront()):
+                    continue;
+                endif;
+                ?>
+            
+                <tr>
+                    <th class="label"><?php echo $this->escapeHtml($this->__($_data['label'])) ?></th>
+                    <td class="data"><?php echo $_helper->productAttribute($_product, $_data['value'], $_data['code']) ?></td>
+                </tr>
+            <?php endforeach; ?>
         </tbody>
     </table>
+    
     <script type="text/javascript">decorateTable('product-attribute-specs-table')</script>
 <?php endif;?>

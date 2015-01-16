@@ -36,7 +36,7 @@
 <input type="hidden" id="3rdparty-type" value="product"/>
 <input type="hidden" id="3rdparty-value" value="<?php echo $_product->getId(); ?>" />
 <input type="hidden" id="base-url" value="<?php echo Mage::getBaseUrl(); ?>" />
-<?php $_product = $this->getProduct(); ?>
+<?php //$_product = $this->getProduct(); ?>
 <script type="text/javascript">
     var optionsPrice = new Product.OptionsPrice(<?php echo $this->getJsonConfig() ?>);
 </script>
@@ -219,45 +219,59 @@
                     <?php endif; ?>
                 </div>
             </div>
-            
-            
 
+            <div class="clearer"></div>
 
-        <div class="clearer"></div>
-		<div class="product-tab-wrapper">
-			<div id="tab-container" class="tab-container">
-				<ul class="etabs">
-					<?php foreach ($this->getChildGroup('detailed_info', 'getChildHtml') as $alias => $html):?>
-						<li class="tab"><a href="#<?php echo "tabs-{$alias}"?>">
-							<?php if ($alias == 'description'):?>
-				            <?php echo $this->__('Description'); ?>
-				            <?php elseif ($alias == 'additional') :?>
-				            <?php echo $this->__('Additional Info'); ?>
-				            <?php endif;?>
-						</a></li>
-				<?php endforeach;?>
-				<!--<li class="tab"><a href="#tabs-features">Features</a></li>
-				<li class="tab"><a href="#tabs-size-chart">Size Chart</a></li>
-				-->
-				</ul>	
-				<div class="panel-container">
-					<?php foreach ($this->getChildGroup('detailed_info', 'getChildHtml') as $alias => $html):?>
-						<div id="<?php echo "tabs-{$alias}"?>">
-						    <?php echo $html; ?>
-						</div>
-					<?php endforeach;?>
-					<div id="tabs-features">
-					<p><!-- <strong>Lorem ipsum dolor sit amet</strong>, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. --></p>
-					</div>
-					<div id="tabs-size-chart">
-					<p><!-- <strong>Lorem ipsum dolor sit amet</strong>, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. --></p>
-					</div>
-					
-				</div>
-				
-			</div>
-		</div>
-    </form>
+            <div class="product-tab-wrapper">
+                <div id="tab-container" class="tab-container">
+                    <ul class="etabs">
+                        <?php foreach ($this->getChildGroup('detailed_info', 'getChildHtml') as $alias => $html): ?>
+                            <?php if ($alias == 'additional'): continue; endif; ?>
+                            
+                            <li class="tab">
+                                <a href="#<?php echo "tabs-{$alias}"?>">
+                                    <?php if ($alias == 'description'): ?>
+                                        <?php echo $this->__('Description'); ?>
+                                    <?php elseif ($alias == 'additional'): ?>
+                                        <?php echo $this->__('Additional Info'); ?>
+                                    <?php endif; ?>
+                                </a>
+                            </li>
+                        <?php endforeach; ?>
+                            
+                        <?php $_attributes = $_product->getAttributes(); ?>
+                            
+                        <?php foreach ($_attributes as $_attribute): ?>
+                            <?php if ($_attribute->getIsVisibleOnFront()): ?>
+                                <li class="tab">
+                                    <a href="#tabs-<?php echo $_attribute->getAttributeCode(); ?>">
+                                        <?php echo $_attribute->getFrontendLabel(); ?>
+                                    </a>
+                                </li>
+                            <?php endif; ?>
+                        <?php endforeach; ?>
+                    </ul>
+
+                    <div class="panel-container">
+                        <?php foreach ($this->getChildGroup('detailed_info', 'getChildHtml') as $alias => $html): ?>
+                            <?php if ($alias == 'additional'): continue; endif; ?>
+                            <div id="<?php echo "tabs-{$alias}"?>">
+                                <?php echo $html; ?>
+                            </div>
+                        <?php endforeach; ?>
+                        
+                        <?php foreach ($_attributes as $_attribute): ?>
+                            <?php if ($_attribute->getIsVisibleOnFront()): ?>
+                                <div id="tabs-<?php echo $_attribute->getAttributeCode(); ?>">
+                                    <?php echo $_attribute->getFrontend()->getValue($_product); ?>
+                                </div>
+                            <?php endif; ?>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+            </div>
+        </form>
+        
     <script type="text/javascript">
     //<![CDATA[
         var productAddToCartForm = new VarienForm('product_addtocart_form');
