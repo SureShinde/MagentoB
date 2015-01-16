@@ -4033,13 +4033,17 @@ button.button-area {
 	.landing-page-shareapp .formbuilder-form li:first-child{
 		width:580px;
 	}
+	.landing-page-shareapp .formbuilder-form li input{
+		width: 360px !important;
+	}
 }
 @media only screen and (max-width: 768px) {
 	.landing-page-shareapp .footer{
 		padding:20px 0;
 	}
 	.landing-page-shareapp .formbuilder-form li:first-child{
-		width:90%;
+		width:100%;
+		height:auto;
 	}
 	.landing-page-shareapp .formbuilder-form button{
 		clear:both;
@@ -4105,7 +4109,7 @@ button.button-area {
 	.landing-page-shareapp .wrap-form button{
 		display: block;
 		float: none;
-		margin: 0 auto;
+		margin: 0 auto !important;
 	}
 	.landing-page-shareapp.form-page-shareapp .wrap-form .input-box button {
 		font-size: 42px;
@@ -4135,10 +4139,27 @@ button.button-area {
 		width: 90%;
 	}
 	.landing-page-shareapp .formbuilder-form li div label{
-		width:90% !important;
+		padding: 10px 0 !important;
+		text-align: center;
+		width: 100% !important;
 	}
 	.landing-page-shareapp .formbuilder-form li div label:after{
 		content:none;
+	}
+	.landing-page-shareapp .formbuilder-form ul{
+		width:100%;
+	}
+	.landing-page-shareapp .formbuilder-form li, .landing-page-shareapp .formbuilder-form li div label{
+		 border-top-right-radius: 10px;
+		 border-bottom-left-radius: 0;
+	}
+	.landing-page-shareapp .formbuilder-form li input{
+		padding: 10px 0 !important;
+		width: 100% !important;
+		text-indent:20px;
+	}
+	.landing-page-shareapp .formbuilder-form{
+		margin:0 !important;
 	}
 }
 /*==============================end style referall==========================*/
