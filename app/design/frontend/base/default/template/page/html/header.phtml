@@ -32,6 +32,7 @@
 <script type="text/javascript">	
     $j(document).ready(function() {	
 		$j('.wrap-megamenu').click(function (){
+			 $j('.bg-dark-megamenu').toggle();
 			 $j('.megamenu').slideToggle();
 		});
         $j('.nav-mobile-trigger').click(function() {
@@ -464,6 +465,8 @@
 	<?php //echo $this->getChildHtml('store_language') ?>
 	<div class="clear"></div>
     </div>
+</div>
+<div class="bg-dark-megamenu">
 </div>
 <!--this is for testing only-->
 <?php //echo $this->getLayout()->createBlock("core/template")->setTemplate("page/template/bottommenu.phtml")->toHtml(); ?>

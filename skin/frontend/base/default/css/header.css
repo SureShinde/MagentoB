@@ -40,7 +40,9 @@ li#perlengkapan-rumah, li.mobile-perlengkapan-rumah {
 	border: none;
 }
 .header-container {
-	background: none;
+	background: #fff;
+	position: relative;
+    z-index: 3;
 }
 .sticky-header-wrapper {
 	background: #f7f7f7;
@@ -48,7 +50,7 @@ li#perlengkapan-rumah, li.mobile-perlengkapan-rumah {
 	position: fixed;
 	top:0;
 	left: 0;
-	z-index: 900;
+	z-index: 999;
 	-webkit-box-shadow: 1px 1px 4px 0 #ccc;
 	-moz-box-shadow: 1px 1px 4px 0 #ccc;
 	box-shadow: 1px 1px 4px 0 #ccc;
@@ -2469,7 +2471,10 @@ searchbar #nav-search-in {
 	.menu-top ul li a {
         min-width:40px;
     }
-    .header, #nav, .sticky-header, .menu-tablet {
+	.keypoint{
+		display:none;
+	}
+	.header, #nav, .sticky-header, .menu-tablet {
 		width: 745px;
 	}
 	.sticky-header ul.sticky-menu {
@@ -2515,6 +2520,9 @@ searchbar #nav-search-in {
 		float: none !important;
 		text-align: right;
         display: block;
+	}
+	.header .quick-access{
+		width:540px;
 	}
 	/* .sticky-header .sticky-search .form-search .input-keyword .select-category,  */
 	.header .links, .header .quick-access .store-phone, .header .form-language, .header .quick-access .top-cart a.link-checkout {

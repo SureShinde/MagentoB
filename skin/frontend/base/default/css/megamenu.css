@@ -7,6 +7,26 @@
 	float:left;
 	font-size:12px;
 }
+.catalog-category-view .wrap-banner {
+	display:none;
+}
+.catalog-category-view .menu-navigation .megamenu{
+	width: 390px;
+}
+.bg-dark-megamenu{
+	position:fixed;
+	z-index:2;
+	display:none;
+	transition:All 1s ease;
+	-webkit-transition:All 1s ease;
+	-moz-transition:All 1s ease;
+	-o-transition:All 1s ease;
+	top:0;
+	right:0;
+	left:0;
+	height:100%;
+	background:rgba(45, 44, 44, 0.7);
+}
 .wrap-megamenu, .link-space-header{
     float: left;
     color: #fff;
@@ -65,9 +85,6 @@
     background: url(../images/megamenu/arrow.png) no-repeat -5px -373px;
 }
 .megamenu{
-    -moz-box-shadow: -1px -1px 7px #d1cfd1;
-    -webkit-box-shadow: -1px -1px 7px #d1cfd1;
-    box-shadow: -1px -1px 7px #d1cfd1;
     position: absolute;
     width: 100%;
     color: #707070;
@@ -76,7 +93,7 @@
     display: none;
     top: 33px;
 	overflow:hidden;
-    height: 440px;
+    height: 555px
 }
 .menu-navigation .first-level, .menu-navigation .second-level{
     float: left;
@@ -116,13 +133,17 @@
     text-decoration: none;
 }
 .menu-navigation .second-level p{
+	line-height: 1.6em;
     margin: 0;
-    text-indent: 20px;
+    padding-bottom: 5px;
+    padding-left: 20px;
+    text-indent: 0;
 }
 .menu-navigation .first-level .second-level li{
     font-size: 1em;
-    text-indent: 20px;
-	line-height: 1.5em;
+    line-height: 1.5em;
+    padding-left: 20px;
+    text-indent: 0;
 }
 .menu-navigation .first-level .second-level{
     display: none;
@@ -166,12 +187,20 @@
 }
 .wrap-banner .first-banner-megamenu, .wrap-banner .second-banner-megamenu, .wrap-banner .third-banner-megamenu{
     float: left;
-    padding: 0 0 0 10px;
+    padding: 0 0 0 12px;
 }
 .wrap-banner img{
     float:left;
     width: 100%;
+}
+.wrap-banner .first-banner-megamenu img{
     padding: 0 0 10px;
+}
+.wrap-banner .second-banner-megamenu img{
+    padding: 0 0 12px;
+}
+.wrap-banner .third-banner-megamenu img{
+    padding: 0 0 13px;
 }
 .wrap-banner .first-banner-megamenu{
     width: 50%;
@@ -180,7 +209,7 @@
         width: 23%;
 }
 .wrap-banner .third-banner-megamenu{
-    width: 22%;
+    width: 21%;
 }
 .wrap-banner .first-banner-megamenu .bottom-left-firstbanner, .wrap-banner .first-banner-megamenu .bottom-right-firstbanner{
     width: 48%;
@@ -205,6 +234,9 @@
     .wrap-banner .third-banner-megamenu{
         display: none;
     }
+	.megamenu{
+		height: 530px;
+	}
 }
 @media (min-width: 768px )and (max-width: 1022px ){
     .wrap-banner .first-banner-megamenu{
@@ -220,6 +252,9 @@
         width: 540px;
         height: 395px;
     }
+	.megamenu{
+		height: 475px;
+	}
 }
 @media (max-width: 768px ) {
 	.menu-navigation{
