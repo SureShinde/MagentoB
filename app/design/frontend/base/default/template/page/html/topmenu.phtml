@@ -31,7 +31,6 @@ $_categoryActive = $this->getCategoryActive();
         $_url = $_storeCategory['url'];
         $_urlKey = $_storeCategory['url_key'];
         
-        $_currentMainCategory = $_helper->getCurrentMainCategory();
         $_storeCategorySubClass = $_id == $_categoryActive['subcategory'] ? "sub-active" : "";
         ?>
 
@@ -106,11 +105,13 @@ $_categoryActive = $this->getCategoryActive();
                                         <div class="right-columns">
                                             <?php echo $_storeCategoryChild['megamenu_staticblock']; ?>
                                             
+                                            <?php if(isset($_storeCategoryChild['megamenu_image']) && !is_null($_storeCategoryChild['megamenu_image'])) { ?>
                                             <div class="megamenu-product">
                                                 <a href="#" class="megamenu-image">
                                                     <img alt="" src="<?php echo $_storeCategoryChild['megamenu_image']; ?>">
                                                 </a>
                                             </div>
+                                            <?php } ?>
                                         </div>
                                         
                                         <div class="clear"></div>
@@ -120,7 +121,7 @@ $_categoryActive = $this->getCategoryActive();
                                 </ul>
                             <?php endif; ?>
                         </li>
-                    <?php endforeach; ?>
+                    <?php unset($_storeCategoryChild); endforeach; ?>
                 </ul>
             <?php endif; ?>
         </div>

@@ -1770,7 +1770,7 @@ h2.block-grey-title-left {
 .formbuilder-form ul li  {
     margin: 0 0 0 11px;
 }
-.formbuilder-form ul li  {
+.formbuilder-form button.button ul li  {
     list-style-type: none;
     clear: both;
 }
@@ -3756,3 +3756,375 @@ button.button-area {
 	}
 }
 /*=================== end imbex style ==================================*/
+
+
+
+/*==============================style referall==========================*/
+.cms-email-register, .cms-email-referral-register, .cms-email-referral-thankyou{
+	padding:0;
+}
+/*with form builder*/
+.landing-page-shareapp .formbuilder-form li:first-child{
+	 background: none repeat scroll 0 0 #DEDEDE !important;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #CDCDCD inset;
+    clear: both;
+    float: left;
+    height: 52px;
+	width:580px;
+    margin: 0 0 10px;
+	padding: 0 !important;
+	display:block;
+}
+.landing-page-shareapp .formbuilder-form p.required{
+	display:none;
+}
+.landing-page-shareapp .formbuilder-form li div.validation-advice{
+	display:block;
+}
+.landing-page-shareapp .formbuilder-form li, .landing-page-shareapp .formbuilder-form li div label{
+    border-bottom-left-radius: 10px;
+    border-top-left-radius: 10px;
+    color: #FFFFFF;
+    display: block;
+    font-size: 20px;
+    padding: 16px 20px !important;
+    position: relative;
+    width: 120px;
+}
+.landing-page-shareapp .formbuilder-form button{
+	background: url("../images/referall-page/bg_label_input.jpg") repeat-x scroll 0 0 rgba(0, 0, 0, 0);
+    border: 2px solid #DADADA;
+    border-radius: 10px;
+    color: #FFFFFF;
+    cursor: pointer;
+    font-size: 18px;
+    margin: 0 10px;
+    padding: 15px 20px;
+	clear:none;
+ }
+.landing-page-shareapp.thanku-page-shareapp .button-wrap{
+	display:table;
+	margin: 0 auto;
+}
+
+.landing-page-shareapp.thanku-page-shareapp button{
+	background: url("../images/referall-page/bg_label_input.jpg") repeat-x scroll 0 0 rgba(0, 0, 0, 0);
+	border: 2px solid #DADADA;
+	border-radius: 10px;
+	color: #FFFFFF;
+	cursor: pointer;
+	font-size: 18px;
+	margin: 2px 10px;
+	padding: 13px 20px;
+	clear: none;
+}
+.landing-page-shareapp.thanku-page-shareapp .button-wrap a,
+.landing-page-shareapp.thanku-page-shareapp .button-wrap button{
+	float:left;
+}
+.landing-page-shareapp .formbuilder-form{
+	width:100% !important;
+}
+.landing-page-shareapp .formbuilder-form ~ div {
+	display:none;
+}
+.landing-page-shareapp .formbuilder-form ul{
+	float:left;
+	padding:0;
+	display:block;
+	margin-right:10px;
+ }
+.landing-page-shareapp .formbuilder-form button span{
+	padding:0 !important;
+	background:none !important;
+}
+ .landing-page-shareapp .formbuilder-form li div label{
+	background: url("../images/referall-page/bg_label_input.jpg") repeat-x scroll 0 0 rgba(0, 0, 0, 0);
+ }
+ .landing-page-shareapp .formbuilder-form li div label:after{
+	background: url("../images/referall-page/arrow-label.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    content: " ";
+    display: block;
+    height: 30px;
+    position: absolute;
+    right: -18px;
+    top: 13px;
+    width: 20px;
+ }
+.landing-page-shareapp .formbuilder-form li input{
+	background: none repeat scroll 0 0 rgba(0, 0, 0, 0) !important;
+    border: 0 none !important;
+    box-shadow: none !important;
+    font-size: 16px !important;
+    line-height: normal !important;
+    margin: 0 !important;
+    padding: 12px 20px !important;;
+}
+.landing-page-shareapp .formbuilder-form li, .landing-page-shareapp .formbuilder-form > div{
+	display:none;
+}
+/*end form builder*/
+.landing-page-shareapp .wrap-form{
+	display:table;
+	margin:80px auto;
+}
+.landing-page-shareapp.form-page-shareapp .wrap-form{
+	margin:20px auto;	
+}
+.landing-page-shareapp.form-page-shareapp .wrap-form .input-box button{
+	position:absolute;
+	right:-83px;
+	top:0;
+	font-size: 42px;
+    padding: 15px;
+}
+.landing-page-shareapp .wrap-form .input-box{
+	float:left;
+	background:#dedede;
+	height:52px;
+	-moz-box-shadow:inset 0px 0px 10px #cdcdcd;
+	-webkit-box-shadow:inset 0px 0px 10px #cdcdcd;
+	box-shadow:inset 0px 0px 10px #cdcdcd;
+	border-radius:10px;
+	-moz-border-radius:10px;
+	-webkit-border-radius:10px;
+	margin: 0 0 10px;
+	clear:both;
+}
+.landing-page-shareapp.form-page-shareapp .wrap-form .input-box{
+	position:relative;
+}
+.landing-page-shareapp .wrap-form .textarea-box{
+	float:right;
+	background:#dedede;
+	-moz-box-shadow:inset 0px 0px 10px #cdcdcd;
+	-webkit-box-shadow:inset 0px 0px 10px #cdcdcd;
+	box-shadow:inset 0px 0px 10px #cdcdcd;
+	border-radius:10px;
+	-moz-border-radius:10px;
+	-webkit-border-radius:10px;
+	margin: 0 0 10px;
+	clear:both;
+}
+.landing-page-shareapp .wrap-form .input-box input,
+.landing-page-shareapp .wrap-form .input-box label{
+	float:left;
+}
+.landing-page-shareapp .wrap-form .input-box input, .landing-page-shareapp.form-page-shareapp .wrap-form .textarea-box textarea{
+	background:none;
+	border:0;
+	font-size: 18px;
+	width: 322px;
+    padding: 15px 20px;
+}
+ .landing-page-shareapp.form-page-shareapp .wrap-form .textarea-box textarea{
+	min-height: 80px;
+    width: 325px;
+	font-size:14px;
+ }
+.landing-page-shareapp .wrap-form .input-box label{
+	background:url('../../../../../media/wysiwyg/static-page-img/referall/bg_label_input.jpg') repeat-x;
+	display:block;
+	padding:16px 20px;
+	color:#fff;
+	position:relative;
+	width:120px;
+	font-size:20px;
+	border-top-left-radius:10px;
+	-moz-border-top-left-radius:10px;
+	-webkit-border-top-left-radius:10px;
+	
+	border-bottom-left-radius:10px;
+	-moz-border-bottom-left-radius:10px;
+	-webkit-border-bottom-left-radius:10px;
+}
+.landing-page-shareapp .wrap-form .input-box label:after{
+	background:url('../../../../../media/wysiwyg/static-page-img/referall/arrow-label.png') no-repeat;
+	display: block;
+	content:" ";
+    height: 30px;
+    position: absolute;
+    right: -18px;
+	top: 13px;
+    width: 20px;
+}
+.landing-page-shareapp .wrap-form button{
+	background:url('../../../../../media/wysiwyg/static-page-img/referall/bg_label_input.jpg') repeat-x;
+	border:2px solid #dadada;
+	color:#fff;
+	font-size: 18px;
+    padding: 15px 20px;
+	margin: 0 10px;
+	border-radius:10px;
+	-moz-border-radius:10px;
+	cursor: pointer;
+	-webkit-border-radius:10px;
+}
+.landing-page-shareapp.form-page-shareapp .wrap-form button{
+	display:block;
+	clear:both;
+	float:right;
+}
+.landing-page-shareapp.form-page-shareapp .wrap-form .share-social-media{
+	display:table;
+	font-size:14px;
+	margin:0 auto;
+}
+.landing-page-shareapp.form-page-shareapp .wrap-form .share-social-media img{
+	margin:0 5px;
+}
+.landing-page-shareapp.form-page-shareapp .wrap-form .validation-advice{
+	color: #fff;
+	position:absolute;
+	bottom:0;
+	background: rgba(0, 0, 0, 0.2);
+	right:0;
+}
+.landing-page-shareapp .wording{
+	clear:both;
+	display:block;
+	text-align:center;
+	font-size:20px;
+	margin:15px 0 10px;
+}
+.thanku-page-shareapp .wording{
+	margin:45px 0;
+}
+.landing-page-shareapp.form-page-shareapp .wording{
+	margin:40px 0;
+}
+.landing-page-shareapp  .wording span{
+	font-size:30px;
+	font-weight:bold;
+}
+.landing-page-shareapp  .footer{
+	background:url('../../../../../media/wysiwyg/static-page-img/referall/bg_footer.jpg');
+	width: 100%;
+}
+.landing-page-shareapp  .footer p{
+	font-size:11px;
+	float:left;
+	text-align:left;
+	margin:0;
+	line-height:17px;
+	color:#fff; 
+	padding: 0 25px 20px;
+}
+.landing-page-shareapp  .footer p a{
+	font-size:12px; 
+	color:#fff; 
+	text-decoration:none
+}
+.landing-page-shareapp .footer  img{
+	margin:10px 3px;
+}
+.landing-page-shareapp  .footer table{
+	float:right;
+	margin:0 30px 0 0;
+}
+.thanku-page-shareapp img{
+	display: block;
+    margin: 0 auto;
+}
+@media only screen and (min-width: 768px) {
+	.landing-page-shareapp.form-page-shareapp .wrap-form .input-box{
+		width:525px;
+	}
+}
+@media only screen and (max-width: 768px) {
+	.landing-page-shareapp .footer{
+		padding:20px 0;
+	}
+	.landing-page-shareapp  .footer  img{
+		margin:5px;
+	}
+	.landing-page-shareapp .footer p{
+		display:block;
+		width:100%;
+		text-align:center;
+		padding:0 0 20px;
+	}
+	.landing-page-shareapp  .footer table{
+		margin:0 auto;
+		float:none;
+	}
+	.landing-page-shareapp  .footer table tr td{
+		text-align:center;
+	}
+	.landing-page-shareapp .wrap-form{
+		margin:40px auto;
+		width:90%;
+	}
+	.landing-page-shareapp .wrap-form .input-box label{
+		width:100%;
+		padding:10px 0;
+		text-align: center;
+		width: 100%;
+		font-size: 16px;
+		border-top-left-radius:10px;
+		-moz-border-top-left-radius:10px;
+		-webkit-border-top-left-radius:10px;
+		
+		border-top-right-radius:10px;
+		-moz-border-top-right-radius:10px;
+		-webkit-border-top-right-radius:10px;
+		
+		border-bottom-left-radius:0;
+		-moz-border-bottom-left-radius:0;
+		-webkit-border-bottom-left-radius:0;
+	}
+	.landing-page-shareapp .wrap-form .input-box label:after{
+		content:none;
+	}
+	.landing-page-shareapp .wrap-form .input-box input{
+		width:100%;
+		padding-left: 0;
+		padding-right: 0;
+		text-align:center;
+	}
+	.landing-page-shareapp .wrap-form form{
+		display: table;
+		width: 100%;
+	}
+	.landing-page-shareapp .wrap-form .input-box{
+		display: table;
+		float: none;
+		height: auto;
+		width:100%;
+		margin: 0 auto 15px;
+	}
+	.landing-page-shareapp .wrap-form button{
+		display: block;
+		float: none;
+		margin: 0 auto;
+	}
+	.landing-page-shareapp.form-page-shareapp .wrap-form .input-box button {
+		font-size: 42px;
+		padding: 11px;
+		position: absolute;
+		right: 8px;
+		top: 4px;
+	}
+	.landing-page-shareapp .wrap-form .textarea-box{
+		width:100%;
+	}
+	.landing-page-shareapp.form-page-shareapp .wrap-form .textarea-box textarea{
+		width:90%;
+		padding: 5%;
+	}
+	.thanku-page-shareapp .wording{
+		font-size: 16px;
+		line-height: 25px;
+		margin-left: auto;
+		margin-right: auto;
+		width: 90%;
+	}
+	.landing-page-shareapp.form-page-shareapp .wording{
+		font-size: 15px;
+		line-height: 18px;
+		margin: 40px auto;
+		width: 90%;
+	}
+}
+/*==============================end style referall==========================*/

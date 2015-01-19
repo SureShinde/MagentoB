@@ -267,4 +267,59 @@ class Mage_Page_Block_Html extends Mage_Core_Block_Template
         
         return false;
     }
+    
+    public function getCurrentMainCategoryActive() {
+        $rootCategoryId = Mage::app()->getStore()->getRootCategoryId();
+        $result = '';
+        
+        if (Mage::registry('current_category')) {
+            $parentId = Mage::registry('current_category')->getParentId();
+            
+            if ($parentId == $rootCategoryId) {
+                $result = Mage::registry('current_category')->getUrlKey();
+            }
+            else {
+                $result = $this->getParentStyle(Mage::registry('current_category')->getId());
+            }
+        }
+        
+        return 'style-' . $result;
+    }
+    
+    protected function getParentStyle($id) {
+        $_helper = Mage::helper('megamenu');
+        $_categories = $_helper->getMegamenuData();
+        $result = '';
+        
+        if ($_categories && count($_categories) > 0) {
+            foreach ($_categories as $_category) {
+                if ($_category['id'] == $id) {
+                    $result = $_category['url_key'];
+                    break;
+                }
+                else {
+                    if ($_category['child'] && count($_category['child']) > 0) {
+                        foreach ($_category['child'] as $_subcategory) {
+                            if ($_subcategory['id'] == $id) {
+                                $result = $_subcategory['parent_url_key'];
+                                break;
+                            }
+                            else {
+                                if ($_subcategory['child'] && count($_subcategory['child']) > 0) {
+                                    foreach ($_subcategory['child'] as $_subsubcategory) {
+                                        if ($_subsubcategory['id'] == $id) {
+                                            $result = $_subsubcategory['parent_url_key'];
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        return $result;
+    }
 }

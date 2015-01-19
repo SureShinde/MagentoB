@@ -8,12 +8,12 @@
         $_helper = Mage::helper('megamenu');
         $_storeCategories = $_helper->getMegamenuData();
         $_storeCurrentCategory = Mage::registry('current_category');
+        $_currentCategory = $_helper->getCurrentCategoryStyle($_storeCategories, $_storeCurrentCategory);
         ?>
 
         <?php if (count($_storeCategories) > 0): ?>
             <div class="nav-container-mobile-left">
                 <ul>
-                    <?php $_currentMainCategory = $_helper->getCurrentMainCategory(); ?>
                     <?php foreach ($_storeCategories as $_storeCategory): ?>
                         <?php
                         $_storeCategoryDisplay = '';
@@ -24,8 +24,11 @@
                         $_url = $_storeCategory['url'];
                         $_urlKey = $_storeCategory['url_key'];
                         
-                        if ($_currentMainCategory != '' || !empty ($_currentMainCategory)):
-                            if ($_id != $_currentMainCategory):
+                        if ($_storeCurrentCategory):
+                            if ($_id != $_storeCurrentCategory->getId() &&
+                                $_id != $_currentCategory['id'] &&
+                                $_id != $_currentCategory['parent_id'] &&
+                                $_id != $_currentCategory['parent_sub_id']):
                                 $_storeCategoryDisplay = 'style="display:none;"';
                                 $_storeCategoryClass = 'inactive';
                             endif;
@@ -57,8 +60,10 @@
                                         $_url2 = $_storeCategoryChild['url'];
                                         $_urlKey2 = $_storeCategoryChild['url_key'];
                                         
-                                        if ($_currentMainCategory != '' || !empty ($_currentMainCategory)):
+                                        if ($_storeCurrentCategory):
                                             if ($_id2 == $_storeCurrentCategory->getId() || $_id2 == $_storeCurrentCategory->getParentId()):
+                                            //if ($_id2 == $_currentCategory2):
+                                            //if ($_currentCategory2):
                                                 $_storeCategoryDisplay2 = 'style="display:block;"';
                                             endif;
                                         endif;

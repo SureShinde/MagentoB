@@ -119,4 +119,43 @@ class Bilna_Megamenu_Helper_Data extends Mage_Catalog_Helper_Category {
     public function getMegamenuDir() {
         return Mage::getBaseDir() . "/files/megamenu/";
     }
+    
+    public function getCurrentCategoryStyle($categories, $currentCategory, $level = 1) {
+        $result = false;
+        
+        if ($currentCategory) {
+            $id = $currentCategory->getId();
+            
+            if ($categories && count($categories) > 0) {
+                foreach ($categories as $category) {
+                    if ($category['id'] == $id) {
+                        $result = $category;
+                        break;
+                    }
+                    else {
+                        if ($category['child'] && count($category['child']) > 0) {
+                            foreach ($category['child'] as $subcategory) {
+                                if ($subcategory['id'] == $id) {
+                                    $result = $subcategory;
+                                    break;
+                                }
+                                else {
+                                    if ($subcategory['child'] && count($subcategory['child']) > 0) {
+                                        foreach ($subcategory['child'] as $subsubcategory) {
+                                            if ($subsubcategory['id'] == $id) {
+                                                $result = $subsubcategory;
+                                                break;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        return $result;
+    }
 }

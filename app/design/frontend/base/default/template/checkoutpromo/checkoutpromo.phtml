@@ -54,6 +54,9 @@
 $url = $this->getUrl('checkout/cart/customCheckoutCouponPost');
 $url = Mage::helper('paymethod')->checkHttpsProtocol($url);
 Mage::getSingleton('core/session')->setSessionCouponMessage('');
+
+$session = Mage::getSingleton('checkout/session');
+$points_amount = $session->getData('points_amount');
 ?>
 <script type="text/javascript">
     function refreshBlock(){
@@ -81,6 +84,8 @@ Mage::getSingleton('core/session')->setSessionCouponMessage('');
         }else{
             remove = 0;
         }
+        //alert($('points_amount').value);
+     
         //var url = '<?php echo $this->getUrl('checkout/cart/customCheckoutCouponPost') ?>';
         var url = '<?php echo $url; ?>';
         jQuery.ajax({
@@ -93,7 +98,9 @@ Mage::getSingleton('core/session')->setSessionCouponMessage('');
             success: function(res){
                 if(res.status == 1){
                     $('feedback').update(res.desc);
+                    $('use_points').disabled = $('points_amount').disabled = true;   
                 }else{
+                    $('use_points').disabled = $('points_amount').disabled = false;
                     $('feedback').update(res.desc);
                 }
 				setTimeout(function(){

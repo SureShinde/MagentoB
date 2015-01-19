@@ -481,7 +481,9 @@ a.triger-showfilter {
 	bottom: 9px !important;
 }
 .style-baby.catalog-category-view.category-baby .slidesjs-pagination,
-.style-perlengkapan-rumah.catalog-category-view.category-perlengkapan-rumah .slidesjs-pagination{
+.style-perlengkapan-rumah.catalog-category-view.category-perlengkapan-rumah .slidesjs-pagination,
+.style-supermarket.catalog-category-view.category-supermarket .slidesjs-pagination,
+.style-kosmetik.catalog-category-view.category-kosmetik .slidesjs-pagination {
 	left:auto;
 	bottom: 9px !important;
     right: 10px;
@@ -560,7 +562,8 @@ a.triger-showfilter {
     .category-baby .homepage-top-block.right {
 		width: 20%;
 	}
-    .style-baby.catalog-category-view .label_slider_ctegory, .style-perlengkapan-rumah.catalog-category-view  .label_slider_ctegory{
+    .style-baby.catalog-category-view .label_slider_ctegory, .style-perlengkapan-rumah.catalog-category-view  .label_slider_ctegory,
+    .style-supermarket.catalog-category-view .label_slider_ctegory, .style-kosmetik.catalog-category-view  .label_slider_ctegory {
         left: 10px;
         position: absolute;
         bottom:9px;
@@ -620,8 +623,11 @@ a.triger-showfilter {
 
 
 .style-baby .products-on-sale h2, .style-baby .new-arrival h2, .style-baby .most-popular h2,
-.style-perlengkapan-rumah .products-on-sale h2, .style-perlengkapan-rumah .new-arrival h2, .style-perlengkapan-rumah .most-popular h2{
-	background: url("../images/shd_featured_title.png") repeat-x scroll center bottom rgba(0, 0, 0, 0);
+.style-perlengkapan-rumah .products-on-sale h2, .style-perlengkapan-rumah .new-arrival h2, .style-perlengkapan-rumah .most-popular h2,
+.style-supermarket .products-on-sale h2, .style-supermarket .new-arrival h2, .style-supermarket .most-popular h2,
+.style-kosmetik .products-on-sale h2, .style-kosmetik .new-arrival h2, .style-kosmetik .most-popular h2 {
+	/* background: url("../images/shd_featured_title.png") repeat-x scroll center bottom rgba(0, 0, 0, 0); */
+	background: none;
 	color: #707070;
 	padding: 0;
 	position: relative;
@@ -629,9 +635,14 @@ a.triger-showfilter {
 	font-family:'bebasregular';
 	margin: 0 0 10px;
 	text-align: left;
+    width:-moz-fit-content;
+    width:-webkit-fit-content;
+    width:fit-content;
 	}
 .style-baby .products-on-sale h2 span, .style-baby .new-arrival h2 span, .style-baby .most-popular h2 span,
-.style-perlengkapan-rumah .products-on-sale h2 span, .style-perlengkapan-rumah .new-arrival h2 span, .style-perlengkapan-rumah .most-popular h2 span{
+.style-perlengkapan-rumah .products-on-sale h2 span, .style-perlengkapan-rumah .new-arrival h2 span, .style-perlengkapan-rumah .most-popular h2 span,
+.style-supermarket .products-on-sale h2 span, .style-supermarket .new-arrival h2 span, .style-supermarket .most-popular h2 span,
+.style-kosmetik .products-on-sale h2 span, .style-kosmetik .new-arrival h2 span, .style-kosmetik .most-popular h2 span{
 	background: url("../images/arrow-2.png") no-repeat scroll right center rgba(0, 0, 0, 0);
     float: right;
     font-family: helvetica;
@@ -641,8 +652,11 @@ a.triger-showfilter {
     padding: 0 24px 0 0;
 }
 .style-baby .products-on-sale h2, .style-baby .new-arrival h2, .style-baby .most-popular h2,
-.style-perlengkapan-rumah .products-on-sale h2, .style-perlengkapan-rumah .new-arrival h2, .style-perlengkapan-rumah .most-popular h2{
-	background: url("../images/shd_featured_title.png") repeat-x scroll center bottom rgba(0, 0, 0, 0);
+.style-perlengkapan-rumah .products-on-sale h2, .style-perlengkapan-rumah .new-arrival h2, .style-perlengkapan-rumah .most-popular h2,
+.style-supermarket .products-on-sale h2, .style-supermarket .new-arrival h2, .style-supermarket .most-popular h2,
+.style-kosmetik .products-on-sale h2, .style-kosmetik .new-arrival h2, .style-kosmetik .most-popular h2 {
+	/* background: url("../images/shd_featured_title.png") repeat-x scroll center bottom rgba(0, 0, 0, 0); */
+	background: none;
 	color: #707070;
 	padding: 0;
 	position: relative;
@@ -650,9 +664,15 @@ a.triger-showfilter {
 	font-family:'bebasregular';
 	margin: 0 0 10px;
 	text-align: left;
+    width:-moz-fit-content;
+    width:-webkit-fit-content;
+    width:fit-content;
 	}
-.style-perlengkapan-rumah.catalog-category-view .products-on-sale h2, .style-perlengkapan-rumah.catalog-category-view .new-arrival h2, .style-perlengkapan-rumah.catalog-category-view .most-popular h2{
-	background: url("../images/shd_featured_title.png") repeat-x scroll center bottom rgba(0, 0, 0, 0);
+.style-perlengkapan-rumah.catalog-category-view .products-on-sale h2, .style-perlengkapan-rumah.catalog-category-view .new-arrival h2, .style-perlengkapan-rumah.catalog-category-view .most-popular h2,
+.style-supermarket.catalog-category-view .products-on-sale h2, .style-supermarket.catalog-category-view .new-arrival h2, .style-supermarket.catalog-category-view .most-popular h2,
+.style-kosmetik.catalog-category-view .products-on-sale h2, .style-kosmetik.catalog-category-view .new-arrival h2, .style-kosmetik.catalog-category-view .most-popular h2 {
+	/* background: url("../images/shd_featured_title.png") repeat-x scroll center bottom rgba(0, 0, 0, 0); */
+	background: none;
 	color: #707070;
 	padding: 0;
 	position: relative;
@@ -660,9 +680,14 @@ a.triger-showfilter {
 	font-family:'bebasregular';
 	margin: 0 0 10px;
 	text-align: left;
+    width:-moz-fit-content;
+    width:-webkit-fit-content;
+    width:fit-content;
 	}
 .style-baby .products-on-sale h2 span, .style-baby .new-arrival h2 span, .style-baby .most-popular h2 span,
-.style-perlengkapan-rumah .products-on-sale h2 span, .style-perlengkapan-rumah .new-arrival h2 span, .style-perlengkapan-rumah .most-popular h2 span{
+.style-perlengkapan-rumah .products-on-sale h2 span, .style-perlengkapan-rumah .new-arrival h2 span, .style-perlengkapan-rumah .most-popular h2 span,
+.style-supermarket .products-on-sale h2 span, .style-supermarket .new-arrival h2 span, .style-supermarket .most-popular h2 span,
+.style-kosmetik .products-on-sale h2 span, .style-kosmetik .new-arrival h2 span, .style-kosmetik .most-popular h2 span{
 	background: url("../images/arrow-2.png") no-repeat scroll right center rgba(0, 0, 0, 0);
     float: right;
     font-family: helvetica;
@@ -672,7 +697,9 @@ a.triger-showfilter {
     padding: 0 24px 0 0;
 }
 .style-baby .products-on-sale h2:before, .style-baby .new-arrival h2:before, .style-baby .most-popular h2:before,
-.style-perlengkapan-rumah .products-on-sale h2:before, .style-perlengkapan-rumah .new-arrival h2:before, .style-perlengkapan-rumah .most-popular h2:before{
+.style-perlengkapan-rumah .products-on-sale h2:before, .style-perlengkapan-rumah .new-arrival h2:before, .style-perlengkapan-rumah .most-popular h2:before,
+.style-supermarket .products-on-sale h2:before, .style-supermarket .new-arrival h2:before, .style-supermarket .most-popular h2:before,
+.style-kosmetik .products-on-sale h2:before, .style-kosmetik .new-arrival h2:before, .style-kosmetik .most-popular h2:before{
 	bottom: 0;
 	content: "";
 	height: 5px;
@@ -680,7 +707,9 @@ a.triger-showfilter {
 	position: absolute;
 }
 .style-baby .products-on-sale h2:before, .style-baby .new-arrival h2:before, .style-baby .most-popular h2:before,
-.style-perlengkapan-rumah .products-on-sale h2:before, .style-perlengkapan-rumah .new-arrival h2:before, .style-perlengkapan-rumah .most-popular h2:before{
+.style-perlengkapan-rumah .products-on-sale h2:before, .style-perlengkapan-rumah .new-arrival h2:before, .style-perlengkapan-rumah .most-popular h2:before,
+.style-supermarket .products-on-sale h2:before, .style-supermarket .new-arrival h2:before, .style-supermarket .most-popular h2:before,
+.style-kosmetik .products-on-sale h2:before, .style-kosmetik .new-arrival h2:before, .style-kosmetik .most-popular h2:before{
 	bottom: 0;
 	content: "";
 	height: 5px;
@@ -688,51 +717,114 @@ a.triger-showfilter {
 	position: absolute;
 }
 .style-baby .products-on-sale h2:before,
-.style-perlengkapan-rumah .products-on-sale h2:before{
+.style-perlengkapan-rumah .products-on-sale h2:before,
+.style-supermarket .products-on-sale h2:before,
+.style-kosmetik .products-on-sale h2:before{
 	width: 170px;
 	background: none repeat scroll 0 0 #F76A59;
+    display:none;
 }
 .style-baby .products-on-sale h2:before,
-.style-perlengkapan-rumah .products-on-sale h2:before{
+.style-perlengkapan-rumah .products-on-sale h2:before,
+.style-supermarket .products-on-sale h2:before,
+.style-kosmetik .products-on-sale h2:before{
 	width: 170px;
 	background: none repeat scroll 0 0 #F76A59;
+    display:none;
 }
 .style-baby .new-arrival h2:before,
-.style-perlengkapan-rumah .new-arrival h2:before{
+.style-perlengkapan-rumah .new-arrival h2:before,
+.style-supermarket .new-arrival h2:before,
+.style-kosmetik .new-arrival h2:before{
 	width: 130px;
 	background: none repeat scroll 0 0 #7dcd32;
+    display:none;
 }
 .style-baby .new-arrival h2:before,
-.style-perlengkapan-rumah .new-arrival h2:before{
+.style-perlengkapan-rumah .new-arrival h2:before,
+.style-supermarket .new-arrival h2:before,
+.style-kosmetik .new-arrival h2:before{
 	width: 130px;
 	background: none repeat scroll 0 0 #7dcd32;
+    display:none;
 }
 .style-baby .most-popular h2:before,
-.style-perlengkapan-rumah .most-popular h2:before{
+.style-perlengkapan-rumah .most-popular h2:before,
+.style-supermarket .most-popular h2:before,
+.style-kosmetik .most-popular h2:before{
 	width: 150px;
 	background: none repeat scroll 0 0 #42bcd1;
+    display:none;
 }
 .style-baby .most-popular h2:before,
-.style-perlengkapan-rumah .most-popular h2:before{
+.style-perlengkapan-rumah .most-popular h2:before,
+.style-supermarket .most-popular h2:before,
+.style-kosmetik .most-popular h2:before{
 	width: 150px;
 	background: none repeat scroll 0 0 #42bcd1;
+    display:none;
 }
 
+/* new updated */
+.style-baby .products-on-sale h2,
+.style-perlengkapan-rumah .products-on-sale h2,
+.style-supermarket .products-on-sale h2,
+.style-kosmetik .products-on-sale h2{
+	border-bottom: 5px solid #F76A59;
+}
+.style-baby .products-on-sale h2,
+.style-perlengkapan-rumah .products-on-sale h2,
+.style-supermarket .products-on-sale h2,
+.style-kosmetik .products-on-sale h2{
+	border-bottom: 5px solid #F76A59;
+}
+.style-baby .new-arrival h2,
+.style-perlengkapan-rumah .new-arrival h2,
+.style-supermarket .new-arrival h2,
+.style-kosmetik .new-arrival h2{
+	border-bottom: 5px solid #7dcd32;
+}
+.style-baby .new-arrival h2,
+.style-perlengkapan-rumah .new-arrival h2,
+.style-supermarket .new-arrival h2,
+.style-kosmetik .new-arrival h2{
+	border-bottom: 5px solid #7dcd32;
+}
+.style-baby .most-popular h2,
+.style-perlengkapan-rumah .most-popular h2,
+.style-supermarket .most-popular h2,
+.style-kosmetik .most-popular h2{
+	border-bottom: 5px solid  #42bcd1;
+}
+.style-baby .most-popular h2,
+.style-perlengkapan-rumah .most-popular h2,
+.style-supermarket .most-popular h2,
+.style-kosmetik .most-popular h2 {
+	border-bottom: 5px solid #42bcd1;
+}
+/* END new updated */
+
 .style-baby .homepage-bottom,
-.style-perlengkapan-rumah .homepage-bottom { 
+.style-perlengkapan-rumah .homepage-bottom, 
+.style-supermarket .homepage-bottom, 
+.style-kosmetik .homepage-bottom { 
 	clear: both;
     margin: 0 0 20px;
 }
 
 
 .style-baby .homepage-bottom ul.block-wrapper li,
-.style-perlengkapan-rumah .homepage-bottom ul.block-wrapper li{
+.style-perlengkapan-rumah .homepage-bottom ul.block-wrapper li,
+.style-supermarket .homepage-bottom ul.block-wrapper li,
+.style-kosmetik .homepage-bottom ul.block-wrapper li{
     margin-bottom: 16px;
     margin-left: 6px;
     margin-right: 6px;
     width: 28.79%;
 }
 .style-perlengkapan-rumah .homepage-bottom ul.block-wrapper li.image-bottom-cust,
+.style-supermarket .homepage-bottom ul.block-wrapper li.image-bottom-cust,
+.style-kosmetik .homepage-bottom ul.block-wrapper li.image-bottom-cust,
 .style-baby .homepage-bottom ul.block-wrapper li.image-bottom-cust{
 	padding: 0;
 	width: 30.2%;
@@ -1185,3 +1277,883 @@ a.triger-showfilter {
 
 
 /* ---------------------------------------------- END HOMEPAGE on HOME ------------------------------------- */
+
+
+/* ------------------------------------ START OF supermarket ------------------------------------ */
+.style-supermarket .homepage-bottom ul.block-wrapper li:last-child {}
+.style-supermarket .block-bottom {
+	text-align: center;
+	text-transform: uppercase;
+	color: #fff;
+	border-top: 2px dashed #fff;
+	border-bottom: 2px dashed #fff;	
+	padding: 12px 0;
+	height: 100px;
+}
+.style-supermarket .block-bottom span {
+	display: block;
+	font-size: 19px;
+	font-family: 'Fredoka One';
+}
+.style-supermarket .block-bottom p {
+	font-family: 'bebasregular';
+	font-size: 14px;
+	margin: 0;
+}
+.style-supermarket .block-bottom p a {
+	display: inline-block;
+	text-decoration: underline;
+	text-align: left;
+	color: #fff;
+	/*background-image: url(../images/arrow-1.png);
+	background-repeat: no-repeat;
+	background-position: right 5px;*/
+	padding: 0 5px 0 0;
+	line-height:19px;
+}
+.style-supermarket .block-bottom p a:hover {
+	text-decoration: none;color: #FFA01B;
+}
+.style-supermarket .block-bottom p a.link-how-to-buy {
+	width: 58px;
+	background-position: 40px 28px;
+}
+.style-supermarket .block-bottom p a.link-shipping-table {
+	width: 101px;
+	background-position: 50px 28px;
+}
+.style-supermarket .block-bottom p a.link-other-help {
+	width: 66px;
+	background-position: 50px 28px;
+	padding-left: 0;
+}
+.style-supermarket .block-bottom p a.link-bilna-credit {
+	width: 80px;
+	background-position: 61px 28px;
+}
+.style-supermarket .block-bottom p a.link-reseller-program {
+	width: 90px;
+	background-position: 71px 28px;
+}
+.style-supermarket .block-bottom p a.link-gift-voucher {
+	width: 80px;
+	background-position: 67px 28px;
+}
+.style-supermarket .block-bottom p a img {
+	margin-left: 5px;
+	margin-top: 3px;
+}
+.style-supermarket .block-bottom table tr td {
+	padding: 0 15px;
+}
+.style-supermarket .block-bottom table tr td a {
+	font-family: 'bebasregular';
+	font-size: 14px;
+	font-weight: normal;
+	color: #fff;
+	text-decoration: underline;
+}
+.style-supermarket .block-bottom table tr td a:hover {color: #FFA01B;}
+.style-supermarket .block-bottom table tr td a img {
+	margin-left: 5px;
+	margin-top: 3px;
+}
+.style-supermarket .homepage-bottom .testimonial-wrapper {
+	float: left;
+	width: 45%;
+	position: relative;
+}
+.style-supermarket .testimonial-wrapper h4, .style-supermarket .media-partners span.title {
+	font-size: 18px;
+	font-weight: normal;
+	font-family: 'bebasregular';
+}
+.style-supermarket .testimonial-wrapper h4 {
+	background: url(../images/label.png) no-repeat left top;
+	color: #fff;
+	width: 279px;
+	height: 58px;
+	margin: 0 0 10px 0;
+}
+.style-supermarket .testimonial-wrapper h4 span {
+	display: inline-block;
+	margin: 18px 0 0 55px;
+}
+.style-supermarket .testimonial {
+	margin: 0 40px;
+}
+.style-supermarket #slides {
+	  position:relative;
+}
+.style-supermarket #slides .slidesjs-navigation {
+  position:absolute;
+  top:40px;
+  z-index:10;
+  height: 30px;
+  width: 30px;
+  background-repeat: no-repeat;
+  background-position: center center;
+  display:block;
+  text-indent: -9999px;
+  cursor: pointer;
+}
+.style-supermarket #slides .slidesjs-previous {
+  left:0;
+  background-image: url(../images/arrow-prev.png);
+}
+.style-supermarket #slides .slidesjs-next {
+  background-image: url(../images/arrow-next.png);
+}
+.style-supermarket #slides .slidesjs-next {
+	right: 0;
+}
+.style-supermarket #slides-popup .slidesjs-next {
+	left: 30px;
+}
+.style-supermarket #slides-popup .slidesjs-navigation {
+	bottom: 12px;
+	top:auto;
+	background-color: #ddd;
+}
+.style-supermarket.category-supermarket #slides-banner-home{
+	position:relative;
+}
+.style-supermarket.category-supermarket #slides-banner-home .slidesjs-navigation {
+	display: none;
+}
+.style-supermarket.category-supermarket #slides-banner-home .slidesjs-pagination {
+	position: absolute;
+	right: 10px;
+	bottom: 0;
+	list-style: none;
+	z-index: 10;
+	padding: 0;
+}
+.style-supermarket.category-supermarket #slides-banner-home .slidesjs-pagination li {
+	display: inline-block;
+	margin: 0 0 0 5px;
+}
+.style-supermarket.category-supermarket #slides-banner-home .slidesjs-pagination li:first-child {
+	margin-left: 0;
+}
+
+/* .style-supermarket.category-supermarket #slides-banner-home .slidesjs-pagination li.slidesjs-pagination-item a {
+	display: block;
+	width: 19px;
+	height: 19px;
+	text-indent: -999999px;
+	background: url(../images/node.png) no-repeat center center;
+}
+.style-supermarket #slides-banner-home .slidesjs-pagination li.slidesjs-pagination-item a.active {
+	background: url(../images/node-active.png) no-repeat center center;
+} */
+.style-supermarket .homepage-bottom .media-partners {
+	float: right;
+}
+.style-supermarket .media-partners span.title {
+	display: block;
+}
+.style-supermarket .media-partners ul.media-partners-wrapper {
+	list-style: none;
+	margin: 30px 0 0 0;
+	padding: 0;
+}
+.style-supermarket .media-partners ul.media-partners-wrapper li {
+	display: inline-block;
+	vertical-align: middle;
+	margin: 0 0 0 20px;
+}
+.style-supermarket .media-partners ul.media-partners-wrapper li:first-child {
+	margin: 0;
+}
+
+.style-supermarket .wrap_banner{
+	margin: 20px auto;
+	display: table;
+}
+.style-supermarket .wrap_banner{
+	margin: 20px 0;
+	display: table;
+}
+.style-supermarket .wrap_banner .col-1, .style-supermarket .wrap_banner .col-2, .style-supermarket .wrap_banner .col-3{
+	display:block;
+	min-height:50px;
+	float:left;
+}
+.style-supermarket .wrap_banner .col-1, .style-supermarket .wrap_banner .col-2, .style-supermarket .wrap_banner .col-3{
+	display:block;
+	min-height:50px;
+	float:left;
+}
+.style-supermarket .wrap_banner .col-1{
+	width:490px;
+}
+.style-supermarket .wrap_banner .col-1{
+	width:527px;
+}
+.style-supermarket .wrap_banner .col-2{
+	margin: 0 8px;
+	width:200px;
+}
+.style-supermarket .wrap_banner .col-2{
+	margin: 0 8px;
+	width:216px;
+}
+.style-supermarket .wrap_banner .col-2 img:first-child{
+	margin: 0 0 8px;
+}
+.style-supermarket .wrap_banner .col-2 img:first-child{
+	margin: 0 0 8px;
+}
+.style-supermarket .wrap_banner .col-3{
+	width:245px;
+}
+.style-supermarket .wrap_banner .col-3{
+	width:245px;
+}
+.style-supermarket .homepage-bottom ul.block-wrapper li {
+	width: 27.79%;
+	margin: 0 8px 34px;
+}
+.style-supermarket .homepage-bottom ul.block-wrapper li:nth-child(2){
+	margin:0 17px 15px;
+}
+.style-supermarket .block-bottom span {
+	display: block;
+	font-size: 19px;
+	font-family: 'Fredoka One';
+}
+.style-supermarket .block-bottom p {
+	font-size: 14px;
+}
+.style-supermarket .block-bottom p a {
+	background-position: right center;
+}
+.style-supermarket .block-bottom p a.link-how-to-buy {
+	width: 51px;
+	background-position: 34px 20px;
+}
+.style-supermarket .block-bottom p a.link-shipping-table {
+	width: 84px;
+	background-position: 40px 20px;
+}
+.style-supermarket .block-bottom p a.link-other-help {
+	width: 30px;
+	background-position: 38px 20px
+}
+.style-supermarket .block-bottom p a.link-bilna-credit {
+	width: 62px;
+	background-position: 51px 20px;
+}
+.style-supermarket .block-bottom p a.link-reseller-program {
+	width: 68px;
+	background-position: 60px 20px;
+}
+.style-supermarket .block-bottom p a.link-gift-voucher {
+	width: 60px;
+	background-position: 55px 20px
+}
+.style-supermarket .block-bottom table tr td {
+	padding: 0 15px;
+}
+.style-supermarket .homepage-bottom .media-partners {
+	margin: 0;
+
+}
+.style-supermarket .shopby{
+	float: left;
+    margin: 0 20px 0 0;
+    width: 175px; 
+	}
+.style-supermarket .shopby ul.shop-by {
+    margin: 0 0 5px;
+}
+.style-supermarket #nav li.shop-by:hover .shopby {
+    display: none;
+}
+.style-supermarket .shopby ul.shop-by li a.link-seemore, .style-supermarket .homepage-product a.link-viewmore-product, .style-supermarket #nav .shopby ul.shop-by li a.link-seemore, .style-supermarket #nav ul li a.browse-all{
+	background:url("../images/arrow-2.png") no-repeat right;
+	height: 20px;
+    line-height: 20px;
+}
+.style-supermarket .nav-container-mobile{
+	clear:both;
+}
+.style-supermarket .testimonial-wrapper .view_all{
+	display: table;
+	font-size: 13px;
+	font-weight: bold;
+	position: absolute;
+	right: 0;
+	top: 39px;
+}
+.style-supermarket .testimonial-wrapper .view_all a{
+	text-decoration: underline;
+	color: #A6A6A6;
+}
+
+
+
+@media only screen and ( max-width: 1215px) {
+	.style-supermarket .shopby{ 	
+		display:none;
+	}
+	.style-supermarket #nav li.shop-by:hover .shopby {
+		display: block;
+	}
+
+}
+@media only screen and (min-width: 1023px) and (max-width: 1215px) {
+	.style-supermarket .shopby{ 	
+		display:none;
+	}
+	.style-supermarket #nav li.shop-by:hover .shopby {
+		display: block;
+	}
+	.style-supermarket #slides-banner-home{
+		height:371px;
+		width:510px;
+	}
+	.style-supermarket .wrap_banner .col-1{
+		width:510px;
+	}
+	.style-supermarket .wrap_banner .col-2{
+		width:210px;
+	}
+	.style-supermarket .wrap_banner .col-3{
+		width:257px;
+	}
+	.style-supermarket .wrap_banner .col-2 img{
+		width:100%;
+	}
+	.style-supermarket .wrap_banner .col-3 img{
+		width:100%;
+	}
+}
+
+/* --------------- 960 px layout -------------------- */
+@media only screen and (max-width: 1023px) {
+	.style-supermarket .homepage-bottom .testimonial-wrapper{
+		width:100%;
+	}
+	.style-supermarket .homepage-bottom .media-partners #nav li.shop-by:hover .shopby {
+		display: block;
+	}
+	.style-supermarket .main{
+		width:954px;
+	}
+	.style-supermarket .homepage-bottom .media-partners{
+		width:100%;
+		text-align:center;
+	}
+	.style-supermarket .main{
+	width:954px;
+	}
+	.style-supermarket .col1-layout .main .col-main, .style-supermarket .col1-layout .main .col-main{
+		width:744px;
+	}
+	.style-supermarket .wrap_banner .col-1, .style-supermarket .wrap_banner .col-1{
+		width:380px;
+	}
+	.style-supermarket .wrap_banner .col-1 img, .style-supermarket .wrap_banner .col-1 img, .style-supermarket .wrap_banner .col-2 img, .style-supermarket .wrap_banner .col-2 img, .style-supermarket .wrap_banner .col-3 img, .style-supermarket .wrap_banner .col-3 img{
+		width:100%;
+	}
+	.style-supermarket .wrap_banner .col-2, .style-supermarket .wrap_banner .col-2{
+		margin: 0 8px;
+		width: 154px;
+	}
+	.style-supermarket .wrap_banner .col-3, .style-supermarket .wrap_banner .col-3{
+		width:190px;
+	}
+	.style-supermarket .homepage-bottom ul.block-wrapper li:nth-child(2){
+	margin:0 2px 15px;
+	}
+        .style-supermarket .homepage-bottom ul.block-wrapper li {
+            margin-bottom: 8px;
+            margin-left: 2.5px;
+            margin-right: 2.5px;
+            padding-left: 5px;
+            padding-right: 5px;
+            width: 30.95%;
+        }
+        .style-supermarket .homepage-bottom ul.block-wrapper li.image-bottom-cust {
+            padding: 0;
+            width: 32.2%;
+        }
+        
+	/*#nav li.level-top.shop-by{
+		position:relative;
+		bottom:0;
+	}*/
+}
+
+/* --------------- smaller 959 px layout -------------------- */
+@media only screen and (max-width: 767px) {
+	.style-supermarket .style-supermarket #nav li.shop-by:hover .shopby {
+		display: block;
+	}
+	.style-supermarket .style-supermarket .wrap_banner .col-1, .style-supermarket .wrap_banner .col-1{
+		width:100%;
+		margin:0 0 20px;
+	}
+	.style-supermarket .style-supermarket .wrap_banner, .style-supermarket .wrap_banner{
+		display:block;
+	}
+	.style-supermarket .style-supermarket .wrap_banner .col-2, .style-supermarket .wrap_banner .col-2, .style-supermarket .wrap_banner .col-3, .style-supermarket .wrap_banner .col-3, .style-supermarket .products-on-sale, .style-supermarket .new-arrival, .style-supermarket .most-popular, .style-supermarket .homepage-bottom,
+    .style-supermarket .style-supermarket .wrap_banner .col-2, .style-supermarket .wrap_banner .col-2, .style-supermarket .wrap_banner .col-3, .style-supermarket .wrap_banner .col-3, .style-supermarket .products-on-sale, .style-supermarket .new-arrival, .style-supermarket .most-popular, .style-supermarket .homepage-bottom    {
+		display:none;
+	}
+	.style-supermarket .style-supermarket .col1-layout .main .col-main, .style-supermarket .col1-layout .main .col-main{
+		width:100%;
+	}
+}
+/* --------------- 320 px layout -------------------- */
+@media only screen and (max-width: 479px) { 
+	.style-supermarket .style-supermarket .header .search-mobile .form-search .input-keyword input.input-text{
+		max-width:none;
+		width:40%;
+	}
+}
+
+/* ------------------------------------ END OF supermarket ------------------------------------ */
+
+/* ------------------------------------ START OF kosmetik ------------------------------------ */
+.style-kosmetik .homepage-bottom ul.block-wrapper li:last-child {}
+.style-kosmetik .block-bottom {
+	text-align: center;
+	text-transform: uppercase;
+	color: #fff;
+	border-top: 2px dashed #fff;
+	border-bottom: 2px dashed #fff;	
+	padding: 12px 0;
+	height: 100px;
+}
+.style-kosmetik .block-bottom span {
+	display: block;
+	font-size: 19px;
+	font-family: 'Fredoka One';
+}
+.style-kosmetik .block-bottom p {
+	font-family: 'bebasregular';
+	font-size: 14px;
+	margin: 0;
+}
+.style-kosmetik .block-bottom p a {
+	display: inline-block;
+	text-decoration: underline;
+	text-align: left;
+	color: #fff;
+	/*background-image: url(../images/arrow-1.png);
+	background-repeat: no-repeat;
+	background-position: right 5px;*/
+	padding: 0 5px 0 0;
+	line-height:19px;
+}
+.style-kosmetik .block-bottom p a:hover {
+	text-decoration: none;color: #FFA01B;
+}
+.style-kosmetik .block-bottom p a.link-how-to-buy {
+	width: 58px;
+	background-position: 40px 28px;
+}
+.style-kosmetik .block-bottom p a.link-shipping-table {
+	width: 101px;
+	background-position: 50px 28px;
+}
+.style-kosmetik .block-bottom p a.link-other-help {
+	width: 66px;
+	background-position: 50px 28px;
+	padding-left: 0;
+}
+.style-kosmetik .block-bottom p a.link-bilna-credit {
+	width: 80px;
+	background-position: 61px 28px;
+}
+.style-kosmetik .block-bottom p a.link-reseller-program {
+	width: 90px;
+	background-position: 71px 28px;
+}
+.style-kosmetik .block-bottom p a.link-gift-voucher {
+	width: 80px;
+	background-position: 67px 28px;
+}
+.style-kosmetik .block-bottom p a img {
+	margin-left: 5px;
+	margin-top: 3px;
+}
+.style-kosmetik .block-bottom table tr td {
+	padding: 0 15px;
+}
+.style-kosmetik .block-bottom table tr td a {
+	font-family: 'bebasregular';
+	font-size: 14px;
+	font-weight: normal;
+	color: #fff;
+	text-decoration: underline;
+}
+.style-kosmetik .block-bottom table tr td a:hover {color: #FFA01B;}
+.style-kosmetik .block-bottom table tr td a img {
+	margin-left: 5px;
+	margin-top: 3px;
+}
+.style-kosmetik .homepage-bottom .testimonial-wrapper {
+	float: left;
+	width: 45%;
+	position: relative;
+}
+.style-kosmetik .testimonial-wrapper h4, .style-kosmetik .media-partners span.title {
+	font-size: 18px;
+	font-weight: normal;
+	font-family: 'bebasregular';
+}
+.style-kosmetik .testimonial-wrapper h4 {
+	background: url(../images/label.png) no-repeat left top;
+	color: #fff;
+	width: 279px;
+	height: 58px;
+	margin: 0 0 10px 0;
+}
+.style-kosmetik .testimonial-wrapper h4 span {
+	display: inline-block;
+	margin: 18px 0 0 55px;
+}
+.style-kosmetik .testimonial {
+	margin: 0 40px;
+}
+.style-kosmetik #slides {
+	  position:relative;
+}
+.style-kosmetik #slides .slidesjs-navigation {
+  position:absolute;
+  top:40px;
+  z-index:10;
+  height: 30px;
+  width: 30px;
+  background-repeat: no-repeat;
+  background-position: center center;
+  display:block;
+  text-indent: -9999px;
+  cursor: pointer;
+}
+.style-kosmetik #slides .slidesjs-previous {
+  left:0;
+  background-image: url(../images/arrow-prev.png);
+}
+.style-kosmetik #slides .slidesjs-next {
+  background-image: url(../images/arrow-next.png);
+}
+.style-kosmetik #slides .slidesjs-next {
+	right: 0;
+}
+.style-kosmetik #slides-popup .slidesjs-next {
+	left: 30px;
+}
+.style-kosmetik #slides-popup .slidesjs-navigation {
+	bottom: 12px;
+	top:auto;
+	background-color: #ddd;
+}
+.style-kosmetik.category-kosmetik #slides-banner-home{
+	position:relative;
+}
+.style-kosmetik.category-kosmetik #slides-banner-home .slidesjs-navigation {
+	display: none;
+}
+.style-kosmetik.category-kosmetik #slides-banner-home .slidesjs-pagination {
+	position: absolute;
+	right: 10px;
+	bottom: 0;
+	list-style: none;
+	z-index: 10;
+	padding: 0;
+}
+.style-kosmetik.category-kosmetik #slides-banner-home .slidesjs-pagination li {
+	display: inline-block;
+	margin: 0 0 0 5px;
+}
+.style-kosmetik.category-kosmetik #slides-banner-home .slidesjs-pagination li:first-child {
+	margin-left: 0;
+}
+
+/* .style-kosmetik.category-kosmetik #slides-banner-home .slidesjs-pagination li.slidesjs-pagination-item a {
+	display: block;
+	width: 19px;
+	height: 19px;
+	text-indent: -999999px;
+	background: url(../images/node.png) no-repeat center center;
+}
+.style-kosmetik #slides-banner-home .slidesjs-pagination li.slidesjs-pagination-item a.active {
+	background: url(../images/node-active.png) no-repeat center center;
+} */
+.style-kosmetik .homepage-bottom .media-partners {
+	float: right;
+}
+.style-kosmetik .media-partners span.title {
+	display: block;
+}
+.style-kosmetik .media-partners ul.media-partners-wrapper {
+	list-style: none;
+	margin: 30px 0 0 0;
+	padding: 0;
+}
+.style-kosmetik .media-partners ul.media-partners-wrapper li {
+	display: inline-block;
+	vertical-align: middle;
+	margin: 0 0 0 20px;
+}
+.style-kosmetik .media-partners ul.media-partners-wrapper li:first-child {
+	margin: 0;
+}
+
+.style-kosmetik .wrap_banner{
+	margin: 20px auto;
+	display: table;
+}
+.style-kosmetik .wrap_banner{
+	margin: 20px 0;
+	display: table;
+}
+.style-kosmetik .wrap_banner .col-1, .style-kosmetik .wrap_banner .col-2, .style-kosmetik .wrap_banner .col-3{
+	display:block;
+	min-height:50px;
+	float:left;
+}
+.style-kosmetik .wrap_banner .col-1, .style-kosmetik .wrap_banner .col-2, .style-kosmetik .wrap_banner .col-3{
+	display:block;
+	min-height:50px;
+	float:left;
+}
+.style-kosmetik .wrap_banner .col-1{
+	width:490px;
+}
+.style-kosmetik .wrap_banner .col-1{
+	width:527px;
+}
+.style-kosmetik .wrap_banner .col-2{
+	margin: 0 8px;
+	width:200px;
+}
+.style-kosmetik .wrap_banner .col-2{
+	margin: 0 8px;
+	width:216px;
+}
+.style-kosmetik .wrap_banner .col-2 img:first-child{
+	margin: 0 0 8px;
+}
+.style-kosmetik .wrap_banner .col-2 img:first-child{
+	margin: 0 0 8px;
+}
+.style-kosmetik .wrap_banner .col-3{
+	width:245px;
+}
+.style-kosmetik .wrap_banner .col-3{
+	width:245px;
+}
+.style-kosmetik .homepage-bottom ul.block-wrapper li {
+	width: 27.79%;
+	margin: 0 8px 34px;
+}
+.style-kosmetik .homepage-bottom ul.block-wrapper li:nth-child(2){
+	margin:0 17px 15px;
+}
+.style-kosmetik .block-bottom span {
+	display: block;
+	font-size: 19px;
+	font-family: 'Fredoka One';
+}
+.style-kosmetik .block-bottom p {
+	font-size: 14px;
+}
+.style-kosmetik .block-bottom p a {
+	background-position: right center;
+}
+.style-kosmetik .block-bottom p a.link-how-to-buy {
+	width: 51px;
+	background-position: 34px 20px;
+}
+.style-kosmetik .block-bottom p a.link-shipping-table {
+	width: 84px;
+	background-position: 40px 20px;
+}
+.style-kosmetik .block-bottom p a.link-other-help {
+	width: 30px;
+	background-position: 38px 20px
+}
+.style-kosmetik .block-bottom p a.link-bilna-credit {
+	width: 62px;
+	background-position: 51px 20px;
+}
+.style-kosmetik .block-bottom p a.link-reseller-program {
+	width: 68px;
+	background-position: 60px 20px;
+}
+.style-kosmetik .block-bottom p a.link-gift-voucher {
+	width: 60px;
+	background-position: 55px 20px
+}
+.style-kosmetik .block-bottom table tr td {
+	padding: 0 15px;
+}
+.style-kosmetik .homepage-bottom .media-partners {
+	margin: 0;
+
+}
+.style-kosmetik .shopby{
+	float: left;
+    margin: 0 20px 0 0;
+    width: 175px; 
+	}
+.style-kosmetik .shopby ul.shop-by {
+    margin: 0 0 5px;
+}
+.style-kosmetik #nav li.shop-by:hover .shopby {
+    display: none;
+}
+.style-kosmetik .shopby ul.shop-by li a.link-seemore, .style-kosmetik .homepage-product a.link-viewmore-product, .style-kosmetik #nav .shopby ul.shop-by li a.link-seemore, .style-kosmetik #nav ul li a.browse-all{
+	background:url("../images/arrow-2.png") no-repeat right;
+	height: 20px;
+    line-height: 20px;
+}
+.style-kosmetik .nav-container-mobile{
+	clear:both;
+}
+.style-kosmetik .testimonial-wrapper .view_all{
+	display: table;
+	font-size: 13px;
+	font-weight: bold;
+	position: absolute;
+	right: 0;
+	top: 39px;
+}
+.style-kosmetik .testimonial-wrapper .view_all a{
+	text-decoration: underline;
+	color: #A6A6A6;
+}
+
+
+
+@media only screen and ( max-width: 1215px) {
+	.style-kosmetik .shopby{ 	
+		display:none;
+	}
+	.style-kosmetik #nav li.shop-by:hover .shopby {
+		display: block;
+	}
+
+}
+@media only screen and (min-width: 1023px) and (max-width: 1215px) {
+	.style-kosmetik .shopby{ 	
+		display:none;
+	}
+	.style-kosmetik #nav li.shop-by:hover .shopby {
+		display: block;
+	}
+	.style-kosmetik #slides-banner-home{
+		height:371px;
+		width:510px;
+	}
+	.style-kosmetik .wrap_banner .col-1{
+		width:510px;
+	}
+	.style-kosmetik .wrap_banner .col-2{
+		width:210px;
+	}
+	.style-kosmetik .wrap_banner .col-3{
+		width:257px;
+	}
+	.style-kosmetik .wrap_banner .col-2 img{
+		width:100%;
+	}
+	.style-kosmetik .wrap_banner .col-3 img{
+		width:100%;
+	}
+}
+
+/* --------------- 960 px layout -------------------- */
+@media only screen and (max-width: 1023px) {
+	.style-kosmetik .homepage-bottom .testimonial-wrapper{
+		width:100%;
+	}
+	.style-kosmetik .homepage-bottom .media-partners #nav li.shop-by:hover .shopby {
+		display: block;
+	}
+	.style-kosmetik .main{
+		width:954px;
+	}
+	.style-kosmetik .homepage-bottom .media-partners{
+		width:100%;
+		text-align:center;
+	}
+	.style-kosmetik .main{
+	width:954px;
+	}
+	.style-kosmetik .col1-layout .main .col-main, .style-kosmetik .col1-layout .main .col-main{
+		width:744px;
+	}
+	.style-kosmetik .wrap_banner .col-1, .style-kosmetik .wrap_banner .col-1{
+		width:380px;
+	}
+	.style-kosmetik .wrap_banner .col-1 img, .style-kosmetik .wrap_banner .col-1 img, .style-kosmetik .wrap_banner .col-2 img, .style-kosmetik .wrap_banner .col-2 img, .style-kosmetik .wrap_banner .col-3 img, .style-kosmetik .wrap_banner .col-3 img{
+		width:100%;
+	}
+	.style-kosmetik .wrap_banner .col-2, .style-kosmetik .wrap_banner .col-2{
+		margin: 0 8px;
+		width: 154px;
+	}
+	.style-kosmetik .wrap_banner .col-3, .style-kosmetik .wrap_banner .col-3{
+		width:190px;
+	}
+	.style-kosmetik .homepage-bottom ul.block-wrapper li:nth-child(2){
+	margin:0 2px 15px;
+	}
+        .style-kosmetik .homepage-bottom ul.block-wrapper li {
+            margin-bottom: 8px;
+            margin-left: 2.5px;
+            margin-right: 2.5px;
+            padding-left: 5px;
+            padding-right: 5px;
+            width: 30.95%;
+        }
+        .style-kosmetik .homepage-bottom ul.block-wrapper li.image-bottom-cust {
+            padding: 0;
+            width: 32.2%;
+        }
+        
+	/*#nav li.level-top.shop-by{
+		position:relative;
+		bottom:0;
+	}*/
+}
+
+/* --------------- smaller 959 px layout -------------------- */
+@media only screen and (max-width: 767px) {
+	.style-kosmetik .style-kosmetik #nav li.shop-by:hover .shopby {
+		display: block;
+	}
+	.style-kosmetik .style-kosmetik .wrap_banner .col-1, .style-kosmetik .wrap_banner .col-1{
+		width:100%;
+		margin:0 0 20px;
+	}
+	.style-kosmetik .style-kosmetik .wrap_banner, .style-kosmetik .wrap_banner{
+		display:block;
+	}
+	.style-kosmetik .style-kosmetik .wrap_banner .col-2, .style-kosmetik .wrap_banner .col-2, .style-kosmetik .wrap_banner .col-3, .style-kosmetik .wrap_banner .col-3, .style-kosmetik .products-on-sale, .style-kosmetik .new-arrival, .style-kosmetik .most-popular, .style-kosmetik .homepage-bottom,
+    .style-kosmetik .style-kosmetik .wrap_banner .col-2, .style-kosmetik .wrap_banner .col-2, .style-kosmetik .wrap_banner .col-3, .style-kosmetik .wrap_banner .col-3, .style-kosmetik .products-on-sale, .style-kosmetik .new-arrival, .style-kosmetik .most-popular, .style-kosmetik .homepage-bottom    {
+		display:none;
+	}
+	.style-kosmetik .style-kosmetik .col1-layout .main .col-main, .style-kosmetik .col1-layout .main .col-main{
+		width:100%;
+	}
+}
+/* --------------- 320 px layout -------------------- */
+@media only screen and (max-width: 479px) { 
+	.style-kosmetik .style-kosmetik .header .search-mobile .form-search .input-keyword input.input-text{
+		max-width:none;
+		width:40%;
+	}
+}
+
+/* ------------------------------------ END OF kosmetik ------------------------------------ */
+
+
+

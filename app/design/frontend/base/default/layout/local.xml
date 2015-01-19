@@ -54,6 +54,10 @@
                 <type>skin_js</type>
                 <name>js/swingin-and-scroll.js</name>
             </action>
+            <action method="addItem">
+                <type>skin_js</type>
+                <name>js/zopim-chat.js</name>
+            </action>
         </reference>
         <reference name="header">
             <remove name="welcome"/>
@@ -126,10 +130,6 @@
                 <type>skin_js</type>
                 <name>js/jquery.tinyscrollbar.min.js</name>
             </action>
-             <action method="addItem">
-                <type>skin_js</type>
-                <name>js/jquery-ui.min.js</name>
-            </action>       
         </reference>
         <reference name="left">
             <remove name="left.permanent.callout"/>
