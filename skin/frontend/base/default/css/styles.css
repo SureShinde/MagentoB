@@ -3085,11 +3085,6 @@ z/*======================Category page===================*/
 	width: 150px;
 	background: none repeat scroll 0 0 #42bcd1;
 }
-
-.style-supermarket .homepage-bottom .block-wrapper,.style-kosmetik .homepage-bottom .block-wrapper{
-	clear: both;
-	display:table;
-}
 .style-supermarket .homepage-bottom ul.block-wrapper {
 	list-style: none;
 	padding: 0;
