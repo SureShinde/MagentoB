@@ -43,8 +43,8 @@ class AW_Points_Model_Actions_ReviewApproved extends AW_Points_Model_Actions_Abs
             ->getCollection()
             ->addFieldToFilter('summary_id', $this->getSummary()->getId())
             ->addFieldToFilter('action', $this->getAction())
-            ->addFieldToFilter("date('change_date')", $createdAt);
- 
+            ->addFieldToFilter("DATE(`change_date`)", $createdAt);
+        
        /* Current summ getting */
         $summ = 0;
         
