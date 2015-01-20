@@ -30,12 +30,22 @@
 
 <!--Mega Menu-->
 <script type="text/javascript">	
-    $j(document).ready(function() {
+    $j(document).ready(function() {	
+		$j('.wrap-megamenu').click(function (){
+			 $j('.bg-dark-megamenu').toggle();
+			 $j('.megamenu').slideToggle();
+		});
+		//================mobile left menu js========================
         $j('.nav-mobile-trigger').click(function() {
             $j('.mobile-left-menu').css({"width":"100%","left":"0"});
             $j('.wrapper').css({"float":"left","margin-left":"70%","position":"fixed"});
             $j('body').css({"overflow":"hidden"});
         });
+		$j('.mobile-left-menu .wrap-menu-cat > ul > li').click(function () {
+         $j(".mobile-left-menu .wrap-menu-cat > ul > li").removeClass("menu-active");
+         $j(this).toggleClass("menu-active");
+     });
+		//================mobile left menu js========================
         
         $j('.back-button').click(function() {
             $j('.mobile-left-menu').css({"width":"100%","left":"-100%"});
@@ -330,7 +340,7 @@
 	</div>
     <div class="header">
     	<a href="#" class="nav-mobile-trigger"><?php echo $this->__('Menu') ?></a>
-
+		
         <?php
         $_helper = Mage::helper('megamenu');
         $_storeCategories = $_helper->getMegamenuData();
@@ -398,6 +408,7 @@
             <?php echo $this->getChildHtml('store_language') ?>
             <div class="clear"></div>
         </div>
+		<?php echo $this->getLayout()->createBlock('page/html')->setTemplate('page/html/megamenu.phtml')->toHtml(); ?>
         <?php echo $this->getChildHtml('topContainer'); ?>
         <div class="nav-mobile"><?php //echo $this->getChildHtml('topMenu') ?></div>
         <div class="mini-cart-mobile"><?php echo $this->getChildHtml('topcart') ?></div>
@@ -448,7 +459,7 @@
     </div>
 </div>
 <div class="menu-homepage-wood"></div>
-<?php echo $this->getChildHtml('topMenu'); ?>
+<?php // echo $this->getChildHtml('topMenu'); ?>
 
 
 <div class="menu-tablet">
@@ -460,6 +471,8 @@
 	<?php //echo $this->getChildHtml('store_language') ?>
 	<div class="clear"></div>
     </div>
+</div>
+<div class="bg-dark-megamenu">
 </div>
 <!--this is for testing only-->
 <?php //echo $this->getLayout()->createBlock("core/template")->setTemplate("page/template/bottommenu.phtml")->toHtml(); ?>
