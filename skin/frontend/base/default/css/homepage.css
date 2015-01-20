@@ -848,7 +848,9 @@
 }
 .homapage-banner .first-level > ul{
     border-right: 1px solid #ededed;
+	background: #55909a;
 	padding-left:0;
+	min-height: 545px;
 }
 .wrap-second-cat{
     padding-right: 20px;
@@ -866,6 +868,9 @@
     background-image: url(../images/megamenu/arrow.png);
     background-repeat: no-repeat;
     background-position: right -90px;
+}
+.homapage-banner .first-level > ul > li > a{
+	color:#fff;
 }
 .homapage-banner li a, .homapage-banner .second-level p a{
     color: #707070;

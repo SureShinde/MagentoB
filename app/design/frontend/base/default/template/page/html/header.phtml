@@ -35,11 +35,17 @@
 			 $j('.bg-dark-megamenu').toggle();
 			 $j('.megamenu').slideToggle();
 		});
+		//================mobile left menu js========================
         $j('.nav-mobile-trigger').click(function() {
             $j('.mobile-left-menu').css({"width":"100%","left":"0"});
             $j('.wrapper').css({"float":"left","margin-left":"70%","position":"fixed"});
             $j('body').css({"overflow":"hidden"});
         });
+		$j('.mobile-left-menu .wrap-menu-cat > ul > li').click(function () {
+         $j(".mobile-left-menu .wrap-menu-cat > ul > li").removeClass("menu-active");
+         $j(this).toggleClass("menu-active");
+     });
+		//================mobile left menu js========================
         
         $j('.back-button').click(function() {
             $j('.mobile-left-menu').css({"width":"100%","left":"-100%"});
@@ -334,7 +340,7 @@
 	</div>
     <div class="header">
     	<a href="#" class="nav-mobile-trigger"><?php echo $this->__('Menu') ?></a>
-
+		
         <?php
         $_helper = Mage::helper('megamenu');
         $_storeCategories = $_helper->getMegamenuData();
@@ -453,7 +459,7 @@
     </div>
 </div>
 <div class="menu-homepage-wood"></div>
-<?php echo $this->getChildHtml('topMenu'); ?>
+<?php // echo $this->getChildHtml('topMenu'); ?>
 
 
 <div class="menu-tablet">
