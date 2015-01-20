@@ -4260,3 +4260,59 @@ z/*======================Category page===================*/
 }
 /* ------------------- **** ------------------ /
 /* --------------------------------------------- END kosmetik CSS APRIL 2014 -------------------------------------------------- */
+
+
+/**
+ * Rating
+ */
+#star-rating .starRating {
+    display: inline-block;
+    position: relative;
+    height: 14px;
+    /*background: url('stars.png') repeat-x 0 0;*/
+    /*background: url("images/star_grey.jpg") no-repeat 0 0;*/
+    background: url("../images/bkg_rating.gif") repeat-x scroll 0 0 rgba(0, 0, 0, 0);
+    vertical-align: bottom;
+    max-width: 70px;
+}
+#star-rating .starRating div {
+    float: left;
+    position: relative;
+    height: 14px;
+}
+#star-rating .starRating input {
+    position: relative;
+    z-index: 1;
+    width: 14px;
+    height: 14px;
+    margin: 0;
+    padding: 0;
+    opacity: 0;
+}
+#star-rating .starRating label {
+    position: absolute;
+    top: -11px;
+    left: 0;
+    width: 100%;
+    height: 14px;
+}
+#star-rating .starRating span {
+    display: none;
+}
+#star-rating .starRating input:checked + label,
+#star-rating .starRating:hover input:checked:hover + label {
+    /*background: url('stars.png') repeat-x 0 -24px;*/
+    /*background: url("images/star_color.jpg") no-repeat 0 0;*/
+    background: url("../images/bkg_rating.gif") repeat-x scroll 0 100% rgba(0, 0, 0, 0);
+}
+#star-rating .starRating:hover input:checked + label {
+    background: transparent;
+}
+#star-rating .starRating:hover input:hover + label {
+    /*background: url('stars.png') repeat-x 0 -48px;*/
+    /*background: url("images/star_color.jpg") no-repeat 0 0;*/
+    background: url("../images/bkg_rating.gif") repeat-x scroll 0 100% rgba(0, 0, 0, 0);
+}
+#star-rating .validation-advice {
+    min-width: 250px;
+}
