@@ -41,6 +41,7 @@ class AW_Followupemail_Model_Source_Rule_Types {
     const RULE_TYPE_CUSTOMER_GROUP_CHANGED = 'customer_group_changed';
     const RULE_TYPE_CUSTOMER_NEW_SUBSCRIPTION = 'customer_new_subscription';
     const RULE_TYPE_CUSTOMER_UNSUBSCRIPTION = 'customer_unsubscription';
+    const RULE_TYPE_SHARE_APPS = 'share_apps';
     const CANCEL_TYPE_CUSTOMER_PLACED_NEW_ORDER = 'customer_new_order';
 	
     public static function toShortOptionArray($extended = FALSE) {
@@ -82,6 +83,7 @@ class AW_Followupemail_Model_Source_Rule_Types {
         } else {
             // Events
             $result[self::RULE_TYPE_CUSTOMER_BIRTHDAY] = $helper->__('Customer birthday');
+            $result[self::RULE_TYPE_SHARE_APPS] = $helper->__('Email Share Apps');
         }
 
         return $result;
