@@ -56,12 +56,3 @@ div#spinner
 
 /*}*/
 </script>
-<div class="wrap-form-notify">
-	<p class="label-form-notify">Notify me when product is back in stock</p>
-	<?php if( !Mage::helper('customer')->isLoggedIn() ) :?>
-	<input name="alert_email" id="alert_email" type="text" value="" placeholder="name@email.com">
-	<div id="spinner">
-		<img src="<?php echo $this->getSkinUrl("ajaxlogin/ajax-loader-tr.gif")?>" title="Loading..." alt="Loading..." border="0" />
-	</div>
-	<?php endif; ?>
-</div>

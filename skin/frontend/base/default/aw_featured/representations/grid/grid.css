@@ -22,6 +22,22 @@
 }
 .awafpgrid ul li:first-child {
 }
+.afp-addtocart .out-of-stock span{
+	width: 88px;
+	background:url(../../../../../base/default/images/btn-buynow-grey.png) no-repeat;
+	height: 36px;
+	bottom: 20px !important;
+	line-height: 21px;
+	color: #fff !important;
+	position: absolute !important;
+	font-family: Helvetica;
+	font-size: 1em;
+	font-weight: bold;
+	text-transform: uppercase;
+	background-size: 88px 36px;
+	text-align: center;
+	line-height: 36px;
+}
 .awafpgrid ul li:hover {
 	background-color: #fff;
 	z-index: 1;
