@@ -56,9 +56,16 @@ div#spinner
 
 /*}*/
 </script>
-<?php if( !Mage::helper('customer')->isLoggedIn() ) :?>
-<input name="alert_email" id="alert_email" type="text" value="">
-<div id="spinner">
-    <img src="<?php echo $this->getSkinUrl("ajaxlogin/ajax-loader-tr.gif")?>" title="Loading..." alt="Loading..." border="0" />
+
+<?php if((!$this->_product->isAvailable() && Mage::getStoreConfig('catalog/productalert/allow_stock')) || Mage::getStoreConfig('catalog/productalert/allow_price')){ ?>
+<div class="wrap-form-notify">
+	<p class="label-form-notify">Notify me when product is back in stock</p>
+	<?php if( !Mage::helper('customer')->isLoggedIn() ) :?>
+	<input name="alert_email" id="alert_email" type="text" value="" placeholder="name@email.com">
+	<div id="spinner">
+		<img src="<?php echo $this->getSkinUrl("ajaxlogin/ajax-loader-tr.gif")?>" title="Loading..." alt="Loading..." border="0" />
+	</div>
+	<?php endif; ?>
 </div>
-<?php endif; ?>
+<?php } ?>
+

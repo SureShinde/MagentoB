@@ -177,10 +177,6 @@
                         </div>
                         
                         <?php echo $this->getChildHtml('extra_buttons') ?>
-                    <?php elseif (!$_product->isSaleable()): ?>
-                        <div class="add-to-box">
-                            <?php echo $this->getChildHtml('addto') ?>
-                        </div>
                     <?php elseif($this->hasOptions()): ?>
                         <?php if ($_product->isSaleable()): ?>
                             <?php echo $this->getChildHtml('addtocart') ?>
