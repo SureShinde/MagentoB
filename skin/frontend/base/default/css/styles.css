@@ -4311,3 +4311,14 @@ z/*======================Category page===================*/
 #star-rating .validation-advice {
     min-width: 250px;
 }
+/* --------------------------------------------- END HOME CSS APRIL 2014 -------------------------------------------------- */
+
+
+/*NEW CSS ALERT*/
+
+.product-shop .product-shop-right input#alert_email {
+	display: block;
+    margin: 0 0 10px;
+    padding: 5px;
+    width: 90%;
+}
