@@ -42,7 +42,7 @@ li#perlengkapan-rumah, li.mobile-perlengkapan-rumah {
 .header-container {
 	background: #fff;
 	position: relative;
-    z-index: 3;
+    z-index: 99;
 }
 .sticky-header-wrapper {
 	background: #f7f7f7;

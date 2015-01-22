@@ -31,11 +31,17 @@
 <!--Mega Menu-->
 <script type="text/javascript">	
     $j(document).ready(function() {
+	
         $j('.wrap-megamenu').click(function() {
             $j('.bg-dark-megamenu').toggle();
             $j('.megamenu').slideToggle();
         });
-        
+		
+		$j('.homepage-banner .first-level > ul > li').mouseover(function() {
+			$j('.homepage-banner .first-level > ul > li').removeClass("hover-first-level");
+            $j(this).addClass("hover-first-level");
+        });
+		
         //================mobile left menu js========================
         $j('.nav-mobile-trigger').click(function() {
             $j('.mobile-left-menu').css({"width":"100%","left":"0"});

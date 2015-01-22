@@ -15,7 +15,7 @@
 }
 .bg-dark-megamenu{
 	position:fixed;
-	z-index:2;
+	z-index:98;
 	display:none;
 	transition:All 1s ease;
 	-webkit-transition:All 1s ease;

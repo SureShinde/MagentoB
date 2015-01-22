@@ -895,11 +895,14 @@
     z-index: 0;
 }
 .homepage-banner .first-level .default, .homepage-banner .first-level > ul > li:hover {
+    color: #fff;
+}
+.homepage-banner .first-level > ul > li.hover-first-level{
     background-color:#51c6d8;
     background-image: url(../images/megamenu/arrow.png);
-    background-repeat: no-repeat;
-    background-position: right -611px;
-    color: #fff;
+}
+.homepage-banner .first-level > ul > li:hover ~ .homepage-banner .first-level > ul > li:first-child{
+	background:none;
 }
 .homepage-banner .first-level .default > a, .homepage-banner .first-level > ul > li:hover > a {
     color: #fff;
