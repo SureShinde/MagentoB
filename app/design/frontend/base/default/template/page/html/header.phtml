@@ -411,7 +411,19 @@
             <div class="clear"></div>
         </div>
         
-        <?php echo $this->getLayout()->createBlock('page/html')->setTemplate('page/html/megamenu.phtml')->toHtml(); ?>
+        <div class="menu-navigation">
+            <div class="wrap-megamenu">
+                <div class="button-megamenu">Select Category</div>
+            </div>
+
+            <div class="link-space-header col-md-12">
+                <p class="bg-blue-base">Select store and find what you need. Happy shopping time, moms!</p>
+            </div>
+            
+            <div id="megamenu" class="megamenu">
+                <?php echo $this->getLayout()->createBlock('page/html')->setTemplate('page/html/megamenu.phtml')->toHtml(); ?>
+            </div>
+        </div>
         
         <?php echo $this->getChildHtml('topContainer'); ?>
         

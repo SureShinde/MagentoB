@@ -377,4 +377,10 @@ class Mage_Page_Block_Html extends Mage_Core_Block_Template
         
         return $result;
     }
+    
+    public function getMegamenuData() {
+        $_helper = Mage::helper('megamenu');
+        
+        return $_helper->getMegamenuData();
+    }
 }

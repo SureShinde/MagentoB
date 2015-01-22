@@ -763,10 +763,11 @@
 
 
 /*====================== banner 2015 =======================================*/
-.homapage-banner ul{
-	list-style:none;
+.homepage-banner ul {
+    list-style: none;
+    padding-left: 20px;
 }
-.homapage-banner{
+.homepage-banner{
     clear: both;
     display: inline-block;
     margin: 0 0 7px;
@@ -834,19 +835,19 @@
     top:3px;
     background: url(../images/megamenu/arrow.png) no-repeat -5px -373px;
 }
-.homapage-banner .first-level, .homapage-banner .second-level{
+.homepage-banner .first-level, .homepage-banner .second-level{
     float: left;
 }
-.homapage-banner .first-level .second-level{
+.homepage-banner .first-level .second-level{
     position: absolute;
     left: 185px;
     top: 0;
 }
-.homapage-banner .first-level{
+.homepage-banner .first-level{
     width: 185px;
     margin: 0 20px 0 0;
 }
-.homapage-banner .first-level > ul{
+.homepage-banner .first-level > ul{
     border-right: 1px solid #ededed;
 	background: #55909a;
 	padding-left:0;
@@ -859,7 +860,7 @@
     z-index: 99;
 	width:179px;
 }
-.homapage-banner .first-level > ul > li{
+.homepage-banner .first-level > ul > li{
     line-height: 2.5em;
     font-size: 1em;
     text-rendering: geometricPrecision;
@@ -869,52 +870,52 @@
     background-repeat: no-repeat;
     background-position: right -90px;
 }
-.homapage-banner .first-level > ul > li > a{
+.homepage-banner .first-level > ul > li > a{
 	color:#fff;
 }
-.homapage-banner li a, .homapage-banner .second-level p a{
+.homepage-banner li a, .homepage-banner .second-level p a{
     color: #707070;
     text-decoration: none;
 }
-.homapage-banner .second-level p{
+.homepage-banner .second-level p{
     line-height: 1.6em;
 	margin: 0;
 	text-indent: 0;
 }
-.homapage-banner .first-level .second-level li{
+.homepage-banner .first-level .second-level li{
     font-size: 1em;
 	line-height: 1.7em;
 }
-.homapage-banner .first-level .second-level{
+.homepage-banner .first-level .second-level{
     display: none;
 }
-.homapage-banner .first-level .default .second-level{
+.homepage-banner .first-level .default .second-level{
     display: block;
     width: 1030px;
     z-index: 0;
 }
-.homapage-banner .first-level .default, .homapage-banner .first-level > ul > li:hover {
+.homepage-banner .first-level .default, .homepage-banner .first-level > ul > li:hover {
     background-color:#51c6d8;
     background-image: url(../images/megamenu/arrow.png);
     background-repeat: no-repeat;
     background-position: right -611px;
     color: #fff;
 }
-.homapage-banner .first-level .default > a, .homapage-banner .first-level > ul > li:hover > a {
+.homepage-banner .first-level .default > a, .homepage-banner .first-level > ul > li:hover > a {
     color: #fff;
 }
-.homapage-banner .first-level li:hover .second-level{
+.homepage-banner .first-level li:hover .second-level{
     display: block;
     width: 1030px;
     z-index: 1;
     background: #fff;
 }
-.homapage-banner .first-level .second-level ul{
+.homepage-banner .first-level .second-level ul{
     margin-bottom: 10px;
     margin-top: 0px;
     font-weight: normal;
 }
-.homapage-banner .first-level .second-level p a{
+.homepage-banner .first-level .second-level p a{
     text-transform: uppercase;
     font-weight: bold;
     font-size: 1em;
@@ -963,7 +964,7 @@
     padding: 0 0 0 5px;
 }
 @media (min-width: 1023px )and (max-width: 1215px ){
-    .homapage-banner .first-level li:hover .second-level, .homapage-banner .first-level .default .second-level{
+    .homepage-banner .first-level li:hover .second-level, .homepage-banner .first-level .default .second-level{
         width: 805px;
     }
     .wrap-banner .first-banner-megamenu{
@@ -989,7 +990,7 @@
      .wrap-banner .third-banner-megamenu{
         display: none;
     }
-    .homapage-banner .first-level li:hover .second-level, .homapage-banner .first-level .default .second-level{
+    .homepage-banner .first-level li:hover .second-level, .homepage-banner .first-level .default .second-level{
         width: 540px;
         height: 395px;
     }
@@ -998,7 +999,7 @@
 	}
 }
 @media (max-width: 768px ) {
-	.homapage-banner{
+	.homepage-banner{
 		display:none;
 	}
 }
