@@ -25,12 +25,17 @@
  */
 ?>
 <?php if ($_products = $this->getProducts()): ?>
-<p><?php echo $this->__('You are receiving this notification because you subscribed to receive alerts when the following products are back in stock:') ?></p>
+<p>
+	<?php echo $this->__('Kami informasikan kepada Anda bahwa produk' ?> <?php echo $this->escapeHtml($_product->getName()) ?>
+	<?php echo $this->__('telah tersedia. Anda dapat langsung membelinya melalui link berikut ini:') ?>
+</p>
 <table>
 <?php foreach ($_products as $_product): ?>
     <tr>
         <td><a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->escapeHtml($_product->getName()) ?>"><img src="<?php echo $this->helper('catalog/image')->init($_product, 'thumbnail')->resize(75, 75) ?>" border="0" align="left" height="75" width="75" alt="<?php echo $this->escapeHtml($_product->getName()) ?>" /></a></td>
-        <td>
+    </tr>
+    <tr>
+		<td>
             <p><a href="<?php echo $_product->getProductUrl() ?>"><strong><?php echo $this->escapeHtml($_product->getName()) ?></strong></a></p>
             <?php if ($shortDescription = $this->escapeHtml($_product->getShortDescription())): ?>
             <p><small><?php echo $shortDescription ?></small></p>
