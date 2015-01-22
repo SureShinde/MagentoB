@@ -33,20 +33,21 @@ class AW_Points_Model_Actions_ReviewApproved extends AW_Points_Model_Actions_Abs
     protected $_comment = 'Reward for reviewing product %s';
 
     protected function _applyLimitations($amount) {
-
         $review = $this->getObjectForAction();
-
+        $createdAt = date('Y-m-d', strtotime($review->getCreatedAt()));
+        
         $pointLimitForAction = Mage::helper('points/config')
-                ->getPointsLimitForReviewingProduct($review->getStoreId());
-
+            ->getPointsLimitForReviewingProduct($review->getStoreId());
+        
         $collection = Mage::getModel('points/transaction')
-                ->getCollection()
-                ->addFieldToFilter('summary_id', $this->getSummary()->getId())
-                ->addFieldToFilter('action', $this->getAction())
-                ->limitByDay(Mage::getModel('core/date')->gmtTimestamp());
-
-        /* Current summ getting */
+            ->getCollection()
+            ->addFieldToFilter('summary_id', $this->getSummary()->getId())
+            ->addFieldToFilter('action', $this->getAction())
+            ->addFieldToFilter("DATE(`change_date`)", $createdAt);
+        
+       /* Current summ getting */
         $summ = 0;
+        
         foreach ($collection as $transaction) {
             $summ += $transaction->getBalanceChange();
         }
