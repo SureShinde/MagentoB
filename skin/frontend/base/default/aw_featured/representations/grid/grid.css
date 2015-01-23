@@ -134,6 +134,11 @@
 	position: absolute;
 	bottom: 10px;
 }
+.awafpgrid .afp-addtocart .availability.out-of-stock a {
+	position: relative;
+	color: #fff;
+	padding: 10px 0;
+}
 .afp-thumbnail .onsale-category-container-list {
     float:none!important;
     margin: 0 auto;

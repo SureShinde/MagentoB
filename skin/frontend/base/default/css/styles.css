@@ -835,7 +835,7 @@ tr.summary-details-excluded { font-style:italic; }
 .products-grid .product-name { /*min-height:2.7em;*/ margin:0 0 5px; font-weight:bold; font-size:13px; color:#203548; }
 .products-grid .product-name a { color:#203548; }
 .products-grid .price-box { margin:5px 0; }
-.products-grid .availability { line-height:21px;bottom: 30px; position: absolute; background:url(../images/btn-buynow-grey.png) no-repeat; padding:7px 15px; bottom: 20px; position: absolute;}
+.products-grid .availability { line-height:21px;bottom: 30px; position: absolute; background:url(../images/btn-buynow-grey.png) no-repeat; padding:7px 13px; bottom: 20px; position: absolute;}
 .products-grid .actions { position:absolute; bottom:12px; }
 .col2-left-layout .products-grid,
 .col2-right-layout .products-grid { width:632px; margin:0 auto; }
