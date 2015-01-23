@@ -202,6 +202,27 @@ A.awblog_current_comment {
 	text-align:left;
 }
 
+.blog-post-view .related-product-blog .wrap-title-related-blog .title-related-blog{
+	text-transform: uppercase;
+	font-family: 'bebasregular';
+	border-bottom: 3px solid red;
+	display: table;
+	font-size: 18px;
+	word-spacing: 4px;
+}
+.blog-post-view .related-product-blog .wrap-title-related-blog{
+	background:url("../images/shd_featured_title.png") repeat-x bottom;
+}
+.blog-post-view .awafpgrid .afp-addtocart > a{
+	width: 100%;
+	display: table;
+}
+.blog-post-view .awafpgrid .afp-thumbnail a img{
+	width:100%;
+}
+.blog-post-view .afp-thumbnail .onsale-category-container-list{
+	width:100% !important;
+}
 
 
 

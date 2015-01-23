@@ -94,6 +94,9 @@ $commentCount = $this->getCommentCount();
 <div class="related-product-blog">
     <?php if (!empty ($postCats)): ?>
         <?php foreach ($postCats as $postCat): ?>
+			<div class="wrap-title-related-blog">
+				<p class="title-related-blog">related product <?php echo $postCat['title'];?></p>
+			</div>
             <?php echo $this->getAwFeaturedProductRelated($postCat['identifier']); ?>
         <?php endforeach; ?>
     <?php endif; ?>
