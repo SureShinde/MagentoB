@@ -91,7 +91,12 @@ class AW_Blog_Model_Post extends Mage_Core_Model_Abstract
 
         $catUrls = array();
         foreach ($cats as $cat) {
-            $catUrls[$cat->getTitle()] = $route . "cat/" . $cat->getIdentifier();
+            $catUrls[$cat->getId()] = array (
+                'title' => $cat->getTitle(),
+                'url' => $route . "cat/" . $cat->getIdentifier(),
+                'identifier' => $cat->getIdentifier(),
+            );
+            //$catUrls[$cat->getTitle()] = $route . "cat/" . $cat->getIdentifier();
         }
         return $catUrls;
     }

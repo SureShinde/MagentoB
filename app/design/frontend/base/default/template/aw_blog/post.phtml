@@ -50,8 +50,8 @@ $commentCount = $this->getCommentCount();
         <?php $postCats = $post->getCats(); ?>
         <?php if (!empty($postCats)): ?>
             <?php echo Mage::helper('blog')->__('This entry was posted in'); ?>
-            <?php foreach ($postCats as $title => $url): ?>
-                <a style="color:#4EC7DA;" href="<?php echo $url; ?>"><?php echo $title; ?></a>
+            <?php foreach ($postCats as $postCat): ?>
+                <a style="color:#4EC7DA;" href="<?php echo $postCat['url']; ?>"><?php echo $postCat['title']; ?></a>
             <?php endforeach; ?>
         <?php else: ?>
             <?php //echo Mage::helper('blog')->__('Posted'); ?>
@@ -88,6 +88,15 @@ $commentCount = $this->getCommentCount();
     <?php endforeach;?>
     </div>
     <div style="clear:both;height: 20px;"></div>
+</div>
+
+<!-- Blog Related Product (AW Featured)-->
+<div class="related-product-blog">
+    <?php if (!empty ($postCats)): ?>
+        <?php foreach ($postCats as $postCat): ?>
+            <?php echo $this->getAwFeaturedProductRelated($postCat['identifier']); ?>
+        <?php endforeach; ?>
+    <?php endif; ?>
 </div>
 
 <!-- Comment Section -->
@@ -233,11 +242,3 @@ $commentCount = $this->getCommentCount();
         <?php endif; ?>
     <?php endif; ?>
 <?php endif; ?>
-
-<div class="related-product-blog">
-    <?php if (!empty ($postCats)): ?>
-        <?php foreach ($postCats as $title => $url): ?>
-            <?php echo $this->getAwFeaturedProductRelated($title); ?>
-        <?php endforeach; ?>
-    <?php endif; ?>
-</div>
