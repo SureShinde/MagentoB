@@ -1218,6 +1218,7 @@ margin: 0 1% ;
 	padding: 1px 0;
     text-align: center;
 }
+.catalog-product-view .aw-mini-related-items .availability.out-of-stock,
 .product-view .product-shop-right .block.block-related .block-content .aw-arp-item .aw-arp-addtocart .availability.out-of-stock {
 	margin-top: 20px;
 	float: right;
@@ -1231,8 +1232,10 @@ margin: 0 1% ;
 	height:100%;
 	display: block;
 }
+.catalog-product-view .aw-mini-related-items .availability.out-of-stock a,
 .product-view .product-shop-right .block.block-related .block-content .aw-arp-item .aw-arp-addtocart .availability.out-of-stock  span a{
 	display: block;
+	font-size:12px;
 	padding: 10px 9px;
 	text-transform: uppercase;
 	color: #fff;
