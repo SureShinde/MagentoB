@@ -269,10 +269,24 @@ class AW_Blog_Block_Post extends AW_Blog_Block_Abstract
             
         return parent::_processCollection($posts);
     }
+
+    public function getBlogCategoryIdentifier($blockId) {
+        $result = '';
+
+        if (!empty ($blockId)) {
+            $search = array (' ', '---', '&');
+            $replace = '-';
+            $identifier = str_replace($search, $replace, $blockId);
+            $result = sprintf("blog_%s_related_product", $identifier);
+        }
+
+        return strtolower($result);
+    }
     
     public function getAwFeaturedProductRelated($blockId) {
         $result = '';
-        $block = Mage::getModel('awfeatured/blocks')->loadByBlockId($blockId);
+        $identifier = $this->getBlogCategoryIdentifier($blockId);
+        $block = Mage::getModel('awfeatured/blocks')->loadByBlockId($identifier);
         
         if ($block) {
             $block->afterLoad();
