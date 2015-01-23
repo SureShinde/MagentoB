@@ -277,7 +277,6 @@ class Mage_ProductAlert_Model_Email extends Mage_Core_Model_Abstract
         }
 
         $appEmulation->stopEnvironmentEmulation($initialEnvironmentInfo);
-
         Mage::getModel('core/email_template')
             ->setDesignConfig(array(
                 'area'  => 'frontend',

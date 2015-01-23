@@ -122,7 +122,7 @@
                     ?>
                     
                     <div class="shipsfrom-soldby">
-                        <p><?php echo $this->__('Ships from <span>%s</span> and sold by <span>%s</span>', ( $ship_from ? $ship_from : '-'), ( $sold_by ? $sold_by : '-')) ?></p>
+                        <p><?php echo $this->__('Sold by <span>%s</span> and Shipped by <span>%s</span>', ( $ship_from ? $ship_from : '-'), ( $sold_by ? $sold_by : '-')) ?></p>
                     </div>
 				
                     <?php echo $this->getTierPriceHtml() ?>
@@ -134,7 +134,7 @@
                             $and = false;
                             
                             if ($ship_by):
-                                echo $this->__("Ship by <span>%s</span>", $ship_by);
+                                echo $this->__("Sold by <span>%s</span>", $ship_by);
                                 $and = true;
                             endif;
                             
@@ -143,7 +143,7 @@
                                     echo $this->__(" and ");
                                 endif;
                                 
-                                echo $this->__("Sold by <span>%s</span>", $sold_by);
+                                echo $this->__("Shipped by <span>%s</span>", $sold_by);
                             endif;
                             ?>
                         </p>
@@ -177,10 +177,6 @@
                         </div>
                         
                         <?php echo $this->getChildHtml('extra_buttons') ?>
-                    <?php elseif (!$_product->isSaleable()): ?>
-                        <div class="add-to-box">
-                            <?php echo $this->getChildHtml('addto') ?>
-                        </div>
                     <?php elseif($this->hasOptions()): ?>
                         <?php if ($_product->isSaleable()): ?>
                             <?php echo $this->getChildHtml('addtocart') ?>
@@ -443,7 +439,7 @@
     <script type="text/javascript">
         // <![CDATA[
         $j(document).ready(function() {
-            $j('#customer-reviews h2').click(function() {
+            $j('#customer-reviews > h2.product-review').click(function() {
                 $j('#customer-reviews ol').slideToggle('slow');
                 $j('.review-show-all').slideToggle();
             });

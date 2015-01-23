@@ -128,8 +128,8 @@
     <default>
         <catalog>
             <productalert>
-                <allow_price>0</allow_price>
-                <allow_stock>0</allow_stock>
+                <allow_price>1</allow_price>
+                <allow_stock>1</allow_stock>
                 <email_price_template>catalog_productalert_email_price_template</email_price_template>
                 <email_stock_template>catalog_productalert_email_stock_template</email_stock_template>
                 <email_identity>general</email_identity>
@@ -144,6 +144,7 @@
     <crontab>
         <jobs>
             <catalog_product_alert>
+		<schedule><cron_expr>* * * * *</cron_expr></schedule>
                 <run>
                     <model>productalert/observer::process</model>
                 </run>

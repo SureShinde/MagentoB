@@ -352,7 +352,7 @@ class RocketWeb_Netsuite_Helper_Mapper_Product extends RocketWeb_Netsuite_Helper
         );
         
         foreach ($backordersArr as $key => $value) {
-            if ($name == $value) {
+            if ( html_entity_decode(trim($name)) == html_entity_decode(trim($value)) ) {
                 return $key;
             }
         }
@@ -457,7 +457,7 @@ class RocketWeb_Netsuite_Helper_Mapper_Product extends RocketWeb_Netsuite_Helper
             ->toOptionArray();
 
         foreach($options as $option) {
-            if($option['label'] == $label) {
+            if( html_entity_decode(trim($option['label'])) == html_entity_decode(trim($label)) ) {
                 return $option['value'];
             }
         }
