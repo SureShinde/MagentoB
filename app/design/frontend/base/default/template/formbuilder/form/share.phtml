@@ -1,7 +1,5 @@
 <?php echo $this->getChildHtml('global_messages'); ?>
 
-
-
 <div class="share-social-media">Bagikan:
     <!--<a href="https://www.facebook.com/sharer/sharer.php?u=<?php // echo $this->getShareUrl(); ?>" target="_blank"><img src="<?php // echo $this->getMediaUrl() . 'wysiwyg/static-page-img/referall/fb-share.jpg'; ?>" alt="facebook share"/></a>
    
@@ -23,7 +21,7 @@
 
                     if ($i == 1):
                         $requiredIcon = '<em>*</em>';
-                        $requiredClass = 'required-entry';
+                        $requiredClass = 'required-entry-ind';
                     endif;
                     ?>
 
@@ -31,7 +29,7 @@
                         Email <?php echo $requiredIcon; ?>
                     </label>
 
-                    <input type="text" name="email[]" title="Email" class="<?php echo $requiredClass; ?> validate-email" id="email_<?php echo $i; ?>" placeholder="join@youremail.com" />
+                    <input type="text" name="email[]" title="Email" class="<?php echo $requiredClass; ?> validate-email-ind" id="email_<?php echo $i; ?>" placeholder="join@youremail.com" />
                 </div>
             <?php endfor; ?>
             
@@ -45,7 +43,7 @@
             </div>
             
             <button type="submit" class="button">
-                Send
+                <?php echo $this->__('Kirim'); ?>
             </button>
         </form>
     </div>
@@ -53,6 +51,14 @@
 
 <script type="text/javascript">
     //< ![CDATA[
-        var customForm = new VarienForm('share-form');
+        var customForm = new VarienForm('share-form', true);
+        Validation.addAllThese([
+            ['required-entry-ind', '<?php echo $this->__('Kolom Harus di isi') ?>', function(v) {
+                return !Validation.get('IsEmpty').test(v);
+            }],
+            ['validate-email-ind', '<?php echo $this->__('Email yang Anda masukkan salah. Contoh: johndoe@domain.com') ?>', function(v) {
+                return Validation.get('IsEmpty').test(v) || /^([a-z0-9,!\#\$%&'\*\+\/=\?\^_`\{\|\}~-]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z0-9,!\#\$%&'\*\+\/=\?\^_`\{\|\}~-]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*@([a-z0-9-]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z0-9-]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*\.(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]){2,})$/i.test(v);
+            }],
+        ]);
     //]]>
 </script>

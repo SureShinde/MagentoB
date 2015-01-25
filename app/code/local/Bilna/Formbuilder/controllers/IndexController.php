@@ -114,7 +114,7 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
                         Mage::getSingleton('core/session')->setFormbuilderFailed(false);
                     }
                     elseif(is_null($row["static_failed"]) || $row["static_failed"]==""){
-                        Mage::getSingleton('core/session')->addError($field["title"].' already exists in our database');
+                        Mage::getSingleton('core/session')->addError($field["title"] . ' ' . Mage::helper('bilna_formbuilder')->__('yang anda gunakan telah terdaftar'));
                     }
                     
                     $redirectPage = Mage::getBaseUrl().$field["url"];

@@ -3949,7 +3949,7 @@ button.button-area {
     width: 20px;
 }
 .landing-page-shareapp .wrap-form button{
-	background:url('../../../../../media/wysiwyg/static-page-img/referall/bg_label_input.jpg') repeat-x;
+	background: url("../images/referall-page/bg_label_input.jpg") repeat-x scroll 0 0 rgba(0, 0, 0, 0);
 	border:2px solid #dadada;
 	color:#fff;
 	font-size: 18px;
