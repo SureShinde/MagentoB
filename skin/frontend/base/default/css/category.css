@@ -20,6 +20,11 @@
 .block-layered-nav .block-title strong span {
 	color: #707070;
 }
+.products-grid .availability.out-of-stock a {
+	color:#fff;
+	text-transform:uppercase;
+	padding: 10px 0
+}
 .block-layered-nav .block-subtitle, .block-layered-nav dt.category, .sorter .view-mode, .toolbar-bottom .sorter, .category-title {
 	display: none;
 }
