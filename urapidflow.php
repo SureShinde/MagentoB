@@ -28,6 +28,10 @@ if($argv[1]==1){
 	$helper->run(90);
 	// Export Category-Product Association:
 	$helper->run(46);
+	// Export All Product - Groceries:
+	$helper->run(97);
+	// Export All Product - Beauty:
+	$helper->run(98);
 }
 //import
 else if($argv[1]==2){
