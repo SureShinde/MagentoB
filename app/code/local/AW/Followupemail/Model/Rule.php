@@ -1155,35 +1155,34 @@ class AW_Followupemail_Model_Rule extends Mage_Core_Model_Abstract {
         }
         
         if ($this->_isValid) {
-            if (!$content = $this->_getContent($objects, $templateId)) {
-                $message = "rule id={$this->getId()} has invalid templateId=" . $templateId . " in sequenceNumber=$sequenceNumber";
-                $subject = "Rule has invalid";
-                Mage::getSingleton('followupemail/log')->logError($message, $this, $subject);
-                
-                return false;
-            }
-            
             // Generate coupon if it needed
             if ($this->getCouponEnabled()) {
+                unset ($objects['has_coupon']);
+                
                 //get content of current email template
                 $emailTemplate = $this->_getTemplate($templateId);
                 $emailTemplateContent = $emailTemplate['content'];
 
                 // checking for presence standard coupon variable ( {{var coupon.code}})
                 $pattern2 = '|{{\s*var\s+coupon.code\s*}}|u';
+                //$formatDate = Mage::app()->getLocale()->getDateFormat();
+                $formatDate = 'd/m/Y';
 
                 if (preg_match_all($pattern2, $emailTemplateContent, $matches) > 0) {
                     $coupon = Mage::helper('followupemail/coupon')->createNew($this);
                     $message = 'New coupon ' . $coupon->getCouponCode() . ' is created {' . print_r($coupon->getData(), true) . '}';
                     $subject = "New coupon is created";
                     Mage::getSingleton('followupemail/log')->logSuccess($message, $this, $subject);
+                    //$_dateStr = Mage::helper('core')->formatDate($coupon->getExpirationDate(), $formatDate);
+                    $_dateStr = date($formatDate, strtotime($coupon->getExpirationDate()));
+                    $coupon->setExpirationDate($_dateStr);
 
                     $objects['coupon'] = $coupon;
                     $message = 'Coupon ' . $coupon->getCouponCode() . ' used {' . print_r($coupon->getData(), true) . '}';
                     $subject = "Coupon used";
                     Mage::getSingleton('followupemail/log')->logSuccess($message, $this, $subject);
                 }
-
+                
                 // checking for presence extended coupon variable ( {{var coupons.__ALIAS__.code}})
                 $pattern1 = '|{{\s*var\s+coupons.(.*).code\s*}}|u';
 
@@ -1199,7 +1198,8 @@ class AW_Followupemail_Model_Rule extends Mage_Core_Model_Abstract {
                         $message = 'Coupon ' . $coupon->getCouponCode() . ' used {' . print_r($coupon->getData(), true) . '}';
                         $subject = "Coupon used";
                         Mage::getSingleton('followupemail/log')->logSuccess($message, $this, $subject);
-
+                        $_dateStr = date($formatDate, strtotime($coupon->getExpirationDate()));
+                        $coupon->setExpirationDate($_dateStr);
                         $coupons->setData($couponId, $coupon);
                     }
 
@@ -1212,6 +1212,14 @@ class AW_Followupemail_Model_Rule extends Mage_Core_Model_Abstract {
             $storedParams = $params;
             unset ($storedParams['object_id']);
             $scheduleAt = strtotime(date("Y-m-d H:i:s", strtotime("+ " . abs($hourDelay) . " hours")));
+            
+            if (!$content = $this->_getContent($objects, $templateId)) {
+                $message = "rule id={$this->getId()} has invalid templateId=" . $templateId . " in sequenceNumber=$sequenceNumber";
+                $subject = "Rule has invalid";
+                Mage::getSingleton('followupemail/log')->logError($message, $this, $subject);
+                
+                return false;
+            }
             
             $queue = Mage::getModel('followupemail/queue');
             $queue->add(
@@ -1279,6 +1287,7 @@ class AW_Followupemail_Model_Rule extends Mage_Core_Model_Abstract {
             default :
                 $params['object_id'] = $params['order_increment_id'];
         }
+        
         if (AW_Followupemail_Model_Source_Rule_Types::RULE_TYPE_CUSTOMER_BIRTHDAY == $this->getEventType()) {
             $params['customer_id'] = $params['object_id'];
             $params['store_id'] = Mage::app()->getStore()->getId();
@@ -1289,8 +1298,21 @@ class AW_Followupemail_Model_Rule extends Mage_Core_Model_Abstract {
                 $sequenceNumber++;
             }
         }
-        else
+        elseif (AW_Followupemail_Model_Source_Rule_Types::RULE_TYPE_SHARE_APPS == $this->getEventType()) {
+            $params['customer_id'] = $params['object_id'];
+            $params['store_id'] = Mage::app()->getStore()->getId();
+            $result = true;
+            $sequenceNumber = 1;
+            
+            foreach (unserialize($this->getChain()) as $chain) {
+                $result = $result && $this->processShareApps($params, $chain['TEMPLATE_ID'], $chain['DAYS'], $chain['HOURS'], $sequenceNumber);
+                $sequenceNumber++;
+            }
+        }
+        else {
             $result = $this->process($params, $objects);
+        }
+            
         return $result;
     }
 
