@@ -1769,6 +1769,7 @@ h2.block-grey-title-left {
 }
 .formbuilder-form ul li  {
     margin: 0 0 0 11px;
+	list-style:none;
 }
 .formbuilder-form button.button ul li  {
     list-style-type: none;
