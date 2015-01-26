@@ -1165,19 +1165,24 @@ class AW_Followupemail_Model_Rule extends Mage_Core_Model_Abstract {
 
                 // checking for presence standard coupon variable ( {{var coupon.code}})
                 $pattern2 = '|{{\s*var\s+coupon.code\s*}}|u';
+                //$formatDate = Mage::app()->getLocale()->getDateFormat();
+                $formatDate = 'd/m/Y';
 
                 if (preg_match_all($pattern2, $emailTemplateContent, $matches) > 0) {
                     $coupon = Mage::helper('followupemail/coupon')->createNew($this);
                     $message = 'New coupon ' . $coupon->getCouponCode() . ' is created {' . print_r($coupon->getData(), true) . '}';
                     $subject = "New coupon is created";
                     Mage::getSingleton('followupemail/log')->logSuccess($message, $this, $subject);
+                    //$_dateStr = Mage::helper('core')->formatDate($coupon->getExpirationDate(), $formatDate);
+                    $_dateStr = date($formatDate, strtotime($coupon->getExpirationDate()));
+                    $coupon->setExpirationDate($_dateStr);
 
                     $objects['coupon'] = $coupon;
                     $message = 'Coupon ' . $coupon->getCouponCode() . ' used {' . print_r($coupon->getData(), true) . '}';
                     $subject = "Coupon used";
                     Mage::getSingleton('followupemail/log')->logSuccess($message, $this, $subject);
                 }
-
+                
                 // checking for presence extended coupon variable ( {{var coupons.__ALIAS__.code}})
                 $pattern1 = '|{{\s*var\s+coupons.(.*).code\s*}}|u';
 
@@ -1193,7 +1198,8 @@ class AW_Followupemail_Model_Rule extends Mage_Core_Model_Abstract {
                         $message = 'Coupon ' . $coupon->getCouponCode() . ' used {' . print_r($coupon->getData(), true) . '}';
                         $subject = "Coupon used";
                         Mage::getSingleton('followupemail/log')->logSuccess($message, $this, $subject);
-
+                        $_dateStr = date($formatDate, strtotime($coupon->getExpirationDate()));
+                        $coupon->setExpirationDate($_dateStr);
                         $coupons->setData($couponId, $coupon);
                     }
 
