@@ -1155,16 +1155,10 @@ class AW_Followupemail_Model_Rule extends Mage_Core_Model_Abstract {
         }
         
         if ($this->_isValid) {
-            if (!$content = $this->_getContent($objects, $templateId)) {
-                $message = "rule id={$this->getId()} has invalid templateId=" . $templateId . " in sequenceNumber=$sequenceNumber";
-                $subject = "Rule has invalid";
-                Mage::getSingleton('followupemail/log')->logError($message, $this, $subject);
-                
-                return false;
-            }
-            
             // Generate coupon if it needed
             if ($this->getCouponEnabled()) {
+                unset ($objects['has_coupon']);
+                
                 //get content of current email template
                 $emailTemplate = $this->_getTemplate($templateId);
                 $emailTemplateContent = $emailTemplate['content'];
@@ -1212,6 +1206,14 @@ class AW_Followupemail_Model_Rule extends Mage_Core_Model_Abstract {
             $storedParams = $params;
             unset ($storedParams['object_id']);
             $scheduleAt = strtotime(date("Y-m-d H:i:s", strtotime("+ " . abs($hourDelay) . " hours")));
+            
+            if (!$content = $this->_getContent($objects, $templateId)) {
+                $message = "rule id={$this->getId()} has invalid templateId=" . $templateId . " in sequenceNumber=$sequenceNumber";
+                $subject = "Rule has invalid";
+                Mage::getSingleton('followupemail/log')->logError($message, $this, $subject);
+                
+                return false;
+            }
             
             $queue = Mage::getModel('followupemail/queue');
             $queue->add(
@@ -1279,6 +1281,7 @@ class AW_Followupemail_Model_Rule extends Mage_Core_Model_Abstract {
             default :
                 $params['object_id'] = $params['order_increment_id'];
         }
+        
         if (AW_Followupemail_Model_Source_Rule_Types::RULE_TYPE_CUSTOMER_BIRTHDAY == $this->getEventType()) {
             $params['customer_id'] = $params['object_id'];
             $params['store_id'] = Mage::app()->getStore()->getId();
@@ -1289,8 +1292,21 @@ class AW_Followupemail_Model_Rule extends Mage_Core_Model_Abstract {
                 $sequenceNumber++;
             }
         }
-        else
+        elseif (AW_Followupemail_Model_Source_Rule_Types::RULE_TYPE_SHARE_APPS == $this->getEventType()) {
+            $params['customer_id'] = $params['object_id'];
+            $params['store_id'] = Mage::app()->getStore()->getId();
+            $result = true;
+            $sequenceNumber = 1;
+            
+            foreach (unserialize($this->getChain()) as $chain) {
+                $result = $result && $this->processShareApps($params, $chain['TEMPLATE_ID'], $chain['DAYS'], $chain['HOURS'], $sequenceNumber);
+                $sequenceNumber++;
+            }
+        }
+        else {
             $result = $this->process($params, $objects);
+        }
+            
         return $result;
     }
 
