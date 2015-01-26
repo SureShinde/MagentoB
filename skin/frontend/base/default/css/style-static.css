@@ -4163,3 +4163,89 @@ button.button-area {
 	}
 }
 /*==============================end style referall==========================*/
+
+/*============================== style secreet wishes ==========================*/
+.secreet-wishes .link-wrap{
+	clear:both; 
+	display:table; 
+	width:100%;
+}
+.secreet-wishes .secreet-wishes-form ul{
+	list-style-type:none;
+}
+.secreet-wishes .secreet-wishes-form{
+	display: table;
+	clear: both;
+	padding: 0 0 30px;
+	width: 100%;
+}
+.secreet-wishes .secreet-wishes-form > div:last-child{
+	display:none;
+}
+.secreet-wishes .secreet-wishes-form .button{
+	background:#ec175b;
+	float: left;
+	margin-left: 0 !important;
+}
+.secreet-wishes .secreet-wishes-form .button span {
+	background: none !important;
+	padding: 0 20px !important;
+}
+.secreet-wishes .link-wrap .link-category-promo a{
+	clear: both;
+	display: table;
+	width: 100%;
+	padding: 10px 0;
+	text-decoration: underline;
+	font-size: 13px;
+	text-align: center;
+}
+.secreet-wishes .link-wrap .link-category-promo{
+	float:left;
+	display:table;
+	width:24%;
+	padding: 5px
+}
+.secreet-wishes .link-wrap .link-category-promo a img{
+	width:100%;
+	
+}
+.static-page-area.secreet-wishes-success .text-sp{
+	 text-align:center;
+	 font-size:13px;
+	 line-height:30px;
+}
+
+.static-page-area.secreet-wishes-success .button{
+	margin: 0 auto;
+	background:#ec175b;
+}
+.static-page-area.secreet-wishes-success .static-page-wrapper{
+	margin:0 0 50px;
+}
+.child-secreet-wishes .text-sp img,
+.child-secreet-wishes .text-sp .wording{
+	float:left;
+	margin: 10px 0;
+}
+.child-secreet-wishes .text-sp{
+	padding:20px 0;
+	display: inline-block;
+}
+.child-secreet-wishes .text-sp .wording p{
+	font-size: 13px;
+	padding-left: 20px;
+	font-weight: bold;
+}
+@media only screen and (max-width: 768px) {
+	.secreet-wishes .link-wrap .link-category-promo{
+		width:45%;
+	}
+}
+@media only screen and (max-width: 468px){
+	
+	.secreet-wishes .link-wrap .link-category-promo{
+		width:80%;
+	}
+}
+/*============================ end style secreet wishes ========================*/
