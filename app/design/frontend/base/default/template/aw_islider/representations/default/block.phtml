@@ -116,9 +116,26 @@ if (Mage::registry('current_category')) {
 <?php else: ?>
     <script type="text/javascript">
         $j(function() {
-          $j('#slides-banner').slidesjs({
-            width: 759,
-            height: 338,
+          $j('.main-container .homepage #slides-banner').slidesjs({
+            width: 415,
+            height: 346,
+            pagination: {
+              active: true,
+                // [string] Can be either "slide" or "fade".
+            },
+             play: {
+                 auto: true,
+                 interval: 5000,
+             },
+              effect: {
+                  slide: {
+                        speed : 2000
+                        }
+                  }
+          });
+		   $j('.header-container .menu-navigation #slides-banner').slidesjs({
+            width: 415,
+            height: 346,
             pagination: {
               active: true,
                 // [string] Can be either "slide" or "fade".
@@ -135,7 +152,7 @@ if (Mage::registry('current_category')) {
           });
         });
     </script>
-    <?php $helper = Mage::helper('awislider') ?>
+    <?php $helper = Mage::helper('awislider'); ?>
     <?php if($this->canDisplay() && $this->getSlides()->getSize()) : ?>
         <div id="slides-banner">
           <?php $_i = 0 ?>

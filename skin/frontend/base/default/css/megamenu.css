@@ -84,30 +84,33 @@
     top:3px;
     background: url(../images/megamenu/arrow.png) no-repeat -5px -373px;
 }
+.megamenu.megamenu-active{
+    height: 555px;
+	overflow:visible;
+}
 .megamenu{
     position: absolute;
     width: 100%;
     color: #707070;
     background: #fff;
     z-index: 98;
-    display: none;
+    display: block;
     top: 33px;
 	overflow:hidden;
-    height: 555px
+    height: 0;
 }
 .menu-navigation .first-level, .menu-navigation .second-level{
     float: left;
 }
 .menu-navigation .first-level .second-level{
     position: absolute;
-    left: 185px;
+    left: 186px;
     top: 20px;
 }
 .menu-navigation .first-level{
     width: 185px;
     margin: 20px 20px 0 0;
-}
-.menu-navigation .first-level > ul{
+	height:100%;
     border-right: 1px solid #ededed;
 }
 .wrap-second-cat{
@@ -153,15 +156,38 @@
     width: 1030px;
     z-index: 9;
 }
+.menu-navigation .first-level .default > a, .menu-navigation .first-level > ul > li:hover > a, .menu-navigation .first-level > ul:hover > li.default:hover > a {
+    color: #fff;
+}
+.menu-navigation .first-level > ul:hover > li.default a{
+	color:#707070;
+}
 .menu-navigation .first-level .default, .menu-navigation .first-level > ul > li:hover {
+    background-color:#51c6d8;
+}
+.menu-navigation .first-level > ul > li.default, .menu-navigation .first-level > ul:hover > li.default:hover{
+    background-image: url(../images/megamenu/arrow.png);
+    background-repeat: no-repeat;
+    background-color:#51c6d8;
+    background-position: right -611px;
+}
+.menu-navigation .first-level > ul:hover > li.default{
+    background-color:transparent;
+    background-image: url(../images/megamenu/arrow.png);
+    background-repeat: no-repeat;
+    background-position: right -90px;
+}
+.menu-navigation .first-level > ul:hover > li.default:hover .second-level{
+	display:block;
+}
+.menu-navigation .first-level > ul:hover > li.default .second-level{
+	display:none;
+}
+.menu-navigation  .first-level > ul > li:hover{
     background-color:#51c6d8;
     background-image: url(../images/megamenu/arrow.png);
     background-repeat: no-repeat;
     background-position: right -611px;
-    color: #fff;
-}
-.menu-navigation .first-level .default > a, .menu-navigation .first-level > ul > li:hover > a {
-    color: #fff;
 }
 .menu-navigation .first-level li:hover .second-level{
     display: block;
@@ -189,11 +215,14 @@
     float: left;
     padding: 0 0 0 12px;
 }
+.wrap-banner .first-banner-megamenu .main-banner{
+	position:relative;
+}
 .wrap-banner img{
     float:left;
     width: 100%;
 }
-.wrap-banner .first-banner-megamenu img{
+.wrap-banner .first-banner-megamenu img, .wrap-banner .first-banner-megamenu .main-banner{
     padding: 0 0 10px;
 }
 .wrap-banner .second-banner-megamenu img{
@@ -259,5 +288,8 @@
 @media (max-width: 768px ) {
 	.menu-navigation{
 		display:none;
+	}
+	.bg-dark-megamenu{
+		display:none !important;
 	}
 }

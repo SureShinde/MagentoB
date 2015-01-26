@@ -34,12 +34,7 @@
 	
         $j('.wrap-megamenu').click(function() {
             $j('.bg-dark-megamenu').toggle();
-            $j('.megamenu').slideToggle();
-        });
-		
-		$j('.homepage-banner .first-level > ul > li').mouseover(function() {
-			$j('.homepage-banner .first-level > ul > li').removeClass("hover-first-level");
-            $j(this).addClass("hover-first-level");
+            $j('.megamenu').toggleClass("megamenu-active");
         });
 		
         //================mobile left menu js========================

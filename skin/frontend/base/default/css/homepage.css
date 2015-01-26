@@ -444,6 +444,7 @@
 #slides-banner .slidesjs-pagination li {
 	display: inline-block;
 	margin: 0 0 0 5px;
+	padding:0;
 }
 #slides-banner .slidesjs-pagination li:first-child {
 	margin-left: 0;
@@ -458,6 +459,7 @@
 }
 #slides-banner .slidesjs-pagination li.slidesjs-pagination-item a.active {
 	background: url(../images/node-active.png) no-repeat center center;
+	color:#fff;
 }
 .homepage-bottom .media-partners {
 	float: right;
@@ -763,11 +765,11 @@
 
 
 /*====================== banner 2015 =======================================*/
-.homepage-banner ul {
+.homepage .homepage-banner ul {
     list-style: none;
     padding-left: 20px;
 }
-.homepage-banner{
+.homepage .homepage-banner{
     clear: both;
     display: inline-block;
     margin: 0 0 7px;
@@ -835,23 +837,22 @@
     top:3px;
     background: url(../images/megamenu/arrow.png) no-repeat -5px -373px;
 }
-.homepage-banner .first-level, .homepage-banner .second-level{
+.homepage .homepage-banner .first-level, .homepage .homepage-banner .second-level{
     float: left;
 }
-.homepage-banner .first-level .second-level{
+.homepage .homepage-banner .first-level .second-level{
     position: absolute;
     left: 185px;
     top: 0;
 }
-.homepage-banner .first-level{
+.homepage .homepage-banner .first-level{
     width: 185px;
     margin: 0 20px 0 0;
-}
-.homepage-banner .first-level > ul{
-    border-right: 1px solid #ededed;
 	background: #55909a;
-	padding-left:0;
 	min-height: 545px;
+}
+.homepage .homepage-banner .first-level > ul{
+	padding-left:0;
 }
 .wrap-second-cat{
     padding-right: 20px;
@@ -860,7 +861,7 @@
     z-index: 99;
 	width:179px;
 }
-.homepage-banner .first-level > ul > li{
+.homepage .homepage-banner .first-level > ul > li{
     line-height: 2.5em;
     font-size: 1em;
     text-rendering: geometricPrecision;
@@ -870,55 +871,80 @@
     background-repeat: no-repeat;
     background-position: right -90px;
 }
-.homepage-banner .first-level > ul > li > a{
+.homepage .homepage-banner .first-level > ul > li > a{
 	color:#fff;
 }
-.homepage-banner li a, .homepage-banner .second-level p a{
+.homepage .homepage-banner li a, .homepage .homepage-banner .second-level p a{
     color: #707070;
     text-decoration: none;
 }
-.homepage-banner .second-level p{
+.homepage .homepage-banner .second-level p{
     line-height: 1.6em;
 	margin: 0;
 	text-indent: 0;
 }
-.homepage-banner .first-level .second-level li{
+.homepage .homepage-banner .first-level .second-level li{
     font-size: 1em;
 	line-height: 1.7em;
 }
-.homepage-banner .first-level .second-level{
+.homepage .homepage-banner .first-level .second-level{
     display: none;
 }
-.homepage-banner .first-level .default .second-level{
+.homepage .homepage-banner .first-level .default .second-level{
     display: block;
     width: 1030px;
     z-index: 0;
 }
-.homepage-banner .first-level .default, .homepage-banner .first-level > ul > li:hover {
+.homepage .homepage-banner .first-level .default, .homepage .homepage-banner .first-level > ul > li:hover {
     color: #fff;
 }
-.homepage-banner .first-level > ul > li.hover-first-level{
+.homepage .homepage-banner .first-level > ul > li.default{
+    background-color:#51c6d8;
+}
+.homepage .homepage-banner .first-level > ul > li.default{
+    background-image: url(../images/megamenu/arrow.png);
+    background-repeat: no-repeat;
+    background-position: right -611px;
+}
+.homepage .homepage-banner .first-level > ul:hover > li.default{
+    background-color:transparent;
+    background-image: url(../images/megamenu/arrow.png);
+    background-repeat: no-repeat;
+    background-position: right -90px;
+}
+.homepage .homepage-banner .first-level > ul:hover > li.default:hover{
     background-color:#51c6d8;
     background-image: url(../images/megamenu/arrow.png);
+    background-repeat: no-repeat;
+    background-position: right -611px;
 }
-.homepage-banner .first-level > ul > li:hover ~ .homepage-banner .first-level > ul > li:first-child{
-	background:none;
+.homepage .homepage-banner .first-level > ul > li:hover{
+    background-color:#51c6d8;
+    background-image: url(../images/megamenu/arrow.png);
+    background-repeat: no-repeat;
+    background-position: right -611px;
 }
-.homepage-banner .first-level .default > a, .homepage-banner .first-level > ul > li:hover > a {
+.homepage .homepage-banner .first-level .default > a, .homepage .homepage-banner .first-level > ul > li:hover > a {
     color: #fff;
 }
-.homepage-banner .first-level li:hover .second-level{
+.homepage .homepage-banner .first-level li:hover .second-level{
     display: block;
     width: 1030px;
     z-index: 1;
     background: #fff;
 }
-.homepage-banner .first-level .second-level ul{
+.homepage .homepage-banner .first-level > ul:hover > li.default:hover .second-level{
+	display:block;
+}
+.homepage .homepage-banner .first-level > ul:hover > li.default .second-level{
+	display:none;
+}
+.homepage .homepage-banner .first-level .second-level ul{
     margin-bottom: 10px;
     margin-top: 0px;
     font-weight: normal;
 }
-.homepage-banner .first-level .second-level p a{
+.homepage .homepage-banner .first-level .second-level p a{
     text-transform: uppercase;
     font-weight: bold;
     font-size: 1em;
@@ -967,7 +993,7 @@
     padding: 0 0 0 5px;
 }
 @media (min-width: 1023px )and (max-width: 1215px ){
-    .homepage-banner .first-level li:hover .second-level, .homepage-banner .first-level .default .second-level{
+    .homepage .homepage-banner .first-level li:hover .second-level, .homepage .homepage-banner .first-level .default .second-level{
         width: 805px;
     }
     .wrap-banner .first-banner-megamenu{
@@ -993,7 +1019,7 @@
      .wrap-banner .third-banner-megamenu{
         display: none;
     }
-    .homepage-banner .first-level li:hover .second-level, .homepage-banner .first-level .default .second-level{
+    .homepage .homepage-banner .first-level li:hover .second-level, .homepage .homepage-banner .first-level .default .second-level{
         width: 540px;
         height: 395px;
     }
@@ -1002,7 +1028,7 @@
 	}
 }
 @media (max-width: 768px ) {
-	.homepage-banner{
+	.homepage .homepage-banner{
 		display:none;
 	}
 }
