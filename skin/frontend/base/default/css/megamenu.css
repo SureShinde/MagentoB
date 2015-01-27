@@ -85,7 +85,7 @@
     background: url(../images/megamenu/arrow.png) no-repeat -5px -373px;
 }
 .megamenu.megamenu-active{
-    height: 555px;
+    height: 515px;
 	overflow:visible;
 }
 .megamenu{
@@ -109,9 +109,12 @@
 }
 .menu-navigation .first-level{
     width: 185px;
-    margin: 20px 20px 0 0;
+    margin: 0 20px 0 0;
 	height:100%;
     border-right: 1px solid #ededed;
+}
+.menu-navigation .first-level > ul{
+	padding-top:20px;
 }
 .wrap-second-cat{
     padding-right: 20px;
@@ -207,7 +210,7 @@
 }
 .wrap-banner {
     float: right;
-    width: calc(100% - 200px);
+    width: calc(100% - 235px);
     border-left: 1px solid #ededed;
     z-index: 0;
 }
@@ -229,26 +232,26 @@
     padding: 0 0 12px;
 }
 .wrap-banner .third-banner-megamenu img{
-    padding: 0 0 13px;
+    padding: 0 0 12px;
 }
 .wrap-banner .first-banner-megamenu{
-    width: 50%;
+    width: 48%;
 }
 .wrap-banner .second-banner-megamenu{
-        width: 23%;
+    width: 23%;
 }
 .wrap-banner .third-banner-megamenu{
-    width: 21%;
+    width: 23%;
 }
 .wrap-banner .first-banner-megamenu .bottom-left-firstbanner, .wrap-banner .first-banner-megamenu .bottom-right-firstbanner{
     width: 48%;
     float: left;
 }
 .wrap-banner .first-banner-megamenu .bottom-left-firstbanner{
-    padding: 0 5px 0 0;
+    padding: 0 7px 0 0;
 }
 .wrap-banner .first-banner-megamenu .bottom-right-firstbanner{
-    padding: 0 0 0 5px;
+    padding: 0 0 0 7px;
 }
 @media (min-width: 1023px )and (max-width: 1215px ){
     .menu-navigation .first-level li:hover .second-level, .menu-navigation .first-level .default .second-level{

@@ -117,8 +117,25 @@ if (Mage::registry('current_category')) {
     <script type="text/javascript">
         $j(document).ready(function() {
           $j('.header-container .menu-navigation .slides-banner').slidesjs({
-            width: 415,
-            height: 346,
+            width: 300,
+            height: 250,
+            pagination: {
+              active: true,
+                // [string] Can be either "slide" or "fade".
+            },
+             play: {
+                 auto: true,
+                 interval: 5000,
+             },
+              effect: {
+                  slide: {
+                        speed : 2000
+                        }
+                  }
+          });
+		   $j('.main-container .homepage-banner .slides-banner').slidesjs({
+            width: 300,
+            height: 250,
             pagination: {
               active: true,
                 // [string] Can be either "slide" or "fade".
