@@ -201,7 +201,6 @@ A.awblog_current_comment {
 	padding:25px 25px 80px;
 	text-align:left;
 }
-
 .blog-post-view .related-product-blog .wrap-title-related-blog .title-related-blog{
 	text-transform: uppercase;
 	font-family: 'bebasregular';
@@ -225,7 +224,11 @@ A.awblog_current_comment {
 }
 
 
-
+@media only screen and (max-width: 767px) { 
+	.related-product-blog{
+		display:none;
+	}
+}
 
 
 
