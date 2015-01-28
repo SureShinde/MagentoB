@@ -108,18 +108,6 @@ $commentCount = $this->getCommentCount();
 
 <!-- Comment Section -->
 <?php if ($this->getCommentsEnabled()): ?>
-        <div id="comment_box"> 
-		<div id="fb-root"></div> 
-		<script>(function(d){
-		  var js, id = 'facebook-jssdk'; if (d.getElementById(id)) {return;}
-		  js = d.createElement('script'); js.id = id; js.async = true;
-		  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
-		  d.getElementsByTagName('head')[0].appendChild(js);
-		}(document));</script>   
-		
-		<fb:comments href="<?php echo "http://www.bilna.com/baby/blog/".$post->getIdentifier(); ?>" num_posts="25"></fb:comments> 
-	</div>
-
 	<input type="hidden" value="<?php echo "http://www.bilna.com/baby/blog/".$post->getIdentifier(); ?>" />
     <?php $comments = $this->getComment(); ?>
 	<div style="clear:both; border-top: 1px dashed #999;"></div>
@@ -236,12 +224,7 @@ $commentCount = $this->getCommentCount();
                     <button class="button form-button" type="submit"><span><span><?php echo Mage::helper('blog')->__('POST COMMENT') ?></span></span></button>
                 </div>
             </form>
-<div class="clear"></div>
-<div style="clear:both; border-top: 1px dashed #999;"></div>
-    <div class="postTitle" style="border: none !important;"><a name="commentBox" ></a>
-        <h2 class="fb-bebas fb-18" style="color: #707070; font-weight: normal;"><?php echo $this->__('Related Product') ?></h2>
-    </div>
-<div class="awfeature-blog" style="width:100%;clear: both;"><?php echo$this->getLayout()->createBlock('cms/block')->setBlockId('featured-product-on-blog')->toHtml(); ?></div>
+            <div class="clear"></div>
 
             <script type="text/javascript">
                 var contactForm = new VarienForm('postComment', false);
@@ -249,3 +232,15 @@ $commentCount = $this->getCommentCount();
         <?php endif; ?>
     <?php endif; ?>
 <?php endif; ?>
+
+<div id="comment_box" style="margin-top:20px;">
+    <div id="fb-root"></div> 
+    <script>(function(d){
+      var js, id = 'facebook-jssdk'; if (d.getElementById(id)) {return;}
+      js = d.createElement('script'); js.id = id; js.async = true;
+      js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+      d.getElementsByTagName('head')[0].appendChild(js);
+    }(document));</script>   
+
+    <fb:comments href="<?php echo "http://www.bilna.com/baby/blog/".$post->getIdentifier(); ?>" num_posts="25"></fb:comments> 
+</div>
