@@ -1004,8 +1004,8 @@
     .wrap-banner .third-banner-megamenu{
         display: none;
     }
-	.megamenu{
-		height: 530px;
+	.homepage .homepage-banner .first-level{
+		min-height: 470px;
 	}
 }
 @media (min-width: 768px )and (max-width: 1022px ){
@@ -1022,8 +1022,8 @@
         width: 540px;
         height: 395px;
     }
-	.megamenu{
-		height: 475px;
+	.homepage .homepage-banner .first-level{
+		min-height: 450px;
 	}
 }
 @media (max-width: 768px ) {
