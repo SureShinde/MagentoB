@@ -51,6 +51,10 @@
 	-webkit-border-radius: 10px;
 	border-radius: 10px;
 }
+.blog-post-view .awafpgrid ul li{
+	padding: 1%;
+	width: 18% !important;
+}
 .awafpgrid .awafpprice,
 .awafpgrid .awafpbutton,
 .awafpgrid .awafptitle {

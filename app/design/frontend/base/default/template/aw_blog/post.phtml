@@ -50,8 +50,8 @@ $commentCount = $this->getCommentCount();
         <?php $postCats = $post->getCats(); ?>
         <?php if (!empty($postCats)): ?>
             <?php echo Mage::helper('blog')->__('This entry was posted in'); ?>
-            <?php foreach ($postCats as $title => $url): ?>
-                <a style="color:#4EC7DA;" href="<?php echo $url; ?>"><?php echo $title; ?></a>
+            <?php foreach ($postCats as $postCat): ?>
+                <a style="color:#4EC7DA;" href="<?php echo $postCat['url']; ?>"><?php echo $postCat['title']; ?></a>
             <?php endforeach; ?>
         <?php else: ?>
             <?php //echo Mage::helper('blog')->__('Posted'); ?>
@@ -90,10 +90,25 @@ $commentCount = $this->getCommentCount();
     <div style="clear:both;height: 20px;"></div>
 </div>
 
-<!-- Comment Section -->
+<!-- Blog Related Product (AW Featured)-->
+<div class="related-product-blog">
+    <?php if (!empty ($postCats)): ?>
+        <?php foreach ($postCats as $postCat): ?>
+            <?php $_relatedProduct = $this->getAwFeaturedProductRelated($postCat['identifier']); ?>
+            <?php if (!empty ($_relatedProduct)): ?>
+                <div class="wrap-title-related-blog">
+                    <p class="title-related-blog">Related Product <?php echo $postCat['title']; ?></p>
+                </div>
+    
+                <?php echo $this->getAwFeaturedProductRelated($postCat['identifier']); ?>
+            <?php endif; ?>
+        <?php endforeach; ?>
+    <?php endif; ?>
+</div>
 
+<!-- Comment Section -->
 <?php if ($this->getCommentsEnabled()): ?>
-	<div id="comment_box"> 
+        <div id="comment_box"> 
 		<div id="fb-root"></div> 
 		<script>(function(d){
 		  var js, id = 'facebook-jssdk'; if (d.getElementById(id)) {return;}
@@ -104,6 +119,7 @@ $commentCount = $this->getCommentCount();
 		
 		<fb:comments href="<?php echo "http://www.bilna.com/baby/blog/".$post->getIdentifier(); ?>" num_posts="25"></fb:comments> 
 	</div>
+
 	<input type="hidden" value="<?php echo "http://www.bilna.com/baby/blog/".$post->getIdentifier(); ?>" />
     <?php $comments = $this->getComment(); ?>
 	<div style="clear:both; border-top: 1px dashed #999;"></div>
