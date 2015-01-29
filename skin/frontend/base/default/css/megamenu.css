@@ -198,6 +198,9 @@
     z-index: 90;
     background: #fff;
 }
+.catalog-category-view .menu-navigation .first-level li:hover .second-level{
+	width:auto;
+}
 .menu-navigation .first-level .second-level ul{
     margin-bottom: 10px;
     font-weight: normal;

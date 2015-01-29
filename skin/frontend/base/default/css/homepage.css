@@ -991,6 +991,7 @@
 .wrap-banner .first-banner-megamenu .bottom-right-firstbanner{
     padding: 0 0 0 5px;
 }
+
 @media (min-width: 1023px )and (max-width: 1215px ){
     .homepage .homepage-banner .first-level li:hover .second-level, .homepage .homepage-banner .first-level .default .second-level{
         width: 805px;
