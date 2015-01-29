@@ -4,7 +4,7 @@ $nsendpoint = "2013_2";
 $nshost = 'https://webservices.netsuite.com';
 
 $nsemail = 'richie@bilna.com';
-$nspassword = 'netsuite1';
+$nspassword = 'MagentoNetsuite321';
 $nsrole = 3;
 $nsaccount = '3704883';
 
