@@ -893,6 +893,8 @@
     display: block;
     width: 1030px;
     z-index: 0;
+	height:485px;
+	overflow:hidden;
 }
 .homepage .homepage-banner .first-level .default, .homepage .homepage-banner .first-level > ul > li:hover {
     color: #fff;
@@ -930,6 +932,8 @@
     display: block;
     width: 1030px;
     z-index: 1;
+	height:485px;
+	overflow:hidden;
     background: #fff;
 }
 .homepage .homepage-banner .first-level > ul:hover > li.default:hover .second-level{

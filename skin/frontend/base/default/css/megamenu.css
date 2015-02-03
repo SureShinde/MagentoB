@@ -154,11 +154,6 @@
 .menu-navigation .first-level .second-level{
     display: none;
 }
-.menu-navigation .first-level .default .second-level{
-    display: block;
-    width: 1030px;
-    z-index: 9;
-}
 .menu-navigation .first-level .default > a, .menu-navigation .first-level > ul > li:hover > a, .menu-navigation .first-level > ul:hover > li.default:hover > a {
     color: #fff;
 }
@@ -180,9 +175,6 @@
     background-repeat: no-repeat;
     background-position: right -90px;
 }
-.menu-navigation .first-level > ul:hover > li.default:hover .second-level{
-	display:block;
-}
 .menu-navigation .first-level > ul:hover > li.default .second-level{
 	display:none;
 }
@@ -192,9 +184,23 @@
     background-repeat: no-repeat;
     background-position: right -611px;
 }
+.menu-navigation .first-level > ul:hover > li.default:hover .second-level{
+	display: block;
+	height: 495px;
+	overflow: hidden;
+}
+.menu-navigation .first-level .default .second-level{
+    display: block;
+    width: 1030px;
+    z-index: 9;
+	height: 495px;
+	overflow: hidden;
+}
 .menu-navigation .first-level li:hover .second-level{
     display: block;
     width: 1030px;
+	height: 495px;
+	overflow: hidden;
     z-index: 90;
     background: #fff;
 }
@@ -247,7 +253,7 @@
     width: 23%;
 }
 .wrap-banner .first-banner-megamenu .bottom-left-firstbanner, .wrap-banner .first-banner-megamenu .bottom-right-firstbanner{
-    width: 47%;
+    width: 48%;
     float: left;
 }
 .wrap-banner .first-banner-megamenu .bottom-left-firstbanner{
