@@ -127,7 +127,9 @@ display: inline-block;
 		padding: 0 6%;
 		width: 21%;
 	}
-}
+	.footer .conect-us a{
+		margin: 2px 1px 2px 0;
+	}
 /* --------------- smaller 959 px layout -------------------- */
 @media only screen and (max-width: 767px) {
 	.footer-container {}
