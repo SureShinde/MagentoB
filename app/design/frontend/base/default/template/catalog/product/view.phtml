@@ -224,6 +224,9 @@
 
             <div class="product-tab-wrapper">
                 <div id="tab-container" class="tab-container">
+                    <?php $_attributes = $_product->getAttributes(); ?>
+                    <?php $_attributesArr = $this->getAttributesArr($_product, $_attributes); ?>
+                    
                     <ul class="etabs">
                         <?php foreach ($this->getChildGroup('detailed_info', 'getChildHtml') as $alias => $html): ?>
                             <?php if ($alias == 'additional'): continue; endif; ?>
@@ -239,16 +242,12 @@
                             </li>
                         <?php endforeach; ?>
                             
-                        <?php $_attributes = $_product->getAttributes(); ?>
-                            
-                        <?php foreach ($_attributes as $_attribute): ?>
-                            <?php if ($_attribute->getIsVisibleOnFront()): ?>
-                                <li class="tab">
-                                    <a href="#tabs-<?php echo $_attribute->getAttributeCode(); ?>">
-                                        <?php echo $_attribute->getFrontendLabel(); ?>
-                                    </a>
-                                </li>
-                            <?php endif; ?>
+                        <?php foreach ($_attributesArr as $_code => $_attribute): ?>
+                            <li class="tab">
+                                <a href="#tabs-<?php echo $_code; ?>">
+                                    <?php echo $_attribute['label']; ?>
+                                </a>
+                            </li>
                         <?php endforeach; ?>
                     </ul>
 
@@ -260,12 +259,24 @@
                             </div>
                         <?php endforeach; ?>
                         
-                        <?php foreach ($_attributes as $_attribute): ?>
-                            <?php if ($_attribute->getIsVisibleOnFront()): ?>
-                                <div id="tabs-<?php echo $_attribute->getAttributeCode(); ?>">
-                                    <?php echo $_attribute->getFrontend()->getValue($_product); ?>
-                                </div>
-                            <?php endif; ?>
+                        <?php foreach ($_attributesArr as $_code => $_attribute): ?>
+                            <div id="tabs-<?php echo $_code; ?>">
+                                <?php if ($_code == 'nutrition_fact'): ?>
+                                    <?php if (isset ($_attribute['nutrition'])): ?>
+                                        <div style="float:left;"><?php echo $_attribute['nutrition']['label']; ?></div>
+                                        <div style="float:left;"><?php echo $_attribute['nutrition']['value']; ?></div>
+                                        <div style="clear:both;"></div>
+                                    <?php endif; ?>
+                                        
+                                    <?php if (isset ($_attribute['ingredients'])): ?>
+                                        <div style="float:left;"><?php echo $_attribute['ingredients']['label']; ?></div>
+                                        <div style="float:left;"><?php echo $_attribute['ingredients']['value']; ?></div>
+                                        <div style="clear:both;"></div>
+                                    <?php endif; ?>
+                                <?php else: ?>
+                                    <?php echo $_attribute['value']; ?>
+                                <?php endif; ?>
+                            </div>
                         <?php endforeach; ?>
                     </div>
                 </div>

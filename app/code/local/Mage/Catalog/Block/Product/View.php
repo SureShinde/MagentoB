@@ -301,4 +301,49 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
         
         return $result;
     }
+    
+    public function getAttributesArr($_product, $_attributes) {
+        $result = array ();
+        
+        foreach ($_attributes as $_attribute) {
+            $_attributeCode = $_attribute->getAttributeCode();
+            $_attributeLabel = $_attribute->getFrontendLabel();
+            $_attributeValue = $_attribute->getFrontend()->getValue($_product);
+            
+            if (empty ($_attributeValue) || is_null($_attributeValue)) {
+                continue;
+            }
+            
+            if ($_attributeCode == 'how_to_use' || $_attributeCode == 'size_chart' || $_attributeCode == 'more_detail') {
+                $result[$_attributeCode] = array (
+                    'label' => $_attributeLabel,
+                    'value' => $_attributeValue,
+                );
+            }
+            elseif ($_attributeCode == 'nutrition_fact' || $_attributeCode == 'ingredients') {
+                $result['nutrition_fact'] = array (
+                    'label' => $this->__('Nutrition & Ingredient'),
+                );
+                
+                if ($_attributeCode == 'nutrition_fact') {
+                    $result['nutrition_fact']['nutrition']['label'] = $_attributeLabel;
+                    $result['nutrition_fact']['nutrition']['value'] = $_attributeValue;
+                }
+                else {
+                    $result['nutrition_fact']['ingredients']['label'] = $_attributeLabel;
+                    $result['nutrition_fact']['ingredients']['value'] = $_attributeValue;
+                }
+            }
+            else {
+                if ($_attribute->getIsVisibleOnFront()) {
+                    $result[$_attributeCode] = array (
+                        'label' => $_attributeLabel,
+                        'value' => $_attributeValue,
+                    );
+                }
+            }
+        }
+        
+        return $result;
+    }
 }
