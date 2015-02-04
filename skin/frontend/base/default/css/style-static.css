@@ -1771,6 +1771,11 @@ h2.block-grey-title-left {
     margin: 0 0 0 11px;
 	list-style:none;
 }
+.formbuilder-form .termncondition{
+	clear: both;
+	display: block;
+	margin-left: 160px;
+}
 .formbuilder-form button.button ul li  {
     list-style-type: none;
     clear: both;
@@ -1876,7 +1881,12 @@ h2.block-grey-title-left {
     
 
 }
-
+@media only screen and (max-width: 768px) {
+.formbuilder-form p.required{
+	margin-left:50px !important;
+}
+	
+}
 
 /* --------------------------------------- END FORM BUILDER --------------------------------------- */
 
@@ -4290,7 +4300,7 @@ button.button-area {
     cursor: pointer;
     font-size: 18px;
     margin: 0 10px;
-    padding: 15px 20px;
+    padding: 8px 20px;
 }
 .bebe-competition .form-bebe-competition button span{
 	padding: 0 !important;
@@ -4308,6 +4318,11 @@ button.button-area {
 	}
 	.bebe-competition .title-image{
 		width:100%;
+	}
+}
+@media only screen and (max-width: 768px) {
+	.formbuilder-form .termncondition{
+		margin-left: 50px;
 	}
 }
 @media only screen and (max-width: 468px) {
