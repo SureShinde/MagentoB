@@ -42,6 +42,10 @@
 	text-transform: uppercase;
 	font-family: 'bebasregular';
 }
+.footer .payment-partners span.title{
+	padding: 0 0 8px;
+	display: block;
+}
 .footer a, .footer address {
 	color: #767676;
 }
@@ -58,16 +62,23 @@
 .footer .payment-partners table tr td.payment-right {
 	text-align: right;
 }
-.footer .conect-us span.title, .footer .payment-partners span.title, .footer .shipping-partners span.title {
+.footer .conect-us span.title, .footer .shipping-partners span.title {
 	display: block;
 	margin:0 0 15px 0;
 }
-.footer .conect-us a, .footer .payment-partners a, .footer .shipping-partners a {
+.footer .payment-partners a, .footer .shipping-partners a {
 	display: inline-block;
 	margin: 0 8px 0 0;
 }
+.footer .conect-us a{
+	margin: 2px 3px 2px 0;
+display: inline-block;
+}
 .footer .payment-partners a, .footer .shipping-partners a {
 	vertical-align: middle;
+}
+.footer .payment-partners table td{
+	vertical-align:middle;
 }
 .footer-bottom {
 	margin:20px 0 0 0;
@@ -116,7 +127,9 @@
 		padding: 0 6%;
 		width: 21%;
 	}
-}
+	.footer .conect-us a{
+		margin: 2px 1px 2px 0;
+	}
 /* --------------- smaller 959 px layout -------------------- */
 @media only screen and (max-width: 767px) {
 	.footer-container {}
