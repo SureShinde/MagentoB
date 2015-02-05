@@ -242,9 +242,9 @@
                             </li>
                         <?php endforeach; ?>
                             
-                        <?php foreach ($_attributesArr as $_code => $_attribute): ?>
+                        <?php foreach ($_attributesArr as $_attribute): ?>
                             <li class="tab">
-                                <a href="#tabs-<?php echo $_code; ?>">
+                                <a href="#tabs-<?php echo $_attribute['code']; ?>">
                                     <?php echo $_attribute['label']; ?>
                                 </a>
                             </li>
@@ -259,20 +259,31 @@
                             </div>
                         <?php endforeach; ?>
                         
-                        <?php foreach ($_attributesArr as $_code => $_attribute): ?>
+                        <?php foreach ($_attributesArr as $_attribute): ?>
+                            <?php $_code = $_attribute['code']; ?>
                             <div id="tabs-<?php echo $_code; ?>">
                                 <?php if ($_code == 'nutrition_fact'): ?>
-                                    <?php if (isset ($_attribute['nutrition'])): ?>
-                                        <div style="float:left;"><?php echo $_attribute['nutrition']['label']; ?></div>
-                                        <div style="float:left;"><?php echo $_attribute['nutrition']['value']; ?></div>
-                                        <div style="clear:both;"></div>
-                                    <?php endif; ?>
-                                        
-                                    <?php if (isset ($_attribute['ingredients'])): ?>
-                                        <div style="float:left;"><?php echo $_attribute['ingredients']['label']; ?></div>
-                                        <div style="float:left;"><?php echo $_attribute['ingredients']['value']; ?></div>
-                                        <div style="clear:both;"></div>
-                                    <?php endif; ?>
+                                    <table id="product-attribute-specs-table" class="data-table">
+                                        <tbody>
+                                            <?php foreach ($_attribute['data'] as $_data): ?>
+                                                <tr>
+                                                    <th width="25%"><?php echo $_data['label']; ?></th>
+                                                    <td><?php echo $_data['value']; ?></td>
+                                                </tr>
+                                            <?php endforeach; ?>
+                                        </tbody>
+                                    </table>
+                                <?php elseif ($_code == 'additional_info'): ?>
+                                    <table id="product-attribute-specs-table" class="data-table">
+                                        <tbody>
+                                            <?php foreach ($_attribute['data'] as $_data): ?>
+                                                <tr>
+                                                    <th width="25%"><?php echo $_data['label']; ?></th>
+                                                    <td><?php echo $_data['value']; ?></td>
+                                                </tr>
+                                            <?php endforeach; ?>
+                                        </tbody>
+                                    </table>
                                 <?php else: ?>
                                     <?php echo $_attribute['value']; ?>
                                 <?php endif; ?>

@@ -303,6 +303,13 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
     }
     
     public function getAttributesArr($_product, $_attributes) {
+        $sortTab = array (
+            'how_to_use' => 0,
+            'nutrition_fact' => 1,
+            'size_chart' => 2,
+            'more_detail' => 3,
+            'additional_info' => 4,
+        );
         $result = array ();
         
         foreach ($_attributes as $_attribute) {
@@ -315,34 +322,45 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
             }
             
             if ($_attributeCode == 'how_to_use' || $_attributeCode == 'size_chart' || $_attributeCode == 'more_detail') {
-                $result[$_attributeCode] = array (
+                $result[$sortTab[$_attributeCode]] = array (
+                    'code' => $_attributeCode,
                     'label' => $_attributeLabel,
                     'value' => $_attributeValue,
                 );
             }
             elseif ($_attributeCode == 'nutrition_fact' || $_attributeCode == 'ingredients') {
-                $result['nutrition_fact'] = array (
-                    'label' => $this->__('Nutrition & Ingredient'),
+                if (!isset ($result[$sortTab['nutrition_fact']])) {
+                    $result[$sortTab['nutrition_fact']] = array (
+                        'code' => 'nutrition_fact',
+                        'label' => $this->__('Nutrition & Ingredient'),
+                    );
+                }
+
+                $result[$sortTab['nutrition_fact']]['data'][] = array (
+                    'code' => $_attributeCode,
+                    'label' => $_attributeLabel,
+                    'value' => $_attributeValue,
                 );
-                
-                if ($_attributeCode == 'nutrition_fact') {
-                    $result['nutrition_fact']['nutrition']['label'] = $_attributeLabel;
-                    $result['nutrition_fact']['nutrition']['value'] = $_attributeValue;
-                }
-                else {
-                    $result['nutrition_fact']['ingredients']['label'] = $_attributeLabel;
-                    $result['nutrition_fact']['ingredients']['value'] = $_attributeValue;
-                }
             }
             else {
                 if ($_attribute->getIsVisibleOnFront()) {
-                    $result[$_attributeCode] = array (
+                    if (!isset ($result[$sortTab['additional_info']])) {
+                        $result[$sortTab['additional_info']] = array (
+                            'code' => 'additional_info',
+                            'label' => $this->__('Additional Info'),
+                        );
+                    }
+
+                    $result[$sortTab['additional_info']]['data'][] = array (
+                        'code' => $_attributeCode,
                         'label' => $_attributeLabel,
                         'value' => $_attributeValue,
                     );
                 }
             }
         }
+
+        ksort($result);
         
         return $result;
     }
