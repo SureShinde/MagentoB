@@ -283,60 +283,46 @@
             </div>
         </form>
         
-    <script type="text/javascript">
-    //<![CDATA[
-        var productAddToCartForm = new VarienForm('product_addtocart_form');
-        productAddToCartForm.submit = function(button, url) {
-            if (this.validator.validate()) {
-                var form = this.form;
-                var oldUrl = form.action;
+        <script type="text/javascript">
+            function heightDiv(element, height) {
+                $j(".panel-container").css("height",height);
+                $j("#show_desc").css("display","none");
+                $j(".show_more").css("display","none");
+                $j("#hide_desc").css("display","block");
+                $j(".hide").css("display","block");
+            };
 
+            if (("document", $j( "#tabs-description" ).height()) < 90) {
+                $j(".hide_desc_button").hide();
+                $j(".panel-container").css("height","auto");
+            }
+            else {
+                $j(".hide_desc_button").show();
+            }
 
-                <script type="text/javascript">
-                    $j(document).ready( function() {
-                        $j('#tab-container').easytabs();
-                    });
+            $j("#hide_desc").css("display","none");
+            $j(".hide").css("display","none");
+            $j( "#show_desc" ).click(function() {
+                heightDiv("document", $j( "#tabs-description" ).height());
+            });
 
-                    function heightDiv(element, height) {
-                        $j(".panel-container").css("height",height);
-                        $j("#show_desc").css("display","none");
-                        $j(".show_more").css("display","none");
-                        $j("#hide_desc").css("display","block");
-                        $j(".hide").css("display","block");
-                    };
-
-                    if (("document", $j( "#tabs-description" ).height()) < 90) {
-                        $j(".hide_desc_button").hide();
-                        $j(".panel-container").css("height","auto");
-                    }
-                    else {
-                        $j(".hide_desc_button").show();
-                    }
-
-                    $j("#hide_desc").css("display","none");
-                    $j(".hide").css("display","none");
-                    $j( "#show_desc" ).click(function() {
-                        heightDiv("document", $j( "#tabs-description" ).height());
-                    });
-
-                    $j( "#hide_desc" ).click(function() {
-                        $j(".panel-container").css("height","90px");
-                        $j("#show_desc").css("display","block");
-                        $j(".show_more").css("display","block");
-                        $j("#hide_desc").css("display","none");
-                        $j(".hide").css("display","none");
-                    });
-                </script> 
-
-                <script type="text/javascript">
-                    // <![CDATA[
-                    $j(document).ready(function() {
-                        $j('#tab-container').easytabs();
-                    });
-                    // ]]>
-                </script>
-				
-            </div>
+            $j( "#hide_desc" ).click(function() {
+                $j(".panel-container").css("height","90px");
+                $j("#show_desc").css("display","block");
+                $j(".show_more").css("display","block");
+                $j("#hide_desc").css("display","none");
+                $j(".hide").css("display","none");
+            });
+        </script>
+        
+        <script type="text/javascript">
+            // <![CDATA[
+            $j(document).ready(function() {
+                $j('#tab-container').easytabs();
+            });
+            // ]]>
+        </script>
+    </div>
 			
 		<?php if ($_product->getShortDescription()):?>
 			<div class="short-description-mobile">
