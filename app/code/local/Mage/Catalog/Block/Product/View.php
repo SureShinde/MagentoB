@@ -301,4 +301,67 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
         
         return $result;
     }
+    
+    public function getAttributesArr($_product, $_attributes) {
+        $sortTab = array (
+            'how_to_use' => 0,
+            'nutrition_fact' => 1,
+            'size_chart' => 2,
+            'more_detail' => 3,
+            'additional_info' => 4,
+        );
+        $result = array ();
+        
+        foreach ($_attributes as $_attribute) {
+            $_attributeCode = $_attribute->getAttributeCode();
+            $_attributeLabel = $_attribute->getFrontendLabel();
+            $_attributeValue = $_attribute->getFrontend()->getValue($_product);
+            
+            if (empty ($_attributeValue) || is_null($_attributeValue)) {
+                continue;
+            }
+            
+            if ($_attributeCode == 'how_to_use' || $_attributeCode == 'size_chart' || $_attributeCode == 'more_detail') {
+                $result[$sortTab[$_attributeCode]] = array (
+                    'code' => $_attributeCode,
+                    'label' => $_attributeLabel,
+                    'value' => $_attributeValue,
+                );
+            }
+            elseif ($_attributeCode == 'nutrition_fact' || $_attributeCode == 'ingredients') {
+                if (!isset ($result[$sortTab['nutrition_fact']])) {
+                    $result[$sortTab['nutrition_fact']] = array (
+                        'code' => 'nutrition_fact',
+                        'label' => $this->__('Nutrition & Ingredient'),
+                    );
+                }
+
+                $result[$sortTab['nutrition_fact']]['data'][] = array (
+                    'code' => $_attributeCode,
+                    'label' => $_attributeLabel,
+                    'value' => $_attributeValue,
+                );
+            }
+            else {
+                if ($_attribute->getIsVisibleOnFront()) {
+                    if (!isset ($result[$sortTab['additional_info']])) {
+                        $result[$sortTab['additional_info']] = array (
+                            'code' => 'additional_info',
+                            'label' => $this->__('Additional Info'),
+                        );
+                    }
+
+                    $result[$sortTab['additional_info']]['data'][] = array (
+                        'code' => $_attributeCode,
+                        'label' => $_attributeLabel,
+                        'value' => $_attributeValue,
+                    );
+                }
+            }
+        }
+
+        ksort($result);
+        
+        return $result;
+    }
 }
