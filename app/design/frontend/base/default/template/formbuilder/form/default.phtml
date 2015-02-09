@@ -177,6 +177,9 @@ if ($this->block->email_share_apps) {
 		</ul>
         <div style="clear:both"></div>
 		<p class="required" style="float: left; color: #eb340a; margin-left: 160px;">* Required Fields</p>
+		<?php //if (!empty ($this->block->termsconditions)): ?>
+			<p class="termncondition"><?php echo $this->block->termsconditions; ?></p>
+		<?php //endif; ?>
 			<input id="hideit" style="display: none !important;" type="text" name="hideit" />
 			<button id="submit-form" type="submit" name="submit-form" class="button" title="" style="margin-left: 160px; margin-top: 10px;"><span class="fb-bebas fb-15" style="padding: 10px 20px; border: none; background: #ffa01b; font-weight: normal;"><?php echo $this->block->button_text; ?></span></button>
 	</div>
