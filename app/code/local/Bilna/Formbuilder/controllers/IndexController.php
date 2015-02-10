@@ -115,7 +115,8 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
                     $pattern = $validationArr[1];
 
                     if (!$this->_validationPattern($pattern, $postData['inputs']['type'])) {
-                        $message = $field['value'] . " invalid";
+                        $message = "Link yang Anda masukan tidak valid";
+                        //$message = $field['value'] . " invalid";
                         
                         if (!is_null($row["static_failed"]) || $row["static_failed"] <> "") {
                             Mage::getSingleton('core/session')->setFormbuilderFailed(false);
