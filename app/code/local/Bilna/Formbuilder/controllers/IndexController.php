@@ -24,7 +24,7 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
         $session        = Mage::getSingleton('core/session');
         $codeShare = false;
 
-        if(is_null($row['record_id'])){
+        if (is_null($row['record_id'])){
             $record_id = 1;
         }else{
             $record_id = $row['record_id']+1;
@@ -43,7 +43,7 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
         $block->addFieldToFilter('main_table.id', $form_id);
 
         //required, checkbox, terms and empty
-        foreach($block->getData() as $field){
+        foreach ($block->getData() as $field) {
             if ($field['type'] == 'codeshare') {
                 $codeShare = true;
                 $codeShareField = $field['name'];
@@ -54,66 +54,93 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
                 $postData['inputs']['dob'] = $datedrop;
             }
             
-            if($field["required"]==true){
-                if($field["type"]=="checkbox"){
+            if ($field["required"] == true) {
+                if ($field["type"] == "checkbox") {
                     $message = "You must agree with terms and conditions";
-                }else{
+                }
+                else {
                     $message = $field["title"].' cannot be empty';
                 }
                 
-                if(!isset($postData["inputs"][$field["group"]]) || empty($postData["inputs"][$field["group"]]) || is_null($postData["inputs"][$field["group"]])){
-                    if(!is_null($row["static_failed"]) || $row["static_failed"]<>""){
+                if (!isset ($postData["inputs"][$field["group"]]) || empty ($postData["inputs"][$field["group"]]) || is_null($postData["inputs"][$field["group"]])) {
+                    if (!is_null($row["static_failed"]) || $row["static_failed"] <> "") {
                         Mage::getSingleton('core/session')->setFormbuilderFailed(false);
                     }
+                    
                     Mage::getSingleton('core/session')->addError($message);
                     $redirectPage = Mage::getBaseUrl().$field["url"];
                     $this->_redirectPage($redirectPage);
                 }
 
                 //type : checkbox
-                if($field["type"]=="checkbox" && $postData["inputs"][$field["group"]] <> "on"){
-                    if(!is_null($row["static_failed"]) || $row["static_failed"]<>""){
+                if ($field["type"] == "checkbox" && $postData["inputs"][$field["group"]] <> "on") {
+                    if (!is_null($row["static_failed"]) || $row["static_failed"] <> "") {
                         Mage::getSingleton('core/session')->setFormbuilderFailed(false);
                     }
+                    
                     Mage::getSingleton('core/session')->addError($message); 
                     $redirectPage = Mage::getBaseUrl().$field["url"];
                     $this->_redirectPage($redirectPage);
                 }
 
                 //type : dropdown
-                if($field["type"]=="dropdown" && $postData["inputs"][$field["group"]] <> "on"){
-                    if(!is_null($row["static_failed"]) || $row["static_failed"]<>""){
+                if ($field["type"]=="dropdown" && $postData["inputs"][$field["group"]] <> "on") {
+                    if (!is_null($row["static_failed"]) || $row["static_failed"] <> "") {
                         Mage::getSingleton('core/session')->setFormbuilderFailed(false);
                     }
+                    
                     Mage::getSingleton('core/session')->addError($message); 
                     $redirectPage = Mage::getBaseUrl().$field["url"];                   
                     $this->_redirectPage($redirectPage);
                 }
 
                 //date of birth (dob)
-                if($field["id"]=="dob" && $postData["inputs"][$field["group"]] <> "on"){
-                    if(!is_null($row["static_failed"]) || $row["static_failed"]<>""){
+                if ($field["id"]=="dob" && $postData["inputs"][$field["group"]] <> "on") {
+                    if (!is_null($row["static_failed"]) || $row["static_failed"] <> "") {
                         Mage::getSingleton('core/session')->setFormbuilderFailed(false);
                     }
+                    
                     Mage::getSingleton('core/session')->addError($message); 
                     $redirectPage = Mage::getBaseUrl().$field["url"];
                     $this->_redirectPage($redirectPage);
                 }
             }
+            
+            //validation pattern
+            if (!empty ($field['validation']) || !is_null($field['validation'])) {
+                $validationArr = explode("|", $field['validation']);
+                $validation = $validationArr[0];
+
+                if ($validation == 'pattern') {
+                    $pattern = $validationArr[1];
+
+                    if (!$this->_validationPattern($pattern, $postData['inputs']['type'])) {
+                        $message = $field['value'] . " invalid";
+                        
+                        if (!is_null($row["static_failed"]) || $row["static_failed"] <> "") {
+                            Mage::getSingleton('core/session')->setFormbuilderFailed(false);
+                        }
+
+                        Mage::getSingleton('core/session')->addError($message); 
+                        $redirectPage = Mage::getBaseUrl() . $field["url"];
+                        $this->_redirectPage($redirectPage);
+                    }
+                }
+            }
 
             //unique
-            if($field["unique"]==true){
+            if ($field["unique"] == true) {
                 $collection = Mage::getModel('bilna_formbuilder/data')->getCollection();
                 $collection->getSelect('main_table.form_id');
                 $collection->addFieldToFilter('main_table.form_id', $form_id);
                 $collection->addFieldToFilter('main_table.type', $field["group"]);
                 $collection->addFieldToFilter('main_table.value', $postData["inputs"][$field["group"]]);
                 $jumlah=$collection->getSize();
-                if($jumlah <> 0){
-                    if(!is_null($row["static_failed"]) && $row["static_failed"]<>""){
+                if ($jumlah <> 0){
+                    if (!is_null($row["static_failed"]) && $row["static_failed"]<>""){
                         Mage::getSingleton('core/session')->setFormbuilderFailed(false);
                     }
-                    elseif(is_null($row["static_failed"]) || $row["static_failed"]==""){
+                    elseif (is_null($row["static_failed"]) || $row["static_failed"]==""){
                         Mage::getSingleton('core/session')->addError($field["title"] . ' ' . Mage::helper('bilna_formbuilder')->__('yang anda gunakan telah terdaftar'));
                     }
                     
@@ -122,6 +149,9 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
                 }
             }
         }
+        
+        echo "stop sini";
+        exit;
 
         //echo "<pre>";     
         //print_r($postData["inputs"]); die;
@@ -144,18 +174,18 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
             $productModel = Mage::getModel('catalog/product');
             $productId = $productModel->getIdBySku($sku);
             
-            if(!is_null($productId)){
+            if (!is_null($productId)){
                 $productOnCart  = false;
                 
                 //Check if product already exist on the cart
                 $quote = Mage::getSingleton('checkout/session')->getQuote();
                 foreach ($quote->getAllItems() as $item) {
-                    if($item->getSku() == $sku){
+                    if ($item->getSku() == $sku){
                         $productOnCart  = true;
                     }
                 }
                 
-                if($productOnCart<>true){
+                if ($productOnCart<>true){
                     $params = array(
                             'product' => $productId,
                             'qty' => 1,
@@ -198,7 +228,7 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
         }
 
         //static block
-        if($field["success_redirect"]==1){
+        if ($field["success_redirect"]==1){
             $ref = '';
             
             if ($row['email_share_apps']) {
@@ -208,15 +238,26 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
             $queryString = "formId=".$form_id."&recordId=".$record_id;
             $field["url"] = $field["url_success"] . "?" . $queryString . $ref;
 
-        }else if(!is_null($row["static_success"]) || $row["static_success"]<>""){
+        }else if (!is_null($row["static_success"]) || $row["static_success"]<>""){
             Mage::getSingleton('core/session')->setFormbuilderSuccess(true);
         }
-        elseif(is_null($row["static_success"]) || $row["static_success"]==""){
+        elseif (is_null($row["static_success"]) || $row["static_success"]==""){
             Mage::getSingleton('core/session')->addSuccess($row["success_message"]);
         }
         $redirectPage = Mage::getBaseUrl().$field["url"];       
         $this->_redirectPage($redirectPage);
 
+    }
+    
+    private function _validationPattern($pattern, $input) {
+        $patternLength = strlen($pattern);
+        $inputLength = strlen($input);
+    
+        if ($patternLength < $inputLength && substr($input, 0, $patternLength) == $pattern) {
+            return true;
+        }
+
+        return false;
     }
 
     private function _prepareEmail($data, $templateId) {

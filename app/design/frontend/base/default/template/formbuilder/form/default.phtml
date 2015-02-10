@@ -130,12 +130,19 @@ if ($this->block->email_share_apps) {
 				<?php if($input["type"] == "text"){ ?>
                                     <?php
                                     $_validateEmail = '';
+                                    $_validationClass = '';
                                     
                                     if ($input['name'] == 'email') {
                                         $_validateEmail = 'validate-email-ind';
                                     }
+                                    
+                                    if ($input['validation']) {
+                                        $_validationArr = explode('|', $input['validation']);
+                                        $_validationClass = 'validate-' . $_validationArr[0];
+                                    }
                                     ?>
-                                    <input id="<?php echo $input["name"]; ?>" class="<?php if ($input["required"]) { echo $_requiredEntry; }?> <?php echo (!empty($input["validation"])) ? 'validate-'.$input["validation"] : ''; ?> <?php echo $_validateEmail; ?>" style="height: 26px !important; width: 40%; background: none repeat scroll 0 0 #F9F9F9; border: none; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) inset; color: #666666; padding: 7px 5px; float: left; margin-right: 60px;" title="<?php echo $input["value"]; ?>" name="inputs[<?php echo $input["group"]; ?>]" placeholder="<?php echo $input["helper_message"]; ?>" />
+                                    
+                                    <input id="<?php echo $input["name"]; ?>" class="<?php if ($input["required"]) { echo $_requiredEntry; } ?> <?php echo $_validationClass; ?> <?php echo $_validateEmail; ?>" style="height: 26px !important; width: 40%; background: none repeat scroll 0 0 #F9F9F9; border: none; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) inset; color: #666666; padding: 7px 5px; float: left; margin-right: 60px;" title="<?php echo $input["value"]; ?>" name="inputs[<?php echo $input["group"]; ?>]" placeholder="<?php echo $input["helper_message"]; ?>" />
 				<!--End Text Type-->
 
 				<!--Textarea Type-->
