@@ -4265,7 +4265,7 @@ button.button-area {
 /*============================ style bebe compt ========================*/
 .bebe-competition .link-category-promo {
 	width: 15%;
-	margin: 10px;
+	margin: 10px 3%;
 	display: table;
 	clear: none;
 	position:relative;
@@ -4284,7 +4284,7 @@ button.button-area {
 .bebe-competition .title-image{
 	font-size:20px;
 	text-align:center;
-	width: 68%;
+	width: 85%;
 	color: #fff;
 	margin:0;
 	background:#f29220;
@@ -4315,6 +4315,9 @@ button.button-area {
 @media only screen and (max-width: 1023px) {
 	.bebe-competition .link-category-promo{
 		width: 20%;
+	}
+	.bebe-competition .link-category-promo{
+		margin:10px 2%;
 	}
 	.bebe-competition .title-image{
 		width:100%;
