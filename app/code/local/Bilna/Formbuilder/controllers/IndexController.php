@@ -114,9 +114,8 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
                 if ($validation == 'pattern') {
                     $pattern = $validationArr[1];
 
-                    if (!$this->_validationPattern($pattern, $postData['inputs']['type'])) {
+                    if ($this->_validationPattern($pattern, $postData['inputs'][$field['group']]) === false) {
                         $message = "Link yang Anda masukan tidak valid";
-                        //$message = $field['value'] . " invalid";
                         
                         if (!is_null($row["static_failed"]) || $row["static_failed"] <> "") {
                             Mage::getSingleton('core/session')->setFormbuilderFailed(false);
@@ -150,9 +149,6 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
                 }
             }
         }
-        
-        echo "stop sini";
-        exit;
 
         //echo "<pre>";     
         //print_r($postData["inputs"]); die;
@@ -251,11 +247,16 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
     }
     
     private function _validationPattern($pattern, $input) {
+        $input = str_replace(array ('http://', 'https://'), "", $input);
         $patternLength = strlen($pattern);
         $inputLength = strlen($input);
-    
-        if ($patternLength < $inputLength && substr($input, 0, $patternLength) == $pattern) {
-            return true;
+
+        if ($inputLength > $patternLength) {
+            $inputSubs = substr($input, 0, $patternLength);
+
+            if ($inputSubs == $pattern) {
+                return true;
+            }
         }
 
         return false;
