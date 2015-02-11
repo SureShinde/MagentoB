@@ -130,18 +130,25 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
 
             //unique
             if ($field["unique"] == true) {
-                $collection = Mage::getModel('bilna_formbuilder/data')->getCollection();
-                $collection->getSelect('main_table.form_id');
-                $collection->addFieldToFilter('main_table.form_id', $form_id);
-                $collection->addFieldToFilter('main_table.type', $field["group"]);
-                $collection->addFieldToFilter('main_table.value', $postData["inputs"][$field["group"]]);
-                $jumlah=$collection->getSize();
-                if ($jumlah <> 0){
+                $resource = Mage::getSingleton('core/resource');
+                $readConn = $resource->getConnection('core_read');
+                $table = $resource->getTableName('bilna_formbuilder/data');
+                
+                $sql = sprintf(
+                    "SELECT `main_table`.`id` FROM `%s` AS `main_table` WHERE (`main_table`.`form_id` = %d) AND (`main_table`.`type` = '%s') AND (`main_table`.`value` = '%s')",
+                    $table,
+                    $form_id,
+                    $field['group'],
+                    $postData['inputs'][$field['group']]
+                );
+                $dataId = $readConn->fetchOne($sql);
+                
+                if ($dataId) {
                     if (!is_null($row["static_failed"]) && $row["static_failed"]<>""){
                         Mage::getSingleton('core/session')->setFormbuilderFailed(false);
                     }
                     elseif (is_null($row["static_failed"]) || $row["static_failed"]==""){
-                        Mage::getSingleton('core/session')->addError($field["title"] . ' ' . Mage::helper('bilna_formbuilder')->__('yang anda gunakan telah terdaftar'));
+                        Mage::getSingleton('core/session')->addError($field["value"] . ' ' . Mage::helper('bilna_formbuilder')->__('yang anda gunakan telah terdaftar'));
                     }
                     
                     $redirectPage = Mage::getBaseUrl().$field["url"];
