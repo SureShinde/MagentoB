@@ -528,6 +528,6 @@ if you want to call it from cms page, please use this
 <script type="text/javascript">
 jQuery(document).ready(function () {    
 	dataLayer.push( {'sitetype': 'd'} );
-	dataLayer.push( {'emailaddress': $email} );
+	dataLayer.push( {'emailaddress': '<?php echo $email; ?>'} );
 });
 </script>

@@ -48,9 +48,15 @@ class Bilna_AjaxRequest_DataController extends Mage_Core_Controller_Front_Action
 	        $response['status'] = true;
             $i=1;
 
+            $gtmIds = '';
+            $gtmPrices = '';
+            $gtmQuantitys = '';
 	        foreach ($order->getAllItems() as $item) {
 				$product = array();
 				$product["identifier"] = $item->getSku();
+				$gtmIds = $item->getProductId()."|";
+				$gtmQuantitys = $item->getQtyOrdered()."|";
+				$gtmPrices = (int)$item->getPrice()."|";
 				$product["amount"] = (int) $item->getPrice();
 				$product["currency"] = "IDR";
 				$product["quantity"] = $item->getQtyOrdered();
@@ -62,6 +68,9 @@ class Bilna_AjaxRequest_DataController extends Mage_Core_Controller_Front_Action
 		    $response['data']['currency'] = "IDR";
             $response['data']["customer_id"] = $item->getCustomerId();
             $response['data']["customer_email"] = $item->getCustomerEmail();
+            $response['data']['order']['productIds'] = $gtmIds;
+            $response['data']['order']['productPrices'] = $gtmPrices;
+            $response['data']['order']['productQtys'] = $gtmQuantitys;
              
         }
 		

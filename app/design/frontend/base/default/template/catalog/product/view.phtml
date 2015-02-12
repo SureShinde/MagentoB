@@ -510,6 +510,6 @@
 </div>
 <script type="text/javascript">
 jQuery(document).ready(function () {    
-	dataLayer.push( {'productid': $_product->getId()} );
+	dataLayer.push( {'productid': '<?php echo $_product->getId(); ?>'} );
 });
 </script>
