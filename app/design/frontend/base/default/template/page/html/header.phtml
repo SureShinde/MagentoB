@@ -517,3 +517,17 @@ if you want to call it from cms page, please use this
   
 });
 </script>
+<?php 
+ $customer = Mage::getSingleton('customer/session')->getCustomer();
+ if(isset($customer) && !empty($customer)){
+ 	$email = $customer->getEmail();// for email address
+ }else{
+ 	$email = "";
+ }
+?>
+<script type="text/javascript">
+jQuery(document).ready(function () {    
+	dataLayer.push( {'sitetype': 'd'} );
+	dataLayer.push( {'emailaddress': $email} );
+});
+</script>
