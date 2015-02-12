@@ -115,10 +115,27 @@ if (Mage::registry('current_category')) {
     <?php endif ?>
 <?php else: ?>
     <script type="text/javascript">
-        $j(function() {
-          $j('#slides-banner').slidesjs({
-            width: 759,
-            height: 338,
+        $j(document).ready(function() {
+          $j('.header-container .menu-navigation .slides-banner').slidesjs({
+            width: 300,
+            height: 250,
+            pagination: {
+              active: true,
+                // [string] Can be either "slide" or "fade".
+            },
+             play: {
+                 auto: true,
+                 interval: 5000,
+             },
+              effect: {
+                  slide: {
+                        speed : 2000
+                        }
+                  }
+          });
+		   $j('.main-container .homepage-banner .slides-banner').slidesjs({
+            width: 300,
+            height: 250,
             pagination: {
               active: true,
                 // [string] Can be either "slide" or "fade".
@@ -135,9 +152,9 @@ if (Mage::registry('current_category')) {
           });
         });
     </script>
-    <?php $helper = Mage::helper('awislider') ?>
+    <?php $helper = Mage::helper('awislider'); ?>
     <?php if($this->canDisplay() && $this->getSlides()->getSize()) : ?>
-        <div id="slides-banner">
+        <div id="slides-banner" class="slides-banner">
           <?php $_i = 0 ?>
             <?php foreach($this->getSlides() as $slide) : ?>
                 <?php if($slide->getData('url')) : ?>

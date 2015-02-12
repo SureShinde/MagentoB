@@ -8,38 +8,24 @@
         $_helper = Mage::helper('megamenu');
         $_storeCategories = $_helper->getMegamenuData();
         $_storeCurrentCategory = Mage::registry('current_category');
-        $_currentCategory = $_helper->getCurrentCategoryStyle($_storeCategories, $_storeCurrentCategory);
+        $_categoryActive = $this->getCurrentMainCategoryIdActive();
         ?>
 
         <?php if (count($_storeCategories) > 0): ?>
-            <div class="nav-container-mobile-left">
+            <div class="wrap-menu-cat">
                 <ul>
                     <?php foreach ($_storeCategories as $_storeCategory): ?>
                         <?php
-                        $_storeCategoryDisplay = '';
-                        $_storeCategoryClass = '';
-                        
                         $_id = $_storeCategory['id'];
                         $_name = $_storeCategory['name'];
                         $_url = $_storeCategory['url'];
                         $_urlKey = $_storeCategory['url_key'];
-                        
-                        if ($_storeCurrentCategory):
-                            if ($_id != $_storeCurrentCategory->getId() &&
-                                $_id != $_currentCategory['id'] &&
-                                $_id != $_currentCategory['parent_id'] &&
-                                $_id != $_currentCategory['parent_sub_id']):
-                                $_storeCategoryDisplay = 'style="display:none;"';
-                                $_storeCategoryClass = 'inactive';
-                            endif;
-                        endif;
+                        $_storeCategoryClass = ($_id == $_categoryActive) ? "active-category menu-active" : "";
                         ?>
                     
-                        <li class="cat-leveltop store-category <?php echo 'cat-leveltop-' . $_id; ?> <?php echo $_storeCategoryClass; ?>">
-                            <a id="<?php echo $_id; ?>" class="categories <?php echo strtolower(str_replace(array ("&"," ","'"), "", $_name)); ?>" href="<?php echo $_url; ?>">
-                                <?php echo $_name; ?>
-                            </a>
-                                
+                        <li class="<?php echo $_storeCategoryClass; ?>">
+                            <p class="first-level"><?php echo $_name; ?></p>
+                            
                             <?php
                             $_storeCategoriesChild = array ();
             
@@ -49,31 +35,18 @@
                             ?>
                             
                             <?php if (count($_storeCategoriesChild) > 0): ?>
-                                <ul id="ul-<?php echo $_id; ?>" class="store-category-child category-child" <?php echo $_storeCategoryDisplay; ?>>
-                                    <?php foreach ($_storeCategoriesChild as $_storeCategoryChild): ?>
-                                        <?php
-                                        $_storeCategoryDisplay2 = '';
-                                        $_storeCategoryClass2 = '';
+                                <div class="wrap-first-level">
+                                    <ul>
+                                        <?php foreach ($_storeCategoriesChild as $_storeCategoryChild): ?>
+                                            <?php
+                                            $_id2 = $_storeCategoryChild['id'];
+                                            $_name2 = $_storeCategoryChild['name'];
+                                            $_url2 = $_storeCategoryChild['url'];
+                                            $_urlKey2 = $_storeCategoryChild['url_key'];
+                                            ?>
                                         
-                                        $_id2 = $_storeCategoryChild['id'];
-                                        $_name2 = $_storeCategoryChild['name'];
-                                        $_url2 = $_storeCategoryChild['url'];
-                                        $_urlKey2 = $_storeCategoryChild['url_key'];
-                                        
-                                        if ($_storeCurrentCategory):
-                                            if ($_id2 == $_storeCurrentCategory->getId() || $_id2 == $_storeCurrentCategory->getParentId()):
-                                            //if ($_id2 == $_currentCategory2):
-                                            //if ($_currentCategory2):
-                                                $_storeCategoryDisplay2 = 'style="display:block;"';
-                                            endif;
-                                        endif;
-                                        ?>
-                        
-                                        <li class="store-category2">
-                                            <a id="<?php echo $_id2; ?>" parent="<?php echo $_id; ?>" class="subcategories" href="<?php echo $_url2; ?>">
-                                                <?php echo $_name2; ?>
-                                            </a>
-                                                
+                                            <li class="second-level"><?php echo $_name2; ?></li>
+                                            
                                             <?php
                                             $_storeCategoriesChildChild = array ();
             
@@ -83,26 +56,22 @@
                                             ?>
                                             
                                             <?php if (count($_storeCategoriesChildChild) > 0): ?>
-                                                <ul id="ul-<?php echo $_id2; ?>" class="store-category2-child category-child" <?php echo $_storeCategoryDisplay2; ?>>
-                                                    <?php foreach ($_storeCategoriesChildChild as $_storeCategoryChildChild): ?>
-                                                        <?php
-                                                        $_id3 = $_storeCategoryChildChild['id'];
-                                                        $_name3 = $_storeCategoryChildChild['name'];
-                                                        $_url3 = $_storeCategoryChildChild['url'];
-                                                        $_urlKey3 = $_storeCategoryChildChild['url_key'];
-                                                        ?>
-                                                    
-                                                        <li class="store-category3">
-                                                            <a class="subcategories <?php echo $_helper->getCategoryClass($_id3); ?>" href="<?php echo $_url3; ?>">
-                                                                <?php echo $_name3; ?>
-                                                            </a>
-                                                        </li>
-                                                    <?php endforeach; ?>
-                                                </ul>
+                                                <?php foreach ($_storeCategoriesChildChild as $_storeCategoryChildChild): ?>
+                                                    <?php
+                                                    $_id3 = $_storeCategoryChildChild['id'];
+                                                    $_name3 = $_storeCategoryChildChild['name'];
+                                                    $_url3 = $_storeCategoryChildChild['url'];
+                                                    $_urlKey3 = $_storeCategoryChildChild['url_key'];
+                                                    ?>
+                                            
+                                                    <li>
+                                                        <a href="<?php echo $_url3; ?>"><?php echo $_name3; ?></a>
+                                                    </li>
+                                                <?php endforeach; ?>
                                             <?php endif; ?>
-                                        </li>
-                                    <?php endforeach; ?>
-                                </ul>
+                                        <?php endforeach; ?>
+                                    </ul>
+                                </div>
                             <?php endif; ?>
                         </li>
                     <?php endforeach; ?>
