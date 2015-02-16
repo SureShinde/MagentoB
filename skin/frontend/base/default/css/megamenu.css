@@ -1,7 +1,7 @@
 .menu-navigation{
     clear: both;
     display: inline-block;
-    margin: 17px 0 7px;
+    margin: 17px 0 0;
     position: relative;
     width: 100%;
 	float:left;
@@ -34,17 +34,24 @@
 .wrap-megamenu{
     width: 185px;
     cursor: pointer;
+	height:26px;
     position: absolute;
-    padding: 8px 0;
-    background: #55909a;
+    padding: 16px 0 0;
+    background: url(../images/megamenu/shd-megamenu-button.png) repeat-x bottom #F15A29;
     z-index: 999;
+	border-top-left-radius:5px;
+	border-top-right-radius:5px;
+	-moz-border-radius-topleft: 5px;
+	-moz-border-radius-topright:5px;
+	-webkit-border-top-left-radius:5px;
+	-webkit-border-top-right-radius:5px;
 }
 .button-megamenu{
     text-transform: uppercase;
     font-size: 1.2em;
     line-height: 1.1em;
     font-weight: bold;
-    text-indent: 15px;
+    text-indent: 8px;
 }
 .button-megamenu:after{
     width: 20px;
@@ -53,7 +60,7 @@
     display: block;
     position: absolute;
     right: 0;
-    top:3px;
+    top:10px;
     background: url(../images/megamenu/arrow.png) no-repeat -8px -713px;
 }
 .link-space-header{
@@ -87,6 +94,7 @@
 .megamenu.megamenu-active{
     height: 515px;
 	overflow:visible;
+	border-top: 1px solid #e9e9ea;
 }
 .megamenu{
     position: absolute;
@@ -95,7 +103,7 @@
     background: #fff;
     z-index: 98;
     display: block;
-    top: 33px;
+    top: 42px;
 	overflow:hidden;
     height: 0;
 }
@@ -111,7 +119,7 @@
     width: 185px;
     margin: 0 20px 0 0;
 	height:100%;
-    border-right: 1px solid #ededed;
+	background: #D1D3D4;
 }
 .menu-navigation .first-level > ul{
 	padding-top:20px;
@@ -127,15 +135,14 @@
     line-height: 2.5em;
     font-size: 1em;
     text-rendering: geometricPrecision;
-    font-weight: bold;
     text-indent: 10px;
     margin-left: 10px;
-    background-image: url(../images/megamenu/arrow.png);
+    /*/*background-image: url(../images/megamenu/arrow.png);*/*/
     background-repeat: no-repeat;
     background-position: right -90px;
 }
 .menu-navigation li a, .menu-navigation .second-level p a{
-    color: #707070;
+    color: #414042;
     text-decoration: none;
 }
 .menu-navigation .second-level p{
@@ -155,32 +162,38 @@
     display: none;
 }
 .menu-navigation .first-level .default > a, .menu-navigation .first-level > ul > li:hover > a, .menu-navigation .first-level > ul:hover > li.default:hover > a {
-    color: #fff;
+    color: #F48120;
 }
 .menu-navigation .first-level > ul:hover > li.default a{
 	color:#707070;
 }
 .menu-navigation .first-level .default, .menu-navigation .first-level > ul > li:hover {
-    background-color:#51c6d8;
+    background-color:#F48120;
+}
+.menu-navigation .first-level > ul > li.default:after{
+	content:"►";
+	color:inherit;
+	position:absolute;
+	right:10px;
 }
 .menu-navigation .first-level > ul > li.default, .menu-navigation .first-level > ul:hover > li.default:hover{
-    background-image: url(../images/megamenu/arrow.png);
+    /*background-image: url(../images/megamenu/arrow.png);*/
     background-repeat: no-repeat;
-    background-color:#51c6d8;
+    background-color:#fff;
     background-position: right -611px;
 }
 .menu-navigation .first-level > ul:hover > li.default{
     background-color:transparent;
-    background-image: url(../images/megamenu/arrow.png);
+    /*background-image: url(../images/megamenu/arrow.png);*/
     background-repeat: no-repeat;
     background-position: right -90px;
 }
 .menu-navigation .first-level > ul:hover > li.default .second-level{
 	display:none;
 }
-.menu-navigation  .first-level > ul > li:hover{
-    background-color:#51c6d8;
-    background-image: url(../images/megamenu/arrow.png);
+.menu-navigation .first-level > ul > li:hover{
+    background-color:#fff;
+    /*background-image: url(../images/megamenu/arrow.png);*/
     background-repeat: no-repeat;
     background-position: right -611px;
 }

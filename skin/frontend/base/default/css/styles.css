@@ -488,19 +488,20 @@ tr.summary-details-excluded { font-style:italic; }
 }
 .link-cart-special { 
 	width: 88px;
-	background-image: url(../images/btn-buynow.png);
-	height: 36px;
+	background:#231F20;
+	/*background-image: url(../images/btn-buynow.png);*/
+	height: 30px;
 	bottom: 20px !important;
-	line-height: 21px;
+	line-height: 30px;
 	color: #fff !important;
 	position: absolute !important;
 	font-family: Helvetica;
-	font-size: 1em;
-	font-weight: bold;
+	font-size: 0.9em;
 	text-transform: uppercase;
-	background-size: 88px 36px;
+	border-radius:5px;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
 	text-align: center;
-	line-height: 36px;
 }
 .link-wishlist { color:#dc6809; font-weight:bold; position:absolute; bottom:5px !important; width: 90px;}
 .link-reorder { font-weight:bold; color:#dc6809 !important; }

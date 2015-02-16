@@ -188,12 +188,14 @@
 	width: 230px;
 }
 .product-view .product-shop .product-shop-right .add-to-cart {
-	background: url(../images/btn-buynow2.png) no-repeat;
+	/*background: url(../images/btn-buynow2.png) no-repeat;*/
 	height: 40px;
 	width: 230px;
 	margin: 0 auto;
-	clear:both;
-	display:block;
+	border-top: 2px dashed;
+	border-bottom: 2px dashed;
+	clear: both;
+	display: block;
 }
 .product-view .product-shop .product-shop-right .btn-buy-grouped .add-to-cart {
 	background: url(../images/btn-buynow4.png) repeat-x;
@@ -210,8 +212,12 @@
 	background: url(../images/bg-txt-qty.png) no-repeat;
 }
 .product-view .product-shop .product-shop-right .add-to-cart button.button {
-	margin-left: 28px;
-	margin-top: 3px;
+	margin-top: 5px;
+	bottom: 0;
+	width: 155px;
+	background: #000;
+	color: #fff;
+	position: relative;
 }
 .product-view .product-shop .product-shop-right .btn-buy-grouped .add-to-cart button.button {
 	text-align: center;
@@ -222,7 +228,8 @@
 	background: none;
 }
 .product-view .product-shop .product-shop-right button.btn-cart span span {
-	font-size: 1.16em;
+	font-size: 1em;
+	color: #fff;
 }
 .product-view .product-shop .product-shop-right .one-click-checkout {
 	margin: 10px auto;
@@ -381,12 +388,6 @@
 	width: 88px;
 	height: 36px;
 	color: white;
-}
-.product-shop-right .block.block-related .block-content .aw-arp-item .aw-arp-addtocart .link-cart {
-	color: white !important;
-	text-transform: uppercase;
-	line-height: 2.7em;
-	padding-left: 12px;
 }
 .product-view .product-shop .product-shop-right .share-button {
 	margin-bottom: 5px;
@@ -1211,12 +1212,22 @@ margin: 0 1% ;
 .product-view .product-shop-right .block.block-related .block-content .aw-arp-item .aw-arp-addtocart .link-cart {
 	margin-top: 20px;
 	float: right;
-	background: url(../images/btn-buynow.png) no-repeat;
 	width: 88px;
-	height: 36px;
 	color: white;
 	padding: 1px 0;
     text-align: center;
+	
+	background:#231F20;
+	border-radius:5px;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+    /*background-image:url(../../../images/btn-buynow.png);*/
+    height:25px;
+    line-height:25px;
+    color: #fff;
+    font-family: Helvetica;
+    font-size: 0.9em;
+    text-transform: uppercase;
 }
 .catalog-product-view .aw-mini-related-items .availability.out-of-stock,
 .product-view .product-shop-right .block.block-related .block-content .aw-arp-item .aw-arp-addtocart .availability.out-of-stock {

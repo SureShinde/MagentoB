@@ -163,14 +163,19 @@ body {
 }
 button.btn-cart {
     width:88px;
-    background-image:url(../images/btn-buynow.png);
-    height:36px;
-    line-height:21px;
+	background:#231F20;
+	border-radius:5px;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+    /*background-image:url(../../../images/btn-buynow.png);*/
+    height:30px;
+    line-height:30px;
     color: #fff;
-	font-family: Helvetica;
-    font-size: 1em;
-    font-weight: normal;
+    font-family: Helvetica;
+    font-size: 0.9em;
     text-transform: uppercase;
+	position: absolute;
+	bottom: 20px;
 }
 button.buynow_awrelated {
     background-image: url("../images/btn-buynow.png");
