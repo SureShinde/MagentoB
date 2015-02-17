@@ -2459,6 +2459,9 @@ searchbar #nav-search-in {
 	}.header .quick-access a.link-myaccount-mobile, .header .search-mobile, .header .search-mobile .form-search, .header .form-search button.button.btn-search-mobile, .nav-container #nav li {
 		display: block;
 	}
+	.header .quick-access .log-reg{
+		display:none;
+	}
 	.header .quick-access .top-cart {
 		float: left !important;
 		background: none;
