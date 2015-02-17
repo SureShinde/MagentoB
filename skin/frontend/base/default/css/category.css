@@ -809,32 +809,6 @@ a.triger-showfilter {
 }
 /* END new updated */
 
-.style-baby .homepage-bottom,
-.style-perlengkapan-rumah .homepage-bottom, 
-.style-supermarket .homepage-bottom, 
-.style-kosmetik .homepage-bottom { 
-	clear: both;
-    margin: 0 0 20px;
-}
-
-
-.style-baby .homepage-bottom ul.block-wrapper li,
-.style-perlengkapan-rumah .homepage-bottom ul.block-wrapper li,
-.style-supermarket .homepage-bottom ul.block-wrapper li,
-.style-kosmetik .homepage-bottom ul.block-wrapper li{
-    margin-bottom: 16px;
-    margin-left: 6px;
-    margin-right: 6px;
-    width: 28.79%;
-}
-.style-perlengkapan-rumah .homepage-bottom ul.block-wrapper li.image-bottom-cust,
-.style-supermarket .homepage-bottom ul.block-wrapper li.image-bottom-cust,
-.style-kosmetik .homepage-bottom ul.block-wrapper li.image-bottom-cust,
-.style-baby .homepage-bottom ul.block-wrapper li.image-bottom-cust{
-	padding: 0;
-	width: 30.2%;
-}
-
 
 .style-perlengkapan-rumah .homepage-bottom ul.block-wrapper li:last-child {}
 .style-perlengkapan-rumah .block-bottom {
@@ -1072,19 +1046,8 @@ a.triger-showfilter {
 .style-perlengkapan-rumah .wrap_banner .col-3{
 	width:245px;
 }
-.style-baby .homepage-bottom ul.block-wrapper li,
-.style-perlengkapan-rumah .homepage-bottom ul.block-wrapper li {
-	width: 27.79%;
-	margin: 0 8px 34px;
-}
 .style-perlengkapan-rumah .homepage-bottom ul.block-wrapper li:nth-child(2){
 	margin:0 17px 15px;
-}
-.style-baby .block-bottom span,
-.style-perlengkapan-rumah .block-bottom span {
-	display: block;
-	font-size: 19px;
-	font-family: 'Fredoka One';
 }
 .style-perlengkapan-rumah .block-bottom p {
 	font-size: 14px;
@@ -1231,21 +1194,6 @@ a.triger-showfilter {
 	.style-perlengkapan-rumah .homepage-bottom ul.block-wrapper li:nth-child(2){
 	margin:0 2px 15px;
 	}
-        .style-baby .homepage-bottom ul.block-wrapper li,
-        .style-perlengkapan-rumah .homepage-bottom ul.block-wrapper li {
-            margin-bottom: 8px;
-            margin-left: 2.5px;
-            margin-right: 2.5px;
-            padding-left: 5px;
-            padding-right: 5px;
-            width: 30.95%;
-        }
-        .style-baby .homepage-bottom ul.block-wrapper li.image-bottom-cust,
-        .style-perlengkapan-rumah .homepage-bottom ul.block-wrapper li.image-bottom-cust {
-            padding: 0;
-            width: 32.2%;
-        }
-        
 	/*#nav li.level-top.shop-by{
 		position:relative;
 		bottom:0;

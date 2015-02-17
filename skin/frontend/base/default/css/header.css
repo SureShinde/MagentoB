@@ -93,7 +93,7 @@ li#perlengkapan-rumah, li.mobile-perlengkapan-rumah {
 	background:#fff;
 	padding:10px;
 	border: 3px solid #F17F21;
-	top: 38px;
+	top: 34px;
 	z-index: 99;
 	left: 0;
 	width: 260px;
@@ -142,7 +142,7 @@ li#perlengkapan-rumah, li.mobile-perlengkapan-rumah {
 	display: none;
 	text-align: left;
 	position: absolute;
-	top: 38px;
+	top: 34px;
 	background: #fff;
 	left:0;
 	border: 3px solid #F17F21;
@@ -2127,6 +2127,7 @@ searchbar #nav-search-in {
     
     .header .links {
         margin: 0 0 0 10px;
+		display:table;
     }
     .search-container-new {
         width: 83%;
@@ -2169,10 +2170,16 @@ searchbar #nav-search-in {
         max-width: 80px;
     }
 	.header .quick-access .log-reg{
-		display:none;
+		float:right;
+		padding:7px 10px 8px;
 	}
 	.keypoint ul li.return{
-		display:none;
+	}
+	.keypoint {
+		margin: 45px 0 0 5px;
+	}
+	.header .quick-access{
+		width: 46%;
 	}
 	.menu-navigation{
 		margin: 10px 0 0;
@@ -2187,7 +2194,6 @@ searchbar #nav-search-in {
         min-width:40px;
     }
 	.keypoint{
-		display:none;
 	}
 	.header, #nav, .sticky-header, .menu-tablet {
 		width: 745px;
@@ -2241,7 +2247,7 @@ searchbar #nav-search-in {
 		width:540px;
 	}
 	/* .sticky-header .sticky-search .form-search .input-keyword .select-category,  */
-	.header .links, .header .quick-access .store-phone, .header .form-language {
+	.header .quick-access .store-phone, .header .form-language {
 		display: none;
 	}
 	.header .form-search {
@@ -2332,21 +2338,26 @@ searchbar #nav-search-in {
     .search-for-sticky #nav-searchbar { margin: 1px 0 0 0 !important;}
     
     .keypoint ul li {
-        height: 27px;
+		width:25%;
+		padding:35px 0 0;
     }
     .keypoint ul li p {
         color: #707070;
-        display: none;
-        font-size: 10px;
-        line-height: 12px;
+		font-size: 10px;
+		line-height: 12px;
+		text-align: center;
+		background: #fff;
     }
     .keypoint ul li span {
-        margin: 7px 0;
+        padding: 7px 0;
+		text-align: center;
+		background: #fff;
     }
     .keypoint {
-        margin-left: 27px;
-        margin-top: 6px;
-        width: 46%;
+       margin-left: 0px;
+		margin-top: 40px;
+		display: table;
+		width: 72%;
     }
     .search-for-sticky {
         display: block;
@@ -2355,8 +2366,18 @@ searchbar #nav-search-in {
         top: 0;
         z-index: 2;
     }
-    
-    
+    .keypoint ul li.free-shipping {
+		background-position: center 0;
+	}
+	.keypoint ul li.cod {
+		background-position: center -37px;
+	}
+    .keypoint ul li.return {
+		background-position: center -73px;
+	}
+	.keypoint ul li.care-center {
+		background-position: center -109px;
+	}
     #nav a.link-shopby {
         background: url("../images/arrow-down.png") no-repeat scroll 28px 25px #A27E79;
         margin-top: 0;
@@ -2411,7 +2432,7 @@ searchbar #nav-search-in {
 		left: -102px;
 	}
 	.header .logo{
-		padding: 15px 0 0 15px;
+		padding: 35px 0 0 15px;
 		width: 185px;
 		margin: 0;
 	}

@@ -356,7 +356,7 @@
     	<a href="#" class="nav-mobile-trigger"><?php echo $this->__('Menu') ?></a>
         
         <a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="logo"><strong><?php echo $this->getLogoAlt() ?></strong>
-            <img src="<?php echo $this->getLogoSrc() ?><?php //echo $this->getSkinUrl(); ?>" alt="<?php echo $this->getLogoAlt() ?>" />
+            <img src="<?php echo $this->getSkinUrl(); ?>images/logo-2015.png" alt="<?php echo $this->getLogoAlt() ?>" />
         </a>
         
         <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('keypoint')->toHtml() ?>
@@ -493,4 +493,18 @@
             jQuery(".td-contact-sticky-cont ").hide();
         });  
     });
+</script>
+<?php 
+ $customer = Mage::getSingleton('customer/session')->getCustomer();
+ if(isset($customer) && !empty($customer)){
+ 	$email = $customer->getEmail();// for email address
+ }else{
+ 	$email = "";
+ }
+?>
+<script type="text/javascript">
+jQuery(document).ready(function () {    
+	dataLayer.push( {'sitetype': 'd'} );
+	dataLayer.push( {'emailaddress': '<?php echo $email; ?>'} );
+});
 </script>

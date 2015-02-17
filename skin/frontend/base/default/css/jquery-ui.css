@@ -140,15 +140,6 @@
 	padding: 0;
 	margin: 0;
 }
-.homepage-bottom ul.block-wrapper li {
-	display: inline-block;
-	margin: 0 14px 34px;
-	padding:10px 15px;
-	width: 28.25%;
-	background: #dad8d5;
-	vertical-align: top;
-}
-.homepage-bottom ul.block-wrapper li:last-child {}
 .ui-menu {
 	list-style:none;
 	padding: 2px;
@@ -178,69 +169,6 @@
 .ui-menu .ui-menu-item a.ui-state-active {
 	font-weight: normal;
 	margin: -1px;
-}
-
-
-.block-bottom {
-	text-align: center;
-	text-transform: uppercase;
-	color: #fff;
-	border-top: 2px dashed #fff;
-	border-bottom: 2px dashed #fff;	
-	padding: 12px 0;
-	height: 100px;
-}
-.block-bottom span {
-	display: block;
-	font-size: 23px;
-	font-family: 'Fredoka One', cursive;
-}
-.block-bottom p {
-	font-family: 'bebasregular';
-	font-size: 16.75px;
-	margin: 0;
-}
-.block-bottom p a {
-	display: inline-block;
-	text-decoration: underline;
-	text-align: left;
-	color: #fff;
-	/*background-image: url(../images/arrow-1.png);
-	background-repeat: no-repeat;
-	background-position: right 5px;*/
-	padding: 0 25px 0 0;
-}
-.block-bottom p a:hover {
-	text-decoration: none;
-}
-.block-bottom p a.link-how-to-buy {
-	width: 58px;
-	background-position: 40px 28px;
-}
-.block-bottom p a.link-shipping-table {
-	width: 101px;
-	background-position: 50px 28px;
-}
-.block-bottom p a.link-other-help {
-	width: 66px;
-	background-position: 50px 28px;
-	padding-left: 0;
-}
-.block-bottom p a.link-bilna-credit {
-	width: 80px;
-	background-position: 61px 28px;
-}
-.block-bottom p a.link-reseller-program {
-	width: 90px;
-	background-position: 71px 28px;
-}
-.block-bottom p a.link-gift-voucher {
-	width: 80px;
-	background-position: 67px 28px;
-}
-.block-bottom p a img {
-	margin-left: 5px;
-	margin-top: 3px;
 }
 .block-bottom table tr td {
 	padding: 0 15px;
@@ -380,29 +308,6 @@
 		margin: 0 auto;
 		position: relative;
 	}
-	.homepage-bottom ul.block-wrapper li {
-		margin-left: 6px;
-		margin-right: 6px;
-		margin-bottom: 16px;
-		width: 28.79%;
-	}
-	.block-bottom span {
-		font-size: 19px;
-	}
-	.block-bottom p {
-		font-size: 14px;
-	}
-	.block-bottom p a {
-		background-position: right center;
-	}
-	.block-bottom p a.link-how-to-buy {
-		width: 51px;
-		background-position: 34px 20px;
-	}
-	.block-bottom p a.link-shipping-table {
-		width: 84px;
-		background-position: 40px 20px;
-	}
 	.block-bottom p a.link-other-help {
 		width: 30px;
 		background-position: 38px 20px
@@ -456,14 +361,6 @@
 	}
 	.homepage-top-block.right a img {
 		width: 100%;
-	}
-	.homepage-bottom ul.block-wrapper li {
-		padding-left: 5px;
-		padding-right: 5px;
-		margin-left: 2.5px;
-		margin-right: 2.5px;
-		margin-bottom: 8px;
-		width: 30.95%;
 	}
 	.block-bottom {
 		height: 111px;

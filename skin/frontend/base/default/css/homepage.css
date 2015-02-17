@@ -3,6 +3,9 @@
 	display: table;
 width: 100%;
 }
+.block-bottom-mobile{
+	display:none;
+}
 .category-baby .homepage-top {
 	margin:0 0 20px;
 }
@@ -253,18 +256,18 @@ width: 100%;
 }
 
 /* -----END additional homepage new------ */
-.cms-home .homepage-bottom ul.block-wrapper.color-bottom li:first-of-type .block-bottom{
+.homepage-bottom ul.block-wrapper li:first-of-type .block-bottom{
 	border-right:1px solid #c8c7c7;
 	border-bottom:1px solid #c8c7c7;
 }
-.cms-home .homepage-bottom ul.block-wrapper.color-bottom li:nth-of-type(2) .block-bottom{
+.homepage-bottom ul.block-wrapper li:nth-of-type(2) .block-bottom{
 	border-right:1px solid #c8c7c7;
 	border-bottom:1px solid #c8c7c7;
 }
-.cms-home .homepage-bottom ul.block-wrapper.color-bottom li:last-of-type .block-bottom{
+.homepage-bottom ul.block-wrapper li:last-of-type .block-bottom{
 	border-bottom:1px solid #c8c7c7;
 }
-.cms-home .homepage-bottom ul.block-wrapper.color-bottom:last-of-type li .block-bottom{
+.homepage-bottom ul.block-wrapper:last-of-type li .block-bottom{
 	border-bottom:0;
 }
 .cms-home .homepage-bottom ul.block-wrapper:last-of-type{
@@ -747,7 +750,38 @@ width: 100%;
 }
 /* --------------- smaller 959 px layout -------------------- */
 @media only screen and (max-width: 767px) {
-	.homepage-middle, .homepage-bottom, .advertise, .homepage-top-block.right, .sticky-header-wrapper {
+	.block-bottom-mobile{
+		display: table;
+		width: 94%;
+		padding: 10px 0;
+		margin:0 3%;
+		border-bottom: 1px solid #c8c7c7;
+		border-top: 1px solid #c8c7c7;
+	}
+	.homepage-bottom{
+		display:none;
+	}
+	.block-bottom-mobile img{
+		float:left;
+	}
+	.block-bottom-mobile p{
+		display:block;
+		clear: right;
+		text-align: center;
+		color: #000
+	}
+	.block-bottom-mobile p span{
+		font-size:16px;
+		display:block;
+		color:#F48220;
+		clear:right;
+	}
+	.block-bottom-mobile p a{
+		padding:5px 10px;
+		background:#000;
+		color:#fff;
+	}
+	.homepage-middle, .advertise, .homepage-top-block.right, .sticky-header-wrapper {
 		display: none;
 	}
 	.homepage-top {
@@ -973,7 +1007,9 @@ width: 100%;
 .wrap-banner .first-banner-megamenu .bottom-right-firstbanner{
     padding: 0 0 0 5px;
 }
-
+.homepage .homepage-banner.slider-mobile{
+	display:none;
+}
 @media (min-width: 1023px )and (max-width: 1215px ){
     .homepage .homepage-banner .first-level li:hover .second-level, .homepage .homepage-banner .first-level .default .second-level{
         width: 805px;
@@ -1010,8 +1046,14 @@ width: 100%;
 	}
 }
 @media (max-width: 768px ) {
-	.homepage .homepage-banner{
-		display:none;
+	.homepage .homepage-banner
+	{
+	   display:none;
+	}
+	.homepage .homepage-banner.slider-mobile{
+		display:block;
+		width: 94%;
+		margin: 0 3%;
 	}
 }
 
