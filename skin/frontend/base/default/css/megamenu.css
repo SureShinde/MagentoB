@@ -46,6 +46,9 @@
 	-webkit-border-top-left-radius:5px;
 	-webkit-border-top-right-radius:5px;
 }
+.wrap-megamenu:hover {
+    background: url(../images/megamenu/shd-megamenu-button-hover.png) repeat-x bottom #F15A29;
+}
 .button-megamenu{
     text-transform: uppercase;
     font-size: 1.2em;
@@ -174,7 +177,7 @@
 	content:"►";
 	color:inherit;
 	position:absolute;
-	right:10px;
+	left: 154px;
 }
 .menu-navigation .first-level > ul > li.default, .menu-navigation .first-level > ul:hover > li.default:hover{
     /*background-image: url(../images/megamenu/arrow.png);*/
@@ -275,6 +278,11 @@
 .wrap-banner .first-banner-megamenu .bottom-right-firstbanner{
     padding: 0 0 0 7px;
 }
+.megamenu-stiky{
+	position:fixed;
+	top:41px;
+	width:1216px;
+}
 @media (min-width: 1023px )and (max-width: 1215px ){
     .menu-navigation .first-level li:hover .second-level, .menu-navigation .first-level .default .second-level{
         width: 805px;
@@ -299,10 +307,13 @@
 		padding: 0 0 0 3px;
 		width: 49%;
 	}
+	.megamenu-stiky{
+		width:994px;
+	}
 }
 @media (min-width: 768px )and (max-width: 1022px ){
     .wrap-banner .first-banner-megamenu{
-        width: 100%;
+        width: 96%;
     }
     .wrap-banner .second-banner-megamenu{
         display: none;
@@ -311,8 +322,8 @@
         display: none;
     }
     .menu-navigation .first-level li:hover .second-level, .menu-navigation .first-level .default .second-level{
-        width: 540px;
-        height: 395px;
+        width: 550px;
+        height: 430px !important;
     }
 	.megamenu{
 		height: 0;
@@ -322,6 +333,12 @@
 	}
 	.megamenu.megamenu-active {
 		height: 460px;
+	}
+	.wrap-banner .first-banner-megamenu .bottom-left-firstbanner{
+		padding: 0 3px 0 0;
+	}
+	.megamenu-stiky{
+		width:745px;
 	}
 }
 @media (max-width: 768px ) {

@@ -36,6 +36,10 @@
             $j('.bg-dark-megamenu').toggle();
             $j('.megamenu').toggleClass("megamenu-active");
         });
+		 $j('.bg-dark-megamenu').click(function() {
+            $j('.megamenu').removeClass("megamenu-active");
+            $j(this).hide();
+        });
 		
         //================mobile left menu js========================
         $j('.nav-mobile-trigger').click(function() {
@@ -196,23 +200,26 @@
     
     $j(document).ready(function() {
         $j(window).scroll(function() {
-            if ($j(this).scrollTop() > 100) {
-                $j(".header-container .sticky-header-wrapper").fadeIn();
+            if ($j(this).scrollTop() > 200) {
+                $j(".header-container .sticky-header-wrapper").fadeIn(100);
                 $j(".search-container-new").addClass("search-for-sticky");
                 $j(".link-minicart").addClass("cart-for-sticky");
                 $j(".mini-cart").addClass("cart-block-detail");
                 $j(".link-checkout").addClass("checkout-for-sticky");
                 $j(".normal-sticky-cart").addClass("add-width-cart");
                 $j(".normal-sticky-cart .link-blog").addClass("no-blog");
+                $j("#megamenu").addClass("megamenu-stiky");
+				
             }
             else {
-                $j(".header-container .sticky-header-wrapper").fadeOut();
+                $j(".header-container .sticky-header-wrapper").fadeOut(100);
                 $j(".search-container-new").removeClass("search-for-sticky");
                 $j(".link-minicart").removeClass("cart-for-sticky");
                 $j(".mini-cart").removeClass("cart-block-detail");
                 $j(".link-checkout").removeClass("checkout-for-sticky");
                 $j(".normal-sticky-cart").removeClass("add-width-cart");
                 $j(".normal-sticky-cart .link-blog").removeClass("no-blog");
+                $j("#megamenu").removeClass("megamenu-stiky");
             }
             
             if ($j(this).scrollTop() > 100) {
@@ -325,7 +332,7 @@
     <div class="sticky-header-wrapper">
         <div class="sticky-header">
             <a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="sticky-logo">
-                <img src="<?php echo $this->getLogoSrc() ?><?php //echo $this->getSkinUrl(); ?>" alt="<?php echo $this->getLogoAlt() ?>" />
+                <img src="<?php //echo $this->getLogoSrc() ?><?php echo $this->getSkinUrl(); ?>images/logo-2015-sticky.png" alt="<?php echo $this->getLogoAlt() ?>" />
             </a>
             
             <ul class="sticky-menu">
@@ -430,22 +437,6 @@
 </div>
 
 
-
-<?php // echo $this->getChildHtml('topMenu'); ?>
-
-<div class="menu-tablet">
-    <div class="header-container">
-	<?php echo $this->getChildHtml('topLinks') ?>
-        
-	<div class="store-phone">
-            <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('store_phone')->toHtml() ?>
-	</div>
-        
-	<?php //echo $this->getChildHtml('store_language') ?>
-        
-	<div class="clear"></div>
-    </div>
-</div>
 
 <div class="bg-dark-megamenu"></div>
 

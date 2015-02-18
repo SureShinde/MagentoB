@@ -219,6 +219,9 @@
 	color: #fff;
 	position: relative;
 }
+.product-view .product-shop .product-shop-right .add-to-cart:hover button.button{
+	background:#F48120;
+}
 .product-view .product-shop .product-shop-right .btn-buy-grouped .add-to-cart button.button {
 	text-align: center;
 	width: 100%;
@@ -699,17 +702,31 @@ margin: 0 1% ;
 	display: none;
 }
 .related-product .block-content .aw-arp-addtocart {
-	background: url(../images/btn-buynow.png) no-repeat;
 	width: 88px;
-	height: 36px;
-	position:absolute;
-	bottom:26px;
+	background: #231F20;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	/* background-image: url(../../../images/btn-buynow.png); */
+	height: 30px;
+	line-height: 30px;
+	color: #fff;
+	font-family: Helvetica;
+	font-size: 0.9em;
+	text-transform: uppercase;
+	position: absolute;
+	cursor:pointer;
+	bottom: 26px;
+}
+.related-product .block-content .aw-arp-item:hover .aw-arp-addtocart{
+	background:#F48120;
 }
 .related-product .block-content .aw-arp-addtocart a {
 	color: white !important;
 	text-transform: uppercase;
 	line-height: 2.7em;
 	font-size: 1.16em;
+	font-weight:normal;
 }
 
 .aw-mini-related-items.aw-base-mini {
@@ -812,7 +829,9 @@ margin: 0 1% ;
 .aw-mini-related-items button.btn-cart {
 	float: left;
 }
-
+.aw-mini-related-items li:hover button.btn-cart{
+	background: #F48120;
+}
 
 .product-tab-mobile-wrapper .tab-container {
     margin: 0 15px;
@@ -1184,7 +1203,7 @@ margin: 0 1% ;
 /* reserved product button */
 .reserved-prod-btn {clear: both; display: inline-block; margin: 0 0 30px 0; width: 119px;}
 .reserved-prod-btn a {
-	background: none repeat scroll 0 0 #FFA01B;
+	background: none repeat scroll 0 0 #231F20;
     border: medium none;
     color: #FFFFFF;
     display: block;
@@ -1228,6 +1247,9 @@ margin: 0 1% ;
     font-family: Helvetica;
     font-size: 0.9em;
     text-transform: uppercase;
+}
+.product-view .product-shop-right .block.block-related .block-content .aw-arp-item:hover .aw-arp-addtocart .link-cart{
+	background:#F48120;
 }
 .catalog-product-view .aw-mini-related-items .availability.out-of-stock,
 .product-view .product-shop-right .block.block-related .block-content .aw-arp-item .aw-arp-addtocart .availability.out-of-stock {
@@ -1280,7 +1302,7 @@ input#alert_email {
 	display:tabel;
 	width:100%;
 	padding: 6px 0 3px;
-	border-top:1px dashed #FFA01B;
-	border-bottom:1px dashed #FFA01B;
+	border-top:1px dashed #231F20;
+	border-bottom:1px dashed #231F20;
 }
 

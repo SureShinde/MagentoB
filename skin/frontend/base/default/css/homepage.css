@@ -335,7 +335,8 @@ width: 100%;
 	font-size: 10px;
 }
 .block-bottom p a:hover {
-	text-decoration: none;color: #FFA01B;
+	text-decoration: none;
+	background: #FFA01B;
 }
 .block-bottom p a.link-how-to-buy {
 	width: 58px;

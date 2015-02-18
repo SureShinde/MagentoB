@@ -25,8 +25,7 @@
 }
 .afp-addtocart .out-of-stock span{
 	width: 88px;
-	background:url(../../../../../base/default/images/btn-buynow-grey.png) no-repeat;
-	height: 36px;
+	height: 30px;
 	bottom: 20px !important;
 	line-height: 21px;
 	color: #fff !important;
@@ -34,10 +33,14 @@
 	font-family: Helvetica;
 	font-size: 1em;
 	font-weight: bold;
+	border:1px solid #231F20;
 	text-transform: uppercase;
 	background-size: 88px 36px;
 	text-align: center;
-	line-height: 36px;
+	line-height: 30px;
+	border-radius:5px;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
 }
 .awafpgrid ul li:hover {
 	background-color: #fff;
@@ -117,7 +120,7 @@
     background:none;
     cursor:pointer;
 }
-.awafpgrid .afp-addtocart button.btn-buynow, .awafpgrid .afp-addtocart a {
+.awafpgrid .afp-addtocart button.btn-buynow {
     width:88px;
 	background:#231F20;
 	border-radius:5px;
@@ -133,10 +136,22 @@
 	position: absolute;
 	bottom: 20px;
 }
+.awafpgrid > ul > li:hover .afp-addtocart button.btn-buynow, .awafpgrid > ul > li:hover .afp-addtocart a,
+.awafpgrid > ul > li .afp-addtocart button.btn-buynow:hover, .awafpgrid > ul > li .afp-addtocart a:hover{
+	background:#F48120;
+}
 .awafpgrid .afp-addtocart .availability.out-of-stock a {
 	position: relative;
-	color: #fff;
-	padding: 10px 0;
+	color: #231F20;
+    font-size: 0.9em;
+}
+.awafpgrid > ul > li:hover  .bottom_thumb_list_product .afp-addtocart .out-of-stock span{
+	border: 1px solid #F48120;
+}
+.awafpgrid > ul > li:hover  .bottom_thumb_list_product .afp-addtocart .out-of-stock span a{
+	background:none;
+	color:#F48120;
+	font-weight:normal;
 }
 .afp-thumbnail .onsale-category-container-list {
     float:none!important;

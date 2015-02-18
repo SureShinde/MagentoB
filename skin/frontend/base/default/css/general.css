@@ -161,6 +161,9 @@ body {
 	position:absolute;
 	bottom:0;
 }
+.products-grid > li:hover button.btn-cart, button.btn-cart:hover  {
+	background:#F48120;
+}
 button.btn-cart {
     width:88px;
 	background:#231F20;
@@ -400,9 +403,7 @@ a.back-to-top img {
 		width: 122px;
 	}
     .breadcrumbs {
-        margin: 0 0 13px 60px;
-        position: absolute;
-        top: 140px;
+        margin: 10px 0;
     }
 	
 }

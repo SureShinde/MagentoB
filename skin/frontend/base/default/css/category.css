@@ -21,9 +21,15 @@
 	color: #707070;
 }
 .products-grid .availability.out-of-stock a {
-	color:#fff;
+	color:#231F20;
 	text-transform:uppercase;
-	padding: 10px 0
+	font-size:0.9em;
+}
+.products-grid .item:hover .availability.out-of-stock a{
+	color:#F38020;
+}
+.products-grid .item:hover .availability.out-of-stock{
+	border:1px solid #F38020;
 }
 .block-layered-nav .block-subtitle, .block-layered-nav dt.category, .sorter .view-mode, .toolbar-bottom .sorter, .category-title {
 	display: none;
