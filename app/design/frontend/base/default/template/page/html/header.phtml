@@ -49,8 +49,12 @@
         });
         
         $j('.mobile-left-menu .wrap-menu-cat > ul > li').click(function() {
-            $j(".mobile-left-menu .wrap-menu-cat > ul > li").removeClass("menu-active");
-            $j(this).toggleClass("menu-active");
+			if ($j(this).hasClass("menu-active")){
+				$j(this).removeClass("menu-active");
+			} else {          
+				$j('.mobile-left-menu .wrap-menu-cat > ul > li').removeClass("menu-active");
+				$j(this).addClass("menu-active");
+			};
         });
         //================mobile left menu js========================
         

@@ -2937,7 +2937,7 @@ searchbar #nav-search-in {
 	}
 	.mobile-left-menu .back-left{
 		width:30%;
-		position:absolute;
+		position:fixed;
 		top:0;
 		bottom:0;
 		right:0
