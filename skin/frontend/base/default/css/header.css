@@ -1424,7 +1424,6 @@ top: 55px;
 	list-style: none;
 	padding: 0 0 5px 0;
 	margin: 0 0 5px 20px;
-	background: url(../images/dash.png) no-repeat left bottom;
 }
 .shopby ul:last-child {
     background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
@@ -1433,7 +1432,7 @@ top: 55px;
 	margin: 0 0 2px 0;
 }
 
-.shopby ul.shop-by li a:hover {color: #4EC7DA;}
+.shopby ul.shop-by li a:hover {color: #F15A29;}
 .homepage-top-block .shopby ul a{
 	clear:both;
 	display:block;
@@ -1456,11 +1455,10 @@ top: 55px;
 .submenu span.title {
 	margin-bottom: 10px;
 }
-.shopby ul.shop-by li a.link-seemore, .homepage-product a.link-viewmore-product, #nav .shopby ul.shop-by li a.link-seemore, #nav ul li a.browse-all {
+.shopby ul.shop-by li a.link-seemore, #nav .shopby ul.shop-by li a.link-seemore, #nav ul li a.browse-all {
 	display: inline-block;
 	padding: 0 20px 0 0;
 	font-weight: bold !important;
-	background: url(../images/arrow-2.png) no-repeat right center;
 }
 .level-top .browse-all{
 	margin: 10px 0px;
@@ -2937,7 +2935,7 @@ searchbar #nav-search-in {
 	}
 	.mobile-left-menu .back-left{
 		width:30%;
-		position:fixed;
+		position:absolute;
 		top:0;
 		bottom:0;
 		right:0

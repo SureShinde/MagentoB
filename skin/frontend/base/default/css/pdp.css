@@ -600,31 +600,27 @@ margin: 0 1% ;
 	border: 0;
 }
 .related-product .block-title {
+	padding: 10px 0;
 	background: none;
-	border-bottom: none;
-	padding: 0;
+	border-bottom: 1px solid #c8c7c7;
+	border-top: 1px solid #c8c7c7;
 }
 .related-product .block-related .block-title strong, 
 .aw-mini-related-items .head strong {
 	background: none;
 	padding: 0;
-	text-align: center;
+	text-align: left;
+	padding-left: 10px;
 }
 .related-product .block .block-content {
 	background: none;
 }
-.related-product .block-title {
-	background: url(../images/label_list_related_product.png) no-repeat center top, url(../images/dash-2.png) repeat-x left 20px;
-	height: 60px;
-}
 .related-product .block-title strong span, 
 .aw-mini-related-items .head strong {
-	color: #fff;
-	font-size: 2em;
-	font-family: 'bebasregular';
+	color: #231F20;
+	font-size: 1em;
 	text-transform: uppercase;
-	letter-spacing: 1px;
-	line-height: 2em;
+	line-height: 1em;
 }
 .related-product .block-content .aw-arp-item {
 	float: left;

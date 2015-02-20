@@ -46,6 +46,7 @@
             $j('.mobile-left-menu').css({"width":"100%","left":"0"});
             $j('.wrapper').css({"float":"left","margin-left":"70%","position":"fixed"});
             $j('body').css({"overflow":"hidden"});
+            $j('.mobile-left-menu .back-left').css({"position":"fixed"});
         });
         
         $j('.mobile-left-menu .wrap-menu-cat > ul > li').click(function() {
@@ -62,6 +63,7 @@
             $j('.mobile-left-menu').css({"width":"100%","left":"-100%"});
             $j('.wrapper').css({"float":"none","margin-left":"0","position":"relative"});
             $j('body').css({"overflow":"auto"});
+			$j('.mobile-left-menu .back-left').css({"position":"absolute"});
         });
 		
         if ($j('body').hasClass('style-baby') ||

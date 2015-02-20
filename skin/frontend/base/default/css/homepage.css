@@ -12,7 +12,7 @@ width: 100%;
 .homepage-top-block {
 	float: left;
 }
-/* .cms-index-index .homepage-top-block {
+/* .homepage-top-block {
     float: left;
     margin: 0;
 } */
@@ -88,174 +88,30 @@ width: 100%;
 }
 .homepage-product {
 	position: relative;
-    background: url("../images/shd_featured_title.png") repeat-x scroll center bottom rgba(0, 0, 0, 0);
-}
-.style-mom-baby .homepage-product.onsale,
-.style-baby .homepage-product.onsale {
-	background: url(../images/label-list-product.png) no-repeat center top, url(../images/dash-2.png) repeat-x left 21px;
-}
-.style-mom-baby .homepage-product.newarrival,
-.style-baby .homepage-product.newarrival {
-	background: url(../images/label-new-arrival.png) no-repeat center top, url(../images/dash-2.png) repeat-x left 21px;
-}
-.style-mom-baby .homepage-product.mostpopular,
- .style-baby .homepage-product.mostpopular{
-	background: url(../images/label-most-popular.png) no-repeat center top, url(../images/dash-2.png) repeat-x left 21px;
+	width: 100%;
+	display: table;
+	padding:10px 0;
+	border-top:1px solid #c8c7c7;
+	border-bottom:1px solid #c8c7c7;
 }
 .homepage-product h2 {
-	color: #fff;
-	font-size: 24px;
-	font-family: 'bebasregular';
+	color: #231F20;
 	text-transform: uppercase;
-	letter-spacing: 1px;
+	float: left;
+	font-size: 1.2em;
+	padding-left: 10px;
 	text-align: center;
-	padding: 12px 0;
-	margin: 0 0 20px 0;
 }
 .homepage-product a.link-viewmore-product {
-	position: absolute;
-	top: 5px;
-	right: 6px;
-	display:none;
-}
-.cms-index-index .homepage-product a.link-viewmore-product {
-	display: block !important;
+	float: right;
+	margin-right: 10px;
+	color: #F48120;
+	line-height: 1.5em;
 }
 .homepage-product a.link-viewmore-product:hover {
-	color: #4EC7DA;
+	text-decoration:underline;
 }
 
-/* ----------------------------- CSS Aditional on HOMEPAGE NEW ----------------------------- */
-.cms-index-index .homepage-product.onsale h2, .cms-index-index .homepage-product.newarrival h2, .cms-index-index .homepage-product.mostpopular h2{
-	/* background: url("../images/shd_featured_title.png") repeat-x scroll center bottom rgba(0, 0, 0, 0); */
-	background: none;
-	color: #707070;
-	padding: 0;
-	position: relative;
-	font-size: 24px;
-	font-family:'bebasregular';
-	margin: 0 0 10px;
-	text-align: left;
-	}
-.cms-home .homepage-product.onsale h2, .cms-home .homepage-product.newarrival h2, .cms-home .homepage-product.mostpopular h2{
-	/* background: url("../images/shd_featured_title.png") repeat-x scroll center bottom rgba(0, 0, 0, 0); */
-    background: none;
-	color: #707070;
-	padding: 0;
-	position: relative;
-	font-size: 24px;
-	font-family:'bebasregular';
-	margin: 0 0 10px;
-	text-align: left;
-	}
-.cms-home .homepage-product.onsale h2 span, .cms-home .homepage-product.newarrival h2 span, .cms-home .homepage-product.mostpopular h2 span{
-	background: url("../images/arrow-2.png") no-repeat scroll right center rgba(0, 0, 0, 0);
-    float: right;
-    font-family: helvetica;
-    font-size: 12px;
-    font-weight: bold;
-    margin: 9px 5px 0 0;
-    padding: 0 24px 0 0;
-}
-.cms-home .homepage-product.onsale h2, .cms-home .homepage-product.newarrival h2, .cms-home .homepage-product.mostpopular h2{
-	/* background: url("../images/shd_featured_title.png") repeat-x scroll center bottom rgba(0, 0, 0, 0); */
-    background: none;
-	color: #707070;
-	padding: 0;
-	position: relative;
-	font-size: 24px;
-	font-family:'bebasregular';
-	margin: 0 0 10px;
-	text-align: left;
-    border-bottom: 5px solid;
-    width:-moz-fit-content;
-    width:-webkit-fit-content;
-    width:fit-content;
-	}
-.cms-home .homepage-product.onsale h2 span, .cms-home .homepage-product.newarrival h2 span, .cms-home .homepage-product.mostpopular h2 span{
-	background: url("../images/arrow-2.png") no-repeat scroll right center rgba(0, 0, 0, 0);
-    float: right;
-    font-family: helvetica;
-    font-size: 12px;
-    font-weight: bold;
-    margin: 9px 5px 0 0;
-    padding: 0 24px 0 0;
-}
-.cms-home .homepage-product.onsale h2:before, .cms-home .homepage-product.newarrival h2:before, .cms-home .homepage-product.mostpopular h2:before{
-	bottom: 0;
-	content: "";
-	height: 5px;
-	left: 0;
-	position: absolute;
-}
-.cms-home .homepage-product.onsale h2:before, .cms-home .homepage-product.newarrival h2:before, .cms-home .homepage-product.mostpopular h2:before{
-	bottom: 0;
-	content: "";
-	height: 5px;
-	left: 0;
-	position: absolute;
-}
-.cms-home .homepage-product.onsale h2:before{
-	width: 170px;
-	background: none repeat scroll 0 0 #F76A59;
-    display: none;
-}
-.cms-home .homepage-product.onsale h2:before{
-	/* width: 210px; */
-    width: 187px;
-	background: none repeat scroll 0 0 #F76A59;
-    display: none;
-}
-.cms-home .homepage-product.newarrival h2:before{
-	width: 130px;
-	background: none repeat scroll 0 0 #7dcd32;
-    display: none;
-}
-.cms-home .homepage-product.newarrival h2:before{
-	/* width: 140px; */
-    width: 256px;
-	background: none repeat scroll 0 0 #7dcd32;
-    display: none;
-}
-.cms-home .homepage-product.mostpopular h2:before{
-	width: 150px;
-	background: none repeat scroll 0 0 #42bcd1;
-    display: none;
-}
-.cms-home .homepage-product.mostpopular h2:before{
-	/* width: 160px; */
-    width: 187px;
-	background: none repeat scroll 0 0 #42bcd1;
-    display: none;
-}
-
-
-.cms-home .homepage-product.onsale h2{
-	border-bottom:5px solid #F76A59;
-    background: none;
-}
-.cms-home .homepage-product.onsale h2{
-	border-bottom:5px solid #F76A59;
-    background: none;
-}
-.cms-home .homepage-product.newarrival h2{
-	border-bottom:5px solid #7dcd32;
-    background: none;
-}
-.cms-home .homepage-product.newarrival h2{
-	border-bottom:5px solid #7dcd32;
-    background: none;
-}
-.cms-home .homepage-product.mostpopular h2{
-	border-bottom:5px solid #42bcd1;
-    background: none;
-}
-.cms-home .homepage-product.mostpopular h2{
-	border-bottom:5px solid #42bcd1;
-    background: none;
-}
-
-/* -----END additional homepage new------ */
 .homepage-bottom ul.block-wrapper li:first-of-type .block-bottom{
 	border-right:1px solid #c8c7c7;
 	border-bottom:1px solid #c8c7c7;
@@ -270,17 +126,16 @@ width: 100%;
 .homepage-bottom ul.block-wrapper:last-of-type li .block-bottom{
 	border-bottom:0;
 }
-.cms-home .homepage-bottom ul.block-wrapper:last-of-type{
+.homepage-bottom ul.block-wrapper:last-of-type{
 	margin-bottom:30px;
 }
-.cms-home .homepage-bottom .block-wrapper > a{
+.homepage-bottom .block-wrapper > a{
 	float: left;
     margin: 10px 18px;
 	width:30.25%;
 }
-.cms-home .block-wrapper a p img{
+.block-wrapper a p img, .block-wrapper a img{
 	width:100%;
-	height:150px;
 }
 .homepage-bottom {
 	clear: both;
@@ -508,7 +363,7 @@ width: 100%;
 
 .banner-right-mainhomepage p, .banner-left-mainhomepage p {margin: 0 0 0.8em !important;}
 
-.cms-index-index .slidesjs-pagination .slidesjs-pagination-item a{
+.slidesjs-pagination .slidesjs-pagination-item a{
 	 background: none repeat scroll 0 0 #C7C7C7 !important;
     border-radius: 10px;
     color: #FFFFFF;
@@ -517,7 +372,7 @@ width: 100%;
     text-align: center;
     text-indent: 0 !important;
 }
-.cms-index-index .slidesjs-pagination .slidesjs-pagination-item a.active{
+.slidesjs-pagination .slidesjs-pagination-item a.active{
 	background:#ff9f1c !important;
 
 }
@@ -525,17 +380,16 @@ width: 100%;
 
 
 @media only screen and (max-width: 1215px) {
-	.cms-home .homepage-bottom .block-wrapper > a{
+	.homepage-bottom .block-wrapper > a{
     margin: 10px 8px;
 	width:31.65%;
 	}
 	.cms-home .block-wrapper a p img{
-		height:130px;
 	}
 	.homepage-top-block.left {
 		display: none;
 	}
-    .cms-index-index .homepage-top-block {
+    .homepage-top-block {
         float: left;
         margin: 0;
     }
@@ -607,18 +461,17 @@ width: 100%;
 }
 /* --------------- 960 px layout -------------------- */
 @media only screen and (max-width: 1023px) {
-	.cms-home .homepage-bottom .block-wrapper > a{
+	.homepage-bottom .block-wrapper > a{
     margin: 0 8px 10px 0;
 	width:31.95%;
 	}
 	.cms-home .block-wrapper a p img{
-		height:100px;
 	}
 	.homepage-top {
 		width: 717px;
 	}
     
-    .cms-index-index .homepage-top-block {
+    .homepage-top-block {
         float: left;
         margin: 0;
     }
@@ -810,6 +663,9 @@ width: 100%;
 		text-align: center;
 		right: 0;
 		margin: 10px 0;
+	}
+	.homepage-product{
+		display:none;
 	}
 }
 /* --------------- 320 px layout -------------------- */
@@ -1040,7 +896,7 @@ width: 100%;
     }
     .homepage .homepage-banner .first-level li:hover .second-level, .homepage .homepage-banner .first-level .default .second-level{
         width: 540px;
-        height: 395px;
+        height: 430px;
     }
 	.homepage .homepage-banner .first-level{
 		min-height: 450px;
