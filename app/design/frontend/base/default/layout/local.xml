@@ -21,6 +21,10 @@
             </action>
             <action method="addItem">
                 <type>skin_js</type>
+                <name>js/jquery.slides.js</name>
+            </action>
+            <action method="addItem">
+                <type>skin_js</type>
                 <name>js/jquery.jqzoom-core.js</name>
             </action>
             <action method="addItem">
@@ -104,10 +108,6 @@
     <cms_index_index>
         <reference name="head">
             <action method="addCss"><stylesheet>css/homepage.css</stylesheet></action>
-            <action method="addItem">
-                <type>skin_js</type>
-                <name>js/jquery.slides.js</name>
-            </action>
         </reference>
     </cms_index_index>
     <catalog_category_default translate="label">
