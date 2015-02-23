@@ -1967,23 +1967,27 @@ tr.summary-details-excluded { font-style:italic; }
 
 /* back-to-top css */
 #backtotop {
-    bottom: 0;
+    bottom: 50%;
     display: none;
-    margin-bottom: 20px;
     position: fixed;
-    right: 0;
+    right: 10px;
     z-index: 99;
 }
+#backtotop a span{
+	font-size:14px;
+	border-top: 2px solid;
+}
 #backtotop a {
-    background: none repeat scroll 0 0 #4ec7da;
+	background:#F05A2A;
     border: 0 none;
-    border-bottom-left-radius: 5px;
+    border-top-right-radius: 5px;
     border-top-left-radius: 5px;
-    color: #FFFFFF !important;
+    color: #FFFFFF;
     display: block;
     padding: 10px;
     text-decoration: none;
     text-transform: uppercase;
+	font-size:9px;
 }
 
 

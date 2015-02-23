@@ -136,7 +136,7 @@
 }
 .menu-navigation .first-level > ul > li{
     line-height: 2.5em;
-    font-size: 1.2em;
+    font-size: 1.06em;
     text-indent: 10px;
     margin-left: 10px;
     /*/*background-image: url(../images/megamenu/arrow.png);*/
@@ -149,6 +149,12 @@
 	display:block;
 	position:relative;
 }
+.menu-navigation li a{
+	text-transform:uppercase;
+}
+.menu-navigation .second-level  a{
+	text-transform:none;
+}
 .menu-navigation .second-level p{
 	line-height: 1.6em;
     margin: 0;
@@ -156,13 +162,14 @@
     text-indent: 0;
 }
 .menu-navigation .first-level .second-level li{
-    font-size: 0.8em;
-    line-height: 1.5em;
+    font-size: 0.93em;
+    line-height: 1.6em;
     padding-left: 20px;
     text-indent: 0;
 }
 .menu-navigation .first-level .second-level li:hover a{
 	color:#F48120;
+	text-decoration:underline
 }
 .menu-navigation .first-level .second-level{
     display: none;
