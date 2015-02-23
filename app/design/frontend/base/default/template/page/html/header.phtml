@@ -31,7 +31,7 @@
 <!--Mega Menu-->
 <script type="text/javascript">	
     $j(document).ready(function() {
-	
+		$j(".first-level > ul > li:first-of-type").addClass("default");
         $j('.wrap-megamenu').click(function() {
             $j('.bg-dark-megamenu').toggle();
             $j('.megamenu').toggleClass("megamenu-active");

@@ -2,21 +2,20 @@
 $_storeCategories = $this->getMegamenuData();
 $_categoryActive = $this->getCurrentMainCategoryIdActive();
 ?>
-
 <div class="first-level">
     <ul>
-        <li class="<?php if ($_categoryActive == 0): echo 'default'; endif; ?>">
-            <a><?php echo $this->__('Bilna Highlight'); ?></a>
+        <!--<li class="<?php //if ($_categoryActive == 0): echo 'default'; endif; ?>">
+            <a><?php //echo $this->__('Bilna Highlight'); ?></a>
             <div class="second-level">
                 <div class="wrap-second-cat">
-                    <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('menu-highlight-list')->toHtml(); ?>
+                    <?php //echo $this->getLayout()->createBlock('cms/block')->setBlockId('menu-highlight-list')->toHtml(); ?>
                 </div>
 
                 <div class="wrap-banner">
-                    <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('menu-highlight-block')->toHtml(); ?>
+                    <?php //echo $this->getLayout()->createBlock('cms/block')->setBlockId('menu-highlight-block')->toHtml(); ?>
                 </div>
             </div>
-        </li>
+        </li>-->
 
         <?php if (count($_storeCategories) > 0): ?>
            <?php foreach ($_storeCategories as $_storeCategory): ?>
