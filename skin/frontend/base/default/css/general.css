@@ -33,7 +33,9 @@ body {
 	font-size: 12px;
 	font-family: helvetica;
 	font-weight: bold;
-        margin: 13px 0;
+	background: #ebebeb;
+	padding: 13px 0;
+	text-indent: 15px;
 } 
 .breadcrumbs a {
 	color: #4ec7da;

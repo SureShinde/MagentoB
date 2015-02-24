@@ -42,6 +42,9 @@
         });
 		
         //================mobile left menu js========================
+		$j('.tooltip-mobile-first').click(function() {
+			$j(this).hide();
+		});
         $j('.nav-mobile-trigger').click(function() {
             $j('.mobile-left-menu').css({"width":"100%","left":"0"});
             $j('.wrapper').css({"float":"left","margin-left":"70%","position":"fixed"});
@@ -49,12 +52,13 @@
             $j('.mobile-left-menu .back-left').css({"position":"fixed"});
         });
         
-        $j('.mobile-left-menu .wrap-menu-cat > ul > li').click(function() {
-			if ($j(this).hasClass("menu-active")){
-				$j(this).removeClass("menu-active");
-			} else {          
+        $j('.mobile-left-menu .wrap-menu-cat > ul > li p').click(function() {
+			var data_left_menu_val = $j(this).attr("data-left-menu");
+			if ($j('.mobile-left-menu .wrap-menu-cat > ul > li.' + data_left_menu_val).hasClass("menu-active")){
+				$j('.mobile-left-menu .wrap-menu-cat > ul > li.' + data_left_menu_val).removeClass("menu-active");
+			} else {
 				$j('.mobile-left-menu .wrap-menu-cat > ul > li').removeClass("menu-active");
-				$j(this).addClass("menu-active");
+				$j('.mobile-left-menu .wrap-menu-cat > ul > li.' + data_left_menu_val ).addClass("menu-active");
 			};
         });
         //================mobile left menu js========================
@@ -206,7 +210,7 @@
     
     $j(document).ready(function() {
         $j(window).scroll(function() {
-            if ($j(this).scrollTop() > 200) {
+            if ($j(this).scrollTop() > 100) {
                 $j(".header-container .sticky-header-wrapper").fadeIn(100);
                 $j(".search-container-new").addClass("search-for-sticky");
                 $j(".link-minicart").addClass("cart-for-sticky");
@@ -333,8 +337,11 @@
 </script>
 
 <div class="header-container">
+	
+	<div class="tooltip-mobile-first">
+		<p> ← click here for menu category</p>
+	</div>
     <?php echo $this->getLayout()->createBlock('page/html')->setTemplate('page/html/back-top.phtml')->toHtml(); ?>
-    
     <div class="sticky-header-wrapper">
         <div class="sticky-header">
             <a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="sticky-logo">
@@ -367,7 +374,6 @@
     
     <div class="header">
     	<a href="#" class="nav-mobile-trigger"><?php echo $this->__('Menu') ?></a>
-        
         <a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="logo"><strong><?php echo $this->getLogoAlt() ?></strong>
             <img src="<?php echo $this->getSkinUrl(); ?>images/logo-2015.png" alt="<?php echo $this->getLogoAlt() ?>" />
         </a>

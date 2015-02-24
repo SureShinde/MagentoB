@@ -353,29 +353,29 @@ width: 100%;
 	right: 10px;
 	bottom: 0;
 	list-style: none;
-	z-index: 99 !important;
+	z-index: 9;
 	padding: 0;
 }
 .style-baby.catalog-category-view #slides-banner .slidesjs-pagination, .style-perlengkapan-rumah.catalog-category-view #slides-banner .slidesjs-pagination {
 	z-index: 8 !important;
 }
-#slides-banner .slidesjs-pagination li {
+.slidesjs-pagination li {
 	display: inline-block;
 	margin: 0 0 0 5px;
 	padding:0;
 }
-#slides-banner .slidesjs-pagination li:first-child {
+.slidesjs-pagination li:first-child {
 	margin-left: 0;
 }
 
-#slides-banner .slidesjs-pagination li.slidesjs-pagination-item a {
+.slidesjs-pagination li.slidesjs-pagination-item a {
 	display: block;
 	width: 19px;
 	height: 19px;
 	text-indent: -999999px;
 	background: url(../images/node.png) no-repeat center center;
 }
-#slides-banner .slidesjs-pagination li.slidesjs-pagination-item a.active {
+.slidesjs-pagination li.slidesjs-pagination-item a.active {
 	background: url(../images/node-active.png) no-repeat center center;
 	color:#fff;
 }
@@ -517,11 +517,6 @@ width: 100%;
         width: 114px;
         display: block;
     }
-	.homepage-top {
-		width: 955px;
-		margin: 0 auto;
-		position: relative;
-	}
     .cms-home .slider-wrapper {
         height: 200px;
         position: relative;
@@ -791,10 +786,10 @@ width: 100%;
 	text-indent: 0;
 }
 .homepage .homepage-banner .first-level .second-level li{
-    font-size: 1em;
+    font-size: 0.93em;
 	line-height: 1.6em;
 }
-.homepage .homepage-banner .first-level .second-level li:hover a{
+.homepage .homepage-banner .first-level .second-level .wrap-second-cat > ul li:hover > a{
 	color:#F05A2A;
 	text-decoration:underline;
 }
@@ -923,6 +918,10 @@ width: 100%;
 	.homepage .homepage-banner .first-level{
 		min-height: 470px;
 	}
+	/*=========== baby ================*/
+	.homepage-top-block.left {
+		display: none;
+	}
 }
 @media (min-width: 768px )and (max-width: 1022px ){
     .wrap-banner .first-banner-megamenu{
@@ -941,6 +940,22 @@ width: 100%;
 	.homepage .homepage-banner .first-level{
 		min-height: 450px;
 	}
+	/*=========== baby ================*/
+	.homepage-top-block.middle {
+		width: 78%;
+	}
+	.homepage-top-block.right, .category-mom-baby .homepage-top-block.right,
+    .homepage-top-block.right, .category-baby .homepage-top-block.right    {
+		width: 20%;
+	}
+	.homepage-top-block.right a {
+	}
+	.homepage-top-block.right a img {
+		width: 100%;
+	}
+	.homepage .homepage-banner .first-level > ul > li{
+		font-size: 1.1em;
+	}
 }
 @media (max-width: 768px ) {
 	.homepage .homepage-banner
@@ -951,6 +966,13 @@ width: 100%;
 		display:block;
 		width: 94%;
 		margin: 0 3%;
+	}
+	/*=========== baby ================*/
+	.homepage-middle, .homepage-bottom, .advertise, .homepage-top-block.right, .sticky-header-wrapper {
+		display: none;
+	}
+	.homepage-top-block.middle {
+		width: 100%;
 	}
 }
 

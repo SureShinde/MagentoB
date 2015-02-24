@@ -1967,7 +1967,7 @@ tr.summary-details-excluded { font-style:italic; }
 
 /* back-to-top css */
 #backtotop {
-    bottom: 50%;
+    bottom: 20%;
     display: none;
     position: fixed;
     right: 10px;
@@ -2004,10 +2004,6 @@ tr.summary-details-excluded { font-style:italic; }
 }*/
 /*======================Category page===================*/
 
-.catalog-category-view .shopby .shop-by a{
-	display:block;
-	clear:both;
-}
 .style-perlengkapan-rumah .toolbar .limiter ul li a{
 	color:#905350;
 }

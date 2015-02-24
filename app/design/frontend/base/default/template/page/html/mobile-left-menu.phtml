@@ -25,8 +25,8 @@
                         $_storeCategoryClass = ($_id == $_categoryActive) ? "active-category menu-active" : "";
                         ?>
                     
-                        <li class="<?php echo $_storeCategoryClass; ?>">
-                            <p class="first-level"><?php echo $_name; ?></p>
+                        <li class="<?php echo $_storeCategoryClass; ?> <?php echo $_id; ?>">
+                            <p class="first-level" data-left-menu="<?php echo $_id; ?>"><?php echo $_name; ?></p>
                             
                             <?php
                             $_storeCategoriesChild = array ();
@@ -47,7 +47,7 @@
                                             $_urlKey2 = $_storeCategoryChild['url_key'];
                                             ?>
                                         
-                                            <li class="second-level"><?php echo $_name2; ?></li>
+                                            <li class="second-level"><a href="<?php echo $_url2; ?>"><?php echo $_name2; ?></a></li>
                                             
                                             <?php
                                             $_storeCategoriesChildChild = array ();
