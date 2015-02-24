@@ -30,6 +30,8 @@
 
 <!--Mega Menu-->
 <script type="text/javascript">	
+    var tooltipMobileFirst = 'tooltip_mobile_first';
+    
     $j(document).ready(function() {
 		$j(".first-level > ul > li:first-of-type").addClass("default");
         $j('.wrap-megamenu').click(function() {
@@ -42,9 +44,11 @@
         });
 		
         //================mobile left menu js========================
-		$j('.tooltip-mobile-first').click(function() {
-			$j(this).hide();
-		});
+        $j('.tooltip-mobile-first').click(function() {
+            $j(this).hide();
+            setCookie(tooltipMobileFirst, 'done', 365);
+        });
+        
         $j('.nav-mobile-trigger').click(function() {
             $j('.mobile-left-menu').css({"width":"100%","left":"0"});
             $j('.wrapper').css({"float":"left","margin-left":"70%","position":"fixed"});
@@ -201,7 +205,36 @@
                 }
             );
         }
+        
+        checkMobileTooltip();
     });
+    
+    function checkMobileTooltip() {
+        var getTooltip = getCookie(tooltipMobileFirst);
+        if (getTooltip == '') {
+            $j('.tooltip-mobile-first').show();
+        }
+    }
+    
+    function setCookie(cname, cvalue, exdays) {
+        var de = new Date();
+        de.setTime(de.getTime() + (exdays*24*60*60*1000));
+        var expires = "expires=" + de.toUTCString();
+        document.cookie = cname + "=" + cvalue + "; " + expires;
+    }
+    
+    function getCookie(cname) {
+        var name = cname + "=";
+        var ca = document.cookie.split(';');
+        
+        for (var i=0; i<ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0)==' ') c = c.substring(1);
+            if (c.indexOf(name) == 0) return c.substring(name.length,c.length);
+        }
+        
+        return "";
+    }
 </script>
 
 <!--Mobile Menu-->
@@ -337,10 +370,10 @@
 </script>
 
 <div class="header-container">
-	
-	<div class="tooltip-mobile-first">
-		<p> ← click here for menu category</p>
-	</div>
+    <div class="tooltip-mobile-first">
+        <p> ← click here for menu category</p>
+    </div>
+    
     <?php echo $this->getLayout()->createBlock('page/html')->setTemplate('page/html/back-top.phtml')->toHtml(); ?>
     <div class="sticky-header-wrapper">
         <div class="sticky-header">
