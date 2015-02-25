@@ -283,6 +283,9 @@ width: 100%;
 	float: left;
 	margin: 0 0 0 40px;
 }
+.testimonial-wrapper .view_all:hover{
+	background:#FFA01B;
+}
 .testimonial-wrapper .view_all a{
 	color: #fff;
 }
