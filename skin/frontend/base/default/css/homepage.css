@@ -317,7 +317,7 @@ width: 100%;
 #slides {
 	  position:relative;
 }
-#slides .slidesjs-navigation {
+.testimonial-wrapper #slides .slidesjs-navigation {
   position:absolute;
   top:40px;
   z-index:10;
@@ -325,7 +325,7 @@ width: 100%;
   width: 30px;
   background-repeat: no-repeat;
   background-position: center center;
-  display:block;
+  display:block !important;
   text-indent: -9999px;
   cursor: pointer;
 }
@@ -839,6 +839,7 @@ width: 100%;
     z-index: 1;
 	height:485px;
 	overflow:hidden;
+	padding-top: 4px;
     background: #fff;
 }
 .homepage .homepage-banner .first-level > ul:hover > li.default:hover .second-level{
