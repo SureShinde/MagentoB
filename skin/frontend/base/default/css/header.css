@@ -3046,7 +3046,7 @@ searchbar #nav-search-in {
 	/*=================end left menu mobile==================*/
 	/** end mobile navigation 2015**/
 	.tooltip-mobile-first{
-		display:block;
+		display:none;
 		background-color: rgba(0, 0, 0, 0.9);
 		background-image:url(../images/tooltip-menutriger-mobile.jpg);
 		background-repeat:no-repeat;
