@@ -28,10 +28,11 @@
 ?>
 
 <?php $helper = Mage::helper('awislider'); ?>
+<?php $uniqueId = $this->getUniqueBlockId(); ?>
 <?php if ($this->canDisplay() && $this->getSlides()->getSize()): ?>
     <script type="text/javascript">
         $j(function() {
-            $j('.slides-banner').slidesjs({
+            $j('#slides-banner-<?php echo $uniqueId; ?>').slidesjs({
             //$j('#megamenu #slides-banner, .main-container #slides-banner').slidesjs({
                 width: <?php echo $this->getWidth(); ?>,
                 height: <?php echo $this->getHeight(); ?>,
@@ -52,7 +53,7 @@
         });
     </script>
     
-    <div id="slides-banner" class="slides-banner">
+    <div id="slides-banner-<?php echo $uniqueId; ?>" class="slides-banner">
         <?php $_i = 0; ?>
         <?php foreach ($this->getSlides() as $slide): ?>
             <?php if ($slide->getData('url')): ?>

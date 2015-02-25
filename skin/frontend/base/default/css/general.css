@@ -368,7 +368,9 @@ a.back-to-top img {
 	background: none;
 	padding-bottom: 0;
 }
-
+.slidesjs-navigation{
+	display:none !important;
+}
 @media only screen and (max-width: 1215px) {
 	.main-container, .main-container.col1-layout .main {
 		width: 994px;
