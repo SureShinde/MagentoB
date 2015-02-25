@@ -358,6 +358,7 @@ width: 100%;
 	list-style: none;
 	z-index: 9;
 	padding: 0;
+	line-height:normal;
 }
 .style-baby.catalog-category-view #slides-banner .slidesjs-pagination, .style-perlengkapan-rumah.catalog-category-view #slides-banner .slidesjs-pagination {
 	z-index: 8 !important;
@@ -801,6 +802,7 @@ width: 100%;
 }
 .homepage .homepage-banner .first-level .default .second-level{
     display: block;
+	padding-top: 4px;
     width: 1030px;
     z-index: 0;
 	height:485px;

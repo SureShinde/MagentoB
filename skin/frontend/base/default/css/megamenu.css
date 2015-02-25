@@ -161,7 +161,7 @@
     padding-bottom: 5px;
     text-indent: 0;
 }
-.menu-navigation .first-level .second-level li{
+.menu-navigation .first-level .second-level .wrap-second-cat ul > li{
     font-size: 0.93em;
     line-height: 1.6em;
     padding-left: 20px;
@@ -275,7 +275,7 @@
     width: 100%;
 }
 .wrap-banner .first-banner-megamenu img, .wrap-banner .first-banner-megamenu .main-banner{
-    padding: 0 0 10px;
+    margin: 0 0 10px;
 }
 .wrap-banner .second-banner-megamenu img{
     padding: 0 0 12px;
