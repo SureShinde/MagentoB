@@ -547,7 +547,9 @@ li#perlengkapan-rumah, li.mobile-perlengkapan-rumah {
 }
 .header .quick-access .top-cart a.link-checkout {
 	background-color:#ffa01b ;
-	padding: 9px 10px;
+	height: 30px;
+    line-height: 33px;
+    padding: 0 10px;
 }
 .header .quick-access .top-cart a.link-checkout:hover{
 	background:#F89E5D;
