@@ -463,8 +463,9 @@
             </div>
 
             <div class="link-space-header col-md-12">
-				<?php echo $this->getChildHtml('topSearch') ?>
-				
+				<div class="search-container-new">
+				<?php echo $this->getChildHtml('topSearch') ?>		               
+				</div>
 				<?php echo $this->getChildHtml('store_language') ?>
             </div>
             
@@ -480,14 +481,12 @@
         <div class="mini-cart-mobile"><?php echo $this->getChildHtml('topcart') ?></div>
 
         <div class="search-container-new-mobile">
-            <?php echo $this->getChildHtml('topSearch') ?>
+            <?php echo $this->getChildHtml('topSearch'); ?>
         </div>
         
         <div class="my-account-mobile"><?php echo $this->getChildHtml('topLinks') ?></div>
     </div>
 </div>
-
-
 
 <div class="bg-dark-megamenu"></div>
 
@@ -548,5 +547,13 @@
 jQuery(document).ready(function () {    
 	dataLayer.push( {'sitetype': 'd'} );
 	dataLayer.push( {'emailaddress': '<?php echo $email; ?>'} );
+});
+
+jQuery('.search-container-new #searchDropdownBox').change(function() {
+	jQuery('.search-container-new #nav-search-in-content').text(jQuery('.search-container-new #searchDropdownBox option:selected').text());
+});
+
+jQuery('.search-container-new-mobile #searchDropdownBox').change(function() {
+	jQuery('.search-container-new-mobile #nav-search-in-content').text(jQuery('.search-container-new-mobile #searchDropdownBox option:selected').text());
 });
 </script>

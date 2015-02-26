@@ -1709,6 +1709,7 @@ top: 55px;
 	padding-top: 6px;
 	padding-right:	10px;
 	padding-bottom:	6px;
+	background-position: 9px 11px;
 }
 
 .header .quick-access .top-cart a.link-checkout.checkout-for-sticky {
@@ -1948,21 +1949,25 @@ searchbar #nav-search-in {
     width: 100%;
 }
 
-.search-container-new #nav-searchbar select.select-style {
+.search-container-new #nav-searchbar select.select-style,
+.search-container-new-mobile #nav-searchbar select.select-style {
     background: none;
 }
-.search-container-new #nav-searchbar option.style-search-top {
+.search-container-new #nav-searchbar option.style-search-top,
+.search-container-new-mobile #nav-searchbar option.style-search-top {
     font-size: 13px;
     text-align: left;
     padding: 5px;
 }
-.search-container-new #nav-searchbar option.style-search-cat {
+.search-container-new #nav-searchbar option.style-search-cat,
+.search-container-new-mobile #nav-searchbar option.style-search-cat {
     font-weight: bold;
     font-size: 13px; 
-    text-align: left; 
-    padding: 5px 10px
+    text-align: left;
+    padding: 5px;
 }
-.search-container-new #nav-searchbar option.style-search-subcat {
+.search-container-new #nav-searchbar option.style-search-subcat,
+.search-container-new-mobile #nav-searchbar option.style-search-subcat {
     font-size: 13px;
     text-align: left;
     padding: 5px
@@ -2158,7 +2163,6 @@ searchbar #nav-search-in {
     }
 	.header .quick-access .log-reg{
 		float:right;
-		padding:7px 10px 8px;
 	}
 	.keypoint ul li.return{
 	}
