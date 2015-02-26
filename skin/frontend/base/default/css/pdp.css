@@ -729,11 +729,11 @@ margin: 0 1% ;
 	border: 0;
 }
 .aw-mini-related-items .head {
-	border: 0;
-	padding: 0;
-	background: url(../images/label_list_you_might_like_this.png) no-repeat center top, url(../images/dash-2.png) repeat-x left 20px;
-	height: 60px;
-	text-align: center;
+	background: none;
+	font-size: 1.2em;
+	text-align: left;
+	border-bottom: 1px solid;
+	border-top: 1px solid;
 }
 .aw-mini-related-items .head strong {
 	line-height: 2.3em;
@@ -1153,6 +1153,11 @@ margin: 0 1% ;
 		text-align:left;
 		text-indent:10px;
 	}
+	.product-view .product-shop .product-shop-right .share-button{
+		clear: both;
+		margin: 20px 0 10px;
+		display: block;
+	}
 }
 
 /* --------------- 320 px layout -------------------- */
@@ -1249,12 +1254,27 @@ margin: 0 1% ;
 }
 .catalog-product-view .aw-mini-related-items .availability.out-of-stock,
 .product-view .product-shop-right .block.block-related .block-content .aw-arp-item .aw-arp-addtocart .availability.out-of-stock {
-	margin-top: 20px;
-	float: right;
-	background: url(../images/btn-buynow-grey.png) no-repeat;
 	width: 88px;
-	height: 36px;
+	height: 30px;
+	bottom: 20px !important;
+	line-height: 21px;
+	color: #fff !important;
+	position: absolute !important;
+	font-family: Helvetica;
+	font-size: 1em;
 	font-weight: bold;
+	border:1px solid #231F20;
+	text-transform: uppercase;
+	background-size: 88px 36px;
+	text-align: center;
+	line-height: 30px;
+	border-radius:5px;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+}
+.catalog-product-view .aw-mini-related-items .availability.out-of-stock:hover,
+.product-view .product-shop-right .block.block-related .block-content .aw-arp-item .aw-arp-addtocart .availability.out-of-stock:hover {
+	border:1px solid #F48120;
 }
 .product-view .product-shop-right .block.block-related .block-content .aw-arp-item .aw-arp-addtocart .availability.out-of-stock  span{
 	width:100%;
@@ -1267,7 +1287,11 @@ margin: 0 1% ;
 	font-size:12px;
 	padding: 10px 9px;
 	text-transform: uppercase;
-	color: #fff;
+	color:#000
+}
+.catalog-product-view .aw-mini-related-items .availability.out-of-stock:hover a,
+.product-view .product-shop-right .block.block-related .block-content .aw-arp-item .aw-arp-addtocart .availability.out-of-stock:hover  span a{
+	color:#F48120;
 }
 .catalog-product-view .super-products .availability.out-of-stock {
     bottom: 30px;
