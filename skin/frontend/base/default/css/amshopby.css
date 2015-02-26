@@ -27,8 +27,8 @@ padding: 0pt 10px 10px 0pt; float: left;
 	overflow: hidden;
 }
 div.block-layered-nav dd a {padding:0px 5px 0px 0px; display:block; float: left;}  
-div.block-layered-nav dd a.amshopby-attr {padding-left:20px; background:transparent url(../images/checkbox.png) no-repeat left center;} 
-div.block-layered-nav dd a.amshopby-attr-selected {font-weight: bold; padding-left:20px; background:transparent url(../images/checked.png) no-repeat left center;} 
+div.block-layered-nav dd a.amshopby-attr {padding-left:20px; background:transparent url(../images/checkbox-black.png) no-repeat left center;} 
+div.block-layered-nav dd a.amshopby-attr-selected {font-weight: bold; padding-left:20px; background:transparent url(../images/checked-black.png) no-repeat left center;} 
 div.block-layered-nav dd a img {padding: 0px 4px 5px; float:left;} 
 
 div.block-layered-nav dd li.amshopby-cat-level-2 {padding-left:10px;}
@@ -61,7 +61,7 @@ div.block-layered-nav dt.amshopby-collapsed {
 
 
 div.block-layered-nav div.amshopby-slider {
-	 position:relative; margin:10px auto 5px auto; z-index:9; height:18px;  background: /*url(../images/amshopby-slider-bg.gif)*/url(../images/slide-bar.png) repeat-x 50% 50%; cursor:pointer; overflow: hidden;
+	 position:relative; margin:10px auto 5px auto; z-index:1; height:18px;  background: /*url(../images/amshopby-slider-bg.gif)*/url(../images/slide-bar.png) repeat-x 50% 50%; cursor:pointer; overflow: hidden;
 }
 div.block-layered-nav div.amshopby-slider div.handle {width:14px; top:3px; height:14px; background: transparent /*url(../images/amshopby-hadle.png)*/url(../images/slider.png) no-repeat; position: absolute; cursor:move; z-index: 2;}
 
