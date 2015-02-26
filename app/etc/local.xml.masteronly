@@ -1,0 +1,357 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category   Mage
+ * @package    Mage_Core
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+-->
+<config>
+    <global>
+        <install>
+            <date><![CDATA[Mon, 23 Dec 2013 06:02:24 +0000]]></date>
+        </install>
+        <crypt>
+            <key><![CDATA[f1561443d7414d8388d1fe64cadd6353]]></key>
+        </crypt>
+        <disable_local_modules>false</disable_local_modules>
+        <resources>
+            <db>
+                <table_prefix><![CDATA[]]></table_prefix>
+            </db>
+            <default_setup>
+                <connection>
+                    <host><![CDATA[bilnadbmaster.csgheamo30fd.ap-southeast-1.rds.amazonaws.com]]></host>
+                    <username><![CDATA[mybilnauser]]></username>
+                    <password><![CDATA[LawnqUiT79]]></password>
+                    <dbname><![CDATA[bilna_live]]></dbname>
+                    <initStatements><![CDATA[SET NAMES utf8]]></initStatements>
+                    <model><![CDATA[mysql4]]></model>
+                    <type><![CDATA[pdo_mysql]]></type>
+                    <pdoType><![CDATA[]]></pdoType>
+                    <active>1</active>
+                </connection>
+            </default_setup>
+            <slave_setup>
+                <connection>
+                    <host><![CDATA[bilnadbmaster.csgheamo30fd.ap-southeast-1.rds.amazonaws.com]]></host>
+                    <username><![CDATA[mybilnauser]]></username>
+                    <password><![CDATA[LawnqUiT79]]></password>
+                    <dbname><![CDATA[bilna_live]]></dbname>
+                    <initStatements><![CDATA[SET NAMES utf8]]></initStatements>
+                    <model><![CDATA[mysql4]]></model>
+                    <type><![CDATA[pdo_mysql]]></type>
+                    <pdoType><![CDATA[]]></pdoType>
+                    <active>1</active>
+                </connection>
+            </slave_setup>
+            <force_slave>
+                <connection>
+                    <host><![CDATA[bilnadbro1.csgheamo30fd.ap-southeast-1.rds.amazonaws.com]]></host>
+                    <!--host><![CDATA[sasha.bilna.com]]></host-->
+                    <username><![CDATA[mybilnauser]]></username>
+                    <password><![CDATA[LawnqUiT79]]></password>
+                    <dbname><![CDATA[bilna_live]]></dbname>
+                    <initStatements><![CDATA[SET NAMES utf8]]></initStatements>
+                    <model><![CDATA[mysql4]]></model>
+                    <type><![CDATA[pdo_mysql]]></type>
+                    <pdoType><![CDATA[]]></pdoType>
+                    <active>1</active>
+                </connection>
+            </force_slave>
+
+            <!-- NETSUITE DB DEFINITION -->
+            <netsuite_master_setup>
+                <connection>
+                    <host><![CDATA[bilnadbmaster.csgheamo30fd.ap-southeast-1.rds.amazonaws.com]]></host>
+                    <username><![CDATA[netsuite]]></username>
+                    <password><![CDATA[LawnqUiT79]]></password>
+                    <dbname><![CDATA[bilna_live]]></dbname>
+                    <initStatements><![CDATA[SET NAMES utf8]]></initStatements>
+                    <model><![CDATA[mysql4]]></model>
+                    <type><![CDATA[pdo_mysql]]></type>
+                    <pdoType><![CDATA[]]></pdoType>
+                    <active>1</active>
+                </connection>
+            </netsuite_master_setup>
+            <netsuite_slave_setup>
+                <connection>
+                    <host><![CDATA[bilnadbmaster.csgheamo30fd.ap-southeast-1.rds.amazonaws.com]]></host>
+                    <username><![CDATA[netsuite]]></username>
+                    <password><![CDATA[LawnqUiT79]]></password>
+                    <dbname><![CDATA[bilna_live]]></dbname>
+                    <initStatements><![CDATA[SET NAMES utf8]]></initStatements>
+                    <model><![CDATA[mysql4]]></model>
+                    <type><![CDATA[pdo_mysql]]></type>
+                    <pdoType><![CDATA[]]></pdoType>
+                    <active>1</active>
+                </connection>
+            </netsuite_slave_setup>
+            <!-- EOL, NETSUITE DB DEFINITION -->
+
+	    <!-- MASTER/SLAVE CONNECTION INIT -->
+            <default_write>
+                <connection>
+                    <use>default_setup</use>
+                </connection>
+            </default_write>
+            <default_read>
+                <connection>
+                    <use>slave_setup</use>
+                </connection>
+            </default_read>
+            <netsuite_write>
+                <connection>
+                    <use>netsuite_master_setup</use>
+                </connection>
+            </netsuite_write>
+            <netsuite_read>
+                <connection>
+                    <use>netsuite_slave_setup</use>
+                </connection>
+            </netsuite_read>
+            <megamenu_only>
+                <connection>
+                    <use>force_slave</use>
+                </connection>
+            </megamenu_only>
+	    <!-- EOL, MASTER/SLAVE CONNECTION INIT -->
+
+            <!-- MASTER/SLAVE -->
+	    <!-- Megamenu -->
+            <megamenu_setup>
+                <connection>
+                    <use>default_write</use>
+                </connection>
+            </megamenu_setup>
+            <megamenu_write>
+                <connection>
+                    <use>default_write</use>
+                </connection>
+            </megamenu_write>
+            <megamenu_read>
+                <connection>
+                    <use>megamenu_only</use>
+                </connection>
+            </megamenu_read>
+            <!-- Advanced Report, KEEP THIS LINE MARKED PLZ, mirasz -->
+            <!--advancedreports_write>
+                <connection>
+                    <use>default_write</use>
+                </connection>
+            </advancedreports_write>
+            <advancedreports_read>
+                <connection>
+                    <use>default_read</use>
+                </connection>
+            </advancedreports_read-->
+            <!-- MASTER/SLAVE -->
+
+            <!-- MASTER ONLY -->
+            <!-- Urapidflow -->
+            <urapidflow_write>
+                <connection>
+                    <use>default_write</use>
+                </connection>
+            </urapidflow_write>
+            <urapidflow_read>
+                <connection>
+                    <use>default_write</use>
+                </connection>
+            </urapidflow_read>
+	    <!-- Netsuite, EXPERIMENTAL -->
+            <rocketweb_netsuite_setup>
+                <connection>
+                    <use>netsuite_write</use>
+                </connection>
+            </rocketweb_netsuite_setup>
+	    <!-- NO NEED -->
+            <!--rocketweb_netsuite_write>
+                <connection>
+                    <use>netsuite_master_setup</use>
+                </connection>
+            </rocketweb_netsuite_write>
+            <rocketweb_netsuite_read>
+                <connection>
+                    <use>netsuite_slave_setup</use>
+                </connection>
+            </rocketweb_netsuite_read-->
+            <!-- end Netsuite configuration -->
+
+            <!-- Good old days -->
+            <!-- Mage Adminhtml -->
+            <adminhtml_write>
+                <connection>
+                    <use>default_write</use>
+                </connection>
+            </adminhtml_write>
+            <adminhtml_read>
+                <connection>
+                    <use>default_write</use>
+                </connection>
+            </adminhtml_read>
+
+            <!-- login, register -->
+            <customer_read>
+                <connection>
+                    <use>default_write</use>
+                </connection>
+            </customer_read>
+            <customer_write>
+                <connection>
+                    <use>default_write</use>
+                </connection>
+            </customer_write>
+            <!-- login, register -->
+
+            <!-- checkout, cart -->
+            <checkout_read>
+                <connection>
+                    <use>default_write</use>
+                </connection>
+            </checkout_read>
+            <checkout_write>
+                <connection>
+                    <use>default_write</use>
+                </connection>
+            </checkout_write>
+            <!-- checkout, cart -->
+
+            <!-- sales -->
+            <sales_read>
+                <connection>
+                    <use>default_write</use>
+                </connection>
+            </sales_read>
+            <sales_write>
+                <connection>
+                    <use>default_write</use>
+                </connection>
+            </sales_write>
+
+            <!-- salesrule -->
+            <salesrule_read>
+                <connection>
+                    <use>default_write</use>
+                </connection>
+            </salesrule_read>
+            <salesrule_write>
+                <connection>
+                    <use>default_write</use>
+                </connection>
+            </salesrule_write>
+
+            <!-- all payment method -->
+            <paymethod_write>
+                <connection>
+                    <use>default_write</use>
+                </connection>
+            </paymethod_write>
+            <paymethod_read>
+                <connection>
+                    <use>default_write</use>
+                </connection>
+            </paymethod_read>
+
+            <!-- wrapping gift module -->
+            <wrappinggiftevent_write>
+                <connection>
+                    <use>default_write</use>
+                </connection>
+            </wrappinggiftevent_write>
+            <wrappinggiftevent_read>
+                <connection>
+                    <use>default_write</use>
+                </connection>
+            </wrappinggiftevent_read>
+
+            <!-- AW_Points or Bilna Credit module -->
+            <points_write>
+                <connection>
+                    <use>default_write</use>
+                </connection>
+            </points_write>
+            <points_read>
+                <connection>
+                    <use>default_write</use>
+                </connection>
+            </points_read>
+            <!-- Good old days -->
+            <!-- MASTER ONLY -->
+        </resources>
+
+        <!--session_save><![CDATA[files]]></session_save-->
+
+        <session_save>db</session_save>
+            <redis_session>
+            <host>levi.bilna.com</host>
+            <port>6379</port>
+            <password>C3uo8mXd</password>
+            <timeout>3</timeout>
+            <persistent></persistent>
+            <db>0</db>
+	    <compression_threshold>2048</compression_threshold>
+            <!--compression_threshold>0</compression_threshold-->
+            <compression_lib>gzip</compression_lib>
+            <log_level>4</log_level>
+            <max_concurrency>10000</max_concurrency>
+            <break_after_frontend>5</break_after_frontend>
+            <break_after_adminhtml>30</break_after_adminhtml>
+            <first_lifetime>600</first_lifetime>
+            <bot_first_lifetime>60</bot_first_lifetime>
+            <bot_lifetime>7200</bot_lifetime>
+	    <min_lifetime>3600</min_lifetime>
+	    <max_lifetime>14400</max_lifetime>
+	    <disable_locking>0</disable_locking>
+        </redis_session>
+
+        <cache>
+            <backend>Cm_Cache_Backend_Redis</backend>
+                <backend_options>
+                <server>levi.bilna.com</server>
+                <port>6379</port>
+                <persistent></persistent>
+                <database>1</database>
+                <password>C3uo8mXd</password>
+                <force_standalone>0</force_standalone>
+                <connect_retries>1</connect_retries>
+                <read_timeout>30</read_timeout>
+                <automatic_cleaning_factor>0</automatic_cleaning_factor>
+                <compress_data>1</compress_data>
+                <compress_tags>1</compress_tags>
+                <compress_threshold>20480</compress_threshold>
+                <compression_lib>gzip</compression_lib>
+                <use_lua>0</use_lua>
+            </backend_options>
+        </cache>
+
+    </global>
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <frontName><![CDATA[g10rdano]]></frontName>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+</config>

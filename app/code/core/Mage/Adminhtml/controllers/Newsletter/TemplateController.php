@@ -185,12 +185,13 @@ class Mage_Adminhtml_Newsletter_TemplateController extends Mage_Adminhtml_Contro
             $template->save();
             $this->_redirect('*/*');
         }
-        catch (Mage_Core_Exception $e) {
+        /*catch (Mage_Core_Exception $e) {
             $this->_getSession()->addError(nl2br($e->getMessage()));
             $this->_getSession()->setData('newsletter_template_form_data',
                 $this->getRequest()->getParams());
-        }
+        }*/
         catch (Exception $e) {
+throw($e);die;
             $this->_getSession()->addException($e, Mage::helper('adminhtml')->__('An error occurred while saving this template.'));
             $this->_getSession()->setData('newsletter_template_form_data', $this->getRequest()->getParams());
         }
