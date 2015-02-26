@@ -1272,6 +1272,7 @@ margin: 0 1% ;
 	-moz-border-radius:5px;
 	-webkit-border-radius:5px;
 }
+.catalog-product-view .aw-mini-related-items li.super-products:hover .availability.out-of-stock,
 .catalog-product-view .aw-mini-related-items .availability.out-of-stock:hover,
 .product-view .product-shop-right .block.block-related .block-content .aw-arp-item .aw-arp-addtocart .availability.out-of-stock:hover {
 	border:1px solid #F48120;
@@ -1285,10 +1286,11 @@ margin: 0 1% ;
 .product-view .product-shop-right .block.block-related .block-content .aw-arp-item .aw-arp-addtocart .availability.out-of-stock  span a{
 	display: block;
 	font-size:12px;
-	padding: 10px 9px;
+	padding: 0 9px;
 	text-transform: uppercase;
 	color:#000
 }
+.catalog-product-view .aw-mini-related-items li.super-products:hover .availability.out-of-stock a,
 .catalog-product-view .aw-mini-related-items .availability.out-of-stock:hover a,
 .product-view .product-shop-right .block.block-related .block-content .aw-arp-item .aw-arp-addtocart .availability.out-of-stock:hover  span a{
 	color:#F48120;
