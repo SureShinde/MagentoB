@@ -58,3 +58,30 @@
     );
 //]]>
 </script>
+
+<script type="text/javascript">
+jQuery(document).ready(function () {    
+    var ajaxURL = 'https://www.bilna.com/ajaxrequest/data/retrievecart/';
+
+    var data = {};
+
+    jQuery.ajax({
+        type: "POST",
+        url : ajaxURL,
+        data: { data: data },
+        success: function(data){
+            response = jQuery.parseJSON(data);
+            if(response.status == true){
+            	dataLayer.push( {'productid': response.data.quote.productIds} );
+            	dataLayer.push( {'prices': response.data.quote.productPrices} );
+            	dataLayer.push( {'quantities': response.data.quote.productQtys} );
+            }else{
+                return false;
+            }
+        },
+        error: function() {
+            return false;
+        }
+    });
+});
+</script>

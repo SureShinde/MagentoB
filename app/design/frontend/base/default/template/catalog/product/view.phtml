@@ -508,3 +508,8 @@
 	// ]]>
     </script>
 </div>
+<script type="text/javascript">
+jQuery(document).ready(function () {    
+	dataLayer.push( {'productid': '<?php echo $_product->getId(); ?>'} );
+});
+</script>
