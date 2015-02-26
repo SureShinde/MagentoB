@@ -41,11 +41,11 @@ class AW_Islider_Block_Representations_Default_Block extends AW_Islider_Block_Re
     }
 
     public function getAnimationSpeed() {
-        return $this->getAWISBlockParam('animation_speed');
+        return ($this->getAWISBlockParam('animation_speed') * 1000);
     }
 
     public function getFirstFrameTimeout() {
-        return $this->getAWISBlockParam('first_timeout');
+        return ($this->getAWISBlockParam('first_timeout') * 1000);
     }
 
     public function getHeight() {

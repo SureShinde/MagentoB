@@ -5,8 +5,6 @@
 }
 .footer {
 	width: 1216px;
-	padding: 20px 0 0 0;
-	border-top: 1px solid #707070;
 }
 .footer .form-language select {
 	display: none;
@@ -19,6 +17,9 @@
 	text-align: left;
 	/* margin: 0 30px 0 0; */
 	width: 15%;
+}
+.footer li:first-of-type{
+	font-family: 'bebasregular';
 }
 .footer li {
 	padding: 0;
@@ -97,6 +98,42 @@ display: inline-block;
 .footer .bugs {
 	display: none;
 }
+.footer-container .subscribe-form{
+	background:url(../images/icon-NL-subscribe.png) no-repeat 35px #58595B;
+	padding:25px 3% 25px 9%;
+	color:#fff;
+	display: table;
+	width: 88%;
+	margin: 0 0 20px 0;
+}
+.footer-container .subscribe-form p{
+	float: left;
+	line-height: 25px;
+	font-size: 15px;
+}
+.footer-container .subscribe-form .wrap-form-subscribe form .input-box{
+	width:250px;
+}
+.footer-container .subscribe-form .wrap-form-subscribe{
+	float:right;
+}
+.footer-container .subscribe-form .wrap-form-subscribe form .input-box input{
+	width: 100%;
+	padding: 4px 0;
+	font-size: 1em;
+	text-indent: 7px;
+}
+.footer-container .subscribe-form .wrap-form-subscribe form .input-box,
+.footer-container .subscribe-form .wrap-form-subscribe form button{
+	float:left;
+}
+.footer-container .subscribe-form .wrap-form-subscribe form button{
+	margin-left:10px;
+	padding: 5px 15px;
+	font-size: 1.2em;
+	background:#F48120;
+	color:#fff;
+}
 @media only screen and (max-width: 1215px) {
 	.footer {
 		width: 994px;
@@ -104,7 +141,9 @@ display: inline-block;
 	.footer .conect-us, .footer .payment-partners, .footer .shipping-partners {
 		margin-left: 0%;
 	}
-
+	.footer-container .subscribe-form{
+		background:url(../images/icon-NL-subscribe.png) no-repeat 20px #58595B;
+	}
 }
 /* --------------- 960 px layout -------------------- */
 @media only screen and (max-width: 1023px) {
@@ -130,6 +169,17 @@ display: inline-block;
 	.footer .conect-us a{
 		margin: 2px 1px 2px 0;
 	}
+	.footer-container .subscribe-form{
+		padding: 18px 3% 25px 12%;
+	}
+	.footer-container .subscribe-form p {
+		line-height: 25px;
+		font-size: 12px;
+	}
+	.footer-container .subscribe-form .wrap-form-subscribe{
+		float: left;
+	}
+}
 /* --------------- smaller 959 px layout -------------------- */
 @media only screen and (max-width: 767px) {
 	.footer-container {}
@@ -142,7 +192,6 @@ display: inline-block;
 		height: auto;
 	}
 	.footer ul, .footer .conect-us, .footer .payment-partners, .footer .shipping-partners, .footer .form-language {
-		background-color: #ededed;
 	}
 	.footer .form-language {
 		padding: 22px 0;
@@ -165,29 +214,25 @@ display: inline-block;
 		margin-left:10px;
 	}
 	.footer .form-language, .footer ul {
-		background-image: url(../images/border-footer-menu.png);
-		background-repeat: repeat-x;
-		background-position: left bottom;
 	}
 	.footer ul {
 		float: none;
 		width: auto;
+		margin:0;
 		text-align: left;
-		padding: 22px 15px 30px;
+		padding: 22px 15px 0;
+		min-height:0;
 	}
 	.footer ul li {
 		padding: 1px 0;
 	}
 	.footer ul li:first-child {
-		margin-bottom: 30px;
 	}
 	.footer li span.title, .footer .conect-us span.title, .footer .payment-partners span.title, .footer .shipping-partners span.title {
-		color: #8d8d8d;
-		font-size: 20px;
 	}
 	.footer a {
 		color: #fd8e17;
-		font-size: 14px;
+		font-size: 12px;
 	}
 	.footer .conect-us, .footer .payment-partners, .footer .shipping-partners {
 		float: none;
@@ -214,11 +259,43 @@ display: inline-block;
 		font-size: 14px;
 	}
     .footer li a {
-        color: #FD8E17;
         text-decoration: none !important;
     }
+	.footer-container .subscribe-form {
+		padding: 18px 3% 25px 3%;
+		width: 94%;
+	}
+	.footer-container .subscribe-form p{
+		padding-left: 68px;
+		text-align:center;
+	}
+	.footer-container .subscribe-form .wrap-form-subscribe {
+		float: left;
+		width: calc(100% - 70px);
+		padding-left: 70px;
+	}
 }
 /* --------------- 320 px layout -------------------- */
 @media only screen and (max-width: 479px) { 
-	
+	.footer-container .subscribe-form .wrap-form-subscribe {
+		padding:0;
+	}
+	.footer-container .subscribe-form {
+		background: url(../images/icon-NL-subscribe.png) no-repeat 18px 21px #58595B;
+		background-size: 45px;
+	}
+	.footer-container .subscribe-form p {
+		padding-bottom: 12px;
+	}
+	.footer-container .subscribe-form .wrap-form-subscribe form .input-box{
+		width:75%;
+	}
+	.footer-container .subscribe-form .wrap-form-subscribe form button{
+		width: 23%;
+		margin-left: 2%;
+		padding: 5px 0;
+	}
+	.footer-container .subscribe-form .wrap-form-subscribe{
+		width:100%;
+	}
 }

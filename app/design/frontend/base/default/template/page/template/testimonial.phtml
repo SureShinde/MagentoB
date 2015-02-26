@@ -4,8 +4,10 @@
     ->addFieldToFilter('is_active', 1);
     ?>
 <div class="testimonial-wrapper">
-	<h4><span><?php echo $this->__('What Our Customer Says:') ?></span></h4>
-	<p class="view_all"><a href="<?php echo Mage::getBaseUrl(); ?>testimonials">view all testimonial</a></p>
+	<div class="image-testimonial">
+		<img src="<?php echo $this->getSkinUrl('images/testimonials-image.jpg');?>">
+	</div>
+	<div class="wrap-slider-testi">
 	<div id="slides">
 	<?php  
 	    $blockNum = 1;
@@ -30,12 +32,13 @@
 		<a class="slidesjs-previous slidesjs-navigation" href="#"><?php echo $this->__('Prev') ?></a>
 		<a class="slidesjs-next slidesjs-navigation" href="#"><?php echo $this->__('Next') ?></a>
 	</div>
+	<p class="view_all"><a href="<?php echo Mage::getBaseUrl(); ?>testimonials">MORE TESTIMONIALS</a></p>
+	</div>
 </div>
 <script type="text/javascript">// <![CDATA[
 jQuery(window).load(function() {
 jQuery('#slides').slidesjs({
 width: 376,
-height: 120,
 navigation: false,
 pagination: false,
 play: {

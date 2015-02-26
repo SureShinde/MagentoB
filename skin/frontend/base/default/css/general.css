@@ -33,10 +33,12 @@ body {
 	font-size: 12px;
 	font-family: helvetica;
 	font-weight: bold;
-        margin: 13px 0;
+	background: #ebebeb;
+	padding: 13px 0;
+	text-indent: 15px;
 } 
 .breadcrumbs a {
-	color: #4ec7da;
+	color:#F05A2A;
 	font-weight: bold;
 }
 .breadcrumbs a:hover {}
@@ -161,16 +163,24 @@ body {
 	position:absolute;
 	bottom:0;
 }
+.products-grid > li:hover button.btn-cart, button.btn-cart:hover  {
+	background:#F48120;
+}
 button.btn-cart {
     width:88px;
-    background-image:url(../images/btn-buynow.png);
-    height:36px;
-    line-height:21px;
+	background:#231F20;
+	border-radius:5px;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+    /*background-image:url(../../../images/btn-buynow.png);*/
+    height:30px;
+    line-height:30px;
     color: #fff;
-	font-family: Helvetica;
-    font-size: 1em;
-    font-weight: normal;
+    font-family: Helvetica;
+    font-size: 0.9em;
     text-transform: uppercase;
+	position: absolute;
+	bottom: 20px;
 }
 button.buynow_awrelated {
     background-image: url("../images/btn-buynow.png");
@@ -358,7 +368,9 @@ a.back-to-top img {
 	background: none;
 	padding-bottom: 0;
 }
-
+.slidesjs-navigation{
+	display:none !important;
+}
 @media only screen and (max-width: 1215px) {
 	.main-container, .main-container.col1-layout .main {
 		width: 994px;
@@ -395,9 +407,7 @@ a.back-to-top img {
 		width: 122px;
 	}
     .breadcrumbs {
-        margin: 0 0 13px 60px;
-        position: absolute;
-        top: 140px;
+        margin: 10px 0;
     }
 	
 }
