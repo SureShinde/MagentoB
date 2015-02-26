@@ -540,10 +540,13 @@ li#perlengkapan-rumah, li.mobile-perlengkapan-rumah {
 }
 
 .header .quick-access .top-cart a.link-minicart{
-	background-color:#424143;
+	background-color:#414042;
 	line-height: 33px;
 	height: 30px;
 	background-position: 9px 5px;	
+}
+.header .quick-access .top-cart a.link-minicart:hover{
+	background-color:#231F20;
 }
 .header .quick-access .top-cart a.link-checkout {
 	background-color:#ffa01b ;
