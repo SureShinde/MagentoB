@@ -502,7 +502,7 @@ li#perlengkapan-rumah, li.mobile-perlengkapan-rumah {
 .header .quick-access .log-reg{
 	display: table;
 	float: right;
-	padding: 0 10px;
+	padding: 0 5px;
 	height:30px;
 	background: url(../images/shd-btn-search.png) repeat-x;
 	border-bottom-left-radius: 5px;
@@ -582,7 +582,7 @@ li#perlengkapan-rumah, li.mobile-perlengkapan-rumah {
 }
 .header .quick-access .top-cart a.link-blog span {
 	display: block;
-	padding: 8px 10px 1px;
+	padding: 8px 5px 1px;
 	margin:0 10px 3px;
 	text-align: center;
 }
@@ -1959,12 +1959,8 @@ searchbar #nav-search-in {
 .search-container-new #nav-searchbar option.style-search-cat {
     font-weight: bold;
     font-size: 13px; 
-    text-align: center; 
-    padding: 5px 0;
-    -webkit-border-bottom: 2px dashed #FEE13A;
-    -moz-border-bottom: 2px dashed #FEE13A;
-    -o-border-bottom: 2px dashed #FEE13A;
-    border-bottom: 2px dashed #FEE13A;
+    text-align: left; 
+    padding: 5px 10px
 }
 .search-container-new #nav-searchbar option.style-search-subcat {
     font-size: 13px;
@@ -3009,6 +3005,12 @@ searchbar #nav-search-in {
 		color: #fff;
 		display: block;
 		line-height: 25px;
+	}
+	.mobile-left-menu .wrap-first-level > ul > li.second-level a{
+		text-transform:uppercase;
+	}
+	.mobile-left-menu .wrap-first-level > ul > li a{
+		text-transform:none;
 	}
 	.mobile-left-menu .wrap-menu-cat > ul > li.menu-active p{
 		background:#F48220;

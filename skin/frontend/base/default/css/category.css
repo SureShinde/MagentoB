@@ -81,7 +81,7 @@
 .block-layered-nav dt.category + dd li a {
 	display: block;
 	float: none;
-	background: url(../images/arrow-2.png) no-repeat right center;
+	background: url(../images/arrow-orange.png) no-repeat right center;
 	padding-right: 15px;
 }
 .block-layered-nav dt.category + dd li a.bestseller, .block-layered-nav dt.category + dd li a.whatsnew, .block-layered-nav dt.category + dd li a.onsale {
@@ -273,7 +273,7 @@ a.triger-showfilter {
 	padding-left: 0;
 }
 .toolbar .limiter ul li a {
-	color: #4ec7da;
+	color: #ffa01b;
 	float:left;
 }
 .toolbar .sorter {
@@ -319,7 +319,7 @@ a.triger-showfilter {
 	font-weight: bold;
 }
 .pager .pages li a {
-	color: #4ec7da;
+	color: #F48220;
 }
 .old-price .price {
 	font-weight: normal;
@@ -412,7 +412,7 @@ a.triger-showfilter {
 	border-top: 1px solid #fff;
 	text-align: center;
 	margin: 0 auto;
-	width: 265px;
+	width: 270px;
 }
 .toolbar-mobile .sort-by, .toolbar-mobile .filter {
 	padding-right: 0;
@@ -429,10 +429,10 @@ a.triger-showfilter {
 	float:left;
 	padding: 0 0 0 0;
 	margin: 0 0 0 0;
-	background: url(../images/arrow-blue.png) no-repeat right center;
+	background: url(../images/arrow-orange-triangel.png) no-repeat right center;
 }
 .toolbar-mobile .sort-by .sort-by-option select, .toolbar-mobile .filter .filter-option select {
-	color: #42bcd1;
+	color: #F48220;
 	font-size: 100%;
 	height: 25px;
 	background: none;
@@ -593,10 +593,10 @@ a.triger-showfilter {
 	}
 	.filter-toggle a {
 		border: #707070;
-		background: url("../images/arrow-blue.png") no-repeat scroll right 5px center #FFF;
+		background: url("../images/arrow-orange-triangel.png") no-repeat scroll right 5px center #FFF;
 		padding: 11px 25px 10px 10px;
 		border: 1px solid #ccc;
-		color: #4EC7DA;
+		color: #F48220;
 		cursor: pointer;
 	}
 	.wrap_banner_category {

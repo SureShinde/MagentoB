@@ -1919,8 +1919,8 @@ tr.summary-details-excluded { font-style:italic; }
 
 /* --------------- smaller 959 px layout -------------------- */
 @media only screen and (max-width: 767px) {
-.products-grid .availability { line-height:21px;bottom: 30px; position: relative; margin-left: 0;}
-.availability.out-of-stock span {margin-left: 10px;}
+.products-grid .availability { line-height:21px;bottom: 0px; position: relative; margin-left: 0;padding: 4px 15px;}
+.availability.out-of-stock span {}
 
 /* -------- menu top mobile START ------------ */
 .menu-top-mobile {display: block;}

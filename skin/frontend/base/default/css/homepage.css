@@ -97,6 +97,7 @@ width: 100%;
 	color: #231F20;
 	text-transform: uppercase;
 	float: left;
+	font-weight:bold;
 	font-size: 1.2em;
 	padding-left: 10px;
 	text-align: center;
@@ -126,7 +127,7 @@ width: 100%;
 	border-bottom:0;
 }
 .homepage-bottom ul.block-wrapper:last-of-type{
-	margin-bottom:30px;
+	
 }
 .homepage-bottom .block-wrapper > a{
 	float: left;
@@ -243,6 +244,7 @@ width: 100%;
 	border-bottom: 2px solid;
 	width: 100%;
 	padding: 10px 0;
+	margin: 10px 0 0;
 }
 .homepage-bottom .testimonial-wrapper .image-testimonial{
 	width: 260px;
@@ -789,7 +791,8 @@ width: 100%;
     font-size: 0.93em;
 	line-height: 1.6em;
 }
-.homepage .homepage-banner .first-level .second-level .wrap-second-cat > ul li:hover > a{
+.homepage .homepage-banner .first-level .second-level .wrap-second-cat > ul li:hover > a,
+.homepage .homepage-banner .first-level .second-level .wrap-second-cat > ul li:hover > p > a{
 	color:#F05A2A;
 	text-decoration:underline;
 }
