@@ -25,131 +25,47 @@
  * @copyright  Copyright (c) 2010-2012 aheadWorks Co. (http://www.aheadworks.com)
  * @license    http://ecommerce.aheadworks.com/AW-LICENSE.txt
  */
-?><?php
 ?>
-<?php
-$_helper = Mage::helper('megamenu');
-$_currentCategory = '';
 
-if (Mage::registry('current_category')) {
-    $_currentCategory = Mage::registry('current_category')->getUrlKey();
-}
-?>
-<?php if ($_currentCategory == 'baby'): ?>
+<?php $helper = Mage::helper('awislider'); ?>
+<?php $uniqueId = $this->getUniqueBlockId(); ?>
+<?php if ($this->canDisplay() && $this->getSlides()->getSize()): ?>
     <script type="text/javascript">
         $j(function() {
-          $j('body.style-baby #slides-banner').slidesjs({
-            width: 750,
-            height: 333,
-            pagination: {
-              active: true,
-                // [string] Can be either "slide" or "fade".
-            },
-             play: {
-                 auto: true,
-                 interval: 5000,
-             },
-              effect: {
-                  slide: {
-                        speed : 2000
-                        }
-                  }
-          });
+            $j('#slides-banner-<?php echo $uniqueId; ?>').slidesjs({
+            //$j('#megamenu #slides-banner, .main-container #slides-banner').slidesjs({
+                width: <?php echo $this->getWidth(); ?>,
+                height: <?php echo $this->getHeight(); ?>,
+                pagination: {
+                    active: true,
+                    // [string] Can be either "slide" or "fade".
+                },
+                play: {
+                    auto: true,
+                    interval: <?php echo $this->getFirstFrameTimeout(); ?>,
+                },
+                effect: {
+                    slide: {
+                        speed : <?php echo $this->getAnimationSpeed(); ?>
+                    }
+                }
+            });
         });
     </script>
-    <?php $helper = Mage::helper('awislider') ?>
-    <?php if($this->canDisplay() && $this->getSlides()->getSize()) : ?>
-    <div id="slides-banner">
-      <?php $_i = 0 ?>
-        <?php foreach($this->getSlides() as $slide) : ?>
-            <?php if($slide->getData('url')) : ?>
-            <a href="<?php echo $helper->getUseDirectLinks() ? $slide->getData('url') : $this->getUrl('awislider/link/out', array('sid' => $slide->getData('id'))) ?>"<?php if($slide->getData('new_window')) : ?> onclick="return !window.open(this.href)"<?php endif ?><?php if($slide->getData('nofollow')) : ?> rel="nofollow"<?php endif ?>>
-            <?php endif ?>
-                <img src="<?php echo ($slide->getUriLocation()) ?>" title="<?php echo htmlspecialchars($slide->getData('title')) ?>" alt="<?php echo htmlspecialchars($slide->getData('title')) ?>"/>
-            <?php if($slide->getData('url')) : ?>
-            </a>
-            <?php endif ?>
-        <?php $_i++ ?>
-        <?php endforeach ?>
-        
-    </div>
-    <?php endif ?>
-<?php elseif ($_currentCategory == 'perlengkapan-rumah' || $_currentCategory == 'groceries' || $_currentCategory == 'grocery' || $_currentCategory == 'beauty' || $_currentCategory == 'supermarket' || $_currentCategory == 'kosmetik'): ?>
-    <script type="text/javascript">
-        $j(function() {
-          $j('body.style-perlengkapan-rumah #slides-banner-home, body.style-groceries #slides-banner-home, body.style-grocery #slides-banner-home, body.style-beauty #slides-banner-home, body.style-kosmetik #slides-banner-home, body.style-supermarket #slides-banner-home').slidesjs({
-            width: 523,
-            height: 383,
-            pagination: {
-              active: true,
-                // [string] Can be either "slide" or "fade".
-            },
-             play: {
-                 auto: true,
-                 interval: 5000,
-             },
-              effect: {
-                  slide: {
-                        speed : 2000
-                        }
-                  }
-          });
-        });
-    </script>
-    <?php $helper = Mage::helper('awislider') ?>
-    <?php if($this->canDisplay() && $this->getSlides()->getSize()) : ?>
-    <div id="slides-banner-home">
-      <?php $_i = 0 ?>
-        <?php foreach($this->getSlides() as $slide) : ?>
-            <?php if($slide->getData('url')) : ?>
-            <a href="<?php echo $helper->getUseDirectLinks() ? $slide->getData('url') : $this->getUrl('awislider/link/out', array('sid' => $slide->getData('id'))) ?>"<?php if($slide->getData('new_window')) : ?> onclick="return !window.open(this.href)"<?php endif ?><?php if($slide->getData('nofollow')) : ?> rel="nofollow"<?php endif ?>>
-            <?php endif ?>
-                <img src="<?php echo ($slide->getUriLocation()) ?>" title="<?php echo htmlspecialchars($slide->getData('title')) ?>" alt="<?php echo htmlspecialchars($slide->getData('title')) ?>" />
-            <?php if($slide->getData('url')) : ?>
-            </a>
-            <?php endif ?>
-        <?php $_i++ ?>
-        <?php endforeach ?>
-        
-    </div>
-    <?php endif ?>
-<?php else: ?>
-    <script type="text/javascript">
-        $j(function() {
-          $j('#slides-banner').slidesjs({
-            width: 759,
-            height: 338,
-            pagination: {
-              active: true,
-                // [string] Can be either "slide" or "fade".
-            },
-             play: {
-                 auto: true,
-                 interval: 5000,
-             },
-              effect: {
-                  slide: {
-                        speed : 2000
-                        }
-                  }
-          });
-        });
-    </script>
-    <?php $helper = Mage::helper('awislider') ?>
-    <?php if($this->canDisplay() && $this->getSlides()->getSize()) : ?>
-        <div id="slides-banner">
-          <?php $_i = 0 ?>
-            <?php foreach($this->getSlides() as $slide) : ?>
-                <?php if($slide->getData('url')) : ?>
-                <a href="<?php echo $helper->getUseDirectLinks() ? $slide->getData('url') : $this->getUrl('awislider/link/out', array('sid' => $slide->getData('id'))) ?>"<?php if($slide->getData('new_window')) : ?> onclick="return !window.open(this.href)"<?php endif ?><?php if($slide->getData('nofollow')) : ?> rel="nofollow"<?php endif ?>>
-                <?php endif ?>
-                    <img src="<?php echo ($slide->getUriLocation()) ?>" title="<?php echo htmlspecialchars($slide->getData('title')) ?>" alt="<?php echo htmlspecialchars($slide->getData('title')) ?>" />
-                <?php if($slide->getData('url')) : ?>
-                </a>
-                <?php endif ?>
-            <?php $_i++ ?>
-            <?php endforeach ?>
+    
+    <div id="slides-banner-<?php echo $uniqueId; ?>" class="slides-banner">
+        <?php $_i = 0; ?>
+        <?php foreach ($this->getSlides() as $slide): ?>
+            <?php if ($slide->getData('url')): ?>
+                <a href="<?php echo $helper->getUseDirectLinks() ? $slide->getData('url') : $this->getUrl('awislider/link/out', array ('sid' => $slide->getData('id'))) ?>"<?php if($slide->getData('new_window')) : ?> onclick="return !window.open(this.href)"<?php endif ?><?php if($slide->getData('nofollow')): ?> rel="nofollow"<?php endif ?>>
+            <?php endif; ?>
             
-        </div>
-    <?php endif; ?>
+            <img src="<?php echo ($slide->getUriLocation()) ?>" title="<?php echo htmlspecialchars($slide->getData('title')) ?>" alt="<?php echo htmlspecialchars($slide->getData('title')) ?>" />
+            
+            <?php if ($slide->getData('url')): ?>
+                </a>
+            <?php endif; ?>
+            <?php $_i++ ?>
+        <?php endforeach; ?>
+    </div>
 <?php endif; ?>

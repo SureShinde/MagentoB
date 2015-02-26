@@ -30,17 +30,49 @@
 
 <!--Mega Menu-->
 <script type="text/javascript">	
+        wwidth = $j(window).width();
+    var tooltipMobileFirst = 'tooltip_mobile_first';
+    
     $j(document).ready(function() {
+		$j(".first-level > ul > li:first-of-type").addClass("default");
+        $j('.wrap-megamenu').click(function() {
+            $j('.bg-dark-megamenu').toggle();
+            $j('.megamenu').toggleClass("megamenu-active");
+        });
+		 $j('.bg-dark-megamenu').click(function() {
+            $j('.megamenu').removeClass("megamenu-active");
+            $j(this).hide();
+        });
+		
+        //================mobile left menu js========================
+        $j('.tooltip-mobile-first').click(function() {
+            $j(this).hide();
+            setCookie(tooltipMobileFirst, 'done', 365);
+        });
+        
         $j('.nav-mobile-trigger').click(function() {
             $j('.mobile-left-menu').css({"width":"100%","left":"0"});
             $j('.wrapper').css({"float":"left","margin-left":"70%","position":"fixed"});
             $j('body').css({"overflow":"hidden"});
+            $j('.mobile-left-menu .back-left').css({"position":"fixed"});
         });
+        
+        $j('.mobile-left-menu .wrap-menu-cat > ul > li p').click(function() {
+			var data_left_menu_val = $j(this).attr("data-left-menu");
+			if ($j('.mobile-left-menu .wrap-menu-cat > ul > li.' + data_left_menu_val).hasClass("menu-active")){
+				$j('.mobile-left-menu .wrap-menu-cat > ul > li.' + data_left_menu_val).removeClass("menu-active");
+			} else {
+				$j('.mobile-left-menu .wrap-menu-cat > ul > li').removeClass("menu-active");
+				$j('.mobile-left-menu .wrap-menu-cat > ul > li.' + data_left_menu_val ).addClass("menu-active");
+			};
+        });
+        //================mobile left menu js========================
         
         $j('.back-button').click(function() {
             $j('.mobile-left-menu').css({"width":"100%","left":"-100%"});
             $j('.wrapper').css({"float":"none","margin-left":"0","position":"relative"});
             $j('body').css({"overflow":"auto"});
+			$j('.mobile-left-menu .back-left').css({"position":"absolute"});
         });
 		
         if ($j('body').hasClass('style-baby') ||
@@ -174,347 +206,355 @@
                 }
             );
         }
+        
+			
+		if (wwidth < 768) {
+			checkMobileTooltip();
+		}
+		
     });
+    function checkMobileTooltip() {
+				var getTooltip = getCookie(tooltipMobileFirst);
+				if (getTooltip == '') {
+					$j('.tooltip-mobile-first').show();
+				}
+			}
+			
+			function setCookie(cname, cvalue, exdays) {
+				var de = new Date();
+				de.setTime(de.getTime() + (exdays*24*60*60*1000));
+				var expires = "expires=" + de.toUTCString();
+				document.cookie = cname + "=" + cvalue + "; " + expires;
+			}
+			
+			function getCookie(cname) {
+				var name = cname + "=";
+				var ca = document.cookie.split(';');
+				
+				for (var i=0; i<ca.length; i++) {
+					var c = ca[i];
+					while (c.charAt(0)==' ') c = c.substring(1);
+					if (c.indexOf(name) == 0) return c.substring(name.length,c.length);
+				}
+				
+				return "";
+			}
+		
 </script>
 
 <!--Mobile Menu-->
 <script type="text/javascript">
-    wwidth = $j(window).width();
-    $j(document).ready(function(){
-	$j(window).scroll(function(){
-		  if ($j(this).scrollTop() > 100) {
-	          $j(".header-container .sticky-header-wrapper").fadeIn();
-              $j(".search-container-new").addClass("search-for-sticky");
-              $j(".link-minicart").addClass("cart-for-sticky");
-              $j(".mini-cart").addClass("cart-block-detail");
-              $j(".link-checkout").addClass("checkout-for-sticky");
-              $j(".normal-sticky-cart").addClass("add-width-cart");
-              $j(".normal-sticky-cart .link-blog").addClass("no-blog");
-	      } else {
-	          $j(".header-container .sticky-header-wrapper").fadeOut();
-              $j(".search-container-new").removeClass("search-for-sticky");
-              $j(".link-minicart").removeClass("cart-for-sticky");
-              $j(".mini-cart").removeClass("cart-block-detail");
-              $j(".link-checkout").removeClass("checkout-for-sticky");
-              $j(".normal-sticky-cart").removeClass("add-width-cart");
-              $j(".normal-sticky-cart .link-blog").removeClass("no-blog");
-	      }
-	      if ($j(this).scrollTop() > 100) {
-	          $j(".back-to-top").fadeIn();
-	      } else {
-	          $j(".back-to-top").fadeOut();
-	      }
-		})
-	if(wwidth < 768) {
-		$j('.nav-mobile-trigger').click(function(e){
-			e.preventDefault();
-			$j('.mini-cart-mobile').slideUp();
-			$j('.my-account-mobile').slideUp();
-			$j('.nav-container').slideToggle();
-		});
-		$j('#link-minicart').click(function(e){
-			e.preventDefault();
-			$j('.nav-container').slideUp();
-			$j('.my-account-mobile').slideUp();
-			$j('.mini-cart-mobile').slideToggle();
-		});
-		$j('.link-myaccount-mobile').click(function(e){
-			e.preventDefault();
-			$j('.nav-container').slideUp();
-			$j('.mini-cart-mobile').slideUp();
-			$j('.my-account-mobile').slideToggle();	
-		});
-	 }
-	 else {
-	 	$j('#link-minicart').click(function(e){
-			e.preventDefault();
-			$j('.mini-cart').slideToggle();		
-		});	
-		$j('#link-minicart-sticky').click(function(e){
-			e.preventDefault();
-			$j('.mini-cart-sticky').slideToggle();
-		});	
-	}	
-
+    
+    $j(document).ready(function() {
 	
-	$j(".nav-container ul#nav li.parent a").live("mouseover",function(){
-		if(wwidth < 768) { return  false; }
+    
+        $j(window).scroll(function() {
+            if ($j(this).scrollTop() > 120) {
+                $j(".header-container .sticky-header-wrapper").fadeIn(100);
+                $j(".search-container-new").addClass("search-for-sticky");
+                $j(".link-minicart").addClass("cart-for-sticky");
+                $j(".mini-cart").addClass("cart-block-detail");
+                $j(".link-checkout").addClass("checkout-for-sticky");
+                $j(".normal-sticky-cart").addClass("add-width-cart");
+                $j(".normal-sticky-cart .link-blog").addClass("no-blog");
+                $j("#megamenu").addClass("megamenu-stiky");
+				
+            }
+            else {
+                $j(".header-container .sticky-header-wrapper").fadeOut(100);
+                $j(".search-container-new").removeClass("search-for-sticky");
+                $j(".link-minicart").removeClass("cart-for-sticky");
+                $j(".mini-cart").removeClass("cart-block-detail");
+                $j(".link-checkout").removeClass("checkout-for-sticky");
+                $j(".normal-sticky-cart").removeClass("add-width-cart");
+                $j(".normal-sticky-cart .link-blog").removeClass("no-blog");
+                $j("#megamenu").removeClass("megamenu-stiky");
+            }
+            
+            if ($j(this).scrollTop() > 100) {
+                $j(".back-to-top").fadeIn();
+            }
+            else {
+                $j(".back-to-top").fadeOut();
+            }
+        });
+	
+        if (wwidth < 768) {
+            $j('.nav-mobile-trigger').click(function(e) {
+                e.preventDefault();
+                $j('.mini-cart-mobile').slideUp();
+                $j('.my-account-mobile').slideUp();
+                $j('.nav-container').slideToggle();
+            });
+            
+            $j('#link-minicart').click(function(e) {
+                e.preventDefault();
+                $j('.nav-container').slideUp();
+                $j('.my-account-mobile').slideUp();
+                $j('.mini-cart-mobile').slideToggle();
+            });
+            
+            $j('.link-myaccount-mobile').click(function(e) {
+                e.preventDefault();
+                $j('.nav-container').slideUp();
+                $j('.mini-cart-mobile').slideUp();
+                $j('.my-account-mobile').slideToggle();	
+            });
+        }
+        else {
+            $j('#link-minicart').click(function(e) {
+                e.preventDefault();
+                $j('.mini-cart').slideToggle();		
+            });	
+            
+            $j('#link-minicart-sticky').click(function(e) {
+                e.preventDefault();
+                $j('.mini-cart-sticky').slideToggle();
+            });	
+	}	
+	
+	$j(".nav-container ul#nav li.parent a").live("mouseover", function() {
+            if (wwidth < 768) {
+                return  false;
+            }
 	});
-	$j(".nav-container ul#nav li.active-submenu").live("mouseover",function(){
-		if(wwidth < 768) { return  false; }
+        
+	$j(".nav-container ul#nav li.active-submenu").live("mouseover", function() {
+            if (wwidth < 768) {
+                return  false;
+            }
 	});
-	$j(".nav-container ul#nav li.parent a.level-top").live('click',function() {
-		 if(wwidth < 768) {
-			 var allPanels = $j('.nav-container li.parent ul').hide();
-			 if($j(this).hasClass('active-submenu')) {
-			  var href = $j(this).attr('href');
-			  window.location.href = href;
-			 }
-			 else {
-				$j(".nav-container li.parent a.level-top").removeClass("active-submenu");
-				allPanels.slideUp();
-				$j(this).parent().next().slideDown();
+        
+	$j(".nav-container ul#nav li.parent a.level-top").live('click', function() {
+            if (wwidth < 768) {
+                var allPanels = $j('.nav-container li.parent ul').hide();
+                
+                if ($j(this).hasClass('active-submenu')) {
+                    var href = $j(this).attr('href');
+                    window.location.href = href;
+                }
+                else {
+                    $j(".nav-container li.parent a.level-top").removeClass("active-submenu");
+                    allPanels.slideUp();
+                    $j(this).parent().next().slideDown();
 
-				$j(this).addClass("active-submenu");
-				//$j(this).prev().removeClass("active-submenu");
-				//$j(this).next().removeClass("active-submenu");
-				$j(this).next().css({"display":"block"});
-				return false;
-			 }
-		}	
-		else {
-			var href = $j(this).attr('href');
-			window.location.href = href;
-		}
-
+                    $j(this).addClass("active-submenu");
+                    //$j(this).prev().removeClass("active-submenu");
+                    //$j(this).next().removeClass("active-submenu");
+                    $j(this).next().css({"display":"block"});
+                    return false;
+                }
+            }	
+            else {
+                var href = $j(this).attr('href');
+                window.location.href = href;
+            }
 	});
-	});
-		
+    });
 </script>
 
 <script>
-     $j(document).ready(function(){
-      $j("option.call-eng").click(function(){
-        $j("select.country").addClass("english-lang");
-        $j("select.country").removeClass("indonesia-lang");
-      });
+    $j(document).ready(function() {
+        $j("option.call-eng").click(function() {
+            $j("select.country").addClass("english-lang");
+            $j("select.country").removeClass("indonesia-lang");
+        });
       
-      $j("option.call-ind").click(function(){
-        $j("select.country").removeClass("english-lang");
-        $j("select.country").addClass("indonesia-lang");
-      });
+        $j("option.call-ind").click(function() {
+            $j("select.country").removeClass("english-lang");
+            $j("select.country").addClass("indonesia-lang");
+        });
       
-      $j(".menu-tablet .link-trigger-myaccount, .menu-tablet .toplink-myaccount").hover(function(){
-        $j(".menu-tablet .toplink-myaccount").toggle();
-      });
+        $j(".menu-tablet .link-trigger-myaccount, .menu-tablet .toplink-myaccount").hover(function() {
+            $j(".menu-tablet .toplink-myaccount").toggle();
+        });
       
-      $j(".header .link-trigger-myaccount, .header .toplink-myaccount").hover(function(){
-        $j(".header .toplink-myaccount").toggle();
-      });
-});
+        $j(".header .link-trigger-myaccount, .header .toplink-myaccount").hover(function() {
+            $j(".header .toplink-myaccount").toggle();
+        });
+    });
 </script>
 
 <div class="header-container">
-	<?php echo $this->getLayout()->createBlock('page/html')->setTemplate('page/html/back-top.phtml')->toHtml(); ?>
-	<div class="sticky-header-wrapper">
-		<div class="sticky-header">
-			<a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="sticky-logo">
-				<img src="<?php echo $this->getSkinUrl(); ?>images/logo-sticky-bilna.png" alt="<?php echo $this->getLogoAlt() ?>" />
-				
-			</a>
-			<ul class="sticky-menu">
-				<li class="td-promo"><a class="td-promo" href="#"><?php echo $this->__('Today\'s Promo') ?></a>
-					<div class="td-promo-cont">
-						<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('today-promo-block')->toHtml() ?>
-					</div>
-				</li>
-				<li class="link-free-voucher">
-					<a href="#"><?php echo $this->__('Get Free Voucher!') ?></a>
-					<div class="free-voucher-info">
-						<h3><?php echo $this->__('Get Free Rp50,000 Voucher!') ?></h3>
-						<p><?php echo $this->__('Sign up to Bilna Newsletter and get your voucher!') ?></p>
-						<div class="header-newsletter"><?php echo $this->getChildHtml('header.newsletter'); ?></div>
-					</div>
-				</li>
-				<li class="link-customer-care td-contact-sticky">
-					<a href="#"><?php echo $this->__('Care Center') ?></a></br>
-					<div class="td-contact-sticky-cont"><?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('contact-sticky-detail')->toHtml() ?></div>
-				</li>
-				<li class="link-customer-care2"><a href="#" ><?php echo $this->__('Care Center') ?></a></li>
-				<div class="clear"></div>
-			</ul>
+    <div class="tooltip-mobile-first">
+        <p> ← click here for menu category</p>
+    </div>
+    
+    <?php echo $this->getLayout()->createBlock('page/html')->setTemplate('page/html/back-top.phtml')->toHtml(); ?>
+    <div class="sticky-header-wrapper">
+        <div class="sticky-header">
+            <a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="sticky-logo">
+                <img src="<?php //echo $this->getLogoSrc() ?><?php echo $this->getSkinUrl(); ?>images/logo-2015-sticky.png" alt="<?php echo $this->getLogoAlt() ?>" />
+            </a>
+            
+            <ul class="sticky-menu">
+                <li class="link-free-voucher">
+                    <a href="#"><?php echo $this->__('Get Free Voucher!') ?></a>
+                    <div class="free-voucher-info">
+                        <p><?php echo $this->__('Dapatkan voucher Rp.50.000 Gratis') ?>
+                        <span><?php echo $this->__('dengan berlangganan Bilna Newsletter sekarang!') ?></span>
+						</p>
+                        <div class="header-newsletter"><?php echo $this->getChildHtml('header.newsletter'); ?></div>
+                    </div>
+                </li>
+                
+                <li class="link-customer-care td-contact-sticky">
+                    <a href="#"><?php echo $this->__('Care Center') ?></a></br>
+                    <div class="td-contact-sticky-cont"><?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('contact-sticky-detail')->toHtml() ?></div>
+                </li>
+                
+                <div class="clear"></div>
+            </ul>
 			
-			<!--div class="sticky-search"><?php //echo $this->getChildHtml('topSearch') ?></div-->
-			<div class="clear"></div>
+            <!--div class="sticky-search"><?php //echo $this->getChildHtml('topSearch') ?></div-->
+            <div class="clear"></div>
     	</div>
-	</div>
+    </div>
+    
     <div class="header">
     	<a href="#" class="nav-mobile-trigger"><?php echo $this->__('Menu') ?></a>
-
-        <?php
-        $_helper = Mage::helper('megamenu');
-        $_storeCategories = $_helper->getMegamenuData();
-        $_categoryActive = $this->getCategoryActive();
-        ?>
-        
-        <?php if (count($_storeCategories) > 0): ?>
-            <div class="menu-top">
-                <ul>
-                    <?php foreach ($_storeCategories as $_storeCategory): ?>
-                        <?php
-                        $_id = $_storeCategory['id'];
-                        $_urlKey = $_storeCategory['url_key'];
-                        $_name = $_storeCategory['name'];
-                        $_url = $_storeCategory['url'];
-                        
-                        $_storeCategoryClass = $_id == $_categoryActive['category'] ? "active" : "";
-                        ?>
-                    
-                        <li id="<?php echo $_urlKey; ?>" class="web-<?php echo $_urlKey; ?> <?php echo $_storeCategoryClass; ?>">
-                            <a id="<?php echo $_urlKey; ?>" class="menu-top-hover" href="<?php echo $_url; ?>">
-                                <?php echo $_name; ?>
-                            </a>
-                        </li>
-                    <?php endforeach; ?>
-                </ul>
-            </div>
-        <?php endif; ?>
-		
         <a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="logo"><strong><?php echo $this->getLogoAlt() ?></strong>
-            <img src="<?php echo $this->getSkinUrl(); ?>images/logo-bilna-imlek-2015.png" alt="<?php echo $this->getLogoAlt() ?>" />
+            <img src="<?php echo $this->getSkinUrl(); ?>images/bilna-2015-baru.png" alt="<?php echo $this->getLogoAlt() ?>" />
         </a>
         
         <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('keypoint')->toHtml() ?>
+        
         <div class="quick-access">
-        	<a href="<?php echo $this->getUrl('blog'); ?>" class="link-blog-mobile"><?php echo $this->__('Blog') ?></a>
-        	<a href="#" class="link-myaccount-mobile"><?php echo $this->__('My Account') ?></a>
-        	<div class="top-cart">
-        		<div class="normal-sticky-cart">
+			<?php echo $this->getChildHtml('store_language') ?>
+            <a href="<?php echo $this->getUrl('blog'); ?>" class="link-blog-mobile"><?php echo $this->__('Blog') ?></a>
+            <a href="<?php echo Mage::getBaseUrl(); ?>customer/account/login/" class="link-myaccount-mobile"><img src="<?php echo $this->getSkinUrl(); ?>images/menu-account-mobile-black.png"></a>
+            
+            <div class="top-cart">
+                <div class="normal-sticky-cart">
                     <?php $_totalItem = $this->helper('checkout/cart')->getSummaryCount();  //get total items in cart ?>
                     
-                    <?php if($_totalItem == 0):?>
+                    <?php if ($_totalItem == 0): ?>
                         <a href="#" class="link-minicart" id="link-minicart"><?php echo $this->__('View Cart(0)') ?></a>
-                    <?php else:?>
+                    <?php else: ?>
                         <a href="#" class="link-minicart" id="link-minicart"><?php echo $this->__('View Cart(').$_totalItem.$this->__(')') ?></a>
-                        <?php endif;?>
+                    <?php endif; ?>
+                    
                     <a href="<?php echo $this->getUrl('checkout/cart'); ?>" class="link-checkout"><?php echo $this->__('Checkout') ?></a>
-        		
+                    
                     <a href="<?php echo $this->getUrl('blog'); ?>" class="link-blog"><span><?php echo $this->__('Blog') ?></span></a>
-        		</div>
+                </div>
+                
                 <div class="clear"></div>
-        		<div class="mini-cart" style="display: none !important;"><?php echo $this->getChildHtml('topcart') ?></div>
-        	</div>
-        	<div class="left">
-	        	<div class="store-phone">
-	        		<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('store_phone')->toHtml() ?>
-	        	</div>
-	        	<?php echo $this->getChildHtml('topLinks') ?>
-	        	<?php //echo $this->getChildHtml('store_language') ?>
-	        </div>
-        	<div class="clear"></div>
-        	<p class="welcome-msg"><?php echo $this->getChildHtml('welcome') ?> <?php echo $this->getAdditionalHtml() ?></p>
-           
-            <?php echo $this->getChildHtml('topSearch') ?>
-            <?php echo $this->getChildHtml('store_language') ?>
+                
+                <div class="mini-cart" style="display: none !important;"><?php echo $this->getChildHtml('topcart') ?></div>
+            </div>
+            
+            <div class="log-reg">
+                
+                <?php echo $this->getChildHtml('topLinks') ?>
+                <?php //echo $this->getChildHtml('store_language') ?>
+            </div>
+            
+            <div class="clear"></div>
+            
+            <p class="welcome-msg"><?php echo $this->getChildHtml('welcome') ?> <?php echo $this->getAdditionalHtml() ?></p>
+            
             <div class="clear"></div>
         </div>
+        
+        <div class="menu-navigation">
+            <div class="wrap-megamenu">
+                <div class="button-megamenu">SHOP BY CATEGORY</div>
+            </div>
+
+            <div class="link-space-header col-md-12">
+				<div class="search-container-new">
+				<?php echo $this->getChildHtml('topSearch') ?>		               
+				</div>
+				<?php echo $this->getChildHtml('store_language') ?>
+            </div>
+            
+            <div id="megamenu" class="megamenu">
+                <?php echo $this->getLayout()->createBlock('page/html')->setTemplate('page/html/megamenu.phtml')->toHtml(); ?>
+            </div>
+        </div>
+        
         <?php echo $this->getChildHtml('topContainer'); ?>
+        
         <div class="nav-mobile"><?php //echo $this->getChildHtml('topMenu') ?></div>
+        
         <div class="mini-cart-mobile"><?php echo $this->getChildHtml('topcart') ?></div>
 
-        <div class="menu-top-mobile baby-top-mob">
-            <ul>
-                <?php //$_helper = Mage::helper('megamenu'); ?>
-                <?php //$_storeCategories = $_helper->getStoreCategories(); ?>
-                <?php if (count($_storeCategories) > 0): ?>
-                    <?php foreach ($_storeCategories as $_storeCategory): ?>
-                        <?php
-                        $_id = $_storeCategory['id'];
-                        $_urlKey = $_storeCategory['url_key'];
-                        $_name = $_storeCategory['name'];
-                        $_url = $_storeCategory['url'];
-                        $_storeCategoryClass = $_id == $_categoryActive['category'] ? "active" : "";
-                        
-                        //$_storeCategory = Mage::getModel('catalog/category')->load($_storeCategory->getId());
-                        //$_storeCategoryClass = $_storeCategory->getId() == $_helper->getCurrentMainCategory() ? "active" : "";
-
-                        /**
-                         * check if category is active
-                         */
-//                        if (!$_storeCategory->getIsActive()):
-//                            continue;
-//                        endif;
-//
-//                        if (!$_storeCategory->getIncludeInMenu()):
-//                            continue;
-//                        endif;
-                        ?>
-
-                        <li class="mobile-<?php echo $_urlKey; ?> <?php echo $_storeCategoryClass; ?>">
-                            <a href="<?php echo $_url; ?>">
-                                <?php echo $this->__($_name); ?>
-                            </a>
-                        </li>
-                    <?php endforeach; ?>
-                <?php endif; ?>
-            </ul>
-        </div>
-        <div class="menu-top-mobile-wood"></div>
-
         <div class="search-container-new-mobile">
-            <?php echo $this->getChildHtml('topSearch') ?>
+            <?php echo $this->getChildHtml('topSearch'); ?>
         </div>
+        
         <div class="my-account-mobile"><?php echo $this->getChildHtml('topLinks') ?></div>
     </div>
 </div>
-<div class="menu-homepage-wood"></div>
-<?php echo $this->getChildHtml('topMenu'); ?>
 
+<div class="bg-dark-megamenu"></div>
 
-<div class="menu-tablet">
-    <div class="header-container">
-	<?php echo $this->getChildHtml('topLinks') ?>
-	<div class="store-phone">
-            <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('store_phone')->toHtml() ?>
-	</div>
-	<?php //echo $this->getChildHtml('store_language') ?>
-	<div class="clear"></div>
-    </div>
-</div>
-<!--this is for testing only-->
-<?php //echo $this->getLayout()->createBlock("core/template")->setTemplate("page/template/bottommenu.phtml")->toHtml(); ?>
-<!--
-if you want to call it from cms page, please use this
-{{block type="core/template" template="page/template/bottommenu.phtml"}}
--->
-<!--end for testing only-->
 <script>
- jQuery(document).ready(function(){
-  jQuery(".nav-gift-sets").mouseover(function(){
-    jQuery(".nav-10").addClass("hover");
-	jQuery(".nav-10>a").addClass("color_a");
-	jQuery(".gift-menu-wrapp").show();
-  });	
-  jQuery(".nav-gift-sets").mouseleave(function(){
-    jQuery(".nav-10").removeClass("hover");
-	jQuery(".nav-10>a").removeClass("color_a");
-	jQuery(".gift-menu-wrapp").hide();
-  });
+    jQuery(document).ready(function() {
+        jQuery(".nav-gift-sets").mouseover(function() {
+            jQuery(".nav-10").addClass("hover");
+            jQuery(".nav-10>a").addClass("color_a");
+            jQuery(".gift-menu-wrapp").show();
+        });	
   
-  jQuery(".gift-menu-wrapp").mouseover(function(){
-	jQuery(".gift-menu-wrapp").show();
-	jQuery(".parent-10").addClass("over");
-  });
-  jQuery(".gift-menu-wrapp").mouseleave(function(){
-	jQuery(".gift-menu-wrapp").hide();
-	jQuery(".parent-10").removeClass("over");
-  });	
+        jQuery(".nav-gift-sets").mouseleave(function() {
+            jQuery(".nav-10").removeClass("hover");
+            jQuery(".nav-10>a").removeClass("color_a");
+            jQuery(".gift-menu-wrapp").hide();
+        });
   
+        jQuery(".gift-menu-wrapp").mouseover(function() {
+            jQuery(".gift-menu-wrapp").show();
+            jQuery(".parent-10").addClass("over");
+        });
   
-  
-});
+        jQuery(".gift-menu-wrapp").mouseleave(function() {
+            jQuery(".gift-menu-wrapp").hide();
+            jQuery(".parent-10").removeClass("over");
+        });
+    });
 </script>
 
 <script>
- jQuery(document).ready(function(){
-  jQuery(".td-promo").mouseover(function(){
-    jQuery(".td-promo-cont").show();
-	jQuery(".td-promo").addClass('bg-white');
-  });	
-  jQuery(".td-promo").mouseleave(function(){
-    jQuery(".td-promo-cont").hide();
-	jQuery(".td-promo").removeClass('bg-white');
-  });
+    jQuery(document).ready(function() {
+        jQuery(".td-promo").mouseover(function() {
+            jQuery(".td-promo-cont").show();
+        });
   
-  jQuery(".td-contact-sticky").mouseover(function(){
-    jQuery(".td-contact-sticky-cont ").show();
-	jQuery(".td-contact-sticky").addClass('bg-white');
-  });	
-  jQuery(".td-contact-sticky").mouseleave(function(){
-    jQuery(".td-contact-sticky-cont ").hide();
-	jQuery(".td-contact-sticky").removeClass('bg-white');
-  });
+        jQuery(".td-promo").mouseleave(function() {
+            jQuery(".td-promo-cont").hide();
+        });
   
+        jQuery(".td-contact-sticky").mouseover(function() {
+            jQuery(".td-contact-sticky-cont ").show();
+        });
+        
+        jQuery(".td-contact-sticky").mouseleave(function() {
+            jQuery(".td-contact-sticky-cont ").hide();
+        });  
+    });
+</script>
+<?php 
+ $customer = Mage::getSingleton('customer/session')->getCustomer();
+ if(isset($customer) && !empty($customer)){
+ 	$email = $customer->getEmail();// for email address
+ }else{
+ 	$email = "";
+ }
+?>
+<script type="text/javascript">
+jQuery(document).ready(function () {    
+	dataLayer.push( {'sitetype': 'd'} );
+	dataLayer.push( {'emailaddress': '<?php echo $email; ?>'} );
+});
+
+jQuery('.search-container-new #searchDropdownBox').change(function() {
+	jQuery('.search-container-new #nav-search-in-content').text(jQuery('.search-container-new #searchDropdownBox option:selected').text());
+});
+
+jQuery('.search-container-new-mobile #searchDropdownBox').change(function() {
+	jQuery('.search-container-new-mobile #nav-search-in-content').text(jQuery('.search-container-new-mobile #searchDropdownBox option:selected').text());
 });
 </script>
 <?php 
