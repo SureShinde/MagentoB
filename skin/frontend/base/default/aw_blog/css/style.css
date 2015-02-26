@@ -388,7 +388,7 @@ A.awblog_current_comment {
 	margin: 20px 0;
 }
 
-.blog-index-list .col-main {width:65% !important; padding: 0 5%}
+.blog-index-list .col-main {}
 .blog-index-list .col-right {
 	float: right;
 	padding:0 0 0 3%;
@@ -935,9 +935,7 @@ h2.small-tittle {
 
 .blog-index-list .main-container, .blog-index-list .main-container.col1-layout .main, .blog-index-list .main-container.col2-left-layout .main, .blog-index-list .main-container.col2-right-layout .main {
 	background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
-	margin: 5px 2% 0;
 	padding: 0;
-	width: 96% !important;
 }
 .blog-cat-view .main-container, .blog-cat-view .main-container.col1-layout .main, .blog-cat-view .main-container.col2-left-layout .main, .blog-cat-view .main-container.col2-right-layout .main,
 .blog-search-index .main-container, .blog-search-index .main-container.col1-layout .main, .blog-search-index .main-container.col2-left-layout .main, .blog-search-index .main-container.col2-right-layout .main {
@@ -1067,7 +1065,6 @@ h2.small-tittle {
     font-family: helvetica;
     font-size: 12px;
     font-weight: bold;
-    margin: 10px 60px 13px !important;
 }
 
 
