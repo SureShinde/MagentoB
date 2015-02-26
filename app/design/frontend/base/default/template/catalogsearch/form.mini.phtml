@@ -34,7 +34,7 @@ $_helper = Mage::helper('megamenu');
 $_categories = $_helper->getMegamenuData();
 ?>
 
-<div class="search-container-new">
+
     <form id="nav-searchbar" action="<?php echo $catalogSearchHelper->getResultUrl() ?>" method="get" name="site-search" role="search" accept-charset="utf-8" class="nav-searchbar-inner">
         <div class="nav-submit-button nav-sprite">
             <button type="submit" value="" class="nav-submit-input" title="">
@@ -54,15 +54,6 @@ $_categories = $_helper->getMegamenuData();
                         <option class="search-title-drop style-search-cat" value="<?php echo $_category['id']; ?>">
                             <?php echo $_category['name']; ?>
                         </option>
-                        
-                        <?php if ($_category['child'] && count($_category['child'] > 0)): ?>
-                            <?php foreach ($_category['child'] as $_subcategory): ?>
-                                <?php $_subcategoryActive = ($_subcategory['id'] == $_cat) ? 'selected="selected"' : ''; ?>
-                                <option class="search-subtitle-drop style-search-subcat" value="<?php echo $_subcategory['id']; ?>" <?php echo $_subcategoryActive; ?>>
-                                    <?php echo $_subcategory['name'] ?>
-                                </option>
-                            <?php endforeach; ?>
-                        <?php endif; ?>
                     <?php endforeach; ?>
                 <?php endif; ?>
             </select>
@@ -74,18 +65,3 @@ $_categories = $_helper->getMegamenuData();
             </div>
         </div>
     </form>
-</div>
-
-<script type="text/javascript">
-jQuery('#searchDropdownBox').change(function() { 
-  var str = "";
-  jQuery( "#searchDropdownBox option:selected" ).each(function() {
-      str += jQuery( this ).text() + " ";
-  });
-
-  jQuery("#nav-search-in-content").text( str );
-  
-});
-
-jQuery("#nav-search-in-content").text(jQuery( "#searchDropdownBox option:selected" ).text());
-</script>

@@ -26,6 +26,17 @@
 ?>
 <div class="footer-container">
     <div class="footer">
+		<div class="subscribe-form">
+			<p>Daftarkan email Anda untuk info promo dan diskon spesial dari Bilna.com!</p>
+			<div class="wrap-form-subscribe">
+				<form action="<?php echo Mage::getBaseUrl(); ?>newsletter/subscriber/new/" method="post" id="newsletter-validate-detail">
+					<div class="input-box">
+					   <input type="text" name="email" id="newsletter" title="Sign up for our newsletter" class="input-text required-entry validate-email" placeholder="Masukkan email Anda di sini">
+					</div>
+					<button type="submit" title="Sign Up" class="button">Daftar</button>
+				</form>
+			</div>
+		</div>
     	<?php //echo $this->getLayout()->createBlock('page/switch')->setTemplate('page/switch/languages.phtml')->toHtml() ?>
     	<?php echo $this->getChildHtml() ?>
         <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('shipping_partners')->toHtml() ?>
