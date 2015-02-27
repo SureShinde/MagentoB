@@ -1,0 +1,19 @@
+.billing-address{
+	width: 215px !important;
+}
+.billing-address2{
+	width: 215px !important;
+}
+.billingstates, .shippingregion{
+	background-color: #999;
+}
+.al-authorization .form-list li:first-child{
+	border-bottom: 0px;
+	padding: 0px;
+}
+.al-authorization{
+	padding-top: 10px;
+}
+#checkout-step-login .form-list{
+	padding: 10px 0px;
+}
