@@ -266,7 +266,7 @@
                 <active>1</active>
                 <model>paymethod/method_vtdirect</model>
                 <order_status>pending</order_status>
-                <title>Credit Card (VT-Direct by Veritrans)</title>
+                <title>Credit/Debit Card (VT-Direct by Veritrans)</title>
                 <cctypes>VI,MC</cctypes>
                 <!--payment_action>authorize</payment_action-->
                 <allowspecific>0</allowspecific>
@@ -631,6 +631,16 @@
                 <!--payment_action>authorize</payment_action-->
                 <allowspecific>0</allowspecific>
             </othermc>
+            
+            <mandiridebitvisa>
+                <active>1</active>
+                <model>paymethod/method_mandiridebitvisa</model>
+                <order_status>pending</order_status>
+                <title>Debit Card (Mandiri Visa)</title>
+                <cctypes>VI</cctypes>
+                <!--payment_action>authorize</payment_action-->
+                <allowspecific>0</allowspecific>
+            </mandiridebitvisa>
         </payment>
     </default>
 </config>
