@@ -1,0 +1,18 @@
+/* bilna-category-custom */
+
+/* --------------- smaller 959 px layout -------------------- */
+@media only screen and (max-width: 767px) {
+	.button-bilna-custom {
+		padding: 0;
+		margin: -150px 0 0 0;
+	}
+	.wrap-button-bilna-custom{
+		float:left;
+		margin-left:10px;
+	}
+}
+
+.feature-color-custom {
+	height: 10px;
+    padding: 5px 0;
+}

@@ -17,7 +17,7 @@
             <sort_order>10</sort_order>
             <groups>
                 <installmentreport translate="label">
-                    <label>Credit Card Settings</label>
+                    <label>Credit/Debit Card Settings</label>
                     <frontend_type>text</frontend_type>
                     <sort_order>0</sort_order>
                     <show_in_default>1</show_in_default>
