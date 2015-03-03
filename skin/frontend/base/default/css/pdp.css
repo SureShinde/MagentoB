@@ -1257,7 +1257,6 @@ margin: 0 1% ;
 	width: 88px;
 	height: 30px;
 	bottom: 20px !important;
-	line-height: 21px;
 	color: #fff !important;
 	position: absolute !important;
 	font-family: Helvetica;
@@ -1272,6 +1271,12 @@ margin: 0 1% ;
 	-moz-border-radius:5px;
 	-webkit-border-radius:5px;
 }
+
+.product-view .product-shop-right .block.block-related .block-content .aw-arp-item .aw-arp-addtocart .availability.out-of-stock {
+	right: 0;
+	line-height: 25px;
+	height: auto;
+}
 .catalog-product-view .aw-mini-related-items li.super-products:hover .availability.out-of-stock,
 .catalog-product-view .aw-mini-related-items .availability.out-of-stock:hover,
 .product-view .product-shop-right .block.block-related .block-content .aw-arp-item .aw-arp-addtocart .availability.out-of-stock:hover {
@@ -1285,7 +1290,7 @@ margin: 0 1% ;
 .catalog-product-view .aw-mini-related-items .availability.out-of-stock a,
 .product-view .product-shop-right .block.block-related .block-content .aw-arp-item .aw-arp-addtocart .availability.out-of-stock  span a{
 	display: block;
-	font-size:12px;
+	font-size:1em;
 	padding: 0 9px;
 	text-transform: uppercase;
 	color:#000

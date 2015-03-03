@@ -772,10 +772,17 @@ width: 100%;
     background-repeat: no-repeat;
     background-position: 107% -89px;
 }
-.homepage .homepage-banner .first-level > ul > li > a{
+.homepage .homepage-banner .first-level > ul > li > div.first-level-url{
 	color:#424143;
 	display:block;
 	text-transform:uppercase;
+	cursor:pointer;
+}
+.homepage .homepage-banner .wrap-banner .first-banner-megamenu img, .homepage .homepage-banner li.active-cat .wrap-banner .first-banner-megamenu .main-banner {
+	margin: 0 0 10px;
+}
+.homepage .homepage-banner li.active-cat .wrap-banner .first-banner-megamenu .main-banner {
+	position:relative;
 }
 .homepage .homepage-banner li a, .homepage .homepage-banner .second-level p a{
     color: #414042;
@@ -799,18 +806,20 @@ width: 100%;
 .homepage .homepage-banner .first-level .second-level{
     display: none;
 }
-.homepage .homepage-banner .first-level .default .second-level{
+.homepage .homepage-banner .first-level .active-cat .second-level{
     display: block;
-	padding-top: 4px;
     width: 1030px;
     z-index: 0;
 	height:485px;
 	overflow:hidden;
 }
-.homepage .homepage-banner .first-level .default, .homepage .homepage-banner .first-level > ul > li:hover {
+.homepage .homepage-banner .first-level li.first-level-cat.active-cat.hover-cat > div.first-level-url{
+    color: #F05A2A !important;
+}
+.homepage .homepage-banner .first-level .active-cat div.first-level-url, .homepage .homepage-banner .first-level > ul > li:hover div{
     color: #F05A2A;
 }
-.homepage .homepage-banner .first-level > ul:hover > li.default{
+.homepage .homepage-banner .first-level > ul:hover > li.active-cat{
     background-color:transparent;
     background-image: url(../images/megamenu/arrow.png);
     background-repeat: no-repeat;
@@ -821,40 +830,41 @@ width: 100%;
     background-repeat: no-repeat;
     background-position: 107% -89px;
 }
-.homepage .homepage-banner .first-level .default:hover > a{
+.homepage .homepage-banner .first-level .active-cat:hover > a{
 	color:#fff;
 }
-.homepage .homepage-banner .first-level .default > a{
+.homepage .homepage-banner .first-level .active-cat > a{
 	color:#F05A2A;
 }
-.homepage .homepage-banner .first-level ul:hover .default > a{
+.homepage .homepage-banner .first-level ul.hover-cat .active-cat > a{
 	color:#707070;
 }
-.homepage .homepage-banner .first-level > ul > li:hover > a {
+.homepage .homepage-banner .first-level > ul > li.hover-cat > a {
     color: #424143;
 }
-.homepage .homepage-banner .first-level > ul:hover > li:hover > a {
+.homepage .homepage-banner .first-level > ul.hover-cat > li.cat-hover > a {
     color: #F05A2A;
 }
-.homepage .homepage-banner .first-level li:hover .second-level{
-    display: block;
+.homepage .homepage-banner .first-level .active-cat .second-level,
+.homepage .homepage-banner .first-level .hover-cat .second-level{
+    display: block !important;
     width: 1030px;
     z-index: 1;
 	height:485px;
 	overflow:hidden;
-	padding-top: 4px;
     background: #fff;
 }
-.homepage .homepage-banner .first-level > ul:hover > li.default:hover .second-level{
+.homepage .homepage-banner .first-level > ul > li.active-cat .second-level{
 	display:block;
 }
-.homepage .homepage-banner .first-level > ul:hover > li.default .second-level{
+/*.homepage .homepage-banner .first-level > ul:hover > li.active-cat .second-level{
 	display:none;
-}
+}*/
 .homepage .homepage-banner .first-level .second-level ul{
     margin-bottom: 10px;
     margin-top: 0px;
     font-weight: normal;
+	padding-top:4px;
 }
 .homepage .homepage-banner .first-level .second-level p a{
     text-transform: uppercase;
@@ -862,83 +872,92 @@ width: 100%;
     font-size: 1em;
     color:#55909a;
 }
-.wrap-banner {
+.homepage .wrap-banner {
     float: right;
     width: calc(100% - 235px);
     border-left: 1px solid #ededed;
     z-index: 0;
 }
-.wrap-banner .first-banner-megamenu, .wrap-banner .second-banner-megamenu, .wrap-banner .third-banner-megamenu{
+.homepage .wrap-banner .first-banner-megamenu, .wrap-banner .second-banner-megamenu, .wrap-banner .third-banner-megamenu{
     float: left;
     padding: 0 0 0 12px;
 }
-.wrap-banner img{
+.homepage .wrap-banner img{
     float:left;
     width: 100%;
 }
-.wrap-banner .first-banner-megamenu img{
-    padding: 0 0 10px;
-}
-.wrap-banner .second-banner-megamenu img{
+.homepage .wrap-banner .second-banner-megamenu img{
     padding: 0 0 12px;
 }
-.wrap-banner .third-banner-megamenu img{
+.homepage .wrap-banner .third-banner-megamenu img{
     padding: 0 0 13px;
 }
-.wrap-banner .first-banner-megamenu{
+.homepage .wrap-banner .first-banner-megamenu{
     width: 48%;
 }
-.wrap-banner .second-banner-megamenu{
+.homepage .wrap-banner .second-banner-megamenu{
     width: 23%;
 }
-.wrap-banner .third-banner-megamenu{
+.homepage .wrap-banner .third-banner-megamenu{
     width: 23%;
 }
-.wrap-banner .first-banner-megamenu .bottom-left-firstbanner, .wrap-banner .first-banner-megamenu .bottom-right-firstbanner{
+.homepage .wrap-banner .first-banner-megamenu .bottom-left-firstbanner, .wrap-banner .first-banner-megamenu .bottom-right-firstbanner{
     width: 48%;
     float: left;
 }
-.wrap-banner .first-banner-megamenu .bottom-left-firstbanner{
-    padding: 0 5px 0 0;
+.homepage .wrap-banner .first-banner-megamenu .bottom-left-firstbanner{
+    padding: 0 7px 0 0;
 }
-.wrap-banner .first-banner-megamenu .bottom-right-firstbanner{
-    padding: 0 0 0 5px;
+.homepage .wrap-banner .first-banner-megamenu .bottom-right-firstbanner{
+    padding: 0 0 0 8px;
 }
 .homepage .homepage-banner.slider-mobile{
 	display:none;
 }
 @media (min-width: 1023px )and (max-width: 1215px ){
-    .homepage .homepage-banner .first-level li:hover .second-level, .homepage .homepage-banner .first-level .default .second-level{
+    .homepage .homepage-banner .first-level li:hover .second-level, .homepage .homepage-banner .first-level .active-cat .second-level{
         width: 805px;
     }
-    .wrap-banner .first-banner-megamenu{
-        width: 65%;
+    .homepage .homepage-banner .wrap-banner .first-banner-megamenu{
+        width: 64%;
     }
-    .wrap-banner .second-banner-megamenu{
-            width: 30%;
+    .homepage .homepage-banner .wrap-banner .second-banner-megamenu{
+            width: 31%;
     }
-    .wrap-banner .third-banner-megamenu{
+    .homepage .homepage-banner .wrap-banner .third-banner-megamenu{
         display: none;
     }
-	.homepage .homepage-banner .first-level{
+	.homepage .homepage-banner .homepage .homepage-banner .first-level{
 		min-height: 470px;
+	}
+	.homepage .wrap-banner .first-banner-megamenu .bottom-right-firstbanner{
+		padding: 0 0 0 3px;
 	}
 	/*=========== baby ================*/
 	.homepage-top-block.left {
 		display: none;
 	}
+	.homepage .wrap-banner .first-banner-megamenu .bottom-left-firstbanner {
+		padding: 0 4px 0 0;
+	}
+	.homepage .wrap-banner .first-banner-megamenu .bottom-left-firstbanner, .wrap-banner .first-banner-megamenu .bottom-right-firstbanner{
+		width: 49%;
+	}
+	.homepage .homepage-banner .wrap-banner .first-banner-megamenu img, .homepage .homepage-banner li.active-cat .wrap-banner .first-banner-megamenu .main-banner{
+		margin: 0 0 12px;
+	}
 }
 @media (min-width: 768px )and (max-width: 1022px ){
-    .wrap-banner .first-banner-megamenu{
+    .homepage .homepage-banner .wrap-banner .first-banner-megamenu{
         width: 100%;
     }
-    .wrap-banner .second-banner-megamenu{
+    .homepage .homepage-banner .wrap-banner .second-banner-megamenu{
         display: none;
     }
-     .wrap-banner .third-banner-megamenu{
+    .homepage .homepage-banner .wrap-banner .third-banner-megamenu{
         display: none;
     }
-    .homepage .homepage-banner .first-level li:hover .second-level, .homepage .homepage-banner .first-level .default .second-level{
+    .homepage .homepage-banner .homepage .homepage-banner .first-level li:hover .second-level, .homepage .homepage-banner .first-level .active-cat .second-level{
         width: 540px;
         height: 430px;
     }
@@ -961,13 +980,25 @@ width: 100%;
 	.homepage .homepage-banner .first-level > ul > li{
 		font-size: 1.1em;
 	}
+	.homepage .wrap-banner {
+		padding-left: 20px;
+	}
+	.homepage .wrap-banner .first-banner-megamenu, .wrap-banner .second-banner-megamenu, .wrap-banner .third-banner-megamenu{
+		padding:0;
+	}
+	.homepage .wrap-banner .first-banner-megamenu .bottom-left-firstbanner{
+		padding: 0 6px 0 0;
+	}
+	.homepage .wrap-banner .first-banner-megamenu .bottom-right-firstbanner{
+		padding: 0 0 0 6px;
+	}
 }
 @media (max-width: 768px ) {
 	.homepage .homepage-banner
 	{
 	   display:none;
 	}
-	.homepage .homepage-banner.slider-mobile{
+	.homepage .homepage-banner .slider-mobile{
 		display:block;
 		width: 94%;
 		margin: 0 3%;
