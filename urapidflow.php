@@ -26,6 +26,12 @@ if($argv[1]==1){
 	$helper->run(89);
 	// Export Product Feed Elevenia - Fashion:
 	$helper->run(90);
+	// Export Category-Product Association:
+	$helper->run(46);
+	// Export All Product - Groceries:
+	$helper->run(97);
+	// Export All Product - Beauty:
+	$helper->run(98);
 }
 //import
 else if($argv[1]==2){
@@ -41,6 +47,14 @@ else if($argv[1]==2){
 	$helper->run(74);
 	// Import Description Product - Baby:
 	$helper->run(37);
+	// Import Product Status Price - Groceries:
+	$helper->run(91);
+	// Import Product Status Price - Beauty:
+	$helper->run(92);
+	// Import Category-Product Association - Groceries:
+	$helper->run(94);
+	// Import Category-Product Association - Beauty:
+	$helper->run(95);
 }
 //prod feed
 else if($argv[1]==3){

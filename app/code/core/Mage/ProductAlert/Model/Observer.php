@@ -131,11 +131,17 @@ class Mage_ProductAlert_Model_Observer
                 try {
                     if (!$previousCustomer || $previousCustomer->getId() != $alert->getCustomerId()) {
                         $customer = Mage::getModel('customer/customer')->load($alert->getCustomerId());
+                        
                         if ($previousCustomer) {
                             $email->send();
                         }
-                        if (!$customer) {
-                            continue;
+                        if ( !$customer->getData() ) {
+                            $customer = new Varien_Object();
+                            $customer->setData('customer_id', $alert->getCustomerId());
+                            $customer->setData('email', $alert->getEmail());
+                            $customer->setData('name', $alert->getEmail());
+                            $customer->setData('group_id', 0);
+                            //continue;
                         }
                         $previousCustomer = $customer;
                         $email->clean();
@@ -170,7 +176,7 @@ class Mage_ProductAlert_Model_Observer
                 }
             }
             if ($previousCustomer) {
-                try {
+                try {  
                     $email->send();
                 }
                 catch (Exception $e) {
@@ -224,8 +230,14 @@ class Mage_ProductAlert_Model_Observer
                         if ($previousCustomer) {
                             $email->send();
                         }
-                        if (!$customer) {
-                            continue;
+                        if ( !$customer->getData() ) {
+                            $customer = new Varien_Object();
+                            $customer->setData('customer_id', $alert->getCustomerId());
+                            $customer->setData('email', $alert->getEmail());
+                            $customer->setData('name', $alert->getEmail());
+                            $customer->setData('group_id', 0);
+
+                            //continue;
                         }
                         $previousCustomer = $customer;
                         $email->clean();
@@ -260,7 +272,7 @@ class Mage_ProductAlert_Model_Observer
             }
 
             if ($previousCustomer) {
-                try {
+                try {       
                     $email->send();
                 }
                 catch (Exception $e) {

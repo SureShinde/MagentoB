@@ -1,16 +1,23 @@
-
 <?php 
-	$formbuilderSubmited = Mage::getSingleton('core/session')->getFormbuilderSubmited();
-	$formbuilderSuccess = Mage::getSingleton('core/session')->getFormbuilderSuccess();
-	$formbuilderFailed = Mage::getSingleton('core/session')->getFormbuilderFailed();
-	Mage::getSingleton('core/session')->unsetData('formbuilder_submited');
+$formbuilderSubmited = Mage::getSingleton('core/session')->getFormbuilderSubmited();
+$formbuilderSuccess = Mage::getSingleton('core/session')->getFormbuilderSuccess();
+$formbuilderFailed = Mage::getSingleton('core/session')->getFormbuilderFailed();
+Mage::getSingleton('core/session')->unsetData('formbuilder_submited');
 	
-	if((!isset($_POST["submit-form"]) && 
-			!is_null($this->block->force_flow) && 
-			($this->block->force_flow !== "")) &&
-			!($formbuilderSubmited)){
-		header("Location: ".Mage::getBaseUrl().$this->block->force_flow);exit();
-	} 
+if ((!isset ($_POST["submit-form"]) && !is_null($this->block->force_flow) && ($this->block->force_flow !== "")) && !($formbuilderSubmited)) {
+    header("Location: ".Mage::getBaseUrl().$this->block->force_flow);exit();
+}
+
+/**
+ * validation wording
+ */
+$_requiredEntry = 'required-entry';
+$_validateEmail = 'validate-email';
+
+if ($this->block->email_share_apps) {
+    $_requiredEntry = 'required-entry-ind';
+    $_validateEmail = 'validate-email-ind';
+}
 ?>
 <?php echo $this->getChildHtml('global_messages') ?>
 <form id="formbuilder-<?php echo $this->blockId; ?>" class="<?php echo $this->block->class; ?>" action="<?php echo $this->getBaseUrl(); ?>formbuilder/index/submit" method="post">
@@ -41,8 +48,11 @@
 		//var_dump($this->inputs->getData()); die;
 		
 		foreach($this->inputs->getData() as $input){
+                    if ($input['type'] == 'codeshare') {
+                        continue;
+                    }
+                    
 		$groupcombine = "";
-
 		?>	
 			<!--Pembukaan untuk foreach-->	
 			<?php if($input["group"] !== $group){
@@ -110,18 +120,45 @@
 			<?php }else{ ?>			
 
 				<div>
-					<label class="required" style="float: left; width: 140px;" for="<?php echo $input["name"]; ?>"><?php echo $input["value"]; ?><em><?php if($input["required"] == true) echo '*'; ?></em></label>
+                                    <?php if ($input['type'] != 'ref') { ?>
+                                        <label class="required" style="float:left; width:140px; padding-top:10px;" for="<?php echo $input["name"]; ?>">
+                                            <?php echo $input["value"]; ?><em><?php if($input["required"] == true) echo '*'; ?></em>
+                                        </label>
+                                    <?php } ?>
 
 				<!--Text Type-->
 				<?php if($input["type"] == "text"){ ?>
-					<input id="<?php echo $input["name"]; ?>" class="<?php if ($input["required"]) {echo "required-entry";}?> <?php echo (!empty($input["validation"])) ? 'validate-'.$input["validation"] : ''; ?>" style="height: 26px !important; width: 40%; background: none repeat scroll 0 0 #F9F9F9; border: none; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) inset; color: #666666; padding: 7px 5px; float: left; margin-right: 60px;" title="<?php echo $input["value"]; ?>" name="inputs[<?php echo $input["group"]; ?>]" placeholder="<?php echo $input["helper_message"]; ?>" />
+                                    <?php
+                                    $_validateEmail = '';
+                                    $_validationClass = '';
+                                    
+                                    if ($input['name'] == 'email') {
+                                        $_validateEmail = 'validate-email-ind';
+                                    }
+                                    
+                                    if ($input['validation']) {
+                                        $_validationArr = explode('|', $input['validation']);
+                                        $_validationClass = 'validate-' . $_validationArr[0];
+                                    }
+                                    ?>
+                                    
+                                    <input id="<?php echo $input["name"]; ?>" class="<?php if ($input["required"]) { echo $_requiredEntry; } ?> <?php echo $_validationClass; ?> <?php echo $_validateEmail; ?>" style="height: 26px !important; width: 40%; background: none repeat scroll 0 0 #F9F9F9; border: none; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) inset; color: #666666; padding: 7px 5px; float: left; margin-right: 60px;" title="<?php echo $input["value"]; ?>" name="inputs[<?php echo $input["group"]; ?>]" placeholder="<?php echo $input["helper_message"]; ?>" />
 				<!--End Text Type-->
 
 				<!--Textarea Type-->
 				<?php }else if($input["type"] == "textarea"){ ?>
-					<textarea id="<?php echo $input["name"]; ?>" class="<?php if ($input["required"]) {echo "required-entry";}?> input-text" style="height: 100px !important; width: 40%; background: none repeat scroll 0 0 #F9F9F9; border: none; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) inset; color: #666666; padding: 7px 5px; float: left; margin-right: 60px;" rows="3" cols="5" title="<?php echo $input["value"]; ?>" name="inputs[<?php echo $input["group"]; ?>]"></textarea>
-				<?php } ?>
-				<!--Textarea Type-->
+					<textarea id="<?php echo $input["name"]; ?>" class="<?php if ($input["required"]) {echo $_requiredEntry;}?> input-text" style="height: 100px !important; width: 40%; background: none repeat scroll 0 0 #F9F9F9; border: none; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) inset; color: #666666; padding: 7px 5px; float: left; margin-right: 60px;" rows="3" cols="5" title="<?php echo $input["value"]; ?>" name="inputs[<?php echo $input["group"]; ?>]"></textarea>
+                                <!--Textarea Type-->
+				<?php
+                                }
+                                elseif ($input['type'] == 'ref') {
+                                    $_value = '';
+                                    
+                                    if ($this->getRequest()->getParam($input['type'])) {
+                                        $_value = $this->getRequest()->getParam($input['type']);
+                                    } ?>
+                                    <input id="<?php echo $input['name']; ?>" name="inputs[<?php echo $input['group']; ?>]" type="hidden" value="<?php echo $_value; ?>" />
+                                <?php } ?>
 
 				</div>
 				<div style="clear: both;">
@@ -147,9 +184,34 @@
 		</ul>
         <div style="clear:both"></div>
 		<p class="required" style="float: left; color: #eb340a; margin-left: 160px;">* Required Fields</p>
+		<?php //if (!empty ($this->block->termsconditions)): ?>
+			<p class="termncondition"><?php echo $this->block->termsconditions; ?></p>
+		<?php //endif; ?>
 			<input id="hideit" style="display: none !important;" type="text" name="hideit" />
 			<button id="submit-form" type="submit" name="submit-form" class="button" title="" style="margin-left: 160px; margin-top: 10px;"><span class="fb-bebas fb-15" style="padding: 10px 20px; border: none; background: #ffa01b; font-weight: normal;"><?php echo $this->block->button_text; ?></span></button>
 	</div>
 	<div style="padding-left: 40em; margin-top: -30px; clear: both; width: 60%; padding: 0 15%; margin-bottom: 70px;"></div>
 	<?php } ?>
 </form>
+
+<style type="text/css">
+    .formbuilder-form .validation-advice {
+        margin-left: 140px;
+        padding-top: 10px;
+        background-position: 2px 8px;
+    }
+</style>
+
+<script type="text/javascript">
+    //< ![CDATA[
+        var customForm = new VarienForm('formbuilder-<?php echo $this->blockId; ?>', true);
+        Validation.addAllThese([
+            ['required-entry-ind', '<?php echo $this->__('Kolom Harus di isi') ?>', function(v) {
+                return !Validation.get('IsEmpty').test(v);
+            }],
+            ['validate-email-ind', '<?php echo $this->__('Email yang Anda masukkan salah. Contoh: johndoe@domain.com') ?>', function(v) {
+                return Validation.get('IsEmpty').test(v) || /^([a-z0-9,!\#\$%&'\*\+\/=\?\^_`\{\|\}~-]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z0-9,!\#\$%&'\*\+\/=\?\^_`\{\|\}~-]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*@([a-z0-9-]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z0-9-]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*\.(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]){2,})$/i.test(v);
+            }],
+        ]);
+    //]]>
+</script>

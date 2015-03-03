@@ -121,27 +121,36 @@ abstract class AW_Points_Model_Actions_Abstract {
      * @param array $additionalData
      * @return AW_Points_Model_Actions_Abstract
      */
-    public function addTransaction($additionalData = array()) {
+    public function addTransaction($additionalData = array ()) {
         $additionalData['comment'] = $this->getComment();
         
-        if(!isset($additionalData['store_id'])) {
+        if (!isset ($additionalData['store_id'])) {
             if ($this->getObjectForAction() instanceof Varien_Object && $this->getObjectForAction()->getData('store_id')) {
                 $additionalData['store_id'] = $this->getObjectForAction()->getData('store_id');
-            } else {
+            }
+            else {
                 $additionalData['store_id'] = Mage::app()->getStore()->getId();
             }
         }
+        
+        if ($this->getAction() == 'review_approved') {
+            $review = $this->getObjectForAction();
+            $additionalData['change_date'] = $review->getCreatedAt();
+        }
 
-        $this->_transaction =
-                Mage::getModel('points/transaction')
-                ->changePoints(
-                $this->_applyLimitations($this->getAmount()), $this->getAction(), $this->getSummary(), $additionalData
+        $this->_transaction = Mage::getModel('points/transaction')->changePoints(
+            $this->_applyLimitations($this->getAmount()),
+            $this->getAction(),
+            $this->getSummary(),
+            $additionalData
         );
 
-        if ($this->_transaction->getBalanceChange() < 0)
+        if ($this->_transaction->getBalanceChange() < 0) {
             $this->_updateTransactionsBalancePointsSpent();
+        }
 
         $this->sendMail();
+        
         return $this;
     }
 

@@ -4,18 +4,32 @@ class Bilna_AjaxRequest_DataController extends Mage_Core_Controller_Front_Action
     	$response	= array();
         $data		= $this->getRequest()->getPost('data');
 	        
-	    $response['status'] = true;
-
 	    $cart = Mage::getSingleton('checkout/session')->getQuote();
-        $i=0;
-        foreach ($cart->getAllItems() as $item) {
-			$product = array();
-			$product["identifier"] = $item->getSku();
-			$product["amount"] = (int) $item->getPrice();
-			$product["currency"] = "IDR";
-			$product["quantity"] = $item->getQty();
-		    $response['data']['products'][] = $product;
-        }
+        if (!isset ($cart) || empty ($cart)) {
+	    	$response['status'] = false;
+	    }else{
+	    	$response['status'] = true;
+	    	$i=0;
+	    	
+	    	$gtmIds = '';
+	    	$gtmPrices = '';
+	    	$gtmQuantitys = '';
+	    	foreach ($cart->getAllItems() as $item) {
+	    		$product = array();
+	    		$product["identifier"] = $item->getSku();
+	    		$product["amount"] = (int) $item->getPrice();
+	    		$product["currency"] = "IDR";
+	    		$product["quantity"] = $item->getQty();
+	    		$response['data']['products'][] = $product;
+	    	
+	    		$gtmIds = $item->getId()."|";
+	    		$gtmQuantitys = $item->getQty()."|";
+	    		$gtmPrices = (int)$item->getPrice()."|";
+	    	}
+	    	$response['data']['quote']['productIds'] = $gtmIds;
+	    	$response['data']['quote']['productPrices'] = $gtmPrices;
+	    	$response['data']['quote']['productQtys'] = $gtmQuantitys;
+	    }
         
         echo json_encode($response);
         exit;
@@ -33,9 +47,16 @@ class Bilna_AjaxRequest_DataController extends Mage_Core_Controller_Front_Action
 	        $order = Mage::getModel('sales/order')->loadByIncrementId($orderId);
 	        $response['status'] = true;
             $i=1;
+
+            $gtmIds = '';
+            $gtmPrices = '';
+            $gtmQuantitys = '';
 	        foreach ($order->getAllItems() as $item) {
 				$product = array();
 				$product["identifier"] = $item->getSku();
+				$gtmIds = $item->getProductId()."|";
+				$gtmQuantitys = $item->getQtyOrdered()."|";
+				$gtmPrices = (int)$item->getPrice()."|";
 				$product["amount"] = (int) $item->getPrice();
 				$product["currency"] = "IDR";
 				$product["quantity"] = $item->getQtyOrdered();
@@ -47,6 +68,9 @@ class Bilna_AjaxRequest_DataController extends Mage_Core_Controller_Front_Action
 		    $response['data']['currency'] = "IDR";
             $response['data']["customer_id"] = $item->getCustomerId();
             $response['data']["customer_email"] = $item->getCustomerEmail();
+            $response['data']['order']['productIds'] = $gtmIds;
+            $response['data']['order']['productPrices'] = $gtmPrices;
+            $response['data']['order']['productQtys'] = $gtmQuantitys;
              
         }
 		
@@ -66,13 +90,20 @@ class Bilna_AjaxRequest_DataController extends Mage_Core_Controller_Front_Action
             $order = Mage::getModel('sales/order')->loadByIncrementId($orderId);
             $response['status'] = true;
             $i=1;
+
+            $gtmIds = '';
+            $gtmPrices = '';
+            $gtmQuantitys = '';
             foreach ($order->getAllItems() as $item) {
                 $product = array();
                 $product["id"] = $item->getProductId();
+                $gtmIds = $item->getProductId()."|";
                 $product["sku"] = $item->getSku();
                 $product["name"] = $item->getName();
                 $product["qty"] = $item->getQtyOrdered();
-                $product["price"] = (int) $item->getPrice();
+                $gtmQuantitys = $item->getQtyOrdered()."|";
+                $product["price"] = (int)$item->getPrice();
+                $gtmPrices = (int)$item->getPrice()."|";
                 $product["total_price"] = $product["qty"]*$product["price"];
                 $response['data']["numofitem"] = $response['data']["numofitem"] + $item->getQtyOrdered();
                 $response['data']['products'][] = $product;
@@ -83,6 +114,9 @@ class Bilna_AjaxRequest_DataController extends Mage_Core_Controller_Front_Action
             $response['data']['order']['quantity'] = (int)$response['data']["numofitem"];
             $response['data']['order']['paymethod'] = "";
             $response['data']['order']['products'] = $response['data']['products'];
+            $response['data']['order']['productIds'] = $gtmIds;
+            $response['data']['order']['productPrices'] = $gtmPrices;
+            $response['data']['order']['productQtys'] = $gtmQuantitys;
             $response['data']['customer']["id"] = $item->getCustomerId();
             $response['data']['customer']["email"] = $item->getCustomerEmail();
             $response['data']['customer']["type"] = "";

@@ -129,7 +129,7 @@ if (count($this->getItems()) == 1){
             
             $step = round(($to - $from) / 50000);  
             
-            $width = floor(170/$step) * $step;
+            $width = ceil(170/$step) * $step;
             
             $ratePP = ($to - $from) / $width;  
             

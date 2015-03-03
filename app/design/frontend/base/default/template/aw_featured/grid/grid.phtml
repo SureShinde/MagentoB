@@ -96,7 +96,7 @@
 						<p><button type="button" title="<?php echo $this->__('Buy Now') ?>" class="button btn-buynow" onclick="setLocation('<?php echo $_abstractBlock->getAddToCartUrl($_product) ?>')"><?php echo $this->__('Buy Now') ?></button></p>
 						<?php endif;?>
 						<?php else : ?>
-						<p class="availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></p>
+						<p class="availability out-of-stock"><span><a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($_product->getName(), null, true) ?>"><?php echo $this->__('Notify me') ?></a></span></p>
 						<?php endif ?>
 						<?php if ($this->helper('wishlist')->isAllow()) : ?>
 							<a href="<?php echo $this->helper('wishlist')->getAddUrl($_product) ?>" class="link-wishlist"><?php echo $this->__('Buy Later') ?></a>

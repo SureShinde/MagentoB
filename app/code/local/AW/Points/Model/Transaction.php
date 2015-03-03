@@ -72,43 +72,58 @@ class AW_Points_Model_Transaction extends Mage_Core_Model_Abstract {
      * @param array $additionalData
      * @return AW_Points_Model_Transaction 
      */
-    public function changePoints($amount, $action, $summary, $additionalData = array()) {
+    public function changePoints($amount, $action, $summary, $additionalData = array ()) {
         if (!($summary instanceof AW_Points_Model_Summary) || !$summary->getId()) {
             throw new AW_Core_Exception(Mage::helper('points')->__('Cannot load summary, action - %s, amount - %s', $action, $amount));
         }
 
-        if (!$amount)
+        if (!$amount) {
             throw new Exception(Mage::helper('points')->__('Zero transaction amount'));
+        }
 
         $customer = $summary->getCustomer();
 
-        if (!$customer->getId())
+        if (!$customer->getId()) {
             throw new Exception(Mage::helper('points')->__('Guest can not work with points'));
+        }
 
-        $storeId = isset($additionalData['store_id']) ? $additionalData['store_id'] : null;
+        $storeId = isset ($additionalData['store_id']) ? $additionalData['store_id'] : null;
         $expirationDate = null;
-        if ($amount > 0)
-            $expirationDate = isset($additionalData['expiration_date']) ? $additionalData['expiration_date'] : $this->_prepareExpirationDate($storeId);
+        
+        if ($amount > 0) {
+            $expirationDate = isset ($additionalData['expiration_date']) ? $additionalData['expiration_date'] : $this->_prepareExpirationDate($storeId);
+        }
 
-        if (isset($additionalData['comment']))
+        if (isset ($additionalData['comment'])) {
             $additionalData['comment'] = htmlspecialchars($additionalData['comment']);
-        if (isset($additionalData['notice']))
+        }
+        
+        if (isset ($additionalData['notice'])) {
             $additionalData['notice'] = htmlspecialchars($additionalData['notice']);
+        }
+        
+        $changeDate = Mage::getModel('core/date')->gmtDate();
+        
+        /**
+         * for ReviewApproved
+         */
+        if (isset ($additionalData['change_date'])) {
+            $changeDate = $additionalData['change_date'];
+            unset ($additionalData['change_date']);
+        }
+        
+        $this->addData($additionalData)
+            ->setSummaryId($summary->getId())
+            ->setAction($action)
+            ->setChangeDate($changeDate)
+            ->setExpirationDate($expirationDate)
+            ->setBalanceChange($amount)
+            ->setCustomerName($customer->getName())
+            ->setCustomerEmail($customer->getEmail())
+            ->save();
 
-        $this
-                ->addData($additionalData)
-                ->setSummaryId($summary->getId())
-                ->setAction($action)
-                ->setChangeDate(Mage::getModel('core/date')->gmtDate())
-                ->setExpirationDate($expirationDate)
-                ->setBalanceChange($amount)
-                ->setCustomerName($customer->getName())
-                ->setCustomerEmail($customer->getEmail())
-                ->save();
-
-        $summary
-                ->setPoints($summary->getPoints() + $amount)
-                ->save();
+        $summary->setPoints($summary->getPoints() + $amount)
+            ->save();
 
         return $this;
     }

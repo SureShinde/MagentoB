@@ -31,6 +31,7 @@
  * @see Mage_Checkout_Block_Cart
  */
 ?>
+<?php $gtmItemIds = ''; ?>
 <input type="hidden" id="3rdparty-type" value="cart"/>
 <input type="hidden" id="3rdparty-value" value="" />
 <div class="cart">	
@@ -122,6 +123,7 @@
                     <tbody>
                         <?php foreach($this->getItems() as $_item): ?>
                             <?php echo $this->getItemHtml($_item) ?>
+                            <?php $gtmItemIds = $_item->getId().'|'; ?>
                         <?php endforeach ?>
                     </tbody>
                 </table>
@@ -359,3 +361,29 @@
 		<?php echo $this->getChildHtml('crosssell') ?>
 	</div>
 </div>
+<script type="text/javascript">
+jQuery(document).ready(function () {    
+    var ajaxURL = 'https://www.bilna.com/ajaxrequest/data/retrievecart/';
+
+    var data = {};
+
+    jQuery.ajax({
+        type: "POST",
+        url : ajaxURL,
+        data: { data: data },
+        success: function(data){
+            response = jQuery.parseJSON(data);
+            if(response.status == true){
+            	dataLayer.push( {'productid': response.data.quote.productIds} );
+            	dataLayer.push( {'prices': response.data.quote.productPrices} );
+            	dataLayer.push( {'quantities': response.data.quote.productQtys} );
+            }else{
+                return false;
+            }
+        },
+        error: function() {
+            return false;
+        }
+    });
+});
+</script>
