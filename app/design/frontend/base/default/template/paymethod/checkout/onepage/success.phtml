@@ -244,6 +244,13 @@ endif;
                     response = jQuery.parseJSON(data);
 
                     if (response.status == true) {
+                    	dataLayer.push({'newcustomer': '0'} );
+                    	dataLayer.push({'orderid': response.data.order.id} );
+
+                    	dataLayer.push( {'productid': response.data.order.productIds} );
+                    	dataLayer.push( {'prices': response.data.order.productPrices} );
+                    	dataLayer.push( {'quantities': response.data.order.productQtys} );
+                    	
                         dataLayer.push({'customer': response.data.customer});
                         dataLayer.push({'order': response.data.order});
                         dataLayer.push({'event': 'salesConversionEvent'});
