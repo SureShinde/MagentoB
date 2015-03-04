@@ -329,6 +329,11 @@
 	float: left;
 	padding: 10px 0;
 }
+#aw-afptc-popup button.btn-cart{
+	position: relative;
+	bottom: 0;
+	margin-bottom: 10px;
+}
 @media only screen and (max-width: 1215px) {}
 @media only screen and (max-width: 1023px) {
 	.checkout-onepage-index .col-main {

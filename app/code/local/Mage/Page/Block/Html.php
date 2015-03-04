@@ -322,4 +322,65 @@ class Mage_Page_Block_Html extends Mage_Core_Block_Template
         
         return $result;
     }
+    
+    public function getCurrentMainCategoryIdActive() {
+        $rootCategoryId = Mage::app()->getStore()->getRootCategoryId();
+        $result = '';
+        
+        if (Mage::registry('current_category')) {
+            $parentId = Mage::registry('current_category')->getParentId();
+            
+            if ($parentId == $rootCategoryId) {
+                $result = Mage::registry('current_category')->getId();
+            }
+            else {
+                $result = $this->getParentIdCurrentCategory(Mage::registry('current_category')->getId());
+            }
+        }
+        
+        return $result;
+    }
+    
+    protected function getParentIdCurrentCategory($id) {
+        $_helper = Mage::helper('megamenu');
+        $_categories = $_helper->getMegamenuData();
+        $result = '';
+        
+        if ($_categories && count($_categories) > 0) {
+            foreach ($_categories as $_category) {
+                if ($_category['id'] == $id) {
+                    $result = $_category['id'];
+                    break;
+                }
+                else {
+                    if ($_category['child'] && count($_category['child']) > 0) {
+                        foreach ($_category['child'] as $_subcategory) {
+                            if ($_subcategory['id'] == $id) {
+                                $result = $_subcategory['parent_id'];
+                                break;
+                            }
+                            else {
+                                if ($_subcategory['child'] && count($_subcategory['child']) > 0) {
+                                    foreach ($_subcategory['child'] as $_subsubcategory) {
+                                        if ($_subsubcategory['id'] == $id) {
+                                            $result = $_subsubcategory['parent_id'];
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        return $result;
+    }
+    
+    public function getMegamenuData() {
+        $_helper = Mage::helper('megamenu');
+        
+        return $_helper->getMegamenuData();
+    }
 }

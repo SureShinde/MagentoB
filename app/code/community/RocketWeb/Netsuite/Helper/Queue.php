@@ -25,6 +25,8 @@ class RocketWeb_Netsuite_Helper_Queue extends Mage_Core_Helper_Data {
 	public function getQueueId($queueName) {
 		if(!isset($this->_queue_ids[$queueName])) {
 			$connection = Mage::getSingleton('core/resource')->getConnection('core_read');
+			$connection->closeConnection();
+			$connection->getConnection();
 			$sql = $connection->quoteInto("SELECT queue_id FROM ".Mage::getSingleton('core/resource')->getTableName('queue')." WHERE queue_name=?",$queueName);
 			$id = $connection->fetchOne($sql);
 			$this->_queue_ids[$queueName] = $id;
@@ -35,6 +37,8 @@ class RocketWeb_Netsuite_Helper_Queue extends Mage_Core_Helper_Data {
     public function messageExistsInQueue(RocketWeb_Netsuite_Model_Queue_Message $message) {
         $identifier = $message->getUniqueIdentifier();
         $connection = Mage::getSingleton('core/resource')->getConnection('core_read');
+        $connection->closeConnection();
+		$connection->getConnection();
         $sql = $connection->quoteInto("SELECT COUNT(*) FROM ".Mage::getSingleton('core/resource')->getTableName('message')." WHERE body LIKE ?",$identifier.'|%');
         if($connection->fetchOne($sql)) {
             return true;

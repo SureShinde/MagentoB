@@ -1287,16 +1287,6 @@ z-index: 999;
 .td-promo-cont:hover {background:#fff;}
 .bg-white {background:#fff;}
 
-
-.td-contact-sticky-cont {
-	display: none;
-	position: absolute;
-	top: 36px;
-	/* left: 14%; */
-	z-index: 9999999999;
-	margin-left: -15px;
-}
-
 /* Megamenu backup */
 .megamenu-product {
 	text-align: right;
@@ -1315,22 +1305,6 @@ z-index: 999;
 }
 .megamenu-product a.megamenu-image img {
 	width: 100%;
-}
-.td-contact-sticky-cont .title-font {
-	font-family: 'bebasregular';
-    font-size: 1.5em;
-    font-weight: normal;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-}
-
-.td-contact-sticky-cont a {
-    background: none !important;
-    color: #707070;
-    font-size: 18px;
-    height: 28px;
-    line-height: 1.7em;
-    padding-left: 0px !important;
 }
 
 /* -------------- Gift Idea Pages ------------------ */
@@ -1771,6 +1745,11 @@ h2.block-grey-title-left {
     margin: 0 0 0 11px;
 	list-style:none;
 }
+.formbuilder-form .termncondition{
+	clear: both;
+	display: block;
+	margin-left: 160px;
+}
 .formbuilder-form button.button ul li  {
     list-style-type: none;
     clear: both;
@@ -1876,7 +1855,12 @@ h2.block-grey-title-left {
     
 
 }
-
+@media only screen and (max-width: 768px) {
+.formbuilder-form p.required{
+	margin-left:50px !important;
+}
+	
+}
 
 /* --------------------------------------- END FORM BUILDER --------------------------------------- */
 
@@ -3245,42 +3229,6 @@ button.button-area {
 }
 /*=============================end winner photo competition agustus=============================*/
 
-/* ---------- NEW STYLE FOR BOTTOOM INFO - COLOR MODE ---------- */
-.homepage-bottom .block-wrapper.color-bottom a {
-        text-decoration: none  !important;
-        padding: 3px 8px 0px !important; 
-        background: #ffff00; 
-        color: #666 !important;
-        font-weight: normal!important;
-        margin: 5px;
-        -webkit-padding-before: 0px;
-        -webkit-padding-after: 0px;
-        -webkit-box-sizing: border-box;
-        -moz-box-sizing: border-box;
-        box-sizing: border-box;
-    }
-    .homepage-bottom .block-wrapper.color-bottom span a {
-        background: none !important;
-        color: inherit !important;
-    }
-    .homepage-bottom .block-wrapper.color-bottom span {
-        font-family: 'InsaniburgerRegular', helvetica, arial, sans-serif !important;
-        line-height:0.9em; 
-        margin-bottom: 10px;
-        font-size: 30px !important;
-        letter-spacing: 0.03em;
-        text-shadow: 0px 0px 6px rgba(0,0,0,0.5);
-        color: #fff;
-    }
-    
-@media only screen and (min-device-width : 768px) and (max-device-width : 1023px) {
-    .homepage-bottom .block-wrapper span {
-        font-size: 24px !important;
-    }
-}
-/* ---------- END NEW STYLE FOR BOTTOOM INFO - COLOR MODE ---------- */
-
-
 /* checkout promo */
 #checkoutpromo{
 	overflow:hidden;
@@ -3338,7 +3286,7 @@ button.button-area {
 	background:#52c5d8;
 	color:#fff;
 	position:relative;
-	padding:9px 73px 10px 10px;
+	padding:9px 43px 10px 10px;
 	text-shadow:2px 1px 2px #1d8393
 }
 #checkoutpromo .home_link_promo .label_homelink p{
@@ -4250,3 +4198,80 @@ button.button-area {
 	}
 }
 /*============================ end style secreet wishes ========================*/
+
+
+/*============================ style bebe compt ========================*/
+.bebe-competition .link-category-promo {
+	width: 15%;
+	margin: 10px 3%;
+	display: table;
+	clear: none;
+	position:relative;
+	float: left;
+	font-size:18px;
+	text-align: center;
+	padding-top:15px;
+	padding-bottom:15px;
+}
+.bebe-competition .link-category-promo span{
+	color:#f29220;
+}
+.bebe-competition .link-category-promo img{
+	width:100%;
+}
+.bebe-competition .title-image{
+	font-size:20px;
+	text-align:center;
+	width: 85%;
+	color: #fff;
+	margin:0;
+	background:#f29220;
+}
+.bebe-competition .text-area{
+	font-size:12px;
+}
+.bebe-competition .form-bebe-competition button {
+    background: url("../images/referall-page/bg_label_input.jpg") repeat-x scroll 0 0 rgba(0, 0, 0, 0);
+    border: 2px solid #DADADA;
+    border-radius: 10px;
+    color: #FFFFFF;
+    cursor: pointer;
+    font-size: 18px;
+    margin: 0 10px;
+    padding: 8px 20px;
+}
+.bebe-competition .form-bebe-competition button span{
+	padding: 0 !important;
+	background: transparent !important;
+}
+@media only screen and (max-width: 1214px) {
+	.bebe-competition .link-category-promo{
+		font-size:14px;
+		width: 15%;
+	}
+}
+@media only screen and (max-width: 1023px) {
+	.bebe-competition .link-category-promo{
+		width: 20%;
+	}
+	.bebe-competition .link-category-promo{
+		margin:10px 2%;
+	}
+	.bebe-competition .title-image{
+		width:100%;
+	}
+}
+@media only screen and (max-width: 768px) {
+	.formbuilder-form .termncondition{
+		margin-left: 50px;
+	}
+}
+@media only screen and (max-width: 468px) {
+	.bebe-competition .link-category-promo{
+		clear: both;
+		width: 40%;
+		margin: 0 auto;
+		float: none;
+	}
+}
+/*============================ end style bebe compt ========================*/
