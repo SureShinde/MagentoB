@@ -100,7 +100,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      *
      * @var bool
      */
-    protected $_debug               = true;
+    protected $_debug               = false;
 
     /**
      * Minimum query duration time to be logged
@@ -294,6 +294,15 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
         return $this->formatDate($datetime, true);
     }
 
+    public function ping()
+    {
+        try{
+            $this->_connection->query("SELECT 1");
+        }catch(Exception $e){
+            return false;
+        }
+        return true;
+    }
     /**
      * Creates a PDO object and connects to the database.
      *
@@ -301,8 +310,12 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      */
     protected function _connect()
     {
-        if ($this->_connection) {
-            return;
+        if ($this->_connection) {                
+            if($this->ping()){
+                return;
+            }else{
+                $this->closeConnection();
+            }
         }
 
         if (!extension_loaded('pdo_mysql')) {
