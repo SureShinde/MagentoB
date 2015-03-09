@@ -487,6 +487,13 @@ class RocketWeb_Netsuite_Helper_Mapper_Order extends RocketWeb_Netsuite_Helper_M
                     	$customerGroup->value = preg_replace('/^(\w+) - /', '', $groupname);
                     	$customFields[] = $customerGroup;
                     }
+                    elseif ($customFieldsConfigItem['netsuite_field_name'] == 'custbody_bln_company_name') {
+                        $address = $magentoOrder->getShippingAddress();
+                        $companyName = new StringCustomFieldRef();
+                        $companyName->internalId = 'custbody_bln_company_name';
+                        $companyName->value = $address->getCompany();
+                        $customFields[] = $companyName;
+                    }
                     else {
                         $customField = $this->_initCustomField($customFieldsConfigItem, $magentoOrder);
                         $customFields[] = $customField;
