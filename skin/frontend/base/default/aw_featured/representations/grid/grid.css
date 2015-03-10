@@ -136,7 +136,7 @@
 	position: absolute;
 	bottom: 20px;
 }
-.awafpgrid > ul > li:hover .afp-addtocart button.btn-buynow, .awafpgrid > ul > li:hover .afp-addtocart a,
+.awafpgrid > ul > li:hover .afp-addtocart button.btn-buynow, .awafpgrid > ul > li:hover .afp-addtocart a.link-cart-special,
 .awafpgrid > ul > li .afp-addtocart button.btn-buynow:hover, .awafpgrid > ul > li .afp-addtocart a:hover{
 	background:#F48120;
 }

@@ -41,10 +41,10 @@
 <?php if ($_product->getImage() != 'no_selection' && $_product->getImage()): ?>
 <div class="onsale-product-container<?php echo $onsale_class?>">
    <?php echo Mage::helper('onsale')->getProductLabelHtml($_product, 265); ?>
-	<p class="product-image product-image-zoom">
+	<p class="product-image product-image-zoom magnifier-thumb-wrapper">
 	    <?php
-			$zoom_large_img = "zoomImage: '".$this->helper('catalog/image')->init($_product, 'image')."'";
-	        $_img = '<img id="image" class="cloudzoom" data-cloudzoom="'.$zoom_large_img.'" src="'.$this->helper('catalog/image')->init($_product, 'image')->resize(265).'" height="265" width="265" />';
+			$zoom_large_img = $this->helper('catalog/image')->init($_product, 'image');
+	        $_img = '<img id="thumb" class="zoom-product" data-zoom-image="'.$zoom_large_img.'" src="'.$this->helper('catalog/image')->init($_product, 'image')->resize(265).'" height="265" width="265" />';
 	        echo $_helper->productAttribute($_product, $_img, 'image');
 	    ?>
 	</p>
@@ -53,20 +53,35 @@
 <?php else: ?>
 <div class="onsale-product-container<?php echo $onsale_class?>">
    <?php echo Mage::helper('onsale')->getProductLabelHtml($_product, 265); ?>
-	<p class="product-image">
+	<p class="product-image magnifier-thumb-wrapper">
 	    <?php
-			$zoom_large_img = "zoomImage: '".$this->helper('catalog/image')->init($_product, 'image')."'";
-	        $_img = '<img class="cloudzoom" data-cloudzoom="'.$zoom_large_img.'" src="'.$this->helper('catalog/image')->init($_product, 'image')->resize(265).'" alt="'.$this->escapeHtml($this->getImageLabel()).'" title="'.$this->escapeHtml($this->getImageLabel()).'" />';
+			$zoom_large_img = $this->helper('catalog/image')->init($_product, 'image');
+	        $_img = '<img id ="thumb" class="zoom-product" data-zoom-image="'.$zoom_large_img.'" src="'.$this->helper('catalog/image')->init($_product, 'image')->resize(265).'" alt="'.$this->escapeHtml($this->getImageLabel()).'" title="'.$this->escapeHtml($this->getImageLabel()).'" />';
 	        echo $_helper->productAttribute($_product, $_img, 'image');
 	    ?>
 	</p>
 </div>
 <?php endif; ?>
 <script type="text/javascript">
+
+	
 	$j(document).ready(function(){
 		if($j(window).width() > 750){
-			CloudZoom.quickStart();
-		} 
+			//zoom.quickStart();
+			$j("#thumb").elevateZoom({
+				cursor: "crosshair",
+				scrollZoom : true,
+				zoomWindowPosition: 1,
+			});
+			$j('.zoom-gallery').bind("click",function(){
+				$j("#thumb").attr('src',$j(this).attr("data-zoom"));
+				$j("#thumb").attr('data-zoom-image',$j(this).attr("data-zoom-image"));
+				$j(".zoomLens > img").attr('src',$j("#thumb").attr("src"));
+				var bg_zoom = $j("#thumb").attr("data-zoom-image");
+				console.log(bg_zoom);
+				$j(".zoomWindowContainer > div").css("background-image", "url(" + bg_zoom + ")" );
+			});
+		}
 		else {
 			$j('#thumblist a').live('click',function(){
 				$j('#thumblist a').each(function(){
@@ -89,7 +104,8 @@
     <div class="more-views-slider">
     <?php foreach ($this->getGalleryImages() as $_image): ?>
 		<div class="slide<?php if (count($this->getGalleryImages()) < 5): echo " no-slider"; endif; ?>">
-			<img class="cloudzoom-gallery" data-cloudzoom = "useZoom: '.cloudzoom', image: '<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'image', $_image->getFile())->resize(265); ?>', zoomImage: '<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'image', $_image->getFile()); ?>' " src="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'thumbnail', $_image->getFile())->resize(56); ?>" width="56" height="56" alt="<?php echo $this->escapeHtml($_image->getLabel()) ?>" />
+			<img class="zoom-gallery" data-zoom-image = " <?php echo $this->helper('catalog/image')->init($this->getProduct(), 'image', $_image->getFile()); ?>" data-zoom ="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'image', $_image->getFile())->resize(265); ?> " src="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'thumbnail', $_image->getFile())->resize(56); ?>" width="56" height="56" alt="<?php echo $this->escapeHtml($_image->getLabel()) ?>" />
+
 		</div>
     <?php endforeach; ?>
     </div>

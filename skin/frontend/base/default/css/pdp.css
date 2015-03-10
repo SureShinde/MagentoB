@@ -416,6 +416,9 @@
 	float: right;
 	z-index: 1;
 }
+.product-view .product-img-box  .zoom-gallery{
+	cursor:pointer;
+}
 .product-view .product-img-box .onsale-product-container-left {
 	float: left;
 }
