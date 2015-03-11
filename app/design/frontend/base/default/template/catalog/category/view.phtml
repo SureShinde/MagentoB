@@ -59,8 +59,8 @@ if($xlCmsBlock) {
 			'</div>';
 }else if($largeCmsBlock){
 	echo 	'<div class="wrap_banner_category">'.
-			'<div class="banner_large">'.$this->getLayout()->createBlock('cms/block')->setBlockId("slider-category-baby-".strtolower($_category->getUrlKey())."-1")->toHtml().'<p class="label_slider_ctegory fb-14 fb-bebas">ON PROMO!! FOR A LIMITED TIME ONLY :</p></div>'.
-			'<div class="banner_small">'.$this->getLayout()->createBlock('cms/block')->setBlockId("slider-category-baby-".strtolower($_category->getUrlKey())."-2")->toHtml().'</div>'.
+			'<div class="banner_large">'.$this->getLayout()->createBlock('cms/block')->setBlockId("slider-category-baby-".strtolower($_category->getUrlKey())."-1")->toHtml().'</div>'.
+			'<div class="banner_small banner_small-1">'.$this->getLayout()->createBlock('cms/block')->setBlockId("slider-category-baby-".strtolower($_category->getUrlKey())."-2")->toHtml().'</div>'.
 			'<div class="banner_small">'.$this->getLayout()->createBlock('cms/block')->setBlockId("slider-category-baby-".strtolower($_category->getUrlKey())."-3")->toHtml().'</div>'.
 			'</div>';
 }else if($_imgUrl){
