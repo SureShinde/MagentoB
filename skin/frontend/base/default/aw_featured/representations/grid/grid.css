@@ -140,6 +140,7 @@
 	bottom: 20px;
 }
 .awafpgrid > ul > li:hover .afp-addtocart button.btn-buynow,
+.awafpgrid > ul > li:hover .afp-addtocart a.link-cart-special, .awafpgrid > ul > li .afp-addtocart a.link-cart-special:hover,
 .awafpgrid > ul > li .afp-addtocart button.btn-buynow:hover{
 	background:#F48120;
 }

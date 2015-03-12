@@ -848,18 +848,18 @@ a.triger-showfilter {
 
 /* --------------- smaller 959 px layout -------------------- */
 @media only screen and (max-width: 767px) {
-	.catalog-category-view .wrap_banner {
-		display: none;
+	
+	.catalog-category-view .wrap_banner .col-2{
+		width:80%;
+		margin:0 auto 20px;
+		float:none;
 	}
-	.style-perlengkapan-rumah .catalog-category-view .wrap_banner .col-1, .catalog-category-view .wrap_banner .col-1{
-		width:100%;
-		margin:0 0 20px;
+	.catalog-category-view .wrap_banner .col-2 p{
 	}
 	.style-perlengkapan-rumah .catalog-category-view .wrap_banner, .catalog-category-view .wrap_banner{
 		display:block;
 	}
-	.style-perlengkapan-rumah .catalog-category-view .wrap_banner .col-2, .catalog-category-view .wrap_banner .col-2, .catalog-category-view .wrap_banner .col-3, .catalog-category-view .wrap_banner .col-3, .style-perlengkapan-rumah .products-on-sale, .style-perlengkapan-rumah .new-arrival, .style-perlengkapan-rumah .most-popular, .style-perlengkapan-rumah .homepage-bottom,
-    .style-perlengkapan-rumah .catalog-category-view .wrap_banner .col-2, .catalog-category-view .wrap_banner .col-2, .catalog-category-view .wrap_banner .col-3, .catalog-category-view .wrap_banner .col-3, .style-perlengkapan-rumah .products-on-sale, .style-perlengkapan-rumah .new-arrival, .style-perlengkapan-rumah .most-popular, .style-perlengkapan-rumah .homepage-bottom    {
+	.catalog-category-view .wrap_banner .col-1, .catalog-category-view .wrap_banner .col-3, .catalog-category-view .wrap_banner .col-4, .catalog-category-view .products-on-sale, .catalog-category-view .new-arrival, .catalog-category-view .most-popular, .catalog-category-view .homepage-bottom{
 		display:none;
 	}
 	.style-perlengkapan-rumah .style-perlengkapan-rumah .col1-layout .main .col-main, .style-perlengkapan-rumah .col1-layout .main .col-main{
