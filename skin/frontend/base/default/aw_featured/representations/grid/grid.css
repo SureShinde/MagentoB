@@ -19,7 +19,10 @@
     zoom: 1;
 	height:355px;
     position: relative;
-    width: 13% !important;
+    width: 13%;
+}
+.catalog-category-view .awafpgrid ul li{
+	
 }
 .awafpgrid ul li:first-child {
 }
@@ -136,10 +139,11 @@
 	position: absolute;
 	bottom: 20px;
 }
-.awafpgrid > ul > li:hover .afp-addtocart button.btn-buynow, .awafpgrid > ul > li:hover .afp-addtocart a,
-.awafpgrid > ul > li .afp-addtocart button.btn-buynow:hover, .awafpgrid > ul > li .afp-addtocart a:hover{
+.awafpgrid > ul > li:hover .afp-addtocart button.btn-buynow,
+.awafpgrid > ul > li .afp-addtocart button.btn-buynow:hover{
 	background:#F48120;
 }
+ .awafpgrid > ul > li:hover .afp-addtocart a, .awafpgrid > ul > li .afp-addtocart a:hover{}
 .awafpgrid .afp-addtocart .availability.out-of-stock a {
 	position: relative;
 	color: #231F20;
