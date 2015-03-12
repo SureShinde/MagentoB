@@ -22,7 +22,7 @@
     width: 13%;
 }
 .catalog-category-view .awafpgrid ul li{
-	
+	width:18% !important;
 }
 .awafpgrid ul li:first-child {
 }
@@ -225,8 +225,8 @@
 	.awis-r-default-item img {
 		width: 100%;
 	}
-	.featured-category .awafpgrid ul li {
-		width: 22.33% !important;
+	.catalog-category-view .awafpgrid ul li {
+		width: 22% !important;
 	}
 }
 /* --------------- smaller 959 px layout -------------------- */

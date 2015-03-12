@@ -609,7 +609,6 @@ width: 100%;
 		margin-left: 2px;
 	}
 	.homepage-bottom .testimonial-wrapper, .homepage-bottom .media-partners {
-		float: none;
 		width: 100%;
 	}
 	.homepage-bottom .testimonial-wrapper {
@@ -963,7 +962,7 @@ width: 100%;
 		font-size: 1.1em;
 	}
 }
-@media (max-width: 768px ) {
+@media (max-width: 767px ) {
 	.homepage .homepage-banner
 	{
 	   display:none;

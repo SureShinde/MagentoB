@@ -519,7 +519,7 @@ a.triger-showfilter {
 	width: 18%;
 }
 .catalog-category-view .banner_large img, .catalog-category-view .banner_small img{
-	max-width: 100%;
+	width: 100%;
 }
 
 .category-baby .homepage-top-block.right {
@@ -859,7 +859,7 @@ a.triger-showfilter {
 	.style-perlengkapan-rumah .catalog-category-view .wrap_banner, .catalog-category-view .wrap_banner{
 		display:block;
 	}
-	.catalog-category-view .wrap_banner .col-1, .catalog-category-view .wrap_banner .col-3, .catalog-category-view .wrap_banner .col-4, .catalog-category-view .products-on-sale, .catalog-category-view .new-arrival, .catalog-category-view .most-popular, .catalog-category-view .homepage-bottom{
+	.catalog-category-view .wrap_banner .col-1, .catalog-category-view .wrap_banner .col-3, .catalog-category-view .wrap_banner .col-4, .catalog-category-view .awafpgrid{
 		display:none;
 	}
 	.style-perlengkapan-rumah .style-perlengkapan-rumah .col1-layout .main .col-main, .style-perlengkapan-rumah .col1-layout .main .col-main{
