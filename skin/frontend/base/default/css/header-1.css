@@ -2427,8 +2427,8 @@ searchbar #nav-search-in {
 
 /* --------------- smaller 959 px layout -------------------- */
 @media only screen and (max-width: 767px) {
-    .logo img{
-		width:auto;
+	.header .logo img {
+		width: 80%;
 	}
 	.header .links li:first-child {
 		border-right: none; 
