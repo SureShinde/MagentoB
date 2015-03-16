@@ -1724,14 +1724,14 @@ if ( typeof Object.create !== 'function' ) {
 			zoomActivation: "hover", // Can also be click (PLACEHOLDER FOR NEXT VERSION)
       zoomEnabled: true, //false disables zoomwindow from showing
 			preloading: 1, //by default, load all the images, if 0, then only load images after activated (PLACEHOLDER FOR NEXT VERSION)
-			zoomLevel: 1, //default zoom level of image
+			zoomLevel: 0.9, //default zoom level of image
 			scrollZoom: true, //allow zoom on mousewheel, true to activate
 			scrollZoomIncrement: 0.1,  //steps of the scrollzoom
 			minZoomLevel: false,
 			maxZoomLevel: false,
 			easing: false,
 			easingAmount: 12,
-			lensSize: 200,
+			lensSize: 100,
 			zoomWindowWidth: 300,
 			zoomWindowHeight: 300,
 			zoomWindowOffetx: 10,

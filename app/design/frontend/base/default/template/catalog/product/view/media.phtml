@@ -68,11 +68,37 @@
 	$j(document).ready(function(){
 		if($j(window).width() > 750){
 			//zoom.quickStart();
+			var url_img_zoom = $j("#thumb").attr("data-zoom-image");
+			var newImg = new Image();
+			newImg.src = url_img_zoom;
+			newImg.onload = function() {
+				var width_img_zoom = this.width;
+				console.log(width_img_zoom);
+				if (width_img_zoom <= 265){
+					$j("#thumb").elevateZoom({
+						cursor: "crosshair",
+						scrollZoom : true,
+						zoomWindowPosition: 1,
+						zoomWindowWidth: 200,
+						zoomWindowHeight: 200
+					});
+				} else {
+					$j("#thumb").elevateZoom({
+						cursor: "crosshair",
+						scrollZoom : true,
+						zoomWindowPosition: 1,
+						zoomWindowWidth: 300,
+						zoomWindowHeight: 300
+					});
+				}
+			};
 			$j("#thumb").elevateZoom({
-				cursor: "crosshair",
-				scrollZoom : true,
-				zoomWindowPosition: 1,
-			});
+						cursor: "crosshair",
+						scrollZoom : true,
+						zoomWindowPosition: 1,
+						zoomWindowWidth: 200,
+						zoomWindowHeight: 200
+					});
 			$j('.zoom-gallery').bind("click",function(){
 				$j("#thumb").attr('src',$j(this).attr("data-zoom"));
 				$j("#thumb").attr('data-zoom-image',$j(this).attr("data-zoom-image"));
