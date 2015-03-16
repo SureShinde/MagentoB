@@ -555,9 +555,38 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
                         $this->__('Coupon code "%s" was applied.', Mage::helper('core')->escapeHtml($couponCode))
                     );
                 } else {
-                    $this->_getSession()->addError(
-                        $this->__('Coupon code "%s" is not valid.', Mage::helper('core')->escapeHtml($couponCode))
-                    );
+                    $oCoupon = Mage::getModel('salesrule/coupon')->load($couponCode, 'code');
+                    $oRule = Mage::getModel('salesrule/rule')->load($oCoupon->getRuleId());
+                    $roleId = (int) Mage::getSingleton('customer/session')->getCustomerGroupId();
+                    $customerGroupIds = array_values($oRule->getData('customer_group_ids'));
+                    if( '' == $oRule->getData('to_date') ){
+                        $dateDiff = 1;                        
+                    }else{
+                        $dateDiff = strtotime($oRule->getData('to_date')) - strtotime(date('Y-m-d'));
+                    }
+                    
+                    $isLoggedIn = Mage::getSingleton('customer/session')->isLoggedIn();
+
+                    if( !in_array($roleId, $customerGroupIds) && !$isLoggedIn)
+                    {
+                        $this->_getSession()->addError(
+                            $this->__('Coupon code "%s" is not valid. Please sign in or registration', Mage::helper('core')->escapeHtml($couponCode))
+                        ); 
+                    }elseif( !in_array($roleId, $customerGroupIds))
+                    {
+                        $this->_getSession()->addError(
+                            $this->__('Coupon code "%s" is not valid.', Mage::helper('core')->escapeHtml($couponCode))
+                        ); 
+                    }elseif( $dateDiff <= 0 ){
+                        $this->_getSession()->addError(
+                            $this->__('Coupon code "%s" was expired.', Mage::helper('core')->escapeHtml($couponCode))
+                        );
+                    }else{
+                        $this->_getSession()->addError(
+                            $this->__('Coupon code "%s" is not valid.', Mage::helper('core')->escapeHtml($couponCode))
+                        );
+                    }
+                    
                 }
             } else {
                 $this->_getSession()->addSuccess($this->__('Coupon code was canceled.'));
@@ -571,5 +600,150 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
         }
 
         $this->_goBack();
+    }
+
+    public function customCheckoutCouponPostAction()
+    {
+        $data = $this->getRequest()->getParam('data');
+        $couponCode = (string) $this->getRequest()->getParam('coupon_code');
+        if ($this->getRequest()->getParam('remove') == 1) {
+            $couponCode = '';
+        }
+        $oldCouponCode = $this->_getQuote()->getCouponCode();
+
+        $message['desc'] = '';
+        if (!strlen($couponCode) && !strlen($oldCouponCode)) {
+            $message['status'] = 0; 
+            $message['desc'] = 'failed';
+            $this->getResponse()->setHeader('Content-type', 'application/json');
+            $this->getResponse()->setBody(json_encode($message));
+        }
+
+        try {
+            $codeLength = strlen($couponCode);
+            $isCodeLengthValid = $codeLength && $codeLength <= Mage_Checkout_Helper_Cart::COUPON_CODE_MAX_LENGTH;
+
+            $this->_getQuote()->getShippingAddress()->setCollectShippingRates(true);
+            $this->_getQuote()->setCouponCode($isCodeLengthValid ? $couponCode : '')
+                ->collectTotals()
+                ->save();
+
+            if ($codeLength) {
+                if ($isCodeLengthValid && $couponCode == $this->_getQuote()->getCouponCode()) {
+                    $message['status'] = 1;
+                    $message['desc'] = $this->__('Coupon code "%s" was applied.', Mage::helper('core')->escapeHtml($couponCode));
+
+                } else {
+                    $oCoupon = Mage::getModel('salesrule/coupon')->load($couponCode, 'code');
+                    $oRule = Mage::getModel('salesrule/rule')->load($oCoupon->getRuleId());
+                    $roleId = (int) Mage::getSingleton('customer/session')->getCustomerGroupId();
+                    $customerGroupIds = array_values($oRule->getData('customer_group_ids'));
+                    if( '' == $oRule->getData('to_date') ){
+                        $dateDiff = 1;                        
+                    }else{
+                        $dateDiff = strtotime($oRule->getData('to_date')) - strtotime(date('Y-m-d'));
+                    }
+                   
+                    if( !in_array($roleId, $customerGroupIds) )
+                    {
+                        $message['status'] = 0; 
+                        $message['desc']   = $this->__('Coupon code "%s" is not valid. Please sign in or registration', Mage::helper('core')->escapeHtml($couponCode)); 
+                    }elseif( $dateDiff <= 0 ){
+                        $message['status'] = 0; 
+                        $message['desc']   = $this->__('Coupon code "%s" was expired.', Mage::helper('core')->escapeHtml($couponCode));
+                    }else{
+                        $message['status'] = 0; 
+                        $message['desc']   = $this->__('Coupon code "%s" is not valid.', Mage::helper('core')->escapeHtml($couponCode));
+                    }
+                    
+                }
+            } else {
+                $message['status'] = 0; 
+                $message['desc']   = $this->__('Coupon code was canceled.');
+            }
+
+        } catch (Mage_Core_Exception $e) {
+            $message['status'] = 0; 
+            $message['desc']   = $e->getMessage();
+        } catch (Exception $e) {
+            $message['status'] = 0; 
+            $message['desc']   = $this->__('Cannot apply the coupon code.');
+        }
+
+        Mage::getSingleton('core/session')->setSessionCouponMessage($message['desc']);
+        $this->getResponse()->setHeader('Content-type', 'application/json');
+        $this->getResponse()->setBody(json_encode($message));
+
+    }
+
+    public function customCouponPostAction()
+    {
+        /**
+         * No reason continue with empty shopping cart
+         */
+        if (!$this->_getCart()->getQuote()->getItemsCount()) {
+            $this->_goBack();
+            return;
+        }
+
+        $customCouponCode = (string) $this->getRequest()->getParam('custom_coupon_code');
+
+        $result = $this->__checkCouponCode($customCouponCode);
+        if( (empty($result))) {
+        	$message['status'] = 1;
+        	$message['desc'] = 'success';
+        }else{
+	        try {
+	            $mobileUserAgent = $this->__checkUserAgent();
+	            if( ($mobileUserAgent == "true" && $result['mobile'] == 1 ) || ($mobileUserAgent == false && $result['web'] == 1 ))
+	            {
+	                $message['status'] = 1; 
+	                $message['desc'] = 'success';                
+	            }else{
+	                $message['status'] = 0; 
+	                $message['desc'] = 'failed';
+	                $this->_getSession()->addError(
+	                    $this->__('Coupon code "%s" is not valid.', Mage::helper('core')->escapeHtml($customCouponCode))
+	                );
+	            }
+	        } catch (Exception $e) {
+	            $message['status'] = 0; 
+	            $message['desc'] = 'failed';
+	            $this->_getSession()->addError($this->__('Cannot apply the coupon code.'));
+	            Mage::logException($e);
+	        }
+        }
+
+        $this->getResponse()->setHeader('Content-type', 'application/json');
+        $this->getResponse()->setBody(json_encode($message));
+    }
+
+    private function __checkCouponCode($couponCode)
+    {
+        $resource = Mage::getSingleton('core/resource');
+        $adapter = $resource->getConnection('core_read');
+        $tableName = $resource->getTableName('bilna_custom_coupon_code');
+        $select = $adapter->select()
+            ->from(
+                $tableName,
+                new Zend_Db_Expr('*')
+            )
+            ->where("coupon_code = '".$couponCode."'")
+            ->limit(1);
+                
+        $couponCode = $adapter->fetchRow($select);
+
+        return $couponCode;
+    }
+
+    private function __checkUserAgent()
+    {   
+        include_once getcwd().'/lib/terawurfl/inc/wurfl_config_standard.php';
+
+        $wurflInfo = $wurflManager->getWURFLInfo();
+        $requestingDevice = $wurflManager->getDeviceForHttpRequest($_SERVER);
+
+        return $requestingDevice->getCapability('is_wireless_device');
+
     }
 }

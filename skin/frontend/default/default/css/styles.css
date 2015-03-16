@@ -91,7 +91,7 @@ ul,ol         { list-style:none; }
 
 
 /* Layout ================================================================================ */
-.wrapper { min-width:954px; }
+.wrapper { /*min-width:954px;*/ }
 .page {}
 .page-print { background:#fff; padding:25px 30px; text-align:left; }
 .page-empty { background:#fff; padding:20px; text-align:left; }
@@ -394,7 +394,7 @@ p.required { font-size:11px; text-align:right; color:#EB340A; }
 
 .data-table tfoot { border-bottom:1px solid #d9dde3; }
 .data-table tfoot tr.first td { background:url(../images/bkg_tfoot.gif) 0 0 repeat-x; }
-.data-table tfoot tr { background-color:#dee5e8 !important; }
+.data-table tfoot tr { background-color:#dee5e8; }
 .data-table tfoot td { padding-top:1px; padding-bottom:1px; border-bottom:0; border-right:1px solid #d9dde3; }
 .data-table tfoot strong { font-size:16px; }
 
@@ -467,11 +467,11 @@ tr.summary-details-excluded { font-style:italic; }
 
 /* Misc */
 .links li { display:inline; }
-.links li.first { padding-left:0 !important; }
+.links li.first { padding-left:0; }
 .links li.last { background:none !important; padding-right:0 !important; }
 
 .link-cart { color:#dc6809 !important; font-weight:bold; }
-.link-wishlist { color:#dc6809 !important; font-weight:bold; }
+.link-wishlist { color:#dc6809; font-weight:bold; }
 .link-reorder { font-weight:bold; color:#dc6809 !important; }
 .link-compare { font-weight:bold; }
 .link-print { /*background:url(../images/i_print.gif) 0 2px no-repeat; padding:2px 0 2px 25px;*/ font-weight:bold; color:#dc6809; }

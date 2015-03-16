@@ -32,11 +32,13 @@
             </div>
         <?php endif;?>
         <p class="rating-links">
-            <a href="<?php echo $this->getReviewsUrl() ?>"><?php echo $this->__('%d Review(s)', $this->getReviewsCount()) ?></a>
+            <a class="review-count smooth-scroll" href="#customer-reviews"><?php echo $this->__('%d Review(s)', $this->getReviewsCount()) ?></a>
             <span class="separator">|</span>
-            <a href="<?php echo $this->getReviewsUrl() ?>#review-form"><?php echo $this->__('Add Your Review') ?></a>
+            <!-- <a class="review-rating-links" href="<?php //echo $this->getReviewsUrl() ?>#review-form"><?php //echo $this->__('Review this product') ?></a> -->
+            <a class="review-rating-links smooth-scroll" href="#review-form"><?php echo $this->__('Review this product') ?></a>
         </p>
     </div>
-<?php elseif ($this->getDisplayIfEmpty()): ?>
-    <p class="no-rating"><a href="<?php echo $this->getReviewsUrl() ?>#review-form"><?php echo $this->__('Be the first to review this product') ?></a></p>
+<?php else: ?>
+
+    <p class="no-rating"><a href="#review-form" class="smooth-scroll"><?php echo $this->__('Be the first to review this product') ?></a></p>
 <?php endif; ?>

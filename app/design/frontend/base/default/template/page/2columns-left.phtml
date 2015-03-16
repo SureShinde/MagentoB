@@ -34,20 +34,22 @@
 <head>
 <?php echo $this->getChildHtml('head') ?>
 </head>
-<body<?php echo $this->getBodyClass()?' class="'.$this->getBodyClass().'"':'' ?>>
-<?php echo $this->getChildHtml('after_body_start') ?>
+<body class="<?php echo $this->getCurrentMainCategoryActive(); ?><?php if ($this->getBodyClass()): echo $this->getBodyClass(); endif; ?>">
+<?php echo $this->getChildHtml('after-body-start') ?>
+<?php echo $this->getLayout()->createBlock('page/html')->setTemplate('page/html/mobile-left-menu.phtml')->toHtml(); ?>
 <div class="wrapper">
     <?php echo $this->getChildHtml('global_notices') ?>
     <div class="page">
         <?php echo $this->getChildHtml('header') ?>
         <div class="main-container col2-left-layout">
             <div class="main">
-                <?php echo $this->getChildHtml('breadcrumbs') ?>
+                <div class="col-left sidebar"><?php echo $this->getChildHtml('left') ?></div>
                 <div class="col-main">
+                	<?php echo $this->getChildHtml('breadcrumbs') ?>
                     <?php echo $this->getChildHtml('global_messages') ?>
                     <?php echo $this->getChildHtml('content') ?>
                 </div>
-                <div class="col-left sidebar"><?php echo $this->getChildHtml('left') ?></div>
+                <div class="clear"></div>
             </div>
         </div>
         <?php echo $this->getChildHtml('footer') ?>

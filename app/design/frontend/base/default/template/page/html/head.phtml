@@ -29,6 +29,7 @@
 <meta name="description" content="<?php echo htmlspecialchars($this->getDescription()) ?>" />
 <meta name="keywords" content="<?php echo htmlspecialchars($this->getKeywords()) ?>" />
 <meta name="robots" content="<?php echo htmlspecialchars($this->getRobots()) ?>" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" href="<?php echo $this->getFaviconFile(); ?>" type="image/x-icon" />
 <link rel="shortcut icon" href="<?php echo $this->getFaviconFile(); ?>" type="image/x-icon" />
 <!--[if lt IE 7]>
@@ -43,3 +44,33 @@
 <?php echo $this->getChildHtml() ?>
 <?php echo $this->helper('core/js')->getTranslatorScript() ?>
 <?php echo $this->getIncludes() ?>
+
+<!-- Facebook Open Graph -->
+<?php
+	if ( $this->getTitle() )
+	{
+		?>
+		<meta property="og:site_name" content="<?php echo Mage::getStoreConfig('general/store_information/name'); ?>"/>
+		<!--cara penulisan Store Information lihat di app/code/core/Mage/Core/etc/system.xml-->
+		<meta property="og:url" content="<?php echo Mage::helper('core/url')->getCurrentUrl();?>"/>
+		<?php $post = $this->getPost(); ?>
+		<?php if ($post): ?>
+			<meta property="og:title" content="<?php echo htmlspecialchars($post->getTitle()); ?>"/>
+			<meta property="og:description" content="<?php echo strip_tags($post->getShortContent()); ?>"/>
+		<?php endif; ?>
+		<?php $dt = new DateTime();
+			  $today = $dt->format('YmdHis'); ?>
+		<meta property="og:type" content="website"/>
+		<meta property="og:image" content="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA); ?><?php echo $post->getImageName();?>?id=<?php echo $today; ?>"/>
+		<?php
+	}
+?>
+<!-- End Facebook Open Graph -->
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-NJ766V');</script>
+<!-- End Google Tag Manager -->

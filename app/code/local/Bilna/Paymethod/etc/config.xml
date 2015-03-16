@@ -1,0 +1,646 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Bilna_Paymethod>
+            <version>0.1.5</version>
+        </Bilna_Paymethod>
+    </modules>
+    
+    <global>
+        <models>
+            <paymethod>
+                <class>Bilna_Paymethod_Model</class>
+                <resourceModel>paymethod_mysql4</resourceModel>
+            </paymethod>
+            
+            <paymethod_mysql4>
+                <class>Bilna_Paymethod_Model_Mysql4</class>
+                <entities>
+                    <binmanage>
+                        <table>bin_code</table>
+                    </binmanage>
+                </entities>
+            </paymethod_mysql4>
+        </models>
+        
+        <helpers>
+            <paymethod>
+                <class>Bilna_Paymethod_Helper</class>
+            </paymethod>
+        </helpers>
+        
+        <blocks>
+            <paymethod>
+                <class>Bilna_Paymethod_Block</class>
+            </paymethod>
+            
+            <checkout>
+                <rewrite>
+                    <onepage>Bilna_Paymethod_Block_Checkout_Onepage</onepage>
+                    <onepage_billing>Bilna_Paymethod_Block_Checkout_Onepage_Billing</onepage_billing>
+                    <onepage_shipping>Bilna_Paymethod_Block_Checkout_Onepage_Shipping</onepage_shipping>
+                    <onepage_payment>Bilna_Paymethod_Block_Checkout_Onepage_Payment</onepage_payment>
+                    <onepage_review_info>Bilna_Paymethod_Block_Checkout_Onepage_Review_Info</onepage_review_info>
+                    <onepage_success>Bilna_Paymethod_Block_Checkout_Onepage_Success</onepage_success>
+                    <onepage_failure>Bilna_Paymethod_Block_Checkout_Onepage_Failure</onepage_failure>
+                    <cart_totals>Bilna_Paymethod_Block_Checkout_Cart_Totals</cart_totals>
+                </rewrite>
+            </checkout>
+            
+            <adminhtml>
+                <rewrite>
+                    <sales_order_grid>Bilna_Paymethod_Block_Adminhtml_Sales_Order_Grid</sales_order_grid>
+                </rewrite>
+            </adminhtml>
+        </blocks>
+        
+        <rewrite>
+            <paymethod>
+                <from><![CDATA[#^/checkout/onepage/#]]></from> 
+                <to>/paymethod/onepage/</to>
+            </paymethod>
+        </rewrite>
+     
+        <resources>
+            <paymethod_setup>
+                <setup>
+                    <module>Bilna_Paymethod</module>
+                </setup>
+    
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </paymethod_setup>
+            
+            <paymethod_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </paymethod_write>
+            
+            <paymethod_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </paymethod_read>
+        </resources>
+        
+        <fieldsets>
+            <sales_convert_quote_item>
+                <installment>
+                    <to_order_item>*</to_order_item>
+                </installment>
+                
+                <installment_method>
+                    <to_order_item>*</to_order_item>
+                </installment_method>
+                
+                <installment_type>
+                    <to_order_item>*</to_order_item>
+                </installment_type>
+
+                <installment_tenor>
+                    <to_order_item>*</to_order_item>
+                </installment_tenor>
+            </sales_convert_quote_item>
+            
+            <sales_convert_quote>
+                <pay_type>
+                    <to_order>*</to_order>
+                </pay_type>
+            </sales_convert_quote>
+            
+            <sales_convert_quote_payment>
+                <klikbca_user_id>
+                    <to_order_payment>*</to_order_payment>
+                </klikbca_user_id>
+            </sales_convert_quote_payment>
+        </fieldsets>
+    </global>
+    
+    <frontend>
+        <routers>
+            <paymethod>
+                <use>standard</use>
+                <args>
+                    <module>Bilna_Paymethod</module>
+                    <frontName>paymethod</frontName>
+                </args>
+            </paymethod>
+        </routers>
+        
+        <layout>
+            <updates>
+                <paymethod module="Bilna_Paymethod">
+                    <file>bilna_paymethod.xml</file>
+                </paymethod>
+            </updates>
+        </layout>
+    </frontend>
+    
+    <admin>
+        <routers>
+            <paymethod>
+                <use>admin</use>
+                <args>
+                    <module>Bilna_Paymethod</module>
+                    <frontName>paymethod</frontName>
+                </args>
+            </paymethod>
+        </routers>
+    </admin>
+    
+    <adminhtml>
+        <layout>
+            <updates>
+                <paymethod>
+                    <file>bilna_paymethod.xml</file>
+                </paymethod>
+            </updates>
+        </layout>
+
+        <acl>
+            <resources>
+                <all>
+                    <title>Allow Everything</title>
+                </all>
+                
+                <admin>
+                    <children>
+                        <bilna_module translate="title">
+                            <title>Bilna Extensions</title>
+                            <sort_order>0</sort_order>
+                            
+                            <children>
+                                <paymethod translate="title">
+                                    <title>Payment Method</title>
+                                    <sort_order>0</sort_order>
+                                </paymethod>
+                            </children>
+                        </bilna_module>
+                        
+                        <bilna translate="title" module="paymethod">
+                            <title>Bilna</title>
+                            <children>
+                                <binmanage translate="title">
+                                    <title>Bin Management</title>
+                                </binmanage>
+                            </children>
+                        </bilna>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+        
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <bilna_paymethod>Bilna_Paymethod_Adminhtml</bilna_paymethod>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+        
+        <menu>
+            <bilna>
+                <title>Bilna</title>
+                <children>
+                    <binmanage>
+                        <title>Bin Management</title>
+                        <action>paymethod/adminhtml_binmanage</action>
+                    </binmanage>
+                </children>
+            </bilna>
+        </menu>
+    </adminhtml>
+    
+    <default>
+        <payment>
+            <transferbca>
+                <active>1</active>
+                <model>paymethod/method_transferbca</model>
+                <order_status>pending</order_status>
+                <title>Bank Transfer Payment BCA</title>
+                <allowspecific>0</allowspecific>
+                <group>offline</group>
+            </transferbca>
+            
+            <transfermandiri>
+                <active>1</active>
+                <model>paymethod/method_transfermandiri</model>
+                <order_status>pending</order_status>
+                <title>Bank Transfer Payment Mandiri</title>
+                <allowspecific>0</allowspecific>
+                <group>offline</group>
+            </transfermandiri>
+            
+            <transferbni>
+                <active>1</active>
+                <model>paymethod/method_transferbni</model>
+                <order_status>pending</order_status>
+                <title>Bank Transfer Payment BNI</title>
+                <allowspecific>0</allowspecific>
+                <group>offline</group>
+            </transferbni>
+            
+            <klikbca>
+                <active>1</active>
+                <model>paymethod/method_klikbca</model>
+                <order_status>pending</order_status>
+                <title>KlikBCA</title>
+                <allowspecific>0</allowspecific>
+                <group>offline</group>
+            </klikbca>
+            
+            <klikpay>
+                <active>1</active>
+                <model>paymethod/method_klikpay</model>
+                <order_status>pending</order_status>
+                <title>BCA Klikpay</title>
+                <allowspecific>0</allowspecific>
+                <group>offline</group>
+            </klikpay>
+            
+            <vtdirect>
+                <active>1</active>
+                <model>paymethod/method_vtdirect</model>
+                <order_status>pending</order_status>
+                <title>Credit/Debit Card (VT-Direct by Veritrans)</title>
+                <cctypes>VI,MC</cctypes>
+                <!--payment_action>authorize</payment_action-->
+                <allowspecific>0</allowspecific>
+            </vtdirect>
+            
+            <anzvisa>
+                <active>1</active>
+                <model>paymethod/method_anzvisa</model>
+                <order_status>pending</order_status>
+                <title>Credit Card (ANZ Visa)</title>
+                <cctypes>VI</cctypes>
+                <payment_action>authorize</payment_action>
+                <allowspecific>0</allowspecific>
+            </anzvisa>
+            
+            <anzmc>
+                <active>1</active>
+                <model>paymethod/method_anzmc</model>
+                <order_status>pending</order_status>
+                <title>Credit Card (ANZ MasterCard)</title>
+                <cctypes>MC</cctypes>
+                <payment_action>authorize</payment_action>
+                <allowspecific>0</allowspecific>
+            </anzmc>
+            
+            <bukopinvisa>
+                <active>1</active>
+                <model>paymethod/method_bukopinvisa</model>
+                <order_status>pending</order_status>
+                <title>Credit Card (Bukopin Visa)</title>
+                <cctypes>VI</cctypes>
+                <!--payment_action>authorize</payment_action-->
+                <allowspecific>0</allowspecific>
+            </bukopinvisa>
+            
+            <bukopinmc>
+                <active>1</active>
+                <model>paymethod/method_bukopinmc</model>
+                <order_status>pending</order_status>
+                <title>Credit Card (Bukopin MasterCard)</title>
+                <cctypes>MC</cctypes>
+                <!--payment_action>authorize</payment_action-->
+                <allowspecific>0</allowspecific>
+            </bukopinmc>
+            
+            <bcavisa>
+                <active>1</active>
+                <model>paymethod/method_bcavisa</model>
+                <order_status>pending</order_status>
+                <title>Credit Card (BCA Visa)</title>
+                <cctypes>VI</cctypes>
+                <!--payment_action>authorize</payment_action-->
+                <allowspecific>0</allowspecific>
+            </bcavisa>
+            
+            <bcamc>
+                <active>1</active>
+                <model>paymethod/method_bcamc</model>
+                <order_status>pending</order_status>
+                <title>Credit Card (BCA MasterCard)</title>
+                <cctypes>MC</cctypes>
+                <!--payment_action>authorize</payment_action-->
+                <allowspecific>0</allowspecific>
+            </bcamc>
+            
+            <danamonvisa>
+                <active>1</active>
+                <model>paymethod/method_danamonvisa</model>
+                <order_status>pending</order_status>
+                <title>Credit Card (Danamon Visa)</title>
+                <cctypes>VI</cctypes>
+                <!--payment_action>authorize</payment_action-->
+                <allowspecific>0</allowspecific>
+            </danamonvisa>
+            
+            <danamonmc>
+                <active>1</active>
+                <model>paymethod/method_danamonmc</model>
+                <order_status>pending</order_status>
+                <title>Credit Card (Danamon MasterCard)</title>
+                <cctypes>MC</cctypes>
+                <!--payment_action>authorize</payment_action-->
+                <allowspecific>0</allowspecific>
+            </danamonmc>
+            
+            <biivisa>
+                <active>1</active>
+                <model>paymethod/method_biivisa</model>
+                <order_status>pending</order_status>
+                <title>Credit Card (BII Visa)</title>
+                <cctypes>VI</cctypes>
+                <!--payment_action>authorize</payment_action-->
+                <allowspecific>0</allowspecific>
+            </biivisa>
+            
+            <biimc>
+                <active>1</active>
+                <model>paymethod/method_biimc</model>
+                <order_status>pending</order_status>
+                <title>Credit Card (BII MasterCard)</title>
+                <cctypes>MC</cctypes>
+                <!--payment_action>authorize</payment_action-->
+                <allowspecific>0</allowspecific>
+            </biimc>
+            
+            <mandirivisa>
+                <active>1</active>
+                <model>paymethod/method_mandirivisa</model>
+                <order_status>pending</order_status>
+                <title>Credit Card (Mandiri Visa)</title>
+                <cctypes>VI</cctypes>
+                <!--payment_action>authorize</payment_action-->
+                <allowspecific>0</allowspecific>
+            </mandirivisa>
+            
+            <mandirimc>
+                <active>1</active>
+                <model>paymethod/method_mandirimc</model>
+                <order_status>pending</order_status>
+                <title>Credit Card (Mandiri MasterCard)</title>
+                <cctypes>MC</cctypes>
+                <!--payment_action>authorize</payment_action-->
+                <allowspecific>0</allowspecific>
+            </mandirimc>
+            
+            <megavisa>
+                <active>1</active>
+                <model>paymethod/method_megavisa</model>
+                <order_status>pending</order_status>
+                <title>Credit Card (Mega Visa)</title>
+                <cctypes>VI</cctypes>
+                <!--payment_action>authorize</payment_action-->
+                <allowspecific>0</allowspecific>
+            </megavisa>
+            
+            <megamc>
+                <active>1</active>
+                <model>paymethod/method_megamc</model>
+                <order_status>pending</order_status>
+                <title>Credit Card (Mega MasterCard)</title>
+                <cctypes>MC</cctypes>
+                <!--payment_action>authorize</payment_action-->
+                <allowspecific>0</allowspecific>
+            </megamc>
+            
+            <bnivisa>
+                <active>1</active>
+                <model>paymethod/method_bnivisa</model>
+                <order_status>pending</order_status>
+                <title>Credit Card (BNI Visa)</title>
+                <cctypes>VI</cctypes>
+                <!--payment_action>authorize</payment_action-->
+                <allowspecific>0</allowspecific>
+            </bnivisa>
+            
+            <bnimc>
+                <active>1</active>
+                <model>paymethod/method_bnimc</model>
+                <order_status>pending</order_status>
+                <title>Credit Card (BNI MasterCard)</title>
+                <cctypes>MC</cctypes>
+                <!--payment_action>authorize</payment_action-->
+                <allowspecific>0</allowspecific>
+            </bnimc>
+            
+            <bnikartinivisa>
+                <active>1</active>
+                <model>paymethod/method_bnikartinivisa</model>
+                <order_status>pending</order_status>
+                <title>Credit Card (BNI Kartini Visa)</title>
+                <cctypes>VI</cctypes>
+                <!--payment_action>authorize</payment_action-->
+                <allowspecific>0</allowspecific>
+            </bnikartinivisa>
+            
+            <bnikartinimc>
+                <active>1</active>
+                <model>paymethod/method_bnikartinimc</model>
+                <order_status>pending</order_status>
+                <title>Credit Card (BNI Kartini MasterCard)</title>
+                <cctypes>MC</cctypes>
+                <!--payment_action>authorize</payment_action-->
+                <allowspecific>0</allowspecific>
+            </bnikartinimc>
+            
+            <permatavisa>
+                <active>1</active>
+                <model>paymethod/method_permatavisa</model>
+                <order_status>pending</order_status>
+                <title>Credit Card (Permata Visa)</title>
+                <cctypes>VI</cctypes>
+                <!--payment_action>authorize</payment_action-->
+                <allowspecific>0</allowspecific>
+            </permatavisa>
+            
+            <permatamc>
+                <active>1</active>
+                <model>paymethod/method_permatamc</model>
+                <order_status>pending</order_status>
+                <title>Credit Card (Permata MasterCard)</title>
+                <cctypes>MC</cctypes>
+                <!--payment_action>authorize</payment_action-->
+                <allowspecific>0</allowspecific>
+            </permatamc>
+            
+            <brivisa>
+                <active>1</active>
+                <model>paymethod/method_brivisa</model>
+                <order_status>pending</order_status>
+                <title>Credit Card (BRI Visa)</title>
+                <cctypes>VI</cctypes>
+                <!--payment_action>authorize</payment_action-->
+                <allowspecific>0</allowspecific>
+            </brivisa>
+            
+            <brimc>
+                <active>1</active>
+                <model>paymethod/method_brimc</model>
+                <order_status>pending</order_status>
+                <title>Credit Card (BRI MasterCard)</title>
+                <cctypes>MC</cctypes>
+                <!--payment_action>authorize</payment_action-->
+                <allowspecific>0</allowspecific>
+            </brimc>
+            
+            <cimbvisa>
+                <active>1</active>
+                <model>paymethod/method_cimbvisa</model>
+                <order_status>pending</order_status>
+                <title>Credit Card (CIMB Visa)</title>
+                <cctypes>VI</cctypes>
+                <!--payment_action>authorize</payment_action-->
+                <allowspecific>0</allowspecific>
+            </cimbvisa>
+            
+            <cimbmc>
+                <active>1</active>
+                <model>paymethod/method_cimbmc</model>
+                <order_status>pending</order_status>
+                <title>Credit Card (CIMB MasterCard)</title>
+                <cctypes>MC</cctypes>
+                <!--payment_action>authorize</payment_action-->
+                <allowspecific>0</allowspecific>
+            </cimbmc>
+            
+            <citibankvisa>
+                <active>1</active>
+                <model>paymethod/method_citibankvisa</model>
+                <order_status>pending</order_status>
+                <title>Credit Card (Citibank Visa)</title>
+                <cctypes>VI</cctypes>
+                <!--payment_action>authorize</payment_action-->
+                <allowspecific>0</allowspecific>
+            </citibankvisa>
+            
+            <citibankmc>
+                <active>1</active>
+                <model>paymethod/method_citibankmc</model>
+                <order_status>pending</order_status>
+                <title>Credit Card (Citibank MasterCard)</title>
+                <cctypes>MC</cctypes>
+                <!--payment_action>authorize</payment_action-->
+                <allowspecific>0</allowspecific>
+            </citibankmc>
+            
+            <hsbcvisa>
+                <active>1</active>
+                <model>paymethod/method_hsbcvisa</model>
+                <order_status>pending</order_status>
+                <title>Credit Card (HSBC Visa)</title>
+                <cctypes>VI</cctypes>
+                <!--payment_action>authorize</payment_action-->
+                <allowspecific>0</allowspecific>
+            </hsbcvisa>
+            
+            <hsbcmc>
+                <active>1</active>
+                <model>paymethod/method_hsbcmc</model>
+                <order_status>pending</order_status>
+                <title>Credit Card (HSBC MasterCard)</title>
+                <cctypes>MC</cctypes>
+                <!--payment_action>authorize</payment_action-->
+                <allowspecific>0</allowspecific>
+            </hsbcmc>
+            
+            <scvisa>
+                <active>1</active>
+                <model>paymethod/method_scvisa</model>
+                <order_status>pending</order_status>
+                <title>Credit Card (Standard Chartered Visa)</title>
+                <cctypes>VI</cctypes>
+                <!--payment_action>authorize</payment_action-->
+                <allowspecific>0</allowspecific>
+            </scvisa>
+            
+            <scmc>
+                <active>1</active>
+                <model>paymethod/method_scmc</model>
+                <order_status>pending</order_status>
+                <title>Credit Card (Standard Chartered MasterCard)</title>
+                <cctypes>MC</cctypes>
+                <!--payment_action>authorize</payment_action-->
+                <allowspecific>0</allowspecific>
+            </scmc>
+            
+            <paninplatinumvisa>
+                <active>1</active>
+                <model>paymethod/method_paninplatinumvisa</model>
+                <order_status>pending</order_status>
+                <title>Credit Card (Panin Platinum Visa)</title>
+                <cctypes>VI</cctypes>
+                <!--payment_action>authorize</payment_action-->
+                <allowspecific>0</allowspecific>
+            </paninplatinumvisa>
+            
+            <paningoldvisa>
+                <active>1</active>
+                <model>paymethod/method_paningoldvisa</model>
+                <order_status>pending</order_status>
+                <title>Credit Card (Panin Gold Visa)</title>
+                <cctypes>VI</cctypes>
+                <!--payment_action>authorize</payment_action-->
+                <allowspecific>0</allowspecific>
+            </paningoldvisa>
+            
+            <uobvisa>
+                <active>1</active>
+                <model>paymethod/method_uobvisa</model>
+                <order_status>pending</order_status>
+                <title>Credit Card (UOB Visa)</title>
+                <cctypes>VI</cctypes>
+                <!--payment_action>authorize</payment_action-->
+                <allowspecific>0</allowspecific>
+            </uobvisa>
+            
+            <uobmc>
+                <active>1</active>
+                <model>paymethod/method_uobmc</model>
+                <order_status>pending</order_status>
+                <title>Credit Card (UOB MasterCard)</title>
+                <cctypes>MC</cctypes>
+                <!--payment_action>authorize</payment_action-->
+                <allowspecific>0</allowspecific>
+            </uobmc>
+            
+            <othervisa>
+                <active>1</active>
+                <model>paymethod/method_othervisa</model>
+                <order_status>pending</order_status>
+                <title>Credit Card (Other Visa)</title>
+                <cctypes>VI</cctypes>
+                <!--payment_action>authorize</payment_action-->
+                <allowspecific>0</allowspecific>
+            </othervisa>
+            
+            <othermc>
+                <active>1</active>
+                <model>paymethod/method_othermc</model>
+                <order_status>pending</order_status>
+                <title>Credit Card (Other MasterCard)</title>
+                <cctypes>MC</cctypes>
+                <!--payment_action>authorize</payment_action-->
+                <allowspecific>0</allowspecific>
+            </othermc>
+            
+            <mandiridebitvisa>
+                <active>1</active>
+                <model>paymethod/method_mandiridebitvisa</model>
+                <order_status>pending</order_status>
+                <title>Debit Card (Mandiri Visa)</title>
+                <cctypes>VI</cctypes>
+                <!--payment_action>authorize</payment_action-->
+                <allowspecific>0</allowspecific>
+            </mandiridebitvisa>
+        </payment>
+    </default>
+</config>

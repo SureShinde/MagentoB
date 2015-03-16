@@ -37,15 +37,17 @@
         <h1><?php echo $this->__('Login or Create an Account') ?></h1>
     </div>
     <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
-    <form action="<?php echo $this->getPostActionUrl() ?>" method="post" id="login-form">
+    
         <div class="col2-set">
             <div class="col-1 new-users">
                 <div class="content">
                     <h2><?php echo $this->__('New Customers') ?></h2>
-                    <p><?php echo $this->__('By creating an account with our store, you will be able to move through the checkout process faster, store multiple shipping addresses, view and track your orders in your account and more.') ?></p>
+                    <!--p style="margin-bottom: 10px;"><?php //echo $this->__('By creating an account with our store, you will be able to move through the checkout process faster, store multiple shipping addresses, view and track your orders in your account and more.') ?></p-->
+                    <?php echo $this->getChildHtml('customer_form_register2'); ?>
                 </div>
             </div>
             <div class="col-2 registered-users">
+                <form action="<?php echo $this->getPostActionUrl() ?>" method="post" id="login-form">
                 <div class="content">
                     <h2><?php echo $this->__('Registered Customers') ?></h2>
                     <p><?php echo $this->__('If you have an account with us, please log in.') ?></p>
@@ -67,22 +69,31 @@
                     </ul>
                     <?php echo $this->getChildHtml('persistent.remember.me.tooltip'); ?>
                     <p class="required"><?php echo $this->__('* Required Fields') ?></p>
+                
+                    <div class="buttons-set">
+                        <button type="submit" class="button" title="<?php echo $this->__('Login') ?>" name="send" id="send2"><span><span><?php echo $this->__('Login') ?></span></span></button>
+                        <div style="margin: 0 0 0 80px;">
+                            <a href="<?php echo $this->getForgotPasswordUrl() ?>" class="f-left"><?php echo $this->__('Forgot Your Password?') ?></a><br/>
+                            <a href="<?php echo $this->getCreateAccountUrl() ?>" class="f-left"><?php echo $this->__('Create Account') ?></a>
+                        </div>
+                    </div>
+                
                 </div>
             </div>
         </div>
-        <div class="col2-set">
+        <!--div class="col2-set">
             <div class="col-1 new-users">
                 <div class="buttons-set">
-                    <button type="button" title="<?php echo $this->__('Create an Account') ?>" class="button" onclick="window.location='<?php echo Mage::helper('persistent')->getCreateAccountUrl($this->getCreateAccountUrl()) ?>';"><span><span><?php echo $this->__('Create an Account') ?></span></span></button>
+                    <button type="button" title="<?php //echo $this->__('Create an Account') ?>" class="button" onclick="window.location='<?php //echo Mage::helper('persistent')->getCreateAccountUrl($this->getCreateAccountUrl()) ?>';"><span><span><?php //echo $this->__('Create an Account') ?></span></span></button>
                 </div>
             </div>
             <div class="col-2 registered-users">
                 <div class="buttons-set">
-                    <a href="<?php echo $this->getForgotPasswordUrl() ?>" class="f-left"><?php echo $this->__('Forgot Your Password?') ?></a>
-                    <button type="submit" class="button" title="<?php echo $this->__('Login') ?>" name="send" id="send2"><span><span><?php echo $this->__('Login') ?></span></span></button>
+                    <a href="<?php //echo $this->getForgotPasswordUrl() ?>" class="f-left"><?php //echo $this->__('Forgot Your Password?') ?></a>
+                    <button type="submit" class="button" title="<?php //echo $this->__('Login') ?>" name="send" id="send2"><span><span><?php //echo $this->__('Login') ?></span></span></button>
                 </div>
             </div>
-        </div>
+        </div-->
         <?php if (Mage::helper('checkout')->isContextCheckout()): ?>
             <input name="context" type="hidden" value="checkout" />
         <?php endif; ?>

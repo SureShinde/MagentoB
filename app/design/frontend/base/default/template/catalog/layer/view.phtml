@@ -31,10 +31,78 @@
  * @see Mage_Catalog_Block_Layer_View
  */
 ?>
+<?php 
+//$_storeCategories = $_helper->getStoreCategories();
+//$_storeCategory = load($_storeCategories->getId());
+//$categoryName = $_storeCategory->getName();
+
+//if($categoryName == "perlengkapan-rumah"){
+?>
+
+<script type="text/javascript">
+	$j(document).ready(function() {		
+				$j(".lbl-filterby~dd").niceScroll({touchbehavior:false,cursorminheight:20,cursorcolor:"#F05A2A",cursoropacitymax:1,cursorwidth:10,autohidemode:false,background:"#DFE0E0"});
+				
+	});
+</script>
+<?php /*
+}else{
+?>
+<script type="text/javascript">
+	
+    var nicesx = $j(".lbl-filterby~dd").niceScroll({touchbehavior:false,cursorminheight:20,cursorcolor:"#4EC7DA",cursoropacitymax:1,cursorwidth:10,autohidemode:false,background:"#8F554D"});
+  
+</script>
+<?php 
+}
+*/
+?>
+ <script type="text/javascript">
+  // $j(document).ready(function() {
+	
+    // var nicesx = $j(".lbl-filterby~dd").niceScroll({touchbehavior:false,cursorminheight:20,cursorcolor:"#4EC7DA",cursoropacitymax:1,cursorwidth:10,autohidemode:false,background:"#DFE0E0"});
+    // $j('.button-toggle').click(function(){
+		// var nicesx = $j(".lbl-filterby~dd").niceScroll({touchbehavior:true,cursorminheight:20,cursorcolor:"#4EC7DA",cursoropacitymax:1,cursorwidth:10,autohidemode:false,background:"#DFE0E0"});
+	// });
+  // });
+  
+</script>
+<script type="text/javascript">
+	$j(document).ready(function(){
+		/* $j('.brand + dd').addClass("tiny");
+		$j('.color + dd').addClass("tiny");
+		$j('.tiny div').addClass("viewport");
+		$j('.tiny div ol').addClass("overview");
+		$j('.tiny').tinyscrollbar(); */	
+		
+		function fixDiv() {
+		    var $div = $j(".show-filter");
+		    if ($j(window).scrollTop() > $div.data("top")) { 
+		        $div.css({'position': 'fixed', 'top': '45px', 'left': '30px', 'width': '167px'}); 
+		    }
+		    else {
+		        $div.css({'position': 'absolute', 'top': 'auto', 'left': '0','width': '167px'});
+		    }
+		}
+		
+		$j(".show-filter").data("top", $j(".show-filter").offset().top); // set original position on load
+		$j(window).scroll(fixDiv);
+		
+		
+		
+		$j(".triger-showfilter").live('click',function() {
+			//console.log("click");
+			$j(".show-filter").css({'position': 'absolute', 'top': 'auto', 'left': '0','width': '167px'});
+			//$j(".sidebar").css({'position': 'fixed', 'top': '45px', 'left': '30px', 'width': '167px'});
+		});
+	});
+</script>
 <?php if($this->canShowBlock()): ?>
+<?php $currentCategory=Mage::getSingleton('catalog/layer')->getCurrentCategory();?>
+<?php $navCategory = $currentCategory->getId(); ?>
 <div class="block block-layered-nav">
     <div class="block-title">
-        <strong><span><?php echo $this->__('Shop By') ?></span></strong>
+        <strong><span><?php echo $currentCategory->getName(); ?></span></strong>
     </div>
     <div class="block-content">
         <?php echo $this->getStateHtml() ?>
@@ -47,13 +115,26 @@
                 <?php $_filters = $this->getFilters() ?>
                 <?php foreach ($_filters as $_filter): ?>
                 <?php if($_filter->getItemsCount()): ?>
-                    <dt><?php echo $this->__($_filter->getName()) ?></dt>
-                    <dd><?php echo $_filter->getHtml() ?></dd>
+                	<?php if(($this->__($_filter->getName()))=='Price'): ?>
+                		<div class="lbl-filterby"><?php echo $currentCategory->getName().$this->__(' Shop by:'); ?></div>
+                	<?php endif;?>
+                    <dt class="<?php echo strtolower($this->__($_filter->getName())) ?>"><?php echo $this->__($_filter->getName()) ?></dt>
+                    <dd>
+                    	<?php echo $_filter->getHtml() ?>
+                    </dd>
+                    
                 <?php endif; ?>
                 <?php endforeach; ?>
             </dl>
             <script type="text/javascript">decorateDataList('narrow-by-list')</script>
         <?php endif; ?>
     </div>
+    <?php $category=Mage::getModel('catalog/category')->load($navCategory); ?>
+	<div class="category-desc">
+		<span><?php echo $category->getName(); ?></span>
+		<p><?php echo $category->getDescription(); ?></p>
+	</div>
+    <div class="left-banner-category"><?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('left_banner_category')->toHtml() ?></div>
 </div>
+<div class="show-filter"><a href="javascript:void(0)" class="triger-showfilter"><?php echo $this->__('Show Filters') ?></a></div>
 <?php endif; ?>

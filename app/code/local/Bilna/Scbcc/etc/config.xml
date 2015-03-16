@@ -1,0 +1,133 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Bilna_Scbcc>
+            <version>0.1.0</version>
+        </Bilna_Scbcc>
+    </modules>
+    
+    <frontend>
+        <routers>
+            <scbcc>
+                <use>standard</use>
+                <args>
+                    <module>Bilna_Scbcc</module>
+                    <frontName>scbcc</frontName>
+                </args>
+            </scbcc>
+        </routers>
+        
+        <!--layout>
+            <updates>
+                <scbcc>
+                    <file>scbcc.xml</file>
+                </scbcc>
+            </updates>
+        </layout-->
+    </frontend>
+     
+    <global>
+        <blocks>
+            <catalog>
+                <rewrite>
+                    <renderer>Bilna_Scbcc_Block_Checkout_Cart_Item_Renderer</renderer>
+                </rewrite>
+            </catalog>
+        </blocks>
+        
+        <models>
+            <scbcc>
+                <class>Bilna_Scbcc_Model</class>
+                <resourceModel>scbcc_mysql4</resourceModel>
+            </scbcc>
+            
+            <scbcc_mysql4>
+                <class>Bilna_Scbcc_Model_Mysql4</class>
+                <entities>
+                    <bincode>
+                        <table>bin_code</table>
+                    </bincode>
+                </entities>
+            </scbcc_mysql4>
+        </models>
+        
+        <resources>
+            <scbcc_setup>
+                <setup>
+                    <module>Bilna_Scbcc</module>
+                </setup>
+                
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </scbcc_setup>
+                
+            <scbcc_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </scbcc_write>
+            
+            <scbcc_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </scbcc_read>
+        </resources>
+        
+        <blocks>
+            <scbcc>
+                <class>Bilna_Scbcc_Block</class>
+            </scbcc>
+        </blocks>
+        
+        <helpers>
+            <scbcc>
+                <class>Bilna_Scbcc_Helper</class>
+            </scbcc>
+        </helpers>
+        
+        <fieldsets>
+             <sales_convert_quote_payment>
+                 <cc_bins>
+                     <to_order_payment>*</to_order_payment>
+                 </cc_bins>
+             </sales_convert_quote_payment>
+        </fieldsets>
+    </global>
+    
+    <default>
+        <payment>
+            <scbcc>
+                <active>1</active>
+                <model>scbcc/scbcc</model>
+                <order_status>pending</order_status>
+                <title>Credit Card (Standard Chartered)</title>
+                <allowspecific>0</allowspecific>
+                <group>offline</group>
+            </scbcc>
+        </payment>
+    </default>
+    
+    <admin>
+        <routers>
+            <scbcc>
+                <use>admin</use>
+                <args>
+                    <module>Bilna_Scbcc</module>
+                    <frontName>scbcc</frontName>
+                </args>
+            </scbcc>
+        </routers>
+    </admin>
+    
+    <!--adminhtml>
+        <layout>
+            <updates>
+                <scbcc>
+                    <file>scbcc.xml</file>
+                </scbcc>
+            </updates>
+        </layout>
+    </adminhtml-->
+</config>

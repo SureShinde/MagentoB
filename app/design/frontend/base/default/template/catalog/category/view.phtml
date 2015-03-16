@@ -40,18 +40,33 @@
         $_imgHtml = $_helper->categoryAttribute($_category, $_imgHtml, 'image');
     }
 ?>
+<input type="hidden" id="3rdparty-type" value="category"/>
+<input type="hidden" id="3rdparty-value" value="<?php echo $_category->getId(); ?>" />
+<input type="hidden" id="base-url" value="<?php echo Mage::getBaseUrl(); ?>" />
 <div class="page-title category-title">
     <?php if($this->IsRssCatalogEnable() && $this->IsTopCategory()): ?>
         <a href="<?php echo $this->getRssLink() ?>" class="link-rss"><?php echo $this->__('Subscribe to RSS Feed') ?></a>
     <?php endif; ?>
     <h1><?php echo $_helper->categoryAttribute($_category, $_category->getName(), 'name') ?></h1>
 </div>
-
 <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
-
-<?php if($_imgUrl): ?>
-    <?php echo $_imgHtml ?>
-<?php endif; ?>
+<?php 
+$xlCmsBlock = Mage::getModel('cms/block')->load("slider-category-baby-".strtolower($_category->getUrlKey())."-4")->getContent();
+$largeCmsBlock = Mage::getModel('cms/block')->load("slider-category-baby-".strtolower($_category->getUrlKey())."-1")->getContent();
+if($xlCmsBlock) {
+	echo 	'<div class="wrap_banner_category">'.
+			'<div id="slides-banner" class="banner_xlarge">'.$this->getLayout()->createBlock('cms/block')->setBlockId("slider-category-baby-".strtolower($_category->getUrlKey())."-4")->toHtml().'</div>'.
+			'</div>';
+}else if($largeCmsBlock){
+	echo 	'<div class="wrap_banner_category">'.
+			'<div class="banner_large">'.$this->getLayout()->createBlock('cms/block')->setBlockId("slider-category-baby-".strtolower($_category->getUrlKey())."-1")->toHtml().'<p class="label_slider_ctegory fb-14 fb-bebas">ON PROMO!! FOR A LIMITED TIME ONLY :</p></div>'.
+			'<div class="banner_small">'.$this->getLayout()->createBlock('cms/block')->setBlockId("slider-category-baby-".strtolower($_category->getUrlKey())."-2")->toHtml().'</div>'.
+			'<div class="banner_small">'.$this->getLayout()->createBlock('cms/block')->setBlockId("slider-category-baby-".strtolower($_category->getUrlKey())."-3")->toHtml().'</div>'.
+			'</div>';
+}else if($_imgUrl){
+	echo $_imgHtml;
+}
+?>
 
 <?php if($_description=$this->getCurrentCategory()->getDescription()): ?>
     <div class="category-description std">
@@ -68,4 +83,36 @@
 
 <?php else: ?>
     <?php echo $this->getProductListHtml() ?>
+<?php endif; ?>
+
+<!-- static block pop-up ASI Disclaimer -->
+<?php if ($this->checkCategoryAttributeCookie('asi_disclaimer') === false): ?>
+    <?php if ($this->checkCategoryAttributeYesNo('asi_disclaimer')): ?>
+        <script>
+            jQuery(document).ready(function(){
+                jQuery(".close-now").click(function() {
+                    var dataPost = 'cookie_name=category_asi_disclaimer';
+                    dataPost += '&cookie_value=true';
+                    
+                    jQuery.ajax({
+                        type: 'POST',
+                        url: "<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB) . 'webservice/asidisclaimer/savecookie.php'; ?>",
+                        data: dataPost,
+                        dataType: 'json',
+                        success: function(response) {
+                            if (response.status == true) {
+                                jQuery('.popup-asi_disclaimer').hide();
+                            }
+                            else {
+                                alert('failed, please refresh page..')
+                            }
+                        }
+                    });
+                });
+            });
+        </script>
+        <div class="popup-asi_disclaimer">
+            <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('asi_disclaimer')->toHtml(); ?>
+        </div>
+    <?php endif; ?>
 <?php endif; ?>

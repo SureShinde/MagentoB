@@ -350,7 +350,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
 
                     // Default value
                     if (!isset($values[0])) {
-                        Mage::throwException(Mage::helper('eav')->__('Default option value is not defined'));
+                        Mage::throwException(Mage::helper('eav')->__('Default option value is not defined -> '.$object->getId()));
                     }
 
                     $adapter->delete($optionValueTable, array('option_id =?' => $intOptionId));

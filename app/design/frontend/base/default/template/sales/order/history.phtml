@@ -27,7 +27,7 @@
 <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
 <?php $_orders = $this->getOrders(); ?>
 <div class="page-title">
-    <h1><?php echo $this->__('My Orders') ?></h1>
+    <h1><?php echo $this->__('Order History') ?></h1>
 </div>
 <?php echo $this->getPagerHtml(); ?>
 <?php if($_orders->getSize()): ?>
@@ -45,7 +45,7 @@
             <th><?php echo $this->__('Ship To') ?></th>
             <th><span class="nobr"><?php echo $this->__('Order Total') ?></span></th>
             <th><span class="nobr"><?php echo $this->__('Order Status') ?></span></th>
-            <th>&nbsp;</th>
+            <th><span class="nobr"><?php echo $this->__('Action') ?></span></th>
         </tr>
     </thead>
     <tbody>
@@ -58,7 +58,7 @@
             <td><?php echo $_order->formatPrice($_order->getGrandTotal()) ?></td>
             <td><em><?php echo $_order->getStatusLabel() ?></em></td>
             <td class="a-center">
-                <span class="nobr"><a href="<?php echo $this->getViewUrl($_order) ?>"><?php echo $this->__('View Order') ?></a>
+                <span class="nobr"><a class="link-view-order" href="<?php echo $this->getViewUrl($_order) ?>"><?php echo $this->__('View') ?></a>
                     <?php /*<span class="separator">|</span><a href="<?php echo $this->getTrackUrl($_order) ?>"><?php echo $this->__('Track Order') ?></a>&nbsp;*/ ?>
                     <?php if ($this->helper('sales/reorder')->canReorder($_order)) : ?>
                     <span class="separator">|</span> <a href="<?php echo $this->getReorderUrl($_order) ?>" class="link-reorder"><?php echo $this->__('Reorder') ?></a>

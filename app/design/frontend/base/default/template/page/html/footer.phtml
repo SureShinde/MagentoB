@@ -26,8 +26,30 @@
 ?>
 <div class="footer-container">
     <div class="footer">
-        <?php echo $this->getChildHtml() ?>
+		<div class="subscribe-form">
+			<p>Daftarkan email Anda untuk info promo dan diskon spesial dari Bilna.com!</p>
+			<div class="wrap-form-subscribe">
+				<form action="<?php echo Mage::getBaseUrl(); ?>newsletter/subscriber/new/" method="post" id="newsletter-validate-detail">
+					<div class="input-box">
+					   <input type="text" name="email" id="newsletter" title="Sign up for our newsletter" class="input-text required-entry validate-email" placeholder="Masukkan email Anda di sini">
+					</div>
+					<button type="submit" title="Sign Up" class="button">Daftar</button>
+				</form>
+			</div>
+		</div>
+    	<?php //echo $this->getLayout()->createBlock('page/switch')->setTemplate('page/switch/languages.phtml')->toHtml() ?>
+    	<?php echo $this->getChildHtml() ?>
+        <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('shipping_partners')->toHtml() ?>
+        <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('payment_partners')->toHtml() ?>
+        <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('conect_us')->toHtml() ?>
+        
+        <div class="clear"></div>
         <p class="bugs"><?php echo $this->__('Help Us to Keep Magento Healthy') ?> - <a href="http://www.magentocommerce.com/bug-tracking" onclick="this.target='_blank'"><strong><?php echo $this->__('Report All Bugs') ?></strong></a> <?php echo $this->__('(ver. %s)', Mage::getVersion()) ?></p>
-        <address><?php echo $this->getCopyright() ?></address>
+        <div class="footer-bottom">
+        	<div class="about-us">
+	        	<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('about_us')->toHtml() ?>
+			</div>
+        	<address><?php echo $this->getCopyright() ?></address>
+        </div>
     </div>
 </div>

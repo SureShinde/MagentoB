@@ -37,12 +37,12 @@ class Mage_ProductAlert_AddController extends Mage_Core_Controller_Front_Action
     {
         parent::preDispatch();
 
-        if (!Mage::getSingleton('customer/session')->authenticate($this)) {
+        /*if (!Mage::getSingleton('customer/session')->authenticate($this)) {
             $this->setFlag('', 'no-dispatch', true);
             if(!Mage::getSingleton('customer/session')->getBeforeUrl()) {
                 Mage::getSingleton('customer/session')->setBeforeUrl($this->_getRefererUrl());
             }
-        }
+        }*/
     }
 
     public function testObserverAction()
@@ -57,6 +57,9 @@ class Mage_ProductAlert_AddController extends Mage_Core_Controller_Front_Action
         $session = Mage::getSingleton('catalog/session');
         $backUrl    = $this->getRequest()->getParam(Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED);
         $productId  = (int) $this->getRequest()->getParam('product_id');
+        
+        $post = Mage::app()->getRequest()->getPost('data');
+
         if (!$backUrl || !$productId) {
             $this->_redirect('/');
             return ;
@@ -74,17 +77,40 @@ class Mage_ProductAlert_AddController extends Mage_Core_Controller_Front_Action
             return ;
         }
 
-        try {
-            $model  = Mage::getModel('productalert/price')
-                ->setCustomerId(Mage::getSingleton('customer/session')->getId())
-                ->setProductId($product->getId())
-                ->setPrice($product->getFinalPrice())
-                ->setWebsiteId(Mage::app()->getStore()->getWebsiteId());
-            $model->save();
-            $session->addSuccess($this->__('The alert subscription has been saved.'));
+        if( Mage::helper('customer')->isLoggedIn() ){
+            $customer = Mage::getModel('customer/customer')->load(Mage::getSingleton('customer/session')->getId());
+            $email = $customer->getEmail();
+            $customer_id = Mage::getSingleton('customer/session')->getId();
+        }else{
+            $customer = Mage::getModel('customer/customer')->setWebsiteId(Mage::app()->getWebsite()->getId())->loadByEmail($post['email']);
+            if($customer->getEmail())
+            {
+                $email = $customer->getEmail();
+                $customer_id = $customer->getId();
+            }else{
+                $email = $post['email'];
+                $customer_id = 0;
+            }
         }
-        catch (Exception $e) {
-            $session->addException($e, $this->__('Unable to update the alert subscription.'));
+
+        $checkEmail  = Mage::getModel('productalert/price')->getCollection();
+        $checkEmail->getSelect()->where('email = ? ', $email);
+
+        if( !$checkEmail->getData() )
+        {         
+            try {
+                $model  = Mage::getModel('productalert/price')
+                    ->setCustomerId($customer_id)
+                    ->setEmail($email)
+                    ->setProductId($product->getId())
+                    ->setPrice($product->getFinalPrice())
+                    ->setWebsiteId(Mage::app()->getStore()->getWebsiteId());
+                $model->save();
+                $session->addSuccess($this->__('The alert subscription has been saved.'));
+            }
+            catch (Exception $e) {
+                $session->addException($e, $this->__('Unable to update the alert subscription.'));
+            }
         }
         $this->_redirectReferer();
     }
@@ -95,6 +121,11 @@ class Mage_ProductAlert_AddController extends Mage_Core_Controller_Front_Action
         /* @var $session Mage_Catalog_Model_Session */
         $backUrl    = $this->getRequest()->getParam(Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED);
         $productId  = (int) $this->getRequest()->getParam('product_id');
+
+        $product = Mage::getModel('catalog/product')->load($productId);
+
+        $post = Mage::app()->getRequest()->getPost('data');
+        
         if (!$backUrl || !$productId) {
             $this->_redirect('/');
             return ;
@@ -107,16 +138,39 @@ class Mage_ProductAlert_AddController extends Mage_Core_Controller_Front_Action
             return ;
         }
 
-        try {
-            $model = Mage::getModel('productalert/stock')
-                ->setCustomerId(Mage::getSingleton('customer/session')->getId())
-                ->setProductId($product->getId())
-                ->setWebsiteId(Mage::app()->getStore()->getWebsiteId());
-            $model->save();
-            $session->addSuccess($this->__('Alert subscription has been saved.'));
+        if( Mage::helper('customer')->isLoggedIn() ){
+            $customer = Mage::getModel('customer/customer')->load(Mage::getSingleton('customer/session')->getId());
+            $email = $customer->getEmail();
+            $customer_id = Mage::getSingleton('customer/session')->getId();
+        }else{
+            $customer = Mage::getModel('customer/customer')->setWebsiteId(Mage::app()->getWebsite()->getId())->loadByEmail($post['email']);
+            if($customer->getEmail())
+            {
+                $email = $customer->getEmail();
+                $customer_id = $customer->getId();
+            }else{
+                $email = $post['email'];
+                $customer_id = 0;
+            }
         }
-        catch (Exception $e) {
-            $session->addException($e, $this->__('Unable to update the alert subscription.'));
+
+        $checkEmail  = Mage::getModel('productalert/stock')->getCollection();
+        $checkEmail->getSelect()->where('email = ? ', $email);
+
+        if( !$checkEmail->getData() )
+        {       
+            try {
+                $model = Mage::getModel('productalert/stock')
+                    ->setCustomerId($customer_id)
+                    ->setEmail($email)
+                    ->setProductId($product->getId())
+                    ->setWebsiteId(Mage::app()->getStore()->getWebsiteId());
+                $model->save();
+                $session->addSuccess($this->__('Alert subscription has been saved.'));
+            }
+            catch (Exception $e) {
+                $session->addException($e, $this->__('Unable to update the alert subscription.'));
+            }
         }
         $this->_redirectReferer();
     }

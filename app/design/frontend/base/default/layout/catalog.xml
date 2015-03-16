@@ -53,11 +53,11 @@ Default layout, loads most of the pages
             </block>
         </reference>
         <reference name="right">
-            <block type="catalog/product_compare_sidebar" before="cart_sidebar" name="catalog.compare.sidebar" template="catalog/product/compare/sidebar.phtml"/>
-            <block type="core/template" name="right.permanent.callout" template="callouts/right_col.phtml">
+            <!-- <block type="catalog/product_compare_sidebar" before="cart_sidebar" name="catalog.compare.sidebar" template="catalog/product/compare/sidebar.phtml"/> -->
+            <!-- <block type="core/template" name="right.permanent.callout" template="callouts/right_col.phtml">
                 <action method="setImgSrc"><src>images/media/col_right_callout.jpg</src></action>
                 <action method="setImgAlt" translate="alt" module="catalog"><alt>Keep your eyes open for our special Back to School items and save A LOT!</alt></action>
-            </block>
+            </block> -->
         </reference>
         <reference name="footer_links">
             <action method="addLink" translate="label title" module="catalog" ifconfig="catalog/seo/site_map"><label>Site Map</label><url helper="catalog/map/getCategoryUrl" /><title>Site Map</title></action>
@@ -72,6 +72,16 @@ Category default layout
 
     <catalog_category_default translate="label">
         <label>Catalog Category (Non-Anchor)</label>
+		<reference name="head">
+			<action method="addItem">
+				<type>skin_js</type>
+				<name>js/jquery.slides.min.js</name>
+			</action>
+			<action method="addItem">
+				<type>skin_js</type>
+				<name>js/jquery.nicescroll.min.js</name>
+			</action>
+        </reference>
         <reference name="left">
             <block type="catalog/navigation" name="catalog.leftnav" after="currency" template="catalog/navigation/left.phtml"/>
         </reference>
@@ -108,6 +118,16 @@ Category layered navigation layout
 
     <catalog_category_layered translate="label">
         <label>Catalog Category (Anchor)</label>
+		<reference name="head">
+			<action method="addItem">
+				<type>skin_js</type>
+				<name>js/jquery.slides.min.js</name>
+			</action>
+			<action method="addItem">
+				<type>skin_js</type>
+				<name>js/jquery.nicescroll.min.js</name>
+			</action>
+        </reference>
         <reference name="left">
             <block type="catalog/layer_view" name="catalog.leftnav" after="currency" template="catalog/layer/view.phtml"/>
         </reference>
@@ -132,6 +152,7 @@ Category layered navigation layout
                             <action method="addPagerLimit" translate="label"><mode>grid</mode><limit>all</limit><label>All</label></action>
                         -->
                     </block>
+                    <action method="setColumnCount"><columns>6</columns></action>
                     <action method="addColumnCountLayoutDepend"><layout>empty</layout><count>6</count></action>
                     <action method="addColumnCountLayoutDepend"><layout>one_column</layout><count>5</count></action>
                     <action method="addColumnCountLayoutDepend"><layout>two_columns_left</layout><count>4</count></action>

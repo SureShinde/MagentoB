@@ -350,7 +350,7 @@
             </p>
         <?php else: // excl. ?>
             <p class="old-price">
-                <span class="price-label"><?php echo $this->__('Regular Price:') ?></span>
+                <span class="price-label"><?php echo $this->__('Regular :') ?></span>
                 <span class="price" id="old-price-<?php echo $_id ?><?php echo $this->getIdSuffix() ?>">
                     <?php echo $_coreHelper->currency($_regularPrice, true, false) ?>
                 </span>
@@ -374,10 +374,22 @@
                 </p>
             <?php else: ?>
             <p class="special-price">
-                <span class="price-label"><?php echo $_specialPriceStoreLabel ?></span>
+                <span class="price-label"><?php echo $this->__('Special :') ?></span>
                 <span class="price" id="product-price-<?php echo $_id ?><?php echo $this->getIdSuffix() ?>">
                     <?php echo $_coreHelper->currency($_finalPrice, true, false) ?>
                 </span>
+            </p>
+			<?php
+				$bilna_normal_price = $_regularPrice;
+				$bilna_final_price  = $_finalPrice;
+				$bilna_discount		= (abs(( $_regularPrice - $_finalPrice ) / $_regularPrice )) * 100;
+				$bilna_discount		= round($bilna_discount);
+			?>
+			<p class="discount-product">
+                <span class="discount-amount">
+                    <?php echo $bilna_discount ?>
+                </span>
+                <span class="discount-label"><?php echo $this->__('% OFF!') ?></span>
             </p>
             <?php endif; ?>
         <?php endif; ?>

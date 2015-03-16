@@ -1,0 +1,175 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Bilna_Anzcc>
+            <version>0.1.2</version>
+        </Bilna_Anzcc>
+    </modules>
+    
+    <frontend>
+        <routers>
+            <anzcc>
+                <use>standard</use>
+                <args>
+                    <module>Bilna_Anzcc</module>
+                    <frontName>anzcc</frontName>
+                </args>
+            </anzcc>
+        </routers>
+        
+        <!--layout>
+            <updates>
+                <anzcc>
+                    <file>anzcc.xml</file>
+                </anzcc>
+            </updates>
+        </layout-->
+    </frontend>
+     
+    <global>
+        <blocks>
+            <catalog>
+                <rewrite>
+                    <renderer>Bilna_Anzcc_Block_Checkout_Cart_Item_Renderer</renderer>
+                </rewrite>
+            </catalog>
+        </blocks>
+        
+        <!--rewrite>
+            <anzcc>
+                <from><![CDATA[#^/checkout/onepage/#]]></from> 
+                <to>/anzcc/onepage/</to>
+            </anzcc>
+        </rewrite-->
+        
+        <models>
+            <anzcc>
+                <class>Bilna_Anzcc_Model</class>
+                <resourceModel>anzcc_mysql4</resourceModel>
+            </anzcc>
+            
+            <anzcc_mysql4>
+                <class>Bilna_Anzcc_Model_Mysql4</class>
+                <entities>
+                    <bincode>
+                        <table>bin_code</table>
+                    </bincode>
+                </entities>
+            </anzcc_mysql4>
+        </models>
+        <resources>
+            <anzcc_setup>
+                <setup>
+                    <module>Bilna_Anzcc</module>
+                </setup>
+                
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </anzcc_setup>
+                
+            <anzcc_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </anzcc_write>
+            
+            <anzcc_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </anzcc_read>
+        </resources>
+        
+        <blocks>
+            <anzcc>
+                <class>Bilna_Anzcc_Block</class>
+            </anzcc>
+        </blocks>
+        
+        <helpers>
+            <anzcc>
+                <class>Bilna_Anzcc_Helper</class>
+            </anzcc>
+        </helpers>
+        
+        <fieldsets>
+             <sales_convert_quote_payment>
+                 <cc_bins>
+                     <to_order_payment>*</to_order_payment>
+                 </cc_bins>
+             </sales_convert_quote_payment>
+        </fieldsets>
+    </global>
+    
+    <default>
+        <payment>
+            <anzcc>
+                <active>1</active>
+                <model>anzcc/anzcc</model>
+                <order_status>pending</order_status>
+                <title>Credit Card (ANZ)</title>
+                <allowspecific>0</allowspecific>
+                <group>offline</group>
+            </anzcc>
+        </payment>
+    </default>
+    
+    <admin>
+        <routers>
+            <anzcc>
+                <use>admin</use>
+                <args>
+                    <module>Bilna_Anzcc</module>
+                    <frontName>anzcc</frontName>
+                </args>
+            </anzcc>
+        </routers>
+    </admin>
+  
+    <!--adminhtml>
+        <menu>
+            <bilna module="anzcc">
+                <title>Bilna</title>
+		<sort_order>100</sort_order>
+		<children>
+                    <anzccbackend module="anzcc">
+                        <title>Installment Report</title>
+			<sort_order>0</sort_order>
+			<action>anzcc/adminhtml_anzccbackend</action>
+                    </anzccbackend>
+                </children>
+            </bilna>
+        </menu>
+	
+        <acl>
+            <resources>
+                <all>
+                    <title>Allow Everything</title>
+		</all>
+		
+                <admin>
+                    <children>
+                        <bilna translate="title" module="anzcc">
+                            <title>Bilna</title>
+                            <sort_order>10</sort_order>
+                            <children>
+                                <anzccbackend translate="title">
+                                    <title>Installment Report</title>
+                                </anzccbackend>
+                            </children>
+                        </bilna>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+        
+	<layout>
+            <updates>
+                <anzcc>
+                    <file>anzcc.xml</file>
+                </anzcc>
+            </updates>
+        </layout>
+    </adminhtml-->
+</config>

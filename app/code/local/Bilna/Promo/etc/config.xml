@@ -1,0 +1,158 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Bilna_Promo>
+            <version>0.2.0</version>
+        </Bilna_Promo>
+    </modules>
+	<frontend>
+        <routers>
+            <bilnapromo>
+                <use>standard</use>
+                <args>
+                    <module>Bilna_Promo</module>
+                    <frontName>bilnapromo</frontName>
+                </args>
+            </bilnapromo>
+        </routers>
+		<layout>
+			<updates>
+				<bilnapromo>
+					<file>bilnapromo.xml</file>
+				</bilnapromo>
+			</updates>
+		</layout>
+    </frontend>
+    <admin>
+        <routers>
+			<bilnapromo>
+				<use>admin</use>
+				<args>
+					<module>Bilna_Promo</module>
+					<frontName>bilnapromo</frontName>
+				</args>
+			</bilnapromo>
+        </routers>
+    </admin>
+    <adminhtml>
+		<menu>
+			<bilna>
+				<title>Bilna</title>
+				<children>
+					<bilnapromo module="promo">
+						<title>Promo</title>
+						<sort_order>200</sort_order>
+						<children>
+							<bilnapromogiftvoucher module="promo">
+								<title>Gift Voucher</title>
+								<sort_order>201</sort_order>
+								<children>
+									<bilnapromogiftvoucherevent module="promo">
+										<title>Manage Event</title>
+										<sort_order>1</sort_order>
+										<action>bilnapromo/adminhtml_giftvoucher</action>
+									</bilnapromogiftvoucherevent>
+									<bilnapromogiftvoucherapplicant module="promo">
+										<title>Gift Voucher Applicant</title>
+										<sort_order>2</sort_order>
+										<action>bilnapromo/adminhtml_giftvoucher/applicant</action>
+									</bilnapromogiftvoucherapplicant>
+								</children>
+							</bilnapromogiftvoucher>
+							<bilnapromogimmickevent module="promo">
+								<title>Gimmick Event</title>
+								<sort_order>200</sort_order>
+								<action>bilnapromo/adminhtml_gimmickevent</action>
+							</bilnapromogimmickevent>
+						</children>
+					</bilnapromo>
+				</children>
+			</bilna>
+		</menu>
+		<acl>
+			<resources>
+				<all>
+					<title>Allow Everything</title>
+				</all>
+				<admin>
+					<children>
+					<bilna translate="title" module="promo">
+					<title>Bilna</title>
+						<children>
+						<bilnapromo translate="title">
+							<title>Promo</title>
+							<sort_order>100</sort_order>
+							<children>
+								<bilnapromogiftvoucher translate="title">
+									<title>Gift Voucher</title>
+									<sort_order>100</sort_order>
+									<children>
+										<bilnapromogiftvoucherevent translate="title">
+											<title>Manage Event</title>
+											<sort_order>1</sort_order>
+										</bilnapromogiftvoucherevent>
+										<bilnapromogiftvoucherapplicant translate="title">
+											<title>Gift Voucher Applicant</title>
+											<sort_order>2</sort_order>
+										</bilnapromogiftvoucherapplicant>
+									</children>
+								</bilnapromogiftvoucher>
+								<bilnapromogimmickevent translate="title">
+									<title>Gimmick Event</title>
+									<sort_order>300</sort_order>
+								</bilnapromogimmickevent>
+							</children>
+						</bilnapromo>
+						</children>
+					</bilna>
+					</children>
+				</admin>
+			</resources>
+		</acl>
+		<layout>
+			<updates>
+				<bilnapromo>
+					<file>bilnapromo.xml</file>
+				</bilnapromo>
+			</updates>
+		</layout>
+    </adminhtml>   
+    <global>
+        <models>
+            <bilnapromo>
+                <class>Bilna_Promo_Model</class>
+                <resourceModel>promo_mysql4</resourceModel>
+            </bilnapromo>
+            <promo_mysql4>
+                <class>Bilna_Promo_Model_Mysql4</class>
+                <entities>
+                    <giftvoucher>
+                        <table>bilna_promo_giftvoucher</table>
+                    </giftvoucher>
+                    <giftvoucherapplicant>
+                        <table>bilna_promo_giftvoucher_member</table>
+                    </giftvoucherapplicant>
+                    <gimmickevent>
+                        <table>bilna_gimmick_event</table>
+                    </gimmickevent>
+                    <gimmickeventsku>
+                        <table>bilna_gimmick_event_sku</table>
+                    </gimmickeventsku>
+                    <gimmickeventapplicant>
+                        <table>bilna_gimmick_event_applicant</table>
+                    </gimmickeventapplicant>
+                </entities>
+            </promo_mysql4>
+        </models>
+        <blocks>
+            <bilnapromo>
+                <class>Bilna_Promo_Block</class>
+            </bilnapromo>
+        </blocks>
+        <helpers>
+            <promo>
+                <class>Bilna_Promo_Helper</class>
+            </promo>
+        </helpers>
+    </global>
+</config>

@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Bilna_AjaxRequest>
+            <version>0.1.1</version>
+        </Bilna_AjaxRequest>
+    </modules>
+    
+    <frontend>
+        <routers>
+            <ajaxrequest>
+                <use>standard</use>
+                <args>
+                    <module>Bilna_AjaxRequest</module>
+                    <frontName>ajaxrequest</frontName>
+                </args>
+            </ajaxrequest>
+        </routers>
+    </frontend>
+    
+    <global>
+        <helpers>
+            <ajaxrequest>
+                <class>Bilna_AjaxRequest_Helper</class>
+            </ajaxrequest>
+        </helpers>
+    </global>
+</config>

@@ -1,0 +1,455 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Brim LLC Commercial Extension
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Brim LLC Commercial Extension License
+ * that is bundled with this package in the file Brim-LLC-Magento-License.pdf.
+ * It is also available through the world-wide-web at this URL:
+ * http://ecommerce.brimllc.com/license
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to support@brimllc.com so we can send you a copy immediately.
+ *
+ * @category   Brim
+ * @package    Brim_PageCache
+ * @copyright  Copyright (c) 2011-2014 Brim LLC
+ * @license    http://ecommerce.brimllc.com/license
+ */
+
+-->
+<config>
+    <tabs>
+        <brim translate="label" module="brim_pagecache">
+            <label>Brim Extensions</label>
+            <sort_order>300</sort_order>
+        </brim>
+    </tabs>
+    <sections>
+        <brim_pagecache translate="label" module="brim_pagecache">
+            <class>separator-top</class>
+            <label>Full Page Cache</label>
+            <tab>brim</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>50</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <settings translate="label">
+                    <label>Settings</label>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <sort_order>100</sort_order>
+                    <fields>
+                        <version translate="label">
+                            <label>Version</label>
+                            <frontend_type>label</frontend_type>
+                            <backend_model>brim_pagecache/adminhtml_system_config_backend_version</backend_model>
+                            <sort_order>0</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment></comment>
+                        </version>
+                        <enabled translate="label">
+                            <label>Enabled</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Turn the extension off and on.]]></comment>
+                        </enabled>
+                        <enable_level1>
+                            <label>Enable Level1 Cache</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <comment><![CDATA[Extremely fast cache.  Used for visitors without products in cart.
+                                Dynamic block updates are not supported ie Recently viewed products.]]></comment>
+                        </enable_level1>
+                        <cache_block_updates translate="label">
+                            <label>Cache Block Updates</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>25</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Allow unique block updates to be cache. Pages will load faster but use
+                             much more disk space.]]></comment>
+                        </cache_block_updates>
+                        <enable_minify_html translate="label">
+                            <label>Enable HTML Minification</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[
+                                Turn on to minify HTML before caching. Saves on storage, useful for 10,000+ products.
+                            ]]></comment>
+                        </enable_minify_html>
+                        <invalidate_clean translate="label">
+                            <label>Invalidate Action</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>brim_pagecache/adminhtml_system_config_source_invalidate</source_model>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[
+                                <strong>Notify:</strong> Displays a Magento notification when the cache is out
+                                of date. Manual flush of the cache is required.<br />
+                                <strong>Clean:</strong> Removes out of date pages from the cache. Warning: may cause
+                                slow saves on large catalogs.
+                            ]]></comment>
+                        </invalidate_clean>
+                        <expires translate="label">
+                            <label>Page Expires (seconds)</label>
+                            <backend_model>brim_pagecache/adminhtml_system_config_backend_expires</backend_model>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>60</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Number of seconds a page is valid in the cache.]]></comment>
+                        </expires>
+                        <debug translate="label">
+                            <label>Debug</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>100</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Enable server side debugging.]]></comment>
+                        </debug>
+                        <debug_response translate="label">
+                            <label>Response Debugging</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>110</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Enable response header debugging.]]></comment>
+                        </debug_response>
+                    </fields>
+                </settings>
+                <conditions>
+                    <label>Cache Conditions</label>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <sort_order>125</sort_order>
+                    <fields>
+                        <use_customer_group translate="label">
+                            <label>Use Customer Group In Cache Key</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>0</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment><![CDATA[
+                                This can be turned off if you are not using any customer group functionality such as
+                                catalog price rules based on customer groups.
+                            ]]></comment>
+                        </use_customer_group>
+
+                        <combine_visitor_general_groups translate="label">
+                            <label>Share pages between NOT LOGGED IN and General Customers</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends>
+                                <use_customer_group>1</use_customer_group>
+                            </depends>
+                            <comment><![CDATA[
+                                Treats the NOT LOGGED IN and General customer groups and the same.  Useful if pricing is the
+                                same for both customer groups and no other customer group features are used.
+                            ]]></comment>
+                        </combine_visitor_general_groups>
+
+                        <max_params translate="label">
+                            <label>Maximum Query Parameters to Cache</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment><![CDATA[
+                                If a request contains more than the set number of parameters the request will NOT be cached.
+                                -1 allows unlimited parameters, but is not recommended.
+                            ]]></comment>
+                        </max_params>
+
+                        <session_vars translate="label">
+                            <label>Session Variables</label>
+                            <frontend_model>brim_pagecache/adminhtml_system_config_form_field_sessionvariables</frontend_model>
+                            <backend_model>brim_pagecache/adminhtml_system_config_backend_serialized_array</backend_model>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment><![CDATA[
+                               List of session variables to include in a pages cache key.
+                            ]]></comment>
+                        </session_vars>
+                        <ignore_params translate="label">
+                            <label>Ignored Url Parameters</label>
+                            <frontend_model>brim_pagecache/adminhtml_system_config_form_field_ignoreparams</frontend_model>
+                            <backend_model>brim_pagecache/adminhtml_system_config_backend_serialized_array</backend_model>
+                            <sort_order>100</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment><![CDATA[
+                                List of parameter keys to ignore when generating a page's cache key.
+                                ie: gclid
+                            ]]></comment>
+                        </ignore_params>
+                    </fields>
+                </conditions>
+                <layout>
+                    <label>Layout Settings</label>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <sort_order>150</sort_order>
+                    <fields>
+                        <custom_block_updates translate="label">
+                            <label>Custom Block Updates</label>
+                            <frontend_model>brim_pagecache/adminhtml_system_config_form_field_blockupdates</frontend_model>
+                            <backend_model>brim_pagecache/adminhtml_system_config_backend_serialized_array</backend_model>
+
+                            <sort_order>100</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment><![CDATA[List of custom block names to dynamically update (holepunch).]]></comment>
+                        </custom_block_updates>
+                        <additional_handles translate="label">
+                            <label>Cache Additional Page Types</label>
+                            <frontend_model>brim_pagecache/adminhtml_system_config_form_field_additionalhandles</frontend_model>
+                            <backend_model>brim_pagecache/adminhtml_system_config_backend_serialized_array</backend_model>
+
+                            <sort_order>200</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment><![CDATA[List of additional page types (layout xml handles) to cache. Entries will
+                            override the brim_pagecache.xml layout file.]]></comment>
+                        </additional_handles>
+                        <custom_xml translate="label">
+                            <label>Custom Layout XML</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>300</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment><![CDATA[ADVANCED: Appends custom layout xml for the FPC.]]></comment>
+                        </custom_xml>
+                    </fields>
+                </layout>
+
+                <mobile>
+                    <label>Mobile Settings</label>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <sort_order>175</sort_order>
+                    <fields>
+                        <enable translate="label">
+                            <label>Enable User Agent Detection</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>100</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment><![CDATA[]]></comment>
+                        </enable>
+                        <user_agent translate="label">
+                            <label>User Agent Pattern</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>200</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends>
+                                <enable>1</enable>
+                            </depends>
+                            <comment><![CDATA[]]></comment>
+                        </user_agent>
+                    </fields>
+                </mobile>
+
+                <storage>
+                    <label>Storage Settings</label>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <sort_order>200</sort_order>
+                    <fields>
+                        <system_cache translate="label">
+                            <label>Use System Cache</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment><![CDATA[ ]]></comment>
+                        </system_cache>
+
+                        <type translate="label">
+                            <label>Type</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>brim_pagecache/adminhtml_system_config_source_storage_type</source_model>
+                            <sort_order>15</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends>
+                                <system_cache>0</system_cache>
+                            </depends>
+                            <comment><![CDATA[ ]]></comment>
+                        </type>
+                        <override_system_file translate="label">
+                            <label>Use Scalable File</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends>
+                                <system_cache>1</system_cache>
+                            </depends>
+                            <comment><![CDATA[Overrides the standard file backend with Scalable File.]]></comment>
+                        </override_system_file>
+                        <slow_backend translate="label">
+                            <label>Slow Type</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>brim_pagecache/adminhtml_system_config_source_storage_slow_backend</source_model>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends>
+                                <!--<type separator=",">apc,memcached</type>-->
+                                <system_cache>0</system_cache>
+                            </depends>
+                            <comment><![CDATA[
+                                Applied when using Apc or Memcached backends
+                             ]]></comment>
+                        </slow_backend>
+                        <file_path>
+                            <label>Path</label>
+                            <frontend_type>text</frontend_type>
+                            <backend_model>brim_pagecache/adminhtml_system_config_backend_storage_path</backend_model>
+                            <sort_order>100</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <depends>
+                                <!--<type separator=",">file,Brim_PageCache_Model_Backend_File_Scalable</type>-->
+                                <system_cache>0</system_cache>
+                            </depends>
+                            <comment><![CDATA[
+                                Directory under [magento root]/var/. Ex: cache-fpc <br />
+                                Applied when using File or Scalable File backends
+                            ]]></comment>
+                        </file_path>
+                        <memcached_servers>
+                            <label>Memcached Servers XML</label>
+                            <frontend_type>textarea</frontend_type>
+                            <backend_model>brim_pagecache/adminhtml_system_config_backend_xml</backend_model>
+                            <sort_order>200</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <depends>
+                                <type>memcached</type>
+                                <system_cache>0</system_cache>
+                            </depends>
+                            <comment>See user guide for details.</comment>
+                        </memcached_servers>
+                        <redis_config_xml>
+                            <label>Redis Config XML</label>
+                            <frontend_type>textarea</frontend_type>
+                            <backend_model>brim_pagecache/adminhtml_system_config_backend_xml</backend_model>
+                            <sort_order>400</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <depends>
+                                <type>redis</type>
+                                <system_cache>0</system_cache>
+                            </depends>
+                            <comment>See user guide for details.</comment>
+                        </redis_config_xml>
+                    </fields>
+                </storage>
+                <config>
+                    <label>Config File</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>900</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <autowrite>
+                            <label>Auto Write XML Config to Disk</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment><![CDATA[Disable if you prefer to manually create and maintain app/etc/brim_pagecache.xml]]></comment>
+                        </autowrite>
+                        <xml translate="label">
+                            <label>XML</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>100</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment><![CDATA[]]></comment>
+                        </xml>
+                    </fields>
+                </config>
+                <help>
+                    <label>Help</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>1000</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <comment><![CDATA[
+                        <h3>Get help when you need it</h3>
+                        <p>
+                            Checkout our <strong><a target="_blank" href="http://docs.brimllc.com/">Documentation</a></strong>
+                            for answers to some common questions or <strong><a target="_blank" href="https://brimllc.zendesk.com/">Submit a Ticket</a></strong>
+                            if you need additional help.
+                        </p>
+                        <p>
+                            Make sure to follow <strong><a target="_blank" title="Brim on Twitter" href="http://twitter.com/brimllc">@brimllc</a></strong>
+                            on Twitter to not miss out on important product updates, news, and tips! </p>
+                        </p>
+                    ]]></comment>
+                </help>
+            </groups>
+        </brim_pagecache>
+    </sections>
+</config>
