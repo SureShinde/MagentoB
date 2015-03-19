@@ -867,7 +867,7 @@ a.triger-showfilter {
 	 .catalog-category-view .wrap_banner{
 		display:table;
 		width:90%;
-		margin: 0 auto;
+		margin: 20px auto;
 	 }
 	.catalog-category-view .wrap_banner .col-1, .catalog-category-view .wrap_banner .col-2, .catalog-category-view .awafpgrid{
 		display:none;
