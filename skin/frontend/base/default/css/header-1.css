@@ -2326,7 +2326,7 @@ searchbar #nav-search-in {
         white-space: nowrap;
         width: auto;
     }
-    .search-for-sticky #nav-searchbar { margin: 1px 0 0 0 !important;}
+    .search-for-sticky #nav-searchbar { margin: 2px 0 0 0 !important;}
     
     .keypoint ul li {
 		width:25%;

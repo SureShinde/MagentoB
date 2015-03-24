@@ -608,7 +608,7 @@ width: 100%;
 		margin-left: 2px;
 	}
 	.homepage-bottom .testimonial-wrapper, .homepage-bottom .media-partners {
-		float: none;
+		float: left;
 		width: 100%;
 	}
 	.homepage-bottom .testimonial-wrapper {
