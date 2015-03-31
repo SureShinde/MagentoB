@@ -60,6 +60,9 @@ li#perlengkapan-rumah, li.mobile-perlengkapan-rumah {
 	width: 1216px;
 	padding: 0;
 }
+.logo img {
+	width: 80%;
+}
 .sticky-header {
 	margin: 0 auto;
 	background: #f7f7f7;
@@ -2422,13 +2425,16 @@ searchbar #nav-search-in {
 		width: 185px;
 		margin: 0;
 	}
+	.logo img{
+		width:auto;
+	}
 }
 	
 
 /* --------------- smaller 959 px layout -------------------- */
 @media only screen and (max-width: 767px) {
-	.header .logo img {
-		width: 80%;
+    .logo img{
+		width:75px;
 	}
 	.header .links li:first-child {
 		border-right: none; 

@@ -94,12 +94,11 @@
     top:3px;
     background: url(../images/megamenu/arrow.png) no-repeat -5px -373px;
 }
-.megamenu.megamenu-active{
+.menu-navigation .megamenu.megamenu-active{
     height: 515px;
-	overflow:visible;
 	border-top: 1px solid #e9e9ea;
 }
-.megamenu{
+.menu-navigation .megamenu{
     position: absolute;
     width: 100%;
     color: #707070;
@@ -125,7 +124,7 @@
 	background: #D1D3D4;
 }
 .menu-navigation .first-level > ul{
-	padding-top:20px;
+	margin-top:20px;
 }
 .wrap-second-cat{
     padding-right: 20px;
@@ -149,7 +148,7 @@
 	display:block;
 	position:relative;
 }
-.menu-navigation li a{
+.menu-navigation li div{
 	text-transform:uppercase;
 }
 .menu-navigation .second-level  a{
@@ -174,13 +173,13 @@
 .menu-navigation .first-level .second-level{
     display: none;
 }
-.menu-navigation .first-level .default > a, .menu-navigation .first-level > ul > li:hover > a, .menu-navigation .first-level > ul:hover > li.default:hover > a {
+.menu-navigation .first-level .active-cat > a, .menu-navigation .first-level > ul > li:hover > a, .menu-navigation .first-level > ul:hover > li.active-cat:hover > a {
     color: #F48120;
 }
-.menu-navigation .first-level ul:hover .default > a{
+.menu-navigation .first-level ul:hover .active-cat > a{
 	color:#414042;
 }
-.menu-navigation .first-level .default, .menu-navigation .first-level > ul > li:hover {
+.menu-navigation .first-level .active-cat, .menu-navigation .first-level > ul > li:hover {
     background-color:#F48120;
 }
 .menu-navigation .first-level > ul > li:hover > a:after{
@@ -190,29 +189,61 @@
 	left: 145px;
 	top:0;
 }
-.menu-navigation .first-level > ul > li.default > a:after, .menu-navigation .first-level > ul:hover > li.default:hover > a:after{
+
+.menu-navigation .first-level ul.hover-cat .active-cat > a{
+	color:#707070;
+}
+.menu-navigation .first-level > ul > li.hover-cat > a {
+    color: #424143;
+}
+.menu-navigation .first-level > ul.hover-cat > li.cat-hover > a {
+    color: #F05A2A;
+}
+.menu-navigation .first-level .active-cat .second-level,
+.menu-navigation .first-level .hover-cat .second-level{
+    display: block !important;
+    width: 1030px;
+    z-index: 1;
+	height:485px;
+	overflow:hidden;
+	padding-top: 4px;
+    background: #fff;
+}
+.menu-navigation .first-level > ul > li.active-cat .second-level{
+	display:block;
+}
+/*.menu-navigation .first-level > ul:hover > li.active-cat .second-level{
+	display:none;
+}*/
+.menu-navigation .first-level .second-level ul{
+    margin-bottom: 10px;
+    margin-top: 0px;
+    font-weight: normal;
+	padding-top:4px;
+}
+.menu-navigation .first-level > ul > li.active-cat > a:after, .menu-navigation .first-level > ul:hover > li.active-cat:hover > a:after{
 	content:"►";
 	color:#F48120;
 	position:absolute;
 	left: 145px;
 	top:0;
 }
-.menu-navigation .first-level > ul:hover > li.default > a:after{
+.menu-navigation .first-level > ul:hover > li.active-cat > a:after{
 	content:"";
 }
-.menu-navigation .first-level > ul > li.default, .menu-navigation .first-level > ul:hover > li.default:hover{
+.menu-navigation .first-level > ul > li.active-cat, .menu-navigation .first-level > ul:hover > li.active-cat:hover{
     /*background-image: url(../images/megamenu/arrow.png);*/
     background-repeat: no-repeat;
     background-color:#fff;
     background-position: right -611px;
 }
-.menu-navigation .first-level > ul:hover > li.default{
+.menu-navigation .first-level > ul:hover > li.active-cat{
     background-color:transparent;
     /*background-image: url(../images/megamenu/arrow.png);*/
     background-repeat: no-repeat;
     background-position: right -90px;
 }
-.menu-navigation .first-level > ul:hover > li.default .second-level{
+.menu-navigation .first-level > ul:hover > li.active-cat .second-level{
 	display:none;
 }
 .menu-navigation .first-level > ul > li:hover{
@@ -221,25 +252,25 @@
     background-repeat: no-repeat;
     background-position: right -611px;
 }
-.menu-navigation .first-level > ul:hover > li.default:hover .second-level{
+.menu-navigation .first-level > ul:hover > li.active-cat:hover .second-level{
 	display: block;
-	height: 495px;
+	height: 485px;
 	overflow: hidden;
 }
-.menu-navigation .first-level .default .second-level{
+.menu-navigation .first-level .active-cat .second-level{
     display: block;
     width: 1030px;
     z-index: 9;
-	height: 495px;
+	height: 485px;
 	overflow: hidden;
 }
-.catalog-category-view .menu-navigation .first-level .default .second-level{
+.catalog-category-view .menu-navigation .first-level .active-cat .second-level{
 	width:200px;
 }
 .menu-navigation .first-level li:hover .second-level{
     display: block;
     width: 1030px;
-	height: 495px;
+	height: 485px;
 	overflow: hidden;
     z-index: 90;
     background: #fff;
@@ -257,119 +288,128 @@
     font-size: 1em;
     color:#55909a;
 }
-.wrap-banner {
+.menu-navigation .wrap-banner {
     float: right;
     width: calc(100% - 235px);
     border-left: 1px solid #ededed;
     z-index: 0;
 }
-.wrap-banner .first-banner-megamenu, .wrap-banner .second-banner-megamenu, .wrap-banner .third-banner-megamenu{
+.menu-navigation .wrap-banner .first-banner-megamenu, .wrap-banner .second-banner-megamenu, .wrap-banner .third-banner-megamenu{
     float: left;
     padding: 0 0 0 12px;
 }
-.wrap-banner .first-banner-megamenu .main-banner{
+.menu-navigation .wrap-banner .first-banner-megamenu .main-banner{
 	position:relative;
 }
-.wrap-banner img{
+.menu-navigation .wrap-banner img{
     float:left;
     width: 100%;
 }
-li.default .wrap-banner .first-banner-megamenu .main-banner{
+.menu-navigation .wrap-banner .first-banner-megamenu img, li.active-cat .wrap-banner .first-banner-megamenu .main-banner{
     margin: 0 0 10px;
 }
-.wrap-banner .second-banner-megamenu img{
+.menu-navigation .wrap-banner .second-banner-megamenu img{
     padding: 0 0 12px;
 }
-.wrap-banner .third-banner-megamenu img{
+.menu-navigation .wrap-banner .third-banner-megamenu img{
     padding: 0 0 12px;
 }
-.wrap-banner .first-banner-megamenu{
+.menu-navigation .wrap-banner .first-banner-megamenu{
     width: 48%;
 }
-.wrap-banner .second-banner-megamenu{
+.menu-navigation .wrap-banner .second-banner-megamenu{
     width: 23%;
 }
-.wrap-banner .third-banner-megamenu{
+.menu-navigation .wrap-banner .third-banner-megamenu{
     width: 23%;
 }
-.wrap-banner .first-banner-megamenu .bottom-left-firstbanner, .wrap-banner .first-banner-megamenu .bottom-right-firstbanner{
+.menu-navigation .wrap-banner .first-banner-megamenu .bottom-left-firstbanner, .menu-navigation .wrap-banner .first-banner-megamenu .bottom-right-firstbanner{
     width: 48%;
     float: left;
 }
-.wrap-banner .first-banner-megamenu .bottom-left-firstbanner{
+.menu-navigation .wrap-banner .first-banner-megamenu .bottom-left-firstbanner{
     padding: 0 7px 0 0;
 }
-.wrap-banner .first-banner-megamenu .bottom-right-firstbanner{
+.menu-navigation .wrap-banner .first-banner-megamenu .bottom-right-firstbanner{
     padding: 0 0 0 7px;
 }
-.megamenu-stiky{
+.menu-navigation .megamenu-stiky{
 	position:fixed;
-	top:41px;
+	top:42px;
 	width:1216px;
 }
+.menu-navigation .first-level > ul > li{
+	cursor:pointer;
+}
+.menu-navigation .first-level > ul > li.first-level-cat.active-cat.hover-cat > div.first-level-url{
+	color:#F15A29 !important;
+}
+.menu-navigation .first-level > ul > li.first-level-cat.hover-cat div{
+	color:#F15A29;
+}
 @media (min-width: 1023px )and (max-width: 1215px ){
-    .menu-navigation .first-level li:hover .second-level, .menu-navigation .first-level .default .second-level{
+    .menu-navigation .first-level li:hover .second-level, .menu-navigation .first-level .active-cat .second-level{
         width: 805px;
     }
-    .wrap-banner .first-banner-megamenu{
+    .menu-navigation .wrap-banner .first-banner-megamenu{
         width: 64%;
     }
-    .wrap-banner .second-banner-megamenu{
+    .menu-navigation .wrap-banner .second-banner-megamenu{
             width: 31%;
     }
-    .wrap-banner .third-banner-megamenu{
+    .menu-navigation .wrap-banner .third-banner-megamenu{
         display: none;
     }
-	.megamenu{
-		height: 0;
-	}
-	.wrap-banner .first-banner-megamenu .bottom-left-firstbanner{
+	.menu-navigation .wrap-banner .first-banner-megamenu .bottom-left-firstbanner{
 		padding: 0 4px 0 0;
 		width: 49%;
 	}
-	.wrap-banner .first-banner-megamenu .bottom-right-firstbanner{
+	.menu-navigation .wrap-banner .first-banner-megamenu .bottom-right-firstbanner{
 		padding: 0 0 0 3px;
 		width: 49%;
 	}
-	.megamenu-stiky{
+	.menu-navigation .megamenu-stiky{
 		width:994px;
+	}
+	.menu-navigation .wrap-banner .first-banner-megamenu img, li.active-cat .wrap-banner .first-banner-megamenu .main-banner{
+		margin: 0 0 12px;
 	}
 }
 @media (min-width: 768px )and (max-width: 1022px ){
-    .wrap-banner .first-banner-megamenu{
+    .menu-navigation .wrap-banner .first-banner-megamenu{
         width: 96%;
     }
-    .wrap-banner .second-banner-megamenu{
+    .menu-navigation .wrap-banner .second-banner-megamenu{
         display: none;
     }
-     .wrap-banner .third-banner-megamenu{
+    .menu-navigation  .wrap-banner .third-banner-megamenu{
         display: none;
     }
-    .menu-navigation .first-level li:hover .second-level, .menu-navigation .first-level .default .second-level{
+    .menu-navigation .first-level li:hover .second-level, .menu-navigation .first-level .active-cat .second-level{
         width: 550px;
         height: 430px !important;
     }
 	.megamenu{
 		height: 0;
 	}
-	.wrap-banner {
+	.menu-navigation .wrap-banner {
 		width: calc(100% - 200px);
 	}
-	.megamenu.megamenu-active {
+	.menu-navigation .megamenu.megamenu-active {
 		height: 460px;
 	}
-	.wrap-banner .first-banner-megamenu .bottom-left-firstbanner{
+	.menu-navigation .wrap-banner .first-banner-megamenu .bottom-left-firstbanner{
 		padding: 0 3px 0 0;
 	}
-	.megamenu-stiky{
+	.menu-navigation .megamenu-stiky{
 		width:745px;
 	}
-	.menu-navigation .first-level > ul > li{
+	.menu-navigation .menu-navigation .first-level > ul > li{
 		font-size: 1.1em;
 	}
 }
-@media (max-width: 767px ) {
-	.menu-navigation{
+@media (max-width: 768px ) {
+	.menu-navigation .menu-navigation{
 		display:none;
 	}
 	.bg-dark-megamenu{
