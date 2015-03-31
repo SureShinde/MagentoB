@@ -26,6 +26,7 @@
 ?>
 <div class="footer-container">
     <div class="footer">
+    	<?php //echo $this->getLayout()->createBlock('page/switch')->setTemplate('page/switch/languages.phtml')->toHtml() ?>
 		<div class="subscribe-form">
 			<p>Daftarkan email Anda untuk info promo dan diskon spesial dari Bilna.com!</p>
 			<div class="wrap-form-subscribe">
@@ -37,7 +38,6 @@
 				</form>
 			</div>
 		</div>
-    	<?php //echo $this->getLayout()->createBlock('page/switch')->setTemplate('page/switch/languages.phtml')->toHtml() ?>
     	<?php echo $this->getChildHtml() ?>
         <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('shipping_partners')->toHtml() ?>
         <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('payment_partners')->toHtml() ?>
