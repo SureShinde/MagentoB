@@ -2139,7 +2139,7 @@ searchbar #nav-search-in {
     }
     .search-for-sticky {
         position:fixed;
-        top: 1px;
+        top: 2px;
         display: block;
         z-index: 2;
         width: 47%;
@@ -2357,7 +2357,7 @@ searchbar #nav-search-in {
         display: block;
         margin-left: -93px;
         position: fixed;
-        top: 0;
+        top: 2px;
         z-index: 2;
     }
     .keypoint ul li.free-shipping {
@@ -2433,8 +2433,8 @@ searchbar #nav-search-in {
 
 /* --------------- smaller 959 px layout -------------------- */
 @media only screen and (max-width: 767px) {
-    .logo img{
-		width:75px;
+	.header .logo img {
+		width: 80%;
 	}
 	.header .links li:first-child {
 		border-right: none; 

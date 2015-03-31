@@ -296,6 +296,7 @@ width: 100%;
 	width: calc(100% - 260px);
 	max-height:140px;
 	position:relative;
+	text-align:left;
 	overflow: hidden;
 }
 .testimonial-wrapper .testimonial  p:first-of-type {
@@ -608,7 +609,6 @@ width: 100%;
 		margin-left: 2px;
 	}
 	.homepage-bottom .testimonial-wrapper, .homepage-bottom .media-partners {
-		float: left;
 		width: 100%;
 	}
 	.homepage-bottom .testimonial-wrapper {
