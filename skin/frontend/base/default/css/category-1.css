@@ -1,11 +1,13 @@
 .main-container.col2-left-layout .main {
-	padding-bottom: 80px;
 }
 .col2-left-layout .products-grid, .col2-right-layout .products-grid {
 	width: 100%;
 }
 .block-layered-nav {
 	background: #f8f8f8;
+}
+.catalog-category-view .breadcrumbs{
+	margin:0 0 10px;
 }
 .block-layered-nav .block-content {
 	border: none;
@@ -471,12 +473,17 @@ a.triger-showfilter {
 	float:left;
 	background:#f2f2f2;
 }
+.catalog-category-view .banner_small-1{
+	margin:0 1% 10px;
+}
 .catalog-category-view .banner_small{
 	float:left;
 	min-height:10px;
 	width: 18%;
-	margin-right: 5px;
-	margin:0 1% 10px;
+}
+.catalog-category-view .banner_small p{
+	display:table;
+	margin: 0 auto;
 }
 .label_slider_ctegory{
 	left: 10px;
@@ -512,7 +519,7 @@ a.triger-showfilter {
 	width: 18%;
 }
 .catalog-category-view .banner_large img, .catalog-category-view .banner_small img{
-	max-width: 100%;
+	width: 100%;
 }
 
 .category-baby .homepage-top-block.right {
@@ -684,27 +691,28 @@ a.triger-showfilter {
 	display: table;
 	width:100%;
 }
-.catalog-category-view .wrap_banner .col-1, .catalog-category-view .wrap_banner .col-2, .catalog-category-view .wrap_banner .col-3{
+.catalog-category-view .wrap_banner .col-1, .catalog-category-view .wrap_banner .col-2, .catalog-category-view .wrap_banner .col-3, .catalog-category-view .wrap_banner .col-4{
 	display:block;
 	min-height:50px;
 	float:left;
 }
-.catalog-category-view .wrap_banner .col-1{
-	width:527px;
+.catalog-category-view .wrap_banner .col-1, .catalog-category-view .wrap_banner .col-3, .catalog-category-view .wrap_banner .col-4{
 	position:relative;
+	width: 19%;
 }
 .catalog-category-view .wrap_banner .col-2{
-	margin: 0 8px;
-	width:216px;
+	width:39%;
+	padding: 0 1%;
+}
+.catalog-category-view .wrap_banner .col-3{
+	padding: 0 1% 0 0;
 }
 .catalog-category-view .wrap_banner .col-2 img:first-child{
 	margin: 0 0 8px;
 }
-.catalog-category-view .wrap_banner .col-1 img, .catalog-category-view .wrap_banner .col-2 img{
+.catalog-category-view .wrap_banner .col-1 img, .catalog-category-view .wrap_banner .col-2 img, .catalog-category-view .wrap_banner .col-3 img, .catalog-category-view .wrap_banner .col-4 img{
 	width:100%;
-}
-.catalog-category-view .wrap_banner .col-3{
-	width:245px;
+	margin-bottom:10px;
 }
 .catalog-category-view .block-bottom p {
 	font-size: 14px;
@@ -782,14 +790,14 @@ a.triger-showfilter {
 		height:371px;
 		width:510px;
 	}*/
+	.catalog-category-view .wrap_banner .col-1 img, .catalog-category-view .wrap_banner .col-2 img, .catalog-category-view .wrap_banner .col-3 img, .catalog-category-view .wrap_banner .col-4 img{	
+		margin-bottom: 8px;
+	}
 	.catalog-category-view .wrap_banner .col-1{
-		width:510px;
 	}
 	.catalog-category-view .wrap_banner .col-2{
-		width:210px;
 	}
 	.catalog-category-view .wrap_banner .col-3{
-		width:257px;
 	}
 	.catalog-category-view .wrap_banner .col-2 img{
 		width:100%;
@@ -820,19 +828,17 @@ a.triger-showfilter {
 	.style-perlengkapan-rumah .col1-layout .main .col-main, .style-perlengkapan-rumah .col1-layout .main .col-main{
 		width:744px;
 	}*/
-	.catalog-category-view .wrap_banner .col-1, .catalog-category-view .wrap_banner .col-1{
-		width:380px;
+	.catalog-category-view .wrap_banner .col-1, .catalog-category-view .wrap_banner .col-3{
 	}
-	.catalog-category-view .wrap_banner .col-2, .catalog-category-view .wrap_banner .col-2{
-		margin: 0 8px;
-		width: 154px;
+	.catalog-category-view .wrap_banner .col-2{
 	}
-	.catalog-category-view .wrap_banner .col-3, .catalog-category-view .wrap_banner .col-3{
-		width:190px;
+	.catalog-category-view .wrap_banner .col-3{
+	}
+	.catalog-category-view .wrap_banner .col-4{
 	}
 	
-	.catalog-category-view .wrap_banner .col-1 img, .catalog-category-view .wrap_banner .col-2 img, .catalog-category-view .wrap_banner .col-3 img{
-		width:100%;
+	.catalog-category-view .wrap_banner .col-1 img, .catalog-category-view .wrap_banner .col-2 img, .catalog-category-view .wrap_banner .col-3 img, .catalog-category-view .wrap_banner .col-4 img{
+		margin-bottom: 4px;
 	}
 	/*#nav li.level-top.shop-by{
 		position:relative;
@@ -842,18 +848,28 @@ a.triger-showfilter {
 
 /* --------------- smaller 959 px layout -------------------- */
 @media only screen and (max-width: 767px) {
-	.style-perlengkapan-rumah .style-perlengkapan-rumah #nav li.shop-by:hover .shopby {
-		display: block;
+	
+	.catalog-category-view .wrap_banner .col-3,
+	.catalog-category-view .wrap_banner .col-4{
+		width: 48%;
+		float: left;
+		margin: 0 1%;
+		padding: 0;
 	}
-	.style-perlengkapan-rumah .catalog-category-view .wrap_banner .col-1, .catalog-category-view .wrap_banner .col-1{
-		width:100%;
-		margin:0 0 20px;
+	.catalog-category-view .wrap_banner .col-3 img, .catalog-category-view .wrap_banner .col-4 img{
+	margin-bottom:5%;	
 	}
-	.style-perlengkapan-rumah .catalog-category-view .wrap_banner, .catalog-category-view .wrap_banner{
+	.catalog-category-view .wrap_banner .col-2 p{
+	}
+	.style-perlengkapan-rumah .catalog-category-view .wrap_banner{
 		display:block;
 	}
-	.style-perlengkapan-rumah .catalog-category-view .wrap_banner .col-2, .catalog-category-view .wrap_banner .col-2, .catalog-category-view .wrap_banner .col-3, .catalog-category-view .wrap_banner .col-3, .style-perlengkapan-rumah .products-on-sale, .style-perlengkapan-rumah .new-arrival, .style-perlengkapan-rumah .most-popular, .style-perlengkapan-rumah .homepage-bottom,
-    .style-perlengkapan-rumah .catalog-category-view .wrap_banner .col-2, .catalog-category-view .wrap_banner .col-2, .catalog-category-view .wrap_banner .col-3, .catalog-category-view .wrap_banner .col-3, .style-perlengkapan-rumah .products-on-sale, .style-perlengkapan-rumah .new-arrival, .style-perlengkapan-rumah .most-popular, .style-perlengkapan-rumah .homepage-bottom    {
+	 .catalog-category-view .wrap_banner{
+		display:table;
+		width:90%;
+		margin: 20px auto;
+	 }
+	.catalog-category-view .wrap_banner .col-1, .catalog-category-view .wrap_banner .col-2, .catalog-category-view .awafpgrid{
 		display:none;
 	}
 	.style-perlengkapan-rumah .style-perlengkapan-rumah .col1-layout .main .col-main, .style-perlengkapan-rumah .col1-layout .main .col-main{

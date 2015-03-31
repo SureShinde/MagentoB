@@ -144,11 +144,20 @@
             <action method="setTemplate"><template>page/1column.phtml</template></action>
         </reference>
         <reference name="head">
-            <action method="addItem">
+            <!--<action method="addItem">
                 <type>skin_js</type>
                 <name>js/cloudzoom.js</name>
             </action>
             <action method="addCss"><stylesheet>css/cloudzoom.css</stylesheet></action>
+            <action method="addCss"><stylesheet>css/magnifier.css</stylesheet></action>
+            <action method="addItem">
+                <type>skin_js</type>
+                <name>js/event.js</name>
+            </action>-->
+			<action method="addItem">
+                <type>skin_js</type>
+                <name>js/jquery.elevatezoom.js</name>
+            </action>
             <action method="addCss"><stylesheet>css/pdp.css</stylesheet></action>
         </reference>
         <reference name="product.info">
