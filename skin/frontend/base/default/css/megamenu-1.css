@@ -274,7 +274,7 @@
     float:left;
     width: 100%;
 }
-.wrap-banner .first-banner-megamenu img, li.default .wrap-banner .first-banner-megamenu .main-banner{
+li.default .wrap-banner .first-banner-megamenu .main-banner{
     margin: 0 0 10px;
 }
 .wrap-banner .second-banner-megamenu img{
