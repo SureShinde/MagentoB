@@ -2326,7 +2326,7 @@ searchbar #nav-search-in {
         white-space: nowrap;
         width: auto;
     }
-    .search-for-sticky #nav-searchbar { margin: 1px 0 0 0 !important;}
+    .search-for-sticky #nav-searchbar { margin: 2px 0 0 0 !important;}
     
     .keypoint ul li {
 		width:25%;
@@ -2427,8 +2427,8 @@ searchbar #nav-search-in {
 
 /* --------------- smaller 959 px layout -------------------- */
 @media only screen and (max-width: 767px) {
-    .logo img{
-		width:auto;
+	.header .logo img {
+		width: 80%;
 	}
 	.header .links li:first-child {
 		border-right: none; 
