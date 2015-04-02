@@ -998,7 +998,7 @@ width: 100%;
 	{
 	   display:none;
 	}
-	.homepage .homepage-banner .slider-mobile{
+	.homepage .homepage-banner.slider-mobile{
 		display:block;
 		width: 94%;
 		margin: 0 3%;
