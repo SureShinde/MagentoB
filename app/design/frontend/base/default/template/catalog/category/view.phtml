@@ -52,6 +52,7 @@
 <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
 
 <?php
+$staticBlockPrefix = 'slider-category';
 $staticBlockUrlKey = strtolower($_category->getUrlKey());
 $xlCmsBlock = Mage::getModel('cms/block')->load($staticBlockUrlKey . '-4')->getContent();
 $largeCmsBlock = Mage::getModel('cms/block')->load($staticBlockUrlKey . '-1')->getContent();
@@ -60,21 +61,21 @@ $largeCmsBlock = Mage::getModel('cms/block')->load($staticBlockUrlKey . '-1')->g
 <?php if ($xlCmsBlock): ?>
     <div class="wrap_banner_category">
         <div id="slides-banner" class="banner_xlarge">
-            <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('slider-category-' . $staticBlockUrlKey . '-4')->toHtml(); ?>
+            <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId(sprintf("%s-%s-4", $staticBlockPrefix, $staticBlockUrlKey))->toHtml(); ?>
         </div>
     </div>
 <?php elseif ($largeCmsBlock): ?>
     <div class="wrap_banner_category">
         <div class="banner_large">
-            <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('slider-category-' . $staticBlockUrlKey . '-1')->toHtml(); ?>
+            <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId(sprintf("%s-%s-1", $staticBlockPrefix, $staticBlockUrlKey))->toHtml(); ?>
         </div>
         
         <div class="banner_small banner_small-1">
-            <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('slider-category-' . $staticBlockUrlKey . '-2')->toHtml(); ?>
+            <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId(sprintf("%s-%s-2", $staticBlockPrefix, $staticBlockUrlKey))->toHtml(); ?>
         </div>
         
         <div class="banner_small">
-            <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('slider-category-' . $staticBlockUrlKey . '-3')->toHtml(); ?>
+            <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId(sprintf("%s-%s-3", $staticBlockPrefix, $staticBlockUrlKey))->toHtml(); ?>
         </div>
     </div>
 <?php elseif ($_imgUrl): ?>
