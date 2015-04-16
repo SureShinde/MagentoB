@@ -50,23 +50,36 @@
     <h1><?php echo $_helper->categoryAttribute($_category, $_category->getName(), 'name') ?></h1>
 </div>
 <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
-<?php 
-$xlCmsBlock = Mage::getModel('cms/block')->load("slider-category-baby-".strtolower($_category->getUrlKey())."-4")->getContent();
-$largeCmsBlock = Mage::getModel('cms/block')->load("slider-category-baby-".strtolower($_category->getUrlKey())."-1")->getContent();
-if($xlCmsBlock) {
-	echo 	'<div class="wrap_banner_category">'.
-			'<div id="slides-banner" class="banner_xlarge">'.$this->getLayout()->createBlock('cms/block')->setBlockId("slider-category-baby-".strtolower($_category->getUrlKey())."-4")->toHtml().'</div>'.
-			'</div>';
-}else if($largeCmsBlock){
-	echo 	'<div class="wrap_banner_category">'.
-			'<div class="banner_large">'.$this->getLayout()->createBlock('cms/block')->setBlockId("slider-category-baby-".strtolower($_category->getUrlKey())."-1")->toHtml().'</div>'.
-			'<div class="banner_small banner_small-1">'.$this->getLayout()->createBlock('cms/block')->setBlockId("slider-category-baby-".strtolower($_category->getUrlKey())."-2")->toHtml().'</div>'.
-			'<div class="banner_small">'.$this->getLayout()->createBlock('cms/block')->setBlockId("slider-category-baby-".strtolower($_category->getUrlKey())."-3")->toHtml().'</div>'.
-			'</div>';
-}else if($_imgUrl){
-	echo $_imgHtml;
-}
+
+<?php
+$staticBlockPrefix = sprintf("slider-category-%d-%s-", $_category->getParentId(), strtolower($_category->getUrlKey()));
+$xlCmsBlock = Mage::getModel('cms/block')->load($staticBlockPrefix . 4)->getContent();
+$largeCmsBlock = Mage::getModel('cms/block')->load($staticBlockPrefix . 1)->getContent();
 ?>
+
+<?php if ($xlCmsBlock): ?>
+    <div class="wrap_banner_category">
+        <div id="slides-banner" class="banner_xlarge">
+            <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId($staticBlockPrefix . 4)->toHtml(); ?>
+        </div>
+    </div>
+<?php elseif ($largeCmsBlock): ?>
+    <div class="wrap_banner_category">
+        <div class="banner_large">
+            <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId($staticBlockPrefix . 1)->toHtml(); ?>
+        </div>
+
+        <div class="banner_small banner_small-1">
+            <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId($staticBlockPrefix . 2)->toHtml(); ?>
+        </div>
+
+        <div class="banner_small">
+            <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId($staticBlockPrefix . 3)->toHtml(); ?>
+        </div>
+    </div>
+<?php elseif ($_imgUrl): ?>
+    <?php echo $_imgHtml; ?>
+<?php endif; ?>
 
 <?php if($_description=$this->getCurrentCategory()->getDescription()): ?>
     <div class="category-description std">
