@@ -79,13 +79,25 @@ class RocketWeb_Netsuite_Helper_Data extends Mage_Core_Helper_Data {
 		if(is_null($this->_netsuiteService[$runMode])) {
 			
 			if(is_null($connectionData)) {
-                $configPath = $this->getSystemConfigPathForRunMode($runMode);
-				$nshost = Mage::getStoreConfig('rocketweb_netsuite/general/host');
-				$nsendpoint = Mage::getStoreConfig('rocketweb_netsuite/general/end_point');
-				$nsaccount = Mage::getStoreConfig('rocketweb_netsuite/general/account_id');
-				$nsemail = Mage::getStoreConfig("rocketweb_netsuite/{$configPath}/email");
-				$nspassword = Mage::getStoreConfig("rocketweb_netsuite/{$configPath}/password");
-				$nsrole = Mage::getStoreConfig("rocketweb_netsuite/{$configPath}/role_id");
+                $iniFile = Mage::getBaseDir().'/files/netsuite/netsuite.ini';
+                if(file_exists($iniFile))
+                {
+                    $nsConfig = parse_ini_file($iniFile, true);
+                    $nshost = $nsConfig['account']['host'];
+                    $nsendpoint = $nsConfig['account']['end_point'];
+                    $nsaccount = $nsConfig['account']['account_id'];
+                    $nsemail = $nsConfig['account']['email'];
+                    $nspassword = $nsConfig['account']['password'];
+                    $nsrole = $nsConfig['account']['role_id'];
+                }else{
+                    $configPath = $this->getSystemConfigPathForRunMode($runMode);
+    				$nshost = Mage::getStoreConfig('rocketweb_netsuite/general/host');
+    				$nsendpoint = Mage::getStoreConfig('rocketweb_netsuite/general/end_point');
+    				$nsaccount = Mage::getStoreConfig('rocketweb_netsuite/general/account_id');
+    				$nsemail = Mage::getStoreConfig("rocketweb_netsuite/{$configPath}/email");
+    				$nspassword = Mage::getStoreConfig("rocketweb_netsuite/{$configPath}/password");
+    				$nsrole = Mage::getStoreConfig("rocketweb_netsuite/{$configPath}/role_id");
+                }
 			}
 			else {
 				$nshost = $connectionData['host'];
