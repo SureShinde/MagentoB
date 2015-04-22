@@ -1,4 +1,10 @@
 <?php
+/**
+ * Description of Bilna_Staticarea_Block_Block
+ *
+ * @author Bilna Development Team <development@bilna.com>
+ */
+
 class Bilna_Staticarea_Block_Block extends Mage_Core_Block_Template {
     private $_block = null;
     
@@ -9,37 +15,62 @@ class Bilna_Staticarea_Block_Block extends Mage_Core_Block_Template {
         
         return parent::_beforeToHtml();
     }
+    
+    public function getStoreId() {
+        return Mage::app()->getStore()->getStoreId();
+    }
 
     public function getBlock() {
-    	$store_id = Mage::app()->getStore()->getStoreId(); 
+    	$store_id = $this->getStoreId();
 
         if ($this->_block === null) {
-            if ($this->getData('id')) {
-                $this->_block = Mage::getModel('staticarea/contents')->getCollection();
-                $this->_block->addFieldToSelect("content", "content");
-                $this->_block->addFieldToSelect("url", "url");
-                $this->_block->addFieldToFilter("staticarea.block_id", array ('eq' => $this->getData('id'))); 
-                $this->_block->addFieldToFilter("status", array ('eq' => 1));
-                $this->_block->addFieldToFilter("'{$this->getMagentoDateNow()}'", array ('gteq' => new Zend_Db_Expr('active_from')));
-                $this->_block->addFieldToFilter("'{$this->getMagentoDateNow()}'", array ('lteq' => new Zend_Db_Expr('active_to')));
-                $this->_block->getSelect()
-                    ->joinLeft(
-                        array ('staticarea' => Mage::getSingleton('core/resource')->getTableName('staticarea/manage')),
-                        "main_table.staticarea_id = staticarea.id AND staticarea.status_area=1",
-                        array (
-                            'area_name' => 'staticarea.area_name',
-                            'type' => 'staticarea.type'
-                        )
-                    );
-                $this->_block->setOrder('`order`', 'ASC');
-            }
-            
-            if (!$this->_block->getData()) {
-                $this->_block = null;
-            }
+            $this->_block = $this->getCollectionData();
         }
       
         return $this->_block;
+    }
+    
+    public function getCollectionData() {
+        if ($this->getData('id')) {
+            $storeId = Mage::app()->getStore()->getId();
+            $cache = Mage::getSingleton('core/cache');
+            $key = sprintf("STATICAREA_%s_%d", $this->getData('id'), $storeId);
+
+            if ($cacheData = $cache->load($key)) {
+                $collectionData = unserialize($cacheData);
+            }
+            else {
+                $collection = Mage::getModel('staticarea/contents')->getCollection();
+                $collection->addFieldToSelect('content', 'content');
+                $collection->addFieldToSelect('url', 'url');
+                $collection->addFieldToFilter('staticarea.block_id', array ('eq' => $this->getData('id')));
+                $collection->addFieldToFilter('status', array ('eq' => 1));
+                $collection->addFieldToFilter("'{$this->getMagentoDateNow()}'", array ('gteq' => new Zend_Db_Expr('active_from')));
+                $collection->addFieldToFilter("'{$this->getMagentoDateNow()}'", array ('lteq' => new Zend_Db_Expr('active_to')));
+                $collection->getSelect()->joinLeft(
+                    array ('staticarea' => Mage::getSingleton('core/resource')->getTableName('staticarea/manage')),
+                    "main_table.staticarea_id = staticarea.id AND staticarea.status_area = 1",
+                    array (
+                        'area_name' => 'staticarea.area_name',
+                        'type' => 'staticarea.type'
+                    )
+                );
+                $collection->setOrder('`order`', 'ASC');
+                $collection->getData();
+                
+                if ($cache->save(serialize($collection), $key, array('staticarea_cache'))) {
+                    $collectionData = $collection;
+                }
+                else {
+                    $collectionData = null;
+                }
+            }
+        }
+        else {
+            $collectionData = null;
+        }
+        
+        return $collectionData;
     }
 
     protected function getMagentoDateNow() {
