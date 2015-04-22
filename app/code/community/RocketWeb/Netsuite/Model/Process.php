@@ -385,7 +385,14 @@ class RocketWeb_Netsuite_Model_Process {
     }
 
     public function getImportableEntities() {
-        return Mage::getConfig()->getNode('rocketweb_netsuite/import_entities')->asArray();
+        $iniFile = Mage::getBaseDir().'/files/netsuite/netsuite.ini';
+        if(file_exists($iniFile))
+        {
+            $nsConfig = parse_ini_file($iniFile, true);
+            return $nsConfig['import_entities'];
+        }else{
+            return Mage::getConfig()->getNode('rocketweb_netsuite/import_entities')->asArray();
+        }
     }
     
     private function test() {
