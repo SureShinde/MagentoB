@@ -33,7 +33,8 @@ class Bilna_Staticarea_Block_Block extends Mage_Core_Block_Template {
     public function getCollectionData() {
         if ($this->getData('id')) {
             $storeId = Mage::app()->getStore()->getId();
-            $cache = Mage::getSingleton('core/cache');
+            $cache = Mage::app()->getCache();
+            $tags = array ('BRIM_FPC');
             $key = sprintf("STATICAREA_%s_%d", $this->getData('id'), $storeId);
 
             if ($cacheData = $cache->load($key)) {
@@ -58,7 +59,7 @@ class Bilna_Staticarea_Block_Block extends Mage_Core_Block_Template {
                 $collection->setOrder('`order`', 'ASC');
                 $collection->getData();
                 
-                if ($cache->save(serialize($collection), $key, array('staticarea_cache'))) {
+                if ($cache->save(serialize($collection), $key, $tags)) {
                     $collectionData = $collection;
                 }
                 else {
