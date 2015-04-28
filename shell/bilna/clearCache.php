@@ -10,8 +10,7 @@ require_once dirname(__FILE__) . '/../abstract.php';
 class ClearCache extends Mage_Shell_Abstract {
     public function run() {
         if ($keys = $this->getArg('key')) {
-            $cache = Mage::getSingleton('core/cache');
-            
+            $cache = Mage::app()->getCache();
             $keyArr = explode(',', $keys);
             
             foreach ($keyArr as $key) {
