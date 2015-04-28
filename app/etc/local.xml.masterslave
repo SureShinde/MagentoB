@@ -53,8 +53,13 @@
             </default_setup>
             <slave_setup>
                 <connection>
+<<<<<<< HEAD
                     <host><![CDATA[bilnadbro1.csgheamo30fd.ap-southeast-1.rds.amazonaws.com]]></host>
                     <!--host><![CDATA[sasha.bilna.com]]></host-->
+=======
+                    <!--host><![CDATA[bilnadbro1.csgheamo30fd.ap-southeast-1.rds.amazonaws.com]]></host-->
+                    <host><![CDATA[sasha.bilna.com]]></host>
+>>>>>>> 8f26b64116866d659effa2b7f4e4f98b03ff4d50
                     <username><![CDATA[mybilnauser]]></username>
                     <password><![CDATA[LawnqUiT79]]></password>
                     <dbname><![CDATA[bilna_live]]></dbname>
@@ -65,6 +70,22 @@
                     <active>1</active>
                 </connection>
             </slave_setup>
+<<<<<<< HEAD
+=======
+            <force_slave>
+                <connection>
+                    <host><![CDATA[bilnadbro1.csgheamo30fd.ap-southeast-1.rds.amazonaws.com]]></host>
+                    <username><![CDATA[mybilnauser]]></username>
+                    <password><![CDATA[LawnqUiT79]]></password>
+                    <dbname><![CDATA[bilna_live]]></dbname>
+                    <initStatements><![CDATA[SET NAMES utf8]]></initStatements>
+                    <model><![CDATA[mysql4]]></model>
+                    <type><![CDATA[pdo_mysql]]></type>
+                    <pdoType><![CDATA[]]></pdoType>
+                    <active>1</active>
+                </connection>
+            </force_slave>
+>>>>>>> 8f26b64116866d659effa2b7f4e4f98b03ff4d50
 
             <!-- NETSUITE DB DEFINITION -->
             <netsuite_master_setup>
@@ -116,6 +137,14 @@
                     <use>netsuite_slave_setup</use>
                 </connection>
             </netsuite_read>
+<<<<<<< HEAD
+=======
+            <megamenu_only>
+                <connection>
+                    <use>force_slave</use>
+                </connection>
+            </megamenu_only>
+>>>>>>> 8f26b64116866d659effa2b7f4e4f98b03ff4d50
 	    <!-- EOL, MASTER/SLAVE CONNECTION INIT -->
 
             <!-- MASTER/SLAVE -->
@@ -132,7 +161,11 @@
             </megamenu_write>
             <megamenu_read>
                 <connection>
+<<<<<<< HEAD
                     <use>default_read</use>
+=======
+                    <use>force_slave</use>
+>>>>>>> 8f26b64116866d659effa2b7f4e4f98b03ff4d50
                 </connection>
             </megamenu_read>
             <!-- Advanced Report, KEEP THIS LINE MARKED PLZ, mirasz -->
@@ -309,7 +342,11 @@
         <cache>
             <backend>Cm_Cache_Backend_Redis</backend>
                 <backend_options>
+<<<<<<< HEAD
                 <server>levi.bilna.com</server>
+=======
+                <server>cache.bilna.com</server>
+>>>>>>> 8f26b64116866d659effa2b7f4e4f98b03ff4d50
                 <port>6379</port>
                 <persistent></persistent>
                 <database>1</database>

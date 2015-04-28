@@ -327,7 +327,11 @@
         <cache>
             <backend>Cm_Cache_Backend_Redis</backend>
                 <backend_options>
+<<<<<<< HEAD
                 <server>levi.bilna.com</server>
+=======
+                <server>cache.bilna.com</server>
+>>>>>>> 8f26b64116866d659effa2b7f4e4f98b03ff4d50
                 <port>6379</port>
                 <persistent></persistent>
                 <database>1</database>
