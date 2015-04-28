@@ -21,7 +21,7 @@ media/
 nbproject/
 includes/
 lib/Netsuite/nslog/
-files/
+files/*
 var/
 
 app/code/community/Find/
