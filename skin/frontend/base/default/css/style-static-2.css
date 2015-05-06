@@ -4258,3 +4258,33 @@ button.button-area {
 	}
 }
 /*============================ end style bebe compt ========================*/
+
+/*============================ style pampers promo ========================*/
+.form-pampers-promo .static-page-wrapper > p {
+	font-size:2em;
+	color: #16b0af ;
+	border-bottom: 3px solid;
+}
+.form-pampers-promo .pampers-promo input,
+.form-pampers-promo .pampers-promo select{
+	border: 2px solid #16b0af !important;
+	border-radius:4px;
+	padding: 3px 5px !important;
+	background: #fff !important;
+}
+.form-pampers-promo .pampers-promo .form-checkbox input[type="checkbox"]{
+	margin : 10px 20px 0 0 !important;
+}
+.form-pampers-promo .pampers-promo #submit-form span{
+	background: #16b0af !important;
+	border-radius: 5px;
+}
+.form-pampers-promo .pampers-promo p.required{
+	  margin-left: 51px !important;
+}
+.form-pampers-promo .pampers-promo #submit-form{
+	padding:0;	
+	background:none;
+	margin-left: 400px !important;
+}
+/*============================ end style pampers promo ========================*/
