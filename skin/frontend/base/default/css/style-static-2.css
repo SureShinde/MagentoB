@@ -4311,5 +4311,16 @@ button.button-area {
 	.form-pampers-promo .formbuilder-form ul li{
 		margin-bottom: 10px !important;
 	}
+	.form-pampers-promo .pampers-promo #submit-form {
+	  margin-left: 53% !important;
+	}
+}
+@media only screen and (max-width: 468px) {
+	.form-pampers-promo .formbuilder-form {
+		width:100% !important;
+	}
+	.form-pampers-promo .formbuilder-form  ul{
+		margin:0;
+	}
 }
 /*============================ end style pampers promo ========================*/
