@@ -17,11 +17,11 @@ class Mass_Generate_Voucher extends Mage_Shell_Abstract {
       'uses_per_customer' => 1,
       'uses_per_coupon'   => 1,
       'qty'               => 70000, //number of coupons to generate
-      'length'            => 15, //length of coupon string
+      'length'            => 8, //length of coupon string
       'format'            => Mage_SalesRule_Helper_Coupon::COUPON_FORMAT_ALPHABETICAL,
-      'rule_id'           => 3, //the id of the rule you will use as a template,
-      'prefix'            => 'TEST-',
-      'sufix'             => '-TELKOMSEL'
+      'rule_id'           => 865, //the id of the rule you will use as a template,
+      'prefix'            => 'BPDO',
+      'sufix'             => ''
     );
     
     $generator->validateData($data);
