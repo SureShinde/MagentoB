@@ -9,10 +9,6 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
     public function submitAction() {
         $postData       = $this->getRequest()->getPost();
         
-        //unused code
-        $datedrop       = $postData['inputs']['dob']['date_day'].'-'.$postData['inputs']['dob']['date_month'].'-'.$postData['inputs']['dob']['date_year'];
-        
-        
         $form_id        = $postData['form_id'];
         //$create_date  = datetime('Y-m-d H:i:s');
         $create_date    = Mage::getModel('core/date')->date();
@@ -41,6 +37,7 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
         $block = Mage::getModel('bilna_formbuilder/form')->getCollection();
         $block->getSelect()->join('bilna_formbuilder_input', 'main_table.id = bilna_formbuilder_input.form_id');
         $block->addFieldToFilter('main_table.id', $form_id);
+        $block->setOrder('bilna_formbuilder_input.order', 'ASC');
 
         //required, checkbox, terms and empty
         foreach ($block->getData() as $field) {
@@ -51,7 +48,11 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
             }
             
             if ($field['type'] == 'dob') {
-                $postData['inputs']['dob'] = $datedrop;
+                if (is_array($postData['inputs'][$field['group']])) {
+                    $postData['inputs'][$field['group']] = sprintf("%d-%d-%d", $postData['inputs'][$field['group']]['date_day'], $postData['inputs'][$field['group']]['date_month'], $postData['inputs'][$field['group']]['date_year']);
+                }
+                
+                continue;
             }
             
             if ($field["required"] == true) {
@@ -95,7 +96,7 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
                 }
 
                 //date of birth (dob)
-                if ($field["id"]=="dob" && $postData["inputs"][$field["group"]] <> "on") {
+                if ($field["type"]=="dob" && $postData["inputs"][$field["name"]] <> "on") {
                     if (!is_null($row["static_failed"]) || $row["static_failed"] <> "") {
                         Mage::getSingleton('core/session')->setFormbuilderFailed(false);
                     }
@@ -248,9 +249,48 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
         elseif (is_null($row["static_success"]) || $row["static_success"]==""){
             Mage::getSingleton('core/session')->addSuccess($row["success_message"]);
         }
+        
+        //- add product promo to cart
+        if ($field['product_promo']) {
+            $sku = $postData['inputs']['product_promo'];
+            $this->addProductPromoToCart($sku);
+        }
+        
         $redirectPage = Mage::getBaseUrl().$field["url"];       
         $this->_redirectPage($redirectPage);
 
+    }
+    
+    private function addProductPromoToCart($sku) {
+        $productModel = Mage::getModel('catalog/product');
+        $productId = $productModel->getIdBySku($sku);
+        
+        if (!is_null($productId)) {
+            $quote = Mage::getSingleton('checkout/session')->getQuote(); //- check if product already exist on the cart
+            $productOnCart = false;
+            
+            foreach ($quote->getAllItems() as $item) {
+                if ($item->getSku() == $sku) {
+                    $productOnCart = true;
+                }
+            }
+
+            if ($productOnCart <> true) {
+                $params = array (
+                    'product' => $productId,
+                    'qty' => 1,
+                );
+                
+                $cart = Mage::getSingleton('checkout/cart');
+                $product = new Mage_Catalog_Model_Product();
+                $product->load($productId);
+                $cart->addProduct($product, $params);
+                $cart->save();
+                Mage::getSingleton('checkout/session')->setCartWasUpdated(true);
+            }
+        }
+        
+        return true;
     }
     
     private function _validationPattern($pattern, $input) {
