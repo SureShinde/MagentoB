@@ -4259,9 +4259,9 @@ button.button-area {
 }
 /*============================ end style bebe compt ========================*/
 /*=========================== style featured your brand =======================*/
-.featured-your-brand {
+.featured-your-brand .static-page-wrapper{
 	background:url(../images/bg_featured_your_brand.jpg) repeat;
-	padding: 30px 0;
+	padding: 30px;
 }
 .featured-your-brand .featured-header{
 	margin-bottom:30px;
@@ -4390,6 +4390,16 @@ button.button-area {
 .featured-tentang .wrap-icon{
 	border-bottom:1px solid;
 }
+.featured-your-brand .button-featured{
+	float: none;
+	padding: 10px 30px;
+	font-weight: bold;
+	background: #f58424;
+	color: #fff;
+	display: table;
+	font-size: 30px;
+	margin: 20px auto;
+}
 @media only screen and (max-width: 1214px) {
 	.featured-your-brand .wrap-featured .wrap-icon p span {
 		font-size: 20px;
@@ -4432,6 +4442,9 @@ button.button-area {
 		line-height: 16px;
 		font-size: 13px;
 	}
+	.featured-your-brand .button-featured{
+		font-size: 20px;
+	}
 }
 @media only screen and (max-width: 468px) {
 	.featured-your-brand .wrap-featured .wrap-icon {
@@ -4470,6 +4483,9 @@ button.button-area {
 		width: 100%;
 		font-size: 30px;
 		text-align:center;
+	}
+	.featured-your-brand .button-featured{
+		font-size: 15px;
 	}
 }
 /*========================= end style featured your brand =====================*/
