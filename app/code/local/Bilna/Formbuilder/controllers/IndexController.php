@@ -303,7 +303,7 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
             }
             else {
                 $message = $this->__('Product already exist in cart');
-                Mage::getSingleton('core/session')->addWarning($message);
+                Mage::getSingleton('core/session')->addError($message);
             }
         }
         else {
