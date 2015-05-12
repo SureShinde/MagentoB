@@ -38,9 +38,16 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
         $block->getSelect()->join('bilna_formbuilder_input', 'main_table.id = bilna_formbuilder_input.form_id');
         $block->addFieldToFilter('main_table.id', $form_id);
         $block->setOrder('bilna_formbuilder_input.order', 'ASC');
+        
+        $productPromoSkuArr = array ();
 
         //required, checkbox, terms and empty
         foreach ($block->getData() as $field) {
+            //- collect product sku for checking cart
+            if ($field['name'] == 'product_promo' && $field['type'] == 'dropdown') {
+                $productPromoSkuArr[] = $field['value'];
+            }
+            
             if ($field['type'] == 'codeshare') {
                 $codeShare = true;
                 $codeShareField = $field['name'];
@@ -158,10 +165,6 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
             }
         }
 
-        //echo "<pre>";     
-        //print_r($postData["inputs"]); die;
-        $valueEncrypt = '';
-
         foreach($postData["inputs"] as $type=>$value){              
             $insertData = $this->_insertData($form_id,$record_id,$type,$value,$create_date);
             
@@ -253,7 +256,7 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
         //- add product promo to cart
         if ($field['product_promo']) {
             $sku = $postData['inputs']['product_promo'];
-            $this->addProductPromoToCart($sku);
+            $this->addProductPromoToCart($sku, $productPromoSkuArr);
         }
         
         $redirectPage = Mage::getBaseUrl().$field["url"];       
@@ -261,38 +264,54 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
 
     }
     
-    private function addProductPromoToCart($sku) {
-        $productModel = Mage::getModel('catalog/product');
-        $productId = $productModel->getIdBySku($sku);
+    private function addProductPromoToCart($sku, $productPromoSkuArr) {
+        $productId = Mage::getModel('catalog/product')->getIdBySku($sku);
         
-        if (!is_null($productId)) {
-            $quote = Mage::getSingleton('checkout/session')->getQuote(); //- check if product already exist on the cart
+        if ($productId) {
+            //- check if product already exist on the cart
+            $quote = Mage::getSingleton('checkout/session')->getQuote(); 
             $productOnCart = false;
             
             foreach ($quote->getAllItems() as $item) {
-                if ($item->getSku() == $sku) {
+                if (in_array($item->getSku(), $productPromoSkuArr)) {
                     $productOnCart = true;
                 }
             }
 
-            if ($productOnCart <> true) {
+            if ($productOnCart !== true) {
                 $params = array (
                     'product' => $productId,
                     'qty' => 1,
                 );
                 
-                $cart = Mage::getSingleton('checkout/cart');
-                $product = new Mage_Catalog_Model_Product();
-                $product->load($productId);
-                $cart->addProduct($product, $params);
-                $cart->save();
-                Mage::getSingleton('checkout/session')->setCartWasUpdated(true);
+                $product = Mage::getModel('catalog/product')->load($productId);
+                
+                try {
+                    $cart = Mage::getSingleton('checkout/cart');
+                    $cart->addProduct($product, $params);
+                    $cart->save();
+                    
+                    Mage::getSingleton('checkout/session')->setCartWasUpdated(true);
+                    $message = $product->getName() . $this->__(' was added to your shopping cart.');
+                    Mage::getSingleton('core/session')->addSuccess($message);
+                }
+                catch (Exception $ex) {
+                    $message = $this->__('Cannot add the item to shopping cart.');
+                    Mage::getSingleton('core/session')->addError($message);
+                    //Mage::getSingleton('core/session')->addError($ex->getMessage());
+                }
+            }
+            else {
+                $message = $this->__('Product already exist in cart');
+                Mage::getSingleton('core/session')->addWarning($message);
             }
         }
-        
-        return true;
+        else {
+            $message = $this->__('Product not found.');
+            Mage::getSingleton('core/session')->addError($message);
+        }
     }
-    
+
     private function _validationPattern($pattern, $input) {
         $input = str_replace(array ('http://', 'https://'), "", $input);
         $patternLength = strlen($pattern);
