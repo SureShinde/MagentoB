@@ -78,8 +78,8 @@ if ($this->block->email_share_apps) {
 				<div class="form-question title-checkbox"><?php echo $input["title"]; ?></div>
                 <?php } ?>
 				<div class="form-checkbox">
-					<input style="margin: 0px 12px 0px 140px;" id="<?php echo $input["name"]; ?>" type="checkbox" name="inputs[<?php echo $input["group"]; ?>]">
-					<label for="<?php echo $input["name"]; ?>"><?php echo $input["value"]; ?></label>
+                                    <input style="margin: 0px 12px 0px 140px;" id="<?php echo $input["name"]; ?>" type="checkbox" name="inputs[<?php echo $input["group"]; ?>]" class="<?php if ($input["required"]) { echo $_requiredEntry; } ?>">
+                                    <label for="<?php echo $input["name"]; ?>"><?php echo $input["value"]; ?></label>
 				</div>
 			<!--End Checkbox Type-->
 
@@ -102,17 +102,17 @@ if ($this->block->email_share_apps) {
 					<div><select id="<?php echo $input["name"]; ?>" type="dropdown" name="inputs[<?php echo $input["group"]; ?>]">
 					</div>
 			<?php } ?>
-				<option value="<?php echo $input["value"]; ?>"><?php echo $input["value"]; ?></option>
+                            <option value="<?php echo $input["value"]; ?>"><?php if ($input['helper_message']) echo $input['helper_message']; else echo $input['value']; ?></option>
 			<!--End Dropdown Type-->
 			
 			<!--DOB (Date of Birth) Type-->			
 			<?php }else if($input["type"] == "dob"){ ?>
 					<div>	
 			<?php if($input["group"] !== $group){ ?>
-					<div>
-					<label class="required" style="float: left; width: 140px;"><?php echo $input["title"]; ?></label>
-					<div><?php echo $this->_getDateDropdown($input["type"]); ?></div>
-			</div>
+                            <div>
+                                <label class="required" style="float: left; width: 140px;"><?php echo $input["title"]; ?></label>
+                                <div><?php echo $this->_getDateDropdown($input["group"]); ?></div>
+                            </div>
 			<!--End DOB Type-->
 
 			<?php } ?>			
