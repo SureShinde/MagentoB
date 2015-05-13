@@ -4258,3 +4258,69 @@ button.button-area {
 	}
 }
 /*============================ end style bebe compt ========================*/
+
+/*============================ style pampers promo ========================*/
+.form-pampers-promo .static-page-wrapper > p {
+	font-size:2em;
+	color: #16b0af ;
+	border-bottom: 3px solid;
+}
+.form-pampers-promo .pampers-promo input,
+.form-pampers-promo .pampers-promo select{
+	border: 2px solid #16b0af !important;
+	border-radius:4px;
+	padding: 3px 5px !important;
+	background: #fff !important;
+}
+.form-pampers-promo .pampers-promo .form-checkbox input[type="checkbox"]{
+	margin : 10px 20px 0 0 !important;
+}
+.form-pampers-promo .pampers-promo #submit-form span{
+	background: #16b0af !important;
+	border-radius: 5px;
+}
+.form-pampers-promo .pampers-promo p.required{
+	  margin-left: 51px !important;
+}
+.form-pampers-promo .pampers-promo #submit-form{
+	padding:0;	
+	background:none;
+	margin-left: 400px !important;
+}
+.form-pampers-promo .formbuilder-form ul li div.form-checkbox label{
+	max-width: 60%;
+}
+@media only screen and (max-width: 1023px) {
+	.form-pampers-promo  .formbuilder-form ul li:nth-of-type(4) label,
+	.form-pampers-promo  .formbuilder-form ul li:nth-of-type(5) label{
+		display:block;
+		clear:both;
+		float:none;
+	}
+	.form-pampers-promo  .formbuilder-form ul li label{
+		margin-bottom:5px;
+	}
+	.form-pampers-promo .formbuilder-form ul li input, .form-pampers-promo .formbuilder-form ul li textarea{
+		margin-bottom:0;
+	}
+	.form-pampers-promo .pampers-promo #submit-form{
+		margin-left: 232px !important;
+	}
+}
+@media only screen and (max-width: 768px) {
+	.form-pampers-promo .formbuilder-form ul li{
+		margin-bottom: 10px !important;
+	}
+	.form-pampers-promo .pampers-promo #submit-form {
+	  margin-left: 53% !important;
+	}
+}
+@media only screen and (max-width: 468px) {
+	.form-pampers-promo .formbuilder-form {
+		width:100% !important;
+	}
+	.form-pampers-promo .formbuilder-form  ul{
+		margin:0;
+	}
+}
+/*============================ end style pampers promo ========================*/
