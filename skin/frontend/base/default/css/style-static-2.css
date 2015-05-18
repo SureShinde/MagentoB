@@ -4261,7 +4261,7 @@ button.button-area {
 /*=========================== style featured your brand =======================*/
 .featured-your-brand .static-page-wrapper{
 	background:url(../images/bg_featured_your_brand.jpg) repeat;
-	padding: 30px;
+	padding-bottom:30px;
 }
 .featured-your-brand .featured-header{
 	margin-bottom:30px;
@@ -4354,24 +4354,24 @@ button.button-area {
   justify-content: space-around;
 }
 .featured-your-brand .wrap-featured .wrap-icon{
-	width: 33%;
-	text-align:center;
-	padding:30px 0;
-}
-.featured-your-brand .wrap-featured  .wrap-icon p{
+	width: 29%;
 	text-align: center;
-	width: 90%;
+	padding: 30px 2%;
+}
+.featured-your-brand .wrap-featured .wrap-icon p{
+	text-align: center;
 	font-weight: bold;
 	margin: 0 auto;
-	line-height: 35px;
-	font-size: 16px;
+	line-height: 14px;
+	font-size: 14px;
 	color: #000;
 }
-.featured-your-brand .wrap-featured  .wrap-icon p span{
-	font-size: 40px;
+.featured-your-brand .wrap-featured .wrap-icon p span{
+	font-size: 30px;
 	display: block;
 	color:#f58220;
 	clear: both;
+	line-height: 30px;
 	text-transform: uppercase;
 }
 .featured-tentang .wrap-icon:nth-child(2),
@@ -4440,7 +4440,7 @@ button.button-area {
 	}
 	.featured-your-brand .wrap-featured .wrap-icon p {
 		line-height: 16px;
-		font-size: 13px;
+		font-size: 12px;
 	}
 	.featured-your-brand .button-featured{
 		font-size: 20px;
@@ -4448,7 +4448,7 @@ button.button-area {
 }
 @media only screen and (max-width: 468px) {
 	.featured-your-brand .wrap-featured .wrap-icon {
-		width: 48%;
+		width: 45%;
 	}
 	.featured-your-brand .wrap-featured .title-featured {
 		width: 80%;
