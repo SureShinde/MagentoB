@@ -4283,7 +4283,8 @@ button.button-area {
 	width: 100%;
 }
 .featured-your-brand .featured-header img{
-	width: 30%;
+	width: 24%;
+	margin-left: 5%;
 }
 .featured-your-brand .wrap-featured img{
 	width:65%;
@@ -4294,15 +4295,16 @@ button.button-area {
 	font-weight:bold;
 }
 .featured-your-brand .featured-header p{
-	font-size: 53px;
+	font-size: 40px;
 	color: #f58220;
 	font-weight: bold;
 	line-height: 50px;
 	margin-top: 70px;
-	width: 70%;
+	margin-left: 5%;
+	width: 63%;
 }
 .featured-your-brand .wrap-featured .title-featured{
-	font-size: 40px;
+	font-size: 30px;
 	width: 39%;
 	margin:10px auto 30px;
 	text-transform: uppercase;
@@ -4376,8 +4378,8 @@ button.button-area {
 }
 .featured-tentang .wrap-icon:nth-child(2),
 .featured-tentang .wrap-icon:nth-child(5){
-	border-left:1px solid;
-	border-right:1px solid;
+	*border-left:1px solid;
+	*border-right:1px solid;
 }
 .featured-tentang .wrap-icon:nth-child(1),
 .featured-tentang .wrap-icon:nth-child(2),
@@ -4388,7 +4390,7 @@ button.button-area {
 	padding-top:65px;
 }
 .featured-tentang .wrap-icon{
-	border-bottom:1px solid;
+	*border-bottom:1px solid;
 }
 .featured-your-brand .button-featured{
 	float: none;
@@ -4460,8 +4462,8 @@ button.button-area {
 	.featured-tentang .wrap-icon:nth-child(1),
 	.featured-tentang .wrap-icon:nth-child(3),
 	.featured-tentang .wrap-icon:nth-child(5){
-		border-left:0;
-		border-right:0;
+		*border-left:0;
+		*border-right:0;
 	}
 	.featured-tentang .wrap-icon:nth-child(3){
 		border-top:0;
@@ -4471,7 +4473,7 @@ button.button-area {
 	.featured-tentang .wrap-icon:nth-child(4),
 	.featured-tentang .wrap-icon:nth-child(6){
 		border-right:0;
-		border-left:1px solid
+		*border-left:1px solid
 	}
 	.featured-your-brand .featured-header img {
 		width: 60%;
