@@ -136,6 +136,17 @@
                 </paymethod>
             </updates>
         </layout>
+        
+        <events>
+            <sales_order_save_after>
+                <observers>
+                    <sales_order_logging>
+                        <class>paymethod/observer</class>
+                        <method>salesOrderLogging</method>
+                    </sales_order_logging>
+                </observers>
+            </sales_order_save_after>
+        </events>
     </frontend>
     
     <admin>
