@@ -196,8 +196,12 @@ class Bilna_Paymethod_Helper_Data extends Mage_Core_Helper_Abstract {
         return preg_replace('/\D/', '', trim($number));
     }
     
+    public function salesOrderLogActive() {
+        return Mage::getStoreConfig('bilna_module/order_settings/order_log_active');
+    }
+    
     public function salesOrderLog($message) {
-        $filename = sprintf("%smagento_sales_order_debug.log", Mage::getBaseDir('log'));
+        $filename = sprintf("%s/magento_sales_order_debug.log", Mage::getBaseDir('log'));
         $content = sprintf("[%s]: %s", gethostname(), $message);
         
         if (file_exists($filename)) {

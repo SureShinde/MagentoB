@@ -17,12 +17,12 @@ wp/wp-config.php
 skin/frontend/default/modern/
 downloader/
 errors/
-media/
+media
 nbproject/
 includes/
 lib/Netsuite/nslog/
-files/*
-var/
+files
+var
 
 app/code/community/Find/
 app/code/community/Phoenix/
