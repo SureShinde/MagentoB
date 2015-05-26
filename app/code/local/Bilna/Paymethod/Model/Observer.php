@@ -1,12 +1,12 @@
 <?php
 /**
- * Description of Vtdirect
+ * Description of Bilna_Paymethod_Model_Observer
  *
  * @author Bilna Development Team <development@bilna.com>
  */
 
 class Bilna_Paymethod_Model_Observer extends Varien_Event_Observer {
-    public function salesOrderLogging($observer) {
+    public function salesOrderLog($observer) {
         $order = $observer->getEvent()->getOrder();
         $dataArr = array (
             'orderId' => $order->getId(),

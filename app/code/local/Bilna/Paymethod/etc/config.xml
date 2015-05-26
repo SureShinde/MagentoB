@@ -138,14 +138,15 @@
         </layout>
         
         <events>
-            <sales_order_save_after>
+            <sales_order_place_after>
                 <observers>
-                    <sales_order_logging>
+                    <sales_order_log>
+                        <type>singleton</type>
                         <class>paymethod/observer</class>
-                        <method>salesOrderLogging</method>
-                    </sales_order_logging>
+                        <method>salesOrderLog</method>
+                    </sales_order_log>
                 </observers>
-            </sales_order_save_after>
+            </sales_order_place_after>
         </events>
     </frontend>
     
