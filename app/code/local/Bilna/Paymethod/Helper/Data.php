@@ -215,7 +215,7 @@ class Bilna_Paymethod_Helper_Data extends Mage_Core_Helper_Abstract {
         fclose($handle);
     }
     
-    protected function getMagentoDateFormat($date) {
+    public function getMagentoDateFormat($date) {
         return date('Y-m-d H:i:s', Mage::getModel('core/date')->timestamp(strtotime($date)));
     }
     
