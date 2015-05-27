@@ -202,7 +202,7 @@ class Bilna_Paymethod_Helper_Data extends Mage_Core_Helper_Abstract {
     
     public function salesOrderLog($message) {
         $filename = sprintf("%s/magento_sales_order_debug.log", Mage::getBaseDir('log'));
-        $content = sprintf("[%s][%s]: %s", date('Ymd H:i:s', Mage::getModel('core/date')->timestamp(time())), gethostname(), $message);
+        $content = sprintf("[%s][%s]: %s", date('Y-m-d H:i:s', Mage::getModel('core/date')->timestamp(time())), gethostname(), $message);
         
         if (file_exists($filename)) {
             $handle = fopen($filename, 'a');
@@ -213,6 +213,10 @@ class Bilna_Paymethod_Helper_Data extends Mage_Core_Helper_Abstract {
         
         fwrite($handle, $content . "\n");
         fclose($handle);
+    }
+    
+    protected function getMagentoDateFormat($date) {
+        return date('Y-m-d H:i:s', Mage::getModel('core/date')->timestamp(strtotime($date)));
     }
     
     public function invoiceLog($order, $type = 'before') {
