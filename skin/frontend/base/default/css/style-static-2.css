@@ -156,7 +156,6 @@ ul.decimal-ul li {
 .line-height-1 {line-height:1 !important;}
 .line-dashed{border-bottom: 2px dashed #A0A0A0; margin:10px 0 15px}
 .static-page-area .button{
-	padding:10px;
 	background:#4ec7da;
 	color:#fff;
 	display:table;
@@ -4392,6 +4391,19 @@ button.button-area {
 .featured-tentang .wrap-icon{
 	*border-bottom:1px solid;
 }
+.partner-registration form ul li:nth-of-type(9) label{
+	width:100% !important;
+}
+.partner-registration form ul li:nth-of-type(9) select{
+	margin-left:140px;
+	margin-top:10px;
+}
+.partner-registration .formbuilder-form p.required{
+  margin-left: 190px !important;}
+.partner-registration .formbuilder-form button.button {
+  display: table;
+  margin-left: 190px !important;
+}
 .featured-your-brand .button-featured{
 	float: none;
 	padding: 10px 30px;
@@ -4402,6 +4414,7 @@ button.button-area {
 	font-size: 30px;
 	margin: 20px auto;
 }
+
 @media only screen and (max-width: 1214px) {
 	.featured-your-brand .wrap-featured .wrap-icon p span {
 		font-size: 20px;
