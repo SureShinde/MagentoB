@@ -4414,7 +4414,6 @@ button.button-area {
 	font-size: 30px;
 	margin: 20px auto;
 }
-
 @media only screen and (max-width: 1214px) {
 	.featured-your-brand .wrap-featured .wrap-icon p span {
 		font-size: 20px;
@@ -4460,6 +4459,16 @@ button.button-area {
 	.featured-your-brand .button-featured{
 		font-size: 20px;
 	}
+	.partner-registration ul li div.form-checkbox input{
+		margin:0 5px !important;
+	}
+	.partner-registration form ul li:nth-of-type(9) select {
+		margin-left: 0;
+		margin-bottom:10px;
+	}
+	.partner-registration .formbuilder-form ul li{
+		margin-bottom:0 !important;
+	}
 }
 @media only screen and (max-width: 468px) {
 	.featured-your-brand .wrap-featured .wrap-icon {
@@ -4501,6 +4510,24 @@ button.button-area {
 	}
 	.featured-your-brand .button-featured{
 		font-size: 15px;
+	}
+	.partner-registration .formbuilder-form p.required{
+		margin-left: 0 !important;
+	}
+	.partner-registration.static-page-wrapper ul{
+		width:100% !important;
+		margin:0 !important;
+	}
+	.partner-registration #formbuilder-form{
+		width:100% !Important;
+		margin:0 !important;
+	}
+	.partner-registration .formbuilder-form ul li input{
+		margin:0 0 10px!important;
+		width: 90% !important;
+	}
+	.partner-registration #formbuilder-form label{
+		width:100% !Important
 	}
 }
 /*========================= end style featured your brand =====================*/
