@@ -196,6 +196,29 @@ class Bilna_Paymethod_Helper_Data extends Mage_Core_Helper_Abstract {
         return preg_replace('/\D/', '', trim($number));
     }
     
+    public function salesOrderLogActive() {
+        return Mage::getStoreConfig('bilna_module/order_settings/order_log_active');
+    }
+    
+    public function salesOrderLog($message) {
+        $filename = sprintf("%s/magento_sales_order_debug.log", Mage::getBaseDir('log'));
+        $content = sprintf("[%s][%s]: %s", date('Y-m-d H:i:s', Mage::getModel('core/date')->timestamp(time())), gethostname(), $message);
+        
+        if (file_exists($filename)) {
+            $handle = fopen($filename, 'a');
+        }
+        else {
+            $handle = fopen($filename, 'w'); 
+        }
+        
+        fwrite($handle, $content . "\n");
+        fclose($handle);
+    }
+    
+    public function getMagentoDateFormat($date) {
+        return date('Y-m-d H:i:s', Mage::getModel('core/date')->timestamp(strtotime($date)));
+    }
+    
     public function invoiceLog($order, $type = 'before') {
         $dataArr = array (
             'base_subtotal_invoiced' => $order->getData('base_subtotal_invoiced'),

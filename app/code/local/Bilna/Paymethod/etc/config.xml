@@ -136,6 +136,18 @@
                 </paymethod>
             </updates>
         </layout>
+        
+        <events>
+            <sales_order_place_after>
+                <observers>
+                    <sales_order_log>
+                        <type>singleton</type>
+                        <class>paymethod/observer</class>
+                        <method>salesOrderLog</method>
+                    </sales_order_log>
+                </observers>
+            </sales_order_place_after>
+        </events>
     </frontend>
     
     <admin>
