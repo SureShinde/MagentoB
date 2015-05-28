@@ -135,7 +135,7 @@ li#perlengkapan-rumah, li.mobile-perlengkapan-rumah {
 	font-size: 10px;
 }
 .sticky-header ul.sticky-menu li:hover a{
-	color:
+    
 }
 .free-voucher-info:after, .td-contact-sticky-cont:after{
 	content:url(../images/arrow-sticky.png);

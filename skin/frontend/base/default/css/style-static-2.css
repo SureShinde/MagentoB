@@ -87,7 +87,7 @@
 
 }
 
-.clear-sp {clear:both;}
+.clear-sp {clear:both; display:block}
 .title-sp {color:#fc6a33; font-size: 18px !important; font-weight: bold;font-size: Arial, Helvetica, sans-serif; padding: 10px 0 0;}
 .title-sp-25 {font-size: 25px !important; font-weight: bold; font-family: Arial, Helvetica, sans-serif;}
 .image-sp {width:100% !important;}
@@ -1837,7 +1837,7 @@ h2.block-grey-title-left {
     
 
 }
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 767px) {
 .formbuilder-form p.required{
 	margin-left:50px !important;
 }
@@ -2528,7 +2528,7 @@ button.button-area {
 	@media only screen and (max-width: 1023px){
 		
 	}
-	@media only screen and (max-width: 768px) {
+	@media only screen and (max-width: 767px) {
 		.promo-telkomsel-19 .column_product_static{
 			width:32%;
 		}.banner-telkomsel-19{
@@ -2748,7 +2748,7 @@ button.button-area {
         display: table;
         float: right;
     }
-    @media only screen and (max-width: 768px) {
+    @media only screen and (max-width: 767px) {
 		.container-filled .right {
             width: 90%;
         }
@@ -2839,7 +2839,7 @@ button.button-area {
 	@media only screen and (max-width: 1023px){
 		
 	}
-	@media only screen and (max-width: 768px) {
+	@media only screen and (max-width: 767px) {
 		.promo-telkomsel-19 .column_product_static{
 			width:32%;
 		}.banner-telkomsel-19{
@@ -3001,7 +3001,7 @@ button.button-area {
 		margin:40px 0 0;
 	}
 }
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 767px) {
 	.tanya-nadia .col{
 		width:100%;
 		margin:40px 0 0;
@@ -3093,7 +3093,7 @@ button.button-area {
 			height:120px;
 		}
 }
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 767px) {
 		.merdekamadness-home .column_product_static, .merdekamadness .column_product_static{
 			width:32%;
 			height:145px;
@@ -3203,7 +3203,7 @@ button.button-area {
 	}
 	
 }
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 767px) {
 	.winner-pc .winner .polaroid .title-photo p.fb-15,	
 	.winner-pc .hiburan .polaroid .title-photo p.fb-15{
 		font-size:12px !important;
@@ -3350,7 +3350,7 @@ button.button-area {
 		text-transform: lowercase;
 	}
 }
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 767px) {
 	#checkoutpromo .promo-baloon{
 		width:98%;
 	}
@@ -3442,7 +3442,7 @@ button.button-area {
 			height:120px;
 		}
 }
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 767px) {
 		.clearence-page-home .column_product_static, .static-page-area .column_product_static{
 			width:32%;
 			height:145px;
@@ -3660,7 +3660,7 @@ button.button-area {
 	}
 	
 }
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 767px) {
 	.gogreen-winner-pc .juara .polaroid, .gogreen-winner-pc .hiburan .polaroid{
 		width:96% !important;
 		margin:10px 0;
@@ -3968,7 +3968,7 @@ button.button-area {
 		width: 360px !important;
 	}
 }
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 767px) {
 	.landing-page-shareapp .footer{
 		padding:20px 0;
 	}
@@ -4168,7 +4168,7 @@ button.button-area {
 	padding-left: 20px;
 	font-weight: bold;
 }
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 767px) {
 	.secreet-wishes .link-wrap .link-category-promo{
 		width:45%;
 	}
@@ -4243,7 +4243,7 @@ button.button-area {
 		width:100%;
 	}
 }
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 767px) {
 	.formbuilder-form .termncondition{
 		margin-left: 50px;
 	}
@@ -4306,7 +4306,7 @@ button.button-area {
 		margin-left: 232px !important;
 	}
 }
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 767px) {
 	.form-pampers-promo .formbuilder-form ul li{
 		margin-bottom: 10px !important;
 	}
@@ -4597,3 +4597,180 @@ button.button-area {
 	}
 }
 /*========================= end style featured your brand =====================*/
+/*============================ style weekly pregnancy ========================*/
+.weekly-pregnancy .header-weekly-pregnancy{
+	text-align: center;
+	width: 65%;
+	line-height: 18px;
+	padding: 30px 0;
+}
+.weekly-pregnancy .header-weekly-pregnancy .title-header{
+	font-size: 35px;
+	line-height:35px;
+	text-transform: uppercase;
+	color: #de2076;
+	font-weight: bold;
+	margin-bottom: 20px;
+	margin-top: 10px;
+}
+.weekly-pregnancy .wrap-button-link{
+	display:block;
+	clear:both;
+	width:100%;
+	cursor:pointer;
+	border-top:3px solid #de2076;
+}
+.weekly-pregnancy .image-semester{
+	width:40%;
+	float:left;
+	padding: 0 5%;
+}
+.weekly-pregnancy .image-semester img{
+	max-width:100%;
+}
+.weekly-pregnancy .text-area{
+	width:50%;
+	margin: 0;
+	float:left;
+}
+.weekly-pregnancy .text-area .wrap-title-semester{
+	font-size:18px;
+	text-align:right;
+}
+.weekly-pregnancy .text-area .wrap-title-semester span{
+	background: #de2076 none repeat scroll 0 0;
+	color: #fff;
+	display: table;
+	float: left;
+	height: 25px;
+	line-height: 25px;
+	margin: 0 5%;
+	padding: 0 10%;
+	position: relative;
+}
+.weekly-pregnancy .text-area .center-text-sp{
+	line-height: 20px;
+	width: 77%;
+	color: #929292;
+	margin: 50px auto;
+}
+.trimester .trimester-title{
+	background: #de2076;
+	color: #fff;
+	display: table;
+	margin: 0 auto;
+	padding: 10px 30px;
+}
+.trimester .wrap-button-week{
+	display:table;
+	margin: 20px auto 0;
+}
+.trimester .wrap-button-week p{
+	padding:5px 10px;
+	font-size: 15px;
+	color: #de2076;
+	font-weight:bold;
+}
+.trimester .wrap-button-week p,
+.trimester .wrap-button-week a{
+	float:left;
+}
+.trimester .wrap-button-week .button-week{
+	background: #de2076;
+	width: 35px;
+	border-radius: 52%;
+	line-height: 35px;
+	margin: 0 10px 5px 0;
+	color: #fff;
+	height: 35px;
+}
+.trimester .wrap-content-week{
+	border-top:3px solid #de2076;
+	text-align:center;
+}
+.trimester .title-week{
+	display:table;
+	background:#de2076;
+	margin:0 auto;
+	padding: 3px 7% 6px;
+	font-size:16px;
+	color:#fff;
+	position:relative;
+	font-weight:bold;
+}
+.weekly-pregnancy .text-area .wrap-title-semester span:before,
+.trimester .title-week:before{
+	content: url("../images/left-tab.png");
+	left: -18px;
+	position: absolute;
+	top: 0;
+}
+.weekly-pregnancy .text-area .wrap-title-semester span:after,
+.trimester .title-week:after{
+	content: url("../images/right-tab.png");
+	right: -18px;
+	position: absolute;
+	top: 0;
+}
+.trimester .title-content{
+	font-size:18px;
+	font-weight:bold;
+	margin: 25px 0 10px;
+}
+.trimester .decs-content{
+	font-size:14px;
+}
+.trimester ul {
+	margin-bottom:20px;
+}
+.trimester ul li{
+	display:table;
+	margin:0 auto;
+	font-size: 14px;
+}
+@media only screen and (max-width: 1023px) {
+	.weekly-pregnancy .text-area .wrap-title-semester{
+		font-size:16px;
+	}
+	.trimester .wrap-button-week p{
+		display:block;
+		clear:both;
+		float:none;
+	}
+	.weekly-pregnancy .header-weekly-pregnancy{
+		width:52%;
+	}
+}
+@media only screen and (max-width: 767px) {
+	.weekly-pregnancy .header-weekly-pregnancy .title-header{
+		font-size: 23px;
+		line-height: 26px;
+	}
+	.weekly-pregnancy .header-weekly-pregnancy{
+		width: 85%;
+	}
+	.weekly-pregnancy .text-area .wrap-title-semester{
+		font-size:14px;
+	}
+	.trimester .wrap-button-week {
+		width: 272px;
+	}
+}
+@media only screen and (max-width: 468px) {
+	
+	.weekly-pregnancy .image-semester{
+		width:100%;
+		padding: 0;
+	}
+	.weekly-pregnancy .text-area{
+		width:100%;
+	}
+	.weekly-pregnancy .semester1 img,
+	.weekly-pregnancy .semester3 img{
+		border-bottom:3px solid #de2076;
+	}
+	.trimester .wrap-button-week {
+		width: 94%;
+	}
+}
+/*========================= end style weekly pregnancy ========================*/
