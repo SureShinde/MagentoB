@@ -67,9 +67,33 @@ if ($this->block->email_share_apps) {
 				<?php } ?>
 				<li style="clear: both; margin-bottom: 20px;">
 			<?php } ?>
+                        
+                        <!-- checkbox multiple -->
+                        <?php if ($input['type'] == 'checkbox_multi') { ?>
+                            <?php if ($input['group'] !== $group) { ?>
+                                <div class="form-question title-checkbox">
+                                    <?php echo $input['title']; ?>
+                                </div>
+                            <?php } ?>
+                        
+                            <div class="form-checkbox">
+                                <label>
+                                    <input style="margin: 0px 12px 0px 140px;" id="<?php echo $input['name'] . '-' . $input['id']; ?>" type="checkbox" name="inputs[<?php echo $input['name']; ?>][]" class="<?php if ($input['validation']) { echo $input['validation']; } ?>" value="<?php echo $input['value']; ?>" />
+                                    <?php
+                                    if ($input['helper_message']) {
+                                        echo $input['helper_message'];
+                                    }
+                                    else {
+                                        echo $input["value"];
+                                    }
+                                    ?>
+                                </label>
+                            </div>
+                        <?php //} ?>
+                        <!-- end checkbox multiple -->
 
 			<!--Checkbox Type-->
-			<?php if($input["type"] == "checkbox"){ ?>
+                        <?php } else if($input["type"] == "checkbox"){ ?>
 				<?php if($input["name"]=="terms" && $this->block->termsconditions){ ?>
 		        <div style="clear:both"></div>
 		        <?php echo $this->block->termsconditions; ?>
@@ -122,7 +146,15 @@ if ($this->block->email_share_apps) {
 				<div>
                                     <?php if ($input['type'] != 'ref') { ?>
                                         <label class="required" style="float:left; width:140px; padding-top:10px;" for="<?php echo $input["name"]; ?>">
-                                            <?php echo $input["value"]; ?><em><?php if($input["required"] == true) echo '*'; ?></em>
+                                            <?php
+                                            if ($input['type'] == 'textarea') {
+                                                echo $input['title'];
+                                            }
+                                            else {
+                                                echo $input["value"];
+                                            }
+                                            ?>
+                                            <em><?php if($input["required"] == true) echo '*'; ?></em>
                                         </label>
                                     <?php } ?>
 
@@ -147,7 +179,7 @@ if ($this->block->email_share_apps) {
 
 				<!--Textarea Type-->
 				<?php }else if($input["type"] == "textarea"){ ?>
-					<textarea id="<?php echo $input["name"]; ?>" class="<?php if ($input["required"]) {echo $_requiredEntry;}?> input-text" style="height: 100px !important; width: 40%; background: none repeat scroll 0 0 #F9F9F9; border: none; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) inset; color: #666666; padding: 7px 5px; float: left; margin-right: 60px;" rows="3" cols="5" title="<?php echo $input["value"]; ?>" name="inputs[<?php echo $input["group"]; ?>]"></textarea>
+                                    <textarea id="<?php echo $input["name"]; ?>" class="<?php if ($input["required"]) {echo $_requiredEntry;}?> input-text" style="height: 100px !important; width: 40%; background: none repeat scroll 0 0 #F9F9F9; border: none; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) inset; color: #666666; padding: 7px 5px; float: left; margin-right: 60px;" rows="3" cols="5" title="<?php echo $input["value"]; ?>" name="inputs[<?php echo $input["group"]; ?>]"></textarea>
                                 <!--Textarea Type-->
 				<?php
                                 }
