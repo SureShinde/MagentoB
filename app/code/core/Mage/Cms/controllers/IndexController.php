@@ -68,90 +68,15 @@ class Mage_Cms_IndexController extends Mage_Core_Controller_Front_Action
      */
     public function noRouteAction($coreRoute = null)
     {
-        
-        $url = Mage::helper('core/url')->getCurrentUrl();
-        if (strpos($url,'?superdonkey') == false) {
-	        $currentUrl = Mage::helper('core/url')->getCurrentUrl();
-	        $pattern = '/http:\/\/www.bilna.com\/([a-z0-9-_]*)?((\/[a-zA-Z0-9-_]*(\.html)?)*)?/';
-	        preg_match($pattern, $url, $matches);
-	        $storeview = $matches[1];
-	        $mainUrl = $matches[2];
-	        
-            if($storeview == "perlengkapan_rumah"){
-                $url = str_replace($storeview, "perlengkapan-rumah", $url);
-            }else{
-                $pattern = '/\/blog/';
-                preg_match($pattern, $mainUrl, $matches);
-                if(isset($matches[0]) && !empty($matches[0])){
-                    $extra = str_replace($matches[0], "", $mainUrl);
-            
-                    $url = "http://www.bilna.com".$matches[0]."/".$storeview.$extra;
-                }
-            }
-            $url = $url."?superdonkey";
+        $this->getResponse()->setHeader('HTTP/1.1','404 Not Found');
+        $this->getResponse()->setHeader('Status','404 File not found');
 
-            $httpCode = $this->checkUrl($url);
-            if($httpCode == 404) {
-                $pattern = '/\/blog/';
-                preg_match($pattern, $mainUrl, $matches);
-                if(isset($matches[0]) && !empty($matches[0])){
-                    $extra = str_replace($matches[0], "", $mainUrl);
-            
-                    $url = "http://www.bilna.com".$matches[0].$extra;
-                }else{
-                    $url = str_replace($storeview."/", "", $url);
-                }
-            	$url = $url."?superdonkey";
-            
-                $httpCode = $this->checkUrl($url);
-                if($httpCode == 404) {
-                    $url = "http://www.bilna.com".$mainUrl."~superdonkey";
-            
-                    $httpCode = $this->checkUrl($url);
-                    if($httpCode == 404) {
-                        header("Location: http://www.bilna.com/");
-                        die();
-                    }
-                }
-            }
-            $url = str_replace("?superdonkey", "", $url);
-
-            if($url == $currentUrl){
-            	$pageId = Mage::getStoreConfig(Mage_Cms_Helper_Page::XML_PATH_NO_ROUTE_PAGE);
-            	if (!Mage::helper('cms/page')->renderPage($this, $pageId)) {
-            		$this->_forward('defaultNoRoute');
-            	}
-            }else{
-            	header("Location: ".$url);
-            	die();
-            }
-        }else{
-        	$pageId = Mage::getStoreConfig(Mage_Cms_Helper_Page::XML_PATH_NO_ROUTE_PAGE);
-        	if (!Mage::helper('cms/page')->renderPage($this, $pageId)) {
-        		$this->_forward('defaultNoRoute');
-        	}
-        }
-
-        /*$pageId = Mage::getStoreConfig(Mage_Cms_Helper_Page::XML_PATH_NO_ROUTE_PAGE);
+        $pageId = Mage::getStoreConfig(Mage_Cms_Helper_Page::XML_PATH_NO_ROUTE_PAGE);
         if (!Mage::helper('cms/page')->renderPage($this, $pageId)) {
             $this->_forward('defaultNoRoute');
-        }*/
+        }
     }
 
-    public function checkUrl($url){
-        $handle = curl_init($url);
-        curl_setopt($handle,  CURLOPT_RETURNTRANSFER, TRUE);
-        
-        /* Get the HTML or whatever is linked in $url. */
-        $response = curl_exec($handle);
-        
-        /* Check for 404 (file not found). */
-        $httpCode = curl_getinfo($handle, CURLINFO_HTTP_CODE);
-        
-        curl_close($handle);
-        
-        return $httpCode;
-    }
     /**
      * Default no route page action
      * Used if no route page don't configure or available
