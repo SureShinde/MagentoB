@@ -155,24 +155,6 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
                         }
                     }
                 }
-                
-//                $validation = $validationArr[0];
-//
-//                if ($validation == 'pattern') {
-//                    $pattern = $validationArr[1];
-//
-//                    if ($this->_validationPattern($pattern, $postData['inputs'][$field['group']]) === false) {
-//                        $message = "Link yang Anda masukan tidak valid";
-//                        
-//                        if (!is_null($row["static_failed"]) || $row["static_failed"] <> "") {
-//                            Mage::getSingleton('core/session')->setFormbuilderFailed(false);
-//                        }
-//
-//                        Mage::getSingleton('core/session')->addError($message); 
-//                        $redirectPage = Mage::getBaseUrl() . $field["url"];
-//                        $this->_redirectPage($redirectPage);
-//                    }
-//                }
             }
 
             //unique
