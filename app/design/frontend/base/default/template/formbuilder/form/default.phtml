@@ -137,8 +137,13 @@ if ($this->block->email_share_apps) {
                                     }
                                     
                                     if ($input['validation']) {
-                                        $_validationArr = explode('|', $input['validation']);
-                                        $_validationClass = 'validate-' . $_validationArr[0];
+                                        $_validationArr = explode(' ', $input['validation']);
+                                        $_validationClass = '';
+                                        
+                                        foreach ($_validationArr as $v) {
+                                            $vArr = explode('|', $v);
+                                            $_validationClass .= 'validate-' . $vArr[0] . ' ';
+                                        }
                                     }
                                     ?>
                                     
@@ -211,6 +216,26 @@ if ($this->block->email_share_apps) {
             }],
             ['validate-email-ind', '<?php echo $this->__('Email yang Anda masukkan salah. Contoh: johndoe@domain.com') ?>', function(v) {
                 return Validation.get('IsEmpty').test(v) || /^([a-z0-9,!\#\$%&'\*\+\/=\?\^_`\{\|\}~-]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z0-9,!\#\$%&'\*\+\/=\?\^_`\{\|\}~-]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*@([a-z0-9-]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z0-9-]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*\.(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]){2,})$/i.test(v);
+            }],
+            ['validate-nmatch-email', '<?php echo $this->__('Email yang Anda masukkan tidak boleh sama.') ?>', function(v) {
+                var v2 = $$('.validate-nmatch-email')[0];
+                var v1 = false;
+            
+                if ($$('.validate-unique-email').size()) {
+                    v1 = $$('.validate-unique-email')[0];
+                }
+                
+                return (v1.value != v2.value);
+            }],
+            ['validate-nmatch-tlp', '<?php echo $this->__('No. Telp yang Anda masukkan tidak boleh sama.') ?>', function(v) {
+                var v2 = $$('.validate-nmatch-tlp')[0];
+                var v1 = false;
+            
+                if ($$('.validate-unique-tlp').size()) {
+                    v1 = $$('.validate-unique-tlp')[0];
+                }
+                
+                return (v1.value != v2.value);
             }],
         ]);
     //]]>
