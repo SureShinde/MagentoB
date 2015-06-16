@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+<placeholders>
+    <awclickcheckout_product_page>
+        <block>awclickcheckout/block</block>
+        <placeholder>awclickcheckout_product_page</placeholder>
+        <container>AW_Clickcheckout_Model_Nocache</container>
+        <cache_lifetime>86400</cache_lifetime>
+    </awclickcheckout_product_page>
+</placeholders>
+</config>

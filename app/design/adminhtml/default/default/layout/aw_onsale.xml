@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<layout>
+    <adminhtml_catalog_product_edit>
+        <reference name="head">
+                <action method="setCanLoadExtJs"><flag>1</flag></action>
+                <action method="setCanLoadRulesJs"><flag>1</flag></action>
+                <action method="addCss"><name>aw_onsale/css/styles.css</name></action>
+                <action method="addJs"><script>aw_onsale/adminhtml/position.js</script>   </action>
+        </reference>    
+    </adminhtml_catalog_product_edit>
+    <adminhtml_system_config_edit>
+        <reference name="head">
+                <action method="setCanLoadExtJs"><flag>1</flag></action>
+                <action method="setCanLoadRulesJs"><flag>1</flag></action>
+                <action method="addCss"><name>aw_onsale/css/styles.css</name></action>
+                <action method="addJs"><script>aw_onsale/adminhtml/position.js</script>   </action>
+        </reference>  
+    </adminhtml_system_config_edit>
+    <onsale_admin_adminhtml_rule_index>
+        <reference name="content">
+            <block type="onsale/adminhtml_rule" name="onsale_rule"/>
+        </reference>
+    </onsale_admin_adminhtml_rule_index>
+    <onsale_admin_adminhtml_rule_edit>
+        <reference name="head">
+                <action method="setCanLoadExtJs"><flag>1</flag></action>
+                <action method="setCanLoadRulesJs"><flag>1</flag></action>
+                <action method="addCss"><name>aw_onsale/css/styles.css</name></action>
+                <action method="addJs"><script>aw_onsale/adminhtml/position.js</script>   </action>
+        </reference>   
+        <reference name="left">
+            <block type="onsale/adminhtml_rule_edit_tabs" name="onsale_adminhtml_edit_tabs">
+                <block type="onsale/adminhtml_rule_edit_tab_main" name="onsale_adminhtml_edit_tab_main"/>
+                <block type="onsale/adminhtml_rule_edit_tab_conditions" name="onsale_adminhtml_edit_tab_conditions"/>
+                <block type="onsale/adminhtml_rule_edit_tab_actions" name="onsale_adminhtml_edit_tab_actions"/>
+                <action method="addTab">
+                    <name>main_section</name>
+                    <block>onsale_adminhtml_edit_tab_main</block>
+                </action>
+                <action method="addTab">
+                    <name>conditions_section</name>
+                    <block>onsale_adminhtml_edit_tab_conditions</block>
+                </action>
+                <action method="addTab">
+                    <name>actions_section</name>
+                    <block>onsale_adminhtml_edit_tab_actions</block>
+                </action>
+            </block>
+        </reference>
+        <reference name="content">
+            <block type="onsale/adminhtml_rule_edit" name="onsale_adminhtml_edit"/>
+        </reference>
+    </onsale_admin_adminhtml_rule_edit>
+</layout>	

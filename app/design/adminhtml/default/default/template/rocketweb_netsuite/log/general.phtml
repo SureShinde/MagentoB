@@ -1,0 +1,35 @@
+<?php 
+$logLines = $this->getLogLines();
+?>
+
+<form id="num_lines_form" method="POST" action="<?php echo $this->getUrl('*/*/changelines') ?>">
+	<?php echo $this->getBlockHtml('formkey')?>
+	
+	Show last <input type="text" style="width:30px;" name="num_lines" value="<?php echo $this->getNumLines();?>"/> lines
+
+	<button title="Show" type="button" class="scalable" onclick="$('num_lines_form').submit();" style=""><span><span><span>Show</span></span></span></button>
+</form><br/><br/>
+
+
+<?php if(count($this->getErrors())):?>
+<div id="messages">
+	<ul class="messages"><li class="error-msg"><ul><li><span>
+		<?php foreach($this->getErrors() as $message):?>
+			<?php echo $message;?>
+		<?php endforeach;?>
+	</span></li></ul></li></ul>                    
+</div>
+<?php endif;?>
+
+<?php if(count($logLines)):?>
+<div class="log_pane" id="log_pane" style="width:100%;height:400px;overflow:scroll">
+	<?php foreach($logLines as $line):?>
+		<?php echo $line.'<br/>';?>
+	<?php endforeach;?>
+</div>
+<?php endif;?>
+
+<script type="text/javascript">
+var objDiv = document.getElementById("log_pane");
+objDiv.scrollTop = objDiv.scrollHeight;
+</script>

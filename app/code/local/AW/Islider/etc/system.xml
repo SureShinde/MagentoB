@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <sections>
+        <awislider translate="label" module="awislider">
+            <label>Image Slider</label>
+            <tab>awall</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>913</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <general translate="label">
+                    <label>General Options</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <directurls translate="label">
+                            <label>Use direct URL's</label>
+                            <comment>Enabling this option will lead to disabling clicks statistics</comment>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                        </directurls>	
+                    </fields>
+                </general>
+            </groups>
+        </awislider>
+    </sections>
+</config>

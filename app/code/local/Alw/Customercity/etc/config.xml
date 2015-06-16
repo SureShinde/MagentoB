@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+   <modules>
+      <Alw_Customercity>
+         <version>0.2.0</version>
+      </Alw_Customercity>
+   </modules>
+    <global>
+        <blocks>
+			<customercity>
+				<class>Alw_Customercity_Block</class>
+			 </customercity>	
+		</blocks>
+		
+		<helpers>
+            <customercity>
+                <class>Alw_Customercity_Helper</class>
+            </customercity>
+        </helpers>
+         <models>
+            <customercity>
+                <class>Alw_Customercity_Model</class>
+                <resourceModel>customercity_mysql4</resourceModel>
+            </customercity>
+            <customercity_mysql4>
+                <class>Alw_Customercity_Model_Mysql4</class>
+                <entities>
+                    <customercity>
+                        <table>directory_country_city</table>
+                    </customercity>
+                </entities>
+            </customercity_mysql4>
+        </models>
+		<resources>
+				<customercity_setup>
+					<setup>
+						<module>Alw_Customercity</module>
+					</setup>
+					<connection>
+						<use>core_setup</use>
+					</connection>
+				</customercity_setup>
+				<customercity_write>
+					<connection>
+						<use>core_write</use>
+					</connection>
+				</customercity_write>
+				<customercity_read>
+					<connection>
+						<use>core_read</use>
+					</connection>
+				</customercity_read>
+		</resources>
+     
+    </global>
+	    <frontend>
+        <routers>
+            <alw_customercity>
+                <use>standard</use>
+                <args>
+                    <module>Alw_Customercity</module>
+                    <frontName>customercity</frontName>
+                </args>
+            </alw_customercity>
+			
+        </routers>
+    </frontend> 
+</config>

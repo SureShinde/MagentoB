@@ -1,0 +1,188 @@
+.footer-container {
+	border: none;
+	width: 100%;
+	clear: both;
+}
+.footer {
+	width: 1216px;
+	padding: 20px 0 0 0;
+	border-top: 1px solid #707070;
+}
+.footer .form-language select {
+	display: none;
+}
+.footer ul, .footer ul.links, .footer li {
+	display: block;
+} 
+.footer ul {
+	float: left;
+	text-align: left;
+	margin: 0 30px 0 0;
+}
+.footer li {
+	padding: 0;
+	background: none;
+	color: #494949;
+}
+.footer li span.title, .footer .conect-us span.title, .footer .payment-partners span.title, .footer .shipping-partners span.title {
+	color: #484848;
+	font-size: 14px;
+	font-weight: normal;
+	text-transform: uppercase;
+	font-family: 'bebasregular';
+}
+.footer a, .footer address {
+	color: #767676;
+}
+.footer .conect-us, .footer .payment-partners, .footer .shipping-partners {
+	float: right;
+	text-align: left;
+	margin:0 0 0 85px;
+}
+.footer .payment-partners {
+	width: 180px;
+}
+.footer .payment-partners table tr td.payment-right {
+	text-align: right;
+}
+.footer .conect-us span.title, .footer .payment-partners span.title, .footer .shipping-partners span.title {
+	display: block;
+	margin:0 0 15px 0;
+}
+.footer .conect-us a, .footer .payment-partners a, .footer .shipping-partners a {
+	display: inline-block;
+	margin: 0 8px 0 0;
+}
+.footer .payment-partners a, .footer .shipping-partners a {
+	vertical-align: middle;
+}
+.footer-bottom {
+	margin:20px 0 0 0;
+}
+.footer .about-us {
+	padding: 20px 0 0 0;
+	border-top: 1px solid #707070;
+}
+.footer .about-us p {
+	line-height: normal;
+	padding: 0 0 20px 0;
+}
+.footer .about-us, .footer address {
+	text-align: left;
+}
+.footer .bugs {
+	display: none;
+}
+@media only screen and (max-width: 1215px) {
+	.footer {
+		width: 994px;
+	}
+	.footer .conect-us, .footer .payment-partners, .footer .shipping-partners {
+		margin-left: 56px;
+	}
+}
+/* --------------- 960 px layout -------------------- */
+@media only screen and (max-width: 1023px) {
+	.footer {
+		width: 745px;
+	}
+	.footer ul {
+		margin: 0;
+		width: 33.33%;
+		height: 100px;
+		text-align: center;
+	}
+	.footer .conect-us, .footer .payment-partners, .footer .shipping-partners {
+		width: 33.33%;
+		text-align: center;
+		margin: 0;
+	}
+}
+/* --------------- smaller 959 px layout -------------------- */
+@media only screen and (max-width: 767px) {
+	.footer-container {}
+	.footer {
+		width: 100%;
+		border: none;
+		padding-top: 0;
+	}
+	.footer ul {
+		height: auto;
+	}
+	.footer ul, .footer .conect-us, .footer .payment-partners, .footer .shipping-partners, .footer .form-language {
+		background-color: #ededed;
+	}
+	.footer .form-language {
+		padding: 22px 0;
+	}
+	.footer .form-language a {
+		display: inline-block;
+		color: #707070;
+		background-position: left center;
+		background-repeat: no-repeat;
+		padding: 0 0 0 32px;
+		margin: 0;
+	}
+	.footer .form-language a.english {
+		background-image: url(../images/eng.jpg);
+		border-right: 1px solid #707070;
+		padding-right: 10px;
+	}
+	.footer .form-language a.indonesia {
+		background-image: url(../images/ina.jpg);
+		margin-left:10px;
+	}
+	.footer .form-language, .footer ul {
+		background-image: url(../images/border-footer-menu.png);
+		background-repeat: repeat-x;
+		background-position: left bottom;
+	}
+	.footer ul {
+		float: none;
+		width: auto;
+		text-align: left;
+		padding: 22px 15px 30px;
+	}
+	.footer ul li {
+		padding: 1px 0;
+	}
+	.footer ul li:first-child {
+		margin-bottom: 30px;
+	}
+	.footer li span.title, .footer .conect-us span.title, .footer .payment-partners span.title, .footer .shipping-partners span.title {
+		color: #8d8d8d;
+		font-size: 20px;
+	}
+	.footer a {
+		color: #fd8e17;
+		font-size: 14px;
+	}
+	.footer .conect-us, .footer .payment-partners, .footer .shipping-partners {
+		float: none;
+		text-align: left;
+		width: auto;
+		padding-left: 15px;
+		padding-right: 15px;
+	}
+	.footer .payment-partners, .footer .shipping-partners {
+		display: none;
+	}
+	.footer .conect-us {
+		padding-top: 22px;
+		padding-bottom: 30px;
+	}
+	.footer .about-us {
+		display: none;
+	}
+	.footer-bottom {
+		padding: 0 15px;
+	}
+	.footer address {
+		color: #494949;
+		font-size: 14px;
+	}
+}
+/* --------------- 320 px layout -------------------- */
+@media only screen and (max-width: 479px) { 
+	
+}

@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<config>
+    <sections>
+        <rocketweb_netsuite>
+            <groups>
+                <custom>
+                    <label>Custom</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>1000</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <imported_root_category_id translate="label comment">
+                            <label>Imported Root Category Id (must exist)</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </imported_root_category_id>
+                    </fields>
+                </custom>
+            </groups>
+        </rocketweb_netsuite>
+    </sections>
+</config>
