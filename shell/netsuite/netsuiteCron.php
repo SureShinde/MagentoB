@@ -32,7 +32,7 @@ class RocketWeb_Netsuite_Shell_NetsuiteCron extends Mage_Shell_Abstract {
                         Mage::getModel('rocketweb_netsuite/process')->processImport($this);
                         break;
                     case 'export':
-                        Mage::getModel('rocketweb_netsuite/process')->processExport();
+                        Mage::getModel('rocketweb_netsuite/process')->processExport($this);
                         break;
                     case 'stock':
                         Mage::getModel('rocketweb_netsuite/observer')->processStockImport();
