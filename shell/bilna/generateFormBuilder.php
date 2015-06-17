@@ -10,6 +10,7 @@ require_once dirname(__FILE__) . '/../abstract.php';
 class GenerateFormBuilder extends Mage_Shell_Abstract {
     protected $read = null;
     protected $write = null;
+    protected $formId = array ();
     protected $lastId = null;
     
     protected $tablePrefix = 'bilna_formbuilder_flat_data_';
@@ -18,6 +19,7 @@ class GenerateFormBuilder extends Mage_Shell_Abstract {
         $this->read = Mage::getSingleton('core/resource')->getConnection('core_read');
         $this->write = Mage::getSingleton('core/resource')->getConnection('core_write');
         
+        $this->setFormId();
         $this->runGenerateTable();
         $this->runImportData();
     }
@@ -28,6 +30,12 @@ class GenerateFormBuilder extends Mage_Shell_Abstract {
         }
     }
     
+    protected function setFormId() {
+        if ($this->getArg('formid')) {
+            $this->formId = explode(",", $this->getArg('formid'));
+        }
+    }
+
     /**
      * Generate table bilna_formbuilder_flat_data_*
      */
@@ -52,7 +60,12 @@ class GenerateFormBuilder extends Mage_Shell_Abstract {
 
     protected function getFormData() {
         $collection = Mage::getModel('bilna_formbuilder/form')->getCollection();
-        $collection->addFilter('status', 1)
+        
+        if ($this->formId) {
+            $collection->addFieldToFilter('id', array ('in' => $this->formId));
+        }
+        
+        $collection->addFieldToFilter('status', 1)
             ->addFieldToSelect('id')
             ->addFieldToSelect('title')
             ->setOrder('id', 'ASC');

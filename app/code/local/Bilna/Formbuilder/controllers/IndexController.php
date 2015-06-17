@@ -40,7 +40,6 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
         $block->setOrder('bilna_formbuilder_input.order', 'ASC');
         
         $productPromoSkuArr = array ();
-
         //required, checkbox, terms and empty
         foreach ($block->getData() as $field) {
             //- collect product sku for checking cart
@@ -60,6 +59,12 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
                 }
                 
                 continue;
+            }
+            
+            if ($field['type'] == 'checkbox_multi') {
+                if (is_array($postData['inputs'][$field['group']])) {
+                    $postData['inputs'][$field['group']] = implode(',', $postData['inputs'][$field['group']]);
+                }
             }
             
             if ($field["required"] == true) {
@@ -116,22 +121,43 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
             
             //validation pattern
             if (!empty ($field['validation']) || !is_null($field['validation'])) {
-                $validationArr = explode("|", $field['validation']);
-                $validation = $validationArr[0];
-
-                if ($validation == 'pattern') {
-                    $pattern = $validationArr[1];
-
-                    if ($this->_validationPattern($pattern, $postData['inputs'][$field['group']]) === false) {
-                        $message = "Link yang Anda masukan tidak valid";
+                $validationArr = explode(' ', $field['validation']);
+                
+                foreach ($validationArr as $v) {
+                    if (strpos($v, '|')) {
+                        $vArr = explode('|', $v);
+                        $vValidate = $vArr[0];
+                        $vField = $vArr[1];
                         
-                        if (!is_null($row["static_failed"]) || $row["static_failed"] <> "") {
-                            Mage::getSingleton('core/session')->setFormbuilderFailed(false);
-                        }
+                        if ($vValidate == 'pattern') {
+                            $pattern = $vField;
 
-                        Mage::getSingleton('core/session')->addError($message); 
-                        $redirectPage = Mage::getBaseUrl() . $field["url"];
-                        $this->_redirectPage($redirectPage);
+                            if ($this->_validationPattern($pattern, $postData['inputs'][$field['group']]) === false) {
+                                $message = "Link yang Anda masukan tidak valid";
+
+                                if (!is_null($row["static_failed"]) || $row["static_failed"] <> "") {
+                                    Mage::getSingleton('core/session')->setFormbuilderFailed(false);
+                                }
+
+                                Mage::getSingleton('core/session')->addError($message); 
+                                $redirectPage = Mage::getBaseUrl() . $field["url"];
+                                $this->_redirectPage($redirectPage);
+                            }
+                        }
+                        
+                        if ($vValidate == 'nmatch') {
+                            if ($postData['inputs'][$field['name']] == $postData['inputs'][$vField]) {
+                                $message = sprintf("%s %s", $field['title'], $this->__('yang Anda masukkan tidak boleh sama.'));
+                                
+                                if (!is_null($row["static_failed"]) || $row["static_failed"] <> "") {
+                                    Mage::getSingleton('core/session')->setFormbuilderFailed(false);
+                                }
+
+                                Mage::getSingleton('core/session')->addError($message); 
+                                $redirectPage = Mage::getBaseUrl() . $field['url'];
+                                $this->_redirectPage($redirectPage);
+                            }
+                        }
                     }
                 }
             }
@@ -165,8 +191,8 @@ class Bilna_Formbuilder_IndexController extends Mage_Core_Controller_Front_Actio
             }
         }
 
-        foreach($postData["inputs"] as $type=>$value){              
-            $insertData = $this->_insertData($form_id,$record_id,$type,$value,$create_date);
+        foreach ($postData['inputs'] as $type => $value) {
+            $insertData = $this->_insertData($form_id, $record_id, $type, $value, $create_date);
             
             if ($codeShare && $type == 'email') {
                 $type = $codeShareField;

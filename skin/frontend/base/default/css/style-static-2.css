@@ -87,7 +87,7 @@
 
 }
 
-.clear-sp {clear:both;}
+.clear-sp {clear:both; display:block}
 .title-sp {color:#fc6a33; font-size: 18px !important; font-weight: bold;font-size: Arial, Helvetica, sans-serif; padding: 10px 0 0;}
 .title-sp-25 {font-size: 25px !important; font-weight: bold; font-family: Arial, Helvetica, sans-serif;}
 .image-sp {width:100% !important;}
@@ -156,7 +156,6 @@ ul.decimal-ul li {
 .line-height-1 {line-height:1 !important;}
 .line-dashed{border-bottom: 2px dashed #A0A0A0; margin:10px 0 15px}
 .static-page-area .button{
-	padding:10px;
 	background:#4ec7da;
 	color:#fff;
 	display:table;
@@ -1838,7 +1837,7 @@ h2.block-grey-title-left {
     
 
 }
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 767px) {
 .formbuilder-form p.required{
 	margin-left:50px !important;
 }
@@ -2529,7 +2528,7 @@ button.button-area {
 	@media only screen and (max-width: 1023px){
 		
 	}
-	@media only screen and (max-width: 768px) {
+	@media only screen and (max-width: 767px) {
 		.promo-telkomsel-19 .column_product_static{
 			width:32%;
 		}.banner-telkomsel-19{
@@ -2749,7 +2748,7 @@ button.button-area {
         display: table;
         float: right;
     }
-    @media only screen and (max-width: 768px) {
+    @media only screen and (max-width: 767px) {
 		.container-filled .right {
             width: 90%;
         }
@@ -2840,7 +2839,7 @@ button.button-area {
 	@media only screen and (max-width: 1023px){
 		
 	}
-	@media only screen and (max-width: 768px) {
+	@media only screen and (max-width: 767px) {
 		.promo-telkomsel-19 .column_product_static{
 			width:32%;
 		}.banner-telkomsel-19{
@@ -3002,7 +3001,7 @@ button.button-area {
 		margin:40px 0 0;
 	}
 }
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 767px) {
 	.tanya-nadia .col{
 		width:100%;
 		margin:40px 0 0;
@@ -3094,7 +3093,7 @@ button.button-area {
 			height:120px;
 		}
 }
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 767px) {
 		.merdekamadness-home .column_product_static, .merdekamadness .column_product_static{
 			width:32%;
 			height:145px;
@@ -3204,7 +3203,7 @@ button.button-area {
 	}
 	
 }
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 767px) {
 	.winner-pc .winner .polaroid .title-photo p.fb-15,	
 	.winner-pc .hiburan .polaroid .title-photo p.fb-15{
 		font-size:12px !important;
@@ -3351,7 +3350,7 @@ button.button-area {
 		text-transform: lowercase;
 	}
 }
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 767px) {
 	#checkoutpromo .promo-baloon{
 		width:98%;
 	}
@@ -3443,7 +3442,7 @@ button.button-area {
 			height:120px;
 		}
 }
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 767px) {
 		.clearence-page-home .column_product_static, .static-page-area .column_product_static{
 			width:32%;
 			height:145px;
@@ -3661,7 +3660,7 @@ button.button-area {
 	}
 	
 }
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 767px) {
 	.gogreen-winner-pc .juara .polaroid, .gogreen-winner-pc .hiburan .polaroid{
 		width:96% !important;
 		margin:10px 0;
@@ -3969,7 +3968,7 @@ button.button-area {
 		width: 360px !important;
 	}
 }
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 767px) {
 	.landing-page-shareapp .footer{
 		padding:20px 0;
 	}
@@ -4169,7 +4168,7 @@ button.button-area {
 	padding-left: 20px;
 	font-weight: bold;
 }
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 767px) {
 	.secreet-wishes .link-wrap .link-category-promo{
 		width:45%;
 	}
@@ -4244,7 +4243,7 @@ button.button-area {
 		width:100%;
 	}
 }
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 767px) {
 	.formbuilder-form .termncondition{
 		margin-left: 50px;
 	}
@@ -4307,7 +4306,7 @@ button.button-area {
 		margin-left: 232px !important;
 	}
 }
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 767px) {
 	.form-pampers-promo .formbuilder-form ul li{
 		margin-bottom: 10px !important;
 	}
@@ -4324,3 +4323,454 @@ button.button-area {
 	}
 }
 /*============================ end style pampers promo ========================*/
+/*=========================== style featured your brand =======================*/
+.featured-your-brand .static-page-wrapper{
+	background:url(../images/bg_featured_your_brand.jpg) repeat;
+	padding-bottom:30px;
+}
+.featured-your-brand .featured-header{
+	margin-bottom:30px;
+	margin-top:40px
+}
+.featured-your-brand .featured-header,
+.featured-your-brand .wrap-featured{
+	display:inline-block;
+	clear:both;
+	width:100%;
+}
+.featured-your-brand  .featured-manfaat{
+	position:relative;
+}
+.featured-your-brand .featured-manfaat .border{
+	border-bottom: 1px solid;
+	position: absolute;
+	top: 67px;
+	width: 100%;
+}
+.featured-your-brand .featured-header img{
+	width: 24%;
+	margin-left: 5%;
+}
+.featured-your-brand .wrap-featured img{
+	width:65%;
+}
+.featured-your-brand .featured-header img,
+.featured-your-brand .featured-header p{
+	float:left;
+	font-weight:bold;
+}
+.featured-your-brand .featured-header p{
+	font-size: 40px;
+	color: #f58220;
+	font-weight: bold;
+	line-height: 50px;
+	margin-top: 70px;
+	margin-left: 5%;
+	width: 63%;
+}
+.featured-your-brand .wrap-featured .title-featured{
+	font-size: 30px;
+	width: 39%;
+	margin:10px auto 30px;
+	text-transform: uppercase;
+	z-index:9;
+	color: #fff;
+	word-spacing: 10px;
+	text-align: center;
+	padding: 15px 0;
+	font-weight: bold;
+	background: #f58220;
+	position: static;
+	transform: rotate(356deg) ;
+	-webkit-transform: rotate(356deg) ;
+	-moz-transform: rotate(356deg) ;
+	-o-transform: rotate(356deg) ;
+	-ms-transform: rotate(356deg) ;
+}
+.featured-your-brand .wrap-featured .title-featured:before{
+	content:"";
+	background:url(../images/arrow-ribbon-featured-brand.png) right repeat-y;
+	position:absolute;
+	top:0;
+	bottom:0;
+	left:-9px;
+	width:10px;
+}
+.featured-your-brand .wrap-featured .title-featured:after{
+	content:"";
+	background:url(../images/arrow-right-ribbon-featured-brand.png) left repeat-y;
+	position:absolute;
+	top:0;
+	bottom:0;
+	right:-9px;
+	width:10px;
+}
+.featured-your-brand .wrap-featured.featured-tentang .title-featured{
+	margin-bottom: -46px;
+	padding: 28px 0;
+}
+.featured-your-brand .wrap-featured .container-icon{
+	 display: -webkit-box;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-flex-flow: row wrap;
+	flex-direction: row ;
+	flex-wrap:wrap;
+  justify-content: space-around;
+}
+.featured-your-brand .wrap-featured .wrap-icon{
+	width: 29%;
+	text-align: center;
+	padding: 30px 2%;
+}
+.featured-your-brand .wrap-featured .wrap-icon p{
+	text-align: center;
+	font-weight: bold;
+	margin: 0 auto;
+	line-height: 14px;
+	font-size: 14px;
+	color: #000;
+}
+.featured-your-brand .wrap-featured .wrap-icon p span{
+	font-size: 30px;
+	display: block;
+	color:#f58220;
+	clear: both;
+	line-height: 30px;
+	text-transform: uppercase;
+}
+.featured-tentang .wrap-icon:nth-child(2),
+.featured-tentang .wrap-icon:nth-child(5){
+	*border-left:1px solid;
+	*border-right:1px solid;
+}
+.featured-tentang .wrap-icon:nth-child(1),
+.featured-tentang .wrap-icon:nth-child(2),
+.featured-tentang .wrap-icon:nth-child(3){
+	border-top:1px solid;
+}
+.featured-tentang .wrap-icon:nth-child(1),.featured-tentang .wrap-icon:nth-child(2),.featured-tentang .wrap-icon:nth-child(3){
+	padding-top:65px;
+}
+.featured-tentang .wrap-icon{
+	*border-bottom:1px solid;
+}
+.partner-registration form ul li:nth-of-type(9) label{
+	width:100% !important;
+}
+.partner-registration form ul li:nth-of-type(9) select{
+	margin-left:140px;
+	margin-top:10px;
+}
+.partner-registration .formbuilder-form p.required{
+  margin-left: 190px !important;}
+.partner-registration .formbuilder-form button.button {
+  display: table;
+  margin-left: 190px !important;
+}
+.featured-your-brand .button-featured{
+	float: none;
+	padding: 10px 30px;
+	font-weight: bold;
+	background: #f58424;
+	color: #fff;
+	display: table;
+	font-size: 30px;
+	margin: 20px auto;
+}
+@media only screen and (max-width: 1214px) {
+	.featured-your-brand .wrap-featured .wrap-icon p span {
+		font-size: 20px;
+		line-height: 24px;
+	}
+	.featured-your-brand .wrap-featured .wrap-icon p {
+		line-height: 16px;
+		font-size: 13px;
+	}
+	.featured-your-brand .wrap-featured .title-featured {
+		font-size: 23px;
+		width: 54%;
+	}
+	.featured-your-brand .wrap-featured.featured-tentang .title-featured {
+		margin-bottom: -22px;
+		padding: 18px 0px;
+	}	
+	.featured-your-brand .featured-manfaat .border{
+		border-bottom: 1px solid;
+		position: absolute;
+		top: 33px;
+		width: 100%;
+	}
+}
+@media only screen and (max-width: 1023px) {
+	.featured-your-brand .featured-header p {
+		font-size: 33px;
+		line-height: 35px;
+		margin-top: 40px;
+	}
+	.featured-your-brand .wrap-featured .title-featured {
+		font-size: 23px;
+		width: 46%;
+	}
+	.featured-your-brand .wrap-featured .wrap-icon p span {
+		font-size: 20px;
+		line-height: 24px;
+	}
+	.featured-your-brand .wrap-featured .wrap-icon p {
+		line-height: 16px;
+		font-size: 12px;
+	}
+	.featured-your-brand .button-featured{
+		font-size: 20px;
+	}
+	.partner-registration ul li div.form-checkbox input{
+		margin:0 5px !important;
+	}
+	.partner-registration form ul li:nth-of-type(9) select {
+		margin-left: 0;
+		margin-bottom:10px;
+	}
+	.partner-registration .formbuilder-form ul li{
+		margin-bottom:0 !important;
+	}
+}
+@media only screen and (max-width: 468px) {
+	.featured-your-brand .wrap-featured .wrap-icon {
+		width: 45%;
+	}
+	.featured-your-brand .wrap-featured .title-featured {
+		width: 80%;
+	}
+	.featured-your-brand .wrap-featured.featured-tentang .title-featured {
+		padding: 18px 0px;
+		margin-bottom: -25px;
+	}
+	.featured-tentang .wrap-icon:nth-child(1),
+	.featured-tentang .wrap-icon:nth-child(3),
+	.featured-tentang .wrap-icon:nth-child(5){
+		*border-left:0;
+		*border-right:0;
+	}
+	.featured-tentang .wrap-icon:nth-child(3){
+		border-top:0;
+		padding-top:auto;
+	}
+	.featured-tentang .wrap-icon:nth-child(2),
+	.featured-tentang .wrap-icon:nth-child(4),
+	.featured-tentang .wrap-icon:nth-child(6){
+		border-right:0;
+		*border-left:1px solid
+	}
+	.featured-your-brand .featured-header img {
+		width: 60%;
+		margin: 0 auto;
+		display: block;
+		float: none;
+	}
+	.featured-your-brand .featured-header p {
+		width: 100%;
+		font-size: 30px;
+		text-align:center;
+	}
+	.featured-your-brand .button-featured{
+		font-size: 15px;
+	}
+	.partner-registration .formbuilder-form p.required{
+		margin-left: 0 !important;
+	}
+	.partner-registration.static-page-wrapper ul{
+		width:100% !important;
+		margin:0 !important;
+	}
+	.partner-registration #formbuilder-form{
+		width:100% !Important;
+		margin:0 !important;
+	}
+	.partner-registration .formbuilder-form ul li input{
+		margin:0 0 10px!important;
+		width: 90% !important;
+	}
+	.partner-registration #formbuilder-form label{
+		width:100% !Important
+	}
+}
+/*========================= end style featured your brand =====================*/
+/*============================ style weekly pregnancy ========================*/
+.weekly-pregnancy .header-weekly-pregnancy{
+	text-align: center;
+	width: 65%;
+	line-height: 18px;
+	padding: 30px 0;
+}
+.weekly-pregnancy .header-weekly-pregnancy .title-header{
+	font-size: 35px;
+	line-height:35px;
+	text-transform: uppercase;
+	color: #de2076;
+	font-weight: bold;
+	margin-bottom: 20px;
+	margin-top: 10px;
+}
+.weekly-pregnancy .wrap-button-link{
+	display:block;
+	clear:both;
+	width:100%;
+	cursor:pointer;
+	border-top:3px solid #de2076;
+}
+.weekly-pregnancy .image-semester{
+	width:40%;
+	float:left;
+	padding: 0 5%;
+}
+.weekly-pregnancy .image-semester img{
+	max-width:100%;
+}
+.weekly-pregnancy .text-area{
+	width:50%;
+	margin: 0;
+	float:left;
+}
+.weekly-pregnancy .text-area .wrap-title-semester{
+	font-size:18px;
+	text-align:right;
+}
+.weekly-pregnancy .text-area .wrap-title-semester span{
+	background: #de2076 none repeat scroll 0 0;
+	color: #fff;
+	display: table;
+	float: left;
+	height: 25px;
+	line-height: 25px;
+	margin: 0 5%;
+	padding: 0 10%;
+	position: relative;
+}
+.weekly-pregnancy .text-area .center-text-sp{
+	line-height: 20px;
+	width: 77%;
+	color: #929292;
+	margin: 50px auto;
+}
+.trimester .trimester-title{
+	background: #de2076;
+	color: #fff;
+	display: table;
+	margin: 0 auto;
+	padding: 10px 30px;
+}
+.trimester .wrap-button-week{
+	display:table;
+	margin: 20px auto 0;
+}
+.trimester .wrap-button-week p{
+	padding:5px 10px;
+	font-size: 15px;
+	color: #de2076;
+	font-weight:bold;
+}
+.trimester .wrap-button-week p,
+.trimester .wrap-button-week a{
+	float:left;
+}
+.trimester .wrap-button-week .button-week{
+	background: #de2076;
+	width: 35px;
+	border-radius: 52%;
+	line-height: 35px;
+	margin: 0 10px 5px 0;
+	color: #fff;
+	height: 35px;
+}
+.trimester .wrap-content-week{
+	border-top:3px solid #de2076;
+	text-align:center;
+}
+.trimester .title-week{
+	display:table;
+	background:#de2076;
+	margin:0 auto;
+	padding: 3px 7% 6px;
+	font-size:16px;
+	color:#fff;
+	position:relative;
+	font-weight:bold;
+}
+.weekly-pregnancy .text-area .wrap-title-semester span:before,
+.trimester .title-week:before{
+	content: url("../images/left-tab.png");
+	left: -18px;
+	position: absolute;
+	top: 0;
+}
+.weekly-pregnancy .text-area .wrap-title-semester span:after,
+.trimester .title-week:after{
+	content: url("../images/right-tab.png");
+	right: -18px;
+	position: absolute;
+	top: 0;
+}
+.trimester .title-content{
+	font-size:18px;
+	font-weight:bold;
+	margin: 25px 0 10px;
+}
+.trimester .decs-content{
+	font-size:14px;
+}
+.trimester ul {
+	margin-bottom:20px;
+}
+.trimester ul li{
+	display:table;
+	margin:0 auto;
+	font-size: 14px;
+}
+@media only screen and (max-width: 1023px) {
+	.weekly-pregnancy .text-area .wrap-title-semester{
+		font-size:16px;
+	}
+	.trimester .wrap-button-week p{
+		display:block;
+		clear:both;
+		float:none;
+	}
+	.weekly-pregnancy .header-weekly-pregnancy{
+		width:52%;
+	}
+}
+@media only screen and (max-width: 767px) {
+	.weekly-pregnancy .header-weekly-pregnancy .title-header{
+		font-size: 23px;
+		line-height: 26px;
+	}
+	.weekly-pregnancy .header-weekly-pregnancy{
+		width: 85%;
+	}
+	.weekly-pregnancy .text-area .wrap-title-semester{
+		font-size:14px;
+	}
+	.trimester .wrap-button-week {
+		width: 272px;
+	}
+}
+@media only screen and (max-width: 468px) {
+	
+	.weekly-pregnancy .image-semester{
+		width:100%;
+		padding: 0;
+	}
+	.weekly-pregnancy .text-area{
+		width:100%;
+	}
+	.weekly-pregnancy .semester1 img,
+	.weekly-pregnancy .semester3 img{
+		border-bottom:3px solid #de2076;
+	}
+	.trimester .wrap-button-week {
+		width: 94%;
+	}
+}
+/*========================= end style weekly pregnancy ========================*/
