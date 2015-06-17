@@ -196,6 +196,11 @@ class RocketWeb_Netsuite_Model_Observer {
         
         if ($this->checkQueueOrderPlace($order, $observer)) {
             $message = Mage::getModel('rocketweb_netsuite/queue_message');
+            /*adding logging for tracking fake order*/
+            $paymentMethodCode = $order->getPayment()->getMethodInstance()->getCode();            
+            $msg = "\n".date('YmdHis')." increment id ".$order->getIncrementId(). " | entity_id ".$order->getId() ." | paymentMethodCode ".$paymentMethodCode;
+            error_log($msg, 3, Mage::getBaseDir('var') . DS . 'log'.DS.'netsuite_order.log');
+            /*end adding logger for fake order*/
             $message->create(RocketWeb_Netsuite_Model_Queue_Message::ORDER_PLACE, $order->getId(), RocketWeb_Netsuite_Helper_Queue::NETSUITE_EXPORT_QUEUE);
             Mage::helper('rocketweb_netsuite/queue')->getQueue(RocketWeb_Netsuite_Helper_Queue::NETSUITE_EXPORT_QUEUE)->send($message->pack());
         }

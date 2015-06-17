@@ -481,11 +481,11 @@ class RocketWeb_Netsuite_Helper_Mapper_Order extends RocketWeb_Netsuite_Helper_M
                         $customFields[] = $customPaymentMethod;
                     }
                     elseif ($customFieldsConfigItem['netsuite_field_name'] == 'custbody_customergroup') {
-                    	$groupname = Mage::getModel('customer/group')->load($magentoOrder->getCustomerGroupId())->getCustomerGroupCode();
-                    	$customerGroup = new StringCustomFieldRef();
-                    	$customerGroup->internalId = 'custbody_customergroup';
-                    	$customerGroup->value = preg_replace('/^(\w+) - /', '', $groupname);
-                    	$customFields[] = $customerGroup;
+                        $groupname = Mage::getModel('customer/group')->load($magentoOrder->getCustomerGroupId())->getCustomerGroupCode();
+                        $customerGroup = new StringCustomFieldRef();
+                        $customerGroup->internalId = 'custbody_customergroup';
+                        $customerGroup->value = preg_replace('/^(\w+) - /', '', $groupname);
+                        $customFields[] = $customerGroup;
                     }
                     elseif ($customFieldsConfigItem['netsuite_field_name'] == 'custbody_bln_company_name') {
                         $address = $magentoOrder->getShippingAddress();
