@@ -1,0 +1,246 @@
+<?php
+/**
+ * aheadWorks Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://ecommerce.aheadworks.com/AW-LICENSE.txt
+ *
+ * =================================================================
+ *                 MAGENTO EDITION USAGE NOTICE
+ * =================================================================
+ * This software is designed to work with Magento professional edition and
+ * its use on an edition other than specified is prohibited. aheadWorks does not
+ * provide extension support in case of incorrect edition use.
+ * =================================================================
+ *
+ * @category   AW
+ * @package    AW_Blog
+ * @version    1.3.0
+ * @copyright  Copyright (c) 2010-2012 aheadWorks Co. (http://www.aheadworks.com)
+ * @license    http://ecommerce.aheadworks.com/AW-LICENSE.txt
+ */
+?><?php $post = $this->getPost(); 
+$relatedPost = $this->getRelatedPost($post->getCatId(), $post->getPostId());
+$commentCount = $this->getCommentCount();
+?>
+
+<div id="messages_product_view"><?php echo $this->getMessagesBlock()->getGroupedHtml() ?></div>
+<div class="postWrapper">
+    
+    <p>
+        <img alt="" src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA);?><?php echo $post->getImageName();?>" class="image-post-main" />
+        <div class="postTitle">
+        <h2><?php echo $post->getTitle(); ?></h2>
+        <h3><?php echo $post->getCreatedTime(); ?> 
+            <?php if ($this->getCommentsEnabled() && $commentCount > 0): ?>
+                | <?php echo $commentCount; ?> <a href="#commentBox" >Comments</a>
+            <?php endif; ?>
+        </h3>
+    </div>
+    </p>
+
+    <div class="postContent"><?php echo $post->getPostContent(); ?></div>
+    <?php echo $this->getBookmarkHtml($post) ?>
+    <!--div class="tags"><?php //echo Mage::getBlockSingleton('blog/blog')->getTagsHtml($post) ?></div-->
+    <div class="postDetails">
+        <?php $postCats = $post->getCats(); ?>
+        <?php if (!empty($postCats)): ?>
+            <?php echo Mage::helper('blog')->__('This entry was posted in'); ?>
+            <?php foreach ($postCats as $postCat): ?>
+                <a style="color:#4EC7DA;" href="<?php echo $postCat['url']; ?>"><?php echo $postCat['title']; ?></a>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <?php //echo Mage::helper('blog')->__('Posted'); ?>
+        <?php endif; ?><?php echo $this->__("and tagged"); ?> <!--label class="poster"><?php //echo $post->getUser(); ?></label--><?php echo Mage::getBlockSingleton('blog/blog')->getTagsHtml($post) ?>
+    </div>
+    <div style="clear:both; margin: 20px 0;">
+		<h2 class="fb-bebas fb-13" style="color: #707070; font-weight: normal;"><?php echo $this->__('Share this article on') ?></h2>
+        <!-- AddThis Button BEGIN -->
+        <div class="addthis_toolbox addthis_default_style addthis_32x32_style">
+        <a class="addthis_button_preferred_1"></a>
+        <a class="addthis_button_preferred_2"></a>
+        <a class="addthis_button_preferred_3"></a>
+        <a class="addthis_button_preferred_4"></a>
+        <a class="addthis_button_compact"></a>
+        <a class="addthis_counter addthis_bubble_style"></a>
+        </div>
+        <script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
+        <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-52ccfe823e12c07f"></script>
+        <!-- AddThis Button END -->
+    </div>
+    
+    <div style="width: 100%; clear: both; margin: 10px 0; padding: 20px 0;border-top: 1px dashed #999;">
+	<h2 class="fb-bebas fb-18" style="color: #707070; font-weight: normal;"><?php echo $this->__('Related Post') ?></h2>
+    <?php foreach ($relatedPost as $row): ?>
+        
+        <div class="rel-post">
+            <a href="<?php echo $row->getAddress(); ?>">
+				<img src="<?php echo  Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA); ?><?php echo $row->getImageName();?>"/>
+				<p class="post-blog-title-small">
+					<?php echo $row->getTitle();?>
+				</p>
+			</a>
+        </div>
+    <?php endforeach;?>
+    </div>
+    <div style="clear:both;height: 20px;"></div>
+</div>
+
+<!-- Blog Related Product (AW Featured)-->
+<div class="related-product-blog">
+    <?php if (!empty ($postCats)): ?>
+        <?php foreach ($postCats as $postCat): ?>
+            <?php $_relatedProduct = $this->getAwFeaturedProductRelated($postCat['identifier']); ?>
+            <?php if (!empty ($_relatedProduct)): ?>
+                <div class="wrap-title-related-blog">
+                    <p class="title-related-blog">Related Product <?php echo $postCat['title']; ?></p>
+                </div>
+    
+                <?php echo $this->getAwFeaturedProductRelated($postCat['identifier']); ?>
+            <?php endif; ?>
+        <?php endforeach; ?>
+    <?php endif; ?>
+</div>
+
+<!-- Comment Section -->
+<?php if ($this->getCommentsEnabled()): ?>
+	<input type="hidden" value="<?php echo "http://www.bilna.com/baby/blog/".$post->getIdentifier(); ?>" />
+    <?php $comments = $this->getComment(); ?>
+	<div style="clear:both; border-top: 1px dashed #999;"></div>
+    <div class="postTitle" style="border: none !important;"><a name="commentBox" ></a>
+        <h2 class="fb-bebas fb-18" style="color: #707070; font-weight: normal;"><?php echo $this->__('Leave A Response') ?></h2>
+    </div>
+    
+    <?php //echo $this->getChildHtml('aw_blog_comments_toolbar'); ?>
+        <?php foreach ($comments as $comment) : ?>
+            <div class="commentWrapper">
+                <div class="commentDetails">
+                    <h4 class="username"><?php echo $comment->getUser(); ?></h4>&nbsp;&nbsp;
+                    <!--<div style="font-size:18px;">&#8226;</div>-->
+                    <label style="margin: 2px;border-left: 2px dotted #a0a0a0; padding-top:5px;">&nbsp;</label>&nbsp;&nbsp;<img src="<?php echo $this->getSkinUrl('images/post--comment-blog.png'); ?>" style="margin: 3px 0 0"/><?php echo $this->__(" posted on") ?> <?php echo $this->formatDate($comment->getCreatedTime(), Mage::getStoreConfig('blog/blog/dateformat'), true); ?>
+                </div>
+                <div class="commentContent-before"></div>
+                <div class="commentContent" style="margin: 0 0 10px 0;">
+                    <?php echo nl2br($comment->getComment()); ?>
+                </div>
+            </div>
+        <?php endforeach; ?>
+     <?php //echo $this->getChildHtml('aw_blog_comments_toolbar'); ?>
+
+
+    <?php if ($post->getComments()): ?>
+        <div class="postError"><?php echo Mage::helper('blog')->__('Comments are Closed for this post') ?></div>
+    <?php else: ?>
+        <?php if ($this->getLoginRequired()): ?>
+            <?php if ($this->helper('customer')->isLoggedIn()): ?>
+                <form action="" id="postComment" method="post">
+                    <fieldset class="group-select">
+                        <h4 class="legend"><?php echo Mage::helper('blog')->__('Submit Comment') ?></h4>
+                        <ul class="form-list">
+                            <li>
+                                <div class="input-box aw-blog-comment-area">
+                                    <label for="comment" class="required"><?php echo Mage::helper('blog')->__('Comment') ?><em>*</em></label><br />
+                                    <textarea name="comment" id="comment" title="<?php echo $this->__('Comment') ?>" class="required-entry input-text" style="height:150px;width:95%;" cols="50" rows="5"><?php echo $this->getCommentText(); ?></textarea>
+                                </div>
+                            </li>
+                        </ul>
+                    </fieldset>
+                    <div class="button-set" style="width:96%">
+                        <input name="post_id" type="hidden" value="<?php echo $post->getPostId(); ?>" />
+                        <input name="email" type="hidden" value="<?php echo $this->htmlEscape($this->helper('blog')->getUserEmail()) ?>"/>
+                        <input name="user" type="hidden" value="<?php echo $this->htmlEscape($this->helper('blog')->getUserName()) ?>"/>
+                        <p class="required"><?php echo $this->__('* Required Fields') ?></p>
+                        <button class="form-button button" type="submit"><span><span><?php echo Mage::helper('blog')->__('Submit Comment') ?></span></span></button>
+                    </div>
+                </form>
+
+                <script type="text/javascript">
+                    var contactForm = new VarienForm('postComment', false);
+                </script>
+
+            <?php else: ?>
+                <p><?php echo Mage::helper('blog')->__('You must be logged in to post a comment.'); ?></p>
+                <p><a href="<?php echo Mage::helper('customer')->getLoginUrl(); ?>"><?php echo Mage::helper('blog')->__('click here'); ?></a> <?php echo Mage::helper('blog')->__('to log in'); ?></p>
+            <?php endif ?>
+
+        <?php else: ?>
+
+            <form action="" id="postComment" method="post">
+                <fieldset class="group-select">
+                    <h4 class="legend" style="display:none"><?php echo Mage::helper('blog')->__('Submit Comment') ?></h4>
+                    <ul class="form-list">
+                        <li>
+                            
+                            <div class="field-width-comment" style="padding: 0 2.5% 0 0; float:left;">
+                                <div class="input-box">
+                                    <label for="name" class="required"><?php echo Mage::helper('blog')->__('Name') ?><em>*</em></label><br />
+                                    <input name="user" id="user" value="<?php echo $this->getCommentName(); ?>" title="<?php echo $this->__('Name') ?>" class="required-entry input-text" type="text" />
+                                </div>
+
+                                <div class="input-box">
+                                    <label for="email" class="required"><?php echo Mage::helper('blog')->__('Email') ?><em>*</em></label><br />
+                                    <input name="email" id="email" value="<?php echo $this->getCommentEmail(); ?>" title="<?php echo $this->__('Email') ?>" class="required-entry input-text validate-email" type="text" />
+                                </div>
+                                
+                                <!--div class="input-box">
+                                    <label for="website" class="required"><?php //echo Mage::helper('blog')->__('Website') ?></label><br />
+                                    <input name="website" id="website" value="<?php //echo $this->getCommentName(); ?>" title="<?php //echo $this->__('Website') ?>" class="input-text" type="text" />
+                                </div-->
+
+                                <div class="clear"></div>
+                            </div>
+                            
+                            <div class="field-width-comment" style="padding: 0 2.5% 0 0; float:left;">
+                                <div class="input-box aw-blog-comment-area">
+                                    <label for="comment" class="required"><?php echo Mage::helper('blog')->__('Comment') ?><em>*</em></label><br />
+                                    <textarea name="comment" id="comment" title="<?php echo Mage::helper('blog')->__('Comment') ?>" class="required-entry input-text" style="height:141px;width:100%; max-width:100%; min-width:100%;margin:0;padding: 8px;" cols="50" rows="5"><?php echo $this->getCommentText(); ?></textarea>
+                                </div>
+                            </div>
+                        </li>
+
+                        <?php
+                        if (Mage::getStoreConfig('blog/recaptcha/enabled') && !$this->helper('customer')->isLoggedIn()) {
+                            ?><li><?php
+                require_once 'recaptcha/recaptchalib-aw.php';
+
+                // Get a key from http://recaptcha.net/api/getkey
+                $publickey = Mage::getStoreConfig('blog/recaptcha/publickey');
+                $privatekey = Mage::getStoreConfig('blog/recaptcha/privatekey');
+                $error = null;
+
+                echo recaptcha_get_html($publickey, $error);
+                            ?></li><?php
+            }
+                        // ?>
+                    </ul>
+                </fieldset>
+                <div class="button-set" style="width:96%; margin-bottom:40px">
+                    <input name="post_id" type="hidden" value="<?php echo $post->getPostId(); ?>" />
+                    <p class="required"><?php echo $this->__('* Required Fields') ?></p>
+                    <button class="button form-button" type="submit"><span><span><?php echo Mage::helper('blog')->__('POST COMMENT') ?></span></span></button>
+                </div>
+            </form>
+            <div class="clear"></div>
+
+            <script type="text/javascript">
+                var contactForm = new VarienForm('postComment', false);
+            </script>
+        <?php endif; ?>
+    <?php endif; ?>
+<?php endif; ?>
+
+<div id="comment_box" style="margin-top:20px;">
+    <div id="fb-root"></div> 
+    <script>(function(d){
+      var js, id = 'facebook-jssdk'; if (d.getElementById(id)) {return;}
+      js = d.createElement('script'); js.id = id; js.async = true;
+      js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+      d.getElementsByTagName('head')[0].appendChild(js);
+    }(document));</script>   
+
+    <fb:comments href="<?php echo "http://www.bilna.com/baby/blog/".$post->getIdentifier(); ?>" num_posts="25"></fb:comments> 
+</div>

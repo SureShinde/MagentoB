@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Alw_My>
+            <version>0.1.8</version>
+        </Alw_My>
+    </modules>
+   
+    <global>
+	    <resources>
+		    <my_setup>
+			    <setup>
+				    <module>Alw_My</module>
+				    <class>Mage_Catalog_Model_Resource_Eav_Mysql4_Setup</class>
+			    </setup>
+			    <connection>
+				    <use>core_setup</use>
+			    </connection>
+		    </my_setup>
+		    <my_setup_write>
+			    <connection>
+				    <use>core_write</use>
+			    </connection>
+		    </my_setup_write>
+		    <my_setup_read>
+			    <connection>
+				    <use>core_read</use>
+			    </connection>
+		    </my_setup_read>
+	    </resources>	   
+    </global>
+</config>

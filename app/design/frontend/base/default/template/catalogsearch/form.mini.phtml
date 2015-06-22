@@ -1,0 +1,67 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+/* @var $this Mage_Core_Block_Template */
+/* @var $catalogSearchHelper Mage_Catalogsearch_Helper_Data */
+$catalogSearchHelper =  $this->helper('catalogsearch');
+//$cat = $catalogSearchHelper->getCategories();
+//$_helper = Mage::helper('catalog/category');
+//$_categories = $_helper->getStoreCategories();
+$_cat = !is_null($this->getRequest()->getParam('cat')) ? $this->getRequest()->getParam('cat') : '';
+$_helper = Mage::helper('megamenu');
+$_categories = $_helper->getMegamenuData();
+?>
+
+
+    <form id="nav-searchbar" action="<?php echo $catalogSearchHelper->getResultUrl() ?>" method="get" name="site-search" role="search" accept-charset="utf-8" class="nav-searchbar-inner">
+        <div class="nav-submit-button nav-sprite">
+            <button type="submit" value="" class="nav-submit-input" title="">
+                <img style="margin: 5px 10px 0;" src="<?php echo $this->getSkinUrl('images/search-icon-new.png'); ?>" maxlength="<?php echo $catalogSearchHelper->getMaxQueryLength(); ?>"/>
+            </button>
+        </div>
+
+        <span id="nav-search-in" class="nav-sprite nav-facade-active" style="width: auto;">
+            <span id="nav-search-in-content" data-value="search-alias=aps" style="width: auto; overflow: visible;">All Category</span>
+            <span class="nav-down-arrow"></span>
+                
+            <select data-nav-digest="bDT22wibLRgrc0Gc07TKBa9Syl4" data-nav-selected="0" name="cat" id="searchDropdownBox" class="searchSelect select-style" title="Search in" style="top: 3px;">
+                <option class="style-search-top" value="all-category">All Category</option>
+                
+                <?php if (count($_categories) > 0): ?>
+                    <?php foreach ($_categories as $_category): ?>
+                        <option class="search-title-drop style-search-cat" value="<?php echo $_category['id']; ?>">
+                            <?php echo $_category['name']; ?>
+                        </option>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            </select>
+        </span>
+
+        <div class="nav-searchfield-width">
+            <div id="nav-iss-attach">
+                <input type="text" id="twotabsearchtextbox" title="Search For" value="<?php echo $catalogSearchHelper->getEscapedQueryText() ?>" name="q" autocomplete="off" placeholder="Search...">
+            </div>
+        </div>
+    </form>

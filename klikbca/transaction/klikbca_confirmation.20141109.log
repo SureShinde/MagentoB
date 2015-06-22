@@ -1,0 +1,4 @@
+2014-11-09 12:48:02 DEBUG:  | request_bilna: {"cru":null,"crp":null,"userid":"","transno":null,"transdate":null,"amount":null,"type":null,"adddata":null,"rettype":"xml"}
+2014-11-09 12:48:02 DEBUG:  | response_bilna: false
+2014-11-09 12:50:01 DEBUG: cannot start process because other process still running
+2014-11-09 12:52:01 DEBUG: cannot start process because other process still running

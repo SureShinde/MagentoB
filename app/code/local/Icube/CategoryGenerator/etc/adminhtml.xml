@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<config>
+    <menu>
+        <promo translate="title" module="categorygenerator">
+            <children>
+                <categorygenerator module="categorygenerator">
+                    <title>Category Generator</title>
+                    <action>categorygenerator_admin/adminhtml_generator</action>
+                </categorygenerator>
+            </children>
+        </promo>
+    </menu>
+    
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <promo translate="title" module="categorygenerator">
+                        <children>
+                            <categorygenerator translate="title">
+                                <title>Category Generator</title>
+                            </categorygenerator>
+                        </children>
+                    </promo>
+                </children>
+            </admin>
+        </resources>
+     </acl>
+</config>

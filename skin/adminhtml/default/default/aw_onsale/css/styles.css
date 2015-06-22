@@ -1,0 +1,65 @@
+/**
+ * aheadWorks Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://ecommerce.aheadworks.com/LICENSE-M1.txt
+ *
+ * @category   AW
+ * @package    AW_Onsale
+ * @copyright  Copyright (c) 2009-2010 aheadWorks Co. (http://www.aheadworks.com)
+ * @license    http://ecommerce.aheadworks.com/LICENSE-M1.txt
+ */
+ 
+.aw_onsale_position_container {
+    position: relative;
+    float: left;
+    width: 280px;
+}
+.aw_onsale_position_button {
+    width: 278px;
+    height: 19px;
+    position: absolute;
+    top: 1px;
+    background-image:url("../images/button.png");
+    color: #fff;
+    font-weight: bold;
+    left: 1px;
+    float: left;
+    text-align: center;
+    z-index: 3;
+    cursor: default;
+    display: none;
+}
+.aw_onsale_selectbox {
+    background-color: #fff;
+    border:1px solid #ccc;
+    display:none;
+    height:73px;
+    left:0;
+    position:absolute;
+    top:0;
+    width:79px;
+    z-index:4;
+}
+
+.aw_onsale_selectbox .position_selector {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    float:left;
+    height:21px;
+    margin-left:1px;
+    margin-top:1px;
+    width:23px;
+}
+
+.aw_onsale_selectbox div.active {
+    background-color: #EA7601 !important;
+}
+
+.aw_onsale_selectbox div.over {
+    background-color: #ccc;
+}

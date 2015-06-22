@@ -1,0 +1,203 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <awaffiliate_admin_adminhtml_campaign_index>
+        <reference name="content">
+            <block type="awaffiliate/adminhtml_campaign" name="awaff.campaign.grid"/>
+        </reference>
+    </awaffiliate_admin_adminhtml_campaign_index>
+    <awaffiliate_admin_adminhtml_campaign_edit>
+        <update handle="editor"/>
+        <reference name="head">
+            <action method="addItem">
+                <type>skin_css</type>
+                <name>aw_affiliate/css/affiliate.css</name>
+            </action>
+            <action method="addItem">
+                <type>skin_js</type>
+                <name>aw_affiliate/js/campaign/edit.js</name>
+            </action>
+            <!-- <action method="addJs"><script>extjs/ext-tree-checkbox.js</script></action> -->
+            <action method="setCanLoadExtJs">
+                <flag>1</flag>
+            </action>
+            <action method="setCanLoadRulesJs">
+                <flag>1</flag>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="awaffiliate/adminhtml_campaign_edit" name="awaff.campaign.edit"></block>
+        </reference>
+        <reference name="left">
+            <block type="awaffiliate/adminhtml_campaign_edit_tabs" name="awaff.campaign.edit.tabs">
+                <block type="awaffiliate/adminhtml_campaign_edit_tab_general" name="awaff.campaign.edit.tab.general"/>
+                <block type="awaffiliate/adminhtml_campaign_edit_tab_rate" name="awaff.campaign.edit.tab.rate"/>
+                <block type="awaffiliate/adminhtml_campaign_edit_tab_conditions" name="awaff.campaign.edit.tab.conditions"/>
+                <!-- <block type="awaffiliate/adminhtml_campaign_edit_tab_products" name="awaff.campaign.edit.tab.products"/> -->
+                <action method="addTab">
+                    <name>general_section</name>
+                    <block>awaff.campaign.edit.tab.general</block>
+                </action>
+                <action method="addTab">
+                    <name>rate_section</name>
+                    <block>awaff.campaign.edit.tab.rate</block>
+                </action>
+                <action method="addTab">
+                    <name>conditions_section</name>
+                    <block>awaff.campaign.edit.tab.conditions</block>
+                </action>
+                <!-- <action method="addTab">
+                    <name>products_section</name>
+                    <block>awaff.campaign.edit.tab.products</block>
+                </action> -->
+
+            </block>
+        </reference>
+    </awaffiliate_admin_adminhtml_campaign_edit>
+
+    <awaffiliate_admin_adminhtml_campaign_products>
+        <block type="core/text_list" name="root" output="toHtml">
+           <block type="awaffiliate/adminhtml_campaign_edit_tab_productsgrid" name="awaff.campaign.edit.tab.productsgrid"/>
+           <block type="adminhtml/widget_grid_serializer" name="grid_serializer">
+               <reference name="grid_serializer">
+                   <action method="initSerializerBlock">
+                       <grid_block_name>awaff.campaign.edit.tab.productsgrid</grid_block_name>
+                       <data_callback>getSelectedProducts</data_callback>
+                       <hidden_input_name>links[products]</hidden_input_name>
+                       <reload_param_name>products</reload_param_name>
+                   </action>
+                   <action method="addColumnInputName">
+                       <input_name>position</input_name>
+                   </action>
+               </reference>
+           </block>
+       </block>
+    </awaffiliate_admin_adminhtml_campaign_products>  
+    <awaffiliate_admin_adminhtml_campaign_productsgrid>
+            <block type="core/text_list" name="root" output="toHtml">
+                <block type="awaffiliate/adminhtml_campaign_edit_tab_productsgrid" name="awaff.campaign.edit.tab.productsgrid"/>
+            </block>
+    </awaffiliate_admin_adminhtml_campaign_productsgrid> 
+
+
+    <awaffiliate_admin_adminhtml_affiliate_index>
+        <reference name="content">
+            <block type="awaffiliate/adminhtml_affiliate" name="awaff.affiliate.grid"/>
+        </reference>
+    </awaffiliate_admin_adminhtml_affiliate_index>
+    <awaffiliate_admin_adminhtml_affiliate_edit>
+        <reference name="head">
+            <action method="addItem">
+                <type>skin_css</type>
+                <name>aw_affiliate/css/affiliate.css</name>
+            </action>
+            <action method="addItem">
+                <type>skin_js</type>
+                <name>aw_affiliate/js/affiliate/withdrawal.js</name>
+            </action>
+            <action method="addItem">
+                <type>skin_js</type>
+                <name>aw_affiliate/js/affiliate/edit.js</name>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="awaffiliate/adminhtml_affiliate_edit" name="awaff.affiliate.edit"/>
+            <block type="adminhtml/template" template="aw_affiliate/backurl.phtml"/>
+        </reference>
+        <reference name="left">
+            <block type="awaffiliate/adminhtml_affiliate_edit_tabs" name="awaff.affiliate.edit.tabs">
+                <block type="awaffiliate/adminhtml_affiliate_edit_tab_general" name="awaff.affiliate.edit.tab.general"/>
+                <block type="awaffiliate/adminhtml_affiliate_edit_tab_balance" name="awaff.affiliate.edit.tab.balance"/>
+                <action method="addTab">
+                    <name>general_section</name>
+                    <block>awaff.affiliate.edit.tab.general</block>
+                </action>
+                <action method="addTab">
+                    <name>balance_section</name>
+                    <block>awaff.affiliate.edit.tab.balance</block>
+                </action>
+            </block>
+        </reference>
+    </awaffiliate_admin_adminhtml_affiliate_edit>
+    <awaffiliate_admin_adminhtml_affiliate_new>
+        <reference name="head">
+            <action method="addItem">
+                <type>skin_css</type>
+                <name>aw_affiliate/css/affiliate.css</name>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="awaffiliate/adminhtml_affiliate_add" name="awaff.affiliate.add"/>
+            <block type="awaffiliate/adminhtml_affiliate_customer_container"
+                   name="awaff.affiliate.customer.add.container"
+                   template="aw_affiliate/affiliate/new/customers/container.phtml">
+                <block type="awaffiliate/adminhtml_affiliate_customer_grid" name="awaff.affiliate.customer.grid"/>
+            </block>
+        </reference>
+        <reference name="left">
+            <block type="awaffiliate/adminhtml_affiliate_edit_tabs" name="awaff.affiliate.edit.tabs">
+                <block type="awaffiliate/adminhtml_affiliate_edit_tab_general" name="awaff.affiliate.edit.tab.general"/>
+                <block type="awaffiliate/adminhtml_affiliate_edit_tab_balance" name="awaff.affiliate.edit.tab.balance"/>
+                <action method="addTab">
+                    <name>general_section</name>
+                    <block>awaff.affiliate.edit.tab.general</block>
+                </action>
+                <action method="addTab">
+                    <name>balance_section</name>
+                    <block>awaff.affiliate.edit.tab.balance</block>
+                </action>
+            </block>
+        </reference>
+    </awaffiliate_admin_adminhtml_affiliate_new>
+    <adminhtml_customer_edit>
+        <reference name="content">
+            <block type="adminhtml/template" template="aw_affiliate/backurl.phtml"/>
+        </reference>
+    </adminhtml_customer_edit>
+    <awaffiliate_admin_adminhtml_withdrawal_index>
+        <reference name="head">
+            <action method="addItem">
+                <type>skin_css</type>
+                <name>aw_affiliate/css/affiliate.css</name>
+            </action>
+            <action method="addItem">
+                <type>skin_js</type>
+                <name>aw_affiliate/js/affiliate/withdrawal.js</name>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="awaffiliate/adminhtml_withdrawal"/>
+        </reference>
+    </awaffiliate_admin_adminhtml_withdrawal_index>
+    <awaffiliate_admin_adminhtml_withdrawal_grid>
+        <block type="core/text_list" name="root">
+            <block type="awaffiliate/adminhtml_withdrawal_grid"/>
+        </block>
+    </awaffiliate_admin_adminhtml_withdrawal_grid>
+    <awaffiliate_admin_adminhtml_category_index>
+        <reference name="content">
+            <block type="awaffiliate/adminhtml_category" name="awaff.category.grid"/>
+        </reference>
+    </awaffiliate_admin_adminhtml_category_index>
+    <awaffiliate_admin_adminhtml_category_new>
+         <reference name="head">
+            <action method="addJs"><js>extjs/ext-tree.js</js></action>
+            <action method="addJs"><js>extjs/ext-tree-checkbox.js</js></action>
+            <action method="addItem"><type>js</type><name>extjs/ext-tree.js</name></action>
+            <action method="addItem"><type>js</type><name>extjs/ext-tree-checkbox.js</name></action>
+            <action method="addItem"><type>js_css</type><name>extjs/resources/css/ext-all.css</name></action>
+            <action method="addItem"><type>js_css</type><name>extjs/resources/css/ytheme-magento.css</name></action>
+        </reference>
+        <reference name="content">
+            <block type="awaffiliate/adminhtml_category_edit" name="awaff.category.edit"></block>
+        </reference>
+        <reference name="left">
+            <block type="awaffiliate/adminhtml_category_edit_tabs" name="awaff.category.edit.tabs">
+                <!-- <block type="awaffiliate/adminhtml_category_edit_tab_general" name="awaff.category.edit.tab.general"/> -->
+                <!-- <action method="addTab">
+                    <name>general_section_category</name>
+                    <block>awaff.category.edit.tab.general</block>
+                </action> -->
+            </block>
+        </reference>
+    </awaffiliate_admin_adminhtml_category_new>
+</layout>

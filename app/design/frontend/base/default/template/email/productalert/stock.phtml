@@ -1,0 +1,80 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php if ($_products = $this->getProducts()): ?>
+<?php $n = array(); foreach ($_products as $_product): ?>
+<?php $n[]= $this->escapeHtml($_product->getName()) ?>
+<?php endforeach; ?>
+<tr>
+	<td style="padding: 5px 5px 0;  background:#ececec;" colspan="2">
+		<p style="background:#fff; padding:10px; margin:0;">
+			<?php echo $this->__('Kami informasikan kepada Anda bahwa produk') ?> <?php echo implode(", ", $n); ?>
+			<?php echo $this->__('telah tersedia. Anda dapat langsung membelinya melalui link berikut ini:') ?>
+		</p>
+	</td>
+</tr>
+<tr>
+	<td colspan="2" style="padding: 5px 5px;  background:#ececec;">
+		<table>
+			<tr>
+				<td style="width:325px; max-width:370px; background:#fff">
+					<table>
+						<?php foreach ($_products as $_product): ?>
+						<tr>
+							<td style="vertical-align:top; padding-top:13px;"><a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->escapeHtml($_product->getName()) ?>"><img src="<?php echo $this->helper('catalog/image')->init($_product, 'thumbnail')->resize(75, 75) ?>" border="0" align="left" height="75" width="75" alt="<?php echo $this->escapeHtml($_product->getName()) ?>" /></a></td>
+							<td>
+							<p style="margin-bottom:0"><a style="color: #000; text-decoration: none;" href="<?php echo $_product->getProductUrl() ?>"><strong><?php echo $this->escapeHtml($_product->getName()) ?></strong></a></p>
+							
+							<p style="margin-bottom:0"><?php if ($_product->getPrice() != $_product->getFinalPrice()): ?>
+								<?php echo $this->__('Regular Price:') ?> <strong style="text-decoration:line-through;"><?php echo Mage::helper('core')->currency($_product->getPrice()) ?></strong><br />
+								<strong><?php echo $this->__('Special price:') ?> <span style="color:#FF0000;"><?php echo Mage::helper('core')->currency($_product->getFinalPrice()) ?></span></strong>
+							<?php else: ?>
+								<strong><?php echo $this->__('Price:') ?></strong> <?php echo Mage::helper('core')->currency($_product->getPrice()) ?>
+							<?php endif; ?></p>
+							<a style="background:url(http://www.bilna.com/skin/frontend/base/default/images/btn-buynow.png) no-repeat; color: #FFFFFF;font-family: Helvetica; font-size: 12px; font-weight: bold; padding:11px 15px; line-height: 21px;text-transform: uppercase; text-decoration:none;" href="<?php echo $_product->getProductUrl() ?>">BUY NOW</a>
+							<p><small><a href="<?php echo $this->getProductUnsubscribeUrl($_product->getId()) ?>"><?php echo $this->__('Click here not to receive alerts for this product') ?></a></small></p>
+							</td>
+						</tr>
+						<?php endforeach; ?>
+					</table>
+				</td>
+				<td style="background:#fff">
+					<div style=" padding:10px;">
+						Dapatkan voucher belanja <b>Rp.50.000</b> dengan berlangganan newsletter kami, 
+						dan ikuti terus update produk terbaru serta penawaran promosi ekslusif hanya di Bilna.com<br>
+						<a href="http://www.bilna.com/" style="cursor:pointer; color: #4EC7DA; font-weight: bold; text-decoration: none;">daftar</a>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</td>
+</tr>
+<tr>
+	<td colspan="2">
+	<p style="text-align:center; width:100%"><a href="<?php echo $this->getUnsubscribeUrl() ?>"><?php echo $this->__('Unsubscribe from all stock alerts') ?></a></p>
+	</td>
+</tr>
+<?php endif; ?>
