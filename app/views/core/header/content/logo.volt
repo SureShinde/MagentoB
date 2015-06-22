@@ -1,0 +1,1 @@
+<a href="{{url()}}">{{ image('img/frontend/base/bilna-baru.png')}}</a>

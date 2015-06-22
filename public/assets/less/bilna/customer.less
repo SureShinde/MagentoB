@@ -1,0 +1,835 @@
+@import "base_var";
+/*================ login checkout ===================*/
+.login-checkout h5{
+    font-weight: bold;
+}
+.wrap-logincheckout-form, .wrap-login-form, .register-form{
+    border:1px solid #a8a8a8;
+    padding: 20px;
+    color: #494949;
+}
+.wrap-login-form .tooltip{
+    margin-left: 90px;
+}
+.wrap-logincheckout-form p{
+    font-size: 1.2em;
+    line-height: 2em;
+    padding-top: 15px;
+}
+.wrap-logincheckout-form form{
+    display: table;
+    width: 100%;
+}
+.wrap-logincheckout-form label{
+    padding: 0 10px;
+}
+.login-checkout .wrap-radio{
+    border-bottom:1px solid #a8a8a8;
+    margin-bottom: 20px;
+}
+.wrap-radio span{
+    clear: both;
+    display: block;
+    padding: 0 0 10px 40px;
+}
+span.password, span.email{
+    padding: 0 0 20px 60px;
+}
+.wrap-logincheckout-form .password a{
+    text-indent: 20px;
+}
+.wrap-logincheckout-form button{
+    float: right;
+    background: #999;
+    padding: 0 30px;
+}
+.wrap-login-sosmed{
+    padding: 20px;
+    border:1px solid #a8a8a8;
+}
+.wrap-login-sosmed .login-sosmed{
+    display: table;
+    margin: 0 auto;
+}
+.login-sosmed .sosmed-button{
+    margin: 10px;
+}
+.or-login{
+    text-align: center;
+    font-size: 1.3em;
+    padding: 20px 0;
+    position: relative;
+}
+.or-login hr{
+    width: 80%;
+    position: absolute;
+    border-bottom: 1px solid #d2d2d2;
+    margin: 0 auto;
+    z-index: -1;
+    display: table;
+    left: 10%;
+    top: 27px;
+}
+.or-login p{
+    background: #fff;
+    padding: 0 10px;
+    margin: 0;
+    z-index: 9;
+    display: inline-block;
+}
+
+@media (max-width: 767px ){
+    .wrap-logincheckout-form .password a{
+        clear: both;
+        text-indent: 10px;
+        padding: 10px 0;
+        display: block;
+    }
+    .sosmed-button {
+        cursor: pointer;
+        padding: 10px 20px 10px 50px;
+        clear: both;
+        position: relative;
+        float: none;
+        display: block;
+        margin: 10px auto;
+    }
+    .wrap-logincheckout-form, .wrap-login-form, .register-form{
+        padding: 10px 15px;
+    }
+    .wrap-login-form form input{
+        width: auto;
+    }
+}
+/*============== end login checkout =================*/
+/*================== login =================*/
+.wrap-login-form{
+    display: table;
+}
+.wrap-login-form form label{
+    min-width: 100px;
+    float: left;
+    line-height: 2.5em;
+}
+.wrap-login-form form#reset_password label{
+    min-width: 160px;
+}
+.wrap-login-form form li{
+    clear: both;
+    display: block;
+    position: relative;
+}
+.wrap-login-form form input{
+    width: 210px;
+}
+.wrap-login-form form a{
+    font-size: 1.1em;
+    font-style: italic;
+    padding: 0 0 0 105px;
+}
+.wrap-login-form form .button-reg{
+    padding: 10px 0;
+    text-transform: uppercase;
+    font-style: normal;
+    display: block;
+}
+.wrap-login-form form button, .register-form form button{
+    float: right;
+    background: #fdba58;
+    border: 1px solid #fdba58;
+    padding: 8px 30px;
+}
+.wrap-login-form form li:last-child{
+    margin-top: 40px;
+}
+.login{
+    display: table;
+    margin: 0 auto;
+}
+.login .google-plus{
+    clear: both;
+    display: table;
+    margin: 0 auto;
+    float: none;
+}
+@media (max-width: 468px ){
+    .wrap-login-form form a{
+        float: none;
+        width: 100%;
+        text-align: center;
+        display: block;
+    }
+    .wrap-login-form form .button-reg{
+        float: left;
+    }
+    .wrap-login-form form label{
+        display: block;
+        clear: both;
+        float: none;
+        text-align: center;
+    }
+    .wrap-login-form form input{
+        text-align: center;
+    }
+    .wrap-login-form form button{
+        width: 100%;
+    }
+    .wrap-login-form form li:last-child{
+        margin: 0;
+    }
+}
+/*============== end login =================*/
+/*============== register =================*/
+span label{
+    text-indent: 20px;
+}
+form .pass-indicator{
+    font-weight: bold;
+    font-size: 1.1em;
+    font-style: italic;
+    color: #d2d2d2;
+    float: right;
+    padding: 5px 0;
+}
+.register-form .captcha{
+    border-bottom: 1px solid #A8A8A8;
+    height: 99px;
+    max-width: 100%;
+    overflow: hidden;
+    padding-bottom: 30px;
+    position: relative;
+}
+.register-form .logo-sosmed{
+    margin: 0 auto 20px;
+}
+.register-form form{
+    display: table;
+    width: 100%;
+}
+.register-form form li{
+    display: table;
+    width: 100%;
+    float: left;
+    position: relative;
+}
+.register-form form input[type="checkbox"], .register-form form input[type="radio"]{
+    margin: 7px 10px;
+}
+.register-form form select,
+.register-form form input{
+    margin: 0 10px;
+    float: left;
+    position: relative;
+}
+.register-form form .tooltip{
+    margin-left: 100px;
+    float: left;
+}
+.register-form form label{
+    min-width: 100px;
+    float: left;
+    line-height: 2.5em;
+}
+.additional .register-form form li input label{
+    width: 100px;
+}
+.additional .register-form form li input{
+    width: calc(~'100% - 120px');
+}
+.additional{
+    margin: 0 auto;
+    display: block;
+    float: none;
+}
+@media (min-width: 1023px ) and (max-width: 1200px ) {
+    
+}
+@media (min-width: 992px ) and (max-width: 1022px ) {}
+@media (min-width: 768px ) and (max-width: 991px ){
+    .register-form form input{
+        max-width: 200px;
+    }
+    .register-form form label{
+        margin: 0;
+    }
+    .register-form form input{
+        width: auto;
+    }
+}
+@media (max-width: 767px ){
+    .register-form .conf-pass{
+        clear: none;
+        display: block;
+    }
+    .register-form form label{
+        min-width: 117px;
+        clear: left;
+    }
+    .register-form form li{
+        margin: 0;
+    }
+    .register-form form .check-newsletter input[type="checkbox"],
+    .register-form form .termncond input[type="checkbox"]{
+        position: absolute;
+        left: 5px;
+    }
+    .register-form form .check-newsletter label,
+    .register-form form .termncond label{
+        padding-left: 30px;
+    }
+    .register-form form .tooltip {
+      margin-left: 117px;
+    }
+}
+@media (max-width: 468px ){
+    .register-form form .tooltip {
+      margin-left: 0;
+    }
+    .register-form form input{
+        width: auto;
+    }
+    .email label, .password label{
+        text-indent: 0;
+    }
+    form .pass-indicator{
+        text-indent: 0;
+        
+    }
+    .wrap-login-form form input {
+        width: 100%;
+    }
+    .register-form .captcha .g-recaptcha > div{    
+        position: absolute;
+        top: 0;
+        width: 100%;
+    }
+}
+/*============== end register =================*/
+
+/*================ link choice =================*/
+.linked{
+    .password{
+        display: table;
+        margin:0 auto;
+        border: 1px solid #d2d2d2;
+        padding: 30px;
+        label{
+            padding-right: 20px;
+        }
+        button{
+            float: right;
+        }
+        p{
+            font-size: 1.2em;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+    }
+}
+.link_choice{
+    .linkend-choice{
+        border: 1px solid #d2d2d2;
+        padding: 30px;
+        display: table;
+        margin: 50px auto;
+        
+        a.button{
+            width: 121px;
+            text-align: center;
+        }
+        a.button:hover{
+            color: #221F1F;
+            background: #fff;
+        }
+        p{
+            margin: 0 0 15px;
+            font-size: 1.2em;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        .new-account{
+            float: left;
+            display: table;
+        }
+        .link-your-account{
+            float: right;
+        }
+    }
+}
+/*============== end link choice ===============*/
+
+/*============== left style =================*/
+.customer-page .customer-name{
+    color: #999;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 1.4em;
+    margin: 10px 0;
+    padding: 0 10px;
+}
+.customer-page form label{
+    display: block;
+    width: 160px;
+    float: left;
+    line-height: 2em;
+    display: block;
+}
+.customer-page #form_update_newsletter input[type="checkbox"]{
+    margin: 9px;
+    float: left;
+}
+.customer-page #form_update_newsletter .input_checkbox label{
+    display: table;
+    float: left;
+    line-height: inherit;
+    width: 200px;
+    margin: 6px;
+}
+.customer-page #form_update_newsletter label{
+    
+}
+.customer-page .not_edit li .wrap_button_subcribe {
+    display: none;
+}
+.customer-page li .wrap_button_subcribe {
+    display: table;
+    float: right;
+}
+.customer-page li .wrap_button_subcribe a{
+    
+}
+.customer-page form li .button_cancel{
+    background: #fff;
+    color: #000;
+    border: 0;
+}
+.customer-page #form_update_newsletter li{
+    display: table;
+    width: 100%;
+}
+.customer-menu-left li a{
+    font-size: 1em;
+    color: @font-light-black;
+    line-height: 2.3em;
+    font-weight: bold;
+    padding: 0 10px;
+}
+.customer-menu-left li.now_active{
+    background: #5c5c5c;
+    position: relative;
+}
+.customer-menu-left li.now_active a{
+    color:#fff;
+}
+.customer-menu-left li.now_active:after {
+    width: 20px;
+    height: 20px;
+    content: "";
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    background: url(../../img/skin/arrow.png) no-repeat -8px -614px;
+    margin-top: -10px;
+}
+.customer-menu-left{
+}
+/*============== end left style =================*/
+
+/*============== dashboard =================*/
+
+.customer-page{
+    color: #868686;
+}
+.customer-page .title-customer-page{
+    line-height: 2.5em;
+    background: #5c5c5c;
+    text-indent: 10px;
+    position: relative;
+    font-size: 1.2em;
+    margin-bottom: 20px;
+    font-weight: bold;
+    color: #fff;
+    text-transform: uppercase;
+}
+.customer-page .title-customer-page .back-customer{
+    background: #55909a;
+    padding: 8px 10px;
+    margin: 0;
+    left: 0;
+    margin-left: -10px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+.customer-page .cust-name{
+    float: right;
+    text-transform: none;
+}
+ .customer-page .wrap-customer-right > p{
+    padding: 0 10px 20px;
+ }
+.customer-page .box-account{
+    margin-bottom: 30px;
+}
+.customer-page .box-account #form_update_newsletter li span,
+.customer-page .box-account #form_update_newsletter li a{
+    line-height: 2.6em;
+    margin: 0 13px;
+    text-transform: uppercase;
+}
+.customer-page .box-account #form_update_newsletter button,
+.customer-page .box-account #form_update_newsletter span,
+.customer-page .box-account #form_update_newsletter a{
+    float: left;
+}
+.customer-page .box-account table{
+    font-size: 1.2em;
+    line-height: 2.5em;
+    color: #868686;
+}
+.customer-page .box-account table td{
+    color:#868686;
+    min-width: 150px;
+}
+.customer-page .box-account .title-box{
+    line-height: 2em;
+    .base-border-bottom-2;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 1.3em;
+}
+.customer-page .box-account.dashboard-nl p{
+    padding-bottom: 15px;
+}
+.customer-page .box-account.dashboard-nl p span{
+    padding-left: 100px
+}
+.title-box .button-top-address{
+    display: table;
+    float: right;
+}
+.customer-page .button-box-customer{
+    background-image: url(../../img/skin/icon_customer.png);
+    background-repeat: no-repeat;
+    background-color: transparent;
+    background-size: 20px;
+    float: left;
+    padding-left: 20px;
+    padding-right: 10px;
+    margin: 0 10px 0 0;
+    height: 22px;
+    line-height: normal;
+    border: 0;
+    font-size: 1.1em;
+    color: #a47d79;
+    padding: 7px 10px 0 20px;
+}
+.customer-page .edit-button{
+    background-position: 0 3px;
+}
+.customer-page .delete-button{
+    background-position: 0 -19px;
+}
+.customer-page .add-button{
+    background-position: 5px -41px;
+}
+.form-newsletter-subcribe{
+    .base-border;
+    display: table;
+    margin-top: 20px;
+    padding: 10px;
+    width: 100%;
+}
+.form-newsletter-subcribe .title-form{
+    position: relative;
+    font-size: 1.5em;
+    font-weight: bold;
+    line-height: 2em;
+    padding-left: 50px;
+}
+.form-newsletter-subcribe .title-form:before{
+    content: url(../../img/skin/subscribe-icon.png);
+    left: 0;
+    top: -3px;
+    width: 10px;
+    height: 15px;
+    position: absolute;
+}
+.form-newsletter-subcribe p{
+    padding: 20px 0 0;
+}
+.form-newsletter-subcribe form input{
+    width: 59%;
+    margin: 0 1% 0 0;
+    float: left;
+      font-size: 1.1em;
+}
+.form-newsletter-subcribe form button{
+    width: 40%;
+    float: left;
+    margin: 0;
+    border-radius: 0;
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.wrap-customer-right form button{
+} 
+.edit-password a.button-edit-password{
+    background-image: url(../../img/skin/icon_customer.png);
+    background-repeat: no-repeat;
+    background-color: transparent;
+    padding-left: 50px;
+    /* font-size: 3em; */
+    padding: 11px 10px 7px 50px;
+    line-height: 2em;
+    background-position: 10px top;
+    font-size: 1.6em;
+    border: 1px solid #a66a63;
+    color: #a47d79;
+    border-radius: 0;
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
+}
+@media (min-width: 768px ){
+    .customer-page .customer-menu-mobile-top{
+        display: none;
+    }
+}
+@media (max-width: 767px ) {
+    .customer-page .customer-menu-mobile-top{
+        margin: 0 0 20px;
+    }
+    .customer-page .customer-menu-mobile-top li{
+        line-height: 2.3em;
+        font-size: 1.3em;
+        text-transform: uppercase;
+        position: relative;
+        border-bottom: 1px solid #e1e1e1;
+        color:#868686;
+    }
+    .customer-page .customer-menu-mobile-top li:after{
+        background: url("../../img/skin/arrow.png") no-repeat scroll -8px -88px rgba(0, 0, 0, 0);
+        content: "";
+        display: block;
+        height: 25px;
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 20px;
+    }
+    .customer-page .customer-menu-mobile-top li a{
+        color:#868686;
+        display: block;
+        cursor: pointer;
+    }
+    .customer-page .customer-menu-mobile-top button{
+        border-radius: 0;
+        color: #fff;
+        font-size: 1.1em;
+        margin: 10px 0;
+        line-height: 3em;
+        padding: 0 30px;
+    }
+}
+/*============== end dashboard =================*/
+
+/*============== customer detail ===============*/
+
+.connect-sosmed-area .sosmed-button .wrap-connect-button,
+.connect-sosmed-area .sosmed-button p,
+.connect-sosmed-area .sosmed-button .wrap-connect-button .button-connect,
+.connect-sosmed-area .sosmed-button .wrap-connect-button span{
+    float:left;
+    line-height: 1.7em;
+}
+.connect-sosmed-area .facebook {
+    background: url("../../img/skin/sosmed-icon.png") no-repeat scroll 12px 0 #3760A0;
+}
+.connect-sosmed-area .sosmed-button{
+    width: 100%;
+    display: table;
+}
+.connect-sosmed-area .sosmed-button .wrap-connect-button{
+    color:#fff;
+    float: right;
+}
+.connect-sosmed-area .sosmed-button .wrap-connect-button span{
+    font-size: 1.1em;
+    padding: 0 10px;
+}
+.connect-sosmed-area .sosmed-button .wrap-connect-button span.connected,
+.connect-sosmed-area .sosmed-button.connected-sosmed .wrap-connect-button span.connect,
+.connect-sosmed-area .sosmed-button.connected-sosmed .button-connect .red,
+.connect-sosmed-area .sosmed-button .button-connect .green{
+    display: none;
+}
+.connect-sosmed-area .sosmed-button.connected-sosmed .wrap-connect-button span.connected,
+.connect-sosmed-area .sosmed-button .wrap-connect-button span.connect,
+.connect-sosmed-area .sosmed-button.connected-sosmed .button-connect .green,
+.connect-sosmed-area .sosmed-button .button-connect .red{
+    display: block;
+}
+.connect-sosmed-area .sosmed-button .button-connect{
+    width: 50px;
+    height: 20px;
+    background: #fff;
+    float: left;
+}
+.connect-sosmed-area .sosmed-button.connected-sosmed .button-connect .switch.green{
+    background: #60b22f;
+    margin:1px;
+}
+.connect-sosmed-area .sosmed-button .button-connect .green{
+    background: #60b22f;
+    width: 25px;
+    height: 18px;
+    margin:1px;
+}
+.connect-sosmed-area .sosmed-button .button-connect .red{
+    background: #d85151;
+    width: 25px;
+    height: 18px;
+    margin:1px 1px 1px 24px;
+}
+.connect-sosmed-area > p, .edit-password > p, .create-credential > p{
+    font-weight: bold;
+    background: #ebebeb;
+    padding: 10px;
+}
+.wrap-customer-right #form_update_profile,
+.wrap-customer-right #form_update_password,
+.wrap-customer-right #form_create_credential{
+    .base-border-bottom;
+    display: table;
+    margin: 10px 0;
+    padding-bottom: 10px;
+    width: 100%;
+}
+.wrap-customer-right .create-credential #form_create_credential.not_edit{
+    display: none;
+}
+.wrap-customer-right .create-credential .not-have-cred,
+.wrap-customer-right .edit-password .not-have-cred{
+    display: block;
+    line-height: 2.5em;
+    padding-left: 10px;
+    margin-bottom: 10px;
+}
+.wrap-customer-right .create-credential .not-have-cred{
+    font-size: 1.3em;
+}
+.wrap-customer-right .create-credential .not-have-cred span{
+    text-decoration: underline;
+    cursor: pointer;
+}
+.wrap-customer-right #form_update_profile button,
+.wrap-customer-right #form_update_password button,
+.wrap-customer-right #form_create_credential button{
+    float: right;
+}
+.wrap-customer-right #form_update_profile label{
+    width: 100px;
+    display: block;
+}
+.wrap-customer-right.customer-detail form.not_edit label{
+    line-height: 2em;
+    font-size: 0.9em;
+}
+.wrap-customer-right.customer-detail form.not_edit{ 
+    input,select{
+        border: 0;
+        padding: 3px 0;
+        color: inherit;
+    }
+}
+.wrap-customer-right.customer-detail .pass_field{
+    display: none;
+}
+.wrap-customer-right .profile-add-name{
+    font-weight: bold;
+}
+.wrap-customer-right .profile-add-name ~ p{
+    line-height: 2em;
+}
+.wrap-customer-right form#edit_address button{
+    float: right;
+}
+.wrap-customer-right form#edit_address li{
+    display: table;
+    width: 100%;
+}
+.wrap-customer-right #add_address button{
+    float: right;
+}
+.wrap-customer-right #add_address li{
+    display: table;
+    width: 100%;
+}
+.add-address .button-box-customer{
+    border: 1px solid #A47D79;
+    display: table;
+    font-size: 1.3em;
+    padding: 10px 20px 7px 30px;
+}
+@media (max-width: 767px ) {
+    .connect-sosmed-area .sosmed-button{
+        width: 80%;
+    }
+    .register-form form li > div{
+        margin: 0 0 10px 0;
+    }
+    .register-form form button{
+        margin-top: 10px;
+    }
+}
+@media (max-width: 467px ) {
+    .connect-sosmed-area .sosmed-button > p{
+        display: none;
+    }
+    .wrap-login-form form a{
+        padding: 0;
+    }
+    .customer-page .box-account .title-box{
+        display: table;
+        font-size: 1.1em;
+        width: 100%;
+    }
+    .customer-page .box-account .title-box .button-top-address{
+        width: 100%;
+        .base-border-bottom;
+        padding: 0 0 5px;
+    }
+    .customer-page .customer-name{
+        display: table;
+        width: 100%;
+    }
+    .customer-page .cust-name {
+        float: left;
+        display: block;
+        width: 100%;
+        clear:both;
+    }
+    .edit-password a.button-edit-password{
+        background-position: 4px 2px;
+        background-size: 25px auto;
+        font-size: 1.3em;
+        padding: 7px 10px 7px 35px;
+    }
+    .wrap-customer-right #add_address li input[type="text"],
+    .wrap-customer-right #add_address li select,
+    .wrap-customer-right #add_address li textarea{
+        width: 100%;
+    }
+    .form-newsletter-subcribe form input{
+        margin: 10px 1% 0 0;
+        width: 100%;  
+    }
+    .form-newsletter-subcribe form button{
+        width: 100%;
+        margin-top: 10px;
+    }
+}
+/*============ end customer detail =============*/
