@@ -1,9 +1,0 @@
-<?xml version="1.0"?>
-<config>
-    <modules>
-        <Bilna_Cms>
-             <active>true</active>
-             <codePool>local</codePool>
-        </Bilna_Cms>
-    </modules>
-</config>

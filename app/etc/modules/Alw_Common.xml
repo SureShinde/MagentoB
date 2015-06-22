@@ -1,9 +1,0 @@
-<?xml version="1.0"?>
-<config>
-    <modules>
-	<Alw_Common>
-	    <active>true</active>
-	    <codePool>local</codePool>
-	</Alw_Common>	
-    </modules>   
-</config>

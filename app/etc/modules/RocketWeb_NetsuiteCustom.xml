@@ -1,9 +1,0 @@
-<?xml version="1.0"?>
-<config>
-    <modules>
-        <RocketWeb_Netsuitecustom>
-            <active>true</active>
-            <codePool>local</codePool>
-        </RocketWeb_Netsuitecustom>
-    </modules>
-</config>

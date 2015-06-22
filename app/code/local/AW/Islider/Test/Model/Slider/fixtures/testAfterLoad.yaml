@@ -1,8 +1,0 @@
-tables:
- awislider/sliders:
-  - id: 1
-    store: "0"
-  - id: 2
-    store: "0,1"
-  - id: 3
-    store: ""
