@@ -8,12 +8,14 @@ install.php
 php.ini.sample
 RELEASE_NOTES.txt
 wp/wp-config.php
+nbproject/
 
 .modgit/
 .buildpath
 .project
 .settings/
 .idea/
+
 skin/frontend/default/modern/
 downloader/
 errors/
@@ -111,4 +113,3 @@ skin/install/
 !.modman
 !shell/check/
 !shell/flushCache.php
-
