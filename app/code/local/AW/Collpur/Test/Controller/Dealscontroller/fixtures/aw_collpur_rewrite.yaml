@@ -1,5 +1,0 @@
-tables:
- collpur/rewrite:
-  - deal_id: 1
-    identifier: htc-touch-diamond
-    store_id: 1

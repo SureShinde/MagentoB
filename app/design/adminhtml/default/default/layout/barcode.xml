@@ -1,8 +1,0 @@
-<?xml version="1.0"?>
-<layout version="0.1.0">
-  <barcode_adminhtml_upload_index>
-	<reference name="content">
-	  <block type="barcode/adminhtml_upload" name="barcodeupload" template="barcode/upload.phtml"/>
-	</reference>
-  </barcode_adminhtml_upload_index>
-</layout>
