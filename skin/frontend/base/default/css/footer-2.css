@@ -1,0 +1,301 @@
+.footer-container {
+	border: none;
+	width: 100%;
+	clear: both;
+}
+.footer {
+	width: 1216px;
+}
+.footer .form-language select {
+	display: none;
+}
+.footer ul, .footer ul.links, .footer li {
+	display: block;
+} 
+.footer ul {
+	float: left;
+	text-align: left;
+	/* margin: 0 30px 0 0; */
+	width: 15%;
+}
+.footer li:first-of-type{
+	font-family: 'bebasregular';
+}
+.footer li {
+	padding: 0;
+	background: none;
+	color: #494949;
+	padding: 3px 0;
+	font-weight: normal;
+}
+.footer li a {
+	color: #494949;
+	text-decoration: none !important;
+}
+.footer li a:hover {
+	color: #4EC7DA;
+}
+
+.footer li span.title, .footer .conect-us span.title, .footer .payment-partners span.title, .footer .shipping-partners span.title {
+	color: #484848;
+	font-size: 14px;
+	font-weight: normal;
+	text-transform: uppercase;
+	font-family: 'bebasregular';
+}
+.footer .payment-partners span.title{
+	padding: 0 0 8px;
+	display: block;
+}
+.footer a, .footer address {
+	color: #767676;
+}
+.footer .conect-us, .footer .payment-partners, .footer .shipping-partners {
+	float: right;
+	text-align: left;
+	/* margin:0 0 0 85px; */
+	width: 11%;
+}
+.footer .payment-partners {
+	padding: 0 6%;
+    width: 21%;
+}
+.footer .payment-partners table tr td.payment-right {
+	text-align: right;
+}
+.footer .conect-us span.title, .footer .shipping-partners span.title {
+	display: block;
+	margin:0 0 15px 0;
+}
+.footer .payment-partners a, .footer .shipping-partners a {
+	display: inline-block;
+	margin: 0 8px 0 0;
+}
+.footer .conect-us a{
+	margin: 2px 3px 2px 0;
+display: inline-block;
+}
+.footer .payment-partners a, .footer .shipping-partners a {
+	vertical-align: middle;
+}
+.footer .payment-partners table td{
+	vertical-align:middle;
+}
+.footer-bottom {
+	margin:20px 0 0 0;
+}
+.footer .about-us {
+	padding: 20px 0 0 0;
+	border-top: 1px solid #707070;
+}
+.footer .about-us p {
+	line-height: normal;
+	padding: 0 0 20px 0;
+}
+.footer .about-us, .footer address {
+	text-align: left;
+}
+.footer .bugs {
+	display: none;
+}
+.footer-container .subscribe-form{
+	background:url(../images/icon-NL-subscribe.png) no-repeat 35px #58595B;
+	padding:25px 3% 25px 9%;
+	color:#fff;
+	display: table;
+	width: 88%;
+	margin: 0 0 20px 0;
+}
+.footer-container .subscribe-form p{
+	float: left;
+	line-height: 25px;
+	font-size: 15px;
+}
+.footer-container .subscribe-form .wrap-form-subscribe form .input-box{
+	width:250px;
+}
+.footer-container .subscribe-form .wrap-form-subscribe{
+	float:right;
+}
+.footer-container .subscribe-form .wrap-form-subscribe form .input-box input{
+	width: 100%;
+	padding: 4px 0;
+	font-size: 1em;
+	text-indent: 7px;
+}
+.footer-container .subscribe-form .wrap-form-subscribe form .input-box,
+.footer-container .subscribe-form .wrap-form-subscribe form button{
+	float:left;
+}
+.footer-container .subscribe-form .wrap-form-subscribe form button{
+	margin-left:10px;
+	padding: 5px 15px;
+	font-size: 1.2em;
+	background:#F48120;
+	color:#fff;
+}
+@media only screen and (max-width: 1215px) {
+	.footer {
+		width: 994px;
+	}
+	.footer .conect-us, .footer .payment-partners, .footer .shipping-partners {
+		margin-left: 0%;
+	}
+	.footer-container .subscribe-form{
+		background:url(../images/icon-NL-subscribe.png) no-repeat 20px #58595B;
+	}
+}
+/* --------------- 960 px layout -------------------- */
+@media only screen and (max-width: 1023px) {
+	.footer {
+		width: 745px;
+	}
+	.footer ul {
+		width: 33.33%;
+		height: auto;
+		margin: 0 0 20px;
+		text-align: center;
+		min-height: 190px;
+	}
+	.footer .conect-us, .footer .payment-partners, .footer .shipping-partners {
+		width: 33.33%;
+		text-align: center;
+		margin: 0;
+	}
+	.footer .payment-partners {
+		padding: 0 6%;
+		width: 21%;
+	}
+	.footer .conect-us a{
+		margin: 2px 1px 2px 0;
+	}
+	.footer-container .subscribe-form{
+		padding: 18px 0 25px 12%;
+	}
+	.footer-container .subscribe-form p {
+		line-height: 25px;
+		font-size: 12px;
+	}
+	.footer-container .subscribe-form .wrap-form-subscribe{
+		float: left;
+	}
+}
+/* --------------- smaller 959 px layout -------------------- */
+@media only screen and (max-width: 767px) {
+	.footer-container {}
+	.footer {
+		width: 100%;
+		border: none;
+		padding-top: 0;
+	}
+	.footer ul {
+		height: auto;
+	}
+	.footer ul, .footer .conect-us, .footer .payment-partners, .footer .shipping-partners, .footer .form-language {
+	}
+	.footer .form-language {
+		padding: 22px 0;
+	}
+	.footer .form-language a {
+		display: inline-block;
+		color: #707070;
+		background-position: left center;
+		background-repeat: no-repeat;
+		padding: 0 0 0 32px;
+		margin: 0;
+	}
+	.footer .form-language a.english {
+		background-image: url(../images/eng.jpg);
+		border-right: 1px solid #707070;
+		padding-right: 10px;
+	}
+	.footer .form-language a.indonesia {
+		background-image: url(../images/ina.jpg);
+		margin-left:10px;
+	}
+	.footer .form-language, .footer ul {
+	}
+	.footer ul {
+		float: none;
+		width: auto;
+		margin:0;
+		text-align: left;
+		padding: 22px 15px 0;
+		min-height:0;
+	}
+	.footer ul li {
+		padding: 1px 0;
+	}
+	.footer ul li:first-child {
+	}
+	.footer li span.title, .footer .conect-us span.title, .footer .payment-partners span.title, .footer .shipping-partners span.title {
+	}
+	.footer a {
+		color: #fd8e17;
+		font-size: 12px;
+	}
+	.footer .conect-us, .footer .payment-partners, .footer .shipping-partners {
+		float: none;
+		text-align: left;
+		width: auto;
+		padding-left: 15px;
+		padding-right: 15px;
+	}
+	.footer .payment-partners, .footer .shipping-partners {
+		display: none;
+	}
+	.footer .conect-us {
+		padding-top: 22px;
+		padding-bottom: 30px;
+	}
+	.footer .about-us {
+		display: none;
+	}
+	.footer-bottom {
+		padding: 0 15px;
+	}
+	.footer address {
+		color: #494949;
+		font-size: 14px;
+	}
+    .footer li a {
+        text-decoration: none !important;
+    }
+	.footer-container .subscribe-form {
+		padding: 18px 3% 25px 3%;
+		width: 94%;
+	}
+	.footer-container .subscribe-form p{
+		padding-left: 68px;
+		text-align:center;
+	}
+	.footer-container .subscribe-form .wrap-form-subscribe {
+		float: left;
+		width: calc(100% - 70px);
+		padding-left: 70px;
+	}
+}
+/* --------------- 320 px layout -------------------- */
+@media only screen and (max-width: 479px) { 
+	.footer-container .subscribe-form .wrap-form-subscribe {
+		padding:0;
+	}
+	.footer-container .subscribe-form {
+		background: url(../images/icon-NL-subscribe.png) no-repeat 18px 21px #58595B;
+		background-size: 45px;
+	}
+	.footer-container .subscribe-form p {
+		padding-bottom: 12px;
+	}
+	.footer-container .subscribe-form .wrap-form-subscribe form .input-box{
+		width:75%;
+	}
+	.footer-container .subscribe-form .wrap-form-subscribe form button{
+		width: 23%;
+		margin-left: 2%;
+		padding: 5px 0;
+	}
+	.footer-container .subscribe-form .wrap-form-subscribe{
+		width:100%;
+	}
+}

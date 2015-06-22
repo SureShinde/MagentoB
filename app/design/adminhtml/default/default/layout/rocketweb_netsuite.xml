@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+	<adminhtml_netsuite_status_exportstatus>
+		<reference name="content">
+			<block type="rocketweb_netsuite/adminhtml_status_export" name="netsuite_status_export_grid"/>
+		</reference>
+	</adminhtml_netsuite_status_exportstatus>
+    <adminhtml_netsuite_status_importstatus>
+        <reference name="content">
+            <block type="rocketweb_netsuite/adminhtml_status_import" name="netsuite_status_import_grid"/>
+        </reference>
+    </adminhtml_netsuite_status_importstatus>
+    <adminhtml_netsuite_changelog_view>
+        <reference name="content">
+            <block type="rocketweb_netsuite/adminhtml_changelog" name="netsuite_changelog_grid"/>
+        </reference>
+    </adminhtml_netsuite_changelog_view>
+    <adminhtml_netsuite_status_deletestatus>
+        <reference name="content">
+            <block type="rocketweb_netsuite/adminhtml_status_delete" name="netsuite_status_delete_grid"/>
+        </reference>
+    </adminhtml_netsuite_status_deletestatus>
+	<adminhtml_netsuite_log_api>
+		<reference name="content">
+			<block type="rocketweb_netsuite/adminhtml_log_api" name="netsuite_log_api_grid"/>
+		</reference>
+	</adminhtml_netsuite_log_api>
+	<adminhtml_netsuite_log_general>
+		<reference name="content">
+			<block type="rocketweb_netsuite/adminhtml_log_general" template="rocketweb_netsuite/log/general.phtml" name="netsuite_general_log"/>
+		</reference>
+	</adminhtml_netsuite_log_general>
+</layout>

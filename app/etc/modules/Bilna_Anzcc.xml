@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Bilna_Anzcc>
+            <active>true</active>
+            <codePool>local</codePool>
+            <version>0.1.2</version>
+            <depends>
+                <Mage_Payment/>
+            </depends>
+        </Bilna_Anzcc>
+    </modules>
+</config>

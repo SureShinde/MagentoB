@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <adminhtml_sales_order_view>
+        <reference name="order_totals">
+            <block type="wrappinggiftevent/adminhtml_sales_order_totals_wrapping" name="wrapping.order.totals"/>
+        </reference>
+    </adminhtml_sales_order_view>
+    
+    <adminhtml_sales_order_invoice_new>
+        <reference name="invoice_totals">
+            <block type="wrappinggiftevent/adminhtml_sales_order_totals_wrapping" name="wrapping.invoice.totals" template="wrappinggiftevent/sales/totals/points.phtml" />
+        </reference>
+    </adminhtml_sales_order_invoice_new>
+    
+    <adminhtml_sales_order_invoice_view>
+        <reference name="invoice_totals">
+            <block type="wrappinggiftevent/adminhtml_sales_order_totals_wrapping" name="wrapping.invoice.totals" template="wrappinggiftevent/sales/totals/points.phtml" />
+        </reference>
+    </adminhtml_sales_order_invoice_view>
+    
+    <adminhtml_sales_order_invoice_updateqty>
+        <reference name="invoice_totals">
+            <block type="wrappinggiftevent/adminhtml_sales_order_totals_wrapping" name="wrapping.invoice.totals" template="wrappinggiftevent/sales/totals/points.phtml" />
+        </reference>
+    </adminhtml_sales_order_invoice_updateqty>
+    
+    <adminhtml_sales_order_creditmemo_new>
+        <reference name="creditmemo_totals">
+            <block type="wrappinggiftevent/adminhtml_sales_order_totals_wrapping" name="wrapping.invoice.totals" template="wrappinggiftevent/sales/totals/points.phtml">
+            </block>
+        </reference>
+    </adminhtml_sales_order_creditmemo_new>
+    
+    <adminhtml_sales_order_creditmemo_view>
+        <reference name="creditmemo_totals">
+            <block type="wrappinggiftevent/adminhtml_sales_order_totals_wrapping" name="wrapping.invoice.totals" template="wrappinggiftevent/sales/totals/points.phtml" />
+        </reference>
+        
+    </adminhtml_sales_order_creditmemo_view>
+    
+    <wrappinggiftevent_adminhtml_manage_index>
+        <reference name="content">
+            <block type="wrappinggiftevent/adminhtml_manage" name="manage" />
+        </reference>
+    </wrappinggiftevent_adminhtml_manage_index>
+    
+    <adminhtml_sales_order_create_load_block_shipping_method>
+        <reference name="content">
+            <block type="adminhtml/sales_order_create_shipping_method" template="sales/order/create/abstract.phtml" name="shipping_method">
+                <block type="wrappinggiftevent/adminhtml_sales_order_create_shipping_method_form" template="wrappinggiftevent/sales/order/create/shipping/method/form.phtml" name="form" />
+            </block>
+        </reference>
+    </adminhtml_sales_order_create_load_block_shipping_method>
+</layout>

@@ -1,0 +1,109 @@
+<?xml version="1.0"?>
+<config>
+    <menu>
+        <netsuite_integration translate="title" module="rocketweb_netsuite">
+            <title>Net Suite</title>
+            <sort_order>90</sort_order>
+            <children>
+                <import_status module="rocketweb_netsuite">
+                    <title>Import status</title>
+                    <sort_order>10</sort_order>
+                    <action>adminhtml/netsuite_status/importstatus</action>
+                </import_status>
+                <export_status module="rocketweb_netsuite">
+                    <title>Export Status</title>
+                    <sort_order>20</sort_order>
+                    <action>adminhtml/netsuite_status/exportstatus</action>
+                </export_status>
+                <delete_status module="rocketweb_netsuite">
+                    <title>Delete Status</title>
+                    <sort_order>30</sort_order>
+                    <action>adminhtml/netsuite_status/deletestatus</action>
+                </delete_status>
+                <log module="rocketweb_netsuite">
+                    <title>Log</title>
+                    <sort_order>40</sort_order>
+                    <children>
+                        <api_log module="rocketweb_netsuite">
+                            <title>API log</title>
+                            <sort_order>10</sort_order>
+                            <action>adminhtml/netsuite_log/api</action>
+                        </api_log>
+                        <change_log>
+                            <title>Change Log</title>
+                            <sort_order>10</sort_order>
+                            <action>adminhtml/netsuite_changelog/view</action>
+                        </change_log>
+                        <normal_log module="rocketweb_netsuite">
+                            <title>General log</title>
+                            <sort_order>30</sort_order>
+                            <action>adminhtml/netsuite_log/general</action>
+                        </normal_log>
+                    </children>
+
+                </log>
+                <settings>
+                    <title>Settings</title>
+                    <sort_order>40</sort_order>
+                    <action>adminhtml/system_config/edit/section/rocketweb_netsuite</action>
+                </settings>
+            </children>
+        </netsuite_integration>
+    </menu>
+	<acl>
+		<resources>
+            <all>
+                <title>Allow Everything</title>
+            </all>
+			<admin>
+				<children>
+                    <netsuite_integration module="rocketweb_netsuite">
+                        <title>Net Suite integration</title>
+                        <sort_order>10</sort_order>
+                        <children>
+                            <import_status module="rocketweb_netsuite">
+                                <title>Import status</title>
+                            </import_status>
+                            <export_status module="rocketweb_netsuite">
+                                <title>Export Status</title>
+                            </export_status>
+                            <delete_status module="rocketweb_netsuite">
+                                <title>Delete Status</title>
+                            </delete_status>
+                            <log module="rocketweb_netsuite">
+                                <title>Net Suite logging</title>
+                                <sort_order>10</sort_order>
+                                <children>
+                                    <api_log module="rocketweb_netsuite">
+                                        <title>API log</title>
+                                    </api_log>
+                                    <change_log module="rocketweb_netsuite">
+                                        <title>Change Log</title>
+                                    </change_log>
+                                    <normal_log module="rocketweb_netsuite">
+                                        <title>General log</title>
+                                    </normal_log>
+                                </children>
+                            </log>
+                            <settings module="rocketweb_netsuite">
+                                <title>Settings</title>
+                            </settings>
+                        </children>
+                    </netsuite_integration>
+					<system>
+						<children>
+							<config>
+								<children>
+									<rocketweb_netsuite translate="title" module="rocketweb_netsuite">
+										<title>Rocket Web Netsuite integration</title>
+										<sort_order>1005000</sort_order>
+									</rocketweb_netsuite>
+								</children>
+							</config>
+						</children>
+					</system>
+				</children>
+			</admin>
+		</resources>
+	</acl>
+</config>

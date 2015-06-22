@@ -1,0 +1,599 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+/**
+ * @var Mage_Page_Block_Html_Header $this
+ */
+?>
+
+<!--Mega Menu-->
+<script type="text/javascript">	
+        wwidth = $j(window).width();
+    var tooltipMobileFirst = 'tooltip_mobile_first';
+    
+    $j(document).ready(function() {
+		$j(".first-level > ul > li:first-of-type").addClass("active-cat");
+        $j(".first-level > ul > li").hover(function() {
+            $j('.first-level > ul > li.active-cat .second-level').hide();
+            $j('.first-level > ul > li.active-cat div').css("color","inherit");
+            $j('.first-level > ul > li').removeClass("hover-cat");
+            $j(this).addClass("hover-cat");
+        });
+        $j(".first-level > ul").mouseleave(function() {
+            $j('.first-level > ul > li').removeClass("hover-cat");
+            $j('.first-level > ul > li.active-cat .second-level').show();
+			$j('.first-level > ul > li.active-cat div').css("color","#F05A2A");
+        });
+        $j('.first-level-url').click(function() {
+			if($j(this).parent().hasClass("hover-cat") || $j(this).parent().hasClass("active-cat")){
+				window.location.href = $j(this).attr("data-href");
+			}else{
+				$j('.first-level > ul > li.active-cat .second-level').hide();
+				$j('.first-level > ul > li').removeClass("hover-cat");
+				$j(this).parent().addClass("hover-cat");
+			}
+        });
+		$j( ".product-image-zoom" ).mouseover('mousewheel',function(e) {
+				e.originalEvent.wheelDelta = 100;
+			
+		});
+		
+		
+        $j('.wrap-megamenu').click(function() {
+            $j('.bg-dark-megamenu').toggle();
+            $j('.megamenu').toggleClass("megamenu-active");
+        });
+		 $j('.bg-dark-megamenu').click(function() {
+            $j('.megamenu').removeClass("megamenu-active");
+            $j(this).hide();
+        });
+		
+        //================mobile left menu js========================
+        $j('.tooltip-mobile-first').click(function() {
+            $j(this).hide();
+            setCookie(tooltipMobileFirst, 'done', 365);
+        });
+        
+        $j('.nav-mobile-trigger').click(function() {
+            $j('.mobile-left-menu').css({"width":"100%","left":"0"});
+            $j('.wrapper').css({"float":"left","margin-left":"70%","position":"fixed"});
+            $j('body').css({"overflow":"hidden"});
+            $j('.mobile-left-menu .back-left').css({"position":"fixed"});
+        });
+        
+        $j('.mobile-left-menu .wrap-menu-cat > ul > li p').click(function() {
+			var data_left_menu_val = $j(this).attr("data-left-menu");
+			if ($j('.mobile-left-menu .wrap-menu-cat > ul > li.' + data_left_menu_val).hasClass("menu-active")){
+				$j('.mobile-left-menu .wrap-menu-cat > ul > li.' + data_left_menu_val).removeClass("menu-active");
+			} else {
+				$j('.mobile-left-menu .wrap-menu-cat > ul > li').removeClass("menu-active");
+				$j('.mobile-left-menu .wrap-menu-cat > ul > li.' + data_left_menu_val ).addClass("menu-active");
+			};
+        });
+        //================mobile left menu js========================
+        
+        $j('.back-button').click(function() {
+            $j('.mobile-left-menu').css({"width":"100%","left":"-100%"});
+            $j('.wrapper').css({"float":"none","margin-left":"0","position":"relative"});
+            $j('body').css({"overflow":"auto"});
+			$j('.mobile-left-menu .back-left').css({"position":"absolute"});
+        });
+		
+        if ($j('body').hasClass('style-baby') ||
+            $j('body').hasClass('style-perlengkapan-rumah') ||
+            $j('body').hasClass('style-supermarket') ||
+            $j('body').hasClass('style-groceries') ||
+            $j('body').hasClass('style-kosmetik')) {
+            //hover
+            target_data_breadcrumb = $j('.breadcrumbs > ul > li:nth-of-type(3)').attr('data-category');
+            $j(".nav-container > ul > li[data-category='" + target_data_breadcrumb + "']").addClass("active_submenu");
+			
+            $j( "div.nav-container" ).mouseleave(function() {
+                $j(this).hide();
+                $j('li.web-baby, li.web-perlengkapan-rumah, li.web-supermarket, li.web-groceries, li.web-kosmetik').css("background","#d2d2d2");
+                $j('div.nav-' + $j('div.menu-top ul li.active').attr('id')).show();
+            });
+			
+            $j(".cms-index-index ul#nav li.shop-by a, .style-baby ul#nav li.shop-by a, .style-perlengkapan-rumah ul#nav li.shop-by a, .style-supermarket ul#nav li.shop-by a, .style-groceries ul#nav li.shop-by a, .style-kosmetik ul#nav li.shop-by a, .level-top.shop-by .shopby ").hover(function() {
+                $j(".level-top.shop-by").addClass("over");
+                $j("a.link-shopby").addClass("over shown-sub");
+                $j("#nav .shopby").show();
+            });
+			
+            $j(".cms-index-index ul#nav li.shop-by a, .style-baby ul#nav li.shop-by a, .style-perlengkapan-rumah ul#nav li.shop-by a, .style-supermarket ul#nav li.shop-by a, .style-groceries ul#nav li.shop-by a, .style-kosmetik ul#nav li.shop-by a, .level-top.shop-by .shopby ").mouseleave(function() {
+                $j(".level-top.shop-by").removeClass("over");
+                $j("a.link-shopby").removeClass("over shown-sub");
+                $j("#nav .shopby").hide();
+            });
+			
+            $j("div.menu-top a.menu-top-hover").hover(function() {
+                if ($j('li.web-perlengkapan-rumah').hasClass('active') ||
+                    $j('li.web-baby').hasClass('active') ||
+                    $j('li.web-supermarket').hasClass('active') ||
+                    $j('li.web-groceries').hasClass('active') ||
+                    $j('li.web-kosmetik').hasClass('active')) {
+                    
+                }
+                else {
+                    $j('div.nav-container').hide('');
+                    $j('div.nav-' + $j(this).attr('id')).show('');   
+                }
+            });
+
+            $j("ul#nav li.parent a, .level-hover").hover(
+                function() {
+                    $j('#nav-perlengkapan-rumah ul#nav li.parent').removeClass('over');
+                    $j('#nav-perlengkapan-rumah ul#nav li.parent a').removeClass('over');
+                    $j(this).parent().addClass('over');
+                    $j(this).addClass('over');
+                    $j(this).parent().children('ul').addClass('shown-sub');
+
+                    if (wwidth < 768) {
+                        return  false;
+                    }
+                },
+                function() {
+                    $j(this).parent().removeClass('over');
+                    $j(this).removeClass('over');
+                    $j(this).parent().children('ul').removeClass('shown-sub');
+                }
+            );
+        }
+        else {
+            //shop by
+            $j(".cms-index-index ul#nav li.shop-by a, .style-baby ul#nav li.shop-by a, .style-perlengkapan-rumah ul#nav li.shop-by a, .style-supermarket ul#nav li.shop-by a, .style-groceries ul#nav li.shop-by a, .style-kosmetik ul#nav li.shop-by a, .level-top.shop-by .shopby ").hover(function() {
+                $j(".level-top.shop-by").addClass("over");
+                $j("a.link-shopby").addClass("over shown-sub");
+                $j("#nav .shopby").show();
+            });
+			
+            $j(".cms-index-index ul#nav li.shop-by a, .style-baby ul#nav li.shop-by a, .style-perlengkapan-rumah ul#nav li.shop-by a, .style-supermarket ul#nav li.shop-by a, .style-groceries ul#nav li.shop-by a, .style-kosmetik ul#nav li.shop-by a, .level-top.shop-by .shopby ").mouseleave(function() {
+                $j(".level-top.shop-by").removeClass("over");
+                $j("a.link-shopby").removeClass("over shown-sub");
+                $j("#nav .shopby").hide();
+            });
+		
+            //hover
+            $j("div.menu-top a.menu-top-hover").hover(function() {
+                if ($j('li.web-perlengkapan-rumah').hasClass('active') ||
+                    $j('li.web-baby').hasClass('active') ||
+                    $j('li.web-supermarket').hasClass('active') ||
+                    $j('li.web-groceries').hasClass('active') ||
+                    $j('li.web-kosmetik').hasClass('active')) {
+                
+                }
+                else {
+                    $j('div.nav-container').hide('');
+                    $j('div.nav-' + $j(this).attr('id')).show('');   
+                }
+            });
+            
+            $j('div.nav-baby').hover(function() {
+                $j('li.web-baby').css("background","#4ec7da");
+            });
+            $j('div.nav-perlengkapan-rumah').hover(function() {
+                $j('li.web-perlengkapan-rumah').css("background","#4ec7da");
+            });
+            $j('div.nav-supermarket').hover(function() {
+                $j('li.web-supermarket').css("background","#4ec7da");
+            });
+            $j('div.nav-groceries').hover(function() {
+                $j('li.web-groceries').css("background","#4ec7da");
+            });
+            $j('div.nav-kosmetik').hover(function() {
+                $j('li.web-kosmetik').css("background","#4ec7da");
+            });
+            
+            //leave
+            $j( "div.nav-container" ).mouseleave(function() {
+                $j(this).hide();
+                $j('li.web-baby, li.web-perlengkapan-rumah, li.web-supermarket, li.web-groceries, li.web-kosmetik').css("background","#d2d2d2");
+                $j('div.nav-' + $j('div.menu-top ul li.active').attr('id')).show();
+            });
+            
+            $j("ul#nav li.parent a, .level-hover").hover(
+                function() {
+                    $j('#nav-perlengkapan-rumah ul#nav li.parent').removeClass('over');
+                    $j('#nav-perlengkapan-rumah ul#nav li.parent a').removeClass('over');
+                    $j(this).parent().addClass('over');
+                    $j(this).addClass('over');
+                    $j(this).parent().children('ul').addClass('shown-sub');
+
+                    if (wwidth < 768) {
+                        return  false;
+                    }
+                },
+                function() {
+                    $j(this).parent().removeClass('over');
+                    $j(this).removeClass('over');
+                    $j(this).parent().children('ul').removeClass('shown-sub');
+                }
+            );
+        }
+        
+			
+		if (wwidth < 768) {
+			checkMobileTooltip();
+		}
+		
+    });
+    function checkMobileTooltip() {
+				var getTooltip = getCookie(tooltipMobileFirst);
+				if (getTooltip == '') {
+					$j('.tooltip-mobile-first').show();
+				}
+			}
+			
+			function setCookie(cname, cvalue, exdays) {
+				var de = new Date();
+				de.setTime(de.getTime() + (exdays*24*60*60*1000));
+				var expires = "expires=" + de.toUTCString();
+				document.cookie = cname + "=" + cvalue + "; " + expires;
+			}
+			
+			function getCookie(cname) {
+				var name = cname + "=";
+				var ca = document.cookie.split(';');
+				
+				for (var i=0; i<ca.length; i++) {
+					var c = ca[i];
+					while (c.charAt(0)==' ') c = c.substring(1);
+					if (c.indexOf(name) == 0) return c.substring(name.length,c.length);
+				}
+				
+				return "";
+			}
+		
+</script>
+
+<!--Mobile Menu-->
+<script type="text/javascript">
+    
+    $j(document).ready(function() {
+	
+    
+        $j(window).scroll(function() {
+            if ($j(this).scrollTop() > 120) {
+                $j(".header-container .sticky-header-wrapper").fadeIn(100);
+                $j(".search-container-new").addClass("search-for-sticky");
+                $j(".link-minicart").addClass("cart-for-sticky");
+                $j(".mini-cart").addClass("cart-block-detail");
+                $j(".link-checkout").addClass("checkout-for-sticky");
+                $j(".normal-sticky-cart").addClass("add-width-cart");
+                $j(".normal-sticky-cart .link-blog").addClass("no-blog");
+                $j("#megamenu").addClass("megamenu-stiky");
+				
+            }
+            else {
+                $j(".header-container .sticky-header-wrapper").fadeOut(100);
+                $j(".search-container-new").removeClass("search-for-sticky");
+                $j(".link-minicart").removeClass("cart-for-sticky");
+                $j(".mini-cart").removeClass("cart-block-detail");
+                $j(".link-checkout").removeClass("checkout-for-sticky");
+                $j(".normal-sticky-cart").removeClass("add-width-cart");
+                $j(".normal-sticky-cart .link-blog").removeClass("no-blog");
+                $j("#megamenu").removeClass("megamenu-stiky");
+            }
+            
+            if ($j(this).scrollTop() > 100) {
+                $j(".back-to-top").fadeIn();
+            }
+            else {
+                $j(".back-to-top").fadeOut();
+            }
+        });
+	
+        if (wwidth < 768) {
+            $j('.nav-mobile-trigger').click(function(e) {
+                e.preventDefault();
+                $j('.mini-cart-mobile').slideUp();
+                $j('.my-account-mobile').slideUp();
+                $j('.nav-container').slideToggle();
+            });
+            
+            $j('#link-minicart').click(function(e) {
+                e.preventDefault();
+                $j('.nav-container').slideUp();
+                $j('.my-account-mobile').slideUp();
+                $j('.mini-cart-mobile').slideToggle();
+            });
+            
+            $j('.link-myaccount-mobile').click(function(e) {
+                e.preventDefault();
+                $j('.nav-container').slideUp();
+                $j('.mini-cart-mobile').slideUp();
+                $j('.my-account-mobile').slideToggle();	
+            });
+        }
+        else {
+            $j('#link-minicart').click(function(e) {
+                e.preventDefault();
+                $j('.mini-cart').slideToggle();		
+            });	
+            
+            $j('#link-minicart-sticky').click(function(e) {
+                e.preventDefault();
+                $j('.mini-cart-sticky').slideToggle();
+            });	
+	}	
+	
+	$j(".nav-container ul#nav li.parent a").live("mouseover", function() {
+            if (wwidth < 768) {
+                return  false;
+            }
+	});
+        
+	$j(".nav-container ul#nav li.active-submenu").live("mouseover", function() {
+            if (wwidth < 768) {
+                return  false;
+            }
+	});
+        
+	$j(".nav-container ul#nav li.parent a.level-top").live('click', function() {
+            if (wwidth < 768) {
+                var allPanels = $j('.nav-container li.parent ul').hide();
+                
+                if ($j(this).hasClass('active-submenu')) {
+                    var href = $j(this).attr('href');
+                    window.location.href = href;
+                }
+                else {
+                    $j(".nav-container li.parent a.level-top").removeClass("active-submenu");
+                    allPanels.slideUp();
+                    $j(this).parent().next().slideDown();
+
+                    $j(this).addClass("active-submenu");
+                    //$j(this).prev().removeClass("active-submenu");
+                    //$j(this).next().removeClass("active-submenu");
+                    $j(this).next().css({"display":"block"});
+                    return false;
+                }
+            }	
+            else {
+                var href = $j(this).attr('href');
+                window.location.href = href;
+            }
+	});
+    });
+</script>
+
+<script>
+    $j(document).ready(function() {
+        $j("option.call-eng").click(function() {
+            $j("select.country").addClass("english-lang");
+            $j("select.country").removeClass("indonesia-lang");
+        });
+      
+        $j("option.call-ind").click(function() {
+            $j("select.country").removeClass("english-lang");
+            $j("select.country").addClass("indonesia-lang");
+        });
+      
+        $j(".menu-tablet .link-trigger-myaccount, .menu-tablet .toplink-myaccount").hover(function() {
+            $j(".menu-tablet .toplink-myaccount").toggle();
+        });
+      
+        $j(".header .link-trigger-myaccount, .header .toplink-myaccount").hover(function() {
+            $j(".header .toplink-myaccount").toggle();
+        });
+    });
+</script>
+
+<div class="header-container">
+    <div class="tooltip-mobile-first">
+        <p> ← click here for category menu </p>
+    </div>
+    
+    <?php echo $this->getLayout()->createBlock('page/html')->setTemplate('page/html/back-top.phtml')->toHtml(); ?>
+    <div class="sticky-header-wrapper">
+        <div class="sticky-header">
+            <a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="sticky-logo">
+                <img src="<?php //echo $this->getLogoSrc() ?><?php echo $this->getSkinUrl(); ?>images/logo-2015-sticky.png" alt="<?php echo $this->getLogoAlt() ?>" />
+            </a>
+            
+            <ul class="sticky-menu">
+                <li class="link-free-voucher">
+                    <a href="#"><?php echo $this->__('Get Free Voucher!') ?></a>
+                    <div class="free-voucher-info">
+                        <p><?php echo $this->__('Dapatkan voucher Rp.50.000 Gratis') ?>
+                        <span><?php echo $this->__('dengan berlangganan Bilna Newsletter sekarang!') ?></span>
+						</p>
+                        <div class="header-newsletter"><?php echo $this->getChildHtml('header.newsletter'); ?></div>
+                    </div>
+                </li>
+                
+                <li class="link-customer-care td-contact-sticky">
+                    <a href="#"><?php echo $this->__('Care Center') ?></a></br>
+                    <div class="td-contact-sticky-cont"><?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('contact-sticky-detail')->toHtml() ?></div>
+                </li>
+                
+                <div class="clear"></div>
+            </ul>
+			
+            <!--div class="sticky-search"><?php //echo $this->getChildHtml('topSearch') ?></div-->
+            <div class="clear"></div>
+    	</div>
+    </div>
+    
+    <div class="header">
+    	<a href="#" class="nav-mobile-trigger"><?php echo $this->__('Menu') ?></a>
+        <a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="logo"><strong><?php echo $this->getLogoAlt() ?></strong>
+            <img src="<?php echo $this->getSkinUrl(); ?>images/logo-2015-ramadhan.jpg" alt="<?php echo $this->getLogoAlt() ?>" />
+        </a>
+        
+        <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('keypoint')->toHtml() ?>
+        
+        <div class="quick-access">
+			<?php echo $this->getChildHtml('store_language') ?>
+            <a href="<?php echo $this->getUrl('blog'); ?>" class="link-blog-mobile"><?php echo $this->__('Blog') ?></a>
+            <a href="<?php echo Mage::getBaseUrl(); ?>customer/account/login/" class="link-myaccount-mobile"><img src="<?php echo $this->getSkinUrl(); ?>images/menu-account-mobile-black.png"></a>
+            
+            <div class="top-cart">
+                <div class="normal-sticky-cart">
+                    <?php $_totalItem = $this->helper('checkout/cart')->getSummaryCount();  //get total items in cart ?>
+                    
+                    <?php if ($_totalItem == 0): ?>
+                        <a href="#" class="link-minicart" id="link-minicart"><?php echo $this->__('View Cart(0)') ?></a>
+                    <?php else: ?>
+                        <a href="#" class="link-minicart" id="link-minicart"><?php echo $this->__('View Cart(').$_totalItem.$this->__(')') ?></a>
+                    <?php endif; ?>
+                    
+                    <a href="<?php echo $this->getUrl('checkout/cart'); ?>" class="link-checkout"><?php echo $this->__('Checkout') ?></a>
+                    
+                    <a href="<?php echo $this->getUrl('blog'); ?>" class="link-blog"><span><?php echo $this->__('Blog') ?></span></a>
+                </div>
+                
+                <div class="clear"></div>
+                
+                <div class="mini-cart" style="display: none !important;"><?php echo $this->getChildHtml('topcart') ?></div>
+            </div>
+            
+            <div class="log-reg">
+                
+                <?php echo $this->getChildHtml('topLinks') ?>
+                <?php //echo $this->getChildHtml('store_language') ?>
+            </div>
+            
+            <div class="clear"></div>
+            
+            <p class="welcome-msg"><?php echo $this->getChildHtml('welcome') ?> <?php echo $this->getAdditionalHtml() ?></p>
+            
+            <div class="clear"></div>
+        </div>
+        
+        <div class="menu-navigation">
+            <div class="wrap-megamenu">
+                <div class="button-megamenu">SHOP BY CATEGORY</div>
+            </div>
+
+            <div class="link-space-header col-md-12">
+				<div class="search-container-new">
+				<?php echo $this->getChildHtml('topSearch') ?>		               
+				</div>
+				<?php echo $this->getChildHtml('store_language') ?>
+            </div>
+            
+            <div id="megamenu" class="megamenu">
+                <?php echo $this->getLayout()->createBlock('page/html')->setTemplate('page/html/megamenu.phtml')->toHtml(); ?>
+            </div>
+        </div>
+        
+        <?php echo $this->getChildHtml('topContainer'); ?>
+        
+        <div class="nav-mobile"><?php //echo $this->getChildHtml('topMenu') ?></div>
+        
+        <div class="mini-cart-mobile"><?php echo $this->getChildHtml('topcart') ?></div>
+
+        <div class="search-container-new-mobile">
+            <?php echo $this->getChildHtml('topSearch'); ?>
+        </div>
+        
+        <div class="my-account-mobile"><?php echo $this->getChildHtml('topLinks') ?></div>
+    </div>
+</div>
+
+<div class="bg-dark-megamenu"></div>
+
+<script>
+    jQuery(document).ready(function() {
+        jQuery(".nav-gift-sets").mouseover(function() {
+            jQuery(".nav-10").addClass("hover");
+            jQuery(".nav-10>a").addClass("color_a");
+            jQuery(".gift-menu-wrapp").show();
+        });	
+  
+        jQuery(".nav-gift-sets").mouseleave(function() {
+            jQuery(".nav-10").removeClass("hover");
+            jQuery(".nav-10>a").removeClass("color_a");
+            jQuery(".gift-menu-wrapp").hide();
+        });
+  
+        jQuery(".gift-menu-wrapp").mouseover(function() {
+            jQuery(".gift-menu-wrapp").show();
+            jQuery(".parent-10").addClass("over");
+        });
+  
+        jQuery(".gift-menu-wrapp").mouseleave(function() {
+            jQuery(".gift-menu-wrapp").hide();
+            jQuery(".parent-10").removeClass("over");
+        });
+    });
+</script>
+
+<script>
+    jQuery(document).ready(function() {
+        jQuery(".td-promo").mouseover(function() {
+            jQuery(".td-promo-cont").show();
+        });
+  
+        jQuery(".td-promo").mouseleave(function() {
+            jQuery(".td-promo-cont").hide();
+        });
+  
+        jQuery(".td-contact-sticky").mouseover(function() {
+            jQuery(".td-contact-sticky-cont ").show();
+        });
+        
+        jQuery(".td-contact-sticky").mouseleave(function() {
+            jQuery(".td-contact-sticky-cont ").hide();
+        });  
+    });
+</script>
+<?php 
+ $customer = Mage::getSingleton('customer/session')->getCustomer();
+ if(isset($customer) && !empty($customer)){
+ 	$email = $customer->getEmail();// for email address
+ }else{
+ 	$email = "";
+ }
+?>
+<script type="text/javascript">
+jQuery(document).ready(function () {    
+	dataLayer.push( {'sitetype': 'd'} );
+	dataLayer.push( {'emailaddress': '<?php echo $email; ?>'} );
+});
+
+jQuery('.search-container-new #searchDropdownBox').change(function() {
+	jQuery('.search-container-new #nav-search-in-content').text(jQuery('.search-container-new #searchDropdownBox option:selected').text());
+});
+
+jQuery('.search-container-new-mobile #searchDropdownBox').change(function() {
+	jQuery('.search-container-new-mobile #nav-search-in-content').text(jQuery('.search-container-new-mobile #searchDropdownBox option:selected').text());
+});
+</script>
+<?php 
+ $customer = Mage::getSingleton('customer/session')->getCustomer();
+ if(isset($customer) && !empty($customer)){
+ 	$email = $customer->getEmail();// for email address
+ }else{
+ 	$email = "";
+ }
+?>
+<script type="text/javascript">
+jQuery(document).ready(function () {    
+	dataLayer.push( {'sitetype': 'd'} );
+	dataLayer.push( {'emailaddress': '<?php echo $email; ?>'} );
+});
+</script>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <modules>
+        <Bilna_Customization>
+            <version>0.1.1</version>
+        </Bilna_Customization>
+    </modules>
+    
+    <global>
+        <resources>
+            <customization_setup>
+                <setup>
+                    <module>Bilna_Customization</module>
+                    <class>Mage_Catalog_Model_Resource_Eav_Mysql4_Setup</class>
+                </setup>
+                
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </customization_setup>
+                    
+            <customization_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </customization_read>
+        </resources>
+            
+        <models>
+            <customization>
+                <class>Bilna_Customization_Model</class>
+            </customization>
+        </models>
+        
+        <blocks>
+            <customization>
+                <class>Bilna_Customization_Block</class>
+            </customization>
+        </blocks>
+        
+        <helpers>
+            <customization>
+                <class>Bilna_Customization_Helper</class>
+            </customization>
+        
+            <catalogsearch>
+                <rewrite>
+                    <data>Bilna_Customization_Helper_CatalogSearch_Data</data>
+                </rewrite>
+            </catalogsearch>
+        </helpers>
+    </global>
+    
+    <frontend>
+        <routers>
+            <catalog>
+                <args>
+                    <modules>
+                        <bilna_customization before="Mage_Catalog">Bilna_Customization</bilna_customization>
+                    </modules>
+                </args>
+            </catalog>
+            
+            <customization>
+                <use>standard</use>
+                <args>
+                    <module>Bilna_Customization</module>
+                    <frontName>customization</frontName>
+                </args>
+            </customization>
+        </routers>
+            
+        <layout>
+            <updates>
+                <customization>
+                    <file>customization.xml</file>
+                </customization>
+            </updates>
+        </layout>
+    </frontend>
+</config>
