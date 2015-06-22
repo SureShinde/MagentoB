@@ -91,7 +91,7 @@ class Mage_Api2_Model_Dispatcher
             self::RESOURCE_CLASS_TEMPLATE,
             array(':resource' => $model, ':api' => $apiType, ':user' => $userType, ':version' => $version)
         );
-
+error_log("\nclass ".$class, 3, '/tmp/mageApi.log');    
         try {
             /** @var $modelObj Mage_Api2_Model_Resource */
             $modelObj = Mage::getModel($class);

@@ -36,6 +36,10 @@
                         <title>Order</title>
                         <sort_order>150</sort_order>
                     </sales_order>
+                    <sales_quote translate="title" module="api2">
+                        <title>Quote</title>
+                        <sort_order>160</sort_order>
+                    </sales_quote>
                 </children>
             </sales>
         </resource_groups>
@@ -47,6 +51,7 @@
                 <title>Orders</title>
                 <privileges>
                     <admin>
+                        <create>1</create>
                         <retrieve>1</retrieve>
                     </admin>
                     <customer>
@@ -161,6 +166,49 @@
                 </force_attributes>
                 <versions>1</versions>
             </order>
+            <quote translate="title" module="api2">
+                <group>sales</group>
+                <sort_order>70</sort_order>
+                <model>sales/api2_quote</model>
+                <title>Quotes</title>
+                <privileges>
+                    <admin>
+                        <create>1</create>
+                        <retrieve>1</retrieve>
+                    </admin>
+                    <customer>
+                        <retrieve>1</retrieve>
+                    </customer>
+                </privileges>
+                <routes>
+                    <route_entity>
+                        <route>/quotes/:id</route>
+                        <action_type>entity</action_type>
+                    </route_entity>
+                    <route_collection>
+                        <route>/quotes</route>
+                        <action_type>collection</action_type>
+                    </route_collection>
+                </routes>
+                <attributes translate="entity_id reserved_order_id created_at base_currency_code store_currency_code remote_ip subtotal discount_amount tax_amount coupon_code base_discount_amount base_subtotal base_tax_amount customer_id" module="api2">
+                    <entity_id>Quote ID (internal)</entity_id>
+                    <reserved_order_id>Order ID</reserved_order_id>
+                    <created_at>Quote Date</created_at>
+                    <base_currency_code>Base Currency</base_currency_code>
+                    <store_currency_code>Order Currency</store_currency_code>
+                    <store_name>Store Name</store_name>
+                    <remote_ip>Placed from IP</remote_ip>
+                    <subtotal>Subtotal</subtotal>
+                    <discount_amount>Discount</discount_amount>                    
+                    <tax_amount>Tax Amount</tax_amount>
+                    <coupon_code>Coupon Code</coupon_code>
+                    <base_discount_amount>Base Discount</base_discount_amount>
+                    <base_subtotal>Base Subtotal</base_subtotal>
+                    <base_tax_amount>Base Tax Amount</base_tax_amount>
+                    <customer_id>Customer ID</customer_id>
+                </attributes>
+                <versions>1</versions>
+            </quote>
             <order_item translate="title" module="api2">
                 <group>sales_order</group>
                 <sort_order>30</sort_order>
@@ -169,6 +217,7 @@
                 <title>Order Items</title>
                 <privileges>
                     <admin>
+                        <create>1</create>
                         <retrieve>1</retrieve>
                     </admin>
                     <customer>
@@ -228,6 +277,68 @@
                 </routes>
                 <versions>1</versions>
             </order_item>
+            <quote_item translate="title" module="api2">
+                <group>sales_quote</group>
+                <sort_order>80</sort_order>
+                <model>sales/api2_quote_item</model>
+                <working_model>sales/quote_item</working_model>
+                <title>Quote Items</title>
+                <privileges>
+                    <admin>
+                        <create>1</create>
+                        <retrieve>1</retrieve>
+                    </admin>
+                    <customer>
+                        <retrieve>1</retrieve>
+                    </customer>
+                </privileges>
+                <attributes translate="item_id name parent_item_id sku price price_incl_tax qty row_total row_total_incl_tax base_price  base_price_incl_tax tax_percent tax_amount base_tax_amount discount_amount base_discount_amount base_row_total base_row_total_incl_tax" module="api2">
+                    <item_id>Quote Item ID</item_id>
+                    <name>Product and Custom Options Name</name>
+                    <parent_item_id>Parent Quote Item ID</parent_item_id>
+                    <sku>SKU</sku>
+                    <price>Price</price>
+                    <price_incl_tax>Price Including Tax</price_incl_tax>
+                    <qty>Quote Qty</qty>
+                    <row_total>Item Subtotal</row_total>
+                    <row_total_incl_tax>Item Subtotal Including Tax</row_total_incl_tax>
+                    <base_price>Base Price</base_price>
+                    <base_price_incl_tax>Base Price Including Tax</base_price_incl_tax>
+                    <tax_percent>Tax Percent</tax_percent>
+                    <tax_amount>Tax Amount</tax_amount>
+                    <base_tax_amount>Base Tax Amount</base_tax_amount>
+                    <discount_amount>Discount Amount</discount_amount>
+                    <base_discount_amount>Base Discount Amount</base_discount_amount>
+                    <base_row_total>Base Item Subtotal</base_row_total>
+                    <base_row_total_incl_tax>Base Item Subtotal Including Tax</base_row_total_incl_tax>
+                </attributes>
+                <include_attributes>
+                    <customer>
+                        <read>
+                            <item_id>1</item_id>
+                            <name>1</name>
+                            <parent_item_id>1</parent_item_id>
+                            <sku>1</sku>
+                            <price>1</price>
+                            <price_incl_tax>1</price_incl_tax>
+                            <qty_ordered>1</qty_ordered>
+                            <qty_invoiced>1</qty_invoiced>
+                            <qty_shipped>1</qty_shipped>
+                            <qty_canceled>1</qty_canceled>
+                            <qty_refunded>1</qty_refunded>
+                            <row_total>1</row_total>
+                            <row_total_incl_tax>1</row_total_incl_tax>
+                        </read>
+                    </customer>
+                </include_attributes>
+                <routes>
+                    <route_collection>
+                        <route>/quotes/:id/items</route>
+                        <action_type>collection</action_type>
+                    </route_collection>
+                </routes>
+                <versions>1</versions>
+            </quote_item>
             <order_address translate="title" module="api2">
                 <group>sales_order</group>
                 <sort_order>40</sort_order>
@@ -236,6 +347,7 @@
                 <title>Order Addresses</title>
                 <privileges>
                     <admin>
+                        <create>1</create>
                         <retrieve>1</retrieve>
                     </admin>
                     <customer>
@@ -278,6 +390,7 @@
                 <title>Order Comments</title>
                 <privileges>
                     <admin>
+                        <create>1</create>
                         <retrieve>1</retrieve>
                     </admin>
                     <customer>
