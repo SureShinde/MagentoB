@@ -1,0 +1,131 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Bilna_Bnicc>
+            <version>0.1.0</version>
+        </Bilna_Bnicc>
+    </modules>
+    
+    <frontend>
+        <routers>
+            <bnicc>
+                <use>standard</use>
+                <args>
+                    <module>Bilna_Bnicc</module>
+                    <frontName>bnicc</frontName>
+                </args>
+            </bnicc>
+        </routers>
+        
+        <!--layout>
+            <updates>
+                <bnicc>
+                    <file>bilna_bnicc.xml</file>
+                </bnicc>
+            </updates>
+        </layout-->
+    </frontend>
+    
+    <global>
+        <resources>
+            <bnicc_setup>
+                <setup>
+                    <module>Bilna_Bnicc</module>
+                </setup>
+                
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </bnicc_setup>
+            
+            <bnicc_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </bnicc_write>
+            
+            <bnicc_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </bnicc_read>
+        </resources>
+        
+        <blocks>
+            <bnicc>
+                <class>Bilna_Bnicc_Block</class>
+            </bnicc>
+            
+            <catalog>
+                <rewrite>
+                    <renderer>Bilna_Bnicc_Block_Checkout_Cart_Item_Renderer</renderer>
+                </rewrite>
+            </catalog>
+        </blocks>
+        
+        <models>
+            <bnicc>
+                <class>Bilna_Bnicc_Model</class>
+                <resourceModel>bnicc_mysql4</resourceModel>
+            </bnicc>
+            
+            <bnicc_mysql4>
+                <class>Bilna_Bnicc_Model_Mysql4</class>
+                <entities>
+                    <bincode>
+                        <table>bin_code</table>
+                    </bincode>
+                </entities>
+            </bnicc_mysql4>
+        </models>
+        
+        <helpers>
+            <bnicc>
+                <class>Bilna_Bnicc_Helper</class>
+            </bnicc>
+        </helpers>
+        
+        <fieldsets>
+            <sales_convert_quote_payment>
+                <cc_bins>
+                    <to_order_payment>*</to_order_payment>
+                </cc_bins>
+            </sales_convert_quote_payment>
+        </fieldsets>
+    </global>
+    
+    <default>
+        <payment>
+            <bnicc>
+                <active>1</active>
+                <model>bnicc/bnicc</model>
+                <order_status>pending</order_status>
+                <title>Credit Card (BNI)</title>
+                <allowspecific>0</allowspecific>
+                <group>offline</group>
+            </bnicc>
+        </payment>
+    </default>
+    
+    <admin>
+        <routers>
+            <bnicc>
+                <use>admin</use>
+                <args>
+                    <module>Bilna_Bnicc</module>
+                    <frontName>bnicc</frontName>
+                </args>
+            </bnicc>
+        </routers>
+    </admin>
+    
+    <!--adminhtml>
+        <layout>
+            <updates>
+                <bnicc>
+                    <file>bilna_bnicc.xml</file>
+                </bnicc>
+            </updates>
+        </layout>
+    </adminhtml-->
+</config>
