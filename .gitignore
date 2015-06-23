@@ -55,7 +55,7 @@ app/etc/enterprise.xml
 app/etc/local.xml.additional
 app/etc/local.xml.template
 app/.htaccess
-app/Mage.php
+#app/Mage.php
 
 js/blank.html
 js/calendar/
