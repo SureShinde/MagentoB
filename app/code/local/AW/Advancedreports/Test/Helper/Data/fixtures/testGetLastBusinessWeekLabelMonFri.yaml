@@ -1,3 +1,0 @@
-config:
- default/general/locale/weekend: 0,6
- default/general/locale/code: en_US

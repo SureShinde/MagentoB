@@ -1,9 +1,0 @@
-<?xml version="1.0"?>
-<config>
-    <modules>
-        <Phpro_Stockmonitor>
-            <active>true</active>
-            <codePool>community</codePool>
-        </Phpro_Stockmonitor>
-    </modules>
-</config>

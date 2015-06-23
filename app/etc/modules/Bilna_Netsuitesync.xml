@@ -1,8 +1,0 @@
-<config>
-    <modules>
-        <Bilna_Netsuitesync>
-            <active>true</active>
-            <codePool>local</codePool>
-        </Bilna_Netsuitesync>
-    </modules>
-</config>
