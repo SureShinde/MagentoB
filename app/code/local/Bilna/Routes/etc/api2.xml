@@ -1,0 +1,114 @@
+<?xml version="1.0"?>
+<config>
+    <api2>
+        <resource_groups>
+            <bilna_routes translate="title" module="Bilna_Routes">
+                <title>Bilna Routes</title>
+                <sort_order>1000</sort_order>
+            </bilna_routes>
+        </resource_groups>
+        <resources>
+            <catalog translate="title" module="Bilna_Routes">
+                <group>bilna_routes</group>
+                <model>bilna_routes/api2_catalog</model>
+                <title>Catalog (Category/Product)</title>
+                <sort_order>10</sort_order>
+                <privileges>
+                    <admin>
+                        <retrieve>1</retrieve>
+                    </admin>
+                </privileges>
+                <attributes translate="id store_view type id_path request_path target_path option" module="Bilna_Routes">
+                    <id>ID</id>
+                    <store_id>Store ID</store_id>
+                    <type>Type</type>
+                    <id_path>ID Path</id_path>
+                    <request_path>Request Path</request_path>
+                    <target_path>Target Path</target_path>
+                    <options>Options</options>
+                    <category_id>Category ID</category_id>
+                    <product_id>Product ID</product_id>
+                </attributes>
+                <routes>
+                    <route_entity>
+                        <route>/routes/catalog</route>
+                        <action_type>entity</action_type>
+                    </route_entity>
+                </routes>
+                <versions>1</versions>
+            </catalog>
+            <staticpage translate="title" module="Bilna_Routes">
+                <group>bilna_routes</group>
+                <model>bilna_routes/api2_staticpage</model>
+                <title>Static Page</title>
+                <sort_order>20</sort_order>
+                <privileges>
+                    <admin>
+                        <retrieve>1</retrieve>
+                    </admin>
+                </privileges>
+                <attributes translate="page_id title root_template meta_keywords meta_description identifier content_heading content creation_time update_time is_active sort_order layout_update_xml custom_theme custom_root_template custom_layout_update_xml custom_theme_from custom_theme_to" module="Bilna_Routes">
+                    <page_id>Page ID</page_id>
+                    <title>Title</title>
+                    <root_template>Root Template</root_template>
+                    <meta_keywords>Meta Keywords</meta_keywords>
+                    <meta_description>Meta Description</meta_description>
+                    <identifier>Identifier</identifier>
+                    <content_heading>Content Heading</content_heading>
+                    <content>Content</content>
+                    <creation_time>Creation Time</creation_time>
+                    <update_time>Update Time</update_time>
+                    <is_active>Is Active</is_active>
+                    <sort_order>Sort Order</sort_order>
+                    <layout_update_xml>Layout Update XML</layout_update_xml>
+                    <custom_theme>Custom Theme</custom_theme>
+                    <custom_root_template>Custom Root Template</custom_root_template>
+                    <custom_layout_update_xml>Custom Layout Update XML</custom_layout_update_xml>
+                    <custom_theme_from>Custom Theme From</custom_theme_from>
+                    <custom_theme_to>Custom Theme To</custom_theme_to>
+                </attributes>
+                <routes>
+                    <route_entity>
+                        <route>/routes/staticpage</route>
+                        <action_type>entity</action_type>
+                    </route_entity>
+                </routes>
+                <versions>1</versions>
+            </staticpage>
+            <brands translate="title" module="Bilna_Routes">
+                <group>bilna_routes</group>
+                <model>bilna_routes/api2_brands</model>
+                <title>Brands</title>
+                <sort_order>30</sort_order>
+                <privileges>
+                    <admin>
+                        <retrieve>1</retrieve>
+                    </admin>
+                </privileges>
+                <attributes translate="entity_id entity_type_id attribute_set_id increment_id created_at updated_at is_active active description pagekeyword pagedescription title url_key pagetitle" module="Bilna_Routes">
+                    <entity_id>Entity ID</entity_id>
+                    <entity_type_id>Entity Type ID</entity_type_id>
+                    <attribute_set_id>Attribute Set ID</attribute_set_id>
+                    <increment_id>Increment ID</increment_id>
+                    <created_at>Created At</created_at>
+                    <updated_at>Updated At</updated_at>
+                    <is_active>Is Active</is_active>
+                    <active>Active</active>
+                    <description>Description</description>
+                    <pagekeyword>Page Keyword</pagekeyword>
+                    <pagedescription>Page Description</pagedescription>
+                    <title>Title</title>
+                    <url_key>URL Key</url_key>
+                    <pagetitle>Page Title</pagetitle>
+                </attributes>
+                <routes>
+                    <route_entity>
+                        <route>/routes/brands</route>
+                        <action_type>entity</action_type>
+                    </route_entity>
+                </routes>
+                <versions>1</versions>
+            </brands>
+        </resources>
+    </api2>
+</config>
