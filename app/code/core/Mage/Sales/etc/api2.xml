@@ -190,7 +190,7 @@
                         <action_type>collection</action_type>
                     </route_collection>
                 </routes>
-                <attributes translate="entity_id reserved_order_id created_at base_currency_code store_currency_code remote_ip subtotal discount_amount tax_amount coupon_code base_discount_amount base_subtotal base_tax_amount customer_id" module="api2">
+                <attributes translate="entity_id reserved_order_id created_at base_currency_code store_currency_code remote_ip subtotal discount_amount tax_amount coupon_code base_discount_amount base_subtotal base_tax_amount customer_id product_id" module="api2">
                     <entity_id>Quote ID (internal)</entity_id>
                     <reserved_order_id>Order ID</reserved_order_id>
                     <created_at>Quote Date</created_at>
@@ -206,7 +206,15 @@
                     <base_subtotal>Base Subtotal</base_subtotal>
                     <base_tax_amount>Base Tax Amount</base_tax_amount>
                     <customer_id>Customer ID</customer_id>
+                    <product_id>Product ID</product_id>
                 </attributes>
+                <force_attributes>
+                    <admin>
+                        <!--payment_method>1</payment_method-->
+                        <addresses>1</addresses>
+                        <quote_items>1</quote_items>
+                    </admin>
+                </force_attributes>
                 <versions>1</versions>
             </quote>
             <order_item translate="title" module="api2">
@@ -382,6 +390,49 @@
                     <email>Email</email>
                 </attributes>
             </order_address>
+            <quote_address translate="title" module="api2">
+                <group>sales_quote</group>
+                <sort_order>90</sort_order>
+                <model>sales/api2_quote_address</model>
+                <working_model>sales/quote_address</working_model>
+                <title>Quote Addresses</title>
+                <privileges>
+                    <admin>
+                        <create>1</create>
+                        <retrieve>1</retrieve>
+                    </admin>
+                    <customer>
+                        <retrieve>1</retrieve>
+                    </customer>
+                </privileges>
+                <routes>
+                    <route_entity>
+                        <route>/quotes/:quote_id/addresses/:address_type</route>
+                        <action_type>entity</action_type>
+                    </route_entity>
+                    <route_collection>
+                        <route>/quotes/:quote_id/addresses</route>
+                        <action_type>collection</action_type>
+                    </route_collection>
+                </routes>
+                <versions>1</versions>
+                <attributes translate="lastname firstname middlename prefix suffix company street city region postcode country_id telephone address_type email" module="api2">
+                    <lastname>Customer Last Name</lastname>
+                    <firstname>Customer First Name</firstname>
+                    <middlename>Customer Middle Name</middlename>
+                    <prefix>Customer Prefix</prefix>
+                    <suffix>Customer Suffix</suffix>
+                    <company>Company</company>
+                    <street>Street</street>
+                    <city>City</city>
+                    <region>State</region>
+                    <postcode>ZIP/Postal Code</postcode>
+                    <country_id>Country</country_id>
+                    <telephone>Phone Number</telephone>
+                    <address_type>Address Type</address_type>
+                    <email>Email</email>
+                </attributes>
+            </quote_address>
             <order_comment translate="title" module="api2">
                 <group>sales_order</group>
                 <sort_order>60</sort_order>

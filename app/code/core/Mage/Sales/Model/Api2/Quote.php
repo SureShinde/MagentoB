@@ -31,18 +31,18 @@ class Mage_Sales_Model_Api2_Quote extends Mage_Api2_Model_Resource
         $quotesData = array();
 
         foreach ($collection->getItems() as $quote) {
-//error_log("\nquoteData : \n".print_r($quote, 1), 3, '/tmp/mageApi.log');           	
             $quotesData[$quote->getId()] = $quote->toArray();
         }
 
         if ($quotesData) {
-            /*foreach ($this->_getAddresses(array_keys($quotesData)) as $quoteId => $addresses) {
+            foreach ($this->_getAddresses(array_keys($quotesData)) as $quoteId => $addresses) {
                 $quotesData[$quoteId]['addresses'] = $addresses;
-            }*/
+            }
             foreach ($this->_getItems(array_keys($quotesData)) as $quoteId => $items) {
                 $quotesData[$quoteId]['quote_items'] = $items;
             }
         }
+//error_log("\nquotesData ".print_r($quotesData,1), 3, '/tmp/mageApi.log');
         return $quotesData;
     }
 
@@ -59,6 +59,20 @@ class Mage_Sales_Model_Api2_Quote extends Mage_Api2_Model_Resource
         $this->_applyCollectionModifiers($collection);
 
         return $collection;
+    }
+
+    /**
+     * Retrieve collection instance for single order
+     *
+     * @param int $orderId Order identifier
+     * @return Mage_Sales_Model_Resource_Order_Collection
+     */
+    protected function _getCollectionForSingleRetrieve($quoteId)
+    {
+        /** @var $collection Mage_Sales_Model_Resource_Order_Collection */
+        $collection = Mage::getResourceModel('sales/quote_collection');
+
+        return $collection->addFieldToFilter('entity_id', $quoteId);
     }
 
     /**
@@ -90,12 +104,12 @@ class Mage_Sales_Model_Api2_Quote extends Mage_Api2_Model_Resource
     }
 
     /**
-     * Retrieve a list or orders' addresses in a form of [order ID => array of addresses, ...]
+     * Retrieve a list or quotes' addresses in a form of [quote ID => array of addresses, ...]
      *
-     * @param array $orderIds Orders identifiers
+     * @param array $quoteIds Orders identifiers
      * @return array
      */
-    protected function _getAddresses(array $orderIds)
+    protected function _getAddresses(array $quoteIds)
     {
         $addresses = array();
 
@@ -103,15 +117,26 @@ class Mage_Sales_Model_Api2_Quote extends Mage_Api2_Model_Resource
             /** @var $addressesFilter Mage_Api2_Model_Acl_Filter */
             $addressesFilter = $this->_getSubModel('quote_address', array())->getFilter();
             // do addresses request if at least one attribute allowed
-            if ($addressesFilter->getAllowedAttributes()) {
-                /* @var $collection Mage_Sales_Model_Resource_Order_Address_Collection */
-                $collection = Mage::getResourceModel('sales/quote_address_collection');
+            if ($addressesFilter->getAllowedAttributes()) {               
+                $resource       = Mage::getSingleton('core/resource');
+                $adapter        = $resource->getConnection('core_read');
+                $tableName      = $resource->getTableName('sales_flat_quote_address');
+                $select = $adapter->select()
+                    ->from(
+                        $tableName,
+                        new Zend_Db_Expr('*')
+                    )
+                    ->where('quote_id IN ('.implode(",",array_values($quoteIds)).')');
+                    /*->where('name <> ""')
+                    ->order('name ASC');*/
 
-                $collection->addAttributeToFilter('quote_id', $orderIds);
-
-                foreach ($collection->getItems() as $item) {
-                    $addresses[$item->getParentId()][] = $addressesFilter->out($item->toArray());
+                $salesQuotesAddresses = $adapter->fetchAll($select);
+                
+                foreach($salesQuotesAddresses as $quoteAddress)
+                {
+                    $addresses[$quoteAddress['quote_id']][] = $addressesFilter->out($quoteAddress);
                 }
+
             }
         }
         return $addresses;
@@ -133,16 +158,6 @@ class Mage_Sales_Model_Api2_Quote extends Mage_Api2_Model_Resource
             $itemsFilter = $this->_getSubModel('quote_item', array())->getFilter();
             // do items request if at least one attribute allowed
             if ($itemsFilter->getAllowedAttributes()) {
-                
-                //$salesQuote = Mage::getResourceModel('sales/quote_collection');
-                //$salesQuote->addFieldToFilter('quote_id', $orderIds);
-                /* @var $collection Mage_Sales_Model_Resource_Order_Item_Collection */
-                //$collection = Mage::getResourceModel('sales/quote_item_collection');
-                //$collection->setQuote($salesQuote);
-                //$collection->addFieldToFilter('quote_id', $orderIds);
-                //$parentQuote = Mage::getModel("sales/quote_item")->load($_item->getParentItemId());
-                //$store = Mage::getSingleton('core/store')->load(1);
-                //$quote = Mage::getModel('sales/quote')->setStore($store)->load($quoteId);
 
                 $resource       = Mage::getSingleton('core/resource');
 		        $adapter        = $resource->getConnection('core_read');
@@ -161,16 +176,25 @@ class Mage_Sales_Model_Api2_Quote extends Mage_Api2_Model_Resource
 
                 foreach($salesQuotesItem as $quoteItem)
                 {
-    error_log("\nitem ".print_r($quoteItem,1), 3, '/tmp/mageApi.log');
-                	$items[$quoteItem->getOrderId()][] = $itemsFilter->out($quoteItem);
-	                /*foreach ($collection->getItems() as $item) {
-	error_log("\nitem ".print_r($item,1), 3, '/tmp/mageApi.log');                     	
-	                    $items[$item->getOrderId()][] = $itemsFilter->out($item->toArray());
-	                }*/
-
+                	$items[$quoteItem['quote_id']][] = $itemsFilter->out($quoteItem);
             	}
             }
         }
         return $items;
+    }
+
+    /**
+     * Create Quote Address
+     *
+     * @param array $data
+     * @return string
+     */
+    protected function _create(array $data)
+    {
+var_dump($data);die;        
+        $productId = $data['productId'];
+        $product = $this->_initProduct($productId);
+var_dump($product);die;
+        return $this->_getLocation($quote);
     }
 }

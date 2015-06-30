@@ -17,37 +17,45 @@ abstract class Mage_Sales_Model_Api2_Quote_Rest extends Mage_Sales_Model_Api2_Qu
      */
     protected function _retrieve()
     {
-    	$orderId    = $this->getRequest()->getParam('id');
-        $collection = $this->_getCollectionForSingleRetrieve($orderId);
+        /*must be customer id then not quote id*/
+        $id    = $this->getRequest()->getParam('id');
+        $quote = $this->__getCollection($id);
+
+        $quoteDataRaw = $quote->getData();
+        
+        if(empty($quoteDataRaw)){
+
+        }
+
+        $quoteData = $quoteDataRaw[0];
+        $addresses = $this->_getAddresses(array($quoteData['entity_id']));
+        $items     = $this->_getItems(array($quoteData['entity_id']));
+
+        if ($addresses) {
+            $quoteData['addresses'] = $addresses[$quoteData['entity_id']];
+        }
+        if ($items) {
+            $quoteData['quote_items'] = $items[$quoteData['entity_id']];
+        }
+        
+        return $quoteData;
+    }
+
+    private function __getCollection($Id)
+    {
+
+        $collection = $this->_getCollectionForSingleRetrieve($Id);
 
         if ($this->_isPaymentMethodAllowed()) {
             $this->_addPaymentMethodInfo($collection);
         }
-        if ($this->_isGiftMessageAllowed()) {
-            $this->_addGiftMessageInfo($collection);
-        }
-        $this->_addTaxInfo($collection);
 
-        $order = $collection->getItemById($orderId);
-
-        if (!$order) {
+        $quote = $collection->load();
+ 
+        if (!$quote) {
             $this->_critical(self::RESOURCE_NOT_FOUND);
         }
-        $orderData = $order->getData();
-        $addresses = $this->_getAddresses(array($orderId));
-        $items     = $this->_getItems(array($orderId));
-        $comments  = $this->_getComments(array($orderId));
-
-        if ($addresses) {
-            $orderData['addresses'] = $addresses[$orderId];
-        }
-        if ($items) {
-            $orderData['order_items'] = $items[$orderId];
-        }
-        if ($comments) {
-            $orderData['order_comments'] = $comments[$orderId];
-        }
-        return $orderData;
+        return $quote;
     }
 
 }
