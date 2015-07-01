@@ -1,0 +1,14 @@
+<config>
+	<modules>
+		<Bilna_Customer>
+			<version>0.1.1</version>
+		</Bilna_Customer>
+	</modules>
+	<global>
+		<models>
+			<bilna_customer>
+				<class>Bilna_Customer_Model</class>
+			</bilna_customer>
+		</models>
+	</global>
+</config>
