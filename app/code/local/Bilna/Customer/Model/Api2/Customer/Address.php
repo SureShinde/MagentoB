@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Magento
  *
@@ -28,16 +27,14 @@
 /**
  * API2 class for customer address
  *
- * @category Mage
- * @package Mage_Customer
- * @author Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Customer
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Customer_Model_Api2_Customer_Address extends Mage_Api2_Model_Resource
 {
-
     /**
-     * Resource specific method to retrieve attributes' codes.
-     * May be overriden in child.
+     * Resource specific method to retrieve attributes' codes. May be overriden in child.
      *
      * @return array
      */
@@ -53,15 +50,13 @@ class Mage_Customer_Model_Api2_Customer_Address extends Mage_Api2_Model_Resource
      */
     protected function _getValidator()
     {
-        return Mage::getModel('customer/api2_customer_address_validator', array(
-            'resource' => $this
-        ));
+        return Mage::getModel('customer/api2_customer_address_validator', array('resource' => $this));
     }
 
     /**
      * Is specified address a default billing address?
      *
-     * @param Mage_Customer_Model_Address $address            
+     * @param Mage_Customer_Model_Address $address
      * @return bool
      */
     protected function _isDefaultBillingAddress(Mage_Customer_Model_Address $address)
@@ -72,7 +67,7 @@ class Mage_Customer_Model_Api2_Customer_Address extends Mage_Api2_Model_Resource
     /**
      * Is specified address a default shipping address?
      *
-     * @param Mage_Customer_Model_Address $address            
+     * @param Mage_Customer_Model_Address $address
      * @return bool
      */
     protected function _isDefaultShippingAddress(Mage_Customer_Model_Address $address)
@@ -84,62 +79,50 @@ class Mage_Customer_Model_Api2_Customer_Address extends Mage_Api2_Model_Resource
      * Get region id by name or code
      * If id is not found then return passed $region
      *
-     * @param string $region            
-     * @param string $countryId            
+     * @param string $region
+     * @param string $countryId
      * @return int|string
      */
     protected function _getRegionIdByNameOrCode($region, $countryId)
     {
-        /**
-         * @var $collection Mage_Directory_Model_Resource_Region_Collection
-         */
+        /** @var $collection Mage_Directory_Model_Resource_Region_Collection */
         $collection = Mage::getResourceModel('directory/region_collection');
-        
+
         $collection->getSelect()
-            ->reset()
-            -> // to avoid locale usage
-from(array(
-            'main_table' => $collection->getMainTable()
-        ), 'region_id');
-        
-        $collection->addCountryFilter($countryId)->addFieldToFilter(array(
-            'default_name',
-            'code'
-        ), array(
-            $region,
-            $region
-        ));
-        
-        $id = $collection->getResource()
-            ->getReadConnection()
-            ->fetchOne($collection->getSelect());
-        
-        return $id ? (int) $id : $region;
+            ->reset() // to avoid locale usage
+            ->from(array('main_table' => $collection->getMainTable()), 'region_id');
+
+        $collection->addCountryFilter($countryId)
+            ->addFieldToFilter(array('default_name', 'code'), array($region, $region));
+
+        $id = $collection->getResource()->getReadConnection()->fetchOne($collection->getSelect());
+
+        return $id ? (int)$id : $region;
     }
 
     /**
      * Load customer address by id
      *
-     * @param int $id            
+     * @param int $id
      * @return Mage_Customer_Model_Address
      */
     protected function _loadCustomerAddressById($id)
     {
         /* @var $address Mage_Customer_Model_Address */
         $address = Mage::getModel('customer/address')->load($id);
-        
-        if (! $address->getId()) {
+
+        if (!$address->getId()) {
             $this->_critical(self::RESOURCE_NOT_FOUND);
         }
         $address->addData($this->_getDefaultAddressesInfo($address));
-        
+
         return $address;
     }
 
     /**
      * Load customer by id
      *
-     * @param int $id            
+     * @param int $id
      * @throws Mage_Api2_Exception
      * @return Mage_Customer_Model_Customer
      */
@@ -147,7 +130,7 @@ from(array(
     {
         /* @var $customer Mage_Customer_Model_Customer */
         $customer = Mage::getModel('customer/customer')->load($id);
-        if (! $customer->getId()) {
+        if (!$customer->getId()) {
             $this->_critical(self::RESOURCE_NOT_FOUND);
         }
         return $customer;

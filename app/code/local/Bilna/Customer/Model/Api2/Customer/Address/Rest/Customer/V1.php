@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Magento
  *
@@ -28,17 +27,16 @@
 /**
  * API2 class for customer address (customer)
  *
- * @category Mage
- * @package Mage_Customer
- * @author Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Customer
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Customer_Model_Api2_Customer_Address_Rest_Customer_V1 extends Mage_Customer_Model_Api2_Customer_Address_Rest
 {
-
     /**
      * Load customer address by id
      *
-     * @param int $id            
+     * @param int $id
      * @throws Mage_Api2_Exception
      * @return Mage_Customer_Model_Address
      */
@@ -56,7 +54,7 @@ class Mage_Customer_Model_Api2_Customer_Address_Rest_Customer_V1 extends Mage_Cu
     /**
      * Load customer by id
      *
-     * @param int $id            
+     * @param int $id
      * @throws Mage_Api2_Exception
      * @return Mage_Customer_Model_Customer
      */

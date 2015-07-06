@@ -8,10 +8,10 @@
 			</customer>
 		</resource_groups>
 		<resources>
-			<customer translate="title" module="api2">
+			<customer translate="title" module="Bilna_Customer">
 				<group>customer</group>
 				<sort_order>90</sort_order>
-				<model>customer/api2_customer</model>
+				<model>bilna_customer/api2_customer</model>
 				<working_model>customer/customer</working_model>
 				<title>Customer</title>
 				<privileges>
@@ -28,25 +28,22 @@
 						<delete>1</delete>
 					</customer>
 				</privileges>
-				<attributes
-					translate="entity_id last_logged_in firstname lastname 
-				email website_id created_in group_id confirmation disable_auto_group_change"
-					module="api2">
+				<attributes translate="entity_id last_logged_in firstname lastname email gender dob newsletter password newsletter website_id created_in group_id disable_auto_group_change is_active" module="Bilna_Customer">
 					<entity_id>Customer ID</entity_id>
-					<last_logged_in>Last Logged
-						In
-					</last_logged_in>
+					<last_logged_in>Last Logged In</last_logged_in>
 					<firstname>First Name</firstname>
 					<lastname>Last Name</lastname>
 					<email>Email</email>
+					<gender>Gender</gender>
+					<dob>Date of Birth</dob>
+					<newsletter>Newsletter</newsletter>
+					<password>Password</password>
+					<newsletter>Newsletter</newsletter>
 					<website_id>Associate to Website</website_id>
-					<created_in>Created
-						From
-					</created_in>
+					<created_in>Created From</created_in>
 					<group_id>Group</group_id>
-					<confirmation>Is Confirmed</confirmation>
-					<disable_auto_group_change>Disable automatic group change based on
-						VAT ID</disable_auto_group_change>
+					<is_active>Is Active</is_active>
+					<disable_auto_group_change>Disable automatic group change based on VAT ID</disable_auto_group_change>
 				</attributes>
 				<exclude_attributes>
 					<admin>
@@ -110,6 +107,89 @@
 				</routes>
 				<versions>1</versions>
 			</customer>
+            <customer_address translate="title" module="api2">
+                <group>customer</group>
+                <sort_order>110</sort_order>
+                <model>customer/api2_customer_address</model>
+                <working_model>customer/address</working_model>
+                <title>Customer Address</title>
+                <privileges>
+                    <admin>
+                        <create>1</create>
+                        <retrieve>1</retrieve>
+                        <update>1</update>
+                        <delete>1</delete>
+                    </admin>
+                    <customer>
+                        <create>1</create>
+                        <retrieve>1</retrieve>
+                        <update>1</update>
+                        <delete>1</delete>
+                    </customer>
+                </privileges>
+                <attributes translate="entity_id is_default_billing is_default_shipping" module="api2">
+                    <entity_id>Customer Address ID</entity_id>
+                    <is_default_billing>Is Default Billing Address</is_default_billing>
+                    <is_default_shipping>Is Default Shipping Address</is_default_shipping>
+                </attributes>
+                <exclude_attributes>
+                    <admin>
+                        <read>
+                            <region_id>1</region_id>
+                            <vat_is_valid>1</vat_is_valid>
+                            <vat_request_date>1</vat_request_date>
+                            <vat_request_id>1</vat_request_id>
+                            <vat_request_success>1</vat_request_success>
+                        </read>
+                        <write>
+                            <entity_id>1</entity_id>
+                            <region_id>1</region_id>
+                            <vat_is_valid>1</vat_is_valid>
+                            <vat_request_date>1</vat_request_date>
+                            <vat_request_id>1</vat_request_id>
+                            <vat_request_success>1</vat_request_success>
+                        </write>
+                    </admin>
+                    <customer>
+                        <read>
+                            <region_id>1</region_id>
+                        </read>
+                        <write>
+                            <entity_id>1</entity_id>
+                            <region_id>1</region_id>
+                        </write>
+                    </customer>
+                </exclude_attributes>
+                <validators>
+                    <eav>
+                        <admin>
+                            <entity_model>customer/address</entity_model>
+                            <form_model>customer/form</form_model>
+                            <form_code>
+                                <update>adminhtml_customer_address</update>
+                            </form_code>
+                        </admin>
+                        <customer>
+                            <entity_model>customer/address</entity_model>
+                            <form_model>customer/form</form_model>
+                            <form_code>
+                                <update>customer_address_edit</update>
+                            </form_code>
+                        </customer>
+                    </eav>
+                </validators>
+                <routes>
+                    <route_entity>
+                        <route>/customers/addresses/:id</route>
+                        <action_type>entity</action_type>
+                    </route_entity>
+                    <route_collection>
+                        <route>/customers/:customer_id/addresses</route>
+                        <action_type>collection</action_type>
+                    </route_collection>
+                </routes>
+                <versions>1</versions>
+            </customer_address>
 			<customer_login translate="title" module="Bilna_Customer">
 				<group>customer</group>
 				<sort_order>110</sort_order>
@@ -123,9 +203,7 @@
 						<retrieve>1</retrieve>
 					</customer>
 				</privileges>
-				<attributes
-					translate="entity_id email group_id created_at updated_at is_active firstname lastname default_billing default_shipping"
-					module="Bilna_Customer">
+				<attributes translate="entity_id email group_id created_at updated_at is_active firstname lastname gender dob newsletter default_billing default_shipping" module="Bilna_Customer">
 					<entity_id>ID</entity_id>
 					<email>Email</email>
 					<group_id>Group ID</group_id>
@@ -134,6 +212,9 @@
 					<is_active>Is Active</is_active>
 					<firstname>Firstname</firstname>
 					<lastname>Lastname</lastname>
+					<gender>Gender</gender>
+					<dob>Date of Birth</dob>
+					<newsletter>Newsletter</newsletter>
 					<default_billing>Default Billing ID</default_billing>
 					<default_shipping>Default Shipping ID</default_shipping>
 				</attributes>
@@ -145,6 +226,42 @@
 				</routes>
 				<versions>1</versions>
 			</customer_login>
+			<customer_subscription translate="title" module="Bilna_Customer">
+				<group>customer</group>
+				<sort_order>110</sort_order>
+				<model>bilna_customer/api2_subscription</model>
+				<title>Customer Subscription</title>
+				<privileges>
+					<admin>
+						<create>1</create>
+						<retrieve>1</retrieve>
+						<delete>1</delete>
+					</admin>
+					<customer>
+						<create>1</create>
+						<retrieve>1</retrieve>
+					</customer>
+				</privileges>
+				<attributes translate="subscriber_id store_id customer_id subscriber_email subscriber_status subscriber_confirm_code" module="Bilna_Customer">
+					<subscriber_id>ID</subscriber_id>
+					<store_id>Store ID</store_id>
+					<customer_id>Customer ID</customer_id>
+					<subscriber_email>Email</subscriber_email>
+					<subscriber_status>Status</subscriber_status>
+					<subscriber_confirm_code>Confirmation Code</subscriber_confirm_code>
+				</attributes>
+				<routes>
+					<route_entity>
+						<route>/customer/subscription/:id</route>
+						<action_type>entity</action_type>
+					</route_entity>
+					<route_collection>
+						<route>/customer/subscription</route>
+						<action_type>collection</action_type>
+					</route_collection>
+				</routes>
+				<versions>1</versions>
+			</customer_subscription>
 		</resources>
 	</api2>
 </config>

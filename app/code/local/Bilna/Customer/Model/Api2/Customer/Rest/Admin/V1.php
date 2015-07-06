@@ -13,7 +13,6 @@ class Bilna_Customer_Model_Api2_Customer_Rest_Admin_V1 extends Bilna_Customer_Mo
     protected function _retrieve()
     {
         /**
-         *
          * @var $log Mage_Log_Model_Customer
          */
         $log = Mage::getModel('log/customer');
@@ -36,7 +35,6 @@ class Bilna_Customer_Model_Api2_Customer_Rest_Admin_V1 extends Bilna_Customer_Mo
     protected function _delete()
     {
         /**
-         *
          * @var $customer Mage_Customer_Model_Customer
          */
         $customer = parent::_loadCustomerById($this->getRequest()->getParam('id'));
