@@ -159,17 +159,19 @@ class Mage_Catalog_Model_Api2_Product_Rest_Admin_V1 extends Mage_Catalog_Model_A
         $collection->addAttributeToSelect(array_keys($this->getAvailableAttributes($this->getUserType(), Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_READ)));
         $this->_applyCategoryFilter($collection);
         $this->_applyCollectionModifiers($collection);
-        $products = $this->_retrieveCollectionResponse($collection->load());
+        
+        $products = $this->_retrieveCollectionResponse($collection->load(), $collection->getSize());
         
         return $products;
     }
     
-    protected function _retrieveCollectionResponse($products) {
+    protected function _retrieveCollectionResponse($products, $totalRecord) {
         if (!$products) {
             $this->_critical(self::RESOURCE_NOT_FOUND);
         }
         
         $result = array ();
+        $result['totalRecord'] = $totalRecord;
         
         foreach ($products as $key => $product) {
             foreach ($product->getData() as $k => $v) {
