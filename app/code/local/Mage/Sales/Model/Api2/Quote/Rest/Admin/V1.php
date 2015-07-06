@@ -17,11 +17,13 @@ class Mage_Sales_Model_Api2_Quote_Rest_Admin_V1 extends Mage_Sales_Model_Api2_Qu
      */
     protected function _create(array $data)
     {
-        /*$email = "iwanseti1979@gmail.com";
-        $customerId = 89646;
-        $productId = 78290;//76889;//78290;// 65922;
-        $qty = 1;
-        $quoteId = 690261;*/
+        /*$email = "iwanseti1979@gmail.com";*/
+        $customerId = $data['customerId'];//89646;
+        $productId = $data['productId'];//78290;//76889;//78290;// 65922;
+        $qty = $data['qty'];//1;
+        $quoteId = $data['quoteId'] ? $data['quoteId'] : '';
+
+
         $product = $this->_initProduct($productId);
         $customer = Mage::getModel("customer/customer")->load($customerId);
         
