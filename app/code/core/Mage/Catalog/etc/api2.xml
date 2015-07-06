@@ -382,7 +382,8 @@
                         <retrieve>1</retrieve>
                     </admin>
                 </privileges>
-                <attributes translate="name is_active description page_title display_mode cms_block" module="api2">
+                <attributes translate="id name is_active description page_title display_mode cms_block page_layout" module="api2">
+                    <id>ID</id>
                     <name>Name</name>
                     <is_active>Is Active</is_active>
                     <description>Description</description>

@@ -8,7 +8,7 @@
 class Mage_Catalog_Model_Api2_Category_Rest_Admin_V1 extends Mage_Catalog_Model_Api2_Product_Rest {
     protected function _retrieve() {
         $categoryId = $this->getRequest()->getParam('id');
-        $category = Mage::getModel('catalog/category')->load($categoryId, $this->_getStore()->getId());
+        $category = Mage::getModel('catalog/category')->load($categoryId);
         
         if (!($category->getId())) {
             $this->_critical(self::RESOURCE_NOT_FOUND);
