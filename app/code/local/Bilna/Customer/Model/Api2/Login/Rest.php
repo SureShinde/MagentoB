@@ -18,7 +18,9 @@ class Bilna_Customer_Model_Api2_Login_Rest extends Bilna_Customer_Model_Api2_Log
             try {
                 $session->login($email, $password);
                 
-                return $session->getCustomer()->getData();
+                $customer = $session->getCustomer()->getData();
+                
+                return $this->_loadCustomerById($customer["entity_id"])->getData();
             } catch (Mage_Core_Exception $e) {
                 switch ($e->getCode()) {
                     case Mage_Customer_Model_Customer::EXCEPTION_EMAIL_NOT_CONFIRMED:
@@ -37,5 +39,30 @@ class Bilna_Customer_Model_Api2_Login_Rest extends Bilna_Customer_Model_Api2_Log
             $this->_critical("Login and password are required.");
         }
         // }
+    }
+
+    /**
+     * Load customer by id
+     *
+     * @param int $id            
+     * @throws Mage_Api2_Exception
+     * @return Mage_Customer_Model_Customer
+     */
+    protected function _loadCustomerById($id)
+    {
+        /**
+         * @var $customer Mage_Customer_Model_Customer
+         */
+        $customer = Mage::getResourceModel('customer/customer_collection');
+        $customer   ->getSelect()
+                    ->joinLeft(array("a" => "newsletter_subscriber"), "e.entity_id = a.customer_id", array("newsletter" => "subscriber_email"))
+                    ->where('e.entity_id = '.$id)
+                    ->limit(1);
+
+        $customer->addAttributeToSelect(array_keys($this->getAvailableAttributes($this->getUserType(), Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_READ)));
+
+        $this->_applyCollectionModifiers($customer);
+        
+        return $customer->getFirstItem();
     }
 }

@@ -12,7 +12,6 @@ abstract class Bilna_Customer_Model_Api2_Customer_Rest extends Bilna_Customer_Mo
     protected function _create(array $data)
     {
         /**
-         *
          * @var $validator Mage_Api2_Model_Resource_Validator_Eav
          */
         $validator = Mage::getResourceModel('api2/validator_eav', array(
@@ -20,9 +19,8 @@ abstract class Bilna_Customer_Model_Api2_Customer_Rest extends Bilna_Customer_Mo
         ));
         
         $extra["password_hash"] = $this->_getHelper('core')->getHash($data["password"], Mage_Admin_Model_User::HASH_SALT_LENGTH);
-        if (isset($data["newsletter"]) && $data["newsletter"] == 1)
-            $extra["is_subscribed"] = true;
-        
+        if(isset($data["newsletter"]) && $data["newsletter"]==1) $extra["is_subscribed"] = true;
+
         $data = $validator->filter($data);
         $data = array_merge($data, $extra);
         unset($password);
@@ -35,7 +33,6 @@ abstract class Bilna_Customer_Model_Api2_Customer_Rest extends Bilna_Customer_Mo
         }
         
         /**
-         *
          * @var $customer Mage_Customer_Model_Customer
          */
         $customer = Mage::getModel('customer/customer');
@@ -62,7 +59,6 @@ abstract class Bilna_Customer_Model_Api2_Customer_Rest extends Bilna_Customer_Mo
     protected function _retrieve()
     {
         /**
-         *
          * @var $customer Mage_Customer_Model_Customer
          */
         $customer = $this->_loadCustomerById($this->getRequest()
@@ -92,13 +88,11 @@ abstract class Bilna_Customer_Model_Api2_Customer_Rest extends Bilna_Customer_Mo
     protected function _update(array $data)
     {
         /**
-         *
          * @var $customer Mage_Customer_Model_Customer
          */
         $customer = $this->_loadCustomerById($this->getRequest()
             ->getParam('id'));
         /**
-         *
          * @var $validator Mage_Api2_Model_Resource_Validator_Eav
          */
         $validator = Mage::getResourceModel('api2/validator_eav', array(
@@ -137,14 +131,19 @@ abstract class Bilna_Customer_Model_Api2_Customer_Rest extends Bilna_Customer_Mo
     protected function _loadCustomerById($id)
     {
         /**
-         *
          * @var $customer Mage_Customer_Model_Customer
          */
-        $customer = Mage::getModel('customer/customer')->load($id);
-        if (! $customer->getId()) {
-            $this->_critical(self::RESOURCE_NOT_FOUND);
-        }
-        return $customer;
+        $customer = Mage::getResourceModel('customer/customer_collection');
+        $customer   ->getSelect()
+                    ->joinLeft(array("a" => "newsletter_subscriber"), "e.entity_id = a.customer_id", array("newsletter" => "subscriber_email"))
+                    ->where('e.entity_id = '.$id)
+                    ->limit(1);
+
+        $customer->addAttributeToSelect(array_keys($this->getAvailableAttributes($this->getUserType(), Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_READ)));
+        
+        $this->_applyCollectionModifiers($customer);
+        
+        return $customer->getFirstItem();
     }
 
     /**
@@ -155,10 +154,12 @@ abstract class Bilna_Customer_Model_Api2_Customer_Rest extends Bilna_Customer_Mo
     protected function _getCollectionForRetrieve()
     {
         /**
-         *
          * @var $collection Mage_Customer_Model_Resource_Customer_Collection
          */
         $collection = Mage::getResourceModel('customer/customer_collection');
+        $collection ->getSelect()
+                    ->joinLeft(array("a" => "newsletter_subscriber"), "e.entity_id = a.customer_id", array("newsletter" => "subscriber_email"));
+        
         $collection->addAttributeToSelect(array_keys($this->getAvailableAttributes($this->getUserType(), Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_READ)));
         
         $this->_applyCollectionModifiers($collection);
@@ -173,13 +174,12 @@ abstract class Bilna_Customer_Model_Api2_Customer_Rest extends Bilna_Customer_Mo
     /**
      * Dispatch Event
      *
-     * @param Mage_Customer_Model_Customer $customer            
+     * @param Mage_Customer_Model_Customer $customer
      */
     protected function _dispatchRegisterSuccess($customer)
     {
-        Mage::dispatchEvent('customer_register_success', array(
-            'account_controller' => $this,
-            'customer' => $customer
-        ));
+        Mage::dispatchEvent('customer_register_success',
+            array('account_controller' => $this, 'customer' => $customer)
+        );
     }
 }
