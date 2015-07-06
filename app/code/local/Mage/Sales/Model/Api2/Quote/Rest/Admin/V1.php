@@ -18,10 +18,10 @@ class Mage_Sales_Model_Api2_Quote_Rest_Admin_V1 extends Mage_Sales_Model_Api2_Qu
     protected function _create(array $data)
     {
         /*$email = "iwanseti1979@gmail.com";*/
-        $customerId = $data['customerId'];//89646;
-        $productId = $data['productId'];//78290;//76889;//78290;// 65922;
+        $customerId = $data['customer_id'];//89646;
+        $productId = $data['product_id'];//78290;//76889;//78290;// 65922;
         $qty = $data['qty'];//1;
-        $quoteId = $data['quoteId'] ? $data['quoteId'] : '';
+        $quoteId = $data['quote_id'] ? $data['quote_id'] : '';
 
 
         $product = $this->_initProduct($productId);
@@ -37,8 +37,11 @@ class Mage_Sales_Model_Api2_Quote_Rest_Admin_V1 extends Mage_Sales_Model_Api2_Qu
         }
         $store = $quote->getStore()->load($storeId);
         $quote->setStore($store);
-        $quote->setEntityId($quoteId);
 
+        if($quoteId){
+            $quote->setEntityId($quoteId);
+        }
+        
         $productModel = Mage::getModel('catalog/product');
         $product = $productModel->load($productId);
 
