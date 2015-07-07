@@ -1,11 +1,11 @@
 <?php
 /**
- * Description of Mage_Catalog_Model_Api2_Category_Rest_Admin_V1
+ * Description of Bilna_Rest_Model_Api2_Category_Rest_Admin_V1
  *
  * @author Bilna Development Team <development@bilna.com>
  */
 
-class Mage_Catalog_Model_Api2_Category_Rest_Admin_V1 extends Mage_Catalog_Model_Api2_Product_Rest {
+class Bilna_Rest_Model_Api2_Category_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_Category_Rest {
     protected function _retrieve() {
         $categoryId = $this->getRequest()->getParam('id');
         $category = Mage::getModel('catalog/category')->load($categoryId);

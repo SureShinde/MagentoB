@@ -372,34 +372,6 @@
                 </routes>
                 <versions>1</versions>
             </product_website>
-            <category translate="title" module="api2">
-                <group>catalog_category</group>
-                <model>catalog/api2_category</model>
-                <title>Catalog Category</title>
-                <sort_order>10</sort_order>
-                <privileges>
-                    <admin>
-                        <retrieve>1</retrieve>
-                    </admin>
-                </privileges>
-                <attributes translate="id name is_active description page_title display_mode cms_block page_layout" module="api2">
-                    <id>ID</id>
-                    <name>Name</name>
-                    <is_active>Is Active</is_active>
-                    <description>Description</description>
-                    <page_title>Page Title</page_title>
-                    <display_mode>Display Mode</display_mode>
-                    <cms_block>CMS Block</cms_block>
-                    <page_layout>Page Layout</page_layout>
-                </attributes>
-                <routes>
-                    <route_entity>
-                        <route>/categories/:id</route>
-                        <action_type>entity</action_type>
-                    </route_entity>
-                </routes>
-                <versions>1</versions>
-            </category>
         </resources>
     </api2>
 </config>
