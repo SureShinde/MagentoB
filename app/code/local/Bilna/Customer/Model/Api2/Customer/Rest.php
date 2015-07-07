@@ -99,11 +99,13 @@ abstract class Bilna_Customer_Model_Api2_Customer_Rest extends Bilna_Customer_Mo
             'resource' => $this
         ));
         
-        $extra["password_hash"] = $this->_getHelper('core')->getHash($data["password"], Mage_Admin_Model_User::HASH_SALT_LENGTH);
+        if($data["password"]) $extra["password_hash"] = $this->_getHelper('core')->getHash($data["password"], Mage_Admin_Model_User::HASH_SALT_LENGTH);
 
         $data = $validator->filter($data);
-        $data = array_merge($data, $extra);
-        unset($extra);
+        if($extra){
+            $data = array_merge($data, $extra);
+            unset($extra);
+        }
         
         unset($data['website_id']); // website is not allowed to change
         
