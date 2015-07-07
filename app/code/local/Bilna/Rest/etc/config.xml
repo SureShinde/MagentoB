@@ -1,0 +1,14 @@
+<config>
+    <modules>
+        <Bilna_Rest>
+            <version>0.1.0</version>
+        </Bilna_Rest>
+    </modules>
+    <global>
+        <models>
+            <bilna_rest>
+                <class>Bilna_Rest_Model</class>
+            </bilna_rest>
+        </models>
+    </global>
+</config>
