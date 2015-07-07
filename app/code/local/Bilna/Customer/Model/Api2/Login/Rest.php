@@ -55,7 +55,7 @@ class Bilna_Customer_Model_Api2_Login_Rest extends Bilna_Customer_Model_Api2_Log
          */
         $customer = Mage::getResourceModel('customer/customer_collection');
         $customer   ->getSelect()
-                    ->joinLeft(array("a" => "newsletter_subscriber"), "e.entity_id = a.customer_id", array("newsletter" => "subscriber_email"))
+                    ->joinLeft(array("a" => "newsletter_subscriber"), "e.entity_id = a.customer_id AND a.subscriber_status = 1", array("newsletter" => "subscriber_email"))
                     ->where('e.entity_id = '.$id)
                     ->limit(1);
 

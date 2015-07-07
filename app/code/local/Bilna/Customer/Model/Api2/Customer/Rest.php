@@ -23,7 +23,7 @@ abstract class Bilna_Customer_Model_Api2_Customer_Rest extends Bilna_Customer_Mo
 
         $data = $validator->filter($data);
         $data = array_merge($data, $extra);
-        unset($password);
+        unset($extra);
         
         if (! $validator->isValidData($data)) {
             foreach ($validator->getErrors() as $error) {
@@ -99,7 +99,11 @@ abstract class Bilna_Customer_Model_Api2_Customer_Rest extends Bilna_Customer_Mo
             'resource' => $this
         ));
         
+        $extra["password_hash"] = $this->_getHelper('core')->getHash($data["password"], Mage_Admin_Model_User::HASH_SALT_LENGTH);
+
         $data = $validator->filter($data);
+        $data = array_merge($data, $extra);
+        unset($extra);
         
         unset($data['website_id']); // website is not allowed to change
         
@@ -135,7 +139,7 @@ abstract class Bilna_Customer_Model_Api2_Customer_Rest extends Bilna_Customer_Mo
          */
         $customer = Mage::getResourceModel('customer/customer_collection');
         $customer   ->getSelect()
-                    ->joinLeft(array("a" => "newsletter_subscriber"), "e.entity_id = a.customer_id", array("newsletter" => "subscriber_email"))
+                    ->joinLeft(array("a" => "newsletter_subscriber"), "e.entity_id = a.customer_id AND a.subscriber_status = 1", array("newsletter" => "subscriber_email"))
                     ->where('e.entity_id = '.$id)
                     ->limit(1);
 
@@ -158,7 +162,7 @@ abstract class Bilna_Customer_Model_Api2_Customer_Rest extends Bilna_Customer_Mo
          */
         $collection = Mage::getResourceModel('customer/customer_collection');
         $collection ->getSelect()
-                    ->joinLeft(array("a" => "newsletter_subscriber"), "e.entity_id = a.customer_id", array("newsletter" => "subscriber_email"));
+                    ->joinLeft(array("a" => "newsletter_subscriber"), "e.entity_id = a.customer_id AND a.subscriber_status = 1", array("newsletter" => "subscriber_email"));
         
         $collection->addAttributeToSelect(array_keys($this->getAvailableAttributes($this->getUserType(), Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_READ)));
         
