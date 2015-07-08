@@ -1,0 +1,14 @@
+<config>
+	<modules>
+		<Bilna_Checkout>
+			<version>0.1.13</version>
+		</Bilna_Checkout>
+	</modules>
+	<global>
+		<models>
+			<bilna_checkout>
+				<class>Bilna_Checkout_Model</class>
+			</bilna_checkout>
+		</models>
+	</global>
+</config>

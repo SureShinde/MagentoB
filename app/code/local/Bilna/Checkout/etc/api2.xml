@@ -1,0 +1,181 @@
+<?xml version="1.0"?>
+<config>
+	<api2>
+		<resource_groups>
+			<checkout translate="title" module="Bilna_Checkout">
+				<title>Checkout</title>
+				<sort_order>130</sort_order>
+				<children>
+					<checkout_quote translate="title" module="Bilna_Checkout">
+						<title>Quote</title>
+						<sort_order>150</sort_order>
+					</checkout_quote>
+					<checkout_product translate="title" module="Bilna_Checkout">
+						<title>Product</title>
+						<sort_order>160</sort_order>
+					</checkout_product>
+					<!--checkout_customer translate="title" module="Bilna_Checkout">
+						<title>Customer</title>
+						<sort_order>170</sort_order>
+					</checkout_customer>
+					<checkout_coupon translate="title" module="Bilna_Checkout">
+						<title>Coupon</title>
+						<sort_order>180</sort_order>
+					</checkout_coupon>
+					<checkout_payment translate="title" module="Bilna_Checkout">
+						<title>Payment</title>
+						<sort_order>170</sort_order>
+					</checkout_payment>
+					<checkout_shipping translate="title" module="Bilna_Checkout">
+						<title>Shipping</title>
+						<sort_order>170</sort_order>
+					</checkout_shipping-->
+				</children>
+			</checkout>
+		</resource_groups>
+		<resources>
+			<cart_quote translate="title" module="Bilna_Checkout">
+				<group>checkout</group>
+				<sort_order>90</sort_order>
+				<model>bilna_checkout/api2_quote</model>
+				<!--working_model>checkout/cart</working_model-->
+				<title>Quote</title>
+				<privileges>
+					<admin>
+						<create>1</create>
+						<retrieve>1</retrieve>
+						<update>1</update>
+						<delete>1</delete>
+					</admin>
+					<customer>
+						<retrieve>1</retrieve>
+					</customer>
+				</privileges>
+				<attributes translate="entity_id store_id created_at updated_at converted_at is_active is_virtual is_multi_shipping items_count items_qty orig_order_id store_to_base_rate store_to_quote_rate base_currency_code store_currency_code grand_total base_grand_total checkout_method customer_id customer_tax_class_id customer_group_id customer_email customer_prefix customer_firstname customer_middlename customer_lastname customer_suffix customer_dob customer_note customer_is_guest remote_ip applied_rule_ids reserved_order_id coupon_code subtotal base_subtotal subtotal_with_discount base_subtotal_with_discount" module="Bilna_Checkout">
+					<entity_id>Quote ID</entity_id>
+					<store_id>Store ID</store_id>
+					<created_at>Created At</created_at>
+					<updated_at>Updated At</updated_at>
+					<converted_at>Converted At</converted_at>
+					<is_active>Is Active</is_active>
+					<is_virtual>Is Virtual</is_virtual>
+					<is_multi_shipping>Is Multi Shipping</is_multi_shipping>
+					<items_count>Items Count</items_count>
+					<items_qty>Items Qty</items_qty>
+					<orig_order_id>Orig Order Id</orig_order_id>
+					<store_to_base_rate>Store To Base Rate</store_to_base_rate>
+					<store_to_quote_rate>store To Quote Rate</store_to_quote_rate>
+					<base_currency_code>Base Currency Code</base_currency_code>
+					<store_currency_code>store Currency Code</store_currency_code>
+					<grand_total>Grand Total</grand_total>
+					<checkout_method>Checkout Method</checkout_method>
+					<customer_id>Customer Id</customer_id>
+					<customer_tax_class_id>Customer Tax Class Id</customer_tax_class_id>
+					<customer_group_id>Customer Group Id</customer_group_id>
+					<customer_email>Customer Email</customer_email>
+					<customer_prefix>Customer Prefix</customer_prefix>
+					<customer_firstname>Customer Firstname</customer_firstname>
+					<customer_middlename>Customer Middlename</customer_middlename>
+					<customer_lastname>Customer Lastname</customer_lastname>
+					<customer_suffix>Customer Suffix</customer_suffix>
+					<customer_dob>Date of Birth</customer_dob>
+					<customer_note>Customer Note</customer_note>
+					<customer_is_guest>Customer Is Guest</customer_is_guest>
+					<remote_ip>Remote Ip</remote_ip>
+					<applied_rule_ids>Applied Rule Ids</applied_rule_ids>
+					<reserved_order_id>Reserved Order Id</reserved_order_id>
+					<coupon_code>Coupon Code</coupon_code>
+					<subtotal>Subtotal</subtotal>
+					<base_subtotal>base Subtotal</base_subtotal>
+					<subtotal_with_discount>Subtotal With Discount</subtotal_with_discount>
+					<base_subtotal_with_discount>Base Subtotal With Discount</base_subtotal_with_discount>
+				</attributes>
+				<exclude_attributes>
+					<admin>
+						<write>
+							<entity_id>1</entity_id>
+							<created_at>1</created_at>
+							<created_in>1</created_in>
+							<last_logged_in>1</last_logged_in>
+						</write>
+					</admin>
+					<customer>
+						<read>
+							<entity_id>1</entity_id>
+							<last_logged_in>1</last_logged_in>
+							<website_id>1</website_id>
+							<created_in>1</created_in>
+							<group_id>1</group_id>
+							<disable_auto_group_change>1</disable_auto_group_change>
+							<confirmation>1</confirmation>
+							<created_at>1</created_at>
+						</read>
+					</customer>
+				</exclude_attributes>
+				<routes>
+					<route_entity>
+						<route>/checkout/quote/:id</route>
+						<action_type>entity</action_type>
+					</route_entity>
+					<route_collection>
+						<route>/checkout/quote</route>
+						<action_type>collection</action_type>
+					</route_collection>
+				</routes>
+				<versions>1</versions>
+			</cart_quote>
+            <cart_product translate="title" module="api2">
+                <group>checkout</group>
+                <sort_order>110</sort_order>
+                <model>bilna_checkout/api2_product</model>
+                <!--working_model>customer/address</working_model-->
+                <title>Product</title>
+                <privileges>
+                    <admin>
+                        <create>1</create>
+                        <retrieve>1</retrieve>
+                        <update>1</update>
+                        <delete>1</delete>
+                    </admin>
+                    <customer>
+                        <create>1</create>
+                        <retrieve>1</retrieve>
+                    </customer>
+                </privileges>
+                <attributes translate="item_id quote_id product_id parent_item_id sku name description applied_rule_ids weight qty price base_price custom_price discount_percent discount_amount base_discount_amount row_total base_row_total product_type store_id" module="api2">
+                    <item_id>Item ID (Internal)</item_id>
+                    <quote_id>Quote ID</quote_id>
+                    <product_id>Product ID</product_id>
+                    <parent_item_id>Parent Item ID</parent_item_id>
+                    <sku>SKU</sku>
+                    <name>Name</name>Name
+                    <description>Description</description>
+                    <applied_rule_ids>Applied Rule Ids</applied_rule_ids>
+                    <weight>Weight</weight>
+                    <qty>Qty</qty>
+                    <price>Price</price>
+                    <base_price>Base Price</base_price>
+                    <custom_price>Custom Price</custom_price>
+                    <discount_percent>Discount Percent</discount_percent>
+                    <discount_amount>Discount Amount</discount_amount>
+                    <base_discount_amount>Base Discount Amount</base_discount_amount>
+                    <row_total>Row Total</row_total>
+                    <base_row_total>base Row Total</base_row_total>
+                    <product_type>Product Type</product_type>
+                    <store_id>Store ID</store_id>
+                </attributes>
+                <routes>
+                    <route_entity>
+                        <route>/checkout/product/:id</route>
+                        <action_type>entity</action_type>
+                    </route_entity>
+                    <route_collection>
+                        <route>/checkout/product</route>
+                        <action_type>collection</action_type>
+                    </route_collection>
+                </routes>
+                <versions>1</versions>
+            </cart_product>
+		</resources>
+	</api2>
+</config>

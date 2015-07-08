@@ -260,8 +260,10 @@ abstract class Mage_Api2_Model_Resource
                 $this->_update($filteredData);
                 break;
             case self::ACTION_TYPE_COLLECTION . self::OPERATION_UPDATE:
+die(self::ACTION_TYPE_COLLECTION . self::OPERATION_UPDATE);            
                 $this->_errorIfMethodNotExist('_multiUpdate');
                 $requestData = $this->getRequest()->getBodyParams();
+print_r($requestData);die;                
                 if (empty($requestData)) {
                     $this->_critical(self::RESOURCE_REQUEST_DATA_INVALID);
                 }

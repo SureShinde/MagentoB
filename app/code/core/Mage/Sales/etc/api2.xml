@@ -190,7 +190,7 @@
                         <action_type>collection</action_type>
                     </route_collection>
                 </routes>
-                <attributes translate="entity_id reserved_order_id created_at base_currency_code store_currency_code remote_ip subtotal discount_amount tax_amount coupon_code base_discount_amount base_subtotal base_tax_amount customer_id product_id qty" module="api2">
+                <attributes translate="entity_id reserved_order_id created_at base_currency_code store_currency_code remote_ip subtotal discount_amount tax_amount coupon_code base_discount_amount base_subtotal base_tax_amount product_id customer_id qty" module="api2">
                     <entity_id>Quote ID (internal)</entity_id>
                     <reserved_order_id>Order ID</reserved_order_id>
                     <created_at>Quote Date</created_at>
@@ -207,6 +207,7 @@
                     <base_tax_amount>Base Tax Amount</base_tax_amount>
                     <customer_id>Customer ID</customer_id>
                     <product_id>Product ID</product_id>
+                    <qty>Quantity</qty>
                 </attributes>
                 <force_attributes>
                     <admin>

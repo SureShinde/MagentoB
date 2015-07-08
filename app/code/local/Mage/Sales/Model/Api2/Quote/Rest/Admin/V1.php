@@ -21,8 +21,12 @@ class Mage_Sales_Model_Api2_Quote_Rest_Admin_V1 extends Mage_Sales_Model_Api2_Qu
         $customerId = $data['customer_id'];//89646;
         $productId = $data['product_id'];//78290;//76889;//78290;// 65922;
         $qty = $data['qty'];//1;
-        $quoteId = $data['quote_id'] ? $data['quote_id'] : '';
+        $quoteId = isset($data['entity_id']) ? $data['entity_id'] : '';
 
+$quoteItem = Mage::getModel('sales/quote_item')->getCollection();
+$quoteItem->addFieldToFilter('product_id', $productId);
+$quoteItem->load();
+print_r($quoteItem->toArray());die;
 
         $product = $this->_initProduct($productId);
         $customer = Mage::getModel("customer/customer")->load($customerId);
@@ -41,7 +45,7 @@ class Mage_Sales_Model_Api2_Quote_Rest_Admin_V1 extends Mage_Sales_Model_Api2_Qu
         if($quoteId){
             $quote->setEntityId($quoteId);
         }
-        
+
         $productModel = Mage::getModel('catalog/product');
         $product = $productModel->load($productId);
 
