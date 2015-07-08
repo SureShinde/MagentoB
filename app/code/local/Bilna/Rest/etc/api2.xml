@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<config>
+    <api2>
+        <resource_groups>
+            <bilna_rest translate="title" module="Bilna_Rest">
+                <title>Bilna Rest</title>
+                <sort_order>1200</sort_order>
+                <children>
+                    <rest_categories translate="title" module="Bilna_Rest">
+                        <title>Categories</title>
+                        <sort_order>10</sort_order>
+                    </rest_categories>
+                </children>
+            </bilna_rest>
+        </resource_groups>
+        <resources>
+            <category translate="title" module="Bilna_Rest">
+                <group>rest_categories</group>
+                <model>bilna_rest/api2_category</model>
+                <title>Category</title>
+                <sort_order>10</sort_order>
+                <privileges>
+                    <admin>
+                        <retrieve>1</retrieve>
+                    </admin>
+                </privileges>
+                <attributes translate="id name is_active description page_title display_mode cms_block page_layout" module="Bilna_Rest">
+                    <id>ID</id>
+                    <name>Name</name>
+                    <is_active>Is Active</is_active>
+                    <description>Description</description>
+                    <page_title>Page Title</page_title>
+                    <display_mode>Display Mode</display_mode>
+                    <cms_block>CMS Block</cms_block>
+                    <page_layout>Page Layout</page_layout>
+                </attributes>
+                <routes>
+                    <route_entity>
+                        <route>/categories/:id</route>
+                        <action_type>entity</action_type>
+                    </route_entity>
+                </routes>
+                <versions>1</versions>
+            </category>
+            <megamenu translate="title" module="Bilna_Rest">
+                <group>rest_categories</group>
+                <model>bilna_rest/api2_megamenu</model>
+                <title>Megamenu</title>
+                <sort_order>20</sort_order>
+                <privileges>
+                    <admin>
+                        <retrieve>1</retrieve>
+                    </admin>
+                </privileges>
+                <attributes translate="id name url url_key shopby child" module="Bilna_Rest">
+                    <id>ID</id>
+                    <name>Name</name>
+                    <url>Url</url>
+                    <url_key>Url Key</url_key>
+                    <shopby>Shop By</shopby>
+                    <child>Child</child>
+                </attributes>
+                <routes>
+                    <route_collection>
+                        <route>/megamenu</route>
+                        <action_type>collection</action_type>
+                    </route_collection>
+                </routes>
+                <versions>1</versions>
+            </megamenu>
+        </resources>
+    </api2>
+</config>
