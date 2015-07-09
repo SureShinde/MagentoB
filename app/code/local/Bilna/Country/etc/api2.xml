@@ -21,12 +21,12 @@
 						<retrieve>1</retrieve>
 					</customer>
 				</privileges>
-				<attributes translate="dest_city country_id region_id code default_name" module="Bilna_Country">
-					<dest_city>City</dest_city>
+				<attributes translate="city country_id region_id code state" module="Bilna_Country">
 					<country_id>Country ID</country_id>
 					<region_id>Region ID</region_id>
 					<code>Code</code>
-					<default_name>Province</default_name>
+					<state>State</state>
+					<city>City</city>
 				</attributes>
 				<routes>
 					<!-- route_entity>

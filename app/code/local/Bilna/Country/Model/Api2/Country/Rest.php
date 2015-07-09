@@ -33,13 +33,13 @@ abstract class Bilna_Country_Model_Api2_Country_Rest extends Bilna_Country_Model
         $collection->getSelect()
             ->join(array(
             "a" => "directory_country_region"
-        ), "a.region_id = main_table.dest_region_id", array(
+        ), "a.default_name = main_table.state", array(
             "country_id",
             "region_id",
             "code",
             "default_name"
         ))
-            ->group('main_table.dest_city');
+            ->group('main_table.city');
         
         // $collection->addAttributeToSelect(array_keys($this->getAvailableAttributes($this->getUserType(), Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_READ)));
         $this->_applyCollectionModifiers($collection);
