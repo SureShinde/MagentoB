@@ -14,17 +14,264 @@
             </bilna_rest>
         </resource_groups>
         <resources>
-            <category translate="title" module="Bilna_Rest">
-                <group>rest_categories</group>
-                <model>bilna_rest/api2_category</model>
-                <title>Category</title>
+            <product translate="title" module="Bilna_Rest">
+                <group>bilna_rest</group>
+                <model>bilna_rest/api2_product</model>
+                <working_model>catalog/product</working_model>
+                <title>Product</title>
                 <sort_order>10</sort_order>
                 <privileges>
                     <admin>
                         <retrieve>1</retrieve>
                     </admin>
                 </privileges>
-                <attributes translate="id name is_active description page_title display_mode cms_block page_layout" module="Bilna_Rest">
+                <attributes translate="entity_id type_id attribute_set_id stock_data image_url is_saleable total_reviews_count url buy_now_url has_custom_options is_in_stock regular_price_with_tax regular_price_without_tax final_price_with_tax final_price_without_tax use_config_gift_message_available use_config_gift_wrapping_available url_key_create_redirect detailed_info attribute_config images" module="Bilna_Rest">
+                    <entity_id>Product ID</entity_id>
+                    <type_id>Product Type</type_id>
+                    <attribute_set_id>Attribute Set</attribute_set_id>
+                    <stock_data>Inventory Data</stock_data>
+                    <image_url>Default Image</image_url>
+                    <is_saleable>Salability Status</is_saleable>
+                    <total_reviews_count>Total Reviews Count</total_reviews_count>
+                    <url>Product URL</url>
+                    <buy_now_url>Buy Now URL</buy_now_url>
+                    <has_custom_options>Has Custom Options</has_custom_options>
+                    <is_in_stock>Stock Status</is_in_stock>
+                    <regular_price_with_tax>Regular Price With Tax</regular_price_with_tax>
+                    <regular_price_without_tax>Regular Price Without Tax</regular_price_without_tax>
+                    <final_price_with_tax>Final Price With Tax</final_price_with_tax>
+                    <final_price_without_tax>Final Price Without Tax</final_price_without_tax>
+                    <use_config_gift_message_available>Use Config Settings for Allow Gift Message</use_config_gift_message_available>
+                    <use_config_gift_wrapping_available>Use Config Settings for Allow Gift Wrapping</use_config_gift_wrapping_available>
+                    <url_key_create_redirect>Create Permanent Redirect for old URL</url_key_create_redirect>
+                    <detailed_info>Detailed Info</detailed_info>
+                    <attribute_config>Attribute Config</attribute_config>
+                    <images>Image</images>
+                </attributes>
+                <exclude_attributes>
+                    <admin>
+                        <read>
+                            <allow_open_amount>1</allow_open_amount>
+                            <giftcard_amounts>1</giftcard_amounts>
+                            <open_amount_min>1</open_amount_min>
+                            <open_amount_max>1</open_amount_max>
+                            <image>1</image>
+                            <is_recurring>1</is_recurring>
+                            <gallery>1</gallery>
+                            <media_gallery>1</media_gallery>
+                            <price_view>1</price_view>
+                            <small_image>1</small_image>
+                            <image_url>1</image_url>
+                            <is_saleable>1</is_saleable>
+                            <total_reviews_count>1</total_reviews_count>
+                            <url>1</url>
+                            <buy_now_url>1</buy_now_url>
+                            <has_custom_options>1</has_custom_options>
+                            <is_in_stock>1</is_in_stock>
+                            <regular_price_with_tax>1</regular_price_with_tax>
+                            <regular_price_without_tax>1</regular_price_without_tax>
+                            <final_price_with_tax>1</final_price_with_tax>
+                            <final_price_without_tax>1</final_price_without_tax>
+                            <recurring_profile>1</recurring_profile>
+                            <thumbnail>1</thumbnail>
+                            <url_key_create_redirect>1</url_key_create_redirect>
+                        </read>
+                        <write>
+                            <allow_open_amount>1</allow_open_amount>
+                            <giftcard_amounts>1</giftcard_amounts>
+                            <open_amount_min>1</open_amount_min>
+                            <open_amount_max>1</open_amount_max>
+                            <image>1</image>
+                            <is_recurring>1</is_recurring>
+                            <gallery>1</gallery>
+                            <media_gallery>1</media_gallery>
+                            <price_view>1</price_view>
+                            <small_image>1</small_image>
+                            <image_url>1</image_url>
+                            <is_saleable>1</is_saleable>
+                            <total_reviews_count>1</total_reviews_count>
+                            <url>1</url>
+                            <buy_now_url>1</buy_now_url>
+                            <has_custom_options>1</has_custom_options>
+                            <is_in_stock>1</is_in_stock>
+                            <regular_price_with_tax>1</regular_price_with_tax>
+                            <regular_price_without_tax>1</regular_price_without_tax>
+                            <final_price_with_tax>1</final_price_with_tax>
+                            <final_price_without_tax>1</final_price_without_tax>
+                            <recurring_profile>1</recurring_profile>
+                            <thumbnail>1</thumbnail>
+                            <entity_id>1</entity_id>
+                        </write>
+                    </admin>
+                </exclude_attributes>
+                <routes>
+                    <route_entity>
+                        <route>/products/:id</route>
+                        <action_type>entity</action_type>
+                    </route_entity>
+                    <route_entity_with_store>
+                        <route>/products/:id/store/:store</route>
+                        <action_type>entity</action_type>
+                    </route_entity_with_store>
+                    <route_collection>
+                        <route>/products</route>
+                        <action_type>collection</action_type>
+                    </route_collection>
+                    <route_collection_with_store>
+                        <route>/products/store/:store</route>
+                        <action_type>collection</action_type>
+                    </route_collection_with_store>
+                    <route_collection_with_category>
+                        <route>/products/category/:category_id</route>
+                        <action_type>collection</action_type>
+                    </route_collection_with_category>
+                    <route_collection_with_store_and_category>
+                        <route>/products/store/:store/category/:category_id</route>
+                        <action_type>collection</action_type>
+                    </route_collection_with_store_and_category>
+                    <route_collection_with_category_and_store>
+                        <route>/products/category/:category_id/store/:store</route>
+                        <action_type>collection</action_type>
+                    </route_collection_with_category_and_store>
+                </routes>
+                <versions>1</versions>
+            </product>
+            <product_category translate="title" module="Bilna_Rest">
+                <group>bilna_rest</group>
+                <model>bilna_rest/api2_product_category</model>
+                <working_model>catalog/category</working_model>
+                <title>Product Category</title>
+                <sort_order>20</sort_order>
+                <privileges>
+                    <admin>
+                        <create>1</create>
+                        <retrieve>1</retrieve>
+                        <delete>1</delete>
+                    </admin>
+                    <customer>
+                        <retrieve>1</retrieve>
+                    </customer>
+                    <guest>
+                        <retrieve>1</retrieve>
+                    </guest>
+                </privileges>
+                <attributes translate="category_id" module="Bilna_Rest">
+                    <category_id>Category ID</category_id>
+                </attributes>
+                <routes>
+                    <route_collection>
+                        <route>/products/:id/categories</route>
+                        <action_type>collection</action_type>
+                    </route_collection>
+                    <route_entity>
+                        <route>/products/:id/categories/:category_id</route>
+                        <action_type>entity</action_type>
+                    </route_entity>
+                </routes>
+                <validators>
+                    <fields>
+                        <category_id>
+                            <required>1</required>
+                            <int translate="message" module="Bilna_Rest">
+                                <type>Int</type>
+                                <message>Please use numbers only in "category_id" field.</message>
+                            </int>
+                        </category_id>
+                    </fields>
+                </validators>
+                <versions>1</versions>
+            </product_category>
+            <product_image translate="title" module="Bilna_Rest">
+                <group>bilna_rest</group>
+                <model>bilna_rest/api2_product_image</model>
+                <title>Product Image</title>
+                <sort_order>30</sort_order>
+                <privileges>
+                    <admin>
+                        <create>1</create>
+                        <retrieve>1</retrieve>
+                        <update>1</update>
+                        <delete>1</delete>
+                    </admin>
+                    <customer>
+                        <retrieve>1</retrieve>
+                    </customer>
+                    <guest>
+                        <retrieve>1</retrieve>
+                    </guest>
+                </privileges>
+                <attributes translate="id file_name file_content file_mime_type label position types exclude url image_resize" module="Bilna_Rest">
+                    <id>ID</id>
+                    <file_name>File Name</file_name>
+                    <file_content>File Content</file_content>
+                    <file_mime_type>File MIME Type</file_mime_type>
+                    <label>Label</label>
+                    <position>Position</position>
+                    <types>Type</types>
+                    <exclude>Exclude</exclude>
+                    <url>URL</url>
+                    <image_resize>Image Resize</image_resize>
+                </attributes>
+                <exclude_attributes>
+                    <customer>
+                        <read>
+                            <file_name>1</file_name>
+                            <file_content>1</file_content>
+                            <file_mime_type>1/</file_mime_type>
+                            <exclude>1/</exclude>
+                        </read>
+                    </customer>
+                    <guest>
+                        <read>
+                            <file_name>1</file_name>
+                            <file_content>1</file_content>
+                            <file_mime_type>1/</file_mime_type>
+                            <exclude>1/</exclude>
+                        </read>
+                    </guest>
+                    <admin>
+                        <read>
+                            <file_name>1</file_name>
+                            <file_content>1</file_content>
+                            <file_mime_type>1/</file_mime_type>
+                        </read>
+                        <write>
+                            <id>1</id>
+                            <url>1</url>
+                        </write>
+                    </admin>
+                </exclude_attributes>
+                <routes>
+                    <route_entity>
+                        <route>/products/:id/images/:image</route>
+                        <action_type>entity</action_type>
+                    </route_entity>
+                    <route_entity_with_store>
+                        <route>/products/:id/images/:image/store/:store</route>
+                        <action_type>entity</action_type>
+                    </route_entity_with_store>
+                    <route_collection>
+                        <route>/products/:id/images</route>
+                        <action_type>collection</action_type>
+                    </route_collection>
+                    <route_collection_with_store>
+                        <route>/products/:id/images/store/:store</route>
+                        <action_type>collection</action_type>
+                    </route_collection_with_store>
+                </routes>
+                <versions>1</versions>
+            </product_image>
+            <category translate="title" module="Bilna_Rest">
+                <group>rest_categories</group>
+                <model>bilna_rest/api2_category</model>
+                <title>Category</title>
+                <sort_order>100</sort_order>
+                <privileges>
+                    <admin>
+                        <retrieve>1</retrieve>
+                    </admin>
+                </privileges>
+                <attributes translate="id name is_active description page_title display_mode cms_block page_layout meta_title meta_keyword meta_description" module="Bilna_Rest">
                     <id>ID</id>
                     <name>Name</name>
                     <is_active>Is Active</is_active>
@@ -33,6 +280,9 @@
                     <display_mode>Display Mode</display_mode>
                     <cms_block>CMS Block</cms_block>
                     <page_layout>Page Layout</page_layout>
+                    <meta_title>Page Title</meta_title>
+                    <meta_keyword>Meta Keyword</meta_keyword>
+                    <meta_description>Meta Description</meta_description>
                 </attributes>
                 <routes>
                     <route_entity>
@@ -46,7 +296,7 @@
                 <group>rest_categories</group>
                 <model>bilna_rest/api2_megamenu</model>
                 <title>Megamenu</title>
-                <sort_order>20</sort_order>
+                <sort_order>110</sort_order>
                 <privileges>
                     <admin>
                         <retrieve>1</retrieve>

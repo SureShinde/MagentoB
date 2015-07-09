@@ -1,11 +1,11 @@
 <?php
 /**
- * Description of Mage_Catalog_Model_Api2_Product
+ * Description of Bilna_Rest_Model_Api2_Product
  *
  * @author Bilna Development Team <development@bilna.com>
  */
 
-class Mage_Catalog_Model_Api2_Product extends Mage_Api2_Model_Resource {
+class Bilna_Rest_Model_Api2_Product extends Mage_Api2_Model_Resource {
     const DEFAULT_STORE_ID = 1;
     
     /**

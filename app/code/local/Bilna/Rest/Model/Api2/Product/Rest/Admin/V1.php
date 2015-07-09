@@ -5,7 +5,7 @@
  * @author Bilna Development Team <development@bilna.com>
  */
 
-class Mage_Catalog_Model_Api2_Product_Rest_Admin_V1 extends Mage_Catalog_Model_Api2_Product_Rest {
+class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_Product_Rest {
     /**
      * The greatest decimal value which could be stored. Corresponds to DECIMAL (12,4) SQL type
      */
@@ -16,7 +16,7 @@ class Mage_Catalog_Model_Api2_Product_Rest_Admin_V1 extends Mage_Catalog_Model_A
      *
      * @param Mage_Catalog_Model_Product $product
      */
-    protected function _prepareProductForResponse(Mage_Catalog_Model_Product $product) {
+    protected function _prepareProductForResponse(Mage_Catalog_Model_Product $product, $return = false) {
         $pricesFilterKeys = array ('price_id', 'all_groups', 'website_price');
         $groupPrice = $product->getData('group_price');
         $product->setData('group_price', $this->_filterOutArrayKeys($groupPrice, $pricesFilterKeys, true));
@@ -31,6 +31,10 @@ class Mage_Catalog_Model_Api2_Product_Rest_Admin_V1 extends Mage_Catalog_Model_A
         );
         $product->setData('stock_data', $this->_filterOutArrayKeys($stockData, $stockDataFilterKeys));
         $product->setData('product_type_name', $product->getTypeId());
+        
+        if ($return) {
+            return $product;
+        }
     }
     
     /**
@@ -171,10 +175,12 @@ class Mage_Catalog_Model_Api2_Product_Rest_Admin_V1 extends Mage_Catalog_Model_A
         }
         
         $result = array ();
-        $result['totalRecord'] = $totalRecord;
         
         foreach ($products as $key => $product) {
-            foreach ($product->getData() as $k => $v) {
+            $productData = $this->_prepareProductForResponse(Mage::getModel('catalog/product')->load($product->getId()), true);
+            
+            foreach ($productData->getData() as $k => $v) {
+                $data[$key] = $key;
                 $attributeTextArr = array ('brand', 'ship_by', 'sold_by');
                 
                 if (in_array($k, $attributeTextArr)) {

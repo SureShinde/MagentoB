@@ -1,11 +1,11 @@
 <?php
 /**
- * Description of Mage_Catalog_Model_Api2_Product_Image_Validator_Image
+ * Description of Bilna_Rest_Model_Api2_Product_Image_Validator_Image
  *
  * @author Bilna Development Team <development@bilna.com>
  */
 
-class Mage_Catalog_Model_Api2_Product_Image_Validator_Image extends Mage_Api2_Model_Resource_Validator {
+class Bilna_Rest_Model_Api2_Product_Image_Validator_Image extends Mage_Api2_Model_Resource_Validator {
     /**
      * Validate data. In case of validation failure return false,
      * getErrors() could be used to retrieve list of validation error messages

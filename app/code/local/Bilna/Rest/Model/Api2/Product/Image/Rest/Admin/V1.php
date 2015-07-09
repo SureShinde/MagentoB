@@ -1,11 +1,11 @@
 <?php
 /**
- * Description of Mage_Catalog_Model_Api2_Product_Image_Rest_Admin_V1
+ * Description of Bilna_Rest_Model_Api2_Product_Image_Rest_Admin_V1
  *
  * @author Bilna Development Team <development@bilna.com>
  */
 
-class Mage_Catalog_Model_Api2_Product_Image_Rest_Admin_V1 extends Mage_Catalog_Model_Api2_Product_Image_Rest {
+class Bilna_Rest_Model_Api2_Product_Image_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_Product_Image_Rest {
     /**
      * Product image add
      *

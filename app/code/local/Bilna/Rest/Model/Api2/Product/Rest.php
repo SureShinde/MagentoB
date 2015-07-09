@@ -5,7 +5,7 @@
  * @author Bilna Development Team <development@bilna.com>
  */
 
-abstract class Mage_Catalog_Model_Api2_Product_Rest extends Mage_Catalog_Model_Api2_Product {
+abstract class Bilna_Rest_Model_Api2_Product_Rest extends Bilna_Rest_Model_Api2_Product {
     /**
      * Current loaded product
      *
