@@ -46,7 +46,7 @@
                     <url_key_create_redirect>Create Permanent Redirect for old URL</url_key_create_redirect>
                     <detailed_info>Detailed Info</detailed_info>
                     <attribute_config>Attribute Config</attribute_config>
-                    <images>Image</images>
+                    <images>Images</images>
                 </attributes>
                 <exclude_attributes>
                     <admin>

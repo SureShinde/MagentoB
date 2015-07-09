@@ -10,6 +10,7 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
      * The greatest decimal value which could be stored. Corresponds to DECIMAL (12,4) SQL type
      */
     const MAX_DECIMAL_VALUE = 99999999.9999;
+    const GALLERY_ATTRIBUTE_CODE = 'media_gallery';
 
     /**
      * Add special fields to product get response
@@ -79,6 +80,11 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
         
         if ($result) {
             $result['attribute_config'] = $this->_getAttributeConfig();
+            $result['images'] = array (
+                'base' => Mage::getModel('catalog/product_media_config')->getMediaUrl($product->getImage()),
+                'horizontal' => $this->_resizeImage($product, $product->getImage(), $this->_imgHorizontal),
+                'vertical' => $this->_resizeImage($product, $product->getImage(), $this->_imgVertical),
+            );
         }
         
         return $result;
@@ -177,20 +183,22 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
         $result = array ();
         $result['totalRecord'] = $products->getSize();
         
-        foreach ($products as $key => $product) {
-            $productData = $this->_prepareProductForResponse(Mage::getModel('catalog/product')->load($product->getId()), true);
+        foreach ($products as $key => $row) {
+            $product = $this->_prepareProductForResponse(Mage::getModel('catalog/product')->load($row->getId()), true);
             
-            foreach ($productData->getData() as $k => $v) {
+            foreach ($product->getData() as $k => $v) {
                 $data[$key] = $key;
                 $attributeTextArr = array ('brand', 'ship_by', 'sold_by');
                 
                 if (in_array($k, $attributeTextArr)) {
-                    $result[$key][$k] = $product->getAttributeText($k);
+                    $result[$key][$k] = $row->getAttributeText($k);
                 }
                 else {
                     $result[$key][$k] = $v;
                 }
             }
+            
+            $result[$key]['images'] = $this->_getImage($product);
         }
         
         return $result;
@@ -481,5 +489,58 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
         }
         
         return $isAllowed;
+    }
+    
+    protected function _getImage($product) {
+        $images = array ();
+        $galleryData = $product->getData(self::GALLERY_ATTRIBUTE_CODE);
+        
+        if (isset ($galleryData['images']) && is_array($galleryData['images'])) {
+            foreach ($galleryData['images'] as $image) {
+                if (!$image['disabled']) {
+                    $images[] = $this->_formatImageData($product, $image);
+                }
+            }
+        }
+        return $images;
+    }
+
+    protected function _formatImageData($product, $image) {
+        $result = array (
+            'id' => $image['value_id'],
+            'label' => $image['label'],
+            'position' => $image['position'],
+            'exclude' => $image['disabled'],
+            'url' => $this->_getMediaConfig()->getMediaUrl($image['file']),
+            'types' => $this->_getImageTypesAssignedToProduct($product, $image['file']),
+            'image_resize' => array (
+                'base' => $this->_getMediaConfig()->getMediaUrl($image['file']), //- 1400x1400
+                'horizontal' => $this->_resizeImage($product, $image['file'], $this->_imgHorizontal),
+                'vertical' => $this->_resizeImage($product, $image['file'], $this->_imgVertical),
+                'detail' => $this->_resizeImage($product, $image['file'], $this->_imgDetail),
+            ),
+        );
+        
+        return $result;
+    }
+    
+    protected function _getImageTypesAssignedToProduct($product, $imageFile) {
+        $types = array ();
+        
+        foreach ($product->getMediaAttributes() as $attribute) {
+            if ($product->getData($attribute->getAttributeCode()) == $imageFile) {
+                $types[] = $attribute->getAttributeCode();
+            }
+        }
+        
+        return $types;
+    }
+    
+    protected function _getMediaConfig() {
+        return Mage::getSingleton('catalog/product_media_config');
+    }
+    
+    protected function _resizeImage($product, $imageFile, $size) {
+        return (string) Mage::helper('catalog/image')->init($product, 'image', $imageFile)->resize($size);
     }
 }
