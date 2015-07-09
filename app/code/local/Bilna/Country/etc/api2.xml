@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<config>
+	<api2>
+		<resource_groups>
+			<country translate="title" module="Bilna_Country">
+				<title>Countries</title>
+				<sort_order>200</sort_order>
+			</country>
+		</resource_groups>
+		<resources>
+			<country translate="title" module="Bilna_Country">
+				<group>country</group>
+				<sort_order>90</sort_order>
+				<model>bilna_country/api2_country</model>
+				<title>Countries</title>
+				<privileges>
+					<admin>
+						<retrieve>1</retrieve>
+					</admin>
+					<customer>
+						<retrieve>1</retrieve>
+					</customer>
+				</privileges>
+				<attributes translate="dest_city country_id region_id code default_name" module="Bilna_Country">
+					<dest_city>City</dest_city>
+					<country_id>Country ID</country_id>
+					<region_id>Region ID</region_id>
+					<code>Code</code>
+					<default_name>Province</default_name>
+				</attributes>
+				<routes>
+					<!-- route_entity>
+						<route>/countries/:id</route>
+						<action_type>entity</action_type>
+					</route_entity -->
+					<route_collection>
+						<route>/countries</route>
+						<action_type>collection</action_type>
+					</route_collection>
+				</routes>
+				<versions>1</versions>
+			</country>
+		</resources>
+	</api2>
+</config>
