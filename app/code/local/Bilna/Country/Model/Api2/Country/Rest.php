@@ -28,7 +28,7 @@ abstract class Bilna_Country_Model_Api2_Country_Rest extends Bilna_Country_Model
          *
          * @var $collection Mage_Customer_Model_Resource_Customer_Collection
          */
-        $collection = Mage::getModel('premiumshipping/premiumshipping')->getCollection();
+        $collection = Mage::getModel('customercity/customercity')->getCollection();
         // $collection = Mage::getResourceModel('directory/region_collection');
         $collection->getSelect()
             ->join(array(
