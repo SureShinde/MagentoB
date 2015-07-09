@@ -175,6 +175,7 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
         }
         
         $result = array ();
+        $result['totalRecord'] = $products->getSize();
         
         foreach ($products as $key => $product) {
             $productData = $this->_prepareProductForResponse(Mage::getModel('catalog/product')->load($product->getId()), true);
