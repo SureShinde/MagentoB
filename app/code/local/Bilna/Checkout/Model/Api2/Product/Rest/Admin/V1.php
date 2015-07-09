@@ -87,15 +87,57 @@ class Bilna_Checkout_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Checkout_Mod
             }
 
             if ($qty > 0) {
-                //$quoteItem->setQty($qty);
-                $quote->updateItem($quoteItem->getId(), array('qty' => $qty));
+                $quoteItem->setQty($qty);
             }
 
-            $quote->save();
+            $quote->collectTotals()->save();
 
 	    } catch (Mage_Core_Exception $e) {
             $this->_error($e->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
         }
     }
 
+    /**
+     * Delete cart
+     *
+     * @param array $data
+     * @throws Mage_Api2_Exception
+     */
+    protected function _delete()
+    {
+        $quoteId = $this->getRequest()->getParam('quote_id');
+        $storeId = 1;
+        $productId = $this->getRequest()->getParam('id');
+       
+        try {
+            $quote = $this->_getQuote($quoteId, $storeId);
+            
+            if(empty($productId))
+            {
+                throw Mage::throwException("Invalid Product Data");
+            }
+
+            $productByItem = $this->_getProduct($productId, $storeId, "id");
+
+            /** @var $quoteItem Mage_Sales_Model_Quote_Item */
+            $quoteItem = $this->_getQuoteItemByProduct($quote, $productByItem,
+                $this->_getProductRequest(
+                    array(
+                        'product_id' => $productId,
+                        'qty'        => $qty
+                    )
+                ));
+
+            if (is_null($quoteItem->getId())) {
+                throw Mage::throwException("One item of products is not belong any of quote item");
+            }
+
+            $quote->removeItem($quoteItem->getId());
+
+            $quote->collectTotals()->save();
+
+        } catch (Mage_Core_Exception $e) {
+            $this->_error($e->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
+        }
+    }
 }
