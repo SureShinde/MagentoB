@@ -7,6 +7,13 @@
 
 abstract class Bilna_Rest_Model_Api2_Product_Rest extends Bilna_Rest_Model_Api2_Product {
     /**
+     * Product Images
+     */
+    protected $_imgHorizontal = 110;
+    protected $_imgVertical = 151;
+    protected $_imgDetail = 225;
+
+    /**
      * Current loaded product
      *
      * @var Mage_Catalog_Model_Product
