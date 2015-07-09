@@ -29,6 +29,9 @@ class Bilna_Rest_Model_Api2_Category_Rest_Admin_V1 extends Bilna_Rest_Model_Api2
             'display_mode' => $category->getDisplayMode(),
             'cms_block' => $category->getLandingPage(),
             'page_layout' => $category->getPageLayout(),
+            'meta_title' => $category->getMetaTitle(),
+            'meta_keyword' => $category->getMetaKeyword(),
+            'meta_description' => $category->getMetaDescription(),
         );
         
         return $result;
