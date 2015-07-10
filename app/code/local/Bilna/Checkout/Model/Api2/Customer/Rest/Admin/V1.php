@@ -21,7 +21,7 @@ class Bilna_Checkout_Model_Api2_Customer_Rest_Admin_V1 extends Bilna_Checkout_Mo
     	$quoteId = $data['quote_id'];
     	$storeId = isset($data['store_id']) ? $data['store_id'] : 1;
     	$customerData = $data['customer'];
-print_r($data);die;
+
     	try {
 	    	$quote = $this->_getQuote($quoteId, $storeId);
 
@@ -33,7 +33,7 @@ print_r($data);die;
 	    	{
 	    		case self::MODE_CUSTOMER:
 	    			/** @var $customer Mage_Customer_Model_Customer */
-		            $customer = $this->_getCustomer($customerData['entity_id']);
+		            $customer = $this->_getCustomer($customerData['customer_id']);		            
 		            $customer->setMode(self::MODE_CUSTOMER);
 		            break;
 		        case self::MODE_REGISTER:

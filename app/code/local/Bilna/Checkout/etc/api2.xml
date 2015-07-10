@@ -194,7 +194,7 @@
                         <retrieve>1</retrieve>
                     </customer>
                 </privileges>
-                <attributes translate="address_id quote_id customer_id save_in_address_book customer_address_id address_type email prefix firstname middlename lastname suffix company street city region region_id postcode country_id telephone fax same_as_billing free_shipping collect_shipping_rates shipping_method shipping_description weight subtotal base_subtotal subtotal_with_discount base_subtotal_with_discount tax_amount base_tax_amount shipping_amount base_shipping_amount shipping_tax_amount base_shipping_tax_amount discount_amount base_discount_amount grand_total base_grand_total customer_notes applied_taxes discount_description shipping_discount_amount base_shipping_discount_amount " module="api2">
+                <attributes translate="address_id quote_id customer_id save_in_address_book customer_address_id address_type email prefix firstname middlename lastname suffix company street city region region_id postcode country_id telephone fax same_as_billing free_shipping collect_shipping_rates shipping_method shipping_description weight subtotal base_subtotal subtotal_with_discount base_subtotal_with_discount tax_amount base_tax_amount shipping_amount base_shipping_amount shipping_tax_amount base_shipping_tax_amount discount_amount base_discount_amount grand_total base_grand_total customer_notes applied_taxes discount_description shipping_discount_amount base_shipping_discount_amount customer" module="api2">
                     <address_id>Address ID (Internal)</address_id>
                     <quote_id>Quote ID</quote_id>
                     <customer_id>Customer ID</customer_id>
@@ -241,10 +241,11 @@
                     <discount_description>discount_description</discount_description>
                     <shipping_discount_amount>shipping_discount_amount</shipping_discount_amount>
                     <base_shipping_discount_amount>base_shipping_discount_amount</base_shipping_discount_amount>
+                    <customer>Customer Mode</customer>
                 </attributes>
                 <routes>
                     <route_entity>
-                        <route>/checkout/customer/:id/quote/:quote_id</route>
+                        <route>/checkout/customer/quote/:id</route>
                         <action_type>entity</action_type>
                     </route_entity>
                     <route_collection>
@@ -254,6 +255,84 @@
                 </routes>
                 <versions>1</versions>
             </cart_customer>
+            <cart_shipping translate="title" module="api2">
+                <group>checkout</group>
+                <sort_order>130</sort_order>
+                <model>bilna_checkout/api2_shipping</model>
+                <title>Shipping</title>
+                <privileges>
+                    <admin>
+                        <create>1</create>
+                        <retrieve>1</retrieve>
+                        <update>1</update>
+                        <delete>1</delete>
+                    </admin>
+                    <customer>
+                        <create>1</create>
+                        <retrieve>1</retrieve>
+                    </customer>
+                </privileges>
+                <attributes translate="address_id quote_id customer_id save_in_address_book customer_address_id address_type email prefix firstname middlename lastname suffix company street city region region_id postcode country_id telephone fax same_as_billing free_shipping collect_shipping_rates shipping_method shipping_description weight subtotal base_subtotal subtotal_with_discount base_subtotal_with_discount tax_amount base_tax_amount shipping_amount base_shipping_amount shipping_tax_amount base_shipping_tax_amount discount_amount base_discount_amount grand_total base_grand_total customer_notes applied_taxes discount_description shipping_discount_amount base_shipping_discount_amount customer" module="api2">
+                    <address_id>Address ID (Internal)</address_id>
+                    <quote_id>Quote ID</quote_id>
+                    <customer_id>Customer ID</customer_id>
+                    <save_in_address_book>save_in_address_book</save_in_address_book>
+                    <customer_address_id>Customer Address ID</customer_address_id>
+                    <address_type>Address Type</address_type>
+                    <email>email</email>
+                    <prefix>prefix</prefix>
+                    <firstname>firstname</firstname>
+                    <middlename>middlename</middlename>
+                    <lastname>lastname</lastname>
+                    <suffix>suffix</suffix>
+                    <company>company</company>
+                    <street>street</street>
+                    <city>city</city>
+                    <region>region</region>
+                    <region_id>region_id</region_id>
+                    <postcode>postcode</postcode>
+                    <country_id>country_id</country_id>
+                    <telephone>telephone</telephone>
+                    <fax>fax</fax>
+                    <same_as_billing>same_as_billing</same_as_billing>
+                    <free_shipping>free_shipping</free_shipping>
+                    <collect_shipping_rates>collect_shipping_rates</collect_shipping_rates>
+                    <shipping_method>shipping_method</shipping_method>
+                    <shipping_description>shipping_description</shipping_description>
+                    <weight>weight</weight>
+                    <subtotal>subtotal</subtotal>
+                    <base_subtotal>base_subtotal</base_subtotal>
+                    <subtotal_with_discount>subtotal_with_discount</subtotal_with_discount>
+                    <base_subtotal_with_discount>base_subtotal_with_discount</base_subtotal_with_discount>
+                    <tax_amount>tax_amount</tax_amount>
+                    <base_tax_amount>base_tax_amount</base_tax_amount>
+                    <shipping_amount>shipping_amount</shipping_amount>
+                    <base_shipping_amount>base_shipping_amount</base_shipping_amount>
+                    <shipping_tax_amount>shipping_tax_amount</shipping_tax_amount>
+                    <base_shipping_tax_amount>base_shipping_tax_amount</base_shipping_tax_amount>
+                    <discount_amount>discount_amount</discount_amount>
+                    <base_discount_amount>base_discount_amount</base_discount_amount>
+                    <grand_total>grand_total</grand_total>
+                    <base_grand_total>base_grand_total</base_grand_total>
+                    <customer_notes>customer_notes</customer_notes>
+                    <applied_taxes>applied_taxes</applied_taxes>
+                    <discount_description>discount_description</discount_description>
+                    <shipping_discount_amount>shipping_discount_amount</shipping_discount_amount>
+                    <base_shipping_discount_amount>base_shipping_discount_amount</base_shipping_discount_amount>
+                    <customer>Customer Mode</customer>
+                </attributes>
+                <routes>
+                    <route_entity>
+                        <route>/checkout/shipping/quote/:id</route>
+                        <action_type>entity</action_type>
+                    </route_entity>
+                    <route_collection>
+                        <route>/checkout/shipping</route>
+                        <action_type>collection</action_type>
+                    </route_collection>
+                </routes>
+                <versions>1</versions>
+            </cart_shipping>
 		</resources>
 	</api2>
 </config>
