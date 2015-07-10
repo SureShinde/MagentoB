@@ -93,6 +93,8 @@ class autoCreateInvoiced extends Mage_Shell_Abstract {
             
             //- create invoice
             $invoice = $this->createInvoice($orderId);
+            $invoiceId = $invoice->getId();
+            
             if (!$invoice) {
                 $this->logProgress('Create invoice for order #' . $orderId . ' failed');
                 
@@ -100,8 +102,15 @@ class autoCreateInvoiced extends Mage_Shell_Abstract {
             }
             
             //- remove message invoice
-            if (!$this->removeMessageInvoice($invoice->getId())) {
+            if (!$this->removeMessageInvoice($invoiceId)) {
                 $this->logProgress('Remove message invoice #' . $invoice->getId() . ' failed');
+                
+                return false;
+            }
+            
+            //- insert ke table message dgn body sebagai invoice_save dan entity_id nya
+            if (!$this->triggerNetsuiteInvoiceSave($orderId, $invoiceId)) {
+                $this->logProgress('Trigger Netsuite as Invoice Save #' . $orderId . ' failed');
                 
                 return false;
             }
@@ -243,6 +252,23 @@ class autoCreateInvoiced extends Mage_Shell_Abstract {
         
         return true;
     }
+    
+    protected function triggerNetsuiteInvoiceSave($orderId, $invoiceId) {
+        $this->logProgress('Start trigger netsuite as invoice save #' . $orderId);
+        
+        $sql = sprintf("
+            INSERT INTO `message`(`message_id`, `queue_id`, `handle`, `body`, `md5`, `timeout`, `created`, `priority`)
+            VALUES(NULL, 1, NULL, 'invoice_save|%d', md5('invoice_save|%d'), NULL, unix_timestamp(), 0);
+        ", $invoiceId, $invoiceId);
+        
+        if ($this->write->query($sql)) {
+            $this->logProgress('Success trigger netsuite as invoice save #' . $orderId);
+            
+            return true;
+        }
+        
+        return false;
+    }
 
     protected function triggerNetsuiteOrderPlace($orderId) {
         $this->logProgress('Start trigger netsuite as order place #' . $orderId);
@@ -363,7 +389,7 @@ class autoCreateInvoiced extends Mage_Shell_Abstract {
         //- directory module
         $dir = 'autoInvoiced';
         
-        if (!file_exists($dir)) {
+        if (!file_exists($baseDir . DS . $dir)) {
             mkdir($dir, 0777, true);
         }
         
