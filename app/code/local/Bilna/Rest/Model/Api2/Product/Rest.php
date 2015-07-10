@@ -9,6 +9,7 @@ abstract class Bilna_Rest_Model_Api2_Product_Rest extends Bilna_Rest_Model_Api2_
     /**
      * Product Images
      */
+    protected $_imgThumbnail = 72;
     protected $_imgHorizontal = 110;
     protected $_imgVertical = 151;
     protected $_imgDetail = 225;
