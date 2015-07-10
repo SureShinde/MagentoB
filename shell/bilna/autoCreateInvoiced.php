@@ -93,13 +93,14 @@ class autoCreateInvoiced extends Mage_Shell_Abstract {
             
             //- create invoice
             $invoice = $this->createInvoice($orderId);
-            $invoiceId = $invoice->getId();
             
             if (!$invoice) {
                 $this->logProgress('Create invoice for order #' . $orderId . ' failed');
                 
                 return false;
             }
+            
+            $invoiceId = $invoice->getId();
             
             //- remove message invoice
             if (!$this->removeMessageInvoice($invoiceId)) {
@@ -359,7 +360,7 @@ class autoCreateInvoiced extends Mage_Shell_Abstract {
     
     protected function critical($message) {
         $this->logProgress($message);
-        exit;
+        exit(1);
     }
     
     protected function isTest() {
