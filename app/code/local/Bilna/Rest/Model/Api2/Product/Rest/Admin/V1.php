@@ -80,11 +80,7 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
         
         if ($result) {
             $result['attribute_config'] = $this->_getAttributeConfig();
-            $result['images'] = array (
-                'base' => Mage::getModel('catalog/product_media_config')->getMediaUrl($product->getImage()),
-                'horizontal' => $this->_resizeImage($product, $product->getImage(), $this->_imgHorizontal),
-                'vertical' => $this->_resizeImage($product, $product->getImage(), $this->_imgVertical),
-            );
+            $result['images'] = $this->_getImage($product);
         }
         
         return $result;
@@ -198,7 +194,12 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
                 }
             }
             
-            $result[$key]['images'] = $this->_getImage($product);
+            $result[$key]['images'] = array (
+                'base' => Mage::getModel('catalog/product_media_config')->getMediaUrl($product->getImage()),
+                'thumbnail' => $this->_resizeImage($product, $product->getImage(), $this->_imgThumbnail),
+                'horizontal' => $this->_resizeImage($product, $product->getImage(), $this->_imgHorizontal),
+                'vertical' => $this->_resizeImage($product, $product->getImage(), $this->_imgVertical),
+            );
         }
         
         return $result;
@@ -515,6 +516,7 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
             'types' => $this->_getImageTypesAssignedToProduct($product, $image['file']),
             'image_resize' => array (
                 'base' => $this->_getMediaConfig()->getMediaUrl($image['file']), //- 1400x1400
+                'thumbnail' => $this->_resizeImage($product, $image['file'], $this->_imgThumbnail),
                 'horizontal' => $this->_resizeImage($product, $image['file'], $this->_imgHorizontal),
                 'vertical' => $this->_resizeImage($product, $image['file'], $this->_imgVertical),
                 'detail' => $this->_resizeImage($product, $image['file'], $this->_imgDetail),
