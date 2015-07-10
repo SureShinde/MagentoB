@@ -47,6 +47,7 @@
                     <detailed_info>Detailed Info</detailed_info>
                     <attribute_config>Attribute Config</attribute_config>
                     <images>Images</images>
+                    <review>Review</review>
                 </attributes>
                 <exclude_attributes>
                     <admin>

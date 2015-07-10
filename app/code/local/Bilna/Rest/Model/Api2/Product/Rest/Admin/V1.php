@@ -80,7 +80,11 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
         
         if ($result) {
             $result['attribute_config'] = $this->_getAttributeConfig();
-            $result['images'] = $this->_getImage($product);
+            $result['review'] = $this->_getProductReview($product->getId());
+            $result['images'] = array (
+                'default' => $this->_getImageResize($product, $product->getImage()),
+                'data' => $this->_getImage($product),
+            );
         }
         
         return $result;
@@ -194,6 +198,7 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
                 }
             }
             
+            $result[$key]['review'] = $this->_getProductReview($product->getId());
             $result[$key]['images'] = array (
                 'base' => Mage::getModel('catalog/product_media_config')->getMediaUrl($product->getImage()),
                 'thumbnail' => $this->_resizeImage($product, $product->getImage(), $this->_imgThumbnail),
@@ -514,18 +519,22 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
             'exclude' => $image['disabled'],
             'url' => $this->_getMediaConfig()->getMediaUrl($image['file']),
             'types' => $this->_getImageTypesAssignedToProduct($product, $image['file']),
-            'image_resize' => array (
-                'base' => $this->_getMediaConfig()->getMediaUrl($image['file']), //- 1400x1400
-                'thumbnail' => $this->_resizeImage($product, $image['file'], $this->_imgThumbnail),
-                'horizontal' => $this->_resizeImage($product, $image['file'], $this->_imgHorizontal),
-                'vertical' => $this->_resizeImage($product, $image['file'], $this->_imgVertical),
-                'detail' => $this->_resizeImage($product, $image['file'], $this->_imgDetail),
-            ),
+            'image_resize' => $this->_getImageResize($product, $image['file']),
         );
         
         return $result;
     }
     
+    protected function _getImageResize($product, $imageFile) {
+        return array (
+            'base' => $this->_getMediaConfig()->getMediaUrl($imageFile), //- 1400x1400
+            'thumbnail' => $this->_resizeImage($product, $imageFile, $this->_imgThumbnail),
+            'horizontal' => $this->_resizeImage($product, $imageFile, $this->_imgHorizontal),
+            'vertical' => $this->_resizeImage($product, $imageFile, $this->_imgVertical),
+            'detail' => $this->_resizeImage($product, $imageFile, $this->_imgDetail),
+        );
+    }
+
     protected function _getImageTypesAssignedToProduct($product, $imageFile) {
         $types = array ();
         
@@ -544,5 +553,15 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
     
     protected function _resizeImage($product, $imageFile, $size) {
         return (string) Mage::helper('catalog/image')->init($product, 'image', $imageFile)->resize($size);
+    }
+    
+    protected function _getProductReview($productId) {
+        $review = Mage::getModel('review/review_summary')->setStoreId($this->_getStore()->getId())->load($productId);
+        $result = array (
+            'reviews_count' => $review->getData('reviews_count'),
+            'rating_summary' => $review->getData('rating_summary'),
+        );
+        
+        return $result;
     }
 }
