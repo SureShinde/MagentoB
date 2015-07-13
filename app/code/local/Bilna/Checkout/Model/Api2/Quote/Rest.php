@@ -9,6 +9,12 @@
  */
 abstract class Bilna_Checkout_Model_Api2_Quote_Rest extends Bilna_Checkout_Model_Api2_Quote
 {
+	/**#@+
+     * Parameters' names in config with special ACL meaning
+     */
+    const PARAM_PAYMENT_METHOD = '_payment_method';
+    /**#@-*/
+    
 	/**
      * Retrieve collection instance for single order
      *
