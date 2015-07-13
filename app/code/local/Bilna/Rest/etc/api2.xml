@@ -272,8 +272,12 @@
                         <retrieve>1</retrieve>
                     </admin>
                 </privileges>
-                <attributes translate="" module="Bilna_Rest">
-                    
+                <attributes translate="nickname title detail created_at votes" module="Bilna_Rest">
+                    <nickname>Nickname</nickname>
+                    <title>Title</title>
+                    <detail>Detail</detail>
+                    <created_at>Created_at</created_at>
+                    <votes>Votes</votes>
                 </attributes>
                 <routes>
                     <route_collection>

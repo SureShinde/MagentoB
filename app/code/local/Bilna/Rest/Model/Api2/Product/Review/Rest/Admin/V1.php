@@ -25,10 +25,8 @@ class Bilna_Rest_Model_Api2_Product_Review_Rest_Admin_V1 extends Bilna_Rest_Mode
             
             if (count($ratingVotes) > 0) {
                 foreach ($ratingVotes as $ratingVote) {
-                    $votes[] = array (
-                        'rating_code' => $ratingVote->getRatingCode(),
-                        'percent' => $ratingVote->getPercent(),
-                    );
+                    $votes['rating_code'] = $ratingVote->getRatingCode();
+                    $votes['percent'] = $ratingVote->getPercent();
                 }
             }
             
