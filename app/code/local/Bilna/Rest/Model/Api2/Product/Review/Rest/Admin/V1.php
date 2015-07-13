@@ -21,6 +21,8 @@ class Bilna_Rest_Model_Api2_Product_Review_Rest_Admin_V1 extends Bilna_Rest_Mode
         }
         
         $result = array ();
+        $result['totalRecord'] = $reviews->getSize();
+        $i = 1;
         
         foreach ($reviews->getItems() as $review) {
             $ratingVotes = $review->getRatingVotes();
@@ -33,13 +35,14 @@ class Bilna_Rest_Model_Api2_Product_Review_Rest_Admin_V1 extends Bilna_Rest_Mode
                 }
             }
             
-            $result[] = array (
+            $result[$i] = array (
                 'nickname' => $review->getNickname(),
                 'title' => $review->getTitle(),
                 'detail' => $review->getDetail(),
                 'created_at' => $review->getCreatedAt(),
                 'votes' => $votes,
             );
+            $i++;
         }
         
         return $result;
