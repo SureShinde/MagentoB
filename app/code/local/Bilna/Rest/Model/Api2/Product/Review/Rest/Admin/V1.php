@@ -13,13 +13,16 @@ class Bilna_Rest_Model_Api2_Product_Review_Rest_Admin_V1 extends Bilna_Rest_Mode
             ->addStatusFilter(Mage_Review_Model_Review::STATUS_APPROVED)
             ->setDateOrder();
         
-        if ($collection->getSize() == 0) {
+        $this->_applyCollectionModifiers($collection);
+        $reviews = $collection->load();
+        
+        if ($reviews->getSize() == 0) {
             $this->_critical(self::RESOURCE_NOT_FOUND);
         }
         
         $result = array ();
         
-        foreach ($collection->getItems() as $review) {
+        foreach ($reviews->getItems() as $review) {
             $ratingVotes = $review->getRatingVotes();
             $votes = array ();
             
