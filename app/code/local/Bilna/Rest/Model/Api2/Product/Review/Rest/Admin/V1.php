@@ -11,8 +11,7 @@ class Bilna_Rest_Model_Api2_Product_Review_Rest_Admin_V1 extends Bilna_Rest_Mode
             ->addStoreFilter($this->_getStore()->getId())
             ->addEntityFilter('product', $this->_getProduct()->getId())
             ->addStatusFilter(Mage_Review_Model_Review::STATUS_APPROVED)
-            ->setDateOrder()
-            ->addRateVotes();
+            ->setDateOrder();
         
         $this->_applyCollectionModifiers($collection);
         $reviews = $collection->load();
@@ -23,25 +22,29 @@ class Bilna_Rest_Model_Api2_Product_Review_Rest_Admin_V1 extends Bilna_Rest_Mode
         
         $result = array ();
         $result['totalRecord'] = $reviews->getSize();
-        $i = 1;
         
         foreach ($reviews->getItems() as $review) {
-            $ratingVotes = $review->getRatingVotes();
             $votes = array ();
+            $rating = Mage::getModel('rating/rating_option_vote')
+                ->getResourceCollection()
+                ->addFieldToSelect(array ('percent'))
+                ->setReviewFilter($review->getId())
+                ->setStoreFilter($this->_getStore()->getId())
+                ->load();
             
-            foreach ($ratingVotes as $ratingVote) {
-                $votes['rating_code'] = $ratingVote->getRatingCode();
-                $votes['percent'] = $ratingVote->getPercent();
+            if ($rating->getSize()) {
+                $ratingData = $rating->getData();
+                $votes['rating_code'] = 'Product Rating';
+                $votes['percent'] = $ratingData[0]['percent'];
             }
             
-            $result[$i] = array (
+            $result[$review->getId()] = array (
                 'nickname' => $review->getNickname(),
                 'title' => $review->getTitle(),
                 'detail' => $review->getDetail(),
                 'created_at' => $review->getCreatedAt(),
                 'votes' => $votes,
             );
-            $i++;
         }
         
         return $result;
