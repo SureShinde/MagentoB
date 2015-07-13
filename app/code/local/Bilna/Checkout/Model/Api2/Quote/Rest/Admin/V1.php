@@ -31,4 +31,54 @@ class Bilna_Checkout_Model_Api2_Quote_Rest_Admin_V1 extends Bilna_Checkout_Model
         }
         return $this->_getLocation($quote);
     }
+
+    /**
+     * Set an Shipping Method for Shopping Cart
+     *
+     * @param  $quoteId
+     * @param  $shippingMethod
+     * @param  $store
+     * @return bool
+     */
+    protected function _retrieve()
+    {
+        $quoteId = $this->getRequest()->getParam('id');
+        $quote = $this->__getCollection($id);
+
+        $quoteDataRaw = $quote->getData();
+        
+        if(empty($quoteDataRaw)){
+            $this->_critical(self::RESOURCE_NOT_FOUND);
+        }
+
+        $quoteData = $quoteDataRaw[0];
+        $addresses = $this->_getAddresses(array($quoteData['entity_id']));
+        $items     = $this->_getItems(array($quoteData['entity_id']));
+
+        if ($addresses) {
+            $quoteData['addresses'] = $addresses[$quoteData['entity_id']];
+        }
+        if ($items) {
+            $quoteData['quote_items'] = $items[$quoteData['entity_id']];
+        }
+        
+        return $quoteData;
+    }
+
+    private function __getCollection($Id)
+    {
+
+        $collection = $this->_getCollectionForSingleRetrieve($Id);
+
+        if ($this->_isPaymentMethodAllowed()) {
+            $this->_addPaymentMethodInfo($collection);
+        }
+
+        $quote = $collection->load();
+ 
+        if (!$quote) {
+            $this->_critical(self::RESOURCE_NOT_FOUND);
+        }
+        return $quote;
+    }
 }
