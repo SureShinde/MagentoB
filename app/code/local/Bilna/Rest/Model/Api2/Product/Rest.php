@@ -6,6 +6,13 @@
  */
 
 abstract class Bilna_Rest_Model_Api2_Product_Rest extends Bilna_Rest_Model_Api2_Product {
+    const DEFAULT_STORE_ID = 1;
+    
+    /**
+     * Attribute code for media gallery
+     */
+    const GALLERY_ATTRIBUTE_CODE = 'media_gallery';
+    
     /**
      * Product Images
      */
@@ -20,18 +27,6 @@ abstract class Bilna_Rest_Model_Api2_Product_Rest extends Bilna_Rest_Model_Api2_
      * @var Mage_Catalog_Model_Product
      */
     protected $_product;
-
-    /**
-     * Retrieve product data
-     *
-     * @return array
-     */
-    protected function _retrieve() {
-        $product = $this->_getProduct();
-        $this->_prepareProductForResponse($product);
-        
-        return $product->getData();
-    }
 
     /**
      * Retrieve list of products
@@ -378,5 +373,75 @@ abstract class Bilna_Rest_Model_Api2_Product_Rest extends Bilna_Rest_Model_Api2_
      */
     protected function _applyTaxToPrice($price, $withTax = true) {
         return $price;
+    }
+    
+    protected function _getStore() {
+        return Mage::getModel('core/store')->load(self::DEFAULT_STORE_ID);
+    }
+    
+    protected function _getImage() {
+        $images = array ();
+        $galleryData = $this->_product->getData(self::GALLERY_ATTRIBUTE_CODE);
+        
+        if (isset ($galleryData['images']) && is_array($galleryData['images'])) {
+            foreach ($galleryData['images'] as $image) {
+                if (!$image['disabled']) {
+                    $images[] = $this->_formatImageData($image);
+                }
+            }
+        }
+        return $images;
+    }
+
+    protected function _formatImageData($image) {
+        $product = $this->_product;
+        $result = array (
+            'id' => $image['value_id'],
+            'label' => $image['label'],
+            'position' => $image['position'],
+            'exclude' => $image['disabled'],
+            'url' => $this->_getMediaConfig()->getMediaUrl($image['file']),
+            'types' => $this->_getImageTypesAssignedToProduct($image['file']),
+            'image_resize' => array (
+                'base' => $this->_getMediaConfig()->getMediaUrl($image['file']), //- 1400x1400
+                'thumbnail' => $this->_resizeImage($product, $image['file'], $this->_imgThumbnail),
+                'horizontal' => $this->_resizeImage($product, $image['file'], $this->_imgHorizontal),
+                'vertical' => $this->_resizeImage($product, $image['file'], $this->_imgVertical),
+                'detail' => $this->_resizeImage($product, $image['file'], $this->_imgDetail),
+            ),
+        );
+        
+        return $result;
+    }
+    
+    /**
+     * Retrieve image types assigned to product (base, small, thumbnail)
+     *
+     * @param string $imageFile
+     * @return array
+     */
+    protected function _getImageTypesAssignedToProduct($imageFile) {
+        $types = array ();
+        
+        foreach ($this->_product->getMediaAttributes() as $attribute) {
+            if ($this->_product->getData($attribute->getAttributeCode()) == $imageFile) {
+                $types[] = $attribute->getAttributeCode();
+            }
+        }
+        
+        return $types;
+    }
+    
+    protected function _resizeImage($product, $imageFile, $size) {
+        return (string) Mage::helper('catalog/image')->init($product, 'image', $imageFile)->resize($size);
+    }
+    
+    /**
+     * Retrieve media config
+     *
+     * @return Mage_Catalog_Model_Product_Media_Config
+     */
+    protected function _getMediaConfig() {
+        return Mage::getSingleton('catalog/product_media_config');
     }
 }

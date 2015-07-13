@@ -6,8 +6,6 @@
  */
 
 class Bilna_Rest_Model_Api2_Product extends Mage_Api2_Model_Resource {
-    const DEFAULT_STORE_ID = 1;
-    
     /**
      * Get available attributes of API resource
      *
@@ -72,9 +70,5 @@ class Bilna_Rest_Model_Api2_Product extends Mage_Api2_Model_Resource {
         }
         
         return (bool) $isAttributeVisible;
-    }
-    
-    protected function _getStore() {
-        return Mage::getModel('core/store')->load(self::DEFAULT_STORE_ID);
     }
 }

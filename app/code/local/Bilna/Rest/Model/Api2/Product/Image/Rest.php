@@ -7,11 +7,6 @@
 
 abstract class Bilna_Rest_Model_Api2_Product_Image_Rest extends Bilna_Rest_Model_Api2_Product_Rest {
     /**
-     * Attribute code for media gallery
-     */
-    const GALLERY_ATTRIBUTE_CODE = 'media_gallery';
-
-    /**
      * Allowed MIME types for image
      *
      * @var array
@@ -88,52 +83,6 @@ abstract class Bilna_Rest_Model_Api2_Product_Image_Rest extends Bilna_Rest_Model
         /** @var $mediaGallery Mage_Catalog_Model_Product_Attribute_Backend_Media */
         $mediaGallery = $galleryAttribute->getBackend();
         return $mediaGallery;
-    }
-
-    /**
-     * Create image data representation for API
-     *
-     * @param array $image
-     * @return array
-     */
-    protected function _formatImageData($image) {
-        $result = array (
-            'id' => $image['value_id'],
-            'label' => $image['label'],
-            'position' => $image['position'],
-            'exclude' => $image['disabled'],
-            'url' => $this->_getMediaConfig()->getMediaUrl($image['file']),
-            'types' => $this->_getImageTypesAssignedToProduct($image['file'])
-        );
-        
-        return $result;
-    }
-
-    /**
-     * Retrieve image types assigned to product (base, small, thumbnail)
-     *
-     * @param string $imageFile
-     * @return array
-     */
-    protected function _getImageTypesAssignedToProduct($imageFile)
-    {
-        $types = array();
-        foreach ($this->_getProduct()->getMediaAttributes() as $attribute) {
-            if ($this->_getProduct()->getData($attribute->getAttributeCode()) == $imageFile) {
-                $types[] = $attribute->getAttributeCode();
-            }
-        }
-        return $types;
-    }
-
-    /**
-     * Retrieve media config
-     *
-     * @return Mage_Catalog_Model_Product_Media_Config
-     */
-    protected function _getMediaConfig()
-    {
-        return Mage::getSingleton('catalog/product_media_config');
     }
 
     /**
