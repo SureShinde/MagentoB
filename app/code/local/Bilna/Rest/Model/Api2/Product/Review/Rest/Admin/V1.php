@@ -22,27 +22,29 @@ class Bilna_Rest_Model_Api2_Product_Review_Rest_Admin_V1 extends Bilna_Rest_Mode
         
         $result = array ();
         $result['totalRecord'] = $reviews->getSize();
-        $i = 1;
         
         foreach ($reviews->getItems() as $review) {
-            $ratingVotes = $review->getRatingVotes();
             $votes = array ();
+            $rating = Mage::getModel('rating/rating_option_vote')
+                ->getResourceCollection()
+                ->addFieldToSelect(array ('percent'))
+                ->setReviewFilter($review->getId())
+                ->setStoreFilter($this->_getStore()->getId())
+                ->load();
             
-            if (count($ratingVotes) > 0) {
-                foreach ($ratingVotes as $ratingVote) {
-                    $votes['rating_code'] = $ratingVote->getRatingCode();
-                    $votes['percent'] = $ratingVote->getPercent();
-                }
+            if ($rating->getSize()) {
+                $ratingData = $rating->getData();
+                $votes['rating_code'] = 'Product Rating';
+                $votes['percent'] = $ratingData[0]['percent'];
             }
             
-            $result[$i] = array (
+            $result[$review->getId()] = array (
                 'nickname' => $review->getNickname(),
                 'title' => $review->getTitle(),
                 'detail' => $review->getDetail(),
                 'created_at' => $review->getCreatedAt(),
                 'votes' => $votes,
             );
-            $i++;
         }
         
         return $result;
