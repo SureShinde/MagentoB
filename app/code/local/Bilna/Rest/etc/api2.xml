@@ -262,6 +262,27 @@
                 </routes>
                 <versions>1</versions>
             </product_image>
+            <product_review translate="title" module="Bilna_Rest">
+                <group>bilna_rest</group>
+                <model>bilna_rest/api2_product_review</model>
+                <title>Product Review</title>
+                <sort_order>40</sort_order>
+                <privileges>
+                    <admin>
+                        <retrieve>1</retrieve>
+                    </admin>
+                </privileges>
+                <attributes translate="" module="Bilna_Rest">
+                    
+                </attributes>
+                <routes>
+                    <route_collection>
+                        <route>/products/:id/reviews</route>
+                        <action_type>collection</action_type>
+                    </route_collection>
+                </routes>
+                <versions>1</versions>
+            </product_review>
             <category translate="title" module="Bilna_Rest">
                 <group>rest_categories</group>
                 <model>bilna_rest/api2_category</model>
