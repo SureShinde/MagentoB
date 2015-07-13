@@ -24,7 +24,7 @@ abstract class Mage_Sales_Model_Api2_Quote_Rest extends Mage_Sales_Model_Api2_Qu
         $quoteDataRaw = $quote->getData();
         
         if(empty($quoteDataRaw)){
-
+            $this->_critical(self::RESOURCE_NOT_FOUND);
         }
 
         $quoteData = $quoteDataRaw[0];

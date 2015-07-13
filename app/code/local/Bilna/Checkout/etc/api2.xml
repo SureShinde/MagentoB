@@ -122,6 +122,13 @@
 						<action_type>collection</action_type>
 					</route_collection>
 				</routes>
+                <force_attributes>
+                    <admin>
+                        <!--payment_method>1</payment_method-->
+                        <addresses>1</addresses>
+                        <quote_items>1</quote_items>
+                    </admin>
+                </force_attributes>
 				<versions>1</versions>
 			</cart_quote>
             <cart_product translate="title" module="api2">
