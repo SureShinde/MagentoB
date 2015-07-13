@@ -43,7 +43,7 @@ class Bilna_Checkout_Model_Api2_Quote_Rest_Admin_V1 extends Bilna_Checkout_Model
     protected function _retrieve()
     {
         $quoteId = $this->getRequest()->getParam('id');
-        $quote = $this->__getCollection($id);
+        $quote = $this->__getCollection($quoteId);
 
         $quoteDataRaw = $quote->getData();
         
