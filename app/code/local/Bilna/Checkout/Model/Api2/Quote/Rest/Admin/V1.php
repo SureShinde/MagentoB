@@ -33,7 +33,7 @@ class Bilna_Checkout_Model_Api2_Quote_Rest_Admin_V1 extends Bilna_Checkout_Model
     }
 
     /**
-     * Set an Shipping Method for Shopping Cart
+     * Get Shopping Cart
      *
      * @param  $quoteId
      * @param  $shippingMethod
@@ -65,20 +65,4 @@ class Bilna_Checkout_Model_Api2_Quote_Rest_Admin_V1 extends Bilna_Checkout_Model
         return $quoteData;
     }
 
-    private function __getCollection($Id)
-    {
-
-        $collection = $this->_getCollectionForSingleRetrieve($Id);
-
-        if ($this->_isPaymentMethodAllowed()) {
-            $this->_addPaymentMethodInfo($collection);
-        }
-
-        $quote = $collection->load();
- 
-        if (!$quote) {
-            $this->_critical(self::RESOURCE_NOT_FOUND);
-        }
-        return $quote;
-    }
 }

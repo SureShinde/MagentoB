@@ -8,7 +8,7 @@
  * @author     Development Team <development@bilna.com>
  */
 
-class Bilna_Checkout_Model_Api2_Customer extends Mage_Api2_Model_Resource
+class Bilna_Checkout_Model_Api2_Customer extends Bilna_Checkout_Model_Api2_Resource
 {
 	/**
      * Retrieves quote by quote identifier and store code or by quote identifier

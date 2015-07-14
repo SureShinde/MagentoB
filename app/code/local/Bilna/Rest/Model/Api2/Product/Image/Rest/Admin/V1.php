@@ -106,7 +106,7 @@ class Bilna_Rest_Model_Api2_Product_Image_Rest_Admin_V1 extends Bilna_Rest_Model
         
         foreach ($galleryData['images'] as &$image) {
             if ($image['value_id'] == $imageId) {
-                $result = $this->_formatImageData($image);
+                $result = $this->_formatImageData($this->_getProduct(), $image);
                 break;
             }
         }
@@ -183,31 +183,6 @@ class Bilna_Rest_Model_Api2_Product_Image_Rest_Admin_V1 extends Bilna_Rest_Model
         }
         
         return $images;
-    }
-    
-    protected function _formatImageData($image) {
-        $result = array (
-            'id' => $image['value_id'],
-            'label' => $image['label'],
-            'position' => $image['position'],
-            'exclude' => $image['disabled'],
-            'url' => $this->_getMediaConfig()->getMediaUrl($image['file']),
-            'types' => $this->_getImageTypesAssignedToProduct($image['file']),
-            'image_resize' => array (
-                'base' => $this->_resizeImage($image['file'], 265), //- 265x265
-                'small' => $this->_resizeImage($image['file'], 152), //- 152x152
-                'large' => $this->_getMediaConfig()->getMediaUrl($image['file']), //- 1400x1400
-                'thumbnail' => $this->_resizeImage($image['file'], 56), //- 56x56
-            ),
-        );
-        
-        return $result;
-    }
-    
-    protected function _resizeImage($imageFile, $size) {
-        $helper = Mage::helper('catalog/image');
-        
-        return (string) $helper->init($this->_getProduct(), 'image', $imageFile)->resize($size);
     }
 
     /**
