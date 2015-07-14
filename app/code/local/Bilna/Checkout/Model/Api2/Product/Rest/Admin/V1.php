@@ -17,7 +17,7 @@ class Bilna_Checkout_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Checkout_Mod
      */
     protected function _create(array $data)
     {
-    	$quoteId = $data['quote_id'];
+    	$quoteId = $data['entity_id'];
     	$storeId = isset($data['store_id']) ? $data['store_id'] : 1;
     	$productId = $data['product_id'];
     	$qty = isset($data['qty']) ? $data['qty'] : 1;
