@@ -79,7 +79,11 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
         
         if ($result) {
             $result['attribute_config'] = $this->_getAttributeConfig();
-            $result['images'] = $this->_getImage();
+            $result['review'] = $this->_getProductReview($this->_product->getId());
+            $result['images'] = array (
+                'default' => $this->_getImageResize($this->_product, $this->_product->getImage()),
+                'data' => $this->_getImage(),
+            );
         }
         
         return $result;
@@ -193,6 +197,7 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
                 }
             }
             
+            $result[$key]['review'] = $this->_getProductReview($product->getId());
             $result[$key]['images'] = array (
                 'base' => Mage::getModel('catalog/product_media_config')->getMediaUrl($product->getImage()),
                 'thumbnail' => $this->_resizeImage($product, $product->getImage(), $this->_imgThumbnail),
@@ -489,5 +494,75 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
         }
         
         return $isAllowed;
+    }
+    
+    //------------------------------------------------------------------------------------------------------------
+    
+//    protected function _getImage($product) {
+//        $images = array ();
+//        $galleryData = $product->getData(self::GALLERY_ATTRIBUTE_CODE);
+//        
+//        if (isset ($galleryData['images']) && is_array($galleryData['images'])) {
+//            foreach ($galleryData['images'] as $image) {
+//                if (!$image['disabled']) {
+//                    $images[] = $this->_formatImageData($product, $image);
+//                }
+//            }
+//        }
+//        return $images;
+//    }
+
+    protected function _formatImageData($product, $image) {
+        $result = array (
+            'id' => $image['value_id'],
+            'label' => $image['label'],
+            'position' => $image['position'],
+            'exclude' => $image['disabled'],
+            'url' => $this->_getMediaConfig()->getMediaUrl($image['file']),
+            'types' => $this->_getImageTypesAssignedToProduct($product, $image['file']),
+            'image_resize' => $this->_getImageResize($product, $image['file']),
+        );
+        
+        return $result;
+    }
+    
+    protected function _getImageResize($product, $imageFile) {
+        return array (
+            'base' => $this->_getMediaConfig()->getMediaUrl($imageFile), //- 1400x1400
+            'thumbnail' => $this->_resizeImage($product, $imageFile, $this->_imgThumbnail),
+            'horizontal' => $this->_resizeImage($product, $imageFile, $this->_imgHorizontal),
+            'vertical' => $this->_resizeImage($product, $imageFile, $this->_imgVertical),
+            'detail' => $this->_resizeImage($product, $imageFile, $this->_imgDetail),
+        );
+    }
+
+//    protected function _getImageTypesAssignedToProduct($product, $imageFile) {
+//        $types = array ();
+//        
+//        foreach ($product->getMediaAttributes() as $attribute) {
+//            if ($product->getData($attribute->getAttributeCode()) == $imageFile) {
+//                $types[] = $attribute->getAttributeCode();
+//            }
+//        }
+//        
+//        return $types;
+//    }
+//    
+//    protected function _getMediaConfig() {
+//        return Mage::getSingleton('catalog/product_media_config');
+//    }
+//    
+//    protected function _resizeImage($product, $imageFile, $size) {
+//        return (string) Mage::helper('catalog/image')->init($product, 'image', $imageFile)->resize($size);
+//    }
+    
+    protected function _getProductReview($productId) {
+        $review = Mage::getModel('review/review_summary')->setStoreId($this->_getStore()->getId())->load($productId);
+        $result = array (
+            'reviews_count' => $review->getData('reviews_count'),
+            'rating_summary' => $review->getData('rating_summary'),
+        );
+        
+        return $result;
     }
 }

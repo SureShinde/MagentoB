@@ -394,7 +394,6 @@ abstract class Bilna_Rest_Model_Api2_Product_Rest extends Bilna_Rest_Model_Api2_
     }
 
     protected function _formatImageData($image) {
-        $product = $this->_product;
         $result = array (
             'id' => $image['value_id'],
             'label' => $image['label'],
@@ -404,10 +403,10 @@ abstract class Bilna_Rest_Model_Api2_Product_Rest extends Bilna_Rest_Model_Api2_
             'types' => $this->_getImageTypesAssignedToProduct($image['file']),
             'image_resize' => array (
                 'base' => $this->_getMediaConfig()->getMediaUrl($image['file']), //- 1400x1400
-                'thumbnail' => $this->_resizeImage($product, $image['file'], $this->_imgThumbnail),
-                'horizontal' => $this->_resizeImage($product, $image['file'], $this->_imgHorizontal),
-                'vertical' => $this->_resizeImage($product, $image['file'], $this->_imgVertical),
-                'detail' => $this->_resizeImage($product, $image['file'], $this->_imgDetail),
+                'thumbnail' => $this->_resizeImage($this->_product, $image['file'], $this->_imgThumbnail),
+                'horizontal' => $this->_resizeImage($this->_product, $image['file'], $this->_imgHorizontal),
+                'vertical' => $this->_resizeImage($this->_product, $image['file'], $this->_imgVertical),
+                'detail' => $this->_resizeImage($this->_product, $image['file'], $this->_imgDetail),
             ),
         );
         
