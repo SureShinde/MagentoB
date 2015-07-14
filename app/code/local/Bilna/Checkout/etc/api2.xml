@@ -362,6 +362,46 @@
                 </force_attributes>
                 <versions>1</versions>
             </cart_shipping>
+            <cart_shipping_method translate="title" module="api2">
+                <group>checkout</group>
+                <sort_order>130</sort_order>
+                <model>bilna_checkout/api2_shipping_method</model>
+                <title>Shipping Method</title>
+                <privileges>
+                    <admin>
+                        <create>1</create>
+                        <retrieve>1</retrieve>
+                        <update>1</update>
+                        <delete>1</delete>
+                    </admin>
+                    <customer>
+                        <create>1</create>
+                        <retrieve>1</retrieve>
+                    </customer>
+                </privileges>
+                <attributes translate="entity_id store_id" module="Bilna_Checkout">
+                    <entity_id>Quote ID</entity_id>
+                    <store_id>Store ID</store_id>
+                </attributes>
+                <routes>
+                    <route_entity>
+                        <route>/checkout/shipping/method/:id</route>
+                        <action_type>entity</action_type>
+                    </route_entity>
+                    <route_collection>
+                        <route>/checkout/shipping/method/</route>
+                        <action_type>collection</action_type>
+                    </route_collection>
+                </routes>
+                <force_attributes>
+                    <admin>
+                        <!--payment_method>1</payment_method-->
+                        <addresses>1</addresses>
+                        <quote_items>1</quote_items>
+                    </admin>
+                </force_attributes>
+                <versions>1</versions>
+            </cart_shipping_method>
 		</resources>
 	</api2>
 </config>
