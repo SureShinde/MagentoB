@@ -8,7 +8,7 @@
  * @author     Development Team <development@bilna.com>
  */
 
-class Bilna_Checkout_Model_Api2_Product extends Mage_Api2_Model_Resource
+class Bilna_Checkout_Model_Api2_Product extends Bilna_Checkout_Model_Api2_Resource
 {
 
 	/**
