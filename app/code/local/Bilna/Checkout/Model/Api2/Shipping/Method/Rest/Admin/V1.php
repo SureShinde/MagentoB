@@ -22,4 +22,13 @@ class Bilna_Checkout_Model_Api2_Shipping_Method_Rest_Admin_V1 extends Bilna_Chec
     	die("hjhdsbcjdsbf");
     }
 
+    /**
+     * Get orders list
+     *
+     * @return array
+     */
+    protected function _retrieveCollection()
+    {
+    	die('yyyyyyyyyyyy');
+    }
 }
