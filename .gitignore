@@ -26,7 +26,7 @@ var
 
 app/code/community/Find/
 app/code/community/Phoenix/
-app/code/core/
+#app/code/core/
 app/design/adminhtml/default/find/
 app/design/frontend/default/blank/
 app/design/frontend/default/iphone/
