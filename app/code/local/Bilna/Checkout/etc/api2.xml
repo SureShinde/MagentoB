@@ -341,7 +341,7 @@
                     <base_subtotal>base Subtotal</base_subtotal>
                     <subtotal_with_discount>Subtotal With Discount</subtotal_with_discount>
                     <base_subtotal_with_discount>Base Subtotal With Discount</base_subtotal_with_discount>
-                    <customer>Customer Mode</customer>
+                    <address>Customer Address</address>
                 </attributes>
                 <routes>
                     <route_entity>
