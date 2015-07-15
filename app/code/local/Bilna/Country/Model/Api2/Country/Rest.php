@@ -38,8 +38,8 @@ abstract class Bilna_Country_Model_Api2_Country_Rest extends Bilna_Country_Model
             "region_id",
             "code",
             "default_name"
-        ))
-            ->group('main_table.city');
+        ));
+//             ->group('main_table.city');
         
         // $collection->addAttributeToSelect(array_keys($this->getAvailableAttributes($this->getUserType(), Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_READ)));
         $this->_applyCollectionModifiers($collection);
