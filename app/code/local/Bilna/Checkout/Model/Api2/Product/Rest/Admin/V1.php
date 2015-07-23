@@ -43,7 +43,7 @@ class Bilna_Checkout_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Checkout_Mod
 	    	$result = $quote->addProduct($productByItem, $productRequest);*/
 
             $quoteItem = Mage::getModel('sales/quote_item')->setProduct($product);
-
+            $quoteItem->setStoreId($storeId);
             $quoteItem->setQuote($quote);
             $quoteItem->setQty($qty);
 
