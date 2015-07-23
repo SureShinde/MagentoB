@@ -22,26 +22,42 @@ class Bilna_Checkout_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Checkout_Mod
     	$productId = $data['product_id'];
     	$qty = isset($data['qty']) ? $data['qty'] : 1;
     	try {
-	    	$quote = $this->_getQuote($quoteId, $storeId);
-	        
+	    	$quote = $this->_getQuote($quoteId, $storeId);                   
+
 	    	if(empty($productId))
 	    	{
 	    		Mage::throwException("Invalid Product Data");
 	    	}
 
-	    	$productByItem = $this->_getProduct($productId, $storeId, "id");
+            /*$productModel = Mage::getModel('catalog/product');
+            $product = $productModel->load($productId);*/
 
-	    	$productRequest = $this->_getProductRequest(array(
+
+	    	$product = $this->_getProduct($productId, $storeId, "id");
+
+	    	/*$productRequest = $this->_getProductRequest(array(
 	    		'product_id' => $productId,
 	    		'qty'		 => $qty
 	    	));
 
-	    	$result = $quote->addProduct($productByItem, $productRequest);
-            if (is_string($result)) {
-                throw Mage::throwException($result);
-            }
+	    	$result = $quote->addProduct($productByItem, $productRequest);*/
 
-            $quote->collectTotals()->save();
+            $quoteItem = Mage::getModel('sales/quote_item')->setProduct($product);
+            $quoteItem->setStoreId($storeId);
+            $quoteItem->setQuote($quote);
+            $quoteItem->setQty($qty);
+
+            /*if (is_string($result)) {
+                throw Mage::throwException($result);
+            }*/
+
+            $quote->addItem($quoteItem);
+            $quote->getShippingAddress()->setCollectShippingRates(true);
+            $quote->getShippingAddress()->collectShippingRates();
+            $quote->collectTotals(); // calls $address->collectTotals();
+            $quote->save();            
+
+            //$quote->collectTotals()->save();
 
 	    } catch (Mage_Core_Exception $e) {
             $this->_error($e->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
@@ -57,8 +73,8 @@ class Bilna_Checkout_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Checkout_Mod
      * @throws Mage_Api2_Exception
      */
     protected function _update(array $data)
-    {
-    	$quoteId = $data['quote_id'];
+    {       
+    	$quoteId = $data['entity_id'];
     	$storeId = isset($data['store_id']) ? $data['store_id'] : 1;
     	$productId = $data['product_id'];
     	$qty = isset($data['qty']) ? $data['qty'] : 1;
@@ -71,7 +87,10 @@ class Bilna_Checkout_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Checkout_Mod
 	    		throw Mage::throwException("Invalid Product Data");
 	    	}
 
-	    	$productByItem = $this->_getProduct($productId, $storeId, "id");
+	    	//$productByItem = $this->_getProduct($productId, $storeId, "id");
+$productModel = Mage::getModel('catalog/product');
+$productByItem = $productModel->load($productId);
+
 
 	    	/** @var $quoteItem Mage_Sales_Model_Quote_Item */
             $quoteItem = $this->_getQuoteItemByProduct($quote, $productByItem,
@@ -89,8 +108,12 @@ class Bilna_Checkout_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Checkout_Mod
             if ($qty > 0) {
                 $quoteItem->setQty($qty);
             }
-
-            $quote->collectTotals()->save();
+$quote->addItem($quoteItem);
+$quote->getShippingAddress()->setCollectShippingRates(true);
+$quote->getShippingAddress()->collectShippingRates();
+$quote->collectTotals(); // calls $address->collectTotals();
+$quote->save(); 
+            //$quote->collectTotals()->save();
 
 	    } catch (Mage_Core_Exception $e) {
             $this->_error($e->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
