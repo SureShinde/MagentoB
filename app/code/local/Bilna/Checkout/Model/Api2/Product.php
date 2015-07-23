@@ -23,12 +23,9 @@ class Bilna_Checkout_Model_Api2_Product extends Bilna_Checkout_Model_Api2_Resour
     	/** @var $quote Mage_Sales_Model_Quote */
         $quote = Mage::getModel("sales/quote");
 
-        if (!(is_string($storeId) || is_integer($storeId))) {
-            $quote->loadByIdWithoutStore($quoteId);
-        } else {
-        	$quote->setStoreId($storeId)
+        $quote->setStoreId($storeId)
                     ->load($quoteId);
-        }
+                    
         if (is_null($quote->getId())) {
             Mage::throwException("Quote Not Exists");
         }
@@ -46,10 +43,13 @@ class Bilna_Checkout_Model_Api2_Product extends Bilna_Checkout_Model_Api2_Resour
      */
     protected function _getProduct($productId, $storeId = 1, $identifierType = null)
     {
-        $product = Mage::helper('catalog/product')->getProduct($productId,
+        /*$product = Mage::helper('catalog/product')->getProduct($productId,
                         $storeId,
                         $identifierType
-        );
+        );*/
+        $product = Mage::getModel('catalog/product')
+                ->setStoreId($storeId)
+                ->load((int) $productId);
         return $product;
     }
 
