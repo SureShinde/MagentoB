@@ -40,9 +40,6 @@ abstract class Bilna_Customer_Model_Api2_Customer_Rest extends Bilna_Customer_Mo
         
         try {
             $customer->save();
-            
-            $customer->sendNewAccountEmail('registered', '', Mage::app()->getStore()->getId());
-            
             $this->_dispatchRegisterSuccess($customer);
         } catch (Mage_Core_Exception $e) {
             $this->_error($e->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
