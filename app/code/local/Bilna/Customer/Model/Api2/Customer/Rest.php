@@ -2,6 +2,7 @@
 
 abstract class Bilna_Customer_Model_Api2_Customer_Rest extends Bilna_Customer_Model_Api2_Customer
 {
+    const XML_PATH_REGISTER_EMAIL_IDENTITY = 'customer/create_account/email_identity';
 
     /**
      * Create customer
@@ -40,8 +41,8 @@ abstract class Bilna_Customer_Model_Api2_Customer_Rest extends Bilna_Customer_Mo
         
         try {
             $customer->save();
-            
-            $customer->sendNewAccountEmail('registered', '', Mage::app()->getStore()->getId());
+
+            $customer->_sendEmailTemplate('registered', self::XML_PATH_REGISTER_EMAIL_IDENTITY, array('customer' => $customer, 'back_url' => ''), Mage::app()->getStore()->getId());
             
             $this->_dispatchRegisterSuccess($customer);
         } catch (Mage_Core_Exception $e) {
