@@ -55,7 +55,7 @@ $carrierName = $carrierCode;
             $this->_error($e->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
         }
 
-        return array('rate'=>$ratesResult);
+        return array('rates'=>$ratesResult);
     }
 
     /**
@@ -64,10 +64,10 @@ $carrierName = $carrierCode;
      * @param array $data
      * @return int
      */
-    protected function _create(array $data)
+    /*protected function _create(array $data)
     {
 
 
-    }
+    }*/
 
 }
