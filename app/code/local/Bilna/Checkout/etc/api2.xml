@@ -459,6 +459,7 @@
                 <attributes translate="entity_id store_id" module="Bilna_Checkout">
                     <entity_id>Quote ID</entity_id>
                     <store_id>Store ID</store_id>
+                    <rates>Rates</rates>
                 </attributes>
                 <routes>
                     <route_entity>
