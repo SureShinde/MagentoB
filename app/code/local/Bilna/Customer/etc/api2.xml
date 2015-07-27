@@ -107,10 +107,10 @@
 				</routes>
 				<versions>1</versions>
 			</customer>
-            <customer_address translate="title" module="Bilna_Customer">
+            <customer_address translate="title" module="api2">
                 <group>customer</group>
                 <sort_order>110</sort_order>
-                <model>bilna_customer/api2_customer_address</model>
+                <model>customer/api2_customer_address</model>
                 <working_model>customer/address</working_model>
                 <title>Customer Address</title>
                 <privileges>
@@ -127,19 +127,11 @@
                         <delete>1</delete>
                     </customer>
                 </privileges>
-                <attributes translate="entity_id is_default_billing is_default_shipping" module="Bilna_Customer">
+                <attributes translate="entity_id is_default_billing is_default_shipping" module="api2">
                     <entity_id>Customer Address ID</entity_id>
                     <is_default_billing>Is Default Billing Address</is_default_billing>
                     <is_default_shipping>Is Default Shipping Address</is_default_shipping>
                 </attributes>
-                <force_attributes>
-                    <customer>
-                        <addresses>1</addresses>
-                    </customer>
-                    <admin>
-                        <addresses>1</addresses>
-                    </admin>
-                </force_attributes>
                 <exclude_attributes>
                     <admin>
                         <read>
