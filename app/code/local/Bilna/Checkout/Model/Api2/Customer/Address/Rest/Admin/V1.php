@@ -127,4 +127,29 @@ class Bilna_Checkout_Model_Api2_Customer_Address_Rest_Admin_V1 extends Bilna_Che
         }
         return $dataAddresses;
     }
+
+    protected function _retrieve()
+    {
+        $quoteId = $this->getRequest()->getParam('id');
+        $quote = $this->__getCollection($quoteId);
+
+        $quoteDataRaw = $quote->getData();
+        
+        if(empty($quoteDataRaw)){
+            $this->_critical(self::RESOURCE_NOT_FOUND);
+        }
+
+        $quoteData = $quoteDataRaw[0];
+        $addresses = $this->_getAddresses(array($quoteData['entity_id']));
+        $items     = $this->_getItems(array($quoteData['entity_id']));
+
+        if ($addresses) {
+            $quoteData['addresses'] = $addresses[$quoteData['entity_id']];
+        }
+        if ($items) {
+            $quoteData['quote_items'] = $items[$quoteData['entity_id']];
+        }
+        
+        return $quoteData;
+    }
 }
