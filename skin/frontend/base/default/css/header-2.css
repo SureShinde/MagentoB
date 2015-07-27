@@ -61,7 +61,8 @@ li#perlengkapan-rumah, li.mobile-perlengkapan-rumah {
 	padding: 0;
 }
 .logo img {
-	width: 95%;
+    float: left;
+    margin: 10px 0 8px;
 }
 .sticky-header {
 	margin: 0 auto;
@@ -2038,17 +2039,6 @@ searchbar #nav-search-in {
 /*additional screen*/
 
 @media only screen and (max-width: 1215px) {
-	#nav li.nav-kebutuhan-khusus-bayi-dan-balita ul.level-hover{
-		left:auto;
-		right:-68px;
-	}
-	#nav li.nav-buku-dan-mainan ul.level-hover,
-	#nav li.nav-kesehatan-dan-keamanan-bayi-dan-balita ul.level-hover,
-	#nav li.nav-perlengkapan-bayi ul.level-hover,
-	#nav li.nav-untuk-ibu ul.level-hover{
-		left:auto;
-		right:-100px;
-	}
     #nav li.level-top.parent-8 ul.shown-sub {
         right: auto;
         left: 0;
@@ -2060,6 +2050,9 @@ searchbar #nav-search-in {
 		padding-left: 10px;
 		padding-right: 10px;
 	}
+    .logo img{
+        margin-top: 20px;
+    }
 	.sticky-header .sticky-top-cart {
 		padding-left: 0;
 		padding-right: 0;
@@ -2439,6 +2432,7 @@ searchbar #nav-search-in {
 @media only screen and (max-width: 767px) {
 	.header .logo img {
 		width: 80%;
+        margin: 9px;
 	}
 	.header .links li:first-child {
 		border-right: none; 
