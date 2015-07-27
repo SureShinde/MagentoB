@@ -42,19 +42,7 @@ abstract class Bilna_Customer_Model_Api2_Customer_Rest extends Bilna_Customer_Mo
         try {
             $customer->save();
 
-            /** @var $mailer Mage_Core_Model_Email_Template_Mailer */
-            $mailer = Mage::getModel('core/email_template_mailer');
-            $emailInfo = Mage::getModel('core/email_info');
-            $emailInfo->addTo($customer->getEmail(), $customer->getName());
-            $mailer->addEmailInfo($emailInfo);
-            
-            // Set all required params and send emails
-            $mailer->setSender(Mage::getStoreConfig(self::XML_PATH_REGISTER_EMAIL_IDENTITY, Mage::app()->getStore()->getId()));
-            $mailer->setStoreId(Mage::app()->getStore()->getId());
-            $mailer->setTemplateId(Mage::getStoreConfig('registered', Mage::app()->getStore()->getId()));
-            $mailer->setTemplateParams(array('customer' => $customer, 'back_url' => ''));
-            $mailer->send();
-//             $customer->_sendEmailTemplate('registered', self::XML_PATH_REGISTER_EMAIL_IDENTITY, array('customer' => $customer, 'back_url' => ''), Mage::app()->getStore()->getId());
+            $customer->sendNewAccountEmail();
             
             $this->_dispatchRegisterSuccess($customer);
         } catch (Mage_Core_Exception $e) {
