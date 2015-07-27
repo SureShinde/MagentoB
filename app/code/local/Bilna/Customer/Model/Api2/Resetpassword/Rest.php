@@ -3,7 +3,7 @@
 abstract class Bilna_Customer_Model_Api2_Resetpassword_Rest extends Bilna_Customer_Model_Api2_Resetpassword
 {
 
-    protected function _update(array $data)
+    protected function _create(array $data)
     {
         $customer = Mage::getModel('customer/customer')
             ->setWebsiteId(1)

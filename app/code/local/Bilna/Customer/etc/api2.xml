@@ -205,10 +205,10 @@
                 <title>Customer Reset Password</title>
                 <privileges>
                     <admin>
-                        <update>1</update>
+                        <create>1</create>
                     </admin>
                     <customer>
-                        <update>1</update>
+                        <create>1</create>
                     </customer>
                 </privileges>
                 <attributes translate="email" module="Bilna_Customer">
