@@ -10,6 +10,9 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
      * The greatest decimal value which could be stored. Corresponds to DECIMAL (12,4) SQL type
      */
     const MAX_DECIMAL_VALUE = 99999999.9999;
+    
+    //- configurable product
+    protected $_resPrices = array ();
 
     /**
      * Add special fields to product get response
@@ -108,20 +111,235 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
             return null;
         }
         
-        $_attributes = Mage::helper('core')->decorateArray($this->_getAllowAttributes());
-        $result = array ();
+        $attributes = array ();
+        $options = array ();
+        $store = $this->_getStore();
+        $taxHelper = Mage::helper('tax');
+        $currentProduct = $this->_getProduct();
+        $preconfiguredFlag = $currentProduct->hasPreconfiguredValues();
         
-        if ($this->_getProduct()->isSaleable() && count($_attributes)) {
-            foreach ($_attributes as $_attribute) {
-                $result[$_attribute->getAttributeId()] = $_attribute->getLabel();
+        if ($preconfiguredFlag) {
+            $preconfiguredValues = $currentProduct->getPreconfiguredValues();
+            $defaultValues = array ();
+        }
+        
+        foreach ($this->_getAllowProducts() as $product) {
+            $productId  = $product->getId();
+            
+            foreach ($this->_getAllowAttributes() as $attribute) {
+                $productAttribute = $attribute->getProductAttribute();
+                $productAttributeId = $productAttribute->getId();
+                $attributeValue = $product->getData($productAttribute->getAttributeCode());
+                
+                if (!isset ($options[$productAttributeId])) {
+                    $options[$productAttributeId] = array ();
+                }
+
+                if (!isset ($options[$productAttributeId][$attributeValue])) {
+                    $options[$productAttributeId][$attributeValue] = array ();
+                }
+                
+                $options[$productAttributeId][$attributeValue][] = $productId;
             }
         }
         
-        return $result;
-    }
+        $this->_resPrices = array ($this->_preparePrice($currentProduct->getFinalPrice()));
+        
+        foreach ($this->_getAllowAttributes() as $attribute) {
+            $productAttribute = $attribute->getProductAttribute();
+            $attributeId = $productAttribute->getId();
+            $info = array (
+               'id' => $productAttribute->getId(),
+               'code' => $productAttribute->getAttributeCode(),
+               'label' => $attribute->getLabel(),
+               'options' => array (),
+            );
+            
+            $optionPrices = array ();
+            $prices = $attribute->getPrices();
+            
+            if (is_array($prices)) {
+                foreach ($prices as $value) {
+                    if (!$this->_validateAttributeValue($attributeId, $value, $options)) {
+                        continue;
+                    }
+                    
+                    $currentProduct->setConfigurablePrice($this->_preparePrice($value['pricing_value'], $value['is_percent']));
+                    $currentProduct->setParentId(true);
+                    Mage::dispatchEvent('catalog_product_type_configurable_price', array ('product' => $currentProduct));
+                    $configurablePrice = $currentProduct->getConfigurablePrice();
 
+                    if (isset ($options[$attributeId][$value['value_index']])) {
+                        $productsIndex = $options[$attributeId][$value['value_index']];
+                    }
+                    else {
+                        $productsIndex = array ();
+                    }
+
+                    $info['options'][] = array (
+                        'id' => $value['value_index'],
+                        'label' => $value['label'],
+                        'price' => $configurablePrice,
+                        'oldPrice' => $this->_prepareOldPrice($value['pricing_value'], $value['is_percent']),
+                        'products'  => $productsIndex,
+                    );
+                    $optionPrices[] = $configurablePrice;
+                }
+            }
+            
+            /**
+             * Prepare formated values for options choose
+             */
+            foreach ($optionPrices as $optionPrice) {
+                foreach ($optionPrices as $additional) {
+                    $this->_preparePrice(abs($additional - $optionPrice));
+                }
+            }
+            
+            if ($this->_validateAttributeInfo($info)) {
+                $attributes[$attributeId] = $info;
+            }
+
+            // Add attribute default value (if set)
+            if ($preconfiguredFlag) {
+                $configValue = $preconfiguredValues->getData('super_attribute/' . $attributeId);
+                
+                if ($configValue) {
+                    $defaultValues[$attributeId] = $configValue;
+                }
+            }
+        }
+        
+        $config = array (
+            'attributes' => $attributes,
+            'template' => str_replace('%s', '#{price}', $store->getCurrentCurrency()->getOutputFormat()),
+            'basePrice' => $this->_registerJsPrice($this->_convertPrice($currentProduct->getFinalPrice())),
+            'oldPrice' => $this->_registerJsPrice($this->_convertPrice($currentProduct->getPrice())),
+            'productId' => $currentProduct->getId(),
+            'chooseText' => Mage::helper('catalog')->__('Choose an Option...'),
+//            'taxConfig' => $taxConfig
+        );
+        
+        return $config;
+    }
+    
+    /**
+     * Get Allowed Products
+     *
+     * @return array
+     */
+    protected function _getAllowProducts() {
+        $products = array ();
+        $skipSaleableCheck = Mage::helper('catalog/product')->getSkipSaleableCheck();
+        $allProducts = $this->_getProduct()->getTypeInstance(true)->getUsedProducts(null, $this->_getProduct());
+        
+        foreach ($allProducts as $product) {
+            //if ($product->isSaleable() || $skipSaleableCheck) {
+                $products[] = $product;
+            //}
+        }
+            
+        return $products;
+    }
+    
+    /**
+     * Get allowed attributes
+     *
+     * @return array
+     */
     protected function _getAllowAttributes() {
         return $this->_getProduct()->getTypeInstance(true)->getConfigurableAttributes($this->_getProduct());
+    }
+    
+    /**
+     * Validating of super product option value
+     *
+     * @param array $attributeId
+     * @param array $value
+     * @param array $options
+     * @return boolean
+     */
+    protected function _validateAttributeValue($attributeId, &$value, &$options) {
+        if (isset ($options[$attributeId][$value['value_index']])) {
+            return true;
+        }
+
+        return false;
+    }
+    
+    /**
+     * Validation of super product option
+     *
+     * @param array $info
+     * @return boolean
+     */
+    protected function _validateAttributeInfo(&$info) {
+        if (count($info['options']) > 0) {
+            return true;
+        }
+        
+        return false;
+    }
+    
+    /**
+     * Calculation real price
+     *
+     * @param float $price
+     * @param bool $isPercent
+     * @return mixed
+     */
+    protected function _preparePrice($price, $isPercent = false) {
+        if ($isPercent && !empty ($price)) {
+            $price = $this->_getProduct()->getFinalPrice() * $price / 100;
+        }
+
+        return $this->_registerJsPrice($this->_convertPrice($price, true));
+    }
+    
+    /**
+     * Calculation price before special price
+     *
+     * @param float $price
+     * @param bool $isPercent
+     * @return mixed
+     */
+    protected function _prepareOldPrice($price, $isPercent = false) {
+        if ($isPercent && !empty ($price)) {
+            $price = $this->_getProduct()->getPrice() * $price / 100;
+        }
+
+        return $this->_registerJsPrice($this->_convertPrice($price, true));
+    }
+    
+    /**
+     * Replace ',' on '.' for js
+     *
+     * @param float $price
+     * @return string
+     */
+    protected function _registerJsPrice($price) {
+        return str_replace(',', '.', $price);
+    }
+    
+    /**
+     * Convert price from default currency to current currency
+     *
+     * @param float $price
+     * @param boolean $round
+     * @return float
+     */
+    protected function _convertPrice($price, $round = false) {
+        if (empty ($price)) {
+            return 0;
+        }
+
+        $price = $this->_getStore()->convertPrice($price);
+        
+        if ($round) {
+            $price = $this->_getStore()->roundPrice($price);
+        }
+
+        return $price;
     }
 
     /**

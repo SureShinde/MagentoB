@@ -8,7 +8,7 @@
                 <children>
                     <rest_categories translate="title" module="Bilna_Rest">
                         <title>Categories</title>
-                        <sort_order>10</sort_order>
+                        <sort_order>100</sort_order>
                     </rest_categories>
                 </children>
             </bilna_rest>
@@ -22,7 +22,10 @@
                 <sort_order>10</sort_order>
                 <privileges>
                     <admin>
+                        <create>0</create>
                         <retrieve>1</retrieve>
+                        <update>0</update>
+                        <delete>0</delete>
                     </admin>
                 </privileges>
                 <attributes translate="entity_id type_id attribute_set_id stock_data image_url is_saleable total_reviews_count url buy_now_url has_custom_options is_in_stock regular_price_with_tax regular_price_without_tax final_price_with_tax final_price_without_tax use_config_gift_message_available use_config_gift_wrapping_available url_key_create_redirect detailed_info attribute_config images" module="Bilna_Rest">
@@ -145,16 +148,11 @@
                 <sort_order>20</sort_order>
                 <privileges>
                     <admin>
-                        <create>1</create>
+                        <create>0</create>
                         <retrieve>1</retrieve>
-                        <delete>1</delete>
+                        <update>0</update>
+                        <delete>0</delete>
                     </admin>
-                    <customer>
-                        <retrieve>1</retrieve>
-                    </customer>
-                    <guest>
-                        <retrieve>1</retrieve>
-                    </guest>
                 </privileges>
                 <attributes translate="category_id" module="Bilna_Rest">
                     <category_id>Category ID</category_id>
@@ -189,17 +187,11 @@
                 <sort_order>30</sort_order>
                 <privileges>
                     <admin>
-                        <create>1</create>
+                        <create>0</create>
                         <retrieve>1</retrieve>
-                        <update>1</update>
-                        <delete>1</delete>
+                        <update>0</update>
+                        <delete>0</delete>
                     </admin>
-                    <customer>
-                        <retrieve>1</retrieve>
-                    </customer>
-                    <guest>
-                        <retrieve>1</retrieve>
-                    </guest>
                 </privileges>
                 <attributes translate="id file_name file_content file_mime_type label position types exclude url image_resize" module="Bilna_Rest">
                     <id>ID</id>
@@ -269,7 +261,10 @@
                 <sort_order>40</sort_order>
                 <privileges>
                     <admin>
+                        <create>0</create>
                         <retrieve>1</retrieve>
+                        <update>0</update>
+                        <delete>0</delete>
                     </admin>
                 </privileges>
                 <attributes translate="nickname title detail created_at votes" module="Bilna_Rest">
