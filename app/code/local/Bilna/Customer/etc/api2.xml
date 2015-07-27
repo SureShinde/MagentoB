@@ -190,6 +190,30 @@
                 </routes>
                 <versions>1</versions>
             </customer_address>
+            <customer_resetpassword translate="title" module="Bilna_Customer">
+                <group>customer</group>
+                <sort_order>110</sort_order>
+                <model>bilna_customer/api2_resetpassword</model>
+                <title>Customer Reset Password</title>
+                <privileges>
+                    <admin>
+                        <create>1</create>
+                    </admin>
+                    <customer>
+                        <create>1</create>
+                    </customer>
+                </privileges>
+                <attributes translate="email" module="Bilna_Customer">
+                    <email>Email</email>
+                </attributes>
+                <routes>
+                    <route_entity>
+                        <route>/customer/resetpassword</route>
+                        <action_type>entity</action_type>
+                    </route_entity>
+                </routes>
+                <versions>1</versions>
+            </customer_resetpassword>
 			<customer_login translate="title" module="Bilna_Customer">
 				<group>customer</group>
 				<sort_order>110</sort_order>
