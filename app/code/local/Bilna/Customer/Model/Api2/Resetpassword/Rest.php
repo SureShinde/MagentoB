@@ -44,7 +44,6 @@ abstract class Bilna_Customer_Model_Api2_Resetpassword_Rest extends Bilna_Custom
             $customer->setPassword($data["password"]);
             $customer->setRpToken(null);
             $customer->setRpTokenCreatedAt(null);
-            $customer->cleanPasswordsValidationData();
             $customer->save();
         } catch (Mage_Core_Exception $e) {
             $this->_error($e->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
