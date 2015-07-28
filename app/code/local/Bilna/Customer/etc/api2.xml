@@ -111,10 +111,10 @@
 				</routes>
 				<versions>1</versions>
 			</customer>
-            <customer_address translate="title" module="api2">
+            <customer_address translate="title" module="Bilna_Customer">
                 <group>customer</group>
                 <sort_order>110</sort_order>
-                <model>customer/api2_customer_address</model>
+                <model>bilna_customer/api2_customer_address</model>
                 <working_model>customer/address</working_model>
                 <title>Customer Address</title>
                 <privileges>
@@ -131,15 +131,16 @@
                         <delete>1</delete>
                     </customer>
                 </privileges>
-                <attributes translate="entity_id is_default_billing is_default_shipping" module="api2">
+                <attributes translate="entity_id is_default_billing is_default_shipping region_id" module="Bilna_Customer">
                     <entity_id>Customer Address ID</entity_id>
+                    <region_id>Region Id</region_id>
                     <is_default_billing>Is Default Billing Address</is_default_billing>
                     <is_default_shipping>Is Default Shipping Address</is_default_shipping>
                 </attributes>
                 <exclude_attributes>
                     <admin>
                         <read>
-                            <region_id>1</region_id>
+                            <region_id>0</region_id>
                             <vat_is_valid>1</vat_is_valid>
                             <vat_request_date>1</vat_request_date>
                             <vat_request_id>1</vat_request_id>
@@ -156,7 +157,7 @@
                     </admin>
                     <customer>
                         <read>
-                            <region_id>1</region_id>
+                            <region_id>0</region_id>
                         </read>
                         <write>
                             <entity_id>1</entity_id>
