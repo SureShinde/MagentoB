@@ -505,7 +505,7 @@
                     <base_subtotal>base Subtotal</base_subtotal>
                     <subtotal_with_discount>Subtotal With Discount</subtotal_with_discount>
                     <base_subtotal_with_discount>Base Subtotal With Discount</base_subtotal_with_discount>
-                    <rates>Rates</rates>
+                    <shipping_method>Shipping Method</shipping_method>
                 </attributes>
                 <routes>
                     <route_entity>
