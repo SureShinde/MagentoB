@@ -102,7 +102,7 @@ abstract class Bilna_Customer_Model_Api2_Customer_Address_Rest extends Bilna_Cus
             $addressData['street'] = $address->getStreet();
             $data[]                = array_merge($addressData, $this->_getDefaultAddressesInfo($address));
         }
-        $data["total_record"] = $this->_getCollectionForRetrieve()->getSize();
+        $data["totalRecord"] = $this->_getCollectionForRetrieve()->getSize();
         
         return $data;
 //         $data = array();
