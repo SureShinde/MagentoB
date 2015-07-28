@@ -47,6 +47,9 @@
 				</attributes>
 				<exclude_attributes>
 					<admin>
+						<read>
+							<password>1</password>
+						</read>
 						<write>
 							<entity_id>1</entity_id>
 							<created_at>1</created_at>
@@ -63,6 +66,7 @@
 							<group_id>1</group_id>
 							<disable_auto_group_change>1</disable_auto_group_change>
 							<confirmation>1</confirmation>
+							<password>1</password>
 							<created_at>1</created_at>
 						</read>
 						<write>
@@ -107,10 +111,10 @@
 				</routes>
 				<versions>1</versions>
 			</customer>
-            <customer_address translate="title" module="api2">
+            <customer_address translate="title" module="Bilna_Customer">
                 <group>customer</group>
                 <sort_order>110</sort_order>
-                <model>customer/api2_customer_address</model>
+                <model>bilna_customer/api2_customer_address</model>
                 <working_model>customer/address</working_model>
                 <title>Customer Address</title>
                 <privileges>
@@ -127,15 +131,24 @@
                         <delete>1</delete>
                     </customer>
                 </privileges>
-                <attributes translate="entity_id is_default_billing is_default_shipping" module="api2">
+                <attributes translate="entity_id is_default_billing is_default_shipping region_id" module="Bilna_Customer">
                     <entity_id>Customer Address ID</entity_id>
+                    <region_id>Region Id</region_id>
                     <is_default_billing>Is Default Billing Address</is_default_billing>
                     <is_default_shipping>Is Default Shipping Address</is_default_shipping>
                 </attributes>
+                <force_attributes>
+                    <customer>
+                        <addresses>1</addresses>
+                    </customer>
+                    <admin>
+                        <addresses>1</addresses>
+                    </admin>
+                </force_attributes>
                 <exclude_attributes>
                     <admin>
                         <read>
-                            <region_id>1</region_id>
+                            <region_id>0</region_id>
                             <vat_is_valid>1</vat_is_valid>
                             <vat_request_date>1</vat_request_date>
                             <vat_request_id>1</vat_request_id>
@@ -152,7 +165,7 @@
                     </admin>
                     <customer>
                         <read>
-                            <region_id>1</region_id>
+                            <region_id>0</region_id>
                         </read>
                         <write>
                             <entity_id>1</entity_id>
@@ -194,23 +207,45 @@
                 <group>customer</group>
                 <sort_order>110</sort_order>
                 <model>bilna_customer/api2_resetpassword</model>
+				<working_model>customer/customer</working_model>
                 <title>Customer Reset Password</title>
                 <privileges>
                     <admin>
                         <create>1</create>
+						<update>1</update>
                     </admin>
                     <customer>
                         <create>1</create>
+						<update>1</update>
                     </customer>
                 </privileges>
-                <attributes translate="email" module="Bilna_Customer">
+                <attributes translate="entity_id email token password" module="Bilna_Customer">
+                    <entity_id>Customer ID</entity_id>
                     <email>Email</email>
+                    <token>Token</token>
+                    <password>Password</password>
                 </attributes>
+                <exclude_attributes>
+                    <admin>
+                        <read>
+                            <password>1</password>
+                        </read>
+                    </admin>
+                    <customer>
+                        <read>
+                            <password>1</password>
+                        </read>
+                    </customer>
+                </exclude_attributes>
                 <routes>
                     <route_entity>
-                        <route>/customer/resetpassword</route>
+                        <route>/customer/resetpassword/:id</route>
                         <action_type>entity</action_type>
                     </route_entity>
+                    <route_collection>
+                        <route>/customer/resetpassword</route>
+                        <action_type>collection</action_type>
+                    </route_collection>
                 </routes>
                 <versions>1</versions>
             </customer_resetpassword>
