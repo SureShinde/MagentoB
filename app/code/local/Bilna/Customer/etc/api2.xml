@@ -47,6 +47,9 @@
 				</attributes>
 				<exclude_attributes>
 					<admin>
+						<read>
+							<password>1</password>
+						</read>
 						<write>
 							<entity_id>1</entity_id>
 							<created_at>1</created_at>
@@ -63,6 +66,7 @@
 							<group_id>1</group_id>
 							<disable_auto_group_change>1</disable_auto_group_change>
 							<confirmation>1</confirmation>
+							<password>1</password>
 							<created_at>1</created_at>
 						</read>
 						<write>
@@ -107,10 +111,10 @@
 				</routes>
 				<versions>1</versions>
 			</customer>
-            <customer_address translate="title" module="api2">
+            <customer_address translate="title" module="Bilna_Customer">
                 <group>customer</group>
                 <sort_order>110</sort_order>
-                <model>customer/api2_customer_address</model>
+                <model>bilna_customer/api2_customer_address</model>
                 <working_model>customer/address</working_model>
                 <title>Customer Address</title>
                 <privileges>
@@ -203,6 +207,7 @@
                 <group>customer</group>
                 <sort_order>110</sort_order>
                 <model>bilna_customer/api2_resetpassword</model>
+				<working_model>customer/customer</working_model>
                 <title>Customer Reset Password</title>
                 <privileges>
                     <admin>
@@ -214,9 +219,24 @@
 						<update>1</update>
                     </customer>
                 </privileges>
-                <attributes translate="email" module="Bilna_Customer">
+                <attributes translate="entity_id email token password" module="Bilna_Customer">
+                    <entity_id>Customer ID</entity_id>
                     <email>Email</email>
+                    <token>Token</token>
+                    <password>Password</password>
                 </attributes>
+                <exclude_attributes>
+                    <admin>
+                        <read>
+                            <password>1</password>
+                        </read>
+                    </admin>
+                    <customer>
+                        <read>
+                            <password>1</password>
+                        </read>
+                    </customer>
+                </exclude_attributes>
                 <routes>
                     <route_entity>
                         <route>/customer/resetpassword/:id</route>
