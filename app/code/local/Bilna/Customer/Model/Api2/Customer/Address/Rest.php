@@ -31,7 +31,7 @@
  * @package    Mage_Customer
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-abstract class Mage_Customer_Model_Api2_Customer_Address_Rest extends Mage_Customer_Model_Api2_Customer_Address
+abstract class Bilna_Customer_Model_Api2_Customer_Address_Rest extends Bilna_Customer_Model_Api2_Customer_Address
 {
     /**
      * Create customer address
@@ -102,7 +102,19 @@ abstract class Mage_Customer_Model_Api2_Customer_Address_Rest extends Mage_Custo
             $addressData['street'] = $address->getStreet();
             $data[]                = array_merge($addressData, $this->_getDefaultAddressesInfo($address));
         }
+        $data["total_record"] = $this->_getCollectionForRetrieve()->getSize();
+        
         return $data;
+//         $data = array();
+//         /* @var $address Mage_Customer_Model_Address */
+//         foreach ($this->_getCollectionForRetrieve() as $address) {
+//             $addressData           = $address->getData();
+//             $addressData['street'] = $address->getStreet();
+//             $data["addresses"][]     = array_merge($addressData, $this->_getDefaultAddressesInfo($address));
+//         }
+        
+//         var_dump($data);die;
+//         return $data;
     }
 
     /**
@@ -119,6 +131,7 @@ abstract class Mage_Customer_Model_Api2_Customer_Address_Rest extends Mage_Custo
         $collection = $customer->getAddressesCollection();
 
         $this->_applyCollectionModifiers($collection);
+        
         return $collection;
     }
 

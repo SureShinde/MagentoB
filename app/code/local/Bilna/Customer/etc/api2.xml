@@ -137,14 +137,6 @@
                     <is_default_billing>Is Default Billing Address</is_default_billing>
                     <is_default_shipping>Is Default Shipping Address</is_default_shipping>
                 </attributes>
-                <force_attributes>
-                    <customer>
-                        <addresses>1</addresses>
-                    </customer>
-                    <admin>
-                        <addresses>1</addresses>
-                    </admin>
-                </force_attributes>
                 <exclude_attributes>
                     <admin>
                         <read>
