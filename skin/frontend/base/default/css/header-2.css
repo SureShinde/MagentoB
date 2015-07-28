@@ -62,7 +62,6 @@ li#perlengkapan-rumah, li.mobile-perlengkapan-rumah {
 }
 .logo img {
     float: left;
-    margin: 10px 0 8px;
 }
 .sticky-header {
 	margin: 0 auto;
@@ -2051,7 +2050,6 @@ searchbar #nav-search-in {
 		padding-right: 10px;
 	}
     .logo img{
-        margin-top: 20px;
     }
 	.sticky-header .sticky-top-cart {
 		padding-left: 0;
@@ -2432,7 +2430,7 @@ searchbar #nav-search-in {
 @media only screen and (max-width: 767px) {
 	.header .logo img {
 		width: 80%;
-        margin: 9px;
+        margin: 2px 0 0 9px;
 	}
 	.header .links li:first-child {
 		border-right: none; 
