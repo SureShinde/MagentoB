@@ -31,7 +31,7 @@
  * @package    Mage_Customer
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Customer_Model_Api2_Customer_Address extends Mage_Api2_Model_Resource
+class Bilna_Customer_Model_Api2_Customer_Address extends Mage_Api2_Model_Resource
 {
     /**
      * Resource specific method to retrieve attributes' codes. May be overriden in child.
