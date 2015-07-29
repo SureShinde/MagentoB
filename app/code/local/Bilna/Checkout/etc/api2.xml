@@ -661,7 +661,7 @@
                     <base_subtotal>base Subtotal</base_subtotal>
                     <subtotal_with_discount>Subtotal With Discount</subtotal_with_discount>
                     <base_subtotal_with_discount>Base Subtotal With Discount</base_subtotal_with_discount>
-                    <payment_methods>Payment Method</payment_methods>
+                    <payment_method>Payment Method</payment_method>
                 </attributes>
                 <routes>
                     <route_entity>

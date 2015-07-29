@@ -30,12 +30,12 @@ class Bilna_Checkout_Model_Api2_Payment_Method_Rest_Admin_V1 extends Bilna_Check
     {
         $quoteId = $data['entity_id'];
         $storeId = isset($data['store_id']) ? $data['store_id'] : 1;
-        $shippingMethod =  $data['payment_method'];
+        $paymentMethod =  $data['payment_method'];
 
         try {
             $quote = $this->_getQuote($quoteId, $storeId);
 
-            $paymentData = $this->_preparePaymentData($paymentData);
+            $paymentData = $this->_preparePaymentData($paymentMethod);
 
             if (empty($paymentData)) {
                 throw Mage::throwException("Payment Method Empty");
@@ -47,7 +47,7 @@ class Bilna_Checkout_Model_Api2_Payment_Method_Rest_Admin_V1 extends Bilna_Check
                     throw Mage::throwException('billing_address_is_not_set');
                 }
                 $quote->getBillingAddress()->setPaymentMethod(
-                    isset($paymentData['method']) ? $paymentData['method'] : null
+                    isset($paymentData['payment_method']) ? $paymentData['payment_method'] : null
                 );
             } else {
                 // check if shipping address is set
@@ -55,7 +55,7 @@ class Bilna_Checkout_Model_Api2_Payment_Method_Rest_Admin_V1 extends Bilna_Check
                     throw Mage::throwException('shipping_address_is_not_set');
                 }
                 $quote->getShippingAddress()->setPaymentMethod(
-                    isset($paymentData['method']) ? $paymentData['method'] : null
+                    isset($paymentData['payment_method']) ? $paymentData['payment_method'] : null
                 );
             }
 
@@ -66,7 +66,7 @@ class Bilna_Checkout_Model_Api2_Payment_Method_Rest_Admin_V1 extends Bilna_Check
             $total = $quote->getBaseSubtotal();
             $methods = Mage::helper('payment')->getStoreMethods($store, $quote);
             foreach ($methods as $method) {
-                if ($method->getCode() == $paymentData['method']) {
+                if ($method->getCode() == $paymentData['payment_method']) {
                     /** @var $method Mage_Payment_Model_Method_Abstract */
                     if (!($this->_canUsePaymentMethod($method, $quote)
                         && ($total != 0
