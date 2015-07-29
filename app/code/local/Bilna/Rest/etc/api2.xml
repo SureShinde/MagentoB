@@ -282,6 +282,73 @@
                 </routes>
                 <versions>1</versions>
             </product_review>
+            <product_alert translate="title" module="Bilna_Rest">
+                <group>bilna_rest</group>
+                <model>bilna_rest/api2_productalert</model>
+                <title>Product Alert</title>
+                <sort_order>50</sort_order>
+                <privileges>
+                    <admin>
+                        <create>1</create>
+                        <retrieve>1</retrieve>
+                    </admin>
+                </privileges>
+                <attributes translate="alert_stock_id customer_id product_id website_id email add_date send_date send_count status" module="Bilna_Rest">
+                    <alert_stock_id>ID</alert_stock_id>
+                    <customer_id>Customer ID</customer_id>
+                    <product_id>Product ID</product_id>
+                    <website_id>Website ID</website_id>
+                    <email>Email</email>
+                    <add_date>Add Date</add_date>
+                    <send_date>Send Date</send_date>
+                    <send_count>Send Count</send_count>
+                    <status>Status</status>
+                </attributes>
+                <exclude_attributes>
+                    <admin>
+                        <write>
+                            <alert_stock_id>1</alert_stock_id>
+                            <website_id>1</website_id>
+                            <add_date>1</add_date>
+                            <send_date>1</send_date>
+                            <send_count>1</send_count>
+                            <status>1</status>
+                        </write>
+                    </admin>
+                </exclude_attributes>
+                <routes>
+                    <route_entity>
+                        <route>/productalert/:id</route>
+                        <action_type>entity</action_type>
+                    </route_entity>
+                    <route_collection>
+                        <route>/productalert</route>
+                        <action_type>collection</action_type>
+                    </route_collection>
+                </routes>
+                <!--validators>
+                    <fields>
+                        <product_id>
+                            <required>1</required>
+                            <int translate="message" module="Bilna_Rest">
+                                <type>Int</type>
+                                <message>Please use numbers only in "product_id" field.</message>
+                            </int>
+                        </product_id>
+                        <customer_id>
+                            <required>1</required>
+                            <int translate="message" module="Bilna_Rest">
+                                <type>Int</type>
+                                <message>Please use numbers only in "customer_id" field.</message>
+                            </int>
+                        </customer_id>
+                        <email>
+                            <required>1</required>
+                        </email>
+                    </fields>
+                </validators-->
+                <versions>1</versions>
+            </product_alert>
             <category translate="title" module="Bilna_Rest">
                 <group>rest_categories</group>
                 <model>bilna_rest/api2_category</model>
