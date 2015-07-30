@@ -25,7 +25,7 @@ class Bilna_Checkout_Model_Api2_Coupon_Rest_Admin_V1 extends Bilna_Checkout_Mode
 
         try {
 
-            $this->_applyCoupon($quoteId, $couponCode, $storeId);
+            $quote = $this->_applyCoupon($quoteId, $couponCode, $storeId);
 
         } catch (Mage_Core_Exception $e) {
             $this->_error($e->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
@@ -89,6 +89,6 @@ class Bilna_Checkout_Model_Api2_Coupon_Rest_Admin_V1 extends Bilna_Checkout_Mode
             }
         }
 
-        return true;
+        return $quote;
     }
 }
