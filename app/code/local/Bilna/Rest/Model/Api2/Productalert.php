@@ -5,7 +5,7 @@
  * @author Bilna Development Team <development@bilna.com>
  */
 
-class Bilna_Rest_Model_Api2_ProductAlert extends Mage_Api2_Model_Resource {
+class Bilna_Rest_Model_Api2_Productalert extends Mage_Api2_Model_Resource {
     const DEFAULT_STORE_ID = 1;
     
     protected function _getStore() {
