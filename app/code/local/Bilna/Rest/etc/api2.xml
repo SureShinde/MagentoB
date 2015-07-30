@@ -10,6 +10,10 @@
                         <title>Categories</title>
                         <sort_order>100</sort_order>
                     </rest_categories>
+                    <rest_productalerts translate="title" module="Bilna_Rest">
+                        <title>Product Alert</title>
+                        <sort_order>200</sort_order>
+                    </rest_productalerts>
                 </children>
             </bilna_rest>
         </resource_groups>
@@ -282,11 +286,11 @@
                 </routes>
                 <versions>1</versions>
             </product_review>
-            <product_alert translate="title" module="Bilna_Rest">
-                <group>bilna_rest</group>
-                <model>bilna_rest/api2_productalert</model>
-                <title>Product Alert</title>
-                <sort_order>50</sort_order>
+            <product_alert_stock translate="title" module="Bilna_Rest">
+                <group>rest_productalerts</group>
+                <model>bilna_rest/api2_productalert_stock</model>
+                <title>Stock</title>
+                <sort_order>10</sort_order>
                 <privileges>
                     <admin>
                         <create>1</create>
@@ -318,37 +322,16 @@
                 </exclude_attributes>
                 <routes>
                     <route_entity>
-                        <route>/productalert/:id</route>
+                        <route>/productalert/stock/:id</route>
                         <action_type>entity</action_type>
                     </route_entity>
                     <route_collection>
-                        <route>/productalert</route>
+                        <route>/productalert/stock</route>
                         <action_type>collection</action_type>
                     </route_collection>
                 </routes>
-                <!--validators>
-                    <fields>
-                        <product_id>
-                            <required>1</required>
-                            <int translate="message" module="Bilna_Rest">
-                                <type>Int</type>
-                                <message>Please use numbers only in "product_id" field.</message>
-                            </int>
-                        </product_id>
-                        <customer_id>
-                            <required>1</required>
-                            <int translate="message" module="Bilna_Rest">
-                                <type>Int</type>
-                                <message>Please use numbers only in "customer_id" field.</message>
-                            </int>
-                        </customer_id>
-                        <email>
-                            <required>1</required>
-                        </email>
-                    </fields>
-                </validators-->
                 <versions>1</versions>
-            </product_alert>
+            </product_alert_stock>
             <category translate="title" module="Bilna_Rest">
                 <group>rest_categories</group>
                 <model>bilna_rest/api2_category</model>

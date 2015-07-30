@@ -1,11 +1,11 @@
 <?php
 /**
- * Description of Bilna_Rest_Model_Api2_ProductAlert_Rest_Admin_V1
+ * Description of Bilna_Rest_Model_Api2_ProductAlert_Stock_Rest_Admin_V1
  *
  * @author Bilna Development Team <development@bilna.com>
  */
 
-class Bilna_Rest_Model_Api2_ProductAlert_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_ProductAlert_Rest {
+class Bilna_Rest_Model_Api2_Productalert_Stock_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_Productalert_Stock_Rest {
     protected function _create(array $data) {
         $this->_createValidator($data);
         
@@ -52,8 +52,7 @@ class Bilna_Rest_Model_Api2_ProductAlert_Rest_Admin_V1 extends Bilna_Rest_Model_
     }
     
     protected function _createValidator($data) {
-        /* @var $validator Mage_Catalog_Model_Api2_Product_Image_Validator_Image */
-        $validator = Mage::getModel('bilna_rest/api2_productalert_validator_productalert');
+        $validator = Mage::getModel('bilna_rest/api2_productalert_validator_stock');
         
         if (!$validator->isValidData($data)) {
             foreach ($validator->getErrors() as $error) {
