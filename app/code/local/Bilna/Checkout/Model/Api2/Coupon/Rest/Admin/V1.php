@@ -28,7 +28,7 @@ class Bilna_Checkout_Model_Api2_Coupon_Rest_Admin_V1 extends Bilna_Checkout_Mode
             $quote = $this->_applyCoupon($quoteId, $couponCode, $storeId);
 
         } catch (Mage_Core_Exception $e) {
-            $this->_error($e->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
+            $this->_critical($e->getMessage());
         }
 
         return $this->_getLocation($quote);
@@ -51,7 +51,7 @@ class Bilna_Checkout_Model_Api2_Coupon_Rest_Admin_V1 extends Bilna_Checkout_Mode
             $this->_applyCoupon($quoteId, $couponCode, $storeId);
 
         } catch (Mage_Core_Exception $e) {
-            $this->_error($e->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
+            $this->_critical($e->getMessage());
         }
     }
 
@@ -66,7 +66,7 @@ class Bilna_Checkout_Model_Api2_Coupon_Rest_Admin_V1 extends Bilna_Checkout_Mode
         $quote = $this->_getQuote($quoteId, $store);
 
         if (!$quote->getItemsCount()) {
-            $this->_fault('quote_is_empty');
+            throw Mage::throwException('Quote is Empty');
         }
 
         $oldCouponCode = $quote->getCouponCode();
