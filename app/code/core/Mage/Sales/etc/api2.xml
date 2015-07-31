@@ -437,7 +437,7 @@
                     <email>Email</email>
                     <region_id>Region ID</region_id>
                     <shipping_method>Shipping Method</shipping_method>
-                    <shipping_description>Shipping Description<shipping_description>
+                    <shipping_description>Shipping Description</shipping_description>
                 </attributes>
             </quote_address>
             <order_comment translate="title" module="api2">
