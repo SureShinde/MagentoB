@@ -58,7 +58,7 @@ class Bilna_Checkout_Model_Api2_Customer_Address_Rest_Admin_V1 extends Bilna_Che
                 switch($addressMode)
                 {
                     case self::ADDRESS_BILLING:
-                        $address->setEmail($quote->getCustomer()->getEmail());
+                        $address->setEmail($quote->getCustomerEmail());
 
                         if (!$quote->isVirtual()) {
                             $usingCase = isset($addressItem['use_for_shipping']) ? (int)$addressItem['use_for_shipping'] : 0;
