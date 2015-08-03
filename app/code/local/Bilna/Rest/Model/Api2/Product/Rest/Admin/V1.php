@@ -82,6 +82,7 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
         
         if ($result) {
             $result['attribute_config'] = $this->_getAttributeConfig();
+            $result['attribute_bundle'] = $this->_getAttributeBundle();
             $result['review'] = $this->_getProductReview($this->_product->getId());
             $result['images'] = array (
                 'default' => $this->_getImageResize($this->_product, $this->_product->getImage()),
@@ -222,7 +223,7 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
         
         return $config;
     }
-    
+
     /**
      * Get Allowed Products
      *
@@ -732,5 +733,95 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
             'vertical' => $this->_resizeImage($product, $imageFile, $this->_imgVertical),
             'detail' => $this->_resizeImage($product, $imageFile, $this->_imgDetail),
         );
+    }
+    
+    
+    /**
+     * Product Bundle
+     * return array
+     */
+    protected function _getAttributeBundle() {
+        if ($this->_getProduct()->getData('type_id') != 'bundle') {
+            return null;
+        }
+        
+        $bundle = array ();
+        $options = Mage::helper('core')->decorateArray($this->_getBundleOptions());
+        
+        if ($options) {
+            foreach ($options as $option) {
+                $showSingle = $this->_showSingle($option);
+                $selections = $option->getSelections();
+                $selection = $showSingle ? $selections[0] : $selections;
+                        
+                $bundle['option'][] = array (
+                    'id' => $option->getId(),
+                    'title' => $option->getTitle(),
+                    'required' => $option->getRequired(),
+                    'type' => $option->getType(),
+                    'show_single' => $showSingle,
+                    'price_title' => $this->_getSelectionTitlePrice($this->_getProduct(), $selection),
+                    'tier_price' => $this->_getTierPricesBundle($this->_getProduct()),
+                );
+            }
+        }
+        
+        return $bundle;
+    }
+    
+    protected function _getBundleOptions() {
+        $product = $this->_getProduct();
+        $typeInstance = $product->getTypeInstance(true);
+        $typeInstance->setStoreFilter($product->getStoreId(), $product);
+        $optionCollection = $typeInstance->getOptionsCollection($product);
+        $selectionCollection = $typeInstance->getSelectionsCollection($typeInstance->getOptionsIds($product), $product);
+        $options = $optionCollection->appendSelections($selectionCollection, false, Mage::helper('catalog/product')->getSkipSaleableCheck());
+
+        return $options;
+    }
+    
+    protected function _showSingle($option) {
+        $selections = $option->getSelections();
+        $showSingle = (count($selections) == 1 && $option->getRequired());
+        
+        return $showSingle;
+    }
+    
+    protected function _getSelectionTitlePrice($product, $selection, $includeContainer = true) {
+        $price = $product->getPriceModel()->getSelectionPreFinalPrice($product, $selection, 1);
+        $tierPrice = $selection->getTierPrice();
+        
+        if (!empty ($tierPrice)) {
+            $qty = $selection->getSelectionQty();
+            $price = $qty * (float) $selection->getPriceModel()->getTierPrice($qty, $selection);
+        }
+        
+        //$this->setFormatProduct($selection);
+        $priceTitle = $this->_escapeHtml($selection->getName());
+        $priceTitle .= ' &nbsp; ' . ($includeContainer ? '<span class="price-notice">' : '') . '+' . $this->_formatPriceString($product, $selection, $price, $includeContainer) . ($includeContainer ? '</span>' : '');
+        
+        return $priceTitle;
+    }
+    
+    protected function _formatPriceString($currentProduct, $formatProduct, $price, $includeContainer = true) {
+        $taxHelper = Mage::helper('tax');
+        $coreHelper = Mage::helper('core');
+        
+        if ($currentProduct->getPriceType() == Mage_Bundle_Model_Product_Price::PRICE_TYPE_DYNAMIC && $formatProduct) {
+            $product = $formatProduct;
+        }
+        else {
+            $product = $currentProduct;
+        }
+
+        $priceTax = $taxHelper->getPrice($product, $price);
+        $priceIncTax = $taxHelper->getPrice($product, $price, true);
+        $formated = $coreHelper->currencyByStore($priceTax, $product->getStore(), true, $includeContainer);
+        
+        if ($taxHelper->displayBothPrices() && $priceTax != $priceIncTax) {
+            $formated .= ' (+' . $coreHelper->currencyByStore($priceIncTax, $product->getStore(), true, $includeContainer) . ' ' . 'Incl. Tax' . ')';
+        }
+
+        return $formated;
     }
 }
