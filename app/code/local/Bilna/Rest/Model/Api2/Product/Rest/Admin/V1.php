@@ -75,6 +75,9 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
             elseif (in_array($k, $attributeDetailedInfoArr)) {
                 $result['detailed_info'][$k] = $v;
             }
+            elseif ($k == 'stock_data') {
+                $result[$k] = $this->_getStockDataConfig($v);
+            }
             else {
                 $result[$k] = $v;
             }
@@ -106,6 +109,45 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
         );
     }
     
+    protected function _getStockDataConfig($stockData) {
+        $result = array ();
+        $configKey = 'use_config';
+        $configRemoveKey = 'use_';
+        
+        foreach ($stockData as $key => $value) {
+            $result[$key] = $value;
+            
+            if ($this->_isStockDataConfig($configKey, $key)) {
+                $result[$this->_getConfigStockDataKey($configRemoveKey, $key)] = $this->_getConfigStockDataValue($configKey, $key);
+            }
+        }
+        
+        return $result;
+    }
+    
+    protected function _isStockDataConfig($configKey, $key) {
+        if (substr($key, 0, strlen($configKey)) == $configKey) {
+            return true;
+        }
+        
+        return false;
+    }
+    
+    protected function _getConfigStockDataKey($configRemoveKey, $key) {
+        return substr($key, strlen($configRemoveKey), (strlen($key) - strlen($configRemoveKey)));
+    }
+
+    protected function _getConfigStockDataValue($configKey, $key) {
+        if ($key == 'use_config_enable_qty_inc') {
+            $path = 'enable_qty_increments';
+        }
+        else {
+            $path = substr($key, (strlen($configKey) + 1), (strlen($key) - strlen($configKey)));
+        }
+                
+        return Mage::getStoreConfig('cataloginventory/item_options/' . $path, $this->_getStore());
+    }
+
     protected function _getAttributeConfig() {
         if ($this->_getProduct()->getData('type_id') != 'configurable') {
             return null;
@@ -409,6 +451,9 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
                 
                 if (in_array($k, $attributeTextArr)) {
                     $result[$key][$k] = $row->getAttributeText($k);
+                }
+                elseif ($k == 'stock_data') {
+                    $result[$key][$k] = $this->_getStockDataConfig($v);
                 }
                 else {
                     $result[$key][$k] = $v;
