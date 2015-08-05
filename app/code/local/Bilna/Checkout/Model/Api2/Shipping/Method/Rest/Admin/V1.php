@@ -72,6 +72,27 @@ class Bilna_Checkout_Model_Api2_Shipping_Method_Rest_Admin_V1 extends Bilna_Chec
         return $quoteData;
     }
 
+    protected function _delete()
+    {
+        $quoteId = $this->getRequest()->getParam('id');
+        $storeId = 1;
+
+        try {
+            $quote = $this->_getQuote($quoteId, $storeId);
+
+            $quoteShippingAddress = $quote->getShippingAddress();
+            if (is_null($quoteShippingAddress->getId())) {
+                throw Mage::throwException('Shipping Address is not set');
+            }
+
+            $quote->getShippingAddress()->setShippingMethod("");
+            $quote->collectTotals()->save();
+
+        } catch (Mage_Core_Exception $e) {
+            $this->_error($e->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
+        }
+    }
+
     /**
      * Get orders list
      *
