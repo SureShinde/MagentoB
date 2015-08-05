@@ -126,7 +126,7 @@
 				</routes>
                 <force_attributes>
                     <admin>
-                        <!--payment_method>1</payment_method-->
+                        <payment_method>1</payment_method>
                         <addresses>1</addresses>
                         <quote_items>1</quote_items>
                     </admin>
@@ -205,7 +205,7 @@
                 </routes>
                 <force_attributes>
                     <admin>
-                        <!--payment_method>1</payment_method-->
+                        <payment_method>1</payment_method>
                         <addresses>1</addresses>
                         <quote_items>1</quote_items>
                     </admin>
@@ -284,7 +284,7 @@
                 </routes>
                 <force_attributes>
                     <admin>
-                        <!--payment_method>1</payment_method-->
+                        <payment_method>1</payment_method>
                         <addresses>1</addresses>
                         <quote_items>1</quote_items>
                     </admin>
@@ -363,7 +363,7 @@
                 </routes>
                 <force_attributes>
                     <admin>
-                        <!--payment_method>1</payment_method-->
+                        <payment_method>1</payment_method>
                         <addresses>1</addresses>
                         <quote_items>1</quote_items>
                     </admin>
@@ -441,7 +441,7 @@
                 </routes>
                 <force_attributes>
                     <admin>
-                        <!--payment_method>1</payment_method-->
+                        <payment_method>1</payment_method>
                         <addresses>1</addresses>
                         <quote_items>1</quote_items>
                     </admin>
@@ -519,7 +519,7 @@
                 </routes>
                 <force_attributes>
                     <admin>
-                        <!--payment_method>1</payment_method-->
+                        <payment_method>1</payment_method>
                         <addresses>1</addresses>
                         <quote_items>1</quote_items>
                     </admin>
@@ -597,7 +597,7 @@
                 </routes>
                 <force_attributes>
                     <admin>
-                        <!--payment_method>1</payment_method-->
+                        <payment_method>1</payment_method>
                         <addresses>1</addresses>
                         <quote_items>1</quote_items>
                     </admin>
@@ -675,7 +675,7 @@
                 </routes>
                 <force_attributes>
                     <admin>
-                        <!--payment_method>1</payment_method-->
+                        <payment_method>1</payment_method>
                         <addresses>1</addresses>
                         <quote_items>1</quote_items>
                     </admin>
@@ -753,7 +753,7 @@
                 </routes>
                 <force_attributes>
                     <admin>
-                        <!--payment_method>1</payment_method-->
+                        <payment_method>1</payment_method>
                         <addresses>1</addresses>
                         <quote_items>1</quote_items>
                     </admin>
