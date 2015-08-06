@@ -561,39 +561,25 @@
         });  
     });
 </script>
-<?php 
- $customer = Mage::getSingleton('customer/session')->getCustomer();
- if(isset($customer) && !empty($customer)){
- 	$email = $customer->getEmail();// for email address
- }else{
- 	$email = "";
- }
-?>
+
 <script type="text/javascript">
-jQuery(document).ready(function () {    
-	dataLayer.push( {'sitetype': 'd'} );
-	dataLayer.push( {'emailaddress': '<?php echo $email; ?>'} );
-});
-
-jQuery('.search-container-new #searchDropdownBox').change(function() {
-	jQuery('.search-container-new #nav-search-in-content').text(jQuery('.search-container-new #searchDropdownBox option:selected').text());
-});
-
-jQuery('.search-container-new-mobile #searchDropdownBox').change(function() {
-	jQuery('.search-container-new-mobile #nav-search-in-content').text(jQuery('.search-container-new-mobile #searchDropdownBox option:selected').text());
-});
+    jQuery('.search-container-new #searchDropdownBox').change(function() {
+        jQuery('.search-container-new #nav-search-in-content').text(jQuery('.search-container-new #searchDropdownBox option:selected').text());
+    });
+    
+    jQuery('.search-container-new-mobile #searchDropdownBox').change(function() {
+        jQuery('.search-container-new-mobile #nav-search-in-content').text(jQuery('.search-container-new-mobile #searchDropdownBox option:selected').text());
+    });
 </script>
-<?php 
- $customer = Mage::getSingleton('customer/session')->getCustomer();
- if(isset($customer) && !empty($customer)){
- 	$email = $customer->getEmail();// for email address
- }else{
- 	$email = "";
- }
+
+<?php
+$customer = Mage::getSingleton('customer/session')->getCustomer();
+if (isset ($customer) && !empty ($customer)) { $email = $customer->getEmail(); }
+else { $email = ""; }
 ?>
 <script type="text/javascript">
-jQuery(document).ready(function () {    
-	dataLayer.push( {'sitetype': 'd'} );
-	dataLayer.push( {'emailaddress': '<?php echo $email; ?>'} );
-});
+    jQuery(document).ready(function() {
+        dataLayer.push({'sitetype': 'd'});
+	dataLayer.push({'emailaddress': '<?php echo $email; ?>'});
+    });
 </script>

@@ -509,7 +509,8 @@
     </script>
 </div>
 <script type="text/javascript">
-jQuery(document).ready(function () {    
-	dataLayer.push( {'productid': '<?php echo $_product->getId(); ?>'} );
-});
+    jQuery(document).ready(function() {
+        dataLayer.push({'productid': '<?php echo $_product->getId(); ?>'});
+        dataLayer.push({'skuid': '<?php echo $_product->getSku(); ?>'});
+    });
 </script>
