@@ -264,5 +264,25 @@ class Bilna_Checkout_Model_Api2_Resource extends Mage_Api2_Model_Resource
 
         return $this;
     }
-    
+
+    /**
+     * Get customer address by identifier
+     *
+     * @param   int $addressId
+     * @return  Mage_Customer_Model_Address
+     */
+    protected function _getCustomerAddress($addressId)
+    {
+        $address = Mage::getModel('customer/address')->load((int)$addressId);
+        if (is_null($address->getId())) {
+            throw Mage::throwException('Invalid address Id');
+        }
+
+        $address->explodeStreetAddress();
+        if ($address->getRegionId()) {
+            $address->setRegion($address->getRegionId());
+        }
+        return $address;
+    }
+
 }
