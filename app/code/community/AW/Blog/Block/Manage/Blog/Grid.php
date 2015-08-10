@@ -67,7 +67,7 @@ class AW_Blog_Block_Manage_Blog_Grid extends Mage_Adminhtml_Block_Widget_Grid
         $collection->addFilterToMap('post_id', 'main_table.post_id');
         $collection->addFilterToMap('title', 'main_table.title');
         $collection->addFilterToMap('identifier', 'main_table.identifier');
-        $collection->addFilterToMap('category', 'ac.title');
+        $collection->addFilterToMap('category', 'acx.title');
         $store = $this->_getStore();
         if ($store->getId()) {
             $collection->addStoreFilter($store);
