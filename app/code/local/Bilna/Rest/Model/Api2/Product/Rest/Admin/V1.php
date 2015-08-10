@@ -1037,21 +1037,79 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
                         $priceFrom['price_including_tax'] = $coreHelper->currency($maximalPriceInclTax);
                     }
                 }
+                
+                $prices['price_view']['price'] = array (
+                    'price_range' => true,
+                    'price_from' => $priceFrom,
+                    'price_to' => $priceTo,
+                );
             }
             else {
                 $priceRange['yes'] = false;
+                $price = array ();
                 
-                if ($this->displayBothPrices()) {
+                if ($this->_displayBothPrices($product)) {
+                    $price['display_both_prices'] = true;
+                    $price['price_excluding_tax'] = array (
+                        'label' => 'Excl. Tax',
+                        'value' => $coreHelper->currency($minimalPriceTax)
+                    );
                     
+                    if ($weeeTaxAmount && $product->getPriceType() == 1 && $weeeHelper->typeOfDisplay($product, array (2, 1, 4))) {
+                        foreach ($weeeTaxAttributes as $weeeTaxAttribute) {
+                            if ($weeeHelper->typeOfDisplay($product, array (2, 4))) {
+                                $amount = $weeeTaxAttribute->getAmount() + $weeeTaxAttribute->getTaxAmount();
+                            }
+                            else {
+                                $amount = $weeeTaxAttribute->getAmount();
+                            }
+                            
+                            $price['weee'][] = array (
+                                'name' => $weeeTaxAttribute->getName(),
+                                'amount' => $coreHelper->currency($amount, true, true),
+                            );
+                        }
+                    }
+                    
+                    $price['price_including_tax'] = array (
+                        'label' => 'Incl. Tax',
+                        'value' => $coreHelper->currency($minimalPriceInclTax)
+                    );
                 }
                 else {
+                    $price['display_both_prices'] = false;
+                    $price['price_excluding_tax'] = $coreHelper->currency($minimalPriceTax);
                     
+                    if ($weeeTaxAmount && $product->getPriceType() == 1 && $weeeHelper->typeOfDisplay($product, array (2, 1, 4))) {
+                        foreach ($weeeTaxAttributes as $weeeTaxAttribute) {
+                            if ($weeeHelper->typeOfDisplay($product, array (2, 4))) {
+                                $amount = $weeeTaxAttribute->getAmount() + $weeeTaxAttribute->getTaxAmount();
+                            }
+                            else {
+                                $amount = $weeeTaxAttribute->getAmount();
+                            }
+                            
+                            $price['weee'][] = array (
+                                'name' => $weeeTaxAttribute->getName(),
+                                'amount' => $coreHelper->currency($amount, true, true),
+                            );
+                        }
+                    }
+                    
+                    if ($weeeHelper->typeOfDisplay($product, 2) && $weeeTaxAmount) {
+                        $price['price_including_tax'] = $coreHelper->currency($minimalPriceInclTax);
+                    }
                 }
             }
             
+            $prices['price_view']['price'] = array (
+                'price_range' => false,
+                'price' => $price,
+            );
             $prices['price_view']['yes'] = false;
-            $prices['price_view']['price_range'] = $priceRange;
         }
+        
+        return $price;
     }
     
     protected function _displayBothPrices($product) {
