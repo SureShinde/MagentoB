@@ -1109,7 +1109,7 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
             $prices['price_view']['yes'] = false;
         }
         
-        return $price;
+        return $prices;
     }
     
     protected function _displayBothPrices($product) {
