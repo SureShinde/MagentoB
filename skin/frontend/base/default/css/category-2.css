@@ -174,23 +174,27 @@ dd.relative{
 .demo #slider-range {
 	margin: 10px 0;
 }
-.category-desc {
+.category-description {
 	font-size: 10px;
-	margin: 0 10px;
-	padding-bottom: 15px;
-	border-bottom: 1px solid #dadada;
+	padding: 10px ;
+    background-color: #F3F3F3;
 }
-.category-desc span {
-	display: block;
+.category-description span {
+	display: block;  
+    font-size: 14px;
 	font-weight: bold;
+    margin-bottom: 5px;
 }
-.category-desc p {}
+.category-description p {    
+    font-size: 12px;
+    line-height: 14px;
+    text-align: justify;
+}
 .left-banner-category {
 	padding: 10px;
 	display: none;
 }
 .category-description {
-	display: none;
 }
 .show-filter {
 	position: absolute;
@@ -331,11 +335,10 @@ a.triger-showfilter {
 	color: #e74949 !important;
 }
 .toolbar-bottom {
-	margin-bottom: 20px;
+	margin-bottom: 10px;
 	margin-top: 20px;
 }
 .toolbar-bottom .toolbar {
-	margin-bottom: 20px;
 }
 .toolbar-bottom .toolbar .pager {
 	padding-left: 0;

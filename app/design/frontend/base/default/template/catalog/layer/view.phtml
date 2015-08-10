@@ -129,11 +129,6 @@
             <script type="text/javascript">decorateDataList('narrow-by-list')</script>
         <?php endif; ?>
     </div>
-    <?php $category=Mage::getModel('catalog/category')->load($navCategory); ?>
-	<div class="category-desc">
-		<span><?php echo $category->getName(); ?></span>
-		<p><?php echo $category->getDescription(); ?></p>
-	</div>
     <div class="left-banner-category"><?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('left_banner_category')->toHtml() ?></div>
 </div>
 <div class="show-filter"><a href="javascript:void(0)" class="triger-showfilter"><?php echo $this->__('Show Filters') ?></a></div>
