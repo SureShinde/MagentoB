@@ -85,6 +85,7 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
         
         if ($result) {
             $result['attribute_config'] = $this->_getAttributeConfig();
+            $result['attribute_bundle'] = $this->_getAttributeBundle();
             $result['review'] = $this->_getProductReview($this->_product->getId());
             $result['images'] = array (
                 'default' => $this->_getImageResize($this->_product, $this->_product->getImage()),
@@ -264,7 +265,7 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
         
         return $config;
     }
-    
+
     /**
      * Get Allowed Products
      *
@@ -777,5 +778,482 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
             'vertical' => $this->_resizeImage($product, $imageFile, $this->_imgVertical),
             'detail' => $this->_resizeImage($product, $imageFile, $this->_imgDetail),
         );
+    }
+    
+    
+    /**
+     * Product Bundle
+     * return array
+     */
+    protected function _getAttributeBundle() {
+        $product = $this->_getProduct();
+        
+        if ($product->getData('type_id') != 'bundle') {
+            return null;
+        }
+        
+        $bundle = array ();
+        $bundle['price'] = $this->_getBundlePrice($product);
+        $options = Mage::helper('core')->decorateArray($this->_getBundleOptions($product));
+        
+        if ($options) {
+            foreach ($options as $option) {
+                $showSingle = $this->_showSingle($option);
+                $selections = $option->getSelections();
+                        
+                $bundle['option'][] = array (
+                    'id' => $option->getId(),
+                    'title' => $option->getTitle(),
+                    'required' => $option->getRequired(),
+                    'type' => $option->getType(),
+                    'position' => $option->getPosition(),
+                    'show_single' => $showSingle,
+                    'selection_data' => $this->_getBundleSelectionData($showSingle, $product, $selections),
+                    'default_value' => $this->_getBundleDefaultValues($product, $option),
+                );
+            }
+        }
+        
+        return $bundle;
+    }
+    
+    protected function _getBundlePrice($product) {
+        $coreHelper = Mage::helper('core');
+        $weeeHelper = Mage::helper('weee');
+        $taxHelper = Mage::helper('tax');
+        $priceModel = $product->getPriceModel();
+        
+        list ($minimalPriceTax, $maximalPriceTax) = $priceModel->getTotalPrices($product, null, null, false);
+        list ($minimalPriceInclTax, $maximalPriceInclTax) = $priceModel->getTotalPrices($product, null, true, false);
+        
+        $weeeTaxAmount = 0;
+        
+        if ($product->getPriceType() == 1) {
+            $weeeTaxAmount = $weeeHelper->getAmount($product);
+            $weeeTaxAmountInclTaxes = $weeeTaxAmount;
+            
+            if ($weeeHelper->isTaxable()) {
+                $attributes = $weeeHelper->getProductWeeeAttributesForRenderer($product, null, null, null, true);
+                $weeeTaxAmountInclTaxes = $weeeHelper->getAmountInclTaxes($attributes);
+            }
+            
+            if ($weeeTaxAmount && $weeeHelper->typeOfDisplay($product, array (0, 1, 4))) {
+                $minimalPriceTax += $weeeTaxAmount;
+                $minimalPriceInclTax += $weeeTaxAmountInclTaxes;
+            }
+            
+            if ($weeeTaxAmount && $weeeHelper->typeOfDisplay($product, 2)) {
+                $minimalPriceInclTax += $weeeTaxAmountInclTaxes;
+            }
+
+            if ($weeeHelper->typeOfDisplay($product, array (1, 2, 4))) {
+                $weeeTaxAttributes = $weeeHelper->getProductWeeeAttributesForDisplay($product);
+            }
+        }
+        
+        $prices = array ();
+        
+        if ($product->getPriceView()) {
+            $minimalPrice = array ();
+            $minimalPrice['price_label'] = 'As low as';
+            
+            if ($this->_displayBothPrices($product)) {
+                $minimalPrice['display_both_prices'] = true;
+                $minimalPrice['price_excluding_tax'] = array (
+                    'label' => 'Excl. Tax',
+                    'value' => $coreHelper->currency($minimalPriceTax),
+                );
+                
+                if ($weeeTaxAmount && $product->getPriceType() == 1 && $weeeHelper->typeOfDisplay($product, array (2, 1, 4))) {
+                    foreach ($weeeTaxAttributes as $weeeTaxAttribute) {
+                        if ($weeeHelper->typeOfDisplay($product, array (2, 4))) {
+                            $amount = $weeeTaxAttribute->getAmount() + $weeeTaxAttribute->getTaxAmount();
+                        }
+                        else {
+                            $amount = $weeeTaxAttribute->getAmount();
+                        }
+                        
+                        $minimalPrice['weee'][] = array (
+                            'name' => $weeeTaxAttribute->getName(),
+                            'amount' => $coreHelper->currency($amount, true, true),
+                        );
+                    }
+                }
+                
+                $minimalPrice['price_including_tax'] = array (
+                    'label' => 'Incl. Tax',
+                    'value' => $coreHelper->currency($minimalPriceInclTax),
+                );
+            }
+            else {
+                $minimalPrice['display_both_prices'] = false;
+                $minimalPrice['price_exluding_tax'] = $taxHelper->displayPriceIncludingTax() ? $coreHelper->currency($minimalPriceInclTax) : $coreHelper->currency($minimalPriceTax);
+                
+                if ($weeeTaxAmount && $product->getPriceType() == 1 && $weeeHelper->typeOfDisplay($product, array (2, 1, 4))) {
+                    foreach ($weeeTaxAttributes as $weeeTaxAttribute) {
+                        if ($weeeHelper->typeOfDisplay($product, array (2, 4))) {
+                            $amount = $weeeTaxAttribute->getAmount() + $weeeTaxAttribute->getTaxAmount();
+                        }
+                        else {
+                            $amount = $weeeTaxAttribute->getAmount();
+                        }
+                        
+                        $minimalPrice['weee'][] = array (
+                            'name' => $weeeTaxAttribute->getName(),
+                            'amount' => $coreHelper->currency($amount, true, true),
+                        );
+                    }
+                }
+                
+                if ($weeeHelper->typeOfDisplay($product, 2) && $weeeTaxAmount) {
+                    $minimalPrice['price_including_tax'] = $coreHelper->currency($minimalPriceInclTax);
+                }
+            }
+            
+            $prices['price_view']['yes'] = true;
+            $prices['price_view']['minimal_price'] = $minimalPrice;
+        }
+        else {
+            $priceRange = array ();
+            
+            if ($minimalPriceTax <> $maximalPriceTax) {
+                $priceRange['yes'] = true;
+                $priceFrom = array ();
+                $priceTo = array ();
+                
+                if ($this->_displayBothPrices($product)) {
+                    $priceFrom['display_both_prices'] = true;
+                    $priceFrom['price_excluding_tax'] = array (
+                        'label' => 'Excl. Tax',
+                        'value' => $coreHelper->currency($minimalPriceTax),
+                    );
+                    
+                    if ($weeeTaxAmount && $product->getPriceType() == 1 && $weeeHelper->typeOfDisplay($product, array (2, 1, 4))) {
+                        foreach ($weeeTaxAttributes as $weeeTaxAttribute) {
+                            if ($weeeHelper->typeOfDisplay($product, array (2, 4))) {
+                                $amount = $weeeTaxAttribute->getAmount() + $weeeTaxAttribute->getTaxAmount();
+                            }
+                            else {
+                                $amount = $weeeTaxAttribute->getAmount();
+                            }
+                            
+                            $priceFrom['weee'][] = array (
+                                'name' => $weeeTaxAttribute->getName(),
+                                'amount' => $coreHelper->currency($amount, true, true),
+                            );
+                        }
+                    }
+                    
+                    $priceFrom['price_including_tax'] = array (
+                        'label' => 'Incl. Tax',
+                        'value' => $coreHelper->currency($minimalPriceInclTax),
+                    );
+                }
+                else {
+                    $priceFrom['display_both_prices'] = false;
+                    $priceFrom['price_excluding_tax'] = $taxHelper->displayPriceIncludingTax() ? $coreHelper->currency($minimalPriceInclTax) : $coreHelper->currency($minimalPriceTax);
+                    
+                    if ($weeeTaxAmount && $product->getPriceType() == 1 && $weeeHelper->typeOfDisplay($product, array (2, 1, 4))) {
+                        foreach ($weeeTaxAttributes as $weeeTaxAttribute) {
+                            if ($_weeeHelper->typeOfDisplay($_product, array(2, 4))) {
+                                $amount = $weeeTaxAttribute->getAmount() + $weeeTaxAttribute->getTaxAmount();
+                            }
+                            else {
+                                $amount = $weeeTaxAttribute->getAmount();
+                            }
+                            
+                            $priceFrom['weee'][] = array (
+                                'name' => $weeeTaxAttribute->getName(),
+                                'amount' => $coreHelper->currency($amount, true, true),
+                            );
+                        }
+                    }
+                    
+                    if ($weeeHelper->typeOfDisplay($product, 2) && $weeeTaxAmount) {
+                        $priceFrom['price_including_tax'] = $coreHelper->currency($minimalPriceInclTax);
+                    }
+                }
+                
+                if ($product->getPriceType() == 1) {
+                    if ($weeeTaxAmount && $weeeHelper->typeOfDisplay($product, array (0, 1, 4))) {
+                        $maximalPriceTax += $weeeTaxAmount;
+                        $maximalPriceInclTax += $weeeTaxAmountInclTaxes;
+                    }
+
+                    if ($weeeTaxAmount && $weeeHelper->typeOfDisplay($product, 2)) {
+                        $maximalPriceInclTax += $weeeTaxAmountInclTaxes;
+                    }
+                }
+                
+                if ($this->_displayBothPrices($product)) {
+                    $priceTo['display_both_prices'] = true;
+                    $priceTo['price_excluding_tax'] = array (
+                        'label' => 'Excl. Tax',
+                        'value' => $coreHelper->currency($maximalPriceTax),
+                    );
+                    
+                    if ($weeeTaxAmount && $product->getPriceType() == 1 && $weeeHelper->typeOfDisplay($product, array (2, 1, 4))) {
+                        foreach ($weeeTaxAttributes as $weeeTaxAttribute) {
+                            if ($weeeHelper->typeOfDisplay($product, array (2, 4))) {
+                                $amount = $weeeTaxAttribute->getAmount() + $weeeTaxAttribute->getTaxAmount();
+                            }
+                            else {
+                                $amount = $weeeTaxAttribute->getAmount();
+                            }
+                            
+                            $priceTo['weee'][] = array (
+                                'name' => $weeeTaxAttribute->getName(),
+                                'amount' => $coreHelper->currency($amount, true, true),
+                            );
+                        }
+                    }
+                    
+                    $priceTo['price_including_tax'] = array (
+                        'label' => 'Incl. Tax',
+                        'value' => $coreHelper->currency($maximalPriceInclTax),
+                    );
+                }
+                else {
+                    $priceTo['display_both_prices'] = false;
+                    $priceTo['price_excluding_tax'] = $taxHelper->displayPriceIncludingTax() ? $coreHelper->currency($maximalPriceInclTax) : $coreHelper->currency($maximalPriceTax);
+                    
+                    if ($weeeTaxAmount && $product->getPriceType() == 1 && $weeeHelper->typeOfDisplay($product, array (2, 1, 4))) {
+                        foreach ($weeeTaxAttributes as $weeeTaxAttribute) {
+                            if ($weeeHelper->typeOfDisplay($product, array (2, 4))) {
+                                $amount = $weeeTaxAttribute->getAmount() + $weeeTaxAttribute->getTaxAmount();
+                            }
+                            else {
+                                $amount = $weeeTaxAttribute->getAmount();
+                            }
+                            
+                            $priceTo['weee'][] = array (
+                                'name' => $weeeTaxAttribute->getName(),
+                                'amount' => $coreHelper->currency($amount, true, true),
+                            );
+                        }
+                    }
+                    
+                    if ($weeeHelper->typeOfDisplay($product, 2) && $weeeTaxAmount) {
+                        $priceFrom['price_including_tax'] = $coreHelper->currency($maximalPriceInclTax);
+                    }
+                }
+                
+                $prices['price_view']['price'] = array (
+                    'price_range' => true,
+                    'price_from' => $priceFrom,
+                    'price_to' => $priceTo,
+                );
+            }
+            else {
+                $priceRange['yes'] = false;
+                $price = array ();
+                
+                if ($this->_displayBothPrices($product)) {
+                    $price['display_both_prices'] = true;
+                    $price['price_excluding_tax'] = array (
+                        'label' => 'Excl. Tax',
+                        'value' => $coreHelper->currency($minimalPriceTax)
+                    );
+                    
+                    if ($weeeTaxAmount && $product->getPriceType() == 1 && $weeeHelper->typeOfDisplay($product, array (2, 1, 4))) {
+                        foreach ($weeeTaxAttributes as $weeeTaxAttribute) {
+                            if ($weeeHelper->typeOfDisplay($product, array (2, 4))) {
+                                $amount = $weeeTaxAttribute->getAmount() + $weeeTaxAttribute->getTaxAmount();
+                            }
+                            else {
+                                $amount = $weeeTaxAttribute->getAmount();
+                            }
+                            
+                            $price['weee'][] = array (
+                                'name' => $weeeTaxAttribute->getName(),
+                                'amount' => $coreHelper->currency($amount, true, true),
+                            );
+                        }
+                    }
+                    
+                    $price['price_including_tax'] = array (
+                        'label' => 'Incl. Tax',
+                        'value' => $coreHelper->currency($minimalPriceInclTax)
+                    );
+                }
+                else {
+                    $price['display_both_prices'] = false;
+                    $price['price_excluding_tax'] = $coreHelper->currency($minimalPriceTax);
+                    
+                    if ($weeeTaxAmount && $product->getPriceType() == 1 && $weeeHelper->typeOfDisplay($product, array (2, 1, 4))) {
+                        foreach ($weeeTaxAttributes as $weeeTaxAttribute) {
+                            if ($weeeHelper->typeOfDisplay($product, array (2, 4))) {
+                                $amount = $weeeTaxAttribute->getAmount() + $weeeTaxAttribute->getTaxAmount();
+                            }
+                            else {
+                                $amount = $weeeTaxAttribute->getAmount();
+                            }
+                            
+                            $price['weee'][] = array (
+                                'name' => $weeeTaxAttribute->getName(),
+                                'amount' => $coreHelper->currency($amount, true, true),
+                            );
+                        }
+                    }
+                    
+                    if ($weeeHelper->typeOfDisplay($product, 2) && $weeeTaxAmount) {
+                        $price['price_including_tax'] = $coreHelper->currency($minimalPriceInclTax);
+                    }
+                }
+            }
+            
+            $prices['price_view']['price'] = array (
+                'price_range' => false,
+                'price' => $price,
+            );
+            $prices['price_view']['yes'] = false;
+        }
+        
+        return $price;
+    }
+    
+    protected function _displayBothPrices($product) {
+        if ($product->getPriceType() == Mage_Bundle_Model_Product_Price::PRICE_TYPE_DYNAMIC && $product->getPriceModel()->getIsPricesCalculatedByIndex() !== false) {
+            return false;
+        }
+        
+        return Mage::getSingleton('tax/config')->getPriceDisplayType($this->_getStore()) == Mage_Tax_Model_Config::DISPLAY_TYPE_BOTH;
+    }
+
+    protected function _getBundleOptions($product) {
+        $typeInstance = $product->getTypeInstance(true);
+        $typeInstance->setStoreFilter($product->getStoreId(), $product);
+        $optionCollection = $typeInstance->getOptionsCollection($product);
+        $selectionCollection = $typeInstance->getSelectionsCollection($typeInstance->getOptionsIds($product), $product);
+        $options = $optionCollection->appendSelections($selectionCollection, false, Mage::helper('catalog/product')->getSkipSaleableCheck());
+
+        return $options;
+    }
+    
+    protected function _showSingle($option) {
+        $selections = $option->getSelections();
+        $showSingle = (count($selections) == 1 && $option->getRequired());
+        
+        return $showSingle;
+    }
+    
+    protected function _getSelectionTitlePrice($product, $selection, $includeContainer = true) {
+        $price = $product->getPriceModel()->getSelectionPreFinalPrice($product, $selection, 1);
+        $tierPrice = $selection->getTierPrice();
+        
+        if (!empty ($tierPrice)) {
+            $qty = $selection->getSelectionQty();
+            $price = $qty * (float) $selection->getPriceModel()->getTierPrice($qty, $selection);
+        }
+        
+        //$this->setFormatProduct($selection);
+        $priceTitle = $this->_escapeHtml($selection->getName());
+        $priceTitle .= ' &nbsp; ' . ($includeContainer ? '<span class="price-notice">' : '') . '+' . $this->_formatPriceString($product, $selection, $price, $includeContainer) . ($includeContainer ? '</span>' : '');
+        
+        return $priceTitle;
+    }
+    
+    protected function _formatPriceString($currentProduct, $formatProduct, $price, $includeContainer = true) {
+        $taxHelper = Mage::helper('tax');
+        $coreHelper = Mage::helper('core');
+        
+        if ($currentProduct->getPriceType() == Mage_Bundle_Model_Product_Price::PRICE_TYPE_DYNAMIC && $formatProduct) {
+            $product = $formatProduct;
+        }
+        else {
+            $product = $currentProduct;
+        }
+
+        $priceTax = $taxHelper->getPrice($product, $price);
+        $priceIncTax = $taxHelper->getPrice($product, $price, true);
+        $formated = $coreHelper->currencyByStore($priceTax, $product->getStore(), true, $includeContainer);
+        
+        if ($taxHelper->displayBothPrices() && $priceTax != $priceIncTax) {
+            $formated .= ' (+' . $coreHelper->currencyByStore($priceIncTax, $product->getStore(), true, $includeContainer) . ' ' . 'Incl. Tax' . ')';
+        }
+
+        return $formated;
+    }
+    
+    protected function _getBundleSelectionData($showSingle, $product, $selections) {
+        $result = array ();
+        
+        if ($showSingle) {
+            $result = array (
+                'price_title' => $this->_getSelectionTitlePrice($product, $selections[0]),
+                'tier_price_html' => '',
+                'selection_id' => $selections[0]->getSelectionId(),
+            );
+        }
+        else {
+            foreach ($selections as $selection) {
+                $result[] = array (
+                    'price_title' => $this->_getSelectionTitlePrice($product, $selection),
+                    'tier_price_html' => '',
+                    'selection_id' => $selections[0]->getSelectionId(),
+                );
+            }
+        }
+        
+        return $result;
+    }
+    
+    protected function _getBundleDefaultValues($product, $option) {
+        $default = $option->getDefaultSelection();
+        $selections = $option->getSelections();
+        $selectedOptions = $this->_getBundleSelectedOptions($product, $option);
+        $inPreConfigured = $product->hasPreconfiguredValues() && $product->getPreconfiguredValues()->getData('bundle_option_qty/' . $option->getId());
+
+        if (empty ($selectedOptions) && $default) {
+            $defaultQty = $default->getSelectionQty() * 1;
+            $canChangeQty = $default->getSelectionCanChangeQty();
+        }
+        elseif (!$inPreConfigured && $selectedOptions && is_numeric($selectedOptions)) {
+            $selectedSelection = $option->getSelectionById($selectedOptions);
+            $defaultQty = $selectedSelection->getSelectionQty() * 1;
+            $canChangeQty = $selectedSelection->getSelectionCanChangeQty();
+        }
+        elseif (!$this->_showSingle($option) || $inPreConfigured) {
+            $defaultQty = $this->_getBundleSelectedQty($product, $option);
+            $canChangeQty = (bool) $defaultQty;
+        }
+        else {
+            $defaultQty = $selections[0]->getSelectionQty() * 1;
+            $canChangeQty = $selections[0]->getSelectionCanChangeQty();
+        }
+
+        return array ($defaultQty, $canChangeQty);
+    }
+    
+    protected function _getBundleSelectedOptions($product, $option) {
+        $selectedOptions = array ();
+
+        if ($product->hasPreconfiguredValues()) {
+            $configValue = $product->getPreconfiguredValues()->getData('bundle_option/' . $option->getId());
+            
+            if ($configValue) {
+                $selectedOptions = $configValue;
+            }
+            elseif (!$option->getRequired()) {
+                $selectedOptions = 'None';
+            }
+        }
+        
+        return $selectedOptions;
+    }
+    
+    protected function _getBundleSelectedQty($product, $option) {
+        if ($product->hasPreconfiguredValues()) {
+            $selectedQty = (float) $product->getPreconfiguredValues()->getData('bundle_option_qty/' . $option->getId());
+            
+            if ($selectedQty < 0) {
+                $selectedQty = 0;
+            }
+        }
+        else {
+            $selectedQty = 0;
+        }
+
+        return $selectedQty;
     }
 }

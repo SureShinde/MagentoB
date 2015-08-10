@@ -443,4 +443,67 @@ abstract class Bilna_Rest_Model_Api2_Product_Rest extends Bilna_Rest_Model_Api2_
     protected function _getMediaConfig() {
         return Mage::getSingleton('catalog/product_media_config');
     }
+    
+    /**
+     * Escape html entities
+     *
+     * @param   mixed $data
+     * @param   array $allowedTags
+     * @return  string
+     */
+    protected function _escapeHtml($data, $allowedTags = null) {
+        return Mage::helper('core')->escapeHtml($data, $allowedTags);
+    }
+    
+    /**
+     * Get tier prices (formatted)
+     *
+     * @param Mage_Catalog_Model_Product $product
+     * @return array
+     */
+    protected function _getTierPricesBundle($product) {
+        $currentStore = $this->_getStore();
+        $prices = $product->getFormatedTierPrice();
+        $res = array ();
+        
+        if (is_array($prices)) {
+            foreach ($prices as $price) {
+                $price['price_qty'] = $price['price_qty'] * 1;
+                $_productPrice = $product->getPrice();
+                
+                if ($_productPrice != $product->getFinalPrice()) {
+                    $_productPrice = $product->getFinalPrice();
+                }
+
+                // Group price must be used for percent calculation if it is lower
+                $groupPrice = $product->getGroupPrice();
+                
+                if ($_productPrice > $groupPrice) {
+                    $_productPrice = $groupPrice;
+                }
+
+                if ($price['price'] < $_productPrice) {
+                    $price['savePercent'] = ceil(100 - ((100 / $_productPrice) * $price['price']));
+                    $tierPrice = $currentStore->convertPrice(Mage::helper('tax')->getPrice($product, $price['website_price']));
+                    $price['formated_price'] = $currentStore->formatPrice($tierPrice);
+                    $price['formated_price_incl_tax'] = $currentStore->formatPrice($currentStore->convertPrice(Mage::helper('tax')->getPrice($product, $price['website_price'], true)));
+
+                    if (Mage::helper('catalog')->canApplyMsrp($product)) {
+                        $oldPrice = $product->getFinalPrice();
+                        $product->setPriceCalculation(false);
+                        $product->setPrice($tierPrice);
+                        $product->setFinalPrice($tierPrice);
+                        //$this->getPriceHtml($product);
+                        $product->setPriceCalculation(true);
+                        $price['real_price_html'] = $product->getRealPriceHtml();
+                        $product->setFinalPrice($oldPrice);
+                    }
+
+                    $res[] = $price;
+                }
+            }
+        }
+
+        return $res;
+    }
 }
