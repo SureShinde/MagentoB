@@ -60,9 +60,19 @@ class Bilna_Checkout_Model_Api2_Payment_Rest_Admin_V1 extends Bilna_Checkout_Mod
                     }
                 }
 
+                $_label = 'instructions';
+                switch($_code)
+                {
+                    case 'klikbca':
+                    case 'klikpay':
+                        $_label = 'message';
+                        break;
+                }
+
                 $_result[] = array (
                     'code' => $_code,
-                    'title' => $_title
+                    'title' => $_title,
+                    'label' => Mage::getStoreConfig('payment/'.$_code.'/'.$_label)
                 );
             }
 
@@ -71,11 +81,6 @@ class Bilna_Checkout_Model_Api2_Payment_Rest_Admin_V1 extends Bilna_Checkout_Mod
         }
 
         return array("payment_methods" => $_result);
-    }
-
-    private function _prepareLayout()
-    {
-        $coreBlockTemplate = Mage::getConfig()->getBlockClassName('core/template');
     }
 
     public function getPaymentCodStatus()
@@ -89,7 +94,6 @@ class Bilna_Checkout_Model_Api2_Payment_Rest_Admin_V1 extends Bilna_Checkout_Mod
         $store = $quote->getStoreId();
         $methods = array();
         $payment = Mage::helper('payment')->getStoreMethods($this->store, $quote);
-        $coreBlockTemplate = Mage::getConfig()->getBlockClassName('core/template');
         foreach ($payment as $method)
         {
             if ($this->_canUseMethod($method) && $method->isApplicableToQuote(
@@ -97,13 +101,7 @@ class Bilna_Checkout_Model_Api2_Payment_Rest_Admin_V1 extends Bilna_Checkout_Mod
                 Mage_Payment_Model_Method_Abstract::CHECK_ZERO_TOTAL
             )) {
                 $this->_assignMethod($method);
-                $coreBlockTemplate->setChild(
-                    'payment.method.'.$method->getCode(),
-                    Mage::helper('payment')->getMethodFormBlock($method)
-                );
-                $form = $coreBlockTemplate->getChild('payment.method.' . $method->getCode())
-                $methods[]['method'] = $method;
-                $methods[]['form'] = $form;
+                $methods['method'] = $method;
             }
 
         }
