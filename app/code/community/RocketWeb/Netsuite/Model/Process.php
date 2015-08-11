@@ -40,8 +40,10 @@ class RocketWeb_Netsuite_Model_Process {
                 'body' => $originalMessage->body,
                 'timeout' => $originalMessage->__get('timeout'),
                 'created' => $originalMessage->__get('created'),
-                'priority' => $originalMessage->__get('priority')
+                'priority' => $originalMessage->__get('priority'),
+                'processing' => $originalMessage->__get('processing') // addition by Willy
             );
+
             $message = Mage::getModel('rocketweb_netsuite/queue_message')->unpack($originalMessage->body, RocketWeb_Netsuite_Helper_Queue::NETSUITE_EXPORT_QUEUE);
             $processModelString = 'rocketweb_netsuite/process_export_' . $message->getAction();
             $processModel = Mage::getModel($processModelString);
@@ -56,7 +58,7 @@ class RocketWeb_Netsuite_Model_Process {
                         if ($logger) {
                             $logger->logProgress("Export {$message->getAction()} {$message->getEntityId()} \n");
                         }
-                        
+
                         $processModel->process($message, $queueData);
                         $this->_processedOperatios[$message->getAction()][$message->getEntityId()] = 1;
                     }
@@ -64,6 +66,18 @@ class RocketWeb_Netsuite_Model_Process {
                     $queue->deleteMessage($originalMessage);
                 }
                 catch (Exception $ex) {
+
+                    /* addition by Willy : */
+                    /* set the processing field to 1 to mark that this message queue is being processed */
+                    $data = array('processing' => 1);
+                    $message_id = $originalMessage->__get('message_id');
+                    $message_model = Mage::getModel('rocketweb_netsuite/queue_message')->load($message_id)->addData($data);
+                    try {
+                        $message_model->setId($message_id)->save();
+                    }
+                    catch (Exception $ex) {}
+                    /* end of addition by Willy */
+
                     Mage::helper('rocketweb_netsuite')->log($ex->getMessage());
                 }
             }
