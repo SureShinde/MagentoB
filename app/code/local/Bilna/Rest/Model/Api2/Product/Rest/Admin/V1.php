@@ -1379,7 +1379,7 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
                 'price' => $this->_getSelectionPrice($product, $selections[0]),
                 'tier_price' => $this->_getTierPrices($product),
                 'selection_id' => $selections[0]->getSelectionId(),
-                'default_value' => $this->_getBundleDefaultValues($product, $option),
+                'default_value' => $this->_getBundleDefaultValues($product, $option, $selections[0]),
             );
         }
         else {
@@ -1388,7 +1388,7 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
                     'price' => $this->_getSelectionPrice($product, $selection),
                     'tier_price' => $this->_getTierPrices($product),
                     'selection_id' => $selection->getSelectionId(),
-                    'default_value' => $this->_getBundleDefaultValues($product, $option),
+                    'default_value' => $this->_getBundleDefaultValues($product, $option, $selection),
                     'is_selected' => $this->_isSelected($product, $option, $selection),
                 );
             }
@@ -1397,31 +1397,45 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
         return $result;
     }
     
-    protected function _getBundleDefaultValues($product, $option) {
-        $default = $option->getDefaultSelection();
-        $selections = $option->getSelections();
-        $selectedOptions = $this->_getBundleSelectedOptions($product, $option);
-        $inPreConfigured = $product->hasPreconfiguredValues() && $product->getPreconfiguredValues()->getData('bundle_option_qty/' . $option->getId());
-
-        if (empty ($selectedOptions) && $default) {
-            $defaultQty = $default->getSelectionQty() * 1;
-            $canChangeQty = $default->getSelectionCanChangeQty();
-        }
-        elseif (!$inPreConfigured && $selectedOptions && is_numeric($selectedOptions)) {
-            $selectedSelection = $option->getSelectionById($selectedOptions);
-            $defaultQty = $selectedSelection->getSelectionQty() * 1;
-            $canChangeQty = $selectedSelection->getSelectionCanChangeQty();
-        }
-        elseif (!$this->_showSingle($option) || $inPreConfigured) {
-            $defaultQty = $this->_getBundleSelectedQty($product, $option);
-            $canChangeQty = (bool) $defaultQty;
-        }
-        else {
-            $defaultQty = $selections[0]->getSelectionQty() * 1;
-            $canChangeQty = $selections[0]->getSelectionCanChangeQty();
-        }
+    protected function _getBundleDefaultValues($product, $option, $selection) {
+        $optionType = $option->getType();
+        
+//        if (in_array($optionType, array ('select', 'checkbox'))) {
+//            $default = $option->getDefaultSelection();
+//            $selections = $option->getSelections();
+//            $selectedOptions = $this->_getBundleSelectedOptions($product, $option);
+//            $inPreConfigured = $product->hasPreconfiguredValues() && $product->getPreconfiguredValues()->getData('bundle_option_qty/' . $option->getId());
+//
+//            if (empty ($selectedOptions) && $default) {
+//                $test = 1;
+//                $defaultQty = $default->getSelectionQty() * 1;
+//                $canChangeQty = $default->getSelectionCanChangeQty();
+//            }
+//            elseif (!$inPreConfigured && $selectedOptions && is_numeric($selectedOptions)) {
+//                $test = 2;
+//                $selectedSelection = $option->getSelectionById($selectedOptions);
+//                $defaultQty = $selectedSelection->getSelectionQty() * 1;
+//                $canChangeQty = $selectedSelection->getSelectionCanChangeQty();
+//            }
+//            elseif (!$this->_showSingle($option) || $inPreConfigured) {
+//                $test = 3;
+//                $defaultQty = $this->_getBundleSelectedQty($product, $option);
+//                $canChangeQty = (bool) $defaultQty;
+//            }
+//            else {
+//                $test = 4;
+//                $defaultQty = $selections[0]->getSelectionQty() * 1;
+//                $canChangeQty = $selections[0]->getSelectionCanChangeQty();
+//            }
+//        }
+//        else {
+            $test = 5;
+            $defaultQty = $selection->getSelectionQty() * 1;
+            $canChangeQty = $selection->getSelectionCanChangeQty();
+        //}
 
         return array (
+            'test' => $test,
             'default_qty' => $defaultQty,
             'can_change_qty' => $canChangeQty,
         );
