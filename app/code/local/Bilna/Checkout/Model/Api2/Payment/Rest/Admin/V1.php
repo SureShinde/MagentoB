@@ -99,6 +99,12 @@ class Bilna_Checkout_Model_Api2_Payment_Rest_Admin_V1 extends Bilna_Checkout_Mod
         return $methods;
     }
 
+    protected function _assignMethod($method)
+    {
+        $method->setInfoInstance($this->getQuote()->getPayment());
+        return $this;
+    }
+
     public function getPaymentMethodsByShippingMethod()
     {
         $quote = $this->getQuote();
