@@ -1278,7 +1278,7 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
         return $showSingle;
     }
     
-    protected function _getSelectionTitlePrice($product, $selection, $includeContainer = true) {
+    protected function _getSelectionPrice($product, $selection) {
         $price = $product->getPriceModel()->getSelectionPreFinalPrice($product, $selection, 1);
         $tierPrice = $selection->getTierPrice();
         
@@ -1287,14 +1287,62 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
             $price = $qty * (float) $selection->getPriceModel()->getTierPrice($qty, $selection);
         }
         
-        //$this->setFormatProduct($selection);
-        $priceTitle = $this->_escapeHtml($selection->getName());
-        $priceTitle .= ' &nbsp; ' . ($includeContainer ? '<span class="price-notice">' : '') . '+' . $this->_formatPriceString($product, $selection, $price, $includeContainer) . ($includeContainer ? '</span>' : '');
-        
-        return $priceTitle;
+        return array (
+            'title' => $this->_escapeHtml($selection->getName()),
+            'price' => $this->_formatPriceString($product, $selection, $price),
+        );
     }
     
-    protected function _formatPriceString($currentProduct, $formatProduct, $price, $includeContainer = true) {
+    protected function _getTierPrices($product) {
+        $prices = $product->getFormatedTierPrice();
+        $res = array ();
+        
+        if (is_array($prices)) {
+            foreach ($prices as $price) {
+                $price['price_qty'] = $price['price_qty'] * 1;
+                $productPrice = $product->getPrice();
+                
+                if ($product->getPrice() != $product->getFinalPrice()) {
+                    $productPrice = $product->getFinalPrice();
+                }
+
+                // Group price must be used for percent calculation if it is lower
+                $groupPrice = $product->getGroupPrice();
+                
+                if ($productPrice > $groupPrice) {
+                    $productPrice = $groupPrice;
+                }
+
+                if ($price['price'] < $productPrice) {
+                    $price['savePercent'] = ceil(100 - ((100 / $productPrice) * $price['price']));
+                    $tierPrice = Mage::app()->getStore()->convertPrice(
+                        Mage::helper('tax')->getPrice($product, $price['website_price'])
+                    );
+                    $price['formated_price'] = Mage::app()->getStore()->formatPrice($tierPrice);
+                    $price['formated_price_incl_tax'] = Mage::app()->getStore()->formatPrice(
+                        Mage::app()->getStore()->convertPrice(
+                            Mage::helper('tax')->getPrice($product, $price['website_price'], true)
+                        )
+                    );
+
+                    if (Mage::helper('catalog')->canApplyMsrp($product)) {
+                        $oldPrice = $product->getFinalPrice();
+                        $product->setPriceCalculation(false);
+                        $product->setPrice($tierPrice);
+                        $product->setFinalPrice($tierPrice);
+                        $product->setPriceCalculation(true);
+                        $product->setFinalPrice($oldPrice);
+                    }
+
+                    $res[] = $price;
+                }
+            }
+        }
+
+        return $res;
+    }
+    
+    protected function _formatPriceString($currentProduct, $formatProduct, $price) {
         $taxHelper = Mage::helper('tax');
         $coreHelper = Mage::helper('core');
         
@@ -1304,16 +1352,23 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
         else {
             $product = $currentProduct;
         }
+        
+        $_result = array ();
 
         $priceTax = $taxHelper->getPrice($product, $price);
         $priceIncTax = $taxHelper->getPrice($product, $price, true);
-        $formated = $coreHelper->currencyByStore($priceTax, $product->getStore(), true, $includeContainer);
+        
+        $_result = array ();
+        $_result['price_tax'] = $priceTax;
         
         if ($taxHelper->displayBothPrices() && $priceTax != $priceIncTax) {
-            $formated .= ' (+' . $coreHelper->currencyByStore($priceIncTax, $product->getStore(), true, $includeContainer) . ' ' . 'Incl. Tax' . ')';
+            $_result['price_include_tax'] = array (
+                'title' => 'Incl. Tax',
+                'value' => $priceIncTax,
+            );
         }
 
-        return $formated;
+        return $_result;
     }
     
     protected function _getBundleSelectionData($showSingle, $product, $option, $selections) {
@@ -1321,8 +1376,8 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
         
         if ($showSingle) {
             $result = array (
-                'price_title' => $this->_getSelectionTitlePrice($product, $selections[0]),
-                'tier_price_html' => '',
+                'price' => $this->_getSelectionPrice($product, $selections[0]),
+                'tier_price' => $this->_getTierPrices($product),
                 'selection_id' => $selections[0]->getSelectionId(),
                 'default_value' => $this->_getBundleDefaultValues($product, $option),
             );
@@ -1330,10 +1385,11 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
         else {
             foreach ($selections as $selection) {
                 $result[] = array (
-                    'price_title' => $this->_getSelectionTitlePrice($product, $selection),
-                    'tier_price_html' => '',
-                    'selection_id' => $selections[0]->getSelectionId(),
+                    'price' => $this->_getSelectionPrice($product, $selection),
+                    'tier_price' => $this->_getTierPrices($product),
+                    'selection_id' => $selection->getSelectionId(),
                     'default_value' => $this->_getBundleDefaultValues($product, $option),
+                    'is_selected' => $this->_isSelected($product, $option, $selection),
                 );
             }
         }
@@ -1401,5 +1457,22 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
         }
 
         return $selectedQty;
+    }
+    
+    protected function _isSelected($product, $option, $selection) {
+        $selectedOptions = $this->_getSelectedOptions($product, $option);
+        
+        if (is_numeric($selectedOptions)) {
+            return ($selection->getSelectionId() == $this->_getSelectedOptions());
+        }
+        elseif (is_array($selectedOptions) && !empty ($selectedOptions)) {
+            return in_array($selection->getSelectionId(), $this->_getSelectedOptions());
+        }
+        elseif ($selectedOptions == 'None') {
+            return false;
+        }
+        else {
+            return ($selection->getIsDefault() && $selection->isSaleable());
+        }
     }
 }
