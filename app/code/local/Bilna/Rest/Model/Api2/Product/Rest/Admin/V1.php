@@ -788,12 +788,13 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
     protected function _getAttributeBundle() {
         $product = $this->_getProduct();
         
-        if ($product->getData('type_id') != 'bundle') {
+        if ($product->getData('type_id') != 'bundle' || !$product->isSaleable()) {
             return null;
         }
         
         $bundle = array ();
         $bundle['price'] = $this->_getBundlePrice($product);
+        $bundle['price_view'] = $this->_getBundlePriceView($product);
         $options = Mage::helper('core')->decorateArray($this->_getBundleOptions($product));
         
         if ($options) {
@@ -801,15 +802,16 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
                 $showSingle = $this->_showSingle($option);
                 $selections = $option->getSelections();
                         
-                $bundle['option'][] = array (
+                $bundle['options'][$option->getPosition()] = array (
                     'id' => $option->getId(),
                     'title' => $option->getTitle(),
                     'required' => $option->getRequired(),
                     'type' => $option->getType(),
                     'position' => $option->getPosition(),
                     'show_single' => $showSingle,
-                    'selection_data' => $this->_getBundleSelectionData($showSingle, $product, $selections),
+                    'selection_data' => $this->_getBundleSelectionData($showSingle, $product, $option, $selections),
                     'default_value' => $this->_getBundleDefaultValues($product, $option),
+                    //'user_define_qty' => $this->_getSelectionCanChangeQty($product, $option),
                 );
             }
         }
@@ -817,6 +819,65 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
         return $bundle;
     }
     
+    protected function _getSelectionCanChangeQty($product, $_option) {
+        $_default = $_option->getDefaultSelection();
+        $_selections = $_option->getSelections();
+        $selectedOptions = $this->_getSelectedOptions($product, $_option);
+        $inPreConfigured = $product->hasPreconfiguredValues() && $product->getPreconfiguredValues()->getData('bundle_option_qty/' . $_option->getId());
+        
+        if (empty ($selectedOptions) && $_default) {
+            $_defaultQty = $_default->getSelectionQty() * 1;
+            $_canChangeQty = $_default->getSelectionCanChangeQty();
+        }
+        elseif (!$inPreConfigured && $selectedOptions && is_numeric($selectedOptions)) {
+            $selectedSelection = $_option->getSelectionById($selectedOptions);
+            $_defaultQty = $selectedSelection->getSelectionQty() * 1;
+            $_canChangeQty = $selectedSelection->getSelectionCanChangeQty();
+        }
+        elseif (!$this->_showSingle() || $inPreConfigured) {
+            $_defaultQty = $this->_getSelectedQty($product, $_option);
+            $_canChangeQty = (bool) $_defaultQty;
+        }
+        else {
+            $_defaultQty = $_selections[0]->getSelectionQty() * 1;
+            $_canChangeQty = $_selections[0]->getSelectionCanChangeQty();
+        }
+
+        return array ($_defaultQty, $_canChangeQty);
+    }
+    
+    protected function _getSelectedOptions($product, $option) {
+        $result = array ();
+
+        if ($product->hasPreconfiguredValues()) {
+            $configValue = $product->getPreconfiguredValues()->getData('bundle_option/' . $option->getId());
+            
+            if ($configValue) {
+                $result = $configValue;
+            }
+            elseif (!$option->getRequired()) {
+                $result = 'None';
+            }
+        }
+
+        return $result;
+    }
+    
+    protected function _getSelectedQty($product, $option) {
+        if ($product->hasPreconfiguredValues()) {
+            $selectedQty = (float) $product->getPreconfiguredValues()->getData('bundle_option_qty/' . $option->getId());
+            
+            if ($selectedQty < 0) {
+                $selectedQty = 0;
+            }
+        }
+        else {
+            $selectedQty = 0;
+        }
+
+        return $selectedQty;
+    }
+
     protected function _getBundlePrice($product) {
         $coreHelper = Mage::helper('core');
         $weeeHelper = Mage::helper('weee');
@@ -1112,6 +1173,93 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
         return $prices;
     }
     
+    protected function _getBundlePriceView($_product) {
+        $_finalPrice = $_product->getFinalPrice();
+        $_finalPriceInclTax = $_product->getFinalPrice();
+        $_weeeTaxAmount = 0;
+        
+        if ($_product->getPriceType() == 1) {
+            $_weeeTaxAmount = Mage::helper('weee')->getAmount($_product);
+            
+            if (Mage::helper('weee')->typeOfDisplay($_product, array (1, 2, 4))) {
+                $_weeeTaxAttributes = Mage::helper('weee')->getProductWeeeAttributesForDisplay($_product);
+            }
+        }
+        
+        $isMAPTypeOnGesture = Mage::helper('catalog')->isShowPriceOnGesture($_product);
+        $canApplyMAP = Mage::helper('catalog')->canApplyMsrp($_product);
+        
+        $_result = array ();
+        $_result['can_show_price'] = $_product->getCanShowPrice();
+        
+        if ($_product->getCanShowPrice() !== false) {
+            $_result['price_label'] = 'Price as configured';
+            
+            if (!$this->_getWithoutPrice()) {
+                if (!$isMAPTypeOnGesture && $canApplyMAP) {
+                    $_result['price_hide'] = true;
+                }
+                
+                if (Mage::helper('tax')->displayBothPrices()) {
+                    $_result['price_excluding_tax'] = array (
+                        'label' => 'Excl. Tax',
+                        'value' => (!$canApplyMAP) ? $_finalPrice : 0,
+                    );
+                    
+                    if ($_weeeTaxAmount && $_product->getPriceType() == 1 && Mage::helper('weee')->typeOfDisplay($_product, array (2, 1, 4))) {
+                        foreach ($_weeeTaxAttributes as $_weeeTaxAttribute) {
+                            if (Mage::helper('weee')->typeOfDisplay($_product, array (2, 4))) {
+                                $amount = $_weeeTaxAttribute->getAmount() + $_weeeTaxAttribute->getTaxAmount();
+                            }
+                            else {
+                                $amount = $_weeeTaxAttribute->getAmount();
+                            }
+                            
+                            $_result['price_wee'][] = array (
+                                'label' => $_weeeTaxAttribute->getName(),
+                                'value' => $amount,
+                            );
+                        }
+                    }
+                    
+                    $_result['price_including_tax'] = array (
+                        'label' => 'Incl. Tax',
+                        'value' => (!$canApplyMAP) ? $_finalPriceInclTax : 0,
+                    );
+                }
+                else {
+                    $_result['price_excluding_tax'] = (!$canApplyMAP) ? $_finalPrice : 0;
+                    
+                    if ($_weeeTaxAmount && $_product->getPriceType() == 1 && Mage::helper('weee')->typeOfDisplay($_product, array (2, 1, 4))) {
+                        foreach ($_weeeTaxAttributes as $_weeeTaxAttribute) {
+                            if (Mage::helper('weee')->typeOfDisplay($_product, array (2, 4))) {
+                                $amount = $_weeeTaxAttribute->getAmount() + $_weeeTaxAttribute->getTaxAmount();
+                            }
+                            else {
+                                $amount = $_weeeTaxAttribute->getAmount();
+                            }
+                            
+                            $_result['price_wee'][] = array (
+                                'label' => $_weeeTaxAttribute->getName(),
+                                'value' => $amount,
+                            );
+                        }
+                    }
+                    
+                    $_result['price_including_tax'] = 0;
+                }
+            }
+        }
+        
+        $_result['product_issaleable'] = $_product->isSaleable() ? 1 : 0;
+        
+        return $_result;
+    }
+    
+    protected function _getWithoutPrice() {
+        return false;
+    }
+
     protected function _displayBothPrices($product) {
         if ($product->getPriceType() == Mage_Bundle_Model_Product_Price::PRICE_TYPE_DYNAMIC && $product->getPriceModel()->getIsPricesCalculatedByIndex() !== false) {
             return false;
@@ -1175,7 +1323,7 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
         return $formated;
     }
     
-    protected function _getBundleSelectionData($showSingle, $product, $selections) {
+    protected function _getBundleSelectionData($showSingle, $product, $option, $selections) {
         $result = array ();
         
         if ($showSingle) {
@@ -1183,6 +1331,7 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
                 'price_title' => $this->_getSelectionTitlePrice($product, $selections[0]),
                 'tier_price_html' => '',
                 'selection_id' => $selections[0]->getSelectionId(),
+                'default_value' => $this->_getBundleDefaultValues($product, $option),
             );
         }
         else {
@@ -1191,6 +1340,7 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
                     'price_title' => $this->_getSelectionTitlePrice($product, $selection),
                     'tier_price_html' => '',
                     'selection_id' => $selections[0]->getSelectionId(),
+                    'default_value' => $this->_getBundleDefaultValues($product, $option),
                 );
             }
         }
