@@ -421,7 +421,7 @@
                     </route_collection>
                 </routes>
                 <versions>1</versions>
-                <attributes translate="lastname firstname middlename prefix suffix company street city region postcode country_id telephone address_type email region_id shipping_method shipping_description" module="api2">
+                <attributes translate="lastname firstname middlename prefix suffix company street city region postcode country_id telephone address_type email region_id shipping_method shipping_description shipping_amount" module="api2">
                     <lastname>Customer Last Name</lastname>
                     <firstname>Customer First Name</firstname>
                     <middlename>Customer Middle Name</middlename>
@@ -439,6 +439,7 @@
                     <region_id>Region ID</region_id>
                     <shipping_method>Shipping Method</shipping_method>
                     <shipping_description>Shipping Description</shipping_description>
+                    <shipping_amount>Shipping Amount</shipping_amount>
                 </attributes>
             </quote_address>
             <order_comment translate="title" module="api2">
