@@ -213,6 +213,83 @@
                 </force_attributes>
                 <versions>1</versions>
             </cart_product>
+            <cart_product_delete translate="title" module="api2">
+                <group>checkout</group>
+                <sort_order>110</sort_order>
+                <model>bilna_checkout/api2_product_delete</model>
+                <!--working_model>customer/address</working_model-->
+                <title>Product Delete</title>
+                <privileges>
+                    <admin>
+                        <create>1</create>
+                        <retrieve>1</retrieve>
+                    </admin>
+                    <customer>
+                        <create>1</create>
+                        <retrieve>1</retrieve>
+                    </customer>
+                </privileges>
+                <attributes translate="entity_id product_id store_id weight created_at updated_at converted_at is_active is_virtual is_multi_shipping items_count items_qty orig_order_id store_to_base_rate store_to_quote_rate base_currency_code store_currency_code grand_total base_grand_total checkout_method customer_id customer_tax_class_id customer_group_id customer_email customer_prefix customer_firstname customer_middlename customer_lastname customer_suffix customer_dob customer_note customer_is_guest remote_ip applied_rule_ids reserved_order_id coupon_code subtotal base_subtotal subtotal_with_discount base_subtotal_with_discount" module="Bilna_Checkout">
+                    <entity_id>Quote ID</entity_id>
+                    <product_id>Product ID</product_id>
+                    <weight>Weight</weight>
+                    <qty>Qty</qty>
+                    <store_id>Store ID</store_id>
+                    <created_at>Created At</created_at>
+                    <updated_at>Updated At</updated_at>
+                    <converted_at>Converted At</converted_at>
+                    <is_active>Is Active</is_active>
+                    <is_virtual>Is Virtual</is_virtual>
+                    <is_multi_shipping>Is Multi Shipping</is_multi_shipping>
+                    <items_count>Items Count</items_count>
+                    <items_qty>Items Qty</items_qty>
+                    <orig_order_id>Orig Order Id</orig_order_id>
+                    <store_to_base_rate>Store To Base Rate</store_to_base_rate>
+                    <store_to_quote_rate>store To Quote Rate</store_to_quote_rate>
+                    <base_currency_code>Base Currency Code</base_currency_code>
+                    <store_currency_code>store Currency Code</store_currency_code>
+                    <grand_total>Grand Total</grand_total>
+                    <checkout_method>Checkout Method</checkout_method>
+                    <customer_id>Customer Id</customer_id>
+                    <customer_tax_class_id>Customer Tax Class Id</customer_tax_class_id>
+                    <customer_group_id>Customer Group Id</customer_group_id>
+                    <customer_email>Customer Email</customer_email>
+                    <customer_prefix>Customer Prefix</customer_prefix>
+                    <customer_firstname>Customer Firstname</customer_firstname>
+                    <customer_middlename>Customer Middlename</customer_middlename>
+                    <customer_lastname>Customer Lastname</customer_lastname>
+                    <customer_suffix>Customer Suffix</customer_suffix>
+                    <customer_dob>Date of Birth</customer_dob>
+                    <customer_note>Customer Note</customer_note>
+                    <customer_is_guest>Customer Is Guest</customer_is_guest>
+                    <remote_ip>Remote Ip</remote_ip>
+                    <applied_rule_ids>Applied Rule Ids</applied_rule_ids>
+                    <reserved_order_id>Reserved Order Id</reserved_order_id>
+                    <coupon_code>Coupon Code</coupon_code>
+                    <subtotal>Subtotal</subtotal>
+                    <base_subtotal>base Subtotal</base_subtotal>
+                    <subtotal_with_discount>Subtotal With Discount</subtotal_with_discount>
+                    <base_subtotal_with_discount>Base Subtotal With Discount</base_subtotal_with_discount>
+                </attributes>
+                <routes>
+                    <route_entity>
+                        <route>/checkout/product/delete/quote/:id</route>
+                        <action_type>entity</action_type>
+                    </route_entity>
+                    <route_collection>
+                        <route>/checkout/product/delete</route>
+                        <action_type>collection</action_type>
+                    </route_collection>
+                </routes>
+                <force_attributes>
+                    <admin>
+                        <payment_method>1</payment_method>
+                        <addresses>1</addresses>
+                        <quote_items>1</quote_items>
+                    </admin>
+                </force_attributes>
+                <versions>1</versions>
+            </cart_product_delete>
             <cart_customer translate="title" module="api2">
                 <group>checkout</group>
                 <sort_order>120</sort_order>
