@@ -70,7 +70,7 @@ class Bilna_Checkout_Model_Api2_Payment_Rest_Admin_V1 extends Bilna_Checkout_Mod
             $this->_error($e->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
         }
 
-        return array("payment_methods" => $_result;);
+        return array("payment_methods" => $_result);
     }
 
     public function getPaymentCodStatus()
