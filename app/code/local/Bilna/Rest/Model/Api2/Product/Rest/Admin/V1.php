@@ -277,9 +277,9 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
         $allProducts = $this->_getProduct()->getTypeInstance(true)->getUsedProducts(null, $this->_getProduct());
         
         foreach ($allProducts as $product) {
-            //if ($product->isSaleable() || $skipSaleableCheck) {
+            if ($product->isSaleable() || $skipSaleableCheck) {
                 $products[] = $product;
-            //}
+            }
         }
             
         return $products;
@@ -810,8 +810,6 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
                     'position' => $option->getPosition(),
                     'show_single' => $showSingle,
                     'selection_data' => $this->_getBundleSelectionData($showSingle, $product, $option, $selections),
-                    'default_value' => $this->_getBundleDefaultValues($product, $option),
-                    //'user_define_qty' => $this->_getSelectionCanChangeQty($product, $option),
                 );
             }
         }
@@ -883,11 +881,11 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
         $weeeHelper = Mage::helper('weee');
         $taxHelper = Mage::helper('tax');
         $priceModel = $product->getPriceModel();
+        $weeeTaxAmount = 0;
+        $_result = array ();
         
         list ($minimalPriceTax, $maximalPriceTax) = $priceModel->getTotalPrices($product, null, null, false);
         list ($minimalPriceInclTax, $maximalPriceInclTax) = $priceModel->getTotalPrices($product, null, true, false);
-        
-        $weeeTaxAmount = 0;
         
         if ($product->getPriceType() == 1) {
             $weeeTaxAmount = $weeeHelper->getAmount($product);
@@ -912,17 +910,15 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
             }
         }
         
-        $prices = array ();
-        
         if ($product->getPriceView()) {
-            $minimalPrice = array ();
-            $minimalPrice['price_label'] = 'As low as';
+            $priceExcludingTax = 0;
+            $weee = array ();
+            $priceIncludingTax = 0;
             
             if ($this->_displayBothPrices($product)) {
-                $minimalPrice['display_both_prices'] = true;
-                $minimalPrice['price_excluding_tax'] = array (
+                $priceExcludingTax = array (
                     'label' => 'Excl. Tax',
-                    'value' => $coreHelper->currency($minimalPriceTax),
+                    'value' => $minimalPriceTax,
                 );
                 
                 if ($weeeTaxAmount && $product->getPriceType() == 1 && $weeeHelper->typeOfDisplay($product, array (2, 1, 4))) {
@@ -934,21 +930,21 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
                             $amount = $weeeTaxAttribute->getAmount();
                         }
                         
-                        $minimalPrice['weee'][] = array (
+                        $weee[] = array (
                             'name' => $weeeTaxAttribute->getName(),
-                            'amount' => $coreHelper->currency($amount, true, true),
+                            'amount' => $amount,
                         );
                     }
                 }
                 
-                $minimalPrice['price_including_tax'] = array (
+                $priceIncludingTax = array (
                     'label' => 'Incl. Tax',
-                    'value' => $coreHelper->currency($minimalPriceInclTax),
+                    'value' => $minimalPriceInclTax,
                 );
             }
             else {
                 $minimalPrice['display_both_prices'] = false;
-                $minimalPrice['price_exluding_tax'] = $taxHelper->displayPriceIncludingTax() ? $coreHelper->currency($minimalPriceInclTax) : $coreHelper->currency($minimalPriceTax);
+                $priceExcludingTax = $taxHelper->displayPriceIncludingTax() ? $minimalPriceInclTax : $minimalPriceTax;
                 
                 if ($weeeTaxAmount && $product->getPriceType() == 1 && $weeeHelper->typeOfDisplay($product, array (2, 1, 4))) {
                     foreach ($weeeTaxAttributes as $weeeTaxAttribute) {
@@ -959,34 +955,33 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
                             $amount = $weeeTaxAttribute->getAmount();
                         }
                         
-                        $minimalPrice['weee'][] = array (
+                        $weee[] = array (
                             'name' => $weeeTaxAttribute->getName(),
-                            'amount' => $coreHelper->currency($amount, true, true),
+                            'amount' => $amount,
                         );
                     }
                 }
                 
                 if ($weeeHelper->typeOfDisplay($product, 2) && $weeeTaxAmount) {
-                    $minimalPrice['price_including_tax'] = $coreHelper->currency($minimalPriceInclTax);
+                    $priceIncludingTax = $minimalPriceInclTax;
                 }
             }
             
-            $prices['price_view']['yes'] = true;
-            $prices['price_view']['minimal_price'] = $minimalPrice;
+            $_result['minimal_price']['label'] = 'As low as';
+            $_result['minimal_price']['price_excluding_tax'] = $priceExcludingTax;
+            $_result['minimal_price']['weee'] = $weee;
+            $_result['minimal_price']['price_including_tax'] = $priceIncludingTax;
         }
         else {
-            $priceRange = array ();
-            
             if ($minimalPriceTax <> $maximalPriceTax) {
-                $priceRange['yes'] = true;
-                $priceFrom = array ();
-                $priceTo = array ();
+                $priceExcludingTax = 0;
+                $weee = array ();
+                $priceIncludingTax = 0;
                 
                 if ($this->_displayBothPrices($product)) {
-                    $priceFrom['display_both_prices'] = true;
-                    $priceFrom['price_excluding_tax'] = array (
+                    $priceExcludingTax = array (
                         'label' => 'Excl. Tax',
-                        'value' => $coreHelper->currency($minimalPriceTax),
+                        'value' => $minimalPriceTax,
                     );
                     
                     if ($weeeTaxAmount && $product->getPriceType() == 1 && $weeeHelper->typeOfDisplay($product, array (2, 1, 4))) {
@@ -998,21 +993,20 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
                                 $amount = $weeeTaxAttribute->getAmount();
                             }
                             
-                            $priceFrom['weee'][] = array (
+                            $weee[] = array (
                                 'name' => $weeeTaxAttribute->getName(),
-                                'amount' => $coreHelper->currency($amount, true, true),
+                                'amount' => $amount, true, true,
                             );
                         }
                     }
                     
-                    $priceFrom['price_including_tax'] = array (
+                    $priceIncludingTax = array (
                         'label' => 'Incl. Tax',
-                        'value' => $coreHelper->currency($minimalPriceInclTax),
+                        'value' => $minimalPriceInclTax,
                     );
                 }
                 else {
-                    $priceFrom['display_both_prices'] = false;
-                    $priceFrom['price_excluding_tax'] = $taxHelper->displayPriceIncludingTax() ? $coreHelper->currency($minimalPriceInclTax) : $coreHelper->currency($minimalPriceTax);
+                    $priceExcludingTax = $taxHelper->displayPriceIncludingTax() ? $minimalPriceInclTax : $minimalPriceTax;
                     
                     if ($weeeTaxAmount && $product->getPriceType() == 1 && $weeeHelper->typeOfDisplay($product, array (2, 1, 4))) {
                         foreach ($weeeTaxAttributes as $weeeTaxAttribute) {
@@ -1023,17 +1017,21 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
                                 $amount = $weeeTaxAttribute->getAmount();
                             }
                             
-                            $priceFrom['weee'][] = array (
+                            $weee[] = array (
                                 'name' => $weeeTaxAttribute->getName(),
-                                'amount' => $coreHelper->currency($amount, true, true),
+                                'amount' => $amount,
                             );
                         }
                     }
                     
                     if ($weeeHelper->typeOfDisplay($product, 2) && $weeeTaxAmount) {
-                        $priceFrom['price_including_tax'] = $coreHelper->currency($minimalPriceInclTax);
+                        $priceIncludingTax = $minimalPriceInclTax;
                     }
                 }
+                
+                $_result['price_range']['price_from']['price_excluding_tax'] = $priceExcludingTax;
+                $_result['price_range']['price_from']['weee'] = $priceExcludingTax;
+                $_result['price_range']['price_from']['price_including_tax'] = $priceIncludingTax;
                 
                 if ($product->getPriceType() == 1) {
                     if ($weeeTaxAmount && $weeeHelper->typeOfDisplay($product, array (0, 1, 4))) {
@@ -1046,11 +1044,14 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
                     }
                 }
                 
+                $priceExcludingTax = 0;
+                $weee = array ();
+                $priceIncludingTax = 0;
+                
                 if ($this->_displayBothPrices($product)) {
-                    $priceTo['display_both_prices'] = true;
-                    $priceTo['price_excluding_tax'] = array (
+                    $priceExcludingTax = array (
                         'label' => 'Excl. Tax',
-                        'value' => $coreHelper->currency($maximalPriceTax),
+                        'value' => $maximalPriceTax,
                     );
                     
                     if ($weeeTaxAmount && $product->getPriceType() == 1 && $weeeHelper->typeOfDisplay($product, array (2, 1, 4))) {
@@ -1062,21 +1063,20 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
                                 $amount = $weeeTaxAttribute->getAmount();
                             }
                             
-                            $priceTo['weee'][] = array (
+                            $weee[] = array (
                                 'name' => $weeeTaxAttribute->getName(),
-                                'amount' => $coreHelper->currency($amount, true, true),
+                                'amount' => $amount,
                             );
                         }
                     }
                     
-                    $priceTo['price_including_tax'] = array (
+                    $priceIncludingTax = array (
                         'label' => 'Incl. Tax',
-                        'value' => $coreHelper->currency($maximalPriceInclTax),
+                        'value' => $maximalPriceInclTax,
                     );
                 }
                 else {
-                    $priceTo['display_both_prices'] = false;
-                    $priceTo['price_excluding_tax'] = $taxHelper->displayPriceIncludingTax() ? $coreHelper->currency($maximalPriceInclTax) : $coreHelper->currency($maximalPriceTax);
+                    $priceExcludingTax = $taxHelper->displayPriceIncludingTax() ? $maximalPriceInclTax : $maximalPriceTax;
                     
                     if ($weeeTaxAmount && $product->getPriceType() == 1 && $weeeHelper->typeOfDisplay($product, array (2, 1, 4))) {
                         foreach ($weeeTaxAttributes as $weeeTaxAttribute) {
@@ -1087,33 +1087,31 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
                                 $amount = $weeeTaxAttribute->getAmount();
                             }
                             
-                            $priceTo['weee'][] = array (
+                            $weee[] = array (
                                 'name' => $weeeTaxAttribute->getName(),
-                                'amount' => $coreHelper->currency($amount, true, true),
+                                'amount' => $amount,
                             );
                         }
                     }
                     
                     if ($weeeHelper->typeOfDisplay($product, 2) && $weeeTaxAmount) {
-                        $priceFrom['price_including_tax'] = $coreHelper->currency($maximalPriceInclTax);
+                        $priceIncludingTax = $maximalPriceInclTax;
                     }
                 }
                 
-                $prices['price_view']['price'] = array (
-                    'price_range' => true,
-                    'price_from' => $priceFrom,
-                    'price_to' => $priceTo,
-                );
+                $_result['price_range']['price_to']['price_excluding_tax'] = $priceExcludingTax;
+                $_result['price_range']['price_to']['weee'] = $priceExcludingTax;
+                $_result['price_range']['price_to']['price_including_tax'] = $priceIncludingTax;
             }
             else {
-                $priceRange['yes'] = false;
-                $price = array ();
+                $priceExcludingTax = 0;
+                $weee = array ();
+                $priceIncludingTax = 0;
                 
                 if ($this->_displayBothPrices($product)) {
-                    $price['display_both_prices'] = true;
-                    $price['price_excluding_tax'] = array (
+                    $priceExcludingTax = array (
                         'label' => 'Excl. Tax',
-                        'value' => $coreHelper->currency($minimalPriceTax)
+                        'value' => $minimalPriceTax,
                     );
                     
                     if ($weeeTaxAmount && $product->getPriceType() == 1 && $weeeHelper->typeOfDisplay($product, array (2, 1, 4))) {
@@ -1125,21 +1123,20 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
                                 $amount = $weeeTaxAttribute->getAmount();
                             }
                             
-                            $price['weee'][] = array (
+                            $weee[] = array (
                                 'name' => $weeeTaxAttribute->getName(),
-                                'amount' => $coreHelper->currency($amount, true, true),
+                                'amount' => $amount,
                             );
                         }
                     }
                     
-                    $price['price_including_tax'] = array (
+                    $priceIncludingTax = array (
                         'label' => 'Incl. Tax',
-                        'value' => $coreHelper->currency($minimalPriceInclTax)
+                        'value' => $minimalPriceInclTax,
                     );
                 }
                 else {
-                    $price['display_both_prices'] = false;
-                    $price['price_excluding_tax'] = $coreHelper->currency($minimalPriceTax);
+                    $priceExcludingTax = $minimalPriceTax;
                     
                     if ($weeeTaxAmount && $product->getPriceType() == 1 && $weeeHelper->typeOfDisplay($product, array (2, 1, 4))) {
                         foreach ($weeeTaxAttributes as $weeeTaxAttribute) {
@@ -1150,27 +1147,25 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
                                 $amount = $weeeTaxAttribute->getAmount();
                             }
                             
-                            $price['weee'][] = array (
+                            $weee[] = array (
                                 'name' => $weeeTaxAttribute->getName(),
-                                'amount' => $coreHelper->currency($amount, true, true),
+                                'amount' => $amount,
                             );
                         }
                     }
                     
                     if ($weeeHelper->typeOfDisplay($product, 2) && $weeeTaxAmount) {
-                        $price['price_including_tax'] = $coreHelper->currency($minimalPriceInclTax);
+                        $priceIncludingTax = $minimalPriceInclTax;
                     }
                 }
+                
+                $_result['single_price']['price_excluding_tax'] = $priceExcludingTax;
+                $_result['single_price']['weee'] = $weee;
+                $_result['single_price']['price_including_tax'] = $priceIncludingTax;
             }
-            
-            $prices['price_view']['price'] = array (
-                'price_range' => false,
-                'price' => $price,
-            );
-            $prices['price_view']['yes'] = false;
         }
         
-        return $prices;
+        return $_result;
     }
     
     protected function _getBundlePriceView($_product) {
@@ -1250,8 +1245,6 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
                 }
             }
         }
-        
-        $_result['product_issaleable'] = $_product->isSaleable() ? 1 : 0;
         
         return $_result;
     }
@@ -1372,7 +1365,10 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
             $canChangeQty = $selections[0]->getSelectionCanChangeQty();
         }
 
-        return array ($defaultQty, $canChangeQty);
+        return array (
+            'default_qty' => $defaultQty,
+            'can_change_qty' => $canChangeQty,
+        );
     }
     
     protected function _getBundleSelectedOptions($product, $option) {
