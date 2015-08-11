@@ -1030,7 +1030,7 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
                 }
                 
                 $_result['price_range']['price_from']['price_excluding_tax'] = $priceExcludingTax;
-                $_result['price_range']['price_from']['weee'] = $priceExcludingTax;
+                $_result['price_range']['price_from']['weee'] = $weee;
                 $_result['price_range']['price_from']['price_including_tax'] = $priceIncludingTax;
                 
                 if ($product->getPriceType() == 1) {
@@ -1100,7 +1100,7 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
                 }
                 
                 $_result['price_range']['price_to']['price_excluding_tax'] = $priceExcludingTax;
-                $_result['price_range']['price_to']['weee'] = $priceExcludingTax;
+                $_result['price_range']['price_to']['weee'] = $weee;
                 $_result['price_range']['price_to']['price_including_tax'] = $priceIncludingTax;
             }
             else {
