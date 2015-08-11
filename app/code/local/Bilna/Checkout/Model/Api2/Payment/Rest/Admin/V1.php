@@ -101,7 +101,7 @@ class Bilna_Checkout_Model_Api2_Payment_Rest_Admin_V1 extends Bilna_Checkout_Mod
                 Mage_Payment_Model_Method_Abstract::CHECK_ZERO_TOTAL
             )) {
                 $this->_assignMethod($method);
-                $methods['method'] = $method;
+                $methods[] = $method;
             }
 
         }
