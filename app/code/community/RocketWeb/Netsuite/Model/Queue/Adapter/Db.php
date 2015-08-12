@@ -45,6 +45,16 @@ class RocketWeb_Netsuite_Model_Queue_Adapter_Db extends Zend_Queue_Adapter_Db {
         // start transaction handling
         try {
             if ( $maxMessages > 0 ) { // ZF-7666 LIMIT 0 clause not included.
+                /* addition by Willy */
+                $run_mode = Mage::registry('current_run_mode');
+                $run_recordtype = Mage::registry('current_run_recordtype');
+                $importWhereCondition = '1 = 1';
+
+                // if mode is import and recordtype is inventory, add new condition to get inventoryitem
+                if ($run_mode == 'import' && $run_recordtype == 'inventory')
+                    $importWhereCondition = "body like 'inventoryitem%'";
+                /* end of addition by Willy */
+
                 $db->beginTransaction();
 
                 $query = $db->select();
@@ -55,6 +65,7 @@ class RocketWeb_Netsuite_Model_Queue_Adapter_Db extends Zend_Queue_Adapter_Db {
                 $query->from($info['name'], array('*'))
                     ->where('queue_id=?', $this->getQueueId($queue->getName()))
                     ->where('handle IS NULL OR timeout+' . (int)$timeout . ' < ' . (int)$microtime)
+                    ->where($importWhereCondition) // addition by Willy
                     ->order('priority ASC', 'created ASC')
                     ->limit($maxMessages);
 
