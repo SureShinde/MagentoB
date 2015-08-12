@@ -766,6 +766,36 @@
                 </force_attributes>
                 <versions>1</versions>
             </cart_payment_method>
+            <cart_payment_method_bankcheck translate="title" module="api2">
+                <group>checkout</group>
+                <sort_order>130</sort_order>
+                <model>bilna_checkout/api2_payment_method_bankcheck</model>
+                <title>Payment Method Bank Check</title>
+                <privileges>
+                    <admin>
+                        <create>1</create>
+                        <retrieve>1</retrieve>
+                    </admin>
+                    <customer>
+                        <create>1</create>
+                        <retrieve>1</retrieve>
+                    </customer>
+                </privileges>
+                <attributes translate="entity_id " module="Bilna_Checkout">
+                    <entity_id>Quote ID</entity_id>
+                </attributes>
+                <routes>
+                    <route_entity>
+                        <route>/checkout/payment/method/bankcheck/quote/:id</route>
+                        <action_type>entity</action_type>
+                    </route_entity>
+                    <route_collection>
+                        <route>/checkout/payment/method/bankcheck</route>
+                        <action_type>collection</action_type>
+                    </route_collection>
+                </routes>
+                <versions>1</versions>
+            </cart_payment_method_bankcheck>
             <cart_coupon translate="title" module="api2">
                 <group>checkout</group>
                 <sort_order>130</sort_order>
