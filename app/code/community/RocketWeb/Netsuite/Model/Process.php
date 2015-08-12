@@ -58,7 +58,7 @@ class RocketWeb_Netsuite_Model_Process {
                         if ($logger) {
                             $logger->logProgress("Export {$message->getAction()} {$message->getEntityId()} \n");
                         }
-
+                        
                         $processModel->process($message, $queueData);
                         $this->_processedOperatios[$message->getAction()][$message->getEntityId()] = 1;
                     }

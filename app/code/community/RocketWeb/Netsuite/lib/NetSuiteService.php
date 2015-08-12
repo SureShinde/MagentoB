@@ -84103,7 +84103,7 @@ class SalesOrder extends Record {
 	 * @var float
 	 */
 	public $handlingTax1Rate;
-	/**c
+	/**
 	 * @access public
 	 * @var string
 	 */

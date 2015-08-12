@@ -300,19 +300,6 @@ class NSPHPClient {
         	$response = $this->client->__soapCall($operation, array($parameter), NULL, $this->soapHeaders);
         }
         catch(Exception $ex) {
-            /* get the detail of error (fault name and code) */
-            /* comment first as we still do not use this part
-            $detail = $ex->detail;
-            $fault_name = '';
-            $error_code = '';
-            foreach($detail as $key => $value)
-            {
-                $fault_name = $key; // e.g. invalidCredentialsFault
-                $error_code = $value->code; // e.g. INVALID_LOGIN_CREDENTIALS
-                break;
-            }
-            */
-
             Mage::log($this->client->__getLastRequest());
         	Mage::helper('rocketweb_netsuite')->log($ex->getMessage());
             //[pgrigoruta] [customization] Do not return imediately as we still want to log the request
