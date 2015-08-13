@@ -75,7 +75,9 @@ class RocketWeb_Netsuite_Model_Process {
                     try {
                         $message_model->setId($message_id)->save();
                     }
-                    catch (Exception $ex) {}
+                    catch (Exception $ex) {
+                        Mage::helper('rocketweb_netsuite')->log($ex->getMessage());
+                    }
                     /* end of addition by Willy */
 
                     Mage::helper('rocketweb_netsuite')->log($ex->getMessage());
