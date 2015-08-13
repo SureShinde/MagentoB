@@ -6,6 +6,42 @@
  */
 
 class Bilna_Rest_Model_Api2_Product_Review_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_Product_Review_Rest {
+    protected function _create(array $data) {
+        $this->_createValidator($data);
+        
+        $product = $this->_getProduct();
+        
+        if (!$product) {
+            $this->_critical(self::RESOURCE_NOT_FOUND);
+        }
+        
+        try {
+            $review = Mage::getModel('review/review')->setData($data);
+            $review->setEntityId($review->getEntityIdByCode(Mage_Review_Model_Review::ENTITY_PRODUCT_CODE))
+                ->setEntityPkValue($product->getId())
+                ->setStatusId(Mage_Review_Model_Review::STATUS_PENDING)
+                ->setCustomerId($customerId)
+                ->setStoreId(Mage::app()->getStore()->getId())
+                ->setStores(array(Mage::app()->getStore()->getId()))
+                ->save();
+
+            foreach ($rating as $ratingId => $optionId) {
+                Mage::getModel('rating/rating')
+                    ->setRatingId($ratingId)
+                    ->setReviewId($review->getId())
+                    ->setCustomerId($customerId)
+                    ->addOptionVote($optionId, $product->getId());
+            }
+
+            $review->aggregate();
+        }
+        catch (Exception $e) {
+            $this->_critical($e->getMessage());
+        }
+        
+        $this->_getLocation($review);
+    }
+
     protected function _retrieveCollection() {
         $collection = Mage::getModel('review/review')->getResourceCollection()
             ->addStoreFilter($this->_getStore()->getId())
