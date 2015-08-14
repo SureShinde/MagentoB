@@ -134,8 +134,13 @@ class Bilna_Checkout_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Checkout_Mod
                 if ($productItem['qty'] > 0) {
                     $quoteItem->setQty($productItem['qty']);
                 }
+
+                $quote->addItem($quoteItem);
             }
 
+            $quote->getShippingAddress()->setCollectShippingRates(true);
+            $quote->getShippingAddress()->collectShippingRates();
+            $quote->collectTotals(); // calls $address->collectTotals();
             $quote->save();
 
 //            $productModel = Mage::getModel('catalog/product');
