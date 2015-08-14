@@ -120,11 +120,8 @@
     <?php $_i++ ?>
     <?php endforeach; ?>
     <?php $randSku = array_rand($skuCollection); ?>
-    <?php
-        Mage::getSingleton('core/session')->setDRPageType('home');
-        Mage::getSingleton('core/session')->setDRProdId($skuCollection[$randSku]);
-    ?>
-    <?php //echo "<pre>";var_dump($this->getCurrentCategory());echo "</pre>"; ?>
+    <?php Mage::getSingleton('core/session')->setDRPageType('home'); ?>
+    <?php Mage::getSingleton('core/session')->setDRProdId($skuCollection[$randSku]); ?>
     <?php if($_ulOpened != $_ulClosed) : ?>
         </ul>
     <?php endif ?>
@@ -133,10 +130,5 @@
     var afpGrid<?php echo $this->getUniqueBlockId() ?> = new afpGrid({
         blockId: '<?php echo $this->getUniqueBlockId() ?>'
     });
-</script>
-<script type="text/javascript">
-    pageType = 'home';
-    prodId = '<?php echo $skuCollection[$randSku]; ?>';
-    totalValue = '';
 </script>
 <?php endif ?>

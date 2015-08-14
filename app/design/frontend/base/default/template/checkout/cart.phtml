@@ -123,7 +123,7 @@
                     <tbody>
                         <?php foreach($this->getItems() as $_item): ?>
                             <?php echo $this->getItemHtml($_item) ?>
-                            <?php $gtmItemIds .= $_item->getId().'|'; ?>
+                            <?php $gtmItemIds = $_item->getId().'|'; ?>
                         <?php endforeach; ?>
 
 						<?php $cartItems = Mage::getSingleton('checkout/session')->getQuote()->getAllItems(); ?>
