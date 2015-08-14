@@ -120,12 +120,8 @@ class Bilna_Checkout_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Checkout_Mod
 
                 //$productRequest = $this->_getProductRequest($productItem);
                 $quoteItem = $this->_getQuoteItemByProduct($quote, $productByItem,
-                    $this->_getProductRequest(
-                        array(
-                            'product_id' => $productItem['product_id'],
-                            'qty'        => $productItem['qty']
-                        )
-                ));
+                    $this->_getProductRequest($productItem)
+                );
 
                 if (is_null($quoteItem->getId())) {
                     throw Mage::throwException("One item of products is not belong any of quote item");
