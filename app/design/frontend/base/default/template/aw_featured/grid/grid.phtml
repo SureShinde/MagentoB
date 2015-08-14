@@ -23,24 +23,28 @@
  * @copyright  Copyright (c) 2010-2012 aheadWorks Co. (http://www.aheadworks.com)
  * @license    http://ecommerce.aheadworks.com/AW-LICENSE.txt
  */
-?><?php if($this->canDisplay() && $this->getProductsCollection()->getSize() && !$this->getIsEmpty()) : ?>
-<?php $_helper = $this->helper('catalog/output') ?>
-<?php $_imageQsize = 152 // Maximal image width\height value, pixels ?>
-<?php $_onSaleHelper = $this->helper('awfeatured/onsale') ?>
-<?php $_abstractBlock = $this->helper('awfeatured')->getAbstractProductBlock() ?>
-<div class="awfeatured awafpgrid" id="<?php echo $this->getUniqueBlockId() ?>" style="<?php echo $this->getContainerStyleString() ?>">
-    <?php $_i = $_ulOpened = $_ulClosed = 0; ?>
-    <?php foreach($this->getProductsCollection() as $_product) : ?>
-        <?php if($_i % $this->getItemsPerRow() == 0) : ?>
-        <?php $_ulOpened++ ?>
-        <ul>
-        <!-- row begins -->
-        <?php endif ?>
+?>
+    
+<?php if ($this->canDisplay() && $this->getProductsCollection()->getSize() && !$this->getIsEmpty()): ?>
+    <?php $_helper = $this->helper('catalog/output') ?>
+    <?php $_imageQsize = 152 // Maximal image width\height value, pixels ?>
+    <?php $_onSaleHelper = $this->helper('awfeatured/onsale') ?>
+    <?php $_abstractBlock = $this->helper('awfeatured')->getAbstractProductBlock() ?>
+
+    <div class="awfeatured awafpgrid" id="<?php echo $this->getUniqueBlockId() ?>" style="<?php echo $this->getContainerStyleString() ?>">
+        <?php $_i = $_ulOpened = $_ulClosed = 0; ?>
+        <?php foreach ($this->getProductsCollection() as $_product): ?>
+            <?php if ($_i % $this->getItemsPerRow() == 0): ?>
+                <?php $_ulOpened++ ?>
+                <ul>
+                    <!-- row begins -->
+            <?php endif ?>
+            
             <li style="width: <?php echo $this->getItemWidth() ?>%">
-				<div class="top_thumb_list_product">
-                <!-- product item begin -->
-                <?php $_imageSrc = Mage::helper('awfeatured/images')->getProductImage($_product, $_product->getData('image_id'))->resize(152,152) ?>
-                <?php if($_imageSrc) : ?>
+                <div class="top_thumb_list_product">
+                    <!-- product item begin -->
+                    <?php $_imageSrc = Mage::helper('awfeatured/images')->getProductImage($_product, $_product->getData('image_id'))->resize(152,152) ?>
+                    <?php if ($_imageSrc) : ?>
                 <div class="afp-thumbnail">
                     <?php if($_onSaleHelper->isOnsale()) echo $_onSaleHelper->startOnsale($_product, $_imageQsize) ?>
                     <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($_abstractBlock->getImageLabel($_product, 'small_image'), null, true) ?>" class="product-image">

@@ -277,9 +277,9 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
         $allProducts = $this->_getProduct()->getTypeInstance(true)->getUsedProducts(null, $this->_getProduct());
         
         foreach ($allProducts as $product) {
-            if ($product->isSaleable() || $skipSaleableCheck) {
+            //if ($product->isSaleable() || $skipSaleableCheck) {
                 $products[] = $product;
-            }
+            //}
         }
             
         return $products;
@@ -461,6 +461,7 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
                 }
             }
             
+            $result[$key]['attribute_bundle'] = $this->_getAttributeBundle($product);
             $result[$key]['review'] = $this->_getProductReview($product->getId());
             $result[$key]['images'] = array (
                 'base' => Mage::getModel('catalog/product_media_config')->getMediaUrl($product->getImage()),
@@ -780,13 +781,14 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
         );
     }
     
-    
     /**
      * Product Bundle
      * return array
      */
-    protected function _getAttributeBundle() {
-        $product = $this->_getProduct();
+    protected function _getAttributeBundle($product = null) {
+        if (is_null($product)) {
+            $product = $this->_getProduct();
+        }
         
         if ($product->getData('type_id') != 'bundle' || !$product->isSaleable()) {
             return null;
