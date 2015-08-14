@@ -19,15 +19,15 @@ class Bilna_Checkout_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Checkout_Mod
     {
     	$quoteId = $data['entity_id'];
     	$storeId = isset($data['store_id']) ? $data['store_id'] : 1;
-    	$productId = $data['product_id'];
-    	$qty = isset($data['qty']) ? $data['qty'] : 1;
+    	/*$productId = $data['product_id'];
+    	$qty = isset($data['qty']) ? $data['qty'] : 1;*/
 
-        $productsData = $data['products'];
+        $productsData = array($data['products']);
 
     	try {
 	    	$quote = $this->_getQuote($quoteId, $storeId);                   
 
-	    	if(empty($productId))
+	    	if(empty($productsData))
 	    	{
 	    		Mage::throwException("Invalid Product Data");
 	    	}
@@ -35,7 +35,7 @@ class Bilna_Checkout_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Checkout_Mod
             $errors = array();
             foreach ($productsData as $productItem)
             {
-                $productItem = $this->_getProduct($productItem['product_id'], $storeId, "id");
+                $productByItem = $this->_getProduct($productItem['product_id'], $storeId, "id");
 
                 $productRequest = $this->_getProductRequest($productItem);
                 try {
@@ -102,90 +102,70 @@ class Bilna_Checkout_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Checkout_Mod
     {       
     	$quoteId = $data['entity_id'];
     	$storeId = isset($data['store_id']) ? $data['store_id'] : 1;
-    	$productId = $data['product_id'];
-    	$qty = isset($data['qty']) ? $data['qty'] : 1;
+    	/*$productId = $data['product_id'];
+    	$qty = isset($data['qty']) ? $data['qty'] : 1;*/
+        $productsData = array($data['products']);
     	
     	try {
 	    	$quote = $this->_getQuote($quoteId, $storeId);
 	        
-	    	if(empty($productId))
+	    	if(empty($productsData))
 	    	{
 	    		throw Mage::throwException("Invalid Product Data");
 	    	}
 
-	    	//$productByItem = $this->_getProduct($productId, $storeId, "id");
-$productModel = Mage::getModel('catalog/product');
-$productByItem = $productModel->load($productId);
+            foreach ($productsData as $productItem)
+            {
+                $productByItem = $this->_getProduct($productItem['product_id'], $storeId, "id");
+
+                //$productRequest = $this->_getProductRequest($productItem);
+                $quoteItem = $this->_getQuoteItemByProduct($quote, $productByItem,
+                    $this->_getProductRequest(
+                        array(
+                            'product_id' => $productItem['product_id'],
+                            'qty'        => $productItem['qty']
+                        )
+                ));
+
+                if (is_null($quoteItem->getId())) {
+                    throw Mage::throwException("One item of products is not belong any of quote item");
+                }
+
+                if ($productItem['qty'] > 0) {
+                    $quoteItem->setQty($productItem['qty']);
+                }
+            }
+
+            $quote->save();
+
+//            $productModel = Mage::getModel('catalog/product');
+//            $productByItem = $productModel->load($productId);
 
 
 	    	/** @var $quoteItem Mage_Sales_Model_Quote_Item */
-            $quoteItem = $this->_getQuoteItemByProduct($quote, $productByItem,
-                $this->_getProductRequest(
-                	array(
-			    		'product_id' => $productId,
-			    		'qty'		 => $qty
-			    	)
-                ));
+//            $quoteItem = $this->_getQuoteItemByProduct($quote, $productByItem,
+//                $this->_getProductRequest(
+        //         	array(
+			    	// 	'product_id' => $productId,
+			    	// 	'qty'		 => $qty
+			    	// )
+        //         ));
 
-            if (is_null($quoteItem->getId())) {
-                throw Mage::throwException("One item of products is not belong any of quote item");
-            }
+        //     if (is_null($quoteItem->getId())) {
+        //         throw Mage::throwException("One item of products is not belong any of quote item");
+        //     }
 
-            if ($qty > 0) {
-                $quoteItem->setQty($qty);
-            }
-$quote->addItem($quoteItem);
-$quote->getShippingAddress()->setCollectShippingRates(true);
-$quote->getShippingAddress()->collectShippingRates();
-$quote->collectTotals(); // calls $address->collectTotals();
-$quote->save(); 
-            //$quote->collectTotals()->save();
+        //     if ($qty > 0) {
+        //         $quoteItem->setQty($qty);
+        //     }
+        //     $quote->addItem($quoteItem);
+        //     $quote->getShippingAddress()->setCollectShippingRates(true);
+        //     $quote->getShippingAddress()->collectShippingRates();
+        //     $quote->collectTotals(); // calls $address->collectTotals();
+        //     $quote->save(); 
+
 
 	    } catch (Mage_Core_Exception $e) {
-            $this->_error($e->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
-        }
-    }
-
-    /**
-     * Delete cart
-     *
-     * @param array $data
-     * @throws Mage_Api2_Exception
-     */
-    protected function _delete()
-    {
-        $quoteId = $this->getRequest()->getParam('quote_id');
-        $storeId = 1;
-        $productId = $this->getRequest()->getParam('id');
-       
-        try {
-            $quote = $this->_getQuote($quoteId, $storeId);
-            
-            if(empty($productId))
-            {
-                throw Mage::throwException("Invalid Product Data");
-            }
-
-            $productByItem = $this->_getProduct($productId, $storeId, "id");
-
-            /** @var $quoteItem Mage_Sales_Model_Quote_Item */
-            $quoteItem = $this->_getQuoteItemByProduct($quote, $productByItem,
-                $this->_getProductRequest(
-                    array(
-                        'product_id' => $productId,
-                        'qty'        => $qty
-                    )
-                ));
-
-            if (is_null($quoteItem->getId())) {
-                throw Mage::throwException("One item of products is not belong any of quote item");
-            }
-
-            $quote->removeItem($quoteItem->getId());
-
-            $quote->collectTotals()->save();
-
-        } catch (Mage_Core_Exception $e) {
             $this->_error($e->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
         }
     }
