@@ -26,7 +26,7 @@ class Bilna_Checkout_Model_Api2_Product_Delete_Rest_Admin_V1 extends Bilna_Check
     	try {
             $quote = $this->_getQuote($quoteId, $storeId);
             
-            if(empty($productId))
+            if(empty($productsData))
             {
                 throw Mage::throwException("Invalid Product Data");
             }
