@@ -131,11 +131,13 @@
 						<?php $productCollection = array(); ?>
 						<?php $qtyCollection = array(); ?>
 						<?php $valueCollection = array(); ?>
+						<?php $totalValue = 0; ?>
 						<?php foreach($cartItems as $cartItem) : ?>
 						<?php $skuCollection[] = $cartItem->getSku(); ?>
 						<?php $productCollection[] = $cartItem->getId(); ?>
 						<?php $qtyCollection[] = $cartItem->getQty(); ?>
 						<?php $valueCollection[] = $cartItem->getPrice(); ?>
+						<?php $totalValue += ($cartItem->getPrice() * $cartItem->getQty()); ?>
 						<?php endforeach; ?>
 						<?php $skuDisplay =  implode("','", $skuCollection); ?>
 						<?php $productDisplay =  implode("','", $productCollection); ?>
@@ -381,10 +383,12 @@
 <script type="text/javascript">
 jQuery(document).ready(function () {
 	dataLayer.push({'ecomm_pagetype': 'cart'});
-	dataLayer.push({'ecomm_prodid': '<?php echo $productDisplay; ?>'});
-	dataLayer.push({'ecomm_skudid': '<?php echo $skuDisplay; ?>'});
-	dataLayer.push({'ecomm_prices': '<?php echo $valueDisplay; ?>'});
-	dataLayer.push({'ecomm_quantities': '<?php echo $qtyDisplay; ?>'});
+	dataLayer.push({'ecomm_prodid': '<?php echo $skuDisplay; ?>'});
+	dataLayer.push({'ecomm_totalvalue': '<?php echo $totalValue; ?>'});
+	dataLayer.push({'productid': '<?php echo $productDisplay; ?>'});
+	dataLayer.push({'skuid': '<?php echo $skuDisplay; ?>'});
+	dataLayer.push({'prices': '<?php echo $valueDisplay; ?>'});
+	dataLayer.push({'quantities': '<?php echo $qtyDisplay; ?>'});
 
 	var ajaxURL = 'https://www.bilna.com/ajaxrequest/data/retrievecart/';
 

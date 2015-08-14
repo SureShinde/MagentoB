@@ -512,8 +512,9 @@
 <script type="text/javascript">
 jQuery(document).ready(function () {
 	dataLayer.push( {'ecomm_pagetype': 'product'} );
+    dataLayer.push( {'ecomm_prodid': '<?php echo Mage::getModel('catalog/product')->load($productId)->getSku(); ?>'} );
+    dataLayer.push( {'ecomm_totalvalue': '<?php echo number_format(Mage::getModel('catalog/product')->load($productId)->getPrice(), 0, '', ''); ?>'} );
 	dataLayer.push( {'productid': '<?php echo $_product->getId(); ?>'} );
-	dataLayer.push( {'ecomm_skuid': '<?php echo Mage::getModel('catalog/product')->load($productId)->getSku(); ?>'} );
-	dataLayer.push( {'ecomm_prices': '<?php echo number_format(Mage::getModel('catalog/product')->load($productId)->getPrice(), 0, '', ''); ?>'} );
+	dataLayer.push( {'skuid': '<?php echo Mage::getModel('catalog/product')->load($productId)->getSku(); ?>'} );
 });
 </script>
