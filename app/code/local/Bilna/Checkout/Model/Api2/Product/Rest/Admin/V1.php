@@ -21,6 +21,9 @@ class Bilna_Checkout_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Checkout_Mod
     	$storeId = isset($data['store_id']) ? $data['store_id'] : 1;
     	$productId = $data['product_id'];
     	$qty = isset($data['qty']) ? $data['qty'] : 1;
+
+        $productsData = $data['products'];
+
     	try {
 	    	$quote = $this->_getQuote($quoteId, $storeId);                   
 
@@ -29,11 +32,34 @@ class Bilna_Checkout_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Checkout_Mod
 	    		Mage::throwException("Invalid Product Data");
 	    	}
 
+            $errors = array();
+            foreach ($productsData as $productItem)
+            {
+                $productItem = $this->_getProduct($productItem['product_id'], $storeId, "id");
+
+                $productRequest = $this->_getProductRequest($productItem);
+                try {
+                    $result = $quote->addProduct($productByItem, $productRequest);
+                    if (is_string($result)) {
+                        Mage::throwException($result);
+                    }
+                } catch (Mage_Core_Exception $e) {
+                    $errors[] = $e->getMessage();
+                }
+            }
+
+            if (!empty($errors)){
+                Mage::throwException(implode(PHP_EOL, $errors));
+            }
+            $quote->getShippingAddress()->setCollectShippingRates(true);
+            $quote->getShippingAddress()->collectShippingRates();
+            $quote->collectTotals()->save();
+
             /*$productModel = Mage::getModel('catalog/product');
             $product = $productModel->load($productId);*/
 
 
-	    	$product = $this->_getProduct($productId, $storeId, "id");
+//	    	$product = $this->_getProduct($productId, $storeId, "id");
 
 	    	/*$productRequest = $this->_getProductRequest(array(
 	    		'product_id' => $productId,
@@ -42,20 +68,20 @@ class Bilna_Checkout_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Checkout_Mod
 
 	    	$result = $quote->addProduct($productByItem, $productRequest);*/
 
-            $quoteItem = Mage::getModel('sales/quote_item')->setProduct($product);
-            $quoteItem->setStoreId($storeId);
-            $quoteItem->setQuote($quote);
-            $quoteItem->setQty($qty);
+//            $quoteItem = Mage::getModel('sales/quote_item')->setProduct($product);
+//            $quoteItem->setStoreId($storeId);
+//            $quoteItem->setQuote($quote);
+//            $quoteItem->setQty($qty);
 
             /*if (is_string($result)) {
                 throw Mage::throwException($result);
             }*/
 
-            $quote->addItem($quoteItem);
-            $quote->getShippingAddress()->setCollectShippingRates(true);
-            $quote->getShippingAddress()->collectShippingRates();
-            $quote->collectTotals(); // calls $address->collectTotals();
-            $quote->save();            
+//            $quote->addItem($quoteItem);
+//            $quote->getShippingAddress()->setCollectShippingRates(true);
+//            $quote->getShippingAddress()->collectShippingRates();
+//            $quote->collectTotals(); // calls $address->collectTotals();
+//            $quote->save();            
 
             //$quote->collectTotals()->save();
 
