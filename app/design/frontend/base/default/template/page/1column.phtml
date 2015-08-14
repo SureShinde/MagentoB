@@ -33,6 +33,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?php echo $this->getLang() ?>" lang="<?php echo $this->getLang() ?>">
 <head>
 <?php echo $this->getChildHtml('head') ?>
+    <script type="text/javascript">
+        var pageType = '';
+        var prodId = '';
+        var totalValue = '';
+    </script>
 </head>
     
 <body class="<?php echo $this->getCurrentMainCategoryActive(); ?><?php if ($this->getBodyClass()): echo $this->getBodyClass(); endif; ?>">
@@ -57,5 +62,27 @@
     </div>
 </div>
 <?php echo $this->getAbsoluteFooter() ?>
+<?php
+    if(
+    Mage::getSingleton('cms/page')->getIdentifier() == 'home'  &&
+    Mage::app()->getFrontController()->getRequest()->getRouteName() == 'cms'
+    ) :
+?>
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+        dataLayer.push(
+            {'ecomm_pagetype': '<?php echo Mage::getSingleton('core/session')->getDRPageType(); ?>'}
+        );
+        dataLayer.push(
+            {'ecomm_prodid': '<?php echo Mage::getSingleton('core/session')->getDRProdId(); ?>'}
+        );
+        dataLayer.push(
+            {'ecomm_totalvalue': ''}
+        );
+    });
+</script>
+<?php
+    endif;
+?>
 </body>
 </html>

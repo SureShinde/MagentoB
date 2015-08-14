@@ -123,8 +123,25 @@
                     <tbody>
                         <?php foreach($this->getItems() as $_item): ?>
                             <?php echo $this->getItemHtml($_item) ?>
-                            <?php $gtmItemIds = $_item->getId().'|'; ?>
-                        <?php endforeach ?>
+                            <?php $gtmItemIds .= $_item->getId().'|'; ?>
+                        <?php endforeach; ?>
+
+						<?php $cartItems = Mage::getSingleton('checkout/session')->getQuote()->getAllItems(); ?>
+						<?php $skuCollection = array(); ?>
+						<?php $productCollection = array(); ?>
+						<?php $qtyCollection = array(); ?>
+						<?php $valueCollection = array(); ?>
+						<?php foreach($cartItems as $cartItem) : ?>
+						<?php $skuCollection[] = $cartItem->getSku(); ?>
+						<?php $productCollection[] = $cartItem->getId(); ?>
+						<?php $qtyCollection[] = $cartItem->getQty(); ?>
+						<?php $valueCollection[] = $cartItem->getPrice(); ?>
+						<?php endforeach; ?>
+						<?php $skuDisplay =  implode("','", $skuCollection); ?>
+						<?php $productDisplay =  implode("','", $productCollection); ?>
+						<?php $qtyDisplay =  implode("','", $qtyCollection); ?>
+						<?php $valueDisplay =  implode("','", $valueCollection); ?>
+
                     </tbody>
                 </table>
                 
@@ -362,8 +379,14 @@
 	</div>
 </div>
 <script type="text/javascript">
-jQuery(document).ready(function () {    
-    var ajaxURL = 'https://www.bilna.com/ajaxrequest/data/retrievecart/';
+jQuery(document).ready(function () {
+	dataLayer.push({'ecomm_pagetype': 'cart'});
+	dataLayer.push({'ecomm_prodid': '<?php echo $productDisplay; ?>'});
+	dataLayer.push({'ecomm_skudid': '<?php echo $skuDisplay; ?>'});
+	dataLayer.push({'ecomm_prices': '<?php echo $valueDisplay; ?>'});
+	dataLayer.push({'ecomm_quantities': '<?php echo $qtyDisplay; ?>'});
+
+	var ajaxURL = 'https://www.bilna.com/ajaxrequest/data/retrievecart/';
 
     var data = {};
 
