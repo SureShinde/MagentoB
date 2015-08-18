@@ -141,7 +141,7 @@ class Bilna_Checkout_Model_Api2_Resource extends Mage_Api2_Model_Resource
 		            ->joinLeft(
                         array('sfqio' => $resource->getTableName('sales_flat_quote_item_option')),
                         'sfqi.item_id=sfqio.item_id',
-                        array()
+                        array('code' => 'sfqio.code', 'value' => 'sfqio.value', 'option_id'=> 'sfqio.option_id')
                     )
                     ->where('quote_id IN ('.implode(",",array_values($orderIds)).')');
                     /*->where('name <> ""')
