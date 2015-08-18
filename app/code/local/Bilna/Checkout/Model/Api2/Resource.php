@@ -139,9 +139,9 @@ class Bilna_Checkout_Model_Api2_Resource extends Mage_Api2_Model_Resource
 		                new Zend_Db_Expr('*'))
 		            )
 		            ->joinLeft(
-                        array('sfqio' => $resource->getTableName('sales_flat_quote_item_option'),
+                        array('sfqio' => $resource->getTableName('sales_flat_quote_item_option')),
                         'sfqi.item_id=sfqio.item_id',
-                        array())
+                        array()
                     )
                     ->where('quote_id IN ('.implode(",",array_values($orderIds)).')');
                     /*->where('name <> ""')
@@ -149,11 +149,19 @@ class Bilna_Checkout_Model_Api2_Resource extends Mage_Api2_Model_Resource
 
 		        $salesQuotesItem = $adapter->fetchAll($select);
                 
-
                 foreach($salesQuotesItem as $quoteItem)
                 {
-                	$items[$quoteItem['quote_id']][] = $itemsFilter->out($quoteItem);
-            	}
+                    $options[$quoteItem['item_id']]['options'][$quoteItem['option_id']]['code'] = $quoteItem['code'];
+                    $options[$quoteItem['item_id']]['options'][$quoteItem['option_id']]['value'] = $quoteItem['value'];
+                    $options[$quoteItem['item_id']]['quote'] = $quoteItem;
+                }
+
+                foreach($options as $qi)
+                {
+                    $qi['quote']['item_options'] = $qi['options'];
+                    $items[$qi['quote']['quote_id']][] = $itemsFilter->out($qi['quote']);
+                }
+
             }
         }
         return $items;
