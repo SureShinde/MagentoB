@@ -80,13 +80,6 @@ $largeCmsBlock = Mage::getModel('cms/block')->load($staticBlockPrefix . 1)->getC
 <?php elseif ($_imgUrl): ?>
     <?php echo $_imgHtml; ?>
 <?php endif; ?>
-
-<?php if($_description=$this->getCurrentCategory()->getDescription()): ?>
-    <div class="category-description std">
-        <?php echo $_helper->categoryAttribute($_category, $_description, 'description') ?>
-    </div>
-    <?php endif; ?>
-
 <?php if($this->isContentMode()): ?>
     <?php echo $this->getCmsBlockHtml() ?>
 
@@ -97,7 +90,12 @@ $largeCmsBlock = Mage::getModel('cms/block')->load($staticBlockPrefix . 1)->getC
 <?php else: ?>
     <?php echo $this->getProductListHtml() ?>
 <?php endif; ?>
-
+<?php if($_description=$this->getCurrentCategory()->getDescription()): ?>
+    <div class="category-description std">
+        <span><?php echo $_category->getName(); ?></span>
+        <p><?php echo $_helper->categoryAttribute($_category, $_description, 'description') ?></p>
+    </div>
+<?php endif; ?>
 <!-- static block pop-up ASI Disclaimer -->
 <?php if ($this->checkCategoryAttributeCookie('asi_disclaimer') === false): ?>
     <?php if ($this->checkCategoryAttributeYesNo('asi_disclaimer')): ?>

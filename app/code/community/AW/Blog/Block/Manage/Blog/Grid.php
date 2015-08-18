@@ -53,19 +53,26 @@ class AW_Blog_Block_Manage_Blog_Grid extends Mage_Adminhtml_Block_Widget_Grid
             ->addFieldToSelect('update_time')
             ->addFieldToSelect('status');
 		$collection->getSelect()
-			->join(array('apc' => $collection->getTable('blog/post_cat')), 'main_table.post_id = apc.post_id')
-			->join(array('ac' => $collection->getTable('blog/cat')), 'apc.cat_id = ac.cat_id', array(
-					'category' => 'ac.title',
-				));
+            ->join
+                (
+                    array('acx' => new Zend_Db_Expr(
+                            '(SELECT apc.cat_id, post_id, GROUP_CONCAT(title) title FROM aw_blog_post_cat apc
+                             INNER JOIN aw_blog_cat ac ON apc.cat_id = ac.cat_id GROUP BY apc.post_id)')),
+                    'acx.post_id = main_table.post_id',
+                    array(
+                        'category' => 'acx.title'
+                    )
+            );
+
         $collection->addFilterToMap('post_id', 'main_table.post_id');
         $collection->addFilterToMap('title', 'main_table.title');
         $collection->addFilterToMap('identifier', 'main_table.identifier');
-        $collection->addFilterToMap('category', 'ac.title');
-        $collection->getSelect()->group('main_table.post_id');        		
+        $collection->addFilterToMap('category', 'acx.title');
         $store = $this->_getStore();
         if ($store->getId()) {
             $collection->addStoreFilter($store);
         }
+
         $this->setCollection($collection);
         return parent::_prepareCollection();
     }
