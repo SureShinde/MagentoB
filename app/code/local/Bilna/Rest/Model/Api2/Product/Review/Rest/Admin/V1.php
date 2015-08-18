@@ -10,6 +10,8 @@ class Bilna_Rest_Model_Api2_Product_Review_Rest_Admin_V1 extends Bilna_Rest_Mode
         $this->_createValidator($data);
         
         $product = $this->_getProduct();
+        $customerId = $data['customer_id'];
+        $ratings = $data['ratings'];
         
         if (!$product) {
             $this->_critical(self::RESOURCE_NOT_FOUND);
@@ -21,11 +23,11 @@ class Bilna_Rest_Model_Api2_Product_Review_Rest_Admin_V1 extends Bilna_Rest_Mode
                 ->setEntityPkValue($product->getId())
                 ->setStatusId(Mage_Review_Model_Review::STATUS_PENDING)
                 ->setCustomerId($customerId)
-                ->setStoreId(Mage::app()->getStore()->getId())
-                ->setStores(array(Mage::app()->getStore()->getId()))
+                ->setStoreId($this->_getStore()->getId())
+                ->setStores(array ($this->_getStore()->getId()))
                 ->save();
-
-            foreach ($rating as $ratingId => $optionId) {
+            
+            foreach ($ratings as $ratingId => $optionId) {
                 Mage::getModel('rating/rating')
                     ->setRatingId($ratingId)
                     ->setReviewId($review->getId())

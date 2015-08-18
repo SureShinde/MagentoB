@@ -164,9 +164,6 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
             $data   = $this->getRequest()->getPost();
             $rating = $this->getRequest()->getParam('ratings', array());
         }
-        
-        echo json_encode($data);
-        exit;
 
         if (($product = $this->_initProduct()) && !empty($data)) {
             $session    = Mage::getSingleton('core/session');
