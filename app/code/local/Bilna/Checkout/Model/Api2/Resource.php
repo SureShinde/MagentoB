@@ -139,9 +139,9 @@ class Bilna_Checkout_Model_Api2_Resource extends Mage_Api2_Model_Resource
 		                new Zend_Db_Expr('*'))
 		            )
 		            ->joinLeft(
-                        'sfqio' => $resource->getTableName('sales_flat_quote_item_option'),
+                        array('sfqio' => $resource->getTableName('sales_flat_quote_item_option'),
                         'sfqi.item_id=sfqio.item_id',
-                        array()
+                        array())
                     )
                     ->where('quote_id IN ('.implode(",",array_values($orderIds)).')');
                     /*->where('name <> ""')
