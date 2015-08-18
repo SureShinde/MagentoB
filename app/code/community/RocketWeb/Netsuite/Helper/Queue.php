@@ -45,6 +45,21 @@ class RocketWeb_Netsuite_Helper_Queue extends Mage_Core_Helper_Data {
         }
         else return false;
     }
+
+    // check whether the last modified date in the message table is different from last modified from Netsuite
+    public function lastModifiedDateChanged(RocketWeb_Netsuite_Model_Queue_Message $message, $lastModifiedDate) {
+        $identifier = $message->getUniqueIdentifier();
+        $connection = Mage::getSingleton('core/resource')->getConnection('core_read');
+        $connection->closeConnection();
+		$connection->getConnection();
+        $sql = $connection->quoteInto("SELECT last_modified FROM ".Mage::getSingleton('core/resource')->getTableName('message')." WHERE body LIKE ?",$identifier.'|%');
+        $last_modified = $connection->fetchOne($sql);
+
+        if ($last_modified == $lastModifiedDate)
+        	return false;
+        
+        return true;
+    }
 	
 	public function getQueue($queueName) {
 

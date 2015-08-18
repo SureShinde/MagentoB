@@ -117,7 +117,7 @@ class RocketWeb_Netsuite_Model_Queue_Adapter_Db extends Zend_Queue_Adapter_Db {
      * @return Zend_Queue_Message
      * @throws Zend_Queue_Exception - database error
      */
-    public function send($message, Zend_Queue $queue = null, $priority = 0)
+    public function send($message, Zend_Queue $queue = null, $priority = 0, $last_modified = null)
     {
         if ($this->_messageRow === null) {
             $this->_messageRow = $this->_messageTable->createRow();
@@ -145,6 +145,7 @@ class RocketWeb_Netsuite_Model_Queue_Adapter_Db extends Zend_Queue_Adapter_Db {
         $msg->body     = $message;
         $msg->md5      = md5($message);
         $msg->priority = $priority;
+        $msg->last_modified = $last_modified;
         // $msg->timeout = ??? @TODO
 
         try {
