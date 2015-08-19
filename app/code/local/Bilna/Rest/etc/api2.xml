@@ -477,14 +477,30 @@
                         <retrieve>1</retrieve>
                     </admin>
                 </privileges>
-                <attributes translate="" module="Bilna_Rest">
-                    
+                <attributes translate="entity_id entity_type_id attribute_set_id type_id sku has_options required_options created_at updated_at request_path price tax_class_id final_price minimal_price min_price max_price tier_price" module="Bilna_Rest">
+                    <entity_id>Entity ID</entity_id>
+                    <entity_type_id>Entity Type ID</entity_type_id>
+                    <attribute_set_id>Attribute Set ID</attribute_set_id>
+                    <type_id>Type ID</type_id>
+                    <sku>SKU</sku>
+                    <has_options>Has Options</has_options>
+                    <required_options>Required Options</required_options>
+                    <created_at>Created At</created_at>
+                    <updated_at>Updated At</updated_at>
+                    <request_path>Request Path</request_path>
+                    <price>Price</price>
+                    <tax_class_id>Tax Class ID</tax_class_id>
+                    <final_price>Final Price</final_price>
+                    <minimal_price>Minimal Price</minimal_price>
+                    <min_price>Min Price</min_price>
+                    <max_price>Max Price</max_price>
+                    <tier_price>Tier Price</tier_price>
                 </attributes>
                 <routes>
-                    <route_entity>
+                    <route_collection>
                         <route>/productrelated/:id</route>
-                        <action_type>entity</action_type>
-                    </route_entity>
+                        <action_type>collection</action_type>
+                    </route_collection>
                 </routes>
                 <versions>1</versions>
             </product_related>
