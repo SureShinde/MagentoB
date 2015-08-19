@@ -7,9 +7,8 @@
 
 class Bilna_Rest_Model_Api2_Productrelated_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_Productrelated_Rest {
     protected function _retrieveCollection() {
+        $this->_createValidator();
         $this->_checkVersion();
-        
-        $this->_getParams();
         $this->_getProduct();
         $this->_getBlocks();
         

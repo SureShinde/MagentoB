@@ -6,6 +6,7 @@
  */
 
 abstract class Bilna_Rest_Model_Api2_Productrelated_Rest extends Bilna_Rest_Model_Api2_Productrelated {
+    protected $_data = array ();
     protected $_name = null;
     protected $_customerGroupId = null;
     protected $_productId = null;
@@ -16,6 +17,31 @@ abstract class Bilna_Rest_Model_Api2_Productrelated_Rest extends Bilna_Rest_Mode
     protected $_collection = null;
     protected $_joinedAttributes;
     
+    protected function _createValidator() {
+        $this->_getParams();
+        
+        $validator = Mage::getModel('bilna_rest/api2_productrelated_validator_productrelated');
+        
+        if (!$validator->isValidData($this->_data)) {
+            foreach ($validator->getErrors() as $error) {
+                $this->_error($error, Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
+            }
+            
+            $this->_critical(self::RESOURCE_DATA_PRE_VALIDATION_ERROR);
+        }
+    }
+
+    protected function _getParams() {
+        $this->_name = $this->getRequest()->getQuery('name');
+        $this->_customerGroupId = $this->getRequest()->getQuery('customer_group_id');
+        $this->_productId = $this->getRequest()->getQuery('product_id');
+        $this->_data = array (
+            'name' => $this->_name,
+            'customer_group_id' => $this->_customerGroupId,
+            'product_id' => $this->_productId,
+        );
+    }
+    
     protected function _checkVersion() {
         if (Mage::helper('awautorelated')->checkVersion('1.4')) {
             return true;
@@ -25,12 +51,6 @@ abstract class Bilna_Rest_Model_Api2_Productrelated_Rest extends Bilna_Rest_Mode
         }
     }
 
-    protected function _getParams() {
-        $this->_name = $this->getRequest()->getQuery('name');
-        $this->_customerGroupId = $this->getRequest()->getQuery('customer_group_id');
-        $this->_productId = $this->getRequest()->getParam('id');
-    }
-    
     protected function _getProduct() {
         $this->_product = Mage::getModel('catalog/product')->setStoreId($this->_getStore()->getId())->load($this->_productId);
     }

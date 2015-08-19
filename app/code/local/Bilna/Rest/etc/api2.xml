@@ -498,7 +498,7 @@
                 </attributes>
                 <routes>
                     <route_collection>
-                        <route>/productrelated/:id</route>
+                        <route>/productrelated</route>
                         <action_type>collection</action_type>
                     </route_collection>
                 </routes>
