@@ -26,12 +26,12 @@ class Bilna_Rest_Model_Api2_Product_Validator_Review extends Mage_Api2_Model_Res
             $this->_addError('The customer_id is not specified');
         }
         
-        if (!isset ($data['summary'])) {
-            $this->_addError('The summary is not specified');
+        if (!isset ($data['title'])) {
+            $this->_addError('The title is not specified');
         }
         
-        if (!isset ($data['review'])) {
-            $this->_addError('The review is not specified');
+        if (!isset ($data['detail'])) {
+            $this->_addError('The detail is not specified');
         }
         
         if (!isset ($data['ratings'])) {
