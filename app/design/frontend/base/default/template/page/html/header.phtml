@@ -32,10 +32,20 @@
 <script type="text/javascript">	
         wwidth = $j(window).width();
     var tooltipMobileFirst = 'tooltip_mobile_first';
-    
+    jQuery(window).load(function() {
+		jQuery(".megamenu.megamenu-active img, .homepage-banner img").lazyload({
+			skip_invisible : true
+		});
+		jQuery("img.lazy").lazyload();
+        jQuery(".first-level > ul > li").hover(function() {
+			jQuery(".homepage-banner .first-level-cat.hover-cat img, .megamenu.megamenu-active .first-level-cat.hover-cat img").lazyload();
+        });
+	});
     $j(document).ready(function() {
+		
 		$j(".first-level > ul > li:first-of-type").addClass("active-cat");
         $j(".first-level > ul > li").hover(function() {
+		$j(".homepage-banner .first-level-cat.hover-cat img").lazyload();
             $j('.first-level > ul > li.active-cat .second-level').hide();
             $j('.first-level > ul > li.active-cat div').css("color","inherit");
             $j('.first-level > ul > li').removeClass("hover-cat");
@@ -64,6 +74,9 @@
         $j('.wrap-megamenu').click(function() {
             $j('.bg-dark-megamenu').toggle();
             $j('.megamenu').toggleClass("megamenu-active");
+			$j(".megamenu.megamenu-active img").lazyload({
+				skip_invisible : true
+			});
         });
 		 $j('.bg-dark-megamenu').click(function() {
             $j('.megamenu').removeClass("megamenu-active");
