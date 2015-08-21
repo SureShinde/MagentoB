@@ -8,7 +8,7 @@
                 <children>
                     <rest_categories translate="title" module="Bilna_Rest">
                         <title>Categories</title>
-                        <sort_order>100</sort_order>
+                        <sort_order>1000</sort_order>
                     </rest_categories>
                     <rest_productalerts translate="title" module="Bilna_Rest">
                         <title>Product Alert</title>
@@ -358,7 +358,7 @@
                 <group>rest_categories</group>
                 <model>bilna_rest/api2_category</model>
                 <title>Category</title>
-                <sort_order>100</sort_order>
+                <sort_order>200</sort_order>
                 <privileges>
                     <admin>
                         <retrieve>1</retrieve>
@@ -440,7 +440,7 @@
             <product_featured translate="title" module="Bilna_Rest">
                 <group>bilna_rest</group>
                 <model>bilna_rest/api2_productfeatured</model>
-                <title>Featured Product</title>
+                <title>Product Featured</title>
                 <sort_order>220</sort_order>
                 <privileges>
                     <admin>
@@ -454,14 +454,14 @@
                     <store>Store</store>
                     <type>Type</type>
                     <type_data>Type Data</type_data>
-                    <autoposition>Auto Position</autoposition>
+                    <autoposition>Autoposition</autoposition>
                     <automation_type>Automation Type</automation_type>
                     <automation_data>Automation Data</automation_data>
                     <is_active>Is Active</is_active>
                 </attributes>
                 <routes>
                     <route_entity>
-                        <route>/productfeatured/:id/:category_id</route>
+                        <route>/productfeatured/:block_id</route>
                         <action_type>entity</action_type>
                     </route_entity>
                 </routes>
@@ -470,37 +470,33 @@
             <product_related>
                 <group>bilna_rest</group>
                 <model>bilna_rest/api2_productrelated</model>
-                <title>Related Product</title>
+                <title>Product Related</title>
                 <sort_order>230</sort_order>
                 <privileges>
                     <admin>
                         <retrieve>1</retrieve>
                     </admin>
                 </privileges>
-                <attributes translate="entity_id entity_type_id attribute_set_id type_id sku has_options required_options created_at updated_at request_path price tax_class_id final_price minimal_price min_price max_price tier_price" module="Bilna_Rest">
-                    <entity_id>Entity ID</entity_id>
-                    <entity_type_id>Entity Type ID</entity_type_id>
-                    <attribute_set_id>Attribute Set ID</attribute_set_id>
-                    <type_id>Type ID</type_id>
-                    <sku>SKU</sku>
-                    <has_options>Has Options</has_options>
-                    <required_options>Required Options</required_options>
-                    <created_at>Created At</created_at>
-                    <updated_at>Updated At</updated_at>
-                    <request_path>Request Path</request_path>
-                    <price>Price</price>
-                    <tax_class_id>Tax Class ID</tax_class_id>
-                    <final_price>Final Price</final_price>
-                    <minimal_price>Minimal Price</minimal_price>
-                    <min_price>Min Price</min_price>
-                    <max_price>Max Price</max_price>
-                    <tier_price>Tier Price</tier_price>
+                <attributes translate="id type name status store customer_groups priority date_from date_to position currently_viewed related_products products" module="Bilna_Rest">
+                    <id>ID</id>
+                    <type>Type</type>
+                    <name>Name</name>
+                    <status>Status</status>
+                    <store>Store</store>
+                    <customer_groups>Customer Groups</customer_groups>
+                    <priority>Priority</priority>
+                    <date_from>Date From</date_from>
+                    <date_to>Date To</date_to>
+                    <position>Position</position>
+                    <currently_viewed>Currently Viewed</currently_viewed>
+                    <related_products>Related Products</related_products>
+                    <products>Products</products>
                 </attributes>
                 <routes>
-                    <route_collection>
-                        <route>/productrelated</route>
-                        <action_type>collection</action_type>
-                    </route_collection>
+                    <route_entity>
+                        <route>/productrelated/:block_name/:product_id</route>
+                        <action_type>entity</action_type>
+                    </route_entity>
                 </routes>
                 <versions>1</versions>
             </product_related>

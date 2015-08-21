@@ -6,89 +6,76 @@
  */
 
 abstract class Bilna_Rest_Model_Api2_Productrelated_Rest extends Bilna_Rest_Model_Api2_Productrelated {
-    protected $_data = array ();
-    protected $_name = null;
-    protected $_customerGroupId = null;
+    protected $_blockName = null;
+    protected $_block = null;
+
     protected $_productId = null;
     protected $_product = null;
 
-    protected $_blocks = null;
     protected $_canShow = null;
     protected $_collection = null;
     protected $_joinedAttributes;
     
-    protected function _createValidator() {
-        $this->_getParams();
-        
-        $validator = Mage::getModel('bilna_rest/api2_productrelated_validator_productrelated');
-        
-        if (!$validator->isValidData($this->_data)) {
-            foreach ($validator->getErrors() as $error) {
-                $this->_error($error, Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
-            }
-            
-            $this->_critical(self::RESOURCE_DATA_PRE_VALIDATION_ERROR);
-        }
-    }
-
     protected function _getParams() {
-        $this->_name = $this->getRequest()->getQuery('name');
-        $this->_customerGroupId = $this->getRequest()->getQuery('customer_group_id');
-        $this->_productId = $this->getRequest()->getQuery('product_id');
-        $this->_data = array (
-            'name' => $this->_name,
-            'customer_group_id' => $this->_customerGroupId,
-            'product_id' => $this->_productId,
-        );
+        $this->_blockName = $this->getRequest()->getParam('block_name');
+        $this->_productId = $this->getRequest()->getParam('product_id');
     }
     
-    protected function _checkVersion() {
-        if (Mage::helper('awautorelated')->checkVersion('1.4')) {
-            return true;
+    protected function _getBlock() {
+        if ($this->_block === null) {
+            $collection = Mage::getModel('awautorelated/blocks')->getCollection()
+                ->addFieldToFilter('name', $this->_blockName)
+                ->addStoreFilter($this->_getStore()->getId())
+                ->addStatusFilter()
+                ->addDateFilter()
+                ->setPriorityOrder();
+            
+            $this->_block = $collection->getFirstItem();
+            
+            if (!$this->_block->getId()) {
+                $this->_error('Block not found', Mage_Api2_Model_Server::HTTP_NOT_FOUND);
+                $this->_critical(self::RESOURCE_NOT_FOUND);
+            }
         }
-        else {
-            $this->_critical(self::RESOURCE_INTERNAL_ERROR);
-        }
+        
+        return $this->_block;
     }
 
     protected function _getProduct() {
         $this->_product = Mage::getModel('catalog/product')->setStoreId($this->_getStore()->getId())->load($this->_productId);
-    }
-
-    protected function _getBlocks() {
-        if ($this->_blocks === null) {
-            $collection = Mage::getModel('awautorelated/blocks')->getCollection()
-                ->addFieldToFilter('name', $this->_name)
-                ->addStoreFilter($this->_getStore()->getId())
-                ->addStatusFilter()
-                ->addCustomerGroupFilter($this->_customerGroupId)
-                ->addDateFilter()
-                ->setPriorityOrder();
-            
-            $this->_blocks = $collection->getFirstItem();
+        
+        if (!$this->_product->getId()) {
+            $this->_error('Product not found', Mage_Api2_Model_Server::HTTP_NOT_FOUND);
+            $this->_critical(self::RESOURCE_NOT_FOUND);
         }
         
-        return $this->_blocks;
+        return $this->_product;
     }
     
     protected function _getCollection() {
-        if ($this->_canShow()) {
-            if ($this->_collection === null) {
-                $this->_initCollection();
-                $this->_renderRelatedProductsFilters();
-                $this->_postProcessCollection();
-            }
-            
-            return $this->_collection;
+        if (!$this->_canShow()) {
+            $this->_error('Product cannot show', Mage_Api2_Model_Server::HTTP_NOT_FOUND);
+            $this->_critical(self::RESOURCE_NOT_FOUND);
         }
         
-        return null;
+        if ($this->_collection === null) {
+            $this->_initCollection();
+            $this->_renderRelatedProductsFilters();
+            $this->_postProcessCollection();
+        }
+
+        if (!$this->_collection) {
+            $this->_error('Product Related not found', Mage_Api2_Model_Server::HTTP_NOT_FOUND);
+            $this->_critical(self::RESOURCE_NOT_FOUND);
+        }
+
+        return $this->_collection;
     }
     
     protected function _canShow() {
         if ($this->_canShow === null) {
             $model = Mage::getModel('awautorelated/blocks_product_ruleviewed')->setWebsiteIds($this->_getStore()->getWebsite()->getId());
-            $conditions = $this->_blocks->getCurrentlyViewed()->getConditions();
+            $conditions = $this->_block->getCurrentlyViewed()->getConditions();
             
             if (isset ($conditions['viewed'])) {
                 $model->getConditions()->loadArray($conditions, 'viewed');
@@ -134,14 +121,14 @@ abstract class Bilna_Rest_Model_Api2_Productrelated_Rest extends Bilna_Rest_Mode
     }
     
     protected function _getShowOutOfStock() {
-        return $this->_blocks->getRelatedProducts()->getShowOutOfStock();
+        return $this->_block->getRelatedProducts()->getShowOutOfStock();
     }
     
     protected function _renderRelatedProductsFilters() {
         $model = Mage::getModel('awautorelated/blocks_product_rulerelated')->setWebsiteIds($this->_getStore()->getWebsite()->getId());
-        $conditions = $this->_blocks->getRelatedProducts()->getRelated();
-        $gCondition = $this->_blocks->getRelatedProducts()->getGeneral();
-        $limit = $this->_blocks->getRelatedProducts()->getProductQty();
+        $conditions = $this->_block->getRelatedProducts()->getRelated();
+        $gCondition = $this->_block->getRelatedProducts()->getGeneral();
+        $limit = $this->_block->getRelatedProducts()->getProductQty();
         $mIds = array ();
 
         if (isset ($conditions['conditions']['related'])) {
@@ -256,7 +243,7 @@ abstract class Bilna_Rest_Model_Api2_Productrelated_Rest extends Bilna_Rest_Mode
     protected function _getRelatedProductsOrder() {
         $rpOrder = array ('type' => AW_Autorelated_Model_Source_Block_Common_Order::NONE);
         
-        if ($relatedProducts = $this->_blocks->getRelatedProducts()) {
+        if ($relatedProducts = $this->_block->getRelatedProducts()) {
             if (is_array($order = $relatedProducts->getData('order'))) {
                 $rpOrder = $order;
             }
@@ -306,5 +293,31 @@ abstract class Bilna_Rest_Model_Api2_Productrelated_Rest extends Bilna_Rest_Mode
                 }
             }
         }
+    }
+    
+    protected function _parseResponse($block, $productCollection) {
+        $result = array ();
+        $result['id'] = $block->getId();
+        $result['type'] = $block->getType();
+        $result['name'] = $block->getName();
+        $result['status'] = $block->getStatus();
+        $result['store'] = $block->getStore();
+        $result['customer_groups'] = $block->getCustomerGroups();
+        $result['priority'] = $block->getPriority();
+        $result['date_from'] = $block->getDateFrom();
+        $result['date_to'] = $block->getDateTo();
+        $result['position'] = $block->getPosition();
+        $result['currently_viewed'] = $block->getCurrentlyViewed()->getData();
+        $result['related_products'] = $block->getRelatedProducts()->getData();
+        
+        $products = array ();
+        
+        foreach ($productCollection as $product) {
+            $products[] = $product->getId();
+        }
+        
+        $result['products'] = $products;
+        
+        return $result;
     }
 }
