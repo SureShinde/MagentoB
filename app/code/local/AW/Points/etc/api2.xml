@@ -29,10 +29,10 @@
 						<retrieve>1</retrieve>
 					</customer>
 				</privileges>
-				<attributes translate="isAvailable canUseWithCoupon moneyForPoints" module="AW_Points">
-					<isAvailable>Avaibility</isAvailable>
-					<canUseWithCoupon>Can Use With Coupon</canUseWithCoupon>
-                    <moneyForPoints>Money for Points</moneyForPoints>
+				<attributes translate="is_available canusewithcoupon moneyforpoints" module="AW_Points">
+					<is_available>Avaibility</is_available>
+					<canusewithcoupon>Can Use With Coupon</canusewithcoupon>
+                    <moneyforpoints>Money for Points</moneyforpoints>
 				</attributes>
 				<routes>
 					<route_entity>
