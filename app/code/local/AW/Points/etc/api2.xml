@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<config>
+	<api2>
+		<resource_groups>
+			<awpoints translate="title" module="AW_Points">
+				<title>Checkout</title>
+				<sort_order>130</sort_order>
+				<children>
+					<awpoints_point translate="title" module="AW_Points">
+						<title>Points</title>
+						<sort_order>150</sort_order>
+					</awpoints_point>
+				</children>
+			</awpoints>
+		</resource_groups>
+		<resources>
+			<cart_quote translate="title" module="AW_Points">
+				<group>awpoints</group>
+				<sort_order>90</sort_order>
+				<model>aw_points/api2_points</model>
+				<title>Points</title>
+				<privileges>
+					<admin>
+						<create>1</create>
+						<retrieve>1</retrieve>
+						<update>1</update>
+					</admin>
+					<customer>
+						<retrieve>1</retrieve>
+					</customer>
+				</privileges>
+				<attributes translate="isAvailable canUseWithCoupon moneyForPoints" module="AW_Points">
+					<isAvailable>Avaibility</isAvailable>
+					<canUseWithCoupon>Can Use With Coupon</canUseWithCoupon>
+                    <moneyForPoints>Money for Points</moneyForPoints>
+				</attributes>
+				<routes>
+					<route_entity>
+						<route>/points/customer/:id</route>
+						<action_type>entity</action_type>
+					</route_entity>
+					<route_collection>
+						<route>/points/customer</route>
+						<action_type>collection</action_type>
+					</route_collection>
+				</routes>
+				<versions>1</versions>
+			</cart_quote>
+		</resources>
+	</api2>
+</config>
