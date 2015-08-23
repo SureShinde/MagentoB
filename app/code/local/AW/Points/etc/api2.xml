@@ -14,7 +14,7 @@
 			</awpoints>
 		</resource_groups>
 		<resources>
-			<cart_quote translate="title" module="AW_Points">
+			<points_check translate="title" module="AW_Points">
 				<group>awpoints</group>
 				<sort_order>90</sort_order>
 				<model>aw_points/api2_points</model>
@@ -45,7 +45,7 @@
 					</route_collection>
 				</routes>
 				<versions>1</versions>
-			</cart_quote>
+			</points_check>
 		</resources>
 	</api2>
 </config>
