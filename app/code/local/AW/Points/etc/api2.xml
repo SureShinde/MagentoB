@@ -3,7 +3,7 @@
 	<api2>
 		<resource_groups>
 			<awpoints translate="title" module="AW_Points">
-				<title>Checkout</title>
+				<title>Points</title>
 				<sort_order>130</sort_order>
 				<children>
 					<awpoints_point translate="title" module="AW_Points">
