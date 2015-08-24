@@ -7,9 +7,10 @@ class RocketWeb_Netsuite_Shell_NetsuiteCron extends Mage_Shell_Abstract {
 
         $modes = $this->getModes();
         $recordtype = $this->getRecordtype(); // addition by Willy : get record type argument
+        $lock_recordtype_mode = (($recordtype && $modes[0] == 'import') ? '_'.$recordtype : '');
         
         if ($modes) {
-            $mutex = new RocketWeb_Netsuite_Model_Mutex('nesuite_cron_' . $modes[0] . '_lock');
+            $mutex = new RocketWeb_Netsuite_Model_Mutex('nesuite_cron_' . $modes[0] . $lock_recordtype_mode . '_lock');
             
             if (!$mutex->getLock()) {
                 die ('no lock!!!');
@@ -113,7 +114,7 @@ class RocketWeb_Netsuite_Shell_NetsuiteCron extends Mage_Shell_Abstract {
 
     /* addition by Willy: get possible recordtype argument */
     protected function getPossibleRecordtypes() {
-        return array ('all', 'inventory');
+        return array ('all', 'invoice', 'inventoryitem', 'order', 'order_fulfillment');
     }
 
     public function logProgress($message) {
@@ -128,7 +129,7 @@ Usage:  php -f netsuiteCron.php -- [options]
   --verbose                     Display progress (useful for debugging)
   --mode <modes>                Run specified modes
   <modes>                       Comma separated modes (import,export,stock) or value "all" for all modes
-  --recordtype <type>           value "all" or "inventory" (applied if mode is "import")
+  --recordtype <type>           value "all", "invoice", "inventoryitem", "cashsale", "order", "order_fulfillment" (applied if mode is "import")
 
 USAGE;
     }

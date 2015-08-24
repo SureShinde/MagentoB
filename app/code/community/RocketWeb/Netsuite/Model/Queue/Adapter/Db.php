@@ -50,9 +50,12 @@ class RocketWeb_Netsuite_Model_Queue_Adapter_Db extends Zend_Queue_Adapter_Db {
                 $run_recordtype = Mage::registry('current_run_recordtype');
                 $importWhereCondition = '1 = 1';
 
-                // if mode is import and recordtype is inventory, add new condition to get inventoryitem
-                if ($run_mode == 'import' && $run_recordtype == 'inventory')
-                    $importWhereCondition = "body like 'inventoryitem%'";
+                // if mode is import
+                if ($run_mode == 'import')
+                {
+                    // call the function whose job is to get the where condition for the import
+                    $importWhereCondition = $this->get_import_where_condition(Mage::registry('current_importable_entities'));
+                }
                 /* end of addition by Willy */
 
                 $db->beginTransaction();
@@ -176,5 +179,44 @@ class RocketWeb_Netsuite_Model_Queue_Adapter_Db extends Zend_Queue_Adapter_Db {
             Zend_Loader::loadClass($classname);
         }
         return new $classname($options);
+    }
+
+    private function get_import_where_condition($importableEntities)
+    {
+        $importWhereCondition = '';
+
+        // building where conditions
+        if (count($importableEntities) > 0)
+        {
+            $importWhereCondition .= "(";
+            $first_loop = true;
+            foreach ($importableEntities as $path => $name) {
+                if (!$first_loop)
+                    $importWhereCondition .= " or ";
+
+                switch ($path) {
+                    case "inventoryitem":
+                        $importWhereCondition .= "(body like 'inventoryitem%')";
+                        break;
+                    case "order":
+                        $importWhereCondition .= "(body like 'order%' and body not like 'order_fulfillment%')";
+                        break;
+                    case "order_fulfillment":
+                        $importWhereCondition .= "(body like 'order_fulfillment%')";
+                        break;
+                    case "invoice":
+                        $importWhereCondition .= "(body like 'invoice%')";
+                        break;
+                    case "cashsale":
+                        $importWhereCondition .= "(body like 'cashsale%')";
+                        break;
+                }
+
+                $first_loop = false;
+            }
+            $importWhereCondition .= ")";
+        }
+
+        return $importWhereCondition;
     }
 }
