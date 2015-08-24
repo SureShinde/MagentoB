@@ -4,19 +4,19 @@
 		<resource_groups>
 			<bilna_credit translate="title" module="Bilna_Points">
 				<title>Bilna Credit</title>
-				<sort_order>130</sort_order>
-				<children>
+				<sort_order>9000</sort_order>
+				<!--children>
 					<bilna_credit_check translate="title" module="Bilna_Points">
 						<title>Bilna Credit</title>
 						<sort_order>150</sort_order>
 					</bilna_credit_check>
-				</children>
+				</children-->
 			</bilna_credit>
 		</resource_groups>
 		<resources>
 			<points_check translate="title" module="Bilna_Points">
 				<group>bilna_credit</group>
-				<sort_order>90</sort_order>
+				<sort_order>9010</sort_order>
 				<model>bilna_points/api2_points</model>
 				<title>Bilna Credit</title>
 				<privileges>

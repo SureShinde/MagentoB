@@ -6,9 +6,9 @@
 	</modules>
 	<global>
 		<models>
-			<bilna_checkout>
+			<bilna_points>
 				<class>Bilna_Points_Model</class>
-			</bilna_checkout>
+			</bilna_points>
 		</models>
 	</global>
 </config>
