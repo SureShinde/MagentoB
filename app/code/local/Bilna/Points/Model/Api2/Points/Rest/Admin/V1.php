@@ -3,11 +3,11 @@
 /**
  * API2 class for points (AW) (admin)
  *
- * @category   AW
- * @package    AW_Points (custom)
+ * @category   Bilna
+ * @package    Bilna_Points (custom)
  * @author     Development Team <development@bilna.com>
  */
-class AW_Points_Model_Api2_Points_Rest_Admin_V1 extends AW_Points_Model_Api2_Points_Rest
+class Bilna_Points_Model_Api2_Points_Rest_Admin_V1 extends Bilna_Points_Model_Api2_Points_Rest
 {
 
 	protected function _retrieve()

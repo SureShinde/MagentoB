@@ -4,10 +4,10 @@
  * points api resource
  *
  * @category   Bilna
- * @package    Bilna_Checkout
+ * @package    Bilna_Points
  * @author     Bilna Development Team <core@magentocommerce.com>
  */
-class AW_Points_Model_Api2_Points extends Mage_Api2_Model_Resource
+class Bilna_Points_Model_Api2_Points extends Mage_Api2_Model_Resource
 {
     /**
      *

@@ -2,23 +2,23 @@
 <config>
 	<api2>
 		<resource_groups>
-			<awpoints translate="title" module="AW_Points">
-				<title>Points</title>
+			<bilna_credit translate="title" module="Bilna_Points">
+				<title>Bilna Credit</title>
 				<sort_order>130</sort_order>
 				<children>
-					<awpoints_point translate="title" module="AW_Points">
-						<title>Points</title>
+					<bilna_credit_check translate="title" module="Bilna_Points">
+						<title>Bilna Credit</title>
 						<sort_order>150</sort_order>
-					</awpoints_point>
+					</bilna_credit_check>
 				</children>
-			</awpoints>
+			</bilna_credit>
 		</resource_groups>
 		<resources>
-			<points_check translate="title" module="AW_Points">
-				<group>awpoints</group>
+			<points_check translate="title" module="Bilna_Points">
+				<group>bilna_credit</group>
 				<sort_order>90</sort_order>
-				<model>aw_points/api2_points</model>
-				<title>Points</title>
+				<model>bilna_points/api2_points</model>
+				<title>Bilna Credit</title>
 				<privileges>
 					<admin>
 						<create>1</create>
@@ -29,7 +29,7 @@
 						<retrieve>1</retrieve>
 					</customer>
 				</privileges>
-				<attributes translate="is_available canusewithcoupon moneyforpoints" module="AW_Points">
+				<attributes translate="is_available canusewithcoupon moneyforpoints" module="Bilna_Points">
 					<is_available>Avaibility</is_available>
 					<canusewithcoupon>Can Use With Coupon</canusewithcoupon>
                     <moneyforpoints>Money for Points</moneyforpoints>
