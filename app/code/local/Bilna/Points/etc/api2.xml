@@ -33,6 +33,7 @@
 					<is_available>Avaibility</is_available>
 					<canusewithcoupon>Can Use With Coupon</canusewithcoupon>
                     <moneyforpoints>Money for Points</moneyforpoints>
+                    <limited_points>Limited Points</limited_points>
 				</attributes>
 				<routes>
 					<route_entity>
