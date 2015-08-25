@@ -37,7 +37,7 @@
 				</attributes>
 				<routes>
 					<route_entity>
-						<route>/points/customer/:id</route>
+						<route>/points/customer/:id/quote/:quote_id</route>
 						<action_type>entity</action_type>
 					</route_entity>
 					<route_collection>
