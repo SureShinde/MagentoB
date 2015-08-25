@@ -15,7 +15,7 @@ class Bilna_Checkout_Model_Api2_Payment_Method_Bankcheck_Rest_Admin_V1 extends B
      * @param int|string $store
      * @return int
      */
-    protected function _create(array $data)
+    /*protected function _create(array $data)
     {
     	$cardNo = $data['card_no'];
     	$response = array (
@@ -36,7 +36,8 @@ class Bilna_Checkout_Model_Api2_Payment_Method_Bankcheck_Rest_Admin_V1 extends B
 	                'cc_type' => $ccType,
 	                'acquired_bank' => $this->getAcquiredBank($bankCode),
 	                'secure' => $this->getSecureBank($bankCode),
-	                'installment_process' => $this->getInstallmentProcess($bankCode)
+	                'installment_process' => $this->getInstallmentProcess($bankCode),
+                    'client_key' => Mage::getStoreConfig('payment/vtdirect/client_key')
 	            );
 	        }
 	        else {
@@ -48,7 +49,7 @@ class Bilna_Checkout_Model_Api2_Payment_Method_Bankcheck_Rest_Admin_V1 extends B
         }
 
         return $response;
-    }
+    }*/
 
     /**
      * Get Bank Check Validation
@@ -79,7 +80,8 @@ class Bilna_Checkout_Model_Api2_Payment_Method_Bankcheck_Rest_Admin_V1 extends B
                     'cc_type' => $ccType,
                     'acquired_bank' => $this->getAcquiredBank($bankCode),
                     'secure' => $this->getSecureBank($bankCode),
-                    'installment_process' => $this->getInstallmentProcess($bankCode)
+                    'installment_process' => $this->getInstallmentProcess($bankCode),
+                    'client_key' => Mage::getStoreConfig('payment/vtdirect/client_key')
                 );
             }
             else {

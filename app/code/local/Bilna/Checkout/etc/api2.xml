@@ -790,7 +790,7 @@
                 </attributes>
                 <routes>
                     <route_entity>
-                        <route>/checkout/payment/method/bankcheck/quote/:id</route>
+                        <route>/checkout/payment/method/bankcheck/:id</route>
                         <action_type>entity</action_type>
                     </route_entity>
                     <route_collection>
