@@ -182,6 +182,104 @@
                         </test_connection>
                     </fields>
                 </connection_import>
+                <connection_import_recordtype translate="label">
+                    <label>Import Connection Settings For Record Types</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>15</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <enabled translate="label">
+                            <label>Enable This Setting</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </enabled>
+                        <host translate="label comment">
+                            <label>Netsuite host</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends><enabled>1</enabled></depends>
+                        </host>
+                        <end_point translate="label comment">
+                            <label>Netsuite end point</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>rocketweb_netsuite/adminhtml_system_config_source_endpoint</source_model>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends><enabled>1</enabled></depends>
+                        </end_point>
+                        <account_id translate="label comment">
+                            <label>Netsuite account ID</label>
+                            <comment>To get this value, go to Setup->Integration->Web Services Preferences in Netsuite and look for "Account ID"</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends><enabled>1</enabled></depends>
+                        </account_id>
+                        <email translate="label comment">
+                            <label>Netsuite account email</label>
+                            <comment>The email address of the web service user you have defined in Netsuite</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends><enabled>1</enabled></depends>
+                        </email>
+                        <password translate="label comment">
+                            <label>Netsuite account password</label>
+                            <comment>The password of the web service user you have defined in Netsuite</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>60</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends><enabled>1</enabled></depends>
+                        </password>
+                        <role_id translate="label comment">
+                            <label>Netsuite account role id</label>
+                            <comment>The role id of the web service user you have defined in Netsuite. To get this value, go to Setup->Integration->Web Services Preferences in Netsuite and look for the "ID" value in the user list.</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>70</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends><enabled>1</enabled></depends>
+                        </role_id>
+                        <recordtype>
+                            <label>Affected Record Types</label>
+                            <source_model>rocketweb_netsuite/adminhtml_system_config_source_importableentities</source_model>
+                            <frontend_type>multiselect</frontend_type>
+                            <sort_order>80</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends><enabled>1</enabled></depends>
+                        </recordtype>
+                        <test_connection translate="button_label">
+                            <label></label>
+                            <button_label>Test Connection</button_label>
+                            <frontend_model>rocketweb_netsuite/adminhtml_system_config_testconnection</frontend_model>
+                            <sort_order>90</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends><enabled>1</enabled></depends>
+                        </test_connection>
+                    </fields>
+                </connection_import_recordtype>
                 <connection_export translate="label">
                     <label>Export Connection Settings</label>
                     <frontend_type>text</frontend_type>

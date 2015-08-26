@@ -506,6 +506,9 @@
             <connection_import>
                 <same>1</same>
             </connection_import>
+            <connection_import_recordtype>
+                <enabled>1</enabled>
+            </connection_import_recordtype>
             <connection_export>
                 <same>1</same>
             </connection_export>
