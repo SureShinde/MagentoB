@@ -175,7 +175,6 @@ class Bilna_AjaxRequest_DataController extends Mage_Core_Controller_Front_Action
         	}
         	
         	$response['data']['category'] = array_unique($response['data']['category']);
-        	$response['data']['description'] = array_unique($response['data']['description']);
 
         	if	(($product->getStatus()==1) ||
         			($product->getIsInStock()==1) ||
