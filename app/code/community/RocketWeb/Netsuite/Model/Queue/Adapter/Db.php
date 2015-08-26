@@ -45,6 +45,19 @@ class RocketWeb_Netsuite_Model_Queue_Adapter_Db extends Zend_Queue_Adapter_Db {
         // start transaction handling
         try {
             if ( $maxMessages > 0 ) { // ZF-7666 LIMIT 0 clause not included.
+                /* addition by Willy */
+                $run_mode = Mage::registry('current_run_mode');
+                $run_recordtype = Mage::registry('current_run_recordtype');
+                $importWhereCondition = '1 = 1';
+
+                // if mode is import
+                if ($run_mode == 'import')
+                {
+                    // call the function whose job is to get the where condition for the import
+                    $importWhereCondition = $this->get_import_where_condition(Mage::registry('current_importable_entities'));
+                }
+                /* end of addition by Willy */
+
                 $db->beginTransaction();
 
                 $query = $db->select();
@@ -55,6 +68,7 @@ class RocketWeb_Netsuite_Model_Queue_Adapter_Db extends Zend_Queue_Adapter_Db {
                 $query->from($info['name'], array('*'))
                     ->where('queue_id=?', $this->getQueueId($queue->getName()))
                     ->where('handle IS NULL OR timeout+' . (int)$timeout . ' < ' . (int)$microtime)
+                    ->where($importWhereCondition) // addition by Willy
                     ->order('priority ASC', 'created ASC')
                     ->limit($maxMessages);
 
@@ -165,5 +179,44 @@ class RocketWeb_Netsuite_Model_Queue_Adapter_Db extends Zend_Queue_Adapter_Db {
             Zend_Loader::loadClass($classname);
         }
         return new $classname($options);
+    }
+
+    private function get_import_where_condition($importableEntities)
+    {
+        $importWhereCondition = '';
+
+        // building where conditions
+        if (count($importableEntities) > 0)
+        {
+            $importWhereCondition .= "(";
+            $first_loop = true;
+            foreach ($importableEntities as $path => $name) {
+                if (!$first_loop)
+                    $importWhereCondition .= " or ";
+
+                switch ($path) {
+                    case "inventoryitem":
+                        $importWhereCondition .= "(body like 'inventoryitem%')";
+                        break;
+                    case "order":
+                        $importWhereCondition .= "(body like 'order%' and body not like 'order_fulfillment%')";
+                        break;
+                    case "order_fulfillment":
+                        $importWhereCondition .= "(body like 'order_fulfillment%')";
+                        break;
+                    case "invoice":
+                        $importWhereCondition .= "(body like 'invoice%')";
+                        break;
+                    case "cashsale":
+                        $importWhereCondition .= "(body like 'cashsale%')";
+                        break;
+                }
+
+                $first_loop = false;
+            }
+            $importWhereCondition .= ")";
+        }
+
+        return $importWhereCondition;
     }
 }
