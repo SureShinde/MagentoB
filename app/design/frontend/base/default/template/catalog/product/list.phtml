@@ -212,8 +212,8 @@ jQuery(document).ready(function(){
             jQuery(document).ready(function(){
                 dataLayer.push( {'ecomm_pagetype': '<?php echo $pageType; ?>'} );
                 dataLayer.push( {'ecomm_prodid': '<?php echo Mage::getModel('catalog/product')->load($productId[0])->getSku(); ?>'} );
-                dataLayer.push( {'productid': '<?php echo implode("'|'", $prodId); ?>'} );
-                dataLayer.push( {'skuid': '<?php echo implode("'|'", $skuCollection); ?>'} );
+                dataLayer.push( {'productid': ['<?php echo implode("','", $prodId); ?>']} );
+                dataLayer.push( {'skuid': ['<?php echo implode("','", $skuCollection); ?>']} );
             });
         </script>
         <script type="text/javascript">decorateGeneric($$('ul.products-grid'), ['odd','even','first','last'])</script>
