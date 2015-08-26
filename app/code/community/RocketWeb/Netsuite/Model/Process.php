@@ -88,6 +88,9 @@ class RocketWeb_Netsuite_Model_Process {
             }
             
             $importableEntityModel = Mage::getModel('rocketweb_netsuite/process_import_' . $path);
+
+            // get update date from specific importable entity
+            $updatedFrom = $this->getUpdatedFromDateInNetsuiteFormat(RocketWeb_Netsuite_Helper_Queue::NETSUITE_IMPORT_QUEUE, 'netsuite_import_'.$path);
             
             if (!$importableEntityModel) {
                 Mage::helper('rocketweb_netsuite')->log("Model class not found for $path");
@@ -202,6 +205,9 @@ class RocketWeb_Netsuite_Model_Process {
                     }
                 }
             }
+
+            // set last update access date for specific import entity
+            Mage::helper('rocketweb_netsuite/queue')->setLastUpdateAccessDateSpecificEntity($time, 'netsuite_import_'.$path);
         }
 
         Mage::helper('rocketweb_netsuite/queue')->setLastUpdateAccessDate($time, RocketWeb_Netsuite_Helper_Queue::NETSUITE_IMPORT_QUEUE);
@@ -297,6 +303,9 @@ class RocketWeb_Netsuite_Model_Process {
             if (!$importableEntityModel->isActive()) {
                 continue;
             }
+
+            // get update date from specific importable entity
+            $updatedFrom = $this->getUpdatedFromDateInNetsuiteFormat(RocketWeb_Netsuite_Helper_Queue::NETSUITE_DELETE_QUEUE, 'netsuite_delete_'.$path);
             
             $records = $importableEntityModel->queryNetsuiteForDeletedRecords($updatedFrom);
             
@@ -314,6 +323,9 @@ class RocketWeb_Netsuite_Model_Process {
                     }
                 }
             }
+
+            // set last update access date for specific import entity
+            Mage::helper('rocketweb_netsuite/queue')->setLastUpdateAccessDateSpecificEntity($time, 'netsuite_delete_'.$path);
         }
 
         Mage::helper('rocketweb_netsuite/queue')->setLastUpdateAccessDate($time,RocketWeb_Netsuite_Helper_Queue::NETSUITE_DELETE_QUEUE);
@@ -355,8 +367,11 @@ class RocketWeb_Netsuite_Model_Process {
 
     }
 
-    protected function getUpdatedFromDateInNetsuiteFormat($queueType) {
-        $lastUpdateAccessDate = Mage::helper('rocketweb_netsuite/queue')->getLastUpdateAccessDate($queueType);
+    protected function getUpdatedFromDateInNetsuiteFormat($queueType, $importEntity = null) {
+        if (is_null($importEntity))
+            $lastUpdateAccessDate = Mage::helper('rocketweb_netsuite/queue')->getLastUpdateAccessDate($queueType);
+        else
+            $lastUpdateAccessDate = Mage::helper('rocketweb_netsuite/queue')->getLastUpdateAccessDateSpecificEntity($importEntity);
         
         if (!$lastUpdateAccessDate) {
             $lastUpdateAccessDate = null;
