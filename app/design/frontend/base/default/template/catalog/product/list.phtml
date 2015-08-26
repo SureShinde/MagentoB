@@ -201,13 +201,9 @@ jQuery(document).ready(function(){
             </ul>
 
         <?php $skuCollection = array(); ?>
-        <?php //$prodIdCollection = array(); ?>
-        <?php //for($start = 0; $start < 3; $start++) : ?>
         <?php $skuCollection[0] = Mage::getModel('catalog/product')->load($prodId[0])->getSku(); ?>
         <?php $skuCollection[1] = Mage::getModel('catalog/product')->load($prodId[1])->getSku(); ?>
         <?php $skuCollection[2] = Mage::getModel('catalog/product')->load($prodId[2])->getSku(); ?>
-            <?php //$prodIdCollection[] = $productId[$start]; ?>
-        <?php //endfor; ?>
         <script>
             jQuery(document).ready(function(){
                 dataLayer.push( {'ecomm_pagetype': '<?php echo $pageType; ?>'} );
