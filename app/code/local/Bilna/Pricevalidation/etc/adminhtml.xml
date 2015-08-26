@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<config>
+    <menu>
+        <bilna>
+            <children>
+                <bilna_pricevalidation_pricevalidation translate="title" module="bilna_pricevalidation">
+                    <sort_order>310</sort_order>
+                    <title>Price Validation</title>
+                    <action>adminhtml/pricevalidation/</action>
+                </bilna_pricevalidation_pricevalidation>
+            </children>
+        </bilna>
+    </menu>
+	
+	<acl>
+	  <resources>
+		<all>
+		  <title>Allow Everything</title>
+		</all>
+		<admin>
+		  <children>
+		  <bilna>
+				<children>
+					<bilna_pricevalidation_pricevalidation>
+						<title>Price Validation</title>
+					</bilna_pricevalidation_pricevalidation>
+				</children>
+		  </bilna>
+		  </children>
+		</admin>
+	  </resources>
+	</acl>
+</config>
