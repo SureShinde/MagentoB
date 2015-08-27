@@ -36,7 +36,7 @@
                         <delete>0</delete>
                     </admin>
                 </privileges>
-                <attributes translate="entity_id type_id attribute_set_id stock_data image_url is_saleable total_reviews_count url buy_now_url has_custom_options is_in_stock regular_price_with_tax regular_price_without_tax final_price_with_tax final_price_without_tax use_config_gift_message_available use_config_gift_wrapping_available url_key_create_redirect detailed_info attribute_config attribute_bundle images position" module="Bilna_Rest">
+                <attributes translate="entity_id type_id attribute_set_id stock_data image_url is_saleable total_reviews_count url buy_now_url has_custom_options is_in_stock regular_price_with_tax regular_price_without_tax final_price_with_tax final_price_without_tax use_config_gift_message_available use_config_gift_wrapping_available url_key_create_redirect detailed_info attribute_config attribute_bundle images position price_type" module="Bilna_Rest">
                     <entity_id>Product ID</entity_id>
                     <type_id>Product Type</type_id>
                     <attribute_set_id>Attribute Set</attribute_set_id>
@@ -61,6 +61,7 @@
                     <images>Images</images>
                     <review>Review</review>
                     <position>Position</position>
+                    <price_type>Price Type</price_type>
                 </attributes>
                 <exclude_attributes>
                     <admin>

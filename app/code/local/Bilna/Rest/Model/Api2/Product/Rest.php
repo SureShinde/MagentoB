@@ -42,7 +42,7 @@ abstract class Bilna_Rest_Model_Api2_Product_Rest extends Bilna_Rest_Model_Api2_
         // available attributes not contain image attribute, but it needed for get image_url
         $availableAttributes[] = 'image';
         $collection->addStoreFilter($store->getId())
-            ->addPriceData($this->_getCustomerGroupId(), $store->getWebsiteId())
+            //->addPriceData($this->_getCustomerGroupId(), $store->getWebsiteId())
             ->addAttributeToSelect(array_diff($availableAttributes, $entityOnlyAttributes))
             ->addAttributeToFilter('visibility', array ('neq' => Mage_Catalog_Model_Product_Visibility::VISIBILITY_NOT_VISIBLE))
             ->addAttributeToFilter('status', array( 'eq' => Mage_Catalog_Model_Product_Status::STATUS_ENABLED));
