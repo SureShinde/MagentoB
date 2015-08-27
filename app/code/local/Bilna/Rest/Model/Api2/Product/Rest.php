@@ -162,38 +162,43 @@ abstract class Bilna_Rest_Model_Api2_Product_Rest extends Bilna_Rest_Model_Api2_
      *
      * @return Mage_Catalog_Model_Product
      */
-    protected function _getProduct() {
-        if (is_null($this->_product)) {
-            $productId = $this->getRequest()->getParam('id');
-            /** @var $productHelper Mage_Catalog_Helper_Product */
-            $productHelper = Mage::helper('catalog/product');
-            $product = $productHelper->getProduct($productId, $this->_getStore()->getId());
-            
-            if (!($product->getId())) {
-                $this->_critical(self::RESOURCE_NOT_FOUND);
-            }
-            
-            // check if product belongs to website current
-            if ($this->_getStore()->getId()) {
-                $isValidWebsite = in_array($this->_getStore()->getWebsiteId(), $product->getWebsiteIds());
-                
-                if (!$isValidWebsite) {
-                    $this->_critical(self::RESOURCE_NOT_FOUND);
-                }
-            }
-            
-            // Check display settings for customers & guests
-            if ($this->getApiUser()->getType() != Mage_Api2_Model_Auth_User_Admin::USER_TYPE) {
-                // check if product assigned to any website and can be shown
-                if ((!Mage::app()->isSingleStoreMode() && !count($product->getWebsiteIds())) || !$productHelper->canShow($product)) {
-                    $this->_critical(self::RESOURCE_NOT_FOUND);
-                }
-            }
-            
-            $this->_product = $product;
+    protected function _getProduct($_productId = null) {
+        $_setProduct = false;
+        
+        if (is_null($_productId)) {
+            $_productId = $this->getRequest()->getParam('id');
+            $_setProduct = true;
         }
         
-        return $this->_product;
+        $productHelper = Mage::helper('catalog/product'); //- @var $productHelper Mage_Catalog_Helper_Product
+        $_product = $productHelper->getProduct($_productId, $this->_getStore()->getId());
+
+        if (!($_product->getId())) {
+            $this->_critical(self::RESOURCE_NOT_FOUND);
+        }
+
+        // check if product belongs to website current
+        if ($this->_getStore()->getId()) {
+            $isValidWebsite = in_array($this->_getStore()->getWebsiteId(), $_product->getWebsiteIds());
+
+            if (!$isValidWebsite) {
+                $this->_critical(self::RESOURCE_NOT_FOUND);
+            }
+        }
+
+        // Check display settings for customers & guests
+        if ($this->getApiUser()->getType() != Mage_Api2_Model_Auth_User_Admin::USER_TYPE) {
+            // check if product assigned to any website and can be shown
+            if ((!Mage::app()->isSingleStoreMode() && !count($_product->getWebsiteIds())) || !$productHelper->canShow($_product)) {
+                $this->_critical(self::RESOURCE_NOT_FOUND);
+            }
+        }
+        
+        if ($_setProduct) {
+            $this->_product = $_product;
+        }
+        
+        return $_product;
     }
 
     /**
