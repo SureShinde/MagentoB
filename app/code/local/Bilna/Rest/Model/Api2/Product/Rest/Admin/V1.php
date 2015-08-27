@@ -444,7 +444,7 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
         $result['totalRecord'] = $products->getSize();
         
         foreach ($products as $key => $row) {
-            $product = $this->_prepareProductForResponse(Mage::getModel('catalog/product')->load($row->getId()), true);
+            $product = $this->_prepareProductForResponse($this->_getProduct($row->getId()), true);
             
             foreach ($product->getData() as $k => $v) {
                 $data[$key] = $key;
