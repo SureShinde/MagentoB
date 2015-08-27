@@ -1280,7 +1280,7 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
         return $showSingle;
     }
     
-    protected function _getSelectionPrice($product, $selection) {
+    protected function _getBundleSelectionPrice($product, $selection) {
         $price = $product->getPriceModel()->getSelectionPreFinalPrice($product, $selection, 1);
         $tierPrice = $selection->getTierPrice();
         
@@ -1289,12 +1289,13 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
             $price = $qty * (float) $selection->getPriceModel()->getTierPrice($qty, $selection);
         }
         
-        return array (
-            'title' => $this->_escapeHtml($selection->getName()),
-            'price' => $this->_formatPriceString($product, $selection, $price),
-        );
+        return $this->_formatPriceString($product, $selection, $price);
     }
     
+    protected function _getSelectionGroupPrice($_selection) {
+        return $_selection->getPriceModel()->getGroupPrice($_selection);
+    }
+
     protected function _getTierPrices($product) {
         $prices = $product->getFormatedTierPrice();
         $res = array ();
@@ -1378,18 +1379,23 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
         
         if ($showSingle) {
             $result = array (
-                'price' => $this->_getSelectionPrice($product, $selections[0]),
-                'tier_price' => $this->_getTierPrices($product),
-                'selection_id' => $selections[0]->getSelectionId(),
+                'title' => $this->_escapeHtml($selections[0]->getData('name')),
+                'price' => $this->_getBundleSelectionPrice($product, $selections[0]),
+                'special_price' => $this->_getBundleSelectionSpecialPrice($selections[0]),
+                'group_price' => $selections[0]->getData('group_price'),
+                'selection_id' => $selections[0]->getData('selection_id'),
                 'default_value' => $this->_getBundleDefaultValues($product, $option, $selections[0]),
+                'is_selected' => false,
             );
         }
         else {
             foreach ($selections as $selection) {
                 $result[] = array (
-                    'price' => $this->_getSelectionPrice($product, $selection),
-                    'tier_price' => $this->_getTierPrices($product),
-                    'selection_id' => $selection->getSelectionId(),
+                    'title' => $this->_escapeHtml($selections[0]->getData('name')),
+                    'price' => $this->_getBundleSelectionPrice($product, $selection),
+                    'special_price' => $this->_getBundleSelectionSpecialPrice($selection),
+                    'group_price' => $selection->getData('group_price'),
+                    'selection_id' => $selection->getData('selection_id'),
                     'default_value' => $this->_getBundleDefaultValues($product, $option, $selection),
                     'is_selected' => $this->_isSelected($product, $option, $selection),
                 );
@@ -1399,6 +1405,15 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
         return $result;
     }
     
+    protected function _getBundleSelectionSpecialPrice($_selection) {
+        return array (
+            'price' => $_selection->getData('special_price'),
+            'from_date' => $_selection->getData('special_from_date'),
+            'to_date' => $_selection->getData('special_to_date'),
+        );
+    }
+
+
     protected function _getBundleDefaultValues($product, $option, $selection) {
         $optionType = $option->getType();
         
@@ -1431,13 +1446,13 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
 //            }
 //        }
 //        else {
-            $test = 5;
+            //$test = 5;
             $defaultQty = $selection->getSelectionQty() * 1;
             $canChangeQty = $selection->getSelectionCanChangeQty();
         //}
 
         return array (
-            'test' => $test,
+            //'test' => $test,
             'default_qty' => $defaultQty,
             'can_change_qty' => $canChangeQty,
         );

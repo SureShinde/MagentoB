@@ -14,6 +14,10 @@
                         <title>Product Alert</title>
                         <sort_order>200</sort_order>
                     </rest_productalerts>
+                    <rest_cms translate="title" module="Bilna_Rest">
+                        <title>CMS</title>
+                        <sort_order>2000</sort_order>
+                    </rest_cms>
                 </children>
             </bilna_rest>
         </resource_groups>
@@ -32,7 +36,7 @@
                         <delete>0</delete>
                     </admin>
                 </privileges>
-                <attributes translate="entity_id type_id attribute_set_id stock_data image_url is_saleable total_reviews_count url buy_now_url has_custom_options is_in_stock regular_price_with_tax regular_price_without_tax final_price_with_tax final_price_without_tax use_config_gift_message_available use_config_gift_wrapping_available url_key_create_redirect detailed_info attribute_config attribute_bundle images position" module="Bilna_Rest">
+                <attributes translate="entity_id type_id attribute_set_id stock_data image_url is_saleable total_reviews_count url buy_now_url has_custom_options is_in_stock regular_price_with_tax regular_price_without_tax final_price_with_tax final_price_without_tax use_config_gift_message_available use_config_gift_wrapping_available url_key_create_redirect detailed_info attribute_config attribute_bundle images position price_type" module="Bilna_Rest">
                     <entity_id>Product ID</entity_id>
                     <type_id>Product Type</type_id>
                     <attribute_set_id>Attribute Set</attribute_set_id>
@@ -57,6 +61,7 @@
                     <images>Images</images>
                     <review>Review</review>
                     <position>Position</position>
+                    <price_type>Price Type</price_type>
                 </attributes>
                 <exclude_attributes>
                     <admin>
@@ -500,6 +505,56 @@
                 </routes>
                 <versions>1</versions>
             </product_related>
+            <product_search>
+                <group>bilna_rest</group>
+                <model>bilna_rest/api2_productsearch</model>
+                <title>Product Search</title>
+                <sort_order>240</sort_order>
+                <privileges>
+                    <admin>
+                        <retrieve>1</retrieve>
+                    </admin>
+                </privileges>
+                <attributes translate="" module="Bilna_Rest">
+                    
+                </attributes>
+                <routes>
+                    <route_collection>
+                        <route>/search</route>
+                        <action_type>collection</action_type>
+                    </route_collection>
+                </routes>
+                <versions>1</versions>
+            </product_search>
+            <cms_block>
+                <group>rest_cms</group>
+                <model>bilna_rest/api2_cms_block</model>
+                <title>Block</title>
+                <sort_order>10</sort_order>
+                <privileges>
+                    <admin>
+                        <retrieve>1</retrieve>
+                    </admin>
+                </privileges>
+                <attributes translate="block_id title identifier content creation_time update_time is_active store_id stores" module="Bilna_Rest">
+                    <block_id>Block ID</block_id>
+                    <title>Title</title>
+                    <identifier>Identifier</identifier>
+                    <content>Content</content>
+                    <creation_time>Creation Time</creation_time>
+                    <update_time>Update Time</update_time>
+                    <is_active>Is Active</is_active>
+                    <store_id>Store ID</store_id>
+                    <stores>Stores</stores>
+                </attributes>
+                <routes>
+                    <route_entity>
+                        <route>/cms/block/:identifier</route>
+                        <action_type>entity</action_type>
+                    </route_entity>
+                </routes>
+                <versions>1</versions>
+            </cms_block>
         </resources>
     </api2>
 </config>
