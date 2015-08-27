@@ -1380,7 +1380,7 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
         if ($showSingle) {
             $result = array (
                 'title' => $this->_escapeHtml($selections[0]->getData('name')),
-                'price' => $this->_getBundleSelectionPrice($product, $selections[0]),
+                'price' => $selections[0]->getData('price'),
                 'special_price' => $this->_getBundleSelectionSpecialPrice($selections[0]),
                 'group_price' => $selections[0]->getData('group_price'),
                 'selection_id' => $selections[0]->getData('selection_id'),
@@ -1392,7 +1392,7 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
             foreach ($selections as $selection) {
                 $result[] = array (
                     'title' => $this->_escapeHtml($selections[0]->getData('name')),
-                    'price' => $this->_getBundleSelectionPrice($product, $selection),
+                    'price' => $selection->getData('price'),
                     'special_price' => $this->_getBundleSelectionSpecialPrice($selection),
                     'group_price' => $selection->getData('group_price'),
                     'selection_id' => $selection->getData('selection_id'),
