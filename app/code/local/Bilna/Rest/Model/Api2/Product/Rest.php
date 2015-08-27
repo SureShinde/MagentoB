@@ -172,10 +172,6 @@ abstract class Bilna_Rest_Model_Api2_Product_Rest extends Bilna_Rest_Model_Api2_
         
         $productHelper = Mage::helper('catalog/product'); //- @var $productHelper Mage_Catalog_Helper_Product
         $_product = $productHelper->getProduct($_productId, $this->_getStore()->getId());
-        
-        if ($_setProduct) {
-            $this->_product = $_product;
-        }
 
         if (!($_product->getId())) {
             $this->_critical(self::RESOURCE_NOT_FOUND);
@@ -196,6 +192,10 @@ abstract class Bilna_Rest_Model_Api2_Product_Rest extends Bilna_Rest_Model_Api2_
             if ((!Mage::app()->isSingleStoreMode() && !count($_product->getWebsiteIds())) || !$productHelper->canShow($_product)) {
                 $this->_critical(self::RESOURCE_NOT_FOUND);
             }
+        }
+        
+        if ($_setProduct) {
+            $this->_product = $_product;
         }
         
         return $_product;
