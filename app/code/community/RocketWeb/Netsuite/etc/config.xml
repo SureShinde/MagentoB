@@ -237,7 +237,7 @@
             <order_fulfillment>Order Fulfillment</order_fulfillment>
             <!-- <cashsale>Cash Sale</cashsale> -->
             <invoice>Invoice</invoice>
-            <!--<inventoryitem>Inventory Item</inventoryitem>-->
+            <inventoryitem>Inventory Item</inventoryitem>
             <creditmemo>Credit Memo</creditmemo>
         </import_entities>
         <mappings>

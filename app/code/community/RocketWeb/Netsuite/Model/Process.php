@@ -396,54 +396,55 @@ class RocketWeb_Netsuite_Model_Process {
     }
 
     public function getImportableEntities() {
-        $iniFile = Mage::getBaseDir().'/files/netsuite/netsuite.ini';
+        $finalImportableEntities = array();
 
-        // check recordtype argument first
+        // get available importable entities from config
+        $availableEntities = Mage::getConfig()->getNode('rocketweb_netsuite/import_entities')->asArray();
+        // get entities from Import Connection Settings for Record Type
+        $recordtypes = Mage::getStoreConfig('rocketweb_netsuite/connection_import_recordtype/recordtype');
+        $arr_recordtypes = explode(',', $recordtypes);
+
+        // if recordtype argument is available
         if (Mage::registry('current_run_recordtype'))
         {
-            // check again if file netsuite.ini exists, get the entities from netsuite.ini
-            if(file_exists($iniFile))
+            $current_run_recordtype = Mage::registry('current_run_recordtype');
+
+            // if recordtypes are available from Import Connection Settings for Record Type
+            if (count($arr_recordtypes) > 0)
             {
-                $nsConfig = parse_ini_file($iniFile, true);
-                $return_array = array();
-
-                // if recordtype is all, return import_entities config from the ini file
-                if (Mage::registry('current_run_recordtype') == 'all')
-                    return $nsConfig['import_entities'];
-
-                // if recordtype is not all, get the matched available import entities
-                foreach( $nsConfig['import_entities'] as $key => $value )
+                // if recordtype argument is all
+                if ($current_run_recordtype == 'all') 
                 {
-                    if (Mage::registry('current_run_recordtype') == $key)
-                        $return_array[$key] = $value;
+                    foreach($arr_recordtypes as $type)
+                        $finalImportableEntities[$type] = $availableEntities[$type];
                 }
-            }
-            // if netsuite.ini does not exist, get import entities from the XML config 
-            else 
-            {
-                // if recordtype is all, return import_entities config from the XM config
-                if (Mage::registry('current_run_recordtype') == 'all')
-                    return Mage::getConfig()->getNode('rocketweb_netsuite/import_entities')->asArray();
-
-                // if recordtype is not all, get the matched available import entities
-                foreach( Mage::getConfig()->getNode('rocketweb_netsuite/import_entities')->asArray() as $key => $value )
+                else
                 {
-                    if (Mage::registry('current_run_recordtype') == $key)
-                        $return_array[$key] = $value;
+                    // check if the recordtype is available
+                    if (isset($availableEntities[$current_run_recordtype]))
+                    {
+                        if (in_array($current_run_recordtype, $arr_recordtypes))
+                            $finalImportableEntities[$current_run_recordtype] = $availableEntities[$current_run_recordtype];
+                    }
                 }
             }
         }
         else
         {
-            // if there is no recordtype argument, use the xml config to get import entities
-            $return_array = Mage::getConfig()->getNode('rocketweb_netsuite/import_entities')->asArray();
+            // set the entities that are not in the entities inside the Import Connection Settings
+            // for Record Type
+            foreach($availableEntities as $path => $name)
+            {
+                if (!in_array($path, $arr_recordtypes))
+                    $finalImportableEntities[$path] = $name;
+            }
         }
 
         // if there is an entity that is not importable, we have to remove it
         foreach($this->_exceptedImportableEntities as $entity)
-            unset($return_array[$entity]);
+            unset($finalImportableEntities[$entity]);
         
-        return $return_array;
+        return $finalImportableEntities;
     }
     
     private function test() {
