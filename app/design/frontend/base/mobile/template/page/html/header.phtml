@@ -19,7 +19,7 @@
  * needs please refer to http://www.magentocommerce.com for more information.
  *
  * @category    design
- * @package     base_default
+ * @package     base_mobile
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
@@ -52,32 +52,39 @@
             setCookie(tooltipMobileFirst, 'done', 365);
         });
 
-        $j('.nav-mobile-trigger').click(function() {
+        $j('.nav-mobile-trigger span.notclick').click(function() {
+            $j(this).hide();
+            $j('.nav-mobile-trigger span.clicked').show();
             $j('.mobile-left-menu').css({"width":"100%","left":"0"});
-            $j('.wrapper').css({"float":"left","margin-left":"70%","position":"fixed"});
             $j('body').css({"overflow":"hidden"});
             $j('.mobile-left-menu .back-left').css({"position":"fixed"});
         });
         $j('.all-cat').click(function() {
             $j('html, body').animate({scrollTop:0}, 400); 
             $j('html, body').queue(function () {
-                $j(".nav-mobile-trigger").triggerHandler("click");  
+                $j(".nav-mobile-trigger.notclick").triggerHandler("click");  
                 $j('html, body').dequeue();
             });
         });
-
         $j('.mobile-left-menu .wrap-menu-cat > ul > li p').click(function() {
             var data_left_menu_val = $j(this).attr("data-left-menu");
-            if ($j('.mobile-left-menu .wrap-menu-cat > ul > li.' + data_left_menu_val).hasClass("menu-active")){
-                $j('.mobile-left-menu .wrap-menu-cat > ul > li.' + data_left_menu_val).removeClass("menu-active");
-            } else {
-                $j('.mobile-left-menu .wrap-menu-cat > ul > li').removeClass("menu-active");
-                $j('.mobile-left-menu .wrap-menu-cat > ul > li.' + data_left_menu_val ).addClass("menu-active");
-            };
+                $j('.mobile-left-menu .wrap-menu-cat .wrap-first-level.' + data_left_menu_val ).addClass("menu-active");
         });
+
+        $j('.back-level-1').click(function() {
+                $j('.mobile-left-menu .wrap-menu-cat .wrap-first-level.menu-active').removeClass("menu-active");
+            console.log("click");
+        });
+
+        $j('.mobile-left-menu .wrap-menu-cat .wrap-first-level .wrap-level2 .category-level-2 li > .fa').click(function() {
+                $j(this).parent().toggleClass("open-cat-3");
+        });
+        
         //================mobile left menu js========================
 
-        $j('.back-button').click(function() {
+        $j('.nav-mobile-trigger span.clicked, .back-button').click(function() {
+            $j('.nav-mobile-trigger span.clicked').hide();
+            $j('.nav-mobile-trigger span.notclick').show();
             $j('.mobile-left-menu').css({"width":"100%","left":"-100%"});
             $j('.wrapper').css({"float":"none","margin-left":"0","position":"relative"});
             $j('body').css({"overflow":"auto"});
@@ -128,26 +135,6 @@ $j(document).ready(function() {
         else {
             $j(".back-to-top").fadeOut();
         }
-    });
-    $j('.nav-mobile-trigger').click(function(e) {
-        e.preventDefault();
-        $j('.mini-cart-mobile').slideUp();
-        $j('.my-account-mobile').slideUp();
-        $j('.nav-container').slideToggle();
-    });
-
-    $j('#link-minicart').click(function(e) {
-        e.preventDefault();
-        $j('.nav-container').slideUp();
-        $j('.my-account-mobile').slideUp();
-        $j('.mini-cart-mobile').slideToggle();
-    });
-
-    $j('.link-myaccount-mobile').click(function(e) {
-        e.preventDefault();
-        $j('.nav-container').slideUp();
-        $j('.mini-cart-mobile').slideUp();
-        $j('.my-account-mobile').slideToggle();	
     });
         
 	$j(".nav-container ul#nav li.parent a.level-top").live('click', function() {
@@ -201,6 +188,7 @@ $j(document).ready(function() {
 </script>
 
 <div class="header-container">
+    
     <div class="tooltip-mobile-first">
         <p> ← click here for category menu </p>
     </div>
@@ -208,7 +196,10 @@ $j(document).ready(function() {
     <?php echo $this->getLayout()->createBlock('page/html')->setTemplate('page/html/back-top.phtml')->toHtml(); ?>
     
     <div class="header">
-    	<a href="#" class="nav-mobile-trigger"><?php echo $this->__('Menu') ?></a>
+    	<a href="#" class="nav-mobile-trigger">
+            <span class="notclick fa fa-bars fa-2x"></span>
+            <span class="clicked fa fa-times fa-2x"></span>
+        </a>
         <a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="logo"><strong><?php echo $this->getLogoAlt() ?></strong>
             <img src="<?php echo $this->getSkinUrl(); ?>images/logo_bilna_2015_2.jpg" alt="<?php echo $this->getLogoAlt() ?>" />
         </a>
@@ -217,28 +208,15 @@ $j(document).ready(function() {
         
         <div class="quick-access">
 			<?php echo $this->getChildHtml('store_language') ?>
-            <a href="<?php echo $this->getUrl('blog'); ?>" class="link-blog-mobile"><?php echo $this->__('Blog') ?></a>
-            <a href="<?php echo Mage::getBaseUrl(); ?>customer/account/login/" class="link-myaccount-mobile"><img src="<?php echo $this->getSkinUrl(); ?>images/menu-account-mobile-black.png"></a>
+            <a href="<?php echo Mage::getBaseUrl(); ?>customer/account/login/" class="link-myaccount-mobile"><i class="fa fa-user fa-2x"></i></a>
             
-            <div class="top-cart">
-                <div class="normal-sticky-cart">
-                    <?php $_totalItem = $this->helper('checkout/cart')->getSummaryCount();  //get total items in cart ?>
-                    
-                    <?php if ($_totalItem == 0): ?>
-                        <a href="#" class="link-minicart" id="link-minicart"><?php echo $this->__('View Cart(0)') ?></a>
-                    <?php else: ?>
-                        <a href="#" class="link-minicart" id="link-minicart"><?php echo $this->__('View Cart(').$_totalItem.$this->__(')') ?></a>
-                    <?php endif; ?>
-                    
-                    <a href="<?php echo $this->getUrl('checkout/cart'); ?>" class="link-checkout"><?php echo $this->__('Checkout') ?></a>
-                    
-                    <a href="<?php echo $this->getUrl('blog'); ?>" class="link-blog"><span><?php echo $this->__('Blog') ?></span></a>
-                </div>
-                
-                <div class="clear"></div>
-                
-                <div class="mini-cart" style="display: none !important;"><?php echo $this->getChildHtml('topcart') ?></div>
-            </div>
+            <?php $_totalItem = $this->helper('checkout/cart')->getSummaryCount();  //get total items in cart ?>
+
+            <?php if ($_totalItem == 0): ?>
+                <a href="#" class="link-minicart" id="link-minicart"><i class="fa fa-shopping-cart fa-2x"></i><span class="qty"><?php echo $this->__('0') ?></span></a>
+            <?php else: ?>
+            <a href="<?php echo $this->getUrl('blog'); ?>" class="link-minicart" id="link-minicart"><i class="fa fa-shopping-cart fa-2x"></i><span class="qty"><?php echo $this->__($_totalItem) ?></span></a>
+            <?php endif; ?>
             
             <div class="clear"></div>
             
@@ -252,12 +230,10 @@ $j(document).ready(function() {
         <div class="nav-mobile"><?php //echo $this->getChildHtml('topMenu') ?></div>
         
         <div class="mini-cart-mobile"><?php echo $this->getChildHtml('topcart') ?></div>
-
-        <div class="search-container-new-mobile">
-            <?php echo $this->getChildHtml('topSearch'); ?>
-        </div>
         
-        <div class="my-account-mobile"><?php echo $this->getChildHtml('topLinks') ?></div>
+            <div class="search-container-new-mobile">
+                <?php echo $this->getChildHtml('topSearch'); ?>
+            </div>
     </div>
 </div>
 

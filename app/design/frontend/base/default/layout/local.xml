@@ -14,6 +14,7 @@
             <action method="addCss"><stylesheet>css/checkout-2.css</stylesheet></action>
             <action method="addCss"><stylesheet>css/header-2.css</stylesheet></action>
             <action method="addCss"><stylesheet>css/footer-2.css</stylesheet></action>
+            <action method="addCss"><stylesheet>css/font-awesome.min.css</stylesheet></action>
             <action method="addCss"><stylesheet>css/additional-style-blog.css</stylesheet></action>
             <action method="addItem">
                 <type>skin_js</type>
