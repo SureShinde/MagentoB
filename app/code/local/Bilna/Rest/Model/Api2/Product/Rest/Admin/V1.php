@@ -1389,7 +1389,7 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
         else {
             foreach ($selections as $selection) {
                 $result[] = array (
-                    'title' => $this->_escapeHtml($selections[0]->getData('name')),
+                    'title' => $this->_escapeHtml($selection->getData('name')),
                     'price_type' => $this->_getBundleSelectionPriceType($isPriceFixed, $selection),
                     'price' => $this->_getBundleSelectionPrice($isPriceFixed, $selection),
                     'special_price' => $this->_getBundleSelectionSpecialPrice($selection),
