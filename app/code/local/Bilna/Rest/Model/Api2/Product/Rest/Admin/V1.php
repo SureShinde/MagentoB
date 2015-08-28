@@ -807,11 +807,12 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
         $options = Mage::helper('core')->decorateArray($this->_getBundleOptions($product));
         
         if ($options) {
+            $x = 1;
             foreach ($options as $option) {
                 $showSingle = $this->_showSingle($option);
                 $selections = $option->getSelections();
-                        
-                $bundle['options'][$option->getPosition()] = array (
+                       
+                $bundle['options'][] = array (
                     'id' => $option->getId(),
                     'title' => $option->getTitle(),
                     'required' => $option->getRequired(),
@@ -1287,18 +1288,6 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
         return $showSingle;
     }
     
-    protected function _getBundleSelectionPrice($product, $selection) {
-        $price = $product->getPriceModel()->getSelectionPreFinalPrice($product, $selection, 1);
-        $tierPrice = $selection->getTierPrice();
-        
-        if (!empty ($tierPrice)) {
-            $qty = $selection->getSelectionQty();
-            $price = $qty * (float) $selection->getPriceModel()->getTierPrice($qty, $selection);
-        }
-        
-        return $this->_formatPriceString($product, $selection, $price);
-    }
-    
     protected function _getSelectionGroupPrice($_selection) {
         return $_selection->getPriceModel()->getGroupPrice($_selection);
     }
@@ -1383,13 +1372,14 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
     
     protected function _getBundleSelectionData($showSingle, $product, $option, $selections) {
         $result = array ();
+        $isPriceFixed = ($product->getData('price_type') == 1) ? true : false;
         
         if ($showSingle) {
             $result = array (
                 'title' => $this->_escapeHtml($selections[0]->getData('name')),
-                'price' => $selections[0]->getData('price'),
-                'special_price' => $this->_getBundleSelectionSpecialPrice($selections[0]),
-                'group_price' => $selections[0]->getData('group_price'),
+                'price' => $this->_getBundleSelectionPrice($isPriceFixed, $selections[0]),
+                'special_price' => $this->_getBundleSelectionSpecialPrice($isPriceFixed, $selections[0]),
+                'group_price' => $this->_getBundleSelectionGroupPrice($isPriceFixed, $selections[0]),
                 'selection_id' => $selections[0]->getData('selection_id'),
                 'default_value' => $this->_getBundleDefaultValues($product, $option, $selections[0]),
                 'is_selected' => false,
@@ -1399,9 +1389,9 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
             foreach ($selections as $selection) {
                 $result[] = array (
                     'title' => $this->_escapeHtml($selections[0]->getData('name')),
-                    'price' => $selection->getData('price'),
+                    'price' => $this->_getBundleSelectionPrice($isPriceFixed, $selection),
                     'special_price' => $this->_getBundleSelectionSpecialPrice($selection),
-                    'group_price' => $selection->getData('group_price'),
+                    'group_price' => $this->_getBundleSelectionGroupPrice($isPriceFixed, $selection),
                     'selection_id' => $selection->getData('selection_id'),
                     'default_value' => $this->_getBundleDefaultValues($product, $option, $selection),
                     'is_selected' => $this->_isSelected($product, $option, $selection),
@@ -1412,14 +1402,29 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
         return $result;
     }
     
-    protected function _getBundleSelectionSpecialPrice($_selection) {
-        return array (
-            'price' => $_selection->getData('special_price'),
-            'from_date' => $_selection->getData('special_from_date'),
-            'to_date' => $_selection->getData('special_to_date'),
-        );
+    protected function _getBundleSelectionPrice($isPriceFixed, $selection) {
+        return $isPriceFixed ? $selection->getData('selection_price_value') : $selection->getData('price');
     }
 
+    protected function _getBundleSelectionSpecialPrice($isPriceFixed, $selection) {
+        if ($isPriceFixed) {
+            return null;
+        }
+        
+        return array (
+            'price' => $selection->getData('special_price'),
+            'from_date' => $selection->getData('special_from_date'),
+            'to_date' => $selection->getData('special_to_date'),
+        );
+    }
+    
+    protected function _getBundleSelectionGroupPrice($isPriceFixed, $selection) {
+        if ($isPriceFixed) {
+            return null;
+        }
+        
+        return $selection->getData('group_price');
+    }
 
     protected function _getBundleDefaultValues($product, $option, $selection) {
         $optionType = $option->getType();
