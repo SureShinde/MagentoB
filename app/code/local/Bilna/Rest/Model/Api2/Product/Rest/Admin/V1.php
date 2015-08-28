@@ -1377,6 +1377,7 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
         if ($showSingle) {
             $result = array (
                 'title' => $this->_escapeHtml($selections[0]->getData('name')),
+                'price_type' => $this->_getBundleSelectionPriceType($isPriceFixed, $selections[0]),
                 'price' => $this->_getBundleSelectionPrice($isPriceFixed, $selections[0]),
                 'special_price' => $this->_getBundleSelectionSpecialPrice($isPriceFixed, $selections[0]),
                 'group_price' => $this->_getBundleSelectionGroupPrice($isPriceFixed, $selections[0]),
@@ -1389,6 +1390,7 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
             foreach ($selections as $selection) {
                 $result[] = array (
                     'title' => $this->_escapeHtml($selections[0]->getData('name')),
+                    'price_type' => $this->_getBundleSelectionPriceType($isPriceFixed, $selection),
                     'price' => $this->_getBundleSelectionPrice($isPriceFixed, $selection),
                     'special_price' => $this->_getBundleSelectionSpecialPrice($selection),
                     'group_price' => $this->_getBundleSelectionGroupPrice($isPriceFixed, $selection),
@@ -1402,6 +1404,10 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
         return $result;
     }
     
+    protected function _getBundleSelectionPriceType($isPriceFixed, $selection) {
+        return $isPriceFixed ? $selection->getData('selection_price_type') : null;
+    }
+
     protected function _getBundleSelectionPrice($isPriceFixed, $selection) {
         return $isPriceFixed ? $selection->getData('selection_price_value') : $selection->getData('price');
     }
