@@ -1,0 +1,12 @@
+<?php 
+  echo $this->getLayout()
+            ->createBlock('bilna_pricevalidation/adminhtml_log_grid')
+            ->toHtml();
+?>
+<?php
+$_p = $this->getLog();
+foreach ($_p as $rowLog) {
+	$data = $rowLog->getData();
+	echo 'profile id : '.$data['profile_id'].' | Started at : '.$data['started_at'].' | Finished at : '.$data['finished_at'].' | Rows found : '.$data['rows_found'].' | Rows Error : '.$data['rows_error'].' | User id : '.$data['user_id'].'<br/>';
+}
+?>

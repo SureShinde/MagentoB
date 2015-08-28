@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Bilna_Pricevalidation>
+            <version>0.1.0</version>
+        </Bilna_Pricevalidation>
+    </modules>
+
+    <global>
+        <helpers>
+            <bilna_pricevalidation>
+                <class>Bilna_Pricevalidation_Helper</class>
+            </bilna_pricevalidation>
+        </helpers>
+
+        <blocks>
+            <bilna_pricevalidation>
+                <class>Bilna_Pricevalidation_Block</class>
+            </bilna_pricevalidation>
+        </blocks>
+
+        <models>
+            <bilna_pricevalidation>
+                <class>Bilna_Pricevalidation_Model</class>
+                <resourceModel>bilna_pricevalidation_mysql4</resourceModel>
+            </bilna_pricevalidation>
+
+            <bilna_pricevalidation_mysql4>
+                <class>Bilna_Pricevalidation_Model_Mysql4</class>
+                <entities>
+                    <form>
+                        <table>bilna_price_validation_profile</table>
+                    </form>
+                    <log>
+                        <table>bilna_price_validation_log</table>
+                    </log>
+                </entities>
+            </bilna_pricevalidation_mysql4>
+        </models>
+    </global>
+
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <Bilna_Pricevalidation before="Mage_adminhtml">Bilna_Pricevalidation_Adminhtml</Bilna_Pricevalidation>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+
+    <adminhtml>
+        <menu>
+            <bilna>
+                <title>Bilna</title>
+                <sort_order>20</sort_order>
+            </bilna>
+        </menu>
+
+        <layout>
+            <updates>
+                <bilna_pricevalidation>
+                    <file>bilna_pricevalidation.xml</file>
+                </bilna_pricevalidation>
+            </updates>
+        </layout>
+    </adminhtml>
+</config>
