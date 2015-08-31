@@ -55,7 +55,7 @@
         $j('.nav-mobile-trigger span.notclick').click(function() {
             $j(this).hide();
             $j('.nav-mobile-trigger span.clicked').show();
-            $j('.mobile-left-menu').css({"width":"auto","left":"0","right":"40px"});
+            $j('.mobile-left-menu').css({"width":"auto","left":"0","right":"45px"});
             $j('body').css({"overflow":"hidden"});
             $j('.back-left').toggle();
         });
@@ -73,7 +73,7 @@
 
         $j('.back-level-1').click(function() {
                 $j('.mobile-left-menu .wrap-menu-cat .wrap-first-level.menu-active').removeClass("menu-active");
-            console.log("click");
+                $j('.category-level-2 li').removeClass("open-cat-3");
         });
 
         $j('.mobile-left-menu .wrap-menu-cat .wrap-first-level .wrap-level2 .category-level-2 li > a,.mobile-left-menu .wrap-menu-cat .wrap-first-level .wrap-level2 .category-level-2 li > .fa').click(function() {
@@ -84,6 +84,7 @@
 
         $j('.nav-mobile-trigger span.clicked, .back-button').click(function() {
             $j('.back-level-1').triggerHandler('click');
+            $j('.category-level-2 li').removeClass("open-cat-3");
             $j('.nav-mobile-trigger span.clicked').hide();
             $j('.nav-mobile-trigger span.notclick').show();
             $j('.mobile-left-menu').css({"width":"100%","left":"-100%"});
