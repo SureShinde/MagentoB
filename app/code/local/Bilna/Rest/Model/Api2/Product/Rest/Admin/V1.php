@@ -444,7 +444,7 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
         }
         
         $result = array ();
-        $result['totalRecord'] = $products->getSize();
+        $result[0] = array ('total_record' => $products->getSize());
         
         foreach ($products as $key => $row) {
             $product = $this->_prepareProductForResponse($this->_getProduct($row->getId()), true);
@@ -1290,55 +1290,6 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
     
     protected function _getSelectionGroupPrice($_selection) {
         return $_selection->getPriceModel()->getGroupPrice($_selection);
-    }
-
-    protected function _getTierPrices($product) {
-        $prices = $product->getFormatedTierPrice();
-        $res = array ();
-        
-        if (is_array($prices)) {
-            foreach ($prices as $price) {
-                $price['price_qty'] = $price['price_qty'] * 1;
-                $productPrice = $product->getPrice();
-                
-                if ($product->getPrice() != $product->getFinalPrice()) {
-                    $productPrice = $product->getFinalPrice();
-                }
-
-                // Group price must be used for percent calculation if it is lower
-                $groupPrice = $product->getGroupPrice();
-                
-                if ($productPrice > $groupPrice) {
-                    $productPrice = $groupPrice;
-                }
-
-                if ($price['price'] < $productPrice) {
-                    $price['savePercent'] = ceil(100 - ((100 / $productPrice) * $price['price']));
-                    $tierPrice = Mage::app()->getStore()->convertPrice(
-                        Mage::helper('tax')->getPrice($product, $price['website_price'])
-                    );
-                    $price['formated_price'] = Mage::app()->getStore()->formatPrice($tierPrice);
-                    $price['formated_price_incl_tax'] = Mage::app()->getStore()->formatPrice(
-                        Mage::app()->getStore()->convertPrice(
-                            Mage::helper('tax')->getPrice($product, $price['website_price'], true)
-                        )
-                    );
-
-                    if (Mage::helper('catalog')->canApplyMsrp($product)) {
-                        $oldPrice = $product->getFinalPrice();
-                        $product->setPriceCalculation(false);
-                        $product->setPrice($tierPrice);
-                        $product->setFinalPrice($tierPrice);
-                        $product->setPriceCalculation(true);
-                        $product->setFinalPrice($oldPrice);
-                    }
-
-                    $res[] = $price;
-                }
-            }
-        }
-
-        return $res;
     }
     
     protected function _formatPriceString($currentProduct, $formatProduct, $price) {
