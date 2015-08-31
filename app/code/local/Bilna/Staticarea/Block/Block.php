@@ -7,6 +7,12 @@
 
 class Bilna_Staticarea_Block_Block extends Mage_Core_Block_Template {
     private $_block = null;
+
+    protected function _construct()
+    {
+	$this->setCacheKey('static_area_' . $this->getStoreId() . '_' . $this->getData('id'));
+        $this->setCacheLifetime(3600);
+    }
     
     protected function _beforeToHtml() {
         if (!$this->getTemplate()) {
@@ -31,16 +37,8 @@ class Bilna_Staticarea_Block_Block extends Mage_Core_Block_Template {
     }
     
     public function getCollectionData() {
-        if ($this->getData('id')) {
-            $storeId = Mage::app()->getStore()->getId();
-            $cache = Mage::app()->getCache();
-            $tags = array ('BRIM_FPC');
-            $key = sprintf("STATICAREA_%s_%d", $this->getData('id'), $storeId);
 
-            if ($cacheData = $cache->load($key)) {
-                $collectionData = unserialize($cacheData);
-            }
-            else {
+        if ($this->getData('id')) {
                 $collection = Mage::getModel('staticarea/contents')->getCollection();
                 $collection->addFieldToSelect('content', 'content');
                 $collection->addFieldToSelect('url', 'url');
@@ -58,15 +56,8 @@ class Bilna_Staticarea_Block_Block extends Mage_Core_Block_Template {
                 );
                 $collection->setOrder('`order`', 'ASC');
                 $collection->getData();
-                
-                if ($cache->save(serialize($collection), $key, $tags)) {
-                    $collectionData = $collection;
-                }
-                else {
-                    $collectionData = null;
-                }
-            }
-        }
+		$collectionData = $collection;
+      }
         else {
             $collectionData = null;
         }

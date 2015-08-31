@@ -290,7 +290,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Grid extends Mage_Adminhtml_Block_Wid
 									'0'=>'No Backorders',
 									'1'=>'Allow Qty Below 0',
 									'2'=>'Allow Qty Below 0 and Notify Customer',
-									array_merge('1'+'2')=> 'ALL TYPE of Allow Qty below 0'
+									'3'=>'ALL TYPE of Allow Qty below 0'
 								   ),
         ));
 		/* --- End Kolom Backorder --- */

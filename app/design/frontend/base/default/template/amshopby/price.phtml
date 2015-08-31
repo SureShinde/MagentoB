@@ -128,9 +128,12 @@ if (count($this->getItems()) == 1){
             }
             
             $step = round(($to - $from) / 50000);  
+            if ($step == 0) {
+                $step = 1;      // set minimum to be one to avoid division by zero
+            }
             
             $width = ceil(170/$step) * $step;
-            
+             
             $ratePP = ($to - $from) / $width;  
             
             $firstOffset =  ($max > 0.01 && !$initialState) ? ($fromValue - $min) / $ratePP : 0;
