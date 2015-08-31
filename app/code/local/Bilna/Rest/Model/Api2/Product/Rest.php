@@ -120,7 +120,7 @@ abstract class Bilna_Rest_Model_Api2_Product_Rest extends Bilna_Rest_Model_Api2_
             /** @var $reviewModel Mage_Review_Model_Review */
             $reviewModel = Mage::getModel('review/review');
             $productData['total_reviews_count'] = $reviewModel->getTotalReviews($product->getId(), true, $this->_getStore()->getId());
-            $productData['tier_price'] = $this->_getTierPrices();
+            $productData['tier_price'] = $product->getData('tier_price');
             $productData['has_custom_options'] = count($product->getOptions()) > 0;
         }
         else {
@@ -339,25 +339,6 @@ abstract class Bilna_Rest_Model_Api2_Product_Rest extends Bilna_Rest_Model_Api2_
         $taxAmount = $calculator->calcTaxAmount($price, $percent, !$includeTax, false);
 
         return $includeTax ? $price + $taxAmount : $price - $taxAmount;
-    }
-
-    /**
-     * Retrive tier prices in special format
-     *
-     * @return array
-     */
-    protected function _getTierPrices() {
-        $tierPrices = array ();
-        
-        foreach ($this->_getProduct()->getTierPrice() as $tierPrice) {
-            $tierPrices[] = array (
-                'qty' => $tierPrice['price_qty'],
-                'price_with_tax' => $this->_applyTaxToPrice($tierPrice['price']),
-                'price_without_tax' => $this->_applyTaxToPrice($tierPrice['price'], false)
-            );
-        }
-        
-        return $tierPrices;
     }
 
     /**
