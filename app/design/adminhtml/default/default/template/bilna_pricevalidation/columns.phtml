@@ -36,8 +36,6 @@ $_fields = $this->getColumnsFields();
                     <button class="add add-select-row f-right" type="button" onclick="addColumns()"><span><?php echo $this->__('Add New Columns') ?></span></button>
                     <select id="columns-new-options" multiple="multiple" class="validate-urapidflow-columns" ondblclick="addColumns()"></select>
                     <p><?php echo $this->__('* Columns in red are required, unless all the imported entities are not new')?></p>
-<!--                    <p><input type="checkbox" id="_allow_mutable_attributes" accept="" --><?php //if ($this->getProfile()->getData('options/export/allow_mutable_attributes')):?><!-- checked="checked"--><?php //endif?><!-- onclick="$('allow_mutable_attributes').value=1*(this.checked)" /> <strong><label for="_allow_mutable_attributes">--><?php //echo $this->__('Allow mutable attributes (same alias for different attributes). In that case first non-empty attribute value will be used')?><!--</label></strong></p>-->
-<!--                    <input type="hidden" id="allow_mutable_attributes" name="options[export][allow_mutable_attributes]" value="--><?php //echo $this->getProfile()->getData('options/export/allow_mutable_attributes')?><!--" />-->
                 </td>
             </tr>
         </tfoot>
@@ -58,7 +56,7 @@ var sortColumns = new UnirgySortable({container:'columns-container', tag:'tr', o
 function fillColumnsLines() {
     var columns = <?php echo Zend_Json::encode($this->getColumns()) ?>;
     for (var i=0; i<columns.length; i++) {
-        addColumnLine(columns[i]); //aaa
+        addColumnLine(columns[i]);
     }
     redecorateColumnsTable();
 }
