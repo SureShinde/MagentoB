@@ -429,11 +429,11 @@ a.link-minicart-sticky, .sticky-header a.link-checkout {
     right: 7px;
     font-size: 12px;
     line-height: initial;
-    border-radius: 5px;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-    border-radius: 5px;
-    padding: 2px 4px;
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    padding: 1px 2px;
     background: #fdac49;
 }
 .header .quick-access a.link-checkout {
@@ -2249,10 +2249,10 @@ searchbar #nav-search-in {
     overflow-y: scroll;
  }
  .wrapper, .mobile-left-menu{
-  transition:All 0.3s ease;
-  -webkit-transition:All 0.3s ease;
-  -moz-transition:All 0.3s ease;
-  -o-transition:All 0.3s ease;
+  transition:All 0.2s ease;
+  -webkit-transition:All 0.2s ease;
+  -moz-transition:All 0.2s ease;
+  -o-transition:All 0.2s ease;
   float:left;
  }
 .close-menu-second{
@@ -2312,7 +2312,7 @@ searchbar #nav-search-in {
 .mobile-left-menu .wrap-menu-cat .wrap-first-level.menu-active ~ .close-level-2{
     display: block;
     left: 0;
-    opacity: 0.8;
+    opacity: 0.7;
     visibility: visible;
 }
 .mobile-left-menu .wrap-menu-cat .wrap-first-level ~ .close-level-2{
@@ -2326,9 +2326,9 @@ searchbar #nav-search-in {
     top: 45px;
     background: #000;
     opacity: 0;
-    -webkit-transition:All 0.3s ease-in-out;
-    -moz-transition:All 0.3s ease-in-out;
-    -o-transition:All 0.3s ease-in-out;
+    -webkit-transition:All 0.2s ease-in-out;
+    -moz-transition:All 0.2s ease-in-out;
+    -o-transition:All 0.2s ease-in-out;
 }
 .mobile-left-menu .wrap-menu-cat .wrap-first-level.menu-active .close-level-2-top{
     
@@ -2382,9 +2382,9 @@ searchbar #nav-search-in {
     min-height: 100%;
     overflow: hidden;
     background-color: #FFFFFF;
-    -webkit-transition:All 0.3s ease-in-out;
-    -moz-transition:All 0.3s ease-in-out;
-    -o-transition:All 0.3s ease-in-out;
+    -webkit-transition:All 0.2s ease-in-out;
+    -moz-transition:All 0.2s ease-in-out;
+    -o-transition:All 0.2s ease-in-out;
     float: right;
 }
 .mobile-left-menu .wrap-menu-cat .wrap-first-level.menu-active .wrap-level2{
