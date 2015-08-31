@@ -1,6 +1,4 @@
 <?php
-#var_dump($this->getColumnsOptions()); exit;
-$_isExport = $this->getProfile()->getProfileType()=='export';
 $_fields = $this->getColumnsFields();
 ?>
 <div class="entry-edit-head">
@@ -17,19 +15,12 @@ $_fields = $this->getColumnsFields();
 </style>
 
 <fieldset>
-<?php if (!$_isExport): ?>
-<ul class="messages"><li class="notice-msg"><ul><li>
-For IMPORT profiles the 'Columns' section is optional, as the field information will be taken from header row in the file.<br/>
-Add only fields that need a special Alias, Default Value or Format.<br/>
-Order of columns is irrelevant and was implemented only for convenience.
-</li></ul></li></ul>
-<?php endif ?>
 
 <div class="grid tier form-list">
     <table id="columns-table" class="border" cellspacing="0" cellpadding="0">
         <thead>
             <tr class="headings">
-                <th class="type-title" style="width:10px"><?php echo $_isExport ? '#' : '&nbsp;' ?></th>
+                <th class="type-title" style="width:10px">&nbsp;</th>
                 <th class="type-title"><?php echo $this->__('Field Source') ?></th>
                 <th class="type-title"><?php echo $this->__('Title Alias') ?></th>
                 <th class="type-title"><?php echo $this->__('Default Value') ?></th>

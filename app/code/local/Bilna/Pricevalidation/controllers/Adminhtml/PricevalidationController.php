@@ -115,211 +115,189 @@ class Bilna_Pricevalidation_Adminhtml_PricevalidationController extends Mage_Adm
                         return;
                     }
                     else {
-                        require_once(Mage::getBaseDir('lib') . '/PHPExcel/PHPExcel/IOFactory.php');
-
-                        $objReader = new PHPExcel_Reader_CSV();
-                        $objReader->setInputEncoding('CP1252');
-                        $objReader->setDelimiter(';');
-                        $objReader->setEnclosure('');
-                        $objReader->setLineEnding("\r\n");
-                        $objReader->setSheetIndex(0);
-                        $objPHPExcel = $objReader->load(Mage::getConfig()->getVarDir().'/pricevalidation/import/'.$cleanDir.$dataRun['filename']);
-                        $worksheet = $objPHPExcel->getActiveSheet();
-
                         $columnsKeyToBeProcessed = array();
                         $cleanData = array();
                         $fieldList = array();
-                        $originalHeader = '';
                         $errors = array();
 
-                        foreach($worksheet->getRowIterator() as $key=>$row) {
-                            $cellIterator = $row->getCellIterator();
-                            $cellIterator->setIterateOnlyExistingCells(false); // Loop all cells, even if it is not set
-                            if($key == 1){ // Get Header
-                                foreach ($cellIterator as $cell) {
-                                    if (!is_null($cell)) {
-                                        $originalHeader = $cell->getValue();
-                                        $dataCsv = explode(';',$cell->getValue());
-                                        if($dataCsv[count($dataCsv)-1] == ''){
-                                            unset($dataCsv[count($dataCsv)-1]);
-                                        }
-                                        foreach($dataCsv as $keyColumn=>$RowColumnData) {
-                                            foreach($postData['columns_post']['alias'] as $keyMatch=>$rowAlias) {
-                                                if($rowAlias == $RowColumnData){
-                                                    $columnsKeyToBeProcessed[$postData['columns_post']['field'][$keyMatch]] = $keyColumn;
-                                                }
+                        $file = Mage::getConfig()->getVarDir().'/pricevalidation/import/'.$cleanDir.$dataRun['filename'];
+                        $csv = new Varien_File_Csv();
+                        $csvFile = $csv->getData($file);
+                        for($i = 0; $i < count($csvFile); $i++) {
+                            if($i == 0){ // Get Header
+                                if (!is_null($csvFile[$i])) {
+                                    $dataCsv = explode(';',$csvFile[$i][0]);
+                                    if($dataCsv[count($dataCsv)-1] == ''){
+                                        unset($dataCsv[count($dataCsv)-1]);
+                                    }
+                                    foreach($dataCsv as $keyColumn=>$RowColumnData) {
+                                        foreach($postData['columns_post']['alias'] as $keyMatch=>$rowAlias) {
+                                            if($rowAlias == $RowColumnData){
+                                                $columnsKeyToBeProcessed[$postData['columns_post']['field'][$keyMatch]] = $keyColumn;
                                             }
                                         }
                                     }
                                 }
                             }
 
-                            if($key == 1){
-                                $errors[] = $originalHeader.'Error Description';
+                            if($i == 0){
+                                $errors[] = $csvFile[$i][0].'Error Description';
                             }
 
-                            if($key > 1) { // Skip price validation on header
-                                $cellIterator = $row->getCellIterator();
-                                foreach ($cellIterator as $cell) {
-                                    if (!is_null($cell)) {
-                                        $error = '';
-                                        $dataCsv = explode(';',$cell->getValue());
-                                        foreach($columnsKeyToBeProcessed as $keyDataColumn=>$columnKey) {
-                                            if(isset($dataCsv[$columnKey]) && !empty($dataCsv[$columnKey])) {
-                                                $cleanData[$key-2][$keyDataColumn] = $dataCsv[$columnKey];
-                                                $fieldList[] = $keyDataColumn;
+                            if($i > 0) { // Skip price validation on header
+                                if (!is_null($csvFile[$i][0])) {
+                                    $error = '';
+                                    $dataCsv = explode(';',$csvFile[$i][0]);
+                                    foreach($columnsKeyToBeProcessed as $keyDataColumn=>$columnKey) {
+                                        if(isset($dataCsv[$columnKey]) && !empty($dataCsv[$columnKey])) {
+                                            $cleanData[$i-1][$keyDataColumn] = $dataCsv[$columnKey];
+                                            $fieldList[] = $keyDataColumn;
+                                        }
+                                    }
+
+                                    $productId = Mage::getModel('catalog/product')->getIdBySku($cleanData[$i-1]['SKU']);
+
+                                    if(!empty($productId)) {
+                                        if(in_array('price', $fieldList)) {
+                                            if(!empty($cleanData[$i-1]['price'])) {
+                                                if((int)floatval($cleanData[$i-1]['price']) < 0) {
+                                                    $error .= 'Price value cannot smaller than 0 ! ';
+                                                }
+                                            }
+                                            else {
+                                                $error .= 'Price cannot empty ! ';
+                                            }
+                                        }
+                                        if(in_array('cost', $fieldList)) {
+                                            if(!empty($cleanData[$i-1]['cost'])) {
+                                                if((int)floatval($cleanData[$i-1]['cost']) < 0) {
+                                                    $error .= 'Cost value cannot smaller than 0 ! ';
+                                                }
+                                            }
+                                            else {
+                                                $error .= 'Cost cannot empty ! ';
+                                            }
+                                        }
+                                        if(in_array('special_price', $fieldList)) {
+                                            if(!empty($cleanData[$i-1]['special_price'])) {
+                                                if((int)floatval($cleanData[$i-1]['special_price']) < 0) {
+                                                    $error .= 'Special Price cannot smaller than 0 ! ';
+                                                }
+                                            }
+                                            else {
+                                                $error .= 'Special Price cannot empty ! ';
                                             }
                                         }
 
-                                        $productId = Mage::getModel('catalog/product')->getIdBySku($cleanData[$key-2]['SKU']);
+                                        if(!empty($error)) {
+                                            if(in_array('ignore_flag', $fieldList) && ($cleanData[$i-1]['ignore_flag'] == 1)) {
+                                                $productId = Mage::getModel('catalog/product')->getIdBySku($cleanData[$i-1]['SKU']);
+                                                $updateProduct = Mage::getModel('catalog/product')->load($productId);
+                                                if(in_array('price', $fieldList)) {
+                                                    if(!empty($cleanData[$i-1]['price'])) {
+                                                        if((int)floatval($cleanData[$i-1]['price']) >= 0) {
+                                                            $price = (int)floatval($cleanData[$i-1]['price']);
+                                                            $updateProduct->setPrice($price)->save();
+                                                        }
+                                                        else {
+                                                            $error .= 'Price value cannot smaller than 0 ! ';
+                                                        }
+                                                    }
+                                                }
+                                                if(in_array('cost', $fieldList)) {
+                                                    if(!empty($cleanData[$i-1]['cost'])) {
+                                                        if((int)floatval($cleanData[$i-1]['cost']) >= 0) {
+                                                            $cost = (int)floatval($cleanData[$i-1]['cost']);
+                                                            $updateProduct->setCost($cost)->save();
+                                                        }
+                                                        else {
+                                                            $error .= 'Cost value cannot smaller than 0 ! ';
+                                                        }
+                                                    }
+                                                }
+                                                if(in_array('special_price', $fieldList)) {
+                                                    if(!empty($cleanData[$i-1]['special_price'])) {
+                                                        if((int)floatval($cleanData[$i-1]['special_price']) >= 0) {
+                                                            $specialPrice = (int)floatval($cleanData[$i-1]['special_price']);
+                                                            $updateProduct->setSpecialPrice($specialPrice)->save();
+                                                        }
+                                                        else {
+                                                            $error .= 'Special Price cannot smaller than 0 ! ';
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                            else {
+                                                if(in_array('price', $fieldList) && in_array('cost', $fieldList) && in_array('special_price', $fieldList)) {
+                                                    if(($cleanData[$i-1]['price'] - $cleanData[$i-1]['cost']) < 0) {
+                                                        $error .= 'Price - Cost results in negative value! ';
+                                                    }
+                                                    if(($cleanData[$i-1]['special_price'] - $cleanData[$i-1]['cost']) < 0) {
+                                                        $error .= 'Special Price - Cost result in negative value! ';
+                                                    }
+                                                }
+                                                elseif(in_array('price', $fieldList) && in_array('cost', $fieldList)) {
+                                                    if(($cleanData[$i-1]['price'] - $cleanData[$i-1]['cost']) < 0) {
+                                                        $error .= 'Price - Cost results in negative value! ';
+                                                    }
+                                                }
+                                                elseif(in_array('special_price', $fieldList) && in_array('cost', $fieldList)) {
+                                                    if(($cleanData[$i-1]['special_price'] - $cleanData[$i-1]['cost']) < 0) {
+                                                        $error .= 'Special Price - Cost result in negative value! ';
+                                                    }
+                                                }
 
-                                        if(!empty($productId)) {
-                                            if(in_array('price', $fieldList)) {
-                                                if(!empty($cleanData[$key-2]['price'])) {
-                                                    if((int)floatval($cleanData[$key-2]['price']) < 0) {
-                                                        $error .= 'Price value cannot smaller than 0 ! ';
-                                                    }
-                                                }
-                                                else {
-                                                    $error .= 'Price cannot empty ! ';
-                                                }
-                                            }
-                                            if(in_array('cost', $fieldList)) {
-                                                if(!empty($cleanData[$key-2]['cost'])) {
-                                                    if((int)floatval($cleanData[$key-2]['cost']) < 0) {
-                                                        $error .= 'Cost value cannot smaller than 0 ! ';
-                                                    }
-                                                }
-                                                else {
-                                                    $error .= 'Cost cannot empty ! ';
-                                                }
-                                            }
-                                            if(in_array('special_price', $fieldList)) {
-                                                if(!empty($cleanData[$key-2]['special_price'])) {
-                                                    if((int)floatval($cleanData[$key-2]['special_price']) < 0) {
-                                                        $error .= 'Special Price cannot smaller than 0 ! ';
-                                                    }
-                                                }
-                                                else {
-                                                    $error .= 'Special Price cannot empty ! ';
-                                                }
-                                            }
-
-                                            if(!empty($error)) {
-                                                if(in_array('ignore_flag', $fieldList) && ($cleanData[$key-2]['ignore_flag'] == 1)) {
-                                                    $productId = Mage::getModel('catalog/product')->getIdBySku($cleanData[$key-2]['SKU']);
+                                                if(empty($error)) {
+                                                    $productId = Mage::getModel('catalog/product')->getIdBySku($cleanData[$i-1]['SKU']);
                                                     $updateProduct = Mage::getModel('catalog/product')->load($productId);
                                                     if(in_array('price', $fieldList)) {
-                                                        if(!empty($cleanData[$key-2]['price'])) {
-                                                            if((int)floatval($cleanData[$key-2]['price']) >= 0) {
-                                                                $price = (int)floatval($cleanData[$key-2]['price']);
-                                                                $updateProduct->setPrice($price)->save();
-                                                            }
-                                                            else {
-                                                                $error .= 'Price value cannot smaller than 0 ! ';
-                                                            }
+                                                        if(!empty($cleanData[$i-1]['price'])) {
+                                                            $price = (int)floatval($cleanData[$i-1]['price']);
+                                                            $updateProduct->setPrice($price)->save();
                                                         }
                                                     }
                                                     if(in_array('cost', $fieldList)) {
-                                                        if(!empty($cleanData[$key-2]['cost'])) {
-                                                            if((int)floatval($cleanData[$key-2]['cost']) >= 0) {
-                                                                $cost = (int)floatval($cleanData[$key-2]['cost']);
-                                                                $updateProduct->setCost($cost)->save();
-                                                            }
-                                                            else {
-                                                                $error .= 'Cost value cannot smaller than 0 ! ';
-                                                            }
+                                                        if(!empty($cleanData[$i-1]['cost'])) {
+                                                            $cost = (int)floatval($cleanData[$i-1]['cost']);
+                                                            $updateProduct->setCost($cost)->save();
                                                         }
                                                     }
                                                     if(in_array('special_price', $fieldList)) {
-                                                        if(!empty($cleanData[$key-2]['special_price'])) {
-                                                            if((int)floatval($cleanData[$key-2]['special_price']) >= 0) {
-                                                                $specialPrice = (int)floatval($cleanData[$key-2]['special_price']);
-                                                                $updateProduct->setSpecialPrice($specialPrice)->save();
-                                                            }
-                                                            else {
-                                                                $error .= 'Special Price cannot smaller than 0 ! ';
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                                else {
-                                                    if(in_array('price', $fieldList) && in_array('cost', $fieldList) && in_array('special_price', $fieldList)) {
-                                                        if(($cleanData[$key-2]['price'] - $cleanData[$key-2]['cost']) < 0) {
-                                                            $error .= 'Price - Cost results in negative value! ';
-                                                        }
-                                                        if(($cleanData[$key-2]['special_price'] - $cleanData[$key-2]['cost']) < 0) {
-                                                            $error .= 'Special Price - Cost result in negative value! ';
-                                                        }
-                                                    }
-                                                    elseif(in_array('price', $fieldList) && in_array('cost', $fieldList)) {
-                                                        if(($cleanData[$key-2]['price'] - $cleanData[$key-2]['cost']) < 0) {
-                                                            $error .= 'Price - Cost results in negative value! ';
-                                                        }
-                                                    }
-                                                    elseif(in_array('special_price', $fieldList) && in_array('cost', $fieldList)) {
-                                                        if(($cleanData[$key-2]['special_price'] - $cleanData[$key-2]['cost']) < 0) {
-                                                            $error .= 'Special Price - Cost result in negative value! ';
-                                                        }
-                                                    }
-
-                                                    if(empty($error)) {
-                                                        $productId = Mage::getModel('catalog/product')->getIdBySku($cleanData[$key-2]['SKU']);
-                                                        $updateProduct = Mage::getModel('catalog/product')->load($productId);
-                                                        if(in_array('price', $fieldList)) {
-                                                            if(!empty($cleanData[$key-2]['price'])) {
-                                                                $price = (int)floatval($cleanData[$key-2]['price']);
-                                                                $updateProduct->setPrice($price)->save();
-                                                            }
-                                                        }
-                                                        if(in_array('cost', $fieldList)) {
-                                                            if(!empty($cleanData[$key-2]['cost'])) {
-                                                                $cost = (int)floatval($cleanData[$key-2]['cost']);
-                                                                $updateProduct->setCost($cost)->save();
-                                                            }
-                                                        }
-                                                        if(in_array('special_price', $fieldList)) {
-                                                            if(!empty($cleanData[$key-2]['special_price'])) {
-                                                                $specialPrice = (int)floatval($cleanData[$key-2]['special_price']);
-                                                                $updateProduct->setSpecialPrice($specialPrice)->save();
-                                                            }
+                                                        if(!empty($cleanData[$i-1]['special_price'])) {
+                                                            $specialPrice = (int)floatval($cleanData[$i-1]['special_price']);
+                                                            $updateProduct->setSpecialPrice($specialPrice)->save();
                                                         }
                                                     }
                                                 }
                                             }
                                         }
-                                        else {
-                                            $error .= 'SKU error!';
-                                        }
-                                        if(!empty($error)) {
-                                            $errors[] = $cell->getValue().';'.$error;
-                                        }
+                                    }
+                                    else {
+                                        $error .= 'SKU error!';
+                                    }
+                                    if(!empty($error)) {
+                                        $errors[] = $csvFile[$i][0].';'.$error;
                                     }
                                 }
                             }
-                            $totalRow = $key-1;
+                            $totalRow = $i;
                         }
+
                         if(count($errors) > 1){
-                            $objPHPExcelExport = new PHPExcel();
-                            $objPHPExcelExport->setActiveSheetIndex(0);
-
-                            $rowExport = 1;
-                            foreach($errors as $rowError) {
-                                $objPHPExcelExport->getActiveSheet()->setCellValue('A'.$rowExport, $rowError);
-                                $rowExport++;
-                            }
-
                             $errFileName = explode('.', $dataRun['filename']);
                             $extension = $errFileName[count($errFileName)-1];
                             $errFileName[count($errFileName)-1] = '_error_'.Mage::getModel('core/date')->date('Y-m-d_H:i:s');
                             $exportFilename = implode('', $errFileName).'.'.$extension;
-
-                            $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcelExport, 'CSV')->setDelimiter(';')
-                                //->setEnclosure('"')
-                                //->setLineEnding("\r\n")
-                                ->setSheetIndex(0)
-                                //->setSheetIndex(0)
-                                ->save(str_replace('.php', '.csv', Mage::getConfig()->getVarDir().'/pricevalidation/import/'.$cleanDir.$exportFilename));
+                            $fileWrite = Mage::getConfig()->getVarDir().'/pricevalidation/import/'.$cleanDir.$exportFilename;
+                            $csvWrite = new Varien_File_Csv();
+                            $csvExport = array();
+                            $column = array();
+                            $csvExport = $a;
+                            foreach($errors as $rowError) {
+                                $column['A'] = $rowError;
+                                $csvExport[] = $column;
+                            }
+                            $csvWrite->saveData($fileWrite, $csvExport);
                         }
                         $ended = date('Y-m-d H:i:s');
 

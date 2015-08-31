@@ -10,11 +10,4 @@
             <block type="bilna_pricevalidation/adminhtml_log" name="bilna_pricevalidation"></block>
         </reference>
     </adminhtml_pricevalidation_edit>
-
-	<!--<adminhtml_pricevalidation_edit>
-		<reference name="head">
-			<action method="addCss"><name>urapidflow.css</name></action>
-			<action method="addItem"><type>skin_js</type><name>urapidflow.js</name></action>
-		</reference>
-	</adminhtml_pricevalidation_edit>-->
 </layout>
