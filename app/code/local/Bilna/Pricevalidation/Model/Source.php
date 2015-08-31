@@ -39,9 +39,7 @@ class Bilna_Pricevalidation_Model_Source extends Bilna_Pricevalidation_Model_Sou
         case 'invoke_status':
             $options = array(
                 'none' => $this->__('None'),
-                //'foreground' => $this->__('Foreground'),
                 'ondemand' => $this->__('On Demand'),
-                //'scheduled' => $this->__('Scheduled'),
             );
             break;
 
