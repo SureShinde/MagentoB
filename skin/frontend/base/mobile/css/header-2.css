@@ -413,7 +413,7 @@ a.link-minicart-sticky, .sticky-header a.link-checkout {
 }
 .header .quick-access a {
 	display: block;
-    padding: 12px;
+    padding: 12px 14px;
 	float: left;
 	font-size: 18px;
 	text-transform: uppercase;
@@ -1378,10 +1378,11 @@ top: 55px;
 	float: left;
     color: #F48220;
     font-size: 18px;
+    border-right: 1px solid #f2f2f2;
 }
 .header .wrap-header-top-mobile{
     position: fixed;
-    border-bottom: 1px solid #d2d2d2;
+    border-bottom: 1px solid #f2f2f2;
     top: 0;
     right: 0;
     left: 0;
@@ -1900,7 +1901,7 @@ searchbar #nav-search-in {
 	}
 	.header .logo {
 		margin:0 !important;
-        width: 94px;
+        width: 115px;
 	}
 	.sticky-header-wrapper {
 		display: none !important;
@@ -2083,8 +2084,8 @@ searchbar #nav-search-in {
 		display:none;
 	}
 	.header .quick-access a.link-myaccount-mobile {
-        border-left: 1px solid #d2d2d2;
-        border-right: 1px solid #d2d2d2;
+        border-left: 1px solid #f2f2f2;
+        border-right: 1px solid #f2f2f2;
 	}
 	.header .quick-access a.link-blog-mobile {
 		width: 39px;
@@ -2221,15 +2222,14 @@ searchbar #nav-search-in {
     background: #000;
     opacity: 0.6;
 }
- .mobile-left-menu{
-    overflow-y:auto;
-    overflow-x:hidden;
+ .mobile-left-menu {
     left:0;
     top:45px;
     width:auto;
     z-index:99999;
     left:-100%;
     height:100%;
+     overflow: hidden;
     position:fixed;
     display:block;
  }
@@ -2237,9 +2237,6 @@ searchbar #nav-search-in {
     position: relative;
     max-height: 100%;
      border-top: 1px solid #f2f2f2;
-    box-shadow: #191818 10px 0 87px;
-    -moz-box-shadow: #191818 10px 0 87px;
-    -webkit-box-shadow: #191818 10px 0 87px;
     height:100%;
     overflow: hidden;
     width:90%;
@@ -2281,6 +2278,7 @@ searchbar #nav-search-in {
 .mobile-left-menu .wrap-menu-cat ul li{
     display: table;
     width: 100%;
+    position: relative;
     cursor:pointer;
 }
 .mobile-left-menu .wrap-menu-cat .wrap-first-level{
@@ -2357,22 +2355,21 @@ searchbar #nav-search-in {
 .mobile-left-menu .wrap-menu-cat .wrap-first-level .wrap-level2 .close-level-2-top .fa{
     margin-right: 10px;
 }
-.mobile-left-menu .wrap-menu-cat .wrap-first-level .wrap-level2 .category-level-2 .fa,
-.mobile-left-menu .wrap-menu-cat .wrap-first-level .wrap-level2 .category-level-2 a{
-    float: left;
-}
-
 .mobile-left-menu .wrap-menu-cat .wrap-first-level .wrap-level2 .category-level-2 .fa{
     width: 15%;
-    font-size: 1.4em;
+    right: 0;
+    float: right;
+    position: absolute;
     text-align: center;
-    padding: 10px 0;
+    top: 0;
 }
 .mobile-left-menu .wrap-menu-cat .wrap-first-level .wrap-level2 .category-level-2 .fa.fa-plus{
-    font-size: 1em;
+    font-size: 12px;
+    top: 12px;
 }
-.mobile-left-menu .wrap-menu-cat .wrap-first-level .wrap-level2 .category-level-2 a{
-    width: 85%;
+.mobile-left-menu .wrap-menu-cat .wrap-first-level .wrap-level2 li.open-cat-3 .fa-times-circle{
+   font-size: 16px;
+    top: 9px;
 }
 .mobile-left-menu .wrap-menu-cat .wrap-first-level .wrap-level2 .category-level-2{
     padding: 0 10px;
@@ -2392,6 +2389,13 @@ searchbar #nav-search-in {
 }
 .mobile-left-menu .wrap-menu-cat .wrap-first-level .wrap-level2 ul li a{
     line-height: 17px;
+    padding-right: 25px;
+}
+.mobile-left-menu .wrap-menu-cat .wrap-first-level .wrap-level2 ul li a.see-all-level-2{
+    
+}
+.mobile-left-menu .wrap-menu-cat .wrap-first-level .wrap-level2 ul.category-level-3 li a{
+    font-size: 12px;
 }
 .mobile-left-menu ul li li{
     font-size: 1em;
@@ -2406,16 +2410,6 @@ searchbar #nav-search-in {
  .mobile-left-menu .second-level{
      font-size: 1.2em;
 }
-.mobile-left-menu .wrap-menu-cat ul li:after{
-    width: 20px;
-    height: 20px;
-    content: "";
-    display: block;
-    position: absolute;
-    right: 0;
-    top:10px;
-    background: url(../images/arrow.png) no-repeat -8px -616px;
-}
 .mobile-left-menu a{
     display: block;
     line-height: 25px;
@@ -2427,13 +2421,6 @@ searchbar #nav-search-in {
     text-transform: none;
     padding: 10px;
     line-height: 1.2em;
-}
-.mobile-left-menu .wrap-menu-cat > ul > li.menu-active p{
-    background:#F48220;
-    border-bottom: 0 !important;
-}
-.mobile-left-menu .wrap-menu-cat > ul > li.menu-active:after{
-    background: url(../images/megamenu/arrow.png) no-repeat -8px -718px;
 }
 .wrap-menu-cat{
 }

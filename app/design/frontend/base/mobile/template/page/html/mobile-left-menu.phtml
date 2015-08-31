@@ -93,10 +93,11 @@
                                                 $_url2 = $_storeCategoryChild['url'];
                                                 $_urlKey2 = $_storeCategoryChild['url_key'];
                                                 ?>
-                                                <li>
-                                                    <a href="<?php echo $_url2; ?>"><?php echo $_name2; ?></a>
-                                                    <i class="fa fa-plus"></i>
-                                                    <i class="fa fa-times-circle"></i>
+                                                <li> 
+                                                    <a href="#!"><?php echo $_name2; ?>
+                                                        <i class="fa fa-plus"></i>
+                                                        <i class="fa fa-times-circle"></i>
+                                                    </a>
                                                     <?php
                                                     $_storeCategoriesChildChild = array ();
 
@@ -118,6 +119,9 @@
                                                                 <a href="<?php echo $_url3; ?>"><?php echo $_name3; ?></a>
                                                             </li>
                                                         <?php endforeach; ?>
+                                                            <li>
+                                                                <a class="see-all-level2" href="<?php echo $_url2; ?>">Lihat semua produk <?php echo $_name2; ?></a>
+                                                            </li>
                                                     <?php endif; ?>
                                                     </ul>
                                                 </li>
