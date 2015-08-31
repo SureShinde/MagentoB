@@ -374,7 +374,7 @@
 	color: #ffa01b;
 }
 .product-shop-right .block.block-related .block-content .aw-arp-item:hover a img {
-	display: block;
+	display: block !important;
 	position: absolute;
 	left: -90px;
 	top: -10px;
@@ -382,7 +382,7 @@
 	border: 0;
 }
 .product-shop-right .block.block-related .block-content .aw-arp-item a img  {
-	display: none;
+	display: none !important;
 }
 .product-shop-right .block.block-related .block-content .aw-arp-item .aw-arp-addtocart {
 	margin-top: 20px;
