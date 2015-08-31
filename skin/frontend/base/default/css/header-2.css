@@ -2968,7 +2968,6 @@ searchbar #nav-search-in {
 		padding: 10px 0;
 	}
 	.mobile-left-menu .wrap-menu-cat ul li{
-		position: relative;
 		display: table;
 		width: 100%;
 		cursor:pointer;
