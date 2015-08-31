@@ -55,9 +55,9 @@
         $j('.nav-mobile-trigger span.notclick').click(function() {
             $j(this).hide();
             $j('.nav-mobile-trigger span.clicked').show();
-            $j('.mobile-left-menu').css({"width":"100%","left":"0"});
+            $j('.mobile-left-menu').css({"width":"auto","left":"0","right":"40px"});
             $j('body').css({"overflow":"hidden"});
-            $j('.mobile-left-menu .back-left').css({"position":"fixed"});
+            $j('.back-left').toggle();
         });
         $j('.all-cat').click(function() {
             $j('html, body').animate({scrollTop:0}, 400); 
@@ -88,7 +88,7 @@
             $j('.mobile-left-menu').css({"width":"100%","left":"-100%"});
             $j('.wrapper').css({"float":"none","margin-left":"0","position":"relative"});
             $j('body').css({"overflow":"auto"});
-            $j('.mobile-left-menu .back-left').css({"position":"absolute"});
+            $j('.back-left').toggle();
         });
 
         checkMobileTooltip();
@@ -196,33 +196,35 @@ $j(document).ready(function() {
     <?php echo $this->getLayout()->createBlock('page/html')->setTemplate('page/html/back-top.phtml')->toHtml(); ?>
     
     <div class="header">
-    	<a href="#" class="nav-mobile-trigger">
-            <span class="notclick fa fa-bars fa-2x"></span>
-            <span class="clicked fa fa-times fa-2x"></span>
-        </a>
-        <a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="logo"><strong><?php echo $this->getLogoAlt() ?></strong>
-            <img src="<?php echo $this->getSkinUrl(); ?>images/logo_bilna_2015_2.jpg" alt="<?php echo $this->getLogoAlt() ?>" />
-        </a>
-        
-        <?php //echo $this->getLayout()->createBlock('cms/block')->setBlockId('keypoint')->toHtml() ?>
-        
-        <div class="quick-access">
-			<?php echo $this->getChildHtml('store_language') ?>
-            <a href="<?php echo Mage::getBaseUrl(); ?>customer/account/login/" class="link-myaccount-mobile"><i class="fa fa-user fa-2x"></i></a>
-            
-            <?php $_totalItem = $this->helper('checkout/cart')->getSummaryCount();  //get total items in cart ?>
+        <div class="wrap-header-top-mobile">
+            <a href="#" class="nav-mobile-trigger">
+                <span class="notclick fa fa-bars"></span>
+                <span class="clicked fa fa-times"></span>
+            </a>
+            <a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="logo"><strong><?php echo $this->getLogoAlt() ?></strong>
+                <img src="<?php echo $this->getSkinUrl(); ?>images/logo_bilna_2015_2.jpg" alt="<?php echo $this->getLogoAlt() ?>" />
+            </a>
 
-            <?php if ($_totalItem == 0): ?>
-                <a href="#" class="link-minicart" id="link-minicart"><i class="fa fa-shopping-cart fa-2x"></i><span class="qty"><?php echo $this->__('0') ?></span></a>
-            <?php else: ?>
-            <a href="<?php echo $this->getUrl('blog'); ?>" class="link-minicart" id="link-minicart"><i class="fa fa-shopping-cart fa-2x"></i><span class="qty"><?php echo $this->__($_totalItem) ?></span></a>
-            <?php endif; ?>
-            
-            <div class="clear"></div>
-            
-            <p class="welcome-msg"><?php echo $this->getChildHtml('welcome') ?> <?php echo $this->getAdditionalHtml() ?></p>
-            
-            <div class="clear"></div>
+            <?php //echo $this->getLayout()->createBlock('cms/block')->setBlockId('keypoint')->toHtml() ?>
+
+            <div class="quick-access">
+                <?php echo $this->getChildHtml('store_language') ?>
+                <a href="<?php echo Mage::getBaseUrl(); ?>customer/account/login/" class="link-myaccount-mobile"><i class="fa fa-user"></i></a>
+
+                <?php $_totalItem = $this->helper('checkout/cart')->getSummaryCount();  //get total items in cart ?>
+
+                <?php if ($_totalItem == 0): ?>
+                    <a href="#" class="link-minicart" id="link-minicart"><i class="fa fa-shopping-cart"></i><span class="qty"><?php echo $this->__('0') ?></span></a>
+                <?php else: ?>
+                <a href="<?php echo Mage::getBaseUrl(); ?>checkout/cart" class="link-minicart" id="link-minicart"><i class="fa fa-shopping-cart"></i><span class="qty"><?php echo $this->__($_totalItem) ?></span></a>
+                <?php endif; ?>
+
+                <div class="clear"></div>
+
+                <p class="welcome-msg"><?php echo $this->getChildHtml('welcome') ?> <?php echo $this->getAdditionalHtml() ?></p>
+
+                <div class="clear"></div>
+            </div>
         </div>
         
         <?php echo $this->getChildHtml('topContainer'); ?>
