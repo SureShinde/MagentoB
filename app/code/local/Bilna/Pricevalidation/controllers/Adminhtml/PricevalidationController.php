@@ -109,7 +109,7 @@ class Bilna_Pricevalidation_Adminhtml_PricevalidationController extends Mage_Adm
                         }
                     }
 
-                    if(!file_exists(Mage::getConfig()->getVarDir().'/pricevalidation/import/'.$cleanDir.$dataRun['filename'])) {
+                    if(!file_exists(Mage::getConfig()->getBaseDir('base').'/files/pricevalidation/import/'.$cleanDir.$dataRun['filename'])) {
                         Mage::getSingleton('adminhtml/session')->addError('File not found !');
                         $this->_redirect('*/*/edit', array('profile_id' => $this->getRequest()->getParam('profile_id')));
                         return;
@@ -120,7 +120,7 @@ class Bilna_Pricevalidation_Adminhtml_PricevalidationController extends Mage_Adm
                         $fieldList = array();
                         $errors = array();
 
-                        $file = Mage::getConfig()->getVarDir().'/pricevalidation/import/'.$cleanDir.$dataRun['filename'];
+                        $file = Mage::getConfig()->getBaseDir('base').'/files/pricevalidation/import/'.$cleanDir.$dataRun['filename'];
                         $csv = new Varien_File_Csv();
                         $csvFile = $csv->getData($file);
                         for($i = 0; $i < count($csvFile); $i++) {
@@ -141,7 +141,7 @@ class Bilna_Pricevalidation_Adminhtml_PricevalidationController extends Mage_Adm
                             }
 
                             if($i == 0){
-                                $errors[] = $csvFile[$i][0].'Error Description';
+                                $errors[] = $csvFile[$i][0].';Error Description';
                             }
 
                             if($i > 0) { // Skip price validation on header
@@ -149,11 +149,15 @@ class Bilna_Pricevalidation_Adminhtml_PricevalidationController extends Mage_Adm
                                     $error = '';
                                     $dataCsv = explode(';',$csvFile[$i][0]);
                                     foreach($columnsKeyToBeProcessed as $keyDataColumn=>$columnKey) {
+                                        if(($keyDataColumn == 'ignore_flag') && (empty($dataCsv[$columnKey]))) {
+                                            $dataCsv[$columnKey] = 0;
+                                        }
                                         if(isset($dataCsv[$columnKey]) && !empty($dataCsv[$columnKey])) {
                                             $cleanData[$i-1][$keyDataColumn] = $dataCsv[$columnKey];
                                             $fieldList[] = $keyDataColumn;
                                         }
                                     }
+                                    $csvFile[$i][0] = implode(';', $dataCsv);
 
                                     $productId = Mage::getModel('catalog/product')->getIdBySku($cleanData[$i-1]['SKU']);
 
@@ -189,7 +193,7 @@ class Bilna_Pricevalidation_Adminhtml_PricevalidationController extends Mage_Adm
                                             }
                                         }
 
-                                        if(!empty($error)) {
+                                        if(empty($error)) {
                                             if(in_array('ignore_flag', $fieldList) && ($cleanData[$i-1]['ignore_flag'] == 1)) {
                                                 $productId = Mage::getModel('catalog/product')->getIdBySku($cleanData[$i-1]['SKU']);
                                                 $updateProduct = Mage::getModel('catalog/product')->load($productId);
@@ -288,11 +292,11 @@ class Bilna_Pricevalidation_Adminhtml_PricevalidationController extends Mage_Adm
                             $extension = $errFileName[count($errFileName)-1];
                             $errFileName[count($errFileName)-1] = '_error_'.Mage::getModel('core/date')->date('Y-m-d_H:i:s');
                             $exportFilename = implode('', $errFileName).'.'.$extension;
-                            $fileWrite = Mage::getConfig()->getVarDir().'/pricevalidation/import/'.$cleanDir.$exportFilename;
+                            $fileWrite = Mage::getConfig()->getBaseDir('base').'/files/pricevalidation/import/'.$cleanDir.$exportFilename;
                             $csvWrite = new Varien_File_Csv();
                             $csvExport = array();
                             $column = array();
-                            $csvExport = $a;
+                            //$csvExport = $a;
                             foreach($errors as $rowError) {
                                 $column['A'] = $rowError;
                                 $csvExport[] = $column;
@@ -328,6 +332,7 @@ class Bilna_Pricevalidation_Adminhtml_PricevalidationController extends Mage_Adm
                 }
 
                 if ($this->getRequest()->getParam('back')) {
+                    Mage::getSingleton('core/session')->setSessionRun(true);
                     $this->_redirect('*/*/edit', array('profile_id' => $model->getProfileId()));
                     return;
                 }
@@ -377,7 +382,7 @@ class Bilna_Pricevalidation_Adminhtml_PricevalidationController extends Mage_Adm
             $uploader->setAllowRenameFiles(false);
             $uploader->setFilesDispersion(false);
 
-            $target = Mage::getConfig()->getVarDir('pricevalidation/import');
+            $target = Mage::getConfig()->getBaseDir('base').'/files/pricevalidation/import';
             Mage::getConfig()->createDirIfNotExists($target);
             $result = $uploader->save($target);
 

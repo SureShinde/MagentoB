@@ -16,6 +16,7 @@ class Bilna_Pricevalidation_Block_Adminhtml_Pricevalidation_Edit_Tabs extends Ma
         $hlp = Mage::helper('bilna_pricevalidation');
         $profile = Mage::registry('profile_data');
         $log = Mage::registry('profile_log_data');
+        $a = Mage::registry('ran');
 
         $this->addTab('main_section', array(
             'label'     => $this->__('Profile Information'),
@@ -31,6 +32,7 @@ class Bilna_Pricevalidation_Block_Adminhtml_Pricevalidation_Edit_Tabs extends Ma
 
         if ($profile->getRunStatus() == 'finished') {
             $this->addTab('status_section', array(
+                'active'    => Mage::getSingleton('core/session')->getSessionRun(),
                 'label'     => $this->__('Profile Status'),
                 'title'     => $this->__('Profile Status'),
                 'content'   => $this->getLayout()->createBlock('bilna_pricevalidation/adminhtml_pricevalidation_status')
@@ -38,6 +40,7 @@ class Bilna_Pricevalidation_Block_Adminhtml_Pricevalidation_Edit_Tabs extends Ma
                     ->toHtml(),
             ));
         }
+        Mage::getSingleton('core/session')->unsSessionRun();
 
         $tabs = Mage::getSingleton('bilna_pricevalidation/config')
             ->getProfileTabs($profile->getProfileType(), $profile->getDataType());

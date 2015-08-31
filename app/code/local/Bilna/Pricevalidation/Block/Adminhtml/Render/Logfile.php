@@ -8,7 +8,7 @@
                 $baseDir = $model->getBaseDir().'/';
             }
             if($row->getData('rows_errors') != 0) {
-                $data = '<a href="'.Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB).'var/pricevalidation/import/'.$baseDir.$row->getData('error_file').'">Download</a>';
+                $data = '<a href="'.Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB).'files/pricevalidation/import/'.$baseDir.$row->getData('error_file').'">Download</a>';
             } else {
                 $data = '-';
             }
