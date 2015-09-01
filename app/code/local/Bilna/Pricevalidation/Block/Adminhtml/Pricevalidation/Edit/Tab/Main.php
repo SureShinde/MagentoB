@@ -91,12 +91,6 @@ class Bilna_Pricevalidation_Block_Adminhtml_Pricevalidation_Edit_Tab_Main extend
                 'name'      => 'run_status',
                 'values'    => $source->setPath('run_status')->toOptionArray(),
             ));
-            $fieldset->addField('invoke_status', 'select', array(
-                'label'     => $this->__('Invoke Status'),
-                'disabled'  => true,
-                'name'      => 'invoke_status',
-                'values'    => $source->setPath('invoke_status')->toOptionArray(),
-            ));
         }
 
         if ($profile) {
