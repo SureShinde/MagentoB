@@ -59,7 +59,7 @@ class Bilna_Rest_Model_Api2_Product_Review_Rest_Admin_V1 extends Bilna_Rest_Mode
         }
         
         $result = array ();
-        $result['totalRecord'] = $reviews->getSize();
+        $result[0] = array ('total_record' => $reviews->getSize());
         
         foreach ($reviews->getItems() as $review) {
             $votes = array ();
