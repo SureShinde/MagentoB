@@ -20,6 +20,8 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
     {
         $quoteId = $data['entity_id'];
         $storeId = isset($data['store_id']) ? $data['store_id'] : 1;
+        $tokenId = isset($data['token_id']) ? $data['token_id'] : '';
+
 
         try {
 
@@ -65,11 +67,30 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
                 'checkout_submit_all_after',
                 array('order' => $order, 'quote' => $quote)
             );
+
+            $lastOrderId = $order->getId();
+            $paymentCode = $order->getPayment()->getMethodInstance()->getCode();
+
+            if (in_array($paymentCode, $this->getPaymentMethodCc()))
+            {
+                $charge = Mage::getModel('paymethod/api')->creditcardCharge($order, $tokenId);
+
+                Mage::getModel('paymethod/vtdirect')->updateOrder($order, $paymentCode, $charge);
+                Mage::register('response_charge', $charge);
+                Mage::dispatchEvent('sales_order_place_after', array ('order' => $order));
+                
+            }
+
         } catch (Mage_Core_Exception $e) {
             $this->_critical($e->getMessage());
         }
 
         return $this->_getLocation($order);
 
+    }
+
+    protected function getPaymentMethodCc()
+    {
+        return Mage::helper('paymethod')->getPaymentMethodCc();
     }
 }
