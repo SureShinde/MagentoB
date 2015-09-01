@@ -28,10 +28,7 @@ class Bilna_Pricevalidation_Model_Source extends Bilna_Pricevalidation_Model_Sou
         case 'run_status':
             $options = array(
                 'idle' => $this->__('Idle'),
-                'pending' => $this->__('Pending'),
                 'running' => $this->__('Running'),
-                'paused' => $this->__('Paused'),
-                'stopped' => $this->__('Stopped'),
                 'finished' => $this->__('Finished'),
             );
             break;

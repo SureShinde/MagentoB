@@ -5,9 +5,9 @@ class Bilna_Pricevalidation_Block_Adminhtml_Log_Grid extends Mage_Adminhtml_Bloc
     public function __construct()
     {
         parent::__construct();
-        $this->setId('adminhtml_log_grid');
-        $this->setDefaultSort('log_id');
-        $this->setDefaultDir('DESC');
+        $this->setId('log_grid');
+        $this->setDefaultSort('started_at');
+        $this->setDefaultDir('desc');
         $this->setSaveParametersInSession(true);
         $this->setUseAjax(true);
     }
@@ -71,6 +71,15 @@ class Bilna_Pricevalidation_Block_Adminhtml_Log_Grid extends Mage_Adminhtml_Bloc
             'filter' => false,
             'index' => 'user_id',
             'renderer' => 'Bilna_Pricevalidation_Block_Adminhtml_Render_Loguser'
+        ));
+
+        $this->addColumn('source_file', array(
+            'header' => $this->__('Source File'),
+            'align' => 'left',
+            'width' => '80px',
+            'filter' => false,
+            //'index' => 'error_file',
+            'renderer' => 'Bilna_Pricevalidation_Block_Adminhtml_Render_Logfilesource'
         ));
 
         $this->addColumn('error_file', array(

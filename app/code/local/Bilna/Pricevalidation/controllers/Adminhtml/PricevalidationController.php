@@ -58,13 +58,6 @@ class Bilna_Pricevalidation_Adminhtml_PricevalidationController extends Mage_Adm
                 if (!isset($postData['columns_post'])) {
                     $postData['columns_post'] = array();
                 }
-                if (isset($postData['conditions'])) {
-                    $postData['conditions_post'] = $postData['conditions'];
-                    unset($postData['conditions']);
-                }
-                if (isset($postData['options']['refresh'])) {
-                    $postData['options']['refresh'] = array_flip($postData['options']['refresh']);
-                }
                 $model->addData($postData);
                 $model = $model->factory();
 
@@ -90,6 +83,14 @@ class Bilna_Pricevalidation_Adminhtml_PricevalidationController extends Mage_Adm
 
                 if (($invokeStatus = $this->getRequest()->getParam('start'))) {
                     $started = date('Y-m-d H:i:s');
+
+                    $runningStatus = array(
+                        'run_status' => 'running',
+                        'started_at' => $started
+                    );
+                    $model->addData($runningStatus);
+                    $model->setId($this->getRequest()->getParam('profile_id'));
+                    $model->save();
 
                     $model->load($this->getRequest()->getParam('profile_id'));
                     $dataRun = $model->getData();
@@ -307,9 +308,6 @@ class Bilna_Pricevalidation_Adminhtml_PricevalidationController extends Mage_Adm
 
                         $postDataUpdate = array(
                             'run_status' => 'finished',
-                            'invoke_status' => 'ondemand',
-                            'rows_found' => $totalRow,
-                            'started_at' => $started,
                             'finished_at' => $ended
                         );
                         $model->addData($postDataUpdate);
@@ -323,7 +321,9 @@ class Bilna_Pricevalidation_Adminhtml_PricevalidationController extends Mage_Adm
                             'rows_found' => $totalRow,
                             'rows_errors' => count($errors)-1,
                             'user_id' => Mage::getSingleton('admin/session')->getUser()->getData('user_id'),
-                            'error_file' => isset($exportFilename) ? $exportFilename : ''
+                            'error_file' => isset($exportFilename) ? $exportFilename : '',
+                            'base_dir' => $cleanDir,
+                            'source_file' => $dataRun['filename']
                         );
 
                         $modelLog = Mage::getModel('bilna_pricevalidation/log');
@@ -367,7 +367,6 @@ class Bilna_Pricevalidation_Adminhtml_PricevalidationController extends Mage_Adm
 
     public function gridlogAction()
     {
-        $this->loadLayout();
         $this->getResponse()->setBody(
             $this->getLayout()->createBlock('bilna_pricevalidation/adminhtml_log_grid')->toHtml()
         );

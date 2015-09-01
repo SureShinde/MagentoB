@@ -40,25 +40,9 @@ class Bilna_Pricevalidation_Block_Adminhtml_Pricevalidation_Grid extends Mage_Ad
 		$this->addColumn('started_at', array(
 			'header'    => $this->__('Last Run'),
 			'align'     => 'left',
-			'width'     => '130px',
+			//'width'     => '200px',
 			'index'     => 'started_at',
 			'type'      => 'datetime',
-		));
-
-		$this->addColumn('rows_processed', array(
-			'header'    => $this->__('Rows'),
-			'align'     => 'left',
-			'width'     => '60px',
-			'filter'    => false,
-			'index'     => 'rows_processed',
-		));
-
-		$this->addColumn('rows_errors', array(
-			'header'    => $this->__('Errors'),
-			'align'     => 'left',
-			'width'     => '60px',
-			'filter'    => false,
-			'index'     => 'rows_errors',
 		));
 
 		$this->addColumn('profile_status', array(
