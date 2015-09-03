@@ -10,8 +10,12 @@ class Bilna_Rest_Model_Api2 extends Mage_Api2_Model_Resource {
     
     protected $_data = array ();
     
+    public function __construct() {
+        Mage::app()->getStore()->setStoreId(self::DEFAULT_STORE_ID);
+    }
+    
     protected function _getStore() {
-        return Mage::getModel('core/store')->load(self::DEFAULT_STORE_ID);
+        return Mage::app()->getStore();
     }
     
     protected function _createValidator($validatorModel) {

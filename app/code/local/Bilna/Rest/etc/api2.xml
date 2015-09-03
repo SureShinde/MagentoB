@@ -517,14 +517,29 @@
                         <retrieve>1</retrieve>
                     </admin>
                 </privileges>
-                <attributes translate="" module="Bilna_Rest">
-                    
+                <attributes translate="query_id query_text num_results popularity redirect synonym_for store_id display_in_terms is_active is_processed updated_at products" module="Bilna_Rest">
+                    <query_id>Query ID</query_id>
+                    <query_text>Query Text</query_text>
+                    <num_results>Number Results</num_results>
+                    <popularity>Popularity</popularity>
+                    <redirect>Redirect</redirect>
+                    <synonym_for>Synonym For</synonym_for>
+                    <store_id>Store ID</store_id>
+                    <display_in_terms>Display In Terms</display_in_terms>
+                    <is_active>Is Active</is_active>
+                    <is_processed>Is Processed</is_processed>
+                    <updated_at>Updated At</updated_at>
+                    <products>Products</products>
                 </attributes>
                 <routes>
-                    <route_collection>
+                    <route_entity>
                         <route>/search</route>
+                        <action_type>entity</action_type>
+                    </route_entity>
+                    <!--route_collection>
+                        <route>/search/result</route>
                         <action_type>collection</action_type>
-                    </route_collection>
+                    </route_collection-->
                 </routes>
                 <versions>1</versions>
             </product_search>
