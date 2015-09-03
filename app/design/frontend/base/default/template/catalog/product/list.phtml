@@ -177,9 +177,9 @@ jQuery(document).ready(function(){
                 <?php
                     $pageType = '';
                     $prodId = array();
-                    if(isset($productId[0]){$prodId[0] = $productId[0];}
-                    if(isset($productId[1]){$prodId[1] = $productId[1];}
-                    if(isset($productId[2]){$prodId[2] = $productId[2];}
+                    if(isset($productId[0])){$prodId[0] = $productId[0];}
+                    if(isset($productId[1])){$prodId[1] = $productId[1];}
+                    if(isset($productId[2])){$prodId[2] = $productId[2];}
                     shuffle($productId);
                     $pageIdentifier =  Mage::app()->getFrontController()->getAction()->getFullActionName();;
                     if($pageIdentifier == 'catalogsearch_result_index'){
