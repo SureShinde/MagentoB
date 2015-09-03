@@ -234,7 +234,7 @@ endif;
 <?php $valueCollection = array(); ?>
 <?php $idCollection = array(); ?>
 <?php foreach($cartItems->getAllItems() as $cartItem) : ?>
-    <?php $idCollection[] = $cartItem->getId(); ?>
+    <?php $idCollection[] = $cartItem->getProductId(); ?>
     <?php $skuCollection[] = $cartItem->getSku(); ?>
     <?php $qtyCollection[] = number_format($cartItem->getData('qty_ordered'), 0, '', ''); ?>
     <?php $valueCollection[] = number_format($cartItem->getPrice(), 0, '', ''); ?>

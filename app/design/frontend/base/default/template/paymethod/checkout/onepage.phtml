@@ -47,7 +47,7 @@
 <?php $totalValue = 0; ?>
 <?php foreach($cartItems as $cartItem) : ?>
     <?php $skuCollection[] = $cartItem->getSku(); ?>
-    <?php $productCollection[] = $cartItem->getId(); ?>
+    <?php $productCollection[] = $cartItem->getProductId(); ?>
     <?php $qtyCollection[] = $cartItem->getQty(); ?>
     <?php $valueCollection[] = $cartItem->getPrice(); ?>
     <?php $totalValue += ($cartItem->getPrice() * $cartItem->getQty()); ?>

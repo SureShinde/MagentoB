@@ -122,26 +122,7 @@
                     <tbody>
                         <?php foreach($this->getItems() as $_item): ?>
                             <?php echo $this->getItemHtml($_item) ?>
-                            <?php $gtmItemIds = $_item->getId().'|'; ?>
                         <?php endforeach; ?>
-
-						<?php $cartItems = Mage::getSingleton('checkout/session')->getQuote()->getAllItems(); ?>
-						<?php $skuCollection = array(); ?>
-						<?php $productCollection = array(); ?>
-						<?php $qtyCollection = array(); ?>
-						<?php $valueCollection = array(); ?>
-						<?php $totalValue = 0; ?>
-						<?php foreach($cartItems as $cartItem) : ?>
-						<?php $skuCollection[] = $cartItem->getSku(); ?>
-						<?php $productCollection[] = $cartItem->getId(); ?>
-						<?php $qtyCollection[] = $cartItem->getQty(); ?>
-						<?php $valueCollection[] = $cartItem->getPrice(); ?>
-						<?php $totalValue += ($cartItem->getPrice() * $cartItem->getQty()); ?>
-						<?php endforeach; ?>
-						<?php $skuDisplay =  implode("','", $skuCollection); ?>
-						<?php $productDisplay =  implode("','", $productCollection); ?>
-						<?php $qtyDisplay =  implode("','", $qtyCollection); ?>
-						<?php $valueDisplay =  implode("','", $valueCollection); ?>
                     </tbody>
                 </table>
                 <script type="text/javascript">decorateTable('shopping-cart-table')</script>
@@ -379,15 +360,7 @@
 </div>
 <script type="text/javascript">
 jQuery(document).ready(function () {
-    dataLayer.push({'ecomm_pagetype': 'cart'});
-    dataLayer.push({'ecomm_prodid': ['<?php echo $skuDisplay; ?>']});
-    dataLayer.push({'ecomm_totalvalue': '<?php echo $totalValue; ?>'});
-    dataLayer.push({'productid': ['<?php echo $productDisplay; ?>']});
-    dataLayer.push({'skuid': ['<?php echo $skuDisplay; ?>']});
-    dataLayer.push({'prices': ['<?php echo $valueDisplay; ?>']});
-    dataLayer.push({'quantities': ['<?php echo $qtyDisplay; ?>']});
-
-	var ajaxURL = 'https://www.bilna.com/ajaxrequest/data/retrievecart/';
+	var ajaxURL = '<?php echo Mage::getBaseUrl( Mage_Core_Model_Store::URL_TYPE_WEB, true ); ?>ajaxrequest/data/retrievecart/';
 
     var data = {};
 
@@ -398,9 +371,13 @@ jQuery(document).ready(function () {
         success: function(data){
             response = jQuery.parseJSON(data);
             if(response.status == true){
+				dataLayer.push( {'ecomm_pagetype': 'cart'} );
+				dataLayer.push( {'ecomm_prodid': response.data.quote.productSkuIds} );
+				dataLayer.push( {'ecomm_totalvalue': response.data.quote.totalValue} );
             	dataLayer.push( {'productid': response.data.quote.productIds} );
-            	dataLayer.push( {'prices': response.data.quote.productPrices} );
-            	dataLayer.push( {'quantities': response.data.quote.productQtys} );
+				dataLayer.push( {'skuid': response.data.quote.productSkuIds} );
+				dataLayer.push( {'prices': response.data.quote.productPrices} );
+				dataLayer.push( {'quantities': response.data.quote.productQtys} );
             }else{
                 return false;
             }
