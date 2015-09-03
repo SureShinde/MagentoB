@@ -435,7 +435,7 @@ a.link-minicart-sticky, .sticky-header a.link-checkout {
     -webkit-border-radius: 3px;
     border-radius: 3px;
     padding: 1px 4px;
-    background: #fdac49;
+    background: #F38020;
 }
 .header .quick-access a.link-checkout {
 	background-color:#ffa01b ;
@@ -1409,15 +1409,15 @@ top: 55px;
     margin: 0;
     position: relative;
 }
-.mobile-left-menu:after{
+/*.mobile-left-menu:after{
     content: " ";
     border-color: #F48220 transparent transparent transparent;
     border-width: 8px 9px;
     border-style: solid;
     position: absolute;
     top: 0;
-    left: 11px;
-}
+    left: 13px;
+}*/
 /* for menu */
 .nav-container-mobile ul {
 	list-style: none;
@@ -2224,11 +2224,11 @@ searchbar #nav-search-in {
     padding:0 10px;
 }
 .back-left{
-    width:45px;
+    width:100%;
     position:fixed;
     top:45px;
     display: none;
-    z-index: 999;
+    z-index: 99;
     bottom:0;
     right:0;
     background: #000;
@@ -2237,10 +2237,10 @@ searchbar #nav-search-in {
  .mobile-left-menu {
     left:0;
     top:45px;
-    width:auto;
+    width:275px;
     z-index:991;
     left:-100%;
-    height:100%;
+     bottom: 0;
      overflow: hidden;
     position:fixed;
     display:block;
@@ -2297,8 +2297,8 @@ searchbar #nav-search-in {
 }
 .mobile-left-menu .wrap-menu-cat .wrap-first-level{
     display: block;
-    right: 15%;
-    width: 0%;
+    left: 275px;
+    width: 0;
     top: 45px;
     bottom: 0;
     clear: both;
@@ -2312,7 +2312,7 @@ searchbar #nav-search-in {
 .mobile-left-menu .wrap-menu-cat .wrap-first-level.menu-active{
     display: block;
     overflow: scroll;
-    width: auto;
+    width: 232px;
     right: 42px;
     left: 44px;
     top: 45px;
@@ -2330,7 +2330,7 @@ searchbar #nav-search-in {
 .mobile-left-menu .wrap-menu-cat .wrap-first-level ~ .close-level-2{
     display: block;
     position: fixed;
-    right: 42px;
+    width: 275px;
     bottom: 0;
     left: 0;
     visibility: hidden;
@@ -2348,9 +2348,6 @@ searchbar #nav-search-in {
  .mobile-left-menu .second-level,
 .mobile-left-menu .wrap-menu-cat .wrap-first-level .wrap-level2 .close-level-2-top{
     padding: 0 10px;
-}
-.mobile-left-menu .wrap-menu-cat .wrap-first-level .wrap-level2 li.open-cat-3 .fa-times-circle{
-    display: block;
 }
 .mobile-left-menu .wrap-menu-cat .wrap-first-level .wrap-level2 li.open-cat-3 .category-level-3{
     display: block;
@@ -2386,7 +2383,8 @@ searchbar #nav-search-in {
 }
 .mobile-left-menu .wrap-menu-cat .wrap-first-level .wrap-level2 li.open-cat-3 .fa-times-circle{
    font-size: 16px;
-    top: 9px;
+    top: 10px;
+    display: block;
 }
 .mobile-left-menu .wrap-menu-cat .wrap-first-level .wrap-level2 .category-level-2{
     padding: 0;
@@ -2396,6 +2394,7 @@ searchbar #nav-search-in {
     min-height: 100%;
     overflow: hidden;
     background-color: #FFFFFF;
+    border-top: 1px solid #f2f2f2;
     -webkit-transition:All 0.2s ease-in-out;
     -moz-transition:All 0.2s ease-in-out;
     -o-transition:All 0.2s ease-in-out;
@@ -2407,6 +2406,7 @@ searchbar #nav-search-in {
 .mobile-left-menu .wrap-menu-cat .wrap-first-level .wrap-level2 ul li > a{
     line-height: 17px;
     font-weight: bold;
+    font-size: 1em;
     padding: 10px 25px 10px 10px;
 }
 .mobile-left-menu .wrap-menu-cat .wrap-first-level .wrap-level2 ul li a.see-all-level-2{
@@ -2414,12 +2414,11 @@ searchbar #nav-search-in {
 }
 .mobile-left-menu .wrap-menu-cat .wrap-first-level .wrap-level2 ul li.open-cat-3 > a{
     background: #FDFDFD;
-    padding: 10px 37px 10px 10px;
     color: #484848;
     font-weight: bold;
 }
 .mobile-left-menu .wrap-menu-cat .wrap-first-level .wrap-level2 ul.category-level-3 li a{
-    font-size: 12px;
+    font-size: 0.9em;
     font-weight: normal;
 }
 .mobile-left-menu ul li li{
