@@ -360,7 +360,12 @@
 </div>
 <script type="text/javascript">
 jQuery(document).ready(function () {
-	var ajaxURL = '<?php echo Mage::getBaseUrl( Mage_Core_Model_Store::URL_TYPE_WEB, true ); ?>ajaxrequest/data/retrievecart/';
+    <?php if(Mage::app()->getStore()->isCurrentlySecure()) : ?>
+    <?php $baseUrl = Mage::getBaseUrl( Mage_Core_Model_Store::URL_TYPE_WEB, true ); ?>
+    <?php else : ?>
+    <?php $baseUrl = Mage::getBaseUrl( Mage_Core_Model_Store::URL_TYPE_WEB, false ); ?>
+    <?php endif; ?>
+	var ajaxURL = '<?php echo $baseUrl; ?>ajaxrequest/data/retrievecart/';
 
     var data = {};
 
