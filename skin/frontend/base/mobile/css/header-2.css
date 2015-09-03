@@ -428,14 +428,16 @@ a.link-minicart-sticky, .sticky-header a.link-checkout {
     right: 7px;
     font-weight: bold;
     color: #fff;
+    width: 10px;
+    height: 10px;
     font-size: 10px;
-    line-height: initial;
     border-radius: 3px;
     -moz-border-radius: 3px;
+    text-align: center;
     -webkit-border-radius: 3px;
     border-radius: 3px;
-    padding: 1px 4px;
-    background: #F38020;
+    padding: 2px;
+    background: #fdac49;
 }
 .header .quick-access a.link-checkout {
 	background-color:#ffa01b ;
