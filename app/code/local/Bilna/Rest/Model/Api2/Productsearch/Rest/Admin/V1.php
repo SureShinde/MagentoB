@@ -7,33 +7,19 @@
 
 class Bilna_Rest_Model_Api2_Productsearch_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_Productsearch_Rest {
     protected function _retrieve() {
-        $_query = $this->_getQuery();
+        $this->_getParams();
         
-        if ($_query->getQueryText() == '') {
-            $this->_critical(self::RESOURCE_REQUEST_DATA_INVALID);
+        $_resultProducts = $this->_getResultProducts();
+        
+        if (count($_resultProducts) == 0) {
+            $this->_critical(self::RESOURCE_NOT_FOUND);
         }
         
-        $_result = $_query->getData();
-        
-        if (Mage::helper('catalogsearch')->isMinQueryLength()) {
-            $_query->setId(0)->setIsActive(1)->setIsProcessed(1);
-        }
-        else {
-            if ($_query->getId()) {
-                $_query->setPopularity($_query->getPopularity() + 1);
-            }
-            else {
-                $_query->setPopularity(1);
-            }
-
-            if ($_query->getRedirect()) {
-                $_query->save();
-            }
-            else {
-                $_query->prepare();
-                $_result['products'] = $this->_getProductCollection($this->_getQueryText(), $_query);
-            }
-        }
+        $_result = array (
+            'query_text' => $this->_queryText,
+            'total_record' => count($_resultProducts),
+            'products' => $_resultProducts,
+        );
         
         return $_result;
     }
