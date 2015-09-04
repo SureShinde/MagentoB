@@ -2392,7 +2392,7 @@ searchbar #nav-search-in {
     padding: 0;
 }
 .mobile-left-menu .wrap-menu-cat .wrap-first-level .wrap-level2{
-    width: 0;
+    width: 232px;
     min-height: 100%;
     overflow: hidden;
     background-color: #FFFFFF;
@@ -2400,10 +2400,7 @@ searchbar #nav-search-in {
     -webkit-transition:All 0.2s ease-in-out;
     -moz-transition:All 0.2s ease-in-out;
     -o-transition:All 0.2s ease-in-out;
-    float: right;
-}
-.mobile-left-menu .wrap-menu-cat .wrap-first-level.menu-active .wrap-level2{
-    width: 100%;
+    float: left;
 }
 .mobile-left-menu .wrap-menu-cat .wrap-first-level .wrap-level2 ul li > a{
     line-height: 17px;
