@@ -100,12 +100,20 @@
                     <title>Title</title>
                     <url_key>URL Key</url_key>
                     <pagetitle>Page Title</pagetitle>
+                    <title>Title</title>
+                    <url>URL</url>
+                    <image>Image</image>
+                    <total_record>Total Record</total_record>
                 </attributes>
                 <routes>
                     <route_entity>
-                        <route>/routes/brands</route>
+                        <route>/routes/brands/:path</route>
                         <action_type>entity</action_type>
                     </route_entity>
+                    <route_collection>
+                        <route>/routes/brands</route>
+                        <action_type>collection</action_type>
+                    </route_collection>
                 </routes>
                 <versions>1</versions>
             </brands>

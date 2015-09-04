@@ -6,23 +6,20 @@
  */
 
 class Bilna_Routes_Model_Api2_Brands_Rest extends Bilna_Routes_Model_Api2_Brands {
-    protected function _retrieve() {
-        $path = $this->parserPath($this->getRequest()->getParam('path'));
-        $brandId = $this->getBrandId($path);
+    protected function _getBrandsCollection() {
+        $collection = Mage::getModel('brands/brands')->getCollection();
+        $collection->addAttributeToSelect(array ('title', 'description', 'url_key', 'image'))
+            ->addAttributeToFilter('active', 1)
+            ->setStore($this->_getStore())
+            ->setOrder('title', 'ASC');
         
-        if (!$brandId) {
-            $this->_critical(self::RESOURCE_NOT_FOUND);
-        }
-        
-        $brand = Mage::getModel('brands/brands')->load($brandId);
-        
-        if (!$brand->getSize() == 0) {
-            $this->_critical(self::RESOURCE_NOT_FOUND);
-        }
-        
-        return $brand->getData();
+        return $collection;
     }
     
+    protected function _stripTags($data, $allowableTags = null, $allowHtmlEntities = false) {
+        return Mage::helper('core')->stripTags($data, $allowableTags, $allowHtmlEntities);
+    }
+
     protected function parserPath($path) {
         return str_replace('.html', '', $path);
     }
