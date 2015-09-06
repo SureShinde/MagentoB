@@ -16,21 +16,31 @@ class GenerateInvoices extends Mage_Shell_Abstract
 		$pheanstalk = new Pheanstalk('127.0.0.1');
 
 		try{
-			$job = $pheanstalk
-                ->watch("invoice")
-                ->ignore('default')
-                ->reserve();
-            $dataJson = json_decode($job->getData());
+			$pheanstalk->watch("invoice");
+			$pheanstalk->ignore('default');
 
-            $order = Mage::getModel('sales/order')->load($dataJson->order_id);
-			$paymentCode = $order->getPayment()->getMethodInstance()->getCode();
-			$charge = $dataJson;
-			Mage::getModel('paymethod/vtdirect')->updateOrder($order, $paymentCode, $charge);
+			while($job = $pheanstalk->reserve())
+			{
+				$dataJson = json_decode($job->getData());
+
+				$order = Mage::getModel('sales/order')->load($dataJson->order_id);
+				$paymentCode = $order->getPayment()->getMethodInstance()->getCode();
+				$charge = $dataJson;
+				$status = Mage::getModel('paymethod/vtdirect')->updateOrder($order, $paymentCode, $charge);
+
+				if($status){
+					$pheanstalk->delete($job);
+				}else{
+					$pheanstalk->bury($job);
+				}
+			}
 
 		}catch(Exception $e){
+			$pheanstalk->bury($job);
 			Mage::logException($e);
 		}
 
+		echo "\nFINISH";
 	}
 }
 
