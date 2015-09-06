@@ -1,0 +1,14 @@
+<config>
+	<modules>
+		<Bilna_Queue>
+			<version>0.1.0</version>
+		</Bilna_Queue>
+	</modules>
+	<global>
+		<models>
+			<bilna_queue>
+				<class>Bilna_Queue_Model</class>
+			</bilna_queue>
+		</models>
+	</global>
+</config>
