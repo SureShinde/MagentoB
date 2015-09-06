@@ -9,7 +9,7 @@
  */
 class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model_Api2_Order_Rest
 {
-	/**
+    /**
      * Covert Quote to Order
      *
      * @param  $quoteId
@@ -22,23 +22,22 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
         $storeId = isset($data['store_id']) ? $data['store_id'] : 1;
         $tokenId = isset($data['token_id']) ? $data['token_id'] : '';
 
-
         try {
 
-        	$quote = $this->_getQuote($quoteId, $store);
-        	if ($quote->getIsMultiShipping()) {
-        		throw Mage::throwException('Invalid Checkout Type');
-        	}
-        	if ($quote->getCheckoutMethod() == Mage_Checkout_Model_Api_Resource_Customer::MODE_GUEST
+            $quote = $this->_getQuote($quoteId, $store);
+            if ($quote->getIsMultiShipping()) {
+                throw Mage::throwException('Invalid Checkout Type');
+            }
+            if ($quote->getCheckoutMethod() == Mage_Checkout_Model_Api_Resource_Customer::MODE_GUEST
                 && !Mage::helper('checkout')->isAllowedGuestCheckout($quote, $quote->getStoreId())) {
-        		throw Mage::throwException('Guest Checkout is not Enable');
-        	}
+                throw Mage::throwException('Guest Checkout is not Enable');
+            }
 
-        	 /** @var $customerResource Mage_Checkout_Model_Api_Resource_Customer */
-	        $customerResource = Mage::getModel("checkout/api_resource_customer");
-	        $isNewCustomer = $customerResource->prepareCustomerForQuote($quote);
+             /** @var $customerResource Mage_Checkout_Model_Api_Resource_Customer */
+            $customerResource = Mage::getModel("checkout/api_resource_customer");
+            $isNewCustomer = $customerResource->prepareCustomerForQuote($quote);
 
-	        $quote->collectTotals();
+            $quote->collectTotals();
             /** @var $service Mage_Sales_Model_Service_Quote */
             $service = Mage::getModel('sales/service_quote', $quote);
             $service->submitAll();
