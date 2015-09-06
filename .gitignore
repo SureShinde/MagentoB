@@ -112,3 +112,5 @@ skin/install/
 !shell/check/
 !shell/flushCache.php
 
+composer.lock
+vendor
