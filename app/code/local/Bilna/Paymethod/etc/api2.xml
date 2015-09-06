@@ -11,11 +11,10 @@
 			<paymethod_config translate="title" module="Bilna_Paymethod">
 				<group>paymethod</group>
 				<sort_order>9010</sort_order>
-				<model>bilna_paymethod/api2_config</model>
+				<model>paymethod/api2_config</model>
 				<title>Paymethod Config</title>
 				<privileges>
 					<admin>
-						<create>1</create>
 						<retrieve>1</retrieve>
 					</admin>
 					<customer>
@@ -30,13 +29,13 @@
 						<route>/paymethod/config/:id</route>
 						<action_type>entity</action_type>
 					</route_entity>
-					<route_collection>
+					<!--route_collection>
 						<route>/paymethod/config</route>
 						<action_type>collection</action_type>
-					</route_collection>
+					</route_collection-->
 				</routes>
 				<versions>1</versions>
-			</points_check>
+			</paymethod_config>
 		</resources>
 	</api2>
 </config>
