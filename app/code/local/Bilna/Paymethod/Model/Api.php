@@ -10,7 +10,7 @@
 class Bilna_Paymethod_Model_Api
 {
 	protected $_typeTransaction = 'transaction';
-	
+
 	protected function getVtdirectServerKey()
 	{
         return Mage::getStoreConfig('payment/vtdirect/server_key');
@@ -54,6 +54,16 @@ class Bilna_Paymethod_Model_Api
         return false;
     }
 
+    protected function getInstallmentProcess($paymentCode) 
+    {
+        return Mage::getStoreConfig('payment/' . $paymentCode . '/installment_process');
+    }
+
+    protected function logProgress($message)
+    {
+        Mage::log($message, null, 'newstack.log');
+    }
+
 	public function creditcardCharge($order, $tokenId)
 	{
 		if(empty($tokenId)) return false;
@@ -74,7 +84,7 @@ class Bilna_Paymethod_Model_Api
         $customerDetails = array (
             'first_name' => $order->getBillingAddress()->getFirstname(),
             'last_name' => $order->getBillingAddress()->getLastname(),
-            'email' => $this->getCustomerEmail($order->getBillingAddress()->getEmail()),
+            'email' => $order->getBillingAddress()->getEmail(),
             'phone' => $order->getBillingAddress()->getTelephone(),
             //'billing_address' => $billingAddress,
             //'shipping_address' => $shippingAddress
