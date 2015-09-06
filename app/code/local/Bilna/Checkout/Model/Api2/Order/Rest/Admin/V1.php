@@ -7,6 +7,9 @@
  * @package    Bilna_Checkout
  * @author     Development Team <development@bilna.com>
  */
+
+use Pheanstalk\Pheanstalk;
+
 class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model_Api2_Order_Rest
 {
 	/**
@@ -76,7 +79,7 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
                 $charge = Mage::getModel('paymethod/api')->creditcardCharge($order, $tokenId);
                 $setData = array(
                     'order_id'      => $lastOrderId,
-                    'increment_id'  => $charge->order_id
+                    'increment_id'  => $charge->order_id,
                     'gross_amount'  => $charge->gross_amount,
                     'payment_type'  => $charge->payment_type,
                     'bank'          => $charge->bank,
