@@ -24,7 +24,7 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
         $quoteId = $data['entity_id'];
         $storeId = isset($data['store_id']) ? $data['store_id'] : 1;
         $tokenId = isset($data['token_id']) ? $data['token_id'] : '';
-
+        $payment = isset($data['payment']) ? $data['payment'] : '';
 
         try {
 
@@ -40,6 +40,9 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
         	 /** @var $customerResource Mage_Checkout_Model_Api_Resource_Customer */
 	        $customerResource = Mage::getModel("checkout/api_resource_customer");
 	        $isNewCustomer = $customerResource->prepareCustomerForQuote($quote);
+
+            if(!empty($payment))
+                $quote->getPayment()->importData($payment);
 
 	        $quote->collectTotals();
             /** @var $service Mage_Sales_Model_Service_Quote */
