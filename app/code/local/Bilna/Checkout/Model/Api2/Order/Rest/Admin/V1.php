@@ -61,7 +61,7 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
 
             if($payment['use_points'])
             {
-                $order = $this->submitPoints($order);
+                $order = $this->submitPoints($order, $payment);
             }
 
             if ($order) {
@@ -128,7 +128,7 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
 
     }
 
-    protected function submitPoints($order)
+    protected function submitPoints($order, $payment)
     {
         if ($order->getCustomerIsGuest()) 
         {
@@ -146,14 +146,15 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
             $sum = floatval($quote->getData('base_subtotal_with_discount'));
             $limitedPoints = Mage::helper('points')->getLimitedPoints($sum, $order->getCustomer(), $order->getStoreId());
 
-            $pointsAmount = (int) $session->getData('points_amount');
+            $pointsAmount = (int) $payment['points_amount'];
             $customer = Mage::getModel('customer/customer')->load($order->getCustomerId());
             $customerPoints = Mage::getModel('points/summary')->loadByCustomer($customer)->getPoints();
-
+error_log("\npointsAmount ".$pointsAmount, 3, '/tmp/bilnaCredit.log');            
+error_log("\ncustomerPoints ".$customerPoints, 3, '/tmp/bilnaCredit.log');
             if (
                     $customerPoints < $pointsAmount ||
                     $limitedPoints < $pointsAmount ||
-                    !Mage::helper('points')->isAvailableToRedeem($customerPoints)
+                    !Mage::helper('points')->isAvailableToRedeem($pointsAmount)
             ) {
                 Mage::throwException($this->__('Incorrect points amount'));
             }
@@ -161,6 +162,9 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
             $amountToSubtract = -$pointsAmount;
             $moneyForPointsBase = Mage::getModel('points/api')->changePointsToMoney($amountToSubtract, $customer, $order->getStore()->getWebsite());
             $moneyForPoints = $order->getBaseCurrency()->convert($moneyForPointsBase, $order->getOrderCurrencyCode());
+error_log("\namountToSubtract ".$amountToSubtract, 3, '/tmp/bilnaCredit.log');            
+error_log("\nmoneyForPointsBase ".$moneyForPointsBase, 3, '/tmp/bilnaCredit.log');            
+error_log("\nmoneyForPoints ".$moneyForPoints, 3, '/tmp/bilnaCredit.log');            
             $order->setAmountToSubtract($amountToSubtract);
             $order->setBaseMoneyForPoints($moneyForPointsBase);
             $order->setMoneyForPoints($moneyForPoints);
