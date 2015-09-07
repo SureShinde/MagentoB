@@ -25,7 +25,7 @@ abstract class Bilna_Rest_Model_Api2_Productrelated_Rest extends Bilna_Rest_Mode
         if ($this->_block === null) {
             $collection = Mage::getModel('awautorelated/blocks')->getCollection()
                 ->addFieldToFilter('name', $this->_blockName)
-                ->addStoreFilter($this->_getStore()->getId())
+                ->addStoreFilter()
                 ->addStatusFilter()
                 ->addDateFilter()
                 ->setPriorityOrder();
