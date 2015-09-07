@@ -85,7 +85,7 @@
                         <retrieve>1</retrieve>
                     </admin>
                 </privileges>
-                <attributes translate="entity_id entity_type_id attribute_set_id increment_id created_at updated_at is_active active description pagekeyword pagedescription title url_key pagetitle" module="Bilna_Routes">
+                <attributes translate="entity_id entity_type_id attribute_set_id increment_id created_at updated_at is_active active description pagekeyword pagedescription title url_key pagetitle products url image total_record" module="Bilna_Routes">
                     <entity_id>Entity ID</entity_id>
                     <entity_type_id>Entity Type ID</entity_type_id>
                     <attribute_set_id>Attribute Set ID</attribute_set_id>
@@ -97,9 +97,9 @@
                     <description>Description</description>
                     <pagekeyword>Page Keyword</pagekeyword>
                     <pagedescription>Page Description</pagedescription>
-                    <title>Title</title>
                     <url_key>URL Key</url_key>
                     <pagetitle>Page Title</pagetitle>
+                    <products>Products</products>
                     <title>Title</title>
                     <url>URL</url>
                     <image>Image</image>

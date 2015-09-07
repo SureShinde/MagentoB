@@ -5,6 +5,11 @@
         </Bilna_Rest>
     </modules>
     <global>
+        <helpers>
+            <bilna_rest>
+                <class>Bilna_Rest_Helper</class>
+            </bilna_rest>
+	</helpers>
         <models>
             <bilna_rest>
                 <class>Bilna_Rest_Model</class>

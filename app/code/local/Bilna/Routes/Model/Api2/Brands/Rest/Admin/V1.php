@@ -8,19 +8,23 @@
 class Bilna_Routes_Model_Api2_Brands_Rest_Admin_V1 extends Bilna_Routes_Model_Api2_Brands_Rest {
     protected function _retrieve() {
         $path = $this->parserPath($this->getRequest()->getParam('path'));
-        $brandId = $this->getBrandId($path);
+        $brandsId = $this->getBrandsId($path);
+        $result = array ();
         
-        if (!$brandId) {
+        if (!$brandsId) {
             $this->_critical(self::RESOURCE_NOT_FOUND);
         }
         
-        $brand = Mage::getModel('brands/brands')->load($brandId);
+        $brands = Mage::getModel('brands/brands')->load($brandsId);
         
-        if (!$brand->getSize() == 0) {
+        if (!$brands->getSize() == 0) {
             $this->_critical(self::RESOURCE_NOT_FOUND);
         }
         
-        return $brand->getData();
+        $result = $brands->getData();
+        $result['products'] = $this->_getProductCollection($brandsId);
+        
+        return $result;
     }
     
     protected function _retrieveCollection() {
