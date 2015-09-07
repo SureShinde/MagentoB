@@ -50,6 +50,7 @@ class Bilna_Points_Model_Api2_Points_Rest_Admin_V1 extends Bilna_Points_Model_Ap
             'is_available'      => $isAvailable,
             'canusewithcoupon'  => $canUseWithCoupon,
             'moneyforpoints'    => $_moneyForPoints,
+            'moneyforpoints_int'=> $moneyForPoints,
             'limited_points'    => $limitedPoints
         );
 
