@@ -58,6 +58,12 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
             }
 
             $order = $service->getOrder();
+
+            if($payment['use_points'])
+            {
+                $order = $this->submitPoints($order);
+            }
+
             if ($order) {
                 Mage::dispatchEvent('checkout_type_onepage_save_order_after',
                     array('order' => $order, 'quote' => $quote));
@@ -120,6 +126,47 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
 
         return $this->_getLocation($order);
 
+    }
+
+    protected function submitPoints($order)
+    {
+        if ($order->getCustomerIsGuest()) 
+        {
+            return $order;
+        }
+
+        if ($order->getCustomerId())
+        {
+            $quote = $order->getQuote();
+            if (!$quote instanceof Mage_Sales_Model_Quote) {
+                $quote = Mage::getModel('sales/quote')
+                        ->setSharedStoreIds(array($order->getStoreId()))
+                        ->load($order->getQuoteId());
+            }
+            $sum = floatval($quote->getData('base_subtotal_with_discount'));
+            $limitedPoints = Mage::helper('points')->getLimitedPoints($sum, $order->getCustomer(), $order->getStoreId());
+
+            $pointsAmount = (int) $session->getData('points_amount');
+            $customer = Mage::getModel('customer/customer')->load($order->getCustomerId());
+            $customerPoints = Mage::getModel('points/summary')->loadByCustomer($customer)->getPoints();
+
+            if (
+                    $customerPoints < $pointsAmount ||
+                    $limitedPoints < $pointsAmount ||
+                    !Mage::helper('points')->isAvailableToRedeem($customerPoints)
+            ) {
+                Mage::throwException($this->__('Incorrect points amount'));
+            }
+
+            $amountToSubtract = -$pointsAmount;
+            $moneyForPointsBase = Mage::getModel('points/api')->changePointsToMoney($amountToSubtract, $customer, $order->getStore()->getWebsite());
+            $moneyForPoints = $order->getBaseCurrency()->convert($moneyForPointsBase, $order->getOrderCurrencyCode());
+            $order->setAmountToSubtract($amountToSubtract);
+            $order->setBaseMoneyForPoints($moneyForPointsBase);
+            $order->setMoneyForPoints($moneyForPoints);
+        }
+
+        return $order;
     }
 
     protected function getPaymentMethodCc()
