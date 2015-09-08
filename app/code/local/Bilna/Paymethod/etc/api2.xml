@@ -50,7 +50,7 @@
 					</customer>
 				</privileges>
 				<attributes translate="config" module="Bilna_Paymethod">
-					<config>Config</config>
+					<data>Data</data>
 				</attributes>
 				<routes>
 					<route_entity>
