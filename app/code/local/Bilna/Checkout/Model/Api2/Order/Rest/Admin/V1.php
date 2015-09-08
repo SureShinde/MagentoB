@@ -186,7 +186,6 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
 
         if ($quote->getCustomerId())
         {
-            $quote = $quote->getQuote();
             if (!$quote instanceof Mage_Sales_Model_Quote) {
                 $quote = Mage::getModel('sales/quote')
                         ->setSharedStoreIds(array($quote->getStoreId()))
