@@ -422,25 +422,21 @@
                 <group>bilna_rest</group>
                 <model>bilna_rest/api2_navigation</model>
                 <title>Navigation</title>
-                <sort_order>210</sort_order>
+                <sort_order>1100</sort_order>
                 <privileges>
                     <admin>
                         <retrieve>1</retrieve>
                     </admin>
                 </privileges>
-                <!--attributes translate="id name url url_key shopby child" module="Bilna_Rest">
-                    <id>ID</id>
-                    <name>Name</name>
-                    <url>Url</url>
-                    <url_key>Url Key</url_key>
-                    <shopby>Shop By</shopby>
-                    <child>Child</child>
-                </attributes-->
+                <attributes translate="subcategory layer" module="Bilna_Rest">
+                    <subcategory>Sub Category</subcategory>
+                    <layer>Layer</layer>
+                </attributes>
                 <routes>
-                    <route_collection>
-                        <route>/navigation</route>
-                        <action_type>collection</action_type>
-                    </route_collection>
+                    <route_entity>
+                        <route>/navigation/:category_id</route>
+                        <action_type>entity</action_type>
+                    </route_entity>
                 </routes>
                 <versions>1</versions>
             </navigation>

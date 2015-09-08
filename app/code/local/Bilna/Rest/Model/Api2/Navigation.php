@@ -5,6 +5,6 @@
  * @author Bilna Development Team <development@bilna.com>
  */
 
-class Bilna_Rest_Model_Api2_Navigation extends Mage_Api2_Model_Resource {
+class Bilna_Rest_Model_Api2_Navigation extends Bilna_Rest_Model_Api2 {
     
 }
