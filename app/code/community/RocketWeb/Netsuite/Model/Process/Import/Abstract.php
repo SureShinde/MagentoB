@@ -148,7 +148,11 @@ abstract class RocketWeb_Netsuite_Model_Process_Import_Abstract {
     }
 
     protected function setSearchPreferences() {
-        $this->_getNetsuiteService()->setSearchPreferences(false, 500);
+        $bodyFieldsOnly = true;
+        // if recordtype is inventoryitem, set bodyFieldsOnly parameter to false to get all the items
+        if ($this->getRecordType() == RecordType::inventoryItem)
+            $bodyFieldsOnly = false;
+        $this->_getNetsuiteService()->setSearchPreferences($bodyFieldsOnly, 500);
     }
 
     public function getNetsuiteRequest($recordType,$startDateTime) {

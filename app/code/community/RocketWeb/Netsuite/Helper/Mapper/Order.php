@@ -608,7 +608,10 @@ class RocketWeb_Netsuite_Helper_Mapper_Order extends RocketWeb_Netsuite_Helper_M
         }
         
         $magentoOrder = $magentoOrders->getFirstItem();
+        /* comment out because I can see the following $netsuiteCustomer is not used.
+        This is to minimize the call to Netsuite Web Service
         $netsuiteCustomer = Mage::helper('rocketweb_netsuite/mapper_customer')->getByInternalId($netsuiteOrder->entity->internalId);
+        */
         $magentoOrderState = Mage::helper('rocketweb_netsuite/transform')->netsuiteStatusToMagentoOrderState($netsuiteOrder->orderStatus);
         
         /*check order magento status */
