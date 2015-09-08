@@ -45,6 +45,10 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
                 $quote->getPayment()->importData($payment);
 
 	        $quote->collectTotals();
+            if($payment['use_points'])
+            {
+                $this->pointsCheck($quote, $payment);
+            }
             /** @var $service Mage_Sales_Model_Service_Quote */
             $service = Mage::getModel('sales/service_quote', $quote);
             $service->submitAll();
@@ -62,6 +66,7 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
             if($payment['use_points'])
             {
                 $order = $this->submitPoints($order, $payment);
+                $order->save();
             }
 
             if ($order) {
@@ -155,7 +160,7 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
                     $limitedPoints < $pointsAmount ||
                     !Mage::helper('points')->isAvailableToRedeem($pointsAmount)
             ) {
-                Mage::throwException($this->__('Incorrect points amount'));
+                Mage::throwException('Incorrect points amount');
             }
 
             $amountToSubtract = -$pointsAmount;
@@ -170,6 +175,41 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
         }
 
         return $order;
+    }
+
+    protected function pointsCheck($quote, $payment)
+    {
+        if ($quote->getCustomerIsGuest()) 
+        {
+            return $quote;
+        }
+
+        if ($quote->getCustomerId())
+        {
+            $quote = $quote->getQuote();
+            if (!$quote instanceof Mage_Sales_Model_Quote) {
+                $quote = Mage::getModel('sales/quote')
+                        ->setSharedStoreIds(array($quote->getStoreId()))
+                        ->load($quote->getId());
+            }
+            $sum = floatval($quote->getData('base_subtotal_with_discount'));
+            $limitedPoints = Mage::helper('points')->getLimitedPoints($sum, $quote->getCustomer(), $quote->getStoreId());
+
+            $pointsAmount = (int) $payment['points_amount'];
+            $customer = Mage::getModel('customer/customer')->load($quote->getCustomerId());
+            $customerPoints = Mage::getModel('points/summary')->loadByCustomer($customer)->getPoints();
+
+            if (
+                    $customerPoints < $pointsAmount ||
+                    $limitedPoints < $pointsAmount ||
+                    !Mage::helper('points')->isAvailableToRedeem($pointsAmount)
+            ) {
+                Mage::throwException('Incorrect points amount');
+            }
+
+        }
+
+        return $quote;
     }
 
     protected function getPaymentMethodCc()
