@@ -49,8 +49,9 @@
 						<retrieve>1</retrieve>
 					</customer>
 				</privileges>
-				<attributes translate="config" module="Bilna_Paymethod">
+				<attributes translate="data action" module="Bilna_Paymethod">
 					<data>Data</data>
+					<action>Action</action>
 				</attributes>
 				<routes>
 					<route_entity>
