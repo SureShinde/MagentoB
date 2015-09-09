@@ -39,7 +39,17 @@ class Bilna_Paymethod_Model_Api2_Klikpay_Rest_Admin_V1 extends Bilna_Paymethod_M
 
         $order->setKlikpaySignature(abs($signature))->save();
 
-        return array('data' => $data);
+        $action = $this->getKlikpaySubmitUrl();
+
+        return array('data' => $data, 'action' => $action);
+    }
+
+    protected function getKlikpaySubmitUrl() {
+        if (Mage::getStoreConfig('payment/klikpay/klikpay_redirect')) {
+            return Mage::getStoreConfig('payment/klikpay/klikpay_redirect');    
+        }
+        
+        return '';
     }
 
 }
