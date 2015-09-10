@@ -228,9 +228,34 @@ endif;
     <!-- do nothing -->
 <?php endif; ?>
 
+<?php $cartItems = Mage::getModel('sales/order')->loadByIncrementId($this->getOrderId()); ?>
+<?php $skuCollection = array(); ?>
+<?php $qtyCollection = array(); ?>
+<?php $valueCollection = array(); ?>
+<?php $idCollection = array(); ?>
+<?php foreach($cartItems->getAllItems() as $cartItem) : ?>
+    <?php $idCollection[] = $cartItem->getProductId(); ?>
+    <?php $skuCollection[] = $cartItem->getSku(); ?>
+    <?php $qtyCollection[] = number_format($cartItem->getData('qty_ordered'), 0, '', ''); ?>
+    <?php $valueCollection[] = number_format($cartItem->getPrice(), 0, '', ''); ?>
+    <?php $totalAll += ($cartItem->getData('qty_ordered') * $cartItem->getPrice()); ?>
+<?php endforeach; ?>
+<?php $idDisplay =  implode("','", $idCollection); ?>
+<?php $skuDisplay =  implode("','", $skuCollection); ?>
+<?php $qtyDisplay =  implode("','", $qtyCollection); ?>
+<?php $valueDisplay =  implode("','", $valueCollection); ?>
+
 <?php if ($retrieveConfirm2): ?>
     <script type="text/javascript">
         jQuery(document).ready(function() {
+            dataLayer.push({'ecomm_pagetype': 'thankyoupage'});
+            dataLayer.push({'ecomm_prodid': ['<?php echo $skuDisplay; ?>']});
+            dataLayer.push({'ecomm_totalvalue': '<?php echo $totalAll; ?>'});
+            dataLayer.push({'productid': ['<?php echo $idDisplay; ?>']});
+            dataLayer.push({'skuid': ['<?php echo $skuDisplay; ?>']});
+            dataLayer.push({'prices': ['<?php echo $valueDisplay; ?>']});
+            dataLayer.push({'quantities': ['<?php echo $qtyDisplay; ?>']});
+
     	    var ajaxURL = 'https://www.bilna.com/ajaxrequest/data/retrieveconfirm2/';
 
             var data = {};

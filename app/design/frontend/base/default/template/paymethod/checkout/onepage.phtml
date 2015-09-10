@@ -34,7 +34,37 @@
     <?php endforeach; ?>
 </ol>
 
+<?php foreach($this->getItems() as $_item): ?>
+    <?php echo $this->getItemHtml($_item) ?>
+    <?php $gtmItemIds = $_item->getId().'|'; ?>
+<?php endforeach; ?>
+
+<?php $cartItems = Mage::getSingleton('checkout/session')->getQuote()->getAllItems(); ?>
+<?php $skuCollection = array(); ?>
+<?php $productCollection = array(); ?>
+<?php $qtyCollection = array(); ?>
+<?php $valueCollection = array(); ?>
+<?php $totalValue = 0; ?>
+<?php foreach($cartItems as $cartItem) : ?>
+    <?php $skuCollection[] = $cartItem->getSku(); ?>
+    <?php $productCollection[] = $cartItem->getProductId(); ?>
+    <?php $qtyCollection[] = $cartItem->getQty(); ?>
+    <?php $valueCollection[] = $cartItem->getPrice(); ?>
+    <?php $totalValue += ($cartItem->getPrice() * $cartItem->getQty()); ?>
+<?php endforeach; ?>
+<?php $skuDisplay =  implode("','", $skuCollection); ?>
+<?php $productDisplay =  implode("','", $productCollection); ?>
+<?php $qtyDisplay =  implode("','", $qtyCollection); ?>
+<?php $valueDisplay =  implode("','", $valueCollection); ?>
+
 <script type="text/javascript">
+    jQuery(document).ready(function () {
+        dataLayer.push({'ecomm_pagetype': 'cart'});
+        dataLayer.push({'productid': ['<?php echo $productDisplay; ?>']});
+        dataLayer.push({'skuid': ['<?php echo $skuDisplay; ?>']});
+        dataLayer.push({'prices': ['<?php echo $valueDisplay; ?>']});
+        dataLayer.push({'quantities': ['<?php echo $qtyDisplay; ?>']});
+    });
     //<![CDATA[
     var accordion = new Accordion('checkoutSteps', '.step-title', true);
     <?php if ($this->getActiveStep()): ?>

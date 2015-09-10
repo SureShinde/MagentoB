@@ -31,11 +31,16 @@
 <div class="awfeatured awafpgrid" id="<?php echo $this->getUniqueBlockId() ?>" style="<?php echo $this->getContainerStyleString() ?>">
     <?php $_i = $_ulOpened = $_ulClosed = 0; ?>
     <?php foreach($this->getProductsCollection() as $_product) : ?>
+        <?php $skuCollection = array(); ?>
         <?php if($_i % $this->getItemsPerRow() == 0) : ?>
         <?php $_ulOpened++ ?>
         <ul>
         <!-- row begins -->
         <?php endif ?>
+        <?php
+            $productId = $_product->getId();
+            $skuCollection[] = Mage::getModel('catalog/product')->load($productId)->getSku();
+        ?>
             <li style="width: <?php echo $this->getItemWidth() ?>%">
 				<div class="top_thumb_list_product">
                 <!-- product item begin -->
@@ -114,6 +119,9 @@
         <?php endif ?>
     <?php $_i++ ?>
     <?php endforeach; ?>
+    <?php $randSku = array_rand($skuCollection); ?>
+    <?php Mage::getSingleton('core/session')->setDRPageType('home'); ?>
+    <?php Mage::getSingleton('core/session')->setDRProdId($skuCollection[$randSku]); ?>
     <?php if($_ulOpened != $_ulClosed) : ?>
         </ul>
     <?php endif ?>
