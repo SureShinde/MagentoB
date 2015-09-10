@@ -113,8 +113,10 @@ jQuery(document).ready(function(){
             
             <ul class="products-grid">
                 <?php $productId = array(); ?>
+                <?php $sku = array(); ?>
                 <?php foreach ($_productCollection as $_product): ?>
                     <?php $productId[] = $_product->getId(); ?>
+                    <?php $sku[] = $_product->getSku(); ?>
                     <li class="item">
                         <div class="top_thumb_list_product">
                             <div class="onsale-category-container-grid">
@@ -177,10 +179,19 @@ jQuery(document).ready(function(){
                 <?php
                     $pageType = '';
                     $prodId = array();
-                    if(isset($productId[0])){$prodId[0] = $productId[0];}
-                    if(isset($productId[1])){$prodId[1] = $productId[1];}
-                    if(isset($productId[2])){$prodId[2] = $productId[2];}
-                    shuffle($productId);
+                    if(isset($productId[0])){
+                        $prodId[0] = $productId[0];
+                        $skuId[0] = $sku[0];
+                    }
+                    if(isset($productId[1])){
+                        $prodId[1] = $productId[1];
+                        $skuId[1] = $sku[1];
+                    }
+                    if(isset($productId[2])){
+                        $prodId[2] = $productId[2];
+                        $skuId[2] = $sku[2];
+                    }
+                    shuffle($sku);
                     $pageIdentifier =  Mage::app()->getFrontController()->getAction()->getFullActionName();;
                     if($pageIdentifier == 'catalogsearch_result_index'){
                         $pageType = 'searchresults';
@@ -200,16 +211,12 @@ jQuery(document).ready(function(){
                 ?>
             </ul>
 
-        <?php $skuCollection = array(); ?>
-        <?php $skuCollection[0] = Mage::getModel('catalog/product')->load($prodId[0])->getSku(); ?>
-        <?php $skuCollection[1] = Mage::getModel('catalog/product')->load($prodId[1])->getSku(); ?>
-        <?php $skuCollection[2] = Mage::getModel('catalog/product')->load($prodId[2])->getSku(); ?>
         <script>
             jQuery(document).ready(function(){
                 dataLayer.push( {'ecomm_pagetype': '<?php echo $pageType; ?>'} );
-                dataLayer.push( {'ecomm_prodid': '<?php echo Mage::getModel('catalog/product')->load($productId[0])->getSku(); ?>'} );
+                dataLayer.push( {'ecomm_prodid': '<?php echo $sku[0]; ?>'} );
                 dataLayer.push( {'productid': ['<?php echo implode("','", $prodId); ?>']} );
-                dataLayer.push( {'skuid': ['<?php echo implode("','", $skuCollection); ?>']} );
+                dataLayer.push( {'skuid': ['<?php echo implode("','", $skuId); ?>']} );
             });
         </script>
         <script type="text/javascript">decorateGeneric($$('ul.products-grid'), ['odd','even','first','last'])</script>
