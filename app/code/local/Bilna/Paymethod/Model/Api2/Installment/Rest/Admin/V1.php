@@ -22,6 +22,7 @@ class Bilna_Paymethod_Model_Api2_Installment_Rest_Admin_V1 extends Bilna_Paymeth
 	    	$bankCode = $quote->getPayment()->getMethodInstance()->getCode();
 
 	    	$isSupportInstallment = Mage::getStoreConfig('payment/' . $bankCode . '/allow_installment');
+	    	$installmentMethod = Mage::getStoreConfig('payment/' . $bankCode . '/installment_process');
 
 	    	if($isSupportInstallment)
 	    	{
@@ -44,7 +45,7 @@ class Bilna_Paymethod_Model_Api2_Installment_Rest_Admin_V1 extends Bilna_Paymeth
             $this->_error($e->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
         }
 
-        return array('data' => $data);
+        return array('data' => $data, 'installment_method' => $installmentMethod);
 
     }
 
