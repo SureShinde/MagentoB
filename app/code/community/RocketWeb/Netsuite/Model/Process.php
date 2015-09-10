@@ -110,7 +110,7 @@ class RocketWeb_Netsuite_Model_Process {
                     if ($importableEntityModel->getRecordType() != RecordType::inventoryItem) {
                         foreach ($records as $record) {
                             if ($importableEntityModel->isMagentoImportable($record) && !$importableEntityModel->isAlreadyImported($record)) {
-                                $internalRecordIds[] = $record->internalId;
+                                $internalRecordIds[] = $record->basic->internalId[0]->searchValue->internalId;
                             }
                         }
 
@@ -349,7 +349,6 @@ class RocketWeb_Netsuite_Model_Process {
     }
 
     protected function getUpdatedFromDateInNetsuiteFormat($queueType) {
-        /*
         $lastUpdateAccessDate = Mage::helper('rocketweb_netsuite/queue')->getLastUpdateAccessDate($queueType);
         
         if (!$lastUpdateAccessDate) {
@@ -374,8 +373,6 @@ class RocketWeb_Netsuite_Model_Process {
                 $retDate = $updatedFromDefault;
             }
         }
-        */
-        $retDate = new DateTime(date("2015-06-01 00:00:00"));
 
         return $retDate->format(DateTime::ISO8601);
     }

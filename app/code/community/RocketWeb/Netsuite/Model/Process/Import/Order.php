@@ -20,7 +20,29 @@ class RocketWeb_Netsuite_Model_Process_Import_Order extends RocketWeb_Netsuite_M
         return RocketWeb_Netsuite_Helper_Permissions::GET_ORDER_CHANGES;
     }
 
-    public function isMagentoImportable(Record $salesOrder) {
+    public function isMagentoImportable(SearchRow $salesOrder) {
+        /** @var SalesOrder $salesOrder */
+
+        //Exclude the orders that have the same creation and last modified date as:
+        //  - they are already present in Magento in the same format (Magento sent them to Net Suite)
+        //  - they are not part of Magento
+        if ($salesOrder->basic->lastModifiedDate[0]->searchValue == $salesOrder->basic->dateCreated[0]->searchValue) {
+            return false;
+        }
+
+        //check if the order already exists in Magento. If not, we do not care about its updates as the order is not related to the store.
+        $netsuiteOrderId = $salesOrder->basic->internalId[0]->searchValue->internalId;
+        $magentoOrders = Mage::getModel('sales/order')->getCollection()->addFieldToFilter('netsuite_internal_id',$netsuiteOrderId);
+        $magentoOrders->load();
+        if(!$magentoOrders->getSize()) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+
+    public function isMagentoImportableOld(Record $salesOrder) {
         /** @var SalesOrder $salesOrder */
 
         //Exclude the orders that have the same creation and last modified date as:
@@ -42,7 +64,17 @@ class RocketWeb_Netsuite_Model_Process_Import_Order extends RocketWeb_Netsuite_M
         }
     }
 
-    public function isAlreadyImported(Record $record) {
+    public function isAlreadyImported(SearchRow $record) {
+        $orderCollection = Mage::getModel('sales/order')->getCollection();
+        $orderCollection->addFieldToFilter('netsuite_internal_id',$record->basic->internalId[0]->searchValue->internalId);
+        $netsuiteUpdateDatetime = Mage::helper('rocketweb_netsuite')->convertNetsuiteDateToSqlFormat($record->basic->lastModifiedDate[0]->searchValue);
+        $orderCollection->addFieldToFilter('last_import_date',array('gteq'=>$netsuiteUpdateDatetime));
+        $orderCollection->load();
+        if($orderCollection->count()) return true;
+        else return false;
+    }
+
+    public function isAlreadyImportedOld(Record $record) {
         $orderCollection = Mage::getModel('sales/order')->getCollection();
         $orderCollection->addFieldToFilter('netsuite_internal_id',$record->internalId);
         $netsuiteUpdateDatetime = Mage::helper('rocketweb_netsuite')->convertNetsuiteDateToSqlFormat($record->lastModifiedDate);

@@ -6,7 +6,26 @@
  */
 
 class RocketWeb_Netsuite_Model_Process_Import_Creditmemo extends RocketWeb_Netsuite_Model_Process_Import_Abstract {
-    public function isMagentoImportable(Record $record) {
+    public function isMagentoImportable(SearchRow $record) {
+        return true;
+        
+        if (is_null($record->basic->createdFrom)) {
+            return false;
+        }
+        
+        $netsuiteInternalId = $record->basic->internalId[0]->searchValue->internalId;
+        $magentoCreditmemos = Mage::getModel('sales/order_creditmemo')->getCollection()->addFieldToFilter('netsuite_internal_id', $netsuiteInternalId);
+        $magentoCreditmemos->load();
+        
+        if (!$magentoCreditmemos->getSize()) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+
+    public function isMagentoImportableOld(Record $record) {
         return true;
         
         if (is_null($record->createdFrom)) {
@@ -175,7 +194,24 @@ class RocketWeb_Netsuite_Model_Process_Import_Creditmemo extends RocketWeb_Netsu
         return RocketWeb_Netsuite_Helper_Permissions::GET_CREDITMEMO;
     }
     
-    public function isAlreadyImported(Record $record) {
+    public function isAlreadyImported(SearchRow $record) {
+        return false;
+        
+        $creditmemoCollection = Mage::getModel('sales/order_creditmemo')->getCollection();
+        $creditmemoCollection->addFieldToFilter('netsuite_internal_id', $record->basic->internalId[0]->searchValue->internalId);
+        $netsuiteUpdateDatetime = Mage::helper('rocketweb_netsuite')->convertNetsuiteDateToSqlFormat($record->lastModifiedDate[0]->searchValue);
+        $creditmemoCollection->addFieldToFilter('last_import_date', array ('gteq' => $netsuiteUpdateDatetime));
+        $creditmemoCollection->load();
+        
+        if ($creditmemoCollection->count()) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    public function isAlreadyImportedOld(Record $record) {
         return false;
         
         $creditmemoCollection = Mage::getModel('sales/order_creditmemo')->getCollection();
