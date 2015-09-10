@@ -210,7 +210,6 @@ $j(document).ready(function() {
             <?php //echo $this->getLayout()->createBlock('cms/block')->setBlockId('keypoint')->toHtml() ?>
 
             <div class="quick-access">
-                <?php echo $this->getChildHtml('store_language') ?>
                 <a href="<?php echo Mage::getBaseUrl(); ?>customer/account/login/" class="link-myaccount-mobile"><i class="fa fa-user"></i></a>
 
                 <?php $_totalItem = $this->helper('checkout/cart')->getSummaryCount();  //get total items in cart ?>

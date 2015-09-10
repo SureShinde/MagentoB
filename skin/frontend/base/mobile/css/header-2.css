@@ -672,13 +672,13 @@ searchbar #nav-search-in {
     font-weight: bold;
     font-size: 1em;
     padding: 10px 25px 10px 10px;
+    color: #484848;
 }
 .mobile-left-menu .wrap-menu-cat .wrap-first-level .wrap-level2 ul li a.see-all-level-2{
     
 }
 .mobile-left-menu .wrap-menu-cat .wrap-first-level .wrap-level2 ul li.open-cat-3 > a{
     background: #FDFDFD;
-    color: #484848;
     font-weight: bold;
 }
 .mobile-left-menu .wrap-menu-cat .wrap-first-level .wrap-level2 ul.category-level-3 li a{
