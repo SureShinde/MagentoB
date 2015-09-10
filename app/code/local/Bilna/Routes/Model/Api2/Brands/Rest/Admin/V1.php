@@ -12,24 +12,25 @@ class Bilna_Routes_Model_Api2_Brands_Rest_Admin_V1 extends Bilna_Routes_Model_Ap
      * @return array
      */
     protected function _retrieve() {
-        $path = $this->parserPath($this->getRequest()->getParam('path'));
-        $brandsId = $this->getBrandsId($path);
-        $result = array ();
+        $_path = $this->parserPath($this->getRequest()->getParam('path'));
+        $_brandsId = $this->getBrandsId($_path);
+        $_result = array ();
         
-        if (!$brandsId) {
+        if (!$_brandsId) {
             $this->_critical(self::RESOURCE_NOT_FOUND);
         }
         
-        $brands = Mage::getModel('brands/brands')->load($brandsId);
+        $_brands = Mage::getModel('brands/brands')->load($_brandsId);
         
-        if (!$brands->getSize() == 0) {
+        if (!$_brands->getSize() == 0) {
             $this->_critical(self::RESOURCE_NOT_FOUND);
         }
         
-        $result = $brands->getData();
-        $result['products'] = $this->_getProductCollection($brandsId);
+        $_result = $_brands->getData();
+        $_result['image'] = (string) Mage::helper('brands/image')->init($_brands)->resize($this->_imageSize);
+        $_result['products'] = $this->_getProductCollection($_brandsId);
         
-        return $result;
+        return $_result;
     }
     
     /**
@@ -48,7 +49,7 @@ class Bilna_Routes_Model_Api2_Brands_Rest_Admin_V1 extends Bilna_Routes_Model_Ap
         $_result[0] = array ('total_record' => $_brands->count());
         
         foreach ($_brands as $_brand) {
-            $_image = (string) Mage::helper('brands/image')->init($_brand)->resize(135);
+            $_image = (string) Mage::helper('brands/image')->init($_brand)->resize($this->_imageSize);
             $_result[$_brand->getId()] = array (
                 'title' => $this->_stripTags($_brand->getTitle(), null, true),
                 'url' => $_brand->getUrl(),

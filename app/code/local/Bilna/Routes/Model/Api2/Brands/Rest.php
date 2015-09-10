@@ -6,6 +6,8 @@
  */
 
 class Bilna_Routes_Model_Api2_Brands_Rest extends Bilna_Routes_Model_Api2_Brands {
+    protected $_imageSize = 135;
+    
     protected function _getBrandsCollection() {
         $collection = Mage::getModel('brands/brands')->getCollection();
         $collection->addAttributeToSelect(array ('title', 'description', 'url_key', 'image'))
