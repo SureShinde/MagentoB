@@ -45,6 +45,7 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
                 $quote->getPayment()->importData($payment);
 
 	        $quote->collectTotals();
+            /* checking customer using their poinst or not*/
             if($payment['use_points'])
             {
                 $this->pointsCheck($quote, $payment);

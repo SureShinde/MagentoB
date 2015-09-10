@@ -78,7 +78,7 @@
 						<retrieve>1</retrieve>
 					</customer>
 				</privileges>
-				<attributes translate="config" module="Bilna_Paymethod">
+				<attributes translate="response" module="Bilna_Paymethod">
 					<response>Response</response>
 				</attributes>
 				<routes>
@@ -93,6 +93,34 @@
 				</routes>
 				<versions>1</versions>
 			</paymethod_vtdirect>
+			<paymethod_installment translate="title" module="Bilna_Paymethod">
+				<group>paymethod</group>
+				<sort_order>9010</sort_order>
+				<model>paymethod/api2_installment</model>
+				<title>Installment Options</title>
+				<privileges>
+					<admin>
+						<retrieve>1</retrieve>
+					</admin>
+					<customer>
+						<retrieve>1</retrieve>
+					</customer>
+				</privileges>
+				<attributes translate="data" module="Bilna_Paymethod">
+					<data>Options</data>
+				</attributes>
+				<routes>
+					<route_entity>
+						<route>/paymethod/installment/:id</route>
+						<action_type>entity</action_type>
+					</route_entity>
+					<!--route_collection>
+						<route>/paymethod/config</route>
+						<action_type>collection</action_type>
+					</route_collection-->
+				</routes>
+				<versions>1</versions>
+			</paymethod_installment>
 		</resources>
 	</api2>
 </config>
