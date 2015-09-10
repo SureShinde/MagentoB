@@ -173,6 +173,12 @@ class Amasty_Shopby_Model_Catalog_Layer_Filter_Attribute extends Mage_Catalog_Mo
      */
     public function apply(Zend_Controller_Request_Abstract $request, $filterBlock)
     {
+        if ($accessFrom = Mage::registry('access_from')) {
+            if ($accessFrom == 'api') {
+                return parent::apply($request, $filterBlock);
+            }
+        }
+        
         $currentVals = Mage::helper('amshopby')->getRequestValues($this->_requestVar);
         if ($currentVals) {
             $this->applyFilterToCollection($currentVals);

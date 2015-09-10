@@ -6,8 +6,14 @@
  */
 
 abstract class Bilna_Rest_Model_Api2_Navigation_Rest extends Bilna_Rest_Model_Api2_Navigation {
+    const ACCESS_FROM = 'access_from';
+    
     protected $_categoryId = null;
     
+    protected function _setParams() {
+        Mage::register(self::ACCESS_FROM, 'api');
+    }
+
     protected function _getParams() {
         $_params = array ();
         $_params['category_id'] = $this->getRequest()->getParam('category_id');
@@ -15,6 +21,10 @@ abstract class Bilna_Rest_Model_Api2_Navigation_Rest extends Bilna_Rest_Model_Ap
         return $_params;
     }
     
+    protected function _unsetParams() {
+        Mage::unregister(self::ACCESS_FROM);
+    }
+
     protected function _getCategory($_categoryId) {
         return Mage::getModel('catalog/category')->load($_categoryId);
     }
