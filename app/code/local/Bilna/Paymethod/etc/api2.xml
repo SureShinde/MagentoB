@@ -108,6 +108,7 @@
 				</privileges>
 				<attributes translate="data" module="Bilna_Paymethod">
 					<data>Options</data>
+					<installment_method>Installment Method</installment_method>
 				</attributes>
 				<routes>
 					<route_entity>
