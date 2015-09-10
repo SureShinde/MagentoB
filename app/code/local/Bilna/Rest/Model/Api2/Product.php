@@ -5,7 +5,7 @@
  * @author Bilna Development Team <development@bilna.com>
  */
 
-class Bilna_Rest_Model_Api2_Product extends Mage_Api2_Model_Resource {
+class Bilna_Rest_Model_Api2_Product extends Bilna_Rest_Model_Api2 {
     /**
      * Get available attributes of API resource
      *

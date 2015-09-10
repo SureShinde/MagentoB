@@ -16,16 +16,20 @@ class Bilna_Routes_Model_Api2_Brands_Rest extends Bilna_Routes_Model_Api2_Brands
         return $collection;
     }
     
-    protected function _getProductCollection($brandsId) {
-        $_storeId = $this->_getStore()->getId();
+    protected function _getProductCollection($_brandsId) {
+        $_result = array ();
         $_collection = Mage::getResourceModel('catalog/product_collection')
-            ->addAttributeToSelect($this->_attributeProductCollection)
-            ->addFieldToFilter(array (array ('attribute' => 'brands', 'eq' => $brandsId)))
-            ->addStoreFilter($_storeId);
-        $this->_applyCollectionModifiers($_collection);
-        $_products = Mage::helper('bilna_rest/api2')->retrieveCollectionResponse($_collection->load(), $this->_attributeProductCollection);
+            ->addAttributeToSelect('entity_id')
+            ->addFieldToFilter(array (array ('attribute' => 'brands', 'eq' => $_brandsId)))
+            ->addStoreFilter(self::DEFAULT_STORE_ID);
         
-        return $_products;
+        if ($_collection->getSize()) {
+            foreach ($_collection as $_product) {
+                $_result[] = $_product->getId();
+            }
+        }
+        
+        return $_result;
     }
     
     protected function _stripTags($data, $allowableTags = null, $allowHtmlEntities = false) {

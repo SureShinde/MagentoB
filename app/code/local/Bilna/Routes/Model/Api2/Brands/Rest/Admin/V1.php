@@ -6,6 +6,11 @@
  */
 
 class Bilna_Routes_Model_Api2_Brands_Rest_Admin_V1 extends Bilna_Routes_Model_Api2_Brands_Rest {
+    /**
+     * @api Brands Product List
+     * @url /routes/brands/:path 
+     * @return array
+     */
     protected function _retrieve() {
         $path = $this->parserPath($this->getRequest()->getParam('path'));
         $brandsId = $this->getBrandsId($path);
@@ -27,6 +32,11 @@ class Bilna_Routes_Model_Api2_Brands_Rest_Admin_V1 extends Bilna_Routes_Model_Ap
         return $result;
     }
     
+    /**
+     * @api Brands List
+     * @url /routes/brands
+     * @return array
+     */
     protected function _retrieveCollection() {
         $_brands = $this->_getBrandsCollection();
         
