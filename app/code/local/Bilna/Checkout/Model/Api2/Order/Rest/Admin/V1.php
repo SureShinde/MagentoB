@@ -26,6 +26,10 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
         $tokenId = isset($data['token_id']) ? $data['token_id'] : '';
         $payment = isset($data['payment']) ? $data['payment'] : '';
 
+        $allowInstallment = isset($data['allow_installment']) ? $data['allow_installment'] : '';
+        $installmentMethod = isset($data['installment_method']) ? $data['installment_method'] : '';
+        $installmentTenor = isset($data['installment']) ? $data['installment'] : '';
+
         try {
 
         	$quote = $this->_getQuote($quoteId, $store);
@@ -43,6 +47,63 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
 
             if(!empty($payment))
                 $quote->getPayment()->importData($payment);
+
+            $paymentCode = $quote->getPayment()->getMethodInstance()->getCode();
+            if ($installmentTenor)
+            {
+                $quoteItems = $quote->getAllItems();
+                $item_ids = array ();
+
+                foreach ($quote_items as $item) {
+                    $item_ids[] = $item->getProductId();
+                }
+
+                $installmentOptionType = Mage::getStoreConfig('payment/' . $paymentCode . '/installment_option');
+
+                /**
+                 * installment type is per order
+                 */
+                if ($installmentOptionType == 2)
+                {
+                    if ($installmentTenor == '')
+                        throw Mage::throwException('Please select an installment type before placing the order.');
+
+                    if ($installmentTenor > 1)
+                    {
+                        foreach ($quoteItems as $item) 
+                        {
+                            $item->setInstallment($allowInstallment);
+                            $item->setInstallmentMethod($installmentMethod);
+                            $item->setInstallmentType($installmentTenor);
+                            $item->save();
+                        }
+                    }
+
+                    if ($installmentTenor == $this->getPaymentTypeTransaction($paymentCode, 'full')) {
+                        $payType = $this->getPaymentTypeTransaction($paymentCode, 'full');
+                    }
+                    else {
+                        $payType = $this->getPaymentTypeTransaction($paymentCode, 'installment');
+                    }
+                }else{
+                    //if installment type is per item
+                    /*foreach ($quoteItems as $item) 
+                    {
+                        $item->setInstallment($allowInstallment);
+                        $item->setInstallmentMethod($installmentMethod);
+                        $item->setInstallmentType($installmentTenor);
+                        $item->save();
+                    }*/
+                    //API doesn't support installment per item, coz we need to evaluate existing code module @bilna_paymenthod
+                }
+                $quote->setPayType($payType)->save();
+                //$quote->setCcBins($this->getRequest()->getPost('cc_bins', false))->save();
+            }/*else{
+                throw Mage::throwException('Please select an installment type before placing the order.');
+            }*/
+
+            $payType = $this->getPaymentTypeTransaction($paymentCode, 'full');
+            $quote->setPayType($payType);
 
 	        $quote->collectTotals();
             /* checking customer using their poinst or not*/
@@ -215,5 +276,34 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
     protected function getPaymentMethodCc()
     {
         return Mage::helper('paymethod')->getPaymentMethodCc();
+    }
+
+    protected function getPaymentTypeTransaction($paymentCode, $type)
+    {
+        if ($paymentCode == 'klikpay') {
+            if ($type == 'full') {
+                return Bilna_Paymethod_Model_Method_Klikpay::PAYMENT_TYPE_FULL_TRANSACTION;
+            }
+            else if ($type == 'installment') {
+                return Bilna_Paymethod_Model_Method_Klikpay::PAYMENT_TYPE_INSTALLMENT_TRANSACTION;
+            }
+            else {
+                return Bilna_Paymethod_Model_Method_Klikpay::PAYMENT_TYPE_COMBINE_TRANSACTION;
+            }
+        }
+        else if ($paymentCode == 'anzcc') {
+            if ($type == 'full') {
+                return Bilna_Anzcc_Model_Anzcc::PAYMENT_TYPE_FULL_TRANSACTION;
+            }
+            else if ($type == 'installment') {
+                return Bilna_Anzcc_Model_Anzcc::PAYMENT_TYPE_INSTALLMENT_TRANSACTION;
+            }
+            else {
+                return Bilna_Anzcc_Model_Anzcc::PAYMENT_TYPE_COMBINE_TRANSACTION;
+            }
+        }
+        else {
+            return '';
+        }
     }
 }
