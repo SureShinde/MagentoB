@@ -106,9 +106,14 @@
 						<retrieve>1</retrieve>
 					</customer>
 				</privileges>
-				<attributes translate="data" module="Bilna_Paymethod">
+				<attributes translate="data installment_method allow_installment min_order_total max_order_total min_installment_total max_installment_total" module="Bilna_Paymethod">
 					<data>Options</data>
 					<installment_method>Installment Method</installment_method>
+					<allow_installment>Allow Installment</allow_installment>
+					<min_order_total>Min Order Total</min_order_total>
+					<max_order_total>Max Order Total</max_order_total>
+					<min_installment_total>Min Installment Total</min_installment_total>
+					<max_installment_total>Max Installment Total</max_installment_total>
 				</attributes>
 				<routes>
 					<route_entity>
