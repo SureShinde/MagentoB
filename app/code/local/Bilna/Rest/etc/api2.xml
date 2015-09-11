@@ -428,9 +428,9 @@
                         <retrieve>1</retrieve>
                     </admin>
                 </privileges>
-                <attributes translate="subcategory layer" module="Bilna_Rest">
-                    <subcategory>Sub Category</subcategory>
-                    <layer>Layer</layer>
+                <attributes translate="subcategory attribute" module="Bilna_Rest">
+                    <subcategory>Subcategory</subcategory>
+                    <attribute>Attribute</attribute>
                 </attributes>
                 <routes>
                     <route_entity>

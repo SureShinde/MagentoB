@@ -7,22 +7,26 @@
 
 abstract class Bilna_Rest_Model_Api2_Navigation_Rest extends Bilna_Rest_Model_Api2_Navigation {
     const ACCESS_FROM = 'access_from';
+    const CURRENT_CATEGORY = 'current_category';
     
+    protected $_params = array ();
     protected $_categoryId = null;
-    
-    protected function _setParams() {
-        Mage::register(self::ACCESS_FROM, 'api');
-    }
+    protected $_showSubcategory = true;
 
     protected function _getParams() {
-        $_params = array ();
-        $_params['category_id'] = $this->getRequest()->getParam('category_id');
+        $this->_params = $this->getRequest()->getParams();
         
-        return $_params;
+        return $this->_params;
     }
     
-    protected function _unsetParams() {
+    protected function _setRegistry() {
+        Mage::register(self::ACCESS_FROM, 'api');
+        Mage::register(self::CURRENT_CATEGORY, $this->_categoryId);
+    }
+    
+    protected function _unsetRegistry() {
         Mage::unregister(self::ACCESS_FROM);
+        Mage::unregister(self::CURRENT_CATEGORY);
     }
 
     protected function _getCategory($_categoryId) {
@@ -30,29 +34,37 @@ abstract class Bilna_Rest_Model_Api2_Navigation_Rest extends Bilna_Rest_Model_Ap
     }
 
     protected function _getSubcategory($_category) {
-        $_categories = $_category->getChildrenCategories();
         $_result = array ();
         
-        foreach ($_categories as $_category) {
-            if ($_category->getIsActive() && $_category->getProductCount()) {
-                $_result[] = array (
-                    'label' => Mage::helper('core')->escapeHtml($_category->getName()),
-                    'value' => $_category->getId(),
-                    'count' => $_category->getProductCount(),
-                );
+        if ($this->_showSubcategory) {
+            $_categories = $_category->getChildrenCategories();
+
+            foreach ($_categories as $_category) {
+                if ($_category->getIsActive() && $_category->getProductCount()) {
+                    $_result[] = array (
+                        'label' => Mage::helper('core')->escapeHtml($_category->getName()),
+                        'url' => Mage::helper('core')->escapeUrl($_category->getRequestPath()),
+                        //'value' => $_category->getId(),
+                        //'count' => $_category->getProductCount(),
+                    );
+                }
             }
+
+            return $_result;
         }
-        
-        return $_result;
     }
 
-    protected function _getLayer($_category) {
+    protected function _getAttribute($_category) {
         $_layer = Mage::getModel('catalog/layer');
         $_layer->setCurrentCategory($_category);
         $_attributes = $_layer->getFilterableAttributes();
         $_result = array ();
         
         foreach ($_attributes as $_attribute) {
+            if (isset ($this->_params[$_attribute->getAttributeCode()])) {
+                $this->_showSubcategory = false;
+            }
+                
             if ($_attribute->getAttributeCode() == 'price') {
                 $_filterBlockName = 'catalog/layer_filter_price';
             }
@@ -64,14 +76,22 @@ abstract class Bilna_Rest_Model_Api2_Navigation_Rest extends Bilna_Rest_Model_Ap
             }
             
             $_options = Mage::app()->getLayout()->createBlock($_filterBlockName)->setLayer($_layer)->setAttributeModel($_attribute)->init();
+            $_attributeData = array ();
             
             foreach ($_options->getItems() as $_option) {
-                $_result[$_attribute->getAttributeCode()][] = array (
+                $_attributeData[] = array (
+                //$_result[$_attribute->getAttributeCode()][] = array (
                     'label' => Mage::helper('core')->escapeHtml($_option->getLabel()),
                     'value' => $_option->getValue(),
                     'count' => $_option->getCount(),
                 );
             }
+            
+            $_result[] = array (
+                'code' => $_attribute->getAttributeCode(),
+                'label' => $_attribute->getFrontendLabel(),
+                'data' => $_attributeData,
+            );
         }
         
         return $_result;
