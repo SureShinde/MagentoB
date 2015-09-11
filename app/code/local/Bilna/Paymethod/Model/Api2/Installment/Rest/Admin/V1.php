@@ -23,6 +23,10 @@ class Bilna_Paymethod_Model_Api2_Installment_Rest_Admin_V1 extends Bilna_Paymeth
 
 	    	$isSupportInstallment = Mage::getStoreConfig('payment/' . $bankCode . '/allow_installment');
 	    	$installmentMethod = Mage::getStoreConfig('payment/' . $bankCode . '/installment_process');
+	    	$minOrderTotal = Mage::getStoreConfig('payment/' . $bankCode . '/min_order_total'); 
+	    	$maxOrderTotal = Mage::getStoreConfig('payment/' . $bankCode . '/max_order_total');
+	    	$minInstallmentTotal = Mage::getStoreConfig('payment/' . $bankCode . '/min_installment_total');
+	    	$maxInstallmentTotal = Mage::getStoreConfig('payment/' . $bankCode . '/max_installment_total');
 
 	    	if($isSupportInstallment)
 	    	{
@@ -45,7 +49,15 @@ class Bilna_Paymethod_Model_Api2_Installment_Rest_Admin_V1 extends Bilna_Paymeth
             $this->_error($e->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
         }
 
-        return array('data' => $data, 'installment_method' => $installmentMethod);
+        return array(
+        	'data' => $data, 
+        	'installment_method' => $installmentMethod,
+        	'allow_installment'  => $isSupportInstallment,
+        	'min_order_total'    => $minOrderTotal,
+        	'max_order_total'	 => $maxOrderTotal,
+        	'min_installment_total' => $minInstallmentTotal,
+        	'max_installment_total' => $maxInstallmentTotal
+        );
 
     }
 
