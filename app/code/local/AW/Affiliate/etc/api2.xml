@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<config>
+	<api2>
+		<resource_groups>
+			<affiliate translate="title" module="AW_Affiliate">
+				<title>Affiliate</title>
+				<sort_order>10000</sort_order>
+			</affiliate>
+		</resource_groups>
+		<resources>
+			<affiliate_check translate="title" module="AW_Affiliate">
+				<group>affiliate</group>
+				<sort_order>10010</sort_order>
+				<model>awaffiliate/api2_check</model>
+				<title>Affiliate Check</title>
+				<privileges>
+					<admin>
+						<retrieve>1</retrieve>
+						<create>1</create>
+					</admin>
+				</privileges>
+				<attributes translate="cmid afid" module="AW_Affiliate">
+					<cmid>Campaign ID</cmid>
+					<afid>Affiliate ID</afid>
+					<ats>Affiliate Traffic Source</ats>
+					<rurl>Redirect URL</rurl>
+				</attributes>
+				<routes>
+					<route_entity>
+						<route>/affiliate/check/:id</route>
+						<action_type>entity</action_type>
+					</route_entity>
+					<route_collection>
+						<route>/affiliate/check</route>
+						<action_type>collection</action_type>
+					</route_collection>
+				</routes>
+				<versions>1</versions>
+			</affiliate_check>
+			<affiliate_customer translate="title" module="AW_Affiliate">
+				<group>affiliate</group>
+				<sort_order>10011</sort_order>
+				<model>awaffiliate/api2_customer_view</model>
+				<title>Affiliate Customer</title>
+				<privileges>
+					<admin>
+						<retrieve>1</retrieve>
+						<create>1</create>
+					</admin>
+				</privileges>
+				<attributes translate="summary campaign" module="AW_Affiliate">
+					<summary>Summary</summary>
+					<campaign>Campaign</campaign>
+				</attributes>
+				<routes>
+					<route_entity>
+						<route>/affiliate/customer/:id</route>
+						<action_type>entity</action_type>
+					</route_entity>
+					<route_collection>
+						<route>/affiliate/customer</route>
+						<action_type>collection</action_type>
+					</route_collection>
+				</routes>
+				<versions>1</versions>
+			</affiliate_customer>
+		</resources>
+	</api2>
+</config>
