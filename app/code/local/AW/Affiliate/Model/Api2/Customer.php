@@ -81,10 +81,14 @@ class AW_Affiliate_Model_Api2_Customer extends Mage_Api2_Model_Resource
             ->setOrder('active_to ', 'DESC');
         
         $_campaigns = array();
-        foreach ($this->_campaignsCollection() as $item) 
+        
+        if($_campaignsCollection->getSize())
         {
-        	$_campaigns[] = $item
-        }
+	        foreach ($_campaignsCollection as $item) 
+	        {
+	        	$_campaigns[] = $item;
+	        }
+	    }
 
         return $_campaigns;
     }
