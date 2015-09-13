@@ -71,8 +71,8 @@ class AW_Affiliate_Model_Api2_Customer extends Mage_Api2_Model_Resource
     protected function getCampaignCollection()
     {        
         $__group = Mage::registry('current_affiliate')->getCustomerGroupId();
-        $this->_campaignsCollection = Mage::getModel('awaffiliate/campaign')->getCollection();
-        $this->_campaignsCollection
+        $_campaignsCollection = Mage::getModel('awaffiliate/campaign')->getCollection();
+        $_campaignsCollection
             ->joinProfitCollection()
             ->addFilterByWebsite(self::DISTRO_STORE_ID)
             ->addFilterByCustomerGroup($__group)
@@ -80,7 +80,13 @@ class AW_Affiliate_Model_Api2_Customer extends Mage_Api2_Model_Resource
             ->addDateFilter()
             ->setOrder('active_to ', 'DESC');
         
-        return $this->_campaignsCollection;
+        $_campaigns = array();
+        foreach ($this->_campaignsCollection() as $item) 
+        {
+        	$_campaigns[] = $item
+        }
+
+        return $_campaigns;
     }
 
     protected function _getDefaultStore()
