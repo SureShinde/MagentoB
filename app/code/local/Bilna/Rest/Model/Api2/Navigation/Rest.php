@@ -44,8 +44,6 @@ abstract class Bilna_Rest_Model_Api2_Navigation_Rest extends Bilna_Rest_Model_Ap
                     $_result[] = array (
                         'label' => Mage::helper('core')->escapeHtml($_category->getName()),
                         'url' => Mage::helper('core')->escapeUrl($_category->getRequestPath()),
-                        //'value' => $_category->getId(),
-                        //'count' => $_category->getProductCount(),
                     );
                 }
             }
@@ -61,11 +59,13 @@ abstract class Bilna_Rest_Model_Api2_Navigation_Rest extends Bilna_Rest_Model_Ap
         $_result = array ();
         
         foreach ($_attributes as $_attribute) {
-            if (isset ($this->_params[$_attribute->getAttributeCode()])) {
+            $_attributeCode = $_attribute->getAttributeCode();
+            
+            if (isset ($this->_params[$_attributeCode])) {
                 $this->_showSubcategory = false;
             }
                 
-            if ($_attribute->getAttributeCode() == 'price') {
+            if ($_attributeCode == 'price') {
                 $_filterBlockName = 'catalog/layer_filter_price';
             }
             elseif ($_attribute->getBackendType() == 'decimal') {
@@ -79,20 +79,53 @@ abstract class Bilna_Rest_Model_Api2_Navigation_Rest extends Bilna_Rest_Model_Ap
             $_attributeData = array ();
             
             foreach ($_options->getItems() as $_option) {
-                $_attributeData[] = array (
-                //$_result[$_attribute->getAttributeCode()][] = array (
-                    'label' => Mage::helper('core')->escapeHtml($_option->getLabel()),
-                    'value' => $_option->getValue(),
-                    'count' => $_option->getCount(),
-                );
+                if ($_attributeCode == 'price') {
+                    $_attributeData[] = $this->_getAttributePrice($_attribute, $_option);
+                }
+                else {
+                    $_attributeData[] = array (
+                        'label' => Mage::helper('core')->escapeHtml($_option->getLabel()),
+                        'value' => $_option->getValue(),
+                        'count' => $_option->getCount(),
+                        'checked' => $this->_getAttributeDataChecked($_attributeCode, $_option->getValue()),
+                    );
+                }
             }
             
-            $_result[] = array (
-                'code' => $_attribute->getAttributeCode(),
-                'label' => $_attribute->getFrontendLabel(),
-                'data' => $_attributeData,
-            );
+            if (count($_attributeData) > 0) {
+                $_result[] = array (
+                    'code' => $_attribute->getAttributeCode(),
+                    'label' => $_attribute->getFrontendLabel(),
+                    'data' => $_attributeData,
+                );
+            }
         }
+        
+        return $_result;
+    }
+    
+    protected function _getAttributeDataChecked($_attributeCode, $_attributeDataValue) {
+        if (isset ($this->_params[$_attributeCode])) {
+            if (empty ($_attributeDataValue)) {
+                return true;
+            }
+            
+            $_filter = explode(",", $this->_params[$_attributeCode]);
+            $_filterAttribute = explode(",", $_attributeDataValue);
+
+            if (count($_filter) > count($_filterAttribute)) {
+                return true;
+            }
+        }
+        
+        return false;
+    }
+
+    protected function _getAttributePrice($_attribute, $_option) {
+        $_result = array (
+            'min' => $_option->getFilter()->getMinValue(),
+            'max' => $_option->getFilter()->getMaxValue(),
+        );
         
         return $_result;
     }
