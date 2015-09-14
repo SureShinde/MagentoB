@@ -105,11 +105,17 @@ abstract class Bilna_Rest_Model_Api2_Navigation_Rest extends Bilna_Rest_Model_Ap
     }
     
     protected function _getAttributeDataChecked($_attributeCode, $_attributeDataValue) {
-        $_filter = explode(",", $this->_params[$_attributeCode]);
-        $_filterAttribute = explode(",", $_attributeDataValue);
-        
-        if (count($_filter) > count($_filterAttribute)) {
-            return true;
+        if (isset ($this->_params[$_attributeCode])) {
+            if (empty ($_attributeDataValue)) {
+                return true;
+            }
+            
+            $_filter = explode(",", $this->_params[$_attributeCode]);
+            $_filterAttribute = explode(",", $_attributeDataValue);
+
+            if (count($_filter) > count($_filterAttribute)) {
+                return true;
+            }
         }
         
         return false;
