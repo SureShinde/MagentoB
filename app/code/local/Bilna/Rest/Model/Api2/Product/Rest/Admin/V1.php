@@ -430,11 +430,11 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
         $store = $this->_getStore();
         $collection->setStoreId($store->getId());
         $collection->addAttributeToSelect(array_keys($this->getAvailableAttributes($this->getUserType(), Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_READ)));
+        
         $this->_applyCategoryFilter($collection);
         $this->_applyCollectionModifiers($collection);
-        
-        Mage::getSingleton('catalog/product_status')->addVisibleFilterToCollection($collection);
-        Mage::getSingleton('catalog/product_visibility')->addVisibleInCatalogFilterToCollection($collection);
+        $this->_applyCollectionProductStatus($collection);
+        $this->_applyCollectionProductVisibility($collection);
         
         $products = $this->_retrieveCollectionResponse($collection->load(), $collection->getSize());
         

@@ -492,4 +492,12 @@ abstract class Bilna_Rest_Model_Api2_Product_Rest extends Bilna_Rest_Model_Api2_
 
         return $res;
     }
+    
+    protected function _applyCollectionProductStatus(Varien_Data_Collection_Db $collection) {
+        return Mage::getSingleton('catalog/product_status')->addVisibleFilterToCollection($collection);
+    }
+    
+    protected function _applyCollectionProductVisibility(Varien_Data_Collection_Db $collection) {
+        return Mage::getSingleton('catalog/product_visibility')->addVisibleInCatalogFilterToCollection($collection);
+    }
 }
