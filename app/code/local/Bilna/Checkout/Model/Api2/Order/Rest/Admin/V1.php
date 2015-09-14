@@ -155,9 +155,9 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
                 $charge = Mage::getModel('paymethod/api')->creditcardCharge($order, $tokenId);
                 $setData = array(
                     'order_id'      => $lastOrderId,
-                    'increment_id'  => $charge->order_id,
-                    'gross_amount'  => $charge->gross_amount,
-                    'payment_type'  => $charge->payment_type,
+                    'increment_id'  => $order->getIncrementId(),
+                    'gross_amount'  => $order->getGrandTotal(),
+                    'payment_type'  => 'credit_card',
                     'bank'          => $charge->bank,
                     'token_id'      => $tokenId,
                     'status_code'   => $charge->status_code,
