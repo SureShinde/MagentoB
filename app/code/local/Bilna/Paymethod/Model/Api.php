@@ -126,7 +126,8 @@ class Bilna_Paymethod_Model_Api
             $response = array (
                 'transaction_status' => 'deny',
                 'fraud_status' => 'deny',
-                'status_message' => $e->getMessage()
+                'status_message' => $e->getMessage(),
+                'bank' => $acquiredBank
             );
             $result = (object) $response;
         }

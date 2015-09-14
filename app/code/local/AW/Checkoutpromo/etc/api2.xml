@@ -11,8 +11,8 @@
 			<checkoutpromo_validate translate="title" module="AW_Checkoutpromo">
 				<group>checkoutpromo</group>
 				<sort_order>11010</sort_order>
-				<model>checkoutpromo/api2_check</model>
-				<title>Checkout Promo Validate</title>
+				<model>checkoutpromo/api2_validate</model>
+				<title>Validate</title>
 				<privileges>
 					<admin>
 						<retrieve>1</retrieve>
@@ -26,7 +26,7 @@
 				</attributes>
 				<routes>
 					<route_entity>
-						<route>/checkoutpromo/validate/:id</route>
+						<route>/checkoutpromo/validate/:id/:customer_id</route>
 						<action_type>entity</action_type>
 					</route_entity>
 					<route_collection>
