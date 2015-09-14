@@ -36,6 +36,8 @@ CREATE TABLE IF NOT EXISTS `bilna_price_validation_log` (
   `rows_errors` int(10) unsigned NOT NULL,
   `user_id` mediumint(9) unsigned DEFAULT NULL,
   `error_file` varchar(255) DEFAULT NULL,
+  `base_dir` TEXT DEFAULT NULL,
+  `source_file` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`log_id`),
   KEY `IDX_BILNA_PRICE_VALIDATION_LOG_PROFILE_ID` (`profile_id`),
   CONSTRAINT `FK_BPV_LOG_PROFILE_ID_BILNA_PRICE_VALIDATION_PROFILE_PROFILE_ID` FOREIGN KEY (`profile_id`) REFERENCES `bilna_price_validation_profile` (`profile_id`) ON DELETE CASCADE ON UPDATE CASCADE
