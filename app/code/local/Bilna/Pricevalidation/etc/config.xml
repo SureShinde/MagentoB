@@ -37,6 +37,13 @@
                 </entities>
             </bilna_pricevalidation_mysql4>
         </models>
+        <resources>
+            <bilna_pricevalidation_setup>
+                <setup>
+                    <module>Bilna_Pricevalidation</module>
+                </setup>
+            </bilna_pricevalidation_setup>
+        </resources>
     </global>
 
     <admin>
