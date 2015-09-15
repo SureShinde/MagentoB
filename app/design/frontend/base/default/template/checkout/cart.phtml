@@ -119,15 +119,12 @@
                             </td>
                         </tr>
                     </tfoot>
-                    
                     <tbody>
                         <?php foreach($this->getItems() as $_item): ?>
                             <?php echo $this->getItemHtml($_item) ?>
-                            <?php $gtmItemIds = $_item->getId().'|'; ?>
-                        <?php endforeach ?>
+                        <?php endforeach; ?>
                     </tbody>
                 </table>
-                
                 <script type="text/javascript">decorateTable('shopping-cart-table')</script>
             </fieldset>
         </form>
@@ -201,7 +198,7 @@
 					<?php endif; ?>
 				</div>			
 				<script type="text/javascript">
-					if ( typeof AjaxLogin == 'undefined' ) {
+                    if ( typeof AjaxLogin == 'undefined' ) {
 						AjaxLogin = {};
 					}
 					
@@ -362,8 +359,13 @@
 	</div>
 </div>
 <script type="text/javascript">
-jQuery(document).ready(function () {    
-    var ajaxURL = 'https://www.bilna.com/ajaxrequest/data/retrievecart/';
+jQuery(document).ready(function () {
+    <?php if(Mage::app()->getStore()->isCurrentlySecure()) : ?>
+    <?php $baseUrl = Mage::getBaseUrl( Mage_Core_Model_Store::URL_TYPE_WEB, true ); ?>
+    <?php else : ?>
+    <?php $baseUrl = Mage::getBaseUrl( Mage_Core_Model_Store::URL_TYPE_WEB, false ); ?>
+    <?php endif; ?>
+	var ajaxURL = '<?php echo $baseUrl; ?>ajaxrequest/data/retrievecart/';
 
     var data = {};
 
@@ -374,9 +376,13 @@ jQuery(document).ready(function () {
         success: function(data){
             response = jQuery.parseJSON(data);
             if(response.status == true){
+				dataLayer.push( {'ecomm_pagetype': 'cart'} );
+				dataLayer.push( {'ecomm_prodid': response.data.quote.productSkuIds} );
+				dataLayer.push( {'ecomm_totalvalue': response.data.quote.totalValue} );
             	dataLayer.push( {'productid': response.data.quote.productIds} );
-            	dataLayer.push( {'prices': response.data.quote.productPrices} );
-            	dataLayer.push( {'quantities': response.data.quote.productQtys} );
+				dataLayer.push( {'skuid': response.data.quote.productSkuIds} );
+				dataLayer.push( {'prices': response.data.quote.productPrices} );
+				dataLayer.push( {'quantities': response.data.quote.productQtys} );
             }else{
                 return false;
             }

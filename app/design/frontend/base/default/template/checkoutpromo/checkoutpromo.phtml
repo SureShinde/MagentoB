@@ -98,9 +98,13 @@ $points_amount = $session->getData('points_amount');
             success: function(res){
                 if(res.status == 1){
                     $('feedback').update(res.desc);
-                    $('use_points').disabled = $('points_amount').disabled = true;   
+					if($('use_points')){	
+                    	$('use_points').disabled = $('points_amount').disabled = true; 
+					}  
                 }else{
-                    $('use_points').disabled = $('points_amount').disabled = false;
+					if($('use_points')){
+                    	$('use_points').disabled = $('points_amount').disabled = false;
+					}
                     $('feedback').update(res.desc);
                 }
 				setTimeout(function(){
