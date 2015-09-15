@@ -11,8 +11,9 @@ class Bilna_Rest_Model_Api2_Cms_Staticarea_Rest extends Bilna_Rest_Model_Api2_Cm
         $_collection = Mage::getModel('staticarea/contents')->getCollection()
             ->addFieldToFilter('staticarea_id', $_staticarea->getId())
             ->addFieldToFilter('status', 1)
-            ->addFieldToFilter('DATE(active_from)', array ('from' => $this->_getCurrentDate()))
-            ->addFieldToFilter('DATE(active_to)', array ('to' => $this->_getCurrentDate()));
+            ->addFieldToFilter('DATE(active_from)', array ('lteq' => $this->_getCurrentDate()))
+            ->addFieldToFilter('DATE(active_to)', array ('gteq' => $this->_getCurrentDate()));
+        $_collection->getSelect()->order('order');
         
         if ($_collection->getSize() > 0) {
             foreach ($_collection->load() as $_block) {
