@@ -31,4 +31,8 @@ class Bilna_Rest_Model_Api2 extends Mage_Api2_Model_Resource {
             }
         }
     }
+    
+    protected function _getCurrentDate() {
+        return Mage::getModel('core/date')->date('Y-m-d');
+    }
 }

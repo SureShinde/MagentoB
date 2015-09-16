@@ -27,10 +27,6 @@ class Bilna_Rest_Model_Api2_Cms_Staticarea_Rest extends Bilna_Rest_Model_Api2_Cm
         
         return $_result;
     }
-    
-    protected function _getCurrentDate() {
-        return Mage::getModel('core/date')->date('Y-m-d');
-    }
 
     protected function _renderStaticarea($_staticarea, $_block) {
         return sprintf("<a href=\"%s\" alt=\"%s\" target=\"%s\">%s</a>", $_block->getUrl(), $_staticarea->getAreaName(), $_block->getUrlAction(), $this->_getHtmlCode($_block));
