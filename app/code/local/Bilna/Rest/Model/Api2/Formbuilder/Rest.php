@@ -24,6 +24,7 @@ abstract class Bilna_Rest_Model_Api2_Formbuilder_Rest extends Bilna_Rest_Model_A
     protected function _getInputs($_formId) {
         $_result = array ();
         $_collection = Mage::getModel('bilna_formbuilder/input')->getCollection()->addFieldToFilter('form_id', $_formId);
+        $_collection->getSelect()->order('group');
         $_collection->getSelect()->order('order');
         
         if ($_collection->getSize() > 0) {
