@@ -52,7 +52,7 @@ class Bilna_Wrappinggiftevent_Model_Observer {
         $quote = $evt->getQuote();
         $model = Mage::getModel('wrappinggiftevent/custom_quote');    
         $data  = $model->getByQuote($quote->getId());
-        foreach($data[0] as $key => $value){
+        foreach($data as $key => $value){
             $quote->setData($key,$value);
         }
     }

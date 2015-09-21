@@ -48,7 +48,7 @@
                 <div class="afp-thumbnail">
                     <?php if($_onSaleHelper->isOnsale()) echo $_onSaleHelper->startOnsale($_product, $_imageQsize) ?>
                     <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($_abstractBlock->getImageLabel($_product, 'small_image'), null, true) ?>" class="product-image">
-                        <img class="lazy" src="<?php echo $this->getSkinUrl('images/mgt_lazy_image_loader/loader.gif'); ?>" data-src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(135); ?>" alt="<?php echo $this->stripTags($_abstractBlock->getImageLabel($_product, 'small_image'), null, true) ?>" />
+                        <img class="lazy" data-src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(135); ?>" alt="<?php echo $this->stripTags($_abstractBlock->getImageLabel($_product, 'small_image'), null, true) ?>" />
                     </a>
                     <?php if($_onSaleHelper->isOnsale()) echo $_onSaleHelper->endOnsale() ?>
                 </div>

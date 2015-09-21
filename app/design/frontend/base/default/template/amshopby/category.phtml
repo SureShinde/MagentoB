@@ -21,7 +21,7 @@
                 <a href="<?php echo $this->urlEscape($_item->getUrl()) ?>" class="<?php echo strtolower($trim) ?>">
                 	<?php if(strtolower($trim)=='whatsnew'):?>
 				          	<?php echo $this->__('Whats New?')?>
-		        	<?php elseif(strtolower($trimmed)=='onsale'):?>
+		        	<?php elseif(strtolower($trim)=='onsale'):?>
 		        			<?php echo $this->__('On Sale!')?>
 		        	<?php else:?>
 		        			<?php echo $_item->getLabel() ?>

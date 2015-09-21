@@ -510,11 +510,11 @@
 </div>
 <?php $productId = $_product->getId(); ?>
 <script type="text/javascript">
-jQuery(document).ready(function () {
+    jQuery(document).ready(function () {
 	dataLayer.push( {'ecomm_pagetype': 'product'} );
-    dataLayer.push( {'ecomm_prodid': '<?php echo $_product->getSku(); ?>'} );
-    dataLayer.push( {'ecomm_totalvalue': '<?php echo number_format($_product->getPrice(), 0, '', ''); ?>'} );
+        dataLayer.push( {'ecomm_prodid': '<?php echo $_product->getSku(); ?>'} );
+        dataLayer.push( {'ecomm_totalvalue': '<?php echo number_format($_product->getPrice(), 0, '', ''); ?>'} );
 	dataLayer.push( {'productid': '<?php echo $_product->getId(); ?>'} );
 	dataLayer.push( {'skuid': '<?php echo $_product->getSku(); ?>'} );
-});
+    });
 </script>
