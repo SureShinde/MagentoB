@@ -130,14 +130,13 @@ abstract class Bilna_Rest_Model_Api2_Formbuilder_Rest extends Bilna_Rest_Model_A
             }
             
             if ($_emailId) {
-                $_url = $_form->getUrl();
-                $_ref = Mage::helper('bilna_formbuilder')->encrypt($_formData['email']);
-                $_shareUrl = sprintf("%s%s?ref=%s", Mage::getBaseUrl(), $_url, $_ref);
-                
-                $this->_sendEmailFue($_fueId, $_recordId, $_formData, $_shareUrl);
+                $this->_sendEmail($_formData, $_emailId);
             }
             else {
-                $this->_sendEmail($_formData, $_emailId);
+                $_url = $_form->getUrl();
+                $_shareUrl = sprintf("%s%s?ref=%s", Mage::getBaseUrl(), $_url, $_formData['email']);
+                
+                $this->_sendEmailFue($_fueId, $_recordId, $_formData, $_shareUrl);
             }
         }
     }
