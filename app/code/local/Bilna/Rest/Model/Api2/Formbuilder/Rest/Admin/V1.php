@@ -24,7 +24,7 @@ class Bilna_Rest_Model_Api2_Formbuilder_Rest_Admin_V1 extends Bilna_Rest_Model_A
                 if (($_error = $this->_validUnique($_formId, $_input, $_formData[$_input['name']])) !== true) {
                     $this->_error($_error, Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
                     $_errors = true;
-                    break;
+                    continue;
                 }
             }
         }
