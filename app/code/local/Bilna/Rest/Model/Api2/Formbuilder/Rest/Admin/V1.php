@@ -18,6 +18,13 @@ class Bilna_Rest_Model_Api2_Formbuilder_Rest_Admin_V1 extends Bilna_Rest_Model_A
                 if (($_error = $this->_validRequired($_input, $_formData)) !== true) {
                     $this->_error($_error, Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
                     $_errors = true;
+                    continue;
+                }
+                
+                if (($_error = $this->_validUnique($_formId, $_input, $_formData[$_input['name']])) !== true) {
+                    $this->_error($_error, Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
+                    $_errors = true;
+                    break;
                 }
             }
         }
@@ -26,7 +33,7 @@ class Bilna_Rest_Model_Api2_Formbuilder_Rest_Admin_V1 extends Bilna_Rest_Model_A
             $this->_critical(self::RESOURCE_DATA_PRE_VALIDATION_ERROR);
         }
         
-        if (!$this->_saveData($_formId, $_formData)) {
+        if (!$this->_saveData($_formId, $_form, $_formData)) {
             $this->_critical(self::RESOURCE_INTERNAL_ERROR);
         }
         

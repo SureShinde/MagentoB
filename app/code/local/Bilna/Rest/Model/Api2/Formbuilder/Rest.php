@@ -53,7 +53,24 @@ abstract class Bilna_Rest_Model_Api2_Formbuilder_Rest extends Bilna_Rest_Model_A
         return true;
     }
     
-    protected function _saveData($_formId, $_formData) {
+    protected function _validUnique($_formId, $_input, $_value) {
+        if ($_input['unique'] == 1) {
+            $_collection = Mage::getModel('bilna_formbuilder/data')->getCollection();
+            $_collection->addFieldToSelect('value')
+                ->addFieldToFilter('form_id', $_formId)
+                ->addFieldToFilter('type', $_input['name'])
+                ->addFieldToFilter('value', $_value);
+            $_collection->getSelect()->limit(1);
+            
+            if ($_collection->getSize() > 0) {
+                return sprintf("%s already exist.", $_input['title']);
+            }
+        }
+        
+        return true;
+    }
+    
+    protected function _saveData($_formId, $_form, $_formData) {
         $_recordId = $this->_getRecordId($_formId);
         
         if (is_null($_recordId)) {
@@ -80,6 +97,8 @@ abstract class Bilna_Rest_Model_Api2_Formbuilder_Rest extends Bilna_Rest_Model_A
         $_write = Mage::getSingleton('core/resource')->getConnection('core_write');
         
         if ($_write->insertMultiple($_table, $_rows)) {
+            $this->_prepareSendEmail($_form, $_formData, $_recordId);
+            
             return true;
         }
         
@@ -99,6 +118,64 @@ abstract class Bilna_Rest_Model_Api2_Formbuilder_Rest extends Bilna_Rest_Model_A
         }
         
         return null;
+    }
+    
+    protected function _prepareSendEmail($_form, $_formData, $_recordId) {
+        if ($_form->getSentEmail() && isset ($_formData['email'])) {
+            $_emailId = $_form->getEmailId();
+            $_fueId = $_form->getFue();
+            
+            if (!$_emailId && !$_fueId) {
+                $this->_critical(self::RESOURCE_INTERNAL_ERROR);
+            }
+            
+            if ($_emailId) {
+                $_url = $_form->getUrl();
+                $_ref = Mage::helper('bilna_formbuilder')->encrypt($_formData['email']);
+                $_shareUrl = sprintf("%s%s?ref=%s", Mage::getBaseUrl(), $_url, $_ref);
+                
+                $this->_sendEmailFue($_fueId, $_recordId, $_formData, $_shareUrl);
+            }
+            else {
+                $this->_sendEmail($_formData, $_emailId);
+            }
+        }
+    }
+
+    protected function _sendEmail($_data, $_templateId) {
+        $_sender = array (
+            'name' => Mage::getStoreConfig('trans_email/ident_support/name'),
+            'email' => Mage::getStoreConfig('trans_email/ident_support/email')
+        );
+        $_translate = Mage::getSingleton('core/translate');
+        $_translate->setTranslateInline(true);
+        $_sendEmail = Mage::getModel('core/email_template')->sendTransactional($_templateId, $_sender, $_data['email'], $_data['name'], $_data);
+
+        if ($_sendEmail) {
+            return true;
+        }
+        
+        return false;
+    }
+    
+    protected function _sendEmailFue($_fueId, $_recordId, $_data, $_shareUrl) {
+        $_fueRule = Mage::getModel('followupemail/rule')->load($_fueId);
+        
+        foreach (unserialize($_fueRule->getChain()) as $chain) {
+            $_params = array ();
+            $_params['share_apps'] = true;
+            $_params['object_id'] = $_recordId;
+            $_params['store_id'] = self::DEFAULT_STORE_ID;
+            $_params['customer_email'] = $_data['email'];
+            $_params['share_url'] = $_shareUrl;
+            
+            $_templateId = $chain['TEMPLATE_ID'];
+            $_timeDelay = $chain['BEFORE'] * $chain['DAYS'];
+            $_hourDelay = $chain['BEFORE'] * $chain['HOURS'];
+            
+            AW_Followupemail_Model_Log::log('emailShareApps event processing, rule_id=' . $_fueId . ', customerEmail=' . $_params['customer_email'] . ', store_id=' . $_params['store_id']);
+            $_fueRule->processShareApps($_params, $_templateId, $_timeDelay, $_hourDelay, $_recordId);
+        }
     }
 
     protected function _getForm($_formId) {
