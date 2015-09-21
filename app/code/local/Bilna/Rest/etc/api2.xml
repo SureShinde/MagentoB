@@ -661,6 +661,10 @@
                         <route>/formbuilder/:id</route>
                         <action_type>entity</action_type>
                     </route_entity>
+                    <route_collection>
+                        <route>/formbuilder/:id/submit</route>
+                        <action_type>collection</action_type>
+                    </route_collection>
                 </routes>
                 <versions>1</versions>
             </formbuilder>
