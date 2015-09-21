@@ -301,14 +301,14 @@ class Bilna_Pricevalidation_Adminhtml_PricevalidationController extends Mage_Adm
                                                 foreach ($updateProduct->getData('group_price') as $productData) {
                                                     if (in_array($productData['cust_group'], $custGroup)) {
                                                         if ($productData['cust_group'] == $custGroup['silver']) {
-                                                            $updateGroupPrice = $grossMargin - ($grossMargin * 0.15); // 15%
+                                                            $updateGroupPrice = $price - ($grossMargin * 0.15); // 15%
                                                             $groupPriceUpdate[] = array(
                                                                 'website_id' => 0,
                                                                 'cust_group' => 2,
                                                                 'price' => $updateGroupPrice
                                                             );
                                                         } elseif ($productData['cust_group'] == $custGroup['platinum']) {
-                                                            $updateGroupPrice = $grossMargin - ($grossMargin * 0.75); // 75%
+                                                            $updateGroupPrice = $price - ($grossMargin * 0.75); // 75%
                                                             $groupPriceUpdate[] = array(
                                                                 'website_id' => 0,
                                                                 'cust_group' => 4,
