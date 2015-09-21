@@ -2,6 +2,9 @@
 
 class Bilna_Pricevalidation_Adminhtml_PricevalidationController extends Mage_Adminhtml_Controller_Action
 {
+    private $silver = 'silver reseller';
+    private $platinum = 'platinum reseller';
+
     public function indexAction()
     {
         $this->_title($this->__('Bilna'))->_title($this->__('Bilna Price Validation'));
@@ -120,11 +123,24 @@ class Bilna_Pricevalidation_Adminhtml_PricevalidationController extends Mage_Adm
                         $cleanData = array();
                         $fieldList = array();
                         $errors = array();
+                        $custGroup = array();
+
+                        $listGroups = Mage::getModel('customer/group')->getCollection();
+                        //echo "<pre>";print_r($listGroups->getData());die;
+                        foreach($listGroups->getData() as $listGroup) {
+                            if(strtolower($listGroup['customer_group_code']) == $this->silver) {
+                                $custGroup['silver'] = $listGroup['customer_group_id'];
+                            }
+                            if(strtolower($listGroup['customer_group_code']) == $this->platinum) {
+                                $custGroup['platinum'] = $listGroup['customer_group_id'];
+                            }
+                        }
 
                         $file = Mage::getConfig()->getBaseDir('base').'/files/pricevalidation/import/'.$cleanDir.$dataRun['filename'];
                         $csv = new Varien_File_Csv();
                         $csvFile = $csv->getData($file);
                         for($i = 0; $i < count($csvFile); $i++) {
+                            $readyForUpdateGP = 0;
                             if($i == 0){ // Get Header
                                 if (!is_null($csvFile[$i])) {
                                     $dataCsv = explode(';',$csvFile[$i][0]);
@@ -202,6 +218,7 @@ class Bilna_Pricevalidation_Adminhtml_PricevalidationController extends Mage_Adm
                                                     if(!empty($cleanData[$i-1]['price'])) {
                                                         if((int)floatval($cleanData[$i-1]['price']) >= 0) {
                                                             $price = (int)floatval($cleanData[$i-1]['price']);
+                                                            $readyForUpdateGP++;
                                                             $updateProduct->setPrice($price)->save();
                                                         }
                                                         else {
@@ -213,6 +230,7 @@ class Bilna_Pricevalidation_Adminhtml_PricevalidationController extends Mage_Adm
                                                     if(!empty($cleanData[$i-1]['cost'])) {
                                                         if((int)floatval($cleanData[$i-1]['cost']) >= 0) {
                                                             $cost = (int)floatval($cleanData[$i-1]['cost']);
+                                                            $readyForUpdateGP++;
                                                             $updateProduct->setCost($cost)->save();
                                                         }
                                                         else {
@@ -258,12 +276,14 @@ class Bilna_Pricevalidation_Adminhtml_PricevalidationController extends Mage_Adm
                                                     if(in_array('price', $fieldList)) {
                                                         if(!empty($cleanData[$i-1]['price'])) {
                                                             $price = (int)floatval($cleanData[$i-1]['price']);
+                                                            $readyForUpdateGP++;
                                                             $updateProduct->setPrice($price)->save();
                                                         }
                                                     }
                                                     if(in_array('cost', $fieldList)) {
                                                         if(!empty($cleanData[$i-1]['cost'])) {
                                                             $cost = (int)floatval($cleanData[$i-1]['cost']);
+                                                            $readyForUpdateGP++;
                                                             $updateProduct->setCost($cost)->save();
                                                         }
                                                     }
@@ -275,6 +295,38 @@ class Bilna_Pricevalidation_Adminhtml_PricevalidationController extends Mage_Adm
                                                     }
                                                 }
                                             }
+                                            /* Customer Group Price Section Start */
+                                            if((empty($error) && ($readyForUpdateGP == 2))) {
+                                                $grossMargin = $price - $cost;
+                                                foreach ($updateProduct->getData('group_price') as $productData) {
+                                                    if (in_array($productData['cust_group'], $custGroup)) {
+                                                        if ($productData['cust_group'] == $custGroup['silver']) {
+                                                            $updateGroupPrice = $grossMargin - ($grossMargin * 0.15); // 15%
+                                                            $groupPriceUpdate[] = array(
+                                                                'website_id' => 0,
+                                                                'cust_group' => 2,
+                                                                'price' => $updateGroupPrice
+                                                            );
+                                                        } elseif ($productData['cust_group'] == $custGroup['platinum']) {
+                                                            $updateGroupPrice = $grossMargin - ($grossMargin * 0.75); // 75%
+                                                            $groupPriceUpdate[] = array(
+                                                                'website_id' => 0,
+                                                                'cust_group' => 4,
+                                                                'price' => $updateGroupPrice
+                                                            );
+                                                        }
+                                                    } else {
+                                                        $groupPriceUpdate[] = array(
+                                                            'website_id' => $productData['website_id'],
+                                                            'cust_group' => $productData['cust_group'],
+                                                            'price' => $productData['price']
+                                                        );
+                                                    }
+                                                }
+                                                $updateProduct->setData('group_price', $groupPriceUpdate);
+                                                $updateProduct->save();
+                                            }
+                                            /* Customer Group Price Section End */
                                         }
                                     }
                                     else {
