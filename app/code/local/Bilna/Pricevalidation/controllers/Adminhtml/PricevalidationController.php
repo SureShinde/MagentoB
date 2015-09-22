@@ -179,37 +179,25 @@ class Bilna_Pricevalidation_Adminhtml_PricevalidationController extends Mage_Adm
 
                                     if(!empty($productId)) {
                                         if(in_array('price', $fieldList)) {
-                                            //if(!empty($cleanData[$i-1]['price'])) {
                                             if(!is_null($cleanData[$i-1]['price'])) {
                                                 if((int)floatval($cleanData[$i-1]['price']) < 0) {
                                                     $error .= 'Price value cannot smaller than 0 ! ';
                                                 }
                                             }
-                                            /*else {
-                                                $error .= 'Price cannot empty ! ';
-                                            }*/
                                         }
                                         if(in_array('cost', $fieldList)) {
-                                            //if(!empty($cleanData[$i-1]['cost'])) {
                                             if(!is_null($cleanData[$i-1]['cost'])) {
                                                 if((int)floatval($cleanData[$i-1]['cost']) < 0) {
                                                     $error .= 'Cost value cannot smaller than 0 ! ';
                                                 }
                                             }
-                                            /*else {
-                                                $error .= 'Cost cannot empty ! ';
-                                            }*/
                                         }
                                         if(in_array('special_price', $fieldList)) {
-                                            //if(!empty($cleanData[$i-1]['special_price'])) {
                                             if(!is_null($cleanData[$i-1]['special_price'])) {
                                                 if((int)floatval($cleanData[$i-1]['special_price']) < 0) {
                                                     $error .= 'Special Price cannot smaller than 0 ! ';
                                                 }
                                             }
-                                            /*else {
-                                                $error .= 'Special Price cannot empty ! ';
-                                            }*/
                                         }
 
                                         if(empty($error)) {
@@ -217,7 +205,6 @@ class Bilna_Pricevalidation_Adminhtml_PricevalidationController extends Mage_Adm
                                                 $productId = Mage::getModel('catalog/product')->getIdBySku($cleanData[$i-1]['SKU']);
                                                 $updateProduct = Mage::getModel('catalog/product')->load($productId);
                                                 if(in_array('price', $fieldList)) {
-                                                    //if(!empty($cleanData[$i-1]['price'])) {
                                                     if(!is_null($cleanData[$i-1]['price'])) {
                                                         if((int)floatval($cleanData[$i-1]['price']) >= 0) {
                                                             $price = (int)floatval($cleanData[$i-1]['price']);
@@ -230,7 +217,6 @@ class Bilna_Pricevalidation_Adminhtml_PricevalidationController extends Mage_Adm
                                                     }
                                                 }
                                                 if(in_array('cost', $fieldList)) {
-                                                    //if(!empty($cleanData[$i-1]['cost'])) {
                                                     if(!is_null($cleanData[$i-1]['cost'])) {
                                                         if((int)floatval($cleanData[$i-1]['cost']) >= 0) {
                                                             $cost = (int)floatval($cleanData[$i-1]['cost']);
@@ -243,7 +229,6 @@ class Bilna_Pricevalidation_Adminhtml_PricevalidationController extends Mage_Adm
                                                     }
                                                 }
                                                 if(in_array('special_price', $fieldList)) {
-                                                    //if(!empty($cleanData[$i-1]['special_price'])) {
                                                     if(!is_null($cleanData[$i-1]['special_price'])) {
                                                         if((int)floatval($cleanData[$i-1]['special_price']) >= 0) {
                                                             $specialPrice = (int)floatval($cleanData[$i-1]['special_price']);
@@ -279,7 +264,6 @@ class Bilna_Pricevalidation_Adminhtml_PricevalidationController extends Mage_Adm
                                                     $productId = Mage::getModel('catalog/product')->getIdBySku($cleanData[$i-1]['SKU']);
                                                     $updateProduct = Mage::getModel('catalog/product')->load($productId);
                                                     if(in_array('price', $fieldList)) {
-                                                        //if(!empty($cleanData[$i-1]['price'])) {
                                                         if(!is_null($cleanData[$i-1]['price'])) {
                                                             $price = (int)floatval($cleanData[$i-1]['price']);
                                                             $readyForUpdateGP++;
@@ -287,7 +271,6 @@ class Bilna_Pricevalidation_Adminhtml_PricevalidationController extends Mage_Adm
                                                         }
                                                     }
                                                     if(in_array('cost', $fieldList)) {
-                                                        //if(!empty($cleanData[$i-1]['cost'])) {
                                                         if(!is_null($cleanData[$i-1]['cost'])) {
                                                             $cost = (int)floatval($cleanData[$i-1]['cost']);
                                                             $readyForUpdateGP++;
@@ -295,7 +278,6 @@ class Bilna_Pricevalidation_Adminhtml_PricevalidationController extends Mage_Adm
                                                         }
                                                     }
                                                     if(in_array('special_price', $fieldList)) {
-                                                        //if(!empty($cleanData[$i-1]['special_price'])) {
                                                         if(!is_null($cleanData[$i-1]['special_price'])) {
                                                             $specialPrice = (int)floatval($cleanData[$i-1]['special_price']);
                                                             $updateProduct->setSpecialPrice($specialPrice)->save();
@@ -382,7 +364,6 @@ class Bilna_Pricevalidation_Adminhtml_PricevalidationController extends Mage_Adm
                             $csvWrite = new Varien_File_Csv();
                             $csvExport = array();
                             $column = array();
-                            //$csvExport = $a;
                             foreach($errors as $rowError) {
                                 $column['A'] = $rowError;
                                 $csvExport[] = $column;
