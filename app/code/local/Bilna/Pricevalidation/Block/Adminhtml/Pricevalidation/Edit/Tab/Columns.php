@@ -39,6 +39,31 @@ class Bilna_Pricevalidation_Block_Adminhtml_Pricevalidation_Edit_Tab_Columns
                         'attribute_code' => 'ignore_flag',
                         'backend_type' => 'int',
                         'is_required' => 0
+                    ),
+                    'new_from_date' => array(
+                        'attribute_code' => 'new_from_date',
+                        'backend_type' => 'date',
+                        'is_required' => 0
+                    ),
+                    'new_to_date' => array(
+                        'attribute_code' => 'new_to_date',
+                        'backend_type' => 'date',
+                        'is_required' => 0
+                    ),
+                    'special_from_date' => array(
+                        'attribute_code' => 'special_from_date',
+                        'backend_type' => 'date',
+                        'is_required' => 0
+                    ),
+                    'special_to_date' => array(
+                        'attribute_code' => 'special_to_date',
+                        'backend_type' => 'date',
+                        'is_required' => 0
+                    ),
+                    'enabled' => array(
+                        'attribute_code' => 'status',
+                        'backend_type' => 'string',
+                        'is_required' => 0
                     )
                 )
             )

@@ -126,7 +126,6 @@ class Bilna_Pricevalidation_Adminhtml_PricevalidationController extends Mage_Adm
                         $custGroup = array();
 
                         $listGroups = Mage::getModel('customer/group')->getCollection();
-                        //echo "<pre>";print_r($listGroups->getData());die;
                         foreach($listGroups->getData() as $listGroup) {
                             if(strtolower($listGroup['customer_group_code']) == $this->silver) {
                                 $custGroup['silver'] = $listGroup['customer_group_id'];
@@ -180,42 +179,46 @@ class Bilna_Pricevalidation_Adminhtml_PricevalidationController extends Mage_Adm
 
                                     if(!empty($productId)) {
                                         if(in_array('price', $fieldList)) {
-                                            if(!empty($cleanData[$i-1]['price'])) {
+                                            //if(!empty($cleanData[$i-1]['price'])) {
+                                            if(!is_null($cleanData[$i-1]['price'])) {
                                                 if((int)floatval($cleanData[$i-1]['price']) < 0) {
                                                     $error .= 'Price value cannot smaller than 0 ! ';
                                                 }
                                             }
-                                            else {
+                                            /*else {
                                                 $error .= 'Price cannot empty ! ';
-                                            }
+                                            }*/
                                         }
                                         if(in_array('cost', $fieldList)) {
-                                            if(!empty($cleanData[$i-1]['cost'])) {
+                                            //if(!empty($cleanData[$i-1]['cost'])) {
+                                            if(!is_null($cleanData[$i-1]['cost'])) {
                                                 if((int)floatval($cleanData[$i-1]['cost']) < 0) {
                                                     $error .= 'Cost value cannot smaller than 0 ! ';
                                                 }
                                             }
-                                            else {
+                                            /*else {
                                                 $error .= 'Cost cannot empty ! ';
-                                            }
+                                            }*/
                                         }
                                         if(in_array('special_price', $fieldList)) {
-                                            if(!empty($cleanData[$i-1]['special_price'])) {
+                                            //if(!empty($cleanData[$i-1]['special_price'])) {
+                                            if(!is_null($cleanData[$i-1]['special_price'])) {
                                                 if((int)floatval($cleanData[$i-1]['special_price']) < 0) {
                                                     $error .= 'Special Price cannot smaller than 0 ! ';
                                                 }
                                             }
-                                            else {
+                                            /*else {
                                                 $error .= 'Special Price cannot empty ! ';
-                                            }
+                                            }*/
                                         }
 
                                         if(empty($error)) {
-                                            if(in_array('ignore_flag', $fieldList) && ($cleanData[$i-1]['ignore_flag'] == 1)) {
+                                            if(in_array('ignore_flag', $fieldList) && (strtolower($cleanData[$i-1]['ignore_flag']) == 'yes')) {
                                                 $productId = Mage::getModel('catalog/product')->getIdBySku($cleanData[$i-1]['SKU']);
                                                 $updateProduct = Mage::getModel('catalog/product')->load($productId);
                                                 if(in_array('price', $fieldList)) {
-                                                    if(!empty($cleanData[$i-1]['price'])) {
+                                                    //if(!empty($cleanData[$i-1]['price'])) {
+                                                    if(!is_null($cleanData[$i-1]['price'])) {
                                                         if((int)floatval($cleanData[$i-1]['price']) >= 0) {
                                                             $price = (int)floatval($cleanData[$i-1]['price']);
                                                             $readyForUpdateGP++;
@@ -227,7 +230,8 @@ class Bilna_Pricevalidation_Adminhtml_PricevalidationController extends Mage_Adm
                                                     }
                                                 }
                                                 if(in_array('cost', $fieldList)) {
-                                                    if(!empty($cleanData[$i-1]['cost'])) {
+                                                    //if(!empty($cleanData[$i-1]['cost'])) {
+                                                    if(!is_null($cleanData[$i-1]['cost'])) {
                                                         if((int)floatval($cleanData[$i-1]['cost']) >= 0) {
                                                             $cost = (int)floatval($cleanData[$i-1]['cost']);
                                                             $readyForUpdateGP++;
@@ -239,7 +243,8 @@ class Bilna_Pricevalidation_Adminhtml_PricevalidationController extends Mage_Adm
                                                     }
                                                 }
                                                 if(in_array('special_price', $fieldList)) {
-                                                    if(!empty($cleanData[$i-1]['special_price'])) {
+                                                    //if(!empty($cleanData[$i-1]['special_price'])) {
+                                                    if(!is_null($cleanData[$i-1]['special_price'])) {
                                                         if((int)floatval($cleanData[$i-1]['special_price']) >= 0) {
                                                             $specialPrice = (int)floatval($cleanData[$i-1]['special_price']);
                                                             $updateProduct->setSpecialPrice($specialPrice)->save();
@@ -274,41 +279,69 @@ class Bilna_Pricevalidation_Adminhtml_PricevalidationController extends Mage_Adm
                                                     $productId = Mage::getModel('catalog/product')->getIdBySku($cleanData[$i-1]['SKU']);
                                                     $updateProduct = Mage::getModel('catalog/product')->load($productId);
                                                     if(in_array('price', $fieldList)) {
-                                                        if(!empty($cleanData[$i-1]['price'])) {
+                                                        //if(!empty($cleanData[$i-1]['price'])) {
+                                                        if(!is_null($cleanData[$i-1]['price'])) {
                                                             $price = (int)floatval($cleanData[$i-1]['price']);
                                                             $readyForUpdateGP++;
                                                             $updateProduct->setPrice($price)->save();
                                                         }
                                                     }
                                                     if(in_array('cost', $fieldList)) {
-                                                        if(!empty($cleanData[$i-1]['cost'])) {
+                                                        //if(!empty($cleanData[$i-1]['cost'])) {
+                                                        if(!is_null($cleanData[$i-1]['cost'])) {
                                                             $cost = (int)floatval($cleanData[$i-1]['cost']);
                                                             $readyForUpdateGP++;
                                                             $updateProduct->setCost($cost)->save();
                                                         }
                                                     }
                                                     if(in_array('special_price', $fieldList)) {
-                                                        if(!empty($cleanData[$i-1]['special_price'])) {
+                                                        //if(!empty($cleanData[$i-1]['special_price'])) {
+                                                        if(!is_null($cleanData[$i-1]['special_price'])) {
                                                             $specialPrice = (int)floatval($cleanData[$i-1]['special_price']);
                                                             $updateProduct->setSpecialPrice($specialPrice)->save();
                                                         }
                                                     }
                                                 }
                                             }
+
+                                            if((in_array('new_from_date', $fieldList)) && !is_null($cleanData[$i-1]['new_from_date'])) {
+                                                $updateProduct->setData('news_from_date', date('m/d/Y', strtotime($cleanData[$i-1]['new_from_date'])))->save();
+                                            }
+                                            if((in_array('new_to_date', $fieldList)) && !is_null($cleanData[$i-1]['new_to_date'])) {
+                                                $updateProduct->setData('news_to_date', date('m/d/Y', strtotime($cleanData[$i-1]['new_to_date'])))->save();
+                                            }
+                                            if((in_array('special_from_date', $fieldList)) && !is_null($cleanData[$i-1]['special_from_date'])) {
+                                                $updateProduct->setSpecialFromDate(date('m/d/Y', strtotime($cleanData[$i-1]['special_from_date'])));
+                                                $updateProduct->setSpecialToDateIsFormated(true)->save();
+                                            }
+                                            if((in_array('special_to_date', $fieldList)) && !is_null($cleanData[$i-1]['special_to_date'])) {
+                                                $updateProduct->setSpecialFromDate(date('m/d/Y', strtotime($cleanData[$i-1]['special_to_date'])));
+                                                $updateProduct->setSpecialToDateIsFormated(true)->save();
+                                            }
+                                            if((in_array('enabled', $fieldList)) && !is_null($cleanData[$i-1]['enabled'])) {
+                                                $storeId = Mage::app()->getStore()->getStoreId();
+                                                if(strtolower($cleanData[$i-1]['enabled']) == 'yes') {
+                                                    Mage::getModel('catalog/product_status')->updateProductStatus($productId, $storeId, Mage_Catalog_Model_Product_Status::STATUS_ENABLED);
+                                                }
+                                                else {
+                                                    Mage::getModel('catalog/product_status')->updateProductStatus($productId, $storeId, Mage_Catalog_Model_Product_Status::STATUS_DISABLED);
+                                                }
+                                            }
+
                                             /* Customer Group Price Section Start */
                                             if((empty($error) && ($readyForUpdateGP == 2))) {
                                                 $grossMargin = $price - $cost;
                                                 foreach ($updateProduct->getData('group_price') as $productData) {
                                                     if (in_array($productData['cust_group'], $custGroup)) {
                                                         if ($productData['cust_group'] == $custGroup['silver']) {
-                                                            $updateGroupPrice = $price - ($grossMargin * 0.15); // 15%
+                                                            $updateGroupPrice = $price - (abs($grossMargin * 0.15)); // 15%
                                                             $groupPriceUpdate[] = array(
                                                                 'website_id' => 0,
                                                                 'cust_group' => 2,
                                                                 'price' => $updateGroupPrice
                                                             );
                                                         } elseif ($productData['cust_group'] == $custGroup['platinum']) {
-                                                            $updateGroupPrice = $price - ($grossMargin * 0.75); // 75%
+                                                            $updateGroupPrice = $price - (abs($grossMargin * 0.75)); // 75%
                                                             $groupPriceUpdate[] = array(
                                                                 'website_id' => 0,
                                                                 'cust_group' => 4,
