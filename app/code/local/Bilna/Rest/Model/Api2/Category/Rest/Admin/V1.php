@@ -32,6 +32,8 @@ class Bilna_Rest_Model_Api2_Category_Rest_Admin_V1 extends Bilna_Rest_Model_Api2
             'meta_title' => $category->getMetaTitle(),
             'meta_keyword' => $category->getMetaKeyword(),
             'meta_description' => $category->getMetaDescription(),
+            'thumbnail' => $category->getThumbnail() ? $this->_getCategoryImageUrl($category->getThumbnail()) : null,
+            'image' => $category->getImage() ? $this->_getCategoryImageUrl($category->getImage()) : null,
         );
         
         return $result;

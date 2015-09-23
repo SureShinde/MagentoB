@@ -371,7 +371,7 @@
                         <retrieve>1</retrieve>
                     </admin>
                 </privileges>
-                <attributes translate="id name is_active description page_title display_mode cms_block page_layout meta_title meta_keyword meta_description" module="Bilna_Rest">
+                <attributes translate="id name is_active description page_title display_mode cms_block page_layout meta_title meta_keyword meta_description thumbnail image" module="Bilna_Rest">
                     <id>ID</id>
                     <name>Name</name>
                     <is_active>Is Active</is_active>
@@ -383,6 +383,8 @@
                     <meta_title>Page Title</meta_title>
                     <meta_keyword>Meta Keyword</meta_keyword>
                     <meta_description>Meta Description</meta_description>
+                    <thumbnail>Thumbnail</thumbnail>
+                    <image>Image</image>
                 </attributes>
                 <routes>
                     <route_entity>
