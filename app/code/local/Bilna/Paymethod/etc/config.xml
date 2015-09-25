@@ -653,6 +653,15 @@
                 <!--payment_action>authorize</payment_action-->
                 <allowspecific>0</allowspecific>
             </mandiridebitvisa>
+            
+            <mandiri_ecash>
+                <active>1</active>
+                <model>paymethod/method_mandiriecash</model>
+                <order_status>pending</order_status>
+                <title>Mandiri E-cash</title>
+                <allowspecific>0</allowspecific>
+                <group>offline</group>
+            </mandiri_ecash>
         </payment>
     </default>
 </config>
