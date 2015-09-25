@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<config>
+	<api2>
+		<resource_groups>
+			<afptc translate="title" module="AW_Afptc">
+				<title>Add Free Product to Cart</title>
+				<sort_order>1100</sort_order>
+			</afptc>
+		</resource_groups>
+		<resources>
+			<awafptc_observer translate="title" module="AW_Afptc">
+				<group>afptc</group>
+				<sort_order>9010</sort_order>
+				<model>awafptc/api2_observer</model>
+				<title>Observer AFPTC</title>
+				<privileges>
+					<admin>
+						<retrieve>1</retrieve>
+					</admin>
+					<customer>
+						<retrieve>1</retrieve>
+					</customer>
+				</privileges>
+				<attributes translate="config" module="AW_Afptc">
+					<config>Config</config>
+				</attributes>
+				<routes>
+					<route_entity>
+						<route>/awafptc/observer/:id</route>
+						<action_type>entity</action_type>
+					</route_entity>
+					<!--route_collection>
+						<route>/paymethod/config</route>
+						<action_type>collection</action_type>
+					</route_collection-->
+				</routes>
+				<versions>1</versions>
+			</awafptc_observer>
+		</resources>
+	</api2>
+</config>
