@@ -73,5 +73,25 @@
                 </bilna_pricevalidation>
             </updates>
         </layout>
+
+        <acl>
+            <resources>
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <bilna_pricevalidation>
+                                            <title>Price Validation Module</title>
+                                        </bilna_pricevalidation>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
     </adminhtml>
 </config>

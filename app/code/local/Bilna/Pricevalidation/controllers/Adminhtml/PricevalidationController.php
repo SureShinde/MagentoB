@@ -370,6 +370,28 @@ class Bilna_Pricevalidation_Adminhtml_PricevalidationController extends Mage_Adm
                                 $csvExport[] = $column;
                             }
                             $csvWrite->saveData($fileWrite, $csvExport);
+
+                            /* Email Section Start */
+                            $user = Mage::getSingleton('admin/session')->getUser();
+                            $firstname = $user['firstname'];
+                            $lastname = $user['lastname'];
+                            $username = $user['username'];
+                            $supervisorEmail = Mage::getStoreConfig('bilna_pricevalidation/pricevalidation/supervisor_email');
+
+                            $bodyEmail = "Alert! System found error(s) on processing Price Validation for :<br/>
+                                            Profile : ".$dataRun['title']."<br/>
+                                            Run at : ".$started."<br/>
+                                            Run by : ".$firstname." ".$lastname." (".$username.")<br/>
+                                            Row Error(s) : ".(count($errors)-1)."<br/>";
+                            $subjectEmail = "Error Notification on processing Price Validation";
+                            if(count($errors) < 51) { // Email to supervisor only
+                                $this->__sendEmail($bodyEmail, $subjectEmail, $user, $supervisorEmail, $fileWrite);
+                            }
+                            else { // Email to supervisor plus product team
+                                $productTeamEmail = Mage::getStoreConfig('bilna_pricevalidation/pricevalidation/product_team_email');
+                                $this->__sendEmail($bodyEmail, $subjectEmail, $user, $supervisorEmail, $fileWrite, $productTeamEmail);
+                            }
+                            /* Email Section End */
                         }
                         $ended = date('Y-m-d H:i:s');
 
@@ -464,5 +486,39 @@ class Bilna_Pricevalidation_Adminhtml_PricevalidationController extends Mage_Adm
         }
 
         $this->getResponse()->setBody(Zend_Json::encode($result));
+    }
+
+    private function __sendEmail($body="", $subject, $userData, $supervisorEmail, $attachment, $productTeamEmail="")
+    {
+        $mail = new Zend_Mail('utf-8');
+
+        if($productTeamEmail != '') {
+            $recipients = array($userData['firstname'].' '.$userData['lastname'], $userData['email'], 'supervisor', $supervisorEmail, 'product-team', $productTeamEmail);
+        }
+        else{
+            $recipients = array($userData['firstname'].' '.$userData['lastname'], $userData['email'], 'supervisor', $supervisorEmail);
+        }
+
+        $mail->setBodyHtml($body)
+            ->setSubject($subject)
+            ->addTo($recipients)
+            ->setFrom('system@bilna.com', 'BILNA ALERT SYSTEM');
+
+        $attachment = file_get_contents($attachment);
+
+        $mail->createAttachment(
+            $attachment,
+            Zend_Mime::TYPE_OCTETSTREAM,
+            Zend_Mime::DISPOSITION_ATTACHMENT,
+            Zend_Mime::ENCODING_BASE64,
+            'error.csv'
+        );
+
+        try {
+            $mail->send();
+        }catch (Exception $e) {
+            Mage::logException($e);
+            //Mage::log("Unable to send Email", null, "email_error.log");
+        }
     }
 }
