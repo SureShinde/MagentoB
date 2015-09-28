@@ -100,4 +100,9 @@ class Bilna_Paymethod_Model_Vtdirect extends Mage_Core_Model_Abstract {
         
         return false;
     }
+    
+    public function addHistoryOrder($order, $charge) {
+        $order->addStatusHistoryComment($charge->status_message);
+        $order->save();
+    }
 }

@@ -414,6 +414,17 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
             Mage::dispatchEvent('sales_order_place_after', array ('order' => $order));
         }
         
+        /**
+         * Charge Transaction (Mandiri E-Cash)
+         */
+        if (in_array($paymentCode, $this->getPaymentMethodVtdirectRedirect())) {
+            $charge = $this->_vtdirectRedirectCharge($order);
+            
+            Mage::getModel('paymethod/vtdirect')->addHistoryOrder($order, $paymentCode, $charge);
+            Mage::register('response_charge', $charge);
+            Mage::dispatchEvent('sales_order_place_after', array ('order' => $order));
+        }
+        
         $this->loadLayout();
         $this->_initLayoutMessages('checkout/session');
         Mage::dispatchEvent('checkout_onepage_controller_success_action', array ('order_ids' => array ($lastOrderId)));
@@ -488,6 +499,55 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
         
         $transactionData['transaction_details'] = $transactionDetails;
         $transactionData['customer_details'] = $customerDetails;
+        
+        try {
+            $this->writeLog($paymentCode, $this->_typeTransaction, 'charge', 'request: ' . json_encode($transactionData));
+            $result = Veritrans_VtDirect::charge($transactionData);
+            $this->writeLog($paymentCode, $this->_typeTransaction, 'charge', 'response: ' . json_encode($result));
+        }
+        catch (Exception $e) {
+            $this->writeLog($paymentCode, $this->_typeTransaction, 'charge', "error: [" . $incrementId . "] " . $e->getMessage());
+            $response = array (
+                'transaction_status' => 'deny',
+                'fraud_status' => 'deny',
+                'status_message' => $e->getMessage()
+            );
+            $result = (object) $response;
+        }
+        
+        return $result;
+    }
+    
+    protected function _vtdirectRedirectCharge($order) {
+        Mage::helper('paymethod')->loadVeritransNamespace();
+        
+        //- setting config vtdirect
+        Veritrans_Config::$serverKey = $this->getVtdirectServerKey();
+        Veritrans_Config::$isProduction = $this->getVtdirectIsProduction();
+        
+        $incrementId = $order->getIncrementId();
+        $grossAmount = $order->getGrandTotal();
+        $paymentCode = $order->getPayment()->getMethodInstance()->getCode();
+        $paymentType = Mage::getStoreConfig('payment/' . $paymentCode . '/vtdirect_payment_type');
+        
+        //-Required
+        $transactionDetails = array (
+            'order_id' => $incrementId,
+            'gross_amount' => $grossAmount
+        );
+        $customerDetails = array (
+            'first_name' => $order->getBillingAddress()->getFirstname(),
+            'last_name' => $order->getBillingAddress()->getLastname(),
+            'email' => $this->getCustomerEmail($order->getBillingAddress()->getEmail()),
+            'phone' => $order->getBillingAddress()->getTelephone(),
+        );
+        
+        //- Data that will be sent for charge transaction request with Mandiri E-cash.
+        $transactionData = array (
+            'payment_type' => $paymentType,
+            'transaction_details' => $transactionDetails,
+            'customer_details' => $customerDetails,
+        );
         
         try {
             $this->writeLog($paymentCode, $this->_typeTransaction, 'charge', 'request: ' . json_encode($transactionData));
@@ -627,6 +687,10 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
     
     protected function getPaymentMethodCc() {
         return Mage::helper('paymethod')->getPaymentMethodCc();
+    }
+    
+    protected function getPaymentMethodVtdirectRedirect() {
+        return Mage::helper('paymethod')->getPaymentMethodVtdirectRedirect();
     }
     
     protected function getTokenId() {

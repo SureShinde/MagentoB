@@ -27,6 +27,13 @@ class Bilna_Paymethod_Helper_Data extends Mage_Core_Helper_Abstract {
         return $result;
     }
     
+    public function getPaymentMethodVtdirectRedirect() {
+        $payment = Mage::getStoreConfig('bilna_module/success_page/payment_vtdirect_redirect');
+        $result = explode(',', $payment);
+        
+        return $result;
+    }
+    
     public function getInstallmentOption($paymentMethod, $id, $returnKey = 'label') {
         $installmentOptions = unserialize(Mage::getStoreConfig('payment/' . $paymentMethod . '/installment'));
         
