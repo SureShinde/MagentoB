@@ -6,7 +6,7 @@
  */
 
 class RocketWeb_Netsuite_Model_Process_Import_Creditmemo extends RocketWeb_Netsuite_Model_Process_Import_Abstract {
-    public function isMagentoImportable(SearchRow $record) {
+    public function isMagentoImportable($record) {
         return true;
         
         if (is_null($record->basic->createdFrom)) {

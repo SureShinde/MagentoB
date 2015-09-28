@@ -20,7 +20,7 @@ class RocketWeb_Netsuite_Model_Process_Import_Order extends RocketWeb_Netsuite_M
         return RocketWeb_Netsuite_Helper_Permissions::GET_ORDER_CHANGES;
     }
 
-    public function isMagentoImportable(SearchRow $salesOrder) {
+    public function isMagentoImportable($salesOrder) {
         /** @var SalesOrder $salesOrder */
 
         //Exclude the orders that have the same creation and last modified date as:

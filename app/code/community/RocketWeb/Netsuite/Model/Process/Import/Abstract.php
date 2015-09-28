@@ -20,7 +20,7 @@ abstract class RocketWeb_Netsuite_Model_Process_Import_Abstract {
 
     //checks whether an entry is Magento importable, i.e. if the associated order also exists in Magento. The orders that
     //are created directly in Net Suite are not to be imported and managed in Magento
-    //public abstract function isMagentoImportable(SearchRow $record);
+    public abstract function isMagentoImportable($record);
 
     //returns the type of the element to be added in the export/import queue. See the constants in RocketWeb_Netsuite_Model_Queue_Message
     public abstract function getMessageType();

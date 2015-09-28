@@ -21,7 +21,7 @@ class RocketWeb_Netsuite_Model_Process_Import_Order_Fulfillment extends RocketWe
     }
 
     //check if an order with the item fullfilment's createFrom internalId exists in Magento. If not, the record is not for a Magento order
-    public function isMagentoImportable(SearchRow $itemFulfillment) {
+    public function isMagentoImportable($itemFulfillment) {
         /** @var ItemFulfillment $itemFulfillment */
         if (is_null($itemFulfillment->basic->createdFrom)) {
             return false;
