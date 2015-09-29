@@ -152,8 +152,12 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
         return Mage::getStoreConfig('cataloginventory/item_options/' . $path, $this->_getStore());
     }
 
-    protected function _getAttributeConfig() {
-        if ($this->_getProduct()->getData('type_id') != 'configurable') {
+    protected function _getAttributeConfig($currentProduct = null) {
+        if (is_null($_currentProduct)) {
+            $currentProduct = $this->_getProduct();
+        }
+        
+        if ($currentProduct->getData('type_id') != 'configurable') {
             return null;
         }
         
@@ -161,7 +165,6 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
         $options = array ();
         $store = $this->_getStore();
         $taxHelper = Mage::helper('tax');
-        $currentProduct = $this->_getProduct();
         $preconfiguredFlag = $currentProduct->hasPreconfiguredValues();
         
         if ($preconfiguredFlag) {
@@ -169,10 +172,10 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
             $defaultValues = array ();
         }
         
-        foreach ($this->_getAllowProducts() as $product) {
+        foreach ($this->_getAllowProducts($currentProduct) as $product) {
             $productId  = $product->getId();
             
-            foreach ($this->_getAllowAttributes() as $attribute) {
+            foreach ($this->_getAllowAttributes($currentProduct) as $attribute) {
                 $productAttribute = $attribute->getProductAttribute();
                 $productAttributeId = $productAttribute->getId();
                 $attributeValue = $product->getData($productAttribute->getAttributeCode());
@@ -191,7 +194,7 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
         
         $this->_resPrices = array ($this->_preparePrice($currentProduct->getFinalPrice()));
         
-        foreach ($this->_getAllowAttributes() as $attribute) {
+        foreach ($this->_getAllowAttributes($currentProduct) as $attribute) {
             $productAttribute = $attribute->getProductAttribute();
             $attributeId = $productAttribute->getId();
             $info = array (
@@ -274,10 +277,10 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
      *
      * @return array
      */
-    protected function _getAllowProducts() {
+    protected function _getAllowProducts($_currentProduct) {
         $products = array ();
         $skipSaleableCheck = Mage::helper('catalog/product')->getSkipSaleableCheck();
-        $allProducts = $this->_getProduct()->getTypeInstance(true)->getUsedProducts(null, $this->_getProduct());
+        $allProducts = $_currentProduct->getTypeInstance(true)->getUsedProducts(null, $_currentProduct);
         
         foreach ($allProducts as $product) {
             //if ($product->isSaleable() || $skipSaleableCheck) {
@@ -293,8 +296,8 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
      *
      * @return array
      */
-    protected function _getAllowAttributes() {
-        return $this->_getProduct()->getTypeInstance(true)->getConfigurableAttributes($this->_getProduct());
+    protected function _getAllowAttributes($_currentProduct) {
+        return $_currentProduct->getTypeInstance(true)->getConfigurableAttributes($_currentProduct);
     }
     
     /**
@@ -436,6 +439,9 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
         $this->_applyCollectionProductStatus($collection);
         $this->_applyCollectionProductVisibility($collection);
         
+        $collection->printLogQuery(true);
+        exit;
+        
         $products = $this->_retrieveCollectionResponse($collection->load(), $collection->getSize());
         
         return $products;
@@ -471,6 +477,7 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
                 }
             }
             
+            $result[$key]['attribute_config'] = $this->_getAttributeConfig($product);
             $result[$key]['attribute_bundle'] = $this->_getAttributeBundle($product);
             $result[$key]['review'] = $this->_getProductReview($product->getId());
             $result[$key]['images'] = array (
