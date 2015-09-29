@@ -38,7 +38,8 @@
         <!-- row begins -->
         <?php endif ?>
         <?php
-            $skuCollection[] = $_product->getId();
+            $productId = $_product->getId();
+            $skuCollection[] = Mage::getModel('catalog/product')->load($productId)->getSku();
         ?>
             <li style="width: <?php echo $this->getItemWidth() ?>%">
 				<div class="top_thumb_list_product">
