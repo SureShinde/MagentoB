@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<config>
+    <tabs>
+        <bilna translate="label" module="bilna_pricevalidation">
+            <label>Bilna Extensions</label>
+            <!--sort_order>0</sort_order-->
+        </bilna>
+    </tabs>
+
+    <sections>
+        <bilna_pricevalidation translate="label" module="bilna_pricevalidation">
+            <label>Price Validation</label>
+            <tab>bilna</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>999</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <pricevalidation translate="label">
+                    <label>Price Validation Email Setting</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>0</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <supervisor_email translate="label">
+                            <label>Supervisor Email</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>0</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Email to Supervisor if there's any error in upload</comment>
+                        </supervisor_email>
+                        <product_team_email translate="label">
+                            <label>Product Team Email</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Email to Product Team if the number of error exceeded 50 SKU</comment>
+                        </product_team_email>
+                        <!--<template_email_id translate="label">
+                            <label>Template Email ID</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>0</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Template Email ID</comment>
+                        </template_email_id>-->
+                    </fields>
+                </pricevalidation>
+            </groups>
+        </bilna_pricevalidation>
+    </sections>
+</config>
