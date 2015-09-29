@@ -439,9 +439,6 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
         $this->_applyCollectionProductStatus($collection);
         $this->_applyCollectionProductVisibility($collection);
         
-        $collection->printLogQuery(true);
-        exit;
-        
         $products = $this->_retrieveCollectionResponse($collection->load(), $collection->getSize());
         
         return $products;
