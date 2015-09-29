@@ -1,18 +1,27 @@
+.cms-list-brands .list-brands {
+}
+.cms-list-brands .list-brands .content-list{
+    padding: 0 10px;
+}
 .cms-list-brands .list-brands dd{
     float:left;
     padding: 0;
     width: 90%;
 }
-.cms-list-brands .list-brands h3{
+.cms-list-brands .list-brands h3,
+.cms-list-brands .list-brands .popular-brand > p{
     font-size: 20px;
     padding: 15px;
     background-color: #F7F7F7;
+    color: #414042;
+    border-left: 3px solid #F15A29;
 }
 .cms-list-brands .list-brands dt{
     font-size: 60px;
     width: 10%;
     line-height: 63px;
     float:left;
+    color: #000;
 }
 .cms-list-brands .list-brands dl{
     min-height: 100px;
@@ -34,17 +43,14 @@
     width: 23%;
 }
 .cms-list-brands .list-brands .popular-brand p{
-    font-size: 20px;
-    padding: 15px;
-    background-color: #F7F7F7;
-    margin: 0;
-}
+    margin: 0;}
 .cms-list-brands .list-brands .wrap-button-shortcut {
     clear: both;
     display: inline-block;
     width: 100%;
     margin: 10px 0;
     text-align: center;
+    padding: 0 10px;
 }
 .cms-list-brands .list-brands .wrap-button-shortcut .button-shortcut:last-child {
     border-right: 1px solid #d2d2d2;
@@ -83,6 +89,9 @@
     }
 }
 @media only screen and (max-width: 767px) {
+    .cms-list-brands .list-brands {
+        padding-top: 20px;
+    }
     .cms-list-brands .list-brands .brand-logo{
         width: auto;
         margin: 0 auto;
@@ -105,9 +114,6 @@
         text-align: center;
         margin: 0 auto;
     }
-    .cms-list-brands .list-brands dl{
-        padding: 0;
-    }
     .cms-list-brands .list-brands dt,
     .cms-list-brands .list-brands dd{
         width: 100%;
@@ -124,7 +130,8 @@
 }
 @media only screen and (max-width: 479px) { 
     .cms-list-brands .list-brands li{
-        width:  50%;
+        width: 40%;
+        padding-right: 10%;
     }
     .cms-list-brands .list-brands .wrap-button-shortcut .button-shortcut{
         margin: 5px;
