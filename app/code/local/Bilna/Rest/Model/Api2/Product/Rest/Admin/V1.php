@@ -153,7 +153,7 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
     }
 
     protected function _getAttributeConfig($currentProduct = null) {
-        if (is_null($_currentProduct)) {
+        if (is_null($currentProduct)) {
             $currentProduct = $this->_getProduct();
         }
         
@@ -438,6 +438,8 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
         $this->_applyCollectionModifiers($collection);
         $this->_applyCollectionProductStatus($collection);
         $this->_applyCollectionProductVisibility($collection);
+        
+        //$collection->printLogQuery(true);exit;
         
         $products = $this->_retrieveCollectionResponse($collection->load(), $collection->getSize());
         
