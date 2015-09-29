@@ -358,43 +358,38 @@
 		<?php echo $this->getChildHtml('crosssell') ?>
 	</div>
 </div>
-<?php
-    $cart = Mage::getSingleton('checkout/session')->getQuote();
-    if (!isset ($cart) || empty ($cart)) {
-        $response['status'] = false;
-    }else{
-        $response['status'] = true;
-        $i=0;
-
-        $gtmIds = array();
-        $gtmPrices = array();
-        $gtmQuantities = array();
-        $gtmSkuIds = array();
-        $total = 0;
-        foreach ($cart->getAllItems() as $item) {
-            $product = array();
-            $product["identifier"] = $item->getSku();
-            $product["amount"] = (int) $item->getPrice();
-            $product["currency"] = "IDR";
-            $product["quantity"] = $item->getQty();
-            $response['data']['products'][] = $product;
-
-            $gtmIds[] = $item->getProductId();
-            $gtmQuantities[] = $item->getQty();
-            $gtmPrices[] = (int)$item->getPrice();
-            $gtmSkuIds[] = $item->getSku();
-            $total += ($product["amount"] * $product["quantity"]);
-        }
-    }
-?>
 <script type="text/javascript">
 jQuery(document).ready(function () {
-    dataLayer.push( {'ecomm_pagetype': 'cart'} );
-    dataLayer.push( {'ecomm_prodid': ['<?php echo implode("','", $gtmSkuIds); ?>']} );
-    dataLayer.push( {'ecomm_totalvalue': <?php echo $total; ?>} );
-    dataLayer.push( {'productid': ['<?php echo implode("','", $gtmIds); ?>']} );
-    dataLayer.push( {'skuid': ['<?php echo implode("','", $gtmSkuIds); ?>']} );
-    dataLayer.push( {'prices': ['<?php echo implode("','", $gtmPrices); ?>']} );
-    dataLayer.push( {'quantities': ['<?php echo implode("','", $gtmQuantities); ?>']} );
+    <?php if(Mage::app()->getStore()->isCurrentlySecure()) : ?>
+    <?php $baseUrl = Mage::getBaseUrl( Mage_Core_Model_Store::URL_TYPE_WEB, true ); ?>
+    <?php else : ?>
+    <?php $baseUrl = Mage::getBaseUrl( Mage_Core_Model_Store::URL_TYPE_WEB, false ); ?>
+    <?php endif; ?>
+	var ajaxURL = '<?php echo $baseUrl; ?>ajaxrequest/data/retrievecart/';
+
+    var data = {};
+
+    jQuery.ajax({
+        type: "POST",
+        url : ajaxURL,
+        data: { data: data },
+        success: function(data){
+            response = jQuery.parseJSON(data);
+            if(response.status == true){
+				dataLayer.push( {'ecomm_pagetype': 'cart'} );
+				dataLayer.push( {'ecomm_prodid': response.data.quote.productSkuIds} );
+				dataLayer.push( {'ecomm_totalvalue': response.data.quote.totalValue} );
+            	dataLayer.push( {'productid': response.data.quote.productIds} );
+				dataLayer.push( {'skuid': response.data.quote.productSkuIds} );
+				dataLayer.push( {'prices': response.data.quote.productPrices} );
+				dataLayer.push( {'quantities': response.data.quote.productQtys} );
+            }else{
+                return false;
+            }
+        },
+        error: function() {
+            return false;
+        }
+    });
 });
 </script>
