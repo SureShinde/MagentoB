@@ -295,11 +295,6 @@ $collection->getSelect()
 		$this->_redirect('*/*/edit', array('id' => $formId));
 	}
 
-	public function deleteFormAction()
-	{
-		$formId = $this->getRequest()->getParam('form_id');
-	}
-
 	public function massDeleteFormAction()
 	{
 		$ids = $this->getRequest()->getParam('massaction');
