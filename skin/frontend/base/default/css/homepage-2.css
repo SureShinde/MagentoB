@@ -806,6 +806,8 @@ width: 100%;
 }
 .homepage .homepage-banner .first-level .active-cat .second-level{
     display: block;
+}
+.homepage .homepage-banner .first-level .second-level{
     width: 1030px;
     z-index: 0;
 	overflow:hidden;
