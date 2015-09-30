@@ -251,6 +251,7 @@ endif;
             dataLayer.push({'ecomm_pagetype': 'thankyoupage'});
             dataLayer.push({'ecomm_prodid': ['<?php echo $skuDisplay; ?>']});
             dataLayer.push({'ecomm_totalvalue': '<?php echo $totalAll; ?>'});
+            dataLayer.push({'orderid': '<?php echo $this->getOrderId(); ?>'});
             dataLayer.push({'productid': ['<?php echo $idDisplay; ?>']});
             dataLayer.push({'skuid': ['<?php echo $skuDisplay; ?>']});
             dataLayer.push({'prices': ['<?php echo $valueDisplay; ?>']});
