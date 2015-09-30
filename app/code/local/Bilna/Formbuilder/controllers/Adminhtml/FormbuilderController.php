@@ -343,20 +343,32 @@ $collection->getSelect()
 	protected function _doMassDeleteForm(array $ids)
 	{
         $isError = false;
+        $result = ['success' => [], 'failed' => []];
         if(count($ids)) {
             foreach($ids as $id) {
                 try {
                     $form = Mage::getModel('bilna_formbuilder/form')->load($id);
-                    $form->delete();
+                    $title = $form->getTitle();
+                    if($form->isFilled()) {
+                    	$result['failed'][] = $title;
+                    } else {
+                    	$form->delete();
+                    	$result['success'][] = $title;
+                    }
                 }
                 catch(Exception $ex) {
-                    $isError = true;
                     $this->_getSession()->addError($ex->getMesage());
                 }
             }
         }
-        if(!$isError) {
-            $this->_getSession()->addSuccess("Forms deleted");
+        if(count($result['success']) > 0) {
+        	$forms = join(', ', $result['success']);
+            $this->_getSession()->addSuccess("The form({$forms}) were deleted");
+        }
+
+        if(count($result['failed']) > 0) {
+        	$forms = join(', ', $result['failed']);
+        	$this->_getSession()->addError("Can't delete the form ({$forms})");
         }
     }
 }

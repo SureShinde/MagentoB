@@ -48,4 +48,14 @@ class Bilna_Formbuilder_Model_Form extends Mage_Core_Model_Abstract
         ];
         return $fields;
     }
+
+    public function isFilled()
+    {
+        $core       = Mage::getSingleton('core/resource'); 
+        $tableName  = $core->getTableName('bilna_formbuilder_flat_data_' . $this->getId());
+        $connection = $core->getConnection('core_read');
+        $select     = $connection->select()->from($tableName, new Zend_Db_Expr('COUNT(*)'));
+        $result    = (int) $connection->fetchOne($select);
+        return $result > 0;
+    }
 }
