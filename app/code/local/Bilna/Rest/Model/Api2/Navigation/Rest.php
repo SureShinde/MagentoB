@@ -12,6 +12,16 @@ abstract class Bilna_Rest_Model_Api2_Navigation_Rest extends Bilna_Rest_Model_Ap
     protected $_params = array ();
     protected $_categoryId = null;
     protected $_showSubcategory = true;
+    
+    protected function _getCategoryId() {
+        $this->_categoryId = ($this->getRequest()->getParam('category_id') != 0) ? $this->getRequest()->getParam('category_id') : $this->_getRootCategoryId();
+        
+        return $this->_categoryId;
+    }
+    
+    protected function _getRootCategoryId() {
+        return Mage::getModel('core/store')->load(self::DEFAULT_STORE_ID)->getRootCategoryId();
+    }
 
     protected function _getParams() {
         $this->_params = $this->getRequest()->getParams();
@@ -21,16 +31,19 @@ abstract class Bilna_Rest_Model_Api2_Navigation_Rest extends Bilna_Rest_Model_Ap
     
     protected function _setRegistry() {
         Mage::register(self::ACCESS_FROM, 'api');
-        Mage::register(self::CURRENT_CATEGORY, $this->_categoryId);
+        //Mage::register(self::CURRENT_CATEGORY, $this->_categoryId);
     }
     
     protected function _unsetRegistry() {
         Mage::unregister(self::ACCESS_FROM);
-        Mage::unregister(self::CURRENT_CATEGORY);
+        //Mage::unregister(self::CURRENT_CATEGORY);
     }
 
     protected function _getCategory($_categoryId) {
-        return Mage::getModel('catalog/category')->load($_categoryId);
+        $_category = Mage::getModel('catalog/category')->load($_categoryId);
+        Mage::register(self::CURRENT_CATEGORY, $_category);
+        
+        return $_category;
     }
 
     protected function _getSubcategory($_category) {
