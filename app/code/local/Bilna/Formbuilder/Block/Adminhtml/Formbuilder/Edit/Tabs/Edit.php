@@ -4,31 +4,31 @@ class Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Edit_Tabs_Edit extends Mage_
 {
 	public function __construct()
 	{
-	parent::__construct();
-	$this->_objectId 		= 'record_id';
-	$this->_blockGroup	= 'bilna_formbuilder';
-	$this->_controller	= 'adminhtml_formbuilder';
-	$this->_removeButton('reset');
-	$this->_removeButton('save');
-	$this->_removeButton('delete');
-	//$this->_removeButton('back');
-	//$this->_mode = 'edit';
-	$this->setSaveParametersInSession(true);
-	$this->setUseAjax(true);
+  	parent::__construct();
+  	$this->_objectId 		= 'record_id';
+  	$this->_blockGroup	= 'bilna_formbuilder';
+  	$this->_controller	= 'adminhtml_formbuilder';
+  	//$this->_removeButton('reset');
+  	$this->_removeButton('addnewfield');
+  	$this->_removeButton('delete');
+  	//$this->_removeButton('back');
+  	//$this->_mode = 'edit';
+  	$this->setSaveParametersInSession(true);
+  	$this->setUseAjax(true);
 
-  /*$this->_addButton('back', array(
-    'label'   => Mage::helper('bilna_formbuilder')->__('Back nih'),
-    'onclick' => 'setLocation(\'' . $this->getUrl('*//*/edit', array('id' => $this->getRequest()->getParam('form_id'))) . '\')',
-    'class'   => 'back',
-  ),-1,5);
+    /*$this->_addButton('back', array(
+      'label'   => Mage::helper('bilna_formbuilder')->__('Back nih'),
+      'onclick' => 'setLocation(\'' . $this->getUrl('*//*/edit', array('id' => $this->getRequest()->getParam('form_id'))) . '\')',
+      'class'   => 'back',
+    ),-1,5);
 
-		$this->_addButton('saveandcontinue', array (
-      'label' => Mage::helper('adminhtml')->__('Save And Continue Edit'),
-      'onclick' => 'saveAndContinueEdit()',
-      'class' => 'save',
-  ), -100);
+  		$this->_addButton('saveandcontinue', array (
+        'label' => Mage::helper('adminhtml')->__('Save And Continue Edit'),
+        'onclick' => 'saveAndContinueEdit()',
+        'class' => 'save',
+    ), -100);*/
 
-  $this->_updateButton('saveInput', 'label', Mage::helper('bilna_formbuilder')->__('Save'));*/
+    $this->_updateButton('save', 'label', Mage::helper('bilna_formbuilder')->__('Save Input'));
 
 	}
 

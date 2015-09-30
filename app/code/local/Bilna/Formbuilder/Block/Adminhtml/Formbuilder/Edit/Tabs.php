@@ -22,23 +22,26 @@ class Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Edit_Tabs extends Mage_Admin
 		//'active' => Mage::registry('formbuilder_form')->getRecordId() ? false : true
   ));
 
-  $this->addTab('inputs_section', array(
-    'label'		=> Mage::helper('bilna_formbuilder')->__('Inputs'),
-    'title' 	=> Mage::helper('bilna_formbuilder')->__('Inputs'),  
-		'alt' 		=> Mage::helper('bilna_formbuilder')->__('Inputs'),  
-		'url' 		=> $this->getUrl('*/*/ajaxTabInputs', array('_current' => true)),
-		'class' 	=> 'ajax',          
-		'content' => $this->getLayout()->createBlock('Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Edit_Tabs_Inputs')->toHtml()
-  ));
+	if (is_array(Mage::registry('formbuilder_form'))) {
+	  $this->addTab('inputs_section', array(
+	    'label'		=> Mage::helper('bilna_formbuilder')->__('Inputs'),
+	    'title' 	=> Mage::helper('bilna_formbuilder')->__('Inputs'),  
+			'alt' 		=> Mage::helper('bilna_formbuilder')->__('Inputs'),  
+			'url' 		=> $this->getUrl('*/*/ajaxTabInputs', array('_current' => true)),
+			'class' 	=> 'ajax',          
+			'content' => $this->getLayout()->createBlock('Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Edit_Tabs_Inputs')->toHtml()
+	  ));
 
-	$this->addTab('data_section', array(
-    'label'		=> Mage::helper('bilna_formbuilder')->__('Data'),
-    'title' 	=> Mage::helper('bilna_formbuilder')->__('Data'),  
-		'alt' 		=> Mage::helper('bilna_formbuilder')->__('Data'),
-		'url' 		=> $this->getUrl('*/*/ajaxTabData', array('_current' => true)),
-		'class' 	=> 'ajax',         
-		'content' => $this->getLayout()->createBlock('Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Edit_Tabs_Data')->toHtml()
-  ));
+	  $block = $this->getLayout()->createBlock('Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Edit_Tabs_Data');
+		$this->addTab('data_section', array(
+	    'label'		=> Mage::helper('bilna_formbuilder')->__('Data'),
+	    'title' 	=> Mage::helper('bilna_formbuilder')->__('Data'),  
+			'alt' 		=> Mage::helper('bilna_formbuilder')->__('Data'),
+			'url' 		=> $this->getUrl('*/*/ajaxTabData', array('_current' => true)),
+			'class' 	=> 'ajax',         
+			'content' => ($block)? $block->toHtml(): null
+	  ));
+	}
 
 	return parent::_beforeToHtml();
 	}

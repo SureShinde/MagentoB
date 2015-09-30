@@ -8,6 +8,7 @@ class Bilna_Formbuilder_Block_Adminhtml_Formbuilder extends Mage_Adminhtml_Block
     //$this->_headerText = Mage::helper('bilna_formbuilder')->__('Form Builder Manager');
 	$this->_headerText = $this->__('Form Builder Manager');
     parent::__construct();
-	 $this->_removeButton('add'); 
+    $this->_addButtonLabel = 'Create new form';
+	 //$this->_removeButton('add'); 
   }
 }
