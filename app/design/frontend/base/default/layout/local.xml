@@ -19,6 +19,10 @@
                 <type>skin_js</type>
                 <name>js/jquery.min.js</name>
             </action>
+			<action method="addItem">
+				<type>skin_js</type>
+				<name>js/jquery.nicescroll.min.js</name>
+			</action>
             <action method="addItem">
                 <type>skin_js</type>
                 <name>js/jquery.slides.js</name>
@@ -46,10 +50,6 @@
             <action method="addItem">
                 <type>skin_js</type>
                 <name>js/bilna.sociomantic.js</name>
-            </action>
-            <action method="addItem">
-                <type>skin_js</type>
-                <name>js/smooth-scrolling.js</name>
             </action>
             <action method="addItem">
                 <type>skin_js</type>

@@ -1,3 +1,6 @@
+.category-image{
+    display: none;
+}
 .cms-list-brands .list-brands {
 }
 .cms-list-brands .list-brands .content-list{
@@ -139,6 +142,10 @@
     .cms-list-brands .list-brands .brand-logo a{
         width: 50%;
     }
+    .cms-list-brands .list-brands dt{
+        text-indent: 18px;
+        text-align: left;
+    }
 }
 
 div.amshopby-column {
@@ -189,6 +196,10 @@ clear:both; font-size:0; line-height:0; height:0; overflow:hidden; }
 
 
 
+div.block-layered-nav dt.brand,
+div.block-layered-nav dt.brand + dd{
+    display: none;
+}
 div.block-layered-nav dt {
  cursor:pointer; 
  margin: 0 13px;
@@ -324,14 +335,13 @@ div.amshopby-overlay div {
 	overflow: auto; 
 }
 
-.btn-remove-inline { background-image: url('../images/btn_remove.gif'); background-repeat: no-repeat; width:13px; height:12px; margin-left: 4px; }
+.btn-remove-inline { background-image: url('../images/btn_remove.gif'); background-repeat: no-repeat; width:13px; height:12px; margin-left: 4px; float: right; margin-top: 3px;}
 .btn-remove-inline:hover { /* background-position: center bottom; */ }
 .amshopby-hightlighted { background: yellow;}
 
 /* --------------- 960 px layout -------------------- */
 @media only screen and (max-width: 1023px) {
 	div.block-layered-nav, div.amshopby-page-container, div.amshopby-filters-top {
-		padding-top: 40px;
 	}
 }
 

@@ -20,6 +20,11 @@
             <action method="addItem"><type>skin_js</type><name>js/jquery-lazyload.js</name></action>
         </reference>
     </catalog_product_view>
+    <amshopby_index_index>
+        <reference name="head">
+            <action method="addItem"><type>skin_js</type><name>js/jquery-lazyload.js</name></action>
+        </reference>
+    </amshopby_index_index>
     <blog_post_view translate="label">
         <reference name="head">
             <action method="addItem"><type>skin_js</type><name>js/jquery-lazyload.js</name></action>
