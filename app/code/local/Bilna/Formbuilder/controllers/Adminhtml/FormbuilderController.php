@@ -352,7 +352,14 @@ $collection->getSelect()
                     if($form->isFilled()) {
                     	$result['failed'][] = $title;
                     } else {
+                    	$id = $form->getId();
                     	$form->delete();
+
+                    	// If we delete the form data
+                    	// We also need to drop form flat data
+                    	Mage::getModel('bilna_formbuilder/data')
+                    		->setFormId($id)
+                    		->dropTable();
                     	$result['success'][] = $title;
                     }
                 }

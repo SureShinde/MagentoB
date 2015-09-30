@@ -27,6 +27,14 @@ class Bilna_Formbuilder_Model_Data extends Mage_Core_Model_Abstract
 		return $this;
     }
 
+    public function dropTable()
+    {
+        $this->runQueries("
+            DROP TABLE IF EXISTS `bilna_formbuilder_flat_data_{$this->formId}`;
+        ");
+        return $this;
+    }
+
     /**
      * Add new field in form builder data table for storing data from user
      * when the form is already implemented
