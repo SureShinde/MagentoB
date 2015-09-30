@@ -12,9 +12,16 @@ abstract class Bilna_Rest_Model_Api2_Navigation_Rest extends Bilna_Rest_Model_Ap
     protected $_params = array ();
     protected $_categoryId = null;
     protected $_showSubcategory = true;
-    
+    protected $_isSearch = false;
+
     protected function _getCategoryId() {
-        $this->_categoryId = ($this->getRequest()->getParam('category_id') != 0) ? $this->getRequest()->getParam('category_id') : $this->_getRootCategoryId();
+        if ($this->getRequest()->getParam('category_id') != 0) {
+            $this->_categoryId = $this->getRequest()->getParam('category_id');
+        }
+        else {
+            $this->_categoryId = $this->_getRootCategoryId();
+            $this->_isSearch = true;
+        }
         
         return $this->_categoryId;
     }
@@ -66,7 +73,7 @@ abstract class Bilna_Rest_Model_Api2_Navigation_Rest extends Bilna_Rest_Model_Ap
     }
 
     protected function _getAttribute($_category) {
-        $_layer = Mage::getModel('catalog/layer');
+        $_layer = $this->_isSearch ? Mage::getModel('catalogsearch/layer') : Mage::getModel('catalog/layer');
         $_layer->setCurrentCategory($_category);
         $_attributes = $_layer->getFilterableAttributes();
         $_result = array ();
