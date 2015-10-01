@@ -47,8 +47,12 @@ class Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Edit_Tabs_Edit_Tabs_Detail e
 		$fieldset->addField('dbtype', 'select', array(
 			'label'	=> 'DbType',
 			'name'	=> 'dbtype',
-			'value' => $data['dbtype'],
 			'values' => $this->fieldDbTypeOptions()
+		));
+
+		$fieldset->addField('dbtype_length', 'text', array(
+			'label' => 'DbType Length (if needed)',
+			'name' => 'dbtype_length',
 		));
 
 		$fieldset->addField('value', 'textarea', array(
@@ -109,6 +113,10 @@ class Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Edit_Tabs_Edit_Tabs_Detail e
 		   'value'     => $data["order"],
     	));
 
+		$dataType = $data['dbtype'];
+		$data['dbtype'] = $this->renderDbType($dataType, 'type');
+		$data['dbtype_length'] = $this->renderDbType($dataType, 'length');
+
 		$form->setValues($data);
 		$form->setUseContainer(true);
 		$this->setForm($form);
@@ -133,6 +141,7 @@ class Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Edit_Tabs_Edit_Tabs_Detail e
 	private function fieldDbTypeOptions()
 	{
 		return $this->renderOptions([
+			'text',
 			"int",
 			"varchar",
 			"date",
@@ -152,5 +161,28 @@ class Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Edit_Tabs_Edit_Tabs_Detail e
 		}
 
 		return $options;
+	}
+	/**
+	 * Render datatype
+	 * @throw Exception
+	 */
+	private function renderDbType($dataType, $dest)
+	{
+		if(in_array($dest, ['length','type'])) {
+			return $this->{$dest}($dataType);
+		}
+	}
+
+	private function type($data) {
+		return preg_replace("/\(([^)]+)\)/", "", $data);
+	}
+
+	private function length($data) {
+		$length = 0;
+		preg_match_all("/\(([^)]+)\)/", $data, $matches);
+		try{
+			$length = $matches[1][0];
+		} catch(Exception $e) {}
+		return $length;
 	}
 }

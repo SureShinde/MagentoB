@@ -284,7 +284,7 @@ $collection->getSelect()
 		if($data) {
 			$model = Mage::getModel('bilna_formbuilder/input');
 			$id = (int) $this->getRequest()->getParam('id');
-			$model->setData($data);
+			$model->setData($this->renderDbType($data));
 
 			if ($id) {
 				$model->setId($id);
@@ -319,6 +319,16 @@ $collection->getSelect()
 				->load($id)
 				->delete($id);
 		$this->_redirect('*/*/');
+	}
+
+	private function renderDbType(array $data)
+	{
+		$dbType = $data['dbtype'];
+		if($dbType === 'varchar') {
+			$dbTypeLength = $data['dbtype_length'];
+			$data['dbtype'] = "{$dbType}({$dbTypeLength})";
+		}
+		return $data;
 	}
 
 	protected function _doMassDeleteInput(array $ids)
