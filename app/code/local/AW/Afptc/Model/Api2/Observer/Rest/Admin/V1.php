@@ -9,52 +9,54 @@
  */
 class AW_Afptc_Model_Api2_Observer_Rest_Admin_V1 extends AW_Afptc_Model_Api2_Observer_Rest
 {
-	/**
-	 * Default store Id (for install)
-	 */
-	const DISTRO_STORE_ID       = 1;
-	
-	/**
-	 * Default store code (for install)
-	 *
-	 */
-	const DISTRO_STORE_CODE     = 'default';
+    /**
+     * Default store Id (for install)
+     */
+    const DISTRO_STORE_ID       = 1;
+    
+    /**
+     * Default store code (for install)
+     *
+     */
+    const DISTRO_STORE_CODE     = 'default';
 
     protected $baseSubtotalFree = 0;
     protected $itemWeightFree = 0;
     protected $_quoteRules = array();
-	
-	protected function _retrieve()
+    
+    protected function _retrieve()
     {
         $quoteId = $this->getRequest()->getParam('id');
 
         try{
 
-        	$quote = $this->_getQuote($quoteId);
-        	$customerId = $quote->getCustomerId();
-        	
-        	$customerGroup = 0;
-        	if($customerId != null)
-        	{
-        		$customer = Mage::getModel('customer/customer')->load($customerId);
-        		$customerGroup = Mage::getModel('customer/group')->load($customer->getGroupId()); 
-        	}
+            $quote = $this->_getQuote($quoteId);
+            $customerId = $quote->getCustomerId();
+            
+            $customerGroup = 0;
+            if($customerId != null)
+            {
+                $customer = Mage::getModel('customer/customer')->load($customerId);
+                $customerGroup = Mage::getModel('customer/group')->load($customer->getGroupId()); 
+            }
 
             $helper = Mage::helper('awafptc');
             $this->excludeFreeProductsFrom($quote);
-        	
-        	if($quote->hasItems())
-        	{
-        		$rules = Mage::getModel('awafptc/rule')->getActiveRules(array(
-        				'store' => self::DISTRO_STORE_ID,
-        				'group' => $customerGroup,
-        				'website' => 1
-        		));
-        		$activeRules = array();
-        		foreach ($rules as $rule)
+
+            if($quote->hasItems())
+            {
+                $rules = Mage::getModel('awafptc/rule')->getActiveRules(array(
+                        'store' => self::DISTRO_STORE_ID,
+                        'group' => $customerGroup,
+                        'website' => 1
+                ));
+
+                $activeRules = array();
+                $popupRules = array();
+                foreach ($rules as $rule)
                 {
                     /* rules deleted by customers are ignored */
-                    if ($this->isRuleDeleted($rule, $cart)) {
+                    if ($this->isRuleDeleted($rule, $quote)) {
                         continue;
                     }
 
@@ -62,16 +64,19 @@ class AW_Afptc_Model_Api2_Observer_Rest_Admin_V1 extends AW_Afptc_Model_Api2_Obs
                     if ($rule->getShowPoup() && $helper->getValidatedRule() && !in_array($rule->getId(), $this->_quoteRules)) {
                         continue;
                     }
+
                     $this->_prepareValidate($quote);
-                    if (!$rule->load($rule->getId())->validate($quote)) {
+                    $cart = Mage::getModel('checkout/cart')->setQuote($quote);
+                    if (!$rule->load($rule->getId())->validate($cart->getQuote())) {
                         continue;
                     }
 
                     /* register valid rule for poup rules for later usage */
                     if ($rule->getShowPopup() && !in_array($rule->getId(), $this->_quoteRules)) {
-                        if (!$helper->getValidatedRule()) {                        
+                        /*if (!$helper->getValidatedRule()) {                        
                             $helper->setValidatedRule($rule->getId());
-                        }
+                        }*/
+                        array_push($popupRules, $rule);
                         continue;
                     }
                     array_push($activeRules, $rule);
@@ -89,7 +94,7 @@ class AW_Afptc_Model_Api2_Observer_Rest_Admin_V1 extends AW_Afptc_Model_Api2_Obs
                     }
                 }
 
-        	}
+            }
 
             $quote->unsTotalsCollectedFlag()->collectTotals()->save();
 
@@ -97,7 +102,7 @@ class AW_Afptc_Model_Api2_Observer_Rest_Admin_V1 extends AW_Afptc_Model_Api2_Obs
                 $this->_error($e->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
         }
 
-        return array('config' => 'kosong');
+        return array('config' => $popupRules);
 
     }
 
@@ -108,7 +113,7 @@ class AW_Afptc_Model_Api2_Observer_Rest_Admin_V1 extends AW_Afptc_Model_Api2_Obs
      */
     public function isRuleDeleted($rule, $quote)
     {        
-        $deletedRules = $this->__getDeletedRules();
+        $deletedRules = $this->__getDeletedRules($quote);
         if($deletedRules)
         {
             foreach($deletedRules as $delRule)
