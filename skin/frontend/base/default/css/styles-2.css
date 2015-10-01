@@ -707,7 +707,7 @@ tr.summary-details-excluded { font-style:italic; }
 .block-layered-nav dd { padding:0 12px 12px; background:url(../images/bkg_block-layered-dd.gif) 0 100% repeat-x; }
 .block-layered-nav dd.last { background:none; }
 .block-layered-nav .currently li { padding:6px 10px; position:relative; z-index:1; line-height:1.5; }
-.block-layered-nav .currently li.block-subtitle { line-height: 1.35; padding: 10px 9px 5px; border-width: 1px 0; font-size: 14px; font-family: 'bebasregular'; text-transform: uppercase; color: inherit; letter-spacing: 1px; font-weight: normal; background: #EBEBEB}
+.block-layered-nav .currently li.block-subtitle { line-height: 1.35; padding: 9px 9px 4px; border-width: 1px 0; font-size: 14px; font-family: 'bebasregular'; text-transform: uppercase; color: inherit; letter-spacing: 1px; font-weight: normal; background: #EBEBEB}
 .block-layered-nav .currently .label { font-weight:bold; text-transform:uppercase; clear: both; display:block; vertical-align:top; }
 .block-layered-nav .currently .value { display:inline-block; vertical-align:top; }
 .block-layered-nav .currently .btn-previous,

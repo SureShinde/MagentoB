@@ -3,6 +3,9 @@
 }
 .cms-list-brands .list-brands {
 }
+.cms-list-brands .block-layered-nav .currently li.block-subtitle{
+    padding: 8px 9px 5px;
+}
 .cms-list-brands .list-brands .content-list{
     padding: 0 10px;
 }
