@@ -21,6 +21,7 @@ abstract class Bilna_Rest_Model_Api2_Navigation_Rest extends Bilna_Rest_Model_Ap
         else {
             $this->_categoryId = $this->_getRootCategoryId();
             $this->_isSearch = true;
+            $this->_showSubcategory = false;
         }
         
         return $this->_categoryId;
