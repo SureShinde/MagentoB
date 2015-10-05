@@ -143,9 +143,56 @@ abstract class Bilna_Rest_Model_Api2_Navigation_Rest extends Bilna_Rest_Model_Ap
     }
 
     protected function _getAttributePrice($_attribute, $_option) {
+        $_min = $_option->getFilter()->getMinValue();
+        $_max = $_option->getFilter()->getMaxValue();
+        
+        if (!$_attribute->getSliderDecimal()) {
+            $_max = ceil($_max);
+            $_min = floor($_min);
+        }
+        
+        if ($_attribute->getSliderDecimal() > 0){
+            $_max = number_format($_max, $_option->getSliderDecimal());
+            $_min = number_format($_min, $_option->getSliderDecimal());
+        }
+        
+        $_fromValue = $_min;
+        $_toValue = $_max;
+        
+        //-
+        $_z = floor($_min / 50000);
+        
+        if ($_z <= 0) {
+            $_min = 0;
+        }
+        else {
+            $_min = $_z * 50000;
+        }
+
+        //-
+        $_a = round($_max / 50000, 0, PHP_ROUND_HALF_EVEN);
+        $_max = $_a * 50000;
+        
+        //-
+        $_fv = floor($_fromValue / 50000);
+        
+        if ($_fv <= 0) {
+            $_fromValue = 0;
+        }
+        else {
+            $_fromValue = $_fv * 50000;
+        }
+        
+        //-
+        $_tv = round($_toValue / 50000, 0, PHP_ROUND_HALF_EVEN);
+        $_toValue = $_tv * 50000;
+
+        $_from = min($_fromValue, $_min);
+        $_to = max($_toValue, $_max);
+        
         $_result = array (
-            'min' => $_option->getFilter()->getMinValue(),
-            'max' => $_option->getFilter()->getMaxValue(),
+            'min' => $_from,
+            'max' => $_to,
         );
         
         return $_result;
