@@ -57,5 +57,27 @@
     </div>
 </div>
 <?php echo $this->getAbsoluteFooter() ?>
+<?php
+    if(
+    Mage::getSingleton('cms/page')->getIdentifier() == 'home'  &&
+    Mage::app()->getFrontController()->getRequest()->getRouteName() == 'cms'
+    ) :
+?>
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+        dataLayer.push(
+            {'ecomm_pagetype': '<?php echo Mage::getSingleton('core/session')->getDRPageType(); ?>'}
+        );
+        dataLayer.push(
+            {'ecomm_prodid': '<?php echo Mage::getSingleton('core/session')->getDRProdId(); ?>'}
+        );
+        dataLayer.push(
+            {'ecomm_totalvalue': ''}
+        );
+    });
+</script>
+<?php
+    endif;
+?>
 </body>
 </html>

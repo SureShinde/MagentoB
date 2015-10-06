@@ -64,7 +64,7 @@ jQuery(document).ready(function(){
                         <?php // Product Image ?>
                         <div class="onsale-category-container-list">
                             <?php echo Mage::helper('onsale')->getCategoryLabelHtml($_product, 135); ?>
-                            <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" class="product-image"><img class="lazy" src="<?php echo $this->getSkinUrl('images/mgt_lazy_image_loader/loader.gif'); ?>" data-src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(135); ?>" width="135" height="135" alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" /></a>
+                            <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" class="product-image"><img class="lazy" data-src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(135); ?>" width="135" height="135" alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" /></a>
                         </div>
             
                         <?php // Product description ?>
@@ -112,12 +112,16 @@ jQuery(document).ready(function(){
             <?php $i=0; ?>
             
             <ul class="products-grid">
+                <?php $productId = array(); ?>
+                <?php $sku = array(); ?>
                 <?php foreach ($_productCollection as $_product): ?>
+                    <?php $productId[] = $_product->getId(); ?>
+                    <?php $sku[] = $_product->getSku(); ?>
                     <li class="item">
                         <div class="top_thumb_list_product">
                             <div class="onsale-category-container-grid">
                                 <?php echo Mage::helper('onsale')->getCategoryLabelHtml($_product, 135); ?>
-                                <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" class="product-image"><img class="lazy" src="<?php echo $this->getSkinUrl('images/mgt_lazy_image_loader/loader.gif'); ?>" data-src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(152,152); ?>" alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" /></a>
+                                <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" class="product-image"><img class="lazy" data-src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(152,152); ?>" alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" /></a>
                             </div>
                             
                             <div class="product-info-wrapper">
@@ -171,11 +175,50 @@ jQuery(document).ready(function(){
                 
                         <div class="clear"></div>
                     </li>
-                <?php endforeach ?>
+                <?php endforeach; ?>
+                <?php
+                    $pageType = '';
+                    $prodId = array();
+                    if(isset($productId[0])){
+                        $prodId[0] = $productId[0];
+                        $skuId[0] = $sku[0];
+                    }
+                    if(isset($productId[1])){
+                        $prodId[1] = $productId[1];
+                        $skuId[1] = $sku[1];
+                    }
+                    if(isset($productId[2])){
+                        $prodId[2] = $productId[2];
+                        $skuId[2] = $sku[2];
+                    }
+                    shuffle($sku);
+                    $pageIdentifier =  Mage::app()->getFrontController()->getAction()->getFullActionName();;
+                    if($pageIdentifier == 'catalogsearch_result_index'){
+                        $pageType = 'searchresults';
+                    }
+                    else{
+                        $category = $this->getLayer()->getCurrentCategory()->getLevel();
+                        if($category == 2){ // Top Category
+                            $pageType = 'category';
+                        }
+                        elseif($category == 3){ // Level 1 Sub Category
+                            $pageType = 'subcategory1';
+                        }
+                        elseif($category == 4){ // Level 2 Sub Category
+                            $pageType = 'subcategory2';
+                        }
+                    }
+                ?>
             </ul>
-    
-        
-        
+
+        <script>
+            jQuery(document).ready(function(){
+                dataLayer.push( {'ecomm_pagetype': '<?php echo $pageType; ?>'} );
+                dataLayer.push( {'ecomm_prodid': '<?php echo $sku[0]; ?>'} );
+                dataLayer.push( {'productid': ['<?php echo implode("','", $prodId); ?>']} );
+                dataLayer.push( {'skuid': ['<?php echo implode("','", $skuId); ?>']} );
+            });
+        </script>
         <script type="text/javascript">decorateGeneric($$('ul.products-grid'), ['odd','even','first','last'])</script>
         <?php endif; ?>
 

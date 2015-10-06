@@ -119,15 +119,12 @@
                             </td>
                         </tr>
                     </tfoot>
-                    
                     <tbody>
                         <?php foreach($this->getItems() as $_item): ?>
                             <?php echo $this->getItemHtml($_item) ?>
-                            <?php $gtmItemIds = $_item->getId().'|'; ?>
-                        <?php endforeach ?>
+                        <?php endforeach; ?>
                     </tbody>
                 </table>
-                
                 <script type="text/javascript">decorateTable('shopping-cart-table')</script>
             </fieldset>
         </form>
@@ -201,7 +198,7 @@
 					<?php endif; ?>
 				</div>			
 				<script type="text/javascript">
-					if ( typeof AjaxLogin == 'undefined' ) {
+                    if ( typeof AjaxLogin == 'undefined' ) {
 						AjaxLogin = {};
 					}
 					
@@ -361,29 +358,43 @@
 		<?php echo $this->getChildHtml('crosssell') ?>
 	</div>
 </div>
-<script type="text/javascript">
-jQuery(document).ready(function () {    
-    var ajaxURL = 'https://www.bilna.com/ajaxrequest/data/retrievecart/';
+<?php
+    $cart = Mage::getSingleton('checkout/session')->getQuote();
+    if (!isset ($cart) || empty ($cart)) {
+        $response['status'] = false;
+    }else{
+        $response['status'] = true;
+        $i=0;
 
-    var data = {};
+        $gtmIds = array();
+        $gtmPrices = array();
+        $gtmQuantities = array();
+        $gtmSkuIds = array();
+        $total = 0;
+        foreach ($cart->getAllItems() as $item) {
+            $product = array();
+            $product["identifier"] = $item->getSku();
+            $product["amount"] = (int) $item->getPrice();
+            $product["currency"] = "IDR";
+            $product["quantity"] = $item->getQty();
+            $response['data']['products'][] = $product;
 
-    jQuery.ajax({
-        type: "POST",
-        url : ajaxURL,
-        data: { data: data },
-        success: function(data){
-            response = jQuery.parseJSON(data);
-            if(response.status == true){
-            	dataLayer.push( {'productid': response.data.quote.productIds} );
-            	dataLayer.push( {'prices': response.data.quote.productPrices} );
-            	dataLayer.push( {'quantities': response.data.quote.productQtys} );
-            }else{
-                return false;
-            }
-        },
-        error: function() {
-            return false;
+            $gtmIds[] = $item->getProductId();
+            $gtmQuantities[] = $item->getQty();
+            $gtmPrices[] = (int)$item->getPrice();
+            $gtmSkuIds[] = $item->getSku();
+            $total += ($product["amount"] * $product["quantity"]);
         }
-    });
+    }
+?>
+<script type="text/javascript">
+jQuery(document).ready(function () {
+    dataLayer.push( {'ecomm_pagetype': 'cart'} );
+    dataLayer.push( {'ecomm_prodid': ['<?php echo implode("','", $gtmSkuIds); ?>']} );
+    dataLayer.push( {'ecomm_totalvalue': <?php echo $total; ?>} );
+    dataLayer.push( {'productid': ['<?php echo implode("','", $gtmIds); ?>']} );
+    dataLayer.push( {'skuid': ['<?php echo implode("','", $gtmSkuIds); ?>']} );
+    dataLayer.push( {'prices': ['<?php echo implode("','", $gtmPrices); ?>']} );
+    dataLayer.push( {'quantities': ['<?php echo implode("','", $gtmQuantities); ?>']} );
 });
 </script>
