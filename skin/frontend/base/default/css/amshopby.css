@@ -56,14 +56,14 @@
     width: 100%;
     margin: 10px 0;
     text-align: center;
-    padding: 0 10px;
+    padding: 0;
 }
 .cms-list-brands .list-brands .wrap-button-shortcut .button-shortcut:last-child {
     border-right: 1px solid #d2d2d2;
 }
 .cms-list-brands .list-brands .wrap-button-shortcut .button-shortcut{
     padding: 10px 0;
-    width: 45px;
+    width: 44px;
     border-left: 1px solid #d2d2d2;
     border-bottom: 1px solid #d2d2d2;
     border-top: 1px solid #d2d2d2;
@@ -86,12 +86,12 @@
 }
 @media only screen and (min-width: 1023px) and (max-width: 1215px) {
     .cms-list-brands .list-brands .wrap-button-shortcut .button-shortcut{
-        width: 36.8px;
+        width: 35.7px;
     }
 }
 @media only screen and (max-width: 1022px) {
     .cms-list-brands .list-brands .wrap-button-shortcut .button-shortcut{
-        width: 27.59px;
+        width: 26.5px;
     }
 }
 @media only screen and (max-width: 767px) {
@@ -337,7 +337,11 @@ div.amshopby-overlay div {
 .amshopby-subcategory-image {
 	overflow: auto; 
 }
-
+.amshopby-index-index .btn-remove-inline,
+.amshopby-index-index .block-layered-nav .currently li.block-subtitle,
+.amshopby-index-index .block-layered-nav .actions{
+    display: none;
+}
 .btn-remove-inline { background-image: url('../images/btn_remove.gif'); background-repeat: no-repeat; width:13px; height:12px; margin-left: 4px; float: right; margin-top: 3px;}
 .btn-remove-inline:hover { /* background-position: center bottom; */ }
 .amshopby-hightlighted { background: yellow;}

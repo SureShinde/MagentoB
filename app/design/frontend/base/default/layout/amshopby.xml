@@ -10,7 +10,6 @@
     <amshopby_index_index>
         <!-- feel free remove that if you need to use default page layout -->
         <reference name="root">
-            <remove name="breadcrumbs"/>
            <action method="setTemplate"><template>page/2columns-left.phtml</template></action>
         </reference>
 
