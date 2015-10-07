@@ -38,26 +38,9 @@ $_categories = $_helper->getMegamenuData();
     <form id="nav-searchbar" action="<?php echo $catalogSearchHelper->getResultUrl() ?>" method="get" name="site-search" role="search" accept-charset="utf-8" class="nav-searchbar-inner">
         <div class="nav-submit-button nav-sprite">
             <button type="submit" value="" class="nav-submit-input" title="">
-                <img style="margin: 5px 10px 0;" src="<?php echo $this->getSkinUrl('images/search-icon-new.png'); ?>" maxlength="<?php echo $catalogSearchHelper->getMaxQueryLength(); ?>"/>
+                <img src="<?php echo $this->getSkinUrl('images/search-icon-new.png'); ?>" maxlength="<?php echo $catalogSearchHelper->getMaxQueryLength(); ?>"/>
             </button>
         </div>
-
-        <span id="nav-search-in" class="nav-sprite nav-facade-active" style="width: auto;">
-            <span id="nav-search-in-content" data-value="search-alias=aps" style="width: auto; overflow: visible;">All Category</span>
-            <span class="nav-down-arrow"></span>
-                
-            <select data-nav-digest="bDT22wibLRgrc0Gc07TKBa9Syl4" data-nav-selected="0" name="cat" id="searchDropdownBox" class="searchSelect select-style" title="Search in" style="top: 3px;">
-                <option class="style-search-top" value="all-category">All Category</option>
-                
-                <?php if (count($_categories) > 0): ?>
-                    <?php foreach ($_categories as $_category): ?>
-                        <option class="search-title-drop style-search-cat" value="<?php //echo $_category['id']; ?>">
-                            <?php echo $_category['name']; ?>
-                        </option>
-                    <?php endforeach; ?>
-                <?php endif; ?>
-            </select>
-        </span>
 
         <div class="nav-searchfield-width">
             <div id="nav-iss-attach">
