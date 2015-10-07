@@ -215,12 +215,10 @@ $j(document).ready(function() {
                 <?php $_totalItem = $this->helper('checkout/cart')->getSummaryCount();  //get total items in cart ?>
 
                 <?php if ($_totalItem == 0): ?>
-                    <a href="#" class="link-minicart" id="link-minicart"><i class="fa fa-shopping-cart"></i><span class="qty"><?php echo $this->__('0') ?></span></a>
+                <a href="<?php echo Mage::getBaseUrl(); ?>checkout/cart" class="link-minicart" id="link-minicart"><i class="fa fa-shopping-cart"></i><span class="qty"><?php echo $this->__('0') ?></span></a>
                 <?php else: ?>
                 <a href="<?php echo Mage::getBaseUrl(); ?>checkout/cart" class="link-minicart" id="link-minicart"><i class="fa fa-shopping-cart"></i><span class="qty"><?php echo $this->__($_totalItem) ?></span></a>
                 <?php endif; ?>
-
-                <div class="clear"></div>
 
                 <p class="welcome-msg"><?php echo $this->getChildHtml('welcome') ?> <?php echo $this->getAdditionalHtml() ?></p>
 

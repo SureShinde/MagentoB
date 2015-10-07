@@ -443,6 +443,7 @@ searchbar #nav-search-in {
         width: auto;
         clear: both;
         margin: 0 10px;
+        margin-bottom: 10px;
         padding: 10px 2%;
         background: none repeat scroll 0 0 #F48220;
     }
