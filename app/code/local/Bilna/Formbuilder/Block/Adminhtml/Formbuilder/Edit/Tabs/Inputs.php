@@ -90,16 +90,6 @@ class Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Edit_Tabs_Inputs extends Mag
   	protected function _prepareMassaction()
   	{
 	  	parent::_prepareMassaction();
-	    $this->setMassactionIdField('id');
-	    //$this->getMassactionBlock()->setFormFieldName('id');
-
-	    $this->getMassactionBlock()->addItem('delete',
-	      array(
-	        'label' 	=> Mage::helper('bilna_formbuilder')->__('Delete'),
-	        'url' 		=> $this->getUrl('*/*/massDeleteForm', array('form_id' => $this->formId)),
-	        'confirm' => Mage::helper('bilna_formbuilder')->__('Yakin mau delete?')
-	      ));
-	    return $this;
 	}
 
 	//Grid with Ajax Request

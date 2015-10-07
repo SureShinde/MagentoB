@@ -401,6 +401,7 @@ $collection->getSelect()
     	$model = Mage::getModel('bilna_formbuilder/input')->load($id);
 		$formId = $model->getFormId();
 		$model->delete();
+		$this->_getSession()->addSuccess("Delete form input successfully");
 		$this->_redirect('*/*/edit', array('id' => $formId));
     }
 }
