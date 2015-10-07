@@ -5,13 +5,14 @@ class Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Edit_Tabs_Edit extends Mage_
 	public function __construct()
 	{
 	parent::__construct();
-	$this->_objectId 		= 'record_id';
-	$this->_blockGroup 	= 'bilna_formbuilder';
-	$this->_controller 	= 'adminhtml_formbuilder';
-	$this->_removeButton('reset');	//remove reset button
-  //$this->_removeButton('save');		//remove save button
-	//$this->_removeButton('delete');	
-	//$this->_mode = 'edit';      
+  	$this->_objectId 		= 'record_id';
+  	$this->_blockGroup 	= 'bilna_formbuilder';
+  	$this->_controller 	= 'adminhtml_formbuilder';
+  	$this->_removeButton('reset');	//remove reset button
+    //$this->_removeButton('save');		//remove save button
+  	//$this->_removeButton('delete');
+
+  	$this->_mode = 'input';      
 	}
 
 	public function getHeaderText()
@@ -24,7 +25,7 @@ class Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Edit_Tabs_Edit extends Mage_
     }
   }
     
-  /*protected function _prepareLayout() {
+ /*protected function _prepareLayout() {
     if ($this->_blockGroup && $this->_controller && $this->_mode) {
         $this->setChild('form', $this->getLayout()->createBlock($this->_blockGroup . '/' . $this->_controller . '_' . $this->_mode . '_form'));
     }

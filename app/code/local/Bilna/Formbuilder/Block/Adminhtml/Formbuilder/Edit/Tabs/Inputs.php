@@ -91,7 +91,7 @@ class Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Edit_Tabs_Inputs extends Mag
   	{
 	  	parent::_prepareMassaction();
 	    $this->setMassactionIdField('id');
-	    $this->getMassactionBlock()->setFormFieldName('id');
+	    //$this->getMassactionBlock()->setFormFieldName('id');
 
 	    $this->getMassactionBlock()->addItem('delete',
 	      array(

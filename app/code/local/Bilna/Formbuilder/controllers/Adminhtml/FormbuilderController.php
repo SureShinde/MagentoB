@@ -245,6 +245,16 @@ $collection->getSelect()
 
 	public function saveAction() {
 		$id = $this->getRequest()->getParam('id');
+		$formId = (int) $this->getRequest()->getParam('form_id');
+		if ((bool) $formId) {
+			$this->saveInput($formId);
+		} else {
+			$this->saveForm($id);
+		}
+	}
+
+	protected function saveForm(int $id)
+	{
 		$data = $this->getRequest()->getPost();
 		if ($data) {
 			$model = Mage::getModel('bilna_formbuilder/form');
@@ -266,19 +276,16 @@ $collection->getSelect()
 				}
 
 				$this->_redirect('*/*/');
-				return;
 			}
 			catch (Exception $e) {
 				//die (print_r ($e));
 			}
 		}
 		$this->_redirect('*/*/');
-		return;
 	}
 
-	public function saveInputAction()
+	protected function saveInput(int $formId)
 	{
-		$formId = (int) $this->getRequest()->getParam('form_id');
 		$data = $this->getRequest()->getPost();
 		$data = array_merge($data, ['form_id' => $formId]);
 		if($data) {
@@ -387,5 +394,13 @@ $collection->getSelect()
         	$forms = join(', ', $result['failed']);
         	$this->_getSession()->addError("Can't delete the form ({$forms})");
         }
+    }
+
+    public function deleteInputAction() {
+    	$id = $this->getRequest()->getParam('id');
+    	$model = Mage::getModel('bilna_formbuilder/input')->load($id);
+		$formId = $model->getFormId();
+		$model->delete();
+		$this->_redirect('*/*/edit', array('id' => $formId));
     }
 }
