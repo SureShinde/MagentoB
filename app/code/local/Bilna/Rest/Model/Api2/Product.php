@@ -6,6 +6,34 @@
  */
 
 class Bilna_Rest_Model_Api2_Product extends Bilna_Rest_Model_Api2 {
+    protected $_productId = null;
+    protected $_categoryId = null;
+    protected $_customerGroupId = null;
+
+    protected function _getProductId() {
+        if (is_null($this->_productId)) {
+            $this->_productId = $this->getRequest()->getParam('product_id');
+        }
+        
+        return $this->_productId;
+    }
+    
+    protected function _getCategoryId() {
+        if (is_null($this->_categoryId)) {
+            $this->_categoryId = $this->getRequest()->getParam('category_id');
+        }
+        
+        return $this->_categoryId;
+    }
+    
+    protected function _getCustomerGroupId() {
+        if (is_null($this->_customerGroupId)) {
+            $this->_customerGroupId = $this->getRequest()->getParam('customer_group_id');
+        }
+        
+        return $this->_customerGroupId;
+    }
+
     /**
      * Get available attributes of API resource
      *

@@ -6,7 +6,7 @@
  */
 
 abstract class Bilna_Rest_Model_Api2_Product_Rest extends Bilna_Rest_Model_Api2_Product {
-    const DEFAULT_STORE_ID = 1;
+    //const DEFAULT_STORE_ID = 1;
     
     /**
      * Attribute code for media gallery
@@ -339,15 +339,6 @@ abstract class Bilna_Rest_Model_Api2_Product_Rest extends Bilna_Rest_Model_Api2_
         $taxAmount = $calculator->calcTaxAmount($price, $percent, !$includeTax, false);
 
         return $includeTax ? $price + $taxAmount : $price - $taxAmount;
-    }
-
-    /**
-     * Default implementation. May be different for customer/guest/admin role.
-     *
-     * @return null
-     */
-    protected function _getCustomerGroupId() {
-        return null;
     }
 
     /**

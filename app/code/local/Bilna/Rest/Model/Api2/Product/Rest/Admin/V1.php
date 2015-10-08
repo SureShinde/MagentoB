@@ -428,22 +428,22 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
      * @return array
      */
     protected function _retrieveCollection() {
-        /** @var $collection Mage_Catalog_Model_Resource_Product_Collection */
         $collection = Mage::getResourceModel('catalog/product_collection');
-        $store = $this->_getStore();
-        $collection->setStoreId($store->getId());
-        $collection->addAttributeToSelect(array_keys($this->getAvailableAttributes($this->getUserType(), Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_READ)));
+        $collection->setStore($this->_getStore());
+        //$collection->addAttributeToSelect(array_keys($this->getAvailableAttributes($this->getUserType(), Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_READ)));
+        $collection->addAttributeToSelect(Mage::getSingleton('catalog/config')->getProductAttributes());
+        $collection->addMinimalPrice()
+            ->addFinalPrice()
+            ->addTaxPercents()
+            //->addUrlRewrite($this->_getCategoryId())
+            ->addPriceData($this->_getCustomerGroupId());
         
         $this->_applyCategoryFilter($collection);
         $this->_applyCollectionModifiers($collection);
         $this->_applyCollectionProductStatus($collection);
         $this->_applyCollectionProductVisibility($collection);
         
-        //$collection->printLogQuery(true);exit;
-        
-        $products = $this->_retrieveCollectionResponse($collection->load(), $collection->getSize());
-        
-        return $products;
+        return $this->_retrieveCollectionResponse($collection->load(), $collection->getSize());
     }
     
     protected function _retrieveCollectionResponse($products, $totalRecord) {
