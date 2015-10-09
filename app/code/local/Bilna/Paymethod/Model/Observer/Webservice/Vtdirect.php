@@ -24,11 +24,14 @@ class Bilna_Paymethod_Model_Observer_Webservice_Vtdirect {
         $order = Mage::getModel('sales/order')->loadByIncrementId($incrementId);
         $orderStatus = $order->getStatus();
         $orderStatusAllow = $this->getNotificationOrderStatusAllow();
+        $paymentCode = $order->getPayment()->getMethodInstance()->getCode();
         $message = $notification->status_message;
         $transactionStatus = $notification->transaction_status;
         $fraudStatus = $notification->fraud_status;
         
-        if (($transactionStatus == 'capture' && $fraudStatus == 'accept') || ($transactionStatus == 'cancel' && $fraudStatus == 'challenge')) {
+        if (($transactionStatus == 'capture' && $fraudStatus == 'accept')
+            || ($transactionStatus == 'cancel' && $fraudStatus == 'challenge')
+            || ($notification->payment_type == 'mandiri_ecash' && $transactionStatus == 'settlement')) {
             if (in_array($orderStatus, $orderStatusAllow)) {
                 if (Mage::getModel('paymethod/vtdirect')->updateOrder($order, $paymentCode, $notification)) {
                     $contentLog = sprintf("%s | updateStatusOrder: %s", $incrementId, $order->getStatus());
