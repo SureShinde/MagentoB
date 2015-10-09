@@ -417,7 +417,7 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
         /**
          * Charge Transaction (Mandiri E-Cash)
          */
-        if (in_array($paymentCode, $this->getPaymentMethodVtdirectRedirect())) {
+        if (in_array($paymentCode, $this->getPaymentMethodVtdirect())) {
             $charge = $this->_vtdirectRedirectCharge($order);
             
             Mage::getModel('paymethod/vtdirect')->addHistoryOrder($order, $charge);
@@ -547,6 +547,9 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
             'payment_type' => $paymentType,
             'transaction_details' => $transactionDetails,
             'customer_details' => $customerDetails,
+            'mandiri_ecash' => array (
+                'description' => 'Transaction Description Mandiri E-Cash Bilna.com',
+            ),
         );
         
         try {
@@ -689,8 +692,8 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
         return Mage::helper('paymethod')->getPaymentMethodCc();
     }
     
-    protected function getPaymentMethodVtdirectRedirect() {
-        return Mage::helper('paymethod')->getPaymentMethodVtdirectRedirect();
+    protected function getPaymentMethodVtdirect() {
+        return Mage::helper('paymethod')->getPaymentMethodVtdirect();
     }
     
     protected function getTokenId() {

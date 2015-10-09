@@ -27,8 +27,8 @@ class Bilna_Paymethod_Helper_Data extends Mage_Core_Helper_Abstract {
         return $result;
     }
     
-    public function getPaymentMethodVtdirectRedirect() {
-        $payment = Mage::getStoreConfig('bilna_module/success_page/payment_vtdirect_redirect');
+    public function getPaymentMethodVtdirect() {
+        $payment = Mage::getStoreConfig('bilna_module/success_page/payment_vtdirect');
         $result = explode(',', $payment);
         
         return $result;
