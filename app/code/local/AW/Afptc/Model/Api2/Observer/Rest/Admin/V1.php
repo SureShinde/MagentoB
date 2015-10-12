@@ -67,7 +67,7 @@ class AW_Afptc_Model_Api2_Observer_Rest_Admin_V1 extends AW_Afptc_Model_Api2_Obs
 
                     $this->_prepareValidate($quote);
                     $cart = Mage::getModel('checkout/cart')->setQuote($quote);
-                    if (!$rule->load($rule->getId())->validate($cart->getQuote())) {
+                    if (!$rule->load($rule->getId())->validate($cart)) {
                         continue;
                     }
 
@@ -79,7 +79,7 @@ class AW_Afptc_Model_Api2_Observer_Rest_Admin_V1 extends AW_Afptc_Model_Api2_Obs
                         array_push($popupRules, $rule);
                         continue;
                     }
-                    array_push($activeRules, $rule);
+                    array_push($activeRules, $rule->getData());
                 }
 
                 foreach ($activeRules as $rule)
