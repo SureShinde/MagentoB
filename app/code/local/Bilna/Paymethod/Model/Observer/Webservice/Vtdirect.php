@@ -33,11 +33,11 @@ class Bilna_Paymethod_Model_Observer_Webservice_Vtdirect {
             if (in_array($orderStatus, $orderStatusAllow)) {
                 $updateOrder = Mage::getModel('paymethod/vtdirect')->updateOrder($order, $this->_code, $notification);
                 
-                if ($updateOrder == true) {
+                if ($updateOrder === true) {
                     $contentLog = sprintf("%s | updateStatusOrder: %s", $incrementId, $order->getStatus());
                     $this->writeLog($this->_typeTransaction, 'notification', $contentLog);
                 }
-                elseif ($updateOrder == false) {
+                elseif ($updateOrder === false) {
                     $contentLog = sprintf("%s | updateStatusOrder: failed", $incrementId);
                     $this->writeLog($this->_typeTransaction, 'notification', $contentLog);
                 }

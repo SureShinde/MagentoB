@@ -34,6 +34,8 @@ class Bilna_Paymethod_Model_Vtdirect extends Mage_Core_Model_Abstract {
                         return true;
                     }
                 }
+                
+                return false;
             }
             
             return "skip";
