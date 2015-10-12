@@ -1,7 +1,7 @@
 <?php
 
 /**
- * API2 class for paymethod (admin)
+ * API2 class for Afptc (admin)
  *
  * @category   Bilna
  * @package    Custom AW_Afptc 

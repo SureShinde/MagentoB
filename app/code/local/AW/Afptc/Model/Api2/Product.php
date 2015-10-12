@@ -7,7 +7,7 @@
 * @package    Bilna_Paymethod <AW_Afptc>
 * @author     Bilna Development Team <core@magentocommerce.com>
 */
-class AW_Afptc_Model_Api2_Observer extends AW_Afptc_Model_Api2_Resource
+class AW_Afptc_Model_Api2_Product extends AW_Afptc_Model_Api2_Resource
 {
-	
+
 }
