@@ -30,11 +30,11 @@ class Bilna_Paymethod_Model_Vtdirect extends Mage_Core_Model_Abstract {
                         $order->save();
                         $transaction->save();
                         $invoice->sendEmail(true, '');
-
-                        return true;
                     }
                 }
             }
+            
+            return true;
         }
         else {
             if ($transactionStatus == 'capture') {
