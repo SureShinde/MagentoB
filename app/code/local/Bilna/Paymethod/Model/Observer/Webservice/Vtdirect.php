@@ -29,12 +29,10 @@ class Bilna_Paymethod_Model_Observer_Webservice_Vtdirect {
         $transactionStatus = $notification->transaction_status;
         $fraudStatus = $notification->fraud_status;
         
-        if (($transactionStatus == 'capture' && $fraudStatus == 'accept')
-            || ($transactionStatus == 'cancel' && $fraudStatus == 'challenge')
-            || ($notification->payment_type == 'mandiri_ecash' && $transactionStatus == 'settlement')) {
+        if (($transactionStatus == 'capture' && $fraudStatus == 'accept') || ($transactionStatus == 'cancel' && $fraudStatus == 'challenge') || $this->isMandiriEcash($notification, $paymentCode)) {
             if (in_array($orderStatus, $orderStatusAllow)) {
-                if (Mage::getModel('paymethod/vtdirect')->updateOrder($order, $paymentCode, $notification)) {
-                    $contentLog = sprintf("%s | updateStatusOrder: %s", $incrementId, $order->getStatus());
+                if (Mage::getModel('paymethod/vtdirect')->updateOrder($order, $this->_code, $notification)) {
+                    $contentLog = sprintf("%s | updateStatusOrder: %s", $incrementId, $orderStatus);
                     $this->writeLog($this->_typeTransaction, 'notification', $contentLog);
                 }
                 else {
@@ -54,6 +52,16 @@ class Bilna_Paymethod_Model_Observer_Webservice_Vtdirect {
         $statusArr = explode(',', $statuses);
         
         return $statusArr;
+    }
+    
+    protected function isMandiriEcash($notification, $paymentCode) {
+        $paymentType = Mage::getStoreConfig('payment/' . $paymentCode . '/vtdirect_payment_type');
+        
+        if ($notification->payment_type == $paymentType) {
+            return true;
+        }
+        
+        return false;
     }
 
     protected function writeLog($type, $logFile, $content) {

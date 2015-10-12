@@ -8,7 +8,7 @@
 class Bilna_Paymethod_Model_Vtdirect extends Mage_Core_Model_Abstract {
     public function updateOrder($order, $paymentCode, $charge) {
         // check order status if processing/complete then ignore
-        if (in_array($order->getStatus(), Mage::helper('paymethod/vtdirect')->getStatusOrderIgnore())) {
+        if (in_array($order->getStatus(), Mage::helper('paymethod/vtdirect')->getStatusOrderIgnore()) && !$this->isMandiriEcash($charge, $order->getPayment()->getMethodInstance()->getCode())) {
             return true;
         }
                 
@@ -16,21 +16,23 @@ class Bilna_Paymethod_Model_Vtdirect extends Mage_Core_Model_Abstract {
         $transactionStatus = $charge->transaction_status;
         $fraudStatus = $charge->fraud_status;
         
-        if ($charge->payment_type == 'mandiri_ecash' && $transactionStatus == 'settlement') {
-            if ($order->canInvoice()) {
-                $invoice = Mage::getModel('sales/service_order', $order)->prepareInvoice();
+        if ($this->isMandiriEcash($charge, $order->getPayment()->getMethodInstance()->getCode())) {
+            if ($transactionStatus == 'settlement' && $order->getStatus() == 'pending') {
+                if ($order->canInvoice()) {
+                    $invoice = Mage::getModel('sales/service_order', $order)->prepareInvoice();
 
-                if ($invoice->getTotalQty()) {
-                    $invoice->register();
-                    $transaction = Mage::getModel('core/resource_transaction')
-                        ->addObject($invoice)
-                        ->addObject($invoice->getOrder());
-                    $order->setState(Mage_Sales_Model_Order::STATE_PROCESSING, true, $message, true);
-                    $order->save();
-                    $transaction->save();
-                    $invoice->sendEmail(true, '');
+                    if ($invoice->getTotalQty()) {
+                        $invoice->register();
+                        $transaction = Mage::getModel('core/resource_transaction')
+                            ->addObject($invoice)
+                            ->addObject($invoice->getOrder());
+                        $order->setState(Mage_Sales_Model_Order::STATE_PROCESSING, true, $message, true);
+                        $order->save();
+                        $transaction->save();
+                        $invoice->sendEmail(true, '');
 
-                    return true;
+                        return true;
+                    }
                 }
             }
         }
@@ -116,6 +118,16 @@ class Bilna_Paymethod_Model_Vtdirect extends Mage_Core_Model_Abstract {
 
                 return Mage::helper('paymethod')->writeLogFile($paymentCode, 'confirmation', $order->getIncrementId(), $content, 'normal');
             }
+        }
+        
+        return false;
+    }
+    
+    protected function isMandiriEcash($notification, $paymentCode) {
+        $paymentType = Mage::getStoreConfig('payment/' . $paymentCode . '/vtdirect_payment_type');
+        
+        if ($notification->payment_type == $paymentType) {
+            return true;
         }
         
         return false;
