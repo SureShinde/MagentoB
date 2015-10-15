@@ -9,6 +9,7 @@ class Bilna_Rest_Model_Api2_Product extends Bilna_Rest_Model_Api2 {
     protected $_productId = null;
     protected $_categoryId = null;
     protected $_customerGroupId = null;
+    protected $_stockDataOnly = false;
 
     protected function _getProductId() {
         if (is_null($this->_productId)) {

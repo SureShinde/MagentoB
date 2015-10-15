@@ -491,4 +491,9 @@ abstract class Bilna_Rest_Model_Api2_Product_Rest extends Bilna_Rest_Model_Api2_
     protected function _applyCollectionProductVisibility(Varien_Data_Collection_Db $collection) {
         return Mage::getSingleton('catalog/product_visibility')->addVisibleInCatalogFilterToCollection($collection);
     }
+    
+    protected function _getStockDataOnly() {
+        $stockDataOnly = $this->getRequest()->getParam('stock_only');
+        $this->_stockDataOnly = ($stockDataOnly == 1) ? true : false;
+    }
 }
