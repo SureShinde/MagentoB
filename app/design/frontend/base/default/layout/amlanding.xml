@@ -3,12 +3,10 @@
 	<default>
         <reference name="head">
             <action method="addJs"><script>amasty/amlanding/amlanding.js</script></action>
+            <action method="addCss"><stylesheet>css/category-2.css</stylesheet></action>
         </reference>
     </default>
    	<amlanding_page_view>
-        <reference name="head">
-            <action method="addCss"><stylesheet>css/category-2.css</stylesheet></action>
-        </reference>
 	    <reference name="content">
            <block type="catalog/product_list" name="product_list" template="catalog/product/list.phtml">
                <block type="catalog/product_list_toolbar" name="product_list_toolbar" template="catalog/product/list/toolbar.phtml">

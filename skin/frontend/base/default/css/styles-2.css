@@ -700,18 +700,19 @@ tr.summary-details-excluded { font-style:italic; }
 /* Block: Layered Navigation */
 .block-layered-nav { border:0; }
 .block-layered-nav .block-title { border:0; padding:0; height:auto; background:url(../images/bkg_block-layered-title.gif) 0 0 no-repeat; text-indent:-999em; overflow:hidden; }
-.block-layered-nav .block-subtitle { line-height:1.35; background:#d5e8ff url(../images/bkg_block-layered1.gif) 0 50% repeat; padding:3px 9px; border:1px solid #b9ccdd; border-width:1px 0; text-transform:uppercase; color:#1f5070; }
+.block-layered-nav .block-subtitle { line-height:1.35; padding:3px 9px; border-width:1px 0; text-transform:uppercase;}
 .block-layered-nav .block-content { border:1px solid #a0b3c3; background:#e7f1f4; }
 .block-layered-nav dt { background:url(../images/bkg_block-layered-dt.gif) 9px 11px no-repeat; padding:7px 10px 0 25px; font-weight:bold; text-transform:uppercase; }
 .block-layered-nav dd { padding:0 12px 12px; background:url(../images/bkg_block-layered-dd.gif) 0 100% repeat-x; }
 .block-layered-nav dd.last { background:none; }
-.block-layered-nav .currently li { background:#fff url(../images/bkg_block-layered-li.gif) 0 100% repeat-x; padding:6px 24px 6px 10px; position:relative; z-index:1; line-height:1.5; }
-.block-layered-nav .currently .label { font-weight:bold; padding-left:15px; background:url(../images/bkg_block-layered-label.gif) 0 4px no-repeat; text-transform:uppercase; display:inline-block; vertical-align:top; }
+.block-layered-nav .currently li { padding:6px 10px; position:relative; z-index:1; line-height:1.5; }
+.block-layered-nav .currently li.block-subtitle { line-height: 1.35; padding: 9px 9px 4px; border-width: 1px 0; font-size: 14px; font-family: 'bebasregular'; text-transform: uppercase; color: inherit; letter-spacing: 1px; font-weight: normal; background: #EBEBEB}
+.block-layered-nav .currently .label { font-weight:bold; text-transform:uppercase; clear: both; display:block; vertical-align:top; }
 .block-layered-nav .currently .value { display:inline-block; vertical-align:top; }
 .block-layered-nav .currently .btn-previous,
 .block-layered-nav .currently .btn-remove { position:absolute; right:4px; top:9px; margin:0; }
 .block-layered-nav .currently .btn-previous { right:17px; }
-.block-layered-nav .actions { font-size:11px; padding:4px 5px 4px 9px; background:#cad6e4; border:1px solid #dee5e8; border-width:1px 0; text-align:right; }
+.block-layered-nav .actions { font-size:11px; text-align:right; background: none; padding: 0 13px 10px;}
 .block-layered-nav .actions a { float:none; }
 
 /* Block: Cart */
