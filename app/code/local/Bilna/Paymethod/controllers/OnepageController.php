@@ -422,7 +422,7 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
             
             Mage::getModel('paymethod/vtdirect')->addHistoryOrder($order, $charge);
             Mage::register('response_charge', $charge);
-            Mage::dispatchEvent('sales_order_place_after', array ('order' => $order));
+            //Mage::dispatchEvent('sales_order_place_after', array ('order' => $order));
         }
         
         $this->loadLayout();

@@ -36,6 +36,10 @@ class Bilna_Paymethod_Model_Observer_Webservice_Vtdirect {
                 if ($updateOrder === true) {
                     $contentLog = sprintf("%s | updateStatusOrder: %s", $incrementId, $order->getStatus());
                     $this->writeLog($this->_typeTransaction, 'notification', $contentLog);
+                    
+                    if ($this->isMandiriEcash($notification, $paymentCode)) {
+                        Mage::dispatchEvent('sales_order_place_after', array ('order' => $order));
+                    }
                 }
                 elseif ($updateOrder === false) {
                     $contentLog = sprintf("%s | updateStatusOrder: failed", $incrementId);
