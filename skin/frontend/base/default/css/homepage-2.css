@@ -957,7 +957,7 @@ width: 100%;
     .homepage .homepage-banner .wrap-banner .third-banner-megamenu{
         display: none;
     }
-    .homepage .homepage-banner .homepage .homepage-banner .first-level li:hover .second-level, .homepage .homepage-banner .first-level .active-cat .second-level{
+    .homepage .homepage-banner .homepage .homepage-banner .first-level .hover-cat .second-level, .homepage .homepage-banner .first-level .active-cat .second-level{
         width: 540px;
         height: 430px;
     }
