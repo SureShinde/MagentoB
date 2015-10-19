@@ -94,6 +94,16 @@ elseif (in_array($this->getOrderPaymentCode(), $this->getPaymentMethodCc())):
     else:
         $responsePage = 'challange';
     endif;
+elseif (in_array($this->getOrderPaymentCode(), $this->getPaymentMethodVtdirect())):
+    $responseCharge = $this->getResponseCharge();
+    $responsePage = 'failure';
+
+    if ($responseCharge->status_code == 201):
+        if (isset ($responseCharge->redirect_url)):
+            $responsePage = 'redirect';
+            $redirectUrl = $responseCharge->redirect_url;
+        endif;
+    endif;
 else:
     $responsePage = 'failure';
 endif;
@@ -175,11 +185,11 @@ endif;
 
         <div class="col_right"></div>
     </div>
-<?php elseif ($responsePage == 'threedsecure'): ?>
+<?php elseif ($responsePage == 'threedsecure' || $responsePage == 'redirect'): ?>
     <div class="redirect_area">
         <div class="title_payment">
             <br/>
-            <h3><?php echo $this->__('Credit Card redirect page'); ?></h3>
+            <h3><?php echo $this->__('Redirect page'); ?></h3>
         </div>
 
         <br/><br/><br/>
