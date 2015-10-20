@@ -6,6 +6,13 @@
  */
 
 class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_Product_Rest {
+    public function __construct() {
+        parent::__construct();
+        
+        $this->_initCache();
+        $this->_cacheKey = $this->_getCacheKey();
+    }
+
     /**
      * The greatest decimal value which could be stored. Corresponds to DECIMAL (12,4) SQL type
      */
@@ -49,12 +56,21 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
      * @return array
      */
     protected function _retrieve() {
-        $this->_getStockDataOnly();
-        $product = $this->_getProduct();
-        $this->_prepareProductForResponse($product);
-        $result = $this->_retrieveResponse();
+        if (!$cached = $this->_getCacheData($this->_cacheKey)) {
+            $this->_getStockDataOnly();
+            $product = $this->_getProduct();
+            $this->_prepareProductForResponse($product);
+            $response = $this->_retrieveResponse();
+            
+            if ($response) {
+                $this->_setCacheData($response, $key);
+            }
+        }
+        else {
+            $response = $cached;
+        }
         
-        return $result;
+        return $response;
     }
     
     protected function _retrieveResponse() {
@@ -440,24 +456,34 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
      * @return array
      */
     protected function _retrieveCollection() {
-        $this->_getStockDataOnly();
+        if (!$cached = $this->_getCacheData($this->_cacheKey)) {
+            $this->_getStockDataOnly();
+            $collection = Mage::getResourceModel('catalog/product_collection');
+            $collection->setStore($this->_getStore());
+            //$collection->addAttributeToSelect(array_keys($this->getAvailableAttributes($this->getUserType(), Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_READ)));
+            $collection->addAttributeToSelect(Mage::getSingleton('catalog/config')->getProductAttributes());
+            $collection->addMinimalPrice()
+                ->addFinalPrice()
+                ->addTaxPercents()
+                //->addUrlRewrite($this->_getCategoryId())
+                ->addPriceData($this->_getCustomerGroupId());
+
+            $this->_applyCategoryFilter($collection);
+            $this->_applyCollectionModifiers($collection);
+            $this->_applyCollectionProductStatus($collection);
+            $this->_applyCollectionProductVisibility($collection);
+
+            $response = $this->_retrieveCollectionResponse($collection->load(), $collection->getSize());
+            
+            if ($response) {
+                $this->_setCacheData($response, $key);
+            }
+        }
+        else {
+            $response = $cached;
+        }
         
-        $collection = Mage::getResourceModel('catalog/product_collection');
-        $collection->setStore($this->_getStore());
-        //$collection->addAttributeToSelect(array_keys($this->getAvailableAttributes($this->getUserType(), Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_READ)));
-        $collection->addAttributeToSelect(Mage::getSingleton('catalog/config')->getProductAttributes());
-        $collection->addMinimalPrice()
-            ->addFinalPrice()
-            ->addTaxPercents()
-            //->addUrlRewrite($this->_getCategoryId())
-            ->addPriceData($this->_getCustomerGroupId());
-        
-        $this->_applyCategoryFilter($collection);
-        $this->_applyCollectionModifiers($collection);
-        $this->_applyCollectionProductStatus($collection);
-        $this->_applyCollectionProductVisibility($collection);
-        
-        return $this->_retrieveCollectionResponse($collection->load(), $collection->getSize());
+        return $response;
     }
     
     protected function _retrieveCollectionResponse($products, $totalRecord) {
