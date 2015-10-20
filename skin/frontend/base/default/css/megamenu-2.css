@@ -268,7 +268,7 @@
 .catalog-category-view .menu-navigation .first-level .active-cat .second-level{
 	width:200px;
 }
-.menu-navigation .first-level .hover-cat .second-level{
+.menu-navigation .first-level li:hover .second-level{
     display: block;
     width: 1030px;
 	height: 485px;
@@ -299,31 +299,21 @@
     float: left;
     padding: 0 0 0 12px;
 }
-.menu-navigation .wrap-banner .main-banner,
-.menu-navigation .menu-navigation .wrap-banner .first-banner-megamenu,
-.menu-navigation .wrap-banner .second-banner-megamenu, 
-.menu-navigation .wrap-banner .third-banner-megamenu{
-    position: relative;    
-}
 .menu-navigation .wrap-banner .first-banner-megamenu .main-banner{
-    height: 327px;
-	position:relative;
-}
-.menu-navigation .wrap-banner .first-banner-megamenu .bottom-left-firstbanner,
-.menu-navigation .wrap-banner .first-banner-megamenu .bottom-right-firstbanner,
-.menu-navigation .wrap-banner .second-banner-megamenu .top-secondbanner, 
-.menu-navigation .wrap-banner .second-banner-megamenu .middle-secondbanner, 
-.menu-navigation .wrap-banner .second-banner-megamenu .bottom-secondbanner, 
-.menu-navigation .wrap-banner .third-banner-megamenu .top-thirdbanner,
-.menu-navigation .wrap-banner .third-banner-megamenu .middle-thirdbanner,
-.menu-navigation .wrap-banner .third-banner-megamenu .bottom-thirdbanner
-{
-    height: 163px;
 	position:relative;
 }
 .menu-navigation .wrap-banner img{
     float:left;
     width: 100%;
+}
+.menu-navigation .wrap-banner .first-banner-megamenu img, li.active-cat .wrap-banner .first-banner-megamenu .main-banner{
+    margin: 0 0 10px;
+}
+.menu-navigation .wrap-banner .second-banner-megamenu img{
+    padding: 0 0 12px;
+}
+.menu-navigation .wrap-banner .third-banner-megamenu img{
+    padding: 0 0 12px;
 }
 .menu-navigation .wrap-banner .first-banner-megamenu{
     width: 48%;
@@ -358,7 +348,7 @@
 .menu-navigation .first-level > ul > li.first-level-cat.hover-cat div{
 	color:#F15A29;
 }
-@media (min-width: 1024px )and (max-width: 1215px ){
+@media (min-width: 1023px )and (max-width: 1215px ){
     .menu-navigation .first-level li:hover .second-level, .menu-navigation .first-level .active-cat .second-level{
         width: 805px;
     }
@@ -373,33 +363,20 @@
     }
 	.menu-navigation .wrap-banner .first-banner-megamenu .bottom-left-firstbanner{
 		padding: 0 4px 0 0;
-		width: 48%;
+		width: 49%;
 	}
 	.menu-navigation .wrap-banner .first-banner-megamenu .bottom-right-firstbanner{
 		padding: 0 0 0 3px;
-		width: 48%;
-        float: right;
+		width: 49%;
 	}
 	.menu-navigation .megamenu-stiky{
 		width:994px;
 	}
-    .menu-navigation .wrap-banner .first-banner-megamenu .main-banner{
-        height: 312px;
-        margin: 0 0 5px;
-    }
-    .menu-navigation .wrap-banner .first-banner-megamenu .bottom-left-firstbanner,
-    .menu-navigation .wrap-banner .first-banner-megamenu .bottom-right-firstbanner,
-    .menu-navigation .wrap-banner .second-banner-megamenu .top-secondbanner, 
-    .menu-navigation .wrap-banner .second-banner-megamenu .middle-secondbanner, 
-    .menu-navigation .wrap-banner .second-banner-megamenu .bottom-secondbanner, 
-    .menu-navigation .wrap-banner .third-banner-megamenu .top-thirdbanner,
-    .menu-navigation .wrap-banner .third-banner-megamenu .middle-thirdbanner,
-    .menu-navigation .wrap-banner .third-banner-megamenu .bottom-thirdbanner
-    {
-        height: 158px;
-    }
+	.menu-navigation .wrap-banner .first-banner-megamenu img, li.active-cat .wrap-banner .first-banner-megamenu .main-banner{
+		margin: 0 0 12px;
+	}
 }
-@media (min-width: 768px )and (max-width: 1023px ){
+@media (min-width: 768px )and (max-width: 1022px ){
     .menu-navigation .wrap-banner .first-banner-megamenu{
         width: 96%;
     }
@@ -409,9 +386,9 @@
     .menu-navigation  .wrap-banner .third-banner-megamenu{
         display: none;
     }
-    .menu-navigation .first-level .hover-cat .second-level, .menu-navigation .first-level .active-cat .second-level{
+    .menu-navigation .first-level li:hover .second-level, .menu-navigation .first-level .active-cat .second-level{
         width: 550px;
-        height: 450px !important;
+        height: 430px !important;
     }
 	.megamenu{
 		height: 0;
@@ -420,7 +397,7 @@
 		width: calc(100% - 200px);
 	}
 	.menu-navigation .megamenu.megamenu-active {
-		height: 475px;
+		height: 460px;
 	}
 	.menu-navigation .wrap-banner .first-banner-megamenu .bottom-left-firstbanner{
 		padding: 0 3px 0 0;
@@ -431,9 +408,6 @@
 	.menu-navigation .menu-navigation .first-level > ul > li{
 		font-size: 1.1em;
 	}
-    .menu-navigation .wrap-banner .first-banner-megamenu .main-banner {
-        height: 280px;
-    }
 }
 @media (max-width: 767px ) {
 	.menu-navigation{

@@ -746,7 +746,6 @@ width: 100%;
 .homepage .homepage-banner .first-level .second-level{
     position: absolute;
     left: 185px;
-    height: 485px;
     top: 0;
 }
 .homepage .homepage-banner .first-level{
@@ -779,6 +778,9 @@ width: 100%;
 	text-transform:uppercase;
 	cursor:pointer;
 }
+.homepage .homepage-banner .wrap-banner .first-banner-megamenu img, .homepage .homepage-banner li.active-cat .wrap-banner .first-banner-megamenu .main-banner {
+	margin: 0 0 10px;
+}
 .homepage .homepage-banner li.active-cat .wrap-banner .first-banner-megamenu .main-banner {
 	position:relative;
 }
@@ -806,10 +808,9 @@ width: 100%;
 }
 .homepage .homepage-banner .first-level .active-cat .second-level{
     display: block;
-}
-.homepage .homepage-banner .first-level .second-level{
     width: 1030px;
     z-index: 0;
+	height:485px;
 	overflow:hidden;
 }
 .homepage .homepage-banner .first-level li.first-level-cat.active-cat.hover-cat > div.first-level-url{
@@ -847,7 +848,9 @@ width: 100%;
 .homepage .homepage-banner .first-level .active-cat .second-level,
 .homepage .homepage-banner .first-level .hover-cat .second-level{
     display: block !important;
+    width: 1030px;
     z-index: 1;
+	height:485px;
 	overflow:hidden;
     background: #fff;
 }
@@ -884,10 +887,10 @@ width: 100%;
     width: 100%;
 }
 .homepage .wrap-banner .second-banner-megamenu img{
-    padding: 0;
+    padding: 0 0 12px;
 }
 .homepage .wrap-banner .third-banner-megamenu img{
-    padding: 0;
+    padding: 0 0 13px;
 }
 .homepage .wrap-banner .first-banner-megamenu{
     width: 48%;
@@ -898,24 +901,9 @@ width: 100%;
 .homepage .wrap-banner .third-banner-megamenu{
     width: 23%;
 }
-.homepage .wrap-banner .bottom-left-firstbanner, 
-.homepage .wrap-banner .bottom-right-firstbanner,
-.homepage .wrap-banner .top-secondbanner,
-.homepage .wrap-banner .middle-secondbanner,
-.homepage .wrap-banner .bottom-secondbanner,
-.homepage .wrap-banner .top-thirdbanner,
-.homepage .wrap-banner .middle-thirdbanner,
-.homepage .wrap-banner .bottom-thirdbanner{
-    height: 165px;
-    position: relative;
-}
 .homepage .wrap-banner .first-banner-megamenu .bottom-left-firstbanner, .wrap-banner .first-banner-megamenu .bottom-right-firstbanner{
     width: 48%;
     float: left;
-}
-.homepage .wrap-banner .first-banner-megamenu .main-banner {
-    height: 330px;
-    position: relative;
 }
 .homepage .wrap-banner .first-banner-megamenu .bottom-left-firstbanner{
     padding: 0 7px 0 0;
@@ -927,7 +915,7 @@ width: 100%;
 	display:none;
 }
 @media (min-width: 1023px )and (max-width: 1215px ){
-    .homepage .homepage-banner .first-level .hover-cat .second-level, .homepage .homepage-banner .first-level .active-cat .second-level{
+    .homepage .homepage-banner .first-level li:hover .second-level, .homepage .homepage-banner .first-level .active-cat .second-level{
         width: 805px;
     }
     .homepage .homepage-banner .wrap-banner .first-banner-megamenu{
@@ -949,27 +937,15 @@ width: 100%;
 	.homepage-top-block.left {
 		display: none;
 	}
-    .homepage .wrap-banner .first-banner-megamenu .main-banner {
-        height: 314px;
-    }
 	.homepage .wrap-banner .first-banner-megamenu .bottom-left-firstbanner {
 		padding: 0 4px 0 0;
 	}
 	.homepage .wrap-banner .first-banner-megamenu .bottom-left-firstbanner, .wrap-banner .first-banner-megamenu .bottom-right-firstbanner{
 		width: 49%;
-        height: 163px;
 	}
-    .homepage .wrap-banner .bottom-left-firstbanner, 
-    .homepage .wrap-banner .bottom-right-firstbanner,
-    .homepage .wrap-banner .top-secondbanner,
-    .homepage .wrap-banner .middle-secondbanner,
-    .homepage .wrap-banner .bottom-secondbanner,
-    .homepage .wrap-banner .top-thirdbanner,
-    .homepage .wrap-banner .middle-thirdbanner,
-    .homepage .wrap-banner .bottom-thirdbanner{
-        height: 157px;
-        position: relative;
-    }
+	.homepage .homepage-banner .wrap-banner .first-banner-megamenu img, .homepage .homepage-banner li.active-cat .wrap-banner .first-banner-megamenu .main-banner{
+		margin: 0 0 12px;
+	}
 }
 @media (min-width: 768px )and (max-width: 1022px ){
     .homepage .homepage-banner .wrap-banner .first-banner-megamenu{
@@ -988,9 +964,6 @@ width: 100%;
 	.homepage .homepage-banner .first-level{
 		min-height: 450px;
 	}
-    .homepage .wrap-banner .first-banner-megamenu .main-banner {
-        height: 280px;
-    }
 	/*=========== baby ================*/
 	.homepage-top-block.middle {
 		width: 78%;
