@@ -133,6 +133,7 @@ width: 100%;
 	float: left;
     margin: 10px 18px;
 	width:30.25%;
+    position: relative;
 }
 .block-wrapper a p img, .block-wrapper a img{
 	width:100%;
