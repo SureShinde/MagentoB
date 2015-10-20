@@ -9,10 +9,10 @@
                 </action>
             </block>
             <action method="addCss"><stylesheet>css/reset.css</stylesheet></action>
-            <action method="addCss"><stylesheet>css/megamenu-3.css</stylesheet></action>
+            <action method="addCss"><stylesheet>css/megamenu-2.css</stylesheet></action>
             <action method="addCss"><stylesheet>css/general-2.css</stylesheet></action>
             <action method="addCss"><stylesheet>css/checkout-2.css</stylesheet></action>
-            <action method="addCss"><stylesheet>css/header-3.css</stylesheet></action>
+            <action method="addCss"><stylesheet>css/header-2.css</stylesheet></action>
             <action method="addCss"><stylesheet>css/footer-2.css</stylesheet></action>
             <action method="addCss"><stylesheet>css/font-awesome.min.css</stylesheet></action>
             <action method="addCss"><stylesheet>css/additional-style-blog.css</stylesheet></action>
@@ -108,7 +108,7 @@
     </customer_logged_out>
     <cms_index_index>
         <reference name="head">
-            <action method="addCss"><stylesheet>css/homepage-3.css</stylesheet></action>
+            <action method="addCss"><stylesheet>css/homepage-2.css</stylesheet></action>
         </reference>
     </cms_index_index>
     <catalog_category_default translate="label">
@@ -126,7 +126,7 @@
             <action method="setTemplate"><template>page/2columns-left.phtml</template></action>
         </reference>
         <reference name="head">
-            <action method="addCss"><stylesheet>css/category-3.css</stylesheet></action>  
+            <action method="addCss"><stylesheet>css/category-2.css</stylesheet></action>  
             <action method="addCss"><stylesheet>css/jquery-ui.css</stylesheet></action> 
             <action method="addItem">
                 <type>skin_js</type>
