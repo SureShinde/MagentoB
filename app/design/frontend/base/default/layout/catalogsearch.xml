@@ -52,7 +52,7 @@
             <action method="setTemplate"><template>page/2columns-left.phtml</template></action>
         </reference>
         <reference name="head">
-            <action method="addCss"><stylesheet>css/category-2.css</stylesheet></action>
+            <action method="addCss"><stylesheet>css/category-3.css</stylesheet></action>
             <action method="addCss"><stylesheet>css/search-2.css</stylesheet></action>	
             <action method="addCss"><stylesheet>css/jquery-ui.css</stylesheet></action>	
             <action method="addItem">
