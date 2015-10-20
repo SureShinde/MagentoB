@@ -51,7 +51,7 @@ $_categories = $_helper->getMegamenuData();
                 
                 <?php if (count($_categories) > 0): ?>
                     <?php foreach ($_categories as $_category): ?>
-                        <option class="search-title-drop style-search-cat" value="<?php echo $_category['id']; ?>">
+                        <option class="search-title-drop style-search-cat" value="<?php //echo $_category['id']; ?>">
                             <?php echo $_category['name']; ?>
                         </option>
                     <?php endforeach; ?>

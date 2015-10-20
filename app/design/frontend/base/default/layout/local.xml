@@ -14,11 +14,16 @@
             <action method="addCss"><stylesheet>css/checkout-2.css</stylesheet></action>
             <action method="addCss"><stylesheet>css/header-2.css</stylesheet></action>
             <action method="addCss"><stylesheet>css/footer-2.css</stylesheet></action>
+            <action method="addCss"><stylesheet>css/font-awesome.min.css</stylesheet></action>
             <action method="addCss"><stylesheet>css/additional-style-blog.css</stylesheet></action>
             <action method="addItem">
                 <type>skin_js</type>
                 <name>js/jquery.min.js</name>
             </action>
+			<action method="addItem">
+				<type>skin_js</type>
+				<name>js/jquery.nicescroll.min.js</name>
+			</action>
             <action method="addItem">
                 <type>skin_js</type>
                 <name>js/jquery.slides.js</name>
@@ -46,10 +51,6 @@
             <action method="addItem">
                 <type>skin_js</type>
                 <name>js/bilna.sociomantic.js</name>
-            </action>
-            <action method="addItem">
-                <type>skin_js</type>
-                <name>js/smooth-scrolling.js</name>
             </action>
             <action method="addItem">
                 <type>skin_js</type>

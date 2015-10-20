@@ -4,7 +4,6 @@
 	width: 100%;
 }
 .block-layered-nav {
-	background: #f8f8f8;
 }
 .catalog-category-view .breadcrumbs{
 	margin:0 0 10px;
@@ -13,11 +12,20 @@
 	border: none;
 	background: none;
 }
+.block-layered-nav .filters-area {
+    background-color: #F8F8F8;
+    margin-bottom: 10px;
+}
 .block-layered-nav .block-title {
-	background: none;
-	text-indent: inherit;
-	margin: 0 10px;
-	padding: 10px 0 0 0;
+    background: none;
+    text-indent: inherit;
+    background-color: #F8F8F8;
+    padding: 12px 10px;
+}
+.block-layered-nav #narrow-by-list{
+    background: #f8f8f8;
+    display: inline-block;
+    width: 100%;
 }
 .block-layered-nav .block-title strong span {
 	color: #707070;
@@ -33,7 +41,7 @@
 .products-grid .item:hover .availability.out-of-stock{
 	border:1px solid #F38020;
 }
-.block-layered-nav .block-subtitle, .block-layered-nav dt.category, .sorter .view-mode, .toolbar-bottom .sorter, .category-title {
+.sorter .view-mode, .toolbar-bottom .sorter, .category-title {
 	display: none;
 }
 .block-layered-nav dd {
@@ -58,10 +66,14 @@
 	letter-spacing: 1px;
 }
 .block-layered-nav .lbl-filterby {
-	background: #dfe0e0;
+	background: #EBEBEB;
 	padding: 8px 12px;
 	font-size: 13px;
 	margin-top: 15px;
+}
+.block-layered-nav dt.category {
+    padding-bottom: 0;
+    display: none;
 }
 .block-layered-nav dt {
 	background: none;
@@ -69,10 +81,9 @@
 	margin-bottom: 5px;
 }
 .block-layered-nav dd li {
-	/* margin-top: 3px; */
-	margin: 5px 0;
+	padding: 5px 0;
 }
-.block-layered-nav dt.category + dd li {
+.block-layered-nav dt.category + dd  li  li {
 	border-top: 1px solid #dadada;
 	padding: 5px 0;
 	background: none;
@@ -452,6 +463,9 @@ a.triger-showfilter {
 	display: none;
 }
 	
+.catalog-category-view .wrap_banner_category{
+    display: inline-block;
+}
 .catalog-category-view .featured-product-catalog{
 	display: none;
 }
@@ -689,9 +703,6 @@ a.triger-showfilter {
 	margin: 20px auto;
 	display: table;
 	width:100%;
-}
-.catalog-category-view .wrap_banner a{
-    position: relative;
 }
 .catalog-category-view .wrap_banner .col-1, .catalog-category-view .wrap_banner .col-2, .catalog-category-view .wrap_banner .col-3, .catalog-category-view .wrap_banner .col-4{
 	display:block;
