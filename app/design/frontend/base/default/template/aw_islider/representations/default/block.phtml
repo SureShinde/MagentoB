@@ -60,7 +60,7 @@
                 <a href="<?php echo $helper->getUseDirectLinks() ? $slide->getData('url') : $this->getUrl('awislider/link/out', array ('sid' => $slide->getData('id'))) ?>"<?php if($slide->getData('new_window')) : ?> onclick="return !window.open(this.href)"<?php endif ?><?php if($slide->getData('nofollow')): ?> rel="nofollow"<?php endif ?>>
             <?php endif; ?>
             
-            <img class="image-slider"  src="<?php echo ($slide->getUriLocation()) ?>" title="<?php echo htmlspecialchars($slide->getData('title')) ?>" alt="<?php echo htmlspecialchars($slide->getData('title')) ?>" />
+            <img src="<?php echo ($slide->getUriLocation()) ?>" title="<?php echo htmlspecialchars($slide->getData('title')) ?>" alt="<?php echo htmlspecialchars($slide->getData('title')) ?>" />
             
             <?php if ($slide->getData('url')): ?>
                 </a>
