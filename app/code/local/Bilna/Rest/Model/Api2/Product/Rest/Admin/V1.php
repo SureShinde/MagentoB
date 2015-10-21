@@ -6,6 +6,13 @@
  */
 
 class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_Product_Rest {
+    public function __construct() {
+        parent::__construct();
+        
+        $this->_initCache();
+        $this->_cacheKey = $this->_getCacheKey();
+    }
+
     /**
      * The greatest decimal value which could be stored. Corresponds to DECIMAL (12,4) SQL type
      */
@@ -49,11 +56,21 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
      * @return array
      */
     protected function _retrieve() {
-        $product = $this->_getProduct();
-        $this->_prepareProductForResponse($product);
-        $result = $this->_retrieveResponse();
+        if (!$cached = $this->_getCacheData($this->_cacheKey)) {
+            $this->_getStockDataOnly();
+            $product = $this->_getProduct();
+            $this->_prepareProductForResponse($product);
+            $response = $this->_retrieveResponse();
+            
+            if ($response) {
+                $this->_setCacheData($response, $key);
+            }
+        }
+        else {
+            $response = $cached;
+        }
         
-        return $result;
+        return $response;
     }
     
     protected function _retrieveResponse() {
@@ -64,6 +81,14 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
         $result = array ();
         
         foreach ($this->_product->getData() as $k => $v) {
+            if ($this->_stockDataOnly) {
+                if ($k == 'stock_data') {
+                    $result[$k] = $this->_getStockDataConfig($v);
+                }
+                
+                continue;
+            }
+            
             $attributeTextArr = array ('brand', 'brands', 'ship_by', 'sold_by');
             $attributeDetailedInfoArr = array ('description', 'additional', 'how_to_use', 'nutrition_fact', 'size_chart', 'more_detail', 'additional_info');
 
@@ -79,7 +104,8 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
                 $result['detailed_info'][$k] = $v;
             }
             elseif ($k == 'stock_data') {
-                $result[$k] = $this->_getStockDataConfig($v);
+                //$result[$k] = $this->_getStockDataConfig($v);
+                continue;
             }
             else {
                 $result[$k] = $v;
@@ -87,13 +113,15 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
         }
         
         if ($result) {
-            $result['attribute_config'] = $this->_getAttributeConfig();
-            $result['attribute_bundle'] = $this->_getAttributeBundle();
-            $result['review'] = $this->_getProductReview($this->_product->getId());
-            $result['images'] = array (
-                'default' => $this->_getImageResize($this->_product, $this->_product->getImage()),
-                'data' => $this->_getImage(),
-            );
+            if (!$this->_stockDataOnly) {
+                $result['attribute_config'] = $this->_getAttributeConfig();
+                $result['attribute_bundle'] = $this->_getAttributeBundle();
+                $result['review'] = $this->_getProductReview($this->_product->getId());
+                $result['images'] = array (
+                    'default' => $this->_getImageResize($this->_product, $this->_product->getImage()),
+                    'data' => $this->_getImage(),
+                );
+            }
         }
         
         return $result;
@@ -428,22 +456,34 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
      * @return array
      */
     protected function _retrieveCollection() {
-        $collection = Mage::getResourceModel('catalog/product_collection');
-        $collection->setStore($this->_getStore());
-        //$collection->addAttributeToSelect(array_keys($this->getAvailableAttributes($this->getUserType(), Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_READ)));
-        $collection->addAttributeToSelect(Mage::getSingleton('catalog/config')->getProductAttributes());
-        $collection->addMinimalPrice()
-            ->addFinalPrice()
-            ->addTaxPercents()
-            //->addUrlRewrite($this->_getCategoryId())
-            ->addPriceData($this->_getCustomerGroupId());
+        if (!$cached = $this->_getCacheData($this->_cacheKey)) {
+            $this->_getStockDataOnly();
+            $collection = Mage::getResourceModel('catalog/product_collection');
+            $collection->setStore($this->_getStore());
+            //$collection->addAttributeToSelect(array_keys($this->getAvailableAttributes($this->getUserType(), Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_READ)));
+            $collection->addAttributeToSelect(Mage::getSingleton('catalog/config')->getProductAttributes());
+            $collection->addMinimalPrice()
+                ->addFinalPrice()
+                ->addTaxPercents()
+                //->addUrlRewrite($this->_getCategoryId())
+                ->addPriceData($this->_getCustomerGroupId());
+
+            $this->_applyCategoryFilter($collection);
+            $this->_applyCollectionModifiers($collection);
+            $this->_applyCollectionProductStatus($collection);
+            $this->_applyCollectionProductVisibility($collection);
+
+            $response = $this->_retrieveCollectionResponse($collection->load(), $collection->getSize());
+            
+            if ($response) {
+                $this->_setCacheData($response, $key);
+            }
+        }
+        else {
+            $response = $cached;
+        }
         
-        $this->_applyCategoryFilter($collection);
-        $this->_applyCollectionModifiers($collection);
-        $this->_applyCollectionProductStatus($collection);
-        $this->_applyCollectionProductVisibility($collection);
-        
-        return $this->_retrieveCollectionResponse($collection->load(), $collection->getSize());
+        return $response;
     }
     
     protected function _retrieveCollectionResponse($products, $totalRecord) {
@@ -462,6 +502,14 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
                     continue;
                 }
                 
+                if ($this->_stockDataOnly) {
+                    if ($k == 'stock_data') {
+                        $result[$key][$k] = $this->_getStockDataConfig($v);
+                    }
+                    
+                    continue;
+                }
+                
                 $data[$key] = $key;
                 $attributeTextArr = array ('brand', 'ship_by', 'sold_by');
                 
@@ -469,22 +517,25 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
                     $result[$key][$k] = $row->getAttributeText($k);
                 }
                 elseif ($k == 'stock_data') {
-                    $result[$key][$k] = $this->_getStockDataConfig($v);
+                    //$result[$key][$k] = $this->_getStockDataConfig($v);
+                    continue;
                 }
                 else {
                     $result[$key][$k] = $v;
                 }
             }
             
-            $result[$key]['attribute_config'] = $this->_getAttributeConfig($product);
-            $result[$key]['attribute_bundle'] = $this->_getAttributeBundle($product);
-            $result[$key]['review'] = $this->_getProductReview($product->getId());
-            $result[$key]['images'] = array (
-                'base' => Mage::getModel('catalog/product_media_config')->getMediaUrl($product->getImage()),
-                'thumbnail' => $this->_resizeImage($product, $product->getImage(), $this->_imgThumbnail),
-                'horizontal' => $this->_resizeImage($product, $product->getImage(), $this->_imgHorizontal),
-                'vertical' => $this->_resizeImage($product, $product->getImage(), $this->_imgVertical),
-            );
+            if (!$this->_stockDataOnly) {
+                $result[$key]['attribute_config'] = $this->_getAttributeConfig($product);
+                $result[$key]['attribute_bundle'] = $this->_getAttributeBundle($product);
+                $result[$key]['review'] = $this->_getProductReview($product->getId());
+                $result[$key]['images'] = array (
+                    'base' => Mage::getModel('catalog/product_media_config')->getMediaUrl($product->getImage()),
+                    'thumbnail' => $this->_resizeImage($product, $product->getImage(), $this->_imgThumbnail),
+                    'horizontal' => $this->_resizeImage($product, $product->getImage(), $this->_imgHorizontal),
+                    'vertical' => $this->_resizeImage($product, $product->getImage(), $this->_imgVertical),
+                );
+            }
         }
         
         return $result;
