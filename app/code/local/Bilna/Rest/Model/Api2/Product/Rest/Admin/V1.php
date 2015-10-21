@@ -56,13 +56,14 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
      * @return array
      */
     protected function _retrieve() {
-        if (!$cached = $this->_getCacheData($this->_cacheKey)) {
-            $this->_getStockDataOnly();
+        $this->_getStockDataOnly();
+        
+        if ($this->_stockDataOnly || (!$cached = $this->_getCacheData($this->_cacheKey))) {
             $product = $this->_getProduct();
             $this->_prepareProductForResponse($product);
             $response = $this->_retrieveResponse();
             
-            if ($response) {
+            if (!$this->_stockDataOnly && $response) {
                 $this->_setCacheData($response, $key);
             }
         }
@@ -456,7 +457,7 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
      * @return array
      */
     protected function _retrieveCollection() {
-        if (!$cached = $this->_getCacheData($this->_cacheKey)) {
+        if ($this->_stockDataOnly || (!$cached = $this->_getCacheData($this->_cacheKey))) {
             $this->_getStockDataOnly();
             $collection = Mage::getResourceModel('catalog/product_collection');
             $collection->setStore($this->_getStore());
@@ -475,7 +476,7 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
 
             $response = $this->_retrieveCollectionResponse($collection->load(), $collection->getSize());
             
-            if ($response) {
+            if (!$this->_stockDataOnly && $response) {
                 $this->_setCacheData($response, $key);
             }
         }
