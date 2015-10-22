@@ -106,7 +106,7 @@ class AW_Ascurl_Model_Observer extends Mage_Sitemap_Model_Observer
             $headBlock = $block->getLayout()->getBlock('head');
             $product = Mage::registry('product');
             if ($block instanceof Mage_Catalog_Block_Product_View && Mage::helper('ascurl')->useCanonicalUrl()
-                && null !== $product && $headBlock
+                && null !== $product
             ) {
                 $params = array('_ignore_category' => true);
                 $headBlock->addLinkRel('canonical', $product->getUrlModel()->getUrl($product, $params));
@@ -115,7 +115,7 @@ class AW_Ascurl_Model_Observer extends Mage_Sitemap_Model_Observer
 
             $category = Mage::registry('current_category');
             if ($block instanceof Mage_Catalog_Block_Category_View && Mage::helper('ascurl')->useCanonicalUrl()
-                && null !== $category && $headBlock
+                && null !== $category
             ) {
                 $headBlock->addLinkRel('canonical', $category->getUrl());
                 return $this;
