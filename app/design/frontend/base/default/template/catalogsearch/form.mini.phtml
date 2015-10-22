@@ -63,11 +63,5 @@ $_categories = $_helper->getMegamenuData();
             <div id="nav-iss-attach">
                 <input type="text" id="twotabsearchtextbox" title="Search For" value="<?php echo $catalogSearchHelper->getEscapedQueryText() ?>" name="q" autocomplete="off" placeholder="Search...">
             </div>
-
-            <div id="search_autocomplete" class="search-autocomplete"></div>
-            <script type="text/javascript">
-                var searchForm = new Varien.searchForm('nav-searchbar', 'twotabsearchtextbox', 'Search...');
-                searchForm.initAutocomplete('<?php echo $catalogSearchHelper->getSuggestUrl() ?>', 'search_autocomplete');
-            </script>
         </div>
     </form>
