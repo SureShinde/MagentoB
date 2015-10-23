@@ -62,7 +62,8 @@ class Bilna_Fraud_Model_Observer {
                     $email = '%0AEmail%3A"'.$email.'"';
                 }
 
-                $telephone = '%0ATelephone%3A"'.$telephone.'"';
+                //$telephone = '%0ATelephone%3A"'.$telephone.'"';
+                $telephone = '%2BTelephone%3A"'.$telephone.'"';
                 $addressScore = '&qf=Shipping_Address^'.$addressScoreWeight;
                 $emailScore = '+Email^'.$emailScoreWeight;
                 $telephoneScore = '+Telephone^'.$telephoneScoreWeight;
@@ -75,7 +76,7 @@ class Bilna_Fraud_Model_Observer {
                     $address = 'Shipping_Address%3A"'.$address.'"';
                 }
 
-                $telephone = '%0ATelephone%3A"'.$telephone.'"';
+                $telephone = '%2BTelephone%3A"'.$telephone.'"';
                 $addressScore = '&qf=Shipping_Address^'.$addressScoreWeight;
                 $emailScore = '';
                 $telephoneScore = '+Telephone^'.$telephoneScoreWeight;
@@ -90,7 +91,7 @@ class Bilna_Fraud_Model_Observer {
                     $email = 'Email%3A"'.$email.'"';
                 }
 
-                $telephone = '%0ATelephone%3A"'.$telephone.'"';
+                $telephone = '%2BTelephone%3A"'.$telephone.'"';
                 $addressScore = '&qf=Shipping_Address^'.$addressScoreWeight;
                 $emailScore = '+Email^'.$emailScoreWeight;
                 $telephoneScore = '+Telephone^'.$telephoneScoreWeight;
