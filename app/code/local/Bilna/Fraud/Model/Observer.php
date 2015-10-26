@@ -62,8 +62,8 @@ class Bilna_Fraud_Model_Observer {
                     $email = '%0AEmail%3A"'.$email.'"';
                 }
 
-                //$telephone = '%0ATelephone%3A"'.$telephone.'"';
-                $telephone = '%2BTelephone%3A"'.$telephone.'"';
+                $telephone = '%0ATelephone%3A"'.$telephone.'"';
+                //$telephone = '%2BTelephone%3A"'.$telephone.'"';
                 $addressScore = '&qf=Shipping_Address^'.$addressScoreWeight;
                 $emailScore = '+Email^'.$emailScoreWeight;
                 $telephoneScore = '+Telephone^'.$telephoneScoreWeight;
@@ -76,7 +76,7 @@ class Bilna_Fraud_Model_Observer {
                     $address = 'Shipping_Address%3A"'.$address.'"';
                 }
 
-                $telephone = '%2BTelephone%3A"'.$telephone.'"';
+                $telephone = '%0ATelephone%3A"'.$telephone.'"';
                 $addressScore = '&qf=Shipping_Address^'.$addressScoreWeight;
                 $emailScore = '';
                 $telephoneScore = '+Telephone^'.$telephoneScoreWeight;
@@ -91,7 +91,7 @@ class Bilna_Fraud_Model_Observer {
                     $email = 'Email%3A"'.$email.'"';
                 }
 
-                $telephone = '%2BTelephone%3A"'.$telephone.'"';
+                $telephone = '%0ATelephone%3A"'.$telephone.'"';
                 $addressScore = '&qf=Shipping_Address^'.$addressScoreWeight;
                 $emailScore = '+Email^'.$emailScoreWeight;
                 $telephoneScore = '+Telephone^'.$telephoneScoreWeight;
@@ -167,19 +167,21 @@ class Bilna_Fraud_Model_Observer {
             $url  = 'http://'.$host.':'.$port.$path.'/'.$core.'/select?q='.$address.$email.$telephone.$ruleId.$createdDate.$string.$addressScore.$emailScore.$telephoneScore.$string_2;
         }
 
+        //curl_setopt($ch, CURLOPT_HEADER, 0);
+        if($auth == 1) {
+            $cleanPassword = Mage::helper('core')->decrypt($password);
+            $url  = 'http://'.$username.':'.$cleanPassword.'@'.$host.':'.$port.$path.'/'.$core.'/select?q='.$address.$email.$telephone.$ruleId.$createdDate.$string.$addressScore.$emailScore.$telephoneScore.$string_2;
+            /*$loginData = 'username='.$username.'&password='.$cleanPassword;
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+            curl_setopt($ch, CURLOPT_POST, 1);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $loginData);*/
+        }
+
         $ch = curl_init();
 
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_URL, $url);
-        //curl_setopt($ch, CURLOPT_HEADER, 0);
-        if($auth == 1) {
-            $cleanPassword = Mage::helper('core')->decrypt($password);
-            $loginData = 'username='.$username.'&password='.$cleanPassword;
-            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-            curl_setopt($ch, CURLOPT_POST, 1);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $loginData);
-        }
 
         $output = curl_exec($ch);
 
