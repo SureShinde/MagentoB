@@ -361,29 +361,6 @@ class Bilna_Pricevalidation_Adminhtml_PricevalidationController extends Mage_Adm
 
                         $ended = date('Y-m-d H:i:s');
 
-                        $postDataUpdate = array(
-                            'run_status' => 'finished',
-                            'finished_at' => $ended
-                        );
-                        $model->addData($postDataUpdate);
-                        $model->setId($this->getRequest()->getParam('profile_id'))
-                            ->save();
-
-                        $dataLog = array(
-                            'profile_id' => $this->getRequest()->getParam('profile_id'),
-                            'started_at' => $started,
-                            'finished_at' => $ended,
-                            'rows_found' => $totalRow,
-                            'rows_errors' => count($errors)-1,
-                            'user_id' => Mage::getSingleton('admin/session')->getUser()->getData('user_id'),
-                            'error_file' => isset($exportFilename) ? $exportFilename : '',
-                            'base_dir' => $cleanDir,
-                            'source_file' => $dataRun['filename']
-                        );
-
-                        $modelLog = Mage::getModel('bilna_pricevalidation/log');
-                        $modelLog->addData($dataLog)->save();
-
                         if(count($errors) > 1){
                             $errFileName = explode('.', $dataRun['filename']);
                             $extension = $errFileName[count($errFileName)-1];
@@ -421,6 +398,29 @@ class Bilna_Pricevalidation_Adminhtml_PricevalidationController extends Mage_Adm
                             }
                             /* Email Section End */
                         }
+
+                        $postDataUpdate = array(
+                            'run_status' => 'finished',
+                            'finished_at' => $ended
+                        );
+                        $model->addData($postDataUpdate);
+                        $model->setId($this->getRequest()->getParam('profile_id'))
+                            ->save();
+
+                        $dataLog = array(
+                            'profile_id' => $this->getRequest()->getParam('profile_id'),
+                            'started_at' => $started,
+                            'finished_at' => $ended,
+                            'rows_found' => $totalRow,
+                            'rows_errors' => count($errors)-1,
+                            'user_id' => Mage::getSingleton('admin/session')->getUser()->getData('user_id'),
+                            'error_file' => isset($exportFilename) ? $exportFilename : '',
+                            'base_dir' => $cleanDir,
+                            'source_file' => $dataRun['filename']
+                        );
+
+                        $modelLog = Mage::getModel('bilna_pricevalidation/log');
+                        $modelLog->addData($dataLog)->save();
                     }
                 }
 
@@ -522,7 +522,7 @@ class Bilna_Pricevalidation_Adminhtml_PricevalidationController extends Mage_Adm
             $mail->send();
         }catch (Exception $e) {
             Mage::logException($e);
-            Mage::log("Unable to send Email", null, "email_error.log");
+            //Mage::log("Unable to send Email", null, "email_error.log");
         }
     }
 }
