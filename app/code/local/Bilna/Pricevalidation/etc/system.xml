@@ -3,7 +3,6 @@
     <tabs>
         <bilna translate="label" module="bilna_pricevalidation">
             <label>Bilna Extensions</label>
-            <!--sort_order>0</sort_order-->
         </bilna>
     </tabs>
 

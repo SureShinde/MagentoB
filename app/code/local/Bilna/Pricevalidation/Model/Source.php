@@ -33,6 +33,14 @@ class Bilna_Pricevalidation_Model_Source extends Bilna_Pricevalidation_Model_Sou
             );
             break;
 
+        case 'separator':
+            $options = array(
+                ';' => $this->__(';'),
+                ',' => $this->__(','),
+                '|' => $this->__('|'),
+            );
+            break;
+
         case 'invoke_status':
             $options = array(
                 'none' => $this->__('None'),

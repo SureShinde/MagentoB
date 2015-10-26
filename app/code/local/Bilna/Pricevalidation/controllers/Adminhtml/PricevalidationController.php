@@ -58,6 +58,9 @@ class Bilna_Pricevalidation_Adminhtml_PricevalidationController extends Mage_Adm
                 if (($id = $this->getRequest()->getParam('profile_id'))) {
                     $model->load($id);
                 }
+
+                $separator = $model->getSeparator();
+
                 if (!isset($postData['columns_post'])) {
                     $postData['columns_post'] = array();
                 }
@@ -142,7 +145,7 @@ class Bilna_Pricevalidation_Adminhtml_PricevalidationController extends Mage_Adm
                             $readyForUpdateGP = 0;
                             if($i == 0){ // Get Header
                                 if (!is_null($csvFile[$i])) {
-                                    $dataCsv = explode(';',$csvFile[$i][0]);
+                                    $dataCsv = explode($separator,$csvFile[$i][0]);
                                     if($dataCsv[count($dataCsv)-1] == ''){
                                         unset($dataCsv[count($dataCsv)-1]);
                                     }
@@ -163,7 +166,7 @@ class Bilna_Pricevalidation_Adminhtml_PricevalidationController extends Mage_Adm
                             if($i > 0) { // Skip price validation on header
                                 if (!is_null($csvFile[$i][0])) {
                                     $error = '';
-                                    $dataCsv = explode(';',$csvFile[$i][0]);
+                                    $dataCsv = explode($separator,$csvFile[$i][0]);
                                     foreach($columnsKeyToBeProcessed as $keyDataColumn=>$columnKey) {
                                         if(($keyDataColumn == 'ignore_flag') && (empty($dataCsv[$columnKey]))) {
                                             $dataCsv[$columnKey] = 0;
@@ -173,7 +176,7 @@ class Bilna_Pricevalidation_Adminhtml_PricevalidationController extends Mage_Adm
                                             $fieldList[] = $keyDataColumn;
                                         }
                                     }
-                                    $csvFile[$i][0] = implode(';', $dataCsv);
+                                    $csvFile[$i][0] = implode($separator, $dataCsv);
 
                                     $productId = Mage::getModel('catalog/product')->getIdBySku($cleanData[$i-1]['SKU']);
 
@@ -349,12 +352,37 @@ class Bilna_Pricevalidation_Adminhtml_PricevalidationController extends Mage_Adm
                                         $error .= 'SKU error!';
                                     }
                                     if(!empty($error)) {
-                                        $errors[] = $csvFile[$i][0].';'.$error;
+                                        $errors[] = $csvFile[$i][0].$separator.$error;
                                     }
                                 }
                             }
                             $totalRow = $i;
                         }
+
+                        $ended = date('Y-m-d H:i:s');
+
+                        $postDataUpdate = array(
+                            'run_status' => 'finished',
+                            'finished_at' => $ended
+                        );
+                        $model->addData($postDataUpdate);
+                        $model->setId($this->getRequest()->getParam('profile_id'))
+                            ->save();
+
+                        $dataLog = array(
+                            'profile_id' => $this->getRequest()->getParam('profile_id'),
+                            'started_at' => $started,
+                            'finished_at' => $ended,
+                            'rows_found' => $totalRow,
+                            'rows_errors' => count($errors)-1,
+                            'user_id' => Mage::getSingleton('admin/session')->getUser()->getData('user_id'),
+                            'error_file' => isset($exportFilename) ? $exportFilename : '',
+                            'base_dir' => $cleanDir,
+                            'source_file' => $dataRun['filename']
+                        );
+
+                        $modelLog = Mage::getModel('bilna_pricevalidation/log');
+                        $modelLog->addData($dataLog)->save();
 
                         if(count($errors) > 1){
                             $errFileName = explode('.', $dataRun['filename']);
@@ -393,30 +421,6 @@ class Bilna_Pricevalidation_Adminhtml_PricevalidationController extends Mage_Adm
                             }
                             /* Email Section End */
                         }
-                        $ended = date('Y-m-d H:i:s');
-
-                        $postDataUpdate = array(
-                            'run_status' => 'finished',
-                            'finished_at' => $ended
-                        );
-                        $model->addData($postDataUpdate);
-                        $model->setId($this->getRequest()->getParam('profile_id'))
-                            ->save();
-
-                        $dataLog = array(
-                            'profile_id' => $this->getRequest()->getParam('profile_id'),
-                            'started_at' => $started,
-                            'finished_at' => $ended,
-                            'rows_found' => $totalRow,
-                            'rows_errors' => count($errors)-1,
-                            'user_id' => Mage::getSingleton('admin/session')->getUser()->getData('user_id'),
-                            'error_file' => isset($exportFilename) ? $exportFilename : '',
-                            'base_dir' => $cleanDir,
-                            'source_file' => $dataRun['filename']
-                        );
-
-                        $modelLog = Mage::getModel('bilna_pricevalidation/log');
-                        $modelLog->addData($dataLog)->save();
                     }
                 }
 
@@ -518,7 +522,7 @@ class Bilna_Pricevalidation_Adminhtml_PricevalidationController extends Mage_Adm
             $mail->send();
         }catch (Exception $e) {
             Mage::logException($e);
-            //Mage::log("Unable to send Email", null, "email_error.log");
+            Mage::log("Unable to send Email", null, "email_error.log");
         }
     }
 }

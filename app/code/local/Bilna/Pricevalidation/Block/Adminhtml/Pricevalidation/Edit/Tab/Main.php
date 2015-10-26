@@ -45,6 +45,14 @@ class Bilna_Pricevalidation_Block_Adminhtml_Pricevalidation_Edit_Tab_Main extend
                 'name'      => 'data_type',
                 'values'    => $source->setPath('data_type')->toOptionArray(),
             ));
+
+            $fieldset->addField('separator', 'select', array(
+                'label'     => $this->__('CSV Separator'),
+                'class'     => 'required-entry',
+                'required'  => true,
+                'name'      => 'separator',
+                'values'    => $source->setPath('separator')->toOptionArray(),
+            ));
         }
 
         $oldWithDefaultWebsiteFlag = $source->withDefaultWebsite(!$profile || $profile->getDataType()!='sales');
@@ -83,6 +91,13 @@ class Bilna_Pricevalidation_Block_Adminhtml_Pricevalidation_Edit_Tab_Main extend
                 'disabled'  => true,
                 'name'      => 'data_type',
                 'values'    => $source->setPath('data_type')->toOptionArray(),
+            ));
+
+            $fieldset->addField('separator', 'select', array(
+                'label'     => $this->__('CSV Separator'),
+                'disabled'  => 'true',
+                'name'      => 'separator',
+                'values'    => $source->setPath('separator')->toOptionArray(),
             ));
 
             $fieldset->addField('run_status', 'select', array(
