@@ -375,7 +375,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
         );
 
         // Clean noise on white background images
-        //Source : http://stackoverflow.com/questions/8384678/magento-resize-image-quality
+        // Source : http://stackoverflow.com/questions/8384678/magento-resize-image-quality
         if ($isTrueColor) {
             $colorWhite = imagecolorallocate($newImage,255,255,255);
             $processHeight = $dstHeight+$dstY;
