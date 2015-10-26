@@ -122,11 +122,7 @@ class AW_Afptc_Model_Resource_Rule_Collection extends Mage_Core_Model_Mysql4_Col
         
         $this->getSelect()->join(array('status_td' => $status->getBackend()->getTable()), 
                 "main_table.product_id = status_td.entity_id AND status_td.attribute_id = {$status->getAttributeId()} AND
-                 status_td.store_id = 0", array())
-                         ->join(array('status_ts' => $status->getBackend()->getTable()), 
-                             "main_table.product_id = status_td.entity_id AND status_td.attribute_id = {$status->getAttributeId()} AND
-                 status_td.store_id = {$store}", array())
-                 ->where("IF(status_ts.value_id > 0,status_ts.value,status_td.value) = 1");
+                 status_td.store_id = 0 AND value = 1", array());
                  
             return $this;
     }
