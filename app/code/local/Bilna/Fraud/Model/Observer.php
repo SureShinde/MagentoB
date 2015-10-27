@@ -2,34 +2,28 @@
 class Bilna_Fraud_Model_Observer {
 
     public function checkFraud(Varien_Event_Observer $observer) {
-        $address = '';
-        $telephone = '';
-        $email = '';
-        $originalRuleId = '';
-        $ruleId = array();
-        $ruleData = array();
-        $usesPerHousehold = 0;
-        $ruleDataRuleId = 0;
-        $date = '';
-        $emailScoreEnabled = 0;
-        $emailProximity = 0;
-        $emailScoreWeight = 0;
-        $addressScoreEnabled = 0;
-        $addressProximity = 0;
-        $addressScoreWeight = 0;
-        $telephoneScoreEnabled = 0;
-        $telephoneScoreWeight = 0;
-        $host = '';
-        $port = '';
-        $path = '';
-        $core = '';
-        $auth = 0;
-        $username = '';
-        $password = '';
-        $formattedRuleId = '';
-        $string = '';
-        $string_2 = '';
-        $url = '';
+        $config = Mage::getStoreConfig('bilna_fraud/fraud');
+        $configSolr = Mage::getStoreConfig('bilna_fraud/solr_server');
+
+        $emailScoreEnabled = $config['email_scoring_status'];
+        $emailProximity = $config['email_proximity'];
+        $emailScoreWeight = $config['email_score_weight'];
+        $addressScoreEnabled = $config['address_scoring_status'];
+        $addressProximity = $config['address_proximity'];
+        $addressScoreWeight = $config['address_score_weight'];
+        $telephoneScoreEnabled = $config['telephone_scoring_status'];
+        $telephoneScoreWeight = $config['phone_score_weight'];
+
+        $host = $configSolr['host'];
+        $port = $configSolr['port'];
+        $path = $configSolr['path'];
+        $core = $configSolr['core'];
+        $auth = $configSolr['requires_authentication'];
+        $username = $configSolr['username'];
+        $password = $configSolr['password'];
+
+        $string = '&start=0&rows=20&fl=*%2Cscore&wt=json&indent=true&defType=edismax';
+        $string_2 = '&stopwords=true&lowercaseOperators=true&stats=true&stats.field=Subtotal_statsConfigurable';
 
         $order_id = $observer->getEvent()->getOrder()->getId();
         $orderData = Mage::getModel('sales/order')->load($order_id);
@@ -57,35 +51,15 @@ class Bilna_Fraud_Model_Observer {
         if($ruleDataRuleId != 0) {
             $date = '['.$fromDate.'T23%3A59%3A59.999Z%2FDAY+TO+'.$toDate.'T23%3A59%3A59.999Z%2FDAY]';
 
-            $config = Mage::getStoreConfig('bilna_fraud/fraud');
-            $configSolr = Mage::getStoreConfig('bilna_fraud/solr_server');
-
-            $emailScoreEnabled = $config['email_scoring_status'];
-            $emailProximity = $config['email_proximity'];
-            $emailScoreWeight = $config['email_score_weight'];
-            $addressScoreEnabled = $config['address_scoring_status'];
-            $addressProximity = $config['address_proximity'];
-            $addressScoreWeight = $config['address_score_weight'];
-            $telephoneScoreEnabled = $config['telephone_scoring_status'];
-            $telephoneScoreWeight = $config['phone_score_weight'];
-
-            $host = $configSolr['host'];
-            $port = $configSolr['port'];
-            $path = $configSolr['path'];
-            $core = $configSolr['core'];
-            $auth = $configSolr['requires_authentication'];
-            $username = $configSolr['username'];
-            $password = $configSolr['password'];
-
             if(($emailScoreEnabled == 1) && ($addressScoreEnabled == 1) && ($telephoneScoreEnabled == 1)) {
-                if(!empty($addressProximity)) {
+                if(!is_null($addressProximity)) {
                     $address = 'Shipping_Address%3A"'.$address.'"~'.$addressProximity;
                 }
                 else {
                     $address = 'Shipping_Address%3A"'.$address.'"';
                 }
 
-                if(!empty($emailProximity)) {
+                if(!is_null($emailProximity)) {
                     $email = '%0AEmail%3A"'.$email.'"~'.$emailProximity;
                 }
                 else {
@@ -99,7 +73,7 @@ class Bilna_Fraud_Model_Observer {
                 $telephoneScore = '+Telephone^'.$telephoneScoreWeight;
             }
             elseif(($emailScoreEnabled == 0) && ($addressScoreEnabled == 1) && ($telephoneScoreEnabled == 1)) {
-                if(!empty($addressProximity)) {
+                if(!is_null($addressProximity)) {
                     $address = 'Shipping_Address%3A"'.$address.'"~'.$addressProximity;
                 }
                 else {
@@ -114,7 +88,7 @@ class Bilna_Fraud_Model_Observer {
             elseif(($emailScoreEnabled == 1) && ($addressScoreEnabled == 0) && ($telephoneScoreEnabled == 1)) {
                 $address = '';
 
-                if(!empty($emailProximity)) {
+                if(!is_null($emailProximity)) {
                     $email = 'Email%3A"'.$email.'"~'.$emailProximity;
                 }
                 else {
@@ -127,14 +101,14 @@ class Bilna_Fraud_Model_Observer {
                 $telephoneScore = '+Telephone^'.$telephoneScoreWeight;
             }
             elseif(($emailScoreEnabled == 1) && ($addressScoreEnabled == 1) && ($telephoneScoreEnabled == 0)) {
-                if(!empty($addressProximity)) {
+                if(!is_null($addressProximity)) {
                     $address = 'Shipping_Address%3A"'.$address.'"~'.$addressProximity;
                 }
                 else {
                     $address = 'Shipping_Address%3A"'.$address.'"';
                 }
 
-                if(!empty($emailProximity)) {
+                if(!is_null($emailProximity)) {
                     $email = '%0AEmail%3A"'.$email.'"~'.$emailProximity;
                 }
                 else {
@@ -155,7 +129,7 @@ class Bilna_Fraud_Model_Observer {
                 $telephoneScore = '&qf=Telephone^'.$telephoneScoreWeight;
             }
             elseif(($emailScoreEnabled == 0) && ($addressScoreEnabled == 1) && ($telephoneScoreEnabled == 0)) {
-                if(!empty($addressProximity)) {
+                if(!is_null($addressProximity)) {
                     $address = 'Shipping_Address%3A"'.$address.'"~'.$addressProximity;
                 }
                 else {
@@ -171,7 +145,7 @@ class Bilna_Fraud_Model_Observer {
             elseif(($emailScoreEnabled == 1) && ($addressScoreEnabled == 0) && ($telephoneScoreEnabled == 0)) {
                 $address = '';
 
-                if(!empty($emailProximity)) {
+                if(!is_null($emailProximity)) {
                     $email = 'Email%3A"'.$email.'"~'.$emailProximity;
                 }
                 else {
@@ -191,8 +165,6 @@ class Bilna_Fraud_Model_Observer {
             }
 
             $formattedRuleId = '&fq=Rule_ID%3A'.$originalRuleId;
-            $string = '&start=0&rows=20&fl=*%2Cscore&wt=json&indent=true&defType=edismax';
-            $string_2 = '&stopwords=true&lowercaseOperators=true&stats=true&stats.field=Subtotal_statsConfigurable';
 
             $url  = $host.':'.$port.$path.'/'.$core.'/select?q='.$address.$email.$telephone.$formattedRuleId.$createdDate.$string.$addressScore.$emailScore.$telephoneScore.$string_2;
         }
@@ -232,9 +204,9 @@ class Bilna_Fraud_Model_Observer {
                 //$order->setState(Mage_Sales_Model_Order::STATE_CANCELED, true, 'Cancel Transaction.');
                 //$order->setStatus(Mage_Sales_Model_Order);
                 $orderData->save();
-                if($orderData->isCanceled()){
+                /*if($orderData->isCanceled()){
 
-                }
+                }*/
             }
         }
     }
