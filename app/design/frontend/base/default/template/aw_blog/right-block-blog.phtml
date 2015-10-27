@@ -36,32 +36,6 @@
 		</div>
 	</div>
 	<?php endif; ?>
-
-		
-
-    <?php if ($posts = $this->getRecent()): ?>    
-	<div style="clear:both;"></div>
-	<div class="postContent3">
-		<div class="cat-title">
-			<h2><?php echo Mage::helper('blog')->__('Recent Posts'); ?></h2>
-		</div>
-		<div class="bg-greyblog">
-			<?php foreach ($posts as $post): ?>
-			<div style="width: 100%; margin-left:5px 2% 5px 2%;float:left;display: block; border-bottom: 1px solid #dadada;">
-				<div class="postTitle4">
-					<img alt="" src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA);?><?php echo $post->getImageName();?>" style="float: left;">
-					<div style="float: left;width: 60%;"> 
-						<h2 class="post-blog-title-small"><a href="<?php echo $post->getAddress(); ?>" ><?php echo $post->getTitle(); ?></a></h2>
-						<?php $d = new DateTime($post->getCreatedTime());?>
-						<h3><?php echo $d->format('l d, F Y h:i:s A'); ?></h3>
-					</div>
-				</div>
-			</div>
-			<?php endforeach; ?>
-			<div style="clear:both;"></div>
-		</div>
-	</div>
-	<?php endif; ?>
 	
 	<?php if ($posts = $this->getPopular()): ?>
 	<div style="clear:both;"></div>
