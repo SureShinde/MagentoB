@@ -52,14 +52,14 @@ class Bilna_Fraud_Model_Observer {
             $date = '['.$fromDate.'T23%3A59%3A59.999Z%2FDAY+TO+'.$toDate.'T23%3A59%3A59.999Z%2FDAY]';
 
             if(($emailScoreEnabled == 1) && ($addressScoreEnabled == 1) && ($telephoneScoreEnabled == 1)) {
-                if(!is_null($addressProximity)) {
+                if((!is_null($addressProximity)) || ($addressProximity > 0)) {
                     $address = 'Shipping_Address%3A"'.$address.'"~'.$addressProximity;
                 }
                 else {
                     $address = 'Shipping_Address%3A"'.$address.'"';
                 }
 
-                if(!is_null($emailProximity)) {
+                if((!is_null($emailProximity)) || ($emailProximity > 0)) {
                     $email = '%0AEmail%3A"'.$email.'"~'.$emailProximity;
                 }
                 else {
@@ -73,7 +73,7 @@ class Bilna_Fraud_Model_Observer {
                 $telephoneScore = '+Telephone^'.$telephoneScoreWeight;
             }
             elseif(($emailScoreEnabled == 0) && ($addressScoreEnabled == 1) && ($telephoneScoreEnabled == 1)) {
-                if(!is_null($addressProximity)) {
+                if((!is_null($addressProximity)) || ($addressProximity > 0)) {
                     $address = 'Shipping_Address%3A"'.$address.'"~'.$addressProximity;
                 }
                 else {
@@ -88,7 +88,7 @@ class Bilna_Fraud_Model_Observer {
             elseif(($emailScoreEnabled == 1) && ($addressScoreEnabled == 0) && ($telephoneScoreEnabled == 1)) {
                 $address = '';
 
-                if(!is_null($emailProximity)) {
+                if((!is_null($emailProximity)) || ($emailProximity > 0)) {
                     $email = 'Email%3A"'.$email.'"~'.$emailProximity;
                 }
                 else {
@@ -101,14 +101,14 @@ class Bilna_Fraud_Model_Observer {
                 $telephoneScore = '+Telephone^'.$telephoneScoreWeight;
             }
             elseif(($emailScoreEnabled == 1) && ($addressScoreEnabled == 1) && ($telephoneScoreEnabled == 0)) {
-                if(!is_null($addressProximity)) {
+                if((!is_null($addressProximity)) || ($addressProximity > 0)) {
                     $address = 'Shipping_Address%3A"'.$address.'"~'.$addressProximity;
                 }
                 else {
                     $address = 'Shipping_Address%3A"'.$address.'"';
                 }
 
-                if(!is_null($emailProximity)) {
+                if((!is_null($emailProximity)) || ($emailProximity > 0)) {
                     $email = '%0AEmail%3A"'.$email.'"~'.$emailProximity;
                 }
                 else {
@@ -129,7 +129,7 @@ class Bilna_Fraud_Model_Observer {
                 $telephoneScore = '&qf=Telephone^'.$telephoneScoreWeight;
             }
             elseif(($emailScoreEnabled == 0) && ($addressScoreEnabled == 1) && ($telephoneScoreEnabled == 0)) {
-                if(!is_null($addressProximity)) {
+                if((!is_null($addressProximity)) || ($addressProximity > 0)) {
                     $address = 'Shipping_Address%3A"'.$address.'"~'.$addressProximity;
                 }
                 else {
@@ -145,7 +145,7 @@ class Bilna_Fraud_Model_Observer {
             elseif(($emailScoreEnabled == 1) && ($addressScoreEnabled == 0) && ($telephoneScoreEnabled == 0)) {
                 $address = '';
 
-                if(!is_null($emailProximity)) {
+                if((!is_null($emailProximity)) || ($emailProximity > 0)) {
                     $email = 'Email%3A"'.$email.'"~'.$emailProximity;
                 }
                 else {
