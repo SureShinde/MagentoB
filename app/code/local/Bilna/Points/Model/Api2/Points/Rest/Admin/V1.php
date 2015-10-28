@@ -10,10 +10,11 @@
 class Bilna_Points_Model_Api2_Points_Rest_Admin_V1 extends Bilna_Points_Model_Api2_Points_Rest
 {
 
-	protected function _retrieve()
+    protected function _retrieve()
     {
         $customerId = $this->getRequest()->getParam('id');
         $quoteId = $this->getRequest()->getParam('quote_id');
+        $customerIdDashboard = $this->getRequest()->getParam('customer_id_dashboard');
         $storeId = 1;
 
         try{

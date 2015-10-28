@@ -41,6 +41,10 @@
 						<route>/points/customer/:id/quote/:quote_id</route>
 						<action_type>entity</action_type>
 					</route_entity>
+					<route_entity_credit_dashboard>
+						<route>/points/customer/:customer_id_dashboard</route>
+						<action_type>entity</action_type>
+					</route_entity_credit_dashboard>
 					<route_collection>
 						<route>/points/customer</route>
 						<action_type>collection</action_type>
