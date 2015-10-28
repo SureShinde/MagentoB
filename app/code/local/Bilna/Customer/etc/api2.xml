@@ -322,6 +322,11 @@
                             <model>bilna_customer/api2_customer_review</model>
                             <working_model>customer/review</working_model>
                             <title>Customer Review</title>
+                            <attributes translate="review_id title detail" module="Bilna_Customer">
+                                    <review_id>ID</review_id>
+                                    <title>TITLE</title>
+                                    <detail>DETAIL</detail>
+                            </attributes>
                             <privileges>
                                 <admin>
                                     <create>1</create>

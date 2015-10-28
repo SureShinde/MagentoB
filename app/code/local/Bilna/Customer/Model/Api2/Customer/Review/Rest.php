@@ -41,6 +41,6 @@ abstract class Bilna_Customer_Model_Api2_Customer_Review_Rest extends Mage_Api2_
 //        
 //        $reviewsCollection = Mage::getModel('review/review')->load($customerId)->getCollection();
         
-        return $reviewsCollection;
+        return $reviewsCollection->getData();
     }
 }
