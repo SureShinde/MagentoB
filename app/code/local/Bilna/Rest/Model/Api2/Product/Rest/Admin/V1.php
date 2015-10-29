@@ -49,7 +49,7 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
             return $product;
         }
     }
-    
+
     /**
      * Retrieve product data
      *
@@ -79,6 +79,8 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
             $this->_critical(self::RESOURCE_NOT_FOUND);
         }
         
+        $attributeTextArr = array ('brand', 'brands', 'ship_by', 'sold_by');
+        $attributeDetailedInfoArr = array ('description', 'additional', 'how_to_use', 'nutrition_fact', 'size_chart', 'more_detail', 'additional_info');
         $result = array ();
         
         foreach ($this->_product->getData() as $k => $v) {
@@ -89,9 +91,6 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
                 
                 continue;
             }
-            
-            $attributeTextArr = array ('brand', 'brands', 'ship_by', 'sold_by');
-            $attributeDetailedInfoArr = array ('description', 'additional', 'how_to_use', 'nutrition_fact', 'size_chart', 'more_detail', 'additional_info');
 
             if (in_array($k, $attributeTextArr)) {
                 if ($k == 'brands') {
@@ -1531,5 +1530,55 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
         else {
             return ($selection->getIsDefault() && $selection->isSaleable());
         }
+    }
+    
+    public function retrieve($productId, $storeId) {
+        $product = Mage::helper('catalog/product')->getProduct($productId, $storeId);
+        $product = $this->_prepareProductForResponse($product, true);
+        
+        return $this->retrieveResponse($product);
+    }
+    
+    protected function retrieveResponse($product) {
+        $attributeAllowArr = array ('entity_id', 'group_price', 'tier_price');
+        $attributeTextArr = array ('brand', 'brands', 'ship_by', 'sold_by');
+        $attributeDetailedInfoArr = array ('description', 'additional', 'how_to_use', 'nutrition_fact', 'size_chart', 'more_detail', 'additional_info');
+        $result = array ();
+        
+        foreach ($product->getData() as $k => $v) {
+            if (!in_array($k, array_merge($attributeAllowArr, $attributeDetailedInfoArr))) {
+                continue;
+            }
+            
+            if (in_array($k, $attributeTextArr)) {
+                if ($k == 'brands') {
+                    $result[$k] = $this->_getBrandsUrl($v);
+                }
+                else {
+                    $result[$k] = $product->getAttributeText($k);
+                }
+            }
+            elseif (in_array($k, $attributeDetailedInfoArr)) {
+                $result['detailed_info'][$k] = $v;
+            }
+            elseif ($k == 'stock_data') {
+                continue;
+            }
+            else {
+                $result[$k] = $v;
+            }
+        }
+        
+        if ($result) {
+            $result['attribute_config'] = $this->_getAttributeConfig($product);
+            $result['attribute_bundle'] = $this->_getAttributeBundle($product);
+            $result['review'] = $this->_getProductReview($product->getId());
+            $result['images'] = array (
+                'default' => $this->_getImageResize($product, $product->getImage()),
+                'data' => $this->_getImage($product),
+            );
+        }
+        
+        return $result;
     }
 }

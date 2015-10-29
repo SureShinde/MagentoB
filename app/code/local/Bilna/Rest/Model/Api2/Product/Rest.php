@@ -187,10 +187,12 @@ abstract class Bilna_Rest_Model_Api2_Product_Rest extends Bilna_Rest_Model_Api2_
         }
 
         // Check display settings for customers & guests
-        if ($this->getApiUser()->getType() != Mage_Api2_Model_Auth_User_Admin::USER_TYPE) {
-            // check if product assigned to any website and can be shown
-            if ((!Mage::app()->isSingleStoreMode() && !count($_product->getWebsiteIds())) || !$productHelper->canShow($_product)) {
-                $this->_critical(self::RESOURCE_NOT_FOUND);
+        if (1 == 2) {
+            if ($this->getApiUser()->getType() != Mage_Api2_Model_Auth_User_Admin::USER_TYPE) {
+                // check if product assigned to any website and can be shown
+                if ((!Mage::app()->isSingleStoreMode() && !count($_product->getWebsiteIds())) || !$productHelper->canShow($_product)) {
+                    $this->_critical(self::RESOURCE_NOT_FOUND);
+                }
             }
         }
         
@@ -356,34 +358,38 @@ abstract class Bilna_Rest_Model_Api2_Product_Rest extends Bilna_Rest_Model_Api2_
         return Mage::getModel('core/store')->load(self::DEFAULT_STORE_ID);
     }
     
-    protected function _getImage() {
+    protected function _getImage($product = null) {
+        if (is_null($product)) {
+            $product = $this->_product;
+        }
+        
         $images = array ();
-        $galleryData = $this->_product->getData(self::GALLERY_ATTRIBUTE_CODE);
+        $galleryData = $product->getData(self::GALLERY_ATTRIBUTE_CODE);
         
         if (isset ($galleryData['images']) && is_array($galleryData['images'])) {
             foreach ($galleryData['images'] as $image) {
                 if (!$image['disabled']) {
-                    $images[] = $this->_formatImageData($image);
+                    $images[] = $this->_formatImageData($product, $image);
                 }
             }
         }
         return $images;
     }
 
-    protected function _formatImageData($image) {
+    protected function _formatImageData($product, $image) {
         $result = array (
             'id' => $image['value_id'],
             'label' => $image['label'],
             'position' => $image['position'],
             'exclude' => $image['disabled'],
             'url' => $this->_getMediaConfig()->getMediaUrl($image['file']),
-            'types' => $this->_getImageTypesAssignedToProduct($image['file']),
+            'types' => $this->_getImageTypesAssignedToProduct($product, $image['file']),
             'image_resize' => array (
                 'base' => $this->_getMediaConfig()->getMediaUrl($image['file']), //- 1400x1400
-                'thumbnail' => $this->_resizeImage($this->_product, $image['file'], $this->_imgThumbnail),
-                'horizontal' => $this->_resizeImage($this->_product, $image['file'], $this->_imgHorizontal),
-                'vertical' => $this->_resizeImage($this->_product, $image['file'], $this->_imgVertical),
-                'detail' => $this->_resizeImage($this->_product, $image['file'], $this->_imgDetail),
+                'thumbnail' => $this->_resizeImage($product, $image['file'], $this->_imgThumbnail),
+                'horizontal' => $this->_resizeImage($product, $image['file'], $this->_imgHorizontal),
+                'vertical' => $this->_resizeImage($product, $image['file'], $this->_imgVertical),
+                'detail' => $this->_resizeImage($product, $image['file'], $this->_imgDetail),
             ),
         );
         
@@ -396,11 +402,11 @@ abstract class Bilna_Rest_Model_Api2_Product_Rest extends Bilna_Rest_Model_Api2_
      * @param string $imageFile
      * @return array
      */
-    protected function _getImageTypesAssignedToProduct($imageFile) {
+    protected function _getImageTypesAssignedToProduct($product, $imageFile) {
         $types = array ();
         
-        foreach ($this->_product->getMediaAttributes() as $attribute) {
-            if ($this->_product->getData($attribute->getAttributeCode()) == $imageFile) {
+        foreach ($product->getMediaAttributes() as $attribute) {
+            if ($product->getData($attribute->getAttributeCode()) == $imageFile) {
                 $types[] = $attribute->getAttributeCode();
             }
         }
