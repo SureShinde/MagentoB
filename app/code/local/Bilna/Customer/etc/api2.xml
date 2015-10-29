@@ -322,10 +322,45 @@
                             <model>bilna_customer/api2_customer_review</model>
                             <working_model>customer/review</working_model>
                             <title>Customer Review</title>
-                            <attributes translate="review_id title detail" module="Bilna_Customer">
-                                    <review_id>ID</review_id>
-                                    <title>TITLE</title>
-                                    <detail>DETAIL</detail>
+                            <attributes translate="review_id created_at product_id product_name" module="Bilna_Customer">
+                                    <review_id>REVIEW ID</review_id>
+                                    <created_at>CREATED AT</created_at>
+                                    <product_id>PRODUCT ID</product_id>
+                                    <product_name>PRODUCT NAME</product_name>
+                            </attributes>
+                            <privileges>
+                                <admin>
+                                    <create>1</create>
+                                    <retrieve>1</retrieve>
+                                    <update>1</update>
+                                    <delete>1</delete>
+                                </admin>
+                                <customer>
+                                    <create>1</create>
+                                    <retrieve>1</retrieve>
+                                    <update>0</update>
+                                    <delete>0</delete>
+                                </customer>
+                            </privileges>                            
+                            <routes>
+                                <route_collection>
+                                    <route>/customers/:customer_id/reviews</route>
+                                    <action_type>collection</action_type>
+                                </route_collection>
+                            </routes>
+                            <versions>1</versions>
+                        </customer_review>
+                        
+                        <customer_reviewdetail translate="title" module="Bilna_Customer">
+                            <group>customer</group>
+                            <sort_order>110</sort_order>
+                            <model>bilna_customer/api2_customer_reviewdetail</model>
+                            <working_model>customer/reviewdetail</working_model>
+                            <title>Review Detail</title>
+                            <attributes translate="review_rating review_detail product" module="Bilna_Customer">
+                                    <review_rating>REVIEW RATING</review_rating>
+                                    <review_detail>REVIEW DETAIL</review_detail>
+                                    <product>PRODUCT</product>
                             </attributes>
                             <privileges>
                                 <admin>
@@ -343,17 +378,14 @@
                             </privileges>                            
                             <routes>
                                 <route_entity>
-                                    <route>/customers/review/:id</route>
+                                    <route>/customers/:customer_id/reviewdetail/:review_id</route>
                                     <action_type>entity</action_type>
                                 </route_entity>
-                                <route_collection>
-                                    <route>/customers/:customer_id/reviews</route>
-                                    <action_type>collection</action_type>
-                                </route_collection>
                             </routes>
                             <versions>1</versions>
-                        </customer_review>
+                        </customer_reviewdetail>
 
+                        
 		</resources>
 	</api2>
 </config>
