@@ -14,7 +14,9 @@ class GenerateProducts extends Mage_Shell_Abstract {
 
     protected $read = null;
     protected $write = null;
-    protected $tblPrefix = 'api_products_flat_';
+    protected $tblPrefix = 'api_product_flat_';
+    
+    protected $formatDate = 'd-M-Y H:i:s';
 
     protected function init() {
         Mage::app()->getStore()->setStoreId(self::DEFAULT_STORE_ID);
@@ -24,6 +26,8 @@ class GenerateProducts extends Mage_Shell_Abstract {
     }
 
     public function run() {
+        $start = date($this->formatDate);
+        $this->logProgress('START');
         $this->init();
         $products = $this->getProducts();
         
@@ -31,27 +35,29 @@ class GenerateProducts extends Mage_Shell_Abstract {
             $this->critical('Product not found.');
         }
         
-        $x = 0;
-        $limit = $this->getLimit();
-        $inserts = array ();
+        $success = 0;
+        $failed = 0;
         
-        foreach ($products as $product) {
-            if ($x == $limit) {
-                $this->critical('Proses dimari');
-            }
-            
+        foreach ($products as $row) {
+            $productId = $row->getId();
             $productApi = Mage::getModel('bilna_rest/api2_product_rest_admin_v1');
-            $_product = $productApi->retrieve($product->getId(), self::DEFAULT_STORE_ID);
+            $product = $productApi->retrieve($productId, self::DEFAULT_STORE_ID);
             
-            $inserts[] = $this->collectQueryInsert($_product);
-            $x++;
+            if ($this->processQueryInsert($product)) {
+                $this->logProgress(sprintf("Insert Product #%d success.", $productId));
+                $success++;
+            }
+            else {
+                $this->logProgress(sprintf("Insert Product #%d failed.", $productId));
+                $failed++;
+            }
         }
         
-        echo "setop dimari";
-        exit;
-        
-//        echo json_encode($inserts) . "\n";
-//        exit;
+        $stop = date($this->formatDate);
+        $this->logProgress('Affected rows: ' . $success);
+        $this->logProgress('Failed: ' . $failed);
+        $this->logProgress('STOP');
+        $this->logProgress(sprintf("Start at %s and stop at %s", $start, $stop));
     }
     
     protected function getProducts() {
@@ -60,7 +66,7 @@ class GenerateProducts extends Mage_Shell_Abstract {
             ->addStoreFilter();
         //$products->addAttributeToFilter('entity_id', 1718);
         //$products->addAttributeToFilter('entity_id', 18849);
-        $products->getSelect()->limit(5);
+        //$products->getSelect()->limit(150);
         
         if ($products->getSize() > 0) {
             return $products;
@@ -68,96 +74,63 @@ class GenerateProducts extends Mage_Shell_Abstract {
         
         return false;
     }
-    
-    protected function collectQueryInsert($product) {
-        $binds = array (
-            'entity_id' => $product['entity_id'],
-            'attribute_set_id' => $product['attribute_set_id'],
-            'type_id' => $product['type_id'],
-            'sku' => $product['sku'],
-            'name' => $product['name'],
-            'meta_title' => $product['meta_title'],
-            'meta_description' => $product['meta_description'],
-            'url_key' => $product['url_key'],
-            'custom_design' => $product['custom_design'],
-            'page_layout' => $product['page_layout'],
-            'options_container' => $product['options_container'],
-            'country_of_manufacture' => $product['country_of_manufacture'],
-            'msrp_enabled' => $product['msrp_enabled'],
-            'msrp_display_actual_price_type' => $product['msrp_display_actual_price_type'],
-            'gift_message_available' => $product['gift_message_available'],
-            'weight_contents' => $product['weight_contents'],
-            'milk_stage' => $product['milk_stage'],
-            'type' => $product['type'],
-            'supplier_name_neccessity' => $product['supplier_name_neccessity'],
-            'promo' => $product['promo'],
-            'aw_os_product_display' => $product['aw_os_product_display'],
-            'aw_os_product_position' => $product['aw_os_product_position'],
-            'aw_os_product_text' => $product['aw_os_product_text'],
-            'aw_os_category_display' => $product['aw_os_category_display'],
-            'aw_os_category_position' => $product['aw_os_category_position'],
-            'aw_os_category_text' => $product['aw_os_category_text'],
-            'aw_os_product_image_path' => $product['aw_os_product_image_path'],
-            'aw_os_category_image_path' => $product['aw_os_category_image_path'],
-            'netsuite_internal_id' => $product['netsuite_internal_id'],
-            'warranty_covers' => $product['warranty_covers'],
-            'price' => $product['price'],
-            'special_price' => $product['special_price'],
-            'cost' => $product['cost'],
-            'weight' => $product['weight'],
-            'msrp' => $product['msrp'],
-            'detailed_info' => $product['detailed_info'],
-            'short_description' => $product['short_description'],
-            'meta_keyword' => $product['meta_keyword'],
-            'custom_layout_update' => $product['custom_layout_update'],
-            'ingredients' => $product['ingredients'],
-            'service_center' => $product['service_center'],
-            'manufacturer' => $product['manufacturer'],
-            'status' => $product['status'],
-            'visibility' => $product['visibility'],
-            'enable_googlecheckout' => $product['enable_googlecheckout'],
-            'tax_class_id' => $product['tax_class_id'],
-            'brand' => $product['brand'],
-            'enable_zoom_plugin' => $product['enable_zoom_plugin'],
-            'milk_flavor' => $product['milk_flavor'],
-            'consigment' => $product['consigment'],
-            'confirm_image' => $product['confirm_image'],
-            'category_id_asc' => $product['category_id_asc'],
-            'brands' => $product['brands'],
-            'product_master' => $product['product_master'],
-            'expected_cost' => $product['expected_cost'],
-            'event_cost' => $product['event_cost'],
-            'confirm_desc' => $product['confirm_desc'],
-            'partnership_type' => $product['partnership_type'],
-            'product_category' => $product['product_category'],
-            'product_subcategory' => $product['product_subcategory'],
-            'ship_by' => $product['ship_by'],
-            'sold_by' => $product['sold_by'],
-            'exclusive_product' => $product['exclusive_product'],
-            'warranty_available' => $product['warranty_available'],
-            'warranty_period' => $product['warranty_period'],
-            'warranty_provider' => $product['warranty_provider'],
-            'special_from_date' => $product['special_from_date'],
-            'special_to_date' => $product['special_to_date'],
-            'news_from_date' => $product['news_from_date'],
-            'news_to_date' => $product['news_to_date'],
-            'custom_design_from' => $product['custom_design_from'],
-            'custom_design_to' => $product['custom_design_to'],
-            'last_netsuite_stock_update' => $product['last_netsuite_stock_update'],
-            'netsuite_last_import_date' => $product['netsuite_last_import_date'],
-            'event_start_date' => $product['event_start_date'],
-            'event_end_date' => $product['event_end_date'],
-            'group_price' => $product['group_price'],
-            'tier_price' => $product['tier_price'],
-        );
-        
-        echo json_encode($binds);exit;
-        
-        return $result;
-    }
 
     protected function processQueryInsert($product) {
-        $sql = sprintf("INSERT INTO `%s%d` VALUES ", $this->tblPrefix, self::DEFAULT_STORE_ID);
+        $sql = "INSERT INTO " . $this->tblPrefix . self::DEFAULT_STORE_ID . " (`entity_id`, `detailed_info`, `group_price`, `tier_price`, `attribute_config`, `attribute_bundle`, `review`, `images`) ";
+        $sql .= "VALUES (:entity_id, :detailed_info, :group_price, :tier_price, :attribute_config, :attribute_bundle, :review, :images)";
+        //$sql .= $this->collectQueryInsert($product);
+        
+        try {
+            $this->write->query($sql, $this->getBindsQueryInsert($product));
+            
+            return true;
+        }
+        catch (Exception $ex) {
+            $this->logProgress($ex->getMessage());
+            
+            return false;
+        }
+    }
+    
+    protected function getBindsQueryInsert($product) {
+        $entityId = $product['entity_id'] ? $product['entity_id'] : '';
+        $detailedInfo = $product['detailed_info'] ? json_encode($product['detailed_info']) : '';
+        $groupPrice = $product['group_price'] ? json_encode($product['group_price']) : '';
+        $tierPrice = $product['tier_price'] ? json_encode($product['tier_price']) : '';
+        $attributeConfig = $product['attribute_config'] ? json_encode($product['attribute_config']) : '';
+        $attributeBundle = $product['attribute_bundle'] ? json_encode($product['attribute_bundle']) : '';
+        $review = $product['review'] ? json_encode($product['review']) : '';
+        $images = $product['images'] ? json_encode($product['images']) : '';
+        
+        $binds = array (
+            'entity_id' => $entityId,
+            'detailed_info' => $detailedInfo,
+            'group_price' => $groupPrice,
+            'tier_price' => $tierPrice,
+            'attribute_config' => $attributeConfig,
+            'attribute_bundle' => $attributeBundle,
+            'review' => $review,
+            'images' => $images,
+        );
+        
+        return $binds;
+    }
+
+
+    protected function collectQueryInsert($product) {
+        $entityId = $product['entity_id'] ? $product['entity_id'] : '';
+        $detailedInfo = $product['detailed_info'] ? json_encode($product['detailed_info']) : '';
+        $groupPrice = $product['group_price'] ? json_encode($product['group_price']) : '';
+        $tierPrice = $product['tier_price'] ? json_encode($product['tier_price']) : '';
+        $attributeConfig = $product['attribute_config'] ? json_encode($product['attribute_config']) : '';
+        $attributeBundle = $product['attribute_bundle'] ? json_encode($product['attribute_bundle']) : '';
+        $review = $product['review'] ? json_encode($product['review']) : '';
+        $images = $product['images'] ? json_encode($product['images']) : '';
+                
+        $sql = sprintf(
+            "(%d, '%s', '%s', '%s', '%s', '%s', '%s', '%s')",
+            $entityId, $detailedInfo, $groupPrice, $tierPrice, $attributeConfig, $attributeBundle, $review, $images
+        );
         
         return $sql;
     }
@@ -171,8 +144,9 @@ class GenerateProducts extends Mage_Shell_Abstract {
     }
 
     protected function critical($message) {
-        echo $message . "\n";
-        exit;
+        $this->logProgress($message);
+        $this->logProgress('Stop Process because error.');
+        exit(1);
     }
 
     protected function logProgress($message) {

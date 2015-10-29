@@ -1540,13 +1540,13 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
     }
     
     protected function retrieveResponse($product) {
-        $attributeAllowArr = array ('entity_id', 'attribute_set_id', 'type_id', 'sku', 'name', 'meta_title', 'meta_description', 'url_key', 'custom_design', 'page_layout', 'options_container', 'country_of_manufacture', 'msrp_enabled', 'msrp_display_actual_price_type', 'gift_message_available', 'weight_contents', 'milk_stage', 'type', 'supplier_name_neccessity', 'promo', 'aw_os_product_display', 'aw_os_product_position', 'aw_os_product_text', 'aw_os_category_display', 'aw_os_category_position', 'aw_os_category_text', 'aw_os_product_image_path', 'aw_os_category_image_path', 'netsuite_internal_id', 'warranty_covers', 'price', 'special_price', 'cost', 'weight', 'msrp', 'detailed_info', 'short_description', 'meta_keyword', 'custom_layout_update', 'ingredients', 'service_center', 'manufacturer', 'status', 'visibility', 'enable_googlecheckout', 'tax_class_id', 'brand', 'enable_zoom_plugin', 'milk_flavor', 'consigment', 'confirm_image', 'category_id_asc', 'brands', 'product_master', 'expected_cost', 'event_cost', 'confirm_desc', 'partnership_type', 'product_category', 'product_subcategory', 'ship_by', 'sold_by', 'exclusive_product', 'warranty_available', 'warranty_period', 'warranty_provider', 'special_from_date', 'special_to_date', 'news_from_date', 'news_to_date', 'custom_design_from', 'custom_design_to', 'last_netsuite_stock_update', 'netsuite_last_import_date', 'event_start_date', 'event_end_date', 'group_price', 'tier_price', 'attribute_config', 'attribute_bundle', 'review', 'images');
+        $attributeAllowArr = array ('entity_id', 'group_price', 'tier_price');
         $attributeTextArr = array ('brand', 'brands', 'ship_by', 'sold_by');
         $attributeDetailedInfoArr = array ('description', 'additional', 'how_to_use', 'nutrition_fact', 'size_chart', 'more_detail', 'additional_info');
         $result = array ();
         
         foreach ($product->getData() as $k => $v) {
-            if (!in_array($k, $attributeAllowArr)) {
+            if (!in_array($k, array_merge($attributeAllowArr, $attributeDetailedInfoArr))) {
                 continue;
             }
             
