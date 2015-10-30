@@ -4,8 +4,9 @@
  *
  * @author Bilna Development Team <development@bilna.com>
  */
-abstract class Bilna_Customer_Model_Api2_Customer_Reviewdetail_Rest extends Bilna_Customer_Model_Api2_Customer_Reviewdetail
-{/**
+abstract class Bilna_Customer_Model_Api2_Customer_Bilnacredit_Rest extends Bilna_Customer_Model_Api2_Customer_Bilnacredit
+{
+    /**
      *
      */
     protected function _getCustomer($customerId)
@@ -20,28 +21,21 @@ abstract class Bilna_Customer_Model_Api2_Customer_Reviewdetail_Rest extends Biln
     }
 
     /**
-     * Retrieve detail of review rating from table: 
-     * - review detail
-     * - rating_option_vote
+     * Retrieve bilna credit balance from table: 
+     * - aw_points_summary
      *
      * @return array
      */
     protected function _retrieve()
     {
-        $reviewId = $this->getRequest()->getParam('review_id');
         $customerId = $this->_getCustomer($this->getRequest()->getParam('customer_id'));
+        $creditBalance = $this->getCreditBalance($customerId);
         
-        $reviewRating = $this->getRatingOptionRate($reviewId);
-        $reviewDetail = $this->getReviewDetail($reviewId, $customerId);
-        
-        $productId = $reviewRating['entity_pk_value'];
-        
-        $product = $this->getProductDetail($productId);
+        $creditHistory = $this->getCreditHistory($creditBalance['id']);
         
         return array(
-            'review_rating' => $reviewRating, 
-            'review_detail' => $reviewDetail,
-            'product' => $product
+            'credit_balance' => $creditBalance, 
+            'credit_history' => $creditHistory
         );
     }
 }

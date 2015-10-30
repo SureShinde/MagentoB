@@ -1,6 +1,6 @@
 <?php
 /**
- * Description of AddressEdit
+ * Description of Reviewdetail
  *
  * @author Bilna Development Team <development@bilna.com>
  * 
@@ -23,9 +23,9 @@ class Bilna_Customer_Model_Api2_Customer_Reviewdetail extends Mage_Api2_Model_Re
         //$collection->printLogQuery(true);
         //exit;
         
-        $rating = $collection->getData();
+        $data = $collection->getData();
         
-        return $rating[0];
+        return $data[0];
     }
     
     /** 
@@ -57,7 +57,7 @@ class Bilna_Customer_Model_Api2_Customer_Reviewdetail extends Mage_Api2_Model_Re
                         . (int)$customerId. ' LIMIT 1';
 	
 	/**
-	 * Execute the query and store the result in $sku
+	 * Execute the query and store the result in $collection
 	 */
 	$collection = $readConnection->fetchAll($query);
         

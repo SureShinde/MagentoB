@@ -1,18 +1,25 @@
 <?php
-
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
  * Description of Rest
  *
- * @author bilnadev04
+ * @author Bilna Development Team <development@bilna.com>
  */
 abstract class Bilna_Customer_Model_Api2_Customer_Review_Rest extends Bilna_Customer_Model_Api2_Customer_Review
 {
+    /**
+     *
+     */
+    protected function _getCustomer($customerId)
+    {
+        /** @var $customer Mage_Customer_Model_Customer */
+        $customer = Mage::getModel('customer/customer')
+            ->load($customerId);
+        if (!$customer->getId()) {
+            throw Mage::throwException('Customer Not Exists');
+        }
+        return $customerId;
+    }
+    
     /**
      * Retrieve collection review based on customer id from table:
      * - review (FYI: entity_pk_value is product id relation)
@@ -22,8 +29,10 @@ abstract class Bilna_Customer_Model_Api2_Customer_Review_Rest extends Bilna_Cust
      */
     protected function _retrieveCollection() 
     {
+        $customerId = $this->_getCustomer($this->getRequest()->getParam('customer_id'));
+        
         $reviewsCollection = Mage::getModel('review/review')->getCollection()
-                ->addCustomerFilter($this->getRequest()->getParam('customer_id'))
+                ->addCustomerFilter($customerId)
                 ->addStoreFilter(Mage::app()->getStore()->getId())
                 ->addStatusFilter(Mage_Review_Model_Review::STATUS_APPROVED)
                 ->setDateOrder();

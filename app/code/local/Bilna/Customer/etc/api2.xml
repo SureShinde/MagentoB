@@ -336,7 +336,7 @@
                                     <delete>1</delete>
                                 </admin>
                                 <customer>
-                                    <create>1</create>
+                                    <create>0</create>
                                     <retrieve>1</retrieve>
                                     <update>0</update>
                                     <delete>0</delete>
@@ -370,7 +370,7 @@
                                     <delete>1</delete>
                                 </admin>
                                 <customer>
-                                    <create>1</create>
+                                    <create>0</create>
                                     <retrieve>1</retrieve>
                                     <update>0</update>
                                     <delete>0</delete>
@@ -384,6 +384,39 @@
                             </routes>
                             <versions>1</versions>
                         </customer_reviewdetail>
+                        
+                        <customer_bilnacredit translate="title" module="Bilna_Customer">
+                            <group>customer</group>
+                            <sort_order>110</sort_order>
+                            <model>bilna_customer/api2_customer_bilnacredit</model>
+                            <working_model>customer/bilnacredit</working_model>
+                            <title>Bilna Credits</title>
+                            <attributes translate="credit_balance credit_history" module="Bilna_Customer">
+                                    <credit_balance>Credit Balance</credit_balance>
+                                    <credit_history>Can Use With Coupon</credit_history>
+                            </attributes>
+                            <privileges>
+                                <admin>
+                                    <create>1</create>
+                                    <retrieve>1</retrieve>
+                                    <update>1</update>
+                                    <delete>1</delete>
+                                </admin>
+                                <customer>
+                                    <create>0</create>
+                                    <retrieve>1</retrieve>
+                                    <update>0</update>
+                                    <delete>0</delete>
+                                </customer>
+                            </privileges>                            
+                            <routes>
+                                <route_entity>
+                                    <route>/customers/:customer_id/bilnacredit</route>
+                                    <action_type>entity</action_type>
+                                </route_entity>
+                            </routes>
+                            <versions>1</versions>
+                        </customer_bilnacredit>
 
                         
 		</resources>

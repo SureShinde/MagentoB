@@ -9,7 +9,8 @@ class Bilna_Rest_Model_Api2 extends Mage_Api2_Model_Resource {
     const DEFAULT_STORE_ID = 1;
     
     protected $_data = array ();
-    
+    protected $redisCache;
+
     public function __construct() {
         Mage::app()->getStore()->setStoreId(self::DEFAULT_STORE_ID);
     }
