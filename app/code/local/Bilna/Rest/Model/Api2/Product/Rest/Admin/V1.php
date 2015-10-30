@@ -1536,6 +1536,10 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
         $product = Mage::helper('catalog/product')->getProduct($productId, $storeId);
         $product = $this->_prepareProductForResponse($product, true);
         
+        if (!$product->getId()) {
+            return false;
+        }
+        
         return $this->retrieveResponse($product);
     }
     

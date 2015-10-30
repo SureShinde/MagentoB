@@ -7,13 +7,12 @@
  * @link http://mandagreen.com/showing-all-reviews-and-ratings-on-a-page-in-magento/
  * @link https://wiki.magento.com/display/m1wiki/Using+Magento+1.x+collections
  * @link http://devdocs.magento.com/guides/m1x/magefordev/mage-for-dev-8.html
+ * @link https://www.creare.co.uk/blog/magento/magento-product-collection-bible
  * 
  */
 
 class Bilna_Customer_Model_Api2_Customer_Reviewdetail extends Mage_Api2_Model_Resource
 {
-    protected $_product;
-    
     protected function getRatingOptionRate($reviewId) 
     {
         $collection = Mage::getModel('rating/rating_option_vote')->getCollection();
@@ -30,6 +29,7 @@ class Bilna_Customer_Model_Api2_Customer_Reviewdetail extends Mage_Api2_Model_Re
     
     /** 
      * @link http://fishpig.co.uk/magento/tutorials/direct-sql-queries/
+     * @link http://www.vortexcommerce.com/blog/magento-direct-sql
      * 
      * @param integer $reviewId
      * @param integer $customerId
@@ -37,31 +37,17 @@ class Bilna_Customer_Model_Api2_Customer_Reviewdetail extends Mage_Api2_Model_Re
      */
     protected function getReviewDetail($reviewId, $customerId) 
     {
+        $resource = Mage::getSingleton('core/resource');
+        $read = $resource->getConnection('core_read');  
         /**
-	 * Get the resource model
-	 */
-	$resource = Mage::getSingleton('core/resource');
-	
-	/**
-	 * Retrieve the read connection
-	 */
-	$readConnection = $resource->getConnection('core_read');
-
-	/**
 	 * Retrieve our table name
 	 */
 	$table = $resource->getTableName('review/review_detail');
-	
         $query = 'SELECT * FROM ' . $table . ' WHERE review_id = '
 			. (int)$reviewId . ' AND customer_id = '
                         . (int)$customerId. ' LIMIT 1';
-	
-	/**
-	 * Execute the query and store the result in $collection
-	 */
-	$collection = $readConnection->fetchAll($query);
         
-        return $collection[0];
+        return $read->fetchRow($query);
     }
     
     protected function getProductDetail($productId) 
@@ -88,9 +74,8 @@ class Bilna_Customer_Model_Api2_Customer_Reviewdetail extends Mage_Api2_Model_Re
                 $this->_critical(self::RESOURCE_NOT_FOUND);
             }
         }
-        $this->_product = $product;
         
-        return $this->_product->getData();
+        return $product->getData();
     }
 
 }

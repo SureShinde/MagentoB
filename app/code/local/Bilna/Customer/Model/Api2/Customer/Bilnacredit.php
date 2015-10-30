@@ -12,59 +12,46 @@
 
 class Bilna_Customer_Model_Api2_Customer_Bilnacredit extends Mage_Api2_Model_Resource
 {
+    /** 
+     * Get customer credit balance, based on:
+     * /app/design/frontend/base/default/template/aw_points/customer/mag14/reward/summary.phtml
+     * /app/code/local/AW/Points/Block/Customer/Reward/Summary.php
+     * 
+     * AW_Points_Block_Customer_Reward_Summary::_construct()
+     * 
+     * @param integer $customerId
+     * @return array
+     */
     protected function getCreditBalance($customerId = null) 
     {
-        /**
-	 * Get the resource model
-	 */
-	$resource = Mage::getSingleton('core/resource');
-	
-	/**
-	 * Retrieve the read connection
-	 */
-	$readConnection = $resource->getConnection('core_read');
-
-	/**
-	 * Retrieve our table name
-	 */
-	$table = $resource->getTableName('points/summary');
-	
-        $query = 'SELECT * FROM ' . $table . ' WHERE customer_id = '
-			. (int)$customerId . ' LIMIT 1';
-	
-	/**
-	 * Execute the query and store the result in $sku
-	 */
-	$collection = $readConnection->fetchAll($query);
-        
-        return $collection[0];
+        $summary = Mage::getModel('points/summary')
+                        ->loadByCustomerID($customerId);
+        return $summary->getData();
     }
     
-    protected function getCreditHistory($summaryId = null)
-    {
-        /**
-	 * Get the resource model
-	 */
-	$resource = Mage::getSingleton('core/resource');
-	
-	/**
-	 * Retrieve the read connection
-	 */
-	$readConnection = $resource->getConnection('core_read');
-
-	/**
-	 * Retrieve our table name
-	 */
-	$table = $resource->getTableName('points/transaction');
-	
-        $query = 'SELECT * FROM ' . $table . ' WHERE summary_id = '
-			. (int)$summaryId . ' ORDER BY id DESC';
-	
-	/**
-	 * Execute the query and store the result in $collection
-	 */
-	$collection = $readConnection->fetchAll($query);
+    /** 
+     * Get all customer credit history, based on:
+     * /app/design/frontend/base/default/template/aw_points/customer/mag14/reward/history.phtml
+     * /app/code/local/AW/Points/Block/Customer/Reward/History.php
+     * 
+     * AW_Points_Block_Customer_Reward_History::__construct()
+     * 
+     * @param integer $customerId
+     * @param integer $pageSize
+     * @param integer $curPage
+     * @return array
+     */
+    protected function getCreditHistory($customerId = null, $pageSize = 10, $curPage = 1)
+    {   
+        //load customer object
+        $customer = Mage::getModel('customer/customer')->load($customerId);
         
-        return $collection;
+        $collection = Mage::getModel('points/api')
+                        ->getCustomerTransactions($customer)
+                        ->setOrder('change_date', 'DESC')
+                        ->setPageSize($pageSize)
+                        ->setCurPage($curPage);
+        
+        return $collection->getData();
     }
 }
