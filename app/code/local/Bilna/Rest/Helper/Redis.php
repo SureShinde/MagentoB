@@ -21,10 +21,10 @@ class Bilna_Rest_Helper_Redis extends Mage_Core_Helper_Abstract {
         $host = '192.168.2.7';
         $port = 6379;
         $auth = '';
-        $db = 11;
+        $db = 13;
         
         $redis = new Redis();
-        $redis->connect($host, $port);
+        $redis->pconnect($host, $port);
         
         if ($auth) {
             $redis->auth($auth);
@@ -43,5 +43,13 @@ class Bilna_Rest_Helper_Redis extends Mage_Core_Helper_Abstract {
         }
 
         return $this->redis->hSet($key, $hashKey, $hashValue);
+    }
+    
+    public function removeCache($key, $hashKey) {
+        return $this->redis->hDel($key, $hashKey);
+    }
+
+    public function getCacheAll($key) {
+        return $this->redis->hGetAll($key);
     }
 }
