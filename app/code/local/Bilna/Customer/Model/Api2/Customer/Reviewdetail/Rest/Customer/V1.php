@@ -1,6 +1,6 @@
 <?php
 /**
- * Description of Rest
+ * Description of V1
  *
  * @author Bilna Development Team <development@bilna.com>
  */
