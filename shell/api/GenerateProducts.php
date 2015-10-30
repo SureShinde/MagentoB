@@ -6,6 +6,8 @@
  * @author Bilna Development Team <development@bilna.com>
  */
 
+ini_set('memory_limit', '-1');
+
 require_once dirname(__FILE__) . '/../abstract.php';
 
 class GenerateProducts extends Mage_Shell_Abstract {
@@ -17,12 +19,15 @@ class GenerateProducts extends Mage_Shell_Abstract {
     protected $tblPrefix = 'api_product_flat_';
     
     protected $formatDate = 'd-M-Y H:i:s';
+    
+    protected $redisHelper;
 
     protected function init() {
         Mage::app()->getStore()->setStoreId(self::DEFAULT_STORE_ID);
         
         $this->read = Mage::getSingleton('core/resource')->getConnection('core_read');
         $this->write = Mage::getSingleton('core/resource')->getConnection('core_write');
+        $this->redisHelper = Mage::helper('bilna_rest/redis');
     }
 
     public function run() {
@@ -31,26 +36,27 @@ class GenerateProducts extends Mage_Shell_Abstract {
         $this->init();
         $products = $this->getProducts();
         
-        if (!$products) {
-            $this->critical('Product not found.');
-        }
-        
         $success = 0;
         $failed = 0;
+        $x = 1;
         
-        foreach ($products as $row) {
-            $productId = $row->getId();
+        while ($row = $products->fetch()) {
+            $productId = $row['entity_id'];
             $productApi = Mage::getModel('bilna_rest/api2_product_rest_admin_v1');
             $product = $productApi->retrieve($productId, self::DEFAULT_STORE_ID);
             
-            if ($this->processQueryInsert($product)) {
-                $this->logProgress(sprintf("Insert Product #%d success.", $productId));
+            if ($this->processRedisInsert($product)) {
+            //if ($this->processQueryInsert($product)) {
+                $this->logProgress(sprintf("%d. Insert Product #%d success.", $x, $productId));
                 $success++;
             }
             else {
-                $this->logProgress(sprintf("Insert Product #%d failed.", $productId));
+                $this->logProgress(sprintf("%d. Insert Product #%d failed.", $x, $productId));
                 $failed++;
             }
+            
+            $x++;
+            unset ($row);
         }
         
         $stop = date($this->formatDate);
@@ -61,18 +67,26 @@ class GenerateProducts extends Mage_Shell_Abstract {
     }
     
     protected function getProducts() {
-        $products = Mage::getModel('catalog/product')
-            ->getCollection()
-            ->addStoreFilter();
-        //$products->addAttributeToFilter('entity_id', 1718);
-        //$products->addAttributeToFilter('entity_id', 18849);
-        //$products->getSelect()->limit(150);
+        $sql = "SELECT `entity_id` FROM `catalog_product_flat_1` ";
+        $query = $this->read->query($sql);
         
-        if ($products->getSize() > 0) {
-            return $products;
+        return $query;
+    }
+    
+    protected function processRedisInsert($product) {
+        $key = 'PRODUCT';
+        $hashKey = $product['entity_id'];
+        
+        try {
+            $this->redisHelper->saveCache($key, $hashKey, $product);
+            
+            return true;
         }
-        
-        return false;
+        catch (Exception $ex) {
+            $this->logProgress($ex->getMessage());
+            
+            return false;
+        }
     }
 
     protected function processQueryInsert($product) {
