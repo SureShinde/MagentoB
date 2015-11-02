@@ -336,12 +336,6 @@
                                     <update>1</update>
                                     <delete>1</delete>
                                 </admin>
-                                <customer>
-                                    <create>0</create>
-                                    <retrieve>1</retrieve>
-                                    <update>0</update>
-                                    <delete>0</delete>
-                                </customer>
                             </privileges>                            
                             <routes>
                                 <route_collection>
@@ -370,12 +364,6 @@
                                     <update>1</update>
                                     <delete>1</delete>
                                 </admin>
-                                <customer>
-                                    <create>0</create>
-                                    <retrieve>1</retrieve>
-                                    <update>0</update>
-                                    <delete>0</delete>
-                                </customer>
                             </privileges>                            
                             <routes>
                                 <route_entity>
@@ -403,12 +391,6 @@
                                     <update>1</update>
                                     <delete>1</delete>
                                 </admin>
-                                <customer>
-                                    <create>0</create>
-                                    <retrieve>1</retrieve>
-                                    <update>0</update>
-                                    <delete>0</delete>
-                                </customer>
                             </privileges>                            
                             <routes>
                                 <route_entity>
