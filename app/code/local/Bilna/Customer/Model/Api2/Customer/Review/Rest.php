@@ -48,7 +48,8 @@ abstract class Bilna_Customer_Model_Api2_Customer_Review_Rest extends Bilna_Cust
                     'review_id' => $item['review_id'], 
                     'created_at' => $item['created_at'], 
                     'product_id' => $product['entity_id'], 
-                    'product_name' => $product['name']
+                    'product_name' => $product['name'], 
+                    'product_url_path' => $product['url_path']
                 );
             }
         }

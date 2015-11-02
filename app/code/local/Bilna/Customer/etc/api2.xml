@@ -322,11 +322,12 @@
                             <model>bilna_customer/api2_customer_review</model>
                             <working_model>customer/review</working_model>
                             <title>Customer Review</title>
-                            <attributes translate="review_id created_at product_id product_name" module="Bilna_Customer">
+                            <attributes translate="review_id created_at product_id product_name product_url_path" module="Bilna_Customer">
                                     <review_id>REVIEW ID</review_id>
                                     <created_at>CREATED AT</created_at>
                                     <product_id>PRODUCT ID</product_id>
                                     <product_name>PRODUCT NAME</product_name>
+                                    <product_url_path>PRODUCT NAME</product_url_path>
                             </attributes>
                             <privileges>
                                 <admin>

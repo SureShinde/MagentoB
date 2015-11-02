@@ -53,18 +53,13 @@ class Bilna_Customer_Model_Api2_Customer_Reviewdetail extends Mage_Api2_Model_Re
     protected function getProductDetail($productId) 
     {
         /** @var $productHelper Mage_Catalog_Helper_Product */
+        $storeId = 1;
         $productHelper = Mage::helper('catalog/product');
-        $product = $productHelper->getProduct($productId, Mage::app()->getStore()->getId());
+        $product = $productHelper->getProduct($productId, $storeId);
         if (!($product->getId())) {
             $this->_critical(self::RESOURCE_NOT_FOUND);
         }
-        // check if product belongs to website current
-        if (Mage::app()->getStore()->getId()) {
-            $isValidWebsite = in_array(Mage::app()->getStore()->getWebsiteId(), $product->getWebsiteIds());
-            if (!$isValidWebsite) {
-                $this->_critical(self::RESOURCE_NOT_FOUND);
-            }
-        }
+        
         // Check display settings for customers & guests
         if ($this->getApiUser()->getType() != Mage_Api2_Model_Auth_User_Admin::USER_TYPE) {
             // check if product assigned to any website and can be shown
@@ -75,7 +70,10 @@ class Bilna_Customer_Model_Api2_Customer_Reviewdetail extends Mage_Api2_Model_Re
             }
         }
         
-        return $product->getData();
+        return array(
+            'data' => $product->getData(), 
+            'image' => str_replace('/cache/0/', '/cache/'.$storeId.'/', $product->getSmallImageUrl(125, 125))
+        );
     }
 
 }
