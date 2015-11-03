@@ -80,12 +80,17 @@ class AW_Affiliate_Model_Api2_Customer extends Mage_Api2_Model_Resource
             ->addDateFilter()
             ->setOrder('active_to ', 'DESC');
         
+        $_campaigns = array();
+        
         if($_campaignsCollection->getSize())
         {
-	        return $_campaignsCollection;
-        }
+	        foreach ($_campaignsCollection as $item) 
+	        {
+	        	$_campaigns[] = $item;
+	        }
+	    }
 
-        return false;
+        return $_campaigns;
     }
 
     protected function _getDefaultStore()

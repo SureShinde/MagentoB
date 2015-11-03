@@ -48,9 +48,10 @@
 						<create>1</create>
 					</admin>
 				</privileges>
-				<attributes translate="summary campaign" module="AW_Affiliate">
+				<attributes translate="summary campaign withdraw" module="AW_Affiliate">
 					<summary>Summary</summary>
 					<campaign>Campaign</campaign>
+					<withdraw>Withdraw</withdraw>
 				</attributes>
 				<routes>
 					<route_entity>
@@ -64,6 +65,29 @@
 				</routes>
 				<versions>1</versions>
 			</affiliate_customer>
+                        
+                        <affiliate_campaigndetail translate="title" module="AW_Affiliate">
+				<group>affiliate</group>
+				<sort_order>10011</sort_order>
+				<model>awaffiliate/api2_campaigndetail_view</model>
+				<title>Affiliate Campaign Detail</title>
+				<privileges>
+					<admin>
+						<retrieve>1</retrieve>
+						<create>1</create>
+					</admin>
+				</privileges>
+				<attributes translate="campaign_detail" module="AW_Affiliate">
+					<campaign_detail>Campaign Detail</campaign_detail>
+				</attributes>
+				<routes>
+					<route_entity>
+						<route>/affiliate/campaigndetail/:id</route>
+						<action_type>entity</action_type>
+					</route_entity>
+				</routes>
+				<versions>1</versions>
+			</affiliate_campaigndetail>
 		</resources>
 	</api2>
 </config>
