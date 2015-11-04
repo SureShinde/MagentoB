@@ -18,11 +18,16 @@ class Bilna_Customer_Model_Api2_Customer_Review_Rest_Admin_V1 extends Bilna_Cust
     {
         $customerId = $this->_getCustomer($this->getRequest()->getParam('customer_id'));
         
+        $limit = $this->getRequest()->getParam('limit');
+        $page = $this->getRequest()->getParam('page');
+        
         $reviewsCollection = Mage::getModel('review/review')->getCollection()
                 ->addCustomerFilter($customerId)
                 ->addStoreFilter(Mage::app()->getStore()->getId())
                 ->addStatusFilter(Mage_Review_Model_Review::STATUS_APPROVED)
-                ->setDateOrder();
+                ->setDateOrder()
+                ->setPageSize(($limit)?$limit:10)
+                ->setCurPage(($page)?$page:1);
         
         $review = $reviewsCollection->getData();
         $response = array();

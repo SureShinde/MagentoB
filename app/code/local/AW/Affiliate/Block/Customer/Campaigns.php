@@ -54,6 +54,21 @@ class AW_Affiliate_Block_Customer_Campaigns extends Mage_Core_Block_Template
         }
         return $this->_campaignsCollection;
     }
+    
+    public function getCampaignCollectionByCampaignId($campaignId = null)
+    {
+        if (!$this->_campaignsCollection instanceof AW_Affiliate_Model_Resource_Campaign_Collection) {
+            $__group = Mage::registry('current_affiliate')->getCustomerGroupId();
+            $this->_campaignsCollection = Mage::getModel('awaffiliate/campaign')->getCollection();
+            $this->_campaignsCollection
+                ->joinProfitCollection()
+                ->addFilterByWebsite(Mage::app()->getWebsite()->getId())
+                ->addFilterByCustomerGroup($__group)
+                ->addStatusFilter()
+                ->addFilterById($campaignId);
+        }
+        return $this->_campaignsCollection;
+    }
 
     public function setCampaignCollection(AW_Affiliate_Model_Resource_Campaign_Collection $collection)
     {
