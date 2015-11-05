@@ -69,7 +69,7 @@
                         <affiliate_campaigndetail translate="title" module="AW_Affiliate">
 				<group>affiliate</group>
 				<sort_order>10011</sort_order>
-				<model>awaffiliate/api2_campaigndetail_view</model>
+				<model>awaffiliate/api2_campaigndetail</model>
 				<title>Affiliate Campaign Detail</title>
 				<privileges>
 					<admin>
