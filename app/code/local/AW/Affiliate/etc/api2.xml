@@ -92,7 +92,7 @@
 				<versions>1</versions>
 			</affiliate_campaigndetail>
                         
-<!--                        <affiliate_producttrackinglink translate="title" module="AW_Affiliate">
+                        <affiliate_producttrackinglink translate="title" module="AW_Affiliate">
 				<group>affiliate</group>
 				<sort_order>10011</sort_order>
 				<model>awaffiliate/api2_producttrackinglink</model>
@@ -112,7 +112,7 @@
 					</route_entity>
 				</routes>
 				<versions>1</versions>
-			</affiliate_producttrackinglink>-->
+			</affiliate_producttrackinglink>
 		</resources>
 	</api2>
 </config>
