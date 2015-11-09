@@ -15,6 +15,7 @@ class AW_Affiliate_Model_Api2_Customer_View_Rest_Admin_V1 extends AW_Affiliate_M
 
         $campaignCollection = array();
         $withdrawCollection = array();
+        $affiliateCollection = array();
                 
         $blockCampaign = new AW_Affiliate_Block_Customer_Campaigns();
         $blockWithdraw = new AW_Affiliate_Block_Customer_Withdrawal();            
@@ -27,6 +28,7 @@ class AW_Affiliate_Model_Api2_Customer_View_Rest_Admin_V1 extends AW_Affiliate_M
     			$totalEarnings = $this->getCurrentBalance();
     			$lifeTimeEarnings = $this->getTotalAffiliated();
     			$campaignCollection = $this->getCampaignCollection();
+    			$affiliateId = $affiliate->getId();
     			$withdrawCollection = $blockWithdraw->getWithdrawalCollection();
     		}
 
@@ -68,9 +70,9 @@ class AW_Affiliate_Model_Api2_Customer_View_Rest_Admin_V1 extends AW_Affiliate_M
     			'total_earnings'    => $totalEarnings,
     			'life_time_earnings'=> $lifeTimeEarnings
     		),
+    		'affiliate_id' => $affiliateId,
     		'campaign' => $campaign,
     		'withdraw' => $withdraw
     	);
     }
-
 }

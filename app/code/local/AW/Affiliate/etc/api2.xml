@@ -48,10 +48,11 @@
 						<create>1</create>
 					</admin>
 				</privileges>
-				<attributes translate="summary campaign withdraw" module="AW_Affiliate">
+				<attributes translate="summary campaign withdraw affiliate_id" module="AW_Affiliate">
 					<summary>Summary</summary>
 					<campaign>Campaign</campaign>
 					<withdraw>Withdraw</withdraw>
+                                        <affiliate_id>Affiliate Id</affiliate_id>
 				</attributes>
 				<routes>
 					<route_entity>
@@ -77,8 +78,10 @@
 						<create>1</create>
 					</admin>
 				</privileges>
-				<attributes translate="campaign_detail" module="AW_Affiliate">
+				<attributes translate="campaign_detail width_campaign_field category_to_generate" module="AW_Affiliate">
 					<campaign_detail>Campaign Detail</campaign_detail>
+                                        <width_campaign_field>Width Campaign Field</width_campaign_field>
+                                        <category_to_generate>Category To Generate</category_to_generate>
 				</attributes>
 				<routes>
 					<route_entity>
@@ -88,6 +91,28 @@
 				</routes>
 				<versions>1</versions>
 			</affiliate_campaigndetail>
+                        
+                        <affiliate_producttrackinglink translate="title" module="AW_Affiliate">
+				<group>affiliate</group>
+				<sort_order>10011</sort_order>
+				<model>awaffiliate/api2_producttrackinglink</model>
+				<title>Product Tracking Link</title>
+				<privileges>
+					<admin>
+						<retrieve>1</retrieve>
+					</admin>
+				</privileges>
+				<attributes translate="html" module="AW_Affiliate">
+					<html>Html</html>
+                                </attributes>
+				<routes>
+					<route_entity>
+						<route>/affiliate/producttrackinglink</route>
+						<action_type>entity</action_type>
+					</route_entity>
+				</routes>
+				<versions>1</versions>
+			</affiliate_producttrackinglink>
 		</resources>
 	</api2>
 </config>
