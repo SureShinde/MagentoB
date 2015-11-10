@@ -317,6 +317,22 @@ class Bilna_Pricevalidation_Adminhtml_PricevalidationController extends Mage_Adm
                                                     $updateProduct->setSpecialFromDate(date('m/d/Y', strtotime($cleanData[$i-1]['special_to_date'])));
                                                     $updateProduct->setSpecialToDateIsFormated(true);
                                                 }
+                                                if((in_array('expected_cost', $fieldList)) && !is_null($cleanData[$i-1]['expected_cost'])) {
+                                                    $expectedCost = (int)floatval($cleanData[$i-1]['expected_cost']);
+                                                    $product->setExpectedCost($expectedCost);
+                                                }
+                                                if((in_array('event_cost', $fieldList)) && !is_null($cleanData[$i-1]['event_cost'])) {
+                                                    $eventCost = (int)floatval($cleanData[$i-1]['event_cost']);
+                                                    $product->setEventCost($eventCost);
+                                                }
+                                                if((in_array('event_start_date', $fieldList)) && !is_null($cleanData[$i-1]['event_start_date'])) {
+                                                    $product->setEventStartDate(date('m/d/Y', strtotime($cleanData[$i-1]['event_start_date'])));
+                                                    $product->setEventStartDateIsFormated(true);
+                                                }
+                                                if((in_array('event_end_date', $fieldList)) && !is_null($cleanData[$i-1]['event_end_date'])) {
+                                                    $product->setEventEndDate(date('m/d/Y', strtotime($cleanData[$i-1]['event_end_date'])));
+                                                    $product->setEventEndDateIsFormated(true);
+                                                }
                                                 if((in_array('enabled', $fieldList)) && !is_null($cleanData[$i-1]['enabled'])) {
                                                     $storeId = Mage::app()->getStore()->getStoreId();
                                                     if(strtolower($cleanData[$i-1]['enabled']) == 'yes') {
@@ -513,6 +529,22 @@ class Bilna_Pricevalidation_Adminhtml_PricevalidationController extends Mage_Adm
                                                 if((in_array('special_to_date', $fieldList)) && !is_null($cleanData[$i-1]['special_to_date'])) {
                                                     $updateProduct->setSpecialFromDate(date('m/d/Y', strtotime($cleanData[$i-1]['special_to_date'])));
                                                     $updateProduct->setSpecialToDateIsFormated(true);
+                                                }
+                                                if((in_array('expected_cost', $fieldList)) && !is_null($cleanData[$i-1]['expected_cost'])) {
+                                                    $expectedCost = (int)floatval($cleanData[$i-1]['expected_cost']);
+                                                    $product->setExpectedCost($expectedCost);
+                                                }
+                                                if((in_array('event_cost', $fieldList)) && !is_null($cleanData[$i-1]['event_cost'])) {
+                                                    $eventCost = (int)floatval($cleanData[$i-1]['event_cost']);
+                                                    $product->setEventCost($eventCost);
+                                                }
+                                                if((in_array('event_start_date', $fieldList)) && !is_null($cleanData[$i-1]['event_start_date'])) {
+                                                    $product->setEventStartDate(date('m/d/Y', strtotime($cleanData[$i-1]['event_start_date'])));
+                                                    $product->setEventStartDateIsFormated(true);
+                                                }
+                                                if((in_array('event_end_date', $fieldList)) && !is_null($cleanData[$i-1]['event_end_date'])) {
+                                                    $product->setEventEndDate(date('m/d/Y', strtotime($cleanData[$i-1]['event_end_date'])));
+                                                    $product->setEventEndDateIsFormated(true);
                                                 }
                                                 if((in_array('enabled', $fieldList)) && !is_null($cleanData[$i-1]['enabled'])) {
                                                     $storeId = Mage::app()->getStore()->getStoreId();

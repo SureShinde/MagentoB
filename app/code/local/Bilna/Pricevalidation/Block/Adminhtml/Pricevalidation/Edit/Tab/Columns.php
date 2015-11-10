@@ -60,6 +60,26 @@ class Bilna_Pricevalidation_Block_Adminhtml_Pricevalidation_Edit_Tab_Columns
                         'backend_type' => 'date',
                         'is_required' => 0
                     ),
+                    'expected_cost' => array(
+                        'attribute_code' => 'expected_cost',
+                        'backend_type' => 'int',
+                        'is_required' => 0
+                    ),
+                    'event_cost' => array(
+                        'attribute_code' => 'event_cost',
+                        'backend_type' => 'int',
+                        'is_required' => 0
+                    ),
+                    'event_start_date' => array(
+                        'attribute_code' => 'event_start_date',
+                        'backend_type' => 'date',
+                        'is_required' => 0
+                    ),
+                    'event_end_date' => array(
+                        'attribute_code' => 'event_end_date',
+                        'backend_type' => 'date',
+                        'is_required' => 0
+                    ),
                     'enabled' => array(
                         'attribute_code' => 'status',
                         'backend_type' => 'string',
