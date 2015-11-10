@@ -13,7 +13,7 @@
             <action method="addCss"><stylesheet>css/megamenu-3.css</stylesheet></action>
             <action method="addCss"><stylesheet>css/general-2.css</stylesheet></action>
             <action method="addCss"><stylesheet>css/checkout-2.css</stylesheet></action>
-            <action method="addCss"><stylesheet>css/header-4.css</stylesheet></action>
+            <action method="addCss"><stylesheet>css/header-3.css</stylesheet></action>
             <action method="addCss"><stylesheet>css/footer-2.css</stylesheet></action>
             <action method="addCss"><stylesheet>css/font-awesome.min.css</stylesheet></action>
             <action method="addCss"><stylesheet>css/additional-style-blog.css</stylesheet></action>
