@@ -90,11 +90,11 @@
             </action>
         </reference>
         
-        <reference name='sales.order.info.buttons'>  
+        <!--<reference name='sales.order.info.buttons'>
             <action method='setTemplate'>
-                <template>paymethod/sales/order/info/buttons.phtml</template>
+                <template>sales/order/info/buttons.phtml</template>
             </action>
-        </reference>
+        </reference>-->
     </sales_order_view>
     
     <!--customer_account_index>
