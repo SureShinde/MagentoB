@@ -9,7 +9,19 @@
  */
 class AW_Affiliate_Model_Api2_Producttrackinglink_Rest_Admin_V1 extends AW_Affiliate_Model_Api2_Producttrackinglink_Rest
 {   
-    protected $_storeId = 1;
+    
+    const DEFAULT_STORE_ID = 1;
+    
+    protected $_data = array ();
+    protected $redisCache;
+
+    public function __construct() {
+        Mage::app()->getStore()->setStoreId(self::DEFAULT_STORE_ID);
+    }
+    
+    protected function _getStore() {
+        return Mage::app()->getStore();
+    }
     
     protected function _retrieve()
     {
@@ -34,10 +46,12 @@ class AW_Affiliate_Model_Api2_Producttrackinglink_Rest_Admin_V1 extends AW_Affil
             'category_option_to_generate' => $categoryOptionToGenerate
         );
         
-        //$respon = $this->_generateHtmlLink($params);
-        
         return array(
-            'html' => $this->_productsScript($params)
+            'params' => $params, 
+            'logo' => Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN).'images/logo.png', 
+            'free_shipping_affiliate' => Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN).'images/free-shipping-affiliate.png', 
+            //'tracking_link' => $this->_generateHtmlLink($params), 
+            'products' => $this->_productsScript($params)
         );
     }
     
@@ -57,13 +71,15 @@ class AW_Affiliate_Model_Api2_Producttrackinglink_Rest_Admin_V1 extends AW_Affil
     private function _generateHtmlLink($data) {
         $url = Mage::getBaseUrl().'affiliate/customer_affiliate/productsScript/campaign_id/'.$data['campaign_id'].'/affiliate_id/'.$data['affiliate_id'].'/traffic_source_generate/'.$data['traffic_source_generate'].'/width_to_generate/'.$data['width_to_generate'].'/category_to_generate/'.$data['category_to_generate'].'/store_id/'.$data['store_id'].'/category_option_to_generate/'.$data['category_option_to_generate'];
         
-        return file_get_contents($url);
+        //return file_get_contents($url);
+        $dimension = explode('x', $data['width_to_generate']);
+        return '<iframe width="'.$dimension[0].'" scrolling="no" height="'.$dimension[1].'" frameborder="0" src="'.$url.'"></iframe>';
     }
     
     private function _productsScript($data = array())
     {
         $storeId = $data['store_id'];
-        $this->_storeId = $storeId;
+        
         /*later we can change to DB, but we need it ?????*/
         switch ($data['width_to_generate']) {
             case '299x250':
@@ -152,7 +168,7 @@ class AW_Affiliate_Model_Api2_Producttrackinglink_Rest_Admin_V1 extends AW_Affil
                         $p['img']  = '<img src="'.Mage::helper('catalog/image')->init($_product, 'small_image')->resize(135).'" width="'.$width.'" height="'.$height.'" style="z-index: 200" />';//Mage::helper('catalog/image')->init($_product, 'small_image')->resize(135);
                         $p['name'] = $helper->stripTags($_product->getName());
                         //$p[$_product->getId()]['a']    = '<a href="'. $resultUrl.'" class="product-image"><img src="http://demo.mage-world.com/1501/media/catalog/product/cache/1/thumbnail/44x44/9df78eab33525d08d6e5fb8d27136e95/h/t/htc-touch-diamond.jpg" width="44" height="44" /></a>';
-                        $p['price'] = $this->getPriceEachProduct($_product); //$_product->getPrice();//$helper->getPriceHtml($_product->getPrice()); //$this->getLayout()->getBlock('product.info')->getPriceHtml($_product, true);/   
+                        $p['price'] = $this->_getPriceEachProduct($_product); //$_product->getPrice();//$helper->getPriceHtml($_product->getPrice()); //$this->getLayout()->getBlock('product.info')->getPriceHtml($_product, true);/   
                         $x[] = $p;
                     }
                     $messages[] = 'success';
@@ -163,10 +179,40 @@ class AW_Affiliate_Model_Api2_Producttrackinglink_Rest_Admin_V1 extends AW_Affil
                 break;
             
             case 2: /*case for new products*/
-                //problem with output query
-                /**
-                 * $collection = $this->_getNewProductCollection($data['category_to_generate'], $limit);
+                $collection = $this->_getNewProductCollection($limit);
                 
+                if($collection->count())
+                {
+                    foreach ($collection as $_product)
+                    {
+                        $baseUrl = trim($_product->getProductUrl());
+                        $params = array(
+                            AW_Affiliate_Helper_Affiliate::CAMPAIGN_REQUEST_KEY => $data['campaign_id'], //$campaign->getId(),
+                            AW_Affiliate_Helper_Affiliate::AFFILIATE_REQUEST_KEY => $data['affiliate_id'], //$affiliate->getId(),
+                            AW_Affiliate_Helper_Affiliate::AFFILIATE_TRAFFIC_SOURCE => $trafficId
+                        );
+                        $resultUrl = Mage::helper('awaffiliate/affiliate')->generateAffiliateLink($baseUrl, $params);
+                        
+                        //$p[$_product->getId()]['a']    = '<a href="'. $resultUrl.'" class="product-image"><img src="'.Mage::helper('catalog/image')->init($_product, 'small_image')->resize(135).'" width="44" height="44" /></a>';
+                        $p['id']   = $_product->getId();
+                        $p['a']    = $resultUrl;
+                        $p['img']  = '<img src="'.Mage::helper('catalog/image')->init($_product, 'small_image')->resize(135).'" width="'.$width.'" height="'.$height.'" style="z-index: 200" />';//Mage::helper('catalog/image')->init($_product, 'small_image')->resize(135);
+                        $p['name'] = $helper->stripTags($_product->getName());
+                        //$p[$_product->getId()]['a']    = '<a href="'. $resultUrl.'" class="product-image"><img src="http://demo.mage-world.com/1501/media/catalog/product/cache/1/thumbnail/44x44/9df78eab33525d08d6e5fb8d27136e95/h/t/htc-touch-diamond.jpg" width="44" height="44" /></a>';
+                        $p['price'] = $this->_getPriceEachProduct($_product); //$_product->getPrice();//$helper->getPriceHtml($_product->getPrice()); //$this->getLayout()->getBlock('product.info')->getPriceHtml($_product, true);/   
+                        $x[] = $p;
+                        
+                    }
+                    $messages[] = 'success';
+                }else{
+
+                    $messages[] = 'fail';
+                }
+                break;
+            
+            case 3: /*case by category products*/
+                $collection = $this->_getCategoryProductCollection($data['category_option_to_generate'], $storeId, $limit);
+
                 if($collection->count())
                 {
                     foreach ($collection as $_product)
@@ -183,68 +229,6 @@ class AW_Affiliate_Model_Api2_Producttrackinglink_Rest_Admin_V1 extends AW_Affil
                         $p['id']   = $_product->getId();
                         $p['a']    = $resultUrl;
                         $p['img']  = '<img src="'.Mage::helper('catalog/image')->init($_product, 'small_image')->resize(135).'" width="'.$width.'" height="'.$height.'" style="z-index: 200" />';//Mage::helper('catalog/image')->init($_product, 'small_image')->resize(135);
-                        $p['name'] = $helper->stripTags($_product->getName());
-                        //$p[$_product->getId()]['a']    = '<a href="'. $resultUrl.'" class="product-image"><img src="http://demo.mage-world.com/1501/media/catalog/product/cache/1/thumbnail/44x44/9df78eab33525d08d6e5fb8d27136e95/h/t/htc-touch-diamond.jpg" width="44" height="44" /></a>';
-                        $p['price'] = $this->getPriceEachProduct($_product); //$_product->getPrice();//$helper->getPriceHtml($_product->getPrice()); //$this->getLayout()->getBlock('product.info')->getPriceHtml($_product, true);/   
-                        $x[] = $p;
-                    }
-                    $messages[] = 'success';
-                }else{
-
-                    $messages[] = 'fail';
-                }
-                break;
-                 * 
-                 */
-                
-                $collection = $this->_getNewProductCollection($data['category_to_generate'], $limit);
-                
-                if(!empty($collection))
-                {
-                    foreach ($collection as $_product)
-                    {
-                        $baseUrl = trim($_product['url_key']);
-                        $params = array(
-                            AW_Affiliate_Helper_Affiliate::CAMPAIGN_REQUEST_KEY => $data['campaign_id'], //$campaign->getId(),
-                            AW_Affiliate_Helper_Affiliate::AFFILIATE_REQUEST_KEY => $data['affiliate_id'], //$affiliate->getId(),
-                            AW_Affiliate_Helper_Affiliate::AFFILIATE_TRAFFIC_SOURCE => $trafficId
-                        );
-                        $resultUrl = Mage::helper('awaffiliate/affiliate')->generateAffiliateLink($baseUrl, $params);
-
-                        //$p[$_product->getId()]['a']    = '<a href="'. $resultUrl.'" class="product-image"><img src="'.Mage::helper('catalog/image')->init($_product, 'small_image')->resize(135).'" width="44" height="44" /></a>';
-                        $p['id']   = $_product['entity_id'];
-                        $p['a']    = $resultUrl;
-                        $p['img']  = '<img src="'.str_replace('/cache/0/', '/cache/'.$this->_storeId.'/', $_product['small_image']).'" width="'.$width.'" height="'.$height.'" style="z-index: 200" />';//Mage::helper('catalog/image')->init($_product, 'small_image')->resize(135);
-                        $p['name'] = strip_tags($_product['name']);
-                        //$p[$_product->getId()]['a']    = '<a href="'. $resultUrl.'" class="product-image"><img src="http://demo.mage-world.com/1501/media/catalog/product/cache/1/thumbnail/44x44/9df78eab33525d08d6e5fb8d27136e95/h/t/htc-touch-diamond.jpg" width="44" height="44" /></a>';
-                        $p['price'] = $this->_getPriceEachProduct($_product['price']); //$_product->getPrice();//$helper->getPriceHtml($_product->getPrice()); //$this->getLayout()->getBlock('product.info')->getPriceHtml($_product, true);/   
-                        $x[] = $p;
-                    }
-                    $messages[] = 'success';
-                }else{
-
-                    $messages[] = 'fail';
-                }
-                break;
-            
-            case 3: /*case by category products*/
-                $collection = $this->_getCategoryProductCollection($data['category_option_to_generate'], $storeId, $limit);
-                if($collection->count())
-                {
-                    foreach ($collection as $_product)
-                    {
-                        $baseUrl = trim($_product->getProductUrl());
-                        $params = array(
-                            AW_Affiliate_Helper_Affiliate::CAMPAIGN_REQUEST_KEY => $data['campaign_id'], //$campaign->getId(),
-                            AW_Affiliate_Helper_Affiliate::AFFILIATE_REQUEST_KEY => $data['affiliate_id'], //$affiliate->getId(),
-                            AW_Affiliate_Helper_Affiliate::AFFILIATE_TRAFFIC_SOURCE => $trafficId
-                        );
-                        $resultUrl = Mage::helper('awaffiliate/affiliate')->generateAffiliateLink($baseUrl, $params);
-
-                        //$p[$_product->getId()]['a']    = '<a href="'. $resultUrl.'" class="product-image"><img src="'.Mage::helper('catalog/image')->init($_product, 'small_image')->resize(135).'" width="44" height="44" /></a>';
-                        $p['id']   = $_product->getId();
-                        $p['a']    = $resultUrl;
-                        $p['img']  = '<img src="'.Mage::helper('catalog/image')->init($_product['small_image'], 'small_image')->resize(135).'" width="'.$width.'" height="'.$height.'" style="z-index: 200" />';//Mage::helper('catalog/image')->init($_product, 'small_image')->resize(135);
                         $p['name'] = $helper->stripTags($_product->getName());
                         //$p[$_product->getId()]['a']    = '<a href="'. $resultUrl.'" class="product-image"><img src="http://demo.mage-world.com/1501/media/catalog/product/cache/1/thumbnail/44x44/9df78eab33525d08d6e5fb8d27136e95/h/t/htc-touch-diamond.jpg" width="44" height="44" /></a>';
                         $p['price'] = $this->_getPriceEachProduct($_product); //$_product->getPrice();//$helper->getPriceHtml($_product->getPrice()); //$this->getLayout()->getBlock('product.info')->getPriceHtml($_product, true);/   
@@ -264,74 +248,24 @@ class AW_Affiliate_Model_Api2_Producttrackinglink_Rest_Admin_V1 extends AW_Affil
         return $x;
     }
     
-    private function _getNewProductCollection($categoryToGenerate, $limit)
+    private function _getNewProductCollection($limit)
     {
-        //problem with output query
-        /**
-         * SELECT `e`.*, `cat_index`.`position` AS `cat_index_position`, `price_index`.`price`, `price_index`.`tax_class_id`, `price_index`.`final_price`, IF(price_index.tier_price IS NOT NULL, LEAST(price_index.min_price, price_index.tier_price), price_index.min_price) AS `minimal_price`, `price_index`.`min_price`, `price_index`.`max_price`, `price_index`.`tier_price`, `at_news_from_date`.`value` AS `news_from_date` FROM `catalog_product_entity` AS `e`
-            INNER JOIN `catalog_category_product_index` AS `cat_index` ON cat_index.product_id=e.entity_id AND cat_index.store_id=0 AND cat_index.visibility IN(3, 2, 4) AND cat_index.category_id = '0'
-            INNER JOIN `catalog_product_index_price` AS `price_index` ON price_index.entity_id = e.entity_id AND price_index.website_id = '0' AND price_index.customer_group_id = 0
-            INNER JOIN `catalog_product_entity_datetime` AS `at_news_from_date` ON (`at_news_from_date`.`entity_id` = `e`.`entity_id`) AND (`at_news_from_date`.`attribute_id` = '93') AND (`at_news_from_date`.`store_id` = 1) WHERE (at_news_from_date.value <= '2015-11-09 14:53:07') ORDER BY `at_news_from_date`.`value` desc LIMIT 6;
-         */
         $todayDate  = Mage::app()->getLocale()->date()->toString(Varien_Date::DATETIME_INTERNAL_FORMAT);
-        $visibleSiteId = implode(',', Mage::getSingleton('catalog/product_visibility')->getVisibleInSiteIds());
-        
-        /*
         $collection = Mage::getResourceModel('catalog/product_collection');
+        
         $collection->setVisibility(Mage::getSingleton('catalog/product_visibility')->getVisibleInSiteIds());
-        $store = Mage::getModel('core/store')
-                ->setId(1)
-                ->setCode('default');
         $collection = $this->_addProductAttributesAndPrices($collection)
-            ->addStoreFilter($store)
+            ->addStoreFilter(self::DEFAULT_STORE_ID)
             ->addAttributeToFilter('news_from_date', array('date' => true, 'to' => $todayDate))
             ->addAttributeToSort('news_from_date', 'desc');
         $collection->getSelect()->limit( $limit ); 
-        
         //$collection->printLogQuery(true);
-        */
+        //exit;
         
-        $resource = Mage::getSingleton('core/resource');
-        $read = $resource->getConnection('core_read');  
-        /**
-	 * Retrieve table name
-	 */
-	$table = 'catalog_product_flat_'.$this->_storeId;
-        $query = "SELECT 1 AS `status`, `e`.`entity_id`, `e`.`type_id`, `e`.`attribute_set_id`, "
-                . "`cat_index`.`position` AS `cat_index_position`, `price_index`.`price`, "
-                . "`price_index`.`tax_class_id`, `price_index`.`final_price`, "
-                . "IF(price_index.tier_price IS NOT NULL, "
-                . "LEAST(price_index.min_price, price_index.tier_price), price_index.min_price) "
-                . "AS `minimal_price`, `price_index`.`min_price`, `price_index`.`max_price`, "
-                . "`price_index`.`tier_price`, `e`.`name`, `e`.`short_description`, "
-                . "`e`.`price`, `e`.`special_price`, `e`.`special_from_date`, "
-                . "`e`.`special_to_date`, `e`.`small_image`, `e`.`thumbnail`, "
-                . "`e`.`news_from_date`, `e`.`news_to_date`, `e`.`url_key`, "
-                . "`e`.`required_options`, `e`.`image_label`, `e`.`small_image_label`, "
-                . "`e`.`thumbnail_label`, `e`.`created_at`, `e`.`msrp_enabled`, "
-                . "`e`.`msrp_display_actual_price_type`, `e`.`msrp`, `e`.`tax_class_id`, "
-                . "`e`.`price_type`, `e`.`weight_type`, `e`.`price_view`, `e`.`shipment_type`, "
-                . "`e`.`links_purchased_separately`, `e`.`links_exist`, "
-                . "`e`.`smd_colorswatch_product_list`, `e`.`nipple_size`, `e`.`nipple_size_value`, "
-                . "`e`.`volume_weight`, `e`.`aw_os_product_display`, `e`.`aw_os_product_position`, "
-                . "`e`.`aw_os_product_image`, `e`.`aw_os_product_text`, `e`.`aw_os_category_display`, "
-                . "`e`.`aw_os_category_position`, `e`.`aw_os_category_image`, "
-                . "`e`.`aw_os_category_text`, `e`.`aw_os_product_image_path`, "
-                . "`e`.`aw_os_category_image_path` "
-                . "FROM `".$table."` AS `e` "
-                . "INNER JOIN `catalog_category_product_index` AS `cat_index` "
-                . "ON cat_index.product_id=e.entity_id AND cat_index.store_id='".$this->_storeId."' "
-                . "AND cat_index.visibility "
-                . "IN(".$visibleSiteId.") "
-                . "AND cat_index.category_id = '".$categoryToGenerate."' "
-                . "INNER JOIN `catalog_product_index_price` AS `price_index` "
-                . "ON price_index.entity_id = e.entity_id AND price_index.website_id = '1' "
-                . "AND price_index.customer_group_id = 0 "
-                . "WHERE (e.news_from_date <= '".$todayDate."') "
-                . "ORDER BY `e`.`news_from_date` desc "
-                . "LIMIT ".$limit.";";
+        //var_dump(json_encode($collection));die;
+        //$this->setProductCollection($collection);
         
-        return $read->fetchAll($query);
+        return $collection;
     }
 
     /**
@@ -354,11 +288,8 @@ class AW_Affiliate_Model_Api2_Producttrackinglink_Rest_Admin_V1 extends AW_Affil
 
     private function _getBestProductCollection($campaign_id, $limit)
     {
-        //$todayDate  = Mage::app()->getLocale()->date()->toString(Varien_Date::DATETIME_INTERNAL_FORMAT);
-
         $collection = Mage::getResourceModel('catalog/product_collection');
-        //$collection->setVisibility(Mage::getSingleton('catalog/product_visibility')->getVisibleInSiteIds());
-
+        
         $collection->getSelect()
             ->joinInner(
             array( 'prod_index' => Mage::getSingleton('core/resource')->getTableName('awaffiliate/products') ),
@@ -367,10 +298,8 @@ class AW_Affiliate_Model_Api2_Producttrackinglink_Rest_Admin_V1 extends AW_Affil
 
         $collection = $this->_addProductAttributesAndPrices($collection)
             ->addStoreFilter();
-/*            ->addAttributeToFilter('news_from_date', array('date' => true, 'to' => $todayDate))
-            ->addAttributeToSort('news_from_date', 'desc');*/
         $collection->getSelect()->order(new Zend_Db_Expr('RAND()'));    
-        $collection->getSelect()->limit( $limit );
+        $collection->getSelect()->limit( $limit ); 
 
         return $collection;
    }
@@ -380,7 +309,7 @@ class AW_Affiliate_Model_Api2_Producttrackinglink_Rest_Admin_V1 extends AW_Affil
         $todayDate  = Mage::app()->getLocale()->date()->toString(Varien_Date::DATETIME_INTERNAL_FORMAT);
 
         $collection = Mage::getResourceModel('catalog/product_collection');
-        //$collection->setVisibility(array_push(Mage::getSingleton('catalog/product_visibility')->getVisibleInSiteIds(), array('category_id' => $category_id))); 
+        
         $collection->getSelect()
             ->joinInner(
             array( 'cat_index' => Mage::getSingleton('core/resource')->getTableName('catalog/category_product_index') ),
@@ -392,27 +321,28 @@ class AW_Affiliate_Model_Api2_Producttrackinglink_Rest_Admin_V1 extends AW_Affil
 
         $collection = $this->_addProductAttributesAndPrices($collection);
         $collection->getSelect()->order(new Zend_Db_Expr('RAND()'));
-        $collection->getSelect()->limit( $limit ); 
-
+        $collection->getSelect()->limit( $limit );
+        
+        //$collection->printLogQuery(true);
+        //exit;
+        
         return $collection;
     }
 
     private function _getPriceEachProduct($_product)
     {
-        $this->helper = new Mage_Core_Helper_Data();
-        
         /** @var $_coreHelper Mage_Core_Helper_Data */
-        $_coreHelper        = $this->helper('core');
+        $_coreHelper        = Mage::helper('core');
         /** @var $_weeeHelper Mage_Weee_Helper_Data */
-        $_weeeHelper        = $this->helper('weee');
+        $_weeeHelper        = Mage::helper('weee');
         /** @var $_taxHelper Mage_Tax_Helper_Data */
-        $_taxHelper         = $this->helper('tax');
-
+        $_taxHelper         = Mage::helper('tax');
+        
         //$_product           = $this->getProduct();
-        $_id                = $_product['entity_id'];
-        $_storeId           = $this->_storeId;
-        $_website           = 1;
-
+        $_id                = $_product->getId();
+        $_storeId           = $_product->getStoreId();
+        $_website           = Mage::app()->getStore($_storeId)->getWebsite();
+        
         $_weeeSeparator     = '';
         $_simplePricesTax   = ($_taxHelper->displayPriceIncludingTax() || $_taxHelper->displayBothPrices());
         $_minimalPriceValue = $_product->getMinimalPrice();
