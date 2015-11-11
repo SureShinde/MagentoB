@@ -102,8 +102,11 @@
 						<retrieve>1</retrieve>
 					</admin>
 				</privileges>
-				<attributes translate="html" module="AW_Affiliate">
-					<html>Html</html>
+				<attributes translate="params logo free_shipping_affiliate products" module="AW_Affiliate">
+					<params>Params</params>
+					<logo>Logo</logo>
+                                        <free_shipping_affiliate>Free Shipping Affiliate</free_shipping_affiliate>
+					<products>Products</products>
                                 </attributes>
 				<routes>
 					<route_entity>

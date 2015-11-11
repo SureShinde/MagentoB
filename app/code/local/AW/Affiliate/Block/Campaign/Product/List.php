@@ -23,7 +23,7 @@ class AW_Affiliate_Block_Campaign_Product_List extends Mage_Catalog_Block_Produc
              ), 'left')*/
             ->addAttributeToSort('news_from_date', 'desc');
         $collection->getSelect()->limit( $limit ); 
-//$collection->printLogQuery(true); 
+        //$collection->printLogQuery(true); 
         $this->setProductCollection($collection);
 
         return $collection;
