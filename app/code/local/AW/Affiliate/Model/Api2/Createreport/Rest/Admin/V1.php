@@ -87,7 +87,7 @@ class AW_Affiliate_Model_Api2_Createreport_Rest_Admin_V1 extends AW_Affiliate_Mo
             'html_id' => 'detalization',
             'name' => 'detalization',
             'no_span' => true,
-            'values' => $this->getDetalizations(),
+            'values' => $this->toShortOptionArray($this->getDetalizations()),
         );
     }
 
@@ -103,7 +103,7 @@ class AW_Affiliate_Model_Api2_Createreport_Rest_Admin_V1 extends AW_Affiliate_Mo
             'html_id' => 'campaigns',
             'name' => 'campaigns',
             'no_span' => true,
-            'values' => $this->getCampaigns(),
+            'values' => $this->getCampaigns(true),
             'value' => array_keys($this->getCampaigns(true)),
             'select_all' => 'Select All',
             'deselect_all' => 'Deselect All',
@@ -113,13 +113,13 @@ class AW_Affiliate_Model_Api2_Createreport_Rest_Admin_V1 extends AW_Affiliate_Mo
     protected function getReportTypes()
     {
         $types = Mage::getModel('awaffiliate/source_report_type')->toOptionArray();
-        return $types;
+        return $this->toShortOptionArray($types);
     }
 
     protected function getDefaultDatePeriods()
     {
         $periods = Mage::getModel('awaffiliate/source_report_period')->toOptionArray();
-        return $periods;
+        return $this->toShortOptionArray($periods);
     }
 
     /**
