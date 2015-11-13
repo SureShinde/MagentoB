@@ -8,11 +8,13 @@
  * @author     Bilna Development Team <core@magentocommerce.com>
  */
 class AW_Affiliate_Model_Api2_Campaigndetail extends Mage_Api2_Model_Resource
-{
-    /**
-     * Default store Id (for install)
-     */
-    const DISTRO_STORE_ID       = 1;
+{    
+    const DEFAULT_STORE_ID = 1;
+
+    public function __construct() 
+    {
+        Mage::app()->getStore()->setStoreId(self::DEFAULT_STORE_ID);
+    }
 
     private function getCampaignCollectionByCampaignId($campaignId = null)
     {

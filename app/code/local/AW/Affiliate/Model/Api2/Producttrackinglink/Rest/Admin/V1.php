@@ -8,22 +8,9 @@
  * @author     Development Team <development@bilna.com>
  */
 class AW_Affiliate_Model_Api2_Producttrackinglink_Rest_Admin_V1 extends AW_Affiliate_Model_Api2_Producttrackinglink_Rest
-{   
+{
     
-    const DEFAULT_STORE_ID = 1;
-    
-    protected $_data = array ();
-    protected $redisCache;
-
-    public function __construct() {
-        Mage::app()->getStore()->setStoreId(self::DEFAULT_STORE_ID);
-    }
-    
-    protected function _getStore() {
-        return Mage::app()->getStore();
-    }
-    
-    protected function _retrieve()
+    protected function _retrieve() 
     {
         //passing this params from api url
         //campaign_id=2&affiliate_id=2558&traffic_source_generate=&width_to_generate=120x600&category_to_generate=2&store_id=1&category_option_to_generate=null
@@ -50,30 +37,8 @@ class AW_Affiliate_Model_Api2_Producttrackinglink_Rest_Admin_V1 extends AW_Affil
             'params' => $params, 
             'logo' => Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN).'images/logo.png', 
             'free_shipping_affiliate' => Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN).'images/free-shipping-affiliate.png', 
-            //'tracking_link' => $this->_generateHtmlLink($params), 
             'products' => $this->_productsScript($params)
         );
-    }
-    
-    /** 
-     * method to generate html link using curl, 
-     * by accessing magento generator link, 
-     * then read the content.
-     * 
-     * make it simple right?
-     * we dont need to create code to generate html,
-     * just use file_get_content of html link.
-     * 
-     * @link:
-     * http://www.bilnaclone.com/affiliate/customer_affiliate/productsScript/campaign_id/2/affiliate_id/2558/traffic_source_generate//width_to_generate/120x600/category_to_generate/2/store_id/1/category_option_to_generate/null
-     * 
-     */
-    private function _generateHtmlLink($data) {
-        $url = Mage::getBaseUrl().'affiliate/customer_affiliate/productsScript/campaign_id/'.$data['campaign_id'].'/affiliate_id/'.$data['affiliate_id'].'/traffic_source_generate/'.$data['traffic_source_generate'].'/width_to_generate/'.$data['width_to_generate'].'/category_to_generate/'.$data['category_to_generate'].'/store_id/'.$data['store_id'].'/category_option_to_generate/'.$data['category_option_to_generate'];
-        
-        //return file_get_contents($url);
-        $dimension = explode('x', $data['width_to_generate']);
-        return '<iframe width="'.$dimension[0].'" scrolling="no" height="'.$dimension[1].'" frameborder="0" src="'.$url.'"></iframe>';
     }
     
     private function _productsScript($data = array())

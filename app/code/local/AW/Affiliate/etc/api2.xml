@@ -116,6 +116,29 @@
 				</routes>
 				<versions>1</versions>
 			</affiliate_producttrackinglink>
+                        
+                        <affiliate_createreport translate="title" module="AW_Affiliate">
+				<group>affiliate</group>
+				<sort_order>10011</sort_order>
+				<model>awaffiliate/api2_createreport</model>
+				<title>Create Report</title>
+				<privileges>
+					<admin>
+						<retrieve>1</retrieve>
+					</admin>
+				</privileges>
+				<attributes translate="form_fields campaigns" module="AW_Affiliate">
+					<form_fields>Form Fields</form_fields>
+					<campaigns>Campaigns</campaigns>
+                                </attributes>
+				<routes>
+					<route_entity>
+						<route>/affiliate/createreport/:customer_id</route>
+						<action_type>entity</action_type>
+					</route_entity>
+				</routes>
+				<versions>1</versions>
+			</affiliate_createreport>
 		</resources>
 	</api2>
 </config>
