@@ -74,7 +74,7 @@ class AW_Affiliate_Model_Api2_Generatereport_Rest_Admin_V1 extends AW_Affiliate_
         if ($response->getError() == 0) {
             if ($postData['report_type'] == AW_Affiliate_Model_Source_Report_Type::SALES) {
                 $report = new AW_Affiliate_Block_Report_View_Sales();
-                
+                $report->addData($postData);
                 $items = $report->getItems();
                 $detalizationLabel = $report->getDetalizationLabel();
                 $campaigns = $report->getCampaigns();
@@ -94,7 +94,7 @@ class AW_Affiliate_Model_Api2_Generatereport_Rest_Admin_V1 extends AW_Affiliate_
                 
             } elseif ($postData['report_type'] == AW_Affiliate_Model_Source_Report_Type::TRANSACTIONS) {
                 $report = new AW_Affiliate_Block_Report_View_Transactions();
-                
+                $report->addData($postData);
                 $items = $report->getItems();
                 $detalizationLabel = $report->getDetalizationLabel();
                 $campaigns = $report->getCampaigns();
@@ -114,7 +114,7 @@ class AW_Affiliate_Model_Api2_Generatereport_Rest_Admin_V1 extends AW_Affiliate_
                 
             } elseif ($postData['report_type'] == AW_Affiliate_Model_Source_Report_Type::TRAFFIC) {
                 $report = new AW_Affiliate_Block_Report_View_Traffic();
-                
+                $report->addData($postData);
                 $items = $report->getItems();
                 $detalizationLabel = $report->getDetalizationLabel();
                 $campaigns = $report->getCampaigns();
@@ -137,10 +137,11 @@ class AW_Affiliate_Model_Api2_Generatereport_Rest_Admin_V1 extends AW_Affiliate_
                 $messages[] = Mage::helper('awaffiliate')->__('Invalid report type');
             }
         }
-        
+        //var_dump($postData);die;
         return array(
             'message' => $messages, 
-            'response' => $response 
+            'response' => $response, 
+            'data' => $postData 
         );
     }
 }

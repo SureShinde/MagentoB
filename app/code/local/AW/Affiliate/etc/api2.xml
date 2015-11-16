@@ -153,9 +153,10 @@
                                                 <delete>1</delete>
 					</admin>
 				</privileges>
-				<attributes translate="message response customer_id report_type date_period period_from period_to detalization campaigns" module="AW_Affiliate">
+				<attributes translate="message response data customer_id report_type date_period period_from period_to detalization campaigns" module="AW_Affiliate">
 					<message>message</message>
                                         <response>response</response>
+                                        <data>data</data>
                                         <customer_id>customer_id</customer_id>
                                         <report_type>report_type</report_type>
                                         <date_period>date_period</date_period>
