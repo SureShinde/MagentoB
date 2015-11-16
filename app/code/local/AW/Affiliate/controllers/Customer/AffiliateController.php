@@ -216,7 +216,6 @@ class AW_Affiliate_Customer_AffiliateController extends Mage_Core_Controller_Fro
         }
 
         $postData = $this->getRequest()->getParams();
-        
         $this->_getSession()->setCreateReportFormData($postData);
 
         $messages = array();
