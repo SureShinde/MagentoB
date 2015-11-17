@@ -173,6 +173,33 @@
 				</routes>
 				<versions>1</versions>
 			</affiliate_generatereport>
+                        
+                        <affiliate_requestwithdrawal translate="title" module="AW_Affiliate">
+				<group>affiliate</group>
+				<sort_order>10011</sort_order>
+				<model>awaffiliate/api2_requestwithdrawal</model>
+				<title>Request Withdrawal</title>
+				<privileges>
+					<admin>
+						<retrieve>1</retrieve>
+					</admin>
+				</privileges>
+				<attributes translate="message response data customer_id amount details" module="AW_Affiliate">
+					<message>message</message>
+                                        <response>response</response>
+                                        <data>data</data>
+                                        <customer_id>customer_id</customer_id>
+                                        <amount>amount</amount>
+                                        <details>details</details>
+                                </attributes>
+				<routes>
+					<route_entity>
+						<route>/affiliate/requestwithdrawal</route>
+						<action_type>entity</action_type>
+					</route_entity>
+				</routes>
+				<versions>1</versions>
+			</affiliate_requestwithdrawal>
 		</resources>
 	</api2>
 </config>
