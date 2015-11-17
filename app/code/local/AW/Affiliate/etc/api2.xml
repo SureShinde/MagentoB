@@ -139,6 +139,40 @@
 				</routes>
 				<versions>1</versions>
 			</affiliate_createreport>
+                        
+                        <affiliate_generatereport translate="title" module="AW_Affiliate">
+				<group>affiliate</group>
+				<sort_order>10011</sort_order>
+				<model>awaffiliate/api2_generatereport</model>
+				<title>Generate Report</title>
+				<privileges>
+					<admin>
+						<retrieve>1</retrieve>
+                                                <create>1</create>
+                                                <update>1</update>
+                                                <delete>1</delete>
+					</admin>
+				</privileges>
+				<attributes translate="message response data customer_id report_type date_period period_from period_to detalization campaigns" module="AW_Affiliate">
+					<message>message</message>
+                                        <response>response</response>
+                                        <data>data</data>
+                                        <customer_id>customer_id</customer_id>
+                                        <report_type>report_type</report_type>
+                                        <date_period>date_period</date_period>
+                                        <period_from>period_from</period_from>
+                                        <period_to>period_to</period_to>
+                                        <detalization>detalization</detalization>
+                                        <campaigns>campaigns</campaigns>
+                                </attributes>
+				<routes>
+					<route_entity>
+						<route>/affiliate/generatereport</route>
+						<action_type>entity</action_type>
+					</route_entity>
+				</routes>
+				<versions>1</versions>
+			</affiliate_generatereport>
 		</resources>
 	</api2>
 </config>
