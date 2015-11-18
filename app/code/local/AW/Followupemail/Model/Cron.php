@@ -145,6 +145,10 @@ class AW_Followupemail_Model_Cron {
         $this->_nowMySQL = date(AW_Followupemail_Model_Mysql4_Queue::MYSQL_DATETIME_FORMAT, $this->_now);
         $this->_lastExecTimeMySQL = date(AW_Followupemail_Model_Mysql4_Queue::MYSQL_DATETIME_FORMAT, $this->_lastExecTime);
 
+        /* add GMT+7 */
+        $this->_nowMySQL = date('Y-m-d H:i:s', strtotime('+7 hours', strtotime($this->_nowMySQL)));
+        $this->_lastExecTimeMySQL = date('Y-m-d H:i:s', strtotime('+7 hours', strtotime($this->_lastExecTimeMySQL)));
+
         try {
             $timeShift = Mage::app()->getLocale()->date()->get(Zend_Date::TIMEZONE_SECS);
 
@@ -322,76 +326,73 @@ class AW_Followupemail_Model_Cron {
         }
     }
 
-	/*
+    /*
      * Checks payment method
      */
-		
-	protected function _checkPaymentMethod(){
-		if (self::DEBUG_MODE)
-		   AW_Followupemail_Model_Log::log("Payment Method Status History");
-		
-		$order = Mage::getModel('sales/order');
-		$queue = Mage::getModel('followupemail/queue');
-		$dbReader = Mage::getResourceModel('followupemail/rule');
-		
-		$resource = Mage::getSingleton('core/resource');
-		$read = $resource->getConnection('core_read');
-		
-		$eventName = AW_Followupemail_Model_Source_Rule_Types::RULE_TYPE_PAYMENT_METHOD.$payment["method"];		
-		
-		$query = "select afr.id, afq.object_id, afr.event_type, afr.cancel_events from aw_followup_queue afq, aw_followup_rule afr WHERE afr.id = afq.rule_id AND afr.cancel_events LIKE '%payment_method%' AND afq.`status` = 'R'";
-		$queueList = $read->fetchAll($query);
-		foreach($queueList as $queueRow){
-			$query = "select * from sales_flat_order_payment sop inner join sales_flat_order so on sop.entity_id=so.entity_id where sop.entity_id = '".$queueRow["object_id"]."'";
-			$order = $read->fetchRow($query);
-			
-			if ($queueRow["cancel_events"] == "payment_method_".$order['method']){							
-				$queue->cancelByEvent($queue->$order['customer_email'], $queueRow['event_type'], $order['entity_id']);			
-	  
-			//Zend_Debug::Dump($order['customer_email']); 
-			}
-			//die;
-		}		
-		
-		$sequenceNumber = 1;
-		$objects['sequence_number'] = $sequenceNumber;
-		$code = AW_Followupemail_Helper_Data::getSecurityCode();
-		$objects['security_code'] = $code;
-				
-        $emailTemplateContent = $emailTemplate['content'];				
+        
+    protected function _checkPaymentMethod(){
+        $order = Mage::getModel('sales/order');
+        $queueresource = Mage::getResourceModel('followupemail/queue');
+        $queue = Mage::getModel('followupemail/queue');
+        $dbReader = Mage::getResourceModel('followupemail/rule');
+        
+        $resource = Mage::getSingleton('core/resource');
+        $read = $resource->getConnection('core_read');
+        
+        $eventName = AW_Followupemail_Model_Source_Rule_Types::RULE_TYPE_PAYMENT_METHOD.$payment["method"];     
+        
+        $query = "select afr.id, afq.object_id, afr.event_type, afr.cancel_events from aw_followup_queue afq, aw_followup_rule afr WHERE afr.id = afq.rule_id AND afr.cancel_events = 'order_status_processing' AND afq.`status` = 'R'";
+        $queueList = $read->fetchAll($query);
 
-		$select = $read->select()
-			->from(array('sop' => $resource->getTableName('sales/order_payment')), array('method' => 'sop.method'))
-			->joinInner(array('so' => $resource->getTableName('sales/order')), 'sop.entity_id=so.entity_id')
-			//->where("created_at between '".$this->_lastExecTimeMySQL."' and '".$this->_nowMySQL."'")
-			//hardcode between
-			->where("so.created_at between '2013-01-19 03:11:54' and '2013-12-07 06:53:10'")
-			->where("so.`status`='pending'");
-		$payments = $read->fetchAll($select);
-		//echo "<pre>";
-		foreach($payments as $payment){
-									
-			$query = "select afr.id, afr.is_active, afr.event_type, afr.cancel_events, afr.`chain`, afr.* FROM aw_followup_rule afr WHERE id = afr.id AND afr.is_active=1 AND (afr.active_to is NULL OR afr.active_to >= NOW())
-			AND afr.event_type = '".AW_Followupemail_Model_Source_Rule_Types::RULE_TYPE_PAYMENT_METHOD.$payment["method"]."'";
-			$method = $read->fetchRow($query);	
-			if ($method!=false){
-            $storedpayment = $payment;
-            unset($storedParams['entity_id']);
-			$scheduleAt = strtotime(date("Y-m-d H:i:s", strtotime("+ " . abs($hourDelay) . " hours")));
+        foreach($queueList as $queueRow){
+            $query = "select so.entity_id, so.status, so.customer_email from sales_flat_order_payment sop inner join sales_flat_order so on sop.parent_id=so.entity_id where sop.parent_id = '".$queueRow["object_id"]."'";
+            $order = $read->fetchRow($query);
+            
+            if ($queueRow["cancel_events"] == "order_status_".$order['status']){                            
+                $queueresource->cancelByEvent($order['customer_email'], $queueRow['event_type'], $order['entity_id'], $queueRow["cancel_events"]);          
+            }
+        }
 
-			$queue->add($code, $sequenceNumber, $method['sender_name'], $method['sender_email'], 
-			$payment['customer_firstname']." ".$payment['customer_lastname'], 
-			//($this->_isTest) ? $this->getTestRecipient() : $objects['customer_email'],
-			$payment['customer_email'],
-			$method['id'], $scheduleAt, $method['title'], $method['content'], 
-			$payment['entity_id'], $storedpayment);					
-			}
-		}
-		
-		//die;
-		$sequenceNumber++;
-		return true;
-	}
+        $select = $read->select()
+            ->from(array('sop' => $resource->getTableName('sales/order_payment')), array('method' => 'sop.method'))
+            ->joinInner(array('so' => $resource->getTableName('sales/order')), 'sop.parent_id=so.entity_id')
+            //->where("created_at between '".$this->_lastExecTimeMySQL."' and '".$this->_nowMySQL."'")
+            //hardcode between
+            ->where("so.created_at between '2015-11-16 00:00:00' and '2015-11-18 23:59:59'")
+            ->where("so.`status`='pending'");
+        $payments = $read->fetchAll($select);
+        $sequenceNumber = 1;
+        //echo "<pre>";
+        foreach($payments as $payment){
+                                    
+            $query = "select afr.* FROM aw_followup_rule afr WHERE id = afr.id AND afr.is_active=1 AND (afr.active_to is NULL OR afr.active_to >= NOW()) AND afr.event_type = '".AW_Followupemail_Model_Source_Rule_Types::RULE_TYPE_PAYMENT_METHOD.$payment["method"]."'";
+            $method = $read->fetchRow($query);
+
+            if ($method != false)
+            {
+                $fueRule = Mage::getModel('followupemail/rule')->load($method['id']);
+                
+                foreach (unserialize($fueRule->getChain()) as $chain) {
+                    $params = array();
+                    $params['payment_method'] = $payment['method'];
+                    $params['object_id'] = $payment['entity_id'];
+                    $params['order_id'] = $payment['entity_id'];
+                    $params['store_id'] = Mage::app()->getStore()->getStoreId();
+                    $params['customer_email'] = $payment['customer_email'];
+                    $params['customer_id'] = $payment['customer_id'];
+                    
+                    $templateId = $chain['TEMPLATE_ID'];                    
+                    $timeDelay = $chain['DAYS'] * 1440 + $chain['HOURS'] * 60 + $chain['MINUTES'];
+                    
+                    AW_Followupemail_Model_Log::log('paymentMethod event processing, rule_id=' . $method['id'] . ', customerEmail=' . $params['customer_email'] . ', store_id=' . $params['store_id']);
+                    $fueRule->processPaymentMethod($params, $templateId, $timeDelay, $sequenceNumber);
+                }
+                $sequenceNumber++;
+            }
+        }
+        
+        return true;
+    }
 	
     /*
      * Checks for new abandoned carts appeared
