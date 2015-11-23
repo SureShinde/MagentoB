@@ -22,7 +22,8 @@ class Bilna_Fraud_Model_Observer {
         $username = $configSolr['username'];
         $password = $configSolr['password'];
 
-        $string = '&start=0&rows=20&fl=*%2Cscore&wt=json&indent=true&defType=edismax';
+        //$string = '&start=0&rows=20&fl=*%2Cscore&wt=json&indent=true&defType=edismax';
+        $string = '&start=0&rows=20&wt=json&indent=true';
         $string_2 = '&stopwords=true&lowercaseOperators=true&stats=true&stats.field=Subtotal_statsConfigurable';
 
         $order_id = $observer->getEvent()->getOrder()->getId();
@@ -50,8 +51,11 @@ class Bilna_Fraud_Model_Observer {
 
         if($ruleDataRuleId != 0) {
             $date = '['.$fromDate.'T23%3A59%3A59.999Z%2FDAY+TO+'.$toDate.'T23%3A59%3A59.999Z%2FDAY]';
+            $address = 'address_ngram%3A"'.$address.'"';
+            $telephone = '&fq=Telephone%3A"'.$telephone.'"';
 
-            if(($emailScoreEnabled == 1) && ($addressScoreEnabled == 1) && ($telephoneScoreEnabled == 1)) {
+            /*if(($emailScoreEnabled == 1) && ($addressScoreEnabled == 1) && ($telephoneScoreEnabled == 1)) {
+                $telephone_address = '%0Atele_address%3A"'.$telephone.' '.$address.'"';
                 if((!is_null($addressProximity)) || ($addressProximity > 0)) {
                     $address = 'Shipping_Address%3A"'.$address.'"~'.$addressProximity;
                 }
@@ -66,8 +70,8 @@ class Bilna_Fraud_Model_Observer {
                     $email = '%0AEmail%3A"'.$email.'"';
                 }
 
-                $telephone = '%0ATelephone%3A"'.$telephone.'"';
-                //$telephone = '%2BTelephone%3A"'.$telephone.'"';
+                //$telephone = '%0ATelephone%3A"'.$telephone.'"';
+                $telephone = '%2BTelephone%3A"'.$telephone.'"';
                 $addressScore = '&qf=Shipping_Address^'.$addressScoreWeight;
                 $emailScore = '+Email^'.$emailScoreWeight;
                 $telephoneScore = '+Telephone^'.$telephoneScoreWeight;
@@ -156,7 +160,7 @@ class Bilna_Fraud_Model_Observer {
                 $addressScore = '';
                 $emailScore = '&qfEmail^'.$emailScoreWeight;
                 $telephoneScore = '';
-            }
+            }*/
 
             $createdDate = '&fq=Created_Date%3A'.$date;
 
@@ -166,7 +170,8 @@ class Bilna_Fraud_Model_Observer {
 
             $formattedRuleId = '&fq=Rule_ID%3A'.$originalRuleId;
 
-            $url  = $host.':'.$port.$path.'/'.$core.'/select?q='.$address.$email.$telephone.$formattedRuleId.$createdDate.$string.$addressScore.$emailScore.$telephoneScore.$string_2;
+            //$url  = $host.':'.$port.$path.'/'.$core.'/select?q='.$address.$email.$telephone.$telephone_address.$formattedRuleId.$createdDate.$string.$addressScore.$emailScore.$telephoneScore.$string_2;
+            $url  = $host.':'.$port.$path.'/'.$core.'/select?q='.$address.$telephone.$formattedRuleId.$createdDate.$string;
         }
 
         //curl_setopt($ch, CURLOPT_HEADER, 0);
