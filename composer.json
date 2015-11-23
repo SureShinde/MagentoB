@@ -1,7 +1,8 @@
 {
     "require": {
         "magento-hackathon/magento-composer-installer": "*",
-        "pda/pheanstalk": "^3.0"
+        "pda/pheanstalk": "^3.0",
+        "videlalvaro/php-amqplib": "2.5.*"
     },
     "extra":{
         "magento-root-dir":"/home/webdev/bilna.org/logan-backend",
