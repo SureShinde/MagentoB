@@ -366,6 +366,15 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
     }
     
     public function successAction() {
+        $canceled = 0;
+        $session = $this->getOnepage()->getCheckout();
+        $order_id = $session->getLastOrderId();
+        $orderData = Mage::getModel('sales/order')->load($order_id);
+        $status = $orderData->getData('status');
+        if(strtolower($status) == 'canceled') {
+            $canceled = 1;
+        }
+
         if ($this->getRequest()->getParam('order_no')) {
             $orderNo = $this->getRequest()->getParam('order_no');
             
@@ -412,6 +421,12 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
             Mage::getModel('paymethod/vtdirect')->updateOrder($order, $paymentCode, $charge);
             Mage::register('response_charge', $charge);
             Mage::dispatchEvent('sales_order_place_after', array ('order' => $order));
+        }
+
+        if($canceled == 1) {
+            $fraud = Mage::helper('core')->urlEncode('fraud');
+            $this->_redirect('checkout/onepage/failure', array('fail' => $fraud));
+            return;
         }
         
         $this->loadLayout();
