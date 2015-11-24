@@ -32,18 +32,7 @@ class Bilna_Fraud_Model_Observer {
         $payment_method = Mage::getSingleton('checkout/session')->getQuote()->getPayment()->getMethodInstance()->getCode();
         $coupon_code = $orderData->getData('coupon_code');
         $rule_id_for_log = $orderData->getData('applied_rule_ids');
-/*echo "ORDER ID : ".$order_id;
-echo "<br/>Entity ID : ".$orderData->getData('entity_id');
-echo "<br/>Name : ".trim($orderData->getData('customer_firstname').' '.$orderData->getData('customer_middlename').$orderData->getData('customer_lastname'));
-echo "<br/> Email : ".$orderData->getShippingAddress()->getData('email');
-echo "<br/>Shipping Address : ".$orderData->getShippingAddress()->getData('street');
-echo "<br/>Billing Address : ".$orderData->getBillingAddress()->getData('street');
-echo "<br/>Grand Total : ".$orderData->getData('grand_total');
-$aa = Mage::getSingleton('checkout/session')->getQuote()->getPayment()->getMethodInstance()->getCode();
-echo "<br/>Paymethod : ".$aa;
-echo "<br/>Coupon Code : ".$orderData->getData('coupon_code');
-echo "<br/>Rule ID : ".$orderData->getData('applied_rule_ids');
-echo "<br/>Created Date : ".$orderData->getData('created_at');die();*/
+        
         $address = str_replace("\n", '+', $orderData->getShippingAddress()->getData('street'));
         $address = str_replace(" ", '+', $address);
         $telephone = $orderData->getShippingAddress()->getData('telephone');
