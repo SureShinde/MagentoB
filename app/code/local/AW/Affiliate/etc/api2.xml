@@ -19,21 +19,24 @@
 						<create>1</create>
 					</admin>
 				</privileges>
-				<attributes translate="cmid afid" module="AW_Affiliate">
-					<cmid>Campaign ID</cmid>
+				<attributes translate="params redirect_url" module="AW_Affiliate">
+<!--					<cmid>Campaign ID</cmid>
 					<afid>Affiliate ID</afid>
 					<ats>Affiliate Traffic Source</ats>
-					<rurl>Redirect URL</rurl>
+					<rurl>Redirect URL</rurl>-->
+                                        
+                                        <params>params</params>
+                                        <redirect_url>redirect_url</redirect_url>
 				</attributes>
 				<routes>
 					<route_entity>
-						<route>/affiliate/check/:id</route>
+						<route>/affiliate/check</route>
 						<action_type>entity</action_type>
 					</route_entity>
-					<route_collection>
+<!--					<route_collection>
 						<route>/affiliate/check</route>
 						<action_type>collection</action_type>
-					</route_collection>
+					</route_collection>-->
 				</routes>
 				<versions>1</versions>
 			</affiliate_check>
