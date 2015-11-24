@@ -223,7 +223,7 @@
                                 </attributes>
 				<routes>
 					<route_entity>
-						<route>/affiliate/ordercomplete/:client_id/:order_id/</route>
+						<route>/affiliate/ordercomplete/:client_id/:order_id</route>
 						<action_type>entity</action_type>
 					</route_entity>
 				</routes>

@@ -42,7 +42,7 @@ class AW_Affiliate_Model_Api2_Check_Rest_Admin_V1 extends AW_Affiliate_Model_Api
                     'campaign_id' => $campaignId,
                     'affiliate_id' => $affiliateId,
                     'traffic_id' => $trafficSourceId,
-                    'customer_id' => $customerId
+                    'customer_id' => $customerId //customer id that access the affiliate link, can be null or integer
                 ));
                 
                 //var_dump($clientId);
