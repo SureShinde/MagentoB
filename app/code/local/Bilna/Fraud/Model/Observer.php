@@ -32,7 +32,18 @@ class Bilna_Fraud_Model_Observer {
         $payment_method = Mage::getSingleton('checkout/session')->getQuote()->getPayment()->getMethodInstance()->getCode();
         $coupon_code = $orderData->getData('coupon_code');
         $rule_id_for_log = $orderData->getData('applied_rule_ids');
-
+/*echo "ORDER ID : ".$order_id;
+echo "<br/>Entity ID : ".$orderData->getData('entity_id');
+echo "<br/>Name : ".trim($orderData->getData('customer_firstname').' '.$orderData->getData('customer_middlename').$orderData->getData('customer_lastname'));
+echo "<br/> Email : ".$orderData->getShippingAddress()->getData('email');
+echo "<br/>Shipping Address : ".$orderData->getShippingAddress()->getData('street');
+echo "<br/>Billing Address : ".$orderData->getBillingAddress()->getData('street');
+echo "<br/>Grand Total : ".$orderData->getData('grand_total');
+$aa = Mage::getSingleton('checkout/session')->getQuote()->getPayment()->getMethodInstance()->getCode();
+echo "<br/>Paymethod : ".$aa;
+echo "<br/>Coupon Code : ".$orderData->getData('coupon_code');
+echo "<br/>Rule ID : ".$orderData->getData('applied_rule_ids');
+echo "<br/>Created Date : ".$orderData->getData('created_at');die();*/
         $address = str_replace("\n", '+', $orderData->getShippingAddress()->getData('street'));
         $address = str_replace(" ", '+', $address);
         $telephone = $orderData->getShippingAddress()->getData('telephone');
@@ -51,7 +62,8 @@ class Bilna_Fraud_Model_Observer {
         $ruleDataRuleId = $ruleData['rule_id'];
         if(($usesPerHousehold > 0) || (!empty($usesPerHousehold))) {
             if($ruleDataRuleId != 0) {
-                $date = '['.$fromDate.'T23%3A59%3A59.999Z%2FDAY+TO+'.$toDate.'T23%3A59%3A59.999Z%2FDAY]';
+                $date = '[' . $fromDate . 'T23%3A59%3A59.999Z%2FDAY+TO+' . $toDate . 'T23%3A59%3A59.999Z%2FDAY]';
+            }
                 $address = 'address_ngram%3A"'.$address.'"';
                 $telephone = '&fq=telp_clean%3A"'.$telephone.'"';
             /*if(($emailScoreEnabled == 1) && ($addressScoreEnabled == 1) && ($telephoneScoreEnabled == 1)) {
@@ -159,12 +171,15 @@ class Bilna_Fraud_Model_Observer {
             //$url  = $host.':'.$port.$path.'/'.$core.'/select?q='.$address.$email.$telephone.$telephone_address.$formattedRuleId.$createdDate.$string.$addressScore.$emailScore.$telephoneScore.$string_2;
             $url  = $host.':'.$port.$path.'/'.$core.'/select?q='.$address.$telephone.$formattedRuleId.$createdDate.$string;
         }
-
+        //curl_setopt($ch, CURLOPT_HEADER, 0);
         if($auth == 1) {
             $cleanPassword = Mage::helper('core')->decrypt($password);
             $url  = $username.':'.$cleanPassword.'@'.$url;
+            /*$loginData = 'username='.$username.'&password='.$cleanPassword;
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+            curl_setopt($ch, CURLOPT_POST, 1);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $loginData);*/
         }
-
         $url = 'http://'.$url;
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
@@ -179,7 +194,7 @@ class Bilna_Fraud_Model_Observer {
                 $order->setStatus('canceled');
                 //$order->getStatusHistoryCollection(true);
                 $order->save();*/
-                
+
                 $orderData->cancel();
                 //$order->setStatus('canceled');
                 //$order->setState(Mage_Sales_Model_Order::STATE_CANCELED, true, 'Cancel Transaction.');
@@ -205,9 +220,12 @@ class Bilna_Fraud_Model_Observer {
 
                 $orderData->addStatusHistoryComment('This is a FRAUD order');
                 $orderData->save();
+
+                /*if($orderData->isCanceled()){
+                }*/
             }
         }
-        }
+        //}
     }
 }
 ?>
