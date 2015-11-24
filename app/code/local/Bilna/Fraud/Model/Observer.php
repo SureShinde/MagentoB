@@ -29,6 +29,19 @@ class Bilna_Fraud_Model_Observer {
         $order_id = $observer->getEvent()->getOrder()->getId();
         $orderData = Mage::getModel('sales/order')->load($order_id);
 
+/*echo "ORDER ID : ".$order_id;
+echo "<br/>Entity ID : ".$orderData->getData('entity_id');
+echo "<br/>Name : ".trim($orderData->getData('customer_firstname').' '.$orderData->getData('customer_middlename').$orderData->getData('customer_lastname'));
+echo "<br/> Email : ".$orderData->getShippingAddress()->getData('email');
+echo "<br/>Shipping Address : ".$orderData->getShippingAddress()->getData('street');
+echo "<br/>Billing Address : ".$orderData->getBillingAddress()->getData('street');
+echo "<br/>Grand Total : ".$orderData->getData('grand_total');
+$aa = Mage::getSingleton('checkout/session')->getQuote()->getPayment()->getMethodInstance()->getCode();
+echo "<br/>Paymethod : ".$aa;
+echo "<br/>Coupon Code : ".$orderData->getData('coupon_code');
+echo "<br/>Rule ID : ".$orderData->getData('applied_rule_ids');
+echo "<br/>Created Date : ".$orderData->getData('created_at');die();*/
+
         $address = str_replace("\n", '+', $orderData->getShippingAddress()->getData('street'));
         $address = str_replace(" ", '+', $address);
         $telephone = $orderData->getShippingAddress()->getData('telephone');
@@ -49,10 +62,11 @@ class Bilna_Fraud_Model_Observer {
         $usesPerHousehold = $ruleData['uses_per_household'];
         $ruleDataRuleId = $ruleData['rule_id'];
 
-        if($ruleDataRuleId != 0) {
-            $date = '['.$fromDate.'T23%3A59%3A59.999Z%2FDAY+TO+'.$toDate.'T23%3A59%3A59.999Z%2FDAY]';
-            $address = 'address_ngram%3A"'.$address.'"';
-            $telephone = '&fq=Telephone%3A"'.$telephone.'"';
+        if(($usesPerHousehold > 0) || (!empty($usesPerHousehold)) {
+            if($ruleDataRuleId != 0) {
+                $date = '['.$fromDate.'T23%3A59%3A59.999Z%2FDAY+TO+'.$toDate.'T23%3A59%3A59.999Z%2FDAY]';
+                $address = 'address_ngram%3A"'.$address.'"';
+                $telephone = '&fq=Telephone%3A"'.$telephone.'"';
 
             /*if(($emailScoreEnabled == 1) && ($addressScoreEnabled == 1) && ($telephoneScoreEnabled == 1)) {
                 $telephone_address = '%0Atele_address%3A"'.$telephone.' '.$address.'"';
@@ -197,7 +211,7 @@ class Bilna_Fraud_Model_Observer {
         curl_close($ch);
 
         $data = json_decode($output, true);
-        if($data['response']['numFound'] > $usesPerHousehold) {
+        if($data['response']['numFound'] >= $usesPerHousehold) {
             if ($orderData->canCancel()) {
                 /*$order->cancel();
                 $order->setStatus('canceled');
@@ -213,6 +227,7 @@ class Bilna_Fraud_Model_Observer {
 
                 }*/
             }
+        }
         }
     }
 }
