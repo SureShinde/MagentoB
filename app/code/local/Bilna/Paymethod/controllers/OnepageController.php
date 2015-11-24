@@ -367,22 +367,6 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
     
     public function successAction() {
         $canceled = 0;
-        /*if ($this->getRequest()->getParam('order_no')) {
-
-        }
-        else{
-            $session = $this->getOnepage()->getCheckout();
-            $order_id = $session->getLastOrderId();
-            $orderData = Mage::getModel('sales/order')->load($order_id);
-            $status = $orderData->getData('status');
-        }
-        $session = $this->getOnepage()->getCheckout();
-        $order_id = $session->getLastOrderId();
-        $orderData = Mage::getModel('sales/order')->load($order_id);
-        $status = $orderData->getData('status');
-        if(strtolower($status) == 'canceled') {
-            $canceled = 1;
-        }*/
 
         if ($this->getRequest()->getParam('order_no')) {
             $orderNo = $this->getRequest()->getParam('order_no');
