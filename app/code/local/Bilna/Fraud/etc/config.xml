@@ -9,8 +9,25 @@
         <models>
             <bilna_fraud>
                 <class>Bilna_Fraud_Model</class>
+                <resourceModel>bilna_fraud_mysql4</resourceModel>
             </bilna_fraud>
+
+            <bilna_fraud_mysql4>
+                <class>Bilna_Fraud_Model_Mysql4</class>
+                <entities>
+                    <log>
+                        <table>bilna_fraud_order</table>
+                    </log>
+                </entities>
+            </bilna_fraud_mysql4>
         </models>
+        <resources>
+            <bilna_fraud_setup>
+                <setup>
+                    <module>Bilna_Fraud</module>
+                </setup>
+            </bilna_fraud_setup>
+        </resources>
         <events>
             <checkout_type_onepage_save_order_after>
                 <observers>
