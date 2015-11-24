@@ -32,7 +32,7 @@ class Bilna_Fraud_Model_Observer {
         $payment_method = Mage::getSingleton('checkout/session')->getQuote()->getPayment()->getMethodInstance()->getCode();
         $coupon_code = $orderData->getData('coupon_code');
         $rule_id_for_log = $orderData->getData('applied_rule_ids');
-        
+
         $address = str_replace("\n", '+', $orderData->getShippingAddress()->getData('street'));
         $address = str_replace(" ", '+', $address);
         $telephone = $orderData->getShippingAddress()->getData('telephone');
@@ -159,62 +159,62 @@ class Bilna_Fraud_Model_Observer {
             $formattedRuleId = '&fq=Rule_ID%3A'.$originalRuleId;
             //$url  = $host.':'.$port.$path.'/'.$core.'/select?q='.$address.$email.$telephone.$telephone_address.$formattedRuleId.$createdDate.$string.$addressScore.$emailScore.$telephoneScore.$string_2;
             $url  = $host.':'.$port.$path.'/'.$core.'/select?q='.$address.$telephone.$formattedRuleId.$createdDate.$string;
-        }
-        //curl_setopt($ch, CURLOPT_HEADER, 0);
-        if($auth == 1) {
-            $cleanPassword = Mage::helper('core')->decrypt($password);
-            $url  = $username.':'.$cleanPassword.'@'.$url;
-            /*$loginData = 'username='.$username.'&password='.$cleanPassword;
-            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-            curl_setopt($ch, CURLOPT_POST, 1);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $loginData);*/
-        }
-        $url = 'http://'.$url;
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_URL, $url);
-        $output = curl_exec($ch);
-        curl_close($ch);
-        $data = json_decode($output, true);
-        if($data['response']['numFound'] >= $usesPerHousehold) {
-            if ($orderData->canCancel()) {
-                /*$order->cancel();
-                $order->setStatus('canceled');
-                //$order->getStatusHistoryCollection(true);
-                $order->save();*/
 
-                $orderData->cancel();
-                //$order->setStatus('canceled');
-                //$order->setState(Mage_Sales_Model_Order::STATE_CANCELED, true, 'Cancel Transaction.');
-                //$order->setStatus(Mage_Sales_Model_Order);
-                $orderData->save();
+            //curl_setopt($ch, CURLOPT_HEADER, 0);
+            if($auth == 1) {
+                $cleanPassword = Mage::helper('core')->decrypt($password);
+                $url  = $username.':'.$cleanPassword.'@'.$url;
+                /*$loginData = 'username='.$username.'&password='.$cleanPassword;
+                curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+                curl_setopt($ch, CURLOPT_POST, 1);
+                curl_setopt($ch, CURLOPT_POSTFIELDS, $loginData);*/
+            }
+            $url = 'http://'.$url;
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_URL, $url);
+            $output = curl_exec($ch);
+            curl_close($ch);
+            $data = json_decode($output, true);
+            if($data['response']['numFound'] >= $usesPerHousehold) {
+                if ($orderData->canCancel()) {
+                    /*$order->cancel();
+                    $order->setStatus('canceled');
+                    //$order->getStatusHistoryCollection(true);
+                    $order->save();*/
 
-                $log = Mage::getModel('bilna_fraud/log');
-                $datas = array(
-                    'order_id' => $order_id,
-                    'entity_id' => $entity_id,
-                    'customer_name' => $customer_name,
-                    'email' => $email,
-                    'shipping_address' => $shipping_address,
-                    'billing_address' => $billing_address,
-                    'grand_total' => $grand_total,
-                    'payment_method' => $payment_method,
-                    'coupon_code' => $coupon_code,
-                    'rule_id' => $rule_id_for_log,
-                    'created_at' => now()
-                );
-                $log->addData($datas);
-                $log->save();
+                    $orderData->cancel();
+                    //$order->setStatus('canceled');
+                    //$order->setState(Mage_Sales_Model_Order::STATE_CANCELED, true, 'Cancel Transaction.');
+                    //$order->setStatus(Mage_Sales_Model_Order);
+                    $orderData->save();
 
-                $orderData->addStatusHistoryComment('This is a FRAUD order');
-                $orderData->save();
+                    $log = Mage::getModel('bilna_fraud/log');
+                    $datas = array(
+                        'order_id' => $order_id,
+                        'entity_id' => $entity_id,
+                        'customer_name' => $customer_name,
+                        'email' => $email,
+                        'shipping_address' => $shipping_address,
+                        'billing_address' => $billing_address,
+                        'grand_total' => $grand_total,
+                        'payment_method' => $payment_method,
+                        'coupon_code' => $coupon_code,
+                        'rule_id' => $rule_id_for_log,
+                        'created_at' => now()
+                    );
+                    $log->addData($datas);
+                    $log->save();
 
-                /*if($orderData->isCanceled()){
-                }*/
+                    $orderData->addStatusHistoryComment('This is a FRAUD order');
+                    $orderData->save();
+
+                    /*if($orderData->isCanceled()){
+                    }*/
+                }
             }
         }
-        //}
     }
 }
 ?>
