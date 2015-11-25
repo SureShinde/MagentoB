@@ -11,9 +11,22 @@ class Bilna_Paymethod_KlikpayController extends Mage_Core_Controller_Front_Actio
     protected $_typeConfirmation = 'confirmation';
 
     public function redirectAction() {
+        // FDS (BILNA-1333) - Start
+        $canceled = 0;
+
+        $orderId = Mage::getSingleton('checkout/session')->getLastRealOrderId();
+        $canceled = Mage::helper('bilna_fraud')->checkOrderStatus($orderId, 0);
+
+        if($canceled == 1) {
+            $fraud = Mage::helper('core')->urlEncode('fraud');
+            $this->_redirect('checkout/onepage/failure', array('fail' => $fraud));
+            return;
+        }
+        // FDS (BILNA-1333) - End
+
         $this->loadLayout();
         $session = Mage::getSingleton('checkout/session')->getCheckout();
-        
+
         if ($session && $session->getLastSuccessQuoteId()) {
             echo "masup sini";exit;
             $lastQuoteId = $session->getLastQuoteId();

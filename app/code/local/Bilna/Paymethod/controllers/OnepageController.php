@@ -366,6 +366,8 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
     }
     
     public function successAction() {
+        //$fdsModuleStatus = Mage::getConfig()->getModuleConfig('Bilna_Fraud')->is('active', 'true');
+        //echo "<pre>";print_r($fdsModuleStatus);die;
         $canceled = 0;
 
         if ($this->getRequest()->getParam('order_no')) {
@@ -379,10 +381,7 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
             $paymentCode = $order->getPayment()->getMethodInstance()->getCode();
 
             // FDS (BILNA-1333) - Start
-            $status = $order->getData('status');
-            if(strtolower($status) == 'canceled') {
-                $canceled = 1;
-            }
+            $canceled = Mage::helper('bilna_fraud')->checkOrderStatus($order, 1);
             // FDS (BILNA-1333) - End
 
             if (in_array($paymentCode, $this->getPaymentMethodCc())) {
@@ -401,11 +400,7 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
             $lastOrderId = $session->getLastOrderId();
 
             // FDS (BILNA-1333) - Start
-            $orderData = Mage::getModel('sales/order')->load($lastOrderId);
-            $status = $orderData->getData('status');
-            if(strtolower($status) == 'canceled') {
-                $canceled = 1;
-            }
+            $canceled = Mage::helper('bilna_fraud')->checkOrderStatus($lastOrderId, 0);
             // FDS (BILNA-1333) - End
 
             $lastRecurringProfiles = $session->getLastRecurringProfileIds();
@@ -420,7 +415,7 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
             $session->clear();
         }
             
-        if (in_array($paymentCode, $this->getPaymentMethodCc())) {
+        if (in_array($paymentCode, $this->getPaymentMethodCc()) && $canceled == 0) {
             // charge credit card
             $charge = $this->creditcardCharge($order);
 
@@ -431,11 +426,13 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
             Mage::dispatchEvent('sales_order_place_after', array ('order' => $order));
         }
 
+        // FDS (BILNA-1333) - Start
         if($canceled == 1) {
             $fraud = Mage::helper('core')->urlEncode('fraud');
             $this->_redirect('checkout/onepage/failure', array('fail' => $fraud));
             return;
         }
+        // FDS (BILNA-1333) - End
         
         $this->loadLayout();
         $this->_initLayoutMessages('checkout/session');
