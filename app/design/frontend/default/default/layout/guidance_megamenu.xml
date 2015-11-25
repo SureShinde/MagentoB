@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!--
+/**
+* @author      Guidance Magento Team <magento@guidance.com>
+* @category    Guidance
+* @package     Megamenu
+* @copyright   Copyright (c) 2013 Guidance Solutions (http://www.guidance.com)
+*/
+-->
+
+<layout version="0.1.0">
+
+    <default>
+        <reference name="top.menu">
+            <remove name="catalog.topnav"/>
+            <block type="guidance_megamenu/html_topmenu" name="megamenu.topnav" template="page/html/topmenu.phtml"/>
+            <action method="setCachePageFlag"><cache>0</cache></action>
+        </reference>
+    </default>
+</layout>
