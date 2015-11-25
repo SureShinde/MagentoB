@@ -1,0 +1,8 @@
+<div class="page-title">
+    <h1><?php echo $this->__('Your order was canceled'); ?>.</h1>
+</div>
+<?php if ($this->getOrderId()): ?>
+    <p><?php echo $this->__('Order #') . $this->getOrderId(); ?></p>
+<?php endif; ?>
+
+<p><?php echo $this->__('Click'); ?> <a href="<?php echo $this->getContinueShoppingUrl(); ?>"><?php echo $this->__('here'); ?></a> <?php echo $this->__('to continue shopping'); ?>.</p>

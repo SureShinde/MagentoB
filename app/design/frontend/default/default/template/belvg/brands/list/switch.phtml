@@ -1,0 +1,58 @@
+<?php
+/**
+ * BelVG LLC.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://store.belvg.com/BelVG-LICENSE-COMMUNITY.txt
+ *
+  /***************************************
+ *         MAGENTO EDITION USAGE NOTICE *
+ * *************************************** */
+/* This package designed for Magento COMMUNITY edition
+ * BelVG does not guarantee correct work of this extension
+ * on any other Magento edition except Magento COMMUNITY edition.
+ * BelVG does not provide extension support in case of
+ * incorrect edition usage.
+  /***************************************
+ *         DISCLAIMER   *
+ * *************************************** */
+/* Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future.
+ * ****************************************************
+ * @category   Belvg
+ * @package    Belvg_Brands
+ * @author Pavel Novitsky <pavel@belvg.com>
+ * @copyright  Copyright (c) 2010 - 2012 BelVG LLC. (http://www.belvg.com)
+ * @license    http://store.belvg.com/BelVG-LICENSE-COMMUNITY.txt
+ */
+?>
+
+<?php
+/**
+ * Brads switcher
+ *
+ * @see Belvg_Brands_Block_List_Switch
+ */
+?>
+<?php if(Mage::helper('brands')->isSwitcherActive() && $this->getBrandsCount()): ?>
+<?php $_title = $this->escapeHtml($this->__(Mage::helper('brands')->getPageTitle())) ?>
+<div class="block">
+    <div class="block-title">
+        <strong><span><?php echo $_title ?></span></strong>
+    </div>
+    <div class="block-content">
+        <select name="brands_switch" title="<?php echo $_title ?>" onchange="this.value.length?setLocation(this.value):''" style="width: 95%; margin: 3px">
+            <option value="">---</option>
+        <?php foreach ($this->getLoadedBrandsCollection() as $_brand): ?>
+            <option value="<?php echo $_brand->getUrl() ?>"<?php if($_brand->getId() ==$this->getCurrentBrandId()): ?> selected="selected"<?php endif; ?>>
+                <?php echo $this->escapeHtml($_brand->getTitle()) ?>
+            </option>
+        <?php endforeach; ?>
+        </select>
+    </div>
+</div>
+<?php endif; ?>

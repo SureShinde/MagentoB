@@ -1,0 +1,182 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <checkout_onepage_index>
+        <reference name='checkout.onepage'>
+             <action method='setTemplate'>
+                 <template>paymethod/checkout/onepage.phtml</template>
+             </action>
+        </reference>
+    </checkout_onepage_index>
+    
+    <checkout_cart_totals>
+        <reference name='root'>
+            <action method='setTemplate'>
+                <template>paymethod/checkout/cart/review/info.phtml</template>
+            </action>
+            <block type="checkout/cart_totals" name="checkout.onepage.review.info.totals" as="totals" template="checkout/onepage/review/totals.phtml"/>
+        </reference>
+    </checkout_cart_totals>
+    
+    
+    <checkout_onepage_review>
+        <reference name='root'>
+            <action method='setTemplate'>
+                <template>paymethod/checkout/onepage/review/info.phtml</template>
+            </action>
+            
+            <action method="addItemRender">
+                <type>default</type>
+                <block>checkout/cart_item_renderer</block>
+                <template>paymethod/checkout/onepage/review/item.phtml</template>
+            </action>
+            
+            <action method="addItemRender">
+                <type>grouped</type>
+                <block>checkout/cart_item_renderer_grouped</block>
+                <template>paymethod/checkout/onepage/review/item.phtml</template>
+            </action>
+            
+            <action method="addItemRender">
+                <type>configurable</type>
+                <block>checkout/cart_item_renderer_configurable</block>
+                <template>paymethod/checkout/onepage/review/item.phtml</template>
+            </action>
+            
+            <block type="paymethod/checkout_onepage_review_installment" name="items_after" as="items_after" ifconfig="payment/klikpay/active" template="paymethod/checkout/onepage/review/installments.phtml"/>
+            <block type="paymethod/checkout_cart_totals" name="checkout.onepage.review.info.totals" as="totals" template="paymethod/checkout/cart/totals.phtml"/>
+        </reference>
+    </checkout_onepage_review>
+    
+    <checkout_onepage_success>
+    	<reference name="root">
+            <action method="setTemplate">
+                <template>page/1column.phtml</template>
+            </action>
+    	</reference>
+        
+        <reference name='checkout.success'>  
+            <action method='setTemplate'>
+                <template>paymethod/checkout/onepage/success.phtml</template>
+            </action>
+        </reference>
+    </checkout_onepage_success>
+    
+    <checkout_onepage_failure>
+    	<reference name="root">
+            <action method="setTemplate">
+                <template>page/1column.phtml</template>
+            </action>
+    	</reference>
+        
+        <reference name='checkout.failure'>  
+            <action method='setTemplate'>
+                <template>paymethod/checkout/onepage/failure.phtml</template>
+            </action>
+        </reference>
+    </checkout_onepage_failure>
+
+    <sales_order_view>
+        <reference name='order_items'>  
+            <action method="addItemRender">
+                <type>default</type>
+                <block>paymethod/order_item_renderer_default</block>
+                <template>paymethod/sales/order/items/renderer/default.phtml</template>
+            </action>
+            
+            <action method="addItemRender">
+                <type>grouped</type>
+                <block>sales/order_item_renderer_grouped</block>
+                <template>paymethod/sales/order/items/renderer/default.phtml</template>
+            </action>
+        </reference>
+        
+        <!--<reference name='sales.order.info.buttons'>
+            <action method='setTemplate'>
+                <template>sales/order/info/buttons.phtml</template>
+            </action>
+        </reference>-->
+    </sales_order_view>
+    
+    <!--customer_account_index>
+        <reference name="customer_account_dashboard">
+            <block type="sales/order_recent" name="customer_account_dashboard_top" as="top" template="klikpay/sales/order/recent.phtml"/>
+        </reference>
+    </customer_account_index>
+    
+    <sales_order_history>
+        <reference name='sales.order.history'>  
+            <action method='setTemplate' ifconfig="payment/klikpay/active"><template>klikpay/sales/order/history.phtml</template></action>
+        </reference>
+    </sales_order_history-->
+    
+    <sales_order_invoice>
+        <reference name='invoice_items'>  
+            <action method="addItemRender">
+                <type>default</type>
+                <block>sales/order_item_renderer_default</block>
+                <template>paymethod/sales/order/invoice/items/renderer/default.phtml</template>
+            </action>
+            
+            <action method="addItemRender">
+                <type>grouped</type>
+                <block>sales/order_item_renderer_grouped</block>
+                <template>paymethod/sales/order/invoice/items/renderer/default.phtml</template>
+            </action>
+        </reference>
+    </sales_order_invoice>
+    
+    <checkout_onepage_paymentmethod>
+        <remove name="right"/>
+        <remove name="left"/>
+
+        <block type="paymethod/checkout_onepage_payment_methods" name="root" output="toHtml" template="paymethod/checkout/onepage/payment/methods.phtml">
+            <action method="setMethodFormTemplate">
+                <method>purchaseorder</method>
+                <template>payment/form/purchaseorder.phtml</template>
+            </action>
+        </block>
+    </checkout_onepage_paymentmethod>
+    
+    <paymethod_klikpay_redirect>
+    	<reference name="root">
+            <action method="setTemplate"><template>page/1column.phtml</template></action>
+    	</reference>
+    	                        
+        <reference name="content">
+            <block type="paymethod/checkout_onepage_redirect_klikpay" name="paymethod_redirect_klikpay" template="paymethod/checkout/onepage/redirect/klikpay.phtml"/>
+        </reference>
+    </paymethod_klikpay_redirect>
+    
+    <paymethod_klikpay_thankyou>
+    	<reference name="root">
+            <action method="setTemplate"><template>page/1column.phtml</template></action>
+    	</reference>
+    	                        
+        <reference name="content">
+            <block type="paymethod/klikpay_thankyou" name="paymethod_klikpay_thankyou" template="paymethod/klikpay/thankyou.phtml"/>
+        </reference>
+    </paymethod_klikpay_thankyou>
+    
+    <paymethod_klikpay_pay>
+        <reference name="root">
+            <action method="setTemplate"><template>page/1column.phtml</template></action>
+        </reference>
+        
+        <reference name="content">
+            <block type="paymethod/klikpay_pay" name="paymethod_klikpay_pay" template="paymethod/klikpay/pay.phtml"/>
+        </reference>
+    </paymethod_klikpay_pay>
+    
+    <!-- Credit Card VT-Direct -->
+    <paymethod_vtdirect_thankyou>
+        <reference name="root">
+            <action method="setTemplate">
+                <template>page/1column.phtml</template>
+            </action>
+        </reference>
+    
+        <reference name="content">
+            <block type="paymethod/vtdirect_thankyou" name="paymethod.vtdirect.thankyou" template="paymethod/vtdirect/thankyou.phtml"/>
+        </reference>
+    </paymethod_vtdirect_thankyou>
+</layout>
