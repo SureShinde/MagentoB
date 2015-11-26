@@ -1,3 +1,21 @@
+.loader{
+    width: 100%;
+    text-align: center;
+    position: absolute;
+    height: 100%;
+    display: block;
+    top: 0;
+    vertical-align: middle;
+    z-index: 1;
+    background-color: #fff;
+}
+.loader img.loader-img{
+    width: 20px !Important;
+    height: auto !Important;
+    margin-top: 40% !important;
+    display: inline !Important;
+    float: none;
+}
 .header-container {
 	background: #fff;
 	position: relative;

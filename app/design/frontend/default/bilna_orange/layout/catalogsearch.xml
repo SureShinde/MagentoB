@@ -49,7 +49,7 @@
     <catalogsearch_result_index translate="label">
         <label>Quick Search Form</label>
         <reference name="root">
-            <action method="setTemplate"><template>page/2columns-left.phtml</template></action>
+            <action method="setTemplate"><template>page/2columns-left-wide.phtml</template></action>
         </reference>
         <reference name="head">
             <action method="addCss"><stylesheet>css/category-3.css</stylesheet></action>
@@ -89,7 +89,7 @@
         <label>Advanced Search Form</label>
         <!-- Mage_Catalogsearch -->
         <reference name="root">
-            <action method="setTemplate"><template>page/2columns-right.phtml</template></action>
+            <action method="setTemplate"><template>page/2columns-left-wide.phtml</template></action>
         </reference>
         <reference name="head">
             <action method="setTitle" translate="title" module="catalogsearch"><title>Advanced Search</title></action>
@@ -112,7 +112,7 @@ Advanced search results
         <update handle="page_two_columns_right" />
         <!-- Mage_Catalogsearch -->
         <reference name="root">
-            <action method="setTemplate"><template>page/2columns-right.phtml</template></action>
+            <action method="setTemplate"><template>page/2columns-left-wide.phtml</template></action>
         </reference>
         <reference name="content">
             <block type="catalogsearch/advanced_result" name="catalogsearch_advanced_result" template="catalogsearch/advanced/result.phtml">

@@ -130,7 +130,7 @@
                         //end original script
                         .attr("src", $self.attr("data-" + settings.data_attribute));
                         $(this).load(function() {
-                            $j(this).siblings(".loader").remove();
+                            //$j(this).siblings(".loader").remove();
                         });
                 }
             });

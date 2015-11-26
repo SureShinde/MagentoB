@@ -60,7 +60,7 @@ div.custom-onsale-category-label-text {
 /* --------------- 320 px layout -------------------- */
 @media only screen and (max-width: 479px) { 
 	div.onsale-category-container-grid {
-		width: 45%;
+		width: 40%;
 		height: auto;
 	}
 	.products-grid .product-info-wrapper {

@@ -937,6 +937,20 @@ a.triger-showfilter {
 	.catalog-category-view .slidesjs-pagination{
 		left:45%;
 	}
+    .button-bilna-custom{
+        width: 55%;
+        float: right;
+        position: absolute;
+        bottom: 11px;
+        right: 5%;
+    }
+    .wrap-button-bilna-custom{
+        float: none;
+    }
+    .top_thumb_list_product{
+        width: 100%;
+        display: inline-block;
+    }
 }
 /* --------------- 320 px layout -------------------- */
 @media only screen and (max-width: 479px) { 

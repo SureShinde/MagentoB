@@ -34,25 +34,23 @@
 .cart .page-title p span {
 	font-weight: bold;
 }
-#shopping-cart-table.data-table {
-	border: 0;
-}
-#shopping-cart-table.data-table tbody th, 
-#shopping-cart-table.data-table tbody td {
-	border: 0;
-}
 #shopping-cart-table.data-table thead th {
     background: #E4E4E4;
     color: #000;
-	border-right: 0;
+    padding: 10px;
 }
-#shopping-cart-table.data-table thead .shopping-cart, 
+.shopping-cart{
+    font-size: 2em;
+    display: inline-block;
+    width: 96%;
+    background: #e4e4e4;
+    margin-bottom: 10px;
+    padding: 0 2%;
+    line-height: 2.5em;
+}
 #shopping-cart-table.data-table thead .wishlist {
 	width: 10%;
 	padding: 11px 10px;
-}
-#shopping-cart-table.data-table thead .items {
-	width: 30%;
 }
 #shopping-cart-table.data-table tr.last th span.title {
 	font-size: 1.16em;
@@ -164,11 +162,19 @@
 	background: url(../images/btn_close.png) no-repeat;
 	float: right;
 }
+#shopping-cart-table.cart-table .product-image{
+    padding: 5px 10px;
+    display: inline-block;
+}
+#shopping-cart-table.cart-table .btn-update{
+    margin: 5px 10px;
+    border: 1px solid #d2d2d2;
+}
 #shopping-cart-table.cart-table .btn-update span {
 	border: 0;
     background: #EDEDED;
     font-size: 1em;
-    color: #000;
+    color: #fff;
 }
 #shopping-cart-table.data-table tfoot {
 	border-bottom: 0;
@@ -181,16 +187,13 @@
 	background: none !important;
 }
 #shopping-cart-table .even td{
-	padding:5px 0;
+	padding:5px;
 }
 #shopping-cart-table.data-table .even{
 	border-bottom:1px solid #E4e4e4;
 }
 #shopping-cart-table tfoot .checkout-types {
 	float: right;
-}
-#shopping-cart-table tfoot .checkout-types button {
-	width: 300px;
 }
 #shopping-cart-table tfoot .checkout-types button.btn-checkout span {
 	background: #ffa01b;
@@ -244,7 +247,6 @@
     margin-bottom: 10px;
     display: inline-block;
     width: 100%;
-    border-top: 1px solid #E4E4E4;
 }
 .coupon-total .coupon {
     float: left;
@@ -291,7 +293,7 @@
 	display: none;
 }
 .coupon-total .coupon .discount .input-box  {
-	width: auto;
+	width: 100%;
 }
 .coupon-total .coupon .discount input.input-text {
     height: 28px;
@@ -307,7 +309,7 @@
 }
 .coupon-total .coupon .discount button span {
 	border: 0;
-	background: #151314;
+	background: #E4E4E4;
 	padding: 1px 10px;
 }
 .coupon-total .totals {
@@ -364,16 +366,16 @@
 .checkout-types button.btn-checkout span {
 	background: #FA6938;
 }
-.continue-shopping .btn-continue {
+.continue-shopping{
     float: right;
-    margin-right: 6px;
-    width: 300px;
-    border: 1px solid #FA6938;
+}
+.continue-shopping .btn-continue {
+    
 }
 .continue-shopping .btn-continue span {
     border: none;
-    background: #FFFFFF;
-    color: #FA6938;
+    background: #E4E4E4;
+    color: #000;
     font-size: 1.1em;
     padding-top: 0;
     height: auto;
@@ -383,6 +385,9 @@
 	line-height: 40px;
 	padding-left: 15px;
 	height: 40px;
+}
+.continue-shopping .btn-continue span span .fa{
+    margin-right: 5px;
 }
 .one-click-checkout {
 	clear: both;
@@ -570,10 +575,10 @@
 		margin-top: 30px;
 	}
 	.cart .cart-left {
-		width: 74%;
+		width: 100%;
 	}
 	.cart .cart-right {
-		width: 24%;
+		width: 100%
 	}
 	.data-table thead th {
 		padding-left: 0;
@@ -585,20 +590,11 @@
 	#shopping-cart-table.data-table thead .items {
 		width: 25%;
 	}
-	.coupon-total .coupon .discount input.input-text {
-		width: 125px;
-	}
 	.sum-cart {
 		display: none;
 	}
 	.continue-shopping .btn-continue {
 		width: 200px;
-	}
-	.continue-shopping .btn-continue span span .fa{
-        margin-right: 5px;
-	}
-	.checkout-types button {
-		width: 130px;
 	}
 	.cart .cart-right .crosssell {
 		padding: 0 5px;
@@ -617,8 +613,20 @@
         width: auto;
         margin-top: 10px;
     }
+    .coupon-total{
+        width: 100%;
+    }
+    .coupon-total .left, .coupon-total .right{
+        width: 49%;
+    }
+	.checkout-types {
+		margin: 10px;
+	}
 }
 @media (max-width: 767px) {
+    .coupon-total .left, .coupon-total .right{
+        width: 100%;
+    }
 	.main-container.col1-layout .main {
 		margin-top: 0;
 	}
@@ -646,16 +654,12 @@
 		margin-left: 40px;
 		margin-top: 0;
 	}
-	.coupon-total .coupon .discount input.input-text {
-		width: 250px;
-	}
 	.coupon-total .totals {
 		margin-right: 40px;
 	}
 	.checkout-types {
-		margin-right: 10px;
+		margin: 10px;
 	}
-	.checkout-types button, 
 	.continue-shopping .btn-continue {
 		width: 215px;
 	}
@@ -686,6 +690,14 @@
 	#shopping-cart-table .odd td{
 		padding:10px 0;
 	}
+    .coupon-total .coupon .discount .buttons-set{
+        float: right;
+        margin: 10px 0;
+    }
+    .shopping-cart{
+        font-size: 1.2em;
+        line-height: 2.6em;
+    }
 }
 @media (max-width: 479px) {
 	.cart .cart-left {
@@ -694,13 +706,8 @@
 	.coupon-total .coupon {
 		margin-left: 0;
 	}
-	.coupon-total .coupon .discount input.input-text {
-		width: 155px;
-	}
+    
 	.continue-shopping .btn-continue {
-		width: 135px;
-	}
-	.checkout-types button {
 		width: 135px;
 	}
 	.checkout-types, 
