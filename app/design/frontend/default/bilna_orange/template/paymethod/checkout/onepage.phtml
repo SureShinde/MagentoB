@@ -91,7 +91,7 @@
               'products' :
                 [
                     <?php for ($itr = 0 ; $itr <= count($productCollection)-1 ; $itr++) {
-                        echo '{"id":"'.$productCollection[$itr].'", "sku":"'.$skuCollection[$itr].'", "price":"'.$valueCollection[$itr].'", "quantity":"'.$qtyCollection[$itr].'"}';
+                        echo '{"id":"'.$productCollection[$itr].'","name":jQuery("#checkout-review-table tbody tr.first.last.odd td h3").text() , "sku":"'.$skuCollection[$itr].'", "price":"'.$valueCollection[$itr].'", "quantity":"'.$qtyCollection[$itr].'"}';
                         if(($itr+1) < count($productCollection)) {
                             echo ",";
                         }

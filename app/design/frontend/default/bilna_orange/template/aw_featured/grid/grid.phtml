@@ -239,27 +239,38 @@
 
             if (typeof objDataLayer == "undefined") {
                 objDataLayer = new Array();
+                <?php $total = count($dataForUA); ?>
+                objDataLayer.push(
+                    <?php foreach($dataForUA as $key=>$rowDataForUA): ?>
+                        <?php echo '{"id":"'.$rowDataForUA[id].'", "name":"'.$rowDataForUA[name].'", "price":'.$rowDataForUA[price].', "category":"Default Category", "position":'.$rowDataForUA[position].', "list":"browsing"}'; ?>
+                        <?php if(($key+1) < $total) {
+                            echo ",";
+                        } ?>
+                    <?php endforeach; ?>
+                );
             }
-            <?php $total = count($dataForUA); ?>
-            objDataLayer.push(
-                <?php foreach($dataForUA as $key=>$rowDataForUA): ?>
-                    <?php echo '{"id":"'.$rowDataForUA[id].'", "name":"'.$rowDataForUA[name].'", "price":'.$rowDataForUA[price].', "category":"Default Category", "position":'.$rowDataForUA[position].', "list":"browsing"}'; ?>
-                    <?php if(($key+1) < $total) {
-                        echo ",";
-                    } ?>
-                <?php endforeach; ?>
-            );
-            var ecommerceData = {
-                "ecommerce" :
-                {
-                    "impressions" : objDataLayer,
-                    "currencyCode":"IDR"
-                },
-                'event': 'impression',
-                'eventCategory':'ecommerce',
-                'eventAction':'impression'
-            };  
-            dataLayer.push(ecommerceData);
+            else {
+                <?php $total = count($dataForUA); ?>
+                objDataLayer.push(
+                    <?php foreach($dataForUA as $key=>$rowDataForUA): ?>
+                        <?php echo '{"id":"'.$rowDataForUA[id].'", "name":"'.$rowDataForUA[name].'", "price":'.$rowDataForUA[price].', "category":"Default Category", "position":'.$rowDataForUA[position].', "list":"browsing"}'; ?>
+                        <?php if(($key+1) < $total) {
+                            echo ",";
+                        } ?>
+                    <?php endforeach; ?>
+                );
+                var ecommerceData = {
+                    "ecommerce" :
+                    {
+                        "impressions" : objDataLayer,
+                        "currencyCode":"IDR"
+                    },
+                    'event': 'impression',
+                    'eventCategory':'ecommerce',
+                    'eventAction':'impression'
+                };  
+                dataLayer.push(ecommerceData);
+            }
         }
     });
 
