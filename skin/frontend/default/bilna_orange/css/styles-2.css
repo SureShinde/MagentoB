@@ -391,10 +391,6 @@ p.required { font-size:11px; text-align:right; color:#EB340A; }
 .data-table .even { background:#eeeded; }
 /*.data-table tr.odd:hover,
 .data-table tr.even:hover { background:#ebf1f6; }*/
-.data-table td.last,
-.data-table th.last { border-right:0; }
-.data-table tr.last th,
-.data-table tr.last td { border-bottom:0 !important; }
 .data-table th { padding:3px 8px; font-weight:bold; }
 .data-table td { padding:3px 8px; }
 

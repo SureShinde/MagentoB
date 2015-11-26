@@ -55,7 +55,6 @@ Default layout, loads most of the pages
                 <action method="addCss"><stylesheet>css/styles-2.css</stylesheet></action>
                 <action method="addCss"><stylesheet>css/homepage-3.css</stylesheet></action>
                 <action method="addCss"><stylesheet>css/style-static-2.css</stylesheet></action>
-                <action method="addCss"><stylesheet>css/bilna-category-2.css</stylesheet></action>
                 <action method="addItem"><type>skin_css</type><name>css/styles-ie-2.css</name><params/><if>lt IE 8</if></action>
                 <action method="addCss"><stylesheet>css/widgets-2.css</stylesheet></action>
                 <action method="addCss"><stylesheet>css/font-awesome.min.css</stylesheet></action>
