@@ -5,7 +5,7 @@
 	clear: both;
     border-top: 1px solid #ebebeb;
 }
-.footer-container:nth-child(odd) {
+.footer-container:nth-child(even) {
     background: #f2f2f2;
 }
 .footer-container:last-child{

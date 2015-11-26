@@ -351,7 +351,7 @@
 .header .mini-cart .block-cart .block-content {
     background: #FFFFFF;
     border: 1px solid #CDCDCD;
-    padding: 0 0 10px 0;
+    padding: 10px;
 }
 .header .mini-cart .block-cart .block-content .empty {
 	margin-top: 10px;
@@ -361,7 +361,6 @@
 	background: #fff;
 }
 .mini-products-list thead {
-	background: #e9e9e9;
 	border-bottom: 2px solid #fff;
 }
 .mini-products-list thead tr th {
@@ -380,8 +379,9 @@
 	padding: 0 5px;
 }
 .mini-products-list tbody tr td {
-	padding: 20px 5px;
-	border-bottom: 1px solid #e6e6e6;
+    padding: 0 5px;
+    border-bottom: 1px solid #e6e6e6;
+    vertical-align: middle;
 }
 .mini-products-list tbody tr td.qty {
 	text-align: center;
@@ -470,7 +470,7 @@
 .mini-cart .block-cart .actions button.button.btn-checkout, .mini-cart-mobile .block-cart .actions button.button.btn-checkout,.block-cart .actions button.button.btn-checkout {
 	display: inline-block;
 	float: none;
-	background-color: #ffa01b;
+	background-color:#FA6938;
 	background-position: 107px 8px;
 	text-align: center;
 	padding-top: 6px ;
@@ -492,8 +492,6 @@
 	padding-left: 0;
 	padding-right: 0;
 	font-size: 1.2em;
-	text-transform: uppercase;
-	font-family: 'bebasregular';
 	font-weight: normal;
 	line-height: normal;
 	padding: 2px 0;
