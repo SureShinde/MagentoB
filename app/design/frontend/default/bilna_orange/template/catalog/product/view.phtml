@@ -265,104 +265,6 @@
             <?php endforeach; ?>
         </div>
     </div>
-	<?php if ($_product->getShortDescription()): ?>
-        <div class="short-description-mobile">
-            <div class="std">
-                <?php echo $_helper->productAttribute($_product, nl2br($_product->getShortDescription()), 'short_description') ?>
-            </div>
-        </div>
-	<?php endif;?>
-		
-	<div class="product-tab-mobile-wrapper">
-        <div id="tab-container" class="tab-container">
-            <?php $idx_tab = 0; ?>
-
-			<?php foreach ($this->getChildGroup('detailed_info', 'getChildHtml') as $alias => $html): ?>
-                <?php if ($alias == 'additional'): continue; endif; ?>
-
-                <h3 class="toggle-tab" id="index<?php echo $idx_tab; ?>">
-					<?php if ($alias == 'description'): ?>
-                        <?php echo $this->__('Description'); ?>
-					<?php elseif ($alias == 'additional'): ?>
-                        <?php echo $this->__('Additional Info'); ?>
-                    <?php endif; ?>
-				</h3>
-				
-                <div class="content-tab" id="content<?php echo $idx_tab;?>">
-			        <?php echo $html; ?>
-				</div>
-				
-                <?php $idx_tab = $idx_tab + 1; ?>
-            <?php endforeach; ?>
-
-            <!-- Other Attribute Mobile view -->
-            <?php foreach ($_attributesArr as $_attribute): ?>
-                <?php $_code = $_attribute['code']; ?>
-
-                <h3 class="toggle-tab" id="index<?php echo $idx_tab; ?>">
-                    <?php echo $_attribute['label']; ?>
-                </h3>
-
-                <div class="content-tab" id="content<?php echo $idx_tab; ?>">
-                    <?php if ($_code == 'nutrition_fact'): ?>
-                        <?php $_first = true; ?>
-                        <?php foreach ($_attribute['data'] as $_data): ?>
-                            <?php if (!$_first): ?>
-                                <br/>
-                            <?php endif; ?>
-
-                            <div>
-                                <h3><?php echo $_data['label']; ?></h3>
-                                <div><?php echo $_data['value']; ?></div>
-                            </div>
-
-                            <?php $_first = false; ?>
-                        <?php endforeach; ?>
-                    <?php elseif ($_code == 'additional_info'): ?>
-                        <?php $_first = true; ?>
-                        <?php foreach ($_attribute['data'] as $_data): ?>
-                            <?php if (!$_first): ?>
-                                <br/>
-                            <?php endif; ?>
-
-                            <div>
-                                <h3><?php echo $_data['label']; ?></h3>
-                                <div><?php echo $_data['value']; ?></div>
-                            </div>
-
-                            <?php $_first = false; ?>
-                        <?php endforeach; ?>
-                    <?php else: ?>
-                        <div>
-                            <?php echo $_attribute['value']; ?>
-                        </div>
-                    <?php endif; ?>
-                </div>
-
-                <?php $idx_tab++; ?>
-            <?php endforeach; ?>
-		</div>
-
-        <script type="text/javascript">
-            // <![CDATA[
-            $j(document).ready(function() {
-                $j('.toggle-tab').click(function() {
-                    $j(this).next().slideToggle('slow');
-                });
-                $j( "#show" ).click(function() {
-                    $j("#hide").css("display","block");
-                    $j("#show").css("display","none");
-                    $j(".wrap-row.last").css("height","100%");
-                });
-                $j( "#hide" ).click(function() {
-                    $j(".wrap-row.last").css("height","0");
-                    $j("#show").css("display","block");
-                    $j("#hide").css("display","none");
-                });
-            });
-            // ]]>
-        </script>
-    </div>
     
     <script type="text/javascript">
         //<![CDATA[
@@ -429,17 +331,6 @@
 		<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('related_product')->toHtml() ?>
 	</div>
 </div>
-	
-    <script type="text/javascript">
-        // <![CDATA[
-        $j(document).ready(function() {
-            $j('#customer-reviews > h2.product-review').click(function() {
-                $j('#customer-reviews ol,#customer-reviews .pager').slideToggle('slow');
-                $j('.review-show-all').slideToggle();
-            });
-        });
-	// ]]>
-    </script>
 <?php $productId = $_product->getId(); ?>
 <script type="text/javascript">
     jQuery(document).ready(function () {

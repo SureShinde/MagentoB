@@ -509,7 +509,7 @@ a.back-to-top img {
 /* --------------- smaller 959 px layout -------------------- */
 @media only screen and (max-width: 767px) {
 	.main-container, .main-container.col1-layout .main, .col2-left-layout .main .col-main,.main-container.col2-left-wide-layout .main {
-		width: 100%;
+		width: 92%;
 		margin-top: 0;
 	}
 	.main {

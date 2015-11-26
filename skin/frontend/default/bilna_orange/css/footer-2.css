@@ -294,114 +294,214 @@ display: inline-block;
 }
 /* --------------- smaller 959 px layout -------------------- */
 @media only screen and (max-width: 767px) {
-	.footer-container {}
-	.footer {
-		width: 100%;
-		border: none;
-		padding-top: 0;
-	}
-	.footer ul {
-		height: auto;
-	}
-	.footer ul, .footer .conect-us, .footer .payment-partners, .footer .shipping-partners, .footer .form-language {
-	}
-	.footer .form-language {
-		padding: 22px 0;
-	}
-	.footer .form-language a {
-		display: inline-block;
-		color: #707070;
-		background-position: left center;
-		background-repeat: no-repeat;
-		padding: 0 0 0 32px;
-		margin: 0;
-	}
-	.footer .form-language a.english {
-		background-image: url(../images/eng.jpg);
-		border-right: 1px solid #707070;
-		padding-right: 10px;
-	}
-	.footer .form-language a.indonesia {
-		background-image: url(../images/ina.jpg);
-		margin-left:10px;
-	}
-	.footer .form-language, .footer ul {
-	}
-	.footer ul {
-		float: none;
-		width: auto;
-		margin:0;
-		text-align: left;
-		padding: 22px 15px 0;
-		min-height:0;
-	}
-	.footer ul li {
-		padding: 1px 0;
-	}
-	.footer ul li:first-child {
-	}
-	.footer li span.title, .footer .conect-us span.title, .footer .payment-partners span.title, .footer .shipping-partners span.title {
-	}
-	.footer a {
-		color: #fd8e17;
-		font-size: 12px;
-	}
-	.footer .conect-us, .footer .payment-partners, .footer .shipping-partners {
-		float: none;
-		text-align: left;
-		width: auto;
-		padding-left: 15px;
-		padding-right: 15px;
-	}
-	.footer .payment-partners, .footer .shipping-partners {
-		display: none;
-	}
-	.footer .conect-us {
-		padding-top: 22px;
-		padding-bottom: 30px;
-	}
-	.footer .about-us {
-		display: none;
-	}
-	.footer-bottom {
-		padding: 0 15px;
-	}
-	.footer address {
-		color: #494949;
-		font-size: 14px;
-	}
+	
+    .footer {
+        width: 92%;
+        padding: 10px 4%;
+    }
+    .footer .form-language select {
+        display: none;
+    }
+    .footer .footer-link {
+        display: none;
+    }
+    .footer ul.mobile-footer-link li {
+        float: none;
+    }
+    .footer ul.mobile-footer-link {
+        border-bottom: 1px solid #E4E4E4
+    }
+    .footer ul, .footer ul.links, .footer li {
+        display: block;
+    } 
+    .footer .bg-indo{
+        background: url(../images/peta_indo.jpg) no-repeat;
+        display: inline-block;
+        background-size: 100%;
+        width: 100%;
+    }
+    .footer ul {
+        float: left;
+        width: 100%;
+        text-align: left;
+        margin-bottom: 20px;
+        font-size: 1.2em;
+        padding-bottom: 10px;
+    }
+    .footer ul.sosmed{
+        float: right;
+    }
+    .footer li {
+        background: none;
+        color: #494949;
+        padding: 3px 0;
+        float: left;
+        margin: 0 10px;
+        font-weight: normal;
+        font-size: 1.1em;
+    }
     .footer li a {
+        color: #999;
         text-decoration: none !important;
     }
-	.footer-container .subscribe-form {
-		width: 94%;
-	}
-	.footer-container .subscribe-form p{
-		padding-left: 68px;
-		text-align:center;
-	}
-	.footer-container .subscribe-form .wrap-form-subscribe {
-		float: left;
-		padding-left: 70px;
-	}
-}
-/* --------------- 320 px layout -------------------- */
-@media only screen and (max-width: 479px) { 
-	.footer-container .subscribe-form .wrap-form-subscribe {
-		padding:0;
-	}
-	.footer-container .subscribe-form p {
-		padding-bottom: 12px;
-	}
-	.footer-container .subscribe-form .wrap-form-subscribe form .input-box{
-		width:75%;
-	}
-	.footer-container .subscribe-form .wrap-form-subscribe form button{
-		width: 23%;
-		margin-left: 2%;
-		padding: 5px 0;
-	}
-	.footer-container .subscribe-form .wrap-form-subscribe{
-		width:100%;
-	}
+    .footer .cs-info{
+        float: left;
+        padding: 10px 10px 0 10px;
+    }
+    .footer .cs-info,.footer-container .subscribe-form{
+        border: 1px solid #D6D6D6;
+        background: #fff;
+        margin-bottom: 10px;
+        width: 100%;
+        box-sizing: border-box; 
+        -moz-box-sizing: border-box; 
+        -webkit-box-sizing: border-box; 
+    }
+    .footer .cs-info img{
+        float: left;
+        margin-right: 10px;
+    },
+    .footer .cs-info p{
+        text-align: left;
+    }
+    .footer .cs-info p span{
+        display: block;
+        clear: right;
+        margin-top: 2px;
+        text-align: left;
+    }
+    .footer .cs-info p span.que{font-size: 1.5em}
+    .footer .cs-info p span.phone{font-size: 2em}
+    .footer .cs-info p span.day{font-size: 1em}
+    .footer .cs-info p span.email{font-size: 1.2em}
+    .footer-container .subscribe-form{
+        padding: 15px 10px;
+    }
+    .footer li span.title, .footer .conect-us span.title, .footer .payment-partners span.title, .footer .shipping-partners span.title {
+        color: #484848;
+        font-size: 14px;
+        font-weight: normal;
+        text-transform: uppercase;
+    }
+    .footer .payment-partners span.title{
+        padding: 0 0 8px;
+        display: block;
+    }
+    .footer a, .footer address {
+        color: #999;
+    }
+    .footer .conect-us, .footer .payment-partners, .footer .shipping-partners {
+        float: left;
+        text-align: left;
+        width: 100%;
+        MARGIN: 10PX 0;
+        clear: both;
+    }
+    .footer .conect-us li, .footer .payment-partners li, .footer .shipping-partners li{
+        border: 1px solid #D6D6D6;
+        height: 20px;
+        padding: 3px 5px;
+        background: #fff;
+        margin: 5px;
+        border-radius: 5px;
+        width: 40px;
+        height: 30px;
+    }
+    .footer .payment-partners table tr td.payment-right {
+        text-align: right;
+    }
+    .footer .conect-us span.title, .footer .shipping-partners span.title {
+        display: block;
+        margin:0 0 15px 0;
+    }
+    .footer .payment-partners a, .footer .shipping-partners a {
+        display: inline-block;
+        margin: 0 8px 0 0;
+    }
+    .footer .conect-us a{
+        margin: 2px 3px 2px 0;
+    display: inline-block;
+    }
+    .footer .payment-partners a, .footer .shipping-partners a {
+        vertical-align: middle;
+    }
+    .footer .payment-partners table td{
+        vertical-align:middle;
+    }
+    .footer .footer-bottom .sosmed li{
+        float: left;
+    }
+    .footer .footer-bottom .sosmed li a{
+        color: #d2d2d2;
+    }
+    .footer .footer-bottom li,
+    .footer address{
+        line-height: 2.3em;
+        margin: 0 10px 0 0;
+        font-size: 0.9em;
+    }
+    .footer .footer-bottom ul{
+        margin: 0;
+        padding: 0;
+    }
+    .footer .footer-link ul{
+        float: left;
+        width: 33%;
+        display: inline-block;
+        padding: 10px 0;
+    }
+    .footer .footer-link ul li{
+        display: block;
+        clear: both;
+        padding: 5px; 0;
+    }
+    .footer .about-us {
+        padding: 20px 0 0 0;
+        border-top: 1px solid #707070;
+    }
+    .footer .about-us p {
+        line-height: normal;
+        padding: 0 0 20px 0;
+    }
+    .footer .about-us, .footer address {
+        text-align: left;
+    }
+    .footer .bugs {
+        display: none;
+    }
+    .footer-container .subscribe-form{
+        padding: 12px 10px 13px;
+        display: table;
+        float: right;
+    }
+    .footer-container .subscribe-form p{
+        float: left;
+        line-height: 25px;
+        font-size: 1.3em;
+        color: #000;
+        text-align: left;
+        margin-bottom: 10px;
+    }
+    .footer-container .subscribe-form .wrap-form-subscribe{
+        display: block;
+        clear: both;
+        height: 43px;
+        border: 1px solid #eaeaea;
+    }
+    .footer-container .subscribe-form .wrap-form-subscribe form input{
+        width: 70%;
+        font-size: 1em;
+        border: none;
+        height: 43px;
+        box-sizing: border-box;
+        text-indent: 7px;
+    }
+    .footer-container .subscribe-form .wrap-form-subscribe form button{
+        width: 30%;
+        height: 43px;
+        float: right;
+        font-size: 1.2em;
+        background: #F48120;
+        color: #fff;
+    }
 }

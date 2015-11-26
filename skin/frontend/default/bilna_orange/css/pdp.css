@@ -559,7 +559,7 @@ hr{
 	display: none;
 }
 /* tabs*/
-.product-tab-wrapper .title-category,.product-tab-mobile-wrapper .toggle-tab, 
+.product-tab-wrapper .title-category,
 #customer-reviews h2, .aw-mini-related-items .head,.related-product .block-title {
     font-size: 3em;
     line-height: normal;
@@ -678,12 +678,6 @@ table tbody th{
 table.ratings-table tbody tr{
     background: none;
 }
-/*end detail desc*/
-.product-tab-mobile-wrapper {
-	display: none;
-}
-/* _tabs */
-
 .related-product {
 	clear:both;
 }
@@ -882,17 +876,6 @@ table.ratings-table tbody tr{
 .aw-mini-related-items li:hover button.btn-cart{
 	background: #F48120;
 }
-
-.product-tab-mobile-wrapper .tab-container {
-    margin: 0 15px;
-}
-
-.product-tab-mobile-wrapper .colomn{
-	width:auto;
-}
-.product-tab-mobile-wrapper #show{
-	display:none;
-}
 #customer-reviews {
 	margin-bottom: 50px;
 	clear: both;
@@ -1024,18 +1007,43 @@ table.ratings-table tbody tr{
 }
 /* --------------- smaller 959 px layout -------------------- */
 @media (max-width: 767px) {
+    #customer-reviews li .riview-left,
+    #customer-reviews li .riview-right{
+        width: 100%;
+    }
+    .product-shop-right .block.block-related .block-content .aw-arp-item{
+        width: 90%;
+        padding: 0 5%;
+        margin: 0 0 10px;
+    }
+    .product-shop-right .block.block-related .block-title{
+        font-size: 2em;
+    }
+    .aw-arp-block-1 .top_thumb_list_product{
+        width: 30%;
+    }
+    .product-shop-right .block.block-related .aw-arp-item-right{
+        width: 70%;
+    }
+    .form-list li .input-box textarea,
+    .form-list li .input-box input{
+        width: 100%;
+    }
 	.product-view .product-img-box .more-views, 
-	.product-view .product-shop-right .block.block-related, 
 	.product-shop-left .rating-links .review-count,
 	.product-shop-left .rating-links .separator,
 	.related-product,
 	.aw-mini-related-items.aw-base-mini {
 		display: none;
 	}
+    .product-view .product-shop-right{
+        border: 0;
+    }
+    .product-view .product-shop-right .block.block-related{
+        padding: 0;
+    }
 	.product-essential {
 		padding: 0;
-		margin-left: 15px;
-		margin-right: 15px;
 	}
 	.product-view .product-shop .price-box {
 		float: left;
@@ -1060,18 +1068,23 @@ table.ratings-table tbody tr{
 	.product-view .product-shop .product-shop-left {
 		float: none;
 		width: auto;
+        margin: 0;
 	}
 	.product-view .product-shop-right {
 		width: 100%;
 		float: none;
+        padding: 0;
+        margin: 0;
 	}
 	.product-view .product-shop .product-shop-left .add-to-box, 
-	.product-view .product-shop .product-shop-left .add-to-cart, 
 	.product-view .product-shop .product-shop-left .one-click-checkout,
 	.product-view .product-shop-right .share-button, 
 	.product-view .product-shop-right .email-friend {
 		float: left;
 	}
+    .product-view .product-shop .product-shop-left .add-to-cart{
+        height: auto;
+    }
 	.product-view .product-shop .product-shop-left .add-to-box {
 		margin-right: 10px;
 	}
@@ -1091,45 +1104,8 @@ table.ratings-table tbody tr{
 	.product-view .product-img-box .product-image-zoom img {
 		position: inherit;
 	}
-	
-	/* .short-description-mobile {
-		display: block;
-		margin-bottom: 30px;
-	} */
-	.product-tab-wrapper {
-		display: none;
-	}
-	.product-tab-mobile-wrapper {
-		display: block;
-	}
-	.product-tab-mobile-wrapper #index4{
-		/*display:none;*/
-	}
-	.product-tab-mobile-wrapper #index5{
-		/*display:none;*/
-	}
-	.product-tab-mobile-wrapper .toggle-tab {
-		line-height: 3em;
-	}
-	.product-tab-mobile-wrapper .content-tab {
-		display: none;
-		margin: 10px 0;
-		padding: 10px;
-		background: #fbfbfb;
-		border: solid #dfe0e0 1px;
-	}
-	.product-tab-mobile-wrapper .content-tab .std{
-		display:table;
-	}
-	.product-tab-mobile-wrapper .content-tab .std .wrap-row.last{
-		height:auto;
-	}
 	#customer-reviews {
 		margin: 0 15px 30px;
-	}
-	#customer-reviews ol,
-	.review-show-all {
-		display: none;
 	}
 	#customer-reviews li {
 		position: relative;
@@ -1181,21 +1157,6 @@ table.ratings-table tbody tr{
 
 /* --------------- 320 px layout -------------------- */
 @media (max-width: 479px) {
-	.product-view .product-shop-right {
-		width: 257px;
-	}
-	/* .product-view .product-shop-right .add-to-cart {
-		background: none;
-		float: none;
-	}
-	.product-view .product-shop-right .add-to-cart .qty {
-		clear: left;
-	}
-	.product-view .product-shop-right .add-to-cart button.button {
-		background: url(../images/btn-buynow3.png) no-repeat;
-		width: 110px;
-		margin-left: 5px;
-	} */
 	.product-view .product-shop .product-shop-left .one-click-checkout {
 		font-size: 0.9em;
 		width: 226px;
