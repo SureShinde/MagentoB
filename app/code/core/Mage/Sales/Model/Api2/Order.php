@@ -41,6 +41,13 @@ class Mage_Sales_Model_Api2_Order extends Mage_Api2_Model_Resource
     const PARAM_PAYMENT_METHOD = '_payment_method';
     const PARAM_TAX_NAME       = '_tax_name';
     const PARAM_TAX_RATE       = '_tax_rate';
+    
+    private $statusButtonNotAllow = array (
+        'pending' => array ('ship'),
+        'pending_cod' => array ('invoice', 'ship', 'reorder'),
+        'processing_cod' => array ('invoice', 'reorder'),
+        'shipping_cod' => array ('ship', 'reorder')
+    );
     /**#@-*/
 
     /**
@@ -298,10 +305,27 @@ class Mage_Sales_Model_Api2_Order extends Mage_Api2_Model_Resource
         $this->_addTaxInfo($collection);
 
         $ordersData = array();
-
+        
+        //process to add new object key, called as is_reorder
         foreach ($collection->getItems() as $order) {
+            $newObjectOrder->{$order->getId()} = $order;
+            if (!$this->hideButton('reorder', $order->getStatus())) {
+                if (Mage::helper('sales/reorder')->isAllowed($order->getStore())
+                    && $order->canReorderIgnoreSalable()
+                ) {
+                    $newObjectOrder->{$order->getId()}->is_reorder = true;
+                } else {
+                    $newObjectOrder->{$order->getId()}->is_reorder = false;
+                }
+            }
+            
+        }
+        
+        //process with new object
+        foreach ($newObjectOrder as $order) {
             $ordersData[$order->getId()] = $order->toArray();
         }
+        
         if ($ordersData) {
             foreach ($this->_getAddresses(array_keys($ordersData)) as $orderId => $addresses) {
                 $ordersData[$orderId]['addresses'] = $addresses;
@@ -313,6 +337,21 @@ class Mage_Sales_Model_Api2_Order extends Mage_Api2_Model_Resource
                 $ordersData[$orderId]['order_comments'] = $comments;
             }
         }
+        
         return $ordersData;
+    }
+    
+    private function hideButton($button, $orderStatus) {
+        foreach ($this->statusButtonNotAllow as $key => $val) {
+            if ($key == $orderStatus) {
+                foreach ($val as $value) {
+                    if ($value == $button) {
+                        return true;
+                    }
+                }
+            }
+        }
+        
+        return false;
     }
 }
