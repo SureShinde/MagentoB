@@ -1596,4 +1596,15 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
     public function workerGetProductBundle($product) {
         return $this->_getAttributeBundle($product);
     }
+    
+    public function workerGetProductDetail($product) {
+        $attributeDetailedInfoArr = array ('description', 'additional', 'how_to_use', 'nutrition_fact', 'size_chart', 'more_detail', 'additional_info');
+        $result = array ();
+        
+        foreach ($attributeDetailedInfoArr as $attr) {
+            $result[$attr] = $product->getData($attr);
+        }
+        
+        return $result;
+    }
 }
