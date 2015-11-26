@@ -12,10 +12,10 @@
 .cart .cart-left {
     display: inline-block;
     margin-bottom: 30px;
-    width: 100%;
+    width: 70%;
 }
 .cart .cart-right {
-	width: 19%;
+	width: 29%;
 	float: right;
 }
 .col-main {
@@ -42,8 +42,8 @@
 	border: 0;
 }
 #shopping-cart-table.data-table thead th {
-	background: #151314;
-	color: #fff;
+    background: #E4E4E4;
+    color: #000;
 	border-right: 0;
 }
 #shopping-cart-table.data-table thead .shopping-cart, 
@@ -241,21 +241,28 @@
 }
 .coupon-total {
     clear: both;
-    background: #F6F6F6;
     margin-bottom: 10px;
     display: inline-block;
     width: 100%;
     border-top: 1px solid #E4E4E4;
 }
 .coupon-total .coupon {
-	float: left;
-	margin-bottom: 15px;
+    float: left;
+    margin-bottom: 15px;
+    width: 100%;
+}
+.coupon-total .left,
+.coupon-total .right{
+    width: 100%;
+    margin: 0 0 10px;
+    border: 3px solid #e4e4e4;
+    display: block;
+    box-sizing: border-box;
 }
 .coupon-total .coupon .discount {
     border: 0;
     background: none;
     margin: 0;
-    display: inline-block;
 }
 .coupon-total .coupon .discount h2, 
 .coupon-total .coupon .discount .get-voucher {
@@ -287,16 +294,15 @@
 	width: auto;
 }
 .coupon-total .coupon .discount input.input-text {
-	height: 28px;
-	padding-left: 10px;
-	width: 180px;
+    height: 28px;
+    width: 100%;
+    display: block;
 }
 .coupon-total .coupon .discount .input-box, 
 .coupon-total .coupon .discount .buttons-set {
 	float: left;
 }
 .coupon-total .coupon .discount .buttons-set {
-	clear: none;
 	margin-top: 8px;
 }
 .coupon-total .coupon .discount button span {
@@ -349,14 +355,13 @@
 .continue-checkout {
 	clear: both;
 }
-.continue-checkout .checkout-types {
-	float: right;
-}
-.continue-checkout .checkout-types button {
-	width: 300px;
+.checkout-types button {
+    width: 100%;
     border: 1px solid #FA6938;
+    margin: 0 auto 20px;
+    display: block;
 }
-.continue-checkout .checkout-types button.btn-checkout span {
+.checkout-types button.btn-checkout span {
 	background: #FA6938;
 }
 .continue-shopping .btn-continue {
@@ -592,7 +597,7 @@
 	.continue-shopping .btn-continue span span .fa{
         margin-right: 5px;
 	}
-	.continue-checkout .checkout-types button {
+	.checkout-types button {
 		width: 130px;
 	}
 	.cart .cart-right .crosssell {
@@ -647,10 +652,10 @@
 	.coupon-total .totals {
 		margin-right: 40px;
 	}
-	.continue-checkout .checkout-types {
+	.checkout-types {
 		margin-right: 10px;
 	}
-	.continue-checkout .checkout-types button, 
+	.checkout-types button, 
 	.continue-shopping .btn-continue {
 		width: 215px;
 	}
@@ -695,10 +700,10 @@
 	.continue-shopping .btn-continue {
 		width: 135px;
 	}
-	.continue-checkout .checkout-types button {
+	.checkout-types button {
 		width: 135px;
 	}
-	.continue-checkout .checkout-types, 
+	.checkout-types, 
 	.continue-shopping .btn-continue {
 		margin-right: 0;
 	}
@@ -708,7 +713,7 @@
 	.continue-shopping .btn-continue span span {
         
 	}
-	.continue-checkout .checkout-types {
+	.checkout-types {
 		margin-right: 10px;
 	}
 	.continue-shopping .btn-continue {

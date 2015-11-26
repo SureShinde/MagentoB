@@ -35,6 +35,14 @@
 <input type="hidden" id="3rdparty-type" value="cart"/>
 <input type="hidden" id="3rdparty-value" value="" />
 <div class="cart">	
+    <div class="shopping-cart" rowspan="<?php echo $mergedCells; ?>">
+        <span class="title"><?php echo $this->__('Shopping Cart') ?></span>
+        <div class="continue-shopping">
+            <?php if($this->getContinueShoppingUrl()): ?>
+                <button type="button" title="<?php echo $this->__('Continue Shopping') ?>" class="button btn-continue" onclick="setLocation('<?php echo $this->getContinueShoppingUrl() ?>')"><span><span><i class="fa fa-arrow-circle-left"></i></i><?php echo $this->__('Continue Shopping') ?></span></span></button>
+            <?php endif; ?>								
+        </div>
+    </div>
     <div class="cart-left">
         <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
         <?php echo $this->getChildHtml('form_before') ?>
@@ -65,7 +73,6 @@
                     <?php $mergedCells = ($this->helper('tax')->displayCartBothPrices() ? 2 : 1); ?>
                     <thead>
                         <tr>
-                            <th class="shopping-cart" rowspan="<?php echo $mergedCells; ?>"><span class="title"><?php echo $this->__('Shopping Cart') ?></span></th>
                             <th class="items<?php if($this->helper('customer')->isLoggedIn()):?> loggedin<?php endif;?>" rowspan="<?php echo $mergedCells; ?>"><span class="nobr"><?php echo $this->__('Item(s)') ?></span></th>
                             <?php if ($this->helper('wishlist')->isAllowInCart()): ?>
                                 <th class="a-center wishlist" rowspan="<?php echo $mergedCells; ?>">
@@ -131,26 +138,6 @@
         
         
 		<div class="continue-checkout">
-			<div class="proceed-checkout">
-				<?php if(!$this->hasError()): ?>
-				<ul class="checkout-types">
-				<?php $idx_method = 0; ?>
-				<?php foreach ($this->getMethods('methods') as $method): ?>
-					<?php if ($methodHtml = $this->getMethodHtml($method)): ?>
-					<li><?php echo $methodHtml; $idx_method = $idx_method + 1; ?></li>
-					<?php endif; ?>
-					<?php if ($idx_method > 0): ?>
-						<?php break; ?>
-					<?php endif; ?>
-				<?php endforeach; ?>
-				</ul>
-				<?php endif; ?>
-			</div>
-			<div class="continue-shopping">
-				<?php if($this->getContinueShoppingUrl()): ?>
-					<button type="button" title="<?php echo $this->__('Continue Shopping') ?>" class="button btn-continue" onclick="setLocation('<?php echo $this->getContinueShoppingUrl() ?>')"><span><span><i class="fa fa-arrow-circle-left"></i></i><?php echo $this->__('Continue Shopping') ?></span></span></button>
-				<?php endif; ?>								
-			</div>
 			
 			<div class="header-container one-click-checkout">
 				<div class="links">
@@ -331,6 +318,21 @@
 				</div>
 			</div>
 		</div>
+        <div class="proceed-checkout">
+            <?php if(!$this->hasError()): ?>
+            <ul class="checkout-types">
+            <?php $idx_method = 0; ?>
+            <?php foreach ($this->getMethods('methods') as $method): ?>
+                <?php if ($methodHtml = $this->getMethodHtml($method)): ?>
+                <li><?php echo $methodHtml; $idx_method = $idx_method + 1; ?></li>
+                <?php endif; ?>
+                <?php if ($idx_method > 0): ?>
+                    <?php break; ?>
+                <?php endif; ?>
+            <?php endforeach; ?>
+            </ul>
+            <?php endif; ?>
+        </div>
 	</div>
 </div>
 <?php
