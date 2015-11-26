@@ -9,6 +9,7 @@
                 </action>
             </block>
             <action method="addCss"><stylesheet>css/reset.css</stylesheet></action>
+            <action method="addCss"><stylesheet>css/stylesheet-2.css</stylesheet></action>
             <action method="addCss"><stylesheet>css/megamenu-3.css</stylesheet></action>
             <action method="addCss"><stylesheet>css/general-2.css</stylesheet></action>
             <action method="addCss"><stylesheet>css/checkout-2.css</stylesheet></action>
@@ -19,6 +20,10 @@
             <action method="addItem">
                 <type>skin_js</type>
                 <name>js/jquery.min.js</name>
+            </action>
+            <action method="addItem">
+                <type>skin_js</type>
+                <name>js/jquery-lazyload-1.js</name>
             </action>
 			<action method="addItem">
 				<type>skin_js</type>
