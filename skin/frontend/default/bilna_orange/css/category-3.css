@@ -907,7 +907,12 @@ a.triger-showfilter {
 
 /* --------------- smaller 959 px layout -------------------- */
 @media only screen and (max-width: 767px) {
-	
+    .catalog-category-view .col-3{
+        display: none;
+    }
+    .catalog-category-view .col-12{
+        width: 100%;
+    }
 	.catalog-category-view .wrap_banner .col-3,
 	.catalog-category-view .wrap_banner .col-4{
 		width: 48%;
@@ -925,7 +930,6 @@ a.triger-showfilter {
 	}
 	 .catalog-category-view .wrap_banner{
 		display:table;
-		width:90%;
 		margin: 20px auto;
 	 }
 	.catalog-category-view .wrap_banner .col-1, .catalog-category-view .wrap_banner .col-2, .catalog-category-view .awafpgrid{
