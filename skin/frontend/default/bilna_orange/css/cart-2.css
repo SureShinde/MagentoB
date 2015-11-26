@@ -10,11 +10,9 @@
 	display: none;
 }
 .cart .cart-left {
-	width: 79%;
-	float: left;
-	margin-bottom: 30px;
-	border-right: 1px #f2f2f2 solid;
-	padding-right: 5px;
+    display: inline-block;
+    margin-bottom: 30px;
+    width: 100%;
 }
 .cart .cart-right {
 	width: 19%;
@@ -530,9 +528,6 @@
 .total-right table tr td {
 	display: block;
 }
-.total-right table tr td:first-child {
-	display: none;
-}
 
 .low-res-cart{
 	display:none;
@@ -594,8 +589,8 @@
 	.continue-shopping .btn-continue {
 		width: 200px;
 	}
-	.continue-shopping .btn-continue span span {
-        
+	.continue-shopping .btn-continue span span .fa{
+        margin-right: 5px;
 	}
 	.continue-checkout .checkout-types button {
 		width: 130px;

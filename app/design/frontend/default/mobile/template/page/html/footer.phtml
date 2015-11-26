@@ -26,7 +26,7 @@
 ?>
 <div class="footer-container">
     <div class="footer">
-        <div class="cs-info col-5">
+        <div class="cs-info">
             <img src="<?php echo $this->getSkinUrl('images/cs.png'); ?>">
             <p>
                 <span class="que">Butuh Bantuan ?</span>
@@ -35,7 +35,7 @@
                 <span class="email">cs@bilna.com</span>
             </p>
         </div>
-		<div class="subscribe-form col-10">
+		<div class="subscribe-form">
 			<p>Bergabung di Bilna Saving Club</p>
 			<div class="wrap-form-subscribe">
 				<form action="<?php echo Mage::getBaseUrl(); ?>newsletter/subscriber/new/" method="post" id="newsletter-validate-detail">
@@ -49,10 +49,13 @@
 </div>
 <div class="footer-container">
     <div class="footer">
-        <div class="col-9 footer-link">
-    	   <?php echo $this->getChildHtml() ?>
-        </div>
-        <div class="col-6 bg-indo">
+        <ul class="mobile-footer-link">
+            <li><a href="">Jelajah</a></li>
+            <li><a href="">Mitra</a></li>
+            <li><a href="">Bantuan</a></li>
+            <li><a href="">Bilna</a></li>
+        </ul>
+        <div class="bg-indo">
             <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('shipping_partners')->toHtml() ?>
             <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('payment_partners')->toHtml() ?>
         </div>

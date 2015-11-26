@@ -156,6 +156,7 @@ hr{
 .product-view .product-shop .product-shop-left span.price {
 	color: #707070;
 	font-weight: normal;
+    font-size: 1em;
 }
 .product-view .product-shop .product-shop-left .discount-product {
     font-size: 1.16em;
@@ -517,23 +518,30 @@ hr{
 	margin-bottom: 10px;
 }
 .product-view .product-img-box .more-views .bx-wrapper .bx-prev {
-	top: -5%;
+	top: -30px;
+    visibility: visible;
 }
 .product-view .product-img-box .more-views .bx-wrapper .bx-prev:after {
-    content: "\f107";
+    content: "\f077";
+    display: block;
+    font-family: FontAwesome;
+}
+.product-view .product-img-box .more-views .bx-wrapper .bx-next:after {
+    content: "\f078";
     display: block;
     font-family: FontAwesome;
 }
 .product-view .product-img-box .more-views .bx-wrapper .bx-next {
-	bottom: -12%;
+	bottom: -30px;
+    visibility: visible;
 }
 .product-view .product-img-box .more-views .bx-wrapper .bx-controls-direction a {
-	position: absolute;
-	left: 25%;
-	margin-top: -16px;
-	outline: 0;
-	width: 23px;
-	height: 23px;
+    position: absolute;
+    outline: 0;
+    visibility: hidden;
+    width: 100%;
+    text-align: center;
+    height: 23px;
 }
 .product-view .product-img-box .more-views ul {
 	margin-left: 0;

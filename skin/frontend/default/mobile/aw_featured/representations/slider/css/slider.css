@@ -1,0 +1,195 @@
+.awafpslider {
+    font-family: Verdana;
+}
+
+/* Switch effect fade/appear */
+.afp-effect-fade-appear div.afp-slider-item {
+    position: absolute;
+}
+.awafpslider .afp-slider-controls {
+    position: relative;
+    z-index: 99;
+}
+.awfpslider-horizontal div.afp-slider-item div.afp-thumbnail {
+    float: left;
+    height: 200px;
+    width: 200px;
+}
+.awfpslider-vertical div.afp-slider-item div.afp-thumbnail {
+    height: 190px;
+    text-align: center;
+    width: 100%;
+}
+.awfpslider-horizontal div.afp-slider-item div.afp-product-info {
+    margin-left: 210px;
+}
+.awfpslider-vertical .afp-thumbnail .onsale-category-container-list {
+    float:none!important;
+    margin: 0 auto;
+}
+.awafpslider div.afp-slider-item div.afp-product-info .awafptitle a {
+    color: #000;
+    font-size: 20px;
+    text-decoration: none;
+}
+.awafpslider div.afp-slider-item div.afp-product-info .awafptitle a:hover {
+    text-decoration: underline;
+}
+.awafpslider div.afp-slider-item div.afp-product-info .afp-details {
+    color: #666;
+    font-size: 12px;
+}
+.awfpslider-vertical div.afp-slider-item div.afp-product-info .afp-details {
+    text-align: center;
+}
+
+.awafpslider .afp-slider-controls .afp-left {
+    float: left;
+    height: 22px;
+    padding-left: 20px;
+    text-align: right;
+    width: 22px;
+}
+.awafpslider .afp-slider-controls .afp-left button,
+.awafpslider .afp-slider-controls .afp-right button {
+    position: relative;
+}
+.awafpslider .afp-slider-controls .afp-left button.button,
+.awafpslider .afp-slider-controls .afp-right button.button {
+    background-color: transparent;
+    border: 0;
+    cursor: pointer;
+}
+.awafpslider .afp-slider-controls .afp-left button {
+    background-image: url('../images/arrow_left.png');
+    background-repeat: no-repeat;
+    height: 22px;
+    width: 22px;
+}
+.awafpslider .afp-slider-controls .afp-left button:hover {
+    background-image: url('../images/arrow_left_hover.png');
+}
+
+.awafpslider .afp-slider-controls .afp-right {
+    float: right;
+    height: 22px;
+    padding-right: 20px;
+    position: relative;
+    text-align: right;
+    top: -22px;
+    width: 22px;
+}
+.awafpslider .afp-slider-controls .afp-right button {
+    background-image: url('../images/arrow_right.png');
+    background-repeat: no-repeat;
+    height: 22px;
+    width: 22px;
+}
+.awafpslider .afp-slider-controls .afp-right button:hover {
+    background-image: url('../images/arrow_right_hover.png');
+}
+
+.awafpslider .afp-slider-controls .afp-center {
+    line-height: 22px;
+    margin: 0 50px;
+    text-align: center;
+}
+.awafpslider .afp-slider-controls .afp-center button.button {
+    background-color: transparent;
+    background-image: url('../images/item.png');
+    border: 0;
+    height: 12px;
+    width: 12px;
+}
+.awafpslider .afp-slider-controls .afp-center button.afp-s-current {
+    background-image: url('../images/item_current.png');
+}
+.awafpslider .afp-slider-controls .afp-center button.button:hover {
+    background-image: url('../images/item_hover.png');
+}
+
+.awfpslider-horizontal .price-box {
+    float: left;
+    margin: 7px 0;
+    padding: 0;
+    text-align: center;
+    width: 150px;
+}
+
+.awfpslider-vertical .price-box {
+    text-align: center;
+    width: 100%;
+}
+
+.awafpslider .price-box .price {
+    color: #000;
+    font-size: 16px;
+    font-weight: normal;
+}
+
+.awafpslider .price-box span, .awafpslider .price-box a {
+    color: #000;
+}
+
+.awfpslider-horizontal .afp-addtocart {
+    margin: 7px 0;
+    text-align: left;
+}
+
+.awfpslider-vertical .afp-addtocart {
+    margin: 7px 0;
+    text-align: center;
+}
+
+.awafpslider .afp-addtocart button {
+    background-color: transparent;
+    border: 0;
+    cursor: pointer;
+    font-size: 12px;
+}
+.awafpslider .afp-addtocart button div {
+    background-image: url('../../../images/addtocart.png');
+    height: 21px;
+    line-height: 21px;
+    width: 91px;
+}
+
+.awfpslider-vertical div.afp-slider-item .awafptitle {
+    text-align: center;
+}
+.awfpslider-vertical div.afp-slider-item .awafptitle a {
+    color: #000;
+    font-family: Verdana;
+    font-size: 16px;
+    margin: 7px 0;
+    text-decoration: none;
+}
+.awfpslider-vertical div.afp-slider-item .awafptitle a:hover {
+    text-decoration: underline;
+}
+
+.afp-effect-simple-slider {
+    overflow: hidden;
+    position: relative;
+}
+.afp-effect-simple-slider div.afp-slider-item {
+    float: left;
+}
+
+.afp-effect-blind-up-down div.afp-slider-item {
+    position: absolute;
+}
+
+.afp-effect-blind-up-down .afp-slider-controls {
+    position: relative;
+    z-index: 99;
+}
+
+.afp-effect-slide-up-down div.afp-slider-item {
+    position: absolute;
+}
+
+.afp-effect-slide-up-down .afp-slider-controls {
+    position: relative;
+    z-index: 99;
+}

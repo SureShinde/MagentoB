@@ -129,43 +129,7 @@
             </fieldset>
         </form>
         
-        <div class="coupon-total">
-            <div class="left">
-                <div class="coupon">
-                    <?php echo $this->getChildHtml('coupon') ?>
-                </div>
-            </div>
-			<div class="right">
-				<div class="left total-left totals<?php if($this->helper('customer')->isLoggedIn()):?> loggedin<?php endif;?>">
-					<?php echo $this->getChildHtml('totals'); ?>
-				</div>
-				<div class="sum-cart left">
-					<table>
-						<tr>
-							<td class="a-center sum-qty hi-res<?php if($this->helper('customer')->isLoggedIn()):?> loggedin<?php endif;?>">
-								<div><?php echo Mage::getModel('checkout/cart')->getQuote()->getItemsQty(); ?></div>
-							</td>
-							<td class="a-right sum-weight hi-res<?php if($this->helper('customer')->isLoggedIn()):?> loggedin<?php endif;?>">
-								<div>
-								<?php 
-									$items = $this->getItems();
-									$weight = 0;
-									foreach($items as $item) {
-										$weight += ($item->getWeight() * $item->getQty()) ;
-									}
-									if ( $weight != 0 )
-										echo $this->__('%0.2f Kg', $weight);
-								?>
-								</div>
-							</td>
-						</tr>
-					</table>
-				</div>
-				<div class="right total-right totals<?php if($this->helper('customer')->isLoggedIn()):?> loggedin<?php endif;?>">
-					<?php echo $this->getChildHtml('totals'); ?>
-				</div>
-			</div>
-		</div>
+        
 		<div class="continue-checkout">
 			<div class="proceed-checkout">
 				<?php if(!$this->hasError()): ?>
@@ -355,7 +319,18 @@
 		</div>
 	</div>
 	<div class="cart-right">
-		<?php echo $this->getChildHtml('crosssell') ?>
+        <div class="coupon-total">
+            <div class="left">
+                <div class="coupon">
+                    <?php echo $this->getChildHtml('coupon') ?>
+                </div>
+            </div>
+			<div class="right">
+				<div class="right total-right totals<?php if($this->helper('customer')->isLoggedIn()):?> loggedin<?php endif;?>">
+					<?php echo $this->getChildHtml('totals'); ?>
+				</div>
+			</div>
+		</div>
 	</div>
 </div>
 <?php
