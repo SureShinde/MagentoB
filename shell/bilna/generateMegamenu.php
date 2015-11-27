@@ -76,7 +76,7 @@ class GenerateMegamenu extends Mage_Shell_Abstract {
                 Mage::log('done');
 
                 // If Category is not included Mega Menu, skip to next category
-                if ($storeCategory->getIncludeInMegamenu() == "0") {
+                if ($storeCategory->getIncludeInMegamenu() != 1) {
                     Mage::log('Category is not included in Mega Menu. Proceed to next category..');
                     continue;
                 }
@@ -115,7 +115,7 @@ class GenerateMegamenu extends Mage_Shell_Abstract {
                         Mage::log('done');
 
                         // If Category is not included Mega Menu, skip to next category
-                        if ($storeCategory2->getIncludeInMegamenu() == "0") {
+                        if ($storeCategory2->getIncludeInMegamenu() != 1) {
                             Mage::log('Category is not included in Mega Menu. Proceed to next category..');
                             continue;
                         }
@@ -156,7 +156,7 @@ class GenerateMegamenu extends Mage_Shell_Abstract {
                                 Mage::log('done');
 
                                 // If Category is not included Mega Menu, skip to next category
-                                if ($storeCategory3->getIncludeInMegamenu() == "0") {
+                                if ($storeCategory3->getIncludeInMegamenu() != 1) {
                                     Mage::log('Category is not included in Mega Menu. Proceed to next category..');
                                     continue;
                                 }

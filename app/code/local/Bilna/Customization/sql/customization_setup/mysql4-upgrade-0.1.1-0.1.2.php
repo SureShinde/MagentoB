@@ -12,7 +12,7 @@ $installer->addAttribute('catalog_category', 'include_in_megamenu', array (
     'source'  => 'eav/entity_attribute_source_boolean',
     'label' => 'Include in Mega Menu',
     'required' => true,
-    'default' => 1,
+    'default' => 0,
     'global' => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE,
-));     
+));
 $installer->endSetup();
