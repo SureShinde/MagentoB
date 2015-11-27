@@ -214,11 +214,11 @@
                 }
             }
 
-            if (typeof objDataLayer == "undefined") {
-                objDataLayer = new Array();
+            if (typeof staticblockDataLayer == "undefined") {
+                staticblockDataLayer = new Array();
             }
             <?php $total = count($dataForUA); ?>
-            objDataLayer.push(
+            staticblockDataLayer.push(
                 <?php foreach($dataForUA as $key=>$rowDataForUA): ?>
                     <?php echo '{"id":"'.$rowDataForUA[id].'", "name":"'.$rowDataForUA[name].'", "price":'.$rowDataForUA[price].', "category":"Default Category", "position":'.$rowDataForUA[position].', "list":';?>list_name <?php echo '}'; ?>
                     <?php if(($key+1) < $total) {
@@ -226,6 +226,19 @@
                     } ?>
                 <?php endforeach; ?>
             );
+            if ((jQuery('.awfeatured.awafpgrid').parent().eq(2).attr('data-universal-analytics')) == "ok") {
+                var ecommerceData = {
+                "ecommerce" :
+                {
+                    "impressions" : staticblockDataLayer,
+                    "currencyCode":"IDR"
+                },
+                'event': 'impression',
+                'eventCategory':'ecommerce',
+                'eventAction':'impression'
+                };
+                dataLayer.push(ecommerceData);
+            }  
         }
         else if (li_browse_list.length > 0) {       // impression for static block in homepage
             if (!(jQuery('.awfeatured.awafpgrid').parent().eq(0).attr('data-universal-analytics'))) {
