@@ -907,8 +907,8 @@ a.triger-showfilter {
 
 /* --------------- smaller 959 px layout -------------------- */
 @media only screen and (max-width: 767px) {
-    .catalog-category-view .col-3{
-        display: none;
+    .page-title h1, .page-title h2{
+        font-size: 2em;
     }
     .catalog-category-view .col-12{
         width: 100%;

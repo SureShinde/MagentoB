@@ -3,6 +3,29 @@
     width: 100%;
     background: #ebebeb;
 }
+.main-category{
+    background: #fff;
+    border: 1px solid #E4e4e4;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+}
+.main-category p{
+    font-size: 1.5em;
+    font-weight: bold;
+    border-bottom: 1px solid #e4e4e4;
+    padding: 10px;
+}
+.main-category li{
+    border-bottom: 1px solid #e4e4e4;
+    padding: 10px;
+}
+.main-category li a{
+    display: block;
+}
+.main-category li a .fa{
+    float: right;
+}
 .block-bottom-mobile{
 	display:none;
 }

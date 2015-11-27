@@ -237,7 +237,7 @@ li.home .breadcrumbs a{
 	font-size: 1em;
 }
 .products-grid .product-info-wrapper {
-    height: 123px;
+    height: 135px;
 }
 .products-grid .price-box {
 	position: relative;
@@ -509,9 +509,23 @@ a.back-to-top img {
 /* --------------- smaller 959 px layout -------------------- */
 @media only screen and (max-width: 767px) {
 	.main-container, .main-container.col1-layout .main, .col2-left-layout .main .col-main,.main-container.col2-left-wide-layout .main {
-		width: 92%;
+		width: 100%;
 		margin-top: 0;
 	}
+    .main-container.col2-left-wide-layout .col-left{
+        position: fixed;
+        top: 10px;
+        left: 10px;
+        right: 10px;
+        bottom: 10px;
+        overflow-y: auto;
+        z-index: 99;
+        width: auto;
+        display: none;
+    }
+    .regular-price .price, .special-price .price, .price-box .price{
+        font-size: 1.2em;
+    }
 	.main {
 		min-height: inherit;
 	}
@@ -522,10 +536,20 @@ a.back-to-top img {
         margin: 0;
         width: auto;
         position: fixed;
-        z-index: 9;
+        z-index: 99;
+        display: none;
+        overflow-y: auto;
         left: 10px;
         right: 10px;
+        background: #fff;
         top: 10px;
+        bottom: 10px;
+        -moz-box-shadow: 0 0 8px #000;
+        -webkit-box-shadow: 0 0 8px #000;
+        box-shadow: 0 0 8px #000;
+        -moz-border-radius: 10px;
+        -webkit-border-radius: 10px;
+        border-radius: 10px;
 	}
 	.breadcrumbs {
 		display: none;

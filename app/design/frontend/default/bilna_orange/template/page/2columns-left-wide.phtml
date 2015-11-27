@@ -42,14 +42,18 @@
     <div class="page">
         <?php echo $this->getChildHtml('header') ?>
         <div class="main-container col2-left-wide-layout">
+            <?php if (Mage::registry('current_category')) {?>
             <div class="page-title category-title">
                 <div class="main">
-                    <h1><?php 
+                   
+                    <h1><?php  
                     $_category = Mage::registry('current_category');  
                     $_helper    = $this->helper('catalog/output');
-                    echo $_helper->categoryAttribute($_category, $_category->getName(), 'name') ?></h1>
+                    echo $_helper->categoryAttribute($_category, $_category->getName(), 'name'); ?></h1>
+                    
                 </div>
             </div>
+            <?php } ?>
             <div class="main">
                 <div class="col-left sidebar col-3"><?php echo $this->getChildHtml('left') ?></div>
                 <div class="col-12">

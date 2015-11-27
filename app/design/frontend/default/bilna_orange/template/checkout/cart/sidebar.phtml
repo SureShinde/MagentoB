@@ -41,10 +41,8 @@
         	<thead>
 	        	<tr>
 		        	<th><?php echo $this->__('Item(s)') ?></th>
-		        	<th>&nbsp;</th>
 		        	<th><?php echo $this->__('Quantity') ?></th>
 		        	<th class="price"><?php echo $this->__('Price') ?></th>
-		        	<th>&nbsp;</th>
 	        	</tr>
         	</thead>
        	</table>
@@ -83,10 +81,10 @@
 	            <?php endif ?>
 	        </div>
 	    <?php endif ?>
-	    <?php if($_cartQty && $this->isPossibleOnepageCheckout()): ?>
+	    <?php if($_cartQty ): ?>
 		    <div class="actions">
 		        <?php echo $this->getChildHtml('extra_actions') ?>
-		        <button type="button" title="<?php echo $this->__('Checkout') ?>" class="button btn-checkout" onclick="setLocation('<?php echo $this->getUrl('checkout/cart')?>')"><span><span><?php echo $this->__('Checkout') ?> <img src="<?php echo $this->getSkinUrl('images/arrow.png') ?>"/></span></span></button>
+		        <button type="button" title="<?php echo $this->__('Checkout') ?>" class="button btn-checkout" onclick="setLocation('<?php echo $this->getUrl('checkout/cart')?>')"><span><span><?php echo $this->__('Checkout') ?> <i class="fa fa-chevron-circle-right"></i></span></span></button>
 		    </div>
 	    <?php endif ?>
     </div>
