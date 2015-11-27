@@ -3,14 +3,14 @@ class Bilna_Fraud_Model_Observer {
     public function checkFraud(Varien_Event_Observer $observer) {
         $config = Mage::getStoreConfig('bilna_fraud/fraud');
         $configSolr = Mage::getStoreConfig('bilna_fraud/solr_server');
-        $emailScoreEnabled = $config['email_scoring_status'];
+        /*$emailScoreEnabled = $config['email_scoring_status'];
         $emailProximity = $config['email_proximity'];
         $emailScoreWeight = $config['email_score_weight'];
         $addressScoreEnabled = $config['address_scoring_status'];
         $addressProximity = $config['address_proximity'];
         $addressScoreWeight = $config['address_score_weight'];
         $telephoneScoreEnabled = $config['telephone_scoring_status'];
-        $telephoneScoreWeight = $config['phone_score_weight'];
+        $telephoneScoreWeight = $config['phone_score_weight'];*/
         $host = $configSolr['host'];
         $port = $configSolr['port'];
         $path = $configSolr['path'];
@@ -31,8 +31,8 @@ class Bilna_Fraud_Model_Observer {
         $coupon_code = $orderData->getData('coupon_code');
         $rule_id_for_log = $orderData->getData('applied_rule_ids');
 
-        $address = str_replace("\n", '+', $orderData->getShippingAddress()->getData('street'));
-        $address = str_replace(" ", '+', $address);
+        //$address = str_replace("\n", '+', $orderData->getShippingAddress()->getData('street'));
+        //$address = str_replace(" ", '+', $address);
         $telephone = $orderData->getShippingAddress()->getData('telephone');
         $email = $orderData->getShippingAddress()->getData('email');
 	    $originalRuleId = $orderData->getData('applied_rule_ids');
@@ -51,14 +51,14 @@ class Bilna_Fraud_Model_Observer {
             if($ruleDataRuleId != 0) {
                 $date = '[' . $fromDate . 'T23%3A59%3A59.999Z%2FDAY+TO+' . $toDate . 'T23%3A59%3A59.999Z%2FDAY]';
             }
-            $address = 'address_ngram%3A"'.$address.'"';
-            $telephone = '&fq=telp_clean%3A"'.$telephone.'"';
+            //$address = 'address_ngram%3A"'.$address.'"';
+            $telephone = 'telp_clean%3A"'.$telephone.'"';
             $createdDate = '&fq=Created_Date%3A'.$date;
             if((empty($fromDate)) && (empty($toDate))) {
                 $createdDate = '';
             }
             $formattedRuleId = '&fq=Rule_ID%3A'.$originalRuleId;
-            $url  = $host.':'.$port.$path.'/'.$core.'/select?q='.$address.$telephone.$formattedRuleId.$createdDate.$string;
+            $url  = $host.':'.$port.$path.'/'.$core.'/select?q='.$telephone.$formattedRuleId.$createdDate.$string;
 
             if($auth == 1) {
                 $cleanPassword = Mage::helper('core')->decrypt($password);

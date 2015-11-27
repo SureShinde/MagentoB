@@ -366,8 +366,6 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
     }
     
     public function successAction() {
-        //$fdsModuleStatus = Mage::getConfig()->getModuleConfig('Bilna_Fraud')->is('active', 'true');
-        //echo "<pre>";print_r($fdsModuleStatus);die;
         $canceled = 0;
 
         if ($this->getRequest()->getParam('order_no')) {
