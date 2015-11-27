@@ -199,14 +199,22 @@ display: inline-block;
 }
 .footer .footer-link ul{
     float: left;
-    width: 33%;
+    width: 100%;
     display: inline-block;
-    padding: 10px 0;
+    padding: 0 0 10px 0;
 }
 .footer .footer-link ul li{
     display: block;
+    padding: 5px;
+    font-size: 0.8em;
+    float: left;
+    margin: 0 10px 0 0;
+}
+.footer .footer-link ul li:first-child{
     clear: both;
-    padding: 5px; 0;
+    font-size: 1em;
+    display: block;
+    width: 90%;
 }
 .footer .about-us {
 	padding: 20px 0 0 0;

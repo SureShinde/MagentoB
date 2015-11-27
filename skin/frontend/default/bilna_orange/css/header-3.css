@@ -2009,6 +2009,9 @@ searchbar #nav-search-in {
 
 /* --------------- smaller 959 px layout -------------------- */
 @media only screen and (max-width: 767px) {
+    .space-above-header{
+        display: none;
+    }
 	.header .logo img {
 		width: 80%;
         margin: 2px 0 0 9px;
@@ -2028,6 +2031,7 @@ searchbar #nav-search-in {
 		margin: 0 10px 5px 0;
         float: right;
         margin-bottom: 0;
+        position: relative;
 	}
 	.header .quick-access a.link-blog-mobile{
 		display:none;
@@ -2232,9 +2236,6 @@ searchbar #nav-search-in {
     .header .mini-cart {
         display: none !important;
     }
-	.header .quick-access{
-		margin-right:10px;
-	}
 }
 /* --------------- 320 px layout -------------------- */
 @media only screen and (max-width: 482px) { 

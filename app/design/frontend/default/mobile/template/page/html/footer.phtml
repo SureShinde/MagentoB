@@ -49,12 +49,9 @@
 </div>
 <div class="footer-container">
     <div class="footer">
-        <ul class="mobile-footer-link">
-            <li><a href="">Jelajah</a></li>
-            <li><a href="">Mitra</a></li>
-            <li><a href="">Bantuan</a></li>
-            <li><a href="">Bilna</a></li>
-        </ul>
+        <div class="footer-link">
+    	   <?php echo $this->getChildHtml() ?>
+        </div>
         <div class="bg-indo">
             <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('shipping_partners')->toHtml() ?>
             <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('payment_partners')->toHtml() ?>

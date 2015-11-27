@@ -172,7 +172,7 @@
 }
 #shopping-cart-table.cart-table .btn-update span {
 	border: 0;
-    background: #EDEDED;
+    background: #b6b6b6;
     font-size: 1em;
     color: #fff;
 }
@@ -309,7 +309,7 @@
 }
 .coupon-total .coupon .discount button span {
 	border: 0;
-	background: #E4E4E4;
+	background: #B6B6B6;
 	padding: 1px 10px;
 }
 .coupon-total .totals {
@@ -651,7 +651,6 @@
 	}
 	.coupon-total .coupon {
 		float: none;
-		margin-left: 40px;
 		margin-top: 0;
 	}
 	.coupon-total .totals {

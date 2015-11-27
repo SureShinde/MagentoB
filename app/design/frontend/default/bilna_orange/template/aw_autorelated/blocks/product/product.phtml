@@ -69,7 +69,7 @@ if ($this->getPosition() == AW_Autorelated_Model_Source_Position::INSTEAD_NATIVE
                                         <a class="aw-arp-product-name" href="<?php echo $abstractBlock->getProductUrl($product) ?>"><?php echo $this->htmlEscape($product->getName()) ?></a>
                                     </div>
                                     <?php echo $abstractBlock->getPriceHtml($product, true, '-related') ?>
-                                    <?php echo $abstractBlock->getReviewsSummaryHtml($product, false, true)?>
+                                    <?php echo $abstractBlock->getReviewsSummaryHtml($product, 'short')?>
                                 </div>
 								<div class="bottom_thumb_list_product">
 									<div class="aw-arp-addtocart">

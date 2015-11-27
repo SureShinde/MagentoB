@@ -33,6 +33,8 @@
     <td style="<?php echo $this->getStyle() ?>" class="a-right" colspan="<?php echo $this->getColspan(); ?>">
         <?php echo $this->helper('tax')->__('Subtotal (Excl. Tax)') ?>
     </td>
+</tr>
+<tr>
     <td style="<?php echo $this->getStyle() ?>" class="a-right">
         <?php echo $this->helper('checkout')->formatPrice($this->getTotal()->getValueExclTax()) ?>
     </td>
@@ -41,6 +43,8 @@
     <td style="<?php echo $this->getStyle() ?>" class="a-right" colspan="<?php echo $this->getColspan(); ?>">
         <?php echo $this->helper('tax')->__('Subtotal (Incl. Tax)') ?>
     </td>
+</tr>
+<tr>
     <td style="<?php echo $this->getStyle() ?>" class="a-right">
         <?php echo $this->helper('checkout')->formatPrice($this->getTotal()->getValueInclTax()) ?>
     </td>
@@ -50,6 +54,8 @@
     <td style="<?php echo $this->getStyle() ?>" class="a-right" colspan="<?php echo $this->getColspan(); ?>">
         <?php echo $this->getTotal()->getTitle() ?>
     </td>
+</tr>
+<tr>
     <td style="<?php echo $this->getStyle() ?>" class="a-right">
         <?php echo $this->helper('checkout')->formatPrice($this->getTotal()->getValue()) ?>
     </td>

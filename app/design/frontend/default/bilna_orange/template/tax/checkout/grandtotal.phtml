@@ -33,15 +33,18 @@
     <td style="<?php echo $this->getStyle() ?>" class="a-right" colspan="<?php echo $this->getColspan(); ?>">
         <strong><?php echo $this->helper('tax')->__('Grand Total Excl. Tax')?></strong>
     </td>
+</tr>
+<tr>
     <td style="<?php echo $this->getStyle() ?>" class="a-right" id="grand_total-onepage">
         <strong><?php echo $this->helper('checkout')->formatPrice($this->getTotalExclTax()) ?></strong>
     </td>
-</tr>
 <?php echo $this->renderTotals('taxes', $this->getColspan()); ?>
 <tr>
     <td style="<?php echo $this->getStyle() ?>" class="a-right" colspan="<?php echo $this->getColspan(); ?>">
         <strong><?php echo $this->helper('tax')->__('Grand Total Incl. Tax')?></strong>
     </td>
+</tr>
+<tr>
     <td style="<?php echo $this->getStyle() ?>" class="a-right" id="grand_total-onepage">
         <strong><?php echo $this->helper('checkout')->formatPrice($this->getTotal()->getValue()) ?></strong>
     </td>
@@ -51,6 +54,8 @@
     <td style="<?php echo $this->getStyle() ?>" class="a-right" colspan="<?php echo $this->getColspan(); ?>">
         <strong><?php echo $this->getTotal()->getTitle() ?></strong>
     </td>
+</tr>
+<tr>
     <td style="<?php echo $this->getStyle() ?>" class="a-right" id="grand_total-onepage">
         <strong><?php echo $this->helper('checkout')->formatPrice($this->getTotal()->getValue()) ?></strong>
     </td>

@@ -760,6 +760,9 @@ table.ratings-table tbody tr{
 }
 .related-product .block-content .ratings {
 	clear: both;
+    display: table;
+    float: left;
+    margin: 10px 0;
 }
 .related-product .block-content .aw-arp-product-name {
 	font-size: 1.1em;
@@ -1007,20 +1010,36 @@ table.ratings-table tbody tr{
 }
 /* --------------- smaller 959 px layout -------------------- */
 @media (max-width: 767px) {
+    .product-tab-wrapper .tab-desc{
+        width: 100%;
+        overflow-x: auto;
+    }
     #customer-reviews li .riview-left,
     #customer-reviews li .riview-right{
         width: 100%;
     }
+    .ratings-table th, .ratings-table td{
+        padding: 0;
+    }
+    #customer-reviews li .riview-left{
+        margin-bottom: 5px;
+    }
     .product-shop-right .block.block-related .block-content .aw-arp-item{
         width: 90%;
-        padding: 0 5%;
+        padding: 10px 5%;
         margin: 0 0 10px;
     }
     .product-shop-right .block.block-related .block-title{
         font-size: 2em;
     }
     .aw-arp-block-1 .top_thumb_list_product{
-        width: 30%;
+        width: 27%;
+        margin-right: 3%;
+    }
+    .product-shop-right .block.block-related .block-content .aw-arp-item a img{
+        margin: 0;
+        max-width: 100%;
+        height: auto;
     }
     .product-shop-right .block.block-related .aw-arp-item-right{
         width: 70%;
@@ -1028,6 +1047,8 @@ table.ratings-table tbody tr{
     .form-list li .input-box textarea,
     .form-list li .input-box input{
         width: 100%;
+        padding: 0;
+        text-indent: 5px;
     }
 	.product-view .product-img-box .more-views, 
 	.product-shop-left .rating-links .review-count,
@@ -1104,30 +1125,41 @@ table.ratings-table tbody tr{
 	.product-view .product-img-box .product-image-zoom img {
 		position: inherit;
 	}
-	#customer-reviews {
-		margin: 0 15px 30px;
-	}
 	#customer-reviews li {
 		position: relative;
-		padding: 20px 5px;
+		padding: 5px;
+        margin: 0;
 	}
-	#customer-reviews li .name, 
-	#customer-reviews li .review-star, 
-	#customer-reviews li .review-detail {
-		float: none;
-	}
-	#customer-reviews li .name {
-		width: 80%;		
-	}
-	#customer-reviews li .review-star, 
-	#customer-reviews li .review-detail {
-		width: 100%;
-	}
-	#customer-reviews li .review-date {
-		position: absolute;
-		top: 20px;
-		right: 20px;
-	}
+    #customer-reviews li .name,
+    #customer-reviews li .review-date,
+    #customer-reviews li .review-star{
+        width: 33%;
+        float: left;
+        font-size: 1em;
+        margin: 0;
+    }
+    #customer-reviews li .review-detail .review-title{
+        font-size: 1.2em;
+    }
+    #customer-reviews .pager{
+        background: #f2f2f2;
+    }
+    #customer-reviews .pager .pages{
+        margin: 0;
+        display: table;
+    }
+    #customer-reviews .pager .amount{
+        display: none;
+    }
+    #customer-reviews li .review-detail .review-description{
+        font-size: 1em;
+    }
+    #customer-reviews li .review-detail{
+        width: 100%;
+        margin: 0;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #C4C4C4;
+    }
 	.onsale-product-container-inside {
 		left: 10px !important;
 	}
@@ -1153,6 +1185,10 @@ table.ratings-table tbody tr{
 		margin: 20px 0 10px;
 		display: block;
 	}
+    .main-container.col1-product-layout .main, .main-container.col1-product-layout .col-main{
+        width: 96%;
+        padding: 0 2%;
+    }
 }
 
 /* --------------- 320 px layout -------------------- */
@@ -1235,7 +1271,7 @@ table.ratings-table tbody tr{
 .catalog-product-view .aw-mini-related-items .availability.out-of-stock{
     width: 100%;
     border: 1px solid #231F20;
-    line-height: 30px;
+    line-height: 28px;
     color: #FFF;
     display: block;
     bottom: 20px;
