@@ -101,10 +101,13 @@ $_helper = $this->helper('catalog/output');
             <ul class="products-grid">
                 <?php $productId = array(); ?>
                 <?php $sku = array(); ?>
+                <?php $url_container = array(); ?>
                 <?php foreach ($_productCollection as $_product): ?>
                     <?php $sku[] = $_product->getSku(); ?>
                     <?php $productName[] = $_product->getName(); ?>
                     <?php $productPrice[] = $_product->getPrice(); ?>
+                    <?php $url_container[] = $_product->getProductUrl(); ?>
+                    <?php $productId[] = $_product->getID(); ?>
                     <li class="item">
                         <div class="top_thumb_list_product">
                             <div class="onsale-category-container-grid">
@@ -263,16 +266,23 @@ $_helper = $this->helper('catalog/output');
               });
             }
 
-            function ecommerceProductClickReview() {
+            function ecommerceProductClickReview(url) {
+                var temp_name = <?php echo json_encode($productName); ?>;
+                var temp_sku = <?php echo json_encode($sku); ?>;
+                var temp_price = <?php echo json_encode($productPrice); ?>;
+                var temp_url = <?php echo json_encode($url_container); ?>;
+                var temp_id = <?php echo json_encode($productId); ?>;
+                var temp_key = temp_url.indexOf(url);
+//console.log(temp_name[1]+"\n"+temp_id[1]+"\n"+temp_url[1]+"\n"+url);
                 var ecommerceProductClickDataReview = {
                     'event': 'productClick',
                     'ecommerce': {
                       'click': {
                         'actionField': {'list': list},      // Optional list property.
                         'products': [
-                          <?php echo "{'name':'".$_product->getName()."'," ?>
-                          <?php echo "'sku':'".$_product->getSku()."'," ?>
-                          <?php echo "'price':'".number_format($_product->getPrice(), 0, '', '')."'}" ?>
+                          <?php echo "{'name':temp_name[temp_key]," ?>
+                          <?php echo "'sku':temp_sku[temp_key]," ?>
+                          <?php echo "'price':temp_price[temp_key]}" ?>
                          ]
                        }
                      }
@@ -281,19 +291,20 @@ $_helper = $this->helper('catalog/output');
             }
 
             jQuery(document).ready(function(){
+                // impression
                 if (typeof objDataLayer == "undefined") {
                     objDataLayer = new Array();
                 }
-                    <?php $total = count($dataForUA); ?>
-                    objDataLayer.push(
-                        <?php foreach($dataForUA as $key=>$rowDataForUA): ?>
-                            <?php echo '{"id":"'.$rowDataForUA[id].'", "name":"'.$rowDataForUA[name].'", "price":'.$rowDataForUA[price].', "category":"Default Category", "position":'.$rowDataForUA[position].', "list":"browsing"}'; ?>
-                            <?php if(($key+1) < $total) {
-                                echo ",";
-                            } ?>
-                        <?php endforeach; ?>
-                        
-                    );
+                <?php $total = count($dataForUA); ?>
+                objDataLayer.push(
+                    <?php foreach($dataForUA as $key=>$rowDataForUA): ?>
+                        <?php echo '{"id":"'.$rowDataForUA[id].'", "name":"'.$rowDataForUA[name].'", "price":'.$rowDataForUA[price].', "category":"Default Category", "position":'.$rowDataForUA[position].', "list":list}'; ?>
+                        <?php if(($key+1) < $total) {
+                            echo ",";
+                        } ?>
+                    <?php endforeach; ?>
+                    
+                );
                 var ecommerceData = {
                     "ecommerce" :
                     {
