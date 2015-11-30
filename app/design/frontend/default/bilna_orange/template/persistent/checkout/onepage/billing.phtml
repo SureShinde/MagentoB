@@ -275,7 +275,10 @@
             'event': 'checkout',
             'ecommerce': {
               'checkout': {
-                'actionField': {'step' : 2},
+                'actionField': {
+                    'step' : 2,
+                    'list' : 'browsing'
+                },
                 'products': [{
                   'firstname' : jQuery(document.getElementById('billing:firstname')).val(),
                   'lastname' : jQuery(document.getElementById('billing:lastname')).val(),

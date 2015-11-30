@@ -396,17 +396,20 @@ function ecommerceCheckout0(sku, price, quantity) {
 		'event': 'checkout',
 	    'ecommerce': {
 	      'checkout': {
-	        'actionField': {'step' : 1},
+	        'actionField': {
+	        	'step' : 1,
+	        	'list' : 'browsing'
+	        },
 	        'products': []
 	     }
 	   }
 	}
 
-	for (var i=0 ; i<=temp_sku.length-1 ; i++) {
+	for (var i=0 ; i<jQuery("td.hi-res h2.product-name a").length ; i++) {
 		temp_container.ecommerce.checkout.products.push({
-		          'sku' : temp_sku[i],
-		          'price' : temp_price[i],
-		          'quantity' : temp_quantity[i]
+				  'name' : jQuery("td.hi-res h2.product-name a").eq(i).text(),
+				  'price' : jQuery("td.a-center.cart-price-td span.cart-price span.price").eq(i).text(),
+				  'quantity' : jQuery("input.input-text.qty").eq(i).val()
 		       });
 		// console.log("lagi bingung "+i+" "+temp_container.ecommerce.checkout.products[i].sku);
 	}
