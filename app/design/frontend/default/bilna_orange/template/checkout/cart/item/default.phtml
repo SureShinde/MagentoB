@@ -400,5 +400,5 @@ $canApplyMsrp = Mage::helper('catalog')->canApplyMsrp($_item->getProduct(), Mage
         <?php endif; ?>
     </td>
     <?php endif; ?>
-    <td class="a-right"><a onClick="ecommerceRemoveCart('<?php echo $this->getProductName() ?>','<?php echo $_item->getSku() ?>','<?php echo $_item->getCalculationPrice() ?>','<?php echo $this->getQty() ?>','<?php echo $_item->getId() ?>');" href="<?php echo $this->getDeleteUrl()?>" title="<?php echo $this->__('Remove item')?>" class="btn-remove btn-remove2"><?php echo $this->__('Remove item')?></a></td>
+    <td class="a-right"><a onClick="ecommerceRemoveCart('<?php echo $this->getProductName() ?>','<?php echo $_item->getSku() ?>','<?php echo $_item->getCalculationPrice() ?>','<?php echo $this->getQty() ?>','<?php echo $_item->getId() ?>');" href="<?php echo $this->getDeleteUrl()?>" title="<?php echo $this->__('Remove item')?>" class="remove-item"><i class="fa fa-times-circle"></i></a></td>
 </tr>

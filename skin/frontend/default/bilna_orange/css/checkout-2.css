@@ -30,17 +30,14 @@
 	margin-right: 5px;
 }
 #checkoutSteps .buttons-set button.button {
-    width:100px;
-    height:36px;
     background:#FA6938;
+    height: 36px;
     line-height:21px;
 }
 #checkoutSteps .buttons-set button.button.btn-checkout {
 	width: auto;
-	background-image: url("../images/btn-buynow4.png");
 	height:40px;
-	clear: both;
-	float: right;
+	float: left;
 }
 #checkoutSteps .form-list .customer-dob .dob-day, #checkoutSteps .form-list .customer-dob .dob-month{
     margin-right: 15px;
@@ -49,11 +46,15 @@
 #checkoutSteps .buttons-set button.button span, #checkoutSteps .buttons-set button.button span span, .opc .buttons-set .back-link a {
 	font-size: 14px;
 }
+#checkoutSteps .buttons-set button.button span .fa, .opc .buttons-set .back-link a .fa{
+    margin: 0 10px;
+}
 #checkoutSteps .buttons-set button.button span, #checkoutSteps .buttons-set button.button span span {
 	color: #fff;
 	background: none;
 	border: none;
 	height: auto;
+    line-height: 20px;
 }
 #checkoutSteps .buttons-set button.button span span img {
 	/*margin-top: 3px;*/
@@ -102,8 +103,7 @@
 	border:none;
 }
 .opc .buttons-set .back-link a {
-	background: url(../images/arrow-back.png) no-repeat left center;
-	color: #fd8e17;
+	background: 0;
 }
 .form-list li.wide select {
 	width: auto;
@@ -166,6 +166,7 @@
 }
 #opc-review .buttons-set .f-right {
 	margin-right: 10px;
+    margin-top: 45px;
 }
 .data-table {
 	border:none;
@@ -312,18 +313,16 @@
 	clear: both;
 }
 #checkout-review-submit .discount .input-box input {
-    padding: 9px 0;
+    padding: 11px 0;
     text-indent: 10px;
 }
-#checkout-review-submit .apply-voucher, #checkout-review-submit .cancel-voucher{
+#checkout-review-submit button.apply-voucher, #checkout-review-submit button.cancel-voucher{
 	display: table;
     padding: 10px;
     margin: 0 10px 0 0;
     float: left;
+    background: #c8c8c8;
     width: auto !important;
-}
-#checkout-review-submit .f-left {
-    float: right !important;
 }
 #checkout-review-submit .discount-form .buttons-set{
 	clear: none;

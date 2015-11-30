@@ -295,13 +295,6 @@ button.btn-cart span, button.btn-cart span span {
 	border: none;
 	height: auto;
 }
-.add-to-links li a {
-	display: inline-block;
-	font-weight: bold;
-	font-size: 12px;
-	color: #ffa01b;
-	margin-left: 5px;
-}
 .block .btn-remove {
 	margin-left: 0;
 	margin-right: 5px;
@@ -469,6 +462,9 @@ a.back-to-top img {
     border-top: 1px solid #e4e4e4;
     border-bottom: 1px solid #e4e4e4;
 }
+.close-sidebar-mobile{
+    display: none;
+}
 @media only screen and (max-width: 1215px) {
 	.main-container, .main-container.col1-layout .main,.main-container.col2-left-wide-layout .main {
 		width: 994px;
@@ -508,16 +504,24 @@ a.back-to-top img {
 }
 /* --------------- smaller 959 px layout -------------------- */
 @media only screen and (max-width: 767px) {
+    .close-sidebar-mobile{
+        display: block;
+        position: fixed;
+        z-index: 99;
+        right: 10px;
+        font-size: 2em;
+        top: 10px;
+    }
 	.main-container, .main-container.col1-layout .main, .col2-left-layout .main .col-main,.main-container.col2-left-wide-layout .main {
 		width: 100%;
 		margin-top: 0;
 	}
     .main-container.col2-left-wide-layout .col-left{
         position: fixed;
-        top: 10px;
-        left: 10px;
-        right: 10px;
-        bottom: 10px;
+        top: 0px;
+        left: 0px;
+        right: 0px;
+        bottom: 0px;
         overflow-y: auto;
         z-index: 99;
         width: auto;
@@ -566,13 +570,6 @@ a.back-to-top img {
 	}
 	.products-grid .actions button.btn-cart, .products-grid .actions .add-to-links {
 		float: left;
-	}
-	/* .products-grid .actions .add-to-links {
-		margin-top: 0;
-		margin-left: 150px;
-	} */
-	.add-to-links li a {
-		margin-top: 11px;
 	}
     .products-grid .product-image{
         width: 90%;

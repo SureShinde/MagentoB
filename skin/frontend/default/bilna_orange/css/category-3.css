@@ -909,6 +909,7 @@ a.triger-showfilter {
 @media only screen and (max-width: 767px) {
     .page-title h1, .page-title h2{
         font-size: 2em;
+        margin-left: 10px;
     }
     .catalog-category-view .col-12{
         width: 100%;
@@ -932,7 +933,7 @@ a.triger-showfilter {
 		display:table;
 		margin: 20px auto;
 	 }
-	.catalog-category-view .wrap_banner .col-1, .catalog-category-view .wrap_banner .col-2, .catalog-category-view .awafpgrid{
+	.catalog-category-view .wrap_banner .col-1, .catalog-category-view .wrap_banner .col-2, .catalog-category-view .awafpgrid,.header-row-homepage{
 		display:none;
 	}
 	.style-perlengkapan-rumah .style-perlengkapan-rumah .col1-layout .main .col-main, .style-perlengkapan-rumah .col1-layout .main .col-main{
@@ -944,9 +945,8 @@ a.triger-showfilter {
     .button-bilna-custom{
         width: 55%;
         float: right;
-        position: absolute;
         bottom: 11px;
-        right: 5%;
+        margin-right: 5%;
     }
     .wrap-button-bilna-custom{
         float: none;

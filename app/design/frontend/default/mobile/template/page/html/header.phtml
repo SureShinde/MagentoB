@@ -34,7 +34,6 @@
     var tooltipMobileFirst = 'tooltip_mobile_first';
     
     $j(window).load(function() {
-        
 		$j(".megamenu.megamenu-active img, .homepage-banner img").lazyload({
 			skip_invisible : true
 		});
@@ -45,6 +44,12 @@
 	});
     
     $j(document).ready(function() {
+        
+        $j(".search-menu").click(function(){
+            $j(".search-container-new-mobile").toggle();
+        });
+        $j("img.lazy, .wrap-banner img:not(.image-slider), .warp-banner img").after('<div class="loader"><img class="loader-img" src="<?php echo Mage::getBaseUrl(); ?>skin/frontend/base/default/images/loading.gif"></div>');
+        
         $j( ".product-image-zoom" ).mouseover('mousewheel',function(e) {
                 e.originalEvent.wheelDelta = 100;
         });
@@ -178,30 +183,8 @@ $j(document).ready(function() {
     });
 </script>
 
-<script>
-    $j(document).ready(function() {
-        $j("option.call-eng").click(function() {
-            $j("select.country").addClass("english-lang");
-            $j("select.country").removeClass("indonesia-lang");
-        });
-      
-        $j("option.call-ind").click(function() {
-            $j("select.country").removeClass("english-lang");
-            $j("select.country").addClass("indonesia-lang");
-        });
-      
-        $j(".menu-tablet .link-trigger-myaccount, .menu-tablet .toplink-myaccount").hover(function() {
-            $j(".menu-tablet .toplink-myaccount").toggle();
-        });
-      
-        $j(".header .link-trigger-myaccount, .header .toplink-myaccount").hover(function() {
-            $j(".header .toplink-myaccount").toggle();
-        });
-    });
-</script>
 
 <div class="header-container">
-    
     <div class="tooltip-mobile-first">
         <p> ← click here for category menu </p>
     </div>
@@ -221,6 +204,7 @@ $j(document).ready(function() {
             <?php //echo $this->getLayout()->createBlock('cms/block')->setBlockId('keypoint')->toHtml() ?>
 
             <div class="quick-access">
+                <a href="#!" class="search-menu"><i class="fa fa-search"></i></a>
                 <a href="<?php echo Mage::getBaseUrl(); ?>customer/account/login/" class="link-myaccount-mobile"><i class="fa fa-user"></i></a>
 
                 <?php $_totalItem = $this->helper('checkout/cart')->getSummaryCount();  //get total items in cart ?>
@@ -235,13 +219,15 @@ $j(document).ready(function() {
 
                 <div class="clear"></div>
             </div>
-        </div>
-        
-        <?php echo $this->getChildHtml('topContainer'); ?>
-        
             <div class="search-container-new-mobile">
                 <?php echo $this->getChildHtml('topSearch'); ?>
             </div>
+        </div>
+        
+        <?php echo $this->getChildHtml('topContainer'); ?>
+        <div class="banner-corner">
+            <?php echo $this->getLayout()->createBlock('staticarea/block')->setId('banner-corner')->toHtml();?>
+        </div>
     </div>
 </div>
 

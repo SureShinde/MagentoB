@@ -215,12 +215,6 @@ url(../images/amshopby-minus.gif) no-repeat;}
 div.block-layered-nav dd li:after {display:block; content:".";
 clear:both; font-size:0; line-height:0; height:0; overflow:hidden; }
 
-
-
-div.block-layered-nav dt.brand,
-div.block-layered-nav dt.brand + dd{
-    display: none;
-}
 div.block-layered-nav dt.amshopby-collapsed {
 	background:url(../images/arrow-down-blue.png) center right no-repeat #F3F3F3;
 	border-bottom: 1px solid #D2D2D2;

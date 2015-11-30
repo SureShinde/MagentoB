@@ -915,7 +915,7 @@ ul.block-wrapper li:last-child {}
     width: 220px;
     padding: 10px;
     background: #DCDCDC;
-	min-height: 495px;
+	min-height: 400px;
 }
 .homepage .homepage-banner .first-level > ul{
 	padding-left:0;
@@ -929,14 +929,14 @@ ul.block-wrapper li:last-child {}
 	width:179px;
 }
 .homepage .homepage-banner .first-level > ul > li{
-    line-height: 3.5em;
+    line-height: 32px;
     font-size: 1.04em;
     font-weight: bold;
     text-align: left;
     background: #fff;
     margin: 1px 0 0;
     padding: 0 10px;
-    height: 40px;
+    height: 32px;
 }
 .homepage .homepage-banner .first-level > ul > li.hover-cat{
     background: #ffa01b;
@@ -966,7 +966,7 @@ ul.block-wrapper li:last-child {}
     border-width: 7px;
     content: "";
     left: 10px;
-    top: 13px;
+    top: 9px;
     position: absolute;
     border-style: solid;
     border-color: transparent transparent transparent #ffa01b;
@@ -1074,6 +1074,15 @@ ul.block-wrapper li:last-child {}
     border-left: 1px solid #ededed;
     z-index: 0;
 }
+.homepage .wrap-banner .topbanner-megamenu{
+    display: block;
+    clear: both;
+    margin-left: 10px;
+    background: #000;
+    height: 70px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
 .homepage .wrap-banner .first-banner-megamenu, .wrap-banner .second-banner-megamenu, .wrap-banner .third-banner-megamenu{
     float: left;
     padding: 0 0 0 12px;
@@ -1105,7 +1114,7 @@ ul.block-wrapper li:last-child {}
 .homepage .wrap-banner .top-thirdbanner,
 .homepage .wrap-banner .middle-thirdbanner,
 .homepage .wrap-banner .bottom-thirdbanner{
-    height: 164px;
+    height: 161px;
     position: relative;
 }
 .homepage .wrap-banner .first-banner-megamenu .bottom-left-firstbanner, .wrap-banner .first-banner-megamenu .bottom-right-firstbanner{
@@ -1162,7 +1171,8 @@ ul.block-wrapper li:last-child {}
         padding: 0 6px 0 6px;
     }
     .homepage .wrap-banner .bottom-left-firstbanner, .homepage .wrap-banner .bottom-right-firstbanner, .homepage .wrap-banner .top-secondbanner, .homepage .wrap-banner .middle-secondbanner, .homepage .wrap-banner .bottom-secondbanner, .homepage .wrap-banner .top-thirdbanner, .homepage .wrap-banner .middle-thirdbanner, .homepage .wrap-banner .bottom-thirdbanner{
-        height: 159px;
+        height: 161px;
+        position: relative;
     }
     .homepage .wrap-banner{
         width: 561px;
@@ -1171,7 +1181,7 @@ ul.block-wrapper li:last-child {}
         width: 48%;
     }
 }
-@media (min-width: 768px )and (max-width: 1022px ){
+@media (min-width: 768px )and (max-width: 1023px ){
     .homepage .homepage-banner .wrap-banner .first-banner-megamenu{
         width: 100%;
     }
@@ -1185,7 +1195,6 @@ ul.block-wrapper li:last-child {}
         width: 505px;
     }
 	.homepage .homepage-banner .first-level{
-		min-height: 450px;
 	}
     homepage .wrap-banner .first-banner-megamenu .main-banner {
 +        height: 280px;
