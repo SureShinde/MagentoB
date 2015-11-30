@@ -12,9 +12,10 @@
 .loader img.loader-img{
     width: 20px !Important;
     height: auto !Important;
-    margin-top: 40% !important;
+    top: 40% !important;
     display: inline !Important;
     float: none;
+    position: absolute;
 }
 .header-container {
 	background: #fff;
@@ -28,8 +29,13 @@
 .header {
 	position: relative;
 	text-align: left;
-	padding: 58px 0 0 0;
+	padding: 47px 0 0 0;
     z-index: 9;
+}
+.banner-corner a{
+    display: table;
+    margin: 0 auto;
+    padding: 12px 0;
 }
 .header .quick-access .log-reg{
 	display: table;
@@ -84,7 +90,7 @@ float: right;}
 }
 .header a.nav-mobile-trigger {
 	float: left;
-    color: #F48220;
+    color: #FA6938;
     font-size: 18px;
     border-right: 1px solid #f2f2f2;
 }
@@ -456,13 +462,11 @@ searchbar #nav-search-in {
     .quick-access .language-select-option select{margin:0;}
     .quick-access .search-container-new {display: none;}
     .search-container-new-mobile {
-        display: block;
+        display: none;
         width: auto;
         clear: both;
-        margin: 0 10px;
-        margin-bottom: 10px;
         padding: 10px 2%;
-        background: none repeat scroll 0 0 #F48220;
+        background: none repeat scroll 0 0 #FA6938;
     }
     .search-container-new {
         display: block;
@@ -471,6 +475,9 @@ searchbar #nav-search-in {
         width: 100%;
 		margin:0;
         position: relative;
+    }
+    .header .quick-access a.search-menu{
+        border-left: 1px solid #f2f2f2;
     }
 	.header .quick-access a.link-myaccount-mobile {
         border-left: 1px solid #f2f2f2;

@@ -6,9 +6,9 @@
 		var scrollSpeed = 400;//how slow/fast you want the button to scroll to top. can be a value, 'slow', 'normal' or 'fast'
 		jQuery(window).scroll(function(){
 			if(jQuery(window).scrollTop() >= pxShow){
-				jQuery("#backtotop").slideDown(slideDownTime);
+				jQuery("#backtotop").show();
 			}else{
-				jQuery("#backtotop").slideUp(slideUpTime);
+				jQuery("#backtotop").hide();
 			}
 		});
 		 
@@ -20,4 +20,4 @@
 </script>
 
 <div class="clrb"></div>
-<div id="backtotop"><a href="#"> <span>▲</span> <br> Back</br>to Top</a></div>
+<div id="backtotop"><a href="#"> <i class="fa fa-angle-up"></i></a></div>

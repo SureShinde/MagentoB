@@ -55,7 +55,9 @@
             </div>
             <?php } ?>
             <div class="main">
-                <div class="col-left sidebar col-3"><?php echo $this->getChildHtml('left') ?></div>
+                <div class="col-left sidebar col-3">
+                    <div class="close-sidebar-mobile"><i class="fa fa-times-circle"></i></div>
+                    <?php echo $this->getChildHtml('left') ?></div>
                 <div class="col-12">
                     <?php echo $this->getChildHtml('global_messages') ?>
                     <?php echo $this->getChildHtml('content') ?>

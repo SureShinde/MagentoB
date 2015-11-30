@@ -319,9 +319,7 @@ hr{
 	text-decoration: underline;
 }
 .product-view .product-shop .product-shop-left .buy-later {
-	display:table;
-	width: 230px;
-	margin: 10px auto;
+	width: auto;
 }
 .product-view .product-shop .product-shop-left .buy-later .add-to-links {
 	text-align: left;
@@ -332,7 +330,7 @@ hr{
 
 .product-view .product-shop .product-shop-left .buy-later li a.link-wishlist {
     position: relative;
-    text-align: right;
+    text-align: left;
     width: 98%;
 }
 .product-view .product-shop .product-shop-left .buy-later a {

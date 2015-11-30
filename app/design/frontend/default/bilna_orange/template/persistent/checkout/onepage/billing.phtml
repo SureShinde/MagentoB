@@ -196,7 +196,7 @@
     <?php endif; ?>
     <div class="buttons-set" id="billing-buttons-container">
         <p class="required"><?php echo $this->__('* Required Fields') ?></p>
-        <button type="button" title="<?php echo $this->__('Continue') ?>" class="button" onclick="billing.save(); ecommerceCheckout1();"><span><span><?php echo $this->__('Continue') ?> <img src="<?php echo $this->getSkinUrl(); ?>images/arrow-continue.png"/></span></span></button>
+        <button type="button" title="<?php echo $this->__('Continue') ?>" class="button" onclick="billing.save(); ecommerceCheckout1();"><span><span><?php echo $this->__('Continue') ?> <i class="fa fa-chevron-circle-down"></i></span></span></button>
         <span class="please-wait" id="billing-please-wait" style="display:none;">
             <img src="<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif') ?>" alt="<?php echo $this->__('Loading next step...') ?>" title="<?php echo $this->__('Loading next step...') ?>" class="v-middle" /> <?php echo $this->__('Loading next step...') ?>
         </span>

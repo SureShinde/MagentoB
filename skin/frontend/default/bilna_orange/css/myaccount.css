@@ -130,11 +130,10 @@
 	background-image: none;
 	background-color: #dfe0e0;
 	padding: 12px 7px;
+    margin: 0;
 }
 .block-account .block-title strong {
 	color: #707070;
-	font-family: 'bebasregular';
-	font-size: 1.3em;
 	font-weight: normal;
 	padding: 3px 0;
 }
@@ -166,7 +165,7 @@
 }
 
 .page-title {
-	border-bottom: 0;
+	border: 0;
 	background-color: #ffa01b;
 	padding: 12px 7px;
 	margin: 0 0 15px;
@@ -176,7 +175,6 @@
 .customer-account-login .account-create .fieldset .legend {display:none !important;}
 .page-title h1 {
 	color: white;
-	font-family: 'bebasregular';
 	font-size: 1.3em;
 	font-weight: normal;
 	word-spacing: 5px;
@@ -386,7 +384,6 @@
 
 /* Order History */
 .my-account .pager {
-	background: 0;
 }
 #awcp_customerdeals-history-box .pager{
 	background:#f2f2f2;
@@ -465,7 +462,6 @@
 	background: none;
 	margin: 0;
 	border: 0;
-	border-top: 1px #bcbcbc solid;
 	
 	/* width: auto;
 padding: 10px 10px 30px;	

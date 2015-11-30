@@ -43,7 +43,10 @@
 <script>
 jQuery(document).ready(function(){ 
     jQuery('.button-toggle').click(function() {
-        jQuery('.sidebar').toggle("slide");
+        jQuery('.sidebar').show();
+    });
+    jQuery('.close-sidebar-mobile').click(function() {
+        jQuery('.sidebar').hide();
     });
 });
 </script>

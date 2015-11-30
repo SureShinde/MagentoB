@@ -212,7 +212,6 @@
     width: 100%;
     border-bottom: 1px solid #bdbdbd;
     display: inline-block;
-    margin-bottom: 10px;
 }
 .space-above-header .container-above-header{
     width: 1216px;
@@ -299,6 +298,24 @@
     width: 60px;
     text-align: center
 }
+.header .quick-access .top-cart a.btn-remove:before {
+    content: "\f057";
+    display: block;
+    visibility: visible;
+    font-family: FontAwesome;
+    font-size: 1.2em;
+    color: #EE5859;
+}
+.header .quick-access .top-cart a.btn-remove {
+    width: 17px;
+    display: inline-block;
+    font-size: inherit;
+    visibility: hidden;
+    background: 0;
+    overflow: visible;
+    position: relative;
+    text-indent: 0;
+}
 .header .quick-access .top-cart a .lable-name{
     display: block;
     font-weight: bold;
@@ -361,7 +378,7 @@
 	background: #fff;
 }
 .mini-products-list thead {
-	border-bottom: 2px solid #fff;
+	border-bottom: 1px solid #E6E6E6;
 }
 .mini-products-list thead tr th {
 	font-weight: bold;
@@ -602,25 +619,28 @@
 .header .links li.myaccount a.link-trigger-myaccount, .menu-tablet .links li.myaccount a.link-trigger-myaccount {
 }
 .header .links li.myaccount a.link-trigger-myaccount{
-    padding: 43px 0 10px;
+    padding: 43px 0 0;
     font-size: 11px;
     color: #585958;
+    height: 14px;
     font-weight: bold;
+    overflow: hidden;
+}
+.header .links li.myaccount a.link-trigger-myaccount .circle-name{
+    width: 25px;
+    height: 25px;
+    border: 2px solid;
+    position: absolute;
+    border-radius: 50%;
+    top: 10px;
+    left: 15px;
 }
 .header .links li.myaccount a.link-trigger-myaccount .cust-icon{
-    visibility: hidden;
     font-size: 1.5em;
-    top: 15px;
-    left: 30%;
+    display: table;
+    text-align: center;
     font-weight: bold;
-    width: 100%;
-    position: absolute;
-}
-.header .links li.myaccount a.link-trigger-myaccount .cust-icon::first-letter{
-    visibility:visible;
-    border: 2px solid #585958;
-    border-radius: 50%;
-    padding: 3px 6px;
+    margin: 3px auto;
 }
 .header .links li.myaccount .toplink-myaccount {
 	min-width: 126px;
