@@ -47,7 +47,7 @@ class Bilna_Fraud_Model_Observer {
         $toDate = $ruleData['to_date'];
         $usesPerHousehold = $ruleData['uses_per_household'];
         $ruleDataRuleId = $ruleData['rule_id'];
-        if(($usesPerHousehold > 0) || (!empty($usesPerHousehold))) {
+        if(($usesPerHousehold > 0) && (!empty($usesPerHousehold)) && !is_null($ruleDataRuleId)) {
             if($ruleDataRuleId != 0) {
                 $date = '[' . $fromDate . 'T23%3A59%3A59.999Z%2FDAY+TO+' . $toDate . 'T23%3A59%3A59.999Z%2FDAY]';
             }
