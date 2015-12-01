@@ -63,7 +63,7 @@
 	overflow-y:auto !important;
 }
 .main-container.col2-left-wide-layout{
-        background: #F9F9F9;
+        background: #fff;
 }
 .block-layered-nav dt, .demo label, .block-layered-nav .block-title strong span, .block-layered-nav .lbl-filterby, a.back-to-top {
 	text-transform: uppercase;
@@ -280,7 +280,7 @@ a.triger-showfilter {
     margin: 0;
     font-family: avenir_regular;
     font-size: 3.6em;
-    color: #FA696F;
+    color: #333333;
     padding: 5px 0 10px;
     float: left;
 }

@@ -2,6 +2,9 @@
 	background: #fd8e17;	
 	display: none;
 }
+.checkout-onepage-index .main-container{
+    margin-top: 20px;
+}
 .checkout-onepage-index .col-main {
 	margin-bottom: 30px;
 }
@@ -98,9 +101,13 @@
 	background: #FA6938;
 	
 }
-.opc .step {
+#checkout-step-login .step {
 	background: none;
 	border:none;
+}
+.opc .step .col2-set .col-1,
+.opc .step .col2-set .col-2{
+    margin: 0.5%;
 }
 .opc .buttons-set .back-link a {
 	background: 0;

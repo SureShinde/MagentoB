@@ -327,7 +327,7 @@ p.required { font-size:11px; text-align:right; color:#EB340A; }
 .messages,
 .messages ul { list-style:none !important; margin:0 !important; padding:0 !important; }
 .messages { width:100%; overflow:hidden; }
-.messages li { margin:0 0 10px !important; }
+.messages li { margin:0 !important; }
 .messages li li { margin:0 0 3px !important; }
 .error-msg,
 .success-msg,
@@ -1965,7 +1965,7 @@ tr.summary-details-excluded { font-style:italic; }
 	border-top: 2px solid;
 }
 #backtotop a {
-    background: #FA6938;
+    background: #BCBCBC;
     border: 0 none;
     border-radius: 50%;
     color: #FFFFFF;

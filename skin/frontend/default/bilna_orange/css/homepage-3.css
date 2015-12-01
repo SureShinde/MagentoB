@@ -407,8 +407,8 @@ ul.block-wrapper li:last-child {}
 
 .slidesjs-pagination li.slidesjs-pagination-item a {
 	display: block;
-	width: 19px;
-	height: 19px;
+	width: 8px;
+	height: 8px;
 	text-indent: -999999px;
 	background: url(../images/node.png) no-repeat center center;
 }
@@ -446,7 +446,6 @@ ul.block-wrapper li:last-child {}
     font-size: 15px;
     font-weight: bold;
     text-align: center;
-    text-indent: 0 !important;
 }
 .slidesjs-pagination .slidesjs-pagination-item a.active{
 	background:#ff9f1c !important;
@@ -812,7 +811,7 @@ ul.block-wrapper li:last-child {}
 		border-bottom: 1px solid #c8c7c7;
 		border-top: 1px solid #c8c7c7;
 	}
-    .row-homepage .container-homepage, .container-homepage{
+    .row-homepage .container-homepage, .container-homepage, .messages li{
         width:90% !important;
     }
     p.title{
@@ -890,7 +889,7 @@ ul.block-wrapper li:last-child {}
 }
 .homepage .homepage-banner,
 .row-homepage .container-homepage,
-.container-homepage{
+.container-homepage, .messages li{
     clear: both;
     display: block;
     margin: 0 auto;
@@ -1185,7 +1184,7 @@ ul.block-wrapper li:last-child {}
 	}
     .homepage .homepage-banner,
     .row-homepage .container-homepage,
-    .container-homepage{
+    .container-homepage, .messages li{
         width: 994px;
     }
     .homepage .wrap-banner .first-banner-megamenu, .homepage .wrap-banner .second-banner-megamenu, .homepage .wrap-banner .third-banner-megamenu{
@@ -1246,7 +1245,7 @@ ul.block-wrapper li:last-child {}
 	}
     .homepage .homepage-banner,
     .row-homepage .container-homepage,
-    .container-homepage{
+    .container-homepage, .messages li{
         width: 745px;
     }
     
