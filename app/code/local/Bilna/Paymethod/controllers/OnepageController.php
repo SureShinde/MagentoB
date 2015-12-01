@@ -379,7 +379,7 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
             $paymentCode = $order->getPayment()->getMethodInstance()->getCode();
 
             // FDS (BILNA-1333) - Start
-            $canceled = Mage::helper('bilna_fraud')->checkOrderStatus($order, 1);
+            $canceled = Mage::helper('bilna_fraud')->checkOrderStatus($orderNo, 1);
             // FDS (BILNA-1333) - End
 
             if (in_array($paymentCode, $this->getPaymentMethodCc())) {
