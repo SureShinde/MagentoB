@@ -48,6 +48,9 @@
         $j(".search-menu").click(function(){
             $j(".search-container-new-mobile").toggle();
         });
+        $j(".link-myaccount-mobile").click(function(){
+            $j(".header .links li.myaccount").toggle();
+        });
         $j("img.lazy, .wrap-banner img:not(.image-slider), .warp-banner img").after('<div class="loader"><img class="loader-img" src="<?php echo Mage::getBaseUrl(); ?>skin/frontend/base/default/images/loading.gif"></div>');
         
         $j( ".product-image-zoom" ).mouseover('mousewheel',function(e) {
@@ -201,11 +204,26 @@ $j(document).ready(function() {
                 <img src="<?php echo $this->getSkinUrl(); ?>images/logo_bilna_2015_2.png" alt="<?php echo $this->getLogoAlt() ?>" />
             </a>
 
-            <?php //echo $this->getLayout()->createBlock('cms/block')->setBlockId('keypoint')->toHtml() ?>
-
             <div class="quick-access">
                 <a href="#!" class="search-menu"><i class="fa fa-search"></i></a>
-                <a href="<?php echo Mage::getBaseUrl(); ?>customer/account/login/" class="link-myaccount-mobile"><i class="fa fa-user"></i></a>
+                <?php require_once 'app/Mage.php';
+
+
+                umask(0);
+
+                Mage::app('default');
+
+                Mage::getSingleton('core/session', array('name' => 'frontend'));
+
+                $sessionCustomer = Mage::getSingleton("customer/session");
+
+                if($sessionCustomer->isLoggedIn()) {?>
+                    <a href="#" class="link-myaccount-mobile"><i class="fa fa-user"></i></a>
+                <?php } else {?>
+                    <a href="<?php echo Mage::getBaseUrl(); ?>customer/account/login/" class="link-myaccount-mobile"><i class="fa fa-user"></i></a>
+                <?php } ?>
+                
+                    <?php echo $this->getChildHtml('topLinks') ?>
 
                 <?php $_totalItem = $this->helper('checkout/cart')->getSummaryCount();  //get total items in cart ?>
 

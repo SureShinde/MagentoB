@@ -755,7 +755,8 @@ table.ratings-table tbody tr{
     color: #fff;
     font-size: 11px;
     float: left;
-    margin-top: 1px;
+    margin-top: 3px;
+    margin-left: 5px;
     background: #999;
     font-weight: bold;
     padding: 3px;
@@ -1011,6 +1012,9 @@ table.ratings-table tbody tr{
 }
 /* --------------- smaller 959 px layout -------------------- */
 @media (max-width: 767px) {
+    .breadcrumbs{
+        display: none;
+    }
     .product-shop-right .block.block-related .aw-arp-item-right .price-box, .product-shop-right .block.block-related .aw-arp-item-right .aw-arp-product-name-wrap{
         clear: both;
     }

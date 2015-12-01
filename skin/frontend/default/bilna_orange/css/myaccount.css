@@ -226,6 +226,7 @@
 	background: 0;
 	border: 0;
 	padding: 10px 10px 0;
+    overflow: auto;
 	border-top: 1px #bcbcbc solid;
 }
 .dashboard .box-account .box-head {
@@ -802,6 +803,10 @@ padding: 10px 10px 30px;
 }
 
 @media (max-width: 767px) {
+    .dashboard .col2-set{
+        margin: 0 auto;
+        width: 95%;
+    }
 	.col2-left-layout .main .col-left.sidebar, 
 	.col2-left-layout .main .col-main {
 		width: 100%;
