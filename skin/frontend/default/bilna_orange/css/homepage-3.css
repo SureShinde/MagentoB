@@ -481,12 +481,15 @@ ul.block-wrapper li:last-child {}
     clear: both;
     width: 100%;
 }
+.brand-pilihan img{
+    width: 100%;
+}
 .brand-pilihan p.title{
     text-align: left;
     margin: 0;
 }
 .brand-pilihan .brand-3{
-    height: 370px;
+    height: 378px;
     background: #fff;
 }
 .brand-pilihan .int-brand{
@@ -515,7 +518,7 @@ ul.block-wrapper li:last-child {}
     width: 100%;
     background: #fff;
     height: 80px;
-    margin-top: 10px;
+    margin-top: 14px;
 }
 .brand-pilihan .brand-col-2{
     background: #fff;
@@ -615,16 +618,20 @@ ul.block-wrapper li:last-child {}
         font-size: 1em;
     }
     .brand-pilihan .int-brand{
-        padding: 25px;
+        padding: 15px;
+        height: 120px;
     }
     .brand-pilihan .square, .brand-pilihan .rectangular{
-        height: 165px;
+        height: 146px;
     }
     .brand-pilihan .brand-3 {
-        height: 370px;
+        height: 309px;
     }
     .block-wrapper > a{
         min-height: 135px;
+    }
+    .brand-pilihan .brand-1, .brand-pilihan .brand-2{
+        height: 65px;
     }
 }
 /* --------------- 960 px layout -------------------- */
@@ -771,21 +778,20 @@ ul.block-wrapper li:last-child {}
     }
     .brand-pilihan .int-brand a{
         font-size: 0.7em;
+        padding: 6px 0;
     }
     .brand-pilihan .int-brand p {
         font-size: 0.8em;
     }
-    .brand-pilihan .brand-3{
-        height: 370px;
-    }
     .brand-pilihan .square, .brand-pilihan .rectangular{
-        height: 118px;
+        height: 110px;
     }
     .brand-pilihan .brand-3{
-        height: 270px;
+        height: 232px;
     }
     .brand-pilihan .brand-1, .brand-pilihan .brand-2{
-        height: 60px;
+        height: 48px;
+        margin-top: 7px;
     }
 }
 /* --------------- smaller 959 px layout -------------------- */

@@ -40,52 +40,61 @@ body {
     display: inline-block;
 }
 .col-1{
-    width: 5.67%;
-    margin: 0.5%;
+    width: 4.67%;
+    margin: 1%;
 
 }
 .col-2{
-    width: 12.33%;
-    margin: 0.5%;
+    width: 11.33%;
+    margin: 1%;
 
 }
 .col-3{
-    width: 19%;
-    margin: 0.5%;
+    width: 18%;
+    margin: 1%;
 
 }
 .col-4{
-    width: 25.67%;
-    margin: 0.5%;
+    width: 24.67%;
+    margin: 1%;
 
 }
 .col-5{
-    width: 32.33%;
-    margin: 0.5%;
+    width: 31.33%;
+    margin: 1%;
 
 }
 .col-6{
-    width: 39%;
+    width: 38%;
+    margin: 1%;
+
+}
+.col-7{
+    width: 44.66%;
+    margin: 1%;
+}
+.col-8{
+    width: 52.33%;
     margin: 0.5%;
 
 }
 .col-9{
-    width: 59%;
-    margin: 0.5%;
+    width: 58%;
+    margin: 1%;
 
 }
 .col-10{
-    width: 65.67%;
-    margin: 0.5%;
+    width: 64.67%;
+    margin: 1%;
 
 }
 .col-11{
-    width: 72.33%;
-    margin: 0.5%;
+    width: 71.33%;
+    margin: 1%;
 }
 .col-12{
-    width: 79%;
-    margin: 0.5%;
+    width: 78%;
+    margin: 1%;
 }
 .main {}
 .col2-left-layout .main {}

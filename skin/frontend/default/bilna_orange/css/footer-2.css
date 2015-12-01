@@ -80,6 +80,7 @@
 .footer .payment-partners span.title{
 	padding: 0 0 8px;
 	display: block;
+    text-align: left;
 }
 .footer a, .footer address {
 	color: #999;
@@ -148,6 +149,7 @@
 .footer .conect-us span.title, .footer .shipping-partners span.title {
 	display: block;
 	margin:0 0 15px 0;
+    text-align: left;
 }
 .footer .payment-partners a, .footer .shipping-partners a {
 	display: inline-block;
@@ -290,6 +292,12 @@ display: inline-block;
     }
     .footer-container .subscribe-form .wrap-form-subscribe form button{
         width: 30%;
+    }
+    .footer .footer-bottom ul {
+        width: 72%;
+    }
+    .footer .footer-bottom ul.sosmed {
+        width: 28%;
     }
 }
 /* --------------- smaller 959 px layout -------------------- */
