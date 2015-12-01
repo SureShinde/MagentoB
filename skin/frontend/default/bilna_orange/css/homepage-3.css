@@ -995,7 +995,7 @@ ul.block-wrapper li:last-child {}
 .homepage .homepage-banner li.active-cat .wrap-banner .first-banner-megamenu .main-banner {
 	position:relative;
 }
-.homepage .homepage-banner li a, .homepage .homepage-banner .second-level p a{
+.homepage .homepage-banner li > a, .homepage .homepage-banner .second-level > p a{
     color: #414042;
 	display:block;
     text-decoration: none;
@@ -1088,11 +1088,16 @@ ul.block-wrapper li:last-child {}
     border-left: 1px solid #ededed;
     z-index: 0;
 }
+.homepage .wrap-banner a,
+.homepage .wrap-banner p{
+    display: inline-block;
+    position: relative;
+    text-align: center;
+}
 .homepage .wrap-banner .topbanner-megamenu{
     display: block;
     clear: both;
     margin-left: 10px;
-    background: #000;
     height: 70px;
     margin-right: 10px;
     margin-bottom: 10px;
