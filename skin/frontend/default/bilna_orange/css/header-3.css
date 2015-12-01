@@ -546,6 +546,7 @@
     font-family: FontAwesome;
     margin: 0 auto;
     font-size: 2.3em;
+    color: #585958;
     position: absolute;
     top: 13px;
     display: table;
@@ -556,6 +557,7 @@
     width: 25px;
     height: 25px;
     content: " ";
+    color: #585958;
     display: block;
     border-radius: 50%;
     margin: 0 auto;
@@ -569,7 +571,11 @@
     font-size: 11px;
     font-weight: bold;
     margin-top: 4px;
-    color: inherit;
+    font-family: avenir_medium;
+    color: #585958;
+}
+.header .links li.login a:hover{
+    text-decoration: none;
 }
 .header .links li:nth-child(3){
 	padding-left: 0px;
