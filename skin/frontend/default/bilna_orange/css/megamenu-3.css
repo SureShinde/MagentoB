@@ -278,6 +278,13 @@
 .menu-navigation .wrap-banner .third-banner-megamenu{
     position: relative;    
 }
+.menu-navigation .wrap-banner a,
+.menu-navigation .wrap-banner p{
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    text-align: center;
+}
 .menu-navigation .wrap-banner .topbanner-megamenu{
     display: block;
     clear: both;
@@ -305,6 +312,7 @@
 .menu-navigation .wrap-banner img{
     float:left;
     width: 100%;
+    display: block;
 }
 .menu-navigation .wrap-banner .first-banner-megamenu{
     width: 48%;
