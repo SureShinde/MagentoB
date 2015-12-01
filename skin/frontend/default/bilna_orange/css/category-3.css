@@ -538,6 +538,7 @@ a.triger-showfilter {
 	float:left;
 	min-height:10px;
 	width: 18%;
+    position: relative;
 }
 .catalog-category-view .banner_small p{
 	display:table;
