@@ -496,6 +496,7 @@ ul.block-wrapper li:last-child {}
 .brand-pilihan .brand-3{
     height: 378px;
     background: #fff;
+    position: relative;
 }
 .brand-pilihan .int-brand{
     padding: 30px;
@@ -523,6 +524,7 @@ ul.block-wrapper li:last-child {}
     width: 100%;
     background: #fff;
     height: 80px;
+    position: relative;
     margin-top: 14px;
 }
 .brand-pilihan .brand-col-2{
@@ -533,6 +535,7 @@ ul.block-wrapper li:last-child {}
 .brand-pilihan .square,
 .brand-pilihan .rectangular{
     height: 178px;
+    position: relative;
     background: #fff;
 }
 @media only screen and (max-width: 1215px) {
