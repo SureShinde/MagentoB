@@ -457,7 +457,7 @@ tr.summary-details-excluded { font-style:italic; }
 .std dl,
 .std p,
 .std address,
-.std blockquote { margin:0 0 1em; padding:0; }
+.std blockquote { margin:0; padding:0; }
 .std ul { list-style:disc outside; padding-left:1.5em; }
 .std ol { list-style:decimal outside; padding-left:1.5em; }
 .std ul ul { list-style-type:circle; }
@@ -487,9 +487,8 @@ tr.summary-details-excluded { font-style:italic; }
     width: 100%;
     color: #fff;
     background: #231F20;
-    line-height: 30px;
+    line-height: 32px;
     font-size: 1.3em;
-    font-weight: bold;
     color: #fff;
     text-align: center;
     display: block;
