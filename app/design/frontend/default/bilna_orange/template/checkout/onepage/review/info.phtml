@@ -45,9 +45,9 @@
             </tr>
             <?php if ($this->helper('tax')->displayCartBothPrices()): ?>
                 <tr>
-                    <th class="a-right"><?php echo $this->helper('tax')->getIncExcTaxLabel(false) ?></th>
+                    <th><?php echo $this->helper('tax')->getIncExcTaxLabel(false) ?></th>
                     <th><?php echo $this->helper('tax')->getIncExcTaxLabel(true) ?></th>
-                    <th class="a-right"><?php echo $this->helper('tax')->getIncExcTaxLabel(false) ?></th>
+                    <th><?php echo $this->helper('tax')->getIncExcTaxLabel(false) ?></th>
                     <th><?php echo $this->helper('tax')->getIncExcTaxLabel(true) ?></th>
                 </tr>
             <?php endif; ?>
