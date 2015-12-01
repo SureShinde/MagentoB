@@ -12,9 +12,10 @@
 .loader img.loader-img{
     width: 20px !Important;
     height: auto !Important;
-    margin-top: 40% !important;
+    top: 40% !important;
     display: inline !Important;
     float: none;
+    position: absolute;
 }
 .header-container {
 	width: 100%;
