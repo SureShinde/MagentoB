@@ -428,6 +428,7 @@ searchbar #nav-search-in {
         width: 52%;
         z-index: 9;
         right: 0;
+        display: none;
         border: 1px solid #e4e4e4;
     }
     .header .links li.first.last.login{
