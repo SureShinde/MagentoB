@@ -460,6 +460,11 @@ ul.block-wrapper li:last-child {}
 .popular-category img{
     width: 100%;
 }
+.popular-category a{
+    display: block;
+    clear: both;
+    padding: 5px 0 0;
+}
 .popular-category p.first-level-category{
     font-weight: bold;
     margin: 10px 0;

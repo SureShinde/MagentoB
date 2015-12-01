@@ -35,6 +35,17 @@
 $_productCollection=$this->getLoadedProductCollection();
 $_helper = $this->helper('catalog/output');
 ?>
+
+<script>
+jQuery(document).ready(function(){ 
+    jQuery('.button-toggle').click(function() {
+        jQuery('.sidebar').show();
+    });
+    jQuery('.close-sidebar-mobile').click(function() {
+        jQuery('.sidebar').hide();
+    });
+});
+</script>
 <?php if (!$_productCollection->count()): ?>
     <p class="note-msg"><?php echo $this->__('There are no products matching the selection.') ?></p>
 <?php else: ?>
