@@ -1092,6 +1092,7 @@ ul.block-wrapper li:last-child {}
 .homepage .wrap-banner p{
     display: inline-block;
     position: relative;
+    width: 100%;
     text-align: center;
 }
 .homepage .wrap-banner .topbanner-megamenu{
@@ -1109,6 +1110,7 @@ ul.block-wrapper li:last-child {}
 .homepage .wrap-banner img{
     float:left;
     width: 100%;
+    display: block;
 }
 .homepage .wrap-banner .second-banner-megamenu img{
     padding:0;
