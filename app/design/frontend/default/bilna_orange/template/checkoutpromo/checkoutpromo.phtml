@@ -1,0 +1,122 @@
+<?php
+/**
+ * aheadWorks Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://ecommerce.aheadworks.com/AW-LICENSE.txt
+ *
+ * =================================================================
+ *                 MAGENTO EDITION USAGE NOTICE
+ * =================================================================
+ * This software is designed to work with Magento community edition and
+ * its use on an edition other than specified is prohibited. aheadWorks does not
+ * provide extension support in case of incorrect edition use.
+ * =================================================================
+ *
+ * @category   AW
+ * @package    AW_Checkoutpromo
+ * @version    1.2.3
+ * @copyright  Copyright (c) 2010-2012 aheadWorks Co. (http://www.aheadworks.com)
+ * @license    http://ecommerce.aheadworks.com/AW-LICENSE.txt
+ */
+?><?php
+?>
+<script type="text/javascript">
+    Event.observe(window, 'load', function() {
+        if (typeof(checkout)!='undefined') {
+            checkout._reloadProgressBlock = checkout.reloadProgressBlock;
+            checkout.reloadProgressBlock = function() {
+                refreshBlock();
+                return  checkout._reloadProgressBlock.apply(this, arguments)
+            }
+        }
+    })
+</script>
+
+
+    <?php
+    $appliedBlockIds = $this->getAppliedBlockIds();
+
+    if (array_key_exists($this->getNameInLayout(), $appliedBlockIds)) {
+        echo '<div id="checkoutpromo" >';
+        foreach ($appliedBlockIds[$this->getNameInLayout()] as $appliedBlockId) {
+            echo $this->getLayout()->createBlock('cms/block')->setBlockId($appliedBlockId)->toHtml();
+        }
+        echo '</div>';
+    }
+    ?>
+
+<?php
+$url = $this->getUrl('checkout/cart/customCheckoutCouponPost');
+$url = Mage::helper('paymethod')->checkHttpsProtocol($url);
+Mage::getSingleton('core/session')->setSessionCouponMessage('');
+
+$session = Mage::getSingleton('checkout/session');
+$points_amount = $session->getData('points_amount');
+?>
+<script type="text/javascript">
+    function refreshBlock(){
+        new Ajax.Request('<?php echo $this->getCheckoutpromoUrl(); ?>', {
+            method:'get',
+            onSuccess: function(transport){
+                var response = transport.responseText;
+
+                var checkoutpromo_div = $('checkoutpromo');
+                checkoutpromo_div.update(response);              
+
+            },
+            onFailure: function(){
+                alert('Something went wrong, please try later...')
+            }
+        });
+    }
+    function cekCustomVoucher(isRemove)
+    {
+        jQuery(".button btn-checkout").attr("disabled", true);
+        var remove = 0;
+        if(isRemove)
+        {
+            remove = 1;
+        }else{
+            remove = 0;
+        }
+        //alert($('points_amount').value);
+     
+        //var url = '<?php echo $this->getUrl('checkout/cart/customCheckoutCouponPost') ?>';
+        var url = '<?php echo $url; ?>';
+        jQuery.ajax({
+            type: "POST",
+            url : url,
+            data: { coupon_code: jQuery('#coupon_code').val(), remove: remove},
+            beforeSend: function( xhr ) {
+                $('feedback').update('Checking Coupon Code ... <img src="<?php echo $this->getSkinUrl("ajaxlogin/ajax-loader-tr.gif")?>" title="Loading..." alt="Loading..." border="0" />');
+            },
+            success: function(res){
+                if(res.status == 1){
+                    $('feedback').update(res.desc);
+					if($('use_points')){	
+                    	$('use_points').disabled = $('points_amount').disabled = true; 
+					}  
+                }else{
+					if($('use_points')){
+                    	$('use_points').disabled = $('points_amount').disabled = false;
+					}
+                    $('feedback').update(res.desc);
+                }
+				setTimeout(function(){
+                    jQuery(".button btn-checkout").attr("disabled", false);
+				}, 1000);
+                payment.save();
+            },
+            error: function() {
+                $('feedback').update(res.desc);
+            }
+        });
+  
+        return false;
+    }
+</script>
