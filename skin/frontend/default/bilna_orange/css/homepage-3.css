@@ -407,8 +407,8 @@ ul.block-wrapper li:last-child {}
 
 .slidesjs-pagination li.slidesjs-pagination-item a {
 	display: block;
-	width: 19px;
-	height: 19px;
+	width: 8px;
+	height: 8px;
 	text-indent: -999999px;
 	background: url(../images/node.png) no-repeat center center;
 }
@@ -446,7 +446,6 @@ ul.block-wrapper li:last-child {}
     font-size: 15px;
     font-weight: bold;
     text-align: center;
-    text-indent: 0 !important;
 }
 .slidesjs-pagination .slidesjs-pagination-item a.active{
 	background:#ff9f1c !important;
