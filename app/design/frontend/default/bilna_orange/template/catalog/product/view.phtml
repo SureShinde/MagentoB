@@ -176,17 +176,6 @@
         <?php if ($this->canEmailToFriend()): ?>
             <p class="email-friend"><a href="<?php echo $this->helper('catalog/product')->getEmailToFriendUrl($_product) ?>"><?php echo $this->__('Email to a Friend') ?></a></p>
         <?php endif; ?>
-        <div class="share-button">
-            <div class="addthis_toolbox addthis_default_style addthis_32x32_style">
-                <a class="addthis_button_preferred_1"></a><!--Facebook-->
-                <a class="addthis_button_preferred_2"></a><!--Twitter-->
-                <a class="addthis_button_google_plusone_badge"></a><!--G+-->
-                <a class="addthis_button_preferred_3"></a><!--Email-->						
-                <!--a class="addthis_button_preferred_4"></a--><!--Print-->
-                <!--a class="addthis_button_compact"></a-->
-                <!--a class="addthis_counter addthis_bubble_style"></a-->
-            </div>
-        </div>
     </div>
     <div class="product-tab-wrapper">
         <div id="tab-container" class="tab-container">

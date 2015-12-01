@@ -751,6 +751,8 @@ a.triger-showfilter {
 }
 .catalog-category-view .wrap_banner a{
     position: relative;
+    min-height: 200px;
+    display: block;
 }
 .catalog-category-view .wrap_banner .col-1, .catalog-category-view .wrap_banner .col-2, .catalog-category-view .wrap_banner .col-3, .catalog-category-view .wrap_banner .col-4{
 	display:block;
@@ -759,10 +761,10 @@ a.triger-showfilter {
 }
 .catalog-category-view .wrap_banner .col-1, .catalog-category-view .wrap_banner .col-3, .catalog-category-view .wrap_banner .col-4{
 	position:relative;
-	width: 19%;
+	width: 18%;
 }
 .catalog-category-view .wrap_banner .col-2{
-	width:39%;
+	width:37%;
 }
 .catalog-category-view .wrap_banner .col-3{
 }

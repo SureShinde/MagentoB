@@ -904,7 +904,6 @@ table.ratings-table tbody tr{
 	font-size: 1.6em;
 	font-weight: bold;
 	color: #707070;
-	margin-bottom: 10px;
 } 
 #customer-reviews li .review-detail .review-description {
     font-size: 1.2em;
@@ -1008,6 +1007,9 @@ table.ratings-table tbody tr{
 }
 /* --------------- smaller 959 px layout -------------------- */
 @media (max-width: 767px) {
+    .product-shop-right .block.block-related .aw-arp-item-right .price-box, .product-shop-right .block.block-related .aw-arp-item-right .aw-arp-product-name-wrap{
+        clear: both;
+    }
     .product-tab-wrapper .tab-desc{
         width: 100%;
         overflow-x: auto;
@@ -1135,6 +1137,12 @@ table.ratings-table tbody tr{
         float: left;
         font-size: 1em;
         margin: 0;
+    }
+    #customer-reviews li .review-star{
+        padding: 5px 0;
+    }
+    #customer-reviews li .name{
+        font-size: 2em !important;;
     }
     #customer-reviews li .review-detail .review-title{
         font-size: 1.2em;
