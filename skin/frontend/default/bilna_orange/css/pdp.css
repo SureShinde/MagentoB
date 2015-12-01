@@ -132,6 +132,7 @@ hr{
 }
 .product-view .product-shop .product-shop-left .price-as-configured .price-label {
 	font-weight: normal;
+    font-size: 1.5em;
 }
 .product-view .product-shop .product-shop-left .old-price{
     display: block;
@@ -148,6 +149,7 @@ hr{
 }
 .product-view .product-shop .product-shop-left .special-price span.price,
 .product-view .product-shop .product-shop-left .regular-price span.price,
+.product-view .product-shop .product-shop-left .price-box-bundle span.price,
 .product-view .product-shop .product-shop-left .special-price span.price-label{
 	color: #e74949;
 	font-weight: bold;
@@ -191,6 +193,7 @@ hr{
 }
 .product-container1 .product-options {
 	border: 0;
+    font-size: 1.2em;
 	margin: 0;
 	padding: 0;
 }
@@ -202,7 +205,8 @@ hr{
 	margin-bottom: 5px;
 }
 .product-container1 .product-options label {
-	color: #4ec7da;
+	color: #FA6938;
+    font-size: 1.2em;
 }
 .product-container1 .product-options a {
 	color: #ffa01b;
@@ -1169,13 +1173,14 @@ table.ratings-table tbody tr{
 	.onsale-product-container-inside {
 		left: 10px !important;
 	}
-	
-	.product-view .product-img-box, 
 	.product-view .product-img-box .onsale-product-container {
 		width: 100%;
 	}
 	.product-view .product-img-box {
-		margin: 0;
+        margin: 0 auto;
+        display: table;
+        width: auto;
+        float: none;
 	}
 	
 	/*wish list*/

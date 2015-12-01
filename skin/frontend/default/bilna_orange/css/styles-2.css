@@ -815,7 +815,7 @@ tr.summary-details-excluded { font-style:italic; }
 
 
 /* Category Page ========================================================================= */
-.category-title { border: 0; margin: 0 0 7px; background: #fff; width: 100%; border-bottom: 5px solid #e4e4e4;}
+.category-title {border: 0; margin: 0 0 7px; background: #f3f3f3; width: 100%; border-bottom: 3px solid #e4e4e4;}
 .category-image { width:100%; overflow:hidden; margin:0 0 10px; text-align:center; }
 .category-image img {}
 .category-description { margin:0 0 10px; }
@@ -978,7 +978,7 @@ tr.summary-details-excluded { font-style:italic; }
 .price-as-configured { margin:0; }
 .price-as-configured .price-label { font-weight:bold; white-space:nowrap; }
 
-.price-box-bundle { padding:0 0 10px 0; }
+.price-box-bundle { padding:10px 0; }
 .price-box-bundle .price-box { margin:0 !important; padding:0 !important; }
 .price-box-bundle .price { color:#555; }
 /********** Product Prices > */
@@ -1904,9 +1904,11 @@ tr.summary-details-excluded { font-style:italic; }
 
 /* --------------- smaller 959 px layout -------------------- */
 @media only screen and (max-width: 767px) {
-.products-grid .availability { line-height:21px;bottom: 0px; position: relative; margin-left: 0;padding: 4px 15px;}
+.products-grid .availability { bottom: 0px; position: relative; margin-left: 0;}
 .availability.out-of-stock span {}
-
+.price-notice{
+    margin: 10px 0;
+}
 /* -------- menu top mobile START ------------ */
 .menu-top-mobile {display: block;}
     .header .menu-top-mobile {text-align: left; clear: both; padding: 5px 1% 0; width: 98%;}

@@ -20,7 +20,7 @@ body {
 }
 .main-container, .main-container.col1-layout .main, .main-container.col2-left-layout .main, .main-container.col2-right-layout .main, .main-container.col2-left-wide-layout .main, .main {
 	width: 1216px;
-	margin: 5px auto 0;
+	margin: 0 auto;
 	background: none;
 	padding: 0;
     min-height: 0;
@@ -513,6 +513,14 @@ a.back-to-top img {
 }
 /* --------------- smaller 959 px layout -------------------- */
 @media only screen and (max-width: 767px) {
+    .products-grid .product-name,.products-grid .price-box{
+        height: auto;
+        display: inline-block;
+        width: 100%;
+    }
+    .products-grid .product-info-wrapper{
+        height: auto;
+    }
     .close-sidebar-mobile{
         display: block;
         position: fixed;
@@ -520,6 +528,9 @@ a.back-to-top img {
         right: 10px;
         font-size: 2em;
         top: 10px;
+    }
+    .catalogsearch-result-index .col-12{
+        width: 100%;
     }
 	.main-container, .main-container.col1-layout .main, .col2-left-layout .main .col-main,.main-container.col2-left-wide-layout .main {
 		width: 100%;
@@ -552,11 +563,11 @@ a.back-to-top img {
         z-index: 99;
         display: none;
         overflow-y: auto;
-        left: 10px;
-        right: 10px;
+        left: 0px;
+        right: 0px;
         background: #fff;
-        top: 10px;
-        bottom: 10px;
+        top: 0px;
+        bottom: 0px;
         -moz-box-shadow: 0 0 8px #000;
         -webkit-box-shadow: 0 0 8px #000;
         box-shadow: 0 0 8px #000;
@@ -647,7 +658,7 @@ a.back-to-top img {
 	}
 }
 
-.regular-price .price, .special-price .price, .price-box .price{
+.regular-price .price, .special-price .price, .price-box .price, .price-box-bundle .price{
     font-size: 1.6em;
 }
 

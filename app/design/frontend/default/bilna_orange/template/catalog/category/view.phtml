@@ -40,16 +40,6 @@
         $_imgHtml = $_helper->categoryAttribute($_category, $_imgHtml, 'image');
     }
 ?>
-<script>
-jQuery(document).ready(function(){ 
-    jQuery('.button-toggle').click(function() {
-        jQuery('.sidebar').show();
-    });
-    jQuery('.close-sidebar-mobile').click(function() {
-        jQuery('.sidebar').hide();
-    });
-});
-</script>
 <input type="hidden" id="3rdparty-type" value="category"/>
 <input type="hidden" id="3rdparty-value" value="<?php echo $_category->getId(); ?>" />
 <input type="hidden" id="base-url" value="<?php echo Mage::getBaseUrl(); ?>" />
