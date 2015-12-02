@@ -1,0 +1,267 @@
+.footer-container {
+	border: none;
+	width: 100%;
+    padding: 20px 0;
+	clear: both;
+    border-top: 1px solid #ebebeb;
+}
+.footer-container:nth-child(even) {
+    background: #f2f2f2;
+}
+.footer-container:last-child{
+    padding: 0;
+}
+.footer {
+    width: 92%;
+    padding: 10px 4%;
+}
+.footer .form-language select {
+	display: none;
+}
+.footer ul.mobile-footer-link li {
+    float: none;
+}
+.footer ul.mobile-footer-link {
+    border-bottom: 1px solid #E4E4E4
+}
+.footer ul, .footer ul.links, .footer li {
+	display: block;
+} 
+.footer .bg-indo{
+    background: url(../images/peta_indo.jpg) no-repeat;
+    display: inline-block;
+    background-size: 100%;
+}
+.footer ul {
+    float: left;
+    width: 100%;
+    text-align: left;
+    margin-bottom: 20px;
+    font-size: 1.2em;
+    padding-bottom: 10px;
+}
+.footer ul.sosmed{
+    float: right;
+}
+.footer li {
+	background: none;
+	color: #494949;
+	padding: 3px 0;
+    float: left;
+    margin: 0 10px;
+	font-weight: normal;
+    font-size: 1.1em;
+}
+.footer li a {
+	color: #999;
+	text-decoration: none !important;
+}
+.footer .cs-info{
+    float: left;
+    padding: 10px 10px 0 10px;
+}
+.footer .cs-info,.footer-container .subscribe-form{
+    border: 1px solid #D6D6D6;
+    background: #fff;
+    margin-bottom: 10px;
+    width: 100%;
+    box-sizing: border-box; 
+    -moz-box-sizing: border-box; 
+    -webkit-box-sizing: border-box; 
+}
+.footer .cs-info img{
+    float: left;
+    margin-right: 10px;
+},
+.footer .cs-info p{
+    text-align: left;
+}
+.footer .cs-info p span{
+    display: block;
+    clear: right;
+    margin-top: 2px;
+    text-align: left;
+}
+.footer .cs-info p span.que{font-size: 1.5em}
+.footer .cs-info p span.phone{font-size: 2em}
+.footer .cs-info p span.day{font-size: 1em}
+.footer .cs-info p span.email{font-size: 1.2em}
+.footer-container .subscribe-form{
+    padding: 15px 10px;
+}
+.footer li span.title, .footer .conect-us span.title, .footer .payment-partners span.title, .footer .shipping-partners span.title {
+	color: #484848;
+	font-size: 14px;
+	font-weight: normal;
+	text-transform: uppercase;
+}
+.footer .payment-partners span.title{
+	padding: 0 0 8px;
+	display: block;
+}
+.footer a, .footer address {
+	color: #999;
+}
+.footer .conect-us, .footer .payment-partners, .footer .shipping-partners {
+    float: left;
+    text-align: left;
+    width: 100%;
+    MARGIN: 10PX 0;
+    clear: both;
+}
+.footer .conect-us li, .footer .payment-partners li, .footer .shipping-partners li{
+    border: 1px solid #D6D6D6;
+    height: 20px;
+    padding: 3px 5px;
+    background: #fff;
+    margin: 5px;
+    border-radius: 5px;
+    width: 40px;
+    height: 30px;
+}
+.footer .conect-us li img, .footer .payment-partners li img, .footer .shipping-partners li img{
+    height: 100%;
+}
+.footer .shipping-partners li:nth-child(1){
+    background: url(../images/moneybookers/shipping_icon.jpg) no-repeat 3px 1px #fff;
+}
+.footer .shipping-partners li:nth-child(2){
+    background:  url(../images/moneybookers/shipping_icon.jpg) no-repeat -46px 2px #fff;
+}
+.footer .shipping-partners li:nth-child(3){
+    background: url(../images/moneybookers/shipping_icon.jpg) no-repeat 2px -32px #fff;
+    width: 84px;
+}
+.footer .payment-partners li:nth-child(1){
+    background: url(../images/moneybookers/logo_payment_partner.jpg) no-repeat 0px 5px #fff;
+    width: 52px;
+}
+.footer .payment-partners li:nth-child(2){
+    background: url(../images/moneybookers/logo_payment_partner.jpg) no-repeat -73px 5px #fff;
+    width: 47px;
+}
+.footer .payment-partners li:nth-child(3){
+    background: url(../images/moneybookers/logo_payment_partner.jpg) no-repeat -141px 3px #fff;
+    width: 47px;
+}
+.footer .payment-partners li:nth-child(4){
+    background: url(../images/moneybookers/logo_payment_partner.jpg) no-repeat no-repeat -203px 5px #fff;
+    width: 60px;
+}
+.footer .payment-partners li:nth-child(5){
+    background: url(../images/moneybookers/logo_payment_partner.jpg) no-repeat -281px 5px #fff;
+    width: 51px;
+}
+.footer .payment-partners li:nth-child(6){
+    background: url(../images/moneybookers/logo_payment_partner.jpg) no-repeat no-repeat -2px -39px #fff;
+    width: 42px;
+}
+.footer .payment-partners li:nth-child(7){
+    background: url(../images/moneybookers/logo_payment_partner.jpg) no-repeat -77px -39px #fff;
+    width: 40px;
+}
+.footer .payment-partners table tr td.payment-right {
+	text-align: right;
+}
+.footer .conect-us span.title, .footer .shipping-partners span.title {
+	display: block;
+	margin:0 0 15px 0;
+}
+.footer .payment-partners a, .footer .shipping-partners a {
+	display: inline-block;
+	margin: 0 8px 0 0;
+}
+.footer .conect-us a{
+	margin: 2px 3px 2px 0;
+display: inline-block;
+}
+.footer .payment-partners a, .footer .shipping-partners a {
+	vertical-align: middle;
+}
+.footer .payment-partners table td{
+	vertical-align:middle;
+}
+.footer .footer-bottom .sosmed li{
+    float: left;
+}
+.footer .footer-bottom .sosmed li a{
+    color: #d2d2d2;
+}
+.footer .footer-bottom li,
+.footer address{
+    line-height: 2.3em;
+    margin: 0 10px 0 0;
+    font-size: 0.9em;
+}
+.footer .footer-bottom ul{
+    margin: 0;
+    padding: 0;
+}
+.footer .footer-link ul{
+    float: left;
+    width: 100%;
+    display: inline-block;
+    padding: 0 0 10px 0;
+}
+.footer .footer-link ul li{
+    display: block;
+    padding: 5px;
+    font-size: 0.8em;
+    float: left;
+    margin: 0 10px 0 0;
+}
+.footer .footer-link ul li:first-child{
+    clear: both;
+    font-size: 1em;
+    display: block;
+    width: 90%;
+}
+.footer .about-us {
+	padding: 20px 0 0 0;
+	border-top: 1px solid #707070;
+}
+.footer .about-us p {
+	line-height: normal;
+	padding: 0 0 20px 0;
+}
+.footer .about-us, .footer address {
+	text-align: left;
+}
+.footer .bugs {
+	display: none;
+}
+.footer-container .subscribe-form{
+    padding: 12px 10px 13px;
+	display: table;
+    float: right;
+}
+.footer-container .subscribe-form p{
+    float: left;
+    line-height: 25px;
+    font-size: 1.3em;
+    color: #000;
+    text-align: left;
+    margin-bottom: 10px;
+}
+.footer-container .subscribe-form .wrap-form-subscribe{
+    display: block;
+    clear: both;
+    height: 43px;
+    border: 1px solid #eaeaea;
+}
+.footer-container .subscribe-form .wrap-form-subscribe form input{
+    width: 70%;
+    font-size: 1em;
+    border: none;
+    height: 43px;
+    box-sizing: border-box;
+    text-indent: 7px;
+}
+.footer-container .subscribe-form .wrap-form-subscribe form button{
+    width: 30%;
+    height: 43px;
+    float: right;
+    font-size: 1.2em;
+    background: #FA6938;
+    color: #fff;
+}

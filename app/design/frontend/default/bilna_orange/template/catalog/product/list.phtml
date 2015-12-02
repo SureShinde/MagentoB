@@ -1,0 +1,329 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php
+/**
+ * Product list template
+ *
+ * @see Mage_Catalog_Block_Product_List
+ */
+?>
+<?php
+$_productCollection=$this->getLoadedProductCollection();
+$_helper = $this->helper('catalog/output');
+?>
+
+<script>
+jQuery(document).ready(function(){ 
+    jQuery('.button-toggle').click(function() {
+        jQuery('.sidebar').show();
+    });
+    jQuery('.close-sidebar-mobile').click(function() {
+        jQuery('.sidebar').hide();
+    });
+});
+</script>
+<?php if (!$_productCollection->count()): ?>
+    <p class="note-msg"><?php echo $this->__('There are no products matching the selection.') ?></p>
+<?php else: ?>
+<div class="category-products">
+        <?php echo $this->getToolbarHtml() ?>
+        <?php // List mode ?>
+        <?php if ($this->getMode()!='grid'): ?>
+            <?php $_iterator = 0; ?>
+            <ol class="products-list" id="products-list">
+                <?php foreach ($_productCollection as $_product): ?>
+                    <li class="item<?php if( ++$_iterator == sizeof($_productCollection) ): ?> last<?php endif; ?>">
+                        <?php // Product Image ?>
+                        <div class="onsale-category-container-list">
+                            <?php echo Mage::helper('onsale')->getCategoryLabelHtml($_product, 135); ?>
+                            <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" class="product-image"><img class="lazy" data-src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(135); ?>" width="135" height="135" alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" />
+                            <span class="loader"><img class="loader-img" src="<?php echo $this->getSkinUrl('images/loading.gif') ?>"></span>
+                            </a>
+                        </div>
+            
+                        <?php // Product description ?>
+                        <div class="product-shop">
+                            <div class="f-fix">
+                                <?php $_productNameStripped = $this->stripTags($_product->getName(), null, true); ?>
+                                <h2 class="product-name"><a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $_productNameStripped; ?>"><?php echo $_helper->productAttribute($_product, $_product->getName() , 'name'); ?></a></h2>
+                                <?php echo $this->getPriceHtml($_product, true) ?>
+
+                                <?php if ($_product->getRatingSummary()): ?>
+                                    <?php echo $this->getReviewsSummaryHtml($_product) ?>
+                                <?php endif; ?>
+    <?php if ($_product->isSaleable()): ?>
+                                    <p><button type="button" title="<?php echo $this->__('Add to Cart') ?>" class="button btn-cart pos-abs" onclick="setLocation('<?php echo $this->getAddToCartUrl($_product) ?>')"><?php echo $this->__('Add to Cart') ?></button></p>
+                                <?php else: ?>
+                                    <p class="availability out-of-stock"><span><a class="link-cart-special" href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($_product->getName(), null, true) ?>"><?php echo $this->__('NOTIFY ME') ?></a></span></p>
+                                <?php endif; ?>
+                    
+                                <div class="desc std">
+                                    <?php echo $_helper->productAttribute($_product, $_product->getShortDescription(), 'short_description') ?>
+                                    <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $_productNameStripped ?>" class="link-learn"><?php echo $this->__('Learn More') ?></a>
+                                </div>
+                    
+                                <ul class="add-to-links">
+                                    <?php if ($this->helper('wishlist')->isAllow()): ?>
+                                        <li><a href="<?php echo $this->helper('wishlist')->getAddUrl($_product) ?>" class="link-wishlist"><?php echo $this->__('Add to Wishlist') ?></a></li>
+                                    <?php endif; ?>
+                                    
+                                    <?php if ($_compareUrl=$this->getAddToCompareUrl($_product)): ?>
+                                        <li><span class="separator">|</span> <a href="<?php echo $_compareUrl ?>" class="link-compare"><?php echo $this->__('Add to Compare') ?></a></li>
+                                    <?php endif; ?>
+                                </ul>
+                            </div>
+                       </div>
+                    </li>
+                <?php endforeach; ?>
+            </ol>
+            
+            <script type="text/javascript">decorateList('products-list', 'none-recursive')</script>
+        <?php else: ?>
+            <?php // Grid Mode ?>
+            <?php $_collectionSize = $_productCollection->count() ?>
+            <?php //$_columnCount = $this->getColumnCount(); ?>
+            <?php $_columnCount = 6; ?>
+            <?php $i=0; ?>
+            
+            <ul class="products-grid">
+                <?php $productId = array(); ?>
+                <?php $sku = array(); ?>
+                <?php foreach ($_productCollection as $_product): ?>
+                    <?php $sku[] = $_product->getSku(); ?>
+                    <?php $productName[] = $_product->getName(); ?>
+                    <?php $productPrice[] = $_product->getPrice(); ?>
+                    <li class="item">
+                        <div class="top_thumb_list_product">
+                            <div class="onsale-category-container-grid">
+                                <?php echo Mage::helper('onsale')->getCategoryLabelHtml($_product, 135); ?>
+                                <a onClick="ecommerceProductClick('<?php echo $_product->getName() ?>','<?php echo $_product->getSku() ?>','<?php echo number_format($_product->getPrice(), 0, '', '') ?>');" href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" class="product-image"><img class="lazy" data-src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(152,152); ?>" alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" />
+                                <span class="loader"><img class="loader-img" src="<?php echo $this->getSkinUrl('images/loading.gif') ?>"></span>
+                                </a>
+                            </div>
+                            
+                            <div class="product-info-wrapper">
+                                <h2 class="product-name">
+                                    <?php // NEW label placement
+                                    $now = date("Y-m-d");
+                                    $newsFrom= substr($_product->getData('news_from_date'),0,10);
+                                    $newsTo=  substr($_product->getData('news_to_date'),0,10);
+                                    ?>
+						
+                                    <?php if ($now>=$newsFrom && $now<=$newsTo): ?>
+                                        <span class="lbl-newproduct"><?php echo $this->__('New!') ?></span>
+                                    <?php endif; ?>
+                                    
+                                    <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($_product->getName(), null, true) ?>" onclick="ecommerceProductClick('<?php echo $_product->getName() ?>','<?php echo $_product->getSku() ?>','<?php echo number_format($_product->getPrice(), 0, '', '') ?>');"><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></a>
+                                </h2>
+                                
+                                <?php echo $this->getPriceHtml($_product, true) ?>
+                                <?php if ($_product->getRatingSummary()): ?>
+                                    <?php echo $this->getReviewsSummaryHtml($_product, 'short') ?>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                        
+                        <div class="bottom_thumb_list_product  button-bilna-custom">
+							<div class="wrap-button-bilna-custom">
+								<div class="feature-color-custom">
+								</div>
+						
+								<div class="actions">
+									<?php if ($_product->isSaleable()): ?>
+										<?php if ($_product->getTypeId() != 'simple'): ?>
+											<a class="link-cart-special" href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($_product->getName(), null, true) ?>"><i class="fa fa-cart-plus"></i><?php echo $this->__('Tambah ke troli') ?></a>
+										<?php else: ?>
+											<button type="button" title="<?php echo $this->__('Tambah ke troli') ?>" class="button btn-cart pos-abs" onclick="setLocation('<?php echo $this->getAddToCartUrl($_product) ?>'); ecommerceAddToCart('<?php echo $_product->getName() ?>','<?php echo $_product->getSku() ?>','<?php echo $_product->getPrice() ?>');"><i class="fa fa-cart-plus"></i><?php echo $this->__('Tambah ke troli') ?></button>
+										<?php endif; ?>
+									<?php else: ?>
+										<p class="availability out-of-stock"><span><a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($_product->getName(), null, true) ?>"><?php echo $this->__('Notify me') ?></a></span></p>
+									<?php endif; ?>
+							
+									<ul class="add-to-links">
+										<?php if ($this->helper('wishlist')->isAllow()): ?>
+											<li><a href="<?php echo $this->helper('wishlist')->getAddUrl($_product) ?>" class="link-wishlist"><?php echo $this->__('Buy Later') ?></a></li>
+										<?php endif; ?>
+										<!--<?php if($_compareUrl=$this->getAddToCompareUrl($_product)): ?>
+											<li><span class="separator">|</span> <a href="<?php echo $_compareUrl ?>" class="link-compare"><?php echo $this->__('Add to Compare') ?></a></li>-->
+										<?php endif; ?>
+									</ul>
+								</div>
+							</div>
+                        </div>
+                
+                        <div class="clear"></div>
+                    </li>
+                <?php endforeach; ?>
+                <?php
+                    //$pageType = '';
+                    $category = $this->getLayer()->getCurrentCategory()->getName();
+                    $dataForUA = array();
+                    foreach($sku as $key=>$rowSKU) {
+                        $dataForUA[] = array(
+                            'id' => $rowSKU,
+                            'name' => $productName[$key],
+                            'price' => number_format($productPrice[$key], 0, '', ''),
+                            'category' => $category,
+                            'position' => $key+1
+                        );
+                    }
+
+                    /*if(isset($productId[0])){
+                        $prodId[0] = $productId[0];
+                        $skuId[0] = $sku[0];
+                    }
+                    if(isset($productId[1])){
+                        $prodId[1] = $productId[1];
+                        $skuId[1] = $sku[1];
+                    }
+                    if(isset($productId[2])){
+                        $prodId[2] = $productId[2];
+                        $skuId[2] = $sku[2];
+                    }
+                    shuffle($sku);
+                    $pageIdentifier =  Mage::app()->getFrontController()->getAction()->getFullActionName();;
+                    if($pageIdentifier == 'catalogsearch_result_index'){
+                        $pageType = 'searchresults';
+                    }
+                    else{
+                        $category = $this->getLayer()->getCurrentCategory()->getLevel();
+                        if($category == 2){ // Top Category
+                            $pageType = 'category';
+                        }
+                        elseif($category == 3){ // Level 1 Sub Category
+                            $pageType = 'subcategory1';
+                        }
+                        elseif($category == 4){ // Level 2 Sub Category
+                            $pageType = 'subcategory2';
+                        }
+                    }*/
+                ?>
+            </ul>
+
+        <script>
+            // Define list for Universal Analytics
+            var last_breadcumbs_categorysearch, last_breadcumbs_category = "";
+            var list = "browsing";
+            last_breadcumbs_categorysearch = jQuery('.page-title').length;
+            last_breadcumbs_category = jQuery('.page-title.category-title').length;
+            if ((last_breadcumbs_category == 1) && (last_breadcumbs_categorysearch == 1)) {
+                list = "browsing";
+            }
+            else if ((last_breadcumbs_category == 0) && (last_breadcumbs_categorysearch == 1)) {
+                list = "search results";
+            }
+
+            function ecommerceAddToCart(name, sku, price) {
+                //alert("HURRY_CART"+name+" "+sku+" "+price+" ");
+                dataLayer.push({
+                  'event': 'addToCart',
+                  'ecommerce': {
+                    'currencyCode': 'IDR',
+                    'add': {                                // 'add' actionFieldObject measures.
+                      'actionField': {'list': list},
+                      'products': [{                        //  adding a product to a shopping cart.
+                        'name': name,
+                        'id': sku,
+                        'price': price,
+                        'quantity': 1
+                       }]
+                    }
+                  }
+                });
+            }
+
+            function ecommerceProductClick(name,sku,price) {
+                //alert("NEW_HURRY"+list);
+                dataLayer.push({
+                'event': 'productClick',
+                'ecommerce': {
+                  'click': {
+                    'actionField': {'list': list},      // Optional list property.
+                    'products': [{
+                      'name': name,                      // Name or ID is required.
+                      'id': sku,
+                      'category' : '<?php echo $category; ?>',
+                      'price': price
+                     }]
+                   }
+                 }
+              });
+            }
+
+            function ecommerceProductClickReview() {
+                var ecommerceProductClickDataReview = {
+                    'event': 'productClick',
+                    'ecommerce': {
+                      'click': {
+                        'actionField': {'list': list},      // Optional list property.
+                        'products': [
+                          <?php echo "{'name':'".$_product->getName()."'," ?>
+                          <?php echo "'sku':'".$_product->getSku()."'," ?>
+                          <?php echo "'price':'".number_format($_product->getPrice(), 0, '', '')."'}" ?>
+                         ]
+                       }
+                     }
+                };
+                dataLayer.push(ecommerceProductClickDataReview);
+            }
+
+            jQuery(document).ready(function(){
+                if (typeof objDataLayer == "undefined") {
+                    objDataLayer = new Array();
+                }
+                    <?php $total = count($dataForUA); ?>
+                    objDataLayer.push(
+                        <?php foreach($dataForUA as $key=>$rowDataForUA): ?>
+                            <?php echo '{"id":"'.$rowDataForUA[id].'", "name":"'.$rowDataForUA[name].'", "price":'.$rowDataForUA[price].', "category":"Default Category", "position":'.$rowDataForUA[position].', "list":"browsing"}'; ?>
+                            <?php if(($key+1) < $total) {
+                                echo ",";
+                            } ?>
+                        <?php endforeach; ?>
+                        
+                    );
+                var ecommerceData = {
+                    "ecommerce" :
+                    {
+                        "impressions" : objDataLayer,
+                        "currencyCode":"IDR"
+                    },
+                    'event': 'impression',
+                    'eventCategory':'ecommerce',
+                    'eventAction':'impression'
+                };  
+                dataLayer.push(ecommerceData);
+            });
+        </script>
+        <script type="text/javascript">decorateGeneric($$('ul.products-grid'), ['odd','even','first','last'])</script>
+        <?php endif; ?>
+
+    <div class="toolbar-bottom">
+            <?php echo $this->getToolbarHtml() ?>
+        </div>
+</div>
+
+<?php endif; ?>

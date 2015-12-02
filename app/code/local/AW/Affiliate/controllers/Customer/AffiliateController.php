@@ -452,7 +452,7 @@ class AW_Affiliate_Customer_AffiliateController extends Mage_Core_Controller_Fro
                 $block = $this->getLayout()->createBlock('awaffiliate/campaign_products')->setTemplate('aw_affiliate/ads/half_page.phtml');
                 break;
             default:
-                $block = $this->getLayout()->createBlock('awaffiliate/campaign_products')->setTemplate('aw_affiliate/ads/leaderboarc.phtml');
+                $block = $this->getLayout()->createBlock('awaffiliate/campaign_products')->setTemplate('aw_affiliate/ads/leaderboard.phtml');
                 break;
         }
 
