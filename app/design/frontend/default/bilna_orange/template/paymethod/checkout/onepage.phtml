@@ -83,15 +83,18 @@
         temp_grandTotal = temp_grandTotal.replace(",","");
         dataLayer.push({
           'event': 'purchase',
+          'eventCategory':'ecommerce',
+          'eventAction':'purchase',
           'ecommerce': {
             'purchase': {
               'actionField': {
+                'id': 'default_id',
                 'action':'purchase'
               },
               'products' :
                 [
                     <?php for ($itr = 0 ; $itr <= count($productCollection)-1 ; $itr++) {
-                        echo '{"id":"'.$skuCollection[$itr].'","name":jQuery("#checkout-review-table tbody tr.first.last.odd td h3").text() , "price":"'.$valueCollection[$itr].'", "quantity":"'.$qtyCollection[$itr].'"}';
+                        echo '{"id":"'.$skuCollection[$itr].'","name":jQuery("#checkout-review-table tbody tr.first.last.odd td h3").text() , "price":"'.$valueCollection[$itr].'", "quantity":'.$qtyCollection[$itr].'}';
                         if(($itr+1) < count($productCollection)) {
                             echo ",";
                         }
