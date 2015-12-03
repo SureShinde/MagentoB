@@ -88,7 +88,7 @@
     </customer_logged_out>
     <cms_index_index>
         <reference name="head">
-            <action method="addCss"><stylesheet>css/homepage-3.css</stylesheet></action>
+            <action method="addCss"><stylesheet>css/homepage-4.css</stylesheet></action>
         </reference>
     </cms_index_index>
     <catalog_category_default translate="label">
