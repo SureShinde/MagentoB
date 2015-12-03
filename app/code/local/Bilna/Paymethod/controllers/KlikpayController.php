@@ -15,7 +15,7 @@ class Bilna_Paymethod_KlikpayController extends Mage_Core_Controller_Front_Actio
         $canceled = 0;
 
         $orderId = Mage::getSingleton('checkout/session')->getLastRealOrderId();
-        $canceled = Mage::helper('bilna_fraud')->checkOrderStatus($orderId, 0);
+        $canceled = Mage::helper('bilna_fraud')->checkOrderStatus($orderId, 1);
 
         if($canceled == 1) {
             $fraud = Mage::helper('core')->urlEncode('fraud');
