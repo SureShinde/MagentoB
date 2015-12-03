@@ -5,6 +5,10 @@
  */
 $installer = $this;
 $installer->startSetup();
+
+// uncomment the line below if you already have include_in_megamenu EAV
+//$installer->removeAttribute('catalog_category', 'include_in_megamenu');
+
 $installer->addAttribute('catalog_category', 'include_in_megamenu', array (
     'group' => 'General Information',
     'type' => 'int',
@@ -16,14 +20,7 @@ $installer->addAttribute('catalog_category', 'include_in_megamenu', array (
     'global' => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE,
 ));
 
-//Populate value attribute di catalog/category
-$categoryModel = Mage::getModel('catalog/category');
-$catTree = $categoryModel->getTreeModel()->load();
-$catIds = $catTree->setStoreId(0)->getCollection()->getAllIds();
-foreach($catIds as $id){
-    $categoryModel->setId($id);
-    $categoryModel->setIncludeInMegamenu(1);
-    $categoryModel->save();
-}
+// To populate the default data, goto shell/bilna and run:
+// php customizationCatalogCategory.php
 
 $installer->endSetup();
