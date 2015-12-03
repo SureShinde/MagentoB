@@ -33,17 +33,17 @@
         wwidth = $j(window).width();
     var tooltipMobileFirst = 'tooltip_mobile_first';
     $j(window).load(function() {
-+        
-+		$j(".megamenu.megamenu-active img, .homepage-banner img").lazyload({
+        
+		$j(".megamenu.megamenu-active img, .homepage-banner img").lazyload({
 			skip_invisible : true
 		});
 		$j(".first-level > ul > li").hover(function(){
-+			$j(".homepage-banner .first-level-cat.hover-cat img, .megamenu.megamenu-active .first-level-cat.hover-cat img").lazyload();
+			$j(".homepage-banner .first-level-cat.hover-cat img, .megamenu.megamenu-active .first-level-cat.hover-cat img").lazyload();
         });
         $j("img.lazy").lazyload();
 	});
     $j(document).ready(function() {
-		$j("img.lazy, .wrap-banner img:not(.image-slider), .warp-banner img").after('<div class="loader"><img class="loader-img" src="../skin/frontend/base/default/images/loading.gif"></div>');
+		$j("img.lazy, .wrap-banner img:not(.image-slider), .warp-banner img").after('<div class="loader"><img class="loader-img" src="<?php echo Mage::getBaseUrl(); ?>skin/frontend/base/default/images/loading.gif"></div>');
 		$j(".first-level > ul > li:first-of-type").addClass("active-cat");
         $j(".first-level > ul > li").hover(function() {
 		$j(".homepage-banner .first-level-cat.hover-cat img").lazyload();
