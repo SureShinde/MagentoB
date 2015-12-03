@@ -2,7 +2,6 @@
     clear:both;
 	display:table;
     overflow:visible;
-    margin-bottom: 20px;
 }
 .awafpgrid ul {
     clear:both;
@@ -186,7 +185,7 @@
     min-height: 135px;
 }
 .featured-product-left-title {
-    margin: 60px 0 45px;
+    margin:0;
     display: inline-block;
 }
 .featured-product-left-title .header-left-homepage p,

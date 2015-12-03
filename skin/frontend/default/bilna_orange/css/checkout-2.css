@@ -328,7 +328,7 @@
 	clear: both;
 }
 #checkout-review-submit .discount .input-box input {
-    padding: 11px 0;
+    padding: 10px 0;
     text-indent: 10px;
 }
 #checkout-review-submit button.apply-voucher, #checkout-review-submit button.cancel-voucher{
@@ -342,7 +342,6 @@
 #checkout-review-submit .discount-form .buttons-set{
 	clear: none;
     float: left;
-    padding: 10px 0 10px 10px;
 }
 .discount-form .input-box{
 	float: left;
@@ -358,9 +357,6 @@
 	.checkout-onepage-index .col-main {
 		margin-top: 20px;
 	}
-	.data-table td{
-		padding:0;
-	}
 }
 @media only screen and (max-width: 767px) {
 	.opc {
@@ -370,6 +366,9 @@
 		padding-left: 10px;
 		padding-right: 10px;
 	}
+    #opc-review .buttons-set {
+        padding: 20px 10px;
+    }
 }
 @media only screen and (max-width: 482px) { 
 	.form-list li.wide select {
@@ -392,6 +391,7 @@
     #checkout-review-submit .discount-form .buttons-set{
 		clear: none;
 	    float: left;
+        width: 100%;
 	    padding: 10px 0;
 	}
 }
