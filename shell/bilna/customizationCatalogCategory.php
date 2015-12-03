@@ -8,14 +8,14 @@
 require_once dirname(__FILE__) . '/../abstract.php';
 
 class CustomizationCatalogCategory extends Mage_Shell_Abstract {
-    protected $_storeId = 0;
+    protected $_includeInMegamenu = 1;
 
     public function run() {
         $startMessage = date('Y-m-d H:i:s').' START - Inserting EAV Attribute Value include_in_megamenu';
         Mage::log($startMessage);
         echo $startMessage. "\n";
 
-        $this->populateData();
+        $this->generate();
 
         $finishMessage = date('Y-m-d H:i:s').' FINISH - Inserting EAV Attribute Value include_in_megamenu';
         Mage::log($finishMessage);
@@ -24,13 +24,13 @@ class CustomizationCatalogCategory extends Mage_Shell_Abstract {
         exit;
     }
 
-    protected function populateData() {
+    protected function generate() {
         $categoryModel = Mage::getModel('catalog/category');
         $catTree = $categoryModel->getTreeModel()->load();
-        $catIds = $catTree->setStoreId($this->_storeId)->getCollection()->getAllIds();
+        $catIds = $catTree->getCollection()->getAllIds();
         foreach($catIds as $id){
             $categoryModel->setId($id);
-            $categoryModel->setIncludeInMegamenu(1);
+            $categoryModel->setIncludeInMegamenu($this->_includeInMegamenu);
             $categoryModel->save();
         }
         return;

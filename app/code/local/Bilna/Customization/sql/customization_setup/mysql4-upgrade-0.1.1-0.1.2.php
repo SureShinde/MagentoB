@@ -20,7 +20,7 @@ $installer->addAttribute('catalog_category', 'include_in_megamenu', array (
     'global' => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE,
 ));
 
-// To populate the default data, goto shell/bilna and run:
+// To populate the default data, go to shell/bilna and run:
 // php customizationCatalogCategory.php
 
 $installer->endSetup();
