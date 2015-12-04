@@ -28,6 +28,7 @@
 $_item = $this->getItem();
 $isVisibleProduct = $_item->getProduct()->isVisibleInSiteVisibility();
 $canApplyMsrp = Mage::helper('catalog')->canApplyMsrp($_item->getProduct(), Mage_Catalog_Model_Product_Attribute_Source_Msrp_Type::TYPE_BEFORE_ORDER_CONFIRM);
+$_escape_helper = Mage::helper('catalog/utils');
 ?>
 <tr class="low-res-cart" width="100%">
     <td><?php if ($this->hasProductUrl()):?><a href="<?php echo $this->getProductUrl() ?>" title="<?php echo $this->escapeHtml($this->getProductName()) ?>" class="product-image"><?php endif;?><img src="<?php echo $this->getProductThumbnail()->resize(75); ?>" width="75" height="75" alt="<?php echo $this->escapeHtml($this->getProductName()) ?>" /><?php if ($this->hasProductUrl()):?></a><?php endif;?></td>
@@ -400,5 +401,5 @@ $canApplyMsrp = Mage::helper('catalog')->canApplyMsrp($_item->getProduct(), Mage
         <?php endif; ?>
     </td>
     <?php endif; ?>
-    <td class="a-right"><a onClick="ecommerceRemoveCart('<?php echo $this->getProductName() ?>','<?php echo $_item->getSku() ?>','<?php echo $_item->getCalculationPrice() ?>','<?php echo $this->getQty() ?>','<?php echo $_item->getId() ?>');" href="<?php echo $this->getDeleteUrl()?>" title="<?php echo $this->__('Remove item')?>" class="remove-item"><i class="fa fa-times-circle"></i></a></td>
+    <td class="a-right"><a onClick="ecommerceRemoveCart('<?php echo $_escape_helper->escapeQuote($this->getProductName()); ?>','<?php echo $_item->getSku() ?>','<?php echo $_item->getCalculationPrice() ?>','<?php echo $this->getQty() ?>','<?php echo $_item->getId() ?>');" href="<?php echo $this->getDeleteUrl()?>" title="<?php echo $this->__('Remove item')?>" class="remove-item"><i class="fa fa-times-circle"></i></a></td>
 </tr>
