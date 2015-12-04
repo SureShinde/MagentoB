@@ -8,9 +8,20 @@
                     ]]></text>
                 </action>
             </block>
+            <block type="core/text" name="my.google.font">
+                <action method="setText"><text><![CDATA[
+                   <link href='https://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
+                    ]]></text>
+                </action>
+            </block>
+            <block type="core/text" name="my.fontawesome">
+                <action method="setText"><text><![CDATA[
+                  <link rel="stylesheet" type='text/css' href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+                    ]]></text>
+                </action>
+            </block>
             <action method="addCss"><stylesheet>css/reset.css</stylesheet></action>
             <action method="addCss"><stylesheet>css/stylesheet-2.css</stylesheet></action>
-            <action method="addCss"><stylesheet>css/font-awesome.min.css</stylesheet></action>
             <action method="addCss"><stylesheet>css/header-3.css</stylesheet></action>
             <action method="addCss"><stylesheet>css/megamenu-3.css</stylesheet></action>
             <action method="addCss"><stylesheet>css/general-2.css</stylesheet></action>
@@ -77,7 +88,7 @@
     </customer_logged_out>
     <cms_index_index>
         <reference name="head">
-            <action method="addCss"><stylesheet>css/homepage-3.css</stylesheet></action>
+            <action method="addCss"><stylesheet>css/homepage-4.css</stylesheet></action>
         </reference>
     </cms_index_index>
     <catalog_category_default translate="label">

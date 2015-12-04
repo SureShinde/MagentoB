@@ -490,9 +490,6 @@ a.back-to-top img {
 	}
 	.products-grid .product-image {
 	}
-    .breadcrumbs {
-        margin:0 0 13px 0;
-    } 
 }
 /* --------------- 960 px layout -------------------- */
 @media only screen and (max-width: 1023px) {
@@ -507,9 +504,6 @@ a.back-to-top img {
 	}
 	.products-grid li.item {
 	}
-    .breadcrumbs {
-        margin: 10px 0;
-    }
 	
 }
 /* --------------- smaller 959 px layout -------------------- */
