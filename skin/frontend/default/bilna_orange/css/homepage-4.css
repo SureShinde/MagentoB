@@ -459,7 +459,7 @@ ul.block-wrapper li:last-child {}
 .popular-category img{
     width: 100%;
 }
-.popular-category a{
+.popular-category .col-3 a{
     display: block;
     clear: both;
     padding: 5px 0 0;

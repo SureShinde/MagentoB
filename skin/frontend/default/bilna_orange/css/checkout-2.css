@@ -62,6 +62,9 @@
 #checkoutSteps .buttons-set button.button span span img {
 	/*margin-top: 3px;*/
 }
+#checkoutSteps #payment_form_vtdirect .v-fix{
+    width: 50%;
+}
 .opc .step-title {
 	padding-top: 8px;
 	padding-bottom: 8px;
@@ -253,6 +256,9 @@
             display: inline-block;
             width: 100%;
        }
+       #opc-review .buttons-set .f-right{
+        margin-bottom: 0;
+       }
        .wrapper_success_page .col_left p:nth-of-type(2){font-size:45px;}
 	/*.success-form-popup {
 		overflow-y:scroll;
@@ -382,7 +388,7 @@
 		padding-right: 5px;
 	}
     #product-review-table .data-table thead th, .data-table td {
-        padding-left: 20px;
+        padding-left: 5px;
         padding-right: 5px;
     }
     #checkout-review-submit .apply-voucher, #checkout-review-submit .cancel-voucher{
@@ -391,7 +397,7 @@
     #checkout-review-submit .discount-form .buttons-set{
 		clear: none;
 	    float: left;
-        width: 100%;
+        width: auto;
 	    padding: 10px 0;
 	}
 }

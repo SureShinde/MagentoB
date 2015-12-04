@@ -339,7 +339,7 @@ p.required { font-size:11px; text-align:right; color:#EB340A; }
 .notice-msg { border-color:#fcd344; background-color:#fafaec; background-image:url(../images/i_msg-note.gif); color:#3d6611; }
 
 /* BreadCrumbs */
-.breadcrumbs { font-size:11px; line-height:1.25; margin:0 0 13px; }
+.breadcrumbs { font-size:11px; line-height:1.25; margin:10px 0; }
 .breadcrumbs li { display:inline; }
 .breadcrumbs li strong { font-weight:bold; }
 
@@ -1321,11 +1321,11 @@ tr.summary-details-excluded { font-style:italic; }
 .cvv-what-is-this { font-size:11px; cursor:help; margin-left:10px; }
 
 /* Tooltip */
-.tool-tip { border:1px solid #7BA7C9; background:#EAF6FF; padding:15px 20px; position:absolute; z-index:9999; }
+.tool-tip { border:1px solid #7BA7C9; background:#EAF6FF; padding:15px 20px; position:absolute; z-index:99; max-width: 100%; }
 .tool-tip .btn-close { margin:-9px -14px 0; text-align:right; }
 .tool-tip .btn-close a { display:block; margin:0 0 0 auto; width:15px; height:15px; background:url(../images/btn_window_close.gif) 100% 0 no-repeat; text-align:left; text-indent:-999em; overflow:hidden; }
 .tool-tip .tool-tip-content { padding:5px; }
-
+.tool-tip .tool-tip-content { width: 100%; }
 /* Gift Messages */
 .gift-messages h3 { font-size:12px; font-weight:bold; color:#e87403; }
 .gift-messages p.control { color:#8e8d8b; }
@@ -1818,14 +1818,7 @@ tr.summary-details-excluded { font-style:italic; }
 /* ======================================================================================= */
 
 /*======================= order ditail form ===============*/
-.container-orderdetailbox .form-list .input-box input, .container-orderdetailbox .form-list .input-box label , .container-orderdetailbox .form-list .input-box button{
-
-    margin: 3px 0 0 37px;
-
-}
-.container-orderdetailbox .form-list .input-box input{
-    height: 23px;
-    width: 208px;
+.container-orderdetailbox {
 }
 /*======================= order ditail form ===============*/
 .form-list li label, .form-list li .input-box{float:left; clear:both; font-weight:normal; text-align: left;}

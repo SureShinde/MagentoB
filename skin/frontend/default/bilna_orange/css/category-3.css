@@ -216,9 +216,10 @@ dd.relative{
 	margin: 10px 0;
 }
 .category-description {
-    background-color: #F3F3F3;
-    font-family: avenir_regular;
     margin-top: 10px;
+    border-left: 2px solid #e4e4e4;
+    border-right: 2px solid #e4e4e4;
+    border-bottom: 2px solid #e4e4e4;
 }
 .category-description .judul_desc {
     display: block;

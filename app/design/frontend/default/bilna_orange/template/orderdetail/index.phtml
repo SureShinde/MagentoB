@@ -1,127 +1,40 @@
-<style type="text/css">
-    .page-title span {
-        font-family: 'tin_doghouseregular',Calibri,Arial,Helvetica,sans-serif;
-        letter-spacing: 0;
-        color: #666666;
-        font-size: 20px;
-        font-weight: normal;
-        margin: 0;
-        line-height: 1.35;
-        text-transform: uppercase;
-    }
+<div class="container-orderdetailbox">
+    <form id="orderdetailForm" method="post" action="<?php echo $this->getFormActionUrl(); ?>">
+        <div class="registered-users">
+            <div class="content">
+                <div class="page-title">
+                <h2><?php echo $this->__('ORDER DETAIL FORM'); ?></h2>
+                </div>
+                <div class="new-customers-fields">
+                    <ul class="form-list">
+                        <li>
+                            <label class="required" for="email"><?php echo $this->__('Email Address'); ?><em>*</em></label>
+                            <div class="input-box">
+                                <input type="text" title="<?php echo $this->__('Email Address'); ?>" class="input-text required-entry validate-email validate-failed" id="email" value="" name="orderdetail[email]" />
+                            </div>
+                        </li>
 
-    .container-orderdetailbox {
-        -moz-border-bottom-colors: none;
-        -moz-border-left-colors: none;
-        -moz-border-right-colors: none;
-        -moz-border-top-colors: none;
-        border-bottom-color: #CCAA83;
-        border-bottom-style: dashed;
-        border-bottom-width: 1px;
-        border-image-outset: 0 0 0 0;
-        border-image-repeat: stretch stretch;
-        border-image-slice: 100% 100% 100% 100%;
-        border-image-source: none;
-        border-image-width: 1 1 1 1;
-        border-left-color-ltr-source: physical;
-        border-left-color-rtl-source: physical;
-        border-left-color-value: #CCAA83;
-        border-left-style-ltr-source: physical;
-        border-left-style-rtl-source: physical;
-        border-left-style-value: dashed;
-        border-left-width-ltr-source: physical;
-        border-left-width-rtl-source: physical;
-        border-left-width-value: 1px;
-        border-right-color-ltr-source: physical;
-        border-right-color-rtl-source: physical;
-        border-right-color-value: #CCAA83;
-        border-right-style-ltr-source: physical;
-        border-right-style-rtl-source: physical;
-        border-right-style-value: dashed;
-        border-right-width-ltr-source: physical;
-        border-right-width-rtl-source: physical;
-        border-right-width-value: 1px;
-        border-color: #CCAA83;
-        border-style: dashed;
-        border-width: 1px;
-        font-family: 'TinDoghouse';
-        margin-bottom: auto;
-        margin-left: auto;
-        margin-right: auto;
-        margin-top: auto;
-    }
-    .container-orderdetailbox .content h2 {
-        background-attachment: scroll;
-        background-clip: border-box;
-        background-color: rgba(0, 0, 0, 0);
-        background-origin: padding-box;
-        background-position: 0 0;
-        background-repeat: repeat-x;
-        background-size: auto auto;
-        border-bottom-color: #CCAA83;
-        border-bottom-style: dashed;
-        border-bottom-width: 1px;
-        color: #C65C4F;
-        font-family: 'tin_doghouseregular';
-        font-size: 14px;
-        font-weight: normal;
-        margin-bottom: 30px;
-        margin-left: 0;
-        margin-right: 0;
-        margin-top: 0;
-        padding-bottom: 10px;
-        padding-left: 35px;
-        padding-right: 35px;
-        padding-top: 10px;
-        text-transform: uppercase;
-    }
-    .clearfix {
-        clear: both;
-    }
-</style>
+                        <li>
+                            <label class="required" for="pass"><?php echo $this->__('Order Number'); ?><em>*</em></label>
+                            <div class="input-box">
+                                <input type="text" title="<?php echo $this->__('Order Number'); ?>" id="orderid" class="input-text required-entry validate-failed" name="orderdetail[orderid]" />
+                            </div>
+                        </li>
 
-<div class="">
-    <div class="page-title">
-        <span><?php echo $this->__('Order Detail'); ?></span>
-    </div>
-    
-    <div class="container-orderdetailbox">
-        <form id="orderdetailForm" method="post" action="<?php echo $this->getFormActionUrl(); ?>">
-            <div class="col-2 registered-users">
-                <div class="content">
-                    <h2><?php echo $this->__('ORDER DETAIL FORM'); ?></h2>
-                 
-                    <div class="new-customers-fields">
-                        <ul class="form-list">
-                            <li>
-                                <label class="required" for="email"><?php echo $this->__('Email Address'); ?><em>*</em></label>
-                                <div class="input-box">
-                                    <input type="text" title="<?php echo $this->__('Email Address'); ?>" class="input-text required-entry validate-email validate-failed" id="email" value="" name="orderdetail[email]" />
-                                </div>
-                            </li>
-                    
-                            <li>
-                                <label class="required" for="pass"><?php echo $this->__('Order Number'); ?><em>*</em></label>
-                                <div class="input-box">
-                                    <input type="text" title="<?php echo $this->__('Order Number'); ?>" id="orderid" class="input-text required-entry validate-failed" name="orderdetail[orderid]" />
-                                </div>
-                            </li>
-
-                            <li>
-                                <label>&nbsp;</label>
-                                <div class="input-box">
-                                    <button id="send" name="send" title="Sign In" class="button" type="submit">
-                                        <span><?php echo $this->__('Submit'); ?></span>
-                                    </button>
-                                </div>
-                            </li>
-                        </ul>
-                        <br />
-                    </div>
+                        <li>
+                            <label>&nbsp;</label>
+                            <div class="input-box">
+                                <button id="send" name="send" title="Sign In" class="button" type="submit">
+                                    <span><?php echo $this->__('Submit'); ?></span>
+                                </button>
+                            </div>
+                        </li>
+                    </ul>
+                    <br />
                 </div>
             </div>
-        </form>
-    </div>
+        </div>
+    </form>
 </div>
 
 <script type="text/javascript">
