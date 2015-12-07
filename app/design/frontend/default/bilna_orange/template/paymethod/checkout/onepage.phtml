@@ -82,16 +82,19 @@
         var temp_grandTotal = jQuery("td#grand_total-onepage span.price").text().replace("Rp","");
         temp_grandTotal = temp_grandTotal.replace(",","");
         dataLayer.push({
+          'event': 'purchase',
+          'eventCategory':'ecommerce',
+          'eventAction':'purchase',
           'ecommerce': {
             'purchase': {
               'actionField': {
-                'coupon': jQuery("#coupon_code").val(),
-                'grandtotal' : temp_grandTotal
+                'id' : 'default_id',
+                'list' : 'browsing'
               },
               'products' :
                 [
                     <?php for ($itr = 0 ; $itr <= count($productCollection)-1 ; $itr++) {
-                        echo '{"id":"'.$productCollection[$itr].'", "sku":"'.$skuCollection[$itr].'", "price":"'.$valueCollection[$itr].'", "quantity":"'.$qtyCollection[$itr].'"}';
+                        echo '{"id":"'.$skuCollection[$itr].'","name":jQuery("#checkout-review-table tbody tr td h3").eq('.$itr.').text() , "price":"'.$valueCollection[$itr].'", "quantity":'.$qtyCollection[$itr].'}';
                         if(($itr+1) < count($productCollection)) {
                             echo ",";
                         }

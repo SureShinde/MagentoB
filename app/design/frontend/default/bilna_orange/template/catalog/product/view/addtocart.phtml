@@ -24,6 +24,7 @@
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
+<?php $_escape_helper = Mage::helper('catalog/utils'); ?>
 <?php $_product = $this->getProduct(); ?>
 <?php $buttonTitle = $this->__('Tambah ke troli'); ?>
 <?php if($_product->isSaleable()): ?>
@@ -32,7 +33,7 @@
         <label for="qty"><?php echo $this->__('Jumlah:') ?></label>
         <input type="text" name="qty" id="qty" maxlength="12" value="<?php echo $this->getProductDefaultQty() * 1 ?>" title="<?php echo $this->__('Jumlah') ?>" class="input-text qty" />
         <?php endif; ?>
-        <button type="button" title="<?php echo $buttonTitle ?>" class="button btn-cart" onclick="productAddToCartForm.submit(this); ecommerceProductDetailAddToCart('<?php echo $_product->getName() ?>','<?php echo $_product->getSku() ?>','<?php echo $_product->getPrice() ?>');"><i class="fa fa-cart-plus"></i><span><?php echo $buttonTitle ?></span></button>
+        <button type="button" title="<?php echo $buttonTitle ?>" class="button btn-cart" onclick="productAddToCartForm.submit(this); ecommerceProductDetailAddToCart('<?php echo $_escape_helper->escapeQuote($_product->getName()); ?>','<?php echo $_product->getSku() ?>','<?php echo $_product->getPrice() ?>');"><i class="fa fa-cart-plus"></i><span><?php echo $buttonTitle ?></span></button>
         <?php echo $this->getChildHtml('', true, true) ?>
     </div>
 <?php endif; ?>

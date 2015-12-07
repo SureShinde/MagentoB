@@ -28,6 +28,7 @@
     $_item = $this->getItem();
     $isVisibleProduct = $_item->getProduct()->isVisibleInSiteVisibility();
     $canApplyMsrp = Mage::helper('catalog')->canApplyMsrp($_item->getProduct(), Mage_Catalog_Model_Product_Attribute_Source_Msrp_Type::TYPE_BEFORE_ORDER_CONFIRM);
+    $_escape_helper = Mage::helper('catalog/utils');
 ?>
 <tr class="item">
 	<td>
@@ -143,5 +144,5 @@
 	
 	    <?php endif; //Can apply MSRP ?>
     </td>
-    <td><a href="<?php echo $this->getDeleteUrl() ?>" title="<?php echo $this->__('Remove This Item') ?>" onclick="var con = confirm('<?php echo $this->__('Are you sure you would like to remove this item from the shopping cart?') ?>'); if (con == true) {ecommerceRemoveCart('<?php echo $this->getProductName() ?>','<?php echo $_item->getSku() ?>','<?php echo $_item->getCalculationPrice() ?>','<?php echo $this->getQty() ?>','<?php echo $_item->getId() ?>');} return con;" class="btn-remove"><?php echo $this->__('Remove This Item') ?></a></td>
+    <td><a href="<?php echo $this->getDeleteUrl() ?>" title="<?php echo $this->__('Remove This Item') ?>" onclick="var con = confirm('<?php echo $this->__('Are you sure you would like to remove this item from the shopping cart?') ?>'); if (con == true) {ecommerceRemoveCart('<?php echo $_escape_helper->escapeQuote($this->getProductName()) ?>','<?php echo $_item->getSku() ?>','<?php echo $_item->getCalculationPrice() ?>','<?php echo $this->getQty() ?>','<?php echo $_item->getId() ?>');} return con;" class="btn-remove"><?php echo $this->__('Remove This Item') ?></a></td>
 </tr>
