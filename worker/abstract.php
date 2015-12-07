@@ -104,9 +104,9 @@ abstract class Bilna_Worker_Abstract {
     }
     
     protected function _validate() {
-        if (isset ($_SERVER['REQUEST_METHOD'])) {
-            die ('This script cannot be run from Browser. This is the shell script.');
-        }
+//        if (isset ($_SERVER['REQUEST_METHOD'])) {
+//            die ('This script cannot be run from Browser. This is the shell script.');
+//        }
     }
 
     abstract public function run();
@@ -191,10 +191,12 @@ USAGE;
     }
     
     protected function _logProgress($message) {
-        Mage::log($message, null, $this->_logPath . '.log');
+        //Mage::log($message, null, $this->_logPath . '.log');
         
         if ($this->getArg('verbose')) {
-            echo $message . "\n";
+            $now = date($this->_formatDate);
+            
+            echo "[{$now}] {$message}\n";
         }
     }
 }
