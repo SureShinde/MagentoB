@@ -41,6 +41,20 @@ p.aw-afptc-promo-message {
     font-size:14px;
 }
 
+#aw-afptc-popup .price-box .discount-product,
+#aw-afptc-popup .price-box .special-price{
+    float: left;
+}
+#aw-afptc-popup .old-price .price-label {
+    margin-right: 5px;
+}
+#aw-afptc-popup .price-box {
+    width: 50%;
+}
+#aw-afptc-popup button.btn-cart {
+    margin: 0 2%;
+    width: 46%;
+}
 #aw-afptc-popup .product-name {
     font-size:16px;
 }

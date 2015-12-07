@@ -42,8 +42,6 @@
 .account-login .buttons-set {
 	background: none;
 	border: 0;
-    background: url(../images/dash-orange.png) top repeat-x;
-    padding-top: 30px;
     margin-top: 20px !important;
 }
 .account-login .buttons-set button.button span {
@@ -74,12 +72,13 @@
 /* create account non pop-up */
 .account-create {
 	margin-bottom: 30px;
+    padding: 0 20px;
 }
 .account-create .fieldset {
 	background: none;
 	border: 0;
 	margin: 0;
-	padding: 15px 20px 0;
+	padding: 15px 0;
 }
 .account-create .fieldset .legend {
 	border: 0;
@@ -90,20 +89,24 @@
 	color: #434343;
 	margin: 0 0 8px;
 }
+.account-create .form-list li label {
+    width: auto;
+}
 .account-create .buttons-set {
 	border-top: 0;
 	margin-top: 0;
-	margin-left: 15px;
-    background: url(../images/dash-orange.png) top repeat-x;
-    padding-top: 30px;
-    margin-top: 20px;
+}
+.account-create .form-list li .input-box input[type="password"],
+.account-create .form-list li .input-box input[type="text"]{
+    width: 100%;
 }
 .account-create .buttons-set .required, 
 .account-create .buttons-set .back-link {
 	display: none;
 }
 .account-create .buttons-set button.button {
-	float: left;
+	float: right;
+    margin-right: 5px;
 }
 .account-create .buttons-set button.button span {
 	border: 0;
@@ -113,7 +116,6 @@
 }
 .account-create .buttons-set button.button span span {
 	font-size: 1.4em;
-	font-family: 'bebasregular';
 	font-weight: normal;
 	padding: 3px 10px;
 	line-height: 2em;
