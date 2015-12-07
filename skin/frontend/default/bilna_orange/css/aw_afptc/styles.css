@@ -13,7 +13,7 @@
     height: auto;    
 } 
 #aw-afptc-popup div img{
-	width:135px;
+	width:100%;
 }
 #aw-afptc-popup  > form{
 	width:100%;
@@ -45,15 +45,37 @@ p.aw-afptc-promo-message {
 #aw-afptc-popup .price-box .special-price{
     float: left;
 }
+#aw-afptc-popup .price-box .discount-product{
+    padding: 6px 5px;
+    background: #999;
+    margin-left: 10px;
+    color: #fff;
+}
+#aw-afptc-popup .product-image {
+    float: left;
+    width: 100px
+}
+#aw-afptc-popup .box-product {
+    display: inline-block;
+    margin: 20px;
+}
+#aw-afptc-popup .not-show-again {
+    clear: both;
+    display: block;
+    padding-top: 10px;
+}
 #aw-afptc-popup .old-price .price-label {
     margin-right: 5px;
 }
 #aw-afptc-popup .price-box {
-    width: 50%;
+    float: left;
+    margin-left: 10px;
+    margin-top: 10px;
 }
 #aw-afptc-popup button.btn-cart {
     margin: 0 2%;
     width: 46%;
+    float: left;
 }
 #aw-afptc-popup .product-name {
     font-size:16px;
@@ -75,5 +97,13 @@ p.aw-afptc-promo-message {
 	#aw-afptc-popup div{
 		margin:5px 0;
 	}
+    #aw-afptc-popup .product-image {
+        float: none;
+        margin: 0 auto;
+    }
+    #aw-afptc-popup .price-box {
+        float: none;
+        margin: 0 auto;
+    }
 }
  
