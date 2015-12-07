@@ -52,13 +52,14 @@ class Bilna_Fraud_Model_Observer {
                 $date = '[' . $fromDate . 'T23%3A59%3A59.999Z%2FDAY+TO+' . $toDate . 'T23%3A59%3A59.999Z%2FDAY]';
             }
             //$address = 'address_ngram%3A"'.$address.'"';
-            $telephone = 'telp_clean%3A"'.$telephone.'"';
+            $telephone = '&fq=telp_clean%3A"'.$telephone.'"';
             $createdDate = '&fq=Created_Date%3A'.$date;
             if((empty($fromDate)) && (empty($toDate))) {
                 $createdDate = '';
             }
             $formattedRuleId = '&fq=Rule_ID%3A'.$originalRuleId;
-            $url  = $host.':'.$port.$path.'/'.$core.'/select?q='.$telephone.$formattedRuleId.$createdDate.$string;
+            $orderNumber = '-Order_Number%3A"'.$order_id.'"';
+            $url  = $host.':'.$port.$path.'/'.$core.'/select?q='.$orderNumber.$telephone.$formattedRuleId.$createdDate.$string;
 
             if($auth == 1) {
                 $cleanPassword = Mage::helper('core')->decrypt($password);
