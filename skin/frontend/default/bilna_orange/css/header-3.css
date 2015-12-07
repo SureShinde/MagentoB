@@ -348,7 +348,7 @@
 .header .mini-cart:after {
 	content: url(../images/arrow-cart.png);
     position: absolute;
-    top: -10px;
+    top: -11px;
     right: 10px;
     z-index: 9;
 }
@@ -1840,7 +1840,7 @@ searchbar #nav-search-in {
         width: 992px;
     }
     .header .quick-access .top-cart{
-        width: 190px;
+        width: 192px;
     }
 }
 /* --------------- 960 px layout -------------------- */

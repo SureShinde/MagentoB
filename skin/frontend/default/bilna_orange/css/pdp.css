@@ -148,12 +148,16 @@ hr{
 	padding: 0;
 }
 .product-view .product-shop .product-shop-left .special-price span.price,
+.product-view .product-shop .product-shop-left .full-product-price span.price,
 .product-view .product-shop .product-shop-left .regular-price span.price,
-.product-view .product-shop .product-shop-left .price-box-bundle span.price,
 .product-view .product-shop .product-shop-left .special-price span.price-label{
 	color: #e74949;
 	font-weight: bold;
 	font-size: 3em;
+}
+.product-view .product-shop .product-shop-left .price-box-bundle span.until,
+.product-view .product-shop .product-shop-left .price-box-bundle span.price{
+    font-size: 2em;
 }
 .product-view .product-shop .product-shop-left span.price {
 	color: #707070;
@@ -249,7 +253,6 @@ hr{
 .product-view .product-shop .product-shop-left .add-to-cart label {
 	font-size: 1.5em;
 	margin-top: 12px;
-    font-family: avenir_regular;
 }
 .product-view .product-shop .product-shop-left .add-to-cart .qty {
 	margin-top: 5px;
@@ -373,7 +376,6 @@ hr{
     text-transform: capitalize;
     line-height: 1em;
     color: #FA6938;
-    font-family: avenir_regular;
 }
 .product-shop-right .block.block-related .block-title strong {
 	background: none;
@@ -382,7 +384,6 @@ hr{
 .product-shop-right .block.block-related .block-title strong span {
     color: #707070;
     font-size: 2em;
-    font-family: avenir_regular;
 }
 .product-shop-right .block.block-related .block-content {
 	background: none;
@@ -567,13 +568,11 @@ hr{
     line-height: normal;
     color: #FA6938;
     margin: 20px 0 10px;
-    font-family: avenir_regular;
 }
 .product-tab-wrapper .title-category span{
     font-size: 0.4em;
     clear: left;
     display: block;
-    font-family: avenir_medium;
     color: #333;
     font-weight: bold;
 }
@@ -1232,19 +1231,16 @@ table.ratings-table tbody tr{
 }
 
 /* reserved product button */
-.reserved-prod-btn {clear: both; display: inline-block; margin: 0 0 30px 0; width: 119px;}
+.reserved-prod-btn {clear: both; display: inline-block; margin: 0 0 30px 0;}
 .reserved-prod-btn a {
 	background: none repeat scroll 0 0 #231F20;
     border: medium none;
     color: #FFFFFF;
     display: block;
     margin: 5px 0;
-    /* max-width: 90px; */
-    padding: 5px 0px;
+    padding: 5px 20px;
     text-align: center;
-	font-weight: bold;
-	text-transform: uppercase;
-	font-size: 13px;
+	font-size: 1.5em;
 }
 .reserved-prod-btn a:hover {
 	opacity: 0.8;

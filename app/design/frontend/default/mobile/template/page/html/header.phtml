@@ -66,10 +66,6 @@
         });
 
         //================mobile left menu js========================
-        $j('.tooltip-mobile-first').click(function() {
-            $j(this).hide();
-            setCookie(tooltipMobileFirst, 'done', 365);
-        });
 
         $j('.nav-mobile-trigger span.notclick').click(function() {
             $j(this).hide();
@@ -111,37 +107,9 @@
             $j('body').css({"overflow":"auto"});
             $j('.back-left').toggle();
         });
-
-        checkMobileTooltip();
         
 		
     });
-    function checkMobileTooltip() {
-				var getTooltip = getCookie(tooltipMobileFirst);
-				if (getTooltip == '') {
-					$j('.tooltip-mobile-first').show();
-				}
-			}
-			
-			function setCookie(cname, cvalue, exdays) {
-				var de = new Date();
-				de.setTime(de.getTime() + (exdays*24*60*60*1000));
-				var expires = "expires=" + de.toUTCString();
-				document.cookie = cname + "=" + cvalue + "; " + expires;
-			}
-			
-			function getCookie(cname) {
-				var name = cname + "=";
-				var ca = document.cookie.split(';');
-				
-				for (var i=0; i<ca.length; i++) {
-					var c = ca[i];
-					while (c.charAt(0)==' ') c = c.substring(1);
-					if (c.indexOf(name) == 0) return c.substring(name.length,c.length);
-				}
-				
-				return "";
-			}
 		
 </script>
 
@@ -188,10 +156,6 @@ $j(document).ready(function() {
 
 
 <div class="header-container">
-    <div class="tooltip-mobile-first">
-        <p> ← click here for category menu </p>
-    </div>
-    
     <?php echo $this->getLayout()->createBlock('page/html')->setTemplate('page/html/back-top.phtml')->toHtml(); ?>
     
     <div class="header">
