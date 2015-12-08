@@ -1,0 +1,108 @@
+<input type="hidden" id="3rdparty-type" value="cart"/>
+<input type="hidden" id="3rdparty-value" value="" />
+<script type="text/javascript" src="<?php echo Mage::getStoreConfig('payment/vtdirect/vtdirect_src'); ?>"></script>
+<script type="text/javascript">
+    var baseUrl = '<?php echo Mage::getBaseUrl(); ?>';
+    var bankCheckUrl = '<?php echo Mage::helper('paymethod')->checkHttpsProtocol(Mage::getBaseUrl() . 'paymethod/onepage/bankCheck'); ?>';
+    var vtDirectUrl = '<?php echo Mage::getStoreConfig('payment/vtdirect/vtdirect_url'); ?>';
+    var vtDirectClientKey = '<?php echo Mage::getStoreConfig('payment/vtdirect/client_key'); ?>';
+    var creditCardPayment = '<?php echo Mage::getStoreConfig('bilna_module/success_page/payment_cc'); ?>';
+    var creditCardPaymentArr = creditCardPayment.split(',');
+    var ccDefaultMessageFailure = '<?php echo Mage::getStoreConfig('payment/vtdirect/default_response_message_failure'); ?>';
+</script>
+<script type="text/javascript" src="<?php echo $this->getJsUrl('varien/accordion.js'); ?>"></script>
+<script type="text/javascript" src="<?php echo $this->getSkinUrl('js/bilna_paymethod.js'); ?>"></script>
+
+<div class="page-title">
+    <h1><?php echo $this->__('Checkout'); ?></h1>
+</div>
+
+<ol class="opc" id="checkoutSteps">
+    <?php $i = 0; foreach ($this->getSteps() as $_stepId => $_stepInfo): ?>
+    <?php if (!$this->getChild($_stepId) || !$this->getChild($_stepId)->isShow()): continue; endif; $i++; ?>
+        <li id="opc-<?php echo $_stepId; ?>" class="section<?php echo !empty ($_stepInfo['allow']) ? ' allow' : ''; ?><?php echo !empty ($_stepInfo['complete']) ? ' saved' : ''; ?>">
+            <div class="step-title">
+                <span class="number"><?php echo $i; ?></span>
+                <h2><?php echo $_stepInfo['label']; ?></h2>
+                <a href="#"><?php echo $this->__('Edit'); ?></a>
+            </div>
+            
+            <div id="checkout-step-<?php echo $_stepId; ?>" class="step a-item" style="display:none;">
+                <?php echo $this->getChildHtml($_stepId); ?>
+            </div>
+        </li>
+    <?php endforeach; ?>
+</ol>
+
+<?php foreach($this->getItems() as $_item): ?>
+    <?php echo $this->getItemHtml($_item) ?>
+    <?php $gtmItemIds = $_item->getId().'|'; ?>
+<?php endforeach; ?>
+
+<?php $cartItems = Mage::getSingleton('checkout/session')->getQuote()->getAllItems(); ?>
+<?php $skuCollection = array(); ?>
+<?php $productCollection = array(); ?>
+<?php $qtyCollection = array(); ?>
+<?php $valueCollection = array(); ?>
+<?php $totalValue = 0; ?>
+<?php foreach($cartItems as $cartItem) : ?>
+    <?php $skuCollection[] = $cartItem->getSku(); ?>
+    <?php $productCollection[] = $cartItem->getProductId(); ?>
+    <?php $qtyCollection[] = $cartItem->getQty(); ?>
+    <?php $valueCollection[] = $cartItem->getPrice(); ?>
+    <?php $totalValue += ($cartItem->getPrice() * $cartItem->getQty()); ?>
+<?php endforeach; ?>
+<?php $skuDisplay =  implode("','", $skuCollection); ?>
+<?php $productDisplay =  implode("','", $productCollection); ?>
+<?php $qtyDisplay =  implode("','", $qtyCollection); ?>
+<?php $valueDisplay =  implode("','", $valueCollection); ?>
+
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+        dataLayer.push({'ecomm_pagetype': 'cart'});
+        dataLayer.push({'productid': ['<?php echo $productDisplay; ?>']});
+        dataLayer.push({'skuid': ['<?php echo $skuDisplay; ?>']});
+        dataLayer.push({'prices': ['<?php echo $valueDisplay; ?>']});
+        dataLayer.push({'quantities': ['<?php echo $qtyDisplay; ?>']});
+    });
+    //<![CDATA[
+    var accordion = new Accordion('checkoutSteps', '.step-title', true);
+    <?php if ($this->getActiveStep()): ?>
+        accordion.openSection('opc-<?php echo $this->getActiveStep(); ?>');
+    <?php endif ?>
+    var checkout = new Checkout(accordion,{
+        progress: '<?php echo $this->getUrl('checkout/onepage/progress'); ?>',
+        review: '<?php echo $this->getUrl('checkout/onepage/review'); ?>',
+        saveMethod: '<?php echo $this->getUrl('checkout/onepage/saveMethod'); ?>',
+        failure: '<?php echo $this->getUrl('checkout/cart'); ?>'}
+    );
+    //]]>
+
+    function ecommercePurchases() {
+        var temp_grandTotal = jQuery("td#grand_total-onepage span.price").text().replace("Rp","");
+        temp_grandTotal = temp_grandTotal.replace(",","");
+        dataLayer.push({
+          'event': 'purchase',
+          'eventCategory':'ecommerce',
+          'eventAction':'purchase',
+          'ecommerce': {
+            'purchase': {
+              'actionField': {
+                'id' : 'default_id',
+                'list' : 'browsing'
+              },
+              'products' :
+                [
+                    <?php for ($itr = 0 ; $itr <= count($productCollection)-1 ; $itr++) {
+                        echo '{"id":"'.$skuCollection[$itr].'","name":jQuery("#checkout-review-table tbody tr td h3").eq('.$itr.').text() , "price":"'.$valueCollection[$itr].'", "quantity":'.$qtyCollection[$itr].'}';
+                        if(($itr+1) < count($productCollection)) {
+                            echo ",";
+                        }
+                    }
+                    ?>
+                ]
+            }
+          }
+        });
+    }
+</script>

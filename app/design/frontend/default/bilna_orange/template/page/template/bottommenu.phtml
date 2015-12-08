@@ -1,0 +1,50 @@
+<?php
+$_helper = Mage::helper('megamenu');
+$_storeCategories = $_helper->getMegamenuData();
+?>
+
+<?php if (count($_storeCategories) > 0): ?>
+    <div class="nav-container-mobile">
+        <ul>
+            <?php $_currentMainCategory = Mage::registry('current_category'); ?>
+            <?php foreach ($_storeCategories as $_storeCategory): ?>
+                <?php
+                $_id = $_storeCategory['id'];
+                $_name = $_storeCategory['name'];
+                $_url = $_storeCategory['url'];
+                $_urlKey = $_storeCategory['url_key'];
+                
+                $_storeCategoryClass = '';
+                $_storeCategoryDisplay = 'style="display:none;"';
+                
+                if ($_currentMainCategory):
+//                    if ($_id == $_currentMainCategory->getId()):
+//                        $_storeCategoryDisplay = 'style="display:block;"';
+//                    endif;
+                
+                    if ($_id != $_currentMainCategory->getId()):
+                        $_storeCategoryClass = 'inactive';
+                    else:
+                        $_storeCategoryDisplay = 'style="display:block;"';
+                    endif;
+                endif;
+                ?>
+            
+                <li class="cat-leveltop store-category <?php echo 'cat-leveltop-' . $_id; ?> <?php echo $_storeCategoryClass; ?>">
+                    <a id="<?php echo $_id; ?>" class="categories <?php echo strtolower(str_replace(array ("&"," ","'"), "", $_name)); ?>" href="<?php echo $_url; ?>">
+                        <?php echo $_name; ?>
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                    
+                    <?php
+                    $_storeCategoriesChild = array ();
+            
+                    if ($_storeCategory['child'] && count($_storeCategory['child'] > 0)):
+                        $_storeCategoriesChild = $_storeCategory['child'];
+                    endif;
+                    ?>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+<?php endif; ?>

@@ -62,7 +62,7 @@ Default layout, loads most of the pages
         <remove name="right"/>
         <remove name="left"/>
 		<reference name="head">
-			<action method="addCss"><stylesheet>css/homepage-2.css</stylesheet></action>
+			<action method="addCss"><stylesheet>css/homepage-3.css</stylesheet></action>
 			<action method="addItem">
 				<type>skin_js</type>
 				<name>js/jquery.slides.min.js</name>

@@ -1,40 +1,21 @@
-
-
-/* li#perlengkapan-rumah:after, li.mobile-perlengkapan-rumah:after{
-	background: url(../images/new-badge.png) no-repeat 5px top;
-	content: "";
-	position: absolute;
-	width: 50px;
-	top: -13px;
-	height: 50px;
-	right: -24px;
-} */
-li#kosmetik:after {
-	background: url(../images/new-badge.png) no-repeat 5px top;
-	content: "";
-	position: absolute;
-	width: 50px;
-	top: -13px;
-	height: 50px;
-	right: -24px;
+.loader{
+    width: 100%;
+    text-align: center;
+    position: absolute;
+    height: 100%;
+    display: block;
+    top: 0;
+    vertical-align: middle;
+    z-index: 1;
+    background-color: #fff;
 }
-li#supermarket:after {
-	background: url(../images/new-badge.png) no-repeat 5px top;
-	content: "";
-	position: absolute;
-	width: 50px;
-	top: -13px;
-	height: 50px;
-	right: 74px;
+.loader img.loader-img{
+    width: 20px !Important;
+    height: auto !Important;
+    margin-top: 40% !important;
+    display: inline !Important;
+    float: none;
 }
-li.mobile-supermarket:after, li.mobile-kosmetik:after {display: none;}
-li.mobile-perlengkapan-rumah:after{
-	right: 0;
-}
-li#perlengkapan-rumah, li.mobile-perlengkapan-rumah {
-	position: relative;
-}
-
 .header-container, .sticky-header-wrapper {
 	width: 100%;
 	border: none;
@@ -2968,7 +2949,6 @@ searchbar #nav-search-in {
 		padding: 10px 0;
 	}
 	.mobile-left-menu .wrap-menu-cat ul li{
-		position: relative;
 		display: table;
 		width: 100%;
 		cursor:pointer;

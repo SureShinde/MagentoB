@@ -55,11 +55,26 @@
                     <layout_handle>page_one_column</layout_handle>
                     <is_default>1</is_default>
                 </one_column>
+                <one_column_product module="page" translate="label">
+                    <label>1 column</label>
+                    <template>page/1column-product.phtml</template>
+                    <layout_handle>page_one_column_product</layout_handle>
+                </one_column_product>
+                 <one_column_wide module="page" translate="label">
+                    <label>1 column wide</label>
+                    <template>page/1column-wide.phtml</template>
+                    <layout_handle>page_one_column_wide</layout_handle>
+                </one_column_wide>
                 <two_columns_left module="page" translate="label">
                     <label>2 columns with left bar</label>
                     <template>page/2columns-left.phtml</template>
                     <layout_handle>page_two_columns_left</layout_handle>
                 </two_columns_left>
+                <two_columns_left_wide module="page" translate="label">
+                    <label>2 columns wide with left bar</label>
+                    <template>page/2columns-left-wide.phtml</template>
+                    <layout_handle>page_two_columns_left_wide</layout_handle>
+                </two_columns_left_wide>
                 <two_columns_right module="page" translate="label">
                     <label>2 columns with right bar</label>
                     <template>page/2columns-right.phtml</template>

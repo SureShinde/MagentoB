@@ -6,7 +6,10 @@ body {
 	font-size: 0.75em;
 	color: #707070;
 	font-family: Helvetica;
-	background: url(../images/border-top.jpg) repeat-x left top;
+}
+.cart-empty{
+    padding: 0 10px 10px;
+    min-height: 50px;
 }
 .wrapper {
 	width: 100%;

@@ -14,7 +14,7 @@ class Bilna_Customreports_Block_Adminhtml_Couponsreportfilter extends Mage_Admin
 	{
 		parent::__construct();
 	}
-	
+
 	protected function _prepareForm()
     {
     	$actionUrl = $this->getUrl('*/*/index');
@@ -125,7 +125,13 @@ class Bilna_Customreports_Block_Adminhtml_Couponsreportfilter extends Mage_Admin
             ->addFieldDependence('rules_list', 'price_rule_type', '1')
         );
 
-    	$form->setUseContainer(true);
+				$fieldset->addField("coupon_code", "text", array(
+					"name"	=> "coupon_code",
+					'label'     => Mage::helper('reports')->__('Coupon code'),
+					'title'     => Mage::helper('reports')->__('Coupon code'),
+				));
+
+    		$form->setUseContainer(true);
         $this->setForm($form);
 
         return parent::_prepareForm();
@@ -178,7 +184,7 @@ class Bilna_Customreports_Block_Adminhtml_Couponsreportfilter extends Mage_Admin
             }
         }
         $this->getForm()->addValues($data);
-   
+
         return parent::_initFormValues();
     }
 }

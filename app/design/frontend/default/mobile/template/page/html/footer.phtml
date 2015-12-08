@@ -1,0 +1,88 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     defult_bilna_orange
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<div class="footer-container">
+    <div class="footer">
+        <div class="cs-info">
+            <img src="<?php echo $this->getSkinUrl('images/cs.png'); ?>">
+            <p>
+                <span class="que">Butuh Bantuan ?</span>
+                <span class="phone"><?php echo Mage::getStoreConfig('general/store_information/phone')?></span>
+                <span class="day">Senin-Jumat 08.00-19.00. Sabtu 08.00-17.00</span>
+                <span class="email">cs@bilna.com</span>
+            </p>
+        </div>
+		<div class="subscribe-form">
+			<p>Bergabung di Bilna Saving Club</p>
+			<div class="wrap-form-subscribe">
+				<form action="<?php echo Mage::getBaseUrl(); ?>newsletter/subscriber/new/" method="post" id="newsletter-validate-detail">
+                    
+					   <input type="text" name="email" id="newsletter" title="Sign up for our newsletter" class="input-text required-entry validate-email" placeholder="Masukkan email Anda untuk mendapatkan diskon hingga 70%">
+					   <button type="submit" title="Sign Up" class="button">Lanjut</button>
+				</form>
+			</div>
+		</div>
+    </div>
+</div>
+<div class="footer-container">
+    <div class="footer">
+        <div class="footer-link">
+    	   <?php echo $this->getChildHtml() ?>
+        </div>
+        <div class="bg-indo">
+            <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('shipping_partners')->toHtml() ?>
+            <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('payment_partners')->toHtml() ?>
+        </div>
+        <p class="bugs"><?php echo $this->__('Help Us to Keep Magento Healthy') ?> - <a href="http://www.magentocommerce.com/bug-tracking" onclick="this.target='_blank'"><strong><?php echo $this->__('Report All Bugs') ?></strong></a> <?php echo $this->__('(ver. %s)', Mage::getVersion()) ?></p>
+    </div>
+</div>
+<div class="footer-container">
+    <div class="footer">
+        <div class="footer-bottom">
+            <ul>
+                <li><address><?php echo $this->getCopyright() ?></address></li>
+                <li><a href="#">Syarat Penggunaan</a></li>
+                <li><a href="#">Kebijakan Privasi</a></li>
+                <li><a href="#">Direktori Belanja</a></li>
+            </ul>
+            <ul class="sosmed">
+                <li><a class="fb" href="http://www.facebook.com/myBilna"><i class="fa fa-facebook fa-2x"></i></a></li>
+                <li><a class="twitter" href="https://twitter.com/BilnaID"><i class="fa fa-twitter fa-2x"></i></a></li>
+                <li><a class="instagram" href="http://instagram.com/bilnaid"><i class="fa fa-instagram fa-2x"></i></a>
+                <li> <a class="g-plus" href="https://plus.google.com/u/0/+Bilnaid/posts">
+                    <i class="fa fa-google-plus-square fa-2x"></i></a></li>
+                <li><a class="blog" href="{{config path='web/unsecure/base_url'}}blog">
+                    <i class="fa fa-rss-square fa-2x"></i></a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    jQuery(document).ready(function() {
+        dataLayer.push({ 'event': 'event_all' });
+    });
+</script>
