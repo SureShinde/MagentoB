@@ -221,7 +221,7 @@
             <?php $total = count($dataForUA); ?>
             staticblockDataLayer.push(
                 <?php foreach($dataForUA as $key=>$rowDataForUA): ?>
-                    <?php echo '{"id":"'.$rowDataForUA[id].'", "name":"'.$_escape_helper->escapeQuote($rowDataForUA[name]).'", "price":'.$rowDataForUA[price].', "category":"Default Category", "position":'.$rowDataForUA[position].', "list":';?>list_name <?php echo '}'; ?>
+                    <?php echo '{"id":"'.$rowDataForUA['id'].'", "name":"'.$_escape_helper->escapeQuote($rowDataForUA['name']).'", "price":'.$rowDataForUA['price'].', "category":"Default Category", "position":'.$rowDataForUA['position'].', "list":';?>list_name <?php echo '}'; ?>
                     <?php if(($key+1) < $total) {
                         echo ",";
                     } ?>
@@ -256,7 +256,7 @@
                 <?php $total = count($dataForUA); ?>
                 objDataLayer.push(
                     <?php foreach($dataForUA as $key=>$rowDataForUA): ?>
-                        <?php echo '{"id":"'.$rowDataForUA[id].'", "name":"'.$_escape_helper->escapeQuote($rowDataForUA[name]).'", "price":'.$rowDataForUA[price].', "category":"Default Category", "position":'.$rowDataForUA[position].', "list":"browsing"}'; ?>
+                        <?php echo '{"id":"'.$rowDataForUA['id'].'", "name":"'.$_escape_helper->escapeQuote($rowDataForUA['name']).'", "price":'.$rowDataForUA['price'].', "category":"Default Category", "position":'.$rowDataForUA['position'].', "list":"browsing"}'; ?>
                         <?php if(($key+1) < $total) {
                             echo ",";
                         } ?>
@@ -267,7 +267,7 @@
                 <?php $total = count($dataForUA); ?>
                 objDataLayer.push(
                     <?php foreach($dataForUA as $key=>$rowDataForUA): ?>
-                        <?php echo '{"id":"'.$rowDataForUA[id].'", "name":"'.$_escape_helper->escapeQuote($rowDataForUA[name]).'", "price":'.$rowDataForUA[price].', "category":"Default Category", "position":'.$rowDataForUA[position].', "list":"browsing"}'; ?>
+                        <?php echo '{"id":"'.$rowDataForUA['id'].'", "name":"'.$_escape_helper->escapeQuote($rowDataForUA['name']).'", "price":'.$rowDataForUA['price'].', "category":"Default Category", "position":'.$rowDataForUA['position'].', "list":"browsing"}'; ?>
                         <?php if(($key+1) < $total) {
                             echo ",";
                         } ?>
