@@ -44,7 +44,7 @@ class Bilna_Fraud_Model_Observer {
                 if($ruleDataRuleId != 0) {
                     $date = '[' . $fromDate . 'T23%3A59%3A59.999Z%2FDAY+TO+' . $toDate . 'T23%3A59%3A59.999Z%2FDAY]';
                 }
-                $telephone = '&fq=telp_clean%3A"'.$telephone.'"';
+                $telephone = '&fq=telp_clean%3A"'.str_replace(' ', '', $telephone).'"';
                 $createdDate = '&fq=Created_Date%3A'.$date;
                 if((empty($fromDate)) && (empty($toDate))) {
                     $createdDate = '';
