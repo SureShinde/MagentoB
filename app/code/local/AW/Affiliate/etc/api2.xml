@@ -19,21 +19,26 @@
 						<create>1</create>
 					</admin>
 				</privileges>
-				<attributes translate="cmid afid" module="AW_Affiliate">
-					<cmid>Campaign ID</cmid>
+				<attributes translate="params client redirect_url" module="AW_Affiliate">
+<!--					<cmid>Campaign ID</cmid>
 					<afid>Affiliate ID</afid>
 					<ats>Affiliate Traffic Source</ats>
-					<rurl>Redirect URL</rurl>
+					<rurl>Redirect URL</rurl>-->
+                                        
+                                        <params>params</params>
+                                        <client>client</client>
+                                        <redirect_url>redirect_url</redirect_url>
+                                        
 				</attributes>
 				<routes>
 					<route_entity>
-						<route>/affiliate/check/:id</route>
+						<route>/affiliate/check</route>
 						<action_type>entity</action_type>
 					</route_entity>
-					<route_collection>
+<!--					<route_collection>
 						<route>/affiliate/check</route>
 						<action_type>collection</action_type>
-					</route_collection>
+					</route_collection>-->
 				</routes>
 				<versions>1</versions>
 			</affiliate_check>
@@ -200,6 +205,30 @@
 				</routes>
 				<versions>1</versions>
 			</affiliate_requestwithdrawal>
+                        
+                        <affiliate_ordercomplete translate="title" module="AW_Affiliate">
+				<group>affiliate</group>
+				<sort_order>10011</sort_order>
+				<model>awaffiliate/api2_ordercomplete</model>
+				<title>Affiliate Order Complete</title>
+				<privileges>
+					<admin>
+						<retrieve>1</retrieve>
+					</admin>
+				</privileges>
+				<attributes translate="message status data" module="AW_Affiliate">
+					<message>message</message>
+                                        <status>status</status>
+                                        <data>data</data>
+                                </attributes>
+				<routes>
+					<route_entity>
+						<route>/affiliate/ordercomplete/:client_id/:order_id</route>
+						<action_type>entity</action_type>
+					</route_entity>
+				</routes>
+				<versions>1</versions>
+			</affiliate_ordercomplete>
 		</resources>
 	</api2>
 </config>
