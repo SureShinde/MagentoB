@@ -22,6 +22,7 @@ class Bilna_Fraud_Model_Observer {
             $password = $configSolr['password'];
             $string = '&start=0&rows=20&wt=json&indent=true';
             $order_id = $observer->getEvent()->getOrder()->getId();
+            $order_number = $observer->getEvent()->getOrder()->getIncrementId();
             $orderData = Mage::getModel('sales/order')->load($order_id);
 
             $entity_id = $orderData->getData('entity_id');
@@ -60,14 +61,14 @@ class Bilna_Fraud_Model_Observer {
                     $createdDate = '';
                 }
                 $formattedRuleId = '&fq=Rule_ID%3A'.$originalRuleId;
-                $orderNumber = '-Order_Number%3A"'.$order_id.'"';
+                $orderNumber = '-Order_Number%3A"'.$order_number.'"';
                 $url  = $host.':'.$port.$path.'/'.$core.'/select?q='.$orderNumber.$telephone.$formattedRuleId.$createdDate.$string;
 
                 if($auth == 1) {
                     $cleanPassword = Mage::helper('core')->decrypt($password);
                     $url  = $username.':'.$cleanPassword.'@'.$url;
                 }
-                $url = 'http://'.$url;
+                $url = 'http://'.$url;echo $url;
                 $ch = curl_init();
                 curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
