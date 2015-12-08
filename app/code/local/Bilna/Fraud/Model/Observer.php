@@ -68,7 +68,7 @@ class Bilna_Fraud_Model_Observer {
                     $cleanPassword = Mage::helper('core')->decrypt($password);
                     $url  = $username.':'.$cleanPassword.'@'.$url;
                 }
-                $url = 'http://'.$url;echo $url;
+                $url = 'http://'.$url;
                 $ch = curl_init();
                 curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
