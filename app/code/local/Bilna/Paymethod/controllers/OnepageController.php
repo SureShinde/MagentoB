@@ -366,7 +366,7 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
     }
     
     public function successAction() {
-        $canceled = 0;
+        //$canceled = 0;
 
         if ($this->getRequest()->getParam('order_no')) {
             $orderNo = $this->getRequest()->getParam('order_no');
@@ -379,7 +379,7 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
             $paymentCode = $order->getPayment()->getMethodInstance()->getCode();
 
             // FDS (BILNA-1333) - Start
-            $canceled = Mage::helper('bilna_fraud')->checkOrderStatus($orderNo, 1);
+            //$canceled = Mage::helper('bilna_fraud')->checkOrderStatus($orderNo, 1);
             // FDS (BILNA-1333) - End
 
             if (in_array($paymentCode, $this->getPaymentMethodCc())) {
@@ -398,7 +398,7 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
             $lastOrderId = $session->getLastOrderId();
 
             // FDS (BILNA-1333) - Start
-            $canceled = Mage::helper('bilna_fraud')->checkOrderStatus($lastOrderId, 0);
+            //$canceled = Mage::helper('bilna_fraud')->checkOrderStatus($lastOrderId, 0);
             // FDS (BILNA-1333) - End
 
             $lastRecurringProfiles = $session->getLastRecurringProfileIds();
@@ -425,11 +425,11 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
         }
 
         // FDS (BILNA-1333) - Start
-        if($canceled == 1) {
+        /*if($canceled == 1) {
             $fraud = Mage::helper('core')->urlEncode('fraud');
             $this->_redirect('checkout/onepage/failure', array('fail' => $fraud));
             return;
-        }
+        }*/
         // FDS (BILNA-1333) - End
         
         /**
