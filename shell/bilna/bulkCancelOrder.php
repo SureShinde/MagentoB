@@ -12,8 +12,8 @@ class BulkCancelOrder extends Mage_Shell_Abstract {
     public function run() {
         $csvObject = new Varien_File_Csv();
 
-        $directory = 'cancelorder/notyet';
-        $donedirectory = 'cancelorder/done';
+        $directory = 'files/cancelorder/notyet';
+        $donedirectory = 'files/cancelorder/done';
 
         try 
         {
