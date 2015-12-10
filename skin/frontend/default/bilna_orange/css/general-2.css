@@ -509,7 +509,7 @@ a.back-to-top img {
 	list-style: none;
 	padding: 0;
 	line-height:normal;
-	z-index: 8;
+	z-index: 10;
 }
 .slidesjs-pagination li {
 	display: inline-block;
