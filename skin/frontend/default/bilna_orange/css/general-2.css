@@ -18,7 +18,7 @@ body {
 .page {
 	margin: 0 auto;
 }
-.main-container, .main-container.col1-layout .main, .main-container.col2-left-layout .main, .main-container.col2-right-layout .main, .main-container.col2-left-wide-layout .main, .main, .main-container.col2-left-wide-layout .breadcrumbs {
+.main-container, .main-container.col1-layout .main, .main-container.col1-wide-layout .category-products, .main-container.col2-left-layout .main, .main-container.col2-right-layout .main, .main-container.col2-left-wide-layout .main, .main, .main-container.col1-wide-layout .breadcrumbs, .main-container.col2-left-wide-layout .breadcrumbs {
 	width: 1216px;
 	margin: 0 auto;
 	background: none;
@@ -468,6 +468,7 @@ a.back-to-top img {
 .container-breadcrumbs{
     width: 100%;
     background: #fff;
+    padding: 10px 0;
     border-top: 1px solid #e4e4e4;
     border-bottom: 1px solid #e4e4e4;
 }
@@ -475,7 +476,7 @@ a.back-to-top img {
     display: none;
 }
 @media only screen and (max-width: 1215px) {
-	.main-container, .main-container.col1-layout .main,.main-container.col2-left-wide-layout .main, .main-container.col2-left-wide-layout .breadcrumbs{
+	.main-container, .main-container.col1-layout .main, .main-container.col1-wide-layout .category-products, .main-container.col2-left-wide-layout .main, .main-container.col1-wide-layout .breadcrumbs, .main-container.col2-left-wide-layout .breadcrumbs{
 		width: 994px;
 	}
 	.main-container.col2-left-layout .main {
@@ -492,7 +493,7 @@ a.back-to-top img {
 }
 /* --------------- 960 px layout -------------------- */
 @media only screen and (max-width: 1023px) {
-	.main-container, .main-container.col1-layout .main, .main-container.col2-left-wide-layout .main, .main-container.col2-left-wide-layout .breadcrumbs {
+	.main-container, .main-container.col1-layout .main, .main-container.col1-wide-layout .category-products, .main-container.col2-left-wide-layout .main, .main-container.col1-wide-layout .breadcrumbs, .main-container.col2-left-wide-layout .breadcrumbs {
 		width: 745px;
 	}
 	.col2-left-layout .main .col-left.sidebar {
@@ -526,7 +527,7 @@ a.back-to-top img {
     .catalogsearch-result-index .col-12{
         width: 100%;
     }
-	.main-container, .main-container.col1-layout .main, .col2-left-layout .main .col-main,.main-container.col2-left-wide-layout .main, .main-container.col2-left-wide-layout .breadcrumbs {
+	.main-container, .main-container.col1-layout .main, .main-container.col1-wide-layout .category-products, .col2-left-layout .main .col-main,.main-container.col2-left-wide-layout .main, .main-container.col2-left-wide-layout .breadcrumbs {
 		width: 100%;
 		margin-top: 0;
 	}
