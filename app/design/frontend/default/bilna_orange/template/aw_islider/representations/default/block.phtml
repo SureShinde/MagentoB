@@ -33,12 +33,10 @@
     <script type="text/javascript">
         $j(function() {
             $j('#slides-banner-<?php echo $uniqueId; ?>').slidesjs({
-            //$j('#megamenu #slides-banner, .main-container #slides-banner').slidesjs({
                 width: <?php echo $this->getWidth(); ?>,
                 height: <?php echo $this->getHeight(); ?>,
                 pagination: {
                     active: true,
-                    // [string] Can be either "slide" or "fade".
                 },
                 play: {
                     auto: true,
