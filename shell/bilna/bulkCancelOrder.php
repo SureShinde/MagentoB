@@ -8,15 +8,69 @@
 require_once dirname(__FILE__) . '/../abstract.php';
 
 class BulkCancelOrder extends Mage_Shell_Abstract {
-    
+    protected $start;
+    protected $end;
+    protected $run_mode = "db";
+
     public function run() {
-        // get lock
-        $mutex = new RocketWeb_Netsuite_Model_Mutex('bulkcancelorder_cron_lock');
-            
-        if (!$mutex->getLock()) {
-            die ("no lock!!!\n");
+
+        $modes = $this->getModes();
+
+        if ($modes) 
+        {
+            // get lock
+            $mutex = new RocketWeb_Netsuite_Model_Mutex('bulkcancelorder_cron_lock');
+                
+            // make sure there is nothing locking the cron
+            if (!$mutex->getLock()) {
+                die ("no lock!!!\n");
+            }
+
+            // check whether it will be run via DB or File
+            if ($this->run_mode == "db")
+                $this->run_by_db();
+            else
+            if ($this->run_mode == "file")
+                $this->run_by_file();
+
+            // release the cron
+            $mutex->releaseLock();
+        }
+        else {
+            echo $this->usageHelp();
+        }
+    }
+
+    protected function run_by_db()
+    {
+        // START PROCESS
+        echo "START PROCESS BULK CANCEL ORDER\n";
+        echo "-------------------------------\n";
+
+        $directory = 'files/cancelorder';
+        $config_file = 'sql_config';
+        $queryFromConfig = file_get_contents($directory . '/' . $config_file);
+
+        if (trim($queryFromConfig) != '') {
+            $readConn = Mage::getSingleton('core/resource')->getConnection('core_read');
+            $query = $queryFromConfig;
+
+            $results = $readConn->fetchAll($query);
+
+            foreach($results as $key => $value) {
+                $this->cancel_order($value['increment_id']);
+            }
         }
 
+        echo "--------------------------------\n";
+        echo "FINISH PROCESS BULK CANCEL ORDER";
+        echo "\n\n";
+
+        echo "Please check file autocancelorder.log at var/log to view all cancelled orders\n";
+    }
+
+    protected function run_by_file()
+    {
         // START PROCESS
         echo "START PROCESS BULK CANCEL ORDER\n";
         echo "-------------------------------\n";
@@ -56,8 +110,6 @@ class BulkCancelOrder extends Mage_Shell_Abstract {
         echo "\n\n";
 
         echo "Please check file autocancelorder.log at var/log to view all cancelled orders\n";
-
-        $mutex->releaseLock();
     }
 
     protected function cancel_order($increment_id)
@@ -96,6 +148,47 @@ class BulkCancelOrder extends Mage_Shell_Abstract {
         $condition = array($write->quoteInto('body=?', 'order_place|'.$entity_id));
         $write->delete("message", $condition);
         $write->commit();
+    }
+
+    protected function getModes() {
+        $possibleModes = $this->getPossibleModes();
+        /*
+        $startParam = $this->getArg('start');
+        $endParam = $this->getArg('end');
+        */
+        $methodParam = $this->getArg('method');
+
+        /*
+        if ($startParam && $endParam) {
+            $this->start = $startParam;
+            $this->end = $endParam;
+        }
+        else {
+            return null;
+        }
+        */
+        
+        if ($methodParam) {
+            if ($methodParam == 'file' || $methodParam == 'db')
+                $this->run_mode = $methodParam;
+            else
+                return false;
+        }
+
+        return true;
+    }
+
+    protected function getPossibleModes() {
+        return array ('method');
+    }
+
+    public function usageHelp() {
+        return <<<USAGE
+Usage:  php shell/bilna/bulkCancelOrder.php -- [options]
+  --method                      file or db ( default is db ) (OPTIONAL)
+  NOTE : start and end must both exist ; method is optional
+
+USAGE;
     }
 }
 
