@@ -67,4 +67,11 @@ class AW_Affiliate_Model_Api2_Check extends Mage_Api2_Model_Resource
         }
         return false;
     }
+
+    private function _isCookieFree($cookieValue)
+    {
+        $client = Mage::getModel('awaffiliate/client')->load($cookieValue);
+        $__isRewriteCookieEnabled = Mage::helper('awaffiliate/config')->isRewriteCookieEnabled();
+        return is_null($client->getId()) || $__isRewriteCookieEnabled;
+    }
 }

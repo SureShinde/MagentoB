@@ -29,9 +29,11 @@ class AW_Affiliate_Model_Api2_Check_Rest_Admin_V1 extends AW_Affiliate_Model_Api
             $clientId = $cookieModel->get(AW_Affiliate_Helper_Config::COOKIE_NAME);
             
             $client = null;
+            $affiliate = null;
             $redirectUrl = null;
             //var_dump($this->_isCampaignAccessible($campaignId));die;
             if (
+                //$this->_isCookieFree($clientId) && //disabled cookie, since cookie will generate by logan
                 $this->_isAffiliateAccessible($affiliateId) &&
                 $this->_isCampaignAccessible($campaignId) &&
                 $this->_isTrafficSourceAvailable($trafficSourceId) &&
@@ -52,6 +54,7 @@ class AW_Affiliate_Model_Api2_Check_Rest_Admin_V1 extends AW_Affiliate_Model_Api
                 if ($this->_isNewClientNotEqualCurrentClient($newClient, $clientId)) {
                     try {
                         $newClient->save();
+                        //$cookieModel->set(AW_Affiliate_Helper_Config::COOKIE_NAME, $newClient->getId(), true); //set cookie on one year
                         $client = array(
                             'id' => $newClient->getId(), 
                             'campaign_id' => $campaignId,
@@ -59,6 +62,8 @@ class AW_Affiliate_Model_Api2_Check_Rest_Admin_V1 extends AW_Affiliate_Model_Api
                             'traffic_id' => $trafficSourceId,
                             'customer_id' => $customerId
                         ); 
+                        $affiliate = Mage::getModel('awaffiliate/affiliate')->load($affiliateId);
+                        $affiliate = $affiliate->getData();
                     } catch (Exception $e) {
                         Mage::throwException($e->getMessage());
                     }
@@ -84,6 +89,7 @@ class AW_Affiliate_Model_Api2_Check_Rest_Admin_V1 extends AW_Affiliate_Model_Api
                     AW_Affiliate_Helper_Affiliate::AFFILIATE_TRAFFIC_SOURCE => $ats
                 ), 
                 'client' => $client, 
+                'affiliate' => $affiliate, 
                 'redirect_url' => $redirectUrl
             );
         }
