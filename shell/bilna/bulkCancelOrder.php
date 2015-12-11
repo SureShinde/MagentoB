@@ -51,19 +51,31 @@ class BulkCancelOrder extends Mage_Shell_Abstract {
         $config_file = 'sql_config';
         $queryFromConfig = file_get_contents($directory . '/' . $config_file);
 
+        $error = false;
+
         if (trim($queryFromConfig) != '') {
-            $readConn = Mage::getSingleton('core/resource')->getConnection('core_read');
-            $query = $queryFromConfig;
+            try 
+            {
+                $readConn = Mage::getSingleton('core/resource')->getConnection('core_read');
+                $query = $queryFromConfig;
 
-            $results = $readConn->fetchAll($query);
+                $results = $readConn->fetchAll($query);
 
-            foreach($results as $key => $value) {
-                $this->cancel_order($value['increment_id']);
+                foreach($results as $key => $value) {
+                    $this->cancel_order($value['increment_id']);
+                }
+            }
+            catch (Exception $e) {
+                $error = true;
+                echo "ERROR : " . $e->getMessage() . "\n";
+                Mage::log('Csv: ' . $file . ' - getCsvData() error - '. $e->getMessage(), Zend_Log::ERR, 'exception.log', true);
             }
         }
 
         echo "--------------------------------\n";
         echo "FINISH PROCESS BULK CANCEL ORDER";
+        if ($error)
+            echo " WITH ERROR";
         echo "\n\n";
 
         echo "Please check file autocancelorder.log at var/log to view all cancelled orders\n";
