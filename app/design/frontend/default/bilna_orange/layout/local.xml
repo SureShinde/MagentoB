@@ -230,7 +230,7 @@
         </action>
         <block type="ajaxlogin/authorizationFormLogin" name="authorization_login" as="authorization_login" template="ajaxlogin/authorizationForm.login.phtml">
             <block type="core/template" name="al_auth_login_title" template="ajaxlogin/authorizationFormElement.title.phtml">
-                <action method="setTitle" translate="title" module="customer"><title>Login or Create an Account</title></action>
+                <action method="setTitle" translate="title" module="customer"><title>Selamat datang kembali!</title></action>
             </block>
             <block type="core/template" name="al_auth_login_email" template="ajaxlogin/authorizationFormElement.email.phtml"></block>
             <block type="core/template" name="al_auth_login_password" template="ajaxlogin/authorizationFormElement.password.phtml"></block>
