@@ -20,10 +20,8 @@
 .header-container {
 	width: 100%;
 	border: none;
-}
-.header-container {
 	background: #fff;
-	position: relative;
+	position: fixed;
     z-index: 99;
 }
 .header, #nav{
@@ -212,11 +210,17 @@
 .space-above-header{
     width: 100%;
     border-bottom: 1px solid #bdbdbd;
-    display: inline-block;
+    height: 40px;
+    overflow: hidden;
+    transition:All 0.3s linear;
+    -webkit-transition:All 0.3s linear;
+    -moz-transition:All 0.3s linear;
+    -o-transition:All 0.3s linear;
 }
 .space-above-header .container-above-header{
     width: 1216px;
     margin: 0 auto;
+    display: inline-block;
 }
 .space-above-header .customer-link{
     float: right;
@@ -271,7 +275,7 @@
 }
 .header .quick-access {
 	padding: 0;
-	width: 1012px;
+	width:960px;
     position: absolute;
     right: 0;
 }
@@ -1426,10 +1430,10 @@ top: 55px;
 
 /* NEW SEARCH FIELD */
 .search-container-new {
-    width: 800px;
+    width: 755px;
     float: left;
     display: block;
-	margin:5px 0 7px;
+	margin:7px 0;
 }
 .search-container-new-mobile {
     display: none;
@@ -1720,6 +1724,43 @@ searchbar #nav-search-in {
 }
 /*================= end left menu ==========================*/
 /*additional screen*/
+
+/*================= sticky mode =========================*/
+
+.sticky-mode .space-above-header,
+.sticky-mode .promo-text-space{
+    height: 0;
+    padding: 0;
+    overflow: hidden;
+    display: block;
+}
+.sticky-mode .wrap-megamenu{
+    margin-top: -58px;
+    left: 160px;
+    width: 80px;
+}
+.sticky-mode .wrap-megamenu p{
+    width: 0;
+}
+.sticky-mode .menu-navigation .megamenu{
+    top: 0;
+}
+.sticky-mode .menu-navigation .megamenu.megamenu-active{
+    overflow: visible;
+}
+.sticky-mode .header{
+    margin: 0 auto;
+}
+.sticky-mode .menu-navigation .megamenu:after{
+    border-width: 7px;
+    content: "";
+    left: 190px;
+    bottom: 100%;
+    position: absolute;
+    border-style: solid;
+    border-color: transparent transparent #e4e4e4 transparent ;
+}
+/*=============== end sticky mode =======================*/
 @media only screen and (max-width: 1920px) {
     .normal-sticky-cart.add-width-cart {
         padding: 0 19% 0 0 !important;
@@ -1797,7 +1838,7 @@ searchbar #nav-search-in {
 		display:table;
     }
     .search-container-new {
-        width: 580px;
+        width: 530px;
     }
     .header .quick-access .left {
         display: none;
@@ -1831,7 +1872,7 @@ searchbar #nav-search-in {
 	.keypoint ul li.return{
 	}
 	.header .quick-access{
-		width: 790px;
+		width: 737px;
 	}
 	.menu-navigation{
 		margin: 5px 0 0;
@@ -1853,7 +1894,7 @@ searchbar #nav-search-in {
     }
 	.keypoint{
 	}
-	.header, #nav, .menu-tablet, .menu-navigation .wrap-navigation, .menu-navigation .megamenu.megamenu-active {
+	.header, #nav, .menu-tablet, .menu-navigation .wrap-navigation {
 		width: 745px;
 	}
 	.keypoint {
@@ -1873,7 +1914,7 @@ searchbar #nav-search-in {
         display: block;
 	}
 	.header .quick-access{
-		width:540px;
+		width:505px;
 	}
 	.header .quick-access .store-phone, .header .form-language {
 		display: none;
@@ -2025,6 +2066,11 @@ searchbar #nav-search-in {
 	}
     .space-above-header .container-above-header {
         width: 745px;
+    }
+    .sticky-mode .wrap-megamenu{
+        margin-top: -61px;
+        left: 152px;
+        width: 80px;
     }
 }
 	
@@ -2547,10 +2593,10 @@ searchbar #nav-search-in {
 	  overflow-y: scroll;
 	 }
 	 .wrapper, .mobile-left-menu{
-	  transition:All 0.5s ease;
-	  -webkit-transition:All 0.5s ease;
-	  -moz-transition:All 0.5s ease;
-	  -o-transition:All 0.5s ease;
+    transition:All 0.3s linear;
+    -webkit-transition:All 0.3s linear;
+    -moz-transition:All 0.3s linear;
+    -o-transition:All 0.3s linear;
 	  float:left;
 	 }
 	.close-menu-second{
@@ -2585,11 +2631,11 @@ searchbar #nav-search-in {
 	.mobile-left-menu .wrap-menu-cat > ul > li .wrap-first-level{
 		height: auto;
 		display: none;
-		overflow: hidden;
-		transition:All 1s ease;
-		-webkit-transition:All 1s ease;
-		-moz-transition:All 1s ease;
-		-o-transition:All 1s ease;
+        overflow: hidden;
+        transition:All 0.3s linear;
+        -webkit-transition:All 0.3s linear;
+        -moz-transition:All 0.3s linear;
+        -o-transition:All 0.3s linear;
 	}
 	.mobile-left-menu .wrap-menu-cat > ul > li.menu-active .wrap-first-level{
 		display: block;

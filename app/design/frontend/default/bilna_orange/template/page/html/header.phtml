@@ -37,36 +37,36 @@
 		$j(".megamenu.megamenu-active img, .homepage-banner img").lazyload({
 			skip_invisible : true
 		});
-		$j(".first-level > ul > li").hover(function(){
-			$j(".homepage-banner .first-level-cat.hover-cat img, .megamenu.megamenu-active .first-level-cat.hover-cat img").lazyload();
+		$j(".homepage-banner .first-level > ul > li").hover(function(){
+			$j(".homepage-banner .first-level-cat.hover-cat img").lazyload();
         });
         $j("img.lazy").lazyload();
 	});
     $j(document).ready(function() {
 		$j("img.lazy, .wrap-banner img:not(.image-slider), .warp-banner img").after('<div class="loader"><img class="loader-img" src="<?php echo Mage::getBaseUrl(); ?>skin/frontend/base/default/images/loading.gif"></div>');
-		$j(".first-level > ul > li:first-of-type").addClass("active-cat");
-        $j(".first-level > ul > li").hover(function() {
+		$j(".homepage-banner .first-level > ul > li:first-of-type").addClass("active-cat");
+        $j(".homepage-banner .first-level > ul > li").hover(function() {
 		$j(".homepage-banner .first-level-cat.hover-cat img").lazyload();
-            $j('.first-level > ul > li.active-cat .second-level').hide();
-            $j('.first-level > ul > li.active-cat div').css("color","inherit");
-			$j('.first-level > ul > li.active-cat').css("background","#fff");
-			$j('.first-level > ul > li.active-cat .arrow-megamenu').css("display","none");
-            $j('.first-level > ul > li').removeClass("hover-cat");
+            $j('.homepage-banner .first-level > ul > li.active-cat .second-level').hide();
+            $j('.homepage-banner .first-level > ul > li.active-cat div').css("color","inherit");
+			$j('.homepage-banner .first-level > ul > li.active-cat').css("background","#fff");
+			$j('.homepage-banner .first-level > ul > li.active-cat .arrow-megamenu').css("display","none");
+            $j('.homepage-banner .first-level > ul > li').removeClass("hover-cat");
             $j(this).addClass("hover-cat");
         });
-        $j(".first-level > ul").mouseleave(function() {
-            $j('.first-level > ul > li').removeClass("hover-cat");
-            $j('.first-level > ul > li.active-cat .second-level').show();
-			$j('.first-level > ul > li.active-cat div').css("color","#fff");
-			$j('.first-level > ul > li.active-cat').css("background","#ffa01b");
-			$j('.first-level > ul > li.active-cat .arrow-megamenu').css("display","block");
+        $j(".homepage-banner .first-level > ul").mouseleave(function() {
+            $j('.homepage-banner .first-level > ul > li').removeClass("hover-cat");
+            $j('.homepage-banner .first-level > ul > li.active-cat .second-level').show();
+			$j('.homepage-banner .first-level > ul > li.active-cat div').css("color","#fff");
+			$j('.homepage-banner .first-level > ul > li.active-cat').css("background","#ffa01b");
+			$j('.homepage-banner .first-level > ul > li.active-cat .arrow-megamenu').css("display","block");
         });
-        $j('.first-level-url').click(function() {
+        $j('.homepage-banner .first-level-url').click(function() {
 			if($j(this).parent().hasClass("hover-cat") || $j(this).parent().hasClass("active-cat")){
 				window.location.href = $j(this).attr("data-href");
 			}else{
-				$j('.first-level > ul > li.active-cat .second-level').hide();
-				$j('.first-level > ul > li').removeClass("hover-cat");
+				$j('.homepage-banner .first-level > ul > li.active-cat .second-level').hide();
+				$j('.homepage-banner .first-level > ul > li').removeClass("hover-cat");
 				$j(this).parent().addClass("hover-cat");
 			}
         });
@@ -74,17 +74,6 @@
 				e.originalEvent.wheelDelta = 100;
 			
 		});
-		
-		
-        $j('.wrap-megamenu').click(function() {
-            if($j("body").hasClass("cms-index-index")){} else {
-            $j('.bg-dark-megamenu').toggle();
-            $j('.megamenu').toggleClass("megamenu-active");
-			$j(".megamenu.megamenu-active img").lazyload({
-				skip_invisible : true
-			});
-            }
-        });
 		 $j('.bg-dark-megamenu').click(function() {
             $j('.megamenu').removeClass("megamenu-active");
             $j(this).hide();
@@ -120,138 +109,6 @@
             $j('body').css({"overflow":"auto"});
 			$j('.mobile-left-menu .back-left').css({"position":"absolute"});
         });
-		
-        if ($j('body').hasClass('style-baby') ||
-            $j('body').hasClass('style-perlengkapan-rumah') ||
-            $j('body').hasClass('style-supermarket') ||
-            $j('body').hasClass('style-groceries') ||
-            $j('body').hasClass('style-kosmetik')) {
-            //hover
-            target_data_breadcrumb = $j('.breadcrumbs > ul > li:nth-of-type(3)').attr('data-category');
-            $j(".nav-container > ul > li[data-category='" + target_data_breadcrumb + "']").addClass("active_submenu");
-			
-            $j( "div.nav-container" ).mouseleave(function() {
-                $j(this).hide();
-                $j('li.web-baby, li.web-perlengkapan-rumah, li.web-supermarket, li.web-groceries, li.web-kosmetik').css("background","#d2d2d2");
-                $j('div.nav-' + $j('div.menu-top ul li.active').attr('id')).show();
-            });
-			
-            $j(".cms-index-index ul#nav li.shop-by a, .style-baby ul#nav li.shop-by a, .style-perlengkapan-rumah ul#nav li.shop-by a, .style-supermarket ul#nav li.shop-by a, .style-groceries ul#nav li.shop-by a, .style-kosmetik ul#nav li.shop-by a, .level-top.shop-by .shopby ").hover(function() {
-                $j(".level-top.shop-by").addClass("over");
-                $j("a.link-shopby").addClass("over shown-sub");
-                $j("#nav .shopby").show();
-            });
-			
-            $j(".cms-index-index ul#nav li.shop-by a, .style-baby ul#nav li.shop-by a, .style-perlengkapan-rumah ul#nav li.shop-by a, .style-supermarket ul#nav li.shop-by a, .style-groceries ul#nav li.shop-by a, .style-kosmetik ul#nav li.shop-by a, .level-top.shop-by .shopby ").mouseleave(function() {
-                $j(".level-top.shop-by").removeClass("over");
-                $j("a.link-shopby").removeClass("over shown-sub");
-                $j("#nav .shopby").hide();
-            });
-			
-            $j("div.menu-top a.menu-top-hover").hover(function() {
-                if ($j('li.web-perlengkapan-rumah').hasClass('active') ||
-                    $j('li.web-baby').hasClass('active') ||
-                    $j('li.web-supermarket').hasClass('active') ||
-                    $j('li.web-groceries').hasClass('active') ||
-                    $j('li.web-kosmetik').hasClass('active')) {
-                    
-                }
-                else {
-                    $j('div.nav-container').hide('');
-                    $j('div.nav-' + $j(this).attr('id')).show('');   
-                }
-            });
-
-            $j("ul#nav li.parent a, .level-hover").hover(
-                function() {
-                    $j('#nav-perlengkapan-rumah ul#nav li.parent').removeClass('over');
-                    $j('#nav-perlengkapan-rumah ul#nav li.parent a').removeClass('over');
-                    $j(this).parent().addClass('over');
-                    $j(this).addClass('over');
-                    $j(this).parent().children('ul').addClass('shown-sub');
-
-                    if (wwidth < 768) {
-                        return  false;
-                    }
-                },
-                function() {
-                    $j(this).parent().removeClass('over');
-                    $j(this).removeClass('over');
-                    $j(this).parent().children('ul').removeClass('shown-sub');
-                }
-            );
-        }
-        else {
-            //shop by
-            $j(".cms-index-index ul#nav li.shop-by a, .style-baby ul#nav li.shop-by a, .style-perlengkapan-rumah ul#nav li.shop-by a, .style-supermarket ul#nav li.shop-by a, .style-groceries ul#nav li.shop-by a, .style-kosmetik ul#nav li.shop-by a, .level-top.shop-by .shopby ").hover(function() {
-                $j(".level-top.shop-by").addClass("over");
-                $j("a.link-shopby").addClass("over shown-sub");
-                $j("#nav .shopby").show();
-            });
-			
-            $j(".cms-index-index ul#nav li.shop-by a, .style-baby ul#nav li.shop-by a, .style-perlengkapan-rumah ul#nav li.shop-by a, .style-supermarket ul#nav li.shop-by a, .style-groceries ul#nav li.shop-by a, .style-kosmetik ul#nav li.shop-by a, .level-top.shop-by .shopby ").mouseleave(function() {
-                $j(".level-top.shop-by").removeClass("over");
-                $j("a.link-shopby").removeClass("over shown-sub");
-                $j("#nav .shopby").hide();
-            });
-		
-            //hover
-            $j("div.menu-top a.menu-top-hover").hover(function() {
-                if ($j('li.web-perlengkapan-rumah').hasClass('active') ||
-                    $j('li.web-baby').hasClass('active') ||
-                    $j('li.web-supermarket').hasClass('active') ||
-                    $j('li.web-groceries').hasClass('active') ||
-                    $j('li.web-kosmetik').hasClass('active')) {
-                
-                }
-                else {
-                    $j('div.nav-container').hide('');
-                    $j('div.nav-' + $j(this).attr('id')).show('');   
-                }
-            });
-            
-            $j('div.nav-baby').hover(function() {
-                $j('li.web-baby').css("background","#4ec7da");
-            });
-            $j('div.nav-perlengkapan-rumah').hover(function() {
-                $j('li.web-perlengkapan-rumah').css("background","#4ec7da");
-            });
-            $j('div.nav-supermarket').hover(function() {
-                $j('li.web-supermarket').css("background","#4ec7da");
-            });
-            $j('div.nav-groceries').hover(function() {
-                $j('li.web-groceries').css("background","#4ec7da");
-            });
-            $j('div.nav-kosmetik').hover(function() {
-                $j('li.web-kosmetik').css("background","#4ec7da");
-            });
-            
-            //leave
-            $j( "div.nav-container" ).mouseleave(function() {
-                $j(this).hide();
-                $j('li.web-baby, li.web-perlengkapan-rumah, li.web-supermarket, li.web-groceries, li.web-kosmetik').css("background","#d2d2d2");
-                $j('div.nav-' + $j('div.menu-top ul li.active').attr('id')).show();
-            });
-            
-            $j("ul#nav li.parent a, .level-hover").hover(
-                function() {
-                    $j('#nav-perlengkapan-rumah ul#nav li.parent').removeClass('over');
-                    $j('#nav-perlengkapan-rumah ul#nav li.parent a').removeClass('over');
-                    $j(this).parent().addClass('over');
-                    $j(this).addClass('over');
-                    $j(this).parent().children('ul').addClass('shown-sub');
-
-                    if (wwidth < 768) {
-                        return  false;
-                    }
-                },
-                function() {
-                    $j(this).parent().removeClass('over');
-                    $j(this).removeClass('over');
-                    $j(this).parent().children('ul').removeClass('shown-sub');
-                }
-            );
-        }
         
 			
 		if (wwidth < 768) {
@@ -384,28 +241,6 @@
     });
 </script>
 
-<script>
-    $j(document).ready(function() {
-        $j("option.call-eng").click(function() {
-            $j("select.country").addClass("english-lang");
-            $j("select.country").removeClass("indonesia-lang");
-        });
-      
-        $j("option.call-ind").click(function() {
-            $j("select.country").removeClass("english-lang");
-            $j("select.country").addClass("indonesia-lang");
-        });
-      
-        $j(".menu-tablet .link-trigger-myaccount, .menu-tablet .toplink-myaccount").hover(function() {
-            $j(".menu-tablet .toplink-myaccount").toggle();
-        });
-      
-        $j(".header .link-trigger-myaccount, .header .toplink-myaccount").hover(function() {
-            $j(".header .toplink-myaccount").toggle();
-        });
-    });
-</script>
-
 <div class="header-container">
     <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('above-header')->toHtml() ?> 
     <div class="tooltip-mobile-first">
@@ -460,7 +295,7 @@
     <div class="menu-navigation">
         <div class="wrap-navigation">
             <div class="wrap-megamenu">
-                <div class="button-megamenu"><i class="fa fa-th"></i> Semua Kategori <i class="fa fa-caret-down"></i></div>
+                <div class="button-megamenu"><i class="fa fa-th"></i> <p>Semua Kategori </p><i class="fa fa-caret-down"></i></div>
             </div>
             <div class="promo-text-space col-md-12">
                 <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('topmegamenu-promo')->toHtml() ?>
