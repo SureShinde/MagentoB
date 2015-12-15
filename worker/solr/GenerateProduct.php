@@ -17,6 +17,7 @@ class Bilna_Worker_Solr_GenerateProduct extends Bilna_Worker_Abstract {
     protected $_modelProduct;
     protected $_helperProduct;
     protected $_apiProduct;
+    protected $_apiProductTable = 'api_product_flat_1';
 
     protected $_logPath = 'Bilna_Worker_Solr_GenerateProduct';
 
@@ -44,6 +45,13 @@ class Bilna_Worker_Solr_GenerateProduct extends Bilna_Worker_Abstract {
                     $this->_critical('Please input type.');
                 }
             }
+            elseif ($mode == 'truncate') {
+                if (!$this->truncate()) {
+                    $this->_critical('Truncate table failed.');
+                }
+                
+                $this->_logProgress('Truncate table success.');
+            }
             else {
                 $this->_critical('Invalid mode.');
             }
@@ -60,10 +68,24 @@ class Bilna_Worker_Solr_GenerateProduct extends Bilna_Worker_Abstract {
         $this->_queueSvc->connect($this->_queueTask);
         $queryProducts = $this->getQueryProducts($type);
                 
-        while ($row = $queryProducts->fetch()) {
-            if ($type == 'sales') {
-                $productId = $row['product_id'];
-                $total = $row['total'];
+        while ($product = $queryProducts->fetch()) {
+            if ($type == 'images') {
+                $productId = $product['entity_id'];
+                $productImagesAttribute = $this->getProductImagesAttribute($productId);
+                $productImages = $this->getProductImages($productId, $productImagesAttribute);
+                
+                $queueData = array (
+                    'product_id' => $productId,
+                    'product_images' => $productImages,
+                );
+                //$this->_critical(json_encode($queueData));
+                $this->_queueSvc->publish($this->_queueTask, json_encode($queueData));
+                unset ($queueData);
+            }
+            elseif ($type == 'sales') {
+                $productId = $product['product_id'];
+                $total = $product['total'];
+                
                 $queueData = array (
                     'product_id' => $productId,
                     'total' => $total,
@@ -71,7 +93,7 @@ class Bilna_Worker_Solr_GenerateProduct extends Bilna_Worker_Abstract {
                 $this->_queueSvc->publish($this->_queueTask, json_encode($queueData));
             }
             else {
-                $productId = $row['entity_id'];
+                $productId = $product['entity_id'];
                 $this->_queueSvc->publish($this->_queueTask, $productId);
             }
             
@@ -87,11 +109,59 @@ class Bilna_Worker_Solr_GenerateProduct extends Bilna_Worker_Abstract {
         
         if ($type == 'images') {
             $callback = function($msg) {
-                $productId = $msg->body;
+                $product = json_decode($msg->body, true);
+                $productId = $product['product_id'];
+                $productImages = $product['product_images'];
                 $this->_logProgress("#{$productId} Received from queue");
-                $product = $this->_helperProduct->getProduct($productId, self::DEFAULT_STORE_ID);
-                $productImages = $this->_apiProduct->workerGetProductImages($product);
-                $this->setQueryProductImages($productId, $productImages);
+                
+                $imageUrl = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) . "catalog/product";
+                $imageHelper = Mage::helper('bilna_rest/product_image');
+                $productImagesNew = array ();
+                
+                if ($productImages) {
+                    foreach ($productImages as $productImage) {
+                        $url = $productImage['url'];
+                        $productImageUrl = $imageUrl . $url;
+                        
+                        //- image thumbnail
+                        $imageHelper->init($url);
+                        $imageHelper->resize(72);
+                        $productImageThumbnail = $imageHelper->__toString();
+                        
+                        //- image horizontal
+                        $imageHelper->init($url);
+                        $imageHelper->resize(110);
+                        $productImageHorizontal = $imageHelper->__toString();
+                        
+                        //- image vertical
+                        $imageHelper->init($url);
+                        $imageHelper->resize(151);
+                        $productImageVertical = $imageHelper->__toString();
+                        
+                        //- image detail
+                        $imageHelper->init($url);
+                        $imageHelper->resize(225);
+                        $productImageDetail = $imageHelper->__toString();
+                        
+                        $productImagesNew[] = array (
+                            'id' => $productImage['id'],
+                            'label' => $productImage['label'],
+                            'position' => $productImage['position'],
+                            'exclude' => $productImage['exclude'],
+                            'url' => $productImageUrl,
+                            'types' => $productImage['types'],
+                            'resize' => array (
+                                'base' => $productImageUrl,
+                                'thumbnail' => $productImageThumbnail, //- 72px
+                                'horizontal' => $productImageHorizontal, //- 110px
+                                'vertical' => $productImageVertical, //- 151px
+                                'detail' => $productImageDetail, //- 225px
+                            ),
+                        );
+                    }
+                }
+                
+                $this->setQueryProductImages($productId, $productImagesNew);
                 $this->_logProgress("#{$productId} Inserted to database");
             };
         }
@@ -151,6 +221,12 @@ class Bilna_Worker_Solr_GenerateProduct extends Bilna_Worker_Abstract {
         }
     }
     
+    private function truncate() {
+        $sql = "TRUNCATE TABLE {$this->_apiProductTable} ";
+        
+        return $this->_dbRead->query($sql);
+    }
+    
     private function setQueueTask($type) {
         if ($type == 'images') {
             $this->_queueTask = self::QUEUE_TASK_CATALOG_PRODUCT_IMAGES;
@@ -172,6 +248,56 @@ class Bilna_Worker_Solr_GenerateProduct extends Bilna_Worker_Abstract {
         }
     }
 
+    private function setQueryProductImages($productId, $images) {
+        $sql = "INSERT INTO `{$this->_apiProductTable}` (`entity_id`, `images`) VALUES (:entity_id, :images) ON DUPLICATE KEY UPDATE `images` = :images ";
+        $binds = array (
+            'entity_id' => $productId,
+            'images' => json_encode($images),
+        );
+        
+        return $this->_dbWrite->query($sql, $binds);
+    }
+    
+    private function setQueryProductConfig($productId, $config) {
+        $sql = "INSERT INTO `{$this->_apiProductTable}` (`entity_id`, `attribute_config`) VALUES (:entity_id, :config) ON DUPLICATE KEY UPDATE `attribute_bundle` = :config ";
+        $binds = array (
+            'entity_id' => $productId,
+            'config' => json_encode($config),
+        );
+        
+        return $this->_dbWrite->query($sql, $binds);
+    }
+    
+    private function setQueryProductBundle($productId, $bundle) {
+        $sql = "INSERT INTO `{$this->_apiProductTable}` (`entity_id`, `attribute_bundle`) VALUES (:entity_id, :bundle) ON DUPLICATE KEY UPDATE `attribute_bundle` = :bundle ";
+        $binds = array (
+            'entity_id' => $productId,
+            'bundle' => json_encode($bundle),
+        );
+        
+        return $this->_dbWrite->query($sql, $binds);
+    }
+    
+    private function setQueryProductDetail($productId, $detail) {
+        $sql = "INSERT INTO `{$this->_apiProductTable}` (`entity_id`, `detailed_info`) VALUES (:entity_id, :detail) ON DUPLICATE KEY UPDATE `detailed_info` = :detail ";
+        $binds = array (
+            'entity_id' => $productId,
+            'detail' => json_encode($detail),
+        );
+        
+        return $this->_dbWrite->query($sql, $binds);
+    }
+    
+    private function setQueryProductSales($productId, $total) {
+        $sql = "UPDATE `{$this->_apiProductTable}` SET `sales` = :total WHERE `entity_id` = :entity_id LIMIT 1 ";
+        $binds = array (
+            'total' => $total,
+            'entity_id' => $productId,
+        );
+        
+        return $this->_dbWrite->query($sql, $binds);
+    }
+
     private function getQueryProducts($type) {
         if ($type == 'sales') {
             $sql = "SELECT `sales_item`.`product_id`, SUM(`sales_item`.`row_total`) AS `total` ";
@@ -181,7 +307,8 @@ class Bilna_Worker_Solr_GenerateProduct extends Bilna_Worker_Abstract {
             $sql .= "GROUP BY `sales_item`.`product_id` ";
         }
         else {
-            $sql = "SELECT `entity_id` FROM `catalog_product_flat_1` ";
+            $sql = "SELECT `entity_id` ";
+            $sql .= "FROM `catalog_product_flat_1` ";
 
             if ($type == 'config') {
                 $sql .= "WHERE `type_id` = 'configurable' ";
@@ -189,8 +316,11 @@ class Bilna_Worker_Solr_GenerateProduct extends Bilna_Worker_Abstract {
             elseif ($type == 'bundle') {
                 $sql .= "WHERE `type_id` = 'bundle' ";
             }
-
+            
+            //$sql .= "WHERE `entity_id` IN (20,41534) ";
+            //$sql .= "WHERE `entity_id` IN (20) ";
             $sql .= "ORDER BY `entity_id` ";
+            //$sql .= "LIMIT 500 ";
         }
         
         return $this->_dbRead->query($sql);
@@ -202,57 +332,73 @@ class Bilna_Worker_Solr_GenerateProduct extends Bilna_Worker_Abstract {
         
         return $interval;
     }
+    
+    private function getProductImagesAttribute($productId) {
+        $sql = "SELECT `attribute_id`, `value` ";
+        $sql .= "FROM `catalog_product_entity_varchar` ";
+        $sql .= "WHERE `attribute_id` IN (85,86,87) AND `store_id` IN ('0','1') AND `entity_id` = {$productId} ";
+        $query = $this->_dbRead->query($sql);
+        $result = array ();
+        
+        while ($attributeImage = $query->fetch()) {
+            switch ($attributeImage['attribute_id']) {
+                case '85':
+                    $type = 'image';
+                    break;
+                case '86':
+                    $type = 'small_image';
+                    break;
+                case '87':
+                    $type = 'thumbnail';
+                    break;
+            }
+            
+            $result[$type] = $attributeImage['value'];
+        }
+        
+        return $result;
+    }
 
-    private function setQueryProductImages($entityId, $images) {
-        $sql = "INSERT INTO `api_product_flat_1` (`entity_id`, `images`) VALUES (:entity_id, :images) ON DUPLICATE KEY UPDATE `images` = :images ";
-        $binds = array (
-            'entity_id' => $entityId,
-            'images' => json_encode($images),
-        );
+    private function getProductImages($productId, $productImagesAttribute) {
+        $sql = "SELECT `cpemg`.`value_id` AS `id`, `cpemgv`.`label`, `cpemgv`.`position`, `cpemgv`.`disabled` AS `exclude`, `cpemg`.`value` AS `url` ";
+        $sql .= "FROM `catalog_product_entity_media_gallery` AS `cpemg` ";
+        $sql .= "INNER JOIN `catalog_product_entity_media_gallery_value` AS `cpemgv` ON `cpemg`.`value_id` = `cpemgv`.`value_id` ";
+        $sql .= "WHERE `cpemgv`.`disabled` = 0 AND `cpemgv`.`store_id` IN ('0','1') AND `cpemg`.`entity_id` = {$productId} ";
+        $query = $this->_dbRead->query($sql);
+        $result = array ();
         
-        return $this->_dbWrite->query($sql, $binds);
-    }
-    
-    private function setQueryProductConfig($entityId, $config) {
-        $sql = "INSERT INTO `api_product_flat_1` (`entity_id`, `attribute_config`) VALUES (:entity_id, :config) ON DUPLICATE KEY UPDATE `attribute_bundle` = :config ";
-        $binds = array (
-            'entity_id' => $entityId,
-            'config' => json_encode($config),
-        );
+        while ($productImage = $query->fetch()) {
+            $types = array ();
+            
+            //- get default image
+            if ($productImagesAttribute['image'] == $productImage['url']) {
+                $types[] = 'image';
+            }
+            
+            //- get default small_image
+            if ($productImagesAttribute['small_image'] == $productImage['url']) {
+                $types[] = 'small_image';
+            }
+            
+            //- get default thumbnail
+            if ($productImagesAttribute['thumbnail'] == $productImage['url']) {
+                $types[] = 'thumbnail';
+            }
+            
+            $result[] = array (
+                'id' => $productImage['id'],
+                'label' => $productImage['label'],
+                'position' => $productImage['position'],
+                'exclude' => $productImage['exclude'],
+                'url' => $productImage['url'],
+                'types' => $types,
+            );
+        }
         
-        return $this->_dbWrite->query($sql, $binds);
-    }
-    
-    private function setQueryProductBundle($entityId, $bundle) {
-        $sql = "INSERT INTO `api_product_flat_1` (`entity_id`, `attribute_bundle`) VALUES (:entity_id, :bundle) ON DUPLICATE KEY UPDATE `attribute_bundle` = :bundle ";
-        $binds = array (
-            'entity_id' => $entityId,
-            'bundle' => json_encode($bundle),
-        );
-        
-        return $this->_dbWrite->query($sql, $binds);
-    }
-    
-    private function setQueryProductDetail($entityId, $detail) {
-        $sql = "INSERT INTO `api_product_flat_1` (`entity_id`, `detailed_info`) VALUES (:entity_id, :detail) ON DUPLICATE KEY UPDATE `detailed_info` = :detail ";
-        $binds = array (
-            'entity_id' => $entityId,
-            'detail' => json_encode($detail),
-        );
-        
-        return $this->_dbWrite->query($sql, $binds);
-    }
-    
-    private function setQueryProductSales($entityId, $total) {
-        $sql = "UPDATE `api_product_flat_1` SET `sales` = :total WHERE `entity_id` = :entity_id LIMIT 1 ";
-        $binds = array (
-            'total' => $total,
-            'entity_id' => $entityId,
-        );
-        
-        return $this->_dbWrite->query($sql, $binds);
+        return $result;
     }
 }
 
 $worker = new Bilna_Worker_Solr_GenerateProduct();
 $worker->run();
+//$worker->test();
