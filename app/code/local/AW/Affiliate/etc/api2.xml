@@ -19,7 +19,7 @@
 						<create>1</create>
 					</admin>
 				</privileges>
-				<attributes translate="params client redirect_url" module="AW_Affiliate">
+				<attributes translate="params client affiliate redirect_url" module="AW_Affiliate">
 <!--					<cmid>Campaign ID</cmid>
 					<afid>Affiliate ID</afid>
 					<ats>Affiliate Traffic Source</ats>
@@ -27,6 +27,7 @@
                                         
                                         <params>params</params>
                                         <client>client</client>
+                                        <affiliate>affiliate</affiliate>
                                         <redirect_url>redirect_url</redirect_url>
                                         
 				</attributes>
