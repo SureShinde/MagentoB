@@ -17,9 +17,6 @@ endif;
         <?php $fraud = Mage::helper('core')->urlDecode(Mage::app()->getRequest()->getParam('fail')); ?>
         <?php
             if(strtolower($fraud) == 'fraud') {
-                //echo "<p>".$this->__('Terima kasih Anda telah mencoba berbelanja di')."</p>";
-                //echo "<p>".$this->__('Bilna.com')."</p>";
-                //echo "<p>";
                 echo "<p>".$this->__('Pesanan ').$this->getRealOrderId().$this->__(' Belum Dapat Diproses')."</p>";
                 echo "<br/><br/>";
                 echo $this->__('Kami menemukan kejanggalan pada pesanan yang kami terima. Hal ini menyebabkan pesanan secara otomatis tidak dapat diproses oleh sistem kami. Kami belum menerima pembayaran atas pesanan saat ini.');
