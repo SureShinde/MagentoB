@@ -62,7 +62,7 @@
 			$j('.homepage-banner .first-level > ul > li.active-cat .arrow-megamenu').css("display","block");
         });
         $j('.homepage-banner .first-level-url').click(function() {
-			if($j(this).parent().hasClass("hover-cat") || $j(this).parent().hasClass("active-cat")){
+			if($j(this).parent().hasClass("hover-cat") ){
 				window.location.href = $j(this).attr("data-href");
 			}else{
 				$j('.homepage-banner .first-level > ul > li.active-cat .second-level').hide();
