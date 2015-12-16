@@ -420,13 +420,13 @@
     }
     .menu-navigation .first-level .hover-cat .second-level, .menu-navigation .first-level .active-cat .second-level{
         width: 505px;
-        height: 450px !important;
     }
 	.megamenu{
 		height: 0;
 	}
 	.menu-navigation .wrap-banner {
-		width: calc(100% - 200px);
+		width: 285px;
+        padding: 0 10px;
 	}
 	.menu-navigation .wrap-banner .first-banner-megamenu .bottom-left-firstbanner{
 		padding: 0 3px 0 0;
@@ -438,7 +438,7 @@
 		font-size: 1.1em;
 	}
     .menu-navigation .wrap-banner .first-banner-megamenu .main-banner {
-        height: 280px;
+        height: 285px;
     }
     .menu-navigation .wrap-navigation{
         width: 745px;
