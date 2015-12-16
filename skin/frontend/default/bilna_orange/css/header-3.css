@@ -23,6 +23,7 @@
 	background: #fff;
 	position: fixed;
     z-index: 99;
+    top: 41px;
 }
 .header, #nav{
 	width: 1216px;

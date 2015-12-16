@@ -50,6 +50,12 @@
             }
         });
         jQuery(window).scroll(function(){
+            if($j(window).scrollTop() == 0){
+                $j('.header-container').css("top","41px");
+            }else if($j(window).scrollTop() >= 1){
+                $j('.header-container').css("top","0");
+            };
+            
             if($j(window).scrollTop() >= 500){
                 $j('.header-container').addClass("sticky-mode");
             }else{
