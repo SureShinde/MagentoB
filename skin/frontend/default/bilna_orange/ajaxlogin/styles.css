@@ -36,12 +36,16 @@
     margin: 0;
     font-size: 1.2em;
 }
+.al-authorization .buttons-set p.back-link{
+        font-size: 1em;
+    float: right;
+}
 .al-authorization-container-overlap .al-authorization form > .buttons-set .required,
 .al-authorization-container-overlap .al-authorization form > .buttons-set .forgot-pass,
 .al-authorization-container-overlap .al-authorization form > .buttons-set .button{
     display: none;
 }
-.al-authorization .form-list .buttons-set button.button{width: 100%; margin-top: 10px; font-size: 1.5em;}
+.al-authorization .form-list .buttons-set button.button{width: 100%; margin: 10px 0; font-size: 1.5em;}
 /* Authorization container - Checkout Onepage Index */
 #checkout-step-login .al-authorization .messages { height: auto; bottom: auto; top: -165px; }
 #checkout-step-login P.loader { padding: 15px 30px; margin: 0 0 0 -105px; }
