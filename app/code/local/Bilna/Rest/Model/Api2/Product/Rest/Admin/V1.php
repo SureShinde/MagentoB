@@ -1568,6 +1568,10 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
             'data' => $this->_getImage($product),
         );
     }
+
+    public function workerGetProductConfig($product) {
+        return $this->_getAttributeConfig($product);
+    }
     
     public function workerGetProductBundle($product) {
         return $this->_getAttributeBundle($product);
