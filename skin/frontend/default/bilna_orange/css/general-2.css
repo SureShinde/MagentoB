@@ -603,6 +603,9 @@ a.back-to-top img {
 }
 /* --------------- smaller 959 px layout -------------------- */
 @media only screen and (max-width: 767px) {
+    .main-container{
+        padding-top: 0;
+    }
     .products-grid .product-name,.products-grid .price-box{
         height: auto;
         display: inline-block;
