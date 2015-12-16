@@ -240,6 +240,17 @@
 	});
     });
 </script>
+<script>
+    $j(document).ready(function() {
+        $j(".menu-tablet .link-trigger-myaccount, .menu-tablet .toplink-myaccount").hover(function() {
+            $j(".menu-tablet .toplink-myaccount").toggle();
+        });
+      
+        $j(".header .link-trigger-myaccount, .header .toplink-myaccount").hover(function() {
+            $j(".header .toplink-myaccount").toggle();
+        });
+    });
+</script>
 <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('above-header-notification')->toHtml() ?> 
 <div class="header-container">
     
