@@ -33,7 +33,13 @@
     font-size: 1.1em
 }
 .al-authorization .buttons-set a{
-    color: #0000FF;
+    margin: 0;
+    font-size: 1.2em;
+}
+.al-authorization-container-overlap .al-authorization form > .buttons-set .required,
+.al-authorization-container-overlap .al-authorization form > .buttons-set .forgot-pass,
+.al-authorization-container-overlap .al-authorization form > .buttons-set .button{
+    display: none;
 }
 .al-authorization .form-list .buttons-set button.button{width: 100%; margin-top: 10px; font-size: 1.5em;}
 /* Authorization container - Checkout Onepage Index */
@@ -50,10 +56,10 @@
 .al-authorization .checkout-agreements .agree { padding: 0; }
 .al-authorization .checkout-agreements LI { margin: 0; }
 .al-authorization .agreement-content { position: absolute; width: 100%; height: auto; left: 105%; }
-.al-authorization .form-list .input-box {clear: none; width: 308px; padding: 5px; border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; background: #f2f2f2; max-width: 100%;
+.al-authorization .form-list .input-box {clear: none; width: 308px; padding: 5px; border-radius: 3px; -moz-border-radius: 3px; -webkit-border-radius: 3px; background: #f2f2f2; max-width: 100%;
 }
 .al-authorization .form-list .buttons-set { border-top: 0; padding: 0;}
-.al-authorization .form-list .buttons-set a { margin-left: 10px; color: #fd8e17; font-size: 1.2em }
+.al-authorization .buttons-set .popuplogin-footer a {color: blue; font-size: 1em; text-decoration: underline;}
 .al-authorization .form-list input.input-text { width: 100%; padding: 0; text-indent: 10px; background: #fff; border: 1px solid #e4e4e4; box-sizing: border-box; -moz-box-sizing: border-box;
 -webkit-box-sizing: border-box; height: 40px; font-size: 1.3em;}
 /* Authorization form shape - Login */
@@ -103,11 +109,11 @@
 .form-list .ajaxlogin-customer-dob-extra .dob-year input.input-text { width:134px; }
 
 .al-authorization-container-overlap .buttons-set p.required {
-    float: right;
+    float: left;
 }
 
-@media (max-height: 767px){ 
-    .al-authorization-container-overlap { position: fixed; width: 100%; height: 100%; left: 0; top: 0; z-index: 999; overflow: auto; } }
+@media (max-width: 767px){ 
+    .al-authorization-container-overlap { position: fixed; width: 100%; height: 100%; left: 0; top: 0; z-index: 999; overflow: auto; } 
     .al-authorization-container-overlap .Shadow {height: 150%;}
     .al-authorization .form-list .buttons-set a{
         margin-left: 0;

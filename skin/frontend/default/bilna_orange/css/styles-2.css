@@ -1429,7 +1429,7 @@ tr.summary-details-excluded { font-style:italic; }
 .opc .active .step-title h2 { color:#f18200; }
 /*.opc .active .step-title a { display:none; }*/
 
-.opc .step { border:1px solid #bbafa0; border-top:0; background:#fbfaf6 url(../images/bkg_checkout.gif) 0 0 repeat-x; padding:15px 30px; position:relative; }
+.opc .step { border:1px solid #bbafa0; border-top:0; padding:15px 30px; position:relative; }
 .opc .step .tool-tip { right:30px; }
 
 #opc-login .buttons-set { border-top:0; }

@@ -65,6 +65,9 @@
 #checkoutSteps #payment_form_vtdirect .v-fix{
     width: 50%;
 }
+.registered-users .popuplogin-footer{
+    display: none;
+}
 .opc .step-title {
 	padding-top: 8px;
 	padding-bottom: 8px;

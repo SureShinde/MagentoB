@@ -31,7 +31,7 @@
 <div class="buttons-set">
     <p class="required"><?php echo $this->__('* Required Fields') ?></p>
     <?php if ( $this->shouldDisplayForgotpasswordbutton() ): ?>
-        <a href="<?php echo $this->getParentBlock()->getForgotPasswordUrl() ?>" id="<?php echo $this->getForgotpasswordbuttonHtmlId() ?>" class="f-left"><?php echo $this->__('Forgot password?') ?></a><br />
+        <a href="<?php echo $this->getParentBlock()->getForgotPasswordUrl() ?>" id="<?php echo $this->getForgotpasswordbuttonHtmlId() ?>" class="f-right"><?php echo $this->__('Lupa kata kunci?') ?></a><br />
     <?php endif; ?>
     
     <button type="submit" class="button" title="<?php echo $this->__('Login') ?>" name="send" id="send2"><span><span><?php echo $this->__('Masuk') ?></span></span></button>
