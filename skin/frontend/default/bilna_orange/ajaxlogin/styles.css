@@ -56,7 +56,7 @@
 .al-authorization .checkout-agreements .agree { padding: 0; }
 .al-authorization .checkout-agreements LI { margin: 0; }
 .al-authorization .agreement-content { position: absolute; width: 100%; height: auto; left: 105%; }
-.al-authorization .form-list .input-box {clear: none; width: 308px; padding: 5px; border-radius: 3px; -moz-border-radius: 3px; -webkit-border-radius: 3px; background: #f2f2f2; max-width: 100%;
+.al-authorization .form-list .input-box {clear: none; width: 308px; padding: 5px; box-sizing: border-box; box-sizing: -webkit-border-box; -moz-box-sizing: border-box; border-radius: 3px; -moz-border-radius: 3px; -webkit-border-radius: 3px; background: #f2f2f2; max-width: 100%;
 }
 .al-authorization .form-list .buttons-set { border-top: 0; padding: 0;}
 .al-authorization .buttons-set .popuplogin-footer a {color: blue; font-size: 1em; text-decoration: underline;}
