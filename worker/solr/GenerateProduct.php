@@ -170,8 +170,8 @@ class Bilna_Worker_Solr_GenerateProduct extends Bilna_Worker_Abstract {
                 $productId = $msg->body;
                 $this->_logProgress("#{$productId} Received from queue");
                 $product = $this->_helperProduct->getProduct($productId, self::DEFAULT_STORE_ID);
-                $productImages = $this->_apiProduct->workerGetProductImages($product);
-                $this->setQueryProductImages($productId, $productImages);
+                $productConfig = $this->_apiProduct->workerGetProductConfig($product);
+                $this->setQueryProductConfig($productId, $productConfig);
                 $this->_logProgress("#{$productId} Inserted to database");
             };
         }
@@ -259,7 +259,7 @@ class Bilna_Worker_Solr_GenerateProduct extends Bilna_Worker_Abstract {
     }
     
     private function setQueryProductConfig($productId, $config) {
-        $sql = "INSERT INTO `{$this->_apiProductTable}` (`entity_id`, `attribute_config`) VALUES (:entity_id, :config) ON DUPLICATE KEY UPDATE `attribute_bundle` = :config ";
+        $sql = "INSERT INTO `{$this->_apiProductTable}` (`entity_id`, `attribute_config`) VALUES (:entity_id, :config) ON DUPLICATE KEY UPDATE `attribute_config` = :config ";
         $binds = array (
             'entity_id' => $productId,
             'config' => json_encode($config),
