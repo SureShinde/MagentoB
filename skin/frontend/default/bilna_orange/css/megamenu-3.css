@@ -125,8 +125,8 @@
     position: absolute;
     left: 240px;
     top: 0;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding-top: 12px;
+    padding-bottom: 12px;
     display: block;
     width: 0;
     z-index: 9;
@@ -173,7 +173,6 @@
 .menu-navigation .second-level p{
 	line-height: 1.6em;
     margin: 0;
-    padding-bottom: 5px;
     text-indent: 0;
 }
 .menu-navigation .first-level > ul > li > div.first-level-url{
@@ -193,7 +192,7 @@
     color: #fff !important;
 }
 .menu-navigation .first-level .second-level .wrap-second-cat ul > li{
-    font-size: 0.93em;
+    font-size: 0.99em;
     line-height: 1.6em;
     padding-left: 20px;
     text-indent: 0;
@@ -245,10 +244,13 @@
 	display:none;
 }*/
 .menu-navigation .first-level .second-level ul{
-    margin-bottom: 10px;
+    margin-bottom: 0.5em;
     margin-top: 0px;
     font-weight: normal;
 	padding-top:4px;
+}
+.menu-navigation .first-level .second-level ul.slidesjs-pagination{
+    margin-bottom: 20px;
 }
 .menu-navigation .first-level .hover-cat .second-level{
     display: block;
@@ -257,10 +259,6 @@
 	overflow: hidden;
     z-index: 90;
     background: #fff;
-}
-.menu-navigation .first-level .second-level ul{
-    margin-bottom: 10px;
-    font-weight: normal;
 }
 .menu-navigation .first-level .second-level p a{
     text-transform: uppercase;
@@ -314,7 +312,7 @@
 .menu-navigation .wrap-banner .third-banner-megamenu .middle-thirdbanner,
 .menu-navigation .wrap-banner .third-banner-megamenu .bottom-thirdbanner
 {
-    height: 163px;
+    height: 161px;
 	position:relative;
 }
 .menu-navigation .wrap-banner img{
