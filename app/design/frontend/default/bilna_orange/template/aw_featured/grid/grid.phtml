@@ -32,7 +32,6 @@
 <div class="awfeatured awafpgrid" id="<?php echo $this->getUniqueBlockId() ?>" style="<?php echo $this->getContainerStyleString() ?>">
     <?php $_i = $_ulOpened = $_ulClosed = 0; ?>
     <?php foreach($this->getProductsCollection() as $_product) : ?>
-        <?php error_log("\n".print_r($_product,1), 3, '/tmp/ua.log');?>
         <?php $sku[] = $_product->getSku(); ?>
         <?php $productName[] = $_product->getName(); ?>
         <?php $productPrice[] = $_product->getPrice(); ?>
