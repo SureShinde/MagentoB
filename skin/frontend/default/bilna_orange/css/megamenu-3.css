@@ -13,6 +13,7 @@
 .menu-navigation .wrap-navigation{
     width: 1216px;
     margin: 0 auto;
+    position: relative;
     display: block;
 }
 .bg-dark-megamenu{
@@ -34,8 +35,13 @@
     color: #fff;
 }
 .wrap-megamenu{
+    transition:All 0.3s linear;
+    -webkit-transition:All 0.3s linear;
+    -moz-transition:All 0.3s linear;
+    -o-transition:All 0.3s linear;
     width: 240px;
     cursor: pointer;
+    left: 0;
     height: 35px;
     position: absolute;
     padding: 15px 0 0;
@@ -54,8 +60,19 @@
     margin-top: 2px;
 }
 .button-megamenu .fa-th{
-    margin-right: 10px;
+    margin:0 10px;
     font-size: 1.3em;
+    float: left;
+}
+.button-megamenu p{
+    float: left;
+    width: 110px;
+    height: 15px;
+    overflow: hidden;
+    transition:All 0.3s linear;
+    -webkit-transition:All 0.3s linear;
+    -moz-transition:All 0.3s linear;
+    -o-transition:All 0.3s linear;
 }
 .promo-text-space{
     padding: 0 0 0 245px;
@@ -82,17 +99,20 @@
     line-height: 1.6em;
     font-size: 1em;
 }
+.menu-navigation .megamenu.megamenu-active.show_banner{
+    width: 100%;
+    right: 0;
+    overflow: hidden;
+}
 .menu-navigation .megamenu.megamenu-active{
     height: 420px;
-    width: 1216px;
 	border-top: 1px solid #e9e9ea;
     text-align: left;
 }
 .menu-navigation .megamenu{
     position: absolute;
-    width: 100%;
+    width: 240px;
     color: #707070;
-    background: #fff;
     z-index: 98;
     display: block;
     top: 50px;
@@ -105,7 +125,14 @@
 .menu-navigation .first-level .second-level{
     position: absolute;
     left: 240px;
-    top: 10px;
+    top: 0;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    display: block;
+    width: 0;
+    z-index: 9;
+	height: 400px;
+	overflow: hidden;
 }
 .menu-navigation .first-level{
     width: 220px;
@@ -147,7 +174,6 @@
 .menu-navigation .second-level p{
 	line-height: 1.6em;
     margin: 0;
-    padding-bottom: 5px;
     text-indent: 0;
 }
 .menu-navigation .first-level > ul > li > div.first-level-url{
@@ -167,13 +193,10 @@
     color: #fff !important;
 }
 .menu-navigation .first-level .second-level .wrap-second-cat ul > li{
-    font-size: 0.93em;
+    font-size: 0.99em;
     line-height: 1.6em;
     padding-left: 20px;
     text-indent: 0;
-}
-.menu-navigation .first-level .second-level{
-    display: none;
 }
 .menu-navigation .first-level ul.hover-cat .active-cat > a{
 	color:#707070;
@@ -212,16 +235,6 @@
     border-style: solid;
     border-color: transparent transparent transparent #ffa01b;
 }
-.menu-navigation .first-level .active-cat .second-level,
-.menu-navigation .first-level .hover-cat .second-level{
-    display: block !important;
-    width: 1030px;
-    z-index: 1;
-	height:400px;
-	overflow:hidden;
-	padding-top: 4px;
-    background: #fff;
-}
 .menu-navigation .first-level > ul > li.active-cat{
     background: #FFA01B;
 }
@@ -232,17 +245,13 @@
 	display:none;
 }*/
 .menu-navigation .first-level .second-level ul{
-    margin-bottom: 10px;
+    margin-bottom: 0.5em;
     margin-top: 0px;
     font-weight: normal;
 	padding-top:4px;
 }
-.menu-navigation .first-level .active-cat .second-level{
-    display: block;
-    width: 976px;
-    z-index: 9;
-	height: 400px;
-	overflow: hidden;
+.menu-navigation .first-level .second-level ul.slidesjs-pagination{
+    margin-bottom: 20px;
 }
 .menu-navigation .first-level .hover-cat .second-level{
     display: block;
@@ -251,10 +260,6 @@
 	overflow: hidden;
     z-index: 90;
     background: #fff;
-}
-.menu-navigation .first-level .second-level ul{
-    margin-bottom: 10px;
-    font-weight: normal;
 }
 .menu-navigation .first-level .second-level p a{
     text-transform: uppercase;
@@ -267,6 +272,7 @@
     width:775px;
     border-left: 1px solid #ededed;
     z-index: 0;
+    height: 400px;
 }
 .menu-navigation .wrap-banner .first-banner-megamenu, .wrap-banner .second-banner-megamenu, .wrap-banner .third-banner-megamenu{
     float: left;
@@ -295,6 +301,7 @@
 }
 .menu-navigation .wrap-banner .first-banner-megamenu .main-banner{
     height: 327px;
+    width: 100%;
 	position:relative;
 }
 .menu-navigation .wrap-banner .first-banner-megamenu .bottom-left-firstbanner,
@@ -306,7 +313,7 @@
 .menu-navigation .wrap-banner .third-banner-megamenu .middle-thirdbanner,
 .menu-navigation .wrap-banner .third-banner-megamenu .bottom-thirdbanner
 {
-    height: 163px;
+    height: 161px;
 	position:relative;
 }
 .menu-navigation .wrap-banner img{
@@ -348,7 +355,6 @@
 	color:#fff;
 }
 @media (min-width: 1024px )and (max-width: 1215px ){
-    .menu-navigation .megamenu.megamenu-active,
     .menu-navigation .wrap-navigation{
         width: 994px;
     }
@@ -413,16 +419,13 @@
     }
     .menu-navigation .first-level .hover-cat .second-level, .menu-navigation .first-level .active-cat .second-level{
         width: 505px;
-        height: 450px !important;
     }
 	.megamenu{
 		height: 0;
 	}
 	.menu-navigation .wrap-banner {
-		width: calc(100% - 200px);
-	}
-	.menu-navigation .megamenu.megamenu-active {
-        width: 745px;
+		width: 285px;
+        padding: 0 10px;
 	}
 	.menu-navigation .wrap-banner .first-banner-megamenu .bottom-left-firstbanner{
 		padding: 0 3px 0 0;
@@ -434,7 +437,7 @@
 		font-size: 1.1em;
 	}
     .menu-navigation .wrap-banner .first-banner-megamenu .main-banner {
-        height: 280px;
+        height: 285px;
     }
     .menu-navigation .wrap-navigation{
         width: 745px;

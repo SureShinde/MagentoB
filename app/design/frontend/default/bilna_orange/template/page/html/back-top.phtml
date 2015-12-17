@@ -6,9 +6,9 @@
 		var scrollSpeed = 400;//how slow/fast you want the button to scroll to top. can be a value, 'slow', 'normal' or 'fast'
 		jQuery(window).scroll(function(){
 			if(jQuery(window).scrollTop() >= pxShow){
-				jQuery("#backtotop").show();
+				jQuery("#backtotop").css("visibility","visible");
 			}else{
-				jQuery("#backtotop").hide();
+				jQuery("#backtotop").css("visibility","hidden");
 			}
 		});
 		 
