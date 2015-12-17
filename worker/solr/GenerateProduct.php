@@ -401,4 +401,3 @@ class Bilna_Worker_Solr_GenerateProduct extends Bilna_Worker_Abstract {
 
 $worker = new Bilna_Worker_Solr_GenerateProduct();
 $worker->run();
-//$worker->test();
