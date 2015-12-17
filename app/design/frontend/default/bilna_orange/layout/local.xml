@@ -24,7 +24,7 @@
             <action method="addCss"><stylesheet>css/stylesheet-2.css</stylesheet></action>
             <action method="addCss"><stylesheet>css/header-3.css</stylesheet></action>
             <action method="addCss"><stylesheet>css/megamenu-3.css</stylesheet></action>
-            <action method="addCss"><stylesheet>css/general-3.css</stylesheet></action>
+            <action method="addCss"><stylesheet>css/general-2.css</stylesheet></action>
             <action method="addCss"><stylesheet>css/footer-3.css</stylesheet></action>
             <action method="addItem">
                 <type>skin_js</type>
