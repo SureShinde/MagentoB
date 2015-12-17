@@ -297,16 +297,10 @@ input.input-text:focus,select:focus,textarea:focus {  }
 .buttons-set p.required { margin:0 0 10px; }
 .buttons-set .back-link { float:left; margin:0; }
 .buttons-set button.button { float:right; margin-left:5px; }
-.al-authorization-container-overlap .buttons-set button.button { display: none; }
-.al-authorization-container-overlap .al-authorizationform-recovery .buttons-set button.button { display: inline-block; }
-.al-authorization-container-overlap .buttons-set button#send2.button,
-.al-authorization-container-overlap .al-authorizationform-register .buttons-set button.button { display: block; }
-
-
 .buttons-set-order { margin:10px 0 0; }
 .buttons-set-order .please-wait { padding:12px 7px 0 0; }
 
-.fieldset { border:1px solid #bbafa0; background:#fbfaf6; padding:22px 25px 12px 33px; margin:28px 0; }
+.fieldset { border:1px solid #bbafa0; padding:22px 25px 12px 33px; margin:28px 0; }
 .fieldset .legend { float:left; font-weight:bold; font-size:13px; border:1px solid #f19900; background:#f9f3e3; color:#e76200; margin:-33px 0 0 -10px; padding:0 8px; position:relative; }
 
 /* Form Validation */
@@ -1435,7 +1429,7 @@ tr.summary-details-excluded { font-style:italic; }
 .opc .active .step-title h2 { color:#f18200; }
 /*.opc .active .step-title a { display:none; }*/
 
-.opc .step { border:1px solid #bbafa0; border-top:0; background:#fbfaf6 url(../images/bkg_checkout.gif) 0 0 repeat-x; padding:15px 30px; position:relative; }
+.opc .step { border:1px solid #bbafa0; border-top:0; padding:15px 30px; position:relative; }
 .opc .step .tool-tip { right:30px; }
 
 #opc-login .buttons-set { border-top:0; }
@@ -1840,12 +1834,7 @@ tr.summary-details-excluded { font-style:italic; }
 .form-add .buttons-set .button{float:left; margin:0 0 0 17%; background:#fd8e17;	}
 
 .form-add .buttons-set .button span { background:none; border:none; padding:10px; font-size:14px;}
-.form-list li .input-box input, .form-list li .input-box textarea{border:none; background:#f7f7f7; 
-
-    -moz-box-shadow:inset 0px 1px 3px #dfdfdf;
-    -webkit-box-shadow:inset 0px 1px 3px #dfdfdf;
-    box-shadow:inset 0px 1px 3px #dfdfdf;
-    padding: 5px;
+.form-list li .input-box input, .form-list li .input-box textarea{border:none; background:#f7f7f7; padding: 5px;
 }
 .product-tab-wrapper {margin: 0px;}
 .customer-reviews .form-list {margin: 20px 0;}
