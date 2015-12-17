@@ -354,7 +354,7 @@ a.back-to-top img {
 	top: 3px;
 }
 .al-authorizationform-register .form-list li label {
-	float: left !important;
+	float: left ;
 	width: 100px;
 }
 .al-authorizationform-register .form-list input.input-text {

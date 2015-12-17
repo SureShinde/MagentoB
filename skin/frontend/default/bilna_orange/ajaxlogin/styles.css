@@ -60,7 +60,7 @@
 .al-authorization .checkout-agreements .agree { padding: 0; }
 .al-authorization .checkout-agreements LI { margin: 0; }
 .al-authorization .agreement-content { position: absolute; width: 100%; height: auto; left: 105%; }
-.al-authorization .form-list .input-box {clear: none; width: 208px; padding: 5px; box-sizing: border-box; box-sizing: -webkit-border-box; -moz-box-sizing: border-box; border-radius: 3px; -moz-border-radius: 3px; -webkit-border-radius: 3px; background: #f2f2f2; max-width: 100%;
+.al-authorization .form-list .input-box {clear: none; width: 308px; padding: 5px; box-sizing: border-box; box-sizing: -webkit-border-box; -moz-box-sizing: border-box; border-radius: 3px; -moz-border-radius: 3px; -webkit-border-radius: 3px; background: #f2f2f2; max-width: 100%;
 }
 .al-authorization .form-list .buttons-set { border-top: 0; padding: 0;}
 .al-authorization .popuplogin-footer{
@@ -98,6 +98,7 @@
 .form-list .ajaxlogin-customer-dob label { font-size:10px; font-weight:normal; color:#888; }
 .form-list .ajaxlogin-customer-dob .dob-day,
 .form-list .ajaxlogin-customer-dob .dob-month { width:60px; }
+.form-list .ajaxlogin-customer-dob > label{ clear: both; display: block; float: none !important;}
 .form-list .ajaxlogin-customer-dob .dob-day input.input-text,
 .form-list .ajaxlogin-customer-dob .dob-month input.input-text { width:46px; }
 .form-list .ajaxlogin-customer-dob .dob-year input.input-text { width:70px; }

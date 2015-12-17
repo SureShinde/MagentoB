@@ -33,8 +33,8 @@
                         <block type="core/template" name="al_auth_reg_email" template="ajaxlogin/authorizationFormElement.email.phtml"></block>
                         <block type="core/template" name="al_auth_reg_password" template="ajaxlogin/authorizationFormElement.password.phtml"></block>
                         <block type="core/template" name="al_auth_reg_passwordconfirm" template="ajaxlogin/authorizationFormElement.passwordConfirmation.phtml"></block>
-                        <block type="core/template" name="al_auth_reg_newsletter" template="ajaxlogin/authorizationFormElement.newsletterSubscription.phtml"></block>
                         <block type="core/template" name="al_auth_reg_dob" template="ajaxlogin/authorizationFormElement.dateOfBirth.phtml"></block>
+                        <block type="core/template" name="al_auth_reg_newsletter" template="ajaxlogin/authorizationFormElement.newsletterSubscription.phtml"></block>
                         <block type="core/template" name="al_auth_reg_taxvat" template="ajaxlogin/authorizationFormElement.taxVAT.phtml"></block>
                         <block type="core/template" name="al_auth_reg_gender" template="ajaxlogin/authorizationFormElement.gender.phtml"></block>
                         <block type="ajaxlogin/authorizationFormElementTermsandconditions" name="al_auth_reg_terms" template="ajaxlogin/authorizationFormElement.termsAndConditions.phtml"></block>

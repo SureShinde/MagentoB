@@ -29,6 +29,9 @@
 .account-login .col-2.registered-users .content p {
 	margin-bottom: 10px;
 }
+.account-login .col-2.registered-users .content .buttons-set > p{
+    float: left;
+}
 .account-login .al-authorization .form-list li:first-child {
 	background: none;
 	padding-bottom: 0;
