@@ -344,10 +344,10 @@ a.back-to-top img {
 	margin-bottom: 8px;
 }
 .al-authorization .form-list li label {
-	width: 100px;
-	font-weight: normal;
-	padding-top: 6px;
-	color: #5d5d5d;
+    width: 100px;
+    font-weight: normal;
+    color: #5D5D5D;
+    font-size: 1.2em;
 }
 .al-authorization .form-list label.required em {
 	right: 7px;
@@ -355,7 +355,7 @@ a.back-to-top img {
 }
 .al-authorizationform-register .form-list li label {
 	float: left !important;
-	width: 120px;
+	width: 100px;
 }
 .al-authorizationform-register .form-list input.input-text {
 	width: 200px;

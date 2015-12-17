@@ -236,6 +236,7 @@
             <block type="core/template" name="al_auth_login_password" template="ajaxlogin/authorizationFormElement.password.phtml"></block>
             <block type="ajaxlogin/authorizationFormElementButtonsetLogin" name="al_auth_login_buttonset" template="ajaxlogin/authorizationFormElement.buttonsetLogin.phtml"></block>
             <block type="ajaxlogin/authorizationFormElementSocialnets" name="al_auth_login_socialnets" template="ajaxlogin/authorizationFormElement.socialNetworks.phtml"></block>
+			<block type="ajaxlogin/authorizationFormElementButtonsetLogin" name="al_auth_login_buttonsetlinkregister" template="ajaxlogin/authorizationFormElement.buttonsetLinkRegister.phtml"></block>
         </block>
         </reference>
     </ajaxlogin_default>
