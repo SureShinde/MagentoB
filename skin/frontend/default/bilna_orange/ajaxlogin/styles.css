@@ -36,7 +36,7 @@
 /* Authorization form */
 .al-authorization { position: relative; /* background: url(../images/dash-orange.png) bottom repeat-x;padding-bottom: 20px; */ }
 .al-authorization .messages {  }
-.al-authorization .messages LI { margin-bottom: 0 !important; }
+.al-authorization .messages LI { margin-bottom: 0 !important; width: 100%; }
 .al-authorization .Window { overflow: hidden; }
 .al-authorization .Frame H2 { width: 270px; }
 .al-authorization .checkout-agreements .agree { padding: 0; }
