@@ -13,12 +13,16 @@ class Bilna_Worker_Solr_GenerateProduct extends Bilna_Worker_Abstract {
     const QUEUE_TASK_CATALOG_PRODUCT_BUNDLE = 'SOLR_CATALOG_PRODUCT_BUNDLE';
     const QUEUE_TASK_CATALOG_PRODUCT_DETAIL = 'SOLR_CATALOG_PRODUCT_DETAIL';
     const QUEUE_TASK_CATALOG_PRODUCT_SALES = 'SOLR_CATALOG_PRODUCT_SALES';
+
+    const PRODUCT_IMAGE_SIZE_THUMBNAIL = 60;
+    const PRODUCT_IMAGE_SIZE_HORIZONTAL = 80;
+    const PRODUCT_IMAGE_SIZE_VERTICAL = 150;
+    const PRODUCT_IMAGE_SIZE_DETAIL = 360;
     
     protected $_modelProduct;
     protected $_helperProduct;
     protected $_apiProduct;
     protected $_apiProductTable = 'api_product_flat_1';
-
     protected $_logPath = 'Bilna_Worker_Solr_GenerateProduct';
 
     public function run() {
@@ -78,7 +82,6 @@ class Bilna_Worker_Solr_GenerateProduct extends Bilna_Worker_Abstract {
                     'product_id' => $productId,
                     'product_images' => $productImages,
                 );
-                //$this->_critical(json_encode($queueData));
                 $this->_queueSvc->publish($this->_queueTask, json_encode($queueData));
                 unset ($queueData);
             }
@@ -125,22 +128,22 @@ class Bilna_Worker_Solr_GenerateProduct extends Bilna_Worker_Abstract {
                         
                         //- image thumbnail
                         $imageHelper->init($url);
-                        $imageHelper->resize(72);
+                        $imageHelper->resize(self::PRODUCT_IMAGE_SIZE_THUMBNAIL);
                         $productImageThumbnail = $imageHelper->__toString();
                         
                         //- image horizontal
                         $imageHelper->init($url);
-                        $imageHelper->resize(110);
+                        $imageHelper->resize(self::PRODUCT_IMAGE_SIZE_HORIZONTAL);
                         $productImageHorizontal = $imageHelper->__toString();
                         
                         //- image vertical
                         $imageHelper->init($url);
-                        $imageHelper->resize(151);
+                        $imageHelper->resize(self::PRODUCT_IMAGE_SIZE_VERTICAL);
                         $productImageVertical = $imageHelper->__toString();
                         
                         //- image detail
                         $imageHelper->init($url);
-                        $imageHelper->resize(225);
+                        $imageHelper->resize(self::PRODUCT_IMAGE_SIZE_DETAIL);
                         $productImageDetail = $imageHelper->__toString();
                         
                         $productImagesNew[] = array (
