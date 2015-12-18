@@ -33,11 +33,11 @@ class Bilna_Worker_Solr_PageLog extends Bilna_Worker_Abstract {
             $this->_logProgress("#{$userSession} Received from queue");
 
             if ($this->_getType() == 'db') {
-                $this->_setQueryPageLog($userSession, $productId, $categoryId, $pageUrl, $pageReferer, $pageype);
+                $this->_setQueryPageLog($userSession, $productId, $categoryId, $pageUrl, $pageReferer, $pageType);
                 $this->_logProgress("#{$userSession} Inserted to database");
             }
             elseif ($this->_getType() == 'file') {
-                $this->_writePageLog($userSession, $productId, $categoryId, $pageUrl, $pageReferer, $pageype);
+                $this->_writePageLog($userSession, $productId, $categoryId, $pageUrl, $pageReferer, $pageType);
                 $this->_logProgress("#{$userSession} Stored to file");
             }
             else {
