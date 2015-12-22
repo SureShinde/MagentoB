@@ -11,6 +11,12 @@
 .checkout-onepage-index .col-main {
 	margin-bottom: 30px;
 }
+#checkoutSteps .al-authorizationform-login-custom .form-list .input-box input,
+#checkoutSteps .al-authorizationform-login-custom .form-list .input-box textarea,
+#checkoutSteps .al-authorizationform-login-custom .form-list .input-box select,
+#checkoutSteps .al-authorizationform-login-custom .form-list .input-box{
+    width: 100%;
+}
 #checkoutSteps .form-list .input-box input,
 #checkoutSteps .form-list .input-box textarea,
 #checkoutSteps .form-list .input-box select,
@@ -381,6 +387,12 @@
 	}
     #opc-review .buttons-set {
         padding: 20px 10px;
+    }
+    
+    #checkout-step-login .col2-set .col-1,
+    #checkout-step-login .col2-set .col-2{
+        width: 100%;
+        padding-bottom: 10px;
     }
 }
 @media only screen and (max-width: 482px) { 
