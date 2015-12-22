@@ -9,6 +9,9 @@
     z-index: 1;
     background-color: #fff;
 }
+.checkout-onepage-index .header-container{
+    border-bottom: 3px solid #FA6938;
+}
 .loader img.loader-img{
     width: 20px !Important;
     height: auto !Important;
@@ -291,6 +294,9 @@
 	position: relative;
 	z-index: 3;
     width: 180px;
+}
+.header.header-checkout .quick-access .top-cart{
+    width: auto;
 }
 .header .quick-access .top-cart a {
     display: block;
