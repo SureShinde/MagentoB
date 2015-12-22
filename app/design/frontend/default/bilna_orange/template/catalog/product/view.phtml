@@ -62,7 +62,7 @@
                     <div class="product-name">
                         <h1><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></h1>
                     </div>
-				
+                
                     <?php
                     $myproduct = Mage::getModel('catalog/product')->load($_product->getId());
                     $product_brands = $myproduct->getAttributeText('brands');
@@ -71,11 +71,11 @@
                     ?>
                         <div class="by-brand">
                             <?php echo $this->getChildHtml('brand') ?>
-                        </div>				
+                        </div>              
                     <?php endif; ?>
 
                     <?php echo $this->getReviewsSummaryHtml($_product, false, true)?>
-				
+                
                     <?php $stock_left = Mage::getModel('cataloginventory/stock_item')->loadByProduct($_product)->getQty() ?>
                     
                     <div class="stock-left">
@@ -91,9 +91,9 @@
                     ?>
                     
                     <div class="shipsfrom-soldby">
-                        <p><?php echo $this->__('Sold by <span>%s</span> and Shipped by <span>%s</span>', ( $ship_from ? $ship_from : '-'), ( $sold_by ? $sold_by : '-')) ?></p>
+                        <p><?php echo $this->__('Sold by <span>%s</span> and Shipped by <span>%s</span>', ( $sold_by ? $sold_by : '-' ), ( $ship_from ? $ship_from : '-' )) ?></p>
                     </div>
-				
+                
                     <hr/>
                     <?php echo $this->getChildHtml('product_type_data') ?>
                     
@@ -106,7 +106,7 @@
                             $and = false;
                             
                             if ($ship_by):
-                                echo $this->__("Sold by <span>%s</span>", $ship_by);
+                                echo $this->__("Shipped by <span>%s</span>", $ship_by);
                                 $and = true;
                             endif;
                             
@@ -115,12 +115,12 @@
                                     echo $this->__(" and ");
                                 endif;
                                 
-                                echo $this->__("Shipped by <span>%s</span>", $sold_by);
+                                echo $this->__("Sold by <span>%s</span>",$sold_by);
                             endif;
                             ?>
                         </p>
                     </div>
-				
+                
                     <?php if ($_product->isSaleable() && $this->hasOptions()): ?>
                         <div class="product-container1">
                             <?php echo $this->getChildChildHtml('container1', '', true, true) ?>
@@ -146,15 +146,15 @@
                             <?php echo $this->getChildHtml('addtocart') ?>
                         <?php endif; ?>
                     <?php endif; ?>
-				
+                
                     <!--<div class="one-click-checkout">
                         <a href="#"><?php //echo $this->__('One Click Checkout') ?></a>
-                    </div>-->	
+                    </div>-->   
                     
-                    <div class="buy-later">				
+                    <div class="buy-later">             
                         <?php echo $this->getChildHtml('addto') ?>
-                    </div>				
-				
+                    </div>              
+                
                     <hr/>
                     <?php if ($_product->getShortDescription()): ?>
                         <div class="short-description">
@@ -312,21 +312,21 @@
         }.bind(productAddToCartForm);
         //]]>
     </script>
-	
+    
     <div class="related-product">
-		<?php echo $this->getLayout()->createBlock('relatedproducts/relatedproducts')->setTemplate('catalog/product/list/awrelated.phtml')->toHtml(); ?>
-	</div>
-	<div class="related-product">	
-		<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('related_product')->toHtml() ?>
-	</div>
+        <?php echo $this->getLayout()->createBlock('relatedproducts/relatedproducts')->setTemplate('catalog/product/list/awrelated.phtml')->toHtml(); ?>
+    </div>
+    <div class="related-product">   
+        <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('related_product')->toHtml() ?>
+    </div>
 </div>
 <?php $productId = $_product->getId(); ?>
 <script type="text/javascript">
     jQuery(document).ready(function () {
-	dataLayer.push( {'ecomm_pagetype': 'product'} );
+    dataLayer.push( {'ecomm_pagetype': 'product'} );
         dataLayer.push( {'ecomm_prodid': '<?php echo $_product->getSku(); ?>'} );
         dataLayer.push( {'ecomm_totalvalue': '<?php echo number_format($_product->getPrice(), 0, '', ''); ?>'} );
-	dataLayer.push( {'productid': '<?php echo $_product->getId(); ?>'} );
-	dataLayer.push( {'skuid': '<?php echo $_product->getSku(); ?>'} );
+    dataLayer.push( {'productid': '<?php echo $_product->getId(); ?>'} );
+    dataLayer.push( {'skuid': '<?php echo $_product->getSku(); ?>'} );
     });
 </script>
