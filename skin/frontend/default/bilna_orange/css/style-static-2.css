@@ -3215,6 +3215,7 @@ button.button-area {
 /* checkout promo */
 #checkoutpromo{
 	overflow:hidden;
+    margin: 10px 0 0;
 }
 #checkoutpromo > p{
 	border:1px solid #9d9d9d;

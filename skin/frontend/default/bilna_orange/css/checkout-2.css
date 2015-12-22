@@ -2,9 +2,6 @@
 	background: #fd8e17;	
 	display: none;
 }
-.checkout-onepage-index .main-container{
-    margin-top: 20px;
-}
 .checkout-onepage-index .main-container {
     padding-top:90px;
 }
@@ -396,6 +393,12 @@
     }
     #checkoutSteps .form-list label{
         width: auto;
+    }
+    .checkout-onepage-index .main-container {
+        padding-top:0px;
+    }
+    .checkout-onepage-index .col-main{
+        padding-top: 0;
     }
 }
 @media only screen and (max-width: 482px) { 
