@@ -20,9 +20,12 @@
 .header-container {
 	width: 100%;
 	border: none;
-	background: #fff;
+	background: url(../../bilna_orange/images/BG-NATAL.jpg) 0 40px repeat-x #fff;
 	position: fixed;
     z-index: 99;
+}
+.header-container.sticky-mode{
+	background: url(../../bilna_orange/images/BG-NATAL.jpg) 0 0px repeat-x #fff;
 }
 .header, #nav{
 	width: 1216px;
@@ -301,6 +304,7 @@
     position: relative;
     padding: 10px 0;
     width: 60px;
+    background: #fff;
     text-align: center
 }
 .header .quick-access .top-cart a.btn-remove:before {
