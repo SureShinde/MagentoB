@@ -394,6 +394,9 @@
         width: 100%;
         padding-bottom: 10px;
     }
+    #checkoutSteps .form-list label{
+        width: auto;
+    }
 }
 @media only screen and (max-width: 482px) { 
 	.form-list li.wide select {
