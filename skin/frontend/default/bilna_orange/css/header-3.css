@@ -214,7 +214,7 @@
 	width: 135px;
     text-align: center;
 }
-.space-above-header{
+.wrap-space-above-header, .space-above-header{
     width: 100%;
     border-bottom: 1px solid #bdbdbd;
     height: 40px;
