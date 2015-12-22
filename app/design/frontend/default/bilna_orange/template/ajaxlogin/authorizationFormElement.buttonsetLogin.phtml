@@ -29,7 +29,6 @@
     <li class="error-msg">&nbsp;</li>
 </ul>
 <div class="buttons-set">
-    <p class="required"><?php echo $this->__('* Required Fields') ?></p>
     <?php if ( $this->shouldDisplayForgotpasswordbutton() ): ?>
         <a href="<?php echo $this->getParentBlock()->getForgotPasswordUrl() ?>" id="<?php echo $this->getForgotpasswordbuttonHtmlId() ?>" class="f-right"><?php echo $this->__('Lupa kata kunci?') ?></a><br />
     <?php endif; ?>

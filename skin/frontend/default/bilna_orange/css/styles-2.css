@@ -363,7 +363,7 @@ p.required { font-size:11px; text-align:right; color:#EB340A; }
 .pager .pages { margin:0 140px; }
 .pager .pages ol { display:inline; }
 .pager .pages li { display:inline; margin:0 2px; }
-.pager .pages .current {}
+.pager .pages .current { font-weight: bold; color: #000;}
 
 /* Sorter */
 .sorter { font-size:11px; background:#fff url(../images/bkg_toolbar.gif) 0 100% repeat-x; padding:3px 8px; border-top:1px solid #e2e2e2; }

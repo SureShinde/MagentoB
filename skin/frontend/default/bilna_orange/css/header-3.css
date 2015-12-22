@@ -9,6 +9,10 @@
     z-index: 1;
     background-color: #fff;
 }
+.checkout-onepage-index .header-container{
+    border-bottom: 5px solid #FA6938;
+    background:  url(../../bilna_orange/images/BG-NATAL.jpg) 0 0 repeat-x #fff
+}
 .loader img.loader-img{
     width: 20px !Important;
     height: auto !Important;
@@ -20,9 +24,12 @@
 .header-container {
 	width: 100%;
 	border: none;
-	background: #fff;
+	background: url(../../bilna_orange/images/BG-NATAL.jpg) 0 40px repeat-x #fff;
 	position: fixed;
     z-index: 99;
+}
+.header-container.sticky-mode{
+	background: url(../../bilna_orange/images/BG-NATAL.jpg) 0 0px repeat-x #fff;
 }
 .header, #nav{
 	width: 1216px;
@@ -207,7 +214,7 @@
 	width: 135px;
     text-align: center;
 }
-.space-above-header{
+.wrap-space-above-header, .space-above-header{
     width: 100%;
     border-bottom: 1px solid #bdbdbd;
     height: 40px;
@@ -292,6 +299,9 @@
 	z-index: 3;
     width: 180px;
 }
+.header.header-checkout .quick-access .top-cart{
+    width: auto;
+}
 .header .quick-access .top-cart a {
     display: block;
     float: left;
@@ -301,6 +311,7 @@
     position: relative;
     padding: 10px 0;
     width: 60px;
+    background: #fff;
     text-align: center
 }
 .header .quick-access .top-cart a.btn-remove:before {
