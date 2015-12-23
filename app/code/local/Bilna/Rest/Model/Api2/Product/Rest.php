@@ -499,7 +499,11 @@ abstract class Bilna_Rest_Model_Api2_Product_Rest extends Bilna_Rest_Model_Api2_
     }
     
     protected function _getStockDataOnly() {
-        $stockDataOnly = $this->getRequest()->getParam('stock_only');
-        $this->_stockDataOnly = ($stockDataOnly == 1) ? true : false;
+        if (!$this->_stockDataOnly) {
+            $stockDataOnly = $this->getRequest()->getParam('stock_only');
+            $this->_stockDataOnly = ($stockDataOnly == 1) ? true : false;
+        }
+        
+        return $this->_stockDataOnly;
     }
 }
