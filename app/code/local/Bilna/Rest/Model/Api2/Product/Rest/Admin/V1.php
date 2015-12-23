@@ -58,9 +58,8 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
     protected function _retrieve() {
         $product = $this->_getProduct();
         $this->_prepareProductForResponse($product);
-        $response = $this->_retrieveResponse();
         
-        return $response;
+        return $this->_retrieveResponse();
     }
     
     protected function _retrieveResponse() {
@@ -73,7 +72,7 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
         $result = array ();
         
         foreach ($this->_product->getData() as $k => $v) {
-            if ($this->_stockDataOnly) {
+            if ($this->_getStockDataOnly()) {
                 if ($k == 'stock_data') {
                     $result[$k] = $this->_getStockDataConfig($v);
                 }
@@ -101,13 +100,15 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
         }
         
         if ($result) {
-            $result['attribute_config'] = $this->_getAttributeConfig();
-            $result['attribute_bundle'] = $this->_getAttributeBundle();
-            $result['review'] = $this->_getProductReview($this->_product->getId());
-            $result['images'] = array (
-                'default' => $this->_getImageResize($this->_product, $this->_product->getImage()),
-                'data' => $this->_getImage(),
-            );
+            if (!$this->_getStockDataOnly()) {
+                $result['attribute_config'] = $this->_getAttributeConfig();
+                $result['attribute_bundle'] = $this->_getAttributeBundle();
+                $result['review'] = $this->_getProductReview($this->_product->getId());
+                $result['images'] = array (
+                    'default' => $this->_getImageResize($this->_product, $this->_product->getImage()),
+                    'data' => $this->_getImage(),
+                );
+            }
         }
         
         return $result;
@@ -456,10 +457,8 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
         $this->_applyCollectionModifiers($collection);
         $this->_applyCollectionProductStatus($collection);
         $this->_applyCollectionProductVisibility($collection);
-
-        $response = $this->_retrieveCollectionResponse($collection->load(), $collection->getSize());
         
-        return $response;
+        return $this->_retrieveCollectionResponse($collection->load(), $collection->getSize());
     }
     
     protected function _retrieveCollectionResponse($products, $totalRecord) {
@@ -478,7 +477,7 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
                     continue;
                 }
                 
-                if ($this->_stockDataOnly) {
+                if ($this->_getStockDataOnly()) {
                     if ($k == 'stock_data') {
                         $result[$key][$k] = $this->_getStockDataConfig($v);
                     }
@@ -493,15 +492,14 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
                     $result[$key][$k] = $row->getAttributeText($k);
                 }
                 elseif ($k == 'stock_data') {
-                    $result[$key][$k] = $this->_getStockDataConfig($v);
-                    //continue;
+                    continue;
                 }
                 else {
                     $result[$key][$k] = $v;
                 }
             }
             
-            if ($result) {
+            if (!$this->_getStockDataOnly()) {
                 $result[$key]['attribute_config'] = $this->_getAttributeConfig($product);
                 $result[$key]['attribute_bundle'] = $this->_getAttributeBundle($product);
                 $result[$key]['review'] = $this->_getProductReview($product->getId());
