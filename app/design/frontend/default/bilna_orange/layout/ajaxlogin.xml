@@ -75,7 +75,7 @@
                     <block type="ajaxlogin/authorizationFormLogin" name="authorization_login" as="authorization_login" template="ajaxlogin/authorizationForm.login.phtml">
                         <block type="core/template" name="account_al_auth_login_email" template="ajaxlogin/authorizationFormElement.email.phtml"></block>
                         <block type="core/template" name="account_al_auth_login_password" template="ajaxlogin/authorizationFormElement.password.phtml"></block>
-                        <block type="ajaxlogin/authorizationFormElementButtonsetLogin" name="al_auth_login_buttonset" template="ajaxlogin/authorizationFormElement.buttonsetLogin.phtml"></block>
+                        <block type="ajaxlogin/authorizationFormElementButtonsetLogin" name="al_auth_login_buttonset" template="ajaxlogin/authorizationFormElement.buttonsetLoginnoajax.phtml"></block>
                         <block type="ajaxlogin/authorizationFormElementSocialnets" name="account_al_auth_login_socialnets" template="ajaxlogin/authorizationFormElement.socialNetworks.phtml"></block>						
                         <block type="core/template" name="account_al_auth_login_messages" template="ajaxlogin/authorizationFormElement.messages.phtml"></block>
                     </block>
