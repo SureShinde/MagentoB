@@ -8,6 +8,9 @@
 .checkout-onepage-index .col-main {
 	margin-bottom: 30px;
 }
+#checkoutSteps{
+    margin-top: 20px;
+}
 #checkoutSteps .al-authorizationform-login-custom .form-list .input-box input,
 #checkoutSteps .al-authorizationform-login-custom .form-list .input-box textarea,
 #checkoutSteps .al-authorizationform-login-custom .form-list .input-box select,
@@ -38,9 +41,13 @@
 	margin-top: 10px;
 	margin-right: 5px;
 }
+#checkoutSteps .guest_register .buttons-set button.button {
+    
+}
 #checkoutSteps .buttons-set button.button {
     background:#FA6938;
     height: 36px;
+    font-size: 18px;
     line-height:21px;
 }
 #checkoutSteps .buttons-set button.button.btn-checkout {
@@ -51,9 +58,6 @@
 #checkoutSteps .form-list .customer-dob .dob-day, #checkoutSteps .form-list .customer-dob .dob-month{
     margin-right: 15px;
     float: left;
-}
-#checkoutSteps .buttons-set button.button span, #checkoutSteps .buttons-set button.button span span, .opc .buttons-set .back-link a {
-	font-size: 14px;
 }
 #checkoutSteps .buttons-set button.button span .fa, .opc .buttons-set .back-link a .fa{
     margin: 0 10px;
@@ -375,6 +379,9 @@
 	}
 }
 @media only screen and (max-width: 767px) {
+    #checkoutSteps{
+        margin-top: 0;
+    }
 	.opc {
 		padding: 0 5px;
 	}
