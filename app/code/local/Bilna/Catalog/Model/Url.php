@@ -19,7 +19,7 @@ class Bilna_Catalog_Model_Url extends Mage_Catalog_Model_Url
 
         $this->clearStoreInvalidRewrites($storeId);
         $this->refreshCategoryRewrite($this->getStores($storeId)->getRootCategoryId(), $storeId, false);
-        $this->refreshProductRewrites($storeId);
+        //$this->refreshProductRewrites($storeId);
         $this->getResource()->clearCategoryProduct($storeId);
 
         return $this;
@@ -153,7 +153,7 @@ class Bilna_Catalog_Model_Url extends Mage_Catalog_Model_Url
             return $requestPath;
         }
 
-        return $this->getUnusedPath($category->getStoreId(), $requestPath,
+        return $this->getUnusedPathCustom($category->getStoreId(), $requestPath, $urlKey,
                                     $this->generatePath('id', null, $category)
         );
     }
@@ -167,5 +167,102 @@ class Bilna_Catalog_Model_Url extends Mage_Catalog_Model_Url
             return true;
 
         return false;
+    }
+
+    private function getUnusedPathCustom($storeId, $requestPath, $urlKey, $idPath)
+    {
+        if (strpos($idPath, 'product') !== false) {
+            $suffix = $this->getProductUrlSuffix($storeId);
+        } else {
+            $suffix = $this->getCategoryUrlSuffix($storeId);
+        }
+        if (empty($requestPath)) {
+            $requestPath = '-';
+        } elseif ($requestPath == $suffix) {
+            $requestPath = '-' . $suffix;
+        }
+
+        /**
+         * Validate maximum length of request path
+         */
+        if (strlen($requestPath) > self::MAX_REQUEST_PATH_LENGTH + self::ALLOWED_REQUEST_PATH_OVERFLOW) {
+            $requestPath = substr($requestPath, 0, self::MAX_REQUEST_PATH_LENGTH);
+        }
+
+        if (isset($this->_rewrites[$idPath])) {
+            $this->_rewrite = $this->_rewrites[$idPath];
+            if ($this->_rewrites[$idPath]->getRequestPath() == $requestPath) {
+                return $requestPath;
+            }
+        }
+        else {
+            $this->_rewrite = null;
+        }
+
+        $rewrite = $this->getResource()->getRewriteByRequestPath($requestPath, $storeId);
+        if ($rewrite && $rewrite->getId()) {
+            if ($rewrite->getIdPath() == $idPath) {
+                $this->_rewrite = $rewrite;
+                return $requestPath;
+            }
+            // match request_url abcdef1234(-12)(.html) pattern
+            $match = array();
+            $regularExpression = '#^([0-9a-z/-]+?)(-([0-9]+))?('.preg_quote($suffix).')?$#i';
+            if (!preg_match($regularExpression, $requestPath, $match)) {
+                return $this->getUnusedPath($storeId, '-', $idPath);
+            }
+
+            $match[1] = $match[1] . '-';
+            $match[4] = isset($match[4]) ? $match[4] : '';
+
+            // we use matcher instead of match[1] to get the fully matched regex
+            $matcher = substr($match[0], 0, strlen($match[0]) - 1);
+            $matcher = $matcher . '-';
+
+            // get the last incremental number
+            // if not found, set it to 0
+            $lastRequestPath = $this->getResource()
+                ->getLastUsedRewriteRequestIncrement($matcher, $match[4], $storeId);
+            if ($lastRequestPath) {
+                $match[3] = $lastRequestPath;
+            }
+            else
+                $match[3] = 0;
+
+            // check whether there is already a record with the idpath
+            // if it exists, no need to increment the number
+            $currentRequestPath = $this->check_idpath_existence($storeId, $urlKey, $idPath);
+
+            if ($currentRequestPath == "false") {
+                return $matcher
+                    . (isset($match[3]) ? ($match[3]+1) : '1')
+                    . $match[4];
+            }
+            else
+            {
+                return $currentRequestPath;
+            }
+        }
+        else {
+            return $requestPath;
+        }
+    }
+
+    /* check whether there is already a record with the idpath
+        if it exists, no need to increment the number
+    */
+    private function check_idpath_existence($storeId, $urlKey, $idPath) {
+        $resource = Mage::getSingleton('core/resource');
+        $readConnection = $resource->getConnection('core_read');
+        $table = $resource->getTableName('core/url_rewrite');
+        $where = "id_path = '$idPath' AND store_id = $storeId AND request_path LIKE '$urlKey-%/' LIMIT 1";
+        $query = "SELECT request_path FROM $table WHERE $where";
+
+        $result = $readConnection->fetchOne($query);
+        
+        if ($result)
+            return $result;
+        else
+            return "false";
     }
 }
