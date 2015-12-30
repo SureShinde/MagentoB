@@ -852,9 +852,6 @@ padding: 10px 10px 30px;
 }
 
 @media (max-width: 479px) {
-	.account-login .al-authorization .form-list input.input-text {
-		width: 215px;
-	}
 	.form-list input.input-text#street_2 {
 		margin-left: 0;
 	}
