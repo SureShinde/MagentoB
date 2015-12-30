@@ -48,11 +48,33 @@
 <script type="text/javascript">
 function ecommerceCheckout3() {
     // console.log("HURRY_CHECKOUT3");
+
+    var shipping_method = "Standard Shipping";
+    var shipping_container = document.getElementsByClassName("radio shipping-type");
+    var shipping_temp = "";
+    for (var itr = 0; itr < shipping_container.length; itr++) {
+        if (shipping_container[itr].checked) {
+            shipping_temp = jQuery(shipping_container[itr]).attr("id");
+            if (shipping_temp.indexOf("Bayar_di_Tempat") > -1) {
+                shipping_method = "Bayar di Tempat";
+            }
+            else if (shipping_temp.indexOf("Standard_Shipping") > -1) {
+                shipping_method = "Standard Shipping";
+            }
+            else if (shipping_temp.indexOf("Free_Shipping") > -1) {
+                shipping_method = "Free Shipping";
+            }
+        }
+    }
     var temp_container = {
         'event': 'checkout',
         'ecommerce': {
           'checkout': {
-            'actionField': {'step': 4, 'option': 'Standard Shipping'}
+            'actionField': {
+                'step': 4,
+                'option': shipping_method,
+                'list': 'browsing'
+            }
          }
        }
     }

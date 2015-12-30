@@ -95,7 +95,8 @@ function ecommerceCheckout4() {
               'checkout': {
                 'actionField': {
                     'step': 5, 
-                    'option': payment_method
+                    'option': payment_method,
+                    'list': 'browsing'
                 }
              }
            }
@@ -111,7 +112,10 @@ function ecommerceCheckout4() {
             'event': 'checkout',
             'ecommerce': {
               'checkout': {
-                'actionField': {'step': 6}
+                'actionField': {
+                    'step': 6,
+                    'list': 'browsing'
+                }
              }
            }
         }
