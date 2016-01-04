@@ -1448,6 +1448,10 @@ top: 55px;
     border-radius: 4px;
     -moz-border-radius: 4px;
     -webkit-border-radius: 4px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    background: #f2f2f2;
 }
 .search-container-new-mobile {
     display: none;
