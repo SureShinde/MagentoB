@@ -690,6 +690,34 @@
                 </routes>
                 <versions>1</versions>
             </formbuilder>
+            <newsletter>
+                <group>bilna_rest</group>
+                <model>bilna_rest/api2_newsletter</model>
+                <title>Newsletter</title>
+                <sort_order>2200</sort_order>
+                <privileges>
+                    <admin>
+                        <create>1</create>
+                        <retrieve>1</retrieve>
+                    </admin>
+                </privileges>
+                <attributes translate="customer_id email type" module="Bilna_Rest">
+                    <customer_id>Customer Id</customer_id>
+                    <email>Email</email>
+                    <type>Type</type>
+                </attributes>
+                <routes>
+                    <route_entity>
+                        <route>/newsletter/:id</route>
+                        <action_type>entity</action_type>
+                    </route_entity>
+                    <route_collection>
+                        <route>/newsletter</route>
+                        <action_type>collection</action_type>
+                    </route_collection>
+                </routes>
+                <versions>1</versions>
+            </newsletter>
         </resources>
     </api2>
 </config>
