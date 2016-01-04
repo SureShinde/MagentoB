@@ -46,6 +46,7 @@ class Bilna_Catalog_Model_Url extends Mage_Catalog_Model_Url
             $idPath      = $this->generatePath('id', null, $category);
             $targetPath  = $this->generatePath('target', null, $category);
             $requestPath = $this->getCategoryRequestPath($category, $parentPath);
+            $requestPathWithParent = $this->getCategoryRequestPathWithParent($category, $parentPath);
 
             $rewriteData = array(
                 'store_id'      => $category->getStoreId(),
@@ -58,6 +59,22 @@ class Bilna_Catalog_Model_Url extends Mage_Catalog_Model_Url
             );
 
             $this->getResource()->saveRewrite($rewriteData, $this->_rewrite);
+
+            if ($requestPath != $requestPathWithParent) {
+                /* this is to preserve the old url with parent and will redirect to the new url */
+                $rewriteDataWithParent = array(
+                    'store_id'      => $category->getStoreId(),
+                    'category_id'   => $category->getId(),
+                    'product_id'    => null,
+                    'id_path'       => $idPath,
+                    'request_path'  => $requestPathWithParent,
+                    'target_path'   => $requestPath,
+                    'options'       => 'RP',
+                    'is_system'     => 0,
+                );
+
+                $this->getResource()->saveRewrite($rewriteDataWithParent, $this->_rewrite);
+            }
 
             if ($this->getShouldSaveRewritesHistory($category->getStoreId())) {
                 $this->_saveRewriteHistory($rewriteData, $this->_rewrite);
@@ -144,6 +161,50 @@ class Bilna_Catalog_Model_Url extends Mage_Catalog_Model_Url
         */
 
         $requestPath = $urlKey . $categoryUrlSuffix;
+    
+        if (isset($existingRequestPath) && $existingRequestPath == $requestPath . $suffix) {
+            return $existingRequestPath;
+        }
+
+        if ($this->_deleteOldTargetPath($requestPath, $idPath, $storeId)) {
+            return $requestPath;
+        }
+
+        return $this->getUnusedPathCustom($category->getStoreId(), $requestPath, $urlKey,
+                                    $this->generatePath('id', null, $category)
+        );
+    }
+
+    public function getCategoryRequestPathWithParent($category, $parentPath)
+    {
+        $storeId = $category->getStoreId();
+        $idPath  = $this->generatePath('id', null, $category);
+        $suffix  = $this->getCategoryUrlSuffix($storeId);
+
+        if (isset($this->_rewrites[$idPath])) {
+            $this->_rewrite = $this->_rewrites[$idPath];
+            $existingRequestPath = $this->_rewrites[$idPath]->getRequestPath();
+        }
+
+        if ($category->getUrlKey() == '') {
+            $urlKey = $this->getCategoryModel()->formatUrlKey($category->getName());
+        }
+        else {
+            $urlKey = $this->getCategoryModel()->formatUrlKey($category->getUrlKey());
+        }
+
+        $categoryUrlSuffix = $this->getCategoryUrlSuffix($category->getStoreId());
+
+        if (null === $parentPath) {
+            $parentPath = $this->getResource()->getCategoryParentPath($category);
+        }
+        elseif ($parentPath == '/') {
+            $parentPath = '';
+        }
+        $parentPath = Mage::helper('catalog/category')->getCategoryUrlPath($parentPath,
+                                                                           true, $category->getStoreId());
+
+        $requestPath = $parentPath . $urlKey . $categoryUrlSuffix;
     
         if (isset($existingRequestPath) && $existingRequestPath == $requestPath . $suffix) {
             return $existingRequestPath;
