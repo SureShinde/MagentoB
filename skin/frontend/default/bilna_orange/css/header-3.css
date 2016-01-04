@@ -24,12 +24,11 @@
 .header-container {
 	width: 100%;
 	border: none;
-	background: url(../../bilna_orange/images/BG-NATAL.jpg) 0 40px repeat-x #fff;
+	background:#fff;
 	position: fixed;
     z-index: 99;
 }
 .header-container.sticky-mode{
-	background: url(../../bilna_orange/images/BG-NATAL.jpg) 0 0px repeat-x #fff;
 }
 .header, #nav{
 	width: 1216px;
