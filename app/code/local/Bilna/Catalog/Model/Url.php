@@ -160,7 +160,30 @@ class Bilna_Catalog_Model_Url extends Mage_Catalog_Model_Url
         }
         */
 
-        $requestPath = $urlKey . $categoryUrlSuffix;
+        $prependedPrefix = '';
+
+        /* check whether the categories are Promo or Popular Brand and then they have to be under the
+        category "Promo & Highlights" as well */
+        if (strpos($parentPath, 'promo') !== false || strpos($parentPath, 'popular-brand') !== false) {
+            $path = $category->getPath();
+            $ids = explode('/', $path);
+            if (isset($ids[2])) {
+                $topParent = Mage::getModel('catalog/category')->setStoreId(Mage::app()->getStore()->getId())->load($ids[2]);
+
+                if ($topParent){
+                    $parentUrl = $topParent->getUrlPath();
+                    if ($parentUrl == 'highlight/') {
+                        if (strpos($parentPath, 'promo') !== false)
+                            $prependedPrefix = 'promo/';
+                        else
+                        if (strpos($parentPath, 'popular-brand') !== false)
+                            $prependedPrefix = 'popular-brand/';
+                    }
+                }
+            }
+        }
+
+        $requestPath = $prependedPrefix . $urlKey . $categoryUrlSuffix;
     
         if (isset($existingRequestPath) && $existingRequestPath == $requestPath . $suffix) {
             return $existingRequestPath;
@@ -208,10 +231,6 @@ class Bilna_Catalog_Model_Url extends Mage_Catalog_Model_Url
     
         if (isset($existingRequestPath) && $existingRequestPath == $requestPath . $suffix) {
             return $existingRequestPath;
-        }
-
-        if ($this->_deleteOldTargetPath($requestPath, $idPath, $storeId)) {
-            return $requestPath;
         }
 
         return $this->getUnusedPathCustom($category->getStoreId(), $requestPath, $urlKey,
