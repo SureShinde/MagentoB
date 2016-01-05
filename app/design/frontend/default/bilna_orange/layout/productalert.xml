@@ -43,7 +43,7 @@
                         <action method="prepareStockAlertData"/>
                         <action method="setHtmlClass"><value>alert-stock link-stock-alert</value></action>
                         <action method="setSignupLabel" translate="value"><value>Sign up to get notified when this product is back in stock</value></action>
-                        <action method="setNotifyLabel" translate="value"><value>Notify Me</value></action>
+                        <action method="setNotifyLabel" translate="value"><value>Kabari bila tersedia</value></action>
                         <action method="setValueHidden" translate="value"><value>stock</value></action>
                     </block>
                 </reference>

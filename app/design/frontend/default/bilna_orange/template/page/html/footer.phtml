@@ -36,7 +36,7 @@
             </p>
         </div>
 		<div class="subscribe-form col-10">
-			<p>Bergabung di Bilna Saving Club</p>
+			<p>Berlangganan Newsletter Bilna</p>
 			<div class="wrap-form-subscribe">
 				<form action="<?php echo Mage::getBaseUrl(); ?>newsletter/subscriber/new/" method="post" id="newsletter-validate-detail">
                     
@@ -64,9 +64,8 @@
         <div class="footer-bottom">
             <ul>
                 <li><address><?php echo $this->getCopyright() ?></address></li>
-                <li><a href="#">Syarat Penggunaan</a></li>
-                <li><a href="#">Kebijakan Privasi</a></li>
-                <li><a href="#">Direktori Belanja</a></li>
+                <li><a href="<?php echo Mage::getBaseUrl(); ?>terms-of-use">Syarat Penggunaan</a></li>
+                <li><a href="<?php echo Mage::getBaseUrl(); ?>privacy-policy">Kebijakan Privasi</a></li>
             </ul>
             <ul class="sosmed">
                 <li><a class="fb" href="http://www.facebook.com/myBilna"><i class="fa fa-facebook fa-2x"></i></a></li>

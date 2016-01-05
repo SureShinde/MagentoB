@@ -45,6 +45,19 @@ class RocketWeb_Netsuite_Model_Process {
             $message = Mage::getModel('rocketweb_netsuite/queue_message')->unpack($originalMessage->body, RocketWeb_Netsuite_Helper_Queue::NETSUITE_EXPORT_QUEUE);
             $processModelString = 'rocketweb_netsuite/process_export_' . $message->getAction();
             $processModel = Mage::getModel($processModelString);
+
+            // FDS Check Start (BILNA-1333)
+            if(strtolower($message->getAction()) == 'order_place') {
+                $logId = 0;
+                $fraudModel = Mage::getModel('bilna_fraud/log')->load($message->getEntityId(), 'order_id');
+                $logId = $fraudModel->getLogId();
+
+                if(!is_null($logId)) {
+                    $queue->deleteMessage($originalMessage);
+                    continue;
+                }
+            }
+            // FDS Check End (BILNA-1333)
             
             if (!get_class($processModel)) {
                 Mage::helper('rocketweb_netsuite')->log("Action {$message->getAction()} requires model $processModelString");

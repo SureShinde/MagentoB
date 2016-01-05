@@ -34,6 +34,7 @@
 <?php
 $_productCollection=$this->getLoadedProductCollection();
 $_helper = $this->helper('catalog/output');
+$_escape_helper = Mage::helper('catalog/utils');
 ?>
 
 <script>
@@ -78,7 +79,7 @@ jQuery(document).ready(function(){
     <?php if ($_product->isSaleable()): ?>
                                     <p><button type="button" title="<?php echo $this->__('Add to Cart') ?>" class="button btn-cart pos-abs" onclick="setLocation('<?php echo $this->getAddToCartUrl($_product) ?>')"><?php echo $this->__('Add to Cart') ?></button></p>
                                 <?php else: ?>
-                                    <p class="availability out-of-stock"><span><a class="link-cart-special" href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($_product->getName(), null, true) ?>"><?php echo $this->__('NOTIFY ME') ?></a></span></p>
+                                    <p class="availability out-of-stock"><span><a class="link-cart-special" href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($_product->getName(), null, true) ?>"><?php echo $this->__('Kabari bila tersedia') ?></a></span></p>
                                 <?php endif; ?>
                     
                                 <div class="desc std">
@@ -112,15 +113,18 @@ jQuery(document).ready(function(){
             <ul class="products-grid">
                 <?php $productId = array(); ?>
                 <?php $sku = array(); ?>
+                <?php $url_container = array(); ?>
                 <?php foreach ($_productCollection as $_product): ?>
                     <?php $sku[] = $_product->getSku(); ?>
                     <?php $productName[] = $_product->getName(); ?>
                     <?php $productPrice[] = $_product->getPrice(); ?>
+                    <?php $url_container[] = $_product->getProductUrl(); ?>
+                    <?php $productId[] = $_product->getID(); ?>
                     <li class="item">
                         <div class="top_thumb_list_product">
                             <div class="onsale-category-container-grid">
                                 <?php echo Mage::helper('onsale')->getCategoryLabelHtml($_product, 135); ?>
-                                <a onClick="ecommerceProductClick('<?php echo $_product->getName() ?>','<?php echo $_product->getSku() ?>','<?php echo number_format($_product->getPrice(), 0, '', '') ?>');" href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" class="product-image"><img class="lazy" data-src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(152,152); ?>" alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" />
+                                <a onClick="ecommerceProductClick('<?php echo $_escape_helper->escapeQuote($_product->getName()) ?>','<?php echo $_product->getSku() ?>','<?php echo number_format($_product->getPrice(), 0, '', '') ?>');" href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" class="product-image"><img class="lazy" data-src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(152,152); ?>" alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" />
                                 <span class="loader"><img class="loader-img" src="<?php echo $this->getSkinUrl('images/loading.gif') ?>"></span>
                                 </a>
                             </div>
@@ -137,7 +141,7 @@ jQuery(document).ready(function(){
                                         <span class="lbl-newproduct"><?php echo $this->__('New!') ?></span>
                                     <?php endif; ?>
                                     
-                                    <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($_product->getName(), null, true) ?>" onclick="ecommerceProductClick('<?php echo $_product->getName() ?>','<?php echo $_product->getSku() ?>','<?php echo number_format($_product->getPrice(), 0, '', '') ?>');"><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></a>
+                                    <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($_product->getName(), null, true) ?>" onclick="ecommerceProductClick('<?php echo $_escape_helper->escapeQuote($_product->getName()) ?>','<?php echo $_product->getSku() ?>','<?php echo number_format($_product->getPrice(), 0, '', '') ?>');"><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></a>
                                 </h2>
                                 
                                 <?php echo $this->getPriceHtml($_product, true) ?>
@@ -157,10 +161,10 @@ jQuery(document).ready(function(){
 										<?php if ($_product->getTypeId() != 'simple'): ?>
 											<a class="link-cart-special" href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($_product->getName(), null, true) ?>"><i class="fa fa-cart-plus"></i><?php echo $this->__('Tambah ke troli') ?></a>
 										<?php else: ?>
-											<button type="button" title="<?php echo $this->__('Tambah ke troli') ?>" class="button btn-cart pos-abs" onclick="setLocation('<?php echo $this->getAddToCartUrl($_product) ?>'); ecommerceAddToCart('<?php echo $_product->getName() ?>','<?php echo $_product->getSku() ?>','<?php echo $_product->getPrice() ?>');"><i class="fa fa-cart-plus"></i><?php echo $this->__('Tambah ke troli') ?></button>
+											<button type="button" title="<?php echo $this->__('Tambah ke troli') ?>" class="button btn-cart pos-abs" onclick="setLocation('<?php echo $this->getAddToCartUrl($_product) ?>'); ecommerceAddToCart('<?php echo $_escape_helper->escapeQuote($_product->getName()) ?>','<?php echo $_product->getSku() ?>','<?php echo $_product->getPrice() ?>');"><i class="fa fa-cart-plus"></i><?php echo $this->__('Tambah ke troli') ?></button>
 										<?php endif; ?>
 									<?php else: ?>
-										<p class="availability out-of-stock"><span><a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($_product->getName(), null, true) ?>"><?php echo $this->__('Notify me') ?></a></span></p>
+										<p class="availability out-of-stock"><span><a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($_product->getName(), null, true) ?>"><?php echo $this->__('Kabari bila tersedia') ?></a></span></p>
 									<?php endif; ?>
 							
 									<ul class="add-to-links">
@@ -274,16 +278,23 @@ jQuery(document).ready(function(){
               });
             }
 
-            function ecommerceProductClickReview() {
+            function ecommerceProductClickReview(url) {
+                var temp_name = <?php echo json_encode($productName); ?>;
+                var temp_sku = <?php echo json_encode($sku); ?>;
+                var temp_price = <?php echo json_encode($productPrice); ?>;
+                var temp_url = <?php echo json_encode($url_container); ?>;
+                var temp_id = <?php echo json_encode($productId); ?>;
+                var temp_key = temp_url.indexOf(url);
+//console.log(temp_name[1]+"\n"+temp_id[1]+"\n"+temp_url[1]+"\n"+url);
                 var ecommerceProductClickDataReview = {
                     'event': 'productClick',
                     'ecommerce': {
                       'click': {
                         'actionField': {'list': list},      // Optional list property.
                         'products': [
-                          <?php echo "{'name':'".$_product->getName()."'," ?>
-                          <?php echo "'sku':'".$_product->getSku()."'," ?>
-                          <?php echo "'price':'".number_format($_product->getPrice(), 0, '', '')."'}" ?>
+                          <?php echo "{'name':$_escape_helper->escapeQuote(temp_name[temp_key])," ?>
+                          <?php echo "'sku':temp_sku[temp_key]," ?>
+                          <?php echo "'price':temp_price[temp_key]}" ?>
                          ]
                        }
                      }
@@ -292,19 +303,20 @@ jQuery(document).ready(function(){
             }
 
             jQuery(document).ready(function(){
+                // impression
                 if (typeof objDataLayer == "undefined") {
                     objDataLayer = new Array();
                 }
-                    <?php $total = count($dataForUA); ?>
-                    objDataLayer.push(
-                        <?php foreach($dataForUA as $key=>$rowDataForUA): ?>
-                            <?php echo '{"id":"'.$rowDataForUA[id].'", "name":"'.$rowDataForUA[name].'", "price":'.$rowDataForUA[price].', "category":"Default Category", "position":'.$rowDataForUA[position].', "list":"browsing"}'; ?>
-                            <?php if(($key+1) < $total) {
-                                echo ",";
-                            } ?>
-                        <?php endforeach; ?>
-                        
-                    );
+                <?php $total = count($dataForUA); ?>
+                objDataLayer.push(
+                    <?php foreach($dataForUA as $key=>$rowDataForUA): ?>
+                        <?php echo '{"id":"'.$rowDataForUA[id].'", "name":"'.$_escape_helper->escapeQuote($rowDataForUA[name]).'", "price":'.$rowDataForUA[price].', "category":"Default Category", "position":'.$rowDataForUA[position].', "list":list}'; ?>
+                        <?php if(($key+1) < $total) {
+                            echo ",";
+                        } ?>
+                    <?php endforeach; ?>
+                    
+                );
                 var ecommerceData = {
                     "ecommerce" :
                     {

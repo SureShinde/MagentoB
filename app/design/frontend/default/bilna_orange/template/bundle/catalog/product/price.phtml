@@ -189,8 +189,9 @@ if ($_product->getPriceType() == 1) {
                         }
                     }
                 ?>
+				
+                <span class="until"><?php echo $this->__('-') ?></span>
                 <span class="price-to">
-                	<?php echo $this->__('-') ?>
                     <?php if ($this->displayBothPrices()): ?>
                         <span class="price-excluding-tax">
                             <span class="label"><?php echo $_taxHelper->__('Excl. Tax:') ?></span>

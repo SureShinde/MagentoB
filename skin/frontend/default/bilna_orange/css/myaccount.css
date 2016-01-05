@@ -17,19 +17,20 @@
 }
 .account-login .new-users h2, 
 .account-login .registered-users h2 {
-	background: none;
-	padding-left: 0;
-	font-family: 'bebasregular';
-	font-weight: normal;
-	font-size: 1.4em;
-	color: #343334;
-	word-spacing: 3px;
-	background: url(../images/dash-orange.png) bottom repeat-x; 
-	border-bottom: 0;
-	padding-bottom: 15px;
+    background: none;
+    padding-left: 0;
+    font-size: 1.4em;
+    color: #343334;
+}
+
+.registered-users .popuplogin-footer{
+    display: none;
 }
 .account-login .col-2.registered-users .content p {
 	margin-bottom: 10px;
+}
+.account-login .col-2.registered-users .content .buttons-set > p{
+    float: left;
 }
 .account-login .al-authorization .form-list li:first-child {
 	background: none;
@@ -42,28 +43,21 @@
 .account-login .buttons-set {
 	background: none;
 	border: 0;
-    background: url(../images/dash-orange.png) top repeat-x;
-    padding-top: 30px;
     margin-top: 20px !important;
-}
-.account-login .buttons-set button.button span {
-	border: 0;
-	background: #fd8e17;
-	height: auto;
-	padding: 0;
 }
 .account-login .buttons-set button.button span span {
 	font-size: 1.4em;
-	font-family: 'bebasregular';
 	font-weight: normal;
 	padding: 3px 10px;
-	line-height: 2em;
 	border: 0;
-	background: #fd8e17;
 	height: auto;
 }
 .account-login .col-2.registered-users button.button {
-	float: left;
+    float: none;
+    width: 100%;
+    clear: both;
+    display: block;
+    margin: 0 auto;
 }
 #forgotpwdbtn {
 	padding-left: 10px;
@@ -74,12 +68,13 @@
 /* create account non pop-up */
 .account-create {
 	margin-bottom: 30px;
+    padding: 0 20px;
 }
 .account-create .fieldset {
 	background: none;
 	border: 0;
 	margin: 0;
-	padding: 15px 20px 0;
+	padding: 15px 0;
 }
 .account-create .fieldset .legend {
 	border: 0;
@@ -90,20 +85,24 @@
 	color: #434343;
 	margin: 0 0 8px;
 }
+.account-create .form-list li label {
+    width: auto;
+}
 .account-create .buttons-set {
 	border-top: 0;
 	margin-top: 0;
-	margin-left: 15px;
-    background: url(../images/dash-orange.png) top repeat-x;
-    padding-top: 30px;
-    margin-top: 20px;
+}
+.account-create .form-list li .input-box input[type="password"],
+.account-create .form-list li .input-box input[type="text"]{
+    width: 100%;
 }
 .account-create .buttons-set .required, 
 .account-create .buttons-set .back-link {
 	display: none;
 }
 .account-create .buttons-set button.button {
-	float: left;
+	float: right;
+    margin-right: 5px;
 }
 .account-create .buttons-set button.button span {
 	border: 0;
@@ -113,7 +112,6 @@
 }
 .account-create .buttons-set button.button span span {
 	font-size: 1.4em;
-	font-family: 'bebasregular';
 	font-weight: normal;
 	padding: 3px 10px;
 	line-height: 2em;
@@ -730,7 +728,7 @@ padding: 10px 10px 30px;
 
 
 #shipping-address-select, #billing-address-select{
-	width: 425px !important;
+	width: auto;
 }
 
 @media (max-width: 1215px) {
@@ -849,15 +847,11 @@ padding: 10px 10px 30px;
 		display:block;
 	}
 	#checkoutSteps .form-list select {
-		width:auto !important;
-		max-width:80% !important;;
+		max-width:80% ;
 	}
 }
 
 @media (max-width: 479px) {
-	.account-login .al-authorization .form-list input.input-text {
-		width: 215px;
-	}
 	.form-list input.input-text#street_2 {
 		margin-left: 0;
 	}

@@ -58,7 +58,7 @@ $commentCount = $this->getCommentCount();
         <?php endif; ?><?php echo $this->__("and tagged"); ?> <!--label class="poster"><?php //echo $post->getUser(); ?></label--><?php echo Mage::getBlockSingleton('blog/blog')->getTagsHtml($post) ?>
     </div>
     <div style="clear:both; margin: 20px 0;">
-		<h2 class="fb-bebas fb-13" style="color: #707070; font-weight: normal;"><?php echo $this->__('Share this article on') ?></h2>
+		<h2 class="fb-13" style="color: #707070; font-weight: normal;"><?php echo $this->__('Share this article on') ?></h2>
         <!-- AddThis Button BEGIN -->
         <div class="addthis_toolbox addthis_default_style addthis_32x32_style">
         <a class="addthis_button_preferred_1"></a>
@@ -79,7 +79,7 @@ $commentCount = $this->getCommentCount();
     </div>
     
     <div style="width: 100%; clear: both; margin: 10px 0; padding: 20px 0;border-top: 1px dashed #999;">
-	<h2 class="fb-bebas fb-18" style="color: #707070; font-weight: normal;"><?php echo $this->__('Related Post') ?></h2>
+	<h2 class="fb-18" style="color: #707070; font-weight: normal;"><?php echo $this->__('Related Post') ?></h2>
     <?php foreach ($relatedPost as $row): ?>
         
         <div class="rel-post">
@@ -116,8 +116,8 @@ $commentCount = $this->getCommentCount();
 	<input type="hidden" value="<?php echo "http://www.bilna.com/baby/blog/".$post->getIdentifier(); ?>" />
     <?php $comments = $this->getComment(); ?>
 	<div style="clear:both; border-top: 1px dashed #999;"></div>
-    <div class="postTitle" style="border: none !important;"><a name="commentBox" ></a>
-        <h2 class="fb-bebas fb-18" style="color: #707070; font-weight: normal;"><?php echo $this->__('Leave A Response') ?></h2>
+    <div class="postTitle"><a name="commentBox" ></a>
+        <h2 class="fb-18" style="color: #707070; font-weight: normal;"><?php echo $this->__('Leave a response') ?></h2>
     </div>
     
     <?php //echo $this->getChildHtml('aw_blog_comments_toolbar'); ?>
@@ -144,7 +144,7 @@ $commentCount = $this->getCommentCount();
             <?php if ($this->helper('customer')->isLoggedIn()): ?>
                 <form action="" id="postComment" method="post">
                     <fieldset class="group-select">
-                        <h4 class="legend"><?php echo Mage::helper('blog')->__('Submit Comment') ?></h4>
+                        
                         <ul class="form-list">
                             <li>
                                 <div class="input-box aw-blog-comment-area">

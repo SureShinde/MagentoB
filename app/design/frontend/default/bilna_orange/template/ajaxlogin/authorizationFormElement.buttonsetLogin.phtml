@@ -29,14 +29,11 @@
     <li class="error-msg">&nbsp;</li>
 </ul>
 <div class="buttons-set">
-    <button type="submit" class="button" title="<?php echo $this->__('Login') ?>" name="send" id="send2"><span><span><?php echo $this->__('Login') ?></span></span></button>
-    <p class="required"><?php echo $this->__('* Required Fields') ?></p>
     <?php if ( $this->shouldDisplayForgotpasswordbutton() ): ?>
-        <a href="<?php echo $this->getParentBlock()->getForgotPasswordUrl() ?>" id="<?php echo $this->getForgotpasswordbuttonHtmlId() ?>" class="f-left"><?php echo $this->__('Forgot password?') ?></a><br />
+        <a href="<?php echo $this->getParentBlock()->getForgotPasswordUrl() ?>" id="<?php echo $this->getForgotpasswordbuttonHtmlId() ?>" class="f-right"><?php echo $this->__('Lupa kata kunci?') ?></a><br />
     <?php endif; ?>
-    <?php if ( $this->shouldDisplayCreateaccountbutton() ): ?>
-        <a href="<?php echo $this->getParentBlock()->getCreateAccountUrl() ?>" id="<?php echo $this->getCreateaccountbuttonHtmlId() ?>" class="f-left"><?php echo $this->__('Create an Account') ?></a>
-    <?php endif; ?>
+    
+    <button type="submit" class="button" title="<?php echo $this->__('Login') ?>" name="send" id="send2"><span><span><?php echo $this->__('Masuk') ?></span></span></button>
 </div>
 
 <script type="text/javascript">

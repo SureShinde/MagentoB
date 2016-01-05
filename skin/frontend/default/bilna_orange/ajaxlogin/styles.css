@@ -2,17 +2,17 @@
 .alProgressBar { position: fixed; width: 100%; height: 100%; left: 0; top: 0; z-index: 200; }
 .alProgressBar .Shadow { position: absolute; width: 100%; height: 100%; background-color: black; opacity: 0.1; -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=10)"; filter: alpha(opacity=10); }
 .alProgressBar .loading-mask { background: url('blank.gif') repeat; position: absolute; color: #d85909; font-size: 1.1em; font-weight: bold; text-align: center; opacity: 0.80; -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)"; filter: alpha(opacity=80); }
-.alProgressBar .loading-mask .loader { position:fixed; top:45%; left:50%; width:150px; margin-left:-105px; padding:15px 30px; background:#fff4e9; border:2px solid #f1af73; color:#d85909; font-weight:bold; text-align:center; } 
+.alProgressBar .loading-mask .loader { position:fixed; top:45%; height: auto; left:50%; width:150px; margin-left:-75px; padding:15px 30px; background:#fff4e9; border:2px solid #f1af73; color:#d85909; font-weight:bold; text-align:center; } 
 
 .Shadowed { -moz-box-shadow: 0 0 10px rgba(0,0,0,0.5); -webkit-box-shadow: 0 0 10px rgba(0,0,0,0.5); box-shadow: 0 0 10px rgba(0,0,0,0.5); }
   .Shaddy { -moz-box-shadow: 0 0  5px rgba(0,0,0,0.5); -webkit-box-shadow: 0 0  5px rgba(0,0,0,0.5); box-shadow: 0 0  5px rgba(0,0,0,0.5); }
 
 /* Authorization container - Overlap */
 .al-authorization-container-overlap { position: fixed; width: 100%; height: 100%; left: 0; top: 0; z-index: 999; }
-.al-authorization-container-overlap .Shadow { position: absolute; width: 100%; height: 100%; background-color: black; opacity: 0.5; -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)"; filter: alpha(opacity=50); }
-.al-authorization-container-overlap .Canvas { height: 340px; left: 50%; margin-left: -200px; margin-top: -170px; position: absolute; top: 50%; width: 400px;}
-.al-authorization-container-overlap .Canvas .Wrapper { padding: 12px; background: #FAF7EE; }
-.al-authorization-container-overlap .Close { text-align: right; padding: 12px; position: absolute; width: 100px; right: 0; top: 0; }
+.al-authorization-container-overlap .Shadow { position: fixed; width: 100%; height: 100%; background-color: #fff; opacity: 0.9; -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)"; filter: alpha(opacity=50); }
+.al-authorization-container-overlap .Canvas { height: 340px; left: 50%; margin-left: -180px;  position: absolute; top: 10px; width: 360px;}
+.al-authorization-container-overlap .Canvas .Wrapper ul.form-list{ padding: 20px; background: #fff; border: 1px solid #e4e4e4;}
+.al-authorization-container-overlap .Close { text-align: right; padding: 12px; position: absolute; right: 0; top: 0; font-size: 1.5em;}
 
 .al-authorization-container-overlap .al-authorizationform-register .buttons-set { margin-top: 1em; }
 
@@ -28,21 +28,47 @@
     border: medium none !important;
     margin: 0 10px 0 0 !important;
 }
-
+.al-authorization .buttons-set{text-align: center; margin: 0;}
+.al-authorization .buttons-set p{
+    font-size: 1.1em
+}
+.al-authorization .buttons-set a{
+    margin: 0;
+    font-size: 1.2em;
+}
+.al-authorization .buttons-set p.back-link{
+        font-size: 1em;
+    float: right;
+}
+.al-authorization-container-overlap .al-authorization form > .buttons-set .required,
+.al-authorization-container-overlap .al-authorization form > .buttons-set .forgot-pass,
+.al-authorization-container-overlap .al-authorization form > .buttons-set .button{
+    display: none;
+}
+.al-authorization .form-list .buttons-set button.button{width: 100%; margin: 10px 0; font-size: 1.5em;}
 /* Authorization container - Checkout Onepage Index */
 #checkout-step-login .al-authorization .messages { height: auto; bottom: auto; top: -165px; }
 #checkout-step-login P.loader { padding: 15px 30px; margin: 0 0 0 -105px; }
 
 /* Authorization form */
-.al-authorization { position: relative; /* background: url(../images/dash-orange.png) bottom repeat-x;padding-bottom: 20px; */ }
+.al-authorization { position: relative; text-align: center; }
 .al-authorization .messages {  }
-.al-authorization .messages LI { margin-bottom: 0 !important; }
+.al-authorization .messages LI { margin-bottom: 0 !important; width: 100%; }
 .al-authorization .Window { overflow: hidden; }
-.al-authorization .Frame H2 { width: 270px; }
+.al-authorization .Title H2 {font-size: 1.5em; color: #343334; font-weight: 700;}
+.al-authorization .Title p {font-size: 1.1em; color: #343334; margin: 10px 0;}
 .al-authorization .checkout-agreements .agree { padding: 0; }
 .al-authorization .checkout-agreements LI { margin: 0; }
 .al-authorization .agreement-content { position: absolute; width: 100%; height: auto; left: 105%; }
-
+.al-authorization .form-list .input-box {clear: none; width: 308px; padding: 5px; box-sizing: border-box; box-sizing: -webkit-border-box; -moz-box-sizing: border-box; border-radius: 3px; -moz-border-radius: 3px; -webkit-border-radius: 3px; background: #f2f2f2; max-width: 100%;
+}
+.al-authorization .form-list .buttons-set { border-top: 0; padding: 0;}
+.al-authorization .popuplogin-footer{
+    font-size: 1.2em;
+}
+.al-authorization .popuplogin-footer a {color: blue; font-size: 1em; text-decoration: underline;}
+.al-authorization .form-list input.input-text { width: 100%; padding: 0; text-indent: 10px; background: #fff; border: 1px solid #e4e4e4; box-sizing: border-box; -moz-box-sizing: border-box;
+-webkit-box-sizing: border-box; height: 40px; font-size: 1.3em;}
 /* Authorization form shape - Login */
 .al-authorizationform-login {  }
 .al-authorizationform-login-custom .form-list li:last-child {max-height: 80px;}
@@ -67,15 +93,16 @@
 /* Date of birth form field styles */
 .form-list .ajaxlogin-customer-dob .dob-month,
 .form-list .ajaxlogin-customer-dob .dob-day,
-.form-list .ajaxlogin-customer-dob .dob-year { float:left; width:85px; }
+.form-list .ajaxlogin-customer-dob .dob-year { float:left; width:70px; }
 .form-list .ajaxlogin-customer-dob input.input-text { display:block; width:74px; }
 .form-list .ajaxlogin-customer-dob label { font-size:10px; font-weight:normal; color:#888; }
 .form-list .ajaxlogin-customer-dob .dob-day,
 .form-list .ajaxlogin-customer-dob .dob-month { width:60px; }
+.form-list .ajaxlogin-customer-dob > label{ clear: both; display: block; float: none !important;}
 .form-list .ajaxlogin-customer-dob .dob-day input.input-text,
 .form-list .ajaxlogin-customer-dob .dob-month input.input-text { width:46px; }
-.form-list .ajaxlogin-customer-dob .dob-year { width:140px; }
-.form-list .ajaxlogin-customer-dob .dob-year input.input-text { width:134px; }
+.form-list .ajaxlogin-customer-dob .dob-year input.input-text { width:70px; }
+.form-list .ajaxlogin-customer-dob label { width:50px; padding: 0; }
 
 .form-list .ajaxlogin-customer-dob-extra .dob-month,
 .form-list .ajaxlogin-customer-dob-extra .dob-day,
@@ -90,10 +117,17 @@
 .form-list .ajaxlogin-customer-dob-extra .dob-year input.input-text { width:134px; }
 
 .al-authorization-container-overlap .buttons-set p.required {
-    float: right;
+    float: left;
 }
 
-@media (max-height: 767px){ 
-    .al-authorization-container-overlap { position: fixed; width: 100%; height: 100%; left: 0; top: 0; z-index: 999; overflow-y: hidden; overflow: scroll; } }
+@media (max-width: 767px){ 
+    .al-authorization-container-overlap { position: fixed; width: 100%; height: 100%; left: 0; top: 0; z-index: 999; overflow: auto; } 
     .al-authorization-container-overlap .Shadow {height: 150%;}
+    .al-authorization .form-list .buttons-set a{
+        margin-left: 0;
+        font-size: 1em;
+    }
+    .al-authorization-container-overlap .buttons-set p.required{
+        font-size: 1em;
+    }
 }

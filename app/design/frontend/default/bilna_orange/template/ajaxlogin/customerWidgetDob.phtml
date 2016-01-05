@@ -25,27 +25,26 @@
  * @copyright  Copyright (c) 2010-2012 aheadWorks Co. (http://www.aheadworks.com)
  * @license    http://ecommerce.aheadworks.com/AW-LICENSE.txt
  */
-?><label for="<?php echo $this->getFieldId('month')?>"<?php if ($this->isRequired()) echo ' class="required"' ?>><?php if ($this->isRequired()) echo '<em>*</em>' ?><?php echo $this->__('Date of Birth') ?></label>
-<div class="input-box ajaxlogin-customer-dob">
+?>
+<div class="input-box ajaxlogin-customer-dob"><label for="<?php echo $this->getFieldId('month')?>"<?php if ($this->isRequired()) echo ' class="required"' ?>><?php if ($this->isRequired()) echo '<em>*</em>' ?><?php echo $this->__('Date of Birth') ?></label>
 <?php
     $this->setDateInput('d',
         '<span class="dob-day">
-             <input type="text" id="ajaxlogin-day" name="' . $this->getFieldName('day') . '" value="' . $this->getDay() . '" title="' . $this->__('Day') . '" class="input-text validate-custom" ' . $this->getFieldParams() . ' />
-             <label for="' . $this->getFieldId('day') . '">' . $this->__('DD') . '</label>
+             <input type="text" id="ajaxlogin-day" name="' . $this->getFieldName('day') . '" value="' . $this->getDay() . '" placeholder="' . $this->__('DD') . '" title="' . $this->__('Day') . '" class="input-text validate-custom" ' . $this->getFieldParams() . ' />
+             
          </span>'
     );
 
     $this->setDateInput('m',
         '<span class="dob-month">
-             <input type="text" id="ajaxlogin-month" name="' . $this->getFieldName('month') . '" value="' . $this->getMonth()  . '" title="' . $this->__('Month')  . '" class="input-text validate-custom" ' . $this->getFieldParams()  . ' />
-             <label for="' . $this->getFieldId('month') . '">' . $this->__('MM')  . '</label>
+             <input type="text" id="ajaxlogin-month" name="' . $this->getFieldName('month') . '" value="' . $this->getMonth()  . '" placeholder="' . $this->__('MM') . '" title="' . $this->__('Month')  . '" class="input-text validate-custom" ' . $this->getFieldParams()  . ' />
          </span>'
     );
 
     $this->setDateInput('y',
         '<span class="dob-year">
-             <input type="text" id="ajaxlogin-year" name="' . $this->getFieldName('year') . '" value="' . $this->getYear()  . '" title="' . $this->__('Year')  . '" class="input-text validate-custom" ' . $this->getFieldParams()  . ' />
-             <label for="' . $this->getFieldId('year') . '">' . $this->__('YYYY')  . '</label>
+             <input type="text" id="ajaxlogin-year" name="' . $this->getFieldName('year') . '" value="' . $this->getYear()  . '" placeholder="' . $this->__('YY') . '" title="' . $this->__('Year')  . '" class="input-text validate-custom" ' . $this->getFieldParams()  . ' />
+            
          </span>'
     );
 ?>
