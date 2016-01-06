@@ -105,7 +105,7 @@
                     <?php if($_product->getTypeId() != 'simple'):?>
                         <p><a class="link-cart-special" href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($_product->getName(), null, true) ?>"><i class="fa fa-cart-plus"></i><?php echo $this->__('Tambah ke troli') ?></a></p>
                         <?php else:?>
-						<p><button type="button" title="<?php echo $this->__('Tambah ke troli') ?>" class="button btn-buynow" onclick="setLocation('<?php echo $_abstractBlock->getAddToCartUrl($_product) ?>'); ecommerceStaticBlockAddToCart('<?php echo $_escape_helper->escapeQuote($_product->getName()); ?>','<?php echo $_product->getSku(); ?>','<?php echo $_product->getPrice() ?>','browsing');"><i class="fa fa-cart-plus"></i><?php echo $this->__('Tambah ke troli') ?></button></p>
+						<p><button type="button" title="<?php echo $this->__('Tambah ke troli') ?>" class="button btn-buynow" onclick="setLocation('<?php echo $_abstractBlock->getAddToCartUrl($_product) ?>'); ecommerceStaticBlockAddToCart('<?php echo $_escape_helper->escapeQuote($_product->getName()); ?>','<?php echo $_product->getSku(); ?>','<?php echo $_product->getPrice() ?>','browsing','<?php echo $_product->getProductUrl() ?>','<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(135); ?>');"><i class="fa fa-cart-plus"></i><?php echo $this->__('Tambah ke troli') ?></button></p>
 						<?php endif;?>
 						<?php else : ?>
 						<p class="availability out-of-stock"><span><a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($_product->getName(), null, true) ?>"><?php echo $this->__('Kabari bila tersedia') ?></a></span></p>
@@ -287,8 +287,8 @@
         }
     });
 
-    function ecommerceStaticBlockAddToCart(name, sku, price, list) {
-        //alert("HURRY_ADDCART_HOMEPAGE "+name+" "+sku+" "+price+" "+list);
+    function ecommerceStaticBlockAddToCart(name, sku, price, list, link, imageUrl) {
+        // console.log("ECOMMERCE_StaticBlock_AddToCart_Ematics "+name+" "+sku+" "+price+" "+list+" "+link+" "+imageUrl);
         dataLayer.push({
           'event': 'addToCart',
           'ecommerce': {
@@ -300,7 +300,10 @@
                 'id': sku,
                 'price': price,
                 'quantity': 1,
-                'category': '<?php echo (!empty($category)) ? $category : 'Default Category';?>'
+                'category': '<?php echo (!empty($category)) ? $category : 'Default Category';?>',
+                'brandName': 'brand name',
+                'imageUrl': imageUrl,
+                'link': link
                }]
             }
           }

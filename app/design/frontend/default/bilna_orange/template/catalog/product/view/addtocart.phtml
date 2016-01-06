@@ -33,15 +33,15 @@
         <label for="qty"><?php echo $this->__('Jumlah:') ?></label>
         <input type="text" name="qty" id="qty" maxlength="12" value="<?php echo $this->getProductDefaultQty() * 1 ?>" title="<?php echo $this->__('Jumlah') ?>" class="input-text qty" />
         <?php endif; ?>
-        <button type="button" title="<?php echo $buttonTitle ?>" class="button btn-cart" onclick="productAddToCartForm.submit(this); ecommerceProductDetailAddToCart('<?php echo $_escape_helper->escapeQuote($_product->getName()); ?>','<?php echo $_product->getSku() ?>','<?php echo $_product->getPrice() ?>');"><i class="fa fa-cart-plus"></i><span><?php echo $buttonTitle ?></span></button>
+        <button type="button" title="<?php echo $buttonTitle ?>" class="button btn-cart" onclick="productAddToCartForm.submit(this); ecommerceProductDetailAddToCart('<?php echo $_escape_helper->escapeQuote($_product->getName()); ?>','<?php echo $_product->getSku() ?>','<?php echo $_product->getPrice() ?>','<?php echo $_product->getProductUrl() ?>','<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(135); ?>');"><i class="fa fa-cart-plus"></i><span><?php echo $buttonTitle ?></span></button>
         <?php echo $this->getChildHtml('', true, true) ?>
     </div>
 <?php endif; ?>
 
 <script type="text/javascript">
-function ecommerceProductDetailAddToCart(name, sku, price) {
+function ecommerceProductDetailAddToCart(name, sku, price, link, imageUrl) {
     if (jQuery("div.input-box select").val() != false) {
-      // alert("HURRY_CART"+name+" "+sku+" "+price+" "+" "+jQuery("div.input-box select").val());
+      // console.log("ECOMMERCE_ProductDetail_AddToCart_Ematics "+" "+name+" "+" "+sku+" "+price+" "+link+" "+imageUrl);
       dataLayer.push({
         'event': 'addToCart',
         'ecommerce': {
@@ -52,7 +52,10 @@ function ecommerceProductDetailAddToCart(name, sku, price) {
               'name': name,
               'id': sku,
               'price': price,
-              'quantity': 1
+              'quantity': 1,
+              'brandName': 'brand name',
+              'imageUrl': imageUrl,
+              'link': link
              }]
           }
         }
