@@ -541,19 +541,20 @@
     width: 60px;
     position: relative;
 }
-.header .links li.login:after{
-    content: "\f007";
+.header .links li.login a:after{
+    content: "";
     font-family: FontAwesome;
     margin: 0 auto;
     font-size: 2.3em;
     color: #585958;
     position: absolute;
-    top: 13px;
+    top: 3px;
     display: table;
     left: 30px;
     margin-left: -10px;
+    font-weight: 100;
 }
-.header .links li.login:before{
+.header .links li.login a:before{
     width: 25px;
     height: 25px;
     content: " ";
@@ -562,7 +563,7 @@
     border-radius: 50%;
     margin: 0 auto;
     border: 2px solid;
-    
+    margin-bottom: 4px;
 }
 .header .links li.login a{
     display: block;
@@ -570,7 +571,6 @@
     padding: 0;
     font-size: 11px;
     font-weight: bold;
-    margin-top: 4px;
     font-family: 'Lato';
     color: #585958;
 }
