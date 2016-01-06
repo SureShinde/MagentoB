@@ -26,7 +26,7 @@ var
 
 app/code/community/Find/
 app/code/community/Phoenix/
-#app/code/core/
+app/code/core/
 app/design/adminhtml/default/find/
 app/design/frontend/default/blank/
 app/design/frontend/default/iphone/
@@ -55,7 +55,7 @@ app/etc/enterprise.xml
 app/etc/local.xml.additional
 app/etc/local.xml.template
 app/.htaccess
-#app/Mage.php
+app/Mage.php
 
 js/blank.html
 js/calendar/

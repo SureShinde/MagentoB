@@ -101,22 +101,24 @@
 <?php $currentCategory=Mage::getSingleton('catalog/layer')->getCurrentCategory();?>
 <?php $navCategory = $currentCategory->getId(); ?>
 <div class="block block-layered-nav">
-    <div class="block-title">
-        <strong><span><?php echo $currentCategory->getName(); ?></span></strong>
-    </div>
     <div class="block-content">
-        <?php echo $this->getStateHtml() ?>
         <?php if ($this->getLayer()->getState()->getFilters()): ?>
+		<div class="filters-area">
+        <?php echo $this->getStateHtml() ?>
             <div class="actions"><a href="<?php echo $this->getClearUrl() ?>"><?php echo $this->__('Clear All') ?></a></div>
+		</div>
         <?php endif; ?>
+        
+        <div class="block-title">
+            <strong><span><?php echo $currentCategory->getName(); ?></span></strong>
+        </div>
         <?php if($this->canShowOptions()): ?>
-            <p class="block-subtitle"><?php echo $this->__('Shopping Options') ?></p>
+        <?php $_filters = $this->getFilters() ?>
             <dl id="narrow-by-list">
-                <?php $_filters = $this->getFilters() ?>
                 <?php foreach ($_filters as $_filter): ?>
                 <?php if($_filter->getItemsCount()): ?>
                 	<?php if(($this->__($_filter->getName()))=='Price'): ?>
-                		<div class="lbl-filterby"><?php echo $currentCategory->getName().$this->__(' Shop by:'); ?></div>
+                		<div class="lbl-filterby"><?php echo $this->__(' Shop by:'); ?></div>
                 	<?php endif;?>
                     <dt class="<?php echo strtolower($this->__($_filter->getName())) ?>"><?php echo $this->__($_filter->getName()) ?></dt>
                     <dd>
@@ -129,11 +131,6 @@
             <script type="text/javascript">decorateDataList('narrow-by-list')</script>
         <?php endif; ?>
     </div>
-    <?php $category=Mage::getModel('catalog/category')->load($navCategory); ?>
-	<div class="category-desc">
-		<span><?php echo $category->getName(); ?></span>
-		<p><?php echo $category->getDescription(); ?></p>
-	</div>
     <div class="left-banner-category"><?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('left_banner_category')->toHtml() ?></div>
 </div>
 <div class="show-filter"><a href="javascript:void(0)" class="triger-showfilter"><?php echo $this->__('Show Filters') ?></a></div>

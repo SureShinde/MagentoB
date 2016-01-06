@@ -32,10 +32,21 @@
 <script type="text/javascript">	
         wwidth = $j(window).width();
     var tooltipMobileFirst = 'tooltip_mobile_first';
-    
+    $j(window).load(function() {
+        
+		$j(".megamenu.megamenu-active img, .homepage-banner img").lazyload({
+			skip_invisible : true
+		});
+		$j(".first-level > ul > li").hover(function(){
+			$j(".homepage-banner .first-level-cat.hover-cat img, .megamenu.megamenu-active .first-level-cat.hover-cat img").lazyload();
+        });
+        $j("img.lazy").lazyload();
+	});
     $j(document).ready(function() {
+		$j("img.lazy, .wrap-banner img:not(.image-slider), .warp-banner img").after('<div class="loader"><img class="loader-img" src="<?php echo Mage::getBaseUrl(); ?>skin/frontend/base/default/images/loading.gif"></div>');
 		$j(".first-level > ul > li:first-of-type").addClass("active-cat");
         $j(".first-level > ul > li").hover(function() {
+		$j(".homepage-banner .first-level-cat.hover-cat img").lazyload();
             $j('.first-level > ul > li.active-cat .second-level').hide();
             $j('.first-level > ul > li.active-cat div').css("color","inherit");
             $j('.first-level > ul > li').removeClass("hover-cat");
@@ -64,6 +75,9 @@
         $j('.wrap-megamenu').click(function() {
             $j('.bg-dark-megamenu').toggle();
             $j('.megamenu').toggleClass("megamenu-active");
+			$j(".megamenu.megamenu-active img").lazyload({
+				skip_invisible : true
+			});
         });
 		 $j('.bg-dark-megamenu').click(function() {
             $j('.megamenu').removeClass("megamenu-active");
@@ -402,6 +416,7 @@
 </script>
 
 <div class="header-container">
+    <div class="space-above-header"><?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('top-page')->toHtml() ?></div>
     <div class="tooltip-mobile-first">
         <p> ← click here for category menu </p>
     </div>
@@ -440,7 +455,7 @@
     <div class="header">
     	<a href="#" class="nav-mobile-trigger"><?php echo $this->__('Menu') ?></a>
         <a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="logo"><strong><?php echo $this->getLogoAlt() ?></strong>
-            <img src="<?php echo $this->getSkinUrl(); ?>images/logo-2015-rev.png" alt="<?php echo $this->getLogoAlt() ?>" />
+            <img src="<?php echo $this->getSkinUrl(); ?>images/logo_bilna_2015_2.jpg" alt="<?php echo $this->getLogoAlt() ?>" />
         </a>
         
         <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('keypoint')->toHtml() ?>
@@ -561,39 +576,25 @@
         });  
     });
 </script>
-<?php 
- $customer = Mage::getSingleton('customer/session')->getCustomer();
- if(isset($customer) && !empty($customer)){
- 	$email = $customer->getEmail();// for email address
- }else{
- 	$email = "";
- }
-?>
+
 <script type="text/javascript">
-jQuery(document).ready(function () {    
-	dataLayer.push( {'sitetype': 'd'} );
-	dataLayer.push( {'emailaddress': '<?php echo $email; ?>'} );
-});
-
-jQuery('.search-container-new #searchDropdownBox').change(function() {
-	jQuery('.search-container-new #nav-search-in-content').text(jQuery('.search-container-new #searchDropdownBox option:selected').text());
-});
-
-jQuery('.search-container-new-mobile #searchDropdownBox').change(function() {
-	jQuery('.search-container-new-mobile #nav-search-in-content').text(jQuery('.search-container-new-mobile #searchDropdownBox option:selected').text());
-});
+    jQuery('.search-container-new #searchDropdownBox').change(function() {
+        jQuery('.search-container-new #nav-search-in-content').text(jQuery('.search-container-new #searchDropdownBox option:selected').text());
+    });
+    
+    jQuery('.search-container-new-mobile #searchDropdownBox').change(function() {
+        jQuery('.search-container-new-mobile #nav-search-in-content').text(jQuery('.search-container-new-mobile #searchDropdownBox option:selected').text());
+    });
 </script>
-<?php 
- $customer = Mage::getSingleton('customer/session')->getCustomer();
- if(isset($customer) && !empty($customer)){
- 	$email = $customer->getEmail();// for email address
- }else{
- 	$email = "";
- }
+
+<?php
+$customer = Mage::getSingleton('customer/session')->getCustomer();
+if (isset ($customer) && !empty ($customer)) { $email = $customer->getEmail(); }
+else { $email = ""; }
 ?>
 <script type="text/javascript">
-jQuery(document).ready(function () {    
-	dataLayer.push( {'sitetype': 'd'} );
-	dataLayer.push( {'emailaddress': '<?php echo $email; ?>'} );
-});
+    jQuery(document).ready(function() {
+        dataLayer.push({'sitetype': 'd'});
+	dataLayer.push({'emailaddress': '<?php echo $email; ?>'});
+    });
 </script>

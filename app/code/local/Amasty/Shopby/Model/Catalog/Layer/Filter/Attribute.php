@@ -171,42 +171,41 @@ class Amasty_Shopby_Model_Catalog_Layer_Filter_Attribute extends Mage_Catalog_Mo
      * @param   Varien_Object $filterBlock
      * @return  Mage_Catalog_Model_Layer_Filter_Attribute
      */
-    public function apply(Zend_Controller_Request_Abstract $request, $filterBlock) {
+
+    public function apply(Zend_Controller_Request_Abstract $request, $filterBlock)
+    {
         $currentVals = Mage::helper('amshopby')->getRequestValues($this->_requestVar);
-        
         if ($currentVals) {
             $this->applyFilterToCollection($currentVals);
+          
+            //generate Status Block
             $attribute = $this->getAttributeModel();      
             $text = '';
             $options = Mage::helper('amshopby/attributes')->getAttributeOptions($attribute->getAttributeCode());
-            
             foreach ($options as $option) {
                 $k = array_search($option['value'], $currentVals);
-                if (false !== $k) {
+                if (false !== $k){
+    
                     $exclude = $currentVals;
-                    unset ($exclude[$k]);
+                    unset($exclude[$k]);
                     $exclude = implode(',', $exclude);
-                    
-                    if (!$exclude) {
+                    if (!$exclude)
                         $exclude = null;
-                    }
                     
-                    $query = array ();
-                    $query[$this->getRequestVar()] = $exclude;
-                    
-                    //- exclude current page from urls
-                    if (Mage::registry('access_from')) {
-                        $query['p'] = null;
-                    }
-                    else {
-                        $query[Mage::getBlockSingleton('page/html_pager')->getPageVarName()] = null;
-                    }
-                    
+                    $query = array(
+                        $this->getRequestVar() => $exclude,
+                        Mage::getBlockSingleton('page/html_pager')->getPageVarName() => null // exclude current page from urls
+                    );
+                    //$url = Mage::getUrl('*/*/*', array('_current'=>true, '_use_rewrite'=>true, '_query'=>$query));                
                     $url = Mage::helper('amshopby/url')->getFullUrl($query);
-                    $text .= $option['label']
-                        . '<a href="' . $url . '" class="btn-remove-inline">'
-                        . '<img src="' . $this->_getBlankImage() . '" width="13" height="12" alt="' . Mage::helper('catalog')->__('Remove This Item') . '" />'
-                        . '</a>, ';
+                    
+                    $text .='<span class="value">' .$option['label']
+//                          . '&nbsp;'
+//                          . '<a href="' . $url . '">'
+//                          . '<img src="' . $this->_getRemoveImage() . '" alt="' . Mage::helper('catalog')->__('Remove This Item') . '" />'
+                          . '<a href="' . $url . '" class="btn-remove-inline">'
+                          . '<img src="' . $this->_getBlankImage() . '" width="13" height="12" alt="' . Mage::helper('catalog')->__('Remove This Item') . '" />'
+                          . '</a></span>, ';
                 }
             }
             
@@ -215,12 +214,11 @@ class Amasty_Shopby_Model_Catalog_Layer_Filter_Attribute extends Mage_Catalog_Mo
             }
             
             $state = $this->_createItem($text, $currentVals)
-                ->setVar($this->_requestVar)
-                ->setIsMultiValues(true);
+                        ->setVar($this->_requestVar)
+                        ->setIsMultiValues(true);
                         
             $this->getLayer()->getState()->addFilter($state);
         }
-        
         return $this;
     }
 

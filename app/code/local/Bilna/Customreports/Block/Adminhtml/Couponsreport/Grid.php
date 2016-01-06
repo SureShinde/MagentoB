@@ -43,16 +43,14 @@ class Bilna_Customreports_Block_Adminhtml_Couponsreport_Grid extends Mage_Adminh
 		$collection
 			->addAttributeToSelect('grand_total', 'main_table.grand_total');
 		$collection
-			->addAttributeToSelect('increment_id', 'main_table.increment_id');	
-        $collection
-        	->addFieldToFilter("main_table.coupon_code", array ('neq' => NULL));
+			->addAttributeToSelect('increment_id', 'main_table.increment_id');
         $collection
         		->addFieldToFilter("main_table.status", array ('neq' => 'pending'));
-        		
+
         /*if( isset($params['order_status_history.created_at']) )
-        {	
+        {
         	$collection
-        		->addFieldToFilter("order_status_history.entity_name", 'invoice');	
+        		->addFieldToFilter("order_status_history.entity_name", 'invoice');
         }elseif()
         {
         	$collection
@@ -63,17 +61,17 @@ class Bilna_Customreports_Block_Adminhtml_Couponsreport_Grid extends Mage_Adminh
         {
         	$from = date('Y-m-d H:i:s', strtotime(str_replace('-', '/', $params['from'] . '00:00:00')));
         	$to   = date('Y-m-d H:i:s', strtotime(str_replace('-', '/', $params['to'] . ' 23:59:59')));
-   			
+
    			$report_type = $params['report_type'];
    			//$collection->addAttributeToSelect('created_at', "$report_type");
 			$collection->addAttributeToFilter("$report_type", array('from' => $from, 'to' => $to, 'datetime' => true));
 			$collection->addAttributeToSort("$report_type", 'ASC');
-    	
+
         }else{
         	$collection
 				->addFieldToFilter("main_table.created_at", array ('eq' => date('Y-m-d H:i:s')));
         }
-        
+
         if( isset($params['price_rule_type']) &&  $params['price_rule_type'] == 1 )
         {
         	$collection
@@ -83,7 +81,7 @@ class Bilna_Customreports_Block_Adminhtml_Couponsreport_Grid extends Mage_Adminh
 						'in'		=> 	explode(",",$params['rules_list'][0])
 					)
 				));
-        }	
+        }
 
         if( isset($params['show_order_statuses']) && $params['show_order_statuses'] ==1 )
         {
@@ -95,6 +93,12 @@ class Bilna_Customreports_Block_Adminhtml_Couponsreport_Grid extends Mage_Adminh
 					)
 				));
         }
+
+				if (isset($params["coupon_code"])) {
+					$collection->addFieldToFilter("main_table.coupon_code", array ("eq" => $params["coupon_code"]));
+				} else {
+					$collection->addFieldToFilter("main_table.coupon_code", array ('neq' => NULL));
+				}
 
 		$collection->getSelect()
 			->joinLeft(
@@ -124,33 +128,33 @@ class Bilna_Customreports_Block_Adminhtml_Couponsreport_Grid extends Mage_Adminh
 				//array( 'order_status_history' => Mage::getSingleton('core/resource')->getTableName('sales/order_status_history') ),
 				array( 'shipping_premiumrate' => new Zend_Db_Expr('(select distinct CONCAT("premiumrate_", REPLACE(delivery_type, " ", "_")) as delivery_type_name, delivery_type from shipping_premiumrate)') ),
 				"main_table.shipping_method = shipping_premiumrate.delivery_type_name",
-				array( 
+				array(
 					'delivery_type' 		=> 'shipping_premiumrate.delivery_type',
 					'created_at'			=> "$report_type"
 				)
 			);
 
 		if( isset($params['report_type']) && $params['report_type'] == 'order_status_history.created_at')
-        {	
+        {
         	$collection
-        		->addFieldToFilter("order_status_history.entity_name", 'invoice');	
+        		->addFieldToFilter("order_status_history.entity_name", 'invoice');
 
 			$collection->getSelect()
 				->joinLeft(
 					//array( 'order_status_history' => Mage::getSingleton('core/resource')->getTableName('sales/order_status_history') ),
 					array( 'order_status_history' => new Zend_Db_Expr('(select * from sales_flat_order_status_history)') ),
 					"main_table.entity_id = order_status_history.parent_id",
-					array( 
+					array(
 						'status' 				=> 'order_status_history.status'
 					)
-				);	
+				);
 
 		}
 
 		$this->setCollection($collection);
 		return parent::_prepareCollection();
 	}
-	
+
 	protected function _prepareColumns()
 	{
 		$this->addColumn('created_at', array(
@@ -236,7 +240,7 @@ class Bilna_Customreports_Block_Adminhtml_Couponsreport_Grid extends Mage_Adminh
             'currency_code' => $currencyCode,
 	        'rate'          => $rate
         ));
-        
+
 	    $this->addColumn('grand_total', array(
 	        'header'        => Mage::helper('salesrule')->__('Total Amount'),
 	        'sortable'      => false,
@@ -247,7 +251,8 @@ class Bilna_Customreports_Block_Adminhtml_Couponsreport_Grid extends Mage_Adminh
 	        'rate'          => $rate
 	    ));
 
-		$this->addExportType('*/*/exportCsv', Mage::helper('sales')->__('CSV')); 
+
+		$this->addExportType('*/*/exportCsv', Mage::helper('sales')->__('CSV'));
 		$this->addExportType('*/*/exportExcel', Mage::helper('sales')->__('Excel'));
 
 		return parent::_prepareColumns();
@@ -276,7 +281,7 @@ class Bilna_Customreports_Block_Adminhtml_Couponsreport_Grid extends Mage_Adminh
         }
         return $this->_currentCurrencyCode;
     }
-    
+
     /**
      * Get currency rate (base to given currency)
      *

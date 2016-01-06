@@ -1,0 +1,43 @@
+<?php
+/**
+ * aheadWorks Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://ecommerce.aheadworks.com/AW-LICENSE.txt
+ *
+ * =================================================================
+ *                 MAGENTO EDITION USAGE NOTICE
+ * =================================================================
+ * This package designed for Magento community edition
+ * aheadWorks does not guarantee correct work of this extension
+ * on any other Magento edition except Magento community edition.
+ * aheadWorks does not provide extension support in case of
+ * incorrect edition usage.
+ * =================================================================
+ *
+ * @category   AW
+ * @package    AW_Ajaxlogin
+ * @version    1.0.1
+ * @copyright  Copyright (c) 2010-2012 aheadWorks Co. (http://www.aheadworks.com)
+ * @license    http://ecommerce.aheadworks.com/AW-LICENSE.txt
+ */
+?><div class="al-authorizationform-register">
+    <form action="<?php echo $this->getRegisterActionUrl() ?>" method="post" id="register-form">
+        <input type="hidden" name="success_url" value="<?php echo $this->getSuccessUrl() ?>" />
+        <input type="hidden" name="error_url" value="<?php echo $this->getErrorUrl() ?>" />
+        <ul class="form-list">
+            <?php foreach ($this->getChildren() as $__childBlock): ?>
+                <?php $__html = $__childBlock->toHtml(); ?>
+                <?php if ( $__html ): ?>
+                    <li>
+                        <?php echo $__html ?>
+                    </li>
+                <?php endif; ?>
+            <?php endforeach; ?>
+        </ul>
+    </form>
+</div>

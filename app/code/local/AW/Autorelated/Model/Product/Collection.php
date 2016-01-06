@@ -95,14 +95,11 @@ class AW_Autorelated_Model_Product_Collection extends Mage_Catalog_Model_Resourc
         return $countSelect->reset()->from($this->getSelect(), array())->columns('COUNT(*)');
     }
 
-    public function joinCategoriesByProduct($storeId = null) {
-        if (is_null($storeId)) {
-            $storeId = $this->getStoreId();
-        }
-        
+    public function joinCategoriesByProduct()
+    {
         $conditions = array(
             'cat_index.product_id=e.entity_id',
-            $this->getConnection()->quoteInto('cat_index.store_id = ?', $storeId)
+            $this->getConnection()->quoteInto('cat_index.store_id = ?', $this->getStoreId())
         );
         $conditions[] = $this->getConnection()
             ->quoteInto('cat_index.visibility IN(?)', array(
@@ -115,7 +112,7 @@ class AW_Autorelated_Model_Product_Collection extends Mage_Catalog_Model_Resourc
             array('cat_index_position' => 'position')
         );
 
-        $categoryIds = Mage::getModel('catalog/category')->load(Mage::app()->getStore($storeId)->getRootCategoryId())->getAllChildren();
+        $categoryIds = Mage::getModel('catalog/category')->load(Mage::app()->getStore($this->getStoreId())->getRootCategoryId())->getAllChildren();
         if ($categoryIds) {
             $this->getSelect()->join(
                 array('root_category' => $this->getTable('catalog/category_product')),

@@ -366,6 +366,8 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
     }
     
     public function successAction() {
+        $canceled = 0;
+
         if ($this->getRequest()->getParam('order_no')) {
             $orderNo = $this->getRequest()->getParam('order_no');
             
@@ -375,6 +377,10 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
             $order = Mage::getModel('sales/order')->loadByIncrementId($orderNo);
             $lastOrderId = $order->getId();
             $paymentCode = $order->getPayment()->getMethodInstance()->getCode();
+
+            // FDS (BILNA-1333) - Start
+            $canceled = Mage::helper('bilna_fraud')->checkOrderStatus($orderNo, 1);
+            // FDS (BILNA-1333) - End
 
             if (in_array($paymentCode, $this->getPaymentMethodCc())) {
                 $this->_redirect('checkout/cart');
@@ -391,6 +397,11 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
 
             $lastQuoteId = $session->getLastQuoteId();
             $lastOrderId = $session->getLastOrderId();
+
+            // FDS (BILNA-1333) - Start
+            $canceled = Mage::helper('bilna_fraud')->checkOrderStatus($lastOrderId, 0);
+            // FDS (BILNA-1333) - End
+
             $lastRecurringProfiles = $session->getLastRecurringProfileIds();
 
             if (!$lastQuoteId || (!$lastOrderId && empty ($lastRecurringProfiles))) {
@@ -403,7 +414,7 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
             $session->clear();
         }
             
-        if (in_array($paymentCode, $this->getPaymentMethodCc())) {
+        if (in_array($paymentCode, $this->getPaymentMethodCc()) && $canceled == 0) {
             // charge credit card
             $charge = $this->creditcardCharge($order);
 
@@ -412,6 +423,25 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
             Mage::getModel('paymethod/vtdirect')->updateOrder($order, $paymentCode, $charge);
             Mage::register('response_charge', $charge);
             Mage::dispatchEvent('sales_order_place_after', array ('order' => $order));
+        }
+
+        // FDS (BILNA-1333) - Start
+        if($canceled == 1) {
+            $fraud = Mage::helper('core')->urlEncode('fraud');
+            $this->_redirect('checkout/onepage/failure', array('fail' => $fraud));
+            return;
+        }
+        // FDS (BILNA-1333) - End
+        
+        /**
+         * Charge Transaction (Mandiri E-Cash)
+         */
+        if (in_array($paymentCode, $this->getPaymentMethodVtdirect())) {
+            $charge = $this->_vtdirectRedirectCharge($order);
+            
+            Mage::getModel('paymethod/vtdirect')->addHistoryOrder($order, $charge);
+            Mage::register('response_charge', $charge);
+            //Mage::dispatchEvent('sales_order_place_after', array ('order' => $order));
         }
         
         $this->loadLayout();
@@ -488,6 +518,58 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
         
         $transactionData['transaction_details'] = $transactionDetails;
         $transactionData['customer_details'] = $customerDetails;
+        
+        try {
+            $this->writeLog($paymentCode, $this->_typeTransaction, 'charge', 'request: ' . json_encode($transactionData));
+            $result = Veritrans_VtDirect::charge($transactionData);
+            $this->writeLog($paymentCode, $this->_typeTransaction, 'charge', 'response: ' . json_encode($result));
+        }
+        catch (Exception $e) {
+            $this->writeLog($paymentCode, $this->_typeTransaction, 'charge', "error: [" . $incrementId . "] " . $e->getMessage());
+            $response = array (
+                'transaction_status' => 'deny',
+                'fraud_status' => 'deny',
+                'status_message' => $e->getMessage()
+            );
+            $result = (object) $response;
+        }
+        
+        return $result;
+    }
+    
+    protected function _vtdirectRedirectCharge($order) {
+        Mage::helper('paymethod')->loadVeritransNamespace();
+        
+        //- setting config vtdirect
+        Veritrans_Config::$serverKey = $this->getVtdirectServerKey();
+        Veritrans_Config::$isProduction = $this->getVtdirectIsProduction();
+        
+        $incrementId = $order->getIncrementId();
+        $grossAmount = $order->getGrandTotal();
+        $paymentCode = $order->getPayment()->getMethodInstance()->getCode();
+        $paymentType = Mage::getStoreConfig('payment/' . $paymentCode . '/vtdirect_payment_type');
+        
+        //-Required
+        $transactionDetails = array (
+            'order_id' => $incrementId,
+            'gross_amount' => $grossAmount
+        );
+        $customerDetails = array (
+            'first_name' => $order->getBillingAddress()->getFirstname(),
+            'last_name' => $order->getBillingAddress()->getLastname(),
+            'email' => $this->getCustomerEmail($order->getBillingAddress()->getEmail()),
+            'phone' => $order->getBillingAddress()->getTelephone(),
+        );
+        
+        //- Data that will be sent for charge transaction request with Mandiri E-cash.
+        $transactionData = array (
+            'payment_type' => $paymentType,
+            'transaction_details' => $transactionDetails,
+            'customer_details' => $customerDetails,
+            'mandiri_ecash' => array (
+                'description' => 'Transaction Description Mandiri E-Cash Bilna.com',
+            ),
+        );
         
         try {
             $this->writeLog($paymentCode, $this->_typeTransaction, 'charge', 'request: ' . json_encode($transactionData));
@@ -627,6 +709,10 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
     
     protected function getPaymentMethodCc() {
         return Mage::helper('paymethod')->getPaymentMethodCc();
+    }
+    
+    protected function getPaymentMethodVtdirect() {
+        return Mage::helper('paymethod')->getPaymentMethodVtdirect();
     }
     
     protected function getTokenId() {

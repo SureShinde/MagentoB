@@ -2,9 +2,8 @@
 
 class Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Edit_Form extends Mage_Adminhtml_Block_Widget_Form
 {
-
-	public function __construct()
-	{
+	   public function __construct()
+   {
         parent::__construct();
         $this->setId('formbuilder_tabs');
         //$this->setDestElementId('edit_form');

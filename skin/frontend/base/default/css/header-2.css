@@ -1,40 +1,21 @@
-
-
-/* li#perlengkapan-rumah:after, li.mobile-perlengkapan-rumah:after{
-	background: url(../images/new-badge.png) no-repeat 5px top;
-	content: "";
-	position: absolute;
-	width: 50px;
-	top: -13px;
-	height: 50px;
-	right: -24px;
-} */
-li#kosmetik:after {
-	background: url(../images/new-badge.png) no-repeat 5px top;
-	content: "";
-	position: absolute;
-	width: 50px;
-	top: -13px;
-	height: 50px;
-	right: -24px;
+.loader{
+    width: 100%;
+    text-align: center;
+    position: absolute;
+    height: 100%;
+    display: block;
+    top: 0;
+    vertical-align: middle;
+    z-index: 1;
+    background-color: #fff;
 }
-li#supermarket:after {
-	background: url(../images/new-badge.png) no-repeat 5px top;
-	content: "";
-	position: absolute;
-	width: 50px;
-	top: -13px;
-	height: 50px;
-	right: 74px;
+.loader img.loader-img{
+    width: 20px !Important;
+    height: auto !Important;
+    margin-top: 40% !important;
+    display: inline !Important;
+    float: none;
 }
-li.mobile-supermarket:after, li.mobile-kosmetik:after {display: none;}
-li.mobile-perlengkapan-rumah:after{
-	right: 0;
-}
-li#perlengkapan-rumah, li.mobile-perlengkapan-rumah {
-	position: relative;
-}
-
 .header-container, .sticky-header-wrapper {
 	width: 100%;
 	border: none;
@@ -61,7 +42,7 @@ li#perlengkapan-rumah, li.mobile-perlengkapan-rumah {
 	padding: 0;
 }
 .logo img {
-	width: 80%;
+    float: left;
 }
 .sticky-header {
 	margin: 0 auto;
@@ -447,12 +428,13 @@ li#perlengkapan-rumah, li.mobile-perlengkapan-rumah {
 	color: #fff;
 }
 .header .logo {
-	margin: 15px 0 0 15px;
+	margin: 0;
 	width: 185px;
+    text-align: center;
 }
 .keypoint {
 	float: left;
-	margin: 18px 0 0 5px;
+	margin: 18px 0 0 15px;
 }
 .keypoint ul li {
 	display: inline-block;
@@ -1503,7 +1485,7 @@ top: 55px;
 	height: 26px;
 	background: url(../images/menu-mobile.png) no-repeat center center;
 	text-indent: -999999px;
-	margin: 20px 0 0 10px;
+	margin: 12px 0 0 10px;
 }
 /* for menu */
 .nav-container-mobile ul {
@@ -1519,9 +1501,9 @@ top: 55px;
 .nav-container-mobile ul li:first-child {
 	border-top: none;
 }
-//.nav-container-mobile ul li.cat-leveltop {
-//    background: url("../images/arrow-menu-mobile.png") no-repeat scroll 98% 17px rgba(0, 0, 0, 0);
-//}
+/*.nav-container-mobile ul li.cat-leveltop {
+    background: url("../images/arrow-menu-mobile.png") no-repeat scroll 98% 17px rgba(0, 0, 0, 0);
+}*/
 .nav-container-mobile ul li{
 	list-style-type:none;
 }
@@ -2037,17 +2019,6 @@ searchbar #nav-search-in {
 /*additional screen*/
 
 @media only screen and (max-width: 1215px) {
-	#nav li.nav-kebutuhan-khusus-bayi-dan-balita ul.level-hover{
-		left:auto;
-		right:-68px;
-	}
-	#nav li.nav-buku-dan-mainan ul.level-hover,
-	#nav li.nav-kesehatan-dan-keamanan-bayi-dan-balita ul.level-hover,
-	#nav li.nav-perlengkapan-bayi ul.level-hover,
-	#nav li.nav-untuk-ibu ul.level-hover{
-		left:auto;
-		right:-100px;
-	}
     #nav li.level-top.parent-8 ul.shown-sub {
         right: auto;
         left: 0;
@@ -2059,6 +2030,8 @@ searchbar #nav-search-in {
 		padding-left: 10px;
 		padding-right: 10px;
 	}
+    .logo img{
+    }
 	.sticky-header .sticky-top-cart {
 		padding-left: 0;
 		padding-right: 0;
@@ -2179,7 +2152,7 @@ searchbar #nav-search-in {
 		width: 46%;
 	}
 	.menu-navigation{
-		margin: 10px 0 0;
+		margin: 5px 0 0;
 	}
 	.sticky-header ul.sticky-menu{
 		padding-right: 25%;
@@ -2187,6 +2160,9 @@ searchbar #nav-search-in {
 }
 /* --------------- 960 px layout -------------------- */
 @media only screen and (max-width: 1023px) {
+    .menu-navigation{
+		margin: 10px 0 0;
+	}
 	.menu-top ul li a {
         min-width:40px;
     }
@@ -2397,7 +2373,7 @@ searchbar #nav-search-in {
         display: none;
     }
     .logo img{
-		width:90%
+		width:95%
 	}
     .normal-sticky-cart.add-width-cart {
         display: block;
@@ -2421,7 +2397,7 @@ searchbar #nav-search-in {
 		left: -102px;
 	}
 	.header .logo{
-		padding: 35px 0 0 15px;
+		padding: 30px 0 0;
 		width: 185px;
 		margin: 0;
 	}
@@ -2435,6 +2411,7 @@ searchbar #nav-search-in {
 @media only screen and (max-width: 767px) {
 	.header .logo img {
 		width: 80%;
+        margin: 2px 0 0 9px;
 	}
 	.header .links li:first-child {
 		border-right: none; 
@@ -2444,7 +2421,8 @@ searchbar #nav-search-in {
 	}
 	.header .logo {
 		margin:0 !important;
-		padding-top: 10px;
+		padding-top: 5px;
+        width: 100px;
 	}
 	.header .quick-access {
 		margin: 0 10px 5px 0;
@@ -2631,7 +2609,7 @@ searchbar #nav-search-in {
     .search-container-new-mobile {
         display: block;
         width: 96%;
-		margin: 10px 0 0;
+		margin: 5px 0 0;
         padding: 10px 2%;
         float: left;
         background: none repeat scroll 0 0 #F48220;
@@ -2671,11 +2649,11 @@ searchbar #nav-search-in {
 		margin-left: 5px;
 	}
 	.header a.nav-mobile-trigger {
-		margin-top: 12px;
+		margin-top: 10px;
 	}
 	.header .logo {
 		margin-top: 5px;
-		width: 136px;
+		width: 100px;
 	}
 	.header .logo img {
 		width: 80%;
@@ -2971,7 +2949,6 @@ searchbar #nav-search-in {
 		padding: 10px 0;
 	}
 	.mobile-left-menu .wrap-menu-cat ul li{
-		position: relative;
 		display: table;
 		width: 100%;
 		cursor:pointer;

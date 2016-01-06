@@ -22,8 +22,8 @@ class AW_Affiliate_Block_Campaign_Product_List extends Mage_Catalog_Block_Produc
                 1 => array('is' => new Zend_Db_Expr('null')))
              ), 'left')*/
             ->addAttributeToSort('news_from_date', 'desc');
-        $collection->getSelect()->limit( $limit ); 
-        //$collection->printLogQuery(true); 
+        $collection->getSelect()->limit( $limit );
+        
         $this->setProductCollection($collection);
 
         return $collection;

@@ -124,7 +124,7 @@ class Mage_Catalog_Model_Layer extends Varien_Object
 
         Mage::getSingleton('catalog/product_status')->addVisibleFilterToCollection($collection);
         Mage::getSingleton('catalog/product_visibility')->addVisibleInCatalogFilterToCollection($collection);
-        
+
         return $this;
     }
 

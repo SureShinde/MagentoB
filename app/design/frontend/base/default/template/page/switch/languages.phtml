@@ -47,15 +47,3 @@
     </div>
 </div>
 <?php endif; */?>
-
-
-
-<div class="language-select-option">
-    <select class="country" style="position: relative; z-index: 1;" onchange="window.location.href=this.value">
-        <?php foreach ($this->getStores() as $_lang): ?>
-            <?php $_selected = ($_lang->getId() == $this->getCurrentStoreId()) ? ' selected="selected"' : '' ?>
-            <option class="call-<?php echo $_lang->getCode();?>" value="<?php echo $_lang->getCurrentUrl() ?>"<?php echo $_selected ?>><?php echo $this->escapeHtml($_lang->getName()) ?></option>
-        <?php endforeach; ?>
-    </select>
-    <div class="arrow-language"><img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN); ?>frontend/base/default/images/select-arrow-new.png"/></div>
-</div>
