@@ -24,7 +24,7 @@
             <action method="addCss"><stylesheet>css/stylesheet-2.css</stylesheet></action>
             <action method="addCss"><stylesheet>css/header-3.css</stylesheet></action>
             <action method="addCss"><stylesheet>css/megamenu-3.css</stylesheet></action>
-            <action method="addCss"><stylesheet>css/general-2.css</stylesheet></action>
+            <action method="addCss"><stylesheet>css/general-3.css</stylesheet></action>
             <action method="addCss"><stylesheet>css/footer-3.css</stylesheet></action>
             <action method="addItem">
                 <type>skin_js</type>
@@ -34,6 +34,11 @@
             <action method="addItem">
                 <type>skin_js</type>
                 <name>js/no-conflict.js</name>
+                <params><![CDATA[name="js002_second"]]></params>
+            </action>
+            <action method="addItem">
+                <type>skin_js</type>
+                <name>js/megamenu.js</name>
                 <params><![CDATA[name="js002_second"]]></params>
             </action>
             <action method="addItem"><type>skin_js</type><name>js/jquery-lazyload.js</name>
@@ -216,8 +221,8 @@
     </checkout_cart_index>
     <checkout_onepage_index>
         <reference name="head">
-            <action method="addCss"><stylesheet>css/checkout-2.css</stylesheet></action>
-            <action method="addCss"><stylesheet>css/bilna-checkout-2.css</stylesheet></action>
+            <action method="addCss"><stylesheet>css/checkout-3.css</stylesheet></action>
+            <action method="addCss"><stylesheet>css/bilna-checkout-3.css</stylesheet></action>
         </reference>
         <reference name="root">
             <action method="setTemplate"><template>page/1column.phtml</template></action>
@@ -230,12 +235,13 @@
         </action>
         <block type="ajaxlogin/authorizationFormLogin" name="authorization_login" as="authorization_login" template="ajaxlogin/authorizationForm.login.phtml">
             <block type="core/template" name="al_auth_login_title" template="ajaxlogin/authorizationFormElement.title.phtml">
-                <action method="setTitle" translate="title" module="customer"><title>Login or Create an Account</title></action>
+                <action method="setTitle" translate="title" module="customer"><title>Selamat datang kembali!</title></action>
             </block>
             <block type="core/template" name="al_auth_login_email" template="ajaxlogin/authorizationFormElement.email.phtml"></block>
             <block type="core/template" name="al_auth_login_password" template="ajaxlogin/authorizationFormElement.password.phtml"></block>
             <block type="ajaxlogin/authorizationFormElementButtonsetLogin" name="al_auth_login_buttonset" template="ajaxlogin/authorizationFormElement.buttonsetLogin.phtml"></block>
             <block type="ajaxlogin/authorizationFormElementSocialnets" name="al_auth_login_socialnets" template="ajaxlogin/authorizationFormElement.socialNetworks.phtml"></block>
+			<block type="ajaxlogin/authorizationFormElementButtonsetLogin" name="al_auth_login_buttonsetlinkregister" template="ajaxlogin/authorizationFormElement.buttonsetLinkRegister.phtml"></block>
         </block>
         </reference>
     </ajaxlogin_default>

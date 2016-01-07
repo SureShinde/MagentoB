@@ -96,7 +96,7 @@ ul,ol         { list-style:none; }
 .page-print { background:#fff; padding:25px 30px; text-align:left; }
 .page-empty { background:#fff; padding:20px; text-align:left; }
 .page-popup { background:#fff; padding:25px 30px; text-align:left; }
-.main-container { background:#fbfaf6 url(../images/bkg_main1.gif) 50% 0 no-repeat; }
+.main-container {}
 .main { width:900px; margin:0 auto; min-height:400px; padding:25px 25px 80px; background:#fffffe url(../images/bkg_main2.gif) 0 0 no-repeat; text-align:left; }
 
 /* Base Columns */
@@ -297,17 +297,11 @@ input.input-text:focus,select:focus,textarea:focus {  }
 .buttons-set p.required { margin:0 0 10px; }
 .buttons-set .back-link { float:left; margin:0; }
 .buttons-set button.button { float:right; margin-left:5px; }
-.al-authorization-container-overlap .buttons-set button.button { display: none; }
-.al-authorization-container-overlap .al-authorizationform-recovery .buttons-set button.button { display: inline-block; }
-.al-authorization-container-overlap .buttons-set button#send2.button,
-.al-authorization-container-overlap .al-authorizationform-register .buttons-set button.button { display: block; }
-
-
 .buttons-set-order { margin:10px 0 0; }
 .buttons-set-order .please-wait { padding:12px 7px 0 0; }
 
-.fieldset { border:1px solid #bbafa0; background:#fbfaf6; padding:22px 25px 12px 33px; margin:28px 0; }
-.fieldset .legend { float:left; font-weight:bold; font-size:13px; border:1px solid #f19900; background:#f9f3e3; color:#e76200; margin:-33px 0 0 -10px; padding:0 8px; position:relative; }
+.fieldset { border:1px solid #e4e4e4; padding:22px 25px 12px 33px; margin:28px 0; }
+.fieldset .legend { float:left; font-weight:bold; font-size:13px;  position:relative; clear: both; }
 
 /* Form Validation */
 .al-authorizationform-login .validation-advice {max-width: 230px;}
@@ -344,7 +338,7 @@ p.required { font-size:11px; text-align:right; color:#EB340A; }
 .breadcrumbs li strong { font-weight:bold; }
 
 /* Page Heading */
-.page-title { width:100%; overflow:hidden; border-bottom:1px solid #ccc; margin:0 0 25px; }
+.page-title { width:100%; overflow:hidden; border-bottom:1px solid #ccc; margin:20px 0; }
 .page-title h1,
 .page-title h2 { margin:0; font-size:20px; color:#0a263c; }
 .page-title .separator { margin:0 3px; }
@@ -369,7 +363,7 @@ p.required { font-size:11px; text-align:right; color:#EB340A; }
 .pager .pages { margin:0 140px; }
 .pager .pages ol { display:inline; }
 .pager .pages li { display:inline; margin:0 2px; }
-.pager .pages .current {}
+.pager .pages .current { font-weight: bold; color: #000;}
 
 /* Sorter */
 .sorter { font-size:11px; background:#fff url(../images/bkg_toolbar.gif) 0 100% repeat-x; padding:3px 8px; border-top:1px solid #e2e2e2; }
@@ -1435,11 +1429,11 @@ tr.summary-details-excluded { font-style:italic; }
 .opc .active .step-title h2 { color:#f18200; }
 /*.opc .active .step-title a { display:none; }*/
 
-.opc .step { border:1px solid #bbafa0; border-top:0; background:#fbfaf6 url(../images/bkg_checkout.gif) 0 0 repeat-x; padding:15px 30px; position:relative; }
+.opc .step { border:1px solid #bbafa0; border-top:0; padding:15px 30px; position:relative; }
 .opc .step .tool-tip { right:30px; }
 
 #opc-login .buttons-set { border-top:0; }
-#opc-login h3 { font-size:13px; border-bottom:1px solid #e4e4e4; padding-bottom:2px; text-transform:uppercase; }
+#opc-login h3 { font-size:16px; border-bottom:1px solid #e4e4e4; padding-bottom:2px; text-transform:uppercase; }
 #opc-login h4 { font-size:1em; font-weight:bold; margin:0; color:#2f2f2f; }
 
 #opc-shipping_method .buttons-set { border-top:0; }
@@ -1840,12 +1834,7 @@ tr.summary-details-excluded { font-style:italic; }
 .form-add .buttons-set .button{float:left; margin:0 0 0 17%; background:#fd8e17;	}
 
 .form-add .buttons-set .button span { background:none; border:none; padding:10px; font-size:14px;}
-.form-list li .input-box input, .form-list li .input-box textarea{border:none; background:#f7f7f7; 
-
-    -moz-box-shadow:inset 0px 1px 3px #dfdfdf;
-    -webkit-box-shadow:inset 0px 1px 3px #dfdfdf;
-    box-shadow:inset 0px 1px 3px #dfdfdf;
-    padding: 5px;
+.form-list li .input-box input, .form-list li .input-box textarea{ background:#f7f7f7; padding: 5px;
 }
 .product-tab-wrapper {margin: 0px;}
 .customer-reviews .form-list {margin: 20px 0;}
@@ -1946,8 +1935,8 @@ tr.summary-details-excluded { font-style:italic; }
 
 /* back-to-top css */
 #backtotop {
-    bottom: 20%;
-    display: none;
+    bottom: 100px;
+    visibility: hidden;
     position: fixed;
     right: 10px;
     z-index: 99;

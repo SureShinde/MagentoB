@@ -49,9 +49,9 @@ NOTE: Regarding styles - if we leave it this way, we'll move it to boxes.css
  * @see Mage_Customer_Block_Widget_Dob
  */
 ?>
-<label for="<?php echo $this->getFieldId('month')?>"<?php if ($this->isRequired()) echo ' class="required"' ?>><?php if ($this->isRequired()) echo '' ?><?php echo $this->__('Date of Birth') ?></label>
 
 <div class="input-box customer-dob">
+<label for="<?php echo $this->getFieldId('month')?>"<?php if ($this->isRequired()) echo ' class="required"' ?>><?php if ($this->isRequired()) echo '' ?><?php echo $this->__('Date of Birth') ?></label>
 <?php
     $this->setDateInput('d',
         '<div class="dob-day">

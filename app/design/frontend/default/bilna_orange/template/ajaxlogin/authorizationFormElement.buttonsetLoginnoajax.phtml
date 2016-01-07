@@ -25,16 +25,13 @@
  * @copyright  Copyright (c) 2010-2012 aheadWorks Co. (http://www.aheadworks.com)
  * @license    http://ecommerce.aheadworks.com/AW-LICENSE.txt
  */
-?><div class="al-socialnets">
-	<span><?php echo $this->__('atau gunakan akun media sosial Anda') ?></span>
-    <ul>
-        <?php foreach ( $this->getNetworks() as $__network ): ?>
-            <?php if ( $this->isProperlyConfigured($__network) ): ?>
-                <li>
-                    <img id="<?php echo $__network->getButtonHtmlId() ?>" class="ThumbnailImage" title="<?php echo $__network->getTitle() ?>" src="<?php echo $this->getThumbnailImageURL($__network->getThumbnailImagePath()) ?>" />
-                    <?php echo $this->getButtonInitializationHtml($__network) ?>
-                </li>
-            <?php endif; ?>
-        <?php endforeach; ?>
-    </ul>
+?><ul class="messages Shaddy" style="display: none;">
+    <li class="error-msg">&nbsp;</li>
+</ul>
+<div class="buttons-set">
+    <?php if ( $this->shouldDisplayForgotpasswordbutton() ): ?>
+        <a href="<?php echo $this->getParentBlock()->getForgotPasswordUrl() ?>" id="<?php echo $this->getForgotpasswordbuttonHtmlId() ?>" class="f-right"><?php echo $this->__('Lupa kata kunci?') ?></a><br />
+    <?php endif; ?>
+    
+    <button type="submit" class="button" title="<?php echo $this->__('Login') ?>" name="send" id="send2"><span><span><?php echo $this->__('Masuk') ?></span></span></button>
 </div>
