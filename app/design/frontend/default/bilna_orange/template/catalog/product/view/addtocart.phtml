@@ -52,7 +52,7 @@ function ecommerceProductDetailAddToCart(name, sku, price, link, imageUrl) {
               'name': name,
               'id': sku,
               'price': price,
-              'quantity': 1,
+              'quantity': jQuery("input.#qty").val(),
               'brandName': 'brand name',
               'imageUrl': imageUrl,
               'link': link
