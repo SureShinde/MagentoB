@@ -76,7 +76,7 @@ class AW_Afptc_Model_Api2_Observer_Rest_Admin_V1 extends AW_Afptc_Model_Api2_Obs
                         /*if (!$helper->getValidatedRule()) {                        
                             $helper->setValidatedRule($rule->getId());
                         }*/
-                        array_push($popupRules, $rule);
+                        array_push($popupRules, $rule->getData()); //bug fix config data always empty, since , change from $rule to $rule->getData()
                         continue;
                     }
                     array_push($activeRules, $rule->getData());
