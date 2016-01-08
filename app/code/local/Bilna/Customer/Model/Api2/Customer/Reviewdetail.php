@@ -72,7 +72,9 @@ class Bilna_Customer_Model_Api2_Customer_Reviewdetail extends Mage_Api2_Model_Re
         
         return array(
             'data' => $product->getData(), 
-            'image' => str_replace('/cache/0/', '/cache/'.$storeId.'/', $product->getSmallImageUrl(125, 125))
+            //'image' => str_replace('/cache/0/', '/cache/'.$storeId.'/', $product->getImageUrl(80, 80))
+            'image' => Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) . 'catalog/product' . $product->getThumbnail()
+            //'image' => Mage::helper('catalog/image')->init($product, 'image')->resize(80, 80)
         );
     }
 
