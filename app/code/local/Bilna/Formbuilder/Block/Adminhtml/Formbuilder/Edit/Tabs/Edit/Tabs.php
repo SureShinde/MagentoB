@@ -5,8 +5,8 @@ class Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Edit_Tabs_Edit_Tabs extends 
  public function __construct()
  {
   parent::__construct();
-  $this->setId('formbuilder_form_tabs');
-  $this->setDestElementId('edit_form');
+  	$this->setId('formbuilder_form_tabs');
+  	$this->setDestElementId('edit_form');
 	$this->setTitle(Mage::helper('bilna_formbuilder')->__('Form Information'));
   }
 

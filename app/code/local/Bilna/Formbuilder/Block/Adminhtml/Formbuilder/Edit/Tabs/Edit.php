@@ -16,13 +16,13 @@ class Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Edit_Tabs_Edit extends Mage_
   	$this->setSaveParametersInSession(true);
   	$this->setUseAjax(true);
 
-    /*$this->_addButton('back', array(
-      'label'   => Mage::helper('bilna_formbuilder')->__('Back nih'),
-      'onclick' => 'setLocation(\'' . $this->getUrl('*//*/edit', array('id' => $this->getRequest()->getParam('form_id'))) . '\')',
-      'class'   => 'back',
+    $this->_addButton('delete_input', array(
+      'label'   => Mage::helper('bilna_formbuilder')->__('Delete'),
+      'onclick' => 'setLocation(\'' . $this->getUrl('*/*/deleteInput', array('id' => $this->getRequest()->getParam('id'))) . '\')',
+      'class'   => 'delete',
     ),-1,5);
 
-  		$this->_addButton('saveandcontinue', array (
+  	/*	$this->_addButton('saveandcontinue', array (
         'label' => Mage::helper('adminhtml')->__('Save And Continue Edit'),
         'onclick' => 'saveAndContinueEdit()',
         'class' => 'save',
