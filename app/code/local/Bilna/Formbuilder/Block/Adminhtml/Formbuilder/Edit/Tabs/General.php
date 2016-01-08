@@ -202,11 +202,11 @@ class Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Edit_Tabs_General extends Ma
          //'note'    	=> Mage::helper('bilna_formbuilder')->__('Status Note:</br>0=Enabled</br>1=Disabled'),
   			 'values'     => array(
                        array(
-                           'value' => 0,
+                           'value' => 1,
                            'label' => Mage::helper('bilna_formbuilder')->__('Enabled'),
                        ),
                        array(
-                           'value' => 1,
+                           'value' => 0,
                            'label' => Mage::helper('bilna_formbuilder')->__('Disabled'),
                        ),
                    		 ),
