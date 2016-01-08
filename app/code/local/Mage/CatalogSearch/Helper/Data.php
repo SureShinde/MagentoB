@@ -356,8 +356,7 @@ class Mage_CatalogSearch_Helper_Data extends Mage_Core_Helper_Abstract
         $collection = Mage::getModel('catalog/category')->getCollection()
             ->setStoreId(1)
             ->addAttributeToSelect('name')
-            ->addAttributeToSelect('is_active'); 
-//$collection->printLogQuery(true);
+            ->addAttributeToSelect('is_active');
         $values=array();
 
         foreach ($collection as $row){

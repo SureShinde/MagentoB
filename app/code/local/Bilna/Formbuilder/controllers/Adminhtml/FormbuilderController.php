@@ -2,68 +2,73 @@
 
 class Bilna_Formbuilder_Adminhtml_FormbuilderController extends Mage_Adminhtml_Controller_Action
 {
-  public function indexAction()
-  {
-    $this->_title($this->__('Bilna'))->_title($this->__('Bilna Form Builder Manager'));
-    $this->loadLayout();
-    $this->_setActiveMenu('bilna/bilna');
-    $this->_addContent($this->getLayout()->createBlock('bilna_formbuilder/adminhtml_formbuilder'));
-    $this->renderLayout();
-  }
+	public function indexAction()
+	{
+	    $this->_title($this->__('Bilna'))->_title($this->__('Bilna Form Builder Manager'));
+	    $this->loadLayout();
+	    $this->_setActiveMenu('bilna/bilna');
+	    $this->_addContent($this->getLayout()->createBlock('bilna_formbuilder/adminhtml_formbuilder'));
+	    $this->renderLayout();
+	}
 
 	public function editAction()
 	{
-		$record_id	= $this->getRequest()->getParam('record_id');
-		$form_id 		= $this->getRequest()->getParam('form_id');
-		$id 				= $this->getRequest()->getParam('id');
-		$recform 		= array('record_id' => $record_id, 'form_id' => $form_id);
+		$model = Mage::getModel('bilna_formbuilder/form');
+		$id = $this->getRequest()->getParam('id');
+		if ($id) {
+			$record_id	= $this->getRequest()->getParam('record_id');
+			$form_id = $this->getRequest()->getParam('id');
+			$recform = array('record_id' => $record_id, 'form_id' => $form_id);
 
-		$collection = Mage::getModel('bilna_formbuilder/form')->getCollection();
-		//$collection->getSelect()->where('record_id = '.$record_id.' and form_id = '.$form_id);
-		$collection->getSelect()->where('id = '.$id);
-
-		Mage::register('formbuilder_form', $recform);
-
-		if ($collection->count()>0) {
-			
-			$this->loadLayout();
-			$this->_setActiveMenu('bilna/bilna');
-			$this->_addContent($this->getLayout()->createBlock('bilna_formbuilder/adminhtml_formbuilder_edit'))
-					 ->_addLeft($this->getLayout()->createBlock('bilna_formbuilder/adminhtml_formbuilder_edit_tabs'));
-			$this->renderLayout();
+			$collection = $model->getCollection();
+			//$collection->getSelect()->where('record_id = '.$record_id.' and form_id = '.$form_id);
+			$collection->getSelect()->where('id = '.$id);
+			Mage::register('formbuilder_form', $recform);
+			if ($collection->count() <= 0) {
+				$this->_redirect('*/*/index');
+	      		return;
+			}
+		} else {
+			Mage::register('formbuilder_form', $model);
 		}
-		else {
-			$this->_redirect('*/*/index');
-      return;
-		}
+
+		$this->loadLayout();
+		$this->_setActiveMenu('bilna/bilna');
+		$this->_addContent($this->getLayout()->createBlock('bilna_formbuilder/adminhtml_formbuilder_edit'))
+				 ->_addLeft($this->getLayout()->createBlock('bilna_formbuilder/adminhtml_formbuilder_edit_tabs'));
+		$this->renderLayout();
 	}
 
 	public function editInputAction()
 	{
 		$record_id	= $this->getRequest()->getParam('record_id');
-		$form_id 		= $this->getRequest()->getParam('form_id');
-		$id 				= $this->getRequest()->getParam('id');
-		$recform 		= array('record_id' => $record_id, 'form_id' => $form_id);
+		$form_id = $this->getRequest()->getParam('form_id');
+		$id = $this->getRequest()->getParam('id');
+		$recform = array('record_id' => $record_id, 'form_id' => $form_id);
 
-		$collection = Mage::getModel('bilna_formbuilder/input')->getCollection();
-		//$collection->getSelect()->where('record_id = '.$record_id.' and form_id = '.$form_id);
-		$collection->getSelect()->where('id = '.$id);
-		//$collection->printLogQuery(true); //die;
-		Mage::register('formbuilder_form', $recform);
+		if($id) {
+			$collection = Mage::getModel('bilna_formbuilder/input')->getCollection();
+			//$collection->getSelect()->where('record_id = '.$record_id.' and form_id = '.$form_id);
+			$collection->getSelect()->where('id = '.$id);
+			//$collection->printLogQuery(true); //die;
+			if ($collection->count() <= 0) {
+				$this->_redirect('*/*/index');
+	      		return;
+			}
+		}
 
-		if ($collection->count()>0) {
-			
-			$this->loadLayout();
-			$this->_setActiveMenu('bilna/bilna');
-			$this->_addContent($this->getLayout()->createBlock('bilna_formbuilder/adminhtml_formbuilder_edit_tabs_edit'))
-			//$this->_addContent($this->getLayout()->createBlock('bilna_formbuilder/adminhtml_formbuilder_edit_tabs_edit_detail'))
-					 ->_addLeft($this->getLayout()->createBlock('bilna_formbuilder/adminhtml_formbuilder_edit_tabs_edit_tabs'));
-			$this->renderLayout();
-		}
-		else {
-			$this->_redirect('*/*/index');
-      return;
-		}
+		Mage::register('formbuilder_for', $recform);
+		$this->loadLayout();
+		$this->_setActiveMenu('bilna/bilna');
+		$this->_addContent($this->getLayout()->createBlock('bilna_formbuilder/adminhtml_formbuilder_edit_tabs_edit'))
+		//$this->_addContent($this->getLayout()->createBlock('bilna_formbuilder/adminhtml_formbuilder_edit_tabs_edit_detail'))
+				 ->_addLeft($this->getLayout()->createBlock('bilna_formbuilder/adminhtml_formbuilder_edit_tabs_edit_tabs'));
+		$this->renderLayout();
+	}
+
+	public function newInputAction()
+	{
+		$this->_forward('editinput');
 	}
 
 	public function editDataAction()
@@ -96,9 +101,8 @@ class Bilna_Formbuilder_Adminhtml_FormbuilderController extends Mage_Adminhtml_C
 
 	public function newAction()
 	{
-		//forward new action to a blank edit form
 		$this->_forward('edit');
-	}	
+	}
 
 	public function messageAction()
 	{
@@ -240,22 +244,26 @@ $collection->getSelect()
 	}
 
 	public function saveAction() {
-		if ($data = $this->getRequest()->getPost()) {
-
+		$id = $this->getRequest()->getParam('id');
+		$data = $this->getRequest()->getPost();
+		if ($data) {
 			$model = Mage::getModel('bilna_formbuilder/form');
-			$model->setId($this->getRequest()->getParam('id'));
-
 			try {
 				//title, url, active_from, active_to, status
-				$activeform	= Mage::getModel('core/date')->date('Y-m-d H:i:s', $data['active_from']);
-				$activeto	= Mage::getModel('core/date')->date('Y-m-d H:i:s', $data['active_to']);
+				$data['title'] = $data['form_title'];
+				$model->setData($data);
+				if ($id) {
+					$model->setId($id);
+				}
+				//$model->setActiveFrom($activeform);
+				//$model->setActiveTo($activeto);
+				$model->save();
 
-				$model->setTitle($data['title']);
-				$model->setUrl($data['url']);
-				$model->setActiveFrom($activeform);
-				$model->setActiveTo($activeto);
-				$model->setStatus($data['status']);
-				$model->save(); 
+				if(!$id && $model->id) {
+					Mage::getModel('bilna_formbuilder/data')
+						->setFormId($model->id)
+						->createTable();
+				}
 
 				$this->_redirect('*/*/');
 				return;
@@ -263,9 +271,111 @@ $collection->getSelect()
 			catch (Exception $e) {
 				//die (print_r ($e));
 			}
-	}
-				$this->_redirect('*/*/');
-				return;
+		}
+		$this->_redirect('*/*/');
+		return;
 	}
 
+	public function saveInputAction()
+	{
+		$formId = (int) $this->getRequest()->getParam('form_id');
+		$data = $this->getRequest()->getPost();
+		$data = array_merge($data, ['form_id' => $formId]);
+		if($data) {
+			$model = Mage::getModel('bilna_formbuilder/input');
+			$id = (int) $this->getRequest()->getParam('id');
+			$model->setData($data);
+
+			if ($id) {
+				$model->setId($id);
+			}
+
+			$model->save();
+		}
+		$this->_redirect('*/*/edit', array('id' => $formId));
+	}
+
+	public function massDeleteFormAction()
+	{
+		$ids = $this->getRequest()->getParam('massaction');
+		$ids = !is_array($ids) ? [$ids]: $ids;
+		$this->_doMassDeleteForm($ids);
+		$this->_redirect('*/*/');
+	}
+
+	public function massDeleteInputAction()
+	{
+		$formid = $this->getRequest()->getParam('id');
+		$ids = $this->getRequest()->getParam('input_id');
+		$ids = !is_array($ids) ? [$ids] : $ids;
+		$this->_doMassDeleteInput($ids);
+		$this->_redirect('*/*/');
+	}
+
+	public function deleteAction()
+	{
+		$id = $this->getRequest()->getParam('id');
+		$model = Mage::getModel('bilna_formbuilder/form')
+				->load($id)
+				->delete($id);
+		$this->_redirect('*/*/');
+	}
+
+	protected function _doMassDeleteInput(array $ids)
+	{
+		$isError = false;
+		if(count($ids)) {
+			foreach ($ids as $id) {
+				try{
+					$input = Mage::getModel('bilna_formbuilder/input')->load($id);
+					$input->delete();
+				} catch(Exception $e) {
+					$isError = true;
+					$this->_getSession()->addError($e->getMesage());
+				}
+			}
+		}
+		if(!$isError){
+			$this->_getSession()->addSuccess("Form inputs deleted");
+		}
+	}
+
+	protected function _doMassDeleteForm(array $ids)
+	{
+        $isError = false;
+        $result = ['success' => [], 'failed' => []];
+        if(count($ids)) {
+            foreach($ids as $id) {
+                try {
+                    $form = Mage::getModel('bilna_formbuilder/form')->load($id);
+                    $title = $form->getTitle();
+                    if($form->isFilled()) {
+                    	$result['failed'][] = $title;
+                    } else {
+                    	$id = $form->getId();
+                    	$form->delete();
+
+                    	// If we delete the form data
+                    	// We also need to drop form flat data
+                    	Mage::getModel('bilna_formbuilder/data')
+                    		->setFormId($id)
+                    		->dropTable();
+                    	$result['success'][] = $title;
+                    }
+                }
+                catch(Exception $ex) {
+                    $this->_getSession()->addError($ex->getMesage());
+                }
+            }
+        }
+        if(count($result['success']) > 0) {
+        	$forms = join(', ', $result['success']);
+            $this->_getSession()->addSuccess("The form({$forms}) were deleted");
+        }
+
+        if(count($result['failed']) > 0) {
+        	$forms = join(', ', $result['failed']);
+        	$this->_getSession()->addError("Can't delete the form ({$forms})");
+        }
+    }
 }

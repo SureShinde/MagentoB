@@ -389,6 +389,7 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
         }
         else {
             $session = $this->getOnepage()->getCheckout();
+
             if (!$session->getLastSuccessQuoteId()) {
                 $this->_redirect('checkout/cart');
                 return;
