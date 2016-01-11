@@ -192,18 +192,21 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
             
             foreach ($this->_getAllowAttributes($currentProduct) as $attribute) {
                 $productAttribute = $attribute->getProductAttribute();
-                $productAttributeId = $productAttribute->getId();
-                $attributeValue = $product->getData($productAttribute->getAttributeCode());
                 
-                if (!isset ($options[$productAttributeId])) {
-                    $options[$productAttributeId] = array ();
-                }
+                if (method_exists($productAttribute, 'getId')) {
+                    $productAttributeId = $productAttribute->getId();
+                    $attributeValue = $product->getData($productAttribute->getAttributeCode());
 
-                if (!isset ($options[$productAttributeId][$attributeValue])) {
-                    $options[$productAttributeId][$attributeValue] = array ();
+                    if (!isset ($options[$productAttributeId])) {
+                        $options[$productAttributeId] = array ();
+                    }
+
+                    if (!isset ($options[$productAttributeId][$attributeValue])) {
+                        $options[$productAttributeId][$attributeValue] = array ();
+                    }
+
+                    $options[$productAttributeId][$attributeValue][] = $productId;
                 }
-                
-                $options[$productAttributeId][$attributeValue][] = $productId;
             }
         }
         
@@ -211,6 +214,14 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
         
         foreach ($this->_getAllowAttributes($currentProduct) as $attribute) {
             $productAttribute = $attribute->getProductAttribute();
+            if (!method_exists($productAttribute, 'getId')) {
+                $today = date('d-M-Y H:i:s');
+                $message = "[{$today}] #{$productId} => Call to a member function getId()";
+                $logPath = "generate_product_solr_exception.log";
+                Mage::log($message, null, $logPath);
+                continue;
+            }
+            
             $attributeId = $productAttribute->getId();
             $info = array (
                'id' => $productAttribute->getId(),
@@ -276,12 +287,12 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
         
         $config = array (
             'attributes' => $attributes,
-            'template' => str_replace('%s', '#{price}', $store->getCurrentCurrency()->getOutputFormat()),
+            //'template' => str_replace('%s', '#{$price}', $store->getCurrentCurrency()->getOutputFormat()),
             'basePrice' => $this->_registerJsPrice($this->_convertPrice($currentProduct->getFinalPrice())),
             'oldPrice' => $this->_registerJsPrice($this->_convertPrice($currentProduct->getPrice())),
             'productId' => $currentProduct->getId(),
             'chooseText' => Mage::helper('catalog')->__('Choose an Option...'),
-//            'taxConfig' => $taxConfig
+            //'taxConfig' => $taxConfig
         );
         
         return $config;
