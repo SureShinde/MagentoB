@@ -72,7 +72,7 @@ class Moxy_MoxySellerCenter_Model_Api extends Mage_Api_Model_Resource_Abstract
 	public function listSellerOrderByStatus($productIds, $status)
     {
 		$orders = Mage::getModel('sales/order')->getCollection()->addFieldToFilter('status', $status);
-		return $this->getProductItem($orders, $prodctIds);
+		return $this->getProductItem($orders, $productIds);
     }
 
 
@@ -82,8 +82,8 @@ class Moxy_MoxySellerCenter_Model_Api extends Mage_Api_Model_Resource_Abstract
 		if ($active == 0) {
 			$status = Mage_Catalog_Model_Product_Status::STATUS_DISABLED;
 		}
-		$products = Mage::getModel('catalog/product')->getCollection()->addFieldToFIlter('entity_id', array('in' => $productIds))
-			->addFieldToFIlter('status', array('eq' => $status));
+		$products = Mage::getModel('catalog/product')->getCollection()->addFieldToFilter('entity_id', array('in' => $productIds))
+			->addFieldToFilter('status', array('eq' => $status));
 		$productArray = array();
 		foreach($products as $product) {
 
@@ -281,6 +281,10 @@ class Moxy_MoxySellerCenter_Model_Api extends Mage_Api_Model_Resource_Abstract
         $return['ordered_revenue'] = [];
         $return['newpaid_revenue'] = [];
 
+        $totalOrdered = 0;
+        $totalCanceled = 0;
+        $totalInvoiced = 0;
+
         $totalOrderedRevenue = 0;
         $totalCanceledRevenue = 0;
         $totalInvoicedRevenue = 0;
@@ -420,6 +424,10 @@ class Moxy_MoxySellerCenter_Model_Api extends Mage_Api_Model_Resource_Abstract
         // $return['canceled_revenue'] = [];
         // $return['ordered_revenue'] = [];
         // $return['newpaid_revenue'] = [];
+
+        $totalOrdered = 0;
+        $totalCanceled = 0;
+        $totalInvoiced = 0;
 
         $totalOrderedRevenue = 0;
         $totalCanceledRevenue = 0;
