@@ -243,7 +243,7 @@ class Moxy_MoxySellerCenter_Model_Api extends Mage_Api_Model_Resource_Abstract
             $data['customer_email'] = $salesOrder->getCustomerEmail();
             $data['customer_name'] = $salesOrder->getCustomerFirstname().' '.$salesOrder->getCustomerLastname();
 
-            if ($data['status'] == 'invoiced') {
+            if ($data['status'] == 'processing') {
                 if (!in_array($data['order_number'], $orderNumberArray)) {
                     array_push($return, $data);
                     array_push($orderNumberArray, $data['order_number']);
