@@ -11,7 +11,7 @@
 }
 .checkout-onepage-index .header-container{
     border-bottom: 5px solid #FA6938;
-    background:  url(../../bilna_orange/images/BG-NATAL.jpg) 0 0 repeat-x #fff
+    background:  #fff
 }
 .loader img.loader-img{
     width: 20px !Important;
@@ -24,12 +24,11 @@
 .header-container {
 	width: 100%;
 	border: none;
-	background: url(../../bilna_orange/images/BG-NATAL.jpg) 0 40px repeat-x #fff;
+	background:#fff;
 	position: fixed;
     z-index: 99;
 }
 .header-container.sticky-mode{
-	background: url(../../bilna_orange/images/BG-NATAL.jpg) 0 0px repeat-x #fff;
 }
 .header, #nav{
 	width: 1216px;
@@ -2333,6 +2332,12 @@ searchbar #nav-search-in {
     .header .mini-cart {
         display: none !important;
     }
+    .header .links li.login {
+	    padding: 5px 0;
+	}
+	.header .links li.login a:after{
+	    left: 25px;
+	}
 }
 /* --------------- 320 px layout -------------------- */
 @media only screen and (max-width: 482px) { 
