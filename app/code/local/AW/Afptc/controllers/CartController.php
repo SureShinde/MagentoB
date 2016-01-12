@@ -34,7 +34,17 @@ class AW_Afptc_CartController extends Mage_Checkout_CartController
     const SESSION_KEY = 'aw-afptc-session-key';
    
     public function addProductAction()
-    {    
+    {   
+        $cart   = $this->_getCart();
+        $quote = $cart->getQuote();
+        //Mage::dispatchEvent('awafptc_checkout_cart_save_after', array ('quote' => $quote)); 
+        Mage::dispatchEvent('checkout_cart_save_after', array ('cart' => $cart));
+        if (!$cart->getQuote()->hasItems()) {
+            Mage::getSingleton('checkout/session')->addError($this->__('Your session has expired, please resubmit data'));
+            Mage::getSingleton('customer/session')->unsAwAfptcRule();
+            return $this->_redirectReferer();
+        }
+ 
         $helper = Mage::helper('awafptc');       
         if(!$this->getRequest()->isPost()) {
             exit('Invalid session');
@@ -50,7 +60,12 @@ class AW_Afptc_CartController extends Mage_Checkout_CartController
            Mage::getSingleton('checkout/session')->addError($this->__('Your session has expired, please resubmit data'));
            return $this->_redirectReferer();
         }         
-        $rule = $helper->getRuleFromSession();        
+        $rule = $helper->getRuleFromSession();
+        if (!$rule->load($rule->getId())->validate($cart)) {
+            Mage::getSingleton('checkout/session')->addError($this->__('Your session has expired, please resubmit data'));
+            Mage::getSingleton('customer/session')->unsAwAfptcRule();   
+            return $this->_redirectReferer();
+        }        
         if(!$rule) {
            Mage::getSingleton('checkout/session')->addError($this->__('Your session has expired, please resubmit data'));
            return $this->_redirectReferer();
