@@ -261,6 +261,19 @@ jQuery(document).ready(function(){
                     }
                   }
                 });
+
+                // ematics cart
+                ematics('log', 'product', 'cart', 
+                        [{
+                        'name': name,
+                        'id': sku,
+                        'price': price,
+                        'quantity': 1,
+                        'brandName': 'brand name',
+                        'imageUrl': imageUrl,
+                        'link': link
+                       }]
+                    );
             }
 
             function ecommerceProductClick(name,sku,price) {
