@@ -25,14 +25,22 @@ class AW_Afptc_Model_Api2_Product_Rest_Admin_V1 extends AW_Afptc_Model_Api2_Prod
     	try{
     		$quote = $this->_getQuote($quoteId);
     		$rule = Mage::getModel('awafptc/rule')->load($ruleId);
-
-    		if( $productId == $rule->getProductId() )
+                $ruleProductId = $rule->getProductId();
+                
+                if( $productId == $ruleProductId )
     		{
-    			$product = Mage::getModel('catalog/product')->load($rule->getProductId());
+    			$product = Mage::getModel('catalog/product')->load($ruleProductId);
     			if (!$product->getId())
     				throw Mage::throwException("Product with ID $productId doesn\'t exists");
 
-    			$quote->addProduct($product->setData('aw_afptc_rule', $rule))->setQty($qty);
+                        
+                        $quote->addProduct($product->setData('aw_afptc_rule', $rule))->setQty($qty);
+                        
+                        //Create the item for the quote
+                        //bug fix price not calculated based on rule discount, its here!
+                        //just save after add product
+                        //link: http://findnerd.com/list/view/Add-product-to-cart-in-magento-programmatically/1144/
+                        $quote->collectTotals()->save();
     		}
 
     	}catch(Exception $e){
@@ -43,6 +51,7 @@ class AW_Afptc_Model_Api2_Product_Rest_Admin_V1 extends AW_Afptc_Model_Api2_Prod
 
     	//return $this->_getLocation($quote);
     }
+    
     /*
     protected function _create(array $data)
     {
