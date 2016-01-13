@@ -39,7 +39,7 @@ class Bilna_Checkout_Model_Api2_Product_Delete_Rest_Admin_V1 extends Bilna_Check
                     $this->_getProductRequest($productItem)
                 );
 
-                if (is_null($quoteItem->getId())) {
+                if (!$quoteItem->getId()) {
                     throw Mage::throwException("One item of products is not belong any of quote item");
                 }
 
