@@ -16,9 +16,11 @@
 				<privileges>
 					<admin>
 						<retrieve>1</retrieve>
+						<create>1</create>
 					</admin>
 					<customer>
 						<retrieve>1</retrieve>
+						<create>1</create>
 					</customer>
 				</privileges>
 				<attributes translate="config" module="AW_Afptc">
@@ -44,9 +46,11 @@
 				<privileges>
 					<admin>
 						<retrieve>1</retrieve>
+						<create>1</create>
 					</admin>
 					<customer>
 						<retrieve>1</retrieve>
+						<create>1</create>
 					</customer>
 				</privileges>
 				<attributes translate="quote_id product_id rule_id qty" module="AW_Afptc">
