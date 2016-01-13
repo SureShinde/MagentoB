@@ -292,7 +292,7 @@ class Bilna_Worker_Solr_GenerateProduct extends Bilna_Worker_Abstract {
     }
     
     private function setQueryProductSales($productId, $total) {
-        $sql = "UPDATE `{$this->_apiProductTable}` SET `sales` = :total WHERE `entity_id` = :entity_id LIMIT 1 ";
+        $sql = "UPDATE `{$this->_apiProductTable}` SET `sales_price` = :total WHERE `entity_id` = :entity_id LIMIT 1 ";
         $binds = array (
             'total' => $total,
             'entity_id' => $productId,
