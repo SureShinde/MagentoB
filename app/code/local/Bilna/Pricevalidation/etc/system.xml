@@ -44,6 +44,32 @@
                         </product_team_email>
                     </fields>
                 </pricevalidation>
+                <pricevalidation_disc translate="label">
+                    <label>Group Price Disc. Setting</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+			<silver translate="label">
+                            <label>Silver Reseller (%)</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </silver>
+                        <platinum translate="label">
+                            <label>Platinum Reseller (%)</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </platinum>
+                    </fields>
+                </pricevalidation_disc>
             </groups>
         </bilna_pricevalidation>
     </sections>

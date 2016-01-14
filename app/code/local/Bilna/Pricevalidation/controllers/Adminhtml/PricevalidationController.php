@@ -3,12 +3,14 @@
 class Bilna_Pricevalidation_Adminhtml_PricevalidationController extends Mage_Adminhtml_Controller_Action
 {
     private $silver = 'silver reseller';
-    private $silverDiscount = 0.25;
+    private $silverDiscount = 0;
     private $platinum = 'platinum reseller';
-    private $platinumDiscount = 0.75;
+    private $platinumDiscount = 0;
 
     public function indexAction()
     {
+        $this->silverDiscount = Mage::getStoreConfig('bilna_pricevalidation/pricevalidation_disc/silver')/100;
+        $this->platinumDiscount = Mage::getStoreConfig('bilna_pricevalidation/pricevalidation_disc/platinum')/100;
         $this->_title($this->__('Bilna'))->_title($this->__('Bilna Price Validation'));
         $this->loadLayout();
         $this->_setActiveMenu('bilna/bilna');
