@@ -221,6 +221,8 @@ class MP_MaxCouponDiscountAmount_Model_SalesRule_Validator extends Mage_SalesRul
             $discountAmount     = min($itemDiscountAmount + $discountAmount, $itemPrice * $qty);
             $baseDiscountAmount = min($itemBaseDiscountAmount + $baseDiscountAmount, $baseItemPrice * $qty);
 
+            $this->_maxDiscountAmount = $rule->getMaxDiscountAmount();
+
             if ($this->_maxDiscountAmount != 0 && $this->_sumDiscount >= $this->_maxDiscountAmount) {
 
                 $discount = $this->_getDiscountSum($itemPrice, $qty);
@@ -230,6 +232,8 @@ class MP_MaxCouponDiscountAmount_Model_SalesRule_Validator extends Mage_SalesRul
 
                 $item->setOriginalDiscountAmount($discount);
                 $item->setBaseOriginalDiscountAmount($discount);
+
+                $this->_addNoticeMaxCoupon();
             } else {
                 $item->setDiscountAmount($discountAmount);
                 $item->setBaseDiscountAmount($baseDiscountAmount);
@@ -281,6 +285,17 @@ class MP_MaxCouponDiscountAmount_Model_SalesRule_Validator extends Mage_SalesRul
         }
 
         return $discount;
+    }
+
+    protected function _addNoticeMaxCoupon()
+    {
+        $checkoutSession = Mage::getSingleton('checkout/session');
+        if (!$checkoutSession->getDoNotShowMaxDiscountAmountNotice()) {
+            Mage::getSingleton('core/session')->addNotice('Maximum discount amount of '
+                . Mage::app()->getLocale()->currency(Mage::app()->getStore()->getCurrentCurrencyCode())->getSymbol()
+                . number_format($this->_maxDiscountAmount, 2) . ' reached.');
+            $checkoutSession->setDoNotShowMaxDiscountAmountNotice(true);
+        }
     }
 
 

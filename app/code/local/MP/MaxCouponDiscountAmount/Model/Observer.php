@@ -13,7 +13,11 @@ class MP_MaxCouponDiscountAmount_Model_Observer
         $couponCode = $quote->getCouponCode();
         $checkoutSession = Mage::getSingleton('checkout/session');
         if ($couponCode) {
-
+            if ($checkoutSession->getCouponCode() && (mb_strtolower($checkoutSession->getCouponCode()) != mb_strtolower($couponCode))) {
+                $quote->setMaxDiscountAmount(0)->save();
+                $checkoutSession->setDoNotCheckForMaxDiscountAmount(false);
+                $checkoutSession->setDoNotShowMaxDiscountAmountNotice(false);
+            }
             if (($quote->getMaxDiscountAmount() == 0) && !$checkoutSession->getDoNotCheckForMaxDiscountAmount()) {
                 $couponMaxDiscountAmount = Mage::getResourceModel('mp_maxcoupondiscountamount/promocode')
                     ->getCouponMaxDiscountAmount($couponCode);
@@ -21,9 +25,11 @@ class MP_MaxCouponDiscountAmount_Model_Observer
                     if (($couponMaxDiscountAmount > 0) && ($quote->getMaxDiscountAmount() != $couponMaxDiscountAmount)) {
                         $quote->setMaxDiscountAmount((float) $couponMaxDiscountAmount)->save();
                         $checkoutSession->setDoNotCheckForMaxDiscountAmount(true);
+                        $checkoutSession->setCouponCode($couponCode);
                     }
                 } elseif ($couponMaxDiscountAmount == 0) {
                     $checkoutSession->setDoNotCheckForMaxDiscountAmount(true);
+                    $checkoutSession->setCouponCode($couponCode);
                 }
             }
 
@@ -38,20 +44,16 @@ class MP_MaxCouponDiscountAmount_Model_Observer
                     - $quote->getMaxDiscountAmount() * $quote->getStoreToQuoteRate()) +$tax);
 
                 $quote->save();
-                if (!$checkoutSession->getDoNotShowMaxDiscountAmountNotice()) {
-                    Mage::getSingleton('core/session')->addNotice('Maximum discount amount of '
-                        . Mage::app()->getLocale()->currency(Mage::app()->getStore()->getCurrentCurrencyCode())->getSymbol()
-                        . number_format($quote->getMaxDiscountAmount(), 2) . ' reached.');
-                    $checkoutSession->setDoNotShowMaxDiscountAmountNotice(true);
-                }
             }
         } elseif (!$couponCode && $quote->getMaxDiscountAmount() > 0) {
             $quote->setTotalsCollectedFlag(false)->setMaxDiscountAmount((float) 0.0000)->collectTotals()->save();
             $checkoutSession->setDoNotCheckForMaxDiscountAmount(false);
             $checkoutSession->setDoNotShowMaxDiscountAmountNotice(false);
+            $checkoutSession->unsCouponCode();
         } elseif (!$couponCode) {
             $checkoutSession->setDoNotCheckForMaxDiscountAmount(false);
             $checkoutSession->setDoNotShowMaxDiscountAmountNotice(false);
+            $checkoutSession->unsCouponCode();
         }
     }
 

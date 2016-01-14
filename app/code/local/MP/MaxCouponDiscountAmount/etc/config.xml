@@ -59,7 +59,7 @@
             </adminhtml>
         </blocks>
         <events>
-            <sales_quote_collect_totals_after>
+            <sales_quote_collect_totals_before>
                 <observers>
                     <mp_maxcoupondiscountamount_observer>
                         <type>singleton</type>
@@ -67,7 +67,7 @@
                         <method>salesQuoteCollectTotalsAfter</method>
                     </mp_maxcoupondiscountamount_observer>
                 </observers>
-            </sales_quote_collect_totals_after>
+            </sales_quote_collect_totals_before>
             <sales_order_place_before>
                 <observers>
                 <mp_maxcoupondiscountamount_observer>

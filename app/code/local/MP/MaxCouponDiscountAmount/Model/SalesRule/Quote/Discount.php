@@ -29,13 +29,19 @@ class MP_MaxCouponDiscountAmount_Model_SalesRule_Quote_Discount extends Mage_Sal
         $this->_calculator->initTotals($items, $address);
 
         $address->setDiscountDescription(array());
-        $items = $this->_calculator->sortItemsByPriority($items);
+        $version = Mage::getVersionInfo();
+        if ($version['major'] == 1 && $version['minor'] == 9) {
+            $items = $this->_calculator->sortItemsByPriority($items);
+        }
         $maxDiscountAmount = $quote->getMaxDiscountAmount();
 
-        if ($maxDiscountAmount && $maxDiscountAmount != 0) {
+        $coupon = Mage::getModel('salesrule/coupon')->load($quote->getCouponCode(), 'code');
+        $rule = Mage::getModel('salesrule/rule')->load($coupon->getRuleId());
+
+        if ($maxDiscountAmount && $maxDiscountAmount != 0 && $rule->getSimpleAction() == 'by_percent') {
             $subTotals = $this->_getQuoteSubTotals($items);
             $countItems = $this->_getQuoteItemsCount($items);
-            $sumDiscount = $this->_getSumDiscount($items);
+            $sumDiscount = $this->_getSumDiscount($items, $rule->getDiscountAmount());
             $this->_calculator->setDataDiscount($maxDiscountAmount, $subTotals, $countItems, $sumDiscount);
         }
         $count = 1;
@@ -99,11 +105,19 @@ class MP_MaxCouponDiscountAmount_Model_SalesRule_Quote_Discount extends Mage_Sal
     protected function _getQuoteSubTotals($items)
     {
         $totals = array();
+        $parentItems = array();
         foreach ($items as $item) {
-            if ($item->getHasChildren() && $item->isChildrenCalculated()) {
-                continue;
-            } else {
-                $totals[] = $item->getPrice() * $item->getQty();
+            if (!$item->getNoDiscount()) {
+                if ($item->getHasChildren() && $item->isChildrenCalculated()) {
+                    foreach ($item->getChildren() as $child) {
+                        $totals[] = $child->getPrice() * $child->getQty() * $item->getQty();
+                        $parentItems[] = $item->getId();
+                    }
+                } else {
+                    if (array_search($item->getParentItemId(), $parentItems) === false) {
+                        $totals[] = $item->getPrice() * $item->getQty();
+                    }
+                }
             }
         }
 
@@ -113,17 +127,28 @@ class MP_MaxCouponDiscountAmount_Model_SalesRule_Quote_Discount extends Mage_Sal
     }
 
 
-    protected function _getSumDiscount($items)
+    protected function _getSumDiscount($items, $discountAmount)
     {
         $totals = array();
+        $parentItems = array();
         foreach ($items as $item) {
-            if ($item->getHasChildren() && $item->isChildrenCalculated()) {
-                continue;
-            } else {
-                $price = $item->getPrice() * $item->getQty();
-                $percent = $item->getDiscountPercent();
-                $discount = $price / 100 * $percent;
-                $totals[] = $discount;
+            if (!$item->getNoDiscount()) {
+                if ($item->getHasChildren() && $item->isChildrenCalculated()) {
+                    foreach ($item->getChildren() as $child) {
+                        $price = $child->getPrice() * $child->getQty() * $item->getQty();
+                        $percent = $discountAmount;
+                        $discount = $price / 100 * $percent;
+                        $totals[] = $discount;
+                        $parentItems[] = $item->getId();
+                    }
+                } else {
+                    if (array_search($item->getParentItemId(), $parentItems) === false) {
+                        $price = $item->getPrice() * $item->getQty();
+                        $percent = $discountAmount;
+                        $discount = $price / 100 * $percent;
+                        $totals[] = $discount;
+                    }
+                }
             }
         }
 
@@ -136,10 +161,12 @@ class MP_MaxCouponDiscountAmount_Model_SalesRule_Quote_Discount extends Mage_Sal
     {
         $count = null;
         foreach ($items as $item) {
-            if ($item->getHasChildren() && $item->isChildrenCalculated()) {
-                continue;
-            } else {
-                $count++;
+            if (!$item->getNoDiscount()) {
+                if ($item->getHasChildren() && $item->isChildrenCalculated()) {
+                    continue;
+                } else {
+                    $count++;
+                }
             }
         }
 
