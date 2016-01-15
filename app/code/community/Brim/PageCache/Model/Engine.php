@@ -352,9 +352,8 @@ class Brim_PageCache_Model_Engine {
             // Check for cached page
             $this->debug('Checking page cache with Id : ' . $id);
             //if (false && ($cachedData = $cache->load($id))) {
-            $force_miss_header = Mage::app()->getFrontController()->getRequest()->getHeader('Fpc-Force-Miss');
-            if (!empty($force_miss_header)) {
-                Mage::log("Fpc-Force-Miss header is set. Ignoring full page cache.", Zend_Log::WARN);
+            if (!empty($_REQUEST['FORCE_MISS'])) {
+                Mage::log("FORCE_MISS parameter is set. Ignoring full page cache.", Zend_Log::WARN);
             }
 
             if (empty($_REQUEST['FORCE_MISS']) && empty($force_miss_header) && ($cachedData = $cache->load($id))) {
