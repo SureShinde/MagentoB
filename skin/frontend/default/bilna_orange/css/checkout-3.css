@@ -39,6 +39,7 @@
 #checkoutSteps .buttons-set .back-link {
 	float: right;
 	margin-top: 10px;
+    font-size: 1.2em;
 	margin-right: 5px;
 }
 #checkoutSteps .guest_register .buttons-set button.button {
@@ -47,7 +48,7 @@
 #checkoutSteps .buttons-set button.button {
     background:#FA6938;
     height: 36px;
-    font-size: 18px;
+    font-size: 14px;
     line-height:21px;
 }
 #checkoutSteps .buttons-set button.button.btn-checkout {
@@ -352,7 +353,7 @@
 }
 #checkout-review-submit button.apply-voucher, #checkout-review-submit button.cancel-voucher{
 	display: table;
-    padding: 10px;
+    padding: 0 10px;
     margin: 0 10px 0 0;
     float: left;
     background: #c8c8c8;
