@@ -371,6 +371,7 @@ class Bilna_Worker_Solr_GenerateProduct extends Bilna_Worker_Abstract {
         $sql .= "FROM `catalog_product_entity_media_gallery` AS `cpemg` ";
         $sql .= "INNER JOIN `catalog_product_entity_media_gallery_value` AS `cpemgv` ON `cpemg`.`value_id` = `cpemgv`.`value_id` ";
         $sql .= "WHERE `cpemgv`.`disabled` = 0 AND `cpemgv`.`store_id` IN ('0','1') AND `cpemg`.`entity_id` = {$productId} ";
+        $sql .= "GROUP BY `cpemg`.`value_id` ";
         $query = $this->_dbRead->query($sql);
         $result = array ();
         
