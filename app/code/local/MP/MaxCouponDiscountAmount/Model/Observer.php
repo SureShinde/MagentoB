@@ -67,16 +67,40 @@ class MP_MaxCouponDiscountAmount_Model_Observer
         $quote = $checkoutSession->getQuote();
         $order = $observer->getEvent()->getOrder();
         if (($quote->getMaxDiscountAmount() > 0) && ($order->getDiscountAmount() < (-$quote->getMaxDiscountAmount()))) {
+            /*
             $deltaToAddToTotals = (float)(-($order->getDiscountAmount() + $quote->getMaxDiscountAmount()));
             $order->setDiscountAmount((float)(-$quote->getMaxDiscountAmount()));
             $order->setBaseDiscountAmount((float)($order->getDiscountAmount() * $order->getStoreToOrderRate()));
 
             $order->setGrandTotal((float)($order->getGrandTotal() + $deltaToAddToTotals));
             $order->setBaseGrandTotal((float)($order->getBaseGrandTotal() + $deltaToAddToTotals * $order->getStoreToOrderRate()));
+            */
+            /*
+            echo "MASUK 1<br />";
+            echo "ORDER DISCOUNT AMOUNT : " . $order->getDiscountAmount() . "<br />";
+            echo "ORDER BASE DISCOUNT AMOUNT : " . $order->getBaseDiscountAmount() . "<br />";
+            echo "ORDER SUB TOTAL : " . $order->getSubtotal() . "<br />";
+            echo "ORDER BASE SUB TOTAL : " . $order->getBaseSubtotal() . "<br />";
+            echo "ORDER GRAND TOTAL : " . $order->getGrandTotal() . "<br />";
+            echo "ORDER BASE GRAND TOTAL : " . $order->getBaseGrandTotal() . "<br />";
+            echo "ORDER MAX DISCOUNT AMOUNT : " . $order->getMaxDiscountAmount() . "<br />";
+            echo "QUOTE MAX DISCOUNT AMOUNT : " . $quote->getMaxDiscountAmount() . "<br />";
+            */
 
             $order->setMaxDiscountAmount($quote->getMaxDiscountAmount());
             $order->save();
         } elseif ($quote->getMaxDiscountAmount() > 0) {
+            /*
+            echo "MASUK 2<br />";
+            echo "ORDER DISCOUNT AMOUNT : " . $order->getDiscountAmount() . "<br />";
+            echo "ORDER BASE DISCOUNT AMOUNT : " . $order->getBaseDiscountAmount() . "<br />";
+            echo "ORDER SUB TOTAL : " . $order->getSubtotal() . "<br />";
+            echo "ORDER BASE SUB TOTAL : " . $order->getBaseSubtotal() . "<br />";
+            echo "ORDER GRAND TOTAL : " . $order->getGrandTotal() . "<br />";
+            echo "ORDER BASE GRAND TOTAL : " . $order->getBaseGrandTotal() . "<br />";
+            echo "ORDER MAX DISCOUNT AMOUNT : " . $order->getMaxDiscountAmount() . "<br />";
+            echo "QUOTE MAX DISCOUNT AMOUNT : " . $quote->getMaxDiscountAmount() . "<br />";
+            */
             $order->setMaxDiscountAmount($quote->getMaxDiscountAmount());
             $order->save();
         }

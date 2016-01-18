@@ -38,14 +38,23 @@ class MP_MaxCouponDiscountAmount_Model_SalesRule_Quote_Discount extends Mage_Sal
         $coupon = Mage::getModel('salesrule/coupon')->load($quote->getCouponCode(), 'code');
         $rule = Mage::getModel('salesrule/rule')->load($coupon->getRuleId());
 
-        if ($maxDiscountAmount && $maxDiscountAmount != 0 && $rule->getSimpleAction() == 'by_percent') {
-            $subTotals = $this->_getQuoteSubTotals($items);
+        if ($maxDiscountAmount && $maxDiscountAmount != 0 && ($rule->getSimpleAction() == 'by_percent' || $rule->getSimpleAction() == 'by_fixed')) {
+            $subTotals = $this->_getQuoteSubTotals($items, $rule->getActions(), $rule->getDiscountQty());
             $countItems = $this->_getQuoteItemsCount($items);
-            $sumDiscount = $this->_getSumDiscount($items, $rule->getDiscountAmount());
+            if ($rule->getSimpleAction() == 'by_percent')
+                $sumDiscount = $this->_getSumDiscount($items, $rule->getDiscountAmount(), $rule->getActions(), $rule->getDiscountQty());
+            else
+            if ($rule->getSimpleAction() == 'by_fixed')
+                $sumDiscount = $this->_getSumDiscountByFixed($items, $rule->getDiscountAmount(), $rule->getActions(), $rule->getDiscountQty());
             $this->_calculator->setDataDiscount($maxDiscountAmount, $subTotals, $countItems, $sumDiscount);
         }
         $count = 1;
         foreach ($items as $item) {
+            /*
+            echo "----------------------------------<br />";
+            echo "ITEM : " . $item->getName() . "<br />";
+            */
+
             if ($item->getNoDiscount()) {
                 $item->setDiscountAmount(0);
                 $item->setBaseDiscountAmount(0);
@@ -102,20 +111,32 @@ class MP_MaxCouponDiscountAmount_Model_SalesRule_Quote_Discount extends Mage_Sal
         return $this;
     }
 
-    protected function _getQuoteSubTotals($items)
+    protected function _getQuoteSubTotals($items, $rule_actions, $discount_qty)
     {
         $totals = array();
         $parentItems = array();
         foreach ($items as $item) {
             if (!$item->getNoDiscount()) {
+                // if the rule condition is not satisfied, do not process the below action
+                if (!$rule_actions->validate($item)) {
+                    continue;
+                }
+                // if the discount qty does not exist
+                if (is_null($discount_qty) || $discount_qty == 0) {
+                    $item_qty = $item->getQty();
+                }
+                else {
+                    $item_qty = min($discount_qty, $item->getQty());
+                }
+
                 if ($item->getHasChildren() && $item->isChildrenCalculated()) {
                     foreach ($item->getChildren() as $child) {
-                        $totals[] = $child->getPrice() * $child->getQty() * $item->getQty();
+                        $totals[] = $child->getPrice() * $child->getQty() * $item_qty;
                         $parentItems[] = $item->getId();
                     }
                 } else {
                     if (array_search($item->getParentItemId(), $parentItems) === false) {
-                        $totals[] = $item->getPrice() * $item->getQty();
+                        $totals[] = $item->getPrice() * $item_qty;
                     }
                 }
             }
@@ -127,15 +148,28 @@ class MP_MaxCouponDiscountAmount_Model_SalesRule_Quote_Discount extends Mage_Sal
     }
 
 
-    protected function _getSumDiscount($items, $discountAmount)
+    protected function _getSumDiscount($items, $discountAmount, $rule_actions, $discount_qty)
     {
+        // only total the items whose rules are validated
         $totals = array();
         $parentItems = array();
         foreach ($items as $item) {
             if (!$item->getNoDiscount()) {
+                // if the rule condition is not satisfied, do not process the below action
+                if (!$rule_actions->validate($item)) {
+                    continue;
+                }
+                // if the discount qty does not exist
+                if (is_null($discount_qty) || $discount_qty == 0) {
+                    $item_qty = $item->getQty();
+                }
+                else {
+                    $item_qty = min($discount_qty, $item->getQty());
+                }
+
                 if ($item->getHasChildren() && $item->isChildrenCalculated()) {
                     foreach ($item->getChildren() as $child) {
-                        $price = $child->getPrice() * $child->getQty() * $item->getQty();
+                        $price = $child->getPrice() * $child->getQty() * $item_qty;
                         $percent = $discountAmount;
                         $discount = $price / 100 * $percent;
                         $totals[] = $discount;
@@ -143,9 +177,53 @@ class MP_MaxCouponDiscountAmount_Model_SalesRule_Quote_Discount extends Mage_Sal
                     }
                 } else {
                     if (array_search($item->getParentItemId(), $parentItems) === false) {
-                        $price = $item->getPrice() * $item->getQty();
+                        $price = $item->getPrice() * $item_qty;
                         $percent = $discountAmount;
                         $discount = $price / 100 * $percent;
+                        $totals[] = $discount;
+                    }
+                }
+            }
+        }
+
+        $result = array_sum($totals);
+
+        return $result;
+    }
+
+    protected function _getSumDiscountByFixed($items, $discountAmount, $rule_actions, $discount_qty)
+    {
+        // only total the items whose rules are validated
+        $totals = array();
+        $parentItems = array();
+        foreach ($items as $item) {
+            if (!$item->getNoDiscount()) {
+                // if the rule condition is not satisfied, do not process the below action
+                if (!$rule_actions->validate($item)) {
+                    continue;
+                }
+                // if the discount qty does not exist
+                if (is_null($discount_qty) || $discount_qty == 0) {
+                    $item_qty = $item->getQty();
+                }
+                else {
+                    $item_qty = min($discount_qty, $item->getQty());
+                }
+
+                if ($item->getHasChildren())
+                    continue;
+
+                if ($item->getHasChildren() && $item->isChildrenCalculated()) {
+                    foreach ($item->getChildren() as $child) {
+                        $price = $child->getPrice() * $child->getQty() * $item_qty;
+                        $discount = $child->getQty() * $item_qty * $discountAmount;
+                        $totals[] = $discount;
+                        $parentItems[] = $item->getId();
+                    }
+                } else {
+                    if (array_search($item->getParentItemId(), $parentItems) === false) {
+                        $price = $item->getPrice() * $item_qty;
+                        $discount = $item_qty * $discountAmount;
                         $totals[] = $discount;
                     }
                 }

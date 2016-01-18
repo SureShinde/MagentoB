@@ -39,12 +39,24 @@ class MP_MaxCouponDiscountAmount_Model_SalesRule_Validator extends Mage_SalesRul
         $this->_stopFurtherRules = false;
         foreach ($this->_getRules() as $rule) {
 
+            /*echo "RULE NAME : " . $rule->getName() . "<br />";*/
+
             /* @var $rule Mage_SalesRule_Model_Rule */
             if (!$this->_canProcessRule($rule, $address)) {
+                // check whether this rule will stop further rules processing
+                if ($rule->getStopRulesProcessing()) {
+                    $this->_stopFurtherRules = true;
+                    break;
+                }
                 continue;
             }
 
             if (!$rule->getActions()->validate($item)) {
+                // check whether this rule will stop further rules processing
+                if ($rule->getStopRulesProcessing()) {
+                    $this->_stopFurtherRules = true;
+                    break;
+                }
                 continue;
             }
 
@@ -223,9 +235,16 @@ class MP_MaxCouponDiscountAmount_Model_SalesRule_Validator extends Mage_SalesRul
 
             $this->_maxDiscountAmount = $rule->getMaxDiscountAmount();
 
+            /*
+            echo "SUM DISCOUNT : " . $this->_sumDiscount . "<br />";
+            echo "MAX DISCOUNT AMOUNT : " . $this->_maxDiscountAmount . "<br />";
+            */
+
             if ($this->_maxDiscountAmount != 0 && $this->_sumDiscount >= $this->_maxDiscountAmount) {
 
                 $discount = $this->_getDiscountSum($itemPrice, $qty);
+
+                /*echo "DISCOUNT : " . $discount . "<br />";*/
 
                 $item->setDiscountAmount($discount);
                 $item->setBaseDiscountAmount($discount);
