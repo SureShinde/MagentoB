@@ -308,7 +308,7 @@ input.input-text:focus,select:focus,textarea:focus {  }
 .validation-advice { clear:both; min-height:13px; margin:3px 0 0; padding-left:17px; font-size:11px; font-weight:bold; line-height:13px; background:url(../images/validation_advice_bg.gif) 2px 0 no-repeat; color:#eb340a; }
 .validation-failed { border:1px dashed #eb340a !important; background:#faebe7 !important; }
 .validation-passed {}
-p.required { font-size:11px; text-align:right; color:#EB340A; }
+p.required { font-size:11px; text-align:right; color:#FF2A2A; }
 /* Expiration date and CVV number validation fix */
 .v-fix { float:left; }
 .v-fix .validation-advice { display:block; width:12em; margin-right:-12em; position:relative; }
