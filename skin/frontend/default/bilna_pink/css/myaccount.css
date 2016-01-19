@@ -135,13 +135,14 @@
 }
 .block-account .block-content {
 	background: none;
+    border-right: 1px solid #F2F2F2;
 }
 .block-account .block-content ul {
 	margin-top: 10px;
 }
 .block-account .block-content li, 
 .block-account .block-content li.current {
-	padding: 10px 0;
+	padding: 10px;
 }
 .block-account .block-content li a, 
 .block-account .block-content li.current {
@@ -149,14 +150,14 @@
 }
 .block-account .block-content li.current {
 	color: #838383;
-	background: url(../images/arrow-myaccount.png) right center no-repeat;
+	background: url(../images/arrow-myaccount.png) 95% center no-repeat #F2F2F2;
 }
 .block-account .block-content li.current strong {
 	font-weight: normal;
 }
 .block-account .block-content li a, 
 .block-account .block-content li a:hover {
-	color: #ffa01b;
+	color: #585958;
 	font-weight: bold;
 }
 
@@ -414,7 +415,7 @@
 .my-account .pager-wrapper .limiter ul li a, 
 .my-account .data-table .link-reorder, 
 .my-account .data-table .link-view-order {
-	color: #fd810d !important;
+	color: #EE5191 !important;
 	font-weight: bold;
 }
 .my-account .data-table {
@@ -695,7 +696,6 @@ padding: 10px 10px 30px;
 	margin:15px 0 0;
 }
 .my-account .my-wishlist .button.btn-cart{
-	background:none;
 	width:auto;
 }
 .my-account .my-wishlist .truncated .show p{

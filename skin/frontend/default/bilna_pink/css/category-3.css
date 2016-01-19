@@ -41,10 +41,10 @@
 	font-size:1.2em;
 }
 .products-grid .item:hover .availability.out-of-stock a{
-	color:#F38020;
+	color:#EE5191;
 }
 .products-grid .item:hover .availability.out-of-stock{
-	border:1px solid #F38020;
+	border:1px solid #EE5191;
 }
 .sorter .view-mode, .toolbar-bottom .sorter, {
 	display: none;
@@ -336,7 +336,7 @@ a.triger-showfilter {
 	padding-left: 0;
 }
 .toolbar .limiter ul li a {
-	color: #ffa01b;
+	color: #EE5191;
 	float:left;
 }
 .toolbar .sorter {
@@ -382,7 +382,7 @@ a.triger-showfilter {
 	font-weight: bold;
 }
 .pager .pages li a {
-	color: #F48220;
+	color: #EE5191;
 }
 .old-price .price {
 	font-weight: normal;

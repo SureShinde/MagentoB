@@ -172,7 +172,7 @@ li.home .breadcrumbs a{
 	width: 100%;
 }
 .pager {
-	background: url(../images/bg-pager.jpg) repeat-x left top;
+	background: #EFEFEF;
 	border-top: none;
 }
 .pager .amount {
@@ -278,7 +278,7 @@ li.home .breadcrumbs a{
 }
 button.btn-cart {
     width:100%;
-	background:#231F20;
+	background:#EE5191;
     height:30px;
     line-height:30px;
     color: #fff;
@@ -310,11 +310,6 @@ button.btn-cart span, button.btn-cart span span {
 .block .btn-remove {
 	margin-left: 0;
 	margin-right: 5px;
-}
-.btn-remove {
-	width: 14px;
-	height: 14px;
-	background: url(../images/btn-remove.png) no-repeat 0 0;
 }
 a.back-to-top {
 	display: none;

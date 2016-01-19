@@ -354,6 +354,11 @@
 .menu-navigation .first-level > ul > li.first-level-cat.hover-cat div{
 	color:#fff;
 }
+.menu-navigation .first-level .second-level .wrap-second-cat > ul li:hover > a,
+.menu-navigation .first-level .second-level .wrap-second-cat > ul li:hover > p > a{
+	color:#EE5191;
+	text-decoration:underline;
+}
 @media (min-width: 1024px )and (max-width: 1215px ){
     .menu-navigation .wrap-navigation{
         width: 994px;
