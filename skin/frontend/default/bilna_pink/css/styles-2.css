@@ -480,7 +480,7 @@ tr.summary-details-excluded { font-style:italic; }
 .link-cart-special { 
     width: 100%;
     color: #fff;
-    background: #EE5191;
+    background: #231F20;
     line-height: 30px;
     font-size: 1.3em;
     color: #fff;
@@ -821,7 +821,7 @@ tr.summary-details-excluded { font-style:italic; }
 .products-grid .product-name { /*min-height:2.7em;*/ margin:0 0 5px; font-weight:bold; font-size:13px; color:#203548; }
 .products-grid .product-name a { color:#203548; }
 .products-grid .price-box { margin:5px 0; }
-.products-grid .availability { line-height:28px; height: 28px; border: 1px solid #203548; text-align: center;}
+.products-grid .availability { line-height:28px; height: 28px; border: 1px solid #231F20; text-align: center;}
 .products-grid .actions { position:absolute; bottom:12px; }
 .col2-left-layout .products-grid,
 .col2-right-layout .products-grid { width:632px; margin:0 auto; }

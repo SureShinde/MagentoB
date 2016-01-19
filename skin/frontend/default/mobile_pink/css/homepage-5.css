@@ -1187,7 +1187,7 @@ ul.block-wrapper li:last-child {}
 	.homepage .homepage-banner.slider-mobile{
 		display:block;
 		width: 94%;
-		margin: 0 3%;
+		margin: 0 3% 10px;
 	}
 	/*=========== baby ================*/
 	.homepage-top-block.middle {

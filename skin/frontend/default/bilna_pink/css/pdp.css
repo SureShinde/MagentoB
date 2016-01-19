@@ -777,7 +777,7 @@ table.ratings-table tbody tr{
 	color: #fff;
 	line-height: 30px;
 	font-weight:normal;
-    background: #EE5191; 
+    background: #231F20; 
     display: block;
     font-size: 1.4em;
 }
@@ -1297,7 +1297,7 @@ table.ratings-table tbody tr{
 .catalog-product-view .aw-mini-related-items li.super-products:hover .availability.out-of-stock,
 .catalog-product-view .aw-mini-related-items .availability.out-of-stock:hover,
 .product-view .product-shop-right .block.block-related .block-content .aw-arp-item .aw-arp-addtocart .availability.out-of-stock:hover {
-	border:1px solid #F48120;
+	border:1px solid #EE5191;
 }
 .product-view .product-shop-right .block.block-related .block-content .aw-arp-item .aw-arp-addtocart .availability.out-of-stock  span{
 	width:100%;
@@ -1314,7 +1314,7 @@ table.ratings-table tbody tr{
 .catalog-product-view .aw-mini-related-items li.super-products:hover .availability.out-of-stock a,
 .catalog-product-view .aw-mini-related-items .availability.out-of-stock:hover a,
 .product-view .product-shop-right .block.block-related .block-content .aw-arp-item .aw-arp-addtocart .availability.out-of-stock:hover  span a{
-	color:#F48120;
+	color:#EE5191;
 }
 .product-shop .product-shop-left input#alert_email {
     margin: 0 0 2px !important;

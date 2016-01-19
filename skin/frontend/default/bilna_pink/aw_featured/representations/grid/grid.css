@@ -26,7 +26,7 @@
 }
 .afp-addtocart .out-of-stock span{
     width: 100%;
-    border: 1px solid #231F20;
+    border: 1px solid #EE5191;
     line-height: 30px;
     color: #fff;
     display: block;
@@ -113,11 +113,11 @@
 }
 .awafpgrid .afp-addtocart button.btn-buynow {
     width:100%;
-	background:#EE5191;
+	background:#231F20;
     line-height:30px;
     font-size: 1.2em;
     color: #fff;
-    border: 1px solid #EE5191;
+    border: 1px solid #231F20;
 }
 .awafpgrid .afp-addtocart button.btn-buynow .fa{
     font-size: 1.2em;
@@ -130,7 +130,7 @@
  .awafpgrid > ul > li:hover .afp-addtocart a, .awafpgrid > ul > li .afp-addtocart a:hover{}
 .awafpgrid .afp-addtocart .availability.out-of-stock a {
     position: relative;
-    color: #231F20;
+    color: #EE5191;
     display: block;
     text-align: center;
     font-weight: normal;
