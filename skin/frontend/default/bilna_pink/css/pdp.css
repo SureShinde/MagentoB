@@ -274,7 +274,7 @@ hr{
     display: inline-block;
     padding: 0 25px;
     width: auto;
-    background: #C8542D;
+    background: #EA2F7C;
     color: #fff;
     position: relative;
 }
@@ -341,7 +341,7 @@ hr{
     width: 98%;
 }
 .product-view .product-shop .product-shop-left .buy-later a {
-	color: #ffa01b !important;
+	color: #3A3838 !important;
 	font-weight: bold !important;
 	background: none;
 	text-align: left;
