@@ -130,14 +130,14 @@
  .awafpgrid > ul > li:hover .afp-addtocart a, .awafpgrid > ul > li .afp-addtocart a:hover{}
 .awafpgrid .afp-addtocart .availability.out-of-stock a {
     position: relative;
-    color: #EE5191;
+    color: #231F20;
     display: block;
     text-align: center;
     font-weight: normal;
     font-size: 1em;
 }
 .awafpgrid > ul > li:hover  .product-info-wrapper .afp-addtocart .out-of-stock span{
-	border: 1px solid #F48120;
+	border: 1px solid #231F20;
 }
 .awafpgrid > ul > li:hover  .product-info-wrapper .afp-addtocart .out-of-stock span a{
 	background:none;
