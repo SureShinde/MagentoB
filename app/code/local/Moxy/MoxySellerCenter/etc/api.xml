@@ -47,6 +47,10 @@
                             <title>getdashboardstatistic</title>
                             <acl>moxysellercenter/overallsales</acl>
                         </getdashboardstatistic>
+                        <getbrands translate="title" module="moxysellercenter">
+                            <title>getbrands</title>
+                            <acl>moxysellercenter/listbrand</acl>
+                        </getbrands>
                 </methods>
             </moxysellercenter>
         </resources>
@@ -67,6 +71,9 @@
 					<listinactiveproduct translate="title" module="moxysellercenter">
                         <title>listinactiveproduct</title>
                     </listinactiveproduct>
+                    <listbrand translate="title" module="moxysellercenter">
+                        <title>List of Brand</title>
+                    </listbrand>
                 </moxysellercenter>
             </resources>
         </acl>
