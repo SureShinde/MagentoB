@@ -4,7 +4,7 @@ Mage::app();
 
 $sendFromEmailAddress = "indra.kurniawan@bilna.com";
 $sendFromName = 'Tickets Bilna'; 
-$sendToEmailAddress = array("indra.kurniawan@bilna.com", "taufik.r@bilna.com", "uke.m@bilna.com");
+$sendToEmailAddress = array("indra.kurniawan@bilna.com"/*, "taufik.r@bilna.com", "uke.m@bilna.com"*/);
 
 $write = Mage::getSingleton('core/resource')->getConnection('core_read');
  
@@ -15,36 +15,37 @@ $message = "
 	<table border='1'>
 		<tr>
 			<td>Category</td>
-			<td>Margin before Disc (%)</td>
-			<td>Margin after Disc (%)</td>
 			<td>Total Number of Orders</td>
 			<td>Total Number of Orders (excluding cancelled)</td>
-			<td>Revenue before Disc</td>
-			<td>Revenue after Disc</td>
 			<td>Average Basket Size</td>
-			<td>Revenue before Disc (excluding Cancelled)</td>
-			<td>Revenue after Disc (excluding Cancelled)</td>
-			<td>Revenue Nett after tax</td>
-			<td>USD (14.0K)</td>
+			<td>Revenue before Disc (IDR)</td>
+			<td>Revenue before Disc (USD)</td>
+			<td>Revenue before Disc (excluding Cancelled - IDR)</td>
+			<td>Revenue before Disc (excluding Cancelled - USD)</td>
+			<td>Revenue after Disc (excluding Cancelled - IDR)</td>
+			<td>Revenue after Disc (excluding Cancelled - USD)</td>
+			<td>Margin before Disc (%)</td>
+			<td>Disc (%)</td>
 		</tr>";
 while ($row = $readresult->fetch() ) {
 	$message .= "
 		<tr>
 			<td>".$row['Category']."</td>
-			<td>".$row['Margin before Disc (%)']."</td>
-			<td>".$row['Margin after Disc (%)']."</td>
 			<td>".$row['Total Number of Orders']."</td>
 			<td>".$row['Total Number of Orders (excluding cancelled)']."</td>
-			<td>".$row['Revenue before Disc']."</td>
-			<td>".$row['Revenue after Disc']."</td>
 			<td>".$row['Average Basket Size']."</td>
-			<td>".$row['Revenue before Disc (excluding Cancelled)']."</td>
-			<td>".$row['Revenue after Disc (excluding Cancelled)']."</td>
-			<td>".$row['Revenue Nett after tax']."</td>
-			<td>".$row['USD (14.0K)']."</td>
+			<td>".$row['Revenue before Disc (IDR)']."</td>
+			<td>".$row['Revenue before Disc (USD)']."</td>
+			<td>".$row['Revenue before Disc (excluding Cancelled - IDR)']."</td>
+			<td>".$row['Revenue before Disc (excluding Cancelled - USD)']."</td>
+			<td>".$row['Revenue after Disc (excluding Cancelled - IDR)']."</td>
+			<td>".$row['Revenue after Disc (excluding Cancelled - USD)']."</td>
+			<td>".$row['Margin before Disc (%)']."</td>
+			<td>".$row['Disc (%)']."</td>
 		</tr>";
 }
 $message .= "</table>";
+echo $message; die();
 try
 {
     $mail = new Zend_Mail();
