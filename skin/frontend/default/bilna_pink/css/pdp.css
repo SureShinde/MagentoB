@@ -274,7 +274,7 @@ hr{
     display: inline-block;
     padding: 0 25px;
     width: auto;
-    background: #EA2F7C;
+    background: #DA2972;
     color: #fff;
     position: relative;
 }
@@ -285,7 +285,7 @@ hr{
     margin-top: 4px;
 }
 .product-view .product-shop .product-shop-left .add-to-cart:hover button.button{
-	background:#F48120;
+	background:#EA2F7C;
 }
 .product-view .product-shop .product-shop-left .btn-buy-grouped .add-to-cart button.button {
 	text-align: center;
