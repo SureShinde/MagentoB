@@ -26,7 +26,7 @@
 }
 .afp-addtocart .out-of-stock span{
     width: 100%;
-    border: 1px solid #EE5191;
+    border: 1px solid #231F20;
     line-height: 30px;
     color: #fff;
     display: block;
@@ -137,7 +137,7 @@
     font-size: 1em;
 }
 .awafpgrid > ul > li:hover  .product-info-wrapper .afp-addtocart .out-of-stock span{
-	border: 1px solid #231F20;
+	border: 1px solid #F48120;
 }
 .awafpgrid > ul > li:hover  .product-info-wrapper .afp-addtocart .out-of-stock span a{
 	background:none;
