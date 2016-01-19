@@ -352,6 +352,10 @@ class Brim_PageCache_Model_Engine {
             // Check for cached page
             $this->debug('Checking page cache with Id : ' . $id);
             //if (false && ($cachedData = $cache->load($id))) {
+            if (!empty($_REQUEST['FORCE_MISS'])) {
+                Mage::log("FORCE_MISS parameter is set. Ignoring full page cache.", Zend_Log::WARN);
+            }
+
             if (empty($_REQUEST['FORCE_MISS']) && ($cachedData = $cache->load($id))) {
                 $cachedStorage = unserialize($cachedData);
                 if ($cachedStorage instanceof Brim_PageCache_Model_Storage) {
