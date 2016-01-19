@@ -44,6 +44,8 @@ class Bilna_Catalog_Model_Url extends Mage_Catalog_Model_Url
                     $urlKey = $this->getCategoryModel()->formatUrlKey($category->getUrlKey());
                 }
 
+                echo "PROCESSING CATEGORY : " . $category->getName() . " AND URL KEY : " . $category->getUrlKey() . "\n";
+
                 $idPath      = $this->generatePath('id', null, $category);
                 $targetPath  = $this->generatePath('target', null, $category);
                 $requestPathWithParent = $this->getCategoryRequestPathWithParent($category, $parentPath);
@@ -89,9 +91,11 @@ class Bilna_Catalog_Model_Url extends Mage_Catalog_Model_Url
                     $category->setUrlKey($urlKey);
                     $this->getResource()->saveCategoryAttribute($category, 'url_key');
                 }
-                if ($category->getUrlPath() != $requestPathWithParent) {
-                    $category->setUrlPath($requestPathWithParent);
+                if ($category->getUrlPath() != $requestPath) {
+                    $category->setUrlPath($requestPath);
                     $this->getResource()->saveCategoryAttribute($category, 'url_path');
+                    $category->setCompleteUrl($requestPathWithParent);
+                    $this->getResource()->saveCategoryAttribute($category, 'complete_url');
                 }
             }
             else {

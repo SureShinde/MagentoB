@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Bilna_Catalog>
-            <version>1.0</version>
+            <version>0.1.0</version>
         </Bilna_Catalog>
     </modules>
 
@@ -14,5 +14,29 @@
                 </rewrite>
             </catalog>
         </models>
+        <resources>
+            <bilnacatalog_setup>
+                <setup>
+                    <module>Bilna_Catalog</module>
+                    <class>Mage_Catalog_Model_Resource_Eav_Mysql4_Setup</class>
+                </setup>
+                
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </bilnacatalog_setup>
+            
+            <bilnacatalog_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </bilnacatalog_write>
+            
+            <bilnacatalog_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </bilnacatalog_read>
+        </resources>
     </global>
 </config>
