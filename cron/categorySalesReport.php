@@ -4,7 +4,7 @@ Mage::app();
 
 $sendFromEmailAddress = "indra.kurniawan@bilna.com";
 $sendFromName = 'Tickets Bilna'; 
-$sendToEmailAddress = array("indra.kurniawan@bilna.com"/*, "taufik.r@bilna.com", "uke.m@bilna.com"*/);
+$sendToEmailAddress = array("indra.kurniawan@bilna.com", "taufik.r@bilna.com", "uke.m@bilna.com");
 
 $write = Mage::getSingleton('core/resource')->getConnection('core_read');
  
