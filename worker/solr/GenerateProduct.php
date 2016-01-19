@@ -319,11 +319,15 @@ class Bilna_Worker_Solr_GenerateProduct extends Bilna_Worker_Abstract {
             elseif ($type == 'bundle') {
                 $sql .= "WHERE `type_id` = 'bundle' ";
             }
+            else {
+                $sql .= "WHERE 1 = 1 ";
+            }
             
-            //$sql .= "WHERE `entity_id` IN (20,41534) ";
-            //$sql .= "WHERE `entity_id` IN (20) ";
+            if ($this->getArg('id')) {
+                $sql .= "AND `entity_id` = {$this->getArg('id')} ";
+            }
+            
             $sql .= "ORDER BY `entity_id` ";
-            //$sql .= "LIMIT 500 ";
         }
         
         return $this->_dbRead->query($sql);
@@ -367,6 +371,7 @@ class Bilna_Worker_Solr_GenerateProduct extends Bilna_Worker_Abstract {
         $sql .= "FROM `catalog_product_entity_media_gallery` AS `cpemg` ";
         $sql .= "INNER JOIN `catalog_product_entity_media_gallery_value` AS `cpemgv` ON `cpemg`.`value_id` = `cpemgv`.`value_id` ";
         $sql .= "WHERE `cpemgv`.`disabled` = 0 AND `cpemgv`.`store_id` IN ('0','1') AND `cpemg`.`entity_id` = {$productId} ";
+        $sql .= "GROUP BY `cpemg`.`value_id` ";
         $query = $this->_dbRead->query($sql);
         $result = array ();
         
