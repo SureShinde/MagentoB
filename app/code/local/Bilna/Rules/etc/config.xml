@@ -8,16 +8,16 @@
 
   <global>
     <models>
-      <rules>
+      <bilna_rules>
         <class>Bilna_Rules_Model</class>
         <resourceModel>rules_resource</resourceModel>
-      </rules>
+      </bilna_rules>
     </models>
 
     <helpers>
-      <rules>
+      <bilna_rules>
         <class>Bilna_Rules_Helper</class>
-      </rules>
+      </bilna_rules>
     </helpers>
 
     <events>
@@ -25,7 +25,7 @@
         <observers>
           <bilna_rules_extension_model_observer>
             <type>singleton</type>
-            <class>rules/observer</class>
+            <class>bilna_rules/observer</class>
             <method>handleValidation</method>
           </bilna_rules_extension_model_observer>
         </observers>
@@ -35,7 +35,7 @@
         <observers>
           <bilna_rules_extension_model_observer>
             <type>singleton</type>
-            <class>rules/observer</class>
+            <class>bilna_rules/observer</class>
             <method>handleNewConditions</method>
           </bilna_rules_extension_model_observer>
         </observers>
@@ -43,4 +43,4 @@
     </events>
   </global>
 
-</config> 
+</config>
