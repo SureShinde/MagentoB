@@ -89,8 +89,10 @@ class Bilna_Wrappinggiftevent_Model_Observer {
         $order = $evt->getOrder();
         $model = Mage::getModel('wrappinggiftevent/custom_order');
         $data = $model->getByOrder($order->getId());
-        foreach($data as $key => $value){
-            $order->setData($key,$value);
+        if( !empty($data) ) {
+            foreach($data as $key => $value){
+                $order->setData($key,$value);
+            }
         }
     }
 

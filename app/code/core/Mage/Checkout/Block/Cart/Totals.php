@@ -84,7 +84,7 @@ class Mage_Checkout_Block_Cart_Totals extends Mage_Checkout_Block_Cart_Abstract
      * @param   int $colspan
      * @return  string
      */
-    public function renderTotals($area = null, $colspan = 1)
+    public function renderTotals($area = null, $colspan = 0)
     {
         $html = '';
         foreach($this->getTotals() as $total) {
