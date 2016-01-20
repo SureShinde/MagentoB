@@ -12,6 +12,11 @@
                 <rewrite>
                     <url>Bilna_Catalog_Model_Url</url>
                 </rewrite>
+                <resource>
+                    <rewrite>
+                        <url>Bilna_Catalog_Model_Resource_Url</url>
+                    </rewrite>
+                </resource>
             </catalog>
         </models>
         <resources>
