@@ -635,7 +635,7 @@
 .header .links li.myaccount a.link-trigger-myaccount, .menu-tablet .links li.myaccount a.link-trigger-myaccount {
 }
 .header .links li.myaccount a.link-trigger-myaccount{
-    padding: 43px 0 0;
+    padding: 43px 0 5px 0;
     font-size: 11px;
     color: #585958;
     height: 14px;
