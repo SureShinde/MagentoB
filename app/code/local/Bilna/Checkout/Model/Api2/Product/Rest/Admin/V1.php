@@ -122,12 +122,24 @@ class Bilna_Checkout_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Checkout_Mod
                 $quoteItem = $this->_getQuoteItemByProduct($quote, $productByItem,
                     $this->_getProductRequest($productItem)
                 );
-
-                if (is_null($quoteItem->getId())) {
-                    throw Mage::throwException("One item of products is not belong any of quote item");
+                
+                //Mage::log(json_encode($quoteItem->getData()), null, 'mylog.log');
+                //bug fix if quote item id is free product, will return call to undefined getId, 
+                //since it was not an object. because the product is free, and will return null object.
+                if(is_object($quoteItem)) {
+                    $quoteItemId = $quoteItem->getId();
+                } else {
+                    $quoteItemId = array();
+                }
+                
+                //if (!$quoteItem->getId()) {
+                if (empty($quoteItemId)) {
+                    return false;
+                    //disabled error while product is free
+                    //throw Mage::throwException("One item of products is not belong any of quote item");
                 }
 
-                if ($productItem['qty'] > 0) {
+                if ($productItem['qty'] > 0 && !empty($quoteItemId)) {
                     $quoteItem->setQty($productItem['qty']);
                 }
 

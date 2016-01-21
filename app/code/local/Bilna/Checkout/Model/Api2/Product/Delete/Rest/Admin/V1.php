@@ -38,9 +38,21 @@ class Bilna_Checkout_Model_Api2_Product_Delete_Rest_Admin_V1 extends Bilna_Check
                 $quoteItem = $this->_getQuoteItemByProduct($quote, $productByItem,
                     $this->_getProductRequest($productItem)
                 );
-
-                if (!$quoteItem->getId()) {
-                    throw Mage::throwException("One item of products is not belong any of quote item");
+                //bug fix if quote item id is free product, will return call to undefined getId, 
+                //since it was not an object. because the product is free, and will return null object.
+                if(is_object($quoteItem)) {
+                    $quoteItemId = $quoteItem->getId();
+                } else {
+                    $quoteItemId = array();
+                }
+                
+                //if (!$quoteItem->getId()) {
+                if (empty($quoteItemId)) {
+                    
+                    $this->_removeFreeProduct($productItem['product_id'], $quote->getId());
+                    
+                    return false;
+                    //throw Mage::throwException("One item of products is not belong any of quote item");
                 }
 
                 $quote->removeItem($quoteItem->getId());
@@ -73,6 +85,25 @@ class Bilna_Checkout_Model_Api2_Product_Delete_Rest_Admin_V1 extends Bilna_Check
 
         return $this->_getLocation($quote);
         
+    }
+    
+    private function _removeFreeProduct($productId = null, $quoteId = null) {
+        $resource = Mage::getSingleton('core/resource');
+                    
+        /**
+        * Retrieve the write connection
+        */
+        $writeConnection = $resource->getConnection('core_write');
+
+        $tQuoteItem = $resource->getTableName('sales/quote_item');
+        
+        $query = "DELETE FROM $tQuoteItem WHERE product_id = ".$productId." AND quote_id = ".$quoteId."";
+        /**
+        * Execute the query
+        */
+        $writeConnection->query($query);
+        
+        return true;
     }
 
     /**
