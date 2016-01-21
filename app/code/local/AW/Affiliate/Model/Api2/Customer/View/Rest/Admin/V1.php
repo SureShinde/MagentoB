@@ -16,6 +16,11 @@ class AW_Affiliate_Model_Api2_Customer_View_Rest_Admin_V1 extends AW_Affiliate_M
         $campaignCollection = array();
         $withdrawCollection = array();
         $affiliateCollection = array();
+        $availableBalance = null;
+        $totalEarnings = null;
+        $lifeTimeEarnings = null;
+        $campaign = array();
+        $withdraw = array();        
                 
         $blockCampaign = new AW_Affiliate_Block_Customer_Campaigns();
         $blockWithdraw = new AW_Affiliate_Block_Customer_Withdrawal();            
@@ -37,8 +42,6 @@ class AW_Affiliate_Model_Api2_Customer_View_Rest_Admin_V1 extends AW_Affiliate_M
     	}
 
         if(!empty($campaignCollection)) {
-            $campaign = array();
-            
             foreach($campaignCollection as $item) {
                 $campaign[] = array(
                     'entity_id' => $item->getId(), 
@@ -51,9 +54,7 @@ class AW_Affiliate_Model_Api2_Customer_View_Rest_Admin_V1 extends AW_Affiliate_M
             }
         }
 
-        if(!empty($withdrawCollection)) {
-            $withdraw = array();
-            
+        if(!empty($withdrawCollection)) {            
             foreach($withdrawCollection as $item) {
                 $withdraw[] = array(
                     'entity_id' => $item->getId(), 
