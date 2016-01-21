@@ -163,7 +163,8 @@ class Amasty_Shopby_Helper_Url extends Mage_Core_Helper_Abstract
             $url = $base . $reservedKey; 
         }
         else { // we have a valid category
-            $url = $cat->getUrl();
+            //$url = $cat->getUrl();
+            $url = $base . $cat->getUrlPath();
             $pos = strpos($url,'?');
             $url = $pos ? substr($url, 0, $pos) : $url;
         }
