@@ -2,7 +2,7 @@
 require_once '../app/Mage.php';
 Mage::app();
 
-$code = Mage::app()->getRequest()->getParam('code');
+$code = 'sales_by_category_report';
 $helper = Mage::helper('sendreport');
 
 $colls = $helper->getCollectionByCode($code);
