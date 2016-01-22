@@ -43,6 +43,5 @@ if($version=='prod'){
 	$mail->setSubject('Category Sales Report - '.date('D, d M Y H:i:s', strtotime('+7 hours')));
 	$mail->send();
 }else{
-	echo $message; 
-	die();
+	echo $message;
 }
