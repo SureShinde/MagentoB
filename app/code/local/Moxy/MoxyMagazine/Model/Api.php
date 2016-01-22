@@ -178,7 +178,13 @@ class Moxy_MoxyMagazine_Model_Api extends Mage_Api_Model_Resource_Abstract
         // Customer Session
         $session = Mage::getSingleton('customer/session');
 
-        $customerId = $_SESSION['customer']['id'];
+        // $data["session"] = $_SESSION;
+
+        // This is for magento enterprise
+        // $customerId = $_SESSION['customer']['id'];
+
+        // This is for magento community
+        $customerId = $_SESSION['customer_base']['id'];
 
         if ($customerId) {
             $data["id"] = $customerId;
