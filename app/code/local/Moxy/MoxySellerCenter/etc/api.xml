@@ -51,6 +51,10 @@
                             <title>getbrands</title>
                             <acl>moxysellercenter/listbrand</acl>
                         </getbrands>
+                        <getbrandbysku translate="title" module="moxysellercenter">
+                            <title>getbrandbysku</title>
+                            <acl>moxysellercenter/getbrandbysku</acl>
+                        </getbrandbysku>
                 </methods>
             </moxysellercenter>
         </resources>
@@ -74,6 +78,9 @@
                     <listbrand translate="title" module="moxysellercenter">
                         <title>List of Brand</title>
                     </listbrand>
+                    <getbrandbysku translate="title" module="moxysellercenter">
+                        <title>Get Brand by SKU</title>
+                    </getbrandbysku>
                 </moxysellercenter>
             </resources>
         </acl>
