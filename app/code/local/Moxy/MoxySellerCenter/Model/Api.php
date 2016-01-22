@@ -532,4 +532,29 @@ class Moxy_MoxySellerCenter_Model_Api extends Mage_Api_Model_Resource_Abstract
         return $return;
     }
 
+    public function getBrands(){
+        $options = array();
+        $attribute = Mage::getSingleton('eav/config')
+            ->getAttribute(Mage_Catalog_Model_Product::ENTITY, 'brand');
+        if ($attribute->usesSource()) {
+            $options = $attribute->getSource()->getAllOptions(false);
+        }
+        return $options;
+    }
+
+    public function getBrandBySKU($productSKU){
+        $result = '';
+
+        $product = Mage::getModel('catalog/product')->loadByAttribute('sku', $productSKU);
+        if ($product) {
+            $attribute = Mage::getSingleton('eav/config')
+                ->getAttribute(Mage_Catalog_Model_Product::ENTITY, 'brand');
+            if ($attribute->usesSource()) {
+                $result = $attribute->getSource()->getOptionText($product->brand);
+            }
+        }
+
+        return $result;
+    }
+
 }
