@@ -5,17 +5,6 @@
             <version>0.1.0</version>
         </Bilna_SendReport>
     </modules>
-	<frontend>
-	    <routers>
-			<sendreport>
-			    <use>standard</use>
-			    <args>
-			        <module>Bilna_SendReport</module>
-			        <frontName>sendreport</frontName>
-			    </args>
-			</sendreport>
-	    </routers>
-	</frontend>  
 	<global>
 	    <models>
 	        <sendreport>
