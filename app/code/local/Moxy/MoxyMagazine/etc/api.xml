@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<config>
+    <api>
+        <resources>
+            <moxymagazine translate="title" module="moxymagazine">
+                <title>Moxy Magazine API</title>
+                <acl>moxymagazine/api</acl>
+                <model>moxymagazine/api</model>
+                <methods>
+					<listcollection translate="title" module="moxymagazine">
+                        <title>listcollection</title>
+                        <acl>moxymagazine/listcollection</acl>
+                    </listcollection>
+                    <getsessiondata translate="title" module="moxymagazine">
+                        <title>getsessiondata</title>
+                        <acl>moxymagazine/getsessiondata</acl>
+                    </getsessiondata>
+					<getquotecart translate="title" module="moxymagazine">
+                        <title>getquotecart</title>
+                        <acl>moxymagazine/getquotecart</acl>
+                    </getquotecart>
+                </methods>
+            </moxymagazine>
+        </resources>
+        <acl>
+            <resources>
+                <moxymagazine translate="title" module="moxymagazine">
+                    <title>Moxymagazine</title>
+                    <sort_order>2000</sort_order>
+					<listcollection translate="title" module="moxymagazine">
+                        <title>listcollection</title>
+                    </listcollection>
+                    <getsessiondata translate="title" module="moxymagazine">
+                        <title>getsessiondata</title>
+                    </getsessiondata>
+					<getquotecart translate="title" module="moxymagazine">
+						<title>getquotecart</title>
+					</getquotecart>
+                </moxymagazine>
+            </resources>
+        </acl>
+    </api>
+</config>

@@ -126,7 +126,17 @@
     font-size: 14px;
     padding: 5px;
 }
-
+@media (max-width: 767px) {
+    .static-page-content,
+    .static-page-conten .form-list li .input-box input, .form-list li .input-box textarea{
+        width: 90%;
+        margin: 0 auto;
+    }
+    .static-page-content .fieldset{
+        border:0;
+        padding:0;
+    }
+}
 .static-page-content table tr td {
     border-bottom: 1px solid #6ec9e8;
     border-right: 1px solid #6ec9e8;
@@ -999,6 +1009,9 @@ animation-timing-function: linear;
 	@media only screen and (max-width: 767px) { 
 		.web-ver-mwb {display: none}
 		.mobile-ver-mwb {display: block;}
+        .cms-main input.input-text,.cms-main select,.cms-main .form-list li.wide textarea {
+            width: 90%;
+        }
 	}
 
 
@@ -1026,7 +1039,7 @@ animation-timing-function: linear;
 }
 .static-page-content > h3 {
     font-size: 21px;
-	color: #FFA01B !important;
+	color: #EE5191 !important;
 }
 .static-testi-row {
 	margin:15px 0 0;
@@ -1066,15 +1079,8 @@ animation-timing-function: linear;
     position: relative;
 	padding: 10px 0;
 }
-.contactForm-content {
-    font-size: 14px;
-}
 .contactForm-content .static-tagline {
-    color: #F58D66;
-    font-family: helvetica,arial,'sans-serif';
-    font-size: 14px;
-}
-.contactForm-content {
+    color: #EE5191;
     font-size: 14px;
 }
 .contactForm-leftbox {
@@ -1153,15 +1159,6 @@ animation-timing-function: linear;
 .cms-main .buttons-set button.button {
     float: right;
     margin-left: 5px;
-}
-.cms-main .buttons-set button.button span {
-    background: none repeat scroll 0 0 #FF763F;
-    border: 1px solid #FF763F;
-	padding:3px 20px 10px;
-}
-.cms-main .buttons-set button.button span span {
-    background: none;
-    border: none;
 }
 .cms-main .contactForm-leftbox {
     float: left;
@@ -1542,7 +1539,7 @@ h2.block-grey-title-left {
 }
 .left-sp-menu-wrapp ul li a:hover{
 	text-decoration: none;
-	color: #FFA01B;
+	color: #EE5191;
 }
 .container-left-com {
 	margin-bottom: 10px;
