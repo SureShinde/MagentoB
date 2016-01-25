@@ -57,6 +57,10 @@
             if ( __node ) __node.observe(
                 'click',
                 function(event) {
+                    // hide first and last name input label for pop up Login
+                    jQuery('form#register-form div.field.name-firstname div.input-box label').addClass('hidden');
+                    jQuery('form#register-form div.field.name-lastname div.input-box label').addClass('hidden');
+
                     AjaxLogin.Authorization.__getInstanceByChildnode(this).switchToFrame('register');
                     if (window.event) window.event.cancelBubble = true;
                     if (window.event) window.event.returnValue = false;
