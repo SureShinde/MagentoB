@@ -91,9 +91,9 @@ class Bilna_Checkout_Model_Api2_Payment_Rest_Admin_V1 extends Bilna_Checkout_Mod
     private function _getMethods()
     {
         $quote = $this->getQuote();
-        $store = $quote->getStoreId();
+        $storeId = $quote->getStoreId();
         $methods = array();
-        $payment = Mage::helper('payment')->getStoreMethods($this->store, $quote);
+        $payment = Mage::helper('payment')->getStoreMethods($this->_getStore(), $quote);
         foreach ($payment as $method)
         {
             if ($this->_canUseMethod($method) && $method->isApplicableToQuote(
