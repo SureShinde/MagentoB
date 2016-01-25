@@ -21,14 +21,6 @@
 	        </sendreport_mysql4>
 	    </models>
 	    <resources>
-	    	<sendreport_setup>
-                <setup>
-                    <module>Bilna_SendReport</module>
-                </setup>
-                <connection>
-                    <use>core_setup</use>
-                </connection>
-            </sendreport_setup>
 	        <salescategory_write>
 	            <connection>
 	                <use>core_write</use>
@@ -45,5 +37,31 @@
                 <class>Bilna_SendReport_Helper</class>
             </sendreport>
         </helpers> 
+        <blocks>
+            <sendreport>
+                <class>Bilna_SendReport_Block</class>
+            </sendreport>
+        </blocks>
 	</global>
+    <adminhtml>
+        <acl>
+            <resources>
+                <all>
+                    <title>Allow Everything</title>
+				</all>
+                <admin>
+                    <children>
+                        <bilna translate="title" module="sendreport">
+                            <title>Bilna</title>
+                            <children>
+                                <sendreportbackend translate="title">
+                                    <title>Send Report</title>
+                                </sendreportbackend>
+                            </children>
+                        </bilna>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+    </adminhtml>
 </config>
