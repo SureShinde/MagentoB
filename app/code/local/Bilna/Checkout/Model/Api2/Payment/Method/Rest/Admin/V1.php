@@ -7,10 +7,9 @@
  * @package    Bilna_Checkout
  * @author     Development Team <development@bilna.com>
  */
-class Bilna_Checkout_Model_Api2_Payment_Method_Rest_Admin_V1 extends Bilna_Checkout_Model_Api2_Shipping_Method_Rest
-{
-	protected function _preparePaymentData($data)
-    {
+class Bilna_Checkout_Model_Api2_Payment_Method_Rest_Admin_V1 extends Bilna_Checkout_Model_Api2_Shipping_Method_Rest {
+    protected function _preparePaymentData($data) {
+        Mage::log(var_dump($data));exit;
         if (!(is_array($data) && is_null($data[0]))) {
             return array();
         }
@@ -64,6 +63,7 @@ class Bilna_Checkout_Model_Api2_Payment_Method_Rest_Admin_V1 extends Bilna_Check
             }
 
             $total = $quote->getBaseSubtotal();
+            $store = $this->_getStore();
             $methods = Mage::helper('payment')->getStoreMethods($store, $quote);
             foreach ($methods as $method) {
                 if ($method->getCode() == $paymentData['method']) {
