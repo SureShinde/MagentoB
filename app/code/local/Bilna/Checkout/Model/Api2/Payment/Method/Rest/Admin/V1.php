@@ -9,7 +9,6 @@
  */
 class Bilna_Checkout_Model_Api2_Payment_Method_Rest_Admin_V1 extends Bilna_Checkout_Model_Api2_Shipping_Method_Rest {
     protected function _preparePaymentData($data) {
-        Mage::log(var_dump($data));exit;
         if (!(is_array($data) && is_null($data[0]))) {
             return array();
         }
