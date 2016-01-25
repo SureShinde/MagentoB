@@ -254,7 +254,11 @@
 <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('above-header-notification')->toHtml() ?> 
 <div class="header-container">
     
-    <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('above-header')->toHtml() ?> 
+    <?php if($this->helper('customer')->isLoggedIn()):?>
+		<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('above-header')->toHtml() ?> 
+	<?php else: ?>
+		<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('above-header-notlogin')->toHtml() ?> 
+	<?php endif;?>
     <div class="tooltip-mobile-first">
         <p> ← click here for category menu </p>
     </div>
