@@ -37,7 +37,7 @@ if($action=='send'){
 	$mail->setBodyHtml($message);
 	$mail->setFrom($senderEmail, $senderName);
 	$mail->addTo($receiverEmail, '');
-	$mail->setSubject('Category Sales Report - '.date('D, d M Y H:i:s', strtotime('+7 hours')));
+	$mail->setSubject('Magento Hourly Report - '.date('D, d M Y H:i', strtotime('+7 hours')));
 	$mail->send();
 }else{
 	echo $message;
