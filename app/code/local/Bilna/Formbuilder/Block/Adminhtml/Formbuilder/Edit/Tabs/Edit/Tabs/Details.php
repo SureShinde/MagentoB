@@ -5,7 +5,7 @@ class Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Edit_Tabs_Edit_Tabs_Details 
    protected function _prepareForm()
    {
 		$formbuilder	= Mage::registry('formbuilder_form');
-	    $form = new Varien_Data_Form()
+	    $form = new Varien_Data_Form();
 	    $form->setUseContainer(true);
 		$this->setForm($form);
 		$form->setHtmlIdPrefix('formbuilder_');

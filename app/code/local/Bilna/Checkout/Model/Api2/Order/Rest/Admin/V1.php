@@ -31,7 +31,7 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
         $installmentTenor = isset($data['installment']) ? $data['installment'] : '';
 
         try {
-
+                $store = $this->_getStore();
         	$quote = $this->_getQuote($quoteId, $store);
         	if ($quote->getIsMultiShipping()) {
         		throw Mage::throwException('Invalid Checkout Type');
@@ -104,13 +104,13 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
 
             $payType = $this->getPaymentTypeTransaction($paymentCode, 'full');
             $quote->setPayType($payType);
-
-	        $quote->collectTotals();
+            $quote->collectTotals();
+            
             /* checking customer using their poinst or not*/
-            if($payment['use_points'])
-            {
+            if (isset ($payment['use_points'])) {
                 $this->pointsCheck($quote, $payment);
             }
+            
             /** @var $service Mage_Sales_Model_Service_Quote */
             $service = Mage::getModel('sales/service_quote', $quote);
             $service->submitAll();

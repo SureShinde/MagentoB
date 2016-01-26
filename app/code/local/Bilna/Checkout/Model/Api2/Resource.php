@@ -129,51 +129,42 @@ class Bilna_Checkout_Model_Api2_Resource extends Mage_Api2_Model_Resource
      * @param array $orderIds Orders identifiers
      * @return array
      */
-    protected function _getItems(array $orderIds)
-    {
-        $items = array();
+    protected function _getItems(array $orderIds) {
+        $items = array ();
 
         if ($this->_isSubCallAllowed('quote_item')) {
-       	
             /** @var $itemsFilter Mage_Api2_Model_Acl_Filter */
-            $itemsFilter = $this->_getSubModel('quote_item', array())->getFilter();
+            $itemsFilter = $this->_getSubModel('quote_item', array ())->getFilter();
+            
             // do items request if at least one attribute allowed
             if ($itemsFilter->getAllowedAttributes()) {
-
-                $resource       = Mage::getSingleton('core/resource');
-		        $adapter        = $resource->getConnection('core_read');
-		        $tableName      = $resource->getTableName('sales_flat_quote_item');
-		        $select = $adapter->select()
-		            ->from(
-		                array('sfqi' => $tableName,
-		                new Zend_Db_Expr('*'))
-		            )
-		            ->joinLeft(
-                        array('sfqio' => $resource->getTableName('sales_flat_quote_item_option')),
+                $resource = Mage::getSingleton('core/resource');
+                $adapter = $resource->getConnection('core_read');
+                $tableName = $resource->getTableName('sales_flat_quote_item');
+                $select = $adapter->select()
+                    ->from(array ('sfqi' => $tableName,new Zend_Db_Expr('*')))
+                    ->joinLeft(
+                        array ('sfqio' => $resource->getTableName('sales_flat_quote_item_option')),
                         'sfqi.item_id=sfqio.item_id',
-                        array('code' => 'sfqio.code', 'value' => 'sfqio.value', 'option_id'=> 'sfqio.option_id')
+                        array ('code' => 'sfqio.code', 'value' => 'sfqio.value', 'option_id'=> 'sfqio.option_id')
                     )
                     ->where('quote_id IN ('.implode(",",array_values($orderIds)).')');
-                    /*->where('name <> ""')
-		            ->order('name ASC');*/
-
-		        $salesQuotesItem = $adapter->fetchAll($select);
                 
-                foreach($salesQuotesItem as $quoteItem)
-                {
+                $salesQuotesItem = $adapter->fetchAll($select);
+                
+                foreach ($salesQuotesItem as $quoteItem) {
                     $options[$quoteItem['item_id']]['options'][$quoteItem['option_id']]['code'] = $quoteItem['code'];
                     $options[$quoteItem['item_id']]['options'][$quoteItem['option_id']]['value'] = $quoteItem['value'];
                     $options[$quoteItem['item_id']]['quote'] = $quoteItem;
                 }
 
-                foreach($options as $qi)
-                {
+                foreach ($options as $qi) {
                     $qi['quote']['item_options'] = $qi['options'];
                     $items[$qi['quote']['quote_id']][] = $itemsFilter->out($qi['quote']);
                 }
-
             }
         }
+        
         return $items;
     }
 
