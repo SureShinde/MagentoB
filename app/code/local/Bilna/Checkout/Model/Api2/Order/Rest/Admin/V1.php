@@ -153,7 +153,7 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
             if (in_array($paymentCode, $this->getPaymentMethodCc()))
             {
                 $charge = Mage::getModel('paymethod/api')->creditcardCharge($order, $tokenId);
-                $adData = array(
+                $setData = array(
                     'order_id'      => $lastOrderId,
                     'increment_id'  => $order->getIncrementId(),
                     'gross_amount'  => $order->getGrandTotal(),
@@ -174,7 +174,7 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
                 $pheanstalk = new Pheanstalk('127.0.0.1');
                 $pheanstalk
                   ->useTube('invoice')
-                  ->put(json_encode($adData));
+                  ->put(json_encode($setData));
 
                 //Mage::getModel('paymethod/vtdirect')->updateOrder($order, $paymentCode, $charge);
                 //Mage::register('response_charge', $charge);
