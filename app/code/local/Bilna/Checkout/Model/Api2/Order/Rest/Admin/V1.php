@@ -171,11 +171,6 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
                     'created_at'    => date('Y-m-d H:i:s')
                 );
 
-                Mage::getModel('paymethod/veritrans')
-                    ->setData($setData)
-                    ->addData()
-                    ->save();
-
                 $pheanstalk = new Pheanstalk('127.0.0.1');
                 $pheanstalk
                   ->useTube('invoice')
