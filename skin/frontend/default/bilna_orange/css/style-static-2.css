@@ -3306,9 +3306,6 @@ button.button-area {
 	color:#fff;
 	text-decoration:underline;	
 }
-#checkoutpromo > div, #checkoutpromo > p {
-    margin: 0 0 10px;
-}
 @media only screen and (max-width: 1215px) { 
 	#checkoutpromo .home_link_promo .label_homelink{
 		padding:9px 27px 10px 10px
