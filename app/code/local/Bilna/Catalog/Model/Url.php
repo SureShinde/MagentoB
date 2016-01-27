@@ -19,7 +19,7 @@ class Bilna_Catalog_Model_Url extends Mage_Catalog_Model_Url
 
         $this->clearStoreInvalidRewrites($storeId);
         $this->refreshCategoryRewrite($this->getStores($storeId)->getRootCategoryId(), $storeId, false);
-        //$this->refreshProductRewrites($storeId);
+        $this->refreshProductRewrites($storeId);
         $this->getResource()->clearCategoryProduct($storeId);
 
         return $this;
