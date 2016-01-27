@@ -425,7 +425,7 @@ class Unirgy_RapidFlow_Model_Profile extends Mage_Core_Model_Abstract
         if ($doActionsBefore) {
             $this->doFileActions('before');
         }
-        $this->getIo()->open($this->getFilename(), 'r');
+        $this->getIo()->open($this->getFilename(), 'a+');
         return $this;
     }
 
@@ -764,7 +764,7 @@ class Unirgy_RapidFlow_Model_Profile extends Mage_Core_Model_Abstract
         // open import file
         $this->ioOpenRead(false);
         // open log file
-        $log = $this->getLogger()->start('r')->getIo();
+        $log = $this->getLogger()->start('a+')->getIo();
         // start excel out file
         $out = Mage::getModel('urapidflow/io_file')
             ->setBaseDir($this->getExcelReportBaseDir())
