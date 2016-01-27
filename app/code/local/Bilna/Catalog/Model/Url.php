@@ -46,27 +46,7 @@ class Bilna_Catalog_Model_Url extends Mage_Catalog_Model_Url
 
                 $idPath      = $this->generatePath('id', null, $category);
                 $targetPath  = $this->generatePath('target', null, $category);
-                $requestPathWithParentArr = $this->getCategoryRequestPathWithParent($category, $parentPath, $completeUrl);
                 $requestPath = $this->getCategoryRequestPath($category, $parentPath);
-
-                $requestPathWithParent = $requestPathWithParentArr['parentPath'];
-                $completeUrl = $requestPathWithParentArr['completeUrl'];
-
-                /* then, we handle and save the complete path */
-                $requestPathPrependedTrimmed = $this->trimPrependedPrefix($requestPath);
-
-                $rewriteDataWithParent = array(
-                    'store_id'      => $category->getStoreId(),
-                    'category_id'   => $category->getId(),
-                    'product_id'    => null,
-                    'id_path'       => $idPath,
-                    'request_path'  => $completeUrl,
-                    'target_path'   => $requestPath,
-                    'options'       => 'RP',
-                    'is_system'     => 0,
-                );
-
-                $this->getResource()->saveRewrite($rewriteDataWithParent, null);
 
                 /* save the system path which is already processed first */
                 $rewriteData = array(
@@ -92,10 +72,6 @@ class Bilna_Catalog_Model_Url extends Mage_Catalog_Model_Url
                 if ($category->getUrlPath() != $requestPath) {
                     $category->setUrlPath($requestPath);
                     $this->getResource()->saveCategoryAttribute($category, 'url_path');
-                }
-                if ($category->getCompleteUrl() != $completeUrl) {
-                    $category->setCompleteUrl($completeUrl);
-                    $this->getResource()->saveCategoryAttribute($category, 'complete_url');
                 }
             }
             else {
@@ -156,23 +132,6 @@ class Bilna_Catalog_Model_Url extends Mage_Catalog_Model_Url
         $parentPath = Mage::helper('catalog/category')->getCategoryUrlPath($parentPath,
                                                                            true, $category->getStoreId());
 
-        /*
-        $is_unique = true;
-        // ensure the URL Key must be unique
-        if ($parentPath != '')
-            $is_unique = $this->check_unique_url_key($category, $urlKey);
-
-        // if the URL Key is not unique, generate the Request Path by adding parent path as the prefix
-        if (!$is_unique) {
-            $parentPath = str_replace('/', '-', $parentPath);
-            $requestPath = $parentPath . $urlKey . $categoryUrlSuffix;
-        }
-        // if the URL Key is unique, then we do not have to prepend the parent path
-        else {
-            $requestPath = $urlKey . $categoryUrlSuffix;
-        }
-        */
-
         $prependedPrefix = $this->prependURLSuffix($category);
         $requestPath = $prependedPrefix . $urlKey . $categoryUrlSuffix;
     
@@ -187,54 +146,6 @@ class Bilna_Catalog_Model_Url extends Mage_Catalog_Model_Url
         return $this->getUnusedPathCustom($category->getStoreId(), $requestPath, $prependedPrefix, $urlKey,
                                     $this->generatePath('id', null, $category)
         );
-    }
-
-    public function getCategoryRequestPathWithParent($category, $parentPath, $completeUrl)
-    {
-        $storeId = $category->getStoreId();
-        $idPath  = $this->generatePath('id', null, $category);
-        $suffix  = $this->getCategoryUrlSuffix($storeId);
-
-        if (isset($this->_rewrites[$idPath])) {
-            $this->_rewrite = $this->_rewrites[$idPath];
-            $existingRequestPath = $this->_rewrites[$idPath]->getRequestPath();
-        }
-
-        if ($category->getUrlKey() == '') {
-            $urlKey = $this->getCategoryModel()->formatUrlKey($category->getName());
-        }
-        else {
-            $urlKey = $this->getCategoryModel()->formatUrlKey($category->getUrlKey());
-        }
-
-        $categoryUrlSuffix = $this->getCategoryUrlSuffix($category->getStoreId());
-
-        if (null === $parentPath) {
-            $parentPath = $this->getResource()->getCategoryParentPath($category);
-            $parentCompleteUrl = $this->getResource()->getCategoryParentCompleteUrl($category);
-        }
-        elseif ($parentPath == '/') {
-            $parentPath = '';
-            $parentCompleteUrl = '';
-        }
-        $parentPath = Mage::helper('catalog/category')->getCategoryUrlPath($parentPath,
-                                                                           true, $category->getStoreId());
-        $parentCompleteUrl = Mage::helper('catalog/category')->getCategoryUrlPath($parentCompleteUrl,
-                                                                           true, $category->getStoreId());
-
-        $requestPath = $parentPath . $urlKey . $categoryUrlSuffix;
-        $completeUrl = ( (is_null($completeUrl)) ? '' : $completeUrl ) . $parentCompleteUrl . $urlKey . $categoryUrlSuffix;
-    
-        if (isset($existingRequestPath) && $existingRequestPath == $requestPath . $suffix) {
-            return $existingRequestPath;
-        }
-
-        $unusedPathCustom = $this->getUnusedPathCustom($category->getStoreId(), $requestPath, '', $urlKey, $this->generatePath('id', null, $category));
-        $completeUrl = $this->getUnusedPathCustom($category->getStoreId(), $completeUrl, '', $urlKey, $this->generatePath('id', null, $category));
-
-        $return_arr = array('parentPath' => $unusedPathCustom, 'completeUrl' => $completeUrl);
-
-        return $return_arr;
     }
 
     private function prependURLSuffix($category) {
