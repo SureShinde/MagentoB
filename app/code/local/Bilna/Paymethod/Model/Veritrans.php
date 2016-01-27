@@ -10,19 +10,19 @@ class Bilna_Paymethod_Model_Veritrans extends Mage_Core_Model_Abstract {
     protected $_data = array ();
     protected $_table = 'veritrans_log_transaction';
     
-    public function setData($data) {
-        if (is_array($data) && count($data) > 0) {
-            foreach ($data as $key => $value) {
-                $this->_data[$key] = $value;
-            }
-            
-            return $this;
+    public function setData($key, $value = null) {
+        if (!$this->_data[$key]) {
+            $this->_data[$key] = $value;
         }
         
-        return false;
+        return $this;
     }
     
-    public function addData() {
+    public function insert() {
+        if (count($this->_data) == 0) {
+            return false;
+        }
+        
         try {
             $this->_connection = Mage::getSingleton('core/resource')->getConnection('core_write')->beginTransaction();
             $this->_connection->insert($this->_table, $this->_data);

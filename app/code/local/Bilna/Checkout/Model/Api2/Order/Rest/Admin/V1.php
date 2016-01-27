@@ -153,7 +153,7 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
             if (in_array($paymentCode, $this->getPaymentMethodCc()))
             {
                 $charge = Mage::getModel('paymethod/api')->creditcardCharge($order, $tokenId);
-                $setData = array(
+                $adData = array(
                     'order_id'      => $lastOrderId,
                     'increment_id'  => $order->getIncrementId(),
                     'gross_amount'  => $order->getGrandTotal(),
@@ -171,15 +171,10 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
                     'created_at'    => date('Y-m-d H:i:s')
                 );
 
-                Mage::getModel('paymethod/veritrans')
-                    ->setData($setData)
-                    ->addData()
-                    ->save();
-
                 $pheanstalk = new Pheanstalk('127.0.0.1');
                 $pheanstalk
                   ->useTube('invoice')
-                  ->put(json_encode($setData));
+                  ->put(json_encode($adData));
 
                 //Mage::getModel('paymethod/vtdirect')->updateOrder($order, $paymentCode, $charge);
                 //Mage::register('response_charge', $charge);
