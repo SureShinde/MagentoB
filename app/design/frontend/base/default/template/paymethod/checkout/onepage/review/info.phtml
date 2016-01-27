@@ -65,11 +65,13 @@
                 </div>
                 <div class="buttons-set">
                     <button onclick="return cekCustomVoucher(false)" type="button" title="<?php echo $this->__('Apply Voucher') ?>" class="button apply-voucher" value="<?php echo $this->__('Apply Voucher') ?>"><span><span><?php echo $this->__('Apply Voucher') ?></span></span></button>
+                    <?php $feedbackStyle = 'color: red';?>
                     <?php if(strlen($this->getCouponCode())): ?>
+                        <?php $feedbackStyle = 'color: green';?>
                         &nbsp; <button type="button" title="<?php echo $this->__('Cancel Voucher') ?>" class="button cancel-voucher" onclick="return cekCustomVoucher(true)" value="<?php echo $this->__('Cancel Voucher') ?>"><span><span><?php echo $this->__('Cancel Voucher') ?></span></span></button>
                     <?php endif;?>
                 </div>
-                <div id="feedback" style="color: red"><?php echo $this->getSessionMessage();?></div>
+                <div id="feedback" style="<?php echo $feedbackStyle;?>"><?php echo $this->getSessionMessage();?></div>
             </div>
         </div>
         <p class="f-left"><?php echo $this->__('Forgot an Item?') ?> <a href="<?php echo $this->getUrl('checkout/cart') ?>"><?php echo $this->__('Edit Your Cart') ?></a>

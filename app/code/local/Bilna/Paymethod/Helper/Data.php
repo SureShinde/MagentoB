@@ -194,7 +194,8 @@ class Bilna_Paymethod_Helper_Data extends Mage_Core_Helper_Abstract {
         }
         
         $REQUEST_PROTOCOL = $isSecure ? 'https' : 'http';
-        $result = str_replace('http', $REQUEST_PROTOCOL, $url);
+//        $result = str_replace('http', $REQUEST_PROTOCOL, $url);
+        $result = preg_replace("/^(http:)/", $REQUEST_PROTOCOL.":", $url);
         
         return $result;
     }
