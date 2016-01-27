@@ -19,8 +19,7 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
      * @param  $store
      * @return bool
      */
-    protected function _create(array $data)
-    {
+    protected function _create(array $data) {
         $quoteId = $data['entity_id'];
         $storeId = isset($data['store_id']) ? $data['store_id'] : 1;
         $tokenId = isset($data['token_id']) ? $data['token_id'] : '';
@@ -31,26 +30,28 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
         $installmentTenor = isset($data['installment']) ? $data['installment'] : '';
 
         try {
-                $store = $this->_getStore();
-        	$quote = $this->_getQuote($quoteId, $store);
-        	if ($quote->getIsMultiShipping()) {
-        		throw Mage::throwException('Invalid Checkout Type');
-        	}
-        	if ($quote->getCheckoutMethod() == Mage_Checkout_Model_Api_Resource_Customer::MODE_GUEST
-                && !Mage::helper('checkout')->isAllowedGuestCheckout($quote, $quote->getStoreId())) {
-        		throw Mage::throwException('Guest Checkout is not Enable');
-        	}
+            $store = $this->_getStore();
+            $quote = $this->_getQuote($quoteId, $store);
+            
+            if ($quote->getIsMultiShipping()) {
+                throw Mage::throwException('Invalid Checkout Type');
+            }
+            
+            if ($quote->getCheckoutMethod() == Mage_Checkout_Model_Api_Resource_Customer::MODE_GUEST && !Mage::helper('checkout')->isAllowedGuestCheckout($quote, $quote->getStoreId())) {
+                throw Mage::throwException('Guest Checkout is not Enable');
+            }
 
-        	 /** @var $customerResource Mage_Checkout_Model_Api_Resource_Customer */
-	        $customerResource = Mage::getModel("checkout/api_resource_customer");
-	        $isNewCustomer = $customerResource->prepareCustomerForQuote($quote);
+             /** @var $customerResource Mage_Checkout_Model_Api_Resource_Customer */
+            $customerResource = Mage::getModel("checkout/api_resource_customer");
+            $isNewCustomer = $customerResource->prepareCustomerForQuote($quote);
 
-            if(!empty($payment))
+            if (!empty ($payment)) {
                 $quote->getPayment()->importData($payment);
+            }
 
             $paymentCode = $quote->getPayment()->getMethodInstance()->getCode();
-            if ($installmentTenor)
-            {
+            
+            if ($installmentTenor) {
                 $quoteItems = $quote->getAllItems();
                 $item_ids = array ();
 
@@ -63,15 +64,13 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
                 /**
                  * installment type is per order
                  */
-                if ($installmentOptionType == 2)
-                {
-                    if ($installmentTenor == '')
+                if ($installmentOptionType == 2) {
+                    if ($installmentTenor == '') {
                         throw Mage::throwException('Please select an installment type before placing the order.');
+                    }
 
-                    if ($installmentTenor > 1)
-                    {
-                        foreach ($quoteItems as $item) 
-                        {
+                    if ($installmentTenor > 1) {
+                        foreach ($quoteItems as $item) {
                             $item->setInstallment($allowInstallment);
                             $item->setInstallmentMethod($installmentMethod);
                             $item->setInstallmentType($installmentTenor);
@@ -85,7 +84,8 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
                     else {
                         $payType = $this->getPaymentTypeTransaction($paymentCode, 'installment');
                     }
-                }else{
+                }
+                else {
                     //if installment type is per item
                     /*foreach ($quoteItems as $item) 
                     {
@@ -96,6 +96,7 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
                     }*/
                     //API doesn't support installment per item, coz we need to evaluate existing code module @bilna_paymenthod
                 }
+                
                 $quote->setPayType($payType)->save();
                 //$quote->setCcBins($this->getRequest()->getPost('cc_bins', false))->save();
             }/*else{
@@ -107,7 +108,7 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
             $quote->collectTotals();
             
             /* checking customer using their poinst or not*/
-            if (isset ($payment['use_points'])) {
+            if (isset ($payment['use_points']) && $payment['use_points'] > 0) {
                 $this->pointsCheck($quote, $payment);
             }
             
@@ -125,15 +126,14 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
 
             $order = $service->getOrder();
 
-            if($payment['use_points'])
-            {
+            if (isset ($payment['use_points']) && $payment['use_points'] > 0) {
                 $order = $this->submitPoints($order, $payment);
                 $order->save();
             }
 
             if ($order) {
-                Mage::dispatchEvent('checkout_type_onepage_save_order_after',
-                    array('order' => $order, 'quote' => $quote));
+                //- for FDS (sementara di disabled)
+                //Mage::dispatchEvent('checkout_type_onepage_save_order_after', array ('order' => $order, 'quote' => $quote));
 
                 try {
                     $order->sendNewOrderEmail();
@@ -195,21 +195,20 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
 
     }
 
-    protected function submitPoints($order, $payment)
-    {
-        if ($order->getCustomerIsGuest()) 
-        {
+    protected function submitPoints($order, $payment) {
+        if ($order->getCustomerIsGuest())  {
             return $order;
         }
 
-        if ($order->getCustomerId())
-        {
+        if ($order->getCustomerId()) {
             $quote = $order->getQuote();
+            
             if (!$quote instanceof Mage_Sales_Model_Quote) {
                 $quote = Mage::getModel('sales/quote')
-                        ->setSharedStoreIds(array($order->getStoreId()))
-                        ->load($order->getQuoteId());
+                    ->setSharedStoreIds(array ($order->getStoreId()))
+                    ->load($order->getQuoteId());
             }
+            
             $sum = floatval($quote->getData('base_subtotal_with_discount'));
             $limitedPoints = Mage::helper('points')->getLimitedPoints($sum, $order->getCustomer(), $order->getStoreId());
 
@@ -217,11 +216,7 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
             $customer = Mage::getModel('customer/customer')->load($order->getCustomerId());
             $customerPoints = Mage::getModel('points/summary')->loadByCustomer($customer)->getPoints();
 
-            if (
-                    $customerPoints < $pointsAmount ||
-                    $limitedPoints < $pointsAmount ||
-                    !Mage::helper('points')->isAvailableToRedeem($pointsAmount)
-            ) {
+            if ($customerPoints < $pointsAmount || $limitedPoints < $pointsAmount || !Mage::helper('points')->isAvailableToRedeem($pointsAmount)) {
                 Mage::throwException('Incorrect points amount');
             }
 

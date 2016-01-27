@@ -5,9 +5,8 @@
  * @author Bilna Development Teams (development@bilna.com)
  */
 
-class Bilna_Paymethod_Model_Veritrans extends Mage_Core_Model_Abstract
-{
-	protected $_connection;
+class Bilna_Paymethod_Model_Veritrans extends Mage_Core_Model_Abstract {
+    protected $_connection;
     protected $_data = array ();
     protected $_table = 'veritrans_log_transaction';
     
