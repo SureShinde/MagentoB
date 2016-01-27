@@ -383,32 +383,62 @@ function ecommerceCheckout0(sku, price, quantity) {
 	}
 
 	for (var i=0 ; i<jQuery("td.hi-res h2.product-name a").length ; i++) {
+		if (sku.length > jQuery("td.hi-res h2.product-name a").length) {	// check if exist same sku in array
+			if (sku[i] == sku[i+1]) {
+				sku.splice(i, 1);
+			}
+			if (sku[i+1] == sku[i+2]) {
+				sku.splice(i+1, 1);
+			}
+		}
+
 		temp_container.ecommerce.checkout.products.push({
 				  'name' : jQuery("td.hi-res h2.product-name a").eq(i).text(),
+				  'id' : sku[i],
 				  'price' : jQuery("td.a-center.cart-price-td span.cart-price span.price").eq(i).text(),
-				  'quantity' : jQuery("input.input-text.qty").eq(i).val()
+				  'quantity' : jQuery("input.input-text.qty").eq(i).val(),
+                  'brandName': 'brand name',
+                  'imageUrl': jQuery("table#shopping-cart-table tbody tr.even td a img").eq(i).attr("src"),
+                  'link': jQuery("table#shopping-cart-table tbody tr.even td a img").eq(i).attr("alt")
 		       });
 		// console.log("lagi bingung "+i+" "+temp_container.ecommerce.checkout.products[i].sku);
 	}
 
     dataLayer.push(temp_container);
+    ematics("log", "product", "checkout", temp_container);	// ematics checkout
 }
 
-function ecommerceRemoveCart(name, sku, price, quantity) {
+function ecommerceRemoveCart(name, sku, price, quantity, imageUrl, link) {
     // alert("HURRY_CART"+name+" "+price+" "+quantity);
     dataLayer.push({
 	  'event': 'removeFromCart',
 	  'ecommerce': {
 	    'remove': {                               // 'remove' actionFieldObject measures.
 	      'products': [{                          //  removing a product to a shopping cart.
-	          'name': name,
-	          'id': sku,
-	          'price': price,
-	          'quantity': quantity
+          	'name': name,
+            'id': sku,
+            'price': price,
+            'quantity': quantity,
+            'brandName': 'brand name',
+            'imageUrl': imageUrl,
+            'link': link
 	      }]
 	    }
 	  }
 	});
+
+	// ematics cart
+    ematics("log", "product", "cart", 
+            [{
+            'name': name,
+            'id': sku,
+            'price': price,
+            'quantity': quantity,
+            'brandName': 'brand name',
+            'imageUrl': imageUrl,
+            'link': link
+           }]
+        );
 }
 
 jQuery(document).ready(function () {
