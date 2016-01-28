@@ -899,6 +899,26 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </max_order_total>
+                        <threedsecure_min_enabled translate="label">
+                            <label>3DS Minimum Order Total Enabled</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>91</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </threedsecure_min_enabled>
+                        <threedsecure_min_value>
+                            <label>3DS Minimum Order Total Value</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>92</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <threedsecure_min_enabled>1</threedsecure_min_enabled>
+                            </depends>
+                        </threedsecure_min_value>
                         <disallowed_symbol>
                             <label>Disallowed Symbol</label>
                             <frontend_type>text</frontend_type>

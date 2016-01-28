@@ -12,6 +12,10 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
     protected $_typeTransaction = 'transaction';
     
     public function saveOrderAction() {
+        if ($this->_expireAjax()) {
+            return;
+        }
+            
         $paymentCode = Mage::getSingleton('checkout/session')->getQuote()->getPayment()->getMethodInstance()->getCode();
         $paymentSupportInstallment = explode(',', Mage::getStoreConfig('bilna_module/paymethod/payment_support_installment'));
         
@@ -26,10 +30,6 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
         }
         
         if (in_array($paymentCode, $paymentSupportInstallment)) {
-            if ($this->_expireAjax()) {
-                return;
-            }
-
             $result = array ();
                
             try {
@@ -340,22 +340,25 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
         if (in_array ($cardNo[0], array (4,5))) {
             $bankCode = Mage::getModel('paymethod/method_vtdirect')->getBankCode($cardNo);
             $ccType = $this->getCcType($bankCode);
+            $acquiredBank = $this->getAcquiredBank($bankCode);
+            $secure = $this->getSecureBank($bankCode);
+            $installmentProcess = $this->getInstallmentProcess($bankCode);
             
             $response['status'] = true;
             $response['data'] = array (
                 'bank_code' => $bankCode,
                 'cc_type' => $ccType,
-                'acquired_bank' => $this->getAcquiredBank($bankCode),
-                'secure' => $this->getSecureBank($bankCode),
-                'installment_process' => $this->getInstallmentProcess($bankCode)
+                'acquired_bank' => $acquiredBank,
+                'secure' => $secure,
+                'secure_min' => $this->getSecureMin($secure),
+                'installment_process' => $installmentProcess
             );
         }
         else {
             $response['message'] = 'Please enter a valid credit card number.';
         }
         
-        echo json_encode($response);
-        exit;
+        $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($response));
     }
     
     protected function getCcType($bank) {
@@ -825,6 +828,18 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
     
     protected function getSecureBank($paymentCode) {
         return Mage::getStoreConfig('payment/' . $paymentCode . '/threedsecure');
+    }
+    
+    protected function getSecureMin($secure) {
+        $result = 0;
+        
+        if ($secure) {
+            if (Mage::getStoreConfig('payment/vtdirect/threedsecure_min_enabled')) {
+                $result = (int) Mage::getStoreConfig('payment/vtdirect/threedsecure_min_value');
+            }
+        }
+        
+        return $result;
     }
 
     protected function getInstallmentProcess($paymentCode) {
