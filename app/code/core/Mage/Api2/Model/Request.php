@@ -47,6 +47,7 @@ class Mage_Api2_Model_Request extends Zend_Controller_Request_Http
     const QUERY_PARAM_ORDER_FIELD = 'order';
     const QUERY_PARAM_ORDER_DIR   = 'dir';
     const QUERY_PARAM_FILTER      = 'filter';
+    const QUERY_PARAM_GROUP       = 'group';
     /**#@- */
 
     /**
@@ -237,6 +238,16 @@ class Mage_Api2_Model_Request extends Zend_Controller_Request_Http
     public function getOrderField()
     {
         return $this->getQuery(self::QUERY_PARAM_ORDER_FIELD);
+    }
+
+    /**
+     * Retrieve group by requested by API user
+     *
+     * @return mixed
+     */
+    public function getGroup()
+    {
+        return $this->getQuery(self::QUERY_PARAM_GROUP);
     }
 
     /**

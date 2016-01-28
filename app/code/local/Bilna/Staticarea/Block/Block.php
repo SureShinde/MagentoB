@@ -37,7 +37,6 @@ class Bilna_Staticarea_Block_Block extends Mage_Core_Block_Template {
     }
     
     public function getCollectionData() {
-
         if ($this->getData('id')) {
                 $collection = Mage::getModel('staticarea/contents')->getCollection();
                 $collection->addFieldToSelect('content', 'content');

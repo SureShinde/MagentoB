@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Bilna_Customer>
+            <active>true</active>
+            <codePool>local</codePool>
+            <depends>Mage_Api2</depends>
+        </Bilna_Customer>
+    </modules>
+</config>

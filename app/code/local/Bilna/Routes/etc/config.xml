@@ -1,0 +1,14 @@
+<config>
+    <modules>
+        <Bilna_Routes>
+            <version>0.1.0</version>
+        </Bilna_Routes>
+    </modules>
+    <global>
+        <models>
+            <bilna_routes>
+                <class>Bilna_Routes_Model</class>
+            </bilna_routes>
+        </models>
+    </global>
+</config>
