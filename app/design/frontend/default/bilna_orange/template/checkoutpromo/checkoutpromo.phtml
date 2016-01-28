@@ -48,3 +48,21 @@ if (array_key_exists($this->getNameInLayout(), $appliedBlockIds)) {
     echo '</div>';
 }
 ?>
+
+<script type="text/javascript">
+    function refreshBlock(){
+        new Ajax.Request('<?php echo $this->getCheckoutpromoUrl(); ?>', {
+            method:'get',
+            onSuccess: function(transport){
+                var response = transport.responseText;
+
+                var checkoutpromo_div = $('checkoutpromo');
+                checkoutpromo_div.update(response);
+
+            },
+            onFailure: function(){
+                alert('Something went wrong, please try later...')
+            }
+        });
+    }
+</script>
