@@ -26,7 +26,7 @@
                 <h2><?php echo $_stepInfo['label']; ?></h2>
                 <a href="#"><?php echo $this->__('Edit'); ?></a>
             </div>
-            
+
             <div id="checkout-step-<?php echo $_stepId; ?>" class="step a-item" style="display:none;">
                 <?php echo $this->getChildHtml($_stepId); ?>
             </div>
@@ -97,7 +97,7 @@
               'products' :
                 [
                     <?php
-                        $itr_name = 0; 
+                        $itr_name = 0;
                         for ($itr = 0 ; $itr <= count($productCollection)-1 ; $itr++) {
                         if ($valueCollection[$itr] != 0) {
                             echo '{"id":"'.$skuCollection[$itr].'","name":jQuery("#checkout-review-table tbody tr td h3").eq('.$itr_name.').text() , "price":"'.$valueCollection[$itr].'", "quantity":'.$qtyCollection[$itr].'}';
@@ -125,21 +125,6 @@ $points_amount = $session->getData('points_amount');
 ?>
 <script type="text/javascript">
     var usePointWithCoupon = <?php echo Mage::getStoreConfig('points/general/use_with_coupons'); ?>;
-    function refreshBlock(){
-        new Ajax.Request('<?php echo $this->getCheckoutpromoUrl(); ?>', {
-            method:'get',
-            onSuccess: function(transport){
-                var response = transport.responseText;
-
-                var checkoutpromo_div = $('checkoutpromo');
-                checkoutpromo_div.update(response);
-
-            },
-            onFailure: function(){
-                alert('Something went wrong, please try later...')
-            }
-        });
-    }
 
     function cekCustomVoucher(isRemove)
     {
