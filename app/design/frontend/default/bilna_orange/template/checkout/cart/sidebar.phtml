@@ -105,16 +105,14 @@ function ecommerceRemoveCart(name, sku, price, quantity, imageUrl, link) {
 	});
 
 	// ematics cart
-    ematics("log", "product", "cart", 
-            [{
-            'name': name,
-            'id': sku,
-            'price': price,
-            'quantity': quantity,
-            'brandName': 'brand name',
-            'imageUrl': imageUrl,
-            'link': link
-           }]
-        );
+    products = [{
+		'id': sku,
+        'price': price,
+        'quantity': quantity,
+        'name': name,
+        'brandName': 'brand name',
+        'imageUrl': imageUrl,
+        'link': link
+	}];
 }
 </script>

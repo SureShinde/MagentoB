@@ -93,19 +93,19 @@ $points_amount = $session->getData('points_amount');
             url : url,
             data: { coupon_code: jQuery('#coupon_code').val(), remove: remove},
             beforeSend: function( xhr ) {
-                $('feedback').update('Checking Coupon Code ... <img src="<?php echo $this->getSkinUrl("ajaxlogin/ajax-loader-tr.gif")?>" title="Loading..." alt="Loading..." border="0" />');
+                $('feedback').setStyle('color: red;').update('Checking Coupon Code ... <img src="<?php echo $this->getSkinUrl("ajaxlogin/ajax-loader-tr.gif")?>" title="Loading..." alt="Loading..." border="0" />');
             },
             success: function(res){
                 if(res.status == 1){
-                    $('feedback').update(res.desc);
-					if($('use_points')){	
-                    	$('use_points').disabled = $('points_amount').disabled = true; 
-					}  
+                    $('feedback').update(res.desc).setStyle('color: green;');
+					if($('use_points')){
+                    	$('use_points').disabled = $('points_amount').disabled = true;
+					}
                 }else{
 					if($('use_points')){
                     	$('use_points').disabled = $('points_amount').disabled = false;
 					}
-                    $('feedback').update(res.desc);
+                    $('feedback').update(res.desc).setStyle('color: red;');
                 }
 				setTimeout(function(){
                     jQuery(".button btn-checkout").attr("disabled", false);
