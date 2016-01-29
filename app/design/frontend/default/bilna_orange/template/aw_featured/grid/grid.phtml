@@ -310,18 +310,15 @@
         });
 
         // ematics cart
-        ematics("log", "product", "cart", 
-                [{
-                'name': name,
-                'id': sku,
-                'price': price,
-                'quantity': 1,
-                'category': '<?php echo (!empty($category)) ? $category : 'Default Category';?>',
-                'brandName': 'brand name',
-                'imageUrl': imageUrl,
-                'link': link
-               }]
-            );
+        products = [{
+            'id': sku,
+            'price': price,
+            'quantity': 1,
+            'name': name,
+            'brandName': 'brand name',
+            'imageUrl': imageUrl,
+            'link': link
+        }];
     }
 
     function ecommerceStaticBlockProductClick(name,sku,price,list) {
