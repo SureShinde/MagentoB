@@ -279,7 +279,7 @@ a.triger-showfilter {
 }
 .page-title h1, .page-title h2{
     margin: 0;
-    font-family: 'lato';
+    font-family: 'Open Sans';
     font-size: 3.6em;
     color: #333333;
     padding: 5px 0 10px;
@@ -583,7 +583,7 @@ a.triger-showfilter {
 	padding: 20px 0;
 }
 p.title {
-    font-family: 'lato';
+    font-family: 'Open Sans';
 	color: #EE5191;
     float: left;
     font-size: 4em;
