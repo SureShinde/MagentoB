@@ -55,6 +55,10 @@
                             <title>getbrandbysku</title>
                             <acl>moxysellercenter/getbrandbysku</acl>
                         </getbrandbysku>
+                        <getcategorytree translate="title" module="moxysellercenter">
+                            <title>getcategorytree</title>
+                            <acl>moxysellercenter/getcategorytree</acl>
+                        </getcategorytree>
                 </methods>
             </moxysellercenter>
         </resources>
@@ -81,6 +85,9 @@
                     <getbrandbysku translate="title" module="moxysellercenter">
                         <title>Get Brand by SKU</title>
                     </getbrandbysku>
+                    <getcategorytree translate="title" module="moxysellercenter">
+                        <title>List Catalog Category Tree</title>
+                    </getcategorytree>
                 </moxysellercenter>
             </resources>
         </acl>
