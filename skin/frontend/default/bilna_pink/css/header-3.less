@@ -41,7 +41,7 @@
 }
 .header .web_feature li{
     float: left;
-    padding: 13px;
+    padding: 14px;
     text-transform: uppercase;
     font-size: 1.3em;
     cursor: pointer;
@@ -262,8 +262,8 @@
     margin: 5px 7px;
 }
 .space-above-header .keypoint li:last-child{
-    padding-left: 0;
-    margin-left: 0;
+    padding-right: 0;
+    margin-right: 0;
 }
 .space-above-header .keypoint li a{
 }
@@ -357,13 +357,13 @@
     font-size: 1.2em;
     background: #3EB988;
     right: 3px;
-    padding: 0px 4px;
+    padding: 1px 3px;
     top: 0px;
     border: 1px solid #fff;
     color: #fff;
-    border-radius: 5px;
-    moz-border-radius: 5px;
-    webkit-border-radius: 5px;
+    border-radius: 7px;
+    moz-border-radius: 7px;
+    webkit-border-radius: 7px;
 }
 .header .quick-access .top-cart a .title-header-cart{
     font-size: 1.7em;
@@ -380,7 +380,7 @@
 .header .quick-access .top-cart a.link-minicart:before{
     content: "\f07a";
     font-family: FontAwesome;
-    font-size: 2.5em;
+    font-size: 2.8em;
 }
 .header .mini-cart:after {
 	content: url(../images/arrow-cart.png);
@@ -629,21 +629,25 @@
 }
 .header .links li.myaccount a.link-trigger-myaccount, .menu-tablet .links li.myaccount a.link-trigger-myaccount {
 }
+.header .links li.myaccount:hover .toplink-myaccount{
+    display: block;
+}
 .header .links li.myaccount a.link-trigger-myaccount{
-    padding: 43px 0 5px 0;
+    padding: 30px 0px 5px 0;
     font-size: 11px;
     color: #585958;
     height: 14px;
     font-weight: bold;
+    margin: 0 0 0 10px;
     overflow: hidden;
 }
 .header .links li.myaccount a.link-trigger-myaccount .circle-name{
-    width: 25px;
-    height: 25px;
+    width: 20px;
+    height: 20px;
     border: 2px solid;
     position: absolute;
     border-radius: 50%;
-    top: 10px;
+    top: 5px;
     left: 15px;
 }
 .header .links li.myaccount a.link-trigger-myaccount .cust-icon{
@@ -651,14 +655,14 @@
     display: table;
     text-align: center;
     font-weight: bold;
-    margin: 3px auto;
+    margin: 0 auto;
 }
 .header .links li.myaccount .toplink-myaccount {
-	min-width: 126px;
-	top: 60px;
+	min-width: 170px;
+	top: 50px;
 	display: none;
 	position: absolute;
-	left: 0;
+	right: 0;
 	background: #fff;
     padding: 0 10px 0px;
     border-top: 3px solid #000;
@@ -672,7 +676,7 @@
     content: " ";
     top: -20px;
     position: relative;
-    left: 44%;
+    left: 48%;
     border-width: 5px;
     border-color: transparent transparent #000;
     border-style: solid;   
@@ -692,6 +696,7 @@
     color: #707070;
     font-size: 1em;
     width: auto;
+    float: none;
     text-align: left;
 }
 .header .form-language, .menu-tablet .form-language {
@@ -1292,8 +1297,6 @@
         padding: 38px 0 0;
     }
     .header .links li.myaccount a.link-trigger-myaccount .circle-name{
-        height: 20px;
-        width: 20px;
             top: 8px;
     }
 	.header .logo {
