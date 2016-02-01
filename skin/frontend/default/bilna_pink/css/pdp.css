@@ -524,16 +524,6 @@ hr{
 	top: -30px;
     visibility: visible;
 }
-.product-view .product-img-box .more-views .bx-wrapper .bx-prev:after {
-    content: "\f077";
-    display: block;
-    font-family: FontAwesome;
-}
-.product-view .product-img-box .more-views .bx-wrapper .bx-next:after {
-    content: "\f078";
-    display: block;
-    font-family: FontAwesome;
-}
 .product-view .product-img-box .more-views .bx-wrapper .bx-next {
 	bottom: -30px;
     visibility: visible;
