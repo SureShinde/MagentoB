@@ -1,0 +1,88 @@
+<?xml version="1.0"?>
+<config>
+    <api>
+        <resources>
+            <moxysellercenter translate="title" module="moxysellercenter">
+                <title>Moxy SellerCenter API</title>
+                <acl>moxysellercenter/api</acl>
+                <model>moxysellercenter/api</model>
+                <methods>
+						<overallsales translate="title" module="moxysellercenter">
+							<title>overallsales</title>
+							<acl>moxysellercenter/overallsales</acl>
+						</overallsales>
+						<listsellerorder translate="title" module="moxysellercenter">
+							<title>listsellerorder</title>
+							<acl>moxysellercenter/listsellerorder</acl>
+						</listsellerorder>
+						<listsellerorderbystatus translate="title" module="moxysellercenter">
+							<title>listsellerorderbystatus</title>
+							<acl>moxysellercenter/listsellerorderbystatus</acl>
+						</listsellerorderbystatus>
+						<listinactiveproduct translate="title" module="moxysellercenter">
+							<title>listinactiveproduct</title>
+							<acl>moxysellercenter/listinactiveproduct</acl>
+						</listinactiveproduct>
+                        <getsalesreport translate="title" module="moxysellercenter">
+                            <title>getsalesreport</title>
+                            <acl>moxysellercenter/overallsales</acl>
+                        </getsalesreport>
+                        <getneworders translate="title" module="moxysellercenter">
+                            <title>getneworders</title>
+                            <acl>moxysellercenter/overallsales</acl>
+                        </getneworders>
+                        <getpaidorders translate="title" module="moxysellercenter">
+                            <title>getpaidorders</title>
+                            <acl>moxysellercenter/overallsales</acl>
+                        </getpaidorders>
+                        <getdashboardchart translate="title" module="moxysellercenter">
+                            <title>getdashboardchart</title>
+                            <acl>moxysellercenter/overallsales</acl>
+                        </getdashboardchart>
+                        <getsalesdetail translate="title" module="moxysellercenter">
+                            <title>getsalesdetail</title>
+                            <acl>moxysellercenter/overallsales</acl>
+                        </getsalesdetail>
+                        <getdashboardstatistic translate="title" module="moxysellercenter">
+                            <title>getdashboardstatistic</title>
+                            <acl>moxysellercenter/overallsales</acl>
+                        </getdashboardstatistic>
+                        <getbrands translate="title" module="moxysellercenter">
+                            <title>getbrands</title>
+                            <acl>moxysellercenter/listbrand</acl>
+                        </getbrands>
+                        <getbrandbysku translate="title" module="moxysellercenter">
+                            <title>getbrandbysku</title>
+                            <acl>moxysellercenter/getbrandbysku</acl>
+                        </getbrandbysku>
+                </methods>
+            </moxysellercenter>
+        </resources>
+        <acl>
+            <resources>
+                <moxysellercenter translate="title" module="moxysellercenter">
+                    <title>MoxySellerCenter</title>
+                    <sort_order>2000</sort_order>
+					<overallsales translate="title" module="moxysellercenter">
+                        <title>overallsales</title>
+                    </overallsales>
+					<listsellerorder translate="title" module="moxysellercenter">
+                        <title>listsellerorder</title>
+                    </listsellerorder>
+					<listsellerorderbystatus translate="title" module="moxysellercenter">
+                        <title>listsellerorderbystatus</title>
+                    </listsellerorderbystatus>
+					<listinactiveproduct translate="title" module="moxysellercenter">
+                        <title>listinactiveproduct</title>
+                    </listinactiveproduct>
+                    <listbrand translate="title" module="moxysellercenter">
+                        <title>List of Brand</title>
+                    </listbrand>
+                    <getbrandbysku translate="title" module="moxysellercenter">
+                        <title>Get Brand by SKU</title>
+                    </getbrandbysku>
+                </moxysellercenter>
+            </resources>
+        </acl>
+    </api>
+</config>
