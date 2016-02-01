@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <Moxy_CustomCustomer>
+      <version>0.1.0</version>
+	  <codePool>local</codePool>
+	  <depends>
+			<Mage_Catalog />
+	  </depends>
+    </Moxy_CustomCustomer>
+  </modules>
+  <frontend>
+    <routers>
+	  <customer>
+		  <args>
+			  <modules>
+				  <Moxy_CustomCustomer before="Mage_Customer">Moxy_CustomCustomer_Customer</Moxy_CustomCustomer>
+			  </modules>
+		  </args>
+	  </customer>
+    </routers>
+  </frontend>
+</config> 

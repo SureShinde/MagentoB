@@ -31,6 +31,7 @@
                         </block>
                         <block type="core/template" name="al_auth_reg_attributes" template="ajaxlogin/authorizationFormElement.customerAttributesWidget.phtml"></block>
                         <block type="core/template" name="al_auth_reg_email" template="ajaxlogin/authorizationFormElement.email.phtml"></block>
+                        <block type="core/template" name="al_auth_reg_username" template="ajaxlogin/authorizationFormElement.username.phtml"></block>
                         <block type="core/template" name="al_auth_reg_password" template="ajaxlogin/authorizationFormElement.password.phtml"></block>
                         <block type="core/template" name="al_auth_reg_passwordconfirm" template="ajaxlogin/authorizationFormElement.passwordConfirmation.phtml"></block>
                         <block type="core/template" name="al_auth_reg_newsletter" template="ajaxlogin/authorizationFormElement.newsletterSubscription.phtml"></block>
