@@ -900,6 +900,9 @@ ul.block-wrapper li:last-child {}
     width: 30px;
     top: 0;
 }
+.homepage .homepage-banner .first-level > ul > li.active-cat > div.first-level-url{
+    color: #ee5191;
+}
 .homepage .homepage-banner .first-level > ul > li > div.first-level-url{
 	color:#b3b3b3;
 	display:block;

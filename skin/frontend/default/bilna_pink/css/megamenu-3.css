@@ -1,3 +1,11 @@
+.menu-navigation .megamenu-active .arrow_megamenu{
+    position: absolute;
+    width: 100%;
+    background: url(../images/megamenu_arrow.png) 100px 12px no-repeat;
+    height: 21px;
+    background-size: 25px;
+    top: 0px;
+}
 .menu-navigation{
     clear: both;
     display: inline-block;
@@ -110,6 +118,7 @@
     height: 420px;
 	border-top: 1px solid #e9e9ea;
     text-align: left;
+    padding: 20px 0 0;
 }
 .menu-navigation .megamenu{
     position: absolute;
@@ -118,8 +127,8 @@
     z-index: 98;
     display: block;
     top: 50px;
-	overflow:hidden;
     height: 0;
+    overflow: hidden;
 }
 .menu-navigation .first-level, .menu-navigation .second-level{
     float: left;
@@ -127,7 +136,7 @@
 .menu-navigation .first-level .second-level{
     position: absolute;
     left: 240px;
-    top: 0;
+    top: 20px;
     padding-top: 12px;
     padding-bottom: 12px;
     display: block;
@@ -137,10 +146,20 @@
 	overflow: hidden;
 }
 .menu-navigation .first-level{
-    width: 220px;
-    padding: 10px;
-    background: #DCDCDC;
+    width: 239px;
+    padding: 10px 0;
+    background: #fff;
     min-height: 400px;
+    border-right: 1px solid #e4e4e4;
+}
+.menu-navigation .first-level .active-cat div.first-level-url .arrow-megamenu,
+.menu-navigation .first-level > ul > li > div.first-level-url .arrow-megamenu{
+    display: block;
+    position: absolute;
+    height: 100%;
+    left: 93%;
+    width: 30px;
+    top: 0;
 }
 .menu-navigation .first-level > ul{
 }
@@ -162,7 +181,7 @@
     height: 32px;
 }
 .menu-navigation li a, .menu-navigation .second-level p a{
-    color: #414042;
+    color: #b3b3b3;
     text-decoration: none;
 	display:block;
 	position:relative;
@@ -179,7 +198,7 @@
     text-indent: 0;
 }
 .menu-navigation .first-level > ul > li > div.first-level-url{
-    color: #424143;
+    color: #b3b3b3;
     display: block;
     position: relative;
     text-transform: uppercase;
@@ -204,38 +223,13 @@
 	color:#707070;
 }
 .menu-navigation .first-level > ul > li.hover-cat {
-    background: #EE5191;
+    background: #fffcfd;
 }
 .menu-navigation .first-level > ul > li.hover-cat > a {
-    color: #fff;
+    color: #EE5191;
 }
 .menu-navigation .first-level > ul.hover-cat > li.cat-hover > a {
     color: #F05A2A;
-}
-.menu-navigation .first-level .active-cat div.first-level-url .arrow-megamenu, .menu-navigation .first-level > ul > li.hover-cat > div.first-level-url .arrow-megamenu{
-    display: block;
-    position: absolute;
-    height: 100%;
-    left: 100%;
-    width: 30px;
-    top: 0;
-}
-.menu-navigation .first-level > ul > li.active-cat.hover-cat > div.first-level-url .arrow-megamenu {
-    display: block !important;
-    position: absolute;
-    height: 100%;
-    left: 100%;
-    width: 30px;
-    top: 0;
-}
-.menu-navigation .first-level .active-cat div.first-level-url .arrow-megamenu:after, .menu-navigation .first-level > ul > li.hover-cat > div.first-level-url .arrow-megamenu:after{
-        border-width: 7px;
-    content: "";
-    left: 10px;
-    top: 9px;
-    position: absolute;
-    border-style: solid;
-    border-color: transparent transparent transparent #EE5191;
 }
 .menu-navigation .first-level > ul > li.active-cat{
     background: #EE5191;
@@ -354,7 +348,7 @@
 	color:#fff !important;
 }
 .menu-navigation .first-level > ul > li.first-level-cat.hover-cat div{
-	color:#fff;
+	color:#EE5191;
 }
 .menu-navigation .first-level .second-level .wrap-second-cat > ul li:hover > a,
 .menu-navigation .first-level .second-level .wrap-second-cat > ul li:hover > p > a{
