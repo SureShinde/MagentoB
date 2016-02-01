@@ -1,0 +1,39 @@
+<layout>
+
+    <customer_account>
+        <reference name="customer_account_navigation">
+            <action method="addLink">
+                <name>customer_profile</name>
+                <path>social/settings</path>
+                <label>My Public Profile</label>
+            </action>
+        </reference>
+    </customer_account>
+
+    <social_settings_index>
+        <update handle="customer_account" />
+        <reference name="my.account.wrapper">
+            <block type="core/template" name="user_content" template="moxy_socialcommerce/settings.phtml"/>
+        </reference>
+    </social_settings_index>
+
+    <user_profile_index>
+        <reference name="content">
+            <block type="core/template" name="user_content" template="moxy_socialcommerce/view.phtml"/>
+        </reference>
+    </user_profile_index>
+
+    <user_profile_collection>
+        <reference name="content">
+            <!-- <block type="core/template" name="user_content" template="moxy_socialcommerce/viewcollectiondetail.phtml"/> -->
+            <block type="catalog/product" name="user_content" template="moxy_socialcommerce/viewcollectiondetail.phtml"/>
+        </reference>
+    </user_profile_collection>
+
+    <collections_index_index>
+        <reference name="content">
+            <block type="catalog/product" name="user_content" template="moxy_socialcommerce/collections.phtml"/>
+        </reference>
+    </collections_index_index>
+
+</layout>

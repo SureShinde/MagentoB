@@ -117,6 +117,16 @@
 	border: 0;
 	height: auto;
 }
+.account-create .form-list .customer-dob label {
+	float: none;
+	display: block;
+	font-size: inherit;
+	color: #666;
+}
+.account-create .form-list .customer-dob .dob-day input,
+.account-create .form-list .customer-dob .dob-month input {
+	width: 46px !important;
+}
 
 /* left */
 .block.block-account {
