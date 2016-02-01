@@ -84,8 +84,6 @@ class Enterprise_Pci_Model_Encryption extends Mage_Core_Model_Encryption
      */
     public function validateHash($password, $hash)
     {
-error_log("\nhash ".$hash, 3, '/tmp/customer.log');
-error_log("\npassword ".$password, 3, '/tmp/customer.log');         
         return $this->validateHashByVersion($password, $hash, self::HASH_VERSION_SHA256)
             || $this->validateHashByVersion($password, $hash, self::HASH_VERSION_MD5);
     }
@@ -100,7 +98,6 @@ error_log("\npassword ".$password, 3, '/tmp/customer.log');
     public function hash($data, $version = self::HASH_VERSION_LATEST)
     {
         if (self::HASH_VERSION_MD5 === $version) {
-error_log("\nHASH_VERSION_MD5 ".self::HASH_VERSION_MD5, 3, '/tmp/customer.log');
             return md5($data);
         }
         return hash('sha256', $data);
@@ -115,18 +112,13 @@ error_log("\nHASH_VERSION_MD5 ".self::HASH_VERSION_MD5, 3, '/tmp/customer.log');
      * @return bool
      */
     public function validateHashByVersion($password, $hash, $version = self::HASH_VERSION_LATEST)
-    {
-error_log("\npassword1 ".$password, 3, '/tmp/customer.log');         
-error_log("\nhash1 ".$hash, 3, '/tmp/customer.log');         
-error_log("\nversion ".$version, 3, '/tmp/customer.log');         
+    {        
         // look for salt
         $hashArr = explode(':', $hash, 2);
-error_log("\nhashArr ".print_r($hashArr,1), 3, '/tmp/customer.log');                 
         if (1 === count($hashArr)) {
             return $this->hash($password, $version) === $hash;
         }
         list($hash, $salt) = $hashArr;
-error_log("\nsalt ".$salt, 3, '/tmp/customer.log');        
         return $this->hash($salt . $password, $version) === $hash;
     }
 
