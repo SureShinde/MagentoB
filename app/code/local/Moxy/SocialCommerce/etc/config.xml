@@ -1,0 +1,173 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Moxy_SocialCommerce>
+            <version>0.1.9</version>
+        </Moxy_SocialCommerce>
+    </modules>
+
+    <frontend>
+        <layout>
+            <updates>
+                <!-- Add new menu -->
+                <moxy_socialcommerce module="Moxy_SocialCommerce">
+                    <file>moxy_socialcommerce.xml</file>
+                </moxy_socialcommerce>
+            </updates>
+        </layout>
+        <routers>
+
+            <!-- Settings page -->
+            <social>
+                <use>standard</use>
+                <args>
+                    <module>Moxy_SocialCommerce</module>
+                    <frontName>social</frontName>
+                </args>
+            </social>
+
+            <!-- Public profile URL -->
+            <user>
+                <use>standard</use>
+                <args>
+                    <module>Moxy_SocialCommerce</module>
+                    <frontName>user</frontName>
+                </args>
+            </user>
+
+            <!-- UGC Collection -->
+            <collections>
+                <use>standard</use>
+                <args>
+                    <module>Moxy_SocialCommerce</module>
+                    <frontName>collections</frontName>
+                </args>
+            </collections>
+
+        </routers>
+    </frontend>
+    
+  <global>
+    <helpers>
+      <socialcommerce>
+        <class>Moxy_SocialCommerce_Helper</class>
+      </socialcommerce>
+    </helpers>
+	<blocks>
+	  <socialcommerce>
+		<class>Moxy_SocialCommerce_Block</class>
+	  </socialcommerce>
+	</blocks>
+	<models>
+	  <socialcommerce>
+		<class>Moxy_SocialCommerce_Model</class>
+		<resourceModel>socialcommerce_mysql4</resourceModel>
+	  </socialcommerce>
+	  <socialcommerce_mysql4>
+		<class>Moxy_SocialCommerce_Model_Mysql4</class>
+		<entities>		  
+			  <profile>
+                    <table>moxy_socialcommerce_profile</table><!-- Table name -->
+              </profile>
+			  <collectioncover>
+				<table>moxy_socialcommerce_collection_cover</table>
+			  </collectioncover>		  
+			  <collectioncategory>
+				<table>moxy_socialcommerce_collection_category</table>
+			  </collectioncategory>
+        </entities>
+	  </socialcommerce_mysql4>
+	</models>
+	<resources>
+	  <socialcommerce_setup>
+		<setup>
+		  <module>Moxy_SocialCommerce</module>
+		</setup>
+		<connection>
+		  <use>core_setup</use>
+		</connection>
+	  </socialcommerce_setup>
+	  <socialcommerce_write>
+		<connection>
+		  <use>core_write</use>
+		</connection>
+	  </socialcommerce_write>
+	  <socialcommerce_read>
+		<connection>
+		  <use>core_read</use>
+		</connection>
+	  </socialcommerce_read>
+	</resources>
+  </global>
+  <admin>
+	<routers>
+	  <socialcommerce>
+	    <use>admin</use>
+		<args>
+		  <module>Moxy_SocialCommerce</module>
+		  <frontName>admin_socialcommerce</frontName>
+		</args>
+	  </socialcommerce>
+	</routers>
+  </admin>
+  <adminhtml>
+	<menu>
+	  <socialcommerce module="socialcommerce">
+		<title>SocialCommerce</title>
+		<sort_order>100</sort_order>
+		<children>
+		  <socialcommercebackend module="socialcommerce">
+			<title>Social Commerce</title>
+			<sort_order>0</sort_order>
+			<action>admin_socialcommerce/adminhtml_socialcommercebackend</action>
+		  </socialcommercebackend>
+		  <collectioncover module="socialcommerce">
+		    <title>Manage Collections Covers</title>
+			<sort_order>0</sort_order>
+			<action>admin_socialcommerce/adminhtml_collectioncover</action>
+		  </collectioncover>
+		  <collectioncategory module="socialcommerce">
+		    <title>Manage Collection Categories</title>
+			<sort_order>10</sort_order>
+			<action>admin_socialcommerce/adminhtml_collectioncategory</action>
+		  </collectioncategory>
+		</children>
+	  </socialcommerce>
+	</menu>
+	<acl>
+	  <resources>
+		<all>
+		  <title>Allow Everything</title>
+		</all>
+		<admin>
+		  <children>
+			<socialcommerce translate="title" module="socialcommerce">
+			  <title>SocialCommerce</title>
+			  <sort_order>1000</sort_order>
+			  <children>
+		  <socialcommercebackend translate="title">
+			<title>Social Commerce</title>
+		  </socialcommercebackend>
+		  <collectioncover translate="title">
+			<title>Manage Collectioncover</title>
+			<sort_order>0</sort_order>
+		  </collectioncover>
+		  <collectioncategory translate="title">
+			<title>Manage Collectioncategory</title>
+			<sort_order>10</sort_order>
+		  </collectioncategory>
+			  </children>
+			</socialcommerce>
+		  </children>
+		</admin>
+	  </resources>
+	</acl>
+	<layout>
+	  <updates>
+		<socialcommerce>
+		  <file>socialcommerce.xml</file>
+		</socialcommerce>
+	  </updates>
+	</layout>
+  </adminhtml>
+</config> 

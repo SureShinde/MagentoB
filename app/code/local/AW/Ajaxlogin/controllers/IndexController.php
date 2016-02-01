@@ -341,6 +341,7 @@ class AW_Ajaxlogin_IndexController extends Mage_Core_Controller_Front_Action {
             }
             
             try {
+
                 if ( $customerForm ) {
                     /**
                      * CE 1.4.2.x and above, EE
@@ -373,7 +374,35 @@ class AW_Ajaxlogin_IndexController extends Mage_Core_Controller_Front_Action {
                 
                 $validationResult = count($errors) == 0;
                 if (true === $validationResult) {
-                    $customer->save();
+
+                    /* start : add username on login */
+                    $username = $this->getRequest()->getPost('username');
+                    $usernameAvailable = Mage::helper('socialcommerce')->checkUsernameAvailable($username);
+                    if (! $usernameAvailable) {
+                        $message = $this->__('Username ' .$username . ' already used by someone else. Please choose another username');  
+                        return $this->__sendResponse(
+                            array(
+                                'success'      => 0,
+                                'errorMessage' => $message
+                            )
+                        );
+                    } else {
+                        $customer->save();
+                        $profile = Mage::getModel('socialcommerce/profile');
+
+                        # Assign data
+                        $profile->setCustomerId($customer->getId());
+                        $profile->setStatus(1);
+                        $profile->setWishlist(1);
+                        $profile->setTemporary(0);
+                        $profile->setUsername($username);
+                        #
+                        $profile->save();
+                        Mage::helper('socialcommerce')->createNewRewrite($username);
+                    }
+                    /* end : add username on login */
+
+                    
                     
                     Mage::dispatchEvent(
                         'customer_register_success',

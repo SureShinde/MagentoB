@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+  <socialcommerce_adminhtml_socialcommercebackend_index>
+	<reference name="content">
+	  <block type="socialcommerce/adminhtml_socialcommercebackend" name="socialcommercebackend" template="socialcommerce/socialcommercebackend.phtml"/>
+	</reference>
+  </socialcommerce_adminhtml_socialcommercebackend_index>
+  <socialcommerce_adminhtml_collectioncover_index>
+	<reference name="content">
+	  <block type="socialcommerce/adminhtml_collectioncover" name="collectioncover" />
+	</reference>
+  </socialcommerce_adminhtml_collectioncover_index>
+  <socialcommerce_adminhtml_collectioncategory_index>
+	<reference name="content">
+	  <block type="socialcommerce/adminhtml_collectioncategory" name="collectioncategory" />
+	</reference>
+  </socialcommerce_adminhtml_collectioncategory_index>
+</layout>

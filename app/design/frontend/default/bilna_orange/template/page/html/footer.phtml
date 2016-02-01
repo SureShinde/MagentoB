@@ -85,3 +85,876 @@
         dataLayer.push({ 'event': 'event_all' });
     });
 </script>
+
+<?php
+$customer = Mage::getSingleton('customer/session')->getCustomer();
+$profile = Mage::getModel('socialcommerce/profile')->load($customer->getId(), 'customer_id');
+$categories = Mage::getModel('socialcommerce/collectioncategory')->getCollection();
+$images = Mage::getModel('socialcommerce/collectioncover')->getCollection()->setCurPage(1)->setPageSize(12);
+?>
+
+<!-- Modal dialog to create new collection -->
+<div class="container-collection-pop" style="display:none" id="addCollectionModal">
+  <div class="cg-col-lg-5 cg-col-md-6 cg-col-sm-6 cg-col-xs-11 container-collection-whitebg make-table">
+    <img class="cg-col-lg-6 cg-col-md-6 hidden-sm hidden-xs" src="<?php echo $this->getSkinUrl('images/') . 'add-col.jpg'; ?>" width="100%;" style="margin-top:25px;">
+    <form action="<?php echo $this->getUrl('social/settings/createnewcollection'); ?>" method="post" enctype="multipart/form-data" onsubmit="return preventDouble(this)">
+      <div class="cg-col-lg-6 cg-col-xs-12 cg-col-sm-12 cg-col-md-6 box inside-collection noborder">
+        <div class="cg-col-lg-12 cg-col-sm-12 cg-col-md-12 cg-col-xs-12 collection-top-part">
+          <div class="cg-col-lg-11 cg-col-md-11 cg-col-sm-11 cg-col-xs-11 add-to-collection-title">Create New Collection</div>
+          <div class="cg-col-lg-1 cg-col-md-1 cg-col-sm-1 cg-col-xs-1 " id="closer-collection">
+            <a href="javascript:;" onclick="hideAddCollectionDialog()" style="text-decoration:none;width:100%;display:block">x</a>
+          </div>
+        </div>
+        <div class="cg-col-xs-12">
+          <label for="name" class="full-width" style="color: #545454; margin-bottom: 10px;">Collection Title</label>
+          <input type="text" name="name" id="name" class="input-collection full-width" required>
+
+          <label for="name" class="full-width" style="color: #545454; margin-bottom: 10px; margin-top: 10px;">Collection Description</label>
+          <textarea rows="4" name="desc" class="input-collection full-width" maxlength="250" placeholer="what's your collection about?"></textarea>
+          <!--<input type="text" name="desc" id="desc" class="input-collection full-width" required >-->
+
+          <div class="cg-col-xs-12 in-block upload nopadding" style="margin-top:10px;">
+           <input type="file" title="browse your image" name="cover">
+         </div>
+
+         <label for="name" class="full-width cover-exp">Upload Cover Image <br /> (JPG image, 800px width and 800px height, max 1MB)</label>
+
+         <div style="margin-top: 20px;">
+          <input type="checkbox" name="visibility" id="visibility" class="input-collection" style="height: inherit; width:10px;" checked>
+          <label for="visibility" style="color: #545454; height: 40px;">Make Public</label>
+        </div>
+      </div>
+    </div>
+    <div class="cg-col-xs-6">
+      <a class="btn btn-default btn-block btn-cancel" style="text-decoration:none" onclick="hideAddCollectionDialog()">Cancel</a>
+    </div>
+    <div class="cg-col-xs-6">
+      <button type="submit" class="btn btn-primary btn-block" style="margin: 10px 0;" name="submitButton">Save</button>
+    </div>
+    <input type="hidden" name="username" value="<?php echo $profile->getUsername(); ?>">
+  </form>
+</div>
+</div>
+
+<!-- new add collection popup -->
+<div class="container-collection-pop" style="display:none;" id="newAddCollectionModal">
+  <div class="cg-col-lg-5 cg-col-md-6 cg-col-sm-6 cg-col-xs-11 container-collection-whitebg white-bg-new-coll" style="max-width:500px;">
+     
+    <form action="<?php echo $this->getUrl('social/settings/createnewcollection'); ?>" method="post" enctype="multipart/form-data" onsubmit="return preventDouble(this)">
+      <div class="cg-col-lg-12 cg-col-xs-12 cg-col-sm-12 cg-col-md-12 box inside-collection noborder" style="padding-bottom:0;margin-bottom:0;">
+        <div class="cg-col-lg-12 cg-col-sm-12 cg-col-md-12 cg-col-xs-12 collection-top-part">
+          <div class="cg-col-lg-11 cg-col-md-11 cg-col-sm-11 cg-col-xs-11 add-to-collection-title">Create New Collection</div>
+          <div class="cg-col-lg-1 cg-col-md-1 cg-col-sm-1 cg-col-xs-1 " id="closer-collection">
+            <a href="javascript:;" onclick="newHideAddCollectionDialog()" style="text-decoration:none;width:100%;display:block"><i class="fa fa-times"></i></a>
+          </div>
+        </div>
+        <div class="cg-col-xs-12 pink-thin-divider bottom-spacer">
+
+          
+            <div class="form-group in-block full-width">
+              <label for="inputEmail3" class="cg-col-sm-3 control-label label-color label-margin">Title</label>
+              <div class="cg-col-sm-9">
+                <input  name="name" id="name" class="form-control input-new-collection" placeholder="Title" required> 
+              </div>
+            </div>
+            <div class="form-group in-block full-width">
+              <label for="inputPassword3" class="cg-col-sm-3 control-label label-color label-margin">Description</label>
+              <div class="cg-col-sm-9">
+                <textarea rows="4" name="desc" class="form-control input-new-collection" maxlength="250" placeholder="Why the products inspire you or story behind your collection. Make it fun!" style="resize:none;"></textarea>
+              </div>
+            </div>
+          
+        </div>
+        <div class="cg-col-xs-12">
+          <div class="form-group in-block full-width nomargin">
+            <label for="inputPassword3" class="cg-col-sm-12 control-label label-color label-margin">Change Cover Image</label>
+          </div>
+          <div class="cg-row">
+            <div class="cg-sm-12">
+              <div id="tabs">
+                <ul class="cg-col-sm-12 cg-col-xs-12 main-nav nopadding bottom-spacer-container">
+                  <li class="cg-col-sm-4 cg-col-xs-4 text-center clicker main-nav nopadding">
+                    <a href="#tabs-1" class="sub-nav tabs-left ">
+                      <i class="fa fa-link pinker icon-nav"></i>
+                      <span class="hidden-xs"> <br>link from web</span>
+                    </a>
+                  </li>
+                  <li class="cg-col-sm-4 cg-col-xs-4 cg-col-lg-4 cg-col-md-6 text-center clicker main-nav mid-nav nopadding">
+                    <a href="#tabs-2" class="sub-nav activated">
+                      <i class="fa fa-cloud-upload pinker icon-nav"></i>
+                      <span class="hidden-xs"> <br> upload image</span>
+                    </a>
+                  </li>
+                  <li class="cg-col-sm-4 cg-col-xs-4 text-center clicker main-nav nopadding">
+                    <a href="#tabs-3" class="sub-nav tabs-right">
+                      <i class="fa fa-picture-o pinker icon-nav"></i>
+                      <span class="hidden-xs"> <br>MOXY images</span>
+                    </a>
+                  </li>
+                </ul>
+                <div id="tabs-1" style="color: #545454;">
+                  <div class="form-group in-block full-width">
+                    <div class="cg-col-sm-10 cg-col-sm-offset-1">
+                      <input type="text" name="image_url" class="form-control input-new-collection full-width back-white input-border" id="" placeholder="http://">
+                    </div>
+                  </div>
+                </div>
+                <div id="tabs-2" style="color: #545454;">
+                  <div class="cg-col-sm-4 cg-col-sm-offset-4 cg-col-xs-12 dashed-upload" style="padding-top:0">
+                    <img id="imgups" src="/media/socialcommerce/upload-cover-img.jpg" alt="your image" width ="100%"/>
+                    <div class="fileUpload-coll" id="no-span">
+                    <input type="file" title="Browse" name="cover" class="upload-coll" id="imgInps"/>
+                    </div>
+                  </div>
+                </div>
+                <!--<div id="tabs-2" style="color: #545454;">
+                  <div class="cg-col-sm-4 cg-col-sm-offset-4 cg-col-xs-12 dashed-upload">           
+                    <img id="imgup" src="#" alt="your image"/>
+                    <div class="fileUpload-coll" id="no-span">
+                    <input type="file" title="Browse" name="cover" class="upload-coll" id="imgInp"/>
+                    </div>
+                  </div>
+                </div>-->
+                <div id="tabs-3" style="color: #545454;">
+                  <div class="cg-col-sm-4 cg-col-sm-offset-4 bottom-spacer-container">
+                    <select name="" id="category-selector" class="full-width">
+            <option value="">Select categories</option>
+            <?php foreach ($categories as $category) { ?>
+            <option value="<?php echo $category->getCategoryId();?>"><?php echo $category->getName();?></option>
+            <?php } ?>
+                    </select>
+                  </div>
+         
+        <div class="cg-col-sm-12" id="preset-image-container"> 
+          <?php $counter = 1; foreach($images as $image) { 
+          if (($counter % 3) == 0) {
+          }
+          ?>
+                  <div class="cg-col-sm-3 cg-col-xs-4 bottom-spacer choose-cover">
+                    <span class="overlayer-pink">
+                      <i class="fa fa-check checked"></i>
+                    </span>
+          <img src="/media/<?php echo $image['image'];?>" width="100%" alt=""> 
+                  </div>
+          <?php 
+          $counter++;}  ?>
+          </div>
+
+                </div>
+                
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-top: 20px;">
+            <input type="checkbox" name="visibility" id="visibility" class="input-collection" style="height: inherit; width:10px;" checked>
+            <label for="visibility" style="color: #545454; height: 20px;">Make Public</label>
+          </div>
+        </div>
+      </div>
+      <div class="cg-col-xs-6">
+        <a class="btn btn-default btn-block btn-cancel" style="text-decoration:none" onclick="newHideAddCollectionDialog()">CANCEL</a>
+      </div>
+      <div class="cg-col-xs-6">
+        <button type="submit" class="btn btn-primary btn-block" style="margin: 10px 0;" name="submitButton">I'M DONE</button>
+      </div>
+      <input type="hidden" name="username" value="<?php echo $profile->getUsername(); ?>">
+    <input type="hidden" name="preset_image" id="preset_image" />
+    </form>
+  </div>
+</div>
+<!-- new add collection pop up -->
+
+<?php # Moxy Collections Start ?>
+
+<!-- Modal dialog to add new item to collection -->
+
+<div class="container-collection-pop" style="display:none;" id="addToCollectionModal">
+    <div class="cg-col-lg-6 cg-col-md-6 cg-col-sm-11 cg-col-xs-11 container-collection-whitebg" id="add-new-pop-collection">
+        <div class="cg-col-lg-12 cg-col-sm-12 cg-col-md-12 cg-col-xs-12 collection-top-part">
+            <div class="cg-col-lg-11 cg-col-md-11 cg-col-sm-11 cg-col-xs-11 add-to-collection-title">Add to Collection</div>
+            <div class="cg-col-lg-1 cg-col-md-1 cg-col-sm-1 cg-col-xs-1 " id="closer-collection" onclick="hideAddToCollectionDialog()">x</div>
+        </div>
+        <div class="cg-col-lg-5 cg-col-md-5 cg-col-sm-12 cg-col-xs-12">
+            <div class="cg-col-lg-12 cg-col-xs-12 cg-col-sm-12 cg-col-md-12 box inside-collection">
+                <div class="cg-col-lg-11 cg-col-md-8  cg-col-xs-6 col-middler">
+                    <img src="" alt="" width="100%" id="modalCollectionImage">
+                </div>
+                <div class="cg-col-lg-12  cg-col-md-8 cg-col-xs-8  text-container-collection col-middler">
+                    <div class="brands-name" id="modalCollectionBrandName">n/a</div>
+                    <div class="brand-name" id="modalCollectionProductName">n/a</div>
+                    <div class="ratings pull-left"></div>
+                    <div class="seller-name"></div>
+                    <div class="cg-col-xs-12 bottom-price">
+                        <div class="cg-col-xs-12 main-price" id="modalCollectionPrice">n/a</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <?php if (Mage::getSingleton('customer/session')->isLoggedIn()) : ?>
+
+        <form class="in-block cg-col-lg-7 cg-col-md-7 cg-col-sm-12 cg-col-xs-12 add-dashed" action="<?php echo $this->getUrl('social/settings/additemtocollection'); ?>" method="post" enctype="multipart/form-data" onsubmit="return preventDouble(this)">
+
+            <?php
+            $customer = Mage::getSingleton('customer/session')->getCustomer();
+            $wishlistCollection = Mage::getModel('wishlist/wishlist')->getCollection()->filterByCustomerId($customer->getId());
+            $wishlistCollection->setOrder('wishlist_id', 'DESC');
+            # Check if this user has collection already.
+            # "Wishlist" isn't considered as collection since it comes as default wishlist-set in Magento, and we wont show it anywhere.
+
+            # TODO remove this hacky and use Mage::helper('enterprise_wishlist')->isWishlistDefault($wishlist)
+            $collectionAvailable = (count($wishlistCollection->getItems()) > 0) ? true : false ;
+
+            ?>
+            <div class="cg-col-xs-12 cg-col-lg-12 cg-col-md-12 cg-col-sm-12 bottom-part">
+
+                <?php if ($collectionAvailable) : ?>
+
+                <select name="wishlist_id" id="collectionList" class="collection-select">
+                    <?php foreach ($wishlistCollection->getItems() as $wishlist) : ?>
+
+                    <?php if ($wishlist->getName() && $wishlist->getName() == 'Wishlist') continue; ?><?php # Skipping default ?>
+                    <?php if ($wishlist->getView() == 0) continue; ?> <?php # Skipping deleted collections ?>
+          
+                    <option value="<?php echo $wishlist->getId(); ?>"><?php echo $wishlist->getName(); ?></option>
+                <?php endforeach; ?>
+
+                <option value="0">&#10084; Create New Collection &#10084;</option>
+
+                </select>
+
+              <div id="iWannaCreateNewCollection" style="display:none;">
+
+               <div class="cg-col-xs-12 pink-thin-divider bottom-spacer nopadding">
+          
+                  <div class="form-group less-margin in-block full-width">
+                    <label for="inputEmail3" class="cg-col-sm-12 control-label label-color label-margin">Title</label>
+                    <div class="cg-col-sm-12">
+                    <input name="name" id="name" class="form-control input-new-collection" placeholder="Title">
+                    </div>
+                  </div>
+
+                  <div class="form-group less-margin in-block full-width">
+                    <label for="inputPassword3" class="cg-col-sm-12 control-label label-color label-margin">Description</label>
+                    <div class="cg-col-sm-12">
+                       <textarea rows="4" name="desc" class="form-control input-new-collection" maxlength="250" placeholder="Why the products inspire you or story behind your collection. Make it fun!" style="resize:none;"></textarea>
+                    </div>
+                  </div>
+                
+              </div>
+
+              <div class="cg-col-xs-12">
+
+                <div class="form-group in-block full-width nomargin">
+
+
+                  <label for="inputPassword3" class="cg-col-sm-12 control-label label-color label-margin">Change Cover Image</label>
+                  
+                </div>
+                <input type="hidden" name="collection_id" id="modalCollectionId">
+                <div class="cg-row">
+                  <div class="cg-sm-12">
+                    <div id="ntabs">
+                      <ul class="cg-col-sm-12 cg-col-xs-12 main-nav nopadding bottom-spacer-container">
+                        <li class="cg-col-sm-4 cg-col-xs-4 text-center clicker main-nav nopadding">
+                          <a href="#ntabs-1" class="sub-nav tabs-left ">
+                            <i class="fa fa-link pinker icon-nav"></i>
+                          </a>
+                        </li>
+                        <li class="cg-col-sm-4 cg-col-xs-4 cg-col-lg-4 cg-col-md-6 text-center clicker main-nav mid-nav nopadding">
+                          <a href="#ntabs-2" class="sub-nav">
+                            <i class="fa fa-cloud-upload pinker icon-nav"></i>
+                          </a>
+                        </li>
+                        <li class="cg-col-sm-4 cg-col-xs-4 text-center clicker main-nav nopadding">
+                          <a href="#ntabs-3" class="sub-nav tabs-right">
+                            <i class="fa fa-picture-o pinker icon-nav"></i>
+                          </a>
+                        </li>
+                      </ul>
+
+                      <div id="ntabs-1" style="color: #545454;">
+						<div class="form-group in-block full-width">
+							<div class="cg-col-sm-10 cg-col-sm-offset-1">
+							  <input type="text" class="form-control input-new-collection full-width back-white input-border" id="" name="image_url" placeholder="http://">
+							</div>
+						</div>
+					  </div>
+            <div id="ntabs-2" style="color: #545454;">
+                  <div class="cg-col-sm-6 cg-col-sm-offset-3 cg-col-xs-12 dashed-upload" style="padding-top:0">
+                    <img id="imgupsx" src="/media/socialcommerce/upload-cover-img.jpg" alt="your image" width ="100%"/>
+                    <div class="fileUpload-coll" id="no-span">
+                    <input type="file" title="Browse" name="cover" class="upload-coll" id="imgInpsx"/>
+                    </div>
+                  </div>
+                </div>
+
+					  <!--<div id="ntabs-2" style="color: #545454;">
+						<div class="cg-col-sm-6 cg-col-sm-offset-3 cg-col-xs-12 dashed-upload">
+              <img id="imgup" src="#" alt="your image"/>
+              <div class="fileUpload-coll" id="no-span">
+              <input type="file" title="Browse" name="cover" class="upload-coll" id="imgInp"/>
+						  </div>
+						</div>
+					  </div>-->
+					  <div id="ntabs-3" style="color: #545454;">
+						<div class="cg-col-sm-4 cg-col-sm-offset-4 bottom-spacer-container">
+							<select name="" id="new-category-selector" class="full-width">
+								<option value="">Select categories</option>
+								<?php foreach ($categories as $category) { ?>
+								<option value="<?php echo $category->getCategoryId();?>"><?php echo $category->getName();?></option>
+								<?php } ?>
+							</select>
+						</div>
+						<div class="cg-col-sm-12" id="new-preset-image-container"> 
+						<?php $counter = 1; foreach($images as $image) { 
+						if (($counter % 3) == 0) {
+						}
+						?>
+							<div class="cg-col-sm-3 cg-col-xs-4 bottom-spacer choose-cover">
+								<span class="overlayer-pink">
+									<i class="fa fa-check checked"></i>
+								</span>
+								<img src="/media/<?php echo $image['image'];?>" width="100%" alt=""> 
+							</div>
+						<?php 
+						$counter++;}  ?>
+						</div>	
+					  </div>	
+
+					</div>
+					
+
+                  </div>
+                </div>
+
+                <div style="margin-top: 20px;">
+                  <input type="checkbox" name="visibility" id="visibility" class="input-collection" style="height: inherit; width:10px;" checked>
+                  <label for="visibility" style="color: #545454; height: 40px;">Make Public</label>
+                </div>
+					<input type="hidden" name="preset_image" id="new_preset_image" />
+
+              </div>
+            </div>
+            <div class="cg-col-xs-12 nopadding">
+            <button type="submit" class="btn btn-primary btn-block" name="submitButton" style="margin: 10px 0;" id="addButton">Add to Collection</button>
+            </div>
+
+          
+              <script>
+              jQuery(document).ready(function() {
+                jQuery('#collectionList').change(function () {
+                  if (jQuery(this).val() == '0') {
+                    jQuery('#iWannaCreateNewCollection').show();
+                    jQuery('#add-new-pop-collection').css( {"display": "inline-block","max-height": "90%" });
+                    jQuery('#addButton').html('Create &amp; Add this Product');
+                    jQuery('#name').attr('required', true);
+                  } else {
+                    jQuery('#iWannaCreateNewCollection').hide();
+                    jQuery('#add-new-pop-collection').css("display", "inline-table");
+                    jQuery('#addButton').html('Add to Collection');
+                    jQuery('#name').attr('required', false);
+                  }
+				  //jQuery('#ntabs').tabs();				  
+                });
+              });
+              </script>
+
+        <?php else : ?>
+
+        <h3 style="color: #545454">No Collection</h3>
+
+        <p style="color: #545454;margin-top:10px;">
+            You don't have any collection yet. Please create one to add this product as your collection.
+        </p>
+
+        <label for="name" style="color: #545454; margin-bottom: 10px;margin-top: 20px">Collection Name:</label>
+        <input class="input-collection" id="name" name="name" required>
+
+        <label for="name" class="full-width" style="color: #545454; margin-bottom: 10px; margin-top: 10px;">Collection Description</label>
+        <textarea rows="4" name="desc" class="input-collection full-width" maxlength="250" placeholer="what's your collection about?"></textarea>
+        <!--<input type="text" name="desc" id="desc" class="input-collection full-width" required >-->
+        <div class="cg-col-xs-12 in-block upload nopadding" style="margin-top:10px;">
+                         <input type="file" title="browse your image" name="cover">
+                    </div>
+
+                    <label for="name" class="full-width cover-exp">Update Cover Image <br /> (JPG image, 800px width and 800px height, max 1MB)</label>
+                    <input type="hidden" name="collection_id" id="modalCollectionId">
+
+
+        <div style="margin-top: 20px;">
+            <input type="checkbox" name="visibility" id="visibility" class="input-collection" style="height: inherit; width:10px;" checked>
+            <label for="visibility" style="color: #545454; height: 40px;">Make Public</label>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block" name="submitButton" style="margin: 10px 0;">Create &amp; Add This Product</button>
+
+    <?php endif; ?>
+    <div class="cg-col-xs-12 nopadding">
+
+    <button class="btn btn-default btn-block btn-cancel nomargin" onclick="hideAddToCollectionDialog();return false;">Close</button>
+  </div>
+
+</div>
+
+<input type="hidden" name="product_id" value="" id="modalProductId">
+
+</form>
+
+<?php else : ?>
+
+    <div class="in-block cg-col-lg-7 cg-col-md-7 cg-col-sm-12 cg-col-xs-12">
+        <p style="color: #545454;">Please <a href="<?php echo Mage::getUrl('customer/account/login'); ?>" onclick="hideAddToCollectionDialog();openLogin();return false;">login</a> to add this item to your collection.</p>
+        <a class="btn btn-primary btn-block" style="margin: 10px 0;text-decoration:none;" href="<?php echo Mage::getUrl('customer/account/login'); ?>" onclick="hideAddToCollectionDialog();openLogin();return false;">Login</a>
+        <button class="btn btn-default btn-block btn-cancel" onclick="hideAddToCollectionDialog();return false;">Close</button>
+    </div>
+
+<?php endif; ?>
+</div>
+</div>
+
+<script>
+
+function showAddToCollectionDialog() {
+  jQuery('#addToCollectionModal').fadeIn('fast');
+}
+
+function hidenewAddCollectionDialog() {
+  jQuery('#newAddCollectionModal').fadeOut('fast');
+}
+
+function hideAddToCollectionDialog() {
+  jQuery('#addToCollectionModal').fadeOut('fast');
+}
+
+jQuery(document).ready(function() {
+
+  function readURL(input) {
+          console.log('readURL called');
+          if (input.files && input.files[0]) {
+              var reader = new FileReader();
+
+              reader.onload = function (e) {
+                // var img = new Image();
+                // img.src = e.target.result;
+                // $('#div-container').append(img)''
+                  jQuery('#imgup')
+                      .attr('src', e.target.result)
+                      .width('100%')
+                      .height('100%');
+              };
+
+              reader.readAsDataURL(input.files[0]);
+              jQuery('.dashed-upload').css({"padding-top": "0"});
+          }
+  }
+
+  jQuery("#imgInp").change(function(){
+          console.log('imgInp called');
+        readURL(this);
+        
+  });
+
+  function readIMG(input) {
+          console.log('readURL called');
+          if (input.files && input.files[0]) {
+              var readers = new FileReader();
+
+              readers.onload = function (e) {
+                // var img = new Image();
+                // img.src = e.target.result;
+                // $('#div-container').append(img)''
+                  jQuery('#imgups')
+                      .attr('src', e.target.result)
+                      .width('100%')
+                      .height('100%');
+              };
+
+              readers.readAsDataURL(input.files[0]);
+              jQuery('.dashed-upload').css({"padding-top": "0"});
+          }
+  }
+
+  jQuery("#imgInps").change(function(){
+          console.log('imgInps called');
+        readIMG(this);
+        
+  });
+
+  function readIMGs(input) {
+          console.log('readURL called');
+          if (input.files && input.files[0]) {
+              var readersx = new FileReader();
+
+              readersx.onload = function (e) {
+                // var img = new Image();
+                // img.src = e.target.result;
+                // $('#div-container').append(img)''
+                  jQuery('#imgupsx')
+                      .attr('src', e.target.result)
+                      .width('100%')
+                      .height('100%');
+              };
+
+              readersx.readAsDataURL(input.files[0]);
+              jQuery('.dashed-upload').css({"padding-top": "0"});
+          }
+  }
+
+  jQuery("#imgInpsx").change(function(){
+          console.log('imgInpsx called');
+        readIMGs(this);
+        
+  });
+
+  jQuery('.addToCollectionLink').click(function() {
+    var modalCollectionImage = jQuery(this).attr('data-image');
+    jQuery('#modalCollectionImage').attr("src", modalCollectionImage);
+
+    var modalCollectionBrandName = jQuery(this).attr('data-brand-name');
+    jQuery('#modalCollectionBrandName').html(modalCollectionBrandName);
+
+    var modalCollectionProductName = jQuery(this).attr('data-product-name');
+    jQuery('#modalCollectionProductName').html(modalCollectionProductName);
+
+    var modalCollectionPrice = jQuery(this).attr('data-price');
+    jQuery('#modalCollectionPrice').html(modalCollectionPrice);
+
+    var modalCollectionMerchant = jQuery(this).attr('data-merchant');
+    jQuery('#modalCollectionMerchant').html(modalCollectionMerchant);
+
+    var modalProductId = jQuery(this).attr('data-id');
+    jQuery('#modalProductId').val(modalProductId);
+  });
+});
+</script>
+
+<?php # Moxy Collections End ?>
+
+<?php  ?>
+<div class="">
+  <div id="newsletter-registration-form-overlay">
+    <div id="newsletter-registration-form-popup">
+      <div id="newsletter-registration-close"></div>
+      <div id="newsletter-registration-content-text">
+        <div class="cg-row">
+                    <?php /*<div class="cg-col-lg-12">
+                        <img class="" src="<?php echo $this->getSkinUrl('images/pop-banner/') . 'SPECIAL-PROMO-1.jpg'; ?>" width="100%;">
+                      </div> */ ?>
+                      <div class="cg-col-lg-12">
+                        <div class="mid-text text-center in-block">
+
+
+                          <span class="title-gor">HI, GORGEOUS!</span>
+                          Dapatkan voucher senilai <br><span style="font-size: 24px;line-height: 41px;"> <strong>Rp. 75.000</strong></span> <br>jika anda daftarkan email sekarang.
+
+                          <div class="cg-col-lg-12 nopadding" style="margin-top:20px;">
+                            <div id="newsletter-registration-form-bottom nopadding">
+                              <div id="newsletter-registration-form-input">
+                                <form
+                                id="newsletter-registration-form"
+                                action="https://acommerce1.createsend.com/t/i/s/tdfkj/"
+                                method="post"
+                                class="newsletter-ajax-form">
+                                <input type="email" name="cm-tdfkj-tdfkj" id="newsletter-registration-email"
+                                class="validate-email required-entry field-left newsletter-ajax-disable" placeholder="Your email address" required>
+                                <input type="submit" value="SIGN UP!" id="newsletter-registration-button" class="newsletter-ajax-disable">
+                                <input id="fieldjhvut" name="cm-f-jhvut" type="hidden" value="<?php echo Mage::registry('_utmSource'); ?>">
+                                <input id="fieldjhvui" name="cm-f-jhvui" type="hidden" value="<?php echo Mage::registry('_utmMedium'); ?>">
+                                <input id="fieldjhvud" name="cm-f-jhvud" type="hidden" value="<?php echo Mage::registry('_utmCampaign'); ?>">
+                                <input id="fieldjhvuh" name="cm-f-jhvuh" type="hidden" value="<?php echo Mage::registry('_utmContent'); ?>">
+                                <input id="fieldjhvuk" name="cm-f-jhvuk" type="hidden" value="<?php echo Mage::registry('_utmTerm'); ?>">
+                                <input id="fieldjhvuu" name="cm-f-jhvuu" type="hidden" value="newsletter-popup">
+                                <input id="fieldjktiit" name="cm-f-jktiit" type="hidden" value="<?php echo Mage::registry('_cmLang'); ?>">
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="cg-col-lg-12 hidden-sm hidden-xs in-block nopadding" style="margin-top:10px;">
+                        <div class="lil-image">
+                          <img class="" src="<?php echo $this->getSkinUrl('images/pop-banner/') . 'PIC1.jpg'; ?>" width="100%;" height="102px;">
+                        </div>
+                        <div class="lil-image" style="margin-left: 2%;">
+                          <img class="" src="<?php echo $this->getSkinUrl('images/pop-banner/') . 'PIC2.jpg'; ?>" width="100%;">
+                        </div>
+                        <div class="lil-image pull-right">
+                          <img class="" src="<?php echo $this->getSkinUrl('images/pop-banner/') . 'PIC3.jpg'; ?>" width="100%;">
+                        </div>
+                      </div>
+                      <div class="cg-col-lg-12 hidden-sm hidden-xs in-block nopadding" style="margin-top:5px">
+                        <div class="lil-image">
+                          <img class="" src="<?php echo $this->getSkinUrl('images/pop-banner/') . 'PIC4.jpg'; ?>" width="100%;" height="102px;">
+                        </div>
+                        <div class="lil-image" style="margin-left: 2%;">
+                          <img class="" src="<?php echo $this->getSkinUrl('images/pop-banner/') . 'PIC5.jpg'; ?>" width="100%;" height="102px;">
+                        </div>
+                        <div class="lil-image pull-right">
+                          <img class="" src="<?php echo $this->getSkinUrl('images/pop-banner/') . 'PIC6.jpg'; ?>" width="100%;">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+   <?php /* <div id="newsletter-registration-form-overlay">
+        <div id="newsletter-registration-form-popup">
+            <div id="newsletter-registration-close"></div>
+            <div id="newsletter-registration-content-text">
+                <div class="backer-white">
+                    <div class="top-text">
+                        <p>Subscribe and Save</p>
+                    </div>
+                    <div class="blue-divider">
+
+                    </div>
+                    <div class="mid-text">
+                        <p>
+                            Daftarkan email Anda sekarang.
+                            Dan dapatkan voucher senilai <strong>Rp. 75.000</strong>
+                            Serta penawaran spesial dari moxy,
+                            untuk masing-masing Anda yang baru mendaftar.
+                        </p>
+                    </div>
+                    <div class="blue-divider">
+
+                    </div>
+                    <div id="newsletter-registration-form-bottom">
+                        <div id="newsletter-registration-form-input">
+                            <form
+                                id="newsletter-registration-form"
+                                action="https://acommerce1.createsend.com/t/i/s/tdfkj/"
+                                method="post"
+                                class="newsletter-ajax-form">
+                                <input type="email" name="cm-tdfkj-tdfkj" id="newsletter-registration-email"
+                                    class="validate-email required-entry field-left newsletter-ajax-disable" placeholder="Masukkan E-mail" required>
+                                <input type="submit" value="DAFTAR SEKARANG!" id="newsletter-registration-button" class="newsletter-ajax-disable">
+                                <input id="fieldjhvut" name="cm-f-jhvut" type="hidden" value="<?php echo Mage::registry('_utmSource'); ?>">
+                                <input id="fieldjhvui" name="cm-f-jhvui" type="hidden" value="<?php echo Mage::registry('_utmMedium'); ?>">
+                                <input id="fieldjhvud" name="cm-f-jhvud" type="hidden" value="<?php echo Mage::registry('_utmCampaign'); ?>">
+                                <input id="fieldjhvuh" name="cm-f-jhvuh" type="hidden" value="<?php echo Mage::registry('_utmContent'); ?>">
+                                <input id="fieldjhvuk" name="cm-f-jhvuk" type="hidden" value="<?php echo Mage::registry('_utmTerm'); ?>">
+                                <input id="fieldjhvuu" name="cm-f-jhvuu" type="hidden" value="newsletter-popup">
+                                <input id="fieldjktiit" name="cm-f-jktiit" type="hidden" value="<?php echo Mage::registry('_cmLang'); ?>">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="closer-all hidden-xs" style="padding:0">
+        <div class="hovering-closer">x</div>
+        <div class="hovering-gift"><img src="<?php echo $this->getSkinUrl('images/side-banner/') . 'test-left-dark.png'; ?>" width="100%;" onmouseover="this.src='<?php echo $this->getSkinUrl('images/side-banner/') . 'test-left.png'; ?>';"
+            onmouseout="this.src='<?php echo $this->getSkinUrl('images/side-banner/') . 'test-left-dark.png'; ?>';" style="float:left;"></div>
+        </div>
+
+      </div>*/ ?>
+
+
+      <div class="voucher bottom-small" id="registerForSpecialOffers">
+        <div class="cg-container">
+          <div class="cg-row">
+            <div class="cg-col-md-12 frame-box">
+              <div class="cg-col-xs-12 cg-col-md-6 box text">
+                <h4><?php echo $this->__('GET A VOUCHER WORTH RP 75.000'); ?></h4>
+                <p>
+                  <?php echo $this->__('Subscribe and get the latest products, fashion news, trends, exclusive offers and more from moxy.co.id - straight to your inbox!'); ?></p>
+                </div>
+                <div class="cg-col-xs-12 cg-col-md-6 box form">
+                  <form action="https://acommerce1.createsend.com/t/i/s/tdfkj/"
+                  method="post"
+                  class="form-horizontal newsletter-ajax-form"
+                  id="newsletter-validate-detail">
+                  <div class="input-group">
+                    <input type="text" class="form-control newsletter-ajax-disable" placeholder="Enter your e-mail" name="cm-tdfkj-tdfkj" required>
+                    <span class="input-group-btn">
+                      <button class="btn btn-primary btn-newsletter newsletter-ajax-disable" type="submit" style="border: none;padding: 9px;">Subscribe</button>
+                    </span>
+                  </div>
+                  <input id="fieldjhvut" name="cm-f-jhvut" type="hidden" value="<?php echo Mage::registry('_utmSource'); ?>">
+                  <input id="fieldjhvui" name="cm-f-jhvui" type="hidden" value="<?php echo Mage::registry('_utmMedium'); ?>">
+                  <input id="fieldjhvud" name="cm-f-jhvud" type="hidden" value="<?php echo Mage::registry('_utmCampaign'); ?>">
+                  <input id="fieldjhvuh" name="cm-f-jhvuh" type="hidden" value="<?php echo Mage::registry('_utmContent'); ?>">
+                  <input id="fieldjhvuk" name="cm-f-jhvuk" type="hidden" value="<?php echo Mage::registry('_utmTerm'); ?>">
+                  <input id="fieldjhvuu" name="cm-f-jhvuu" type="hidden" value="newsletter-strip-footer">
+                  <input id="fieldjktiit" name="cm-f-jktiit" type="hidden" value="<?php echo Mage::registry('_cmLang'); ?>">
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-container">
+        <div class="containLink">
+          <div class="footer">
+            <?php echo $this->getChildHtml() ?>
+          </div>
+          <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('footer_payment_partner')->toHtml()?>
+          <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('footer_shipping_partner')->toHtml()?>
+        </div>
+        <address class="copyright">
+          <div class="grayStrip">
+            <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('footer_links_copyright')->toHtml()?>
+          </div>
+        </address>
+        <div class="totop"><span></span>
+        </div>
+      </div>
+
+      <script>
+
+
+      jQuery(document).ready(function() {
+
+        if (! jQuery.cookie("newsletter_subscribed")) {
+          jQuery("#newsletter-registration-form-overlay").fadeIn(500);
+
+          jQuery.cookie("newsletter_subscribed", 1, {expires : 1});
+        }
+
+        jQuery("#newsletter-registration-close").click(function() {
+          jQuery("#newsletter-registration-form-overlay").fadeOut(300);
+        });
+
+        jQuery('.hovering-gift').click(function() {
+          jQuery("#newsletter-registration-form-overlay").fadeIn(300);
+        });
+
+        jQuery('.hovering-closer').click(function() {
+          jQuery(".closer-all").fadeOut(300);
+        });
+
+        jQuery('.newsletter-ajax-form').submit(function (e) {
+          e.preventDefault();
+          var submissionData = jQuery(this).serialize();
+          jQuery('.newsletter-ajax-disable').attr('disabled', true);
+          jQuery.getJSON(
+            this.action + "?callback=?",
+            submissionData,
+            function (data) {
+
+              if (data.Status === 400) {
+                jQuery('#newsletter-ajax-message').html("Error: " + data.Message);
+              } else {
+
+                jQuery(':input', '.newsletter-ajax-form')
+                .not(':button, :submit, :reset, :hidden')
+                .val('')
+                .removeAttr('checked')
+                .removeAttr('selected');
+
+                dataLayer.push({'event': 'subscribe'})
+
+                jQuery('#newsletter-ajax-message').html("Success: " + data.Message);
+              }
+              jQuery('.leanModalTrigger').click();
+              jQuery("#newsletter-registration-form-overlay").fadeOut(300);
+              jQuery('.newsletter-ajax-disable').attr('disabled', false);
+            }
+            );
+        });
+
+});
+
+</script>
+
+<script>
+    /*jQuery('.totop').click(function() {
+              jQuery("html, body").animate({ scrollTop: 0 }, "slow");
+              return false;
+            });
+*/
+jQuery(document).ready(function () {
+  ToggleScrollUp();
+
+  jQuery(window).scroll(function () {
+    ToggleScrollUp();
+  });
+
+  jQuery('.totop').click(function () {
+    jQuery("html, body").animate({
+      scrollTop: 0
+    }, 500);
+    return false;
+  });
+});
+
+function ToggleScrollUp() {
+  if (jQuery(".main").offset().top <= jQuery(window).scrollTop()) {
+    jQuery('.totop').fadeIn();
+  } else {
+    jQuery('.totop').fadeOut();
+  }
+}
+</script>
+
+<?php # Criteo start ?>
+
+<?php if (! isset($criteo_email)) : ?>
+  <?php $criteo_email = "'emailaddress': '',"; ?>
+  <?php # Check if visitor logged in ?>
+  <?php if (Mage::getSingleton('customer/session')->isLoggedIn()) : ?>
+  <?php $customer = Mage::getSingleton('customer/session')->getCustomer(); ?>
+  <?php $criteo_email = "'emailaddress': '" . md5(strtolower(trim($customer->getEmail()))) . "',"; ?>
+<?php endif; ?>
+<?php endif; ?>
+
+<?php # Check page location case by case ?>
+
+<?php if (Mage::getSingleton('cms/page')->getIdentifier() == 'home' && Mage::app()->getFrontController()->getRequest()->getRouteName() == 'cms') : ?>
+  <?php # Home Page ?>
+  <script>
+        // Criteo
+        dataLayer.push({
+          'event': 'homepageView',
+          <?php echo $criteo_email; ?>
+          'sitetype': 'd'
+        });
+        </script>
+      <?php endif; ?>
+
+      <?php # Criteo end ?>
+
+      <script>
+      <?php # Language cookie ?>
+      jQuery(document).ready(function() {
+        jQuery.cookie("userlang", "<?php echo Mage::app()->getLocale()->getLocaleCode(); ?>", {path: "/"});
+        
+        
+        if (jQuery.cookie('test_status') != '1') {
+
+          jQuery('#over-main').show();
+        }
+
+
+        jQuery('#closer-main').click(function(){
+
+          jQuery('#over-main').hide();
+          jQuery.cookie('test_status', '1', { expires: 1});
+        });
+      });
+      </script>
+      <a class="leanModalTrigger" href="#modal1" style="display:none">Trigger</a>
+      <div id="modal1" class="lean_modal" style="display:none;">
+        <p id="newsletter-ajax-message"></p>
+        <a class="lean_close" href="javascript:;"></a>
+      </div>
+      <?php if ($accessTrade = Mage::getSingleton('core/session')->getAccessTrade()) : ?>
+      <?php $customer = Mage::getSingleton('customer/session')->getCustomer(); ?>
+      <img src="https://cv.accesstrade.co.id/cv.php?identifier=<?php echo urlencode($customer->getEmail()); ?>&mcn=149e9677a5989fd342ae44213df68868&result_id=13" width="1" height="1" />
+      <?php Mage::getSingleton('core/session')->unsAccessTrade(); ?>
+    <?php endif; ?>
+
+    <?php # Bluecore ?>
+    <?php if (Mage::getSingleton('customer/session')->isLoggedIn()) : ?>
+    <?php $customer = Mage::getSingleton('customer/session')->getCustomer(); ?>
+    <script>
+    var triggermail_email_address = '<?php echo $customer->getEmail(); ?>';
+    </script>
+  <?php endif; ?>
+
+  <?php /*echo $this->getLayout()->createBlock('cms/block')->setBlockId('bottom_banner')->toHtml() */?>
