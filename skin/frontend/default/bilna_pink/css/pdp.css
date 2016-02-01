@@ -538,6 +538,9 @@ hr{
 	bottom: -30px;
     visibility: visible;
 }
+.product-view .product-img-box .more-views .bx-wrapper .disabled {
+    visibility: hidden;
+}
 .product-view .product-img-box .more-views .bx-wrapper .bx-controls-direction a {
     position: absolute;
     outline: 0;
