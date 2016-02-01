@@ -246,10 +246,16 @@
 .space-above-header .container-above-header .text-promo{
     float: left;
     display: inline-block;
-    padding: 7px 10px;
+    padding: 7px 10px 7px 0;
     float: left;
     border-radius: 3px;
-    margin: 5px 7px;
+    margin: 5px 7px 5px 0;
+}
+.space-above-header .container-above-header .text-promo span{
+    border: 1px dashed #b3b3b3;
+    padding: 2px 5px;
+    margin-right: 5px;
+    font-weight: bold;
 }
 .space-above-header .keypoint {
 	float: right;
@@ -315,6 +321,7 @@
 }
 .header .quick-access .top-cart a.link-minicart {
     border-left: 1px solid #e4e4e4;
+    margin-right: 0;
 }
 .header .quick-access .top-cart a {
     display: block;
@@ -922,7 +929,6 @@
     font-size: 1.2em;
     height: 100%;
     margin: 0;
-    text-indent: 8px;
     width: 100%;
 }
 
@@ -1099,9 +1105,22 @@
 }
 /* --------------- 960 px layout -------------------- */
 @media only screen and (max-width: 1023px) {
+    .header .web_feature{
+        margin: 10px 0 0 10px;
+    }
+    .header .web_feature li{
+        padding: 12px 10px 19px;
+        font-size: 1em;
+    }
+    .header .links{
+        margin: 0;
+    }
     .menu-navigation{
 		margin: 10px 0 0;
 	}
+    .search-container-new{
+        width: 265px;
+    }
 	.menu-top ul li a {
         min-width:40px;
     }
@@ -1118,7 +1137,6 @@
 		width: 205px;
 	}
 	.header .quick-access .top-cart {
-		margin-bottom: 5px;
 		width: auto;
 	}
 	.header .quick-access .left {
