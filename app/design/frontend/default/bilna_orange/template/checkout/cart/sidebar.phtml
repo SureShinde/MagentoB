@@ -85,20 +85,36 @@
 <?php endif;?>
 
 <script type="text/javascript">
-function ecommerceRemoveCart(name, sku, price, quantity) {
+function ecommerceRemoveCart(name, sku, price, quantity, imageUrl, link) {
     // alert("NEW_HURRY_CART"+name+" "+price+" "+quantity);
     dataLayer.push({
 	  'event': 'removeFromCart',
 	  'ecommerce': {
 	    'remove': {                               // 'remove' actionFieldObject measures.
 	      'products': [{                          //  removing a product to a shopping cart.
-	          'name': name,
-	          'id': sku,
-	          'price': price,
-	          'quantity': quantity
+	        'name': name,
+            'id': sku,
+            'price': price,
+            'quantity': quantity,
+            'brandName': 'brand name',
+            'imageUrl': imageUrl,
+            'link': link
 	      }]
 	    }
 	  }
 	});
+
+	// ematics cart
+    ematics("log", "product", "cart", 
+            [{
+            'name': name,
+            'id': sku,
+            'price': price,
+            'quantity': quantity,
+            'brandName': 'brand name',
+            'imageUrl': imageUrl,
+            'link': link
+           }]
+        );
 }
 </script>

@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<config>
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <bilna_sendreport translate="title" module="sendreport">
+                                        <title>Bilna Extensions</title>
+                                        <sort_order>0</sort_order>
+                                    </bilna_sendreport>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>
