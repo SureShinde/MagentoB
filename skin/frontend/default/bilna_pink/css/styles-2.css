@@ -1551,6 +1551,11 @@ tr.summary-details-excluded { font-style:italic; }
 
 /* My Account ============================================================================= */
 .my-account .title-buttons .link-rss { float:none; margin:0; }
+.my-account form#form-validate ul li input#firstname,
+.my-account form#form-validate ul li input#lastname,
+.my-account form#form-validate ul li input#email {
+	width: 254px;
+}
 
 /********** < Dashboard */
 .dashboard .welcome-msg { margin:0 8em 1.5em 0; }

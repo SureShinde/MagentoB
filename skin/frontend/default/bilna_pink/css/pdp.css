@@ -541,7 +541,6 @@ hr{
 .product-view .product-img-box .more-views .bx-wrapper .bx-controls-direction a {
     position: absolute;
     outline: 0;
-    visibility: hidden;
     width: 100%;
     text-align: center;
     height: 23px;
