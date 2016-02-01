@@ -42,14 +42,12 @@
     width: 240px;
     cursor: pointer;
     left: 0;
-    height: 35px;
     position: absolute;
-    padding: 15px 0 0;
-    background: #EE5191;
+    padding: 18px 0 0;
+    color: #EE5191;
     z-index: 999;
 }
 .button-megamenu{
-    font-size: 1.2em;
     line-height: 1.1em;
     text-align: left;
     text-indent: 8px;
@@ -66,9 +64,11 @@
 }
 .button-megamenu p{
     float: left;
-    width: 110px;
     height: 15px;
+    text-transform: uppercase;
+    font-weight: bold;
     overflow: hidden;
+    font-size: 1.1em;
     transition:All 0.3s linear;
     -webkit-transition:All 0.3s linear;
     -moz-transition:All 0.3s linear;
@@ -79,7 +79,8 @@
     width: 970px;
     color: #000;
     height: 42px;
-    font-size: 1.2em;
+    text-transform: uppercase;
+    font-weight: bold;
     height: 50px;
 }
 .promo-text-space p{
@@ -94,6 +95,7 @@
 .promo-text-space li{
     float: left;
     padding: 16px 13px;
+    font-size: 1.1em;
 }
 .wrap-second-cat > ul > p > a {
     line-height: 1.6em;

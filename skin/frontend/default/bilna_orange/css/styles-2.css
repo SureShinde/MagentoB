@@ -526,7 +526,7 @@ tr.summary-details-excluded { font-style:italic; }
 
 /* Header ================================================================================ */
 .logo { float:left; }
-.header-container { border-top:5px solid #0d2131; border-bottom:1px solid #415966; background:url(../images/bkg_header.jpg) 50% 0 repeat; }
+.header-container { border-top:5px solid #0d2131; border-bottom:1px solid #415966; }
 .menu-tablet .header-container {z-index: 0;}
 .header { width:930px; margin:10px auto; padding:10px; text-align:right; position:relative;}
 .header .logo { float:left; margin:3px 0 10px 12px; text-decoration:none !important; }
