@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<config>
+	<modules>
+        <Bilna_SendReport>
+            <version>0.1.0</version>
+        </Bilna_SendReport>
+    </modules>
+	<global>
+	    <models>
+	        <sendreport>
+	            <class>Bilna_SendReport_Model</class>
+	            <resourceModel>sendreport_mysql4</resourceModel>
+	        </sendreport>   
+	        <sendreport_mysql4>
+	            <class>Bilna_SendReport_Model_Mysql4</class>        
+	            <entities>
+	                <salescategory>
+	                    <table>send_report</table>
+	                </salescategory>
+	            </entities>         
+	        </sendreport_mysql4>
+	    </models>
+	    <resources>
+	        <salescategory_write>
+	            <connection>
+	                <use>core_write</use>
+	            </connection>
+	        </salescategory_write>
+	        <salescategory_read>
+	            <connection>
+	                <use>core_read</use>
+	            </connection>
+	        </salescategory_read>      
+	    </resources>
+	    <helpers>
+            <sendreport>
+                <class>Bilna_SendReport_Helper</class>
+            </sendreport>
+        </helpers> 
+        <blocks>
+            <sendreport>
+                <class>Bilna_SendReport_Block</class>
+            </sendreport>
+        </blocks>
+	</global>
+    <adminhtml>
+        <acl>
+            <resources>
+                <all>
+                    <title>Allow Everything</title>
+				</all>
+                <admin>
+                    <children>
+                        <bilna translate="title" module="sendreport">
+                            <title>Bilna</title>
+                            <children>
+                                <sendreportbackend translate="title">
+                                    <title>Send Report</title>
+                                </sendreportbackend>
+                            </children>
+                        </bilna>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+    </adminhtml>
+</config>
