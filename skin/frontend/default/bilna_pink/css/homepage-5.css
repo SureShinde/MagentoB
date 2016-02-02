@@ -1099,6 +1099,7 @@ ul.block-wrapper li:last-child {}
     }
 	.homepage .wrap-banner .first-banner-megamenu .bottom-left-firstbanner {
 	}
+    .homepage .homepage-banner .megamenu-container,
     .homepage .homepage-banner,
     .row-homepage .container-homepage,
     .container-homepage, .messages li{
@@ -1160,6 +1161,7 @@ ul.block-wrapper li:last-child {}
 	}
 	.homepage .wrap-banner .first-banner-megamenu .bottom-right-firstbanner{
 	}
+    .homepage .homepage-banner .megamenu-container,
     .homepage .homepage-banner,
     .row-homepage .container-homepage,
     .container-homepage, .messages li{

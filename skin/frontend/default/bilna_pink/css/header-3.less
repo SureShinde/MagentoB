@@ -392,7 +392,7 @@
 .header .mini-cart:after {
 	content: url(../images/arrow-cart.png);
     position: absolute;
-    top: -11px;
+    top: -12px;
     right: 16px;
     z-index: 9;
 }
@@ -591,15 +591,6 @@
 .header .links li.login a:hover{
     text-decoration: none;
 }
-.header .links li:nth-child(3){
-	padding-left: 0px;
-	padding-bottom: 0;
-}
-.header .links li {
-	background: none;
-	padding-left: 0px;
-	padding-right: 0px;
-}
 .header .links li.trackorder {
 	background: none !important;
 	display: none;
@@ -640,7 +631,7 @@
     color: #585958;
     height: 14px;
     font-weight: bold;
-    margin: 0 0 0 10px;
+    margin: 0;
     overflow: hidden;
 }
 .header .links li.myaccount a.link-trigger-myaccount .circle-name{
@@ -661,7 +652,7 @@
     margin: 0 auto;
 }
 .header .links li.myaccount .toplink-myaccount {
-	min-width: 170px;
+	min-width: 185px;
 	top: 50px;
 	display: none;
 	position: absolute;
@@ -675,11 +666,16 @@
 	box-shadow: 1px 1px 4px 0 #ccc;
 	width: 97%;
 }
-.header .links li.myaccount .toplink-myaccount:before{
+.header .links li.myaccount .toplink-myaccount .arrow_myaccount{
+    width: 100%;
+    display: block;
+    margin-top: -10px;
+}
+.header .links li.myaccount .toplink-myaccount .arrow_myaccount:before{
     content: " ";
-    top: -25px;
+    top: -15px;
     position: relative;
-    left: 52%;
+    left: 56%;
     border-width: 5px;
     border-color: transparent transparent #000;
     border-style: solid;   
@@ -1017,11 +1013,6 @@
 	.header .quick-access .left {
 		margin-right: 5px;
 	}
-	.header .links li {
-		padding-left: 4px;
-		padding-right: 2px;
-	}
-	
 	#nav li.shop-by:hover > .shopby {
 		display: block;
 	}
@@ -1049,11 +1040,6 @@
         top: 133px;
         right: 0;
     }
-    .header .quick-access .store-phone, .header .links, .menu-tablet .links {
-        float: left;
-        font-family: Helvetica;
-    }
-    
     .header .links {
         margin: 0 0 0 10px;
 		display:table;
@@ -1095,9 +1081,6 @@
     .space-above-header .container-above-header{
         width: 992px;
     }
-    .header .quick-access .top-cart{
-        width: 192px;
-    }
 }
 /* --------------- 960 px layout -------------------- */
 @media only screen and (max-width: 1023px) {
@@ -1107,9 +1090,6 @@
     .header .web_feature li{
         padding: 12px 10px 19px;
         font-size: 1em;
-    }
-    .header .links{
-        margin: 0;
     }
     .menu-navigation{
 		margin: 10px 0 0;
@@ -1278,7 +1258,6 @@
         width: 745px;
     }
 }
-	
 
 /* --------------- smaller 959 px layout -------------------- */
 @media only screen and (max-width: 767px) {
