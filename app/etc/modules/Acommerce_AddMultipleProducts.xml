@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <modules>
+        <Acommerce_AddMultipleProducts>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Acommerce_AddMultipleProducts>
+    </modules>
+</config>
