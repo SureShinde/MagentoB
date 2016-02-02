@@ -162,7 +162,7 @@ $j(document).ready(function() {
                 <span class="clicked fa fa-times"></span>
             </a>
             <a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="logo"><strong><?php echo $this->getLogoAlt() ?></strong>
-                <img src="<?php echo $this->getSkinUrl(); ?>images/2016-01-15-mobile.png" alt="<?php echo $this->getLogoAlt() ?>" />
+                <img src="<?php echo $this->getSkinUrl(); ?>images/2016-01-15-mobile_2.png" alt="<?php echo $this->getLogoAlt() ?>" />
             </a>
 
             <div class="quick-access">
@@ -175,7 +175,7 @@ $j(document).ready(function() {
                 if($sessionCustomer->isLoggedIn()) {?>
                     <a href="#" class="link-myaccount-mobile"><i class="fa fa-user"></i></a>
                 <?php } else {?>
-                    <a href="<?php echo Mage::getBaseUrl(); ?>customer/account/login/" class="link-myaccount-mobile"><i class="fa fa-user"></i></a>
+                    <a href="<?php echo Mage::getBaseUrl(); ?>customer/account/login/" class="link-myaccount-mobile"><?php echo $this->__('Login') ?></a>
                 <?php } ?>
                 
                     <?php echo $this->getChildHtml('topLinks') ?>
