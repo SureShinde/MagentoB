@@ -831,6 +831,7 @@ ul.block-wrapper li:last-child {}
     margin: 0 auto 40px;
     padding: 20px 0 0;
     position: relative;
+    display: table;
 }
 .homepage .homepage-banner:before{
     content: "";
