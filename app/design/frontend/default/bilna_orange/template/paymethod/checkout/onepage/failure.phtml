@@ -37,19 +37,19 @@ endif;
         <p>
             <?php echo $this->__('Your order no is'); ?>: <?php if ($this->getRealOrderId()): echo $this->getRealOrderId(); endif; ?>.
             <br/>
-            
+
             <?php if ($this->getErrorMessage()): echo $this->getErrorMessage(); endif; ?>
-            
+
             <br/><br/>
-            <?php echo $this->__('Click <a href="%s">here</a> to continue shopping.', $this->getContinueShoppingUrl()); ?>
+            <?php echo $this->__('Click <a href="%s">here</a> to continue shopping.', Mage::helper('core')->quoteEscape($this->getContinueShoppingUrl())); ?>
         </p>
-		
+
         <div class="say_thanks">
             <p><?php echo $this->__('Have a great day :)'); ?></p>
         </div>
         <?php } ?>
     </div>
-    
+
     <div class="col_right">
         <?php echo $this->getInstruction(); ?>
     </div>

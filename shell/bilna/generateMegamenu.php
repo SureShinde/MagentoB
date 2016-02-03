@@ -49,9 +49,9 @@ class GenerateMegamenu extends Mage_Shell_Abstract {
         Mage::log('done.');
 
         Mage::log('Starting check category include in menu for '.$category);
-        if (!$category->getIncludeInMenu()) {
-            $result = false;
-        }
+        //if (!$category->getIncludeInMenu()) {
+        //    $result = false;
+        //}
 
         Mage::log('done. Return Result is '.$result);
 

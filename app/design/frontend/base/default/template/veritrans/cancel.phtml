@@ -5,4 +5,4 @@
     <p><?php echo $this->__('Order #') . $this->getOrderId(); ?></p>
 <?php endif; ?>
 
-<p><?php echo $this->__('Click'); ?> <a href="<?php echo $this->getContinueShoppingUrl(); ?>"><?php echo $this->__('here'); ?></a> <?php echo $this->__('to continue shopping'); ?>.</p>
+<p><?php echo $this->__('Click'); ?> <a href="<?php echo Mage::helper('core')->quoteEscape($this->getContinueShoppingUrl()); ?>"><?php echo $this->__('here'); ?></a> <?php echo $this->__('to continue shopping'); ?>.</p>

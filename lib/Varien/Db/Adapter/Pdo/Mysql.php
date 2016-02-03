@@ -310,12 +310,8 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      */
     protected function _connect()
     {
-        if ($this->_connection) {                
-            if($this->ping()){
-                return;
-            }else{
-                $this->closeConnection();
-            }
+        if ($this->_connection) {
+            return;
         }
 
         if (!extension_loaded('pdo_mysql')) {
@@ -2771,10 +2767,6 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
 
         $query = '';
         if (is_array($condition)) {
-            if (isset($condition['field_expr'])) {
-                $fieldName = str_replace('#?', $this->quoteIdentifier($fieldName), $condition['field_expr']);
-                unset($condition['field_expr']);
-            }
             $key = key(array_intersect_key($condition, $conditionKeyMap));
 
             if (isset($condition['from']) || isset($condition['to'])) {
