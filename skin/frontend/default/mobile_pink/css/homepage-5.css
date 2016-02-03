@@ -155,8 +155,8 @@ ul.block-wrapper:last-of-type li .block-bottom{
 }
 .block-wrapper > a{
 	float: left;
-	width:30.25%;
-    min-height: 170px;
+    padding: 10px 0;
+    width: 100%;
     position: relative;
 }
 .block-wrapper > a p {
@@ -276,9 +276,6 @@ ul.block-wrapper li:last-child {}
 }
 p.title{
     font-size: 2em;
-}
-.block-wrapper > a{
-    width: 100%;
 }
 .homepage-bottom{
     display:none;

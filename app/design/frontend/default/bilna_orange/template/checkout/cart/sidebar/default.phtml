@@ -30,42 +30,40 @@
     $canApplyMsrp = Mage::helper('catalog')->canApplyMsrp($_item->getProduct(), Mage_Catalog_Model_Product_Attribute_Source_Msrp_Type::TYPE_BEFORE_ORDER_CONFIRM);
     $_escape_helper = Mage::helper('catalog/utils');
 ?>
-<tr class="item">
-	<td>
+<li class="item">
+	<div class="image_product">
     <?php if ($this->hasProductUrl()): ?>
         <a href="<?php echo $this->getProductUrl()?>" title="<?php echo $this->escapeHtml($this->getProductName()) ?>" class="product-image"><img src="<?php echo $this->getProductThumbnail()->resize(46, 46)->setWatermarkSize('30x10'); ?>" alt="<?php echo $this->escapeHtml($this->getProductName()) ?>" /></a>
     <?php else: ?>
         <span class="product-image"><img src="<?php echo $this->getProductThumbnail()->resize(46, 46); ?>" alt="<?php echo $this->escapeHtml($this->getProductName()) ?>" /></span>
     <?php endif; ?>
-    </td>
-    <td>
-	    <div class="product-details">
-	    	<?php if ($this->hasProductUrl()): ?><a href="<?php echo $this->getProductUrl() ?>" class="product-name"><?php endif; ?><?php echo $this->escapeHtml($this->getProductName()) ?><?php if ($this->hasProductUrl()): ?></a><?php endif; ?>
-	    	
-	    	<?php if ($_options = $this->getOptionList()):?>
-		        <div class="truncated">
-		          <div class="truncated_full_value">
-		            <dl class="item-options">
-		                <?php foreach ($_options as $_option) : ?>
-		                <dt><?php echo $this->escapeHtml($_option['label']) ?></dt>
-		                <dd>
-		                    <?php if (is_array($_option['value'])): ?>
-		                    <?php echo nl2br(implode("\n", $_option['value'])) ?>
-		                    <?php else: ?>
-		                    <?php echo $_option['value'] ?>
-		                    <?php endif; ?>
-		                </dd>
-		                <?php endforeach; ?>
-		            </dl>
-		          </div>
-		          <a href="#" onclick="return false;" class="details"><?php echo $this->__('Details') ?></a>
-		        </div>
-	        <?php endif; ?>
-	    </div>
-    </td>
-    <td class="qty"><?php echo $this->getQty() ?></td>
+    </div>
+    <div class="product-details">
+        <?php if ($this->hasProductUrl()): ?><a href="<?php echo $this->getProductUrl() ?>" class="product-name"><?php endif; ?><?php echo $this->escapeHtml($this->getProductName()) ?><?php if ($this->hasProductUrl()): ?></a><?php endif; ?>
+
+        <?php if ($_options = $this->getOptionList()):?>
+            <div class="truncated">
+              <div class="truncated_full_value">
+                <dl class="item-options">
+                    <?php foreach ($_options as $_option) : ?>
+                    <dt><?php echo $this->escapeHtml($_option['label']) ?></dt>
+                    <dd>
+                        <?php if (is_array($_option['value'])): ?>
+                        <?php echo nl2br(implode("\n", $_option['value'])) ?>
+                        <?php else: ?>
+                        <?php echo $_option['value'] ?>
+                        <?php endif; ?>
+                    </dd>
+                    <?php endforeach; ?>
+                </dl>
+              </div>
+              <a href="#" onclick="return false;" class="details"><?php echo $this->__('Details') ?></a>
+            </div>
+        <?php endif; ?>
+    </div>
+    <div class="qty">Jumlah : <?php echo $this->getQty() ?></div>
 	<!-- input type="text" class="input-text qty" value="<?php //echo $this->getQty() ?>" readonly="readonly"/ -->
-    <td class="price">
+    <div class="price">
 	    <?php if ($canApplyMsrp): ?>
 	
 	        <span class="map-cart-sidebar-item"><?php echo $this->__('See price before order confirmation.'); ?></span>
@@ -143,6 +141,6 @@
 	    <?php endif; ?>
 	
 	    <?php endif; //Can apply MSRP ?>
-    </td>
-    <td><a href="<?php echo $this->getDeleteUrl() ?>" title="<?php echo $this->__('Remove This Item') ?>" onclick="var con = confirm('<?php echo $this->__('Are you sure you would like to remove this item from the shopping cart?') ?>'); if (con == true) {ecommerceRemoveCart('<?php echo $_escape_helper->escapeQuote($this->getProductName()) ?>','<?php echo $_item->getSku() ?>','<?php echo $_item->getCalculationPrice() ?>','<?php echo $this->getQty() ?>','<?php if ($this->hasProductUrl()): echo $this->getProductThumbnail()->resize(46, 46)->setWatermarkSize('30x10'); else: echo $this->getProductThumbnail()->resize(46, 46); endif; ?>','<?php echo $this->getProductUrl()?>');} return con;" class="btn-remove"><?php echo $this->__('Remove This Item') ?></a></td>
-</tr>
+    </div>
+    <div class="remove_item"><a href="<?php echo $this->getDeleteUrl() ?>" title="<?php echo $this->__('Remove This Item') ?>" onclick="var con = confirm('<?php echo $this->__('Are you sure you would like to remove this item from the shopping cart?') ?>'); if (con == true) {ecommerceRemoveCart('<?php echo $_escape_helper->escapeQuote($this->getProductName()) ?>','<?php echo $_item->getSku() ?>','<?php echo $_item->getCalculationPrice() ?>','<?php echo $this->getQty() ?>','<?php if ($this->hasProductUrl()): echo $this->getProductThumbnail()->resize(46, 46)->setWatermarkSize('30x10'); else: echo $this->getProductThumbnail()->resize(46, 46); endif; ?>','<?php echo $this->getProductUrl()?>');} return con;" class="btn-remove"><?php echo $this->__('Remove This Item') ?></a></div>
+</li>
