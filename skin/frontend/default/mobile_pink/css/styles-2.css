@@ -338,7 +338,7 @@ p.required { font-size:11px; text-align:right; color:#FF2A2A; }
 .breadcrumbs li strong { font-weight:bold; }
 
 /* Page Heading */
-.page-title { width:100%; overflow:hidden; border-bottom:1px solid #ccc; margin:20px 0; }
+.page-title { overflow:hidden; border-bottom:1px solid #ccc; margin: 20px 10px;}
 .page-title h1,
 .page-title h2 { margin:0; font-size:20px; color:#0a263c; }
 .page-title .separator { margin:0 3px; }
@@ -1949,10 +1949,10 @@ tr.summary-details-excluded { font-style:italic; }
     border: 0 none;
     border-radius: 50%;
     color: #FFFFFF;
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     display: block;
-    font-size: 3.2em;
+    font-size: 2em;
 }
 
 

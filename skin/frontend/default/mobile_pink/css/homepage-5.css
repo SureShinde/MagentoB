@@ -155,8 +155,9 @@ ul.block-wrapper:last-of-type li .block-bottom{
 }
 .block-wrapper > a{
 	float: left;
-    padding: 10px 0;
+    margin: 10px 0;
     width: 100%;
+    min-height: 100px;  
     position: relative;
 }
 .block-wrapper > a p {
