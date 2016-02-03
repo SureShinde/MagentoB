@@ -1062,12 +1062,12 @@ table.ratings-table tbody tr{
 	.product-view .product-img-box .more-views .bx-wrapper .bx-controls-direction a.bx-prev {
 		position: relative;
 		top: -35px;
-		right: 20px;
+		right: 32px;
 	}
 	.product-view .product-img-box .more-views .bx-wrapper .bx-controls-direction a.bx-next {
 		position: relative;
 		top: -35px;
-		right: -191px;
+		right: -203px;
 	}
 	.product-view .product-img-box .more-views {
 		position: static;
@@ -1134,8 +1134,10 @@ table.ratings-table tbody tr{
 	}
 	.product-view .product-img-box .product-image-zoom, 
 	.product-view .product-img-box .product-image-zoom img {
-		width: 100%;
+		width: 95%;
 		height: auto;
+		margin-left: auto;
+		margin-right: auto;
 	}
 	.product-view .product-img-box .product-image-zoom img {
 		position: inherit;
@@ -1192,6 +1194,9 @@ table.ratings-table tbody tr{
         display: table;
         width: auto;
         float: none;
+	}
+	.main-container.col1-product-layout .share-button {
+		width: 40%;
 	}
 	
 	/*wish list*/
