@@ -100,7 +100,7 @@ $images = Mage::getModel('socialcommerce/collectioncover')->getCollection()->set
     <form action="<?php echo $this->getUrl('social/settings/createnewcollection'); ?>" method="post" enctype="multipart/form-data" onsubmit="return preventDouble(this)">
       <div class="cg-col-lg-6 cg-col-xs-12 cg-col-sm-12 cg-col-md-6 box inside-collection noborder">
         <div class="cg-col-lg-12 cg-col-sm-12 cg-col-md-12 cg-col-xs-12 collection-top-part">
-          <div class="cg-col-lg-11 cg-col-md-11 cg-col-sm-11 cg-col-xs-11 add-to-collection-title">Create New Collection</div>
+          <div class="cg-col-lg-11 cg-col-md-11 cg-col-sm-11 cg-col-xs-11 add-to-collection-title opensans take-left">Buat Halaman Koleksi</div>
           <div class="cg-col-lg-1 cg-col-md-1 cg-col-sm-1 cg-col-xs-1 " id="closer-collection">
             <a href="javascript:;" onclick="hideAddCollectionDialog()" style="text-decoration:none;width:100%;display:block">x</a>
           </div>
@@ -143,52 +143,53 @@ $images = Mage::getModel('socialcommerce/collectioncover')->getCollection()->set
     <form action="<?php echo $this->getUrl('social/settings/createnewcollection'); ?>" method="post" enctype="multipart/form-data" onsubmit="return preventDouble(this)">
       <div class="cg-col-lg-12 cg-col-xs-12 cg-col-sm-12 cg-col-md-12 box inside-collection noborder" style="padding-bottom:0;margin-bottom:0;">
         <div class="cg-col-lg-12 cg-col-sm-12 cg-col-md-12 cg-col-xs-12 collection-top-part">
-          <div class="cg-col-lg-11 cg-col-md-11 cg-col-sm-11 cg-col-xs-11 add-to-collection-title">Create New Collection</div>
+          <div class="cg-col-lg-11 cg-col-md-11 cg-col-sm-11 cg-col-xs-11 add-to-collection-title bold opensans take-left">Buat Halaman Koleksi</div>
           <div class="cg-col-lg-1 cg-col-md-1 cg-col-sm-1 cg-col-xs-1 " id="closer-collection">
             <a href="javascript:;" onclick="newHideAddCollectionDialog()" style="text-decoration:none;width:100%;display:block"><i class="fa fa-times"></i></a>
           </div>
         </div>
-        <div class="cg-col-xs-12 pink-thin-divider bottom-spacer">
+        <div class="cg-col-xs-12 bottom-spacer">
 
           
             <div class="form-group in-block full-width">
-              <label for="inputEmail3" class="cg-col-sm-3 control-label label-color label-margin">Title</label>
-              <div class="cg-col-sm-9">
-                <input  name="name" id="name" class="form-control input-new-collection" placeholder="Title" required> 
+              <label for="inputEmail3" class="cg-col-xs-12 control-label label-color label-margin take-left opensans">Judul <span class="light lil-exp">sesuai tema koleksi yang ingin anda buat</span></label>
+              <div class="cg-col-xs-12">
+                <input  name="name" id="name" class="form-control input-new-collection" placeholder="contoh; Kado untuk bayi, Persiapan melahirkan, Piknik dengan pacar" required> 
               </div>
             </div>
             <div class="form-group in-block full-width">
-              <label for="inputPassword3" class="cg-col-sm-3 control-label label-color label-margin">Description</label>
-              <div class="cg-col-sm-9">
-                <textarea rows="4" name="desc" class="form-control input-new-collection" maxlength="250" placeholder="Why the products inspire you or story behind your collection. Make it fun!" style="resize:none;"></textarea>
+              <label for="inputPassword3" class="cg-col-xs-12 control-label label-color label-margin take-left opensans">Deskripsi <span class="light lil-exp">penjelasan singkat mengenai tema koleksi anda</span></label>
+              <div class="cg-col-xs-12">
+                <textarea rows="4" name="desc" class="form-control input-new-collection" maxlength="250" placeholder="Mengapa produk-produk dalam koleksi ini menginspirasi anda? Apa cerita dibalik tema koleksi anda?" style="resize:none;height:auto;"></textarea>
               </div>
             </div>
           
         </div>
         <div class="cg-col-xs-12">
           <div class="form-group in-block full-width nomargin">
-            <label for="inputPassword3" class="cg-col-sm-12 control-label label-color label-margin">Change Cover Image</label>
+            <label for="inputEmail3" class="cg-col-xs-12 control-label label-color label-margin take-left opensans">Sampul Koleksi Anda </label>
+            <span class="light lil-exp cg-col-xs-12 bold opensans bottom-spacer-container">Jadikan halaman koleksi anda lebih menarik dengan gambar yang menjelaskan isi koleksi anda!</span>
           </div>
           <div class="cg-row">
             <div class="cg-sm-12">
               <div id="tabs">
-                <ul class="cg-col-sm-12 cg-col-xs-12 main-nav nopadding bottom-spacer-container">
+                <ul class="cg-col-xs-12 cg-col-xs-12 main-nav nopadding bottom-spacer-container">
                   <li class="cg-col-sm-4 cg-col-xs-4 text-center clicker main-nav nopadding">
                     <a href="#tabs-1" class="sub-nav tabs-left ">
                       <i class="fa fa-link pinker icon-nav"></i>
-                      <span class="hidden-xs"> <br>link from web</span>
+                      <span class="hidden-xs opensans font-tabs"> <br>link gambar dari web</span>
                     </a>
                   </li>
                   <li class="cg-col-sm-4 cg-col-xs-4 cg-col-lg-4 cg-col-md-6 text-center clicker main-nav mid-nav nopadding">
                     <a href="#tabs-2" class="sub-nav activated">
                       <i class="fa fa-cloud-upload pinker icon-nav"></i>
-                      <span class="hidden-xs"> <br> upload image</span>
+                      <span class="hidden-xs opensans font-tabs"> <br> unggah gambar</span>
                     </a>
                   </li>
                   <li class="cg-col-sm-4 cg-col-xs-4 text-center clicker main-nav nopadding">
                     <a href="#tabs-3" class="sub-nav tabs-right">
                       <i class="fa fa-picture-o pinker icon-nav"></i>
-                      <span class="hidden-xs"> <br>MOXY images</span>
+                      <span class="hidden-xs opensans font-tabs"> <br>gambar pilihan kami</span>
                     </a>
                   </li>
                 </ul>
@@ -200,8 +201,7 @@ $images = Mage::getModel('socialcommerce/collectioncover')->getCollection()->set
                   </div>
                 </div>
                 <div id="tabs-2" style="color: #545454;">
-                  <div class="cg-col-sm-4 cg-col-sm-offset-4 cg-col-xs-12 dashed-upload" style="padding-top:0">
-                    <img id="imgups" src="/media/socialcommerce/upload-cover-img.jpg" alt="your image" width ="100%"/>
+                  <div class="cg-col-sm-4 cg-col-sm-offset-4 cg-col-xs-12 dashed-upload" >
                     <div class="fileUpload-coll" id="no-span">
                     <input type="file" title="Browse" name="cover" class="upload-coll" id="imgInps"/>
                     </div>
@@ -230,7 +230,7 @@ $images = Mage::getModel('socialcommerce/collectioncover')->getCollection()->set
           if (($counter % 3) == 0) {
           }
           ?>
-                  <div class="cg-col-sm-3 cg-col-xs-4 bottom-spacer choose-cover">
+                  <div class="cg-col-sm-3 cg-col-xs-4 bottom-spacer choose-cover relative">
                     <span class="overlayer-pink">
                       <i class="fa fa-check checked"></i>
                     </span>
@@ -246,17 +246,17 @@ $images = Mage::getModel('socialcommerce/collectioncover')->getCollection()->set
             </div>
           </div>
 
-          <div style="margin-top: 20px;">
+          <div class="take-left bottom-spacer-container" style="margin-top: 20px;">
             <input type="checkbox" name="visibility" id="visibility" class="input-collection" style="height: inherit; width:10px;" checked>
-            <label for="visibility" style="color: #545454; height: 20px;">Make Public</label>
+            <label for="visibility" class="check-public">Jadikan koleksi publik agar semua orang bisa melihat</label>
           </div>
         </div>
       </div>
-      <div class="cg-col-xs-6">
-        <a class="btn btn-default btn-block btn-cancel" style="text-decoration:none" onclick="newHideAddCollectionDialog()">CANCEL</a>
+      <div class="cg-col-xs-12">
+        <button type="submit" class="btn btn-pink-prime cursor" style="margin: 10px 0;" name="submitButton">SIMPAN KOLEKSI SAYA</button>
       </div>
-      <div class="cg-col-xs-6">
-        <button type="submit" class="btn btn-primary btn-block" style="margin: 10px 0;" name="submitButton">I'M DONE</button>
+      <div class="cg-col-xs-12 bottom-spacer-container">
+        <a class="btn btn-default btn-block btn-cancel cursor" onclick="newHideAddCollectionDialog()">Keluar, saya tidak jadi membuat halaman koleksi</a>
       </div>
       <input type="hidden" name="username" value="<?php echo $profile->getUsername(); ?>">
     <input type="hidden" name="preset_image" id="preset_image" />
@@ -272,8 +272,8 @@ $images = Mage::getModel('socialcommerce/collectioncover')->getCollection()->set
 <div class="container-collection-pop" style="display:none;" id="addToCollectionModal">
     <div class="cg-col-lg-6 cg-col-md-6 cg-col-sm-11 cg-col-xs-11 container-collection-whitebg" id="add-new-pop-collection">
         <div class="cg-col-lg-12 cg-col-sm-12 cg-col-md-12 cg-col-xs-12 collection-top-part">
-            <div class="cg-col-lg-11 cg-col-md-11 cg-col-sm-11 cg-col-xs-11 add-to-collection-title">Add to Collection</div>
-            <div class="cg-col-lg-1 cg-col-md-1 cg-col-sm-1 cg-col-xs-1 " id="closer-collection" onclick="hideAddToCollectionDialog()">x</div>
+            <div class="cg-col-lg-11 cg-col-md-11 cg-col-sm-11 cg-col-xs-11 add-to-collection-title bold opensans take-left">Tambahkan Produk ke Koleksi</div>
+            <div class="cg-col-lg-1 cg-col-md-1 cg-col-sm-1 cg-col-xs-1 " id="closer-collection" onclick="hideAddToCollectionDialog()"><i class="fa fa-times"></i></div>
         </div>
         <div class="cg-col-lg-5 cg-col-md-5 cg-col-sm-12 cg-col-xs-12">
             <div class="cg-col-lg-12 cg-col-xs-12 cg-col-sm-12 cg-col-md-12 box inside-collection">
@@ -294,7 +294,7 @@ $images = Mage::getModel('socialcommerce/collectioncover')->getCollection()->set
 
         <?php if (Mage::getSingleton('customer/session')->isLoggedIn()) : ?>
 
-        <form class="in-block cg-col-lg-7 cg-col-md-7 cg-col-sm-12 cg-col-xs-12 add-dashed" action="<?php echo $this->getUrl('social/settings/additemtocollection'); ?>" method="post" enctype="multipart/form-data" onsubmit="return preventDouble(this)">
+        <form class="in-block cg-col-lg-7 cg-col-md-7 cg-col-sm-12 cg-col-xs-12 add-dashed" action="<?php echo $this->getUrl('social/settings/additemtocollection'); ?>" method="post" enctype="multipart/form-data" onsubmit="return preventDouble(this)" style="min-height:280px;">
 
             <?php
             $customer = Mage::getSingleton('customer/session')->getCustomer();
@@ -326,19 +326,19 @@ $images = Mage::getModel('socialcommerce/collectioncover')->getCollection()->set
 
               <div id="iWannaCreateNewCollection" style="display:none;">
 
-               <div class="cg-col-xs-12 pink-thin-divider bottom-spacer nopadding">
+               <div class="cg-col-xs-12 bottom-spacer nopadding">
           
                   <div class="form-group less-margin in-block full-width">
-                    <label for="inputEmail3" class="cg-col-sm-12 control-label label-color label-margin">Title</label>
+                    <label for="inputEmail3" class="cg-col-xs-12 control-label label-color label-margin take-left opensans">Judul <span class="light lil-exp">sesuai tema koleksi yang ingin anda buat</span></label>
                     <div class="cg-col-sm-12">
                     <input name="name" id="name" class="form-control input-new-collection" placeholder="Title">
                     </div>
                   </div>
 
                   <div class="form-group less-margin in-block full-width">
-                    <label for="inputPassword3" class="cg-col-sm-12 control-label label-color label-margin">Description</label>
+                    <label for="inputPassword3" class="cg-col-xs-12 control-label label-color label-margin take-left opensans">Deskripsi <span class="light lil-exp">penjelasan singkat mengenai tema koleksi anda</span></label>
                     <div class="cg-col-sm-12">
-                       <textarea rows="4" name="desc" class="form-control input-new-collection" maxlength="250" placeholder="Why the products inspire you or story behind your collection. Make it fun!" style="resize:none;"></textarea>
+                       <textarea rows="4" name="desc" class="form-control input-new-collection" maxlength="250" placeholder="Why the products inspire you or story behind your collection. Make it fun!" style="resize:none;height:auto;"></textarea>
                     </div>
                   </div>
                 
@@ -347,9 +347,8 @@ $images = Mage::getModel('socialcommerce/collectioncover')->getCollection()->set
               <div class="cg-col-xs-12">
 
                 <div class="form-group in-block full-width nomargin">
-
-
-                  <label for="inputPassword3" class="cg-col-sm-12 control-label label-color label-margin">Change Cover Image</label>
+                <label for="inputEmail3" class="cg-col-xs-12 control-label label-color label-margin take-left opensans">Sampul Koleksi Anda </label>
+                <span class="light lil-exp cg-col-xs-12 bold opensans bottom-spacer-container take-center">Jadikan halaman koleksi anda lebih menarik dengan gambar yang menjelaskan isi koleksi anda!</span>
                   
                 </div>
                 <input type="hidden" name="collection_id" id="modalCollectionId">
@@ -382,8 +381,7 @@ $images = Mage::getModel('socialcommerce/collectioncover')->getCollection()->set
 						</div>
 					  </div>
             <div id="ntabs-2" style="color: #545454;">
-                  <div class="cg-col-sm-6 cg-col-sm-offset-3 cg-col-xs-12 dashed-upload" style="padding-top:0">
-                    <img id="imgupsx" src="/media/socialcommerce/upload-cover-img.jpg" alt="your image" width ="100%"/>
+                  <div class="cg-col-sm-6 cg-col-sm-offset-3 cg-col-xs-12 dashed-upload">
                     <div class="fileUpload-coll" id="no-span">
                     <input type="file" title="Browse" name="cover" class="upload-coll" id="imgInpsx"/>
                     </div>
@@ -412,7 +410,7 @@ $images = Mage::getModel('socialcommerce/collectioncover')->getCollection()->set
 						if (($counter % 3) == 0) {
 						}
 						?>
-							<div class="cg-col-sm-3 cg-col-xs-4 bottom-spacer choose-cover">
+							<div class="cg-col-sm-3 cg-col-xs-4 bottom-spacer choose-cover relative">
 								<span class="overlayer-pink">
 									<i class="fa fa-check checked"></i>
 								</span>
@@ -431,14 +429,14 @@ $images = Mage::getModel('socialcommerce/collectioncover')->getCollection()->set
 
                 <div style="margin-top: 20px;">
                   <input type="checkbox" name="visibility" id="visibility" class="input-collection" style="height: inherit; width:10px;" checked>
-                  <label for="visibility" style="color: #545454; height: 40px;">Make Public</label>
+                  <label for="visibility" class="check-public">Jadikan koleksi publik agar semua orang bisa melihat</label>
                 </div>
 					<input type="hidden" name="preset_image" id="new_preset_image" />
 
               </div>
             </div>
             <div class="cg-col-xs-12 nopadding">
-            <button type="submit" class="btn btn-primary btn-block" name="submitButton" style="margin: 10px 0;" id="addButton">Add to Collection</button>
+            <button type="submit" class="btn btn btn-pink-prime cursor" name="submitButton" style="margin: 10px 0;" id="addButton">TAMBAHKAN DALAM KOLEKSI</button>
             </div>
 
           
@@ -488,12 +486,12 @@ $images = Mage::getModel('socialcommerce/collectioncover')->getCollection()->set
             <label for="visibility" style="color: #545454; height: 40px;">Make Public</label>
         </div>
 
-        <button type="submit" class="btn btn-primary btn-block" name="submitButton" style="margin: 10px 0;">Create &amp; Add This Product</button>
+        <button type="submit" class="btn btn-pink-prime cursor" name="submitButton" style="margin: 10px 0;">Create &amp; Add This Products</button>
 
     <?php endif; ?>
     <div class="cg-col-xs-12 nopadding">
 
-    <button class="btn btn-default btn-block btn-cancel nomargin" onclick="hideAddToCollectionDialog();return false;">Close</button>
+    <button class="btn btn-cancel-button nomargin" onclick="hideAddToCollectionDialog();return false;">KELUAR</button>
   </div>
 
 </div>
@@ -632,126 +630,7 @@ jQuery(document).ready(function() {
 
 <?php # Moxy Collections End ?>
 
-<?php  ?>
-<div class="">
-  <div id="newsletter-registration-form-overlay">
-    <div id="newsletter-registration-form-popup">
-      <div id="newsletter-registration-close"></div>
-      <div id="newsletter-registration-content-text">
-        <div class="cg-row">
-                    <?php /*<div class="cg-col-lg-12">
-                        <img class="" src="<?php echo $this->getSkinUrl('images/pop-banner/') . 'SPECIAL-PROMO-1.jpg'; ?>" width="100%;">
-                      </div> */ ?>
-                      <div class="cg-col-lg-12">
-                        <div class="mid-text text-center in-block">
 
-
-                          <span class="title-gor">HI, GORGEOUS!</span>
-                          Dapatkan voucher senilai <br><span style="font-size: 24px;line-height: 41px;"> <strong>Rp. 75.000</strong></span> <br>jika anda daftarkan email sekarang.
-
-                          <div class="cg-col-lg-12 nopadding" style="margin-top:20px;">
-                            <div id="newsletter-registration-form-bottom nopadding">
-                              <div id="newsletter-registration-form-input">
-                                <form
-                                id="newsletter-registration-form"
-                                action="https://acommerce1.createsend.com/t/i/s/tdfkj/"
-                                method="post"
-                                class="newsletter-ajax-form">
-                                <input type="email" name="cm-tdfkj-tdfkj" id="newsletter-registration-email"
-                                class="validate-email required-entry field-left newsletter-ajax-disable" placeholder="Your email address" required>
-                                <input type="submit" value="SIGN UP!" id="newsletter-registration-button" class="newsletter-ajax-disable">
-                                <input id="fieldjhvut" name="cm-f-jhvut" type="hidden" value="<?php echo Mage::registry('_utmSource'); ?>">
-                                <input id="fieldjhvui" name="cm-f-jhvui" type="hidden" value="<?php echo Mage::registry('_utmMedium'); ?>">
-                                <input id="fieldjhvud" name="cm-f-jhvud" type="hidden" value="<?php echo Mage::registry('_utmCampaign'); ?>">
-                                <input id="fieldjhvuh" name="cm-f-jhvuh" type="hidden" value="<?php echo Mage::registry('_utmContent'); ?>">
-                                <input id="fieldjhvuk" name="cm-f-jhvuk" type="hidden" value="<?php echo Mage::registry('_utmTerm'); ?>">
-                                <input id="fieldjhvuu" name="cm-f-jhvuu" type="hidden" value="newsletter-popup">
-                                <input id="fieldjktiit" name="cm-f-jktiit" type="hidden" value="<?php echo Mage::registry('_cmLang'); ?>">
-                              </form>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="cg-col-lg-12 hidden-sm hidden-xs in-block nopadding" style="margin-top:10px;">
-                        <div class="lil-image">
-                          <img class="" src="<?php echo $this->getSkinUrl('images/pop-banner/') . 'PIC1.jpg'; ?>" width="100%;" height="102px;">
-                        </div>
-                        <div class="lil-image" style="margin-left: 2%;">
-                          <img class="" src="<?php echo $this->getSkinUrl('images/pop-banner/') . 'PIC2.jpg'; ?>" width="100%;">
-                        </div>
-                        <div class="lil-image pull-right">
-                          <img class="" src="<?php echo $this->getSkinUrl('images/pop-banner/') . 'PIC3.jpg'; ?>" width="100%;">
-                        </div>
-                      </div>
-                      <div class="cg-col-lg-12 hidden-sm hidden-xs in-block nopadding" style="margin-top:5px">
-                        <div class="lil-image">
-                          <img class="" src="<?php echo $this->getSkinUrl('images/pop-banner/') . 'PIC4.jpg'; ?>" width="100%;" height="102px;">
-                        </div>
-                        <div class="lil-image" style="margin-left: 2%;">
-                          <img class="" src="<?php echo $this->getSkinUrl('images/pop-banner/') . 'PIC5.jpg'; ?>" width="100%;" height="102px;">
-                        </div>
-                        <div class="lil-image pull-right">
-                          <img class="" src="<?php echo $this->getSkinUrl('images/pop-banner/') . 'PIC6.jpg'; ?>" width="100%;">
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-   <?php /* <div id="newsletter-registration-form-overlay">
-        <div id="newsletter-registration-form-popup">
-            <div id="newsletter-registration-close"></div>
-            <div id="newsletter-registration-content-text">
-                <div class="backer-white">
-                    <div class="top-text">
-                        <p>Subscribe and Save</p>
-                    </div>
-                    <div class="blue-divider">
-
-                    </div>
-                    <div class="mid-text">
-                        <p>
-                            Daftarkan email Anda sekarang.
-                            Dan dapatkan voucher senilai <strong>Rp. 75.000</strong>
-                            Serta penawaran spesial dari moxy,
-                            untuk masing-masing Anda yang baru mendaftar.
-                        </p>
-                    </div>
-                    <div class="blue-divider">
-
-                    </div>
-                    <div id="newsletter-registration-form-bottom">
-                        <div id="newsletter-registration-form-input">
-                            <form
-                                id="newsletter-registration-form"
-                                action="https://acommerce1.createsend.com/t/i/s/tdfkj/"
-                                method="post"
-                                class="newsletter-ajax-form">
-                                <input type="email" name="cm-tdfkj-tdfkj" id="newsletter-registration-email"
-                                    class="validate-email required-entry field-left newsletter-ajax-disable" placeholder="Masukkan E-mail" required>
-                                <input type="submit" value="DAFTAR SEKARANG!" id="newsletter-registration-button" class="newsletter-ajax-disable">
-                                <input id="fieldjhvut" name="cm-f-jhvut" type="hidden" value="<?php echo Mage::registry('_utmSource'); ?>">
-                                <input id="fieldjhvui" name="cm-f-jhvui" type="hidden" value="<?php echo Mage::registry('_utmMedium'); ?>">
-                                <input id="fieldjhvud" name="cm-f-jhvud" type="hidden" value="<?php echo Mage::registry('_utmCampaign'); ?>">
-                                <input id="fieldjhvuh" name="cm-f-jhvuh" type="hidden" value="<?php echo Mage::registry('_utmContent'); ?>">
-                                <input id="fieldjhvuk" name="cm-f-jhvuk" type="hidden" value="<?php echo Mage::registry('_utmTerm'); ?>">
-                                <input id="fieldjhvuu" name="cm-f-jhvuu" type="hidden" value="newsletter-popup">
-                                <input id="fieldjktiit" name="cm-f-jktiit" type="hidden" value="<?php echo Mage::registry('_cmLang'); ?>">
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="closer-all hidden-xs" style="padding:0">
-        <div class="hovering-closer">x</div>
-        <div class="hovering-gift"><img src="<?php echo $this->getSkinUrl('images/side-banner/') . 'test-left-dark.png'; ?>" width="100%;" onmouseover="this.src='<?php echo $this->getSkinUrl('images/side-banner/') . 'test-left.png'; ?>';"
-            onmouseout="this.src='<?php echo $this->getSkinUrl('images/side-banner/') . 'test-left-dark.png'; ?>';" style="float:left;"></div>
-        </div>
-
-      </div>*/ ?>
 
 
       <div class="voucher bottom-small" id="registerForSpecialOffers">

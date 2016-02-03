@@ -61,10 +61,11 @@
     margin-right: 5px;
 }
 .cg-col-xs-1, .cg-col-sm-1, .cg-col-md-1, .cg-col-lg-1, .cg-col-xs-2, .cg-col-sm-2, .cg-col-md-2, .cg-col-lg-2, .cg-col-xs-3, .cg-col-sm-3, .cg-col-md-3, .cg-col-lg-3, .cg-col-xs-4, .cg-col-sm-4, .cg-col-md-4, .cg-col-lg-4, .cg-col-xs-5, .cg-col-sm-5, .cg-col-md-5, .cg-col-lg-5, .cg-col-xs-6, .cg-col-sm-6, .cg-col-md-6, .cg-col-lg-6, .cg-col-xs-7, .cg-col-sm-7, .cg-col-md-7, .cg-col-lg-7, .cg-col-xs-8, .cg-col-sm-8, .cg-col-md-8, .cg-col-lg-8, .cg-col-xs-9, .cg-col-sm-9, .cg-col-md-9, .cg-col-lg-9, .cg-col-xs-10, .cg-col-sm-10, .cg-col-md-10, .cg-col-lg-10, .cg-col-xs-11, .cg-col-sm-11, .cg-col-md-11, .cg-col-lg-11, .cg-col-xs-12, .cg-col-sm-12, .cg-col-md-12, .cg-col-lg-12 {
-    position: relative;
+    /*position: relative;*/
     min-height: 1px;
     padding-left: 5px;
     padding-right: 5px;
+    box-sizing:border-box;
 }
 .cg-col-xs-1, .cg-col-xs-2, .cg-col-xs-3, .cg-col-xs-4, .cg-col-xs-5, .cg-col-xs-6, .cg-col-xs-7, .cg-col-xs-8, .cg-col-xs-9, .cg-col-xs-10, .cg-col-xs-11, .cg-col-xs-12 {
     float: left;
@@ -177,6 +178,7 @@
 @media (min-width: 768px) {
     .cg-col-sm-1, .cg-col-sm-2, .cg-col-sm-3, .cg-col-sm-4, .cg-col-sm-5, .cg-col-sm-6, .cg-col-sm-7, .cg-col-sm-8, .cg-col-sm-9, .cg-col-sm-10, .cg-col-sm-11, .cg-col-sm-12 {
     float: left;
+    box-sizing:border-box;
 }
 .cg-col-sm-12 {
     width: 100%}
@@ -540,4 +542,23 @@
 }
 .cg-affix {
     position: fixed;
+}
+.form-control {
+    display: block;
+    width: 100%;
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    box-sizing:border-box;
 }

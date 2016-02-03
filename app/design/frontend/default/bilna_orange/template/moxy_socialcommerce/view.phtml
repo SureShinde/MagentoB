@@ -145,9 +145,9 @@ Why don’t you start create your own collection?
 <div class="cg-row">
   <div class="cg-col-lg-12">
     <ul class="nav nav-tabs noborder" role="tablist">
-      <li role="presentation" class="active"><a href="javascript:;" class="tabs">My Collections</a></li>
+      <li role="presentation" class="active"><a href="javascript:;" class="tabs opensans">My Collections</a></li>
     </ul>
-    <div class="tab-content">
+    <div class="tab-content white-back">
       <div class="tab-pane active" id="home">
 
         <div class="cg-col-lg-12 nopadding">
@@ -211,20 +211,20 @@ Why don’t you start create your own collection?
             </div>
             <?php endif; ?>
 
-			<div class="cg-col-lg-12 cg-col-xs-12 ">
+      <div class="cg-col-lg-12 cg-col-xs-12 collection-shade">
               <?php $cekcover = $wishlist->getCloudCover(); ?>
 
               <a href="<?php echo $this->getUrl('collections/' . $wishlist->getId() . '-' . $itemSlug); ?>">
 
 
                 <?php if (! $cekcover) : ?>
-				<?php if ($wishlist->getCover() && strpos($wishlist->getCover(),'socialcommerce') == false) : ?>
+        <?php if ($wishlist->getCover() && strpos($wishlist->getCover(),'socialcommerce') == false) : ?>
             <img src="<?php echo $this->getUrl('media/collection-cover') . $wishlist->getCover(); ?>" width="100%" class="img-collection">
             <?php elseif ($wishlist->getCover() && strpos($wishlist->getCover(),'socialcommerce') == true) : ?>
                               <img src="<?php echo $wishlist->getCover(); ?>" width="100%" class="img-collection">
-				<?php else :?>
+        <?php else :?>
                 <img src="<?php echo $this->getSkinUrl('images') . '/default-collection.jpg'; ?>" width="100%" class="img-collection">
-				<?php endif;?>
+        <?php endif;?>
               <?php else :?>
 
               <?php if ($wishlist->getCover() && strpos($wishlist->getCover(),'socialcommerce') == false) : ?>
@@ -270,31 +270,32 @@ Why don’t you start create your own collection?
     <form action="<?php echo $this->getUrl('social/settings/editcollection'); ?>" method="post" enctype="multipart/form-data" onsubmit="return preventDefault(this)" class="form-horizontal collection-form">
       <div class="cg-col-lg-12 cg-col-xs-12 cg-col-sm-12 cg-col-md-12 box inside-collection noborder" style="padding-bottom:0; margin-bottom:0;">
         <div class="cg-col-lg-12 cg-col-sm-12 cg-col-md-12 cg-col-xs-12 collection-top-part">
-          <div class="cg-col-lg-11 cg-col-md-11 cg-col-sm-11 cg-col-xs-11 add-to-collection-title">Edit Collection</div>
+          <div class="cg-col-lg-11 cg-col-md-11 cg-col-sm-11 cg-col-xs-11 add-to-collection-title bold opensans take-left">Edit Halaman Koleksi</div>
           <div class="cg-col-lg-1 cg-col-md-1 cg-col-sm-1 cg-col-xs-1 " id="closer-collection">
             <a href="javascript:;" onclick="hideCollectionEdit()" style="text-decoration:none;width:100%;display:block"><i class="fa fa-times"></i></a>
           </div>
         </div>
-        <div class="cg-col-xs-12 pink-thin-divider bottom-spacer">
+        <div class="cg-col-xs-12  bottom-spacer">
           
           
             <div class="form-group in-block full-width">
-              <label for="inputEmail3" class="cg-col-sm-3 control-label label-color label-margin">Title</label>
-              <div class="cg-col-sm-9">
-                <input type="text" name="colname" id="modalTitleCol" class="form-control input-new-collection" placeholder="Title">
+              <label for="inputEmail3" class="cg-col-xs-12 control-label label-color label-margin take-left opensans">Judul <span class="light lil-exp">sesuai tema koleksi yang ingin anda buat</span></label>
+              <div class="cg-col-sm-12">
+                <input type="text" name="colname" id="modalTitleCol" class="form-control input-new-collection" placeholder="Kado Valentine">
               </div>
             </div>
             <div class="form-group in-block full-width">
-              <label for="inputPassword3" class="cg-col-sm-3 control-label label-color label-margin">Description</label>
-              <div class="cg-col-sm-9">
-                 <textarea rows="4" name="desc" id="modalDescCol" class="form-control input-new-collection" maxlength="250" placeholder="Why the products inspire you or story behind your collection. Make it fun!" style="resize:none;"></textarea>
+              <label for="inputPassword3" class="cg-col-xs-12 control-label label-color label-margin take-left opensans">Deskripsi <span class="light lil-exp">penjelasan singkat mengenai tema koleksi anda</span></label>
+              <div class="cg-col-sm-12">
+                 <textarea rows="4" name="desc" id="modalDescCol" class="form-control input-new-collection" maxlength="250" placeholder="Why the products inspire you or story behind your collection. Make it fun!" style="resize:none;height:auto;"></textarea>
               </div>
             </div>
           
         </div>
         <div class="cg-col-xs-12">
           <div class="form-group in-block full-width nomargin">
-            <label for="inputPassword3" class="cg-col-sm-12 control-label label-color label-margin" style="text-align:left;">Change Cover Image</label>
+            <label for="inputEmail3" class="cg-col-xs-12 control-label label-color label-margin take-left opensans">Sampul Koleksi Anda </label>
+            <span class="light lil-exp cg-col-xs-12 bold opensans bottom-spacer-container take-center">Jadikan halaman koleksi anda lebih menarik dengan gambar yang menjelaskan isi koleksi anda!</span>
           </div>
           <div class="cg-row">
             <div class="cg-sm-12">
@@ -303,19 +304,19 @@ Why don’t you start create your own collection?
                   <li class="cg-col-sm-4 cg-col-xs-4 text-center clicker main-nav nopadding">
                     <a href="#tabs-1" class="sub-nav tabs-left ">
                       <i class="fa fa-link pinker icon-nav"></i>
-                      <span class="hidden-xs"> <br>link from web</span>
+                      <span class="hidden-xs font-tabs"> <br>link from web</span>
                     </a>
                   </li>
                   <li class="cg-col-sm-4 cg-col-xs-4 text-center clicker main-nav mid-nav nopadding">
                     <a href="#tabs-2" class="sub-nav activated">
                       <i class="fa fa-cloud-upload pinker icon-nav"></i>
-                      <span class="hidden-xs"> <br> upload image</span>
+                      <span class="hidden-xs font-tabs"> <br> upload image</span>
                     </a>
                   </li>
                   <li class="cg-col-sm-4 cg-col-xs-4 text-center clicker main-nav nopadding">
                     <a href="#tabs-3" class="sub-nav tabs-right">
                       <i class="fa fa-picture-o pinker icon-nav"></i>
-                      <span class="hidden-xs"> <br>MOXY images</span>
+                      <span class="hidden-xs font-tabs"> <br>MOXY images</span>
                     </a>
                   </li>
                 </ul>
@@ -327,53 +328,48 @@ Why don’t you start create your own collection?
                   </div>
                 </div>
                 <div id="tabs-2" style="color: #545454;">
-                  <div class="cg-col-sm-4 cg-col-sm-offset-4 cg-col-xs-12 dashed-upload" style="padding-top:0">
-                    <img id="imgup" src="/media/socialcommerce/upload-cover-img.jpg" alt="your image" width ="100%"/>
+                  <div class="cg-col-sm-4 cg-col-sm-offset-4 cg-col-xs-12 dashed-upload">
                     <div class="fileUpload-coll" id="no-span">
-                    <input type="file" title="Browse" name="cover" class="upload-coll" id="imgInp"/>
+                    <input type="file" title="Browse" name="cover" class="upload-coll take-center" id="imgInp"/>
                     </div>
                   </div>
                 </div>
                 <div id="tabs-3" style="color: #545454;">
                   <div class="cg-col-sm-12" id="preset-image-container"> 
-				  <?php $counter = 1; foreach($images as $image) { 
-					if (($counter % 3) == 0) {
-					}
-					?>
+          <?php $counter = 1; foreach($images as $image) { 
+          if (($counter % 3) == 0) {
+          }
+          ?>
                   <div class="cg-col-sm-3 cg-col-xs-4 bottom-spacer choose-cover">
                     <span class="overlayer-pink">
                       <i class="fa fa-check checked"></i>
                     </span>
-					<img src="/media/<?php echo $image['image'];?>" width="100%" alt=""> 
+          <img src="/media/<?php echo $image['image'];?>" width="100%" alt=""> 
                   </div>
-				  <?php 
-					$counter++;}  ?>
-				  </div> 
+          <?php 
+          $counter++;}  ?>
+          </div> 
                 </div>
               </div>
             </div>
           </div>
           <input type="hidden" name="collection_id" id="modalCollectionId">
           <input type="hidden" name="username" value="<?php echo $profiler->getUsername(); ?>">
-			<input type="hidden" name="preset_image" id="epreset_image" />
+      <input type="hidden" name="preset_image" id="epreset_image" />
          
-          <div style="margin-top: 20px;">
+          <div style="margin-top: 20px;" class="bottom-spacer-container">
            
             <input type="checkbox" name="visibility" id="modalVisibilityCol" class="input-collection" style="height: inherit; width:10px;">
-            <label for="visibility" style="color: #545454; height: 20px;">Make Public</label>
+            <label for="visibility" class="check-public">Jadikan koleksi publik agar semua orang bisa melihat</label>
           </div>
         </div>
       </div>
-      <div class="cg-col-xs-6">
-      <div class="btn btn-default btn-block btn-cancel" style="margin: 10px 0;" name="delete" onclick="hideCollectionEdit()" >Cancel</div>
-    <!--<a class="btn btn-default btn-block btn-cancel" style="text-decoration:none" onclick="newShowCollectionEdit()">DELETE</a>-->
-      </div>
-      <div class="cg-col-xs-6">
-        <button type="submit" class="btn btn-primary btn-block" style="margin: 10px 0;" name="submitButton">I'M DONE</button>
+      <div class="cg-col-xs-12 take-center">
+        <button type="submit" class="btn btn btn-pink-prime cursor" style="margin: 10px 0;" name="submitButton">SIMPAN KOLEKSI SAYA</button>
       </div>
 
-      <div class="cg-col-xs-12" style="text-align:center;">
-        <span class="delete-collection-link" onclick="newShowCollectionEdit()"><i class="fa fa-trash-o"></i> Delete this collection</span>
+      <div class="cg-col-xs-12 take-center">
+        <span class="delete-collection-link cursor btn-cancel" onclick="newShowCollectionEdit()"><i class="fa fa-trash-o"></i> Hapus Koleksi Ini</span>
       </div>
     
   </div>
