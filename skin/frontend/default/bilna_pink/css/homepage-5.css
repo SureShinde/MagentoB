@@ -838,9 +838,10 @@ ul.block-wrapper li:last-child {}
     position: absolute;
     width: 100%;
     background: url(../images/megamenu_arrow.png) 100px 12px no-repeat;
-    height: 21px;
+    height: 23px;
     background-size: 25px;
     top: 0;
+    z-index: 1;
 }
 .wrap-second-cat > ul > p > a {
     line-height: 1.6em;

@@ -37,9 +37,9 @@
     <div class="block-content">
 	    <?php if ($_cartQty>0): ?>
 	            <?php if ($_cartQty<4): ?>
-	                <p class="amount"><?php echo $this->__('<a id="cart-item-qty" href="%s">%s</a> product di Troli Anda', $this->getUrl('checkout/cart'), $_cartQty) ?></p>
+	                <p class="amount"><?php echo $this->__('<a id="cart-item-qty" href="%s">%s</a> produk di Troli Anda', $this->getUrl('checkout/cart'), $_cartQty) ?></p>
 	            <?php else: ?>
-	                <p class="amount"><?php echo $this->__('Menampilkan 3 dari <a id="cart-item-qty" href="%s">%s</a> product di Troli Anda', $this->getUrl('checkout/cart'), $_cartQty) ?></p>
+	                <p class="amount"><?php echo $this->__('Menampilkan 3 dari <a id="cart-item-qty" href="%s">%s</a> produk di Troli Anda', $this->getUrl('checkout/cart'), $_cartQty) ?></p>
 	            <?php endif ?>
 	    <?php endif ?>
         <?php $_items = $this->getRecentItems() ?>
