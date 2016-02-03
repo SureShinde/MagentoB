@@ -698,7 +698,7 @@ tr.summary-details-excluded { font-style:italic; }
 .block-cart .block-title { /*border-bottom:0;*/ }
 .block-cart .block-title strong { background-image:url(../images/i_block-cart.gif); }
 .block-cart .summary { background:#fff; padding:2px 8px 8px; margin:-1px 0 0; position:relative; z-index:1; }
-.block-cart .amount { margin:0; }
+.block-cart .amount { margin:0; border-bottom: 1px solid #e4e4e4; padding: 10px 0;}
 .block-cart .amount a { font-weight:bold; }
 .block-cart .subtotal { margin:5px 0 0; padding:2px 0; background:#fbebd9; text-align:left; }
 .block-cart .subtotal .price { font-weight:bold; }
@@ -1952,7 +1952,8 @@ tr.summary-details-excluded { font-style:italic; }
     width: 50px;
     height: 50px;
     display: block;
-    font-size: 3.2em;
+    font-size: 3em;
+    line-height: 1.2em;
 }
 
 
