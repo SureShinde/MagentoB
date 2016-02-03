@@ -37,9 +37,6 @@
 		$j(".megamenu.megamenu-active img, .homepage-banner img").lazyload({
 			skip_invisible : true
 		});
-		$j(".first-level > ul > li").hover(function(){
-			$j(".homepage-banner .first-level-cat.hover-cat img, .megamenu.megamenu-active .first-level-cat.hover-cat img").lazyload();
-        });
         $j("img.lazy").lazyload();
 	});
     
@@ -74,12 +71,12 @@
             $j('body').css({"overflow":"hidden"});
             $j('.back-left').toggle();
         });
-        $j('.all-cat').click(function() {
-            $j('html, body').animate({scrollTop:0}, 400); 
-            $j('html, body').queue(function () {
-                $j(".nav-mobile-trigger.notclick").triggerHandler("click");  
-                $j('html, body').dequeue();
-            });
+        $j('.direktori_belanja').click(function() {
+            $j('.nav-mobile-trigger span.clicked').show();
+            $j('.nav-mobile-trigger span.notclick').hide();
+            $j('.mobile-left-menu').css({"left":"0","right":"45px"});
+            $j('body').css({"overflow":"hidden"});
+            $j('.back-left').toggle();
         });
         $j('.mobile-left-menu .wrap-menu-cat > ul > li p').click(function() {
             var data_left_menu_val = $j(this).attr("data-left-menu");
@@ -165,7 +162,7 @@ $j(document).ready(function() {
                 <span class="clicked fa fa-times"></span>
             </a>
             <a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="logo"><strong><?php echo $this->getLogoAlt() ?></strong>
-                <img src="<?php echo $this->getSkinUrl(); ?>images/2016-01-15-mobile.png" alt="<?php echo $this->getLogoAlt() ?>" />
+                <img src="<?php echo $this->getSkinUrl(); ?>images/2016-01-15-mobile_2.png" alt="<?php echo $this->getLogoAlt() ?>" />
             </a>
 
             <div class="quick-access">
@@ -178,7 +175,7 @@ $j(document).ready(function() {
                 if($sessionCustomer->isLoggedIn()) {?>
                     <a href="#" class="link-myaccount-mobile"><i class="fa fa-user"></i></a>
                 <?php } else {?>
-                    <a href="<?php echo Mage::getBaseUrl(); ?>customer/account/login/" class="link-myaccount-mobile"><i class="fa fa-user"></i></a>
+                    <a href="<?php echo Mage::getBaseUrl(); ?>customer/account/login/" class="link-myaccount-mobile"><?php echo $this->__('Login') ?></a>
                 <?php } ?>
                 
                     <?php echo $this->getChildHtml('topLinks') ?>
@@ -201,69 +198,19 @@ $j(document).ready(function() {
         </div>
         
         <?php echo $this->getChildHtml('topContainer'); ?>
-        <div class="banner-corner">
-            <?php echo $this->getLayout()->createBlock('staticarea/block')->setId('banner-corner')->toHtml();?>
+        <div class="second_button_left_menu">
+            <div class="title_belanja">
+                <p><?php echo $this->__('BELANJA') ?> </p>
+            </div>
+            <div class="direktori_belanja">
+                <p><i class="fa fa-th-large"></i><?php echo $this->__('DIREKTORI BELANJA') ?> </p>
+            </div>
+            <?php //echo $this->getLayout()->createBlock('staticarea/block')->setId('banner-corner')->toHtml();?>
         </div>
     </div>
 </div>
 
 <div class="bg-dark-megamenu"></div>
-
-<script>
-    jQuery(document).ready(function() {
-        jQuery(".nav-gift-sets").mouseover(function() {
-            jQuery(".nav-10").addClass("hover");
-            jQuery(".nav-10>a").addClass("color_a");
-            jQuery(".gift-menu-wrapp").show();
-        });	
-  
-        jQuery(".nav-gift-sets").mouseleave(function() {
-            jQuery(".nav-10").removeClass("hover");
-            jQuery(".nav-10>a").removeClass("color_a");
-            jQuery(".gift-menu-wrapp").hide();
-        });
-  
-        jQuery(".gift-menu-wrapp").mouseover(function() {
-            jQuery(".gift-menu-wrapp").show();
-            jQuery(".parent-10").addClass("over");
-        });
-  
-        jQuery(".gift-menu-wrapp").mouseleave(function() {
-            jQuery(".gift-menu-wrapp").hide();
-            jQuery(".parent-10").removeClass("over");
-        });
-    });
-</script>
-
-<script>
-    jQuery(document).ready(function() {
-        jQuery(".td-promo").mouseover(function() {
-            jQuery(".td-promo-cont").show();
-        });
-  
-        jQuery(".td-promo").mouseleave(function() {
-            jQuery(".td-promo-cont").hide();
-        });
-  
-        jQuery(".td-contact-sticky").mouseover(function() {
-            jQuery(".td-contact-sticky-cont ").show();
-        });
-        
-        jQuery(".td-contact-sticky").mouseleave(function() {
-            jQuery(".td-contact-sticky-cont ").hide();
-        });  
-    });
-</script>
-<script type="text/javascript">
-
-jQuery('.search-container-new #searchDropdownBox').change(function() {
-	jQuery('.search-container-new #nav-search-in-content').text(jQuery('.search-container-new #searchDropdownBox option:selected').text());
-});
-
-jQuery('.search-container-new-mobile #searchDropdownBox').change(function() {
-	jQuery('.search-container-new-mobile #nav-search-in-content').text(jQuery('.search-container-new-mobile #searchDropdownBox option:selected').text());
-});
-</script>
 <?php 
  $customer = Mage::getSingleton('customer/session')->getCustomer();
  if(isset($customer) && !empty($customer)){
