@@ -1,6 +1,5 @@
 {
     "require": {
-        "magento-hackathon/magento-composer-installer": "*",
         "pda/pheanstalk": "^3.0",
         "videlalvaro/php-amqplib": "2.5.*"
     }
