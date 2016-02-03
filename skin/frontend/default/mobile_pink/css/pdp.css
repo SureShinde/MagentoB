@@ -1058,7 +1058,6 @@ table.ratings-table tbody tr{
 	.more-views .bx-wrapper { 
 		max-width: 198px !important;
 		margin: 0 auto;
-		padding-right: 10px;
 	}
 	.product-view .product-img-box .more-views .bx-wrapper .bx-controls-direction a.bx-prev {
 		position: relative;
