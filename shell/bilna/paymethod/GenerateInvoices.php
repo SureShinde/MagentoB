@@ -18,13 +18,17 @@ class GenerateInvoices extends Mage_Shell_Abstract {
             $pheanstalk->ignore('default');
 
             while ($job = $pheanstalk->reserve()) {
-                $dataArr = json_decode($job->getData());
-                $insertLog = Mage::getModel('paymethod/veritrans')->addData($dataArr)->insert()->save();
+                $dataArr = json_decode($job->getData(), true);
+                $dataObj = json_decode($job->getData());
                 
-                $order = Mage::getModel('sales/order')->load($dataArr->order_id);
+                $veritransModel = Mage::getModel('paymethod/veritrans');
+                $veritransModel->addData($dataArr);
+                $veritransModel->insert();
+                $veritransModel->save();
+                
+                $order = Mage::getModel('sales/order')->load($dataObj->order_id);
                 $paymentCode = $order->getPayment()->getMethodInstance()->getCode();
-                $charge = $dataArr;
-                $status = Mage::getModel('paymethod/vtdirect')->updateOrder($order, $paymentCode, $charge);
+                $status = Mage::getModel('paymethod/vtdirect')->updateOrder($order, $paymentCode, $dataObj);
 
                 if ($status) {
                     $pheanstalk->delete($job);
