@@ -43,7 +43,10 @@
     $j(document).ready(function() {
         
         $j(".search-menu").click(function(){
-            $j(".search-container-new-mobile").toggle();
+            $j(".search-container-new-mobile").show();
+        });
+        $j(".close_search").click(function(){
+            $j(".search-container-new-mobile").hide();
         });
         $j(".link-myaccount-mobile").click(function(){
             $j(".header .links li.myaccount").toggle();
@@ -173,7 +176,7 @@ $j(document).ready(function() {
                 $sessionCustomer = Mage::getSingleton("customer/session");
 
                 if($sessionCustomer->isLoggedIn()) {?>
-                    <a href="#" class="link-myaccount-mobile"><i class="fa fa-user"></i></a>
+                    <a href="#" class="link-myaccount-mobile loggedin"><i class="fa fa-user"></i></a>
                 <?php } else {?>
                     <a href="<?php echo Mage::getBaseUrl(); ?>customer/account/login/" class="link-myaccount-mobile"><?php echo $this->__('Login') ?></a>
                 <?php } ?>

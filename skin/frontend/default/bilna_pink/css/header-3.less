@@ -46,8 +46,22 @@
     font-size: 16px;
     cursor: pointer;
 }
+.header .web_feature li a{
+    text-align: center;
+    display: block;
+}
 .header .web_feature li.shop_link{
     border-bottom: 5px solid #ee5191;
+    font-weight: 600;
+}
+.header .web_feature li.koleksi{
+    width: 70px;
+}
+.header .web_feature li.inspirasi{
+    width: 85px;
+}
+.header .web_feature li:hover a{
+    font-weight: 600;
 }
 .logo img {
     width:  100%;
@@ -321,7 +335,7 @@
 }
 .header .quick-access .top-cart a.link-minicart {
     border-left: 1px solid #e4e4e4;
-    margin-right: 0;
+    padding-right: 0;
 }
 .header .quick-access .top-cart a {
     display: block;
@@ -329,10 +343,7 @@
     text-transform: uppercase;
     height: auto;
     position: relative;
-    padding: 5px 0;
-    margin: 0 10px;
-    width: 50px;
-    text-align: center
+    padding: 5px 15px;
 }
 .header .quick-access .top-cart a.btn-remove:before {
     content: "\f057";
@@ -362,7 +373,7 @@
     font-size: 11px;
     line-height: 11px;
     background: #3EB988;
-    right: 3px;
+    right: 0;
     padding: 1px 3px;
     top: 0px;
     border: 2px solid #fff;
@@ -378,6 +389,7 @@
     line-height: 1em;
     margin-top: 3px;
     font-weight: bold;
+    color: #808080
 }
 .header .quick-access .top-cart a.link-blog:before{
     content: "\f0eb";
@@ -386,6 +398,7 @@
 }
 .header .quick-access .top-cart a .fa{
     font-size: 24px;
+    color: #808080;
 }
 .header .mini-cart:after {
 	content: url(../images/arrow-cart.png);
@@ -478,8 +491,12 @@
 	height: auto;
 }
 .mini-products-list .product-details a.product-name {
-	font-size: 1.4em;
-	text-transform: capitalize;
+    font-size: 21px;
+    text-transform: capitalize;
+    display: block;
+    clear: both;
+    text-align: left;
+    width: auto;
 }
 .mini-products-list .product-details{
     display: block;
@@ -506,7 +523,13 @@
     display: block;
     padding: 10px;
     border: 1px solid #e4e4e4;
-    margin-right: 15px;
+    margin-right: 5%;
+    width: 15%;
+}
+.mini-products-list .desc_produk{
+    display: block;
+    width: 70%;
+    float: left;
 }
 .mini-products-list .image_product a.product-image{
     margin: 0;
@@ -515,8 +538,7 @@
 .mini-products-list .qty,
 .mini-products-list .price{
     float: left;
-    font-size: 16px;
-    clear: both;
+    font-size: 18px;
     color: #bbbbbb;
 }
 .mini-cart .block-cart .summary, .mini-cart .block-cart .actions,.block-cart .summary,.block-cart .actions  {
@@ -600,10 +622,12 @@
 	padding-bottom: 0;
 }
 .header .links li.login{
-    padding: 7px 6px;
+    padding: 7px 15px;
     position: relative;
     border-radius: 15px;
-    margin: 10px 0 10px 10px;
+    -moz-border-radius: 15px;
+    -webkit-border-radius: 15px;
+    margin: 10px 15px ;
     background: #EE5191;
 }
 .header .links li.login a{
@@ -652,9 +676,9 @@
     display: block;
 }
 .header .links li.myaccount a.link-trigger-myaccount{
-    padding: 30px 0px 5px 0;
+    padding: 30px 15px 5px;
     font-size: 11px;
-    color: #585958;
+    color: #808080;
     height: 14px;
     font-weight: bold;
     margin: 0;
@@ -667,7 +691,7 @@
     position: absolute;
     border-radius: 50%;
     top: 5px;
-    left: 13px;
+    left: 19px;
 }
 .header .links li.myaccount a.link-trigger-myaccount .cust-icon{
     font-size: 1.5em;
@@ -838,7 +862,7 @@
 
 /* NEW SEARCH FIELD */
 .search-container-new {
-    width: 280px;
+    width: 335px;
     float: left;
     display: block;
     margin-top: 10px;
@@ -1501,12 +1525,17 @@
     .quick-access .language-select-option select{margin:0;}
     .quick-access .search-container-new {display: none;}
     .search-container-new-mobile {
-        display: block;
-        width: 96%;
-		margin: 5px 0 0;
+        display: none;
+        width: auto;
+        position: fixed;
+        clear: both;
         padding: 10px 2%;
-        float: left;
-        background: none repeat scroll 0 0 #EE5191;
+        border-top: 1px solid #e4e4e4;
+        top: 0;
+        left: 0;
+        background: #fff;
+        right: 0;
+        bottom: 0;
     }
     .header .quick-access {
         width: auto;
