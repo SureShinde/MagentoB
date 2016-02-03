@@ -1054,12 +1054,33 @@ table.ratings-table tbody tr{
         padding: 0;
         text-indent: 5px;
     }
-	.product-view .product-img-box .more-views, 
 	.product-shop-left .rating-links .review-count,
 	.product-shop-left .rating-links .separator,
 	.related-product,
 	.aw-mini-related-items.aw-base-mini {
 		display: none;
+	}
+	.product-shop .product-img-box .onsale-product-container .title_bottom_imagedetail {
+		display: none;
+	}
+	.more-views .bx-wrapper { 
+		max-width: 198px !important;
+		margin: 0 auto;
+		padding-right: 10px;
+	}
+	.product-view .product-img-box .more-views .bx-wrapper .bx-controls-direction a.bx-prev {
+		position: relative;
+		top: -35px;
+		right: 20px;
+	}
+	.product-view .product-img-box .more-views .bx-wrapper .bx-controls-direction a.bx-next {
+		position: relative;
+		top: -35px;
+		right: -191px;
+	}
+	.product-view .product-img-box .more-views {
+		position: static;
+		width: 100%;
 	}
     .product-view .product-shop-right{
         border: 0;
