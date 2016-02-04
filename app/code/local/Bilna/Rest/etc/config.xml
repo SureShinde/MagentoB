@@ -1,0 +1,29 @@
+<config>
+    <modules>
+        <Bilna_Rest>
+            <version>0.5.0</version>
+        </Bilna_Rest>
+    </modules>
+    <global>
+        <helpers>
+            <bilna_rest>
+                <class>Bilna_Rest_Helper</class>
+            </bilna_rest>
+	</helpers>
+        <models>
+            <bilna_rest>
+                <class>Bilna_Rest_Model</class>
+            </bilna_rest>
+        </models>
+        <resources>
+            <bilna_rest_setup>
+                <setup>
+                    <module>Bilna_Rest</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </bilna_rest_setup>
+        </resources>
+    </global>
+</config>

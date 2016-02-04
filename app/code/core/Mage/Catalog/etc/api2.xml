@@ -36,6 +36,10 @@
                         <title>Product</title>
                         <sort_order>50</sort_order>
                     </catalog_product>
+                    <catalog_category translate="title" module="api2">
+                        <title>Category</title>
+                        <sort_order>60</sort_order>
+                    </catalog_category>
                 </children>
             </catalog>
         </resource_groups>
@@ -60,7 +64,7 @@
                         <retrieve>1</retrieve>
                     </guest>
                 </privileges>
-                <attributes translate="entity_id type_id attribute_set_id stock_data image_url is_saleable total_reviews_count url buy_now_url has_custom_options is_in_stock regular_price_with_tax regular_price_without_tax final_price_with_tax final_price_without_tax use_config_gift_message_available use_config_gift_wrapping_available url_key_create_redirect" module="api2">
+                <attributes translate="entity_id type_id attribute_set_id stock_data image_url is_saleable total_reviews_count url buy_now_url has_custom_options is_in_stock regular_price_with_tax regular_price_without_tax final_price_with_tax final_price_without_tax use_config_gift_message_available use_config_gift_wrapping_available url_key_create_redirect detailed_info" module="api2">
                     <entity_id>Product ID</entity_id>
                     <type_id>Product Type</type_id>
                     <attribute_set_id>Attribute Set</attribute_set_id>
@@ -79,6 +83,8 @@
                     <use_config_gift_message_available>Use Config Settings for Allow Gift Message</use_config_gift_message_available>
                     <use_config_gift_wrapping_available>Use Config Settings for Allow Gift Wrapping</use_config_gift_wrapping_available>
                     <url_key_create_redirect>Create Permanent Redirect for old URL</url_key_create_redirect>
+                    <detailed_info>Detailed Info</detailed_info>
+                    <attribute_config>Attribute Config</attribute_config>
                 </attributes>
                 <entity_only_attributes>
                     <customer>
@@ -274,7 +280,7 @@
                         <retrieve>1</retrieve>
                     </guest>
                 </privileges>
-                <attributes translate="id file_name file_content file_mime_type label position types exclude url" module="api2">
+                <attributes translate="id file_name file_content file_mime_type label position types exclude url image_resize" module="api2">
                     <id>ID</id>
                     <file_name>File Name</file_name>
                     <file_content>File Content</file_content>
@@ -284,6 +290,7 @@
                     <types>Type</types>
                     <exclude>Exclude</exclude>
                     <url>URL</url>
+                    <image_resize>Image Resize</image_resize>
                 </attributes>
                 <exclude_attributes>
                     <customer>

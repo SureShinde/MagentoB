@@ -4,9 +4,7 @@
         <Bilna_Catalog>
             <active>true</active>
             <codePool>local</codePool>
-            <depends>
-            	<Mage_Catalog/>
-        	</depends>
+            <depends>Mage_Api2</depends>
         </Bilna_Catalog>
     </modules>
 </config>

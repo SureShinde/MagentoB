@@ -9,16 +9,21 @@ class Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Edit extends Mage_Adminhtml_
 	$this->_blockGroup = 'bilna_formbuilder';
 	$this->_controller = 'adminhtml_formbuilder';
 	$this->_removeButton('reset');	//remove reset button
-	$this->_removeButton('save');	//remove save button
+	//$this->_removeButton('save');	//remove save button
 	$this->_removeButton('delete');	
 	$this->_mode = 'edit';
-	/*$this->_addButton('saveandcontinue', array (
-      'label' => Mage::helper('adminhtml')->__('Save And Continue Edit'),
-      'onclick' => 'saveAndContinueEdit()',
-      'class' => 'save',
-  ), -100);
 
-  $this->_updateButton('save', 'label', Mage::helper('bilna_formbuilder')->__('Save'));*/
+  $formbuilder = Mage::registry('formbuilder_form');
+  if ($formbuilder['form_id']) {
+      $params = ['form_id' => $formbuilder['form_id']];
+
+      $this->_addButton('addnewfield', array (
+          'label' => Mage::helper('adminhtml')->__('Add new field'),
+          'onclick' => 'setLocation(\''.$this->getUrl('*/formbuilder/newInput', $params).'\')',
+      ), -100);
+  }
+
+  $this->_updateButton('save', 'label', Mage::helper('bilna_formbuilder')->__('Save form'));
 
 	/*$this->_addButton('edit', array(
     'label'   => Mage::helper('bilna_formbuilder')->__('Edit'),
@@ -41,6 +46,16 @@ class Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Edit extends Mage_Adminhtml_
     } else {
         return Mage::helper('bilna_formbuilder')->__('Formbuilder Details');
     }
+  }
+
+  protected function addNewFieldParam()
+  {
+      $params = [];
+      $formbuilder = Mage::registry('formbuilder_form');
+      if ($formbuilder['form_id']) {
+          $params = ['form_id' => $formbuilder['form_id']];
+      }
+      return $params;
   }
 
 }

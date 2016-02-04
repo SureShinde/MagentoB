@@ -1,0 +1,454 @@
+<?xml version="1.0"?>
+<config>
+    <api2>
+        <resource_groups>
+            <customer translate="title" module="api2">
+                <title>Customer</title>
+                <sort_order>130</sort_order>
+            </customer>
+        </resource_groups>
+        <resources>
+            <customer translate="title" module="Bilna_Customer">
+                <group>customer</group>
+                <sort_order>90</sort_order>
+                <model>bilna_customer/api2_customer</model>
+                <working_model>customer/customer</working_model>
+                <title>Customer</title>
+                <privileges>
+                    <admin>
+                        <create>1</create>
+                        <retrieve>1</retrieve>
+                        <update>1</update>
+                        <delete>1</delete>
+                    </admin>
+                    <customer>
+                        <create>1</create>
+                        <retrieve>1</retrieve>
+                        <update>1</update>
+                        <delete>1</delete>
+                    </customer>
+                </privileges>
+            <attributes translate="entity_id last_logged_in firstname lastname email gender dob newsletter password newsletter website_id created_in group_id disable_auto_group_change is_active" module="Bilna_Customer">
+                <entity_id>Customer ID</entity_id>
+                <last_logged_in>Last Logged In</last_logged_in>
+                <firstname>First Name</firstname>
+                <lastname>Last Name</lastname>
+                <email>Email</email>
+                <gender>Gender</gender>
+                <dob>Date of Birth</dob>
+                <newsletter>Newsletter</newsletter>
+                <password>Password</password>
+                <newsletter>Newsletter</newsletter>
+                <website_id>Associate to Website</website_id>
+                <created_in>Created From</created_in>
+                <group_id>Group</group_id>
+                <is_active>Is Active</is_active>
+                <disable_auto_group_change>Disable automatic group change based on VAT ID</disable_auto_group_change>
+            </attributes>
+            <exclude_attributes>
+                <admin>
+                    <read>
+                        <password>1</password>
+                    </read>
+                    <write>
+                        <entity_id>1</entity_id>
+                        <created_at>1</created_at>
+                        <created_in>1</created_in>
+                        <last_logged_in>1</last_logged_in>
+                    </write>
+                </admin>
+                    <customer>
+                        <read>
+                            <entity_id>1</entity_id>
+                            <last_logged_in>1</last_logged_in>
+                            <website_id>1</website_id>
+                            <created_in>1</created_in>
+                            <group_id>1</group_id>
+                            <disable_auto_group_change>1</disable_auto_group_change>
+                            <confirmation>1</confirmation>
+                            <password>1</password>
+                            <created_at>1</created_at>
+                        </read>
+                        <write>
+                            <entity_id>1</entity_id>
+                            <last_logged_in>1</last_logged_in>
+                            <website_id>1</website_id>
+                            <created_in>1</created_in>
+                            <group_id>1</group_id>
+                            <disable_auto_group_change>1</disable_auto_group_change>
+                            <confirmation>1</confirmation>
+                            <created_at>1</created_at>
+                        </write>
+                    </customer>
+                </exclude_attributes>
+                <validators>
+                    <eav>
+                        <admin>
+                            <entity_model>customer/customer</entity_model>
+                            <form_model>customer/form</form_model>
+                            <form_code>
+                                <update>adminhtml_customer</update>
+                            </form_code>
+                        </admin>
+                        <customer>
+                            <entity_model>customer/customer</entity_model>
+                            <form_model>customer/form</form_model>
+                            <form_code>
+                                <update>customer_account_edit</update>
+                            </form_code>
+                        </customer>
+                    </eav>
+                </validators>
+                <routes>
+                    <route_entity>
+                        <route>/customers/:id</route>
+                        <action_type>entity</action_type>
+                    </route_entity>
+                    <route_collection>
+                        <route>/customers</route>
+                        <action_type>collection</action_type>
+                    </route_collection>
+                </routes>
+                <versions>1</versions>
+            </customer>
+            <customer_address translate="title" module="Bilna_Customer">
+                <group>customer</group>
+                <sort_order>110</sort_order>
+                <model>bilna_customer/api2_customer_address</model>
+                <working_model>customer/address</working_model>
+                <title>Customer Address</title>
+                <privileges>
+                    <admin>
+                        <create>1</create>
+                        <retrieve>1</retrieve>
+                        <update>1</update>
+                        <delete>1</delete>
+                    </admin>
+                    <customer>
+                        <create>1</create>
+                        <retrieve>1</retrieve>
+                        <update>1</update>
+                        <delete>1</delete>
+                    </customer>
+                </privileges>
+                <attributes translate="entity_id is_default_billing is_default_shipping region_id total_record" module="Bilna_Customer">
+                    <entity_id>Customer Address ID</entity_id>
+                    <region_id>Region Id</region_id>
+                    <is_default_billing>Is Default Billing Address</is_default_billing>
+                    <is_default_shipping>Is Default Shipping Address</is_default_shipping>
+                    <total_record>Total Record</total_record>
+                </attributes>
+                <exclude_attributes>
+                    <admin>
+                        <read>
+                            <region_id>0</region_id>
+                            <vat_is_valid>1</vat_is_valid>
+                            <vat_request_date>1</vat_request_date>
+                            <vat_request_id>1</vat_request_id>
+                            <vat_request_success>1</vat_request_success>
+                        </read>
+                        <write>
+                            <entity_id>1</entity_id>
+                            <region_id>1</region_id>
+                            <vat_is_valid>1</vat_is_valid>
+                            <vat_request_date>1</vat_request_date>
+                            <vat_request_id>1</vat_request_id>
+                            <vat_request_success>1</vat_request_success>
+                        </write>
+                    </admin>
+                    <customer>
+                        <read>
+                            <region_id>0</region_id>
+                        </read>
+                        <write>
+                            <entity_id>1</entity_id>
+                            <region_id>1</region_id>
+                        </write>
+                    </customer>
+                </exclude_attributes>
+                <validators>
+                    <eav>
+                        <admin>
+                            <entity_model>customer/address</entity_model>
+                            <form_model>customer/form</form_model>
+                            <form_code>
+                                <update>adminhtml_customer_address</update>
+                            </form_code>
+                        </admin>
+                        <customer>
+                            <entity_model>customer/address</entity_model>
+                            <form_model>customer/form</form_model>
+                            <form_code>
+                                <update>customer_address_edit</update>
+                            </form_code>
+                        </customer>
+                    </eav>
+                </validators>
+                <routes>
+                    <route_entity>
+                        <route>/customers/addresses/:id</route>
+                        <action_type>entity</action_type>
+                    </route_entity>
+                    <route_collection>
+                        <route>/customers/:customer_id/addresses</route>
+                        <action_type>collection</action_type>
+                    </route_collection>
+                </routes>
+                <versions>1</versions>
+            </customer_address>
+            <customer_resetpassword translate="title" module="Bilna_Customer">
+                <group>customer</group>
+                <sort_order>110</sort_order>
+                <model>bilna_customer/api2_resetpassword</model>
+				<working_model>customer/customer</working_model>
+                <title>Customer Reset Password</title>
+                <privileges>
+                    <admin>
+                        <create>1</create>
+						<retrieve>1</retrieve>
+						<update>1</update>
+                    </admin>
+                    <customer>
+                        <create>1</create>
+						<retrieve>1</retrieve>
+						<update>1</update>
+                    </customer>
+                </privileges>
+                <attributes translate="entity_id email token password" module="Bilna_Customer">
+                    <entity_id>Customer ID</entity_id>
+                    <email>Email</email>
+                    <token>Token</token>
+                    <password>Password</password>
+                </attributes>
+                <exclude_attributes>
+                    <admin>
+                        <read>
+                            <password>1</password>
+                        </read>
+                    </admin>
+                    <customer>
+                        <read>
+                            <password>1</password>
+                        </read>
+                    </customer>
+                </exclude_attributes>
+                <routes>
+                    <route_entity>
+                        <route>/customer/resetpassword/:id</route>
+                        <action_type>entity</action_type>
+                    </route_entity>
+                    <route_collection>
+                        <route>/customer/resetpassword</route>
+                        <action_type>collection</action_type>
+                    </route_collection>
+                </routes>
+                <versions>1</versions>
+            </customer_resetpassword>
+			<customer_login translate="title" module="Bilna_Customer">
+				<group>customer</group>
+				<sort_order>110</sort_order>
+				<model>bilna_customer/api2_login</model>
+				<title>Customer Login</title>
+				<privileges>
+					<admin>
+						<retrieve>1</retrieve>
+					</admin>
+					<customer>
+						<retrieve>1</retrieve>
+					</customer>
+				</privileges>
+				<attributes translate="entity_id email group_id created_at updated_at is_active firstname lastname gender dob newsletter default_billing default_shipping" module="Bilna_Customer">
+					<entity_id>ID</entity_id>
+					<email>Email</email>
+					<group_id>Group ID</group_id>
+					<created_at>Created At</created_at>
+					<updated_at>Updated At</updated_at>
+					<is_active>Is Active</is_active>
+					<firstname>Firstname</firstname>
+					<lastname>Lastname</lastname>
+					<gender>Gender</gender>
+					<dob>Date of Birth</dob>
+					<newsletter>Newsletter</newsletter>
+					<default_billing>Default Billing ID</default_billing>
+					<default_shipping>Default Shipping ID</default_shipping>
+				</attributes>
+				<routes>
+					<route_entity>
+						<route>/customer/login</route>
+						<action_type>entity</action_type>
+					</route_entity>
+				</routes>
+				<versions>1</versions>
+			</customer_login>
+			<customer_subscription translate="title" module="Bilna_Customer">
+				<group>customer</group>
+				<sort_order>110</sort_order>
+				<model>bilna_customer/api2_subscription</model>
+				<title>Customer Subscription</title>
+				<privileges>
+					<admin>
+						<create>1</create>
+						<retrieve>1</retrieve>
+						<delete>1</delete>
+					</admin>
+					<customer>
+						<create>1</create>
+						<retrieve>1</retrieve>
+					</customer>
+				</privileges>
+				<attributes translate="subscriber_id store_id customer_id subscriber_email subscriber_status subscriber_confirm_code" module="Bilna_Customer">
+					<subscriber_id>ID</subscriber_id>
+					<store_id>Store ID</store_id>
+					<customer_id>Customer ID</customer_id>
+					<subscriber_email>Email</subscriber_email>
+					<subscriber_status>Status</subscriber_status>
+					<subscriber_confirm_code>Confirmation Code</subscriber_confirm_code>
+				</attributes>
+				<routes>
+					<route_entity>
+						<route>/customer/subscription/:id</route>
+						<action_type>entity</action_type>
+					</route_entity>
+					<route_collection>
+						<route>/customer/subscription</route>
+						<action_type>collection</action_type>
+					</route_collection>
+				</routes>
+				<versions>1</versions>
+			</customer_subscription>
+                        
+                        <customer_review translate="title" module="Bilna_Customer">
+                            <group>customer</group>
+                            <sort_order>110</sort_order>
+                            <model>bilna_customer/api2_customer_review</model>
+                            <working_model>customer/review</working_model>
+                            <title>Customer Review</title>
+                            <attributes translate="review_id created_at product_id product_name product_url_path" module="Bilna_Customer">
+                                    <review_id>REVIEW ID</review_id>
+                                    <created_at>CREATED AT</created_at>
+                                    <product_id>PRODUCT ID</product_id>
+                                    <product_name>PRODUCT NAME</product_name>
+                                    <product_url_path>PRODUCT URL PATH</product_url_path>
+                            </attributes>
+                            <privileges>
+                                <admin>
+                                    <create>1</create>
+                                    <retrieve>1</retrieve>
+                                    <update>1</update>
+                                    <delete>1</delete>
+                                </admin>
+                            </privileges>                            
+                            <routes>
+                                <route_collection>
+                                    <route>/customers/:customer_id/reviews</route>
+                                    <action_type>collection</action_type>
+                                </route_collection>
+                            </routes>
+                            <versions>1</versions>
+                        </customer_review>
+                        
+                        <customer_reviewdetail translate="title" module="Bilna_Customer">
+                            <group>customer</group>
+                            <sort_order>110</sort_order>
+                            <model>bilna_customer/api2_customer_reviewdetail</model>
+                            <working_model>customer/reviewdetail</working_model>
+                            <title>Review Detail</title>
+                            <attributes translate="review_rating review_detail product" module="Bilna_Customer">
+                                    <review_rating>REVIEW RATING</review_rating>
+                                    <review_detail>REVIEW DETAIL</review_detail>
+                                    <product>PRODUCT</product>
+                            </attributes>
+                            <privileges>
+                                <admin>
+                                    <create>1</create>
+                                    <retrieve>1</retrieve>
+                                    <update>1</update>
+                                    <delete>1</delete>
+                                </admin>
+                            </privileges>                            
+                            <routes>
+                                <route_entity>
+                                    <route>/customers/:customer_id/reviewdetail/:review_id</route>
+                                    <action_type>entity</action_type>
+                                </route_entity>
+                            </routes>
+                            <versions>1</versions>
+                        </customer_reviewdetail>
+                        
+                        <customer_bilnacredit translate="title" module="Bilna_Customer">
+                            <group>customer</group>
+                            <sort_order>110</sort_order>
+                            <model>bilna_customer/api2_customer_bilnacredit</model>
+                            <working_model>customer/bilnacredit</working_model>
+                            <title>Bilna Credits</title>
+                            <attributes translate="credit_balance credit_history" module="Bilna_Customer">
+                                    <credit_balance>Credit Balance</credit_balance>
+                                    <credit_history>Can Use With Coupon</credit_history>
+                            </attributes>
+                            <privileges>
+                                <admin>
+                                    <create>1</create>
+                                    <retrieve>1</retrieve>
+                                    <update>1</update>
+                                    <delete>1</delete>
+                                </admin>
+                            </privileges>                            
+                            <routes>
+                                <route_entity>
+                                    <route>/customers/:customer_id/bilnacredit</route>
+                                    <action_type>entity</action_type>
+                                </route_entity>
+                            </routes>
+                            <versions>1</versions>
+                        </customer_bilnacredit>
+                        
+                        <customer_productitem translate="title" module="Bilna_Customer">
+                            <group>customer</group>
+                            <sort_order>110</sort_order>
+                            <model>bilna_customer/api2_customer_productitem</model>
+                            <working_model>customer/productitem</working_model>
+                            <title>Product Item</title>
+                            <attributes translate="item" module="Bilna_Customer">
+                                    <item>Item</item>
+                            </attributes>
+                            <privileges>
+                                <admin>
+                                    <retrieve>1</retrieve>
+                                </admin>
+                            </privileges>                            
+                            <routes>
+                                <route_entity>
+                                    <route>/customers/:customer_id/productitem/:item_id</route>
+                                    <action_type>entity</action_type>
+                                </route_entity>
+                            </routes>
+                            <versions>1</versions>
+                        </customer_productitem>
+                        
+                        <customer_reorder translate="title" module="Bilna_Customer">
+                            <group>customer</group>
+                            <sort_order>110</sort_order>
+                            <model>bilna_customer/api2_customer_reorder</model>
+                            <working_model>customer/reorder</working_model>
+                            <title>Product Item</title>
+                            <attributes translate="data" module="Bilna_Customer">
+                                    <data>data</data>
+                            </attributes>
+                            <privileges>
+                                <admin>
+                                    <retrieve>1</retrieve>
+                                </admin>
+                            </privileges>                            
+                            <routes>
+                                <route_entity>
+                                    <route>/customers/:customer_id/reorder/:order_id</route>
+                                    <action_type>entity</action_type>
+                                </route_entity>
+                            </routes>
+                            <versions>1</versions>
+                        </customer_reorder>
+                        
+                        
+		</resources>
+	</api2>
+</config>
