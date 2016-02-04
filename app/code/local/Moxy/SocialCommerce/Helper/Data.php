@@ -196,10 +196,10 @@ extends Mage_Core_Helper_Abstract
             $customerAvatar = $result['path'].$result['file'];
             $image = new Varien_Image($customerAvatar);
             $image->constrainOnly(true);
-            $image->keepAspectRatio(true);;
+            $image->keepAspectRatio(false);;
             $image->keepFrame(false);
             $image->setWatermarkImageOpacity(0);
-            $image->resize(800,800);
+            $image->adaptiveResize(800,800);
             $image->save($customerAvatar);
 
         }
@@ -265,10 +265,10 @@ extends Mage_Core_Helper_Abstract
                 $imageUrl = $result['path'].$result['file'];
                 $image = new Varien_Image($imageUrl);
                 $image->constrainOnly(true);
-                $image->keepAspectRatio(true);;
+                $image->keepAspectRatio(false);;
                 $image->keepFrame(false);
                 $image->setWatermarkImageOpacity(0);
-                $image->resize(800,800);
+                $image->adaptiveResize(800,800);
                 $image->save($imageUrl);
 
                 return ltrim($result['file'], '/');
@@ -279,10 +279,10 @@ extends Mage_Core_Helper_Abstract
                 $imageUrl = 'media'. DS .'collection-cover'. DS . basename($upFileTmpName);
                 $image = new Varien_Image ( $imageUrl );
                 $image->constrainOnly(true);
-                $image->keepAspectRatio(true);
+                $image->keepAspectRatio(false);
                 $image->keepFrame(false);
                 $image->setWatermarkImageOpacity(0);
-                $image->resize(800,800);
+                $image->adaptiveResize(800,800);
                 $image->save ($imageUrl);
 
                 return ltrim(basename($upFileTmpName), '/');
