@@ -167,13 +167,8 @@
 <div class="header-container">
     <div class="space-above-header">
         <div class="container-above-header">
+            <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('above-header')->toHtml() ?>
             <ul class="keypoint">
-                <li>
-                    <a href="{{config path='web/unsecure/base_url'}}shipping-policy/"><em class="fa fa-truck"></em> Pengiriman Gratis</a>
-                </li>
-                <li>
-                    <a href="{{config path='web/unsecure/base_url'}}return-policy/"><em class="fa fa-money"></em> Perlindungan Pembeli</a>
-                </li>
                 <li>
                     <a href="{{config path='web/unsecure/base_url'}}faq/"><em class="fa fa-reply-all"></em> Pusat Bantuan</a>
                 </li>
@@ -181,13 +176,8 @@
                     <a href="<?php if($this->helper('customer')->isLoggedIn()):?><?php echo $this->getUrl('sales/order/history') ?><?php else: ?><?php echo $this->getUrl('orderdetail') ?><?php endif;?>"><em class="fa fa-file-text-o"></em> Cek Pesanan</a>
                 </li>
             </ul>
-            <div class="customer-link">
-                <?php echo $this->getLayout()->createBlock('staticarea/block')->setId('banner-corner')->toHtml(); ?>
-            </div>
         </div>
     </div>
-    
-    <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('above-header')->toHtml() ?>
     
     <?php echo $this->getLayout()->createBlock('page/html')->setTemplate('page/html/back-top.phtml')->toHtml(); ?>
     
