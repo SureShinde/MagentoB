@@ -627,9 +627,6 @@ tr.summary-details-excluded { font-style:italic; }
 .block .actions button.button { float:right; }
 .block .empty { margin:0; padding:5px 9px; }
 
-.block li.odd { background-color:#f4f3f3; }
-.block li.even { background-color:#fafafa; }
-
 /* Mini Blocks */
 .block-cart,
 .block-wishlist,
@@ -657,7 +654,6 @@ tr.summary-details-excluded { font-style:italic; }
 
 /* Mini Products List */
 .mini-products-list .product-image { float:left; }
-.mini-products-list .product-details { margin-left:60px; }
 .block-cart .mini-products-list .product-details .product-name,
 .block-cart .mini-products-list .product-details .nobr small { word-wrap:break-word; }
 .block-cart .mini-products-list .product-details .nobr { white-space:normal !important; }
@@ -702,9 +698,9 @@ tr.summary-details-excluded { font-style:italic; }
 .block-cart .block-title { /*border-bottom:0;*/ }
 .block-cart .block-title strong { background-image:url(../images/i_block-cart.gif); }
 .block-cart .summary { background:#fff; padding:2px 8px 8px; margin:-1px 0 0; position:relative; z-index:1; }
-.block-cart .amount { margin:0; }
+.block-cart .amount { margin:0; border-bottom: 1px solid #e4e4e4; padding: 10px 0;}
 .block-cart .amount a { font-weight:bold; }
-.block-cart .subtotal { margin:5px 0 0; padding:2px 0; background:#fbebd9; text-align:center; }
+.block-cart .subtotal { margin:5px 0 0; padding:2px 0; background:#fbebd9; text-align:left; }
 .block-cart .subtotal .price { font-weight:bold; }
 .block-cart .actions { border-bottom:1px solid #c2c2c2; }
 .block-cart .actions .paypal-logo { float:left; width:100%; margin:3px 0 0; text-align:right; }
@@ -1956,7 +1952,8 @@ tr.summary-details-excluded { font-style:italic; }
     width: 50px;
     height: 50px;
     display: block;
-    font-size: 3.2em;
+    font-size: 3em;
+    line-height: 1.2em;
 }
 
 

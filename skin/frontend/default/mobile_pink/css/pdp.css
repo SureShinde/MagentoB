@@ -1058,16 +1058,17 @@ table.ratings-table tbody tr{
 	.more-views .bx-wrapper { 
 		max-width: 198px !important;
 		margin: 0 auto;
+		padding-right: 10px;
 	}
 	.product-view .product-img-box .more-views .bx-wrapper .bx-controls-direction a.bx-prev {
 		position: relative;
 		top: -35px;
-		right: 32px;
+		right: 20px;
 	}
 	.product-view .product-img-box .more-views .bx-wrapper .bx-controls-direction a.bx-next {
 		position: relative;
 		top: -35px;
-		right: -203px;
+		right: -191px;
 	}
 	.product-view .product-img-box .more-views {
 		position: static;

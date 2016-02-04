@@ -878,13 +878,14 @@ ul.block-wrapper li:last-child {}
 }
 .homepage .homepage-banner .first-level > ul > li{
     line-height: 32px;
-    font-size: 1.04em;
-    font-weight: bold;
     text-align: left;
     background: #fff;
     margin: 1px 0 0;
     padding: 0 10px;
     height: 32px;
+}
+.homepage .homepage-banner .first-level > ul > li .first-level-url{
+    font-size: 14px;
 }
 .homepage .homepage-banner .first-level > ul > li.hover-cat{
     background: #fffcfd;
@@ -930,7 +931,6 @@ ul.block-wrapper li:last-child {}
 }
 .homepage .homepage-banner .first-level .second-level .wrap-second-cat > ul li:hover > a,
 .homepage .homepage-banner .first-level .second-level .wrap-second-cat > ul li:hover > p > a{
-	color:#EE5191;
 	text-decoration:underline;
 }
 .homepage .homepage-banner .first-level .active-cat .second-level{
