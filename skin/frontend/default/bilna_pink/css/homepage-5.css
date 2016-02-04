@@ -824,12 +824,14 @@ ul.block-wrapper li:last-child {}
 }
 .homepage .homepage-banner .megamenu-container{
     display: block;
-    border-radius: 3px;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
     border: 1px solid #f9f9f9;
 }
 .homepage .homepage-banner {
     margin: 0 auto 40px;
-    padding: 20px 0 0;
+    padding: 17px 0 0;
     position: relative;
     display: table;
 }
@@ -837,10 +839,11 @@ ul.block-wrapper li:last-child {}
     content: "";
     position: absolute;
     width: 100%;
-    background: url(../images/megamenu_arrow.png) 100px 12px no-repeat;
-    height: 21px;
+    background: url(../images/megamenu_arrow.png) 100px 9px no-repeat;
+    height: 23px;
     background-size: 25px;
     top: 0;
+    z-index: 1;
 }
 .wrap-second-cat > ul > p > a {
     line-height: 1.6em;
@@ -921,12 +924,11 @@ ul.block-wrapper li:last-child {}
     text-decoration: none;
 }
 .homepage .homepage-banner .second-level p{
-    line-height: 1.6em;
+    line-height: 1.3em;
 	margin: 0;
 	text-indent: 0;
 }
 .homepage .homepage-banner .first-level .second-level li{
-    font-size: 0.99em;
 	line-height: 1.6em;
 }
 .homepage .homepage-banner .first-level .second-level .wrap-second-cat > ul li:hover > a,
