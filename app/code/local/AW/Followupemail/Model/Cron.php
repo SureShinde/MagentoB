@@ -146,8 +146,10 @@ class AW_Followupemail_Model_Cron {
         $this->_lastExecTimeMySQL = date(AW_Followupemail_Model_Mysql4_Queue::MYSQL_DATETIME_FORMAT, $this->_lastExecTime);
 
         /* add GMT+7 */
+        /*
         $this->_nowMySQL = date('Y-m-d H:i:s', strtotime('+7 hours', strtotime($this->_nowMySQL)));
         $this->_lastExecTimeMySQL = date('Y-m-d H:i:s', strtotime('+7 hours', strtotime($this->_lastExecTimeMySQL)));
+        */
 
         try {
             $timeShift = Mage::app()->getLocale()->date()->get(Zend_Date::TIMEZONE_SECS);
@@ -356,9 +358,8 @@ class AW_Followupemail_Model_Cron {
         $select = $read->select()
             ->from(array('sop' => $resource->getTableName('sales/order_payment')), array('method' => 'sop.method'))
             ->joinInner(array('so' => $resource->getTableName('sales/order')), 'sop.parent_id=so.entity_id')
-            //->where("created_at between '".$this->_lastExecTimeMySQL."' and '".$this->_nowMySQL."'")
-            //hardcode between
-            ->where("so.created_at between '2015-11-16 00:00:00' and '2015-11-18 23:59:59'")
+            ->where("so.created_at between '".$this->_lastExecTimeMySQL."' and '".$this->_nowMySQL."'")
+            //->where("so.created_at between '2016-02-03 00:00:00' and '2016-02-05 23:59:59'")
             ->where("so.`status`='pending'");
         $payments = $read->fetchAll($select);
         $sequenceNumber = 1;
