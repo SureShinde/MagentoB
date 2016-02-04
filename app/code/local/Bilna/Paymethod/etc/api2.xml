@@ -1,0 +1,132 @@
+<?xml version="1.0"?>
+<config>
+	<api2>
+		<resource_groups>
+			<paymethod translate="title" module="Bilna_Paymethod">
+				<title>Bilna Payment Method</title>
+				<sort_order>9900</sort_order>
+			</paymethod>
+		</resource_groups>
+		<resources>
+			<paymethod_config translate="title" module="Bilna_Paymethod">
+				<group>paymethod</group>
+				<sort_order>9010</sort_order>
+				<model>paymethod/api2_config</model>
+				<title>Paymethod Config</title>
+				<privileges>
+					<admin>
+						<retrieve>1</retrieve>
+					</admin>
+					<customer>
+						<retrieve>1</retrieve>
+					</customer>
+				</privileges>
+				<attributes translate="config" module="Bilna_Paymethod">
+					<config>Config</config>
+				</attributes>
+				<routes>
+					<route_entity>
+						<route>/paymethod/config/:id</route>
+						<action_type>entity</action_type>
+					</route_entity>
+					<!--route_collection>
+						<route>/paymethod/config</route>
+						<action_type>collection</action_type>
+					</route_collection-->
+				</routes>
+				<versions>1</versions>
+			</paymethod_config>
+			<paymethod_klikpay translate="title" module="Bilna_Paymethod">
+				<group>paymethod</group>
+				<sort_order>9010</sort_order>
+				<model>paymethod/api2_klikpay</model>
+				<title>Paymethod Klikpay</title>
+				<privileges>
+					<admin>
+						<retrieve>1</retrieve>
+					</admin>
+					<customer>
+						<retrieve>1</retrieve>
+					</customer>
+				</privileges>
+				<attributes translate="data action" module="Bilna_Paymethod">
+					<data>Data</data>
+					<action>Action</action>
+				</attributes>
+				<routes>
+					<route_entity>
+						<route>/paymethod/klikpay/:id</route>
+						<action_type>entity</action_type>
+					</route_entity>
+					<!--route_collection>
+						<route>/paymethod/config</route>
+						<action_type>collection</action_type>
+					</route_collection-->
+				</routes>
+				<versions>1</versions>
+			</paymethod_klikpay>
+			<paymethod_vtdirect translate="title" module="Bilna_Paymethod">
+				<group>paymethod</group>
+				<sort_order>9010</sort_order>
+				<model>paymethod/api2_vtdirect</model>
+				<title>Paymethod Vtdirect</title>
+				<privileges>
+					<admin>
+						<retrieve>1</retrieve>
+					</admin>
+					<customer>
+						<retrieve>1</retrieve>
+					</customer>
+				</privileges>
+				<attributes translate="response" module="Bilna_Paymethod">
+					<response>Response</response>
+				</attributes>
+				<routes>
+					<route_entity>
+						<route>/paymethod/vtdirect/:id</route>
+						<action_type>entity</action_type>
+					</route_entity>
+					<!--route_collection>
+						<route>/paymethod/config</route>
+						<action_type>collection</action_type>
+					</route_collection-->
+				</routes>
+				<versions>1</versions>
+			</paymethod_vtdirect>
+			<paymethod_installment translate="title" module="Bilna_Paymethod">
+				<group>paymethod</group>
+				<sort_order>9010</sort_order>
+				<model>paymethod/api2_installment</model>
+				<title>Installment Options</title>
+				<privileges>
+					<admin>
+						<retrieve>1</retrieve>
+					</admin>
+					<customer>
+						<retrieve>1</retrieve>
+					</customer>
+				</privileges>
+				<attributes translate="data installment_method allow_installment min_order_total max_order_total min_installment_total max_installment_total" module="Bilna_Paymethod">
+					<data>Options</data>
+					<installment_method>Installment Method</installment_method>
+					<allow_installment>Allow Installment</allow_installment>
+					<min_order_total>Min Order Total</min_order_total>
+					<max_order_total>Max Order Total</max_order_total>
+					<min_installment_total>Min Installment Total</min_installment_total>
+					<max_installment_total>Max Installment Total</max_installment_total>
+				</attributes>
+				<routes>
+					<route_entity>
+						<route>/paymethod/installment/:id</route>
+						<action_type>entity</action_type>
+					</route_entity>
+					<!--route_collection>
+						<route>/paymethod/config</route>
+						<action_type>collection</action_type>
+					</route_collection-->
+				</routes>
+				<versions>1</versions>
+			</paymethod_installment>
+		</resources>
+	</api2>
+</config>

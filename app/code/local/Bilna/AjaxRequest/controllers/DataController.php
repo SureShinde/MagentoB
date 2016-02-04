@@ -33,6 +33,7 @@ class Bilna_AjaxRequest_DataController extends Mage_Core_Controller_Front_Action
 	    	$response['data']['quote']['productIds'] = $gtmIds;
 	    	$response['data']['quote']['productPrices'] = $gtmPrices;
 	    	$response['data']['quote']['productQtys'] = $gtmQuantitys;
+
 	    	$response['data']['quote']['productSkuIds'] = $gtmSkuIds;
 	    	$response['data']['quote']['totalValue'] = $total;
 	    }

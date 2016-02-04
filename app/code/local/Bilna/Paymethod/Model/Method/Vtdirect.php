@@ -127,6 +127,7 @@ class Bilna_Paymethod_Model_Method_Vtdirect extends Mage_Payment_Model_Method_Cc
         
         $info = $this->getInfoInstance();
         $no = $info->getCcBins();
+        $errorMsg = null;
         
         if (empty ($no)) {
             $errorCode = 'invalid_data';

@@ -165,8 +165,19 @@
 </script>
 <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('above-header-notification')->toHtml() ?> 
 <div class="header-container">
-    
-    <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('above-header')->toHtml() ?>
+    <div class="space-above-header">
+        <div class="container-above-header">
+            <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('above-header')->toHtml() ?>
+            <ul class="keypoint">
+                <li>
+                    <a href="{{config path='web/unsecure/base_url'}}faq/"><em class="fa fa-reply-all"></em> Pusat Bantuan</a>
+                </li>
+                <li>
+                    <a href="<?php if($this->helper('customer')->isLoggedIn()):?><?php echo $this->getUrl('sales/order/history') ?><?php else: ?><?php echo $this->getUrl('orderdetail') ?><?php endif;?>"><em class="fa fa-file-text-o"></em> Cek Pesanan</a>
+                </li>
+            </ul>
+        </div>
+    </div>
     
     <?php echo $this->getLayout()->createBlock('page/html')->setTemplate('page/html/back-top.phtml')->toHtml(); ?>
     

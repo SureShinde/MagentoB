@@ -64,7 +64,7 @@
     margin-top: 2px;
     text-align: left;
 }
-.footer .cs-info p span.que{font-size: 1.5em line-height: 1em;}
+.footer .cs-info p span.que{font-size: 1.5em; line-height: 1em;}
 .footer .cs-info p span.phone{font-size: 2em; line-height: 1em;}
 .footer .cs-info p span.day{font-size: 1em}
 .footer .cs-info p span.email{font-size: 1.2em}
