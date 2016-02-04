@@ -266,6 +266,7 @@ class RocketWeb_Netsuite_Helper_Mapper_Order extends RocketWeb_Netsuite_Helper_M
                             if (in_array($item->getProductType(), array ('bundle'))) {
                                 continue;
                             }
+
                             /*$bundleDiscount = 0;
                             $discountPerItem = 0;
                             if( (isset( $productOptions['bundle_selection_attributes'] )) && ($item->getProductType() == 'simple' && $item->getData('price') == 0 || $item->getData('parent_item_id') != '') ){

@@ -12,6 +12,10 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
     protected $_typeTransaction = 'transaction';
     
     public function saveOrderAction() {
+        if ($this->_expireAjax()) {
+            return;
+        }
+        
         $paymentCode = Mage::getSingleton('checkout/session')->getQuote()->getPayment()->getMethodInstance()->getCode();
         $paymentSupportInstallment = explode(',', Mage::getStoreConfig('bilna_module/paymethod/payment_support_installment'));
         
@@ -26,10 +30,6 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
         }
         
         if (in_array($paymentCode, $paymentSupportInstallment)) {
-            if ($this->_expireAjax()) {
-                return;
-            }
-
             $result = array ();
                
             try {
@@ -389,6 +389,7 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
         }
         else {
             $session = $this->getOnepage()->getCheckout();
+
             if (!$session->getLastSuccessQuoteId()) {
                 $this->_redirect('checkout/cart');
                 return;

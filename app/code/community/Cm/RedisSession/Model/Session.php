@@ -59,7 +59,6 @@ class Cm_RedisSession_Model_Session extends Mage_Core_Model_Mysql4_Session
 
     /* Bots get shorter session lifetimes */
     const BOT_REGEX          = '/^alexa|^blitz\.io|bot|^browsermob|crawl|^curl|^facebookexternalhit|feed|google web preview|^ia_archiver|indexer|^java|jakarta|^libwww-perl|^load impact|^magespeedtest|monitor|^Mozilla$|nagios|^\.net|^pinterest|postrank|slurp|spider|uptime|^wget|yandex/i';
-
     const DEFAULT_TIMEOUT               = 2.5;
     const DEFAULT_COMPRESSION_THRESHOLD = 2048;
     const DEFAULT_COMPRESSION_LIB       = 'gzip';
@@ -81,7 +80,6 @@ class Cm_RedisSession_Model_Session extends Mage_Core_Model_Mysql4_Session
 
     /** @var int */
     protected $_dbNum;
-
     protected $_config;
     protected $_compressionThreshold;
     protected $_compressionLib;
@@ -140,6 +138,7 @@ class Cm_RedisSession_Model_Session extends Mage_Core_Model_Mysql4_Session
         }
         $this->_redis->setCloseOnDestruct(FALSE);  // Destructor order cannot be predicted
         $this->_useRedis = TRUE;
+
         if ($this->_logLevel >= Zend_Log::DEBUG) {
             $this->_log(sprintf("%s initialized for connection to %s:%s after %.5f seconds",
                 get_class($this), $host, $port, (microtime(true) - $timeStart)
@@ -167,6 +166,7 @@ class Cm_RedisSession_Model_Session extends Mage_Core_Model_Mysql4_Session
 
         try {
             $this->_redis->connect();
+            
             if ($this->_logLevel >= Zend_Log::DEBUG) {
                 $this->_log("Connected to Redis");
             }
@@ -193,6 +193,7 @@ class Cm_RedisSession_Model_Session extends Mage_Core_Model_Mysql4_Session
     public function read($sessionId)
     {
         if ( ! $this->_useRedis) return parent::read($sessionId);
+
         Varien_Profiler::start(__METHOD__);
 
         // Get lock on session. Increment the "lock" field and if the new value is 1, we have the lock.
@@ -208,6 +209,7 @@ class Cm_RedisSession_Model_Session extends Mage_Core_Model_Mysql4_Session
             $this->_log(sprintf("Attempting to take lock on ID %s", $sessionId));
         }
         $this->_redis->select($this->_dbNum);
+        
         while ($this->_useLocking)
         {
             // Increment lock value for this session and retrieve the new value
@@ -266,6 +268,7 @@ class Cm_RedisSession_Model_Session extends Mage_Core_Model_Mysql4_Session
                     $this->_redis->hIncrBy($sessionId, 'wait', -1);
                     $this->_sessionWritten = TRUE; // Prevent session from getting written
                     $writes = $this->_redis->hGet($sessionId, 'writes');
+
                     if ($this->_logLevel >= Zend_Log::WARN) {
                         $this->_log(sprintf(
                             "Session concurrency exceeded for ID %s; displaying HTTP 503 (%s waiting, %s total requests)\n  %s (%s - %s)",
@@ -300,6 +303,7 @@ class Cm_RedisSession_Model_Session extends Mage_Core_Model_Mysql4_Session
                 if ($pid && ! $this->_pidExists($pid)) {
                     // Allow a live process to get the lock
                     $this->_redis->hSet($sessionId, 'lock', 0);
+
                     if ($this->_logLevel >= Zend_Log::INFO) {
                         $this->_log(sprintf(
                             "Detected zombie process (%s) for %s (%s waiting)\n  %s (%s - %s)",
@@ -442,6 +446,7 @@ class Cm_RedisSession_Model_Session extends Mage_Core_Model_Mysql4_Session
             } else {
                 error_log("$e");
             }
+
             Varien_Profiler::stop(__METHOD__);
             return FALSE;
         }
@@ -458,6 +463,7 @@ class Cm_RedisSession_Model_Session extends Mage_Core_Model_Mysql4_Session
     public function destroy($sessionId)
     {
         if ( ! $this->_useRedis) return parent::destroy($sessionId);
+
         Varien_Profiler::start(__METHOD__);
 
         if ($this->_logLevel >= Zend_Log::DEBUG) {
@@ -479,6 +485,7 @@ class Cm_RedisSession_Model_Session extends Mage_Core_Model_Mysql4_Session
     public function close()
     {
         if ( ! $this->_useRedis) return parent::close();
+
         if ($this->_logLevel >= Zend_Log::DEBUG) {
             $this->_log("Closing connection");
         }

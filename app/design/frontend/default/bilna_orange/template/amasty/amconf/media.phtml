@@ -99,14 +99,6 @@
 						zoomWindowWidth: 200,
 						zoomWindowHeight: 200
 					});
-			$j('.zoom-gallery').bind("click",function(){
-				$j("#thumb").attr('src',$j(this).attr("data-zoom"));
-				$j("#thumb").attr('data-zoom-image',$j(this).attr("data-zoom-image"));
-				$j(".zoomLens > img").attr('src',$j("#thumb").attr("src"));
-				var bg_zoom = $j("#thumb").attr("data-zoom-image");
-				console.log(bg_zoom);
-				$j(".zoomWindowContainer > div").css("background-image", "url(" + bg_zoom + ")" );
-			});
 		}
 		else {
 			$j('#thumblist a').live('click',function(){
@@ -123,6 +115,14 @@
 				state = false;
 			});
 		}
+		$j('.zoom-gallery').bind("click",function(){
+			$j("#thumb").attr('src',$j(this).attr("data-zoom"));
+			$j("#thumb").attr('data-zoom-image',$j(this).attr("data-zoom-image"));
+			$j(".zoomLens > img").attr('src',$j("#thumb").attr("src"));
+			var bg_zoom = $j("#thumb").attr("data-zoom-image");
+			console.log(bg_zoom);
+			$j(".zoomWindowContainer > div").css("background-image", "url(" + bg_zoom + ")" );
+		});
 	});
 </script>   
 <?php if (count($this->getGalleryImages()) > 0): ?>
