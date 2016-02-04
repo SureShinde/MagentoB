@@ -62,7 +62,7 @@
 }
 .cg-col-xs-1, .cg-col-sm-1, .cg-col-md-1, .cg-col-lg-1, .cg-col-xs-2, .cg-col-sm-2, .cg-col-md-2, .cg-col-lg-2, .cg-col-xs-3, .cg-col-sm-3, .cg-col-md-3, .cg-col-lg-3, .cg-col-xs-4, .cg-col-sm-4, .cg-col-md-4, .cg-col-lg-4, .cg-col-xs-5, .cg-col-sm-5, .cg-col-md-5, .cg-col-lg-5, .cg-col-xs-6, .cg-col-sm-6, .cg-col-md-6, .cg-col-lg-6, .cg-col-xs-7, .cg-col-sm-7, .cg-col-md-7, .cg-col-lg-7, .cg-col-xs-8, .cg-col-sm-8, .cg-col-md-8, .cg-col-lg-8, .cg-col-xs-9, .cg-col-sm-9, .cg-col-md-9, .cg-col-lg-9, .cg-col-xs-10, .cg-col-sm-10, .cg-col-md-10, .cg-col-lg-10, .cg-col-xs-11, .cg-col-sm-11, .cg-col-md-11, .cg-col-lg-11, .cg-col-xs-12, .cg-col-sm-12, .cg-col-md-12, .cg-col-lg-12 {
     /*position: relative;*/
-    min-height: 1px;
+    /*min-height: 1px;*/
     padding-left: 5px;
     padding-right: 5px;
     box-sizing:border-box;

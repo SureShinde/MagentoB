@@ -2486,7 +2486,7 @@ div.choose-cover:hover > span.overlayer-pink
 .back-square-plus
 {
 	text-align: center;
-    height: 323px;
+    height: 349px;
     position: relative;
     background: #e7e7e7;
     -webkit-border-radius: 4px;
@@ -2547,7 +2547,7 @@ a.wishlist-name
 @media (max-width: 440px) {
 		.title-banner-collection
 	{
-		font-size: 55px !important;
+		font-size: 27px !important;
 	}
 /*	.collection-top-banner
 	{
@@ -2565,13 +2565,17 @@ a.wishlist-name
 	{
 	    text-align: left !important;
 	}
+	#top-banner
+	{
+		margin-top: 175px;
+	}
 
 }
 @media (max-width: 320px) {
 		.title-banner-collection
 	{
-		font-size: 45px !important;
-		letter-spacing: -2px !important;
+		font-size: 27px !important;
+		
 	}
 		.collection-mid-banner-container-text
 	{
@@ -2588,6 +2592,13 @@ a.wishlist-name
 	    display: inline-table !important;
 	    list-style: none;
 	}
+	.title-banner-collection
+{
+    font-family: 'Open Sans', sans-serif;
+    font-size: 27px;
+    color: #3C3D41;
+    font-weight: 700;
+}
 
 }
 @media (max-width: 400px){
@@ -2953,7 +2964,7 @@ a.collection-title-limiter:hover{
 }
 .collectionbox .button.btn-cartall {
     float: right;
-    padding: 9px 70px;
+    /*padding: 9px 70px;*/
     font-size: 12px;
     text-transform: uppercase;
     margin-top: 2px;
@@ -3006,11 +3017,19 @@ ul.product-image-thumbs {
     color: #fff;
     background: #ee5191;
 }
+
+/*---@media---*/
 @media (max-width: 400px){
 
 	.disc-stamp
 	{
 		font-size: 8px !important;
+	}
+	.closer-top-banner
+	{
+	position: absolute;
+    width: auto;
+    right: 20px;
 	}
 }
 @media (max-width: 640px){
@@ -3322,16 +3341,182 @@ span.lil-exp
 {
 	position: relative;
 }
+#preset-image-container .choose-cover
+{
+	position: relative;
+}
 p.exp-three-col
 {
-	font-size: 16px;
+	font-size: 15px;
     color: #73777a;
     font-family: 'Open Sans';
+    margin-bottom: 20px;
 }
 .bottom-spacer-more
 {
 	margin-bottom: 40px;
 }
-
-
-
+#imgups
+{
+	margin-top: 5px;
+}
+.soc-size {
+    text-align: center;
+    color: #fff;
+    min-width: 37px;
+    max-width: 37px;
+    max-height: 37px;
+    min-height: 37px;
+    font-size: 18px;
+    padding: 4px 4px;
+    border-radius: 100%;
+    margin: 0 2px;
+}
+.list-products .box {
+    width: 100%;
+    display: inline-block;
+    margin-bottom: 10px;
+    padding-bottom: 15px;
+    text-align: center;
+    position: relative;
+    box-shadow: 0px 1px 2px #ccc;
+}
+.list-products .box .media {
+    border: none;
+    position: relative;
+    margin-top: 0px;
+    overflow: hidden;
+}
+.list-products .box .media {
+    margin-bottom: 20px;
+    position: relative;
+    border: 1px dotted #ededed;
+    background-size: 100% auto;
+    line-height: 254px;
+    text-align: center;
+    vertical-align: middle;
+    width: 100%;
+    overflow: hidden;
+}
+.list-products .box .media .action:hover {
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+    opacity: 1;
+    background-color: rgba(231, 231, 231, 0.5);
+}
+.list-products .box .media .action {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    opacity: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -ms-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+    cursor: pointer;
+}
+.list-products .box .media .action > a {
+    width: 100%;
+    display: block;
+    height: 100%;
+}
+.list-products .box .media .action .add-to-links {
+    background: transparent !important;
+    font-size: 20px;
+    top: 2px;
+    right: 2px;
+}
+.list-products .box .media .action .add-to-links {
+    width: 41px;
+    height: 41px;
+    background: #fff;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -ms-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+    position: absolute;
+    margin: 0;
+    right: 10px;
+    top: 10px;
+    padding: 0px;
+    line-height: 18px;
+} .list-products .box .media .action button, .list-products .box .media .action button:hover {
+    opacity: 1;
+    width: 70%;
+    position: absolute;
+    left: 15%;
+    top: 45%;
+    height: 30px;
+    margin: 0px;
+    color: #fff;
+    font-size: 14px;
+    text-align: center;
+    font-weight: 700;
+}
+.container-collection-pop {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    color: #000;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, .6);
+    z-index: 999999;
+}
+.collectioncontentbox {
+    width: 75%;
+    overflow: hidden;
+    float: left;
+}
+ .collectionactionbox {
+    width: 20%;
+    float: right;
+}
+.collectionbox {
+    background: #e7e7e7;
+    padding: 10px;
+    margin-bottom: 20px;
+    overflow: hidden;
+    color: #404040;
+    font-size: 13px;
+}
+.button, .cart-table .product-cart-actions .button, #co-shipping-method-form .buttons-set .button, .footer .button {
+    background: #3eb988;
+    display: inline-block;
+    padding: 7px 15px;
+    border: 0;
+    color: #FFFFFF;
+    font-size: 13px;
+    font-weight: normal;
+    font-family: 'Montserrat', Arial, Verdana, sans-serif;
+    line-height: 19px;
+    text-align: center;
+    text-transform: initial;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+.in-block
+{
+	display: inline-block !important;
+}
+img{
+	max-width: 100%;
+}
+.brand
+{
+	font-weight: bold;
+    font-size: 18px;
+    font-family: "open sans";
+}
+.regular-price {
+    width: 100%;
+    font-family: "open sans";
+}

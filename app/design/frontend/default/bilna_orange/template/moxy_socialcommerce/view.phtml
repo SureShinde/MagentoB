@@ -157,9 +157,9 @@ Why don’t you start create your own collection?
              <div class="cg-col-lg-3 cg-col-md-3 cg-col-sm-6 cg-col-xs-12 bottom-spacer-container" style="padding:0 10px;" onclick="newShowAddCollectionDialog()">
               <div class="cg-col-sm-12 back-square-plus nopadding" style="">
                <div class="middle-part-plus" style="">
-                 <i class="fa fa-plus" style="color:#fff;font-size:30px;"></i>
+                 <i class="fa fa-plus" style="color:#757575;font-size:30px;"></i>
                 <br>
-                <span class="text-plus">Create New Collection</span>
+                <span class="text-plus opensans bold">Create New Collection</span>
                </div>
              </div>
           </div>
@@ -202,7 +202,7 @@ Why don’t you start create your own collection?
 
             <?php if ($manageable) : ?>
 
-            <div class="cg-col-lg-12">
+            <div class="cg-col-lg-12 relative">
               <div class="container-collection cg-col-lg-12 cg-col-md-12 cg-col-sm-12 cg-col-xs-12 nobackground">
                 <div class="cg-col-lg-12 cg-col-md-12 cg-col-sm-12 cg-col-xs-12">
                   <a href="javascript:;" class="edit-collection editCollectionLink" onclick="" data-collection-id="<?php echo $wishlist->getId(); ?>" data-desc-col="<?php echo $wishlist->getDesc(); ?>"  data-title-col="<?php echo $wishlist->getName(); ?>" data-visibility-col="<?php echo $wishlist->getVisibility(); ?>"><i class="fa fa-pencil"></i></a>
@@ -211,7 +211,7 @@ Why don’t you start create your own collection?
             </div>
             <?php endif; ?>
 
-      <div class="cg-col-lg-12 cg-col-xs-12 collection-shade">
+      <div class="cg-col-lg-12 cg-col-xs-12 nopadding collection-shade">
               <?php $cekcover = $wishlist->getCloudCover(); ?>
 
               <a href="<?php echo $this->getUrl('collections/' . $wishlist->getId() . '-' . $itemSlug); ?>">
@@ -242,7 +242,7 @@ Why don’t you start create your own collection?
     </a>
 
     <div class="cg-col-lg-12 cg-col-xs-12 collection-title">
-      <a class="collection-title-limiter" href="<?php echo $this->getUrl('collections/' . $wishlist->getId() . '-' . $itemSlug); ?>">
+      <a class="collection-title-limiter opensans nameOfList uppercase " href="<?php echo $this->getUrl('collections/' . $wishlist->getId() . '-' . $itemSlug); ?>">
         <?php echo $wishlist->getName(); ?>
         <?php echo ($collectionEmpty) ? ' (Empty)' : ''; ?>
       </a>
@@ -328,7 +328,8 @@ Why don’t you start create your own collection?
                   </div>
                 </div>
                 <div id="tabs-2" style="color: #545454;">
-                  <div class="cg-col-sm-4 cg-col-sm-offset-4 cg-col-xs-12 dashed-upload">
+                  <div class="cg-col-sm-4 cg-col-sm-offset-4 cg-col-xs-12 dashed-upload nopadding">
+                    <img id="imgups" src="<?php echo $this->getSkinUrl('images/unggah.png'); ?>" alt="your image" width ="100%"/>
                     <div class="fileUpload-coll" id="no-span">
                     <input type="file" title="Browse" name="cover" class="upload-coll take-center" id="imgInp"/>
                     </div>
@@ -380,19 +381,19 @@ Why don’t you start create your own collection?
 <div class="container-collection-pop" style="display:none;" id="deleteConfirmation">
   <div class="cg-col-lg-5 cg-col-md-6 cg-col-sm-6 cg-col-xs-11 container-collection-whitebg" style="max-width:500px;">
     <div class="cg-col-lg-12 cg-col-sm-12 cg-col-md-12 cg-col-xs-12 collection-top-part">
-      <div class="cg-col-lg-11 cg-col-md-11 cg-col-sm-11 cg-col-xs-11 add-to-collection-title">Delete Collection</div>
+      <div class="cg-col-lg-11 cg-col-md-11 cg-col-sm-11 cg-col-xs-11 add-to-collection-title opensans">Hapus Koleksi</div>
       <div class="cg-col-lg-1 cg-col-md-1 cg-col-sm-1 cg-col-xs-1 " id="closer-collection">
         <a href="javascript:;" onclick="hideDelete()" style="text-decoration:none;width:100%;display:block"><i class="fa fa-times"></i></a>
       </div>
     </div>
       <div class="form-group in-block full-width">
-        <label for="" class="cg-col-sm-12 control-label label-color text-center label-margin">Are u ready to say goodbye forever to this collection?</label>
+        <label for="" class="cg-col-sm-12 control-label label-color text-center label-margin opensans">Apakah kamu yakin akan menghapus koleksi ini?</label>
         <div class="cg-col-sm-12">
           <div class="cg-col-xs-6">
-        <div class="btn btn-default btn-block btn-cancel" style="text-decoration:none" onclick="newHideCollectionEdit()">NO, I'M NOT</div>
+        <div class="btn btn-pink-prime cursor take-center" style="text-decoration:none" onclick="newHideCollectionEdit()">NO, I'M NOT</div>
       </div>
       <div class="cg-col-xs-6">
-        <button type="submit" class="btn btn-primary btn-block" style="margin: 10px 0;" name="deleteButton">DELETE</button>
+        <button type="submit" class="btn btn-cancel-button take-center full-width" style="margin: 10px 0;" name="deleteButton">DELETE</button>
         <!--<button type="submit" class="btn btn-primary btn-block" style="margin: 10px 0;" name="deleteButton" onclick="newShowCollectionEdit()">Delete</button>-->
         </form>
       </div>
@@ -410,9 +411,9 @@ Why don’t you start create your own collection?
     <form action="<?php echo $this->getUrl('user/settings/save'); ?>?next=<?php echo '/user/'.$this->getRequest()->getParam('u'); ?>" method="post" enctype="multipart/form-data" onsubmit="return preventDefault(this)">
       <div class="cg-col-lg-12 cg-col-xs-12 cg-col-sm-12 cg-col-md-12 box inside-collection noborder">
         <div class="cg-col-lg-12 cg-col-sm-12 cg-col-md-12 cg-col-xs-12 collection-top-part">
-          <div class="cg-col-lg-11 cg-col-md-11 cg-col-sm-11 cg-col-xs-11 add-to-collection-title">Edit Profile</div>
+          <div class="cg-col-lg-11 cg-col-md-11 cg-col-sm-11 cg-col-xs-11 add-to-collection-title bold opensans take-left">Ubah Profil</div>
           <div class="cg-col-lg-1 cg-col-md-1 cg-col-sm-1 cg-col-xs-1 " id="closer-collection">
-            <a href="javascript:;" onclick="hideProfileEdit()" style="text-decoration:none;width:100%;display:block">x</a>
+            <a href="javascript:;" onclick="hideProfileEdit()" style="text-decoration:none;width:100%;display:block"><i class="fa fa-times"></i></a>
           </div>
         </div>
         <div class=" normal-padding cg-col-lg-4 cg-col-md-4 cg-col-sm-4 cg-col-xs-5">
@@ -435,8 +436,8 @@ Why don’t you start create your own collection?
  </div>
        <!--    <div class="newor btn  cg-col-xs-12 cg-col-sm-12 cg-col-md-1 cg-col-lg-1 ">or</div>
        <div class="newdelete btn cg-col-xs-12 cg-col-sm-12 cg-col-md-5 cg-col-lg-4 small-center" onclick="showProfileEdit()" style="">delete</div> -->
-       <div class="cg-col-xs-12 exp-profile-img">
-        please upload an image file as yout profile picture. Recommended size is 400px width and 400px height
+       <div class="cg-col-xs-12 exp-profile-img opensans">
+        Kami merekomendasikan untuk mengunggah image dengan ukuran 400px width dan 400px height untuk gambar profil.
       </div>
     </div>
     <div class="cg-col-xs-12 top-dotted newpaddtop10 top-spacer">
@@ -452,12 +453,11 @@ Why don’t you start create your own collection?
           </div>
           <span class="exp-span">http://moxy.co.id/user/username <span style="color: #B90000;font-weight: bold;font-size:11px;">You can only change this once</span></span>
         -->
-        <label for="datepicker" class="full-width" style="color: #545454; margin-bottom: 10px;">Date of Birth *</label>
+        <label for="inputEmail3" class="cg-col-xs-12 control-label label-color label-margin take-left opensans">Date of Birth *</label>
         <div class="input-group">
           <input type="text" class="form-control noradius" id="datepicker" placeholder="" style="display:block !important;" name="dob" value="<?php echo ($customerDob) ? $customerDob : '' ?>">
-          <div class="input-group-addon"><i class="fa fa-th"></i></div>
         </div>
-        <label for="name" class="full-width" style="color: #545454; margin-bottom: 10px;margin-top: 10px;">Location</label>
+        <label for="inputEmail3" class="cg-col-xs-12 control-label label-color label-margin take-left opensans">Location</label>
         <input type="text" name="location" id="modalDescCol" class="input-collection full-width" placeholer="Location" value="<?php echo ($profiler->getLocation()) ? $profiler->getLocation() : '' ?>">
 
           <!--
@@ -474,8 +474,8 @@ Why don’t you start create your own collection?
               <span id="tags-interest"></span>
           </div>
         -->
-        <label for="name" class="full-width" style="color: #545454; margin-bottom: 10px;margin-top: 10px;">About Me</label>
-        <textarea rows="4" id="" class="full-width" style="max-width:100%;" placeholer="A cook, a mother, a sister." name="about"><?php echo ($profiler->getAbout()) ? $profiler->getAbout(): '' ?></textarea>
+        <label for="inputEmail3" class="cg-col-xs-12 control-label label-color label-margin take-left opensans">About Me</label>
+        <textarea rows="4" id="" class="full-width" style="max-width:100%;box-sizing:border-box;" placeholer="A cook, a mother, a sister." name="about"><?php echo ($profiler->getAbout()) ? $profiler->getAbout(): '' ?></textarea>
 
       </div>
     </div>
