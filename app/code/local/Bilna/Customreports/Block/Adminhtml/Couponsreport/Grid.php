@@ -251,6 +251,7 @@ class Bilna_Customreports_Block_Adminhtml_Couponsreport_Grid extends Mage_Adminh
 	        'rate'          => $rate
 	    ));
 
+
 		$this->addExportType('*/*/exportCsv', Mage::helper('sales')->__('CSV'));
 		$this->addExportType('*/*/exportExcel', Mage::helper('sales')->__('Excel'));
 

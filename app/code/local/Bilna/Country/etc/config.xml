@@ -1,0 +1,14 @@
+<config>
+	<modules>
+		<Bilna_Country>
+			<version>0.0.1</version>
+		</Bilna_Country>
+	</modules>
+	<global>
+		<models>
+			<bilna_country>
+				<class>Bilna_Country_Model</class>
+			</bilna_country>
+		</models>
+	</global>
+</config>
