@@ -38,13 +38,14 @@ $_categories = $_helper->getMegamenuData();
     <form id="nav-searchbar" action="<?php echo $catalogSearchHelper->getResultUrl() ?>" method="get" name="site-search" role="search" accept-charset="utf-8" class="nav-searchbar-inner">
         <div class="nav-submit-button nav-sprite">
             <button type="submit" value="" class="nav-submit-input" title="">
-                <img src="<?php echo $this->getSkinUrl('images/search-icon-new.png'); ?>" maxlength="<?php echo $catalogSearchHelper->getMaxQueryLength(); ?>"/>
+                <i class="fa fa-search"></i>
             </button>
         </div>
 
         <div class="nav-searchfield-width">
             <div id="nav-iss-attach">
-                <input type="text" id="twotabsearchtextbox" title="Search For" value="<?php echo $catalogSearchHelper->getEscapedQueryText() ?>" name="q" autocomplete="off" placeholder="Search...">
+                <input type="text" id="twotabsearchtextbox" title="Search For" value="<?php echo $catalogSearchHelper->getEscapedQueryText() ?>" name="q" autocomplete="off" placeholder="Cari produk, kategori atau brand">
             </div>
         </div>
     </form>
+    <p class="close_search">Batal</p>

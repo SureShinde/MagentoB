@@ -33,7 +33,7 @@
         <ul class="top-left-menu">
             <li><a href="<?php echo Mage::getBaseUrl(); ?>">Home</a></li>
             <li><a href="<?php echo Mage::getBaseUrl(); ?>orderdetail/">Lacak Pesanan</a></li>
-            <!--li><a href="#">Bantuan</a></li-->
+            <li><a href="#">Pusat Bantuan</a></li>
         </ul>
             <?php echo $this->getChildHtml('topLinks') ?>
         <div class="title-mobile-menu">
@@ -83,7 +83,7 @@
                             <?php if (count($_storeCategoriesChild) > 0): ?>
                                 <div class="wrap-first-level <?php echo $_storeCategoryClass; ?> <?php echo $_id; ?>">
                                     <div class="wrap-level2">
-                                        <span class="close-level-2-top back-level-1"> <i class="fa fa-chevron-left "></i>Kembali </span>
+                                        <span class="close-level-2-top back-level-1"> <i class="fa fa-angle-left"></i>Kembali </span>
                                         
                                         <ul class="category-level-2">
                                             <?php foreach ($_storeCategoriesChild as $_storeCategoryChild): ?>
@@ -95,8 +95,8 @@
                                                 ?>
                                                 <li> 
                                                     <a href="#!"><?php echo $_name2; ?>
-                                                        <i class="fa fa-plus"></i>
-                                                        <i class="fa fa-times-circle"></i>
+                                                        <i class="fa fa-caret-right"></i>
+                                                        <i class="fa fa-caret-down"></i>
                                                     </a>
                                                     <?php
                                                     $_storeCategoriesChildChild = array ();
