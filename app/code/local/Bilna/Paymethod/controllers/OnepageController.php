@@ -424,6 +424,27 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
             Mage::register('response_charge', $charge);
             Mage::dispatchEvent('sales_order_place_after', array ('order' => $order));
         }
+        /**
+         * Charge Transaction (Mandiri E-Cash)
+         */
+        elseif (in_array($paymentCode, $this->getPaymentMethodVtdirect())) {
+            $charge = $this->_vtdirectRedirectCharge($order);
+
+            Mage::getModel('paymethod/vtdirect')->addHistoryOrder($order, $charge);
+            Mage::register('response_charge', $charge);
+            //Mage::dispatchEvent('sales_order_place_after', array ('order' => $order));
+        }
+        /**
+         * Charge Virtual Account
+         */
+        elseif (in_array($paymentCode, $this->getPaymentMethodVA()) && $canceled == 0) {
+            // charge credit card
+            $charge = $this->_virtualAccountCharge($order);
+
+            // processing order
+            Mage::getModel('paymethod/vtdirect')->addHistoryOrder($order, $charge);
+            Mage::register('response_charge', $charge);
+        }
 
         // FDS (BILNA-1333) - Start
         if($canceled == 1) {
@@ -433,16 +454,7 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
         }
         // FDS (BILNA-1333) - End
         
-        /**
-         * Charge Transaction (Mandiri E-Cash)
-         */
-        if (in_array($paymentCode, $this->getPaymentMethodVtdirect())) {
-            $charge = $this->_vtdirectRedirectCharge($order);
-            
-            Mage::getModel('paymethod/vtdirect')->addHistoryOrder($order, $charge);
-            Mage::register('response_charge', $charge);
-            //Mage::dispatchEvent('sales_order_place_after', array ('order' => $order));
-        }
+
         
         $this->loadLayout();
         $this->_initLayoutMessages('checkout/session');
@@ -588,6 +600,59 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
         
         return $result;
     }
+
+    protected function _virtualAccountCharge($order) {
+        Mage::helper('paymethod')->loadVeritransNamespace();
+
+        //- setting config vtdirect
+        Veritrans_Config::$serverKey = $this->getVtdirectServerKey();
+        Veritrans_Config::$isProduction = $this->getVtdirectIsProduction();
+
+        $incrementId = $order->getIncrementId();
+        $grossAmount = $order->getGrandTotal();
+        $paymentCode = $order->getPayment()->getMethodInstance()->getCode();
+        $paymentType = Mage::getStoreConfig('payment/' . $paymentCode . '/vtdirect_payment_type');
+        $bank = Mage::getStoreConfig('payment/' . $paymentCode . '/bank');
+
+        //-Required
+        $transactionDetails = array (
+            'order_id' => $incrementId,
+            'gross_amount' => $grossAmount
+        );
+        $customerDetails = array (
+            'first_name' => $order->getBillingAddress()->getFirstname(),
+            'last_name' => $order->getBillingAddress()->getLastname(),
+            'email' => $this->getCustomerEmail($order->getBillingAddress()->getEmail()),
+            'phone' => $order->getBillingAddress()->getTelephone(),
+        );
+
+        //- Data that will be sent for charge transaction request with Virtual Account.
+        $transactionData = array (
+            'payment_type' => $paymentType,
+            'transaction_details' => $transactionDetails,
+            'customer_details' => $customerDetails,
+            $paymentType => array (
+                'bank' => $bank,
+            ),
+        );
+
+        try {
+            $this->writeLog($paymentCode, $this->_typeTransaction, 'charge', 'request: ' . json_encode($transactionData));
+            $result = Veritrans_VtDirect::charge($transactionData);
+            $this->writeLog($paymentCode, $this->_typeTransaction, 'charge', 'response: ' . json_encode($result));
+        }
+        catch (Exception $e) {
+            $this->writeLog($paymentCode, $this->_typeTransaction, 'charge', "error: [" . $incrementId . "] " . $e->getMessage());
+            $response = array (
+                'transaction_status' => 'deny',
+                'fraud_status' => 'deny',
+                'status_message' => $e->getMessage()
+            );
+            $result = (object) $response;
+        }
+
+        return $result;
+    }
     
     protected function logProgress($message) {
         Mage::log($message, null, 'newstack.log');
@@ -713,6 +778,14 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
     
     protected function getPaymentMethodVtdirect() {
         return Mage::helper('paymethod')->getPaymentMethodVtdirect();
+    }
+
+    /**
+     * Get List of Payment Method for Virtual Account
+     */
+    protected function getPaymentMethodVA()
+    {
+        return Mage::helper('paymethod')->getPaymentMethodVA();
     }
     
     protected function getTokenId() {

@@ -28,8 +28,10 @@ class Bilna_Paymethod_Model_Observer_Webservice_Vtdirect {
         $message = $notification->status_message;
         $transactionStatus = $notification->transaction_status;
         $fraudStatus = $notification->fraud_status;
-        
-        if ($this->isMandiriEcash($notification, $paymentCode)) {
+        $isMandiriEcash = $this->isMandiriEcash($notification, $paymentCode);
+        $isVirtualAccount = $this->isVirtualAccount($notification, $paymentCode);
+
+        if ($isMandiriEcash || $isVirtualAccount) {
         //if (($transactionStatus == 'capture' && $fraudStatus == 'accept') || ($transactionStatus == 'cancel' && $fraudStatus == 'challenge') || $this->isMandiriEcash($notification, $paymentCode)) {
             if (in_array($orderStatus, $orderStatusAllow)) {
                 $updateOrder = Mage::getModel('paymethod/vtdirect')->updateOrder($order, $this->_code, $notification);
@@ -38,7 +40,7 @@ class Bilna_Paymethod_Model_Observer_Webservice_Vtdirect {
                     $contentLog = sprintf("%s | updateStatusOrder: %s", $incrementId, $order->getStatus());
                     $this->writeLog($this->_typeTransaction, 'notification', $contentLog);
                     
-                    if ($this->isMandiriEcash($notification, $paymentCode)) {
+                    if ($isMandiriEcash || $isVirtualAccount) {
                         Mage::dispatchEvent('sales_order_place_after', array ('order' => $order));
                     }
                 }
@@ -77,6 +79,16 @@ class Bilna_Paymethod_Model_Observer_Webservice_Vtdirect {
             return true;
         }
         
+        return false;
+    }
+
+    protected function isVirtualAccount($notification, $paymentCode) {
+        $paymentType = Mage::getStoreConfig('payment/' . $paymentCode . '/vtdirect_payment_type');
+
+        if ($notification->payment_type == $paymentType) {
+            return true;
+        }
+
         return false;
     }
 
