@@ -3655,7 +3655,7 @@
                         </max_installment_total>
                     </fields>
                 </megamc>
-                
+
                 <bnivisa translate="label">
                     <label>Bilna - Credit Card (BNI Visa)</label>
                     <sort_order>300</sort_order>
@@ -4028,7 +4028,7 @@
                         </max_installment_total>
                     </fields>
                 </bnimc>
-                
+
                 <bnikartinivisa translate="label">
                     <label>Bilna - Credit Card (BNI Kartini Visa)</label>
                     <sort_order>311</sort_order>
@@ -4401,7 +4401,7 @@
                         </max_installment_total>
                     </fields>
                 </bnikartinimc>
-                
+
                 <permatavisa translate="label">
                     <label>Bilna - Credit Card (Permata Visa)</label>
                     <sort_order>320</sort_order>
@@ -8040,20 +8040,13 @@
                         </instructions>
                         <vtdirect_payment_type translate="label">
                             <label>VT-Direct Payment Type</label>
-                            <frontend_type>text</frontend_type>
+                            <frontend_type>select</frontend_type>
+                            <source_model>paymethod/system_config_vtdirectpaymenttype</source_model>
                             <sort_order>70</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </vtdirect_payment_type>
-                        <payment_type translate="label">
-                            <label>Payment Type</label>
-                            <frontend_type>text</frontend_type>
-                            <sort_order>80</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                        </payment_type>
                         <bank translate="label">
                             <label>Bank</label>
                             <frontend_type>text</frontend_type>
