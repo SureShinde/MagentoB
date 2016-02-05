@@ -662,6 +662,17 @@
                 <allowspecific>0</allowspecific>
                 <group>offline</group>
             </mandiriecash>
+
+            <virtualaccountbca>
+                <active>1</active>
+                <model>paymethod/method_virtualaccountbca</model>
+                <order_status>pending</order_status>
+                <title>BCA Virtual Account</title>
+                <allowspecific>0</allowspecific>
+                <group>offline</group>
+                <payment_type>bank_transfer</payment_type>
+                <bank>bca</bank>
+            </virtualaccountbca>
         </payment>
     </default>
 </config>
