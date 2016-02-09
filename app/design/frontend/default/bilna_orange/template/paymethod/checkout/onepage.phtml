@@ -8,12 +8,6 @@
     var vtDirectClientKey = '<?php echo Mage::getStoreConfig('payment/vtdirect/client_key'); ?>';
     var creditCardPayment = '<?php echo Mage::getStoreConfig('bilna_module/success_page/payment_cc'); ?>';
     var creditCardPaymentArr = creditCardPayment.split(',');
-    var virtualAccountBca = <?php
-                            echo json_encode(array(
-                                'vtdirect_payment_type' => Mage::getStoreConfig('payment/virtualaccountbca/vtdirect_payment_type'),
-                                'bank' => Mage::getStoreConfig('payment/virtualaccountbca/bank')
-                            ));
-                            ?>;
     var ccDefaultMessageFailure = '<?php echo Mage::getStoreConfig('payment/vtdirect/default_response_message_failure'); ?>';
 </script>
 <script type="text/javascript" src="<?php echo $this->getJsUrl('varien/accordion.js'); ?>"></script>
