@@ -318,7 +318,7 @@ class Bilna_Pricevalidation_Adminhtml_PricevalidationController extends Mage_Adm
                                                     $product->setSpecialFromDateIsFormated(true);
                                                 }
                                                 if((in_array('special_to_date', $fieldList)) && !is_null($cleanData[$i-1]['special_to_date'])) {
-                                                    $product->setSpecialFromDate(date('m/d/Y', strtotime($cleanData[$i-1]['special_to_date'])));
+                                                    $product->setSpecialToDate(date('m/d/Y', strtotime($cleanData[$i-1]['special_to_date'])));
                                                     $product->setSpecialToDateIsFormated(true);
                                                 }
                                                 if((in_array('enabled', $fieldList)) && !is_null($cleanData[$i-1]['enabled'])) {
