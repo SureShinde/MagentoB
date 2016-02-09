@@ -14,8 +14,9 @@
     width: 100%;
 	float:left;
 	font-size:12px;
-    border-top: 1px solid #EAEAEA;
-    border-bottom: 1px solid #EAEAEA;
+    box-shadow: 0 0 2px rgba(0,0,0,0.3);
+    -webkit-box-shadow: 0 0 2px rgba(0,0,0,0.3);
+    -moz-box-shadow: 0 0 2px rgba(0,0,0,0.3);
     color: #fff;
 }
 .menu-navigation .wrap-navigation{
@@ -23,6 +24,7 @@
     margin: 0 auto;
     position: relative;
     display: block;
+    height: 50px;
 }
 .bg-dark-megamenu{
 	position:fixed;
@@ -100,11 +102,42 @@
     margin: 10px 0;
     line-height: 1.1em;
 }
-.promo-text-space li{
+.wrap-navigation a,
+.wrap-navigation li{
     float: left;
     padding: 16px 13px;
-    font-size: 1.1em;
+    font-size: 12px;
+    text-transform: uppercase;
+    font-weight: bold;
     color: #73777a;
+}
+.wrap-navigation .sub_nav > li{
+    position: relative;
+}
+.wrap-navigation .sub_nav > li:hover .child_nav{
+    display: block;
+}
+.wrap-navigation.inspirasi > li:first-child{
+    display: block;
+    color: #EE5191;
+    padding: 16px 20px;
+}
+.wrap-navigation.inspirasi .sub_nav{
+    width: 100%;
+    display: inline-block;
+    height: 50px;
+}
+.wrap-navigation.inspirasi .sub_nav .child_nav{
+    position: absolute;
+    left: 0;
+    background: #fff;
+    display: none;
+}
+.wrap-navigation.inspirasi .sub_nav .child_nav li{
+    display: block;
+    clear: both;
+    min-width: 100px;
+    text-align: left;
 }
 .wrap-second-cat > ul > p > a {
     line-height: 1.6em;

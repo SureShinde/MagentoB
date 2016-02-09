@@ -35,6 +35,10 @@
             <li><a href="<?php echo Mage::getBaseUrl(); ?>orderdetail/">Lacak Pesanan</a></li>
             <li><a href="#">Pusat Bantuan</a></li>
         </ul>
+        <ul class="top-left-menu">
+            <li><a href="<?php echo Mage::getBaseUrl(); ?>">Koleksi</a></li>
+            <li><a href="<?php echo Mage::getBaseUrl(); ?>orderdetail/">Inspirasi</a></li>
+        </ul>
             <?php echo $this->getChildHtml('topLinks') ?>
         <div class="title-mobile-menu">
 			DIREKTORI BELANJA
@@ -134,6 +138,9 @@
                 <div class="close-level-2 back-level-1"> </div>
             </div>
         <?php endif; ?>
+        <div class="text-promo-mobile">
+        <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('topmegamenu-promo')->toHtml() ?>
+        </div>
     </div>	
 </div>
     
