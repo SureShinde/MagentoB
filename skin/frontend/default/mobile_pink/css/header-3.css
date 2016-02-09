@@ -93,6 +93,9 @@ body {
     padding:5px 0 0;
     float: right;
 }
+.header .text-promo-mobile{
+    
+}
 .header .quick-access .left {
 	margin: 4px 50px 0 0;
 	position: relative;
@@ -420,17 +423,25 @@ body {
   -o-transition:All 0.2s ease;
   float:left;
  }
-.mobile-left-menu .first-level, .mobile-left-menu a{
+.mobile-left-menu .first-level, .mobile-left-menu a, .mobile-left-menu .text-promo-mobile li{
     margin: 0;
     color: #3c3d41;
     font-weight: bold;
     padding: 10px 0;
     text-transform: uppercase;
+    position: relative;
 }
 .mobile-left-menu .wrap-menu-cat,
-.mobile-left-menu .top-left-menu{
+.mobile-left-menu .top-left-menu,
+.mobile-left-menu .text-promo-mobile{
     padding: 0 5%;
     border-bottom: 1px solid #e4e4e4;
+}
+.mobile-left-menu .text-promo-mobile li:after{
+    content: "\f178";
+    font-family: FontAwesome;
+    position: absolute;
+    right: 0;
 }
 .mobile-left-menu .wrap-menu-cat ul li{
     display: table;
