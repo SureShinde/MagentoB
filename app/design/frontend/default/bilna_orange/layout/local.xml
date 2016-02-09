@@ -16,7 +16,7 @@
             </block>
             <block type="core/text" name="my.google.font">
                 <action method="setText"><text><![CDATA[
-                   <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'>
+                   <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
                     ]]></text>
                 </action>
             </block>
@@ -28,7 +28,7 @@
             </block>
             <action method="addCss"><stylesheet>css/reset.css</stylesheet></action>
             <action method="addCss"><stylesheet>css/stylesheet-2.css</stylesheet></action>
-            <action method="addCss"><stylesheet>css/header-3.less</stylesheet></action>
+            <action method="addCss"><stylesheet>css/header-3.css</stylesheet></action>
             <action method="addCss"><stylesheet>css/megamenu-3.css</stylesheet></action>
             <action method="addCss"><stylesheet>css/general-4.css</stylesheet></action>
             <action method="addCss"><stylesheet>css/footer-4.css</stylesheet></action>
