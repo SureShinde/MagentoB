@@ -42,6 +42,11 @@
                 <name>js/no-conflict.js</name>
                 <params><![CDATA[name="js002_second"]]></params>
             </action>
+             <action method="addItem">
+                <type>skin_js</type>
+                <name>js/header.js</name>
+                <params><![CDATA[name="js002_second"]]></params>
+            </action>
             <action method="addItem">
                 <type>skin_js</type>
                 <name>js/megamenu.js</name>
