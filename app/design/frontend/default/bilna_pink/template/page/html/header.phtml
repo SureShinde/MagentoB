@@ -29,11 +29,11 @@
 ?>
 
 <!--Mega Menu-->
-<script type="text/javascript">	
+<script type="text/javascript">
         wwidth = $j(window).width();
     var tooltipMobileFirst = 'tooltip_mobile_first';
     $j(window).load(function() {
-        
+
 		$j(".megamenu.megamenu-active img, .homepage-banner img").lazyload({
 			skip_invisible : true
 		});
@@ -63,25 +63,47 @@
         });
 		$j( ".product-image-zoom" ).mouseover('mousewheel',function(e) {
 				e.originalEvent.wheelDelta = 100;
-			
+
 		});
 		 $j('.bg-dark-megamenu').click(function() {
             $j('.megamenu').removeClass("megamenu-active");
             $j(this).hide();
         });
-		
-    });
-		
+
+        $j('.nav-mobile-trigger').click(function() {
+            $j('.mobile-left-menu').css({"width":"100%","left":"0"});
+            $j('.wrapper').css({"float":"left","margin-left":"70%","position":"fixed"});
+            $j('body').css({"overflow":"hidden"});
+            $j('.mobile-left-menu .back-left').css({"position":"fixed"});
+        });
+
+        $j('.mobile-left-menu .wrap-menu-cat > ul > li p').click(function() {
+			var data_left_menu_val = $j(this).attr("data-left-menu");
+			if ($j('.mobile-left-menu .wrap-menu-cat > ul > li.' + data_left_menu_val).hasClass("menu-active")){
+				$j('.mobile-left-menu .wrap-menu-cat > ul > li.' + data_left_menu_val).removeClass("menu-active");
+			} else {
+				$j('.mobile-left-menu .wrap-menu-cat > ul > li').removeClass("menu-active");
+				$j('.mobile-left-menu .wrap-menu-cat > ul > li.' + data_left_menu_val ).addClass("menu-active");
+			};
+        });
+        //================mobile left menu js========================
+
+        $j('.back-button').click(function() {
+            $j('.mobile-left-menu').css({"width":"100%","left":"-100%"});
+            $j('.wrapper').css({"float":"none","margin-left":"0","position":"relative"});
+            $j('body').css({"overflow":"auto"});
+			$j('.mobile-left-menu .back-left').css({"position":"absolute"});
+        });
+
 </script>
 
 <!--Mobile Menu-->
 <script type="text/javascript">
-    
+
     $j(document).ready(function() {
-	
-    
+
+
         $j(window).scroll(function() {
-            
             if ($j(this).scrollTop() > 100) {
                 $j(".back-to-top").fadeIn();
             }
@@ -89,7 +111,7 @@
                 $j(".back-to-top").fadeOut();
             }
         });
-	
+
         if (wwidth < 768) {
             $j('.nav-mobile-trigger').click(function(e) {
                 e.preventDefault();
@@ -97,49 +119,49 @@
                 $j('.my-account-mobile').slideUp();
                 $j('.nav-container').slideToggle();
             });
-            
+
             $j('#link-minicart').click(function(e) {
                 e.preventDefault();
                 $j('.nav-container').slideUp();
                 $j('.my-account-mobile').slideUp();
                 $j('.mini-cart-mobile').slideToggle();
             });
-            
+
             $j('.link-myaccount-mobile').click(function(e) {
                 e.preventDefault();
                 $j('.nav-container').slideUp();
                 $j('.mini-cart-mobile').slideUp();
-                $j('.my-account-mobile').slideToggle();	
+                $j('.my-account-mobile').slideToggle();
             });
         }
         else {
             $j('#link-minicart').click(function(e) {
                 e.preventDefault();
-                $j('.mini-cart').slideToggle();		
-            });	
-            
+                $j('.mini-cart').slideToggle();
+            });
+
             $j('#link-minicart-sticky').click(function(e) {
                 e.preventDefault();
                 $j('.mini-cart-sticky').slideToggle();
-            });	
-	}	
-	
+            });
+	}
+
 	$j(".nav-container ul#nav li.parent a").live("mouseover", function() {
             if (wwidth < 768) {
                 return  false;
             }
 	});
-        
+
 	$j(".nav-container ul#nav li.active-submenu").live("mouseover", function() {
             if (wwidth < 768) {
                 return  false;
             }
 	});
-        
+
 	$j(".nav-container ul#nav li.parent a.level-top").live('click', function() {
             if (wwidth < 768) {
                 var allPanels = $j('.nav-container li.parent ul').hide();
-                
+
                 if ($j(this).hasClass('active-submenu')) {
                     var href = $j(this).attr('href');
                     window.location.href = href;
@@ -155,7 +177,7 @@
                     $j(this).next().css({"display":"block"});
                     return false;
                 }
-            }	
+            }
             else {
                 var href = $j(this).attr('href');
                 window.location.href = href;
@@ -178,9 +200,8 @@
             </ul>
         </div>
     </div>
-    
     <?php echo $this->getLayout()->createBlock('page/html')->setTemplate('page/html/back-top.phtml')->toHtml(); ?>
-    
+
     <div class="header">
         <a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="logo"><strong><?php echo $this->getLogoAlt() ?></strong>
             <img src="<?php echo $this->getLogoSrc() ?>" alt="<?php echo $this->getLogoAlt() ?>" />
@@ -193,12 +214,13 @@
         </ul>
         <div class="quick-access">
             <div class="search-container-new">
-            <?php echo $this->getChildHtml('topSearch') ?>		               
+            <?php echo $this->getChildHtml('topSearch') ?>
             </div>
-            
+
             <div class="top-cart">
                 <div class="normal-sticky-cart">
-                    <?php $_totalItem = $this->helper('checkout/cart')->getSummaryCount();  //get total items in cart ?>                    
+                    <?php echo $this->getChildHtml('topLinks') ?>
+                    <?php $_totalItem = $this->helper('checkout/cart')->getSummaryCount();  //get total items in cart ?>
                     <?php if ($_totalItem == 0): ?>
                         <a href="#" class="link-minicart" id="link-minicart">
                             <i class="fa fa-shopping-cart"></i>
@@ -211,17 +233,16 @@
                         <span class="title-header-cart">TROLI</span>
                     </a>
                     <?php endif; ?>
-                    <?php echo $this->getChildHtml('topLinks') ?>
                     
                 </div>
                 <div class="mini-cart" style="display: none !important;"><?php echo $this->getChildHtml('topcart') ?></div>
             </div>
-            
+
             <p class="welcome-msg"><?php echo $this->getChildHtml('welcome') ?> <?php echo $this->getAdditionalHtml() ?></p>
-            
+
             <div class="clear"></div>
         </div>
-        
+
         <?php echo $this->getChildHtml('topContainer'); ?>
         
     </div>
