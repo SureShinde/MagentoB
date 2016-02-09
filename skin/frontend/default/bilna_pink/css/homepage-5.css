@@ -951,7 +951,8 @@ ul.block-wrapper li:last-child {}
 .homepage .homepage-banner .first-level li.first-level-cat.active-cat.hover-cat{
     background: #fffcfd !important;
 }
-.homepage .homepage-banner .first-level li.first-level-cat.active-cat.hover-cat > div.first-level-url{
+.homepage .homepage-banner .first-level li.first-level-cat.active-cat.hover-cat > div.first-level-url,
+.homepage .homepage-banner .first-level li.first-level-cat.active-cat.hover-cat > div.first-level-url .fa{
     color: #ee5191 !important;
 }
 .homepage .homepage-banner .first-level .active-cat{

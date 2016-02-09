@@ -27,142 +27,6 @@
  * @var Mage_Page_Block_Html_Header $this
  */
 ?>
-
-<!--Mega Menu-->
-<script type="text/javascript">	
-        wwidth = $j(window).width();
-    var tooltipMobileFirst = 'tooltip_mobile_first';
-    $j(window).load(function() {
-        
-		$j(".megamenu.megamenu-active img, .homepage-banner img").lazyload({
-			skip_invisible : true
-		});
-		$j(".homepage-banner .first-level > ul > li").hover(function(){
-			$j(".homepage-banner .first-level-cat.hover-cat img").lazyload();
-        });
-        $j("img.lazy").lazyload();
-	});
-    $j(document).ready(function() {
-		$j("img.lazy, .wrap-banner img:not(.image-slider), .warp-banner img").after('<div class="loader"><img class="loader-img" src="<?php echo Mage::getBaseUrl(); ?>skin/frontend/base/default/images/loading.gif"></div>');
-		$j(".homepage-banner .first-level > ul > li:first-of-type").addClass("active-cat");
-        $j(".homepage-banner .first-level > ul > li").hover(function() {
-		$j(".homepage-banner .first-level-cat.hover-cat img").lazyload();
-            $j('.homepage-banner .first-level > ul > li.active-cat .second-level').hide();
-			$j('.homepage-banner .first-level > ul > li.active-cat').css("background","#fff");
-            $j('.homepage-banner .first-level > ul > li').removeClass("hover-cat");
-            $j(this).addClass("hover-cat");
-        });
-        $j('.homepage-banner .first-level-url').click(function() {
-			if($j(this).parent().hasClass("hover-cat") ){
-				window.location.href = $j(this).attr("data-href");
-			}else{
-				$j('.homepage-banner .first-level > ul > li.active-cat .second-level').hide();
-				$j('.homepage-banner .first-level > ul > li').removeClass("hover-cat");
-				$j(this).parent().addClass("hover-cat");
-			}
-        });
-		$j( ".product-image-zoom" ).mouseover('mousewheel',function(e) {
-				e.originalEvent.wheelDelta = 100;
-			
-		});
-		 $j('.bg-dark-megamenu').click(function() {
-            $j('.megamenu').removeClass("megamenu-active");
-            $j(this).hide();
-        });
-		
-    });
-		
-</script>
-
-<!--Mobile Menu-->
-<script type="text/javascript">
-    
-    $j(document).ready(function() {
-	
-    
-        $j(window).scroll(function() {
-            
-            if ($j(this).scrollTop() > 100) {
-                $j(".back-to-top").fadeIn();
-            }
-            else {
-                $j(".back-to-top").fadeOut();
-            }
-        });
-	
-        if (wwidth < 768) {
-            $j('.nav-mobile-trigger').click(function(e) {
-                e.preventDefault();
-                $j('.mini-cart-mobile').slideUp();
-                $j('.my-account-mobile').slideUp();
-                $j('.nav-container').slideToggle();
-            });
-            
-            $j('#link-minicart').click(function(e) {
-                e.preventDefault();
-                $j('.nav-container').slideUp();
-                $j('.my-account-mobile').slideUp();
-                $j('.mini-cart-mobile').slideToggle();
-            });
-            
-            $j('.link-myaccount-mobile').click(function(e) {
-                e.preventDefault();
-                $j('.nav-container').slideUp();
-                $j('.mini-cart-mobile').slideUp();
-                $j('.my-account-mobile').slideToggle();	
-            });
-        }
-        else {
-            $j('#link-minicart').click(function(e) {
-                e.preventDefault();
-                $j('.mini-cart').slideToggle();		
-            });	
-            
-            $j('#link-minicart-sticky').click(function(e) {
-                e.preventDefault();
-                $j('.mini-cart-sticky').slideToggle();
-            });	
-	}	
-	
-	$j(".nav-container ul#nav li.parent a").live("mouseover", function() {
-            if (wwidth < 768) {
-                return  false;
-            }
-	});
-        
-	$j(".nav-container ul#nav li.active-submenu").live("mouseover", function() {
-            if (wwidth < 768) {
-                return  false;
-            }
-	});
-        
-	$j(".nav-container ul#nav li.parent a.level-top").live('click', function() {
-            if (wwidth < 768) {
-                var allPanels = $j('.nav-container li.parent ul').hide();
-                
-                if ($j(this).hasClass('active-submenu')) {
-                    var href = $j(this).attr('href');
-                    window.location.href = href;
-                }
-                else {
-                    $j(".nav-container li.parent a.level-top").removeClass("active-submenu");
-                    allPanels.slideUp();
-                    $j(this).parent().next().slideDown();
-
-                    $j(this).addClass("active-submenu");
-                    //$j(this).prev().removeClass("active-submenu");
-                    //$j(this).next().removeClass("active-submenu");
-                    $j(this).next().css({"display":"block"});
-                    return false;
-                }
-            }	
-            else {
-                var href = $j(this).attr('href');
-                window.location.href = href;
-            }
-	});
-    });
-</script>
 <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('above-header-notification')->toHtml() ?> 
 <div class="header-container">
     <div class="space-above-header">
@@ -178,9 +42,8 @@
             </ul>
         </div>
     </div>
-    
     <?php echo $this->getLayout()->createBlock('page/html')->setTemplate('page/html/back-top.phtml')->toHtml(); ?>
-    
+
     <div class="header">
         <a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="logo"><strong><?php echo $this->getLogoAlt() ?></strong>
             <img src="<?php echo $this->getLogoSrc() ?>" alt="<?php echo $this->getLogoAlt() ?>" />
@@ -193,12 +56,13 @@
         </ul>
         <div class="quick-access">
             <div class="search-container-new">
-            <?php echo $this->getChildHtml('topSearch') ?>		               
+            <?php echo $this->getChildHtml('topSearch') ?>
             </div>
-            
+
             <div class="top-cart">
                 <div class="normal-sticky-cart">
-                    <?php $_totalItem = $this->helper('checkout/cart')->getSummaryCount();  //get total items in cart ?>                    
+                    <?php echo $this->getChildHtml('topLinks') ?>
+                    <?php $_totalItem = $this->helper('checkout/cart')->getSummaryCount();  //get total items in cart ?>
                     <?php if ($_totalItem == 0): ?>
                         <a href="#" class="link-minicart" id="link-minicart">
                             <i class="fa fa-shopping-cart"></i>
@@ -211,33 +75,59 @@
                         <span class="title-header-cart">TROLI</span>
                     </a>
                     <?php endif; ?>
-                    <?php echo $this->getChildHtml('topLinks') ?>
                     
                 </div>
                 <div class="mini-cart" style="display: none !important;"><?php echo $this->getChildHtml('topcart') ?></div>
             </div>
-            
+
             <p class="welcome-msg"><?php echo $this->getChildHtml('welcome') ?> <?php echo $this->getAdditionalHtml() ?></p>
-            
+
             <div class="clear"></div>
         </div>
-        
+
         <?php echo $this->getChildHtml('topContainer'); ?>
         
     </div>
         
      <div class="menu-navigation">
-        <div class="wrap-navigation">
+        <div class="wrap-navigation belanja">
             <div class="wrap-megamenu">
                 <div class="button-megamenu"><p>Jelajahi Semua Kategori </p></div>
             </div>
-            <div class="promo-text-space col-md-12">
+            <div class="promo-text-space">
                 <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('topmegamenu-promo')->toHtml() ?>
             </div>
 
             <div id="megamenu" class="megamenu">
                 <?php echo $this->getLayout()->createBlock('megamenu/block')->setTemplate('bilna_megamenu/block.phtml')->toHtml(); ?>
             </div>
+        </div>
+        <div class="wrap-navigation inspirasi">
+            <ul class="sub_nav">
+                <li>Terpopuler
+                    <ul class="child_nav">
+                        <li>submenu 1</li>
+                        <li>submenu 2</li>
+                        <li>submenu 3</li>
+                    </ul>
+                </li>
+                <li>Tips &amp; Ide
+                    <ul class="child_nav">
+                        <li>submenu 1</li>
+                        <li>submenu 2</li>
+                        <li>submenu 3</li>
+                    </ul>
+                </li>
+                <li>Berita &amp; Hiburan</li>
+                <li>Video
+                    <ul class="child_nav">
+                        <li>submenu 1</li>
+                        <li>submenu 2</li>
+                        <li>submenu 3</li>
+                    </ul>
+                </li>
+                <li>Quiz</li>
+            </ul>
         </div>
     </div>
 </div>
