@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <modules>
+        <Acommerce_AddMultipleProducts>
+            <version>1.0</version>
+        </Acommerce_AddMultipleProducts>
+    </modules>
+    <frontend>
+        <routers>
+            <addmultipleproducts>
+                <use>standard</use>
+                <args>
+                    <module>Acommerce_AddMultipleProducts</module>
+                    <frontName>multiadd</frontName>
+                </args>
+            </addmultipleproducts>
+        </routers>
+    </frontend>
+</config>
