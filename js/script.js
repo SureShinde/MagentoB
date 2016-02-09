@@ -9,6 +9,9 @@ function hideAddCollectionDialog() {
 function newShowAddCollectionDialog() {
 	jQuery('#newAddCollectionModal').fadeIn('fast');
 }
+function closeTopBanner() {
+	jQuery('#top-banner').fadeOut('fast');
+}
 
 function newHideAddCollectionDialog() {
 	jQuery('#newAddCollectionModal').fadeOut('fast');
