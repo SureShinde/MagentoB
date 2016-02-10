@@ -17,6 +17,7 @@
 
 class RocketWeb_Netsuite_Model_Process {
     protected $_processedOperatios = array ();
+    protected $_exceptedImportableEntities = array('creditmemo');
 	
     public function processExport($logger = null) {
         if (!Mage::helper('rocketweb_netsuite')->isEnabled()) {
@@ -94,6 +95,16 @@ class RocketWeb_Netsuite_Model_Process {
         $time = Mage::helper('rocketweb_netsuite')->getServerTime();
         $updatedFrom = $this->getUpdatedFromDateInNetsuiteFormat(RocketWeb_Netsuite_Helper_Queue::NETSUITE_IMPORT_QUEUE);
         $importableEntities = $this->getImportableEntities();
+
+        // if there is no importable entities to be processed, just exit the cron process
+        if (count($importableEntities) == 0)
+            die("There is no importable entities to be processed\n");
+
+        // register the obtained importable entities into the registry to be used in the db receiver
+        if (Mage::registry('current_importable_entities')) {
+            Mage::unregister('current_importable_entities');
+        }
+        Mage::register('current_importable_entities',$importableEntities);
         
         foreach ($importableEntities as $path => $name) {
             if ($logger) {
@@ -407,13 +418,53 @@ class RocketWeb_Netsuite_Model_Process {
 
     public function getImportableEntities() {
         $iniFile = Mage::getBaseDir().'/files/netsuite/netsuite.ini';
-        if(file_exists($iniFile))
+
+        // check recordtype argument first
+        if (Mage::registry('current_run_recordtype'))
         {
-            $nsConfig = parse_ini_file($iniFile, true);
-            return $nsConfig['import_entities'];
-        }else{
-            return Mage::getConfig()->getNode('rocketweb_netsuite/import_entities')->asArray();
+            // check again if file netsuite.ini exists, get the entities from netsuite.ini
+            if(file_exists($iniFile))
+            {
+                $nsConfig = parse_ini_file($iniFile, true);
+                $return_array = array();
+
+                // if recordtype is all, return import_entities config from the ini file
+                if (Mage::registry('current_run_recordtype') == 'all')
+                    return $nsConfig['import_entities'];
+
+                // if recordtype is not all, get the matched available import entities
+                foreach( $nsConfig['import_entities'] as $key => $value )
+                {
+                    if (Mage::registry('current_run_recordtype') == $key)
+                        $return_array[$key] = $value;
+                }
+            }
+            // if netsuite.ini does not exist, get import entities from the XML config 
+            else 
+            {
+                // if recordtype is all, return import_entities config from the XM config
+                if (Mage::registry('current_run_recordtype') == 'all')
+                    return Mage::getConfig()->getNode('rocketweb_netsuite/import_entities')->asArray();
+
+                // if recordtype is not all, get the matched available import entities
+                foreach( Mage::getConfig()->getNode('rocketweb_netsuite/import_entities')->asArray() as $key => $value )
+                {
+                    if (Mage::registry('current_run_recordtype') == $key)
+                        $return_array[$key] = $value;
+                }
+            }
         }
+        else
+        {
+            // if there is no recordtype argument, use the xml config to get import entities
+            $return_array = Mage::getConfig()->getNode('rocketweb_netsuite/import_entities')->asArray();
+        }
+
+        // if there is an entity that is not importable, we have to remove it
+        foreach($this->_exceptedImportableEntities as $entity)
+            unset($return_array[$entity]);
+        
+        return $return_array;
     }
     
     private function test() {
