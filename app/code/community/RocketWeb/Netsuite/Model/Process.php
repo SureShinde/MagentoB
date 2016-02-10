@@ -123,76 +123,69 @@ class RocketWeb_Netsuite_Model_Process {
                     if ($importableEntityModel->getRecordType() != RecordType::inventoryItem) {
                         foreach ($records as $record) {
                             if ($importableEntityModel->isMagentoImportable($record) && !$importableEntityModel->isAlreadyImported($record)) {
-                                $internalRecordIds[] = $record->internalId;
+                                $internalRecordIds[] = $record->basic->internalId[0]->searchValue->internalId;
                             }
                         }
-                        
+
                         if (is_array($internalRecordIds)) {
-                            //we need to get the full object for each record, as item lists are missing from search requests
+                            $listrequest = new GetListRequest();
+
+                            $i = 0;
+                            // create array of baseref first to be passed as parameter for GetListRequest
                             foreach ($internalRecordIds as $internalRecordId) {
-                                $request = new GetRequest();
-                                $request->baseRef = new RecordRef();
-                                $request->baseRef->internalId = $internalRecordId;
-                                $request->baseRef->type = $importableEntityModel->getRecordType();
-                                
-                                $logger->logProgress("request date " . date("Y-m-d H:i:s"));
-                                $logger->logProgress("request {$name}: " . json_encode($request));
-                                
-                                /*$getResponse = Mage::helper('rocketweb_netsuite')->getNetsuiteService()->get($request);
-                                
+                                $listrequest->baseRef[$i] = new RecordRef();
+                                $listrequest->baseRef[$i]->internalId = $internalRecordId;
+                                $listrequest->baseRef[$i]->type = $importableEntityModel->getRecordType();
+                                $i++;
+                            }
+
+                            $logger->logProgress("request date " . date("Y-m-d H:i:s"));
+                            $logger->logProgress("request {$name}: " . json_encode($listrequest));
+
+                            $lastModifiedDate = $updatedFrom;
+                            $x=0;
+                            $tryNumber = 10;
+
+                            do{
+                                ++$x;
+                                $getListsResponse = Mage::helper('rocketweb_netsuite')->getNetsuiteService()->getList($listrequest);
+
                                 $logger->logProgress("response date " . date("Y-m-d H:i:s"));
-                                $logger->logProgress("response {$name}: " . json_encode($getResponse));
+                                $logger->logProgress("response {$name}: " . json_encode($getListsResponse));
                                 $logger->logProgress("----------------------------------------------------------------------------------------");
-                                
-                                if (!$getResponse->readResponse->status->isSuccess) {
-                                    throw new Exception((string) print_r($getResponse->readResponse->status->statusDetail, true));
-                                }
-                                else {
-                                    $record = $getResponse->readResponse->record;
-                                    $message = Mage::getModel('rocketweb_netsuite/queue_message');
-                                    $message = $message->create($importableEntityModel->getMessageType(), $record->internalId, RocketWeb_Netsuite_Helper_Queue::NETSUITE_IMPORT_QUEUE, $record);
-                                    
-                                    if (!$importableEntityModel->isQueued($message)) {
-                                        Mage::helper('rocketweb_netsuite/queue')->getQueue(RocketWeb_Netsuite_Helper_Queue::NETSUITE_IMPORT_QUEUE)->send($message->pack(), Mage::helper('rocketweb_netsuite')->getRecordPriority($path));
-                                    }
-                                }*/
 
-                                $lastModifiedDate = $updatedFrom;
-                                $x=0;
-                                $tryNumber = 10;
-                                do{
-                                    ++$x;
-                                    $getResponse = Mage::helper('rocketweb_netsuite')->getNetsuiteService()->get($request);
-
-                                    $logger->logProgress("response date " . date("Y-m-d H:i:s"));
-                                    $logger->logProgress("response {$name}: " . json_encode($getResponse));
-                                    $logger->logProgress("----------------------------------------------------------------------------------------");
-
-                                    $error = true;
-                                    if (!$getResponse->readResponse->status->isSuccess) {
-                                    //if (true) {
-                                        //throw new Exception((string) print_r($getResponse->readResponse->status->statusDetail, true));
+                                $error = true;
+                                foreach($getListsResponse->readResponseList->readResponse as $response)
+                                {
+                                    if(!$response->status->isSuccess)
+                                    {
                                         $error = false;
                                         if($x == $tryNumber)
                                         {
-                                            throw new Exception((string) print_r($getResponse->readResponse->status->statusDetail, true));
+                                            throw new Exception((string) print_r($response->status->statusDetail, true));
                                         }
                                         sleep(1);
                                     }
-                                    else {
-                                        $record = $getResponse->readResponse->record;
+                                    else
+                                    {
+                                        $record = $response->record;
+                                        $x = 0;
+
                                         $message = Mage::getModel('rocketweb_netsuite/queue_message');
                                         $message = $message->create($importableEntityModel->getMessageType(), $record->internalId, RocketWeb_Netsuite_Helper_Queue::NETSUITE_IMPORT_QUEUE, $record);
                                         
                                         if (!$importableEntityModel->isQueued($message)) {
                                             Mage::helper('rocketweb_netsuite/queue')->getQueue(RocketWeb_Netsuite_Helper_Queue::NETSUITE_IMPORT_QUEUE)->send($message->pack(), Mage::helper('rocketweb_netsuite')->getRecordPriority($path));
                                         }
-                                    }   
-                                }while($error == false && $x <= $tryNumber);
-
-
-                            }
+                                    }
+                                
+                                }
+   
+                            }while($error == false && $x <= $tryNumber);
+                            
                         }
+                        
+                        
                     }
                     else {
                         foreach ($records as $record) {
