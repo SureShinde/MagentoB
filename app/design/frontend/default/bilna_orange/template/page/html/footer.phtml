@@ -692,35 +692,6 @@ jQuery(document).ready(function() {
 
 </script>
 
-<script>
-    /*jQuery('.totop').click(function() {
-              jQuery("html, body").animate({ scrollTop: 0 }, "slow");
-              return false;
-            });
-*/
-jQuery(document).ready(function () {
-  ToggleScrollUp();
-
-  jQuery(window).scroll(function () {
-    ToggleScrollUp();
-  });
-
-  jQuery('.totop').click(function () {
-    jQuery("html, body").animate({
-      scrollTop: 0
-    }, 500);
-    return false;
-  });
-});
-
-function ToggleScrollUp() {
-  if (jQuery(".main").offset().top <= jQuery(window).scrollTop()) {
-    jQuery('.totop').fadeIn();
-  } else {
-    jQuery('.totop').fadeOut();
-  }
-}
-</script>
 
 <?php # Criteo start ?>
 
@@ -768,11 +739,6 @@ function ToggleScrollUp() {
         });
       });
       </script>
-      <a class="leanModalTrigger" href="#modal1" style="display:none">Trigger</a>
-      <div id="modal1" class="lean_modal" style="display:none;">
-        <p id="newsletter-ajax-message"></p>
-        <a class="lean_close" href="javascript:;"></a>
-      </div>
       <?php if ($accessTrade = Mage::getSingleton('core/session')->getAccessTrade()) : ?>
       <?php $customer = Mage::getSingleton('customer/session')->getCustomer(); ?>
       <img src="https://cv.accesstrade.co.id/cv.php?identifier=<?php echo urlencode($customer->getEmail()); ?>&mcn=149e9677a5989fd342ae44213df68868&result_id=13" width="1" height="1" />
