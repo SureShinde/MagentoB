@@ -595,16 +595,19 @@
 .mini-cart .block-cart .actions button.button.btn-checkout,.block-cart .actions button.button.btn-checkout {
 	width: 100%;
 }
-.mini-cart .block-cart .actions button.button.btn-checkout, .mini-cart-mobile .block-cart .actions button.button.btn-checkout,.block-cart .actions button.button.btn-checkout {
+.mini-cart .block-cart .actions button.button.btn-checkout{
+	background-color:#fff;
+	border:1px solid #3eb988;
+}
+.mini-cart .block-cart .actions button.button.btn-checkout, .mini-cart-mobile .block-cart .actions button.button.btn-checkout {
 	display: inline-block;
 	float: none;
 	background-color:#3eb988;
+	border:1px solid #3eb988;
 	background-position: 107px 8px;
 	text-align: center;
 	padding-top: 6px ;
-	padding-right: 45px;
 	padding-bottom:2px ;
-	padding-left: 30px;
 	-webkit-padding-before: 2px ;
     border-radius: 20px;
     -moz-border-radius: 20px;
@@ -617,7 +620,10 @@
 .header .mini-cart-mobile .block-cart {
 	margin: 0;
 }
-.mini-cart .block-cart .actions button.button.btn-checkout span, .mini-cart .block-cart .actions button.button.btn-checkout span span, .mini-cart-mobile .block-cart .actions button.button.btn-checkout span, .mini-cart-mobile .block-cart .actions button.button.btn-checkout span span,.block-cart .actions button.button.btn-checkout span,.block-cart .actions button.button.btn-checkout span span {
+.mini-cart .block-cart .actions button.button.btn-cart span{
+    color: #3eb988;
+}
+.mini-cart .block-cart .actions button.button.btn-checkout span, .mini-cart .block-cart .actions button.button.btn-checkout span span, .mini-cart-mobile .block-cart .actions button.button.btn-checkout span, .mini-cart-mobile .block-cart .actions button.button.btn-checkout span span {
 	background: none;
 	height: auto;
 	padding-left: 0;
@@ -1339,10 +1345,6 @@
 
 /* --------------- smaller 959 px layout -------------------- */
 @media only screen and (max-width: 767px) {
-    .header .quick-access .top-cart a {
-        width: 50px;
-        padding: 5px 0 10px;
-    }
     .space-above-header{
         display: none;
     }
@@ -1360,7 +1362,7 @@
     .header .quick-access .top-cart a .lable-name{
     }
     .header .links li.myaccount a.link-trigger-myaccount{
-        padding: 38px 0 0;
+       
     }
     .header .links li.myaccount a.link-trigger-myaccount .circle-name{
             top: 8px;
@@ -1391,12 +1393,6 @@
 		margin: 0;
 		padding: 0;
 		border-top: none;
-	}
-	.header .quick-access .top-cart a.link-minicart {
-		background-position: 9px 5px;
-		background-repeat: no-repeat;
-		background-size: 20px auto;
-		padding:5px 0;
 	}
     .header .quick-access .left {
         display: none !important;
