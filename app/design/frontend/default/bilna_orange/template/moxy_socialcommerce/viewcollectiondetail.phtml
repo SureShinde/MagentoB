@@ -1,0 +1,689 @@
+<?php
+$wishlist = $this->getWishlist();
+?>
+
+<?php
+/*checking if this collection deleted or not*/
+$view = $wishlist->getView();
+$prof = Mage::helper('socialcommerce')->getProfileInformation($wishlist['customer_id']);
+$username = $prof['display_name'];
+if ($view == '0'){ 
+  $url = 'https://www.moxy.co.id/collections/';  
+  $this->_redirectUrl($url);
+}
+?>
+
+<div class="main">
+
+  <?php /*<div class="cg-container">
+    <div class="cg-row">
+      <div class="breadcrumbs cg-col-xs-12">
+        <ul>
+          <li class="home">
+            <a href="<?php echo $this->getUrl(); ?>" title="Go to Home Page">Home</a>
+            <span> / </span>
+          </li>
+          <li>
+            <a href="<?php echo $this->getUrl('collections'); ?>" title="Collections Page">Collections</a>
+            <span> / </span>
+          </li>
+          <li>
+            <strong><?php echo $wishlist->getName(); ?></strong>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+</div>
+*/?>
+
+
+<?php
+$wishlist = $this->getWishlist();
+$user = Mage::helper('socialcommerce')->getProfileInformation($wishlist['customer_id']);
+
+$_productCollection = $this->getWishlistCollection();
+$_helper = $this->helper('catalog/output');
+?>
+<div class="cg-col-xs-12 nopadding">
+  <div class="cg-col-xs-12 cg-col-sm-12 cg-col-md-4 cg-col-lg-4 nopadding bottom-spacer-container">
+
+    <?php if($wishlist['cover']) : ?>
+  <img src="<?php echo $this->getUrl('media/collection-cover') . $wishlist['cover']; ?>" class="collection-img"/>
+  <?php elseif ($wishlist['cloud_cover']) : ?>
+      <?php echo cl_image_tag($wishlist['cloud_cover'], ['class' => 'collection-img cg-img-responsive', 'alt' => $wishlist->getName(), 'secure' => true, 'width' => 390, 'height' => 390, 'crop' => 'fill', 'format' => 'jpg']); ?>
+
+  <?php else : ?>
+  <img src="<?php echo $this->getSkinUrl('images/') . 'default-collection.jpg'; ?>" class="cg-img-responsive" alt="<?php echo $wishlist->getName(); ?>">
+<?php endif; ?>
+
+</div>
+<div class="cg-col-lg-8 cg-col-md-8 cg-col-xs-12 cg-col-sm-12 custom-pad">
+  <div class="cg-col-xs-12 collection-detail-main-title nopadding opensans bold">
+    <?php echo $wishlist->getName(); ?>
+  </div>
+  <div class="cg-col-xs-12">
+    <div class=" normal-padding cg-col-lg-1 cg-col-md-1 cg-col-sm-1 cg-col-xs-2">
+      <img src="<?php echo $user['profile_image']; ?>" title="<?php echo $user['display_name']; ?>" alt="<?php echo $user['display_name']; ?>" width="100%" class="rounded-this">
+    </div>
+    <span class="collection-detail-name opensans">Updated by <a href=<?php echo 'http://moxy.co.id/user/'.$user['display_name'] ?> style="text-decoration: none;"><span class="pinker"><?php echo $user['display_name'] ?></span></a> on <?php echo date('m/d/Y', strtotime($wishlist['updated_at'])); ?></span>
+  </div>
+  <div class="cg-col-xs-12 bottom-spacer-container in-block full-width">
+    <p class="collection-detail-desc opensans">
+      <?php echo $wishlist->getDesc(); ?>
+      <?php 
+      /*This is for collection counter*/
+      $count = $wishlist->getCounter();
+      $countnew = $count+1;
+      $wlid = $wishlist->getWlid();
+      $w = Mage::getSingleton('core/resource')->getConnection('core_write');
+      $result = $w->query('UPDATE wishlist SET counter = '.$countnew.' WHERE wishlist_id ='.$wlid); 
+      ?>
+    </p>
+  </div>
+  <div class="cg-col-xs-8 cg-col-lg-4 cg-col-md-2 cg-col-sm-2 bottom-spacer-container">
+    <div class="cg-col-xs-12 collection-detail-share opensans">
+      Share your collection
+    </div>
+    <div class="cg-col-xs-2 padding-3lr soc-size facebook">
+      <a style="color:#fff;" href="https://www.facebook.com/sharer.php?u=<?php echo $this->helper('core/url')->getCurrentUrl(); ?>&t=<?php echo $wishlist->getName(); ?>" onclick="javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"><i class="fa fa-facebook" style="padding-top:7px;"></i></a>
+    </div>
+    <div class="cg-col-xs-2 padding-3lr soc-size twitter">
+      <a style="color:#fff;" href="http://twitter.com/home?status=<?php echo $wishlist->getName(); ?>+<?php echo $this->helper('core/url')->getCurrentUrl(); ?>" onclick="javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"><i class="fa fa-twitter" style="padding-top:7px;"></i></a>
+    </div>
+    <div class="cg-col-xs-2 padding-3lr soc-size pinterest">
+      <a style="color:#fff;" href="https://www.pinterest.com/pin/create/link/?url=<?php echo $this->helper('core/url')->getCurrentUrl(); ?>&description=<?php echo $wishlist->getDesc(); ?>" onclick="javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"><i class="fa fa-pinterest-p" style="padding-top:7px;"></i></a>
+    </div>
+    <div class="cg-col-xs-2 padding-3lr soc-size gplus">
+      <a style="color:#fff;" href="https://plus.google.com/share?url=<?php echo $this->helper('core/url')->getCurrentUrl(); ?>" onclick="javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"><i class="fa fa-google-plus" style="padding-top:7px;"></i></a>
+    </div>
+    <div class="cg-col-xs-2 padding-3lr soc-size mail">
+      <a style="color:#fff;" href="mailto:?subject=Lihat koleksi saya di Moxy.co.id&amp;body=Lihat koleksi saya di Moxy : http://www.moxy.co.id/user/<?php echo $user['display_name'] ?>" title="Share by Email"><i class="fa fa-envelope-o" style="padding-top:7px;"></i></a>
+    </div>
+  </div>
+</div>
+
+</div>
+<div class="cg-col-xs-12 bottom-spacer-container collection-detail-shop opensans bold">
+  SHOP THE COLLECTION
+</div>
+<div class="category-products">
+  <?php $_collectionSize = $_productCollection->count() ?>
+  <?php $_columnCount = $this->getColumnCount(); ?>
+  <form method="post" id="frmAddMulti" action="<?php echo $this->getUrl('multiadd/add') ?>">
+    <div class="collectionbox" style="margin-left: 5px;">
+      <div class="collectioncontentbox">
+        <input type="checkbox" class="checkall" value="0" id = "sall">
+        <label for="checkall" class=" opensans"><?php echo $this->__('Select All Products') ?></label>
+        <br />
+        <div class="total-price opensans">
+          <span><?php echo $this->__('Total Price : ') ?></span><span class="totalPrice"><?php echo Mage::app()->getLocale()->currency(Mage::app()->getStore()->getCurrentCurrencyCode())->getSymbol(); ?> 0</span>
+        </div>
+      </div>
+      <div class="collectionactionbox">
+        <button type="button" title="<?php echo $this->__('Buy Selected Products') ?>" class="button btn-cartall" id = "bbtn">
+          <span> 
+            <span class="in-block"><?php echo $this->__('Buy Selected Products (') ?></span><span class="selectedItems in-block">0</span><span class="in-block"><?php echo $this->__(')') ?></span>
+          </span>
+        </button>
+      </div>
+    </div>
+
+    <div class="cg-container-100">
+      <div class="cg-row">
+
+        <div class="list-products">
+
+          <div class="cg-row frame-box nomargin">
+            <!--<div class="grid_collection_category">-->
+            <?php $i=0; foreach ($_productCollection as $_product): ?>
+
+            <?php 
+            $_product = Mage::getModel('catalog/product')->load($_product->getProductId()); 
+            $_helper = $this->helper('catalog/output');
+            ?>
+
+
+            <?php $productId = $_product->getId();
+
+            $productNameStripped = $this->stripTags($_product->getName(), null, true);
+            $productDesc = $this->stripTags($_product->getShortDescription(), null, true);
+
+            $productRegularPrice = round($_product->getPrice());
+            $productRegularPriceFormatted = 'Rp ' . number_format($productRegularPrice, 0, '', '.');
+
+            $productSpecialPrice = round($_product->getSpecialPrice());
+            $productSpecialPriceFormatted = 'Rp ' . number_format($productSpecialPrice, 0, '', '.');
+
+            $productFinalPrice = round($_product->getFinalPrice());
+            $productFinalPriceFormatted = 'Rp ' . number_format($productFinalPrice, 0, '', '.');
+
+            $productBrand = $_product->getAttributeText('brand');
+
+            $productLimitedStock = $_product->getAttributeValue('limited_stock');
+            $productBestPrice = $_product->getAttributeValue('best_price');
+
+            $productImageUrl = $this->helper('catalog/image')->init($_product, 'small_image')->resize(320 , 320);
+            $productImageLabel = $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true);
+
+            $productUrl = $_product->getProductUrl();
+            $productAddToCartUrl = $this->getAddToCartUrl($_product);
+
+            $productDiscount = 100 - round(($productFinalPrice / $productRegularPrice) * 100);
+
+            $stocklevel = (int)Mage::getModel('cataloginventory/stock_item')->loadByProduct($productId)->getQty();
+
+              # Date compare for special price
+            $productSpecialPriceFromDate = $_product->getSpecialFromDate();
+            $productSpecialPriceToDate = $_product->getSpecialToDate();
+            $todayTime = time();
+
+            $productSpecialDateIsValid = ($todayTime >= strtotime($productSpecialPriceFromDate)
+              && $todayTime <= strtotime($productSpecialPriceToDate) + 86400
+              || $todayTime >= strtotime($productSpecialPriceFromDate)
+              && is_null($productSpecialPriceToDate)) ? true : false;
+
+              # Taken from old theme
+            $productButtonLabel = 'BUY NOW';
+            $productAvailability = 1;
+
+            ?>
+            <!-- New layout for collection detail items -->
+            <div class="cg-col-xs-6 cg-col-sm-6 cg-col-md-3 bottom-spacer-container">
+              <div class="box">
+                <?php if(!$_product->canConfigure() && $_product->isSaleable() && $_product->getStockItem() && $_product->getStockItem()->getIsInStock()): ?>
+                <?php $item_in_stock = true; ?>
+
+                <div class="checker-this">
+                  <input type="checkbox" name="cc" class="check collection-checkbox" productId="<?php echo $_product->getId() ?>" id="check-<?php echo $_product->getId() ?>" value="<?php echo $_product->getId() ?>"/>
+                  <label for="check-<?php echo $_product->getId() ?>" ><span class="poper<?php echo $i;?>"></span></label>
+                  <div class="cg-hidden-xs check-to-clicking<?php echo $i;?>">select product</div>
+                </div>
+                
+                <!--<div class="collection-checkbox-box">
+                  <input type="checkbox" class="check collection-checkbox" productId="<?php echo $_product->getId() ?>" id="check-<?php echo $_product->getId() ?>" value="<?php echo $_product->getId() ?>">
+                </div>-->
+
+              <?php else: ?>
+              <?php $item_in_stock = false; ?>
+            <?php endif; ?>
+            <div class="media">
+             <div class="cg-col-lg-12" id="deleteItemIdku<?php echo $i;?>">
+              <span class="cg-col-xs-12 nopadding">Hapus product ini dari collection anda?</span>
+              <div class="cg-col-xs-12 nopadding">
+                <div class="cg-col-xs-6">
+                  <span style="background: #3EB988;" class="btn btn-block btn-size-small yes-delete"  onclick="dontDelete<?php echo $i;?>()">tidak</span>
+                </div>
+                <div class="cg-col-xs-6">
+                  <a class="btn btn-size-small btn-block yes-delete" style="" href="<?php echo $this->getUrl('social/settings/delitemcollection?user='.$user['display_name'].'&wlid='.$wlid.'&proid='.$_product->getId().'&url='); ?>">ya</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="action<?php if ($productAvailability == 3) echo ' actions-outofstock hover'; ?>">
+              <a class="product-link" onclick="showQuickView<?php echo $i;?>()"></a>
+              <div class="add-to-links"> 
+                <div>
+                 <?php 
+                 $customerId = Mage::getSingleton('customer/session')->getCustomer()->getId();
+                 if ($wishlist['customer_id'] == $customerId) { ?>
+                 <span  onclick="deleteItem<?php echo $i; ?>()" class="addToCollectionLink" ><i class="fa fa-trash"></i></span>
+
+                 <?php } else { ?>
+                 <a
+                 href="javascript:;"
+                 class="link-wishlist addToCollectionLink"
+                 onclick="showAddToCollectionDialog()"
+                 data-brand-name="<?php echo $productBrand; ?>"
+                 data-image="<?php echo $productImageUrl; ?>"
+                 data-product-name="<?php echo $productNameStripped; ?>"
+                 data-price="<?php echo $productFinalPriceFormatted; ?>"
+                 data-id="<?php echo $productId; ?>"><div class="cg-hidden-xs add-to-hovering">add to collection</div></a></a>
+                 <?php } ?> 
+               </div>
+             </div>
+             <button
+             type="button"
+             data-id="<?php echo $productId; ?>"
+             title="Quick View"
+             style="background: #3EB988; border:none;"
+             class="btn btn-size-small opensans pointer" onclick="showQuickView<?php echo $i;?>()">
+             Quick View
+           </button>
+         </div>
+
+          <!-- new quikview-->
+              <div class="container-collection-pop" style="display:none;" id="quickView<?php echo $i; ?>">
+                <div class="cg-col-lg-5 cg-col-md-6 cg-col-sm-6 cg-col-xs-11 container-collection-whitebg white-bg-new-coll quick-col" style="display:inline-table !important;">
+               <div class="cg-col-lg-1 cg-col-md-1 cg-col-sm-1 cg-col-xs-1 quick-sub-col " id="closer-collection bottom-spacer-little" style="">
+                    <a href="javascript:;" onclick="hideQuickView<?php echo $i;?>()" style="text-decoration:none;width:100%;display:block; line-height:1px;"><i class="fa fa-times"></i></a>
+                  </div>
+                  <div class="cg-col-lg-12 cg-col-sm-12 cg-col-md-12 cg-col-xs-12 text-right bottom-spacer-container" style="">
+                      </div>
+                 <div class="cg-col-xs-12 cg-col-sm-12 cg-col-md-6 cg-col-lg-6">
+                  <img src="<?php echo $productImageUrl; ?>" alt="<?php echo $productImageLabel?>" id="product-collection-image-<?php echo $productId; ?>">
+
+                  <?php $_images = Mage::getModel('catalog/product')->load($_product->getId())->getMediaGalleryImages(); ?>  
+
+                 <!-- show thumbnail in quick view-->
+
+                 <?php if($_images){ ?>  
+                    <div class="more-views">
+                        <h2><?php echo $this->__('More Views') ?></h2>
+                        <ul class="product-image-thumbs" style="display: inline-block;float: left;">
+                        <?php $a=0; foreach($_images as $_image): 
+                            if ($a <= 2) {
+                            ?>
+                            
+                            <li style ="line-height: 1px;float: left;">
+                              <a class="thumb-link quick-view" href="#" data-image-index="<?php echo $a; ?>"><img src="<?php echo $this->helper('catalog/image')->init($_product, 'thumbnail', $_image->getFile())->resize(50); ?>" width="50" height="50" alt="<?=$this->htmlEscape($_image->getLabel());?>" title="<?=$this->htmlEscape($_image->getLabel());?>"/></a> 
+                            </li>
+                        <?php } $a++; endforeach; ?>
+                        </ul>
+                    </div>
+                    <?php } ?>
+
+                 </div>
+
+                 <div class="product-shop-right cg-col-xs-12 cg-col-sm-12 cg-col-md-6 cg-col-lg-6" style="line-height: 18px;text-align: left;">
+                  <div class="product-shop">
+                    <div class="product-name">
+                      <span class="h1 quick-title opensans" style=""><?php echo $productNameStripped; ?></span>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div>
+                      <div class="price-info">
+                        <div class="price-box quick-view-price-box" style="text-align: left;">
+                        <span class="regular-price" id="product-price-<?php echo $productId; ?>">
+                          <span class="price quick-price opensans" style=""><?php echo $productFinalPriceFormatted; ?></span>                                    
+                        </span>
+
+                        <!-- showing product rating --> 
+                        <?php $storeId = Mage::app()->getStore()->getId(); 
+
+                         $summaryData = Mage::getModel('review/review_summary')
+                                  ->setStoreId($storeId)
+                                  ->load($productId);
+                                  if ($summaryData['rating_summary'] == '') { $rate = '0';}
+                                  else { $rate = $summaryData['rating_summary']; }
+
+                        if ($rate != '0') {
+                        ?>
+
+                        <div class="ratings in-block full-width" style="text-align: left;">
+                            <div class="rating-box">
+                              <div class="rating" style="width:<?php echo $rate; ?>%"></div>
+                            </div>
+                          </div>
+
+                        <?php } ?>  
+
+                        </div>
+                      </div>
+                      <div class="short-description bottom-spacer-container" style="">
+                      <div class="std std-quick-view opensans" style=""> <?php echo $productDesc; ?> </div>
+                    </div>
+                    <div class="add-to-cart-wrapper ">
+                      <div class="add-to-box">
+                        <div class="add-to-cart">
+                          <!-- hide temporarily 
+                          <div class="qty-wrapper bottom-spacer-little in-block cg-col-xs-12 nopadding">
+                            <div class="cg-col-xs-3 in-block" style="padding: 3px 0px;font-size: 11px;color: #7D7D7D;">
+                              Quantity : 
+                            </div>
+                            <select name="qty" id="" class="cg-col-xs-4">
+                              <option value="">1</option>
+                              <option value="">2</option>
+                              <option value="">3</option>
+                              <option value="">4</option>
+                              <option value="">5</option>
+                              <option value="">6</option>
+                            </select>
+                          </div>-->
+
+                          <div class="add-to-cart-buttons cg-col-xs-12">
+                            <div class="cg-col-xs-2 coll-quick" onclick="newShowAddCollectionDialog()" style="cursor: pointer;">
+                              <i class="fa fa-heart"></i>
+                            </div>
+
+                            <!-- checking stock level for quick view-->
+
+                            <?php if ($stocklevel < 1) { ?>
+
+                            <div class="cg-col-xs-10">
+
+                                              <button type ="button" class="btn btn-default btn-block btn-cancel nomargin" disabled>
+                                                    Out Of Stock
+                                              </button>
+
+                            </div>
+
+                            <?php } else { ?>
+                            
+                            <div class="cg-col-xs-10">
+
+                                              <button
+                                                    type ="button"
+                                                    style="margin-top: 1px;font-family:'open sans';border:none;background:#ee5191;border-radius:5px;
+                                                    cursor:pointer;" 
+                                                    id="closeqv<?php echo $i;?>"
+                                                    data-id="<?php echo $productId; ?>"
+                                                    title="<?php echo $productButtonLabel; ?>"
+                                                    class="btn full-width btn-size-small<?php if ($productAvailability != 3) : ?> btn-addtochart btn-cart<?php else : ?> out-of-stock availability<?php endif; ?>"
+                                                    onclick="setLocation('<?php echo $productAddToCartUrl; ?>'); hideQuickView();">
+                                                    <?php echo $productButtonLabel; ?>
+                                                </button>
+
+                            </div>
+
+                            <?php } ?>
+                           
+                          </div>
+                          <div class="cg-col-xs-12 quick-detail opensans" style="">
+                            <a href="<?php echo $productUrl; ?>" title="<?php echo $productNameStripped; ?>" style="text-decoration:none;">
+                            
+                              baca detail produk <i class="fa fa-angle-right"></i>
+                            </a>
+                          </div>
+                        </div>
+                      <div class="clearer"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              </div>
+              </div>
+              </div>
+<!-- new quikview -->
+
+        <style>
+        
+        #deleteItemIdku<?php echo $i;?>
+        {
+          width: 80%;
+          opacity: 1;
+          position: absolute;
+          left: 10%;
+          top: 30%;
+          margin: 0px;
+          color: rgb(119, 119, 119);
+          font-size: 12px;
+          font-weight: 500;
+          z-index: 9999;
+          line-height: 18px;
+          text-align: center;
+          display: none;
+          border-radius: 4px;
+          background: rgb(255, 255, 255);
+          padding: 5% 2%;
+          box-shadow: 0px 1px 9px #B5B0B0;
+
+        }
+
+        .check-to-clicking<?php echo $i;?> {
+            position: absolute;
+            margin-left: 30px;
+            width: 105px;
+            margin-top: -19px;
+            background: #4EBD92;
+            color: #fff;
+            padding: 4px 5px;
+            font-size: 11px;
+            font-weight: normal;
+            opacity: 0;
+            font-family: "open sans";
+            -webkit-transition: all 1s ease-in-out;
+            -moz-transition: all 1s ease-in-out;
+            -o-transition: all 1s ease-in-out;
+            transition: all 1s ease-in-out;
+        }
+          .check-to-clicking<?php echo $i;?>:after {
+            left: -7px;
+            top: 50%;
+            border: solid transparent;
+            content: " ";
+            height: 0;
+            width: 0;
+            position: absolute;
+            pointer-events: none;
+            border-color: rgba(238, 81, 145, 0);
+            border-right-color: #4EBD92;
+            border-width: 4px;
+            margin-top: -4px;
+          }
+
+        .pop-it<?php echo $i;?>
+        {
+          opacity: 1 !important;
+        }
+        </style>
+
+         <script language="javascript">
+
+         jQuery(document).ready(function() {
+
+          jQuery('#closeqv<?php echo $i;?>').click(function(){
+            jQuery('#quickView<?php echo $i;?>').fadeOut('fast'); })
+
+          jQuery(".poper<?php echo $i;?>").on ('mouseover', function(){
+              jQuery(".check-to-clicking<?php echo $i;?>").addClass('pop-it<?php echo $i;?>');
+            });
+          jQuery(".poper<?php echo $i;?>").on ('mouseout', function(){
+              jQuery(".check-to-clicking<?php echo $i;?>").removeClass('pop-it<?php echo $i;?>');
+            });
+
+          });
+
+         function showQuickView<?php echo $i;?>() {
+          jQuery('#quickView<?php echo $i;?>').fadeIn('fast');
+        }
+
+        function hideQuickView<?php echo $i;?>() {
+          jQuery('#quickView<?php echo $i;?>').fadeOut('fast');
+        }
+
+         function deleteItem<?php echo $i;?>(){
+          jQuery('#deleteItemIdku<?php echo $i;?>').fadeToggle('fast');
+        }
+        function dontDelete<?php echo $i;?>(){
+          jQuery('#deleteItemIdku<?php echo $i;?>').fadeOut('fast');
+        }
+
+        </script>
+
+        <input type = "hidden" class="collection-checkbox-qty" productId="<?php echo $_product->getId() ?>" id="qty-<?php echo $_product->getId() ?>" value ="1">
+
+        <?php if (false) : ?> <?php # Temporarily disable discount percentage stamp ?>
+        <p class="yousave"><span class="percent-save"><?php echo $productDiscount; ?>%</span></p>
+      <?php endif; 
+      $productImageUrl = $this->helper('catalog/image')->init($_product, 'small_image')->resize(320 , 320);
+      ?>
+      <img src="<?php echo $productImageUrl; ?>" alt="<?php echo $productImageLabel?>" id="product-collection-image-<?php echo $productId; ?>">
+      <?php if ($productLimitedStock) : ?><div class="stamp limited-stock">Limited Stock</div><?php endif; ?>
+      <?php if ($productBestPrice) : ?><div class="stamp best-price">Best Price Guarantee</div><?php endif; ?>
+    </div>
+    <div class="text">
+      <div class="preview-box">
+        <div class="brand"><?php echo $productBrand; ?></div>
+        <p class="name-product opensans"><a class="bold" onclick = "showQuickView<?php echo $i; ?>()" title="<?php echo $productNameStripped; ?>" style = "cursor:pointer;"><?php echo $productNameStripped; ?></a></p>
+        <?php echo $this->getReviewsSummaryHtml($_product, 'short') ?>
+      </div>
+      <div class="price-box">
+        <input type="hidden" class="final-price-<?php echo $productId; ?>" value="<?php echo $productFinalPrice; ?>" />
+        <?php if ($productSpecialPrice && $productSpecialPrice < $productRegularPrice && $productSpecialDateIsValid) : ?>
+        <div class="special-price">
+          <span class="current-price price" id="product-price-<?php echo $productId; ?>"><?php echo $productSpecialPriceFormatted; ?></span>
+          <p class="old-price">
+            <span class="price" id="old-price-<?php echo $productId; ?>"><?php echo $productRegularPriceFormatted; ?></span>
+          </p>
+        </div>
+      <?php else : ?>
+      <span class="regular-price">
+        <span class="price" id="product-price-<?php echo $productId; ?>"><?php echo $productRegularPriceFormatted; ?></span>
+      </span>
+    <?php endif; ?>
+  </div>
+</div>
+</div>
+</div>
+<?php $i++; endforeach ?>
+</div>
+</div>
+</div>  
+</div>
+
+<div style="clear:both;"></div>
+
+<div class="collectionbox">
+  <div class="collectioncontentbox">
+    <input type="hidden" id="checkProductId" name="checkProductId" value="">
+    <input type="hidden" id="checkQty" name="checkQty" value="">
+    <input type="checkbox" class="checkall" value="0">
+    <label for="checkall" class=" opensans"><?php echo $this->__('Select All Products') ?></label>
+    <br />
+    <div class="total-price opensans">
+      <span><?php echo $this->__('Total Price : ') ?></span><span class="totalPrice"><?php echo Mage::app()->getLocale()->currency(Mage::app()->getStore()->getCurrentCurrencyCode())->getSymbol(); ?> 0</span>
+    </div>
+  </div>
+  <div class="collectionactionbox">
+    <button type="button" title="<?php echo $this->__('Buy Now') ?>" class="button btn-cartall">
+      <span>
+        <span class="in-block"><?php echo $this->__('Buy Selected Products (') ?></span><span class="in-block selectedItems">0</span><span class="in-block"><?php echo $this->__(')') ?></span>
+    </span>
+    </button>
+  </div>
+</div>
+</form>
+
+<script type="text/javascript">decorateGeneric($$('ul.products-grid'), ['odd','even','first','last'])</script>
+
+</div>
+
+<script type="text/javascript">
+
+jQuery(document).ready(function() {
+
+  jQuery(".check-trigger").click(function() {
+    id = "#" + jQuery(this).data('id');
+    jQuery(id).prop('checked', !jQuery(id).prop('checked'));
+
+
+    countSelectedItems();
+    countTotalPrice();
+  });
+
+  jQuery('input.checkall').click(function(){
+    if(jQuery(this).val()==0){
+      jQuery('input.check').prop('checked', true);
+      jQuery(this).val(1);
+    } else {
+      jQuery('input.check').prop('checked', false);
+      jQuery(this).val(0);
+    }
+
+    countSelectedItems();
+    countTotalPrice();
+  });
+
+  jQuery('input.check').click(function(){
+    countSelectedItems();
+    countTotalPrice();
+  });
+
+  jQuery('.collection-checkbox-qty').change(function(){
+    countSelectedItems();
+    countTotalPrice();
+  });
+
+  jQuery('.btn-cartall').click(function(){
+    if(jQuery('input.check:checked').length>0){
+      var prodId = '';
+      var qty = '';
+
+      jQuery('input.check:checked').each(function(){
+        product_id = jQuery(this).attr('productId');
+        prodId = prodId + product_id +',';
+        qty = qty + jQuery('#qty-'+ product_id).val() + ',';
+      });
+
+      prodId = prodId.substr(0, prodId.length-1);
+      qty = qty.substr(0, qty.length-1);
+      jQuery('input#checkProductId').val(prodId);
+      jQuery('input#checkQty').val(qty);
+
+      jQuery("#frmAddMulti").submit();
+    } else {
+      alert('<?php echo $this->__('Please select at least one product') ?>');
+    }
+  });
+
+});
+
+jQuery('.category-products .item').hover(function(){
+  if(jQuery(this).find('a.product-image').hasClass('hover')){
+    jQuery(this).find('a.product-image').removeClass('hover');
+  } else {
+    jQuery(this).find('a.product-image').addClass('hover');
+  }
+
+  if(jQuery(this).find('div.actions').hasClass('hover')){
+    jQuery(this).find('div.actions').removeClass('hover');
+  } else {
+    jQuery(this).find('div.actions').addClass('hover');
+  }
+});
+
+function countSelectedItems(){
+  var selectedItems = 0;
+  var elQty;
+  var product_id;
+
+  if(jQuery('input.check:checked').length==jQuery('input.check').length){
+    jQuery('input.checkall').prop('checked', true);
+  } else {
+    jQuery('input.checkall').prop('checked', false);
+  }
+
+  if(jQuery('input.check:checked').length>0){
+    jQuery('input.check:checked').each(function(){
+      product_id = jQuery(this).attr('productId');
+      elQty = jQuery('#qty-'+product_id);
+      selectedItems += parseInt(elQty.val());
+    });
+  }
+
+  jQuery('.selectedItems').html(selectedItems);
+}
+
+function moxy_number_format(input, separator) {
+  takeNumber = String(input).match(/\d/g);
+  number = takeNumber.join("");
+  return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, separator);
+}
+
+function countTotalPrice(){
+  var subtotal = 0;
+  var el, elPrice;
+  var product_id;
+  var totalPrice;
+  var token;
+  var res;
+
+  if(jQuery('input.check:checked').length==0){
+    totalPrice = 'Rp 0';
+  }
+
+  jQuery('input.check:checked').each(function(){
+    product_id = jQuery(this).attr('productId');
+    el = jQuery('.final-price-'+product_id);
+    elPrice = jQuery('#qty-'+product_id);
+    subtotal = subtotal + (parseInt(el.val()) * parseInt(elPrice.val()));
+  });
+  total = moxy_number_format(subtotal, '.');
+  jQuery('.totalPrice').html('Rp '+ total);
+}
+
+</script>
+

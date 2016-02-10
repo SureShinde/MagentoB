@@ -1,0 +1,116 @@
+<?php
+
+# Get customer & ID
+$customer = Mage::getSingleton('customer/session')->getCustomer();
+$customerId = $customer->getId();
+
+# Load customer profile
+$profiler = Mage::getModel('socialcommerce/profile')->load($customerId, 'customer_id');
+
+?>
+<div class="my-profile">
+    <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+    <div class="page-title">
+        <h1><?php echo $this->__('My Profile') ?></h1>
+    </div>
+    <form action="<?php echo $this->getUrl('user/settings/save') ?>" method="post" id="form-validate" class="scaffold-form" enctype="multipart/form-data" onsubmit="return preventDouble(this);">
+        <div class="fieldset">
+            <h2 class="legend">Public Profile</h2>
+            <p class="required"><?php echo $this->__('* Required Fields') ?></p>
+            <ul class="form-list" style="margin-top:20px;">
+                <li class="fields">
+
+                    <?php /* # Always enable. Will be deprecated.
+                    <div class="field">
+                        <input <?php if ($profiler->getStatus() == 1) echo "checked"; ?> type="checkbox" title="<?php echo $this->__('Enable Public Profile') ?>" name="status" id="status" />
+                        <span class="label">
+                            <label for="status"><?php echo $this->__('Enable Public Profile') ?></label>
+                        </span>
+                    </div>
+                    */ ?>
+
+                    <?php if (! $profiler->getTemporary()) : ?>
+
+                        <?php
+                            echo $this->__('Your profile URL is');
+                            $profileUrl = $this->getUrl('user/' . $profiler->getUsername());
+                            echo ' <a href="' . $profileUrl . '">' . $profileUrl . '</a>';
+                        ?>
+
+                    <?php else : ?>
+
+                        <div class="field">
+                            <label for="username" class="required"><em>*</em>Username:</label>
+                            <div class="input-box">
+                                <?php
+                                    $temporaryUrl = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB) . "user/" . $profiler->getUsername();
+                                ?>
+                                <input type="text" id="username" name="username" title="Username" maxlength="255" class="input-text required-entry" value="<?php echo $profiler->getUsername(); ?>" />
+                                <p style="font-size: 10px;"><?php echo $this->__('Your temporary profile URL is '); ?><a href="<?php echo $temporaryUrl; ?>"><?php echo $temporaryUrl; ?></a></p>
+                            </div>
+                        </div>
+
+                    <?php endif; ?>
+
+                    <div class="field">
+                        <label for="location">Location:</label>
+                        <div class="input-box">
+                            <input type="text" id="location" name="location" title="Location" maxlength="32" class="input-text" value="<?php echo $profiler->getLocation(); ?>" placeholder="Jakarta, Indonesia" />
+                            <p style="font-size: 10px;">Your location to be displayed on your profile page.</p>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label for="about">About Me:</label>
+                        <div class="input-box">
+                            <textarea name="about" id="about" rows="4" class="input-textarea" maxlength="254"><?php echo $profiler->getAbout(); ?></textarea>
+                            <p style="font-size: 10px;">Please write something about you.</p>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label for="avatar">Profile Picture</label>
+                        <div class="input-box" style="width:200px; margin-right:10px;" >
+                            <input type="file" id="avatar" name="avatar" title="Profile Picture" class="input-file required-entry"/>
+                            <p style="font-size: 10px;">Please upload an image file as your profile picture. Recommended size is 400px width and 400px height.</p>
+                        </div>
+                    </div>
+
+                    <div class="field" style="max-width: 100px;">
+
+                        <?php if($profiler->getAvatar()) : ?>
+
+                            <img src="<?php echo $this->getUrl('media/avatar/') . $profiler->getAvatar(); ?>" alt="My Avatar" style="width: 100%;">
+
+                        <?php elseif ($profiler->getCloudAvatar()) : ?>
+
+                            <?php echo cl_image_tag($profiler->getCloudAvatar(), ['alt' => $customer->getName(), 'secure' => true, 'width' => 165, 'height' => 165, 'crop' => 'fill', 'format' => 'jpg']); ?>
+
+                        <?php else: ?>
+                            <?php if ($customer->getGender() == 1) : ?>
+                                <img src="<?php echo $this->getSkinUrl('images/') . 'avatar-m.jpg'; ?>" style="width: 100%;" alt="My Avatar">
+                            <?php else : ?>
+                                <img src="<?php echo $this->getSkinUrl('images/') . 'avatar-f.jpg'; ?>" style="width: 100%;" alt="My Avatar">
+                            <?php endif; ?>
+                        <?php endif; ?>
+                    </div>
+
+                    <?php /* # Always publish. Will be deprecated.
+                    <div class="field">
+                        <input <?php if ($profiler->getWishlist() == 1) echo "checked"; ?> type="checkbox" title="<?php echo $this->__('Publish My Wishlist') ?>" name="wishlist" id="wishlist" />
+                        <span class="label">
+                            <label for="wishlist"><?php echo $this->__('Publish My Wishlist as Collection') ?></label>
+                        </span>
+                    </div>
+                    */ ?>
+
+                </li>
+            </ul>
+        </div>
+        <div class="buttons-set">
+            <button type="submit" name="submitButton" title="<?php echo $this->__('Save') ?>" class="button"><span><span><?php echo $this->__('Save') ?></span></span></button>
+        </div>
+        <?php # A quick fix so the controller can detect POST request event it's empty ?>
+        <input type="hidden" name="socialCommerceSettings" value="1">
+    </form>
+</div>

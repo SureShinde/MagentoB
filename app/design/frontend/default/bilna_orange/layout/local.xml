@@ -15,9 +15,7 @@
                 </action>
             </block>
             <block type="core/text" name="my.google.font">
-                <action method="setText"><text><![CDATA[
-                   <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
-                    ]]></text>
+                <action method="setText"><text><![CDATA[<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>]]></text>
                 </action>
             </block>
             <block type="core/text" name="my.fontawesome">
@@ -74,6 +72,13 @@
                 <name>js/bilna.sociomantic.js</name>
                 <params><![CDATA[name="js003_third"]]></params>
             </action>
+
+            <action method="addCss"><stylesheet>css/socialcommerce.css</stylesheet></action>
+            <action method="addCss"><stylesheet>css/catgrid.css</stylesheet></action>
+             
+            <action method="addJs"><script>jquery-ui.js</script><params><![CDATA[data-group="js002"]]></params></action>
+            <action method="addJs"><script>bootstrap.file-input.js</script><params><![CDATA[data-group="js002"]]></params></action>
+            <action method="addJs"><script>script.js</script><params><![CDATA[data-group="js002"]]></params></action>
         </reference>
         <reference name="header">
             <remove name="welcome"/>
