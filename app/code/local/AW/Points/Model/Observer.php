@@ -506,9 +506,11 @@ class AW_Points_Model_Observer extends Mage_Core_Block_Abstract
             $customerPoints = Mage::getModel('points/summary')->loadByCustomer($customer)->getPoints();
 
             if (
-                    $customerPoints < $pointsAmount ||
+                    ($customerPoints < $pointsAmount ||
                     $limitedPoints < $pointsAmount ||
-                    !Mage::helper('points')->isAvailableToRedeem($customerPoints)
+                    !Mage::helper('points')->isAvailableToRedeem($customerPoints)) && 
+                    !$quote->getCouponCode()
+                    
             ) {
                 Mage::throwException($this->__('Incorrect points amount'));
             }

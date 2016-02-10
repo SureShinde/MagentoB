@@ -251,9 +251,10 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
             $customerPoints = Mage::getModel('points/summary')->loadByCustomer($customer)->getPoints();
 
             if (
-                    $customerPoints < $pointsAmount ||
+                    ($customerPoints < $pointsAmount ||
                     $limitedPoints < $pointsAmount ||
-                    !Mage::helper('points')->isAvailableToRedeem($pointsAmount)
+                    !Mage::helper('points')->isAvailableToRedeem($pointsAmount)) && 
+                    !$quote->getCouponCode()
             ) {
                 Mage::throwException('Incorrect points amount');
             }
