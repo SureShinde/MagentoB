@@ -644,12 +644,12 @@ jQuery(document).ready(function() {
 
       jQuery(document).ready(function() {
 
-        if (! jQuery.cookie("newsletter_subscribed")) {
+        /*if (! jQuery.cookie("newsletter_subscribed")) {
           jQuery("#newsletter-registration-form-overlay").fadeIn(500);
 
           jQuery.cookie("newsletter_subscribed", 1, {expires : 1});
-        }
-
+        }*/
+          
         jQuery("#newsletter-registration-close").click(function() {
           jQuery("#newsletter-registration-form-overlay").fadeOut(300);
         });
@@ -727,13 +727,13 @@ jQuery(document).ready(function() {
       <script>
       <?php # Language cookie ?>
       jQuery(document).ready(function() {
-        jQuery.cookie("userlang", "<?php echo Mage::app()->getLocale()->getLocaleCode(); ?>", {path: "/"});
+        /*jQuery.cookie("userlang", "<?php echo Mage::app()->getLocale()->getLocaleCode(); ?>", {path: "/"});
         
         
         if (jQuery.cookie('test_status') != '1') {
 
           jQuery('#over-main').show();
-        }
+        }*/
 
 
         jQuery('#closer-main').click(function(){

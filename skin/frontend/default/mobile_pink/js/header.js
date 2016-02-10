@@ -1,5 +1,4 @@
-
-        wwidth = $j(window).width();
+    wwidth = $j(window).width();
     
     $j(window).load(function() {
 		$j(".megamenu.megamenu-active img, .homepage-banner img").lazyload({
@@ -19,7 +18,6 @@
         $j(".link-myaccount-mobile").click(function(){
             $j(".header .links li.myaccount").toggle();
         });
-        $j("img.lazy, .wrap-banner img:not(.image-slider), .warp-banner img").after('<div class="loader"><img class="loader-img" src="<?php echo Mage::getBaseUrl(); ?>skin/frontend/base/default/images/loading.gif"></div>');
         
         $j( ".product-image-zoom" ).mouseover('mousewheel',function(e) {
                 e.originalEvent.wheelDelta = 100;
@@ -75,18 +73,15 @@
             $j('body').css({"overflow":"auto"});
             $j('.back-left').toggle();
         });
-        
-		
+        $j(window).scroll(function() {
+            if ($j(this).scrollTop() > 100) {
+                $j(".back-to-top").fadeIn();
+            }
+            else {
+                $j(".back-to-top").fadeOut();
+            }
+        });
     });
-
-$j(window).scroll(function() {
-    if ($j(this).scrollTop() > 100) {
-        $j(".back-to-top").fadeIn();
-    }
-    else {
-        $j(".back-to-top").fadeOut();
-    }
-});
         
 $j(document).ready(function() {
 	$j(".nav-container ul#nav li.parent a.level-top").live('click', function() {
