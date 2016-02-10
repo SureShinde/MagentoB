@@ -15,7 +15,7 @@ if ($view == '0'){
 
 <div class="main">
 
-  <div class="cg-container">
+  <?php /*<div class="cg-container">
     <div class="cg-row">
       <div class="breadcrumbs cg-col-xs-12">
         <ul>
@@ -37,6 +37,7 @@ if ($view == '0'){
 
 
 </div>
+*/?>
 
 
 <?php
@@ -60,17 +61,17 @@ $_helper = $this->helper('catalog/output');
 
 </div>
 <div class="cg-col-lg-8 cg-col-md-8 cg-col-xs-12 cg-col-sm-12 custom-pad">
-  <div class="cg-col-xs-12 collection-detail-main-title nopadding">
+  <div class="cg-col-xs-12 collection-detail-main-title nopadding opensans bold">
     <?php echo $wishlist->getName(); ?>
   </div>
   <div class="cg-col-xs-12">
     <div class=" normal-padding cg-col-lg-1 cg-col-md-1 cg-col-sm-1 cg-col-xs-2">
       <img src="<?php echo $user['profile_image']; ?>" title="<?php echo $user['display_name']; ?>" alt="<?php echo $user['display_name']; ?>" width="100%" class="rounded-this">
     </div>
-    <span class="collection-detail-name">Updated by <a href=<?php echo 'http://moxy.co.id/user/'.$user['display_name'] ?> style="text-decoration: none;"><span class="pinker"><?php echo $user['display_name'] ?></span></a> on <?php echo date('m/d/Y', strtotime($wishlist['updated_at'])); ?></span>
+    <span class="collection-detail-name opensans">Updated by <a href=<?php echo 'http://moxy.co.id/user/'.$user['display_name'] ?> style="text-decoration: none;"><span class="pinker"><?php echo $user['display_name'] ?></span></a> on <?php echo date('m/d/Y', strtotime($wishlist['updated_at'])); ?></span>
   </div>
   <div class="cg-col-xs-12 bottom-spacer-container in-block full-width">
-    <p class="collection-detail-desc">
+    <p class="collection-detail-desc opensans">
       <?php echo $wishlist->getDesc(); ?>
       <?php 
       /*This is for collection counter*/
@@ -83,29 +84,29 @@ $_helper = $this->helper('catalog/output');
     </p>
   </div>
   <div class="cg-col-xs-8 cg-col-lg-4 cg-col-md-2 cg-col-sm-2 bottom-spacer-container">
-    <div class="cg-col-xs-12 collection-detail-share">
+    <div class="cg-col-xs-12 collection-detail-share opensans">
       Share your collection
     </div>
     <div class="cg-col-xs-2 padding-3lr soc-size facebook">
-      <a style="color:#fff;" href="https://www.facebook.com/sharer.php?u=<?php echo $this->helper('core/url')->getCurrentUrl(); ?>&t=<?php echo $wishlist->getName(); ?>" onclick="javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"><i class="fa fa-facebook"></i></a>
+      <a style="color:#fff;" href="https://www.facebook.com/sharer.php?u=<?php echo $this->helper('core/url')->getCurrentUrl(); ?>&t=<?php echo $wishlist->getName(); ?>" onclick="javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"><i class="fa fa-facebook" style="padding-top:7px;"></i></a>
     </div>
     <div class="cg-col-xs-2 padding-3lr soc-size twitter">
-      <a style="color:#fff;" href="http://twitter.com/home?status=<?php echo $wishlist->getName(); ?>+<?php echo $this->helper('core/url')->getCurrentUrl(); ?>" onclick="javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"><i class="fa fa-twitter"></i></a>
+      <a style="color:#fff;" href="http://twitter.com/home?status=<?php echo $wishlist->getName(); ?>+<?php echo $this->helper('core/url')->getCurrentUrl(); ?>" onclick="javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"><i class="fa fa-twitter" style="padding-top:7px;"></i></a>
     </div>
     <div class="cg-col-xs-2 padding-3lr soc-size pinterest">
-      <a style="color:#fff;" href="https://www.pinterest.com/pin/create/link/?url=<?php echo $this->helper('core/url')->getCurrentUrl(); ?>&description=<?php echo $wishlist->getDesc(); ?>" onclick="javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"><i class="fa fa-pinterest-p"></i></a>
+      <a style="color:#fff;" href="https://www.pinterest.com/pin/create/link/?url=<?php echo $this->helper('core/url')->getCurrentUrl(); ?>&description=<?php echo $wishlist->getDesc(); ?>" onclick="javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"><i class="fa fa-pinterest-p" style="padding-top:7px;"></i></a>
     </div>
     <div class="cg-col-xs-2 padding-3lr soc-size gplus">
-      <a style="color:#fff;" href="https://plus.google.com/share?url=<?php echo $this->helper('core/url')->getCurrentUrl(); ?>" onclick="javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"><i class="fa fa-google-plus"></i></a>
+      <a style="color:#fff;" href="https://plus.google.com/share?url=<?php echo $this->helper('core/url')->getCurrentUrl(); ?>" onclick="javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"><i class="fa fa-google-plus" style="padding-top:7px;"></i></a>
     </div>
     <div class="cg-col-xs-2 padding-3lr soc-size mail">
-      <a style="color:#fff;" href="mailto:?subject=Lihat koleksi saya di Moxy.co.id&amp;body=Lihat koleksi saya di Moxy : http://www.moxy.co.id/user/<?php echo $user['display_name'] ?>" title="Share by Email"><i class="fa fa-envelope-o"></i></a>
+      <a style="color:#fff;" href="mailto:?subject=Lihat koleksi saya di Moxy.co.id&amp;body=Lihat koleksi saya di Moxy : http://www.moxy.co.id/user/<?php echo $user['display_name'] ?>" title="Share by Email"><i class="fa fa-envelope-o" style="padding-top:7px;"></i></a>
     </div>
   </div>
 </div>
 
 </div>
-<div class="cg-col-xs-12 bottom-spacer-container collection-detail-shop">
+<div class="cg-col-xs-12 bottom-spacer-container collection-detail-shop opensans bold">
   SHOP THE COLLECTION
 </div>
 <div class="category-products">
@@ -115,16 +116,16 @@ $_helper = $this->helper('catalog/output');
     <div class="collectionbox" style="margin-left: 5px;">
       <div class="collectioncontentbox">
         <input type="checkbox" class="checkall" value="0" id = "sall">
-        <label for="checkall"><?php echo $this->__('Select All Products') ?></label>
+        <label for="checkall" class=" opensans"><?php echo $this->__('Select All Products') ?></label>
         <br />
-        <div class="total-price">
+        <div class="total-price opensans">
           <span><?php echo $this->__('Total Price : ') ?></span><span class="totalPrice"><?php echo Mage::app()->getLocale()->currency(Mage::app()->getStore()->getCurrentCurrencyCode())->getSymbol(); ?> 0</span>
         </div>
       </div>
       <div class="collectionactionbox">
         <button type="button" title="<?php echo $this->__('Buy Selected Products') ?>" class="button btn-cartall" id = "bbtn">
           <span> 
-            <span><?php echo $this->__('Buy Selected Products (') ?></span><span class="selectedItems">0</span><span><?php echo $this->__(')') ?></span>
+            <span class="in-block"><?php echo $this->__('Buy Selected Products (') ?></span><span class="selectedItems in-block">0</span><span class="in-block"><?php echo $this->__(')') ?></span>
           </span>
         </button>
       </div>
@@ -190,7 +191,7 @@ $_helper = $this->helper('catalog/output');
 
             ?>
             <!-- New layout for collection detail items -->
-            <div class="cg-col-xs-6 cg-col-sm-6 cg-col-md-3 ">
+            <div class="cg-col-xs-6 cg-col-sm-6 cg-col-md-3 bottom-spacer-container">
               <div class="box">
                 <?php if(!$_product->canConfigure() && $_product->isSaleable() && $_product->getStockItem() && $_product->getStockItem()->getIsInStock()): ?>
                 <?php $item_in_stock = true; ?>
@@ -247,8 +248,8 @@ $_helper = $this->helper('catalog/output');
              type="button"
              data-id="<?php echo $productId; ?>"
              title="Quick View"
-             style="background: #3EB988;"
-             class="btn btn-size-small" onclick="showQuickView<?php echo $i;?>()">
+             style="background: #3EB988; border:none;"
+             class="btn btn-size-small opensans pointer" onclick="showQuickView<?php echo $i;?>()">
              Quick View
            </button>
          </div>
@@ -289,14 +290,14 @@ $_helper = $this->helper('catalog/output');
                  <div class="product-shop-right cg-col-xs-12 cg-col-sm-12 cg-col-md-6 cg-col-lg-6" style="line-height: 18px;text-align: left;">
                   <div class="product-shop">
                     <div class="product-name">
-                      <span class="h1 quick-title" style=""><?php echo $productNameStripped; ?></span>
+                      <span class="h1 quick-title opensans" style=""><?php echo $productNameStripped; ?></span>
                     </div>
                     <div class="clearfix"></div>
                     <div>
                       <div class="price-info">
                         <div class="price-box quick-view-price-box" style="text-align: left;">
                         <span class="regular-price" id="product-price-<?php echo $productId; ?>">
-                          <span class="price quick-price" style=""><?php echo $productFinalPriceFormatted; ?></span>                                    
+                          <span class="price quick-price opensans" style=""><?php echo $productFinalPriceFormatted; ?></span>                                    
                         </span>
 
                         <!-- showing product rating --> 
@@ -322,7 +323,7 @@ $_helper = $this->helper('catalog/output');
                         </div>
                       </div>
                       <div class="short-description bottom-spacer-container" style="">
-                      <div class="std std-quick-view" style=""> <?php echo $productDesc; ?> </div>
+                      <div class="std std-quick-view opensans" style=""> <?php echo $productDesc; ?> </div>
                     </div>
                     <div class="add-to-cart-wrapper ">
                       <div class="add-to-box">
@@ -365,7 +366,8 @@ $_helper = $this->helper('catalog/output');
 
                                               <button
                                                     type ="button"
-                                                    style="margin-top: 1px;"
+                                                    style="margin-top: 1px;font-family:'open sans';border:none;background:#ee5191;border-radius:5px;
+                                                    cursor:pointer;" 
                                                     id="closeqv<?php echo $i;?>"
                                                     data-id="<?php echo $productId; ?>"
                                                     title="<?php echo $productButtonLabel; ?>"
@@ -379,7 +381,7 @@ $_helper = $this->helper('catalog/output');
                             <?php } ?>
                            
                           </div>
-                          <div class="cg-col-xs-12 quick-detail" style="">
+                          <div class="cg-col-xs-12 quick-detail opensans" style="">
                             <a href="<?php echo $productUrl; ?>" title="<?php echo $productNameStripped; ?>" style="text-decoration:none;">
                             
                               baca detail produk <i class="fa fa-angle-right"></i>
@@ -427,10 +429,11 @@ $_helper = $this->helper('catalog/output');
             margin-top: -19px;
             background: #4EBD92;
             color: #fff;
-            padding: 1px 5px;
+            padding: 4px 5px;
             font-size: 11px;
             font-weight: normal;
             opacity: 0;
+            font-family: "open sans";
             -webkit-transition: all 1s ease-in-out;
             -moz-transition: all 1s ease-in-out;
             -o-transition: all 1s ease-in-out;
@@ -504,7 +507,7 @@ $_helper = $this->helper('catalog/output');
     <div class="text">
       <div class="preview-box">
         <div class="brand"><?php echo $productBrand; ?></div>
-        <p class="name-product"><a onclick = "showQuickView<?php echo $i; ?>()" title="<?php echo $productNameStripped; ?>" style = "cursor:pointer;"><?php echo $productNameStripped; ?></a></p>
+        <p class="name-product opensans"><a class="bold" onclick = "showQuickView<?php echo $i; ?>()" title="<?php echo $productNameStripped; ?>" style = "cursor:pointer;"><?php echo $productNameStripped; ?></a></p>
         <?php echo $this->getReviewsSummaryHtml($_product, 'short') ?>
       </div>
       <div class="price-box">
@@ -538,16 +541,16 @@ $_helper = $this->helper('catalog/output');
     <input type="hidden" id="checkProductId" name="checkProductId" value="">
     <input type="hidden" id="checkQty" name="checkQty" value="">
     <input type="checkbox" class="checkall" value="0">
-    <label for="checkall"><?php echo $this->__('Select All Products') ?></label>
+    <label for="checkall" class=" opensans"><?php echo $this->__('Select All Products') ?></label>
     <br />
-    <div class="total-price">
+    <div class="total-price opensans">
       <span><?php echo $this->__('Total Price : ') ?></span><span class="totalPrice"><?php echo Mage::app()->getLocale()->currency(Mage::app()->getStore()->getCurrentCurrencyCode())->getSymbol(); ?> 0</span>
     </div>
   </div>
   <div class="collectionactionbox">
     <button type="button" title="<?php echo $this->__('Buy Now') ?>" class="button btn-cartall">
       <span>
-        <span><?php echo $this->__('Buy Selected Products (') ?></span><span class="selectedItems">0</span><span><?php echo $this->__(')') ?></span>
+        <span class="in-block"><?php echo $this->__('Buy Selected Products (') ?></span><span class="in-block selectedItems">0</span><span class="in-block"><?php echo $this->__(')') ?></span>
     </span>
     </button>
   </div>

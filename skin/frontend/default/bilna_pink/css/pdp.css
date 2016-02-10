@@ -792,7 +792,7 @@ table.ratings-table tbody tr{
 .aw-mini-related-items ol {
 	background: none;
 }
-.aw-mini-related-items ol li {
+.aw-mini-related-items ol.products-grid li {
 	float: left;
     margin: 0;
     padding: 1%;
@@ -806,7 +806,7 @@ table.ratings-table tbody tr{
     -webkit-box-sizing: border-box;
 }
 .aw-mini-related-items .product-info-wrapper{
-    height: 123px;
+    height: 110px;
 }
 .aw-mini-related-items .product-images a {
     margin: 0 auto;
@@ -843,7 +843,6 @@ table.ratings-table tbody tr{
 .aw-mini-related-items .price-box {
 	text-align: left;
 	margin: 5px 0;
-	margin-bottom: 50px;
 }
 .aw-mini-related-items .regular-price .price {
 	color: #707070;

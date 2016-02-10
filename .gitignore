@@ -1,6 +1,8 @@
 *.swp
 .settings/
 .idea/
+.DS_Store
+.project
 media
 nbproject/
 lib/Netsuite/nslog/
