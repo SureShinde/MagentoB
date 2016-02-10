@@ -343,7 +343,7 @@ class AW_Followupemail_Model_Cron {
         
         $eventName = AW_Followupemail_Model_Source_Rule_Types::RULE_TYPE_PAYMENT_METHOD.$payment["method"];     
         
-        $query = "select afr.id, afq.object_id, afr.event_type, afr.cancel_events from aw_followup_queue afq, aw_followup_rule afr WHERE afr.id = afq.rule_id AND afr.cancel_events = 'order_status_processing' AND afq.`status` = 'R'";
+        $query = "select afr.id, afq.object_id, afr.event_type, afr.cancel_events from aw_followup_queue afq, aw_followup_rule afr WHERE afr.id = afq.rule_id AND ( afr.cancel_events = 'order_status_processing' OR afr.cancel_events = 'order_status_processing_cod' OR afr.cancel_events = 'order_status_canceled' ) AND afq.`status` = 'R'";
         $queueList = $read->fetchAll($query);
 
         foreach($queueList as $queueRow){
@@ -360,7 +360,7 @@ class AW_Followupemail_Model_Cron {
             ->joinInner(array('so' => $resource->getTableName('sales/order')), 'sop.parent_id=so.entity_id')
             ->where("so.created_at between '".$this->_lastExecTimeMySQL."' and '".$this->_nowMySQL."'")
             //->where("so.created_at between '2016-02-03 00:00:00' and '2016-02-05 23:59:59'")
-            ->where("so.`status`='pending'");
+            ->where("so.`status`='pending' or so.`status`='pending_cod'");
         $payments = $read->fetchAll($select);
         $sequenceNumber = 1;
         //echo "<pre>";
