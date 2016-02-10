@@ -518,6 +518,15 @@ $images = Mage::getModel('socialcommerce/collectioncover')->getCollection()->set
 
 <script>
 
+jQuery(document).ready(function() {
+    var href = window.location.href;
+    if(href.toLowerCase().indexOf("user/profile") >= 0)
+      href = <?php echo "'".$this->getUrl('collections')."'"; ?>;
+    jQuery(".web_feature").find("a[href='"+href+"']").each(function(){
+        jQuery(this).addClass("active");
+    })
+});
+
 function showAddToCollectionDialog() {
   jQuery('#addToCollectionModal').fadeIn('fast');
 }

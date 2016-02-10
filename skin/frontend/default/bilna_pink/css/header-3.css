@@ -56,8 +56,11 @@
     display: block;
 }
 .header .web_feature li.shop_link{
-    border-bottom: 4px solid #ee5191;
     font-weight: 600;
+}
+.header .web_feature li a.active{
+  padding-bottom: 19px;
+  border-bottom:4px solid #ee5191;
 }
 .header .web_feature li.koleksi{
     width: 70px;
