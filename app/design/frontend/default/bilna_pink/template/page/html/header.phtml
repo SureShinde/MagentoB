@@ -27,6 +27,12 @@
  * @var Mage_Page_Block_Html_Header $this
  */
 ?>
+<script type="text/javascript">
+$j(document).ready(function() {
+    
+        $j("img.lazy, .wrap-banner img:not(.image-slider), .warp-banner img").after('<div class="loader"><img class="loader-img" src="<?php echo Mage::getBaseUrl(); ?>skin/frontend/base/default/images/loading.gif"></div>');
+});
+</script>
 <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('above-header-notification')->toHtml() ?> 
 <div class="header-container">
     <div class="space-above-header">

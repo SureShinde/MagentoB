@@ -237,7 +237,6 @@ li.home .breadcrumbs a{
 	height: 152px;
 	overflow: hidden;
     position: relative;
-    padding: 20px 0;
 }
 .products-grid .product-image img {
 	width: 100%;
@@ -249,7 +248,7 @@ li.home .breadcrumbs a{
 	overflow: hidden;
 }
 .products-grid .price-box {
-	height: 35px;
+	height: 55px;
 }
 .products-grid .product-name span.lbl-newproduct {
 	display: inline-block;

@@ -184,7 +184,7 @@ display: inline-block;
 .footer .footer-link ul li{
     display: block;
     clear: both;
-    padding: 5px; 0;
+    padding: 5px 0;
 }
 .footer .about-us {
 	padding: 20px 0 0 0;
@@ -460,7 +460,7 @@ display: inline-block;
     .footer .footer-link ul li{
         display: block;
         clear: both;
-        padding: 5px; 0;
+        padding: 5px 0;
     }
     .footer .about-us {
         padding: 20px 0 0 0;
