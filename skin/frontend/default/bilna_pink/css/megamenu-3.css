@@ -104,6 +104,15 @@
 }
 .wrap-navigation a,
 .wrap-navigation li{
+    padding: 0 13px;
+    font-size: 12px;
+    text-transform: uppercase;
+    color: #73777a;
+}
+.wrap-navigation .promo-text-space a,
+.wrap-navigation .sub_nav a,
+.wrap-navigation .promo-text-space li,
+.wrap-navigation .sub_nav li{
     float: left;
     padding: 16px 13px;
     font-size: 12px;
@@ -150,7 +159,6 @@
 }
 .menu-navigation .megamenu.megamenu-active{
     height: 420px;
-	border-top: 1px solid #e9e9ea;
     text-align: left;
     padding: 20px 0 0;
 }
@@ -198,11 +206,11 @@
 .menu-navigation .first-level > ul{
 }
 .wrap-second-cat{
-    padding-right: 20px;
+    padding-right: 5px;
     position: relative;
     float: left;
     z-index: 99;
-	width:179px;
+	width:190px;
 }
 .menu-navigation .first-level > ul > li{
     line-height: 32px;
@@ -249,7 +257,7 @@
 }
 .menu-navigation .first-level .second-level .wrap-second-cat ul > li{
     font-size: 0.99em;
-    line-height: 1.6em;
+    line-height: 1.3em;
     padding-left: 20px;
     text-indent: 0;
 }

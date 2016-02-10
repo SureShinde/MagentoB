@@ -1,6 +1,15 @@
 <?php
 class Moxy_MoxySellerCenter_Model_Api extends Mage_Api_Model_Resource_Abstract
 {
+
+    /**
+     * @author Indra Halim
+     */
+    public function __construct()
+    {
+        $this->_storeIdSessionField = 'category_store_id';
+    }
+
 	private function getProductItem($orders, $productIds) {
 		$orderItemArr = array();
 
@@ -555,6 +564,90 @@ class Moxy_MoxySellerCenter_Model_Api extends Mage_Api_Model_Resource_Abstract
         }
 
         return $result;
+    }
+
+    /**
+     * Convert node to array
+     * @author Indra Halim
+     * @param Varien_Data_Tree_Node $node
+     * @return array
+     */
+    protected function _nodeToArray(Varien_Data_Tree_Node $node)
+    {
+        // Only basic category data
+        $result = array();
+        $result['category_id'] = $node->getId();
+        $result['parent_id']   = $node->getParentId();
+        $result['name']        = $node->getName();
+        $result['is_active']   = $node->getIsActive();
+        $result['position']    = $node->getPosition();
+        $result['level']       = $node->getLevel();
+        $result['children']    = array();
+
+        foreach ($node->getChildren() as $child) {
+            $result['children'][] = $this->_nodeToArray($child);
+        }
+
+        return $result;
+    }
+
+    /**
+     * Retrives store id from store code, if no store id specified,
+     * it use seted session or admin store
+     * @author Indra Halim
+     * @param string|int $store
+     * @return int
+     */
+    protected function _getStoreId($store = null)
+    {
+        if (is_null($store)) {
+            $store = ($this->_getSession()->hasData($this->_storeIdSessionField)
+                ? $this->_getSession()->getData($this->_storeIdSessionField) : 0);
+        }
+
+        try {
+            $storeId = Mage::app()->getStore($store)->getId();
+        } catch (Mage_Core_Model_Store_Exception $e) {
+            $this->_fault('store_not_exists');
+        }
+
+        return $storeId;
+    }
+
+    /**
+     * Retrieve category tree
+     * @author Indra Halim
+     * @param int $parent
+     * @param string|int $store
+     * @return array
+     */
+    public function getCategoryTree($parentId = null, $store = null)
+    {
+        if (is_null($parentId) && !is_null($store)) {
+            $parentId = Mage::app()->getStore($this->_getStoreId($store))->getRootCategoryId();
+        } elseif (is_null($parentId)) {
+            $parentId = 1;
+        }
+
+        /* @var $tree Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Tree */
+        $tree = Mage::getResourceSingleton('catalog/category_tree')
+            ->load();
+
+        $root = $tree->getNodeById($parentId);
+
+        if($root && $root->getId() == 1) {
+            $root->setName(Mage::helper('catalog')->__('Root'));
+        }
+
+        $collection = Mage::getModel('catalog/category')->getCollection()
+            ->setStoreId($this->_getStoreId($store))
+            ->addAttributeToFilter('include_in_sellercenter', 1)
+            ->addAttributeToSelect('name')
+            ->addAttributeToSelect('is_active');
+
+        $tree->addCollectionData($collection, true);
+
+        return $this->_nodeToArray($root);
     }
 
 }

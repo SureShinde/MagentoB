@@ -69,8 +69,9 @@
 	    <?php endif ?>
 	    <?php if($_cartQty ): ?>
 		    <div class="actions">
+                <button type="button" title="<?php echo $this->__('Checkout') ?>" class="button btn-cart" onclick="setLocation('<?php echo $this->getUrl('checkout/cart')?>')"><span><span><?php echo $this->__('Troli') ?></span></span></button>
 		        <?php echo $this->getChildHtml('extra_actions') ?>
-		        <button type="button" title="<?php echo $this->__('Checkout') ?>" class="button btn-checkout" onclick="setLocation('<?php echo $this->getUrl('checkout/cart')?>')"><span><span><?php echo $this->__('Bayar') ?></span></span></button>
+		        <button type="button" title="<?php echo $this->__('Checkout') ?>" class="button btn-checkout" onclick="setLocation('<?php echo $this->getUrl('checkout/onepage/')?>')"><span><span><?php echo $this->__('Bayar') ?></span></span></button>
 		    </div>
 	    <?php endif ?>
     </div>
