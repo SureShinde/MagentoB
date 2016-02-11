@@ -434,6 +434,24 @@ hr{
     margin-right: 10px;
     position: relative;
 }
+.product-shop-right .block.block-related .aw-arp-item:hover a.link-wishlist.addToCollectionLink{
+    display: table;
+}
+.product-shop-right .block.block-related a.link-wishlist.addToCollectionLink,
+.aw-arp-item .top_thumb_list_product > a.link-wishlist.addToCollectionLink{
+    position: absolute;
+    top: 5px;
+    display: none;
+    background: #fff;
+    right: 5px;
+    padding: 5px;
+    font-size: 15px;
+    z-index: 9;
+    border: 1px solid;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+}
 .product-shop-right .block.block-related .aw-arp-item-right .price-box,
 .product-shop-right .block.block-related .aw-arp-item-right .aw-arp-product-name-wrap{
     float: left;

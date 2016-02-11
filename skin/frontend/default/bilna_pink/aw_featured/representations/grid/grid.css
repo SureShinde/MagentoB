@@ -33,9 +33,6 @@
     text-transform: uppercase;
     bottom: 20px;
 }
-.awafpgrid ul li .product-info-wrapper{
-    height: 123px;
-}
 .awafpgrid ul li .afp-addtocart{
     padding: 10px 0 0;
 }
@@ -152,7 +149,6 @@
 }
 .awafpgrid .afp-thumbnail {
     margin-bottom: 10px;
-    padding: 20px 0;
 }
 .awafpgrid .afp-thumbnail a img {
 	display: block;
@@ -208,12 +204,12 @@
     float: left;
     display: block;
     bottom: 0;
-    height: 395px;
+    height: 359px;
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
-    margin: 0;
+    margin: 5px 0;
     background: #C8542D;
     padding: 20px;
 }
