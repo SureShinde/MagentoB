@@ -5,8 +5,8 @@
 	clear: both;
     border-top: 1px solid #ebebeb;
 }
-.footer-container:nth-of-type(4) {
-    background: #f2f2f2;
+.footer-container:nth-child(even) {
+    background: #f6f6f6;
 }
 .footer-container:last-child{
     padding: 0;
