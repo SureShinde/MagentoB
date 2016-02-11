@@ -599,6 +599,7 @@
 .mini-cart .block-cart .actions button.button.btn-cart{
 	width: 48%;
     margin: 0 1%;
+    float: left;
 }
 .mini-cart .block-cart .actions button.button.btn-cart{
 	background-color:#fff;
