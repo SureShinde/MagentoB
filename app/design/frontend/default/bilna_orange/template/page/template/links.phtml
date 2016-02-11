@@ -41,15 +41,17 @@
         <?php endif;?>
     <?php endforeach; ?>
     <?php if($this->helper('customer')->isLoggedIn()):?>
-        <li class="myaccount"><a href="#" class="link-trigger-myaccount">
-			<div class="circle-name">
-				<div class="cust-icon">
-					<?php echo substr($this->__( Mage::getSingleton('customer/session')->getCustomer()->getFirstname()),0,1) ?>
-				</div>
-			</div>
-			akun
-		</a>
+        <li class="myaccount">
+            <a href="#" class="link-trigger-myaccount">
+                <div class="circle-name">
+                    <div class="cust-icon">
+                        <?php echo substr($this->__( Mage::getSingleton('customer/session')->getCustomer()->getFirstname()),0,1) ?>
+                    </div>
+                </div>
+                akun
+            </a>
             <div class="toplink-myaccount">
+                <div class="arrow_myaccount"> </div>
                 <ul>
                     <li><a href="<?php echo $this->getUrl('customer/account/edit')?>"><?php echo $this->__('Account Information') ?></a></li>
                     <li><a href="<?php echo $this->getUrl('sales/order/history')?>"><?php echo $this->__('My Orders') ?></a></li>

@@ -29,7 +29,8 @@ class Bilna_Paymethod_Model_Observer_Webservice_Vtdirect {
         $transactionStatus = $notification->transaction_status;
         $fraudStatus = $notification->fraud_status;
         
-        if (($transactionStatus == 'capture' && $fraudStatus == 'accept') || ($transactionStatus == 'cancel' && $fraudStatus == 'challenge') || $this->isMandiriEcash($notification, $paymentCode)) {
+        if ($this->isMandiriEcash($notification, $paymentCode)) {
+        //if (($transactionStatus == 'capture' && $fraudStatus == 'accept') || ($transactionStatus == 'cancel' && $fraudStatus == 'challenge') || $this->isMandiriEcash($notification, $paymentCode)) {
             if (in_array($orderStatus, $orderStatusAllow)) {
                 $updateOrder = Mage::getModel('paymethod/vtdirect')->updateOrder($order, $this->_code, $notification);
                 
@@ -51,6 +52,10 @@ class Bilna_Paymethod_Model_Observer_Webservice_Vtdirect {
                 }
             }
         }
+        else {
+            $contentLog = sprintf("%s | updateStatusOrder: skip", $incrementId);
+            $this->writeLog($this->_typeTransaction, 'notification', $contentLog);
+        }
     }
     
     protected function getServerKey() {
@@ -58,8 +63,9 @@ class Bilna_Paymethod_Model_Observer_Webservice_Vtdirect {
     }
     
     protected function getNotificationOrderStatusAllow() {
-        $statuses = Mage::getStoreConfig('payment/vtdirect/notification_order_status_allow');
-        $statusArr = explode(',', $statuses);
+        //$statuses = Mage::getStoreConfig('payment/vtdirect/notification_order_status_allow');
+        //$statusArr = explode(',', $statuses);
+        $statusArr = array ('cc_verification', 'pending');
         
         return $statusArr;
     }

@@ -2834,13 +2834,14 @@ a.wishlist-name
 }
 a.coll-quick
 {
-
-  padding: 6px !important;
-  border: 1px solid #ee5191 !important;
-  text-align: center;
-  color: #ee5191;
-  border-radius: 4px;
-  font-size: 18px;
+    padding: 5px 8px 4px;
+    border: 1px solid #ee5191;
+    text-align: center;
+    color: #ee5191;
+    border-radius: 4px;
+    float: left;
+    font-size: 18px;
+    margin: 4px 10px;
 }
 .quick-detail
 {
@@ -3496,7 +3497,6 @@ p.exp-three-col
     color: #FFFFFF;
     font-size: 13px;
     font-weight: normal;
-    font-family: 'Montserrat', Arial, Verdana, sans-serif;
     line-height: 19px;
     text-align: center;
     text-transform: initial;

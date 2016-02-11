@@ -28,12 +28,7 @@
     <div class="footer">
         <div class="cs-info col-5">
             <img src="<?php echo $this->getSkinUrl('images/cs.png'); ?>">
-            <p>
-                <span class="que">Butuh Bantuan ?</span>
-                <span class="phone"><?php echo Mage::getStoreConfig('general/store_information/phone')?></span>
-                <span class="day">Senin-Jumat 08.00-19.00. Sabtu 08.00-17.00</span>
-                <span class="email">cs@bilna.com</span>
-            </p>
+            <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('csinformation')->toHtml(); ?>
         </div>
 		<div class="subscribe-form col-10">
 			<p>Berlangganan Newsletter Bilna</p>
@@ -518,6 +513,15 @@ $images = Mage::getModel('socialcommerce/collectioncover')->getCollection()->set
 
 <script>
 
+jQuery(document).ready(function() {
+    var href = window.location.href;
+    if(href.toLowerCase().indexOf("user/profile") >= 0)
+      href = <?php echo "'".$this->getUrl('collections')."'"; ?>;
+    jQuery(".web_feature").find("a[href='"+href+"']").each(function(){
+        jQuery(this).addClass("active");
+    })
+});
+
 function showAddToCollectionDialog() {
   jQuery('#addToCollectionModal').fadeIn('fast');
 }
@@ -635,70 +639,17 @@ jQuery(document).ready(function() {
 <?php # Moxy Collections End ?>
 
 
-
-
-      <div class="voucher bottom-small" id="registerForSpecialOffers">
-        <div class="cg-container">
-          <div class="cg-row">
-            <div class="cg-col-md-12 frame-box">
-              <div class="cg-col-xs-12 cg-col-md-6 box text">
-                <h4><?php echo $this->__('GET A VOUCHER WORTH RP 75.000'); ?></h4>
-                <p>
-                  <?php echo $this->__('Subscribe and get the latest products, fashion news, trends, exclusive offers and more from moxy.co.id - straight to your inbox!'); ?></p>
-                </div>
-                <div class="cg-col-xs-12 cg-col-md-6 box form">
-                  <form action="https://acommerce1.createsend.com/t/i/s/tdfkj/"
-                  method="post"
-                  class="form-horizontal newsletter-ajax-form"
-                  id="newsletter-validate-detail">
-                  <div class="input-group">
-                    <input type="text" class="form-control newsletter-ajax-disable" placeholder="Enter your e-mail" name="cm-tdfkj-tdfkj" required>
-                    <span class="input-group-btn">
-                      <button class="btn btn-primary btn-newsletter newsletter-ajax-disable" type="submit" style="border: none;padding: 9px;">Subscribe</button>
-                    </span>
-                  </div>
-                  <input id="fieldjhvut" name="cm-f-jhvut" type="hidden" value="<?php echo Mage::registry('_utmSource'); ?>">
-                  <input id="fieldjhvui" name="cm-f-jhvui" type="hidden" value="<?php echo Mage::registry('_utmMedium'); ?>">
-                  <input id="fieldjhvud" name="cm-f-jhvud" type="hidden" value="<?php echo Mage::registry('_utmCampaign'); ?>">
-                  <input id="fieldjhvuh" name="cm-f-jhvuh" type="hidden" value="<?php echo Mage::registry('_utmContent'); ?>">
-                  <input id="fieldjhvuk" name="cm-f-jhvuk" type="hidden" value="<?php echo Mage::registry('_utmTerm'); ?>">
-                  <input id="fieldjhvuu" name="cm-f-jhvuu" type="hidden" value="newsletter-strip-footer">
-                  <input id="fieldjktiit" name="cm-f-jktiit" type="hidden" value="<?php echo Mage::registry('_cmLang'); ?>">
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="footer-container">
-        <div class="containLink">
-          <div class="footer">
-            <?php echo $this->getChildHtml() ?>
-          </div>
-          <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('footer_payment_partner')->toHtml()?>
-          <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('footer_shipping_partner')->toHtml()?>
-        </div>
-        <address class="copyright">
-          <div class="grayStrip">
-            <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('footer_links_copyright')->toHtml()?>
-          </div>
-        </address>
-        <div class="totop"><span></span>
-        </div>
-      </div>
-
       <script>
 
 
       jQuery(document).ready(function() {
 
-        if (! jQuery.cookie("newsletter_subscribed")) {
+        /*if (! jQuery.cookie("newsletter_subscribed")) {
           jQuery("#newsletter-registration-form-overlay").fadeIn(500);
 
           jQuery.cookie("newsletter_subscribed", 1, {expires : 1});
-        }
-
+        }*/
+          
         jQuery("#newsletter-registration-close").click(function() {
           jQuery("#newsletter-registration-form-overlay").fadeOut(300);
         });
@@ -745,35 +696,6 @@ jQuery(document).ready(function() {
 
 </script>
 
-<script>
-    /*jQuery('.totop').click(function() {
-              jQuery("html, body").animate({ scrollTop: 0 }, "slow");
-              return false;
-            });
-*/
-jQuery(document).ready(function () {
-  ToggleScrollUp();
-
-  jQuery(window).scroll(function () {
-    ToggleScrollUp();
-  });
-
-  jQuery('.totop').click(function () {
-    jQuery("html, body").animate({
-      scrollTop: 0
-    }, 500);
-    return false;
-  });
-});
-
-function ToggleScrollUp() {
-  if (jQuery(".main").offset().top <= jQuery(window).scrollTop()) {
-    jQuery('.totop').fadeIn();
-  } else {
-    jQuery('.totop').fadeOut();
-  }
-}
-</script>
 
 <?php # Criteo start ?>
 
@@ -805,13 +727,13 @@ function ToggleScrollUp() {
       <script>
       <?php # Language cookie ?>
       jQuery(document).ready(function() {
-        jQuery.cookie("userlang", "<?php echo Mage::app()->getLocale()->getLocaleCode(); ?>", {path: "/"});
+        /*jQuery.cookie("userlang", "<?php echo Mage::app()->getLocale()->getLocaleCode(); ?>", {path: "/"});
         
         
         if (jQuery.cookie('test_status') != '1') {
 
           jQuery('#over-main').show();
-        }
+        }*/
 
 
         jQuery('#closer-main').click(function(){
@@ -821,11 +743,6 @@ function ToggleScrollUp() {
         });
       });
       </script>
-      <a class="leanModalTrigger" href="#modal1" style="display:none">Trigger</a>
-      <div id="modal1" class="lean_modal" style="display:none;">
-        <p id="newsletter-ajax-message"></p>
-        <a class="lean_close" href="javascript:;"></a>
-      </div>
       <?php if ($accessTrade = Mage::getSingleton('core/session')->getAccessTrade()) : ?>
       <?php $customer = Mage::getSingleton('customer/session')->getCustomer(); ?>
       <img src="https://cv.accesstrade.co.id/cv.php?identifier=<?php echo urlencode($customer->getEmail()); ?>&mcn=149e9677a5989fd342ae44213df68868&result_id=13" width="1" height="1" />

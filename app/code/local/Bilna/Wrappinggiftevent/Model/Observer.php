@@ -52,6 +52,7 @@ class Bilna_Wrappinggiftevent_Model_Observer {
         $quote = $evt->getQuote();
         $model = Mage::getModel('wrappinggiftevent/custom_quote');    
         $data  = $model->getByQuote($quote->getId());
+
         foreach($data as $key => $value){
             $quote->setData($key,$value);
         }
@@ -89,6 +90,7 @@ class Bilna_Wrappinggiftevent_Model_Observer {
         $order = $evt->getOrder();
         $model = Mage::getModel('wrappinggiftevent/custom_order');
         $data = $model->getByOrder($order->getId());
+
         if( !empty($data) ) {
             foreach($data as $key => $value){
                 $order->setData($key,$value);

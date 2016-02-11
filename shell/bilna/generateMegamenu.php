@@ -270,6 +270,7 @@ class GenerateMegamenu extends Mage_Shell_Abstract {
         if (!file_exists($this->_directory)) {
             mkdir($this->_directory, 0777, true);
         }
+
         Mage::log('done');
 
         Mage::log('Checking file..');
@@ -277,6 +278,7 @@ class GenerateMegamenu extends Mage_Shell_Abstract {
         if (file_exists($filename)) {
             unlink($filename);
         }
+
         Mage::log('done');
 
         Mage::log('Setting the file permission for writing file');

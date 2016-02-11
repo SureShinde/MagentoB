@@ -35,22 +35,20 @@
 <div class="block block-cart">
     <?php $_cartQty = $this->getSummaryCount() ?>
     <div class="block-content">
+	    <?php if ($_cartQty>0): ?>
+	            <?php if ($_cartQty<4): ?>
+	                <p class="amount"><?php echo $this->__('<a id="cart-item-qty" href="%s">%s</a> produk di Troli Anda', $this->getUrl('checkout/cart'), $_cartQty) ?></p>
+	            <?php else: ?>
+	                <p class="amount"><?php echo $this->__('Menampilkan 3 dari <a id="cart-item-qty" href="%s">%s</a> produk di Troli Anda', $this->getUrl('checkout/cart'), $_cartQty) ?></p>
+	            <?php endif ?>
+	    <?php endif ?>
         <?php $_items = $this->getRecentItems() ?>
 	    <?php if(count($_items)): ?>
-	       	<table id="cart-sidebar" class="mini-products-list">
-                <thead>
-                    <tr>
-                        <th colspan="2"><?php echo $this->__('Item(s)') ?></th>
-                        <th><?php echo $this->__('Quantity') ?></th>
-                        <th class="price"><?php echo $this->__('Price') ?></th>
-                    </tr>
-                </thead>
-	       		<tbody>
+	       	<ul id="cart-sidebar" class="mini-products-list">
 			        <?php foreach($_items as $_item): ?>
 			            <?php echo $this->getItemHtml($_item) ?>
 			        <?php endforeach; ?>
-		        </tbody>
-	        </table>
+	        </ul>
 	        <script type="text/javascript">decorateList('cart-sidebar', 'none-recursive')</script>
 		<?php else: ?>
 	        <p class="empty"><?php echo $this->__('You have no items in your shopping cart.') ?></p>
@@ -61,23 +59,19 @@
 	                <?php if ($this->canApplyMsrp()): ?>
 	                    <span class="map-cart-sidebar-total"><?php echo $this->__('ORDER TOTAL WILL BE DISPLAYED BEFORE YOU SUBMIT THE ORDER'); ?></span>
 	                <?php else: ?>
-	                    <span class="label"><?php echo $this->__('Shopping Cart Total:') ?></span> <?php echo Mage::helper('checkout')->formatPrice($this->getSubtotal()) ?>
+	                    <span class="label"><?php echo $this->__('Subtotal:') ?></span> <?php echo Mage::helper('checkout')->formatPrice($this->getSubtotal()) ?>
 	                    <?php if ($_subtotalInclTax = $this->getSubtotalInclTax()): ?>
 	                        <br />(<?php echo Mage::helper('checkout')->formatPrice($_subtotalInclTax) ?> <?php echo Mage::helper('tax')->getIncExcText(true) ?>)
 	                    <?php endif; ?>
 	                <?php endif; ?>
 	            </p>
-	            <?php if ($_cartQty<4): ?>
-	                <p class="amount"><?php echo $this->__('Showing <a id="cart-item-qty" href="%s">%s</a> item in your cart.', $this->getUrl('checkout/cart'), $_cartQty) ?></p>
-	            <?php else: ?>
-	                <p class="amount"><?php echo $this->__('Showing last 3 out of <a id="cart-item-qty" href="%s">%s</a> items in your cart.', $this->getUrl('checkout/cart'), $_cartQty) ?></p>
-	            <?php endif ?>
 	        </div>
 	    <?php endif ?>
 	    <?php if($_cartQty ): ?>
 		    <div class="actions">
+                <button type="button" title="<?php echo $this->__('Checkout') ?>" class="button btn-cart" onclick="setLocation('<?php echo $this->getUrl('checkout/cart')?>')"><span><span><?php echo $this->__('Troli') ?></span></span></button>
 		        <?php echo $this->getChildHtml('extra_actions') ?>
-		        <button type="button" title="<?php echo $this->__('Checkout') ?>" class="button btn-checkout" onclick="setLocation('<?php echo $this->getUrl('checkout/cart')?>')"><span><span><?php echo $this->__('Cart') ?> <i class="fa fa-chevron-circle-right"></i></span></span></button>
+		        <button type="button" title="<?php echo $this->__('Checkout') ?>" class="button btn-checkout" onclick="setLocation('<?php echo $this->getUrl('checkout/onepage/')?>')"><span><span><?php echo $this->__('Bayar') ?></span></span></button>
 		    </div>
 	    <?php endif ?>
     </div>
@@ -105,16 +99,14 @@ function ecommerceRemoveCart(name, sku, price, quantity, imageUrl, link) {
 	});
 
 	// ematics cart
-    ematics("log", "product", "cart", 
-            [{
-            'name': name,
-            'id': sku,
-            'price': price,
-            'quantity': quantity,
-            'brandName': 'brand name',
-            'imageUrl': imageUrl,
-            'link': link
-           }]
-        );
+    products = [{
+		'id': sku,
+        'price': price,
+        'quantity': quantity,
+        'name': name,
+        'brandName': 'brand name',
+        'imageUrl': imageUrl,
+        'link': link
+	}];
 }
 </script>

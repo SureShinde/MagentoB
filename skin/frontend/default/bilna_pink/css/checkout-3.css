@@ -42,10 +42,10 @@
 	margin-right: 5px;
 }
 #checkoutSteps .guest_register .buttons-set button.button {
-    
+    background: #EE5191;
 }
 #checkoutSteps .buttons-set button.button {
-    background:#EE5191;
+    background:#3eb988;
     height: 36px;
     font-size: 18px;
     line-height:21px;

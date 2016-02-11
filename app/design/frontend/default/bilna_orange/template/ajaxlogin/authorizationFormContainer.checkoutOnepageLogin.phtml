@@ -105,6 +105,10 @@
             $('login:register').observe(
                 'click',
                 function(event) {
+                    // hide first and last name input label for pop up Login
+                    jQuery('form#register-form div.field.name-firstname div.input-box label').addClass('hidden');
+                    jQuery('form#register-form div.field.name-lastname div.input-box label').addClass('hidden');
+
                     $('login:register').checked = false;
                     var __overlapRootNode = $('<?php echo $this->getLayout()->getBlock('authorization_container_overlap')->getHtmlId() ?>');
                     __overlapRootNode.style.display = '';
@@ -113,6 +117,8 @@
                     var __overlapAuthorizationInstance = AjaxLogin.Authorization.__getInstanceByChildnode(__overlapAuthorizationNode);
                     __overlapAuthorizationInstance.switchToFrame('register');
                     
+					document.getElementById("responsiveformregister").checked = true;
+
                     if (window.event) window.event.cancelBubble = true;
                     if (window.event) window.event.returnValue = false;
                     event.preventDefault();
