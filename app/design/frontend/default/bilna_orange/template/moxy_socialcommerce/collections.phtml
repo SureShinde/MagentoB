@@ -124,6 +124,7 @@ foreach ($wishlists as $wishlist) {
                 </div>
               </div>
 
+                <div class="cg-container">
               <?php 
                   //Mage::getModel('socialcommerce/weekly')->getWeekly();
               $rows = Mage::getModel('wishlist/wishlist')->getCollection()->addFieldToFilter('visibility','1')->setOrder('counter', 'DESC')->setPageSize(4);
@@ -140,7 +141,6 @@ foreach ($wishlists as $wishlist) {
                 ?>
 
                 <?php $user = Mage::helper('socialcommerce')->getProfileInformation($wishlist['customer_id']); ?> 
-                <div class="cg-container">
                   <div class="cg-col-lg-3 cg-col-md-3 cg-col-sm-6 cg-col-xs-6 bottom-spacer-container">
                     <div class="cg-col-xs-12 nopadding collection-shade">
                       <a href="<?php echo $this->getUrl('collections/' . $wishlist['wishlist_id'] . '-' . $slug); ?>">
@@ -167,9 +167,10 @@ foreach ($wishlists as $wishlist) {
          </div>
        </div>
      </div>
-   </div>
    
    <?php } ?>
+   
+   </div>
    <div class="cg-row nomargin">
 
     <div class="cg-col-lg-12 cg-col-xs-12 in-block nopadding">
@@ -238,6 +239,7 @@ foreach ($wishlists as $wishlist) {
                 </div>
               </div>
 
+                <div class="cg-container">
               <?php 
                   //Mage::getModel('socialcommerce/weekly')->getWeekly();
               $rows = Mage::getModel('wishlist/wishlist')->getCollection()->addFieldToFilter('visibility','1')->setOrder('counter', 'DESC')->setPageSize(4);
@@ -254,7 +256,6 @@ foreach ($wishlists as $wishlist) {
                 ?>
 
                 <?php $user = Mage::helper('socialcommerce')->getProfileInformation($wishlist['customer_id']); ?> 
-                <div class="cg-container">
                   <div class="cg-col-lg-3 cg-col-md-3 cg-col-sm-6 cg-col-xs-6 bottom-spacer-container">
                     <div class="cg-col-xs-12 nopadding collection-shade">
                       <a href="<?php echo $this->getUrl('collections/' . $wishlist['wishlist_id'] . '-' . $slug); ?>">
@@ -281,6 +282,9 @@ foreach ($wishlists as $wishlist) {
          </div>
        </div>
      </div>
+   
+   <?php } ?>
+<!-- 
      <div class="cg-col-xs-12">
      <ul class="pagination pull-right">
     <li><a href="#">1</a></li>
@@ -289,12 +293,9 @@ foreach ($wishlists as $wishlist) {
     <li><a href="#">4</a></li>
     <li><a href="#">5</a></li>
   </ul>
-  </div>
+  </div> -->
+
    </div>
-   
-   <?php } ?>
-
-
       <script>
       function showHowTo() {
         jQuery('#howto').fadeIn('fast');
