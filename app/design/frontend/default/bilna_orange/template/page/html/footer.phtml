@@ -267,7 +267,7 @@ $images = Mage::getModel('socialcommerce/collectioncover')->getCollection()->set
 <!-- Modal dialog to add new item to collection -->
 
 <div class="container-collection-pop" style="display:none;" id="addToCollectionModal">
-    <div class="cg-col-lg-6 cg-col-md-6 cg-col-sm-11 cg-col-xs-11 container-collection-whitebg" id="add-new-pop-collection">
+    <div class="cg-col-lg-6 cg-col-md-6 cg-col-sm-11 cg-col-xs-11 container-collection-whitebg opensans" id="add-new-pop-collection">
         <div class="cg-col-lg-12 cg-col-sm-12 cg-col-md-12 cg-col-xs-12 collection-top-part">
             <div class="cg-col-lg-11 cg-col-md-11 cg-col-sm-11 cg-col-xs-11 add-to-collection-title bold opensans take-left">Tambahkan Produk ke Koleksi</div>
             <div class="cg-col-lg-1 cg-col-md-1 cg-col-sm-1 cg-col-xs-1 " id="closer-collection" onclick="hideAddToCollectionDialog()"><i class="fa fa-times"></i></div>
@@ -278,11 +278,11 @@ $images = Mage::getModel('socialcommerce/collectioncover')->getCollection()->set
                     <img src="" alt="" width="100%" id="modalCollectionImage">
                 </div>
                 <div class="cg-col-lg-12  cg-col-md-8 cg-col-xs-8  text-container-collection col-middler">
-                    <div class="brands-name" id="modalCollectionBrandName">n/a</div>
-                    <div class="brand-name" id="modalCollectionProductName">n/a</div>
+                    <div class="brands-name opensans" id="modalCollectionBrandName">n/a</div>
+                    <div class="brand-name opensans" id="modalCollectionProductName">n/a</div>
                     <div class="ratings pull-left"></div>
-                    <div class="seller-name"></div>
-                    <div class="cg-col-xs-12 bottom-price">
+                    <div class="seller-name opensans"></div>
+                    <div class="cg-col-xs-12 bottom-price opensans">
                         <div class="cg-col-xs-12 main-price" id="modalCollectionPrice">n/a</div>
                     </div>
                 </div>
@@ -482,10 +482,10 @@ $images = Mage::getModel('socialcommerce/collectioncover')->getCollection()->set
 
         <div style="margin-top: 20px;">
             <input type="checkbox" name="visibility" id="visibility" class="input-collection" style="height: inherit; width:10px;" checked>
-            <label for="visibility" style="color: #545454; height: 40px;">Make Public</label>
+            <label for="visibility" style="color: #545454; height: 40px;">Jadikan koleksi publik agar semua orang bisa melihat</label>
         </div>
 
-        <button type="submit" class="btn btn-pink-prime cursor" name="submitButton" style="margin: 10px 0;">Create &amp; Add This Products</button>
+        <button type="submit" class="btn btn-pink-prime cursor" name="submitButton" style="margin: 10px 0;">BUAT DAN TAMBAH KE KOLEKSI</button>
 
     <?php endif; ?>
     <div class="cg-col-xs-12 nopadding">
@@ -502,10 +502,10 @@ $images = Mage::getModel('socialcommerce/collectioncover')->getCollection()->set
 <?php else : ?>
 
     <div class="in-block cg-col-lg-7 cg-col-md-7 cg-col-sm-12 cg-col-xs-12">
-        <p style="color: #545454;">Please <a href="<?php echo Mage::getUrl('customer/account/login'); ?>" onclick="hideAddToCollectionDialog();openLogin();return false;">login</a> to add this item to your collection.</p>
-        <a class="btn btn-primary btn-block" style="margin: 10px 0;text-decoration:none;" href="<?php echo Mage::getUrl('customer/account/login'); ?>" onclick="hideAddToCollectionDialog();openLogin();return false;">Login</a>
+        <p class="opensans" style="color: #545454;">Please <a href="<?php echo Mage::getUrl('customer/account/login'); ?>" onclick="hideAddToCollectionDialog();openLogin();return false;">login</a> to add this item to your collection.</p>
+        <a class="btn btn btn-pink-prime cursor in-block" style="margin: 10px 0;text-decoration:none;" href="<?php echo Mage::getUrl('customer/account/login'); ?>" onclick="hideAddToCollectionDialog();openLogin();return false;">Login</a><!-- 
         <button class="btn btn-default btn-block btn-cancel" onclick="hideAddToCollectionDialog();return false;">Close</button>
-    </div>
+ -->    </div>
 
 <?php endif; ?>
 </div>
