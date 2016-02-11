@@ -88,6 +88,9 @@ class AW_Afptc_Model_Observer extends Varien_Object
            
             foreach ($activeRules as $rule) {
                 $product = Mage::getModel('catalog/product')->load($rule->getProductId());
+                if ($this->isRuleDeleted($rule, $cart)) {
+                    continue;
+                }
                 if (!$product->getId())
                     continue;
                 try {

@@ -140,8 +140,8 @@ class AW_Points_Block_Checkout_Onepage_Payment_Methods extends Mage_Checkout_Blo
     public function getPaymentMethodsByShippingMethod() {
         $order = $this->getRequest()->getPost();
         $postData = array (
-            'shipping_text' => $order['shipping_text'],
-            'shipping_type' => $order['shipping_type']
+            'shipping_text' => isset($order['shipping_text']) ? $order['shipping_text'] : '',
+            'shipping_type' => isset($order['shipping_type']) ? $order['shipping_type'] : ''
         );
         $paymentMethodsArr = Mage::getModel('cod/paymentMethod')->getSupportPaymentMethodsByShippingMethod($postData);
         $result = array ();

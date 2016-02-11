@@ -27,6 +27,13 @@ class Bilna_Paymethod_Helper_Data extends Mage_Core_Helper_Abstract {
         return $result;
     }
     
+    public function getPaymentMethodVtdirect() {
+        $payment = Mage::getStoreConfig('bilna_module/success_page/payment_vtdirect');
+        $result = explode(',', $payment);
+        
+        return $result;
+    }
+    
     public function getInstallmentOption($paymentMethod, $id, $returnKey = 'label') {
         $installmentOptions = unserialize(Mage::getStoreConfig('payment/' . $paymentMethod . '/installment'));
         
@@ -187,7 +194,8 @@ class Bilna_Paymethod_Helper_Data extends Mage_Core_Helper_Abstract {
         }
         
         $REQUEST_PROTOCOL = $isSecure ? 'https' : 'http';
-        $result = str_replace('http', $REQUEST_PROTOCOL, $url);
+//        $result = str_replace('http', $REQUEST_PROTOCOL, $url);
+        $result = preg_replace("/^(http:)/", $REQUEST_PROTOCOL.":", $url);
         
         return $result;
     }

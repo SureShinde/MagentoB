@@ -11,9 +11,11 @@ class Bilna_AjaxRequest_DataController extends Mage_Core_Controller_Front_Action
 	    	$response['status'] = true;
 	    	$i=0;
 	    	
-	    	$gtmIds = '';
-	    	$gtmPrices = '';
-	    	$gtmQuantitys = '';
+	    	$gtmIds = array();
+	    	$gtmPrices = array();
+	    	$gtmQuantitys = array();
+			$gtmSkuIds = array();
+            $total = 0;
 	    	foreach ($cart->getAllItems() as $item) {
 	    		$product = array();
 	    		$product["identifier"] = $item->getSku();
@@ -22,13 +24,18 @@ class Bilna_AjaxRequest_DataController extends Mage_Core_Controller_Front_Action
 	    		$product["quantity"] = $item->getQty();
 	    		$response['data']['products'][] = $product;
 	    	
-	    		$gtmIds = $item->getId()."|";
-	    		$gtmQuantitys = $item->getQty()."|";
-	    		$gtmPrices = (int)$item->getPrice()."|";
+	    		$gtmIds[] = $item->getProductId();
+	    		$gtmQuantitys[] = $item->getQty();
+	    		$gtmPrices[] = (int)$item->getPrice();
+                $gtmSkuIds[] = $item->getSku();
+                $total += ($product["amount"] * $product["quantity"]);
 	    	}
 	    	$response['data']['quote']['productIds'] = $gtmIds;
 	    	$response['data']['quote']['productPrices'] = $gtmPrices;
 	    	$response['data']['quote']['productQtys'] = $gtmQuantitys;
+
+	    	$response['data']['quote']['productSkuIds'] = $gtmSkuIds;
+	    	$response['data']['quote']['totalValue'] = $total;
 	    }
         
         echo json_encode($response);
@@ -175,7 +182,6 @@ class Bilna_AjaxRequest_DataController extends Mage_Core_Controller_Front_Action
         	}
         	
         	$response['data']['category'] = array_unique($response['data']['category']);
-        	$response['data']['description'] = array_unique($response['data']['description']);
 
         	if	(($product->getStatus()==1) ||
         			($product->getIsInStock()==1) ||

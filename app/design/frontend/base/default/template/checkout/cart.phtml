@@ -34,11 +34,11 @@
 <?php $gtmItemIds = ''; ?>
 <input type="hidden" id="3rdparty-type" value="cart"/>
 <input type="hidden" id="3rdparty-value" value="" />
-<div class="cart">	
+<div class="cart">
     <div class="cart-left">
         <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
         <?php echo $this->getChildHtml('form_before') ?>
-	
+
         <form action="<?php echo $this->getUrl('checkout/cart/updatePost') ?>" method="post">
             <fieldset>
                 <table id="shopping-cart-table" class="data-table cart-table">
@@ -79,7 +79,7 @@
                             <th class="a-right subtotal" colspan="<?php echo $mergedCells; ?>"><span><?php echo $this->__('Subtotal') ?></span></th>
                             <th class="a-right remove" rowspan="<?php echo $mergedCells; ?>"><span><?php echo $this->__('Remove') ?></span></th>
                         </tr>
-                        
+
                         <?php if ($this->helper('tax')->displayCartBothPrices()): ?>
                             <tr>
                                 <th class="a-right"><?php echo $this->helper('tax')->getIncExcTaxLabel(false) ?></th>
@@ -89,7 +89,7 @@
 	                    </tr>
                         <?php endif; ?>
                     </thead>
-                    
+
                     <tfoot>
                         <tr>
                             <td colspan="50" class="a-right">
@@ -119,19 +119,16 @@
                             </td>
                         </tr>
                     </tfoot>
-                    
                     <tbody>
                         <?php foreach($this->getItems() as $_item): ?>
                             <?php echo $this->getItemHtml($_item) ?>
-                            <?php $gtmItemIds = $_item->getId().'|'; ?>
-                        <?php endforeach ?>
+                        <?php endforeach; ?>
                     </tbody>
                 </table>
-                
                 <script type="text/javascript">decorateTable('shopping-cart-table')</script>
             </fieldset>
         </form>
-        
+
         <div class="coupon-total">
             <div class="left">
                 <div class="coupon">
@@ -150,7 +147,7 @@
 							</td>
 							<td class="a-right sum-weight hi-res<?php if($this->helper('customer')->isLoggedIn()):?> loggedin<?php endif;?>">
 								<div>
-								<?php 
+								<?php
 									$items = $this->getItems();
 									$weight = 0;
 									foreach($items as $item) {
@@ -187,10 +184,10 @@
 			</div>
 			<div class="continue-shopping">
 				<?php if($this->getContinueShoppingUrl()): ?>
-					<button type="button" title="<?php echo $this->__('Continue Shopping') ?>" class="button btn-continue" onclick="setLocation('<?php echo $this->getContinueShoppingUrl() ?>')"><span><span><?php echo $this->__('Continue Shopping') ?></span></span></button>
-				<?php endif; ?>								
+					<button type="button" title="<?php echo $this->__('Continue Shopping') ?>" class="button btn-continue" onclick="setLocation('<?php echo Mage::helper('core')->quoteEscape($this->getContinueShoppingUrl()) ?>')"><span><span><?php echo $this->__('Continue Shopping') ?></span></span></button>
+				<?php endif; ?>
 			</div>
-			
+
 			<div class="header-container one-click-checkout">
 				<div class="links">
 					<?php if($this->helper('customer')->isLoggedIn()) : ?>
@@ -199,25 +196,26 @@
 						<a href="/customer/account/login/"><?php echo $this->__('Log in') ?></a>
 						<?php echo $this->__('to turn on One Click Checkout') ?>
 					<?php endif; ?>
-				</div>			
+				</div>
 				<script type="text/javascript">
-					if ( typeof AjaxLogin == 'undefined' ) {
+
+                    if ( typeof AjaxLogin == 'undefined' ) {
 						AjaxLogin = {};
 					}
-					
+
 					AjaxLogin.BASE_URL_UNSECURE = 'http://local.bilna.com/';
 					AjaxLogin.BASE_URL_SECURE   = 'http://local.bilna.com/';
-					
+
 					AjaxLogin.BASE_URL          = AjaxLogin.BASE_URL_UNSECURE;
-					
-					
+
+
 					/**
-					 * 
+					 *
 					 */
 					AjaxLogin.sameRoutines = function(urlA, urlB) {
 						if ( typeof urlA != 'string' ) urlA = urlA.toString();
 						if ( typeof urlB != 'string' ) urlB = urlB.toString();
-						
+
 						if ( urlA.indexOf(AjaxLogin.BASE_URL_UNSECURE) > -1 ) {
 							__routineA_Parts = urlA.split(AjaxLogin.BASE_URL_UNSECURE).join('').split('/').splice(0, 3);
 						}
@@ -227,7 +225,7 @@
 						else {
 							return false;
 						}
-						
+
 						if ( urlB.indexOf(AjaxLogin.BASE_URL_UNSECURE) > -1 ) {
 							__routineB_Parts = urlB.split(AjaxLogin.BASE_URL_UNSECURE).join('').split('/').splice(0, 3);
 						}
@@ -237,7 +235,7 @@
 						else {
 							return false;
 						}
-						
+
 						for ( var __index = 0; __index < 3; __index++ ) {
 							if ( (typeof __routineA_Parts[__index] == 'undefined') || (!__routineA_Parts[__index]) ) {
 								__routineA_Parts[__index] = 'index';
@@ -246,13 +244,13 @@
 								__routineB_Parts[__index] = 'index';
 							}
 						}
-						
+
 						__routineA = __routineA_Parts.join('/');
 						__routineB = __routineB_Parts.join('/');
-						
+
 						return __routineA == __routineB ? true : false;
 					};
-					
+
 					$$('.header-container .links a').each(
 						function(node) {
 							if ( AjaxLogin.sameRoutines(node.href, 'http://local.bilna.com/customer/account/login/') ) {
@@ -265,12 +263,12 @@
 										var __overlapAuthorizationNode = $$('.al-authorization-container-overlap .al-authorization')[0];
 										var __overlapAuthorizationInstance = AjaxLogin.Authorization.__getInstanceByChildnode(__overlapAuthorizationNode);
 										__overlapAuthorizationInstance.switchToFrame('login');
-										
+
 										if (window.event) window.event.cancelBubble = true;
 										if (window.event) window.event.returnValue = false;
 										event.preventDefault();
 										event.stopPropagation();
-										
+
 										return false;
 									}
 								);
@@ -283,7 +281,7 @@
 										var __overlapAuthorizationNode = $$('.al-authorization-container-overlap .al-authorization')[0];
 										var __overlapAuthorizationInstance = AjaxLogin.Authorization.__getInstanceByChildnode(__overlapAuthorizationNode);
 										__overlapAuthorizationInstance.getFrame('login').logout();
-										
+
 										if (window.event) window.event.cancelBubble = true;
 										if (window.event) window.event.returnValue = false;
 										event.preventDefault();
@@ -302,7 +300,7 @@
 										var __overlapAuthorizationNode = $$('.al-authorization-container-overlap .al-authorization')[0];
 										var __overlapAuthorizationInstance = AjaxLogin.Authorization.__getInstanceByChildnode(__overlapAuthorizationNode);
 										__overlapAuthorizationInstance.switchToFrame('register');
-										
+
 										if (window.event) window.event.cancelBubble = true;
 										if (window.event) window.event.returnValue = false;
 										event.preventDefault();
@@ -313,18 +311,18 @@
 							}
 						}
 					);
-					
-					
+
+
 					/**
-					 * 
+					 *
 					 */
 					if ( typeof window.mainNav == 'function' ) {
 						mainNav("nav", {"show_delay":"100","hide_delay":"100"});
 					}
-					
-					
+
+
 					/**
-					 * 
+					 *
 					 */
 					Event.observe(
 						window,
@@ -332,7 +330,7 @@
 						function() {
 							if (typeof window.customer_dob != 'undefined') {
 								delete window.customer_dob;
-								
+
 								var __rootNode = $$('.customer-dob')[0];
 								new Varien.DateElement(
 									'container',
@@ -351,7 +349,7 @@
 					);
 				</script>
 			</div>
-			
+
 		</div>
 		<div class="shipping-wrap">
 			<?php if (!$this->getIsVirtual()): echo $this->getChildHtml('shipping'); endif; ?>
@@ -361,29 +359,43 @@
 		<?php echo $this->getChildHtml('crosssell') ?>
 	</div>
 </div>
-<script type="text/javascript">
-jQuery(document).ready(function () {    
-    var ajaxURL = 'https://www.bilna.com/ajaxrequest/data/retrievecart/';
+<?php
+    $cart = Mage::getSingleton('checkout/session')->getQuote();
+    if (!isset ($cart) || empty ($cart)) {
+        $response['status'] = false;
+    }else{
+        $response['status'] = true;
+        $i=0;
 
-    var data = {};
+        $gtmIds = array();
+        $gtmPrices = array();
+        $gtmQuantities = array();
+        $gtmSkuIds = array();
+        $total = 0;
+        foreach ($cart->getAllItems() as $item) {
+            $product = array();
+            $product["identifier"] = $item->getSku();
+            $product["amount"] = (int) $item->getPrice();
+            $product["currency"] = "IDR";
+            $product["quantity"] = $item->getQty();
+            $response['data']['products'][] = $product;
 
-    jQuery.ajax({
-        type: "POST",
-        url : ajaxURL,
-        data: { data: data },
-        success: function(data){
-            response = jQuery.parseJSON(data);
-            if(response.status == true){
-            	dataLayer.push( {'productid': response.data.quote.productIds} );
-            	dataLayer.push( {'prices': response.data.quote.productPrices} );
-            	dataLayer.push( {'quantities': response.data.quote.productQtys} );
-            }else{
-                return false;
-            }
-        },
-        error: function() {
-            return false;
+            $gtmIds[] = $item->getProductId();
+            $gtmQuantities[] = $item->getQty();
+            $gtmPrices[] = (int)$item->getPrice();
+            $gtmSkuIds[] = $item->getSku();
+            $total += ($product["amount"] * $product["quantity"]);
         }
-    });
+    }
+?>
+<script type="text/javascript">
+jQuery(document).ready(function () {
+    dataLayer.push( {'ecomm_pagetype': 'cart'} );
+    dataLayer.push( {'ecomm_prodid': ['<?php echo implode("','", $gtmSkuIds); ?>']} );
+    dataLayer.push( {'ecomm_totalvalue': <?php echo $total; ?>} );
+    dataLayer.push( {'productid': ['<?php echo implode("','", $gtmIds); ?>']} );
+    dataLayer.push( {'skuid': ['<?php echo implode("','", $gtmSkuIds); ?>']} );
+    dataLayer.push( {'prices': ['<?php echo implode("','", $gtmPrices); ?>']} );
+    dataLayer.push( {'quantities': ['<?php echo implode("','", $gtmQuantities); ?>']} );
 });
 </script>

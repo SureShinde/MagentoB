@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Bilna_Paymethod>
-            <version>0.1.5</version>
+            <version>0.1.6</version>
         </Bilna_Paymethod>
     </modules>
     
@@ -653,6 +653,15 @@
                 <!--payment_action>authorize</payment_action-->
                 <allowspecific>0</allowspecific>
             </mandiridebitvisa>
+            
+            <mandiriecash>
+                <active>1</active>
+                <model>paymethod/method_mandiriecash</model>
+                <order_status>pending</order_status>
+                <title>Mandiri E-Cash</title>
+                <allowspecific>0</allowspecific>
+                <group>offline</group>
+            </mandiriecash>
         </payment>
     </default>
 </config>

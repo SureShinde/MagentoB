@@ -40,6 +40,13 @@
         $_imgHtml = $_helper->categoryAttribute($_category, $_imgHtml, 'image');
     }
 ?>
+<script>
+jQuery(document).ready(function(){ 
+    jQuery('.button-toggle').click(function() {
+        jQuery('.amshopby-filters-left').toggle("slide");
+    });
+});
+</script>
 <input type="hidden" id="3rdparty-type" value="category"/>
 <input type="hidden" id="3rdparty-value" value="<?php echo $_category->getId(); ?>" />
 <input type="hidden" id="base-url" value="<?php echo Mage::getBaseUrl(); ?>" />
@@ -81,12 +88,6 @@ $largeCmsBlock = Mage::getModel('cms/block')->load($staticBlockPrefix . 1)->getC
     <?php echo $_imgHtml; ?>
 <?php endif; ?>
 
-<?php if($_description=$this->getCurrentCategory()->getDescription()): ?>
-    <div class="category-description std">
-        <?php echo $_helper->categoryAttribute($_category, $_description, 'description') ?>
-    </div>
-    <?php endif; ?>
-
 <?php if($this->isContentMode()): ?>
     <?php echo $this->getCmsBlockHtml() ?>
 
@@ -98,6 +99,12 @@ $largeCmsBlock = Mage::getModel('cms/block')->load($staticBlockPrefix . 1)->getC
     <?php echo $this->getProductListHtml() ?>
 <?php endif; ?>
 
+<?php if($_description=$this->getCurrentCategory()->getDescription()): ?>
+    <div class="category-description std">
+        <span><?php echo $_category->getName(); ?></span>
+        <p><?php echo $_helper->categoryAttribute($_category, $_description, 'description') ?></p>
+    </div>
+<?php endif; ?>
 <!-- static block pop-up ASI Disclaimer -->
 <?php if ($this->checkCategoryAttributeCookie('asi_disclaimer') === false): ?>
     <?php if ($this->checkCategoryAttributeYesNo('asi_disclaimer')): ?>

@@ -1,0 +1,8 @@
+.points-notice-msg
+{
+        background: scroll 10px 10px #F6F6F6 !important;
+    border: 1px solid #EAEAEA !important;
+    color: #5d5d5d !important;
+    padding: 10px;
+    font-size: 11px;
+}

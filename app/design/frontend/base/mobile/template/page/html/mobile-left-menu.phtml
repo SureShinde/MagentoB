@@ -1,0 +1,157 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+
+<div class="mobile-left-menu">
+    <div class="wrap-left-menu">
+        <!--div class="back-button back-top">
+            Hide Menu
+        </div-->
+        <ul class="top-left-menu">
+            <li><a href="<?php echo Mage::getBaseUrl(); ?>">Home</a></li>
+            <li><a href="<?php echo Mage::getBaseUrl(); ?>orderdetail/">Lacak Pesanan</a></li>
+            <!--li><a href="#">Bantuan</a></li-->
+        </ul>
+            <?php echo $this->getChildHtml('topLinks') ?>
+        <div class="title-mobile-menu">
+			DIREKTORI BELANJA
+		</div>
+        <?php
+        $_helper = Mage::helper('megamenu');
+        $_storeCategories = $_helper->getMegamenuData();
+        $_storeCurrentCategory = Mage::registry('current_category');
+        $_categoryActive = $this->getCurrentMainCategoryIdActive();
+        ?>
+        
+        <?php if (count($_storeCategories) > 0): ?>
+            <div class="wrap-menu-cat">
+                <ul>
+                    <?php foreach ($_storeCategories as $_storeCategory): ?>
+                        <?php
+                        $_id = $_storeCategory['id'];
+                        $_name = $_storeCategory['name'];
+                        $_url = $_storeCategory['url'];
+                        $_urlKey = $_storeCategory['url_key'];
+                        //$_storeCategoryClass = ($_id == $_categoryActive) ? "active-category menu-active" : "";
+                        ?>
+                    
+                        <li class="<?php echo $_storeCategoryClass; ?> <?php echo $_id; ?>">
+                            <p class="first-level" data-left-menu="<?php echo $_id; ?>"><?php echo $_name; ?></p>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+                <?php foreach ($_storeCategories as $_storeCategory): ?>
+                        <?php
+                        $_id = $_storeCategory['id'];
+                        $_name = $_storeCategory['name'];
+                        $_url = $_storeCategory['url'];
+                        $_urlKey = $_storeCategory['url_key'];
+                        //$_storeCategoryClass = ($_id == $_categoryActive) ? "active-category menu-active" : "";
+                        ?>
+                    
+                            <?php
+                            $_storeCategoriesChild = array ();
+            
+                            if ($_storeCategory['child'] && count($_storeCategory['child'] > 0)):
+                                $_storeCategoriesChild = $_storeCategory['child'];
+                            endif;
+                            ?>
+                            
+                            <?php if (count($_storeCategoriesChild) > 0): ?>
+                                <div class="wrap-first-level <?php echo $_storeCategoryClass; ?> <?php echo $_id; ?>">
+                                    <div class="wrap-level2">
+                                        <span class="close-level-2-top back-level-1"> <i class="fa fa-chevron-left "></i>Kembali </span>
+                                        
+                                        <ul class="category-level-2">
+                                            <?php foreach ($_storeCategoriesChild as $_storeCategoryChild): ?>
+                                                <?php
+                                                $_id2 = $_storeCategoryChild['id'];
+                                                $_name2 = $_storeCategoryChild['name'];
+                                                $_url2 = $_storeCategoryChild['url'];
+                                                $_urlKey2 = $_storeCategoryChild['url_key'];
+                                                ?>
+                                                <li> 
+                                                    <a href="#!"><?php echo $_name2; ?>
+                                                        <i class="fa fa-plus"></i>
+                                                        <i class="fa fa-times-circle"></i>
+                                                    </a>
+                                                    <?php
+                                                    $_storeCategoriesChildChild = array ();
+
+                                                    if ($_storeCategoryChild['child'] && count($_storeCategoryChild['child'] > 0)):
+                                                        $_storeCategoriesChildChild = $_storeCategoryChild['child'];
+                                                    endif;
+                                                    ?>
+                                                    <ul class="category-level-3">
+                                                    <?php if (count($_storeCategoriesChildChild) > 0): ?>
+                                                        <?php foreach ($_storeCategoriesChildChild as $_storeCategoryChildChild): ?>
+                                                            <?php
+                                                            $_id3 = $_storeCategoryChildChild['id'];
+                                                            $_name3 = $_storeCategoryChildChild['name'];
+                                                            $_url3 = $_storeCategoryChildChild['url'];
+                                                            $_urlKey3 = $_storeCategoryChildChild['url_key'];
+                                                            ?>
+
+                                                            <li>
+                                                                <a href="<?php echo $_url3; ?>"><?php echo $_name3; ?></a>
+                                                            </li>
+                                                        <?php endforeach; ?>
+                                                            <li>
+                                                                <a class="see-all-level2" href="<?php echo $_url2; ?>">Lihat semua produk <?php echo $_name2; ?></a>
+                                                            </li>
+                                                    <?php endif; ?>
+                                                    </ul>
+                                                </li>
+                                            <?php endforeach; ?>
+                                        </ul>
+                                    </div>
+                                </div>
+                            <?php endif; ?>
+                    <?php endforeach; ?>
+                <div class="close-level-2 back-level-1"> </div>
+            </div>
+        <?php endif; ?>
+    </div>	
+</div>
+    
+    
+    <div class="back-button back-left"></div>
+
+</script>
+<?php 
+ $customer = Mage::getSingleton('customer/session')->getCustomer();
+ if(isset($customer) && !empty($customer)){
+ 	$email = $customer->getEmail();// for email address
+ }else{
+ 	$email = "";
+ }
+?>
+<script type="text/javascript">
+jQuery(document).ready(function () {    
+	//dataLayer.push( {'sitetype': 'd'} );
+	//dataLayer.push( {'emailaddress': '<?php echo $email; ?>'} );
+});
+</script>

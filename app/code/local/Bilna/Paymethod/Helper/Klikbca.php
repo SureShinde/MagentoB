@@ -41,6 +41,7 @@ class Bilna_Paymethod_Helper_Klikbca extends Mage_Core_Helper_Abstract {
         curl_setopt($process, CURLOPT_FOLLOWLOCATION, 1);
         $response = curl_exec($process);
         curl_close($process);
+        unset ($this->headers);
         
         return $response;
     }
@@ -69,6 +70,7 @@ class Bilna_Paymethod_Helper_Klikbca extends Mage_Core_Helper_Abstract {
         curl_setopt($process, CURLOPT_POST, 1);
         $response = curl_exec($process);
         curl_close($process);
+        unset ($this->headers);
         
         return $response;
     }

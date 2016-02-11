@@ -41,7 +41,7 @@ class Alw_Customercity_Block_Autocomplete extends Mage_Core_Block_Abstract
 
         //$html.= '</ul>';
 		
-			echo json_encode($arr);
+	return json_encode($arr);
       //  return $html;
     }
     

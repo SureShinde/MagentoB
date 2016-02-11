@@ -3,6 +3,7 @@
     <default>
         <reference name="head">
             <action method="addCss"><stylesheet>css/amshopby.css</stylesheet></action>
+            <action method="addCss"><stylesheet>css/category-3.css</stylesheet></action>
         </reference>
     </default>
 
@@ -13,7 +14,10 @@
         </reference>
 
         <reference name="left">
-           <block type="amshopby/catalog_layer_view" name="amshopby.navleft" before="-" template="catalog/layer/view.phtml"/> 
+            <remove name="left.permanent.callout"/>
+            <remove name="tags_popular"/>
+            <remove name="left.newsletter"/>
+            <block type="amshopby/catalog_layer_view" name="amshopby.navleft" before="-" template="catalog/layer/view.phtml"/> 
         </reference>
         <reference name="content">
             <block type="amshopby/catalog_layer_view_top" name="amshopby.navtop" template="amshopby/view_top.phtml"/>

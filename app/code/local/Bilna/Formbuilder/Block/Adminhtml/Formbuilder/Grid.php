@@ -10,6 +10,7 @@ class Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Grid extends Mage_Adminhtml_
 	$this->setDefaultDir('ASC');
 	$this->setSaveParametersInSession(true);
 	$this->setUseAjax(true);
+	$outputFormat = Mage::app()->getLocale()->getDateTimeFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT);
   }
 
   protected function _prepareCollection()
@@ -21,8 +22,8 @@ class Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Grid extends Mage_Adminhtml_
   }
 
   protected function _prepareColumns()
-  {	
-	$combobox = $this->getComboForm();	
+  {
+	$combobox = $this->getComboForm();
 	$this->addColumn('title',
 		array(
 			'header'	=>Mage::helper('bilna_formbuilder')->__('Title'),
@@ -46,6 +47,7 @@ class Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Grid extends Mage_Adminhtml_
 			'header'=> $this->__('Active From'),
 			'type' 	=> 'datetime',
 			'index' => 'active_from',
+			'format' => $outputFormat,
 			'header_css_class'=>'a-center'
 	));
 
@@ -54,6 +56,7 @@ class Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Grid extends Mage_Adminhtml_
 			'header'=> $this->__('Active To'),
 			'type' 	=> 'datetime',
 			'index' => 'active_to',
+			'format' => $outputFormat,
 			'header_css_class'=>'a-center'
 	));
 
@@ -63,8 +66,8 @@ class Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Grid extends Mage_Adminhtml_
 			'index' 	=> 'status',
 			'type'  	=> 'options',
       'options' => array(
-				'0'			=>'Enabled',
-				'1'			=>'Disabled'),
+				'1'			=>'Enabled',
+				'0'			=>'Disabled'),
 			'header_css_class'=>'a-center'
 	));
 	  
@@ -84,17 +87,18 @@ class Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Grid extends Mage_Adminhtml_
 		return $result;
 		}
 
-  protected function _prepareMassaction()
-  {
-    $this->setMassactionIdField('id');
-    $this->getMassactionBlock()->setFormFieldName('formbuilder');
-
-    $this->getMassactionBlock()->addItem('delete',
-      array(
-        'label'		=> Mage::helper('bilna_formbuilder')->__('Delete'),
-        'url' 		=> $this->getUrl('*/*/massDelete'),
-        'confirm' => Mage::helper('bilna_formbuilder')->__('Are you sure?')
-      ));
+ 	protected function _prepareMassaction()
+  	{
+	  	parent::_prepareMassaction();
+	    $this->setMassactionIdField('id');
+	    //$this->getMassactionBlock()->setFormFieldName('formbuilder');
+	    $this->getMassactionBlock()->addItem('delete',
+	      array(
+	        'label'		=> Mage::helper('bilna_formbuilder')->__('Delete Data'),
+	        'url' 		=> $this->getUrl('*/*/massDeleteForm'),
+	        'confirm' => Mage::helper('bilna_formbuilder')->__('Are you sure?')
+	      ));
+	    return $this;
 	}
 
   //Grid with Ajax Request

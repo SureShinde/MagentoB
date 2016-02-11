@@ -171,6 +171,7 @@ class Amasty_Shopby_Model_Catalog_Layer_Filter_Attribute extends Mage_Catalog_Mo
      * @param   Varien_Object $filterBlock
      * @return  Mage_Catalog_Model_Layer_Filter_Attribute
      */
+
     public function apply(Zend_Controller_Request_Abstract $request, $filterBlock)
     {
         $currentVals = Mage::helper('amshopby')->getRequestValues($this->_requestVar);
@@ -198,13 +199,13 @@ class Amasty_Shopby_Model_Catalog_Layer_Filter_Attribute extends Mage_Catalog_Mo
                     //$url = Mage::getUrl('*/*/*', array('_current'=>true, '_use_rewrite'=>true, '_query'=>$query));                
                     $url = Mage::helper('amshopby/url')->getFullUrl($query);
                     
-                    $text .= $option['label'] 
+                    $text .='<span class="value">' .$option['label']
 //                          . '&nbsp;'
 //                          . '<a href="' . $url . '">'
 //                          . '<img src="' . $this->_getRemoveImage() . '" alt="' . Mage::helper('catalog')->__('Remove This Item') . '" />'
                           . '<a href="' . $url . '" class="btn-remove-inline">'
                           . '<img src="' . $this->_getBlankImage() . '" width="13" height="12" alt="' . Mage::helper('catalog')->__('Remove This Item') . '" />'
-                          . '</a>, ';
+                          . '</a></span>, ';
                 }
             }
             

@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <default> 
+        <reference name="head">
+            <action method="addCss" ifconfig="awafptc/general/enable"><stylesheet>css/aw_afptc/styles.css</stylesheet></action>
+            <action method="addJs" ifconfig="awafptc/general/enable"><js>aw_afptc/popup.js</js></action>          
+        </reference>
+        <reference name="root">
+            <action method="setCachePageFlag"><cache>0</cache></action>
+        </reference>
+    </default> 
+    <checkout_cart_index> 
+        <reference name="content">
+            <block type="awafptc/popup" name="aw_afptc_popup" template="aw_afptc/popup.phtml" />                       
+        </reference>  
+    </checkout_cart_index>
+    <checkout_onepage_index>
+        <reference name="content">
+            <block type="awafptc/popup" name="aw_afptc_popup" template="aw_afptc/popup.phtml" />                       
+        </reference>  
+    </checkout_onepage_index>       
+    <checkout_multishipping_addresses>
+         <reference name="content">
+            <block type="awafptc/popup" name="aw_afptc_popup" template="aw_afptc/popup.phtml" />                       
+        </reference>  
+    </checkout_multishipping_addresses>    
+    <aw_onestepcheckout_index_index>
+         <reference name="before_body_end">
+            <block type="awafptc/popup" name="aw_afptc_popup" template="aw_afptc/popup.phtml" />                       
+        </reference>  
+    </aw_onestepcheckout_index_index>
+</layout>

@@ -1,0 +1,56 @@
+<style type="text/css">
+    .wrapper_failure_page{display:table;background:#da4e4e;width:80%;color:#fff;font-family:arial;position:relative;margin:5%;padding:2%}.wrapper_failure_page p{margin:0}.wrapper_failure_page .col_left p:nth-of-type(1){font-size:23px;line-height:20px}.wrapper_failure_page .col_left p:nth-of-type(2){font-size:67px;line-height:65px;border-bottom:6px dotted;margin:0 0 100px;display:table}.wrapper_failure_page .col_left p:nth-of-type(3){font-size:21px}.wrapper_failure_page .order_id{color:#403c0a}.wrapper_failure_page .say_thanks{border-bottom:7px dotted;margin-top:150px;position:relative}.wrapper_failure_page .say_thanks p{padding:0 0 0 10px;background:#da4e4e;position:absolute;right:-6px;top:-10px}.wrapper_failure_page .col_left{float:left;width:62%;padding:2% 5% 2% 2%;border-right:1px #fff solid}.wrapper_failure_page .col_right{width:28%;float:left;margin-left:2%;height:200px}
+</style>
+
+<?php
+if ($this->getOrderId()):
+    if ($this->getCanViewOrder()):
+        $orderNoLink = sprintf('<a href="%s" class="order_id">%s</a>', $this->escapeHtml($this->getViewOrderUrl()), $this->escapeHtml($this->getOrderId()));
+    else:
+        $orderNoLink = sprintf('<a class="order_id">%s</a>', $this->escapeHtml($this->getOrderId()));
+    endif;
+endif;
+?>
+
+<div class="wrapper_failure_page">
+    <div class="col_left">
+        <?php $fraud = Mage::helper('core')->urlDecode(Mage::app()->getRequest()->getParam('fail')); ?>
+        <?php
+            if(strtolower($fraud) == 'fraud') {
+                echo "<p>".$this->__('Pesanan ').$this->getRealOrderId().$this->__(' Belum Dapat Diproses')."</p>";
+                echo "<br/><br/>";
+                echo $this->__('Kami menemukan kejanggalan pada pesanan yang kami terima. Hal ini menyebabkan pesanan secara otomatis tidak dapat diproses oleh sistem kami. Kami belum menerima pembayaran atas pesanan saat ini.');
+                echo "<br/><br/>";
+                echo $this->__('Hal ini dapat disebabkan oleh:');
+                echo "<br/>";
+                echo $this->__('1. Kesamaan detail pribadi di akun yang digunakan dengan akun lainnya');
+                echo "<br/>";
+                echo $this->__('2. Detail pembayaran yang diberikan belum berhasil melewati verifikasi');
+                echo "<br/><br/>";
+                echo $this->__('Kami mohon maaf atas ketidaknyamanan yang ditimbulkan. Untuk mengetahui informasi lebih lanjut silakan hubungi Bilna Care Center di (021)2902-2090 atau email di ').'<a href="mailto:cs@bilna.com">cs@bilna.com</a>';
+                echo "</p>";
+            }
+            else {
+        ?>
+        <p><?php echo $this->__('THANK YOU FOR SHOPPING WITH'); ?></p>
+        <p><?php echo $this->__('BILNA.COM'); ?></p>
+        <p>
+            <?php echo $this->__('Your order no is'); ?>: <?php if ($this->getRealOrderId()): echo $this->getRealOrderId(); endif; ?>.
+            <br/>
+
+            <?php if ($this->getErrorMessage()): echo $this->getErrorMessage(); endif; ?>
+
+            <br/><br/>
+            <?php echo $this->__('Click <a href="%s">here</a> to continue shopping.', Mage::helper('core')->quoteEscape($this->getContinueShoppingUrl())); ?>
+        </p>
+
+        <div class="say_thanks">
+            <p><?php echo $this->__('Have a great day :)'); ?></p>
+        </div>
+        <?php } ?>
+    </div>
+
+    <div class="col_right">
+        <?php echo $this->getInstruction(); ?>
+    </div>
+</div>
