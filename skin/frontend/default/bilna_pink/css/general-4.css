@@ -470,6 +470,7 @@ a.back-to-top img {
     text-align: center;
 	display: block;
 	width: 8px;
+    padding: 0;
 	height: 8px;
 	text-indent: -999999px;
 }
