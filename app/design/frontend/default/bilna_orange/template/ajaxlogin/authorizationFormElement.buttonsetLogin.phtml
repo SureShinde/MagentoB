@@ -49,8 +49,11 @@
                 function(event) {
                     AjaxLogin.Authorization.__getInstanceByChildnode(this).switchToFrame('recovery');
                     if (window.event) window.event.cancelBubble = true;
-                    // if (window.event) window.event.returnValue = false;
-                    // event.preventDefault();
+                    if (window.event) window.event.returnValue = false;
+
+                    document.getElementById("responsiveformforgotpassword").checked = true;
+
+                    event.preventDefault();
                     event.stopPropagation();
                     return false;
                 }
