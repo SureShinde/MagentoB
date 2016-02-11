@@ -11,7 +11,6 @@
         $j("img.lazy").lazyload();
 	});
     $j(document).ready(function() {
-		$j("img.lazy, .wrap-banner img:not(.image-slider), .warp-banner img").after('<div class="loader"><img class="loader-img" src="<?php echo Mage::getBaseUrl(); ?>skin/frontend/base/default/images/loading.gif"></div>');
 		$j(".homepage-banner .first-level > ul > li:first-of-type").addClass("active-cat");
         $j(".homepage-banner .first-level > ul > li").hover(function() {
             $j(".homepage-banner .first-level-cat.hover-cat img").lazyload();
