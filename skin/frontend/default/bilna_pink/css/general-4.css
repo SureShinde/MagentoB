@@ -382,7 +382,8 @@ a.back-to-top img {
 	font-weight: bold;
 }
 .al-authorizationform-register form#register-form ul li label[for="firstname"],
-.al-authorizationform-register form#register-form ul li label[for="lastname"] {
+.al-authorizationform-register form#register-form ul li label[for="lastname"],
+.al-authorizationform-register form#register-form ul li label[for="username"] {
     display: none;
 }
 .al-socialnets {
