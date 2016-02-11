@@ -74,6 +74,7 @@
         </div>
     </div>
 </div>
+</div>
 
 <script type="text/javascript">
     jQuery(document).ready(function() {
@@ -88,6 +89,7 @@ $categories = Mage::getModel('socialcommerce/collectioncategory')->getCollection
 $images = Mage::getModel('socialcommerce/collectioncover')->getCollection()->setCurPage(1)->setPageSize(12);
 ?>
 
+<div class="wrap_footer">
 <!-- Modal dialog to create new collection -->
 <div class="container-collection-pop" style="display:none" id="addCollectionModal">
   <div class="cg-col-lg-5 cg-col-md-6 cg-col-sm-6 cg-col-xs-11 container-collection-whitebg make-table">
