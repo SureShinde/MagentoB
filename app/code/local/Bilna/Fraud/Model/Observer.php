@@ -22,7 +22,8 @@ class Bilna_Fraud_Model_Observer {
             $shipping_address = $orderData->getShippingAddress()->getData('street');
             $billing_address = $orderData->getBillingAddress()->getData('street');
             $grand_total = $orderData->getData('grand_total');
-            $payment_method = Mage::getSingleton('checkout/session')->getQuote()->getPayment()->getMethodInstance()->getCode();
+            //$payment_method = Mage::getSingleton('checkout/session')->getQuote()->getPayment()->getMethodInstance()->getCode();
+            $payment_method = $orderData->getPayment()->getMethodInstance()->getCode();
             $coupon_code = $orderData->getData('coupon_code');
             $rule_id_for_log = $orderData->getData('applied_rule_ids');
 
