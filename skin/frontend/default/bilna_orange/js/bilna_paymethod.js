@@ -1134,7 +1134,8 @@ Veritrans.client_key = vtDirectClientKey; // please add client-key from veritran
 
 function _cardSet() {
     var currPayment = payment.currentMethod;
-    var grossAmount = jQuery('#gross_amount').val();
+    var grossAmount = parseInt(jQuery('#gross_amount').val());
+    var secureMin = parseInt(jQuery('#payment_form_' + currPayment + ' #' + currPayment + '_secure_min').val());
     var result = {};
     result['card_number'] = jQuery('#payment_form_' + currPayment + ' input.card-number').val();
     result['card_exp_month'] = jQuery('#payment_form_' + currPayment + ' select.card-expiry-month').val();
@@ -1143,12 +1144,7 @@ function _cardSet() {
     
     // 3d secure
     if (jQuery('#payment_form_' + currPayment + ' #' + currPayment + '_secure').val() == 1) {
-        if (grossAmount >= jQuery('#payment_form_' + currPayment + ' #' + currPayment + '_secure_min').val()) {
-            result['secure'] = true;
-        }
-        else {
-            result['secure'] = false;
-        }
+        result['secure'] = (grossAmount >= secureMin);
     }
     else {
         result['secure'] = false;
