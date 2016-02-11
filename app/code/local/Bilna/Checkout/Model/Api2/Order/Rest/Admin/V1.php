@@ -132,8 +132,8 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
             }
 
             if ($order) {
-                //- for FDS (sementara di disabled)
-                //Mage::dispatchEvent('checkout_type_onepage_save_order_after', array ('order' => $order, 'quote' => $quote));
+                //- for FDS
+                Mage::dispatchEvent('checkout_type_onepage_save_order_after', array ('order' => $order, 'quote' => $quote));
 
                 try {
                     $order->sendNewOrderEmail();
