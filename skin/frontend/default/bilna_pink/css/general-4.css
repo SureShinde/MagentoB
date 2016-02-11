@@ -19,7 +19,8 @@ body {
 	margin: 0 auto;
 }
 .products-grid li.item:hover .link-wishlist.addToCollectionLink,
-.aw-mini-related-items ol.products-grid li:hover .link-wishlist.addToCollectionLink{
+.aw-mini-related-items ol.products-grid li:hover .link-wishlist.addToCollectionLink,
+.related-product .block-content .aw-arp-item:hover .link-wishlist.addToCollectionLink{
     display: table;
 }
 .link-wishlist.addToCollectionLink{
@@ -266,6 +267,7 @@ li.home .breadcrumbs a{
 }
 .products-grid .product-info-wrapper {
     height: 135px;
+    margin-top: 10px;
 }
 .products-grid .price-box {
 	position: relative;

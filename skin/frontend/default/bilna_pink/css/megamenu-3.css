@@ -122,6 +122,7 @@
 }
 .wrap-navigation .sub_nav > li{
     position: relative;
+    padding: 0;
 }
 .wrap-navigation .sub_nav > li:hover .child_nav{
     display: block;
