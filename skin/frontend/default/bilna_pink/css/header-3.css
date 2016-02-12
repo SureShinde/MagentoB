@@ -50,6 +50,13 @@
     font-size: 16px;
     cursor: pointer;
 }
+.header .web_feature li .bridge_border {
+    position: absolute;
+    height: 10px;
+    width: 100%;
+    top: 92%;
+    z-index: 9;
+}
 .header .web_feature li a{
     text-align: center;
     padding-bottom: 19px;
@@ -253,7 +260,7 @@
 }
 .wrap-space-above-header, .space-above-header{
     width: 100%;
-    border-bottom: 1px solid #EAEAEA;
+    border-bottom: 1px solid #F6F6F6;
     height: 40px;
     margin-bottom: 5px;
     overflow: hidden;
@@ -953,7 +960,7 @@
 }
 #nav-searchbar .nav-submit-button .nav-submit-input {
     border: none;
-    color: #e4e4e4;
+    color: #BCBEBE;
     font-size: 1.3em;
     height: 100%;
     background: none;
