@@ -28,6 +28,7 @@ body {
     top: 0;
     display: none;
     right: 3px;
+    background: #fff;
     padding: 5px;
     font-size: 15px;
     z-index: 9;
@@ -133,6 +134,7 @@ body {
 } 
 .breadcrumbs ul{
     float: left;
+    margin: 0 15px;
 }
 .breadcrumbs ul li{
     float: left;
