@@ -2451,6 +2451,10 @@ div.choose-cover > span.overlayer-pink
   	font-size: 60px;
   	transition: visibility 1s, opacity 1s linear;
 }
+.detail-collect
+{
+	margin-top: 50px;
+}
 div.choose-cover:hover > span.overlayer-pink
 {
 	background: rgba(238,81,145,0.5);
@@ -2601,6 +2605,13 @@ a.wishlist-name
 }
 
 }
+	
+@media (min-width: 750px){
+	.detail-collect
+	{
+		margin-top: 60px;
+	}
+	}
 @media (max-width: 400px){
 
 		.nameOfList 
@@ -2615,6 +2626,10 @@ a.wishlist-name
 	    word-wrap: break-word;
 	    white-space: nowrap;
 	    max-width: 90%;
+	}
+	.detail-collect
+	{
+		margin-top: 150px;
 	}
 }
 .title-banner-collection
