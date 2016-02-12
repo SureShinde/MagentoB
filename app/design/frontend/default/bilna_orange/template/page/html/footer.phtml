@@ -175,7 +175,7 @@ $images = Mage::getModel('socialcommerce/collectioncover')->getCollection()->set
                       <span class="hidden-xs opensans font-tabs"> <br>link gambar dari web</span>
                     </a>
                   </li>
-                  <li class="cg-col-sm-4 cg-col-xs-4 cg-col-lg-4 cg-col-md-6 text-center clicker main-nav mid-nav nopadding">
+                  <li class="cg-col-sm-4 cg-col-xs-4 cg-col-lg-4 cg-col-md-4 text-center clicker main-nav mid-nav nopadding">
                     <a href="#tabs-2" class="sub-nav activated">
                       <i class="fa fa-cloud-upload pinker icon-nav"></i>
                       <span class="hidden-xs opensans font-tabs"> <br> unggah gambar</span>
@@ -267,7 +267,7 @@ $images = Mage::getModel('socialcommerce/collectioncover')->getCollection()->set
 <!-- Modal dialog to add new item to collection -->
 
 <div class="container-collection-pop" style="display:none;" id="addToCollectionModal">
-    <div class="cg-col-lg-6 cg-col-md-6 cg-col-sm-11 cg-col-xs-11 container-collection-whitebg opensans" id="add-new-pop-collection">
+    <div class="cg-col-lg-6 cg-col-md-6 cg-col-sm-11 cg-col-xs-11 container-collection-whitebg opensans" id="add-new-pop-collection" style="max-height:600px;">
         <div class="cg-col-lg-12 cg-col-sm-12 cg-col-md-12 cg-col-xs-12 collection-top-part">
             <div class="cg-col-lg-11 cg-col-md-11 cg-col-sm-11 cg-col-xs-11 add-to-collection-title bold opensans take-left">Tambahkan Produk ke Koleksi</div>
             <div class="cg-col-lg-1 cg-col-md-1 cg-col-sm-1 cg-col-xs-1 " id="closer-collection" onclick="hideAddToCollectionDialog()"><i class="fa fa-times"></i></div>
@@ -445,7 +445,7 @@ $images = Mage::getModel('socialcommerce/collectioncover')->getCollection()->set
                   if (jQuery(this).val() == '0') {
                     jQuery('#iWannaCreateNewCollection').show();
                     jQuery('#add-new-pop-collection').css( {"display": "inline-block","max-height": "90%" });
-                    jQuery('#addButton').html('Create &amp; Add this Product');
+                    jQuery('#addButton').html('BUAT DAN MASUKAN KE KOLEKSI');
                     jQuery('#name').attr('required', true);
                   } else {
                     jQuery('#iWannaCreateNewCollection').hide();
@@ -460,31 +460,110 @@ $images = Mage::getModel('socialcommerce/collectioncover')->getCollection()->set
 
         <?php else : ?>
 
-        <h3 style="color: #545454">No Collection</h3>
+        <!-- <h3 class="opensans take-left" style="color: #545454">No Collection</h3> -->
 
-        <p style="color: #545454;margin-top:10px;">
-            You don't have any collection yet. Please create one to add this product as your collection.
+        <p class="opensans take-left" style="color: #545454;margin-top:10px;">
+           Kamu belum memiliki koleksi, silahkan membuat terlebih dahulu.
         </p>
 
-        <label for="name" style="color: #545454; margin-bottom: 10px;margin-top: 20px">Collection Name:</label>
+        <label for="inputEmail3" class="cg-col-xs-12 control-label label-color label-margin take-left opensans">Judul <span class="light lil-exp">sesuai tema koleksi yang ingin anda buat</span></label>
         <input class="input-collection" id="name" name="name" required>
 
-        <label for="name" class="full-width" style="color: #545454; margin-bottom: 10px; margin-top: 10px;">Collection Description</label>
+         <label for="inputPassword3" class="cg-col-xs-12 control-label label-color label-margin take-left opensans">Deskripsi <span class="light lil-exp">penjelasan singkat mengenai tema koleksi anda</span></label>
         <textarea rows="4" name="desc" class="input-collection full-width" maxlength="250" placeholer="what's your collection about?"></textarea>
         <!--<input type="text" name="desc" id="desc" class="input-collection full-width" required >-->
-        <div class="cg-col-xs-12 in-block upload nopadding" style="margin-top:10px;">
-                         <input type="file" title="browse your image" name="cover">
+         <div class="cg-col-xs-12">
+
+                <div class="form-group in-block full-width nomargin">
+                <label for="inputEmail3" class="cg-col-xs-12 control-label label-color label-margin take-left opensans">Sampul Koleksi Anda </label>
+                <span class="light lil-exp cg-col-xs-12 bold opensans bottom-spacer-container take-center">Jadikan halaman koleksi anda lebih menarik dengan gambar yang menjelaskan isi koleksi anda!</span>
+                  
+                </div>
+                <input type="hidden" name="collection_id" id="modalCollectionId">
+                <div class="cg-row">
+                  <div class="cg-sm-12">
+                    <div id="ntabs">
+                      <ul class="cg-col-sm-12 cg-col-xs-12 main-nav nopadding bottom-spacer-container">
+                        <li class="cg-col-sm-4 cg-col-xs-4 text-center clicker main-nav nopadding">
+                          <a href="#ntabs-1" class="sub-nav tabs-left ">
+                            <i class="fa fa-link pinker icon-nav"></i>
+                          </a>
+                        </li>
+                        <li class="cg-col-sm-4 cg-col-xs-4 cg-col-lg-4 cg-col-md-6 text-center clicker main-nav mid-nav nopadding">
+                          <a href="#ntabs-2" class="sub-nav">
+                            <i class="fa fa-cloud-upload pinker icon-nav"></i>
+                          </a>
+                        </li>
+                        <li class="cg-col-sm-4 cg-col-xs-4 text-center clicker main-nav nopadding">
+                          <a href="#ntabs-3" class="sub-nav tabs-right">
+                            <i class="fa fa-picture-o pinker icon-nav"></i>
+                          </a>
+                        </li>
+                      </ul>
+
+                      <div id="ntabs-1" style="color: #545454;">
+            <div class="form-group in-block full-width">
+              <div class="cg-col-sm-10 cg-col-sm-offset-1">
+                <input type="text" class="form-control input-new-collection full-width back-white input-border" id="" name="image_url" placeholder="http://">
+              </div>
+            </div>
+            </div>
+            <div id="ntabs-2" style="color: #545454;">
+                  <div class="cg-col-sm-6 cg-col-sm-offset-3 cg-col-xs-12 dashed-upload nopadding">
+                    <img id="imgups" src="<?php echo $this->getSkinUrl('images/unggah.png'); ?>" alt="your image" width ="100%"/>
+                    <div class="fileUpload-coll" id="no-span">
+                    <input type="file" title="Browse" name="cover" class="upload-coll" id="imgInpsx"/>
                     </div>
+                  </div>
+                </div>
 
-                    <label for="name" class="full-width cover-exp">Update Cover Image <br /> (JPG image, 800px width and 800px height, max 1MB)</label>
-                    <input type="hidden" name="collection_id" id="modalCollectionId">
+            <!--<div id="ntabs-2" style="color: #545454;">
+            <div class="cg-col-sm-6 cg-col-sm-offset-3 cg-col-xs-12 dashed-upload nopadding">
+              <img id="imgup" src="#" alt="your image"/>
+              <img id="imgups" src="<?php echo $this->getSkinUrl('images/unggah.png'); ?>" alt="your image" width ="100%"/>
+              <div class="fileUpload-coll" id="no-span">
+              <input type="file" title="Browse" name="cover" class="upload-coll" id="imgInp"/>
+              </div>
+            </div>
+            </div>-->
+            <div id="ntabs-3" style="color: #545454;">
+            <div class="cg-col-sm-4 cg-col-sm-offset-4 bottom-spacer-container">
+              <select name="" id="new-category-selector" class="full-width">
+                <option value="">Select categories</option>
+                <?php foreach ($categories as $category) { ?>
+                <option value="<?php echo $category->getCategoryId();?>"><?php echo $category->getName();?></option>
+                <?php } ?>
+              </select>
+            </div>
+            <div class="cg-col-sm-12" id="new-preset-image-container"> 
+            <?php $counter = 1; foreach($images as $image) { 
+            if (($counter % 3) == 0) {
+            }
+            ?>
+              <div class="cg-col-sm-3 cg-col-xs-4 bottom-spacer choose-cover relative">
+                <span class="overlayer-pink">
+                  <i class="fa fa-check checked"></i>
+                </span>
+                <img src="/media/<?php echo $image['image'];?>" width="100%" alt=""> 
+              </div>
+            <?php 
+            $counter++;}  ?>
+            </div>  
+            </div>  
 
+          </div>
+          
 
-        <div style="margin-top: 20px;">
-            <input type="checkbox" name="visibility" id="visibility" class="input-collection" style="height: inherit; width:10px;" checked>
-            <label for="visibility" style="color: #545454; height: 40px;">Jadikan koleksi publik agar semua orang bisa melihat</label>
-        </div>
+                  </div>
+                </div>
 
+                <div style="margin-top: 20px;">
+                  <input type="checkbox" name="visibility" id="visibility" class="input-collection" style="height: inherit; width:10px;" checked>
+                  <label for="visibility" class="check-public">Jadikan koleksi publik agar semua orang bisa melihat</label>
+                </div>
+          <input type="hidden" name="preset_image" id="new_preset_image" />
+
+              </div>
         <button type="submit" class="btn btn-pink-prime cursor" name="submitButton" style="margin: 10px 0;">BUAT DAN TAMBAH KE KOLEKSI</button>
 
     <?php endif; ?>

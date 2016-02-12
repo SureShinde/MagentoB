@@ -2994,8 +2994,8 @@ a.file-input-wrapper.btn.btn-default.upload-coll:hover {
     display: inline-block;
     border: 1px solid #ededed;
     margin-right: 7px;
-    width: 60px;
-    height: 60px;
+   /* width: 60px;
+    height: 60px;*/
 }
 .quick-view-price-box {
     display: inline-block;
@@ -3031,8 +3031,18 @@ ul.product-image-thumbs {
 	position: absolute;
     width: auto;
     right: 20px;
+    margin-top:41px;
 	}
 }
+@media (max-width: 765px){
+	.closer-top-banner
+	{
+	position: absolute;
+    width: auto;
+    right: 20px;
+    margin-top:41px;
+	}
+	}
 @media (max-width: 640px){
 
 		.coll-quick-top
@@ -3056,7 +3066,18 @@ ul.product-image-thumbs {
 		font-size: 14px !important;
 
 	}
+	#top-banner
+	{
+		margin-top: 150px;
+	}
 }
+@media (max-width: 766px){
+
+	#top-banner
+	{
+		margin-top: 80px;
+	}
+	}
 .outofstock-new
 {
 	color: #fff;
