@@ -13,10 +13,12 @@
     position: relative;
     width: 100%;
 	float:left;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
 	font-size:12px;
-    box-shadow: 0 0 2px rgba(0,0,0,0.3);
-    -webkit-box-shadow: 0 0 2px rgba(0,0,0,0.3);
-    -moz-box-shadow: 0 0 2px rgba(0,0,0,0.3);
+    border-top: 1px solid #f6f6f6;
+    border-bottom: 1px solid #f6f6f6;
     color: #fff;
 }
 .menu-navigation .wrap-navigation{
