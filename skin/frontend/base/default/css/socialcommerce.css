@@ -3031,8 +3031,19 @@ ul.product-image-thumbs {
 	position: absolute;
     width: auto;
     right: 20px;
+    margin-top:41px;
 	}
 }
+@media (max-width: 765px){
+  .closer-top-banner
+  {
+  position: absolute;
+    width: auto;
+    right: 20px;
+    margin-top:41px;
+  }
+  }
+
 @media (max-width: 640px){
 
 		.coll-quick-top
