@@ -27,289 +27,80 @@
  * @var Mage_Page_Block_Html_Header $this
  */
 ?>
-
-<!--Mega Menu-->
-<script type="text/javascript">	
-        wwidth = $j(window).width();
-    var tooltipMobileFirst = 'tooltip_mobile_first';
-    $j(window).load(function() {
-        
-		$j(".megamenu.megamenu-active img, .homepage-banner img").lazyload({
-			skip_invisible : true
-		});
-		$j(".homepage-banner .first-level > ul > li").hover(function(){
-			$j(".homepage-banner .first-level-cat.hover-cat img").lazyload();
-        });
-        $j("img.lazy").lazyload();
-	});
-    $j(document).ready(function() {
-		$j("img.lazy, .wrap-banner img:not(.image-slider), .warp-banner img").after('<div class="loader"><img class="loader-img" src="<?php echo Mage::getBaseUrl(); ?>skin/frontend/base/default/images/loading.gif"></div>');
-		$j(".homepage-banner .first-level > ul > li:first-of-type").addClass("active-cat");
-        $j(".homepage-banner .first-level > ul > li").hover(function() {
-		$j(".homepage-banner .first-level-cat.hover-cat img").lazyload();
-            $j('.homepage-banner .first-level > ul > li.active-cat .second-level').hide();
-            $j('.homepage-banner .first-level > ul > li.active-cat div').css("color","inherit");
-			$j('.homepage-banner .first-level > ul > li.active-cat').css("background","#fff");
-			$j('.homepage-banner .first-level > ul > li.active-cat .arrow-megamenu').css("display","none");
-            $j('.homepage-banner .first-level > ul > li').removeClass("hover-cat");
-            $j(this).addClass("hover-cat");
-        });
-        $j(".homepage-banner .first-level > ul").mouseleave(function() {
-            $j('.homepage-banner .first-level > ul > li').removeClass("hover-cat");
-            $j('.homepage-banner .first-level > ul > li.active-cat .second-level').show();
-			$j('.homepage-banner .first-level > ul > li.active-cat div').css("color","#fff");
-			$j('.homepage-banner .first-level > ul > li.active-cat').css("background","#EE5191");
-			$j('.homepage-banner .first-level > ul > li.active-cat .arrow-megamenu').css("display","block");
-        });
-        $j('.homepage-banner .first-level-url').click(function() {
-			if($j(this).parent().hasClass("hover-cat") ){
-				window.location.href = $j(this).attr("data-href");
-			}else{
-				$j('.homepage-banner .first-level > ul > li.active-cat .second-level').hide();
-				$j('.homepage-banner .first-level > ul > li').removeClass("hover-cat");
-				$j(this).parent().addClass("hover-cat");
-			}
-        });
-		$j( ".product-image-zoom" ).mouseover('mousewheel',function(e) {
-				e.originalEvent.wheelDelta = 100;
-			
-		});
-		 $j('.bg-dark-megamenu').click(function() {
-            $j('.megamenu').removeClass("megamenu-active");
-            $j(this).hide();
-        });
-		
-        //================mobile left menu js========================
-        $j('.tooltip-mobile-first').click(function() {
-            $j(this).hide();
-            setCookie(tooltipMobileFirst, 'done', 365);
-        });
-        
-        $j('.nav-mobile-trigger').click(function() {
-            $j('.mobile-left-menu').css({"width":"100%","left":"0"});
-            $j('.wrapper').css({"float":"left","margin-left":"70%","position":"fixed"});
-            $j('body').css({"overflow":"hidden"});
-            $j('.mobile-left-menu .back-left').css({"position":"fixed"});
-        });
-        
-        $j('.mobile-left-menu .wrap-menu-cat > ul > li p').click(function() {
-			var data_left_menu_val = $j(this).attr("data-left-menu");
-			if ($j('.mobile-left-menu .wrap-menu-cat > ul > li.' + data_left_menu_val).hasClass("menu-active")){
-				$j('.mobile-left-menu .wrap-menu-cat > ul > li.' + data_left_menu_val).removeClass("menu-active");
-			} else {
-				$j('.mobile-left-menu .wrap-menu-cat > ul > li').removeClass("menu-active");
-				$j('.mobile-left-menu .wrap-menu-cat > ul > li.' + data_left_menu_val ).addClass("menu-active");
-			};
-        });
-        //================mobile left menu js========================
-        
-        $j('.back-button').click(function() {
-            $j('.mobile-left-menu').css({"width":"100%","left":"-100%"});
-            $j('.wrapper').css({"float":"none","margin-left":"0","position":"relative"});
-            $j('body').css({"overflow":"auto"});
-			$j('.mobile-left-menu .back-left').css({"position":"absolute"});
-        });
-        
-			
-		if (wwidth < 768) {
-			checkMobileTooltip();
-		}
-		
-    });
-    function checkMobileTooltip() {
-				var getTooltip = getCookie(tooltipMobileFirst);
-				if (getTooltip == '') {
-					$j('.tooltip-mobile-first').show();
-				}
-			}
-			
-			function setCookie(cname, cvalue, exdays) {
-				var de = new Date();
-				de.setTime(de.getTime() + (exdays*24*60*60*1000));
-				var expires = "expires=" + de.toUTCString();
-				document.cookie = cname + "=" + cvalue + "; " + expires;
-			}
-			
-			function getCookie(cname) {
-				var name = cname + "=";
-				var ca = document.cookie.split(';');
-				
-				for (var i=0; i<ca.length; i++) {
-					var c = ca[i];
-					while (c.charAt(0)==' ') c = c.substring(1);
-					if (c.indexOf(name) == 0) return c.substring(name.length,c.length);
-				}
-				
-				return "";
-			}
-		
-</script>
-
-<!--Mobile Menu-->
 <script type="text/javascript">
+$j(document).ready(function() {
     
-    $j(document).ready(function() {
-	
-    
-        $j(window).scroll(function() {
-            if ($j(this).scrollTop() > 120) {
-				
-            }
-            else {
-                
-            }
-            
-            if ($j(this).scrollTop() > 100) {
-                $j(".back-to-top").fadeIn();
-            }
-            else {
-                $j(".back-to-top").fadeOut();
-            }
-        });
-	
-        if (wwidth < 768) {
-            $j('.nav-mobile-trigger').click(function(e) {
-                e.preventDefault();
-                $j('.mini-cart-mobile').slideUp();
-                $j('.my-account-mobile').slideUp();
-                $j('.nav-container').slideToggle();
-            });
-            
-            $j('#link-minicart').click(function(e) {
-                e.preventDefault();
-                $j('.nav-container').slideUp();
-                $j('.my-account-mobile').slideUp();
-                $j('.mini-cart-mobile').slideToggle();
-            });
-            
-            $j('.link-myaccount-mobile').click(function(e) {
-                e.preventDefault();
-                $j('.nav-container').slideUp();
-                $j('.mini-cart-mobile').slideUp();
-                $j('.my-account-mobile').slideToggle();	
-            });
-        }
-        else {
-            $j('#link-minicart').click(function(e) {
-                e.preventDefault();
-                $j('.mini-cart').slideToggle();		
-            });	
-            
-            $j('#link-minicart-sticky').click(function(e) {
-                e.preventDefault();
-                $j('.mini-cart-sticky').slideToggle();
-            });	
-	}	
-	
-	$j(".nav-container ul#nav li.parent a").live("mouseover", function() {
-            if (wwidth < 768) {
-                return  false;
-            }
-	});
-        
-	$j(".nav-container ul#nav li.active-submenu").live("mouseover", function() {
-            if (wwidth < 768) {
-                return  false;
-            }
-	});
-        
-	$j(".nav-container ul#nav li.parent a.level-top").live('click', function() {
-            if (wwidth < 768) {
-                var allPanels = $j('.nav-container li.parent ul').hide();
-                
-                if ($j(this).hasClass('active-submenu')) {
-                    var href = $j(this).attr('href');
-                    window.location.href = href;
-                }
-                else {
-                    $j(".nav-container li.parent a.level-top").removeClass("active-submenu");
-                    allPanels.slideUp();
-                    $j(this).parent().next().slideDown();
-
-                    $j(this).addClass("active-submenu");
-                    //$j(this).prev().removeClass("active-submenu");
-                    //$j(this).next().removeClass("active-submenu");
-                    $j(this).next().css({"display":"block"});
-                    return false;
-                }
-            }	
-            else {
-                var href = $j(this).attr('href');
-                window.location.href = href;
-            }
-	});
-    });
-</script>
-<script>
-    $j(document).ready(function() {
-        $j(".menu-tablet .link-trigger-myaccount, .menu-tablet .toplink-myaccount").hover(function() {
-            $j(".menu-tablet .toplink-myaccount").toggle();
-        });
-      
-        $j(".header .link-trigger-myaccount, .header .toplink-myaccount").hover(function() {
-            $j(".header .toplink-myaccount").toggle();
-        });
-    });
+        $j("img.lazy, .wrap-banner img:not(.image-slider), .warp-banner img").after('<div class="loader"><img class="loader-img" src="<?php echo Mage::getBaseUrl(); ?>skin/frontend/base/default/images/loading.gif"></div>');
+});
 </script>
 <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('above-header-notification')->toHtml() ?> 
 <div class="header-container">
-    
-    <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('above-header')->toHtml() ?> 
-    <div class="tooltip-mobile-first">
-        <p> ← click here for category menu </p>
+    <div class="space-above-header">
+        <div class="container-above-header">
+            <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('above-header')->toHtml() ?>
+            <ul class="keypoint">
+                <li>
+                    <a href="<?php Mage::getBaseUrl(); ?>faq/"><em class="fa fa-reply-all"></em> Pusat Bantuan</a>
+                </li>
+                <li>
+                    <a href="<?php if($this->helper('customer')->isLoggedIn()):?><?php echo $this->getUrl('sales/order/history') ?><?php else: ?><?php echo $this->getUrl('orderdetail') ?><?php endif;?>"><em class="fa fa-file-text-o"></em> Cek Pesanan</a>
+                </li>
+            </ul>
+        </div>
     </div>
-    
     <?php echo $this->getLayout()->createBlock('page/html')->setTemplate('page/html/back-top.phtml')->toHtml(); ?>
-    
+
     <div class="header">
-    	<a href="#" class="nav-mobile-trigger"><?php echo $this->__('Menu') ?></a>
         <a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="logo"><strong><?php echo $this->getLogoAlt() ?></strong>
             <img src="<?php echo $this->getLogoSrc() ?>" alt="<?php echo $this->getLogoAlt() ?>" />
         </a>
         
+        <ul class="web_feature">
+            <li class="shop_link"><a href="<?php echo $this->getUrl(''); ?>"><?php echo $this->__('Belanja') ?></a><div class="bridge_border">&shy; </div></li>
+            <li class="koleksi"><a href="<?php echo $this->getUrl('collections'); ?>"><?php echo $this->__('Koleksi') ?><div class="bridge_border">&shy; </div></a></li>
+            <li class="inspirasi"><a href="http://magazine.bilna.com/" class="link-blog"><?php echo $this->__('Inspirasi') ?></a><div class="bridge_border">&shy; </div></li>
+        </ul>
         <div class="quick-access">
             <div class="search-container-new">
-            <?php echo $this->getChildHtml('topSearch') ?>		               
+            <?php echo $this->getChildHtml('topSearch') ?>
             </div>
-            
+
             <div class="top-cart">
                 <div class="normal-sticky-cart">
-                    <a href="<?php echo $this->getUrl('blog'); ?>" class="link-blog"><span class="lable-name">INSPIRASI</span></a>
                     <?php echo $this->getChildHtml('topLinks') ?>
-                    <?php $_totalItem = $this->helper('checkout/cart')->getSummaryCount();  //get total items in cart ?>                    
+                    <?php $_totalItem = $this->helper('checkout/cart')->getSummaryCount();  //get total items in cart ?>
                     <?php if ($_totalItem == 0): ?>
-                        <a href="#" class="link-minicart" id="link-minicart"><span class="qty-item">0</span><span class="lable-name">TROLI</span></a>
+                        <a href="#" class="link-minicart" id="link-minicart">
+                            <i class="fa fa-shopping-cart"></i>
+                            <span class="qty-item">0</span>
+                        <span class="title-header-cart">TROLI</span></a>
                     <?php else: ?>
-                    <a href="#" class="link-minicart" id="link-minicart"><span class="qty-item"><?php echo $this->__($_totalItem.$this->__()) ?></span><span class="lable-name">TROLI</span></a>
+                    <a href="#" class="link-minicart" id="link-minicart">
+                        <i class="fa fa-shopping-cart"></i>
+                        <span class="qty-item"><?php echo $this->__($_totalItem.$this->__()) ?></span>
+                        <span class="title-header-cart">TROLI</span>
+                    </a>
                     <?php endif; ?>
+                    
                 </div>
                 <div class="mini-cart" style="display: none !important;"><?php echo $this->getChildHtml('topcart') ?></div>
             </div>
-            
+
             <p class="welcome-msg"><?php echo $this->getChildHtml('welcome') ?> <?php echo $this->getAdditionalHtml() ?></p>
-            
+
             <div class="clear"></div>
         </div>
-        
+
         <?php echo $this->getChildHtml('topContainer'); ?>
         
-        <div class="nav-mobile"><?php //echo $this->getChildHtml('topMenu') ?></div>
-        
-        <div class="mini-cart-mobile"><?php echo $this->getChildHtml('topcart') ?></div>
-
-        <div class="search-container-new-mobile">
-            <?php echo $this->getChildHtml('topSearch'); ?>
-        </div>
-        
-        <div class="my-account-mobile"><?php echo $this->getChildHtml('topLinks') ?></div>
     </div>
         
-    <div class="menu-navigation">
-        <div class="wrap-navigation">
+     <div class="menu-navigation">
+        <div class="wrap-navigation belanja">
             <div class="wrap-megamenu">
-                <div class="button-megamenu"><i class="fa fa-th"></i> <p>Semua Kategori </p><i class="fa fa-caret-down"></i></div>
+                <div class="button-megamenu"><p>Jelajahi Semua Kategori </p></div>
             </div>
-            <div class="promo-text-space col-md-12">
+            <div class="promo-text-space">
                 <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('topmegamenu-promo')->toHtml() ?>
             </div>
 
@@ -317,46 +108,13 @@
                 <?php echo $this->getLayout()->createBlock('megamenu/block')->setTemplate('bilna_megamenu/block.phtml')->toHtml(); ?>
             </div>
         </div>
+        <div class="wrap-navigation inspirasi">
+                <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('nav_inspirasi')->toHtml() ?>
+        </div>
     </div>
 </div>
 
 <div class="bg-dark-megamenu"></div>
-
-<script>
-    jQuery(document).ready(function() {
-        jQuery(".nav-gift-sets").mouseover(function() {
-            jQuery(".nav-10").addClass("hover");
-            jQuery(".nav-10>a").addClass("color_a");
-            jQuery(".gift-menu-wrapp").show();
-        });	
-  
-        jQuery(".nav-gift-sets").mouseleave(function() {
-            jQuery(".nav-10").removeClass("hover");
-            jQuery(".nav-10>a").removeClass("color_a");
-            jQuery(".gift-menu-wrapp").hide();
-        });
-  
-        jQuery(".gift-menu-wrapp").mouseover(function() {
-            jQuery(".gift-menu-wrapp").show();
-            jQuery(".parent-10").addClass("over");
-        });
-  
-        jQuery(".gift-menu-wrapp").mouseleave(function() {
-            jQuery(".gift-menu-wrapp").hide();
-            jQuery(".parent-10").removeClass("over");
-        });
-    });
-</script>
-
-<script type="text/javascript">
-    jQuery('.search-container-new #searchDropdownBox').change(function() {
-        jQuery('.search-container-new #nav-search-in-content').text(jQuery('.search-container-new #searchDropdownBox option:selected').text());
-    });
-    
-    jQuery('.search-container-new-mobile #searchDropdownBox').change(function() {
-        jQuery('.search-container-new-mobile #nav-search-in-content').text(jQuery('.search-container-new-mobile #searchDropdownBox option:selected').text());
-    });
-</script>
 
 <?php
 $customer = Mage::getSingleton('customer/session')->getCustomer();

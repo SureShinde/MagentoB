@@ -54,9 +54,15 @@
                 <div class="normal-sticky-cart">
                     <?php $_totalItem = $this->helper('checkout/cart')->getSummaryCount();  //get total items in cart ?>                    
                     <?php if ($_totalItem == 0): ?>
-                        <a href="#!" class="link-minicart" id="link-minicart"><span class="qty-item">0</span><span class="lable-name">TROLI</span></a>
+                        <a href="#!" class="link-minicart" id="link-minicart">
+                            <i class="fa fa-shopping-cart"></i>
+                            <span class="qty-item">0</span>
+                            <span class="lable-name">TROLI</span></a>
                     <?php else: ?>
-                    <a href="#!" class="link-minicart" id="link-minicart"><span class="qty-item"><?php echo $this->__($_totalItem.$this->__()) ?></span><span class="lable-name">TROLI</span></a>
+                        <a href="#!" class="link-minicart" id="link-minicart">
+                            <i class="fa fa-shopping-cart"></i>
+                            <span class="qty-item"><?php echo $this->__($_totalItem.$this->__()) ?></span>
+                            <span class="lable-name">TROLI</span></a>
                     <?php endif; ?>
                 </div>
                 <div class="mini-cart" style="display: none !important;"><?php echo $this->getChildHtml('topcart') ?></div>

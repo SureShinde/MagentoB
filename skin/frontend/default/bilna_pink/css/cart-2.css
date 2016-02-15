@@ -159,8 +159,11 @@
 #shopping-cart-table.cart-table .input-text.qty {
 	border: 0;
 	text-align: center;
-	background: url(../images/bg-txt-qty.png) no-repeat;
 	height: 31px;
+    border: 1px solid #E4E4E4;
+    box-shadow: inset 0 0 8px #E6E6E6;
+    -moz-box-shadow: inset 0 0 8px #E6E6E6;
+    -webkit-box-shadow: inset 0 0 8px #E6E6E6;
 }
 
 #shopping-cart-table.cart-table .remove-item {
@@ -370,12 +373,12 @@
 }
 .checkout-types button {
     width: 100%;
-    border: 1px solid #EE5191;
+    border: 1px solid #3EB988;
     margin: 0 auto 20px;
     display: block;
 }
 .checkout-types button.btn-checkout span {
-	background: #EE5191;
+	background: #3eb988;
 }
 .continue-shopping{
     float: right;

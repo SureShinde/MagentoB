@@ -30,7 +30,7 @@
 </ul>
 <div class="buttons-set">
     <?php if ( $this->shouldDisplayForgotpasswordbutton() ): ?>
-        <a href="<?php echo $this->getParentBlock()->getForgotPasswordUrl() ?>" id="<?php echo $this->getForgotpasswordbuttonHtmlId() ?>" class="f-right"><?php echo $this->__('Lupa kata kunci?') ?></a><br />
+        <a href="<?php echo $this->getParentBlock()->getForgotPasswordUrl() ?>" id="<?php echo $this->getForgotpasswordbuttonHtmlId() ?>" class="f-right"><label for="responsiveformforgotpassword"><?php echo $this->__('Lupa kata kunci?') ?></label></a><br />
     <?php endif; ?>
     
     <button type="submit" class="button" title="<?php echo $this->__('Login') ?>" name="send" id="send2"><span><span><?php echo $this->__('Masuk') ?></span></span></button>
@@ -50,6 +50,9 @@
                     AjaxLogin.Authorization.__getInstanceByChildnode(this).switchToFrame('recovery');
                     if (window.event) window.event.cancelBubble = true;
                     if (window.event) window.event.returnValue = false;
+
+                    document.getElementById("responsiveformforgotpassword").checked = true;
+
                     event.preventDefault();
                     event.stopPropagation();
                     return false;
