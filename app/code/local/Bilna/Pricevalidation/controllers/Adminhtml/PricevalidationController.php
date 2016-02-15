@@ -9,8 +9,6 @@ class Bilna_Pricevalidation_Adminhtml_PricevalidationController extends Mage_Adm
 
     public function indexAction()
     {
-        $this->silverDiscount = Mage::getStoreConfig('bilna_pricevalidation/pricevalidation_disc/silver')/100;
-        $this->platinumDiscount = Mage::getStoreConfig('bilna_pricevalidation/pricevalidation_disc/platinum')/100;
         $this->_title($this->__('Bilna'))->_title($this->__('Bilna Price Validation'));
         $this->loadLayout();
         $this->_setActiveMenu('bilna/bilna');
@@ -92,6 +90,9 @@ class Bilna_Pricevalidation_Adminhtml_PricevalidationController extends Mage_Adm
                 Mage::getSingleton('adminhtml/session')->setFormData(false);
 
                 if (($invokeStatus = $this->getRequest()->getParam('start'))) {
+                    $this->silverDiscount = Mage::getStoreConfig('bilna_pricevalidation/pricevalidation_disc/silver')/100;
+                    $this->platinumDiscount = Mage::getStoreConfig('bilna_pricevalidation/pricevalidation_disc/platinum')/100;
+
                     $started = date('Y-m-d H:i:s');
 
                     $runningStatus = array(
@@ -333,6 +334,7 @@ class Bilna_Pricevalidation_Adminhtml_PricevalidationController extends Mage_Adm
 
                                                 /* Customer Group Price Section Start */
                                                 if((empty($error) && ($readyForUpdateGP == 2))) {
+                                                    $groupPriceUpdate = array();
                                                     $grossMargin = $price - $cost;
                                                     foreach ($product->getData('group_price') as $productData) {
                                                         if (in_array($productData['cust_group'], $custGroup)) {
@@ -532,6 +534,7 @@ class Bilna_Pricevalidation_Adminhtml_PricevalidationController extends Mage_Adm
 
                                                 /* Customer Group Price Section Start */
                                                 if((empty($error) && ($readyForUpdateGP == 2))) {
+                                                    $groupPriceUpdate = array();
                                                     $grossMargin = $price - $cost;
                                                     foreach ($product->getData('group_price') as $productData) {
                                                         if (in_array($productData['cust_group'], $custGroup)) {
