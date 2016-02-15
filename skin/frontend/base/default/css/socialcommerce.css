@@ -2451,6 +2451,10 @@ div.choose-cover > span.overlayer-pink
   	font-size: 60px;
   	transition: visibility 1s, opacity 1s linear;
 }
+.detail-collect
+{
+	margin-top: 50px;
+}
 div.choose-cover:hover > span.overlayer-pink
 {
 	background: rgba(238,81,145,0.5);
@@ -2601,6 +2605,13 @@ a.wishlist-name
 }
 
 }
+	
+@media (min-width: 750px){
+	.detail-collect
+	{
+		margin-top: 60px;
+	}
+	}
 @media (max-width: 400px){
 
 		.nameOfList 
@@ -2615,6 +2626,10 @@ a.wishlist-name
 	    word-wrap: break-word;
 	    white-space: nowrap;
 	    max-width: 90%;
+	}
+	.detail-collect
+	{
+		margin-top: 150px;
 	}
 }
 .title-banner-collection
@@ -2994,8 +3009,8 @@ a.file-input-wrapper.btn.btn-default.upload-coll:hover {
     display: inline-block;
     border: 1px solid #ededed;
     margin-right: 7px;
-    width: 60px;
-    height: 60px;
+   /* width: 60px;
+    height: 60px;*/
 }
 .quick-view-price-box {
     display: inline-block;
@@ -3031,8 +3046,18 @@ ul.product-image-thumbs {
 	position: absolute;
     width: auto;
     right: 20px;
+    margin-top:41px;
 	}
 }
+@media (max-width: 765px){
+	.closer-top-banner
+	{
+	position: absolute;
+    width: auto;
+    right: 20px;
+    margin-top:41px;
+	}
+	}
 @media (max-width: 640px){
 
 		.coll-quick-top
@@ -3056,7 +3081,18 @@ ul.product-image-thumbs {
 		font-size: 14px !important;
 
 	}
+	#top-banner
+	{
+		margin-top: 150px;
+	}
 }
+@media (max-width: 766px){
+
+	#top-banner
+	{
+		margin-top: 80px;
+	}
+	}
 .outofstock-new
 {
 	color: #fff;
