@@ -1939,7 +1939,7 @@ tr.summary-details-excluded { font-style:italic; }
     visibility: hidden;
     position: fixed;
     right: 10px;
-    z-index: 99;
+    z-index: 9;
 }
 #backtotop a span{
 	font-size:14px;

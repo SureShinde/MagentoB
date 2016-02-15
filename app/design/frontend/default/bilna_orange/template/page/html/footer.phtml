@@ -313,8 +313,6 @@ $images = Mage::getModel('socialcommerce/collectioncover')->getCollection()->set
             ?>
             <div class="cg-col-xs-12 cg-col-lg-12 cg-col-md-12 cg-col-sm-12 bottom-part">
 
-                <?php if ($collectionAvailable) : ?>
-
                 <select name="wishlist_id" id="collectionList" class="collection-select">
                     <?php foreach ($wishlistCollection->getItems() as $wishlist) : ?>
 
@@ -445,56 +443,35 @@ $images = Mage::getModel('socialcommerce/collectioncover')->getCollection()->set
             <button type="submit" class="btn btn btn-pink-prime cursor" name="submitButton" style="margin: 10px 0;" id="addButton">TAMBAHKAN DALAM KOLEKSI</button>
             </div>
 
-          
+            <?php if ($collectionAvailable) : ?>
               <script>
-              jQuery(document).ready(function() {
-                jQuery('#collectionList').change(function () {
-                  if (jQuery(this).val() == '0') {
-                    jQuery('#iWannaCreateNewCollection').show();
-                    jQuery('#add-new-pop-collection').css( {"display": "inline-block","max-height": "90%" });
-                    jQuery('#addButton').html('Create &amp; Add this Product');
-                    jQuery('#name').attr('required', true);
-                  } else {
-                    jQuery('#iWannaCreateNewCollection').hide();
-                    jQuery('#add-new-pop-collection').css("display", "inline-table");
-                    jQuery('#addButton').html('Add to Collection');
-                    jQuery('#name').attr('required', false);
-                  }
-				  //jQuery('#ntabs').tabs();				  
+                jQuery(document).ready(function() {
+                  jQuery('#collectionList').change(function () {
+                    if (jQuery(this).val() == '0') {
+                      jQuery('#iWannaCreateNewCollection').show();
+                      jQuery('#add-new-pop-collection').css( {"display": "inline-block","max-height": "90%" });
+                      jQuery('#addButton').html('Create &amp; Add this Product');
+                      jQuery('#name').attr('required', true);
+                    } else {
+                      jQuery('#iWannaCreateNewCollection').hide();
+                      jQuery('#add-new-pop-collection').css("display", "inline-table");
+                      jQuery('#addButton').html('Add to Collection');
+                      jQuery('#name').attr('required', false);
+                    }
+                  });
                 });
-              });
               </script>
-
-        <?php else : ?>
-
-        <h3 style="color: #545454">No Collection</h3>
-
-        <p style="color: #545454;margin-top:10px;">
-            You don't have any collection yet. Please create one to add this product as your collection.
-        </p>
-
-        <label for="name" style="color: #545454; margin-bottom: 10px;margin-top: 20px">Collection Name:</label>
-        <input class="input-collection" id="name" name="name" required>
-
-        <label for="name" class="full-width" style="color: #545454; margin-bottom: 10px; margin-top: 10px;">Collection Description</label>
-        <textarea rows="4" name="desc" class="input-collection full-width" maxlength="250" placeholer="what's your collection about?"></textarea>
-        <!--<input type="text" name="desc" id="desc" class="input-collection full-width" required >-->
-        <div class="cg-col-xs-12 in-block upload nopadding" style="margin-top:10px;">
-                         <input type="file" title="browse your image" name="cover">
-                    </div>
-
-                    <label for="name" class="full-width cover-exp">Update Cover Image <br /> (JPG image, 800px width and 800px height, max 1MB)</label>
-                    <input type="hidden" name="collection_id" id="modalCollectionId">
-
-
-        <div style="margin-top: 20px;">
-            <input type="checkbox" name="visibility" id="visibility" class="input-collection" style="height: inherit; width:10px;" checked>
-            <label for="visibility" style="color: #545454; height: 40px;">Make Public</label>
-        </div>
-
-        <button type="submit" class="btn btn-pink-prime cursor" name="submitButton" style="margin: 10px 0;">Create &amp; Add This Products</button>
-
-    <?php endif; ?>
+              <?php else : ?>
+              <script>
+                jQuery(document).ready(function() {
+                      jQuery('#iWannaCreateNewCollection').show();
+                      jQuery('#add-new-pop-collection').css( {"display": "inline-block","max-height": "90%" });
+                      jQuery('#addButton').html('Create &amp; Add this Product');
+                      jQuery('#name').attr('required', true);
+                });
+              </script>
+              <?php endif; ?>
+              
     <div class="cg-col-xs-12 nopadding">
 
     <button class="btn btn-cancel-button nomargin" onclick="hideAddToCollectionDialog();return false;">KELUAR</button>
@@ -525,7 +502,7 @@ jQuery(document).ready(function() {
     if(href.toLowerCase().indexOf("/user/profile/") >= 0 || href.toLowerCase().indexOf("/collections/") >= 0)
       href = <?php echo "'".$this->getUrl('collections')."'"; ?>;
     else
-      href = <?php echo "'".$this->getUrl('collections')."'"; ?>;
+      href = <?php echo "'".$this->getUrl('')."'"; ?>;
     jQuery(".web_feature").find("a[href='"+href+"']").each(function(){
         jQuery(this).addClass("active");
     })

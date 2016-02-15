@@ -35,13 +35,14 @@
 
         $j('.nav-mobile-trigger span.notclick').click(function() {
             $j(this).hide();
-            $j('.nav-mobile-trigger span.clicked').show();
+            $j('.nav-mobile-trigger span.clicked, .active_arrow_leftmenu').show();
             $j('.mobile-left-menu').css({"left":"0","right":"45px"});
+            $j('.mobile-left-menu').addClass("active-left-menu");
             $j('body').css({"overflow":"hidden"});
             $j('.back-left').toggle();
         });
         $j('.direktori_belanja').click(function() {
-            $j('.nav-mobile-trigger span.clicked').show();
+            $j('.nav-mobile-trigger span.clicked, .active_arrow_leftmenu').show();
             $j('.nav-mobile-trigger span.notclick').hide();
             $j('.mobile-left-menu').css({"left":"0","right":"45px"});
             $j('body').css({"overflow":"hidden"});
@@ -66,9 +67,10 @@
         $j('.nav-mobile-trigger span.clicked, .back-button').click(function() {
             $j('.back-level-1').triggerHandler("click");
             $j('.category-level-2 li').removeClass("open-cat-3");
-            $j('.nav-mobile-trigger span.clicked').hide();
+            $j('.nav-mobile-trigger span.clicked, .active_arrow_leftmenu').hide();
             $j('.nav-mobile-trigger span.notclick').show();
             $j('.mobile-left-menu').css({"left":"-100%"});
+            $j('.mobile-left-menu').removeClass("active-left-menu");
             $j('.wrapper').css({"float":"none","margin-left":"0","position":"relative"});
             $j('body').css({"overflow":"auto"});
             $j('.back-left').toggle();
