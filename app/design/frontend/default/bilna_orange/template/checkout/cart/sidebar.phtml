@@ -104,7 +104,7 @@ function ecommerceRemoveCart(name, sku, price, quantity, imageUrl, link) {
 	  }
 	});
 
-	// ematics cart
+	// ematics cart - prepare for logging
     products = [{
 		'id': sku,
         'price': price,
@@ -114,5 +114,7 @@ function ecommerceRemoveCart(name, sku, price, quantity, imageUrl, link) {
         'imageUrl': imageUrl,
         'link': link
 	}];
+	// ematics track items in cart to enable pre-abandonded cart overlays
+	ematics("log", "product", "cart", products);
 }
 </script>
