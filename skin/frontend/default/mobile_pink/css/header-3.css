@@ -1,10 +1,4 @@
-body {
-    margin: 0;
-    padding: 0;
-    line-height: normal;
-    font-size: 0.75em;
-    color: #707070;
-}
+
 .loader{
     width: 100%;
     text-align: center;
@@ -354,6 +348,7 @@ body {
     top: 0;
     bottom: 0;
     left: 0;
+    min-width: 320px;
     background: #fff;
 }
 .header .quick-access a.search-menu{

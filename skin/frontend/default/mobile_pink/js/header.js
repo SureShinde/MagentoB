@@ -9,11 +9,30 @@
     
     $j(document).ready(function() {
         $j(".search-menu").click(function(){
+            if ($j(".mobile-left-menu").hasClass("active-left-menu")){
+                $j(".search-container-new-mobile").show();
+                $j("#twotabsearchtextbox").attr("autofocus");
+                $j('.back-level-1').triggerHandler("click");
+                $j('.category-level-2 li').removeClass("open-cat-3");
+                $j('.nav-mobile-trigger span.clicked, .active_arrow_leftmenu').hide();
+                $j('.nav-mobile-trigger span.notclick').show();
+                $j('.mobile-left-menu').css({"left":"-100%"});
+                $j('.mobile-left-menu').removeClass("active-left-menu");
+                $j('.wrapper').css({"float":"none","margin-left":"0","position":"relative"});
+                $j('body').css({"overflow":"hidden"});
+                $j('.back-left').toggle();
+            } else {
+                $j('body').css({"overflow":"hidden"});
+                $j(".search-container-new-mobile").show();
+                $j("#twotabsearchtextbox").attr("autofocus");
+                
+            };
             $j(".search-container-new-mobile").show();
             $j("#twotabsearchtextbox").attr("autofocus");
         });
         $j(".close_search").click(function(){
             $j(".search-container-new-mobile").hide();
+                $j('body').css({"overflow":"auto"});
         });
         $j(".link-myaccount-mobile").click(function(){
             $j(".header .links li.myaccount").toggle();
