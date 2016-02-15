@@ -308,8 +308,6 @@ $images = Mage::getModel('socialcommerce/collectioncover')->getCollection()->set
             ?>
             <div class="cg-col-xs-12 cg-col-lg-12 cg-col-md-12 cg-col-sm-12 bottom-part">
 
-                <?php if ($collectionAvailable) : ?>
-
                 <select name="wishlist_id" id="collectionList" class="collection-select">
                     <?php foreach ($wishlistCollection->getItems() as $wishlist) : ?>
 
@@ -440,7 +438,7 @@ $images = Mage::getModel('socialcommerce/collectioncover')->getCollection()->set
             <button type="submit" class="btn btn btn-pink-prime cursor" name="submitButton" style="margin: 10px 0;" id="addButton">TAMBAHKAN DALAM KOLEKSI</button>
             </div>
 
-          
+            <?php if ($collectionAvailable) : ?>
               <script>
               jQuery(document).ready(function() {
                 jQuery('#collectionList').change(function () {
@@ -457,7 +455,6 @@ $images = Mage::getModel('socialcommerce/collectioncover')->getCollection()->set
                   }
 				  //jQuery('#ntabs').tabs();				  
                 });
-              });
               </script>
 
         <?php else : ?>
@@ -599,7 +596,7 @@ jQuery(document).ready(function() {
     if(href.toLowerCase().indexOf("/user/profile/") >= 0 || href.toLowerCase().indexOf("/collections/") >= 0)
       href = <?php echo "'".$this->getUrl('collections')."'"; ?>;
     else
-      href = <?php echo "'".$this->getUrl('collections')."'"; ?>;
+      href = <?php echo "'".$this->getUrl('')."'"; ?>;
     jQuery(".web_feature").find("a[href='"+href+"']").each(function(){
         jQuery(this).addClass("active");
     })

@@ -165,13 +165,17 @@ class AW_Affiliate_Model_Affiliate extends Mage_Core_Model_Abstract
                 )
             );
 
+	    // Fixing for multiple row returned when joining to sales_flat_order if the order is canceled and re-ordered again by admin (BILNA-1410) - Start
+            $this->_profitTransactions->getSelect()->group('main_table.linked_entity_id');
+	    // Fixing for multiple row returned when joining to sales_flat_order if the order is canceled and re-ordered again by admin (BILNA-1410) - End
+
             //first load order by created at descending
             if (Mage::app()->getRequest()->getParam('sort') && Mage::app()->getRequest()->getParam('dir')){                
                 $this->_profitTransactions->addAffiliateFilter($__affiliateId);
             }else{
                 $this->_profitTransactions->getSelect()->order('main_table.created_at DESC');
                 $this->_profitTransactions->addAffiliateFilter($__affiliateId);
-            } 
+            }
             //$this->_profitTransactions->printLogQuery(true);           
         }
         return $this->_profitTransactions;

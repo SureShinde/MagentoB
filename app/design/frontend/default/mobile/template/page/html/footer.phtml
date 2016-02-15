@@ -79,4 +79,12 @@
     jQuery(document).ready(function() {
         dataLayer.push({ 'event': 'event_all' });
     });
+
+    jQuery(document).ready(function() {
+        var href = window.location.href;
+        if(href.toLowerCase().indexOf("/user/profile/") >= 0 || href.toLowerCase().indexOf("/collections/") >= 0)
+          jQuery(".title_belanja p").html('KOLEKSI');
+        else
+          jQuery(".title_belanja p").html('BELANJA');
+    });
 </script>

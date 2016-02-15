@@ -9,9 +9,9 @@ $lastPageNumber = $this->getLastPageNumber();
 
 <div class="cg-container nomargin">
 
- <div class="cg-col-sm-12 in-block" style="padding:13px;" id="top-banner">
+ <div class="cg-col-sm-12" style="padding:13px;" id="top-banner">
   <div class="cg-col-sm-12 cg-col-xs-12 collection-top-banner">
-    <div class="cg-col-sm-6 cg-col-xs-12">
+    <div class="cg-col-sm-10 cg-col-xs-12 cg-col-lg-6">
       <div class="cg-col-sm-12 title-banner-collection">
         Koleksi Produk Terbaik Untuk Inspirasi Belanja Anda
       </div>
@@ -153,7 +153,7 @@ foreach ($wishlists as $wishlist) {
                   <?php else : ?>
                   <img src="<?php echo $product_image; ?>" width = "100%" class="img-collection">
                 <?php endif; ?>
-              </a>
+              </a><div id="explanation"></div>
               <div class="cg-col-xs-12 collection-title">
                 <div class="cg-col-lg-12 cg-col-md-10 cg-col-sm-10 cg-col-xs-12 take-left" style="">
                  <a class="display-title-coll link-pink-hover nameOfList uppercase opensans" href="<?php echo $this->getUrl('collections/' . $wishlist['wishlist_id'] . '-' . $slug); ?>" style=""><?php echo $wishlist['name']; ?></a>
@@ -171,6 +171,7 @@ foreach ($wishlists as $wishlist) {
    <?php } ?>
    
    </div>
+
    <div class="cg-row nomargin">
 
     <div class="cg-col-lg-12 cg-col-xs-12 in-block nopadding">
@@ -191,15 +192,15 @@ foreach ($wishlists as $wishlist) {
                   Masukkan Produk Dalam Koleksi Anda
                 </div>
                 <div class="cg-col-xs-12 bottom-spacer-more">
-                  <div class="cg-col-xs-12 cg-col-lg-4">
+                  <div class="cg-col-xs-12 cg-col-lg-4 cg-col-md-4 cg-col-sm-4">
                     <img src="<?php echo $this->getSkinUrl('images/step-1.png'); ?>" width="30%"> <br>
                     <p class="exp-three-col">Cari produk favorit sesuai <br>tema / mood koleksi anda</p>
                   </div>
-                  <div class="cg-col-xs-12 cg-col-lg-4">
+                  <div class="cg-col-xs-12 cg-col-lg-4 cg-col-md-4 cg-col-sm-4">
                     <img src="<?php echo $this->getSkinUrl('images/step-2.png'); ?>" width="30%"> <br>
                     <p class="exp-three-col">Masukkan produk tsb dalam koleksi <br>baru atau tambahkan dalam halaman <br> koleksi yang sudah dibuat sebelumnya</p>
                   </div>
-                  <div class="cg-col-xs-12 cg-col-lg-4">
+                  <div class="cg-col-xs-12 cg-col-lg-4 cg-col-md-4 cg-col-sm-4">
                     <img src="<?php echo $this->getSkinUrl('images/step-3.png'); ?>" width="30%"> <br>
                     <p class="exp-three-col">Cek profil anda untuk melihat & <br>mengedit halaman koleksi</p>
                   </div>

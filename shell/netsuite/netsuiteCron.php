@@ -6,9 +6,11 @@ class RocketWeb_Netsuite_Shell_NetsuiteCron extends Mage_Shell_Abstract {
         ini_set('display_errors', 1);
 
         $modes = $this->getModes();
+        $recordtype = $this->getRecordtype(); // addition by Willy : get record type argument
+        $lock_recordtype_mode = (($recordtype && $modes[0] == 'import') ? '_'.$recordtype : '');
         
         if ($modes) {
-            $mutex = new RocketWeb_Netsuite_Model_Mutex('nesuite_cron_' . $modes[0] . '_lock');
+            $mutex = new RocketWeb_Netsuite_Model_Mutex('nesuite_cron_' . $modes[0] . $lock_recordtype_mode . '_lock');
             
             if (!$mutex->getLock()) {
                 die ('no lock!!!');
@@ -18,8 +20,14 @@ class RocketWeb_Netsuite_Shell_NetsuiteCron extends Mage_Shell_Abstract {
                 if (Mage::registry('current_run_mode')) {
                     Mage::unregister('current_run_mode');
                 }
+
+                /* addition by Willy */
+                if (Mage::registry('current_run_recordtype')) {
+                    Mage::unregister('current_run_recordtype');
+                }
                 
                 Mage::register('current_run_mode',$mode);
+                Mage::register('current_run_recordtype',$recordtype); // addition by Willy
                 Mage::helper('rocketweb_netsuite')->loadNetsuiteNamespace();
                 
                 switch ($mode) {
@@ -79,8 +87,34 @@ class RocketWeb_Netsuite_Shell_NetsuiteCron extends Mage_Shell_Abstract {
         }
     }
 
+    /* addition by Willy: get recordtype argument
+    - this will be applied if mode is "import"
+    */
+    protected function getRecordtype() {
+        $possibleRecordtypes = $this->getPossibleRecordtypes();
+        $recordtypeString = $this->getArg('recordtype');
+
+        if (!$recordtypeString) {
+            return null;
+        }
+        else {
+            $ret = null;
+
+            if (in_array(trim($recordtypeString), $possibleRecordtypes)) {
+                $ret = trim($recordtypeString);
+            }
+
+            return $ret;
+        }
+    }
+
     protected function getPossibleModes() {
         return array ('all', 'import', 'export', 'stock');
+    }
+
+    /* addition by Willy: get possible recordtype argument */
+    protected function getPossibleRecordtypes() {
+        return array ('all', 'invoice', 'inventoryitem', 'order', 'order_fulfillment');
     }
 
     public function logProgress($message) {
@@ -95,6 +129,7 @@ Usage:  php -f netsuiteCron.php -- [options]
   --verbose                     Display progress (useful for debugging)
   --mode <modes>                Run specified modes
   <modes>                       Comma separated modes (import,export,stock) or value "all" for all modes
+  --recordtype <type>           value "all", "invoice", "inventoryitem", "cashsale", "order", "order_fulfillment" (applied if mode is "import")
 
 USAGE;
     }
