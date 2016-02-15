@@ -47,8 +47,8 @@ $user = Mage::helper('socialcommerce')->getProfileInformation($wishlist['custome
 $_productCollection = $this->getWishlistCollection();
 $_helper = $this->helper('catalog/output');
 ?>
-<div class="cg-col-xs-12 nopadding">
-  <div class="cg-col-xs-12 cg-col-sm-12 cg-col-md-4 cg-col-lg-4 nopadding bottom-spacer-container">
+<div class="cg-col-xs-12 nopadding detail-collect spacer-mobile">
+  <div class="cg-col-xs-12 cg-col-sm-12 cg-col-md-4 cg-col-lg-4 nopadding bottom-spacer-container" >
 
     <?php if($wishlist['cover']) : ?>
   <img src="<?php echo $this->getUrl('media/collection-cover') . $wishlist['cover']; ?>" class="collection-img"/>
@@ -83,7 +83,7 @@ $_helper = $this->helper('catalog/output');
       ?>
     </p>
   </div>
-  <div class="cg-col-xs-8 cg-col-lg-4 cg-col-md-2 cg-col-sm-2 bottom-spacer-container">
+  <div class="cg-col-xs-8 cg-col-lg-4 cg-col-md-5 cg-col-sm-5 bottom-spacer-container">
     <div class="cg-col-xs-12 collection-detail-share opensans">
       Share your collection
     </div>
@@ -113,7 +113,7 @@ $_helper = $this->helper('catalog/output');
   <?php $_collectionSize = $_productCollection->count() ?>
   <?php $_columnCount = $this->getColumnCount(); ?>
   <form method="post" id="frmAddMulti" action="<?php echo $this->getUrl('multiadd/add') ?>">
-    <div class="collectionbox" style="margin-left: 5px;">
+    <div class="collectionbox">
       <div class="collectioncontentbox">
         <input type="checkbox" class="checkall" value="0" id = "sall">
         <label for="checkall" class=" opensans"><?php echo $this->__('Select All Products') ?></label>
@@ -125,7 +125,7 @@ $_helper = $this->helper('catalog/output');
       <div class="collectionactionbox">
         <button type="button" title="<?php echo $this->__('Buy Selected Products') ?>" class="button btn-cartall" id = "bbtn">
           <span> 
-            <span class="in-block"><?php echo $this->__('Buy Selected Products (') ?></span><span class="selectedItems in-block">0</span><span class="in-block"><?php echo $this->__(')') ?></span>
+            <span class="in-block"> <span class="pull-left">BUY&nbsp;</span>  <span class="hidden-sm hidden-xs pull-left">SELECTED</span><span class="pull-left hidden-sm hidden-xs">&nbsp;PRODUCTS&nbsp;</span> (</span><span class="in-block selectedItems">0</span><span class="in-block"><?php echo $this->__(')') ?></span>
           </span>
         </button>
       </div>
@@ -191,7 +191,7 @@ $_helper = $this->helper('catalog/output');
 
             ?>
             <!-- New layout for collection detail items -->
-            <div class="cg-col-xs-6 cg-col-sm-6 cg-col-md-3 bottom-spacer-container">
+            <div class="cg-col-xs-6 cg-col-sm-4 cg-col-md-3 bottom-spacer-container">
               <div class="box">
                 <?php if(!$_product->canConfigure() && $_product->isSaleable() && $_product->getStockItem() && $_product->getStockItem()->getIsInStock()): ?>
                 <?php $item_in_stock = true; ?>
@@ -271,7 +271,7 @@ $_helper = $this->helper('catalog/output');
 
                  <?php if($_images){ ?>  
                     <div class="more-views">
-                        <h2><?php echo $this->__('More Views') ?></h2>
+                        
                         <ul class="product-image-thumbs" style="display: inline-block;float: left;">
                         <?php $a=0; foreach($_images as $_image): 
                             if ($a <= 2) {
@@ -290,7 +290,7 @@ $_helper = $this->helper('catalog/output');
                  <div class="product-shop-right cg-col-xs-12 cg-col-sm-12 cg-col-md-6 cg-col-lg-6" style="line-height: 18px;text-align: left;">
                   <div class="product-shop">
                     <div class="product-name">
-                      <span class="h1 quick-title opensans" style=""><?php echo $productNameStripped; ?></span>
+                      <span class="h1 quick-title opensans bold" style=""><?php echo $productNameStripped; ?></span>
                     </div>
                     <div class="clearfix"></div>
                     <div>
@@ -353,8 +353,7 @@ $_helper = $this->helper('catalog/output');
                             <?php if ($stocklevel < 1) { ?>
 
                             <div class="cg-col-xs-10">
-
-                                              <button type ="button" class="btn btn-default btn-block btn-cancel nomargin" disabled>
+                                              <button type ="button" class="btn btn-size-small opensans pointer" disabled style="background:#ccc;">
                                                     Out Of Stock
                                               </button>
 
@@ -550,7 +549,7 @@ $_helper = $this->helper('catalog/output');
   <div class="collectionactionbox">
     <button type="button" title="<?php echo $this->__('Buy Now') ?>" class="button btn-cartall">
       <span>
-        <span class="in-block"><?php echo $this->__('Buy Selected Products (') ?></span><span class="in-block selectedItems">0</span><span class="in-block"><?php echo $this->__(')') ?></span>
+        <span class="in-block"> <span class="pull-left">BUY&nbsp;</span>  <span class="hidden-sm hidden-xs pull-left">SELECTED</span><span class="pull-left hidden-sm hidden-xs">&nbsp;PRODUCTS&nbsp;</span> (</span><span class="in-block selectedItems">0</span><span class="in-block"><?php echo $this->__(')') ?></span>
     </span>
     </button>
   </div>

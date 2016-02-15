@@ -291,7 +291,8 @@
 	color: #434343;
 	font-weight: normal;
 	width: 160px;
-	padding-top: 4px;
+	padding-top: 13px;
+	font-size: inherit;
 }
 .my-account .fieldset .form-list label.required em {
 	right: 10px;

@@ -21,7 +21,26 @@ class RocketWeb_Netsuite_Model_Process_Import_Order_Fulfillment extends RocketWe
     }
 
     //check if an order with the item fullfilment's createFrom internalId exists in Magento. If not, the record is not for a Magento order
-    public function isMagentoImportable(Record $itemFulfillment) {
+    public function isMagentoImportable($itemFulfillment) {
+        /** @var ItemFulfillment $itemFulfillment */
+        if (is_null($itemFulfillment->basic->createdFrom)) {
+            return false;
+        }
+        
+        $netsuiteOrderId = $itemFulfillment->basic->createdFrom[0]->searchValue->internalId;
+        $magentoOrders = Mage::getModel('sales/order')->getCollection()->addFieldToFilter('netsuite_internal_id', $netsuiteOrderId);
+        $magentoOrders->load();
+        
+        if (!$magentoOrders->getSize()) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+
+    //check if an order with the item fullfilment's createFrom internalId exists in Magento. If not, the record is not for a Magento order
+    public function isMagentoImportableOld(Record $itemFulfillment) {
         /** @var ItemFulfillment $itemFulfillment */
         if (is_null($itemFulfillment->createdFrom)) {
             return false;
@@ -39,7 +58,22 @@ class RocketWeb_Netsuite_Model_Process_Import_Order_Fulfillment extends RocketWe
         }
     }
 
-    public function isAlreadyImported(Record $record) {
+    public function isAlreadyImported(SearchRow $record) {
+        $shipmentCollection = Mage::getModel('sales/order_shipment')->getCollection();
+        $shipmentCollection->addFieldToFilter('netsuite_internal_id', $record->basic->internalId[0]->searchValue->internalId);
+        $netsuiteUpdateDatetime = Mage::helper('rocketweb_netsuite')->convertNetsuiteDateToSqlFormat($record->basic->lastModifiedDate[0]->searchValue);
+        $shipmentCollection->addFieldToFilter('last_import_date', array ('gteq' => $netsuiteUpdateDatetime));
+        $shipmentCollection->load();
+        
+        if ($shipmentCollection->count()) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    public function isAlreadyImportedOld(Record $record) {
         $shipmentCollection = Mage::getModel('sales/order_shipment')->getCollection();
         $shipmentCollection->addFieldToFilter('netsuite_internal_id', $record->internalId);
         $netsuiteUpdateDatetime = Mage::helper('rocketweb_netsuite')->convertNetsuiteDateToSqlFormat($record->lastModifiedDate);

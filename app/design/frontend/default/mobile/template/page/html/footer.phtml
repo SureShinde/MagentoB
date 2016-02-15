@@ -28,12 +28,7 @@
     <div class="footer">
         <div class="cs-info">
             <img src="<?php echo $this->getSkinUrl('images/cs.png'); ?>">
-            <p>
-                <span class="que">Butuh Bantuan ?</span>
-                <span class="phone"><?php echo Mage::getStoreConfig('general/store_information/phone')?></span>
-                <span class="day">Senin-Jumat 08.00-19.00. Sabtu 08.00-17.00</span>
-                <span class="email">cs@bilna.com</span>
-            </p>
+            <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('csinformation')->toHtml(); ?>
         </div>
 		<div class="subscribe-form">
 			<p>Berlangganan Newsletter Bilna</p>
@@ -83,5 +78,13 @@
 <script type="text/javascript">
     jQuery(document).ready(function() {
         dataLayer.push({ 'event': 'event_all' });
+    });
+
+    jQuery(document).ready(function() {
+        var href = window.location.href;
+        if(href.toLowerCase().indexOf("/user/profile/") >= 0 || href.toLowerCase().indexOf("/collections/") >= 0)
+          jQuery(".title_belanja p").html('KOLEKSI');
+        else
+          jQuery(".title_belanja p").html('BELANJA');
     });
 </script>

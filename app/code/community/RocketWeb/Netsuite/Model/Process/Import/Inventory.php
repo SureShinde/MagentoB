@@ -81,7 +81,7 @@ class RocketWeb_Netsuite_Model_Process_Import_Inventory extends RocketWeb_Netsui
 
     }
 
-    public function isMagentoImportable(Record $inventoryAdjustment) {
+    public function isMagentoImportable($inventoryAdjustment) {
         if($inventoryAdjustment->adjLocation) {
             return $this->stockLocationIsConsidered($inventoryAdjustment->adjLocation);
         }

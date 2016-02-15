@@ -48,18 +48,27 @@
     margin: 0 15px;
     text-transform: uppercase;
     font-size: 16px;
-    border-bottom: 4px solid #fff;
     cursor: pointer;
+    position: relative;
+}
+.header .web_feature li .bridge_border {
+    position: absolute;
+    height: 10px;
+    width: 100%;
+    top: 92%;
+    z-index: 9;
 }
 .header .web_feature li a{
     text-align: center;
+    padding-bottom: 19px;
     display: block;
+    color: #73777a;
+    border-bottom: 4px solid #fff;
 }
 .header .web_feature li.shop_link{
     font-weight: 600;
 }
 .header .web_feature li a.active{
-  padding-bottom: 19px;
   border-bottom:4px solid #ee5191;
 }
 .header .web_feature li.koleksi{
@@ -252,7 +261,7 @@
 }
 .wrap-space-above-header, .space-above-header{
     width: 100%;
-    border-bottom: 1px solid #EAEAEA;
+    border-bottom: 1px solid #F6F6F6;
     height: 40px;
     margin-bottom: 5px;
     overflow: hidden;
@@ -595,12 +604,19 @@
 	text-align: left;
 	border-bottom: none;
 }
-.mini-cart .block-cart .actions button.button.btn-checkout,.block-cart .actions button.button.btn-checkout {
-	width: 100%;
+.mini-cart .block-cart .actions button.button.btn-checkout,
+.mini-cart .block-cart .actions button.button.btn-cart{
+	width: 48%;
+    margin: 0 1%;
+    float: left;
 }
-.mini-cart .block-cart .actions button.button.btn-checkout{
+.mini-cart .block-cart .actions button.button.btn-cart{
 	background-color:#fff;
-	border:1px solid #3eb988;
+    height: auto;
+	border:1px solid #bbb;
+    border-radius: 20px;
+    -moz-border-radius: 20px;
+    -webkit-border-radius: 20px;
 }
 .mini-cart .block-cart .actions button.button.btn-checkout, .mini-cart-mobile .block-cart .actions button.button.btn-checkout {
 	display: inline-block;
@@ -624,7 +640,11 @@
 	margin: 0;
 }
 .mini-cart .block-cart .actions button.button.btn-cart span{
-    color: #3eb988;
+    color: #bbb;
+    font-size: 1.2em;
+    text-transform: uppercase;
+    line-height: normal;
+    padding: 2px 0;
 }
 .mini-cart .block-cart .actions button.button.btn-checkout span, .mini-cart .block-cart .actions button.button.btn-checkout span span, .mini-cart-mobile .block-cart .actions button.button.btn-checkout span, .mini-cart-mobile .block-cart .actions button.button.btn-checkout span span {
 	background: none;
@@ -941,7 +961,7 @@
 }
 #nav-searchbar .nav-submit-button .nav-submit-input {
     border: none;
-    color: #e4e4e4;
+    color: #BCBEBE;
     font-size: 1.3em;
     height: 100%;
     background: none;
@@ -1173,7 +1193,7 @@
         margin: 10px 0 0 0;
     }
     .header .web_feature li{
-        padding: 10px 0px 17px;
+        padding: 10px 0px 0;
         margin: 0 7px;
         width: auto !important;
         font-size: 14px;

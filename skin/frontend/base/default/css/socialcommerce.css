@@ -2994,8 +2994,8 @@ a.file-input-wrapper.btn.btn-default.upload-coll:hover {
     display: inline-block;
     border: 1px solid #ededed;
     margin-right: 7px;
-    width: 60px;
-    height: 60px;
+   /* width: 60px;
+    height: 60px;*/
 }
 .quick-view-price-box {
     display: inline-block;
@@ -3031,8 +3031,19 @@ ul.product-image-thumbs {
 	position: absolute;
     width: auto;
     right: 20px;
+    margin-top:41px;
 	}
 }
+@media (max-width: 765px){
+  .closer-top-banner
+  {
+  position: absolute;
+    width: auto;
+    right: 20px;
+    margin-top:41px;
+  }
+  }
+
 @media (max-width: 640px){
 
 		.coll-quick-top
@@ -3056,7 +3067,17 @@ ul.product-image-thumbs {
 		font-size: 14px !important;
 
 	}
+	.spacer-mobile
+	{
+		margin-top: 135px;
+	}
 }
+@media (min-width: 750px){
+	.spacer-mobile
+	{
+		margin-top: 35px;
+	}
+	}
 .outofstock-new
 {
 	color: #fff;
@@ -3267,6 +3288,11 @@ a.btn
 {
 	float: right;
 }
+
+.pull-left
+{
+	float: left;
+}
 .add-to-collection-title {
 	color: #545454;
     font-weight: 500;
@@ -3393,7 +3419,7 @@ p.exp-three-col
     position: relative;
     border: 1px dotted #ededed;
     background-size: 100% auto;
-    line-height: 254px;
+    /*line-height: 254px;*/
     text-align: center;
     vertical-align: middle;
     width: 100%;
@@ -3497,7 +3523,6 @@ p.exp-three-col
     color: #FFFFFF;
     font-size: 13px;
     font-weight: normal;
-    font-family: 'Montserrat', Arial, Verdana, sans-serif;
     line-height: 19px;
     text-align: center;
     text-transform: initial;

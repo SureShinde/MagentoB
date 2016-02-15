@@ -1,5 +1,4 @@
-
-        wwidth = $j(window).width();
+    wwidth = $j(window).width();
     
     $j(window).load(function() {
 		$j(".megamenu.megamenu-active img, .homepage-banner img").lazyload({
@@ -10,16 +9,34 @@
     
     $j(document).ready(function() {
         $j(".search-menu").click(function(){
+            if ($j(".mobile-left-menu").hasClass("active-left-menu")){
+                $j(".search-container-new-mobile").show();
+                $j("#twotabsearchtextbox").attr("autofocus");
+                $j('.back-level-1').triggerHandler("click");
+                $j('.category-level-2 li').removeClass("open-cat-3");
+                $j('.nav-mobile-trigger span.clicked, .active_arrow_leftmenu').hide();
+                $j('.nav-mobile-trigger span.notclick').show();
+                $j('.mobile-left-menu').css({"left":"-100%"});
+                $j('.mobile-left-menu').removeClass("active-left-menu");
+                $j('.wrapper').css({"float":"none","margin-left":"0","position":"relative"});
+                $j('body').css({"overflow":"hidden"});
+                $j('.back-left').toggle();
+            } else {
+                $j('body').css({"overflow":"hidden"});
+                $j(".search-container-new-mobile").show();
+                $j("#twotabsearchtextbox").attr("autofocus");
+                
+            };
             $j(".search-container-new-mobile").show();
             $j("#twotabsearchtextbox").attr("autofocus");
         });
         $j(".close_search").click(function(){
             $j(".search-container-new-mobile").hide();
+                $j('body').css({"overflow":"auto"});
         });
         $j(".link-myaccount-mobile").click(function(){
             $j(".header .links li.myaccount").toggle();
         });
-        $j("img.lazy, .wrap-banner img:not(.image-slider), .warp-banner img").after('<div class="loader"><img class="loader-img" src="<?php echo Mage::getBaseUrl(); ?>skin/frontend/base/default/images/loading.gif"></div>');
         
         $j( ".product-image-zoom" ).mouseover('mousewheel',function(e) {
                 e.originalEvent.wheelDelta = 100;
@@ -37,13 +54,14 @@
 
         $j('.nav-mobile-trigger span.notclick').click(function() {
             $j(this).hide();
-            $j('.nav-mobile-trigger span.clicked').show();
+            $j('.nav-mobile-trigger span.clicked, .active_arrow_leftmenu').show();
             $j('.mobile-left-menu').css({"left":"0","right":"45px"});
+            $j('.mobile-left-menu').addClass("active-left-menu");
             $j('body').css({"overflow":"hidden"});
             $j('.back-left').toggle();
         });
         $j('.direktori_belanja').click(function() {
-            $j('.nav-mobile-trigger span.clicked').show();
+            $j('.nav-mobile-trigger span.clicked, .active_arrow_leftmenu').show();
             $j('.nav-mobile-trigger span.notclick').hide();
             $j('.mobile-left-menu').css({"left":"0","right":"45px"});
             $j('body').css({"overflow":"hidden"});
@@ -68,25 +86,23 @@
         $j('.nav-mobile-trigger span.clicked, .back-button').click(function() {
             $j('.back-level-1').triggerHandler("click");
             $j('.category-level-2 li').removeClass("open-cat-3");
-            $j('.nav-mobile-trigger span.clicked').hide();
+            $j('.nav-mobile-trigger span.clicked, .active_arrow_leftmenu').hide();
             $j('.nav-mobile-trigger span.notclick').show();
             $j('.mobile-left-menu').css({"left":"-100%"});
+            $j('.mobile-left-menu').removeClass("active-left-menu");
             $j('.wrapper').css({"float":"none","margin-left":"0","position":"relative"});
             $j('body').css({"overflow":"auto"});
             $j('.back-left').toggle();
         });
-        
-		
+        $j(window).scroll(function() {
+            if ($j(this).scrollTop() > 100) {
+                $j(".back-to-top").fadeIn();
+            }
+            else {
+                $j(".back-to-top").fadeOut();
+            }
+        });
     });
-
-$j(window).scroll(function() {
-    if ($j(this).scrollTop() > 100) {
-        $j(".back-to-top").fadeIn();
-    }
-    else {
-        $j(".back-to-top").fadeOut();
-    }
-});
         
 $j(document).ready(function() {
 	$j(".nav-container ul#nav li.parent a.level-top").live('click', function() {

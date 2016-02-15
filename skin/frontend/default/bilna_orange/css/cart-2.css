@@ -692,8 +692,7 @@
 		right: 0;
 	}
 	#checkoutpromo {
-		margin-left: 5px;
-		margin-right: 5px;
+		margin: 15px;
 	}
 	#shopping-cart-table.cart-table .cart-price-td{
 	width:20%;
