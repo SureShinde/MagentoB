@@ -8,7 +8,7 @@ $view = $wishlist->getView();
 $prof = Mage::helper('socialcommerce')->getProfileInformation($wishlist['customer_id']);
 $username = $prof['display_name'];
 if ($view == '0'){ 
-  $url = 'https://www.moxy.co.id/collections/';  
+  $url = $this->getUrl('collections');  
   $this->_redirectUrl($url);
 }
 ?>
@@ -68,7 +68,7 @@ $_helper = $this->helper('catalog/output');
     <div class=" normal-padding cg-col-lg-1 cg-col-md-1 cg-col-sm-1 cg-col-xs-2">
       <img src="<?php echo $user['profile_image']; ?>" title="<?php echo $user['display_name']; ?>" alt="<?php echo $user['display_name']; ?>" width="100%" class="rounded-this">
     </div>
-    <span class="collection-detail-name opensans">Updated by <a href=<?php echo 'http://moxy.co.id/user/'.$user['display_name'] ?> style="text-decoration: none;"><span class="pinker"><?php echo $user['display_name'] ?></span></a> on <?php echo date('m/d/Y', strtotime($wishlist['updated_at'])); ?></span>
+    <span class="collection-detail-name opensans">Updated by <a href=<?php echo $this->getUrl('user').$user['display_name'] ?> style="text-decoration: none;"><span class="pinker"><?php echo $user['display_name'] ?></span></a> on <?php echo date('m/d/Y', strtotime($wishlist['updated_at'])); ?></span>
   </div>
   <div class="cg-col-xs-12 bottom-spacer-container in-block full-width">
     <p class="collection-detail-desc opensans">
@@ -100,7 +100,7 @@ $_helper = $this->helper('catalog/output');
       <a style="color:#fff;" href="https://plus.google.com/share?url=<?php echo $this->helper('core/url')->getCurrentUrl(); ?>" onclick="javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"><i class="fa fa-google-plus" style="padding-top:7px;"></i></a>
     </div>
     <div class="cg-col-xs-2 padding-3lr soc-size mail">
-      <a style="color:#fff;" href="mailto:?subject=Lihat koleksi saya di Moxy.co.id&amp;body=Lihat koleksi saya di Moxy : http://www.moxy.co.id/user/<?php echo $user['display_name'] ?>" title="Share by Email"><i class="fa fa-envelope-o" style="padding-top:7px;"></i></a>
+      <a style="color:#fff;" href="mailto:?subject=Lihat koleksi saya di Bilna.com&amp;body=Lihat koleksi saya di Bilna : http://www.bilna.com/user/<?php echo $user['display_name'] ?>" title="Share by Email"><i class="fa fa-envelope-o" style="padding-top:7px;"></i></a>
     </div>
   </div>
 </div>
