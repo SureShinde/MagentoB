@@ -18,6 +18,20 @@ class RocketWeb_Netsuite_Helper_Queue extends Mage_Core_Helper_Data {
 	const NETSUITE_IMPORT_QUEUE = 'netsuite_import';
 	const NETSUITE_EXPORT_QUEUE = 'netsuite_export';
     const NETSUITE_DELETE_QUEUE = 'netsuite_delete';
+
+    const NETSUITE_IMPORT_ORDER_QUEUE = 'netsuite_import_order';
+    const NETSUITE_IMPORT_ORDER_FULFILLMENT_QUEUE = 'netsuite_import_order_fulfillment';
+    const NETSUITE_IMPORT_INVOICE_QUEUE = 'netsuite_import_invoice';
+    const NETSUITE_IMPORT_INVENTORYITEM_QUEUE = 'netsuite_import_inventoryitem';
+    const NETSUITE_IMPORT_CASHSALE_QUEUE = 'netsuite_import_cashsale';
+    const NETSUITE_IMPORT_CREDITMEMO_QUEUE = 'netsuite_import_creditmemo';
+
+    const NETSUITE_DELETE_ORDER_QUEUE = 'netsuite_delete_order';
+    const NETSUITE_DELETE_ORDER_FULFILLMENT_QUEUE = 'netsuite_delete_order_fulfillment';
+    const NETSUITE_DELETE_INVOICE_QUEUE = 'netsuite_delete_invoice';
+    const NETSUITE_DELETE_INVENTORYITEM_QUEUE = 'netsuite_delete_inventoryitem';
+    const NETSUITE_DELETE_CASHSALE_QUEUE = 'netsuite_delete_cashsale';
+    const NETSUITE_DELETE_CREDITMEMO_QUEUE = 'netsuite_delete_creditmemo';
 	
 	protected $_queues = array();
 	protected $_queue_ids = array();
@@ -90,6 +104,63 @@ class RocketWeb_Netsuite_Helper_Queue extends Mage_Core_Helper_Data {
         $flagModel->save();
     }
 
+    public function setLastUpdateAccessDateSpecificEntity($netsuiteDateString,$importEntity) {
+        $netsuiteDateString = Mage::helper('rocketweb_netsuite')->convertNetsuiteDateToSqlFormat($netsuiteDateString);
+        
+        if(!in_array($importEntity,array(self::NETSUITE_IMPORT_ORDER_QUEUE, self::NETSUITE_IMPORT_ORDER_FULFILLMENT_QUEUE, self::NETSUITE_IMPORT_INVOICE_QUEUE, self::NETSUITE_IMPORT_INVENTORYITEM_QUEUE, self::NETSUITE_IMPORT_CASHSALE_QUEUE, self::NETSUITE_IMPORT_CREDITMEMO_QUEUE, self::NETSUITE_DELETE_ORDER_QUEUE, self::NETSUITE_DELETE_ORDER_FULFILLMENT_QUEUE, self::NETSUITE_DELETE_INVOICE_QUEUE, self::NETSUITE_DELETE_INVENTORYITEM_QUEUE, self::NETSUITE_DELETE_CASHSALE_QUEUE, self::NETSUITE_DELETE_CREDITMEMO_QUEUE))) {
+            throw new Exception("Queue import entity must be ".self::NETSUITE_IMPORT_ORDER_QUEUE.", ".self::NETSUITE_IMPORT_ORDER_FULFILLMENT_QUEUE.", ".self::NETSUITE_IMPORT_INVENTORYITEM_QUEUE.", ".self::NETSUITE_IMPORT_CASHSALE_QUEUE.", ".self::NETSUITE_IMPORT_CREDITMEMO_QUEUE.", ".self::NETSUITE_DELETE_ORDER_QUEUE.", ".self::NETSUITE_DELETE_ORDER_FULFILLMENT_QUEUE.", ".self::NETSUITE_DELETE_INVOICE_QUEUE.", ".self::NETSUITE_DELETE_INVENTORYITEM_QUEUE.", ".self::NETSUITE_DELETE_CASHSALE_QUEUE." or ".self::NETSUITE_DELETE_CREDITMEMO_QUEUE);
+        }
+
+        switch ($importEntity) {
+		    case self::NETSUITE_IMPORT_ORDER_QUEUE:
+		        $variableName = 'last_import_order_queue_run_date';
+		        break;
+		    case self::NETSUITE_IMPORT_ORDER_FULFILLMENT_QUEUE:
+		        $variableName = 'last_import_order_fulfillment_queue_run_date';
+		        break;
+		    case self::NETSUITE_IMPORT_INVENTORYITEM_QUEUE:
+		        $variableName = 'last_import_inventoryitem_queue_run_date';
+		        break;
+			case self::NETSUITE_IMPORT_INVOICE_QUEUE:
+		        $variableName = 'last_import_invoice_queue_run_date';
+		        break;
+		    case self::NETSUITE_IMPORT_CASHSALE_QUEUE:
+		        $variableName = 'last_import_cashsale_queue_run_date';
+		        break;
+		    case self::NETSUITE_IMPORT_CREDITMEMO_QUEUE:
+		        $variableName = 'last_import_creditmemo_queue_run_date';
+		        break;
+		    case self::NETSUITE_DELETE_ORDER_QUEUE:
+		        $variableName = 'last_delete_order_queue_run_date';
+		        break;
+		    case self::NETSUITE_DELETE_ORDER_FULFILLMENT_QUEUE:
+		        $variableName = 'last_delete_order_fulfillment_queue_run_date';
+		        break;
+		    case self::NETSUITE_DELETE_INVENTORYITEM_QUEUE:
+		        $variableName = 'last_delete_inventoryitem_queue_run_date';
+		        break;
+			case self::NETSUITE_DELETE_INVOICE_QUEUE:
+		        $variableName = 'last_delete_invoice_queue_run_date';
+		        break;
+		    case self::NETSUITE_DELETE_CASHSALE_QUEUE:
+		        $variableName = 'last_delete_cashsale_queue_run_date';
+		        break;
+		    case self::NETSUITE_DELETE_CREDITMEMO_QUEUE:
+		        $variableName = 'last_delete_creditmemo_queue_run_date';
+		        break;
+		    default:
+		        $variableName = 'last_import_queue_run_date';
+		}
+
+        $flagModel = Mage::getModel('core/flag',array('flag_code'=>$variableName))->loadSelf();
+        if (!$flagModel->getFlagData())
+        	$flagModel->setFlagData($netsuiteDateString);
+        else
+        	$flagModel->setFlagData($netsuiteDateString);
+
+        $flagModel->save();
+    }
+
     public function getLastUpdateAccessDate($queueType) {
         if(!in_array($queueType,array(self::NETSUITE_IMPORT_QUEUE,self::NETSUITE_DELETE_QUEUE))) {
             throw new Exception("Queue type mus be ".self::NETSUITE_IMPORT_QUEUE." or ".self::NETSUITE_DELETE_QUEUE);
@@ -101,6 +172,67 @@ class RocketWeb_Netsuite_Helper_Queue extends Mage_Core_Helper_Data {
             $variableName = 'last_delete_queue_run_date';
         }
         $flagModel = Mage::getModel('core/flag',array('flag_code'=>$variableName))->loadSelf();
+        return $flagModel->getFlagData();
+    }
+
+    public function getLastUpdateAccessDateSpecificEntity($importEntity) {
+    	if(!in_array($importEntity,array(self::NETSUITE_IMPORT_ORDER_QUEUE, self::NETSUITE_IMPORT_ORDER_FULFILLMENT_QUEUE, self::NETSUITE_IMPORT_INVOICE_QUEUE, self::NETSUITE_IMPORT_INVENTORYITEM_QUEUE, self::NETSUITE_IMPORT_CASHSALE_QUEUE, self::NETSUITE_IMPORT_CREDITMEMO_QUEUE, self::NETSUITE_DELETE_ORDER_QUEUE, self::NETSUITE_DELETE_ORDER_FULFILLMENT_QUEUE, self::NETSUITE_DELETE_INVOICE_QUEUE, self::NETSUITE_DELETE_INVENTORYITEM_QUEUE, self::NETSUITE_DELETE_CASHSALE_QUEUE, self::NETSUITE_DELETE_CREDITMEMO_QUEUE))) {
+            throw new Exception("Queue import entity must be ".self::NETSUITE_IMPORT_ORDER_QUEUE.", ".self::NETSUITE_IMPORT_ORDER_FULFILLMENT_QUEUE.", ".self::NETSUITE_IMPORT_INVENTORYITEM_QUEUE.", ".self::NETSUITE_IMPORT_CASHSALE_QUEUE.", ".self::NETSUITE_IMPORT_CREDITMEMO_QUEUE.", ".self::NETSUITE_DELETE_ORDER_QUEUE.", ".self::NETSUITE_DELETE_ORDER_FULFILLMENT_QUEUE.", ".self::NETSUITE_DELETE_INVOICE_QUEUE.", ".self::NETSUITE_DELETE_INVENTORYITEM_QUEUE.", ".self::NETSUITE_DELETE_CASHSALE_QUEUE." or ".self::NETSUITE_DELETE_CREDITMEMO_QUEUE);
+        }
+
+        switch ($importEntity) {
+		    case self::NETSUITE_IMPORT_ORDER_QUEUE:
+		        $variableName = 'last_import_order_queue_run_date';
+		        break;
+		    case self::NETSUITE_IMPORT_ORDER_FULFILLMENT_QUEUE:
+		        $variableName = 'last_import_order_fulfillment_queue_run_date';
+		        break;
+		    case self::NETSUITE_IMPORT_INVENTORYITEM_QUEUE:
+		        $variableName = 'last_import_inventoryitem_queue_run_date';
+		        break;
+			case self::NETSUITE_IMPORT_INVOICE_QUEUE:
+		        $variableName = 'last_import_invoice_queue_run_date';
+		        break;
+		    case self::NETSUITE_IMPORT_CASHSALE_QUEUE:
+		        $variableName = 'last_import_cashsale_queue_run_date';
+		        break;
+		    case self::NETSUITE_IMPORT_CREDITMEMO_QUEUE:
+		        $variableName = 'last_import_creditmemo_queue_run_date';
+		        break;
+		    case self::NETSUITE_DELETE_ORDER_QUEUE:
+		        $variableName = 'last_delete_order_queue_run_date';
+		        break;
+		    case self::NETSUITE_DELETE_ORDER_FULFILLMENT_QUEUE:
+		        $variableName = 'last_delete_order_fulfillment_queue_run_date';
+		        break;
+		    case self::NETSUITE_DELETE_INVENTORYITEM_QUEUE:
+		        $variableName = 'last_delete_inventoryitem_queue_run_date';
+		        break;
+			case self::NETSUITE_DELETE_INVOICE_QUEUE:
+		        $variableName = 'last_delete_invoice_queue_run_date';
+		        break;
+		    case self::NETSUITE_DELETE_CASHSALE_QUEUE:
+		        $variableName = 'last_delete_cashsale_queue_run_date';
+		        break;
+		    case self::NETSUITE_DELETE_CREDITMEMO_QUEUE:
+		        $variableName = 'last_delete_creditmemo_queue_run_date';
+		        break;
+		    default:
+		        $variableName = 'last_import_queue_run_date';
+		}
+
+        $flagModel = Mage::getModel('core/flag',array('flag_code'=>$variableName))->loadSelf();
+        if (!$flagModel->getFlagData())
+        {
+        	if(strpos($variableName, 'import') !== false)
+        		$defaultVariableName = 'last_import_queue_run_date';
+        	else
+        	if(strpos($variableName, 'delete') !== false)
+        		$defaultVariableName = 'last_delete_queue_run_date';
+
+        	$flagModel = Mage::getModel('core/flag',array('flag_code'=>$defaultVariableName))->loadSelf();
+        }
+
         return $flagModel->getFlagData();
     }
 

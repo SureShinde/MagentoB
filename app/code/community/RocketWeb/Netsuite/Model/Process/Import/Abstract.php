@@ -20,7 +20,7 @@ abstract class RocketWeb_Netsuite_Model_Process_Import_Abstract {
 
     //checks whether an entry is Magento importable, i.e. if the associated order also exists in Magento. The orders that
     //are created directly in Net Suite are not to be imported and managed in Magento
-    public abstract function isMagentoImportable(Record $record);
+    public abstract function isMagentoImportable($record);
 
     //returns the type of the element to be added in the export/import queue. See the constants in RocketWeb_Netsuite_Model_Queue_Message
     public abstract function getMessageType();
@@ -57,9 +57,12 @@ abstract class RocketWeb_Netsuite_Model_Process_Import_Abstract {
             $response = $netsuiteService->search($searchRequest);
             //$this->log("searchRequest: " . json_encode($searchRequest));
             //$this->log("response: " . json_encode($response));
-            
+
             if ($response->searchResult->status->isSuccess) {
-                return $response->searchResult->recordList->record;
+                if ($this->getRecordType() == RecordType::inventoryItem)
+                    return $response->searchResult->recordList->record;
+                else
+                    return $response->searchResult->searchRowList->searchRow;
             }
             else {
                 throw new Exception((string) print_r($response->searchResult->status->statusDetail, true));
@@ -83,7 +86,10 @@ abstract class RocketWeb_Netsuite_Model_Process_Import_Abstract {
             $this->log("searchResponse: " . json_encode($searchResponse));
             
             if ($searchResponse->searchResult->status->isSuccess) {
-                return $searchResponse->searchResult->recordList->record;
+                if ($this->getRecordType() == RecordType::inventoryItem)
+                    return $searchResponse->searchResult->recordList->record;
+                else
+                    return $searchResponse->searchResult->searchRowList->searchRow;
             }
             else {
                 //throw new Exception((string) print_r($searchResponse->searchResult->status->statusDetail, true));
@@ -159,18 +165,57 @@ abstract class RocketWeb_Netsuite_Model_Process_Import_Abstract {
         $searchDateField->searchValue2 = $now->format(DateTime::ISO8601);
         $searchDateField->operator = SearchDateFieldOperator::within;
 
-        $typeField = new SearchEnumMultiSelectField();
-        $typeField->operator = SearchEnumMultiSelectFieldOperator::anyOf;
-        $typeField->searchValue = $recordType;
+        // if current request is inventory item, use transaction search basic to get all items
+        if ($this->getRecordType() == RecordType::inventoryItem)
+        {
+            $typeField = new SearchEnumMultiSelectField();
+            $typeField->operator = SearchEnumMultiSelectFieldOperator::anyOf;
+            $typeField->searchValue = $recordType;
 
-        $tranSearchBasic = new TransactionSearchBasic();
-        $tranSearchBasic->lastModifiedDate = $searchDateField;
-        $tranSearchBasic->type = $typeField;
+            $tranSearchBasic = new TransactionSearchBasic();
+            $tranSearchBasic->lastModifiedDate = $searchDateField;
+            $tranSearchBasic->type = $typeField;
 
-        Mage::dispatchEvent('netsuite_import_request_before', array ('record_type' => $this->getRecordType(), 'search_object' => $tranSearchBasic));
+            Mage::dispatchEvent('netsuite_import_request_before', array ('record_type' => $this->getRecordType(), 'search_object' => $tranSearchBasic));
 
-        $searchRequest = new SearchRequest();
-        $searchRequest->searchRecord = $tranSearchBasic;
+            $searchRequest = new SearchRequest();
+            $searchRequest->searchRecord = $tranSearchBasic;
+        }
+        // else, use transaction search advanced to get some items
+        // we will call getRequest anyway, so no need to return the whole items for non-inventoryitem records
+        else
+        {
+            $tsa = new TransactionSearchAdvanced();
+
+            $tsa->columns = new TransactionSearchRow();
+            $tsa->columns->basic = new TransactionSearchRowBasic();
+            /* we want to return the values of createdFrom, internalId, searchId, lastModifiedDate
+            and dateCreated only */
+            $tsa->columns->basic->createdFrom = new SearchColumnSelectField();
+            $tsa->columns->basic->internalId = new SearchColumnSelectField();
+            $tsa->columns->basic->searchId = new SearchColumnSelectField();
+            $tsa->columns->basic->lastModifiedDate = new SearchColumnDateField();
+            $tsa->columns->basic->dateCreated = new SearchColumnDateField();
+
+            $tsa->criteria = new TransactionSearch();
+            $tsa->criteria->basic = new TransactionSearchBasic();
+
+            $tsa->criteria->basic->mainLine = new SearchBooleanField();
+            $tsa->criteria->basic->mainLine->searchValue = true;
+            $tsa->criteria->basic->mainLine->searchValueSpecified = true;
+
+            $tsa->criteria->basic->lastModifiedDate = $searchDateField;
+
+            $tsa->criteria->basic->type = new SearchEnumMultiSelectField();
+            $tsa->criteria->basic->type->operator = SearchEnumMultiSelectFieldOperator::anyOf;
+            $tsa->criteria->basic->type->operatorSpecified = true;
+            $tsa->criteria->basic->type->searchValue = $recordType;
+
+            Mage::dispatchEvent('netsuite_import_request_before', array ('record_type' => $this->getRecordType(), 'search_object' => $tsa));
+
+            $searchRequest = new SearchRequest();
+            $searchRequest->searchRecord = $tsa;
+        }
 
         return $searchRequest;
     }

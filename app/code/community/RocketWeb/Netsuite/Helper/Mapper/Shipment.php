@@ -31,7 +31,10 @@ class RocketWeb_Netsuite_Helper_Mapper_Shipment extends RocketWeb_Netsuite_Helpe
                 throw new Exception("Order with netsuite internal id {$netsuiteShipment->createdFrom->internalId} not found in Magento!");
             }
             
+            /* comment out because I can see the following $netsuiteCustomer is not used.
+            This is to minimize the call to Netsuite Web Service
             $netsuiteCustomer = Mage::helper('rocketweb_netsuite/mapper_customer')->getByInternalId($netsuiteShipment->entity->internalId);
+            */
             $magentoShipment = $this->createMagentoShipment($netsuiteShipment, $magentoOrder, $queueData);
             
             if (is_array($magentoShipment)) {
