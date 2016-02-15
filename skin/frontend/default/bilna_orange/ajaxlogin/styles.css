@@ -10,7 +10,7 @@
 /* Authorization container - Overlap */
 .al-authorization-container-overlap { position: fixed; width: 100%; height: 100%; left: 0; top: 0; z-index: 999; }
 .al-authorization-container-overlap .Shadow { position: fixed; width: 100%; height: 100%; background-color: #fff; opacity: 0.9; -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)"; filter: alpha(opacity=50); }
-.al-authorization-container-overlap .Canvas { height: 340px; left: 50%; margin-left: -180px;  position: absolute; top: 10px; width: 360px;}
+.al-authorization-container-overlap .Canvas {left: 50%; margin-left: -180px; position: absolute; top: 50%; margin-top: -222px; width: 360px;}
 .al-authorization-container-overlap .Canvas .Wrapper ul.form-list{ padding: 20px; background: #fff; border: 1px solid #e4e4e4;}
 .al-authorization-container-overlap .Close { text-align: right; padding: 12px; position: absolute; right: 0; top: 0; font-size: 1.5em;}
 
@@ -119,6 +119,19 @@
 .al-authorization-container-overlap .buttons-set p.required {
     float: left;
 }
+
+/* Top and Bottom Margin Auto Adjuster */
+input[type="checkbox"].responsive-form-register { display: none; }
+input[type="checkbox"].responsive-form-forgot-password { display: none; }
+.al-authorization-container-overlap input[type="checkbox"].responsive-form-register:checked + input[type="checkbox"].responsive-form-forgot-password + .Canvas { margin-top: -300px; }
+.al-authorization-container-overlap input[type="checkbox"].responsive-form-forgot-password:checked + .Canvas { margin-top: -150px; }
+.al-authorization .buttons-set a label[for="responsiveformforgotpassword"] { font-size: 1em; width: inherit; padding: 0; }
+.al-authorization .popuplogin-footer a label[for="responsiveformregister"] { color: blue; font-size: 1em; text-decoration: underline; padding: 0; float: none; }
+.al-authorizationform-register .form-list li label[for="responsiveformregister"] { font-size: 1em; padding: 0; width: inherit; }
+
+.al-authorization .buttons-set a label[for="responsiveformforgotpassword"]:hover { cursor: pointer; }
+.al-authorization .popuplogin-footer a label[for="responsiveformregister"]:hover { cursor: pointer; }
+.al-authorizationform-register .form-list li label[for="responsiveformregister"]:hover { cursor: pointer; }
 
 @media (max-width: 767px){ 
     .al-authorization-container-overlap { position: fixed; width: 100%; height: 100%; left: 0; top: 0; z-index: 999; overflow: auto; } 

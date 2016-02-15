@@ -1,0 +1,235 @@
+<?xml version="1.0"?>
+<config>
+	<api2>
+		<resource_groups>
+			<affiliate translate="title" module="AW_Affiliate">
+				<title>Affiliate</title>
+				<sort_order>10000</sort_order>
+			</affiliate>
+		</resource_groups>
+		<resources>
+			<affiliate_check translate="title" module="AW_Affiliate">
+				<group>affiliate</group>
+				<sort_order>10010</sort_order>
+				<model>awaffiliate/api2_check</model>
+				<title>Affiliate Check</title>
+				<privileges>
+					<admin>
+						<retrieve>1</retrieve>
+						<create>1</create>
+					</admin>
+				</privileges>
+				<attributes translate="params client affiliate redirect_url" module="AW_Affiliate">
+<!--					<cmid>Campaign ID</cmid>
+					<afid>Affiliate ID</afid>
+					<ats>Affiliate Traffic Source</ats>
+					<rurl>Redirect URL</rurl>-->
+                                        
+                                        <params>params</params>
+                                        <client>client</client>
+                                        <affiliate>affiliate</affiliate>
+                                        <redirect_url>redirect_url</redirect_url>
+                                        
+				</attributes>
+				<routes>
+					<route_entity>
+						<route>/affiliate/check</route>
+						<action_type>entity</action_type>
+					</route_entity>
+<!--					<route_collection>
+						<route>/affiliate/check</route>
+						<action_type>collection</action_type>
+					</route_collection>-->
+				</routes>
+				<versions>1</versions>
+			</affiliate_check>
+			<affiliate_customer translate="title" module="AW_Affiliate">
+				<group>affiliate</group>
+				<sort_order>10011</sort_order>
+				<model>awaffiliate/api2_customer_view</model>
+				<title>Affiliate Customer</title>
+				<privileges>
+					<admin>
+						<retrieve>1</retrieve>
+						<create>1</create>
+					</admin>
+				</privileges>
+				<attributes translate="summary campaign withdraw affiliate_id" module="AW_Affiliate">
+					<summary>Summary</summary>
+					<campaign>Campaign</campaign>
+					<withdraw>Withdraw</withdraw>
+                                        <affiliate_id>Affiliate Id</affiliate_id>
+				</attributes>
+				<routes>
+					<route_entity>
+						<route>/affiliate/customer/:id</route>
+						<action_type>entity</action_type>
+					</route_entity>
+					<route_collection>
+						<route>/affiliate/customer</route>
+						<action_type>collection</action_type>
+					</route_collection>
+				</routes>
+				<versions>1</versions>
+			</affiliate_customer>
+                        
+                        <affiliate_campaigndetail translate="title" module="AW_Affiliate">
+				<group>affiliate</group>
+				<sort_order>10011</sort_order>
+				<model>awaffiliate/api2_campaigndetail</model>
+				<title>Affiliate Campaign Detail</title>
+				<privileges>
+					<admin>
+						<retrieve>1</retrieve>
+						<create>1</create>
+					</admin>
+				</privileges>
+				<attributes translate="campaign_detail width_campaign_field category_to_generate" module="AW_Affiliate">
+					<campaign_detail>Campaign Detail</campaign_detail>
+                                        <width_campaign_field>Width Campaign Field</width_campaign_field>
+                                        <category_to_generate>Category To Generate</category_to_generate>
+				</attributes>
+				<routes>
+					<route_entity>
+						<route>/affiliate/campaigndetail/:id</route>
+						<action_type>entity</action_type>
+					</route_entity>
+				</routes>
+				<versions>1</versions>
+			</affiliate_campaigndetail>
+                        
+                        <affiliate_producttrackinglink translate="title" module="AW_Affiliate">
+				<group>affiliate</group>
+				<sort_order>10011</sort_order>
+				<model>awaffiliate/api2_producttrackinglink</model>
+				<title>Product Tracking Link</title>
+				<privileges>
+					<admin>
+						<retrieve>1</retrieve>
+					</admin>
+				</privileges>
+				<attributes translate="params logo free_shipping_affiliate products" module="AW_Affiliate">
+					<params>Params</params>
+					<logo>Logo</logo>
+                                        <free_shipping_affiliate>Free Shipping Affiliate</free_shipping_affiliate>
+					<products>Products</products>
+                                </attributes>
+				<routes>
+					<route_entity>
+						<route>/affiliate/producttrackinglink</route>
+						<action_type>entity</action_type>
+					</route_entity>
+				</routes>
+				<versions>1</versions>
+			</affiliate_producttrackinglink>
+                        
+                        <affiliate_createreport translate="title" module="AW_Affiliate">
+				<group>affiliate</group>
+				<sort_order>10011</sort_order>
+				<model>awaffiliate/api2_createreport</model>
+				<title>Create Report</title>
+				<privileges>
+					<admin>
+						<retrieve>1</retrieve>
+					</admin>
+				</privileges>
+				<attributes translate="form_fields campaigns" module="AW_Affiliate">
+					<form_fields>Form Fields</form_fields>
+					<campaigns>Campaigns</campaigns>
+                                </attributes>
+				<routes>
+					<route_entity>
+						<route>/affiliate/createreport/:customer_id</route>
+						<action_type>entity</action_type>
+					</route_entity>
+				</routes>
+				<versions>1</versions>
+			</affiliate_createreport>
+                        
+                        <affiliate_generatereport translate="title" module="AW_Affiliate">
+				<group>affiliate</group>
+				<sort_order>10011</sort_order>
+				<model>awaffiliate/api2_generatereport</model>
+				<title>Generate Report</title>
+				<privileges>
+					<admin>
+						<retrieve>1</retrieve>
+                                                <create>1</create>
+                                                <update>1</update>
+                                                <delete>1</delete>
+					</admin>
+				</privileges>
+				<attributes translate="message response data customer_id report_type date_period period_from period_to detalization campaigns" module="AW_Affiliate">
+					<message>message</message>
+                                        <response>response</response>
+                                        <data>data</data>
+                                        <customer_id>customer_id</customer_id>
+                                        <report_type>report_type</report_type>
+                                        <date_period>date_period</date_period>
+                                        <period_from>period_from</period_from>
+                                        <period_to>period_to</period_to>
+                                        <detalization>detalization</detalization>
+                                        <campaigns>campaigns</campaigns>
+                                </attributes>
+				<routes>
+					<route_entity>
+						<route>/affiliate/generatereport</route>
+						<action_type>entity</action_type>
+					</route_entity>
+				</routes>
+				<versions>1</versions>
+			</affiliate_generatereport>
+                        
+                        <affiliate_requestwithdrawal translate="title" module="AW_Affiliate">
+				<group>affiliate</group>
+				<sort_order>10011</sort_order>
+				<model>awaffiliate/api2_requestwithdrawal</model>
+				<title>Request Withdrawal</title>
+				<privileges>
+					<admin>
+						<retrieve>1</retrieve>
+					</admin>
+				</privileges>
+				<attributes translate="message response data customer_id amount details" module="AW_Affiliate">
+					<message>message</message>
+                                        <response>response</response>
+                                        <data>data</data>
+                                        <customer_id>customer_id</customer_id>
+                                        <amount>amount</amount>
+                                        <details>details</details>
+                                </attributes>
+				<routes>
+					<route_entity>
+						<route>/affiliate/requestwithdrawal</route>
+						<action_type>entity</action_type>
+					</route_entity>
+				</routes>
+				<versions>1</versions>
+			</affiliate_requestwithdrawal>
+                        
+                        <affiliate_ordercomplete translate="title" module="AW_Affiliate">
+				<group>affiliate</group>
+				<sort_order>10011</sort_order>
+				<model>awaffiliate/api2_ordercomplete</model>
+				<title>Affiliate Order Complete</title>
+				<privileges>
+					<admin>
+						<retrieve>1</retrieve>
+					</admin>
+				</privileges>
+				<attributes translate="message status data" module="AW_Affiliate">
+					<message>message</message>
+                                        <status>status</status>
+                                        <data>data</data>
+                                </attributes>
+				<routes>
+					<route_entity>
+						<route>/affiliate/ordercomplete/:client_id/:order_id</route>
+						<action_type>entity</action_type>
+					</route_entity>
+				</routes>
+				<versions>1</versions>
+			</affiliate_ordercomplete>
+		</resources>
+	</api2>
+</config>

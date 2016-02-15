@@ -1,0 +1,38 @@
+<?php
+/**
+ * Description of Bilna_Queue mysql4-install-0.2.0
+ *
+ * @author Bilna Development Team <development@bilna.com>
+ */
+
+$installer = $this;
+$installer->startSetup();
+
+try {
+    $installer->run("
+        CREATE TABLE `{$this->getTable('bilna_queue/order')}` (
+            `entity_id` int(11) unsigned NOT NULL COMMENT 'Entity ID',
+            `payment_method` varchar(30) NOT NULL COMMENT 'Payment Method',
+            `data` text COMMENT 'Data',
+            `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            PRIMARY KEY (`entity_id`)
+        ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Queue Order for Payment and create invoice';
+        
+        CREATE TABLE `{$this->getTable('bilna_queue/orderlog')}` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `order_id` varchar(50) DEFAULT NULL COMMENT 'Increment Id',
+            `klikbca_user_id` varchar(30) DEFAULT NULL COMMENT 'KlikBCA UserID',
+            `log_type` varchar(30) NOT NULL COMMENT 'Type ex: LOG_CC_CHARGE|LOG_KLIKBCA_PAYMENT|LOG_KLIKBCA_CONFIRMATION',
+            `request` text COMMENT 'Request Data (json or xml)',
+            `response` text COMMENT 'Response Data (json or xml)',
+            `created_at` timestamp NULL DEFAULT NULL COMMENT 'Created At',
+            `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Updated At',
+            PRIMARY KEY (`id`)
+        ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1 COMMENT='Queue Log Order Payment'
+    ");
+}
+catch (Exception $ex) {
+    Mage::logException($ex);
+}
+
+$installer->endSetup();

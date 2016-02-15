@@ -15,9 +15,7 @@
                 </action>
             </block>
             <block type="core/text" name="my.google.font">
-                <action method="setText"><text><![CDATA[
-                   <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css'>
-                    ]]></text>
+                <action method="setText"><text><![CDATA[<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>]]></text>
                 </action>
             </block>
             <block type="core/text" name="my.fontawesome">
@@ -40,6 +38,11 @@
             <action method="addItem">
                 <type>skin_js</type>
                 <name>js/no-conflict.js</name>
+                <params><![CDATA[name="js002_second"]]></params>
+            </action>
+             <action method="addItem">
+                <type>skin_js</type>
+                <name>js/header.js</name>
                 <params><![CDATA[name="js002_second"]]></params>
             </action>
             <action method="addItem">

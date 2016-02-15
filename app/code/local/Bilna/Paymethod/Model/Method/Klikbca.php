@@ -28,6 +28,8 @@ class Bilna_Paymethod_Model_Method_Klikbca extends Mage_Payment_Model_Method_Abs
         $info = $this->getInfoInstance();
         $no = $info->getKlikbcaUserId();
         
+        $errorMsg = null;
+        
         if (empty ($no)) {
             $errorCode = 'invalid_data';
             $errorMsg = $this->_getHelper()->__('KlikBCA User id is required field.');
