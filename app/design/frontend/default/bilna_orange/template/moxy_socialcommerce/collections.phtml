@@ -19,10 +19,10 @@ $lastPageNumber = $this->getLastPageNumber();
         Buat KOLEKSI dan kumpulkan produk favorit anda sesuai tema atau mood. Berikan inspirasi belanja untuk lorem ipsum sir dolor amit
       </div>
       <div class="cg-col-sm-12">
-        <a href="javascript:;" class="btn-lightgreen cg-col-xs-8 cg-col-sm-4 cg-col-md-3 cg-col-lg-5 btn-margin bottom-spacer-container" <?php if (Mage::getSingleton('customer/session')->isLoggedIn()): ?>onclick="newShowAddCollectionDialog()"<?php else: ?>onclick="openLogin()"<?php endif; ?>>PELAJARI LEBIH LANJUT</a>
+        <a href="javascript:;" class="btn-lightgreen cg-col-xs-8 cg-col-sm-6 cg-col-md-6 cg-col-lg-5 btn-margin bottom-spacer-container" <?php if (Mage::getSingleton('customer/session')->isLoggedIn()): ?>onclick="newShowAddCollectionDialog()"<?php else: ?>onclick="openLogin()"<?php endif; ?>>PELAJARI LEBIH LANJUT</a>
       </div>
     </div>
-    <div class="cg-col-sm-12 cg-col-xs-12 cg-col-md-6 cg-col-lg-6 closer-top-banner">
+    <div class="cg-col-xs-1 pull-right closer-top-banner">
      <a href="javascript:;" onclick="closeTopBanner()" style="" class="closer-right"><i class="fa fa-times"></i></a>
    </div>
  </div>
@@ -66,7 +66,7 @@ foreach ($wishlists as $wishlist) {
  <?php echo $user['display_name']; ?>
 <?php endif; ?>
 <br>
-<a class="ddisplay-title-coll link-pink-hover nameOfList" href="<?php echo $this->getUrl('collections/' . $wishlist['id'] . '-' . $wishlist['slug']); ?>" style="text-decoration: none;color:#3c3d41;"><?php echo $wishlist['name']; ?></a>
+<a class="display-title-coll link-pink-hover nameOfList uppercase opensans" href="<?php echo $this->getUrl('collections/' . $wishlist['id'] . '-' . $wishlist['slug']); ?>" style="text-decoration: none;color:#3c3d41;"><?php echo $wishlist['name']; ?></a>
 </div>
 </div>
 </div>
@@ -155,14 +155,14 @@ foreach ($wishlists as $wishlist) {
                 <?php endif; ?>
               </a>
               <div class="cg-col-xs-12 collection-title">
-                <div class="cg-col-lg-12 cg-col-md-10 cg-col-sm-10 cg-col-xs-8 take-left" style="">
+                <div class="cg-col-lg-12 cg-col-md-10 cg-col-sm-10 cg-col-xs-12 take-left" style="">
                  <a class="display-title-coll link-pink-hover nameOfList uppercase opensans" href="<?php echo $this->getUrl('collections/' . $wishlist['wishlist_id'] . '-' . $slug); ?>" style=""><?php echo $wishlist['name']; ?></a>
                  <?php if ($user['url']) : ?>
                  <span class="opensans hidden-xs">oleh</span> <a class="display-name-coll link-pink-hover opensans" href="<?php echo $user['url']; ?>" style=""><?php echo $user['display_name']; ?></a>
                <?php else : ?>
                <?php echo $user['display_name']; ?>
              <?php endif; ?>
-             <span class="pull-right opensans hidden-xs"><a href="<?php echo $this->getUrl('collections/' . $wishlist['wishlist_id'] . '-' . $slug); ?>">Lihat Koleksi ></a> </span>
+             <span class="pull-right opensans hidden-md hidden-sm hidden-xs"><a href="<?php echo $this->getUrl('collections/' . $wishlist['wishlist_id'] . '-' . $slug); ?>">Lihat Koleksi ></a> </span>
            </div>
          </div>
        </div>
@@ -270,14 +270,14 @@ foreach ($wishlists as $wishlist) {
                 <?php endif; ?>
               </a>
               <div class="cg-col-xs-12 collection-title">
-                <div class="cg-col-lg-12 cg-col-md-10 cg-col-sm-10 cg-col-xs-8 take-left" style="">
+                <div class="cg-col-lg-12 cg-col-md-10 cg-col-sm-10 cg-col-xs-12 take-left" style="">
                  <a class="display-title-coll link-pink-hover nameOfList uppercase opensans" href="<?php echo $this->getUrl('collections/' . $wishlist['wishlist_id'] . '-' . $slug); ?>" style=""><?php echo $wishlist['name']; ?></a>
                  <?php if ($user['url']) : ?>
                  <span class="opensans hidden-xs">oleh</span> <a class="display-name-coll link-pink-hover opensans" href="<?php echo $user['url']; ?>" style=""><?php echo $user['display_name']; ?></a>
                <?php else : ?>
                <?php echo $user['display_name']; ?>
              <?php endif; ?>
-             <span class="pull-right opensans hidden-xs"><a href="<?php echo $this->getUrl('collections/' . $wishlist['wishlist_id'] . '-' . $slug); ?>">Lihat Koleksi ></a> </span>
+             <span class="pull-right opensans hidden-md hidden-sm hidden-xs"><a href="<?php echo $this->getUrl('collections/' . $wishlist['wishlist_id'] . '-' . $slug); ?>">Lihat Koleksi ></a> </span>
            </div>
          </div>
        </div>
@@ -296,6 +296,8 @@ foreach ($wishlists as $wishlist) {
   </div> -->
 
    </div>
+ </div>
+</div>
       <script>
       function showHowTo() {
         jQuery('#howto').fadeIn('fast');
