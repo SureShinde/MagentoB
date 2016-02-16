@@ -355,6 +355,7 @@ Why don’t you start create your own collection?
             </div>
           </div>
           <input type="hidden" name="collection_id" id="modalCollectionId">
+          <input type="hidden" name="collection_id2" id="modalCollectionId2">
           <input type="hidden" name="username" value="<?php echo $profiler->getUsername(); ?>">
       <input type="hidden" name="preset_image" id="epreset_image" />
          
@@ -553,6 +554,7 @@ jQuery(document).ready(function() {
     }
 
     jQuery('#modalCollectionId').val(collectionId);
+    jQuery('#modalCollectionId2').val(collectionId);
     jQuery('#modalTitleCol').val(titlecol);
     jQuery('#modalDescCol').val(desccol);
     jQuery('#modalVisibilityCol').prop('checked', visibility_val);
