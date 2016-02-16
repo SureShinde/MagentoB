@@ -18,6 +18,46 @@ body {
 .page {
 	margin: 0 auto;
 }
+.check-to-clicking {
+    position: absolute;
+    margin-right: 10px;
+    right: 100%;
+    width: 105px;
+    top: 5px;
+    background: #4EBD92;
+    color: #fff;
+    padding: 4px 5px;
+    font-size: 11px;
+    font-weight: normal;
+    opacity: 0;
+    font-family: "open sans";
+    -webkit-transition: all 0.5s ease-in-out;
+    -moz-transition: all 0.5s ease-in-out;
+    -o-transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
+}
+  .check-to-clicking:after {
+    left:100%;  
+    top: 50%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border-color: rgba(238, 81, 145, 0);
+    border-left-color: #4EBD92;
+    border-width: 4px;
+    margin-top: -4px;
+  }
+  .poper{
+    display: block;
+    top:0;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom:0;
+  }
 .products-grid li.item:hover .link-wishlist.addToCollectionLink,
 .aw-mini-related-items ol.products-grid li:hover .link-wishlist.addToCollectionLink,
 .related-product .block-content .aw-arp-item:hover .link-wishlist.addToCollectionLink{
