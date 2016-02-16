@@ -172,8 +172,8 @@
 #shopping-cart-table.cart-table .btn-remove2 {
 }
 #shopping-cart-table.cart-table .product-image{
-    padding: 5px 10px;
     display: inline-block;
+    width: 75px;
 }
 #shopping-cart-table.cart-table .btn-update{
     margin: 5px 10px;
