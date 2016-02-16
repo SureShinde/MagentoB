@@ -255,7 +255,7 @@ $images = Mage::getModel('socialcommerce/collectioncover')->getCollection()->set
         <button type="submit" class="btn btn-pink-prime cursor" style="margin: 10px 0;" name="submitButton">SIMPAN KOLEKSI SAYA</button>
       </div>
       <div class="cg-col-xs-12 bottom-spacer-container">
-        <a class="btn btn-default btn-block btn-cancel cursor" onclick="newHideAddCollectionDialog()">Keluar, saya tidak jadi membuat halaman koleksi</a>
+        <a class="btn btn-default btn-block btn-cancel cursor" style="background:transparent;" onclick="newHideAddCollectionDialog()">Keluar, saya tidak jadi membuat halaman koleksi</a>
       </div>
       <input type="hidden" name="username" value="<?php echo $profile->getUsername(); ?>">
     <input type="hidden" name="preset_image" id="preset_image" />
@@ -317,7 +317,7 @@ $images = Mage::getModel('socialcommerce/collectioncover')->getCollection()->set
                     <option value="<?php echo $wishlist->getId(); ?>"><?php echo $wishlist->getName(); ?></option>
                 <?php endforeach; ?>
 
-                <option value="0">&#10084; Create New Collection &#10084;</option>
+                <option value="0">&#10084; Buat Koleksi Baru &#10084;</option>
 
                 </select>
 
@@ -445,7 +445,7 @@ $images = Mage::getModel('socialcommerce/collectioncover')->getCollection()->set
                     if (jQuery(this).val() == '0') {
                       jQuery('#iWannaCreateNewCollection').show();
                       jQuery('#add-new-pop-collection').css( {"display": "inline-block","max-height": "90%" });
-                      jQuery('#addButton').html('Create &amp; Add this Product');
+                      jQuery('#addButton').html('BUAT DAN TAMBAHKAN KE KOLEKSI');
                       jQuery('#name').attr('required', true);
                     } else {
                       jQuery('#iWannaCreateNewCollection').hide();
@@ -461,7 +461,7 @@ $images = Mage::getModel('socialcommerce/collectioncover')->getCollection()->set
                 jQuery(document).ready(function() {
                       jQuery('#iWannaCreateNewCollection').show();
                       jQuery('#add-new-pop-collection').css( {"display": "inline-block","max-height": "90%" });
-                      jQuery('#addButton').html('Create &amp; Add this Product');
+                      jQuery('#addButton').html('BUAT DAN TAMBAHKAN KE KOLEKSI');
                       jQuery('#name').attr('required', true);
                 });
               </script>
@@ -469,7 +469,7 @@ $images = Mage::getModel('socialcommerce/collectioncover')->getCollection()->set
               
     <div class="cg-col-xs-12 nopadding">
 
-    <button class="btn btn-cancel-button nomargin" onclick="hideAddToCollectionDialog();return false;">KELUAR</button>
+    <button class="btn btn-cancel nomargin cursor" style="background:transparent;" onclick="hideAddToCollectionDialog();return false;">KELUAR</button>
   </div>
 
 </div>
@@ -482,8 +482,8 @@ $images = Mage::getModel('socialcommerce/collectioncover')->getCollection()->set
 
     <div class="in-block cg-col-lg-7 cg-col-md-7 cg-col-sm-12 cg-col-xs-12">
         <p style="color: #545454;">Please <a href="<?php echo Mage::getUrl('customer/account/login'); ?>" onclick="hideAddToCollectionDialog();openLogin();return false;">login</a> to add this item to your collection.</p>
-        <a class="btn btn-primary btn-block" style="margin: 10px 0;text-decoration:none;" href="<?php echo Mage::getUrl('customer/account/login'); ?>" onclick="hideAddToCollectionDialog();openLogin();return false;">Login</a>
-        <button class="btn btn-default btn-block btn-cancel" onclick="hideAddToCollectionDialog();return false;">Close</button>
+        <a class="btn btn-pink-prime cursor in-block" style="margin: 10px 0;text-decoration:none;" href="<?php echo Mage::getUrl('customer/account/login'); ?>" onclick="hideAddToCollectionDialog();openLogin();return false;">Login</a> <br>
+        <button class="btn btn-default btn-block btn-cancel cursor" onclick="hideAddToCollectionDialog();return false;" style="background:transparent;">Keluar</button>
     </div>
 
 <?php endif; ?>
