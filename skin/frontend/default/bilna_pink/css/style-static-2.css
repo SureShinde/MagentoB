@@ -3779,7 +3779,7 @@ button.button-area {
     font-size: 16px !important;
     line-height: normal !important;
     margin: 0 !important;
-    padding: 12px 20px !important;;
+    padding: 12px 20px !important;
 }
 .landing-page-shareapp .formbuilder-form li, .landing-page-shareapp .formbuilder-form > div{
 	display:none;
@@ -4433,8 +4433,8 @@ button.button-area {
 }
 .featured-tentang .wrap-icon:nth-child(2),
 .featured-tentang .wrap-icon:nth-child(5){
-	*border-left:1px solid;
-	*border-right:1px solid;
+	border-left:1px solid;
+	border-right:1px solid;
 }
 .featured-tentang .wrap-icon:nth-child(1),
 .featured-tentang .wrap-icon:nth-child(2),
@@ -4445,7 +4445,7 @@ button.button-area {
 	padding-top:65px;
 }
 .featured-tentang .wrap-icon{
-	*border-bottom:1px solid;
+	border-bottom:1px solid;
 }
 .partner-registration form ul li:nth-of-type(9) label{
 	width:100% !important;
@@ -4540,8 +4540,8 @@ button.button-area {
 	.featured-tentang .wrap-icon:nth-child(1),
 	.featured-tentang .wrap-icon:nth-child(3),
 	.featured-tentang .wrap-icon:nth-child(5){
-		*border-left:0;
-		*border-right:0;
+		border-left:0;
+		border-right:0;
 	}
 	.featured-tentang .wrap-icon:nth-child(3){
 		border-top:0;
@@ -4551,7 +4551,7 @@ button.button-area {
 	.featured-tentang .wrap-icon:nth-child(4),
 	.featured-tentang .wrap-icon:nth-child(6){
 		border-right:0;
-		*border-left:1px solid
+		border-left:1px solid
 	}
 	.featured-your-brand .featured-header img {
 		width: 60%;
