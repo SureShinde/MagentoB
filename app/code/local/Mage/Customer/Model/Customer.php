@@ -686,7 +686,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      * @param int|null $storeId
      * @return Mage_Customer_Model_Customer
      */
-    protected function _sendEmailTemplateLoganFrontEnd($sender, $templateParams = array(), $storeId = null)
+    protected function _sendEmailTemplateLogan($sender, $templateParams = array(), $storeId = null)
     {
         /** @var $mailer Mage_Core_Model_Email_Template_Mailer */
         $mailer = Mage::getModel('core/email_template_mailer');
@@ -697,7 +697,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
         // Set all required params and send emails
         $mailer->setSender(Mage::getStoreConfig($sender, $storeId));
         $mailer->setStoreId($storeId);
-        $mailer->setTemplateId((string) 'customer_password_forgot_email_template_logan_front_end');
+        $mailer->setTemplateId((string) 'customer_password_forgot_email_template_logan');
         $mailer->setTemplateParams($templateParams);
         $mailer->send();
         return $this;
@@ -726,14 +726,14 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      *
      * @return Mage_Customer_Model_Customer
      */
-    public function sendPasswordResetConfirmationEmailLoganFrontEnd()
+    public function sendPasswordResetConfirmationEmailLogan()
     {
         $storeId = $this->getStoreId();
         if (!$storeId) {
             $storeId = $this->_getWebsiteStoreId();
         }
 
-        $this->_sendEmailTemplateLoganFrontEnd(self::XML_PATH_FORGOT_EMAIL_IDENTITY,
+        $this->_sendEmailTemplateLogan(self::XML_PATH_FORGOT_EMAIL_IDENTITY,
             array('customer' => $this), $storeId);
 
         return $this;
