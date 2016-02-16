@@ -608,7 +608,8 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
 
         $incrementId = $order->getIncrementId();
         $grossAmount = $order->getGrandTotal();
-        $paymentCode = $order->getPayment()->getMethodInstance()->getCode();
+        $payment = $order->getPayment();
+        $paymentCode = $payment->getMethodInstance()->getCode();
         $paymentType = Mage::getStoreConfig('payment/' . $paymentCode . '/vtdirect_payment_type');
         $bank = Mage::getStoreConfig('payment/' . $paymentCode . '/bank');
 
@@ -637,6 +638,9 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
         try {
             $this->writeLog($paymentCode, $this->_typeTransaction, 'charge', 'request: ' . json_encode($transactionData));
             $result = Veritrans_VtDirect::charge($transactionData);
+            $vaNumbers = $result->va_numbers[0];
+            $payment->setVaNumber($vaNumbers->va_number);//Set value of va_number field from table sales_order_flat_payment
+            $payment->save();
             $this->writeLog($paymentCode, $this->_typeTransaction, 'charge', 'response: ' . json_encode($result));
         }
         catch (Exception $e) {
