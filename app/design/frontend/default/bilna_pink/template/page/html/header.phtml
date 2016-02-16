@@ -222,6 +222,7 @@ $images = Mage::getModel('socialcommerce/collectioncover')->getCollection()->set
                 <?php
                 $customer = Mage::getSingleton('customer/session')->getCustomer();
                 $wishlistCollection = Mage::getModel('wishlist/wishlist')->getCollection()->filterByCustomerId($customer->getId());
+                $wishlistCollection->addFieldToFilter('view', '1');
                 $wishlistCollection->setOrder('wishlist_id', 'DESC');
             # Check if this user has collection already.
             # "Wishlist" isn't considered as collection since it comes as default wishlist-set in Magento, and we wont show it anywhere.
