@@ -255,7 +255,7 @@ $images = Mage::getModel('socialcommerce/collectioncover')->getCollection()->set
         <button type="submit" class="btn btn-pink-prime cursor" style="margin: 10px 0;" name="submitButton">SIMPAN KOLEKSI SAYA</button>
       </div>
       <div class="cg-col-xs-12 bottom-spacer-container">
-        <a class="btn btn-default btn-block btn-cancel cursor" onclick="newHideAddCollectionDialog()">Keluar, saya tidak jadi membuat halaman koleksi</a>
+        <a class="btn btn-default btn-block btn-cancel cursor" style="background:transparent;" onclick="newHideAddCollectionDialog()">Keluar, saya tidak jadi membuat halaman koleksi</a>
       </div>
       <input type="hidden" name="username" value="<?php echo $profile->getUsername(); ?>">
     <input type="hidden" name="preset_image" id="preset_image" />
