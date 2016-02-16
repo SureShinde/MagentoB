@@ -10,5 +10,35 @@
 				<class>Bilna_Customer_Model</class>
 			</bilna_customer>
 		</models>
+                <template>
+                    <email>
+<!--                        <customer_create_account_email_template translate="label" module="customer">
+                            <label>New account</label>
+                            <file>account_new.html</file>
+                            <type>html</type>
+                        </customer_create_account_email_template>
+                        <customer_create_account_email_confirmation_template translate="label" module="customer">
+                            <label>New account confirmation key</label>
+                            <file>account_new_confirmation.html</file>
+                            <type>html</type>
+                        </customer_create_account_email_confirmation_template>
+                        <customer_create_account_email_confirmed_template translate="label" module="customer">
+                            <label>New account confirmed</label>
+                            <file>account_new_confirmed.html</file>
+                            <type>html</type>
+                        </customer_create_account_email_confirmed_template>-->
+                        <customer_password_forgot_email_template_logan_front_end translate="label" module="customer">
+                            <label>Forgot Password Logan Front End</label>
+                            <file>account_password_reset_confirmation_logan_front_end.html</file>
+                            <type>html</type>
+                        </customer_password_forgot_email_template_logan_front_end>
+<!--                        <customer_password_remind_email_template translate="label" module="customer">
+                            <label>Remind Password</label>
+                            <file>password_new.html</file>
+                            <type>html</type>
+                        </customer_password_remind_email_template>-->
+                    </email>
+                </template>
+
 	</global>
 </config>
