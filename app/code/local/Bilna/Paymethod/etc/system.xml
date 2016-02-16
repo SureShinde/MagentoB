@@ -3469,6 +3469,42 @@
                         </max_installment_total>
                     </fields>
                 </megavisa>
+                <moxyva translate="label">
+                    <label>Moxy - VA </label>
+                    <sort_order>990</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <active translate="label">
+                            <label>Enabled</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </active>
+                    </fields>
+                </moxyva>
+                <moxyveritrans translate="label">
+                    <label>Moxy - Veritrans </label>
+                    <sort_order>980</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <active translate="label">
+                            <label>Enabled</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </active>
+                    </fields>
+                </moxyveritrans>
                 <megamc translate="label">
                     <label>Bilna - Credit Card (Mega MasterCard)</label>
                     <sort_order>290</sort_order>
