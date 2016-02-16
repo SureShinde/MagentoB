@@ -1137,9 +1137,9 @@ ul.block-wrapper li:last-child {}
     }
 	.homepage .homepage-banner .first-level{
 	}
-    homepage .wrap-banner .first-banner-megamenu .main-banner {
-+        height: 280px;
-+    }
+    .homepage .wrap-banner .first-banner-megamenu .main-banner {
+      height: 280px;
+    }
 	/*=========== baby ================*/
 	.homepage-top-block.middle {
 		width: 78%;
