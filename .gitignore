@@ -1,6 +1,8 @@
 *.swp
 .settings/
 .idea/
+.DS_Store
+.project
 media
 nbproject/
 lib/Netsuite/nslog/
@@ -11,3 +13,5 @@ lib/terawurfl/resources/storage/
 downloader/cache.cfg
 downloader/connect.cfg
 
+composer.lock
+vendor

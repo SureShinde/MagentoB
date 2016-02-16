@@ -34,6 +34,8 @@
 
 <div class="al-authorization-container-overlap" id="<?php echo $this->getHtmlId() ?>" style="display: none;">
     <div class="Shadow"></div>
+    <input type="checkbox" id="responsiveformregister" class="responsive-form-register">
+    <input type="checkbox" id="responsiveformforgotpassword" class="responsive-form-forgot-password">
     <div class="Canvas">
 		<div class="Wrapper">
 			<?php echo $this->getChildHtml('authorization') ?>
@@ -61,7 +63,9 @@
                     return function(event) {
                         overlapRootNode.style.display = 'none';
                         authorizationInstance.switchToFrame(0);
-                        
+                        document.getElementById("responsiveformregister").checked = false;
+                        document.getElementById("responsiveformforgotpassword").checked = false;
+
                         if (window.event) window.event.cancelBubble = true;
                         if (window.event) window.event.returnValue = false;
                         event.preventDefault();
@@ -77,6 +81,8 @@
                 function(overlapRootNode) {
                     return function(event) {
                         overlapRootNode.style.display = 'none';
+                        document.getElementById("responsiveformregister").checked = false;
+                        document.getElementById("responsiveformforgotpassword").checked = false;
                     };
                 }
                 (__overlapRootNode)

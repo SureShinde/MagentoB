@@ -1,7 +1,7 @@
 .cms-home .homepage {
 	display: inline-block;
     width: 100%;
-    background: #ebebeb;
+    background: #f6f6f6;
 }
 .main-category{
     background: #fff;
@@ -118,7 +118,7 @@
 	padding:0 0 20px 0;
 }
 p.title {
-    font-family: 'lato';
+    font-family: 'Open Sans';
 	color: #EE5191;
     float: left;
     font-size: 4em;
@@ -810,7 +810,7 @@ ul.block-wrapper li:last-child {}
 .homepage .homepage-banner ul.slidesjs-pagination{
     margin-bottom: 20px;
 }
-.homepage .homepage-banner,
+.homepage .homepage-banner .megamenu-container,
 .row-homepage .container-homepage,
 .container-homepage, .messages li{
     clear: both;
@@ -822,13 +822,28 @@ ul.block-wrapper li:last-child {}
     float: none;
     font-size: 12px;
 }
-.homepage .homepage-banner{
-    margin-bottom: 40px;
-    background: #fff;
+.homepage .homepage-banner .megamenu-container{
+    display: block;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border: 1px solid #f9f9f9;
 }
-.wrap-megamenu, .link-space-header{
-    float: left;
-    color: #fff;
+.homepage .homepage-banner {
+    margin: 0 auto 40px;
+    padding: 17px 0 0;
+    position: relative;
+    display: table;
+}
+.homepage .homepage-banner:before{
+    content: "";
+    position: absolute;
+    width: 100%;
+    background: url(../images/megamenu_arrow.png) 100px 9px no-repeat;
+    height: 23px;
+    background-size: 25px;
+    top: 0;
+    z-index: 1;
 }
 .wrap-second-cat > ul > p > a {
     line-height: 1.6em;
@@ -848,10 +863,10 @@ ul.block-wrapper li:last-child {}
     float: left;
 }
 .homepage .homepage-banner .first-level{
-    width: 220px;
-    padding: 10px;
-    background: #DCDCDC;
+    width: 238px;
+    padding: 10px 0;
 	min-height: 400px;
+    background: #fff;
 }
 .homepage .homepage-banner .first-level > ul{
 	padding-left:0;
@@ -866,49 +881,35 @@ ul.block-wrapper li:last-child {}
 }
 .homepage .homepage-banner .first-level > ul > li{
     line-height: 32px;
-    font-size: 1.04em;
-    font-weight: bold;
     text-align: left;
     background: #fff;
     margin: 1px 0 0;
     padding: 0 10px;
     height: 32px;
 }
+.homepage .homepage-banner .first-level > ul > li .first-level-url{
+    font-size: 14px;
+}
 .homepage .homepage-banner .first-level > ul > li.hover-cat{
-    background: #EE5191;
+    background: #fffcfd;
 }
 .homepage .homepage-banner .first-level > ul > li.hover-cat > div.first-level-url{
-    color: #fff;
+    color: #ee5191;
 }
 .homepage .homepage-banner .first-level .active-cat div.first-level-url .arrow-megamenu,
-.homepage .homepage-banner .first-level > ul > li.hover-cat > div.first-level-url .arrow-megamenu{
+.homepage .homepage-banner .first-level > ul > li > div.first-level-url .arrow-megamenu{
     display: block;
     position: absolute;
     height: 100%;
-    left: 100%;
+    left: 93%;
     width: 30px;
     top: 0;
 }
-.homepage .homepage-banner .first-level > ul > li.active-cat.hover-cat > div.first-level-url .arrow-megamenu{
-    display: block !important;
-    position: absolute;
-    height: 100%;
-    left: 100%;
-    width: 30px;
-    top: 0;
-}
-.homepage .homepage-banner .first-level .active-cat div.first-level-url .arrow-megamenu:after,
-.homepage .homepage-banner .first-level > ul > li.hover-cat > div.first-level-url .arrow-megamenu:after{
-    border-width: 7px;
-    content: "";
-    left: 10px;
-    top: 9px;
-    position: absolute;
-    border-style: solid;
-    border-color: transparent transparent transparent #EE5191;
+.homepage .homepage-banner .first-level > ul > li.active-cat > div.first-level-url{
+    color: #ee5191;
 }
 .homepage .homepage-banner .first-level > ul > li > div.first-level-url{
-	color:#424143;
+	color:#b3b3b3;
 	display:block;
     position: relative;
 	text-transform:uppercase;
@@ -918,22 +919,20 @@ ul.block-wrapper li:last-child {}
 	position:relative;
 }
 .homepage .homepage-banner li > a, .homepage .homepage-banner .second-level > p a{
-    color: #414042;
+    color: #b3b3b3;
 	display:block;
     text-decoration: none;
 }
 .homepage .homepage-banner .second-level p{
-    line-height: 1.6em;
+    line-height: 1.3em;
 	margin: 0;
 	text-indent: 0;
 }
 .homepage .homepage-banner .first-level .second-level li{
-    font-size: 0.99em;
 	line-height: 1.6em;
 }
 .homepage .homepage-banner .first-level .second-level .wrap-second-cat > ul li:hover > a,
 .homepage .homepage-banner .first-level .second-level .wrap-second-cat > ul li:hover > p > a{
-	color:#EE5191;
 	text-decoration:underline;
 }
 .homepage .homepage-banner .first-level .active-cat .second-level{
@@ -947,19 +946,17 @@ ul.block-wrapper li:last-child {}
 	overflow:hidden;
     position: absolute;
     left: 240px;
-    top: 0;
+    top: 0px;
 }
 .homepage .homepage-banner .first-level li.first-level-cat.active-cat.hover-cat{
-    background: #EE5191 !important;
+    background: #fffcfd !important;
 }
-.homepage .homepage-banner .first-level li.first-level-cat.active-cat.hover-cat > div.first-level-url{
-    color: #fff !important;
+.homepage .homepage-banner .first-level li.first-level-cat.active-cat.hover-cat > div.first-level-url,
+.homepage .homepage-banner .first-level li.first-level-cat.active-cat.hover-cat > div.first-level-url .fa{
+    color: #ee5191 !important;
 }
 .homepage .homepage-banner .first-level .active-cat{
-    background: #EE5191 ;
-}
-.homepage .homepage-banner .first-level .active-cat div.first-level-url{
-    color: #fff;
+    background: #fffcfd ;
 }
 .homepage .homepage-banner .first-level > ul:hover > li.active-cat{
 }
@@ -1002,7 +999,7 @@ ul.block-wrapper li:last-child {}
     text-transform: uppercase;
     font-weight: bold;
     font-size: 1em;
-    color:#55909a;
+    color:#3eb988;
 }
 .homepage .wrap-banner {
     float: right;
@@ -1105,6 +1102,7 @@ ul.block-wrapper li:last-child {}
     }
 	.homepage .wrap-banner .first-banner-megamenu .bottom-left-firstbanner {
 	}
+    .homepage .homepage-banner .megamenu-container,
     .homepage .homepage-banner,
     .row-homepage .container-homepage,
     .container-homepage, .messages li{
@@ -1166,6 +1164,7 @@ ul.block-wrapper li:last-child {}
 	}
 	.homepage .wrap-banner .first-banner-megamenu .bottom-right-firstbanner{
 	}
+    .homepage .homepage-banner .megamenu-container,
     .homepage .homepage-banner,
     .row-homepage .container-homepage,
     .container-homepage, .messages li{

@@ -95,7 +95,6 @@ class AW_Autorelated_Model_Product_Collection extends Mage_Catalog_Model_Resourc
         return $countSelect->reset()->from($this->getSelect(), array())->columns('COUNT(*)');
     }
 
-
     public function joinCategoriesByProduct()
     {
         $conditions = array(

@@ -87,6 +87,7 @@ $largeCmsBlock = Mage::getModel('cms/block')->load($staticBlockPrefix . 1)->getC
 <?php elseif ($_imgUrl): ?>
     <?php echo $_imgHtml; ?>
 <?php endif; ?>
+
 <?php if($this->isContentMode()): ?>
     <?php echo $this->getCmsBlockHtml() ?>
 
@@ -97,6 +98,7 @@ $largeCmsBlock = Mage::getModel('cms/block')->load($staticBlockPrefix . 1)->getC
 <?php else: ?>
     <?php echo $this->getProductListHtml() ?>
 <?php endif; ?>
+
 <?php if($_description=$this->getCurrentCategory()->getDescription()): ?>
     <div class="category-description std">
         <span><?php echo $_category->getName(); ?></span>

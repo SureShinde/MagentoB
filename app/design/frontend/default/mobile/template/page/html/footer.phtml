@@ -64,9 +64,8 @@
         <div class="footer-bottom">
             <ul>
                 <li><address><?php echo $this->getCopyright() ?></address></li>
-                <li><a href="#">Syarat Penggunaan</a></li>
-                <li><a href="#">Kebijakan Privasi</a></li>
-                <li><a href="#">Direktori Belanja</a></li>
+                <li><a href="<?php echo Mage::getBaseUrl(); ?>terms-of-use">Syarat Penggunaan</a></li>
+                <li><a href="<?php echo Mage::getBaseUrl(); ?>privacy-policy">Kebijakan Privasi</a></li>
             </ul>
             <ul class="sosmed">
                 <li><a class="fb" href="http://www.facebook.com/myBilna"><i class="fa fa-facebook fa-2x"></i></a></li>
@@ -84,5 +83,13 @@
 <script type="text/javascript">
     jQuery(document).ready(function() {
         dataLayer.push({ 'event': 'event_all' });
+    });
+
+    jQuery(document).ready(function() {
+        var href = window.location.href;
+        if(href.toLowerCase().indexOf("/user/profile/") >= 0 || href.toLowerCase().indexOf("/collections/") >= 0)
+          jQuery(".title_belanja p").html('KOLEKSI');
+        else
+          jQuery(".title_belanja p").html('BELANJA');
     });
 </script>
