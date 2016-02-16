@@ -899,7 +899,7 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </max_order_total>
-                        <threedsecure_min_enabled translate="label">
+                        <!--threedsecure_min_enabled translate="label">
                             <label>3DS Minimum Order Total Enabled</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
@@ -908,7 +908,7 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </threedsecure_min_enabled>
-                        <threedsecure_min_value>
+                        <threedsecure_min_order_total>
                             <label>3DS Minimum Order Total Value</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>92</sort_order>
@@ -918,7 +918,7 @@
                             <depends>
                                 <threedsecure_min_enabled>1</threedsecure_min_enabled>
                             </depends>
-                        </threedsecure_min_value>
+                        </threedsecure_min_order_total-->
                         <disallowed_symbol>
                             <label>Disallowed Symbol</label>
                             <frontend_type>text</frontend_type>
@@ -1187,23 +1187,52 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </threedsecure>
-                        <threedsecure_callback_url>
-                            <label>3D Secure Callback URL</label>
-                            <frontend_type>text</frontend_type>
+                        <threedsecure_bank_acquired translate="label">
+                            <label>3D Secure Bank Acquired</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>paymethod/system_config_acquiredbank</source_model>
                             <sort_order>56</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Merchant callback URL.</comment>
-                        </threedsecure_callback_url>
-                        <threedsecure_notification_url>
-                            <label>3D Secure Notification URL</label>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_bank_acquired>
+                        <threedsecure_min_order_total>
+                            <label>3D Secure Minimum Order Total</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>57</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_min_order_total>
+                        <threedsecure_callback_url>
+                            <label>3D Secure Callback URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>58</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Merchant callback URL.</comment>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_callback_url>
+                        <threedsecure_notification_url>
+                            <label>3D Secure Notification URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>59</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
                             <comment>Merchant notification URL.</comment>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
                         </threedsecure_notification_url>
                         <allowspecific translate="label">
                             <label>Payment from Applicable Countries</label>
@@ -1373,23 +1402,52 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </threedsecure>
-                        <threedsecure_callback_url>
-                            <label>3D Secure Callback URL</label>
-                            <frontend_type>text</frontend_type>
+                        <threedsecure_bank_acquired translate="label">
+                            <label>3D Secure Bank Acquired</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>paymethod/system_config_acquiredbank</source_model>
                             <sort_order>56</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Merchant callback URL.</comment>
-                        </threedsecure_callback_url>
-                        <threedsecure_notification_url>
-                            <label>3D Secure Notification URL</label>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_bank_acquired>
+                        <threedsecure_min_order_total>
+                            <label>3D Secure Minimum Order Total</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>57</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_min_order_total>
+                        <threedsecure_callback_url>
+                            <label>3D Secure Callback URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>58</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Merchant callback URL.</comment>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_callback_url>
+                        <threedsecure_notification_url>
+                            <label>3D Secure Notification URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>59</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
                             <comment>Merchant notification URL.</comment>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
                         </threedsecure_notification_url>
                         <allowspecific translate="label">
                             <label>Payment from Applicable Countries</label>
@@ -1559,23 +1617,52 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </threedsecure>
-                        <threedsecure_callback_url>
-                            <label>3D Secure Callback URL</label>
-                            <frontend_type>text</frontend_type>
+                        <threedsecure_bank_acquired translate="label">
+                            <label>3D Secure Bank Acquired</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>paymethod/system_config_acquiredbank</source_model>
                             <sort_order>56</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Merchant callback URL.</comment>
-                        </threedsecure_callback_url>
-                        <threedsecure_notification_url>
-                            <label>3D Secure Notification URL</label>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_bank_acquired>
+                        <threedsecure_min_order_total>
+                            <label>3D Secure Minimum Order Total</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>57</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_min_order_total>
+                        <threedsecure_callback_url>
+                            <label>3D Secure Callback URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>58</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Merchant callback URL.</comment>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_callback_url>
+                        <threedsecure_notification_url>
+                            <label>3D Secure Notification URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>59</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
                             <comment>Merchant notification URL.</comment>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
                         </threedsecure_notification_url>
                         <allowspecific translate="label">
                             <label>Payment from Applicable Countries</label>
@@ -1745,23 +1832,52 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </threedsecure>
-                        <threedsecure_callback_url>
-                            <label>3D Secure Callback URL</label>
-                            <frontend_type>text</frontend_type>
+                        <threedsecure_bank_acquired translate="label">
+                            <label>3D Secure Bank Acquired</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>paymethod/system_config_acquiredbank</source_model>
                             <sort_order>56</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Merchant callback URL.</comment>
-                        </threedsecure_callback_url>
-                        <threedsecure_notification_url>
-                            <label>3D Secure Notification URL</label>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_bank_acquired>
+                        <threedsecure_min_order_total>
+                            <label>3D Secure Minimum Order Total</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>57</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_min_order_total>
+                        <threedsecure_callback_url>
+                            <label>3D Secure Callback URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>58</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Merchant callback URL.</comment>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_callback_url>
+                        <threedsecure_notification_url>
+                            <label>3D Secure Notification URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>59</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
                             <comment>Merchant notification URL.</comment>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
                         </threedsecure_notification_url>
                         <allowspecific translate="label">
                             <label>Payment from Applicable Countries</label>
@@ -1931,23 +2047,52 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </threedsecure>
-                        <threedsecure_callback_url>
-                            <label>3D Secure Callback URL</label>
-                            <frontend_type>text</frontend_type>
+                        <threedsecure_bank_acquired translate="label">
+                            <label>3D Secure Bank Acquired</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>paymethod/system_config_acquiredbank</source_model>
                             <sort_order>56</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Merchant callback URL.</comment>
-                        </threedsecure_callback_url>
-                        <threedsecure_notification_url>
-                            <label>3D Secure Notification URL</label>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_bank_acquired>
+                        <threedsecure_min_order_total>
+                            <label>3D Secure Minimum Order Total</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>57</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_min_order_total>
+                        <threedsecure_callback_url>
+                            <label>3D Secure Callback URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>58</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Merchant callback URL.</comment>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_callback_url>
+                        <threedsecure_notification_url>
+                            <label>3D Secure Notification URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>59</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
                             <comment>Merchant notification URL.</comment>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
                         </threedsecure_notification_url>
                         <allowspecific translate="label">
                             <label>Payment from Applicable Countries</label>
@@ -2117,23 +2262,52 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </threedsecure>
-                        <threedsecure_callback_url>
-                            <label>3D Secure Callback URL</label>
-                            <frontend_type>text</frontend_type>
+                        <threedsecure_bank_acquired translate="label">
+                            <label>3D Secure Bank Acquired</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>paymethod/system_config_acquiredbank</source_model>
                             <sort_order>56</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Merchant callback URL.</comment>
-                        </threedsecure_callback_url>
-                        <threedsecure_notification_url>
-                            <label>3D Secure Notification URL</label>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_bank_acquired>
+                        <threedsecure_min_order_total>
+                            <label>3D Secure Minimum Order Total</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>57</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_min_order_total>
+                        <threedsecure_callback_url>
+                            <label>3D Secure Callback URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>58</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Merchant callback URL.</comment>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_callback_url>
+                        <threedsecure_notification_url>
+                            <label>3D Secure Notification URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>59</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
                             <comment>Merchant notification URL.</comment>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
                         </threedsecure_notification_url>
                         <allowspecific translate="label">
                             <label>Payment from Applicable Countries</label>
@@ -2303,23 +2477,52 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </threedsecure>
-                        <threedsecure_callback_url>
-                            <label>3D Secure Callback URL</label>
-                            <frontend_type>text</frontend_type>
+                        <threedsecure_bank_acquired translate="label">
+                            <label>3D Secure Bank Acquired</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>paymethod/system_config_acquiredbank</source_model>
                             <sort_order>56</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Merchant callback URL.</comment>
-                        </threedsecure_callback_url>
-                        <threedsecure_notification_url>
-                            <label>3D Secure Notification URL</label>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_bank_acquired>
+                        <threedsecure_min_order_total>
+                            <label>3D Secure Minimum Order Total</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>57</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_min_order_total>
+                        <threedsecure_callback_url>
+                            <label>3D Secure Callback URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>58</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Merchant callback URL.</comment>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_callback_url>
+                        <threedsecure_notification_url>
+                            <label>3D Secure Notification URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>59</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
                             <comment>Merchant notification URL.</comment>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
                         </threedsecure_notification_url>
                         <allowspecific translate="label">
                             <label>Payment from Applicable Countries</label>
@@ -2489,23 +2692,52 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </threedsecure>
-                        <threedsecure_callback_url>
-                            <label>3D Secure Callback URL</label>
-                            <frontend_type>text</frontend_type>
+                        <threedsecure_bank_acquired translate="label">
+                            <label>3D Secure Bank Acquired</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>paymethod/system_config_acquiredbank</source_model>
                             <sort_order>56</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Merchant callback URL.</comment>
-                        </threedsecure_callback_url>
-                        <threedsecure_notification_url>
-                            <label>3D Secure Notification URL</label>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_bank_acquired>
+                        <threedsecure_min_order_total>
+                            <label>3D Secure Minimum Order Total</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>57</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_min_order_total>
+                        <threedsecure_callback_url>
+                            <label>3D Secure Callback URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>58</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Merchant callback URL.</comment>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_callback_url>
+                        <threedsecure_notification_url>
+                            <label>3D Secure Notification URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>59</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
                             <comment>Merchant notification URL.</comment>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
                         </threedsecure_notification_url>
                         <allowspecific translate="label">
                             <label>Payment from Applicable Countries</label>
@@ -2675,23 +2907,52 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </threedsecure>
-                        <threedsecure_callback_url>
-                            <label>3D Secure Callback URL</label>
-                            <frontend_type>text</frontend_type>
+                        <threedsecure_bank_acquired translate="label">
+                            <label>3D Secure Bank Acquired</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>paymethod/system_config_acquiredbank</source_model>
                             <sort_order>56</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Merchant callback URL.</comment>
-                        </threedsecure_callback_url>
-                        <threedsecure_notification_url>
-                            <label>3D Secure Notification URL</label>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_bank_acquired>
+                        <threedsecure_min_order_total>
+                            <label>3D Secure Minimum Order Total</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>57</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_min_order_total>
+                        <threedsecure_callback_url>
+                            <label>3D Secure Callback URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>58</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Merchant callback URL.</comment>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_callback_url>
+                        <threedsecure_notification_url>
+                            <label>3D Secure Notification URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>59</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
                             <comment>Merchant notification URL.</comment>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
                         </threedsecure_notification_url>
                         <allowspecific translate="label">
                             <label>Payment from Applicable Countries</label>
@@ -2861,23 +3122,52 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </threedsecure>
-                        <threedsecure_callback_url>
-                            <label>3D Secure Callback URL</label>
-                            <frontend_type>text</frontend_type>
+                        <threedsecure_bank_acquired translate="label">
+                            <label>3D Secure Bank Acquired</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>paymethod/system_config_acquiredbank</source_model>
                             <sort_order>56</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Merchant callback URL.</comment>
-                        </threedsecure_callback_url>
-                        <threedsecure_notification_url>
-                            <label>3D Secure Notification URL</label>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_bank_acquired>
+                        <threedsecure_min_order_total>
+                            <label>3D Secure Minimum Order Total</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>57</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_min_order_total>
+                        <threedsecure_callback_url>
+                            <label>3D Secure Callback URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>58</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Merchant callback URL.</comment>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_callback_url>
+                        <threedsecure_notification_url>
+                            <label>3D Secure Notification URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>59</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
                             <comment>Merchant notification URL.</comment>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
                         </threedsecure_notification_url>
                         <allowspecific translate="label">
                             <label>Payment from Applicable Countries</label>
@@ -3047,23 +3337,52 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </threedsecure>
-                        <threedsecure_callback_url>
-                            <label>3D Secure Callback URL</label>
-                            <frontend_type>text</frontend_type>
+                        <threedsecure_bank_acquired translate="label">
+                            <label>3D Secure Bank Acquired</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>paymethod/system_config_acquiredbank</source_model>
                             <sort_order>56</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Merchant callback URL.</comment>
-                        </threedsecure_callback_url>
-                        <threedsecure_notification_url>
-                            <label>3D Secure Notification URL</label>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_bank_acquired>
+                        <threedsecure_min_order_total>
+                            <label>3D Secure Minimum Order Total</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>57</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_min_order_total>
+                        <threedsecure_callback_url>
+                            <label>3D Secure Callback URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>58</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Merchant callback URL.</comment>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_callback_url>
+                        <threedsecure_notification_url>
+                            <label>3D Secure Notification URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>59</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
                             <comment>Merchant notification URL.</comment>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
                         </threedsecure_notification_url>
                         <allowspecific translate="label">
                             <label>Payment from Applicable Countries</label>
@@ -3233,23 +3552,52 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </threedsecure>
-                        <threedsecure_callback_url>
-                            <label>3D Secure Callback URL</label>
-                            <frontend_type>text</frontend_type>
+                        <threedsecure_bank_acquired translate="label">
+                            <label>3D Secure Bank Acquired</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>paymethod/system_config_acquiredbank</source_model>
                             <sort_order>56</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Merchant callback URL.</comment>
-                        </threedsecure_callback_url>
-                        <threedsecure_notification_url>
-                            <label>3D Secure Notification URL</label>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_bank_acquired>
+                        <threedsecure_min_order_total>
+                            <label>3D Secure Minimum Order Total</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>57</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_min_order_total>
+                        <threedsecure_callback_url>
+                            <label>3D Secure Callback URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>58</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Merchant callback URL.</comment>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_callback_url>
+                        <threedsecure_notification_url>
+                            <label>3D Secure Notification URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>59</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
                             <comment>Merchant notification URL.</comment>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
                         </threedsecure_notification_url>
                         <allowspecific translate="label">
                             <label>Payment from Applicable Countries</label>
@@ -3419,23 +3767,52 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </threedsecure>
-                        <threedsecure_callback_url>
-                            <label>3D Secure Callback URL</label>
-                            <frontend_type>text</frontend_type>
+                        <threedsecure_bank_acquired translate="label">
+                            <label>3D Secure Bank Acquired</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>paymethod/system_config_acquiredbank</source_model>
                             <sort_order>56</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Merchant callback URL.</comment>
-                        </threedsecure_callback_url>
-                        <threedsecure_notification_url>
-                            <label>3D Secure Notification URL</label>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_bank_acquired>
+                        <threedsecure_min_order_total>
+                            <label>3D Secure Minimum Order Total</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>57</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_min_order_total>
+                        <threedsecure_callback_url>
+                            <label>3D Secure Callback URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>58</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Merchant callback URL.</comment>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_callback_url>
+                        <threedsecure_notification_url>
+                            <label>3D Secure Notification URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>59</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
                             <comment>Merchant notification URL.</comment>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
                         </threedsecure_notification_url>
                         <allowspecific translate="label">
                             <label>Payment from Applicable Countries</label>
@@ -3605,23 +3982,52 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </threedsecure>
-                        <threedsecure_callback_url>
-                            <label>3D Secure Callback URL</label>
-                            <frontend_type>text</frontend_type>
+                        <threedsecure_bank_acquired translate="label">
+                            <label>3D Secure Bank Acquired</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>paymethod/system_config_acquiredbank</source_model>
                             <sort_order>56</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Merchant callback URL.</comment>
-                        </threedsecure_callback_url>
-                        <threedsecure_notification_url>
-                            <label>3D Secure Notification URL</label>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_bank_acquired>
+                        <threedsecure_min_order_total>
+                            <label>3D Secure Minimum Order Total</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>57</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_min_order_total>
+                        <threedsecure_callback_url>
+                            <label>3D Secure Callback URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>58</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Merchant callback URL.</comment>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_callback_url>
+                        <threedsecure_notification_url>
+                            <label>3D Secure Notification URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>59</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
                             <comment>Merchant notification URL.</comment>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
                         </threedsecure_notification_url>
                         <allowspecific translate="label">
                             <label>Payment from Applicable Countries</label>
@@ -3675,7 +4081,6 @@
                         </max_installment_total>
                     </fields>
                 </megamc>
-                
                 <bnivisa translate="label">
                     <label>Bilna - Credit Card (BNI Visa)</label>
                     <sort_order>300</sort_order>
@@ -3792,23 +4197,52 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </threedsecure>
-                        <threedsecure_callback_url>
-                            <label>3D Secure Callback URL</label>
-                            <frontend_type>text</frontend_type>
+                        <threedsecure_bank_acquired translate="label">
+                            <label>3D Secure Bank Acquired</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>paymethod/system_config_acquiredbank</source_model>
                             <sort_order>56</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Merchant callback URL.</comment>
-                        </threedsecure_callback_url>
-                        <threedsecure_notification_url>
-                            <label>3D Secure Notification URL</label>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_bank_acquired>
+                        <threedsecure_min_order_total>
+                            <label>3D Secure Minimum Order Total</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>57</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_min_order_total>
+                        <threedsecure_callback_url>
+                            <label>3D Secure Callback URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>58</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Merchant callback URL.</comment>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_callback_url>
+                        <threedsecure_notification_url>
+                            <label>3D Secure Notification URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>59</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
                             <comment>Merchant notification URL.</comment>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
                         </threedsecure_notification_url>
                         <allowspecific translate="label">
                             <label>Payment from Applicable Countries</label>
@@ -3978,23 +4412,52 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </threedsecure>
-                        <threedsecure_callback_url>
-                            <label>3D Secure Callback URL</label>
-                            <frontend_type>text</frontend_type>
+                        <threedsecure_bank_acquired translate="label">
+                            <label>3D Secure Bank Acquired</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>paymethod/system_config_acquiredbank</source_model>
                             <sort_order>56</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Merchant callback URL.</comment>
-                        </threedsecure_callback_url>
-                        <threedsecure_notification_url>
-                            <label>3D Secure Notification URL</label>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_bank_acquired>
+                        <threedsecure_min_order_total>
+                            <label>3D Secure Minimum Order Total</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>57</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_min_order_total>
+                        <threedsecure_callback_url>
+                            <label>3D Secure Callback URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>58</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Merchant callback URL.</comment>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_callback_url>
+                        <threedsecure_notification_url>
+                            <label>3D Secure Notification URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>59</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
                             <comment>Merchant notification URL.</comment>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
                         </threedsecure_notification_url>
                         <allowspecific translate="label">
                             <label>Payment from Applicable Countries</label>
@@ -4048,7 +4511,6 @@
                         </max_installment_total>
                     </fields>
                 </bnimc>
-                
                 <bnikartinivisa translate="label">
                     <label>Bilna - Credit Card (BNI Kartini Visa)</label>
                     <sort_order>311</sort_order>
@@ -4165,23 +4627,52 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </threedsecure>
-                        <threedsecure_callback_url>
-                            <label>3D Secure Callback URL</label>
-                            <frontend_type>text</frontend_type>
+                        <threedsecure_bank_acquired translate="label">
+                            <label>3D Secure Bank Acquired</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>paymethod/system_config_acquiredbank</source_model>
                             <sort_order>56</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Merchant callback URL.</comment>
-                        </threedsecure_callback_url>
-                        <threedsecure_notification_url>
-                            <label>3D Secure Notification URL</label>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_bank_acquired>
+                        <threedsecure_min_order_total>
+                            <label>3D Secure Minimum Order Total</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>57</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_min_order_total>
+                        <threedsecure_callback_url>
+                            <label>3D Secure Callback URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>58</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Merchant callback URL.</comment>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_callback_url>
+                        <threedsecure_notification_url>
+                            <label>3D Secure Notification URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>59</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
                             <comment>Merchant notification URL.</comment>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
                         </threedsecure_notification_url>
                         <allowspecific translate="label">
                             <label>Payment from Applicable Countries</label>
@@ -4351,23 +4842,52 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </threedsecure>
-                        <threedsecure_callback_url>
-                            <label>3D Secure Callback URL</label>
-                            <frontend_type>text</frontend_type>
+                        <threedsecure_bank_acquired translate="label">
+                            <label>3D Secure Bank Acquired</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>paymethod/system_config_acquiredbank</source_model>
                             <sort_order>56</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Merchant callback URL.</comment>
-                        </threedsecure_callback_url>
-                        <threedsecure_notification_url>
-                            <label>3D Secure Notification URL</label>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_bank_acquired>
+                        <threedsecure_min_order_total>
+                            <label>3D Secure Minimum Order Total</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>57</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_min_order_total>
+                        <threedsecure_callback_url>
+                            <label>3D Secure Callback URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>58</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Merchant callback URL.</comment>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_callback_url>
+                        <threedsecure_notification_url>
+                            <label>3D Secure Notification URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>59</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
                             <comment>Merchant notification URL.</comment>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
                         </threedsecure_notification_url>
                         <allowspecific translate="label">
                             <label>Payment from Applicable Countries</label>
@@ -4421,7 +4941,6 @@
                         </max_installment_total>
                     </fields>
                 </bnikartinimc>
-                
                 <permatavisa translate="label">
                     <label>Bilna - Credit Card (Permata Visa)</label>
                     <sort_order>320</sort_order>
@@ -4538,23 +5057,52 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </threedsecure>
-                        <threedsecure_callback_url>
-                            <label>3D Secure Callback URL</label>
-                            <frontend_type>text</frontend_type>
+                        <threedsecure_bank_acquired translate="label">
+                            <label>3D Secure Bank Acquired</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>paymethod/system_config_acquiredbank</source_model>
                             <sort_order>56</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Merchant callback URL.</comment>
-                        </threedsecure_callback_url>
-                        <threedsecure_notification_url>
-                            <label>3D Secure Notification URL</label>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_bank_acquired>
+                        <threedsecure_min_order_total>
+                            <label>3D Secure Minimum Order Total</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>57</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_min_order_total>
+                        <threedsecure_callback_url>
+                            <label>3D Secure Callback URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>58</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Merchant callback URL.</comment>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_callback_url>
+                        <threedsecure_notification_url>
+                            <label>3D Secure Notification URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>59</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
                             <comment>Merchant notification URL.</comment>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
                         </threedsecure_notification_url>
                         <allowspecific translate="label">
                             <label>Payment from Applicable Countries</label>
@@ -4724,23 +5272,52 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </threedsecure>
-                        <threedsecure_callback_url>
-                            <label>3D Secure Callback URL</label>
-                            <frontend_type>text</frontend_type>
+                        <threedsecure_bank_acquired translate="label">
+                            <label>3D Secure Bank Acquired</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>paymethod/system_config_acquiredbank</source_model>
                             <sort_order>56</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Merchant callback URL.</comment>
-                        </threedsecure_callback_url>
-                        <threedsecure_notification_url>
-                            <label>3D Secure Notification URL</label>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_bank_acquired>
+                        <threedsecure_min_order_total>
+                            <label>3D Secure Minimum Order Total</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>57</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_min_order_total>
+                        <threedsecure_callback_url>
+                            <label>3D Secure Callback URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>58</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Merchant callback URL.</comment>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_callback_url>
+                        <threedsecure_notification_url>
+                            <label>3D Secure Notification URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>59</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
                             <comment>Merchant notification URL.</comment>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
                         </threedsecure_notification_url>
                         <allowspecific translate="label">
                             <label>Payment from Applicable Countries</label>
@@ -4910,23 +5487,52 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </threedsecure>
-                        <threedsecure_callback_url>
-                            <label>3D Secure Callback URL</label>
-                            <frontend_type>text</frontend_type>
+                        <threedsecure_bank_acquired translate="label">
+                            <label>3D Secure Bank Acquired</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>paymethod/system_config_acquiredbank</source_model>
                             <sort_order>56</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Merchant callback URL.</comment>
-                        </threedsecure_callback_url>
-                        <threedsecure_notification_url>
-                            <label>3D Secure Notification URL</label>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_bank_acquired>
+                        <threedsecure_min_order_total>
+                            <label>3D Secure Minimum Order Total</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>57</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_min_order_total>
+                        <threedsecure_callback_url>
+                            <label>3D Secure Callback URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>58</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Merchant callback URL.</comment>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_callback_url>
+                        <threedsecure_notification_url>
+                            <label>3D Secure Notification URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>59</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
                             <comment>Merchant notification URL.</comment>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
                         </threedsecure_notification_url>
                         <allowspecific translate="label">
                             <label>Payment from Applicable Countries</label>
@@ -5096,23 +5702,52 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </threedsecure>
-                        <threedsecure_callback_url>
-                            <label>3D Secure Callback URL</label>
-                            <frontend_type>text</frontend_type>
+                        <threedsecure_bank_acquired translate="label">
+                            <label>3D Secure Bank Acquired</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>paymethod/system_config_acquiredbank</source_model>
                             <sort_order>56</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Merchant callback URL.</comment>
-                        </threedsecure_callback_url>
-                        <threedsecure_notification_url>
-                            <label>3D Secure Notification URL</label>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_bank_acquired>
+                        <threedsecure_min_order_total>
+                            <label>3D Secure Minimum Order Total</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>57</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_min_order_total>
+                        <threedsecure_callback_url>
+                            <label>3D Secure Callback URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>58</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Merchant callback URL.</comment>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_callback_url>
+                        <threedsecure_notification_url>
+                            <label>3D Secure Notification URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>59</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
                             <comment>Merchant notification URL.</comment>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
                         </threedsecure_notification_url>
                         <allowspecific translate="label">
                             <label>Payment from Applicable Countries</label>
@@ -5282,23 +5917,52 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </threedsecure>
-                        <threedsecure_callback_url>
-                            <label>3D Secure Callback URL</label>
-                            <frontend_type>text</frontend_type>
+                        <threedsecure_bank_acquired translate="label">
+                            <label>3D Secure Bank Acquired</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>paymethod/system_config_acquiredbank</source_model>
                             <sort_order>56</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Merchant callback URL.</comment>
-                        </threedsecure_callback_url>
-                        <threedsecure_notification_url>
-                            <label>3D Secure Notification URL</label>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_bank_acquired>
+                        <threedsecure_min_order_total>
+                            <label>3D Secure Minimum Order Total</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>57</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_min_order_total>
+                        <threedsecure_callback_url>
+                            <label>3D Secure Callback URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>58</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Merchant callback URL.</comment>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_callback_url>
+                        <threedsecure_notification_url>
+                            <label>3D Secure Notification URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>59</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
                             <comment>Merchant notification URL.</comment>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
                         </threedsecure_notification_url>
                         <allowspecific translate="label">
                             <label>Payment from Applicable Countries</label>
@@ -5468,23 +6132,52 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </threedsecure>
-                        <threedsecure_callback_url>
-                            <label>3D Secure Callback URL</label>
-                            <frontend_type>text</frontend_type>
+                        <threedsecure_bank_acquired translate="label">
+                            <label>3D Secure Bank Acquired</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>paymethod/system_config_acquiredbank</source_model>
                             <sort_order>56</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Merchant callback URL.</comment>
-                        </threedsecure_callback_url>
-                        <threedsecure_notification_url>
-                            <label>3D Secure Notification URL</label>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_bank_acquired>
+                        <threedsecure_min_order_total>
+                            <label>3D Secure Minimum Order Total</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>57</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_min_order_total>
+                        <threedsecure_callback_url>
+                            <label>3D Secure Callback URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>58</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Merchant callback URL.</comment>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_callback_url>
+                        <threedsecure_notification_url>
+                            <label>3D Secure Notification URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>59</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
                             <comment>Merchant notification URL.</comment>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
                         </threedsecure_notification_url>
                         <allowspecific translate="label">
                             <label>Payment from Applicable Countries</label>
@@ -5654,23 +6347,52 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </threedsecure>
-                        <threedsecure_callback_url>
-                            <label>3D Secure Callback URL</label>
-                            <frontend_type>text</frontend_type>
+                        <threedsecure_bank_acquired translate="label">
+                            <label>3D Secure Bank Acquired</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>paymethod/system_config_acquiredbank</source_model>
                             <sort_order>56</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Merchant callback URL.</comment>
-                        </threedsecure_callback_url>
-                        <threedsecure_notification_url>
-                            <label>3D Secure Notification URL</label>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_bank_acquired>
+                        <threedsecure_min_order_total>
+                            <label>3D Secure Minimum Order Total</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>57</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_min_order_total>
+                        <threedsecure_callback_url>
+                            <label>3D Secure Callback URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>58</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Merchant callback URL.</comment>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_callback_url>
+                        <threedsecure_notification_url>
+                            <label>3D Secure Notification URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>59</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
                             <comment>Merchant notification URL.</comment>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
                         </threedsecure_notification_url>
                         <allowspecific translate="label">
                             <label>Payment from Applicable Countries</label>
@@ -5840,23 +6562,52 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </threedsecure>
-                        <threedsecure_callback_url>
-                            <label>3D Secure Callback URL</label>
-                            <frontend_type>text</frontend_type>
+                        <threedsecure_bank_acquired translate="label">
+                            <label>3D Secure Bank Acquired</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>paymethod/system_config_acquiredbank</source_model>
                             <sort_order>56</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Merchant callback URL.</comment>
-                        </threedsecure_callback_url>
-                        <threedsecure_notification_url>
-                            <label>3D Secure Notification URL</label>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_bank_acquired>
+                        <threedsecure_min_order_total>
+                            <label>3D Secure Minimum Order Total</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>57</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_min_order_total>
+                        <threedsecure_callback_url>
+                            <label>3D Secure Callback URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>58</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Merchant callback URL.</comment>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_callback_url>
+                        <threedsecure_notification_url>
+                            <label>3D Secure Notification URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>59</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
                             <comment>Merchant notification URL.</comment>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
                         </threedsecure_notification_url>
                         <allowspecific translate="label">
                             <label>Payment from Applicable Countries</label>
@@ -6026,23 +6777,52 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </threedsecure>
-                        <threedsecure_callback_url>
-                            <label>3D Secure Callback URL</label>
-                            <frontend_type>text</frontend_type>
+                        <threedsecure_bank_acquired translate="label">
+                            <label>3D Secure Bank Acquired</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>paymethod/system_config_acquiredbank</source_model>
                             <sort_order>56</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Merchant callback URL.</comment>
-                        </threedsecure_callback_url>
-                        <threedsecure_notification_url>
-                            <label>3D Secure Notification URL</label>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_bank_acquired>
+                        <threedsecure_min_order_total>
+                            <label>3D Secure Minimum Order Total</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>57</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_min_order_total>
+                        <threedsecure_callback_url>
+                            <label>3D Secure Callback URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>58</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Merchant callback URL.</comment>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_callback_url>
+                        <threedsecure_notification_url>
+                            <label>3D Secure Notification URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>59</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
                             <comment>Merchant notification URL.</comment>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
                         </threedsecure_notification_url>
                         <allowspecific translate="label">
                             <label>Payment from Applicable Countries</label>
@@ -6212,23 +6992,52 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </threedsecure>
-                        <threedsecure_callback_url>
-                            <label>3D Secure Callback URL</label>
-                            <frontend_type>text</frontend_type>
+                        <threedsecure_bank_acquired translate="label">
+                            <label>3D Secure Bank Acquired</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>paymethod/system_config_acquiredbank</source_model>
                             <sort_order>56</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Merchant callback URL.</comment>
-                        </threedsecure_callback_url>
-                        <threedsecure_notification_url>
-                            <label>3D Secure Notification URL</label>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_bank_acquired>
+                        <threedsecure_min_order_total>
+                            <label>3D Secure Minimum Order Total</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>57</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_min_order_total>
+                        <threedsecure_callback_url>
+                            <label>3D Secure Callback URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>58</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Merchant callback URL.</comment>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_callback_url>
+                        <threedsecure_notification_url>
+                            <label>3D Secure Notification URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>59</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
                             <comment>Merchant notification URL.</comment>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
                         </threedsecure_notification_url>
                         <allowspecific translate="label">
                             <label>Payment from Applicable Countries</label>
@@ -6398,23 +7207,52 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </threedsecure>
-                        <threedsecure_callback_url>
-                            <label>3D Secure Callback URL</label>
-                            <frontend_type>text</frontend_type>
+                        <threedsecure_bank_acquired translate="label">
+                            <label>3D Secure Bank Acquired</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>paymethod/system_config_acquiredbank</source_model>
                             <sort_order>56</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Merchant callback URL.</comment>
-                        </threedsecure_callback_url>
-                        <threedsecure_notification_url>
-                            <label>3D Secure Notification URL</label>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_bank_acquired>
+                        <threedsecure_min_order_total>
+                            <label>3D Secure Minimum Order Total</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>57</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_min_order_total>
+                        <threedsecure_callback_url>
+                            <label>3D Secure Callback URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>58</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Merchant callback URL.</comment>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_callback_url>
+                        <threedsecure_notification_url>
+                            <label>3D Secure Notification URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>59</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
                             <comment>Merchant notification URL.</comment>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
                         </threedsecure_notification_url>
                         <allowspecific translate="label">
                             <label>Payment from Applicable Countries</label>
@@ -6584,23 +7422,52 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </threedsecure>
-                        <threedsecure_callback_url>
-                            <label>3D Secure Callback URL</label>
-                            <frontend_type>text</frontend_type>
+                        <threedsecure_bank_acquired translate="label">
+                            <label>3D Secure Bank Acquired</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>paymethod/system_config_acquiredbank</source_model>
                             <sort_order>56</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Merchant callback URL.</comment>
-                        </threedsecure_callback_url>
-                        <threedsecure_notification_url>
-                            <label>3D Secure Notification URL</label>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_bank_acquired>
+                        <threedsecure_min_order_total>
+                            <label>3D Secure Minimum Order Total</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>57</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_min_order_total>
+                        <threedsecure_callback_url>
+                            <label>3D Secure Callback URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>58</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Merchant callback URL.</comment>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_callback_url>
+                        <threedsecure_notification_url>
+                            <label>3D Secure Notification URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>59</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
                             <comment>Merchant notification URL.</comment>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
                         </threedsecure_notification_url>
                         <allowspecific translate="label">
                             <label>Payment from Applicable Countries</label>
@@ -6770,23 +7637,52 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </threedsecure>
-                        <threedsecure_callback_url>
-                            <label>3D Secure Callback URL</label>
-                            <frontend_type>text</frontend_type>
+                        <threedsecure_bank_acquired translate="label">
+                            <label>3D Secure Bank Acquired</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>paymethod/system_config_acquiredbank</source_model>
                             <sort_order>56</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Merchant callback URL.</comment>
-                        </threedsecure_callback_url>
-                        <threedsecure_notification_url>
-                            <label>3D Secure Notification URL</label>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_bank_acquired>
+                        <threedsecure_min_order_total>
+                            <label>3D Secure Minimum Order Total</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>57</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_min_order_total>
+                        <threedsecure_callback_url>
+                            <label>3D Secure Callback URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>58</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Merchant callback URL.</comment>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_callback_url>
+                        <threedsecure_notification_url>
+                            <label>3D Secure Notification URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>59</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
                             <comment>Merchant notification URL.</comment>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
                         </threedsecure_notification_url>
                         <allowspecific translate="label">
                             <label>Payment from Applicable Countries</label>
@@ -6956,23 +7852,52 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </threedsecure>
-                        <threedsecure_callback_url>
-                            <label>3D Secure Callback URL</label>
-                            <frontend_type>text</frontend_type>
+                        <threedsecure_bank_acquired translate="label">
+                            <label>3D Secure Bank Acquired</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>paymethod/system_config_acquiredbank</source_model>
                             <sort_order>56</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Merchant callback URL.</comment>
-                        </threedsecure_callback_url>
-                        <threedsecure_notification_url>
-                            <label>3D Secure Notification URL</label>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_bank_acquired>
+                        <threedsecure_min_order_total>
+                            <label>3D Secure Minimum Order Total</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>57</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_min_order_total>
+                        <threedsecure_callback_url>
+                            <label>3D Secure Callback URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>58</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Merchant callback URL.</comment>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_callback_url>
+                        <threedsecure_notification_url>
+                            <label>3D Secure Notification URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>59</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
                             <comment>Merchant notification URL.</comment>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
                         </threedsecure_notification_url>
                         <allowspecific translate="label">
                             <label>Payment from Applicable Countries</label>
@@ -7142,23 +8067,52 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </threedsecure>
-                        <threedsecure_callback_url>
-                            <label>3D Secure Callback URL</label>
-                            <frontend_type>text</frontend_type>
+                        <threedsecure_bank_acquired translate="label">
+                            <label>3D Secure Bank Acquired</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>paymethod/system_config_acquiredbank</source_model>
                             <sort_order>56</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Merchant callback URL.</comment>
-                        </threedsecure_callback_url>
-                        <threedsecure_notification_url>
-                            <label>3D Secure Notification URL</label>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_bank_acquired>
+                        <threedsecure_min_order_total>
+                            <label>3D Secure Minimum Order Total</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>57</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_min_order_total>
+                        <threedsecure_callback_url>
+                            <label>3D Secure Callback URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>58</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Merchant callback URL.</comment>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_callback_url>
+                        <threedsecure_notification_url>
+                            <label>3D Secure Notification URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>59</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
                             <comment>Merchant notification URL.</comment>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
                         </threedsecure_notification_url>
                         <allowspecific translate="label">
                             <label>Payment from Applicable Countries</label>
@@ -7328,23 +8282,52 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </threedsecure>
-                        <threedsecure_callback_url>
-                            <label>3D Secure Callback URL</label>
-                            <frontend_type>text</frontend_type>
+                        <threedsecure_bank_acquired translate="label">
+                            <label>3D Secure Bank Acquired</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>paymethod/system_config_acquiredbank</source_model>
                             <sort_order>56</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Merchant callback URL.</comment>
-                        </threedsecure_callback_url>
-                        <threedsecure_notification_url>
-                            <label>3D Secure Notification URL</label>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_bank_acquired>
+                        <threedsecure_min_order_total>
+                            <label>3D Secure Minimum Order Total</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>57</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_min_order_total>
+                        <threedsecure_callback_url>
+                            <label>3D Secure Callback URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>58</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Merchant callback URL.</comment>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_callback_url>
+                        <threedsecure_notification_url>
+                            <label>3D Secure Notification URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>59</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
                             <comment>Merchant notification URL.</comment>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
                         </threedsecure_notification_url>
                         <allowspecific translate="label">
                             <label>Payment from Applicable Countries</label>
@@ -7832,23 +8815,52 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </threedsecure>
-                        <threedsecure_callback_url>
-                            <label>3D Secure Callback URL</label>
-                            <frontend_type>text</frontend_type>
+                        <threedsecure_bank_acquired translate="label">
+                            <label>3D Secure Bank Acquired</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>paymethod/system_config_acquiredbank</source_model>
                             <sort_order>56</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Merchant callback URL.</comment>
-                        </threedsecure_callback_url>
-                        <threedsecure_notification_url>
-                            <label>3D Secure Notification URL</label>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_bank_acquired>
+                        <threedsecure_min_order_total>
+                            <label>3D Secure Minimum Order Total</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>57</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_min_order_total>
+                        <threedsecure_callback_url>
+                            <label>3D Secure Callback URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>58</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Merchant callback URL.</comment>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_callback_url>
+                        <threedsecure_notification_url>
+                            <label>3D Secure Notification URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>59</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
                             <comment>Merchant notification URL.</comment>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
                         </threedsecure_notification_url>
                         <allowspecific translate="label">
                             <label>Payment from Applicable Countries</label>

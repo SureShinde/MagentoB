@@ -846,6 +846,7 @@ Payment.prototype = {
                         jQuery('#payment_form_' + currPayment + ' #' + currPayment + '_cc_bins').val(cardNo.substring(0,6));
                         jQuery('#payment_form_' + currPayment + ' #' + currPayment + '_acquired_bank').val(response.data.acquired_bank);
                         jQuery('#payment_form_' + currPayment + ' #' + currPayment + '_secure').val(response.data.secure);
+                        jQuery('#payment_form_' + currPayment + ' #' + currPayment + '_secure_acquired_bank').val(response.data.secure_acquired_bank);
                         jQuery('#payment_form_' + currPayment + ' #' + currPayment + '_secure_min').val(response.data.secure_min);
                         jQuery('#payment_form_' + currPayment + ' #' + currPayment + '_installment_process').val(response.data.installment_process);
                         responseStatus = true;
@@ -1150,6 +1151,13 @@ function _cardSet() {
         result['secure'] = false;
     }
     
+    if (result['secure'] == false) {
+        result['bank'] = jQuery('#payment_form_' + currPayment + ' #' + currPayment + '_acquired_bank').val();
+    }
+    else {
+        result['bank'] = jQuery('#payment_form_' + currPayment + ' #' + currPayment + '_secure_acquired_bank').val();
+    }
+    
     // installment-term
     if (jQuery('#payment_form_' + currPayment + ' #' + currPayment + '_installment_process').val() != 'manual') {
         if (jQuery('input[name=installment]').is(':checked')) {
@@ -1160,7 +1168,6 @@ function _cardSet() {
         }
     }
     
-    result['bank'] = jQuery('#payment_form_' + currPayment + ' #' + currPayment + '_acquired_bank').val();
     result['gross_amount'] = grossAmount;
     
     return result;

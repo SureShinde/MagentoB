@@ -340,9 +340,11 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
         if (in_array ($cardNo[0], array (4,5))) {
             $bankCode = Mage::getModel('paymethod/method_vtdirect')->getBankCode($cardNo);
             $ccType = $this->getCcType($bankCode);
-            $acquiredBank = $this->getAcquiredBank($bankCode);
-            $secure = $this->getSecureBank($bankCode);
-            $installmentProcess = $this->getInstallmentProcess($bankCode);
+            
+            $configBank = Mage::getStoreConfig('payment/' . $bankCode);
+            $acquiredBank = $configBank['bank_acquired'];
+            $secure = $configBank['threedsecure'];
+            $installmentProcess = $configBank['installment_process'];
             
             $response['status'] = true;
             $response['data'] = array (
@@ -350,7 +352,8 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
                 'cc_type' => $ccType,
                 'acquired_bank' => $acquiredBank,
                 'secure' => $secure,
-                'secure_min' => $this->getSecureMin($secure),
+                'secure_acquired_bank' => $secure ? $configBank['threedsecure_bank_acquired'] : $acquiredBank,
+                'secure_min' => $secure ? (int) $configBank['threedsecure_min_order_total'] : 0,
                 'installment_process' => $installmentProcess
             );
         }
@@ -483,7 +486,8 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
         //$shippingAddress = $this->getShippingAddress();
         
         $paymentCode = $order->getPayment()->getMethodInstance()->getCode();
-        $acquiredBank = $this->getAcquiredBank($paymentCode);
+        $configBank = Mage::getStoreConfig('payment/' . $paymentCode);
+        $acquiredBank = $this->_getAcquiredBank($configBank, $grossAmount);
         
         // Required
         $customerDetails = array (
@@ -822,20 +826,16 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
         return Mage::getSingleton('core/session')->getVtdirectZipCode();
     }
     
-    protected function getAcquiredBank($paymentCode) {
-        return Mage::getStoreConfig('payment/' . $paymentCode . '/bank_acquired');
-    }
-    
     protected function getSecureBank($paymentCode) {
         return Mage::getStoreConfig('payment/' . $paymentCode . '/threedsecure');
     }
     
-    protected function getSecureMin($secure) {
-        $result = 0;
+    protected function _getAcquiredBank($configBank, $grossAmount) {
+        $result = $configBank['bank_acquired'];
         
-        if ($secure) {
-            if (Mage::getStoreConfig('payment/vtdirect/threedsecure_min_enabled')) {
-                $result = (int) Mage::getStoreConfig('payment/vtdirect/threedsecure_min_value');
+        if ($configBank['threedsecure']) {
+            if ($grossAmount >= $configBank['threedsecure_min_order_total']) {
+                $result = $configBank['threedsecure_bank_acquired'];
             }
         }
         
