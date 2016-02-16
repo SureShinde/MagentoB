@@ -39,6 +39,7 @@ extends Mage_Core_Controller_Front_Action
         $wishlists = Mage::getModel('wishlist/wishlist')
             ->getCollection()
             ->addFilter('visibility', 1)
+            ->addFilter('view', 1)
             ->addFieldToFilter('name', array('neq' => 'NULL'))
             ->addFieldToFilter('name', array('neq' => ' '))
             ->setOrder('updated_at', 'DESC');
@@ -74,7 +75,7 @@ extends Mage_Core_Controller_Front_Action
             if ($collectionEmpty) continue;
             
             #for filtering items in product should be more than 4
-            //if ($i < 4) continue;
+            if ($i < 4) continue;
 
 
 
@@ -105,7 +106,7 @@ extends Mage_Core_Controller_Front_Action
         $collections = array_slice($collections, $slice, $defaultPageSize);
 
         $this->loadLayout();
-//print_r($this->getLayout()->getUpdate()->getHandles()); die();
+
         # Assign data
         $block = $this->getLayout()->getBlock('user_content');
 
