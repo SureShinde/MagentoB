@@ -127,7 +127,7 @@ foreach ($wishlists as $wishlist) {
                 <div class="cg-container">
               <?php 
                   //Mage::getModel('socialcommerce/weekly')->getWeekly();
-              $rows = Mage::getModel('wishlist/wishlist')->getCollection()->addFieldToFilter('visibility','1')->setOrder('counter', 'DESC')->setPageSize(4);
+              $rows = Mage::getModel('wishlist/wishlist')->getCollection()->addFieldToFilter('visibility','1')->addFieldToFilter('view','1')->setOrder('counter', 'DESC')->setPageSize(4);
 
               foreach ($rows as $wishlist) { 
                 $collectionName = $wishlist['name'];
@@ -242,7 +242,7 @@ foreach ($wishlists as $wishlist) {
                 <div class="cg-container">
               <?php 
                   //Mage::getModel('socialcommerce/weekly')->getWeekly();
-              $rows = Mage::getModel('wishlist/wishlist')->getCollection()->addFieldToFilter('visibility','1')->setOrder('counter', 'DESC')->setPageSize(4);
+              $rows = Mage::getModel('wishlist/wishlist')->getCollection()->addFieldToFilter('visibility','1')->addFieldToFilter('view','1')->setOrder('wishlist_id', 'DESC')->setPageSize(4);
 
               foreach ($rows as $wishlist) { 
                 $collectionName = $wishlist['name'];
