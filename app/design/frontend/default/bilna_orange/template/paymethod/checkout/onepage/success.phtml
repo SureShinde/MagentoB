@@ -245,15 +245,15 @@ endif;
 
                 <?php
                 echo 'Lakukan pembayaran ke virtual account BCA dengan nomor rekening ' . $vaNumbers->va_number . ' dengan mengikuti langkah di bawah:<br/>';
-                echo '<ol style="list-style-type:number;margin-left:13px;">';
+                echo '<ol style="list-style-type:number;margin-left:15px;font-size:15px;">';
                     echo '<li>Lakukan transfer online, mobile banking atau manual ke nomor virtual account (' . $vaNumbers->va_number . ') BCA PT Bilna</li>';
                     echo '<li>Pastikan nominal, data pribadi dan data pesanan yang dimasukkan tepat</li>';
                     echo '<li>Lakukan pembayaran dalam waktu 1x24 jam untuk mencegah pembatalan otomatis</li>';
                     echo '<li>Konfirmasi pembayaran tidak diperlukan untuk pembayaran via transfer ke Virtual Account Bank BCA</li>';
                 echo '</ol>';
                 ?>
-                <br><br/><br/>
-
+                <br><br/>
+                <p style="font-size:21px;">
                 <?php if ($this->getCanViewOrder() && $this->getCanPrintOrder()): ?>
                     <!--<?php //echo $this->__('Click'); ?> <a href="<?php //echo $this->escapeHtml($this->getPrintUrl()); ?>"><?php //echo $this->__('here'); ?></a> <?php //echo $this->__('to print a copy of your order confirmation'); ?>.-->
                     <?php echo $this->__('Klik'); ?> <a href="<?php echo $this->escapeHtml($this->getPrintUrl()); ?>"><?php echo $this->__('di sini'); ?></a> <?php echo $this->__('untuk mencetak konfirmasi order.'); ?>
@@ -262,6 +262,7 @@ endif;
                 <br/><br/>
                 <!--<?php //echo $this->__('Click <a href="%s">here</a> to continue shopping.', $this->getUrl()); ?>-->
                 <?php echo $this->__('Klik <a href="%s">di sini</a> untuk berbelanja kembali.', $this->getUrl()); ?>
+                </p>
                 .
             </p>
 
