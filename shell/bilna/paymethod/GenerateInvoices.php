@@ -11,7 +11,8 @@ use Pheanstalk\Pheanstalk;
 
 class GenerateInvoices extends Mage_Shell_Abstract {
     public function run() {
-        $pheanstalk = new Pheanstalk('127.0.0.1');
+        $hostname = Mage::getStoreConfig('bilna_queue/beanstalkd/settings/hostname');
+        $pheanstalk = new Pheanstalk($hostname);
         
         try {
             $pheanstalk->watch('invoice');
