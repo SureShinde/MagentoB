@@ -35,7 +35,10 @@
 <div class="block block-cart">
     <?php $_cartQty = $this->getSummaryCount() ?>
     <div class="block-content">
-        <?php $_items = $this->getRecentItems() ?>
+    	<?php $_numberItemsDisplayed = $this->getItemCount(); ?>
+    	<?php $_cart = Mage::getModel('checkout/cart')->getQuote(); ?>
+		<?php $_items = $_cart->getAllItems(); ?>
+		<?php $itrNumberItemsDisplayed = 0; ?>
 	    <?php if(count($_items)): ?>
 	       	<table id="cart-sidebar" class="mini-products-list">
                 <thead>
@@ -47,7 +50,12 @@
                 </thead>
 	       		<tbody>
 			        <?php foreach($_items as $_item): ?>
-			            <?php echo $this->getItemHtml($_item) ?>
+			            <?php if($itrNumberItemsDisplayed < $_numberItemsDisplayed): ?>
+			            	<?php echo $this->getItemHtml($_item); ?>
+			            <?php else: ?>
+			            	<?php echo '<span id="ematiccart" class="hidden">' . $_item->getProduct()->getName() . '|' . $_item->getProduct()->getSku() . '|' . $_item->getProduct()->getPrice() . '|' . $_item->getProduct()->getImageUrl() . '|' . $_item->getProduct()->getProductUrl() . '</span>' ?>
+			        	<?php endif ?>
+			        	<?php $itrNumberItemsDisplayed++; ?>
 			        <?php endforeach; ?>
 		        </tbody>
 	        </table>
