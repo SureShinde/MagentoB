@@ -28,6 +28,8 @@
 <?php $_product = $this->getProduct(); ?>
 
 <?php $buttonTitle = $this->__('Tambah ke troli'); ?>
+<?php $_cart = Mage::getModel('checkout/cart')->getQuote(); ?>
+<?php $_items = $_cart->getAllItems(); ?>
 <?php if($_product->isSaleable()): ?>
     <div class="add-to-cart">
         <?php if(!$_product->isGrouped()): ?>
@@ -70,16 +72,49 @@ function ecommerceProductDetailAddToCart(name, sku, price, link, imageUrl) {
         }
       });
 
+      // ematics cart - retrieve items from cart
+      var temp_cart = [];
+      var temp_item = "";
+      var index_addeditem = -999;
+
+      for (var itr=0; itr < <?php echo count($_items) ?>; itr++) {
+        temp_item = jQuery(".mini-cart span#ematiccart").eq(itr).text();
+        temp_cart[itr] = temp_item.split("|");
+        if (temp_item.indexOf(sku) > -1) {
+          index_addeditem = itr;
+        }
+      }
+
       // ematics cart - prepare for logging
-      products = [{
-        'id': sku,
-        'price': price,
-        'quantity': jQuery("input.#qty").val(),
-        'name': name,
-        'brandName': 'brand name',
-        'imageUrl': imageUrl,
-        'link': link
-      }];
+      products = [
+      <?php for($i=0; $i<count($_items); $i++) {
+        echo "{'name' : temp_cart[".$i."][0],";
+        echo "'id' : temp_cart[".$i."][1],";
+        echo "'price' : temp_cart[".$i."][2],";
+        echo "'quantity' : temp_cart[".$i."][3],";
+        echo "'brandName' : 'brand name',";
+        echo "'imageUrl' : temp_cart[".$i."][4],";
+        echo "'link' : temp_cart[".$i."][5]}";if($i != count($_items)-1) {echo ",";}
+      } 
+      ?>
+      ];
+
+      // ematics added item
+      if (index_addeditem != -999) {    // same item exist in cart
+        products[index_addeditem].quantity = parseInt(products[index_addeditem].quantity) + parseInt(jQuery("input.#qty").val());
+      }
+      else {    // no same item
+        products.push({
+          'id': sku,
+          'price': price,
+          'quantity': jQuery("input.#qty").val(),
+          'name': name,
+          'brandName': 'brand name',
+          'imageUrl': imageUrl,
+          'link': link
+        });
+      }
+      
       // ematics track items in cart to enable pre-abandonded cart overlays
       ematics("log", "product", "cart", products);
     } 
