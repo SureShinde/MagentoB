@@ -188,7 +188,7 @@ $images = Mage::getModel('socialcommerce/collectioncover')->getCollection()->set
                 <button type="submit" class="btn btn-pink-prime cursor" style="margin: 10px 0;" name="submitButton">SIMPAN KOLEKSI SAYA</button>
             </div>
             <div class="cg-col-xs-12 bottom-spacer-container">
-                <a class="btn btn-default btn-block btn-cancel cursor" onclick="newHideAddCollectionDialog()">Keluar, saya tidak jadi membuat halaman koleksi</a>
+                <a class="btn btn-default btn-block btn-cancel cursor" style="background:transparent;"  onclick="newHideAddCollectionDialog()">Keluar, saya tidak jadi membuat halaman koleksi</a>
             </div>
             <input type="hidden" name="username" value="<?php echo $profile->getUsername(); ?>">
             <input type="hidden" name="preset_image" id="preset_image" />
@@ -248,7 +248,7 @@ $images = Mage::getModel('socialcommerce/collectioncover')->getCollection()->set
                             <option value="<?php echo $wishlist->getId(); ?>"><?php echo $wishlist->getName(); ?></option>
                         <?php endforeach; ?>
 
-                        <option value="0">&#10084; Create New Collection &#10084;</option>
+                        <option value="0">&#10084; BUAT KOLEKSI BARU &#10084;</option>
 
                     </select>
 
@@ -366,12 +366,12 @@ $images = Mage::getModel('socialcommerce/collectioncover')->getCollection()->set
         if (jQuery(this).val() == '0') {
           jQuery('#iWannaCreateNewCollection').show();
           jQuery('#add-new-pop-collection').css( {"display": "inline-block","max-height": "90%" });
-          jQuery('#addButton').html('Create &amp; Add this Product');
+          jQuery('#addButton').html('BUAT &amp; TAMBAHKAN KE KOLEKSI');
           jQuery('#name').attr('required', true);
       } else {
           jQuery('#iWannaCreateNewCollection').hide();
           jQuery('#add-new-pop-collection').css("display", "inline-table");
-          jQuery('#addButton').html('Add to Collection');
+          jQuery('#addButton').html('TAMBAHKAN KE KOLEKSI');
           jQuery('#name').attr('required', false);
       }
   });
@@ -382,7 +382,7 @@ $images = Mage::getModel('socialcommerce/collectioncover')->getCollection()->set
     jQuery(document).ready(function() {
       jQuery('#iWannaCreateNewCollection').show();
       jQuery('#add-new-pop-collection').css( {"display": "inline-block","max-height": "90%" });
-      jQuery('#addButton').html('Create &amp; Add this Product');
+      jQuery('#addButton').html('BUAT &amp; TAMBAHKAN KE KOLEKSI');
       jQuery('#name').attr('required', true);
   });
 </script>
@@ -390,7 +390,7 @@ $images = Mage::getModel('socialcommerce/collectioncover')->getCollection()->set
 
 <div class="cg-col-xs-12 nopadding">
 
-    <button class="btn btn-cancel-button nomargin" onclick="hideAddToCollectionDialog();return false;">KELUAR</button>
+    <button class="btn btn-cancel nomargin cursor" style="background:transparent;"  onclick="hideAddToCollectionDialog();return false;">KELUAR</button>
 </div>
 
 </div>
