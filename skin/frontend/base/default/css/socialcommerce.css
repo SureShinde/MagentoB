@@ -3551,7 +3551,14 @@ img{
 {
 	cursor: pointer;
 }
-
+.size12
+{
+	font-size: 12px;
+}
+.grey-font
+{
+	color: #707070;
+}
 
 
 

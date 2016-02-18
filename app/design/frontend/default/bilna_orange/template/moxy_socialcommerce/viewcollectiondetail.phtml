@@ -512,10 +512,10 @@ $_helper = $this->helper('catalog/output');
       <div class="price-box">
         <input type="hidden" class="final-price-<?php echo $productId; ?>" value="<?php echo $productFinalPrice; ?>" />
         <?php if ($productSpecialPrice && $productSpecialPrice < $productRegularPrice && $productSpecialDateIsValid) : ?>
-        <div class="special-price">
-          <span class="current-price price" id="product-price-<?php echo $productId; ?>"><?php echo $productSpecialPriceFormatted; ?></span>
+        <div class="special-price in-block full-width">
+          <span class="current-price price in-block full-width takec-center" id="product-price-<?php echo $productId; ?>"><?php echo $productSpecialPriceFormatted; ?></span>
           <p class="old-price">
-            <span class="price" id="old-price-<?php echo $productId; ?>"><?php echo $productRegularPriceFormatted; ?></span>
+            <span class="price size12" id="old-price-<?php echo $productId; ?>"><?php echo $productRegularPriceFormatted; ?></span>
           </p>
         </div>
       <?php else : ?>
