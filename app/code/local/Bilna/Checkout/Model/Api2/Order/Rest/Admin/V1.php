@@ -171,7 +171,7 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
                     'created_at'    => date('Y-m-d H:i:s')
                 );
                 
-                $hostname = Mage::getStoreConfig('bilna_queue/beanstalkd/settings/hostname');
+                $hostname = Mage::getStoreConfig('bilna_queue/beanstalkd_settings/hostname');
                 $pheanstalk = new Pheanstalk($hostname);
                 $pheanstalk
                   ->useTube('invoice')
