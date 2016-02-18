@@ -228,6 +228,7 @@ $images = Mage::getModel('socialcommerce/collectioncover')->getCollection()->set
                 <?php
                 $customer = Mage::getSingleton('customer/session')->getCustomer();
                 $wishlistCollection = Mage::getModel('wishlist/wishlist')->getCollection()->filterByCustomerId($customer->getId());
+                $wishlistCollection->addFieldToFilter('view', '1');
                 $wishlistCollection->setOrder('wishlist_id', 'DESC');
             # Check if this user has collection already.
             # "Wishlist" isn't considered as collection since it comes as default wishlist-set in Magento, and we wont show it anywhere.
@@ -488,36 +489,10 @@ $images = Mage::getModel('socialcommerce/collectioncover')->getCollection()->set
                     <?php echo $this->getLayout()->createBlock('megamenu/block')->setTemplate('bilna_megamenu/block.phtml')->toHtml(); ?>
                 </div>
             </div>
+            
             <div class="wrap-navigation inspirasi">
-                <ul class="sub_nav">
-                    <li>Terpopuler
-                        <ul class="child_nav">
-                            <li>submenu 1</li>
-                            <li>submenu 2</li>
-                            <li>submenu 3</li>
-                        </ul>
-                    </li>
-                    <li>Tips &amp; Ide
-                        <ul class="child_nav">
-                            <li>submenu 1</li>
-                            <li>submenu 2</li>
-                            <li>submenu 3</li>
-                        </ul>
-                    </li>
-                    <li>Berita &amp; Hiburan</li>
-                    <li>Video
-                        <ul class="child_nav">
-                            <li>submenu 1</li>
-                            <li>submenu 2</li>
-                            <li>submenu 3</li>
-                        </ul>
-                    </li>
-                    <li>Quiz</li>
-                </ul>
-            </div>
-        </div>
-        <div class="wrap-navigation inspirasi">
                 <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('nav_inspirasi')->toHtml() ?>
+            </div>
         </div>
     </div>
 

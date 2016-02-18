@@ -30,7 +30,7 @@ $manageable = (Mage::getSingleton('customer/session')->isLoggedIn() && Mage::get
   </div>
 
   <?php /* <div class="cg-row" style="padding:15px 0;">Home / <?php echo $profiler->getUsername(); ?></div> */ ?>
-  <div class="cg-row bordering" style="border-top:none;">
+  <div class="cg-row bordering spacer-mobile" style="border-top:none;">
     <div class=" normal-padding cg-col-lg-2 cg-col-md-2 cg-col-sm-3 cg-col-xs-3">
       <?php if ($profiler->getCloudAvatar()) : ?>
       <?php echo cl_image_tag($profiler->getCloudAvatar(), ['class' => 'rounded-this top-offset widther', 'alt' => $profiler->getUsername(), 'secure' => true, 'width' => 165, 'height' => 165, 'crop' => 'fill', 'format' => 'jpg']); ?>
@@ -47,7 +47,7 @@ $manageable = (Mage::getSingleton('customer/session')->isLoggedIn() && Mage::get
 <div class="normal-padding cg-col-lg-9 cg-col-md-9 cg-col-sm-9 cg-col-xs-9">
   <div class="name-user">
     <h3><?php echo $profiler->getUsername(); ?></h3>
-    <?php if ($manageable): ?><div onclick="showProfileEdit()"class="btn-detail-profile-new btn-edit-new">edit profile</div>
+    <?php if ($manageable): ?><div onclick="showProfileEdit()"class="btn-detail-profile-new btn-edit-new">Ubah Profil</div>
     <?php endif; ?>
     <?php if ($profiler->getLocation()) : ?>
     <div class="profile-location">
@@ -73,14 +73,15 @@ $manageable = (Mage::getSingleton('customer/session')->isLoggedIn() && Mage::get
   <?php $loggedCustomer = Mage::getSingleton('customer/session')->getCustomer(); ?>
   <?php if ($loggedCustomer->getId() == $customer->getId()) : ?>
   <div class="cg-col-xs-12 nopadding">
-    <a href="<?php echo $this->getUrl('customer/account'); ?>" class="btn-detail-profile cg-col-xs-12 cg-col-sm-4 cg-col-md-3 cg-col-lg-3" style="margin-bottom:5px;">My Account </a>
-    <a href="javascript:;" class="btn-detail-profile cg-col-xs-12 cg-col-sm-4 cg-col-md-3 cg-col-lg-3 btn-margin" style="" onclick="newShowAddCollectionDialog()">Create collection</a>
+    <a href="<?php echo $this->getUrl('customer/account'); ?>" class="btn-detail-profile cg-col-xs-12 cg-col-sm-4 cg-col-md-3 cg-col-lg-3" style="margin-bottom:5px;">Akun Saya </a>
+    <a href="javascript:;" class="btn-detail-profile cg-col-xs-12 cg-col-sm-4 cg-col-md-3 cg-col-lg-3 btn-margin" style="" onclick="newShowAddCollectionDialog()">Buat Koleksi</a>
   </div>
 <?php endif; ?>
 <?php endif; ?>
 </div>
 </div>
 </div>
+
 
 <!-- empty collection status public -->
   <div class="cg-row"  style="margin-bottom:20px; display:none;" >
@@ -93,7 +94,7 @@ Why don’t you start create your own collection?
   </div>
 
   <div class="cg-col-lg-2 cg-col-lg-offset-5 cg-col-xs-12 cg-col-md-8 cg-col-md-offset-2 cg-col-sm-12">
-    <div onclick="showAddCollectionDialog()" class="btn btn-primary btn-block noborder" style="margin: 10px 0;">Create Now</div>
+    <div onclick="addCollectionModal()" class="btn btn-primary btn-block noborder" style="margin: 10px 0;">Create Now</div>
   </div>
   <div class="cg-col-lg-4 cg-col-lg-offset-4 cg-col-xs-12 cg-col-md-8 cg-col-md-offset-2 cg-col-sm-12">
     <img src="<?php echo $this->getSkinUrl('images/') . 'Bitmap-no-collection.jpg'; ?>" width="100%" >
@@ -132,7 +133,7 @@ Why don’t you start create your own collection?
   </div>
 
   <div class="cg-col-lg-2 cg-col-lg-offset-5 cg-col-xs-12 cg-col-md-8 cg-col-md-offset-2 cg-col-sm-12">
-    <div onclick="showAddCollectionDialog()" class="btn btn-primary btn-block noborder" style="margin: 10px 0;">Create Now</div>
+    <div onclick="addCollectionModal()" class="btn btn-primary btn-block noborder" style="margin: 10px 0;">BUAT SEKARANG</div>
   </div>
   <div class="cg-col-lg-4 cg-col-lg-offset-4 cg-col-xs-12 cg-col-md-8 cg-col-md-offset-2 cg-col-sm-12">
     <img src="<?php echo $this->getSkinUrl('images/') . 'Bitmap-no-collection.jpg'; ?>" width="100%" >
@@ -145,7 +146,7 @@ Why don’t you start create your own collection?
 <div class="cg-row">
   <div class="cg-col-lg-12">
     <ul class="nav nav-tabs noborder" role="tablist">
-      <li role="presentation" class="active"><a href="javascript:;" class="tabs opensans">My Collections</a></li>
+      <li role="presentation" class="active"><a href="javascript:;" class="tabs opensans">Koleksi Saya</a></li>
     </ul>
     <div class="tab-content white-back">
       <div class="tab-pane active" id="home">
@@ -159,7 +160,7 @@ Why don’t you start create your own collection?
                <div class="middle-part-plus" style="">
                  <i class="fa fa-plus" style="color:#757575;font-size:30px;"></i>
                 <br>
-                <span class="text-plus opensans bold">Create New Collection</span>
+                <span class="text-plus opensans bold">BUAT KOLEKSI BARU</span>
                </div>
              </div>
           </div>
@@ -304,19 +305,19 @@ Why don’t you start create your own collection?
                   <li class="cg-col-sm-4 cg-col-xs-4 text-center clicker main-nav nopadding">
                     <a href="#tabs-1" class="sub-nav tabs-left ">
                       <i class="fa fa-link pinker icon-nav"></i>
-                      <span class="hidden-xs font-tabs"> <br>link from web</span>
+                      <span class="hidden-xs font-tabs"> <br>link gambar dari web</span>
                     </a>
                   </li>
                   <li class="cg-col-sm-4 cg-col-xs-4 text-center clicker main-nav mid-nav nopadding">
                     <a href="#tabs-2" class="sub-nav activated">
                       <i class="fa fa-cloud-upload pinker icon-nav"></i>
-                      <span class="hidden-xs font-tabs"> <br> upload image</span>
+                      <span class="hidden-xs font-tabs"> <br> unggah gambar</span>
                     </a>
                   </li>
                   <li class="cg-col-sm-4 cg-col-xs-4 text-center clicker main-nav nopadding">
                     <a href="#tabs-3" class="sub-nav tabs-right">
                       <i class="fa fa-picture-o pinker icon-nav"></i>
-                      <span class="hidden-xs font-tabs"> <br>Bilna images</span>
+                      <span class="hidden-xs font-tabs"> <br>gambar pilihan kami</span>
                     </a>
                   </li>
                 </ul>
@@ -355,6 +356,7 @@ Why don’t you start create your own collection?
             </div>
           </div>
           <input type="hidden" name="collection_id" id="modalCollectionId">
+          <input type="hidden" name="collection_id2" id="modalCollectionId2">
           <input type="hidden" name="username" value="<?php echo $profiler->getUsername(); ?>">
       <input type="hidden" name="preset_image" id="epreset_image" />
          
@@ -370,7 +372,7 @@ Why don’t you start create your own collection?
       </div>
 
       <div class="cg-col-xs-12 take-center">
-        <span class="delete-collection-link cursor btn-cancel" onclick="newShowCollectionEdit()"><i class="fa fa-trash-o"></i> Hapus Koleksi Ini</span>
+        <span class="delete-collection-link cursor btn-cancel" onclick="newShowCollectionEdit()" style="border-bottom: 1px solid #ccc;padding-bottom:0;"><i class="fa fa-trash-o"></i> Hapus Koleksi Ini</span>
       </div>
     
   </div>
@@ -390,14 +392,11 @@ Why don’t you start create your own collection?
         <label for="" class="cg-col-sm-12 control-label label-color text-center label-margin opensans">Apakah kamu yakin akan menghapus koleksi ini?</label>
         <div class="cg-col-sm-12">
           <div class="cg-col-xs-6">
-        <div class="btn btn-pink-prime cursor take-center" style="text-decoration:none" onclick="newHideCollectionEdit()">NO, I'M NOT</div>
+        <div class="btn btn-pink-prime cursor take-center" style="text-decoration:none" onclick="newHideCollectionEdit()">BATALKAN</div>
       </div>
       <div class="cg-col-xs-6">
-        <button type="submit" class="btn btn-cancel-button take-center full-width" style="margin: 10px 0;" name="deleteButton">DELETE</button>
+        <button type="submit" class="btn btn-cancel-button take-center full-width" style="margin: 10px 0;" name="deleteButton">HAPUS</button>
         <!--<button type="submit" class="btn btn-primary btn-block" style="margin: 10px 0;" name="deleteButton" onclick="newShowCollectionEdit()">Delete</button>-->
-        </form>
-      </div>
-        </div>
       </div>
     </div>
   </div>
@@ -432,7 +431,7 @@ Why don’t you start create your own collection?
 <div class="newpaddtop20 normal-padding cg-col-lg-8 cg-col-md-8 cg-col-sm-8 cg-col-xs-7">
 
   <div class="cg-col-xs-12 cg-col-sm-12 cg-col-md-5 cg-col-lg-5 upload">
-   <input type="file" title="change" name="avatar">
+   <input type="file" title="ubah" name="avatar">
  </div>
        <!--    <div class="newor btn  cg-col-xs-12 cg-col-sm-12 cg-col-md-1 cg-col-lg-1 ">or</div>
        <div class="newdelete btn cg-col-xs-12 cg-col-sm-12 cg-col-md-5 cg-col-lg-4 small-center" onclick="showProfileEdit()" style="">delete</div> -->
@@ -453,11 +452,11 @@ Why don’t you start create your own collection?
           </div>
           <span class="exp-span">http://moxy.co.id/user/username <span style="color: #B90000;font-weight: bold;font-size:11px;">You can only change this once</span></span>
         -->
-        <label for="inputEmail3" class="cg-col-xs-12 control-label label-color label-margin take-left opensans">Date of Birth *</label>
+        <label for="inputEmail3" class="cg-col-xs-12 control-label label-color label-margin take-left opensans">Tanggal Lahir</label>
         <div class="input-group">
           <input type="text" class="form-control noradius" id="datepicker" placeholder="" style="display:block !important;" name="dob" value="<?php echo ($customerDob) ? $customerDob : '' ?>">
         </div>
-        <label for="inputEmail3" class="cg-col-xs-12 control-label label-color label-margin take-left opensans">Location</label>
+        <label for="inputEmail3" class="cg-col-xs-12 control-label label-color label-margin take-left opensans">Lokasi</label>
         <input type="text" name="location" id="modalDescCol" class="input-collection full-width" placeholer="Location" value="<?php echo ($profiler->getLocation()) ? $profiler->getLocation() : '' ?>">
 
           <!--
@@ -474,13 +473,13 @@ Why don’t you start create your own collection?
               <span id="tags-interest"></span>
           </div>
         -->
-        <label for="inputEmail3" class="cg-col-xs-12 control-label label-color label-margin take-left opensans">About Me</label>
+        <label for="inputEmail3" class="cg-col-xs-12 control-label label-color label-margin take-left opensans">Tentang Saya</label>
         <textarea rows="4" id="" class="full-width" style="max-width:100%;box-sizing:border-box;" placeholer="A cook, a mother, a sister." name="about"><?php echo ($profiler->getAbout()) ? $profiler->getAbout(): '' ?></textarea>
 
       </div>
     </div>
     <div class="cg-col-xs-6 cg-col-xs-offset-3">
-      <button type="submit" class="btn btn-primary btn-block noborder" style="margin: 10px 0;" name="submitButton">Save Changes</button>
+      <button type="submit" class="btn btn-pink-prime cursor" style="margin: 10px 0;" name="submitButton">SIMPAN PERUBAHAN</button>
     </div>
   </form>
 </div>
@@ -496,19 +495,19 @@ Why don’t you start create your own collection?
 if ($wishlist['customer_id'] != $customerId) { 
 ?>
 
-  <div class="cg-row"  style="margin-bottom:20px;">
+<?php /*  <div class="cg-row"  style="margin-bottom:20px;">
    <div class="cg-col-lg-6 cg-col-lg-offset-3 cg-col-xs-12 cg-col-md-8 cg-col-md-offset-2 cg-col-sm-12 text-center no-collection-title bottom-spacer-container" style="font-size:20px; font-weight:500;">
     Feeling inspired? <br>
     Why don't you create your own collection!
   </div>
   <div class="cg-col-lg-4 cg-col-lg-offset-4 cg-col-xs-12 cg-col-md-8 cg-col-md-offset-2 cg-col-sm-12 bottom-spacer-container">
-    <img src="<?php echo $this->getSkinUrl('images/') . 'plus2-2x.png'; ?>" width="100%" >
+    <img src="<?php echo $this->getSkinUrl('images/') . 'plus2-2x.png'; ?>" width="100%" > 
   </div>
   <div class="cg-col-lg-2 cg-col-lg-offset-5 cg-col-xs-12 cg-col-md-8 cg-col-md-offset-2 cg-col-sm-12">
-    <div onclick="showAddCollectionDialog()" class="btn btn-primary btn-block noborder" style="margin: 10px 0;">Create Now</div>
+    <div onclick="showAddCollectionDialog()" class="btn btn btn-pink-prime cursor" style="margin: 10px 0;">BUAT SEKARANG</div>
   </div>
 </div>
-
+*/?>
 <?php } ?>
 
 <script>
@@ -553,6 +552,7 @@ jQuery(document).ready(function() {
     }
 
     jQuery('#modalCollectionId').val(collectionId);
+    jQuery('#modalCollectionId2').val(collectionId);
     jQuery('#modalTitleCol').val(titlecol);
     jQuery('#modalDescCol').val(desccol);
     jQuery('#modalVisibilityCol').prop('checked', visibility_val);
