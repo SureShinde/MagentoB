@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Bilna_Paymethod>
-            <version>0.1.5</version>
+            <version>0.1.6</version>
         </Bilna_Paymethod>
     </modules>
     
@@ -662,6 +662,22 @@
                 <allowspecific>0</allowspecific>
                 <group>offline</group>
             </mandiriecash>
+            <moxyva>
+                <active>1</active>
+                <model>paymethod/method_moxyva</model>
+                <order_status>pending</order_status>
+                <title>Moxy VA</title>
+                <allowspecific>0</allowspecific>
+                <group>offline</group>
+            </moxyva>
+            <moxyveritrans>
+                <active>1</active>
+                <model>paymethod/method_moxyveritrans</model>
+                <order_status>pending</order_status>
+                <title>Moxy Veritrans</title>
+                <allowspecific>0</allowspecific>
+                <group>offline</group>
+            </moxyveritrans>
         </payment>
     </default>
 </config>

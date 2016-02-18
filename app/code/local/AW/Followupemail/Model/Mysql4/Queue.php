@@ -103,7 +103,7 @@ class AW_Followupemail_Model_Mysql4_Queue extends Mage_Core_Model_Mysql4_Abstrac
      * @param $eventType
      * @param bool $objectId
      */
-    public function cancelByEvent($email, $eventType, $objectId = false)
+    public function cancelByEvent($email, $eventType, $objectId = false, $cancel_events = null)
     {
 
         $db = $this->_getReadAdapter();
@@ -116,7 +116,7 @@ class AW_Followupemail_Model_Mysql4_Queue extends Mage_Core_Model_Mysql4_Abstrac
         ))
             ->joinInner(array('r' => $this->getTable('followupemail/rule')), 'r.id=e.rule_id', '')
             ->where('e.recipient_email=?', $email)
-            ->where("find_in_set(?, r.cancel_events) OR (r.event_type = '$abandonedStatus')", $eventType); // !!! important : 'passive' logic!
+            ->where("find_in_set(?, r.cancel_events) OR (r.event_type = '$abandonedStatus')", ((is_null($cancel_events)) ? $eventType : $cancel_events)); // !!! important : 'passive' logic!
         if($eventType != AW_Followupemail_Model_Source_Rule_Types::RULE_TYPE_WISHLIST_PRODUCT_ADD)
             $select->where('e.object_id=?', $objectId);
 
@@ -131,7 +131,6 @@ class AW_Followupemail_Model_Mysql4_Queue extends Mage_Core_Model_Mysql4_Abstrac
 		// if (!(strpos($eventType, AW_Followupemail_Model_Source_Rule_Types::RULE_TYPE_PAYMENT_METHOD) === FALSE)) {
             $select->where('e.object_id = ?', $objectId);
         }
-		return true;
 
         $queueIds = $db->fetchOne($select);
         if (!$queueIds) return;

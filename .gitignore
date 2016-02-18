@@ -11,3 +11,5 @@ lib/terawurfl/resources/storage/
 downloader/cache.cfg
 downloader/connect.cfg
 
+composer.lock
+vendor
