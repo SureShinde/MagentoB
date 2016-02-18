@@ -84,6 +84,21 @@
     function ecommercePurchases() {
         var temp_grandTotal = jQuery("td#grand_total-onepage span.price").text().replace("Rp","");
         temp_grandTotal = temp_grandTotal.replace(",","");
+        // ematic - preparing for logging
+        products = [
+            <?php
+                $itr_name = 0;
+                for ($itr = 0 ; $itr <= count($productCollection)-1 ; $itr++) {
+                if ($valueCollection[$itr] != 0) {
+                    echo '{"id":"'.$skuCollection[$itr].'","name":jQuery("#checkout-review-table tbody tr td h3").eq('.$itr_name.').text() , "price":"'.$valueCollection[$itr].'", "quantity":'.$qtyCollection[$itr].'}';
+                    if(($itr+1) < count($productCollection)) {
+                        echo ",";
+                    }
+                    $itr_name++;
+                }
+            }
+            ?>
+        ];
         dataLayer.push({
           'event': 'purchase',
           'eventCategory':'ecommerce',
@@ -94,24 +109,13 @@
                 'id' : 'default_id',
                 'list' : 'browsing'
               },
-              'products' :
-                [
-                    <?php
-                        $itr_name = 0;
-                        for ($itr = 0 ; $itr <= count($productCollection)-1 ; $itr++) {
-                        if ($valueCollection[$itr] != 0) {
-                            echo '{"id":"'.$skuCollection[$itr].'","name":jQuery("#checkout-review-table tbody tr td h3").eq('.$itr_name.').text() , "price":"'.$valueCollection[$itr].'", "quantity":'.$qtyCollection[$itr].'}';
-                            if(($itr+1) < count($productCollection)) {
-                                echo ",";
-                            }
-                            $itr_name++;
-                        }
-                    }
-                    ?>
-                ]
+              'products' : products
             }
           }
         });
+
+        //track conversion
+        ematics("log", "product", "convert", products);
     }
 </script>
 
