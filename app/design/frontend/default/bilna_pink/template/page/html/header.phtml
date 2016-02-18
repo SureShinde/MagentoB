@@ -27,6 +27,12 @@
  * @var Mage_Page_Block_Html_Header $this
  */
 ?>
+<script type="text/javascript">
+$j(document).ready(function() {
+    
+        $j("img.lazy, .wrap-banner img:not(.image-slider), .warp-banner img").after('<div class="loader"><img class="loader-img" src="<?php echo Mage::getBaseUrl(); ?>skin/frontend/base/default/images/loading.gif"></div>');
+});
+</script>
 <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('above-header-notification')->toHtml() ?> 
 
 
@@ -436,9 +442,9 @@ $images = Mage::getModel('socialcommerce/collectioncover')->getCollection()->set
         </a>
         
         <ul class="web_feature">
-            <li class="shop_link"><a href="<?php echo $this->getUrl(''); ?>">Belanja</a></li>
-            <li class="koleksi"><a href="<?php echo $this->getUrl('collections'); ?>">Koleksi</a></li>
-            <li class="inspirasi"><a href="<?php echo $this->getUrl('blog'); ?>" class="link-blog">Inspirasi</a></li>
+            <li class="shop_link"><a href="<?php echo $this->getUrl(''); ?>"><?php echo $this->__('Belanja') ?></a><div class="bridge_border">&shy; </div></li>
+            <li class="koleksi"><a href="<?php echo $this->getUrl('collections'); ?>"><?php echo $this->__('Koleksi') ?><div class="bridge_border">&shy; </div></a></li>
+            <li class="inspirasi"><a href="http://magazine.bilna.com/" class="link-blog"><?php echo $this->__('Inspirasi') ?></a><div class="bridge_border">&shy; </div></li>
         </ul>
         <div class="quick-access">
             <div class="search-container-new">
@@ -488,32 +494,9 @@ $images = Mage::getModel('socialcommerce/collectioncover')->getCollection()->set
                     <?php echo $this->getLayout()->createBlock('megamenu/block')->setTemplate('bilna_megamenu/block.phtml')->toHtml(); ?>
                 </div>
             </div>
+            
             <div class="wrap-navigation inspirasi">
-                <ul class="sub_nav">
-                    <li>Terpopuler
-                        <ul class="child_nav">
-                            <li>submenu 1</li>
-                            <li>submenu 2</li>
-                            <li>submenu 3</li>
-                        </ul>
-                    </li>
-                    <li>Tips &amp; Ide
-                        <ul class="child_nav">
-                            <li>submenu 1</li>
-                            <li>submenu 2</li>
-                            <li>submenu 3</li>
-                        </ul>
-                    </li>
-                    <li>Berita &amp; Hiburan</li>
-                    <li>Video
-                        <ul class="child_nav">
-                            <li>submenu 1</li>
-                            <li>submenu 2</li>
-                            <li>submenu 3</li>
-                        </ul>
-                    </li>
-                    <li>Quiz</li>
-                </ul>
+                <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('nav_inspirasi')->toHtml() ?>
             </div>
         </div>
     </div>

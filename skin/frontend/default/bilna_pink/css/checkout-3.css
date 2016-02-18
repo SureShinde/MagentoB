@@ -41,8 +41,9 @@
 	margin-top: 10px;
 	margin-right: 5px;
 }
-#checkoutSteps .guest_register .buttons-set button.button {
-    
+#checkoutSteps .guest_register .buttons-set button.button,
+#checkoutSteps .buttons-set button.button[title=login]{
+    background: #EE5191;
 }
 #checkoutSteps .buttons-set button.button {
     background:#3eb988;

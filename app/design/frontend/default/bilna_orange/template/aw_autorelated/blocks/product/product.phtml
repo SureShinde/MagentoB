@@ -62,6 +62,15 @@ if ($this->getPosition() == AW_Autorelated_Model_Source_Position::INSTEAD_NATIVE
                         <?php foreach ($collection as $product) : ?>
                             <li class="aw-arp-item">
 								<div class="top_thumb_list_product">
+                                    <a  alt="<?php echo $this->__('tambah ke koleksi') ?>"
+                                        class="link-wishlist addToCollectionLink" onclick="showAddToCollectionDialog()" href="javascript:;"
+                                        data-brand-name="<?php echo $brand; ?>"
+                                        data-image="<?php echo $this->helper('catalog/image')->init($product, 'small_image')->resize(320, 320); ?>"
+                                        data-product-name="<?php echo $this->stripTags($product->getName(), null, true); ?>"
+                                        data-price="<?php echo 'Rp. ' . number_format($product->getPrice(), 0, '', '.'); ?>"
+                                        data-merchant = "<?php echo ($merchant) ? 'dijual oleh ' . $merchant : ''; ?>"
+                                        data-id="<?php echo $product->getId(); ?>"
+                                        ><i class="fa fa-heart"></i></a>
                                     <a href="<?php echo $abstractBlock->getProductUrl($product) ?>"><img class="lazy" data-src="<?php echo $this->helper('catalog/image')->init($product, 'thumbnail')->resize(152) ?>" alt="<?php echo $this->htmlEscape($product->getName()) ?>" width="75" height="75" /></a>
 								</div>
                                 <div class="aw-arp-item-right">

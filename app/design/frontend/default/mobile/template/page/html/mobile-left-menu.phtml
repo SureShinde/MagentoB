@@ -24,7 +24,7 @@
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
-
+<div class="active_arrow_leftmenu"> &shy; </div>
 <div class="mobile-left-menu">
     <div class="wrap-left-menu">
         <!--div class="back-button back-top">
@@ -36,8 +36,8 @@
             <li><a href="#">Pusat Bantuan</a></li>
         </ul>
         <ul class="top-left-menu">
-            <li><a href="<?php echo Mage::getUrl('collections'); ?>">Koleksi</a></li>
-            <li><a href="<?php echo Mage::getBaseUrl(); ?>orderdetail/">Inspirasi</a></li>
+            <li><a href="<?php echo $this->getUrl('collections'); ?>">Koleksi</a></li>
+            <li><a href="http://magazine.bilna.com/">Inspirasi</a></li>
         </ul>
             <?php echo $this->getChildHtml('topLinks') ?>
         <div class="title-mobile-menu">

@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<config>
+    <bilna_pricevalidation>
+        <data_types>
+            <product>
+                <title>Products</title>
+                <row_format>dynamic</row_format>
+                <model>bilna_pricevalidation_mysql4/catalog_product</model>
+                <profile>
+                    <model>bilna_pricevalidation/profile_catalog_product</model>
+                    <import>
+                        <tabs>
+                            <columns>
+                                <title>Import Columns</title>
+                                <block>bilna_pricevalidation/adminhtml_pricevalidation_edit_tab_columns</block>
+                            </columns>
+                            <upload>
+                                <title>Upload Files</title>
+                                <block>bilna_pricevalidation/adminhtml_pricevalidation_edit_tab_upload</block>
+                            </upload>
+                        </tabs>
+                    </import>
+                </profile>
+            </product>
+        </data_types>
+    </bilna_pricevalidation>
+</config>

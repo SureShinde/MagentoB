@@ -48,19 +48,29 @@
     margin: 0 15px;
     text-transform: uppercase;
     font-size: 16px;
-    border-bottom: 4px solid #fff;
     cursor: pointer;
+    position: relative;
+}
+.header .web_feature li .bridge_border {
+    position: absolute;
+    height: 10px;
+    width: 100%;
+    top: 92%;
+    z-index: 9;
 }
 .header .web_feature li a{
     text-align: center;
+    padding-bottom: 19px;
     display: block;
+    color: #73777a;
+    border-bottom: 4px solid #fff;
 }
 .header .web_feature li.shop_link{
-    font-weight: 600;
+    width: 70px;
 }
 .header .web_feature li a.active{
-  padding-bottom: 19px;
   border-bottom:4px solid #ee5191;
+    font-weight: 600;
 }
 .header .web_feature li.koleksi{
     width: 70px;
@@ -252,7 +262,7 @@
 }
 .wrap-space-above-header, .space-above-header{
     width: 100%;
-    border-bottom: 1px solid #EAEAEA;
+    border-bottom: 1px solid #F6F6F6;
     height: 40px;
     margin-bottom: 5px;
     overflow: hidden;
@@ -595,19 +605,29 @@
 	text-align: left;
 	border-bottom: none;
 }
-.mini-cart .block-cart .actions button.button.btn-checkout,.block-cart .actions button.button.btn-checkout {
-	width: 100%;
+.mini-cart .block-cart .actions button.button.btn-checkout,
+.mini-cart .block-cart .actions button.button.btn-cart{
+	width: 48%;
+    margin: 0 1%;
+    float: left;
 }
-.mini-cart .block-cart .actions button.button.btn-checkout, .mini-cart-mobile .block-cart .actions button.button.btn-checkout,.block-cart .actions button.button.btn-checkout {
+.mini-cart .block-cart .actions button.button.btn-cart{
+	background-color:#fff;
+    height: auto;
+	border:1px solid #bbb;
+    border-radius: 20px;
+    -moz-border-radius: 20px;
+    -webkit-border-radius: 20px;
+}
+.mini-cart .block-cart .actions button.button.btn-checkout, .mini-cart-mobile .block-cart .actions button.button.btn-checkout {
 	display: inline-block;
 	float: none;
 	background-color:#3eb988;
+	border:1px solid #3eb988;
 	background-position: 107px 8px;
 	text-align: center;
 	padding-top: 6px ;
-	padding-right: 45px;
 	padding-bottom:2px ;
-	padding-left: 30px;
 	-webkit-padding-before: 2px ;
     border-radius: 20px;
     -moz-border-radius: 20px;
@@ -620,7 +640,14 @@
 .header .mini-cart-mobile .block-cart {
 	margin: 0;
 }
-.mini-cart .block-cart .actions button.button.btn-checkout span, .mini-cart .block-cart .actions button.button.btn-checkout span span, .mini-cart-mobile .block-cart .actions button.button.btn-checkout span, .mini-cart-mobile .block-cart .actions button.button.btn-checkout span span,.block-cart .actions button.button.btn-checkout span,.block-cart .actions button.button.btn-checkout span span {
+.mini-cart .block-cart .actions button.button.btn-cart span{
+    color: #bbb;
+    font-size: 1.2em;
+    text-transform: uppercase;
+    line-height: normal;
+    padding: 2px 0;
+}
+.mini-cart .block-cart .actions button.button.btn-checkout span, .mini-cart .block-cart .actions button.button.btn-checkout span span, .mini-cart-mobile .block-cart .actions button.button.btn-checkout span, .mini-cart-mobile .block-cart .actions button.button.btn-checkout span span {
 	background: none;
 	height: auto;
 	padding-left: 0;
@@ -935,7 +962,7 @@
 }
 #nav-searchbar .nav-submit-button .nav-submit-input {
     border: none;
-    color: #e4e4e4;
+    color: #BCBEBE;
     font-size: 1.3em;
     height: 100%;
     background: none;
@@ -1167,7 +1194,7 @@
         margin: 10px 0 0 0;
     }
     .header .web_feature li{
-        padding: 10px 0px 17px;
+        padding: 10px 0px 0;
         margin: 0 7px;
         width: auto !important;
         font-size: 14px;
@@ -1342,10 +1369,6 @@
 
 /* --------------- smaller 959 px layout -------------------- */
 @media only screen and (max-width: 767px) {
-    .header .quick-access .top-cart a {
-        width: 50px;
-        padding: 5px 0 10px;
-    }
     .space-above-header{
         display: none;
     }
@@ -1363,7 +1386,7 @@
     .header .quick-access .top-cart a .lable-name{
     }
     .header .links li.myaccount a.link-trigger-myaccount{
-        padding: 38px 0 0;
+       
     }
     .header .links li.myaccount a.link-trigger-myaccount .circle-name{
             top: 8px;
@@ -1394,12 +1417,6 @@
 		margin: 0;
 		padding: 0;
 		border-top: none;
-	}
-	.header .quick-access .top-cart a.link-minicart {
-		background-position: 9px 5px;
-		background-repeat: no-repeat;
-		background-size: 20px auto;
-		padding:5px 0;
 	}
     .header .quick-access .left {
         display: none !important;

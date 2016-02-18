@@ -9,28 +9,20 @@ $lastPageNumber = $this->getLastPageNumber();
 
 <div class="cg-container nomargin">
 
- <div class="cg-col-sm-12 in-block" style="padding:13px;" id="top-banner">
+ <div class="cg-col-sm-12" style="padding:13px;" id="top-banner">
   <div class="cg-col-sm-12 cg-col-xs-12 collection-top-banner">
-    <div class="cg-col-sm-6 cg-col-xs-12">
+    <div class="cg-col-sm-10 cg-col-xs-12 cg-col-lg-6">
       <div class="cg-col-sm-12 title-banner-collection">
         Koleksi Produk Terbaik Untuk Inspirasi Belanja Anda
       </div>
       <div class="cg-col-sm-11 subtext-banner-collection opensans" style="">
         Buat KOLEKSI dan kumpulkan produk favorit anda sesuai tema atau mood. Berikan inspirasi belanja untuk lorem ipsum sir dolor amit
       </div>
-      <div class="cg-col-sm-12 login-collection">
-        <a 
-          <?php if (!Mage::getSingleton('customer/session')->isLoggedIn()): ?>
-            href="<?php echo Mage::getUrl('customer/account/login'); ?>" 
-          <?php else: ?>
-            href="javascript:;" onclick="newShowAddCollectionDialog()"
-          <?php endif; ?> 
-          class="btn-lightgreen cg-col-xs-8 cg-col-sm-4 cg-col-md-3 cg-col-lg-5 btn-margin bottom-spacer-container">
-          PELAJARI LEBIH LANJUT
-        </a>
+      <div class="cg-col-sm-12">
+        <a href="#explanation" class="btn-lightgreen cg-col-xs-8 cg-col-sm-6 cg-col-md-6 cg-col-lg-5 btn-margin bottom-spacer-container">PELAJARI LEBIH LANJUT</a>
       </div>
     </div>
-    <div class="cg-col-sm-12 cg-col-xs-12 cg-col-md-6 cg-col-lg-6 closer-top-banner">
+    <div class="cg-col-xs-1 pull-right closer-top-banner">
      <a href="javascript:;" onclick="closeTopBanner()" style="" class="closer-right"><i class="fa fa-times"></i></a>
    </div>
  </div>
@@ -42,45 +34,6 @@ $lastPageNumber = $this->getLastPageNumber();
   </div> -->
 
 <!-- Modify collection query to show only collection with minimum of 4 items harcoded temporarily-->
-<?php 
-foreach ($wishlists as $wishlist) { 
-
-  ?>
-  <?php $user = Mage::helper('socialcommerce')->getProfileInformation($wishlist['customer_id']); 
-
-  ?> 
-
-  <div class="cg-col-lg-3 cg-col-md-3 cg-col-sm-6 cg-col-xs-6 bottom-spacer-container">
-    <div class="cg-col-lg-12 nopadding">
-      <a href="<?php echo $this->getUrl('collections/' . $wishlist['id'] . '-' . $wishlist['slug']); ?>">
-        <?php if ($wishlist['cover'] && strpos($wishlist['cover'],'socialcommerce') == true) : ?>
-        <img src="<?php echo str_replace('en/', '', $wishlist['cover']); ?>" width="275" height ="275" class="img-collection collection-img">
-      <?php elseif ($wishlist['cover'] && strpos($wishlist['cover'],'socialcommerce') == false) : ?>
-      <img src="<?php echo str_replace('en/', '', $this->getUrl('media/collection-cover').$wishlist['cover']); ?>" width="275" height ="275" class="img-collection collection-img">
-    <?php elseif ($wishlist['cloud_cover']) : ?>
-    <?php echo cl_image_tag($wishlist['cloud_cover'], ['class' => 'img-collection collection-img', 'alt' => $user['display_name'], 'secure' => true, 'width' => 275, 'height' => 275, 'crop' => 'fill', 'format' => 'jpg']); ?>
-  <?php else : ?>
-  <img src="<?php echo $wishlist['product_image']; ?>" width="275" height ="275"class="img-collection collection-img">
-<?php endif; ?>
-</a>
-<div class="cg-col-xs-12 collection-title">
-  <div class="cg-col-lg-2 cg-col-md-2 cg-col-sm-2 cg-col-xs-2 nopadding framePhotoUser">
-    <img src="<?php echo $user['profile_image']; ?>" title="<?php echo $user['display_name']; ?>" alt="<?php echo $user['display_name']; ?>" width="100%" >
-  </div>
-  <div class="cg-col-lg-10 cg-col-md-10 cg-col-sm-10 cg-col-xs-8" style="">
-   <?php if ($user['url']) : ?>
-   <a class="display-name-coll link-pink-hover" href="<?php echo $user['url']; ?>" style="text-decoration: none;color:#bbb;"><?php echo $user['display_name']; ?></a>
- <?php else : ?>
- <?php echo $user['display_name']; ?>
-<?php endif; ?>
-<br>
-<a class="ddisplay-title-coll link-pink-hover nameOfList" href="<?php echo $this->getUrl('collections/' . $wishlist['id'] . '-' . $wishlist['slug']); ?>" style="text-decoration: none;color:#3c3d41;"><?php echo $wishlist['name']; ?></a>
-</div>
-</div>
-</div>
-</div>
-
-<?php } ?>
 
 </div>
 </div>
@@ -161,16 +114,16 @@ foreach ($wishlists as $wishlist) {
                   <?php else : ?>
                   <img src="<?php echo $product_image; ?>" width = "100%" class="img-collection">
                 <?php endif; ?>
-              </a>
+              </a><div id="explanation"></div>
               <div class="cg-col-xs-12 collection-title">
-                <div class="cg-col-lg-12 cg-col-md-10 cg-col-sm-10 cg-col-xs-8 take-left" style="">
+                <div class="cg-col-lg-12 cg-col-md-10 cg-col-sm-10 cg-col-xs-12 take-left" style="">
                  <a class="display-title-coll link-pink-hover nameOfList uppercase opensans" href="<?php echo $this->getUrl('collections/' . $wishlist['wishlist_id'] . '-' . $slug); ?>" style=""><?php echo $wishlist['name']; ?></a>
                  <?php if ($user['url']) : ?>
                  <span class="opensans hidden-xs">oleh</span> <a class="display-name-coll link-pink-hover opensans" href="<?php echo $user['url']; ?>" style=""><?php echo $user['display_name']; ?></a>
                <?php else : ?>
                <?php echo $user['display_name']; ?>
              <?php endif; ?>
-             <span class="pull-right opensans hidden-xs"><a href="<?php echo $this->getUrl('collections/' . $wishlist['wishlist_id'] . '-' . $slug); ?>">Lihat Koleksi ></a> </span>
+             <span class="pull-right opensans hidden-md hidden-sm hidden-xs"><a href="<?php echo $this->getUrl('collections/' . $wishlist['wishlist_id'] . '-' . $slug); ?>">Lihat Koleksi ></a> </span>
            </div>
          </div>
        </div>
@@ -179,6 +132,7 @@ foreach ($wishlists as $wishlist) {
    <?php } ?>
    
    </div>
+
    <div class="cg-row nomargin">
 
     <div class="cg-col-lg-12 cg-col-xs-12 in-block nopadding">
@@ -199,29 +153,21 @@ foreach ($wishlists as $wishlist) {
                   Masukkan Produk Dalam Koleksi Anda
                 </div>
                 <div class="cg-col-xs-12 bottom-spacer-more">
-                  <div class="cg-col-xs-12 cg-col-lg-4">
+                  <div class="cg-col-xs-12 cg-col-lg-4 cg-col-md-4 cg-col-sm-4">
                     <img src="<?php echo $this->getSkinUrl('images/step-1.png'); ?>" width="30%"> <br>
                     <p class="exp-three-col">Cari produk favorit sesuai <br>tema / mood koleksi anda</p>
                   </div>
-                  <div class="cg-col-xs-12 cg-col-lg-4">
+                  <div class="cg-col-xs-12 cg-col-lg-4 cg-col-md-4 cg-col-sm-4">
                     <img src="<?php echo $this->getSkinUrl('images/step-2.png'); ?>" width="30%"> <br>
                     <p class="exp-three-col">Masukkan produk tsb dalam koleksi <br>baru atau tambahkan dalam halaman <br> koleksi yang sudah dibuat sebelumnya</p>
                   </div>
-                  <div class="cg-col-xs-12 cg-col-lg-4">
+                  <div class="cg-col-xs-12 cg-col-lg-4 cg-col-md-4 cg-col-sm-4">
                     <img src="<?php echo $this->getSkinUrl('images/step-3.png'); ?>" width="30%"> <br>
                     <p class="exp-three-col">Cek profil anda untuk melihat & <br>mengedit halaman koleksi</p>
                   </div>
                 </div>
                 <div class="cg-col-sm-6 cg-col-sm-offset-3">
-                  <a 
-                    <?php if (!Mage::getSingleton('customer/session')->isLoggedIn()): ?>
-                      href="http://indrakbil.bilnaclone.com/customer/account/login/" 
-                    <?php else: ?>
-                      href="javascript:;" onclick="newShowAddCollectionDialog()"
-                    <?php endif; ?> 
-                    class="btn-lightgreen cg-col-xs-12 btn-margin bottom-spacer-container">
-                    CARI PRODUK FAVORIT DI BILNA.COM
-                  </a>
+                  <a href="/" class="btn-lightgreen cg-col-xs-12 btn-margin bottom-spacer-container">CARI PRODUK FAVORIT DI BILNA.COM</a>
                 </div>
                 <div class="cg-col-sm-6 cg-col-sm-offset-3 login-collection">
                   <a 
@@ -292,14 +238,14 @@ foreach ($wishlists as $wishlist) {
                 <?php endif; ?>
               </a>
               <div class="cg-col-xs-12 collection-title">
-                <div class="cg-col-lg-12 cg-col-md-10 cg-col-sm-10 cg-col-xs-8 take-left" style="">
+                <div class="cg-col-lg-12 cg-col-md-10 cg-col-sm-10 cg-col-xs-12 take-left" style="">
                  <a class="display-title-coll link-pink-hover nameOfList uppercase opensans" href="<?php echo $this->getUrl('collections/' . $wishlist['wishlist_id'] . '-' . $slug); ?>" style=""><?php echo $wishlist['name']; ?></a>
                  <?php if ($user['url']) : ?>
                  <span class="opensans hidden-xs">oleh</span> <a class="display-name-coll link-pink-hover opensans" href="<?php echo $user['url']; ?>" style=""><?php echo $user['display_name']; ?></a>
                <?php else : ?>
                <?php echo $user['display_name']; ?>
              <?php endif; ?>
-             <span class="pull-right opensans hidden-xs"><a href="<?php echo $this->getUrl('collections/' . $wishlist['wishlist_id'] . '-' . $slug); ?>">Lihat Koleksi ></a> </span>
+             <span class="pull-right opensans hidden-md hidden-sm hidden-xs"><a href="<?php echo $this->getUrl('collections/' . $wishlist['wishlist_id'] . '-' . $slug); ?>">Lihat Koleksi ></a> </span>
            </div>
          </div>
        </div>
@@ -318,6 +264,10 @@ foreach ($wishlists as $wishlist) {
   </div> -->
 
    </div>
+ </div>
+</div>
+</div>
+</div>
       <script>
       function showHowTo() {
         jQuery('#howto').fadeIn('fast');

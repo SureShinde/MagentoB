@@ -175,8 +175,8 @@
 #shopping-cart-table.cart-table .btn-remove2 {
 }
 #shopping-cart-table.cart-table .product-image{
-    padding: 5px 10px;
     display: inline-block;
+    width: 75px;
 }
 #shopping-cart-table.cart-table .btn-update{
     margin: 5px 10px;
@@ -373,7 +373,7 @@
 }
 .checkout-types button {
     width: 100%;
-    border: 1px solid #EE5191;
+    border: 1px solid #3EB988;
     margin: 0 auto 20px;
     display: block;
 }

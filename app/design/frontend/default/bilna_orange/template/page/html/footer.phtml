@@ -28,12 +28,7 @@
     <div class="footer">
         <div class="cs-info col-5">
             <img src="<?php echo $this->getSkinUrl('images/cs.png'); ?>">
-            <p>
-                <span class="que">Butuh Bantuan ?</span>
-                <span class="phone"><?php echo Mage::getStoreConfig('general/store_information/phone')?></span>
-                <span class="day">Senin-Jumat 06.00-22.00. Sabtu 07.00-21.00</span>
-                <span class="email">cs@bilna.com</span>
-            </p>
+            <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('csinformation')->toHtml(); ?>
         </div>
 		<div class="subscribe-form col-10">
 			<p>Berlangganan Newsletter Bilna</p>
@@ -79,6 +74,7 @@
         </div>
     </div>
 </div>
+</div>
 
 <script type="text/javascript">
     jQuery(document).ready(function() {
@@ -86,18 +82,17 @@
     });
 </script>
 
-
       <script>
 
 
       jQuery(document).ready(function() {
 
-        if (! jQuery.cookie("newsletter_subscribed")) {
+        /*if (! jQuery.cookie("newsletter_subscribed")) {
           jQuery("#newsletter-registration-form-overlay").fadeIn(500);
 
           jQuery.cookie("newsletter_subscribed", 1, {expires : 1});
-        }
-
+        }*/
+          
         jQuery("#newsletter-registration-close").click(function() {
           jQuery("#newsletter-registration-form-overlay").fadeOut(300);
         });
@@ -175,13 +170,13 @@
       <script>
       <?php # Language cookie ?>
       jQuery(document).ready(function() {
-        jQuery.cookie("userlang", "<?php echo Mage::app()->getLocale()->getLocaleCode(); ?>", {path: "/"});
+        /*jQuery.cookie("userlang", "<?php echo Mage::app()->getLocale()->getLocaleCode(); ?>", {path: "/"});
         
         
         if (jQuery.cookie('test_status') != '1') {
 
           jQuery('#over-main').show();
-        }
+        }*/
 
 
         jQuery('#closer-main').click(function(){
