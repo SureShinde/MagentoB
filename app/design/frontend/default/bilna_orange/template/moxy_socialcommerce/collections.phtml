@@ -88,7 +88,7 @@ $lastPageNumber = $this->getLastPageNumber();
                 <div class="cg-container">
               <?php 
                   //Mage::getModel('socialcommerce/weekly')->getWeekly();
-              $rows = Mage::getModel('wishlist/wishlist')->getCollection()->addFieldToFilter('visibility','1')->setOrder('counter', 'DESC')->setPageSize(4);
+              $rows = Mage::getModel('wishlist/wishlist')->getCollection()->addFieldToFilter('visibility','1')->addFieldToFilter('view','1')->setOrder('counter', 'DESC')->setPageSize(4);
 
               foreach ($rows as $wishlist) { 
                 $collectionName = $wishlist['name'];
@@ -169,8 +169,14 @@ $lastPageNumber = $this->getLastPageNumber();
                 <div class="cg-col-sm-6 cg-col-sm-offset-3">
                   <a href="/" class="btn-lightgreen cg-col-xs-12 btn-margin bottom-spacer-container">CARI PRODUK FAVORIT DI BILNA.COM</a>
                 </div>
-                <div class="cg-col-sm-6 cg-col-sm-offset-3">
-                  <a href="javascript:;" class="cg-col-xs-12 btn-margin bottom-spacer-container new-page" onclick="newShowAddCollectionDialog()">
+                <div class="cg-col-sm-6 cg-col-sm-offset-3 login-collection">
+                  <a 
+                    <?php if (!Mage::getSingleton('customer/session')->isLoggedIn()): ?>
+                      href="<?php echo Mage::getUrl('customer/account/login'); ?>"
+                    <?php else: ?>
+                      href="javascript:;" onclick="newShowAddCollectionDialog()"
+                    <?php endif; ?>
+                      class="cg-col-xs-12 btn-margin bottom-spacer-container new-page">
                     Saya ingin membuat halaman koleksi baru
                   </a>
                 </div>
@@ -204,7 +210,7 @@ $lastPageNumber = $this->getLastPageNumber();
                 <div class="cg-container">
               <?php 
                   //Mage::getModel('socialcommerce/weekly')->getWeekly();
-              $rows = Mage::getModel('wishlist/wishlist')->getCollection()->addFieldToFilter('visibility','1')->setOrder('counter', 'DESC')->setPageSize(4);
+              $rows = Mage::getModel('wishlist/wishlist')->getCollection()->addFieldToFilter('visibility','1')->addFieldToFilter('view','1')->setOrder('wishlist_id', 'DESC')->setPageSize(4);
 
               foreach ($rows as $wishlist) { 
                 $collectionName = $wishlist['name'];

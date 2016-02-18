@@ -66,10 +66,11 @@
     border-bottom: 4px solid #fff;
 }
 .header .web_feature li.shop_link{
-    font-weight: 600;
+    width: 70px;
 }
 .header .web_feature li a.active{
   border-bottom:4px solid #ee5191;
+    font-weight: 600;
 }
 .header .web_feature li.koleksi{
     width: 70px;

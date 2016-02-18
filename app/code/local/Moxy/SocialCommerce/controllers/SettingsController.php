@@ -354,8 +354,9 @@ extends Mage_Core_Controller_Front_Action
                 $customerId = Mage::getSingleton('customer/session')->getCustomer()->getId();
 
                 $postData = $this->postData;
-
+                
                 $collectionId = $postData['collection_id'];
+                if(!$collectionId) $collectionId = $postData['collection_id2'];
                 $username = $postData['username'];
 
                 $desc = (isset($this->postData['desc'])) ?

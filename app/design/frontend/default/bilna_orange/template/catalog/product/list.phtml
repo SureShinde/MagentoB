@@ -38,12 +38,12 @@ $_escape_helper = Mage::helper('catalog/utils');
 ?>
 
 <script>
-jQuery(document).ready(function(){ 
-    jQuery('.button-toggle').click(function() {
-        jQuery('.sidebar').show();
+$j(document).ready(function(){ 
+    $j('.button-toggle').click(function() {
+        $j('.sidebar').show();
     });
-    jQuery('.close-sidebar-mobile').click(function() {
-        jQuery('.sidebar').hide();
+    $j('.close-sidebar-mobile').click(function() {
+        $j('.sidebar').hide();
     });
 });
 </script>
@@ -108,19 +108,18 @@ jQuery(document).ready(function(){
             <?php $_collectionSize = $_productCollection->count() ?>
             <?php //$_columnCount = $this->getColumnCount(); ?>
             <?php $_columnCount = 6; ?>
-            <?php $i=0; ?>
             
             <ul class="products-grid">
                 <?php $productId = array(); ?>
                 <?php $sku = array(); ?>
                 <?php $url_container = array(); ?>
-                <?php foreach ($_productCollection as $_product): ?>
+                <?php $_iterates=0; foreach ($_productCollection as $_product): ?>
                     <?php $sku[] = $_product->getSku(); ?>
                     <?php $productName[] = $_product->getName(); ?>
                     <?php $productPrice[] = $_product->getPrice(); ?>
                     <?php $url_container[] = $_product->getProductUrl(); ?>
                     <?php $productId[] = $_product->getID(); ?>
-                    <li class="item">
+                    <li class="item" count="<?php echo $_iterates; ?>" >
                         <div class="top_thumb_list_product">
                             <a  alt="<?php echo $this->__('tambah ke koleksi') ?>"
                                 href="javascript:;"
@@ -130,7 +129,29 @@ jQuery(document).ready(function(){
                                 data-image="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(320 , 320); ?>"
                                 data-product-name="<?php echo $this->stripTags($_product->getName(), null, true); ?>"
                                 data-price="<?php echo 'Rp ' . number_format(round($_product->getFinalPrice()), 0, '', '.'); ?>"
-                                data-id="<?php echo $_product->getId(); ?>"><i class="fa fa-heart"></i></a>
+                                data-id="<?php echo $_product->getId(); ?>"><i class="fa fa-heart"></i>
+                                <span class="poper poper<?php echo $_iterates; ?>"> </span>
+                              <span class="check-to-clicking check-to-clicking<?php echo $_iterates;?>">tambah ke koleksi</span>
+                                </a>
+                                <style>
+                                    .pop-it<?php echo $_iterates;?>
+                                    {
+                                      opacity: 1 !important;
+                                    }
+                                </style>
+                                <script language="javascript">
+
+                                 $j(document).ready(function() {
+
+                                  $j(".poper<?php echo $_iterates;?>").on ('mouseover', function(){
+                                      $j(".check-to-clicking<?php echo $_iterates;?>").addClass('pop-it<?php echo $_iterates;?>');
+                                    });
+                                  $j(".poper<?php echo $_iterates;?>").on ('mouseout', function(){
+                                      $j(".check-to-clicking<?php echo $_iterates;?>").removeClass('pop-it<?php echo $_iterates;?>');
+                                    });
+
+                                  });
+                                  </script>
                             <div class="onsale-category-container-grid">
                                 <?php echo Mage::helper('onsale')->getCategoryLabelHtml($_product, 135); ?>
                                 <a onClick="ecommerceProductClick('<?php echo $_escape_helper->escapeQuote($_product->getName()) ?>','<?php echo $_product->getSku() ?>','<?php echo number_format($_product->getPrice(), 0, '', '') ?>');" href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" class="product-image"><img class="lazy" data-src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(152,152); ?>" alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" />
@@ -242,8 +263,8 @@ jQuery(document).ready(function(){
             // Define list for Universal Analytics
             var last_breadcumbs_categorysearch, last_breadcumbs_category = "";
             var list = "browsing";
-            last_breadcumbs_categorysearch = jQuery('.page-title').length;
-            last_breadcumbs_category = jQuery('.page-title.category-title').length;
+            last_breadcumbs_categorysearch = $j('.page-title').length;
+            last_breadcumbs_category = $j('.page-title.category-title').length;
             if ((last_breadcumbs_category == 1) && (last_breadcumbs_categorysearch == 1)) {
                 list = "browsing";
             }
@@ -272,18 +293,18 @@ jQuery(document).ready(function(){
                   }
                 });
 
-                // ematics cart
-                ematics('log', 'product', 'cart', 
-                        [{
-                        'name': name,
-                        'id': sku,
-                        'price': price,
-                        'quantity': 1,
-                        'brandName': 'brand name',
-                        'imageUrl': imageUrl,
-                        'link': link
-                       }]
-                    );
+                // ematics cart - prepare for logging
+                products = [{
+                    'id': sku,
+                    'price': price,
+                    'quantity': 1,
+                    'name': name,
+                    'brandName': 'brand name',
+                    'imageUrl': imageUrl,
+                    'link': link
+                }];
+                // ematics track items in cart to enable pre-abandonded cart overlays
+                ematics("log", "product", "cart", products);
             }
 
             function ecommerceProductClick(name,sku,price) {
@@ -328,7 +349,7 @@ jQuery(document).ready(function(){
                 dataLayer.push(ecommerceProductClickDataReview);
             }
 
-            jQuery(document).ready(function(){
+            $j(document).ready(function(){
                 // impression
                 if (typeof objDataLayer == "undefined") {
                     objDataLayer = new Array();
