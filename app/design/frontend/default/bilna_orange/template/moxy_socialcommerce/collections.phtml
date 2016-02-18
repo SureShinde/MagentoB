@@ -18,8 +18,16 @@ $lastPageNumber = $this->getLastPageNumber();
       <div class="cg-col-sm-11 subtext-banner-collection opensans" style="">
         Buat KOLEKSI dan kumpulkan produk favorit anda sesuai tema atau mood. Berikan inspirasi belanja untuk lorem ipsum sir dolor amit
       </div>
-      <div class="cg-col-sm-12">
-        <a href="javascript:;" class="btn-lightgreen cg-col-xs-8 cg-col-sm-4 cg-col-md-3 cg-col-lg-5 btn-margin bottom-spacer-container" <?php if (Mage::getSingleton('customer/session')->isLoggedIn()): ?>onclick="newShowAddCollectionDialog()"<?php else: ?>onclick="openLogin()"<?php endif; ?>>PELAJARI LEBIH LANJUT</a>
+      <div class="cg-col-sm-12 login-collection">
+        <a 
+          <?php if (!Mage::getSingleton('customer/session')->isLoggedIn()): ?>
+            href="<?php echo Mage::getUrl('customer/account/login'); ?>" 
+          <?php else: ?>
+            href="javascript:;" onclick="newShowAddCollectionDialog()"
+          <?php endif; ?> 
+          class="btn-lightgreen cg-col-xs-8 cg-col-sm-4 cg-col-md-3 cg-col-lg-5 btn-margin bottom-spacer-container">
+          PELAJARI LEBIH LANJUT
+        </a>
       </div>
     </div>
     <div class="cg-col-sm-12 cg-col-xs-12 cg-col-md-6 cg-col-lg-6 closer-top-banner">
@@ -205,10 +213,24 @@ foreach ($wishlists as $wishlist) {
                   </div>
                 </div>
                 <div class="cg-col-sm-6 cg-col-sm-offset-3">
-                  <a href="javascript:;" class="btn-lightgreen cg-col-xs-12 btn-margin bottom-spacer-container" <?php if (Mage::getSingleton('customer/session')->isLoggedIn()): ?>onclick="newShowAddCollectionDialog()"<?php else: ?>onclick="openLogin()"<?php endif; ?>>CARI PRODUK FAVORIT DI BILNA.COM</a>
+                  <a 
+                    <?php if (!Mage::getSingleton('customer/session')->isLoggedIn()): ?>
+                      href="http://indrakbil.bilnaclone.com/customer/account/login/" 
+                    <?php else: ?>
+                      href="javascript:;" onclick="newShowAddCollectionDialog()"
+                    <?php endif; ?> 
+                    class="btn-lightgreen cg-col-xs-12 btn-margin bottom-spacer-container">
+                    CARI PRODUK FAVORIT DI BILNA.COM
+                  </a>
                 </div>
-                <div class="cg-col-sm-6 cg-col-sm-offset-3">
-                  <a href="javascript:;" class="cg-col-xs-12 btn-margin bottom-spacer-container new-page" onclick="newShowAddCollectionDialog()">
+                <div class="cg-col-sm-6 cg-col-sm-offset-3 login-collection">
+                  <a 
+                    <?php if (!Mage::getSingleton('customer/session')->isLoggedIn()): ?>
+                      href="<?php echo Mage::getUrl('customer/account/login'); ?>"
+                    <?php else: ?>
+                      href="javascript:;" onclick="newShowAddCollectionDialog()"
+                    <?php endif; ?>
+                      class="cg-col-xs-12 btn-margin bottom-spacer-container new-page">
                     Saya ingin membuat halaman koleksi baru
                   </a>
                 </div>
