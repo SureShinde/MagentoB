@@ -400,13 +400,18 @@ $images = Mage::getModel('socialcommerce/collectioncover')->getCollection()->set
 </form>
 
 <?php else : ?>
-
-    <div class="in-block cg-col-lg-7 cg-col-md-7 cg-col-sm-12 cg-col-xs-12">
-        <p style="color: #545454;">Please <a href="<?php echo Mage::getUrl('customer/account/login'); ?>" onclick="hideAddToCollectionDialog();openLogin();return false;">login</a> to add this item to your collection.</p>
-        <a class="btn btn-primary btn-block" style="margin: 10px 0;text-decoration:none;" href="<?php echo Mage::getUrl('customer/account/login'); ?>" onclick="hideAddToCollectionDialog();openLogin();return false;">Login</a>
-        <button class="btn btn-default btn-block btn-cancel" onclick="hideAddToCollectionDialog();return false;">Close</button>
+    <div class="in-block cg-col-lg-7 cg-col-md-7 cg-col-sm-12 cg-col-xs-12 login-collection">
+        <p style="color: #545454;">Please login to add this item to your collection. <br>
+            <a 
+                <?php if (!Mage::getSingleton('customer/session')->isLoggedIn()): ?>
+                    href="<?php echo Mage::getUrl('customer/account/login'); ?>"
+                    onclick="hideAddToCollectionDialog();return false;" class="btn-pink-prime in-block"
+                <?php endif; ?>>
+                login
+            </a> <br>
+            <button class="btn btn-cancel btn-block cursor" style="background:transparent;" onclick="hideAddToCollectionDialog();return false;">keluar</button>
+        </p>
     </div>
-
 <?php endif; ?>
 </div>
 </div>

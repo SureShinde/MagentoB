@@ -60,9 +60,10 @@ extends Mage_Core_Helper_Abstract
     {
         # TODO loop thru all store ids, and create rewrite for each store id.
         // $store_id = Mage::app()->getStore()->getStoreId();
+        $null = new Zend_Db_Expr("NULL");
         $results = Mage::getModel('core/url_rewrite')
             ->setStoreId(1)
-            ->setOptions('RP')
+            ->setOptions($null)
             ->setIdentifier('collections/' . $id . '-' . $slug)
             ->setRequestPath('collections/' . $id . '-' . $slug)
             ->setTargetPath('user/profile/collection/?id=' . $id . '-' . $slug)
@@ -317,9 +318,10 @@ extends Mage_Core_Helper_Abstract
     {
         # TODO loop thru all store ids, and create rewrite for each store id.
         // $store_id = Mage::app()->getStore()->getStoreId();
+        $null = new Zend_Db_Expr("NULL");
         $results = Mage::getModel('core/url_rewrite')
             ->setStoreId(1)
-            ->setOptions('RP')
+            ->setOptions($null)
             ->setIdentifier('user/' . $postUsername)
             ->setRequestPath('user/' . $postUsername)
             ->setTargetPath('user/profile/index/?u=' . $postUsername)
