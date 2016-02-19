@@ -1501,9 +1501,9 @@ top: 55px;
 .nav-container-mobile ul li:first-child {
 	border-top: none;
 }
-//.nav-container-mobile ul li.cat-leveltop {
-//    background: url("../images/arrow-menu-mobile.png") no-repeat scroll 98% 17px rgba(0, 0, 0, 0);
-//}
+/*.nav-container-mobile ul li.cat-leveltop {
+    background: url("../images/arrow-menu-mobile.png") no-repeat scroll 98% 17px rgba(0, 0, 0, 0);
+}*/
 .nav-container-mobile ul li{
 	list-style-type:none;
 }

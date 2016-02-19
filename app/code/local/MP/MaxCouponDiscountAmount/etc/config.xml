@@ -1,0 +1,82 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @category    MP
+ * @package     MP_MaxCouponDiscountAmount
+ * @copyright   MagePhobia (http://www.magephobia.com)
+ */
+-->
+<config>
+    <modules>
+        <MP_MaxCouponDiscountAmount>
+            <version>0.1.2</version>
+        </MP_MaxCouponDiscountAmount>
+    </modules>
+    <global>
+        <models>
+            <sales>
+                <rewrite>
+                    <order_creditmemo_total_discount>MP_MaxCouponDiscountAmount_Model_Order_Creditmemo_Total_Discount</order_creditmemo_total_discount>
+                    <order_invoice_total_discount>MP_MaxCouponDiscountAmount_Model_Order_Invoice_Total_Discount</order_invoice_total_discount>
+                </rewrite>
+            </sales>
+            <salesrule>
+                <rewrite>
+                    <quote_discount>MP_MaxCouponDiscountAmount_Model_SalesRule_Quote_Discount</quote_discount>
+                </rewrite>
+            </salesrule>
+            <salesrule>
+                <rewrite>
+                    <validator>MP_MaxCouponDiscountAmount_Model_SalesRule_Validator</validator>
+                </rewrite>
+            </salesrule>
+            <mp_maxcoupondiscountamount>
+                <class>MP_MaxCouponDiscountAmount_Model</class>
+                <resourceModel>mp_maxcoupondiscountamount_resource</resourceModel>
+            </mp_maxcoupondiscountamount>
+            <mp_maxcoupondiscountamount_resource>
+                <class>MP_MaxCouponDiscountAmount_Model_Resource</class>
+            </mp_maxcoupondiscountamount_resource>
+        </models>
+        <resources>
+            <mp_maxcoupondiscountamount_setup>
+                <setup>
+                    <module>MP_MaxCouponDiscountAmount</module>
+                    <class>MP_MaxCouponDiscountAmount_Model_Resource_Setup</class>
+                </setup>
+            </mp_maxcoupondiscountamount_setup>
+        </resources>
+        <helpers>
+            <mp_maxcoupondiscountamount>
+                <class>MP_MaxCouponDiscountAmount_Helper</class>
+            </mp_maxcoupondiscountamount>
+        </helpers>
+        <blocks>
+            <adminhtml>
+                <rewrite>
+                    <promo_quote_edit_tab_actions>MP_MaxCouponDiscountAmount_Adminhtml_Block_Promo_Quote_Edit_Tab_Actions</promo_quote_edit_tab_actions>
+                </rewrite>
+            </adminhtml>
+        </blocks>
+        <events>
+            <sales_quote_collect_totals_before>
+                <observers>
+                    <mp_maxcoupondiscountamount_observer>
+                        <type>singleton</type>
+                        <class>MP_MaxCouponDiscountAmount_Model_Observer</class>
+                        <method>salesQuoteCollectTotalsAfter</method>
+                    </mp_maxcoupondiscountamount_observer>
+                </observers>
+            </sales_quote_collect_totals_before>
+            <sales_order_place_before>
+                <observers>
+                <mp_maxcoupondiscountamount_observer>
+                    <type>singleton</type>
+                    <class>MP_MaxCouponDiscountAmount_Model_Observer</class>
+                    <method>salesOrderPlaceBefore</method>
+                </mp_maxcoupondiscountamount_observer>
+                </observers>
+            </sales_order_place_before>
+        </events>
+    </global>
+</config>

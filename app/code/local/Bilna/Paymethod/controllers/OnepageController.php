@@ -12,6 +12,10 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
     protected $_typeTransaction = 'transaction';
     
     public function saveOrderAction() {
+        if ($this->_expireAjax()) {
+            return;
+        }
+        
         $paymentCode = Mage::getSingleton('checkout/session')->getQuote()->getPayment()->getMethodInstance()->getCode();
         $paymentSupportInstallment = explode(',', Mage::getStoreConfig('bilna_module/paymethod/payment_support_installment'));
         
@@ -26,10 +30,6 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
         }
         
         if (in_array($paymentCode, $paymentSupportInstallment)) {
-            if ($this->_expireAjax()) {
-                return;
-            }
-
             $result = array ();
                
             try {
@@ -366,6 +366,8 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
     }
     
     public function successAction() {
+        $canceled = 0;
+
         if ($this->getRequest()->getParam('order_no')) {
             $orderNo = $this->getRequest()->getParam('order_no');
             
@@ -375,6 +377,10 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
             $order = Mage::getModel('sales/order')->loadByIncrementId($orderNo);
             $lastOrderId = $order->getId();
             $paymentCode = $order->getPayment()->getMethodInstance()->getCode();
+
+            // FDS (BILNA-1333) - Start
+            $canceled = Mage::helper('bilna_fraud')->checkOrderStatus($orderNo, 1);
+            // FDS (BILNA-1333) - End
 
             if (in_array($paymentCode, $this->getPaymentMethodCc())) {
                 $this->_redirect('checkout/cart');
@@ -391,6 +397,11 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
 
             $lastQuoteId = $session->getLastQuoteId();
             $lastOrderId = $session->getLastOrderId();
+
+            // FDS (BILNA-1333) - Start
+            $canceled = Mage::helper('bilna_fraud')->checkOrderStatus($lastOrderId, 0);
+            // FDS (BILNA-1333) - End
+
             $lastRecurringProfiles = $session->getLastRecurringProfileIds();
 
             if (!$lastQuoteId || (!$lastOrderId && empty ($lastRecurringProfiles))) {
@@ -403,7 +414,7 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
             $session->clear();
         }
             
-        if (in_array($paymentCode, $this->getPaymentMethodCc())) {
+        if (in_array($paymentCode, $this->getPaymentMethodCc()) && $canceled == 0) {
             // charge credit card
             $charge = $this->creditcardCharge($order);
 
@@ -413,6 +424,14 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
             Mage::register('response_charge', $charge);
             Mage::dispatchEvent('sales_order_place_after', array ('order' => $order));
         }
+
+        // FDS (BILNA-1333) - Start
+        if($canceled == 1) {
+            $fraud = Mage::helper('core')->urlEncode('fraud');
+            $this->_redirect('checkout/onepage/failure', array('fail' => $fraud));
+            return;
+        }
+        // FDS (BILNA-1333) - End
         
         /**
          * Charge Transaction (Mandiri E-Cash)

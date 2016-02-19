@@ -1,0 +1,124 @@
+<?php
+/**
+ * aheadWorks Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://ecommerce.aheadworks.com/AW-LICENSE.txt
+ *
+ * =================================================================
+ *                 MAGENTO EDITION USAGE NOTICE
+ * =================================================================
+ * This software is designed to work with Magento community edition and
+ * its use on an edition other than specified is prohibited. aheadWorks does not
+ * provide extension support in case of incorrect edition use.
+ * =================================================================
+ *
+ * @category   AW
+ * @package    AW_Relatedproducts
+ * @version    1.4.1
+ * @copyright  Copyright (c) 2010-2012 aheadWorks Co. (http://www.aheadworks.com)
+ * @license    http://ecommerce.aheadworks.com/AW-LICENSE.txt
+ */
+?><?php
+/**
+ * aheadWorks Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://ecommerce.aheadworks.com/LICENSE-M1.txt
+ *
+ * @category   AW
+ * @package    AW_Relatedproducts
+ * @copyright  Copyright (c) 2008-2012 aheadWorks Co. (http://www.aheadworks.com)
+ * @license    http://ecommerce.aheadworks.com/LICENSE-M1.txt
+ *
+ * @var $this AW_Relatedproducts_Block_Relatedproducts
+ */
+?>
+<?php if($this->getEnabled() && count($this->getRelatedProductsCollection())): ?>
+<div class="aw-box aw-base-mini aw-mini-related-items block">
+    <hr/>
+    <div class="head">
+        <span><?php echo $this->__('You Might Like This') ?></span>
+    </div>
+    <div class="aw-content" <?php if (Mage::helper('relatedproducts')->checkVersion('1.4.1.0')) { echo "id=\"after1400\""; }?>>
+        <ol>
+        <?php foreach($this->getRelatedProductsCollection() as $_item): ?>
+        <li <?php if($_item->isComposite() || !$_item->isSaleable()): ?> class="super-products"<?php endif; ?>>
+			<div class="top_thumb_list_product">
+				<div class="product-images">
+					<a href="<?php echo $_item->getProductUrl() ?>"><img class="lazy" data-src="<?php echo $this->helper('catalog/image')->init($_item, 'thumbnail')->resize(152) ?>" alt="<?php echo $this->htmlEscape($_item->getName()) ?>" /></a>
+				</div>
+            </div>
+            <div class="product-info-wrapper">
+				<div class="product-details">
+					<div class="product-name-wrap">
+						<a href="<?php echo $_item->getProductUrl() ?>"><?php echo $this->htmlEscape($_item->getName()) ?></a>
+					</div>
+					<?php echo $this->getPriceHtml($_item, true); ?>
+				</div>
+				<?php echo $this->getReviewsSummaryHtml($_item, false, true)?>
+			</div>
+			<div class="bottom_thumb_list_product">
+				
+				<?php if($_item->isSaleable()): ?>
+					<?php if($_item->getTypeId() != 'simple'):?>
+                    <a class="link-cart-special" href="<?php echo $_item->getProductUrl() ?>" title="<?php echo $this->stripTags($_item->getName(), null, true) ?>"><i class="fa fa-cart-plus"></i><?php echo $this->__('Tambah ke troli') ?></a>
+                    <?php else:?>
+                    <button type="button buynow_awrelated" title="<?php echo $this->__('Tambah ke troli') ?>" class="button btn-cart" onclick="setLocation('<?php echo $this->getAddToCartUrl($_item) ?>')"><span><span><i class="fa fa-cart-plus"></i> <?php echo $this->__('Tambah ke troli') ?></span></span></button>
+                    <?php endif; ?>    
+				<?php else: ?>
+					<p class="availability out-of-stock"><a href="<?php echo $_item->getProductUrl() ?>"><?php echo $this->__('Kabari bila tersedia') ?></a></p>
+				<?php endif; ?>
+            </div>
+        </li>
+        <?php endforeach ?>
+        </ol>
+    </div>
+</div>
+<script type="text/javascript">
+<!--
+$$('.aw-related-checkbox').each(function(elem){
+    Event.observe(elem, 'click', addAwRelatedToProduct)
+});
+
+var relatedAwProductsCheckFlag = false;
+function selectAllAwRelated(txt){
+    if (relatedAwProductsCheckFlag == false) {
+        $$('.aw-related-checkbox').each(function(elem){
+            elem.checked = true;
+        });
+        relatedAwProductsCheckFlag = true;
+        txt.innerHTML="<?php echo $this->__('unselect all') ?>";
+    } else {
+        $$('.aw-related-checkbox').each(function(elem){
+            elem.checked = false;
+        });
+        relatedAwProductsCheckFlag = false;
+        txt.innerHTML="<?php echo $this->__('select all') ?>";
+    }
+    addAwRelatedToProduct();
+}
+
+function addAwRelatedToProduct(){
+    var checkboxes = $$('.aw-related-checkbox');
+    var values = [];
+    for(var i=0;i<checkboxes.length;i++){
+        if(checkboxes[i].checked) values.push(checkboxes[i].value);
+    }
+    
+    if($('related-products-field')){
+        $('related-products-field').value = values.join(',');
+    }
+    
+}
+//-->
+</script>
+<?php endif ?>

@@ -39,7 +39,7 @@ class Amasty_Shopby_Model_Mysql4_Filter extends Mage_Core_Model_Mysql4_Abstract
     
     public function createFilters()
     {    
-        $db = $this->_getReadAdapter();
+        $db = $this->_getWriteAdapter();
         
         //clean values from already removed filters 
         $sqlIds = (string)$db->select()

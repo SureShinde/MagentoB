@@ -5,8 +5,12 @@ class Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Edit_Tabs_Edit_Detail extend
    protected function _prepareForm()
    {
 		$formbuilder = Mage::registry('formbuilder_form');
-    $form = new Varien_Data_Form();
-    $form->setUseContainer(true);
+
+		$form = new Varien_Data_Form(array('id' => 'edit_form', 
+				'action' => $this->getUrl('*/*/saveInput', array ('form_id' => $this->getRequest()->getParam('form_id'), 'id' => $this->getRequest()->getParam('id'))),
+				'method' => 'post',
+				'enctype' => 'multipart/form-data'));
+    	$form->setUseContainer(true);
 		$this->setForm($form);
 		$form->setHtmlIdPrefix('formbuilder_');
 		$fieldset = $form->addFieldset('formbuilder_form', array('legend' => Mage::helper('bilna_formbuilder')->__('Detail')));
@@ -45,14 +49,14 @@ class Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Edit_Tabs_Edit_Detail extend
 		   'label'     => 'Required',
 		   'name'      => 'required',
 		   'value'     => $data["required"],
-       'note'      => Mage::helper('bilna_formbuilder')->__('Status Note:</br>0=Enabled</br>1=Disabled'),
+       'note'      => Mage::helper('bilna_formbuilder')->__('Status Note:</br>1=Enabled</br>0=Disabled'),
     ));
 
 		$fieldset->addField('unique', 'label', array(
 		   'label'     => 'Unique',
 		   'name'      => 'unique',
 		   'value'     => $data["unique"],
-       'note'      => Mage::helper('bilna_formbuilder')->__('Status Note:</br>0=Enabled</br>1=Disabled'),
+       'note'      => Mage::helper('bilna_formbuilder')->__('Status Note:</br>1=Enabled</br>0=Disabled'),
     ));
 
 		$fieldset->addField('order', 'label', array(

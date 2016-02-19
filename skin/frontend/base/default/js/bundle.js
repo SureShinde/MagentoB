@@ -235,4 +235,4 @@ Product.Bundle.prototype = {
             }
         }
     }
-}
+};

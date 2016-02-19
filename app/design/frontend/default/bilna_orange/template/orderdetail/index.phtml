@@ -1,0 +1,45 @@
+<div class="container-orderdetailbox">
+    <form id="orderdetailForm" method="post" action="<?php echo $this->getFormActionUrl(); ?>">
+        <div class="registered-users">
+            <div class="content">
+                <div class="page-title">
+                <h2><?php echo $this->__('ORDER DETAIL FORM'); ?></h2>
+                </div>
+                <div class="new-customers-fields">
+                    <ul class="form-list">
+                        <li>
+                            <label class="required" for="email"><?php echo $this->__('Email Address'); ?><em>*</em></label>
+                            <div class="input-box">
+                                <input type="text" title="<?php echo $this->__('Email Address'); ?>" class="input-text required-entry validate-email validate-failed" id="email" value="" name="orderdetail[email]" />
+                            </div>
+                        </li>
+
+                        <li>
+                            <label class="required" for="pass"><?php echo $this->__('Order Number'); ?><em>*</em></label>
+                            <div class="input-box">
+                                <input type="text" title="<?php echo $this->__('Order Number'); ?>" id="orderid" class="input-text required-entry validate-failed" name="orderdetail[orderid]" />
+                            </div>
+                        </li>
+
+                        <li>
+                            <label>&nbsp;</label>
+                            <div class="input-box">
+                                <button id="send" name="send" title="Sign In" class="button" type="submit">
+                                    <span><?php echo $this->__('Submit'); ?></span>
+                                </button>
+                            </div>
+                        </li>
+                    </ul>
+                    <br />
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script type="text/javascript">
+    //<![CDATA[
+    document.forms.orderdetailForm.email.focus();
+    var dataForm = new VarienForm('orderdetailForm', true);
+    //]]>
+</script>
