@@ -240,7 +240,7 @@ $_helper = $this->helper('catalog/output');
                  data-image="<?php echo $productImageUrl; ?>"
                  data-product-name="<?php echo $productNameStripped; ?>"
                  data-price="<?php echo $productFinalPriceFormatted; ?>"
-                 data-id="<?php echo $productId; ?>"><div class="cg-hidden-xs add-to-hovering">add to collection</div></a></a>
+                 data-id="<?php echo $productId; ?>"><div class="cg-hidden-xs add-to-hovering">Tambahkan ke koleksi</div></a></a>
                  <?php } ?> 
                </div>
              </div>
@@ -255,7 +255,7 @@ $_helper = $this->helper('catalog/output');
          </div>
 
           <!-- new quikview-->
-              <div class="container-collection-pop" style="display:none;" id="quickView<?php echo $i; ?>">
+              <div class="container-collection-pop addCollectionFromQuick" style="display:none;" id="quickView<?php echo $i; ?>">
                 <div class="cg-col-lg-5 cg-col-md-6 cg-col-sm-6 cg-col-xs-11 container-collection-whitebg white-bg-new-coll quick-col" style="display:inline-table !important;">
                <div class="cg-col-lg-1 cg-col-md-1 cg-col-sm-1 cg-col-xs-1 quick-sub-col " id="closer-collection bottom-spacer-little" style="">
                     <a href="javascript:;" onclick="hideQuickView<?php echo $i;?>()" style="text-decoration:none;width:100%;display:block; line-height:1px;"><i class="fa fa-times"></i></a>
@@ -327,7 +327,7 @@ $_helper = $this->helper('catalog/output');
                     </div>
                     <div class="add-to-cart-wrapper ">
                       <div class="add-to-box">
-                        <div class="add-to-cart">
+                        <div class="add-to-cart cg-col-xs-12">
                           <!-- hide temporarily 
                           <div class="qty-wrapper bottom-spacer-little in-block cg-col-xs-12 nopadding">
                             <div class="cg-col-xs-3 in-block" style="padding: 3px 0px;font-size: 11px;color: #7D7D7D;">
@@ -343,16 +343,14 @@ $_helper = $this->helper('catalog/output');
                             </select>
                           </div>-->
 
-                          <div class="add-to-cart-buttons cg-col-xs-12">
-                            <div class="cg-col-xs-2 coll-quick" onclick="newShowAddCollectionDialog()" style="cursor: pointer;">
-                              <i class="fa fa-heart"></i>
-                            </div>
+                          <div class="add-to-cart-buttons cg-col-xs-12 nopadding">
+                            
 
                             <!-- checking stock level for quick view-->
 
                             <?php if ($stocklevel < 1) { ?>
 
-                            <div class="cg-col-xs-10">
+                            <div class="cg-col-xs-10 nopadding">
                                               <button type ="button" class="btn btn-cancel-button nomargin" disabled style="">
                                                     Out Of Stock
                                               </button>
@@ -361,7 +359,7 @@ $_helper = $this->helper('catalog/output');
 
                             <?php } else { ?>
                             
-                            <div class="cg-col-xs-10">
+                            <div class="cg-col-xs-10 nopadding">
 
                                               <button
                                                     type ="button"

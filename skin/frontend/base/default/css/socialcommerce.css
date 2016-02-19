@@ -3569,3 +3569,10 @@ p.exp-three-col
 {
 	margin-top: 10px;
 }
+p.name-product
+{
+	max-height: 34px;
+    overflow: hidden;
+    min-height: 34px;
+    padding: 0 10px;
+}
