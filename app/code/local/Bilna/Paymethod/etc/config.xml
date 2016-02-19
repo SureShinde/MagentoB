@@ -147,7 +147,26 @@
                     </sales_order_log>
                 </observers>
             </sales_order_place_after>
+            <checkout_type_onepage_save_order_after>
+                <observers>
+                    <paymethod_disable_new_order_email>
+                        <type>singleton</type>
+                        <class>paymethod/observer</class>
+                        <method>disableNewOrderEmail</method>
+                    </paymethod_disable_new_order_email>
+                </observers>
+            </checkout_type_onepage_sav e_order_after>
+            <checkout_onepage_controller_success_action>
+                <observers>
+                    <paymethod_send_new_order_email>
+                        <type>singleton</type>
+                        <class>paymethod/observer</class>
+                        <method>sendNewOrderEmail</method>
+                    </paymethod_send_new_order_email>
+                </observers>
+            </checkout_onepage_controller_success_action>
         </events>
+
     </frontend>
 
     <admin>
