@@ -717,35 +717,34 @@ class Bilna_Pricevalidation_Adminhtml_PricevalidationController extends Mage_Adm
 
     private function __sendEmail($body="", $subject, $userData, $supervisorEmail, $attachment, $productTeamEmail="")
     {
-        $mail = new Zend_Mail('utf-8');
-
         if($productTeamEmail != '') {
-            $recipients = array($userData['firstname'].' '.$userData['lastname'], $userData['email'], 'supervisor', $supervisorEmail, 'product-team', $productTeamEmail);
+            $recipientsEmail = array(
+                $userData['email'],
+                $supervisorEmail,
+                $productTeamEmail
+            );
         }
         else{
-            $recipients = array($userData['firstname'].' '.$userData['lastname'], $userData['email'], 'supervisor', $supervisorEmail);
+            $recipientsEmail = array(
+                $userData['email'],
+                $supervisorEmail
+            );
         }
 
-        $mail->setBodyHtml($body)
-            ->setSubject($subject)
-            ->addTo($recipients)
-            ->setFrom('system@bilna.com', 'BILNA ALERT SYSTEM');
+        $email = Mage::getModel('core/email_template');
+        $email->setSenderEmail('system@bilna.com');
+        $email->setSenderName('BILNA ALERT SYSTEM');
+        $email->setTemplateSubject($subject);
+        $email->setTemplateText($body);
 
-        $attachment = file_get_contents($attachment);
-
-        $mail->createAttachment(
-            $attachment,
+        $email->getMail()->createAttachment(
+            file_get_contents($attachment),
             Zend_Mime::TYPE_OCTETSTREAM,
             Zend_Mime::DISPOSITION_ATTACHMENT,
             Zend_Mime::ENCODING_BASE64,
             'error.csv'
         );
-
-        try {
-            $mail->send();
-        }catch (Exception $e) {
-            Mage::logException($e);
-            //Mage::log("Unable to send Email", null, "email_error.log");
-        }
+        
+        $email->send($recipientsEmail);
     }
 }
