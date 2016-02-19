@@ -109,10 +109,10 @@ Why don’t you start create your own collection?
 <?php if ($wishlistCollection->count() < 1 && $loggedCustomer->getId() == $customer->getId()): ?>
 <div class="cg-row"  style="margin-bottom:20px">
  <div class="cg-col-lg-6 cg-col-lg-offset-3 cg-col-xs-12 cg-col-md-8 cg-col-md-offset-2 cg-col-sm-12 text-center no-collection-title">
-    YOU HAVE NOT CREATED ANY COLLECTIONS YET..
+    KAMU BELUM MEMILIKI KOLEKSI
   </div>
-  <div class="cg-col-lg-6 cg-col-lg-offset-3 cg-col-xs-12 cg-col-md-8 cg-col-md-offset-2 cg-col-sm-12 text-center no-collection-subtitle">
-    <span class="pinker" style="cursor:pointer;" onclick="showAddCollectionDialog()">Create your first collection</span> or browse our products, heart it, being creative with cover image and description.
+  <div class="cg-col-lg-6 cg-col-lg-offset-3 cg-col-xs-12 cg-col-md-8 cg-col-md-offset-2 cg-col-sm-12 text-center no-collection-subtitle opensans bold">
+    <span class="pinker" style="cursor:pointer;" onclick="newShowAddCollectionDialog()">Buat koleksi pertama kamu</span> atau lihat produk kami, tekan icon love, lalu buat koleksi dengan gambar cover kesukaan kamu.
   </div>
   <div class="cg-col-lg-4 cg-col-lg-offset-4 cg-col-xs-12 cg-col-md-8 cg-col-md-offset-2 cg-col-sm-12">
     <img src="<?php echo $this->getSkinUrl('images/') . 'Bitmap-no-collection.jpg'; ?>" width="100%" >
@@ -155,7 +155,7 @@ Why don’t you start create your own collection?
           <?php $loggedCustomer = Mage::getSingleton('customer/session')->getCustomer(); ?>
           <?php if ($loggedCustomer->getId() == $customer->getId()) : ?>
             
-             <div class="cg-col-lg-3 cg-col-md-3 cg-col-sm-6 cg-col-xs-12 bottom-spacer-container" style="padding:0 10px;" onclick="newShowAddCollectionDialog()">
+             <div class="cg-col-lg-3 cg-col-md-3 cg-col-sm-6 cg-col-xs-12 bottom-spacer-container" style="padding: 0 5px; margin-bottom: 0 !important;" onclick="newShowAddCollectionDialog()">
               <div class="cg-col-sm-12 back-square-plus nopadding" style="">
                <div class="middle-part-plus" style="">
                  <i class="fa fa-plus" style="color:#757575;font-size:30px;"></i>
@@ -457,7 +457,7 @@ Why don’t you start create your own collection?
           <input type="text" class="form-control noradius" id="datepicker" placeholder="" style="display:block !important;" name="dob" value="<?php echo ($customerDob) ? $customerDob : '' ?>">
         </div>
         <label for="inputEmail3" class="cg-col-xs-12 control-label label-color label-margin take-left opensans">Lokasi</label>
-        <input type="text" name="location" id="modalDescCol" class="input-collection full-width" placeholer="Location" value="<?php echo ($profiler->getLocation()) ? $profiler->getLocation() : '' ?>">
+        <input type="text" name="location" style="padding: 0 5px;" id="modalDescCol" class="input-collection full-width" placeholer="Location" value="<?php echo ($profiler->getLocation()) ? $profiler->getLocation() : '' ?>">
 
           <!--
           <label for="name" class="full-width" style="color: #545454; margin-bottom: 10px;margin-top: 10px;">Iam <span class="coll-tags">You can choose more than one, because you can have it all!</span></label>
