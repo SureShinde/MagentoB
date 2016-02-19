@@ -63,6 +63,7 @@ For checkout/onepage/shipping.phtml:
 <?php endif; ?>
     <div class="field name-firstname">
         <div class="input-box">
+            <label for="<?php echo $this->getFieldId('firstname')?>" class="required"><em>*</em><?php echo $this->__('First Name') ?></label>
             <input type="text" id="<?php echo $this->getFieldId('firstname')?>" name="<?php echo $this->getFieldName('firstname')?>" value="<?php echo $this->escapeHtml($this->getObject()->getFirstname()) ?>" placeholder="<?php echo $this->getStoreLabel('firstname') ?>" title="<?php echo $this->getStoreLabel('firstname') ?>" maxlength="255" class="input-text <?php echo $this->helper('customer/address')->getAttributeValidationClass('firstname') ?>" <?php echo $this->getFieldParams() ?> />
         </div>
     </div>
@@ -76,6 +77,7 @@ For checkout/onepage/shipping.phtml:
 <?php endif; ?>
     <div class="field name-lastname">
         <div class="input-box">
+            <label for="<?php echo $this->getFieldId('lastname')?>"><?php echo $this->__('Last Name') ?></label>
             <input type="text" id="<?php echo $this->getFieldId('lastname')?>" name="<?php echo $this->getFieldName('lastname')?>" value="<?php echo $this->escapeHtml($this->getObject()->getLastname()) ?>" placeholder="<?php echo $this->getStoreLabel('lastname') ?>" title="<?php echo $this->getStoreLabel('lastname') ?>" maxlength="255" class="input-text <?php //echo $this->helper('customer/address')->getAttributeValidationClass('lastname') ?>" <?php echo $this->getFieldParams() ?> />
         </div>
     </div>
