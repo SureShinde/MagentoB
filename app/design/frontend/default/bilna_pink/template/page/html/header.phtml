@@ -253,6 +253,7 @@
 </script>
 <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('above-header-notification')->toHtml() ?>
 <div class="header-container">
+<!--
     <div class="space-above-header">
         <div class="container-above-header">
             <ul class="keypoint">
@@ -274,6 +275,10 @@
             </div>
         </div>
     </div>
+-->
+	<?php
+	echo $this->getLayout()->createBlock('cms/block')->setBlockId('above-header')->toHtml(); 
+	?>
     <div class="tooltip-mobile-first">
         <p> ← click here for category menu </p>
     </div>
