@@ -20,7 +20,7 @@ class Zendesk_Zendesk_Model_Observer
 {
     public function setHook(Varien_Event_Observer $observer)
     {
-        if (!class_exists(Mage::app()->getFrontController())) {
+        if (!method_exists(Mage::app()->getFrontController()->getAction(), 'getFullActionName')) {
             return;
         }
         
@@ -36,7 +36,7 @@ class Zendesk_Zendesk_Model_Observer
 
     public function insertBlock(Varien_Event_Observer $observer)
     {
-        if (!class_exists(Mage::app()->getFrontController())) {
+        if (!method_exists(Mage::app()->getFrontController()->getAction(), 'getFullActionName')) {
             return;
         }
         

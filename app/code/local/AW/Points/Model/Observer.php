@@ -510,9 +510,7 @@ class AW_Points_Model_Observer extends Mage_Core_Block_Abstract
                     $limitedPoints < $pointsAmount ||
                     !Mage::helper('points')->isAvailableToRedeem($customerPoints)
             ) {
-                if($limitedPoints < $pointsAmount && !$quote->getCouponCode()) {
-                    Mage::throwException($this->__('Incorrect points amount'));
-                }
+                Mage::throwException($this->__('Incorrect points amount'));
             }
 
             $amountToSubtract = -$pointsAmount;
