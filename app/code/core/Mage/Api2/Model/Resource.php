@@ -225,6 +225,7 @@ abstract class Mage_Api2_Model_Resource
                     }
                     $newItemLocation = $this->_create($filteredData);
                     $this->getResponse()->setHeader('Location', $newItemLocation);
+                    $this->getResponse()->setHttpResponseCode(202);
                 } else {
                     $this->_errorIfMethodNotExist('_multiCreate');
                     $filteredData = $this->getFilter()->collectionIn($requestData);
@@ -749,6 +750,10 @@ abstract class Mage_Api2_Model_Resource
             $collection->setOrder($orderField, $this->getRequest()->getOrderDirection());
         }
         $collection->setCurPage($pageNumber)->setPageSize($pageSize);
+
+        $group = $this->getRequest()->getGroup();
+        if(null !== $group)
+            $collection->getSelect()->group($group);
 
         return $this->_applyFilter($collection);
     }

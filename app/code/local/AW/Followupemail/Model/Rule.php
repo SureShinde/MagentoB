@@ -444,6 +444,10 @@ class AW_Followupemail_Model_Rule extends Mage_Core_Model_Abstract {
             }
         }
 
+        $payment_method = '';
+        if (isset($params['payment_method']))
+            $payment_method = $params['payment_method'];
+
         switch ($this->getEventType()) {
             case AW_Followupemail_Model_Source_Rule_Types::RULE_TYPE_WISHLIST_SHARED :
             case AW_Followupemail_Model_Source_Rule_Types::RULE_TYPE_WISHLIST_PRODUCT_ADD :
@@ -470,6 +474,10 @@ class AW_Followupemail_Model_Rule extends Mage_Core_Model_Abstract {
 
             case AW_Followupemail_Model_Source_Rule_Types::RULE_TYPE_CUSTOMER_CAME_BACK_BY_LINK :
                 // return $this->validateByCustomer($params);
+                return true;
+                break;
+
+            case AW_Followupemail_Model_Source_Rule_Types::RULE_TYPE_PAYMENT_METHOD.$payment_method:
                 return true;
                 break;
 
@@ -1248,6 +1256,114 @@ class AW_Followupemail_Model_Rule extends Mage_Core_Model_Abstract {
         }
         
         Mage::getSingleton('followupemail/log')->logWarning("rule id={$this->getId()} is not valid for emailShareApps event of email={$params['customer_email']}, params=" . AW_Followupemail_Helper_Data::printParams($params), $this);
+        
+        return false;
+    }
+
+    /**
+     * Process rule of 'Payment Method' type
+     * @param array $params Initial parameters
+     * @param string $templateId Email template code
+     * @param int $timeDelay Time delay (in days)
+     * @param int $sequenceNumber Sequence number in current chain
+     * @return bool Processing result
+     */
+    public function processPaymentMethod($params, $templateId, $timeDelay, $sequenceNumber) {
+        $objects = $this->_createObjects($params, array ());
+
+        if (!$this->_validated) {
+            $this->validate($objects);
+        }
+        
+        if ($this->_isValid) {
+            // Generate coupon if it needed
+            if ($this->getCouponEnabled()) {
+                unset ($objects['has_coupon']);
+                
+                //get content of current email template
+                $emailTemplate = $this->_getTemplate($templateId);
+                $emailTemplateContent = $emailTemplate['content'];
+
+                // checking for presence standard coupon variable ( {{var coupon.code}})
+                $pattern2 = '|{{\s*var\s+coupon.code\s*}}|u';
+                //$formatDate = Mage::app()->getLocale()->getDateFormat();
+                $formatDate = 'd/m/Y';
+
+                if (preg_match_all($pattern2, $emailTemplateContent, $matches) > 0) {
+                    $coupon = Mage::helper('followupemail/coupon')->createNew($this);
+                    $message = 'New coupon ' . $coupon->getCouponCode() . ' is created {' . print_r($coupon->getData(), true) . '}';
+                    $subject = "New coupon is created";
+                    Mage::getSingleton('followupemail/log')->logSuccess($message, $this, $subject);
+                    //$_dateStr = Mage::helper('core')->formatDate($coupon->getExpirationDate(), $formatDate);
+                    $_dateStr = date($formatDate, strtotime($coupon->getExpirationDate()));
+                    $coupon->setExpirationDate($_dateStr);
+
+                    $objects['coupon'] = $coupon;
+                    $message = 'Coupon ' . $coupon->getCouponCode() . ' used {' . print_r($coupon->getData(), true) . '}';
+                    $subject = "Coupon used";
+                    Mage::getSingleton('followupemail/log')->logSuccess($message, $this, $subject);
+                }
+                
+                // checking for presence extended coupon variable ( {{var coupons.__ALIAS__.code}})
+                $pattern1 = '|{{\s*var\s+coupons.(.*).code\s*}}|u';
+
+                if (preg_match_all($pattern1, $emailTemplateContent, $matches) > 0) {
+                    // using object for access to variables from AW_Followupemail_Model_Filter::filter()
+                    $coupons = new Varien_Object();
+
+                    foreach ($matches[1] as $couponId) {
+                        $coupon = Mage::helper('followupemail/coupon')->createNew($this);
+                        $message = 'New coupon ' . $coupon->getCouponCode() . ' is created {' . print_r($coupon->getData(), true) . '}';
+                        $subject = "New coupon is created";
+                        Mage::getSingleton('followupemail/log')->logSuccess($message, $this, $subject);
+                        $message = 'Coupon ' . $coupon->getCouponCode() . ' used {' . print_r($coupon->getData(), true) . '}';
+                        $subject = "Coupon used";
+                        Mage::getSingleton('followupemail/log')->logSuccess($message, $this, $subject);
+                        $_dateStr = date($formatDate, strtotime($coupon->getExpirationDate()));
+                        $coupon->setExpirationDate($_dateStr);
+                        $coupons->setData($couponId, $coupon);
+                    }
+
+                    $objects['coupons'] = $coupons;
+                }
+            }
+            
+            $objects['has_coupon'] = isset ($objects['coupon']);
+            
+            $storedParams = $params;
+            unset ($storedParams['object_id']);
+            $scheduleAt = strtotime(date("Y-m-d H:i:s", strtotime("+ " . abs($hourDelay) . " hours")));
+            
+            if (!$content = $this->_getContent($objects, $templateId)) {
+                $message = "rule id={$this->getId()} has invalid templateId=" . $templateId . " in sequenceNumber=$sequenceNumber";
+                $subject = "Rule has invalid";
+                Mage::getSingleton('followupemail/log')->logError($message, $this, $subject);
+                
+                return false;
+            }
+
+            $code = AW_Followupemail_Helper_Data::getSecurityCode();
+            
+            $queue = Mage::getModel('followupemail/queue');
+            $queue->add(
+                $code,
+                $sequenceNumber,
+                $content['sender_name'],
+                $content['sender_email'],
+                $objects['customer_name'],
+                ($this->_isTest) ? $this->getTestRecipient() : $objects['customer_email'], //$customerEmail, 
+                $this->getId(),
+                time() + $timeDelay * 60,
+                $content['subject'],
+                $content['content'],
+                $params['object_id'],
+                $storedParams
+            );
+            
+            return true;
+        }
+        
+        Mage::getSingleton('followupemail/log')->logWarning("rule id={$this->getId()} is not valid for PaymentMethod event of email={$params['customer_email']}, params=" . AW_Followupemail_Helper_Data::printParams($params), $this);
         
         return false;
     }

@@ -21,16 +21,22 @@ class Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Edit_Tabs_Data extends Mage_
     }
 
     protected function _prepareCollection() {
-        $collection = Mage::getModel('bilna_formbuilder/flat')->getCollection();
-        $collection->addFilterToMap('created_at', 'main_table.created_at');
-        
-        $this->setCollection($collection);
-        
-        return parent::_prepareCollection();
+        try{
+            $collection = Mage::getModel('bilna_formbuilder/flat')->getCollection();
+            $collection->addFilterToMap('created_at', 'main_table.created_at');
+            $this->setCollection($collection);
+            return parent::_prepareCollection();
+        } catch(Exception $e) {
+        }
+        return [];
     }
 
     protected function _prepareColumns() {
-        $columns = $this->_getColumnsData();
+        try{
+            $columns = $this->_getColumnsData();
+        }catch (Exception $e) {
+            // TODO: Do something
+        }
         
         if ($columns && count($columns) > 0) {
             foreach ($columns as $column) {
@@ -77,8 +83,12 @@ class Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Edit_Tabs_Data extends Mage_
     }
         
     protected function _getColumnsData() {
-        $tableName = Mage::getSingleton('core/resource')->getTableName($this->tablePrefix . $this->formId);
-        $fields = Mage::getSingleton('core/resource')->getConnection('core_read')->describeTable($tableName);
+        try{
+            $tableName = Mage::getSingleton('core/resource')->getTableName($this->tablePrefix . $this->formId);
+            $fields = Mage::getSingleton('core/resource')->getConnection('core_read')->describeTable($tableName);
+        } catch(Exception $e) {
+            return [];
+        }
         $fieldArr = array ();
         
         if ($fields && count($fields) > 0) {

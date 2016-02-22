@@ -95,7 +95,10 @@ class RocketWeb_Netsuite_Helper_Mapper_Invoice extends RocketWeb_Netsuite_Helper
                 throw new Exception("Order with netsuite internal id {$cashSale->createdFrom->internalId} not found in Magento!");
             }
 
+            /* comment out because I can see the following $netsuiteCustomer is not used.
+            This is to minimize the call to Netsuite Web Service
             $netsuiteCustomer = Mage::helper('rocketweb_netsuite/mapper_customer')->getByInternalId($cashSale->entity->internalId);
+            */
             $magentoInvoice = $this->createMagentoInvoice($cashSale, $magentoOrder);
         }
         
@@ -287,7 +290,10 @@ class RocketWeb_Netsuite_Helper_Mapper_Invoice extends RocketWeb_Netsuite_Helper
                 throw new Exception("Order with netsuite internal id {$invoice->createdFrom->internalId} not found in Magento!");
             }
 
+            /* comment out because I can see the following $netsuiteCustomer is not used.
+            This is to minimize the call to Netsuite Web Service
             $netsuiteCustomer = Mage::helper('rocketweb_netsuite/mapper_customer')->getByInternalId($invoice->entity->internalId);
+            */
             $magentoInvoice = $this->createMagentoInvoice($invoice, $magentoOrder);
         }
         
