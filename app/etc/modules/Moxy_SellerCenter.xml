@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <Moxy_MoxySellerCenter>
+      <active>true</active>
+      <codePool>local</codePool>            
+	        <depends>
+                <Mage_Api />
+            </depends>
+      <version>0.1.1</version>
+    </Moxy_MoxySellerCenter>
+  </modules>
+</config>

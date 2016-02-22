@@ -138,38 +138,16 @@
 </div>
 <?php if (count($this->getGalleryImages()) > 4): ?>
 <script>
-	var desktop_bxSlider = {		
-		mode: 'vertical',		
-		slideWidth: 300,		
-		minSlides: 4,		
-		slideMargin: 10,		
-		pager: false,		
-		infiniteLoop: false,		
-		hideControlOnEnd: true,		
-		nextText: '<i class="fa fa-chevron-down"></i>',		
-		prevText: '<i class="fa fa-chevron-up"></i>'		
-	};		
-
-	var mobile_bxSlider = {		
-		mode: 'horizontal',		
-		slideWidth: 56,		
-		minSlides: 3,		
-		maxSlides: 3,		
-		slideMargin: 11,		
-		pager: false,		
-		infiniteLoop: false,		
-		hideControlOnEnd: true,		
-		nextText: '<i class="fa fa-chevron-right"></i>',		
-		prevText: '<i class="fa fa-chevron-left"></i>'		
-	};
-	
 	$j(document).ready(function(){
-		if (window.screen.availWidth > 767) {
-			$j('.more-views-slider').bxSlider(desktop_bxSlider);
-		}
-		else {
-			$j('.more-views-slider').bxSlider(mobile_bxSlider);
-		}
+		$j('.more-views-slider').bxSlider({
+			mode: 'vertical',
+			slideWidth: 300,
+			minSlides: 4,
+			slideMargin: 10,
+			pager: false,
+			infiniteLoop: false,
+			hideControlOnEnd: true
+		});
 	});
 </script>
 <?php endif; ?>

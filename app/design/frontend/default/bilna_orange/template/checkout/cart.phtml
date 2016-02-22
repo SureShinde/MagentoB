@@ -393,19 +393,22 @@ function ecommerceCheckout0(sku, price, quantity) {
 		}
 
 		temp_container.ecommerce.checkout.products.push({
-				  'name' : jQuery("td.hi-res h2.product-name a").eq(i).text(),
 				  'id' : sku[i],
 				  'price' : jQuery("td.a-center.cart-price-td span.cart-price span.price").eq(i).text(),
 				  'quantity' : jQuery("input.input-text.qty").eq(i).val(),
+				  'name' : jQuery("td.hi-res h2.product-name a").eq(i).text(),
                   'brandName': 'brand name',
                   'imageUrl': jQuery("table#shopping-cart-table tbody tr.even td a img").eq(i).attr("src"),
                   'link': jQuery("table#shopping-cart-table tbody tr.even td a img").eq(i).attr("alt")
 		       });
-		// console.log("lagi bingung "+i+" "+temp_container.ecommerce.checkout.products[i].sku);
 	}
 
     dataLayer.push(temp_container);
-    ematics("log", "product", "checkout", temp_container);	// ematics checkout
+    
+    // ematics checkout - prepare for logging
+    products = temp_container.ecommerce.checkout.products;
+    // ematics track checkout
+	ematics("log", "product", "checkout", products);
 }
 
 function ecommerceRemoveCart(name, sku, price, quantity, imageUrl, link) {
@@ -427,18 +430,20 @@ function ecommerceRemoveCart(name, sku, price, quantity, imageUrl, link) {
 	  }
 	});
 
-	// ematics cart
+	// ematics cart - prepare for logging
     ematics("log", "product", "cart", 
-            [{
-            'name': name,
-            'id': sku,
-            'price': price,
-            'quantity': quantity,
-            'brandName': 'brand name',
-            'imageUrl': imageUrl,
-            'link': link
-           }]
-        );
+        [{
+        'id': sku,
+        'price': price,
+        'quantity': quantity,
+        'name': name,
+        'brandName': 'brand name',
+        'imageUrl': imageUrl,
+        'link': link
+       }]
+    );
+    // ematics track items in cart to enable pre-abandonded cart overlays
+	ematics("log", "product", "cart", products);
 }
 
 jQuery(document).ready(function () {

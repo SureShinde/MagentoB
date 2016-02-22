@@ -35,7 +35,7 @@
     
     AjaxLogin.BASE_URL          = AjaxLogin.BASE_URL_UNSECURE;
     
-    
+ jQuery(document).ready(function() {   
     /**
      * 
      */
@@ -78,7 +78,7 @@
         return __routineA == __routineB ? true : false;
     };
     
-    $$('.header-container .links a').each(
+    $$('.header-container .links a, .login-collection a').each(
         function(node) {
             if ( AjaxLogin.sameRoutines(node.href, '<?php echo $this->getCustomerAccountLoginURL() ?>') ) {
                 Event.observe(
@@ -174,4 +174,5 @@
             }
         }
     );
+});
 </script>
