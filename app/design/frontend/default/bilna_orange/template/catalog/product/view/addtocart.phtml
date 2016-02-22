@@ -29,6 +29,8 @@
 <?php $buttonTitle = $this->__('Tambah ke troli'); ?>
 <?php $_cart = Mage::getModel('checkout/cart')->getQuote(); ?>
 <?php $_items = $_cart->getAllItems(); ?>
+<?php $itemQty = 0; ?>
+<?php foreach ($_items as $_item) { if(empty($_item->getParentItemId())) {$itemQty++;} }?>
 <?php if($_product->isSaleable()): ?>
     <div class="add-to-cart">
         <?php if(!$_product->isGrouped()): ?>
@@ -43,7 +45,6 @@
 <script type="text/javascript">
 function ecommerceProductDetailAddToCart(name, sku, price, link, imageUrl) {
     if (jQuery("div.input-box select").val() != false) {
-      // console.log("ECOMMERCE_ProductDetail_AddToCart_Ematics "+" "+name+" "+" "+sku+" "+price+" "+link+" "+imageUrl);
       dataLayer.push({
         'event': 'addToCart',
         'ecommerce': {
@@ -68,7 +69,7 @@ function ecommerceProductDetailAddToCart(name, sku, price, link, imageUrl) {
       var temp_item = "";
       var index_addeditem = -999;
 
-      for (var itr=0; itr < <?php echo count($_items) ?>; itr++) {
+      for (var itr=0; itr < <?php echo $itemQty ?>; itr++) {
         temp_item = jQuery(".mini-cart span#ematiccart").eq(itr).text();
         temp_cart[itr] = temp_item.split("|");
         if (temp_item.indexOf(sku) > -1) {
@@ -78,14 +79,14 @@ function ecommerceProductDetailAddToCart(name, sku, price, link, imageUrl) {
 
       // ematics cart - prepare for logging
       products = [
-      <?php for($i=0; $i<count($_items); $i++) {
+      <?php for($i=0; $i<$itemQty; $i++) {
         echo "{'name' : temp_cart[".$i."][0],";
         echo "'id' : temp_cart[".$i."][1],";
         echo "'price' : temp_cart[".$i."][2],";
         echo "'quantity' : temp_cart[".$i."][3],";
         echo "'brandName' : 'brand name',";
         echo "'imageUrl' : temp_cart[".$i."][4],";
-        echo "'link' : temp_cart[".$i."][5]}";if($i != count($_items)-1) {echo ",";}
+        echo "'link' : temp_cart[".$i."][5]}";if($i != $itemQty-1) {echo ",";}
       } 
       ?>
       ];

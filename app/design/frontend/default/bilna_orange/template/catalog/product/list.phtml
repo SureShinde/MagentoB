@@ -37,6 +37,8 @@ $_helper = $this->helper('catalog/output');
 $_escape_helper = Mage::helper('catalog/utils');
 $_cart = Mage::getModel('checkout/cart')->getQuote();
 $_items = $_cart->getAllItems();
+$itemQty = 0;
+foreach ($_items as $_item) { if(empty($_item->getParentItemId())) {$itemQty++;} }
 ?>
 
 <script>
@@ -244,7 +246,6 @@ jQuery(document).ready(function(){
             }
 
             function ecommerceAddToCart(name, sku, price, link, imageUrl) {
-                // console.log("HURRY_CART_EMATICS "+name+" "+sku+" "+price+" "+" "+link+" "+imageUrl);
                 dataLayer.push({
                   'event': 'addToCart',
                   'ecommerce': {
@@ -269,7 +270,7 @@ jQuery(document).ready(function(){
                 var temp_item = "";
                 var index_addeditem = -999;
 
-                for (var itr=0; itr < <?php echo count($_items) ?>; itr++) {
+                for (var itr=0; itr < <?php echo $itemQty ?>; itr++) {
                     temp_item = jQuery(".mini-cart span#ematiccart").eq(itr).text();
                     temp_cart[itr] = temp_item.split("|");
                     if (temp_item.indexOf(sku) > -1) {
@@ -279,14 +280,14 @@ jQuery(document).ready(function(){
 
                 // ematics cart - prepare for logging
                 products = [
-                    <?php for($i=0; $i<count($_items); $i++) {
+                    <?php for($i=0; $i<$itemQty; $i++) {
                         echo "{'name' : temp_cart[".$i."][0],";
                         echo "'id' : temp_cart[".$i."][1],";
                         echo "'price' : temp_cart[".$i."][2],";
                         echo "'quantity' : temp_cart[".$i."][3],";
                         echo "'brandName' : 'brand name',";
                         echo "'imageUrl' : temp_cart[".$i."][4],";
-                        echo "'link' : temp_cart[".$i."][5]}";if($i != count($_items)-1) {echo ",";}
+                        echo "'link' : temp_cart[".$i."][5]}";if($i != $itemQty-1) {echo ",";}
                     } 
                     ?>
                 ];
@@ -336,7 +337,6 @@ jQuery(document).ready(function(){
                 var temp_url = <?php echo json_encode($url_container); ?>;
                 var temp_id = <?php echo json_encode($productId); ?>;
                 var temp_key = temp_url.indexOf(url);
-//console.log(temp_name[1]+"\n"+temp_id[1]+"\n"+temp_url[1]+"\n"+url);
                 var ecommerceProductClickDataReview = {
                     'event': 'productClick',
                     'ecommerce': {

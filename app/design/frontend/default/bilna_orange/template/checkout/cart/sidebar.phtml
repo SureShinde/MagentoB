@@ -38,6 +38,8 @@
     	<?php $_numberItemsDisplayed = $this->getItemCount(); ?>
 		<?php $_items = $this->getQuote()->getAllItems(); ?>
 		<?php $itrNumberItemsDisplayed = 0; ?>
+		<?php $itemQty = 0; ?>
+		<?php foreach ($_items as $_item) { if(empty($_item->getParentItemId())) {$itemQty++;} }?>
 	    <?php if(count($_items)): ?>
 	       	<table id="cart-sidebar" class="mini-products-list">
                 <thead>
@@ -49,11 +51,13 @@
                 </thead>
 	       		<tbody>
 			        <?php foreach($_items as $_item): ?>
-			        	<?php echo '<span id="ematiccart" class="hidden">' . $_item->getProduct()->getName() . '|' . $_item->getProduct()->getSku() . '|' . $_item->getProduct()->getPrice() . '|' . $_item->getQty() . '|' . $_item->getProduct()->getImageUrl() . '|' . $_item->getProduct()->getProductUrl() . '|' . $_item->getProductType() . '</span>' ?>
-			            <?php if($itrNumberItemsDisplayed < $_numberItemsDisplayed): ?>
-			            	<?php echo $this->getItemHtml($_item); ?>
-			        	<?php endif ?>
-			        	<?php $itrNumberItemsDisplayed++; ?>
+			        	<?php if(empty($_item->getParentItemId())): ?>
+			        		<?php echo '<span id="ematiccart" class="hidden">' . $_item->getProduct()->getName() . $_item->getTypeInstance() . '|' . $_item->getProduct()->getSku() . '|' . $_item->getProduct()->getPrice() . '|' . $_item->getQty() . '|' . $_item->getProduct()->getImageUrl() . '|' . $_item->getProduct()->getProductUrl() . '</span>' ?>
+				            <?php if($itrNumberItemsDisplayed < $_numberItemsDisplayed): ?>
+				            	<?php echo $this->getItemHtml($_item); ?>
+				        	<?php endif ?>
+				        	<?php $itrNumberItemsDisplayed++; ?>
+				        	<?php endif ?>
 			        <?php endforeach; ?>
 		        </tbody>
 	        </table>
@@ -92,7 +96,6 @@
 
 <script type="text/javascript">
 function ecommerceRemoveCart(name, sku, price, quantity, imageUrl, link) {
-    // alert("NEW_HURRY_CART"+name+" "+price+" "+quantity);
     dataLayer.push({
 	  'event': 'removeFromCart',
 	  'ecommerce': {
@@ -114,7 +117,7 @@ function ecommerceRemoveCart(name, sku, price, quantity, imageUrl, link) {
     var temp_cart = [];
     var temp_item = "";
     var index_removeditem = "";
-    for (var itr=0; itr < <?php echo count($_items) ?>; itr++) {
+    for (var itr=0; itr < <?php echo $itemQty ?>; itr++) {
     	temp_item = jQuery(".mini-cart span#ematiccart").eq(itr).text();
     	if (temp_item.indexOf(sku) == -1) {		// item that not removed
     		temp_cart[itr] = temp_item.split("|");
@@ -129,14 +132,14 @@ function ecommerceRemoveCart(name, sku, price, quantity, imageUrl, link) {
 
 	// ematics cart - prepare for logging
     products = [
-    <?php for($i=0; $i<count($_items)-1; $i++) {
+    <?php for($i=0; $i<$itemQty-1; $i++) {
     	echo "{'name' : temp_cart[".$i."][0],";
     	echo "'id' : temp_cart[".$i."][1],";
     	echo "'price' : temp_cart[".$i."][2],";
     	echo "'quantity' : temp_cart[".$i."][3],";
     	echo "'brandName' : 'brand name',";
     	echo "'imageUrl' : temp_cart[".$i."][4],";
-    	echo "'link' : temp_cart[".$i."][5]}";if($i != count($_items)-2) {echo ",";}
+    	echo "'link' : temp_cart[".$i."][5]}";if($i != $itemQty-2) {echo ",";}
     } 
     ?>
     ];

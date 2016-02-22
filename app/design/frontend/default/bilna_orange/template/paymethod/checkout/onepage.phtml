@@ -49,11 +49,13 @@
 <?php $valueCollection = array(); ?>
 <?php $totalValue = 0; ?>
 <?php foreach($cartItems as $cartItem) : ?>
-    <?php $skuCollection[] = $cartItem->getSku(); ?>
-    <?php $productCollection[] = $cartItem->getProductId(); ?>
-    <?php $qtyCollection[] = $cartItem->getQty(); ?>
-    <?php $valueCollection[] = $cartItem->getPrice(); ?>
-    <?php $totalValue += ($cartItem->getPrice() * $cartItem->getQty()); ?>
+    <?php if(empty($cartItem->getParentItemId())): ?>
+        <?php $skuCollection[] = $cartItem->getSku(); ?>
+        <?php $productCollection[] = $cartItem->getProductId(); ?>
+        <?php $qtyCollection[] = $cartItem->getQty(); ?>
+        <?php $valueCollection[] = $cartItem->getPrice(); ?>
+        <?php $totalValue += ($cartItem->getPrice() * $cartItem->getQty()); ?>
+    <?php endif ?>
 <?php endforeach; ?>
 <?php $skuDisplay =  implode("','", $skuCollection); ?>
 <?php $productDisplay =  implode("','", $productCollection); ?>
