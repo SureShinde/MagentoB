@@ -169,7 +169,7 @@ $_helper = $this->helper('catalog/output');
             $productImageLabel = $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true);
 
             $productUrl = $_product->getProductUrl();
-            $productAddToCartUrl = $this->getAddToCartUrl($_product);
+            $productAddToCartUrl = Mage::helper('checkout/cart')->getAddUrl($_product);
 
             $productDiscount = 100 - round(($productFinalPrice / $productRegularPrice) * 100);
 
@@ -211,13 +211,13 @@ $_helper = $this->helper('catalog/output');
             <?php endif; ?>
             <div class="media">
              <div class="cg-col-lg-12" id="deleteItemIdku<?php echo $i;?>">
-              <span class="cg-col-xs-12 nopadding opensans">Hapus product ini dari collection anda?</span>
+              <span class="cg-col-xs-12 nopadding">Hapus product ini dari collection anda?</span>
               <div class="cg-col-xs-12 nopadding">
                 <div class="cg-col-xs-6">
-                  <span class="btn btn-pink-prime in-block margin-top-10"  onclick="dontDelete<?php echo $i;?>()">tidak</span>
+                  <span style="background: #3EB988;" class="btn btn-block btn-size-small yes-delete"  onclick="dontDelete<?php echo $i;?>()">tidak</span>
                 </div>
                 <div class="cg-col-xs-6">
-                  <a class="btn btn-size-small btn-block btn-cancel-button yes-delete in-block margin-top-10" style="padding: 11px 20px;" href="<?php echo $this->getUrl('social/settings/delitemcollection?user='.$user['display_name'].'&wlid='.$wlid.'&proid='.$_product->getId().'&url='); ?>">ya</a>
+                  <a class="btn btn-size-small btn-block yes-delete" style="" href="<?php echo $this->getUrl('social/settings/delitemcollection?user='.$user['display_name'].'&wlid='.$wlid.'&proid='.$_product->getId().'&url='); ?>">ya</a>
                 </div>
               </div>
             </div>
@@ -240,7 +240,7 @@ $_helper = $this->helper('catalog/output');
                  data-image="<?php echo $productImageUrl; ?>"
                  data-product-name="<?php echo $productNameStripped; ?>"
                  data-price="<?php echo $productFinalPriceFormatted; ?>"
-                 data-id="<?php echo $productId; ?>"><div class="cg-hidden-xs add-to-hovering">Tambahkan ke koleksi</div></a></a>
+                 data-id="<?php echo $productId; ?>"><div class="cg-hidden-xs add-to-hovering">add to collection</div></a></a>
                  <?php } ?> 
                </div>
              </div>
@@ -255,7 +255,7 @@ $_helper = $this->helper('catalog/output');
          </div>
 
           <!-- new quikview-->
-              <div class="container-collection-pop addCollectionFromQuick" style="display:none;" id="quickView<?php echo $i; ?>">
+              <div class="container-collection-pop" style="display:none;" id="quickView<?php echo $i; ?>">
                 <div class="cg-col-lg-5 cg-col-md-6 cg-col-sm-6 cg-col-xs-11 container-collection-whitebg white-bg-new-coll quick-col" style="display:inline-table !important;">
                <div class="cg-col-lg-1 cg-col-md-1 cg-col-sm-1 cg-col-xs-1 quick-sub-col " id="closer-collection bottom-spacer-little" style="">
                     <a href="javascript:;" onclick="hideQuickView<?php echo $i;?>()" style="text-decoration:none;width:100%;display:block; line-height:1px;"><i class="fa fa-times"></i></a>
@@ -327,7 +327,7 @@ $_helper = $this->helper('catalog/output');
                     </div>
                     <div class="add-to-cart-wrapper ">
                       <div class="add-to-box">
-                        <div class="add-to-cart cg-col-xs-12">
+                        <div class="add-to-cart">
                           <!-- hide temporarily 
                           <div class="qty-wrapper bottom-spacer-little in-block cg-col-xs-12 nopadding">
                             <div class="cg-col-xs-3 in-block" style="padding: 3px 0px;font-size: 11px;color: #7D7D7D;">
@@ -343,14 +343,16 @@ $_helper = $this->helper('catalog/output');
                             </select>
                           </div>-->
 
-                          <div class="add-to-cart-buttons cg-col-xs-12 nopadding">
-                            
+                          <div class="add-to-cart-buttons cg-col-xs-12">
+                            <div class="cg-col-xs-2 coll-quick" onclick="newShowAddCollectionDialog()" style="cursor: pointer;">
+                              <i class="fa fa-heart"></i>
+                            </div>
 
                             <!-- checking stock level for quick view-->
 
                             <?php if ($stocklevel < 1) { ?>
 
-                            <div class="cg-col-xs-10 nopadding">
+                            <div class="cg-col-xs-10">
                                               <button type ="button" class="btn btn-cancel-button nomargin" disabled style="">
                                                     Out Of Stock
                                               </button>
@@ -359,7 +361,7 @@ $_helper = $this->helper('catalog/output');
 
                             <?php } else { ?>
                             
-                            <div class="cg-col-xs-10 nopadding">
+                            <div class="cg-col-xs-10">
 
                                               <button
                                                     type ="button"
@@ -510,16 +512,13 @@ $_helper = $this->helper('catalog/output');
       <div class="price-box">
         <input type="hidden" class="final-price-<?php echo $productId; ?>" value="<?php echo $productFinalPrice; ?>" />
         <?php if ($productSpecialPrice && $productSpecialPrice < $productRegularPrice && $productSpecialDateIsValid) : ?>
-        <div class="special-price in-block full-width">
-          <p class="old-price" style="font-size:8px;">
+        <div class="special-price">
+          <span class="current-price price" id="product-price-<?php echo $productId; ?>"><?php echo $productSpecialPriceFormatted; ?></span>
+          <p class="old-price">
             <span class="price" id="old-price-<?php echo $productId; ?>"><?php echo $productRegularPriceFormatted; ?></span>
           </p>
-          <span class="current-price price in-block full-width take-center" style="color:#707070;" id="product-price-<?php echo $productId; ?>"><?php echo $productSpecialPriceFormatted; ?></span>
         </div>
       <?php else : ?>
-       <p class="old-price" style="min-height:23px;">
-            <span class="">&nbsp;</span>
-          </p>
       <span class="regular-price">
         <span class="price" id="product-price-<?php echo $productId; ?>"><?php echo $productRegularPriceFormatted; ?></span>
       </span>
