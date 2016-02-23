@@ -461,11 +461,17 @@
 }
 .header .mini-cart .block-cart .block-content {
     background: #FFFFFF;
-    border: 1px solid #CDCDCD;
+    border-top: 1px solid  #f4f4f4;
+    border-bottom: 1px solid  #e7e7e7;
+    border-left: 1px solid  #f4f4f4;
+    border-right: 1px solid  #f4f4f4;
     padding: 10px;
     box-shadow: 0 0 3px #E8E8E8;
     -webkit-box-shadow: 0 0 3px #E8E8E8;
     -moz-box-shadow: 0 0 3px #E8E8E8;
+    border-radius: 2px;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
 }
 .mini-products-list {
 	width: 100%;
@@ -535,6 +541,7 @@
     display: block;
     clear: both;
     text-align: left;
+    color: #73777a;
     width: auto;
 }
 .mini-products-list .product-details{
@@ -587,10 +594,17 @@
 	margin: 0;
 	max-height: 80px;
 }
-.mini-cart .block-cart .subtotal, .mini-cart .block-cart .amount,.block-cart .subtotal,.block-cart .amount {
+.mini-cart .block-cart .subtotal, .block-cart .subtotal{
     text-align: left;
     font-size: 1.5em;
     font-weight: bold;
+    color: #73777A;
+}
+.mini-cart .block-cart .amount,.block-cart .amount {
+    font-weight: 600;
+    text-align: left;
+    color: #4d4d4d;
+    font-size: 21px;
 }
 .mini-cart .block-cart .subtotal,.block-cart .subtotal {
 	font-weight: bold;
@@ -598,10 +612,11 @@
 }
 .mini-cart .block-cart .subtotal span.price {
 	font-weight: normal;
+    color: #868A8D;
 }
 .mini-cart .block-cart .actions,.block-cart .actions {
-	padding-top: 0;
-	padding-bottom: 0;
+	padding-top: 10px;
+	padding-bottom: 10px;
 	text-align: left;
 	border-bottom: none;
 }
@@ -652,7 +667,7 @@
 	height: auto;
 	padding-left: 0;
 	padding-right: 0;
-	font-size: 1.2em;
+	font-size: 18px;
 	text-transform: uppercase;
 	line-height: normal;
 	padding: 2px 0;
@@ -1029,6 +1044,7 @@
     border: medium none;
     color: #333333;
     font-size: 14px;
+    line-height: normal;
     height: 100%;
     margin: 0;
     width: 100%;
@@ -1080,9 +1096,6 @@
     padding: 0;
     overflow: hidden;
     display: block;
-}
-.sticky-mode .menu-navigation .megamenu.megamenu-active{
-    overflow: visible;
 }
 .sticky-mode .header{
     margin: 0 auto;
