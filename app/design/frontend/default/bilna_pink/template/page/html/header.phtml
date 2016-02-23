@@ -253,7 +253,7 @@
 </script>
 <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('above-header-notification')->toHtml() ?>
 <div class="header-container">
-<!--
+
     <div class="space-above-header">
         <div class="container-above-header">
             <ul class="keypoint">
@@ -269,16 +269,20 @@
                 <li>
                     <a href="<?php if($this->helper('customer')->isLoggedIn()):?><?php echo $this->getUrl('sales/order/history') ?><?php else: ?><?php echo $this->getUrl('orderdetail') ?><?php endif;?>"><em class="fa fa-file-text-o"></em> Cek Pesanan</a>
                 </li>
+		<li>
+                    <a href="<?php echo $this->getUrl('konfirmasipembayaran') ?>"><em class="fa fa-reply-all"></em> Konfirmasi Pembayaran</a>
+                </li>
             </ul>
             <div class="customer-link">
                 <?php echo $this->getLayout()->createBlock('staticarea/block')->setId('banner-corner')->toHtml(); ?>
             </div>
         </div>
     </div>
--->
+<!--
 	<?php
 	echo $this->getLayout()->createBlock('cms/block')->setBlockId('above-header')->toHtml(); 
 	?>
+-->
     <div class="tooltip-mobile-first">
         <p> ← click here for category menu </p>
     </div>
