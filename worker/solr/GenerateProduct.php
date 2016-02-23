@@ -7,6 +7,8 @@
 
 require_once dirname(__FILE__) . '/../abstract.php';
 
+ini_set('memory_limit', '2046M');
+
 class Bilna_Worker_Solr_GenerateProduct extends Bilna_Worker_Abstract {
     const QUEUE_TASK_CATALOG_PRODUCT_IMAGES = 'SOLR_CATALOG_PRODUCT_IMAGES';
     const QUEUE_TASK_CATALOG_PRODUCT_CONFIG = 'SOLR_CATALOG_PRODUCT_CONFIG';
