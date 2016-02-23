@@ -6,12 +6,21 @@
     background-size: 25px;
     top: 0px;
 }
+div.megamenu-container{
+    display: inline-block;
+    border-radius: 2px;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    overflow: hidden;
+}
 .menu-navigation{
     clear: both;
     display: inline-block;
     margin: 0;
     position: relative;
     box-shadow: 0 2px 6px #f2f2f2;
+    -moz-box-shadow: 0 2px 6px #f2f2f2;
+    -webkit-box-shadow: 0 2px 6px #f2f2f2;
     width: 100%;
 	float:left;
     box-sizing: border-box;
@@ -109,7 +118,6 @@
 }
 .wrap-navigation a,
 .wrap-navigation li{
-    padding: 0 13px;
     font-size: 12px;
     text-transform: uppercase;
     color: #73777a;
@@ -183,7 +191,7 @@
 }
 .menu-navigation .first-level .second-level{
     position: absolute;
-    left: 240px;
+    left: 238px;
     top: 20px;
     padding-top: 12px;
     padding-bottom: 12px;
@@ -192,6 +200,9 @@
     z-index: 9;
 	height: 400px;
 	overflow: hidden;
+    border-radius: 2px;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
 }
 .menu-navigation .first-level{
     width: 239px;
@@ -220,8 +231,7 @@
 }
 .menu-navigation .first-level > ul > li{
     line-height: 32px;
-    font-size: 1.04em;
-    font-weight: bold;
+    font-size: 14px;
     text-align: left;
     background: #fff;
     margin: 1px 0 0;
@@ -233,9 +243,6 @@
     text-decoration: none;
 	display:block;
 	position:relative;
-}
-.menu-navigation li div{
-	text-transform:uppercase;
 }
 .menu-navigation .second-level  a{
 	text-transform:none;
@@ -262,7 +269,6 @@
     color: #fff !important;
 }
 .menu-navigation .first-level .second-level .wrap-second-cat ul > li{
-    font-size: 0.99em;
     line-height: 1.3em;
     padding-left: 20px;
     text-indent: 0;
@@ -304,6 +310,7 @@
 	overflow: hidden;
     z-index: 90;
     background: #fff;
+    border: 1px solid #f4f4f4;
 }
 .menu-navigation .first-level .second-level p a{
     text-transform: uppercase;
@@ -414,7 +421,7 @@
         width: 745px;
     }
     .menu-navigation .wrap-banner{
-        width: 561px;
+        width: 558px;
     }
     .menu-navigation .wrap-banner .first-banner-megamenu{
         width: 64%;
