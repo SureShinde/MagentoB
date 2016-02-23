@@ -3,8 +3,8 @@
     width: 100%;
     background: url(../images/megamenu_arrow.png) 100px 12px no-repeat;
     height: 21px;
-    background-size: 25px;
-    top: 0px;
+    background-size: 20px;
+    top: 2px;
 }
 div.megamenu-container{
     display: inline-block;
