@@ -33,6 +33,8 @@
 ?>
 <?php $gtmItemIds = ''; ?>
 <?php $_items = $this->getQuote()->getAllItems(); ?>
+<?php $itemQty = 0; ?>
+<?php foreach ($_items as $_item) { if(empty($_item->getParentItemId())) {$itemQty++;} }?>
 <input type="hidden" id="3rdparty-type" value="cart"/>
 <input type="hidden" id="3rdparty-value" value="" />
 <div class="cart">
@@ -387,21 +389,22 @@ function ecommerceCheckout0(sku, price, quantity) {
     var temp_cart = [];
     var temp_item = "";
     var index_removeditem = "";
-    for (var itr=0; itr < <?php echo count($_items) ?>; itr++) {
+    var temp_cartQty = jQuery(".mini-cart span#ematiccart").length;
+    for (var itr=0; itr < temp_cartQty; itr++) {
     	temp_item = jQuery(".mini-cart span#ematiccart").eq(itr).text();
     	temp_cart[itr] = temp_item.split("|");
     }
 
 	// ematics cart - prepare for logging
     products = [
-    <?php for($i=0; $i<count($_items); $i++) {
+    <?php for($i=0; $i<$itemQty; $i++) {
     	echo "{'name' : temp_cart[".$i."][0],";
     	echo "'id' : temp_cart[".$i."][1],";
     	echo "'price' : temp_cart[".$i."][2],";
     	echo "'quantity' : temp_cart[".$i."][3],";
     	echo "'brandName' : 'brand name',";
     	echo "'imageUrl' : temp_cart[".$i."][4],";
-    	echo "'link' : temp_cart[".$i."][5]}";if($i != count($_items)-1) {echo ",";}
+    	echo "'link' : temp_cart[".$i."][5]}";if($i != $itemQty-1) {echo ",";}
     } 
     ?>
     ];
@@ -411,14 +414,14 @@ function ecommerceCheckout0(sku, price, quantity) {
 
     // universal analytics
     temp_container.ecommerce.checkout.products.push(
-    	<?php for($i=0; $i<count($_items); $i++) {
+    	<?php for($i=0; $i<$itemQty; $i++) {
 	    	echo "{'name' : temp_cart[".$i."][0],";
 	    	echo "'sku' : temp_cart[".$i."][1],";
 	    	echo "'price' : temp_cart[".$i."][2],";
 	    	echo "'quantity' : temp_cart[".$i."][3],";
 	    	echo "'brandName' : 'brand name',";
 	    	echo "'imageUrl' : temp_cart[".$i."][4],";
-	    	echo "'link' : temp_cart[".$i."][5]}";if($i != count($_items)-1) {echo ",";}
+	    	echo "'link' : temp_cart[".$i."][5]}";if($i != $itemQty-1) {echo ",";}
 	    } 
 	    ?>
     	);
@@ -448,7 +451,7 @@ function ecommerceRemoveCart(name, sku, price, quantity, imageUrl, link) {
     var temp_cart = [];
     var temp_item = "";
     var index_removeditem = "";
-    for (var itr=0; itr < <?php echo count($_items) ?>; itr++) {
+    for (var itr=0; itr < <?php echo $itemQty ?>; itr++) {
     	temp_item = jQuery(".mini-cart span#ematiccart").eq(itr).text();
     	if (temp_item.indexOf(sku) == -1) {		// item that not removed
     		temp_cart[itr] = temp_item.split("|");
@@ -463,14 +466,14 @@ function ecommerceRemoveCart(name, sku, price, quantity, imageUrl, link) {
 
 	// ematics cart - prepare for logging
     products = [
-    <?php for($i=0; $i<count($_items)-1; $i++) {
+    <?php for($i=0; $i<$itemQty-1; $i++) {
     	echo "{'name' : temp_cart[".$i."][0],";
     	echo "'id' : temp_cart[".$i."][1],";
     	echo "'price' : temp_cart[".$i."][2],";
     	echo "'quantity' : temp_cart[".$i."][3],";
     	echo "'brandName' : 'brand name',";
     	echo "'imageUrl' : temp_cart[".$i."][4],";
-    	echo "'link' : temp_cart[".$i."][5]}";if($i != count($_items)-2) {echo ",";}
+    	echo "'link' : temp_cart[".$i."][5]}";if($i != $itemQty-2) {echo ",";}
     } 
     ?>
     ];
