@@ -115,6 +115,7 @@ else {
 						$uploader->setFilesDispersion(false);
 						$destFile = $path.$_FILES['image']['name'];
 						$filename = $uploader->getNewFileName($destFile);
+                                                $filename = $uploader->getCorrectFileName($filename);
 						$uploader->save($path, $filename);
 
 						$post_data['image']='socialcommerce/collectioncover/'.$filename;

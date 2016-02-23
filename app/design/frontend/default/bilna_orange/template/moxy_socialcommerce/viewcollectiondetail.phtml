@@ -169,7 +169,7 @@ $_helper = $this->helper('catalog/output');
             $productImageLabel = $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true);
 
             $productUrl = $_product->getProductUrl();
-            $productAddToCartUrl = $this->getAddToCartUrl($_product);
+            $productAddToCartUrl = Mage::helper('checkout/cart')->getAddUrl($_product);
 
             $productDiscount = 100 - round(($productFinalPrice / $productRegularPrice) * 100);
 

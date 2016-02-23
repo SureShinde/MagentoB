@@ -102,7 +102,7 @@ $images = Mage::getModel('socialcommerce/collectioncover')->getCollection()->set
                         </div>
                     </div>
                     <div class="form-group in-block full-width">
-                        <label for="inputPassword3" class="cg-col-xs-12 control-label label-color label-margin take-left opensans">Deskripsi <span class="light lil-exp">penjelasan singkat mengenai tema koleksi anda</span></label>
+                        <label for="inputPassword3" class="cg-col-xs-12 control-label label-color label-margin take-left opensans">Deskripsi <span class="light lil-exp">Penjelasan singkat mengenai tema koleksi anda</span></label>
                         <div class="cg-col-xs-12">
                             <textarea rows="4" name="desc" class="form-control input-new-collection" maxlength="250" placeholder="Mengapa produk-produk dalam koleksi ini menginspirasi anda? Apa cerita dibalik tema koleksi anda?" style="resize:none;height:auto;"></textarea>
                         </div>
@@ -188,7 +188,7 @@ $images = Mage::getModel('socialcommerce/collectioncover')->getCollection()->set
                 <button type="submit" class="btn btn-pink-prime cursor" style="margin: 10px 0;" name="submitButton">SIMPAN KOLEKSI SAYA</button>
             </div>
             <div class="cg-col-xs-12 bottom-spacer-container">
-                <a class="btn btn-default btn-block btn-cancel cursor" onclick="newHideAddCollectionDialog()">Keluar, saya tidak jadi membuat halaman koleksi</a>
+                <a class="btn btn-default btn-block btn-cancel cursor" style="background:transparent;"  onclick="newHideAddCollectionDialog()">Keluar, saya tidak jadi membuat halaman koleksi</a>
             </div>
             <input type="hidden" name="username" value="<?php echo $profile->getUsername(); ?>">
             <input type="hidden" name="preset_image" id="preset_image" />
@@ -248,7 +248,7 @@ $images = Mage::getModel('socialcommerce/collectioncover')->getCollection()->set
                             <option value="<?php echo $wishlist->getId(); ?>"><?php echo $wishlist->getName(); ?></option>
                         <?php endforeach; ?>
 
-                        <option value="0">&#10084; Create New Collection &#10084;</option>
+                        <option value="0">&#10084; BUAT KOLEKSI BARU &#10084;</option>
 
                     </select>
 
@@ -264,9 +264,9 @@ $images = Mage::getModel('socialcommerce/collectioncover')->getCollection()->set
                         </div>
 
                         <div class="form-group less-margin in-block full-width">
-                            <label for="inputPassword3" class="cg-col-xs-12 control-label label-color label-margin take-left opensans">Deskripsi <span class="light lil-exp">penjelasan singkat mengenai tema koleksi anda</span></label>
+                            <label for="inputPassword3" class="cg-col-xs-12 control-label label-color label-margin take-left opensans">Deskripsi <span class="light lil-exp">Penjelasan singkat mengenai tema koleksi anda</span></label>
                             <div class="cg-col-sm-12">
-                               <textarea rows="4" name="desc" class="form-control input-new-collection" maxlength="250" placeholder="Why the products inspire you or story behind your collection. Make it fun!" style="resize:none;height:auto;"></textarea>
+                               <textarea rows="4" name="desc" class="form-control input-new-collection" maxlength="250" placeholder="Penjelasan singkat mengenai tema koleksi anda" style="resize:none;height:auto;"></textarea>
                            </div>
                        </div>
 
@@ -289,7 +289,7 @@ $images = Mage::getModel('socialcommerce/collectioncover')->getCollection()->set
                                 <i class="fa fa-link pinker icon-nav"></i>
                             </a>
                         </li>
-                        <li class="cg-col-sm-4 cg-col-xs-4 cg-col-lg-4 cg-col-md-6 text-center clicker main-nav mid-nav nopadding">
+                        <li class="cg-col-sm-4 cg-col-xs-4 cg-col-lg-4 cg-col-md-4 text-center clicker main-nav mid-nav nopadding">
                           <a href="#ntabs-2" class="sub-nav">
                             <i class="fa fa-cloud-upload pinker icon-nav"></i>
                         </a>
@@ -366,12 +366,12 @@ $images = Mage::getModel('socialcommerce/collectioncover')->getCollection()->set
         if (jQuery(this).val() == '0') {
           jQuery('#iWannaCreateNewCollection').show();
           jQuery('#add-new-pop-collection').css( {"display": "inline-block","max-height": "90%" });
-          jQuery('#addButton').html('Create &amp; Add this Product');
+          jQuery('#addButton').html('BUAT &amp; TAMBAHKAN KE KOLEKSI');
           jQuery('#name').attr('required', true);
       } else {
           jQuery('#iWannaCreateNewCollection').hide();
           jQuery('#add-new-pop-collection').css("display", "inline-table");
-          jQuery('#addButton').html('Add to Collection');
+          jQuery('#addButton').html('TAMBAHKAN KE KOLEKSI');
           jQuery('#name').attr('required', false);
       }
   });
@@ -382,7 +382,7 @@ $images = Mage::getModel('socialcommerce/collectioncover')->getCollection()->set
     jQuery(document).ready(function() {
       jQuery('#iWannaCreateNewCollection').show();
       jQuery('#add-new-pop-collection').css( {"display": "inline-block","max-height": "90%" });
-      jQuery('#addButton').html('Create &amp; Add this Product');
+      jQuery('#addButton').html('BUAT &amp; TAMBAHKAN KE KOLEKSI');
       jQuery('#name').attr('required', true);
   });
 </script>
@@ -390,7 +390,7 @@ $images = Mage::getModel('socialcommerce/collectioncover')->getCollection()->set
 
 <div class="cg-col-xs-12 nopadding">
 
-    <button class="btn btn-cancel-button nomargin" onclick="hideAddToCollectionDialog();return false;">KELUAR</button>
+    <button class="btn btn-cancel nomargin cursor" style="background:transparent;"  onclick="hideAddToCollectionDialog();return false;">KELUAR</button>
 </div>
 
 </div>
@@ -401,15 +401,15 @@ $images = Mage::getModel('socialcommerce/collectioncover')->getCollection()->set
 
 <?php else : ?>
     <div class="in-block cg-col-lg-7 cg-col-md-7 cg-col-sm-12 cg-col-xs-12 login-collection">
-        <p style="color: #545454;">Please login to add this item to your collection.
+        <p style="color: #545454;">Please login to add this item to your collection. <br>
             <a 
                 <?php if (!Mage::getSingleton('customer/session')->isLoggedIn()): ?>
                     href="<?php echo Mage::getUrl('customer/account/login'); ?>"
-                    onclick="hideAddToCollectionDialog();return false;"
+                    onclick="hideAddToCollectionDialog();return false;" class="btn-pink-prime in-block"
                 <?php endif; ?>>
                 login
-            </a>
-            <button class="btn btn-default btn-block btn-cancel" onclick="hideAddToCollectionDialog();return false;">Close</button>
+            </a> <br>
+            <button class="btn btn-cancel btn-block cursor" style="background:transparent;" onclick="hideAddToCollectionDialog();return false;">keluar</button>
         </p>
     </div>
 <?php endif; ?>
