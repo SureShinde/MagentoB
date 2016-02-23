@@ -872,12 +872,12 @@ ul.block-wrapper li:last-child {}
 	padding-left:0;
     margin: 0;
 }
-.wrap-second-cat{
-    padding-right: 20px;
+.homepage .wrap-second-cat{
+    padding-right: 5px;
     position: relative;
     float: left;
     z-index: 99;
-	width:179px;
+	width:190px;
 }
 .homepage .homepage-banner .first-level > ul > li{
     line-height: 32px;
@@ -1193,4 +1193,3 @@ ul.block-wrapper li:last-child {}
 		width: 100%;
 	}
 }
-
