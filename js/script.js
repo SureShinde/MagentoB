@@ -8,6 +8,7 @@ function hideAddCollectionDialog() {
 
 function newShowAddCollectionDialog() {
 	jQuery('#newAddCollectionModal').fadeIn('fast');
+	jQuery('.addCollectionFromQuick').fadeOut('fast');
 }
 function closeTopBanner() {
 	jQuery('#top-banner').fadeOut('fast');
