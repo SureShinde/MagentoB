@@ -39,7 +39,7 @@
 		<?php $_items = $this->getQuote()->getAllItems(); ?>
 		<?php $itrNumberItemsDisplayed = 0; ?>
 		<?php $itemQty = 0; ?>
-		<?php foreach ($_items as $_item) { if(empty($_item->getParentItemId())) {$itemQty++;} }?>
+		<?php foreach ($_items as $_item) { $parentId = $_item->getParentItemId(); if(empty($parentId)) {$itemQty++;} }?>
 	    <?php if ($_cartQty>0): ?>
 	        <?php if ($_cartQty<4): ?>
 	            <p class="amount"><?php echo $this->__('<a id="cart-item-qty" href="%s">%s</a> produk di Troli Anda', $this->getUrl('checkout/cart'), $_cartQty) ?></p>

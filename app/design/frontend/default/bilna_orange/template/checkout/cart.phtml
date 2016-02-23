@@ -34,7 +34,7 @@
 <?php $gtmItemIds = ''; ?>
 <?php $_items = $this->getQuote()->getAllItems(); ?>
 <?php $itemQty = 0; ?>
-<?php foreach ($_items as $_item) { if(empty($_item->getParentItemId())) {$itemQty++;} }?>
+<?php foreach ($_items as $_item) { $parentId = $_item->getParentItemId(); if(empty($parentId)) {$itemQty++;} }?>
 <input type="hidden" id="3rdparty-type" value="cart"/>
 <input type="hidden" id="3rdparty-value" value="" />
 <div class="cart">

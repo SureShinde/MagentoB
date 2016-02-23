@@ -38,7 +38,7 @@ $_escape_helper = Mage::helper('catalog/utils');
 $_cart = Mage::getModel('checkout/cart')->getQuote();
 $_items = $_cart->getAllItems();
 $itemQty = 0;
-foreach ($_items as $_item) { if(empty($_item->getParentItemId())) {$itemQty++;} }
+foreach ($_items as $_item) { $parentId = $_item->getParentItemId(); if(empty($parentId)) {$itemQty++;} }
 ?>
 
 <script>
