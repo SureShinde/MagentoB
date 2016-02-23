@@ -841,8 +841,8 @@ ul.block-wrapper li:last-child {}
     width: 100%;
     background: url(../images/megamenu_arrow.png) 100px 9px no-repeat;
     height: 23px;
-    background-size: 25px;
-    top: 0;
+    background-size: 20px;
+    top: 1px;
     z-index: 1;
 }
 .wrap-second-cat > ul > p > a {
