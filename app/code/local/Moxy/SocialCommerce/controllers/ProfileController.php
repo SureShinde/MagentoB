@@ -13,10 +13,8 @@ extends Mage_Core_Controller_Front_Action
         if(empty($username))
         {
             $customerSession = Mage::getModel('customer/session')->getCustomer();
-
-error_log("\n".print_r($customerSession, 1), 3, '/tmp/customerSession.log');
             $customerSessionData = $customerSession->getData();
-error_log("\ncustomerSessionData".print_r($customerSessionData, 1), 3, '/tmp/customerSession.log');
+            
             if(!isset($customerSessionData['entity_id']))
             {
                 Mage::app()->getFrontController()->getResponse()->setRedirect(Mage::getBaseUrl())->sendResponse();
@@ -25,7 +23,6 @@ error_log("\ncustomerSessionData".print_r($customerSessionData, 1), 3, '/tmp/cus
 
             $customerProfile = $profileModel->load($customerSessionData['entity_id'], 'customer_id');
             $customerProfileData = $customerProfile->getData();
-error_log("\ncustomerProfileData".print_r($customerProfileData, 1), 3, '/tmp/customerSession.log');
 
             if(!isset($customerProfileData['entity_id']))
             {
