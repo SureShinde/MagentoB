@@ -50,7 +50,8 @@
 	    <?php if(count($_items)): ?>
 	       	<ul id="cart-sidebar" class="mini-products-list">
 		        <?php foreach($_items as $_item): ?>
-		        	<?php if(empty($_item->getParentItemId())): ?>
+		        	<?php $parentId = $_item->getParentItemId(); ?>
+		        	<?php if(empty($parentId)): ?>
 		        		<?php echo '<span id="ematiccart" class="hidden">' . $_item->getProduct()->getName() . $_item->getTypeInstance() . '|' . $_item->getProduct()->getSku() . '|' . $_item->getProduct()->getPrice() . '|' . $_item->getQty() . '|' . $_item->getProduct()->getImageUrl() . '|' . $_item->getProduct()->getProductUrl() . '</span>' ?>
 			            <?php if($itrNumberItemsDisplayed < $_numberItemsDisplayed): ?>
 			            	<?php echo $this->getItemHtml($_item); ?>
