@@ -32,7 +32,7 @@
 <?php $_cart = Mage::getModel('checkout/cart')->getQuote(); ?>
 <?php $_items = $_cart->getAllItems(); ?>
 <?php $itemQty = 0; ?>
-<?php foreach ($_items as $_item) { if(empty($_item->getParentItemId())) {$itemQty++;} } ?>
+<?php foreach ($_items as $_item) { $parentId = $_item->getParentItemId(); if(empty($parentId)) {$itemQty++;} } ?>
 <div class="awfeatured awafpgrid" id="<?php echo $this->getUniqueBlockId() ?>" style="<?php echo $this->getContainerStyleString() ?>">
     <?php $_i = $_ulOpened = $_ulClosed = 0; ?>
     <?php $_iterates=0;foreach($this->getProductsCollection() as $_product) : ?>
