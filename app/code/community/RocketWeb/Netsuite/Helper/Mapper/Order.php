@@ -864,4 +864,28 @@ class RocketWeb_Netsuite_Helper_Mapper_Order extends RocketWeb_Netsuite_Helper_M
         
         return $result;
     }
+
+    /* addition by Willy
+    - check whether order id in Magento already exists in Netsuite */
+    public function findNetsuiteSalesOrder($by_field, $search_string)
+    {
+        $searchField = new SearchStringField();
+        $searchField->operator = SearchStringFieldOperator::is;
+        $searchField->searchValue = $search_string;
+        $search = new TransactionSearchBasic();
+        $search->$by_field = $searchField;
+
+        $request = new SearchRequest();
+        $request->searchRecord = $search;
+
+        $netsuiteService = $this->_getNetsuiteService();
+        $searchResponse = $netsuiteService->search($request);
+
+        if(property_exists($searchResponse, 'searchResult') && property_exists($searchResponse->searchResult, 'totalRecords')
+            && $searchResponse->searchResult->totalRecords != 0) {
+            return $searchResponse->searchResult->recordList->record[0]->internalId;
+        }
+
+        return false;
+    }
 }

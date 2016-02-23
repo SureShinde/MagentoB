@@ -1,5 +1,6 @@
 <?php
 /**
+<<<<<<< HEAD
  * Magento
  *
  * NOTICE OF LICENSE
@@ -47,9 +48,17 @@
                     <p class="wishlist-empty"><?php echo $this->__('You have no items in your wishlist.') ?></p>
                 <?php endif ?>
                 <div class="buttons-set buttons-set2">
-                    <?php echo $this->getChild('control_buttons')->toHtml();?>
+                    <?php echo $this->getChildHtml('control_buttons');?>
                 </div>
             </fieldset>
+        </form>
+
+        <form id="wishlist-allcart-form" action="<?php echo $this->getUrl('*/*/allcart') ?>" method="post">
+            <?php echo $this->getBlockHtml('formkey') ?>
+            <div class="no-display">
+                <input type="hidden" name="wishlist_id" id="wishlist_id" value="<?php echo $this->getWishlistInstance()->getId() ?>" />
+                <input type="hidden" name="qty" id="qty" value="" />
+            </div>
         </form>
 
         <script type="text/javascript">

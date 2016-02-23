@@ -17,26 +17,30 @@
 
 class Unirgy_RapidFlow_Helper_Data extends Mage_Core_Helper_Data
 {
-    public function run($profileId, $stopIfRunning=true, array $updateData=array())
-    {
+    public function _getProfile($profileId){
         $profile = Mage::getModel('urapidflow/profile');
-
         if (is_numeric($profileId)) {
             $profile->load($profileId);
         } else {
             $profile->load($profileId, 'title');
         }
-
         if (!$profile->getId()) {
             Mage::getSingleton('adminhtml/session')->addError($this->__('Invalid Profile ID'));
         }
-
         $profile = $profile->factory();
+        return $profile;
+    }
+    public function runExport($profileId){
+        $profile = $this->_getProfile($profileId);
+        $profile->exportExcelReport();
+    }
 
+    public function run($profileId, $stopIfRunning=true, array $updateData=array())
+    {
+        $profile = $this->_getProfile($profileId);
         if ($stopIfRunning) {
             try { $profile->stop(); } catch (Exception $e) { };
         }
-
         if (!empty($updateData)) {
             foreach ($updateData as $k=>$v) {
                 if (is_array($v)) {
@@ -46,9 +50,7 @@ class Unirgy_RapidFlow_Helper_Data extends Mage_Core_Helper_Data
                 }
             }
         }
-
         $profile->start()->save()->run();
-
         return $profile;
     }
 
