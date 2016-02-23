@@ -141,6 +141,8 @@ extends Mage_Core_Helper_Abstract
 
         $profile->save();
 
+        return $username;
+
     }
 
     # Input validation
