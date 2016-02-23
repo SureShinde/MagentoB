@@ -377,9 +377,18 @@ class AW_Ajaxlogin_IndexController extends Mage_Core_Controller_Front_Action {
 
                     /* start : add username on login */
                     $username = $this->getRequest()->getPost('username');
+                    if (!preg_match ('/^[a-zA-Z0-9_.-]*$/', $username)) {
+                        $message = $this->__('Username ' .$username . ' contains invalid character. Only letters, numbers, periods, dashs, and underscores are allowed');
+                        return $this->__sendResponse(
+                            array(
+                                'success'      => 0,
+                                'errorMessage' => $message
+                            )
+                        );
+                    }                    
                     $usernameAvailable = Mage::helper('socialcommerce')->checkUsernameAvailable($username);
                     if (! $usernameAvailable) {
-                        $message = $this->__('Username ' .$username . ' already used by someone else. Please choose another username');  
+                        $message = $this->__('Username ' .$username . 'contains ilready character someone else. Please choose another username');  
                         return $this->__sendResponse(
                             array(
                                 'success'      => 0,
