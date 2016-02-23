@@ -7,12 +7,41 @@ extends Mage_Core_Controller_Front_Action
     {
         $username = $this->getRequest()->getParam('u');
 
+        $customerModel = Mage::getModel('customer/customer');
+        $profileModel = Mage::getModel('socialcommerce/profile');
+
+        if(empty($username))
+        {
+            $customerSession = Mage::getModel('customer/session')->getCustomer();
+
+error_log("\n".print_r($customerSession, 1), 3, '/tmp/customerSession.log');
+            $customerSessionData = $customerSession->getData();
+error_log("\ncustomerSessionData".print_r($customerSessionData, 1), 3, '/tmp/customerSession.log');
+            if(!isset($customerSessionData['entity_id']))
+            {
+                Mage::app()->getFrontController()->getResponse()->setRedirect(Mage::getBaseUrl())->sendResponse();
+                exit;
+            }
+
+            $customerProfile = $profileModel->load($customerSessionData['entity_id'], 'customer_id');
+            $customerProfileData = $customerProfile->getData();
+error_log("\ncustomerProfileData".print_r($customerProfileData, 1), 3, '/tmp/customerSession.log');
+
+            if(!isset($customerProfileData['entity_id']))
+            {
+                $username = Mage::helper('socialcommerce')->createTemporaryProfile();
+            }else{
+                $username = $customerProfileData['username'];
+            }
+            $this->_redirect("user/$username");
+        }
+
         $profiler = Mage::getModel('socialcommerce/profile')->load($username, 'username');
 
         if ($profiler->getCustomerId()) {
 
             $profilerCustomerId = $profiler->getCustomerId();
-            $customer = Mage::getModel('customer/customer')->load($profilerCustomerId);
+            $customer = $customerModel->load($profilerCustomerId);
 
             # Check if the user activate her public profile
             if ($profiler->getStatus()) {
