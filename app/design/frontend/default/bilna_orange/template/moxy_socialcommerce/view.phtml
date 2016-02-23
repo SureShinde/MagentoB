@@ -121,10 +121,10 @@ Why don’t you start create your own collection?
 <?php if ($wishlistCollection->count() < 1 && $isLoggedIn && $loggedCustomer->getId() == $customer->getId()): ?>
 <div class="cg-row"  style="margin-bottom:20px">
  <div class="cg-col-lg-6 cg-col-lg-offset-3 cg-col-xs-12 cg-col-md-8 cg-col-md-offset-2 cg-col-sm-12 text-center no-collection-title">
-    YOU HAVE NOT CREATED ANY COLLECTIONS YET..
+    KAMU BELUM MEMILIKI KOLEKSI
   </div>
-  <div class="cg-col-lg-6 cg-col-lg-offset-3 cg-col-xs-12 cg-col-md-8 cg-col-md-offset-2 cg-col-sm-12 text-center no-collection-subtitle">
-    <span class="pinker" style="cursor:pointer;" onclick="showAddCollectionDialog()">Create your first collection</span> or browse our products, heart it, being creative with cover image and description.
+  <div class="cg-col-lg-6 cg-col-lg-offset-3 cg-col-xs-12 cg-col-md-8 cg-col-md-offset-2 cg-col-sm-12 text-center no-collection-subtitle opensans bold">
+    <span class="pinker" style="cursor:pointer;" onclick="newShowAddCollectionDialog()">Buat koleksi pertama kamu</span> atau lihat produk kami, tekan icon love, lalu buat koleksi dengan gambar cover kesukaan kamu.
   </div>
   <div class="cg-col-lg-4 cg-col-lg-offset-4 cg-col-xs-12 cg-col-md-8 cg-col-md-offset-2 cg-col-sm-12">
     <img src="<?php echo $this->getSkinUrl('images/') . 'Bitmap-no-collection.jpg'; ?>" width="100%" >
@@ -164,6 +164,10 @@ Why don’t you start create your own collection?
 
         <div class="cg-col-lg-12 nopadding">
           <?php if ($loggedCustomer->getId() == $customer->getId()) : ?>
+<<<<<<< HEAD
+=======
+            
+>>>>>>> e706267ea785019f327284891c4e536436c97f30
              <div class="cg-col-lg-3 cg-col-md-3 cg-col-sm-6 cg-col-xs-12 bottom-spacer-container" style="padding: 0 5px; margin-bottom: 0 !important;" onclick="newShowAddCollectionDialog()">
               <div class="cg-col-sm-12 back-square-plus nopadding" style="">
                <div class="middle-part-plus" style="">
@@ -297,7 +301,7 @@ Why don’t you start create your own collection?
             <div class="form-group in-block full-width">
               <label for="inputPassword3" class="cg-col-xs-12 control-label label-color label-margin take-left opensans">Deskripsi <span class="light lil-exp">penjelasan singkat mengenai tema koleksi anda</span></label>
               <div class="cg-col-sm-12">
-                 <textarea rows="4" name="desc" id="modalDescCol" class="form-control input-new-collection" maxlength="250" placeholder="Why the products inspire you or story behind your collection. Make it fun!" style="resize:none;height:auto;"></textarea>
+                 <textarea rows="4" name="desc" id="modalDescCol" class="form-control input-new-collection" maxlength="250" placeholder="Penjelasan singkat mengenai tema koleksi anda" style="resize:none;height:auto;"></textarea>
               </div>
             </div>
 
@@ -383,7 +387,11 @@ Why don’t you start create your own collection?
       <div class="cg-col-xs-12 take-center">
         <span class="delete-collection-link cursor btn-cancel" onclick="newShowCollectionEdit()" style="border-bottom: 1px solid #ccc;padding-bottom:0;"><i class="fa fa-trash-o"></i> Hapus Koleksi Ini</span>
       </div>
+<<<<<<< HEAD
 
+=======
+    </form>
+>>>>>>> e706267ea785019f327284891c4e536436c97f30
   </div>
 </div>
 <!-- end of new modal collection -->
@@ -466,6 +474,7 @@ Why don’t you start create your own collection?
                     <!--
                     <label for="name" class="full-width" style="color: #545454; margin-bottom: 10px;margin-top: 10px;">Iam <span class="coll-tags">You can choose more than one, because you can have it all!</span></label>
                     <div class="whoiam">
+<<<<<<< HEAD
                       <input type="text" id="myinputiam" name="myinputiam" value="" style="display:none;" size=30>
                       <span id="tags-iam"></span>
                     </div>
@@ -474,6 +483,16 @@ Why don’t you start create your own collection?
 
                     <div class="interest">
                       <input type="text" id="myinputinterest" name="myinputinterest" value="" style="display:none;" size=30>
+=======
+                      <input type="text" id="myinputiam" name="myinputiam" value="" style="display:none;" size=30> 
+                      <span id="tags-iam"></span>
+                    </div>
+
+                    <label for="name" class="full-width" style="color: #545454; margin-bottom: 10px;margin-top: 10px;">My Interest <span class="coll-tags">You can choose more than one</span></label>
+                  
+                    <div class="interest">
+                      <input type="text" id="myinputinterest" name="myinputinterest" value="" style="display:none;" size=30> 
+>>>>>>> e706267ea785019f327284891c4e536436c97f30
                       <span id="tags-interest"></span>
                     </div>
                     -->
