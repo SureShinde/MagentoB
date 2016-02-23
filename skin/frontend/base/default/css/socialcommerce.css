@@ -3576,3 +3576,12 @@ p.name-product
     min-height: 34px;
     padding: 0 10px;
 }
+.pagination > li.active > a, .related-article nav .pagination > li.active > a {
+    background: #EE5191;
+    color: #ffffff;
+}
+.pagination > li > a:hover, .related-article nav .pagination > li > a:hover, .list-article nav .pagination > li > span:hover, .related-article nav .pagination > li > span:hover {
+    -webkit-border-radius: 0 0 0 0;
+    border-radius: 0 0 0 0;
+    background: #eeeeee;
+}
