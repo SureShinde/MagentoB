@@ -135,10 +135,11 @@
 ############################################
 ## rewrite API2 calls to api.php (by now it is REST only)
 
-    #RewriteRule ^api/rest api.php?type=rest [QSA,L]
+    RewriteRule ^api/rest api.php?type=rest [QSA,L]
 
 	#### user collections orami
 	RedirectMatch 301 ^\/user(\/?)$ /user/profile/
+	RewriteRule ^collections/([^\/]+)\/?$ /user/profile/collection/?id=$1 [P]
 
 ############################################
 ## workaround for HTTP authorization
