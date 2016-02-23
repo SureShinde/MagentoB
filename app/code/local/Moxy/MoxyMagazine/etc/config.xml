@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <Moxy_MoxyMagazine>
+      <version>0.1.0</version>
+    </Moxy_MoxyMagazine>
+  </modules>
+  <global>
+    <helpers>
+      <moxymagazine>
+        <class>Moxy_MoxyMagazine_Helper</class>
+      </moxymagazine>
+    </helpers>
+  	<models>
+  	  <moxymagazine>
+    		<class>Moxy_MoxyMagazine_Model</class>
+    		<resourceModel>moxymagazine_mysql4</resourceModel>
+  	  </moxymagazine>
+  	</models>
+  </global>
+</config>
