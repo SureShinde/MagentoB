@@ -388,7 +388,7 @@ class AW_Ajaxlogin_IndexController extends Mage_Core_Controller_Front_Action {
                     }                    
                     $usernameAvailable = Mage::helper('socialcommerce')->checkUsernameAvailable($username);
                     if (! $usernameAvailable) {
-                        $message = $this->__('Username ' .$username . 'contains ilready character someone else. Please choose another username');  
+                        $message = $this->__('Username ' .$username . ' already used by someone else. Please choose another username');  
                         return $this->__sendResponse(
                             array(
                                 'success'      => 0,
