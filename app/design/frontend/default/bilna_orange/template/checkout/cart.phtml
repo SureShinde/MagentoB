@@ -409,9 +409,6 @@ function ecommerceCheckout0(sku, price, quantity) {
     ?>
     ];
 
-    // ematics track checkout
-	ematics("log", "product", "checkout", products);
-
     // universal analytics
     temp_container.ecommerce.checkout.products.push(
     	<?php for($i=0; $i<$itemQty; $i++) {
