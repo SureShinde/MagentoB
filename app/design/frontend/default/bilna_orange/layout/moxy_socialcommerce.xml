@@ -1,9 +1,4 @@
 <layout>
-    <default>
-        <reference name="head">
-            <action method="addCss"><stylesheet>css/jquery-uii.css</stylesheet></action>
-        </reference>
-    </default>
     <customer_account>
         <reference name="customer_account_navigation">
             <action method="addLink">
@@ -22,6 +17,9 @@
     </social_settings_index>
 
     <user_profile_index>
+        <reference name="head">
+            <action method="addCss"><stylesheet>css/jquery-uii.css</stylesheet></action>
+        </reference>
         <reference name="content">
             <block type="core/template" name="user_content" template="moxy_socialcommerce/view.phtml"/>
         </reference>
