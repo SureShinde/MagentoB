@@ -171,9 +171,9 @@
         },
 
         onValueChanged: function () {
-			jQuery('.billingcity').val('');
+			//jQuery('.billingcity').val('');
 			jQuery('.accountcity').val('');
-			jQuery('.shippingcity').val('');
+			//jQuery('.shippingcity').val('');
             //this.change(this.selectedIndex);
         },
 

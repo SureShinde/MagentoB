@@ -26,6 +26,7 @@
 ?>
 <?php $_escape_helper = Mage::helper('catalog/utils'); ?>
 <?php $_product = $this->getProduct(); ?>
+
 <?php $buttonTitle = $this->__('Tambah ke troli'); ?>
 <?php if($_product->isSaleable()): ?>
     <div class="add-to-cart">
@@ -35,6 +36,14 @@
         <?php endif; ?>
         <button type="button" title="<?php echo $buttonTitle ?>" class="button btn-cart" onclick="productAddToCartForm.submit(this); ecommerceProductDetailAddToCart('<?php echo $_escape_helper->escapeQuote($_product->getName()); ?>','<?php echo $_product->getSku() ?>','<?php echo $_product->getPrice() ?>','<?php echo $_product->getProductUrl() ?>','<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(135); ?>');"><i class="fa fa-cart-plus"></i><span><?php echo $buttonTitle ?></span></button>
         <?php echo $this->getChildHtml('', true, true) ?>
+        <a class="coll-quick addToCollectionLink coll-quick-top" onclick="showAddToCollectionDialog()" href="javascript:;"
+                data-brand-name="<?php echo $brand; ?>"
+                data-image="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(320, 320); ?>"
+                data-product-name="<?php echo $this->stripTags($_product->getName(), null, true); ?>"
+                data-price="<?php echo 'Rp. ' . number_format($_product->getPrice(), 0, '', '.'); ?>"
+                data-merchant = "<?php echo ($merchant) ? 'dijual oleh ' . $merchant : ''; ?>"
+                data-id="<?php echo $_product->getId(); ?>"
+                ><i class="fa fa-heart"></i></a>
     </div>
 <?php endif; ?>
 
@@ -61,18 +70,18 @@ function ecommerceProductDetailAddToCart(name, sku, price, link, imageUrl) {
         }
       });
 
-      // ematics cart
-      ematics("log", "product", "cart", 
-            [{
-              'name': name,
-              'id': sku,
-              'price': price,
-              'quantity': jQuery("input.#qty").val(),
-              'brandName': 'brand name',
-              'imageUrl': imageUrl,
-              'link': link
-            }]
-        );
+      // ematics cart - prepare for logging
+      products = [{
+        'id': sku,
+        'price': price,
+        'quantity': jQuery("input.#qty").val(),
+        'name': name,
+        'brandName': 'brand name',
+        'imageUrl': imageUrl,
+        'link': link
+      }];
+      // ematics track items in cart to enable pre-abandonded cart overlays
+      ematics("log", "product", "cart", products);
     } 
 }
 </script>
