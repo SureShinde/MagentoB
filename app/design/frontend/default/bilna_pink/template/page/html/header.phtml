@@ -512,14 +512,6 @@ $images = Mage::getModel('socialcommerce/collectioncover')->getCollection()->set
         jQuery(document).ready(function() {
             dataLayer.push({'sitetype': 'd'});
             dataLayer.push({'emailaddress': '<?php echo $email; ?>'});
-            
-            // ematic email initializing
-            var opt = {
-                email: "<?php echo $email; ?>",
-                country_iso: "",
-                currency_iso: "",
-                language_iso: ""
-            };
         });
     </script>
 

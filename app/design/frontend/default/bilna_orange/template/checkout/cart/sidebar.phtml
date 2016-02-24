@@ -39,6 +39,9 @@
 		<?php $_items = $this->getQuote()->getAllItems(); ?>
 		<?php $itrNumberItemsDisplayed = 0; ?>
 		<?php $itemQty = 0; ?>
+	    <?php $customer = Mage::getSingleton('customer/session')->getCustomer(); ?>
+	    <?php if (isset ($customer) && !empty ($customer)) { $customer_email = $customer->getEmail(); } else { $customer_email = ""; } ?>
+
 		<?php foreach ($_items as $_item) { $parentId = $_item->getParentItemId(); if(empty($parentId)) {$itemQty++;} }?>
 	    <?php if ($_cartQty>0): ?>
 	        <?php if ($_cartQty<4): ?>
@@ -49,6 +52,7 @@
 	    <?php endif ?>
 	    <?php if(count($_items)): ?>
 	       	<ul id="cart-sidebar" class="mini-products-list">
+	       		<?php echo '<span id="ematicuseremail">'.$customer_email.'</span>' ?>
 		        <?php foreach($_items as $_item): ?>
 		        	<?php $parentId = $_item->getParentItemId(); ?>
 		        	<?php if(empty($parentId)): ?>
