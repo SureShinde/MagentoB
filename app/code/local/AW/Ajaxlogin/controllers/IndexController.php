@@ -378,7 +378,7 @@ class AW_Ajaxlogin_IndexController extends Mage_Core_Controller_Front_Action {
                     /* start : add username on login */
                     $username = $this->getRequest()->getPost('username');
                     if (!preg_match ('/^[a-zA-Z0-9_.-]*$/', $username)) {
-                        $message = $this->__('Username ' .$username . ' contains invalid character. Only letters, numbers, periods, dashs, and underscores are allowed');
+                        $message = $this->__('Username ' .$username . ' contains invalid character. Only letters (a-z), numbers (0-9), periods (.), dashs (-), and underscores (_) are allowed');
                         return $this->__sendResponse(
                             array(
                                 'success'      => 0,
