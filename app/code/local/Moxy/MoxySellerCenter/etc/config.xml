@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Moxy_MoxySellerCenter>
+            <version>0.1.1</version>
+        </Moxy_MoxySellerCenter>
+    </modules>
+    <global>
+        <resources>
+            <moxysellercenter_setup>
+                <setup>
+                    <module>Moxy_MoxySellerCenter</module>
+                    <class>Mage_Catalog_Model_Resource_Eav_Mysql4_Setup</class>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </moxysellercenter_setup>
+        </resources>
+        <helpers>
+            <moxysellercenter>
+                <class>Moxy_MoxySellerCenter_Helper</class>
+            </moxysellercenter>
+        </helpers>
+        <models>
+            <moxysellercenter>
+                <class>Moxy_MoxySellerCenter_Model</class>
+                <resourceModel>moxysellercenter_mysql4</resourceModel>
+            </moxysellercenter>
+        </models>
+    </global>
+</config>

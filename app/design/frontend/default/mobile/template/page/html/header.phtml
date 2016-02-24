@@ -1,0 +1,109 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_mobile
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+/**
+ * @var Mage_Page_Block_Html_Header $this
+ */
+?>
+
+<script type="text/javascript">
+$j(document).ready(function() {
+    
+        $j("img.lazy, .wrap-banner img:not(.image-slider), .warp-banner img").after('<div class="loader"><img class="loader-img" src="<?php echo Mage::getBaseUrl(); ?>skin/frontend/base/default/images/loading.gif"></div>');
+});
+</script>
+<div class="header-container">
+    <?php echo $this->getLayout()->createBlock('page/html')->setTemplate('page/html/back-top.phtml')->toHtml(); ?>
+    
+    <div class="header">
+        <div class="wrap-header-top-mobile">
+            <a href="#" class="nav-mobile-trigger">
+                <span class="notclick fa fa-bars"></span>
+                <span class="clicked fa fa-times"></span>
+            </a>
+            <a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="logo"><strong><?php echo $this->getLogoAlt() ?></strong>
+                <img src="<?php echo $this->getLogoSrc() ?>" alt="<?php echo $this->getLogoAlt() ?>" />
+            </a>
+
+            <div class="quick-access">
+                <a href="#!" class="search-menu" ><i class="fa fa-search"></i></a>
+                <?php require_once 'app/Mage.php';
+
+
+                $sessionCustomer = Mage::getSingleton("customer/session");
+
+                if($sessionCustomer->isLoggedIn()) {?>
+                    <a href="#" class="link-myaccount-mobile loggedin"><i class="fa fa-user"></i></a>
+                <?php } else {?>
+                    <a href="<?php echo Mage::getBaseUrl(); ?>customer/account/login/" class="link-myaccount-mobile"><?php echo $this->__('Login') ?></a>
+                <?php } ?>
+                
+                    <?php echo $this->getChildHtml('topLinks') ?>
+
+                <?php $_totalItem = $this->helper('checkout/cart')->getSummaryCount();  //get total items in cart ?>
+
+                <?php if ($_totalItem == 0): ?>
+                <a href="<?php echo Mage::getBaseUrl(); ?>checkout/cart" class="link-minicart" id="link-minicart"><i class="fa fa-shopping-cart"></i><span class="qty"><?php echo $this->__('0') ?></span></a>
+                <?php else: ?>
+                <a href="<?php echo Mage::getBaseUrl(); ?>checkout/cart" class="link-minicart" id="link-minicart"><i class="fa fa-shopping-cart"></i><span class="qty"><?php echo $this->__($_totalItem) ?></span></a>
+                <?php endif; ?>
+
+                <p class="welcome-msg"><?php echo $this->getChildHtml('welcome') ?> <?php echo $this->getAdditionalHtml() ?></p>
+
+                <div class="clear"></div>
+            </div>
+            <div class="search-container-new-mobile">
+                <?php echo $this->getChildHtml('topSearch'); ?>
+            </div>
+        </div>
+        
+        <?php echo $this->getChildHtml('topContainer'); ?>
+        <div class="second_button_left_menu">
+            <div class="title_belanja">
+                <p><?php echo $this->__('BELANJA') ?> </p>
+            </div>
+            <div class="direktori_belanja">
+                <p><i class="fa fa-th-large"></i><?php echo $this->__('DIREKTORI BELANJA') ?> </p>
+            </div>
+            <?php //echo $this->getLayout()->createBlock('staticarea/block')->setId('banner-corner')->toHtml();?>
+        </div>
+    </div>
+</div>
+
+<div class="bg-dark-megamenu"></div>
+<?php 
+ $customer = Mage::getSingleton('customer/session')->getCustomer();
+ if(isset($customer) && !empty($customer)){
+ 	$email = $customer->getEmail();// for email address
+ }else{
+ 	$email = "";
+ }
+?>
+<script type="text/javascript">
+jQuery(document).ready(function () {    
+	//dataLayer.push( {'sitetype': 'd'} );
+	//dataLayer.push( {'emailaddress': '<?php echo $email; ?>'} );
+});
+</script>

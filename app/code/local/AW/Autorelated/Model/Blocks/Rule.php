@@ -178,6 +178,10 @@ class AW_Autorelated_Model_Blocks_Rule extends Mage_CatalogRule_Model_Rule
             if (!$att && $attribute != 'category_ids')
                 return null;
 
+            /* TODO:
+             * For all attributes that are in the flat table, we don't have to do a join to attribute table.
+             * We are hardcoding for cases of 'brand' and 'product_subcategory', since the previous way is adding more than 5 seconds for AW_AutoRelated block.
+             * Ideally, we should check for all attributes in the flat table and do the optimized way for those attributes */
             switch ($attribute) {
                 case 'sku':
                     $collection->getSelect()
@@ -193,6 +197,10 @@ class AW_Autorelated_Model_Blocks_Rule extends Mage_CatalogRule_Model_Rule
                     break;
                 case 'price':
                     $collection->addPriceData();
+                    break;
+                case 'brand':
+                    break;
+                case 'product_subcategory':
                     break;
                 default:
                     $collection->getSelect()
@@ -212,6 +220,12 @@ class AW_Autorelated_Model_Blocks_Rule extends Mage_CatalogRule_Model_Rule
                 break;
             case 'attribute_set_id':
                 $where = '(IFNULL(att_table_' . $attribute . '.' . 'attribute_set_id,\'\')' . ' ' . $operator . ' ' . $value . ')';
+                break;
+            case 'brand':
+                $where = '(' . $attribute . ' ' . $operator . ' ' . $value. ')';
+                break;
+            case 'product_subcategory':
+                $where = '(' . $attribute . ' ' . $operator . ' ' . $value. ')';
                 break;
             default:
                 $where = '(IFNULL(att_table_' . $attribute . '.' . 'value,\'\')' . ' ' . $operator . ' ' . $value . ')';

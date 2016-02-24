@@ -9,16 +9,21 @@
                 </action>
             </block>
             <action method="addCss"><stylesheet>css/reset.css</stylesheet></action>
+            <action method="addCss"><stylesheet>css/stylesheet-2.css</stylesheet></action>
             <action method="addCss"><stylesheet>css/megamenu-3.css</stylesheet></action>
             <action method="addCss"><stylesheet>css/general-2.css</stylesheet></action>
             <action method="addCss"><stylesheet>css/checkout-2.css</stylesheet></action>
-            <action method="addCss"><stylesheet>css/header-3.css</stylesheet></action>
+            <action method="addCss"><stylesheet>css/header-4.css</stylesheet></action>
             <action method="addCss"><stylesheet>css/footer-2.css</stylesheet></action>
             <action method="addCss"><stylesheet>css/font-awesome.min.css</stylesheet></action>
             <action method="addCss"><stylesheet>css/additional-style-blog.css</stylesheet></action>
             <action method="addItem">
                 <type>skin_js</type>
                 <name>js/jquery.min.js</name>
+            </action>
+            <action method="addItem">
+                <type>skin_js</type>
+                <name>js/jquery-lazyload-1.js</name>
             </action>
 			<action method="addItem">
 				<type>skin_js</type>
@@ -64,6 +69,13 @@
                 <type>skin_js</type>
                 <name>js/zopim-chat.js</name>
             </action>
+
+            <action method="addCss"><stylesheet>css/socialcommerce.css</stylesheet></action>
+             <action method="addCss"><stylesheet>css/catgrid.css</stylesheet></action>
+             
+             <action method="addJs"><script>jquery-ui.js</script><params><![CDATA[data-group="js002"]]></params></action>
+             <action method="addJs"><script>bootstrap.file-input.js</script><params><![CDATA[data-group="js002"]]></params></action>
+             <action method="addJs"><script>script.js</script><params><![CDATA[data-group="js002"]]></params></action>
         </reference>
         <reference name="header">
             <remove name="welcome"/>

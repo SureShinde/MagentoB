@@ -195,7 +195,7 @@ class RocketWeb_Netsuite_Model_Process_Import_Inventoryitem extends RocketWeb_Ne
         return true;
     }
 
-    public function isMagentoImportable(Record $inventoryItem) {
+    public function isMagentoImportable($inventoryItem) {
         $isImportable = new Varien_Object();
         $isImportable->setFlag(true);
         Mage::dispatchEvent('netsuite_inventory_item_is_importable', array('inventory_item'=>$inventoryItem,'is_importable'=>$isImportable));

@@ -87,18 +87,22 @@ class RocketWeb_Netsuite_Helper_Data extends Mage_Core_Helper_Data {
                 $nspassword = Mage::getStoreConfig("rocketweb_netsuite/{$configPath}/password");
                 $nsrole = Mage::getStoreConfig("rocketweb_netsuite/{$configPath}/role_id");
 
-                $iniFile = Mage::getBaseDir().'/files/netsuite/netsuite.ini';
-                if(file_exists($iniFile))
+                // check recordtype argument first
+                if (Mage::registry('current_run_recordtype'))
                 {
-                    $nsConfig = parse_ini_file($iniFile, true);
-                    if(isset($nsConfig['account']))
+                    $iniFile = Mage::getBaseDir().'/files/netsuite/netsuite.ini';
+                    if(file_exists($iniFile))
                     {
-                        $nshost = $nsConfig['account']['host'];
-                        $nsendpoint = $nsConfig['account']['end_point'];
-                        $nsaccount = $nsConfig['account']['account_id'];
-                        $nsemail = $nsConfig['account']['email'];
-                        $nspassword = $nsConfig['account']['password'];
-                        $nsrole = $nsConfig['account']['role_id'];
+                        $nsConfig = parse_ini_file($iniFile, true);
+                        if(isset($nsConfig['account']))
+                        {
+                            $nshost = $nsConfig['account']['host'];
+                            $nsendpoint = $nsConfig['account']['end_point'];
+                            $nsaccount = $nsConfig['account']['account_id'];
+                            $nsemail = $nsConfig['account']['email'];
+                            $nspassword = $nsConfig['account']['password'];
+                            $nsrole = $nsConfig['account']['role_id'];
+                        }
                     }
                 }
 			}
@@ -110,7 +114,6 @@ class RocketWeb_Netsuite_Helper_Data extends Mage_Core_Helper_Data {
 				$nspassword = $connectionData['password'];
 				$nsrole = $connectionData['role_id'];
 			}
-			
 			
 			require_once(dirname(__FILE__).DS.'..'.DS.'lib'.DS.'NetSuiteService.php');
 			$this->_netsuiteService[$runMode] = new NetSuiteService();

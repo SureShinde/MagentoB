@@ -1,0 +1,643 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+/**
+ * @var Mage_Page_Block_Html_Header $this
+ */
+?>
+<script type="text/javascript">
+$j(document).ready(function() {
+    
+        $j("img.lazy, .wrap-banner img:not(.image-slider), .warp-banner img").after('<div class="loader"><img class="loader-img" src="<?php echo Mage::getBaseUrl(); ?>skin/frontend/base/default/images/loading.gif"></div>');
+});
+</script>
+<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('above-header-notification')->toHtml() ?> 
+
+
+<?php # Moxy Collections Start
+$customer = Mage::getSingleton('customer/session')->getCustomer();
+$profile = Mage::getModel('socialcommerce/profile')->load($customer->getId(), 'customer_id');
+$categories = Mage::getModel('socialcommerce/collectioncategory')->getCollection();
+$images = Mage::getModel('socialcommerce/collectioncover')->getCollection()->setCurPage(1)->setPageSize(12);
+?>
+
+<!-- Modal dialog to create new collection -->
+<div class="container-collection-pop" style="display:none" id="addCollectionModal">
+    <div class="cg-col-lg-5 cg-col-md-6 cg-col-sm-6 cg-col-xs-11 container-collection-whitebg make-table">
+        <img class="cg-col-lg-6 cg-col-md-6 hidden-sm hidden-xs" src="<?php echo $this->getSkinUrl('images/') . 'add-col.jpg'; ?>" width="100%;" style="margin-top:25px;">
+        <form action="<?php echo $this->getUrl('social/settings/createnewcollection'); ?>" method="post" enctype="multipart/form-data" onsubmit="return preventDouble(this)">
+            <div class="cg-col-lg-6 cg-col-xs-12 cg-col-sm-12 cg-col-md-6 box inside-collection noborder">
+                <div class="cg-col-lg-12 cg-col-sm-12 cg-col-md-12 cg-col-xs-12 collection-top-part">
+                    <div class="cg-col-lg-11 cg-col-md-11 cg-col-sm-11 cg-col-xs-11 add-to-collection-title opensans take-left">Buat Halaman Koleksi</div>
+                    <div class="cg-col-lg-1 cg-col-md-1 cg-col-sm-1 cg-col-xs-1 " id="closer-collection">
+                        <a href="javascript:;" onclick="hideAddCollectionDialog()" style="text-decoration:none;width:100%;display:block">x</a>
+                    </div>
+                </div>
+                <div class="cg-col-xs-12">
+                    <label for="name" class="full-width" style="color: #545454; margin-bottom: 10px;">Collection Title</label>
+                    <input type="text" name="name" id="name" class="input-collection full-width" required>
+                    <label for="name" class="full-width" style="color: #545454; margin-bottom: 10px; margin-top: 10px;">Collection Description</label>
+                    <textarea rows="4" name="desc" class="input-collection full-width" maxlength="250" placeholer="what's your collection about?"></textarea>
+                    <div class="cg-col-xs-12 in-block upload nopadding" style="margin-top:10px;">
+                        <input type="file" title="browse your image" name="cover">
+                    </div>
+
+                    <label for="name" class="full-width cover-exp">Upload Cover Image <br /> (JPG image, 800px width and 800px height, max 1MB)</label>
+
+                    <div style="margin-top: 20px;">
+                        <input type="checkbox" name="visibility" id="visibility" class="input-collection" style="height: inherit; width:10px;" checked>
+                        <label for="visibility" style="color: #545454; height: 40px;">Make Public</label>
+                    </div>
+                </div>
+            </div>
+            <div class="cg-col-xs-6">
+                <a class="btn btn-default btn-block btn-cancel" style="text-decoration:none" onclick="hideAddCollectionDialog()">Cancel</a>
+            </div>
+            <div class="cg-col-xs-6">
+                <button type="submit" class="btn btn-primary btn-block" style="margin: 10px 0;" name="submitButton">Save</button>
+            </div>
+            <input type="hidden" name="username" value="<?php echo $profile->getUsername(); ?>">
+        </form>
+    </div>
+</div>
+
+<!-- new add collection popup -->
+<div class="container-collection-pop" style="display:none;" id="newAddCollectionModal">
+    <div class="cg-col-lg-5 cg-col-md-6 cg-col-sm-6 cg-col-xs-11 container-collection-whitebg white-bg-new-coll" style="max-width:500px;">
+        <form action="<?php echo $this->getUrl('social/settings/createnewcollection'); ?>" method="post" enctype="multipart/form-data" onsubmit="return preventDouble(this)">
+            <div class="cg-col-lg-12 cg-col-xs-12 cg-col-sm-12 cg-col-md-12 box inside-collection noborder" style="padding-bottom:0;margin-bottom:0;">
+                <div class="cg-col-lg-12 cg-col-sm-12 cg-col-md-12 cg-col-xs-12 collection-top-part">
+                    <div class="cg-col-lg-11 cg-col-md-11 cg-col-sm-11 cg-col-xs-11 add-to-collection-title bold opensans take-left">Buat Halaman Koleksi</div>
+                    <div class="cg-col-lg-1 cg-col-md-1 cg-col-sm-1 cg-col-xs-1 " id="closer-collection">
+                        <a href="javascript:;" onclick="newHideAddCollectionDialog()" style="text-decoration:none;width:100%;display:block"><i class="fa fa-times"></i></a>
+                    </div>
+                </div>
+                <div class="cg-col-xs-12 bottom-spacer">
+                    <div class="form-group in-block full-width">
+                        <label for="inputEmail3" class="cg-col-xs-12 control-label label-color label-margin take-left opensans">Judul <span class="light lil-exp">sesuai tema koleksi yang ingin anda buat</span></label>
+                        <div class="cg-col-xs-12">
+                            <input  name="name" id="name" class="form-control input-new-collection" placeholder="contoh; Kado untuk bayi, Persiapan melahirkan, Piknik dengan pacar" required> 
+                        </div>
+                    </div>
+                    <div class="form-group in-block full-width">
+                        <label for="inputPassword3" class="cg-col-xs-12 control-label label-color label-margin take-left opensans">Deskripsi <span class="light lil-exp">Penjelasan singkat mengenai tema koleksi anda</span></label>
+                        <div class="cg-col-xs-12">
+                            <textarea rows="4" name="desc" class="form-control input-new-collection" maxlength="250" placeholder="Mengapa produk-produk dalam koleksi ini menginspirasi anda? Apa cerita dibalik tema koleksi anda?" style="resize:none;height:auto;"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="cg-col-xs-12">
+                    <div class="form-group in-block full-width nomargin">
+                        <label for="inputEmail3" class="cg-col-xs-12 control-label label-color label-margin take-left opensans">Sampul Koleksi Anda </label>
+                        <span class="light lil-exp cg-col-xs-12 bold opensans bottom-spacer-container">Jadikan halaman koleksi anda lebih menarik dengan gambar yang menjelaskan isi koleksi anda!</span>
+                    </div>
+                    <div class="cg-row">
+                        <div class="cg-sm-12">
+                            <div id="tabs">
+                                <ul class="cg-col-xs-12 cg-col-xs-12 main-nav nopadding bottom-spacer-container">
+                                    <li class="cg-col-sm-4 cg-col-xs-4 text-center clicker main-nav nopadding">
+                                        <a href="#tabs-1" class="sub-nav tabs-left ">
+                                            <i class="fa fa-link pinker icon-nav"></i>
+                                            <span class="hidden-xs opensans font-tabs"> <br>link gambar dari web</span>
+                                        </a>
+                                    </li>
+                                    <li class="cg-col-sm-4 cg-col-xs-4 cg-col-lg-4 cg-col-md-6 text-center clicker main-nav mid-nav nopadding">
+                                        <a href="#tabs-2" class="sub-nav activated">
+                                            <i class="fa fa-cloud-upload pinker icon-nav"></i>
+                                            <span class="hidden-xs opensans font-tabs"> <br> unggah gambar</span>
+                                        </a>
+                                    </li>
+                                    <li class="cg-col-sm-4 cg-col-xs-4 text-center clicker main-nav nopadding">
+                                        <a href="#tabs-3" class="sub-nav tabs-right">
+                                            <i class="fa fa-picture-o pinker icon-nav"></i>
+                                            <span class="hidden-xs opensans font-tabs"> <br>gambar pilihan kami</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <div id="tabs-1" style="color: #545454;">
+                                    <div class="form-group in-block full-width">
+                                        <div class="cg-col-sm-10 cg-col-sm-offset-1">
+                                            <input type="text" name="image_url" class="form-control input-new-collection full-width back-white input-border" id="" placeholder="http://">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="tabs-2" style="color: #545454;">
+                                    <div class="cg-col-sm-4 cg-col-sm-offset-4 cg-col-xs-12 dashed-upload nopadding" >
+                                        <img id="imgups" src="<?php echo $this->getSkinUrl('images/unggah.png'); ?>" alt="your image" width ="100%"/>
+                                        <div class="fileUpload-coll" id="no-span">
+                                            <input type="file" title="Browse" name="cover" class="upload-coll" id="imgInps"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="tabs-3" style="color: #545454;">
+                                    <div class="cg-col-sm-4 cg-col-sm-offset-4 bottom-spacer-container">
+                                        <select name="" id="category-selector" class="full-width">
+                                            <option value="">Select categories</option>
+                                            <?php foreach ($categories as $category) { ?>
+                                            <option value="<?php echo $category->getCategoryId();?>"><?php echo $category->getName();?></option>
+                                            <?php } ?>
+                                        </select>
+                                    </div>
+
+                                    <div class="cg-col-sm-12" id="preset-image-container"> 
+                                        <?php $counter = 1; foreach($images as $image) { 
+                                            if (($counter % 3) == 0) {
+                                            }?>
+                                            <div class="cg-col-sm-3 cg-col-xs-4 bottom-spacer choose-cover relative">
+                                                <span class="overlayer-pink">
+                                                    <i class="fa fa-check checked"></i>
+                                                </span>
+                                                <img src="/media/<?php echo $image['image'];?>" width="100%" alt=""> 
+                                            </div>
+                                        <?php 
+                                        $counter++;}  ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="take-left bottom-spacer-container" style="margin-top: 20px;">
+                        <input type="checkbox" name="visibility" id="visibility" class="input-collection" style="height: inherit; width:10px;" checked>
+                        <label for="visibility" class="check-public">Jadikan koleksi publik agar semua orang bisa melihat</label>
+                    </div>
+                </div>
+            </div>
+            <div class="cg-col-xs-12">
+                <button type="submit" class="btn btn-pink-prime cursor" style="margin: 10px 0;" name="submitButton">SIMPAN KOLEKSI SAYA</button>
+            </div>
+            <div class="cg-col-xs-12 bottom-spacer-container">
+                <a class="btn btn-default btn-block btn-cancel cursor" style="background:transparent;"  onclick="newHideAddCollectionDialog()">Keluar, saya tidak jadi membuat halaman koleksi</a>
+            </div>
+            <input type="hidden" name="username" value="<?php echo $profile->getUsername(); ?>">
+            <input type="hidden" name="preset_image" id="preset_image" />
+        </form>
+    </div>
+</div>
+<!-- new add collection pop up -->
+
+<!-- Modal dialog to add new item to collection -->
+<div class="container-collection-pop" style="display:none;" id="addToCollectionModal">
+    <div class="cg-col-lg-6 cg-col-md-6 cg-col-sm-11 cg-col-xs-11 container-collection-whitebg" id="add-new-pop-collection">
+        <div class="cg-col-lg-12 cg-col-sm-12 cg-col-md-12 cg-col-xs-12 collection-top-part">
+            <div class="cg-col-lg-11 cg-col-md-11 cg-col-sm-11 cg-col-xs-11 add-to-collection-title bold opensans take-left">Tambahkan Produk ke Koleksi</div>
+            <div class="cg-col-lg-1 cg-col-md-1 cg-col-sm-1 cg-col-xs-1 " id="closer-collection" onclick="hideAddToCollectionDialog()"><i class="fa fa-times"></i></div>
+        </div>
+        <div class="cg-col-lg-5 cg-col-md-5 cg-col-sm-12 cg-col-xs-12">
+            <div class="cg-col-lg-12 cg-col-xs-12 cg-col-sm-12 cg-col-md-12 box inside-collection">
+                <div class="cg-col-lg-11 cg-col-md-8  cg-col-xs-6 col-middler">
+                    <img src="" alt="" width="100%" id="modalCollectionImage">
+                </div>
+                <div class="cg-col-lg-12  cg-col-md-8 cg-col-xs-8  text-container-collection col-middler">
+                    <div class="brands-name" id="modalCollectionBrandName">n/a</div>
+                    <div class="brand-name" id="modalCollectionProductName">n/a</div>
+                    <div class="ratings pull-left"></div>
+                    <div class="seller-name"></div>
+                    <div class="cg-col-xs-12 bottom-price">
+                        <div class="cg-col-xs-12 main-price" id="modalCollectionPrice">n/a</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <?php if (Mage::getSingleton('customer/session')->isLoggedIn()) : ?>
+
+            <form class="in-block cg-col-lg-7 cg-col-md-7 cg-col-sm-12 cg-col-xs-12 add-dashed" action="<?php echo $this->getUrl('social/settings/additemtocollection'); ?>" method="post" enctype="multipart/form-data" onsubmit="return preventDouble(this)" style="min-height:280px;">
+
+                <?php
+                $customer = Mage::getSingleton('customer/session')->getCustomer();
+                $wishlistCollection = Mage::getModel('wishlist/wishlist')->getCollection()->filterByCustomerId($customer->getId());
+                $wishlistCollection->addFieldToFilter('view', '1');
+                $wishlistCollection->setOrder('wishlist_id', 'DESC');
+            # Check if this user has collection already.
+            # "Wishlist" isn't considered as collection since it comes as default wishlist-set in Magento, and we wont show it anywhere.
+
+            # TODO remove this hacky and use Mage::helper('enterprise_wishlist')->isWishlistDefault($wishlist)
+                $collectionAvailable = (count($wishlistCollection->getItems()) > 0) ? true : false ;
+
+                ?>
+                <div class="cg-col-xs-12 cg-col-lg-12 cg-col-md-12 cg-col-sm-12 bottom-part">
+
+                    <select name="wishlist_id" id="collectionList" class="collection-select">
+                        <?php foreach ($wishlistCollection->getItems() as $wishlist) : ?>
+
+                            <?php if ($wishlist->getName() && $wishlist->getName() == 'Wishlist') continue; ?><?php # Skipping default ?>
+                            <?php if ($wishlist->getView() == 0) continue; ?> <?php # Skipping deleted collections ?>
+
+                            <option value="<?php echo $wishlist->getId(); ?>"><?php echo $wishlist->getName(); ?></option>
+                        <?php endforeach; ?>
+
+                        <option value="0">&#10084; BUAT KOLEKSI BARU &#10084;</option>
+
+                    </select>
+
+                    <div id="iWannaCreateNewCollection" style="display:none;">
+
+                       <div class="cg-col-xs-12 bottom-spacer nopadding">
+
+                          <div class="form-group less-margin in-block full-width">
+                            <label for="inputEmail3" class="cg-col-xs-12 control-label label-color label-margin take-left opensans">Judul <span class="light lil-exp">sesuai tema koleksi yang ingin anda buat</span></label>
+                            <div class="cg-col-sm-12">
+                                <input name="name" id="name" class="form-control input-new-collection" placeholder="Title">
+                            </div>
+                        </div>
+
+                        <div class="form-group less-margin in-block full-width">
+                            <label for="inputPassword3" class="cg-col-xs-12 control-label label-color label-margin take-left opensans">Deskripsi <span class="light lil-exp">Penjelasan singkat mengenai tema koleksi anda</span></label>
+                            <div class="cg-col-sm-12">
+                               <textarea rows="4" name="desc" class="form-control input-new-collection" maxlength="250" placeholder="Penjelasan singkat mengenai tema koleksi anda" style="resize:none;height:auto;"></textarea>
+                           </div>
+                       </div>
+
+                   </div>
+
+                   <div class="cg-col-xs-12">
+
+                    <div class="form-group in-block full-width nomargin">
+                        <label for="inputEmail3" class="cg-col-xs-12 control-label label-color label-margin take-left opensans">Sampul Koleksi Anda </label>
+                        <span class="light lil-exp cg-col-xs-12 bold opensans bottom-spacer-container take-center">Jadikan halaman koleksi anda lebih menarik dengan gambar yang menjelaskan isi koleksi anda!</span>
+
+                    </div>
+                    <input type="hidden" name="collection_id" id="modalCollectionId">
+                    <div class="cg-row">
+                      <div class="cg-sm-12">
+                        <div id="ntabs">
+                          <ul class="cg-col-sm-12 cg-col-xs-12 main-nav nopadding bottom-spacer-container">
+                            <li class="cg-col-sm-4 cg-col-xs-4 text-center clicker main-nav nopadding">
+                              <a href="#ntabs-1" class="sub-nav tabs-left ">
+                                <i class="fa fa-link pinker icon-nav"></i>
+                            </a>
+                        </li>
+                        <li class="cg-col-sm-4 cg-col-xs-4 cg-col-lg-4 cg-col-md-4 text-center clicker main-nav mid-nav nopadding">
+                          <a href="#ntabs-2" class="sub-nav">
+                            <i class="fa fa-cloud-upload pinker icon-nav"></i>
+                        </a>
+                    </li>
+                    <li class="cg-col-sm-4 cg-col-xs-4 text-center clicker main-nav nopadding">
+                      <a href="#ntabs-3" class="sub-nav tabs-right">
+                        <i class="fa fa-picture-o pinker icon-nav"></i>
+                    </a>
+                </li>
+            </ul>
+
+            <div id="ntabs-1" style="color: #545454;">
+                <div class="form-group in-block full-width">
+                    <div class="cg-col-sm-10 cg-col-sm-offset-1">
+                      <input type="text" class="form-control input-new-collection full-width back-white input-border" id="" name="image_url" placeholder="http://">
+                  </div>
+              </div>
+          </div>
+          <div id="ntabs-2" style="color: #545454;">
+              <div class="cg-col-sm-6 cg-col-sm-offset-3 cg-col-xs-12 dashed-upload nopadding">
+                <img id="imgups" src="<?php echo $this->getSkinUrl('images/unggah.png'); ?>" alt="your image" width ="100%"/>
+                <div class="fileUpload-coll" id="no-span">
+                    <input type="file" title="Browse" name="cover" class="upload-coll" id="imgInpsx"/>
+                </div>
+            </div>
+        </div>
+        <div id="ntabs-3" style="color: #545454;">
+            <div class="cg-col-sm-4 cg-col-sm-offset-4 bottom-spacer-container">
+                <select name="" id="new-category-selector" class="full-width">
+                    <option value="">Select categories</option>
+                    <?php foreach ($categories as $category) { ?>
+                    <option value="<?php echo $category->getCategoryId();?>"><?php echo $category->getName();?></option>
+                    <?php } ?>
+                </select>
+            </div>
+            <div class="cg-col-sm-12" id="new-preset-image-container"> 
+                <?php $counter = 1; foreach($images as $image) { 
+                    if (($counter % 3) == 0) {
+                    }
+                    ?>
+                    <div class="cg-col-sm-3 cg-col-xs-4 bottom-spacer choose-cover relative">
+                        <span class="overlayer-pink">
+                            <i class="fa fa-check checked"></i>
+                        </span>
+                        <img src="/media/<?php echo $image['image'];?>" width="100%" alt=""> 
+                    </div>
+                    <?php 
+                    $counter++;}  ?>
+                </div>  
+            </div>    
+
+        </div>
+
+
+    </div>
+</div>
+
+<div style="margin-top: 20px;">
+  <input type="checkbox" name="visibility" id="visibility" class="input-collection" style="height: inherit; width:10px;" checked>
+  <label for="visibility" class="check-public">Jadikan koleksi publik agar semua orang bisa melihat</label>
+</div>
+<input type="hidden" name="preset_image" id="new_preset_image" />
+
+</div>
+</div>
+<div class="cg-col-xs-12 nopadding">
+    <button type="submit" class="btn btn btn-pink-prime cursor" name="submitButton" style="margin: 10px 0;" id="addButton">TAMBAHKAN DALAM KOLEKSI</button>
+</div>
+
+<?php if ($collectionAvailable) : ?>
+  <script>
+    jQuery(document).ready(function() {
+      jQuery('#collectionList').change(function () {
+        if (jQuery(this).val() == '0') {
+          jQuery('#iWannaCreateNewCollection').show();
+          jQuery('#add-new-pop-collection').css( {"display": "inline-block","max-height": "90%" });
+          jQuery('#addButton').html('BUAT &amp; TAMBAHKAN KE KOLEKSI');
+          jQuery('#name').attr('required', true);
+      } else {
+          jQuery('#iWannaCreateNewCollection').hide();
+          jQuery('#add-new-pop-collection').css("display", "inline-table");
+          jQuery('#addButton').html('TAMBAHKAN KE KOLEKSI');
+          jQuery('#name').attr('required', false);
+      }
+  });
+  });
+</script>
+<?php else : ?>
+  <script>
+    jQuery(document).ready(function() {
+      jQuery('#iWannaCreateNewCollection').show();
+      jQuery('#add-new-pop-collection').css( {"display": "inline-block","max-height": "90%" });
+      jQuery('#addButton').html('BUAT &amp; TAMBAHKAN KE KOLEKSI');
+      jQuery('#name').attr('required', true);
+  });
+</script>
+<?php endif; ?>
+
+<div class="cg-col-xs-12 nopadding">
+
+    <button class="btn btn-cancel nomargin cursor" style="background:transparent;"  onclick="hideAddToCollectionDialog();return false;">KELUAR</button>
+</div>
+
+</div>
+
+<input type="hidden" name="product_id" value="" id="modalProductId">
+
+</form>
+
+<?php else : ?>
+    <div class="in-block cg-col-lg-7 cg-col-md-7 cg-col-sm-12 cg-col-xs-12 login-collection">
+        <p style="color: #545454;">Please login to add this item to your collection. <br>
+            <a 
+                <?php if (!Mage::getSingleton('customer/session')->isLoggedIn()): ?>
+                    href="<?php echo Mage::getUrl('customer/account/login'); ?>"
+                    onclick="hideAddToCollectionDialog();return false;" class="btn-pink-prime in-block"
+                <?php endif; ?>>
+                login
+            </a> <br>
+            <button class="btn btn-cancel btn-block cursor" style="background:transparent;" onclick="hideAddToCollectionDialog();return false;">keluar</button>
+        </p>
+    </div>
+<?php endif; ?>
+</div>
+</div>
+
+<?php # Moxy Collections End ?>
+
+
+
+<div class="header-container">
+    <div class="space-above-header">
+        <div class="container-above-header">
+            <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('above-header')->toHtml() ?>
+            <ul class="keypoint">
+                <li>
+                    <a href="<?php Mage::getBaseUrl(); ?>faq/"><em class="fa fa-reply-all"></em> Pusat Bantuan</a>
+                </li>
+                <li>
+                    <a href="<?php if($this->helper('customer')->isLoggedIn()):?><?php echo $this->getUrl('sales/order/history') ?><?php else: ?><?php echo $this->getUrl('orderdetail') ?><?php endif;?>"><em class="fa fa-file-text-o"></em> Cek Pesanan</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <?php echo $this->getLayout()->createBlock('page/html')->setTemplate('page/html/back-top.phtml')->toHtml(); ?>
+
+    <div class="header">
+        <a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="logo"><strong><?php echo $this->getLogoAlt() ?></strong>
+            <img src="<?php echo $this->getLogoSrc() ?>" alt="<?php echo $this->getLogoAlt() ?>" />
+        </a>
+        
+        <ul class="web_feature">
+            <li class="shop_link"><a href="<?php echo $this->getUrl(''); ?>"><?php echo $this->__('Belanja') ?></a><div class="bridge_border">&shy; </div></li>
+            <li class="koleksi"><a href="<?php echo $this->getUrl('collections'); ?>"><?php echo $this->__('Koleksi') ?><div class="bridge_border">&shy; </div></a></li>
+            <li class="inspirasi"><a href="http://magazine.bilna.com/" class="link-blog"><?php echo $this->__('Inspirasi') ?></a><div class="bridge_border">&shy; </div></li>
+        </ul>
+        <div class="quick-access">
+            <div class="search-container-new">
+                <?php echo $this->getChildHtml('topSearch') ?>
+            </div>
+
+            <div class="top-cart">
+                <div class="normal-sticky-cart">
+                    <?php echo $this->getChildHtml('topLinks') ?>
+                    <?php $_totalItem = $this->helper('checkout/cart')->getSummaryCount();  //get total items in cart ?>
+                    <?php if ($_totalItem == 0): ?>
+                        <a href="#" class="link-minicart" id="link-minicart">
+                            <i class="fa fa-shopping-cart"></i>
+                            <span class="qty-item">0</span>
+                            <span class="title-header-cart">TROLI</span></a>
+                        <?php else: ?>
+                            <a href="#" class="link-minicart" id="link-minicart">
+                                <i class="fa fa-shopping-cart"></i>
+                                <span class="qty-item"><?php echo $this->__($_totalItem.$this->__()) ?></span>
+                                <span class="title-header-cart">TROLI</span>
+                            </a>
+                        <?php endif; ?>
+
+                    </div>
+                    <div class="mini-cart" style="display: none !important;"><?php echo $this->getChildHtml('topcart') ?></div>
+                </div>
+
+                <p class="welcome-msg"><?php echo $this->getChildHtml('welcome') ?> <?php echo $this->getAdditionalHtml() ?></p>
+
+                <div class="clear"></div>
+            </div>
+
+            <?php echo $this->getChildHtml('topContainer'); ?>
+
+        </div>
+        
+        <div class="menu-navigation">
+            <div class="wrap-navigation belanja">
+                <div class="wrap-megamenu">
+                    <div class="button-megamenu"><p>Jelajahi Semua Kategori </p></div>
+                </div>
+                <div class="promo-text-space">
+                    <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('topmegamenu-promo')->toHtml() ?>
+                </div>
+
+                <div id="megamenu" class="megamenu">
+                    <?php echo $this->getLayout()->createBlock('megamenu/block')->setTemplate('bilna_megamenu/block.phtml')->toHtml(); ?>
+                </div>
+            </div>
+            
+            <div class="wrap-navigation inspirasi">
+                <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('nav_inspirasi')->toHtml() ?>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-dark-megamenu"></div>
+
+    <?php
+    $customer = Mage::getSingleton('customer/session')->getCustomer();
+    if (isset ($customer) && !empty ($customer)) { $email = $customer->getEmail(); }
+    else { $email = ""; }
+    ?>
+    <script type="text/javascript">
+        jQuery(document).ready(function() {
+            dataLayer.push({'sitetype': 'd'});
+            dataLayer.push({'emailaddress': '<?php echo $email; ?>'});
+        });
+    </script>
+
+    <script>
+
+        jQuery(document).ready(function() {
+            var href = window.location.href;
+            if(href.toLowerCase().indexOf("/user/profile/") >= 0 || href.toLowerCase().indexOf("/collections/") >= 0)
+              href = <?php echo "'".$this->getUrl('collections')."'"; ?>;
+          else
+              href = <?php echo "'".$this->getUrl('')."'"; ?>;
+          jQuery(".web_feature").find("a[href='"+href+"']").each(function(){
+            jQuery(this).addClass("active");
+        })
+      });
+
+        function showAddToCollectionDialog() {
+          jQuery('#addToCollectionModal').fadeIn('fast');
+      }
+
+      function hidenewAddCollectionDialog() {
+          jQuery('#newAddCollectionModal').fadeOut('fast');
+      }
+
+      function hideAddToCollectionDialog() {
+          jQuery('#addToCollectionModal').fadeOut('fast');
+      }
+
+      jQuery(document).ready(function() {
+
+          function readURL(input) {
+              console.log('readURL called');
+              if (input.files && input.files[0]) {
+                  var reader = new FileReader();
+
+                  reader.onload = function (e) {
+                // var img = new Image();
+                // img.src = e.target.result;
+                // $('#div-container').append(img)''
+                jQuery('#imgup')
+                .attr('src', e.target.result)
+                .width('100%')
+                .height('100%');
+            };
+
+            reader.readAsDataURL(input.files[0]);
+            jQuery('.dashed-upload').css({"padding-top": "0"});
+        }
+    }
+
+    jQuery("#imgInp").change(function(){
+      console.log('imgInp called');
+      readURL(this);
+
+  });
+
+    function readIMG(input) {
+      console.log('readURL called');
+      if (input.files && input.files[0]) {
+          var readers = new FileReader();
+
+          readers.onload = function (e) {
+                // var img = new Image();
+                // img.src = e.target.result;
+                // $('#div-container').append(img)''
+                jQuery('#imgups')
+                .attr('src', e.target.result)
+                .width('100%')
+                .height('100%');
+            };
+
+            readers.readAsDataURL(input.files[0]);
+            jQuery('.dashed-upload').css({"padding-top": "0"});
+        }
+    }
+
+    jQuery("#imgInps").change(function(){
+      console.log('imgInps called');
+      readIMG(this);
+
+  });
+
+    function readIMGs(input) {
+      console.log('readURL called');
+      if (input.files && input.files[0]) {
+          var readersx = new FileReader();
+
+          readersx.onload = function (e) {
+                // var img = new Image();
+                // img.src = e.target.result;
+                // $('#div-container').append(img)''
+                jQuery('#imgupsx')
+                .attr('src', e.target.result)
+                .width('100%')
+                .height('100%');
+            };
+
+            readersx.readAsDataURL(input.files[0]);
+            jQuery('.dashed-upload').css({"padding-top": "0"});
+        }
+    }
+
+    jQuery("#imgInpsx").change(function(){
+      console.log('imgInpsx called');
+      readIMGs(this);
+
+  });
+
+    jQuery('.addToCollectionLink').click(function() {
+        var modalCollectionImage = jQuery(this).attr('data-image');
+        jQuery('#modalCollectionImage').attr("src", modalCollectionImage);
+
+        var modalCollectionBrandName = jQuery(this).attr('data-brand-name');
+        jQuery('#modalCollectionBrandName').html(modalCollectionBrandName);
+
+        var modalCollectionProductName = jQuery(this).attr('data-product-name');
+        jQuery('#modalCollectionProductName').html(modalCollectionProductName);
+
+        var modalCollectionPrice = jQuery(this).attr('data-price');
+        jQuery('#modalCollectionPrice').html(modalCollectionPrice);
+
+        var modalCollectionMerchant = jQuery(this).attr('data-merchant');
+        jQuery('#modalCollectionMerchant').html(modalCollectionMerchant);
+
+        var modalProductId = jQuery(this).attr('data-id');
+        jQuery('#modalProductId').val(modalProductId);
+    });
+});
+</script>

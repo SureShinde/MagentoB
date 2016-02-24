@@ -1,0 +1,484 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php
+/**
+ * Shopping cart template
+ *
+ * @see Mage_Checkout_Block_Cart
+ */
+?>
+<?php $gtmItemIds = ''; ?>
+<input type="hidden" id="3rdparty-type" value="cart"/>
+<input type="hidden" id="3rdparty-value" value="" />
+<div class="cart">
+    <div class="shopping-cart" rowspan="<?php echo $mergedCells; ?>">
+        <span class="title"><?php echo $this->__('Shopping Cart') ?></span>
+        <div class="continue-shopping">
+            <?php if($this->getContinueShoppingUrl()): ?>
+                <button type="button" title="<?php echo $this->__('Continue Shopping') ?>" class="button btn-continue" onclick="setLocation('<?php echo Mage::helper('core')->quoteEscape($this->getContinueShoppingUrl()) ?>')"><span><span><i class="fa fa-arrow-circle-left"></i></i><?php echo $this->__('Continue Shopping') ?></span></span></button>
+            <?php endif; ?>
+        </div>
+    </div>
+    <div class="cart-left">
+        <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+        <?php echo $this->getChildHtml('form_before') ?>
+
+        <form action="<?php echo $this->getUrl('checkout/cart/updatePost') ?>" method="post">
+            <fieldset>
+                <table id="shopping-cart-table" class="data-table cart-table">
+                    <col width="1" />
+                    <col />
+                    <col width="1" />
+                    <?php if ($this->helper('wishlist')->isAllowInCart()) : ?>
+                        <col width="1" />
+                    <?php endif ?>
+                    <?php if ($this->helper('tax')->displayCartPriceExclTax() || $this->helper('tax')->displayCartBothPrices()): ?>
+                        <col width="1" />
+                    <?php endif; ?>
+                    <?php if ($this->helper('tax')->displayCartPriceInclTax() || $this->helper('tax')->displayCartBothPrices()): ?>
+                        <col width="1" />
+                    <?php endif; ?>
+                    <col width="1" />
+                    <?php if ($this->helper('tax')->displayCartPriceExclTax() || $this->helper('tax')->displayCartBothPrices()): ?>
+                        <col width="1" />
+                    <?php endif; ?>
+                    <?php if ($this->helper('tax')->displayCartPriceInclTax() || $this->helper('tax')->displayCartBothPrices()): ?>
+                        <col width="1" />
+                    <?php endif; ?>
+                    <col width="1" />
+                    <?php $mergedCells = ($this->helper('tax')->displayCartBothPrices() ? 2 : 1); ?>
+                    <thead>
+                        <tr>
+                            <th  colspan="2" class="items<?php if($this->helper('customer')->isLoggedIn()):?> loggedin<?php endif;?>" rowspan="<?php echo $mergedCells; ?>"><span class="nobr"><?php echo $this->__('Item(s)') ?></span></th>
+                            <?php if ($this->helper('wishlist')->isAllowInCart()): ?>
+                                <th class="a-center wishlist" rowspan="<?php echo $mergedCells; ?>">
+                                    <span class="nobr"><?php echo $this->__('Move to<br />') ?></span>
+                                    <span class="nobr"><?php echo $this->__('Wishlist') ?></span>
+                                </th>
+                            <?php endif ?>
+                            <th class="a-center" colspan="<?php echo $mergedCells; ?>"><span class="nobr"><?php echo $this->__('Price') ?></span></th>
+                            <th class="a-center quantity" rowspan="<?php echo $mergedCells; ?>"><span><?php echo $this->__('Quantity') ?></span></th>
+                            <th class="a-right weight" rowspan="<?php echo $mergedCells; ?>"><span><?php echo $this->__('Weight') ?></span></th>
+                            <th class="a-right subtotal" colspan="<?php echo $mergedCells; ?>"><span><?php echo $this->__('Subtotal') ?></span></th>
+                            <th class="a-right remove" rowspan="<?php echo $mergedCells; ?>"><span><?php echo $this->__('Remove') ?></span></th>
+                        </tr>
+
+                        <?php if ($this->helper('tax')->displayCartBothPrices()): ?>
+                            <tr>
+                                <th class="a-right"><?php echo $this->helper('tax')->getIncExcTaxLabel(false) ?></th>
+	                        <th><?php echo $this->helper('tax')->getIncExcTaxLabel(true) ?></th>
+	                        <th class="a-right"><?php echo $this->helper('tax')->getIncExcTaxLabel(false) ?></th>
+	                        <th><?php echo $this->helper('tax')->getIncExcTaxLabel(true) ?></th>
+	                    </tr>
+                        <?php endif; ?>
+                    </thead>
+
+                    <tfoot>
+                        <tr>
+                            <td colspan="10" class="a-right">
+                                <button type="submit" name="update_cart_action" value="update_qty" title="<?php echo $this->__('Update Changes'); ?>" class="button btn-update"><span><span><?php echo $this->__('Update Changes'); ?></span></span></button>
+                                <!--[if lt IE 8]>
+                                <input type="hidden" id="update_cart_action_container" />
+                                <script type="text/javascript">
+                                //<![CDATA[
+                                        Event.observe(window, 'load', function()
+                                        {
+                                                // Internet Explorer (lt 8) does not support value attribute in button elements
+                                                $emptyCartButton = $('empty_cart_button');
+                                                $cartActionContainer = $('update_cart_action_container');
+                                                if ($emptyCartButton && $cartActionContainer) {
+                                                        Event.observe($emptyCartButton, 'click', function()
+                                                        {
+                                                                $emptyCartButton.setAttribute('name', 'update_cart_action_temp');
+                                                                $cartActionContainer.setAttribute('name', 'update_cart_action');
+                                                                $cartActionContainer.setValue('empty_cart');
+                                                        });
+                                                }
+
+                                        });
+                                //]]>
+                                </script>
+                                <![endif]-->
+                            </td>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        <?php foreach($this->getItems() as $_item): ?>
+                            <?php echo $this->getItemHtml($_item) ?>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+                <script type="text/javascript">decorateTable('shopping-cart-table')</script>
+            </fieldset>
+        </form>
+
+
+		<div class="continue-checkout">
+
+			<div class="header-container one-click-checkout">
+				<div class="links">
+					<?php if($this->helper('customer')->isLoggedIn()) : ?>
+						<a href="#"><?php echo $this->__('One Click Checkout') ?></a>
+					<?php else : ?>
+						<a href="/customer/account/login/"><?php echo $this->__('Log in') ?></a>
+						<?php echo $this->__('to turn on One Click Checkout') ?>
+					<?php endif; ?>
+				</div>
+				<script type="text/javascript">
+                    if ( typeof AjaxLogin == 'undefined' ) {
+						AjaxLogin = {};
+					}
+
+					AjaxLogin.BASE_URL_UNSECURE = 'http://local.bilna.com/';
+					AjaxLogin.BASE_URL_SECURE   = 'http://local.bilna.com/';
+
+					AjaxLogin.BASE_URL          = AjaxLogin.BASE_URL_UNSECURE;
+
+
+					/**
+					 *
+					 */
+					AjaxLogin.sameRoutines = function(urlA, urlB) {
+						if ( typeof urlA != 'string' ) urlA = urlA.toString();
+						if ( typeof urlB != 'string' ) urlB = urlB.toString();
+
+						if ( urlA.indexOf(AjaxLogin.BASE_URL_UNSECURE) > -1 ) {
+							__routineA_Parts = urlA.split(AjaxLogin.BASE_URL_UNSECURE).join('').split('/').splice(0, 3);
+						}
+						else if ( urlA.indexOf(AjaxLogin.BASE_URL_SECURE) > -1 ) {
+							__routineA_Parts = urlA.split(AjaxLogin.BASE_URL_SECURE).join('').split('/').splice(0, 3);
+						}
+						else {
+							return false;
+						}
+
+						if ( urlB.indexOf(AjaxLogin.BASE_URL_UNSECURE) > -1 ) {
+							__routineB_Parts = urlB.split(AjaxLogin.BASE_URL_UNSECURE).join('').split('/').splice(0, 3);
+						}
+						else if ( urlB.indexOf(AjaxLogin.BASE_URL_SECURE) > -1 ) {
+							__routineB_Parts = urlB.split(AjaxLogin.BASE_URL_SECURE).join('').split('/').splice(0, 3);
+						}
+						else {
+							return false;
+						}
+
+						for ( var __index = 0; __index < 3; __index++ ) {
+							if ( (typeof __routineA_Parts[__index] == 'undefined') || (!__routineA_Parts[__index]) ) {
+								__routineA_Parts[__index] = 'index';
+							}
+							if ( (typeof __routineB_Parts[__index] == 'undefined') || (!__routineB_Parts[__index]) ) {
+								__routineB_Parts[__index] = 'index';
+							}
+						}
+
+						__routineA = __routineA_Parts.join('/');
+						__routineB = __routineB_Parts.join('/');
+
+						return __routineA == __routineB ? true : false;
+					};
+
+					$$('.header-container .links a').each(
+						function(node) {
+							if ( AjaxLogin.sameRoutines(node.href, 'http://local.bilna.com/customer/account/login/') ) {
+								Event.observe(
+									node,
+									'click',
+									function(event) {
+										var __overlapRootNode = $$('.al-authorization-container-overlap')[0];
+										__overlapRootNode.style.display = '';
+										var __overlapAuthorizationNode = $$('.al-authorization-container-overlap .al-authorization')[0];
+										var __overlapAuthorizationInstance = AjaxLogin.Authorization.__getInstanceByChildnode(__overlapAuthorizationNode);
+										__overlapAuthorizationInstance.switchToFrame('login');
+
+										if (window.event) window.event.cancelBubble = true;
+										if (window.event) window.event.returnValue = false;
+										event.preventDefault();
+										event.stopPropagation();
+
+										return false;
+									}
+								);
+							}
+							if ( AjaxLogin.sameRoutines(node.href, 'http://local.bilna.com/customer/account/logout/') ) {
+								Event.observe(
+									node,
+									'click',
+									function(event) {
+										var __overlapAuthorizationNode = $$('.al-authorization-container-overlap .al-authorization')[0];
+										var __overlapAuthorizationInstance = AjaxLogin.Authorization.__getInstanceByChildnode(__overlapAuthorizationNode);
+										__overlapAuthorizationInstance.getFrame('login').logout();
+
+										if (window.event) window.event.cancelBubble = true;
+										if (window.event) window.event.returnValue = false;
+										event.preventDefault();
+										event.stopPropagation();
+										return false;
+									}
+								);
+							}
+							if ( AjaxLogin.sameRoutines(node.href, 'http://local.bilna.com/customer/account/create/') ) {
+								Event.observe(
+									node,
+									'click',
+									function(event) {
+										var __overlapRootNode = $$('.al-authorization-container-overlap')[0];
+										__overlapRootNode.style.display = '';
+										var __overlapAuthorizationNode = $$('.al-authorization-container-overlap .al-authorization')[0];
+										var __overlapAuthorizationInstance = AjaxLogin.Authorization.__getInstanceByChildnode(__overlapAuthorizationNode);
+										__overlapAuthorizationInstance.switchToFrame('register');
+
+										if (window.event) window.event.cancelBubble = true;
+										if (window.event) window.event.returnValue = false;
+										event.preventDefault();
+										event.stopPropagation();
+										return false;
+									}
+								);
+							}
+						}
+					);
+
+
+					/**
+					 *
+					 */
+					if ( typeof window.mainNav == 'function' ) {
+						mainNav("nav", {"show_delay":"100","hide_delay":"100"});
+					}
+
+
+					/**
+					 *
+					 */
+					Event.observe(
+						window,
+						'load',
+						function() {
+							if (typeof window.customer_dob != 'undefined') {
+								delete window.customer_dob;
+
+								var __rootNode = $$('.customer-dob')[0];
+								new Varien.DateElement(
+									'container',
+									{
+										month  : Element.select(__rootNode, '.dob-month input')[0],
+										day    : Element.select(__rootNode, '.dob-day input')[0],
+										year   : Element.select(__rootNode, '.dob-year input')[0],
+										full   : Element.select(__rootNode, '.dob-full input')[0],
+										advice : Element.select(__rootNode, '.validation-advice')[0]
+									},
+									true,
+									AjaxLogin.DATE_FORMAT
+								);
+							}
+						}
+					);
+				</script>
+			</div>
+
+		</div>
+		<div class="shipping-wrap">
+			<?php if (!$this->getIsVirtual()): echo $this->getChildHtml('shipping'); endif; ?>
+		</div>
+	</div>
+	<div class="cart-right">
+        <div class="coupon-total">
+            <div class="left">
+                <div class="coupon">
+                    <?php echo $this->getChildHtml('coupon') ?>
+                </div>
+            </div>
+			<div class="right">
+				<div class="totals<?php if($this->helper('customer')->isLoggedIn()):?> loggedin<?php endif;?>">
+					<?php echo $this->getChildHtml('totals'); ?>
+				</div>
+			</div>
+		</div>
+        <div class="proceed-checkout">
+            <?php if(!$this->hasError()): ?>
+            <ul class="checkout-types">
+            <?php $idx_method = 0; ?>
+            <?php foreach ($this->getMethods('methods') as $method): ?>
+                <?php if ($methodHtml = $this->getMethodHtml($method)): ?>
+                <li><?php echo $methodHtml; $idx_method = $idx_method + 1; ?></li>
+                <?php endif; ?>
+                <?php if ($idx_method > 0): ?>
+                    <?php break; ?>
+                <?php endif; ?>
+            <?php endforeach; ?>
+            </ul>
+            <?php endif; ?>
+        </div>
+	</div>
+</div>
+<?php
+    $cart = Mage::getSingleton('checkout/session')->getQuote();
+    if (!isset ($cart) || empty ($cart)) {
+        $response['status'] = false;
+    }else{
+        $response['status'] = true;
+        $i=0;
+
+        $gtmIds = array();
+        $gtmPrices = array();
+        $gtmQuantities = array();
+        $gtmSkuIds = array();
+        $total = 0;
+        foreach ($cart->getAllItems() as $item) {
+            $product = array();
+            $product["identifier"] = $item->getSku();
+            $product["amount"] = (int) $item->getPrice();
+            $product["currency"] = "IDR";
+            $product["quantity"] = $item->getQty();
+            $response['data']['products'][] = $product;
+
+            $gtmIds[] = $item->getProductId();
+            $gtmQuantities[] = $item->getQty();
+            $gtmPrices[] = (int)$item->getPrice();
+            $gtmSkuIds[] = $item->getSku();
+            $total += ($product["amount"] * $product["quantity"]);
+        }
+    }
+?>
+<script type="text/javascript">
+function ecommerceCheckout0(sku, price, quantity) {
+	var temp_sku = sku;
+	var temp_price = price;
+	var temp_quantity = quantity;
+	var temp_container = {
+		'event': 'checkout',
+	    'ecommerce': {
+	      'checkout': {
+	        'actionField': {
+	        	'step' : 1,
+	        	'list' : 'browsing'
+	        },
+	        'products': []
+	     }
+	   }
+	}
+
+	for (var i=0 ; i<jQuery("td.hi-res h2.product-name a").length ; i++) {
+		if (sku.length > jQuery("td.hi-res h2.product-name a").length) {	// check if exist same sku in array
+			if (sku[i] == sku[i+1]) {
+				sku.splice(i, 1);
+			}
+			if (sku[i+1] == sku[i+2]) {
+				sku.splice(i+1, 1);
+			}
+		}
+
+		temp_container.ecommerce.checkout.products.push({
+				  'id' : sku[i],
+				  'price' : jQuery("td.a-center.cart-price-td span.cart-price span.price").eq(i).text(),
+				  'quantity' : jQuery("input.input-text.qty").eq(i).val(),
+				  'name' : jQuery("td.hi-res h2.product-name a").eq(i).text(),
+                  'brandName': 'brand name',
+                  'imageUrl': jQuery("table#shopping-cart-table tbody tr.even td a img").eq(i).attr("src"),
+                  'link': jQuery("table#shopping-cart-table tbody tr.even td a img").eq(i).attr("alt")
+		       });
+	}
+
+    dataLayer.push(temp_container);
+    
+    // ematics checkout - prepare for logging
+    products = temp_container.ecommerce.checkout.products;
+    // ematics track checkout
+	ematics("log", "product", "checkout", products);
+}
+
+function ecommerceRemoveCart(name, sku, price, quantity, imageUrl, link) {
+    // alert("HURRY_CART"+name+" "+price+" "+quantity);
+    dataLayer.push({
+	  'event': 'removeFromCart',
+	  'ecommerce': {
+	    'remove': {                               // 'remove' actionFieldObject measures.
+	      'products': [{                          //  removing a product to a shopping cart.
+          	'name': name,
+            'id': sku,
+            'price': price,
+            'quantity': quantity,
+            'brandName': 'brand name',
+            'imageUrl': imageUrl,
+            'link': link
+	      }]
+	    }
+	  }
+	});
+
+	// ematics cart - prepare for logging
+    ematics("log", "product", "cart", 
+        [{
+        'id': sku,
+        'price': price,
+        'quantity': quantity,
+        'name': name,
+        'brandName': 'brand name',
+        'imageUrl': imageUrl,
+        'link': link
+       }]
+    );
+    // ematics track items in cart to enable pre-abandonded cart overlays
+	ematics("log", "product", "cart", products);
+}
+
+jQuery(document).ready(function () {
+    <?php if(Mage::app()->getStore()->isCurrentlySecure()) : ?>
+    <?php $baseUrl = Mage::getBaseUrl( Mage_Core_Model_Store::URL_TYPE_WEB, true ); ?>
+    <?php else : ?>
+    <?php $baseUrl = Mage::getBaseUrl( Mage_Core_Model_Store::URL_TYPE_WEB, false ); ?>
+    <?php endif; ?>
+	var ajaxURL = '<?php echo $baseUrl; ?>ajaxrequest/data/retrievecart/';
+
+    var data = {};
+
+    jQuery.ajax({
+        type: "POST",
+        url : ajaxURL,
+        data: { data: data },
+        success: function(data){
+            response = jQuery.parseJSON(data);
+            if(response.status == true){
+				dataLayer.push( {'ecomm_pagetype': 'cart'} );
+				dataLayer.push( {'ecomm_prodid': response.data.quote.productSkuIds} );
+				dataLayer.push( {'ecomm_totalvalue': response.data.quote.totalValue} );
+            	dataLayer.push( {'productid': response.data.quote.productIds} );
+				dataLayer.push( {'skuid': response.data.quote.productSkuIds} );
+				dataLayer.push( {'prices': response.data.quote.productPrices} );
+				dataLayer.push( {'quantities': response.data.quote.productQtys} );
+
+				ecommerceCheckout0(response.data.quote.productSkuIds, response.data.quote.productPrices, response.data.quote.productQtys);
+            }else{
+                return false;
+            }
+        },
+        error: function() {
+            return false;
+        }
+    });
+});
+</script>

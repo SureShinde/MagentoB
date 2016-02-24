@@ -1,0 +1,76 @@
+<?php
+/**
+ * aheadWorks Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://ecommerce.aheadworks.com/AW-LICENSE.txt
+ *
+ * =================================================================
+ *                 MAGENTO EDITION USAGE NOTICE
+ * =================================================================
+ * This package designed for Magento community edition
+ * aheadWorks does not guarantee correct work of this extension
+ * on any other Magento edition except Magento community edition.
+ * aheadWorks does not provide extension support in case of
+ * incorrect edition usage.
+ * =================================================================
+ *
+ * @category   AW
+ * @package    AW_Ajaxlogin
+ * @version    1.0.1
+ * @copyright  Copyright (c) 2010-2012 aheadWorks Co. (http://www.aheadworks.com)
+ * @license    http://ecommerce.aheadworks.com/AW-LICENSE.txt
+ */
+?><ul class="messages Shaddy" style="display: none;">
+    <li class="error-msg">&nbsp;</li>
+</ul>
+<div class="buttons-set">
+    <?php if ( $this->shouldDisplayForgotpasswordbutton() ): ?>
+        <a href="<?php echo $this->getParentBlock()->getForgotPasswordUrl() ?>" id="<?php echo $this->getForgotpasswordbuttonHtmlId() ?>" class="f-right"><label for="responsiveformforgotpassword"><?php echo $this->__('Lupa kata kunci?') ?></label></a><br />
+    <?php endif; ?>
+    
+    <button type="submit" class="button" title="<?php echo $this->__('Login') ?>" name="send" id="send2"><span><span><?php echo $this->__('Masuk') ?></span></span></button>
+</div>
+
+<script type="text/javascript">
+    Event.observe(
+        window,
+        'load',
+        function() {
+            var __node;
+            
+            __node = $('<?php echo $this->getForgotpasswordbuttonHtmlId() ?>');
+            if ( __node ) __node.observe(
+                'click',
+                function(event) {
+                    AjaxLogin.Authorization.__getInstanceByChildnode(this).switchToFrame('recovery');
+                    if (window.event) window.event.cancelBubble = true;
+                    if (window.event) window.event.returnValue = false;
+
+                    document.getElementById("responsiveformforgotpassword").checked = true;
+
+                    event.preventDefault();
+                    event.stopPropagation();
+                    return false;
+                }
+            );
+            
+            __node = $('<?php echo $this->getCreateaccountbuttonHtmlId() ?>')
+            if ( __node ) __node.observe(
+                'click',
+                function(event) {
+                    AjaxLogin.Authorization.__getInstanceByChildnode(this).switchToFrame('register');
+                    if (window.event) window.event.cancelBubble = true;
+                    if (window.event) window.event.returnValue = false;
+                    event.preventDefault();
+                    event.stopPropagation();
+                    return false;
+                }
+            );
+        }
+    );
+</script>

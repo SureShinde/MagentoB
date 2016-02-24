@@ -202,7 +202,9 @@ class Brim_PageCache_Model_Processor_Level1 {
         if ($this->_fpcCacheId == null) {
             $params = Mage::registry('application_params');
 
-            if (($userAgentPattern = (string)Mage::getConfig()->getNode('global/' . Brim_PageCache_Model_Config::XML_PATH_MOBILE_USER_AGENT)) != '') {
+            //FIXME: hardcoding store_id to 1
+	    $userAgentPattern = (string)Mage::getStoreConfig(Brim_PageCache_Model_Config::XML_PATH_MOBILE_USER_AGENT, 1);	
+            if ($userAgentPattern != '') {
                 $isMobile =  Brim_PageCache_Helper_Mobile::isMobile($userAgentPattern);
             } else {
                 $isMobile = null;
