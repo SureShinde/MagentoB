@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <modules>
+        <Bilna_Expressshipping>
+            <version>0.1.0</version>
+        </Bilna_Expressshipping>
+    </modules>
+
+    <global>
+        <resources>
+            <expressshipping_setup>
+                <setup>
+                    <module>Bilna_Expressshipping</module>
+                </setup>
+                
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </expressshipping_setup>
+            
+            <expressshipping_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </expressshipping_write>
+            
+            <expressshipping_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </expressshipping_read>
+        </resources>
+    </global>
+</config>
