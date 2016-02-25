@@ -10,28 +10,28 @@ require_once 'Mage/Checkout/controllers/OnepageController.php';
 class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController {
     protected $_payType = '';
     protected $_typeTransaction = 'transaction';
-    
+
     public function saveOrderAction() {
         if ($this->_expireAjax()) {
             return;
         }
-        
+
         $paymentCode = Mage::getSingleton('checkout/session')->getQuote()->getPayment()->getMethodInstance()->getCode();
         $paymentSupportInstallment = explode(',', Mage::getStoreConfig('bilna_module/paymethod/payment_support_installment'));
-        
+
         // set tokenid for credit card
         if (in_array($paymentCode, $this->getPaymentMethodCc())) {
             $tokenId = $this->getRequest()->getPost('token_id', false);
-            
+
             Mage::getSingleton('core/session')->unsVtdirectTokenIdCreate();
             Mage::getSingleton('core/session')->unsVtdirectTokenId();
             Mage::getSingleton('core/session')->setVtdirectTokenIdCreate(date('Y-m-d H:i:s', Mage::getModel('core/date')->timestamp(time())));
             Mage::getSingleton('core/session')->setVtdirectTokenId($tokenId);
         }
-        
+
         if (in_array($paymentCode, $paymentSupportInstallment)) {
             $result = array ();
-               
+
             try {
                 /**
                  * installment
@@ -39,7 +39,7 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
                 if ($allowInstallment = $this->getRequest()->getPost('allow_installment', false)) {
                     //save installment options in quote item table
                     $installmentMethod = $this->getRequest()->getPost('installment_method', false);
-                    
+
                     if ($installmentTenor = $this->getRequest()->getPost('installment', false)) {
                         $quote_items = $this->getOnepage()->getQuote()->getAllItems();
                         $item_ids = array ();
@@ -62,7 +62,7 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
 
                                 return;
                             }
-                            
+
                             if ($installmentTenor > 1) {
                                 foreach ($quote_items as $item) {
                                     $item->setInstallment($allowInstallment);
@@ -98,7 +98,7 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
                                 }
                             }
 
-                            //save pay type 
+                            //save pay type
                             $count = 0;
                             $arrayCount = count($installmentTenor);
 
@@ -136,24 +136,24 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
                     $this->getOnepage()->getQuote()->setPayType($this->_payType)->save();
                     $this->getOnepage()->getQuote()->setCcBins($this->getRequest()->getPost('cc_bins', false))->save();
                 }
-                   
+
                 if ($requiredAgreements = Mage::helper('checkout')->getRequiredAgreementIds()) {
                     $postedAgreements = array_keys($this->getRequest()->getPost('agreement', array ()));
-                    
+
                     if ($diff = array_diff($requiredAgreements, $postedAgreements)) {
                         $result['success'] = false;
                         $result['error'] = true;
                         $result['error_messages'] = $this->__('Please agree to all the terms and conditions before placing the order.');
                         $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
-                        
+
                         return;
                     }
                 }
-                
+
                 if ($data = $this->getRequest()->getPost('payment', false)) {
                     $this->getOnepage()->getQuote()->getPayment()->importData($data);
                 }
-                
+
                 $this->getOnepage()->saveOrder();
 
                 $redirectUrl = $this->getOnepage()->getCheckout()->getRedirectUrl();
@@ -162,17 +162,17 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
             }
             catch (Mage_Payment_Model_Info_Exception $e) {
                 $message = $e->getMessage();
-                
+
                 if (!empty ($message)) {
                     $result['error_messages'] = $message;
                 }
-                
+
                 $result['goto_section'] = 'payment';
                 $result['update_section'] = array (
                     'name' => 'payment-method',
                     'html' => $this->_getPaymentMethodsHtml()
                 );
-                    
+
             }
             catch (Mage_Core_Exception $e) {
                 Mage::logException($e);
@@ -194,7 +194,7 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
                             'html' => $this->$updateSectionFunction()
                         );
                     }
-                    
+
                     $this->getOnepage()->getCheckout()->setUpdateSection(null);
                 }
             }
@@ -205,7 +205,7 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
                 $result['error'] = true;
                 $result['error_messages'] = $this->__('There was an error processing your order. Please contact us or try again later.');
             }
-                
+
             $this->getOnepage()->getQuote()->save();
 
             if (isset ($redirectUrl)) {
@@ -218,7 +218,7 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
             parent::saveOrderAction();
         }
     }
-    
+
     protected function getPaymentTypeTransaction($paymentCode, $type) {
         if ($paymentCode == 'klikpay') {
             if ($type == 'full') {
@@ -246,7 +246,7 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
             return '';
         }
     }
-    
+
     /**
      * Save payment ajax action
      *
@@ -256,7 +256,7 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
         if ($this->_expireAjax()) {
             return;
         }
-        
+
         try {
             if (!$this->getRequest()->isPost()) {
                 $this->_ajaxRedirectResponse();
@@ -265,7 +265,7 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
 
             $data = $this->getRequest()->getPost('payment', array ());
             $paymentHide = explode(',', Mage::getStoreConfig('bilna_module/paymethod/payment_hide'));
-            
+
             /**
              * save parameter token_id to session
              */
@@ -286,7 +286,7 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
                     'cc_zipcode' => $dataCc['cc_zipcode'],
                     'cc_bins' => $dataCc['cc_bins']
                 );
-                
+
                 //Mage::getSingleton('core/session')->unsVtdirectTokenIdCreate();
                 //Mage::getSingleton('core/session')->unsVtdirectTokenId();
                 Mage::getSingleton('core/session')->unsVtdirectZipCode();
@@ -294,10 +294,10 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
                 //Mage::getSingleton('core/session')->setVtdirectTokenId($data['token_id']);
                 Mage::getSingleton('core/session')->setVtdirectZipCode($data['cc_zipcode']);
             }
-            
+
             $result = $this->getOnepage()->savePayment($data);
             $redirectUrl = $this->getOnepage()->getQuote()->getPayment()->getCheckoutRedirectUrl();
-            
+
             if (empty ($result['error']) && !$redirectUrl) {
                 $this->loadLayout('checkout_onepage_review');
                 $result['goto_section'] = 'review';
@@ -306,7 +306,7 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
                     'html' => $this->_getReviewHtml()
                 );
             }
-            
+
             if ($redirectUrl) {
                 $result['redirect'] = $redirectUrl;
             }
@@ -315,7 +315,7 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
             if ($e->getFields()) {
                 $result['fields'] = $e->getFields();
             }
-            
+
             $result['error'] = $e->getMessage();
         }
         catch (Mage_Core_Exception $e) {
@@ -325,10 +325,10 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
             Mage::logException($e);
             $result['error'] = $this->__('Unable to set Payment Method.');
         }
-        
+
         $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
     }
-    
+
     public function bankCheckAction() {
         $cardNo = $this->getRequest()->getPost('card_no');
         $response = array (
@@ -336,41 +336,47 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
             'data' => array (),
             'message' => null
         );
-        
+
         if (in_array ($cardNo[0], array (4,5))) {
             $bankCode = Mage::getModel('paymethod/method_vtdirect')->getBankCode($cardNo);
             $ccType = $this->getCcType($bankCode);
-            
+
+            $configBank = Mage::getStoreConfig('payment/' . $bankCode);
+            $acquiredBank = $configBank['bank_acquired'];
+            $secure = $configBank['threedsecure'];
+            $installmentProcess = $configBank['installment_process'];
+
             $response['status'] = true;
             $response['data'] = array (
                 'bank_code' => $bankCode,
                 'cc_type' => $ccType,
-                'acquired_bank' => $this->getAcquiredBank($bankCode),
-                'secure' => $this->getSecureBank($bankCode),
-                'installment_process' => $this->getInstallmentProcess($bankCode)
+                'acquired_bank' => $acquiredBank,
+                'secure' => $secure,
+                'secure_acquired_bank' => $secure ? $configBank['threedsecure_bank_acquired'] : $acquiredBank,
+                'secure_min' => $secure ? (int) $configBank['threedsecure_min_order_total'] : 0,
+                'installment_process' => $installmentProcess
             );
         }
         else {
             $response['message'] = 'Please enter a valid credit card number.';
         }
-        
-        echo json_encode($response);
-        exit;
+
+        $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($response));
     }
-    
+
     protected function getCcType($bank) {
         //$bankArr = explode('_', $bank);
         $ccType = (strtoupper(substr($bank, -2)) == 'MC') ? 'MC' : 'VI';
-        
+
         return $ccType;
     }
-    
+
     public function successAction() {
         $canceled = 0;
 
         if ($this->getRequest()->getParam('order_no')) {
             $orderNo = $this->getRequest()->getParam('order_no');
-            
+
             /**
              * Credit Card handling
              */
@@ -408,12 +414,12 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
                 $this->_redirect('checkout/cart');
                 return;
             }
-            
+
             $order = Mage::getModel('sales/order')->load($lastOrderId);
             $paymentCode = $order->getPayment()->getMethodInstance()->getCode();
             $session->clear();
         }
-            
+
         if (in_array($paymentCode, $this->getPaymentMethodCc()) && $canceled == 0) {
             // charge credit card
             $charge = $this->creditcardCharge($order);
@@ -432,57 +438,58 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
             return;
         }
         // FDS (BILNA-1333) - End
-        
+
         /**
          * Charge Transaction (Mandiri E-Cash)
          */
         if (in_array($paymentCode, $this->getPaymentMethodVtdirect())) {
             $charge = $this->_vtdirectRedirectCharge($order);
-            
+
             Mage::getModel('paymethod/vtdirect')->addHistoryOrder($order, $charge);
             Mage::register('response_charge', $charge);
             //Mage::dispatchEvent('sales_order_place_after', array ('order' => $order));
         }
-        
+
         $this->loadLayout();
         $this->_initLayoutMessages('checkout/session');
         Mage::dispatchEvent('checkout_onepage_controller_success_action', array ('order_ids' => array ($lastOrderId)));
         $this->renderLayout();
     }
-    
+
     protected function getVtdirectServerKey() {
         return Mage::getStoreConfig('payment/vtdirect/server_key');
     }
-    
+
     protected function getVtdirectIsProduction() {
         $isProduction = Mage::getStoreConfig('payment/vtdirect/development_testing');
-        
+
         if ($isProduction) {
             return false;
         }
-        
+
         return true;
     }
 
     public function creditcardCharge($order) {
         Mage::helper('paymethod')->loadVeritransNamespace();
-        
+
         // setting config vtdirect
         Veritrans_Config::$serverKey = $this->getVtdirectServerKey();
         Veritrans_Config::$isProduction = $this->getVtdirectIsProduction();
-        
+
         $incrementId = $order->getIncrementId();
         $tokenId = $this->getTokenId();
         $grossAmount = $order->getGrandTotal();
         $paymentType = 'credit_card'; //hardcode
-      
+
         // Optional
         //$billingAddress = $this->getBillingAddress();
         //$shippingAddress = $this->getShippingAddress();
-        
+
         $paymentCode = $order->getPayment()->getMethodInstance()->getCode();
-        $acquiredBank = $this->getAcquiredBank($paymentCode);
-        
+        $configBank = Mage::getStoreConfig('payment/' . $paymentCode);
+        $acquiredBank = $this->_getAcquiredBank($configBank, $grossAmount);
+
         // Required
         $customerDetails = array (
             'first_name' => $order->getBillingAddress()->getFirstname(),
@@ -496,16 +503,16 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
             'order_id' => $incrementId,
             'gross_amount' => $grossAmount
         );
-        
+
         //Data that will be sent to request charge transaction with credit card.
         $transactionData = array ();
         $transactionData['payment_type'] = $paymentType;
         $transactionData['credit_card']['token_id'] = $tokenId;
         $transactionData['credit_card']['bank'] = $acquiredBank;
         $transactionData['credit_card']['bins'] = $this->getBins($order, $paymentCode);
-        
+
         $installmentProcess = $this->getInstallmentProcess($paymentCode);
-        
+
         if ($installmentProcess != 'manual') {
             $items = $order->getAllItems();
             $installmentId = $this->getInstallment($items);
@@ -515,10 +522,10 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
                 $transactionData['credit_card']['installment_term'] = $installmentId;
             }
         }
-        
+
         $transactionData['transaction_details'] = $transactionDetails;
         $transactionData['customer_details'] = $customerDetails;
-        
+
         try {
             $this->writeLog($paymentCode, $this->_typeTransaction, 'charge', 'request: ' . json_encode($transactionData));
             $result = Veritrans_VtDirect::charge($transactionData);
@@ -533,22 +540,22 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
             );
             $result = (object) $response;
         }
-        
+
         return $result;
     }
-    
+
     protected function _vtdirectRedirectCharge($order) {
         Mage::helper('paymethod')->loadVeritransNamespace();
-        
+
         //- setting config vtdirect
         Veritrans_Config::$serverKey = $this->getVtdirectServerKey();
         Veritrans_Config::$isProduction = $this->getVtdirectIsProduction();
-        
+
         $incrementId = $order->getIncrementId();
         $grossAmount = $order->getGrandTotal();
         $paymentCode = $order->getPayment()->getMethodInstance()->getCode();
         $paymentType = Mage::getStoreConfig('payment/' . $paymentCode . '/vtdirect_payment_type');
-        
+
         //-Required
         $transactionDetails = array (
             'order_id' => $incrementId,
@@ -560,7 +567,7 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
             'email' => $this->getCustomerEmail($order->getBillingAddress()->getEmail()),
             'phone' => $order->getBillingAddress()->getTelephone(),
         );
-        
+
         //- Data that will be sent for charge transaction request with Mandiri E-cash.
         $transactionData = array (
             'payment_type' => $paymentType,
@@ -570,7 +577,7 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
                 'description' => 'Transaction Description Mandiri E-Cash Bilna.com',
             ),
         );
-        
+
         try {
             $this->writeLog($paymentCode, $this->_typeTransaction, 'charge', 'request: ' . json_encode($transactionData));
             $result = Veritrans_VtDirect::charge($transactionData);
@@ -585,32 +592,32 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
             );
             $result = (object) $response;
         }
-        
+
         return $result;
     }
-    
+
     protected function logProgress($message) {
         Mage::log($message, null, 'newstack.log');
     }
-    
+
     public function getCheckout() {
         return Mage::getSingleton('checkout/session');
     }
-    
+
     public function getOrderId() {
         return Mage::getSingleton('checkout/session')->getLastOrderId();
     }
-    
+
     private function updateOrder($order, $paymentCode, $charge) {
         // check order status if processing/complete then ignore
         if (in_array($order->getStatus(), Mage::helper('paymethod/vtdirect')->getStatusOrderIgnore())) {
             return true;
         }
-                
+
         $message = $charge->status_message;
         $transactionStatus = $charge->transaction_status;
         $fraudStatus = $charge->fraud_status;
-                
+
         if ($transactionStatus == 'capture') {
             if ($fraudStatus == 'accept') {
                 if ($order->canInvoice()) {
@@ -658,7 +665,7 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
         elseif ($transactionStatus == 'challenge') {
             $order->setState(Mage_Sales_Model_Order::STATE_NEW, 'cc_verification', $message, true);
             $order->save();
-                    
+
             return true;
         }
         elseif ($transactionStatus == 'deny') {
@@ -676,19 +683,19 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
         else {
             $order->addStatusHistoryComment('failed get response or timeout from Veritrans');
             $order->save();
-            
+
             // write log to process confirmation
             $this->createLog($paymentCode, $this->maxChar($order->getIncrementId(), 20), 'confirmation', $order->getIncrementId() . "|Response charge is null");
-            
+
             return true;
         }
-        
+
         return false;
     }
-    
+
     protected function getDefaultResponseMessage($status, $message) {
         $result = '';
-        
+
         if ($message) {
             $result = $message;
         }
@@ -703,49 +710,49 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
                 $result = Mage::getStoreConfig('payment/vtdirect/charge_timeout_message');
             }
         }
-        
+
         return $result;
     }
-    
+
     protected function getPaymentMethodCc() {
         return Mage::helper('paymethod')->getPaymentMethodCc();
     }
-    
+
     protected function getPaymentMethodVtdirect() {
         return Mage::helper('paymethod')->getPaymentMethodVtdirect();
     }
-    
+
     protected function getTokenId() {
         $tokenId = Mage::getSingleton('core/session')->getVtdirectTokenId();
-        
+
         /**
          * remove token_id session
          */
         Mage::getSingleton("core/session")->unsVtdirectTokenIdCreate();
         Mage::getSingleton("core/session")->unsVtdirectTokenId();
-        
+
         return $tokenId;
     }
-    
+
     protected function maxChar($text, $maxLength = 10) {
         if (empty ($text)) {
             return '';
         }
-        
+
         return substr($text, 0, $maxLength);
     }
-    
+
     protected function getBins($order, $paymentCode) {
         $digit = 6;
         //$digit = ($paymentCode == 'othervisa' || $paymentCode == 'othermc') ? 1 : 6;
         $result = substr($order->getPayment()->getCcBins(), 0, $digit);
-        
+
         return array ($result);
     }
-    
+
     protected function getOrderItems($order, $items) {
         $result = array ();
-        
+
         //if (count($items) > 0) {
         //    foreach ($items as $itemId => $item) {
         //        $result[$itemId]['id'] = $this->maxChar($item->getProductId(), 20);
@@ -758,23 +765,23 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
         $result[0]['price'] = $order->getGrandTotal();
         $result[0]['qty'] = 1;
         $result[0]['name'] = $this->maxChar('Item order ' . $order->getIncrementId(), 20);
-        
+
         return $result;
     }
-    
+
     protected function getCustomerEmail($email) {
         //if (Mage::getStoreConfig('payment/vtdirect/development_testing')) {
         //    return 'vt-testing@veritrans.co.id';
         //}
-        
+
         return $email;
     }
-    
+
     protected function parseShippingAddress($shippingAddress) {
         $firstname = $shippingAddress->getFirstname();
         $lastname = $shippingAddress->getFirstname();
         //$lastname = $shippingAddress->getLastname();
-        
+
         $result = array (
             'first_name' => $this->maxChar(Mage::helper('paymethod/vtdirect')->filterAddress($firstname, true), 20),
             'last_name' => $this->maxChar(Mage::helper('paymethod/vtdirect')->filterAddress($lastname, true), 20),
@@ -784,15 +791,15 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
             'postal_code' => $this->maxChar($this->getPostCode($shippingAddress->getPostcode()), 10),
             'phone' => $this->maxChar(Mage::helper('paymethod')->allowOnlyNumber($shippingAddress->getTelephone()), 19)
         );
-        
+
         return $result;
     }
-    
+
     protected function parseBillingAddress($billingAddress) {
         $firstname = $billingAddress->getFirstname();
         $lastname = $billingAddress->getFirstname();
         //$lastname = $billingAddress->getLastname();
-        
+
         $result = array (
             'first_name' => $this->maxChar(Mage::helper('paymethod/vtdirect')->filterAddress($firstname, true), 20),
             'last_name' => $this->maxChar(Mage::helper('paymethod/vtdirect')->filterAddress($lastname, true), 20),
@@ -802,59 +809,67 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
             'postal_code' => $this->maxChar($this->getPostCode($billingAddress->getPostcode()), 10),
             'phone' => $this->maxChar(Mage::helper('paymethod')->allowOnlyNumber($billingAddress->getTelephone()), 19)
         );
-        
+
         return $result;
     }
-    
+
     protected function getPostCode($postCode) {
         $result = Mage::helper('paymethod')->allowOnlyNumber($postCode);
-        
+
         if (empty ($result) || $result == '') {
             $result = Mage::helper('paymethod')->allowOnlyNumber($this->getPostCodeSession());
         }
-        
+
         return $result;
     }
-    
+
     protected function getPostCodeSession() {
         return Mage::getSingleton('core/session')->getVtdirectZipCode();
     }
-    
-    protected function getAcquiredBank($paymentCode) {
-        return Mage::getStoreConfig('payment/' . $paymentCode . '/bank_acquired');
-    }
-    
+
     protected function getSecureBank($paymentCode) {
         return Mage::getStoreConfig('payment/' . $paymentCode . '/threedsecure');
+    }
+
+    protected function _getAcquiredBank($configBank, $grossAmount) {
+        $result = $configBank['bank_acquired'];
+
+        if ($configBank['threedsecure']) {
+            if ($grossAmount >= $configBank['threedsecure_min_order_total']) {
+                $result = $configBank['threedsecure_bank_acquired'];
+            }
+        }
+
+        return $result;
     }
 
     protected function getInstallmentProcess($paymentCode) {
         return Mage::getStoreConfig('payment/' . $paymentCode . '/installment_process');
     }
-    
+
     protected function getInstallment($items) {
         foreach ($items as $itemId => $item) {
             $installmentType = $item->getInstallmentType();
-            
+
             if ($installmentType > 1) {
                 return $installmentType;
             }
         }
-        
+
         return false;
     }
-    
+
     protected function getInstallmentBank($paymentCode) {
         if (strtolower($paymentCode) == 'mandiripromovisa' || strtolower($paymentCode) == 'mandiripromomc') {
             return 'mandiri';
         }
-        
+
         if (strtolower($paymentCode) == 'bnikartinivisa' || strtolower($paymentCode) == 'bnikartinimc') {
             return 'bni';
         }
-		
+
         $result = '';
-        
+
         if (substr($paymentCode, -4) == 'visa') {
             $result = substr($paymentCode, 0, -4);
         }
@@ -864,54 +879,54 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
         else {
             //do nothing
         }
-        
+
         return $result;
     }
-    
+
     protected function getInstallmentTypeCodeBank($paymentCode) {
         return Mage::getStoreConfig('payment/' . $paymentCode . '/installment_type_code');
     }
-    
+
     protected function getThreedSecure($paymentCode) {
         $result = false;
-        
+
         if (Mage::getStoreConfig('payment/' . $paymentCode . '/threedsecure')) {
             if (Mage::getStoreConfig('payment/' . $paymentCode . '/threedsecure') == 1) {
                 $result = true;
             }
         }
-        
+
         return $result;
     }
-    
+
     protected function getThreedSecureCallbackUrl($paymentCode) {
         return Mage::getStoreConfig('payment/' . $paymentCode . '/threedsecure_callback_url');
     }
-    
+
     protected function getThreedSecureNotificationUrl($paymentCode) {
         return Mage::getStoreConfig('payment/' . $paymentCode . '/threedsecure_notification_url');
     }
-    
+
     protected function writeLog($paymentCode, $type, $logFile, $content) {
         $tdate = date('Ymd', Mage::getModel('core/date')->timestamp(time()));
         $filename = sprintf("%s_%s.%s", $paymentCode, $logFile, $tdate);
         $content = "[" . gethostname() . "] " . $content;
-        
+
         return Mage::helper('paymethod')->writeLogFile($paymentCode, $type, $filename, $content);
     }
-    
+
     protected function createLock($paymentCode, $filename) {
         return Mage::helper('paymethod')->createLockFile($paymentCode, $filename);
     }
-    
+
     protected function checkLock($paymentCode, $filename) {
         return Mage::helper('paymethod')->checkLockFile($paymentCode, $filename);
     }
-    
+
     protected function createLog($paymentCode, $filename, $type, $content) {
         $tdate = date('Y-m-d H:i:s', Mage::getModel('core/date')->timestamp(time()));
         $content = sprintf("%s|%s", $content, $tdate);
-        
+
         return Mage::helper('paymethod')->writeLogFile($paymentCode, $type, $filename, $content, 'normal');
     }
 }
