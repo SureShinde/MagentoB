@@ -30,7 +30,7 @@
                 </connection>
             </expressshipping_read>
         </resources>
-        
+
         <events>
             <sales_quote_add_item>
                 <observers>
