@@ -9,9 +9,9 @@ class Bilna_Paymethod_Model_Veritrans extends Mage_Core_Model_Abstract {
     protected $_connection;
     protected $_data = array ();
     protected $_table = 'veritrans_log_transaction';
-    
+
     public function setData($key, $value = null) {
-        if (!$this->_data[$key]) {
+        if (!isset ($this->_data[$key])) {
             $this->_data[$key] = $value;
         }
         

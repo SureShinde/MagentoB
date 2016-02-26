@@ -1,6 +1,19 @@
 <?php
 
 $customer = $this->getCustomer();
+$loggedCustomer = Mage::getSingleton('customer/session')->getCustomer();
+$isLoggedIn = Mage::getSingleton('customer/session')->isLoggedIn();
+// TODO: Check user condition by $viewer variable
+$viewer = 'other_user';
+
+if (!$isLoggedIn) {
+  $viewer = 'anonymous';
+} else {
+  if ($loggedCustomer->getId() == $customer->getId()) {
+    $viewer = 'owner';
+  }
+}
+
 $profiler = $this->getProfiler();
 $customerDob = $customer->getDob();
 $fullUrl = Mage::helper('core/url')->getCurrentUrl();
@@ -16,7 +29,7 @@ if ($customerDob) {
 # Get wishlist collection
 $wishlistCollection = Mage::getModel('wishlist/wishlist')->getCollection()->filterByCustomerId($customer->getId());
 
-$manageable = (Mage::getSingleton('customer/session')->isLoggedIn() && Mage::getSingleton('customer/session')->getCustomer()->getId() == $customer->getId()) ?  true : false;
+$manageable = ($isLoggedIn && Mage::getSingleton('customer/session')->getCustomer()->getId() == $customer->getId()) ?  true : false;
 
 ?>
 
@@ -69,8 +82,7 @@ $manageable = (Mage::getSingleton('customer/session')->isLoggedIn() && Mage::get
 <?php endif; ?>
 
 <?php # Check if user logged in, and visiting her own profile page ?>
-<?php if (Mage::getSingleton('customer/session')->isLoggedIn()) : ?>
-  <?php $loggedCustomer = Mage::getSingleton('customer/session')->getCustomer(); ?>
+<?php if ($isLoggedIn) : ?>
   <?php if ($loggedCustomer->getId() == $customer->getId()) : ?>
   <div class="cg-col-xs-12 nopadding">
     <a href="<?php echo $this->getUrl('customer/account'); ?>" class="btn-detail-profile cg-col-xs-12 cg-col-sm-4 cg-col-md-3 cg-col-lg-3" style="margin-bottom:5px;">Akun Saya </a>
@@ -106,7 +118,7 @@ Why don’t you start create your own collection?
 <!-- empty collections status-->
 
 
-<?php if ($wishlistCollection->count() < 1 && $loggedCustomer->getId() == $customer->getId()): ?>
+<?php if ($wishlistCollection->count() < 1 && $isLoggedIn && $loggedCustomer->getId() == $customer->getId()): ?>
 <div class="cg-row"  style="margin-bottom:20px">
  <div class="cg-col-lg-6 cg-col-lg-offset-3 cg-col-xs-12 cg-col-md-8 cg-col-md-offset-2 cg-col-sm-12 text-center no-collection-title">
     KAMU BELUM MEMILIKI KOLEKSI
@@ -119,10 +131,9 @@ Why don’t you start create your own collection?
   </div>
 </div>
 
-<?php 
-  $loggedCustomer = Mage::getSingleton('customer/session')->getCustomer();
-  elseif ($wishlistCollection->count() < 1 && $loggedCustomer->getId() != $customer->getId()):  ?>
-  
+<?php
+  elseif ($wishlistCollection->count() < 1 && $isLoggedIn && $loggedCustomer->getId() != $customer->getId()):  ?>
+
   <div class="cg-row"  style="margin-bottom:20px;" >
    <div class="cg-col-lg-6 cg-col-lg-offset-3 cg-col-xs-12 cg-col-md-8 cg-col-md-offset-2 cg-col-sm-12 text-center no-collection-title">
     OOPS! THE OWNER HAVE NOT CREATED ANY COLLECTIONS YET..
@@ -152,9 +163,7 @@ Why don’t you start create your own collection?
       <div class="tab-pane active" id="home">
 
         <div class="cg-col-lg-12 nopadding">
-          <?php $loggedCustomer = Mage::getSingleton('customer/session')->getCustomer(); ?>
           <?php if ($loggedCustomer->getId() == $customer->getId()) : ?>
-            
              <div class="cg-col-lg-3 cg-col-md-3 cg-col-sm-6 cg-col-xs-12 bottom-spacer-container" style="padding: 0 5px; margin-bottom: 0 !important;" onclick="newShowAddCollectionDialog()">
               <div class="cg-col-sm-12 back-square-plus nopadding" style="">
                <div class="middle-part-plus" style="">
@@ -175,7 +184,7 @@ Why don’t you start create your own collection?
                                 # the item should be skipped.
             if ($wishlist->getVisibility() == 0 && !$manageable) {
               continue;
-            }          
+            }
             if ($wishlist->getView() == 0) {
             continue;
             }
@@ -277,8 +286,8 @@ Why don’t you start create your own collection?
           </div>
         </div>
         <div class="cg-col-xs-12  bottom-spacer">
-          
-          
+
+
             <div class="form-group in-block full-width">
               <label for="inputEmail3" class="cg-col-xs-12 control-label label-color label-margin take-left opensans">Judul <span class="light lil-exp">sesuai tema koleksi yang ingin anda buat</span></label>
               <div class="cg-col-sm-12">
@@ -291,7 +300,7 @@ Why don’t you start create your own collection?
                  <textarea rows="4" name="desc" id="modalDescCol" class="form-control input-new-collection" maxlength="250" placeholder="Penjelasan singkat mengenai tema koleksi anda" style="resize:none;height:auto;"></textarea>
               </div>
             </div>
-          
+
         </div>
         <div class="cg-col-xs-12">
           <div class="form-group in-block full-width nomargin">
@@ -337,8 +346,8 @@ Why don’t you start create your own collection?
                   </div>
                 </div>
                 <div id="tabs-3" style="color: #545454;">
-                  <div class="cg-col-sm-12" id="preset-image-container"> 
-          <?php $counter = 1; foreach($images as $image) { 
+                  <div class="cg-col-sm-12" id="preset-image-container">
+          <?php $counter = 1; foreach($images as $image) {
           if (($counter % 3) == 0) {
           }
           ?>
@@ -346,11 +355,11 @@ Why don’t you start create your own collection?
                     <span class="overlayer-pink">
                       <i class="fa fa-check checked"></i>
                     </span>
-          <img src="/media/<?php echo $image['image'];?>" width="100%" alt=""> 
+          <img src="/media/<?php echo $image['image'];?>" width="100%" alt="">
                   </div>
-          <?php 
+          <?php
           $counter++;}  ?>
-          </div> 
+          </div>
                 </div>
               </div>
             </div>
@@ -359,9 +368,9 @@ Why don’t you start create your own collection?
           <input type="hidden" name="collection_id2" id="modalCollectionId2">
           <input type="hidden" name="username" value="<?php echo $profiler->getUsername(); ?>">
       <input type="hidden" name="preset_image" id="epreset_image" />
-         
+
           <div style="margin-top: 20px;" class="bottom-spacer-container">
-           
+
             <input type="checkbox" name="visibility" id="modalVisibilityCol" class="input-collection" style="height: inherit; width:10px;">
             <label for="visibility" class="check-public">Jadikan koleksi publik agar semua orang bisa melihat</label>
           </div>
@@ -457,14 +466,14 @@ Why don’t you start create your own collection?
                     <!--
                     <label for="name" class="full-width" style="color: #545454; margin-bottom: 10px;margin-top: 10px;">Iam <span class="coll-tags">You can choose more than one, because you can have it all!</span></label>
                     <div class="whoiam">
-                      <input type="text" id="myinputiam" name="myinputiam" value="" style="display:none;" size=30> 
+                      <input type="text" id="myinputiam" name="myinputiam" value="" style="display:none;" size=30>
                       <span id="tags-iam"></span>
                     </div>
 
                     <label for="name" class="full-width" style="color: #545454; margin-bottom: 10px;margin-top: 10px;">My Interest <span class="coll-tags">You can choose more than one</span></label>
-                  
+
                     <div class="interest">
-                      <input type="text" id="myinputinterest" name="myinputinterest" value="" style="display:none;" size=30> 
+                      <input type="text" id="myinputinterest" name="myinputinterest" value="" style="display:none;" size=30>
                       <span id="tags-interest"></span>
                     </div>
                     -->
@@ -479,14 +488,14 @@ Why don’t you start create your own collection?
 </div>
 </div>
 
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js">  
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js">
 </script>
 
 
 <!--  end of modal edit profile -->
 <!-- checking is the logged in customer seeing his own collection or not -->
-<?php $customerId = Mage::getSingleton('customer/session')->getCustomer()->getId(); 
-if ($wishlist['customer_id'] != $customerId) { 
+<?php $customerId = Mage::getSingleton('customer/session')->getCustomer()->getId();
+if ($wishlist['customer_id'] != $customerId) {
 ?>
 
 <?php /*  <div class="cg-row"  style="margin-bottom:20px;">
@@ -495,7 +504,7 @@ if ($wishlist['customer_id'] != $customerId) {
     Why don't you create your own collection!
   </div>
   <div class="cg-col-lg-4 cg-col-lg-offset-4 cg-col-xs-12 cg-col-md-8 cg-col-md-offset-2 cg-col-sm-12 bottom-spacer-container">
-    <img src="<?php echo $this->getSkinUrl('images/') . 'plus2-2x.png'; ?>" width="100%" > 
+    <img src="<?php echo $this->getSkinUrl('images/') . 'plus2-2x.png'; ?>" width="100%" >
   </div>
   <div class="cg-col-lg-2 cg-col-lg-offset-5 cg-col-xs-12 cg-col-md-8 cg-col-md-offset-2 cg-col-sm-12">
     <div onclick="showAddCollectionDialog()" class="btn btn btn-pink-prime cursor" style="margin: 10px 0;">BUAT SEKARANG</div>
