@@ -198,26 +198,23 @@ class Bilna_Pricevalidation_Adminhtml_PricevalidationController extends Mage_Adm
                                         $masterCategory = $product->getAttributeText('product_master');
 
                                         if(!empty($productId)) {
-                                            if(in_array('price', $fieldList)) {
-                                                if(!is_null($cleanData[$i-1]['price'])) {
-                                                    if((int)floatval($cleanData[$i-1]['price']) < 0) {
-                                                        $error .= 'Price value cannot smaller than 0 ! ';
-                                                    }
-                                                }
+                                            $error .= $this->__checkPrice($fieldList, $cleanData[$i-1]['price']);
+                                            $error .= $this->__checkCost($fieldList, $cleanData[$i-1]['cost']);
+                                            $error .= $this->__checkSpecialPrice($fieldList, $cleanData[$i-1]['special_price']);
+                                            if ($newFromDate = $this->__checkDateFormat('new_from_date', $fieldList, $cleanData[$i-1]['new_from_date']) != '') {
+                                                $error .= $newFromDate;
                                             }
-                                            if(in_array('cost', $fieldList)) {
-                                                if(!is_null($cleanData[$i-1]['cost'])) {
-                                                    if((int)floatval($cleanData[$i-1]['cost']) < 0) {
-                                                        $error .= 'Cost value cannot smaller than 0 ! ';
-                                                    }
-                                                }
+
+                                            if ($newToDate = $this->__checkDateFormat('new_to_date', $fieldList, $cleanData[$i-1]['new_to_date']) != '') {
+                                                $error .= $newToDate;
                                             }
-                                            if(in_array('special_price', $fieldList)) {
-                                                if(!empty($cleanData[$i-1]['special_price'])) {
-                                                    if((int)floatval($cleanData[$i-1]['special_price']) < 0) {
-                                                        $error .= 'Special Price cannot smaller than 0 ! ';
-                                                    }
-                                                }
+
+                                            if ($specialFromDate = $this->__checkDateFormat('special_from_date', $fieldList, $cleanData[$i-1]['special_from_date']) != '') {
+                                                $error .= $specialFromDate;
+                                            }
+
+                                            if ($specialToDate = $this->__checkDateFormat('special_to_date', $fieldList, $cleanData[$i-1]['special_to_date']) != '') {
+                                                $error .= $specialToDate;
                                             }
 
                                             if(empty($error)) {
@@ -256,6 +253,29 @@ class Bilna_Pricevalidation_Adminhtml_PricevalidationController extends Mage_Adm
                                                             else {
                                                                 $error .= 'Special Price cannot smaller than 0 ! ';
                                                             }
+                                                        }
+                                                    }
+                                                    if((in_array('new_from_date', $fieldList)) && !is_null($cleanData[$i-1]['new_from_date'])) {
+                                                        $product->setData('news_from_date', date('m/d/Y', strtotime($cleanData[$i-1]['new_from_date'])));
+                                                    }
+                                                    if((in_array('new_to_date', $fieldList)) && !is_null($cleanData[$i-1]['new_to_date'])) {
+                                                        $product->setData('news_to_date', date('m/d/Y', strtotime($cleanData[$i-1]['new_to_date'])));
+                                                    }
+                                                    if((in_array('special_from_date', $fieldList)) && !is_null($cleanData[$i-1]['special_from_date'])) {
+                                                        $product->setSpecialFromDate(date('m/d/Y', strtotime($cleanData[$i-1]['special_from_date'])));
+                                                        $product->setSpecialFromDateIsFormated(true);
+                                                    }
+                                                    if((in_array('special_to_date', $fieldList)) && !is_null($cleanData[$i-1]['special_to_date'])) {
+                                                        $product->setSpecialToDate(date('m/d/Y', strtotime($cleanData[$i-1]['special_to_date'])));
+                                                        $product->setSpecialToDateIsFormated(true);
+                                                    }
+                                                    if((in_array('enabled', $fieldList)) && !is_null($cleanData[$i-1]['enabled'])) {
+                                                        $storeId = Mage::app()->getStore()->getStoreId();
+                                                        if(strtolower($cleanData[$i-1]['enabled']) == 'yes') {
+                                                            Mage::getModel('catalog/product_status')->updateProductStatus($productId, $storeId, Mage_Catalog_Model_Product_Status::STATUS_ENABLED)->save();
+                                                        }
+                                                        else {
+                                                            Mage::getModel('catalog/product_status')->updateProductStatus($productId, $storeId, Mage_Catalog_Model_Product_Status::STATUS_DISABLED)->save();
                                                         }
                                                     }
                                                 }
@@ -305,30 +325,29 @@ class Bilna_Pricevalidation_Adminhtml_PricevalidationController extends Mage_Adm
                                                                 $product->setSpecialPrice($specialPrice);
                                                             }
                                                         }
-                                                    }
-                                                }
-
-                                                if((in_array('new_from_date', $fieldList)) && !is_null($cleanData[$i-1]['new_from_date'])) {
-                                                    $product->setData('news_from_date', date('m/d/Y', strtotime($cleanData[$i-1]['new_from_date'])));
-                                                }
-                                                if((in_array('new_to_date', $fieldList)) && !is_null($cleanData[$i-1]['new_to_date'])) {
-                                                    $product->setData('news_to_date', date('m/d/Y', strtotime($cleanData[$i-1]['new_to_date'])));
-                                                }
-                                                if((in_array('special_from_date', $fieldList)) && !is_null($cleanData[$i-1]['special_from_date'])) {
-                                                    $product->setSpecialFromDate(date('m/d/Y', strtotime($cleanData[$i-1]['special_from_date'])));
-                                                    $product->setSpecialFromDateIsFormated(true);
-                                                }
-                                                if((in_array('special_to_date', $fieldList)) && !is_null($cleanData[$i-1]['special_to_date'])) {
-                                                    $product->setSpecialToDate(date('m/d/Y', strtotime($cleanData[$i-1]['special_to_date'])));
-                                                    $product->setSpecialToDateIsFormated(true);
-                                                }
-                                                if((in_array('enabled', $fieldList)) && !is_null($cleanData[$i-1]['enabled'])) {
-                                                    $storeId = Mage::app()->getStore()->getStoreId();
-                                                    if(strtolower($cleanData[$i-1]['enabled']) == 'yes') {
-                                                        Mage::getModel('catalog/product_status')->updateProductStatus($productId, $storeId, Mage_Catalog_Model_Product_Status::STATUS_ENABLED)->save();
-                                                    }
-                                                    else {
-                                                        Mage::getModel('catalog/product_status')->updateProductStatus($productId, $storeId, Mage_Catalog_Model_Product_Status::STATUS_DISABLED)->save();
+                                                        if((in_array('new_from_date', $fieldList)) && !is_null($cleanData[$i-1]['new_from_date'])) {
+                                                            $product->setData('news_from_date', date('m/d/Y', strtotime($cleanData[$i-1]['new_from_date'])));
+                                                        }
+                                                        if((in_array('new_to_date', $fieldList)) && !is_null($cleanData[$i-1]['new_to_date'])) {
+                                                            $product->setData('news_to_date', date('m/d/Y', strtotime($cleanData[$i-1]['new_to_date'])));
+                                                        }
+                                                        if((in_array('special_from_date', $fieldList)) && !is_null($cleanData[$i-1]['special_from_date'])) {
+                                                            $product->setSpecialFromDate(date('m/d/Y', strtotime($cleanData[$i-1]['special_from_date'])));
+                                                            $product->setSpecialFromDateIsFormated(true);
+                                                        }
+                                                        if((in_array('special_to_date', $fieldList)) && !is_null($cleanData[$i-1]['special_to_date'])) {
+                                                            $product->setSpecialToDate(date('m/d/Y', strtotime($cleanData[$i-1]['special_to_date'])));
+                                                            $product->setSpecialToDateIsFormated(true);
+                                                        }
+                                                        if((in_array('enabled', $fieldList)) && !is_null($cleanData[$i-1]['enabled'])) {
+                                                            $storeId = Mage::app()->getStore()->getStoreId();
+                                                            if(strtolower($cleanData[$i-1]['enabled']) == 'yes') {
+                                                                Mage::getModel('catalog/product_status')->updateProductStatus($productId, $storeId, Mage_Catalog_Model_Product_Status::STATUS_ENABLED)->save();
+                                                            }
+                                                            else {
+                                                                Mage::getModel('catalog/product_status')->updateProductStatus($productId, $storeId, Mage_Catalog_Model_Product_Status::STATUS_DISABLED)->save();
+                                                            }
+                                                        }
                                                     }
                                                 }
 
@@ -713,6 +732,45 @@ class Bilna_Pricevalidation_Adminhtml_PricevalidationController extends Mage_Adm
         }
 
         $this->getResponse()->setBody(Zend_Json::encode($result));
+    }
+
+    private function __checkPrice($fieldList, $price = null)
+    {
+        if ((in_array('price', $fieldList)) && (!is_null($price)) && ((int)floatval($price)) < 0) {
+            return 'Price value cannot smaller than 0 ! ';
+        }
+        return '';
+    }
+
+    private function __checkCost($fieldList, $cost = null)
+    {
+        if ((in_array('price', $fieldList)) && (!is_null($cost)) && ((int)floatval($cost)) < 0) {
+            return 'Cost value cannot smaller than 0 ! ';
+        }
+        return '';
+    }
+
+    private function __checkSpecialPrice($fieldList, $specialPrice = null)
+    {
+        if ((in_array('price', $fieldList)) && (!is_null($specialPrice)) && ((int)floatval($specialPrice)) < 0) {
+            return 'Special Price cannot smaller than 0 ! ';
+        }
+        return '';
+    }
+
+    private function __checkDateFormat($fieldToCheck, $fieldList, $date = null)
+    {
+        $error = '';
+        if (in_array($fieldToCheck, $fieldList) && !is_null($date)) {
+            $dateArr = explode('/', $date);
+            if ($dateArr[0] > 12) {
+                $error = 'Please use dd/mm/yyyy date format ';
+            }
+            elseif ($dateArr[1] > 31 && $error == '') {
+                $error = 'Please use dd/mm/yyyy date format ';
+            }
+        }
+        return $error;
     }
 
     private function __sendEmail($body="", $subject, $userData, $supervisorEmail, $attachment, $productTeamEmail="")
