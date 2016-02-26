@@ -88,40 +88,6 @@ extends Mage_Core_Controller_Front_Action
                 $profile = Mage::getModel('socialcommerce/profile')
                     ->load($customerId, 'customer_id');
 
-                # Check if user has temporary profile and going to use different username
-                $profiler = Mage::getModel('socialcommerce/profile')->load($customerId, 'customer_id');
-                if ($profiler->getTemporary() && $profiler->getUsername() != $postUsername) {
-
-                    # Data validation
-                    try {
-						Mage::helper('socialcommerce')->validateInput();
-                    } catch (Exception $e) {
-                        throw new Exception($e->getMessage());
-                    }
-
-                    # Check route rewrite is still available
-                    $routeAvailable = Mage::helper('socialcommerce')->checkRouteAvailable($postUsername);
-
-                    if (! $routeAvailable) {
-                        throw new Exception("Username not available"); # Route not available
-                    }
-
-                    # Check if username is still available
-                    $usernameAvailable = Mage::helper('socialcommerce')->checkUsernameAvailable($postUsername);
-
-                    if (! $usernameAvailable) {
-                        throw new Exception("Username not available"); # Username not available
-                    }
-
-                    $oldUsername = $profile->getUsername();
-
-                    $profile->setUsername($postUsername);
-
-					Mage::helper('socialcommerce')->createNewRewrite($postUsername);
-                    // $this->deleteRewrite($oldUsername);
-
-                }
-
                 # Check image submission
                 $postAvatar = Mage::helper('socialcommerce')->processAvatar($customerId);
 
