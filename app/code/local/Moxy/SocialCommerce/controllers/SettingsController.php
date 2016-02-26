@@ -102,6 +102,7 @@ extends Mage_Core_Controller_Front_Action
                 $profile->setLocation($postLocation);
 
                 if ($postAvatar) {
+                    //$profile->setCloudAvatar($postAvatar);
                     $profile->setAvatar($postAvatar);
                 }
 
