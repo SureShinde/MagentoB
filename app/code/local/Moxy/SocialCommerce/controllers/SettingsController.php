@@ -88,9 +88,6 @@ extends Mage_Core_Controller_Front_Action
                 $profile = Mage::getModel('socialcommerce/profile')
                     ->load($customerId, 'customer_id');
 
-                # Check if user has temporary profile and going to use different username
-                $profiler = Mage::getModel('socialcommerce/profile')->load($customerId, 'customer_id');
-
                 # Check image submission
                 $postAvatar = Mage::helper('socialcommerce')->processAvatar($customerId);
 
