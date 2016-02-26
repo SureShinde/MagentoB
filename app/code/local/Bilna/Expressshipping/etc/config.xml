@@ -30,9 +30,7 @@
                 </connection>
             </expressshipping_read>
         </resources>
-    </global>
-
-    <frontend>
+        
         <events>
             <sales_quote_add_item>
                 <observers>
@@ -53,5 +51,5 @@
                 </observers>
             </sales_convert_quote_item_to_order_item>
         </events>
-    </frontend>
+    </global>
 </config>
