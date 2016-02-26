@@ -38,7 +38,7 @@
         </div>
     <?php endif ?>
     </td>
-    <td class="a-center"><?php echo ($_item->getIsExpressShipping() == 1) ? $this->__('Yes') : $this->__('No'); ?></td>
+    <td class="a-center"><?php echo ($_item->getExpressShipping() == 1) ? $this->__('Yes') : $this->__('No'); ?></td>
     <td class="a-center"><?php echo $_item->getStatus() ?></td>
     <td class="a-right"><?php echo $this->displayPriceAttribute('original_price') ?></td>
     <td class="a-right">

@@ -31,4 +31,27 @@
             </expressshipping_read>
         </resources>
     </global>
+
+    <frontend>
+        <events>
+            <sales_quote_add_item>
+                <observers>
+                    <express_quote_add_item>
+                        <type>singleton</type>
+                        <class>Bilna_Expressshipping_Model_Observer</class>
+                        <method>expressQuoteAddItem</method>
+                    </express_quote_add_item>
+                </observers>
+            </sales_quote_add_item>
+            <sales_convert_quote_item_to_order_item>
+                <observers>
+                    <sales_order_quote_convert_to_order_item>
+                        <type>singleton</type>
+                        <class>Bilna_Expressshipping_Model_Observer</class>
+                        <method>salesQuoteConvertToOrderItem</method>
+                    </sales_order_quote_convert_to_order_item>
+                </observers>
+            </sales_convert_quote_item_to_order_item>
+        </events>
+    </frontend>
 </config>
