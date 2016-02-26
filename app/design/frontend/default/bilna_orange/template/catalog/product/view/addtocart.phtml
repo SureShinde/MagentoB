@@ -38,7 +38,7 @@
         <label for="qty"><?php echo $this->__('Jumlah:') ?></label>
         <input type="text" name="qty" id="qty" maxlength="12" value="<?php echo $this->getProductDefaultQty() * 1 ?>" title="<?php echo $this->__('Jumlah') ?>" class="input-text qty" />
         <?php endif; ?>
-        <button type="button" title="<?php echo $buttonTitle ?>" class="button btn-cart" onclick="productAddToCartForm.submit(this); ecommerceProductDetailAddToCart('<?php echo $_escape_helper->escapeQuote($_product->getName()); ?>','<?php echo $_product->getSku() ?>','<?php echo $_product->getPrice() ?>','<?php echo $_product->getProductUrl() ?>','<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(135); ?>');"><i class="fa fa-cart-plus"></i><span><?php echo $buttonTitle ?></span></button>
+        <button type="button" title="<?php echo $buttonTitle ?>" class="button btn-cart" onclick="productAddToCartForm.submit(this); ecommerceProductDetailAddToCart('<?php echo $_escape_helper->escapeQuote($_product->getName()); ?>','<?php echo $_product->getSku() ?>','<?php echo $_product->getPrice() ?>','<?php echo $_escape_helper->rupiahPriceCommaFormatted($_product->getPrice()) ?>','<?php echo $_product->getProductUrl() ?>','<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(135); ?>');"><i class="fa fa-cart-plus"></i><span><?php echo $buttonTitle ?></span></button>
         <?php echo $this->getChildHtml('', true, true) ?>
         <a class="coll-quick addToCollectionLink coll-quick-top" onclick="showAddToCollectionDialog()" href="javascript:;"
                 data-brand-name="<?php echo $brand; ?>"
@@ -52,7 +52,7 @@
 <?php endif; ?>
 
 <script type="text/javascript">
-function ecommerceProductDetailAddToCart(name, sku, price, link, imageUrl) {
+function ecommerceProductDetailAddToCart(name, sku, price, price_ematic, link, imageUrl) {
     if (jQuery("div.input-box select").val() != false) {
       dataLayer.push({
         'event': 'addToCart',
@@ -107,7 +107,7 @@ function ecommerceProductDetailAddToCart(name, sku, price, link, imageUrl) {
       else {    // no same item
         products.push({
           'id': sku,
-          'price': price,
+          'price': price_ematic,
           'quantity': jQuery("input.#qty").val(),
           'name': name,
           'brandName': 'brand name',

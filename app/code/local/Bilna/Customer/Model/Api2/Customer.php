@@ -1,8 +1,6 @@
 <?php
 
-class Bilna_Customer_Model_Api2_Customer extends Mage_Api2_Model_Resource
-{
-
+class Bilna_Customer_Model_Api2_Customer extends Bilna_Customer_Model_Api2 {
     /**
      * Resource specific method to retrieve attributes' codes.
      * May be overriden in child.
