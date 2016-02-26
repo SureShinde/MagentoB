@@ -29,12 +29,14 @@
 						<retrieve>1</retrieve>
 					</customer>
 				</privileges>
-				<attributes translate="is_available canusewithcoupon moneyforpoints moneyforpoints_int" module="Bilna_Points">
+				<attributes translate="is_available canusewithcoupon moneyforpoints moneyforpoints_int minimum_points_amount_for_spend" module="Bilna_Points">
 					<is_available>Avaibility</is_available>
 					<canusewithcoupon>Can Use With Coupon</canusewithcoupon>
                     <moneyforpoints>Money for Points</moneyforpoints>
                     <moneyforpoints_int>Money for Points INT</moneyforpoints_int>
                     <limited_points>Limited Points</limited_points>
+                    <minimum_points_amount_for_spend>Minimum Points Amount For Spend</minimum_points_amount_for_spend>
+                    <minimum_points_amount_for_spend_int>Minimum Points Amount For Spend INT</minimum_points_amount_for_spend_int>
 				</attributes>
 				<routes>
 					<route_entity>

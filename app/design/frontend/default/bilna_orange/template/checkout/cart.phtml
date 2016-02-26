@@ -34,7 +34,7 @@
 <?php $gtmItemIds = ''; ?>
 <?php $_items = $this->getQuote()->getAllItems(); ?>
 <?php $itemQty = 0; ?>
-<?php foreach ($_items as $_item) { if(empty($_item->getParentItemId())) {$itemQty++;} }?>
+<?php foreach ($_items as $_item) { $parentId = $_item->getParentItemId(); if(empty($parentId)) {$itemQty++;} }?>
 <input type="hidden" id="3rdparty-type" value="cart"/>
 <input type="hidden" id="3rdparty-value" value="" />
 <div class="cart">
@@ -368,10 +368,7 @@
     }
 ?>
 <script type="text/javascript">
-function ecommerceCheckout0(sku, price, quantity) {
-	var temp_sku = sku;
-	var temp_price = price;
-	var temp_quantity = quantity;
+function ecommerceCheckout0() {
 	var temp_container = {
 		'event': 'checkout',
 	    'ecommerce': {
@@ -506,8 +503,6 @@ jQuery(document).ready(function () {
 				dataLayer.push( {'skuid': response.data.quote.productSkuIds} );
 				dataLayer.push( {'prices': response.data.quote.productPrices} );
 				dataLayer.push( {'quantities': response.data.quote.productQtys} );
-
-				ecommerceCheckout0(response.data.quote.productSkuIds, response.data.quote.productPrices, response.data.quote.productQtys);
             }else{
                 return false;
             }
