@@ -139,7 +139,8 @@
 
 	#### user collections orami
 	RedirectMatch 301 ^\/user(\/?)$ /user/profile/
-	RewriteRule ^collections/([^\/]+)\/?$ /user/profile/collection/?id=$1 [L,R=301]
+	RewriteRule ^collections/([^\/]+)\/?$ /user/profile/collection/?id=$1 [L,R]
+	RewriteRule ^user/([\w\-_\.]+)$ /user/profile/?u=$1&a=1 [L,R]
 
 ############################################
 ## workaround for HTTP authorization
