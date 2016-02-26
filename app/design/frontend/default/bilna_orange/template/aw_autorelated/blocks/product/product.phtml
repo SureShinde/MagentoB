@@ -67,7 +67,7 @@ if ($this->getPosition() == AW_Autorelated_Model_Source_Position::INSTEAD_NATIVE
                                         data-brand-name="<?php echo $brand; ?>"
                                         data-image="<?php echo $this->helper('catalog/image')->init($product, 'small_image')->resize(320, 320); ?>"
                                         data-product-name="<?php echo $this->stripTags($product->getName(), null, true); ?>"
-                                        data-price="<?php echo 'Rp. ' . number_format($product->getPrice(), 0, '', '.'); ?>"
+                                        data-price="<?php echo 'Rp ' . number_format(round($product->getFinalPrice()), 0, '', '.'); ?>"
                                         data-merchant = "<?php echo ($merchant) ? 'dijual oleh ' . $merchant : ''; ?>"
                                         data-id="<?php echo $product->getId(); ?>"
                                         ><i class="fa fa-heart"></i></a>
