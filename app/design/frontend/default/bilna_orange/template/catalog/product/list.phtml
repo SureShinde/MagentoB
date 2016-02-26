@@ -196,7 +196,7 @@ $j(document).ready(function(){
 											<a class="link-cart-special" href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($_product->getName(), null, true) ?>"><i class="fa fa-cart-plus"></i><?php echo $this->__('Tambah ke troli') ?></a>
                                             
 										<?php else: ?>
-											<button type="button" title="<?php echo $this->__('Tambah ke troli') ?>" class="button btn-cart pos-abs" onclick="setLocation('<?php echo $this->getAddToCartUrl($_product) ?>'); ecommerceAddToCart('<?php echo $_escape_helper->escapeQuote($_product->getName()) ?>','<?php echo $_product->getSku() ?>','<?php echo $_product->getPrice() ?>','<?php echo $_product->getProductUrl() ?>','<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(135); ?>');"><i class="fa fa-cart-plus"></i><?php echo $this->__('Tambah ke troli') ?></button>
+											<button type="button" title="<?php echo $this->__('Tambah ke troli') ?>" class="button btn-cart pos-abs" onclick="setLocation('<?php echo $this->getAddToCartUrl($_product) ?>'); ecommerceAddToCart('<?php echo $_escape_helper->escapeQuote($_product->getName()) ?>','<?php echo $_product->getSku() ?>','<?php echo $_product->getPrice() ?>','<?php echo $_escape_helper->rupiahPriceCommaFormatted($_product->getPrice()) ?>','<?php echo $_product->getProductUrl() ?>','<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(135); ?>');"><i class="fa fa-cart-plus"></i><?php echo $this->__('Tambah ke troli') ?></button>
 										<?php endif; ?>
 									<?php else: ?>
 										<p class="availability out-of-stock"><span><a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($_product->getName(), null, true) ?>"><?php echo $this->__('Kabari bila tersedia') ?></a></span></p>
@@ -276,7 +276,7 @@ $j(document).ready(function(){
                 list = "search results";
             }
 
-            function ecommerceAddToCart(name, sku, price, link, imageUrl) {
+            function ecommerceAddToCart(name, sku, price, price_ematic, link, imageUrl) {
                 dataLayer.push({
                   'event': 'addToCart',
                   'ecommerce': {
@@ -330,7 +330,7 @@ $j(document).ready(function(){
                 else {    // no same item
                     products.push({
                       'id': sku,
-                      'price': price,
+                      'price': price_ematic,
                       'quantity': 1,
                       'name': name,
                       'brandName': 'brand name',
