@@ -846,6 +846,8 @@ Payment.prototype = {
                         jQuery('#payment_form_' + currPayment + ' #' + currPayment + '_cc_bins').val(cardNo.substring(0,6));
                         jQuery('#payment_form_' + currPayment + ' #' + currPayment + '_acquired_bank').val(response.data.acquired_bank);
                         jQuery('#payment_form_' + currPayment + ' #' + currPayment + '_secure').val(response.data.secure);
+                        jQuery('#payment_form_' + currPayment + ' #' + currPayment + '_secure_acquired_bank').val(response.data.secure_acquired_bank);
+                        jQuery('#payment_form_' + currPayment + ' #' + currPayment + '_secure_min').val(response.data.secure_min);
                         jQuery('#payment_form_' + currPayment + ' #' + currPayment + '_installment_process').val(response.data.installment_process);
                         responseStatus = true;
                     }
@@ -1133,6 +1135,8 @@ Veritrans.client_key = vtDirectClientKey; // please add client-key from veritran
 
 function _cardSet() {
     var currPayment = payment.currentMethod;
+    var grossAmount = parseInt(jQuery('#gross_amount').val());
+    var secureMin = parseInt(jQuery('#payment_form_' + currPayment + ' #' + currPayment + '_secure_min').val());
     var result = {};
     result['card_number'] = jQuery('#payment_form_' + currPayment + ' input.card-number').val();
     result['card_exp_month'] = jQuery('#payment_form_' + currPayment + ' select.card-expiry-month').val();
@@ -1141,10 +1145,17 @@ function _cardSet() {
     
     // 3d secure
     if (jQuery('#payment_form_' + currPayment + ' #' + currPayment + '_secure').val() == 1) {
-        result['secure'] = true;
+        result['secure'] = (grossAmount >= secureMin);
     }
     else {
         result['secure'] = false;
+    }
+    
+    if (result['secure'] == false) {
+        result['bank'] = jQuery('#payment_form_' + currPayment + ' #' + currPayment + '_acquired_bank').val();
+    }
+    else {
+        result['bank'] = jQuery('#payment_form_' + currPayment + ' #' + currPayment + '_secure_acquired_bank').val();
     }
     
     // installment-term
@@ -1157,10 +1168,7 @@ function _cardSet() {
         }
     }
     
-    result['bank'] = jQuery('#payment_form_' + currPayment + ' #' + currPayment + '_acquired_bank').val();
-    result['gross_amount'] = jQuery('#gross_amount').val();
-    
-    //console.log('request: ' + JSON.stringify(result));
+    result['gross_amount'] = grossAmount;
     
     return result;
 };

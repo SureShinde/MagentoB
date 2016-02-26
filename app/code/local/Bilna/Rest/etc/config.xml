@@ -1,7 +1,7 @@
 <config>
     <modules>
         <Bilna_Rest>
-            <version>0.5.0</version>
+            <version>0.6.0</version>
         </Bilna_Rest>
     </modules>
     <global>
@@ -26,4 +26,30 @@
             </bilna_rest_setup>
         </resources>
     </global>
+    
+    <adminhtml>
+        <acl>
+            <resources>
+                <all>
+                    <title>Allow Everything</title>
+                </all>
+                
+                <admin>
+                    <children>
+                        <logan translate="title">
+                            <title>Bilna Logan</title>
+                            <sort_order>10</sort_order>
+                            
+                            <children>
+                                <frontend translate="title">
+                                    <title>Frontend</title>
+                                    <sort_order>10</sort_order>
+                                </frontend>
+                            </children>
+                        </logan>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+    </adminhtml>
 </config>
