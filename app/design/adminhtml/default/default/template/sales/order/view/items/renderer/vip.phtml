@@ -38,8 +38,8 @@
         </div>
     <?php endif ?>
     </td>
+    <td class="a-center"><?php echo ($_item->getIsExpressShipping() == 1) ? $this->__('Yes') : $this->__('No'); ?></td>
     <td class="a-center"><?php echo $_item->getStatus() ?></td>
-    <td class="a-center">Yes / No</td>
     <td class="a-right"><?php echo $this->displayPriceAttribute('original_price') ?></td>
     <td class="a-right">
         <?php if ($this->helper('tax')->displaySalesBothPrices() || $this->helper('tax')->displaySalesPriceExclTax()): ?>
