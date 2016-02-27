@@ -44,7 +44,7 @@
                 data-brand-name="<?php echo $brand; ?>"
                 data-image="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(320, 320); ?>"
                 data-product-name="<?php echo $this->stripTags($_product->getName(), null, true); ?>"
-                data-price="<?php echo 'Rp. ' . number_format($_product->getPrice(), 0, '', '.'); ?>"
+                data-price="<?php echo 'Rp ' . number_format(round($_product->getFinalPrice()), 0, '', '.'); ?>"
                 data-merchant = "<?php echo ($merchant) ? 'dijual oleh ' . $merchant : ''; ?>"
                 data-id="<?php echo $_product->getId(); ?>"
                 ><i class="fa fa-heart"></i></a>
