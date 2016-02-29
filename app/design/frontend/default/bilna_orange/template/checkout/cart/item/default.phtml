@@ -401,5 +401,5 @@ $_escape_helper = Mage::helper('catalog/utils');
         <?php endif; ?>
     </td>
     <?php endif; ?>
-    <td class="a-right"><a onClick="ecommerceRemoveCart('<?php echo $_escape_helper->escapeQuote($this->getProductName()); ?>','<?php echo $_item->getSku() ?>','<?php echo $_item->getCalculationPrice() ?>','<?php echo $this->getQty() ?>','<?php echo $this->getProductThumbnail()->resize(75); ?>','<?php echo $this->getProductUrl() ?>');" href="<?php echo $this->getDeleteUrl()?>" title="<?php echo $this->__('Remove item')?>" class="remove-item"><i class="fa fa-times-circle"></i></a></td>
+    <td class="a-right"><a onClick="ecommerceRemoveCart('<?php echo $_escape_helper->escapeQuote($this->getProductName()); ?>','<?php echo $_item->getSku() ?>','<?php echo $_item->getCalculationPrice() ?>','<?php echo Mage::helper('core')->currency($_item->getCalculationPrice(), true, false) ?>','<?php echo $this->getQty() ?>','<?php echo $this->getProductThumbnail()->resize(75); ?>','<?php echo $this->getProductUrl() ?>');" href="<?php echo $this->getDeleteUrl()?>" title="<?php echo $this->__('Remove item')?>" class="remove-item"><i class="fa fa-times-circle"></i></a></td>
 </tr>
