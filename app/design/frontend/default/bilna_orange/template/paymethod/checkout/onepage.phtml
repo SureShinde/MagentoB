@@ -85,40 +85,60 @@
     //]]>
 
     function ecommercePurchases() {
-        var temp_grandTotal = jQuery("td#grand_total-onepage span.price").text().replace("Rp","");
-        temp_grandTotal = temp_grandTotal.replace(",","");
-        // ematic - preparing for logging
-        products = [
-            <?php
-                $itr_name = 0;
-                for ($itr = 0 ; $itr <= count($productCollection)-1 ; $itr++) {
-                if ($valueCollection[$itr] != 0) {
-                    echo '{"id":"'.$skuCollection[$itr].'","name":jQuery("#checkout-review-table tbody tr td h3").eq('.$itr_name.').text() , "price":"'.$valueCollection[$itr].'", "quantity":'.$qtyCollection[$itr].'}';
-                    if(($itr+1) < count($productCollection)) {
-                        echo ",";
-                    }
-                    $itr_name++;
-                }
-            }
-            ?>
-        ];
-        dataLayer.push({
-          'event': 'purchase',
-          'eventCategory':'ecommerce',
-          'eventAction':'purchase',
-          'ecommerce': {
-            'purchase': {
-              'actionField': {
-                'id' : 'default_id',
-                'list' : 'browsing'
-              },
-              'products' : products
-            }
-          }
-        });
+        var temp_container = {
+            'event': 'checkout',
+            'ecommerce': {
+              'checkout': {
+                'actionField': {
+                    'step' : 1,
+                    'list' : 'browsing'
+                },
+                'products': []
+             }
+           }
+        }
 
-        //track conversion
+        // ematics cart - retrieve items from cart
+        var temp_cart = [];
+        var temp_item = "";
+        var index_removeditem = "";
+        var temp_cartQty = jQuery(".mini-cart span#ematiccart").length;
+        for (var itr=0; itr < temp_cartQty; itr++) {
+            temp_item = jQuery(".mini-cart span#ematiccart").eq(itr).text();
+            temp_cart[itr] = temp_item.split("|");
+        }
+
+        // ematics cart - prepare for logging
+        products = [
+        <?php for($i=0; $i<count($cartItems); $i++) {
+            echo "{'name' : temp_cart[".$i."][0],";
+            echo "'id' : temp_cart[".$i."][1],";
+            echo "'price' : temp_cart[".$i."][3],";
+            echo "'quantity' : temp_cart[".$i."][4],";
+            echo "'brandName' : 'brand name',";
+            echo "'imageUrl' : temp_cart[".$i."][5],";
+            echo "'link' : temp_cart[".$i."][6]}";if($i != count($cartItems)-1) {echo ",";}
+        } 
+        ?>
+        ];
+
+        // ematics track convert
         ematics("log", "product", "convert", products);
+
+        // universal analytics
+        temp_container.ecommerce.checkout.products.push(
+            <?php for($i=0; $i<count($cartItems); $i++) {
+                echo "{'name' : temp_cart[".$i."][0],";
+                echo "'sku' : temp_cart[".$i."][1],";
+                echo "'price' : temp_cart[".$i."][2],";
+                echo "'quantity' : temp_cart[".$i."][4],";
+                echo "'brandName' : 'brand name',";
+                echo "'imageUrl' : temp_cart[".$i."][5],";
+                echo "'link' : temp_cart[".$i."][6]}";if($i != count($cartItems)-1) {echo ",";}
+            } 
+            ?>
+        );
+        dataLayer.push(temp_container);
     }
 </script>
 

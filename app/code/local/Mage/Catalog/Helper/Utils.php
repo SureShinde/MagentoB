@@ -37,8 +37,4 @@ class Mage_Catalog_Helper_Utils extends Mage_Core_Helper_Abstract
     public function escapeQuote ($string) {
         return str_replace("'","\'",str_replace('"','&quot;',$string));
     }
-
-    public function rupiahPriceCommaFormatted ($string) {
-    	return "Rp " . number_format($string,2);
-    }
 }

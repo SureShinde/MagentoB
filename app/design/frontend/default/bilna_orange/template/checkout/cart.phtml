@@ -368,7 +368,36 @@
     }
 ?>
 <script type="text/javascript">
-function ecommerceCheckout0() {
+function ecommerceCheckout0_pageload() {			// call ematic cart
+	// ematics cart - retrieve items from cart
+    var temp_cart = [];
+    var temp_item = "";
+    var index_removeditem = "";
+    var temp_cartQty = jQuery(".mini-cart span#ematiccart").length;
+    for (var itr=0; itr < temp_cartQty; itr++) {
+    	temp_item = jQuery(".mini-cart span#ematiccart").eq(itr).text();
+    	temp_cart[itr] = temp_item.split("|");
+    }
+
+	// ematics cart - prepare for logging
+    products = [
+    <?php for($i=0; $i<$itemQty; $i++) {
+    	echo "{'name' : temp_cart[".$i."][0],";
+    	echo "'id' : temp_cart[".$i."][1],";
+    	echo "'price' : temp_cart[".$i."][3],";
+    	echo "'quantity' : temp_cart[".$i."][4],";
+    	echo "'brandName' : 'brand name',";
+    	echo "'imageUrl' : temp_cart[".$i."][5],";
+    	echo "'link' : temp_cart[".$i."][6]}";if($i != $itemQty-1) {echo ",";}
+    } 
+    ?>
+    ];
+
+    // ematics cart
+	ematics("log", "product", "cart", products);
+}
+
+function ecommerceCheckout0_buttonclicked() {
 	var temp_container = {
 		'event': 'checkout',
 	    'ecommerce': {
@@ -397,11 +426,11 @@ function ecommerceCheckout0() {
     <?php for($i=0; $i<$itemQty; $i++) {
     	echo "{'name' : temp_cart[".$i."][0],";
     	echo "'id' : temp_cart[".$i."][1],";
-    	echo "'price' : temp_cart[".$i."][2],";
-    	echo "'quantity' : temp_cart[".$i."][3],";
+    	echo "'price' : temp_cart[".$i."][3],";
+    	echo "'quantity' : temp_cart[".$i."][4],";
     	echo "'brandName' : 'brand name',";
-    	echo "'imageUrl' : temp_cart[".$i."][4],";
-    	echo "'link' : temp_cart[".$i."][5]}";if($i != $itemQty-1) {echo ",";}
+    	echo "'imageUrl' : temp_cart[".$i."][5],";
+    	echo "'link' : temp_cart[".$i."][6]}";if($i != $itemQty-1) {echo ",";}
     } 
     ?>
     ];
@@ -415,17 +444,17 @@ function ecommerceCheckout0() {
 	    	echo "{'name' : temp_cart[".$i."][0],";
 	    	echo "'sku' : temp_cart[".$i."][1],";
 	    	echo "'price' : temp_cart[".$i."][2],";
-	    	echo "'quantity' : temp_cart[".$i."][3],";
+	    	echo "'quantity' : temp_cart[".$i."][4],";
 	    	echo "'brandName' : 'brand name',";
-	    	echo "'imageUrl' : temp_cart[".$i."][4],";
-	    	echo "'link' : temp_cart[".$i."][5]}";if($i != $itemQty-1) {echo ",";}
+	    	echo "'imageUrl' : temp_cart[".$i."][5],";
+	    	echo "'link' : temp_cart[".$i."][6]}";if($i != $itemQty-1) {echo ",";}
 	    } 
 	    ?>
     	);
     dataLayer.push(temp_container);
 }
 
-function ecommerceRemoveCart(name, sku, price, quantity, imageUrl, link) {
+function ecommerceRemoveCart(name, sku, price, price_ematic, quantity, imageUrl, link) {
     // alert("HURRY_CART"+name+" "+price+" "+quantity);
     dataLayer.push({
 	  'event': 'removeFromCart',
@@ -466,11 +495,11 @@ function ecommerceRemoveCart(name, sku, price, quantity, imageUrl, link) {
     <?php for($i=0; $i<$itemQty-1; $i++) {
     	echo "{'name' : temp_cart[".$i."][0],";
     	echo "'id' : temp_cart[".$i."][1],";
-    	echo "'price' : temp_cart[".$i."][2],";
-    	echo "'quantity' : temp_cart[".$i."][3],";
+    	echo "'price' : temp_cart[".$i."][3],";
+    	echo "'quantity' : temp_cart[".$i."][4],";
     	echo "'brandName' : 'brand name',";
-    	echo "'imageUrl' : temp_cart[".$i."][4],";
-    	echo "'link' : temp_cart[".$i."][5]}";if($i != $itemQty-2) {echo ",";}
+    	echo "'imageUrl' : temp_cart[".$i."][5],";
+    	echo "'link' : temp_cart[".$i."][6]}";if($i != $itemQty-2) {echo ",";}
     } 
     ?>
     ];
@@ -503,6 +532,8 @@ jQuery(document).ready(function () {
 				dataLayer.push( {'skuid': response.data.quote.productSkuIds} );
 				dataLayer.push( {'prices': response.data.quote.productPrices} );
 				dataLayer.push( {'quantities': response.data.quote.productQtys} );
+
+				ecommerceCheckout0_pageload();
             }else{
                 return false;
             }
