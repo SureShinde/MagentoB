@@ -37,6 +37,13 @@
             <ul>
             <?php $_sole = $_sole && count($_rates) == 1; foreach ($_rates as $_rate): ?>
                 <?php $shippingCodePrice[] = "'".$_rate->getCode()."':".(float)$_rate->getPrice(); ?>
+                <?php 
+                // if current shipping method is Express, check whether all the items can be express-shipped
+                if ( (strpos(strtolower($_rate->getCode()), 'express_shipping') !== false) ):
+                    if (!$this->showExpressShippingMethod())
+                        continue;
+                ?>
+                <?php endif ?>
                 <li>
                    <?php if ($_rate->getErrorMessage()): ?>
                     <ul class="messages"><li class="error-msg"><ul><li><?php echo $this->escapeHtml($_rate->getErrorMessage()) ?></li></ul></li></ul>
