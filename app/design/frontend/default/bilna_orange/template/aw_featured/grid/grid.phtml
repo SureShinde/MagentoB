@@ -31,28 +31,50 @@
 <?php $_abstractBlock = $this->helper('awfeatured')->getAbstractProductBlock() ?>
 <div class="awfeatured awafpgrid" id="<?php echo $this->getUniqueBlockId() ?>" style="<?php echo $this->getContainerStyleString() ?>">
     <?php $_i = $_ulOpened = $_ulClosed = 0; ?>
-    <?php foreach($this->getProductsCollection() as $_product) : ?>
+    <?php $_iterates=0;foreach($this->getProductsCollection() as $_product) : ?>
         <?php $sku[] = $_product->getSku(); ?>
         <?php $productName[] = $_product->getName(); ?>
         <?php $productPrice[] = $_product->getPrice(); ?>
         <?php $skuCollection = array(); ?>
         <?php if($_i % $this->getItemsPerRow() == 0) : ?>
         <?php $_ulOpened++ ?>
-        <ul>
+        <ul class="products-grid">
         <!-- row begins -->
         <?php endif ?>
         <?php
             $skuCollection[] = $_product->getId();
         ?>
-            <li style="width: <?php echo $this->getItemWidth() ?>%">
+            <li class="item" style="width: <?php echo $this->getItemWidth() ?>%">
 				<div class="top_thumb_list_product">
+                    <a alt="<?php echo $this->__('tambah ke koleksi') ?>" href="javascript:;" class="link-wishlist addToCollectionLink" onclick="showAddToCollectionDialog()" data-brand-name="<?php echo $_product->getAttributeText('brand'); ?>" data-image="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(320 , 320); ?>" data-product-name="<?php echo $this->stripTags($_product->getName(), null, true); ?>" data-price="<?php echo 'Rp ' . number_format(round($_product->getFinalPrice()), 0, '', '.'); ?>" data-id="<?php echo $_product->getId(); ?>"><i class="fa fa-heart"></i>
+                    <span class="poper poper<?php echo $_iterates; ?>"> </span>
+                    <span class="check-to-clicking check-to-clicking<?php echo $_iterates;?>">tambah ke koleksi</span></a>
+                    <style>
+                        .pop-it<?php echo $_iterates;?>
+                        {
+                          opacity: 1 !important;
+                        }
+                    </style>
+                    <script language="javascript">
+
+                     $j(document).ready(function() {
+
+                      $j(".poper<?php echo $_iterates;?>").on ('mouseover', function(){
+                          $j(".check-to-clicking<?php echo $_iterates;?>").addClass('pop-it<?php echo $_iterates;?>');
+                        });
+                      $j(".poper<?php echo $_iterates;?>").on ('mouseout', function(){
+                          $j(".check-to-clicking<?php echo $_iterates;?>").removeClass('pop-it<?php echo $_iterates;?>');
+                        });
+
+                      });
+                      </script>
                 <!-- product item begin -->
                 <?php $_imageSrc = Mage::helper('awfeatured/images')->getProductImage($_product, $_product->getData('image_id'))->resize(152,152) ?>
                 <?php if($_imageSrc) : ?>
                 <div class="afp-thumbnail">
                     <?php if($_onSaleHelper->isOnsale()) echo $_onSaleHelper->startOnsale($_product, $_imageQsize) ?>
                     <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($_abstractBlock->getImageLabel($_product, 'small_image'), null, true) ?>" class="product-image" onclick="ecommerceStaticBlockProductClick('<?php echo $_escape_helper->escapeQuote($_product->getName()) ?>','<?php echo $_product->getSku() ?>','<?php echo $_product->getPrice() ?>','browsing');">
-                        <img class="lazy" data-src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(135); ?>" alt="<?php echo $this->stripTags($_abstractBlock->getImageLabel($_product, 'small_image'), null, true) ?>" />
+                        <img class="lazy" data-src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(152); ?>" alt="<?php echo $this->stripTags($_abstractBlock->getImageLabel($_product, 'small_image'), null, true) ?>" />
                         <span class="loader"><img class="loader-img" src="<?php echo $this->getSkinUrl('images/loading.gif') ?>"></span>
                     </a>
                     <?php if($_onSaleHelper->isOnsale()) echo $_onSaleHelper->endOnsale() ?>
@@ -105,7 +127,7 @@
                     <?php if($_product->getTypeId() != 'simple'):?>
                         <p><a class="link-cart-special" href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($_product->getName(), null, true) ?>"><i class="fa fa-cart-plus"></i><?php echo $this->__('Tambah ke troli') ?></a></p>
                         <?php else:?>
-						<p><button type="button" title="<?php echo $this->__('Tambah ke troli') ?>" class="button btn-buynow" onclick="setLocation('<?php echo $_abstractBlock->getAddToCartUrl($_product) ?>'); ecommerceStaticBlockAddToCart('<?php echo $_escape_helper->escapeQuote($_product->getName()); ?>','<?php echo $_product->getSku(); ?>','<?php echo $_product->getPrice() ?>','browsing');"><i class="fa fa-cart-plus"></i><?php echo $this->__('Tambah ke troli') ?></button></p>
+						<p><button type="button" title="<?php echo $this->__('Tambah ke troli') ?>" class="button btn-buynow" onclick="setLocation('<?php echo $_abstractBlock->getAddToCartUrl($_product) ?>'); ecommerceStaticBlockAddToCart('<?php echo $_escape_helper->escapeQuote($_product->getName()); ?>','<?php echo $_product->getSku(); ?>','<?php echo $_product->getPrice() ?>','browsing','<?php echo $_product->getProductUrl() ?>','<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(152); ?>');"><i class="fa fa-cart-plus"></i><?php echo $this->__('Tambah ke troli') ?></button></p>
 						<?php endif;?>
 						<?php else : ?>
 						<p class="availability out-of-stock"><span><a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($_product->getName(), null, true) ?>"><?php echo $this->__('Kabari bila tersedia') ?></a></span></p>
@@ -287,8 +309,8 @@
         }
     });
 
-    function ecommerceStaticBlockAddToCart(name, sku, price, list) {
-        //alert("HURRY_ADDCART_HOMEPAGE "+name+" "+sku+" "+price+" "+list);
+    function ecommerceStaticBlockAddToCart(name, sku, price, list, link, imageUrl) {
+        // console.log("ECOMMERCE_StaticBlock_AddToCart_Ematics "+name+" "+sku+" "+price+" "+list+" "+link+" "+imageUrl);
         dataLayer.push({
           'event': 'addToCart',
           'ecommerce': {
@@ -300,11 +322,27 @@
                 'id': sku,
                 'price': price,
                 'quantity': 1,
-                'category': '<?php echo (!empty($category)) ? $category : 'Default Category';?>'
+                'category': '<?php echo (!empty($category)) ? $category : 'Default Category';?>',
+                'brandName': 'brand name',
+                'imageUrl': imageUrl,
+                'link': link
                }]
             }
           }
         });
+
+        // ematics cart - prepare for logging
+        products = [{
+            'id': sku,
+            'price': price,
+            'quantity': 1,
+            'name': name,
+            'brandName': 'brand name',
+            'imageUrl': imageUrl,
+            'link': link
+        }];
+        // ematics track items in cart to enable pre-abandonded cart overlays
+        ematics("log", "product", "cart", products);
     }
 
     function ecommerceStaticBlockProductClick(name,sku,price,list) {

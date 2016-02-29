@@ -4,7 +4,7 @@
 		$j(".megamenu.megamenu-active img, .homepage-banner img").lazyload({
 			skip_invisible : true
 		});
-		$j(".first-level > ul > li").hover(function(){
+		$j(".megamenu .first-level > ul > li").hover(function(){
 			$j(".homepage-banner .first-level-cat.hover-cat img, .megamenu.megamenu-active .first-level-cat.hover-cat img").lazyload();
         });
 	});
@@ -22,22 +22,22 @@
         };
     });
     $j(document).ready(function() {
-        $j(".first-level > ul").hover(function() {
+        $j(".megamenu .first-level > ul").hover(function() {
             $j('.menu-navigation .megamenu').toggleClass("show_banner");
         });
-        $j(".first-level > ul > li").hover(function() {
+        $j(".megamenu .first-level > ul > li").hover(function() {
             $j('.first-level > ul > li').removeClass("hover-cat");
             $j(this).addClass("hover-cat");
         });
-        $j(".first-level > ul").mouseleave(function() {
+        $j(".megamenu .first-level > ul").mouseleave(function() {
             $j('.first-level > ul > li').removeClass("hover-cat");
         });
-        $j('.first-level-url').click(function() {
+        $j('.megamenu .first-level-url').click(function() {
 			if($j(this).parent().hasClass("hover-cat") ){
 				window.location.href = $j(this).attr("data-href");
 			}else{
-				$j('.first-level > ul > li.active-cat .second-level').hide();
-				$j('.first-level > ul > li').removeClass("hover-cat");
+				$j('.megamenu .first-level > ul > li.active-cat .second-level').hide();
+				$j('.megamenu .first-level > ul > li').removeClass("hover-cat");
 				$j(this).parent().addClass("hover-cat");
 			}
         });

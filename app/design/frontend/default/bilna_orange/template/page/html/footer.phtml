@@ -28,12 +28,7 @@
     <div class="footer">
         <div class="cs-info col-5">
             <img src="<?php echo $this->getSkinUrl('images/cs.png'); ?>">
-            <p>
-                <span class="que">Butuh Bantuan ?</span>
-                <span class="phone"><?php echo Mage::getStoreConfig('general/store_information/phone')?></span>
-                <span class="day">Senin-Jumat 08.00-19.00. Sabtu 08.00-17.00</span>
-                <span class="email">cs@bilna.com</span>
-            </p>
+            <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('csinformation')->toHtml(); ?>
         </div>
 		<div class="subscribe-form col-10">
 			<p>Berlangganan Newsletter Bilna</p>
@@ -79,9 +74,130 @@
         </div>
     </div>
 </div>
+</div>
 
 <script type="text/javascript">
     jQuery(document).ready(function() {
         dataLayer.push({ 'event': 'event_all' });
     });
 </script>
+
+      <script>
+
+
+      jQuery(document).ready(function() {
+
+        /*if (! jQuery.cookie("newsletter_subscribed")) {
+          jQuery("#newsletter-registration-form-overlay").fadeIn(500);
+
+          jQuery.cookie("newsletter_subscribed", 1, {expires : 1});
+        }*/
+          
+        jQuery("#newsletter-registration-close").click(function() {
+          jQuery("#newsletter-registration-form-overlay").fadeOut(300);
+        });
+
+        jQuery('.hovering-gift').click(function() {
+          jQuery("#newsletter-registration-form-overlay").fadeIn(300);
+        });
+
+        jQuery('.hovering-closer').click(function() {
+          jQuery(".closer-all").fadeOut(300);
+        });
+
+        jQuery('.newsletter-ajax-form').submit(function (e) {
+          e.preventDefault();
+          var submissionData = jQuery(this).serialize();
+          jQuery('.newsletter-ajax-disable').attr('disabled', true);
+          jQuery.getJSON(
+            this.action + "?callback=?",
+            submissionData,
+            function (data) {
+
+              if (data.Status === 400) {
+                jQuery('#newsletter-ajax-message').html("Error: " + data.Message);
+              } else {
+
+                jQuery(':input', '.newsletter-ajax-form')
+                .not(':button, :submit, :reset, :hidden')
+                .val('')
+                .removeAttr('checked')
+                .removeAttr('selected');
+
+                dataLayer.push({'event': 'subscribe'})
+
+                jQuery('#newsletter-ajax-message').html("Success: " + data.Message);
+              }
+              jQuery('.leanModalTrigger').click();
+              jQuery("#newsletter-registration-form-overlay").fadeOut(300);
+              jQuery('.newsletter-ajax-disable').attr('disabled', false);
+            }
+            );
+        });
+
+});
+
+</script>
+
+
+<?php # Criteo start ?>
+
+<?php if (! isset($criteo_email)) : ?>
+  <?php $criteo_email = "'emailaddress': '',"; ?>
+  <?php # Check if visitor logged in ?>
+  <?php if (Mage::getSingleton('customer/session')->isLoggedIn()) : ?>
+  <?php $customer = Mage::getSingleton('customer/session')->getCustomer(); ?>
+  <?php $criteo_email = "'emailaddress': '" . md5(strtolower(trim($customer->getEmail()))) . "',"; ?>
+<?php endif; ?>
+<?php endif; ?>
+
+<?php # Check page location case by case ?>
+
+<?php if (Mage::getSingleton('cms/page')->getIdentifier() == 'home' && Mage::app()->getFrontController()->getRequest()->getRouteName() == 'cms') : ?>
+  <?php # Home Page ?>
+  <script>
+        // Criteo
+        dataLayer.push({
+          'event': 'homepageView',
+          <?php echo $criteo_email; ?>
+          'sitetype': 'd'
+        });
+        </script>
+      <?php endif; ?>
+
+      <?php # Criteo end ?>
+
+      <script>
+      <?php # Language cookie ?>
+      jQuery(document).ready(function() {
+        /*jQuery.cookie("userlang", "<?php echo Mage::app()->getLocale()->getLocaleCode(); ?>", {path: "/"});
+        
+        
+        if (jQuery.cookie('test_status') != '1') {
+
+          jQuery('#over-main').show();
+        }*/
+
+
+        jQuery('#closer-main').click(function(){
+
+          jQuery('#over-main').hide();
+          jQuery.cookie('test_status', '1', { expires: 1});
+        });
+      });
+      </script>
+      <?php if ($accessTrade = Mage::getSingleton('core/session')->getAccessTrade()) : ?>
+      <?php $customer = Mage::getSingleton('customer/session')->getCustomer(); ?>
+      <img src="https://cv.accesstrade.co.id/cv.php?identifier=<?php echo urlencode($customer->getEmail()); ?>&mcn=149e9677a5989fd342ae44213df68868&result_id=13" width="1" height="1" />
+      <?php Mage::getSingleton('core/session')->unsAccessTrade(); ?>
+    <?php endif; ?>
+
+    <?php # Bluecore ?>
+    <?php if (Mage::getSingleton('customer/session')->isLoggedIn()) : ?>
+    <?php $customer = Mage::getSingleton('customer/session')->getCustomer(); ?>
+    <script>
+    var triggermail_email_address = '<?php echo $customer->getEmail(); ?>';
+    </script>
+  <?php endif; ?>
+
+  <?php /*echo $this->getLayout()->createBlock('cms/block')->setBlockId('bottom_banner')->toHtml() */?>

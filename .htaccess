@@ -9,7 +9,7 @@
 ############################################
 ## GoDaddy specific options
 
-#   Options -MultiViews
+   Options -MultiViews
 
 ## you might also need to add this line to php.ini
 ##     cgi.fix_pathinfo = 1
@@ -32,8 +32,7 @@
 ## adjust memory limit
 
 #    php_value memory_limit 64M
-    #php_value memory_limit 256M
-    php_value memory_limit 2048M
+    php_value memory_limit 256M
     php_value max_execution_time 18000
 
 ############################################
@@ -136,7 +135,11 @@
 ############################################
 ## rewrite API2 calls to api.php (by now it is REST only)
 
-    RewriteRule ^api/rest api.php?type=rest [QSA,L]
+    #RewriteRule ^api/rest api.php?type=rest [QSA,L]
+
+	#### user collections orami
+	RedirectMatch 301 ^\/user(\/?)$ /user/profile/
+	RewriteRule ^collections/([^\/]+)\/?$ /user/profile/collection/?id=$1 [L,R=301]
 
 ############################################
 ## workaround for HTTP authorization

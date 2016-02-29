@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<config>
+    <tabs>
+        <bilna translate="label" module="sendreport">
+            <label>Bilna Extensions</label>
+        </bilna>
+    </tabs>
+        
+    <sections>
+        <bilna_sendreport translate="label" module="sendreport">
+            <label>Send Report</label>
+            <tab>bilna</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>30</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <sendreport translate="label"> 
+                    <label>Send Report Setting</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>0</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <sender_email translate="label">
+                            <label>Sender Email</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>0</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </sender_email>
+                        <sender_name translate="label">
+                            <label>Sender Name</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </sender_name>
+                        <receiver_email translate="label">
+                            <label>Receiver Email</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>separated with comma</comment>
+                        </receiver_email>
+                        <action translate="label">
+                            <label>Action</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>sendreport/system_config_sendorview</source_model>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>Select only show or send the report (for debuging purpose).</comment>
+                        </action>
+                    </fields>
+                </sendreport>
+            </groups>
+        </bilna_sendreport>
+    </sections>
+</config>

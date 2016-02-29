@@ -34,19 +34,19 @@
 <?php $gtmItemIds = ''; ?>
 <input type="hidden" id="3rdparty-type" value="cart"/>
 <input type="hidden" id="3rdparty-value" value="" />
-<div class="cart">	
+<div class="cart">
     <div class="shopping-cart" rowspan="<?php echo $mergedCells; ?>">
         <span class="title"><?php echo $this->__('Shopping Cart') ?></span>
         <div class="continue-shopping">
             <?php if($this->getContinueShoppingUrl()): ?>
-                <button type="button" title="<?php echo $this->__('Continue Shopping') ?>" class="button btn-continue" onclick="setLocation('<?php echo $this->getContinueShoppingUrl() ?>')"><span><span><i class="fa fa-arrow-circle-left"></i></i><?php echo $this->__('Continue Shopping') ?></span></span></button>
-            <?php endif; ?>								
+                <button type="button" title="<?php echo $this->__('Continue Shopping') ?>" class="button btn-continue" onclick="setLocation('<?php echo Mage::helper('core')->quoteEscape($this->getContinueShoppingUrl()) ?>')"><span><span><i class="fa fa-arrow-circle-left"></i></i><?php echo $this->__('Continue Shopping') ?></span></span></button>
+            <?php endif; ?>
         </div>
     </div>
     <div class="cart-left">
         <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
         <?php echo $this->getChildHtml('form_before') ?>
-	
+
         <form action="<?php echo $this->getUrl('checkout/cart/updatePost') ?>" method="post">
             <fieldset>
                 <table id="shopping-cart-table" class="data-table cart-table">
@@ -86,7 +86,7 @@
                             <th class="a-right subtotal" colspan="<?php echo $mergedCells; ?>"><span><?php echo $this->__('Subtotal') ?></span></th>
                             <th class="a-right remove" rowspan="<?php echo $mergedCells; ?>"><span><?php echo $this->__('Remove') ?></span></th>
                         </tr>
-                        
+
                         <?php if ($this->helper('tax')->displayCartBothPrices()): ?>
                             <tr>
                                 <th class="a-right"><?php echo $this->helper('tax')->getIncExcTaxLabel(false) ?></th>
@@ -96,7 +96,7 @@
 	                    </tr>
                         <?php endif; ?>
                     </thead>
-                    
+
                     <tfoot>
                         <tr>
                             <td colspan="10" class="a-right">
@@ -135,10 +135,10 @@
                 <script type="text/javascript">decorateTable('shopping-cart-table')</script>
             </fieldset>
         </form>
-        
-        
+
+
 		<div class="continue-checkout">
-			
+
 			<div class="header-container one-click-checkout">
 				<div class="links">
 					<?php if($this->helper('customer')->isLoggedIn()) : ?>
@@ -147,25 +147,25 @@
 						<a href="/customer/account/login/"><?php echo $this->__('Log in') ?></a>
 						<?php echo $this->__('to turn on One Click Checkout') ?>
 					<?php endif; ?>
-				</div>			
+				</div>
 				<script type="text/javascript">
                     if ( typeof AjaxLogin == 'undefined' ) {
 						AjaxLogin = {};
 					}
-					
+
 					AjaxLogin.BASE_URL_UNSECURE = 'http://local.bilna.com/';
 					AjaxLogin.BASE_URL_SECURE   = 'http://local.bilna.com/';
-					
+
 					AjaxLogin.BASE_URL          = AjaxLogin.BASE_URL_UNSECURE;
-					
-					
+
+
 					/**
-					 * 
+					 *
 					 */
 					AjaxLogin.sameRoutines = function(urlA, urlB) {
 						if ( typeof urlA != 'string' ) urlA = urlA.toString();
 						if ( typeof urlB != 'string' ) urlB = urlB.toString();
-						
+
 						if ( urlA.indexOf(AjaxLogin.BASE_URL_UNSECURE) > -1 ) {
 							__routineA_Parts = urlA.split(AjaxLogin.BASE_URL_UNSECURE).join('').split('/').splice(0, 3);
 						}
@@ -175,7 +175,7 @@
 						else {
 							return false;
 						}
-						
+
 						if ( urlB.indexOf(AjaxLogin.BASE_URL_UNSECURE) > -1 ) {
 							__routineB_Parts = urlB.split(AjaxLogin.BASE_URL_UNSECURE).join('').split('/').splice(0, 3);
 						}
@@ -185,7 +185,7 @@
 						else {
 							return false;
 						}
-						
+
 						for ( var __index = 0; __index < 3; __index++ ) {
 							if ( (typeof __routineA_Parts[__index] == 'undefined') || (!__routineA_Parts[__index]) ) {
 								__routineA_Parts[__index] = 'index';
@@ -194,13 +194,13 @@
 								__routineB_Parts[__index] = 'index';
 							}
 						}
-						
+
 						__routineA = __routineA_Parts.join('/');
 						__routineB = __routineB_Parts.join('/');
-						
+
 						return __routineA == __routineB ? true : false;
 					};
-					
+
 					$$('.header-container .links a').each(
 						function(node) {
 							if ( AjaxLogin.sameRoutines(node.href, 'http://local.bilna.com/customer/account/login/') ) {
@@ -213,12 +213,12 @@
 										var __overlapAuthorizationNode = $$('.al-authorization-container-overlap .al-authorization')[0];
 										var __overlapAuthorizationInstance = AjaxLogin.Authorization.__getInstanceByChildnode(__overlapAuthorizationNode);
 										__overlapAuthorizationInstance.switchToFrame('login');
-										
+
 										if (window.event) window.event.cancelBubble = true;
 										if (window.event) window.event.returnValue = false;
 										event.preventDefault();
 										event.stopPropagation();
-										
+
 										return false;
 									}
 								);
@@ -231,7 +231,7 @@
 										var __overlapAuthorizationNode = $$('.al-authorization-container-overlap .al-authorization')[0];
 										var __overlapAuthorizationInstance = AjaxLogin.Authorization.__getInstanceByChildnode(__overlapAuthorizationNode);
 										__overlapAuthorizationInstance.getFrame('login').logout();
-										
+
 										if (window.event) window.event.cancelBubble = true;
 										if (window.event) window.event.returnValue = false;
 										event.preventDefault();
@@ -250,7 +250,7 @@
 										var __overlapAuthorizationNode = $$('.al-authorization-container-overlap .al-authorization')[0];
 										var __overlapAuthorizationInstance = AjaxLogin.Authorization.__getInstanceByChildnode(__overlapAuthorizationNode);
 										__overlapAuthorizationInstance.switchToFrame('register');
-										
+
 										if (window.event) window.event.cancelBubble = true;
 										if (window.event) window.event.returnValue = false;
 										event.preventDefault();
@@ -261,18 +261,18 @@
 							}
 						}
 					);
-					
-					
+
+
 					/**
-					 * 
+					 *
 					 */
 					if ( typeof window.mainNav == 'function' ) {
 						mainNav("nav", {"show_delay":"100","hide_delay":"100"});
 					}
-					
-					
+
+
 					/**
-					 * 
+					 *
 					 */
 					Event.observe(
 						window,
@@ -280,7 +280,7 @@
 						function() {
 							if (typeof window.customer_dob != 'undefined') {
 								delete window.customer_dob;
-								
+
 								var __rootNode = $$('.customer-dob')[0];
 								new Varien.DateElement(
 									'container',
@@ -299,7 +299,7 @@
 					);
 				</script>
 			</div>
-			
+
 		</div>
 		<div class="shipping-wrap">
 			<?php if (!$this->getIsVirtual()): echo $this->getChildHtml('shipping'); endif; ?>
@@ -383,32 +383,67 @@ function ecommerceCheckout0(sku, price, quantity) {
 	}
 
 	for (var i=0 ; i<jQuery("td.hi-res h2.product-name a").length ; i++) {
+		if (sku.length > jQuery("td.hi-res h2.product-name a").length) {	// check if exist same sku in array
+			if (sku[i] == sku[i+1]) {
+				sku.splice(i, 1);
+			}
+			if (sku[i+1] == sku[i+2]) {
+				sku.splice(i+1, 1);
+			}
+		}
+
 		temp_container.ecommerce.checkout.products.push({
-				  'name' : jQuery("td.hi-res h2.product-name a").eq(i).text(),
+				  'id' : sku[i],
 				  'price' : jQuery("td.a-center.cart-price-td span.cart-price span.price").eq(i).text(),
-				  'quantity' : jQuery("input.input-text.qty").eq(i).val()
+				  'quantity' : jQuery("input.input-text.qty").eq(i).val(),
+				  'name' : jQuery("td.hi-res h2.product-name a").eq(i).text(),
+                  'brandName': 'brand name',
+                  'imageUrl': jQuery("table#shopping-cart-table tbody tr.even td a img").eq(i).attr("src"),
+                  'link': jQuery("table#shopping-cart-table tbody tr.even td a img").eq(i).attr("alt")
 		       });
-		// console.log("lagi bingung "+i+" "+temp_container.ecommerce.checkout.products[i].sku);
 	}
 
     dataLayer.push(temp_container);
+    
+    // ematics checkout - prepare for logging
+    products = temp_container.ecommerce.checkout.products;
+    // ematics track checkout
+	ematics("log", "product", "checkout", products);
 }
 
-function ecommerceRemoveCart(name, sku, price, quantity) {
+function ecommerceRemoveCart(name, sku, price, quantity, imageUrl, link) {
     // alert("HURRY_CART"+name+" "+price+" "+quantity);
     dataLayer.push({
 	  'event': 'removeFromCart',
 	  'ecommerce': {
 	    'remove': {                               // 'remove' actionFieldObject measures.
 	      'products': [{                          //  removing a product to a shopping cart.
-	          'name': name,
-	          'id': sku,
-	          'price': price,
-	          'quantity': quantity
+          	'name': name,
+            'id': sku,
+            'price': price,
+            'quantity': quantity,
+            'brandName': 'brand name',
+            'imageUrl': imageUrl,
+            'link': link
 	      }]
 	    }
 	  }
 	});
+
+	// ematics cart - prepare for logging
+    ematics("log", "product", "cart", 
+        [{
+        'id': sku,
+        'price': price,
+        'quantity': quantity,
+        'name': name,
+        'brandName': 'brand name',
+        'imageUrl': imageUrl,
+        'link': link
+       }]
+    );
+    // ematics track items in cart to enable pre-abandonded cart overlays
+	ematics("log", "product", "cart", products);
 }
 
 jQuery(document).ready(function () {

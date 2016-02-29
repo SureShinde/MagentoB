@@ -170,8 +170,9 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
                     'approval_code' => $charge->approval_code,
                     'created_at'    => date('Y-m-d H:i:s')
                 );
-
-                $pheanstalk = new Pheanstalk('127.0.0.1');
+                
+                $hostname = Mage::getStoreConfig('bilna_queue/beanstalkd_settings/hostname');
+                $pheanstalk = new Pheanstalk($hostname);
                 $pheanstalk
                   ->useTube('invoice')
                   ->put(json_encode($setData));
