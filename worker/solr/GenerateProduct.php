@@ -7,6 +7,8 @@
 
 require_once dirname(__FILE__) . '/../abstract.php';
 
+ini_set('memory_limit', '2046M');
+
 class Bilna_Worker_Solr_GenerateProduct extends Bilna_Worker_Abstract {
     const QUEUE_TASK_CATALOG_PRODUCT_IMAGES = 'SOLR_CATALOG_PRODUCT_IMAGES';
     const QUEUE_TASK_CATALOG_PRODUCT_CONFIG = 'SOLR_CATALOG_PRODUCT_CONFIG';
@@ -14,10 +16,14 @@ class Bilna_Worker_Solr_GenerateProduct extends Bilna_Worker_Abstract {
     const QUEUE_TASK_CATALOG_PRODUCT_DETAIL = 'SOLR_CATALOG_PRODUCT_DETAIL';
     const QUEUE_TASK_CATALOG_PRODUCT_SALES = 'SOLR_CATALOG_PRODUCT_SALES';
 
-    const PRODUCT_IMAGE_SIZE_THUMBNAIL = 60;
-    const PRODUCT_IMAGE_SIZE_HORIZONTAL = 80;
+    //const PRODUCT_IMAGE_SIZE_THUMBNAIL = 60;
+    //const PRODUCT_IMAGE_SIZE_HORIZONTAL = 80;
+    //const PRODUCT_IMAGE_SIZE_VERTICAL = 150;
+    //const PRODUCT_IMAGE_SIZE_DETAIL = 360;
+    const PRODUCT_IMAGE_SIZE_THUMBNAIL = 75;
+    const PRODUCT_IMAGE_SIZE_HORIZONTAL = 150;
     const PRODUCT_IMAGE_SIZE_VERTICAL = 150;
-    const PRODUCT_IMAGE_SIZE_DETAIL = 360;
+    const PRODUCT_IMAGE_SIZE_DETAIL = 265;
     
     protected $_modelProduct;
     protected $_helperProduct;

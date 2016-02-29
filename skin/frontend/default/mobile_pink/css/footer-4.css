@@ -1,7 +1,7 @@
 .footer-container {
 	border: none;
 	width: 100%;
-    padding: 20px 0;
+    padding: 20px 0 0;
 	clear: both;
     border-top: 1px solid #ebebeb;
 }
@@ -36,9 +36,7 @@
     float: left;
     width: 100%;
     text-align: left;
-    margin-bottom: 20px;
     font-size: 1.2em;
-    padding-bottom: 10px;
 }
 .footer ul.sosmed{
     float: right;
@@ -80,6 +78,7 @@
     display: block;
     clear: right;
     margin-top: 2px;
+    line-height: 1.1em;
     text-align: left;
 }
 .footer .cs-info p span.que{font-size: 1.5em}

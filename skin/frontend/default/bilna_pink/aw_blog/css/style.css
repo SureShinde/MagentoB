@@ -772,7 +772,7 @@ A.awblog_current_comment {
 
 @media only screen and (max-width: 1023px){
 	.blog-index-list .col-main {
-		width: 100% 
+		width: 100% ;
 		display: block;
 		clear: both;
 	}
