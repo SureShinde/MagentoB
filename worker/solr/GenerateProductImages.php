@@ -103,6 +103,7 @@ class Bilna_Worker_Solr_GenerateProductImages extends Bilna_Worker_Solr_Generate
     protected function _getProduct($data) {
         $productId = $data['entity_id'];
         $productImages = $data['images'];
+        $productImagesSize = $this->_getProductImagesSize();
 
         $imageUrl = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) . "catalog/product";
         $imageHelper = Mage::helper('bilna_rest/product_image');
@@ -115,22 +116,22 @@ class Bilna_Worker_Solr_GenerateProductImages extends Bilna_Worker_Solr_Generate
 
                 //- image thumbnail
                 $imageHelper->init($url);
-                $imageHelper->resize($this->_productImageSizeThumbnail);
+                $imageHelper->resize($productImagesSize['thumbnail']);
                 $productImageThumbnail = $imageHelper->__toString();
 
                 //- image horizontal
                 $imageHelper->init($url);
-                $imageHelper->resize($this->_productImageSizeHorizotal);
+                $imageHelper->resize($productImagesSize['horizontal']);
                 $productImageHorizontal = $imageHelper->__toString();
 
                 //- image vertical
                 //$imageHelper->init($url);
-                //$imageHelper->resize($this->_productImageSizeVertical);
+                //$imageHelper->resize($productImagesSize['vertical']);
                 //$productImageVertical = $imageHelper->__toString();
 
                 //- image detail
                 $imageHelper->init($url);
-                $imageHelper->resize($this->_productImageSizeDetail);
+                $imageHelper->resize($productImagesSize['detail']);
                 $productImageDetail = $imageHelper->__toString();
 
                 $productImagesResize[] = array (
@@ -142,10 +143,10 @@ class Bilna_Worker_Solr_GenerateProductImages extends Bilna_Worker_Solr_Generate
                     'types' => $productImage['types'],
                     'resize' => array (
                         'base' => $productImageUrl,
-                        'thumbnail' => $productImageThumbnail, //- 72px
-                        'horizontal' => $productImageHorizontal, //- 110px
-                        'vertical' => $productImageVertical, //- 151px
-                        'detail' => $productImageDetail, //- 225px
+                        'thumbnail' => $productImageThumbnail,
+                        'horizontal' => $productImageHorizontal,
+                        'vertical' => $productImageHorizontal,
+                        'detail' => $productImageDetail,
                     ),
                 );
             }
@@ -156,7 +157,22 @@ class Bilna_Worker_Solr_GenerateProductImages extends Bilna_Worker_Solr_Generate
             'images' => $this->_prepareData($productImagesResize),
         );
     }
-    
+
+    protected function _getProductImagesSize() {
+        $productImagesConfig = Mage::getStoreConfig('generate/images');
+        
+        if ($productImagesConfig) {
+            return $productImagesConfig;
+        }
+        
+        return array (
+            'thumbnail' => $this->_productImageSizeThumbnail,
+            'horizontal' => $this->_productImageSizeHorizotal,
+            'vertical' => $this->_productImageSizeVertical,
+            'detail' => $this->_productImageSizeDetail,
+        );
+    }
+
     protected function _processProductData($product) {
         return $this->_productApi->workerGetProductImages($product);
     }

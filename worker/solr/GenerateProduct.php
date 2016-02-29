@@ -153,7 +153,7 @@ class Bilna_Worker_Solr_GenerateProduct extends Bilna_Worker_Abstract {
 
             while ($job = $this->_pheanstalk->reserve()) {
                 $data = $this->_parseData($job->getData());
-                $productId = $data['entity_id'];
+                $productId = $this->_getProductId($data);
                 $this->_logProgress("#{$productId} Received from queue");
                 $product = $this->_getProduct($data);
                 
@@ -188,6 +188,14 @@ class Bilna_Worker_Solr_GenerateProduct extends Bilna_Worker_Abstract {
         }
     }
     
+    protected function _getProductId($data) {
+        if (is_array($data) || is_object($data)) {
+            return $data['entity_id'];
+        }
+        
+        return $data;
+    }
+
     protected function _getProduct($data) {
         $product = $this->_productHelper->getProduct($data, self::DEFAULT_STORE_ID);
         $productData = $this->_prepareData($this->_processProductData($product));
