@@ -3,7 +3,7 @@
     <tabs>
         <logan translate="label">
             <label>Bilna Logan</label>
-            <sort_order>10</sort_order>
+            <sort_order>100</sort_order>
         </logan>
     </tabs>
     <sections>
@@ -137,5 +137,57 @@
                 </moduledetail>
             </groups>
         </frontend>
+        <generate translate="label">
+            <label>Generate Data</label>
+            <tab>logan</tab>
+            <frontend_type>text</frontend_type>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <images translate="label">
+                    <label>Images</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <thumbnail translate="label">
+                            <label>Thumbnail (px)</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </thumbnail>
+                        <horizontal translate="label">
+                            <label>Horizontal (px)</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </horizontal>
+                        <vertical translate="label">
+                            <label>Vertical (px)</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </vertical>
+                        <detail translate="label">
+                            <label>Detail (px)</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </detail>
+                    </fields>
+                </images>
+            </groups>
+        </generate>
     </sections>
 </config>
