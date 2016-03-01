@@ -597,6 +597,7 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
     public function setWishlist($wishlist)
     {
         $this->_data['wishlist'] = $wishlist;
+        return $this;
     }
 
     public function getWishlist()
