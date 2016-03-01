@@ -60,11 +60,6 @@ class Bilna_Paymentconfirmation_IndexController extends Mage_Core_Controller_Fro
                 if(isset($isValidOrderID[0]['entity_id'])){
                     if($isValidOrderID[0]['customer_email'] == $post['email']){
 
-			/*
-			* @modify by Deni Dhian
-			* @since 2016-02-23
-			* add entity_id into the table
-			*/
 			$post['entity_id'] = $isValidOrderID[0]['entity_id'];
 
                         $collections = $paymentModel->insertPayment($post);//models var on config.xml
@@ -105,5 +100,4 @@ class Bilna_Paymentconfirmation_IndexController extends Mage_Core_Controller_Fro
          
     }
 }
-
 

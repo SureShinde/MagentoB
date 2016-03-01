@@ -421,6 +421,7 @@ $images = Mage::getModel('socialcommerce/collectioncover')->getCollection()->set
 
 
 <div class="header-container">
+
     <div class="space-above-header">
         <div class="container-above-header">
             <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('above-header')->toHtml() ?>
@@ -430,6 +431,9 @@ $images = Mage::getModel('socialcommerce/collectioncover')->getCollection()->set
                 </li>
                 <li>
                     <a href="<?php if($this->helper('customer')->isLoggedIn()):?><?php echo $this->getUrl('sales/order/history') ?><?php else: ?><?php echo $this->getUrl('orderdetail') ?><?php endif;?>"><em class="fa fa-file-text-o"></em> Cek Pesanan</a>
+                </li>
+		<li>
+                    <a href="<?php echo $this->getUrl('konfirmasipembayaran') ?>"><em class="fa fa-reply-all"></em> Konfirmasi Pembayaran</a>
                 </li>
             </ul>
         </div>

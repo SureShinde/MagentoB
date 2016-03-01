@@ -14,12 +14,6 @@ class Bilna_Paymentconfirmation_Model_Payment extends Varien_Object{
                         "WHERE increment_id = '%s'", $this->orderTable,$orderNumber);
         return $db->fetchAll($sql);
     }
-
-	/*
-	* @created By Deni Dhian
-	* @since 2016-02-26
-	* function to get Payment Confirmation Data if exists
-	*/
     public function isPaymentExists($orderNumber){
 	$db = Mage::getSingleton('core/resource')->getConnection('core_read');
 	$sql = sprintf(	"SELECT order_id,email,nominal,dest_bank,transfer_date,source_bank,source_acc_number,".
@@ -30,12 +24,6 @@ class Bilna_Paymentconfirmation_Model_Payment extends Varien_Object{
     public function insertPayment($param){
         //print_r($param);//exit;
         $db = Mage::getSingleton('core/resource')->getConnection('core_read');
-
-	/*
-        * @modify by Deni Dhian
-        * @since 2016-02-23
-        * add entity_id into the table
-        */        
         $sql = sprintf( "INSERT INTO %s set created_at = NOW(),".
                         "order_id = %s ,email = %s, nominal = %s, dest_bank = %s, transfer_date = %s, ".
                         "source_bank = %s, source_acc_number = %s, source_acc_name = %s, comment = %s, entity_id = %s",$this->confirmationTable,
