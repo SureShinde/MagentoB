@@ -15,7 +15,7 @@ class Bilna_Paymethod_Model_Vtdirect extends Mage_Core_Model_Abstract {
         $message = $charge->status_message;
         $transactionStatus = $charge->transaction_status;
         $fraudStatus = $charge->fraud_status;
-        
+
         if ($this->isMandiriEcash($charge, $order->getPayment()->getMethodInstance()->getCode())) {
             if ($transactionStatus == 'settlement' && $order->getStatus() == 'pending') {
                 if ($order->canInvoice()) {
@@ -38,6 +38,29 @@ class Bilna_Paymethod_Model_Vtdirect extends Mage_Core_Model_Abstract {
                 return false;
             }
             
+            return "skip";
+        } elseif ($this->isVirtualAccount($charge, $order->getPayment()->getMethodInstance()->getCode())) {
+            if ($transactionStatus == 'settlement' && $order->getStatus() == 'pending_va') {
+                if ($order->canInvoice()) {
+                    $invoice = Mage::getModel('sales/service_order', $order)->prepareInvoice();
+
+                    if ($invoice->getTotalQty()) {
+                        $invoice->register();
+                        $transaction = Mage::getModel('core/resource_transaction')
+                            ->addObject($invoice)
+                            ->addObject($invoice->getOrder());
+                        $order->setState(Mage_Sales_Model_Order::STATE_PROCESSING, true, $message, true);
+                        $order->save();
+                        $transaction->save();
+                        $invoice->sendEmail(true, '');
+
+                        return true;
+                    }
+                }
+
+                return false;
+            }
+
             return "skip";
         }
         else {
@@ -134,6 +157,16 @@ class Bilna_Paymethod_Model_Vtdirect extends Mage_Core_Model_Abstract {
             return true;
         }
         
+        return false;
+    }
+
+    protected function isVirtualAccount($notification, $paymentCode) {
+        $paymentType = Mage::getStoreConfig('payment/' . $paymentCode . '/vtdirect_payment_type');
+
+        if ($notification->payment_type == $paymentType) {
+            return true;
+        }
+
         return false;
     }
     
