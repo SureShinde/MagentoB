@@ -67,7 +67,7 @@ class Bilna_Paymethod_Model_Observer_Webservice_Vtdirect {
     protected function getNotificationOrderStatusAllow() {
         //$statuses = Mage::getStoreConfig('payment/vtdirect/notification_order_status_allow');
         //$statusArr = explode(',', $statuses);
-        $statusArr = array ('cc_verification', 'pending');
+        $statusArr = array ('cc_verification', 'pending', 'pending_va');
         
         return $statusArr;
     }
