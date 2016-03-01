@@ -48,10 +48,27 @@
     </frontend>
     
   <global>
+    <rewrite>
+        <social_commerce_user_index>
+            <from><![CDATA[#^/user/profile\/?$#]]></from>
+            <to><![CDATA[/user/profile/index/]]></to>
+            <complete>1</complete>
+        </social_commerce_user_index>
+        <social_commerce_user_detail>
+            <from><![CDATA[#^/user/([\w\-_\.]+)\/?$#]]></from>
+            <to><![CDATA[/user/profile/index/u/$1/]]></to>
+            <complete>1</complete>
+        </social_commerce_user_detail>
+        <social_commerce_user_collection>
+            <from><![CDATA[#^/collections/([\w\-_\.]+)\/?$#]]></from>
+            <to><![CDATA[/user/profile/collection/id/$1/]]></to>
+            <complete>1</complete>
+        </social_commerce_user_collection>
+    </rewrite>
     <helpers>
-      <socialcommerce>
-        <class>Moxy_SocialCommerce_Helper</class>
-      </socialcommerce>
+        <socialcommerce>
+            <class>Moxy_SocialCommerce_Helper</class>
+        </socialcommerce>
     </helpers>
     <blocks>
         <socialcommerce>
@@ -65,13 +82,13 @@
         </socialcommerce>
         <socialcommerce_mysql4>
             <class>Moxy_SocialCommerce_Model_Mysql4</class>
-            <entities>		  
+            <entities>
                 <profile>
                     <table>moxy_socialcommerce_profile</table><!-- Table name -->
                 </profile>
                 <collectioncover>
                     <table>moxy_socialcommerce_collection_cover</table>
-                </collectioncover>		  
+                </collectioncover>
                 <collectioncategory>
                     <table>moxy_socialcommerce_collection_category</table>
                 </collectioncategory>
