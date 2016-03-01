@@ -45,6 +45,9 @@
 <?php echo $this->helper('core/js')->getTranslatorScript() ?>
 <?php echo $this->getIncludes() ?>
 
+<!-- Provide wishlist value if we are at wishlist detail page -->
+<?php $wishlist = $this->getWishlist(); ?>
+
 <!-- Facebook Open Graph -->
 <?php
 	if ( $this->getTitle() )
@@ -58,11 +61,28 @@
 			<meta property="og:title" content="<?php echo htmlspecialchars($post->getTitle()); ?>"/>
 			<meta property="og:description" content="<?php echo strip_tags($post->getShortContent()); ?>"/>
 		<?php endif; ?>
-		<?php $dt = new DateTime();
-			  $today = $dt->format('YmdHis'); ?>
+		<?php
+			$dt = new DateTime();
+			$today = $dt->format('YmdHis');
+		?>
 		<meta property="og:type" content="website"/>
-		<meta property="og:image" content="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA); ?><?php echo $post->getImageName();?>?id=<?php echo $today; ?>"/>
+		<?php if ($wishlist) { ?>
+			<meta property="og:image" content="<?php echo sprintf("%s%s", $this->getUrl('media/collection-cover'), $wishlist->cover); ?>"/>
+		<?php } else { ?>
+			<meta property="og:image" content="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA); ?><?php echo $post->getImageName();?>?id=<?php echo $today; ?>"/>
+		<?php }?>
 		<?php
 	}
 ?>
 <!-- End Facebook Open Graph -->
+
+<!-- Twitter cards implementation -->
+<?php if($wishlist) {?>
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:site" content="@bilnaId">
+	<meta name="twitter:url" content="<?php echo Mage::helper('core/url')->getCurrentUrl();?>"/>
+	<meta name="twitter:title" content="<?php echo $this->getTitle(); ?>">
+	<meta name="twitter:description" content="<?php echo $wishlist->desc; ?>">
+	<meta name="twitter:image" content="<?php echo sprintf("%s%s", $this->getUrl('media/collection-cover'), $wishlist->cover); ?>">
+<?php } ?>
+<!-- End of Twitter cards implementation -->
