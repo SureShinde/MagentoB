@@ -32,13 +32,14 @@
 <?php $_items = $_cart->getAllItems(); ?>
 <?php $itemQty = 0; ?>
 <?php foreach ($_items as $_item) { $parentId = $_item->getParentItemId(); if(empty($parentId)) {$itemQty++;} }?>
+<?php $currencySymbol = Mage::app()->getLocale()->currency(Mage::app()->getStore()->getCurrentCurrencyCode())->getSymbol(); ?>
 <?php if($_product->isSaleable()): ?>
     <div class="add-to-cart">
         <?php if(!$_product->isGrouped()): ?>
         <label for="qty"><?php echo $this->__('Jumlah:') ?></label>
         <input type="text" name="qty" id="qty" maxlength="12" value="<?php echo $this->getProductDefaultQty() * 1 ?>" title="<?php echo $this->__('Jumlah') ?>" class="input-text qty" />
         <?php endif; ?>
-        <button type="button" title="<?php echo $buttonTitle ?>" class="button btn-cart" onclick="productAddToCartForm.submit(this); ecommerceProductDetailAddToCart('<?php echo $_escape_helper->escapeQuote($_product->getName()); ?>','<?php echo $_product->getSku() ?>','<?php echo $_product->getPrice() ?>','<?php echo Mage::helper('core')->currency($_product->getPrice(), true, false) ?>','<?php echo $_product->getProductUrl() ?>','<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(135); ?>');"><i class="fa fa-cart-plus"></i><span><?php echo $buttonTitle ?></span></button>
+        <button type="button" title="<?php echo $buttonTitle ?>" class="button btn-cart" onclick="productAddToCartForm.submit(this); ecommerceProductDetailAddToCart('<?php echo $_escape_helper->escapeQuote($_product->getName()); ?>','<?php echo $_product->getSku() ?>','<?php echo $_product->getPrice() ?>','<?php echo $_product->getProductUrl() ?>','<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(135); ?>');"><i class="fa fa-cart-plus"></i><span><?php echo $buttonTitle ?></span></button>
         <?php echo $this->getChildHtml('', true, true) ?>
         <a class="coll-quick addToCollectionLink coll-quick-top" onclick="showAddToCollectionDialog()" href="javascript:;"
                 data-brand-name="<?php echo $brand; ?>"
@@ -52,7 +53,7 @@
 <?php endif; ?>
 
 <script type="text/javascript">
-function ecommerceProductDetailAddToCart(name, sku, price, price_ematic, link, imageUrl) {
+function ecommerceProductDetailAddToCart(name, sku, price, link, imageUrl) {
     if (jQuery("div.input-box select").val() != false) {
       dataLayer.push({
         'event': 'addToCart',
@@ -91,11 +92,11 @@ function ecommerceProductDetailAddToCart(name, sku, price, price_ematic, link, i
       <?php for($i=0; $i<$itemQty; $i++) {
         echo "{'name' : temp_cart[".$i."][0],";
         echo "'id' : temp_cart[".$i."][1],";
-        echo "'price' : temp_cart[".$i."][3],";
-        echo "'quantity' : temp_cart[".$i."][4],";
+        echo "'price' : '".$currencySymbol."' + (temp_cart[".$i."][2] * temp_cart[".$i."][3]).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','),";
+        echo "'quantity' : temp_cart[".$i."][3],";
         echo "'brandName' : 'brand name',";
-        echo "'imageUrl' : temp_cart[".$i."][5],";
-        echo "'link' : temp_cart[".$i."][6]}";if($i != $itemQty-1) {echo ",";}
+        echo "'imageUrl' : temp_cart[".$i."][4],";
+        echo "'link' : temp_cart[".$i."][5]}";if($i != $itemQty-1) {echo ",";}
       } 
       ?>
       ];
@@ -107,7 +108,7 @@ function ecommerceProductDetailAddToCart(name, sku, price, price_ematic, link, i
       else {    // no same item
         products.push({
           'id': sku,
-          'price': price_ematic,
+          'price': <?php echo $currencySymbol ?> + price * jQuery("input.#qty").val(),
           'quantity': jQuery("input.#qty").val(),
           'name': name,
           'brandName': 'brand name',

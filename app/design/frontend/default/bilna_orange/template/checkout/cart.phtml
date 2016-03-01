@@ -35,6 +35,7 @@
 <?php $_items = $this->getQuote()->getAllItems(); ?>
 <?php $itemQty = 0; ?>
 <?php foreach ($_items as $_item) { $parentId = $_item->getParentItemId(); if(empty($parentId)) {$itemQty++;} }?>
+<?php $currencySymbol = Mage::app()->getLocale()->currency(Mage::app()->getStore()->getCurrentCurrencyCode())->getSymbol(); ?>
 <input type="hidden" id="3rdparty-type" value="cart"/>
 <input type="hidden" id="3rdparty-value" value="" />
 <div class="cart">
@@ -384,11 +385,11 @@ function ecommerceCheckout0_pageload() {			// call ematic cart
     <?php for($i=0; $i<$itemQty; $i++) {
     	echo "{'name' : temp_cart[".$i."][0],";
     	echo "'id' : temp_cart[".$i."][1],";
-    	echo "'price' : temp_cart[".$i."][3],";
-    	echo "'quantity' : temp_cart[".$i."][4],";
+    	echo "'price' : '".$currencySymbol."' + (temp_cart[".$i."][2] * temp_cart[".$i."][3]).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','),";
+    	echo "'quantity' : temp_cart[".$i."][3],";
     	echo "'brandName' : 'brand name',";
-    	echo "'imageUrl' : temp_cart[".$i."][5],";
-    	echo "'link' : temp_cart[".$i."][6]}";if($i != $itemQty-1) {echo ",";}
+    	echo "'imageUrl' : temp_cart[".$i."][4],";
+    	echo "'link' : temp_cart[".$i."][5]}";if($i != $itemQty-1) {echo ",";}
     } 
     ?>
     ];
@@ -397,7 +398,7 @@ function ecommerceCheckout0_pageload() {			// call ematic cart
 	ematics("log", "product", "cart", products);
 }
 
-function ecommerceRemoveCart(name, sku, price, price_ematic, quantity, imageUrl, link) {
+function ecommerceRemoveCart(name, sku, price, quantity, imageUrl, link) {
     // alert("HURRY_CART"+name+" "+price+" "+quantity);
     dataLayer.push({
 	  'event': 'removeFromCart',
@@ -438,11 +439,11 @@ function ecommerceRemoveCart(name, sku, price, price_ematic, quantity, imageUrl,
     <?php for($i=0; $i<$itemQty-1; $i++) {
     	echo "{'name' : temp_cart[".$i."][0],";
     	echo "'id' : temp_cart[".$i."][1],";
-    	echo "'price' : temp_cart[".$i."][3],";
-    	echo "'quantity' : temp_cart[".$i."][4],";
+    	echo "'price' : '".$currencySymbol."' + (temp_cart[".$i."][2] * temp_cart[".$i."][3]).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','),";
+    	echo "'quantity' : temp_cart[".$i."][3],";
     	echo "'brandName' : 'brand name',";
-    	echo "'imageUrl' : temp_cart[".$i."][5],";
-    	echo "'link' : temp_cart[".$i."][6]}";if($i != $itemQty-2) {echo ",";}
+    	echo "'imageUrl' : temp_cart[".$i."][4],";
+    	echo "'link' : temp_cart[".$i."][5]}";if($i != $itemQty-2) {echo ",";}
     } 
     ?>
     ];

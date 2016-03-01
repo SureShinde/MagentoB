@@ -33,6 +33,7 @@
 <?php $_items = $_cart->getAllItems(); ?>
 <?php $itemQty = 0; ?>
 <?php foreach ($_items as $_item) { $parentId = $_item->getParentItemId(); if(empty($parentId)) {$itemQty++;} } ?>
+<?php $currencySymbol = Mage::app()->getLocale()->currency(Mage::app()->getStore()->getCurrentCurrencyCode())->getSymbol(); ?>
 <div class="awfeatured awafpgrid" id="<?php echo $this->getUniqueBlockId() ?>" style="<?php echo $this->getContainerStyleString() ?>">
     <?php $_i = $_ulOpened = $_ulClosed = 0; ?>
     <?php $_iterates=0;foreach($this->getProductsCollection() as $_product) : ?>
@@ -77,7 +78,7 @@
                 <?php if($_imageSrc) : ?>
                 <div class="afp-thumbnail">
                     <?php if($_onSaleHelper->isOnsale()) echo $_onSaleHelper->startOnsale($_product, $_imageQsize) ?>
-                    <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($_abstractBlock->getImageLabel($_product, 'small_image'), null, true) ?>" class="product-image" onclick="ecommerceStaticBlockProductClick('<?php echo $_escape_helper->escapeQuote($_product->getName()) ?>','<?php echo $_product->getSku() ?>','<?php echo $_product->getPrice() ?>','<?php echo Mage::helper('core')->currency($_product->getPrice(), true, false) ?>','browsing');">
+                    <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($_abstractBlock->getImageLabel($_product, 'small_image'), null, true) ?>" class="product-image" onclick="ecommerceStaticBlockProductClick('<?php echo $_escape_helper->escapeQuote($_product->getName()) ?>','<?php echo $_product->getSku() ?>','<?php echo $_product->getPrice() ?>','browsing');">
                         <img class="lazy" data-src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(152); ?>" alt="<?php echo $this->stripTags($_abstractBlock->getImageLabel($_product, 'small_image'), null, true) ?>" />
                         <span class="loader"><img class="loader-img" src="<?php echo $this->getSkinUrl('images/loading.gif') ?>"></span>
                     </a>
@@ -95,7 +96,7 @@
 					if ($now>=$newsFrom && $now<=$newsTo):?>
 						<span class="lbl-newproduct"><?php echo $this->__('New!') ?></span>
 					<?php endif; ?>
-                    <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($_product->getName(), null, true) ?>" onclick="ecommerceStaticBlockProductClick('<?php echo $_escape_helper->escapeQuote($_product->getName()) ?>','<?php echo $_product->getSku(); ?>','<?php echo $_product->getPrice() ?>','<?php echo Mage::helper('core')->currency($_product->getPrice(), true, false) ?>','browsing');"><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></a>
+                    <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($_product->getName(), null, true) ?>" onclick="ecommerceStaticBlockProductClick('<?php echo $_escape_helper->escapeQuote($_product->getName()) ?>','<?php echo $_product->getSku(); ?>','<?php echo $_product->getPrice() ?>','browsing');"><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></a>
                 </div>
                 <?php endif ?>
                 <?php if($this->getShowDetails()) : ?>
@@ -115,9 +116,9 @@
                     </div>
                     <span class="amount">
                         <?php if($_product->getReviewsCount()>1):?>
-                        <a href="#" onclick="ecommerceStaticBlockProductClick('<?php echo $_escape_helper->escapeQuote($_product->getName()) ?>','<?php echo $_product->getSku(); ?>','<?php echo $_product->getPrice() ?>','<?php echo Mage::helper('core')->currency($_product->getPrice(), true, false) ?>','browsing'); var t = opener ? opener.window : window; t.location.href='<?php echo $this->getReviewsUrl($_product) ?>'; return false;"><?php echo $this->__('%d Reviews', $_product->getReviewsCount()) ?></a>
+                        <a href="#" onclick="ecommerceStaticBlockProductClick('<?php echo $_escape_helper->escapeQuote($_product->getName()) ?>','<?php echo $_product->getSku(); ?>','<?php echo $_product->getPrice() ?>','browsing'); var t = opener ? opener.window : window; t.location.href='<?php echo $this->getReviewsUrl($_product) ?>'; return false;"><?php echo $this->__('%d Reviews', $_product->getReviewsCount()) ?></a>
                         <?php else:?>
-                            <a href="#" onclick="ecommerceStaticBlockProductClick('<?php echo $_escape_helper->escapeQuote($_product->getName()) ?>','<?php echo $_product->getSku(); ?>','<?php echo $_product->getPrice() ?>','<?php echo Mage::helper('core')->currency($_product->getPrice(), true, false) ?>','browsing'); var t = opener ? opener.window : window; t.location.href='<?php echo $this->getReviewsUrl($_product) ?>'; return false;"><?php echo $this->__('%d Review', $_product->getReviewsCount()) ?></a>
+                            <a href="#" onclick="ecommerceStaticBlockProductClick('<?php echo $_escape_helper->escapeQuote($_product->getName()) ?>','<?php echo $_product->getSku(); ?>','<?php echo $_product->getPrice() ?>','browsing'); var t = opener ? opener.window : window; t.location.href='<?php echo $this->getReviewsUrl($_product) ?>'; return false;"><?php echo $this->__('%d Review', $_product->getReviewsCount()) ?></a>
                         <?php endif?>
                     </span>
                     <?php endif;?>
@@ -131,7 +132,7 @@
                     <?php if($_product->getTypeId() != 'simple'):?>
                         <p><a class="link-cart-special" href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($_product->getName(), null, true) ?>"><i class="fa fa-cart-plus"></i><?php echo $this->__('Tambah ke troli') ?></a></p>
                         <?php else:?>
-						<p><button type="button" title="<?php echo $this->__('Tambah ke troli') ?>" class="button btn-buynow" onclick="setLocation('<?php echo $_abstractBlock->getAddToCartUrl($_product) ?>'); ecommerceStaticBlockAddToCart('<?php echo $_escape_helper->escapeQuote($_product->getName()); ?>','<?php echo $_product->getSku(); ?>','<?php echo $_product->getPrice() ?>','<?php echo Mage::helper('core')->currency($_product->getPrice(), true, false) ?>','browsing','<?php echo $_product->getProductUrl() ?>','<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(152); ?>');"><i class="fa fa-cart-plus"></i><?php echo $this->__('Tambah ke troli') ?></button></p>
+						<p><button type="button" title="<?php echo $this->__('Tambah ke troli') ?>" class="button btn-buynow" onclick="setLocation('<?php echo $_abstractBlock->getAddToCartUrl($_product) ?>'); ecommerceStaticBlockAddToCart('<?php echo $_escape_helper->escapeQuote($_product->getName()); ?>','<?php echo $_product->getSku(); ?>','<?php echo $_product->getPrice() ?>','browsing','<?php echo $_product->getProductUrl() ?>','<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(152); ?>');"><i class="fa fa-cart-plus"></i><?php echo $this->__('Tambah ke troli') ?></button></p>
 						<?php endif;?>
 						<?php else : ?>
 						<p class="availability out-of-stock"><span><a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($_product->getName(), null, true) ?>"><?php echo $this->__('Kabari bila tersedia') ?></a></span></p>
@@ -313,7 +314,7 @@
         }
     });
 
-    function ecommerceStaticBlockAddToCart(name, sku, price, price_ematic, list, link, imageUrl) {
+    function ecommerceStaticBlockAddToCart(name, sku, price, list, link, imageUrl) {
         dataLayer.push({
           'event': 'addToCart',
           'ecommerce': {
@@ -352,11 +353,11 @@
             <?php for($i=0; $i<$itemQty; $i++) {
                 echo "{'name' : temp_cart[".$i."][0],";
                 echo "'id' : temp_cart[".$i."][1],";
-                echo "'price' : temp_cart[".$i."][3],";
-                echo "'quantity' : temp_cart[".$i."][4],";
+                echo "'price' : '".$currencySymbol."' + (temp_cart[".$i."][2] * temp_cart[".$i."][3]).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','),";
+                echo "'quantity' : temp_cart[".$i."][3],";
                 echo "'brandName' : 'brand name',";
-                echo "'imageUrl' : temp_cart[".$i."][5],";
-                echo "'link' : temp_cart[".$i."][6]}";if($i != $itemQty-1) {echo ",";}
+                echo "'imageUrl' : temp_cart[".$i."][4],";
+                echo "'link' : temp_cart[".$i."][5]}";if($i != $itemQty-1) {echo ",";}
             } 
             ?>
         ];
@@ -368,7 +369,7 @@
         else {    // no same item
             products.push({
               'id': sku,
-              'price': price_ematic,
+              'price': <?php echo currencySymbol ?> + price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','),
               'quantity': 1,
               'name': name,
               'brandName': 'brand name',
