@@ -28,11 +28,10 @@ class Bilna_Paymethod_Model_Observer_Webservice_Vtdirect {
         $message = $notification->status_message;
         $transactionStatus = $notification->transaction_status;
         $fraudStatus = $notification->fraud_status;
-        $isMandiriEcash = $this->isMandiriEcash($notification, $paymentCode);
-        $isVirtualAccount = $this->isVirtualAccount($notification, $paymentCode);
+        $isVtdirectNotification = $this->isVtdirectNotification($notification, $paymentCode);
 
-        if ($isMandiriEcash || $isVirtualAccount) {
-        //if (($transactionStatus == 'capture' && $fraudStatus == 'accept') || ($transactionStatus == 'cancel' && $fraudStatus == 'challenge') || $this->isMandiriEcash($notification, $paymentCode)) {
+        if ($isVtdirectNotification) {
+        //if (($transactionStatus == 'capture' && $fraudStatus == 'accept') || ($transactionStatus == 'cancel' && $fraudStatus == 'challenge') || $this->isVtdirectNotification($notification, $paymentCode)) {
             if (in_array($orderStatus, $orderStatusAllow)) {
                 $updateOrder = Mage::getModel('paymethod/vtdirect')->updateOrder($order, $this->_code, $notification);
                 
@@ -40,7 +39,7 @@ class Bilna_Paymethod_Model_Observer_Webservice_Vtdirect {
                     $contentLog = sprintf("%s | updateStatusOrder: %s", $incrementId, $order->getStatus());
                     $this->writeLog($this->_typeTransaction, 'notification', $contentLog);
                     
-                    if ($isMandiriEcash || $isVirtualAccount) {
+                    if ($isVtdirectNotification) {
                         Mage::dispatchEvent('sales_order_place_after', array ('order' => $order));
                     }
                 }
@@ -71,18 +70,8 @@ class Bilna_Paymethod_Model_Observer_Webservice_Vtdirect {
         
         return $statusArr;
     }
-    
-    protected function isMandiriEcash($notification, $paymentCode) {
-        $paymentType = Mage::getStoreConfig('payment/' . $paymentCode . '/vtdirect_payment_type');
-        
-        if ($notification->payment_type == $paymentType) {
-            return true;
-        }
-        
-        return false;
-    }
 
-    protected function isVirtualAccount($notification, $paymentCode) {
+    protected function isVtdirectNotification($notification, $paymentCode) {
         $paymentType = Mage::getStoreConfig('payment/' . $paymentCode . '/vtdirect_payment_type');
 
         if ($notification->payment_type == $paymentType) {
