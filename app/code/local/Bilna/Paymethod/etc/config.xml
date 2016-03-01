@@ -685,7 +685,7 @@
             <virtualaccountbca>
                 <active>1</active>
                 <model>paymethod/method_virtualaccountbca</model>
-                <order_status>bca_va_pending</order_status>
+                <order_status>pending_va</order_status>
                 <title>BCA Virtual Account</title>
                 <allowspecific>0</allowspecific>
                 <group>offline</group>

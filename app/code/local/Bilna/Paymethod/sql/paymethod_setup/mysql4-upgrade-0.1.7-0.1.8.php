@@ -15,7 +15,7 @@ $installer->getConnection()->insertArray(
         'label'
     ),
     array(
-        array('status' => 'bca_va_pending', 'label' => 'BCA VA Pending'),
+        array('status' => 'pending_va', 'label' => 'Pending VA'),
     )
 );
 
@@ -29,7 +29,7 @@ $installer->getConnection()->insertArray(
     ),
     array(
         array(
-            'status' => 'bca_va_pending',
+            'status' => 'pending_va',
             'state' => 'new',
             'is_default' => 0
         ),
