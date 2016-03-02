@@ -48,6 +48,7 @@
 <?php $qtyCollection = array(); ?>
 <?php $valueCollection = array(); ?>
 <?php $totalValue = 0; ?>
+<?php $itemQty = 0; ?>
 <?php foreach($cartItems as $cartItem) : ?>
     <?php $parentId = $cartItem->getParentItemId(); ?>
     <?php if(empty($parentId)): ?>
@@ -56,6 +57,7 @@
         <?php $qtyCollection[] = $cartItem->getQty(); ?>
         <?php $valueCollection[] = $cartItem->getPrice(); ?>
         <?php $totalValue += ($cartItem->getPrice() * $cartItem->getQty()); ?>
+        <?php $itemQty++; ?>
     <?php endif ?>
 <?php endforeach; ?>
 <?php $skuDisplay =  implode("','", $skuCollection); ?>
@@ -86,11 +88,12 @@
 
     function ecommercePurchases() {
         var temp_container = {
-            'event': 'checkout',
+            'event': 'purchase',
             'ecommerce': {
-              'checkout': {
+              'purchase': {
                 'actionField': {
-                    'step' : 1,
+                    'shipping' : parseInt(jQuery("#checkout-review-table-wrapper table#checkout-review-table tfoot tr td:contains('Shipping & Handling')").next().text().replace(/[^0-9\.]/g, ""), 10),
+                    'coupon' : jQuery("#checkout-review-table-wrapper table#checkout-review-table tfoot tr:contains('Discount') td:first").text().toString().substring(jQuery("#checkout-review-table-wrapper table#checkout-review-table tfoot tr:contains('Discount') td:first").text().indexOf("(")+1,jQuery("#checkout-review-table-wrapper table#checkout-review-table tfoot tr:contains('Discount') td:first").text().indexOf(")")),
                     'list' : 'browsing'
                 },
                 'products': []
@@ -110,14 +113,14 @@
 
         // ematics cart - prepare for logging
         products = [
-        <?php for($i=0; $i<count($cartItems); $i++) {
+        <?php for($i=0; $i<$itemQty; $i++) {
             echo "{'name' : temp_cart[".$i."][0],";
             echo "'id' : temp_cart[".$i."][1],";
             echo "'price' : temp_cart[".$i."][3],";
             echo "'quantity' : temp_cart[".$i."][4],";
             echo "'brandName' : 'brand name',";
             echo "'imageUrl' : temp_cart[".$i."][5],";
-            echo "'link' : temp_cart[".$i."][6]}";if($i != count($cartItems)-1) {echo ",";}
+            echo "'link' : temp_cart[".$i."][6]}";if($i != $itemQty-1) {echo ",";}
         } 
         ?>
         ];
@@ -126,15 +129,15 @@
         ematics("log", "product", "convert", products);
 
         // universal analytics
-        temp_container.ecommerce.checkout.products.push(
-            <?php for($i=0; $i<count($cartItems); $i++) {
+        temp_container.ecommerce.purchase.products.push(
+            <?php for($i=0; $i<$itemQty; $i++) {
                 echo "{'name' : temp_cart[".$i."][0],";
                 echo "'sku' : temp_cart[".$i."][1],";
                 echo "'price' : temp_cart[".$i."][2],";
                 echo "'quantity' : temp_cart[".$i."][4],";
                 echo "'brandName' : 'brand name',";
                 echo "'imageUrl' : temp_cart[".$i."][5],";
-                echo "'link' : temp_cart[".$i."][6]}";if($i != count($cartItems)-1) {echo ",";}
+                echo "'link' : temp_cart[".$i."][6]}";if($i != $itemQty-1) {echo ",";}
             } 
             ?>
         );
