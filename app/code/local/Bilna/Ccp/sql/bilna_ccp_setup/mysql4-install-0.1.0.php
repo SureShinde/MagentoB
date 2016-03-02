@@ -12,6 +12,6 @@ CREATE TABLE IF NOT EXISTS `bilna_ccp_product_scoring` (
   `created_at` timestamp NULL DEFAULT NULL COMMENT 'Created At',
   PRIMARY KEY (`product_id`)
 );
-		
+
 ");
 $installer->endSetup();

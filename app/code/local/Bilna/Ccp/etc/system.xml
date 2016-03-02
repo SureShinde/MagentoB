@@ -71,7 +71,7 @@
                             <comment>default: 30%</comment>
                         </percentage_inventory>
                     </fields>
-                </ccp>                
+                </ccp>           
             </groups>
         </bilna_ccp>
     </sections>
