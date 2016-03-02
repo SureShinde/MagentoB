@@ -42,7 +42,6 @@
     <?php endforeach; ?>
 <?php }?>
 
-<?php $currencySymbol = Mage::app()->getLocale()->currency(Mage::app()->getStore()->getCurrentCurrencyCode())->getSymbol(); ?>
 <?php $cartItems = Mage::getSingleton('checkout/session')->getQuote()->getAllItems(); ?>
 <?php $skuCollection = array(); ?>
 <?php $productCollection = array(); ?>
@@ -114,11 +113,11 @@
         <?php for($i=0; $i<count($cartItems); $i++) {
             echo "{'name' : temp_cart[".$i."][0],";
             echo "'id' : temp_cart[".$i."][1],";
-            echo "'price' : '".$currencySymbol."' + (temp_cart[".$i."][2] * temp_cart[".$i."][3]).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','),";
-            echo "'quantity' : temp_cart[".$i."][3],";
+            echo "'price' : temp_cart[".$i."][3],";
+            echo "'quantity' : temp_cart[".$i."][4],";
             echo "'brandName' : 'brand name',";
-            echo "'imageUrl' : temp_cart[".$i."][4],";
-            echo "'link' : temp_cart[".$i."][5]}";if($i != count($cartItems)-1) {echo ",";}
+            echo "'imageUrl' : temp_cart[".$i."][5],";
+            echo "'link' : temp_cart[".$i."][6]}";if($i != count($cartItems)-1) {echo ",";}
         } 
         ?>
         ];
@@ -132,10 +131,10 @@
                 echo "{'name' : temp_cart[".$i."][0],";
                 echo "'sku' : temp_cart[".$i."][1],";
                 echo "'price' : temp_cart[".$i."][2],";
-                echo "'quantity' : temp_cart[".$i."][3],";
+                echo "'quantity' : temp_cart[".$i."][4],";
                 echo "'brandName' : 'brand name',";
-                echo "'imageUrl' : temp_cart[".$i."][4],";
-                echo "'link' : temp_cart[".$i."][5]}";if($i != count($cartItems)-1) {echo ",";}
+                echo "'imageUrl' : temp_cart[".$i."][5],";
+                echo "'link' : temp_cart[".$i."][6]}";if($i != count($cartItems)-1) {echo ",";}
             } 
             ?>
         );
