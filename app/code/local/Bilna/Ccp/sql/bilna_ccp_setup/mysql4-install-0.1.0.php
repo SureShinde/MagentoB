@@ -4,7 +4,7 @@ $installer->startSetup();
 $installer->run("
 CREATE TABLE IF NOT EXISTS `bilna_ccp_product_scoring` (
   `product_id` int(10) unsigned NOT NULL COMMENT 'Product Id',
-  `sales` int(10) unsigned NOT NULL COMMENT 'Sales',
+  `sales` decimal(12,4) unsigned NOT NULL COMMENT 'Sales',
   `sales_rank` int(10) unsigned NOT NULL COMMENT 'Sales Ranking from all products',
   `inventory` int(10) unsigned NOT NULL COMMENT 'Product Inventory',
   `inventory_rank` int(10) unsigned NOT NULL COMMENT 'Product Inventory Ranking from all products',
