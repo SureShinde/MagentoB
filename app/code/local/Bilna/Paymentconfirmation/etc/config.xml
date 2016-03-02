@@ -38,9 +38,9 @@
         </models>
         
         <helpers>
-            <paymentconfirm>
+            <paymentconfirmation>
                 <class>Bilna_Paymentconfirmation_Helper</class>
-            </paymentconfirm>
+            </paymentconfirmation>
         </helpers>
 	
         <blocks>
@@ -52,89 +52,49 @@
             <paymentconfirmation_setup>
                 <setup>
                     <module>Bilna_Paymentconfirmation</module>
-                    <!--<class>Bilna_Paymentconfirmation_Model_Resource_Setup</class>-->
                 </setup>
             </paymentconfirmation_setup>
+            <salescategory_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </salescategory_write>
+            <salescategory_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </salescategory_read> 
         </resources>
     </global>
-    <!--
-    <admin>
-        <routers>
-            <paymentconfirm>
-                <use>admin</use>
-                <args>
-                    <module>Bilna_Paymentconfirmation</module>
-                    <frontName>paymentconfirm_report</frontName>
-                </args>
-            </paymentconfirm>
-        </routers>
-        <layout>
-            <updates>
-                <paymentconfirm>
-                    <file>paymentconfirmreport.xml</file>
-                </paymentconfirm>
-            </updates>
-        </layout>
-    </admin>
-    
     <adminhtml>
-        <menu>
-            <bilna>
-                <title>Bilna</title>
-                <sort_order>100</sort_order>
-                <children>
-                    <paymentconfirm module="paymentconfirm">
-                        <title>Payment Confirmation Report</title>
-                        <sort_order>100</sort_order>
-                        <children>
-                            <paymentconfirmreports>
-                                <title>Payment Confirmation Report</title>
-                                <sort_order>0</sort_order>
-                                <action>paymentconfirm/adminhtml_index</action>
-                            </paymentconfirmreports>
-                        </children>
-                    </paymentconfirm>
-                </children>
-            </bilna>
-        </menu>
-        
         <acl>
             <resources>
                 <all>
                     <title>Allow Everything</title>
                 </all>
-                
                 <admin>
                     <children>
-                        <bilna translate="title">
-                            <title>Bilna</title>
-                            <sort_order>100</sort_order>
+                        <system>
                             <children>
-                                <paymentconfirm translate="title" module="paymentconfirm">
-                                    <title>Payment Confirmation Report</title>
-                                    <sort_order>100</sort_order>
+                                <config>
                                     <children>
-                                        <paymentconfirmreports translate="title">
-                                            <title>Payment Confirmation Report</title>
-                                            <sort_order>0</sort_order>
-                                        </paymentconfirmreports>
+                                        <bilna translate="title" module="paymentconfirmation">
+                                            <title>Bilna</title>
+                                            <children>
+                                                <paymentconfirmbackend translate="title">
+                                                    <title>Payment Confirmation Report</title>
+                                                </paymentconfirmbackend>
+                                            </children>
+                                        </bilna>
                                     </children>
-                                </paymentconfirm>
+                                </config>
                             </children>
-                        </bilna>
+                        </system>
                     </children>
                 </admin>
             </resources>
         </acl>
-        
-        <layout>
-            <updates>
-                <paymentconfirm>
-                    <file>paymentconfirmreport.xml</file>
-                </paymentconfirm>
-            </updates>
-        </layout>
     </adminhtml>
-    -->
+
 </config>
 

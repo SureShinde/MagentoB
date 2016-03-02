@@ -87,8 +87,10 @@ class Bilna_Paymentconfirmation_Model_Payment extends Varien_Object{
 	$mail = new Zend_Mail();
 	$mail->setType(Zend_Mime::MULTIPART_RELATED);
 	$mail->setBodyHtml($html);
-	$mail->setFrom(Mage::getModel('core/variable')->setStoreId(Mage::app()->getStore()->getId())->loadByCode('cronPaymentConfirmSenderEmail')->getValue('text'), (Mage::getModel('core/variable')->setStoreId(Mage::app()->getStore()->getId())->loadByCode('cronPaymentConfirmSenderName')->getValue('text')));
-	$mail->addTo(Mage::getModel('core/variable')->setStoreId(Mage::app()->getStore()->getId())->loadByCode('cronPaymentConfirmReceiverEmail')->getValue('text'), (Mage::getModel('core/variable')->setStoreId(Mage::app()->getStore()->getId())->loadByCode('cronPaymentConfirmReceiverName')->getValue('text')));
+	//$mail->setFrom(Mage::getModel('core/variable')->setStoreId(Mage::app()->getStore()->getId())->loadByCode('cronPaymentConfirmSenderEmail')->getValue('text'), (Mage::getModel('core/variable')->setStoreId(Mage::app()->getStore()->getId())->loadByCode('cronPaymentConfirmSenderName')->getValue('text')));
+	//$mail->addTo(Mage::getModel('core/variable')->setStoreId(Mage::app()->getStore()->getId())->loadByCode('cronPaymentConfirmReceiverEmail')->getValue('text'), (Mage::getModel('core/variable')->setStoreId(Mage::app()->getStore()->getId())->loadByCode('cronPaymentConfirmReceiverName')->getValue('text')));
+	$mail->setFrom(Mage::getStoreConfig('bilna_paymentconfirmation/paymentconfirmation/sender_email'),Mage::getStoreConfig('bilna_paymentconfirmation/paymentconfirmation/sender_name'));
+        $mail->addTo(Mage::getStoreConfig('bilna_paymentconfirmation/paymentconfirmation/receiver_email'),Mage::getStoreConfig('bilna_paymentconfirmation/paymentconfirmation/receiver_name'));
 	$mail->setSubject('[BILNA] Payment Confirmation List '.date('Y-m-d',mktime(0,0,0,date('m'),intval(date('d')-1),date('Y'))));
 	$dir = Mage::getBaseDir();
 	$file = $mail->createAttachment(file_get_contents($filename));
