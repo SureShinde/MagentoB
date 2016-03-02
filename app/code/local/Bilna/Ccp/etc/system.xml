@@ -41,7 +41,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>default: Choose NO</comment>
+                            <comment>default: NO</comment>
                         </product_bundle>
                          <max_days translate="label">
                             <label>Maximum Days</label>
@@ -59,7 +59,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>default: 60%</comment>
+                            <comment>default: 70%</comment>
                         </percentage_itemsold>
                          <percentage_inventory translate="label">
                             <label>Allocation Percentage Inventory</label>
@@ -71,7 +71,7 @@
                             <comment>default: 30%</comment>
                         </percentage_inventory>
                     </fields>
-                </ccp>           
+                </ccp>               
             </groups>
         </bilna_ccp>
     </sections>

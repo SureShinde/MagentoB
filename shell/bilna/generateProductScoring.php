@@ -14,7 +14,6 @@ class Ccp extends Mage_Shell_Abstract {
         $configValues = Mage::getStoreConfig('bilna_ccp/ccp');
         $percentage_item = $configValues['percentage_itemsold']/100;
         $percentage_inventory = $configValues['percentage_inventory']/100;
-        $score = 0;
 
         $write = Mage::getSingleton('core/resource')->getConnection('core_write');
         $write->delete("bilna_ccp_product_scoring");
@@ -36,7 +35,7 @@ class Ccp extends Mage_Shell_Abstract {
                 );
                 Mage::log("CCP was successfully updated.");
             } catch(Exception $e) {
-                Mage::log($e->getMessage());
+                Mage::logException($e);
             }
         }        
     }    

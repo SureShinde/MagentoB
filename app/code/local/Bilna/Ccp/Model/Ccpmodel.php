@@ -38,23 +38,31 @@ class Bilna_Ccp_Model_Ccpmodel extends Mage_Core_Model_Abstract {
         return $read->fetchAll($select);  
     }
 
-    public function setRankings($field_to_compare, $arr_source = array()) {     
-        $arrRank = array();
-        if(sizeof($arr_source) > 0 ) {
-            foreach ($arr_source as $key => $value) {
+    /* input array format: 
+    {
+      [0] => {'name' => "Pampers Active Baby Pants Diapers M 56",'is_in_stock' => "1",'stock_qty' => "306.0000",'product_id' => "268",'status' => "processing",'revenue' => "1188000.00000000", },
+      [1] => {'name' => "Sebamed Baby Care Cream 100ml",'is_in_stock' => "1",'stock_qty' => "1.0000",'product_id' => "320",'status' => "processing",'revenue' => "107000.00000000",  },
+      [2] => {'name' => "LG Smartphone L1 II Black",'is_in_stock' => "1",'stock_qty' => "-9.0000",'product_id' => "52508",'status' => "processing",'revenue' => "733000.00000000",  }
+    }
+    */
+    public function setRankings($field_to_compare, $productArray) {     
+        $result = array();
+        if(sizeof($productArray) > 0 ) {
+            foreach ($productArray as $key => $value) {
                 // we use product id as key for unique mapping
-                $arrRank[$value['product_id']] = $value[$field_to_compare];
+                $result[$value['product_id']] = $value[$field_to_compare];
             }
-            $arrRank = $this->calcRank($arrRank);
+            $result = $this->calculateRank($result);
         }       
-        return $arrRank;
+        return $result;
     }
 
-    public function calcRank($arr_source=array()) {
-        $arr_sorted = $arr_source;
+    // input array format: {[268] => "306.0000", [320] => "1.0000", [52508] => "-9.0000"}
+    public function calculateRank($array) {
+        $arr_sorted = $array;
         rsort($arr_sorted);
         $arr_sorted = array_flip($arr_sorted);
-        foreach($arr_source as $key => $val)
+        foreach($array as $key => $val)
             $arr_result[$key] = $arr_sorted[$val]+1;
         return $arr_result;
     }
