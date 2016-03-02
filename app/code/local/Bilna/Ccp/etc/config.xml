@@ -17,7 +17,6 @@
                     <ccpmodel><table>bilna_ccp_product_scoring</table></ccpmodel>
                 </entities>
             </ccp_resource>
-
         </models>
         <resources>
             <bilna_ccp_setup>
@@ -26,6 +25,11 @@
                 </setup>
             </bilna_ccp_setup>
         </resources>
+        <helpers>
+            <bilna_ccp>
+                <class>Bilna_Ccp_Helper</class>
+            </bilna_ccp>
+        </helpers>
     </global>
     <frontend>
         <routers>
