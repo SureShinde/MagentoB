@@ -407,7 +407,6 @@ class AW_Ajaxlogin_IndexController extends Mage_Core_Controller_Front_Action {
                         $profile->setUsername($username);
                         #
                         $profile->save();
-                        Mage::helper('socialcommerce')->createNewRewrite($username);
                     }
                     /* end : add username on login */
 
