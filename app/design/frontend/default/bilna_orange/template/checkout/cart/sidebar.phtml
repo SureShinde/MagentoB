@@ -52,9 +52,9 @@
 	            <p class="amount"><?php echo $this->__('Menampilkan 3 dari <a id="cart-item-qty" href="%s">%s</a> produk di Troli Anda', $this->getUrl('checkout/cart'), $_cartQty) ?></p>
 	        <?php endif ?>
 	    <?php endif ?>
+	    <?php echo '<span id="ematicuseremail" class="hidden">'.$customer_email.'</span>'; ?>
 	    <?php if(count($_items)): ?>
 	       	<ul id="cart-sidebar" class="mini-products-list">
-	       		<?php echo '<span id="ematicuseremail">'.$customer_email.'</span>' ?>
 		        <?php foreach($_items as $_item): ?>
 		        	<?php $parentId = $_item->getParentItemId(); ?>
 		        	<?php if(empty($parentId)): ?>
