@@ -24,7 +24,8 @@
  * @license    http://ecommerce.aheadworks.com/AW-LICENSE.txt
  */
 ?><?php if($this->canDisplay() && $this->getProductsCollection()->getSize() && !$this->getIsEmpty()) : ?>
-<?php $_helper = $this->helper('catalog/output') ?>
+<?php $_helper = $this->helper('catalog/output'); ?>
+<?php $_core_helper =  Mage::helper('core'); ?>
 <?php $_escape_helper = Mage::helper('catalog/utils'); ?>
 <?php $_imageQsize = 152 // Maximal image width\height value, pixels ?>
 <?php $_onSaleHelper = $this->helper('awfeatured/onsale') ?>
@@ -46,7 +47,7 @@
         ?>
             <li class="item" style="width: <?php echo $this->getItemWidth() ?>%">
 				<div class="top_thumb_list_product">
-                    <a id="collection-price-<?php echo $_product->getId(); ?>" alt="<?php echo $this->__('tambah ke koleksi') ?>" href="javascript:;" class="link-wishlist addToCollectionLink" onclick="showAddToCollectionDialog()" data-brand-name="<?php echo $_product->getAttributeText('brand'); ?>" data-image="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(320 , 320); ?>" data-product-name="<?php echo $this->stripTags($_product->getName(), null, true); ?>" data-price="<?php echo 'Rp ' . number_format(round($_product->getFinalPrice()), 0, '', '.'); ?>" data-id="<?php echo $_product->getId(); ?>"><i class="fa fa-heart"></i>
+                    <a id="collection-price-<?php echo $_product->getId(); ?>" alt="<?php echo $this->__('tambah ke koleksi') ?>" href="javascript:;" class="link-wishlist addToCollectionLink" onclick="showAddToCollectionDialog()" data-brand-name="<?php echo $_product->getAttributeText('brand'); ?>" data-image="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(320 , 320); ?>" data-product-name="<?php echo $this->stripTags($_product->getName(), null, true); ?>" data-price="<?php echo $_core_helper->currency($_product->getFinalPrice(), true, false); ?>" data-id="<?php echo $_product->getId(); ?>"><i class="fa fa-heart"></i>
                     <span class="poper poper<?php echo $_iterates; ?>"> </span>
                     <span class="check-to-clicking check-to-clicking<?php echo $_iterates;?>">tambah ke koleksi</span></a>
                     <style>
