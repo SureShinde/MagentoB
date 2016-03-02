@@ -232,7 +232,7 @@ $_helper = $this->helper('catalog/output');
                  <span  onclick="deleteItem<?php echo $i; ?>()" class="addToCollectionLink" ><i class="fa fa-trash"></i></span>
 
                  <?php } else { ?>
-                 <a
+                 <a id="collection-price-<?php echo $productId; ?>"
                  href="javascript:;"
                  class="link-wishlist addToCollectionLink"
                  onclick="showAddToCollectionDialog()"

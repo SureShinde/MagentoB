@@ -52,7 +52,7 @@
             <?php foreach($this->getRelatedProductsCollection() as $_item): ?>
             <li<?php if($_item->isComposite() || !$_item->isSaleable()): ?> class="super-products"<?php endif; ?>>
                 <div class="product-images">
-                     <a class="coll-quick addToCollectionLink coll-quick-top" onclick="showAddToCollectionDialog()" href="javascript:;"
+                     <a id="collection-price-<?php echo $_product->getId(); ?>" class="coll-quick addToCollectionLink coll-quick-top" onclick="showAddToCollectionDialog()" href="javascript:;"
                 data-brand-name="<?php echo $brand; ?>"
                 data-image="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(320, 320); ?>"
                 data-product-name="<?php echo $this->stripTags($_product->getName(), null, true); ?>"

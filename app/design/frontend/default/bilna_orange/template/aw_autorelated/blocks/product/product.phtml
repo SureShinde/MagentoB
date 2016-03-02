@@ -62,7 +62,7 @@ if ($this->getPosition() == AW_Autorelated_Model_Source_Position::INSTEAD_NATIVE
                         <?php foreach ($collection as $product) : ?>
                             <li class="aw-arp-item">
 								<div class="top_thumb_list_product">
-                                    <a  alt="<?php echo $this->__('tambah ke koleksi') ?>"
+                                    <a id="collection-price-<?php echo $product->getId(); ?>" alt="<?php echo $this->__('tambah ke koleksi') ?>"
                                         class="link-wishlist addToCollectionLink" onclick="showAddToCollectionDialog()" href="javascript:;"
                                         data-brand-name="<?php echo $brand; ?>"
                                         data-image="<?php echo $this->helper('catalog/image')->init($product, 'small_image')->resize(320, 320); ?>"
