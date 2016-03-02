@@ -20,6 +20,10 @@ class Zendesk_Zendesk_Model_Observer
 {
     public function setHook(Varien_Event_Observer $observer)
     {
+        if (!method_exists(Mage::app()->getFrontController()->getAction(), 'getFullActionName')) {
+            return;
+        }
+        
         if (Mage::app()->getFrontController()->getAction()->getFullActionName() === 'adminhtml_dashboard_index')
         {
             $block = $observer->getBlock();
@@ -32,6 +36,10 @@ class Zendesk_Zendesk_Model_Observer
 
     public function insertBlock(Varien_Event_Observer $observer)
     {
+        if (!method_exists(Mage::app()->getFrontController()->getAction(), 'getFullActionName')) {
+            return;
+        }
+        
         if (Mage::app()->getFrontController()->getAction()->getFullActionName() === 'adminhtml_dashboard_index')
         {
             if ($observer->getBlock()->getUseAsDashboardHook())

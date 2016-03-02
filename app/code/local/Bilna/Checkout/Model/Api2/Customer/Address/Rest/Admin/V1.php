@@ -116,13 +116,16 @@ class Bilna_Checkout_Model_Api2_Customer_Address_Rest_Admin_V1 extends Bilna_Che
         
         $dataAddresses = array();
         foreach($data as $addressItem) {
-            foreach ($this->_attributesMap['quote_address'] as $attributeAlias=>$attributeCode) {
-                 if(isset($addressItem[$attributeAlias]))
-                 {
-                     $addressItem[$attributeCode] = $addressItem[$attributeAlias];
-                     unset($addressItem[$attributeAlias]);
-                 }
+            if (isset ($this->_attributesMap['quote_address'])) {
+                foreach ($this->_attributesMap['quote_address'] as $attributeAlias=>$attributeCode) {
+                     if(isset($addressItem[$attributeAlias]))
+                     {
+                         $addressItem[$attributeCode] = $addressItem[$attributeAlias];
+                         unset($addressItem[$attributeAlias]);
+                     }
+                }
             }
+            
             $dataAddresses[] = $addressItem;
         }
         return $dataAddresses;

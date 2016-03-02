@@ -100,34 +100,21 @@ extends Mage_Core_Helper_Abstract
 
         # Temporary username
         $username = Mage::getModel('catalog/product_url')->formatUrlKey($customer->getName());
+        $profile = Mage::getModel('socialcommerce/profile')->load($username, 'username')->getData();
 
-        # Check route rewrite is still available
-        $routeAvailable = $this->checkRouteAvailable($username);
+        # If username exists, improvise
+        if ($profile) {
 
-        if (! $routeAvailable) {
-
-            # If route not available, improvise it.
-
-            $error = false;
-            for ($i = 1;;$i++) {
+            for ($i = 1; $i < 101; $i++) {
                 $slug = $username . '-' . substr(uniqid(), 7);
-                if ($this->checkRouteAvailable($slug)) break;
-                if ($i == 100) {
-                    $error = true;
+                $profile = Mage::getModel('socialcommerce/profile')->load($slug, 'username')->getData();
+
+                if (empty($profile)) {
+                    $username = $slug;
                     break;
                 }
             }
-
-            if ($error) {
-                throw new Exception("Error Processing Request", 1);
-            }
-
-            $username = $slug;
-
         }
-
-        # Create new route rewrite for this customer
-        $this->createNewRewrite($username);
 
         # Create new customer profile
         $profile = Mage::getModel('socialcommerce/profile');
@@ -140,6 +127,8 @@ extends Mage_Core_Helper_Abstract
         $profile->setUsername($username);
 
         $profile->save();
+
+        return $username;
 
     }
 

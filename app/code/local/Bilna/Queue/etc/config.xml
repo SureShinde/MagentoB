@@ -43,6 +43,9 @@
             <rabbitmq_settings>
                 <port>5672</port>
             </rabbitmq_settings>
+            <beanstalkd_settings>
+                <port>11300</port>
+            </beanstalkd_settings>
         </bilna_queue>
     </default>
 </config>

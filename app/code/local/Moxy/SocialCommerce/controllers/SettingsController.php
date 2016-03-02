@@ -88,6 +88,28 @@ extends Mage_Core_Controller_Front_Action
                 $profile = Mage::getModel('socialcommerce/profile')
                     ->load($customerId, 'customer_id');
 
+                # Check if user has temporary profile and going to use different username
+                if ($profile->getTemporary() && $profile->getUsername() != $postUsername) {
+
+                    # Data validation
+                    try {
+                        Mage::helper('socialcommerce')->validateInput();
+                    } catch (Exception $e) {
+                        throw new Exception($e->getMessage());
+                    }
+
+                    # Check if username is still available
+                    $usernameAvailable = Mage::helper('socialcommerce')->checkUsernameAvailable($postUsername);
+
+                    if (! $usernameAvailable) {
+                        throw new Exception("Username not available"); # Username not available
+                    }
+
+                    $oldUsername = $profile->getUsername();
+
+                    $profile->setUsername($postUsername);
+                }
+
                 # Check image submission
                 $postAvatar = Mage::helper('socialcommerce')->processAvatar($customerId);
 
@@ -262,48 +284,10 @@ extends Mage_Core_Controller_Front_Action
             ->setCover($cover)
             ->save();
 
-		if ($preset_image = $_POST['preset_image']) {
-					$wishlist->setCover($preset_image);
-					$wishlist->save();
-				}
-
-        # Create rewrite, first check the availability
-        $slug = Mage::getModel('catalog/product_url')->formatUrlKey($wishlistName);
-        $routeAvailable = Mage::helper('socialcommerce')->checkCollectionRouteAvailable($wishlist->getId(), $slug);
-
-        if ($routeAvailable) {
-
-            # Create new route rewrite
-			Mage::helper('socialcommerce')->createNewCollectionRewrite($wishlist->getId(), $slug);
-
-        } else {
-
-            # If not available, try another else
-
-            $error = false;
-            for ($i = 1;;$i++) {
-                $check = $slug . '-' . substr(uniqid(), 7);
-                if ($Mage::helper('socialcommerce')->checkCollectionRouteAvailable($wishlist->getId(), $check)) break;
-                if ($i == 100) {
-                    $error = true;
-                    break;
-                }
-            }
-
-            if ($error) {
-                throw new Exception("Error Processing Request", 1);
-            }
-
-            # Create new route rewrite
-			Mage::helper('socialcommerce')->createNewCollectionRewrite($wishlist->getId(), $slug);
-
+        if ($preset_image = $_POST['preset_image']) {
+            $wishlist->setCover($preset_image);
+            $wishlist->save();
         }
-
-        # Check if rewrite still available
-        if (! $routeAvailable) {
-            throw new Exception("Username not available"); # Route not available
-        }
-
         return $wishlist;
 
     }
@@ -352,9 +336,9 @@ extends Mage_Core_Controller_Front_Action
                     $wishlist->setCover($cover);
                 }
 
-				if ($preset_image = $_POST['preset_image']) {
-					$wishlist->setCover($preset_image);
-				}
+                if ($preset_image = $_POST['preset_image']) {
+                    $wishlist->setCover($preset_image);
+                }
 
                 #for deleting collection
                 if($del){
@@ -364,30 +348,7 @@ extends Mage_Core_Controller_Front_Action
                 
                 $descupdate = $wishlist->setDesc($desc);
 
-                #for changing title - checking if there's any title changing
-                if($title != $wlname){
-
-                $slug = Mage::getModel('catalog/product_url')->formatUrlKey($title);
-                $routeAvailable = Mage::helper('socialcommerce')->checkCollectionRouteAvailable($wishlist->getId(), $slug);
-
-                      if ($routeAvailable) {
-                        
-                       $titlechange = $wishlist->setName($title);
-                       # Create new route rewrite
-                       Mage::helper('socialcommerce')->createNewCollectionRewrite($wishlist->getId(), $slug);
-
-                       } 
-
-                       else {
-                            throw new Exception("Completely sorry the title is not available"); # Route not available
-                       }
-                         
-        
-                }
-
-                
-
-                if ($cover || $descupdate || $titlechange) {
+                if ($cover || $descupdate) {
                   
                     $wishlist->save();
 
