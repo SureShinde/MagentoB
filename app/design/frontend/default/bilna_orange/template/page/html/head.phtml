@@ -46,7 +46,13 @@
 <?php echo $this->getIncludes() ?>
 
 <!-- Provide wishlist value if we are at wishlist detail page -->
-<?php $wishlist = $this->getWishlist(); ?>
+<?php 
+	$wishlist = $this->getWishlist();
+	$wishlistCover = $this->getSkinUrl('images/') . 'default-collection.jpg';
+	if ($wishlist && $wishlist->cover ) {
+		$wishlistCover = sprintf("%s%s", $this->getUrl('media/collection-cover'), $wishlist->cover);
+	}
+?>
 
 <!-- Facebook Open Graph -->
 <?php
@@ -67,7 +73,7 @@
 		?>
 		<meta property="og:type" content="website"/>
 		<?php if ($wishlist) { ?>
-			<meta property="og:image" content="<?php echo sprintf("%s%s", $this->getUrl('media/collection-cover'), $wishlist->cover); ?>"/>
+			<meta property="og:image" content="<?php echo $wishlistCover; ?>"/>
 		<?php } else { ?>
 			<meta property="og:image" content="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA); ?><?php echo $post->getImageName();?>?id=<?php echo $today; ?>"/>
 		<?php }?>
@@ -83,6 +89,6 @@
 	<meta name="twitter:url" content="<?php echo Mage::helper('core/url')->getCurrentUrl();?>"/>
 	<meta name="twitter:title" content="<?php echo $this->getTitle(); ?>">
 	<meta name="twitter:description" content="<?php echo $wishlist->desc; ?>">
-	<meta name="twitter:image" content="<?php echo sprintf("%s%s", $this->getUrl('media/collection-cover'), $wishlist->cover); ?>">
+	<meta name="twitter:image" content="<?php echo $wishlistCover; ?>">
 <?php } ?>
 <!-- End of Twitter cards implementation -->
