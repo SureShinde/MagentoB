@@ -1,10 +1,4 @@
 <?php
-/**
- * Description of Catalog Category Product
- *
- * @author Bilna Development Team <development@bilna.com>
- */
-
 require_once dirname(__FILE__) . '/../abstract.php';
 
 class Ccp extends Mage_Shell_Abstract {
@@ -44,12 +38,10 @@ class Ccp extends Mage_Shell_Abstract {
             } catch(Exception $e) {
                 Mage::log($e->getMessage());
             }
-        }
-        
-        exit;
-    }
-    
+        }        
+    }    
 }
 
 $shell = new Ccp();
 $shell->run();
+exit;

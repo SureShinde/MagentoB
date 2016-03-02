@@ -7,7 +7,7 @@
     </tabs>
     <sections>
         <bilna_ccp translate="label" module="bilna_ccp">
-            <label>Catalog Category Product (CCP)</label>
+            <label>VM Automation</label>
             <tab>bilna</tab>
             <frontend_type>text</frontend_type>
             <sort_order>5000</sort_order>
@@ -16,7 +16,7 @@
             <show_in_store>1</show_in_store>
             <groups>
                 <ccp translate="label" module="bilna_ccp">
-                    <label>Filter Query to Export</label>
+                    <label>Query Conditions</label>
                     <frontend_type>text</frontend_type>
                     <sort_order>0</sort_order>
                     <show_in_default>1</show_in_default>
@@ -70,38 +70,8 @@
                             <show_in_store>1</show_in_store>
                             <comment>default: 30%</comment>
                         </percentage_inventory>
-                        <!-- <percentage_position translate="label">
-                            <label>Allocation Percentage Position</label>
-                            <frontend_type>text</frontend_type>
-                            <sort_order>6</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                            <comment>default: 10%</comment>
-                        </percentage_position> -->
                     </fields>
-                </ccp>
-                <!--export translate="label">
-                    <label>Run CCP</label>
-                    <frontend_type>text</frontend_type>
-                    <sort_order>9</sort_order>
-                    <show_in_default>1</show_in_default>
-                    <show_in_website>1</show_in_website>
-                    <show_in_store>1</show_in_store>
-                    <fields>
-                        <export translate="label">
-                            <label>Run Saved Configuration</label>
-                            <frontend_type>button</frontend_type>
-                            <frontend_model>adminhtml/system_config_system_storage_media_synchronize</frontend_model>
-                            <sort_order>10</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                            <comment>Run Saved Configuration</comment>
-                        </export>
-                    </fields>
-                </export-->
-                
+                </ccp>                
             </groups>
         </bilna_ccp>
     </sections>

@@ -1,14 +1,6 @@
 <?php
-/**
- * Description of Bilna_Ccp_Model_Selectbox_Salesorder
- *
- * @author Bilna Development Team <development@bilna.com>
- */
-
-class Bilna_Ccp_Model_Resource_Ccpmodel extends Mage_Core_Model_Resource_Db_Abstract{
-
-    protected function _construct()
-    {
+class Bilna_Ccp_Model_Resource_Ccpmodel extends Mage_Core_Model_Resource_Db_Abstract {
+    protected function _construct() {
         $this->_init('ccp/ccpmodel', 'product_id');
     }
 
