@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Bilna_Ccp>
+            <version>0.1.0</version>
+        </Bilna_Ccp>
+    </modules>
+    <global>
+        <models>
+            <ccp>
+                <class>Bilna_Ccp_Model</class>
+                <resourceModel>ccp_resource</resourceModel>
+            </ccp>
+            <ccp_resource>
+                <class>Bilna_Ccp_Model_Resource</class>
+                <entities>
+                    <ccpmodel><table>bilna_ccp_product_scoring</table></ccpmodel>
+                </entities>
+            </ccp_resource>
+
+        </models>
+        <resources>
+            <bilna_ccp_setup>
+                <setup>
+                    <module>Bilna_Ccp</module>
+                </setup>
+            </bilna_ccp_setup>
+        </resources>
+    </global>
+    <frontend>
+        <routers>
+            <bilna_ccp>
+                <use>standard</use>
+                <args>
+                    <module>Bilna_Ccp</module>
+                    <frontName>Catalog Category Product</frontName>
+                </args>
+            </bilna_ccp>
+        </routers>
+    </frontend>
+    <adminhtml>
+        <acl>
+            <resources>
+                <all>
+                    <title>Allow Everything</title>
+                </all>
+                
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+                                <config>
+                                        <children>
+                                            <bilna_ccp>
+                                                <title>test</title>
+                                            </bilna_ccp>
+                                        </children>
+                                </config>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+    </adminhtml>
+</config>
