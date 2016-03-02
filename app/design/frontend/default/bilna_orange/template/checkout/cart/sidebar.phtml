@@ -51,9 +51,9 @@
 	            <p class="amount"><?php echo $this->__('Menampilkan 3 dari <a id="cart-item-qty" href="%s">%s</a> produk di Troli Anda', $this->getUrl('checkout/cart'), $_cartQty) ?></p>
 	        <?php endif ?>
 	    <?php endif ?>
+	    <?php echo '<span id="ematicuseremail" class="hidden">'.$customer_email.'</span>'; ?>
 	    <?php if(count($_items)): ?>
 	       	<ul id="cart-sidebar" class="mini-products-list">
-	       		<?php echo '<span id="ematicuseremail">'.$customer_email.'</span>' ?>
 		        <?php foreach($_items as $_item): ?>
 		        	<?php $parentId = $_item->getParentItemId(); ?>
 		        	<?php if(empty($parentId)): ?>
@@ -95,7 +95,64 @@
 <?php endif;?>
 
 <script type="text/javascript">
-function ecommerceRemoveCart(name, sku, price, price_ematic, quantity, imageUrl, link) {
+function ecommerceCheckout0_buttonclicked() {
+	var temp_container = {
+		'event': 'checkout',
+	    'ecommerce': {
+	      'checkout': {
+	        'actionField': {
+	        	'step' : 1,
+	        	'list' : 'browsing'
+	        },
+	        'products': []
+	     }
+	   }
+	}
+
+	// ematics cart - retrieve items from cart
+    var temp_cart = [];
+    var temp_item = "";
+    var index_removeditem = "";
+    var temp_cartQty = jQuery(".mini-cart span#ematiccart").length;
+    for (var itr=0; itr < temp_cartQty; itr++) {
+    	temp_item = jQuery(".mini-cart span#ematiccart").eq(itr).text();
+    	temp_cart[itr] = temp_item.split("|");
+    }
+
+	// ematics cart - prepare for logging
+    products = [
+    <?php for($i=0; $i<$itemQty; $i++) {
+    	echo "{'name' : temp_cart[".$i."][0],";
+    	echo "'id' : temp_cart[".$i."][1],";
+    	echo "'price' : temp_cart[".$i."][3],";
+    	echo "'quantity' : temp_cart[".$i."][4],";
+    	echo "'brandName' : 'brand name',";
+    	echo "'imageUrl' : temp_cart[".$i."][5],";
+    	echo "'link' : temp_cart[".$i."][6]}";if($i != $itemQty-1) {echo ",";}
+    } 
+    ?>
+    ];
+
+    // ematics track checkout
+	ematics("log", "product", "checkout", products);
+
+    // universal analytics
+    temp_container.ecommerce.checkout.products.push(
+    	<?php for($i=0; $i<$itemQty; $i++) {
+	    	echo "{'name' : temp_cart[".$i."][0],";
+	    	echo "'sku' : temp_cart[".$i."][1],";
+	    	echo "'price' : temp_cart[".$i."][2],";
+	    	echo "'quantity' : temp_cart[".$i."][4],";
+	    	echo "'brandName' : 'brand name',";
+	    	echo "'imageUrl' : temp_cart[".$i."][5],";
+	    	echo "'link' : temp_cart[".$i."][6]}";if($i != $itemQty-1) {echo ",";}
+	    } 
+	    ?>
+    	);
+    dataLayer.push(temp_container);
+}
+
+function ecommerceRemoveCart(name, sku, price, quantity, imageUrl, link) {
     dataLayer.push({
 	  'event': 'removeFromCart',
 	  'ecommerce': {
