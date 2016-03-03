@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<config>
+    <tabs>
+        <bilna translate="label">
+            <label>Bilna Extensions</label>
+        </bilna>
+    </tabs>
+    <sections>
+        <bilna_expressshipping translate="label">
+            <label>Vip Shipment Payment</label>
+            <tab>bilna</tab>
+            <frontend_type>text</frontend_type>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <paymethod translate="label">
+                    <label>Express Shipping Payment Method</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>0</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <expanded>1</expanded>
+                    <fields>
+			<allowed_paymethod translate="label">
+                            <label>Allowed Paymethod: </label>
+                            <frontend_type>multiselect</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <source_model>expressshipping/expressshipping</source_model>
+                        </allowed_paymethod>
+                    </fields>
+                </paymethod>
+            </groups>
+        </bilna_expressshipping>
+    </sections>
+</config>
