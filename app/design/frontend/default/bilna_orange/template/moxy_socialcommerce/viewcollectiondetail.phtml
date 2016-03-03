@@ -263,7 +263,7 @@ $_helper = $this->helper('catalog/output');
                   <div class="cg-col-lg-12 cg-col-sm-12 cg-col-md-12 cg-col-xs-12 text-right bottom-spacer-container" style="">
                       </div>
                  <div class="cg-col-xs-12 cg-col-sm-12 cg-col-md-6 cg-col-lg-6">
-                  <img src="<?php echo $productImageUrl; ?>" alt="<?php echo $productImageLabel?>" id="product-collection-image-<?php echo $productId; ?>">
+                  <img src="<?php echo $productImageUrl; ?>" alt="<?php echo $productImageLabel?>" id="product-collection-image-<?php echo $productId; ?>" class="product-collection-image-quick">
 
                   <?php $_images = Mage::getModel('catalog/product')->load($_product->getId())->getMediaGalleryImages(); ?>  
 
@@ -278,7 +278,7 @@ $_helper = $this->helper('catalog/output');
                             ?>
                             
                             <li style ="line-height: 1px;float: left;">
-                              <a class="thumb-link quick-view" href="#" data-image-index="<?php echo $a; ?>"><img src="<?php echo $this->helper('catalog/image')->init($_product, 'thumbnail', $_image->getFile())->resize(50); ?>" width="50" height="50" alt="<?=$this->htmlEscape($_image->getLabel());?>" title="<?=$this->htmlEscape($_image->getLabel());?>"/></a> 
+                              <a class="thumb-link quick-view pointer" data-image-index="<?php echo $a; ?>"><img src="<?php echo $this->helper('catalog/image')->init($_product, 'thumbnail', $_image->getFile())->resize(50); ?>" width="50" height="50" alt="<?=$this->htmlEscape($_image->getLabel());?>" title="<?=$this->htmlEscape($_image->getLabel());?>" data-image-main="<?php echo $this->helper('catalog/image')->init($_product, 'image', $_image->getFile())->resize(265); ?>" class="thumb-img" /></a> 
                             </li>
                         <?php } $a++; endforeach; ?>
                         </ul>
@@ -633,6 +633,10 @@ jQuery('.category-products .item').hover(function(){
   } else {
     jQuery(this).find('div.actions').addClass('hover');
   }
+});
+
+jQuery('.thumb-img').bind("click",function(){
+  jQuery(".product-collection-image-quick").attr('src',jQuery(this).attr("data-image-main"));
 });
 
 function countSelectedItems(){
