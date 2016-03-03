@@ -57,11 +57,9 @@ class Bilna_Paymentconfirmation_IndexController extends Mage_Core_Controller_Fro
                 $isValidOrderID = $paymentModel->isValidOrder($post['order_number']);
                 $post['transfer_date'] = sprintf('%s-%s-%s',$post['year'],$post['month'],$post['day']);
                 unset($post['year'],$post['month'],$post['day']);
-                if(isset($isValidOrderID[0]['entity_id'])){
-                    if($isValidOrderID[0]['customer_email'] == $post['email']){
-
-			$post['entity_id'] = $isValidOrderID[0]['entity_id'];
-
+                if(trim($isValidOrderID->entity_id) != ''){
+                    if($isValidOrderID->customer_email == $post['email']){
+                        $post['entity_id'] = $isValidOrderID->entity_id;
                         $collections = $paymentModel->insertPayment($post);//models var on config.xml
                         $this->getLayout()->getBlock('head')->setTitle($this->__('Payment Confirmation Thank You'));
                         $this->getLayout()->getBlock('paymentconfirm_process')->setData('message',SUCCESS);

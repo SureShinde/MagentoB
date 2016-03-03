@@ -9,15 +9,12 @@ class Bilna_Paymentconfirmation_Model_Payment extends Varien_Object{
     private $orderTable = 'sales_flat_order';
     private $confirmationTable = 'bilna_payment_confirmation';
     public function isValidOrder($orderNumber){
-        $db = Mage::getSingleton('core/resource')->getConnection('core_read');
-        $field = array("entity_id"=>"entity_id","grand_total"=>"grand_total",
-                       "total_paid"=>"total_paid","status"=>"status",
-                       "customer_email"=>"customer_email");
-        $query = $db->select()->from($this->orderTable,$field)->where(sprintf("increment_id = %s",$orderNumber));
-        return $db->fetchAll($query);
+        $order = Mage::getModel("sales/order")->loadByIncrementId($orderNumber);
+        return $order;
     }
+    
     public function isPaymentExists($orderNumber){
-	$db = Mage::getSingleton('core/resource')->getConnection('core_read');
+        $db = Mage::getSingleton('core/resource')->getConnection('core_read');
         $field = array("order_id"=>"order_id","email"=>"email","nominal"=>"nominal",
                        "dest_bank"=>"dest_bank","transfer_date"=>"transfer_date",
                        "source_bank"=>"source_bank","source_acc_number"=>"source_acc_number",
