@@ -119,4 +119,74 @@ class Bilna_Ccp_Model_Ccpmodel extends Mage_Core_Model_Abstract {
             $arr_result[$key] = $arr_sorted[$val]+1;
         return $arr_result;
     }
+
+    public function setProductPosition() {
+        $productRankingArray = array();
+        $categoriesArray = $this->getAllCategories();
+
+        $write = Mage::getSingleton('core/resource')->getConnection('core_write');
+
+        foreach ($categoriesArray as $key => $category_id) {
+            $productsArray = $this->getCatalogProductFromCategory($category_id);
+            if(sizeof($productsArray) > 0) {
+                $arrScore = array();
+                foreach ($productsArray as $key => $product_id) {
+                    $score = $this->getProductScore($product_id);
+                    $arrScore[$product_id] = sizeof($score) > 0 && isset($score[0]['score']) ? (int)$score[0]['score'] : 99999;
+                }
+                $productRankingArray = $this->calculateRank($arrScore, "sort");
+
+                foreach ($productRankingArray as $product_id => $position) {
+                    try {
+                        $write->update(
+                            "catalog_category_product",
+                            array("position" => $position),
+                            array("category_id=".$category_id, "product_id=".$product_id)
+                        );
+                        $write->commit();
+                        Mage::log('Product ID '.$product_id.' from Category ID '.$category_id.' was updated to position '.$position);
+                    } catch(Exception $e) {
+                        Mage::logException($e);
+                    }
+                }
+            }
+        }
+    }
+
+    // get all category IDs to loop
+    public function getAllCategories() {
+        $list_category = array('2887');
+        return $list_category;
+    }
+
+    // get products' IDs from CCP Table
+    // returns format array {[0] =>"309", [1] => "310" }
+    public function getCatalogProductFromCategory($category_id) {
+        $return = array();
+        $connection = Mage::getSingleton('core/resource')->getConnection('core_read');
+        $select = $connection->select()
+                ->from('catalog_category_product', array('product_id'))
+                ->where('category_id=?', $category_id)
+                ;
+        Mage::log((string)$select);
+        $result = $connection->fetchAll($select); 
+        foreach ($result as $key => $value) {
+            $return[] = $value['product_id'];
+        }
+        return $return;
+    }
+
+    // get product score from table bilna_ccp_product_scoring table
+    // returns format array {[0] => array { 'score' => "1.00" } }
+    public function getProductScore($product_id) {
+        $return = array();
+        $connection = Mage::getSingleton('core/resource')->getConnection('core_read');
+        $select = $connection->select()
+                ->from('bilna_ccp_product_scoring', array('score'))
+                ->where('product_id=?', $product_id)
+                ;
+        Mage::log((string)$select);
+        $result = $connection->fetchAll($select); 
+        return $result;
+    }
 }
