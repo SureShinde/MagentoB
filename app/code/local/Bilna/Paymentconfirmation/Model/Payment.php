@@ -45,7 +45,7 @@ class Bilna_Paymentconfirmation_Model_Payment extends Varien_Object{
     public function cronEmailPaymentconfirmation(){
 	$db = Mage::getSingleton('core/resource')->getConnection('core_read');
 	$i = 0;
-	$limit = 1;
+	$limit = 100;
 	$filename = './tes.csv';
 	$handle = fopen($filename,'w+');
 	fwrite($handle,"ORDER ID,e-mail,Nominal,Bank Penerima,Tanggal Transfer,Bank Pengirim,No Rek Pengirim,Nama Pengirim,Komentar\n");
