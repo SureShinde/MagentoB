@@ -1,5 +1,4 @@
 <?php
-
 class Bilna_Pricevalidation_Block_Adminhtml_Pricevalidation_Edit_Tab_Columns
     extends Mage_Adminhtml_Block_Template
 {
@@ -8,7 +7,6 @@ class Bilna_Pricevalidation_Block_Adminhtml_Pricevalidation_Edit_Tab_Columns
         parent::_construct();
         $this->setTemplate('bilna_pricevalidation/columns.phtml');
     }
-
     public function getColumnsFields()
     {
         $groups = array(
@@ -60,26 +58,6 @@ class Bilna_Pricevalidation_Block_Adminhtml_Pricevalidation_Edit_Tab_Columns
                         'backend_type' => 'date',
                         'is_required' => 0
                     ),
-                    'expected_cost' => array(
-                        'attribute_code' => 'expected_cost',
-                        'backend_type' => 'int',
-                        'is_required' => 0
-                    ),
-                    'event_cost' => array(
-                        'attribute_code' => 'event_cost',
-                        'backend_type' => 'int',
-                        'is_required' => 0
-                    ),
-                    'event_start_date' => array(
-                        'attribute_code' => 'event_start_date',
-                        'backend_type' => 'date',
-                        'is_required' => 0
-                    ),
-                    'event_end_date' => array(
-                        'attribute_code' => 'event_end_date',
-                        'backend_type' => 'date',
-                        'is_required' => 0
-                    ),
                     'enabled' => array(
                         'attribute_code' => 'status',
                         'backend_type' => 'string',
@@ -88,16 +66,12 @@ class Bilna_Pricevalidation_Block_Adminhtml_Pricevalidation_Edit_Tab_Columns
                 )
             )
         );
-
-
         return $groups;
     }
-
     public function sortFields($a, $b)
     {
         return $a['frontend_label']<$b['frontend_label'] ? -1 : ($a['frontend_label']>$b['frontend_label'] ? 1 : 0);
     }
-
     public function getColumns()
     {
         return (array)$this->getProfile()->getColumns();
