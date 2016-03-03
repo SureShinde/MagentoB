@@ -10,37 +10,36 @@ class Bilna_Paymentconfirmation_Model_Payment extends Varien_Object{
     private $confirmationTable = 'bilna_payment_confirmation';
     public function isValidOrder($orderNumber){
         $db = Mage::getSingleton('core/resource')->getConnection('core_read');
-        $sql = sprintf( "SELECT entity_id,grand_total,total_paid,status,customer_email FROM %s ".
-                        "WHERE increment_id = '%s'", $this->orderTable,$orderNumber);
-        return $db->fetchAll($sql);
+        $field = array("entity_id"=>"entity_id","grand_total"=>"grand_total",
+                       "total_paid"=>"total_paid","status"=>"status",
+                       "customer_email"=>"customer_email");
+        $query = $db->select()->from($this->orderTable,$field)->where(sprintf("increment_id = %s",$orderNumber));
+        return $db->fetchAll($query);
     }
     public function isPaymentExists($orderNumber){
 	$db = Mage::getSingleton('core/resource')->getConnection('core_read');
-	$sql = sprintf(	"SELECT order_id,email,nominal,dest_bank,transfer_date,source_bank,source_acc_number,".
-			"source_acc_name,comment,entity_id FROM %s where order_id = '%s'",$this->confirmationTable,$orderNumber);
+        $field = array("order_id"=>"order_id","email"=>"email","nominal"=>"nominal",
+                       "dest_bank"=>"dest_bank","transfer_date"=>"transfer_date",
+                       "source_bank"=>"source_bank","source_acc_number"=>"source_acc_number",
+                       "source_acc_name"=>"source_acc_name","comment"=>"comment","entity_id"=>"entity_id");
+        $query = $db->select()->from($this->confirmationTable,$field)->where(sprintf("order_id = %s",$orderNumber))->order('transfer_date','DESC')->limit(1);
 	return $db->fetchAll($sql);
     }
     
     public function insertPayment($param){
-        //print_r($param);//exit;
         $db = Mage::getSingleton('core/resource')->getConnection('core_read');
-        $sql = sprintf( "INSERT INTO %s set created_at = NOW(),".
-                        "order_id = %s ,email = %s, nominal = %s, dest_bank = %s, transfer_date = %s, ".
-                        "source_bank = %s, source_acc_number = %s, source_acc_name = %s, comment = %s, entity_id = %s",$this->confirmationTable,
-                        !empty($param['order_number']) ? "'".$param['order_number']."'" : "NULL",
-                        !empty($param['email']) ? "'".$param['email']."'" : "NULL",
-                        !empty($param['nominal']) ? $param['nominal'] : "NULL",
-                        !empty($param['bank_to']) ? "'".$param['bank_to']."'" : "NULL",
-                        !empty($param['transfer_date']) ? "'".$param['transfer_date']."'" : "NULL",
-                        !empty($param['bank_from']) ? "'".$param['bank_from']."'" : "NULL",
-                        !empty($param['acc_from']) ? "'".$param['acc_from']."'" : "NULL",
-                        !empty($param['name_from']) ? "'".$param['name_from']."'" : "NULL",
-                        !empty($param['comment']) ? "'".$param['comment']."'" : "NULL",
-			!empty($param['entity_id']) ? (int)$param['entity_id'] : "0");
-        //print $sql;
-        //exit;
-        $query = $db->query($sql);
-        return $query;
+        $fields = array("order_id" => !empty($param['order_number']) ? $param['order_number'] : "NULL",
+                        "email" => !empty($param['email']) ? $param['email'] : "NULL",
+                        "nominal" => !empty($param['nominal']) ? $param['nominal'] : "NULL",
+                        "dest_bank" => !empty($param['bank_to']) ? $param['bank_to'] : "NULL",
+                        "transfer_date" => !empty($param['transfer_date']) ? $param['transfer_date'] : "NULL",
+                        "source_bank" => !empty($param['bank_from']) ? $param['bank_from'] : "NULL",
+                        "source_acc_number" => !empty($param['acc_from']) ? $param['acc_from'] : "NULL",
+                        "source_acc_name" => !empty($param['name_from']) ? $param['name_from'] : "NULL",
+                        "comment" => !empty($param['comment']) ? $param['comment'] : "NULL",
+			"entity_id" => !empty($param['entity_id']) ? (int)$param['entity_id'] : "0");
+        $db->insert($this->confirmationTable, $fields);
+        return true;
     }
 
     public function cronEmailPaymentconfirmation(){
@@ -50,19 +49,20 @@ class Bilna_Paymentconfirmation_Model_Payment extends Varien_Object{
 	$filename = './tes.csv';
 	$handle = fopen($filename,'w+');
 	fwrite($handle,"ORDER ID,e-mail,Nominal,Bank Penerima,Tanggal Transfer,Bank Pengirim,No Rek Pengirim,Nama Pengirim,Komentar\n");
-	//$html = "<HTML><HEAD></HEAD><BODY><TABLE BORDER=\"1\"><TR><TD>ORDER ID</TD><TD>e-Mail</TD><TD>Nominal</TD><TD>BANK PENERIMA</TD><TD>TANGGAL TRANSFER</TD><TD>BANK PENGIRIM</TD><TD>NO REK PENGIRIM</TD><TD>NAMA PENGIRIM</TD><TD>KOMENTAR</TD></TR>";
 	while(true){
-		$sql = sprintf( "SELECT id,entity_id,order_id,email,nominal,dest_bank,transfer_date,source_bank,source_acc_number,".
-				"source_acc_name,comment FROM %s WHERE id > %s AND ".
-				"DATE_FORMAT(created_at,'%s') = DATE_FORMAT(DATE_ADD(NOW(),INTERVAL -1 DAY),'%s') ".
-				"LIMIT %d",$this->confirmationTable,$i,'%Y-%m-%d','%Y-%m-%d',$limit);
-		$result = $db->query($sql);
-		$data = $result->fetchAll();
+                $field = array("id"=>"id","entity_id"=>"entity_id","order_id"=>"order_id","email"=>"email",
+                               "nominal"=>"nominal","dest_bank"=>"dest_bank","transfer_date"=>"transfer_date",
+                               "source_bank"=>"source_bank","source_acc_number"=>"source_acc_number",
+                               "source_acc_name"=>"source_acc_name","comment"=>"comment");
+                $query = $db->select()->from($this->confirmationTable,$field)
+                            ->where(sprintf("id > %s",$i))
+                            ->where(sprintf("DATE_FORMAT(created_at,'%s') = DATE_FORMAT(DATE_ADD(NOW(),INTERVAL -1 DAY),'%s')",'%Y-%m-%d','%Y-%m-%d'))
+                            ->order('id','ASC')->limit($limit);
+                $data = $db->fetchAll($query);
 		if(count($data) > 0){
 			foreach($data as $idx => $rw){
 				$i = $rw['id'];
 				fwrite($handle,$rw['order_id'].",".$rw['email'].",".$rw['nominal'].",".$rw['dest_bank'].",".$rw['transfer_date'].",".$rw['source_bank'].",".$rw['source_acc_number'].",".$rw['source_acc_name'].",".str_replace("\n"," ".$rw['comment'])."\n");
-				//$html .= sprintf("<TR><TD>%s</TD><TD>%s</TD><TD>%s</TD><TD>%s</TD><TD>%s</TD><TD>%s</TD><TD>%s</TD><TD>%s</TD><TD>%s</TD></TR>","<a href=\"".Mage::helper("adminhtml")->getUrl("adminhtml/sales_order/view/",array("order_id" => $rw['entity_id']))."\">".$rw['order_id']."</a>",$rw['email'],number_format($rw['nominal'],0,",","."),$rw['dest_bank'],$rw['transfer_date'],$rw['source_bank'],$rw['source_acc_number'],$rw['source_acc_name'],$rw['comment']);
 			}
 		}
 		else{
@@ -71,24 +71,11 @@ class Bilna_Paymentconfirmation_Model_Payment extends Varien_Object{
 	}
 	fclose($handle);
 	$html .= "</TABLE></BODY></HTML>";
-	/*
-	$mail = Mage::getModel('core/email');
-	$mail->setToName('Deni Dhian');
-	$mail->setToEmail('dendhi31@yahoo.com');
-	$mail->setBody($html); 
-	$mail->setSubject('Payment Confirmation '.date('d-m-Y'));
-	$mail->setFromEmail('deni.dhian@bilna.com');
-	$mail->setFromName("Bilna Admin");
-	$mail->setType('html');// Html or text format in setBody
-	$mail->send();
-	*/
 	$html = 'PFA';
 	Mage :: app("default");
 	$mail = new Zend_Mail();
 	$mail->setType(Zend_Mime::MULTIPART_RELATED);
 	$mail->setBodyHtml($html);
-	//$mail->setFrom(Mage::getModel('core/variable')->setStoreId(Mage::app()->getStore()->getId())->loadByCode('cronPaymentConfirmSenderEmail')->getValue('text'), (Mage::getModel('core/variable')->setStoreId(Mage::app()->getStore()->getId())->loadByCode('cronPaymentConfirmSenderName')->getValue('text')));
-	//$mail->addTo(Mage::getModel('core/variable')->setStoreId(Mage::app()->getStore()->getId())->loadByCode('cronPaymentConfirmReceiverEmail')->getValue('text'), (Mage::getModel('core/variable')->setStoreId(Mage::app()->getStore()->getId())->loadByCode('cronPaymentConfirmReceiverName')->getValue('text')));
 	$mail->setFrom(Mage::getStoreConfig('bilna_paymentconfirmation/paymentconfirmation/sender_email'),Mage::getStoreConfig('bilna_paymentconfirmation/paymentconfirmation/sender_name'));
         $mail->addTo(Mage::getStoreConfig('bilna_paymentconfirmation/paymentconfirmation/receiver_email'),Mage::getStoreConfig('bilna_paymentconfirmation/paymentconfirmation/receiver_name'));
 	$mail->setSubject('[BILNA] Payment Confirmation List '.date('Y-m-d',mktime(0,0,0,date('m'),intval(date('d')-1),date('Y'))));

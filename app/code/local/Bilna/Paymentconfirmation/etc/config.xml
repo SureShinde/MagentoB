@@ -67,7 +67,7 @@
         </resources>
     </global>
     <adminhtml>
-        <acl>
+	<acl>
             <resources>
                 <all>
                     <title>Allow Everything</title>
