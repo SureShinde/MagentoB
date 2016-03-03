@@ -43,6 +43,9 @@
                 if ( (strpos(strtolower($_rate->getCode()), 'express_shipping') !== false) ):
                     if (!$this->showExpressShippingMethod())
                         $disableOption = true;
+                    else
+                    if (!$this->checkExpressShippingSalesCount())
+                        $disableOption = true;
                 ?>
                 <?php endif ?>
                 <li>

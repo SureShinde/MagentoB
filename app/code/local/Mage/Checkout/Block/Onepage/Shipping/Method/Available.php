@@ -79,4 +79,26 @@ class Mage_Checkout_Block_Onepage_Shipping_Method_Available extends Mage_Checkou
         return $showExpress;
     }
 
+    /* check the number of sales order with express shipping method */
+    public function checkExpressShippingSalesCount()
+    {
+        $showExpress = true;
+        $expressSOLimit = 600;
+
+        /* Format our dates */
+        $fromDate = date('Y-m-d 17:00:00', strtotime("-1 day"));
+        $toDate = date('Y-m-d H:i:s');
+         
+        /* Get the collection */
+        $orders = Mage::getModel('sales/order')->getCollection()
+            ->addAttributeToFilter('created_at', array('from'=>$fromDate, 'to'=>$toDate))
+            ->addAttributeToFilter('shipping_method', array('like' => '%Express_Shipping%'));
+        $order_count = $orders->getSize();
+
+        if ($order_count > $expressSOLimit)
+            $showExpress = false;
+
+        return $showExpress;
+    }
+
 }
