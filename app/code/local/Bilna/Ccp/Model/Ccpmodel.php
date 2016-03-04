@@ -64,6 +64,7 @@ class Bilna_Ccp_Model_Ccpmodel extends Mage_Core_Model_Abstract {
 
             $product_id = $value['product_id'];
             $sales=isset($product_sales[$key]['sales']) ? (int)$product_sales[$key]['sales'] : 0;
+
             $sales_rank = isset($arr_sales_rank[$product_id]) ? (int)$arr_sales_rank[$product_id] : Bilna_Ccp_Model_Ccpmodel::LAST_RANKING;
             $stock=isset($value['stock_qty']) ? $value['stock_qty'] : 0;
             $stock_rank = isset($arr_inv_rank[$product_id]) ? (int)$arr_inv_rank[$product_id] : Bilna_Ccp_Model_Ccpmodel::LAST_RANKING;
@@ -75,6 +76,7 @@ class Bilna_Ccp_Model_Ccpmodel extends Mage_Core_Model_Abstract {
         $sql="INSERT INTO bilna_ccp_product_scoring VALUES ";
         foreach ($data as $key => $value) {
             $sql.=$value;
+
             if(($key+1)%Bilna_Ccp_Model_Ccpmodel::BATCH_SIZE==0) {
                 $write->query($sql);
                 $sql="INSERT INTO bilna_ccp_product_scoring VALUES ";
@@ -151,6 +153,7 @@ class Bilna_Ccp_Model_Ccpmodel extends Mage_Core_Model_Abstract {
         $sql="";
         foreach ($data as $key => $value) {
             $sql.=$value;
+
             if(($key+1)%Bilna_Ccp_Model_Ccpmodel::BATCH_SIZE==0) {
                 $write->query($sql);
                 $sql="";
