@@ -21,12 +21,9 @@ class Bilna_Ccp_Model_Ccpmodel extends Mage_Core_Model_Abstract {
         $read = $this->connDbRead();
 
         $select = $read->select()
-            ->from(array('main_table' => 'catalog_product_flat_1'),
-                array('main_table.name', 'main_table.entity_id as product_id'))
-            ->join(
+            ->from(
                 array('stock' => Mage::getConfig()->getTablePrefix()."cataloginventory_stock_item")
-                , 'stock.product_id = main_table.entity_id'
-                , array('stock.qty as stock_qty')
+                , array('stock.product_id', 'stock.qty as stock_qty')
                 )
             ;
         $product_stock = $read->fetchAll($select);
@@ -56,15 +53,15 @@ class Bilna_Ccp_Model_Ccpmodel extends Mage_Core_Model_Abstract {
         $percentage_item = $configValues['percentage_itemsold']/100;
         $percentage_inventory = $configValues['percentage_inventory']/100;
 
+        // combine and use one final array only
+        $final_array = $this->refactorArray($product_stock, $product_sales);
+
         $write = $this->connDbWrite();
         $write->delete("bilna_ccp_product_scoring");
 
         $data = array();
-        foreach ($product_stock as $key => $value) {
-
-            $product_id = $value['product_id'];
-            $sales=isset($product_sales[$key]['sales']) ? (int)$product_sales[$key]['sales'] : 0;
-
+        foreach ($final_array as $product_id => $value) {
+            $sales=$value['sales'];
             $sales_rank = isset($arr_sales_rank[$product_id]) ? (int)$arr_sales_rank[$product_id] : Bilna_Ccp_Model_Ccpmodel::LAST_RANKING;
             $stock=isset($value['stock_qty']) ? $value['stock_qty'] : 0;
             $stock_rank = isset($arr_inv_rank[$product_id]) ? (int)$arr_inv_rank[$product_id] : Bilna_Ccp_Model_Ccpmodel::LAST_RANKING;
@@ -85,11 +82,25 @@ class Bilna_Ccp_Model_Ccpmodel extends Mage_Core_Model_Abstract {
             }
         }
         if(sizeof($data)%Bilna_Ccp_Model_Ccpmodel::BATCH_SIZE>0) {
-            $sql = substr($sql, 0, -2);
+            $sql = substr($sql, 0, -2);     // remove comma from the string
             $write->query($sql);
         }
 
-        Mage::log("All Products Scoring has been updated.");
+        Mage::log("All Products Scoring has been updated.\n");
+    }
+
+    // input product_stock: array { [0] => array {'name' => "ABCD 2 IN 1", 'product_id' => "31905", 'stock_qty' => "0.0000" }
+    // input product_sales: array { [0] => array { 'product_id' => "31905", 'sales' => "6741500.00000000" }
+    // output             : array ( [31905] => array('stock_qty' = '0.0000', 'sales' => '6741500.00000000') )
+    public function refactorArray($product_stock, $product_sales) {
+        $return = array();
+        foreach ($product_stock as $key => $value) {            
+            $return[$value['product_id']]['stock_qty'] = $value['stock_qty'];
+        }
+        foreach ($product_sales as $key => $value) {            
+            $return[$value['product_id']]['sales'] = $value['sales'];
+        }
+        return $return;
     }
 
     /* input array format: 
@@ -104,7 +115,7 @@ class Bilna_Ccp_Model_Ccpmodel extends Mage_Core_Model_Abstract {
         if(sizeof($productArray) > 0 ) {
             foreach ($productArray as $key => $value) {
                 // we use product id as key for unique mapping
-                $result[$value['product_id']] = (int)$value[$field_to_compare];
+                $result[$value['product_id']] = $value[$field_to_compare];
             }
             $result = $this->calculateRank($result);
         }       
@@ -166,7 +177,7 @@ class Bilna_Ccp_Model_Ccpmodel extends Mage_Core_Model_Abstract {
             $write->query($sql);
         }
 
-        Mage::log("All Products Position has been updated.");
+        Mage::log("All Products Position has been updated.\n");
     }
 
     // get all category IDs to loop
