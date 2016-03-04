@@ -30,7 +30,11 @@
                 </connection>
             </expressshipping_read>
         </resources>
-
+        <models>
+            <expressshipping>
+                <class>Bilna_Expressshipping_Model</class>
+            </expressshipping>
+        </models>
         <events>
             <sales_quote_add_item>
                 <observers>
@@ -51,5 +55,35 @@
                 </observers>
             </sales_convert_quote_item_to_order_item>
         </events>
+        <helpers>
+            <bilna_expressshipping>
+                <class>Bilna_Expressshipping_Helper</class>
+            </bilna_expressshipping>
+        </helpers>
     </global>
+    <adminhtml>
+        <acl>
+            <resources>
+                <all>
+                    <title>Allow Everything</title>
+                </all>
+                
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+                                <config>
+                                        <children>
+                                            <bilna_expressshipping>
+                                                <title>Bilna - All</title>
+                                            </bilna_expressshipping>
+                                        </children>
+                                </config>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+    </adminhtml>
 </config>
