@@ -3048,6 +3048,15 @@ ul.product-image-thumbs {
     right: 20px;
     margin-top:41px;
 	}
+	.name-elip
+	{
+		max-width: 98% !important;
+	    overflow: hidden;
+	    text-overflow: ellipsis;
+	    word-wrap: break-word;
+	    white-space: nowrap;
+	    float: left;
+	}
 }
 @media (max-width: 765px){
   .closer-top-banner
@@ -3559,7 +3568,7 @@ p.exp-three-col
 }
 .size12
 {
-	font-size: 12px;
+	font-size: 12px !important;
 }
 .grey-font
 {
@@ -3584,4 +3593,20 @@ p.name-product
     -webkit-border-radius: 0 0 0 0;
     border-radius: 0 0 0 0;
     background: #eeeeee;
+}
+.oleh-elip
+{
+    box-sizing: border-box;
+    padding: 0;
+    margin-right: 2px;
+    float: left;
+}
+.name-elip
+{
+	max-width: 48%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+    white-space: nowrap;
+    float: left;
 }
