@@ -84,6 +84,11 @@ class Bilna_Ccp_Model_Ccpmodel extends Mage_Core_Model_Abstract {
                 $sql.=", ";
             }
         }
+        if(sizeof($data)%Bilna_Ccp_Model_Ccpmodel::BATCH_SIZE>0) {
+            $sql = substr($sql, 0, -2);
+            $write->query($sql);
+        }
+
         Mage::log("All Products Scoring has been updated.");
     }
 
@@ -152,12 +157,15 @@ class Bilna_Ccp_Model_Ccpmodel extends Mage_Core_Model_Abstract {
         $sql="";
         foreach ($data as $key => $value) {
             $sql.=$value;
-
             if(($key+1)%Bilna_Ccp_Model_Ccpmodel::BATCH_SIZE==0) {
                 $write->query($sql);
                 $sql="";
             } 
         }
+        if(sizeof($data)%Bilna_Ccp_Model_Ccpmodel::BATCH_SIZE>0) {
+            $write->query($sql);
+        }
+
         Mage::log("All Products Position has been updated.");
     }
 
