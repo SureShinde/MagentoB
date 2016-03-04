@@ -12,7 +12,7 @@ class Ccp extends Mage_Shell_Abstract {
         $product_stock = $productModel->getProductInventories();
         $product_sales = $productModel->getProductsSales();
 
-        $product_stock = $productModel->setProductScoringDataTable($product_stock, $product_sales);
+        $product_scoring = $productModel->setProductScoringDataTable($product_stock, $product_sales);
 
         // now insert to CCP table
         $product_position = $productModel->setProductPosition();
