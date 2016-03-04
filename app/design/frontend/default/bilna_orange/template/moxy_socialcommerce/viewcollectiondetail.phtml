@@ -94,7 +94,7 @@ $_helper = $this->helper('catalog/output');
       <a style="color:#fff;" href="http://twitter.com/home?status=<?php echo $wishlist->getName(); ?>+<?php echo $this->helper('core/url')->getCurrentUrl(); ?>" onclick="javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"><i class="fa fa-twitter" style="padding-top:7px;"></i></a>
     </div>
     <div class="cg-col-xs-2 padding-3lr soc-size pinterest">
-      <a style="color:#fff;" href="https://www.pinterest.com/pin/create/link/?url=<?php echo $this->helper('core/url')->getCurrentUrl(); ?>&description=<?php echo $wishlist->getDesc(); ?>" onclick="javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"><i class="fa fa-pinterest-p" style="padding-top:7px;"></i></a>
+      <a style="color:#fff;" href="https://www.pinterest.com/pin/create/link/?url=<?php echo $this->helper('core/url')->getCurrentUrl(); ?>&media=<?php echo sprintf("%s%s", $this->getUrl('media/collection-cover'), $wishlist->cover); ?>&description=<?php echo $wishlist->getDesc(); ?>" onclick="javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"><i class="fa fa-pinterest-p" style="padding-top:7px;"></i></a>
     </div>
     <div class="cg-col-xs-2 padding-3lr soc-size gplus">
       <a style="color:#fff;" href="https://plus.google.com/share?url=<?php echo $this->helper('core/url')->getCurrentUrl(); ?>" onclick="javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"><i class="fa fa-google-plus" style="padding-top:7px;"></i></a>
