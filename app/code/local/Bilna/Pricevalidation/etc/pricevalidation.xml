@@ -7,7 +7,6 @@
                 <row_format>dynamic</row_format>
                 <model>bilna_pricevalidation_mysql4/catalog_product</model>
                 <profile>
-                    <model>bilna_pricevalidation/profile_catalog_product</model>
                     <import>
                         <tabs>
                             <columns>

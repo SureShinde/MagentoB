@@ -33,7 +33,6 @@ $_fields = $this->getColumnsFields();
         <tfoot>
             <tr>
                 <td colspan="20">
-                    <button class="add add-select-row f-right" type="button" onclick="addColumns()"><span><?php echo $this->__('Add New Columns') ?></span></button>
                     <select id="columns-new-options" multiple="multiple" class="validate-urapidflow-columns" ondblclick="addColumns()"></select>
                     <p><?php echo $this->__('* Columns in red are required, unless all the imported entities are not new')?></p>
                 </td>
@@ -45,7 +44,6 @@ $_fields = $this->getColumnsFields();
 
 <script type="text/javascript">
 var columnsFields = <?php echo Zend_Json::encode($_fields) ?>;
-var isExport = <?php echo $_isExport ? 'true' : 'false' ?>;
 var requiredField = <?php $_dt = $this->getProfile()->getDataType(); echo $_dt=='catalog_product' ? '"sku"' : ($_dt=='catalog_category' ? '"url_path"' : 'false') ?>;
 fillColumnsLines();
 fillColumnsFieldsSelect('columns-new-options');
@@ -141,22 +139,7 @@ function addColumnLine(field, skipRedecorate) {
     } else {
         tds += '<td><input type="hidden" name="columns_post[default_multiselect][]" value=""><input type="text" name="columns_post[default][]" class="input-text" value="'+def.escapeHTML()+'" style="width:95%" title="<?php echo $this->__('Default Value') ?>"/></td>';
     }
-    if (isExport && (f.frontend_input=='media_image' || f.attribute_code=='url_path')) {
-        tds += '<td><select name="columns_post[format][]" style="width:100px" title="<?php echo $this->__('Format') ?>">';
-        tds += '<option value=""'+(!field.format?' selected="selected"':'')+'><?php echo $this->__('Raw Value') ?></option>';
-        tds += '<option value="url"'+(field.format=='url'?' selected="selected"':'')+'><?php echo $this->__('URL') ?></option>';
-        tds += '</select><input type="hidden" name="columns_post[separator][]" value=""><input type="hidden" name="columns_post[delimiter][]" value=""></td>';
-    } else if (isExport && f.attribute_code=='product.configurable_parent_sku') {
-        tds += '<td><span style="width: 120px"><?php echo $this->__('Output') ?>:</span> <select name="columns_post[format][]" style="width:150px" title="<?php echo $this->__('Format') ?>">';
-        tds += '<option value=""'+(!field.format?' selected="selected"':'')+'><?php echo $this->__('Join If Multiple Parents') ?></option>';
-        tds += '<option value="url"'+(field.format=='single'?' selected="selected"':'')+'><?php echo $this->__('First Found Parent') ?></option>';
-        tds += '</select><input type="hidden" name="columns_post[delimiter][]" value=""><br/>';
-        var separator = field.separator || ';';
-        tds += '<span style="width: 120px"><?php echo $this->__('Separator') ?>:</span> <input type="text" name="columns_post[separator][]" class="input-text" value="'+separator.escapeHTML()+'" style="width:15px" title="<?php echo $this->__('Separator') ?>"/></td>';
-    } else if (isExport && f.backend_type=='decimal') {
-        var format = field.format || '%.4f';
-        tds += '<td><input type="text" name="columns_post[format][]" class="input-text" value="'+format.escapeHTML()+'" style="width:50px" title="<?php echo $this->__('Format') ?>"/><input type="hidden" name="columns_post[separator][]" value=""><input type="hidden" name="columns_post[delimiter][]" value=""></td>';
-    } else if (f.backend_type=='datetime') {
+    if (f.backend_type=='datetime') {
         var format = field.format || '<?php echo $this->getProfile()->getDefaultDatetimeFormat()?>';
         tds += '<td><input type="text" name="columns_post[format][]" class="input-text" value="'+format.escapeHTML()+'" style="width:150px" title="<?php echo $this->__('Format') ?>"/><input type="hidden" name="columns_post[separator][]" value=""><input type="hidden" name="columns_post[delimiter][]" value=""></td>';
     } else if (f.frontend_input=='multiselect') {
@@ -187,12 +170,6 @@ function redecorateColumnsTable()
         tr.removeClassName('first');
         tr.removeClassName('last');
     });
-<?php if ($_isExport): ?>
-    var colNum = 0;
-    $$('#columns-container .sortable-handle').each(function(el) {
-        el.innerHTML = ++colNum;
-    });
-<?php endif ?>
     decorateTable('columns-table');
 }
 Validation.add('validate-urapidflow-columns',
@@ -215,19 +192,8 @@ Validation.add('validate-urapidflow-columns',
             }
         }
         errors = [];
-        if (isExport) {
-            if (!$('_allow_mutable_attributes').checked) {
-                for (i in aliasUsed) {
-                    if (aliasUsed[i]>1) errors.push("Duplicate alias: "+i);
-                }
-            }
-            if (!hasRequiredFields) {
-                errors.push("'"+requiredField+"' attribute is required");
-            }
-        } else {
-            for (i in attrsUsed) {
+        for (i in attrsUsed) {
                 if (i!='const.value' && attrsUsed[i]>1) errors.push("Duplicate attribute: "+i);
-            }
         }
         if (errors.length) {
             alert("Errors encountered:\n\n"+errors.join("\n"));

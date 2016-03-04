@@ -14,7 +14,7 @@ class Bilna_Pricevalidation_Adminhtml_PricevalidationController extends Mage_Adm
     }
     public function editAction() {
         $id     = $this->getRequest()->getParam('profile_id');
-        $model  = Mage::getModel('bilna_pricevalidation/profile')->load($id)->factory();
+        $model  = Mage::getModel('bilna_pricevalidation/profile')->load($id);
         $modelLog  = Mage::getModel('bilna_pricevalidation/log')->getCollection()->addFieldToFilter('profile_id', $id);
         if ($model->getProfileId() || $id == 0) {
             $data = Mage::getSingleton('adminhtml/session')->getFormData(true);
@@ -52,7 +52,6 @@ class Bilna_Pricevalidation_Adminhtml_PricevalidationController extends Mage_Adm
                     $postData['columns_post'] = array();
                 }
                 $model->addData($postData);
-                $model = $model->factory();
                 if ($model->getCreatedTime == NULL || $model->getUpdateTime() == NULL) {
                     $model->setCreatedTime(now())
                         ->setUpdateTime(now());

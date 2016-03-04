@@ -25,24 +25,6 @@ class Bilna_Pricevalidation_Model_Profile extends Mage_Core_Model_Abstract
     {
         $this->_init('bilna_pricevalidation/form');
     }
-    public function factory()
-    {
-        $dataTypes = Mage::getSingleton('bilna_pricevalidation/config')->getDataTypes();
-        $type = $this->getDataType();
-        if (!$type) {
-            return $this;
-        }
-        $model = $dataTypes->descend("$type/profile/model");
-        if (!$model) {
-            return $this;
-        }
-        $object = Mage::getModel($model);
-        if (!$object) {
-            Mage::throwException(Mage::helper('bilna_pricevalidation')->__('Invalid profile model: %s', $model));
-        }
-        $object->setData($this->getData());
-        return $object;
-    }
     protected function _beforeSave()
     {
         $this->_processPostData();
