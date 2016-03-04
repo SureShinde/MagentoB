@@ -12,7 +12,7 @@ $lastPageNumber = $this->getLastPageNumber();
                     Koleksi Produk Terbaik Untuk Inspirasi Belanja Anda
                 </div>
                 <div class="cg-col-sm-11 subtext-banner-collection opensans" style="">
-                    Buat KOLEKSI dan kumpulkan produk favorit anda sesuai tema atau mood. Berikan inspirasi belanja untuk lorem ipsum sir dolor amit
+                    Buat KOLEKSI dan kumpulkan produk favorit anda sesuai tema atau mood. Berikan inspirasi belanja untuk semua wanita.
                 </div>
                 <div class="cg-col-sm-12">
                     <a href="#explanation" class="btn-lightgreen cg-col-xs-8 cg-col-sm-6 cg-col-md-6 cg-col-lg-5 btn-margin bottom-spacer-container">PELAJARI LEBIH LANJUT</a>
@@ -67,7 +67,7 @@ $lastPageNumber = $this->getLastPageNumber();
                                 <div class="cg-col-lg-12 cg-col-md-10 cg-col-sm-10 cg-col-xs-12 take-left" style="">
                                     <a class="display-title-coll link-pink-hover nameOfList uppercase opensans" href="<?php echo $this->getUrl('collections/' . $wishlist['wishlist_id'] . '-' . $slug); ?>" style=""><?php echo $wishlist['name']; ?></a>
                                     <?php if ($user['url']) : ?>
-                                    <span class="opensans hidden-xs">oleh</span> <a class="display-name-coll link-pink-hover opensans" href="<?php echo $user['url']; ?>" style=""><?php echo $user['display_name']; ?></a>
+                                    <span class="opensans hidden-xs oleh-elip">oleh</span> <a class="display-name-coll name-elip link-pink-hover opensans" href="<?php echo $user['url']; ?>" style=""><?php echo $user['display_name']; ?></a>
                                     <?php else : ?>
                                     <?php echo $user['display_name']; ?>
                                     <?php endif; ?>
@@ -153,7 +153,7 @@ $lastPageNumber = $this->getLastPageNumber();
                                                 <div class="cg-col-lg-12 cg-col-md-10 cg-col-sm-10 cg-col-xs-12 take-left" style="">
                                                     <a class="display-title-coll link-pink-hover nameOfList uppercase opensans" href="<?php echo $this->getUrl('collections/' . $wishlist['id'] . '-' . $wishlist['slug']); ?>" style=""><?php echo $wishlist['name']; ?></a>
                                                     <?php if ($user['url']) : ?>
-                                                    <span class="opensans hidden-xs">oleh</span> <a class="display-name-coll link-pink-hover opensans" href="<?php echo $user['url']; ?>" style=""><?php echo $user['display_name']; ?></a>
+                                                    <span class="opensans hidden-xs oleh-elip">oleh</span> <a class="display-name-coll name-elip link-pink-hover opensans" href="<?php echo $user['url']; ?>" style=""><?php echo $user['display_name']; ?></a>
                                                     <?php else : ?>
                                                     <?php echo $user['display_name']; ?>
                                                     <?php endif; ?>
@@ -167,7 +167,7 @@ $lastPageNumber = $this->getLastPageNumber();
                             </div>
  
 
-                            <div class="cg-col-lg-12 cg-col-xs-12 text-center collection-top-intro nopadding">
+                            <div class="cg-container text-center collection-top-intro nopadding">
                                 <div class="cg-col-lg-2 cg-col-md-2 cg-col-sm-12 cg-col-xs-12" style="display:none;">
                                     <div class="btn btn-how-create" onclick="showHowTo()" style="text-align: center;background-color: #ee5191;    border-radius: 4px;    text-transform: uppercase;    padding: 5px;    font-weight: bold;    font-family: 'Montserrat',sans-serif;    color: #fff;">How to create</div>
                                 </div>
