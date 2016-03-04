@@ -55,7 +55,6 @@ class Moxy_CustomCustomer_Customer_AccountController extends Mage_Customer_Accou
 			$profile->setUsername($username);
 			#
 			$profile->save();
-			Mage::helper('socialcommerce')->createNewRewrite($username);
 		}
 
 	} 
