@@ -1,84 +1,87 @@
 <?php
 class Bilna_Ccp_Model_Ccpmodel extends Mage_Core_Model_Abstract {
 
+    protected $queryBatchCount = '200';
+
     protected function _construct() {
         $this->_init('ccp/ccpmodel');
     }
+
+    private function connDbWrite() {
+        return Mage::getSingleton('core/resource')->getConnection('core_write');
+    }
+
+    private function connDbRead() {
+        return Mage::getSingleton('core/resource')->getConnection('core_read');
+    }
     
     // output: array { [0] => array {'name' => "ABCD 2 IN 1", 'product_id' => "31905", 'stock_qty' => "0.0000" }
-    public function getProductInventories($param = array()) {
-        $resource = new Mage_Core_Model_Resource();  
-        $read = $resource->getConnection('core_read');  
+    public function getProductInventories() {
+        $read = $this->connDbRead();
 
         $select = $read->select()
             ->from(array('main_table' => 'catalog_product_flat_1'),
                 array('main_table.name', 'main_table.entity_id as product_id'))
-            ->joinLeft(
+            ->join(
                 array('stock' => Mage::getConfig()->getTablePrefix()."cataloginventory_stock_item")
                 , 'stock.product_id = main_table.entity_id'
                 , array('stock.qty as stock_qty')
                 )
             ;
-        Mage::log((string)$select);
         $product_stock = $read->fetchAll($select);
         return $product_stock;
     }
 
-    // output: array { [0] => array {'name' => "ABCD 2 IN 1", 'product_id' => "31905", 'stock_qty' => "0.0000", 'sales' => "6741500.00000000" }
-    public function getProductsSales($product_stock) {
+    // output: array { [0] => array { 'product_id' => "31905", 'sales' => "6741500.00000000" }
+    public function getProductsSales() {
         $configValues = Mage::getStoreConfig('bilna_ccp/ccp'); 
-        $resource = new Mage_Core_Model_Resource();  
-        $read = $resource->getConnection('core_read'); 
+        $read = $this->connDbRead();
 
-        $productQtyArray = array();
-        foreach ($product_stock as $key => $value) {
-            $select = $read->select()
-                ->from(array('main_table' => 'sales_flat_order_item'), array())
-                ->columns('sum(qty_ordered*price) as sales')
-                ->where($configValues['product_bundle'] ? '1=1' : 'product_type != ?', 'bundle')
-                ->where('product_id=?', $value['product_id'])
-                ->group('product_id')
-                ;
-            Mage::log((string)$select);
-            $product_sales = $read->fetchAll($select);
-            // output: array { [0] => array {'sales' => "6741500.00000000" } }
-
-            $product_stock[$key]['sales'] = sizeof($product_sales) > 0 && $product_sales[0]['sales'] ? (int)$product_sales[0]['sales'] : 99999;
-        }
-        return $product_stock;
+        $select = $read->select()
+            ->from(array('main_table' => 'sales_flat_order_item'), array('product_id'))
+            ->columns('sum(qty_ordered*price) as sales')
+            ->where($configValues['product_bundle'] ? '1=1' : 'product_type != ?', 'bundle')
+            ->group('product_id')
+            ;
+        $product_sales = $read->fetchAll($select);
+        return $product_sales;
     }
 
-    public function setProductScoringDataTable($product_stock) {
+    public function setProductScoringDataTable($product_stock, $product_sales) {
         // do the VM routines here
-        $arr_sales_rank = $this->setRankings('sales', $product_stock);
+        $arr_sales_rank = $this->setRankings('sales', $product_sales);
         $arr_inv_rank = $this->setRankings('stock_qty', $product_stock);
         $configValues = Mage::getStoreConfig('bilna_ccp/ccp');
         $percentage_item = $configValues['percentage_itemsold']/100;
         $percentage_inventory = $configValues['percentage_inventory']/100;
 
-        $write = Mage::getSingleton('core/resource')->getConnection('core_write');
+        $write = $this->connDbWrite();
         $write->delete("bilna_ccp_product_scoring");
 
+        $data = array();
         foreach ($product_stock as $key => $value) {
-            $product_id = $value['product_id'];
-            $score = $percentage_item*$arr_sales_rank[$product_id] + $percentage_inventory*$arr_inv_rank[$product_id];
 
-            try {
-                $write->insert(
-                        "bilna_ccp_product_scoring", 
-                        array('product_id' => $product_id,
-                                'sales' => (int)$value['sales'],
-                                'sales_rank' => $arr_sales_rank[$product_id],
-                                'inventory' => $value['stock_qty'],
-                                'inventory_rank' => $arr_inv_rank[$product_id],
-                                'score' => $score
-                        )
-                );
-                Mage::log('Product ID '.$product_id.' ('.$arr_sales_rank[$product_id].'|'.$arr_inv_rank[$product_id].') has been updated with score of '.$score);
-            } catch(Exception $e) {
-                Mage::logException($e);
+            $product_id = $value['product_id'];
+            $sales=isset($product_sales[$key]['sales']) ? (int)$product_sales[$key]['sales'] : 0;
+            $sales_rank = isset($arr_sales_rank[$product_id]) ? (int)$arr_sales_rank[$product_id] : 99999;
+            $stock=isset($value['stock_qty']) ? $value['stock_qty'] : 0;
+            $stock_rank = isset($arr_inv_rank[$product_id]) ? (int)$arr_inv_rank[$product_id] : 99999;
+            $score = $percentage_item*$sales_rank + $percentage_inventory*$stock_rank;
+
+            $data[] = "('".$product_id."', '".$sales."', '".$sales_rank."', '".$stock."', '".$stock_rank."', '".$score."', '')";
+        }
+
+        $sql="INSERT INTO bilna_ccp_product_scoring VALUES ";
+        foreach ($data as $key => $value) {
+            $sql.=$value;
+            if(($key+1)%$this->queryBatchCount==0) {
+                $write->query($sql);
+                $sql="INSERT INTO bilna_ccp_product_scoring VALUES ";
+            } else {
+                $sql.=", ";
             }
         }
+        Mage::log("All Products Scoring has been updated.");
     }
 
     /* input array format: 
@@ -126,6 +129,7 @@ class Bilna_Ccp_Model_Ccpmodel extends Mage_Core_Model_Abstract {
 
         $write = Mage::getSingleton('core/resource')->getConnection('core_write');
 
+        $data = array();
         foreach ($categoriesArray as $key => $category_id) {
             $productsArray = $this->getCatalogProductFromCategory($category_id);
             if(sizeof($productsArray) > 0) {
@@ -137,20 +141,20 @@ class Bilna_Ccp_Model_Ccpmodel extends Mage_Core_Model_Abstract {
                 $productRankingArray = $this->calculateRank($arrScore, "sort");
 
                 foreach ($productRankingArray as $product_id => $position) {
-                    try {
-                        $write->update(
-                            "catalog_category_product",
-                            array("position" => $position),
-                            array("category_id=".$category_id, "product_id=".$product_id)
-                        );
-                        $write->commit();
-                        Mage::log('Product ID '.$product_id.' from Category ID '.$category_id.' was updated to position '.$position);
-                    } catch(Exception $e) {
-                        Mage::logException($e);
-                    }
-                }
+                    $data[] = "UPDATE catalog_category_product SET position = '".$position."' WHERE category_id = '".$category_id."' AND product_id = '".$product_id."'; ";
+                }                
             }
         }
+
+        $sql="";
+        foreach ($data as $key => $value) {
+            $sql.=$value;
+            if(($key+1)%$this->queryBatchCount==0) {
+                $write->query($sql);
+                $sql="";
+            } 
+        }
+        Mage::log("All Products Position has been updated.");
     }
 
     // get all category IDs to loop
@@ -168,7 +172,7 @@ class Bilna_Ccp_Model_Ccpmodel extends Mage_Core_Model_Abstract {
                 ->from('catalog_category_product', array('product_id'))
                 ->where('category_id=?', $category_id)
                 ;
-        Mage::log((string)$select);
+        // Mage::log((string)$select);
         $result = $connection->fetchAll($select); 
         foreach ($result as $key => $value) {
             $return[] = $value['product_id'];
@@ -185,7 +189,7 @@ class Bilna_Ccp_Model_Ccpmodel extends Mage_Core_Model_Abstract {
                 ->from('bilna_ccp_product_scoring', array('score'))
                 ->where('product_id=?', $product_id)
                 ;
-        Mage::log((string)$select);
+        // Mage::log((string)$select);
         $result = $connection->fetchAll($select); 
         return $result;
     }

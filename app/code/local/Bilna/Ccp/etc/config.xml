@@ -48,6 +48,21 @@
                 <all>
                     <title>Allow Everything</title>
                 </all>
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <bilna_ccp>
+                                            <title>test</title>
+                                        </bilna_ccp>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
             </resources>
         </acl>
     </adminhtml>
