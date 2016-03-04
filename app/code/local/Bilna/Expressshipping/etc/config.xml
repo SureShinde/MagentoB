@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <modules>
+        <Bilna_Expressshipping>
+            <version>0.1.1</version>
+        </Bilna_Expressshipping>
+    </modules>
+
+    <global>
+        <resources>
+            <expressshipping_setup>
+                <setup>
+                    <module>Bilna_Expressshipping</module>
+                </setup>
+                
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </expressshipping_setup>
+            
+            <expressshipping_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </expressshipping_write>
+            
+            <expressshipping_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </expressshipping_read>
+        </resources>
+        <models>
+            <expressshipping>
+                <class>Bilna_Expressshipping_Model</class>
+            </expressshipping>
+        </models>
+        <events>
+            <sales_quote_add_item>
+                <observers>
+                    <express_quote_add_item>
+                        <type>singleton</type>
+                        <class>Bilna_Expressshipping_Model_Observer</class>
+                        <method>expressQuoteAddItem</method>
+                    </express_quote_add_item>
+                </observers>
+            </sales_quote_add_item>
+            <sales_convert_quote_item_to_order_item>
+                <observers>
+                    <sales_order_quote_convert_to_order_item>
+                        <type>singleton</type>
+                        <class>Bilna_Expressshipping_Model_Observer</class>
+                        <method>salesQuoteConvertToOrderItem</method>
+                    </sales_order_quote_convert_to_order_item>
+                </observers>
+            </sales_convert_quote_item_to_order_item>
+        </events>
+        <helpers>
+            <bilna_expressshipping>
+                <class>Bilna_Expressshipping_Helper</class>
+            </bilna_expressshipping>
+        </helpers>
+    </global>
+    <adminhtml>
+        <acl>
+            <resources>
+                <all>
+                    <title>Allow Everything</title>
+                </all>
+                
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+                                <config>
+                                        <children>
+                                            <bilna_expressshipping>
+                                                <title>Bilna - All</title>
+                                            </bilna_expressshipping>
+                                        </children>
+                                </config>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+    </adminhtml>
+</config>
