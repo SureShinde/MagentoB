@@ -53,13 +53,6 @@ class Bilna_Pricevalidation_Block_Adminhtml_Pricevalidation_Grid extends Mage_Ad
 			'type'      => 'options',
 			'options'   => $source->setPath('run_status')->toOptionHash(),
 		));
-                $this->addColumn('data_type', array(
-			'header'    => $this->__('Data Type'),
-			'align'     => 'left',
-			'index'     => 'data_type',
-			'type'      => 'options',
-			'options'   => $source->setPath('data_type')->toOptionHash(),
-		));
 		$this->addColumn('profile_type', array(
 			'header'    => $this->__('Profile Type'),
 			'align'     => 'left',

@@ -3,7 +3,6 @@ class Bilna_Pricevalidation_Block_Adminhtml_Pricevalidation_Edit_Tab_Main extend
 {
     protected function _prepareForm()
     {
-        $hlp = Mage::helper('bilna_pricevalidation');
         $source = Mage::getSingleton('bilna_pricevalidation/source');
         $profile = Mage::registry('profile_data');
         $new = !$profile || !$profile->getId();
@@ -31,13 +30,6 @@ class Bilna_Pricevalidation_Block_Adminhtml_Pricevalidation_Edit_Tab_Main extend
                 'name'      => 'profile_type',
                 'values'    => $source->setPath('profile_type')->toOptionArray(),
             ));
-            $fieldset->addField('data_type', 'select', array(
-                'label'     => $this->__('Data Type'),
-                'class'     => 'required-entry',
-                'required'  => true,
-                'name'      => 'data_type',
-                'values'    => $source->setPath('data_type')->toOptionArray(),
-            ));
             $fieldset->addField('separator', 'select', array(
                 'label'     => $this->__('CSV Separator'),
                 'class'     => 'required-entry',
@@ -47,13 +39,6 @@ class Bilna_Pricevalidation_Block_Adminhtml_Pricevalidation_Edit_Tab_Main extend
             ));
         }
         $oldWithDefaultWebsiteFlag = $source->withDefaultWebsite(!$profile || $profile->getDataType()!='sales');
-        $fieldset->addField('store_id', 'select', array(
-            'label'     => $this->__('Store View'),
-            'class'     => 'required-entry',
-            'required'  => true,
-            'name'      => 'store_id',
-            'values'    => $source->setPath('stores')->toOptionArray(),
-        ));
         $source->withDefaultWebsite($oldWithDefaultWebsiteFlag);
         $fieldset->addField('base_dir', 'text', array(
             'label'     => $this->__('File Location'),
@@ -72,12 +57,6 @@ class Bilna_Pricevalidation_Block_Adminhtml_Pricevalidation_Edit_Tab_Main extend
                 'disabled'  => true,
                 'name'      => 'profile_type',
                 'values'    => $source->setPath('profile_type')->toOptionArray(),
-            ));
-            $fieldset->addField('data_type', 'select', array(
-                'label'     => $this->__('Data Type'),
-                'disabled'  => true,
-                'name'      => 'data_type',
-                'values'    => $source->setPath('data_type')->toOptionArray(),
             ));
             $fieldset->addField('separator', 'select', array(
                 'label'     => $this->__('CSV Separator'),

@@ -12,7 +12,6 @@ CREATE TABLE IF NOT EXISTS `bilna_price_validation_profile` (
   `data_type` varchar(255) NOT NULL,
   `base_dir` text NOT NULL,
   `filename` varchar(255) NOT NULL,
-  `store_id` smallint(5) unsigned NOT NULL,
   `started_at` datetime DEFAULT NULL,
   `finished_at` datetime DEFAULT NULL,
   `time_elapsed` int(10) unsigned NOT NULL,

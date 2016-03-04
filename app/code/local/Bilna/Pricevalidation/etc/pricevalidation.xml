@@ -5,7 +5,6 @@
             <product>
                 <title>Products</title>
                 <row_format>dynamic</row_format>
-                <model>bilna_pricevalidation_mysql4/catalog_product</model>
                 <profile>
                     <import>
                         <tabs>
