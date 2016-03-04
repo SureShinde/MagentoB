@@ -344,9 +344,9 @@ $_helper = $this->helper('catalog/output');
                           </div>-->
 
                           <div class="add-to-cart-buttons cg-col-xs-12">
-                            <div class="cg-col-xs-2 coll-quick" onclick="newShowAddCollectionDialog()" style="cursor: pointer;">
+                            <!-- <div class="cg-col-xs-2 coll-quick" onclick="newShowAddCollectionDialog()" style="cursor: pointer;">
                               <i class="fa fa-heart"></i>
-                            </div>
+                            </div> -->
 
                             <!-- checking stock level for quick view-->
 
@@ -512,13 +512,16 @@ $_helper = $this->helper('catalog/output');
       <div class="price-box">
         <input type="hidden" class="final-price-<?php echo $productId; ?>" value="<?php echo $productFinalPrice; ?>" />
         <?php if ($productSpecialPrice && $productSpecialPrice < $productRegularPrice && $productSpecialDateIsValid) : ?>
-        <div class="special-price">
-          <span class="current-price price" id="product-price-<?php echo $productId; ?>"><?php echo $productSpecialPriceFormatted; ?></span>
+        <div class="special-price in-block full-width">
           <p class="old-price">
-            <span class="price" id="old-price-<?php echo $productId; ?>"><?php echo $productRegularPriceFormatted; ?></span>
+            <span class="price size12" id="old-price-<?php echo $productId; ?>"><?php echo $productRegularPriceFormatted; ?></span>
           </p>
+          <span class="current-price price" id="product-price-<?php echo $productId; ?>"><?php echo $productSpecialPriceFormatted; ?></span>
         </div>
       <?php else : ?>
+      <p class="old-price" style="min-height:22px;">
+            <span class="price size12"></span>
+          </p>
       <span class="regular-price">
         <span class="price" id="product-price-<?php echo $productId; ?>"><?php echo $productRegularPriceFormatted; ?></span>
       </span>
