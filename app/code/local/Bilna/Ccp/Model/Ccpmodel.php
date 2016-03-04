@@ -84,7 +84,6 @@ class Bilna_Ccp_Model_Ccpmodel extends Mage_Core_Model_Abstract {
                 $sql.=", ";
             }
         }
-        sleep(30);
         Mage::log("All Products Scoring has been updated.");
     }
 
