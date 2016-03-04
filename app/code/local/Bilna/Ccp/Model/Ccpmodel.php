@@ -1,7 +1,8 @@
 <?php
 class Bilna_Ccp_Model_Ccpmodel extends Mage_Core_Model_Abstract {
 
-    protected $queryBatchCount = '200';
+    const BATCH_SIZE = '200';
+    const LAST_RANKING = '999999999';
 
     protected function _construct() {
         $this->_init('ccp/ccpmodel');
@@ -63,9 +64,9 @@ class Bilna_Ccp_Model_Ccpmodel extends Mage_Core_Model_Abstract {
 
             $product_id = $value['product_id'];
             $sales=isset($product_sales[$key]['sales']) ? (int)$product_sales[$key]['sales'] : 0;
-            $sales_rank = isset($arr_sales_rank[$product_id]) ? (int)$arr_sales_rank[$product_id] : 99999;
+            $sales_rank = isset($arr_sales_rank[$product_id]) ? (int)$arr_sales_rank[$product_id] : Bilna_Ccp_Model_Ccpmodel::LAST_RANKING;
             $stock=isset($value['stock_qty']) ? $value['stock_qty'] : 0;
-            $stock_rank = isset($arr_inv_rank[$product_id]) ? (int)$arr_inv_rank[$product_id] : 99999;
+            $stock_rank = isset($arr_inv_rank[$product_id]) ? (int)$arr_inv_rank[$product_id] : Bilna_Ccp_Model_Ccpmodel::LAST_RANKING;
             $score = $percentage_item*$sales_rank + $percentage_inventory*$stock_rank;
 
             $data[] = "('".$product_id."', '".$sales."', '".$sales_rank."', '".$stock."', '".$stock_rank."', '".$score."', '')";
@@ -74,13 +75,14 @@ class Bilna_Ccp_Model_Ccpmodel extends Mage_Core_Model_Abstract {
         $sql="INSERT INTO bilna_ccp_product_scoring VALUES ";
         foreach ($data as $key => $value) {
             $sql.=$value;
-            if(($key+1)%$this->queryBatchCount==0) {
+            if(($key+1)%Bilna_Ccp_Model_Ccpmodel::BATCH_SIZE==0) {
                 $write->query($sql);
                 $sql="INSERT INTO bilna_ccp_product_scoring VALUES ";
             } else {
                 $sql.=", ";
             }
         }
+        sleep(30);
         Mage::log("All Products Scoring has been updated.");
     }
 
@@ -136,7 +138,7 @@ class Bilna_Ccp_Model_Ccpmodel extends Mage_Core_Model_Abstract {
                 $arrScore = array();
                 foreach ($productsArray as $key => $product_id) {
                     $score = $this->getProductScore($product_id);
-                    $arrScore[$product_id] = sizeof($score) > 0 && isset($score[0]['score']) ? (int)$score[0]['score'] : 99999;
+                    $arrScore[$product_id] = sizeof($score) > 0 && isset($score[0]['score']) ? (int)$score[0]['score'] : Bilna_Ccp_Model_Ccpmodel::LAST_RANKING;
                 }
                 $productRankingArray = $this->calculateRank($arrScore, "sort");
 
@@ -149,7 +151,7 @@ class Bilna_Ccp_Model_Ccpmodel extends Mage_Core_Model_Abstract {
         $sql="";
         foreach ($data as $key => $value) {
             $sql.=$value;
-            if(($key+1)%$this->queryBatchCount==0) {
+            if(($key+1)%Bilna_Ccp_Model_Ccpmodel::BATCH_SIZE==0) {
                 $write->query($sql);
                 $sql="";
             } 
@@ -159,7 +161,7 @@ class Bilna_Ccp_Model_Ccpmodel extends Mage_Core_Model_Abstract {
 
     // get all category IDs to loop
     public function getAllCategories() {
-        $list_category = array('2887');
+        $list_category = array('2946');
         return $list_category;
     }
 
@@ -172,7 +174,6 @@ class Bilna_Ccp_Model_Ccpmodel extends Mage_Core_Model_Abstract {
                 ->from('catalog_category_product', array('product_id'))
                 ->where('category_id=?', $category_id)
                 ;
-        // Mage::log((string)$select);
         $result = $connection->fetchAll($select); 
         foreach ($result as $key => $value) {
             $return[] = $value['product_id'];
@@ -189,7 +190,6 @@ class Bilna_Ccp_Model_Ccpmodel extends Mage_Core_Model_Abstract {
                 ->from('bilna_ccp_product_scoring', array('score'))
                 ->where('product_id=?', $product_id)
                 ;
-        // Mage::log((string)$select);
         $result = $connection->fetchAll($select); 
         return $result;
     }
