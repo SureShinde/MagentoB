@@ -85,7 +85,7 @@ class Mage_Checkout_Block_Onepage_Shipping_Method_Available extends Mage_Checkou
         $showExpress = true;
 
         $limit = (int) Mage::getStoreConfig('bilna_expressshipping_so_limit/orderlimit/limit');
-        $todayDate = date("Y-m-d", strtotime("+7 hours"));
+        $todayDate = Mage::getModel('core/date')->date('Y-m-d');
 
         $resource = Mage::getSingleton('core/resource');
         $readConnection = $resource->getConnection('core_read');

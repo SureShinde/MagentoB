@@ -32,7 +32,7 @@ class Bilna_Expressshipping_Model_Observer {
 
     public function salesOrderIncrementCount(Varien_Event_Observer $observer)
     {
-        $todayDate = date("Y-m-d", strtotime("+7 hours"));
+        $todayDate = Mage::getModel('core/date')->date('Y-m-d');
 
         // check whether today's date is available inside the table sales_order_daily_count
         $resource = Mage::getSingleton('core/resource');
