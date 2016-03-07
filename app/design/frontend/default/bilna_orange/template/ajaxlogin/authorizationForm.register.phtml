@@ -47,16 +47,21 @@
       /*** ematic newsletter subscribe ***/
       jQuery("#register-form").submit(function(){
         if (jQuery("#register-form input[type='checkbox']")[0].checked) {
-            ecommerceNewsletterSubscribe(jQuery("#register-form input[name='email']").val());
+            ecommerceNewsletterSubscribe(jQuery("#register-form input[name='email']").val(), jQuery("#register-form .field.name-firstname input").val(), jQuery("#register-form .field.name-lastname input").val());
         }
       });
 
-      function ecommerceNewsletterSubscribe(newsletter_email) {
+      function ecommerceNewsletterSubscribe(newsletter_email, first_name, last_name) {
         var subscribe_payload = {
           'apikey': '62dfde989b5d8d24c61f57fc3e0b42b1-us12',
           'id': '035ca58dc2',
           'email': {
              'email': newsletter_email
+          },
+          "merge_vars": {
+            "ACCTSGPDT": <?php echo date("dmY") ?>,
+            "FNAME": first_name,
+            "LNAME": last_name
           }
         };
         jQuery.ajax({
