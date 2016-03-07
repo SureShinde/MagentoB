@@ -79,6 +79,9 @@ if ($_product->getPriceType() == 1) {
                     <span class="price-excluding-tax">
                         <span class="label"><?php echo $_taxHelper->__('Excl. Tax:') ?></span>
                         <?php echo $_coreHelper->currency($_minimalPriceTax) ?>
+                        <script language="javascript">
+                            if($('collection-price-<?php echo $_product->getId(); ?>')) $('collection-price-<?php echo $_product->getId(); ?>').setAttribute('data-price',<?php echo $_minimalPriceTax; ?>)
+                        </script>
                     </span>
                     <?php if ($_weeeTaxAmount && $_product->getPriceType() == 1 && $_weeeHelper->typeOfDisplay($_product, array(2, 1, 4))): ?>
                         <span class="weee">(<small>
@@ -92,18 +95,30 @@ if ($_product->getPriceType() == 1) {
                                 <?php echo $_weeeSeparator; ?>
                                 <?php echo $_weeeTaxAttribute->getName(); ?>: <?php echo $_coreHelper->currency($amount, true, true); ?>
                                 <?php $_weeeSeparator = ' + '; ?>
+                                <script language="javascript">
+                                    if($('collection-price-<?php echo $_product->getId(); ?>')) $('collection-price-<?php echo $_product->getId(); ?>').setAttribute('data-price',<?php echo $amount; ?>)
+                                </script>
                             <?php endforeach; ?>
                         </small>)</span>
                     <?php endif; ?>
                     <span class="price-including-tax">
                         <span class="label"><?php echo $_taxHelper->__('Incl. Tax:') ?></span>
                         <?php echo $_coreHelper->currency($_minimalPriceInclTax) ?>
+                        <script language="javascript">
+                            if($('collection-price-<?php echo $_product->getId(); ?>')) $('collection-price-<?php echo $_product->getId(); ?>').setAttribute('data-price',<?php echo $_minimalPriceInclTax; ?>)
+                        </script>
                     </span>
             <?php else: ?>
                 <?php if ($_taxHelper->displayPriceIncludingTax()): ?>
                     <?php echo $_coreHelper->currency($_minimalPriceInclTax) ?>
+                    <script language="javascript">
+                        if($('collection-price-<?php echo $_product->getId(); ?>')) $('collection-price-<?php echo $_product->getId(); ?>').setAttribute('data-price',<?php echo $_minimalPriceInclTax; ?>)
+                    </script>
                 <?php else: ?>
                     <?php echo $_coreHelper->currency($_minimalPriceTax) ?>
+                    <script language="javascript">
+                        if($('collection-price-<?php echo $_product->getId(); ?>')) $('collection-price-<?php echo $_product->getId(); ?>').setAttribute('data-price',<?php echo $_minimalPriceTax; ?>)
+                    </script>
                 <?php endif; ?>
                 <?php if ($_weeeTaxAmount && $_product->getPriceType() == 1 && $_weeeHelper->typeOfDisplay($_product, array(2, 1, 4))): ?>
                     <span class="weee">(<small>
@@ -116,12 +131,18 @@ if ($_product->getPriceType() == 1) {
 
                             <?php echo $_weeeSeparator; ?>
                             <?php echo $_weeeTaxAttribute->getName(); ?>: <?php echo $_coreHelper->currency($amount, true, true); ?>
+                            <script language="javascript">
+                                if($('collection-price-<?php echo $_product->getId(); ?>')) $('collection-price-<?php echo $_product->getId(); ?>').setAttribute('data-price',<?php echo $amount; ?>)
+                            </script>
                             <?php $_weeeSeparator = ' + '; ?>
                         <?php endforeach; ?>
                     </small>)</span>
                 <?php endif; ?>
                 <?php if ($_weeeHelper->typeOfDisplay($_product, 2) && $_weeeTaxAmount): ?>
                     <?php echo $_coreHelper->currency($_minimalPriceInclTax) ?>
+                    <script language="javascript">
+                        if($('collection-price-<?php echo $_product->getId(); ?>')) $('collection-price-<?php echo $_product->getId(); ?>').setAttribute('data-price',<?php echo $_minimalPriceInclTax; ?>)
+                    </script>
                 <?php endif; ?>
             <?php endif; ?>
             </p>
@@ -132,6 +153,9 @@ if ($_product->getPriceType() == 1) {
                     <span class="price-excluding-tax">
                         <span class="label"><?php echo $_taxHelper->__('Excl. Tax:') ?></span>
                         <?php echo $_coreHelper->currency($_minimalPriceTax) ?>
+                        <script language="javascript">
+                            if($('collection-price-<?php echo $_product->getId(); ?>')) $('collection-price-<?php echo $_product->getId(); ?>').setAttribute('data-price',<?php echo $_minimalPriceTax; ?>)
+                        </script>
                     </span>
                     <?php if ($_weeeTaxAmount && $_product->getPriceType() == 1 && $_weeeHelper->typeOfDisplay($_product, array(2, 1, 4))): ?>
                         <span class="weee">(<small>
@@ -144,6 +168,9 @@ if ($_product->getPriceType() == 1) {
 
                                 <?php echo $_weeeSeparator; ?>
                                 <?php echo $_weeeTaxAttribute->getName(); ?>: <?php echo $_coreHelper->currency($amount, true, true); ?>
+                                <script language="javascript">
+                                    if($('collection-price-<?php echo $_product->getId(); ?>')) $('collection-price-<?php echo $_product->getId(); ?>').setAttribute('data-price',<?php echo $amount; ?>)
+                                </script>
                                 <?php $_weeeSeparator = ' + '; ?>
                             <?php endforeach; ?>
                         </small>)</span>
@@ -151,12 +178,21 @@ if ($_product->getPriceType() == 1) {
                     <span class="price-including-tax">
                         <span class="label"><?php echo $_taxHelper->__('Incl. Tax:') ?></span>
                         <?php echo $_coreHelper->currency($_minimalPriceInclTax) ?>
+                        <script language="javascript">
+                            if($('collection-price-<?php echo $_product->getId(); ?>')) $('collection-price-<?php echo $_product->getId(); ?>').setAttribute('data-price',<?php echo $_minimalPriceInclTax; ?>)
+                        </script>
                     </span>
                 <?php else: ?>
                     <?php if ($_taxHelper->displayPriceIncludingTax()) : ?>
                         <?php echo $_coreHelper->currency($_minimalPriceInclTax) ?>
+                        <script language="javascript">
+                            if($('collection-price-<?php echo $_product->getId(); ?>')) $('collection-price-<?php echo $_product->getId(); ?>').setAttribute('data-price',<?php echo $_minimalPriceInclTax; ?>)
+                        </script>
                     <?php else: ?>
                         <?php echo $_coreHelper->currency($_minimalPriceTax) ?>
+                        <script language="javascript">
+                            if($('collection-price-<?php echo $_product->getId(); ?>')) $('collection-price-<?php echo $_product->getId(); ?>').setAttribute('data-price',<?php echo $_minimalPriceTax; ?>)
+                        </script>
                     <?php endif; ?>
                     <?php if ($_weeeTaxAmount && $_product->getPriceType() == 1 && $_weeeHelper->typeOfDisplay($_product, array(2, 1, 4))): ?>
                         <span class="weee">(<small>
@@ -169,12 +205,18 @@ if ($_product->getPriceType() == 1) {
 
                                 <?php echo $_weeeSeparator; ?>
                                 <?php echo $_weeeTaxAttribute->getName(); ?>: <?php echo $_coreHelper->currency($amount, true, true); ?>
+                                <script language="javascript">
+                                    if($('collection-price-<?php echo $_product->getId(); ?>')) $('collection-price-<?php echo $_product->getId(); ?>').setAttribute('data-price',<?php echo $amount; ?>)
+                                </script>
                                 <?php $_weeeSeparator = ' + '; ?>
                             <?php endforeach; ?>
                         </small>)</span>
                     <?php endif; ?>
                     <?php if ($_weeeHelper->typeOfDisplay($_product, 2) && $_weeeTaxAmount): ?>
                         <?php echo $_coreHelper->currency($_minimalPriceInclTax) ?>
+                        <script language="javascript">
+                            if($('collection-price-<?php echo $_product->getId(); ?>')) $('collection-price-<?php echo $_product->getId(); ?>').setAttribute('data-price',<?php echo $_minimalPriceInclTax; ?>)
+                        </script>
                     <?php endif; ?>
                 <?php endif; ?>
             </span>
@@ -196,6 +238,9 @@ if ($_product->getPriceType() == 1) {
                         <span class="price-excluding-tax">
                             <span class="label"><?php echo $_taxHelper->__('Excl. Tax:') ?></span>
                             <?php echo $_coreHelper->currency($_maximalPriceTax) ?>
+                            <script language="javascript">
+                                if($('collection-price-<?php echo $_product->getId(); ?>')) $('collection-price-<?php echo $_product->getId(); ?>').setAttribute('data-price',<?php echo $_maximalPriceTax; ?>)
+                            </script>
                         </span>
                         <?php if ($_weeeTaxAmount && $_product->getPriceType() == 1 && $_weeeHelper->typeOfDisplay($_product, array(2, 1, 4))): ?>
                             <span class="weee">(<small>
@@ -208,6 +253,9 @@ if ($_product->getPriceType() == 1) {
 
                                     <?php echo $_weeeSeparator; ?>
                                     <?php echo $_weeeTaxAttribute->getName(); ?>: <?php echo $_coreHelper->currency($amount, true, true); ?>
+                                    <script language="javascript">
+                                        if($('collection-price-<?php echo $_product->getId(); ?>')) $('collection-price-<?php echo $_product->getId(); ?>').setAttribute('data-price',<?php echo $amount; ?>)
+                                    </script>
                                     <?php $_weeeSeparator = ' + '; ?>
                                 <?php endforeach; ?>
                             </small>)</span>
@@ -215,12 +263,21 @@ if ($_product->getPriceType() == 1) {
                         <span class="price-including-tax">
                             <span class="label"><?php echo $_taxHelper->__('Incl. Tax') ?></span>
                             <?php echo $_coreHelper->currency($_maximalPriceInclTax) ?>
+                            <script language="javascript">
+                                if($('collection-price-<?php echo $_product->getId(); ?>')) $('collection-price-<?php echo $_product->getId(); ?>').setAttribute('data-price',<?php echo $_maximalPriceInclTax; ?>)
+                            </script>
                         </span>
                     <?php else: ?>
                     <?php if ($_taxHelper->displayPriceIncludingTax()) : ?>
                         <?php echo $_coreHelper->currency($_maximalPriceInclTax) ?>
+                        <script language="javascript">
+                            if($('collection-price-<?php echo $_product->getId(); ?>')) $('collection-price-<?php echo $_product->getId(); ?>').setAttribute('data-price',<?php echo $_maximalPriceInclTax; ?>)
+                        </script>
                     <?php else: ?>
                         <?php echo $_coreHelper->currency($_maximalPriceTax) ?>
+                        <script language="javascript">
+                            if($('collection-price-<?php echo $_product->getId(); ?>')) $('collection-price-<?php echo $_product->getId(); ?>').setAttribute('data-price',<?php echo $_maximalPriceTax; ?>)
+                        </script>
                     <?php endif; ?>
                         <?php if ($_weeeTaxAmount && $_product->getPriceType() == 1 && $_weeeHelper->typeOfDisplay($_product, array(2, 1, 4))): ?>
                             <span class="weee">(<small>
@@ -233,12 +290,18 @@ if ($_product->getPriceType() == 1) {
 
                                     <?php echo $_weeeSeparator; ?>
                                     <?php echo $_weeeTaxAttribute->getName(); ?>: <?php echo $_coreHelper->currency($amount, true, true); ?>
+                                    <script language="javascript">
+                                        if($('collection-price-<?php echo $_product->getId(); ?>')) $('collection-price-<?php echo $_product->getId(); ?>').setAttribute('data-price',<?php echo $amount; ?>)
+                                    </script>
                                     <?php $_weeeSeparator = ' + '; ?>
                                 <?php endforeach; ?>
                             </small>)</span>
                         <?php endif; ?>
                         <?php if ($_weeeHelper->typeOfDisplay($_product, 2) && $_weeeTaxAmount): ?>
                             <?php echo $_coreHelper->currency($_maximalPriceInclTax) ?>
+                            <script language="javascript">
+                                if($('collection-price-<?php echo $_product->getId(); ?>')) $('collection-price-<?php echo $_product->getId(); ?>').setAttribute('data-price',<?php echo $_maximalPriceInclTax; ?>)
+                            </script>
                         <?php endif; ?>
                     <?php endif; ?>
                 </span>
@@ -247,6 +310,9 @@ if ($_product->getPriceType() == 1) {
                     <span class="price-excluding-tax">
                         <span class="label"><?php echo $_taxHelper->__('Excl. Tax:') ?></span>
                         <?php echo $_coreHelper->currency($_minimalPriceTax) ?>
+                        <script language="javascript">
+                            if($('collection-price-<?php echo $_product->getId(); ?>')) $('collection-price-<?php echo $_product->getId(); ?>').setAttribute('data-price',<?php echo $_minimalPriceTax; ?>)
+                        </script>
                     </span>
                     <?php if ($_weeeTaxAmount && $_product->getPriceType() == 1 && $_weeeHelper->typeOfDisplay($_product, array(2, 1, 4))): ?>
                         <span class="weee">(<small>
@@ -259,6 +325,9 @@ if ($_product->getPriceType() == 1) {
 
                                 <?php echo $_weeeSeparator; ?>
                                 <?php echo $_weeeTaxAttribute->getName(); ?>: <?php echo $_coreHelper->currency($amount, true, true); ?>
+                                <script language="javascript">
+                                    if($('collection-price-<?php echo $_product->getId(); ?>')) $('collection-price-<?php echo $_product->getId(); ?>').setAttribute('data-price',<?php echo $amount; ?>)
+                                </script>
                                 <?php $_weeeSeparator = ' + '; ?>
                             <?php endforeach; ?>
                         </small>)</span>
@@ -266,9 +335,15 @@ if ($_product->getPriceType() == 1) {
                     <span class="price-including-tax">
                         <span class="label"><?php echo $_taxHelper->__('Incl. Tax:') ?></span>
                         <?php echo $_coreHelper->currency($_minimalPriceInclTax) ?>
+                        <script language="javascript">
+                            if($('collection-price-<?php echo $_product->getId(); ?>')) $('collection-price-<?php echo $_product->getId(); ?>').setAttribute('data-price',<?php echo $_minimalPriceInclTax; ?>)
+                        </script>
                     </span>
                 <?php else: ?>
                     <?php echo $_coreHelper->currency($_minimalPriceTax) ?>
+                    <script language="javascript">
+                        if($('collection-price-<?php echo $_product->getId(); ?>')) $('collection-price-<?php echo $_product->getId(); ?>').setAttribute('data-price',<?php echo $_minimalPriceTax; ?>)
+                    </script>
                     <?php if ($_weeeTaxAmount && $_product->getPriceType() == 1 && $_weeeHelper->typeOfDisplay($_product, array(2, 1, 4))): ?>
                         <span class="weee">(<small>
                             <?php $_weeeSeparator = ''; foreach ($_weeeTaxAttributes as $_weeeTaxAttribute): ?>
@@ -280,12 +355,18 @@ if ($_product->getPriceType() == 1) {
 
                                 <?php echo $_weeeSeparator; ?>
                                 <?php echo $_weeeTaxAttribute->getName(); ?>: <?php echo $_coreHelper->currency($amount, true, true); ?>
+                                <script language="javascript">
+                                    if($('collection-price-<?php echo $_product->getId(); ?>')) $('collection-price-<?php echo $_product->getId(); ?>').setAttribute('data-price',<?php echo $amount; ?>)
+                                </script>
                                 <?php $_weeeSeparator = ' + '; ?>
                             <?php endforeach; ?>
                         </small>)</span>
                     <?php endif; ?>
                     <?php if ($_weeeHelper->typeOfDisplay($_product, 2) && $_weeeTaxAmount): ?>
                         <?php echo $_coreHelper->currency($_minimalPriceInclTax) ?>
+                        <script language="javascript">
+                            if($('collection-price-<?php echo $_product->getId(); ?>')) $('collection-price-<?php echo $_product->getId(); ?>').setAttribute('data-price',<?php echo $_minimalPriceInclTax; ?>)
+                        </script>
                     <?php endif; ?>
                 <?php endif; ?>
             <?php endif; ?>
