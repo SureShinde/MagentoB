@@ -56,8 +56,20 @@ $_core_helper =  Mage::helper('core');
   <?php elseif ($wishlist['cloud_cover']) : ?>
       <?php echo cl_image_tag($wishlist['cloud_cover'], ['class' => 'collection-img cg-img-responsive', 'alt' => $wishlist->getName(), 'secure' => true, 'width' => 390, 'height' => 390, 'crop' => 'fill', 'format' => 'jpg']); ?>
 
-  <?php else : ?>
-  <img src="<?php echo $this->getSkinUrl('images/') . 'default-collection.jpg'; ?>" class="cg-img-responsive" alt="<?php echo $wishlist->getName(); ?>">
+        <?php 
+          $item = $_productCollection->getFirstItem();
+          if ($item->getProductId()) {
+            $product = Mage::getModel('catalog/product')->load($item->getProductId());
+          }
+        ?>
+
+     <?php if (isset($product) && $product->getImageUrl()) { ?>
+       <img src="<?php echo $product->getImageUrl(); ?>" class="cg-img-responsive" alt="<?php echo $wishlist->getName(); ?>">
+     <?php } else { ?>
+       <img src="<?php echo $this->getSkinUrl('images/') . 'orami_collection_empty.png'; ?>" class="cg-img-responsive" alt="<?php echo $wishlist->getName(); ?>">
+     <?php }?>
+    <?php else : ?>
+     <img src="<?php echo $this->getSkinUrl('images/') . 'orami_collection_empty.png'; ?>" class="cg-img-responsive" alt="<?php echo $wishlist->getName(); ?>">
 <?php endif; ?>
 
 </div>

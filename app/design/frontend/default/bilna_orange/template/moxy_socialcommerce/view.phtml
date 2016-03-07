@@ -188,8 +188,10 @@ $hasCollection = $wishlistCollection->count() < 1 ? false : true;
                 $items = $wishlist->getItemCollection();
                 $collectionEmpty = $items->getSize() > 0 ? false : true;
                 $item = $items->getFirstItem();
-                $product = Mage::getModel('catalog/product')->load($item->getProductId());
-                $itemImage = $product->getImageUrl();
+                if ($item->getProductId()) {
+                  $product = Mage::getModel('catalog/product')->load($item->getProductId());
+                  $itemImage = $product->getImageUrl();
+                }
               ?>
 
               <?php # If collection is not manageable, or empty, we should'nt display it ?>
@@ -218,7 +220,7 @@ $hasCollection = $wishlistCollection->count() < 1 ? false : true;
                     <?php elseif (isset($itemImage) && $itemImage): ?>
                     <img src="<?php echo $itemImage; ?>" width="100%" class="img-collection">
                     <?php else: ?>
-                    <img src="<?php echo $this->getSkinUrl('images') . '/bilna_by_orami_logo.png'; ?>" width="100%" class="img-collection">
+                    <img src="<?php echo $this->getSkinUrl('images') . '/orami_collection_empty.png'; ?>" width="100%" class="img-collection">
                     <?php endif;?>
                     <?php else : ?><?php // has cover ?>
 
