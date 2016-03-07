@@ -15,6 +15,16 @@ class Bilna_Ccp_Model_Ccpmodel extends Mage_Core_Model_Abstract {
     private function connDbRead() {
         return Mage::getSingleton('core/resource')->getConnection('core_read');
     }
+
+    // validation values for store config
+    public function getStoreConfigValues() {
+        $configValues = Mage::getStoreConfig('bilna_ccp/ccp');
+        $configValues['product_bundle']         = isset($configValues['product_bundle']) && !empty($configValues['product_bundle']) ? $configValues['product_bundle'] : 0;
+        $configValues['max_days']               = isset($configValues['max_days']) && !empty($configValues['max_days']) ? (int)$configValues['max_days'] : 0;
+        $configValues['percentage_itemsold']    = isset($configValues['percentage_itemsold']) && !empty($configValues['percentage_itemsold']) ? (int)$configValues['percentage_itemsold'] : 0;
+        $configValues['percentage_inventory']   = isset($configValues['percentage_inventory']) && !empty($configValues['percentage_inventory']) ? (int)$configValues['percentage_inventory'] : 0;
+        return $configValues;
+    }
     
     // output: array { [0] => array {'name' => "ABCD 2 IN 1", 'product_id' => "31905", 'stock_qty' => "0.0000" }
     public function getProductInventories() {
@@ -32,7 +42,7 @@ class Bilna_Ccp_Model_Ccpmodel extends Mage_Core_Model_Abstract {
 
     // output: array { [0] => array { 'product_id' => "31905", 'sales' => "6741500.00000000" }
     public function getProductsSales() {
-        $configValues = Mage::getStoreConfig('bilna_ccp/ccp');
+        $configValues = $this->getStoreConfigValues();
         $read = $this->connDbRead();
 
         $select = $read->select()
@@ -49,7 +59,7 @@ class Bilna_Ccp_Model_Ccpmodel extends Mage_Core_Model_Abstract {
         // do the VM routines here
         $arr_sales_rank = $this->setRankings('sales', $product_sales);
         $arr_inv_rank = $this->setRankings('stock_qty', $product_stock);
-        $configValues = Mage::getStoreConfig('bilna_ccp/ccp');
+        $configValues = $this->getStoreConfigValues();
         $percentage_item = $configValues['percentage_itemsold']/100;
         $percentage_inventory = $configValues['percentage_inventory']/100;
 
