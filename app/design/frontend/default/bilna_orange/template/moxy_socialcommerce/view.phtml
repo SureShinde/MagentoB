@@ -464,6 +464,7 @@ $hasCollection = $wishlistCollection->count() < 1 ? false : true;
                     -->
                     <label for="inputEmail3" class="cg-col-xs-12 control-label label-color label-margin take-left opensans">Tentang Saya</label>
                     <textarea rows="4" id="" class="full-width" style="max-width:100%;box-sizing:border-box;" placeholer="A cook, a mother, a sister." name="about"><?php echo ($profile->getAbout()) ? $profile->getAbout(): '' ?></textarea>
+                    <input type="hidden" name="username" value="<?php echo $profile->getUsername(); ?>">
                     </div>
                 </div>
     <div class="cg-col-xs-6 take-center cg-col-xs-offset-3">
