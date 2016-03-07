@@ -150,40 +150,19 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
             $lastOrderId = $order->getId();
             $paymentCode = $order->getPayment()->getMethodInstance()->getCode();
 
-            if (in_array($paymentCode, $this->getPaymentMethodCc()))
-            {
+            if (in_array($paymentCode, $this->getPaymentMethodCc())) {
                 $charge = Mage::getModel('paymethod/api')->creditcardCharge($order, $tokenId);
-                $setData = array(
-                    'order_id'      => $lastOrderId,
-                    'increment_id'  => $order->getIncrementId(),
-                    'gross_amount'  => $order->getGrandTotal(),
-                    'payment_type'  => 'credit_card',
-                    'bank'          => $charge->bank,
-                    'token_id'      => $tokenId,
-                    'status_code'   => $charge->status_code,
-                    'status_message'=> $charge->status_message,
-                    'transaction_id'=> $charge->transaction_id,
-                    'masked_card'   => $charge->masked_card,
-                    'transaction_time'=> $charge->transaction_time,
-                    'transaction_status'=> $charge->transaction_status,
-                    'fraud_status' => $charge->fraud_status,
-                    'approval_code' => $charge->approval_code,
-                    'created_at'    => date('Y-m-d H:i:s')
-                );
                 
                 $hostname = Mage::getStoreConfig('bilna_queue/beanstalkd_settings/hostname');
                 $pheanstalk = new Pheanstalk($hostname);
-                $pheanstalk
-                  ->useTube('invoice')
-                  ->put(json_encode($setData));
+                $pheanstalk->useTube('vt_charge')->put(json_encode($charge)); //- store charge request-response for API Charging Info
+                $pheanstalk->useTube('invoice')->put(json_encode($charge['response']), '', 60); //- store charge reseponse for create invoice or cancel order (delay 1 minute)
 
-                //Mage::getModel('paymethod/vtdirect')->updateOrder($order, $paymentCode, $charge);
-                //Mage::register('response_charge', $charge);
                 Mage::dispatchEvent('sales_order_place_after', array ('order' => $order));
-
             }
 
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e) {
             $this->_critical($e->getMessage());
         }
 

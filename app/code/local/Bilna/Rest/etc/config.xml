@@ -1,7 +1,7 @@
 <config>
     <modules>
         <Bilna_Rest>
-            <version>0.6.0</version>
+            <version>0.7.0</version>
         </Bilna_Rest>
     </modules>
     <global>

@@ -9,10 +9,9 @@
  */
 class Bilna_Paymethod_Model_Api
 {
-	protected $_typeTransaction = 'transaction';
+    protected $_typeTransaction = 'transaction';
 
-	protected function getVtdirectServerKey()
-	{
+    protected function getVtdirectServerKey() {
         return Mage::getStoreConfig('payment/vtdirect/server_key');
     }
     
@@ -64,12 +63,14 @@ class Bilna_Paymethod_Model_Api
         Mage::log($message, null, 'newstack.log');
     }
 
-	public function creditcardCharge($order, $tokenId)
-	{
-		if(empty($tokenId)) return false;
-		Mage::helper('paymethod')->loadVeritransNamespace();
+    public function creditcardCharge($order, $tokenId) {
+        if (empty ($tokenId)) {
+            return false;
+        }
+        
+        Mage::helper('paymethod')->loadVeritransNamespace();
 
-		// setting config vtdirect
+        // setting config vtdirect
         Veritrans_Config::$serverKey = $this->getVtdirectServerKey();
         Veritrans_Config::$isProduction = $this->getVtdirectIsProduction();
 
@@ -118,25 +119,31 @@ class Bilna_Paymethod_Model_Api
 
         try {
             $this->writeLog($paymentCode, $this->_typeTransaction, 'charge', 'request: ' . json_encode($transactionData));
-            $result = Veritrans_VtDirect::charge($transactionData);
-            $this->writeLog($paymentCode, $this->_typeTransaction, 'charge', 'response: ' . json_encode($result));
+            $response = Veritrans_VtDirect::charge($transactionData);
+            $this->writeLog($paymentCode, $this->_typeTransaction, 'charge', 'response: ' . json_encode($response));
         }
         catch (Exception $e) {
-        	$this->writeLog($paymentCode, $this->_typeTransaction, 'charge', "error: [" . $incrementId . "] " . $e->getMessage());
-            $response = array (
+            $this->writeLog($paymentCode, $this->_typeTransaction, 'charge', "error: [" . $incrementId . "] " . $e->getMessage());
+            $responseArr = array (
                 'transaction_status' => 'deny',
                 'fraud_status' => 'deny',
                 'status_message' => $e->getMessage(),
                 'bank' => $acquiredBank
             );
-            $result = (object) $response;
+            $response = (object) $responseArr;
         }
         
+        $result = array (
+            'order_no' => $incrementId,
+            'request' => $transactionData,
+            'response' => $response,
+            'type' => 'C',
+        );
+        
         return $result;
-	}
+    }
 
-	protected function writeLog($paymentCode, $type, $logFile, $content)
-	{
+    protected function writeLog($paymentCode, $type, $logFile, $content) {
         $tdate = date('Ymd', Mage::getModel('core/date')->timestamp(time()));
         $filename = sprintf("%s_%s.%s", $paymentCode, $logFile, $tdate);
         $content = "[" . gethostname() . "] " . $content;
