@@ -10,8 +10,7 @@
 
 use Pheanstalk\Pheanstalk;
 
-class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model_Api2_Order_Rest
-{
+class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model_Api2_Order_Rest {
 	/**
      * Covert Quote to Order
      *
@@ -149,14 +148,15 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
 
             $lastOrderId = $order->getId();
             $paymentCode = $order->getPayment()->getMethodInstance()->getCode();
+            $orderIncrementId = $order->getIncrementId();
+            $orderGrandTotal = $order->getGrandTotal();
 
-            if (in_array($paymentCode, $this->getPaymentMethodCc()))
-            {
+            if (in_array($paymentCode, $this->getPaymentMethodCc())) {
                 $charge = Mage::getModel('paymethod/api')->creditcardCharge($order, $tokenId);
                 $setData = array(
                     'order_id'      => $lastOrderId,
-                    'increment_id'  => $order->getIncrementId(),
-                    'gross_amount'  => $order->getGrandTotal(),
+                    'increment_id'  => $orderIncrementId,
+                    'gross_amount'  => $orderGrandTotal,
                     'payment_type'  => 'credit_card',
                     'bank'          => $charge->bank,
                     'token_id'      => $tokenId,
@@ -175,15 +175,19 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
                 $pheanstalk = new Pheanstalk($hostname);
                 $pheanstalk
                   ->useTube('invoice')
-                  ->put(json_encode($setData));
+                  ->put(json_encode($setData), '', 60);
 
                 //Mage::getModel('paymethod/vtdirect')->updateOrder($order, $paymentCode, $charge);
                 //Mage::register('response_charge', $charge);
                 Mage::dispatchEvent('sales_order_place_after', array ('order' => $order));
-
             }
 
-        } catch (Mage_Core_Exception $e) {
+            if (in_array($paymentCode, $this->getPaymentMethodVtdirect())) {
+                $charge = Mage::getModel('paymethod/api')->vtdirectRedirectCharge($order);
+                Mage::getModel('paymethod/vtdirect')->addHistoryOrder($order, $charge);
+            }
+        }
+        catch (Mage_Core_Exception $e) {
             $this->_critical($e->getMessage());
         }
 
@@ -273,6 +277,10 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
         return Mage::helper('paymethod')->getPaymentMethodCc();
     }
 
+    protected function getPaymentMethodVtdirect() {
+        return Mage::helper('paymethod')->getPaymentMethodVtdirect();
+    }
+
     protected function getPaymentTypeTransaction($paymentCode, $type)
     {
         if ($paymentCode == 'klikpay') {
@@ -302,3 +310,4 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
         }
     }
 }
+

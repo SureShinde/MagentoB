@@ -1,5 +1,4 @@
 <?php
-
 /**
  * API2 class for payment gateway (admin)
  *
@@ -7,17 +6,15 @@
  * @package    Bilna_Paymethod
  * @author     Development Team <development@bilna.com>
  */
-class Bilna_Paymethod_Model_Api
-{
+
+class Bilna_Paymethod_Model_Api {
 	protected $_typeTransaction = 'transaction';
 
-	protected function getVtdirectServerKey()
-	{
+    protected function getVtdirectServerKey() {
         return Mage::getStoreConfig('payment/vtdirect/server_key');
     }
     
-    protected function getVtdirectIsProduction()
-    {
+    protected function getVtdirectIsProduction() {
         $isProduction = Mage::getStoreConfig('payment/vtdirect/development_testing');
         
         if ($isProduction) {
@@ -27,13 +24,11 @@ class Bilna_Paymethod_Model_Api
         return true;
     }
 
-    protected function getAcquiredBank($paymentCode)
-    {
+    protected function getAcquiredBank($paymentCode) {
         return Mage::getStoreConfig('payment/' . $paymentCode . '/bank_acquired');
     }
 
-    protected function getBins($order, $paymentCode)
-    {
+    protected function getBins($order, $paymentCode) {
         $digit = 6;
         //$digit = ($paymentCode == 'othervisa' || $paymentCode == 'othermc') ? 1 : 6;
         $result = substr($order->getPayment()->getCcBins(), 0, $digit);
@@ -41,8 +36,7 @@ class Bilna_Paymethod_Model_Api
         return array ($result);
     }
 
-    protected function getInstallment($items)
-    {
+    protected function getInstallment($items) {
         foreach ($items as $itemId => $item) {
             $installmentType = $item->getInstallmentType();
             
@@ -54,22 +48,22 @@ class Bilna_Paymethod_Model_Api
         return false;
     }
 
-    protected function getInstallmentProcess($paymentCode) 
-    {
+    protected function getInstallmentProcess($paymentCode) {
         return Mage::getStoreConfig('payment/' . $paymentCode . '/installment_process');
     }
 
-    protected function logProgress($message)
-    {
+    protected function logProgress($message) {
         Mage::log($message, null, 'newstack.log');
     }
 
-	public function creditcardCharge($order, $tokenId)
-	{
-		if(empty($tokenId)) return false;
-		Mage::helper('paymethod')->loadVeritransNamespace();
+    public function creditcardCharge($order, $tokenId) {
+        if (empty ($tokenId)) {
+            return false;
+        }
+        
+        Mage::helper('paymethod')->loadVeritransNamespace();
 
-		// setting config vtdirect
+        // setting config vtdirect
         Veritrans_Config::$serverKey = $this->getVtdirectServerKey();
         Veritrans_Config::$isProduction = $this->getVtdirectIsProduction();
 
@@ -135,8 +129,67 @@ class Bilna_Paymethod_Model_Api
         return $result;
 	}
 
-	protected function writeLog($paymentCode, $type, $logFile, $content)
-	{
+    public function vtdirectRedirectCharge($order) {
+        Mage::helper('paymethod')->loadVeritransNamespace();
+        
+        //- setting config vtdirect
+        Veritrans_Config::$serverKey = $this->getVtdirectServerKey();
+        Veritrans_Config::$isProduction = $this->getVtdirectIsProduction();
+        
+        $incrementId = $order->getIncrementId();
+        $grossAmount = $order->getGrandTotal();
+        $paymentCode = $order->getPayment()->getMethodInstance()->getCode();
+        $paymentType = Mage::getStoreConfig('payment/' . $paymentCode . '/vtdirect_payment_type');
+        
+        //-Required
+        $transactionDetails = array (
+            'order_id' => $incrementId,
+            'gross_amount' => $grossAmount
+        );
+        $customerDetails = array (
+            'first_name' => $order->getBillingAddress()->getFirstname(),
+            'last_name' => $order->getBillingAddress()->getLastname(),
+            'email' => $this->getCustomerEmail($order->getBillingAddress()->getEmail()),
+            'phone' => $order->getBillingAddress()->getTelephone(),
+        );
+        
+        //- Data that will be sent for charge transaction request with Mandiri E-cash.
+        $transactionData = array (
+            'payment_type' => $paymentType,
+            'transaction_details' => $transactionDetails,
+            'customer_details' => $customerDetails,
+            'mandiri_ecash' => array (
+                'description' => 'Transaction Description Mandiri E-Cash Bilna.com',
+            ),
+        );
+        
+        try {
+            $this->writeLog($paymentCode, $this->_typeTransaction, 'charge', 'request: ' . json_encode($transactionData));
+            $result = Veritrans_VtDirect::charge($transactionData);
+            $this->writeLog($paymentCode, $this->_typeTransaction, 'charge', 'response: ' . json_encode($result));
+        }
+        catch (Exception $e) {
+            $this->writeLog($paymentCode, $this->_typeTransaction, 'charge', "error: [" . $incrementId . "] " . $e->getMessage());
+            $response = array (
+                'transaction_status' => 'deny',
+                'fraud_status' => 'deny',
+                'status_message' => $e->getMessage()
+            );
+            $result = (object) $response;
+        }
+        
+        return $result;
+    }
+
+    protected function getCustomerEmail($email) {
+        //if (Mage::getStoreConfig('payment/vtdirect/development_testing')) {
+        //    return 'vt-testing@veritrans.co.id';
+        //}
+        
+        return $email;
+    }
+
+    protected function writeLog($paymentCode, $type, $logFile, $content) {
         $tdate = date('Ymd', Mage::getModel('core/date')->timestamp(time()));
         $filename = sprintf("%s_%s.%s", $paymentCode, $logFile, $tdate);
         $content = "[" . gethostname() . "] " . $content;
