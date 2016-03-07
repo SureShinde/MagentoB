@@ -83,20 +83,21 @@ class Mage_Checkout_Block_Onepage_Shipping_Method_Available extends Mage_Checkou
     public function checkExpressShippingSalesCount()
     {
         $showExpress = true;
-        $expressSOLimit = 600;
 
-        /* Format our dates */
-        $fromDate = date('Y-m-d 17:00:00', strtotime("-1 day"));
-        $toDate = date('Y-m-d H:i:s');
-         
-        /* Get the collection */
-        $orders = Mage::getModel('sales/order')->getCollection()
-            ->addAttributeToFilter('created_at', array('from'=>$fromDate, 'to'=>$toDate))
-            ->addAttributeToFilter('shipping_method', array('like' => '%Express_Shipping%'));
-        $order_count = $orders->getSize();
+        $limit = (int) Mage::getStoreConfig('bilna_expressshipping_so_limit/orderlimit/limit');
+        $todayDate = date("Y-m-d", strtotime("+7 hours"));
 
-        if ($order_count > $expressSOLimit)
-            $showExpress = false;
+        $resource = Mage::getSingleton('core/resource');
+        $readConnection = $resource->getConnection('core_read');
+        $table = "sales_order_daily_count";
+        $query = "SELECT sales_count FROM $table WHERE sales_date = '$todayDate' LIMIT 1";
+        $salesCount = $readConnection->fetchOne($query);
+
+        if ($salesCount) {
+            if ($salesCount >= $limit) {
+                $showExpress = false;
+            }
+        }
 
         return $showExpress;
     }
