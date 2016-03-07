@@ -19,6 +19,7 @@
     <user_profile_index>
         <reference name="head">
             <action method="addCss"><stylesheet>css/jquery-uii.css</stylesheet></action>
+            <action method="addJs"><script>js/jquery.tabselect-0.2.js</script></action>
         </reference>
         <reference name="content">
             <block type="core/template" name="user_content" template="moxy_socialcommerce/view.phtml"/>
