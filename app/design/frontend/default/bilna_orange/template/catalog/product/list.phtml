@@ -35,6 +35,7 @@
 $_productCollection=$this->getLoadedProductCollection();
 $_helper = $this->helper('catalog/output');
 $_escape_helper = Mage::helper('catalog/utils');
+$_core_helper =  Mage::helper('core');
 $_cart = Mage::getModel('checkout/cart')->getQuote();
 $_items = $_cart->getAllItems();
 $itemQty = 0;

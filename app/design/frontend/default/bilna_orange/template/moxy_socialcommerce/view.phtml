@@ -1,20 +1,4 @@
-    <?php
-
-    $customer = $this->getCustomer();
-    $loggedCustomer = Mage::getSingleton('customer/session')->getCustomer();
-    $isLoggedIn = Mage::getSingleton('customer/session')->isLoggedIn();
-    // TODO: Check user condition by $viewer variable
-    $viewer = '';
-
-    if ($isLoggedIn) {
-
-      if ($loggedCustomer->getId() == $customer->getId()) {
-        $viewer = 'owner';
-
-      } else {
-        $viewer = 'other_user';
-      }
-    }
+<?php
 
 $customer = $this->getCustomer();
 $loggedCustomer = Mage::getSingleton('customer/session')->getCustomer();
@@ -47,56 +31,16 @@ if ($customerDob) {
 $wishlistCollection = Mage::getModel('wishlist/wishlist')->getCollection()->filterByCustomerId($customer->getId());
 $hasCollection = $wishlistCollection->count() < 1 ? false : true;
 
-    ?>
+?>
 
-    <div class="cg-container-fluid">
+<div class="cg-container-fluid">
 
-      <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
-      <div class="cg-row nomargin">
-        <div class="cg-col-xs-12 nopadding">
-          <img src="<?php echo $this->getSkinUrl('images/') . 'profile-banner.jpg'; ?>" width="100%" >
-            </div>
-        </div>
-      </div>
-
-      <div class="cg-row bordering spacer-mobile" style="border-top:none;">
-        <div class=" normal-padding cg-col-lg-2 cg-col-md-2 cg-col-sm-3 cg-col-xs-3">
-        <?php if ($profile->getCloudAvatar()) : ?>
-          <?php echo cl_image_tag($profile->getCloudAvatar(), ['class' => 'rounded-this top-offset widther', 'alt' => $profile->getUsername(), 'secure' => true, 'width' => 165, 'height' => 165, 'crop' => 'fill', 'format' => 'jpg']); ?>
-        <?php elseif($profile->getAvatar()) : ?>
-          <img src="<?php echo str_replace('en/', '', $this->getUrl('media/avatar') . $profile->getAvatar()); ?>" width="100%" class="rounded-this top-offset" alt="<?php echo $profile->getUsername(); ?>">
-        <?php else : ?>
-          <?php if ($customer->getGender() == 1) : ?>
-          <img src="<?php echo $this->getSkinUrl('images/') . 'avatar-m.jpg'; ?>" width="100%" class="top-offset rounded-this" alt="<?php echo $profile->getUsername(); ?>">
-          <?php else : ?>
-          <img src="<?php echo $this->getSkinUrl('images/') . 'avatar-f.jpg'; ?>" width="100%" class="top-offset rounded-this" alt="<?php echo $profile->getUsername(); ?>">
-          <?php endif; ?>
-        <?php endif; ?>
-        </div>
-
-        <div class="normal-padding cg-col-lg-9 cg-col-md-9 cg-col-sm-9 cg-col-xs-9">
-          <div class="name-user">
-            <h3><?php echo $profile->getUsername(); ?></h3>
-            <?php if ($viewer == 'owner'): ?>
-            <div onclick="showProfileEdit()"class="btn-detail-profile-new btn-edit-new">Ubah Profil</div>
-            <?php endif; ?>
-            <?php if ($profile->getLocation()) : ?>
-            <div class="profile-location"><?php echo $profile->getLocation(); ?></div>
-            <?php endif; ?>
-            <?php if ($profile->getAbout()) : ?>
-            <div class="profile-interest"><?php echo $profile->getAbout(); ?></div>
-            <?php endif; ?>
-
-            <?php # Check if user logged in, and visiting her own profile page ?>
-            <?php if ($viewer == 'owner') : ?>
-            <div class="cg-col-xs-12 nopadding">
-              <a href="<?php echo $this->getUrl('customer/account'); ?>" class="btn-detail-profile cg-col-xs-12 cg-col-sm-4 cg-col-md-3 cg-col-lg-3" style="margin-bottom:5px;">Akun Saya </a>
-              <a href="javascript:;" class="btn-detail-profile cg-col-xs-12 cg-col-sm-4 cg-col-md-3 cg-col-lg-3 btn-margin" style="" onclick="newShowAddCollectionDialog()">Buat Koleksi</a>
-            </div>
-            <?php endif; ?>
-          </div>
-        </div>
+  <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+  <div class="cg-row nomargin">
+    <div class="cg-col-xs-12 nopadding">
+      <img src="<?php echo $this->getSkinUrl('images/') . 'profile-banner.jpg'; ?>" width="100%" >
     </div>
+  </div>
 
   <div class="cg-row bordering spacer-mobile" style="border-top:none;">
     <div class=" normal-padding cg-col-lg-2 cg-col-md-2 cg-col-sm-3 cg-col-xs-3">
@@ -123,14 +67,6 @@ $hasCollection = $wishlistCollection->count() < 1 ? false : true;
         <?php if ($profile->getLocation()) : ?>
         <div class="profile-location"><?php echo $profile->getLocation(); ?></div>
         <?php endif; ?>
-        <!--
-        <div class="profile-iam">
-          I am carrer woman, mom.
-        </div>
-        <div class="profile-interest">
-          My interest are beauty, fashion. & accessories
-        </div>
-      -->
         <?php if ($profile->getAbout()) : ?>
         <div class="profile-interest"><?php echo $profile->getAbout(); ?></div>
         <?php endif; ?>
@@ -145,7 +81,6 @@ $hasCollection = $wishlistCollection->count() < 1 ? false : true;
       </div>
     </div>
   </div>
-
   <?php if (!$hasCollection): ?>
   <?php if (!$viewer): ?>
   <!-- empty collection status public -->
@@ -250,14 +185,12 @@ $hasCollection = $wishlistCollection->count() < 1 ? false : true;
                 }
 
                 $itemSlug = Mage::getModel('catalog/product_url')->formatUrlKey($wishlist->getName());
-                $collectionEmpty = true;
-
-                foreach ($wishlist->getItemCollection() as $item) {
-                  $collectionEmpty = false;
+                $items = $wishlist->getItemCollection();
+                $collectionEmpty = $items->getSize() > 0 ? false : true;
+                $item = $items->getFirstItem();
+                if ($item->getProductId()) {
                   $product = Mage::getModel('catalog/product')->load($item->getProductId());
                   $itemImage = $product->getImageUrl();
-
-                  break;
                 }
               ?>
 
@@ -284,9 +217,11 @@ $hasCollection = $wishlistCollection->count() < 1 ? false : true;
                     <img src="<?php echo $this->getUrl('media/collection-cover') . $wishlist->getCover(); ?>" width="100%" class="img-collection">
                     <?php elseif ($wishlist->getCover() && strpos($wishlist->getCover(),'socialcommerce') == true) : ?>
                     <img src="<?php echo $wishlist->getCover(); ?>" width="100%" class="img-collection">
+                    <?php elseif (isset($itemImage) && $itemImage): ?>
+                    <img src="<?php echo $itemImage; ?>" width="100%" class="img-collection">
                     <?php else: ?>
-                    <img src="<?php echo $this->getSkinUrl('images') . '/default-collection.jpg'; ?>" width="100%" class="img-collection">
-                    <?php endif; ?>
+                    <img src="<?php echo $this->getSkinUrl('images') . '/orami_collection_empty.png'; ?>" width="100%" class="img-collection">
+                    <?php endif;?>
                     <?php else : ?><?php // has cover ?>
 
                     <?php if ($wishlist->getCover() && strpos($wishlist->getCover(),'socialcommerce') == false) : ?>
@@ -323,105 +258,94 @@ $hasCollection = $wishlistCollection->count() < 1 ? false : true;
 
 </div><!-- end of .cg-container-fluid -->
 
-    <!-- new modal of edit collection -->
-    <div class="container-collection-pop" style="display:none;" id="editCollectionModal">
-      <div class="cg-col-lg-5 cg-col-md-6 cg-col-sm-6 cg-col-xs-11 container-collection-whitebg white-bg-new-coll" style="max-width:500px;">
-        <form action="<?php echo $this->getUrl('social/settings/editcollection'); ?>" method="post" enctype="multipart/form-data" onsubmit="return preventDefault(this)" class="form-horizontal collection-form">
-          <div class="cg-col-lg-12 cg-col-xs-12 cg-col-sm-12 cg-col-md-12 box inside-collection noborder" style="padding-bottom:0; margin-bottom:0;">
-            <div class="cg-col-lg-12 cg-col-sm-12 cg-col-md-12 cg-col-xs-12 collection-top-part">
-              <div class="cg-col-lg-11 cg-col-md-11 cg-col-sm-11 cg-col-xs-11 add-to-collection-title bold opensans take-left">Edit Halaman Koleksi</div>
-              <div class="cg-col-lg-1 cg-col-md-1 cg-col-sm-1 cg-col-xs-1 " id="closer-collection">
-                <a href="javascript:;" onclick="hideCollectionEdit()" style="text-decoration:none;width:100%;display:block"><i class="fa fa-times"></i></a>
+
+<!-- new modal of edit collection -->
+<div class="container-collection-pop" style="display:none;" id="editCollectionModal">
+  <div class="cg-col-lg-5 cg-col-md-6 cg-col-sm-6 cg-col-xs-11 container-collection-whitebg white-bg-new-coll" style="max-width:500px;">
+    <form action="<?php echo $this->getUrl('social/settings/editcollection'); ?>" method="post" enctype="multipart/form-data" onsubmit="return preventDefault(this)" class="form-horizontal collection-form">
+      <div class="cg-col-lg-12 cg-col-xs-12 cg-col-sm-12 cg-col-md-12 box inside-collection noborder" style="padding-bottom:0; margin-bottom:0;">
+        <div class="cg-col-lg-12 cg-col-sm-12 cg-col-md-12 cg-col-xs-12 collection-top-part">
+          <div class="cg-col-lg-11 cg-col-md-11 cg-col-sm-11 cg-col-xs-11 add-to-collection-title bold opensans take-left">Edit Halaman Koleksi</div>
+          <div class="cg-col-lg-1 cg-col-md-1 cg-col-sm-1 cg-col-xs-1 " id="closer-collection">
+            <a href="javascript:;" onclick="hideCollectionEdit()" style="text-decoration:none;width:100%;display:block"><i class="fa fa-times"></i></a>
+          </div>
+        </div>
+        <div class="cg-col-xs-12  bottom-spacer">
+
+
+            <div class="form-group in-block full-width">
+              <label for="inputEmail3" class="cg-col-xs-12 control-label label-color label-margin take-left opensans">Judul <span class="light lil-exp">sesuai tema koleksi yang ingin anda buat</span></label>
+              <div class="cg-col-sm-12">
+                <input type="text" name="colname" id="modalTitleCol" class="form-control input-new-collection" placeholder="Kado Valentine">
               </div>
             </div>
-            <div class="cg-col-xs-12  bottom-spacer">
-
-
-                <div class="form-group in-block full-width">
-                  <label for="inputEmail3" class="cg-col-xs-12 control-label label-color label-margin take-left opensans">Judul <span class="light lil-exp">sesuai tema koleksi yang ingin anda buat</span></label>
-                  <div class="cg-col-sm-12">
-                    <input type="text" name="colname" id="modalTitleCol" class="form-control input-new-collection" placeholder="Kado Valentine">
-                  </div>
-                </div>
-                <div class="form-group in-block full-width">
-                  <label for="inputPassword3" class="cg-col-xs-12 control-label label-color label-margin take-left opensans">Deskripsi <span class="light lil-exp">penjelasan singkat mengenai tema koleksi anda</span></label>
-                  <div class="cg-col-sm-12">
-                     <textarea rows="4" name="desc" id="modalDescCol" class="form-control input-new-collection" maxlength="250" placeholder="Penjelasan singkat mengenai tema koleksi anda" style="resize:none;height:auto;"></textarea>
-                  </div>
-                </div>
-
+            <div class="form-group in-block full-width">
+              <label for="inputPassword3" class="cg-col-xs-12 control-label label-color label-margin take-left opensans">Deskripsi <span class="light lil-exp">penjelasan singkat mengenai tema koleksi anda</span></label>
+              <div class="cg-col-sm-12">
+                 <textarea rows="4" name="desc" id="modalDescCol" class="form-control input-new-collection" maxlength="250" placeholder="Penjelasan singkat mengenai tema koleksi anda" style="resize:none;height:auto;"></textarea>
+              </div>
             </div>
-            <div class="cg-col-xs-12">
-              <div class="form-group in-block full-width nomargin">
-                <label for="inputEmail3" class="cg-col-xs-12 control-label label-color label-margin take-left opensans">Sampul Koleksi Anda </label>
-                <span class="light lil-exp cg-col-xs-12 bold opensans bottom-spacer-container take-center">Jadikan halaman koleksi anda lebih menarik dengan gambar yang menjelaskan isi koleksi anda!</span>
-              </div>
-              <div class="cg-row">
-                <div class="cg-sm-12">
-                  <div id="tabs3">
-                    <ul class="cg-col-sm-12 cg-col-xs-12 main-nav nopadding bottom-spacer-container">
-                      <li class="cg-col-sm-4 cg-col-xs-4 text-center clicker main-nav nopadding">
-                        <a href="#tabs-1" class="sub-nav tabs-left ">
-                          <i class="fa fa-link pinker icon-nav"></i>
-                          <span class="hidden-xs font-tabs"> <br>link gambar dari web</span>
-                        </a>
-                      </li>
-                      <li class="cg-col-sm-4 cg-col-xs-4 text-center clicker main-nav mid-nav nopadding">
-                        <a href="#tabs-2" class="sub-nav activated">
-                          <i class="fa fa-cloud-upload pinker icon-nav"></i>
-                          <span class="hidden-xs font-tabs"> <br> unggah gambar</span>
-                        </a>
-                      </li>
-                      <li class="cg-col-sm-4 cg-col-xs-4 text-center clicker main-nav nopadding">
-                        <a href="#tabs-3" class="sub-nav tabs-right">
-                          <i class="fa fa-picture-o pinker icon-nav"></i>
-                          <span class="hidden-xs font-tabs"> <br>gambar pilihan kami</span>
-                        </a>
-                      </li>
-                    </ul>
-                    <div id="tabs-1" style="color: #545454;">
-                      <div class="form-group in-block full-width">
-                        <div class="cg-col-sm-10 cg-col-sm-offset-1">
-                          <input type="text" class="form-control input-new-collection full-width back-white input-border" id="" name="image_url" placeholder="http://">
-                        </div>
-                      </div>
-                    </div>
-                    <div id="tabs-2" style="color: #545454;">
-                      <div class="cg-col-sm-4 cg-col-sm-offset-4 cg-col-xs-12 dashed-upload nopadding">
-                        <img id="imgup" src="<?php echo $this->getSkinUrl('images/unggah.png'); ?>" alt="your image" width ="100%"/>
-                        <div class="fileUpload-coll" id="no-span">
-                        <input type="file" title="Browse" name="cover" class="upload-coll take-center" id="imgInp"/>
-                        </div>
-                      </div>
-                    </div>
-                    <div id="tabs-3" style="color: #545454;">
-                      <div class="cg-col-sm-12" id="preset-image-container">
-              <?php $counter = 1; foreach($images as $image) {
-              if (($counter % 3) == 0) {
-              }
-              ?>
-                      <div class="cg-col-sm-3 cg-col-xs-4 bottom-spacer choose-cover">
-                        <span class="overlayer-pink">
-                          <i class="fa fa-check checked"></i>
-                        </span>
-              <img src="/media/<?php echo $image['image'];?>" width="100%" alt="">
-                      </div>
-              <?php
-              $counter++;}  ?>
-              </div>
+
+        </div>
+        <div class="cg-col-xs-12">
+          <div class="form-group in-block full-width nomargin">
+            <label for="inputEmail3" class="cg-col-xs-12 control-label label-color label-margin take-left opensans">Sampul Koleksi Anda </label>
+            <span class="light lil-exp cg-col-xs-12 bold opensans bottom-spacer-container take-center">Jadikan halaman koleksi anda lebih menarik dengan gambar yang menjelaskan isi koleksi anda!</span>
+          </div>
+          <div class="cg-row">
+            <div class="cg-sm-12">
+              <div id="tabs3">
+                <ul class="cg-col-sm-12 cg-col-xs-12 main-nav nopadding bottom-spacer-container">
+                  <li class="cg-col-sm-4 cg-col-xs-4 text-center clicker main-nav nopadding">
+                    <a href="#tabs-1" class="sub-nav tabs-left ">
+                      <i class="fa fa-link pinker icon-nav"></i>
+                      <span class="hidden-xs font-tabs"> <br>link gambar dari web</span>
+                    </a>
+                  </li>
+                  <li class="cg-col-sm-4 cg-col-xs-4 text-center clicker main-nav mid-nav nopadding">
+                    <a href="#tabs-2" class="sub-nav activated">
+                      <i class="fa fa-cloud-upload pinker icon-nav"></i>
+                      <span class="hidden-xs font-tabs"> <br> unggah gambar</span>
+                    </a>
+                  </li>
+                  <li class="cg-col-sm-4 cg-col-xs-4 text-center clicker main-nav nopadding">
+                    <a href="#tabs-3" class="sub-nav tabs-right">
+                      <i class="fa fa-picture-o pinker icon-nav"></i>
+                      <span class="hidden-xs font-tabs"> <br>gambar pilihan kami</span>
+                    </a>
+                  </li>
+                </ul>
+                <div id="tabs-1" style="color: #545454;">
+                  <div class="form-group in-block full-width">
+                    <div class="cg-col-sm-10 cg-col-sm-offset-1">
+                      <input type="text" class="form-control input-new-collection full-width back-white input-border" id="" name="image_url" placeholder="http://">
                     </div>
                   </div>
                 </div>
-              </div>
-              <input type="hidden" name="collection_id" id="modalCollectionId">
-              <input type="hidden" name="collection_id2" id="modalCollectionId2">
-              <input type="hidden" name="username" value="<?php echo $profile->getUsername(); ?>">
-          <input type="hidden" name="preset_image" id="epreset_image" />
-
-              <div style="margin-top: 20px;" class="bottom-spacer-container">
-
-                <input type="checkbox" name="visibility" id="modalVisibilityCol" class="input-collection" style="height: inherit; width:10px;">
-                <label for="visibility" class="check-public">Jadikan koleksi publik agar semua orang bisa melihat</label>
+                <div id="tabs-2" style="color: #545454;">
+                  <div class="cg-col-sm-4 cg-col-sm-offset-4 cg-col-xs-12 dashed-upload nopadding">
+                    <img id="imgup" src="<?php echo $this->getSkinUrl('images/unggah.png'); ?>" alt="your image" width ="100%"/>
+                    <div class="fileUpload-coll" id="no-span">
+                    <input type="file" title="Browse" name="cover" class="upload-coll take-center" id="imgInp"/>
+                    </div>
+                  </div>
+                </div>
+                <div id="tabs-3" style="color: #545454;">
+                  <div class="cg-col-sm-12" id="preset-image-container">
+          <?php $counter = 1; foreach($images as $image) {
+          if (($counter % 3) == 0) {
+          }
+          ?>
+                  <div class="cg-col-sm-3 cg-col-xs-4 bottom-spacer choose-cover">
+                    <span class="overlayer-pink">
+                      <i class="fa fa-check checked"></i>
+                    </span>
+          <img src="/media/<?php echo $image['image'];?>" width="100%" alt="">
+                  </div>
+          <?php
+          $counter++;}  ?>
+          </div>
+                </div>
               </div>
             </div>
           </div>
@@ -444,34 +368,33 @@ $hasCollection = $wishlistCollection->count() < 1 ? false : true;
       <div class="cg-col-xs-12 take-center">
         <span class="delete-collection-link cursor btn-cancel" onclick="newShowCollectionEdit()" style="border-bottom: 1px solid #ccc;padding-bottom:0;"><i class="fa fa-trash-o"></i> Hapus Koleksi Ini</span>
       </div>
-    </form>
   </div>
 </div>
 <!-- end of new modal collection -->
 
-    <!-- new modal of delet confirmation -->
-    <div class="container-collection-pop" style="display:none;" id="deleteConfirmation">
-      <div class="cg-col-lg-5 cg-col-md-6 cg-col-sm-6 cg-col-xs-11 container-collection-whitebg" style="max-width:500px;">
-        <div class="cg-col-lg-12 cg-col-sm-12 cg-col-md-12 cg-col-xs-12 collection-top-part">
-          <div class="cg-col-lg-11 cg-col-md-11 cg-col-sm-11 cg-col-xs-11 add-to-collection-title opensans">Hapus Koleksi</div>
-          <div class="cg-col-lg-1 cg-col-md-1 cg-col-sm-1 cg-col-xs-1 " id="closer-collection">
-            <a href="javascript:;" onclick="hideDelete()" style="text-decoration:none;width:100%;display:block"><i class="fa fa-times"></i></a>
-          </div>
-        </div>
-          <div class="form-group in-block full-width">
-            <label for="" class="cg-col-sm-12 control-label label-color text-center label-margin opensans">Apakah kamu yakin akan menghapus koleksi ini?</label>
-            <div class="cg-col-sm-12">
-              <div class="cg-col-xs-6">
-            <div class="btn btn-pink-prime cursor take-center" style="text-decoration:none" onclick="newHideCollectionEdit()">BATALKAN</div>
-          </div>
-          <div class="cg-col-xs-6">
-            <button type="submit" class="btn btn-cancel-button take-center full-width" style="margin: 10px 0;" name="deleteButton">HAPUS</button>
-            <!--<button type="submit" class="btn btn-primary btn-block" style="margin: 10px 0;" name="deleteButton" onclick="newShowCollectionEdit()">Delete</button>-->
-          </div>
-        </div>
+<!-- new modal of delet confirmation -->
+<div class="container-collection-pop" style="display:none;" id="deleteConfirmation">
+  <div class="cg-col-lg-5 cg-col-md-6 cg-col-sm-6 cg-col-xs-11 container-collection-whitebg" style="max-width:500px;">
+    <div class="cg-col-lg-12 cg-col-sm-12 cg-col-md-12 cg-col-xs-12 collection-top-part">
+      <div class="cg-col-lg-11 cg-col-md-11 cg-col-sm-11 cg-col-xs-11 add-to-collection-title opensans">Hapus Koleksi</div>
+      <div class="cg-col-lg-1 cg-col-md-1 cg-col-sm-1 cg-col-xs-1 " id="closer-collection">
+        <a href="javascript:;" onclick="hideDelete()" style="text-decoration:none;width:100%;display:block"><i class="fa fa-times"></i></a>
       </div>
-      </form>
     </div>
+      <div class="form-group in-block full-width">
+        <label for="" class="cg-col-sm-12 control-label label-color text-center label-margin opensans">Apakah kamu yakin akan menghapus koleksi ini?</label>
+        <div class="cg-col-sm-12">
+          <div class="cg-col-xs-6">
+        <div class="btn btn-pink-prime cursor take-center" style="text-decoration:none" onclick="newHideCollectionEdit()">BATALKAN</div>
+      </div>
+      <div class="cg-col-xs-6">
+        <button type="submit" class="btn btn-cancel-button take-center full-width" style="margin: 10px 0;" name="deleteButton">HAPUS</button>
+        <!--<button type="submit" class="btn btn-primary btn-block" style="margin: 10px 0;" name="deleteButton" onclick="newShowCollectionEdit()">Delete</button>-->
+      </div>
+    </div>
+  </div>
+  </form>
+</div>
 </div>
 <!-- end of new modal delete confirmation -->
 
@@ -518,18 +441,10 @@ $hasCollection = $wishlistCollection->count() < 1 ? false : true;
                     <input type="text" class="form-control noradius" id="username" placeholder="username" name="username" style="border-right:0;" value="<?php echo ($profile->getUsername() ? $profile->getUsername(): '') ?>">
                     <div class="noradius input-group-addon nobackground"><i class="fa fa-check"></i> available</div>
                     </div>
-                    <div class=" normal-padding cg-col-lg-4 cg-col-md-4 cg-col-sm-4 cg-col-xs-5">
-                        <?php if($profile->getAvatar()) : ?>
-                        <img src="<?php echo str_replace('en/', '', $this->getUrl('media/avatar') . $profile->getAvatar()); ?>" width="100%" class="rounded-this cg-img-responsive" alt="<?php echo $profile->getUsername(); ?>">
-                        <?php elseif ($profile->getCloudAvatar()) : ?>
-                        <?php echo cl_image_tag($profile->getCloudAvatar(), ['class' => 'rounded-this cg-img-responsive', 'alt' => $profile->getUsername(), 'secure' => true, 'width' => 165, 'height' => 165, 'crop' => 'fill', 'format' => 'jpg']); ?>
-                        <?php else : ?>
-                        <?php if ($customer->getGender() == 1) : ?>
-                        <img src="<?php echo $this->getSkinUrl('images/') . 'avatar-m.jpg'; ?>" width="100%" class="rounded-this cg-img-responsive" alt="<?php echo $profile->getUsername(); ?>">
-                        <?php else : ?>
-                        <img src="<?php echo $this->getSkinUrl('images/') . 'avatar-f.jpg'; ?>" width="100%" class="rounded-this cg-img-responsive" alt="<?php echo $profile->getUsername(); ?>">
-                        <?php endif; ?>
-                        <?php endif; ?>
+                    <span class="exp-span">http://moxy.co.id/user/username <span style="color: #B90000;font-weight: bold;font-size:11px;">You can only change this once</span></span>-->
+                    <label for="inputEmail3" class="cg-col-xs-12 control-label label-color label-margin take-left opensans">Tanggal Lahir</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control noradius" id="datepicker" placeholder="" style="display:block !important;" name="dob" value="<?php echo ($customerDob) ? $customerDob : '' ?>">
                     </div>
                     <label for="inputEmail3" class="cg-col-xs-12 control-label label-color label-margin take-left opensans">Lokasi</label>
                     <input type="text" name="location" style="padding: 0 5px;" id="modalDescCol" class="input-collection full-width" placeholer="Location" value="<?php echo ($profile->getLocation()) ? $profile->getLocation() : '' ?>">
@@ -539,109 +454,104 @@ $hasCollection = $wishlistCollection->count() < 1 ? false : true;
                       <input type="text" id="myinputiam" name="myinputiam" value="" style="display:none;" size=30>
                       <span id="tags-iam"></span>
                     </div>
-                    <div class="cg-col-xs-12 top-dotted newpaddtop10 top-spacer">
-                        <!-- <label for="name" class="full-width" style="color: #545454; margin-bottom: 10px;">Display Name *</label>
-                        <input type="text" name="desc" id="modalDescCol" class="input-collection full-width" placeholer="Username">
-                        <span class="exp-span">this will be displayed on your profile page</span>
-                        <label for="name" class="full-width" style="color: #545454; margin-bottom: 10px;">Username *</label>
-                        <div class="input-group">
-                        <input type="text" class="form-control noradius" id="username" placeholder="username" name="username" style="border-right:0;" value="<?php echo ($profile->getUsername() ? $profile->getUsername(): '') ?>">
-                        <div class="noradius input-group-addon nobackground"><i class="fa fa-check"></i> available</div>
-                        </div>
-                        <span class="exp-span">http://moxy.co.id/user/username <span style="color: #B90000;font-weight: bold;font-size:11px;">You can only change this once</span></span>-->
-                        <label for="inputEmail3" class="cg-col-xs-12 control-label label-color label-margin take-left opensans">Tanggal Lahir</label>
-                        <div class="input-group">
-                            <input type="text" class="form-control noradius" id="datepicker" placeholder="" style="display:block !important;" name="dob" value="<?php echo ($customerDob) ? $customerDob : '' ?>">
-                        </div>
-                        <label for="inputEmail3" class="cg-col-xs-12 control-label label-color label-margin take-left opensans">Lokasi</label>
-                        <input type="text" name="location" style="padding: 0 5px;" id="modalDescCol" class="input-collection full-width" placeholer="Location" value="<?php echo ($profile->getLocation()) ? $profile->getLocation() : '' ?>">
-                        <!--
-                        <label for="name" class="full-width" style="color: #545454; margin-bottom: 10px;margin-top: 10px;">Iam <span class="coll-tags">You can choose more than one, because you can have it all!</span></label>
-                        <div class="whoiam">
-                          <input type="text" id="myinputiam" name="myinputiam" value="" style="display:none;" size=30>
-                          <span id="tags-iam"></span>
-                        </div>
 
-                        <label for="name" class="full-width" style="color: #545454; margin-bottom: 10px;margin-top: 10px;">My Interest <span class="coll-tags">You can choose more than one</span></label>
+                    <label for="name" class="full-width" style="color: #545454; margin-bottom: 10px;margin-top: 10px;">My Interest <span class="coll-tags">You can choose more than one</span></label>
 
-                        <div class="interest">
-                          <input type="text" id="myinputinterest" name="myinputinterest" value="" style="display:none;" size=30>
-                          <span id="tags-interest"></span>
-                        </div>
-                        -->
-                        <label for="inputEmail3" class="cg-col-xs-12 control-label label-color label-margin take-left opensans">Tentang Saya</label>
-                        <textarea rows="4" id="" class="full-width" style="max-width:100%;box-sizing:border-box;" placeholer="A cook, a mother, a sister." name="about"><?php echo ($profile->getAbout()) ? $profile->getAbout(): '' ?></textarea>
-                        </div>
+                    <div class="interest">
+                      <input type="text" id="myinputinterest" name="myinputinterest" value="" style="display:none;" size=30>
+                      <span id="tags-interest"></span>
                     </div>
+                    -->
+                    <label for="inputEmail3" class="cg-col-xs-12 control-label label-color label-margin take-left opensans">Tentang Saya</label>
+                    <textarea rows="4" id="" class="full-width" style="max-width:100%;box-sizing:border-box;" placeholer="A cook, a mother, a sister." name="about"><?php echo ($profile->getAbout()) ? $profile->getAbout(): '' ?></textarea>
                     </div>
                 </div>
-            </div>
-            <div class="cg-col-xs-6 take-center cg-col-xs-offset-3">
-                <button type="submit" class="btn btn-pink-prime cursor" style="margin: 10px 0;" name="submitButton">SIMPAN PERUBAHAN</button>
-            </div>
-        </form>
+    <div class="cg-col-xs-6 take-center cg-col-xs-offset-3">
+      <button type="submit" class="btn btn-pink-prime cursor" style="margin: 10px 0;" name="submitButton">SIMPAN PERUBAHAN</button>
     </div>
-    <?php } ?>
+  </form>
+</div>
 
-    <script>
-    function newShowCollectionEdit(){
-      jQuery('#editCollectionModal').fadeOut('fast');
-      jQuery('#deleteConfirmation').fadeIn('fast');
+
+
+<!--  end of modal edit profile -->
+<!-- checking is the logged in customer seeing his own collection or not -->
+<?php $customerId = Mage::getSingleton('customer/session')->getCustomer()->getId();
+if ($wishlist['customer_id'] != $customerId) {
+?>
+
+<?php /*  <div class="cg-row"  style="margin-bottom:20px;">
+   <div class="cg-col-lg-6 cg-col-lg-offset-3 cg-col-xs-12 cg-col-md-8 cg-col-md-offset-2 cg-col-sm-12 text-center no-collection-title bottom-spacer-container" style="font-size:20px; font-weight:500;">
+    Feeling inspired? <br>
+    Why don't you create your own collection!
+  </div>
+  <div class="cg-col-lg-4 cg-col-lg-offset-4 cg-col-xs-12 cg-col-md-8 cg-col-md-offset-2 cg-col-sm-12 bottom-spacer-container">
+    <img src="<?php echo $this->getSkinUrl('images/') . 'plus2-2x.png'; ?>" width="100%" >
+  </div>
+  <div class="cg-col-lg-2 cg-col-lg-offset-5 cg-col-xs-12 cg-col-md-8 cg-col-md-offset-2 cg-col-sm-12">
+    <div onclick="showAddCollectionDialog()" class="btn btn btn-pink-prime cursor" style="margin: 10px 0;">BUAT SEKARANG</div>
+  </div>
+</div>
+*/?>
+<?php } ?>
+
+<script>
+function newShowCollectionEdit(){
+  jQuery('#editCollectionModal').fadeOut('fast');
+  jQuery('#deleteConfirmation').fadeIn('fast');
+}
+function newHideCollectionEdit(){
+  jQuery('#deleteConfirmation').fadeOut('fast');
+  jQuery('#editCollectionModal').fadeIn('fast');
+}
+function hideDelete() {
+  jQuery('#deleteConfirmation').fadeOut('fast');
+}
+function showCollectionEdit() {
+  jQuery('#editCollectionModal').fadeIn('fast');
+}
+
+function hideCollectionEdit() {
+  jQuery('#editCollectionModal').fadeOut('fast');
+}
+function showProfileEdit() {
+  jQuery('#editProfileModal').fadeIn('fast');
+}
+
+function hideProfileEdit() {
+  jQuery('#editProfileModal').fadeOut('fast');
+}
+
+jQuery('.editCollectionLink').click();
+
+jQuery(document).ready(function() {
+  jQuery('.editCollectionLink').click(function() {
+    var collectionId = jQuery(this).data('collection-id');
+    var titlecol = jQuery(this).data('title-col');
+    var desccol = jQuery(this).data('desc-col');
+    var visibilitycol = jQuery(this).data('visibility-col');
+    var visibility_val = false;
+
+    if (visibilitycol === 1) {
+      visibility_val = true;
     }
-    function newHideCollectionEdit(){
-      jQuery('#deleteConfirmation').fadeOut('fast');
-      jQuery('#editCollectionModal').fadeIn('fast');
-    }
-    function hideDelete() {
-      jQuery('#deleteConfirmation').fadeOut('fast');
-    }
-    function showCollectionEdit() {
-      jQuery('#editCollectionModal').fadeIn('fast');
-    }
 
-    function hideCollectionEdit() {
-      jQuery('#editCollectionModal').fadeOut('fast');
-    }
-    function showProfileEdit() {
-      jQuery('#editProfileModal').fadeIn('fast');
-    }
+    jQuery('#modalCollectionId').val(collectionId);
+    jQuery('#modalCollectionId2').val(collectionId);
+    jQuery('#modalTitleCol').val(titlecol);
+    jQuery('#modalDescCol').val(desccol);
+    jQuery('#modalVisibilityCol').prop('checked', visibility_val);
+    jQuery('#editCollectionModal').fadeIn('fast');
+  });
+});
 
-    function hideProfileEdit() {
-      jQuery('#editProfileModal').fadeOut('fast');
-    }
-
-    jQuery('.editCollectionLink').click();
-
-    jQuery(document).ready(function() {
-      jQuery('.editCollectionLink').click(function() {
-        var collectionId = jQuery(this).data('collection-id');
-        var titlecol = jQuery(this).data('title-col');
-        var desccol = jQuery(this).data('desc-col');
-        var visibilitycol = jQuery(this).data('visibility-col');
-        var visibility_val = false;
-
-        if (visibilitycol === 1) {
-          visibility_val = true;
-        }
-
-        jQuery('#modalCollectionId').val(collectionId);
-        jQuery('#modalCollectionId2').val(collectionId);
-        jQuery('#modalTitleCol').val(titlecol);
-        jQuery('#modalDescCol').val(desccol);
-        jQuery('#modalVisibilityCol').prop('checked', visibility_val);
-        jQuery('#editCollectionModal').fadeIn('fast');
-      });
-    });
-
-    </script>
-    <script>
-    jQuery(function() {
-        jQuery( "#datepicker" ).datepicker({
-              yearRange: '1940:2016',
-              changeMonth: true,
-              changeYear: true
-        });
-    });
-    </script>
-
-    <script src="http://fredibach.ch/jquery-plugins/js/jquery.tabselect-0.2.js" type="text/javascript">  </script>
+</script>
+<script>
+jQuery(function() {
+  jQuery( "#datepicker" ).datepicker({
+    yearRange: '1940:2016',
+    changeMonth: true,
+    changeYear: true
+  });
+});
+</script>
