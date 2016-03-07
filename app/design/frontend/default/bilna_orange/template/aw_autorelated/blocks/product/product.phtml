@@ -29,7 +29,7 @@
 ?>
 <?php
 $abstractBlock = $this->helper('awautorelated')->getAbstractProductBlock();
- 
+$_core_helper =  Mage::helper('core');
 $collection = $this->getCollection();
 
 if ($this->getPosition() == AW_Autorelated_Model_Source_Position::INSTEAD_NATIVE_RELATED_BLOCK) {
@@ -62,12 +62,12 @@ if ($this->getPosition() == AW_Autorelated_Model_Source_Position::INSTEAD_NATIVE
                         <?php foreach ($collection as $product) : ?>
                             <li class="aw-arp-item">
 								<div class="top_thumb_list_product">
-                                    <a  alt="<?php echo $this->__('tambah ke koleksi') ?>"
+                                    <a id="collection-price-<?php echo $product->getId(); ?>" alt="<?php echo $this->__('tambah ke koleksi') ?>"
                                         class="link-wishlist addToCollectionLink" onclick="showAddToCollectionDialog()" href="javascript:;"
                                         data-brand-name="<?php echo $brand; ?>"
                                         data-image="<?php echo $this->helper('catalog/image')->init($product, 'small_image')->resize(320, 320); ?>"
                                         data-product-name="<?php echo $this->stripTags($product->getName(), null, true); ?>"
-                                        data-price="<?php echo 'Rp ' . number_format(round($product->getFinalPrice()), 0, '', '.'); ?>"
+                                        data-price="<?php echo $_core_helper->currency($product->getFinalPrice(), true, false); ?>"
                                         data-merchant = "<?php echo ($merchant) ? 'dijual oleh ' . $merchant : ''; ?>"
                                         data-id="<?php echo $product->getId(); ?>"
                                         ><i class="fa fa-heart"></i></a>
