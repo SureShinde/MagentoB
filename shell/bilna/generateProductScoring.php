@@ -20,7 +20,7 @@ class Ccp extends Mage_Shell_Abstract {
         $product_position = $productModel->setProductPosition();
 
         echo "CCP is now updated.\n";
-    }    
+    }
 }
 
 $shell = new Ccp();
