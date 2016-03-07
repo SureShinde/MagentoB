@@ -183,6 +183,14 @@ USAGE;
         
         return sprintf("%d years, %d months, %d days, %d hours, %d minutes, %d seconds", $years, $months, $days, $hours, $minutes, $seconds);
     }
+    
+    protected function _isActive($config) {
+        if (!isset ($config['enabled']) || !$config['enabled']) {
+            return false;
+        }
+        
+        return true;
+    }
 
     protected function _critical($message) {
         $this->_logProgress($message);
