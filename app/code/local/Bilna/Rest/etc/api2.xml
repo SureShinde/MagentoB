@@ -718,6 +718,31 @@
                 </routes>
                 <versions>1</versions>
             </newsletter>
+            <checkorder translate="title" module="Bilna_Rest">
+                <group>bilna_rest</group>
+                <model>bilna_rest/api2_checkorder</model>
+                <title>Check Order</title>
+                <sort_order>111</sort_order>
+                <privileges>
+                    <admin>
+                        <retrieve>1</retrieve>
+                    </admin>
+                </privileges>
+                <attributes translate="increment_id status shipping payment order_items" module="Bilna_Rest">
+                    <increment_id>Increment Id</increment_id>
+                    <status>Status</status>
+                    <shipping>Shipping</shipping>
+                    <payment>Payment</payment>
+                    <order_items>Order Items</order_items>
+                </attributes>
+                <routes>
+                    <route_collection>
+                        <route>/checkorder</route>
+                        <action_type>entity</action_type>
+                    </route_collection>
+                </routes>
+                <versions>1</versions>
+            </checkorder>            
         </resources>
     </api2>
 </config>
