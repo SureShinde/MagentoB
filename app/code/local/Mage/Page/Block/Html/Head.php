@@ -593,4 +593,15 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
         return $this->getData('post');
     }
         /*End Blog Function adding by andi*/
+
+    public function setWishlist($wishlist)
+    {
+        $this->_data['wishlist'] = $wishlist;
+        return $this;
+    }
+
+    public function getWishlist()
+    {
+        return $this->_data['wishlist'];
+    }
 }

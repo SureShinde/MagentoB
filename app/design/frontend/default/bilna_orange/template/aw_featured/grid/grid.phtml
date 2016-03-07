@@ -30,6 +30,10 @@
 <?php $_imageQsize = 152 // Maximal image width\height value, pixels ?>
 <?php $_onSaleHelper = $this->helper('awfeatured/onsale') ?>
 <?php $_abstractBlock = $this->helper('awfeatured')->getAbstractProductBlock() ?>
+<?php $_cart = Mage::getModel('checkout/cart')->getQuote(); ?>
+<?php $_items = $_cart->getAllItems(); ?>
+<?php $itemQty = 0; ?>
+<?php foreach ($_items as $_item) { $parentId = $_item->getParentItemId(); if(empty($parentId)) {$itemQty++;} } ?>
 <div class="awfeatured awafpgrid" id="<?php echo $this->getUniqueBlockId() ?>" style="<?php echo $this->getContainerStyleString() ?>">
     <?php $_i = $_ulOpened = $_ulClosed = 0; ?>
     <?php $_iterates=0;foreach($this->getProductsCollection() as $_product) : ?>
@@ -128,7 +132,7 @@
                     <?php if($_product->getTypeId() != 'simple'):?>
                         <p><a class="link-cart-special" href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($_product->getName(), null, true) ?>"><i class="fa fa-cart-plus"></i><?php echo $this->__('Tambah ke troli') ?></a></p>
                         <?php else:?>
-						<p><button type="button" title="<?php echo $this->__('Tambah ke troli') ?>" class="button btn-buynow" onclick="setLocation('<?php echo $_abstractBlock->getAddToCartUrl($_product) ?>'); ecommerceStaticBlockAddToCart('<?php echo $_escape_helper->escapeQuote($_product->getName()); ?>','<?php echo $_product->getSku(); ?>','<?php echo $_product->getPrice() ?>','browsing','<?php echo $_product->getProductUrl() ?>','<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(152); ?>');"><i class="fa fa-cart-plus"></i><?php echo $this->__('Tambah ke troli') ?></button></p>
+						<p><button type="button" title="<?php echo $this->__('Tambah ke troli') ?>" class="button btn-buynow" onclick="setLocation('<?php echo $_abstractBlock->getAddToCartUrl($_product) ?>'); ecommerceStaticBlockAddToCart('<?php echo $_escape_helper->escapeQuote($_product->getName()); ?>','<?php echo $_product->getSku(); ?>','<?php echo $_product->getPrice() ?>','<?php echo Mage::helper('core')->currency($_product->getPrice(), true, false) ?>','browsing','<?php echo $_product->getProductUrl() ?>','<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(152); ?>');"><i class="fa fa-cart-plus"></i><?php echo $this->__('Tambah ke troli') ?></button></p>
 						<?php endif;?>
 						<?php else : ?>
 						<p class="availability out-of-stock"><span><a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($_product->getName(), null, true) ?>"><?php echo $this->__('Kabari bila tersedia') ?></a></span></p>
@@ -310,8 +314,7 @@
         }
     });
 
-    function ecommerceStaticBlockAddToCart(name, sku, price, list, link, imageUrl) {
-        // console.log("ECOMMERCE_StaticBlock_AddToCart_Ematics "+name+" "+sku+" "+price+" "+list+" "+link+" "+imageUrl);
+    function ecommerceStaticBlockAddToCart(name, sku, price, price_ematic, list, link, imageUrl) {
         dataLayer.push({
           'event': 'addToCart',
           'ecommerce': {
@@ -332,16 +335,49 @@
           }
         });
 
+        // ematics cart - retrieve items from cart
+        var temp_cart = [];
+        var temp_item = "";
+        var index_addeditem = -999;
+
+        for (var itr=0; itr < <?php echo $itemQty ?>; itr++) {
+        temp_item = jQuery(".mini-cart span#ematiccart").eq(itr).text();
+        temp_cart[itr] = temp_item.split("|");
+        if (temp_item.indexOf(sku) > -1) {
+                index_addeditem = itr;
+            }
+        }
+
         // ematics cart - prepare for logging
-        products = [{
-            'id': sku,
-            'price': price,
-            'quantity': 1,
-            'name': name,
-            'brandName': 'brand name',
-            'imageUrl': imageUrl,
-            'link': link
-        }];
+        products = [
+            <?php for($i=0; $i<$itemQty; $i++) {
+                echo "{'name' : temp_cart[".$i."][0],";
+                echo "'id' : temp_cart[".$i."][1],";
+                echo "'price' : temp_cart[".$i."][3],";
+                echo "'quantity' : temp_cart[".$i."][4],";
+                echo "'brandName' : 'brand name',";
+                echo "'imageUrl' : temp_cart[".$i."][5],";
+                echo "'link' : temp_cart[".$i."][6]}";if($i != $itemQty-1) {echo ",";}
+            } 
+            ?>
+        ];
+
+        // ematics added item
+        if (index_addeditem != -999) {    // same item exist in cart
+            products[index_addeditem].quantity = parseInt(products[index_addeditem].quantity) + 1;
+        }
+        else {    // no same item
+            products.push({
+              'id': sku,
+              'price': price_ematic,
+              'quantity': 1,
+              'name': name,
+              'brandName': 'brand name',
+              'imageUrl': imageUrl,
+              'link': link
+            });
+        }
+
         // ematics track items in cart to enable pre-abandonded cart overlays
         ematics("log", "product", "cart", products);
     }

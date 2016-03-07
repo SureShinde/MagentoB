@@ -95,7 +95,7 @@ $_core_helper =  Mage::helper('core');
       <a style="color:#fff;" href="http://twitter.com/home?status=<?php echo $wishlist->getName(); ?>+<?php echo $this->helper('core/url')->getCurrentUrl(); ?>" onclick="javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"><i class="fa fa-twitter" style="padding-top:7px;"></i></a>
     </div>
     <div class="cg-col-xs-2 padding-3lr soc-size pinterest">
-      <a style="color:#fff;" href="https://www.pinterest.com/pin/create/link/?url=<?php echo $this->helper('core/url')->getCurrentUrl(); ?>&description=<?php echo $wishlist->getDesc(); ?>" onclick="javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"><i class="fa fa-pinterest-p" style="padding-top:7px;"></i></a>
+      <a style="color:#fff;" href="https://www.pinterest.com/pin/create/link/?url=<?php echo $this->helper('core/url')->getCurrentUrl(); ?>&media=<?php echo sprintf("%s%s", $this->getUrl('media/collection-cover'), $wishlist->cover); ?>&description=<?php echo $wishlist->getDesc(); ?>" onclick="javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"><i class="fa fa-pinterest-p" style="padding-top:7px;"></i></a>
     </div>
     <div class="cg-col-xs-2 padding-3lr soc-size gplus">
       <a style="color:#fff;" href="https://plus.google.com/share?url=<?php echo $this->helper('core/url')->getCurrentUrl(); ?>" onclick="javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"><i class="fa fa-google-plus" style="padding-top:7px;"></i></a>
@@ -264,7 +264,7 @@ $_core_helper =  Mage::helper('core');
                   <div class="cg-col-lg-12 cg-col-sm-12 cg-col-md-12 cg-col-xs-12 text-right bottom-spacer-container" style="">
                       </div>
                  <div class="cg-col-xs-12 cg-col-sm-12 cg-col-md-6 cg-col-lg-6">
-                  <img src="<?php echo $productImageUrl; ?>" alt="<?php echo $productImageLabel?>" id="product-collection-image-<?php echo $productId; ?>">
+                  <img src="<?php echo $productImageUrl; ?>" alt="<?php echo $productImageLabel?>" id="product-collection-image-<?php echo $productId; ?>" class="product-collection-image-quick">
 
                   <?php $_images = Mage::getModel('catalog/product')->load($_product->getId())->getMediaGalleryImages(); ?>  
 
@@ -279,7 +279,7 @@ $_core_helper =  Mage::helper('core');
                             ?>
                             
                             <li style ="line-height: 1px;float: left;">
-                              <a class="thumb-link quick-view" href="#" data-image-index="<?php echo $a; ?>"><img src="<?php echo $this->helper('catalog/image')->init($_product, 'thumbnail', $_image->getFile())->resize(50); ?>" width="50" height="50" alt="<?=$this->htmlEscape($_image->getLabel());?>" title="<?=$this->htmlEscape($_image->getLabel());?>"/></a> 
+                              <a class="thumb-link quick-view pointer" data-image-index="<?php echo $a; ?>"><img src="<?php echo $this->helper('catalog/image')->init($_product, 'thumbnail', $_image->getFile())->resize(50); ?>" width="50" height="50" alt="<?=$this->htmlEscape($_image->getLabel());?>" title="<?=$this->htmlEscape($_image->getLabel());?>" data-image-main="<?php echo $this->helper('catalog/image')->init($_product, 'image', $_image->getFile())->resize(265); ?>" class="thumb-img" /></a> 
                             </li>
                         <?php } $a++; endforeach; ?>
                         </ul>
@@ -345,9 +345,9 @@ $_core_helper =  Mage::helper('core');
                           </div>-->
 
                           <div class="add-to-cart-buttons cg-col-xs-12">
-                            <div class="cg-col-xs-2 coll-quick" onclick="newShowAddCollectionDialog()" style="cursor: pointer;">
+                            <!-- <div class="cg-col-xs-2 coll-quick" onclick="newShowAddCollectionDialog()" style="cursor: pointer;">
                               <i class="fa fa-heart"></i>
-                            </div>
+                            </div> -->
 
                             <!-- checking stock level for quick view-->
 
@@ -513,13 +513,16 @@ $_core_helper =  Mage::helper('core');
       <div class="price-box">
         <input type="hidden" class="final-price-<?php echo $productId; ?>" value="<?php echo $productFinalPrice; ?>" />
         <?php if ($productSpecialPrice && $productSpecialPrice < $productRegularPrice && $productSpecialDateIsValid) : ?>
-        <div class="special-price">
-          <span class="current-price price" id="product-price-<?php echo $productId; ?>"><?php echo $productSpecialPriceFormatted; ?></span>
+        <div class="special-price in-block full-width">
           <p class="old-price">
-            <span class="price" id="old-price-<?php echo $productId; ?>"><?php echo $productRegularPriceFormatted; ?></span>
+            <span class="price size12" id="old-price-<?php echo $productId; ?>"><?php echo $productRegularPriceFormatted; ?></span>
           </p>
+          <span class="current-price price" id="product-price-<?php echo $productId; ?>"><?php echo $productSpecialPriceFormatted; ?></span>
         </div>
       <?php else : ?>
+      <p class="old-price" style="min-height:22px;">
+            <span class="price size12"></span>
+          </p>
       <span class="regular-price">
         <span class="price" id="product-price-<?php echo $productId; ?>"><?php echo $productRegularPriceFormatted; ?></span>
       </span>
@@ -634,6 +637,10 @@ jQuery('.category-products .item').hover(function(){
   } else {
     jQuery(this).find('div.actions').addClass('hover');
   }
+});
+
+jQuery('.thumb-img').bind("click",function(){
+  jQuery(".product-collection-image-quick").attr('src',jQuery(this).attr("data-image-main"));
 });
 
 function countSelectedItems(){
