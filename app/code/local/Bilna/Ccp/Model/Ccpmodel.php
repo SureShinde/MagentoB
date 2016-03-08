@@ -72,9 +72,9 @@ class Bilna_Ccp_Model_Ccpmodel extends Mage_Core_Model_Abstract {
 
         $data = array();
         foreach ($final_array as $product_id => $value) {
-            $sales=$value['sales'];
+            $sales=isset($value['sales']) && !empty($value['sales']) ? (int)$value['sales'] : 0;
             $sales_rank = isset($arr_sales_rank[$product_id]) ? (int)$arr_sales_rank[$product_id] : sizeof($final_array);
-            $stock=isset($value['stock_qty']) ? $value['stock_qty'] : 0;
+            $stock=isset($value['stock_qty']) ? (int)$value['stock_qty'] : 0;
             $stock_rank = isset($arr_inv_rank[$product_id]) ? (int)$arr_inv_rank[$product_id] : sizeof($final_array);
             $score = $percentage_item*$sales_rank + $percentage_inventory*$stock_rank;
 
