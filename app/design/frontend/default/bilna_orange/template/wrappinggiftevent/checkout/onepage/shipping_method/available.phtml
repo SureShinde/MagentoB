@@ -84,7 +84,6 @@
                             (<?php echo $this->__('Incl. Tax'); ?> <?php echo $_incl; ?>)
                         <?php endif; ?>
                         </label>
-
                         <?php 
                         if ( (strpos(strtolower($_rate->getCode()), 'express') !== false) || (strpos(strtolower($_rate->getCode()), 'ekspres') !== false) )
                         {
@@ -101,7 +100,6 @@
                             echo "</u></p></div>";
                         }
                         ?>
-
                    <?php endif ?>
                 </li>
             <?php endforeach; ?>

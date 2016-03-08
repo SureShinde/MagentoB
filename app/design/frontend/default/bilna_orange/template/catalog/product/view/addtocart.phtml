@@ -26,7 +26,19 @@
 ?>
 <?php $_escape_helper = Mage::helper('catalog/utils'); ?>
 <?php $_product = $this->getProduct(); ?>
-
+<?php
+  $dateTime = Mage::getModel('core/date')->timestamp(time());
+  $orderHour = date("H", $dateTime); 
+  $orderDate = date('d F Y', $dateTime);
+  $nextDay = date('d F Y', strtotime($orderDate . ' +1 day'));
+  if ($_product->getExpressShipping()){
+    if($orderHour<11){
+      echo "<div><p>Expressable on ".$orderDate."</p></div>";
+    }else{
+      echo "<div><p>Expressable on ".$nextDay."</p></div>";
+    }
+  }
+?>
 <?php $buttonTitle = $this->__('Tambah ke troli'); ?>
 <?php if($_product->isSaleable()): ?>
     <div class="add-to-cart">
