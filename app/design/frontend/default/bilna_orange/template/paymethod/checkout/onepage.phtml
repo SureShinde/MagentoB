@@ -60,6 +60,24 @@
 <?php $qtyDisplay =  implode("','", $qtyCollection); ?>
 <?php $valueDisplay =  implode("','", $valueCollection); ?>
 
+<!-- ematic purchase integration point -->
+<?php
+if (Mage::getSingleton('customer/session')->isLoggedIn()) {
+    $loggedinCustomerOrder = Mage::getModel('sales/order')->getCollection()
+         ->setOrder('created_at','DESC')
+         ->addAttributeToFilter('customer_email', Mage::getSingleton('customer/session')->getCustomer()->getEmail())
+         ->setPageSize(1)
+         ->setCurPage(1);
+    $lastOrderDateTime = $loggedinCustomerOrder->getFirstItem()->getCreatedAt();
+    $lastOrderDate = new DateTime($lastOrderDateTime);
+    $lastOrderDate = $lastOrderDate->format('d-m-Y');
+}
+else {
+    $lastOrderDate = date('d-m-Y');   
+}
+?>
+<!-- END ematic purchase integration point -->
+
 <script type="text/javascript">
     jQuery(document).ready(function () {
         dataLayer.push({'ecomm_pagetype': 'cart'});
@@ -80,6 +98,34 @@
         failure: '<?php echo $this->getUrl('checkout/cart'); ?>'}
     );
     //]]>
+
+    /*** ematic purchase integration point ***/
+    jQuery("#co-installment-form").submit(function(){
+        if (jQuery("#checkout-step-login").length == 0) {   // user logged in and not checkout as guest
+            ecommerceNewsletterSubscribe(document.getElementById('ematicuseremail').textContent);
+        }
+    });
+
+    function ecommerceNewsletterSubscribe(email) {
+        var subscribe_payload = {
+          'apikey': '62dfde989b5d8d24c61f57fc3e0b42b1-us12',
+          'id': '035ca58dc2',
+          'email': {
+             'email': email
+          },
+          "merge_vars": {
+            "LASTPURCDT": <?php echo $lastOrderDate ?>
+          }
+        };
+
+        jQuery.ajax({
+          type: "POST",
+          url: "https://us12.api.mailchimp.com/2.0/lists/update-member",
+          dataType: "jsonp",
+          data: subscribe_payload
+        });
+    }
+    /*** END ematic purchase integration point ***/
 
     function ecommercePurchases() {
         var temp_grandTotal = jQuery("td#grand_total-onepage span.price").text().replace("Rp","");
