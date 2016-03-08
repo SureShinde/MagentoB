@@ -42,6 +42,7 @@ $_taxHelper  = $this->helper('tax');
  * @var $_priceModel Mage_Bundle_Model_Product_Price
  */
 $_product     = $this->getProduct();
+$_id          = $_product->getId();
 $_priceModel  = $_product->getPriceModel();
 
 list($_minimalPriceTax, $_maximalPriceTax) = $_priceModel->getTotalPrices($_product, null, null, false);
@@ -79,6 +80,9 @@ if ($_product->getPriceType() == 1) {
                     <span class="price-excluding-tax">
                         <span class="label"><?php echo $_taxHelper->__('Excl. Tax:') ?></span>
                         <?php echo $_coreHelper->currency($_minimalPriceTax) ?>
+                        <script language="javascript">
+                            setCollectionPrice(<?php echo $_id; ?>, <?php echo "'".$_coreHelper->currency($_minimalPriceTax)."'" ?>);
+                        </script>
                     </span>
                     <?php if ($_weeeTaxAmount && $_product->getPriceType() == 1 && $_weeeHelper->typeOfDisplay($_product, array(2, 1, 4))): ?>
                         <span class="weee">(<small>
@@ -92,18 +96,30 @@ if ($_product->getPriceType() == 1) {
                                 <?php echo $_weeeSeparator; ?>
                                 <?php echo $_weeeTaxAttribute->getName(); ?>: <?php echo $_coreHelper->currency($amount, true, true); ?>
                                 <?php $_weeeSeparator = ' + '; ?>
+                                <script language="javascript">
+                                    setCollectionPrice(<?php echo $_id; ?>, <?php echo "'".$_coreHelper->currency($amount)."'" ?>);
+                                </script>
                             <?php endforeach; ?>
                         </small>)</span>
                     <?php endif; ?>
                     <span class="price-including-tax">
                         <span class="label"><?php echo $_taxHelper->__('Incl. Tax:') ?></span>
                         <?php echo $_coreHelper->currency($_minimalPriceInclTax) ?>
+                        <script language="javascript">
+                            setCollectionPrice(<?php echo $_id; ?>, <?php echo "'".$_coreHelper->currency($_minimalPriceInclTax)."'" ?>);
+                        </script>
                     </span>
             <?php else: ?>
                 <?php if ($_taxHelper->displayPriceIncludingTax()): ?>
                     <?php echo $_coreHelper->currency($_minimalPriceInclTax) ?>
+                    <script language="javascript">
+                        setCollectionPrice(<?php echo $_id; ?>, <?php echo "'".$_coreHelper->currency($_minimalPriceInclTax)."'" ?>);
+                    </script>
                 <?php else: ?>
                     <?php echo $_coreHelper->currency($_minimalPriceTax) ?>
+                    <script language="javascript">
+                        setCollectionPrice(<?php echo $_id; ?>, <?php echo "'".$_coreHelper->currency($_minimalPriceTax)."'" ?>);
+                    </script>
                 <?php endif; ?>
                 <?php if ($_weeeTaxAmount && $_product->getPriceType() == 1 && $_weeeHelper->typeOfDisplay($_product, array(2, 1, 4))): ?>
                     <span class="weee">(<small>
@@ -116,12 +132,18 @@ if ($_product->getPriceType() == 1) {
 
                             <?php echo $_weeeSeparator; ?>
                             <?php echo $_weeeTaxAttribute->getName(); ?>: <?php echo $_coreHelper->currency($amount, true, true); ?>
+                            <script language="javascript">
+                                setCollectionPrice(<?php echo $_id; ?>, <?php echo "'".$_coreHelper->currency($amount)."'" ?>);
+                            </script>
                             <?php $_weeeSeparator = ' + '; ?>
                         <?php endforeach; ?>
                     </small>)</span>
                 <?php endif; ?>
                 <?php if ($_weeeHelper->typeOfDisplay($_product, 2) && $_weeeTaxAmount): ?>
                     <?php echo $_coreHelper->currency($_minimalPriceInclTax) ?>
+                    <script language="javascript">
+                        setCollectionPrice(<?php echo $_id; ?>, <?php echo "'".$_coreHelper->currency($_minimalPriceInclTax)."'" ?>);
+                    </script>
                 <?php endif; ?>
             <?php endif; ?>
             </p>
@@ -132,6 +154,9 @@ if ($_product->getPriceType() == 1) {
                     <span class="price-excluding-tax">
                         <span class="label"><?php echo $_taxHelper->__('Excl. Tax:') ?></span>
                         <?php echo $_coreHelper->currency($_minimalPriceTax) ?>
+                        <script language="javascript">
+                            setCollectionPrice(<?php echo $_id; ?>, <?php echo "'".$_coreHelper->currency($_minimalPriceTax)."'" ?>);
+                        </script>
                     </span>
                     <?php if ($_weeeTaxAmount && $_product->getPriceType() == 1 && $_weeeHelper->typeOfDisplay($_product, array(2, 1, 4))): ?>
                         <span class="weee">(<small>
@@ -144,6 +169,9 @@ if ($_product->getPriceType() == 1) {
 
                                 <?php echo $_weeeSeparator; ?>
                                 <?php echo $_weeeTaxAttribute->getName(); ?>: <?php echo $_coreHelper->currency($amount, true, true); ?>
+                                <script language="javascript">
+                                    setCollectionPrice(<?php echo $_id; ?>, <?php echo "'".$_coreHelper->currency($amount)."'" ?>);
+                                </script>
                                 <?php $_weeeSeparator = ' + '; ?>
                             <?php endforeach; ?>
                         </small>)</span>
@@ -151,12 +179,21 @@ if ($_product->getPriceType() == 1) {
                     <span class="price-including-tax">
                         <span class="label"><?php echo $_taxHelper->__('Incl. Tax:') ?></span>
                         <?php echo $_coreHelper->currency($_minimalPriceInclTax) ?>
+                        <script language="javascript">
+                            setCollectionPrice(<?php echo $_id; ?>, <?php echo "'".$_coreHelper->currency($_minimalPriceInclTax)."'" ?>);
+                        </script>
                     </span>
                 <?php else: ?>
                     <?php if ($_taxHelper->displayPriceIncludingTax()) : ?>
                         <?php echo $_coreHelper->currency($_minimalPriceInclTax) ?>
+                        <script language="javascript">
+                            setCollectionPrice(<?php echo $_id; ?>, <?php echo "'".$_coreHelper->currency($_minimalPriceInclTax)."'" ?>);
+                        </script>
                     <?php else: ?>
                         <?php echo $_coreHelper->currency($_minimalPriceTax) ?>
+                        <script language="javascript">
+                            setCollectionPrice(<?php echo $_id; ?>, <?php echo "'".$_coreHelper->currency($_minimalPriceTax)."'" ?>);
+                        </script>
                     <?php endif; ?>
                     <?php if ($_weeeTaxAmount && $_product->getPriceType() == 1 && $_weeeHelper->typeOfDisplay($_product, array(2, 1, 4))): ?>
                         <span class="weee">(<small>
@@ -169,12 +206,18 @@ if ($_product->getPriceType() == 1) {
 
                                 <?php echo $_weeeSeparator; ?>
                                 <?php echo $_weeeTaxAttribute->getName(); ?>: <?php echo $_coreHelper->currency($amount, true, true); ?>
+                                <script language="javascript">
+                                    setCollectionPrice(<?php echo $_id; ?>, <?php echo "'".$_coreHelper->currency($amount)."'" ?>);
+                                </script>
                                 <?php $_weeeSeparator = ' + '; ?>
                             <?php endforeach; ?>
                         </small>)</span>
                     <?php endif; ?>
                     <?php if ($_weeeHelper->typeOfDisplay($_product, 2) && $_weeeTaxAmount): ?>
                         <?php echo $_coreHelper->currency($_minimalPriceInclTax) ?>
+                        <script language="javascript">
+                            setCollectionPrice(<?php echo $_id; ?>, <?php echo "'".$_coreHelper->currency($_minimalPriceInclTax)."'" ?>);
+                        </script>
                     <?php endif; ?>
                 <?php endif; ?>
             </span>
@@ -196,6 +239,9 @@ if ($_product->getPriceType() == 1) {
                         <span class="price-excluding-tax">
                             <span class="label"><?php echo $_taxHelper->__('Excl. Tax:') ?></span>
                             <?php echo $_coreHelper->currency($_maximalPriceTax) ?>
+                            <script language="javascript">
+                                setCollectionPrice(<?php echo $_id; ?>, <?php echo "'".$_coreHelper->currency($_maximalPriceTax)."'" ?>);
+                            </script>
                         </span>
                         <?php if ($_weeeTaxAmount && $_product->getPriceType() == 1 && $_weeeHelper->typeOfDisplay($_product, array(2, 1, 4))): ?>
                             <span class="weee">(<small>
@@ -208,6 +254,9 @@ if ($_product->getPriceType() == 1) {
 
                                     <?php echo $_weeeSeparator; ?>
                                     <?php echo $_weeeTaxAttribute->getName(); ?>: <?php echo $_coreHelper->currency($amount, true, true); ?>
+                                    <script language="javascript">
+                                        setCollectionPrice(<?php echo $_id; ?>, <?php echo "'".$_coreHelper->currency($amount)."'" ?>);
+                                    </script>
                                     <?php $_weeeSeparator = ' + '; ?>
                                 <?php endforeach; ?>
                             </small>)</span>
@@ -215,12 +264,21 @@ if ($_product->getPriceType() == 1) {
                         <span class="price-including-tax">
                             <span class="label"><?php echo $_taxHelper->__('Incl. Tax') ?></span>
                             <?php echo $_coreHelper->currency($_maximalPriceInclTax) ?>
+                            <script language="javascript">
+                                setCollectionPrice(<?php echo $_id; ?>, <?php echo "'".$_coreHelper->currency($_maximalPriceInclTax)."'" ?>);
+                            </script>
                         </span>
                     <?php else: ?>
                     <?php if ($_taxHelper->displayPriceIncludingTax()) : ?>
                         <?php echo $_coreHelper->currency($_maximalPriceInclTax) ?>
+                        <script language="javascript">
+                            setCollectionPrice(<?php echo $_id; ?>, <?php echo "'".$_coreHelper->currency($_maximalPriceInclTax)."'" ?>);
+                        </script>
                     <?php else: ?>
                         <?php echo $_coreHelper->currency($_maximalPriceTax) ?>
+                        <script language="javascript">
+                            setCollectionPrice(<?php echo $_id; ?>, <?php echo "'".$_coreHelper->currency($_maximalPriceTax)."'" ?>);
+                        </script>
                     <?php endif; ?>
                         <?php if ($_weeeTaxAmount && $_product->getPriceType() == 1 && $_weeeHelper->typeOfDisplay($_product, array(2, 1, 4))): ?>
                             <span class="weee">(<small>
@@ -233,12 +291,18 @@ if ($_product->getPriceType() == 1) {
 
                                     <?php echo $_weeeSeparator; ?>
                                     <?php echo $_weeeTaxAttribute->getName(); ?>: <?php echo $_coreHelper->currency($amount, true, true); ?>
+                                    <script language="javascript">
+                                        setCollectionPrice(<?php echo $_id; ?>, <?php echo "'".$_coreHelper->currency($amount)."'" ?>);
+                                    </script>
                                     <?php $_weeeSeparator = ' + '; ?>
                                 <?php endforeach; ?>
                             </small>)</span>
                         <?php endif; ?>
                         <?php if ($_weeeHelper->typeOfDisplay($_product, 2) && $_weeeTaxAmount): ?>
                             <?php echo $_coreHelper->currency($_maximalPriceInclTax) ?>
+                            <script language="javascript">
+                                setCollectionPrice(<?php echo $_id; ?>, <?php echo "'".$_coreHelper->currency($_maximalPriceInclTax)."'" ?>);
+                            </script>
                         <?php endif; ?>
                     <?php endif; ?>
                 </span>
@@ -247,6 +311,9 @@ if ($_product->getPriceType() == 1) {
                     <span class="price-excluding-tax">
                         <span class="label"><?php echo $_taxHelper->__('Excl. Tax:') ?></span>
                         <?php echo $_coreHelper->currency($_minimalPriceTax) ?>
+                        <script language="javascript">
+                            setCollectionPrice(<?php echo $_id; ?>, <?php echo "'".$_coreHelper->currency($_minimalPriceTax)."'" ?>);
+                        </script>
                     </span>
                     <?php if ($_weeeTaxAmount && $_product->getPriceType() == 1 && $_weeeHelper->typeOfDisplay($_product, array(2, 1, 4))): ?>
                         <span class="weee">(<small>
@@ -259,6 +326,9 @@ if ($_product->getPriceType() == 1) {
 
                                 <?php echo $_weeeSeparator; ?>
                                 <?php echo $_weeeTaxAttribute->getName(); ?>: <?php echo $_coreHelper->currency($amount, true, true); ?>
+                                <script language="javascript">
+                                    setCollectionPrice(<?php echo $_id; ?>, <?php echo "'".$_coreHelper->currency($amount)."'" ?>);
+                                </script>
                                 <?php $_weeeSeparator = ' + '; ?>
                             <?php endforeach; ?>
                         </small>)</span>
@@ -266,9 +336,15 @@ if ($_product->getPriceType() == 1) {
                     <span class="price-including-tax">
                         <span class="label"><?php echo $_taxHelper->__('Incl. Tax:') ?></span>
                         <?php echo $_coreHelper->currency($_minimalPriceInclTax) ?>
+                        <script language="javascript">
+                            setCollectionPrice(<?php echo $_id; ?>, <?php echo "'".$_coreHelper->currency($_minimalPriceInclTax)."'" ?>);
+                        </script>
                     </span>
                 <?php else: ?>
                     <?php echo $_coreHelper->currency($_minimalPriceTax) ?>
+                    <script language="javascript">
+                        setCollectionPrice(<?php echo $_id; ?>, <?php echo "'".$_coreHelper->currency($_minimalPriceTax)."'" ?>);
+                    </script>
                     <?php if ($_weeeTaxAmount && $_product->getPriceType() == 1 && $_weeeHelper->typeOfDisplay($_product, array(2, 1, 4))): ?>
                         <span class="weee">(<small>
                             <?php $_weeeSeparator = ''; foreach ($_weeeTaxAttributes as $_weeeTaxAttribute): ?>
@@ -280,12 +356,18 @@ if ($_product->getPriceType() == 1) {
 
                                 <?php echo $_weeeSeparator; ?>
                                 <?php echo $_weeeTaxAttribute->getName(); ?>: <?php echo $_coreHelper->currency($amount, true, true); ?>
+                                <script language="javascript">
+                                    setCollectionPrice(<?php echo $_id; ?>, <?php echo "'".$_coreHelper->currency($amount)."'" ?>);
+                                </script>
                                 <?php $_weeeSeparator = ' + '; ?>
                             <?php endforeach; ?>
                         </small>)</span>
                     <?php endif; ?>
                     <?php if ($_weeeHelper->typeOfDisplay($_product, 2) && $_weeeTaxAmount): ?>
                         <?php echo $_coreHelper->currency($_minimalPriceInclTax) ?>
+                        <script language="javascript">
+                            setCollectionPrice(<?php echo $_id; ?>, <?php echo "'".$_coreHelper->currency($_minimalPriceInclTax)."'" ?>);
+                        </script>
                     <?php endif; ?>
                 <?php endif; ?>
             <?php endif; ?>

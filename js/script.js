@@ -126,4 +126,10 @@ jQuery(document).ready(function() {
   });
 });
 
+function setCollectionPrice(id,priceText){
+    var price = jQuery('<span>').html(priceText).contents().text();
+    if(price==null) price = priceText;
+    if($('collection-price-'+id)) $('collection-price-'+id).setAttribute('data-price',price);
+}
+
 
