@@ -39,7 +39,6 @@ extends Mage_Core_Controller_Front_Action
         $wishlists = Mage::getModel('wishlist/wishlist')
             ->getCollection()
             ->addFilter('visibility', 1)
-            ->addFilter('view', 1)
             ->addFieldToFilter('name', array('neq' => 'NULL'))
             ->addFieldToFilter('name', array('neq' => ' '))
             ->setOrder('updated_at', 'DESC');
@@ -66,9 +65,8 @@ extends Mage_Core_Controller_Front_Action
             foreach ($wishlist->getItemCollection() as $item) {
                 $collectionEmpty = false;
                 $product = Mage::getModel('catalog/product')->load($item->getProductId());
-                $collectionProductImage = $product->getImageUrl();
+                $collectionProductImage = Mage::helper('catalog/image')->init($product, 'small_image')->resize(320, 320);
                 $i++;
-                
 
             }
 
@@ -85,7 +83,7 @@ extends Mage_Core_Controller_Front_Action
                 'id'            => $wishlist->getId(),
                 'customer_id'   => $wishlist->getCustomerId(),
                 'name'          => $collectionName,
-                'slug'          => Mage::getModel('catalog/product_url')->formatUrlKey($collectionName),
+                'slug'          => $wishlist->getId().'-'.Mage::getModel('catalog/product_url')->formatUrlKey($collectionName),
                 'cover'         => $collectionCover,
                 'cloud_cover'   => $collectionCloudCover,
                 'product_image' => $collectionProductImage,
