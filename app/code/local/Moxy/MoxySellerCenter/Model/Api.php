@@ -10,95 +10,95 @@ class Moxy_MoxySellerCenter_Model_Api extends Mage_Api_Model_Resource_Abstract
         $this->_storeIdSessionField = 'category_store_id';
     }
 
-	private function getProductItem($orders, $productIds) {
-		$orderItemArr = array();
+    private function getProductItem($orders, $productIds) {
+        $orderItemArr = array();
 
-		$orders = $orders;
-		foreach($orders as $order) {
+        $orders = $orders;
+        foreach($orders as $order) {
 
-			$orderItems = Mage::getModel('sales/order_item')->getCollection()->addFieldToFilter('order_id', $order->getId());
-			foreach($orderItems as $item) {
-				if (in_array($item->getProductId(), $productIds)) {
-					array_push($orderItemArr, $item->getData());
-				}
-			}
-		}
+            $orderItems = Mage::getModel('sales/order_item')->getCollection()->addFieldToFilter('order_id', $order->getId());
+            foreach($orderItems as $item) {
+                if (in_array($item->getProductId(), $productIds)) {
+                    array_push($orderItemArr, $item->getData());
+                }
+            }
+        }
 
-		return $orderItemArr;
-	}
+        return $orderItemArr;
+    }
 
 
-	public function overallSales($productIds, $startDate, $endDate)
+    public function overallSales($productIds, $startDate, $endDate)
     {
 
-		$retArray = array();
-		$orders = Mage::getModel('sales/order')->getCollection();
-		if ($startDate != null and $endDate != null) {
-			$orders = $orders->addFieldToFilter('updated_at', array('gteq' => $startDate, 'lteq' => $endDate));
-		}
-		$orderItemArr = $this->getProductItem($orders, $productIds);
-		$totalSales = count($orderItemArr);
-		$totalRevenue = 0;
+        $retArray = array();
+        $orders = Mage::getModel('sales/order')->getCollection();
+        if ($startDate != null and $endDate != null) {
+            $orders = $orders->addFieldToFilter('updated_at', array('gteq' => $startDate, 'lteq' => $endDate));
+        }
+        $orderItemArr = $this->getProductItem($orders, $productIds);
+        $totalSales = count($orderItemArr);
+        $totalRevenue = 0;
 
-		#pending order
-		$pendingOrders = $orders->addFieldToFilter('status', 'pending');
-		$pendingOrderItemArr = $this->getProductItem($pendingOrders, $productIds);
-		$orderItems = array();
-		foreach($orderItemArr as $orderItem) {
-			//echo var_dump($orderItem);
-			$orderItem = Mage::getModel('sales/order_item')->load($orderItem['item_id']);
-			$totalRevenue = $totalRevenue + ($orderItem->getQtyToShip() + $orderItem->getOriginalPrice());
-			array_push($orderItems, $orderItem->getData());
-		}
+        #pending order
+        $pendingOrders = $orders->addFieldToFilter('status', 'pending');
+        $pendingOrderItemArr = $this->getProductItem($pendingOrders, $productIds);
+        $orderItems = array();
+        foreach($orderItemArr as $orderItem) {
+            //echo var_dump($orderItem);
+            $orderItem = Mage::getModel('sales/order_item')->load($orderItem['item_id']);
+            $totalRevenue = $totalRevenue + ($orderItem->getQtyToShip() + $orderItem->getOriginalPrice());
+            array_push($orderItems, $orderItem->getData());
+        }
 
-		$retArray['total_revenue'] = $totalRevenue;
-		$retArray['total_sales'] = $totalSales;
-		$retArray['total_pending_order'] = count($pendingOrderItemArr);
-		$retArray['sales'] = $orderItems;
-		return $retArray;
+        $retArray['total_revenue'] = $totalRevenue;
+        $retArray['total_sales'] = $totalSales;
+        $retArray['total_pending_order'] = count($pendingOrderItemArr);
+        $retArray['sales'] = $orderItems;
+        return $retArray;
 
     }
 
 
-	public function listSellerOrder($productIds)
+    public function listSellerOrder($productIds)
     {
 
-		$orderItems = Mage::getModel('sales/order_item')->getCollection()->addFieldToFilter('product_id', array('in' => $productIds));
-		$orderItemArr = array();
-		foreach($orderItems as $item) {
-			$oitem = $item->getData();
-			if (!isset($orders[$item->getOrderId()])) {
-				$order = Mage::getModel('sales/order')->load($item->getOrderId());
-				$oitem['status'] = $order->getStatus();
-				array_push($orderItemArr, $oitem);
-			}
-		}
-		//return Mage::helper('core')->jsonEncode($orders);
-		return json_decode(Mage::helper('core')->jsonEncode($orderItemArr));
+        $orderItems = Mage::getModel('sales/order_item')->getCollection()->addFieldToFilter('product_id', array('in' => $productIds));
+        $orderItemArr = array();
+        foreach($orderItems as $item) {
+            $oitem = $item->getData();
+            if (!isset($orders[$item->getOrderId()])) {
+                $order = Mage::getModel('sales/order')->load($item->getOrderId());
+                $oitem['status'] = $order->getStatus();
+                array_push($orderItemArr, $oitem);
+            }
+        }
+        //return Mage::helper('core')->jsonEncode($orders);
+        return json_decode(Mage::helper('core')->jsonEncode($orderItemArr));
     }
 
 
-	public function listSellerOrderByStatus($productIds, $status)
+    public function listSellerOrderByStatus($productIds, $status)
     {
-		$orders = Mage::getModel('sales/order')->getCollection()->addFieldToFilter('status', $status);
-		return $this->getProductItem($orders, $productIds);
+        $orders = Mage::getModel('sales/order')->getCollection()->addFieldToFilter('status', $status);
+        return $this->getProductItem($orders, $productIds);
     }
 
 
-	public function listInactiveProduct($productIds, $active=1)
+    public function listInactiveProduct($productIds, $active=1)
     {
-		$status = Mage_Catalog_Model_Product_Status::STATUS_ENABLED;
-		if ($active == 0) {
-			$status = Mage_Catalog_Model_Product_Status::STATUS_DISABLED;
-		}
-		$products = Mage::getModel('catalog/product')->getCollection()->addFieldToFilter('entity_id', array('in' => $productIds))
-			->addFieldToFilter('status', array('eq' => $status));
-		$productArray = array();
-		foreach($products as $product) {
+        $status = Mage_Catalog_Model_Product_Status::STATUS_ENABLED;
+        if ($active == 0) {
+            $status = Mage_Catalog_Model_Product_Status::STATUS_DISABLED;
+        }
+        $products = Mage::getModel('catalog/product')->getCollection()->addFieldToFilter('entity_id', array('in' => $productIds))
+            ->addFieldToFilter('status', array('eq' => $status));
+        $productArray = array();
+        foreach($products as $product) {
 
-			array_push($productArray, $product->getData());
-		}
-		return array('total' => count($productArray), 'products' => $productArray);
+            array_push($productArray, $product->getData());
+        }
+        return array('total' => count($productArray), 'products' => $productArray);
 
     }
 
@@ -592,6 +592,34 @@ class Moxy_MoxySellerCenter_Model_Api extends Mage_Api_Model_Resource_Abstract
     }
 
     /**
+     * Convert node to flatten array
+     * @author Indra Halim
+     * @param Varien_Data_Tree_Node $node
+     * @return array
+     */
+    protected function _nodeToFlatArray(Varien_Data_Tree_Node $node, $parentCategoryId = 0)
+    {
+        // Only basic category data
+        $flatResult = array();
+        $result = array();
+
+        $result['category_id'] = $node->getId();
+        $result['parent_id']   = $node->getParentId();
+        $result['name']        = $node->getName();
+        $result['is_active']   = $node->getIsActive();
+        $result['position']    = $node->getPosition();
+        $result['level']       = $node->getLevel();
+        $result['parent_category_id'] = $parentCategoryId;
+        $flatResult[] = $result;
+
+        foreach ($node->getChildren() as $child) {
+            $flatResult = array_merge($flatResult, $this->_nodeToFlatArray($child, $node->getId()));
+        }
+
+        return $flatResult;
+    }
+
+    /**
      * Retrives store id from store code, if no store id specified,
      * it use seted session or admin store
      * @author Indra Halim
@@ -619,9 +647,10 @@ class Moxy_MoxySellerCenter_Model_Api extends Mage_Api_Model_Resource_Abstract
      * @author Indra Halim
      * @param int $parent
      * @param string|int $store
+     * @param boolean $flatten set to true to get flatten categories
      * @return array
      */
-    public function getCategoryTree($parentId = null, $store = null)
+    public function getCategoryTree($parentId = null, $store = null, $flatten = false)
     {
         if (is_null($parentId) && !is_null($store)) {
             $parentId = Mage::app()->getStore($this->_getStoreId($store))->getRootCategoryId();
@@ -647,6 +676,9 @@ class Moxy_MoxySellerCenter_Model_Api extends Mage_Api_Model_Resource_Abstract
 
         $tree->addCollectionData($collection, true);
 
+        if ($flatten) {
+            return $this->_nodeToFlatArray($root);
+        }
         return $this->_nodeToArray($root);
     }
 
