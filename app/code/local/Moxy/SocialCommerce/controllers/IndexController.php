@@ -7,7 +7,7 @@ extends Mage_Core_Controller_Front_Action
    public function filterPresetImageAction() {
            
        $category_id = $_POST['category_id'];
-	   $images = Mage::getModel('socialcommerce/collectioncover')->getCollection()->addFieldToFilter('category_id', $category_id)->setCurPage(1)->setPageSize(12);
+       $images = Mage::getModel('socialcommerce/collectioncover')->getCollection()->addFieldToFilter('category_id', $category_id)->setCurPage(1)->setPageSize(12);
        $counter = 1; 
        foreach($images as $image) { 
            ?>
@@ -58,24 +58,18 @@ extends Mage_Core_Controller_Front_Action
             $collectionCover = $wishlist->getCover();
             $collectionCloudCover = $wishlist->getCloudCover();
 
-            # Check empty wishlist and get product image
-            $collectionEmpty = true;
-            
-            $i=0;
-            foreach ($wishlist->getItemCollection() as $item) {
-                $collectionEmpty = false;
-                $product = Mage::getModel('catalog/product')->load($item->getProductId());
-                $collectionProductImage = Mage::helper('catalog/image')->init($product, 'small_image')->resize(320, 320);
-                $i++;
+            $items = $wishlist->getItemCollection()->setOrder('added_at', 'DESC');
+            $firstItem = $items->getFirstItem();
+            $collectionProductImage = null;
 
+            if ($firstItem->getProductId()) {
+                $product = Mage::getModel('catalog/product')->load($firstItem->getProductId());
+                $collectionProductImage = $product->getImageUrl();
             }
 
-            if ($collectionEmpty) continue;
-            
-            #for filtering items in product should be more than 4
-            if ($i < 4) continue;
-
-
+            # Check empty wishlist and get product image
+            # for filtering items in product should be more than 4
+            if ($items->count() < 4) continue;
 
             $collectionName = $wishlist->getName();
 
