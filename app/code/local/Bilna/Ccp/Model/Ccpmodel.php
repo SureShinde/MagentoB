@@ -20,9 +20,9 @@ class Bilna_Ccp_Model_Ccpmodel extends Mage_Core_Model_Abstract {
     public function getStoreConfigValues() {
         $configValues = Mage::getStoreConfig('bilna_ccp/ccp');
         $configValues['product_bundle']         = isset($configValues['product_bundle']) && !empty($configValues['product_bundle']) ? $configValues['product_bundle'] : 0;
-        $configValues['max_days']               = isset($configValues['max_days']) && !empty($configValues['max_days']) ? (int)$configValues['max_days'] : 0;
-        $configValues['percentage_itemsold']    = isset($configValues['percentage_itemsold']) && !empty($configValues['percentage_itemsold']) ? (int)$configValues['percentage_itemsold'] : 0;
-        $configValues['percentage_inventory']   = isset($configValues['percentage_inventory']) && !empty($configValues['percentage_inventory']) ? (int)$configValues['percentage_inventory'] : 0;
+        $configValues['max_days']               = isset($configValues['max_days']) && !empty($configValues['max_days']) ? (int)$configValues['max_days'] : 90;
+        $configValues['percentage_itemsold']    = isset($configValues['percentage_itemsold']) && !empty($configValues['percentage_itemsold']) ? (int)$configValues['percentage_itemsold'] : 70;
+        $configValues['percentage_inventory']   = isset($configValues['percentage_inventory']) && !empty($configValues['percentage_inventory']) ? (int)$configValues['percentage_inventory'] : 30;
         return $configValues;
     }
     
@@ -73,9 +73,9 @@ class Bilna_Ccp_Model_Ccpmodel extends Mage_Core_Model_Abstract {
         $data = array();
         foreach ($final_array as $product_id => $value) {
             $sales=$value['sales'];
-            $sales_rank = isset($arr_sales_rank[$product_id]) ? (int)$arr_sales_rank[$product_id] : Bilna_Ccp_Model_Ccpmodel::LAST_RANKING;
+            $sales_rank = isset($arr_sales_rank[$product_id]) ? (int)$arr_sales_rank[$product_id] : sizeof($final_array);
             $stock=isset($value['stock_qty']) ? $value['stock_qty'] : 0;
-            $stock_rank = isset($arr_inv_rank[$product_id]) ? (int)$arr_inv_rank[$product_id] : Bilna_Ccp_Model_Ccpmodel::LAST_RANKING;
+            $stock_rank = isset($arr_inv_rank[$product_id]) ? (int)$arr_inv_rank[$product_id] : sizeof($final_array);
             $score = $percentage_item*$sales_rank + $percentage_inventory*$stock_rank;
 
             $data[] = "('".$product_id."', '".$sales."', '".$sales_rank."', '".$stock."', '".$stock_rank."', '".$score."', '')";
