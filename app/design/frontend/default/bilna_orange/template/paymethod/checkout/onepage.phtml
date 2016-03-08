@@ -104,34 +104,6 @@ else {
     );
     //]]>
 
-    /*** ematic purchase integration point ***/
-    jQuery("#co-installment-form").submit(function(){
-        if (jQuery("#checkout-step-login").length == 0) {   // user logged in and not checkout as guest
-            ecommerceNewsletterSubscribe(document.getElementById('ematicuseremail').textContent);
-        }
-    });
-
-    function ecommerceNewsletterSubscribe(email) {
-        var subscribe_payload = {
-          'apikey': '62dfde989b5d8d24c61f57fc3e0b42b1-us12',
-          'id': '035ca58dc2',
-          'email': {
-             'email': email
-          },
-          "merge_vars": {
-            "LASTPURCDT": <?php echo $lastOrderDate ?>
-          }
-        };
-
-        jQuery.ajax({
-          type: "POST",
-          url: "https://us12.api.mailchimp.com/2.0/lists/update-member",
-          dataType: "jsonp",
-          data: subscribe_payload
-        });
-    }
-    /*** END ematic purchase integration point ***/
-
     function ecommercePurchases() {
         var temp_container = {
             'event': 'purchase',
@@ -188,7 +160,32 @@ else {
             ?>
         );
         dataLayer.push(temp_container);
+
+        /*** ematic purchase integration point ***/
+        if (jQuery("#checkout-step-login").length == 0) {   // user logged in and not checkout as guest
+            ecommerceNewsletterSubscribe(document.getElementById('ematicuseremail').textContent);
+        }
     }
+
+    function ecommerceNewsletterSubscribe(email) {
+        var subscribe_payload = {
+          'apikey': '62dfde989b5d8d24c61f57fc3e0b42b1-us12',
+          'id': '035ca58dc2',
+          'email': {
+             'email': email
+          },
+          "merge_vars": {
+            "LASTPURCDT": <?php echo $lastOrderDate ?>
+          }
+        };
+        jQuery.ajax({
+          type: "POST",
+          url: "https://us12.api.mailchimp.com/2.0/lists/update-member",
+          dataType: "jsonp",
+          data: subscribe_payload
+        });
+    }
+    /*** END ematic purchase integration point ***/
 </script>
 
 <!-- BEGIN - Moved from app/design/frontend/base/default/template/checkoutpromo/checkoutpromo.phtml -->
