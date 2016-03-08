@@ -25,6 +25,7 @@
  */
 ?>
 <?php $_escape_helper = Mage::helper('catalog/utils'); ?>
+<?php $_core_helper =  Mage::helper('core'); ?>
 <?php $_product = $this->getProduct(); ?>
 
 <?php $buttonTitle = $this->__('Tambah ke troli'); ?>
@@ -40,11 +41,11 @@
         <?php endif; ?>
         <button type="button" title="<?php echo $buttonTitle ?>" class="button btn-cart" onclick="productAddToCartForm.submit(this); ecommerceProductDetailAddToCart('<?php echo $_escape_helper->escapeQuote($_product->getName()); ?>','<?php echo $_product->getSku() ?>','<?php echo $_product->getPrice() ?>','<?php echo Mage::helper('core')->currency($_product->getPrice(), true, false) ?>','<?php echo $_product->getProductUrl() ?>','<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(135); ?>');"><i class="fa fa-cart-plus"></i><span><?php echo $buttonTitle ?></span></button>
         <?php echo $this->getChildHtml('', true, true) ?>
-        <a class="coll-quick addToCollectionLink coll-quick-top" onclick="showAddToCollectionDialog()" href="javascript:;"
+        <a id="collection-price-<?php echo $_product->getId(); ?>" class="coll-quick addToCollectionLink coll-quick-top" onclick="showAddToCollectionDialog()" href="javascript:;"
                 data-brand-name="<?php echo $brand; ?>"
                 data-image="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(320, 320); ?>"
                 data-product-name="<?php echo $this->stripTags($_product->getName(), null, true); ?>"
-                data-price="<?php echo 'Rp. ' . number_format($_product->getPrice(), 0, '', '.'); ?>"
+                data-price="<?php echo $_core_helper->currency($_product->getFinalPrice(), true, false); ?>"
                 data-merchant = "<?php echo ($merchant) ? 'dijual oleh ' . $merchant : ''; ?>"
                 data-id="<?php echo $_product->getId(); ?>"
                 ><i class="fa fa-heart"></i></a>

@@ -46,6 +46,7 @@ $user = Mage::helper('socialcommerce')->getProfileInformation($wishlist['custome
 
 $_productCollection = $this->getWishlistCollection();
 $_helper = $this->helper('catalog/output');
+$_core_helper =  Mage::helper('core');
 ?>
 <div class="cg-col-xs-12 nopadding detail-collect spacer-mobile">
   <div class="cg-col-xs-12 cg-col-sm-12 cg-col-md-4 cg-col-lg-4 nopadding bottom-spacer-container" >
@@ -55,8 +56,20 @@ $_helper = $this->helper('catalog/output');
   <?php elseif ($wishlist['cloud_cover']) : ?>
       <?php echo cl_image_tag($wishlist['cloud_cover'], ['class' => 'collection-img cg-img-responsive', 'alt' => $wishlist->getName(), 'secure' => true, 'width' => 390, 'height' => 390, 'crop' => 'fill', 'format' => 'jpg']); ?>
 
-  <?php else : ?>
-  <img src="<?php echo $this->getSkinUrl('images/') . 'default-collection.jpg'; ?>" class="cg-img-responsive" alt="<?php echo $wishlist->getName(); ?>">
+        <?php 
+          $item = $_productCollection->getFirstItem();
+          if ($item->getProductId()) {
+            $product = Mage::getModel('catalog/product')->load($item->getProductId());
+          }
+        ?>
+
+     <?php if (isset($product) && $product->getImageUrl()) { ?>
+       <img src="<?php echo $product->getImageUrl(); ?>" class="cg-img-responsive" alt="<?php echo $wishlist->getName(); ?>">
+     <?php } else { ?>
+       <img src="<?php echo $this->getSkinUrl('images/') . 'orami_collection_empty.png'; ?>" class="cg-img-responsive" alt="<?php echo $wishlist->getName(); ?>">
+     <?php }?>
+    <?php else : ?>
+     <img src="<?php echo $this->getSkinUrl('images/') . 'orami_collection_empty.png'; ?>" class="cg-img-responsive" alt="<?php echo $wishlist->getName(); ?>">
 <?php endif; ?>
 
 </div>
@@ -152,13 +165,13 @@ $_helper = $this->helper('catalog/output');
             $productDesc = $this->stripTags($_product->getShortDescription(), null, true);
 
             $productRegularPrice = round($_product->getPrice());
-            $productRegularPriceFormatted = 'Rp ' . number_format($productRegularPrice, 0, '', '.');
+            $productRegularPriceFormatted = $_core_helper->currency($productRegularPrice, true, false);//'Rp ' . number_format($productRegularPrice, 0, '', '.');
 
             $productSpecialPrice = round($_product->getSpecialPrice());
-            $productSpecialPriceFormatted = 'Rp ' . number_format($productSpecialPrice, 0, '', '.');
+            $productSpecialPriceFormatted = $_core_helper->currency($productSpecialPrice, true, false);//'Rp ' . number_format($productSpecialPrice, 0, '', '.');
 
             $productFinalPrice = round($_product->getFinalPrice());
-            $productFinalPriceFormatted = 'Rp ' . number_format($productFinalPrice, 0, '', '.');
+            $productFinalPriceFormatted = $_core_helper->currency($productFinalPrice, true, false);//'Rp ' . number_format($productFinalPrice, 0, '', '.');
 
             $productBrand = $_product->getAttributeText('brand');
 
@@ -232,7 +245,7 @@ $_helper = $this->helper('catalog/output');
                  <span  onclick="deleteItem<?php echo $i; ?>()" class="addToCollectionLink" ><i class="fa fa-trash"></i></span>
 
                  <?php } else { ?>
-                 <a
+                 <a id="collection-price-<?php echo $productId; ?>"
                  href="javascript:;"
                  class="link-wishlist addToCollectionLink"
                  onclick="showAddToCollectionDialog()"

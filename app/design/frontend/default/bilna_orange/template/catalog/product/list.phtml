@@ -35,6 +35,7 @@
 $_productCollection=$this->getLoadedProductCollection();
 $_helper = $this->helper('catalog/output');
 $_escape_helper = Mage::helper('catalog/utils');
+$_core_helper =  Mage::helper('core');
 $_cart = Mage::getModel('checkout/cart')->getQuote();
 $_items = $_cart->getAllItems();
 $itemQty = 0;
@@ -125,14 +126,15 @@ $j(document).ready(function(){
                     <?php $productId[] = $_product->getID(); ?>
                     <li class="item" count="<?php echo $_iterates; ?>" >
                         <div class="top_thumb_list_product">
-                            <a  alt="<?php echo $this->__('tambah ke koleksi') ?>"
+                            <a  id="collection-price-<?php echo $_product->getId(); ?>"
+                                alt="<?php echo $this->__('tambah ke koleksi') ?>"
                                 href="javascript:;"
                                 class="link-wishlist addToCollectionLink"
                                 onclick="showAddToCollectionDialog()"
                                 data-brand-name="<?php echo $_product->getAttributeText('brand'); ?>"
                                 data-image="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(320 , 320); ?>"
                                 data-product-name="<?php echo $this->stripTags($_product->getName(), null, true); ?>"
-                                data-price="<?php echo 'Rp ' . number_format(round($_product->getFinalPrice()), 0, '', '.'); ?>"
+                                data-price="<?php $_core_helper->currency($_product->getFinalPrice(), true, false); ?>"
                                 data-id="<?php echo $_product->getId(); ?>"><i class="fa fa-heart"></i>
                                 <span class="poper poper<?php echo $_iterates; ?>"> </span>
                               <span class="check-to-clicking check-to-clicking<?php echo $_iterates;?>">tambah ke koleksi</span>
@@ -194,7 +196,6 @@ $j(document).ready(function(){
 									<?php if ($_product->isSaleable()): ?>
 										<?php if ($_product->getTypeId() != 'simple'): ?>
 											<a class="link-cart-special" href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($_product->getName(), null, true) ?>"><i class="fa fa-cart-plus"></i><?php echo $this->__('Tambah ke troli') ?></a>
-                                            
 										<?php else: ?>
 											<button type="button" title="<?php echo $this->__('Tambah ke troli') ?>" class="button btn-cart pos-abs" onclick="setLocation('<?php echo $this->getAddToCartUrl($_product) ?>'); ecommerceAddToCart('<?php echo $_escape_helper->escapeQuote($_product->getName()) ?>','<?php echo $_product->getSku() ?>','<?php echo $_product->getPrice() ?>','<?php echo Mage::helper('core')->currency($_product->getPrice(), true, false) ?>','<?php echo $_product->getProductUrl() ?>','<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(135); ?>');"><i class="fa fa-cart-plus"></i><?php echo $this->__('Tambah ke troli') ?></button>
 										<?php endif; ?>
