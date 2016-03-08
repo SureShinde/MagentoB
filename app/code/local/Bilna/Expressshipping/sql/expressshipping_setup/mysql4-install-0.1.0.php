@@ -49,7 +49,7 @@ foreach ($attSetCollection as $a)
         ->setAttributeSetId($setId) // Attribute Set ID
         ->setAttributeGroupId($groupId) // Attribute Group ID ( usually general or whatever based on the query i automate to get the first attribute group in each attribute set )
         ->setAttributeId($attId) // Attribute ID that need to be added manually
-        ->setSortOrder(50) // Sort Order for the attribute in the tab form edit
+        ->setSortOrder(5) // Sort Order for the attribute in the tab form edit
         ->save();
 }
 // END - Assign 'express_shipping' Attribute to group 'General' for All Attribute Sets
