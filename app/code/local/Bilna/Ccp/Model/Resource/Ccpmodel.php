@@ -5,12 +5,11 @@ class Bilna_Ccp_Model_Resource_Ccpmodel extends Mage_Core_Model_Resource_Db_Abst
     }
 
     public function toOptionArray() {
-        return array(
-            array('value' => 'complete', 'label' =>'complete')
-            , array('value' => 'processing', 'label' =>'processing')
-            , array('value' => 'processing_cod', 'label' =>'processing_cod')
-            , array('value' => 'shipping_cod', 'label' =>'shipping_cod')
-            , array('value' => 'holded', 'label' =>'holded')
-        );
+        $result = array();
+        $order_status = Mage::getModel('sales/order_status')->getResourceCollection()->getData();
+        foreach ($order_status as $key => $value) {
+            $result[] = array('value'=>$value['status'], 'label'=>$value['label']);
+        }
+        return $result;
     }
 }

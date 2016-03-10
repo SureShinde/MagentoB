@@ -31,7 +31,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>default: All options are selected</comment>
+                            <comment>default: Complete, On Hold, Processing, Processing COD, Shipping COD</comment>
                         </order_status>
                          <product_bundle translate="label">
                             <label>Include Product Bundle?</label>
@@ -70,6 +70,7 @@
                             <show_in_store>1</show_in_store>
                             <comment>default: 30%</comment>
                         </percentage_inventory>
+
                     </fields>
                 </ccp>               
             </groups>
