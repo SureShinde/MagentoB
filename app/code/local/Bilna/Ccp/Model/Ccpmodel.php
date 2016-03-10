@@ -2,7 +2,7 @@
 class Bilna_Ccp_Model_Ccpmodel extends Mage_Core_Model_Abstract {
 
     const BATCH_SIZE     = '200';
-    const LAST_RANKING   = '999999999';
+    const MAX_RANKING   = '999999';
 
     protected function _construct() {
         $this->_init('ccp/ccpmodel');
@@ -103,9 +103,9 @@ class Bilna_Ccp_Model_Ccpmodel extends Mage_Core_Model_Abstract {
         $final_array_length = sizeof($final_array);
         foreach ($final_array as $product_id => $value) {
             $sales=isset($value['sales']) && !empty($value['sales']) ? (int)$value['sales'] : 0;
-            $sales_rank = isset($arr_sales_rank[$product_id]) && isset($value['product_status']) ? $this->updateFilterProductsRanking($arr_sales_rank[$product_id], $value) : $final_array_length;
             $stock=isset($value['stock_qty']) ? (int)$value['stock_qty'] : 0;
-            $stock_rank = isset($arr_inv_rank[$product_id]) && isset($value['product_status']) ? $this->updateFilterProductsRanking($arr_inv_rank[$product_id], $value) : $final_array_length;
+            $sales_rank = $this->standardizeRanking($arr_sales_rank, $product_id, $value, $final_array_length);
+            $stock_rank = $this->standardizeRanking($arr_inv_rank, $product_id, $value, $final_array_length);
             $score = $percentage_item*$sales_rank + $percentage_inventory*$stock_rank;
 
             $data[] = "('".$product_id."', '".$sales."', '".$sales_rank."', '".$stock."', '".$stock_rank."', '".$score."', '')";
@@ -184,12 +184,18 @@ class Bilna_Ccp_Model_Ccpmodel extends Mage_Core_Model_Abstract {
 
     // input example: (100, array ( [31905] => array('stock_qty' = '0.0000', 'sales' => '6741500.00000000', 'product_status' => '1', 'is_in_stock' => '0', 'product_visibility' => '1')) )
     // output depends on filtering: 999999999
-    public function updateFilterProductsRanking($originalValue, $productData) {
-        // if product status = enabled AND out_of_stock AND not equal Not Visible, then set ranking to 999999999
-        if($productData['product_status'] == '1' && $productData['is_in_stock'] == '0' && $productData['product_visibility'] != '1') {
-            return Bilna_Ccp_Model_Ccpmodel::LAST_RANKING;
+    public function standardizeRanking($ranking, $productId, $productData, $lastRanking) {
+        if (!isset($ranking[$productId]) || !isset($productData['is_in_stock'])) {
+            return $lastRanking;
         }
-        return (int)$originalValue;
+
+        if($productData['product_status'] == Mage_Catalog_Model_Product_Status::STATUS_ENABLED 
+                && $productData['is_in_stock'] == Mage_CatalogInventory_Model_Stock::STOCK_OUT_OF_STOCK
+                && $productData['product_visibility'] != Mage_Catalog_Model_Product_Visibility::VISIBILITY_NOT_VISIBLE
+            ) {
+            return Bilna_Ccp_Model_Ccpmodel::MAX_RANKING;
+        }
+        return (int)$ranking[$productId];
     }
 
     public function setProductPosition() {
@@ -205,7 +211,7 @@ class Bilna_Ccp_Model_Ccpmodel extends Mage_Core_Model_Abstract {
                 $arrScore = array();
                 foreach ($productsArray as $key => $product_id) {
                     $score = $this->getProductScore($product_id);
-                    $arrScore[$product_id] = sizeof($score) > 0 && isset($score[0]['score']) ? (int)$score[0]['score'] : Bilna_Ccp_Model_Ccpmodel::LAST_RANKING;
+                    $arrScore[$product_id] = sizeof($score) > 0 && isset($score[0]['score']) ? (int)$score[0]['score'] : Bilna_Ccp_Model_Ccpmodel::MAX_RANKING;
                 }
                 $productRankingArray = $this->calculateRank($arrScore, false);
 
