@@ -133,23 +133,6 @@ $_core_helper =  Mage::helper('core');
   <?php $_collectionSize = $_productCollection->count() ?>
   <?php $_columnCount = $this->getColumnCount(); ?>
   <form method="post" id="frmAddMulti" action="<?php echo $this->getUrl('multiadd/add') ?>">
-    <div class="collectionbox">
-      <div class="collectioncontentbox">
-        <input type="checkbox" class="checkall" value="0" id = "sall">
-        <label for="checkall" class=" opensans"><?php echo $this->__('Select All Products') ?></label>
-        <br />
-        <div class="total-price opensans">
-          <span><?php echo $this->__('Total Price : ') ?></span><span class="totalPrice"><?php echo Mage::app()->getLocale()->currency(Mage::app()->getStore()->getCurrentCurrencyCode())->getSymbol(); ?> 0</span>
-        </div>
-      </div>
-      <div class="collectionactionbox">
-        <button type="button" title="<?php echo $this->__('Buy Selected Products') ?>" class="button btn-cartall" id = "bbtn">
-          <span> 
-            <span class="in-block"> <span class="pull-left">BUY&nbsp;</span>  <span class="hidden-md hidden-sm hidden-xs pull-left">SELECTED</span><span class="pull-left hidden-sm hidden-xs hidden-md">&nbsp;PRODUCTS&nbsp;</span> (</span><span class="in-block selectedItems">0</span><span class="in-block"><?php echo $this->__(')') ?></span>
-          </span>
-        </button>
-      </div>
-    </div>
 
     <div class="cg-container-100">
       <div class="cg-row">
