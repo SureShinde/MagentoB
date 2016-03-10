@@ -9,7 +9,7 @@
                             <config>
                                 <children>
                                     <bilna_sendreport translate="title" module="sendreport">
-                                        <title>Bilna Extensionss</title>
+                                        <title>Bilna Extension</title>
                                         <sort_order>0</sort_order>
                                     </bilna_sendreport>
                                 </children>
