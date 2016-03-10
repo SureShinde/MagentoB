@@ -78,6 +78,7 @@ function ecommerceProductDetailAddToCart(name, sku, price, price_ematic, link, i
       var temp_cart = [];
       var temp_item = "";
       var index_addeditem = -999;
+      var temp_cartQty = jQuery("span#ematiccart").length;
 
       for (var itr=0; itr < <?php echo $itemQty ?>; itr++) {
         temp_item = jQuery("span#ematiccart").eq(itr).text();
