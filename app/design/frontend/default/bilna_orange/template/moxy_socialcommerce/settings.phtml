@@ -29,7 +29,7 @@ $profiler = Mage::getModel('socialcommerce/profile')->load($customerId, 'custome
                     </div>
                     */ ?>
 
-                    <?php if (! $profiler->getTemporary()) : ?>
+                    <?php //if (! $profiler->getTemporary()) : ?>
 
                         <?php
                             echo $this->__('Your profile URL is');
@@ -37,9 +37,9 @@ $profiler = Mage::getModel('socialcommerce/profile')->load($customerId, 'custome
                             echo ' <a href="' . $profileUrl . '">' . $profileUrl . '</a>';
                         ?>
 
-                    <?php else : ?>
+                    <?php //else : ?>
 
-                        <div class="field">
+                        <!--div class="field">
                             <label for="username" class="required"><em>*</em>Username:</label>
                             <div class="input-box">
                                 <?php
@@ -48,9 +48,9 @@ $profiler = Mage::getModel('socialcommerce/profile')->load($customerId, 'custome
                                 <input type="text" id="username" name="username" title="Username" maxlength="255" class="input-text required-entry" value="<?php echo $profiler->getUsername(); ?>" />
                                 <p style="font-size: 10px;"><?php echo $this->__('Your temporary profile URL is '); ?><a href="<?php echo $temporaryUrl; ?>"><?php echo $temporaryUrl; ?></a></p>
                             </div>
-                        </div>
+                        </div-->
 
-                    <?php endif; ?>
+                    <?php //endif; ?>
 
                     <div class="field">
                         <label for="location">Location:</label>

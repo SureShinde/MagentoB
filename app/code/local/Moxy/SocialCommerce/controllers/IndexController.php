@@ -7,7 +7,7 @@ extends Mage_Core_Controller_Front_Action
    public function filterPresetImageAction() {
            
        $category_id = $_POST['category_id'];
-	   $images = Mage::getModel('socialcommerce/collectioncover')->getCollection()->addFieldToFilter('category_id', $category_id)->setCurPage(1)->setPageSize(12);
+       $images = Mage::getModel('socialcommerce/collectioncover')->getCollection()->addFieldToFilter('category_id', $category_id)->setCurPage(1)->setPageSize(12);
        $counter = 1; 
        foreach($images as $image) { 
            ?>
@@ -39,7 +39,6 @@ extends Mage_Core_Controller_Front_Action
         $wishlists = Mage::getModel('wishlist/wishlist')
             ->getCollection()
             ->addFilter('visibility', 1)
-            ->addFilter('view', 1)
             ->addFieldToFilter('name', array('neq' => 'NULL'))
             ->addFieldToFilter('name', array('neq' => ' '))
             ->setOrder('updated_at', 'DESC');
@@ -59,25 +58,18 @@ extends Mage_Core_Controller_Front_Action
             $collectionCover = $wishlist->getCover();
             $collectionCloudCover = $wishlist->getCloudCover();
 
-            # Check empty wishlist and get product image
-            $collectionEmpty = true;
-            
-            $i=0;
-            foreach ($wishlist->getItemCollection() as $item) {
-                $collectionEmpty = false;
-                $product = Mage::getModel('catalog/product')->load($item->getProductId());
-                $collectionProductImage = $product->getImageUrl();
-                $i++;
-                
+            $items = $wishlist->getItemCollection()->setOrder('added_at', 'DESC');
+            $firstItem = $items->getFirstItem();
+            $collectionProductImage = null;
 
+            if ($firstItem->getProductId()) {
+                $product = Mage::getModel('catalog/product')->load($firstItem->getProductId());
+                $collectionProductImage = $product->getImageUrl();
             }
 
-            if ($collectionEmpty) continue;
-            
-            #for filtering items in product should be more than 4
-            if ($i < 4) continue;
-
-
+            # Check empty wishlist and get product image
+            # for filtering items in product should be more than 4
+            if ($items->count() < 4) continue;
 
             $collectionName = $wishlist->getName();
 
@@ -85,7 +77,7 @@ extends Mage_Core_Controller_Front_Action
                 'id'            => $wishlist->getId(),
                 'customer_id'   => $wishlist->getCustomerId(),
                 'name'          => $collectionName,
-                'slug'          => Mage::getModel('catalog/product_url')->formatUrlKey($collectionName),
+                'slug'          => $wishlist->getId().'-'.Mage::getModel('catalog/product_url')->formatUrlKey($collectionName),
                 'cover'         => $collectionCover,
                 'cloud_cover'   => $collectionCloudCover,
                 'product_image' => $collectionProductImage,
