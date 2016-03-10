@@ -46,14 +46,31 @@ class Bilna_Rest_Model_Api2_Checkorder_Rest_Admin_V1 extends Bilna_Rest_Model_Ap
         if ($orderData) {
             $orderData['increment_id'] = $order->getIncrementId();
             $orderData['status'] = $order->getStatus();
-            $customerPoint = $orderData['subtotal'] + $orderData['shipping_amount'] + $orderData['base_discount_amount'] - $orderData['grand_total'];
-            $orderData['customer_point'] = "$customerPoint";
+        
+            if ($order->getSubtotal()) {
+                $orderData['subtotal'] = $order->getSubtotal();
+            }            
+            if($order->getShippingAmount()) {
+                $orderData['shipping_amount'] = $order->getShippingAmount();
+            }            
+            if ($order->getWrappinggiftevent()) {
+                $orderData['wrappinggiftevent'] = $order->getWrappinggiftevent();
+            }            
+            if ($order->getDiscountAmount() && $order->getDiscountAmount() > 0) {
+                $orderData['discount_amount'] = $order->getDiscountAmount();
+            }
+            if($order->getMoneyForPoints()) {
+                $orderData['money_for_points'] = $order->getMoneyForPoints();
+            }
+            
             $orderData['shipping'] = $this->_cleanUpShippingDescription($orderData['shipping_description']);
             $orderData['payment'] = $payment;
         }
         if ($items) {
             $orderData['order_items'] = $items[$orderId];
         }
+        
+        
         
         return $orderData;
     }

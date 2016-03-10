@@ -728,13 +728,14 @@
                         <retrieve>1</retrieve>
                     </admin>
                 </privileges>
-                <attributes translate="increment_id status subtotal shipping_amount base_discount_amount customer_point grand_total shipping payment order_items" module="Bilna_Rest">
+                <attributes translate="increment_id status subtotal shipping_amount wrappinggiftevent discount_amount money_for_points grand_total shipping payment order_items" module="Bilna_Rest">
                     <increment_id>Increment Id</increment_id>                    
                     <status>Status</status>
                     <subtotal>subtotal</subtotal>
                     <shipping_amount>shipping_amount</shipping_amount>
-                    <base_discount_amount>base_discount_amount</base_discount_amount>
-                    <customer_point>customer_point</customer_point>
+                    <wrappinggiftevent>wrappinggiftevent</wrappinggiftevent>
+                    <discount_amount>discount_amount</discount_amount>
+                    <money_for_points>money_for_points</money_for_points>
                     <grand_total>grand_total</grand_total>
                     <shipping>Shipping</shipping>
                     <payment>Payment</payment>
