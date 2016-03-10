@@ -29,6 +29,7 @@ class Bilna_Paymentconfirmation_IndexController extends Mage_Core_Controller_Fro
             if(isset($post)){
                 $paymentModel = Mage::getModel('Paymentconfirmation/payment'); 
                 $isValidOrderID = $paymentModel->isValidOrder($post['order_number']);
+                list($post['month'],$post['day'],$post['year']) = explode("/",$post['transfer_date']);
                 $post['transfer_date'] = sprintf('%s-%s-%s',$post['year'],$post['month'],$post['day']);
                 unset($post['year'],$post['month'],$post['day']);
                 if(trim($isValidOrderID->entity_id) != ''){
@@ -37,6 +38,7 @@ class Bilna_Paymentconfirmation_IndexController extends Mage_Core_Controller_Fro
                         //$collections = $paymentModel->insertPayment($post);//models var on config.xml
                         
                         $param = $post;
+                        $param['bank_from'] = isset($param['other_from']) ? $param['other_from'] : $param['bank_from'];
                         $fields = array("order_id" => !empty($param['order_number']) ? $param['order_number'] : "NULL",
                                         "email" => !empty($param['email']) ? $param['email'] : "NULL",
                                         "nominal" => !empty($param['nominal']) ? $param['nominal'] : "NULL",

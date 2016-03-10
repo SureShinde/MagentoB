@@ -131,46 +131,20 @@
                             </li>
                             
                             <li>
-                                <!--<label class="required" for="transfer_date"><?php echo $this->__('Tanggal Transfer'); ?><em>*</em></label>-->
-                                
+                                <label class="required" for="transfer_date"><?php echo $this->__('Transfer Date'); ?><em>*</em></label>
                                 <div class="input-box">
-                                    <!--<input type="text" title="<?php echo $this->__('Tanggal Transfer'); ?>" class="input-text required-entry validate-date validate-failed" id="transfer_date" value="<?php echo date('Y-m-d'); ?>" name="paymentconfirmation[transfer_date]" />-->
-                                    <?php $_dob = $this->getLayout()->createBlock('paymentconfirm/widget');?>
-                                    <?php echo $_dob->setDate(date('Y-m-d'))->toHtml(); ?>
+                                    <input type="text" class="form-control noradius" id="datepicker" placeholder="" style="display:block !important;" name="paymentconfirmation[transfer_date]" value="<?php echo date('m/d/Y');?>">
+                                    <?php //$_dob = $this->getLayout()->createBlock('paymentconfirm/widget');?>
+                                    <?php //echo $_dob->setDate(date('Y-m-d'))->toHtml(); ?>
                                 </div>
-                                <!--
-                                <div class="input-box customer-dob">
-                                <?php
-                                /*    $this->setDateInput('d',
-                                        '<div class="dob-day">
-                                             <input type="text" id="' . $this->getFieldId('day') . '" name="' . $this->getFieldName('day') . '" value="' . $this->getDay() . '" title="' . $this->__('Day') . '" class="input-text validate-custom" ' . $this->getFieldParams() . ' />
-                                             <label for="' . $this->getFieldId('day') . '">' . $this->__('DD') . '</label>
-                                         </div>'
-                                    );
-
-                                    $this->setDateInput('m',
-                                        '<div class="dob-month">
-                                             <input type="text" id="' . $this->getFieldId('month') . '" name="' . $this->getFieldName('month') . '" value="' . $this->getMonth()  . '" title="' . $this->__('Month')  . '" class="input-text validate-custom" ' . $this->getFieldParams()  . ' />
-                                             <label for="' . $this->getFieldId('month') . '">' . $this->__('MM')  . '</label>
-                                         </div>'
-                                    );
-
-                                    $this->setDateInput('y',
-                                        '<div class="dob-year">
-                                             <input type="text" id="' . $this->getFieldId('year') . '" name="' . $this->getFieldName('year') . '" value="' . $this->getYear()  . '" title="' . $this->__('Year')  . '" class="input-text validate-custom" ' . $this->getFieldParams()  . ' />
-                                             <label for="' . $this->getFieldId('year') . '">' . $this->__('YYYY')  . '</label>
-                                         </div>'
-                                    );
-                                */
-                                ?>
-                                -->
+                                
                             </li>
                             
                             <li>
                                 <label class="required" for="bank_from"><?php echo $this->__('Nama Bank Pengirim'); ?><em>*</em></label>
                                 <div class="input-box">
                                     <!--<input type="text" title="<?php echo $this->__('Nama Bank Pengirim'); ?>" class="input-text required-entry validate-failed" id="bank_to" value="" name="paymentconfirmation[bank_from]" />-->
-                                    <select style="width:215px" name="paymentconfirmation[bank_from]" id="bank_from" title="<?php echo $this->__('Rekening Bilna yang dituju'); ?>">
+                                    <select onchange="cek()" style="width:215px" name="paymentconfirmation[bank_from]" id="bank_from" title="<?php echo $this->__('Rekening Bilna yang dituju'); ?>">
                                         <option value="BCA">BCA</option>
                                         <option value="BNI">BNI</option>
                                         <option value="Mandiri">Bank Mandiri</option>
@@ -178,6 +152,7 @@
                                         <option value="CIMB">CIMB</option>
                                         <option value="Others">Others</option>
                                     </select>
+                                    <input type="text" style="display:none" class="input-text required-entry validate-failed" id="other_from" value="" name="paymentconfirmation[other_from]" disabled="disabled" />
                                 </div>
                             </li>
                             
@@ -221,6 +196,25 @@
 
 <script type="text/javascript">
     //<![CDATA[
+    function cek(){
+        var bank = document.getElementById('bank_from').value;
+        if(bank == "Others"){
+            document.getElementById("other_from").style.display = "block";
+            document.getElementById("other_from").disabled = false;
+        }
+        else{
+            document.getElementById("other_from").style.display = "none";
+            document.getElementById("other_from").disabled = true;
+        }
+        //alert(document.getElementById('bank_from').value);
+    }
+    jQuery(function() {
+        jQuery( "#datepicker" ).datepicker({
+          yearRange: '1940:2016',
+          changeMonth: true,
+          changeYear: true
+        });
+    });
     document.forms.paymentconfirmationForm.email.focus();
     var dataForm = new VarienForm('paymentconfirmationForm', true);
     //]]>
