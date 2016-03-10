@@ -33,8 +33,16 @@
         <models>
             <Paymentconfirmation>
                 <class>Bilna_Paymentconfirmation_Model</class>
-                <resourceModel>Paymentconfirmation_mysql4</resourceModel>
+                <resourceModel>paymentconfirmation_mysql4</resourceModel>
             </Paymentconfirmation>
+            <paymentconfirmation_mysql4>
+                <class>Bilna_Paymentconfirmation_Model_Mysql4</class>
+                <entities>
+                    <payment>
+                        <table>bilna_payment_confirmation</table>
+                    </payment>
+                </entities>
+            </paymentconfirmation_mysql4>
         </models>
         
         <helpers>

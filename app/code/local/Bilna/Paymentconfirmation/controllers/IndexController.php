@@ -22,32 +22,6 @@ class Bilna_Paymentconfirmation_IndexController extends Mage_Core_Controller_Fro
         $this->renderLayout();
     }
     
-    public function validateOrderAction(){
-        try{
-            $post = $_POST;
-            if(isset($post['order_number'])){
-                $paymentModel = Mage::getModel('Paymentconfirmation/payment'); 
-                $isValidOrderID = $paymentModel->isValidOrder($post['order_number']);
-                if(isset($isValidOrderID[0]['entity_id'])){
-                    if($isValidOrderID[0]['customer_email'] == $post['email']){
-                        echo json_encode(array('status' => true, 'message' => 'Success'));
-                    }
-                    else{
-                        echo json_encode(array('status' => false, 'message' => 'Invalid Customer e-Mail'));
-                    }
-                }
-                else{
-                    echo json_encode(array('status' => false, 'message' => 'Order ID Not Found'));
-                }
-            }
-            else{
-                echo json_encode(array('status' => false, 'message' => 'Order ID Not Found'));
-            }
-        } catch (Exception $ex) {
-            Zend_Debug::dump($e);die;
-        }
-    }
-    
     public function ProcessAction(){
         try{
             $post = $this->getRequest()->getPost('paymentconfirmation');
@@ -60,7 +34,25 @@ class Bilna_Paymentconfirmation_IndexController extends Mage_Core_Controller_Fro
                 if(trim($isValidOrderID->entity_id) != ''){
                     if($isValidOrderID->customer_email == $post['email']){
                         $post['entity_id'] = $isValidOrderID->entity_id;
-                        $collections = $paymentModel->insertPayment($post);//models var on config.xml
+                        //$collections = $paymentModel->insertPayment($post);//models var on config.xml
+                        
+                        $param = $post;
+                        $fields = array("order_id" => !empty($param['order_number']) ? $param['order_number'] : "NULL",
+                                        "email" => !empty($param['email']) ? $param['email'] : "NULL",
+                                        "nominal" => !empty($param['nominal']) ? $param['nominal'] : "NULL",
+                                        "dest_bank" => !empty($param['bank_to']) ? $param['bank_to'] : "NULL",
+                                        "transfer_date" => !empty($param['transfer_date']) ? $param['transfer_date'] : "NULL",
+                                        "source_bank" => !empty($param['bank_from']) ? $param['bank_from'] : "NULL",
+                                        "source_acc_number" => !empty($param['acc_from']) ? $param['acc_from'] : "NULL",
+                                        "source_acc_name" => !empty($param['name_from']) ? $param['name_from'] : "NULL",
+                                        "comment" => !empty($param['comment']) ? $param['comment'] : "NULL",
+                                        "entity_id" => !empty($param['entity_id']) ? (int)$param['entity_id'] : "0"
+                                    );
+                        //print "<PRE>";print_r($fields);exit;
+                        //$paymentModel->insertPayment($fields);
+                        $paymentModel->setData($fields);
+                        $paymentModel->save();
+                        
                         $this->getLayout()->getBlock('head')->setTitle($this->__('Payment Confirmation Thank You'));
                         $this->getLayout()->getBlock('paymentconfirm_process')->setData('message',SUCCESS);
                     }
