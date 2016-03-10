@@ -1,10 +1,8 @@
 <?php
 class Bilna_Ccp_Model_Ccpmodel extends Mage_Core_Model_Abstract {
 
-    const BATCH_SIZE                      = '200';
-    const LAST_RANKING                    = '999999999';
-    const ATTRIBUTE_ID_PRODUCT_STATUS     = 96;
-    const ATTRIBUTE_ID_PRODUCT_VISIBILITY = 102;
+    const BATCH_SIZE     = '200';
+    const LAST_RANKING   = '999999999';
 
     protected function _construct() {
         $this->_init('ccp/ccpmodel');
@@ -16,6 +14,24 @@ class Bilna_Ccp_Model_Ccpmodel extends Mage_Core_Model_Abstract {
 
     private function connDbRead() {
         return Mage::getSingleton('core/resource')->getConnection('core_read');
+    }
+
+    // returning an array with attribute codes from magento
+    private function getAttributeIDs() {
+        $return = array();
+        $read = $this->connDbRead();
+        $select = $read->select()
+            ->from(
+                Mage::getConfig()->getTablePrefix()."eav_attribute"
+                , array('attribute_code', 'attribute_id')
+                )
+            ->where('attribute_code IN (?) ', array('visibility','status'))
+            ;
+        $query = $read->query($select);
+        while ($attributes = $query->fetch()) {
+            $return[$attributes['attribute_code']] = $attributes['attribute_id'];
+        }
+        return $return;
     }
 
     // validation values for store config
@@ -30,8 +46,8 @@ class Bilna_Ccp_Model_Ccpmodel extends Mage_Core_Model_Abstract {
     
     // output: array { [0] => array {'name' => "ABCD 2 IN 1", 'product_id' => "31905", 'stock_qty' => "0.0000" }
     public function getProductInventories() {
+        $attributes = $this->getAttributeIDs();
         $read = $this->connDbRead();
-
         $select = $read->select()
             ->from(
                 array('stock' => Mage::getConfig()->getTablePrefix().Mage::getSingleton('core/resource')->getTableName('cataloginventory/stock_item'))
@@ -39,16 +55,14 @@ class Bilna_Ccp_Model_Ccpmodel extends Mage_Core_Model_Abstract {
                 )
             ->joinLeft(
                 array('product_entity' => Mage::getConfig()->getTablePrefix()."catalog_product_entity_int")
-                , 'product_entity.entity_id = stock.product_id'
+                , 'product_entity.entity_id = stock.product_id AND product_entity.attribute_id = '.$attributes['status']
                 , array('product_entity.value as product_status')
                 )
             ->joinLeft(
                 array('product_visible' => Mage::getConfig()->getTablePrefix()."catalog_product_entity_int")
-                , 'product_visible.entity_id = stock.product_id'
+                , 'product_visible.entity_id = stock.product_id AND product_visible.attribute_id = '.$attributes['visibility']
                 , array('product_visible.value as product_visibility')
                 )
-            ->where('product_entity.attribute_id = '.Bilna_Ccp_Model_Ccpmodel::ATTRIBUTE_ID_PRODUCT_STATUS)
-            ->where('product_visible.attribute_id = '.Bilna_Ccp_Model_Ccpmodel::ATTRIBUTE_ID_PRODUCT_VISIBILITY)
             ;
         $product_stock = $read->fetchAll($select);
         return $product_stock;
@@ -63,6 +77,7 @@ class Bilna_Ccp_Model_Ccpmodel extends Mage_Core_Model_Abstract {
             ->from(array('main_table' => Mage::getSingleton('core/resource')->getTableName('sales/order_item') ), array('product_id'))
             ->columns('sum(qty_ordered*price) as sales')
             ->where($configValues['product_bundle'] ? '1=1' : 'product_type != ?', 'bundle')
+            ->where('created_at >= NOW() - INTERVAL ? DAY', $configValues['max_days'])
             ->group('product_id')
             ;
         $product_sales = $read->fetchAll($select);
