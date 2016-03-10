@@ -80,7 +80,7 @@ function ecommerceProductDetailAddToCart(name, sku, price, price_ematic, link, i
       var index_addeditem = -999;
 
       for (var itr=0; itr < <?php echo $itemQty ?>; itr++) {
-        temp_item = jQuery(".mini-cart span#ematiccart").eq(itr).text();
+        temp_item = jQuery("span#ematiccart").eq(itr).text();
         temp_cart[itr] = temp_item.split("|");
         if (temp_item.indexOf(sku) > -1) {
           index_addeditem = itr;
@@ -88,37 +88,39 @@ function ecommerceProductDetailAddToCart(name, sku, price, price_ematic, link, i
       }
 
       // ematics cart - prepare for logging
-      products = [
-      <?php for($i=0; $i<$itemQty; $i++) {
-        echo "{'name' : temp_cart[".$i."][0],";
-        echo "'id' : temp_cart[".$i."][1],";
-        echo "'price' : temp_cart[".$i."][3],";
-        echo "'quantity' : temp_cart[".$i."][4],";
-        echo "'brandName' : 'brand name',";
-        echo "'imageUrl' : temp_cart[".$i."][5],";
-        echo "'link' : temp_cart[".$i."][6]}";if($i != $itemQty-1) {echo ",";}
-      } 
-      ?>
-      ];
+      if (temp_cartQty > 0) {         // at least 1 item in cart
+        products = [
+        <?php for($i=0; $i<$itemQty; $i++) {
+          echo "{'name' : temp_cart[".$i."][0],";
+          echo "'id' : temp_cart[".$i."][1],";
+          echo "'price' : temp_cart[".$i."][3],";
+          echo "'quantity' : temp_cart[".$i."][4],";
+          echo "'brandName' : 'brand name',";
+          echo "'imageUrl' : temp_cart[".$i."][5],";
+          echo "'link' : temp_cart[".$i."][6]}";if($i != $itemQty-1) {echo ",";}
+        } 
+        ?>
+        ];
 
-      // ematics added item
-      if (index_addeditem != -999) {    // same item exist in cart
-        products[index_addeditem].quantity = parseInt(products[index_addeditem].quantity) + parseInt(jQuery("input.#qty").val());
+        // ematics added item
+        if (index_addeditem != -999) {    // same item exist in cart
+          products[index_addeditem].quantity = parseInt(products[index_addeditem].quantity) + parseInt(jQuery("input.#qty").val());
+        }
+        else {    // no same item
+          products.push({
+            'id': sku,
+            'price': price_ematic,
+            'quantity': jQuery("input.#qty").val(),
+            'name': name,
+            'brandName': 'brand name',
+            'imageUrl': imageUrl,
+            'link': link
+          });
+        }
+        
+        // ematics track items in cart to enable pre-abandonded cart overlays
+        ematics("log", "product", "cart", products);
       }
-      else {    // no same item
-        products.push({
-          'id': sku,
-          'price': price_ematic,
-          'quantity': jQuery("input.#qty").val(),
-          'name': name,
-          'brandName': 'brand name',
-          'imageUrl': imageUrl,
-          'link': link
-        });
-      }
-      
-      // ematics track items in cart to enable pre-abandonded cart overlays
-      ematics("log", "product", "cart", products);
     } 
 }
 </script>

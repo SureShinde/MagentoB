@@ -32,7 +32,6 @@
 
 ?>
 <?php if ($this->getIsNeedToDisplaySideBar()):?>
-<?php $_escape_helper = Mage::helper('catalog/utils'); ?>
 <div class="block block-cart">
     <?php $_cartQty = $this->getSummaryCount() ?>
     <div class="block-content">
@@ -40,9 +39,6 @@
 		<?php $_items = $this->getQuote()->getAllItems(); ?>
 		<?php $itrNumberItemsDisplayed = 0; ?>
 		<?php $itemQty = 0; ?>
-	    <?php $customer = Mage::getSingleton('customer/session')->getCustomer(); ?>
-	    <?php if (isset ($customer) && !empty ($customer)) { $customer_email = $customer->getEmail(); } else { $customer_email = ""; } ?>
-
 		<?php foreach ($_items as $_item) { $parentId = $_item->getParentItemId(); if(empty($parentId)) {$itemQty++;} }?>
 	    <?php if ($_cartQty>0): ?>
 	        <?php if ($_cartQty<4): ?>
@@ -51,13 +47,11 @@
 	            <p class="amount"><?php echo $this->__('Menampilkan 3 dari <a id="cart-item-qty" href="%s">%s</a> produk di Troli Anda', $this->getUrl('checkout/cart'), $_cartQty) ?></p>
 	        <?php endif ?>
 	    <?php endif ?>
-	    <?php echo '<span id="ematicuseremail" class="hidden">'.$customer_email.'</span>'; ?>
 	    <?php if(count($_items)): ?>
 	       	<ul id="cart-sidebar" class="mini-products-list">
 		        <?php foreach($_items as $_item): ?>
 		        	<?php $parentId = $_item->getParentItemId(); ?>
 		        	<?php if(empty($parentId)): ?>
-		        		<?php echo '<span id="ematiccart" class="hidden">' . $_item->getProduct()->getName() . $_item->getTypeInstance() . '|' . $_item->getProduct()->getSku() . '|' . $_item->getProduct()->getPrice() . '|' . Mage::helper('core')->currency($_item->getProduct()->getPrice(), true, false) . '|' . $_item->getQty() . '|' . $_item->getProduct()->getImageUrl() . '|' . $_item->getProduct()->getProductUrl() . '</span>' ?>
 			            <?php if($itrNumberItemsDisplayed < $_numberItemsDisplayed): ?>
 			            	<?php echo $this->getItemHtml($_item); ?>
 			        	<?php endif ?>
@@ -87,121 +81,9 @@
 		    <div class="actions">
                 <button type="button" title="<?php echo $this->__('Checkout') ?>" class="button btn-cart" onclick="setLocation('<?php echo $this->getUrl('checkout/cart')?>')"><span><span><?php echo $this->__('Lihat Troli') ?></span></span></button>
 		        <?php echo $this->getChildHtml('extra_actions') ?>
-		        <button type="button" title="<?php echo $this->__('Checkout') ?>" class="button btn-checkout" onclick="ecommerceCheckout0_buttonclicked();setLocation('<?php echo $this->getUrl('checkout/onepage/')?>')"><span><span><?php echo $this->__('Bayar') ?></span></span></button>
+		        <button type="button" title="<?php echo $this->__('Checkout') ?>" class="button btn-checkout" onclick="setLocation('<?php echo $this->getUrl('checkout/onepage/')?>');ecommerceCheckout0_buttonclicked();"><span><span><?php echo $this->__('Bayar') ?></span></span></button>
 		    </div>
 	    <?php endif ?>
     </div>
 </div>
 <?php endif;?>
-
-<script type="text/javascript">
-function ecommerceCheckout0_buttonclicked() {
-	var temp_container = {
-		'event': 'checkout',
-	    'ecommerce': {
-	      'checkout': {
-	        'actionField': {
-	        	'step' : 1,
-	        	'list' : 'browsing'
-	        },
-	        'products': []
-	     }
-	   }
-	}
-
-	// ematics cart - retrieve items from cart
-    var temp_cart = [];
-    var temp_item = "";
-    var index_removeditem = "";
-    var temp_cartQty = jQuery(".mini-cart span#ematiccart").length;
-    for (var itr=0; itr < temp_cartQty; itr++) {
-    	temp_item = jQuery(".mini-cart span#ematiccart").eq(itr).text();
-    	temp_cart[itr] = temp_item.split("|");
-    }
-
-	// ematics cart - prepare for logging
-    products = [
-    <?php for($i=0; $i<$itemQty; $i++) {
-    	echo "{'name' : temp_cart[".$i."][0],";
-    	echo "'id' : temp_cart[".$i."][1],";
-    	echo "'price' : temp_cart[".$i."][3],";
-    	echo "'quantity' : temp_cart[".$i."][4],";
-    	echo "'brandName' : 'brand name',";
-    	echo "'imageUrl' : temp_cart[".$i."][5],";
-    	echo "'link' : temp_cart[".$i."][6]}";if($i != $itemQty-1) {echo ",";}
-    } 
-    ?>
-    ];
-
-    // ematics track checkout
-	ematics("log", "product", "checkout", products);
-
-    // universal analytics
-    temp_container.ecommerce.checkout.products.push(
-    	<?php for($i=0; $i<$itemQty; $i++) {
-	    	echo "{'name' : temp_cart[".$i."][0],";
-	    	echo "'sku' : temp_cart[".$i."][1],";
-	    	echo "'price' : temp_cart[".$i."][2],";
-	    	echo "'quantity' : temp_cart[".$i."][4],";
-	    	echo "'brandName' : 'brand name',";
-	    	echo "'imageUrl' : temp_cart[".$i."][5],";
-	    	echo "'link' : temp_cart[".$i."][6]}";if($i != $itemQty-1) {echo ",";}
-	    } 
-	    ?>
-    	);
-    dataLayer.push(temp_container);
-}
-
-function ecommerceRemoveCart(name, sku, price, quantity, imageUrl, link) {
-    dataLayer.push({
-	  'event': 'removeFromCart',
-	  'ecommerce': {
-	    'remove': {                               // 'remove' actionFieldObject measures.
-	      'products': [{                          //  removing a product to a shopping cart.
-	        'name': name,
-            'id': sku,
-            'price': price,
-            'quantity': quantity,
-            'brandName': 'brand name',
-            'imageUrl': imageUrl,
-            'link': link
-	      }]
-	    }
-	  }
-	});
-
-	// ematics cart - retrieve items from cart
-    var temp_cart = [];
-    var temp_item = "";
-    var index_removeditem = "";
-    for (var itr=0; itr < <?php echo $itemQty ?>; itr++) {
-    	temp_item = jQuery(".mini-cart span#ematiccart").eq(itr).text();
-    	if (temp_item.indexOf(sku) == -1) {		// item that not removed
-    		temp_cart[itr] = temp_item.split("|");
-    	}
-    	else {		// removed item
-    		index_removeditem = itr;
-    	}
-    }
-
-    // trim empty array because removed item
-    temp_cart = temp_cart.filter(function(v){return v!==''});
-
-	// ematics cart - prepare for logging
-    products = [
-    <?php for($i=0; $i<$itemQty-1; $i++) {
-    	echo "{'name' : temp_cart[".$i."][0],";
-    	echo "'id' : temp_cart[".$i."][1],";
-    	echo "'price' : temp_cart[".$i."][3],";
-    	echo "'quantity' : temp_cart[".$i."][4],";
-    	echo "'brandName' : 'brand name',";
-    	echo "'imageUrl' : temp_cart[".$i."][5],";
-    	echo "'link' : temp_cart[".$i."][6]}";if($i != $itemQty-2) {echo ",";}
-    } 
-    ?>
-    ];
-
-	// ematics track items in cart to enable pre-abandonded cart overlays
-	ematics("log", "product", "cart", products);
-}
-</script>
