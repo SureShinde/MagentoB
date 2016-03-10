@@ -4,9 +4,6 @@ require_once dirname(__FILE__) . '/../abstract.php';
 class Ccp extends Mage_Shell_Abstract {
     
     public function run() {
-        Mage::log(Mage::getModel('sales/order_status')->getResourceCollection()->getData());
-        exit;
-
         echo "CCP is now starting ..\n";
 
         // pull products list as RJM does
