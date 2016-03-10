@@ -1,8 +1,10 @@
 <?php
 class Bilna_Ccp_Model_Ccpmodel extends Mage_Core_Model_Abstract {
 
-    const BATCH_SIZE = '200';
-    const LAST_RANKING = '999999999';
+    const BATCH_SIZE                      = '200';
+    const LAST_RANKING                    = '999999999';
+    const ATTRIBUTE_ID_PRODUCT_STATUS     = 96;
+    const ATTRIBUTE_ID_PRODUCT_VISIBILITY = 102;
 
     protected function _construct() {
         $this->_init('ccp/ccpmodel');
@@ -33,8 +35,20 @@ class Bilna_Ccp_Model_Ccpmodel extends Mage_Core_Model_Abstract {
         $select = $read->select()
             ->from(
                 array('stock' => Mage::getConfig()->getTablePrefix().Mage::getSingleton('core/resource')->getTableName('cataloginventory/stock_item'))
-                , array('stock.product_id', 'stock.qty as stock_qty')
+                , array('stock.product_id', 'stock.qty as stock_qty', 'stock.is_in_stock')
                 )
+            ->joinLeft(
+                array('product_entity' => Mage::getConfig()->getTablePrefix()."catalog_product_entity_int")
+                , 'product_entity.entity_id = stock.product_id'
+                , array('product_entity.value as product_status')
+                )
+            ->joinLeft(
+                array('product_visible' => Mage::getConfig()->getTablePrefix()."catalog_product_entity_int")
+                , 'product_visible.entity_id = stock.product_id'
+                , array('product_visible.value as product_visibility')
+                )
+            ->where('product_entity.attribute_id = '.Bilna_Ccp_Model_Ccpmodel::ATTRIBUTE_ID_PRODUCT_STATUS)
+            ->where('product_visible.attribute_id = '.Bilna_Ccp_Model_Ccpmodel::ATTRIBUTE_ID_PRODUCT_VISIBILITY)
             ;
         $product_stock = $read->fetchAll($select);
         return $product_stock;
@@ -71,11 +85,12 @@ class Bilna_Ccp_Model_Ccpmodel extends Mage_Core_Model_Abstract {
         $write->delete($scoring_table);
 
         $data = array();
+        $final_array_length = sizeof($final_array);
         foreach ($final_array as $product_id => $value) {
             $sales=isset($value['sales']) && !empty($value['sales']) ? (int)$value['sales'] : 0;
-            $sales_rank = isset($arr_sales_rank[$product_id]) ? (int)$arr_sales_rank[$product_id] : sizeof($final_array);
+            $sales_rank = isset($arr_sales_rank[$product_id]) && isset($value['product_status']) ? $this->updateFilterProductsRanking($arr_sales_rank[$product_id], $value) : $final_array_length;
             $stock=isset($value['stock_qty']) ? (int)$value['stock_qty'] : 0;
-            $stock_rank = isset($arr_inv_rank[$product_id]) ? (int)$arr_inv_rank[$product_id] : sizeof($final_array);
+            $stock_rank = isset($arr_inv_rank[$product_id]) && isset($value['product_status']) ? $this->updateFilterProductsRanking($arr_inv_rank[$product_id], $value) : $final_array_length;
             $score = $percentage_item*$sales_rank + $percentage_inventory*$stock_rank;
 
             $data[] = "('".$product_id."', '".$sales."', '".$sales_rank."', '".$stock."', '".$stock_rank."', '".$score."', '')";
@@ -97,7 +112,7 @@ class Bilna_Ccp_Model_Ccpmodel extends Mage_Core_Model_Abstract {
             $write->query($sql);
         }
 
-        Mage::log("All Products Scoring has been updated.\n");
+        Mage::log("All Products Scoring has been updated.");
     }
 
     // input product_stock: array { [0] => array {'name' => "ABCD 2 IN 1", 'product_id' => "31905", 'stock_qty' => "0.0000" }
@@ -106,7 +121,10 @@ class Bilna_Ccp_Model_Ccpmodel extends Mage_Core_Model_Abstract {
     public function refactorArray($product_stock, $product_sales) {
         $return = array();
         foreach ($product_stock as $key => $value) {
-            $return[$value['product_id']]['stock_qty'] = $value['stock_qty'];
+            $return[$value['product_id']]['stock_qty']          = $value['stock_qty'];
+            $return[$value['product_id']]['product_status']     = $value['product_status'];
+            $return[$value['product_id']]['is_in_stock']        = $value['is_in_stock'];
+            $return[$value['product_id']]['product_visibility'] = $value['product_visibility'];
         }
         foreach ($product_sales as $key => $value) {
             $return[$value['product_id']]['sales'] = $value['sales'];
@@ -149,6 +167,16 @@ class Bilna_Ccp_Model_Ccpmodel extends Mage_Core_Model_Abstract {
         return $arr_result;
     }
 
+    // input example: (100, array ( [31905] => array('stock_qty' = '0.0000', 'sales' => '6741500.00000000', 'product_status' => '1', 'is_in_stock' => '0', 'product_visibility' => '1')) )
+    // output depends on filtering: 999999999
+    public function updateFilterProductsRanking($originalValue, $productData) {
+        // if product status = enabled AND out_of_stock AND Not Visible, then set ranking to 999999999
+        if($productData['product_status'] == '1' && $productData['is_in_stock'] == '0' && $productData['product_visibility'] == '1') {
+            return Bilna_Ccp_Model_Ccpmodel::LAST_RANKING;
+        }
+        return (int)$originalValue;
+    }
+
     public function setProductPosition() {
         $productRankingArray = array();
         $categoriesArray = $this->getAllCategories();
@@ -184,7 +212,7 @@ class Bilna_Ccp_Model_Ccpmodel extends Mage_Core_Model_Abstract {
             $write->query($sql);
         }
 
-        Mage::log("All Products Position has been updated.\n");
+        Mage::log("All Products Position has been updated.");
     }
 
     // get all category IDs to loop
