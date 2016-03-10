@@ -170,8 +170,8 @@ class Bilna_Ccp_Model_Ccpmodel extends Mage_Core_Model_Abstract {
     // input example: (100, array ( [31905] => array('stock_qty' = '0.0000', 'sales' => '6741500.00000000', 'product_status' => '1', 'is_in_stock' => '0', 'product_visibility' => '1')) )
     // output depends on filtering: 999999999
     public function updateFilterProductsRanking($originalValue, $productData) {
-        // if product status = enabled AND out_of_stock AND Not Visible, then set ranking to 999999999
-        if($productData['product_status'] == '1' && $productData['is_in_stock'] == '0' && $productData['product_visibility'] == '1') {
+        // if product status = enabled AND out_of_stock AND not equal Not Visible, then set ranking to 999999999
+        if($productData['product_status'] == '1' && $productData['is_in_stock'] == '0' && $productData['product_visibility'] != '1') {
             return Bilna_Ccp_Model_Ccpmodel::LAST_RANKING;
         }
         return (int)$originalValue;
