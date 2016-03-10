@@ -47,13 +47,23 @@
                 <?php echo $this->__('From:'); ?> <?php echo $this->escapeHtml($_giftMessage->getSender()) ?><br />
                 <?php echo $this->__('To:'); ?> <?php echo $this->escapeHtml($_giftMessage->getRecipient()) ?><br />
                 <strong><?php echo $this->__('Message:'); ?></strong><br /><?php echo $this->escapeHtml($_giftMessage->getMessage()) ?>
-                
+
         <?php endif; ?>
       </td>
-      <td width="10"></td>
       <td style="vertical-align: top;text-align: right" width="150">
 
-        <?php echo $_item->getQtyOrdered()*1 ?> x Rp 100.000<br> 
+        <?php echo $_item->getQtyOrdered()*1 ?> x 
+        <!-- Show Unit Price here -->
+            <?php
+            if ($this->helper('tax')->displaySalesPriceInclTax($_order->getStore())) {
+            $itemprice = $this->helper('checkout')->getPriceInclTax($_item) ;
+            echo $this->helper('checkout')->formatPrice($itemprice);
+            } else {
+            echo $this->helper('checkout')->formatPrice($_item->getPrice()) ;
+            }
+            ?>
+        <!-- END UNIT PRICE -->
+        <br> 
 
         = <?php if ($this->helper('tax')->displaySalesPriceExclTax($_order->getStore()) || $this->helper('tax')->displaySalesBothPrices($_order->getStore())): ?>
             <?php if ($this->helper('tax')->displaySalesBothPrices($_order->getStore())): ?>
