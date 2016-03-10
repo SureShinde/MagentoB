@@ -31,6 +31,9 @@
  */
 
 ?>
+<?php $customer = Mage::getSingleton('customer/session')->getCustomer(); ?>
+<?php if (isset ($customer) && !empty ($customer)) { $customer_email = $customer->getEmail(); } else { $customer_email = ""; } ?>
+<?php echo '<span id="ematicuseremail" class="hidden">'.$customer_email.'</span>'; ?>
 <?php if ($this->getIsNeedToDisplaySideBar()):?>
 <div class="block block-cart">
     <?php $_cartQty = $this->getSummaryCount() ?>

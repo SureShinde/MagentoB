@@ -45,6 +45,7 @@
 
 <!-- ecommerce Google Analytics & Ematic -->
 <script type="text/javascript">
+var temp_cartQty = jQuery("span#ematiccart").length;
 function ecommerceCheckout0_buttonclicked() {
     var temp_container = {
         'event': 'checkout',
@@ -63,7 +64,6 @@ function ecommerceCheckout0_buttonclicked() {
     var temp_cart = [];
     var temp_item = "";
     var index_removeditem = "";
-    var temp_cartQty = jQuery("span#ematiccart").length;
     for (var itr=0; itr < temp_cartQty; itr++) {
         temp_item = jQuery("span#ematiccart").eq(itr).text();
         temp_cart[itr] = temp_item.split("|");
