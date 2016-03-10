@@ -41,33 +41,22 @@ extends Mage_Core_Controller_Front_Action
             ->addFilter('visibility', 1)
             ->addFieldToFilter('name', array('neq' => 'NULL'))
             ->addFieldToFilter('name', array('neq' => ' '))
+            ->addFieldToFilter('cover', array('neq' => 'NULL'))
             ->setOrder('updated_at', 'DESC');
+        $wishlists->getSelect()
+            ->joinInner(
+                array('wishlist_item'=> Mage::getSingleton('core/resource')->getTableName('wishlist/item')),
+                'main_table.wishlist_id = wishlist_item.wishlist_id'
+            )
+            ->group('main_table.wishlist_id');
 
-        # We need to get all wishlist collection, and filter by:
-        # - empty collection -> exclude
-        # - default wishlist -> exclude
         $collections = [];
 
         foreach ($wishlists as $wishlist) {
 
-            # Excluding the default wishlist
-            if (Mage::helper('wishlist')->isWishlistDefault($wishlist)) {
-                continue;
-            }
-
             $collectionCover = $wishlist->getCover();
-            $collectionCloudCover = $wishlist->getCloudCover();
-
             $items = $wishlist->getItemCollection()->setOrder('added_at', 'DESC');
-            $firstItem = $items->getFirstItem();
-            $collectionProductImage = null;
 
-            if ($firstItem->getProductId()) {
-                $product = Mage::getModel('catalog/product')->load($firstItem->getProductId());
-                $collectionProductImage = $product->getImageUrl();
-            }
-
-            # Check empty wishlist and get product image
             # for filtering items in product should be more than 4
             if ($items->count() < 4) continue;
 
@@ -78,9 +67,7 @@ extends Mage_Core_Controller_Front_Action
                 'customer_id'   => $wishlist->getCustomerId(),
                 'name'          => $collectionName,
                 'slug'          => $wishlist->getId().'-'.Mage::getModel('catalog/product_url')->formatUrlKey($collectionName),
-                'cover'         => $collectionCover,
-                'cloud_cover'   => $collectionCloudCover,
-                'product_image' => $collectionProductImage,
+                'cover'         => $collectionCover
             ];
         }
 
