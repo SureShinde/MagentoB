@@ -98,31 +98,31 @@
                     <div class="new-customers-fields">
                         <ul class="form-list">
                             <li>
-                                <label class="required" for="order_number"><?php echo $this->__('Order Number'); ?><em>*</em></label>
+                                <label class="required" for="order_number"><?php echo $this->__('Nomor Pesanan'); ?><em>*</em></label>
                                 <div class="input-box">
-                                    <input type="text" title="<?php echo $this->__('Order Number'); ?>" id="orderid" class="input-text required-entry validate-failed" name="paymentconfirmation[order_number]" />
+                                    <input type="text" title="<?php echo $this->__('Nomor Pesanan'); ?>" id="orderid" class="input-text required-entry validate-failed" name="paymentconfirmation[order_number]" />
                                 </div>
                             </li>
 
                             <li>
-                                <label class="required" for="email"><?php echo $this->__('Email Address'); ?><em>*</em></label>
+                                <label class="required" for="email"><?php echo $this->__('Alamat Email'); ?><em>*</em></label>
                                 <div class="input-box">
-                                    <input type="text" title="<?php echo $this->__('Email Address'); ?>" class="input-text required-entry validate-email validate-failed" id="email" value="" name="paymentconfirmation[email]" />
+                                    <input type="text" title="<?php echo $this->__('Alamat Email'); ?>" class="input-text required-entry validate-email validate-failed" id="email" value="" name="paymentconfirmation[email]" />
                                 </div>
                             </li>
                             
                             <li>
-                                <label class="required" for="nominal"><?php echo $this->__('Nominal'); ?><em>*</em></label>
+                                <label class="required" for="nominal"><?php echo $this->__('Jumlah yang Dibayar (dalam Rupiah)'); ?><em>*</em></label>
                                 <div class="input-box">
-                                    <input type="text" title="<?php echo $this->__('Nominal'); ?>" class="input-text required-entry validate-failed" id="nominal" value="" name="paymentconfirmation[nominal]" />
+                                    <input type="text" title="<?php echo $this->__('Jumlah yang Dibayar (dalam Rupiah)'); ?>" class="input-text required-entry validate-failed" id="nominal" value="" name="paymentconfirmation[nominal]" />
                                 </div>
                             </li>
                             
                             <li>
-                                <label class="required" for="bank_to"><?php echo $this->__('Rekening Bilna yang dituju'); ?><em>*</em></label>
+                                <label class="required" for="bank_to"><?php echo $this->__('Bayar ke Rekening (a/n PT Bilna):'); ?><em>*</em></label>
                                 <div class="input-box">
-                                    <!--<input type="text" title="<?php echo $this->__('Rekening Bilna yang dituju'); ?>" class="input-text required-entry validate-failed" id="bank_to" value="" name="paymentconfirmation[bank_to]" />-->
-                                    <select style="width:215px" name="paymentconfirmation[bank_to]" id="bank_to" title="<?php echo $this->__('Rekening Bilna yang dituju'); ?>">
+                                    <!--<input type="text" title="<?php echo $this->__('Bayar ke Rekening (a/n PT Bilna):'); ?>" class="input-text required-entry validate-failed" id="bank_to" value="" name="paymentconfirmation[bank_to]" />-->
+                                    <select style="width:215px" name="paymentconfirmation[bank_to]" id="bank_to" title="<?php echo $this->__('Bayar ke Rekening (a/n PT Bilna):'); ?>">
                                         <option value="BCA">BCA</option>
                                         <option value="BNI">BNI</option>
                                         <option value="Mandiri">Bank Mandiri</option>
@@ -131,9 +131,9 @@
                             </li>
                             
                             <li>
-                                <label class="required" for="transfer_date"><?php echo $this->__('Transfer Date'); ?><em>*</em></label>
+                                <label class="required" for="transfer_date"><?php echo $this->__('Tanggal Bayar'); ?><em>*</em></label>
                                 <div class="input-box">
-                                    <input type="text" class="form-control noradius" id="datepicker" placeholder="" style="display:block !important;" name="paymentconfirmation[transfer_date]" value="<?php echo date('m/d/Y');?>">
+                                    <input type="text" class="form-control noradius" id="datepicker" placeholder="" style="display:block !important;" name="paymentconfirmation[transfer_date]" value="<?php echo date('m/d/Y')?>">
                                     <?php //$_dob = $this->getLayout()->createBlock('paymentconfirm/widget');?>
                                     <?php //echo $_dob->setDate(date('Y-m-d'))->toHtml(); ?>
                                 </div>
@@ -141,21 +141,20 @@
                             </li>
                             
                             <li>
-                                <label class="required" for="bank_from"><?php echo $this->__('Nama Bank Pengirim'); ?><em>*</em></label>
+                                <label class="required" for="bank_from"><?php echo $this->__('Nama Bank Asal'); ?><em>*</em></label>
                                 <div class="input-box">
-                                    <!--<input type="text" title="<?php echo $this->__('Nama Bank Pengirim'); ?>" class="input-text required-entry validate-failed" id="bank_to" value="" name="paymentconfirmation[bank_from]" />-->
+                                    <!--<input type="text" title="<?php echo $this->__('Nama Bank Asal'); ?>" class="input-text required-entry validate-failed" id="bank_to" value="" name="paymentconfirmation[bank_from]" />-->
                                     <select onchange="cek()" style="width:215px" name="paymentconfirmation[bank_from]" id="bank_from" title="<?php echo $this->__('Rekening Bilna yang dituju'); ?>">
                                         <option value="BCA">BCA</option>
                                         <option value="BNI">BNI</option>
                                         <option value="Mandiri">Bank Mandiri</option>
                                         <option value="BRI">BRI</option>
                                         <option value="CIMB">CIMB</option>
-                                        <option value="Others">Others</option>
+                                        <option value="Others">Lainnya</option>
                                     </select>
                                     <input type="text" style="display:none" class="input-text required-entry validate-failed" id="other_from" value="" name="paymentconfirmation[other_from]" disabled="disabled" />
                                 </div>
                             </li>
-                            
                             
                             <li>
                                 <label class="required" for="name_from"><?php echo $this->__('Nama Pengirim sesuai Rekening'); ?><em>*</em></label>
@@ -165,9 +164,9 @@
                             </li>
                             
                             <li>
-                                <label for="comment"><?php echo $this->__('Komentar'); ?></label>
+                                <label for="comment"><?php echo $this->__('Komentar (opsional)'); ?></label>
                                 <div class="input-box">
-                                    <textarea rows="4" cols="50" title="<?php echo $this->__('Komentar'); ?>" class="input-text validate-failed" id="comment" value="" name="paymentconfirmation[comment]"></textarea>
+                                    <textarea rows="4" cols="50" title="<?php echo $this->__('Komentar (opsional)'); ?>" class="input-text validate-failed" id="comment" value="" name="paymentconfirmation[comment]"></textarea>
                                 </div>
                             </li>
                             
