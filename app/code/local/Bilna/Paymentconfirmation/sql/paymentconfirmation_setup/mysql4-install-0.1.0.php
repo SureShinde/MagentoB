@@ -2,19 +2,6 @@
 $installer = $this;
 $installer->startSetup();
 $installer->run("
-    DELETE FROM cms_block WHERE identifier = 'above-header';
-    INSERT INTO cms_block set content = '<div class=\"space-above-header\">
-    <div class=\"container-above-header\">
-    <ul class=\"keypoint\">
-    <li><a href=\"{{config path=\'web/unsecure/base_url\'}}shipping-policy/\"><em class=\"fa fa-truck\"></em> Pengiriman Gratis</a></li>
-    <li><a href=\"{{config path=\'web/unsecure/base_url\'}}return-policy/\"><em class=\"fa fa-money\"></em> Perlindungan Pembeli</a></li>
-    <li><a href=\"{{config path=\'web/unsecure/base_url\'}}faq/\"><em class=\"fa fa-reply-all\"></em> Pusat Bantuan</a></li>
-    <li><a href=\"{{config path=\'web/unsecure/base_url\'}}orderdetail/\"><em class=\"fa fa-file-text-o\"></em> Cek Pesanan</a></li>
-    <li><a href=\"{{config path=\'web/unsecure/base_url\'}}konfirmasipembayaran/\"><em class=\"fa fa-file-text-o\"></em> Konfirmasi Pembayaran</a></li>
-    </ul>
-    <div class=\"customer-link\">{{block type=\"staticarea/block\" id=\"banner-corner\"}}</div>
-    </div>
-    </div>',title='above-header',creation_time=NOW(),update_time=NOW(),is_active=1,identifier = 'above-header';
     DROP TABLE IF EXISTS `bilna_payment_confirmation`;
     CREATE TABLE `bilna_payment_confirmation` (
     `id` int(13) NOT NULL AUTO_INCREMENT,
