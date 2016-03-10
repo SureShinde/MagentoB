@@ -41,10 +41,10 @@
 	font-size:1.2em;
 }
 .products-grid .item:hover .availability.out-of-stock a{
-	color:#EE5191;
+	color:#ff6c6c;
 }
 .products-grid .item:hover .availability.out-of-stock{
-	border:1px solid #EE5191;
+	border:1px solid #ff6c6c;
 }
 .sorter .view-mode, .toolbar-bottom .sorter, {
 	display: none;
@@ -224,7 +224,7 @@ dd.relative{
 .category-description .judul_desc {
     display: block;
     font-size: 1.6em;
-    border-top: 3px solid #EE5191;
+    border-top: 3px solid #ff6c6c;
     background: #F6F6F6;
     margin-bottom: 5px;
     padding: 15px 20px 10px;
@@ -336,7 +336,7 @@ a.triger-showfilter {
 	padding-left: 0;
 }
 .toolbar .limiter ul li a {
-	color: #EE5191;
+	color: #ff6c6c;
 	float:left;
 }
 .toolbar .sorter {
@@ -382,7 +382,7 @@ a.triger-showfilter {
 	font-weight: bold;
 }
 .pager .pages li a {
-	color: #EE5191;
+	color: #ff6c6c;
 }
 .old-price .price {
 	font-weight: normal;
@@ -584,7 +584,7 @@ a.triger-showfilter {
 }
 p.title {
     font-family: 'lato';
-	color: #EE5191;
+	color: #ff6c6c;
     float: left;
     font-size: 4em;
     margin: 0;
@@ -598,7 +598,7 @@ p.title {
     display: block;
 }
 .header-row-homepage .link-viewmore-product a{
-    color: #EE5191;
+    color: #ff6c6c;
 }
 .header-row-homepage .link-viewmore-product a:hover {
 	text-decoration:underline;
