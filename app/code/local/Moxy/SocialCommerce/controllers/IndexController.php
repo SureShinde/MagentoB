@@ -7,7 +7,7 @@ extends Mage_Core_Controller_Front_Action
    public function filterPresetImageAction() {
            
        $category_id = $_POST['category_id'];
-	   $images = Mage::getModel('socialcommerce/collectioncover')->getCollection()->addFieldToFilter('category_id', $category_id)->setCurPage(1)->setPageSize(12);
+       $images = Mage::getModel('socialcommerce/collectioncover')->getCollection()->addFieldToFilter('category_id', $category_id)->setCurPage(1)->setPageSize(12);
        $counter = 1; 
        foreach($images as $image) { 
            ?>
@@ -39,45 +39,27 @@ extends Mage_Core_Controller_Front_Action
         $wishlists = Mage::getModel('wishlist/wishlist')
             ->getCollection()
             ->addFilter('visibility', 1)
-            ->addFilter('view', 1)
             ->addFieldToFilter('name', array('neq' => 'NULL'))
             ->addFieldToFilter('name', array('neq' => ' '))
+            ->addFieldToFilter('cover', array('neq' => 'NULL'))
             ->setOrder('updated_at', 'DESC');
+        $wishlists->getSelect()
+            ->joinInner(
+                array('wishlist_item'=> Mage::getSingleton('core/resource')->getTableName('wishlist/item')),
+                'main_table.wishlist_id = wishlist_item.wishlist_id'
+            )
+            ->group('main_table.wishlist_id');
 
-        # We need to get all wishlist collection, and filter by:
-        # - empty collection -> exclude
-        # - default wishlist -> exclude
         $collections = [];
 
         foreach ($wishlists as $wishlist) {
 
-            # Excluding the default wishlist
-            if (Mage::helper('wishlist')->isWishlistDefault($wishlist)) {
-                continue;
-            }
-
             $collectionCover = $wishlist->getCover();
-            $collectionCloudCover = $wishlist->getCloudCover();
 
-            # Check empty wishlist and get product image
-            $collectionEmpty = true;
-            
-            $i=0;
-            foreach ($wishlist->getItemCollection() as $item) {
-                $collectionEmpty = false;
-                $product = Mage::getModel('catalog/product')->load($item->getProductId());
-                $collectionProductImage = $product->getImageUrl();
-                $i++;
-                
+            $items = $wishlist->getItemCollection()->setOrder('added_at', 'DESC');
 
-            }
-
-            if ($collectionEmpty) continue;
-            
-            #for filtering items in product should be more than 4
-            if ($i < 4) continue;
-
-
+            # for filtering items in product should be more than 4
+            if ($items->count() < 4) continue;
 
             $collectionName = $wishlist->getName();
 
@@ -85,10 +67,8 @@ extends Mage_Core_Controller_Front_Action
                 'id'            => $wishlist->getId(),
                 'customer_id'   => $wishlist->getCustomerId(),
                 'name'          => $collectionName,
-                'slug'          => Mage::getModel('catalog/product_url')->formatUrlKey($collectionName),
-                'cover'         => $collectionCover,
-                'cloud_cover'   => $collectionCloudCover,
-                'product_image' => $collectionProductImage,
+                'slug'          => $wishlist->getId().'-'.Mage::getModel('catalog/product_url')->formatUrlKey($collectionName),
+                'cover'         => $collectionCover
             ];
         }
 
