@@ -13,9 +13,7 @@ class Moxy_MoxySellerCenter_Model_Api extends Mage_Api_Model_Resource_Abstract
     private function getProductItem($orders, $productIds) {
         $orderItemArr = array();
 
-        $orders = $orders;
         foreach($orders as $order) {
-
             $orderItems = Mage::getModel('sales/order_item')->getCollection()->addFieldToFilter('order_id', $order->getId());
             foreach($orderItems as $item) {
                 if (in_array($item->getProductId(), $productIds)) {
