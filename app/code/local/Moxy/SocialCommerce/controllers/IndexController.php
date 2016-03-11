@@ -36,12 +36,11 @@ extends Mage_Core_Controller_Front_Action
         $wishlists = Mage::getModel('wishlist/wishlist')
             ->getCollection()
             ->addFilter('visibility', 1)
-            ->addFieldToFilter('name', array('neq' => 'NULL'))
+            ->addFieldToFilter('name', array('notnull' => true))
             ->addFieldToFilter('name', array('neq' => ' '))
-            ->addFieldToFilter('cover', array('neq' => 'NULL'));
+            ->addFieldToFilter('cover', array('notnull' => true));
         $faveWishlists = $wishlists;
-        $faveWishlists->addFieldToFilter('cover', array('neq' => 'NULL'))
-            ->setOrder('counter', 'DESC')
+        $faveWishlists->setOrder('counter', 'DESC')
             ->setPageSize(4);
         $wishlists->setOrder('updated_at', 'DESC');
         $wishlists->getSelect()
