@@ -764,9 +764,6 @@ fieldset[disabled] .navbar-inverse .btn-link:hover {
 	padding: 10px 0;
 	border-bottom: 1px solid #ccc
 }
-.in-block {
-	display: inline-block
-}
 .full-width {
 	width: 100% !important;
 }
@@ -3582,6 +3579,10 @@ p.exp-three-col
 {
 	margin-top: 10px;
 }
+.margin-right-8
+{
+	margin-right: 8px;
+}
 p.name-product
 {
 	max-height: 34px;
@@ -3708,4 +3709,6 @@ span.arrow_box:before {
 	 border: 2px solid #FF6682;
     padding: 10px;
     margin: 10px 0;
+=======
+>>>>>>> ORAMI-39 add shipping date information on product detail and checkout shipping method
 }

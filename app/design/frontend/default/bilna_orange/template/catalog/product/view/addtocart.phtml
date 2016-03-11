@@ -33,9 +33,41 @@
   $nextDay = date('d F Y', strtotime($orderDate . ' +1 day'));
   if ($_product->getExpressShipping()){
     if($orderHour<11){
-      echo "<div><p>Expressable on ".$orderDate."</p></div>";
+      $img = $this->getSkinUrl('images/') . 'VIP-SHIPMENT-ICON-GREEN.png';
+      echo "<div class='in-block container-express'>
+                  <img src='".$img."' class='in-block margin-right-8'  style='width:35px;'>
+                <div class='in-block'>
+                  <p class='bold'>Tersedia Pengiriman Ekspress!
+                    <span class='tool-box'>
+                      <span class='question'>?</span> 
+                      <span class='pops'>
+                        <span class='arrow_box in-block stay-float'>
+                          <span class='logo'>Selesaikan transaksi sebelum jam 11.00 WIB untuk terima produk hari ini. Pengiriman Express tersedia di <strong>JADETABEK</strong> khusus produk dengan icon <span class='in-tab'>
+                          <img src='".$img."'  style='width:12px;'></span>. tidak dapat digabungkan dengan produk tanpa ikon tersebut &amp; COD</span>
+                        </span>
+                    </span>
+                  </p>
+                <p>Terima pesanan tanggal ".$orderDate."</p>
+                </div>
+            </div>";
     }else{
-      echo "<div><p>Expressable on ".$nextDay."</p></div>";
+      $img = $this->getSkinUrl('images/') . 'VIP-SHIPMENT-ICON-GREEN.png';
+      echo "<div class='in-block container-express'>
+                  <img src='".$img."' class='in-block margin-right-8'  style='width:35px;'>
+                <div class='in-block'>
+                  <p class='bold'>Tersedia Pengiriman Ekspress!
+                    <span class='tool-box'>
+                      <span class='question'>?</span> 
+                      <span class='pops'>
+                        <span class='arrow_box in-block stay-float'>
+                          <span class='logo'>Pengiriman Express tersedia di <strong>JADETABEK</strong> khusus produk dengan icon <span class='in-tab'>
+                          <img src='".$img."'  style='width:12px;'></span>. tidak dapat digabungkan dengan produk tanpa ikon tersebut &amp; COD</span>
+                        </span>
+                    </span>
+                  </p>
+                <p>Terima pesanan tanggal ".$nextDay."</p>
+                </div>
+            </div>";
     }
   }
 ?>

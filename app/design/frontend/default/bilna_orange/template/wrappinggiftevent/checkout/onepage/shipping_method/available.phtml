@@ -38,7 +38,7 @@
             <ul>
             <?php $_sole = $_sole && count($_rates) == 1; foreach ($_rates as $_rate): ?>
                 <?php $shippingCodePrice[] = "'".$_rate->getCode()."':".(float)$_rate->getPrice(); ?>
-                <?php 
+                <?php
                 // if current shipping method is Express, check whether all the items can be express-shipped
                 if ( (strpos(strtolower($_rate->getCode()), 'express') !== false) || (strpos(strtolower($_rate->getCode()), 'ekspres') !== false) ):
                     if (!$this->showExpressShippingMethod())
@@ -54,15 +54,10 @@
                    <?php else: ?>
                         <?php if ($_sole) : ?>
                         <span class="no-display">
-                        	<input name="shipping_method" type="radio" value="<?php echo $_rate->getCode() ?>" data-text="<?php echo $this->escapeHtml($_rate->getMethodTitle()) ?>" data-type="<?php echo $_rate->getDeliveryId() ?>" id="s_method_<?php echo $_rate->getCode() ?>" checked="checked" class="shipping-type" />
+                            <input name="shipping_method" type="radio" value="<?php echo $_rate->getCode() ?>" data-text="<?php echo $this->escapeHtml($_rate->getMethodTitle()) ?>" data-type="<?php echo $_rate->getDeliveryId() ?>" id="s_method_<?php echo $_rate->getCode() ?>" checked="checked" class="shipping-type" />
                         </span>
                         <?php else: ?>
-
-                            <?php if($disableOption): ?>
-                                <input type="radio" disabled="disabled" class="radio shipping-type disabled"/>
-                            <?php else: ?>
-                                <input name="shipping_method" type="radio" value="<?php echo $_rate->getCode() ?>" data-text="<?php echo $this->escapeHtml($_rate->getMethodTitle()) ?>" data-type="<?php echo $_rate->getDeliveryId() ?>" id="s_method_<?php echo $_rate->getCode() ?>"<?php if($_rate->getCode()===$this->getAddressShippingMethod()) echo ' checked="checked"' ?> class="radio shipping-type"/>
-                            <?php endif; ?>
+                        <input name="shipping_method" type="radio" value="<?php echo $_rate->getCode() ?>" data-text="<?php echo $this->escapeHtml($_rate->getMethodTitle()) ?>" data-type="<?php echo $_rate->getDeliveryId() ?>" id="s_method_<?php echo $_rate->getCode() ?>"<?php if($_rate->getCode()===$this->getAddressShippingMethod()) echo ' checked="checked"' ?> class="radio shipping-type"/>
 
                         <?php if ($_rate->getCode() === $this->getAddressShippingMethod()): ?>
                         <script type="text/javascript">
@@ -73,9 +68,9 @@
                         <?php endif; ?>
 
                         <?php endif; ?>
-						<?php
-							//TODO: ini untuk shipping method
-						?>
+                        <?php
+                            //TODO: ini untuk shipping method
+                        ?>
                         <label for="s_method_<?php echo $_rate->getCode() ?>"><?php echo $this->escapeHtml($_rate->getMethodTitle()) ?>
                         <?php $_excl = $this->getShippingPrice($_rate->getPrice(), $this->helper('tax')->displayShippingPriceIncludingTax()); ?>
                         <?php $_incl = $this->getShippingPrice($_rate->getPrice(), true); ?>
@@ -84,7 +79,7 @@
                             (<?php echo $this->__('Incl. Tax'); ?> <?php echo $_incl; ?>)
                         <?php endif; ?>
                         </label>
-                        <?php 
+                        <?php
                         if ( (strpos(strtolower($_rate->getCode()), 'express') !== false) || (strpos(strtolower($_rate->getCode()), 'ekspres') !== false) )
                         {
                             $dateTime = Mage::getModel('core/date')->timestamp(time());
@@ -140,7 +135,7 @@
 <?php $_wrappingGiftEventLists = $this->getWrappingGiftEvent();?>
 
 <?php if(!empty($_wrappingGiftEventLists)): ?>
-<?php 
+<?php
 $wrappingEvent = $this->getAddressWrappingEvent();
 ?>
 
@@ -205,7 +200,7 @@ $wrappingEvent = $this->getAddressWrappingEvent();
         jQuery('input[type="radio"][name="wrapping[gift]"]').on('change', function() {
             jQuery('input[type=radio][name="wrapping[gift]"]').not(this).prop('checked', false);
         });
-        
+
         jQuery('input[type="checkbox"][name="wrapping_for_gift"]').trigger('change');
     });
 </script>
