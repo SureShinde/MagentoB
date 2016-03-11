@@ -65,12 +65,20 @@ $j(document).ready(function() {
     </div>
 </div>
 <?php 
- $customer = Mage::getSingleton('customer/session')->getCustomer();
- if(isset($customer) && !empty($customer)){
- 	$email = $customer->getEmail();// for email address
- }else{
- 	$email = "";
- }
+$customer = Mage::getSingleton('customer/session')->getCustomer();
+if(isset($customer) && !empty($customer)){
+	$email = $customer->getEmail();// for email address
+}else{
+	$email = "";
+}
+
+/*** ematic user email ***/
+$customer = Mage::getSingleton('customer/session')->getCustomer();
+if (isset ($customer) && !empty ($customer)) { $customer_email = $customer->getEmail(); } else { $customer_email = ""; }
+echo '<span id="ematicuseremail" class="hidden">'.$customer_email.'</span>';
+/*** END ematic user email ***/
+
+echo $this->getChildHtml('additionalHeader');   // ematic payload
 ?>
 <script type="text/javascript">
 jQuery(document).ready(function () {    
