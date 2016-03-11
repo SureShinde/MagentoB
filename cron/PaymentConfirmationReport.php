@@ -12,7 +12,7 @@
     $filename = Mage::getStoreConfig('bilna_paymentconfirmation/paymentconfirmation/file_email').rand(1000,9999).'.csv';
     $handle = fopen($filename,'w+');
     //print $handle;exit;
-    $date = Mage::getModel('core/date')->date('Y-m-d 00:00:00');
+    $date = Mage::getModel('core/date')->date('Y-m-d H:00:00');
     fwrite($handle,"Nomor Pesanan,Alamat Email,Jumlah yang Dibayar,Bayar ke Rekening,Tanggal Bayar,Nama Bank Asal,Nama Pengirim Sesuai Rekening,Komentar\n");
     while(true){
         $sendMail = Mage::getModel('Paymentconfirmation/payment')
