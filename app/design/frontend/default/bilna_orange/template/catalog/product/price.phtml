@@ -421,7 +421,9 @@
         <?php endif?>
     <?php endif; /* if ($this->getDisplayMinimalPrice() && $_minimalPrice && $_minimalPrice < $_finalPrice): */ ?>
     </div>
-
+    <script language="javascript">
+        setCollectionPrice(<?php echo $_id; ?>, <?php echo "'".$_coreHelper->currency($_finalPrice)."'" ?>);
+    </script>
 <?php else: /* if (!$_product->isGrouped()): */ ?>
     <?php
         $showMinPrice = $this->getDisplayMinimalPrice();
@@ -468,4 +470,7 @@
             </p>
         </div>
     <?php endif; /* if ($this->getDisplayMinimalPrice() && $_minimalPrice): */ ?>
+    <script language="javascript">
+        setCollectionPrice(<?php echo $_id; ?>, <?php echo "'".$_coreHelper->currency($_showPrice)."'" ?>);
+    </script>
 <?php endif; /* if (!$_product->isGrouped()): */ ?>

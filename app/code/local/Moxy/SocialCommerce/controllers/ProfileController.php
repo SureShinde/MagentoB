@@ -98,6 +98,7 @@ extends Mage_Core_Controller_Front_Action
             $pageTitle = $this->__('Collection Detail');
 
             $this->getLayout()->getBlock('head')->setTitle($pageTitle);
+            $this->getLayout()->getBlock('head')->setWishlist($wishlist);
 
             $this->getLayout()->getBlock('root')->setTemplate('page/1column.phtml');
 

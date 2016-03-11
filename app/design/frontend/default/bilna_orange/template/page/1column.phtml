@@ -38,6 +38,13 @@
 <body class="<?php echo $this->getCurrentMainCategoryActive(); ?><?php if ($this->getBodyClass()): echo $this->getBodyClass(); endif; ?>">
 <?php echo $this->getChildHtml('after_body_start') ?>
 <?php echo $this->getLayout()->createBlock('page/html')->setTemplate('page/html/mobile-left-menu.phtml')->toHtml(); ?>
+
+<!-- ematic user email -->
+<?php $customer = Mage::getSingleton('customer/session')->getCustomer(); ?>
+<?php if (isset ($customer) && !empty ($customer)) { $customer_email = $customer->getEmail(); } else { $customer_email = ""; } ?>
+<?php echo '<span id="ematicuseremail" class="hidden">'.$customer_email.'</span>'; ?>
+<!-- END ematic user email -->
+
 <div class="wrapper">
     <?php echo $this->getChildHtml('global_notices') ?>
     <div class="page">

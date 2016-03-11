@@ -31,23 +31,36 @@
  */
 
 ?>
+<?php $customer = Mage::getSingleton('customer/session')->getCustomer(); ?>
+<?php if (isset ($customer) && !empty ($customer)) { $customer_email = $customer->getEmail(); } else { $customer_email = ""; } ?>
+<?php echo '<span id="ematicuseremail" class="hidden">'.$customer_email.'</span>'; ?>
 <?php if ($this->getIsNeedToDisplaySideBar()):?>
 <div class="block block-cart">
     <?php $_cartQty = $this->getSummaryCount() ?>
     <div class="block-content">
+    	<?php $_numberItemsDisplayed = $this->getItemCount(); ?>
+		<?php $_items = $this->getQuote()->getAllItems(); ?>
+		<?php $itrNumberItemsDisplayed = 0; ?>
+		<?php $itemQty = 0; ?>
+		<?php foreach ($_items as $_item) { $parentId = $_item->getParentItemId(); if(empty($parentId)) {$itemQty++;} }?>
 	    <?php if ($_cartQty>0): ?>
-	            <?php if ($_cartQty<4): ?>
-	                <p class="amount"><?php echo $this->__('<a id="cart-item-qty" href="%s">%s</a> produk di Troli Anda', $this->getUrl('checkout/cart'), $_cartQty) ?></p>
-	            <?php else: ?>
-	                <p class="amount"><?php echo $this->__('Menampilkan 3 dari <a id="cart-item-qty" href="%s">%s</a> produk di Troli Anda', $this->getUrl('checkout/cart'), $_cartQty) ?></p>
-	            <?php endif ?>
+	        <?php if ($_cartQty<4): ?>
+	            <p class="amount"><?php echo $this->__('<a id="cart-item-qty" href="%s">%s</a> produk di Troli Anda', $this->getUrl('checkout/cart'), $_cartQty) ?></p>
+	        <?php else: ?>
+	            <p class="amount"><?php echo $this->__('Menampilkan 3 dari <a id="cart-item-qty" href="%s">%s</a> produk di Troli Anda', $this->getUrl('checkout/cart'), $_cartQty) ?></p>
+	        <?php endif ?>
 	    <?php endif ?>
-        <?php $_items = $this->getRecentItems() ?>
 	    <?php if(count($_items)): ?>
 	       	<ul id="cart-sidebar" class="mini-products-list">
-			        <?php foreach($_items as $_item): ?>
-			            <?php echo $this->getItemHtml($_item) ?>
-			        <?php endforeach; ?>
+		        <?php foreach($_items as $_item): ?>
+		        	<?php $parentId = $_item->getParentItemId(); ?>
+		        	<?php if(empty($parentId)): ?>
+			            <?php if($itrNumberItemsDisplayed < $_numberItemsDisplayed): ?>
+			            	<?php echo $this->getItemHtml($_item); ?>
+			        	<?php endif ?>
+			        	<?php $itrNumberItemsDisplayed++; ?>
+		        	<?php endif ?>
+		        <?php endforeach; ?>
 	        </ul>
 	        <script type="text/javascript">decorateList('cart-sidebar', 'none-recursive')</script>
 		<?php else: ?>
@@ -71,44 +84,9 @@
 		    <div class="actions">
                 <button type="button" title="<?php echo $this->__('Checkout') ?>" class="button btn-cart" onclick="setLocation('<?php echo $this->getUrl('checkout/cart')?>')"><span><span><?php echo $this->__('Lihat Troli') ?></span></span></button>
 		        <?php echo $this->getChildHtml('extra_actions') ?>
-		        <button type="button" title="<?php echo $this->__('Checkout') ?>" class="button btn-checkout" onclick="setLocation('<?php echo $this->getUrl('checkout/onepage/')?>')"><span><span><?php echo $this->__('Bayar') ?></span></span></button>
+		        <button type="button" title="<?php echo $this->__('Checkout') ?>" class="button btn-checkout" onclick="setLocation('<?php echo $this->getUrl('checkout/onepage/')?>');ecommerceCheckout0_buttonclicked();"><span><span><?php echo $this->__('Bayar') ?></span></span></button>
 		    </div>
 	    <?php endif ?>
     </div>
 </div>
 <?php endif;?>
-
-<script type="text/javascript">
-function ecommerceRemoveCart(name, sku, price, quantity, imageUrl, link) {
-    // alert("NEW_HURRY_CART"+name+" "+price+" "+quantity);
-    dataLayer.push({
-	  'event': 'removeFromCart',
-	  'ecommerce': {
-	    'remove': {                               // 'remove' actionFieldObject measures.
-	      'products': [{                          //  removing a product to a shopping cart.
-	        'name': name,
-            'id': sku,
-            'price': price,
-            'quantity': quantity,
-            'brandName': 'brand name',
-            'imageUrl': imageUrl,
-            'link': link
-	      }]
-	    }
-	  }
-	});
-
-	// ematics cart - prepare for logging
-    products = [{
-		'id': sku,
-        'price': price,
-        'quantity': quantity,
-        'name': name,
-        'brandName': 'brand name',
-        'imageUrl': imageUrl,
-        'link': link
-	}];
-	// ematics track items in cart to enable pre-abandonded cart overlays
-	ematics("log", "product", "cart", products);
-}
-</script>

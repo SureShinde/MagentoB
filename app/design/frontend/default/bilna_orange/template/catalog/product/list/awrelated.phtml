@@ -42,6 +42,7 @@
  * @var $this AW_Relatedproducts_Block_Relatedproducts
  */
 ?>
+<?php $_core_helper =  Mage::helper('core'); ?>
 <?php if($this->getEnabled() && count($this->getRelatedProductsCollection())): ?>
 <div class="aw-box aw-base-mini aw-mini-related-items block">
     <hr/>
@@ -53,7 +54,7 @@
         <?php foreach($this->getRelatedProductsCollection() as $_item): ?>
         <li class="<?php if($_item->isComposite() || !$_item->isSaleable()): ?> super-products<?php endif; ?>">
 			<div class="top_thumb_list_product">
-                     <a href="javascript:;" class="link-wishlist addToCollectionLink" onclick="showAddToCollectionDialog()" data-brand-name="<?php echo $_item->getAttributeText('brand'); ?>" data-image="<?php echo $this->helper('catalog/image')->init($_item, 'small_image')->resize(320 , 320); ?>" data-product-name="<?php echo $this->stripTags($_item->getName(), null, true); ?>" data-price="<?php echo 'Rp ' . number_format(round($_item->getFinalPrice()), 0, '', '.'); ?>" data-id="<?php echo $_item->getId(); ?>"><i class="fa fa-heart"></i></a>
+                     <a id="collection-price-<?php echo $_item->getId(); ?>" t="javascript:;" class="link-wishlist addToCollectionLink" onclick="showAddToCollectionDialog()" data-brand-name="<?php echo $_item->getAttributeText('brand'); ?>" data-image="<?php echo $this->helper('catalog/image')->init($_item, 'small_image')->resize(320 , 320); ?>" data-product-name="<?php echo $this->stripTags($_item->getName(), null, true); ?>" data-price="<?php echo $_core_helper->currency($_item->getFinalPrice(), true, false); ?>" data-id="<?php echo $_item->getId(); ?>"><i class="fa fa-heart"></i></a>
 				<div class="product-images">
 					<a href="<?php echo $_item->getProductUrl() ?>"><img class="lazy" data-src="<?php echo $this->helper('catalog/image')->init($_item, 'thumbnail')->resize(152) ?>" alt="<?php echo $this->htmlEscape($_item->getName()) ?>" /></a>
 				</div>

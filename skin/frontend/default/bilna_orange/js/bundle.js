@@ -87,6 +87,7 @@ Product.Bundle.prototype = {
 
     reloadPrice: function() {
         var calculatedPrice = 0;
+        var collectionPrice = 0;
         var dispositionPrice = 0;
         var includeTaxPrice = 0;
         for (var option in this.config.selected) {
@@ -96,12 +97,14 @@ Product.Bundle.prototype = {
                     calculatedPrice += Number(prices[0]);
                     dispositionPrice += Number(prices[1]);
                     includeTaxPrice += Number(prices[2]);
+                    collectionPrice += Number(prices[0]);
                 }
             }
         }
 
         var event = $(document).fire('bundle:reload-price', {
             price: calculatedPrice,
+            collectionPrice: collectionPrice,
             priceInclTax: includeTaxPrice,
             dispositionPrice: dispositionPrice,
             bundle: this
@@ -109,6 +112,7 @@ Product.Bundle.prototype = {
         if (!event.noReloadPrice) {
             optionsPrice.specialTaxPrice = 'true';
             optionsPrice.changePrice('bundle', calculatedPrice);
+            optionsPrice.changePrice('collection', collectionPrice);
             optionsPrice.changePrice('nontaxable', dispositionPrice);
             optionsPrice.changePrice('priceInclTax', includeTaxPrice);
             optionsPrice.reload();

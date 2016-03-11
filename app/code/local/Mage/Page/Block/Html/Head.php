@@ -34,6 +34,8 @@
  */
 class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
 {
+    private $coverImage = null;
+
     /**
      * Initialize template
      *
@@ -593,4 +595,40 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
         return $this->getData('post');
     }
         /*End Blog Function adding by andi*/
+
+    public function setWishlist($wishlist)
+    {
+        $this->_data['wishlist'] = $wishlist;
+        return $this;
+    }
+
+    public function getWishlist()
+    {
+        return $this->_data['wishlist'];
+    }
+
+    public function getWishlistCoverImage()
+    {
+        if ($this->coverImage) {
+            return $this->coverImage;
+        } else {
+            return $this->renderCoverImage();
+        }
+    }
+
+    private function renderCoverImage()
+    {
+        $this->coverImage  = $this->getSkinUrl('images') . '/orami_collection_empty.png';
+        if ($this->_data['wishlist']['cover']) {
+            $this->coverImage = $this->getUrl('media/collection-cover') . $this->_data['wishlist']['cover'];
+        } else {
+            $productCollection = $this->_data['wishlist']->getItemCollection();
+            $firstItem = $productCollection->getFirstItem();
+            if ($firstItem->getProductId()) {
+                $product = Mage::getModel('catalog/product')->load($firstItem->getProductId());
+                $this->coverImage = $product->getImageUrl();
+            }
+        }
+        return $this->coverImage;
+    }
 }
