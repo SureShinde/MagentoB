@@ -37,7 +37,6 @@
     fclose($handle);
     $html .= "</TABLE></BODY></HTML>";
     $html = 'PFA';
-    Mage :: app("default");
     $mail = new Zend_Mail();
     $mail->setType(Zend_Mime::MULTIPART_RELATED);
     $mail->setBodyHtml($html);
@@ -52,8 +51,4 @@
     $file ->filename    = sprintf('payment_confirmation_list_%s.csv',Mage::getModel('core/date')->date('YmdH', strtotime($date." -1 hours")));
     $mail->send();
     @unlink($filename);
-    //$sendMail->cronEmailPaymentconfirmation();
-    //print_r($sendMail);
-    //$sendEmail = Mage::getModel('whitelistemail/processing');
-    //$sendEmail->cronEmailWhitelist();
-
+    
