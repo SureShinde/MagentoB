@@ -9,8 +9,7 @@
     $i = 1;
     $oldId = 0;
     $stop = 0;
-    $filename = rand(1000,9999).'.csv';
-    //print $filename;
+    $filename = Mage::getStoreConfig('bilna_paymentconfirmation/paymentconfirmation/file_email').rand(1000,9999).'.csv';
     $handle = fopen($filename,'w+');
     //print $handle;exit;
     $date = Mage::getModel('core/date')->date('Y-m-d 00:00:00');
