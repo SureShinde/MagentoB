@@ -7,12 +7,9 @@
 
 ini_set('memory_limit', '2046M');
 
-use Pheanstalk\Pheanstalk;
-
 require_once dirname(__FILE__) . '/../abstract.php';
 
 class Bilna_Worker_Solr_GenerateProduct extends Bilna_Worker_Abstract {
-    protected $_pheanstalk;
     protected $_productHelper;
     protected $_productApi;
     
@@ -63,16 +60,6 @@ class Bilna_Worker_Solr_GenerateProduct extends Bilna_Worker_Abstract {
     
     protected function _getType() {
         return $this->_type;
-    }
-
-    protected function _queueConnect() {
-        $beanstalkdConfig = Mage::getStoreConfig('bilna_queue/beanstalkd_settings');
-        
-        if (!$this->_isActive($beanstalkdConfig)) {
-            $this->_critical("Beanstalkd is not active");
-        }
-        
-        $this->_pheanstalk = new Pheanstalk($beanstalkdConfig['hostname']);
     }
 
     protected function _collect() {
@@ -132,7 +119,7 @@ class Bilna_Worker_Solr_GenerateProduct extends Bilna_Worker_Abstract {
 
     protected function _queuePut($data) {
         try {
-            $this->_pheanstalk->useTube($this->_getTube())->put($this->_prepareData($data));
+            $this->_queueSvc->useTube($this->_getTube())->put($this->_prepareData($data));
             
             return true;
         }
@@ -147,22 +134,22 @@ class Bilna_Worker_Solr_GenerateProduct extends Bilna_Worker_Abstract {
 
     protected function _process() {
         try {
-            $this->_pheanstalk->watch($this->_getTube());
-            $this->_pheanstalk->ignore($this->_tubeIgnore);
+            $this->_queueSvc->watch($this->_getTube());
+            $this->_queueSvc->ignore($this->_tubeIgnore);
             $x = 1;
 
-            while ($job = $this->_pheanstalk->reserve()) {
+            while ($job = $this->_queueSvc->reserve()) {
                 $data = $this->_parseData($job->getData());
                 $productId = $this->_getProductId($data);
                 $this->_logProgress("#{$productId} Received from queue");
                 $product = $this->_getProduct($data);
                 
                 if ($this->_setQuery($product)) {
-                    $this->_pheanstalk->delete($job);
+                    $this->_queueSvc->delete($job);
                     $this->_logProgress("#{$productId} Insert to DB => success");
                 }
                 else {
-                    $this->_pheanstalk->bury($job);
+                    $this->_queueSvc->bury($job);
                     $this->_logProgress("#{$productId} Insert to DB => failed");
                 }
                 
@@ -178,12 +165,8 @@ class Bilna_Worker_Solr_GenerateProduct extends Bilna_Worker_Abstract {
                 $x++;
             }
         }
-        catch (Pheanstalk\Exception $ex) {
-            $this->_pheanstalk->bury($job);
-            $this->_critical($ex->getMessage());
-        }
         catch (Exception $ex) {
-            $this->_pheanstalk->bury($job);
+            $this->_queueSvc->bury($job);
             $this->_critical($ex->getMessage());
         }
     }
@@ -213,28 +196,6 @@ class Bilna_Worker_Solr_GenerateProduct extends Bilna_Worker_Abstract {
     protected function _productModule() {
         $this->_productHelper = Mage::helper('catalog/product');
         $this->_productApi = Mage::getModel('bilna_rest/api2_product_rest_admin_v1');
-    }
-
-    protected function _prepareData($data) {
-        if (is_array($data) || is_object($data)) {
-            $data = json_encode($data);
-        }
-        
-        return $data;
-    }
-    
-    protected function _parseData($data) {
-        if ($this->_isJson($data)) {
-            return json_decode($data, true);
-        }
-        
-        return $data;
-    }
-    
-    protected function _isJson($data) {
-        json_decode($data);
-        
-        return (json_last_error() == JSON_ERROR_NONE);
     }
 
     protected function _critical($message) {
