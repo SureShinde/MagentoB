@@ -316,10 +316,14 @@ $_core_helper =  Mage::helper('core');
                     <div class="clearfix"></div>
                     <div> 
                       <div class="price-info">
-                        <div class="price-box quick-view-price-box" style="text-align: left;">
-                        <span class="regular-price" id="product-price-<?php echo $productId; ?>">
-                          <span class="price quick-price opensans" style=""><?php echo $productFinalPriceFormatted; ?></span>                                    
-                        </span>
+                        <div class="price-box quick-price quick-view-price-box" style="text-align: left;">
+                          <?php if ($_product->canConfigure()) {
+                              $productBlock = $this->getLayout()->createBlock('catalog/product_price');
+                                echo $productBlock->getPriceHtml($_product);
+                              } else
+                              echo '<span class="regular-price" id="product-price-<?php echo $productId; ?>"><div class="price-box"><span class="price opensans">'.$productFinalPriceFormatted.'</span></div></span>'; 
+                            ?>                                   
+                        
 
                         <!-- showing product rating --> 
                         <?php $storeId = Mage::app()->getStore()->getId(); 
@@ -532,7 +536,12 @@ $_core_helper =  Mage::helper('core');
       </div>
       <div class="price-box">
         <input type="hidden" class="final-price-<?php echo $productId; ?>" value="<?php echo $productFinalPrice; ?>" />
-        <?php if ($productSpecialPrice && $productSpecialPrice < $productRegularPrice && $productSpecialDateIsValid) : ?>
+        <?php if ($_product->canConfigure()) : ?>
+          <?php 
+            $productBlock = $this->getLayout()->createBlock('catalog/product_price');
+            echo $productBlock->getPriceHtml($_product); 
+          ?>
+        <?php elseif ($productSpecialPrice && $productSpecialPrice < $productRegularPrice && $productSpecialDateIsValid) : ?>
         <div class="special-price in-block full-width">
           <p class="old-price">
             <span class="price size12" id="old-price-<?php echo $productId; ?>"><?php echo $productRegularPriceFormatted; ?></span>
