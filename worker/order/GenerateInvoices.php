@@ -19,18 +19,18 @@ class Bilna_Worker_Order_GenerateInvoices extends Bilna_Worker_Order_Order {
                 $dataArr = json_decode($job->getData(), true);
                 $dataObj = json_decode($job->getData());
                 
-                $order = Mage::getModel('sales/order')->loadByIncrementId($dataObj->order_id);
-                $orderNo = $order->getIncrementId();
+                $incrementId = $dataObj->order_id;
+                $order = Mage::getModel('sales/order')->loadByIncrementId($incrementId);
                 $paymentCode = $order->getPayment()->getMethodInstance()->getCode();
                 $status = Mage::getModel('paymethod/vtdirect')->updateOrder($order, $paymentCode, $dataObj);
                 
                 if ($status && $this->queueOrderPlaceForNetsuite($order, $paymentCode)) {
                     $this->_queueSvc->delete($job);
-                    $this->_logProgress("#{$orderNo} Process Invoice => success");
+                    $this->_logProgress("#{$incrementId} Process Invoice => success");
                 }
                 else {
                     $this->_queueSvc->bury($job);
-                    $this->_logProgress("#{$orderNo} Process Invoice => failed");
+                    $this->_logProgress("#{$incrementId} Process Invoice => failed");
                 }
             }
         }
