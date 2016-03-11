@@ -33,16 +33,18 @@ extends Mage_Core_Controller_Front_Action
         # UGC Collections, display user's collections here
         $curPage = (int)$this->getRequest()->getParam('p');
 
-        # -TODO-
-        # Below line will retrieve ALL visible wishlists, including EMPTY wishlists.
-        # Should find a way to exclude empty wishlists from collections and empty name
         $wishlists = Mage::getModel('wishlist/wishlist')
             ->getCollection()
             ->addFilter('visibility', 1)
             ->addFieldToFilter('name', array('neq' => 'NULL'))
             ->addFieldToFilter('name', array('neq' => ' '))
-            ->addFieldToFilter('cover', array('neq' => 'NULL'))
-            ->setOrder('updated_at', 'DESC');
+            ->addFieldToFilter('cover', array('neq' => 'NULL'));
+        $faveWishlists = $wishlists;
+        $faveWishlists->addFieldToFilter('cover', array('neq' => 'NULL'))
+            ->addFieldToFilter('view', '1')
+            ->setOrder('counter', 'DESC')
+            ->setPageSize(4);
+        $wishlists->setOrder('updated_at', 'DESC');
         $wishlists->getSelect()
             ->joinInner(
                 array('wishlist_item'=> Mage::getSingleton('core/resource')->getTableName('wishlist/item')),
@@ -91,6 +93,7 @@ extends Mage_Core_Controller_Front_Action
 
         # Assign profile and customer data
         $block->setWishlists($collections);
+        $block->setFaveWishlists($faveWishlists);
 
         $block->setCurPage($curPage);
         $block->setLastPageNumber($lastPageNumber);

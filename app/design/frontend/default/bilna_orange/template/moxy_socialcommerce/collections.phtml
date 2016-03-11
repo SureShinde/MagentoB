@@ -1,5 +1,6 @@
 <?php
 $wishlists = $this->getWishlists();
+$faveWishlists = $this->getFaveWishlists();
 $curPage = $this->getCurPage();
 $lastPageNumber = $this->getLastPageNumber();
 ?>
@@ -41,8 +42,7 @@ $lastPageNumber = $this->getLastPageNumber();
                 </div>
                 <div class="cg-container">
                 <?php 
-                    $rows = Mage::getModel('wishlist/wishlist')->getCollection()->addFieldToFilter('visibility','1')->addFieldToFilter('view','1')->addFieldToFilter('cover', array('neq' => 'NULL'))->setOrder('counter', 'DESC')->setPageSize(4);
-                    foreach ($rows as $wishlist) {
+                    foreach ($faveWishlists as $wishlist) {
                         $items = $wishlist->getItemCollection();
                         if ($items->count() < 4) continue;
                         $collectionName = $wishlist['name'];
@@ -56,8 +56,6 @@ $lastPageNumber = $this->getLastPageNumber();
                                 <img src="<?php echo str_replace('en/', '', $wishlist['cover']); ?>" width="275" height ="275" class="img-collection collection-img">
                                 <?php elseif ($wishlist['cover'] && strpos($wishlist['cover'],'socialcommerce') == false) : ?>
                                 <img src="<?php echo str_replace('en/', '', $this->getUrl('media/collection-cover').$wishlist['cover']); ?>" width="275" height ="275" class="img-collection collection-img">
-                                <?php else: ?>
-                                    <img src="<?php echo $this->getSkinUrl('images') . '/orami_collection_empty.png'; ?>" width = "100%" class="img-collection">
                                 <?php endif; ?>
                             </a>
                             <div id="explanation"></div>
@@ -141,8 +139,6 @@ $lastPageNumber = $this->getLastPageNumber();
                                                     <img src="<?php echo str_replace('en/', '', $wishlist['cover']); ?>" width="275" height ="275" class="img-collection collection-img">
                                                     <?php elseif ($wishlist['cover'] && strpos($wishlist['cover'],'socialcommerce') == false) : ?>
                                                     <img src="<?php echo str_replace('en/', '', $this->getUrl('media/collection-cover').$wishlist['cover']); ?>" width="275" height ="275" class="img-collection collection-img">
-                                                    <?php else: ?>
-                                                        <img src="<?php echo $this->getSkinUrl('images') . '/orami_collection_empty.png'; ?>" width = "100%" class="img-collection">
                                                     <?php endif; ?>
                                                 </a>
                                                 <div class="cg-col-xs-12 collection-title">
@@ -195,4 +191,3 @@ function closeTo() {
     jQuery('#howto').fadeOut('fast');
 }
 </script>
-
