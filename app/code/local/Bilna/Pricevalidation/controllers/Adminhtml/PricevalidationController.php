@@ -1,4 +1,7 @@
 <?php
+define('STATUS_RUNNING', 'running');
+define('STATUS_FINISHED', 'finished');
+
 class Bilna_Pricevalidation_Adminhtml_PricevalidationController extends Mage_Adminhtml_Controller_Action
 {
     private $silver = 'silver reseller';
@@ -163,9 +166,8 @@ class Bilna_Pricevalidation_Adminhtml_PricevalidationController extends Mage_Adm
         $this->silverDiscount = Mage::getStoreConfig('bilna_pricevalidation/pricevalidation_disc/silver')/100;
         $this->platinumDiscount = Mage::getStoreConfig('bilna_pricevalidation/pricevalidation_disc/platinum')/100;
 
-        $started = date('Y-m-d H:i:s');
-        $state = 'running';
-        $this->__updateRunningStatus($priceValidation, $started, $state);
+        $started = Mage::getModel('core/date')->date('Y-m-d H:i:s');
+        $this->__updateRunningStatus($priceValidation, $started, STATUS_RUNNING);
 
         $priceValidation->load($this->getRequest()->getParam('profile_id'));
         $dataRun = $priceValidation->getData();
@@ -602,7 +604,7 @@ class Bilna_Pricevalidation_Adminhtml_PricevalidationController extends Mage_Adm
             }
             $totalRow = $i;
         }
-        $ended = date('Y-m-d H:i:s');
+        $ended = Mage::getModel('core/date')->date('Y-m-d H:i:s');
 
         if (count($errors) > 1) {
             $errFileName = explode('.', $dataRun['filename']);
@@ -643,7 +645,7 @@ class Bilna_Pricevalidation_Adminhtml_PricevalidationController extends Mage_Adm
             /* Email Section End */
         }
 
-        $this->__updateRunningStatus($priceValidation, $ended, 'finished');
+        $this->__updateRunningStatus($priceValidation, $ended, STATUS_FINISHED);
 
         $dataLog = array(
             'profile_id' => $this->getRequest()->getParam('profile_id'),
