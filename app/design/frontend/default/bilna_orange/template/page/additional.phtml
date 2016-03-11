@@ -1,0 +1,162 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+/**
+ * @var Mage_Page_Block_Html_Header $this
+ */
+?>
+
+<!-- ematic cart payload -->
+<?php $_items = Mage::helper('checkout/cart')->getQuote()->getAllItems(); ?>
+<?php $itemQty = Mage::helper('checkout/cart')->getItemsCount(); ?>
+<?php foreach($_items as $_item): ?>
+    <?php $parentId = $_item->getParentItemId(); ?>
+    <?php if(empty($parentId)): ?>
+        <?php echo '<span id="ematiccart" class="hidden">' . $_item->getProduct()->getName() . $_item->getTypeInstance() . '|' . $_item->getProduct()->getSku() . '|' . $_item->getProduct()->getPrice() . '|' . Mage::helper('core')->currency($_item->getProduct()->getPrice(), true, false) . '|' . $_item->getQty() . '|' . $_item->getProduct()->getImageUrl() . '|' . $_item->getProduct()->getProductUrl() . '</span>' ?>
+        <?php if($itrNumberItemsDisplayed < $_numberItemsDisplayed): ?>
+            <?php echo $this->getItemHtml($_item); ?>
+        <?php endif ?>
+        <?php $itrNumberItemsDisplayed++; ?>
+    <?php endif ?>
+<?php endforeach; ?>
+<!-- END ematic cart payload -->
+
+<!-- ecommerce Google Analytics & Ematic -->
+<script type="text/javascript">
+var temp_cartQty = jQuery("span#ematiccart").length;
+function ecommerceCheckout0_buttonclicked() {
+    var temp_container = {
+        'event': 'checkout',
+        'ecommerce': {
+          'checkout': {
+            'actionField': {
+                'step' : 1,
+                'list' : 'browsing'
+            },
+            'products': []
+         }
+       }
+    }
+
+    // ematics cart - retrieve items from cart
+    var temp_cart = [];
+    var temp_item = "";
+    var index_removeditem = "";
+    for (var itr=0; itr < temp_cartQty; itr++) {
+        temp_item = jQuery("span#ematiccart").eq(itr).text();
+        temp_cart[itr] = temp_item.split("|");
+    }
+
+    // ematics cart - prepare for logging
+    if (temp_cartQty > 0) {         // at least 1 item in cart
+        products = [
+        <?php for($i=0; $i<$itemQty; $i++) {
+            echo "{'name' : temp_cart[".$i."][0],";
+            echo "'id' : temp_cart[".$i."][1],";
+            echo "'price' : temp_cart[".$i."][3],";
+            echo "'quantity' : temp_cart[".$i."][4],";
+            echo "'brandName' : 'brand name',";
+            echo "'imageUrl' : temp_cart[".$i."][5],";
+            echo "'link' : temp_cart[".$i."][6]}";if($i != $itemQty-1) {echo ",";}
+        } 
+        ?>
+        ];
+
+        // ematics track checkout
+        ematics("log", "product", "checkout", products);
+
+        // universal analytics
+        temp_container.ecommerce.checkout.products.push(
+            <?php for($i=0; $i<$itemQty; $i++) {
+                echo "{'name' : temp_cart[".$i."][0],";
+                echo "'sku' : temp_cart[".$i."][1],";
+                echo "'price' : temp_cart[".$i."][2],";
+                echo "'quantity' : temp_cart[".$i."][4],";
+                echo "'brandName' : 'brand name',";
+                echo "'imageUrl' : temp_cart[".$i."][5],";
+                echo "'link' : temp_cart[".$i."][6]}";if($i != $itemQty-1) {echo ",";}
+            } 
+            ?>
+            );
+        dataLayer.push(temp_container);
+    }
+}
+
+function ecommerceRemoveCart(name, sku, price, quantity, imageUrl, link) {
+    dataLayer.push({
+      'event': 'removeFromCart',
+      'ecommerce': {
+        'remove': {                               // 'remove' actionFieldObject measures.
+          'products': [{                          //  removing a product to a shopping cart.
+            'name': name,
+            'id': sku,
+            'price': price,
+            'quantity': quantity,
+            'brandName': 'brand name',
+            'imageUrl': imageUrl,
+            'link': link
+          }]
+        }
+      }
+    });
+
+    // ematics cart - retrieve items from cart
+    var temp_cart = [];
+    var temp_item = "";
+    var index_removeditem = "";
+    for (var itr=0; itr < <?php echo $itemQty ?>; itr++) {
+        temp_item = jQuery("span#ematiccart").eq(itr).text();
+        if (temp_item.indexOf(sku) == -1) {     // item that not removed
+            temp_cart[itr] = temp_item.split("|");
+        }
+        else {      // removed item
+            index_removeditem = itr;
+        }
+    }
+
+    // trim empty array because removed item
+    temp_cart = temp_cart.filter(function(v){return v!==''});
+
+    // ematics cart - prepare for logging
+    if (temp_cartQty > 0) {         // at least 1 item in cart
+        products = [
+        <?php for($i=0; $i<$itemQty-1; $i++) {
+            echo "{'name' : temp_cart[".$i."][0],";
+            echo "'id' : temp_cart[".$i."][1],";
+            echo "'price' : temp_cart[".$i."][3],";
+            echo "'quantity' : temp_cart[".$i."][4],";
+            echo "'brandName' : 'brand name',";
+            echo "'imageUrl' : temp_cart[".$i."][5],";
+            echo "'link' : temp_cart[".$i."][6]}";if($i != $itemQty-2) {echo ",";}
+        } 
+        ?>
+        ];
+
+        // ematics track items in cart to enable pre-abandonded cart overlays
+        ematics("log", "product", "cart", products);
+    }
+}
+</script>
+<!-- END ecommerce Google Analytics & Ematic -->

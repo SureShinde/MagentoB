@@ -55,7 +55,7 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
                 $quoteItems = $quote->getAllItems();
                 $item_ids = array ();
 
-                foreach ($quote_items as $item) {
+                foreach ($quoteItems as $item) {
                     $item_ids[] = $item->getProductId();
                 }
 
@@ -132,8 +132,8 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
             }
 
             if ($order) {
-                //- for FDS (sementara di disabled)
-                //Mage::dispatchEvent('checkout_type_onepage_save_order_after', array ('order' => $order, 'quote' => $quote));
+                //- for FDS
+                Mage::dispatchEvent('checkout_type_onepage_save_order_after', array ('order' => $order, 'quote' => $quote));
 
                 try {
                     $order->sendNewOrderEmail();
@@ -170,8 +170,9 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
                     'approval_code' => $charge->approval_code,
                     'created_at'    => date('Y-m-d H:i:s')
                 );
-
-                $pheanstalk = new Pheanstalk('127.0.0.1');
+                
+                $hostname = Mage::getStoreConfig('bilna_queue/beanstalkd_settings/hostname');
+                $pheanstalk = new Pheanstalk($hostname);
                 $pheanstalk
                   ->useTube('invoice')
                   ->put(json_encode($setData));
@@ -212,7 +213,9 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
             $customerPoints = Mage::getModel('points/summary')->loadByCustomer($customer)->getPoints();
 
             if ($customerPoints < $pointsAmount || $limitedPoints < $pointsAmount || !Mage::helper('points')->isAvailableToRedeem($pointsAmount)) {
-                Mage::throwException('Incorrect points amount');
+                if($limitedPoints < $pointsAmount && !$quote->getCouponCode()) {
+                    Mage::throwException('Incorrect points amount');
+                }
             }
 
             $amountToSubtract = -$pointsAmount;
@@ -255,7 +258,9 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
                     $limitedPoints < $pointsAmount ||
                     !Mage::helper('points')->isAvailableToRedeem($pointsAmount)
             ) {
-                Mage::throwException('Incorrect points amount');
+                if($limitedPoints < $pointsAmount && !$quote->getCouponCode()) {
+                    Mage::throwException('Incorrect points amount');
+                }
             }
 
         }

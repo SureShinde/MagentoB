@@ -425,6 +425,9 @@ Validation.addAllThese([
                 return Validation.get('IsEmpty').test(v)
                     || (!isNaN(parseNumber(v)) && /^\s*-?\d*(\.\d*)?\s*$/.test(v));
             }],
+    ['validate-username', 'Only letters (a-z), numbers (0-9), periods (.), dashs (-), and underscores (_) are allowed', function(v) {
+                return /^[a-zA-Z0-9_.-]+$/.test(v);
+            }],
     ['validate-number-range', 'The value is not within the specified range.', function(v, elm) {
                 if (Validation.get('IsEmpty').test(v)) {
                     return true;

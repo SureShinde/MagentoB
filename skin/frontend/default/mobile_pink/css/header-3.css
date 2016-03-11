@@ -42,7 +42,7 @@
 }
 .header .quick-access a.link-myaccount-mobile{
     margin: 10px 5px 10px 10px;
-    background: #EE5191;
+    background: #ff6c6c;
     color: #fff;
     border-radius: 20px;
     font-size: 1em;
@@ -246,7 +246,7 @@
 }
 .header .second_button_left_menu .title_belanja p{
     padding: 10px 10px 15px;
-    border-bottom: 5px solid #EE5191;
+    border-bottom: 5px solid #ff6c6c;
 }
 .header .second_button_left_menu .direktori_belanja{
     float: right;
@@ -461,7 +461,7 @@
     display: block;
     left: 275px;
     width: 0;
-    top: 70px;
+    top: 67px;
     bottom: 0;
     clear: both;
     position: fixed;
@@ -477,7 +477,7 @@
     width: 232px;
     right: 42px;
     left: 58px;
-    top: 70px;
+    top: 67px;
     bottom: 0;
     z-index: 99;
     clear: both;
@@ -497,7 +497,7 @@
     left: 0;
     visibility: hidden;
     height: 100%;
-    top: 70px;
+    top: 67px;
     background: #000;
     opacity: 0;
     -webkit-transition:All 0.2s ease-in-out;
@@ -618,4 +618,3 @@
     padding: 10px;
     line-height: 1.2em;
 }
-

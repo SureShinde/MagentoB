@@ -42,6 +42,7 @@
  * @var $this AW_Relatedproducts_Block_Relatedproducts
  */
 ?>
+<?php $_core_helper =  Mage::helper('core'); ?>
 <?php if($this->getEnabled() && count($this->getRelatedProductsCollection())): ?>
 <div class="aw-box aw-base-mini aw-mini-related-items aw-mini-related-cart block">
     <div class="head">
@@ -52,13 +53,13 @@
             <?php foreach($this->getRelatedProductsCollection() as $_item): ?>
             <li<?php if($_item->isComposite() || !$_item->isSaleable()): ?> class="super-products"<?php endif; ?>>
                 <div class="product-images">
-                     <a class="coll-quick addToCollectionLink coll-quick-top" onclick="showAddToCollectionDialog()" href="javascript:;"
+                     <a id="collection-price-<?php echo $_item->getId(); ?>" class="coll-quick addToCollectionLink coll-quick-top" onclick="showAddToCollectionDialog()" href="javascript:;"
                 data-brand-name="<?php echo $brand; ?>"
-                data-image="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(320, 320); ?>"
-                data-product-name="<?php echo $this->stripTags($_product->getName(), null, true); ?>"
-                data-price="<?php echo 'Rp. ' . number_format($_product->getPrice(), 0, '', '.'); ?>"
+                data-image="<?php echo $this->helper('catalog/image')->init($_item, 'small_image')->resize(320, 320); ?>"
+                data-product-name="<?php echo $this->stripTags($_item->getName(), null, true); ?>"
+                data-price="<?php echo $_core_helper->currency($_item->getFinalPrice(), true, false); ?>"
                 data-merchant = "<?php echo ($merchant) ? 'dijual oleh ' . $merchant : ''; ?>"
-                data-id="<?php echo $_product->getId(); ?>"
+                data-id="<?php echo $_item->getId(); ?>"
                 ><i class="fa fa-heart"></i></a>
                     <a href="<?php echo $_item->getProductUrl() ?>"><img src="<?php echo $this->helper('catalog/image')->init($_item, 'thumbnail')->resize(50) ?>" alt="<?php echo $this->htmlEscape($_item->getName()) ?>" width="50" height="50" /></a>
                 </div>

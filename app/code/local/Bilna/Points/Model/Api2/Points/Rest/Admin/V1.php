@@ -9,6 +9,10 @@
  */
 class Bilna_Points_Model_Api2_Points_Rest_Admin_V1 extends Bilna_Points_Model_Api2_Points_Rest
 {
+    /**
+     * "Minimum reward points balance to be available to redeem" from system config
+     */
+    const MINIMUM_POINTS_AMOUNT_TO_REDEEM = 'points/general/minimum_points_amount_for_spend';
 
     protected function _retrieve()
     {
@@ -46,13 +50,17 @@ class Bilna_Points_Model_Api2_Points_Rest_Admin_V1 extends Bilna_Points_Model_Ap
         } catch (Mage_Core_Exception $e) {
                 $this->_error($e->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
         }
-
+        
+        $minimumpoints = Mage::getStoreConfig(self::MINIMUM_POINTS_AMOUNT_TO_REDEEM, $storeId);
+        
         return array(
             'is_available'      => $isAvailable,
             'canusewithcoupon'  => $canUseWithCoupon,
             'moneyforpoints'    => $_moneyForPoints,
             'moneyforpoints_int'=> $moneyForPoints,
-            'limited_points'    => $limitedPoints
+            'limited_points'    => $limitedPoints, 
+            'minimum_points_amount_for_spend' => Mage::app()->getStore()->convertPrice($minimumpoints, true), 
+            'minimum_points_amount_for_spend_int' => $minimumpoints
         );
 
     }

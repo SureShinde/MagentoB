@@ -34,6 +34,9 @@ $j(document).ready(function() {
         $j("img.lazy, .wrap-banner img:not(.image-slider), .warp-banner img").after('<div class="loader"><img class="loader-img" src="<?php echo Mage::getBaseUrl(); ?>skin/frontend/base/default/images/loading.gif"></div>');
 });
 </script>
+
+<?php echo $this->getChildHtml('additionalHeader'); ?>
+
 <div class="header-container">
     <?php echo $this->getLayout()->createBlock('page/html')->setTemplate('page/html/back-top.phtml')->toHtml(); ?>
     
@@ -44,7 +47,7 @@ $j(document).ready(function() {
                 <span class="clicked fa fa-times"></span>
             </a>
             <a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="logo"><strong><?php echo $this->getLogoAlt() ?></strong>
-                <img src="<?php echo $this->getSkinUrl(); ?>images/2016-01-15-mobile_2.png" alt="<?php echo $this->getLogoAlt() ?>" />
+                <img src="<?php echo $this->getLogoSrc() ?>" alt="<?php echo $this->getLogoAlt() ?>" />
             </a>
 
             <div class="quick-access">
@@ -100,6 +103,9 @@ $j(document).ready(function() {
  }else{
  	$email = "";
  }
+
+// ematic user email for API calling
+echo '<span id="ematicuseremail" class="hidden">'.$email.'</span>';
 ?>
 <script type="text/javascript">
 jQuery(document).ready(function () {    
