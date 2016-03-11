@@ -310,9 +310,8 @@ $_core_helper =  Mage::helper('core');
                       <div class="price-info">
                         <div class="price-box quick-price quick-view-price-box" style="text-align: left;">
                           <?php if ($_product->canConfigure()) {
-                              $_productx = Mage::getModel('catalog/product')->load($_product->getId());
                               $productBlock = $this->getLayout()->createBlock('catalog/product_price');
-                                echo $productBlock->getPriceHtml($_productx);
+                                echo $productBlock->getPriceHtml($_product);
                               } else
                               echo '<span class="regular-price" id="product-price-<?php echo $productId; ?>"><div class="price-box"><span class="price opensans">'.$productFinalPriceFormatted.'</span></div></span>'; 
                             ?>                                   
@@ -531,9 +530,8 @@ $_core_helper =  Mage::helper('core');
         <input type="hidden" class="final-price-<?php echo $productId; ?>" value="<?php echo $productFinalPrice; ?>" />
         <?php if ($_product->canConfigure()) : ?>
           <?php 
-            $_productx = Mage::getModel('catalog/product')->load($_product->getId());
             $productBlock = $this->getLayout()->createBlock('catalog/product_price');
-            echo $productBlock->getPriceHtml($_productx); 
+            echo $productBlock->getPriceHtml($_product); 
           ?>
         <?php elseif ($productSpecialPrice && $productSpecialPrice < $productRegularPrice && $productSpecialDateIsValid) : ?>
         <div class="special-price in-block full-width">
