@@ -11,14 +11,13 @@
     $stop = 0;
     $filename = Mage::getStoreConfig('bilna_paymentconfirmation/paymentconfirmation/file_email').rand(1000,9999).'.csv';
     $handle = fopen($filename,'w+');
-    //print $handle;exit;
     $date = Mage::getModel('core/date')->date('Y-m-d H:00:00');
     fwrite($handle,"Nomor Pesanan,Alamat Email,Jumlah yang Dibayar,Bayar ke Rekening,Tanggal Bayar,Nama Bank Asal,Nama Pengirim Sesuai Rekening,Komentar\n");
     while(true){
         $sendMail = Mage::getModel('Paymentconfirmation/payment')
                 ->getCollection()
-                ->addFieldToFilter('created_at',array('gteq'=>Mage::getModel('core/date')->date('Y-m-d H:00:00', strtotime($date." -1 hours"))))
-                ->addFieldToFilter('created_at',array('lteq'=>Mage::getModel('core/date')->date('Y-m-d H:59:59', strtotime($date." -1 hours"))))
+                ->addFieldToFilter('created_at',array('gteq'=>Mage::getModel('core/date')->date('Y-m-d H:00:00', strtotime(" -1 hours"))))
+                ->addFieldToFilter('created_at',array('lteq'=>Mage::getModel('core/date')->date('Y-m-d H:59:59', strtotime(" -1 hours"))))
                 ->setCurPage($i)
                 ->setPageSize(10);
         if(count($sendMail) < 1) break;
@@ -29,7 +28,7 @@
                 break;
             }
             //print $collection->id."\n";
-            fwrite($handle,$collection->order_id.",".$$collection->email.",".$collection->nominal.",".$collection->dest_bank.",".$collection->transfer_date.",".$collection->source_bank.",".$collection->source_acc_name.",".str_replace("\n"," ".$collection->comment)."\n");
+            fwrite($handle,$collection->order_id.",".$collection->email.",".$collection->nominal.",".$collection->dest_bank.",".$collection->transfer_date.",".$collection->source_bank.",".$collection->source_acc_name.",".str_replace("\n"," ".$collection->comment)."\n");
             $oldId = $collection->id;
         }
         $i++;
