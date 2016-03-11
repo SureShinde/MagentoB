@@ -34,7 +34,7 @@ $j(document).ready(function() {
 });
 </script>
 <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('above-header-notification')->toHtml() ?> 
-
+<?php echo $this->getChildHtml('additionalHeader'); ?>
 
 <?php # Moxy Collections Start
 $customer = Mage::getSingleton('customer/session')->getCustomer();
@@ -123,7 +123,7 @@ $images = Mage::getModel('socialcommerce/collectioncover')->getCollection()->set
                                             <span class="hidden-xs opensans font-tabs"> <br>link gambar dari web</span>
                                         </a>
                                     </li>
-                                    <li class="cg-col-sm-4 cg-col-xs-4 cg-col-lg-4 cg-col-md-6 text-center clicker main-nav mid-nav nopadding">
+                                    <li class="cg-col-sm-4 cg-col-xs-4 cg-col-lg-4 cg-col-md-4 text-center clicker main-nav mid-nav nopadding">
                                         <a href="#tabs-2" class="sub-nav activated">
                                             <i class="fa fa-cloud-upload pinker icon-nav"></i>
                                             <span class="hidden-xs opensans font-tabs"> <br> unggah gambar</span>
@@ -226,7 +226,6 @@ $images = Mage::getModel('socialcommerce/collectioncover')->getCollection()->set
             <form class="in-block cg-col-lg-7 cg-col-md-7 cg-col-sm-12 cg-col-xs-12 add-dashed" action="<?php echo $this->getUrl('social/settings/additemtocollection'); ?>" method="post" enctype="multipart/form-data" onsubmit="return preventDouble(this)" style="min-height:280px;">
 
                 <?php
-                $customer = Mage::getSingleton('customer/session')->getCustomer();
                 $wishlistCollection = Mage::getModel('wishlist/wishlist')->getCollection()->filterByCustomerId($customer->getId());
                 $wishlistCollection->addFieldToFilter('view', '1');
                 $wishlistCollection->setOrder('wishlist_id', 'DESC');
@@ -504,9 +503,11 @@ $images = Mage::getModel('socialcommerce/collectioncover')->getCollection()->set
     <div class="bg-dark-megamenu"></div>
 
     <?php
-    $customer = Mage::getSingleton('customer/session')->getCustomer();
     if (isset ($customer) && !empty ($customer)) { $email = $customer->getEmail(); }
     else { $email = ""; }
+
+    // ematic user email for API calling
+    echo '<span id="ematicuseremail" class="hidden">'.$email.'</span>';
     ?>
     <script type="text/javascript">
         jQuery(document).ready(function() {
