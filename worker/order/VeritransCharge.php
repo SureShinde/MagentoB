@@ -38,10 +38,10 @@ class Bilna_Worker_Order_VeritransCharge extends Bilna_Worker_Order_Order {
     }
     
     protected function _setQuery($charge) {
-        $sql = "INSERT INTO `{$this->_tblVtCharge}` (`order_no`, `request`, `response`, `type`) VALUES (:order_no, :request, :response, :type); ";
+        $sql = "INSERT INTO `{$this->_tblVtCharge}` (`order_no`, `request`, `response`, `type`) VALUES (:order_no, :request, :response, :type) ";
         $binds = array (
             'order_no' => $charge['order_no'],
-            'request' => $this->_prepareData($charge['reqeust']),
+            'request' => $this->_prepareData($charge['request']),
             'response' => $this->_prepareData($charge['response']),
             'type' => $charge['type'],
         );

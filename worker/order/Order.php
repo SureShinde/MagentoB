@@ -31,6 +31,3 @@ class Bilna_Worker_Order_Order extends Bilna_Worker_Abstract {
         $this->_logProgress('STOP');
     }
 }
-
-$worker = new Bilna_Worker_Order_VeritransCharge();
-$worker->run();
