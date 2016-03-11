@@ -783,14 +783,18 @@
                         <retrieve>1</retrieve>
                     </customer>
                 </privileges>
-                <attributes translate="status data message" module="Bilna_Checkout">
-                    <status>Status</status>
-                    <data>Data</data>
-                    <message>Message</message>
+                <attributes translate="bank_code cc_type acquired_bank secure secure_acquired_bank secure_min installment_process" module="Bilna_Checkout">
+                    <bank_code>Bank Code</bank_code>
+                    <cc_type>CC Type</cc_type>
+                    <acquired_bank>Acquired Bank</acquired_bank>
+                    <secure>Secure</secure>
+                    <secure_acquired_bank>Secure Acquired Bank</secure_acquired_bank>
+                    <secure_min>Secure Minimum</secure_min>
+                    <installment_process>Installment Process</installment_process>
                 </attributes>
                 <routes>
                     <route_entity>
-                        <route>/checkout/payment/method/bankcheck/:id</route>
+                        <route>/checkout/payment/method/bankcheck/:bin</route>
                         <action_type>entity</action_type>
                     </route_entity>
                     <route_collection>
