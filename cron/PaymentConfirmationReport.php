@@ -13,7 +13,7 @@
     $handle = fopen($filename,'w+');
     //print $handle;exit;
     $date = Mage::getModel('core/date')->date('Y-m-d 00:00:00');
-    fwrite($handle,"ORDER ID,e-mail,Nominal,Bank Penerima,Tanggal Transfer,Bank Pengirim,No Rek Pengirim,Nama Pengirim,Komentar\n");
+    fwrite($handle,"Nomor Pesanan,Alamat Email,Jumlah yang Dibayar,Bayar ke Rekening,Tanggal Bayar,Nama Bank Asal,Nama Pengirim Sesuai Rekening,Komentar\n");
     while(true){
         $sendMail = Mage::getModel('Paymentconfirmation/payment')
                 ->getCollection()
@@ -29,7 +29,7 @@
                 break;
             }
             //print $collection->id."\n";
-            fwrite($handle,$collection->order_id.",".$$collection->email.",".$collection->nominal.",".$collection->dest_bank.",".$collection->transfer_date.",".$collection->source_bank.",".$collection->source_acc_number.",".$collection->source_acc_name.",".str_replace("\n"," ".$collection->comment)."\n");
+            fwrite($handle,$collection->order_id.",".$$collection->email.",".$collection->nominal.",".$collection->dest_bank.",".$collection->transfer_date.",".$collection->source_bank.",".$collection->source_acc_name.",".str_replace("\n"," ".$collection->comment)."\n");
             $oldId = $collection->id;
         }
         $i++;
