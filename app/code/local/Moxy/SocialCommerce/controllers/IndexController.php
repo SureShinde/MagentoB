@@ -41,7 +41,6 @@ extends Mage_Core_Controller_Front_Action
             ->addFieldToFilter('cover', array('neq' => 'NULL'));
         $faveWishlists = $wishlists;
         $faveWishlists->addFieldToFilter('cover', array('neq' => 'NULL'))
-            ->addFieldToFilter('view', '1')
             ->setOrder('counter', 'DESC')
             ->setPageSize(4);
         $wishlists->setOrder('updated_at', 'DESC');
