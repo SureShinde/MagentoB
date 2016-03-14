@@ -35,12 +35,12 @@ class Bilna_Paymentconfirmation_IndexController extends Mage_Core_Controller_Fro
                 unset($post['year'],$post['month'],$post['day']);
                 if(trim($isValidOrderID->entity_id) != ''){
                     if($isValidOrderID->customer_email == $post['email']){
-                        $x = $paymentModel
+                        $paymentData = $paymentModel
                             ->getCollection()
                             ->addFieldToFilter('order_id',array('equal' => $post['order_number']))
                             ->setCurPage(1)
                             ->setPageSize(1);
-                        if(count($x) < 1){
+                        if(count($paymentData) < 1){
                             $post['entity_id'] = $isValidOrderID->entity_id;
 
                             $param = $post;
