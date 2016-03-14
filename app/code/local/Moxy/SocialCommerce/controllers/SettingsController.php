@@ -316,7 +316,8 @@ extends Mage_Core_Controller_Front_Action
                 $this->postData['colname'] : null;
 
                 $del = (isset($this->postData['deleteButton']));
-                
+
+                $titleUpdate = null;
 
                 $visibility = (isset($this->postData['visibility'])) ? true : false;
 
@@ -340,6 +341,10 @@ extends Mage_Core_Controller_Front_Action
                     $wishlist->setCover($preset_image);
                 }
 
+                if ($wlname != $title) {
+                    $titleUpdate = $wishlist->setColname($title);
+                }
+
                 #for deleting collection
                 if($del){
                 $vst = '0';
@@ -348,7 +353,7 @@ extends Mage_Core_Controller_Front_Action
                 
                 $descupdate = $wishlist->setDesc($desc);
 
-                if ($cover || $descupdate) {
+                if ($cover || $descupdate || $titleUpdate) {
                   
                     $wishlist->save();
 
