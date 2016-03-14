@@ -191,7 +191,7 @@
     //<![CDATA[
     
     Validation.add('validate-digits2', 'Masukkan jumlah pembayaran tanpa titik, koma atau huruf. Contoh: 125300 .', function(v) {
-                return !(Validation.get('IsEmpty').test(v) || (!isNaN(parseNumber(v)) && !/^\s+$/.test(parseNumber(v))));
+                return !(Validation.get('IsEmpty').test(v)) && /^[0-9]+$/.test(v);
     });
     
     function cek(){
