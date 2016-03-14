@@ -28,7 +28,7 @@
                 break;
             }
             //print $collection->id."\n";
-            fwrite($handle,$collection->order_id.",".$collection->email.",".$collection->nominal.",".$collection->dest_bank.",".$collection->transfer_date.",".$collection->source_bank.",".$collection->source_acc_name.",".str_replace("\n"," ".$collection->comment)."\n");
+            fwrite($handle,$collection->order_id.",".$collection->email.",".$collection->nominal.",".$collection->dest_bank.",".$collection->transfer_date.",".$collection->source_bank.",".$collection->source_acc_name.",".str_replace("\n"," ",$collection->comment)."\n");
             $oldId = $collection->id;
         }
         $i++;
