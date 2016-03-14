@@ -61,11 +61,10 @@ extends Mage_Core_Controller_Front_Action
         foreach ($wishlists as $wishlist) {
 
             $collectionCover = $wishlist->getCover();
-
             $items = $wishlist->getItemCollection()->setOrder('added_at', 'DESC');
 
             # for filtering items in product should be more than 4
-            //if ($items->count() < 4) continue;
+            if ($items->count() < 4) continue;
 
             $collectionName = $wishlist->getName();
 
