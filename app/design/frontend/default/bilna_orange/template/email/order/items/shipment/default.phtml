@@ -40,8 +40,8 @@
         <?php if ($addInfoBlock) :?>
             <?php echo $addInfoBlock->setItem($_item->getOrderItem())->toHtml(); ?>
         <?php endif; ?>
-        <?php echo $this->escapeHtml($_item->getDescription()) ?>
+        <?php echo $this->escapeHtml($_item->getDescription()) ?><br>
+        <?php echo $this->escapeHtml($this->getSku($_item)) ?>
     </td>
-    <td align="left" valign="top" style="font-size:11px; padding:3px 9px;"><?php echo $this->escapeHtml($this->getSku($_item)) ?></td>
     <td align="center" valign="top" style="font-size:11px; padding:3px 9px;"><?php echo $_item->getQty()*1 ?></td>
 </tr>
