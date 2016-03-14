@@ -54,7 +54,8 @@ class Bilna_Paymentconfirmation_IndexController extends Mage_Core_Controller_Fro
                                             "source_acc_number" => !empty($param['acc_from']) ? $param['acc_from'] : "NULL",
                                             "source_acc_name" => !empty($param['name_from']) ? $param['name_from'] : "NULL",
                                             "comment" => !empty($param['comment']) ? $param['comment'] : "NULL",
-                                            "entity_id" => !empty($param['entity_id']) ? (int)$param['entity_id'] : "0"
+                                            "entity_id" => !empty($param['entity_id']) ? (int)$param['entity_id'] : "0",
+                                            "created_at" => Mage::getModel('core/date')->date('Y-m-d H:i:s')
                                         );
                             //print "<PRE>";print_r($fields);exit;
                             //$paymentModel->insertPayment($fields);
