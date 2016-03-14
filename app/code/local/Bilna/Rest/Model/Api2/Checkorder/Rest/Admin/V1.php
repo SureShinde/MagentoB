@@ -1,6 +1,6 @@
 <?php
 /**
- * Description of Bilna_Rest_Model_Api2_Megamenu_Rest_Admin_V1
+ * Description of Bilna_Rest_Model_Api2_Checkorder_Rest_Admin_V1
  *
  * @author Bilna Development Team <development@bilna.com>
  */
