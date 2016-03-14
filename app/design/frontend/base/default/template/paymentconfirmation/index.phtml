@@ -114,7 +114,7 @@
                             <li>
                                 <label class="required" for="nominal"><?php echo $this->__('Jumlah yang Dibayar (dalam Rupiah)'); ?><em>*</em></label>
                                 <div class="input-box">
-                                    <input type="text" title="<?php echo $this->__('Jumlah yang Dibayar (dalam Rupiah)'); ?>" class="input-text required-entry validate-failed validate-digits" id="nominal" value="" name="paymentconfirmation[nominal]" />
+                                    <input type="text" title="<?php echo $this->__('Jumlah yang Dibayar (dalam Rupiah)'); ?>" class="input-text required-entry validate-failed validate-digits2" id="nominal" value="" name="paymentconfirmation[nominal]" />
                                 </div>
                             </li>
                             
@@ -189,6 +189,11 @@
 
 <script type="text/javascript">
     //<![CDATA[
+    
+    Validation.add('validate-digits2', 'Masukkan jumlah pembayaran tanpa titik, koma atau huruf. Contoh: 125300 .', function(v) {
+                return !(Validation.get('IsEmpty').test(v) || (!isNaN(parseNumber(v)) && !/^\s+$/.test(parseNumber(v))));
+    });
+    
     function cek(){
         var bank = document.getElementById('bank_from').value;
         if(bank == "Others"){
