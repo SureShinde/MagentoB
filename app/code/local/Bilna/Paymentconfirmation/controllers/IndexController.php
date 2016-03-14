@@ -99,7 +99,7 @@ class Bilna_Paymentconfirmation_IndexController extends Mage_Core_Controller_Fro
             $this->renderLayout();
             
         }catch(Exception $e){
-    		Mage::logException($e)
+    		Mage::logException($e);
     	}
          
     }
