@@ -19,7 +19,7 @@ class Bilna_Checkout_Model_Api2_Payment_Method_Bankcheck_Rest_Admin_V1 extends B
         $configBank = Mage::getStoreConfig('payment/' . $bankCode);
         $acquiredBank = $configBank['bank_acquired'];
         $secure = $configBank['threedsecure'];
-        $secureAcquiredBank = $configBank['threedsecure_bank_acquired'];
+        $secureAcquiredBank = isset ($configBank['threedsecure_bank_acquired']) ? $configBank['threedsecure_bank_acquired'] : '0';
         $secureMinimum = (int) $configBank['threedsecure_min_order_total'];
         $installmentProcess = $configBank['installment_process'];
         
@@ -33,48 +33,6 @@ class Bilna_Checkout_Model_Api2_Payment_Method_Bankcheck_Rest_Admin_V1 extends B
             'installment_process' => $installmentProcess,
         );
         
-        return $response;
-    }
-    /**
-     * Get Bank Check Validation
-     *
-     * @param  $quoteId
-     * @param  $shippingMethod
-     * @param  $store
-     * @return bool
-     */
-    protected function _retrieveOld() {
-        $cardNo = $this->getRequest()->getParam('id');
-        $response = array (
-            'status' => false,
-            'data' => array (),
-            'message' => null
-        );
-
-        try {
-            if (in_array ($cardNo[0], array (4,5)))
-            {
-                $bankCode = Mage::getModel('paymethod/method_vtdirect')->getBankCode($cardNo);
-                $ccType = $this->getCcType($bankCode);
-                
-                $response['status'] = true;
-                $response['data'] = array (
-                    'bank_code' => $bankCode,
-                    'cc_type' => $ccType,
-                    'acquired_bank' => $this->getAcquiredBank($bankCode),
-                    'secure' => $this->getSecureBank($bankCode),
-                    'installment_process' => $this->getInstallmentProcess($bankCode),
-                    'client_key' => Mage::getStoreConfig('payment/vtdirect/client_key')
-                );
-            }
-            else {
-                $response['message'] = 'Please enter a valid credit card number.';
-            }
-
-        } catch (Mage_Core_Exception $e) {
-            $this->_error($e->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
-        }
-
         return $response;
     }
 
