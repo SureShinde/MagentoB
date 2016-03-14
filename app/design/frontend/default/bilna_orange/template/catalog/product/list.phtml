@@ -57,13 +57,13 @@ $j(document).ready(function(){
 <?php else: ?>
 <div class="category-products">
         <?php echo $this->getToolbarHtml() ?>
-        <?php // List mode ?>
+        <!-- List mode -->
         <?php if ($this->getMode()!='grid'): ?>
             <?php $_iterator = 0; ?>
             <ol class="products-list" id="products-list">
                 <?php foreach ($_productCollection as $_product): ?>
                     <li class="item<?php if( ++$_iterator == sizeof($_productCollection) ): ?> last<?php endif; ?>">
-                        <?php // Product Image ?>
+                        <!-- Product Image -->
                         <div class="onsale-category-container-list">
                             <?php echo Mage::helper('onsale')->getCategoryLabelHtml($_product, 135); ?>
                             <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" class="product-image"><img class="lazy" data-src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(135); ?>" width="135" height="135" alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" />
@@ -71,7 +71,7 @@ $j(document).ready(function(){
                             </a>
                         </div>
             
-                        <?php // Product description ?>
+                        <!-- Product description -->
                         <div class="product-shop">
                             <div class="f-fix">
                                 <?php $_productNameStripped = $this->stripTags($_product->getName(), null, true); ?>
@@ -109,9 +109,8 @@ $j(document).ready(function(){
             
             <script type="text/javascript">decorateList('products-list', 'none-recursive')</script>
         <?php else: ?>
-            <?php // Grid Mode ?>
+            <!-- Grid Mode -->
             <?php $_collectionSize = $_productCollection->count() ?>
-            <?php //$_columnCount = $this->getColumnCount(); ?>
             <?php $_columnCount = 6; ?>
             
             <ul class="products-grid">
@@ -219,7 +218,6 @@ $j(document).ready(function(){
                     </li>
                 <?php endforeach; ?>
                 <?php
-                    //$pageType = '';
                     $category = $this->getLayer()->getCurrentCategory()->getName();
                     $dataForUA = array();
                     foreach($sku as $key=>$rowSKU) {
@@ -231,36 +229,6 @@ $j(document).ready(function(){
                             'position' => $key+1
                         );
                     }
-
-                    /*if(isset($productId[0])){
-                        $prodId[0] = $productId[0];
-                        $skuId[0] = $sku[0];
-                    }
-                    if(isset($productId[1])){
-                        $prodId[1] = $productId[1];
-                        $skuId[1] = $sku[1];
-                    }
-                    if(isset($productId[2])){
-                        $prodId[2] = $productId[2];
-                        $skuId[2] = $sku[2];
-                    }
-                    shuffle($sku);
-                    $pageIdentifier =  Mage::app()->getFrontController()->getAction()->getFullActionName();;
-                    if($pageIdentifier == 'catalogsearch_result_index'){
-                        $pageType = 'searchresults';
-                    }
-                    else{
-                        $category = $this->getLayer()->getCurrentCategory()->getLevel();
-                        if($category == 2){ // Top Category
-                            $pageType = 'category';
-                        }
-                        elseif($category == 3){ // Level 1 Sub Category
-                            $pageType = 'subcategory1';
-                        }
-                        elseif($category == 4){ // Level 2 Sub Category
-                            $pageType = 'subcategory2';
-                        }
-                    }*/
                 ?>
             </ul>
 
@@ -362,7 +330,6 @@ $j(document).ready(function(){
             }
 
             function ecommerceProductClick(name,sku,price) {
-                //alert("NEW_HURRY"+list);
                 dataLayer.push({
                 'event': 'productClick',
                 'ecommerce': {

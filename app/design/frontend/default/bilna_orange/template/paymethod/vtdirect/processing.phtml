@@ -20,7 +20,6 @@
     <?php endforeach; ?>
         
     <input type="hidden" id="gross_amount" name="gross_amount" value="<?php echo round($order->getGrandTotal()); ?>" />
-    <!--input type="hidden" id="email" name="email" value="<?php //echo $order->getBillingAddress()->getData('email'); ?>" /-->
     <input type="hidden" id="email" name="email" value="vt-testing@veritrans.co.id" />
     
     <!-- Shipping Address -->
@@ -69,29 +68,4 @@
             alert('error..');
         }
     });
-    
-//    new Ajax.Request(ajaxUrl, {
-//        method: 'post',
-//        parameters: Form.serialize($('vtdirect-charge-form')),
-//        //onComplete: this.onComplete,
-//        //onSuccess: this.onSave,
-//        //onFailure: checkout.ajaxFailure.bind(checkout),
-//        onSuccess: function(response) {
-//            var responseJson = response.responseText.evalJSON();
-//            
-//            jQuery('.vtdirect-page').hide();
-//            
-//            if (responseJson.status == 'success') {
-//                jQuery('#success-page').show();
-//            }
-//            else if (responseJson.status == 'failure') {
-//                jQuery('#failure-page').show();
-//                console.log(responseJson.message);
-//            }
-//            else {
-//                jQuery('#challenge-page').show();
-//            }
-//        },
-//        loaderArea: true
-//    });
 </script>

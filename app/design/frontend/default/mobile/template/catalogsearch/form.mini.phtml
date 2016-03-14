@@ -26,9 +26,6 @@
 /* @var $this Mage_Core_Block_Template */
 /* @var $catalogSearchHelper Mage_Catalogsearch_Helper_Data */
 $catalogSearchHelper =  $this->helper('catalogsearch');
-//$cat = $catalogSearchHelper->getCategories();
-//$_helper = Mage::helper('catalog/category');
-//$_categories = $_helper->getStoreCategories();
 $_cat = !is_null($this->getRequest()->getParam('cat')) ? $this->getRequest()->getParam('cat') : '';
 $_helper = Mage::helper('megamenu');
 $_categories = $_helper->getMegamenuData();

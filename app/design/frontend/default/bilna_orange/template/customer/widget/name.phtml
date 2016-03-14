@@ -78,7 +78,7 @@ For checkout/onepage/shipping.phtml:
     <div class="field name-lastname">
         <div class="input-box">
             <label for="<?php echo $this->getFieldId('lastname')?>"><?php echo $this->__('Last Name') ?></label>
-            <input type="text" id="<?php echo $this->getFieldId('lastname')?>" name="<?php echo $this->getFieldName('lastname')?>" value="<?php echo $this->escapeHtml($this->getObject()->getLastname()) ?>" placeholder="<?php echo $this->getStoreLabel('lastname') ?>" title="<?php echo $this->getStoreLabel('lastname') ?>" maxlength="255" class="input-text <?php //echo $this->helper('customer/address')->getAttributeValidationClass('lastname') ?>" <?php echo $this->getFieldParams() ?> />
+            <input type="text" id="<?php echo $this->getFieldId('lastname')?>" name="<?php echo $this->getFieldName('lastname')?>" value="<?php echo $this->escapeHtml($this->getObject()->getLastname()) ?>" placeholder="<?php echo $this->getStoreLabel('lastname') ?>" title="<?php echo $this->getStoreLabel('lastname') ?>" maxlength="255" class="input-text" <?php echo $this->getFieldParams() ?> />
         </div>
     </div>
 <?php if ($this->showSuffix()): ?>

@@ -150,7 +150,6 @@
         '<?php echo $this->getUrl('checkout/onepage/shippingMethod') ?>');
     var shippingForm = new VarienForm('co-shipping-form');
     shippingForm.extraChildParams = ' onchange="shipping.setSameAsBilling(false);"';
-    //shippingForm.setElementsRelation('shipping:country_id', 'shipping:region', '<?php echo $this->getUrl('directory/json/childRegion') ?>', '<?php echo $this->__('Select State/Province...') ?>');
     $('shipping-address-select') && shipping.newAddress(!$('shipping-address-select').value);
 
     var shippingRegionUpdater = new RegionUpdater('shipping:country_id', 'shipping:region', 'shipping:region_id', <?php echo $this->helper('directory')->getRegionJson() ?>, undefined, 'shipping:postcode');
@@ -161,7 +160,6 @@
 
 	//function getcity(){
 	jQuery(function() {
-		//var teststate='';
 		jQuery.ajax({
         	url: "<?php echo $this->getUrl('customercity/ajax/suggest') ?>",
         	dataType: 'json'
@@ -176,8 +174,6 @@
 				onSelect: function(suggestion) {
 					var cityState = suggestion.split(', ');
 					jQuery('.shippingcity').val(cityState[0]);
-					//var value = jQuery(".shippingregion option:contains("+cityState[1]+")").val();
-					//jQuery('.shippingregion').val(value);
 
 					// try this
                 	jQuery('select.shippingregion option').filter(function() {
@@ -193,7 +189,6 @@
 	});
 
     function ecommerceCheckout2() {
-        // console.log("HURRY_CHECKOUT2"+jQuery(document.getElementById('billing:use_for_shipping_yes')).val());
         var temp_container = {
             'event': 'checkout',
             'ecommerce': {
