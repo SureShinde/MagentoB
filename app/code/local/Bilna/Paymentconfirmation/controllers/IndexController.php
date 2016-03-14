@@ -1,8 +1,8 @@
 <?php
-DEFINE('SUCCESS','Terima kasih telah melakukan pemesanan di Bilna. Proses konfirmasi memakan waktu paling lama 2x24 jam (hari kerja).');
-DEFINE('INV_EMAIL','Maaf, e-Mail yang anda masukkan salah');
-DEFINE('INV_ORDER','Maaf, Order ID yang anda masukkan salah');
-DEFINE('DUPLICATE_ORDER','Order ID sudah pernah Melakukan Konfirmasi Sebelumnya');
+DEFINE('SUCCESS','Terima kasih telah melakukan konfirmasi pembayaran di Bilna, mohon simpan bukti pembayaran Anda. Kami akan mengirimkan email notifikasi apabila pesanan telah diproses. Jika terdapat kesalahan pada konfirmasi pembayaran, silakan menghubungi cs@bilna.com. Pesanan akan dikonfirmasi paling lambat dalam 1x24 jam (hari kerja). ');
+DEFINE('INV_EMAIL','Alamat email atau nomor pesanan yang dimasukkan salah. Mohon ulangi proses konfirmasi dan pastikan informasi sesuai dengan data pesanan.');
+DEFINE('INV_ORDER','Alamat email atau nomor pesanan yang dimasukkan salah. Mohon ulangi proses konfirmasi dan pastikan informasi sesuai dengan data pesanan.');
+DEFINE('DUPLICATE_ORDER','Pesanan telah berhasil dikonfirmasi sebelumnya. Apabila Anda ingin mengubah informasi yang telah diterima, silakan menghubungi cs@bilna.com');
 
 
 class Bilna_Paymentconfirmation_IndexController extends Mage_Core_Controller_Front_Action {
