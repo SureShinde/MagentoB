@@ -41,7 +41,7 @@ class Bilna_Paymethod_Model_Api2_Vtdirect_Rest_Admin_V1 extends Bilna_Paymethod_
             $this->_critical($e->getMessage());
         }
 
-        return array ('response' => json_decode($responseCharge['response'], true));
+        return json_decode($responseCharge['response'], true);
     }
 
 }
