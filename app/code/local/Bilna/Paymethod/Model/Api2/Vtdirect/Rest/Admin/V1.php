@@ -8,11 +8,13 @@
  */
 
 class Bilna_Paymethod_Model_Api2_Vtdirect_Rest_Admin_V1 extends Bilna_Paymethod_Model_Api2_Vtdirect_Rest {
+    
     protected function _retrieve() {
     	$incrementId = $this->getRequest()->getParam('id');
 
     	try {
-            $responseCharge = Mage::getModel('paymethod/veritrans')
+            //temporary disabled
+            /*$responseCharge = Mage::getModel('paymethod/veritrans')
                 ->setData('increment_id', $incrementId)
                 ->selectData(array (
                     'order_id',
@@ -29,12 +31,17 @@ class Bilna_Paymethod_Model_Api2_Vtdirect_Rest_Admin_V1 extends Bilna_Paymethod_
                     'fraud_status',
                     'approval_code'
 	    	))->fetchAll();
+             * 
+             */
+            
+            //use new table response
+            $responseCharge = $this->getQuery($incrementId);
     	}
         catch (Mage_Core_Exception $e) {
             $this->_critical($e->getMessage());
         }
 
-        return array ('response' => $responseCharge);
+        return array ('response' => json_decode($responseCharge['response'], true));
     }
 
 }
