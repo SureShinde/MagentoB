@@ -1,5 +1,4 @@
 <?php
-
 /**
  * API2 class for payment gateway (admin)
  *
@@ -7,79 +6,29 @@
  * @package    Bilna_Paymethod
  * @author     Development Team <development@bilna.com>
  */
-class Bilna_Paymethod_Model_Api
-{
-    protected $_typeTransaction = 'transaction';
 
-    protected function getVtdirectServerKey() {
-        return Mage::getStoreConfig('payment/vtdirect/server_key');
-    }
-    
-    protected function getVtdirectIsProduction()
-    {
-        $isProduction = Mage::getStoreConfig('payment/vtdirect/development_testing');
-        
-        if ($isProduction) {
-            return false;
-        }
-        
-        return true;
-    }
-
-    protected function getAcquiredBank($paymentCode)
-    {
-        return Mage::getStoreConfig('payment/' . $paymentCode . '/bank_acquired');
-    }
-
-    protected function getBins($order, $paymentCode)
-    {
-        $digit = 6;
-        //$digit = ($paymentCode == 'othervisa' || $paymentCode == 'othermc') ? 1 : 6;
-        $result = substr($order->getPayment()->getCcBins(), 0, $digit);
-        
-        return array ($result);
-    }
-
-    protected function getInstallment($items)
-    {
-        foreach ($items as $itemId => $item) {
-            $installmentType = $item->getInstallmentType();
-            
-            if ($installmentType > 1) {
-                return $installmentType;
-            }
-        }
-        
-        return false;
-    }
-
-    protected function getInstallmentProcess($paymentCode) 
-    {
-        return Mage::getStoreConfig('payment/' . $paymentCode . '/installment_process');
-    }
-
-    protected function logProgress($message)
-    {
-        Mage::log($message, null, 'newstack.log');
-    }
-
-    public function creditcardCharge($order, $tokenId) {
-        if (empty ($tokenId)) {
-            return false;
-        }
-        
+class Bilna_Paymethod_Model_Api {
+    public function creditcardCharge($order, $_tokenId = null) {
         Mage::helper('paymethod')->loadVeritransNamespace();
 
         // setting config vtdirect
-        Veritrans_Config::$serverKey = $this->getVtdirectServerKey();
-        Veritrans_Config::$isProduction = $this->getVtdirectIsProduction();
+        $vtdirectConfig = $this->getVtdirectConfig();
+        Veritrans_Config::$serverKey = $this->getVtdirectServerKey($vtdirectConfig);
+        Veritrans_Config::$isProduction = $this->getVtdirectIsProduction($vtdirectConfig);
 
         $incrementId = $order->getIncrementId();
+        $tokenId = is_null($_tokenId) ? $this->getTokenId() : $_tokenId;
         $grossAmount = $order->getGrandTotal();
-        $paymentType = 'credit_card'; //hardcode
+        $paymentType = 'credit_card'; //- hardcode
+        $typeTransaction = 'transaction'; //- hardcode
+
+        // Optional
+        //$billingAddress = $this->getBillingAddress();
+        //$shippingAddress = $this->getShippingAddress();
 
         $paymentCode = $order->getPayment()->getMethodInstance()->getCode();
-        $acquiredBank = $this->getAcquiredBank($paymentCode);
+        $bankConfig = $this->getBankConfig($paymentCode);
+        $acquiredBank = $this->getAcquiredBank($bankConfig, $grossAmount);
 
         // Required
         $customerDetails = array (
@@ -100,10 +49,10 @@ class Bilna_Paymethod_Model_Api
         $transactionData['payment_type'] = $paymentType;
         $transactionData['credit_card']['token_id'] = $tokenId;
         $transactionData['credit_card']['bank'] = $acquiredBank;
-        $transactionData['credit_card']['bins'] = $this->getBins($order, $paymentCode);
+        $transactionData['credit_card']['bins'] = $this->getBins($order);
 
-        $installmentProcess = $this->getInstallmentProcess($paymentCode);
-        
+        $installmentProcess = $this->getInstallmentProcess($bankConfig);
+
         if ($installmentProcess != 'manual') {
             $items = $order->getAllItems();
             $installmentId = $this->getInstallment($items);
@@ -118,36 +67,105 @@ class Bilna_Paymethod_Model_Api
         $transactionData['customer_details'] = $customerDetails;
 
         try {
-            $this->writeLog($paymentCode, $this->_typeTransaction, 'charge', 'request: ' . json_encode($transactionData));
-            $response = Veritrans_VtDirect::charge($transactionData);
-            $this->writeLog($paymentCode, $this->_typeTransaction, 'charge', 'response: ' . json_encode($response));
+            $this->writeLog($paymentCode, $typeTransaction, 'charge', 'request: ' . json_encode($transactionData));
+            $result = Veritrans_VtDirect::charge($transactionData);
+            $this->writeLog($paymentCode, $typeTransaction, 'charge', 'response: ' . json_encode($result));
         }
         catch (Exception $e) {
-            $this->writeLog($paymentCode, $this->_typeTransaction, 'charge', "error: [" . $incrementId . "] " . $e->getMessage());
-            $responseArr = array (
+            $this->writeLog($paymentCode, $typeTransaction, 'charge', "error: [" . $incrementId . "] " . $e->getMessage());
+            $response = array (
                 'transaction_status' => 'deny',
                 'fraud_status' => 'deny',
-                'status_message' => $e->getMessage(),
-                'bank' => $acquiredBank
+                'status_message' => $e->getMessage()
             );
-            $response = (object) $responseArr;
+            $result = (object) $response;
         }
-        
-        $result = array (
-            'order_no' => $incrementId,
-            'request' => $transactionData,
-            'response' => $response,
-            'type' => 'C',
-        );
-        
+
         return $result;
     }
+    
+    public function getVtdirectConfig() {
+        return Mage::getStoreConfig('payment/vtdirect');
+    }
+    
+    public function getVtdirectServerKey($vtdirectConfig = null) {
+        if (is_null($vtdirectConfig)) {
+            $vtdirectConfig = $this->getVtdirectConfig();
+        }
+        
+        return $vtdirectConfig['server_key'];
+    }
+    
+    public function getVtdirectIsProduction($vtdirectConfig = null) {
+        if (is_null($vtdirectConfig)) {
+            $vtdirectConfig = $this->getVtdirectConfig();
+        }
+        
+        $isDevelopmentTesting = $vtdirectConfig['development_testing'];
+        
+        if ($isDevelopmentTesting) {
+            return false;
+        }
 
+        return true;
+    }
+    
+    public function getTokenId() {
+        $tokenId = Mage::getSingleton('core/session')->getVtdirectTokenId();
+
+        /**
+         * remove token_id session
+         */
+        Mage::getSingleton("core/session")->unsVtdirectTokenIdCreate();
+        Mage::getSingleton("core/session")->unsVtdirectTokenId();
+
+        return $tokenId;
+    }
+    
+    public function getBankConfig($paymentCode) {
+        return Mage::getStoreConfig('payment/' . $paymentCode);
+    }
+
+    public function getAcquiredBank($bankConfig, $grossAmount) {
+        $result = $bankConfig['bank_acquired'];
+
+        if ($bankConfig['threedsecure']) {
+            if ($grossAmount >= $bankConfig['threedsecure_min_order_total']) {
+                $result = $bankConfig['threedsecure_bank_acquired'];
+            }
+        }
+
+        return $result;
+    }
+    
+    public function getBins($order) {
+        $digit = 6;
+        $result = substr($order->getPayment()->getCcBins(), 0, $digit);
+
+        return array ($result);
+    }
+    
+    public function getInstallmentProcess($bankConfig) {
+        return $bankConfig['installment_process'];
+    }
+    
+    public function getInstallment($items) {
+        foreach ($items as $itemId => $item) {
+            $installmentType = $item->getInstallmentType();
+
+            if ($installmentType > 1) {
+                return $installmentType;
+            }
+        }
+
+        return false;
+    }
+    
     protected function writeLog($paymentCode, $type, $logFile, $content) {
         $tdate = date('Ymd', Mage::getModel('core/date')->timestamp(time()));
         $filename = sprintf("%s_%s.%s", $paymentCode, $logFile, $tdate);
         $content = "[" . gethostname() . "] " . $content;
-        
+
         return Mage::helper('paymethod')->writeLogFile($paymentCode, $type, $filename, $content);
     }
 }
