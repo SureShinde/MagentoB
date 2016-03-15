@@ -65,21 +65,30 @@ class Bilna_Paymethod_Model_Api {
 
         $transactionData['transaction_details'] = $transactionDetails;
         $transactionData['customer_details'] = $customerDetails;
-
+        
         try {
             $this->writeLog($paymentCode, $typeTransaction, 'charge', 'request: ' . json_encode($transactionData));
-            $result = Veritrans_VtDirect::charge($transactionData);
-            $this->writeLog($paymentCode, $typeTransaction, 'charge', 'response: ' . json_encode($result));
+            $response = Veritrans_VtDirect::charge($transactionData);
+            $this->writeLog($paymentCode, $typeTransaction, 'charge', 'response: ' . json_encode($response));
         }
         catch (Exception $e) {
             $this->writeLog($paymentCode, $typeTransaction, 'charge', "error: [" . $incrementId . "] " . $e->getMessage());
-            $response = array (
+            $responseArr = array (
+                'order_id' => $incrementId,
                 'transaction_status' => 'deny',
                 'fraud_status' => 'deny',
-                'status_message' => $e->getMessage()
+                'status_message' => $e->getMessage(),
+                'bank' => $acquiredBank
             );
-            $result = (object) $response;
+            $response = (object) $responseArr;
         }
+        
+        $result = array (
+            'order_no' => $incrementId,
+            'request' => $transactionData,
+            'response' => $response,
+            'type' => 'C',
+        );
 
         return $result;
     }

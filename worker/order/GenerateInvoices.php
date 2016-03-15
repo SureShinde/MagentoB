@@ -16,11 +16,16 @@ class Bilna_Worker_Order_GenerateInvoices extends Bilna_Worker_Order_Order {
             $this->_queueSvc->ignore($this->_tubeIgnore);
 
             while ($job = $this->_queueSvc->reserve()) {
-                $dataArr = json_decode($job->getData(), true);
                 $dataObj = json_decode($job->getData());
-                
                 $incrementId = $dataObj->order_id;
                 $order = Mage::getModel('sales/order')->loadByIncrementId($incrementId);
+                
+                if (!$order) {
+                    $this->_queueSvc->delete($job);
+                    $this->_logProgress("#{$incrementId} Process Invoice => failed, Order not found.");
+                    continue;
+                }
+                
                 $paymentCode = $order->getPayment()->getMethodInstance()->getCode();
                 $status = Mage::getModel('paymethod/vtdirect')->updateOrder($order, $paymentCode, $dataObj);
                 
@@ -36,10 +41,10 @@ class Bilna_Worker_Order_GenerateInvoices extends Bilna_Worker_Order_Order {
         }
         catch (Exception $ex) {
             $this->_queueSvc->bury($job);
-            $this->_critical($ex->getMessage());
+            $this->_logProgress($ex->getMessage());
         }
     }
-    
+
     /**
      * Sends new order to netsuite
      * @param $observer
