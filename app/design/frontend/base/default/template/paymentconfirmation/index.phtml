@@ -1,120 +1,49 @@
-<style type="text/css">
-    .page-title span {
-        font-family: 'tin_doghouseregular',Calibri,Arial,Helvetica,sans-serif;
-        letter-spacing: 0;
-        color: #666666;
-        font-size: 20px;
-        font-weight: normal;
-        margin: 0;
-        line-height: 1.35;
-        text-transform: uppercase;
-    }
 
-    .container-paymentconfirmationbox {
-        -moz-border-bottom-colors: none;
-        -moz-border-left-colors: none;
-        -moz-border-right-colors: none;
-        -moz-border-top-colors: none;
-        border-bottom-color: #CCAA83;
-        border-bottom-style: dashed;
-        border-bottom-width: 1px;
-        border-image-outset: 0 0 0 0;
-        border-image-repeat: stretch stretch;
-        border-image-slice: 100% 100% 100% 100%;
-        border-image-source: none;
-        border-image-width: 1 1 1 1;
-        border-left-color-ltr-source: physical;
-        border-left-color-rtl-source: physical;
-        border-left-color-value: #CCAA83;
-        border-left-style-ltr-source: physical;
-        border-left-style-rtl-source: physical;
-        border-left-style-value: dashed;
-        border-left-width-ltr-source: physical;
-        border-left-width-rtl-source: physical;
-        border-left-width-value: 1px;
-        border-right-color-ltr-source: physical;
-        border-right-color-rtl-source: physical;
-        border-right-color-value: #CCAA83;
-        border-right-style-ltr-source: physical;
-        border-right-style-rtl-source: physical;
-        border-right-style-value: dashed;
-        border-right-width-ltr-source: physical;
-        border-right-width-rtl-source: physical;
-        border-right-width-value: 1px;
-        border-color: #CCAA83;
-        border-style: dashed;
-        border-width: 1px;
-        font-family: 'TinDoghouse';
-        margin-bottom: auto;
-        margin-left: auto;
-        margin-right: auto;
-        margin-top: auto;
-    }
-    .container-paymentconfirmationbox .content h2 {
-        background-attachment: scroll;
-        background-clip: border-box;
-        background-color: rgba(0, 0, 0, 0);
-        background-origin: padding-box;
-        background-position: 0 0;
-        background-repeat: repeat-x;
-        background-size: auto auto;
-        border-bottom-color: #CCAA83;
-        border-bottom-style: dashed;
-        border-bottom-width: 1px;
-        color: #C65C4F;
-        font-family: 'tin_doghouseregular';
-        font-size: 14px;
-        font-weight: normal;
-        margin-bottom: 30px;
-        margin-left: 0;
-        margin-right: 0;
-        margin-top: 0;
-        padding-bottom: 10px;
-        padding-left: 35px;
-        padding-right: 35px;
-        padding-top: 10px;
-        text-transform: uppercase;
-    }
-    .clearfix {
-        clear: both;
-    }
-</style>
+<div class="payment-confirmation cg-row">
+    
+    <div class="container-box cg-col-xs-8 cg-col-xs-offset-2 cg-col-sm-8 cg-col-sm-offset-2  text-center" style="border-width:0px">
 
-<div class="">
     <div class="page-title">
-        <span><?php echo $this->__('Konfirmasi Pembayaran'); ?></span>
+      <span>
+      <?php echo $this->__('Konfirmasi Pembayaran'); ?>
+      </span>
+      <div class="line"></div>
+    </div>
+
+    <div class="intro">
+      Terima kasih telah berbelanja di Bilna!
+      Konfirmasikan pembayaran anda agar pesanan dapat kami segera proses dan kirim.
+      Pastikan anda memasukan data dengan benar untuk mempercepat proses, jika anda melakukan kesalahan hubungi <a href="mailto:cs@bilna.com">cs@bilna.com</a>
     </div>
     
     <div class="static-page-content">
-        <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('thankyou-transfer-confirm')->toHtml(); ?>
+      <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('thankyou-transfer-confirm')->toHtml(); ?>
     </div>
-    
-    <div class="container-paymentconfirmationbox" style="border-width:0px">
+
         <form id="paymentconfirmationForm" method="post" action="<?php echo $this->getFormActionUrl(); ?>" >
             <div class="registered-users">
                 <div class="content">
                     <!--<h2><?php echo $this->__('KONFIRMASI PEMBAYARAN FORM'); ?></h2>-->
-                 
                     <div class="new-customers-fields">
                         <ul class="form-list">
                             <li>
                                 <label class="required" for="order_number"><?php echo $this->__('Nomor Pesanan'); ?><em>*</em></label>
                                 <div class="input-box">
-                                    <input type="text" title="<?php echo $this->__('Nomor Pesanan'); ?>" id="orderid" class="input-text required-entry validate-failed" name="paymentconfirmation[order_number]" />
+                                    <input type="text" title="<?php echo $this->__('Nomor Pesanan'); ?>" id="orderid" class="form-control required-entry validate-failed" name="paymentconfirmation[order_number]" />
                                 </div>
                             </li>
 
                             <li>
                                 <label class="required" for="email"><?php echo $this->__('Alamat Email'); ?><em>*</em></label>
                                 <div class="input-box">
-                                    <input type="text" title="<?php echo $this->__('Alamat Email'); ?>" class="input-text required-entry validate-email validate-failed" id="email" value="" name="paymentconfirmation[email]" />
+                                    <input type="text" title="<?php echo $this->__('Alamat Email'); ?>" class="form-control required-entry validate-email validate-failed" id="email" value="" name="paymentconfirmation[email]" />
                                 </div>
                             </li>
                             
                             <li>
                                 <label class="required" for="nominal"><?php echo $this->__('Jumlah yang Dibayar (dalam Rupiah)'); ?><em>*</em></label>
                                 <div class="input-box">
-                                    <input type="text" title="<?php echo $this->__('Jumlah yang Dibayar (dalam Rupiah)'); ?>" class="input-text required-entry validate-failed validate-digits2" id="nominal" value="" name="paymentconfirmation[nominal]" />
+                                    <input type="text" title="<?php echo $this->__('Jumlah yang Dibayar (dalam Rupiah)'); ?>" class="form-control required-entry validate-failed validate-digits2" id="nominal" value="" name="paymentconfirmation[nominal]" />
                                 </div>
                             </li>
                             
@@ -122,7 +51,7 @@
                                 <label class="required" for="bank_to"><?php echo $this->__('Bayar ke Rekening (a/n PT Bilna):'); ?><em>*</em></label>
                                 <div class="input-box">
                                     <!--<input type="text" title="<?php echo $this->__('Bayar ke Rekening (a/n PT Bilna):'); ?>" class="input-text required-entry validate-failed" id="bank_to" value="" name="paymentconfirmation[bank_to]" />-->
-                                    <select style="width:215px" name="paymentconfirmation[bank_to]" id="bank_to" title="<?php echo $this->__('Bayar ke Rekening (a/n PT Bilna):'); ?>">
+                                    <select style="" name="paymentconfirmation[bank_to]" id="bank_to" title="<?php echo $this->__('Bayar ke Rekening (a/n PT Bilna):'); ?>">
                                         <option value="BCA">BCA</option>
                                         <option value="BNI">BNI</option>
                                         <option value="Mandiri">Bank Mandiri</option>
@@ -144,7 +73,7 @@
                                 <label class="required" for="bank_from"><?php echo $this->__('Nama Bank Asal'); ?><em>*</em></label>
                                 <div class="input-box">
                                     <!--<input type="text" title="<?php echo $this->__('Nama Bank Asal'); ?>" class="input-text required-entry validate-failed" id="bank_to" value="" name="paymentconfirmation[bank_from]" />-->
-                                    <select onchange="cek()" style="width:215px" name="paymentconfirmation[bank_from]" id="bank_from" title="<?php echo $this->__('Rekening Bilna yang dituju'); ?>">
+                                    <select onchange="cek()" style="" name="paymentconfirmation[bank_from]" id="bank_from" title="<?php echo $this->__('Rekening Bilna yang dituju'); ?>">
                                         <option value="BCA">BCA</option>
                                         <option value="BNI">BNI</option>
                                         <option value="Mandiri">Bank Mandiri</option>
@@ -159,22 +88,21 @@
                             <li>
                                 <label class="required" for="name_from"><?php echo $this->__('Nama Pengirim sesuai Rekening'); ?><em>*</em></label>
                                 <div class="input-box">
-                                    <input type="text" title="<?php echo $this->__('Nama Pengirim sesuai Rekening'); ?>" class="input-text required-entry validate-failed" id="name_from" value="" name="paymentconfirmation[name_from]" />
+                                    <input type="text" title="<?php echo $this->__('Nama Pengirim sesuai Rekening'); ?>" class="form-control required-entry validate-failed" id="name_from" value="" name="paymentconfirmation[name_from]" />
                                 </div>
                             </li>
                             
                             <li>
                                 <label for="comment"><?php echo $this->__('Komentar (opsional)'); ?></label>
                                 <div class="input-box">
-                                    <textarea rows="4" cols="50" title="<?php echo $this->__('Komentar (opsional)'); ?>" class="input-text validate-failed" id="comment" value="" name="paymentconfirmation[comment]"></textarea>
+                                    <textarea rows="4" cols="50" title="<?php echo $this->__('Komentar (opsional)'); ?>" class="form-control validate-failed" id="comment" value="" name="paymentconfirmation[comment]"></textarea>
                                 </div>
                             </li>
                             
                             <li>
-                                <label>&nbsp;</label>
-                                <div class="input-box">
+                                <div class="btn-box">
                                     <button id="send" name="send" title="Konfirmasi" class="button" type="submit">
-                                        <span><?php echo $this->__('Submit'); ?></span>
+                                        <span><?php echo $this->__('KONFIRMASI'); ?></span>
                                     </button>
                                 </div>
                             </li>

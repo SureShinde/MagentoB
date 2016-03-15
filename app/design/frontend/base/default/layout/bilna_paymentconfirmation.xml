@@ -2,6 +2,8 @@
 <layout version="0.1.0">
     <paymentconfirm_index_index>
         <reference name="head">
+           <action method="addCss"><stylesheet>css/catgrid.css</stylesheet></action>
+           <action method="addCss"><stylesheet>css/payment-confirmation.css</stylesheet></action>
             <action method="addCss"><stylesheet>css/jquery-uii.css</stylesheet></action>
         </reference>
         <reference name="root">   
@@ -22,4 +24,5 @@
             <block type="paymentconfirm/process" name="paymentconfirm_process" template="paymentconfirmation/thankyou.phtml"/>   
         </reference>
     </paymentconfirm_index_process>
+
 </layout>
