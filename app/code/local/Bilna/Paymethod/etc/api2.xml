@@ -78,19 +78,10 @@
 						<retrieve>1</retrieve>
 					</customer>
 				</privileges>
-				<attributes translate="status_code status_message transaction_id masked_card order_id gross_amount payment_type transaction_time transaction_status fraud_status approval_code bank" module="Bilna_Paymethod">
-                                    <status_code>status_code</status_code>
-                                    <status_message>status_message</status_message>
-                                    <transaction_id>transaction_id</transaction_id>
-                                    <masked_card>masked_card</masked_card>
-                                    <order_id>order_id</order_id>
-                                    <gross_amount>gross_amount</gross_amount>
-                                    <payment_type>payment_type</payment_type>
-                                    <transaction_time>transaction_time</transaction_time>
-                                    <transaction_status>transaction_status</transaction_status>
-                                    <fraud_status>fraud_status</fraud_status>
-                                    <approval_code>approval_code</approval_code>
-                                    <bank>bank</bank> 
+				<attributes translate="order_no request response" module="Bilna_Paymethod">
+                                    <order_no>order_no</order_no>
+                                    <request>request</request>
+                                    <response>response</response>
 				</attributes>
 				<routes>
 					<route_entity>
