@@ -11,7 +11,10 @@ class Bilna_Paymethod_Model_Api2_Vtdirect_Rest_Admin_V1 extends Bilna_Paymethod_
     
     protected function _retrieve() {
     	$incrementId = $this->getRequest()->getParam('id');
-
+        $orderNo = null;
+        $request = null;
+        $response = null;
+        
     	try {
             //temporary disabled
             /*$responseCharge = Mage::getModel('paymethod/veritrans')
@@ -36,12 +39,29 @@ class Bilna_Paymethod_Model_Api2_Vtdirect_Rest_Admin_V1 extends Bilna_Paymethod_
             
             //use new table response
             $responseCharge = $this->getQuery($incrementId);
+            
+            if(isset($responseCharge['order_no'])) {
+                $orderNo = $responseCharge['order_no'];
+            }
+            if(isset($responseCharge['request'])) {
+                $request = $responseCharge['request'];
+            }
+            if(isset($responseCharge['response'])) {
+                $response = $responseCharge['response'];
+            }
+            
     	}
         catch (Mage_Core_Exception $e) {
             $this->_critical($e->getMessage());
         }
+        
+        $result = [
+            'order_no' => $orderNo, 
+            'request' => $request, 
+            'response' => $response
+        ];
 
-        return json_decode($responseCharge['response'], true);
+        return $result;
     }
 
 }
