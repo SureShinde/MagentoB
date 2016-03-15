@@ -40,7 +40,7 @@
                 <?php $shippingCodePrice[] = "'".$_rate->getCode()."':".(float)$_rate->getPrice(); ?>
                 <?php 
                 // if current shipping method is Express, check whether all the items can be express-shipped
-                if ( (strpos(strtolower($_rate->getCode()), 'express_shipping') !== false) ):
+                if ( (strpos(strtolower($_rate->getCode()), 'express') !== false) || (strpos(strtolower($_rate->getCode()), 'ekspres') !== false) ):
                     if (!$this->showExpressShippingMethod())
                         $disableOption = true;
                     else
@@ -84,6 +84,24 @@
                             (<?php echo $this->__('Incl. Tax'); ?> <?php echo $_incl; ?>)
                         <?php endif; ?>
                         </label>
+
+                        <?php 
+                        if ( (strpos(strtolower($_rate->getCode()), 'express') !== false) || (strpos(strtolower($_rate->getCode()), 'ekspres') !== false) )
+                        {
+                            $dateTime = Mage::getModel('core/date')->timestamp(time());
+                            $orderHour = date("H", $dateTime);
+                            $orderDate = date('d F Y', $dateTime);
+                            $nextDay = date('d F Y', strtotime($orderDate . ' +1 day'));
+                            echo "<div><p class='check-terima'>Terima pesanan tanggal <u style='text-decoration:underline;'>";
+                            if($orderHour < 11){
+                                echo $orderDate;
+                            }else{
+                                echo $nextDay;
+                            }
+                            echo "</u></p></div>";
+                        }
+                        ?>
+
                    <?php endif ?>
                 </li>
             <?php endforeach; ?>
