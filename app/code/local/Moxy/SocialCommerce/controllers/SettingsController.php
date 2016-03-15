@@ -342,7 +342,7 @@ extends Mage_Core_Controller_Front_Action
                 }
 
                 if ($wlname != $title) {
-                    $titleUpdate = $wishlist->setColname($title);
+                    $titleUpdate = $wishlist->setName($title);
                 }
 
                 #for deleting collection
