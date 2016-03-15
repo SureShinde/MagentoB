@@ -95,7 +95,7 @@ extends Mage_Core_Controller_Front_Action
             $block->setWishlist($wishlist);
 
             # Set page title
-            $pageTitle = $this->__($wishlist->getTitle());
+            $pageTitle = $this->__($wishlist->getName());
 
             $this->getLayout()->getBlock('head')->setTitle($pageTitle);
             $this->getLayout()->getBlock('head')->setWishlist($wishlist);
