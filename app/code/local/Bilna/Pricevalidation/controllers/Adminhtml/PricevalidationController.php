@@ -268,19 +268,23 @@ class Bilna_Pricevalidation_Adminhtml_PricevalidationController extends Mage_Adm
                         $error .= $this->__checkPrice($fieldList, $cleanData[$i - 1]['price']);
                         $error .= $this->__checkCost($fieldList, $cleanData[$i - 1]['cost']);
                         $error .= $this->__checkSpecialPrice($fieldList, $cleanData[$i - 1]['special_price']);
-                        if (($newFromDate = $this->__checkDateFormat('new_from_date', $fieldList, $cleanData[$i - 1]['new_from_date'])) != '') {
+                        $newFromDate = $this->__checkDateFormat('new_from_date', $fieldList, $cleanData[$i - 1]['new_from_date']);
+                        $newToDate = $this->__checkDateFormat('new_to_date', $fieldList, $cleanData[$i - 1]['new_to_date']);
+                        $specialFromDate = $this->__checkDateFormat('special_from_date', $fieldList, $cleanData[$i - 1]['special_from_date'], $cleanData[$i - 1]['special_price']);
+                        $specialToDate = $this->__checkDateFormat('special_to_date', $fieldList, $cleanData[$i - 1]['special_to_date']);
+                        if ($newFromDate != '') {
                             $error .= $newFromDate;
                         }
 
-                        if (($newToDate = $this->__checkDateFormat('new_to_date', $fieldList, $cleanData[$i - 1]['new_to_date'])) != '') {
+                        if ($newToDate != '') {
                             $error .= $newToDate;
                         }
 
-                        if (($specialFromDate = $this->__checkDateFormat('special_from_date', $fieldList, $cleanData[$i - 1]['special_from_date'], $cleanData[$i - 1]['special_price'])) != '') {
+                        if ($specialFromDate != '') {
                             $error .= $specialFromDate;
                         }
 
-                        if (($specialToDate = $this->__checkDateFormat('special_to_date', $fieldList, $cleanData[$i - 1]['special_to_date'])) != '') {
+                        if ($specialToDate != '') {
                             $error .= $specialToDate;
                         }
 
