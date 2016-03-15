@@ -117,8 +117,7 @@
 
 <script type="text/javascript">
     //<![CDATA[
-    $(document).ready(function() {
-    $('.numberInput').keypress(function(key) {
+    jQuery('.numberInput').keypress(function(key) {
         if(key.charCode < 48 || key.charCode > 57) return false;
     });
     Validation.add('validate-digits2', 'Masukkan nominal tanpa titik/koma/huruf', function(v) {
