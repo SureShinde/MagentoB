@@ -1,5 +1,5 @@
 <?php
-DEFINE('SUCCESS','Terima kasih telah melakukan konfirmasi pembayaran di Bilna, mohon simpan bukti pembayaran Anda. Kami akan mengirimkan email notifikasi apabila pesanan telah diproses. Jika terdapat kesalahan pada konfirmasi pembayaran, silakan menghubungi cs@bilna.com. Pesanan akan dikonfirmasi paling lambat dalam 1x24 jam (hari kerja). ');
+DEFINE('SUCCESS','TKonfirmasi pembayaran anda telah kami terima. Kami akan melakukan pengecekan. Mohon simpan bukti pembayaran anda, jika diperlukan tim kami akan menghubungi anda untuk pengecekan lebih lanjut. Jika anda melakukan kesalahan saat memasukkan data konfirmasi, silahkan hubungi cs@bilna.com <br> <br> Mohon tunggu maksimal 24 jam, anda akan menerima e-mail status pesanan dari kami. ');
 DEFINE('INV_EMAIL','Alamat email atau nomor pesanan yang dimasukkan salah. Mohon ulangi proses konfirmasi dan pastikan informasi sesuai dengan data pesanan.');
 DEFINE('INV_ORDER','Alamat email atau nomor pesanan yang dimasukkan salah. Mohon ulangi proses konfirmasi dan pastikan informasi sesuai dengan data pesanan.');
 DEFINE('DUPLICATE_ORDER','Pesanan telah berhasil dikonfirmasi sebelumnya. Apabila Anda ingin mengubah informasi yang telah diterima, silakan menghubungi cs@bilna.com');
