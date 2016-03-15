@@ -1,7 +1,10 @@
 <?php
-DEFINE('SUCCESS','Terima kasih telah melakukan konfirmasi pembayaran di Bilna, mohon simpan bukti pembayaran Anda. Kami akan mengirimkan email notifikasi apabila pesanan telah diproses. Jika terdapat kesalahan pada konfirmasi pembayaran, silakan menghubungi cs@bilna.com. Pesanan akan dikonfirmasi paling lambat dalam 1x24 jam (hari kerja). ');
+DEFINE('SUCCESS_TITLE','Terima Kasih!');
+DEFINE('SUCCESS','Konfirmasi pembayaran anda telah kami terima. kami akan melakukan pengecekan. Mohon simpan bukti pembayaran anda, jika diperlukan tim kami akan menghubungi anda untuk pengecekan lebih lanjut, jika anda melakukan kesalahan saat memasukkan data konfirmasi, silahkan hubungi cs@bilna.com<br><br>Mohon tunggu maksimal 24 jam, Anda akan menerima e-mail status pesanan dari kami.');
+DEFINE('INV_TITLE','Ulangi Proses Konfirmasi');
 DEFINE('INV_EMAIL','Alamat email atau nomor pesanan yang dimasukkan salah. Mohon ulangi proses konfirmasi dan pastikan informasi sesuai dengan data pesanan.');
 DEFINE('INV_ORDER','Alamat email atau nomor pesanan yang dimasukkan salah. Mohon ulangi proses konfirmasi dan pastikan informasi sesuai dengan data pesanan.');
+DEFINE('DUPLICATE_ORDER_TITLE','Konfirmasi Telah Berhasil');
 DEFINE('DUPLICATE_ORDER','Pesanan telah berhasil dikonfirmasi sebelumnya. Apabila Anda ingin mengubah informasi yang telah diterima, silakan menghubungi cs@bilna.com');
 
 
@@ -57,32 +60,35 @@ class Bilna_Paymentconfirmation_IndexController extends Mage_Core_Controller_Fro
                                             "entity_id" => !empty($param['entity_id']) ? (int)$param['entity_id'] : "0",
                                             "created_at" => Mage::getModel('core/date')->date('Y-m-d H:i:s')
                                         );
-                            //print "<PRE>";print_r($fields);exit;
-                            //$paymentModel->insertPayment($fields);
                             $paymentModel->setData($fields);
                             $paymentModel->save();
 
                             $this->getLayout()->getBlock('head')->setTitle($this->__('Payment Confirmation Thank You'));
                             $this->getLayout()->getBlock('paymentconfirm_process')->setData('message',SUCCESS);
+                            $this->getLayout()->getBlock('paymentconfirm_process')->setData('title',SUCCESS_HEADER);
                         }
                         else{
                             $this->getLayout()->getBlock('head')->setTitle($this->__('Failed Payment Confirmation'));
                             $this->getLayout()->getBlock('paymentconfirm_process')->setData('message',DUPLICATE_ORDER);
+                            $this->getLayout()->getBlock('paymentconfirm_process')->setData('title',DUPLICATE_ORDER_TITLE);
                         }
                     }
                     else{
                         $this->getLayout()->getBlock('head')->setTitle($this->__('Failed Payment Confirmation'));
                         $this->getLayout()->getBlock('paymentconfirm_process')->setData('message',INV_EMAIL);
+                        $this->getLayout()->getBlock('paymentconfirm_process')->setData('title',INV_TITLE);
                     }
                 }
                 else{
                     $this->getLayout()->getBlock('head')->setTitle($this->__('Failed Payment Confirmation'));
                     $this->getLayout()->getBlock('paymentconfirm_process')->setData('message',INV_ORDER);
+                    $this->getLayout()->getBlock('paymentconfirm_process')->setData('title',INV_TITLE);
                 }
             }
             else{
                 $this->getLayout()->getBlock('head')->setTitle($this->__('Failed Payment Confirmation'));
                 $this->getLayout()->getBlock('paymentconfirm_process')->setData('message',INV_ORDER);
+                $this->getLayout()->getBlock('paymentconfirm_process')->setData('title',INV_TITLE);
             }
             
             
