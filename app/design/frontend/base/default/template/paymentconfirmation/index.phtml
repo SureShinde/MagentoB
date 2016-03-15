@@ -43,7 +43,7 @@
                             <li>
                                 <label class="required" for="nominal"><?php echo $this->__('Jumlah yang Dibayar (dalam Rupiah)'); ?><em>*</em></label>
                                 <div class="input-box">
-                                    <input type="text" title="<?php echo $this->__('Jumlah yang Dibayar (dalam Rupiah)'); ?>" class="form-control required-entry2 validate-failed validate-digits2" id="nominal" value="" name="paymentconfirmation[nominal]" />
+                                    <input type="text" title="<?php echo $this->__('Jumlah yang Dibayar (dalam Rupiah)'); ?>" class="numberInput form-control required-entry2 validate-failed validate-digits2" id="nominal" value="" name="paymentconfirmation[nominal]" placeholder="Contoh: 125300"/>
                                 </div>
                             </li>
                             
@@ -81,7 +81,7 @@
                                         <option value="CIMB">CIMB</option>
                                         <option value="Others">Lainnya</option>
                                     </select>
-                                    <input type="text" style="display:none" class="input-text required-entry2 validate-failed" id="other_from" value="" name="paymentconfirmation[other_from]" disabled="disabled" />
+                                    <input type="text" style="display:none;margin-top: 10px;" class="form-control required-entry2 validate-email validate-failed" id="other_from" value="" name="paymentconfirmation[other_from]" disabled="disabled" />
                                 </div>
                             </li>
                             
@@ -117,8 +117,12 @@
 
 <script type="text/javascript">
     //<![CDATA[
-    
-    Validation.add('validate-digits2', 'Masukkan jumlah pembayaran tanpa titik, koma atau huruf. Contoh: 125300 .', function(v) {
+    alert("tes");
+    $(document).ready(function() {
+    $('.numberInput').keypress(function(key) {
+        if(key.charCode < 48 || key.charCode > 57) return false;
+    });
+    Validation.add('validate-digits2', 'Masukkan nominal tanpa titik/koma/huruf', function(v) {
                 return !(Validation.get('IsEmpty').test(v)) && /^[0-9]+$/.test(v);
     });
     
