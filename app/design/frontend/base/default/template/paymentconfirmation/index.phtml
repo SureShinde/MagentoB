@@ -29,28 +29,28 @@
                             <li>
                                 <label class="required" for="order_number"><?php echo $this->__('Nomor Pesanan'); ?><em>*</em></label>
                                 <div class="input-box">
-                                    <input type="text" title="<?php echo $this->__('Nomor Pesanan'); ?>" id="orderid" class="form-control required-entry validate-failed" name="paymentconfirmation[order_number]" />
+                                    <input type="text" title="<?php echo $this->__('Nomor Pesanan'); ?>" id="orderid" class="form-control required-entry2 validate-failed" name="paymentconfirmation[order_number]" />
                                 </div>
                             </li>
 
                             <li>
                                 <label class="required" for="email"><?php echo $this->__('Alamat Email'); ?><em>*</em></label>
                                 <div class="input-box">
-                                    <input type="text" title="<?php echo $this->__('Alamat Email'); ?>" class="form-control required-entry validate-email validate-failed" id="email" value="" name="paymentconfirmation[email]" />
+                                    <input type="text" title="<?php echo $this->__('Alamat Email'); ?>" class="form-control required-entry2 validate-email validate-failed" id="email" value="" name="paymentconfirmation[email]" />
                                 </div>
                             </li>
                             
                             <li>
                                 <label class="required" for="nominal"><?php echo $this->__('Jumlah yang Dibayar (dalam Rupiah)'); ?><em>*</em></label>
                                 <div class="input-box">
-                                    <input type="text" title="<?php echo $this->__('Jumlah yang Dibayar (dalam Rupiah)'); ?>" class="form-control required-entry validate-failed validate-digits2" id="nominal" value="" name="paymentconfirmation[nominal]" />
+                                    <input type="text" title="<?php echo $this->__('Jumlah yang Dibayar (dalam Rupiah)'); ?>" class="form-control required-entry2 validate-failed validate-digits2" id="nominal" value="" name="paymentconfirmation[nominal]" />
                                 </div>
                             </li>
                             
                             <li>
                                 <label class="required" for="bank_to"><?php echo $this->__('Bayar ke Rekening (a/n PT Bilna):'); ?><em>*</em></label>
                                 <div class="input-box">
-                                    <!--<input type="text" title="<?php echo $this->__('Bayar ke Rekening (a/n PT Bilna):'); ?>" class="input-text required-entry validate-failed" id="bank_to" value="" name="paymentconfirmation[bank_to]" />-->
+                                    <!--<input type="text" title="<?php echo $this->__('Bayar ke Rekening (a/n PT Bilna):'); ?>" class="input-text required-entry2 validate-failed" id="bank_to" value="" name="paymentconfirmation[bank_to]" />-->
                                     <select style="" name="paymentconfirmation[bank_to]" id="bank_to" title="<?php echo $this->__('Bayar ke Rekening (a/n PT Bilna):'); ?>">
                                         <option value="BCA">BCA</option>
                                         <option value="BNI">BNI</option>
@@ -72,7 +72,7 @@
                             <li>
                                 <label class="required" for="bank_from"><?php echo $this->__('Nama Bank Asal'); ?><em>*</em></label>
                                 <div class="input-box">
-                                    <!--<input type="text" title="<?php echo $this->__('Nama Bank Asal'); ?>" class="input-text required-entry validate-failed" id="bank_to" value="" name="paymentconfirmation[bank_from]" />-->
+                                    <!--<input type="text" title="<?php echo $this->__('Nama Bank Asal'); ?>" class="input-text required-entry2 validate-failed" id="bank_to" value="" name="paymentconfirmation[bank_from]" />-->
                                     <select onchange="cek()" style="" name="paymentconfirmation[bank_from]" id="bank_from" title="<?php echo $this->__('Rekening Bilna yang dituju'); ?>">
                                         <option value="BCA">BCA</option>
                                         <option value="BNI">BNI</option>
@@ -81,14 +81,14 @@
                                         <option value="CIMB">CIMB</option>
                                         <option value="Others">Lainnya</option>
                                     </select>
-                                    <input type="text" style="display:none" class="input-text required-entry validate-failed" id="other_from" value="" name="paymentconfirmation[other_from]" disabled="disabled" />
+                                    <input type="text" style="display:none" class="input-text required-entry2 validate-failed" id="other_from" value="" name="paymentconfirmation[other_from]" disabled="disabled" />
                                 </div>
                             </li>
                             
                             <li>
                                 <label class="required" for="name_from"><?php echo $this->__('Nama Pengirim sesuai Rekening'); ?><em>*</em></label>
                                 <div class="input-box">
-                                    <input type="text" title="<?php echo $this->__('Nama Pengirim sesuai Rekening'); ?>" class="form-control required-entry validate-failed" id="name_from" value="" name="paymentconfirmation[name_from]" />
+                                    <input type="text" title="<?php echo $this->__('Nama Pengirim sesuai Rekening'); ?>" class="form-control required-entry2 validate-failed" id="name_from" value="" name="paymentconfirmation[name_from]" />
                                 </div>
                             </li>
                             
@@ -120,6 +120,10 @@
     
     Validation.add('validate-digits2', 'Masukkan jumlah pembayaran tanpa titik, koma atau huruf. Contoh: 125300 .', function(v) {
                 return !(Validation.get('IsEmpty').test(v)) && /^[0-9]+$/.test(v);
+    });
+    
+    Validation.add('required-entry2', 'Wajib diisi.', function(v) {
+                return !(Validation.get('IsEmpty').test(v));
     });
     
     function cek(){
