@@ -1,6 +1,5 @@
 <?php
 $x = $this->productsScriptAction();
-//print_r($x);
 ?>
 <!DOCTYPE html>
 <html>
@@ -75,12 +74,12 @@ $x = $this->productsScriptAction();
                 <a href="<?php echo $row['a'];?>" alt="<?php echo $row['name'];?>" target="_blank">
                 <div class="thumb">
                     <?php echo $row['img']; ?>
-                    <span class="text"><?php //echo $row['name'];?>
+                    <span class="text">
                         <?php if( $row['price']['old_price'] > $row['price']['special_price'] ) : ?>
-                        <p style="font-size: 9px;" class="none-text"><?php //echo $row['price']['old_price'];?></p>
-                        <p style="font-size: 9px;" class="none-text"><?php //echo $row['price']['special_price'];?></p>
+                        <p style="font-size: 9px;" class="none-text"></p>
+                        <p style="font-size: 9px;" class="none-text"></p>
                         <?php else :?>
-                        <p style="font-size: 9px;" class="none-text"><?php //echo $row['price']['old_price'];?></p>
+                        <p style="font-size: 9px;" class="none-text"></p>
 						<p class="buynow-aff">Buy Now</p>
                     <?php endif;?>
                     </span>

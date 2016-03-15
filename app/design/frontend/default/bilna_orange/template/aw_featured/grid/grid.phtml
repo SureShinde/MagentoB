@@ -383,10 +383,23 @@
             // ematics track items in cart to enable pre-abandonded cart overlays
             ematics("log", "product", "cart", products);
         }
+        else if (temp_cartQty == 0) {    // no item in cart, adding first item
+            var products = [];
+            products.push({
+              'id': sku,
+              'price': price_ematic,
+              'quantity': 1,
+              'name': name,
+              'brandName': 'brand name',
+              'imageUrl': imageUrl,
+              'link': link
+            });
+            // ematics track items in cart to enable pre-abandonded cart overlays
+            ematics("log", "product", "cart", products);
+        }
     }
 
     function ecommerceStaticBlockProductClick(name,sku,price,list) {
-        // alert("HURRY_PRODUCTCLICK_HOMEPAGE"+name+" "+sku+" "+price);
         dataLayer.push({
         'event': 'productClick',
         'ecommerce': {

@@ -227,8 +227,6 @@
                     $j(this).parent().next().slideDown();
 
                     $j(this).addClass("active-submenu");
-                    //$j(this).prev().removeClass("active-submenu");
-                    //$j(this).next().removeClass("active-submenu");
                     $j(this).next().css({"display":"block"});
                     return false;
                 }
@@ -295,7 +293,7 @@
         
         <?php echo $this->getChildHtml('topContainer'); ?>
         
-        <div class="nav-mobile"><?php //echo $this->getChildHtml('topMenu') ?></div>
+        <div class="nav-mobile"></div>
         
         <div class="mini-cart-mobile"><?php echo $this->getChildHtml('topcart') ?></div>
 

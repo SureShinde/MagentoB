@@ -309,6 +309,7 @@ One page checkout main layout
         </reference>
         <reference name="header">
             <block type="checkout/cart_sidebar" name="cart_sidebar_header" as="topcart" template="checkout/cart/sidebar.phtml"/>
+            <block type="core/template" name="cart_sidebar_header" as="additionalHeader" template="page/additional.phtml"/>
         </reference>
         <reference name="right">
             <action method="unsetChildren"></action>

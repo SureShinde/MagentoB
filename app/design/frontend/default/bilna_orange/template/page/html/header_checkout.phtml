@@ -85,6 +85,8 @@
 $customer = Mage::getSingleton('customer/session')->getCustomer();
 if (isset ($customer) && !empty ($customer)) { $email = $customer->getEmail(); }
 else { $email = ""; }
+
+echo $this->getChildHtml('additionalHeader');   // ematic payload
 ?>
 <script type="text/javascript">
     jQuery(document).ready(function() {
