@@ -268,19 +268,19 @@ class Bilna_Pricevalidation_Adminhtml_PricevalidationController extends Mage_Adm
                         $error .= $this->__checkPrice($fieldList, $cleanData[$i - 1]['price']);
                         $error .= $this->__checkCost($fieldList, $cleanData[$i - 1]['cost']);
                         $error .= $this->__checkSpecialPrice($fieldList, $cleanData[$i - 1]['special_price']);
-                        if ($newFromDate = $this->__checkDateFormat('new_from_date', $fieldList, $cleanData[$i - 1]['new_from_date']) != '') {
+                        if (($newFromDate = $this->__checkDateFormat('new_from_date', $fieldList, $cleanData[$i - 1]['new_from_date'])) != '') {
                             $error .= $newFromDate;
                         }
 
-                        if ($newToDate = $this->__checkDateFormat('new_to_date', $fieldList, $cleanData[$i - 1]['new_to_date']) != '') {
+                        if (($newToDate = $this->__checkDateFormat('new_to_date', $fieldList, $cleanData[$i - 1]['new_to_date'])) != '') {
                             $error .= $newToDate;
                         }
 
-                        if ($specialFromDate = $this->__checkDateFormat('special_from_date', $fieldList, $cleanData[$i - 1]['special_from_date']) != '') {
+                        if (($specialFromDate = $this->__checkDateFormat('special_from_date', $fieldList, $cleanData[$i - 1]['special_from_date'], $cleanData[$i - 1]['special_price'])) != '') {
                             $error .= $specialFromDate;
                         }
 
-                        if ($specialToDate = $this->__checkDateFormat('special_to_date', $fieldList, $cleanData[$i - 1]['special_to_date']) != '') {
+                        if (($specialToDate = $this->__checkDateFormat('special_to_date', $fieldList, $cleanData[$i - 1]['special_to_date'])) != '') {
                             $error .= $specialToDate;
                         }
 
@@ -686,16 +686,22 @@ class Bilna_Pricevalidation_Adminhtml_PricevalidationController extends Mage_Adm
         return '';
     }
 
-    private function __checkDateFormat($fieldToCheck, $fieldList, $date = null)
+    private function __checkDateFormat($fieldToCheck, $fieldList, $date = null, $specialPrice = null)
     {
         $error = '';
-        if (in_array($fieldToCheck, $fieldList) && !is_null($date)) {
+        if (in_array($fieldToCheck, $fieldList) && !is_null($date) && ($date != '')) {
             $dateArr = explode('/', $date);
             if ($dateArr[0] > 12) {
                 $error = 'Please use mm/dd/yyyy date format ';
             }
             elseif ($dateArr[1] > 31 && $error == '') {
                 $error = 'Please use mm/dd/yyyy date format ';
+            }
+        }
+
+        if (($fieldToCheck == 'special_from_date') && (!is_null($specialPrice)) && ($specialPrice != '')) {
+            if ((is_null($date)) || ($date == '')) {
+                $error = "Don't forget to fill special from date if special price is not empty!";
             }
         }
 
