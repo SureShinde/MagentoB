@@ -69,7 +69,7 @@ class Bilna_Paymethod_Model_Api {
         try {
             $this->writeLog($paymentCode, $typeTransaction, 'charge', 'request: ' . json_encode($transactionData));
             $response = Veritrans_VtDirect::charge($transactionData);
-            $this->writeLog($paymentCode, $this->_typeTransaction, 'charge', 'response: ' . json_encode($response));
+            $this->writeLog($paymentCode, $typeTransaction, 'charge', 'response: ' . json_encode($response));
         }
         catch (Exception $e) {
             $this->writeLog($paymentCode, $typeTransaction, 'charge', "error: [" . $incrementId . "] " . $e->getMessage());
