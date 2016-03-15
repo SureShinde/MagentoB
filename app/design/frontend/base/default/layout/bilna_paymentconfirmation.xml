@@ -2,7 +2,6 @@
 <layout version="0.1.0">
     <paymentconfirm_index_index>
         <reference name="head">
-           <action method="addCss"><stylesheet>css/catgrid.css</stylesheet></action>
            <action method="addCss"><stylesheet>css/payment-confirmation.css</stylesheet></action>
             <action method="addCss"><stylesheet>css/jquery-uii.css</stylesheet></action>
         </reference>
@@ -16,6 +15,10 @@
     </paymentconfirm_index_index>
     
     <paymentconfirm_index_process>
+        <reference name="head">
+           <action method="addCss"><stylesheet>css/payment-confirmation.css</stylesheet></action>
+            <action method="addCss"><stylesheet>css/jquery-uii.css</stylesheet></action>
+        </reference>
         <reference name="root">   
             <action method="setTemplate"><template>page/1column.phtml</template></action>   
         </reference>

@@ -1,11 +1,11 @@
 <?php
 DEFINE('SUCCESS_TITLE','Terima Kasih!');
-DEFINE('SUCCESS','Konfirmasi pembayaran anda telah kami terima. kami akan melakukan pengecekan. Mohon simpan bukti pembayaran anda, jika diperlukan tim kami akan menghubungi anda untuk pengecekan lebih lanjut, jika anda melakukan kesalahan saat memasukkan data konfirmasi, silahkan hubungi cs@bilna.com<br><br>Mohon tunggu maksimal 24 jam, Anda akan menerima e-mail status pesanan dari kami.');
+DEFINE('SUCCESS','Konfirmasi pembayaran anda telah kami terima. kami akan melakukan pengecekan. Mohon simpan bukti pembayaran anda, jika diperlukan tim kami akan menghubungi anda untuk pengecekan lebih lanjut, jika anda melakukan kesalahan saat memasukkan data konfirmasi, silahkan hubungi <a href="mailto:cs@bilna.com">cs@bilna.com</a><br><br>Mohon tunggu maksimal 24 jam, Anda akan menerima e-mail status pesanan dari kami.');
 DEFINE('INV_TITLE','Ulangi Proses Konfirmasi');
 DEFINE('INV_EMAIL','Alamat email atau nomor pesanan yang dimasukkan salah. Mohon ulangi proses konfirmasi dan pastikan informasi sesuai dengan data pesanan.');
 DEFINE('INV_ORDER','Alamat email atau nomor pesanan yang dimasukkan salah. Mohon ulangi proses konfirmasi dan pastikan informasi sesuai dengan data pesanan.');
 DEFINE('DUPLICATE_ORDER_TITLE','Konfirmasi Telah Berhasil');
-DEFINE('DUPLICATE_ORDER','Pesanan telah berhasil dikonfirmasi sebelumnya. Apabila Anda ingin mengubah informasi yang telah diterima, silakan menghubungi cs@bilna.com');
+DEFINE('DUPLICATE_ORDER','Pesanan telah berhasil dikonfirmasi sebelumnya. Apabila Anda ingin mengubah informasi yang telah diterima, silakan menghubungi <a href="mailto:cs@bilna.com">cs@bilna.com</a>');
 
 
 class Bilna_Paymentconfirmation_IndexController extends Mage_Core_Controller_Front_Action {
