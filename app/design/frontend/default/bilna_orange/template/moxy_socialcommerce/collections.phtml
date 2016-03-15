@@ -1,5 +1,6 @@
 <?php
 $wishlists = $this->getWishlists();
+$faveWishlists = $this->getFaveWishlists();
 $curPage = $this->getCurPage();
 $lastPageNumber = $this->getLastPageNumber();
 ?>
@@ -41,17 +42,11 @@ $lastPageNumber = $this->getLastPageNumber();
                 </div>
                 <div class="cg-container">
                 <?php 
-                    $rows = Mage::getModel('wishlist/wishlist')->getCollection()->addFieldToFilter('visibility','1')->addFieldToFilter('view','1')->setOrder('counter', 'DESC')->setPageSize(4);
-                    foreach ($rows as $wishlist) { 
-                        $product_image = null;
+                    foreach ($faveWishlists as $wishlist) {
+                        $items = $wishlist->getItemCollection();
+                        if ($items->count() < 4) continue;
                         $collectionName = $wishlist['name'];
                         $slug = Mage::getModel('catalog/product_url')->formatUrlKey($collectionName);
-                        $items = $wishlist->getItemCollection();
-                        $item = $items->getFirstItem();
-                        if ($item->getProductId()) {
-                            $product = Mage::getModel('catalog/product')->load($item->getProductId());
-                            $product_image = Mage::helper('catalog/image')->init($product, 'small_image')->resize(320 , 320);
-                        }
                         $user = Mage::helper('socialcommerce')->getProfileInformation($wishlist['customer_id']); ?> 
                     <div class="cg-col-lg-3 cg-col-md-3 cg-col-sm-6 cg-col-xs-6 bottom-spacer-container">
                         <div class="cg-col-xs-12 nopadding collection-shade">
@@ -60,12 +55,6 @@ $lastPageNumber = $this->getLastPageNumber();
                                 <img src="<?php echo str_replace('en/', '', $wishlist['cover']); ?>" width="275" height ="275" class="img-collection collection-img">
                                 <?php elseif ($wishlist['cover'] && strpos($wishlist['cover'],'socialcommerce') == false) : ?>
                                 <img src="<?php echo str_replace('en/', '', $this->getUrl('media/collection-cover').$wishlist['cover']); ?>" width="275" height ="275" class="img-collection collection-img">
-                                <?php elseif ($wishlist['cloud_cover']) : ?>
-                                <?php echo cl_image_tag($wishlist['cloud_cover'], ['class' => 'img-collection collection-img', 'alt' => $user['display_name'], 'secure' => true, 'width' => 275, 'height' => 275, 'crop' => 'fill', 'format' => 'jpg']); ?>
-                                <?php elseif ($product_image) : ?>
-                                    <img src="<?php echo $product_image; ?>" width = "100%" class="img-collection">
-                                <?php else: ?>
-                                    <img src="<?php echo $this->getSkinUrl('images') . '/orami_collection_empty.png'; ?>" width = "100%" class="img-collection">
                                 <?php endif; ?>
                             </a>
                             <div id="explanation"></div>
@@ -141,38 +130,25 @@ $lastPageNumber = $this->getLastPageNumber();
                                 <div class="cg-container">
                                 <?php 
                                     foreach ($wishlists as $wishlist) {
-                                        $items = $wishlist->getItemCollection();
-                                        $item = $items->getFirstItem();
-                                        $product_image = null;
-                                        if ($item->getProductId()) {
-                                            $product = Mage::getModel('catalog/product')->load($item->getProductId());
-                                            $product_image = Mage::helper('catalog/image')->init($product, 'small_image')->resize(320 , 320);
-                                        }
                                         $user = Mage::helper('socialcommerce')->getProfileInformation($wishlist['customer_id']); ?> 
                                         <div class="cg-col-lg-3 cg-col-md-3 cg-col-sm-6 cg-col-xs-6 bottom-spacer-container">
                                             <div class="cg-col-xs-12 nopadding collection-shade">
-                                                <a href="<?php echo $this->getUrl('collections/' . $wishlist['id'] . '-' . $wishlist['slug']); ?>">
+                                                <a href="<?php echo $this->getUrl('collections/' . $wishlist['slug']); ?>">
                                                     <?php if ($wishlist['cover'] && strpos($wishlist['cover'],'socialcommerce') == true) : ?>
                                                     <img src="<?php echo str_replace('en/', '', $wishlist['cover']); ?>" width="275" height ="275" class="img-collection collection-img">
                                                     <?php elseif ($wishlist['cover'] && strpos($wishlist['cover'],'socialcommerce') == false) : ?>
                                                     <img src="<?php echo str_replace('en/', '', $this->getUrl('media/collection-cover').$wishlist['cover']); ?>" width="275" height ="275" class="img-collection collection-img">
-                                                    <?php elseif ($wishlist['cloud_cover']) : ?>
-                                                    <?php echo cl_image_tag($wishlist['cloud_cover'], ['class' => 'img-collection collection-img', 'alt' => $user['display_name'], 'secure' => true, 'width' => 275, 'height' => 275, 'crop' => 'fill', 'format' => 'jpg']); ?>
-                                                    <?php elseif ($product_image) : ?>
-                                                        <img src="<?php echo $product_image; ?>" width = "100%" class="img-collection">
-                                                    <?php else: ?>
-                                                        <img src="<?php echo $this->getSkinUrl('images') . '/orami_collection_empty.png'; ?>" width = "100%" class="img-collection">
                                                     <?php endif; ?>
                                                 </a>
                                                 <div class="cg-col-xs-12 collection-title">
                                                     <div class="cg-col-lg-12 cg-col-md-10 cg-col-sm-10 cg-col-xs-12 take-left" style="">
-                                                        <a class="display-title-coll link-pink-hover nameOfList uppercase opensans" href="<?php echo $this->getUrl('collections/' . $wishlist['id'] . '-' . $wishlist['slug']); ?>" style=""><?php echo $wishlist['name']; ?></a>
+                                                        <a class="display-title-coll link-pink-hover nameOfList uppercase opensans" href="<?php echo $this->getUrl('collections/' . $wishlist['slug']); ?>" style=""><?php echo $wishlist['name']; ?></a>
                                                         <?php if ($user['url']) : ?>
                                                         <span class="opensans hidden-xs oleh-elip">oleh</span> <a class="display-name-coll name-elip link-pink-hover opensans" href="<?php echo $user['url']; ?>" style=""><?php echo $user['display_name']; ?></a>
                                                         <?php else : ?>
                                                         <?php echo $user['display_name']; ?>
                                                         <?php endif; ?>
-                                                        <span class="pull-right opensans hidden-md hidden-sm hidden-xs"><a href="<?php echo $this->getUrl('collections/' . $wishlist['id'] . '-' . $wishlist['slug']); ?>">Lihat Koleksi ></a> </span>
+                                                        <span class="pull-right opensans hidden-md hidden-sm hidden-xs"><a href="<?php echo $this->getUrl('collections/' . $wishlist['slug']); ?>">Lihat Koleksi ></a> </span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -214,4 +190,3 @@ function closeTo() {
     jQuery('#howto').fadeOut('fast');
 }
 </script>
-
