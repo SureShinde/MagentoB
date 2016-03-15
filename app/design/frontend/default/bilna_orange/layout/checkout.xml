@@ -302,6 +302,9 @@ One page checkout main layout
         <!-- Mage_Checkout -->
         <remove name="left"/>
 
+        <reference name="head">
+            <action method="removeItem"><type>js</type><name>script.js</name></action>
+        </reference>
         <reference name="root">
             <action method="setTemplate"><template>page/2columns-right.phtml</template></action>
             <block type="page/html_header" name="header" as="header" template="page/html/header_checkout.phtml"/>
@@ -482,7 +485,7 @@ One page checkout order review block
         </reference>
         <reference name="head">
             <action method="addItem">
-            	<type>skin_js</type>
+                <type>skin_js</type>
                 <name>js/bilna.gimmickevent.js</name>
             </action>
         </reference>
