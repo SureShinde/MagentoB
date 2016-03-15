@@ -47,8 +47,8 @@ $lastPageNumber = $this->getLastPageNumber();
                         if ($items->count() < 4) continue;
                         $collectionName = $wishlist['name'];
                         $slug = Mage::getModel('catalog/product_url')->formatUrlKey($collectionName);
-						$user = Mage::helper('socialcommerce')->getProfileInformation($wishlist['customer_id']); 
-				?> 
+                        $user = Mage::helper('socialcommerce')->getProfileInformation($wishlist['customer_id']); 
+                ?> 
                     <div class="cg-col-lg-3 cg-col-md-3 cg-col-sm-6 cg-col-xs-6 bottom-spacer-container">
                         <div class="cg-col-xs-12 nopadding collection-shade">
                             <a href="<?php echo $this->getUrl('collections/' . $wishlist['wishlist_id'] . '-' . $slug); ?>">
