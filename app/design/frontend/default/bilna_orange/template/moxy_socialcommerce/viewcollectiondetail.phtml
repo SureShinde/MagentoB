@@ -43,7 +43,7 @@ if ($view == '0'){
 <?php
 $wishlist = $this->getWishlist();
 $user = Mage::helper('socialcommerce')->getProfileInformation($wishlist['customer_id']);
-
+$coverImage = $this->getSkinUrl('images') . '/orami_collection_empty.png';
 $_productCollection = $this->getWishlistCollection();
 $_helper = $this->helper('catalog/output');
 $_core_helper =  Mage::helper('core');
@@ -54,11 +54,11 @@ $_core_helper =  Mage::helper('core');
     <!-- Check is wishlist cover image is exist-->
     <?php if($wishlist['cover']) : ?>
       <img src="<?php echo $this->getUrl('media/collection-cover') . $wishlist['cover']; ?>" class="collection-img"/>
-
+      <?php $coverImage = $this->getUrl('media/collection-cover') . $wishlist['cover']; ?>
     <!-- Use cloud cover image, If wishlist cover image is not exist -->
     <?php elseif ($wishlist['cloud_cover']) : ?>
       <?php echo cl_image_tag($wishlist['cloud_cover'], ['class' => 'collection-img cg-img-responsive', 'alt' => $wishlist->getName(), 'secure' => true, 'width' => 390, 'height' => 390, 'crop' => 'fill', 'format' => 'jpg']); ?>
-
+      <?php $coverImage = $wishlist['cloud_cover']; ?>
     <!-- Use product image if both(cover and cloud cover) are not exist -->
     <?php else : ?>
       <?php
@@ -72,6 +72,7 @@ $_core_helper =  Mage::helper('core');
         <!-- Use product image if exist-->
         <?php if (isset($product) && $product->getImageUrl()) { ?>
           <img src="<?php echo $product->getImageUrl(); ?>" class="cg-img-responsive" alt="<?php echo $wishlist->getName(); ?>">
+          <?php $coverImage = $product->getImageUrl(); ?>
         <?php } else { ?>
 
         <!-- Use default user collection cover image exist, if no image options exist -->
@@ -114,7 +115,7 @@ $_core_helper =  Mage::helper('core');
       <a style="color:#fff;" href="http://twitter.com/home?status=<?php echo $wishlist->getName(); ?>+<?php echo $this->helper('core/url')->getCurrentUrl(); ?>" onclick="javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"><i class="fa fa-twitter" style="padding-top:7px;"></i></a>
     </div>
     <div class="cg-col-xs-2 padding-3lr soc-size pinterest">
-      <a style="color:#fff;" href="https://www.pinterest.com/pin/create/link/?url=<?php echo $this->helper('core/url')->getCurrentUrl(); ?>&media=<?php echo sprintf("%s%s", $this->getUrl('media/collection-cover'), $wishlist->cover); ?>&description=<?php echo $wishlist->getDesc(); ?>" onclick="javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"><i class="fa fa-pinterest-p" style="padding-top:7px;"></i></a>
+      <a style="color:#fff;" href="https://www.pinterest.com/pin/create/link/?url=<?php echo $this->helper('core/url')->getCurrentUrl(); ?>&media=<?php echo $coverImage; ?>&description=<?php echo urlencode($wishlist->getDesc()); ?>" onclick="javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"><i class="fa fa-pinterest-p" style="padding-top:7px;"></i></a>
     </div>
     <div class="cg-col-xs-2 padding-3lr soc-size gplus">
       <a style="color:#fff;" href="https://plus.google.com/share?url=<?php echo $this->helper('core/url')->getCurrentUrl(); ?>" onclick="javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"><i class="fa fa-google-plus" style="padding-top:7px;"></i></a>
@@ -315,10 +316,14 @@ $_core_helper =  Mage::helper('core');
                     <div class="clearfix"></div>
                     <div> 
                       <div class="price-info">
-                        <div class="price-box quick-view-price-box" style="text-align: left;">
-                        <span class="regular-price" id="product-price-<?php echo $productId; ?>">
-                          <span class="price quick-price opensans" style=""><?php echo $productFinalPriceFormatted; ?></span>                                    
-                        </span>
+                        <div class="price-box quick-price quick-view-price-box" style="text-align: left;">
+                          <?php if ($_product->canConfigure()) {
+                              $productBlock = $this->getLayout()->createBlock('catalog/product_price');
+                                echo $productBlock->getPriceHtml($_product);
+                              } else
+                              echo '<span class="regular-price" id="product-price-<?php echo $productId; ?>"><div class="price-box"><span class="price opensans">'.$productFinalPriceFormatted.'</span></div></span>'; 
+                            ?>                                   
+                        
 
                         <!-- showing product rating --> 
                         <?php $storeId = Mage::app()->getStore()->getId(); 
@@ -531,7 +536,12 @@ $_core_helper =  Mage::helper('core');
       </div>
       <div class="price-box">
         <input type="hidden" class="final-price-<?php echo $productId; ?>" value="<?php echo $productFinalPrice; ?>" />
-        <?php if ($productSpecialPrice && $productSpecialPrice < $productRegularPrice && $productSpecialDateIsValid) : ?>
+        <?php if ($_product->canConfigure()) : ?>
+          <?php 
+            $productBlock = $this->getLayout()->createBlock('catalog/product_price');
+            echo $productBlock->getPriceHtml($_product); 
+          ?>
+        <?php elseif ($productSpecialPrice && $productSpecialPrice < $productRegularPrice && $productSpecialDateIsValid) : ?>
         <div class="special-price in-block full-width">
           <p class="old-price">
             <span class="price size12" id="old-price-<?php echo $productId; ?>"><?php echo $productRegularPriceFormatted; ?></span>

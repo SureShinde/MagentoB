@@ -68,7 +68,7 @@ div.megamenu-container{
     left: 0;
     position: absolute;
     padding: 18px 0 0;
-    color: #EE5191;
+    color: #ff6c6c;
     z-index: 999;
 }
 .button-megamenu{
@@ -142,7 +142,7 @@ div.megamenu-container{
 }
 .wrap-navigation.inspirasi > li:first-child{
     display: block;
-    color: #EE5191;
+    color: #ff6c6c;
     padding: 16px 20px;
 }
 .wrap-navigation.inspirasi .sub_nav{
@@ -263,7 +263,7 @@ div.megamenu-container{
     color: #fff;
 }
 .menu-navigation .first-level li.first-level-cat.active-cat.hover-cat{
-    background: #EE5191 !important;
+    background: #ff6c6c !important;
 }
 .menu-navigation .first-level li.first-level-cat.active-cat.hover-cat > div.first-level-url{
     color: #fff !important;
@@ -280,13 +280,13 @@ div.megamenu-container{
     background: #fffcfd;
 }
 .menu-navigation .first-level > ul > li.hover-cat > a {
-    color: #EE5191;
+    color: #ff6c6c;
 }
 .menu-navigation .first-level > ul.hover-cat > li.cat-hover > a {
     color: #F05A2A;
 }
 .menu-navigation .first-level > ul > li.active-cat{
-    background: #EE5191;
+    background: #ff6c6c;
 }
 .menu-navigation .first-level > ul > li.active-cat .second-level{
 	display:block;
@@ -403,11 +403,11 @@ div.megamenu-container{
 	color:#fff !important;
 }
 .menu-navigation .first-level > ul > li.first-level-cat.hover-cat div{
-	color:#EE5191;
+	color:#ff6c6c;
 }
 .menu-navigation .first-level .second-level .wrap-second-cat > ul li:hover > a,
 .menu-navigation .first-level .second-level .wrap-second-cat > ul li:hover > p > a{
-	color:#EE5191;
+	color:#ff6c6c;
 	text-decoration:underline;
 }
 @media (min-width: 1024px )and (max-width: 1215px ){
