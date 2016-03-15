@@ -661,7 +661,7 @@ class Bilna_Pricevalidation_Adminhtml_PricevalidationController extends Mage_Adm
 
     private function __checkCost($fieldList, $cost = null)
     {
-        if ((in_array('price', $fieldList)) && (!is_null($cost)) && ((int)floatval($cost)) < 0) {
+        if ((in_array('cost', $fieldList)) && (!is_null($cost)) && ((int)floatval($cost)) < 0) {
             return 'Cost value cannot smaller than 0 ! ';
         }
         return '';
@@ -669,7 +669,7 @@ class Bilna_Pricevalidation_Adminhtml_PricevalidationController extends Mage_Adm
 
     private function __checkSpecialPrice($fieldList, $specialPrice = null)
     {
-        if ((in_array('price', $fieldList)) && (!is_null($specialPrice)) && ((int)floatval($specialPrice)) < 0) {
+        if ((in_array('special_price', $fieldList)) && (!is_null($specialPrice)) && ((int)floatval($specialPrice)) < 0) {
             return 'Special Price cannot smaller than 0 ! ';
         }
         return '';
