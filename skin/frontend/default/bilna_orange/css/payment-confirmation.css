@@ -87,13 +87,12 @@ form#paymentconfirmationForm{
 .payment-confirmation button.button{
   width: auto;
   display: inline-block;
-  font-weight: bold;
   margin:0 5px;
 }
 .payment-confirmation button.button span{
   font-size: 16px;
   line-height: 22px;
-  font-weight: normal;
+  font-weight: bold;
   line-height: 25px;
   padding: 5px 30px;
   border-radius: 5px;
@@ -105,9 +104,18 @@ form#paymentconfirmationForm{
   font-size: 16px;
   color:#73777A;
 }
+.payment-confirmation .intro a{
+  color:#73777A;
+  text-decoration: underline;
+}
 .payment-confirmation .validation-failed{
  background: #fff!important;
  border: #73777A solid 1px!important; 
+}
+.payment-confirmation .validation-advice:before{
+content: "\f071";
+margin:3px;
+font:normal normal normal 14px/1 FontAwesome;
 }
 .payment-confirmation .validation-advice{
   padding-right: 0;
@@ -132,8 +140,8 @@ form#paymentconfirmationForm{
     clear: none;
     display: inline-block;
     position: absolute;
-    left: 98%;
+    left: 100%;
     min-width: 100px;
-    top: 0px;
+    top: 10px;
   }
 }
