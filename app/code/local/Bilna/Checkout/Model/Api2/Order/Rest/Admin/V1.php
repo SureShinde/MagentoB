@@ -1,5 +1,4 @@
 <?php
-
 /**
  * API2 class for coupon (admin)
  *
@@ -141,28 +140,24 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
                 }
             }
 
-            Mage::dispatchEvent(
-                'checkout_submit_all_after',
-                array('order' => $order, 'quote' => $quote)
-            );
+            Mage::dispatchEvent('checkout_submit_all_after', array ('order' => $order, 'quote' => $quote));
+            Mage::dispatchEvent('sales_order_place_after', array ('order' => $order));
 
-            $lastOrderId = $order->getId();
+            $orderId = $order->getId();
             $paymentCode = $order->getPayment()->getMethodInstance()->getCode();
             $orderIncrementId = $order->getIncrementId();
             $orderGrandTotal = $order->getGrandTotal();
+            $orderCanceled = $this->_getOrderCanceled($order);
 
-            if (in_array($paymentCode, $this->getPaymentMethodCc())) {
+            if (in_array($paymentCode, $this->getPaymentMethodCc()) && ($orderCanceled === false)) {
                 $charge = Mage::getModel('paymethod/api')->creditcardCharge($order, $tokenId);
-                $hostname = Mage::getStoreConfig('bilna_queue/beanstalkd_settings/hostname');
-                $pheanstalk = new Pheanstalk($hostname);
-                $pheanstalk->useTube('vt_charge')->put(json_encode($charge)); //- store charge request-response for API Charging Info
-                $pheanstalk->useTube('invoice')->put(json_encode($charge['response']), '', 60); //- store charge reseponse for create invoice or cancel order (delay 1 minute)
-                Mage::dispatchEvent('sales_order_place_after', array ('order' => $order));
+                $this->_storeChargeDataToQueue($charge);
             }
 
-            if (in_array($paymentCode, $this->getPaymentMethodVtdirect())) {
+            if (in_array($paymentCode, $this->getPaymentMethodVtdirect()) && ($orderCanceled === false)) {
                 $charge = Mage::getModel('paymethod/api')->vtdirectRedirectCharge($order);
-                Mage::getModel('paymethod/vtdirect')->addHistoryOrder($order, $charge);
+                $this->_addHistoryOrder($order, $charge['response']->status_message);
+                $this->_storeChargeDataToQueue($charge, false);
             }
         }
         catch (Mage_Core_Exception $e) {
@@ -287,5 +282,27 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
             return '';
         }
     }
-}
+    
+    protected function _getOrderCanceled($order) {
+        if (strtolower($order->getData('status')) != 'canceled') {
+            return false;
+        }
 
+        return true;
+    }
+    
+    protected function _addHistoryOrder($order, $message) {
+        $order->addStatusHistoryComment($message);
+        $order->save();
+    }
+    
+    protected function _storeChargeDataToQueue($charge, $invoice = true) {
+        $hostname = Mage::getStoreConfig('bilna_queue/beanstalkd_settings/hostname');
+        $pheanstalk = new Pheanstalk($hostname);
+        $pheanstalk->useTube('vt_charge')->put(json_encode($charge)); //- store charge request-response for API Charging Info
+        
+        if ($invoice) {
+            $pheanstalk->useTube('invoice')->put(json_encode($charge['response']), '', 60); //- store charge reseponse for create invoice or cancel order (delay 1 minute)
+        }
+    }
+}
