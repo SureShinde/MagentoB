@@ -65,30 +65,35 @@ class Bilna_Paymentconfirmation_IndexController extends Mage_Core_Controller_Fro
 
                             $this->getLayout()->getBlock('head')->setTitle($this->__('Payment Confirmation Thank You'));
                             $this->getLayout()->getBlock('paymentconfirm_process')->setData('message',SUCCESS);
-                            $this->getLayout()->getBlock('paymentconfirm_process')->setData('title',SUCCESS_HEADER);
+                            $this->getLayout()->getBlock('paymentconfirm_process')->setData('title',SUCCESS_TITLE);
+                            $this->getLayout()->getBlock('paymentconfirm_process')->setData('status',1);
                         }
                         else{
                             $this->getLayout()->getBlock('head')->setTitle($this->__('Failed Payment Confirmation'));
                             $this->getLayout()->getBlock('paymentconfirm_process')->setData('message',DUPLICATE_ORDER);
                             $this->getLayout()->getBlock('paymentconfirm_process')->setData('title',DUPLICATE_ORDER_TITLE);
+                            $this->getLayout()->getBlock('paymentconfirm_process')->setData('status',1);
                         }
                     }
                     else{
                         $this->getLayout()->getBlock('head')->setTitle($this->__('Failed Payment Confirmation'));
                         $this->getLayout()->getBlock('paymentconfirm_process')->setData('message',INV_EMAIL);
                         $this->getLayout()->getBlock('paymentconfirm_process')->setData('title',INV_TITLE);
+                        $this->getLayout()->getBlock('paymentconfirm_process')->setData('status',0);
                     }
                 }
                 else{
                     $this->getLayout()->getBlock('head')->setTitle($this->__('Failed Payment Confirmation'));
                     $this->getLayout()->getBlock('paymentconfirm_process')->setData('message',INV_ORDER);
                     $this->getLayout()->getBlock('paymentconfirm_process')->setData('title',INV_TITLE);
+                    $this->getLayout()->getBlock('paymentconfirm_process')->setData('status',0);
                 }
             }
             else{
                 $this->getLayout()->getBlock('head')->setTitle($this->__('Failed Payment Confirmation'));
                 $this->getLayout()->getBlock('paymentconfirm_process')->setData('message',INV_ORDER);
                 $this->getLayout()->getBlock('paymentconfirm_process')->setData('title',INV_TITLE);
+                $this->getLayout()->getBlock('paymentconfirm_process')->setData('status',0);
             }
             
             
