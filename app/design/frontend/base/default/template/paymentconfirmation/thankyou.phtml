@@ -13,7 +13,7 @@
     <div class="static-page-content">
     </div>
     <?php if($this->status == 0){?>
-    <div class="cg-col-xs-12">
+    <div class="cg-col-xs-12 cg-col-sm-8 cg-col-sm-offset-2 cg-col-lg-6 cg-col-lg-offset-3 ">
       <div class="btn-box">
         <button id="send" name="send" title="Konfirmasi" class="button" type="submit">
             <a href="/konfirmasipembayaran/"><span><?php echo $this->__('KONFIRMASI PEMBAYARAN'); ?></span></a>
@@ -21,12 +21,17 @@
       </div>
     </div>
     <?php } else {?>  
-    <div class="cg-col-xs-12">
-      <div class="btn-box">
-        <button id="send" name="send" title="Konfirmasi" class="button" type="submit">
+    
+    <div class="cg-col-xs-12 cg-col-sm-6">
+      <div class="btn-box pull-right">
+        <button id="send" name="send" title="cek status pesanan" class="button" type="submit">
         <a href="/orderdetail/"><span><?php echo $this->__('CEK STATUS PESANAN'); ?></span></a>
         </button>
-        <button id="send" name="send" title="Konfirmasi" class="button" type="submit">
+      </div>
+    </div>
+    <div class="cg-col-xs-12 cg-col-sm-6">
+      <div class="btn-box pull-left">
+        <button id="send" name="send" title="lanjut belanja" class="button" type="submit">
         <a href="/"><span><?php echo $this->__('LANJUTKAN BELANJA'); ?></span></a>
         </button>
       </div>

@@ -30,7 +30,7 @@ form#paymentconfirmationForm{
   position: relative;
 }
 .payment-confirmation .btn-box{
-  padding-top: 30px;
+  padding: 10px 0px 0;
 }
 .payment-confirmation .input-box{
   position: relative;
@@ -85,17 +85,19 @@ form#paymentconfirmationForm{
   -webkit-border-radius: none;
   -moz-border-radius: none;
 }
+
 .payment-confirmation button.button{
   width: auto;
   display: inline-block;
-  margin:0 5px;
+  margin:0;
 }
+  
 .payment-confirmation button.button span{
-  font-size: 16px;
+  font-size: 13px;
   line-height: 22px;
   font-weight: bold;
   line-height: 25px;
-  padding: 5px 30px;
+  padding: 5px;
   border-radius: 5px;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
@@ -130,7 +132,19 @@ top: -3px;
   background: transparent;
   padding-left: 22px;
 }
+@media (max-width: 990px){
+    .payment-confirmation button.button{
+    width: 100%;
+  }
+  .payment-confirmation .btn-box{
+    width: 100%;
+  }
+}
 @media (min-width: 768px){
+  .payment-confirmation button.button span{
+   padding: 5px 30px; 
+   font-size: 16px;
+  }
   .payment-confirmation .form-list li .input-box,
   .payment-confirmation .form-list li label{
     text-align: left;
