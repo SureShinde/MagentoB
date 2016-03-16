@@ -1,0 +1,175 @@
+
+<div class="payment-confirmation cg-row">
+    
+    <div class="container-box cg-col-xs-8 cg-col-xs-offset-2 cg-col-sm-8 cg-col-sm-offset-2  text-center" style="border-width:0px">
+
+    <div class="page-title">
+      <span>
+      <?php echo $this->__('Konfirmasi Pembayaran'); ?>
+      </span>
+      <div class="line"></div>
+    </div>
+
+    <div class="intro">
+      Terima kasih telah berbelanja di Bilna!
+      Konfirmasikan pembayaran anda agar pesanan dapat kami segera proses dan kirim.
+      Pastikan anda memasukan data dengan benar untuk mempercepat proses, jika anda melakukan kesalahan hubungi <a href="mailto:cs@bilna.com">cs@bilna.com</a>
+    </div>
+    
+    <div class="static-page-content">
+      <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('thankyou-transfer-confirm')->toHtml(); ?>
+    </div>
+
+        <form id="paymentconfirmationForm" method="post" action="<?php echo $this->getFormActionUrl(); ?>" >
+            <div class="registered-users">
+                <div class="content">
+                    <!--<h2><?php echo $this->__('KONFIRMASI PEMBAYARAN FORM'); ?></h2>-->
+                    <div class="new-customers-fields">
+                        <ul class="form-list">
+                            <li>
+                                <label class="required" for="order_number"><?php echo $this->__('Nomor Pesanan'); ?><em>*</em></label>
+                                <div class="input-box">
+                                    <input type="text" title="<?php echo $this->__('Nomor Pesanan'); ?>" id="orderid" class="form-control required-entry2 validate-failed" name="paymentconfirmation[order_number]" />
+                                </div>
+                            </li>
+
+                            <li>
+                                <label class="required" for="email"><?php echo $this->__('Alamat Email'); ?><em>*</em></label>
+                                <div class="input-box">
+                                    <input type="text" title="<?php echo $this->__('Alamat Email'); ?>" class="form-control required-entry2 validate-email2 validate-failed" id="email" value="" name="paymentconfirmation[email]" />
+                                </div>
+                            </li>
+                            
+                            <li>
+                                <label class="required" for="nominal"><?php echo $this->__('Jumlah yang Dibayar (dalam Rupiah)'); ?><em>*</em></label>
+                                <div class="input-box">
+                                    <input type="text" title="<?php echo $this->__('Jumlah yang Dibayar (dalam Rupiah)'); ?>" class="numberInput form-control required-entry2 validate-failed validate-digits2" id="nominal" value="" name="paymentconfirmation[nominal]" placeholder="Contoh: 125300"/>
+                                </div>
+                            </li>
+                            
+                            <li>
+                                <label class="required" for="bank_to"><?php echo $this->__('Bayar ke Rekening (a/n PT Bilna):'); ?><em>*</em></label>
+                                <div class="input-box">
+                                    <!--<input type="text" title="<?php echo $this->__('Bayar ke Rekening (a/n PT Bilna):'); ?>" class="input-text required-entry2 validate-failed" id="bank_to" value="" name="paymentconfirmation[bank_to]" />-->
+                                    <select style="" name="paymentconfirmation[bank_to]" id="bank_to" title="<?php echo $this->__('Bayar ke Rekening (a/n PT Bilna):'); ?>">
+                                        <option value="BCA">BCA</option>
+                                        <option value="BNI">BNI</option>
+                                        <option value="Mandiri">Bank Mandiri</option>
+                                    </select>
+                                </div>
+                            </li>
+                            
+                            <li>
+                                <label class="required" for="transfer_date"><?php echo $this->__('Tanggal Bayar'); ?><em>*</em></label>
+                                <div class="input-box">
+                                    <input type="text" class="form-control noradius" id="datepicker" placeholder="" style="display:block !important;" name="paymentconfirmation[transfer_date]" value="<?php echo date('m/d/Y')?>">
+                                    <?php //$_dob = $this->getLayout()->createBlock('paymentconfirm/widget');?>
+                                    <?php //echo $_dob->setDate(date('Y-m-d'))->toHtml(); ?>
+                                </div>
+                                
+                            </li>
+                            
+                            <li>
+                                <label class="required" for="bank_from"><?php echo $this->__('Nama Bank Asal'); ?><em>*</em></label>
+                                <div class="input-box">
+                                    <!--<input type="text" title="<?php echo $this->__('Nama Bank Asal'); ?>" class="input-text required-entry2 validate-failed" id="bank_to" value="" name="paymentconfirmation[bank_from]" />-->
+                                    <select onchange="cek()" style="" name="paymentconfirmation[bank_from]" id="bank_from" title="<?php echo $this->__('Rekening Bilna yang dituju'); ?>">
+                                        <option value="BCA">BCA</option>
+                                        <option value="BNI">BNI</option>
+                                        <option value="Mandiri">Bank Mandiri</option>
+                                        <option value="BRI">BRI</option>
+                                        <option value="CIMB">CIMB</option>
+                                        <option value="Others">Lainnya</option>
+                                    </select>
+                                    <input type="text" style="display:none;margin-top: 10px;" class="form-control required-entry2 validate-failed" id="other_from" value="" name="paymentconfirmation[other_from]" disabled="disabled" />
+                                </div>
+                            </li>
+                            
+                            <li>
+                                <label class="required" for="name_from"><?php echo $this->__('Nama Pengirim sesuai Rekening'); ?><em>*</em></label>
+                                <div class="input-box">
+                                    <input type="text" title="<?php echo $this->__('Nama Pengirim sesuai Rekening'); ?>" class="form-control required-entry2 validate-failed" id="name_from" value="" name="paymentconfirmation[name_from]" />
+                                </div>
+                            </li>
+                            
+                            <li>
+                                <label for="comment"><?php echo $this->__('Komentar (opsional)'); ?></label>
+                                <div class="input-box">
+                                    <textarea rows="4" cols="50" title="<?php echo $this->__('Komentar (opsional)'); ?>" class="form-control validate-failed" id="comment" value="" name="paymentconfirmation[comment]"></textarea>
+                                </div>
+                            </li>
+                            
+                            <li>
+                                <div class="btn-box" style="padding-top: 30px;">
+                                    <button id="send" name="send" title="Konfirmasi" class="button" type="submit">
+                                        <span><?php echo $this->__('KONFIRMASI'); ?></span>
+                                    </button>
+                                </div>
+                            </li>
+                        </ul>
+                        <br />
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script type="text/javascript">
+    //<![CDATA[
+    jQuery('.numberInput').keypress(function(key) {
+        if(key.charCode < 48 || key.charCode > 57) return false;
+    });
+    Validation.add('validate-digits2', 'Masukkan nominal tanpa titik/koma/huruf', function(v) {
+                return !(Validation.get('IsEmpty').test(v)) && /^[0-9]+$/.test(v);
+    });
+    
+    Validation.add('required-entry2', 'Wajib diisi.', function(v) {
+                return !(Validation.get('IsEmpty').test(v));
+    });
+    
+    Validation.add('validate-email2', 'pastikan detail email tepat', function(v) {
+        return Validation.get('IsEmpty').test(v) || /^([a-zA-Z0-9]+[a-zA-Z0-9._%-]*@[a-zA-Z0-9-]+.[a-zA-Z]+)$/i.test(v)
+    })
+    
+    function cek(){
+        var bank = document.getElementById('bank_from').value;
+        if(bank == "Others"){
+            document.getElementById("other_from").style.display = "block";
+            document.getElementById("other_from").disabled = false;
+        }
+        else{
+            document.getElementById("other_from").style.display = "none";
+            document.getElementById("other_from").disabled = true;
+        }
+        //alert(document.getElementById('bank_from').value);
+    }
+    jQuery(function() {
+        jQuery( "#datepicker" ).datepicker({
+          yearRange: '1940:2016',
+          changeMonth: true,
+          changeYear: true
+        });
+    });
+    document.forms.paymentconfirmationForm.email.focus();
+    var dataForm = new VarienForm('paymentconfirmationForm', true);
+    //]]>
+    $('.send').click(function(event){
+        var orderId = jQuery('#orderid').val();
+        jQuery.ajax({
+            url     : "<?php echo $this->getFormValidateUrl(); ?>",
+            type    : "POST",
+            data    : "order_number="+orderId,
+            dataType: "json",
+            success : function(data){
+                if(!data.status){
+                    alert(data.message);
+                    event.preventDefault();
+                    return false;
+                }
+            } 
+        });
+    });
+</script>
+
+
