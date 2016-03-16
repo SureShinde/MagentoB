@@ -1,0 +1,20 @@
+<?php
+/**
+ * @author Bilna Development Team
+ */
+?>
+<?php
+/**
+ * @see Mage_Payment_Block_Info
+ */
+?>
+<p><?php echo $this->escapeHtml($this->getMethod()->getTitle()) ?> : <?php echo $this->getVaNumber();?></p>
+<?php if ($this->getInstructions()): ?>
+    <table>
+        <tbody>
+        <tr>
+            <td><?php echo nl2br($this->getInstructions()) ?></td>
+        </tr>
+        </tbody>
+    </table>
+<?php endif; ?>

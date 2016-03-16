@@ -2,17 +2,17 @@
 <config>
     <modules>
         <Bilna_Paymethod>
-            <version>0.1.6</version>
+            <version>0.1.8</version>
         </Bilna_Paymethod>
     </modules>
-    
+
     <global>
         <models>
             <paymethod>
                 <class>Bilna_Paymethod_Model</class>
                 <resourceModel>paymethod_mysql4</resourceModel>
             </paymethod>
-            
+
             <paymethod_mysql4>
                 <class>Bilna_Paymethod_Model_Mysql4</class>
                 <entities>
@@ -22,18 +22,18 @@
                 </entities>
             </paymethod_mysql4>
         </models>
-        
+
         <helpers>
             <paymethod>
                 <class>Bilna_Paymethod_Helper</class>
             </paymethod>
         </helpers>
-        
+
         <blocks>
             <paymethod>
                 <class>Bilna_Paymethod_Block</class>
             </paymethod>
-            
+
             <checkout>
                 <rewrite>
                     <onepage>Bilna_Paymethod_Block_Checkout_Onepage</onepage>
@@ -46,55 +46,55 @@
                     <cart_totals>Bilna_Paymethod_Block_Checkout_Cart_Totals</cart_totals>
                 </rewrite>
             </checkout>
-            
+
             <adminhtml>
                 <rewrite>
                     <sales_order_grid>Bilna_Paymethod_Block_Adminhtml_Sales_Order_Grid</sales_order_grid>
                 </rewrite>
             </adminhtml>
         </blocks>
-        
+
         <rewrite>
             <paymethod>
-                <from><![CDATA[#^/checkout/onepage/#]]></from> 
+                <from><![CDATA[#^/checkout/onepage/#]]></from>
                 <to>/paymethod/onepage/</to>
             </paymethod>
         </rewrite>
-     
+
         <resources>
             <paymethod_setup>
                 <setup>
                     <module>Bilna_Paymethod</module>
                 </setup>
-    
+
                 <connection>
                     <use>core_setup</use>
                 </connection>
             </paymethod_setup>
-            
+
             <paymethod_write>
                 <connection>
                     <use>core_write</use>
                 </connection>
             </paymethod_write>
-            
+
             <paymethod_read>
                 <connection>
                     <use>core_read</use>
                 </connection>
             </paymethod_read>
         </resources>
-        
+
         <fieldsets>
             <sales_convert_quote_item>
                 <installment>
                     <to_order_item>*</to_order_item>
                 </installment>
-                
+
                 <installment_method>
                     <to_order_item>*</to_order_item>
                 </installment_method>
-                
+
                 <installment_type>
                     <to_order_item>*</to_order_item>
                 </installment_type>
@@ -103,13 +103,13 @@
                     <to_order_item>*</to_order_item>
                 </installment_tenor>
             </sales_convert_quote_item>
-            
+
             <sales_convert_quote>
                 <pay_type>
                     <to_order>*</to_order>
                 </pay_type>
             </sales_convert_quote>
-            
+
             <sales_convert_quote_payment>
                 <klikbca_user_id>
                     <to_order_payment>*</to_order_payment>
@@ -117,7 +117,7 @@
             </sales_convert_quote_payment>
         </fieldsets>
     </global>
-    
+
     <frontend>
         <routers>
             <paymethod>
@@ -128,7 +128,7 @@
                 </args>
             </paymethod>
         </routers>
-        
+
         <layout>
             <updates>
                 <paymethod module="Bilna_Paymethod">
@@ -136,7 +136,7 @@
                 </paymethod>
             </updates>
         </layout>
-        
+
         <events>
             <sales_order_place_after>
                 <observers>
@@ -147,9 +147,28 @@
                     </sales_order_log>
                 </observers>
             </sales_order_place_after>
+            <checkout_type_onepage_save_order_after>
+                <observers>
+                    <paymethod_disable_new_order_email>
+                        <type>singleton</type>
+                        <class>paymethod/observer</class>
+                        <method>disableNewOrderEmail</method>
+                    </paymethod_disable_new_order_email>
+                </observers>
+            </checkout_type_onepage_save_order_after>
+            <checkout_onepage_controller_success_action>
+                <observers>
+                    <paymethod_send_new_order_email>
+                        <type>singleton</type>
+                        <class>paymethod/observer</class>
+                        <method>sendNewOrderEmail</method>
+                    </paymethod_send_new_order_email>
+                </observers>
+            </checkout_onepage_controller_success_action>
         </events>
+
     </frontend>
-    
+
     <admin>
         <routers>
             <paymethod>
@@ -161,7 +180,7 @@
             </paymethod>
         </routers>
     </admin>
-    
+
     <adminhtml>
         <layout>
             <updates>
@@ -176,13 +195,13 @@
                 <all>
                     <title>Allow Everything</title>
                 </all>
-                
+
                 <admin>
                     <children>
                         <bilna_module translate="title">
                             <title>Bilna Extensions</title>
                             <sort_order>0</sort_order>
-                            
+
                             <children>
                                 <paymethod translate="title">
                                     <title>Payment Method</title>
@@ -190,7 +209,7 @@
                                 </paymethod>
                             </children>
                         </bilna_module>
-                        
+
                         <bilna translate="title" module="paymethod">
                             <title>Bilna</title>
                             <children>
@@ -203,7 +222,7 @@
                 </admin>
             </resources>
         </acl>
-        
+
         <routers>
             <adminhtml>
                 <args>
@@ -213,7 +232,7 @@
                 </args>
             </adminhtml>
         </routers>
-        
+
         <menu>
             <bilna>
                 <title>Bilna</title>
@@ -226,7 +245,7 @@
             </bilna>
         </menu>
     </adminhtml>
-    
+
     <default>
         <payment>
             <transferbca>
@@ -237,7 +256,7 @@
                 <allowspecific>0</allowspecific>
                 <group>offline</group>
             </transferbca>
-            
+
             <transfermandiri>
                 <active>1</active>
                 <model>paymethod/method_transfermandiri</model>
@@ -246,7 +265,7 @@
                 <allowspecific>0</allowspecific>
                 <group>offline</group>
             </transfermandiri>
-            
+
             <transferbni>
                 <active>1</active>
                 <model>paymethod/method_transferbni</model>
@@ -255,7 +274,7 @@
                 <allowspecific>0</allowspecific>
                 <group>offline</group>
             </transferbni>
-            
+
             <klikbca>
                 <active>1</active>
                 <model>paymethod/method_klikbca</model>
@@ -264,7 +283,7 @@
                 <allowspecific>0</allowspecific>
                 <group>offline</group>
             </klikbca>
-            
+
             <klikpay>
                 <active>1</active>
                 <model>paymethod/method_klikpay</model>
@@ -273,7 +292,7 @@
                 <allowspecific>0</allowspecific>
                 <group>offline</group>
             </klikpay>
-            
+
             <vtdirect>
                 <active>1</active>
                 <model>paymethod/method_vtdirect</model>
@@ -283,7 +302,7 @@
                 <!--payment_action>authorize</payment_action-->
                 <allowspecific>0</allowspecific>
             </vtdirect>
-            
+
             <anzvisa>
                 <active>1</active>
                 <model>paymethod/method_anzvisa</model>
@@ -293,7 +312,7 @@
                 <payment_action>authorize</payment_action>
                 <allowspecific>0</allowspecific>
             </anzvisa>
-            
+
             <anzmc>
                 <active>1</active>
                 <model>paymethod/method_anzmc</model>
@@ -303,7 +322,7 @@
                 <payment_action>authorize</payment_action>
                 <allowspecific>0</allowspecific>
             </anzmc>
-            
+
             <bukopinvisa>
                 <active>1</active>
                 <model>paymethod/method_bukopinvisa</model>
@@ -313,7 +332,7 @@
                 <!--payment_action>authorize</payment_action-->
                 <allowspecific>0</allowspecific>
             </bukopinvisa>
-            
+
             <bukopinmc>
                 <active>1</active>
                 <model>paymethod/method_bukopinmc</model>
@@ -323,7 +342,7 @@
                 <!--payment_action>authorize</payment_action-->
                 <allowspecific>0</allowspecific>
             </bukopinmc>
-            
+
             <bcavisa>
                 <active>1</active>
                 <model>paymethod/method_bcavisa</model>
@@ -333,7 +352,7 @@
                 <!--payment_action>authorize</payment_action-->
                 <allowspecific>0</allowspecific>
             </bcavisa>
-            
+
             <bcamc>
                 <active>1</active>
                 <model>paymethod/method_bcamc</model>
@@ -343,7 +362,7 @@
                 <!--payment_action>authorize</payment_action-->
                 <allowspecific>0</allowspecific>
             </bcamc>
-            
+
             <danamonvisa>
                 <active>1</active>
                 <model>paymethod/method_danamonvisa</model>
@@ -353,7 +372,7 @@
                 <!--payment_action>authorize</payment_action-->
                 <allowspecific>0</allowspecific>
             </danamonvisa>
-            
+
             <danamonmc>
                 <active>1</active>
                 <model>paymethod/method_danamonmc</model>
@@ -363,7 +382,7 @@
                 <!--payment_action>authorize</payment_action-->
                 <allowspecific>0</allowspecific>
             </danamonmc>
-            
+
             <biivisa>
                 <active>1</active>
                 <model>paymethod/method_biivisa</model>
@@ -373,7 +392,7 @@
                 <!--payment_action>authorize</payment_action-->
                 <allowspecific>0</allowspecific>
             </biivisa>
-            
+
             <biimc>
                 <active>1</active>
                 <model>paymethod/method_biimc</model>
@@ -383,7 +402,7 @@
                 <!--payment_action>authorize</payment_action-->
                 <allowspecific>0</allowspecific>
             </biimc>
-            
+
             <mandirivisa>
                 <active>1</active>
                 <model>paymethod/method_mandirivisa</model>
@@ -393,7 +412,7 @@
                 <!--payment_action>authorize</payment_action-->
                 <allowspecific>0</allowspecific>
             </mandirivisa>
-            
+
             <mandirimc>
                 <active>1</active>
                 <model>paymethod/method_mandirimc</model>
@@ -403,7 +422,7 @@
                 <!--payment_action>authorize</payment_action-->
                 <allowspecific>0</allowspecific>
             </mandirimc>
-            
+
             <megavisa>
                 <active>1</active>
                 <model>paymethod/method_megavisa</model>
@@ -413,7 +432,7 @@
                 <!--payment_action>authorize</payment_action-->
                 <allowspecific>0</allowspecific>
             </megavisa>
-            
+
             <megamc>
                 <active>1</active>
                 <model>paymethod/method_megamc</model>
@@ -423,7 +442,7 @@
                 <!--payment_action>authorize</payment_action-->
                 <allowspecific>0</allowspecific>
             </megamc>
-            
+
             <bnivisa>
                 <active>1</active>
                 <model>paymethod/method_bnivisa</model>
@@ -433,7 +452,7 @@
                 <!--payment_action>authorize</payment_action-->
                 <allowspecific>0</allowspecific>
             </bnivisa>
-            
+
             <bnimc>
                 <active>1</active>
                 <model>paymethod/method_bnimc</model>
@@ -443,7 +462,7 @@
                 <!--payment_action>authorize</payment_action-->
                 <allowspecific>0</allowspecific>
             </bnimc>
-            
+
             <bnikartinivisa>
                 <active>1</active>
                 <model>paymethod/method_bnikartinivisa</model>
@@ -453,7 +472,7 @@
                 <!--payment_action>authorize</payment_action-->
                 <allowspecific>0</allowspecific>
             </bnikartinivisa>
-            
+
             <bnikartinimc>
                 <active>1</active>
                 <model>paymethod/method_bnikartinimc</model>
@@ -463,7 +482,7 @@
                 <!--payment_action>authorize</payment_action-->
                 <allowspecific>0</allowspecific>
             </bnikartinimc>
-            
+
             <permatavisa>
                 <active>1</active>
                 <model>paymethod/method_permatavisa</model>
@@ -473,7 +492,7 @@
                 <!--payment_action>authorize</payment_action-->
                 <allowspecific>0</allowspecific>
             </permatavisa>
-            
+
             <permatamc>
                 <active>1</active>
                 <model>paymethod/method_permatamc</model>
@@ -483,7 +502,7 @@
                 <!--payment_action>authorize</payment_action-->
                 <allowspecific>0</allowspecific>
             </permatamc>
-            
+
             <brivisa>
                 <active>1</active>
                 <model>paymethod/method_brivisa</model>
@@ -493,7 +512,7 @@
                 <!--payment_action>authorize</payment_action-->
                 <allowspecific>0</allowspecific>
             </brivisa>
-            
+
             <brimc>
                 <active>1</active>
                 <model>paymethod/method_brimc</model>
@@ -503,7 +522,7 @@
                 <!--payment_action>authorize</payment_action-->
                 <allowspecific>0</allowspecific>
             </brimc>
-            
+
             <cimbvisa>
                 <active>1</active>
                 <model>paymethod/method_cimbvisa</model>
@@ -513,7 +532,7 @@
                 <!--payment_action>authorize</payment_action-->
                 <allowspecific>0</allowspecific>
             </cimbvisa>
-            
+
             <cimbmc>
                 <active>1</active>
                 <model>paymethod/method_cimbmc</model>
@@ -523,7 +542,7 @@
                 <!--payment_action>authorize</payment_action-->
                 <allowspecific>0</allowspecific>
             </cimbmc>
-            
+
             <citibankvisa>
                 <active>1</active>
                 <model>paymethod/method_citibankvisa</model>
@@ -533,7 +552,7 @@
                 <!--payment_action>authorize</payment_action-->
                 <allowspecific>0</allowspecific>
             </citibankvisa>
-            
+
             <citibankmc>
                 <active>1</active>
                 <model>paymethod/method_citibankmc</model>
@@ -543,7 +562,7 @@
                 <!--payment_action>authorize</payment_action-->
                 <allowspecific>0</allowspecific>
             </citibankmc>
-            
+
             <hsbcvisa>
                 <active>1</active>
                 <model>paymethod/method_hsbcvisa</model>
@@ -553,7 +572,7 @@
                 <!--payment_action>authorize</payment_action-->
                 <allowspecific>0</allowspecific>
             </hsbcvisa>
-            
+
             <hsbcmc>
                 <active>1</active>
                 <model>paymethod/method_hsbcmc</model>
@@ -563,7 +582,7 @@
                 <!--payment_action>authorize</payment_action-->
                 <allowspecific>0</allowspecific>
             </hsbcmc>
-            
+
             <scvisa>
                 <active>1</active>
                 <model>paymethod/method_scvisa</model>
@@ -573,7 +592,7 @@
                 <!--payment_action>authorize</payment_action-->
                 <allowspecific>0</allowspecific>
             </scvisa>
-            
+
             <scmc>
                 <active>1</active>
                 <model>paymethod/method_scmc</model>
@@ -583,7 +602,7 @@
                 <!--payment_action>authorize</payment_action-->
                 <allowspecific>0</allowspecific>
             </scmc>
-            
+
             <paninplatinumvisa>
                 <active>1</active>
                 <model>paymethod/method_paninplatinumvisa</model>
@@ -593,7 +612,7 @@
                 <!--payment_action>authorize</payment_action-->
                 <allowspecific>0</allowspecific>
             </paninplatinumvisa>
-            
+
             <paningoldvisa>
                 <active>1</active>
                 <model>paymethod/method_paningoldvisa</model>
@@ -603,7 +622,7 @@
                 <!--payment_action>authorize</payment_action-->
                 <allowspecific>0</allowspecific>
             </paningoldvisa>
-            
+
             <uobvisa>
                 <active>1</active>
                 <model>paymethod/method_uobvisa</model>
@@ -613,7 +632,7 @@
                 <!--payment_action>authorize</payment_action-->
                 <allowspecific>0</allowspecific>
             </uobvisa>
-            
+
             <uobmc>
                 <active>1</active>
                 <model>paymethod/method_uobmc</model>
@@ -623,7 +642,7 @@
                 <!--payment_action>authorize</payment_action-->
                 <allowspecific>0</allowspecific>
             </uobmc>
-            
+
             <othervisa>
                 <active>1</active>
                 <model>paymethod/method_othervisa</model>
@@ -633,7 +652,7 @@
                 <!--payment_action>authorize</payment_action-->
                 <allowspecific>0</allowspecific>
             </othervisa>
-            
+
             <othermc>
                 <active>1</active>
                 <model>paymethod/method_othermc</model>
@@ -643,7 +662,7 @@
                 <!--payment_action>authorize</payment_action-->
                 <allowspecific>0</allowspecific>
             </othermc>
-            
+
             <mandiridebitvisa>
                 <active>1</active>
                 <model>paymethod/method_mandiridebitvisa</model>
@@ -653,7 +672,7 @@
                 <!--payment_action>authorize</payment_action-->
                 <allowspecific>0</allowspecific>
             </mandiridebitvisa>
-            
+
             <mandiriecash>
                 <active>1</active>
                 <model>paymethod/method_mandiriecash</model>
@@ -678,6 +697,16 @@
                 <allowspecific>0</allowspecific>
                 <group>offline</group>
             </moxyveritrans>
+            <virtualaccountbca>
+                <active>1</active>
+                <model>paymethod/method_virtualaccountbca</model>
+                <order_status>pending_va</order_status>
+                <title>BCA Virtual Account</title>
+                <allowspecific>0</allowspecific>
+                <group>offline</group>
+                <vtdirect_payment_type>bank_transfer</vtdirect_payment_type>
+                <bank>bca</bank>
+            </virtualaccountbca>
         </payment>
     </default>
 </config>

@@ -1,0 +1,17 @@
+<p><?php echo $this->getMethod()->getTitle(); ?></p>
+<p>
+    <strong>
+        <?php echo $this->__('Virtual Account Number:'); ?>
+        <span class="nobr"><?php echo $this->htmlEscape($this->getInfo()->getVaNumber()); ?></span>
+    </strong>
+</p>
+
+<?php if ($this->getMethod()->getConfigData('message')): ?>
+    <table>
+        <tbody>
+        <tr>
+            <td><?php echo nl2br($this->getMethod()->getConfigData('message')); ?></td>
+        </tr>
+        </tbody>
+    </table>
+<?php endif; ?>

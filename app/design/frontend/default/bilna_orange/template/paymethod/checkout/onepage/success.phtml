@@ -55,6 +55,11 @@
     .success-form-popup .popup img#gimmick-banner {
         width: 100%;
     }
+    ol.va-steps{
+        list-style: decimal;
+        margin-left: 15px;
+        font-size: 15px;
+    }
 </style>
 
 <?php
@@ -71,6 +76,7 @@ endif;
 $responsePage = '';
 $redirectUrl = '';
 $retrieveConfirm2 = true;
+$vaNumbers = new stdClass();
 
 if (in_array($this->getOrderPaymentCode(), $this->getPaymentMethodBankTransfer())):
     $responsePage = 'success';
@@ -103,6 +109,15 @@ elseif (in_array($this->getOrderPaymentCode(), $this->getPaymentMethodVtdirect()
             $responsePage = 'redirect';
             $redirectUrl = $responseCharge->redirect_url;
         endif;
+    endif;
+// If It's Virtual Account Transaction
+elseif (in_array($this->getOrderPaymentCode(), $this->getPaymentMethodVA())):
+    $responseCharge = $this->getResponseCharge();
+    $responsePage = 'failure';
+
+    if ($responseCharge->status_code == 201):
+        $responsePage = 'virtualAccountSuccess';
+        $vaNumbers = $responseCharge->va_numbers[0];
     endif;
 else:
     $responsePage = 'failure';
@@ -207,6 +222,67 @@ endif;
             document.location = '<?php echo $redirectUrl; ?>';
         }, 5000);
     </script>
+
+<?php elseif ($responsePage == 'virtualAccountSuccess'): ?>
+    <div class="wrapper_success_page">
+        <div class="col_left"><p>
+                <?php
+                $custname = trim(Mage::helper('customer')->getCustomerName());
+                if ($custname == "") {
+                    echo "Dear Customer,";
+                }else{
+                    echo "Dear " . $custname . ",";
+                }
+                ?></p></div>
+        <div class="col_left">
+            <!--p><?php //echo $this->__('THANK YOU FOR SHOPPING WITH'); ?></p-->
+            <p><?php echo $this->__('Terima kasih Anda telah berbelanja di'); ?></p>
+            <!--p><?php //echo $this->__('BILNA.COM'); ?></p-->
+            <p><?php echo $this->__('Bilna.com'); ?></p>
+            <p>
+                <!--<?php //echo $this->__('Your order no is'); ?>: <?php echo $orderNoLink; ?>.-->
+                <?php echo $this->__('Nomor order Anda adalah'); ?>: <?php echo $orderNoLink; ?>.
+                <br/>
+
+                <!--<?php //echo $this->__('You will receive an order confirmation email with details of your order and a link to track its progress'); ?>.-->
+                <?php echo $this->__(' Anda akan segera menerima email konfirmasi mengenai detail order dan link untuk cek status order.'); ?>
+                <br/><br/>
+
+                <?php
+                echo 'Lakukan pembayaran ke virtual account BCA dengan nomor rekening ' . $vaNumbers->va_number . ' dengan mengikuti langkah di bawah:<br/>';
+                echo '<ol class="va-steps">';
+                    echo '<li>Lakukan transfer online, mobile banking atau manual ke nomor virtual account (' . $vaNumbers->va_number . ') BCA PT Bilna</li>';
+                    echo '<li>Pastikan nominal, data pribadi dan data pesanan yang dimasukkan tepat</li>';
+                    echo '<li>Lakukan pembayaran dalam waktu 1x24 jam untuk mencegah pembatalan otomatis</li>';
+                    echo '<li>Konfirmasi pembayaran tidak diperlukan untuk pembayaran via transfer ke Virtual Account Bank BCA</li>';
+                echo '</ol>';
+                ?>
+                <br><br/>
+                <p style="font-size:21px;">
+                <?php if ($this->getCanViewOrder() && $this->getCanPrintOrder()): ?>
+                    <!--<?php //echo $this->__('Click'); ?> <a href="<?php //echo $this->escapeHtml($this->getPrintUrl()); ?>"><?php //echo $this->__('here'); ?></a> <?php //echo $this->__('to print a copy of your order confirmation'); ?>.-->
+                    <?php echo $this->__('Klik'); ?> <a href="<?php echo $this->escapeHtml($this->getPrintUrl()); ?>"><?php echo $this->__('di sini'); ?></a> <?php echo $this->__('untuk mencetak konfirmasi order.'); ?>
+                <?php endif; ?>
+
+                <br/><br/>
+                <!--<?php //echo $this->__('Click <a href="%s">here</a> to continue shopping.', $this->getUrl()); ?>-->
+                <?php echo $this->__('Klik <a href="%s">di sini</a> untuk berbelanja kembali.', $this->getUrl()); ?>
+                </p>
+            </p>
+
+            <div class="say_thanks">
+                <!--p><?php //echo $this->__('Have a great day :)'); ?></p-->
+                <p><?php echo $this->__('Selamat beraktifitas! :)'); ?></p>
+            </div>
+        </div>
+
+        <?php if ($this->getInstruction()): ?>
+            <div class="col_right">
+                <?php echo $this->getInstruction(); ?>
+            </div>
+        <?php endif; ?>
+    </div>
+
 <?php elseif ($responsePage == 'failure'): ?>
     <div class="wrapper_failure_page">
         <div class="col_left"><p><?php echo "Dear " . Mage::helper('customer')->getCustomerName() . ","; ?></p></div>
