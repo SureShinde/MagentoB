@@ -441,7 +441,55 @@
                     </route_entity>
                 </routes>
                 <versions>1</versions>
-            </customer_reorder>
+            </customer_reorder>            
+            <customer_wishlistcollection translate="title" module="Bilna_Customer">
+                <group>customer</group>
+                <sort_order>110</sort_order>
+                <model>bilna_customer/api2_wishlistcollection</model>
+                <title>Customer Subscription</title>
+                <privileges>
+                    <admin>
+                        <create>1</create>
+                        <retrieve>1</retrieve>
+                        <update>1</update>
+                        <delete>1</delete>
+                    </admin>
+                    <customer>
+                        <create>1</create>
+                        <retrieve>1</retrieve>
+                        <update>1</update>
+                        <delete>1</delete>
+                    </customer>
+                </privileges>
+                <attributes translate="entity_id customer_id name desc image_url visibility username preset_image profile wishlist_collection addnewitem wishlist_id collection_id collection_id2 product_id" module="Bilna_Customer">
+                    <entity_id>Entity ID</entity_id>
+                    <customer_id>Customer Address ID</customer_id>
+                    <name>name</name>
+                    <desc>desc</desc>
+                    <image_url>image_url</image_url>
+                    <visibility>visibility</visibility>
+                    <username>username</username>
+                    <preset_image>preset_image</preset_image>
+                    <profile>profile</profile>
+                    <wishlist_collection>wishlist_collection</wishlist_collection>
+                    <addnewitem>addnewitem</addnewitem>
+                    <wishlist_id>wishlist_id</wishlist_id> 
+                    <collection_id>collection_id</collection_id>
+                    <collection_id2>collection_id2</collection_id2>
+                    <product_id>product_id</product_id>
+                </attributes>
+                <routes>
+                    <route_entity>
+                        <route>/customer/:customer_id/wishlistcollection/:collection_id</route>
+                        <action_type>entity</action_type>
+                    </route_entity>
+                    <route_collection>
+                        <route>/customer/:customer_id/wishlistcollection</route>
+                        <action_type>collection</action_type>
+                    </route_collection>
+                </routes>
+                <versions>1</versions>
+            </customer_wishlistcollection>
         </resources>
     </api2>
 </config>
