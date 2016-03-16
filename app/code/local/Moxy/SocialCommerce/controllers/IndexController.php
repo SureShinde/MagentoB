@@ -27,6 +27,7 @@ extends Mage_Core_Controller_Front_Action
 
     public function indexAction()
     {
+
         $defaultPageSize = 24;
 
         # UGC Collections, display user's collections here
