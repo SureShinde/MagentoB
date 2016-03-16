@@ -217,7 +217,8 @@ class Bilna_Customer_Model_Api2_Wishlistcollection extends Mage_Api2_Model_Resou
         return FALSE;
     }
     
-    public function createTemporaryProfile($customerId = null) {
+    public function createTemporaryProfile($customerId = null) 
+    {
 
         $customer = $this->_loadCustomerById($customerId);
 

@@ -40,7 +40,31 @@ abstract class Bilna_Customer_Model_Api2_Customer_Rest extends Bilna_Customer_Mo
         $customer->setData($data);
         
         try {
-            $customer->save();
+            //process username from register form logan
+            /* start : add username on register */
+            $username = $data['username'];
+            
+            if (!preg_match ('/^[a-zA-Z0-9_.-]+$/', $username)) {
+                $this->_critical('Username ' .$username . ' contains invalid character. Only letters (a-z), numbers (0-9), periods (.), dashs (-), and underscores (_) are allowed');
+            }    
+            
+            $usernameAvailable = Mage::helper('socialcommerce')->checkUsernameAvailable($username);
+            if (! $usernameAvailable) {
+                $this->_critical('Username ' .$username . ' already used by someone else. Please choose another username');  
+            } else {
+                $customer->save();
+                $profile = Mage::getModel('socialcommerce/profile');
+
+                # Assign data
+                $profile->setCustomerId($customer->getId());
+                $profile->setStatus(1);
+                $profile->setWishlist(1);
+                $profile->setTemporary(0);
+                $profile->setUsername($username);
+                #
+                $profile->save();
+            }
+            /* end : add username on register */
             $this->_dispatchRegisterSuccess($customer);
             $this->_successProcessRegistration($customer);
         } catch (Mage_Core_Exception $e) {
@@ -233,5 +257,67 @@ abstract class Bilna_Customer_Model_Api2_Customer_Rest extends Bilna_Customer_Mo
     
     protected function _findAffiliateForCustomer($customer) {
         return;
+    } 
+    
+    protected function _getUsername($customerId = null) 
+    {
+        $customer = $this->_loadCustomerById($customerId);
+        $customerData = $customer->getData();
+        
+        $username = null;
+
+        if (!isset($customerData['entity_id'])) {
+            $this->_critical('No customer account specified.');
+        }
+
+        $customerProfile = Mage::getModel('socialcommerce/profile')->load($customerData['entity_id'], 'customer_id');
+        $customerProfileData = $customerProfile->getData();
+
+        if (!isset($customerProfileData['entity_id'])) {
+            $username = $this->createTemporaryProfile($customerId);
+        } else {
+            $username = $customerProfileData['username'];
+        }
+        
+        return $username;
+    }
+    
+    public function createTemporaryProfile($customerId = null) 
+    {
+
+        $customer = $this->_loadCustomerById($customerId);
+
+        # Temporary username
+        $username = Mage::getModel('catalog/product_url')->formatUrlKey($customer->getName());
+        $profile = Mage::getModel('socialcommerce/profile')->load($username, 'username')->getData();
+
+        # If username exists, improvise
+        if ($profile) {
+
+            for ($i = 1; $i < 101; $i++) {
+                $slug = $username . '-' . substr(uniqid(), 7);
+                $profile = Mage::getModel('socialcommerce/profile')->load($slug, 'username')->getData();
+
+                if (empty($profile)) {
+                    $username = $slug;
+                    break;
+                }
+            }
+        }
+
+        # Create new customer profile
+        $profile = Mage::getModel('socialcommerce/profile');
+
+        # Assign data
+        $profile->setCustomerId($customer->getId());
+        $profile->setStatus(1);
+        $profile->setWishlist(1);
+        $profile->setTemporary(1);
+        $profile->setUsername($username);
+
+        $profile->save();
+
+        return $username;
+
     }
 }
