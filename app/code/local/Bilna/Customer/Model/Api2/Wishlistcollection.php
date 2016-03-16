@@ -71,15 +71,19 @@ class Bilna_Customer_Model_Api2_Wishlistcollection extends Mage_Api2_Model_Resou
             
             # Check if the user activate her public profile
             if ($profiler->getStatus()) {
-                $result['profile'] = $profiler->getData();
+                $result['profile'] = $profiler;
             }
-            if ($wishlistCollection && $hasCollection) {
+            
+            //still not working to get collection
+            /*if ($wishlistCollection && $hasCollection) {
                 foreach($wishlistCollection as $key => $value) {
                     $result['wishlist_collection'][$key] = $value->getData();
                 }
             }
             
-            return $result;
+            return $result;*/
+            
+            return $profiler;
         }
         
         return FALSE;
