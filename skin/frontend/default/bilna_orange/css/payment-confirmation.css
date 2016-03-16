@@ -117,6 +117,9 @@ form#paymentconfirmationForm{
 content: "\f071";
 margin:3px;
 font:normal normal normal 14px/1 FontAwesome;
+position: absolute;
+left: 0px;
+top: 0px;
 }
 .payment-confirmation .validation-advice{
   padding-right: 0;
@@ -125,6 +128,7 @@ font:normal normal normal 14px/1 FontAwesome;
   text-align: center;
   font-size: 12px;
   background: transparent;
+  padding-left: 22px;
 }
 @media (min-width: 768px){
   .payment-confirmation .form-list li .input-box,
