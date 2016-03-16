@@ -134,7 +134,8 @@ class Bilna_Customer_Model_Api2_Wishlistcollection extends Mage_Api2_Model_Resou
      * {"wishlist_id":"35824","name":"","desc":"","collection_id":"","image_url":"","visibility":"on","preset_image":"","product_id":"62978"}
      * 
      */
-    public function addNewWishlistCollectionItem($data = array()) {
+    public function addNewWishlistCollectionItem($data = array()) 
+    {
         $customer = $this->_loadCustomerById($data['customer_id']);
         
         $wishlistId = (isset($data['wishlist_id'])) ? $data['wishlist_id'] : null;
