@@ -471,7 +471,7 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
         
         $this->loadLayout();
         $this->_initLayoutMessages('checkout/session');
-        Mage::dispatchEvent('checkout_onepage_controller_success_action', array ('order_ids' => array ($lastOrderId)));
+        Mage::dispatchEvent('checkout_onepage_controller_success_action', array ('order_ids' => array ($lastOrderId), 'order' => $order));
         $this->renderLayout();
     }
 

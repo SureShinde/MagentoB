@@ -48,8 +48,9 @@ class Bilna_Paymethod_Model_Observer extends Varien_Event_Observer {
      */
     public function sendNewOrderEmail(Varien_Event_Observer $observer)
     {
-        $orderId = $observer->getEvent()->getOrderIds();
-        $order = Mage::getModel('sales/order')->load($orderId);
+        //$orderId = $observer->getEvent()->getOrderIds();
+        //$order = Mage::getModel('sales/order')->load($orderId);
+        $order = $observer->getEvent()->getOrder();
 
         // Send the New Order Email for the VA BCA payment method
         if ($order->getPayment()->getMethodInstance()->getCode() == $this->_codeVirtualAccountBCA) {
