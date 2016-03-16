@@ -84,8 +84,11 @@ abstract class Bilna_Customer_Model_Api2_Wishlistcollection_Rest extends Bilna_C
     
     protected function _getCollectionForRetrieve()
     {
-        $customerId = (int)$this->getRequest()->getParam('customer_id');        
+        $customerId = (int)$this->getRequest()->getParam('customer_id');   
+        $customer = $this->_loadCustomerById($customerId);
         $collection = $this->getWishlistCollection($customerId);
+        $collection = $collection->toArray();
+        $collection['gender'] = $customer->getGender();
         
         return $collection;
     }

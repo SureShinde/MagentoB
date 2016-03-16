@@ -6,8 +6,6 @@
  */
 class Bilna_Customer_Model_Api2_Wishlistcollection extends Mage_Api2_Model_Resource
 {    
-    const DEFAULT_STORE_ID = 1;
-
     public function _construct()
     {
         Mage::app()->getStore()->setStoreId(self::DEFAULT_STORE_ID);
@@ -44,8 +42,10 @@ class Bilna_Customer_Model_Api2_Wishlistcollection extends Mage_Api2_Model_Resou
             //->setCloudCover($cover)
             ->setCover($cover)
             ->save();
-
-        if ($preset_image = $_POST['preset_image']) {
+        
+        $preset_image = $this->getRequest()->getPost('preset_image');
+        
+        if ($preset_image) {
             $wishlist->setCover($preset_image);
             $wishlist->save();
         }
@@ -71,7 +71,7 @@ class Bilna_Customer_Model_Api2_Wishlistcollection extends Mage_Api2_Model_Resou
             
             # Check if the user activate her public profile
             if ($profiler->getStatus()) {
-                $result['profile'] = $profiler;
+                return $profiler;
             }
             
             //still not working to get collection
@@ -79,11 +79,7 @@ class Bilna_Customer_Model_Api2_Wishlistcollection extends Mage_Api2_Model_Resou
                 foreach($wishlistCollection as $key => $value) {
                     $result['wishlist_collection'][$key] = $value->getData();
                 }
-            }
-            
-            return $result;*/
-            
-            return $profiler;
+            }*/
         }
         
         return FALSE;
@@ -161,10 +157,6 @@ class Bilna_Customer_Model_Api2_Wishlistcollection extends Mage_Api2_Model_Resou
             }
             
             $product = Mage::getModel('catalog/product')->load($productId);
-            
-            $buyRequest = new Varien_Object(array(
-                //'description' => $itemDescription,
-            ));
             
             $item = Mage::getModel('wishlist/item');
             $item->setProductId($product->getId())
