@@ -24,7 +24,7 @@ class Bilna_Customer_Model_Api2_Wishlistcollection extends Mage_Api2_Model_Resou
         try {
             $this->_createNewCollection($customerId, $wishlistName, $visibility, $desc);
         } catch (Exception $e) {
-            $this->_error($e->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
+            $this->_critical($e->getMessage());
         }
         
         return TRUE;
@@ -112,7 +112,7 @@ class Bilna_Customer_Model_Api2_Wishlistcollection extends Mage_Api2_Model_Resou
         $username = null;
 
         if (!isset($customerData['entity_id'])) {
-            throw Mage::exception('Mage_Core', Mage::helper('customer')->__('No customer account specified.'));
+            $this->_critical('No customer account specified.');
         }
 
         $customerProfile = Mage::getModel('socialcommerce/profile')->load($customerData['entity_id'], 'customer_id');
@@ -171,7 +171,7 @@ class Bilna_Customer_Model_Api2_Wishlistcollection extends Mage_Api2_Model_Resou
                 ->save();
             
         } catch (Exception $e) {
-            $this->_error($e->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
+            $this->_critical($e->getMessage());
         }
         
         return $wishlist->getData();
@@ -208,7 +208,7 @@ class Bilna_Customer_Model_Api2_Wishlistcollection extends Mage_Api2_Model_Resou
                 return $result;
                 
             } catch (Exception $e) {
-                $this->_error($e->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
+                $this->_critical($e->getMessage());
             }
         }
         

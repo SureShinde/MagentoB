@@ -31,22 +31,22 @@ abstract class Bilna_Customer_Model_Api2_Wishlistcollection_Rest extends Bilna_C
                 }
                 die;
                 if (!isset($data['name']) || $data['name'] == "") {
-                    throw Mage::exception('Mage_Core', Mage::helper('customer')->__('Please provide name.'));
+                    $this->_critical('Please provide name.');
                 } 
                 if (!isset($data['desc']) || $data['desc'] == "") {
-                    throw Mage::exception('Mage_Core', Mage::helper('customer')->__('Please provide description.'));
+                    $this->_critical('Please provide description.');
                 } 
                 if (!isset($data['username']) || $data['username'] == "") {
-                    throw Mage::exception('Mage_Core', Mage::helper('customer')->__('Please provide username.'));
+                    $this->_critical('Please provide username.');
                 }
                 
                 $this->createNewCollection($data);
                 
             } catch (Exception $exception) {
-                $this->_error($exception->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
+                $this->_critical($exception->getMessage());
             }
         } else {
-            throw Mage::exception('Mage_Core', Mage::helper('customer')->__('No customer account specified.'));
+            $this->_critical('No customer account specified.');
         }
     }
 
@@ -63,10 +63,10 @@ abstract class Bilna_Customer_Model_Api2_Wishlistcollection_Rest extends Bilna_C
                     $data = $wishlist;
                 }
             } catch (Exception $e) {
-                $this->_error($e->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
+                $this->_critical($e->getMessage());
             }
         } else {
-            throw Mage::exception('Mage_Core', Mage::helper('customer')->__('No customer account specified.'));
+            $this->_critical('No customer account specified.');
         }
         
         return $data;
@@ -109,13 +109,13 @@ abstract class Bilna_Customer_Model_Api2_Wishlistcollection_Rest extends Bilna_C
                 $collectionId = (int)$this->getRequest()->getParam('collection_id');
                 
                 if (!isset($data['name']) || $data['name'] == "") {
-                    throw Mage::exception('Mage_Core', Mage::helper('customer')->__('Please provide name.'));
+                    $this->_critical('Please provide name.');
                 } 
                 if (!isset($data['desc']) || $data['desc'] == "") {
-                    throw Mage::exception('Mage_Core', Mage::helper('customer')->__('Please provide description.'));
+                    $this->_critical('Please provide description.');
                 } 
                 if (!isset($data['username']) || $data['username'] == "") {
-                    throw Mage::exception('Mage_Core', Mage::helper('customer')->__('Please provide username.'));
+                    $this->_critical('Please provide username.');
                 }
 
                 # Populate sent data, validate & sanitize
@@ -155,10 +155,10 @@ abstract class Bilna_Customer_Model_Api2_Wishlistcollection_Rest extends Bilna_C
                 }
 
             } catch (Exception $e) {
-                $this->_error($e->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
+                $this->_critical($e->getMessage());
             }
         } else {
-            throw Mage::exception('Mage_Core', Mage::helper('customer')->__('No customer account specified.'));
+            $this->_critical('No customer account specified.');
         }
     }
 
@@ -188,12 +188,12 @@ abstract class Bilna_Customer_Model_Api2_Wishlistcollection_Rest extends Bilna_C
                     $viewupdate = $wishlist->setCustomerIdDel(0);
                 }
             } catch (Mage_Core_Exception $e) {
-                $this->_critical($e->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
+                $this->_critical($e->getMessage());
             } catch (Exception $e) {
                 $this->_critical(self::RESOURCE_INTERNAL_ERROR);
             }
         } else {
-            throw Mage::exception('Mage_Core', Mage::helper('customer')->__('No customer account specified.'));
+            $this->_critical('No customer account specified.');
         }
     }
 }
