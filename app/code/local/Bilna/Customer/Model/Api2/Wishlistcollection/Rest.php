@@ -29,7 +29,7 @@ abstract class Bilna_Customer_Model_Api2_Wishlistcollection_Rest extends Bilna_C
                     $this->addNewWishlistCollectionItem($data);
                     return TRUE;
                 }
-                die;
+                
                 if (!isset($data['name']) || $data['name'] == "") {
                     $this->_critical('Please provide name.');
                 } 

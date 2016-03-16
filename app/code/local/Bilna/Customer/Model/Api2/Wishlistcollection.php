@@ -97,6 +97,7 @@ class Bilna_Customer_Model_Api2_Wishlistcollection extends Mage_Api2_Model_Resou
         /* @var $customer Mage_Customer_Model_Customer */
         
         $customer = Mage::getModel('customer/customer')->load($id);
+        
         if (!$customer->getId()) {
             $this->_critical(self::RESOURCE_NOT_FOUND);
         }
