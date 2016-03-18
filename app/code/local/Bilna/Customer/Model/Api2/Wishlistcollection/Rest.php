@@ -11,12 +11,17 @@ abstract class Bilna_Customer_Model_Api2_Wishlistcollection_Rest extends Bilna_C
      * Create new collection by customer with post method.
      * 
      * bodyParams:
-     * {"name":"A1", "desc":"A1", "image_url":"", "visibility":"on", "username":"khairulazami", "preset_image":""}
+     * {"name":"A1", "desc":"A1", "image_url":"", "visibility":"on", "preset_image":""}
      * 
      */
     protected function _create(array $data)
     {
-        $data['customer_id'] = (int)$this->getRequest()->getParam('customer_id');
+        $username = $this->getRequest()->getParam('username');
+        $profiler = Mage::getModel('socialcommerce/profile')->load($username, 'username');
+        if (!$profiler->getCustomerId()) {
+            $this->_critical('Current username is not found.');
+        }
+        $data['customer_id'] = $profiler->getCustomerId();
         /* @var $customer Mage_Customer_Model_Customer */
         $customer = $this->_loadCustomerById($data['customer_id']);
         
@@ -26,6 +31,7 @@ abstract class Bilna_Customer_Model_Api2_Wishlistcollection_Rest extends Bilna_C
                 //just add addnewitem in bodyparam
                 if(isset($data['addnewitem'])) {
                     $data['customer_id'] = $customer->getId();
+                    $data['username'] = $username;
                     $this->addNewWishlistCollectionItem($data);
                     return TRUE;
                 }
@@ -35,9 +41,6 @@ abstract class Bilna_Customer_Model_Api2_Wishlistcollection_Rest extends Bilna_C
                 } 
                 if (!isset($data['desc']) || $data['desc'] == "") {
                     $this->_critical('Please provide description.');
-                } 
-                if (!isset($data['username']) || $data['username'] == "") {
-                    $this->_critical('Please provide username.');
                 }
                 
                 $this->createNewCollection($data);
@@ -52,7 +55,13 @@ abstract class Bilna_Customer_Model_Api2_Wishlistcollection_Rest extends Bilna_C
 
     protected function _retrieve()
     {
-        $customerId = (int)$this->getRequest()->getParam('customer_id');
+        $username = $this->getRequest()->getParam('username');
+        $profiler = Mage::getModel('socialcommerce/profile')->load($username, 'username');
+        if (!$profiler->getCustomerId()) {
+            $this->_critical('Current username is not found.');
+        }
+        $customerId = $profiler->getCustomerId();
+        
         $customer = $this->_loadCustomerById($customerId);
         $data = [];
         if ($customer->getId()) {
@@ -84,25 +93,47 @@ abstract class Bilna_Customer_Model_Api2_Wishlistcollection_Rest extends Bilna_C
     
     protected function _getCollectionForRetrieve()
     {
-        $customerId = (int)$this->getRequest()->getParam('customer_id');   
+        $username = $this->getRequest()->getParam('username');
+        $profiler = Mage::getModel('socialcommerce/profile')->load($username, 'username');
+        if (!$profiler->getCustomerId()) {
+            $this->_critical('Current username is not found.');
+        }
+        $customerId = $profiler->getCustomerId();
+        
         $customer = $this->_loadCustomerById($customerId);
         $collection = $this->getWishlistCollection($customerId);
         $collection = $collection->toArray();
+        
+        $categories = Mage::getModel('socialcommerce/collectioncategory')->getCollection();
+        
         $collection['gender'] = $customer->getGender();
+        
+        if($categories->getData()) {
+            foreach ($categories as $category) {
+                $categoryItem[] = [$category->getCategoryId() => $category->getName()];
+            }
+        }
+        
+        $collection['categories'][] = $categoryItem;
         
         return $collection;
     }
     
     /** 
-     * Update collection by customer id and collection id.
+     * Update collection by username and collection id.
      * 
      * bodyParams:
-     * {"name":"TESTBARU","desc":"TESTBARU","image_url":"","collection_id":"","collection_id2":"35813","username":"m-khairul-azami-s-kom","preset_image":"","visibility":"on"}
+     * {"name":"TESTBARU","desc":"TESTBARU","image_url":"","collection_id":"","collection_id2":"35813","preset_image":"","visibility":"on"}
      * 
      */
     protected function _update(array $data)
     {
-        $customerId = (int)$this->getRequest()->getParam('customer_id');
+        $username = $this->getRequest()->getParam('username');
+        $profiler = Mage::getModel('socialcommerce/profile')->load($username, 'username');
+        if (!$profiler->getCustomerId()) {
+            $this->_critical('Current username is not found.');
+        }
+        $customerId = $profiler->getCustomerId();
         $customer = $this->_loadCustomerById($customerId);
 
         if ($customer->getId()) {
@@ -116,9 +147,6 @@ abstract class Bilna_Customer_Model_Api2_Wishlistcollection_Rest extends Bilna_C
                 } 
                 if (!isset($data['desc']) || $data['desc'] == "") {
                     $this->_critical('Please provide description.');
-                } 
-                if (!isset($data['username']) || $data['username'] == "") {
-                    $this->_critical('Please provide username.');
                 }
 
                 # Populate sent data, validate & sanitize
@@ -170,7 +198,12 @@ abstract class Bilna_Customer_Model_Api2_Wishlistcollection_Rest extends Bilna_C
      */
     protected function _delete()
     {
-        $customerId = (int)$this->getRequest()->getParam('customer_id');
+        $username = $this->getRequest()->getParam('username');
+        $profiler = Mage::getModel('socialcommerce/profile')->load($username, 'username');
+        if (!$profiler->getCustomerId()) {
+            $this->_critical('Current username is not found.');
+        }
+        $customerId = $profiler->getCustomerId();
         $customer = $this->_loadCustomerById($customerId);
         
         if ($customer->getId()) {

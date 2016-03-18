@@ -465,7 +465,7 @@
                         <delete>1</delete>
                     </customer>
                 </privileges>
-                <attributes translate="entity_id customer_id name desc image_url visibility username preset_image profile wishlist_collection addnewitem wishlist_id collection_id collection_id2 product_id" module="Bilna_Customer">
+                <attributes translate="entity_id customer_id name desc image_url visibility username preset_image profile wishlist_collection addnewitem wishlist_id collection_id collection_id2 product_id categories" module="Bilna_Customer">
                     <entity_id>Entity ID</entity_id>
                     <customer_id>Customer Address ID</customer_id>
                     <name>name</name>
@@ -481,19 +481,48 @@
                     <collection_id>collection_id</collection_id>
                     <collection_id2>collection_id2</collection_id2>
                     <product_id>product_id</product_id>
+                    <categories>categories</categories>
                 </attributes>
                 <routes>
                     <route_entity>
-                        <route>/customer/:customer_id/wishlistcollection/:collection_id</route>
+                        <route>/customer/:username/wishlistcollection/:collection_id</route>
                         <action_type>entity</action_type>
                     </route_entity>
                     <route_collection>
-                        <route>/customer/:customer_id/wishlistcollection</route>
+                        <route>/customer/:username/wishlistcollection</route>
                         <action_type>collection</action_type>
                     </route_collection>
                 </routes>
                 <versions>1</versions>
             </customer_wishlistcollection>
+            <customer_wishlistcollectiongetcover translate="title" module="Bilna_Customer">
+                <group>customer</group>
+                <sort_order>110</sort_order>
+                <model>bilna_customer/api2_wishlistcollectiongetcover</model>
+                <title>Customer Subscription</title>
+                <privileges>
+                    <admin>
+                        <create>1</create>
+                        <retrieve>1</retrieve>
+                        <update>1</update>
+                        <delete>1</delete>
+                    </admin>
+                </privileges>
+                <attributes translate="response cover_id caption image category_id" module="Bilna_Customer">
+                    <cover_id>cover_id</cover_id>
+                    <caption>caption</caption>
+                    <image>image</image>
+                    <category_id>category_id</category_id>
+                    <response>response</response>
+                </attributes>
+                <routes>
+                    <route_entity>
+                        <route>/customer/:username/wishlistcollectiongetcover/:category_id</route>
+                        <action_type>entity</action_type>
+                    </route_entity>
+                </routes>
+                <versions>1</versions>
+            </customer_wishlistcollectiongetcover>
         </resources>
     </api2>
 </config>

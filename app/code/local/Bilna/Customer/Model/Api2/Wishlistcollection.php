@@ -20,7 +20,7 @@ class Bilna_Customer_Model_Api2_Wishlistcollection extends Mage_Api2_Model_Resou
         $customerId = $data['customer_id'];
 
         try {
-            $this->_createNewCollection($customerId, $wishlistName, $visibility, $desc);
+            $this->_createNewCollection($customerId, $wishlistName, $visibility, $desc, $data);
         } catch (Exception $e) {
             $this->_critical($e->getMessage());
         }
@@ -28,11 +28,11 @@ class Bilna_Customer_Model_Api2_Wishlistcollection extends Mage_Api2_Model_Resou
         return TRUE;
     }
 
-    protected function _createNewCollection($customerId, $wishlistName, $visibility, $desc)
+    protected function _createNewCollection($customerId, $wishlistName, $visibility, $desc, $data)
     {
         $wishlist = Mage::getModel('wishlist/wishlist');
 
-        $cover = Mage::helper('socialcommerce')->processCover();
+        $cover = Mage::helper('socialcommerce')->processCover($data);
         
         $wishlist->setCustomerId($customerId)
             ->setName($wishlistName)
