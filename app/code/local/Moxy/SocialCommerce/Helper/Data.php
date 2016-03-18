@@ -94,10 +94,12 @@ extends Mage_Core_Helper_Abstract
         }
     }
 
-    public function createTemporaryProfile() {
+    public function createTemporaryProfile($customer = NULL) {
 
-        $customer = Mage::getSingleton('customer/session')->getCustomer();
-
+        if($customer == NULL) {
+            $customer = Mage::getSingleton('customer/session')->getCustomer();
+        }
+        
         # Temporary username
         $username = Mage::getModel('catalog/product_url')->formatUrlKey($customer->getName());
         $profile = Mage::getModel('socialcommerce/profile')->load($username, 'username')->getData();
