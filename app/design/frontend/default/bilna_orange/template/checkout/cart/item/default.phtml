@@ -62,7 +62,22 @@ $_escape_helper = Mage::helper('catalog/utils');
         
         <?php if ($messages = $this->getMessages()): ?>
             <?php foreach ($messages as $message): ?>
-                <p class="item-msg <?php echo $message['type'] ?>">* <?php echo $this->escapeHtml($message['text']) ?></p>
+               <?php /* <p class="item-msg <?php echo $message['type'] ?>">* <?php echo $this->escapeHtml($message['text']) ?></p> */ ?>
+               <div class='in-block container-express noborder nopadding'>
+                  <img src="<?php echo $this->getSkinUrl('images/') . 'VIP-SHIPMENT-ICON-GREEN.png'; ?>" class='in-block margin-right-8'  style='width:25px; margin-top:5px;'>
+                <div class='in-block'>
+                  <p class=''>Tersedia Pengiriman Ekspress untuk <strong>JADETABEK</strong>
+                    <span class='tool-box'>
+                      <span class='question spancart'>?</span> 
+                      <span class='pops'>
+                        <span class='arrow_box in-block stay-float' style="top: 80px;left: -4%;">
+                          <span class='logo' style="line-height: 14px;">Pengiriman Express tersedia di <strong>JADETABEK</strong> khusus produk dengan icon <span class='in-tab'>
+                          <img src="<?php echo $this->getSkinUrl('images/') . 'VIP-SHIPMENT-ICON-GREEN.png'; ?>" class='in-block margin-right-8'  style='width:12px; margin-top:5px;'></span>. tidak dapat digabungkan dengan produk tanpa ikon tersebut &amp; COD</span>
+                        </span>
+                    </span>
+                  </p>
+                </div>
+            </div>
             <?php endforeach; ?>
         <?php endif; ?>
         
@@ -178,7 +193,22 @@ $_escape_helper = Mage::helper('catalog/utils');
         
         <?php if ($messages = $this->getMessages()): ?>
             <?php foreach ($messages as $message): ?>
-                <p class="item-msg <?php echo $message['type'] ?>">* <?php echo $this->escapeHtml($message['text']) ?></p>
+                <?php /*<p class="item-msg <?php echo $message['type'] ?>">* <?php echo $this->escapeHtml($message['text']) ?></p> */?>
+                <div class='in-block container-express noborder nopadding'>
+                  <img src="<?php echo $this->getSkinUrl('images/') . 'VIP-SHIPMENT-ICON-GREEN.png'; ?>" class='in-block margin-right-8'  style='width:25px; margin-top:5px;'>
+                <div class='in-block'>
+                  <p class=''>Tersedia Pengiriman Ekspress untuk <strong>JADETABEK</strong>
+                    <span class='tool-box relative' >
+                      <span class='question spancart'>?</span> 
+                      <span class='pops'>
+                        <span class='arrow_box in-block stay-float' style="top: 5px;margin-right: -7px;">
+                          <span class='logo' style="line-height: 14px;">Pengiriman Express tersedia di <strong>JADETABEK</strong> khusus produk dengan icon <span class='in-tab'>
+                          <img src="<?php echo $this->getSkinUrl('images/') . 'VIP-SHIPMENT-ICON-GREEN.png'; ?>" class='in-block margin-right-8'  style='width:12px; margin-top:5px;'></span>. tidak dapat digabungkan dengan produk tanpa ikon tersebut &amp; COD</span>
+                        </span>
+                    </span>
+                  </p>
+                </div>
+            </div>
             <?php endforeach; ?>
         <?php endif; ?>
         
