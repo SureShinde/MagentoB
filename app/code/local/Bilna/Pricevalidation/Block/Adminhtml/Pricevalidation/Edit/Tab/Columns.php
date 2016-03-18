@@ -23,11 +23,6 @@ class Bilna_Pricevalidation_Block_Adminhtml_Pricevalidation_Edit_Tab_Columns
                         'backend_type' => 'double',
                         'is_required' => 0
                     ),
-                    'cost' => array(
-                        'attribute_code' => 'cost',
-                        'backend_type' => 'double',
-                        'is_required' => 0
-                    ),
                     'special_price' => array(
                         'attribute_code' => 'special_price',
                         'backend_type' => 'double',
