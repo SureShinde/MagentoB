@@ -21,7 +21,9 @@ abstract class Bilna_Customer_Model_Api2_Customer_Rest extends Bilna_Customer_Mo
         
         $extra["password_hash"] = $this->_getHelper('core')->getHash($data["password"], Mage_Admin_Model_User::HASH_SALT_LENGTH);
         if(isset($data["newsletter"]) && $data["newsletter"]==1) $extra["is_subscribed"] = true;
-
+        
+        $username = $data['username'];
+        
         $data = $validator->filter($data);
         $data = array_merge($data, $extra);
         unset($extra);
@@ -42,8 +44,6 @@ abstract class Bilna_Customer_Model_Api2_Customer_Rest extends Bilna_Customer_Mo
         try {
             //process username from register form logan
             /* start : add username on register */
-            $username = $data['username'];
-            
             if (!preg_match ('/^[a-zA-Z0-9_.-]+$/', $username)) {
                 $this->_critical('Username ' .$username . ' contains invalid character. Only letters (a-z), numbers (0-9), periods (.), dashs (-), and underscores (_) are allowed');
             }    
