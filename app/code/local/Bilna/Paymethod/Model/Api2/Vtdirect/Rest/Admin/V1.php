@@ -57,8 +57,8 @@ class Bilna_Paymethod_Model_Api2_Vtdirect_Rest_Admin_V1 extends Bilna_Paymethod_
         
         $result = [
             'order_no' => $orderNo, 
-            'request' => $request, 
-            'response' => $response
+            'request' => json_decode($request, TRUE), 
+            'response' => json_decode($response, TRUE)
         ];
 
         return $result;
