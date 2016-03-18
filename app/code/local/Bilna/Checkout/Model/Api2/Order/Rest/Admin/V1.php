@@ -259,6 +259,10 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
     protected function getPaymentMethodVtdirect() {
         return Mage::helper('paymethod')->getPaymentMethodVtdirect();
     }
+    
+    protected function getPaymentMethodVA() {
+        return Mage::helper('paymethod')->getPaymentMethodVA();
+    }
 
     protected function getPaymentTypeTransaction($paymentCode, $type) {
         if ($paymentCode == 'klikpay') {
