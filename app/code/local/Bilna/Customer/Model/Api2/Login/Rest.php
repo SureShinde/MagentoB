@@ -85,50 +85,11 @@ class Bilna_Customer_Model_Api2_Login_Rest extends Bilna_Customer_Model_Api2_Log
         $customerProfileData = $customerProfile->getData();
 
         if (!isset($customerProfileData['entity_id'])) {
-            $username = $this->createTemporaryProfile($customerId);
+            $username = Mage::helper('socialcommerce')->createTemporaryProfile($customer);
         } else {
             $username = $customerProfileData['username'];
         }
         
         return $username;
-    }
-    
-    public function createTemporaryProfile($customerId = null) 
-    {
-
-        $customer = $this->_loadCustomerById($customerId);
-
-        # Temporary username
-        $username = Mage::getModel('catalog/product_url')->formatUrlKey($customer->getName());
-        $profile = Mage::getModel('socialcommerce/profile')->load($username, 'username')->getData();
-
-        # If username exists, improvise
-        if ($profile) {
-
-            for ($i = 1; $i < 101; $i++) {
-                $slug = $username . '-' . substr(uniqid(), 7);
-                $profile = Mage::getModel('socialcommerce/profile')->load($slug, 'username')->getData();
-
-                if (empty($profile)) {
-                    $username = $slug;
-                    break;
-                }
-            }
-        }
-
-        # Create new customer profile
-        $profile = Mage::getModel('socialcommerce/profile');
-
-        # Assign data
-        $profile->setCustomerId($customer->getId());
-        $profile->setStatus(1);
-        $profile->setWishlist(1);
-        $profile->setTemporary(1);
-        $profile->setUsername($username);
-
-        $profile->save();
-
-        return $username;
-
     }
 }
