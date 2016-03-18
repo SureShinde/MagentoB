@@ -60,7 +60,10 @@
     $mail->setType(Zend_Mime::MULTIPART_RELATED);
     $mail->setBodyHtml($html);
     $mail->setFrom(Mage::getStoreConfig('bilna_paymentconfirmation/paymentconfirmation/sender_email'),Mage::getStoreConfig('bilna_paymentconfirmation/paymentconfirmation/sender_name'));
-    $mail->addTo(Mage::getStoreConfig('bilna_paymentconfirmation/paymentconfirmation/receiver_email'),Mage::getStoreConfig('bilna_paymentconfirmation/paymentconfirmation/receiver_name'));
+    $mailTo = explode(",",Mage::getStoreConfig('bilna_paymentconfirmation/paymentconfirmation/receiver_email'));
+    foreach($mailTo as $idx => $val){
+        $mail->addTo($val,$val);
+    }
     $mail->setSubject('[BILNA] Payment Confirmation List '.Mage::getModel('core/date')->date('Y-m-d H', strtotime("-1 hours")));
     $dir = Mage::getBaseDir();
     $file = $mail->createAttachment(file_get_contents($filename));
