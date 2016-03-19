@@ -241,9 +241,12 @@ extends Mage_Core_Helper_Abstract
 		return $image_file;
 	}
 
-    public function processCover()
+    public function processCover($data = NULL)
     {
-        if($_FILES) {
+        /** 
+         * bug fix image url not saved, so we commented on $_FILES code
+         */
+        //if($_FILES) {
             if ($_FILES['cover']['tmp_name']) {
                 $image_name = substr(str_shuffle(md5(time())),0,5).'.jpg';
                 
@@ -264,7 +267,11 @@ extends Mage_Core_Helper_Abstract
 
                 return ltrim($result['file'], '/');
             }
-
+            
+            //to handle API data content
+            if($data != NULL) {
+                $_POST['image_url'] = $data['image_url'];
+            }
             if ($_POST['image_url']) {
                 $upFileTmpName = $this->download_image($_POST['image_url']);
                 $imageUrl = 'media'. DS .'collection-cover'. DS . basename($upFileTmpName);
@@ -280,7 +287,7 @@ extends Mage_Core_Helper_Abstract
             }
 
             return null;
-        }
+        //}
     }
 
     # Check if custom route available for user URL
