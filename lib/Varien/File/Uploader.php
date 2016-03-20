@@ -144,9 +144,13 @@ class Varien_File_Uploader
      */
     protected $_result;
 
-    function __construct($fileId)
+    function __construct($fileId, $data = NULL)
     {
-        $this->_setUploadFileId($fileId);
+        if($data != NULL) {
+            $this->_file = $data['preset_image']['cover'];
+            $_FILES = $data['preset_image']['cover'];
+        }
+        $this->_setUploadFileId($fileId);        
         if(!file_exists($this->_file['tmp_name'])) {
             $code = empty($this->_file['tmp_name']) ? self::TMP_NAME_EMPTY : 0;
             throw new Exception('File was not uploaded.', $code);
