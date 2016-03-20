@@ -107,10 +107,10 @@ abstract class Bilna_Customer_Model_Api2_Wishlistcollection_Rest extends Bilna_C
         $categories = Mage::getModel('socialcommerce/collectioncategory')->getCollection();
         
         $collection['gender'] = $customer->getGender();
-        
+        $categoryItem = [];
         if($categories->getData()) {
             foreach ($categories as $category) {
-                $categoryItem[] = [$category->getCategoryId() => $category->getName()];
+                $categoryItem[$category->getCategoryId()] = $category->getName();
             }
         }
         

@@ -247,10 +247,15 @@ extends Mage_Core_Helper_Abstract
          * bug fix image url not saved, so we commented on $_FILES code
          */
         //if($_FILES) {
+            
+            //to handle API data content
+            if($data != NULL) {
+                $_FILES = $data['preset_image'];
+            }
             if ($_FILES['cover']['tmp_name']) {
                 $image_name = substr(str_shuffle(md5(time())),0,5).'.jpg';
+                $uploader = new Varien_File_Uploader('cover', $data);   
                 
-                $uploader = new Varien_File_Uploader('cover');   
                 $uploader->setAllowedExtensions(array('jpg','jpeg','png')); 
                 $uploader->setAllowRenameFiles(true);  
                 $uploader->setFilesDispersion(true);  
