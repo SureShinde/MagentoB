@@ -43,22 +43,34 @@ class Bilna_Expressshipping_Model_Observer {
             // check whether today's date is available inside the table sales_order_daily_count
             $resource = Mage::getSingleton('core/resource');
             $readConnection = $resource->getConnection('core_read');
-            $table = "sales_order_daily_count";
-            $query = "SELECT sales_date FROM $table WHERE sales_date = '$todayDate' LIMIT 1";
-            $salesDate = $readConnection->fetchOne($query);
 
-            $writeConnection = $resource->getConnection('core_write');
-            if ($salesDate) {
-                // update
-                $query = "UPDATE $table SET sales_count = sales_count + 1 WHERE sales_date = '$todayDate'";
-            }
-            else
+            // check whether the order ID already exists in table sales_flat_order
+            $orderId = $order->getIncrementId();
+            $table = "sales_flat_order";
+            $query = "SELECT increment_id FROM $table WHERE increment_id = '$orderId' LIMIT 1";
+            $incrementId = $readConnection->fetchOne($query);
+
+            // if increment ID does not exist yet, increment the sales count
+            if (!$incrementId)
             {
-                // insert new
-                $query = "INSERT INTO $table (sales_date, sales_count) VALUES ('$todayDate', 1)";
-            }
+                // check the count of today's express sales
+                $table = "sales_order_daily_count";
+                $query = "SELECT sales_date FROM $table WHERE sales_date = '$todayDate' LIMIT 1";
+                $salesDate = $readConnection->fetchOne($query);
 
-            $writeConnection->query($query);
+                $writeConnection = $resource->getConnection('core_write');
+                if ($salesDate) {
+                    // update
+                    $query = "UPDATE $table SET sales_count = sales_count + 1 WHERE sales_date = '$todayDate'";
+                }
+                else
+                {
+                    // insert new
+                    $query = "INSERT INTO $table (sales_date, sales_count) VALUES ('$todayDate', 1)";
+                }
+
+                $writeConnection->query($query);
+            }
         }
     }
 
