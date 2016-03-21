@@ -60,7 +60,8 @@
     $mail->setType(Zend_Mime::MULTIPART_RELATED);
     $mail->setBodyHtml($html);
     $mail->setFrom(Mage::getStoreConfig('bilna_paymentconfirmation/paymentconfirmation/sender_email'),Mage::getStoreConfig('bilna_paymentconfirmation/paymentconfirmation/sender_name'));
-    $mail->addTo(Mage::getStoreConfig('bilna_paymentconfirmation/paymentconfirmation/receiver_email'),Mage::getStoreConfig('bilna_paymentconfirmation/paymentconfirmation/receiver_name'));
+    $mailTo = explode(",",Mage::getStoreConfig('bilna_paymentconfirmation/paymentconfirmation/receiver_email'));
+    $mail->addTo($mailTo);
     $mail->setSubject('[BILNA] Payment Confirmation List '.Mage::getModel('core/date')->date('Y-m-d H', strtotime("-1 hours")));
     $dir = Mage::getBaseDir();
     $file = $mail->createAttachment(file_get_contents($filename));
@@ -68,6 +69,14 @@
     $file ->disposition = Zend_Mime::DISPOSITION_INLINE;
     $file ->encoding    = Zend_Mime::ENCODING_BASE64;
     $file ->filename    = sprintf('payment_confirmation_list_%s.csv',Mage::getModel('core/date')->date('YmdH', strtotime("-1 hours")));
-    $mail->send();
+    $exitStatus = 0;
+    try{
+        $mail->send();
+    }
+    catch (Exception $e) {
+        Mage::logException($e);
+        $exitStatus = 1;
+    }
     @unlink($filename);
+    exit($exitStatus);
     
