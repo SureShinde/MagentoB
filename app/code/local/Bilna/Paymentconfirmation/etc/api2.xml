@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<config>
+    <api2>
+        <resources>
+            <paymentconfirmation translate="title" module="Paymentconfirmation">
+                <group>sales</group>
+                <sort_order>1000</sort_order>
+                <model>Paymentconfirmation/api2_confirm</model>
+                <title>Payment Confirmation</title>
+                <privileges>
+                    <admin>
+                        <create>1</create>
+                        <retrieve>1</retrieve>
+                    </admin>
+                    <customer>
+                        <create>0</create>
+                        <retrieve>0</retrieve>
+                    </customer>
+                    <guest>
+                        <create>0</create>
+                        <retrieve>0</retrieve>
+                    </guest>
+                </privileges>
+                <attributes translate="order_number email nominal bank_to transfer_date bank_from other_from name_from comment" module="Paymentconfirmation">
+                    <order_number>Order Number</order_number>
+                    <email>Email</email>
+                    <nominal>Nominal</nominal>
+                    <bank_to>Bank To</bank_to>
+                    <transfer_date>Transfer Date</transfer_date>
+                    <bank_from>Bank From</bank_from>
+                    <other_from>Other From</other_from>
+                    <name_from>Name From</name_from>
+                    <comment>Comment</comment>
+                </attributes>
+                <routes>
+                    <route_collection>
+                        <route>/paymentconfirmation</route>
+                        <action_type>collection</action_type>
+                    </route_collection>
+                </routes>
+                <versions>1</versions>
+            </paymentconfirmation>
+        </resources>
+    </api2>
+</config>
