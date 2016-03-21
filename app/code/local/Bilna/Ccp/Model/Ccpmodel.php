@@ -1,7 +1,7 @@
 <?php
 class Bilna_Ccp_Model_Ccpmodel extends Mage_Core_Model_Abstract {
 
-    const BATCH_SIZE     = '200';
+    const BATCH_SIZE     = '5000';
     const MAX_RANKING   = '999999';
 
     protected function _construct() {
@@ -237,7 +237,7 @@ class Bilna_Ccp_Model_Ccpmodel extends Mage_Core_Model_Abstract {
 
     // get all category IDs to loop
     public function getAllCategories() {
-        $list_category = array('2946', '3013');
+        $list_category = array('1074'); // http://www.bilna.com/baby/popok/krim-bayi-tisu-basah/
         return $list_category;
     }
 
