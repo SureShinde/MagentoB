@@ -221,7 +221,7 @@ abstract class Bilna_Customer_Model_Api2_Wishlistcollection_Rest extends Bilna_C
                 }
                 $wishlist = Mage::getModel('wishlist/wishlist')->load($collectionId);
                 if($wishlist){
-                    $viewupdate = $wishlist->setCustomerIdDel(0);
+                    $wishlist->delete();
                 }
             } catch (Mage_Core_Exception $e) {
                 $this->_critical($e->getMessage());
