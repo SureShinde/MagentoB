@@ -8,7 +8,7 @@ class Bilna_Customer_Model_Api2_Wishlistcollection extends Mage_Api2_Model_Resou
 {    
     public function _construct()
     {
-        Mage::app()->getStore()->setStoreId(self::DEFAULT_STORE_ID);
+        Mage::app()->getStore()->setStoreId(1);
     }
 
     public function createNewCollection($data)
@@ -162,7 +162,7 @@ class Bilna_Customer_Model_Api2_Wishlistcollection extends Mage_Api2_Model_Resou
             $item->setProductId($product->getId())
                 ->setWishlistId($wishlist->getId())
                 ->setAddedAt(now())
-                ->setStoreId(self::DEFAULT_STORE_ID)
+                ->setStoreId(1)
                 ->setOptions($product->getCustomOptions())
                 ->setProduct($product)
                 ->setQty(1)
