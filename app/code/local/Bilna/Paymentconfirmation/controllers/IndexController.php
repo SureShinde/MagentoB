@@ -37,8 +37,7 @@ class Bilna_Paymentconfirmation_IndexController extends Mage_Core_Controller_Fro
                 $post['transfer_date'] = sprintf('%s-%s-%s',$post['year'],$post['month'],$post['day']);
                 unset($post['year'],$post['month'],$post['day']);
                 if(trim($isValidOrderID->entity_id) != ''){
-                    $post['email'] = strtolower($post['email']);
-                    if(strtolower($isValidOrderID->customer_email) == $post['email']){
+                    if(strtolower($isValidOrderID->customer_email) == strtolower($post['email'])){
                         $paymentData = $paymentModel
                             ->getCollection()
                             ->addFieldToFilter('order_id',array('equal' => $post['order_number']))
