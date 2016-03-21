@@ -171,6 +171,13 @@ $_escape_helper = Mage::helper('catalog/utils');
                 <?php echo $this->escapeHtml($this->getProductName()) ?>
             <?php endif; ?>
         </h2>
+
+        <?php $product = Mage::getModel('catalog/product')->load($_item->getProduct()->getId()); ?>
+        <?php if ($product->getExpressShipping()) : ?>
+            <div class="express-shipping">
+                <img src="<?php echo $this->getSkinUrl('images/vip-shipment-mail.png'); ?>" style="width: 35px;">Tersedia Pengiriman Express untuk JABODETABEK
+            </div>
+        <?php endif; ?>
         
         <?php if ($_options = $this->getOptionList()):?>
             <dl class="item-options">
