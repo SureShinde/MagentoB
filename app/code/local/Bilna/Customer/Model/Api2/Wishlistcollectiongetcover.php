@@ -8,7 +8,7 @@ class Bilna_Customer_Model_Api2_Wishlistcollectiongetcover extends Mage_Api2_Mod
 {
     public function _construct()
     {
-        Mage::app()->getStore()->setStoreId(self::DEFAULT_STORE_ID);
+        Mage::app()->getStore()->setStoreId(1);
     }
     
     /**
