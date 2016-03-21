@@ -151,7 +151,7 @@ class Bilna_Customer_Model_Api2_Wishlistcollection extends Mage_Api2_Model_Resou
             # She want to create a new collection first
             if ($wishlistName) {
                 $visibility = ($data['visibility'] === 'on' ? 1 : 0);
-                $wishlist = $this->_createNewCollection($customer->getId(), $wishlistName, $visibility, $wishlistDescription);
+                $wishlist = $this->_createNewCollection($customer->getId(), $wishlistName, $visibility, $wishlistDescription, $data);
             } else {
                 $wishlist = Mage::getModel('wishlist/wishlist')->load($wishlistId);
             }
