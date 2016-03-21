@@ -36,7 +36,7 @@
             </expressshipping>
         </models>
         <events>
-            <sales_order_place_after>
+            <sales_order_place_before>
                 <observers>
                     <sales_order_express_increment_count>
                         <type>singleton</type>
@@ -44,7 +44,7 @@
                         <method>salesOrderIncrementCount</method>
                     </sales_order_express_increment_count>
                 </observers>
-            </sales_order_place_after>
+            </sales_order_place_before>
             <sales_quote_add_item>
                 <observers>
                     <express_quote_add_item>
