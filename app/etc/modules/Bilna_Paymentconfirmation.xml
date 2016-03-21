@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <Bilna_Paymentconfirmation>  <!-- Module Name-->
+      <active>true</active> <!-- Module Status -->
+      <codePool>local</codePool> <!-- Module location -->
+      <version>0.1.0</version>
+    </Bilna_Paymentconfirmation>
+  </modules>
+</config>

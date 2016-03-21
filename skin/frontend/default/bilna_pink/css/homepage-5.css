@@ -119,7 +119,7 @@
 }
 p.title {
     font-family: 'Open Sans';
-	color: #EE5191;
+	color: #ff6c6c;
     float: left;
     font-size: 4em;
     margin: 0;
@@ -133,7 +133,7 @@ p.title {
     display: block;
 }
 .header-row-homepage .link-viewmore-product a{
-    color: #EE5191;
+    color: #ff6c6c;
 }
 .header-row-homepage .link-viewmore-product a:hover {
 	text-decoration:underline;
@@ -894,7 +894,7 @@ ul.block-wrapper li:last-child {}
     background: #fffcfd;
 }
 .homepage .homepage-banner .first-level > ul > li.hover-cat > div.first-level-url{
-    color: #ee5191;
+    color: #ff6c6c;
 }
 .homepage .homepage-banner .first-level .active-cat div.first-level-url .arrow-megamenu,
 .homepage .homepage-banner .first-level > ul > li > div.first-level-url .arrow-megamenu{
@@ -906,7 +906,7 @@ ul.block-wrapper li:last-child {}
     top: 0;
 }
 .homepage .homepage-banner .first-level > ul > li.active-cat > div.first-level-url{
-    color: #ee5191;
+    color: #ff6c6c;
 }
 .homepage .homepage-banner .first-level > ul > li > div.first-level-url{
 	color:#b3b3b3;
@@ -953,7 +953,7 @@ ul.block-wrapper li:last-child {}
 }
 .homepage .homepage-banner .first-level li.first-level-cat.active-cat.hover-cat > div.first-level-url,
 .homepage .homepage-banner .first-level li.first-level-cat.active-cat.hover-cat > div.first-level-url .fa{
-    color: #ee5191 !important;
+    color: #ff6c6c !important;
 }
 .homepage .homepage-banner .first-level .active-cat{
     background: #fffcfd ;

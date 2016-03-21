@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<config>
+    <tabs>
+        <bilna translate="label" module="paymentconfirmation">
+            <label>Bilna Extensions</label>
+            <sort_order>9999</sort_order>
+        </bilna>
+    </tabs>
+       
+    <sections>
+        <bilna_paymentconfirmation module="paymentconfirmation" translate="label" >
+            <label>Payment Confirmation Report</label>
+            <tab>bilna</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>30</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <paymentconfirmation translate="label"> 
+                    <label>Payment Confirmation Report Setting</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>0</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <sender_email translate="label">
+                            <label>Sender Email</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>0</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </sender_email>
+                        <sender_name translate="label">
+                            <label>Sender Name</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </sender_name>
+                        <receiver_email translate="label">
+                            <label>Receiver Email</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>separated with comma</comment>
+                        </receiver_email>
+                        <file_email translate="label">
+                            <label>Temporary File Location</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </file_email>
+                    </fields>
+                </paymentconfirmation>
+            </groups>
+        </bilna_paymentconfirmation>
+    </sections>
+	
+</config>
