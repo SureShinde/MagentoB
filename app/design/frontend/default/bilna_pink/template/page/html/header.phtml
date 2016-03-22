@@ -29,14 +29,15 @@
 ?>
 <script type="text/javascript">
 $j(document).ready(function() {
-    
+
         $j("img.lazy, .wrap-banner img:not(.image-slider), .warp-banner img").after('<div class="loader"><img class="loader-img" src="<?php echo Mage::getBaseUrl(); ?>skin/frontend/base/default/images/loading.gif"></div>');
 });
 </script>
-<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('above-header-notification')->toHtml() ?> 
+<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('above-header-notification')->toHtml() ?>
 <?php echo $this->getChildHtml('additionalHeader'); ?>
 
 <div class="header-container">
+
     <div class="space-above-header">
         <div class="container-above-header">
             <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('above-header')->toHtml() ?>
@@ -47,6 +48,9 @@ $j(document).ready(function() {
                 <li>
                     <a href="<?php if($this->helper('customer')->isLoggedIn()):?><?php echo $this->getUrl('sales/order/history') ?><?php else: ?><?php echo $this->getUrl('orderdetail') ?><?php endif;?>"><em class="fa fa-file-text-o"></em> Cek Pesanan</a>
                 </li>
+		<li>
+                    <a href="<?php echo $this->getUrl('konfirmasipembayaran') ?>"><em class="fa fa-reply-all"></em> Konfirmasi Pembayaran</a>
+                </li>
             </ul>
         </div>
     </div>
@@ -56,7 +60,7 @@ $j(document).ready(function() {
         <a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="logo"><strong><?php echo $this->getLogoAlt() ?></strong>
             <img src="<?php echo $this->getLogoSrc() ?>" alt="<?php echo $this->getLogoAlt() ?>" />
         </a>
-        
+
         <ul class="web_feature">
             <li class="shop_link"><a href="<?php echo $this->getUrl(''); ?>"><?php echo $this->__('Belanja') ?></a><div class="bridge_border">&shy; </div></li>
             <li class="koleksi"><a href="<?php echo $this->getUrl('collections'); ?>"><?php echo $this->__('Koleksi') ?><div class="bridge_border">&shy; </div></a></li>
@@ -96,7 +100,7 @@ $j(document).ready(function() {
             <?php echo $this->getChildHtml('topContainer'); ?>
 
         </div>
-        
+
         <div class="menu-navigation">
             <div class="wrap-navigation belanja">
                 <div class="wrap-megamenu">
@@ -110,7 +114,7 @@ $j(document).ready(function() {
                     <?php echo $this->getLayout()->createBlock('megamenu/block')->setTemplate('bilna_megamenu/block.phtml')->toHtml(); ?>
                 </div>
             </div>
-            
+
             <div class="wrap-navigation inspirasi">
                 <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('nav_inspirasi')->toHtml() ?>
             </div>

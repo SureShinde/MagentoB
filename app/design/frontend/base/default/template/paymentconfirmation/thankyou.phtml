@@ -1,0 +1,51 @@
+<div class="payment-confirmation cg-row">
+  <div class="container-box cg-col-xs-8 cg-col-xs-offset-2 cg-col-sm-8 cg-col-sm-offset-2  text-center" style="border-width:0px">
+    <div class="page-title">
+      <span>
+       <?php echo $this->title; ?></span>
+      <div class="line"></div>
+    </div>
+
+    <div class="intro">
+      <?php echo $this->message; ?>
+    </div>
+
+    <div class="static-page-content">
+    </div>
+    <?php if($this->status == 0){?>
+    <div class="cg-col-xs-12 cg-col-sm-8 cg-col-sm-offset-2 cg-col-lg-6 cg-col-lg-offset-3 ">
+      <div class="btn-box">
+        <button id="send" name="send" title="Konfirmasi" class="button" type="submit">
+            <a href="/konfirmasipembayaran/"><span><?php echo $this->__('KONFIRMASI PEMBAYARAN'); ?></span></a>
+        </button>
+      </div>
+    </div>
+    <?php } else {?>  
+    
+    <div class="cg-col-xs-12 cg-col-sm-6">
+      <div class="btn-box pull-right">
+        <button id="send" name="send" title="cek status pesanan" class="button" type="submit">
+        <a href="/orderdetail/"><span><?php echo $this->__('CEK STATUS PESANAN'); ?></span></a>
+        </button>
+      </div>
+    </div>
+    <div class="cg-col-xs-12 cg-col-sm-6">
+      <div class="btn-box pull-left">
+        <button id="send" name="send" title="lanjut belanja" class="button" type="submit">
+        <a href="/"><span><?php echo $this->__('LANJUTKAN BELANJA'); ?></span></a>
+        </button>
+      </div>
+    </div>
+    <?php } ?>
+  </div>
+</div>
+
+<script type="text/javascript">
+    //<![CDATA[
+    document.forms.paymentconfirmationForm.email.focus();
+    var dataForm = new VarienForm('paymentconfirmationForm', true);
+    //]]>
+</script>
+
+
+
