@@ -6,17 +6,9 @@
     require_once realpath(dirname(__FILE__)).'/../app/Mage.php'; // load magento API
     Mage::app();
     $configScheduled = Mage::getStoreConfig('bilna_paymentconfirmation/paymentconfirmation/run_time');
-    print "Scheduled Time: ".$configScheduled."\n";
-    print "Start Time: ".Mage::getStoreConfig('bilna_paymentconfirmation/paymentconfirmation/next_execute').":00:00"."\n";
-    print "End Time: ".Mage::getModel('core/date')->date('Y-m-d H:59:59', strtotime(" -1 hours"))."\n";
     $arrScheduledTime = explode(",",$configScheduled);
-    print_r($arrScheduledTime);
     $currentHour = (int)Mage::getModel('core/date')->date('H');
-    print "Jam Sekarang: ".$currentHour."\n";
-    if(in_array($currentHour,$arrScheduledTime)){
-        print "Waktunya jalan\n";
-    }
-    else{
+    if(!in_array($currentHour,$arrScheduledTime)){
         print "Bukan Waktunya jalan\n";
         $exitStatus = 0;
         exit($exitStatus);
@@ -96,5 +88,6 @@
     }
     @unlink($filename);
     Mage::getConfig()->saveConfig('bilna_paymentconfirmation/paymentconfirmation/next_execute',Mage::getModel('core/date')->date('Y-m-d H'));
+    Mage::log("Cron Payment Confirmation Success Running");
     exit($exitStatus);
     
