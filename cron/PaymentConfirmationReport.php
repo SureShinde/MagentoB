@@ -5,11 +5,11 @@
 
     require_once realpath(dirname(__FILE__)).'/../app/Mage.php'; // load magento API
     Mage::app();
-    if(Mage::getStoreConfig('bilna_paymentconfirmation/paymentconfirmation/run_time') == ""){
+    if(trim(Mage::getStoreConfig('bilna_paymentconfirmation/paymentconfirmation/run_time')) == ""){
         Mage::getConfig()->saveConfig('bilna_paymentconfirmation/paymentconfirmation/run_time','0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23');
         Mage::app()->getConfig()->reinit();
     }
-    if(Mage::getStoreConfig('bilna_paymentconfirmation/paymentconfirmation/next_execute') == ''){
+    if(trim(Mage::getStoreConfig('bilna_paymentconfirmation/paymentconfirmation/next_execute')) == ''){
         Mage::getConfig()->saveConfig('bilna_paymentconfirmation/paymentconfirmation/next_execute',Mage::getModel('core/date')->date('Y-m-d H', strtotime(" -1 hours")));
         Mage::app()->getConfig()->reinit();
     }
