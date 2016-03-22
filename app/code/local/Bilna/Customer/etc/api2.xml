@@ -530,20 +530,20 @@
                 <title>Collection Profile</title>
                 <privileges>
                     <admin>
-                        <retrieve>1</retrieve>
-                        <update>1</update>
+                        <create>1</create>
                     </admin>
                 </privileges>
-                <attributes translate="dob location about" module="Bilna_Customer">
+                <attributes translate="dob location about image_url" module="Bilna_Customer">
                     <dob>dob</dob>
                     <location>location</location>
                     <about>about</about>
+                    <image_url>image_url</image_url>
                 </attributes>
                 <routes>
-                    <route_entity>
+                    <route_collection>
                         <route>/customer/:username/wishlistcollectionprofile</route>
-                        <action_type>entity</action_type>
-                    </route_entity>
+                        <action_type>collection</action_type>
+                    </route_collection>
                 </routes>
                 <versions>1</versions>
             </customer_wishlistcollectionprofile>
