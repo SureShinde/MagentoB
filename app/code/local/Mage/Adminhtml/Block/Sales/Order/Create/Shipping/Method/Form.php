@@ -143,7 +143,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Shipping_Method_Form
     {
         $showExpress = true;
 
-        $limit = (int) Mage::getStoreConfig('bilna_expressshipping_so_limit/orderlimit/limit');
+        $limit = (int) Mage::getStoreConfig('bilna_expressshipping/orderlimit/limit');
         $todayDate = Mage::getModel('core/date')->date('Y-m-d');
 
         $resource = Mage::getSingleton('core/resource');
