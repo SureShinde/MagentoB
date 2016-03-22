@@ -62,7 +62,7 @@ class Bilna_Rules_Model_Rule_Condition_Orders extends Mage_Rule_Model_Condition_
             $select = $db->select()
                 ->from(array('o'=>$resource->getTableName('sales/order')), array())
                 ->where('o.customer_id = ?', $quote->getCustomerId())
-                ->where('o.status = ?', 'complete')
+                ->where('o.status IN(?)', array('complete', 'shipping_cod'))
             ;
 
             if ('order_num' == $this->getAttribute()) {
