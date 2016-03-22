@@ -87,7 +87,9 @@
                     //$ship_by = $_helper->productAttribute($_product, $_product->getShipBy(), 'ship_by');
                     //$sold_by = $_helper->productAttribute($_product, $_product->getSoldBy(), 'sold_by');
                     $ship_by = $_product->getAttributeText('ship_by');
-                    $sold_by = $_product->getAttributeText('sold_by');
+                    $userName = $_product->getMerchantUsername();
+                    $shopName = $_product->getMerchantShopName();
+                    $sold_by = $userName && $shopName ? $shopName : $_product->getAttributeText('sold_by');
                     ?>
                     
                     <div class="shipsfrom-soldby">
