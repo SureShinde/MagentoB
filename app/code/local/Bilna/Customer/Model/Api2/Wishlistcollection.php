@@ -4,13 +4,8 @@
  *
  * @author Bilna Development Team <development@bilna.com>
  */
-class Bilna_Customer_Model_Api2_Wishlistcollection extends Mage_Api2_Model_Resource
+class Bilna_Customer_Model_Api2_Wishlistcollection extends Bilna_Rest_Model_Api2
 {    
-    public function _construct()
-    {
-        Mage::app()->getStore()->setStoreId(self::DEFAULT_STORE_ID);
-    }
-
     public function createNewCollection($data)
     {
         $visibility = ($data['visibility'] === 'on' ? 1 : 0);
@@ -151,7 +146,7 @@ class Bilna_Customer_Model_Api2_Wishlistcollection extends Mage_Api2_Model_Resou
             # She want to create a new collection first
             if ($wishlistName) {
                 $visibility = ($data['visibility'] === 'on' ? 1 : 0);
-                $wishlist = $this->_createNewCollection($customer->getId(), $wishlistName, $visibility, $wishlistDescription);
+                $wishlist = $this->_createNewCollection($customer->getId(), $wishlistName, $visibility, $wishlistDescription, $data);
             } else {
                 $wishlist = Mage::getModel('wishlist/wishlist')->load($wishlistId);
             }
