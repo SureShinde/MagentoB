@@ -9,9 +9,11 @@
     $arrScheduledTime = explode(",",$configScheduled);
     $currentHour = (int)Mage::getModel('core/date')->date('H');
     if(!in_array($currentHour,$arrScheduledTime)){
-        print "Bukan Waktunya jalan\n";
         $exitStatus = 0;
         exit($exitStatus);
+    }
+    if(Mage::getStoreConfig('bilna_paymentconfirmation/paymentconfirmation/next_execute') == ''){
+        Mage::getConfig()->saveConfig('bilna_paymentconfirmation/paymentconfirmation/next_execute',Mage::getModel('core/date')->date('Y-m-d H', strtotime(" -1 hours")));
     }
     $i = 1;
     $oldId = 0;
