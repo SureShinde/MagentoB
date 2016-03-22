@@ -455,13 +455,11 @@
                     <admin>
                         <create>1</create>
                         <retrieve>1</retrieve>
-                        <update>1</update>
                         <delete>1</delete>
                     </admin>
                     <customer>
                         <create>1</create>
                         <retrieve>1</retrieve>
-                        <update>1</update>
                         <delete>1</delete>
                     </customer>
                 </privileges>

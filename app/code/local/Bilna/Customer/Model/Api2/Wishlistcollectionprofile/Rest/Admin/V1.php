@@ -34,9 +34,6 @@ class Bilna_Customer_Model_Api2_Wishlistcollectionprofile_Rest_Admin_V1 extends 
                 if (!isset($data['location']) || $data['location'] == "") {
                     $this->_critical('Please provide location.');
                 }
-                if (!isset($data['about']) || $data['about'] == "") {
-                    $this->_critical('Please provide about information.');
-                }
 
                 # Get username and slug it
                 $postUsername = Mage::getModel('catalog/product_url')->formatUrlKey($username);
