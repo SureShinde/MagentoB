@@ -12,8 +12,9 @@ class Bilna_Customer_Model_Api2_Wishlistcollectionprofile_Rest_Admin_V1 extends 
      * bodyParams:
      * {"dob":"01\/06\/1983","location":"asdasd","about":"asd"}
      * 
+     * Method was use create function since, logan didnt need to send entity_id as param
      */
-    protected function _update(array $data)
+    protected function _create(array $data)
     {
         $username = $this->getRequest()->getParam('username');
         $profiler = Mage::getModel('socialcommerce/profile')->load($username, 'username');
