@@ -67,8 +67,4 @@ class Bilna_Paymentconfirmation_Model_Api2_Validator_Confirm extends Mage_Api2_M
             $this->_addError('Missing "name_from" in request.', Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
         }
     }
-    
-    protected function _critical($message, $code) {
-        throw new Mage_Api2_Exception($message, $code);
-    }
 }

@@ -6,6 +6,6 @@
  * @author  Bilna Development Team <development@bilna.com>
  */
 
-class Bilna_Paymentconfirmation_Model_Api2_Confirm extends Bilna_Paymentconfirmation_Model_Api2 {
+class Bilna_Paymentconfirmation_Model_Api2_Confirm extends Bilna_Rest_Model_Api2 {
     
 }
