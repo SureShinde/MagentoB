@@ -5,18 +5,24 @@
 
     require_once realpath(dirname(__FILE__)).'/../app/Mage.php'; // load magento API
     Mage::app();
+    
+    $flag = Mage::getModel('Paymentconfirmation/flag');
+    $x = $flag->loadSelf();
+    if(trim($x->flag_data) == ''){
+        $flag->setFlagData(Mage::getModel('core/date')->date('Y-m-d H', strtotime("-1 hours")))->save();
+        $x = $flag->loadSelf();
+    }
+    $nextExecute = unserialize($x->flag_data);
+    
     if(trim(Mage::getStoreConfig('bilna_paymentconfirmation/paymentconfirmation/run_time')) == ""){
         Mage::getConfig()->saveConfig('bilna_paymentconfirmation/paymentconfirmation/run_time','0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23');
-        Mage::app()->getConfig()->reinit();
-    }
-    if(trim(Mage::getStoreConfig('bilna_paymentconfirmation/paymentconfirmation/next_execute')) == ''){
-        Mage::getConfig()->saveConfig('bilna_paymentconfirmation/paymentconfirmation/next_execute',Mage::getModel('core/date')->date('Y-m-d H', strtotime(" -1 hours")));
         Mage::app()->getConfig()->reinit();
     }
     $configScheduled = Mage::getStoreConfig('bilna_paymentconfirmation/paymentconfirmation/run_time');
     $arrScheduledTime = explode(",",$configScheduled);
     $currentHour = (int)Mage::getModel('core/date')->date('H');
     if(!in_array($currentHour,$arrScheduledTime)){
+        print "gk jalan";
         exit(0);
     }
     $i = 1;
@@ -39,7 +45,7 @@
     while(true){
         $sendMail = Mage::getModel('Paymentconfirmation/payment')
                 ->getCollection()
-                ->addFieldToFilter('created_at',array('gteq'=>Mage::getModel('core/date')->date(Mage::getStoreConfig('bilna_paymentconfirmation/paymentconfirmation/next_execute').":00:00")))
+                ->addFieldToFilter('created_at',array('gteq'=>$nextExecute.":00:00"))
                 ->addFieldToFilter('created_at',array('lteq'=>Mage::getModel('core/date')->date('Y-m-d H:59:59', strtotime(" -1 hours"))))
                 ->setCurPage($i)
                 ->setPageSize(100);
@@ -77,7 +83,7 @@
     $mail->setFrom(Mage::getStoreConfig('bilna_paymentconfirmation/paymentconfirmation/sender_email'),Mage::getStoreConfig('bilna_paymentconfirmation/paymentconfirmation/sender_name'));
     $mailTo = explode(",",Mage::getStoreConfig('bilna_paymentconfirmation/paymentconfirmation/receiver_email'));
     $mail->addTo($mailTo);
-    $mail->setSubject('[BILNA] Payment Confirmation List '.Mage::getStoreConfig('bilna_paymentconfirmation/paymentconfirmation/next_execute').' To '.Mage::getModel('core/date')->date('Y-m-d H', strtotime("-1 hours")));
+    $mail->setSubject('[BILNA] Payment Confirmation List '.$nextExecute.' To '.Mage::getModel('core/date')->date('Y-m-d H', strtotime("-1 hours")));
     $dir = Mage::getBaseDir();
     $file = $mail->createAttachment(file_get_contents($filename));
     $file ->type        = 'text/csv';
@@ -93,7 +99,7 @@
         $exitStatus = 1;
     }
     @unlink($filename);
-    Mage::getConfig()->saveConfig('bilna_paymentconfirmation/paymentconfirmation/next_execute',Mage::getModel('core/date')->date('Y-m-d H'));
+    $flag->setFlagData(Mage::getModel('core/date')->date('Y-m-d H'))->save();
     Mage::log("Cron Payment Confirmation Success Running");
     exit($exitStatus);
     
