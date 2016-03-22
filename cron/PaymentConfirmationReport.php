@@ -5,15 +5,19 @@
 
     require_once realpath(dirname(__FILE__)).'/../app/Mage.php'; // load magento API
     Mage::app();
+    if(Mage::getStoreConfig('bilna_paymentconfirmation/paymentconfirmation/run_time') == ""){
+        Mage::getConfig()->saveConfig('bilna_paymentconfirmation/paymentconfirmation/run_time','0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23');
+        Mage::app()->getConfig()->reinit();
+    }
+    if(Mage::getStoreConfig('bilna_paymentconfirmation/paymentconfirmation/next_execute') == ''){
+        Mage::getConfig()->saveConfig('bilna_paymentconfirmation/paymentconfirmation/next_execute',Mage::getModel('core/date')->date('Y-m-d H', strtotime(" -1 hours")));
+        Mage::app()->getConfig()->reinit();
+    }
     $configScheduled = Mage::getStoreConfig('bilna_paymentconfirmation/paymentconfirmation/run_time');
     $arrScheduledTime = explode(",",$configScheduled);
     $currentHour = (int)Mage::getModel('core/date')->date('H');
     if(!in_array($currentHour,$arrScheduledTime)){
-        $exitStatus = 0;
-        exit($exitStatus);
-    }
-    if(Mage::getStoreConfig('bilna_paymentconfirmation/paymentconfirmation/next_execute') == ''){
-        Mage::getConfig()->saveConfig('bilna_paymentconfirmation/paymentconfirmation/next_execute',Mage::getModel('core/date')->date('Y-m-d H', strtotime(" -1 hours")));
+        exit(0);
     }
     $i = 1;
     $oldId = 0;
