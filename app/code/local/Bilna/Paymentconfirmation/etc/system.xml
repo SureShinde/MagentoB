@@ -58,6 +58,24 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </file_email>
+                        <next_execute translate="label">
+                            <label>Date Range Start</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Format: YYYY-mm-dd HH(example:2016-01-01 00), Automatically update after cron is running</comment>
+                        </next_execute>
+                        <run_time translate="label">
+                            <label>Running Hours</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>separated with comma(example:0,7,8)</comment>
+                        </run_time>
                     </fields>
                 </paymentconfirmation>
             </groups>
