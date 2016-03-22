@@ -4,13 +4,8 @@
  *
  * @author Bilna Development Team <development@bilna.com>
  */
-class Bilna_Customer_Model_Api2_Wishlistcollectiongetcover extends Mage_Api2_Model_Resource
+class Bilna_Customer_Model_Api2_Wishlistcollectiongetcover extends Bilna_Rest_Model_Api2
 {
-    public function _construct()
-    {
-        Mage::app()->getStore()->setStoreId(1);
-    }
-    
     /**
      * Load customer by id
      *

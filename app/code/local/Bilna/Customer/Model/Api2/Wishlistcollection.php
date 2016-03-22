@@ -4,13 +4,8 @@
  *
  * @author Bilna Development Team <development@bilna.com>
  */
-class Bilna_Customer_Model_Api2_Wishlistcollection extends Mage_Api2_Model_Resource
+class Bilna_Customer_Model_Api2_Wishlistcollection extends Bilna_Rest_Model_Api2
 {    
-    public function _construct()
-    {
-        Mage::app()->getStore()->setStoreId(1);
-    }
-
     public function createNewCollection($data)
     {
         $visibility = ($data['visibility'] === 'on' ? 1 : 0);
@@ -162,7 +157,7 @@ class Bilna_Customer_Model_Api2_Wishlistcollection extends Mage_Api2_Model_Resou
             $item->setProductId($product->getId())
                 ->setWishlistId($wishlist->getId())
                 ->setAddedAt(now())
-                ->setStoreId(1)
+                ->setStoreId(self::DEFAULT_STORE_ID)
                 ->setOptions($product->getCustomOptions())
                 ->setProduct($product)
                 ->setQty(1)
