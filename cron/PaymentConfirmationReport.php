@@ -7,15 +7,15 @@
         private $startTime;
         private $limit;
         private $arrScheduledTime;
-        private $flag;
+        private $coreFlagModel;
         public function __construct(){
             Mage::app();
             $this->limit = 100;
-            $this->flag = Mage::getModel('Paymentconfirmation/flag');
+            $this->coreFlagModel = Mage::getModel('Paymentconfirmation/flag');
         }
         
         private function getStartTime(){
-            $getFlag = $this->flag->loadSelf();
+            $getFlag = $this->coreFlagModel->loadSelf();
             if(trim($getFlag->flag_data) == ''){
                 $flag->setFlagData(Mage::getModel('core/date')->date('Y-m-d H', strtotime("-1 hours")))->save();
                 $getFlag = $flag->loadSelf();
@@ -24,7 +24,7 @@
         }
         
         private function updateStartTime(){
-            $this->flag->setFlagData(Mage::getModel('core/date')->date('Y-m-d H'))->save();
+            $this->coreFlagModel->setFlagData(Mage::getModel('core/date')->date('Y-m-d H'))->save();
         }
 
         private function getScheduledTime(){
