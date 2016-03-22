@@ -170,7 +170,7 @@ extends Mage_Core_Helper_Abstract
     }
 
     # Upload avatar image
-    public function processAvatar($customerId)
+    public function processAvatar($customerId, $data = NULL)
     {
         $customerAvatar = null;
 
@@ -193,6 +193,24 @@ extends Mage_Core_Helper_Abstract
             $image->adaptiveResize(800,800);
             $image->save($customerAvatar);
 
+        }
+            
+        //to handle API data content
+        if($data != NULL) {
+            $_POST['image_url'] = $data['image_url'];
+        }
+        if ($_POST['image_url']) {
+            $upFileTmpName = $this->download_image($_POST['image_url']);
+            $imageUrl = 'media'. DS .'avatar'. DS . basename($upFileTmpName);
+            $image = new Varien_Image ( $imageUrl );
+            $image->constrainOnly(true);
+            $image->keepAspectRatio(false);
+            $image->keepFrame(false);
+            $image->setWatermarkImageOpacity(0);
+            $image->adaptiveResize(800,800);
+            $image->save ($imageUrl);
+
+            return ltrim(basename($upFileTmpName), '/');
         }
 
         return ltrim($result['file'], '/');

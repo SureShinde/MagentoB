@@ -10,7 +10,7 @@ class Bilna_Customer_Model_Api2_Wishlistcollectionprofile_Rest_Admin_V1 extends 
      * Update collection profile by username.
      * 
      * bodyParams:
-     * {"dob":"01\/06\/1983","location":"asdasd","about":"asd"}
+     * {"dob":"01\/06\/1983","location":"asdasd","about":"asd", "image_url":"http://pathtoimageurl"}
      * 
      * Method was use create function since, logan didnt need to send entity_id as param
      */
@@ -68,7 +68,7 @@ class Bilna_Customer_Model_Api2_Wishlistcollectionprofile_Rest_Admin_V1 extends 
                 }
 
                 # Check image submission
-                $postAvatar = Mage::helper('socialcommerce')->processAvatar($customerId);
+                $postAvatar = Mage::helper('socialcommerce')->processAvatar($customerId, $data);
 
                 # Assign updated data
                 $profiler->setStatus(1);
