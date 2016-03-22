@@ -7,12 +7,12 @@
     Mage::app();
     
     $flag = Mage::getModel('Paymentconfirmation/flag');
-    $x = $flag->loadSelf();
-    if(trim($x->flag_data) == ''){
+    $getFlag = $flag->loadSelf();
+    if(trim($getFlag->flag_data) == ''){
         $flag->setFlagData(Mage::getModel('core/date')->date('Y-m-d H', strtotime("-1 hours")))->save();
-        $x = $flag->loadSelf();
+        $getFlag = $flag->loadSelf();
     }
-    $nextExecute = unserialize($x->flag_data);
+    $nextExecute = unserialize($getFlag->flag_data);
     
     if(trim(Mage::getStoreConfig('bilna_paymentconfirmation/paymentconfirmation/run_time')) == ""){
         Mage::getConfig()->saveConfig('bilna_paymentconfirmation/paymentconfirmation/run_time','0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23');
