@@ -68,17 +68,14 @@ class Bilna_Customer_Model_Api2_Wishlistcollection extends Bilna_Rest_Model_Api2
             $wishlistCollection->addFieldToFilter('customer_id', $customer->getId()); 
             $hasCollection = $wishlistCollection->count() < 1 ? false : true;
             
-            # Check if the user activate her public profile
-            if ($profiler->getStatus()) {
-                return $profiler;
-            }
-            
-            //still not working to get collection
-            /*if ($wishlistCollection && $hasCollection) {
+            if ($wishlistCollection->getData() && $hasCollection) {
+                $result[0]['total_record'] = $wishlistCollection->getSize();
                 foreach($wishlistCollection as $key => $value) {
-                    $result['wishlist_collection'][$key] = $value->getData();
+                    $result[$key] = $value->getData();
                 }
-            }*/
+
+                return $result;
+            }
         }
         
         return FALSE;

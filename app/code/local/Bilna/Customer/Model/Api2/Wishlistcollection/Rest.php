@@ -61,7 +61,6 @@ abstract class Bilna_Customer_Model_Api2_Wishlistcollection_Rest extends Bilna_C
             $this->_critical('Current username is not found.');
         }
         $customerId = $profiler->getCustomerId();
-        
         $customer = $this->_loadCustomerById($customerId);
         $data = [];
         if ($customer->getId()) {
@@ -101,11 +100,11 @@ abstract class Bilna_Customer_Model_Api2_Wishlistcollection_Rest extends Bilna_C
         $customerId = $profiler->getCustomerId();
         
         $customer = $this->_loadCustomerById($customerId);
-        $collection = $this->getWishlistCollection($customerId);
-        $collection = $collection->toArray();
+        $wishlistCollections = $this->getWishlistCollection($customerId);
         
         $categories = Mage::getModel('socialcommerce/collectioncategory')->getCollection();
         
+        $collection = $profiler->getData();
         $collection['gender'] = $customer->getGender();
         $categoryItem = [];
         if($categories->getData()) {
@@ -115,6 +114,7 @@ abstract class Bilna_Customer_Model_Api2_Wishlistcollection_Rest extends Bilna_C
         }
         
         $collection['categories'][] = $categoryItem;
+        $collection['wishlist_collections'][] = $wishlistCollections;
         
         return $collection;
     }
