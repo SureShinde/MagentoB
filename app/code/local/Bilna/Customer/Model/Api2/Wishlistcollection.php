@@ -30,7 +30,7 @@ class Bilna_Customer_Model_Api2_Wishlistcollection extends Bilna_Rest_Model_Api2
         $cover = Mage::helper('socialcommerce')->processCover($data);
     
         //if customer try to update wishlist collection based on collection id param
-        if(isset($data['collection_id'])) {
+        if (isset($data['collection_id'])) {
             $wishlist->setWishlistId($data['collection_id']);
         }
         $wishlist->setCustomerId($customerId)
@@ -72,6 +72,7 @@ class Bilna_Customer_Model_Api2_Wishlistcollection extends Bilna_Rest_Model_Api2
                 $result[0]['total_record'] = $wishlistCollection->getSize();
                 foreach($wishlistCollection as $key => $value) {
                     $result[$key] = $value->getData();
+                    $result[$key]['slug'] = $value->getId().'-'.Mage::getModel('catalog/product_url')->formatUrlKey($value->getName());
                 }
 
                 return $result;
