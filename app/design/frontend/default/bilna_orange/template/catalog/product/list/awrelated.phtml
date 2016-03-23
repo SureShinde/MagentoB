@@ -59,6 +59,7 @@
 					<a href="<?php echo $_item->getProductUrl() ?>"><img class="lazy" data-src="<?php echo $this->helper('catalog/image')->init($_item, 'thumbnail')->resize(152) ?>" alt="<?php echo $this->htmlEscape($_item->getName()) ?>" /></a>
 				</div>
             </div>
+            <?php echo $_item->isImportProduct() ?>
             <div class="product-info-wrapper">
 				<div class="product-details">
 					<div class="product-name-wrap">

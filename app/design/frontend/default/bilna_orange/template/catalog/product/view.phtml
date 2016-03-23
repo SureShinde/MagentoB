@@ -89,7 +89,7 @@
                     $ship_by = $_product->getAttributeText('ship_by');
                     $sold_by = $_product->getAttributeText('sold_by');
                     ?>
-                    
+                    <?php echo $_product->isImportProduct() ?>
                     <div class="shipsfrom-soldby">
                         <p><?php echo $this->__('Sold by <span>%s</span> and Shipped by <span>%s</span>', ( $sold_by ? $sold_by : '-' ), ( $ship_from ? $ship_from : '-' )) ?></p>
                     </div>
