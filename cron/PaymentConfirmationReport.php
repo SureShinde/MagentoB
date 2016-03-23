@@ -1,52 +1,47 @@
     <?php
-    /**
-     * run every day at ?
-     */
-    require_once realpath(dirname(__FILE__)).'/../app/Mage.php'; // load magento API
+    
+    require_once realpath(dirname(__FILE__)).'/../app/Mage.php';
+    
     class PaymentConfirmationReport{
-        private $startTime;
-        private $limit;
-        private $arrScheduledTime;
+        private $lastExecTime;
         private $coreFlagModel;
-        public function __construct(){
+        const LIMIT = 100;
+        
+        public function __construct()
+        {
             Mage::app();
-            $this->limit = 100;
             $this->coreFlagModel = Mage::getModel('Paymentconfirmation/flag');
         }
         
-        private function getStartTime(){
-            $getFlag = $this->coreFlagModel->loadSelf();
-            if(trim($getFlag->flag_data) == ''){
-                $flag->setFlagData(Mage::getModel('core/date')->date('Y-m-d H', strtotime("-1 hours")))->save();
-                $getFlag = $flag->loadSelf();
+        private function setLastExecTime()
+        {
+            $flag = $this->coreFlagModel->loadSelf();
+            if (trim($flag->flag_data) == '') {
+                $this->coreFlagModel->setFlagData(Mage::getModel('core/date')->date('Y-m-d H', strtotime("-1 hours")))->save();
+                $flag = $this->coreFlagModel->loadSelf();
             }
-            $this->startTime = unserialize($getFlag->flag_data);
+            $this->lastExecTime = unserialize($flag->flag_data);
         }
         
-        private function updateStartTime(){
+        private function updateLastExecTime()
+        {
             $this->coreFlagModel->setFlagData(Mage::getModel('core/date')->date('Y-m-d H'))->save();
         }
 
-        private function getScheduledTime(){
-            /*
-            if(trim(Mage::getStoreConfig('bilna_paymentconfirmation/paymentconfirmation/run_time')) == ""){
-                Mage::getConfig()->saveConfig('bilna_paymentconfirmation/paymentconfirmation/run_time','0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23');
-                Mage::app()->getConfig()->reinit();
-            }
-            */
+        private function setScheduledTime()
+        {
             $configScheduled = Mage::getStoreConfig('bilna_paymentconfirmation/paymentconfirmation/run_time');
-            $configScheduled = trim($configScheduler) != "" ? $configScheduler : "0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23"; 
-            $this->arrScheduledTime = explode(",",$configScheduled);
+            $configScheduled = trim($configScheduled) != "" ? $configScheduled : "0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23"; 
+            return explode(",",$configScheduled);
         }
         
-        private function isExecuteable(){
-            $currentHour = (int)Mage::getModel('core/date')->date('H');
-            if(Mage::getModel('core/date')->date('Y-m-d H') >= $this->startTime){
+        private function isScheduledToRun($arrScheduledTime)
+        {
+            if (Mage::getModel('core/date')->date('Y-m-d H') <= $this->lastExecTime) {
                 echo "Cron Payment Confirmation is Not Running because it's already running for current hour";
                 return false;
-            }
-            else{
-                if(!in_array($currentHour,$this->arrScheduledTime)){
+            } else{
+                if (!in_array((int)Mage::getModel('core/date')->date('H'),$arrScheduledTime)) {
                     echo "Cron Payment Confirmation is Not Running because it's not the scheduled Time";
                     return false;
                 }
@@ -54,17 +49,19 @@
             return true;
         }
         
-        private function generateData($page){
+        private function generateData($page)
+        {
             $confirmationData = Mage::getModel('Paymentconfirmation/payment')
                         ->getCollection()
-                        ->addFieldToFilter('created_at',array('gteq'=>$this->startTime.":00:00"))
+                        ->addFieldToFilter('created_at',array('gteq'=>$this->lastExecTime.":00:00"))
                         ->addFieldToFilter('created_at',array('lteq'=>Mage::getModel('core/date')->date('Y-m-d H:59:59', strtotime(" -1 hours"))))
                         ->setCurPage($page)
-                        ->setPageSize(100);
+                        ->setPageSize(self::LIMIT);
             return $confirmationData;
         }
         
-        private function generateAttachmentFile(){
+        private function generateAttachmentFile()
+        {
             $page = 1;
             $oldId = 0;
             $stop = 0;
@@ -84,10 +81,10 @@
             $csvdata[] = $data;
             while(true){
                 $confirmationData = $this->generateData($page);
-                if(count($confirmationData) < 1) break;
-                if($stop > 0) break;
+                if (count($confirmationData) < 1) break;
+                if ($stop > 0) break;
                 foreach($confirmationData as $collection) {
-                    if($oldId >= $collection->id){
+                    if ($oldId >= $collection->id) {
                         $stop = 1;
                         break;
                     }
@@ -111,7 +108,8 @@
             return $filename;
         }
         
-        private function sendEmail(){
+        private function sendEmail()
+        {
             $filename = $this->generateAttachmentFile();
             $html = 'PFA';
             $mail = new Zend_Mail();
@@ -120,17 +118,17 @@
             $mail->setFrom(Mage::getStoreConfig('bilna_paymentconfirmation/paymentconfirmation/sender_email'),Mage::getStoreConfig('bilna_paymentconfirmation/paymentconfirmation/sender_name'));
             $mailTo = explode(",",Mage::getStoreConfig('bilna_paymentconfirmation/paymentconfirmation/receiver_email'));
             $mail->addTo($mailTo);
-            $mail->setSubject('[BILNA] Payment Confirmation List '.$this->startTime.' To '.Mage::getModel('core/date')->date('Y-m-d H', strtotime("-1 hours")));
+            $mail->setSubject('[BILNA] Payment Confirmation List '.$this->lastExecTime.' To '.Mage::getModel('core/date')->date('Y-m-d H', strtotime("-1 hours")));
             $dir = Mage::getBaseDir();
             $file = $mail->createAttachment(file_get_contents($filename));
             $file ->type        = 'text/csv';
             $file ->disposition = Zend_Mime::DISPOSITION_INLINE;
             $file ->encoding    = Zend_Mime::ENCODING_BASE64;
-            $file ->filename    = sprintf('payment_confirmation_list_%s_%s.csv',  str_replace(array(" ","-"), "",$this->startTime),Mage::getModel('core/date')->date('YmdH', strtotime("-1 hours")));
+            $file ->filename    = sprintf('payment_confirmation_list_%s_%s.csv',  str_replace(array(" ","-"), "",$this->lastExecTime),Mage::getModel('core/date')->date('YmdH', strtotime("-1 hours")));
             $exitStatus = 0;
-            try{
+            try {
                 $mail->send();
-                $this->updateStartTime();
+                $this->updateLastExecTime();
             }
             catch (Exception $e) {
                 Mage::logException($e);
@@ -140,22 +138,24 @@
             return $exitStatus;
         }
         
-        public function main(){
-            $this->getStartTime();
-            $this->getScheduledTime();
-            if(!$this->isExecuteable()){
-                //echo "Cron Payment Confirmation is Not Running because it's not the scheduled Time or already running for current hour";
-                $getSendMailStatus = 0;
+        public function main()
+        {
+            $this->setLastExecTime();
+            $scheduledHours = $this->setScheduledTime();
+            if (!$this->isScheduledToRun($scheduledHours)) {
+                return 0;
             }
-            else{
-                $getSendMailStatus = $this->sendEmail();
-                Mage::log("Cron Payment Confirmation Success Running");
-                echo "Cron Payment Confirmation Success Running";
-            }
-            return $getSendMailStatus;
+            
+            return $this->sendEmail();
         }
     }
     
     $cronObj = new PaymentConfirmationReport();
-    $sendEmail = $cronObj->main();
-    exit($sendEmail);
+    $exitStatus = $cronObj->main();
+    
+    if ($exitStatus == 0) {
+        Mage::log("Cron Payment Confirmation Success Running");
+        echo "Cron Payment Confirmation Success Running";
+    }
+    
+    exit($exitStatus);
