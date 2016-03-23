@@ -42,10 +42,12 @@
         private function isExecuteable(){
             $currentHour = (int)Mage::getModel('core/date')->date('H');
             if(Mage::getModel('core/date')->date('Y-m-d H') >= $this->startTime){
+                echo "Cron Payment Confirmation is Not Running because it's already running for current hour";
                 return false;
             }
             else{
                 if(!in_array($currentHour,$this->arrScheduledTime)){
+                    echo "Cron Payment Confirmation is Not Running because it's not the scheduled Time";
                     return false;
                 }
             }
@@ -142,7 +144,7 @@
             $this->getStartTime();
             $this->getScheduledTime();
             if(!$this->isExecuteable()){
-                echo "Cron Payment Confirmation is Not Running because it's not the scheduled Time or already running for current hour";
+                //echo "Cron Payment Confirmation is Not Running because it's not the scheduled Time or already running for current hour";
                 $getSendMailStatus = 0;
             }
             else{
