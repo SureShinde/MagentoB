@@ -1,6 +1,6 @@
 <?php
 /**
- * Description of Bilna_Customer_Model_Api2_Wishlistcollection_Rest
+ * Description of Bilna_Customer_Model_Api2_Wishlistcollectiongetcover_Rest
  *
  * @author Bilna Development Team <development@bilna.com>
  */

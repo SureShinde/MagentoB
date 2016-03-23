@@ -463,24 +463,32 @@
                         <delete>1</delete>
                     </customer>
                 </privileges>
-                <attributes translate="wishlist_id customer_id name desc image_url visibility username preset_image profile wishlist_collections addnewitem wishlist_id collection_id collection_id2 product_id categories" module="Bilna_Customer">
+                <attributes translate="entity_id wishlist_id about location avatar cloud_avatar wishlist status temporary gender customer_id name desc image_url visibility username preset_image profile addnewitem wishlist_id collection_id collection_id2 product_id categories wishlist_collections" module="Bilna_Customer">
+                    <entity_id>Entity ID</entity_id>
                     <wishlist_id>Wishlist ID</wishlist_id>
-                    <customer_id>Customer Address ID</customer_id>
-                    <name>name</name>
-                    <desc>desc</desc>
-                    <image_url>image_url</image_url>
-                    <visibility>visibility</visibility>
-                    <username>username</username>
-                    <preset_image>preset_image</preset_image>
-                    <profile>profile</profile>
-                    <wishlist_collection>wishlist_collection</wishlist_collection>
-                    <addnewitem>addnewitem</addnewitem>
-                    <wishlist_id>wishlist_id</wishlist_id> 
-                    <collection_id>collection_id</collection_id>
-                    <collection_id2>collection_id2</collection_id2>
-                    <product_id>product_id</product_id>
-                    <categories>categories</categories>
-                    <wishlist_collections>categories</wishlist_collections>
+                    <about>About</about>
+                    <location>Location</location>
+                    <avatar>Avatar</avatar>
+                    <cloud_avatar>Cloud Avatar</cloud_avatar>
+                    <wishlist>Wishlist</wishlist>
+                    <status>Status</status>
+                    <temporary>Temporary</temporary>
+                    <gender>Gender</gender>
+                    <customer_id>Customer ID</customer_id>
+                    <name>Name</name>
+                    <desc>Desc</desc>
+                    <image_url>Image Url</image_url>
+                    <visibility>Visibility</visibility>
+                    <username>Username</username>
+                    <preset_image>Preset Image</preset_image>
+                    <profile>Profile</profile>
+                    <addnewitem>Addnewitem</addnewitem>
+                    <wishlist_id>Wishlist ID</wishlist_id> 
+                    <collection_id>Collection ID</collection_id>
+                    <collection_id2>Collection ID2</collection_id2>
+                    <product_id>Product ID</product_id>
+                    <categories>Categories</categories>
+                    <wishlist_collections>Wishlist Collections</wishlist_collections>
                 </attributes>
                 <routes>
                     <route_entity>
@@ -508,11 +516,11 @@
                     </admin>
                 </privileges>
                 <attributes translate="response cover_id caption image category_id" module="Bilna_Customer">
-                    <cover_id>cover_id</cover_id>
-                    <caption>caption</caption>
-                    <image>image</image>
-                    <category_id>category_id</category_id>
-                    <response>response</response>
+                    <cover_id>Cover ID</cover_id>
+                    <caption>Caption</caption>
+                    <image>Image</image>
+                    <category_id>Category ID</category_id>
+                    <response>Response</response>
                 </attributes>
                 <routes>
                     <route_entity>
@@ -533,10 +541,10 @@
                     </admin>
                 </privileges>
                 <attributes translate="dob location about image_url" module="Bilna_Customer">
-                    <dob>dob</dob>
-                    <location>location</location>
-                    <about>about</about>
-                    <image_url>image_url</image_url>
+                    <dob>DOB</dob>
+                    <location>Location</location>
+                    <about>About</about>
+                    <image_url>Image Url</image_url>
                 </attributes>
                 <routes>
                     <route_collection>
@@ -546,6 +554,39 @@
                 </routes>
                 <versions>1</versions>
             </customer_wishlistcollectionprofile>
+            <customer_wishlistcollectionitems translate="title" module="Bilna_Customer">
+                <group>customer</group>
+                <sort_order>110</sort_order>
+                <model>bilna_customer/api2_wishlistcollectionitems</model>
+                <title>Wishlist Collection Items</title>
+                <privileges>
+                    <admin>
+                        <create>1</create>
+                        <retrieve>1</retrieve>
+                        <delete>1</delete>
+                    </admin>
+                    <customer>
+                        <create>1</create>
+                        <retrieve>1</retrieve>
+                        <delete>1</delete>
+                    </customer>
+                </privileges>
+                <attributes translate="wishlist_collections wishlist_collection_items" module="Bilna_Customer">
+                    <wishlist_collections>Wishlist Collections</wishlist_collections>
+                    <wishlist_collection_items>Wishlist Collection Items</wishlist_collection_items>
+                </attributes>
+                <routes>
+                    <route_entity>
+                        <route>/customer/:username/wishlistcollectionitems/:collection_item_id</route>
+                        <action_type>entity</action_type>
+                    </route_entity>
+                    <route_collection>
+                        <route>/customer/:username/wishlistcollectionitems</route>
+                        <action_type>collection</action_type>
+                    </route_collection>
+                </routes>
+                <versions>1</versions>
+            </customer_wishlistcollectionitems>            
         </resources>
     </api2>
 </config>
