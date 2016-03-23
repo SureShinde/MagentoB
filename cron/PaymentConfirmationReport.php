@@ -41,8 +41,13 @@
         
         private function isExecuteable(){
             $currentHour = (int)Mage::getModel('core/date')->date('H');
-            if(!in_array($currentHour,$this->arrScheduledTime)){
+            if(Mage::getModel('core/date')->date('Y-m-d H') >= $this->startTime){
                 return false;
+            }
+            else{
+                if(!in_array($currentHour,$this->arrScheduledTime)){
+                    return false;
+                }
             }
             return true;
         }
@@ -113,7 +118,7 @@
             $mail->setFrom(Mage::getStoreConfig('bilna_paymentconfirmation/paymentconfirmation/sender_email'),Mage::getStoreConfig('bilna_paymentconfirmation/paymentconfirmation/sender_name'));
             $mailTo = explode(",",Mage::getStoreConfig('bilna_paymentconfirmation/paymentconfirmation/receiver_email'));
             $mail->addTo($mailTo);
-            $mail->setSubject('[BILNA] Payment Confirmation List '.$startTime.' To '.Mage::getModel('core/date')->date('Y-m-d H', strtotime("-1 hours")));
+            $mail->setSubject('[BILNA] Payment Confirmation List '.$this->startTime.' To '.Mage::getModel('core/date')->date('Y-m-d H', strtotime("-1 hours")));
             $dir = Mage::getBaseDir();
             $file = $mail->createAttachment(file_get_contents($filename));
             $file ->type        = 'text/csv';
@@ -137,7 +142,7 @@
             $this->getStartTime();
             $this->getScheduledTime();
             if(!$this->isExecuteable()){
-                echo "Cron Payment Confirmation is Not Running because it's not the scheduled Time";
+                echo "Cron Payment Confirmation is Not Running because it's not the scheduled Time or already running for current hour";
                 $getSendMailStatus = 0;
             }
             else{
