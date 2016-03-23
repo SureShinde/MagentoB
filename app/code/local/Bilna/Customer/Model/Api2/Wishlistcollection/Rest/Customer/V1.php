@@ -6,4 +6,5 @@
  */
 class Bilna_Customer_Model_Api2_Wishlistcollection_Rest_Customer_V1 extends Bilna_Customer_Model_Api2_Wishlistcollection_Rest
 {
+    
 }

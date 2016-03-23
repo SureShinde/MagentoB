@@ -34,7 +34,8 @@ class Bilna_Customer_Model_Api2_Wishlistcollectionitems extends Bilna_Rest_Model
             ->setVisibilityFilter();
         
         $result = [];
-        foreach($productWishlistCollection->getItems() as $item) {
+        $result[0] = ['total_record' => count($productWishlistCollection->getItems())];
+        foreach ($productWishlistCollection->getItems() as $item) {
             $result[$item->getId()] = $item->getData();
             
             unset($result[$item->getId()]['product']);

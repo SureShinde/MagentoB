@@ -748,7 +748,42 @@
                     </route_collection>
                 </routes>
                 <versions>1</versions>
-            </checkorder>            
+            </checkorder>   
+            <wishlistcollection translate="title" module="Bilna_Rest">
+                <group>bilna_rest</group>
+                <model>bilna_rest/api2_wishlistcollection</model>
+                <title>Get All Wishlist Collection</title>
+                <sort_order>112</sort_order>
+                <privileges>
+                    <admin>
+                        <retrieve>1</retrieve>
+                    </admin>
+                </privileges>
+                <attributes translate="total_record wishlist_id customer_id shared sharing_code updated_at cover cloud_cover desc view counter last_counter created_at name visibility" module="Bilna_Rest">
+                    <total_record>Total Record</total_record>
+                    <wishlist_id>wishlist_id</wishlist_id> 
+                    <customer_id>customer_id</customer_id>                    
+                    <shared>shared</shared>                    
+                    <sharing_code>sharing_code</sharing_code>                    
+                    <updated_at>updated_at</updated_at>                    
+                    <cover>cover</cover>                    
+                    <cloud_cover>cloud_cover</cloud_cover>                    
+                    <desc>desc</desc>                    
+                    <view>view</view>                    
+                    <counter>counter</counter>
+                    <last_counter>last_counter</last_counter>                 
+                    <created_at>created_at</created_at>                    
+                    <name>name</name>                    
+                    <visibility>visibility</visibility>
+                </attributes>
+                <routes>
+                    <route_collection>
+                        <route>/wishlistcollection</route>
+                        <action_type>collection</action_type>
+                    </route_collection>
+                </routes>
+                <versions>1</versions>
+            </wishlistcollection>            
         </resources>
     </api2>
 </config>

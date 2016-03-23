@@ -30,7 +30,7 @@ class Bilna_Customer_Model_Api2_Wishlistcollection extends Bilna_Rest_Model_Api2
         $cover = Mage::helper('socialcommerce')->processCover($data);
     
         //if customer try to update wishlist collection based on collection id param
-        if(isset($data['collection_id'])) {
+        if (isset($data['collection_id'])) {
             $wishlist->setWishlistId($data['collection_id']);
         }
         $wishlist->setCustomerId($customerId)

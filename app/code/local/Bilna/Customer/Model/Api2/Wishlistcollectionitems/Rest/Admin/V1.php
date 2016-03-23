@@ -33,7 +33,7 @@ class Bilna_Customer_Model_Api2_Wishlistcollectionitems_Rest_Admin_V1 extends Bi
         
         $result = [];
         if ($wishlistCollection->getData() && $hasCollection) {
-            foreach($wishlistCollection as $wishlist) {
+            foreach ($wishlistCollection as $wishlist) {
                 $result = $wishlist;
                 $result['wishlist_collection_items'] = $this->getWishlistCollectionItems($wishlist);
             }

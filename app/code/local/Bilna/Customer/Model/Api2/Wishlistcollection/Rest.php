@@ -67,7 +67,23 @@ abstract class Bilna_Customer_Model_Api2_Wishlistcollection_Rest extends Bilna_C
             try {
                 $collectionId = (int)$this->getRequest()->getParam('collection_id');
                 $wishlist = Mage::getModel('wishlist/wishlist')->load($collectionId);
-                if($wishlist){
+                $wishlist->setOrder('created_at', 'desc');
+
+                $limit = (int)$this->getRequest()->getParam('limit');
+                $page = (int)$this->getRequest()->getParam('page');
+
+                if ($limit) {
+                    $wishlist->setPageSize($limit);
+                } else {
+                    $wishlist->setPageSize(10);
+                }
+                if ($page) {
+                    $wishlist->setCurPage($page);
+                } else {
+                    $wishlist->setCurPage(1);
+                }
+                
+                if ($wishlist) {
                     $data = $wishlist;
                 }
             } catch (Exception $e) {
@@ -107,14 +123,14 @@ abstract class Bilna_Customer_Model_Api2_Wishlistcollection_Rest extends Bilna_C
         $collection = $profiler->getData();
         $collection['gender'] = $customer->getGender();
         $categoryItem = [];
-        if($categories->getData()) {
+        if ($categories->getData()) {
             foreach ($categories as $category) {
                 $categoryItem[$category->getCategoryId()] = $category->getName();
             }
         }
         
         $collection['categories'][] = $categoryItem;
-        if($wishlistCollections) {
+        if ($wishlistCollections) {
             $collection['wishlist_collections'][] = $wishlistCollections;
         }
         
@@ -143,12 +159,12 @@ abstract class Bilna_Customer_Model_Api2_Wishlistcollection_Rest extends Bilna_C
                 $proid = $this->getRequest()->getParam('proid');
                 $wlid = $this->getRequest()->getParam('wlid');
                 
-                if($username != NULL && $proid != NULL && $wlid != NULL) {
+                if ($username != NULL && $proid != NULL && $wlid != NULL) {
                     $this->deleteWishlistCollectionItem();
                     return TRUE;
                 }
                 $wishlist = Mage::getModel('wishlist/wishlist')->load($collectionId);
-                if($wishlist){
+                if ($wishlist) {
                     $wishlist->delete();
                 }
             } catch (Mage_Core_Exception $e) {
