@@ -52,17 +52,38 @@
       });
 
       function ecommerceNewsletterSubscribe(newsletter_email, first_name, last_name) {
+        var birthday_year = jQuery("#ajaxlogin-year").val();
+        if (birthday_year.length == 2) {            // check if birthday year only inputted 2 or 3 digit
+            birthday_year = '20' + birthday_year;
+        }
+        else if (birthday_year.length == 3) {
+            birthday_year = '2' + birthday_year;
+        }
+
+        var birthday = jQuery("#ajaxlogin-day").val() + "-" + jQuery("#ajaxlogin-month").val() + "-" + birthday_year;
         var subscribe_payload = {
           'apikey': '62dfde989b5d8d24c61f57fc3e0b42b1-us12',
           'id': '035ca58dc2',
           'email': {
              'email': newsletter_email
           },
-          "merge_vars": {
-            "ACCTSGPDT": <?php echo date("dmY") ?>,
-            "FNAME": first_name,
-            "LNAME": last_name
-          }
+          'merge_vars': {
+			'groupings': [
+				{
+					'name': 'Data Source',
+					'groups': [
+						'Website'
+					]
+				}
+			],
+            'BIRTHDAY': birthday,
+            'ACCTSGPDT': '<?php echo date("d-m-Y") ?>',
+            'FNAME': first_name,
+            'LNAME': last_name
+          },
+          'double_optin': false,
+          'update_existing': true,
+          'replace_interests': false
         };
         jQuery.ajax({
           type: "POST",

@@ -91,7 +91,20 @@
           'id': '035ca58dc2',
           'email': {
              'email': newsletter_email
-          }
+          },
+          'merge_vars': {
+            'groupings': [
+              {
+                'name': 'Data Source',
+                'groups': [
+                  'Website'
+                ]
+              }
+            ]
+          },
+          'double_optin': false,
+          'update_existing': true,
+          'replace_interests': false
         };
         jQuery.ajax({
           type: "POST",
