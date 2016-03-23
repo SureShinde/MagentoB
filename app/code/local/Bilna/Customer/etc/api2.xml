@@ -455,18 +455,16 @@
                     <admin>
                         <create>1</create>
                         <retrieve>1</retrieve>
-                        <update>1</update>
                         <delete>1</delete>
                     </admin>
                     <customer>
                         <create>1</create>
                         <retrieve>1</retrieve>
-                        <update>1</update>
                         <delete>1</delete>
                     </customer>
                 </privileges>
-                <attributes translate="entity_id customer_id name desc image_url visibility username preset_image profile wishlist_collection addnewitem wishlist_id collection_id collection_id2 product_id categories" module="Bilna_Customer">
-                    <entity_id>Entity ID</entity_id>
+                <attributes translate="wishlist_id customer_id name desc image_url visibility username preset_image profile wishlist_collections addnewitem wishlist_id collection_id collection_id2 product_id categories" module="Bilna_Customer">
+                    <wishlist_id>Wishlist ID</wishlist_id>
                     <customer_id>Customer Address ID</customer_id>
                     <name>name</name>
                     <desc>desc</desc>
@@ -482,6 +480,7 @@
                     <collection_id2>collection_id2</collection_id2>
                     <product_id>product_id</product_id>
                     <categories>categories</categories>
+                    <wishlist_collections>categories</wishlist_collections>
                 </attributes>
                 <routes>
                     <route_entity>
