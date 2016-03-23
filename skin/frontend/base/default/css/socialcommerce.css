@@ -3683,7 +3683,7 @@ span.arrow_box:before {
 }
 .stay-float
 {
-	    position: absolute !important;
+	position: absolute !important;
     width: 100%;
     padding: 10px;
     z-index: 999;
@@ -3702,4 +3702,10 @@ span.arrow_box:before {
     margin-left: 10px;
     line-height: 9px;
     border-radius: 100%;
+}
+.top-warning
+{
+	 border: 2px solid #FF6682;
+    padding: 10px;
+    margin: 10px 0;
 }
