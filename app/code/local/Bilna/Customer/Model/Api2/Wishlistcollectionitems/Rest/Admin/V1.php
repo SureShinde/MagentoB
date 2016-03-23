@@ -35,6 +35,7 @@ class Bilna_Customer_Model_Api2_Wishlistcollectionitems_Rest_Admin_V1 extends Bi
         if ($wishlistCollection->getData() && $hasCollection) {
             foreach ($wishlistCollection as $wishlist) {
                 $result = $wishlist;
+                $result['slug'] = $wishlist->getId().'-'.Mage::getModel('catalog/product_url')->formatUrlKey($wishlist->getName());
                 $result['wishlist_collection_items'] = $this->getWishlistCollectionItems($wishlist);
             }
         }

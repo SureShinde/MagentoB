@@ -56,6 +56,7 @@ class Bilna_Rest_Model_Api2_Wishlistcollection_Rest_Admin_V1 extends Bilna_Rest_
                 $wishlist_collection[0]['total_record'] = $wishlists->getSize();
                 foreach($wishlists as $wishlist) {
                     $wishlist_collection[$wishlist->getId()] = $wishlist->getData();
+                    $wishlist_collection[$wishlist->getId()]['slug'] = $wishlist->getId().'-'.Mage::getModel('catalog/product_url')->formatUrlKey($wishlist->getName());
                 }
             }
             
@@ -63,6 +64,7 @@ class Bilna_Rest_Model_Api2_Wishlistcollection_Rest_Admin_V1 extends Bilna_Rest_
                 $wishlist_collection_fav[0]['total_record'] = $wishlists->getSize();
                 foreach ($faveWishlists as $faveWishlist) {
                     $wishlist_collection_fav[$faveWishlist->getId()] = $faveWishlist->getData();
+                    $wishlist_collection_fav[$faveWishlist->getId()]['slug'] = $faveWishlist->getId().'-'.Mage::getModel('catalog/product_url')->formatUrlKey($faveWishlist->getName());
                 }
             }
                 
