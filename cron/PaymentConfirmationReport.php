@@ -28,20 +28,20 @@
             $this->coreFlagModel->setFlagData(Mage::getModel('core/date')->date('Y-m-d H'))->save();
         }
 
-        private function setScheduledTime()
+        private function getScheduledTime()
         {
             $configScheduled = Mage::getStoreConfig('bilna_paymentconfirmation/paymentconfirmation/run_time');
             $configScheduled = trim($configScheduled) != "" ? $configScheduled : "0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23"; 
             return explode(",",$configScheduled);
         }
         
-        private function isScheduledToRun($arrScheduledTime)
+        private function isScheduledToRun($scheduledHours)
         {
             if (Mage::getModel('core/date')->date('Y-m-d H') <= $this->lastExecTime) {
                 echo "Cron Payment Confirmation is Not Running because it's already running for current hour";
                 return false;
             } else{
-                if (!in_array((int)Mage::getModel('core/date')->date('H'),$arrScheduledTime)) {
+                if (!in_array((int)Mage::getModel('core/date')->date('H'),$scheduledHours)) {
                     echo "Cron Payment Confirmation is Not Running because it's not the scheduled Time";
                     return false;
                 }
@@ -49,7 +49,7 @@
             return true;
         }
         
-        private function generateData($page)
+        private function getConfirmationData($page)
         {
             $confirmationData = Mage::getModel('Paymentconfirmation/payment')
                         ->getCollection()
@@ -80,7 +80,7 @@
             $data['comment'] = "Komentar";
             $csvdata[] = $data;
             while(true){
-                $confirmationData = $this->generateData($page);
+                $confirmationData = $this->getConfirmationData($page);
                 if (count($confirmationData) < 1) break;
                 if ($stop > 0) break;
                 foreach($confirmationData as $collection) {
@@ -141,7 +141,7 @@
         public function main()
         {
             $this->setLastExecTime();
-            $scheduledHours = $this->setScheduledTime();
+            $scheduledHours = $this->getScheduledTime();
             if (!$this->isScheduledToRun($scheduledHours)) {
                 return 0;
             }
