@@ -27,7 +27,7 @@ class Bilna_Customer_Model_Api2_Wishlistcollectionitems extends Bilna_Rest_Model
     }
     
     //by calling this method, assume as customer id was valid as owner of collection
-    public function getWishlistCollectionItems($wishlist) 
+    protected function _getWishlistCollectionItems($wishlist) 
     {
         $productWishlistCollection =  Mage::getResourceModel('wishlist/item_collection')
                 ->addWishlistFilter($wishlist)
