@@ -6,9 +6,9 @@
  */
 class Bilna_Customer_Model_Api2_Wishlistcollectionitems_Rest_Admin_V1 extends Bilna_Customer_Model_Api2_Wishlistcollectionitems_Rest
 {
-    protected function _retrieve() 
+    protected function _retrieveCollection() 
     {
-        $collectionItems = $this->getWishlistCollectionItems();
+        $collectionItems = $this->_getCollectionForRetrieve();
         if (!$collectionItems) {
             $this->_critical(self::RESOURCE_NOT_FOUND);
         }
@@ -16,7 +16,7 @@ class Bilna_Customer_Model_Api2_Wishlistcollectionitems_Rest_Admin_V1 extends Bi
         return $collectionItems;
     }
     
-    protected function getWishlistCollectionItems()
+    protected function _getCollectionForRetrieve()
     {
         $username = $this->getRequest()->getParam('username');
         $collectionId = $this->getRequest()->getParam('collection_id');
@@ -35,7 +35,7 @@ class Bilna_Customer_Model_Api2_Wishlistcollectionitems_Rest_Admin_V1 extends Bi
         if ($wishlistCollection->getData() && $hasCollection) {
             foreach($wishlistCollection as $wishlist) {
                 $result = $wishlist;
-                $result['wishlist_collection_items'] = $this->_getWishlistCollectionItems($wishlist);
+                $result['wishlist_collection_items'] = $this->getWishlistCollectionItems($wishlist);
             }
         }
         

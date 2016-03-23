@@ -571,10 +571,10 @@
                     <wishlist_collection_items>Wishlist Collection Items</wishlist_collection_items>
                 </attributes>
                 <routes>
-                    <route_entity>
-                        <route>/customer/:username/wishlistcollectionitems/:collection_id/getitem</route>
-                        <action_type>entity</action_type>
-                    </route_entity>
+                    <route_collection>
+                        <route>/customer/:username/wishlistcollectionitems/:collection_id/item</route>
+                        <action_type>collection</action_type>
+                    </route_collection>
                 </routes>
                 <versions>1</versions>
             </customer_wishlistcollectionitems>            
