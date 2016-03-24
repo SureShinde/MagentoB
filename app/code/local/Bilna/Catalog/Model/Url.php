@@ -154,15 +154,18 @@ class Bilna_Catalog_Model_Url extends Mage_Catalog_Model_Url
         /* check whether the categories are Promo or Brand */
         $path = $category->getPath();
         $ids = explode('/', $path);
-        for ($i = 0 ; $i < count($ids) ; $i++) {
+        for ($i = 0 ; $i < count($ids) ; $i++) 
+        {
             // if current category falls under Promo
-            if ($ids[$i] == 3930) {
+            if ($ids[$i] == 3930) 
+            {
                 $prependedPrefix = 'pp/';
                 break;
             }
             else
             // if current category falls under Brand
-            if ($ids[$i] == 4261) {
+            if ($ids[$i] == 4261) 
+            {
                 $prependedPrefix = 'bp/';
                 break;
             }

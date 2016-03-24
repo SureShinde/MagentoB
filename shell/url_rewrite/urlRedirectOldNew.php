@@ -97,7 +97,8 @@ class Url_Redirect_Old_New extends Mage_Shell_Abstract {
         $old_url_redirect = 'R';
         $new_url_redirect = 'RP';
 
-        switch ($col3) {
+        switch ($col3) 
+        {
             case "temporary":
                 $old_url_redirect = 'R';
                 break;
