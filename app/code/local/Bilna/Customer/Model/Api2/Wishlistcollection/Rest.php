@@ -38,9 +38,6 @@ abstract class Bilna_Customer_Model_Api2_Wishlistcollection_Rest extends Bilna_C
                 
                 if (!isset($data['name']) || $data['name'] == "") {
                     $this->_critical('Please provide name.');
-                } 
-                if (!isset($data['desc']) || $data['desc'] == "") {
-                    $this->_critical('Please provide description.');
                 }
                 
                 $this->createNewCollection($data);
