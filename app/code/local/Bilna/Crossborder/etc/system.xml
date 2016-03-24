@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<config>
+    <tabs>
+        <bilna translate="label">
+            <label>Bilna Extensions</label>
+        </bilna>
+    </tabs>
+    <sections>
+        <bilna_crossborder translate="label">
+            <label>Cross Border</label>
+            <tab>bilna</tab>
+            <frontend_type>text</frontend_type>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <status translate="label">
+                    <label>Configuration</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>0</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+			<enabled translate="label">
+                            <label>Cross Border Enable</label>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                        </enabled>
+                    </fields>
+                </status>
+                <configuration translate="label">
+                    <label>Cross Border Configuration</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+			<max_weight_allowed translate="label">
+                            <label>Max. Weight Limit Allowed</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </max_weight_allowed>
+                        <max_volume_allowed translate="label">
+                            <label>Port Max. Volume Limit Allowed</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </max_volume_allowed>
+			<max_qty_allowed translate="label">
+                            <label>Max. Qty Allowed</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </max_qty_allowed>
+			<max_subtotal_allowed translate="label">
+                            <label>Max. Imported Subtotal Value Allowed</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </max_subtotal_allowed>
+                    </fields>
+                </configuration>
+            </groups>
+        </bilna_crossborder>
+    </sections>
+</config>
