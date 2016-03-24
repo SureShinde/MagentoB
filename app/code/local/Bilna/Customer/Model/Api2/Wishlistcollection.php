@@ -175,8 +175,8 @@ class Bilna_Customer_Model_Api2_Wishlistcollection extends Bilna_Rest_Model_Api2
     /**
      * Delete item collection bu request params.
      * 
-     * paramters:
-     * wlid=35823&proid=62978
+     * additional paramters:
+     * ?product_id=62978
      */
     public function deleteWishlistCollectionItem($wlid, $proid)
     {
