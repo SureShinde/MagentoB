@@ -20,7 +20,7 @@ class AW_Affiliate_Model_Api2_Check_Rest_Admin_V1 extends AW_Affiliate_Model_Api
         $currentUrl = urldecode($this->getRequest()->getParam('current_url', null));
         
         //var_dump($currentUrl);die;
-        if (!is_null($cmid) && !is_null($afid) && !is_null($ats)) {
+        if ($cmid != "" && $afid != "" && $ats != "") {
             //params detect
             $campaignId = Mage::helper('core')->decrypt(Mage::helper('core')->urlDecode($cmid));
             $affiliateId = Mage::helper('core')->decrypt(Mage::helper('core')->urlDecode($afid));

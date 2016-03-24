@@ -10,7 +10,7 @@ class Bilna_Rest_Model_Api2_Wishlistcollectionitems extends Bilna_Rest_Model_Api
     //by calling this method, assume as customer id was valid as owner of collection
     protected function getWishlistCollectionItems($wishlist) 
     {
-        $productWishlistCollection = Mage::getResourceModel('wishlist/item_collection')
+        $productWishlistCollection = Mage::getResourceModel('wishlist/item_apicollection_item')
             ->addWishlistFilter($wishlist)
             ->setVisibilityFilter();
         
@@ -18,10 +18,6 @@ class Bilna_Rest_Model_Api2_Wishlistcollectionitems extends Bilna_Rest_Model_Api
         $result[0] = ['total_record' => count($productWishlistCollection->getItems())];
         foreach ($productWishlistCollection->getItems() as $item) {
             $result[$item->getId()] = $item->getData();
-            
-            unset($result[$item->getId()]['product']);
-            unset($result[$item->getId()]['name']);
-            unset($result[$item->getId()]['price']);
             
             //if you need, we can get all product detail here
             /*$product = Mage::getModel('catalog/product')
