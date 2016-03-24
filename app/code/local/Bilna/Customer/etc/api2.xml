@@ -457,11 +457,6 @@
                         <retrieve>1</retrieve>
                         <delete>1</delete>
                     </admin>
-                    <customer>
-                        <create>1</create>
-                        <retrieve>1</retrieve>
-                        <delete>1</delete>
-                    </customer>
                 </privileges>
                 <attributes translate="entity_id wishlist_id about location avatar cloud_avatar wishlist status temporary gender customer_id name desc image_url visibility username preset_image profile addnewitem wishlist_id collection_id collection_id2 product_id categories wishlist_collections" module="Bilna_Customer">
                     <entity_id>Entity ID</entity_id>
