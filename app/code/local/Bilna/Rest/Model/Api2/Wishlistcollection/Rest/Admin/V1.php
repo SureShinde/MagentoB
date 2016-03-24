@@ -49,7 +49,6 @@ class Bilna_Rest_Model_Api2_Wishlistcollection_Rest_Admin_V1 extends Bilna_Rest_
                 ->setOrder('counter', 'DESC')
                 ->setPageSize(4);
             
-            $result = [];
             $wishlist_collection = [];
             $wishlist_collection_fav = [];
             

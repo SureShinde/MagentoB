@@ -783,7 +783,28 @@
                     </route_collection>
                 </routes>
                 <versions>1</versions>
-            </wishlistcollection>            
+            </wishlistcollection>   
+            <wishlistcollectionitems translate="title" module="Bilna_Rest">
+                <group>bilna_rest</group>
+                <model>bilna_rest/api2_wishlistcollectionitems</model>
+                <title>Get All Wishlist Collection Items Based On Slug</title>
+                <sort_order>113</sort_order>
+                <privileges>
+                    <admin>
+                        <retrieve>1</retrieve>
+                    </admin>
+                </privileges>
+                <attributes translate="wishlist_collection_items" module="Bilna_Rest">
+                    <wishlist_collection_items>Wishlist Collection Items</wishlist_collection_items>
+                </attributes>
+                <routes>
+                    <route_collection>
+                        <route>/wishlistcollectionitems/:slug/slug</route>
+                        <action_type>collection</action_type>
+                    </route_collection>
+                </routes>
+                <versions>1</versions>
+            </wishlistcollectionitems>            
         </resources>
     </api2>
 </config>
