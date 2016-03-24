@@ -152,12 +152,10 @@ abstract class Bilna_Customer_Model_Api2_Wishlistcollection_Rest extends Bilna_C
             
             try {
                 //delete item collection
-                $username = $this->getRequest()->getParam('user');
-                $proid = $this->getRequest()->getParam('proid');
-                $wlid = $this->getRequest()->getParam('wlid');
+                $productId = $this->getRequest()->getParam('product_id');
                 
-                if ($username != NULL && $proid != NULL && $wlid != NULL) {
-                    $this->deleteWishlistCollectionItem();
+                if ($username != '' && $productId != '' && $collectionId != '') {
+                    $this->deleteWishlistCollectionItem($collectionId, $productId);
                     return TRUE;
                 }
                 $wishlist = Mage::getModel('wishlist/wishlist')->load($collectionId);

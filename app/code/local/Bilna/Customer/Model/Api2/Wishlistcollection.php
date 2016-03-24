@@ -176,35 +176,18 @@ class Bilna_Customer_Model_Api2_Wishlistcollection extends Bilna_Rest_Model_Api2
      * Delete item collection bu request params.
      * 
      * paramters:
-     * user=m-khairul-azami-s-kom&wlid=35823&proid=62978&url=/
+     * wlid=35823&proid=62978
      */
-    public function deleteWishlistCollectionItem()
+    public function deleteWishlistCollectionItem($wlid, $proid)
     {
-        # Get value from query string
-        if ($this->getRequest()->getParam('user')) {
+        try {
+            $w = Mage::getSingleton('core/resource')->getConnection('core_write');
+            $result = $w->query('DELETE FROM wishlist_item WHERE wishlist_id ='.$wlid.' and product_id ='.$proid);
 
-            try {
+            return $result;
 
-                # Populate sent data, validate & sanitize
-
-                $customerId = $this->getRequest()->getParam('customer_id');
-
-                $username = $this->getRequest()->getParam('user');
-                $proid = $this->getRequest()->getParam('proid');
-                $wlid = $this->getRequest()->getParam('wlid');
-
-                $wishlist = Mage::getModel('wishlist/wishlist')->load($wlid);
-                $name = $wishlist->getName();
-                $urlname = Mage::getModel('catalog/product_url')->formatUrlKey($name);
-                
-                $w = Mage::getSingleton('core/resource')->getConnection('core_write');
-                $result = $w->query('DELETE FROM wishlist_item WHERE wishlist_id ='.$wlid.' and product_id ='.$proid);
-                
-                return $result;
-                
-            } catch (Exception $e) {
-                $this->_critical($e->getMessage());
-            }
+        } catch (Exception $e) {
+            $this->_critical($e->getMessage());
         }
         
         return FALSE;
