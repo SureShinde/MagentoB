@@ -63,6 +63,7 @@
                 ><i class="fa fa-heart"></i></a>
                     <a href="<?php echo $_item->getProductUrl() ?>"><img src="<?php echo $this->helper('catalog/image')->init($_item, 'thumbnail')->resize(50) ?>" alt="<?php echo $this->htmlEscape($_item->getName()) ?>" width="50" height="50" /></a>
                 </div>
+                <?php echo $_item->isImportProduct() ?>
                 <div class="product-details">
                     <a href="<?php echo $_item->getProductUrl() ?>"><?php echo $this->htmlEscape($_item->getName()) ?></a>
                     <?php echo $this->getPriceHtml($_item, true); ?>

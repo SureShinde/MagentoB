@@ -39,6 +39,7 @@ $_escape_helper = Mage::helper('catalog/utils');
             <?php else: ?>
                 <?php echo $this->escapeHtml($this->getProductName()) ?>
             <?php endif; ?>
+            <?php echo $_item->getProduct()->isImportProduct() ?>
         </h2>
         
         <?php if ($_options = $this->getOptionList()):?>
@@ -155,6 +156,7 @@ $_escape_helper = Mage::helper('catalog/utils');
             <?php else: ?>
                 <?php echo $this->escapeHtml($this->getProductName()) ?>
             <?php endif; ?>
+            <?php echo $_item->getProduct()->isImportProduct() ?>
         </h2>
         
         <?php if ($_options = $this->getOptionList()):?>
