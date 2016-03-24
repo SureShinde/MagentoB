@@ -31,6 +31,7 @@ class Bilna_Customer_Model_Api2_Wishlistcollectionitems extends Bilna_Rest_Model
     {
         $productWishlistCollection = Mage::getResourceModel('wishlist/item_apicollection_item')
             ->addWishlistFilter($wishlist)
+            ->setOrder('added_at', 'desc')
             ->setVisibilityFilter();
         
         $result = [];

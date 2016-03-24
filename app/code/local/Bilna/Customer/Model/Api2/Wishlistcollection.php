@@ -66,6 +66,7 @@ class Bilna_Customer_Model_Api2_Wishlistcollection extends Bilna_Rest_Model_Api2
             # Get wishlist collection
             $wishlistCollection = Mage::getModel('wishlist/wishlist')->getCollection();
             $wishlistCollection->addFieldToFilter('customer_id', $customer->getId()); 
+            $wishlistCollection->setOrder('created_at', 'desc');
             $hasCollection = $wishlistCollection->count() < 1 ? false : true;
             
             if ($wishlistCollection->getData() && $hasCollection) {
