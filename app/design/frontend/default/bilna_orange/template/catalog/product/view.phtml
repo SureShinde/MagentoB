@@ -120,6 +120,12 @@
                             ?>
                         </p>
                     </div>
+
+                    <?php if ($_product->getData('express_shipping')) : ?>
+                        <div class="express_shipping">
+                            <img src="<?php echo $this->getSkinUrl('images/vip-shipment-mail.png'); ?>" style="width: 35px;">Tersedia pengiriman express
+                        </div>
+                    <?php endif; ?>
                 
                     <?php if ($_product->isSaleable() && $this->hasOptions()): ?>
                         <div class="product-container1">
@@ -220,6 +226,19 @@
                                         <td><?php echo $_data['value']; ?></td>
                                     </tr>
                                 <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    <?php elseif ($_code == 'express_shipping'): ?>
+                        <hr/>
+                        <div class="title-category" id="<?php echo "tabs-{$alias}"?>">
+                            <?php echo $this->__('Express Shipping'); ?>
+                        </div>
+                        <table id="product-attribute-specs-table" class="data-table">
+                            <tbody>
+                                <tr>
+                                    <th width="25%"><?php echo $_attribute['data'][0]['label']; ?></th>
+                                    <td><?php echo $_attribute['data'][0]['value']; ?></td>
+                                </tr>
                             </tbody>
                         </table>
                     <?php elseif ($_code == 'additional_info'): ?>
@@ -330,3 +349,5 @@
     dataLayer.push( {'skuid': '<?php echo $_product->getSku(); ?>'} );
     });
 </script>
+
+
