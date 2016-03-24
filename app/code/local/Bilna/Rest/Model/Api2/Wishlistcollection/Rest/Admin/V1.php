@@ -41,7 +41,8 @@ class Bilna_Rest_Model_Api2_Wishlistcollection_Rest_Admin_V1 extends Bilna_Rest_
             }
             
             //get all favourite wishlist collection
-            $faveWishlists = $wishlists->addFilter('visibility', 1)
+            $faveWishlists = Mage::getModel('wishlist/wishlist')->getCollection();
+            $faveWishlists = $faveWishlists->addFilter('visibility', 1)
                 ->addFieldToFilter('name', array('notnull' => true))
                 ->addFieldToFilter('name', array('neq' => ' '))
                 ->addFieldToFilter('cover', array('notnull' => true))
@@ -57,6 +58,8 @@ class Bilna_Rest_Model_Api2_Wishlistcollection_Rest_Admin_V1 extends Bilna_Rest_
                 foreach($wishlists as $wishlist) {
                     $wishlist_collection[$wishlist->getId()] = $wishlist->getData();
                     $wishlist_collection[$wishlist->getId()]['slug'] = $wishlist->getId().'-'.Mage::getModel('catalog/product_url')->formatUrlKey($wishlist->getName());
+                    $profiler = Mage::getModel('socialcommerce/profile')->load($wishlist->getCustomerId(), 'customer_id');
+                    $wishlist_collection[$wishlist->getId()]['username'] = $profiler->getUsername();
                 }
             }
             
@@ -65,6 +68,8 @@ class Bilna_Rest_Model_Api2_Wishlistcollection_Rest_Admin_V1 extends Bilna_Rest_
                 foreach ($faveWishlists as $faveWishlist) {
                     $wishlist_collection_fav[$faveWishlist->getId()] = $faveWishlist->getData();
                     $wishlist_collection_fav[$faveWishlist->getId()]['slug'] = $faveWishlist->getId().'-'.Mage::getModel('catalog/product_url')->formatUrlKey($faveWishlist->getName());
+                    $profiler = Mage::getModel('socialcommerce/profile')->load($faveWishlist->getCustomerId(), 'customer_id');
+                    $wishlist_collection_fav[$faveWishlist->getId()]['username'] = $profiler->getUsername();
                 }
             }
                 

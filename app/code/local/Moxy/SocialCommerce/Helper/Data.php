@@ -196,7 +196,7 @@ extends Mage_Core_Helper_Abstract
         }
             
         //to handle API data content
-        if($data != NULL) {
+        if($data != NULL && $data['image_url'] != '') {
             $_POST['image_url'] = $data['image_url'];
         }
         if ($_POST['image_url']) {
@@ -267,7 +267,7 @@ extends Mage_Core_Helper_Abstract
         //if($_FILES) {
             
             //to handle API data content
-            if($data != NULL) {
+            if($data != NULL && $data['preset_image'] != '') {
                 $_FILES = $data['preset_image'];
             }
             if ($_FILES['cover']['tmp_name']) {
@@ -292,7 +292,7 @@ extends Mage_Core_Helper_Abstract
             }
             
             //to handle API data content
-            if($data != NULL) {
+            if($data != NULL && $data['image_url'] != '') {
                 $_POST['image_url'] = $data['image_url'];
             }
             if ($_POST['image_url']) {
