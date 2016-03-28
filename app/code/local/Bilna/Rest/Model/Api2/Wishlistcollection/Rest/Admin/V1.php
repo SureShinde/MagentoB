@@ -22,22 +22,23 @@ class Bilna_Rest_Model_Api2_Wishlistcollection_Rest_Admin_V1 extends Bilna_Rest_
     {
         try {
             
+            $wishlist_collection = [];
+            $wishlist_collection_fav = [];
+            
             //get all wishlist collection
             $wishlists = Mage::getModel('wishlist/wishlist')->getCollection();
             $wishlists->setOrder('created_at', 'desc');
             
-            $limit = (int)$this->getRequest()->getParam('limit');
-            $page = (int)$this->getRequest()->getParam('page');
+            if ($wishlists) {
+                $wishlist_collection[0]['total_record'] = $wishlists->getSize();
+                $this->_pagination($wishlists);
             
-            if ($limit) {
-                $wishlists->setPageSize($limit);
-            } else {
-                $wishlists->setPageSize(10);
-            }
-            if ($page) {
-                $wishlists->setCurPage($page);
-            } else {
-                $wishlists->setCurPage(1);
+                foreach($wishlists as $wishlist) {
+                    $wishlist_collection[$wishlist->getId()] = $wishlist->getData();
+                    $wishlist_collection[$wishlist->getId()]['slug'] = $wishlist->getId().'-'.Mage::getModel('catalog/product_url')->formatUrlKey($wishlist->getName());
+                    $profiler = Mage::getModel('socialcommerce/profile')->load($wishlist->getCustomerId(), 'customer_id');
+                    $wishlist_collection[$wishlist->getId()]['username'] = $profiler->getUsername();
+                }
             }
             
             //get all favourite wishlist collection
@@ -49,21 +50,9 @@ class Bilna_Rest_Model_Api2_Wishlistcollection_Rest_Admin_V1 extends Bilna_Rest_
                 ->setOrder('counter', 'DESC')
                 ->setPageSize(4);
             
-            $wishlist_collection = [];
-            $wishlist_collection_fav = [];
-            
-            if ($wishlists) {
-                $wishlist_collection[0]['total_record'] = $wishlists->getSize();
-                foreach($wishlists as $wishlist) {
-                    $wishlist_collection[$wishlist->getId()] = $wishlist->getData();
-                    $wishlist_collection[$wishlist->getId()]['slug'] = $wishlist->getId().'-'.Mage::getModel('catalog/product_url')->formatUrlKey($wishlist->getName());
-                    $profiler = Mage::getModel('socialcommerce/profile')->load($wishlist->getCustomerId(), 'customer_id');
-                    $wishlist_collection[$wishlist->getId()]['username'] = $profiler->getUsername();
-                }
-            }
-            
             if ($faveWishlists) {
-                $wishlist_collection_fav[0]['total_record'] = $wishlists->getSize();
+                $wishlist_collection_fav[0]['total_record'] = $faveWishlists->getSize();
+            
                 foreach ($faveWishlists as $faveWishlist) {
                     $wishlist_collection_fav[$faveWishlist->getId()] = $faveWishlist->getData();
                     $wishlist_collection_fav[$faveWishlist->getId()]['slug'] = $faveWishlist->getId().'-'.Mage::getModel('catalog/product_url')->formatUrlKey($faveWishlist->getName());
@@ -78,6 +67,23 @@ class Bilna_Rest_Model_Api2_Wishlistcollection_Rest_Admin_V1 extends Bilna_Rest_
             ];
         } catch (Exception $e) {
             $this->_critical($e->getMessage());
+        }
+    }
+    
+    protected function _pagination($object)
+    {
+        $limit = (int)$this->getRequest()->getParam('limit');
+        $page = (int)$this->getRequest()->getParam('page');
+
+        if ($limit) {
+            $object->setPageSize($limit);
+        } else {
+            $object->setPageSize(10);
+        }
+        if ($page) {
+            $object->setCurPage($page);
+        } else {
+            $object->setCurPage(1);
         }
     }
 }

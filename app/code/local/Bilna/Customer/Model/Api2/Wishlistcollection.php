@@ -67,10 +67,13 @@ class Bilna_Customer_Model_Api2_Wishlistcollection extends Bilna_Rest_Model_Api2
             $wishlistCollection = Mage::getModel('wishlist/wishlist')->getCollection();
             $wishlistCollection->addFieldToFilter('customer_id', $customer->getId()); 
             $wishlistCollection->setOrder('created_at', 'desc');
+            $result[0]['total_record'] = $wishlistCollection->getSize();
+
+            $this->_pagination($wishlistCollection);
+
             $hasCollection = $wishlistCollection->count() < 1 ? false : true;
             
-            if ($wishlistCollection->getData() && $hasCollection) {
-                $result[0]['total_record'] = $wishlistCollection->getSize();
+            if ($wishlistCollection->getData() && $hasCollection) {                
                 foreach($wishlistCollection as $key => $value) {
                     $result[$key] = $value->getData();
                     $result[$key]['slug'] = $value->getId().'-'.Mage::getModel('catalog/product_url')->formatUrlKey($value->getName());
@@ -192,5 +195,22 @@ class Bilna_Customer_Model_Api2_Wishlistcollection extends Bilna_Rest_Model_Api2
         }
         
         return FALSE;
+    }
+    
+    protected function _pagination($object)
+    {
+        $limit = (int)$this->getRequest()->getParam('limit');
+        $page = (int)$this->getRequest()->getParam('page');
+
+        if ($limit) {
+            $object->setPageSize($limit);
+        } else {
+            $object->setPageSize(10);
+        }
+        if ($page) {
+            $object->setCurPage($page);
+        } else {
+            $object->setCurPage(1);
+        }
     }
 }
