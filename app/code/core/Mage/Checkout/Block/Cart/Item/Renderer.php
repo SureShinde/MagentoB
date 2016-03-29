@@ -174,14 +174,6 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
         return $this->getProduct()->getName();
     }
 
-    public function getExpressShipping()
-    {
-        if ($this->hasExpressShipping()) {
-            return $this->getData('express_shipping');
-        }
-        return $this->getProduct()->getExpressShipping();
-    }
-
     /**
      * Get product customize options
      *
