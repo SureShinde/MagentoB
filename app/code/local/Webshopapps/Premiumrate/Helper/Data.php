@@ -108,5 +108,66 @@ class Webshopapps_Premiumrate_Helper_Data extends Mage_Core_Helper_Abstract
     	}
 				
 	}
+
+	public function checkImportedItemsAvailability($request)
+	{
+		$contain_local = 0;
+		$contain_import = 0;
+		$status = array();
+
+		$all_items = $request->getAllItems();
+
+        foreach($all_items as $item)
+        {
+            $product = Mage::getModel('catalog/product')->load( $item->getProductId() );
+            if ( is_null($product->getExpressShipping()) || $product->getExpressShipping() == 0 )
+            {
+            	$contain_local = 1;
+            	$status['local_items']['product_ids'][] = $item->getProductId();
+
+            	// initialize ( if not set yet )
+            	if (!(isset($status['local_items']['qty']) && isset($status['local_items']['weight']) && isset($status['local_items']['price'])))
+            	{
+            		$status['local_items']['qty'] = 0;
+            		$status['local_items']['weight'] = 0;
+            		$status['local_items']['price'] = 0;
+            	}
+
+            	$status['local_items']['qty'] += $item->getQty();
+        		$status['local_items']['weight'] += ( $item->getQty() * $item->getWeight() );
+        		$status['local_items']['price'] += ( $item->getQty() * $item->getPrice() );
+            }
+            else
+            {
+            	$contain_import = 1;
+            	$status['import_items']['product_ids'][] = $item->getProductId();
+
+            	// initialize ( if not set yet )
+            	if (!(isset($status['import_items']['qty']) && isset($status['import_items']['weight']) && isset($status['import_items']['price'])))
+            	{
+            		$status['import_items']['qty'] = 0;
+            		$status['import_items']['weight'] = 0;
+            		$status['import_items']['price'] = 0;
+            	}
+
+            	$status['import_items']['qty'] += $item->getQty();
+        		$status['import_items']['weight']+= ( $item->getQty() * $item->getWeight() );
+        		$status['import_items']['price'] += ( $item->getQty() * $item->getPrice() );
+            }
+        }
+
+        if ($contain_local == 1 && $contain_import == 1)
+        	$status['item_status'] = Webshopapps_Premiumrate_Model_Carrier_Premiumrate::ITEMS_MIXED;
+        else
+        {
+        	if ($contain_local == 1)
+        		$status['item_status'] = Webshopapps_Premiumrate_Model_Carrier_Premiumrate::ITEMS_LOCAL;
+        	else
+        	if ($contain_import == 1)
+        		$status['item_status'] = Webshopapps_Premiumrate_Model_Carrier_Premiumrate::ITEMS_IMPORT;
+        }
+
+        return $status;
+	}
 	
 }
