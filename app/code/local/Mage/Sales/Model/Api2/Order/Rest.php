@@ -8,11 +8,16 @@
 
 abstract class Mage_Sales_Model_Api2_Order_Rest extends Mage_Sales_Model_Api2_Order {
     protected function _getPaymentTitle($order) {
-        if ($paymentTitle = $order->getPayment()->getMethodInstance()->getTitle()) {
-            return $paymentTitle;
+        try {
+            if ($paymentTitle = $order->getPayment()->getMethodInstance()->getTitle()) {
+                return $paymentTitle;
+            }
+            
+            return '';
         }
-        
-        return null;
+        catch (Exception $ex) {
+            return '';
+        }
     }
 
     protected function _getAdditionalInfo($order) {
