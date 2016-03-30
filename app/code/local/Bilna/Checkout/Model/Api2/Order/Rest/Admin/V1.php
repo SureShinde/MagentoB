@@ -22,7 +22,8 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
         $storeId = isset($data['store_id']) ? $data['store_id'] : 1;
         $tokenId = isset($data['token_id']) ? $data['token_id'] : '';
         $payment = isset($data['payment']) ? $data['payment'] : '';
-
+        $trxFrom = isset($data['trx_from']) ? $data['trx_from'] : NULL;
+        
         $allowInstallment = isset($data['allow_installment']) ? $data['allow_installment'] : '';
         $installmentMethod = isset($data['installment_method']) ? $data['installment_method'] : '';
         $installmentTenor = isset($data['installment']) ? $data['installment'] : '';
@@ -122,10 +123,30 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
                 }
             }
 
-            $order = $service->getOrder();
-
+            $order = $service->getOrder();            
+            
+            /**
+             *  
+             * setTrxFrom: to determine where is transaction came from.
+             * 
+             * Option: 
+             * - 1 is from logan apps
+             * - 2 is from mobile apps
+             * - 3 is from magento apps
+             * 
+             */
+            $saveOrder = false;
+            if(!empty($trxFrom)) {
+                $order->setTrxFrom($trxFrom);
+                $saveOrder = true;
+            }
+            
             if (isset ($payment['use_points']) && $payment['use_points'] > 0) {
                 $order = $this->submitPoints($order, $payment);
+                $saveOrder = true;
+            }
+            
+            if($saveOrder) {
                 $order->save();
             }
 

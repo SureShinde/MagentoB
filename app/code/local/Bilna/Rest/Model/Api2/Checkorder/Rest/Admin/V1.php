@@ -5,9 +5,10 @@
  * @author Bilna Development Team <development@bilna.com>
  */
 
-class Bilna_Rest_Model_Api2_Checkorder_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_Checkorder_Rest {
-    
-    protected function _retrieve() {
+class Bilna_Rest_Model_Api2_Checkorder_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_Checkorder_Rest 
+{
+    protected function _retrieve() 
+    {
         $result = $this->_getOrderDetail();
         
         if (!$result) {
@@ -17,7 +18,8 @@ class Bilna_Rest_Model_Api2_Checkorder_Rest_Admin_V1 extends Bilna_Rest_Model_Ap
         return $result;
     }
     
-    protected function _getOrderDetail() {
+    protected function _getOrderDetail() 
+    {
         $email = $this->getRequest()->getParam('email');
         $incrementId = $this->getRequest()->getParam('increment_id');
         
@@ -68,9 +70,7 @@ class Bilna_Rest_Model_Api2_Checkorder_Rest_Admin_V1 extends Bilna_Rest_Model_Ap
         }
         if ($items) {
             $orderData['order_items'] = $items[$orderId];
-        }
-        
-        
+        }       
         
         return $orderData;
     }

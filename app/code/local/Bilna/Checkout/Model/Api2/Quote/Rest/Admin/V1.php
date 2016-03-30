@@ -18,11 +18,13 @@ class Bilna_Checkout_Model_Api2_Quote_Rest_Admin_V1 extends Bilna_Checkout_Model
     protected function _create(array $data)
     {
     	$storeId = 1;//$this->_getStoreId($store);
-
+        $trxFrom = isset($data['trx_from']) ? $data['trx_from'] : NULL;
+        
     	try {
             /*@var $quote Mage_Sales_Model_Quote*/
             $quote = Mage::getModel('sales/quote');
             $quote->setStoreId($storeId)
+                    ->setTrxFrom($trxFrom)
                     ->setIsActive(false)
                     ->setIsMultiShipping(false)
                     ->save();

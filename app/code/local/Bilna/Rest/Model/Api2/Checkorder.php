@@ -5,8 +5,8 @@
  * @author Bilna Development Team <development@bilna.com>
  */
 
-class Bilna_Rest_Model_Api2_Checkorder extends Mage_Api2_Model_Resource {
-    
+class Bilna_Rest_Model_Api2_Checkorder extends Mage_Api2_Model_Resource 
+{   
     const PARAM_PAYMENT_METHOD = '_payment_method';
     const PARAM_TAX_NAME       = '_tax_name';
     const PARAM_TAX_RATE       = '_tax_rate';
