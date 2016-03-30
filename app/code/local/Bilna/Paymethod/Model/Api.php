@@ -57,7 +57,7 @@ class Bilna_Paymethod_Model_Api {
         if ($installmentProcess != 'manual') {
             $items = $order->getAllItems();
             $installmentId = $this->getInstallment($items);
-            $this->logProgress('installmentTerm: ' . $installmentId);
+            //$this->logProgress('installmentTerm: ' . $installmentId);
 
             if ($installmentId) {
                 $transactionData['credit_card']['installment_term'] = $installmentId;
