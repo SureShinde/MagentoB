@@ -207,10 +207,7 @@ class Webshopapps_Premiumrate_Model_Carrier_Premiumrate
         */
         $itemStatus = Mage::Helper('premiumrate')->checkImportedItemsAvailability($request);
 
-        print_r($itemStatus);
-        exit;
-
-        if ($itemStatus == Webshopapps_Premiumrate_Model_Carrier_Premiumrate::ITEMS_MIXED)
+        if ($itemStatus['item_status'] == Webshopapps_Premiumrate_Model_Carrier_Premiumrate::ITEMS_MIXED)
             return Mage::getResourceModel('premiumrate_shipping/carrier_premiumrate')->getNewRateMixed($request, $itemStatus);
         else
     	   return Mage::getResourceModel('premiumrate_shipping/carrier_premiumrate')->getNewRate($request, $itemStatus);
@@ -222,7 +219,7 @@ class Webshopapps_Premiumrate_Model_Carrier_Premiumrate
 
             'condition_name'=>array(
         		'package_standard'   	=> Mage::helper('shipping')->__('Standard'),
-        		'package_volweight'   	=> Mage::helper('shipping')->__('VolumecheckImportedItemsAvailability Weight'),
+        		'package_volweight'   	=> Mage::helper('shipping')->__('Volume Weight'),
         ),
 
             'condition_name_short'=>array(

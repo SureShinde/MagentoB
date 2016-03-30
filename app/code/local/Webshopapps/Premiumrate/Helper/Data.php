@@ -126,16 +126,18 @@ class Webshopapps_Premiumrate_Helper_Data extends Mage_Core_Helper_Abstract
             	$status['local_items']['product_ids'][] = $item->getProductId();
 
             	// initialize ( if not set yet )
-            	if (!(isset($status['local_items']['qty']) && isset($status['local_items']['weight']) && isset($status['local_items']['price'])))
+            	if (!(isset($status['local_items']['qty']) && isset($status['local_items']['weight']) && isset($status['local_items']['price']) && isset($status['local_items']['volweight'])))
             	{
             		$status['local_items']['qty'] = 0;
             		$status['local_items']['weight'] = 0;
             		$status['local_items']['price'] = 0;
+            		$status['local_items']['volweight'] = 0;
             	}
 
             	$status['local_items']['qty'] += $item->getQty();
         		$status['local_items']['weight'] += ( $item->getQty() * $item->getWeight() );
         		$status['local_items']['price'] += ( $item->getQty() * $item->getPrice() );
+        		$status['local_items']['volweight'] += ( $product->getVolumeWeight() * $item->getPrice() );
             }
             else
             {
@@ -143,16 +145,18 @@ class Webshopapps_Premiumrate_Helper_Data extends Mage_Core_Helper_Abstract
             	$status['import_items']['product_ids'][] = $item->getProductId();
 
             	// initialize ( if not set yet )
-            	if (!(isset($status['import_items']['qty']) && isset($status['import_items']['weight']) && isset($status['import_items']['price'])))
+            	if (!(isset($status['import_items']['qty']) && isset($status['import_items']['weight']) && isset($status['import_items']['price']) && isset($status['import_items']['volweight'])))
             	{
             		$status['import_items']['qty'] = 0;
             		$status['import_items']['weight'] = 0;
             		$status['import_items']['price'] = 0;
+            		$status['import_items']['volweight'] = 0;
             	}
 
             	$status['import_items']['qty'] += $item->getQty();
         		$status['import_items']['weight']+= ( $item->getQty() * $item->getWeight() );
         		$status['import_items']['price'] += ( $item->getQty() * $item->getPrice() );
+        		$status['import_items']['volweight'] += ( $product->getVolumeWeight() * $item->getQty() );
             }
         }
 
@@ -166,6 +170,8 @@ class Webshopapps_Premiumrate_Helper_Data extends Mage_Core_Helper_Abstract
         	if ($contain_import == 1)
         		$status['item_status'] = Webshopapps_Premiumrate_Model_Carrier_Premiumrate::ITEMS_IMPORT;
         }
+
+        $status['item_status'] = Webshopapps_Premiumrate_Model_Carrier_Premiumrate::ITEMS_MIXED;
 
         return $status;
 	}
