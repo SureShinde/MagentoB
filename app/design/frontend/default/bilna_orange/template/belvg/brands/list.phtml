@@ -61,15 +61,15 @@
         }
     </style>
     <?php echo $this->getToolbarHtml() ?>
-    <?php // List mode ?>
+    <!-- List mode -->
     <?php if($this->getMode()!='grid'): ?>
     <?php $_iterator = 0; ?>
     <ol class="products-list" id="products-list">
     <?php foreach ($_brands_collection as $_brand): ?>
         <li class="item<?php if( ++$_iterator == sizeof($_brands_collection) ): ?> last<?php endif; ?>">
-            <?php // Product Image ?>
+            <!-- Product Image -->
             <a href="<?php echo $_brand->getUrl() ?>" title="<?php echo $this->stripTags($_brand->getTitle(), null, true) ?>" class="product-image"><img src="<?php echo Mage::helper('brands/image')->init($_brand)->resize(40) ?>" width="40" height="40" alt="<?php echo $this->stripTags($this->getTitle(), null, true) ?>" /></a>
-            <?php // Product description ?>
+            <!-- Product description -->
             <div class="product-shop">
                 <div class="f-fix">
                     <?php $_brandNameStripped = $this->stripTags($_brand->getTitle(), null, true); ?>
@@ -83,7 +83,7 @@
 
     <?php else: ?>
 
-    <?php // Grid Mode ?>
+    <!-- Grid Mode -->
 
     <?php $_collectionSize = $_brands_collection->count() ?>
     <?php $_columnCount = $this->getColumnCount(); ?>
