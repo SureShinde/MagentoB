@@ -65,7 +65,7 @@ class Bilna_Customer_Model_Api2_Wishlistcollectionprofile_Rest_Admin_V1 extends 
                 }
 
                 # Check image submission
-                $postAvatar = Mage::helper('socialcommerce')->processAvatar($customerId, $data);
+                $postAvatar = Mage::helper('socialcommerce')->processAvatar($data);
 
                 # Assign updated data
                 $profiler->setStatus(1);
