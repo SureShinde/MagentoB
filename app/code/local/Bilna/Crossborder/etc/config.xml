@@ -5,6 +5,40 @@
             <version>0.1.0</version>
         </Bilna_Crossborder>
     </modules>
+    <global>
+        <resources>
+            <crossborder_setup>
+                <setup>
+                    <module>Bilna_Crossborder</module>
+                </setup>
+
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </crossborder_setup>
+        </resources>
+        <helpers>
+            <crossborder>
+                <class>Bilna_Crossborder_Helper</class>
+            </crossborder>
+        </helpers>
+        <models>
+            <crossborder>
+                <class>Bilna_Crossborder_Model</class>
+            </crossborder>
+        </models>
+        <events>
+            <sales_order_save_before>
+            <observers>
+                <crossborder_validate>
+                    <type>singleton</type>
+                    <class>Bilna_Crossborder_Model_CrossBorder</class>
+                    <method>validateSaveOrder</method>
+                </crossborder_validate>
+            </observers>
+            </sales_order_save_before>
+        </events>
+    </global>
     <adminhtml>
         <acl>
             <resources>

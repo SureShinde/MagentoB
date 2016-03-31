@@ -2,11 +2,11 @@
 
 /**
  * Class containing related observers to be run while placing order
- * Created by Bilna Development Team ( development@bilna.com )
+ * @author Bilna Development Team <development@bilna.com>
  * Date: 31/03/16
  * Time: 14:44
  */
-class Bilna_Crossborder_Model_Order
+class Bilna_Crossborder_Model_CrossBorder
 {
 
     /**
@@ -14,7 +14,7 @@ class Bilna_Crossborder_Model_Order
      * @param Varien_Event_Observer $observer
      * @return $this
      */
-    public function validateCrossBorder(Varien_Event_Observer $observer)
+    public function validateSaveOrder(Varien_Event_Observer $observer)
     {
         if ($this->isCrossBorderEnabled()) {
             $invalidCount = 0;
@@ -74,6 +74,25 @@ class Bilna_Crossborder_Model_Order
     }
 
     /**
+     * Function to check if the cart contains any cross border item
+     * @return bool
+     */
+    public function hasCrossBorderItem()
+    {
+        if ($this->isCrossBorderEnabled()) {
+            $cartItems = Mage::getModel("checkout/cart")->getItems();
+            foreach ($cartItems as $item) {
+                // TODO read the cross_border from sales_order_quote_item, not from loading product
+                $product = $item->getProduct()->load();
+                if ($product->getCrossBorder() == 1) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
      * Function to check if Cross Border is enabled on the System Configuration
      * @return bool
      */
@@ -87,21 +106,37 @@ class Bilna_Crossborder_Model_Order
         return false;
     }
 
+    /**
+     * Function to get Max Allowed Weight on Configuration
+     * @return mixed
+     */
     public function getMaxWeightAllowed()
     {
         return Mage::getStoreConfig('bilna_crossborder/configuration/max_weight_allowed');
     }
 
+    /**
+     * Function to get Max Allowed Volume on Configuration
+     * @return mixed
+     */
     public function getMaxVolumeAllowed()
     {
         return Mage::getStoreConfig('bilna_crossborder/configuration/max_volume_allowed');
     }
 
+    /**
+     * Function to get Max Allowed Quantity on Configuration
+     * @return mixed
+     */
     public function getMaxQtyAllowed()
     {
         return Mage::getStoreConfig('bilna_crossborder/configuration/max_qty_allowed');
     }
 
+    /**
+     * Function to get Max Allowed Subtotal on Configuration
+     * @return mixed
+     */
     public function getMaxSubtotalAllowed()
     {
         return Mage::getStoreConfig('bilna_crossborder/configuration/max_subtotal_allowed');
