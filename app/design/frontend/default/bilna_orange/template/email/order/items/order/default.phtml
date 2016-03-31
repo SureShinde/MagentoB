@@ -34,10 +34,8 @@
         <?php if ($this->getItemOptions()): ?>
             <dl style="margin:0; padding:0;">
                 <?php foreach ($this->getItemOptions() as $option): ?>
-                <dt><strong><em><?php echo $option['label'] ?></em></strong></dt>
-                <dd style="margin:0; padding:0 0 0 9px;">
-                    <?php echo nl2br($option['value']) ?>
-                </dd>
+                <dt><strong><?php echo $option['label'] ?></strong> 
+                    <?php echo nl2br($option['value']) ?></dt>
                 <?php endforeach; ?>
             </dl>
         <?php endif; ?>
