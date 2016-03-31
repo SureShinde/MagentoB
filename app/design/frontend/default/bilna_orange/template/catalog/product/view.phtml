@@ -36,7 +36,6 @@
 <input type="hidden" id="3rdparty-type" value="product"/>
 <input type="hidden" id="3rdparty-value" value="<?php echo $_product->getId(); ?>" />
 <input type="hidden" id="base-url" value="<?php echo Mage::getBaseUrl(); ?>" />
-<?php //$_product = $this->getProduct(); ?>
 <script type="text/javascript">
     var optionsPrice = new Product.OptionsPrice(<?php echo $this->getJsonConfig() ?>);
 </script>
@@ -84,8 +83,6 @@
                     
                     <?php
                     $ship_from = $_helper->productAttribute($_product, $_product->getShipFrom(), 'ship_from');
-                    //$ship_by = $_helper->productAttribute($_product, $_product->getShipBy(), 'ship_by');
-                    //$sold_by = $_helper->productAttribute($_product, $_product->getSoldBy(), 'sold_by');
                     $ship_by = $_product->getAttributeText('ship_by');
                     $sold_by = $_product->getAttributeText('sold_by');
                     ?>
@@ -146,11 +143,7 @@
                             <?php echo $this->getChildHtml('addtocart') ?>
                         <?php endif; ?>
                     <?php endif; ?>
-                
-                    <!--<div class="one-click-checkout">
-                        <a href="#"><?php //echo $this->__('One Click Checkout') ?></a>
-                    </div>-->   
-                    
+                                    
                     <div class="buy-later">             
                         <?php echo $this->getChildHtml('addto') ?>
                     </div>              

@@ -1,7 +1,6 @@
 <dl class="sp-methods" id="checkout-payment-method-load">
 
 <?php $methods = $this->getPaymentMethodsFilter(); ?>
-<?php //$methods = $this->getMethods(); ?>
 <?php $oneMethod = count($methods) <= 1; ?>
 <?php if (empty ($methods)): ?>
     <dt>
@@ -9,11 +8,9 @@
     </dt>
 <?php else: ?>
     <?php $paymentHide = array(); ?>
-    <?php //$paymentHide = $this->getPaymentMethodHidden(); ?>
     <?php foreach ($methods as $_method): ?>
         <?php $_code = $_method['code']; ?>
         <?php $_title = $_method['title']; ?>
-        <?php //$_code = $_method->getCode(); ?>
         <?php if (in_array($_code, $paymentHide)): ?>
             <?php continue; ?>
         <?php endif; ?>
