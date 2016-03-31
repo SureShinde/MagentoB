@@ -194,11 +194,7 @@ class Bilna_Crossborder_CartController extends Mage_Core_Controller_Front_Action
             $product = $this->_initProduct();
 
             if (($product->getData('cross_border')) && (Mage::getStoreConfig('bilna_crossborder/status/enabled') == 1)) {
-                //echo "<pre>";var_dump($cart->getQuote()->getId());die;
                 $quoteId = $cart->getQuote()->getId();
-                //$storedCrossBorder = Mage::getModel('core/session')->getCrossBorderStorage();
-                //Mage::getModel('core/session')->unsCrossBorderStorage();die;
-                //echo "<pre>";print_r($storedCrossBorder);die;
                 $maxVolume = Mage::getStoreConfig('bilna_crossborder/configuration/max_volume_allowed');
                 $maxWeight = Mage::getStoreConfig('bilna_crossborder/configuration/max_weight_allowed');
                 $maxSubtotal = Mage::getStoreConfig('bilna_crossborder/configuration/max_subtotal_allowed');
@@ -210,87 +206,27 @@ class Bilna_Crossborder_CartController extends Mage_Core_Controller_Front_Action
 
                 $crossBorder = array();
 
-                /*if (is_null($qty)) {
-                    $qty = 1;
-                }*/
-
                 if (!is_null($quoteId)) {
-                    $quoteItemCollection = $cart->getItems()
-                        ->addFieldToFilter('cross_border', 1)
-                        ->addFieldToSelect(array('item_id', 'qty', 'weight', 'price'));
-                    $totalArray = $this->__getTotalStoredCrossBorder($quoteItemCollection->getData());
-                    //echo "<pre>";print_r($totalArray);die;
-                    //echo "<pre>";print_r($quoteItemCollection->getData());die;
-                    /*$totalArray = $this->__getTotalStoredCrossBorder($storedCrossBorder);
+                    $quoteItemCollection = $cart->getItems()->getData();
+                    $totalArray = $this->__getTotalStoredCrossBorder($quoteItemCollection);
 
-                    if (array_key_exists($sku, $storedCrossBorder)) {
-                        if ((($volumeWeight * $qty) + $totalArray['volume_weight']) > $maxVolume) {
-                            $crossBorderError++;
-                            $message = $this->__('Import product volume weight exceeded maximum limitation.');
-                            Mage::throwException($message);
-                        }
+                    if ((($weight * $qty) + $totalArray['weight']) > $maxWeight) {
+                        $crossBorderError++;
+                        $message = $this->__('Import product weight exceeded maximum limitation.');
+                        Mage::throwException($message);
+                    }
 
-                        if ((($weight * $qty) + $totalArray['weight']) > $maxWeight) {
-                            $crossBorderError++;
-                            $message = $this->__('Import product weight exceeded maximum limitation.');
-                            Mage::throwException($message);
-                        }
+                    if ((($price * $qty) + $totalArray['subtotal']) > $maxSubtotal) {
+                        $crossBorderError++;
+                        $message = $this->__('Import product subtotal exceeded maximum limitation.');
+                        Mage::throwException($message);
+                    }
 
-                        if ((($price * $qty) + $totalArray['subtotal']) > $maxSubtotal) {
-                            $crossBorderError++;
-                            $message = $this->__('Import product subtotal exceeded maximum limitation.');
-                            Mage::throwException($message);
-                        }
-
-                        if (($qty + $totalArray['qty']) > $maxQty) {
-                            $crossBorderError++;
-                            $message = $this->__('Import product qty. exceeded maximum limitation.');
-                            Mage::throwException($message);
-                        }
-
-                        $storedCrossBorder[$sku]['qty'] += $qty;die;
-                        Mage::getModel('core/session')->setCrossBorderStorage($storedCrossBorder);
-                    } else {
-                        if ((($volumeWeight * $qty) + $totalArray['volume_weight']) > $maxVolume) {
-                            $crossBorderError++;
-                            $message = $this->__('Import product volume weight exceeded maximum limitation.');
-                            Mage::throwException($message);
-                        }
-
-                        $storedCrossBorder[$sku]['volume_weight'] = $volumeWeight;
-
-                        if ((($weight * $qty) + $totalArray['weight']) > $maxWeight) {
-                            $crossBorderError++;
-                            $message = $this->__('Import product weight exceeded maximum limitation.');
-                            Mage::throwException($message);
-                        }
-
-                        $storedCrossBorder[$sku]['weight'] = $weight;
-
-                        if ((($price * $qty) + $totalArray['subtotal']) > $maxSubtotal) {
-                            $crossBorderError++;
-                            $message = $this->__('Import product subtotal exceeded maximum limitation.');
-                            Mage::throwException($message);
-                        }
-
-                        $storedCrossBorder[$sku]['subtotal'] = $price;
-
-                        if ($qty > $maxQty) {
-                            $crossBorderError++;
-                            $message = $this->__('Import product qty. exceeded maximum limitation.');
-                            Mage::throwException($message);
-                        }
-
-                        if (($qty + $totalArray['qty']) > $maxQty) {
-                            $crossBorderError++;
-                            $message = $this->__('Import product qty. exceeded maximum limitation.');
-                            Mage::throwException($message);
-                        }
-
-                        $storedCrossBorder[$sku]['qty'] = $qty;
-
-                        Mage::getModel('core/session')->setCrossBorderStorage($storedCrossBorder);
-                    }*/
+                    if (($qty + $totalArray['qty']) > $maxQty) {
+                        $crossBorderError++;
+                        $message = $this->__('Import product qty. exceeded maximum limitation.');
+                        Mage::throwException($message);
+                    }
                 } else { // if (count($storedCrossBorder) == 0)
                     if (($volumeWeight * $qty) > $maxVolume) {
                         $crossBorderError++;
@@ -552,19 +488,56 @@ class Bilna_Crossborder_CartController extends Mage_Core_Controller_Front_Action
      * Update customer's shopping cart
      */
     protected function _updateShoppingCart()
-    {// TODO : update cart
+    {
         try {
             $cartData = $this->getRequest()->getParam('cart');
             if (is_array($cartData)) {
                 $filter = new Zend_Filter_LocalizedToNormalized(
                     array('locale' => Mage::app()->getLocale()->getLocaleCode())
                 );
+                $cart = $this->_getCart();
+
+                $cartCollection = $cart->getItems()->getData();
+                $totalArray = $this->__getTotalStoredCrossBorder($cartCollection);
+                $maxVolume = Mage::getStoreConfig('bilna_crossborder/configuration/max_volume_allowed');
+                $maxWeight = Mage::getStoreConfig('bilna_crossborder/configuration/max_weight_allowed');
+                $maxSubtotal = Mage::getStoreConfig('bilna_crossborder/configuration/max_subtotal_allowed');
+                $maxQty = Mage::getStoreConfig('bilna_crossborder/configuration/max_qty_allowed');
+                $crossBorderError = 0;
+
+                foreach ($cartCollection as $quote) {
+                    if ($quote['cross_border'] == 1) {
+                        if (array_key_exists($quote['item_id'], $cartData)) {
+                            if ((int)$cartData[$quote['item_id']]['qty'] > (int)$quote['qty']) {
+                                $qtyDiff = (int)$cartData[$quote['item_id']]['qty'] - (int)$quote['qty'];
+                                if (($qtyDiff + $totalArray['qty']) > $maxQty) {
+                                    $crossBorderError++;
+                                    $message = $this->__('Import product qty exceeded maximum limitation.');
+                                    Mage::throwException($message);
+                                }
+
+                                if ((($qtyDiff * $quote['weight']) + $totalArray['weight']) > $maxWeight) {
+                                    $crossBorderError++;
+                                    $message = $this->__('Import product weight exceeded maximum limitation.');
+                                    Mage::throwException($message);
+                                }
+
+                                if ((($qtyDiff * $quote['price']) + $totalArray['subtotal']) > $maxSubtotal) {
+                                    $crossBorderError++;
+                                    $message = $this->__('Import product subtotal exceeded maximum limitation.');
+                                    Mage::throwException($message);
+                                }
+                            }
+                        }
+                    }
+                }
+
                 foreach ($cartData as $index => $data) {
                     if (isset($data['qty'])) {
                         $cartData[$index]['qty'] = $filter->filter(trim($data['qty']));
                     }
                 }
-                $cart = $this->_getCart();
+                
                 if (! $cart->getCustomerSession()->getCustomer()->getId() && $cart->getQuote()->getCustomerId()) {
                     $cart->getQuote()->setCustomerId(null);
                 }
@@ -884,17 +857,38 @@ class Bilna_Crossborder_CartController extends Mage_Core_Controller_Front_Action
 
     private function __getTotalStoredCrossBorder($crossBorderSession)
     {
-        $totalArray = array();
+        $totalArray = array(
+            'weight' => 0,
+            'subtotal' => 0,
+            'qty' => 0
+        );
 
-        foreach ($crossBorderSession as $crossBorderValue) {
-            foreach ($crossBorderValue as $id => $value) {
+        foreach ($crossBorderSession as $quote) {
+            if ($quote['cross_border'] == 1) {
+                $qty = $quote['qty'];
+                foreach ($quote as $quoteAttribute => $quoteValue) {
+                    if ($quoteAttribute == 'weight') {
+                        $totalArray['weight'] += $quoteValue * $qty;
+                    }
+
+                    if ($quoteAttribute == 'price') {
+                        $totalArray['subtotal'] += $quoteValue * $qty;
+                    }
+                }
+
+                $totalArray['qty'] += $qty;
+            }
+
+
+            /*foreach ($crossBorderValue as $id => $value) {
                 if (($id != 'qty') && ($id != 'item_id')) {
                     $totalArray[$id] +=  $value * $crossBorderValue['qty'];
                 }
                 $totalArray['qty'] = $crossBorderValue['qty'];
-            }
+            }*/
         }
 
         return $totalArray;
     }
 }
+    
