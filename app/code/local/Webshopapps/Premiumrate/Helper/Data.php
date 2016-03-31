@@ -115,12 +115,41 @@ class Webshopapps_Premiumrate_Helper_Data extends Mage_Core_Helper_Abstract
 		$contain_import = 0;
 		$status = array();
 
+		$total_volweight = 0;
+		$configurableQty = 0;
+
 		$all_items = $request->getAllItems();
 
-        foreach($all_items as $item)
-        {
-            $product = Mage::getModel('catalog/product')->load( $item->getProductId() );
-            if ( is_null($product->getExpressShipping()) || $product->getExpressShipping() == 0 )
+		foreach($all_items as $item) 
+		{
+			$product = Mage::getModel('catalog/product')->load( $item->getProductId() );
+			$currentQty = $item->getQty();
+
+			if ($item->getProductType() == Mage_Catalog_Model_Product_Type::TYPE_CONFIGURABLE) 
+			{
+				$configurableQty = $currentQty;
+				continue;
+			} 
+			elseif ($configurableQty > 0) 
+			{
+				$currentQty = $configurableQty;
+				$configurableQty = 0;
+			}
+
+			$parentQty = 1;
+
+			if ($item->getParentItem()!=null) 
+			{
+				if ($item->getParentItem()->getProductType() == Mage_Catalog_Model_Product_Type::TYPE_BUNDLE) 
+				{
+					$parentQty = $item->getParentItem()->getQty();
+				}
+			}
+
+			$qty = $currentQty * $parentQty;
+			$total_volweight += ($product->getVolumeWeight() * $qty);
+
+            if ( is_null($product->getIsImport()) || $product->getIsImport() == 0 )
             {
             	$contain_local = 1;
             	$status['local_items']['product_ids'][] = $item->getProductId();
@@ -137,7 +166,7 @@ class Webshopapps_Premiumrate_Helper_Data extends Mage_Core_Helper_Abstract
             	$status['local_items']['qty'] += $item->getQty();
         		$status['local_items']['weight'] += ( $item->getQty() * $item->getWeight() );
         		$status['local_items']['price'] += ( $item->getQty() * $item->getPrice() );
-        		$status['local_items']['volweight'] += ( $product->getVolumeWeight() * $item->getPrice() );
+        		$status['local_items']['volweight'] += ( $product->getVolumeWeight() * $item->getQty() );
             }
             else
             {
@@ -158,7 +187,10 @@ class Webshopapps_Premiumrate_Helper_Data extends Mage_Core_Helper_Abstract
         		$status['import_items']['price'] += ( $item->getQty() * $item->getPrice() );
         		$status['import_items']['volweight'] += ( $product->getVolumeWeight() * $item->getQty() );
             }
-        }
+
+			$product=Mage::getModel('catalog/product')->load( $item->getProductId() );
+			
+		}
 
         if ($contain_local == 1 && $contain_import == 1)
         	$status['item_status'] = Webshopapps_Premiumrate_Model_Carrier_Premiumrate::ITEMS_MIXED;
@@ -170,8 +202,6 @@ class Webshopapps_Premiumrate_Helper_Data extends Mage_Core_Helper_Abstract
         	if ($contain_import == 1)
         		$status['item_status'] = Webshopapps_Premiumrate_Model_Carrier_Premiumrate::ITEMS_IMPORT;
         }
-
-        $status['item_status'] = Webshopapps_Premiumrate_Model_Carrier_Premiumrate::ITEMS_MIXED;
 
         return $status;
 	}

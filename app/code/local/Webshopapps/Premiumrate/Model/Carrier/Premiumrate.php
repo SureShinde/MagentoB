@@ -202,15 +202,26 @@ class Webshopapps_Premiumrate_Model_Carrier_Premiumrate
 
     public function getRate(Mage_Shipping_Model_Rate_Request $request)
     {
+        // check whether cross border is enabled
+        $config = Mage::getStoreConfig('bilna_crossborder/status/enabled');
+
         /* additonal method :
         check whether the cart contains items which are imported or not
         */
         $itemStatus = Mage::Helper('premiumrate')->checkImportedItemsAvailability($request);
 
-        if ($itemStatus['item_status'] == Webshopapps_Premiumrate_Model_Carrier_Premiumrate::ITEMS_MIXED)
-            return Mage::getResourceModel('premiumrate_shipping/carrier_premiumrate')->getNewRateMixed($request, $itemStatus);
+        if ($config)
+        {
+            if ($itemStatus['item_status'] == Webshopapps_Premiumrate_Model_Carrier_Premiumrate::ITEMS_MIXED)
+                return Mage::getResourceModel('premiumrate_shipping/carrier_premiumrate')->getNewRateMixed($request, $itemStatus);
+        }
         else
-    	   return Mage::getResourceModel('premiumrate_shipping/carrier_premiumrate')->getNewRate($request, $itemStatus);
+        {
+            if ($itemStatus['item_status'] == Webshopapps_Premiumrate_Model_Carrier_Premiumrate::ITEMS_IMPORT)
+                return null;
+        }
+
+        return Mage::getResourceModel('premiumrate_shipping/carrier_premiumrate')->getNewRate($request, $itemStatus);
     }
 
     public function getCode($type, $code='')

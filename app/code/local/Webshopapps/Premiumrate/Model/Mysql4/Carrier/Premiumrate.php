@@ -335,6 +335,8 @@ class Webshopapps_Premiumrate_Model_Mysql4_Carrier_Premiumrate extends Mage_Core
          * pdo has an issue. we cannot use bind
          */
         $newdata = array ();
+        $newlocaldata = array();
+        $newimportdata = array();
 
         // loop through available item types ( local & import )
         foreach($available_item_types as $item_type)
@@ -384,11 +386,17 @@ class Webshopapps_Premiumrate_Model_Mysql4_Carrier_Premiumrate extends Mage_Core
             for ($j = 0; $j < $switchSearches; $j++) {
                 $select = $this->getSwitchSelect($read,$j);
 
+                /* depending on the condition of current item type ( local or item ),
+                the where condition has to be checked whether it is import or local
+                */
                 if ($item_type == 'local_items')
                     $select->where('(is_import IS NULL or is_import = ?)', 0);
                 else
                 if ($item_type == 'import_items')
                     $select->where('is_import = ?', 1);
+
+                // we only want to find the one with Standard Shipping
+                $select->where('delivery_id = ?', 1);
 
                 if ($request->getPRConditionName() == 'package_volweight') {
                     if ($usingGreaterVolLogic) {
@@ -574,6 +582,12 @@ class Webshopapps_Premiumrate_Model_Mysql4_Carrier_Premiumrate extends Mage_Core
                             }
                         }
                         $newData[]=$data;
+
+                        if ($item_type == 'local_items')
+                            $newlocaldata[] = $data;
+                        else
+                        if ($item_type == 'import_items')
+                            $newimportdata[] = $data;
                     }
                     break;
                 } else {
@@ -603,7 +617,100 @@ class Webshopapps_Premiumrate_Model_Mysql4_Carrier_Premiumrate extends Mage_Core
             }
         }
 
-        if(!empty($newData)){ return $newData;} else return;
+        $newDataJoined = array();
+
+        foreach($newlocaldata as $localkey => $localdata)
+        {
+            $localPrice = $localdata['price'];
+            $localDeliveryId = Mage::helper('shipping')->__($localdata['delivery_id']);
+            $localDeliveryType = Mage::helper('shipping')->__($localdata['delivery_type']);
+            $localMethodName = Mage::helper('shipping')->__($localdata['method_name']);
+            $localCost = $localdata['cost'];
+
+            foreach($newimportdata as $importkey => $importdata)
+            {
+                $importPrice = $importdata['price'];
+                $importDeliveryId = Mage::helper('shipping')->__($importdata['delivery_id']);
+                $importDeliveryType = Mage::helper('shipping')->__($importdata['delivery_type']);
+                $importMethodName = Mage::helper('shipping')->__($importdata['method_name']);
+                $importCost = $importdata['cost'];
+
+                $joinedMethodName = $localMethodName . ' ('.Mage::helper('core')->currency($localPrice, true, false).')' . ' + ' .
+                    $importMethodName . ' ('.Mage::helper('core')->currency($importPrice, true, false).')';
+                $joinedDeliveryType = $localMethodName . ' ('.Mage::helper('core')->currency($localPrice, true, false).')' . ' + ' .
+                    $importMethodName . ' ('.Mage::helper('core')->currency($importPrice, true, false).')';
+                $joinedDeliveryId = $localDeliveryId;
+                $joinedPrice = $localPrice + $importPrice;
+                $joinedCost = $localCost + $importCost;
+
+                $newDataJoined[] = ['price' => $joinedPrice, 'method_name' => $joinedMethodName,
+                    'delivery_type' => $joinedDeliveryType, 'delivery_id' => $joinedDeliveryId,
+                    'cost' => $joinedCost];
+            }
+        }
+
+        /*
+        $newDataJoined = array();
+        $joinedPrice = 0;
+
+        $min = 9999;
+        $max = 0;
+        */
+
+        /* join shipping rate */
+        /*
+        foreach ($newData as $key=>$result) {
+            $joinedPrice += $result['price'];
+            $joinedMethodName = Mage::helper('shipping')->__('Standard Shipping');
+            $joinedDeliveryType = Mage::helper('shipping')->__('Standard Shipping');
+            $joinedDeliveryId = $result['delivery_id'];
+            $joinedCost += $result['cost'];
+
+            // set min delivery days
+            if (!is_null($result['delivery_days_from']))
+            {
+                if (intval($result['delivery_days_from']) < $min)
+                    $min = $result['delivery_days_from'];
+            }
+            else
+                $min = $this->getMinDaysFromDeliveryType($result['delivery_type']);
+
+            // set max days
+            if (!is_null($result['delivery_days_to']))
+            {
+                if (intval($result['delivery_days_to']) > $max)
+                    $max = $result['delivery_days_to'];
+            }
+        }
+
+        $joinedMethodName .= " ($min - $max ".Mage::helper('shipping')->__('hari kerja').")";
+        $joinedDeliveryType .= " ($min - $max ".Mage::helper('shipping')->__('hari kerja').")";
+
+        $newDataJoined[] = ['price' => $joinedPrice, 'method_name' => $joinedMethodName,
+            'delivery_type' => $joinedDeliveryType, 'delivery_id' => $joinedDeliveryId,
+            'cost' => $joinedCost];
+        */
+
+        if(!empty($newDataJoined)){ return $newDataJoined;} else return;
+    }
+
+    private function getMinDaysFromDeliveryType($delivery_type)
+    {
+        // extract the min days from delivery type string
+        // e.g. Standard Shipping (2 - 5 hari kerja) -> get the 2
+        // e.g. Standard Shipping (11+ hari kerja) -> get the 11
+        $daysPos = strpos($delivery_type, '(') + 1;
+        $daysText = substr($delivery_type, $daysPos);
+
+        if (strpos($daysText, '-') !== false)
+            $daysArr = explode('-', $daysText);
+        else
+        if (strpos($daysText, '+') !== false)
+            $daysArr = explode('+', $daysText);
+
+        $min = intval($daysArr[0]);
+
+        return $min;
     }
 
 	private function getSwitchSelect($read,$j)
@@ -835,7 +942,7 @@ class Webshopapps_Premiumrate_Model_Mysql4_Carrier_Premiumrate extends Mage_Core
                 $csvLine = array_shift($csvLines);
                 $csvLine = $this->_getCsvValues($csvLine);
                 
-                if (count($csvLine) < 19) {
+                if (count($csvLine) < 17) {
                     $exceptions[0] = Mage::helper('shipping')->__('Invalid Premium Matrix Rates File Format');
                 }
 
@@ -845,7 +952,7 @@ class Webshopapps_Premiumrate_Model_Mysql4_Carrier_Premiumrate extends Mage_Core
                 foreach ($csvLines as $k => $csvLine) {
                     $csvLine = $this->_getCsvValues($csvLine);
                     
-                    if (count($csvLine) > 0 && count($csvLine) < 19) {
+                    if (count($csvLine) > 0 && count($csvLine) < 17) {
                         $exceptions[0] = Mage::helper('shipping')->__('Invalid Premium Matrix Rates File Format');
                     }
                     else {
@@ -1009,26 +1116,6 @@ class Webshopapps_Premiumrate_Model_Mysql4_Carrier_Premiumrate extends Mage_Core
                     else {
                         $isImport = $csvLine[16];
                     }
-
-                    /**
-                     * get delivery days from
-                     */
-                    if ($csvLine[17] == '*' || $csvLine[17] == '') {
-                        $deliveryDaysFrom = '0';
-                    }
-                    else {
-                        $deliveryDaysFrom = $csvLine[17];
-                    }
-
-                    /**
-                     * get delivery days to
-                     */
-                    if ($csvLine[18] == '*' || $csvLine[18] == '') {
-                        $deliveryDaysTo = '0';
-                    }
-                    else {
-                        $deliveryDaysTo = $csvLine[18];
-                    }
                     
                     foreach ($splitCountries as $country) {
                         $country = trim($country);
@@ -1099,9 +1186,7 @@ class Webshopapps_Premiumrate_Model_Mysql4_Carrier_Premiumrate extends Mage_Core
                                     'delivery_type' => $csvLine[13],
                                     'sort_order' => $sortOrder,
                                     'delivery_id' => $deliveryId,
-                                    'is_import' => $isImport,
-                                    'delivery_days_from' => $deliveryDaysFrom,
-                                    'delivery_days_to' => $deliveryDaysTo
+                                    'is_import' => $isImport
                                 );
                                 
                                 $dataDetails[] = array ('country' => $country, 'region' => $region);
