@@ -6,8 +6,7 @@
  * @copyright Copyright (c) 2015 Moxy (moxy.co.id)
  * @version   Fri Sep 25 11:33:43 2015
  */
-class Moxy_SocialCommerce_Helper_Data
-extends Mage_Core_Helper_Abstract
+class Moxy_SocialCommerce_Helper_Data extends Mage_Core_Helper_Abstract
 {
     public static function stripArray($input)
     {
@@ -47,15 +46,15 @@ extends Mage_Core_Helper_Abstract
         return trim(preg_replace("!\s+!", ' ', strip_tags($result)));
     }
 
-	public function checkUsernameAvailable($postUsername)
-	{
-		$profiler = Mage::getModel('socialcommerce/profile')->load($postUsername, 'username');
+    public function checkUsernameAvailable($postUsername)
+    {
+        $profiler = Mage::getModel('socialcommerce/profile')->load($postUsername, 'username');
 
-		# true means available
-		return (! $profiler->getEntityId()) ? true : false;
-	}
+        # true means available
+        return (! $profiler->getEntityId()) ? true : false;
+    }
 
-	# Create new custom rewrite for collection detail
+    # Create new custom rewrite for collection detail
     public function createNewCollectionRewrite($id, $slug)
     {
         # TODO loop thru all store ids, and create rewrite for each store id.
@@ -82,7 +81,7 @@ extends Mage_Core_Helper_Abstract
             ->save();*/
     }
 
-	public function checkCollectionLimit($customerId)
+    public function checkCollectionLimit($customerId)
     {
         $wishlistCollection = Mage::getModel('wishlist/wishlist')->getCollection()
             ->filterByCustomerId($customerId);
@@ -94,7 +93,8 @@ extends Mage_Core_Helper_Abstract
         }
     }
 
-    public function createTemporaryProfile($customer = NULL) {
+    public function createTemporaryProfile($customer = NULL) 
+    {
 
         if($customer == NULL) {
             $customer = Mage::getSingleton('customer/session')->getCustomer();
@@ -200,7 +200,7 @@ extends Mage_Core_Helper_Abstract
             $_POST['image_url'] = $data['image_url'];
         }
         if ($_POST['image_url']) {
-            $upFileTmpName = $this->download_image($_POST['image_url']);
+            $upFileTmpName = $this->download_image($_POST['image_url'], 'avatar');
             $imageUrl = 'media'. DS .'avatar'. DS . basename($upFileTmpName);
             $image = new Varien_Image ( $imageUrl );
             $image->constrainOnly(true);
@@ -214,11 +214,10 @@ extends Mage_Core_Helper_Abstract
         }
 
         return ltrim($result['file'], '/');
-
     }
 
     # Upload cover image
-	public function processCoverset($imagePath)
+    public function processCoverset($imagePath)
     {
         $return = null;
 
@@ -235,29 +234,28 @@ extends Mage_Core_Helper_Abstract
         }
 
         return $return;
-
     }
-	#
-	#
-	protected function download_image($image_url) {
-		$image_file = 'media'. DS .'collection-cover'. DS . substr(str_shuffle(md5(time())),0,5).'.jpg';
-		$dirname = dirname($image_file);
-                if (!is_dir($dirname))
-                {
-                    mkdir($dirname, 0777, true);
-                }
-		$fp = fopen($image_file, 'w+');
+    
+    protected function download_image($image_url, $target = 'collection-cover') 
+    {
+        $image_file = 'media'. DS .$target. DS . substr(str_shuffle(md5(time())),0,5).'.jpg';
+        $dirname = dirname($image_file);
+        if (!is_dir($dirname))
+        {
+            mkdir($dirname, 0777, true);
+        }
+        $fp = fopen($image_file, 'w+');
 
-		$ch = curl_init($image_url);
-		curl_setopt($ch, CURLOPT_FILE, $fp);          // output to file
-		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-		curl_setopt($ch, CURLOPT_TIMEOUT, 1000);      // some large value to allow curl to run for a long time
-		curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0');
-		curl_exec($ch);
-		curl_close($ch);
-		fclose($fp);
-		return $image_file;
-	}
+        $ch = curl_init($image_url);
+        curl_setopt($ch, CURLOPT_FILE, $fp);          // output to file
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 1000);      // some large value to allow curl to run for a long time
+        curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0');
+        curl_exec($ch);
+        curl_close($ch);
+        fclose($fp);
+        return $image_file;
+    }
 
     public function processCover($data = NULL)
     {
@@ -323,8 +321,7 @@ extends Mage_Core_Helper_Abstract
     # Check if the customer has public profile already
     public function checkExistingProfile($customerId)
     {
-        $profiler = Mage::getModel('socialcommerce/profile')
-            ->load($customerId, 'customer_id');
+        $profiler = Mage::getModel('socialcommerce/profile')->load($customerId, 'customer_id');
 
         return ($profiler->getEntityId()) ? true : false;
     }
@@ -369,7 +366,8 @@ extends Mage_Core_Helper_Abstract
         return (count($routeExists) == 0) ? true : false;
     }
 
-    public function getProfileInformation($customer_id) {
+    public function getProfileInformation($customer_id) 
+    {
         $customer = Mage::getModel('customer/customer')->load($customer_id);
         $profile = Mage::getModel('socialcommerce/profile')->load($customer_id, 'customer_id');
         $img = Mage::getDesign()->getSkinUrl('images/').'avatar-f.jpg';
@@ -401,5 +399,4 @@ extends Mage_Core_Helper_Abstract
         }
         return array('profile_image' => $img, 'display_name' => $title, 'url' => $url);
     }
-
 }
