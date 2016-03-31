@@ -196,7 +196,7 @@ extends Mage_Core_Helper_Abstract
         }
             
         //to handle API data content
-        if($data != NULL && $data['image_url'] != '') {
+        if(!empty($data['image_url'])) {
             $_POST['image_url'] = $data['image_url'];
         }
         if ($_POST['image_url']) {
@@ -266,10 +266,6 @@ extends Mage_Core_Helper_Abstract
          */
         //if($_FILES) {
             
-            //to handle API data content
-            if($data != NULL && $data['preset_image'] != '') {
-                $_FILES = $data['preset_image'];
-            }
             if ($_FILES['cover']['tmp_name']) {
                 $image_name = substr(str_shuffle(md5(time())),0,5).'.jpg';
                 $uploader = new Varien_File_Uploader('cover', $data);   
@@ -291,12 +287,12 @@ extends Mage_Core_Helper_Abstract
                 return ltrim($result['file'], '/');
             }
             
-            //to handle API data content
-            if($data != NULL && $data['image_url'] != '') {
+            //to handle API data content            
+            if(!empty($data['image_url'])) {
                 $_POST['image_url'] = $data['image_url'];
             }
             if ($_POST['image_url']) {
-                $upFileTmpName = $this->download_image($_POST['image_url']);
+                $upFileTmpName = $this->download_image($_POST['image_url']);                
                 $imageUrl = 'media'. DS .'collection-cover'. DS . basename($upFileTmpName);
                 $image = new Varien_Image ( $imageUrl );
                 $image->constrainOnly(true);

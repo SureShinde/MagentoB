@@ -1,7 +1,7 @@
 <config>
 	<modules>
 		<Bilna_Checkout>
-			<version>0.1.13</version>
+                        <version>0.1.13</version>
 		</Bilna_Checkout>
 	</modules>
 	<global>
@@ -9,6 +9,14 @@
 			<bilna_checkout>
 				<class>Bilna_Checkout_Model</class>
 			</bilna_checkout>
-		</models>
+		</models>                
+                <resources>
+                    <bilna_checkout_setup>
+                        <setup>
+                            <module>Bilna_Checkout</module>
+                            <class>Bilna_Checkout_Model_Resource_Setup</class>
+                        </setup>
+                    </bilna_checkout_setup>
+                </resources>
 	</global>
 </config>

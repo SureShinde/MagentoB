@@ -64,21 +64,6 @@ class Bilna_Customer_Model_Api2_Wishlistcollection_Rest_Admin_V1 extends Bilna_C
             try {
                 $collectionId = (int)$this->getRequest()->getParam('collection_id');
                 $wishlist = Mage::getModel('wishlist/wishlist')->load($collectionId);
-                $wishlist->setOrder('created_at', 'desc');
-
-                $limit = (int)$this->getRequest()->getParam('limit');
-                $page = (int)$this->getRequest()->getParam('page');
-
-                if ($limit) {
-                    $wishlist->setPageSize($limit);
-                } else {
-                    $wishlist->setPageSize(10);
-                }
-                if ($page) {
-                    $wishlist->setCurPage($page);
-                } else {
-                    $wishlist->setCurPage(1);
-                }
                 
                 if ($wishlist) {
                     $data = $wishlist;

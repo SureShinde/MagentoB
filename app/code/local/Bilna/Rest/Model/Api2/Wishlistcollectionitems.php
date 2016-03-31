@@ -14,8 +14,10 @@ class Bilna_Rest_Model_Api2_Wishlistcollectionitems extends Bilna_Rest_Model_Api
             ->addWishlistFilter($wishlist)
             ->setVisibilityFilter();
         
-        $result = [];
-        $result[0] = ['total_record' => count($productWishlistCollection->getItems())];
+        $result = [];     
+        $result[0]['total_record'] = $productWishlistCollection->getSize();
+        $this->_pagination($productWishlistCollection);
+        
         foreach ($productWishlistCollection->getItems() as $item) {
             $result[$item->getId()] = $item->getData();
             
@@ -27,6 +29,23 @@ class Bilna_Rest_Model_Api2_Wishlistcollectionitems extends Bilna_Rest_Model_Api
         }
         
         return $result;
+    }
+    
+    protected function _pagination($object)
+    {
+        $limit = (int)$this->getRequest()->getParam('limit');
+        $page = (int)$this->getRequest()->getParam('page');
+
+        if ($limit) {
+            $object->setPageSize($limit);
+        } else {
+            $object->setPageSize(10);
+        }
+        if ($page) {
+            $object->setCurPage($page);
+        } else {
+            $object->setCurPage(1);
+        }
     }
     
 }
