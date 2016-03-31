@@ -82,7 +82,7 @@ jQuery(document).ready(function() {
     jQuery.ajax({
       type: "POST",
       url: "https://us12.api.mailchimp.com/2.0/lists/subscribe",
-      dataType: "jsonp",
+      dataType: "json",
       data: subscribe_payload
     });
   }
