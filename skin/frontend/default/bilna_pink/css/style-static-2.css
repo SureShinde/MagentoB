@@ -1026,7 +1026,7 @@ animation-timing-function: linear;
 }
 .static-page-content > h3 {
     font-size: 21px;
-	color: #EE5191 !important;
+	color: #ff6c6c !important;
 }
 .static-testi-row {
 	margin:15px 0 0;
@@ -1070,7 +1070,7 @@ animation-timing-function: linear;
     font-size: 14px;
 }
 .contactForm-content .static-tagline {
-    color: #EE5191;
+    color: #ff6c6c;
     font-size: 14px;
 }
 .contactForm-content {
@@ -1532,7 +1532,7 @@ h2.block-grey-title-left {
 }
 .left-sp-menu-wrapp ul li a:hover{
 	text-decoration: none;
-	color: #EE5191;
+	color: #ff6c6c;
 }
 .container-left-com {
 	margin-bottom: 10px;

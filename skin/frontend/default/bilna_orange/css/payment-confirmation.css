@@ -1,0 +1,171 @@
+
+.clearfix {
+  clear: both;
+}
+.payment-confirmation .page-title{
+border-bottom: none;
+}
+.payment-confirmation .page-title .line {
+width: 20%;
+border-bottom: 1px solid #FF6C6C;
+margin:0 auto;
+padding-top: 15px;
+}
+.payment-confirmation .page-title span {
+  letter-spacing: 0;
+  color: #FF6C6C;
+  font-size: 28px;
+  font-weight: bold;
+  margin: 0;
+  line-height: 38px;
+  text-transform: uppercase;
+}
+.payment-confirmation{
+  width: 100%;
+  margin-bottom: 50px;
+}
+form#paymentconfirmationForm{
+  display: inline-block;
+  width: 100%;
+  position: relative;
+}
+.payment-confirmation .btn-box{
+  padding: 10px 0px 0;
+}
+.payment-confirmation .input-box{
+  position: relative;
+}
+.payment-confirmation .form-list li{
+  margin: 0 0 15px;
+}
+.payment-confirmation .form-list li .input-box,
+.payment-confirmation .form-list li label{
+  display: inline-block;
+  float: none;
+  position: relative;
+}
+.payment-confirmation .form-list li .input-box,
+.payment-confirmation .form-list li label,
+.payment-confirmation .form-list select{
+  width: 100%;
+}
+.payment-confirmation .form-list select{
+  background: #fff;
+  height: 35px;
+}
+.payment-confirmation .form-list li label{
+  text-align: center;
+  color:#73777A;
+  font-size: 16px;
+}
+.form-list li .input-box textarea{
+  width: 100%;
+}
+.payment-confirmation .form-list li .input-box textarea{
+  background: #fff;
+  border-color:#73777A;
+  color:#73777A;
+  border-radius: none;
+  -webkit-border-radius: none;
+  -moz-border-radius: none;
+}
+.payment-confirmation .form-list li .input-box input{
+  width: 100%;
+  background: #fff;
+  border-color:#73777A;
+  color:#73777A;
+  height: 35px;
+}
+.payment-confirmation .form-list select{
+  background: #fff;
+  height: 35px;
+  border-color:#73777A;
+  color:#73777A;
+  border-radius: none;
+  -webkit-border-radius: none;
+  -moz-border-radius: none;
+}
+
+.payment-confirmation button.button{
+  width: auto;
+  display: inline-block;
+  margin:0;
+}
+  
+.payment-confirmation button.button span{
+  font-size: 13px;
+  line-height: 22px;
+  font-weight: bold;
+  line-height: 25px;
+  padding: 5px;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+}
+.payment-confirmation .intro{
+  margin-bottom: 30px;
+  font-size: 16px;
+  color:#73777A;
+}
+.payment-confirmation .intro a{
+  color:#73777A;
+  text-decoration: underline;
+}
+.payment-confirmation .validation-failed{
+ background: #fff!important;
+ border: #73777A solid 1px!important; 
+}
+.payment-confirmation .validation-advice:before{
+content: "\f071";
+margin:3px;
+font:normal normal normal 14px/1 FontAwesome;
+}
+.payment-confirmation .validation-advice{
+  padding:0;
+  position: relative;
+  text-align: left;
+  margin: 10px 0 0;
+  font-size: 12px;
+  background: transparent;
+}
+@media (max-width: 990px){
+    .payment-confirmation button.button{
+    width: 100%;
+  }
+  .payment-confirmation .btn-box{
+    width: 100%;
+  }
+}
+@media (min-width: 768px){
+  .payment-confirmation .validation-advice:before{
+    position: absolute;
+    left: 0px;
+    top: -3px;
+  }
+  .payment-confirmation button.button span{
+   padding: 5px 30px; 
+   font-size: 16px;
+  }
+  .payment-confirmation .form-list li .input-box,
+  .payment-confirmation .form-list li label{
+    text-align: left;
+    float: left;
+    width: 50%;
+    clear: none;   
+  }
+  .payment-confirmation .form-list li label{
+    padding-right: 1%;
+    width: 49%;
+  }
+  .payment-confirmation .validation-advice{
+    clear: none;
+    text-align: left;
+    display: inline-block;
+    position: absolute;
+    left: 100%;
+    min-width: 150px;
+    top: 10px;
+    margin-top: 0;
+    padding-left: 22px;
+  }
+}
