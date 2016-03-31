@@ -30,7 +30,6 @@ require_once 'Mage/Checkout/controllers/CartController.php';
  * Shopping cart controller
  */
 class Bilna_Crossborder_CartController extends Mage_Core_Controller_Front_Action
-//class Bilna_Crossborder_CartController extends Mage_Checkout_CartController
 {
     /**
      * Action list where need check enabled cookie
@@ -511,19 +510,16 @@ class Bilna_Crossborder_CartController extends Mage_Core_Controller_Front_Action
                             if ((int)$cartData[$quote['item_id']]['qty'] > (int)$quote['qty']) {
                                 $qtyDiff = (int)$cartData[$quote['item_id']]['qty'] - (int)$quote['qty'];
                                 if (($qtyDiff + $totalArray['qty']) > $maxQty) {
-                                    $crossBorderError++;
                                     $message = $this->__('Import product qty exceeded maximum limitation.');
                                     Mage::throwException($message);
                                 }
 
                                 if ((($qtyDiff * $quote['weight']) + $totalArray['weight']) > $maxWeight) {
-                                    $crossBorderError++;
                                     $message = $this->__('Import product weight exceeded maximum limitation.');
                                     Mage::throwException($message);
                                 }
 
                                 if ((($qtyDiff * $quote['price']) + $totalArray['subtotal']) > $maxSubtotal) {
-                                    $crossBorderError++;
                                     $message = $this->__('Import product subtotal exceeded maximum limitation.');
                                     Mage::throwException($message);
                                 }
@@ -878,14 +874,6 @@ class Bilna_Crossborder_CartController extends Mage_Core_Controller_Front_Action
 
                 $totalArray['qty'] += $qty;
             }
-
-
-            /*foreach ($crossBorderValue as $id => $value) {
-                if (($id != 'qty') && ($id != 'item_id')) {
-                    $totalArray[$id] +=  $value * $crossBorderValue['qty'];
-                }
-                $totalArray['qty'] = $crossBorderValue['qty'];
-            }*/
         }
 
         return $totalArray;
