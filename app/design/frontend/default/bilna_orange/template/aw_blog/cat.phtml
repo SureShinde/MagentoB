@@ -26,7 +26,7 @@
 ?> <?php $posts = $this->getPosts(); ?>
 <?php if (count($posts)): ?>
  
- <label style="display: block; margin: 10px 0; clear:both;"><?php //echo $this->getChildHtml('aw_blog_comments_toolbar'); ?></label>
+ <label style="display: block; margin: 10px 0; clear:both;"></label>
     <?php foreach ($posts as $post): ?>
         <div class="postWrapper">
             
@@ -40,7 +40,6 @@
                 </p>
                 <?php echo $post->getPostContent(); ?></div>
             <?php echo $this->getBookmarkHtml($post) ?>
-            <!--div class="tags"><?php //echo Mage::getBlockSingleton('blog/blog')->getTagsHtml($post) ?></div-->
             
         </div>
     <?php endforeach; ?>

@@ -47,38 +47,37 @@
 
 <!-- Provide wishlist value if we are at wishlist detail page -->
 <?php 
-	$wishlist = $this->getWishlist();
-	if ($wishlist) {
-		$wishlistCover = $this->getWishlistCoverImage();
-	}
+    $dt = new DateTime();
+    $today = $dt->format('YmdHis');
+    $wishlist = $this->getWishlist();
+    if ($wishlist) {
+    $wishlistCover = $this->getWishlistCoverImage();
+    }
 ?>
 
 <!-- Facebook Open Graph -->
-<?php
-	if ( $this->getTitle() )
-	{
-		?>
-		<meta property="og:site_name" content="<?php echo Mage::getStoreConfig('general/store_information/name'); ?>"/>
-		<!--cara penulisan Store Information lihat di app/code/core/Mage/Core/etc/system.xml-->
-		<meta property="og:url" content="<?php echo Mage::helper('core/url')->getCurrentUrl();?>"/>
-		<?php $post = $this->getPost(); ?>
-		<?php if ($post): ?>
-			<meta property="og:title" content="<?php echo htmlspecialchars($post->getTitle()); ?>"/>
-			<meta property="og:description" content="<?php echo strip_tags($post->getShortContent()); ?>"/>
-		<?php endif; ?>
-		<?php
-			$dt = new DateTime();
-			$today = $dt->format('YmdHis');
-		?>
-		<meta property="og:type" content="website"/>
-		<?php if ($wishlist) { ?>
-			<meta property="og:image" content="<?php echo $wishlistCover; ?>"/>
-		<?php } else { ?>
-			<meta property="og:image" content="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA); ?><?php echo $post->getImageName();?>?id=<?php echo $today; ?>"/>
-		<?php }?>
-		<?php
-	}
-?>
+<?php if ($this->getTitle()): ?>
+
+<meta property="og:site_name" content="<?php echo Mage::getStoreConfig('general/store_information/name'); ?>"/>
+<!--cara penulisan Store Information lihat di app/code/core/Mage/Core/etc/system.xml-->
+<meta property="og:url" content="<?php echo Mage::helper('core/url')->getCurrentUrl();?>"/>
+<?php $post = $this->getPost(); ?>
+
+<?php if ($wishlist): ?>
+    <meta property="og:title" content="<?php echo htmlspecialchars($wishlist->getName()); ?>"/>
+    <meta property="og:description" content="<?php echo strip_tags($wishlist->getDesc()); ?>"/>
+<?php elseif ($post): ?>
+    <meta property="og:title" content="<?php echo htmlspecialchars($post->getTitle()); ?>"/>
+    <meta property="og:description" content="<?php echo strip_tags($post->getShortContent()); ?>"/>
+<?php endif; ?>
+
+    <meta property="og:type" content="website"/>
+    <?php if ($wishlist): ?>
+        <meta property="og:image" content="<?php echo $wishlistCover; ?>"/>
+    <?php else: ?>
+        <meta property="og:image" content="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA); ?><?php echo $post->getImageName();?>?id=<?php echo $today; ?>"/>
+    <?php endif; ?>
+<?php endif; ?>
 <!-- End Facebook Open Graph -->
 
 <!-- Twitter cards implementation -->

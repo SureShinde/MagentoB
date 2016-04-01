@@ -38,11 +38,8 @@ extends Mage_Core_Controller_Front_Action
             ->addFilter('visibility', 1)
             ->addFieldToFilter('name', array('notnull' => true))
             ->addFieldToFilter('name', array('neq' => ' '))
-            ->addFieldToFilter('cover', array('notnull' => true));
-        $faveWishlists = $wishlists;
-        $faveWishlists->setOrder('counter', 'DESC')
-            ->setPageSize(4);
-        $wishlists->setOrder('updated_at', 'DESC');
+            ->addFieldToFilter('cover', array('notnull' => true))
+            ->setOrder('updated_at', 'DESC');
         $wishlists->getSelect()
             ->joinInner(
                 array('wishlist_item'=> Mage::getSingleton('core/resource')->getTableName('wishlist/item')),
@@ -50,16 +47,24 @@ extends Mage_Core_Controller_Front_Action
             )
             ->group('main_table.wishlist_id');
 
+        $faveWishlists = Mage::getModel('wishlist/wishlist')
+            ->getCollection()
+            ->addFilter('visibility', 1)
+            ->addFieldToFilter('name', array('notnull' => true))
+            ->addFieldToFilter('name', array('neq' => ' '))
+            ->addFieldToFilter('cover', array('notnull' => true))
+            ->setOrder('counter', 'DESC')
+            ->setPageSize(4);
+
         $collections = [];
 
         foreach ($wishlists as $wishlist) {
 
             $collectionCover = $wishlist->getCover();
-
             $items = $wishlist->getItemCollection()->setOrder('added_at', 'DESC');
 
             # for filtering items in product should be more than 4
-            if ($items->count() < 4) continue;
+            //if ($items->count() < 4) continue;
 
             $collectionName = $wishlist->getName();
 

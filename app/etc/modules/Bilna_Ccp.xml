@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Bilna_Ccp>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Bilna_Ccp>
+    </modules>
+</config>
