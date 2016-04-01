@@ -625,7 +625,7 @@ ShippingMethod.prototype = {
     save: function() {
         var requestData = "&shipping_text=" + jQuery('input[name=shipping_method]:checked').attr('data-text');
             requestData += "&shipping_type=" + jQuery('input[name=shipping_method]:checked').attr('data-type');
-            
+
         if (checkout.loadWaiting!=false) return;
         if (this.validate()) {
             checkout.setLoadWaiting('shipping-method');
@@ -809,7 +809,7 @@ Payment.prototype = {
         alert(Translator.translate('Please specify payment method.').stripTags());
         return false;
     },
-    
+
     errorMessage: function(action, message) {
         if (action == 'show') {
             jQuery('#payment-messages li.error-msg ul li span').html(message);
@@ -820,12 +820,12 @@ Payment.prototype = {
             jQuery('#payment-messages').hide();
         }
     },
-    
+
     bankValidate: function() {
         var methods = document.getElementsByName('payment[method]');
         var currPayment = $$('input:checked[type=radio][name=payment[method]]')[0].value;
         var responseStatus = false;
-        
+
         if (this.inArray(currPayment, creditCardPaymentArr)) {
             currPayment = 'vtdirect';
             var cardNo = jQuery('#payment_form_' + currPayment + ' #' + currPayment + '_cc_number').val();
@@ -865,10 +865,10 @@ Payment.prototype = {
         else {
             responseStatus = true;
         }
-        
+
         return responseStatus;
     },
-    
+
     inArray: function(item, arr) {
         if (!arr) {
             return false;
@@ -879,11 +879,11 @@ Payment.prototype = {
                     return true;
                 }
             }
-            
+
             return false;
         }
     },
-    
+
     savePayment: function() {
         checkout.setLoadWaiting('payment');
         var request = new Ajax.Request(
@@ -918,13 +918,13 @@ Payment.prototype = {
 
     save: function() {
         if (checkout.loadWaiting!=false) return;
-        
+
         this.errorMessage('hide', '');
-        
+
         if (!this.bankValidate()) {
             return false;
         }
-        
+
         var validator = new Validation(this.form);
         if (this.validate() && validator.validate()) {
             checkout.setLoadWaiting('payment');
@@ -995,19 +995,19 @@ Review.prototype = {
         this.onComplete = this.resetLoadWaiting.bindAsEventListener(this);
         //this.tokenId = null;
     },
-    
+
     saveReview: function(tokenId) {
         var params = Form.serialize(payment.form);
             params += '&token_id=' + tokenId;
-        
+
         if (this.agreementsForm) {
             params += '&' + Form.serialize(this.agreementsForm);
         }
-        
+
         if (this.installmentForm) {
             params += '&' + Form.serialize(this.installmentForm);
         }
-        
+
         params.save = true;
         var request = new Ajax.Request(
             this.saveUrl,
@@ -1018,7 +1018,7 @@ Review.prototype = {
                 //onSuccess: this.onSave,
                 onSuccess: function(response) {
                     var responseJson = response.responseText.evalJSON();
-                    
+
                     if (responseJson.success == false && responseJson.error == true) {
                         alert(responseJson.error_messages);
                         checkout.gotoSection('payment');
@@ -1037,13 +1037,13 @@ Review.prototype = {
         if (checkout.loadWaiting != false) {
             return;
         }
-        
+
         checkout.setLoadWaiting('review');
-        
+
         // get token from veritrans
         if (payment.inArray(payment.currentMethod, creditCardPaymentArr)) {
             Veritrans.token(_cardSet, callback);
-            
+
             return false;
         }
         else {
@@ -1069,8 +1069,25 @@ Review.prototype = {
                         var responseJson = response.responseText.evalJSON();
 
                         if (responseJson.success == false && responseJson.error == true) {
-                            alert(responseJson.error_messages);
-                            checkout.gotoSection('payment');
+                            if (responseJson.error_messages.indexOf('CrossBorder') > -1) {
+                                // TODO Add jQuery modal for displaying alert
+                                var dynamicDialog = jQuery('\
+                                                            <div id="crossBorderDialog" class="container-collection-pop" style="display:none;" >\
+                                                              <div class="cg-col-lg-5 cg-col-md-6 cg-col-sm-6 cg-col-xs-11 container-collection-whitebg white-bg-new-coll" style="max-width:500px;">\
+                                                                <p>' + responseJson.error_messages + '</p>\
+                                                                <button type="button" id="btnCrossBorderOk">OK</button>\
+                                                              </div>\
+                                                            </div>\
+                                                           ');
+                                jQuery('#checkout-step-review').append(dynamicDialog);
+                                jQuery('#btnCrossBorderOk').click(function(){
+                                  location.href = baseUrl + 'checkout/cart';
+                                });
+                                jQuery('#crossBorderDialog').fadeIn(500);
+                            } else{
+                                alert(responseJson.error_messages);
+                                checkout.gotoSection('payment');
+                            }
                         }
                         else {
                             review.nextStep(response);
@@ -1142,7 +1159,7 @@ function _cardSet() {
     result['card_exp_month'] = jQuery('#payment_form_' + currPayment + ' select.card-expiry-month').val();
     result['card_exp_year'] = jQuery('#payment_form_' + currPayment + ' select.card-expiry-year').val();
     result['card_cvv'] = jQuery('#payment_form_' + currPayment + ' input.card-cvv').val();
-    
+
     // 3d secure
     if (jQuery('#payment_form_' + currPayment + ' #' + currPayment + '_secure').val() == 1) {
         result['secure'] = (grossAmount >= secureMin);
@@ -1150,14 +1167,14 @@ function _cardSet() {
     else {
         result['secure'] = false;
     }
-    
+
     if (result['secure'] == false) {
         result['bank'] = jQuery('#payment_form_' + currPayment + ' #' + currPayment + '_acquired_bank').val();
     }
     else {
         result['bank'] = jQuery('#payment_form_' + currPayment + ' #' + currPayment + '_secure_acquired_bank').val();
     }
-    
+
     // installment-term
     if (jQuery('#payment_form_' + currPayment + ' #' + currPayment + '_installment_process').val() != 'manual') {
         if (jQuery('input[name=installment]').is(':checked')) {
@@ -1167,15 +1184,15 @@ function _cardSet() {
             }
         }
     }
-    
+
     result['gross_amount'] = grossAmount;
-    
+
     return result;
 };
 
 function callback(response) {
     //console.log('response: ' + JSON.stringify(response));
-    
+
     if (response.status_code == '200') {
         if (response.redirect_url) {
             // 3Dsecure transaction. Open 3Dsecure dialog
