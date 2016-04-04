@@ -107,7 +107,7 @@
                 <?php if($this->getShowPrice()) : ?>
                 <?php echo $_abstractBlock->getPriceHtml($_product, true) ?>
                 <?php endif ?>
-                
+
                 <?php if ($this->getShowRating()):?>
                 <div class="ratings">
                     <?php if ($_product->getRatingSummary()):?>
@@ -265,7 +265,7 @@
                 'eventAction':'impression'
                 };
                 dataLayer.push(ecommerceData);
-            }  
+            }
         }
         else if (li_browse_list.length > 0) {       // impression for static block in homepage
             if (!(jQuery('.awfeatured.awafpgrid').parent().eq(0).attr('data-universal-analytics'))) {
@@ -308,7 +308,7 @@
                     'event': 'impression',
                     'eventCategory':'ecommerce',
                     'eventAction':'impression'
-                };  
+                };
                 dataLayer.push(ecommerceData);
             }
         }
@@ -360,7 +360,7 @@
                     echo "'brandName' : 'brand name',";
                     echo "'imageUrl' : temp_cart[".$i."][5],";
                     echo "'link' : temp_cart[".$i."][6]}";if($i != $itemQty-1) {echo ",";}
-                } 
+                }
                 ?>
             ];
 
