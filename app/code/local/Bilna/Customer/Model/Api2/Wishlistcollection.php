@@ -33,13 +33,18 @@ class Bilna_Customer_Model_Api2_Wishlistcollection extends Bilna_Rest_Model_Api2
         if (isset($data['collection_id'])) {
             $wishlist->setWishlistId($data['collection_id']);
         }
+        //bug fix when user not update cover, but cover change to null cover
+        if(!empty($data['image_url'])) {
+            $wishlist->setCover($cover);
+        }
+        
         $wishlist->setCustomerId($customerId)
             ->setName($wishlistName)
             ->setVisibility($visibility)
             ->setDesc($desc)
             ->generateSharingCode()
             //->setCloudCover($cover)
-            ->setCover($cover)
+            //->setCover($cover)
             ->save();
         
         $preset_image = $this->getRequest()->getPost('preset_image');
