@@ -78,6 +78,9 @@ class Bilna_Paymethod_Model_Vtdirect extends Mage_Core_Model_Abstract {
 
                     $order->save();
 
+                    // decrement the count of sales order with express shipping
+                    $this->salesOrderDecrementCount($order);
+
                     return true;
                 }
                 else {
@@ -99,6 +102,9 @@ class Bilna_Paymethod_Model_Vtdirect extends Mage_Core_Model_Abstract {
 
                 $order->save();
 
+                // decrement the count of sales order with express shipping
+                $this->salesOrderDecrementCount($order);
+
                 return true;
             }
             elseif ($transactionStatus == 'cancel') {
@@ -109,6 +115,9 @@ class Bilna_Paymethod_Model_Vtdirect extends Mage_Core_Model_Abstract {
                 }
 
                 $order->save();
+
+                // decrement the count of sales order with express shipping
+                $this->salesOrderDecrementCount($order);
 
                 return true;
             }
@@ -140,5 +149,28 @@ class Bilna_Paymethod_Model_Vtdirect extends Mage_Core_Model_Abstract {
     public function addHistoryOrder($order, $charge) {
         $order->addStatusHistoryComment($charge->status_message);
         $order->save();
+    }
+
+    protected function salesOrderDecrementCount($order)
+    {
+        $shippingMethod = $order->getShippingMethod();
+        $orderDate = $order->getCreatedAt();
+        // only increment the sales order daily count table if the shipping method is Express
+        if ( (strpos(strtolower($shippingMethod), 'express') !== false) || (strpos(strtolower($shippingMethod), 'ekspres') !== false) )
+        {
+            $orderDate = Mage::getModel('core/date')->date('Y-m-d', strtotime($orderDate));
+            // check whether today's date is available inside the table sales_order_daily_count
+            $resource = Mage::getSingleton('core/resource');
+            $readConnection = $resource->getConnection('core_read');
+            $table = "sales_order_daily_count";
+            $query = "SELECT sales_date FROM $table WHERE sales_date = '$todayDate' LIMIT 1";
+            $salesDate = $readConnection->fetchOne($query);
+            $writeConnection = $resource->getConnection('core_write');
+            if ($salesDate) {
+                // update
+                $query = "UPDATE $table SET sales_count = sales_count - 1 WHERE sales_date = '$orderDate'";
+            }
+            $writeConnection->query($query);
+        }
     }
 }

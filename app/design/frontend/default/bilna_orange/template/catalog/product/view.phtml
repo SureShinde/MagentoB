@@ -117,6 +117,12 @@
                             ?>
                         </p>
                     </div>
+
+                    <?php if ($_product->getData('express_shipping')) : ?>
+                        <div class="express_shipping">
+                            <img src="<?php echo $this->getSkinUrl('images/vip-shipment-mail.png'); ?>" style="width: 35px;">Tersedia pengiriman express
+                        </div>
+                    <?php endif; ?>
                 
                     <?php if ($_product->isSaleable() && $this->hasOptions()): ?>
                         <div class="product-container1">

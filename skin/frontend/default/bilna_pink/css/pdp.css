@@ -348,6 +348,12 @@ hr{
 	text-transform: capitalize;
 	margin-left: 0;
 }
+.product-view .product-shop .product-shop-left .price-box-bundle .express-shipping {
+        display: none;
+}
+.product-view .product-shop .product-shop-left .price-box .express-shipping {
+        display: none;
+}
 #review-form .input-box{
     width: 70%;
 }

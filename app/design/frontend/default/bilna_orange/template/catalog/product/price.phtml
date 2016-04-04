@@ -151,6 +151,7 @@
                             <?php echo $_coreHelper->currency($_finalPrice, true, false) ?>
                         <?php endif; ?>
                     </span>
+
                 </span>
                 <span class="price-including-tax">
                     <span class="label"><?php echo $this->helper('tax')->__('Incl. Tax:') ?></span>
@@ -203,6 +204,9 @@
                     <?php else: ?>
                         <?php echo $_coreHelper->currency($_finalPrice, true, true) ?>
                     <?php endif; ?>
+                    <?php if ($_product->getData('express_shipping') == 1) : ?>
+                        <span><img class="express-shipping" src="<?php echo $this->getSkinUrl('images/vip-shipment-mail.png'); ?>" style="width: 35px;"></span>
+                    <?php endif; ?>
                 </span>
             <?php endif; ?>
         <?php endif; ?>
@@ -235,7 +239,7 @@
                 </span>
             </p>
             <?php endif; ?>
-        
+
             <p class="old-price">
                 <span class="price-label"><?php echo $this->__('Regular Price:') ?></span>
                 <span class="price" id="old-price-<?php echo $_id ?><?php echo $this->getIdSuffix() ?>">
@@ -244,7 +248,7 @@
             </p>
 
         <?php elseif ($_weeeTaxAmount && $_weeeHelper->typeOfDisplay($_product, 1)): // incl. + weee ?>
-           
+
         <p class="special-price">
             <?php if ($_taxHelper->displayBothPrices()): ?>
                 <span class="price-label"><?php echo $_specialPriceStoreLabel ?></span>
@@ -285,7 +289,7 @@
                 )</span>
             <?php endif; ?>
         </p>
-        
+
         <p class="old-price">
             <span class="price-label"><?php echo $this->__('Regular Price:') ?></span>
             <span class="price" id="old-price-<?php echo $_id ?><?php echo $this->getIdSuffix() ?>">

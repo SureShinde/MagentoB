@@ -114,20 +114,141 @@
         return 1;
     }
 
-Event.observe(window, 'load', function() {
-    var objName = '<?php echo $this->getSelectedTabId() ?>';
-    if (objName) {
-        obj = $(objName);
-        //IE fix (bubbling event model)
-        product_info_tabsJsTabs.setSkipDisplayFirstTab();
-        product_info_tabsJsTabs.showTabContent(obj);
-    }
-    Product.AttributesBridge.setTabsObject(product_info_tabsJsTabs);
-});
+    Event.observe(window, 'load', function() {
+        var objName = '<?php echo $this->getSelectedTabId() ?>';
+        if (objName) {
+            obj = $(objName);
+            //IE fix (bubbling event model)
+            product_info_tabsJsTabs.setSkipDisplayFirstTab();
+            product_info_tabsJsTabs.showTabContent(obj);
+        }
+        Product.AttributesBridge.setTabsObject(product_info_tabsJsTabs);
+    });
 
-Validation.addAllThese([
-    ['validate-super-product-attributes', '<?php echo Mage::helper('catalog')->__('Please select one or more attributes.') ?>', function(v) {
-                return (v != "no-attributes");
-            }]]);
+    /**
+     * Function to get the text from a selected option
+     * @author Indra Halim
+     */
+    Element.addMethods("SELECT", (function() {
+        function getSelectedOptionHTML(element) {
+            if (!(element = $(element))) return;
+            var index = element.selectedIndex;
+            return index >= 0 ? element.options[index].innerHTML : undefined;
+        }
+
+        // Function to disable an option by value
+        function disableOption(element, valueToDisable) {
+            var options = $(element).select('option');
+            if(options.length > 0) {
+                for(i = 0; i < options.length; i++) {
+                    var option = options[i];
+                    if (option.value == valueToDisable) {
+                        option.disabled = true;
+                    }
+                }
+            }
+        }
+
+        // Function to disable an option by label
+        function disableOptionByLabel(element, labelToDisable) {
+            var options = $(element).select('option');
+            if(options.length > 0) {
+                for(i = 0; i < options.length; i++) {
+                    var option = options[i];
+                    if (option.innerHTML.toLowerCase() == labelToDisable.toLowerCase()) {
+                        option.disabled = true;
+                    }
+                }
+            }
+        }
+
+        // Function to enable an option by value
+        function enableOption(element, valueToEnable) {
+            var options = $(element).select('option');
+            if(options.length > 0) {
+                for(i = 0; i < options.length; i++) {
+                    var option = options[i];
+                    if (option.value == valueToEnable) {
+                        option.disabled = false;
+                    }
+                }
+            }
+        }
+
+        // Function to enable an option by label
+        function enableOptionByLabel(element, labelToEnable) {
+            var options = $(element).select('option');
+            if(options.length > 0) {
+                for(i = 0; i < options.length; i++) {
+                    var option = options[i];
+                    if (option.innerHTML.toLowerCase() == labelToEnable.toLowerCase()) {
+                        option.disabled = false;
+                    }
+                }
+            }
+        }
+
+        return {
+            getSelectedOptionHTML: getSelectedOptionHTML,
+            disableOption: disableOption,
+            disableOptionByLabel: disableOptionByLabel,
+            enableOption: enableOption,
+            enableOptionByLabel: enableOptionByLabel
+        };
+    })());
+
+    Validation.addAllThese([
+        ['validate-super-product-attributes', '<?php echo Mage::helper('catalog')->__('Please select one or more attributes.') ?>', function(v) {
+            return (v != "no-attributes");
+        }]
+    ]);
+
+    /**
+     * Add listener to change event on partnership_type
+     * @author Indra Halim
+     */
+    Event.observe('partnership_type', 'change', function () {
+        var expressShippingId = 'express_shipping';
+        var partnershipTypeLabel = $('partnership_type').getSelectedOptionHTML().toLowerCase();
+        switch(partnershipTypeLabel) {
+            case 'dropship':
+            case 'special order':
+                $(expressShippingId).disableOption(1); // Disable the Yes option
+                $(expressShippingId).setValue(0); // Set the value to No
+                break;
+            default:
+                $(expressShippingId).enableOption(1); // Enable the Yes option
+                break;
+        }
+    });
+
+    /**
+     * Add listener to change event on express_shipping dropdown
+     * @author Indra Halim
+     */
+    Event.observe('express_shipping', 'change', function () {
+        var expressShippingValue = parseInt($('express_shipping').getValue());
+        var partnershipTypeId = 'partnership_type';
+        switch(expressShippingValue) {
+            case 1:
+                // If the current Partnership type is dropship or special order, set the value to unselected
+                var partnershipTypeLabel = $('partnership_type').getSelectedOptionHTML().toLowerCase();
+                switch(partnershipTypeLabel) {
+                    case 'dropship':
+                    case 'special order':
+                        $(partnershipTypeId).setValue(''); // Set the value to No
+                        break;
+                }
+
+                $(partnershipTypeId).disableOptionByLabel('dropship'); // Disable the 'dropship' option
+                $(partnershipTypeId).disableOptionByLabel('special order'); // Disable the 'special order' option
+                break;
+            default:
+                $(partnershipTypeId).enableOptionByLabel('dropship'); // Enable the 'dropship' option
+                $(partnershipTypeId).enableOptionByLabel('special order'); // Enable the 'special order' option
+                break;
+        }
+    });
+
 //]]>
 </script>
