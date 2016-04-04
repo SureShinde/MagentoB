@@ -4,7 +4,7 @@
 <?php foreach($_items as $_item): ?>
     <?php $parentId = $_item->getParentItemId(); ?>
     <?php if(empty($parentId)): ?>
-        <?php echo '<span id="ematiccart" class="hidden">' . $_item->getProduct()->getName() . $_item->getTypeInstance() . '|' . $_item->getProduct()->getSku() . '|' . $_item->getProduct()->getPrice() . '|' . Mage::helper('core')->currency($_item->getProduct()->getPrice(), true, false) . '|' . $_item->getQty() . '|' . $this->helper('catalog/image')->init($_item->getProduct(), 'small_image')->resize(135) . '|' . $_item->getProduct()->getProductUrl() . '</span>' ?>
+        <?php echo '<span id="ematiccart" class="hidden">' . $_item->getProduct()->getName() . $_item->getTypeInstance() . '|' . $_item->getProduct()->getSku() . '|' . $_item->getProduct()->getPrice() . '|' . Mage::helper('core')->currency($_item->getProduct()->getPrice(), true, false) . '|' . $_item->getQty() . '|' . $this->helper('catalog/image')->init($_item->getProduct(), 'small_image')->resize(135, 135) . '|' . $_item->getProduct()->getProductUrl() . '</span>' ?>
         <?php if($itrNumberItemsDisplayed < $_numberItemsDisplayed): ?>
             <?php echo $this->getItemHtml($_item); ?>
         <?php endif ?>
@@ -266,7 +266,7 @@ $images = Mage::getModel('socialcommerce/collectioncover')->getCollection()->set
                                                 <span class="overlayer-pink">
                                                     <i class="fa fa-check checked"></i>
                                                 </span>
-                                                <img src="/media/<?php echo $image['image'];?>" width="100%" alt="">
+                                                <img src="<?php echo $this->getUrl('media') . $image['image'];?>" width="100%" alt="">
                                             </div>
                                         <?php
                                         $counter++;}  ?>
@@ -430,7 +430,7 @@ $images = Mage::getModel('socialcommerce/collectioncover')->getCollection()->set
                         <span class="overlayer-pink">
                             <i class="fa fa-check checked"></i>
                         </span>
-                        <img src="/media/<?php echo $image['image'];?>" width="100%" alt="">
+                        <img src="<?php echo $this->getUrl('media') . $image['image'];?>" width="100%" alt="">
                     </div>
                     <?php
                     $counter++;}  ?>
