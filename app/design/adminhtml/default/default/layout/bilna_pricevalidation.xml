@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<layout>
+	<adminhtml_pricevalidation_index>
+		<reference name="content">
+	  		<block type="bilna_pricevalidation/adminhtml_pricevalidation" name="bilna_pricevalidation"></block>
+		</reference>
+  	</adminhtml_pricevalidation_index>
+	<adminhtml_pricevalidation_edit>
+        <reference name="contentLog">
+            <block type="bilna_pricevalidation/adminhtml_log" name="bilna_pricevalidation"></block>
+        </reference>
+    </adminhtml_pricevalidation_edit>
+</layout>

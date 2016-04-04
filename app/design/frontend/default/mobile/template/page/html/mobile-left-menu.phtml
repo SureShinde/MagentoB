@@ -32,6 +32,7 @@
         </div-->
         <ul class="top-left-menu">
             <li><a href="<?php echo Mage::getBaseUrl(); ?>">Home</a></li>
+            <li><a href="<?php echo Mage::getBaseUrl(); ?>konfirmasipembayaran/">Konfirmasi Pembayaran</a></li>
             <li><a href="<?php echo Mage::getBaseUrl(); ?>orderdetail/">Lacak Pesanan</a></li>
             <li><a href="#">Pusat Bantuan</a></li>
         </ul>
@@ -59,7 +60,6 @@
                         $_name = $_storeCategory['name'];
                         $_url = $_storeCategory['url'];
                         $_urlKey = $_storeCategory['url_key'];
-                        //$_storeCategoryClass = ($_id == $_categoryActive) ? "active-category menu-active" : "";
                         ?>
                     
                         <li class="<?php echo $_storeCategoryClass; ?> <?php echo $_id; ?>">
@@ -73,7 +73,6 @@
                         $_name = $_storeCategory['name'];
                         $_url = $_storeCategory['url'];
                         $_urlKey = $_storeCategory['url_key'];
-                        //$_storeCategoryClass = ($_id == $_categoryActive) ? "active-category menu-active" : "";
                         ?>
                     
                             <?php
@@ -98,7 +97,7 @@
                                                 $_urlKey2 = $_storeCategoryChild['url_key'];
                                                 ?>
                                                 <li> 
-                                                    <a href="#!"><?php echo $_name2; ?>
+                                                    <a href="<?php echo $_url2; ?>"><?php echo $_name2; ?>
                                                         <i class="fa fa-caret-right"></i>
                                                         <i class="fa fa-caret-down"></i>
                                                     </a>
@@ -156,9 +155,3 @@
  	$email = "";
  }
 ?>
-<script type="text/javascript">
-jQuery(document).ready(function () {    
-	//dataLayer.push( {'sitetype': 'd'} );
-	//dataLayer.push( {'emailaddress': '<?php echo $email; ?>'} );
-});
-</script>

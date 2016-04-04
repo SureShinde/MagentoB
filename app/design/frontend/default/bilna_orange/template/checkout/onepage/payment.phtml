@@ -62,32 +62,27 @@
 
 <script type="text/javascript">
 function ecommerceCheckout4() {
-        // console.log("HURRY_CHECKOUT4");
-
         var payment_method = "";
         if ($(document.getElementById('p_method_vtdirect')).checked) {
-            // alert("Credit Card / Debit Card");
-            var payment_method = "Credit Card / Debit Card";
+            payment_method = $(document.getElementById('p_method_vtdirect')).next().textContent;
         }
         else if ($(document.getElementById('p_method_klikbca')).checked) {
-            // alert("KlikBCA");
-            var payment_method = "KlikBCA";
+            payment_method = $(document.getElementById('p_method_klikbca')).next().textContent;
         }
         else if ($(document.getElementById('p_method_klikpay')).checked) {
-            // alert("BCA KlikPay");
-            var payment_method = "BCA KlikPay";
+            payment_method = $(document.getElementById('p_method_klikpay')).next().textContent;
         }
         else if ($(document.getElementById('p_method_transferbca')).checked) {
-            // alert("Bank Transfer Payment BCA");
-            var payment_method = "Bank Transfer Payment BCA";
+            payment_method = $(document.getElementById('p_method_transferbca')).next().textContent;
         }
         else if ($(document.getElementById('p_method_transferbni')).checked) {
-            // alert("Bank Transfer Payment BNI");
-            var payment_method = "Bank Transfer Payment BNI";
+            payment_method = $(document.getElementById('p_method_transferbni')).next().textContent;
         }
         else if ($(document.getElementById('p_method_transfermandiri')).checked) {
-            // alert("Bank Transfer Payment Mandiri");
-            var payment_method = "Bank Transfer Payment Mandiri";
+            payment_method = $(document.getElementById('p_method_transfermandiri')).next().textContent;
+        }
+        else if ($(document.getElementById('p_method_cod')).checked) {
+            payment_method = $(document.getElementById('p_method_cod')).next().textContent;
         }
         var temp_container = {
             'event': 'checkout',

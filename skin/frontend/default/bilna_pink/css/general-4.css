@@ -334,7 +334,7 @@ li.home .breadcrumbs a{
 .top_thumb_list_product .regular-price{
 }
 .products-grid > li:hover button.btn-cart, button.btn-cart:hover  {
-	background:#EE5191;
+	background:#ff6c6c;
 }
 button.btn-cart {
     width:100%;
