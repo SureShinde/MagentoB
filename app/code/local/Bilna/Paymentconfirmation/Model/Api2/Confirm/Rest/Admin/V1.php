@@ -25,11 +25,6 @@ class Bilna_Paymentconfirmation_Model_Api2_Confirm_Rest_Admin_V1 extends Bilna_P
                 $this->_critical(self::RESOURCE_REQUEST_DATA_INVALID);
             }
             
-            if (!$this->_validateOrderTotal($order, $data['nominal'])) {
-                $this->_error('Nominal is not valid.', Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
-                $this->_critical(self::RESOURCE_REQUEST_DATA_INVALID);
-            }
-            
             $fields = array (
                 'order_id' => $data['order_number'],
                 'email' => $data['email'],
@@ -70,14 +65,6 @@ class Bilna_Paymentconfirmation_Model_Api2_Confirm_Rest_Admin_V1 extends Bilna_P
     
     protected function _validateOrderEmail($order, $email) {
         if ($order->getCustomerEmail() != $email) {
-            return false;
-        }
-        
-        return true;
-    }
-    
-    protected function _validateOrderTotal($order, $total) {
-        if ($order->getGrandTotal() != $total) {
             return false;
         }
         
