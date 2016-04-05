@@ -27,14 +27,10 @@
 <?php $_shipment = $this->getShipment() ?>
 <?php $_order    = $this->getOrder() ?>
 <?php if ($_shipment && $_order): ?>
-<table cellspacing="0" cellpadding="0" border="0" style="font-size: 16px;">
 
     <?php $i=0; foreach ($_shipment->getAllItems() as $_item): ?>
     <?php if($_item->getOrderItem()->getParentItem()) continue; else $i++; ?>
-    <tbody<?php echo $i%2 ? : '' ?>>
         <?php echo $this->getItemHtml($_item) ?>
-    </tbody>
     <?php endforeach; ?>
 
-</table>
 <?php endif; ?>

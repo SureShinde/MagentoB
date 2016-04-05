@@ -44,21 +44,22 @@
 <?php if ($_item->getParentItem()): ?>
     <?php $attributes = $this->getSelectionAttributes($_item) ?>
     <?php if ($_prevOptionId != $attributes['option_id']): ?>
+    <tr height="10"></tr>
     <tr>
-        <td width="200"align="left" valign="top" style="font-size: 14px;"><strong><em><?php echo $attributes['option_label'] ?></em></strong></td>
+        <td width="120"align="left" valign="top" style="font-size: 14px;"><em><?php echo $attributes['option_label'] ?></em></td>
     </tr>
     <?php $_prevOptionId = $attributes['option_id'] ?>
     <?php endif; ?>
 <?php endif; ?>
 <tr id="order-item-row-<?php echo $_item->getId() ?>">
     <?php if (!$_item->getParentItem()): ?>
-    <td align="left" valign="top"><strong><?php echo $this->escapeHtml($_item->getName()) ?></strong></td>
+    <td align="left" valign="top"><?php echo $this->escapeHtml($_item->getName()) ?></td>
     <?php else: ?>
     <td cellpadding="5" align="left" valign="top" style="font-size: 14px;"><em><?php echo $this->getValueHtml($_item)?></em></td>
     <?php endif; ?>
-    <!--td align="left" valign="top" style="padding:3px 9px"><?php echo $this->escapeHtml($_item->getSku()) ?></td-->
-    <td align="center" valign="top">
-        <table>
+    <!--td align="left" valign="top" style="padding:3px 9px"><?php //echo $this->escapeHtml($_item->getSku()) ?></td-->
+    <td align="right" valign="top">
+        <table style="text-align: right;">
             <tr>
                 <td>
                     <?php if (!$_item->getParentItem()): ?>

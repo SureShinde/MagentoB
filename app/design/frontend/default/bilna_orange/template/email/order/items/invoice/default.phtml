@@ -26,7 +26,7 @@
 ?>
 <?php $_item = $this->getItem() ?>
 <?php $_order = $this->getItem()->getOrder(); ?>
-<table class="list-box" cellpadding="5" cellspacing="0" style="vertical-align: top; margin-bottom: 15px;">
+<table class="list-box" cellpadding="5" cellspacing="0" style="vertical-align: top; margin-bottom: 15px; width: 100%;">
     <tr>
         <td style="vertical-align: top;" width="120">
             <?php echo $this->escapeHtml($_item->getName()) ?>
@@ -55,6 +55,7 @@
             }
             ?>
         <!-- END UNIT PRICE -->
+            <br>
             = <?php if ($this->helper('tax')->displaySalesPriceExclTax($_order->getStore()) || $this->helper('tax')->displaySalesBothPrices($_order->getStore())): ?>
                 <?php if ($this->helper('tax')->displaySalesBothPrices($_order->getStore())): ?>
                     <span class="label"><?php echo Mage::helper('tax')->__('Excl. Tax'); ?>:</span>

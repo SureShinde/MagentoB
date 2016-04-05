@@ -31,6 +31,7 @@
 
 <?php $_prevOptionId = '' ?>
 
+<table class="list-box" cellspacing="0" cellpadding="0" style="vertical-align: top; margin-bottom: 15px; width:100%;">
 <?php foreach ($items as $_item): ?>
 
 <?php if($this->getItemOptions() || $parentItem->getDescription() || $this->helper('giftmessage/message')->getIsMessagesAvailable('order_item', $parentItem) && $parentItem->getGiftMessageId()): ?>
@@ -42,22 +43,21 @@
 <?php if ($_item->getParentItem()): ?>
     <?php $attributes = $this->getSelectionAttributes($_item) ?>
     <?php if ($_prevOptionId != $attributes['option_id']): ?>
+    <tr height="10"></tr>
     <tr>
-        <td align="left" valign="top" style="padding:3px 9px"><strong><em><?php echo $attributes['option_label'] ?></em></strong></td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
+        <td align="left" valign="top" style="font-size: 14px;padding:0 9px 0 15px"><em><?php echo $attributes['option_label'] ?></em></td>
     </tr>
     <?php $_prevOptionId = $attributes['option_id'] ?>
     <?php endif; ?>
 <?php endif; ?>
 <tr id="order-item-row-<?php echo $_item->getId() ?>">
     <?php if (!$_item->getParentItem()): ?>
-    <td align="left" valign="top" style="padding:3px 9px"><strong><?php echo $this->escapeHtml($_item->getName()) ?></strong></td>
+    <td align="left" valign="top" style="padding:10px 9px 0px 9px"><?php echo $this->escapeHtml($_item->getName()) ?></td>
     <?php else: ?>
-    <td align="left" valign="top" style="padding:3px 19px"><?php echo $this->getValueHtml($_item) ?></td>
+    <td align="left" valign="top" style=" font-size: 14px;padding:0px 9px 0px 15px"><em><?php echo $this->getValueHtml($_item) ?></em></td>
     <?php endif; ?>
-    <td align="left" valign="top" style="padding:3px 9px"><?php echo $this->escapeHtml($_item->getSku()) ?></td>
-    <td align="center" valign="top" style="padding:3px 9px">
+    <!--td align="left" valign="top" style="padding:3px 9px"><?php echo $this->escapeHtml($_item->getSku()) ?></td-->
+    <td align="center" valign="top" style="width: 20px;">
         <?php if (($this->isShipmentSeparately() && $_item->getParentItem()) || (!$this->isShipmentSeparately() && !$_item->getParentItem())): ?>
             <?php if (isset($shipItems[$_item->getId()])): ?>
                 <?php echo $shipItems[$_item->getId()]->getQty()*1 ?>
@@ -72,7 +72,7 @@
     </td>
 </tr>
 <?php endforeach; ?>
-
+</table>
 <?php if ($_showlastRow): ?>
 <tr>
     <td align="left" valign="top" style="padding:3px 9px">
@@ -86,7 +86,5 @@
         <?php endif; ?>
         <?php echo $this->escapeHtml($_item->getDescription()) ?>
     </td>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
 </tr>
 <?php endif; ?>

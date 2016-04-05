@@ -25,6 +25,7 @@
  */
 ?>
 <?php $_item = $this->getItem() ?>
+<table cellspacing="0" cellpadding="0" border="0" style="font-size: 16px;">
 <tr>
     <td align="left" valign="top" style="font-size:16px; padding:10px 9px;">
         <?php echo $this->escapeHtml($_item->getName()) ?>
@@ -44,3 +45,4 @@
     </td>
     <td align="center" valign="top" style="font-size:16px; padding:10px 9px;"><?php echo $_item->getQty()*1 ?></td>
 </tr>
+</table>
