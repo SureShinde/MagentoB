@@ -81,7 +81,37 @@
             </tr>
           </tbody>
         </table>
-      </div>  
+      </div>
+
+        <div class="table-wrap">
+            <table class="table bs table-bordered">
+                <thead>
+                <tr class="title">
+                    <th colspan="5">
+                        Produk Import
+                    </th>
+                </tr>
+                <tr>
+                    <th>Produk</th>
+                    <th class="text-center">Kuantitas</th>
+                    <th class="text-center">Berat</th>
+                    <th class="text-center">Harga</th>
+                    <th class="text-center">Total</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php foreach($this->getItems() as $_item): ?>
+                    <?php echo $this->getItemHtml($_item)?>
+                <?php endforeach ?>
+                <tr>
+                    <th class="footer-table" colspan="5">
+                        <strong>Biaya Pengiriman:</strong> Rp 9,000 (3 - 5 hari kerja)
+                    </th>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
     </div>    
   </div>
 </div>
@@ -92,7 +122,7 @@
       <div class="night col-box equal-box vmiddle">
         <div class="discount">
           <div class="label text-left">
-            <strong>Memiliki kupon promo atau gift card?</strong>
+            <strong><?php echo $this->__('Memiliki kupon promo atau gift card?'); ?></strong>
           </div>
           <div class="wrap-input-voucher">
             <input type="hidden" name="remove" id="remove-coupone" value="0" />
