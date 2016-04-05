@@ -37,6 +37,7 @@
 <?php endif; ?>
 
 <?php $_prevOptionId = '' ?>
+<table class="list-box" cellspacing="0" style="vertical-align: top;margin-bottom: 15px;">
 
 <?php foreach ($items as $_item): ?>
 
@@ -44,30 +45,42 @@
     <?php $attributes = $this->getSelectionAttributes($_item) ?>
     <?php if ($_prevOptionId != $attributes['option_id']): ?>
     <tr>
-        <td align="left" valign="top" style="padding:3px 9px"><strong><em><?php echo $attributes['option_label'] ?></em></strong></td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
+        <td width="200"align="left" valign="top" style="font-size: 14px;"><strong><em><?php echo $attributes['option_label'] ?></em></strong></td>
     </tr>
     <?php $_prevOptionId = $attributes['option_id'] ?>
     <?php endif; ?>
 <?php endif; ?>
 <tr id="order-item-row-<?php echo $_item->getId() ?>">
     <?php if (!$_item->getParentItem()): ?>
-    <td align="left" valign="top" style="padding:3px 9px"><strong><?php echo $this->escapeHtml($_item->getName()) ?></strong></td>
+    <td align="left" valign="top"><strong><?php echo $this->escapeHtml($_item->getName()) ?></strong></td>
     <?php else: ?>
-    <td align="left" valign="top" style="padding:3px 19px"><?php echo $this->getValueHtml($_item)?></td>
+    <td cellpadding="5" align="left" valign="top" style="font-size: 14px;"><em><?php echo $this->getValueHtml($_item)?></em></td>
     <?php endif; ?>
-    <td align="left" valign="top" style="padding:3px 9px"><?php echo $this->escapeHtml($_item->getSku()) ?></td>
-    <td align="center" valign="top" style="padding:3px 9px">
-    <?php if (!$_item->getParentItem()): ?>
-        <?php echo $_item->getQtyOrdered()*1 ?>
-    <?php else: ?>
-        &nbsp;
-    <?php endif; ?>
-    </td>
-    <td align="right" valign="top" style="padding:3px 9px">
-    <?php if (!$_item->getParentItem()): ?>
+    <!--td align="left" valign="top" style="padding:3px 9px"><?php echo $this->escapeHtml($_item->getSku()) ?></td-->
+    <td align="center" valign="top">
+        <table>
+            <tr>
+                <td>
+                    <?php if (!$_item->getParentItem()): ?>
+                        <?php echo ($_item->getQtyOrdered()*1).("x") ?>
+                        <!-- Show Unit Price here -->
+                            <?php
+                            if ($this->helper('tax')->displaySalesPriceInclTax($_order->getStore())) {
+                            $itemprice = $this->helper('checkout')->getPriceInclTax($_item) ;
+                            echo $this->helper('checkout')->formatPrice($itemprice);
+                            } else {
+                            echo $this->helper('checkout')->formatPrice($_item->getPrice()) ;
+                            }
+                            ?>
+                        <!-- END UNIT PRICE -->
+                    <?php else: ?>
+                        &nbsp;
+                    <?php endif; ?>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <?php if (!$_item->getParentItem()): ?>
         <?php if ($this->helper('tax')->displaySalesPriceExclTax($_order->getStore()) || $this->helper('tax')->displaySalesBothPrices($_order->getStore())): ?>
             <?php if ($this->helper('tax')->displaySalesBothPrices($_order->getStore())): ?>
                 <span class="label"><?php echo Mage::helper('tax')->__('Excl. Tax'); ?>:</span>
@@ -75,7 +88,7 @@
             <?php if (Mage::helper('weee')->typeOfDisplay($_item, array(0, 1, 4), 'email', $_order->getStore())): ?>
                 <?php echo $_order->formatPrice($_item->getRowTotal()+$_item->getWeeeTaxAppliedRowAmount()+$_item->getWeeeTaxRowDisposition()); ?>
             <?php else: ?>
-                <?php echo $_order->formatPrice($_item->getRowTotal()) ?>
+                <?php echo ("=").$_order->formatPrice($_item->getRowTotal()) ?>
             <?php endif; ?>
 
 
@@ -145,13 +158,18 @@
     <?php else: ?>
         &nbsp;
     <?php endif; ?>
+                </td>
+            </tr>
+        </table>
+    
     </td>
 </tr>
 <?php endforeach; ?>
+</table>
 
 <?php if ($_showlastRow): ?>
 <tr>
-    <td align="left" valign="top" style="padding:3px 9px">
+    <td align="left" valign="top">
         <?php if ($this->getItemOptions()): ?>
         <dl style="margin:0; padding:0;">
             <?php foreach ($this->getItemOptions() as $option): ?>
@@ -167,8 +185,5 @@
         <br /><?php echo $this->__('Message:'); ?><br /> <?php echo $this->escapeHtml($_giftMessage->getMessage()) ?>
         <?php endif; ?>
     </td>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
 </tr>
 <?php endif; ?>
