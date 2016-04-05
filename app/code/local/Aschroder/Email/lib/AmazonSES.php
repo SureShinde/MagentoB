@@ -65,11 +65,11 @@ class App_Mail_Transport_AmazonSES extends Zend_Mail_Transport_Abstract
         if(!array_key_exists('accessKey', $config)){
             throw new Zend_Mail_Transport_Exception('This transport requires the Amazon access key');
         }
-        
+
         if(!array_key_exists('privateKey', $config)){
             throw new Zend_Mail_Transport_Exception('This transport requires the Amazon private key');
         }
-        
+
         $this->_accessKey = $config['accessKey'];
         $this->_privateKey = $config['privateKey'];
         $this->setRegion($region);
@@ -90,7 +90,7 @@ class App_Mail_Transport_AmazonSES extends Zend_Mail_Transport_Abstract
     public function _sendMail()
     {
         $date = gmdate('D, d M Y H:i:s O');
-        
+
         //Send the request
         $client = new Zend_Http_Client($this->_host);
         $client->setMethod(Zend_Http_Client::POST);
@@ -98,26 +98,26 @@ class App_Mail_Transport_AmazonSES extends Zend_Mail_Transport_Abstract
             'Date' => $date,
             'X-Amzn-Authorization' => $this->_buildAuthKey($date)
         ));
-        
+
         //Build the parameters
         $params = array(
             'Action' => 'SendRawEmail',
             'Source' => $this->_mail->getFrom(),
             'RawMessage.Data' => base64_encode(sprintf("%s\n%s\n", $this->header, $this->body))
         );
-        
+
         $recipients = explode(',', $this->recipients);
         while(list($index, $recipient) = each($recipients)){
             $params[sprintf('Destinations.member.%d', $index + 1)] = $recipient;
         }
-        
+
         $client->resetParameters();
         $client->setEncType(Zend_Http_Client::ENC_URLENCODED);
         $client->setParameterPost($params);
         $response = $client->request(Zend_Http_Client::POST);
-        
+
         if($response->getStatus() != 200){
-            throw new Exception($response->getBody());
+            throw new Exception("Exception while trying to send email to " . $this->recipients . ". Exception: " . $response->getBody());
         }
     }
 
@@ -169,9 +169,9 @@ class App_Mail_Transport_AmazonSES extends Zend_Mail_Transport_Abstract
              */
             throw new Zend_Mail_Transport_Exception('_prepareHeaders requires a registered Zend_Mail object');
         }
-        
+
         unset($headers['Bcc']);
-        
+
         // Prepare headers
         parent::_prepareHeaders($headers);
     }
@@ -179,7 +179,7 @@ class App_Mail_Transport_AmazonSES extends Zend_Mail_Transport_Abstract
 
     /**
      * Returns header string containing encoded authentication key
-     * 
+     *
      * @param   date $date
      * @return  string
      */
