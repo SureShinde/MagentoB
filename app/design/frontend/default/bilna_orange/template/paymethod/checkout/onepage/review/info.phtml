@@ -95,11 +95,24 @@
             <strong>Memiliki kupon promo atau gift card?</strong>
           </div>
           <div class="wrap-input-voucher">
-            <input type="text" placeholder="Masukkan kode promo / gift card">
-            <button class="button">
-              Gunakan
-            </button>
+            <input type="hidden" name="remove" id="remove-coupone" value="0" />
+            <input type="text" placeholder="<?php echo $this->__('Masukkan kode promo / gift card'); ?>" id="coupon_code" name="coupon_code" 
+              value="<?php echo $this->escapeHtml($this->getCouponCode()); ?>" />
+            <?php $feedbackStyle = 'color: red';?>
+            <?php if(strlen($this->getCouponCode())): ?>
+              <?php $feedbackStyle = 'color: green';?>
+                <button class="button cancel-voucher" type="button" onclick="return cekCustomVoucher(true)" 
+                  title="<?php echo $this->__('Cancel Voucher') ?>" value="<?php echo $this->__('Cancel Voucher'); ?>">
+                  <?php echo $this->__('Cancel Voucher'); ?>
+                </button>
+            <?php else: ?>
+              <button class="button apply-voucher" type="button" onclick="return cekCustomVoucher(false)" 
+                title="<?php echo $this->__('Apply Voucher'); ?>" value="<?php echo $this->__('Apply Voucher'); ?>">
+                <?php echo $this->__('Gunakan') ?>
+              </button>
+            <?php endif;?>
           </div>
+          <div id="feedback" style="<?php echo $feedbackStyle;?>"><?php echo $this->getSessionMessage();?></div>
           <div style="clear: both;"></div>
         </div>         
       </div>
@@ -140,14 +153,13 @@
             </tr>
             <tr>
               <th scope="row" class="normal text-center" colspan="2">
-                Ada barang yang tertinggal? <a href="#">Edit keranjang belanja </a>
+                <?php echo $this->__('Ada barang yang tertinggal?');?>&nbsp;
+                <a href="<?php echo $this->getUrl('checkout/cart') ?>"><?php echo $this->__('Edit keranjang belanja'); ?></a>
               </th>
             </tr>
             <tr>
               <th scope="row" colspan="2">
-                <button class="button">
-                Bayar Sekarang
-                </button>
+                <?php echo $this->getChildHtml('button'); ?>
               </th>
             </tr>
           </tbody>
