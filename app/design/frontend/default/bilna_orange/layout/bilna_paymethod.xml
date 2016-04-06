@@ -27,22 +27,19 @@
             <action method="addItemRender">
                 <type>default</type>
                 <block>checkout/cart_item_renderer</block>
-                <!--<template>paymethod/checkout/onepage/review/item.phtml</template>-->
-                <template>paymethod/checkout/onepage/review/item_crossborder.phtml</template>
+                <template>paymethod/checkout/onepage/review/item.phtml</template>
             </action>
             
             <action method="addItemRender">
                 <type>grouped</type>
                 <block>checkout/cart_item_renderer_grouped</block>
-                <!--<template>paymethod/checkout/onepage/review/item.phtml</template>-->
-                <template>paymethod/checkout/onepage/review/item_crossborder.phtml</template>
+                <template>paymethod/checkout/onepage/review/item.phtml</template>
             </action>
             
             <action method="addItemRender">
                 <type>configurable</type>
                 <block>checkout/cart_item_renderer_configurable</block>
-                <!--<template>paymethod/checkout/onepage/review/item.phtml</template>-->
-                <template>paymethod/checkout/onepage/review/item_crossborder.phtml</template>
+                <template>paymethod/checkout/onepage/review/item.phtml</template>
             </action>
             
             <block type="paymethod/checkout_onepage_review_installment" name="items_after" as="items_after" ifconfig="payment/klikpay/active" template="paymethod/checkout/onepage/review/installments.phtml"/>
