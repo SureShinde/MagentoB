@@ -7,114 +7,82 @@
   <div class="cust-container">
     <div class="cust-row padside50">
       <div class="cg-col-md-12">
-        <div class="table-wrap">
-          <table class="table bs table-bordered">
-            <thead>
-              <tr class="title">
-                  <th colspan="5">
-                    Produk Lokal
-                  </th>
-              </tr>
-              <tr>
-                <th>Produk</th>
-                <th class="text-center">Kuantitas</th>
-                <th class="text-center">Berat</th>
-                <th class="text-center">Harga</th>
-                <th class="text-center">Total</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <th scope="row">
-                  <div class="img-item">
-                    <img src="http://thumbnail.image.rakuten.co.jp/@0_mall/prospo/cabinet/adidas-5/adj-s85586-.jpg?_ex=128x128" alt="">
-                  </div>
-                  <div class="txt-item">
-                    Zeld Doorstep Tiger Yellow
-                  </div>
-                </th>
-                <td class="text-center">1</td>
-                <td class="text-center">0.2 kg</td>
-                <td class="text-center">Rp. 100,000</td>
-                <td class="text-center">Rp. 100,000</td>
-              </tr>
-              <tr>
-                <th class="footer-table" colspan="5">
-                  <strong>Biaya Pengiriman:</strong> Rp 9,000 (3 - 5 hari kerja)
-                </th>
-              </tr>
-            </tbody>
-          </table>
-        </div> 
 
-        <div class="table-wrap">
-          <table class="table bs table-bordered">
-            <thead>
-              <tr class="title">
-                  <th colspan="5">
-                    Produk Import
-                  </th>
-              </tr>
-              <tr>
-                <th>Produk</th>
-                <th class="text-center">Kuantitas</th>
-                <th class="text-center">Berat</th>
-                <th class="text-center">Harga</th>
-                <th class="text-center">Total</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <th scope="row">
-                  <div class="img-item">
-                    <img src="http://thumbnail.image.rakuten.co.jp/@0_mall/prospo/cabinet/adidas-5/adj-s85586-.jpg?_ex=128x128" alt="">
-                  </div>
-                  <div class="txt-item">
-                    Zeld Doorstep Tiger Yellow
-                  </div>
-                </th>
-                <td class="text-center">1</td>
-                <td class="text-center">0.2 kg</td>
-                <td class="text-center">Rp. 100,000</td>
-                <td class="text-center">Rp. 100,000</td>
-              </tr>
-              <tr>
-                <th class="footer-table" colspan="5">
-                  <strong>Biaya Pengiriman:</strong> Rp 9,000 (3 - 5 hari kerja)
-                </th>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+        <?php 
+        $this->getLocalAndImportItems(); 
+        
+        $localItems = $this->getLocalItems();
+        if (!empty($localItems)) {
+        ?>
+            <div class="table-wrap">
+                <table class="table bs table-bordered">
+                    <thead>
+                        <tr class="title">
+                          <th colspan="5">
+                              Produk Lokal
+                          </th>
+                        </tr>
+                        <tr>
+                          <th>Produk</th>
+                          <th class="text-center">Kuantitas</th>
+                          <th class="text-center">Berat</th>
+                          <th class="text-center">Harga</th>
+                          <th class="text-center">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <?php 
+                    foreach($localItems as $localItem) {
+                        echo $this->getItemHtml($localItem);    
+                    }
+                    ?>
+                        <tr>
+                            <th class="footer-table" colspan="5">
+                                <strong>Biaya Pengiriman:</strong> Rp 9,000 (3 - 5 hari kerja)
+                            </th>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        <?php
+        }
 
-          <div class="table-wrap">
-              <table class="table bs table-bordered">
-                  <thead>
-                  <tr class="title">
-                      <th colspan="5">
-                          Produk Import
-                      </th>
-                  </tr>
-                  <tr>
-                      <th>Produk</th>
-                      <th class="text-center">Kuantitas</th>
-                      <th class="text-center">Berat</th>
-                      <th class="text-center">Harga</th>
-                      <th class="text-center">Total</th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                  <?php foreach($this->getItems() as $_item): ?>
-                      <?php echo $this->getItemHtml($_item)?>
-                  <?php endforeach ?>
-                  <tr>
-                      <th class="footer-table" colspan="5">
-                          <strong>Biaya Pengiriman:</strong> Rp 9,000 (3 - 5 hari kerja)
-                      </th>
-                  </tr>
-                  </tbody>
-              </table>
-          </div>
+        $importItems = $this->getImportItems();
+        if (!empty($importItems)) {
+        ?>
+            <div class="table-wrap">
+                <table class="table bs table-bordered">
+                    <thead>
+                        <tr class="title">
+                          <th colspan="5">
+                              Produk Import
+                          </th>
+                        </tr>
+                        <tr>
+                          <th>Produk</th>
+                          <th class="text-center">Kuantitas</th>
+                          <th class="text-center">Berat</th>
+                          <th class="text-center">Harga</th>
+                          <th class="text-center">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <?php 
+                    foreach($importItems as $importItem) {
+                        echo $this->getItemHtml($importItem);    
+                    }
+                    ?>
+                        <tr>
+                            <th class="footer-table" colspan="5">
+                                <strong>Biaya Pengiriman:</strong> Rp 9,000 (3 - 5 hari kerja)
+                            </th>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        <?php
+        }
+        ?>
 
       </div>    
     </div>
