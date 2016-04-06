@@ -304,7 +304,7 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
     }
     
     protected function _getOrderCanceled($order) {
-        return (strtolower($order->getData('status')) != 'canceled');
+        return (strtolower($order->getData('status')) == 'canceled');
     }
     
     protected function _addHistoryOrder($order, $message) {
