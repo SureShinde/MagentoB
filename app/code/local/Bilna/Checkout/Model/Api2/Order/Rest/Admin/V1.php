@@ -19,10 +19,10 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
      */
     protected function _create(array $data) {
         $quoteId = $data['entity_id'];
-        $storeId = isset($data['store_id']) ? $data['store_id'] : Bilna_Checkout_Model_Api2_Resource::DEFAULT_STORE_ID;
+        $storeId = isset($data['store_id']) ? $data['store_id'] : self::DEFAULT_STORE_ID;
         $tokenId = isset($data['token_id']) ? $data['token_id'] : '';
         $payment = isset($data['payment']) ? $data['payment'] : '';
-        $trxFrom = isset($data['trx_from']) ? $data['trx_from'] : Bilna_Checkout_Model_Api2_Resource::DEFAULT_TRX_FROM;
+        $trxFrom = isset($data['trx_from']) ? $data['trx_from'] : self::DEFAULT_TRX_FROM;
         
         $allowInstallment = isset($data['allow_installment']) ? $data['allow_installment'] : '';
         $installmentMethod = isset($data['installment_method']) ? $data['installment_method'] : '';
