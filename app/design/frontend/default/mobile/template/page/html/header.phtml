@@ -90,7 +90,6 @@ $j(document).ready(function() {
             <div class="direktori_belanja">
                 <p><i class="fa fa-th-large"></i><?php echo $this->__('DIREKTORI BELANJA') ?> </p>
             </div>
-            <?php //echo $this->getLayout()->createBlock('staticarea/block')->setId('banner-corner')->toHtml();?>
         </div>
     </div>
 </div>
@@ -107,9 +106,3 @@ $j(document).ready(function() {
 // ematic user email for API calling
 echo '<span id="ematicuseremail" class="hidden">'.$email.'</span>';
 ?>
-<script type="text/javascript">
-jQuery(document).ready(function () {    
-	//dataLayer.push( {'sitetype': 'd'} );
-	//dataLayer.push( {'emailaddress': '<?php echo $email; ?>'} );
-});
-</script>

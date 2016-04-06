@@ -30,7 +30,6 @@
     <form action="<?php echo $this->getAction() ?>" method="post" id="review-form">
         <fieldset>
             <?php echo $this->getChildHtml('form_fields_before')?>
-            <!--<h3 class="review-note"><?php //echo $this->__("You're reviewing:"); ?> <span><?php //echo $this->escapeHtml($this->getProductInfo()->getName()) ?></span></h3>-->
             <?php if( $this->getRatings() && $this->getRatings()->getSize()): ?>
                 <h4><?php echo $this->__('Thank you for sharing your thoughts about one of our products! Please focus on the product performance and quality.') ?></h4>
                 <div style="clear: both;height: 20px;"></div>
