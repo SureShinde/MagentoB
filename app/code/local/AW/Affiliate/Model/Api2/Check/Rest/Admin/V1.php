@@ -19,8 +19,7 @@ class AW_Affiliate_Model_Api2_Check_Rest_Admin_V1 extends AW_Affiliate_Model_Api
         $customerId = $this->getRequest()->getParam('customer_id', null);
         $currentUrl = urldecode($this->getRequest()->getParam('current_url', null));
         
-        //var_dump($currentUrl);die;
-        if ($cmid != "" && $afid != "" && $ats != "") {
+        if ($cmid && $afid && $ats) {
             //params detect
             $campaignId = Mage::helper('core')->decrypt(Mage::helper('core')->urlDecode($cmid));
             $affiliateId = Mage::helper('core')->decrypt(Mage::helper('core')->urlDecode($afid));
@@ -31,7 +30,7 @@ class AW_Affiliate_Model_Api2_Check_Rest_Admin_V1 extends AW_Affiliate_Model_Api
             $client = null;
             $affiliate = null;
             $redirectUrl = null;
-            //var_dump($this->_isCampaignAccessible($campaignId));die;
+            
             if (
                 //$this->_isCookieFree($clientId) && //disabled cookie, since cookie will generate by logan
                 $this->_isAffiliateAccessible($affiliateId) &&
@@ -46,10 +45,6 @@ class AW_Affiliate_Model_Api2_Check_Rest_Admin_V1 extends AW_Affiliate_Model_Api
                     'traffic_id' => $trafficSourceId,
                     'customer_id' => $customerId //customer id that access the affiliate link, can be null or integer
                 ));
-                
-                //var_dump($clientId);
-                //var_dump($newClient->getId());
-                //var_dump($this->_isNewClientNotEqualCurrentClient($newClient, $clientId));die;
                 
                 if ($this->_isNewClientNotEqualCurrentClient($newClient, $clientId)) {
                     try {
