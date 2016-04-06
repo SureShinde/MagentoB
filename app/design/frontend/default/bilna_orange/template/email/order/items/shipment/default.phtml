@@ -25,14 +25,14 @@
  */
 ?>
 <?php $_item = $this->getItem() ?>
-<table cellspacing="0" cellpadding="0" border="0" style="font-size: 16px;">
+<table cellspacing="0" cellpadding="0" border="0" style="font-size: 16px; width: 100%;">
 <tr>
     <td align="left" valign="top" style="font-size:16px; padding:10px 9px;">
         <?php echo $this->escapeHtml($_item->getName()) ?>
         <?php if ($this->getItemOptions()): ?>
-        <dl style="margin:0; padding:0;">
+        <dl style="margin:0; padding:0px 9px 0px 9px; font-size: 14px;">
             <?php foreach ($this->getItemOptions() as $option): ?>
-            <dt><strong><?php echo $option['label'] ?></strong> <?php echo nl2br($option['value']) ?></dt>
+            <dt><em><?php echo $option['label'] ?> : <?php echo ($option['value']) ?></em></dt>
             <?php endforeach; ?>
         </dl>
         <?php endif; ?>
@@ -40,7 +40,7 @@
         <?php if ($addInfoBlock) :?>
             <?php echo $addInfoBlock->setItem($_item->getOrderItem())->toHtml(); ?>
         <?php endif; ?>
-        <?php echo $this->escapeHtml($_item->getDescription()) ?><br>
+        <?php echo $this->escapeHtml($_item->getDescription()) ?>
         <?php //echo $this->escapeHtml($this->getSku($_item)) ?>
     </td>
     <td align="center" valign="top" style="font-size:16px; padding:10px 9px;"><?php echo $_item->getQty()*1 ?></td>

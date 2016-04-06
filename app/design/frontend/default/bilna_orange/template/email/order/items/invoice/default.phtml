@@ -31,10 +31,10 @@
         <td style="vertical-align: top;" width="120">
             <?php echo $this->escapeHtml($_item->getName()) ?>
             <?php if ($this->getItemOptions()): ?>
-            <dl style="margin:0; padding:0;">
+            <dl style="margin:0; padding:0; font-size: 14px;">
                 <?php foreach ($this->getItemOptions() as $option): ?>
-                <dt><strong><?php echo $option['label'] ?></strong></dt>
-                <dd style="margin:0; padding:0 0 0 9px;"><?php echo nl2br($option['value']) ?></dd>
+                <dt><em><?php echo $option['label'] ?> : 
+                <?php echo ($option['value']) ?></em> </dt>
                 <?php endforeach; ?>
             </dl>
             <?php endif; ?>
