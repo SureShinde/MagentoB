@@ -132,6 +132,7 @@ class Bilna_Paymethod_Block_Adminhtml_Sales_Order_Grid extends Mage_Adminhtml_Bl
         $this->addColumn('status', array (
             'header' => $salesHelper->__('Status'),
             'index' => 'status',
+            'filter_index' => 'main_table.status',
             'type' => 'options',
             'width' => '70px',
             'options' => Mage::getSingleton('sales/order_config')->getStatuses(),
