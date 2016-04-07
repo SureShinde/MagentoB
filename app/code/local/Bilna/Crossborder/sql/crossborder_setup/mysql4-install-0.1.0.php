@@ -22,6 +22,10 @@ $installer->addAttribute('catalog_product', 'cross_border', array(
     'unique'=>false,
     'is_configurable' => false
 ));
+
+$installer->run("ALTER TABLE `{$this->getTable('sales_flat_order_item')}` ADD COLUMN `cross_border` INT(11) DEFAULT 0");
+$installer->run("ALTER TABLE `{$this->getTable('sales_flat_quote_item')}` ADD COLUMN `cross_border` INT(11) DEFAULT 0");
+
 $installer->endSetup();
 // END - Create cross_border attribute
 // BEGIN - Assign 'cross_border' Attribute to group 'General' for All Attribute Sets
