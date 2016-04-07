@@ -36,11 +36,11 @@
                         echo $this->getItemHtml($localItem);    
                     }
                     ?>
-                        <tr>
+                        <!-- <tr>
                             <th class="footer-table" colspan="5">
                                 <strong>Biaya Pengiriman:</strong> Rp 9,000 (3 - 5 hari kerja)
                             </th>
-                        </tr>
+                        </tr> -->
                     </tbody>
                 </table>
             </div>
@@ -72,11 +72,11 @@
                         echo $this->getItemHtml($importItem);    
                     }
                     ?>
-                        <tr>
+                        <!-- <tr>
                             <th class="footer-table" colspan="5">
                                 <strong>Biaya Pengiriman:</strong> Rp 9,000 (3 - 5 hari kerja)
                             </th>
-                        </tr>
+                        </tr> -->
                     </tbody>
                 </table>
             </div>
@@ -105,7 +105,7 @@
                 <?php $feedbackStyle = 'color: green';?>
                   <button class="button cancel-voucher" type="button" onclick="return cekCustomVoucher(true)" 
                     title="<?php echo $this->__('Cancel Voucher') ?>" value="<?php echo $this->__('Cancel Voucher'); ?>">
-                    <?php echo $this->__('Cancel Voucher'); ?>
+                    <?php echo $this->__('Cancel'); ?>
                   </button>
               <?php else: ?>
                 <button class="button apply-voucher" type="button" onclick="return cekCustomVoucher(false)" 
