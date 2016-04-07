@@ -66,6 +66,10 @@ class Bilna_Pricevalidation_Adminhtml_PricevalidationController extends Mage_Adm
                     $postData['columns_post'] = array();
                 }
 
+                if (!isset($postData['data_type'])) {
+                    $postData['data_type'] = 'product';
+                }
+
                 $priceValidation->addData($postData);
 
                 if ($priceValidation->getCreatedTime == NULL || $priceValidation->getUpdateTime() == NULL) {
