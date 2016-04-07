@@ -4,7 +4,7 @@
 <?php foreach($_items as $_item): ?>
     <?php $parentId = $_item->getParentItemId(); ?>
     <?php if(empty($parentId)): ?>
-        <?php echo '<span id="ematiccart" class="hidden">' . $_item->getProduct()->getName() . $_item->getTypeInstance() . '|' . $_item->getProduct()->getSku() . '|' . $_item->getProduct()->getPrice() . '|' . Mage::helper('core')->currency($_item->getProduct()->getPrice(), true, false) . '|' . $_item->getQty() . '|' . $_item->getProduct()->getImageUrl() . '|' . $_item->getProduct()->getProductUrl() . '</span>' ?>
+        <?php echo '<span id="ematiccart" class="hidden">' . $_item->getProduct()->getName() . $_item->getTypeInstance() . '|' . $_item->getProduct()->getSku() . '|' . $_item->getProduct()->getPrice() . '|' . Mage::helper('core')->currency($_item->getProduct()->getPrice(), true, false) . '|' . $_item->getQty() . '|' . $this->helper('catalog/image')->init($_item->getProduct(), 'small_image')->resize(135, 135) . '|' . $_item->getProduct()->getProductUrl() . '</span>' ?>
         <?php if($itrNumberItemsDisplayed < $_numberItemsDisplayed): ?>
             <?php echo $this->getItemHtml($_item); ?>
         <?php endif ?>
@@ -50,7 +50,7 @@ function ecommerceCheckout0_buttonclicked() {
             echo "'brandName' : 'brand name',";
             echo "'imageUrl' : temp_cart[".$i."][5],";
             echo "'link' : temp_cart[".$i."][6]}";if($i != $itemQty-1) {echo ",";}
-        } 
+        }
         ?>
         ];
 
@@ -67,7 +67,7 @@ function ecommerceCheckout0_buttonclicked() {
                 echo "'brandName' : 'brand name',";
                 echo "'imageUrl' : temp_cart[".$i."][5],";
                 echo "'link' : temp_cart[".$i."][6]}";if($i != $itemQty-1) {echo ",";}
-            } 
+            }
             ?>
             );
         dataLayer.push(temp_container);
@@ -120,7 +120,7 @@ function ecommerceRemoveCart(name, sku, price, quantity, imageUrl, link) {
             echo "'brandName' : 'brand name',";
             echo "'imageUrl' : temp_cart[".$i."][5],";
             echo "'link' : temp_cart[".$i."][6]}";if($i != $itemQty-2) {echo ",";}
-        } 
+        }
         ?>
         ];
 
@@ -195,7 +195,7 @@ $images = Mage::getModel('socialcommerce/collectioncover')->getCollection()->set
                     <div class="form-group in-block full-width">
                         <label for="inputEmail3" class="cg-col-xs-12 control-label label-color label-margin take-left opensans">Judul <span class="light lil-exp">sesuai tema koleksi yang ingin anda buat</span></label>
                         <div class="cg-col-xs-12">
-                            <input  name="name" id="name" class="form-control input-new-collection" placeholder="contoh; Kado untuk bayi, Persiapan melahirkan, Piknik dengan pacar" required> 
+                            <input  name="name" id="name" class="form-control input-new-collection" placeholder="contoh; Kado untuk bayi, Persiapan melahirkan, Piknik dengan pacar" required>
                         </div>
                     </div>
                     <div class="form-group in-block full-width">
@@ -258,17 +258,17 @@ $images = Mage::getModel('socialcommerce/collectioncover')->getCollection()->set
                                         </select>
                                     </div>
 
-                                    <div class="cg-col-sm-12" id="preset-image-container"> 
-                                        <?php $counter = 1; foreach($images as $image) { 
+                                    <div class="cg-col-sm-12" id="preset-image-container">
+                                        <?php $counter = 1; foreach($images as $image) {
                                             if (($counter % 3) == 0) {
                                             }?>
                                             <div class="cg-col-sm-3 cg-col-xs-4 bottom-spacer choose-cover relative">
                                                 <span class="overlayer-pink">
                                                     <i class="fa fa-check checked"></i>
                                                 </span>
-                                                <img src="/media/<?php echo $image['image'];?>" width="100%" alt=""> 
+                                                <img src="<?php echo $this->getUrl('media') . $image['image'];?>" width="100%" alt="">
                                             </div>
-                                        <?php 
+                                        <?php
                                         $counter++;}  ?>
                                     </div>
                                 </div>
@@ -421,8 +421,8 @@ $images = Mage::getModel('socialcommerce/collectioncover')->getCollection()->set
                     <?php } ?>
                 </select>
             </div>
-            <div class="cg-col-sm-12" id="new-preset-image-container"> 
-                <?php $counter = 1; foreach($images as $image) { 
+            <div class="cg-col-sm-12" id="new-preset-image-container">
+                <?php $counter = 1; foreach($images as $image) {
                     if (($counter % 3) == 0) {
                     }
                     ?>
@@ -430,12 +430,12 @@ $images = Mage::getModel('socialcommerce/collectioncover')->getCollection()->set
                         <span class="overlayer-pink">
                             <i class="fa fa-check checked"></i>
                         </span>
-                        <img src="/media/<?php echo $image['image'];?>" width="100%" alt=""> 
+                        <img src="<?php echo $this->getUrl('media') . $image['image'];?>" width="100%" alt="">
                     </div>
-                    <?php 
+                    <?php
                     $counter++;}  ?>
-                </div>  
-            </div>    
+                </div>
+            </div>
 
         </div>
 
@@ -498,7 +498,7 @@ $images = Mage::getModel('socialcommerce/collectioncover')->getCollection()->set
 <?php else : ?>
     <div class="in-block cg-col-lg-7 cg-col-md-7 cg-col-sm-12 cg-col-xs-12 login-collection">
         <p style="color: #545454;">Please login to add this item to your collection. <br>
-            <a 
+            <a
                 <?php if (!Mage::getSingleton('customer/session')->isLoggedIn()): ?>
                     href="<?php echo Mage::getUrl('customer/account/login'); ?>"
                     onclick="hideAddToCollectionDialog();return false;" class="btn-pink-prime in-block"
