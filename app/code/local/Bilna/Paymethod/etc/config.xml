@@ -691,6 +691,10 @@
                 <group>offline</group>
                 <vtdirect_payment_type>bank_transfer</vtdirect_payment_type>
                 <bank>bca</bank>
+                <inquiry_text_indonesian>No Order</inquiry_text_indonesian>
+                <inquiry_text_english>Order No</inquiry_text_english>
+                <payment_text_indonesian>Terima kasih</payment_text_indonesian>
+                <payment_text_english>Thank you</payment_text_english>
             </virtualaccountbca>
         </payment>
     </default>

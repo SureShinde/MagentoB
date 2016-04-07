@@ -8064,6 +8064,38 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </bank>
+                        <inquiry_text_indonesian translate="label">
+                            <label>Inquiry Text (Indonesian)</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>91</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </inquiry_text_indonesian>
+                        <inquiry_text_english translate="label">
+                            <label>Inquiry Text (English)</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>92</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </inquiry_text_english>
+                        <payment_text_indonesian translate="label">
+                            <label>Payment Text (Indonesian)</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>93</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </payment_text_indonesian>
+                        <payment_text_english translate="label">
+                            <label>Payment Text (English)</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>94</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </payment_text_english>
                         <min_order_total translate="label">
                             <label>Minimum Order Total</label>
                             <frontend_type>text</frontend_type>
