@@ -81,9 +81,7 @@ class Bilna_Crossborder_Model_CrossBorder
         if ($this->isCrossBorderEnabled()) {
             $cartItems = Mage::getModel("checkout/cart")->getItems();
             foreach ($cartItems as $item) {
-                // TODO read the cross_border from sales_order_quote_item, not from loading product
-                $product = $item->getProduct()->load();
-                if ($product->getCrossBorder() == 1) {
+                if ($item->cross_border == 1) {
                     return true;
                 }
             }
