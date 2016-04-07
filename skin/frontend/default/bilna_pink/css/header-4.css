@@ -308,7 +308,7 @@
 .header .quick-access .top-cart a .qty-item{
     position: absolute;
     font-size: 1.2em;
-    background: #EE5191;
+    background: #ff6c6c;
     right: 5px;
     padding: 3px 5px;
     top: 5px;
@@ -1507,7 +1507,7 @@ top: 55px;
     cursor: pointer;
     display: inline-block;
     font-size: 1.1em;
-    background: #EE5191;
+    background: #ff6c6c;
     height: 100%;
     left: 0;
     text-transform: uppercase;

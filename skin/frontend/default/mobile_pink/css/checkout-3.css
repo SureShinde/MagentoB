@@ -45,7 +45,7 @@
     
 }
 #checkoutSteps .buttons-set button.button {
-    background:#EE5191;
+    background:#ff6c6c;
     height: 36px;
     font-size: 18px;
     line-height:21px;
@@ -104,7 +104,7 @@
 		color: #c5c5c5;
 }
 .opc .active .step-title .number {
-	color: #EE5191;
+	color: #ff6c6c;
 }
 .opc .active .step-title h2, .opc .allow .step-title h2 {
 	color: #fff;
@@ -114,7 +114,7 @@
 	border: none;
 }
 .opc .active .step-title {
-	background: #EE5191;
+	background: #ff6c6c;
 	
 }
 #checkout-step-login .step {

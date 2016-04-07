@@ -119,7 +119,7 @@ hr{
 	margin:10px 0;
 }
 .product-shop-left .product_storename p span{
-	color:#EE5191;
+	color:#ff6c6c;
 }
 .product-shop-left .product_storename p{
 	font-size:1em;
@@ -151,7 +151,7 @@ hr{
 .product-view .product-shop .product-shop-left .full-product-price span.price,
 .product-view .product-shop .product-shop-left .regular-price span.price,
 .product-view .product-shop .product-shop-left .special-price span.price-label{
-	color: #EE5191;
+	color: #ff6c6c;
 	font-weight: bold;
 	font-size: 3em;
 }
@@ -169,7 +169,7 @@ hr{
     color: #fff;
     font-weight: bold;
     padding: 10px;
-    background: #EE5191;
+    background: #ff6c6c;
     display: inline-block;
     margin-left: 10px;
 }
@@ -209,7 +209,7 @@ hr{
 	margin-bottom: 5px;
 }
 .product-container1 .product-options label {
-	color: #EE5191;
+	color: #ff6c6c;
     font-size: 1.2em;
 }
 .product-container1 .product-options a {
@@ -233,7 +233,7 @@ hr{
 .product-view .product-shop-right {
 	float: right;
     width: 256px;
-    color: #EE5191;
+    color: #ff6c6c;
     border-left: 1px solid #E4E4E4;
     margin-left: 10px;
     padding-left: 10px;
@@ -375,7 +375,7 @@ hr{
     font-size: 3em;
     text-transform: capitalize;
     line-height: 1em;
-    color: #EE5191;
+    color: #ff6c6c;
 }
 .product-shop-right .block.block-related .block-title strong {
 	background: none;
@@ -465,7 +465,7 @@ hr{
     color: #fff;
     font-weight: bold;
     padding: 6px;
-    background: #EE5191;
+    background: #ff6c6c;
     display: inline-block;
 }
 .product-shop-right .aw-arp-item .minimal-price-link .label, 
@@ -558,7 +558,7 @@ hr{
 #customer-reviews h2, .aw-mini-related-items .head,.related-product .block-title {
     font-size: 3em;
     line-height: normal;
-    color: #EE5191;
+    color: #ff6c6c;
     margin: 20px 0 10px;
 }
 .product-tab-wrapper .title-category span{
@@ -769,7 +769,7 @@ table.ratings-table tbody tr{
 	color: #fff;
 	line-height: 30px;
 	font-weight:normal;
-    background: #EE5191; 
+    background: #ff6c6c; 
     display: block;
     font-size: 1.4em;
 }

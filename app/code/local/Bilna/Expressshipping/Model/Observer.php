@@ -36,7 +36,7 @@ class Bilna_Expressshipping_Model_Observer {
         $shippingMethod = $order->getShippingMethod();
 
         // only increment the sales order daily count table if the shipping method is Express
-        if (strpos($shippingMethod, "Express") !== false || strpos($shippingMethod, "Ekspres") !== false)
+        if ( (strpos(strtolower($shippingMethod), 'express') !== false) || (strpos(strtolower($shippingMethod), 'ekspres') !== false) )
         {
             $todayDate = Mage::getModel('core/date')->date('Y-m-d');
 

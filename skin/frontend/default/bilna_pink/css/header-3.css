@@ -10,7 +10,7 @@
     background-color: #fff;
 }
 .checkout-onepage-index .header-container{
-    border-bottom: 5px solid #EE5191;
+    border-bottom: 5px solid #ff6c6c;
     background:  #fff
 }
 .menu-navigation .wrap-navigation.inspirasi{
@@ -69,7 +69,7 @@
     width: 70px;
 }
 .header .web_feature li a.active{
-  border-bottom:4px solid #ee5191;
+  border-bottom:4px solid #ff6c6c;
     font-weight: 600;
 }
 .header .web_feature li.koleksi{
@@ -706,7 +706,7 @@
     text-align: center;
     font-weight: bold;
     font-size: 12px;
-    background: #EE5191;
+    background: #ff6c6c;
     color: #fff;
     border-radius: 15px;
     -moz-border-radius: 15px;

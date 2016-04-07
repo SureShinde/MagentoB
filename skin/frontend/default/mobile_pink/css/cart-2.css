@@ -291,7 +291,7 @@
 	margin-left: 10px;
 }
 .coupon-total .coupon .discount .get-voucher a {
-	color: #EE5191;
+	color: #ff6c6c;
 	text-decoration: underline;
 }
 .coupon-total .coupon .discount .discount-form {
@@ -370,12 +370,12 @@
 }
 .checkout-types button {
     width: 100%;
-    border: 1px solid #EE5191;
+    border: 1px solid #ff6c6c;
     margin: 0 auto 20px;
     display: block;
 }
 .checkout-types button.btn-checkout span {
-	background: #EE5191;
+	background: #ff6c6c;
 }
 .continue-shopping{
     float: right;
