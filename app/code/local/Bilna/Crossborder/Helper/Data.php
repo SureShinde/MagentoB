@@ -12,7 +12,7 @@ class Bilna_Crossborder_Helper_Data extends Mage_Core_Helper_Abstract {
      */
     public function hasCrossBorderItem()
     {
-        $crossBorderModel = Mage::getModel('crossborder/CrossBorder');
+        $crossBorderModel = Mage::getModel('bilna_crossborder/CrossBorder');
         return $crossBorderModel->hasCrossBorderItem();
     }
 }
