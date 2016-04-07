@@ -10,6 +10,7 @@
 class Bilna_Checkout_Model_Api2_Resource extends Mage_Api2_Model_Resource
 {
     const DEFAULT_STORE_ID = 1;
+    const DEFAULT_TRX_FROM = 1;
     
     public function __construct() {
         Mage::app()->getStore()->setStoreId(self::DEFAULT_STORE_ID);

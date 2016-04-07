@@ -19,10 +19,10 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
      */
     protected function _create(array $data) {
         $quoteId = $data['entity_id'];
-        $storeId = isset($data['store_id']) ? $data['store_id'] : 1;
+        $storeId = isset($data['store_id']) ? $data['store_id'] : self::DEFAULT_STORE_ID;
         $tokenId = isset($data['token_id']) ? $data['token_id'] : '';
         $payment = isset($data['payment']) ? $data['payment'] : '';
-        $trxFrom = isset($data['trx_from']) ? $data['trx_from'] : 1;
+        $trxFrom = isset($data['trx_from']) ? $data['trx_from'] : self::DEFAULT_TRX_FROM;
         
         $allowInstallment = isset($data['allow_installment']) ? $data['allow_installment'] : '';
         $installmentMethod = isset($data['installment_method']) ? $data['installment_method'] : '';
@@ -174,8 +174,7 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
                 $charge = Mage::getModel('paymethod/api')->creditcardCharge($order, $tokenId);
                 $this->_storeChargeDataToQueue($charge);
             }
-
-            if (in_array($paymentCode, $this->getPaymentMethodVtdirect()) && ($orderCanceled === false)) {
+            elseif (in_array($paymentCode, $this->getPaymentMethodVtdirect()) && ($orderCanceled === false)) {
                 $charge = Mage::getModel('paymethod/api')->vtdirectRedirectCharge($order);
                 $this->_addHistoryOrder($order, $charge['response']->status_message);
                 $this->_storeChargeDataToQueue($charge, false);
@@ -305,11 +304,7 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
     }
     
     protected function _getOrderCanceled($order) {
-        if (strtolower($order->getData('status')) != 'canceled') {
-            return false;
-        }
-
-        return true;
+        return (strtolower($order->getData('status')) == 'canceled');
     }
     
     protected function _addHistoryOrder($order, $message) {
