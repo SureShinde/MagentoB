@@ -15,14 +15,15 @@ $installer->addAttribute('catalog_product', 'express_shipping', array(
     'required'=>'0',
     'comparable'=>'0',
     'searchable'=>'0',
-    'is_configurable'=>'1',
+    'is_configurable'=> 0,
     'user_defined'=>'1',
-    'visible_on_front' => 0, //want to show on frontend?
+    'visible_on_front' => 1, //want to show on frontend?
     'visible_in_advanced_search' => 0,
     'is_html_allowed_on_front' => 1,
     'required'=> 0,
     'unique'=>false,
-    'is_configurable' => false
+    'used_for_promo_rules' => 1,
+    'used_in_product_listing' => 1
 ));
 $installer->endSetup();
 // END - Create express_shipping attribute
