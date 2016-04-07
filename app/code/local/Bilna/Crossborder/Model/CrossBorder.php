@@ -31,8 +31,7 @@ class Bilna_Crossborder_Model_CrossBorder
             // Get All Cross Border Items and calculate the totals
             $cartItems = Mage::getModel("checkout/cart")->getItems();
             foreach ($cartItems as $item) {
-                $product = $item->getProduct()->load();
-                if ($product->getCrossBorder() == 1) {
+                if ($item->cross_border == 1) {
                     $totalWeight += $item->weight * $item->qty;
                     $totalVolume += ((float) $product->volume_weight ) * $item->qty;
                     $totalQty += $item->qty;
