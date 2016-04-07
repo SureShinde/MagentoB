@@ -610,8 +610,65 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
         $grossAmount = $order->getGrandTotal();
         $payment = $order->getPayment();
         $paymentCode = $payment->getMethodInstance()->getCode();
-        $paymentType = Mage::getStoreConfig('payment/' . $paymentCode . '/vtdirect_payment_type');
-        $bank = Mage::getStoreConfig('payment/' . $paymentCode . '/bank');
+        
+        // Get Configuration Data
+        $paymentConfig = Mage::getStoreConfig('payment/' . $paymentCode);
+        $inquiryTextID = $paymentConfig['inquiry_text_indonesian'];
+        $inquiryTextEN = $paymentConfig['inquiry_text_english'];
+        $paymentTextID = $paymentConfig['payment_text_indonesian'];
+        $paymentTextEN = $paymentConfig['payment_text_english'];
+        $paymentType = $paymentConfig['vtdirect_payment_type'];
+        $bank = $paymentConfig['bank'];
+
+        $inquiryRowLimit = 5;
+        $paymentRowLimit = 9;
+        $maxTextLength = 50;
+        $inquiryTexts = array();
+        $paymentTexts = array();
+
+        // BEGIN - Replace freetext containing defined variables 
+        $stringToReplaceArr = array(
+            '{{order_no}}' => $incrementId
+        );
+        foreach ($stringToReplaceArr as $stringToReplace => $replacementText) {
+            $inquiryTextID = str_replace($stringToReplace, $replacementText, $inquiryTextID);
+            $inquiryTextEN = str_replace($stringToReplace, $replacementText, $inquiryTextEN);
+            $paymentTextID = str_replace($stringToReplace, $replacementText, $paymentTextID);
+            $paymentTextEN = str_replace($stringToReplace, $replacementText, $paymentTextEN);
+        }
+        // END - Replace freetext containing defined variables 
+
+        // Split freetext based on end of line
+        $inquiryTextIDArr = explode(PHP_EOL, $inquiryTextID); 
+        $inquiryTextENArr = explode(PHP_EOL, $inquiryTextEN);
+        $paymentTextIDArr = explode(PHP_EOL, $paymentTextID); 
+        $paymentTextENArr = explode(PHP_EOL, $paymentTextEN); 
+
+        // BEGIN - validate splitted freetext
+        if (!empty($inquiryTextIDArr)) {
+            for ($i = 0; $i < $inquiryRowLimit; $i++) {
+                $inquiryTexts[$i]['id'] = substr(trim($inquiryTextIDArr[$i]), 0, $maxTextLength);
+            }
+        }
+
+        if (!empty($inquiryTextENArr)) {
+            for ($i = 0; $i < $inquiryRowLimit; $i++) {
+                $inquiryTexts[$i]['en'] = substr(trim($inquiryTextENArr[$i]), 0, $maxTextLength);
+            }
+        }
+
+        if (!empty($paymentTextIDArr)) {
+            for ($i = 0; $i < $paymentRowLimit; $i++) {
+                $paymentTexts[$i]['id'] = substr(trim($paymentTextIDArr[$i]), 0, $maxTextLength);
+            }
+        }
+
+        if (!empty($paymentTextENArr)) {
+            for ($i = 0; $i < $paymentRowLimit; $i++) {
+                $paymentTexts[$i]['en'] = substr(trim($paymentTextENArr[$i]), 0, $maxTextLength);
+            }
+        }
+        // END - validate splitted freetext
 
         //-Required
         $transactionDetails = array (
@@ -632,6 +689,10 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
             'customer_details' => $customerDetails,
             $paymentType => array (
                 'bank' => $bank,
+                'free_text' => array(
+                    'inquiry' => $inquiryTexts,
+                    'payment' => $paymentTexts
+                )
             ),
         );
 
