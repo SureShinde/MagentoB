@@ -622,9 +622,7 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
 
         $inquiryRowLimit = 5;
         $paymentRowLimit = 9;
-        $maxTextLength = 50;
-        $inquiryTexts = array();
-        $paymentTexts = array();
+        $maxTextLength = 38;
 
         // BEGIN - Replace freetext containing defined variables 
         $stringToReplaceArr = array(
@@ -638,63 +636,32 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
         }
         // END - Replace freetext containing defined variables 
 
-        // Split freetext based on end of line
-        $inquiryTextIDArr = explode(PHP_EOL, $inquiryTextID); 
-        $inquiryTextENArr = explode(PHP_EOL, $inquiryTextEN);
-        $paymentTextIDArr = explode(PHP_EOL, $paymentTextID); 
-        $paymentTextENArr = explode(PHP_EOL, $paymentTextEN); 
-
-        // Validate the number of row of Inquiry and Payment Text
-        $numRowInquiryID = count($inquiryTextIDArr);
-        if ($numRowInquiryID > $inquiryRowLimit) {
-            $numRowInquiryID = $inquiryRowLimit;
-        }
-        $numRowInquiryEN = count($inquiryTextENArr);
-        if ($numRowInquiryEN > $inquiryRowLimit) {
-            $numRowInquiryEN = $inquiryRowLimit;
-        }
-        $numRowPaymentID = count($paymentTextIDArr);
-        if ($numRowPaymentID > $paymentRowLimit) {
-            $numRowPaymentID = $paymentRowLimit;
-        }
-        $numRowPaymentEN = count($paymentTextENArr);
-        if ($numRowPaymentEN > $paymentRowLimit) {
-            $numRowPaymentEN = $paymentRowLimit;
-        }
-
-        // BEGIN - Building free_text data
-        if (!empty($inquiryTextIDArr)) {
-            for ($i = 0; $i < $numRowInquiryID; $i++) {
-                if (!empty($inquiryTextIDArr[$i])) {
-                    $inquiryTexts[$i]['id'] = substr(trim($inquiryTextIDArr[$i]), 0, $maxTextLength);
-                }
+        $inquiryTextIDArr = $this->_parseFreeText($inquiryTextID, 'id', $inquiryRowLimit, $maxTextLength);
+        $inquiryTextENArr = $this->_parseFreeText($inquiryTextEN, 'en', $inquiryRowLimit, $maxTextLength);
+        $paymentTextIDArr = $this->_parseFreeText($paymentTextID, 'id', $paymentRowLimit, $maxTextLength);
+        $paymentTextENArr = $this->_parseFreeText($paymentTextEN, 'en', $paymentRowLimit, $maxTextLength);
+        
+        // Building Inquiry Text Data
+        $inquiryTextArr = array();
+        foreach($inquiryTextIDArr as $key=>$val){ // Loop though one array
+            if (isset($inquiryTextENArr[$key])) {
+                $val2 = $inquiryTextENArr[$key]; // Get the values from the other array
+                $inquiryTextArr[$key] = $val + $val2; // combine 'em
+            } else {
+                $inquiryTextArr[$key] = $val;
             }
         }
-
-        if (!empty($inquiryTextENArr)) {
-            for ($i = 0; $i < $numRowInquiryEN; $i++) {
-                if (!empty($inquiryTextENArr[$i])) {
-                    $inquiryTexts[$i]['en'] = substr(trim($inquiryTextENArr[$i]), 0, $maxTextLength);
-                }
+        
+        // Building Payment Text Data
+        $paymentTextArr = array();
+        foreach($paymentTextIDArr as $key=>$val){ // Loop though one array
+            if (isset($paymentTextENArr[$key])) {
+                $val2 = $paymentTextENArr[$key]; // Get the values from the other array
+                $paymentTextArr[$key] = $val + $val2; // combine 'em
+            } else {
+                $paymentTextArr[$key] = $val;
             }
         }
-
-        if (!empty($paymentTextIDArr)) {
-            for ($i = 0; $i < $numRowPaymentID; $i++) {
-                if (!empty($paymentTextIDArr[$i])) {
-                    $paymentTexts[$i]['id'] = substr(trim($paymentTextIDArr[$i]), 0, $maxTextLength);
-                }
-            }
-        }
-
-        if (!empty($paymentTextENArr)) {
-            for ($i = 0; $i < $numRowPaymentEN; $i++) {
-                if (!empty($paymentTextENArr[$i])) {
-                    $paymentTexts[$i]['en'] = substr(trim($paymentTextENArr[$i]), 0, $maxTextLength);
-                }
-            }
-        }
-        // END - Building free_text data
 
         //-Required
         $transactionDetails = array (
@@ -716,8 +683,8 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
             $paymentType => array (
                 'bank' => $bank,
                 'free_text' => array(
-                    'inquiry' => $inquiryTexts,
-                    'payment' => $paymentTexts
+                    'inquiry' => $inquiryTextArr,
+                    'payment' => $paymentTextArr
                 )
             ),
         );
@@ -1075,5 +1042,35 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
         $content = sprintf("%s|%s", $content, $tdate);
         
         return Mage::helper('paymethod')->writeLogFile($paymentCode, $type, $filename, $content, 'normal');
+    }
+
+    /**
+     * Function to parse text for Veritrans transaction
+     * @param $textToParse Array of text
+     * @param $languageKey string Language Key that will be used in the index
+     * @param $rowLimit int Limit of the return rows
+     * @param $maxRowLength int Maximum length of each row returned
+     * @return array of parsed text
+     */
+    protected function _parseFreeText($textToParse, $languageKey='id', $rowLimit = 5, $maxRowLength = 38)
+    {
+        $parsedText = array();
+        $splittedText = explode(PHP_EOL, $textToParse); 
+        $index = 0;
+
+        $numRow = count($splittedText);
+        if ($numRow > $rowLimit) {
+            $numRow = $rowLimit;
+        }
+
+        if (!empty($splittedText)) {
+            for ($i = 0; $i < $numRow; $i++) {
+                if (!empty($splittedText[$i])) {
+                    $parsedText[$index][$languageKey] = substr(trim($splittedText[$i]), 0, $maxRowLength);
+                    $index++;
+                }
+            }
+        }
+        return $parsedText;
     }
 }

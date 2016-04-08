@@ -8071,7 +8071,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Max 5 line(s), 50 character(s) per line. To display order no use {{order_no}}</comment>
+                            <comment>Max 5 line(s), 38 character(s) per line. To display order no, use {{order_no}}</comment>
                         </inquiry_text_indonesian>
                         <inquiry_text_english translate="label">
                             <label>Inquiry Text (English)</label>
@@ -8080,7 +8080,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Max 5 line(s), 50 character(s) per line. To display order no use {{order_no}}</comment>
+                            <comment>Max 5 line(s), 38 character(s) per line. To display order no, use {{order_no}}</comment>
                         </inquiry_text_english>
                         <payment_text_indonesian translate="label">
                             <label>Payment Text (Indonesian)</label>
@@ -8089,7 +8089,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Max 9 line(s), 50 character(s) per line. To display order no use {{order_no}}</comment>
+                            <comment>Max 9 line(s), 38 character(s) per line. To display order no, use {{order_no}}</comment>
                         </payment_text_indonesian>
                         <payment_text_english translate="label">
                             <label>Payment Text (English)</label>
@@ -8098,7 +8098,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Max 9 line(s), 50 character(s) per line. To display order no use {{order_no}}</comment>
+                            <comment>Max 9 line(s), 38 character(s) per line. To display order no, use {{order_no}}</comment>
                         </payment_text_english>
                         <min_order_total translate="label">
                             <label>Minimum Order Total</label>
