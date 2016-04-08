@@ -91,14 +91,12 @@
 		</a>
 	     	<?php else: ?>
 		<a href="<?php echo $this->getOrderUrl($_key, 'desc') ?>" title="<?php echo $this->__('Set Descending Direction') ?>" alt="<?php echo $this->__('Set Descending Direction') ?>" class="v-middle">
-		<!--span class="sort-active"><?php //echo $this->__($_order) ?></span-->
 		<span class="sort-active"><?php if($_key=="position"){ echo "Featured"; }else{ echo $this->__($_order); } ?></span>
 		<label><?php echo $this->__('▲') ?></label>
 		</a>
 		<?php endif; ?>
 	     </li>
              <?php else: ?>
-             <!--li><a href="<?php //echo $this->getOrderUrl($_key, 'asc') ?>"><?php //echo $this->__($_order) ?></a></li-->
 	     <li><a href="<?php echo $this->getOrderUrl($_key, 'asc') ?>"><?php if($_key=="position"){ echo "Featured"; }else{ echo $this->__($_order); } ?></a></li>
              <?php endif; ?>
 	<?php endforeach; ?>
@@ -157,7 +155,6 @@
 			<?php foreach($this->getAvailableOrders() as $_key=>$_order): ?>
 
 			<option value="<?php echo $this->getOrderUrl($_key, 'desc') ?>"<?php if($this->isOrderCurrent($_key) && $this->getCurrentDirection() == 'desc'): ?> selected="selected"<?php endif; ?>>
-			<!--?php //echo $this->__($_order) ?-->
 				<?php
 				if($_key=="position"){
 				echo "None";
@@ -171,7 +168,6 @@
 				?>
 			</option>
 			<option value="<?php echo $this->getOrderUrl($_key, 'asc') ?>"<?php if($this->isOrderCurrent($_key) && $this->getCurrentDirection() == 'asc'): ?> selected="selected"<?php endif; ?>>
-			<!--?php //echo $this->__($_order) ?-->
 				<?php
 				if($_key=="position"){
 				echo "Featured";
@@ -193,13 +189,6 @@
 		<a class="button-toggle">Filter</a>
 		</div>
 	</div>
-        <!--div class="filter">
-	        <div class="filter-option">
-		        <select>
-			        <option><?php //echo $this->__('Filter') ?></option>
-		        </select>
-	        </div>
-        </div-->
     </div>
     <?php endif; ?>
 </div>
@@ -225,19 +214,5 @@ jQuery(document).ready(function(){
 				console.log(2);
             }
         });
-	// jQuery('.button-toggle').click(function() {
-        // jQuery('.amshopby-filters-left').toggle("slide");
-    // });
 });
-</script>
-
-<script>
-// $('.amshopby-filters-left').toggle(
-        // function() {
-            // $('.button-toggle').slideDown("fast");
-        // },
-        // function() {
-            // $('.button-toggle').slideUp("fast");
-        // }
-    // );
 </script>

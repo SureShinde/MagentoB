@@ -28,10 +28,6 @@
 ?><?php
 ?>
 <?php $_order = $this->getOrder() ?>
-<!--<div class="page-head button-level">
-    <h2><?php echo $this->__('Refunds') ?></h2>
-    <button class="form-button" onclick="window.print();"><span><?php echo $this->__('Print All Refunds') ?></span></button>
-</div>-->
 <h3><?php echo $this->__('Order #%s', $_order->getRealOrderId()) ?></h3>
 <p><?php echo $this->__('Order Date: %s', $this->formatDate($_order->getCreatedAtStoreDate(), 'long')) ?></p>
 <?php $_creditmemo = $this->getCreditmemo() ?>
@@ -44,7 +40,6 @@
     <div class="divider"></div>
     <div class="head">
         <h3><?php echo $this->__('Refund #%s', $_creditmemo->getIncrementId()) ?></h3>
-        <!--<a href="#"><?php echo $this->__('Print Invoice') ?></a>-->
     </div>
     <div class="col2-set">
         <div class="col-1">

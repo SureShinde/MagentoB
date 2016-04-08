@@ -77,9 +77,9 @@
                 $j('.category-level-2 li').removeClass("open-cat-3");
         });
 
-        $j('.mobile-left-menu .wrap-menu-cat .wrap-first-level .wrap-level2 .category-level-2 li > a,.mobile-left-menu .wrap-menu-cat .wrap-first-level .wrap-level2 .category-level-2 li > .fa').click(function() {
-                $j(this).parent().toggleClass("open-cat-3");
-        });
+        //$j('.mobile-left-menu .wrap-menu-cat .wrap-first-level .wrap-level2 .category-level-2 li > a,.mobile-left-menu .wrap-menu-cat .wrap-first-level .wrap-level2 .category-level-2 li > .fa').click(function() {
+        //        $j(this).parent().toggleClass("open-cat-3");
+        //});
         
         //================mobile left menu js========================
 
