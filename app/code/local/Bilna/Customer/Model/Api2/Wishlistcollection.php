@@ -71,7 +71,7 @@ class Bilna_Customer_Model_Api2_Wishlistcollection extends Bilna_Rest_Model_Api2
             # Get wishlist collection
             $wishlistCollection = Mage::getModel('wishlist/wishlist')->getCollection();
             $wishlistCollection->addFieldToFilter('customer_id', $customer->getId()); 
-            $wishlistCollection->setOrder('created_at', 'desc');                
+            $wishlistCollection->setOrder('updated_at', 'desc');                
             $result[0]['total_record'] = $wishlistCollection->getSize();
             $this->_pagination($wishlistCollection);
             $hasCollection = $wishlistCollection->count() < 1 ? false : true;
@@ -81,6 +81,7 @@ class Bilna_Customer_Model_Api2_Wishlistcollection extends Bilna_Rest_Model_Api2
                 foreach($wishlistCollection as $key => $value) {
                     $result[$key] = $value->getData();
                     $result[$key]['slug'] = $value->getId().'-'.Mage::getModel('catalog/product_url')->formatUrlKey($value->getName());
+                    $result[$key]['wishlist_collection_items_total'] = $this->getCollectionItemsTotal($value);
                 }
 
                 return $result;
@@ -88,6 +89,16 @@ class Bilna_Customer_Model_Api2_Wishlistcollection extends Bilna_Rest_Model_Api2
         }
         
         return FALSE;
+    }
+    
+    public function getCollectionItemsTotal($wishlist)
+    {
+        $productWishlistCollection = Mage::getResourceModel('wishlist/item_apicollection_item')
+            ->addWishlistFilter($wishlist)
+            ->setOrder('added_at', 'desc')
+            ->setVisibilityFilter();
+        
+        return $productWishlistCollection->getSize();
     }
 
     /**
