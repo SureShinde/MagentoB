@@ -644,31 +644,57 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
         $paymentTextIDArr = explode(PHP_EOL, $paymentTextID); 
         $paymentTextENArr = explode(PHP_EOL, $paymentTextEN); 
 
-        // BEGIN - validate splitted freetext
+        // Validate the number of row of Inquiry and Payment Text
+        $numRowInquiryID = count($inquiryTextIDArr);
+        if ($numRowInquiryID > $inquiryRowLimit) {
+            $numRowInquiryID = $inquiryRowLimit;
+        }
+        $numRowInquiryEN = count($inquiryTextENArr);
+        if ($numRowInquiryEN > $inquiryRowLimit) {
+            $numRowInquiryEN = $inquiryRowLimit;
+        }
+        $numRowPaymentID = count($paymentTextIDArr);
+        if ($numRowPaymentID > $paymentRowLimit) {
+            $numRowPaymentID = $paymentRowLimit;
+        }
+        $numRowPaymentEN = count($paymentTextENArr);
+        if ($numRowPaymentEN > $paymentRowLimit) {
+            $numRowPaymentEN = $paymentRowLimit;
+        }
+
+        // BEGIN - Building free_text data
         if (!empty($inquiryTextIDArr)) {
-            for ($i = 0; $i < $inquiryRowLimit; $i++) {
-                $inquiryTexts[$i]['id'] = substr(trim($inquiryTextIDArr[$i]), 0, $maxTextLength);
+            for ($i = 0; $i < $numRowInquiryID; $i++) {
+                if (!empty($inquiryTextIDArr[$i])) {
+                    $inquiryTexts[$i]['id'] = substr(trim($inquiryTextIDArr[$i]), 0, $maxTextLength);
+                }
             }
         }
 
         if (!empty($inquiryTextENArr)) {
-            for ($i = 0; $i < $inquiryRowLimit; $i++) {
-                $inquiryTexts[$i]['en'] = substr(trim($inquiryTextENArr[$i]), 0, $maxTextLength);
+            for ($i = 0; $i < $numRowInquiryEN; $i++) {
+                if (!empty($inquiryTextENArr[$i])) {
+                    $inquiryTexts[$i]['en'] = substr(trim($inquiryTextENArr[$i]), 0, $maxTextLength);
+                }
             }
         }
 
         if (!empty($paymentTextIDArr)) {
-            for ($i = 0; $i < $paymentRowLimit; $i++) {
-                $paymentTexts[$i]['id'] = substr(trim($paymentTextIDArr[$i]), 0, $maxTextLength);
+            for ($i = 0; $i < $numRowPaymentID; $i++) {
+                if (!empty($paymentTextIDArr[$i])) {
+                    $paymentTexts[$i]['id'] = substr(trim($paymentTextIDArr[$i]), 0, $maxTextLength);
+                }
             }
         }
 
         if (!empty($paymentTextENArr)) {
-            for ($i = 0; $i < $paymentRowLimit; $i++) {
-                $paymentTexts[$i]['en'] = substr(trim($paymentTextENArr[$i]), 0, $maxTextLength);
+            for ($i = 0; $i < $numRowPaymentEN; $i++) {
+                if (!empty($paymentTextENArr[$i])) {
+                    $paymentTexts[$i]['en'] = substr(trim($paymentTextENArr[$i]), 0, $maxTextLength);
+                }
             }
         }
-        // END - validate splitted freetext
+        // END - Building free_text data
 
         //-Required
         $transactionDetails = array (
