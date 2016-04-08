@@ -161,8 +161,7 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
                 }
             }
 
-            //Mage::dispatchEvent('checkout_submit_all_after', array ('order' => $order, 'quote' => $quote));
-            //Mage::dispatchEvent('sales_order_place_after', array ('order' => $order));
+            Mage::dispatchEvent('checkout_submit_all_after', array ('order' => $order, 'quote' => $quote));
 
             $orderId = $order->getId();
             $paymentCode = $order->getPayment()->getMethodInstance()->getCode();
