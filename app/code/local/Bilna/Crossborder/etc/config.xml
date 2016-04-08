@@ -56,12 +56,27 @@
                     </sales_order_quote_convert_to_order_item>
                 </observers>
             </sales_convert_quote_item_to_order_item>
+            <sales_order_save_before>
+                <observers>
+                    <crossborder_validate>
+                        <type>singleton</type>
+                        <class>Bilna_Crossborder_Model_CrossBorder</class>
+                        <method>validateSaveOrder</method>
+                    </crossborder_validate>
+                </observers>
+            </sales_order_save_before>
         </events>
         <helpers>
             <bilna_crossborder>
                 <class>Bilna_Crossborder_Helper</class>
             </bilna_crossborder>
         </helpers>
+        <models>
+            <bilna_crossborder>
+                <class>Bilna_Crossborder_Model</class>
+            </bilna_crossborder>
+        </models>
+        
     </global>
     <adminhtml>
         <acl>

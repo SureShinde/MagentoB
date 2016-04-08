@@ -9,18 +9,19 @@ $installer->addAttribute('catalog_product', 'cross_border', array(
     'type' => 'int',
     'source' => 'eav/entity_attribute_source_boolean',
     'label' => 'Available for Cross Border Shipping',
-    'default' => '0',
-    'required'=>'0',
-    'comparable'=>'0',
-    'searchable'=>'0',
-    'is_configurable'=>'1',
-    'user_defined'=>'1',
-    'visible_on_front' => 0, //want to show on frontend?
+    'default' => 0,
+    'required' => 0,
+    'comparable' => 0,
+    'searchable' => 0,
+    'is_configurable' => 0,
+    'user_defined' => 1,
+    'visible_on_front' => 1, //want to show on frontend?
     'visible_in_advanced_search' => 0,
     'is_html_allowed_on_front' => 1,
-    'required'=> 0,
-    'unique'=>false,
-    'is_configurable' => false
+    'required' => 0,
+    'unique' => false,
+    'used_for_promo_rules' => 1,
+    'used_in_product_listing' => 1
 ));
 
 $installer->run("ALTER TABLE `{$this->getTable('sales_flat_order_item')}` ADD COLUMN `cross_border` INT(11) DEFAULT 0");

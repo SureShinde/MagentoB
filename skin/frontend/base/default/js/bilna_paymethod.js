@@ -1069,8 +1069,13 @@ Review.prototype = {
                         var responseJson = response.responseText.evalJSON();
 
                         if (responseJson.success == false && responseJson.error == true) {
-                            alert(responseJson.error_messages);
-                            checkout.gotoSection('payment');
+                            if (typeof(responseJson.is_crossborder) !== 'undefined' && responseJson.is_crossborder === true) {
+                                // TODO Add jQuery modal for displaying alert
+                                location.href = baseUrl + 'checkout/cart';
+                            } else{
+                                alert(responseJson.error_messages);
+                                checkout.gotoSection('payment');
+                            }
                         }
                         else {
                             review.nextStep(response);
