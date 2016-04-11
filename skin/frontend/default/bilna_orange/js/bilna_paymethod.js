@@ -839,6 +839,9 @@ Payment.prototype = {
                 url : ajaxURL,
                 data: { card_no: cardNo },
                 dataType: 'json',
+                beforeSend: function () {
+                    _payment.errorMessage('hide', '');
+                },
                 success: function(response) {
                     if (response.status == true) {
                         jQuery('#p_method_' + currPayment).val(response.data.bank_code);
