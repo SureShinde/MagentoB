@@ -60,6 +60,12 @@ class RocketWeb_Netsuite_Model_Process_Import_Inventoryitem extends RocketWeb_Ne
         /** @var InventoryItem $inventoryItem */
         $magentoProduct = Mage::helper('rocketweb_netsuite/mapper_product')->getMagentoFormatFromInventoryItem($inventoryItem);
 
+        /* there is a glitch where the express shipping eav attribute is not saved when we create new
+        item in Magento. If the same item is edited in Netsuite, then the express shipping eav attribute
+        will be saved in Magento. Therefore, here, I create a variable to store the value of express
+        shipping first to be saved later in magento product */
+        $expressShippingEavAttribute = ( is_null($magentoProduct->getExpressShipping()) ? 0 : $magentoProduct->getExpressShipping() );
+
         if(!$this->isMagentoImportable($inventoryItem)) {
             if($magentoProduct && $magentoProduct->getId()) {
                 //deactivate a product that is not importable anymore
@@ -107,6 +113,8 @@ class RocketWeb_Netsuite_Model_Process_Import_Inventoryitem extends RocketWeb_Ne
                 }
             }
             $magentoProduct = Mage::getModel('catalog/product')->load($magentoProduct->getId());
+            // after load, set the express shipping value
+            $magentoProduct->setExpressShipping($expressShippingEavAttribute);
         }
 
         Mage::dispatchEvent('netsuite_import_product_created_after',array('magento_product'=>$magentoProduct,'netsuite_product'=>$inventoryItem,'product_is_new'=>$productIsNew));
