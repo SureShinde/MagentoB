@@ -66,7 +66,7 @@ class Bilna_Crossborder_Model_CrossBorder
             }
 
             if ($invalidCount > 0) { // If there is any invalid criteria, throw the Exception
-                Mage::throwException(Mage::helper('checkout')->__('CrossBorder: ' . implode(', ', $messages)));
+                Mage::throwException(Mage::helper('checkout')->__('CrossBorder:' . implode(', ', $messages)));
             }
         }
 
