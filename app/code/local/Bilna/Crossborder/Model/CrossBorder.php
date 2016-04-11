@@ -23,11 +23,11 @@ class Bilna_Crossborder_Model_CrossBorder
             $totalVolume = 0;
             $totalQty = 0;
             $subtotal = 0;
-            $crossBorderConfig = Mage::getStoreConfig('bilna_crossborder/configuration');
-            $maxWeightAllowed = (float) $crossBorderConfig['max_weight_allowed'];
-            $maxVolumeAllowed = (float) $crossBorderConfig['max_volume_allowed'];
-            $maxQtyAllowed = (int) $crossBorderConfig['max_qty_allowed'];
-            $maxSubtotalAllowed = (float) $crossBorderConfig['max_subtotal_allowed'];
+            $crossBorderConfig = $this->getConfiguration();
+            $maxWeightAllowed = $crossBorderConfig['max_weight_allowed'];
+            $maxVolumeAllowed = $crossBorderConfig['max_volume_allowed'];
+            $maxQtyAllowed = $crossBorderConfig['max_qty_allowed'];
+            $maxSubtotalAllowed = $crossBorderConfig['max_subtotal_allowed'];
 
             // Get All Cross Border Items and calculate the totals
             $cartItems = Mage::getModel("checkout/cart")->getItems();
@@ -102,5 +102,20 @@ class Bilna_Crossborder_Model_CrossBorder
         }
 
         return false;
+    }
+
+    /**
+     * Function to get Cross Border Configuration
+     */
+    public function getConfiguration()
+    {
+        $crossBorderConfig = Mage::getStoreConfig('bilna_crossborder/configuration');
+        $config = array(
+            'max_weight_allowed', (float) $crossBorderConfig['max_weight_allowed'],
+            'max_volume_allowed', (float) $crossBorderConfig['max_volume_allowed'],
+            'max_qty_allowed', (int) $crossBorderConfig['max_qty_allowed'],
+            'max_subtotal_allowed', (float) $crossBorderConfig['max_subtotal_allowed']
+        );
+        return $config;
     }
 }
