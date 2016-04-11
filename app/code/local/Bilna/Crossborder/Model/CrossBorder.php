@@ -66,7 +66,7 @@ class Bilna_Crossborder_Model_CrossBorder
             }
 
             if ($invalidCount > 0) { // If there is any invalid criteria, throw the Exception
-                Mage::throwException(Mage::helper('checkout')->__('CrossBorder:' . implode(', ', $messages)));
+                Mage::throwException(Mage::helper('checkout')->__('CrossBorder: ' . implode(', ', $messages)));
             }
         }
 
@@ -111,10 +111,10 @@ class Bilna_Crossborder_Model_CrossBorder
     {
         $crossBorderConfig = Mage::getStoreConfig('bilna_crossborder/configuration');
         $config = array(
-            'max_weight_allowed', (float) $crossBorderConfig['max_weight_allowed'],
-            'max_volume_allowed', (float) $crossBorderConfig['max_volume_allowed'],
-            'max_qty_allowed', (int) $crossBorderConfig['max_qty_allowed'],
-            'max_subtotal_allowed', (float) $crossBorderConfig['max_subtotal_allowed']
+            'max_weight_allowed' => (float) $crossBorderConfig['max_weight_allowed'],
+            'max_volume_allowed' => (float) $crossBorderConfig['max_volume_allowed'],
+            'max_qty_allowed' => (int) $crossBorderConfig['max_qty_allowed'],
+            'max_subtotal_allowed' => (float) $crossBorderConfig['max_subtotal_allowed']
         );
         return $config;
     }
