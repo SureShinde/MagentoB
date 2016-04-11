@@ -862,7 +862,7 @@ Payment.prototype = {
                 },
                 error: function() {
                     //alert(Translator.translate('Please enter a valid credit card number.').stripTags());
-                    _payment.errorMessage('show', Translator.translate('Please enter a valid credit card number.').stripTags());
+                    _payment.errorMessage('show', Translator.translate('We\'re sorry. An unexpected error happen. Please try again.').stripTags());
                 }
             });
         }
