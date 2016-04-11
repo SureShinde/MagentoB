@@ -86,6 +86,7 @@ class Mage_Catalog_Block_Product_List extends Mage_Catalog_Block_Product_Abstrac
             }
             $this->_productCollection = $layer->getProductCollection();
             $this->_productCollection->addAttributeToSelect('sku');
+            $this->_productCollection->addAttributeToSelect('express_shipping');
 
             $this->prepareSortableFieldsByCategory($layer->getCurrentCategory());
 
@@ -270,3 +271,5 @@ class Mage_Catalog_Block_Product_List extends Mage_Catalog_Block_Product_Abstrac
         );
     }
 }
+
+

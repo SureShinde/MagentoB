@@ -309,6 +309,7 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
             'size_chart' => 2,
             'more_detail' => 3,
             'additional_info' => 4,
+            'express_shipping' => 5,
         );
         $result = array ();
         
@@ -342,6 +343,20 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
                     'value' => $_attributeValue,
                 );
             }
+            elseif ($_attributeCode == 'express_shipping' && $_attribute->getIsVisibleOnFront()) {
+                if (!isset ($result[$sortTab['express_shipping']])) {
+                    $result[$sortTab['express_shipping']] = array (
+                        'code' => 'express_shipping',
+                        'label' => $this->__('Express Shipping'),
+                    );
+                }
+
+                $result[$sortTab['express_shipping']]['data'][] = array (
+                    'code' => $_attributeCode,
+                    'label' => $_attributeLabel,
+                    'value' => $_attributeValue,
+                );
+            }
             else {
                 if ($_attribute->getIsVisibleOnFront()) {
                     if (!isset ($result[$sortTab['additional_info']])) {
@@ -365,3 +380,5 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
         return $result;
     }
 }
+
+

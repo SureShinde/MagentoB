@@ -221,6 +221,19 @@
                                 <?php endforeach; ?>
                             </tbody>
                         </table>
+                    <?php elseif ($_code == 'express_shipping'): ?>
+                        <hr/>
+                        <div class="title-category" id="<?php echo "tabs-{$alias}"?>">
+                            <?php echo $this->__('Express Shipping'); ?>
+                        </div>
+                        <table id="product-attribute-specs-table" class="data-table">
+                            <tbody>
+                                <tr>
+                                    <th width="25%"><?php echo $_attribute['data'][0]['label']; ?></th>
+                                    <td><?php echo $_attribute['data'][0]['value']; ?></td>
+                                </tr>
+                            </tbody>
+                        </table>
                     <?php elseif ($_code == 'additional_info'): ?>
                         <hr/>
                         <div class="title-category" id="<?php echo "tabs-{$alias}"?>">
@@ -329,3 +342,5 @@
     dataLayer.push( {'skuid': '<?php echo $_product->getSku(); ?>'} );
     });
 </script>
+
+

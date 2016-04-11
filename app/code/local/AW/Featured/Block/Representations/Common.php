@@ -397,3 +397,4 @@ class AW_Featured_Block_Representations_Common extends Mage_Core_Block_Template
         return $result;
     }
 }
+
