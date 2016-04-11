@@ -20,7 +20,10 @@ class Bilna_Customer_Model_Api2_Login_Rest extends Bilna_Customer_Model_Api2_Log
                 
                 $customer = $session->getCustomer()->getData();
                 
-                return $this->_loadCustomerById($customer["entity_id"])->getData();
+                $loggedInCustomer = $this->_loadCustomerById($customer["entity_id"])->getData();
+                $loggedInCustomer['username'] = $this->_getUsername($customer["entity_id"]);
+                return $loggedInCustomer;
+                
             } catch (Mage_Core_Exception $e) {
                 switch ($e->getCode()) {
                     case Mage_Customer_Model_Customer::EXCEPTION_EMAIL_NOT_CONFIRMED:
@@ -64,5 +67,29 @@ class Bilna_Customer_Model_Api2_Login_Rest extends Bilna_Customer_Model_Api2_Log
         $this->_applyCollectionModifiers($customer);
         
         return $customer->getFirstItem();
+    }
+    
+    //assume username has created on register form of logan app
+    protected function _getUsername($customerId = null) 
+    {
+        $customer = $this->_loadCustomerById($customerId);
+        $customerData = $customer->getData();
+        
+        $username = null;
+
+        if (!isset($customerData['entity_id'])) {
+            $this->_critical('No customer account specified.');
+        }
+
+        $customerProfile = Mage::getModel('socialcommerce/profile')->load($customerData['entity_id'], 'customer_id');
+        $customerProfileData = $customerProfile->getData();
+
+        if (!isset($customerProfileData['entity_id'])) {
+            $username = Mage::helper('socialcommerce')->createTemporaryProfile($customer);
+        } else {
+            $username = $customerProfileData['username'];
+        }
+        
+        return $username;
     }
 }
