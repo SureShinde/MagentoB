@@ -157,6 +157,43 @@ class Bilna_Crossborder_CartController extends Mage_Core_Controller_Front_Action
          */
         $this->_getSession()->setCartWasUpdated(true);
 
+        // BEGIN - Check if Cart exceeds Cross Border limitation
+        $messages = array();
+        $invalidCount = 0;
+        $errorMessage = '';
+        $cartCollection = $cart->getItems()->getData();
+        $crossBorderModel = Mage::getModel('bilna_crossborder/CrossBorder');
+        $crossBorderConfig = $crossBorderModel->getConfiguration();
+        $totalArray = $this->__getTotalStoredCrossBorder($cartCollection);
+        
+        $maxWeightAllowed = $crossBorderConfig['max_weight_allowed'];
+        $maxQtyAllowed = $crossBorderConfig['max_qty_allowed'];
+        $maxSubtotalAllowed = $crossBorderConfig['max_subtotal_allowed'];
+        
+        // Check Weight Limitation
+        if ($totalArray['weight'] > $maxWeightAllowed) {
+            $messages[] = 'max weight exceeded';
+            $invalidCount++;
+        }
+
+        // Check Quantity Limitation
+        if ($totalArray['qty'] > (int) $maxQtyAllowed) {
+            $messages[] = 'max qty exceeded';
+            $invalidCount++;
+        }
+
+        // Check Subtotal Limitation
+        if ($totalArray['subtotal'] > (float) $maxSubtotalAllowed) {
+            $messages[] = 'max subtotal exceeded';
+            $invalidCount++;
+        }
+
+        if ($invalidCount > 0) { // If there is any invalid criteria, throw the Exception
+            $errorMessage = Mage::helper('checkout')->__('CrossBorder: ' . implode(', ', $messages));
+            $cart->getCheckoutSession()->addError($errorMessage);
+        }
+        // END - Check if Cart exceeds Cross Border limitation
+
         Varien_Profiler::start(__METHOD__ . 'cart_display');
         $this
             ->loadLayout()
