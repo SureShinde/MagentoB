@@ -42,25 +42,25 @@ class Bilna_Crossborder_Model_CrossBorder
 
             // Check Weight Limitation
             if ($totalWeight > $maxWeightAllowed) {
-                $messages[] = 'max weight exceeded';
+                $messages[] = 'Berat pesanan produk impor lebih dari ' . $maxWeightAllowed . ' kg';
                 $invalidCount++;
             }
 
             // Check Volume Limitation
             if ($totalVolume > $maxVolumeAllowed) {
-                $messages[] = 'max volume exceeded';
+                $messages[] = 'Volume pesanan produk impor lebih dari ' . $maxVolumeAllowed;
                 $invalidCount++;
             }
 
             // Check Quantity Limitation
             if ($totalQty > (int) $maxQtyAllowed) {
-                $messages[] = 'max qty exceeded';
+                $messages[] = 'Jumlah pesanan produk impor lebih dari ' . $maxQtyAllowed;
                 $invalidCount++;
             }
 
             // Check Subtotal Limitation
             if ($subtotal > (float) $maxSubtotalAllowed) {
-                $messages[] = 'max subtotal exceeded';
+                $messages[] = 'Harga total pesanan produk impor lebih dari Rp ' . $maxSubtotalAllowed;
                 $invalidCount++;
             }
 

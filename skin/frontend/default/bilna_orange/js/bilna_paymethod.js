@@ -1069,37 +1069,50 @@ Review.prototype = {
                         var responseJson = response.responseText.evalJSON();
 
                         if (responseJson.success == false && responseJson.error == true) {
-                            //if (responseJson.error_messages.indexOf('CrossBorder') > -1) {
-                                // TODO Add jQuery modal for displaying alert
-                                var dynamicDialog = jQuery('\
-                                                            <div id="crossBorderDialog" class="container-collection-pop" style="display:none;" >\
-                                                              <div class="cg-col-lg-5 cg-col-md-6 cg-col-sm-6 cg-col-xs-11 container-collection-whitebg white-bg-new-coll text-center" style="max-width:500px;">\
-                                                                <p>Pesanan untuk produk impor <strong>tidak dapat diproses</strong> karena:</p>\
-                                                                <p>\
-                                                                  <ol class="cause-list">\
-                                                                    <li>1. Berat pesanan produk impor lebih dari 30 kg</li>\
-                                                                    <li>2. Harga total pesanan produk impor lebih dari Rp 1,000,000</li>\
-                                                                    <li>3. Volume pesanan produk impor lebih dari ....</li>\
-                                                                  </ol>\
-                                                                </p>\
-                                                                    <div class="center-block info-bottom">\
-                                                                    <p>Edit pesanan produk impor anda</p>\
-                                                                    <button type="button" class="btn btn-hollow center-block" id="btnCrossBorderOk">Kembali ke Keranjang Belanja</button>\
-                                                                    </div>\
-                                                              </div>\
-                                                            </div>\
-                                                           ');
+                            // If the message contains 'CrossBorder:'
+                            if (responseJson.error_messages.indexOf('CrossBorder:') > -1) {
+                                var errorMessage = responseJson.error_messages.substring(12);
+                                var errorMessages = errorMessage.split(', ');
+                                console.log(errorMessage);
+
+                                // Combining error messages to be displayed
+                                var causeList = '';
+                                var index;
+                                if (errorMessages.length > 0) {
+                                    for (index = 0; index < errorMessages.length; index++) {
+                                        causeList += '<li>' + (index+1) + '. ' + errorMessages[index] + '</li>';
+                                    }
+                                } else {
+                                    causeList += '<li>1. ' + errorMessage + '</li>';
+                                }
+
+                                var dynamicDialog = jQuery(
+                                    '<div id="crossBorderDialog" class="container-collection-pop" style="display:none;" >\
+                                      <div class="cg-col-lg-5 cg-col-md-6 cg-col-sm-6 cg-col-xs-11 container-collection-whitebg white-bg-new-coll text-center" style="max-width:500px;">\
+                                        <p>Pesanan untuk produk impor <strong>tidak dapat diproses</strong> karena:</p>\
+                                        <p>\
+                                          <ol class="cause-list">\
+                                            ' + causeList + '\
+                                          </ol>\
+                                        </p>\
+                                            <div class="center-block info-bottom">\
+                                            <p>Edit pesanan produk impor anda</p>\
+                                            <button type="button" class="btn btn-hollow center-block" id="btnCrossBorderOk">Kembali ke Keranjang Belanja</button>\
+                                            </div>\
+                                      </div>\
+                                    </div>'
+                                );
                                 jQuery('#checkout-step-review').append(dynamicDialog);
                                 jQuery('#btnCrossBorderOk').click(function(){
                                   location.href = baseUrl + 'checkout/cart';
                                 });
                                 jQuery('#crossBorderDialog').fadeIn(500);
-                            //} else{
-                            //    alert(responseJson.error_messages);
-                            //    checkout.gotoSection('payment');
-                            //}
+                            } else{
+                               alert(responseJson.error_messages);
+                               checkout.gotoSection('payment');
+                            }
                         }
-                        else {
+                        else { // If it's default message
                             review.nextStep(response);
                             //this.onSave
                         }
