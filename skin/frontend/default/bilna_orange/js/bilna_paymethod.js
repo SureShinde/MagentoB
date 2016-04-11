@@ -825,6 +825,7 @@ Payment.prototype = {
         var methods = document.getElementsByName('payment[method]');
         var currPayment = $$('input:checked[type=radio][name=payment[method]]')[0].value;
         var responseStatus = false;
+        var _payment = this;
         
         if (this.inArray(currPayment, creditCardPaymentArr)) {
             currPayment = 'vtdirect';
@@ -853,12 +854,12 @@ Payment.prototype = {
                     }
                     else {
                         //alert(Translator.translate('Please enter a valid credit card number.').stripTags());
-                        this.errorMessage('show', Translator.translate('Please enter a valid credit card number.').stripTags());
+                        _payment.errorMessage('show', Translator.translate('Please enter a valid credit card number.').stripTags());
                     }
                 },
                 error: function() {
                     //alert(Translator.translate('Please enter a valid credit card number.').stripTags());
-                    this.errorMessage('show', Translator.translate('Please enter a valid credit card number.').stripTags());
+                    _payment.errorMessage('show', Translator.translate('Please enter a valid credit card number.').stripTags());
                 }
             });
         }
@@ -919,7 +920,7 @@ Payment.prototype = {
     save: function() {
         if (checkout.loadWaiting!=false) return;
         
-        this.errorMessage('hide', '');
+        //this.errorMessage('hide', '');
         
         if (!this.bankValidate()) {
             return false;
