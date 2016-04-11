@@ -1074,6 +1074,7 @@ Review.prototype = {
                                 var dynamicDialog = jQuery('\
                                                             <div id="crossBorderDialog" class="container-collection-pop" style="display:none;" >\
                                                               <div class="cg-col-lg-5 cg-col-md-6 cg-col-sm-6 cg-col-xs-11 container-collection-whitebg white-bg-new-coll text-center" style="max-width:500px;">\
+                                                              <div class="img-failed"></div>\
                                                                 <p>Pesanan untuk produk impor <strong>tidak dapat diproses</strong> karena:</p>\
                                                                 <p>\
                                                                   <ol class="cause-list">\
