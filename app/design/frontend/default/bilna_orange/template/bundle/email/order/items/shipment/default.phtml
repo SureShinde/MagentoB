@@ -57,7 +57,7 @@
     <td align="left" valign="top" style=" font-size: 14px;padding:0px 9px 0px 15px"><em><?php echo $this->getValueHtml($_item) ?></em></td>
     <?php endif; ?>
     <!--td align="left" valign="top" style="padding:3px 9px"><?php echo $this->escapeHtml($_item->getSku()) ?></td-->
-    <td align="center" valign="top" style="width: 20px;">
+    <td align="center" valign="top" style="width: 20px; padding-top:10px;">
         <?php if (($this->isShipmentSeparately() && $_item->getParentItem()) || (!$this->isShipmentSeparately() && !$_item->getParentItem())): ?>
             <?php if (isset($shipItems[$_item->getId()])): ?>
                 <?php echo $shipItems[$_item->getId()]->getQty()*1 ?>
