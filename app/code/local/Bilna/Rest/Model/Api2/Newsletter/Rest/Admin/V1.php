@@ -7,11 +7,20 @@
 
 class Bilna_Rest_Model_Api2_Newsletter_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_Newsletter_Rest {
     protected function _retrieve() {
-        $data = array (
-            'customer_id' => 20,
-            'email' => 'dhany@bilna.com',
-            'type' => 'subscribe',
-        );
+        $customer = Mage::getModel('customer/customer')->load($this->getRequest()->getParam('id'));
+        $subscriber = Mage::getModel('newsletter/subscriber')->loadByEmail($customer->getEmail());
+        
+        $data = [];
+        
+        if($customer->getId()) {
+            $status = $subscriber->getStatus();
+            
+            $data = array (
+                'customer_id' => $subscriber->getCustomerId(),
+                'email' => $subscriber->getEmail(),
+                'type' => $this->getType($status),
+            );
+        }
         
         return $data;
     }
@@ -38,6 +47,10 @@ class Bilna_Rest_Model_Api2_Newsletter_Rest_Admin_V1 extends Bilna_Rest_Model_Ap
             }
             
             if ($type == 'subscribe') {
+                $ownerId->setIsSubscribed(TRUE);
+                $customer = Mage::getModel('customer/customer')->load($ownerId);
+                Mage::getModel('newsletter/subscriber')->subscribeCustomer($customer);
+                
                 return $this->_subscribe($customerId, $email, $ownerId);
             }
             elseif ($type == 'confirmation') {
