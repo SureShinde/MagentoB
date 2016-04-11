@@ -43,7 +43,7 @@ foreach ($_items as $_item) { $parentId = $_item->getParentItemId(); if(empty($p
 ?>
 
 <script>
-$j(document).ready(function(){ 
+$j(document).ready(function(){
     $j('.button-toggle').click(function() {
         $j('.sidebar').show();
     });
@@ -70,7 +70,7 @@ $j(document).ready(function(){
                             <span class="loader"><img class="loader-img" src="<?php echo $this->getSkinUrl('images/loading.gif') ?>"></span>
                             </a>
                         </div>
-            
+
                         <!-- Product description -->
                         <div class="product-shop">
                             <div class="f-fix">
@@ -86,17 +86,17 @@ $j(document).ready(function(){
                                 <?php else: ?>
                                     <p class="availability out-of-stock"><span><a class="link-cart-special" href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($_product->getName(), null, true) ?>"><?php echo $this->__('Kabari bila tersedia') ?></a></span></p>
                                 <?php endif; ?>
-                    
+
                                 <div class="desc std">
                                     <?php echo $_helper->productAttribute($_product, $_product->getShortDescription(), 'short_description') ?>
                                     <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $_productNameStripped ?>" class="link-learn"><?php echo $this->__('Learn More') ?></a>
                                 </div>
-                    
+
                                 <ul class="add-to-links">
                                     <?php if ($this->helper('wishlist')->isAllow()): ?>
                                         <li><a href="<?php echo $this->helper('wishlist')->getAddUrl($_product) ?>" class="link-wishlist"><?php echo $this->__('Add to Wishlist') ?></a></li>
                                     <?php endif; ?>
-                                    
+
                                     <?php if ($_compareUrl=$this->getAddToCompareUrl($_product)): ?>
                                         <li><span class="separator">|</span> <a href="<?php echo $_compareUrl ?>" class="link-compare"><?php echo $this->__('Add to Compare') ?></a></li>
                                     <?php endif; ?>
@@ -106,13 +106,13 @@ $j(document).ready(function(){
                     </li>
                 <?php endforeach; ?>
             </ol>
-            
+
             <script type="text/javascript">decorateList('products-list', 'none-recursive')</script>
         <?php else: ?>
             <!-- Grid Mode -->
             <?php $_collectionSize = $_productCollection->count() ?>
             <?php $_columnCount = 6; ?>
-            
+
             <ul class="products-grid">
                 <?php $productId = array(); ?>
                 <?php $sku = array(); ?>
@@ -163,7 +163,7 @@ $j(document).ready(function(){
                                 <span class="loader"><img class="loader-img" src="<?php echo $this->getSkinUrl('images/loading.gif') ?>"></span>
                                 </a>
                             </div>
-                            
+
                             <div class="product-info-wrapper">
                                 <h2 class="product-name">
                                     <?php // NEW label placement
@@ -171,26 +171,26 @@ $j(document).ready(function(){
                                     $newsFrom= substr($_product->getData('news_from_date'),0,10);
                                     $newsTo=  substr($_product->getData('news_to_date'),0,10);
                                     ?>
-						
+
                                     <?php if ($now>=$newsFrom && $now<=$newsTo): ?>
                                         <span class="lbl-newproduct"><?php echo $this->__('New!') ?></span>
                                     <?php endif; ?>
-                                    
+
                                     <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($_product->getName(), null, true) ?>" onclick="ecommerceProductClick('<?php echo $_escape_helper->escapeQuote($_product->getName()) ?>','<?php echo $_product->getSku() ?>','<?php echo number_format($_product->getPrice(), 0, '', '') ?>');"><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></a>
                                 </h2>
-                                
+
                                 <?php echo $this->getPriceHtml($_product, true) ?>
                                 <?php if ($_product->getRatingSummary()): ?>
                                     <?php echo $this->getReviewsSummaryHtml($_product, 'short') ?>
                                 <?php endif; ?>
                             </div>
                         </div>
-                        
+
                         <div class="bottom_thumb_list_product  button-bilna-custom">
 							<div class="wrap-button-bilna-custom">
 								<div class="feature-color-custom">
 								</div>
-						
+
 								<div class="actions">
 									<?php if ($_product->isSaleable()): ?>
 										<?php if ($_product->getTypeId() != 'simple'): ?>
@@ -201,7 +201,7 @@ $j(document).ready(function(){
 									<?php else: ?>
 										<p class="availability out-of-stock"><span><a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($_product->getName(), null, true) ?>"><?php echo $this->__('Kabari bila tersedia') ?></a></span></p>
 									<?php endif; ?>
-							
+
 									<ul class="add-to-links">
 										<?php if ($this->helper('wishlist')->isAllow()): ?>
 											<li><a href="<?php echo $this->helper('wishlist')->getAddUrl($_product) ?>" class="link-wishlist"><?php echo $this->__('Buy Later') ?></a></li>
@@ -213,7 +213,7 @@ $j(document).ready(function(){
 								</div>
 							</div>
                         </div>
-                
+
                         <div class="clear"></div>
                     </li>
                 <?php endforeach; ?>
@@ -290,7 +290,7 @@ $j(document).ready(function(){
                             echo "'brandName' : 'brand name',";
                             echo "'imageUrl' : temp_cart[".$i."][5],";
                             echo "'link' : temp_cart[".$i."][6]}";if($i != $itemQty-1) {echo ",";}
-                        } 
+                        }
                         ?>
                     ];
 
@@ -382,7 +382,7 @@ $j(document).ready(function(){
                             echo ",";
                         } ?>
                     <?php endforeach; ?>
-                    
+
                 );
                 var ecommerceData = {
                     "ecommerce" :
@@ -393,7 +393,7 @@ $j(document).ready(function(){
                     'event': 'impression',
                     'eventCategory':'ecommerce',
                     'eventAction':'impression'
-                };  
+                };
                 dataLayer.push(ecommerceData);
             });
         </script>

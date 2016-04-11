@@ -182,8 +182,8 @@ class Brim_PageCache_Model_Processor_Level1 {
                     $this->getCookie()->setParams($storageObject->getCookieParams())->renew('frontend');
                 }
             } catch (Exception $e) {
-                echo ($e->__toString());
-                exit;
+                Mage::logException($e);
+                throw $e;
             }
         }
         return $content;
@@ -203,7 +203,7 @@ class Brim_PageCache_Model_Processor_Level1 {
             $params = Mage::registry('application_params');
 
             //FIXME: hardcoding store_id to 1
-	    $userAgentPattern = (string)Mage::getStoreConfig(Brim_PageCache_Model_Config::XML_PATH_MOBILE_USER_AGENT, 1);	
+	    $userAgentPattern = (string)Mage::getStoreConfig(Brim_PageCache_Model_Config::XML_PATH_MOBILE_USER_AGENT, 1);
             if ($userAgentPattern != '') {
                 $isMobile =  Brim_PageCache_Helper_Mobile::isMobile($userAgentPattern);
             } else {

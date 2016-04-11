@@ -64,10 +64,11 @@ class MP_MaxCouponDiscountAmount_Adminhtml_Block_Promo_Quote_Edit_Tab_Actions
             'label'     => Mage::helper('salesrule')->__('Apply'),
             'name'      => 'simple_action',
             'options'    => array(
-                Mage_SalesRule_Model_Rule::BY_PERCENT_ACTION => Mage::helper('salesrule')->__('Percent of product price discount'),
-                Mage_SalesRule_Model_Rule::BY_FIXED_ACTION => Mage::helper('salesrule')->__('Fixed amount discount'),
-                Mage_SalesRule_Model_Rule::CART_FIXED_ACTION => Mage::helper('salesrule')->__('Fixed amount discount for whole cart'),
-                Mage_SalesRule_Model_Rule::BUY_X_GET_Y_ACTION => Mage::helper('salesrule')->__('Buy X get Y free (discount amount is Y)'),
+                Mage_SalesRule_Model_Rule::BY_PERCENT_ACTION              => Mage::helper('salesrule')->__('Percent of product price discount'),
+                Mage_SalesRule_Model_Rule::BY_FIXED_ACTION                => Mage::helper('salesrule')->__('Fixed amount discount'),
+                Mage_SalesRule_Model_Rule::CART_FIXED_ACTION              => Mage::helper('salesrule')->__('Fixed amount discount for whole cart'),
+                MP_MaxCouponDiscountAmount_Model_Rule::CART_RANDOM_ACTION => Mage::helper('salesrule')->__('Random amount discount for whole cart'),
+                Mage_SalesRule_Model_Rule::BUY_X_GET_Y_ACTION             => Mage::helper('salesrule')->__('Buy X get Y free (discount amount is Y)'),
             ),
         ));
         $fieldset->addField('discount_amount', 'text', array(
