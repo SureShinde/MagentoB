@@ -707,10 +707,10 @@
                     <type>Type</type>
                 </attributes>
                 <routes>
-                    <!--route_entity>
+                    <route_entity>
                         <route>/newsletter/:id</route>
                         <action_type>entity</action_type>
-                    </route_entity-->
+                    </route_entity>
                     <route_collection>
                         <route>/newsletter</route>
                         <action_type>collection</action_type>
