@@ -2,7 +2,8 @@
 /**
  * Description of Bilna_Rest_Model_Api2_Newsletter_Rest_Admin_V1
  *
- * @author Bilna Development Team <development@bilna.com>
+ * @path    app/code/local/Bilna/Rest/Model/Api2/Newsletter/Rest/Admin/V1.php
+ * @author  Bilna Development Team <development@bilna.com>
  */
 
 class Bilna_Rest_Model_Api2_Newsletter_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_Newsletter_Rest {
@@ -27,6 +28,7 @@ class Bilna_Rest_Model_Api2_Newsletter_Rest_Admin_V1 extends Bilna_Rest_Model_Ap
 
     protected function _create(array $filteredData) {
         //- validasi request data
+        $this->_validate($filteredData);
         
         try {
             $customerId = $filteredData['customer_id'];
@@ -41,9 +43,11 @@ class Bilna_Rest_Model_Api2_Newsletter_Rest_Admin_V1 extends Bilna_Rest_Model_Ap
                 ->setWebsiteId($this->_getStore()->getWebsiteId())
                 ->loadByEmail($email)
                 ->getId();
-
-            if ($ownerId !== null && $ownerId != $customerId) {
-                $this->_critical('This email address is already assigned to another user.');
+            
+            if ($customerId) {
+                if ($ownerId !== null && $ownerId == $customerId) {
+                    $this->_critical('This email address is already assigned to another user.');
+                }
             }
             
             if ($type == 'subscribe') {
