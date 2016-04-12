@@ -456,8 +456,6 @@ jQuery(document).ready(function () {
 				dataLayer.push( {'skuid': response.data.quote.productSkuIds} );
 				dataLayer.push( {'prices': response.data.quote.productPrices} );
 				dataLayer.push( {'quantities': response.data.quote.productQtys} );
-
-				ecommerceCheckout0_pageload();
             }else{
                 return false;
             }
@@ -466,5 +464,9 @@ jQuery(document).ready(function () {
             return false;
         }
     });
+});
+
+jQuery(document).ajaxComplete(function () {
+	ecommerceCheckout0_pageload;
 });
 </script>
