@@ -240,6 +240,14 @@ extends Mage_Core_Controller_Front_Action
 
         $desc = (isset($this->postData['desc'])) ?
         $this->postData['desc'] : null;
+
+        if ((isset($this->postData['col_categories'])) && (count($this->postData['col_categories']) > 0)) {
+            $collectionCategories = array();
+            foreach ($this->postData['col_categories'] as $colCategories) {
+                $collectionCategories[] = $colCategories;
+            }
+            $collectionCategory = implode(",", $collectionCategories);
+        }
         
 
 
@@ -248,7 +256,7 @@ extends Mage_Core_Controller_Front_Action
             # Check the limit is disabled
 			/*Mage::helper('socialcommerce')->checkCollectionLimit($customerId);*/
 
-            $this->createNewCollection($customerId, $wishlistName, $visibility, $desc);
+            $this->createNewCollection($customerId, $wishlistName, $visibility, $desc, $collectionCategory);
 
             # Success notification
             $message = 'Your new collection "'.$wishlistName.'" has been successfully saved.';
@@ -269,7 +277,7 @@ extends Mage_Core_Controller_Front_Action
 
     }
 
-    protected function createNewCollection($customerId, $wishlistName, $visibility, $desc)
+    protected function createNewCollection($customerId, $wishlistName, $visibility, $desc, $collectionCategory)
     {
         $wishlist = Mage::getModel('wishlist/wishlist');
 
@@ -282,6 +290,7 @@ extends Mage_Core_Controller_Front_Action
             ->generateSharingCode()
             //->setCloudCover($cover)
             ->setCover($cover)
+            ->setCategories($collectionCategory)
             ->save();
 
         if ($preset_image = $_POST['preset_image']) {
@@ -345,6 +354,19 @@ extends Mage_Core_Controller_Front_Action
                     $titleUpdate = $wishlist->setName($title);
                 }
 
+                if ((isset($this->postData['col_categories'])) && (count($this->postData['col_categories']) > 0)) {
+                        $collectionCategories = array();
+                        foreach ($this->postData['col_categories'] as $colCategories) {
+                            $collectionCategories[] = $colCategories;
+                        }
+                        $collectionCategory = implode(",", $collectionCategories);
+                    $wlCategories = $wishlist->getCategories();
+
+                    if ($wlCategories != $collectionCategory) {
+                        $categoriesUpdate = $wishlist->setCategories($collectionCategory);
+                    }
+                }
+
                 #for deleting collection
                 if($del){
                 $vst = '0';
@@ -353,7 +375,7 @@ extends Mage_Core_Controller_Front_Action
                 
                 $descupdate = $wishlist->setDesc($desc);
 
-                if ($cover || $descupdate || $titleUpdate) {
+                if ($cover || $descupdate || $titleUpdate || $categoriesUpdate) {
                   
                     $wishlist->save();
 
