@@ -114,13 +114,14 @@ class Bilna_Checkout_Model_Api2_Payment_Rest_Admin_V1 extends Bilna_Checkout_Mod
         return $this;
     }
     
-    protected function _validateCOD($paymentMethodCode = null)
+    protected function _validateCOD($selectedShippingMethod = null)
     {
         $validateArray = [
-            'free', 
-            'cod'
+            'Free Shipping', 
+            'Bayar di Tempat', 
+            'Standard Shipping'
         ];
-        if(in_array($paymentMethodCode, $validateArray)) {
+        if(in_array($selectedShippingMethod, $validateArray)) {
             return TRUE;
         }
         
@@ -135,36 +136,44 @@ class Bilna_Checkout_Model_Api2_Payment_Rest_Admin_V1 extends Bilna_Checkout_Mod
             'shipping_text' => $shippingAddress->getShippingDescription(),
             'shipping_type' => $shippingAddress->getShippingMethod()
         );
-
         $paymentMethodsArr = Mage::getModel('cod/paymentMethod')->getSupportPaymentMethodsByShippingMethod($shipData);
         $result = array ();
         if (is_array($paymentMethodsArr)) {
             if (count($paymentMethodsArr) > 0) {
                 foreach ($paymentMethodsArr as $key => $value) {
-                    if($this->_validateCOD($value)) {
-                        if($value != 'cod') {
-                            if ($value == '*') {
-                                $result = $value;
-                                break;
-                            }
-                            else {
-                                $result[] = $value;
-                            }
-                        }
-                    } else {
-                        if ($value == '*') {
-                            $result = $value;
+                     if ($value == '*') {
+                         $result = $value;
+                         break;
+                     }
+                     else {
+                         $result[] = $value;
+                     }
+                }
+                
+                if(!empty($result)) {
+                    $newResult = [];
+                    
+                    foreach($result as $key => $item) { 
+                        if(substr_count($shipData['shipping_text'], 'Free Shipping') || substr_count($shipData['shipping_text'], 'Standard Shipping')) {
+                            $newResult = $this->_removeKey('cod', $result);
+                            break;
+                        } elseif(substr_count($shipData['shipping_text'], 'Bayar di Tempat')) {
+                            $newResult = 'cod';
                             break;
                         }
-                        else {
-                            $result[] = $value;
-                        }
                     }
-                }
+                }                
             }
         }
 
-        return $result;
+        return (empty($newResult) ? $result : $newResult);
+    }
+    
+    protected function _removeKey($removedKey, $array = array())
+    {
+        $indexRemoved = array_search($removedKey, $array);
+        unset($array[$indexRemoved]);
+        return $array;
     }
 
     protected function getQuote()
