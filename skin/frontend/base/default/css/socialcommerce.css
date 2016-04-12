@@ -868,6 +868,7 @@ a.btn-detail-profile:visited {
 }
 .container-collection-whitebg .btn{
 margin: 10px 0 10px;
+cursor: pointer;
 }
 .btn-hollow{
 	border-radius: 10px;
@@ -2049,7 +2050,7 @@ input:focus {outline: none !important; }
 		.white-bg-new-coll
 	{
 		margin-top: 4% !important;
-	    overflow: scroll;
+	    overflow: initial;
 	    max-height: 70% !important;
 	    display: inline-block;
 	}
@@ -2467,7 +2468,7 @@ a.tabs-right
 .white-bg-new-coll
 {
     margin-top: 2%;
-    overflow: scroll;
+    overflow: initial;
     bottom: initial;
     min-height: initial;
     height: auto;
