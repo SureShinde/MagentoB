@@ -25,15 +25,26 @@
  * @copyright  Copyright (c) 2010-2012 aheadWorks Co. (http://www.aheadworks.com)
  * @license    http://ecommerce.aheadworks.com/AW-LICENSE.txt
  */
-?><?php
 ?>
 <?php if ($this->getTotal()->getValue()): ?>
     <tr>    
-        <td class="a-right" colspan="<?php echo $this->getColspan(); ?>">
+        <th scope="row" class="" colspan="<?php echo $this->getColspan(); ?>">
             <?php echo $this->getTotal()->getTitle(); ?>
-        </td>
-        <td class="a-right">
-            <?php echo Mage::helper('checkout')->formatPrice($this->getTotal()->getValue()) ?>
+        </th>
+        <?php 
+        $total = $this->getTotal()->getValue();
+        $isMinus = false;
+        if ($total < 0) {
+			$isMinus = true;        	
+        }
+        ?>
+        <td class="text-right<?php echo ($isMinus) ? ' cuts' : ''; ?>">
+        	<?php if ($isMinus) {
+    			echo Mage::helper('checkout')->formatPrice($total);
+        	} else {
+        		echo Mage::helper('checkout')->formatPrice($total);
+        	}
+        	?>
         </td>
     </tr>
 <?php endif; ?>
