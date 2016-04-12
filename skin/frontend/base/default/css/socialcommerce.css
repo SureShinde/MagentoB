@@ -862,6 +862,9 @@ a.btn-detail-profile:visited {
 }
 .container-collection-whitebg .img-failed{
 	margin: 0 auto 5px;
+	width: 48px;
+	height: 48px;
+	background: url('../images/Crying-48.png') no-repeat center;
 }
 .container-collection-whitebg .btn{
 margin: 10px 0 10px;
