@@ -137,7 +137,7 @@ $hasCollection = $wishlistCollection->count() < 1 ? false : true;
     </div>
   </div>
   <?php endif; ?>
-  <?php else: ?><?php // below is for users who have collections ?>
+  <?php else: ?> <!-- below is for users who have collections -->
     <div class="cg-row">
       <div class="cg-col-lg-12">
         <ul class="nav nav-tabs noborder" role="tablist">
@@ -221,7 +221,7 @@ $hasCollection = $wishlistCollection->count() < 1 ? false : true;
                     <?php else: ?>
                     <img src="<?php echo $this->getSkinUrl('images') . '/orami_collection_empty.png'; ?>" width="100%" class="img-collection">
                     <?php endif;?>
-                    <?php else : ?><?php // has cover ?>
+                    <?php else : ?> <!-- has cover -->
 
                     <?php if ($wishlist->getCover() && strpos($wishlist->getCover(),'socialcommerce') == false) : ?>
                     <img src="<?php echo str_replace('en/', '', $this->getUrl('media/collection-cover') . $wishlist->getCover()); ?>" width="100%" class="img-collection">
@@ -232,7 +232,7 @@ $hasCollection = $wishlistCollection->count() < 1 ? false : true;
                     <?php else : ?>
                     <img src="<?php echo $itemImage; ?>" width="100%" class="img-collection">
                     <?php endif; ?>
-                    <?php endif; ?><?php // end of if(!$cekcover) ?>
+                    <?php endif; ?> <!-- end of if(!$cekcover) -->
                   </a>
 
                   <div class="cg-col-lg-12 cg-col-xs-12 collection-title">
@@ -243,7 +243,7 @@ $hasCollection = $wishlistCollection->count() < 1 ? false : true;
                   </div>
                 </div>
               </div>
-              <?php endif; ?><?php // end of $viewer == owner and collection is not empty ?>
+              <?php endif; ?> <!-- end of $viewer == owner and collection is not empty -->
               <?php unset($itemImage); ?>
               <?php unset($itemSlug); ?>
 
@@ -253,7 +253,7 @@ $hasCollection = $wishlistCollection->count() < 1 ? false : true;
         </div>
       </div>
     </div>
-  <?php endif; ?><?php // end of !$hasCollection ?>
+  <?php endif; ?> <!-- end of !$hasCollection -->
 
 </div><!-- end of .cg-container-fluid -->
 
@@ -425,22 +425,11 @@ $hasCollection = $wishlistCollection->count() < 1 ? false : true;
                     <div class="cg-col-xs-12 cg-col-sm-12 cg-col-md-5 cg-col-lg-5 upload take-center">
                         <input type="file" title="ubah" name="avatar">
                     </div>
-                    <!--    <div class="newor btn  cg-col-xs-12 cg-col-sm-12 cg-col-md-1 cg-col-lg-1 ">or</div>
-                    <div class="newdelete btn cg-col-xs-12 cg-col-sm-12 cg-col-md-5 cg-col-lg-4 small-center" onclick="showProfileEdit()" style="">delete</div> -->
                     <div class="cg-col-xs-12 exp-profile-img opensans">
                         Kami merekomendasikan untuk mengunggah image dengan ukuran 400px width dan 400px height untuk gambar profil.
                     </div>
                 </div>
                 <div class="cg-col-xs-12 top-dotted newpaddtop10 top-spacer">
-                    <!-- <label for="name" class="full-width" style="color: #545454; margin-bottom: 10px;">Display Name *</label>
-                    <input type="text" name="desc" id="modalDescCol" class="input-collection full-width" placeholer="Username">
-                    <span class="exp-span">this will be displayed on your profile page</span>
-                    <label for="name" class="full-width" style="color: #545454; margin-bottom: 10px;">Username *</label>
-                    <div class="input-group">
-                    <input type="text" class="form-control noradius" id="username" placeholder="username" name="username" style="border-right:0;" value="<?php echo ($profile->getUsername() ? $profile->getUsername(): '') ?>">
-                    <div class="noradius input-group-addon nobackground"><i class="fa fa-check"></i> available</div>
-                    </div>
-                    <span class="exp-span">http://moxy.co.id/user/username <span style="color: #B90000;font-weight: bold;font-size:11px;">You can only change this once</span></span>-->
                     <label for="inputEmail3" class="cg-col-xs-12 control-label label-color label-margin take-left opensans">Tanggal Lahir</label>
                     <div class="input-group">
                         <input type="text" class="form-control noradius" id="datepicker" placeholder="" style="display:block !important;" name="dob" value="<?php echo ($customerDob) ? $customerDob : '' ?>">

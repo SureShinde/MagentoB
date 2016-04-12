@@ -825,7 +825,8 @@ Payment.prototype = {
         var methods = document.getElementsByName('payment[method]');
         var currPayment = $$('input:checked[type=radio][name=payment[method]]')[0].value;
         var responseStatus = false;
-
+        var _payment = this;
+        
         if (this.inArray(currPayment, creditCardPaymentArr)) {
             currPayment = 'vtdirect';
             var cardNo = jQuery('#payment_form_' + currPayment + ' #' + currPayment + '_cc_number').val();
@@ -838,6 +839,9 @@ Payment.prototype = {
                 url : ajaxURL,
                 data: { card_no: cardNo },
                 dataType: 'json',
+                beforeSend: function () {
+                    _payment.errorMessage('hide', '');
+                },
                 success: function(response) {
                     if (response.status == true) {
                         jQuery('#p_method_' + currPayment).val(response.data.bank_code);
@@ -853,12 +857,12 @@ Payment.prototype = {
                     }
                     else {
                         //alert(Translator.translate('Please enter a valid credit card number.').stripTags());
-                        this.errorMessage('show', Translator.translate('Please enter a valid credit card number.').stripTags());
+                        _payment.errorMessage('show', Translator.translate('Please enter a valid credit card number.').stripTags());
                     }
                 },
                 error: function() {
                     //alert(Translator.translate('Please enter a valid credit card number.').stripTags());
-                    this.errorMessage('show', Translator.translate('Please enter a valid credit card number.').stripTags());
+                    _payment.errorMessage('show', Translator.translate('We\'re sorry. An unexpected error happen. Please try again.').stripTags());
                 }
             });
         }
@@ -918,9 +922,9 @@ Payment.prototype = {
 
     save: function() {
         if (checkout.loadWaiting!=false) return;
-
-        this.errorMessage('hide', '');
-
+        
+        //this.errorMessage('hide', '');
+        
         if (!this.bankValidate()) {
             return false;
         }
