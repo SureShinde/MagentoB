@@ -774,7 +774,8 @@
                     <last_counter>last_counter</last_counter>                 
                     <created_at>created_at</created_at>                    
                     <name>name</name>                    
-                    <visibility>visibility</visibility>
+                    <visibility>visibility</visibility>               
+                    <avatar>avatar</avatar>                    
                     <wishlist_collection_items_total>Wishlist Collection Items Total</wishlist_collection_items_total>
                 </attributes>
                 <routes>
