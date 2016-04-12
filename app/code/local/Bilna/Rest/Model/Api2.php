@@ -6,13 +6,16 @@
  */
 
 class Bilna_Rest_Model_Api2 extends Mage_Api2_Model_Resource {
+    const DEFAULT_WEBSITE_ID = 1;
     const DEFAULT_STORE_ID = 1;
     
     protected $_data = array ();
     protected $redisCache;
 
     public function __construct() {
-        Mage::app()->getStore()->setStoreId(self::DEFAULT_STORE_ID);
+        Mage::app()->getStore()
+            ->setWebsiteId(self::DEFAULT_WEBSITE_ID)
+            ->setStoreId(self::DEFAULT_STORE_ID);
     }
     
     protected function _getStore() {

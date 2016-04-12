@@ -9,9 +9,13 @@
                             <config>
                                 <children>
                                     <frontend translate="title">
-                                        <title>Bilna Logan</title>
+                                        <title>Frontend</title>
                                         <sort_order>10</sort_order>
                                     </frontend>
+                                    <generate>
+                                        <title>Generate Data</title>
+                                        <sort_order>20</sort_order>
+                                    </generate>
                                 </children>
                             </config>
                         </children>

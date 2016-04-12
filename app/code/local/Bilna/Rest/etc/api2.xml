@@ -707,10 +707,10 @@
                     <type>Type</type>
                 </attributes>
                 <routes>
-                    <route_entity>
+                    <!--route_entity>
                         <route>/newsletter/:id</route>
                         <action_type>entity</action_type>
-                    </route_entity>
+                    </route_entity-->
                     <route_collection>
                         <route>/newsletter</route>
                         <action_type>collection</action_type>
@@ -718,6 +718,94 @@
                 </routes>
                 <versions>1</versions>
             </newsletter>
+            <checkorder translate="title" module="Bilna_Rest">
+                <group>bilna_rest</group>
+                <model>bilna_rest/api2_checkorder</model>
+                <title>Check Order</title>
+                <sort_order>111</sort_order>
+                <privileges>
+                    <admin>
+                        <retrieve>1</retrieve>
+                    </admin>
+                </privileges>
+                <attributes translate="increment_id status subtotal shipping_amount wrappinggiftevent discount_amount money_for_points grand_total shipping payment order_items" module="Bilna_Rest">
+                    <increment_id>Increment Id</increment_id>                    
+                    <status>Status</status>
+                    <subtotal>subtotal</subtotal>
+                    <shipping_amount>shipping_amount</shipping_amount>
+                    <wrappinggiftevent>wrappinggiftevent</wrappinggiftevent>
+                    <discount_amount>discount_amount</discount_amount>
+                    <money_for_points>money_for_points</money_for_points>
+                    <grand_total>grand_total</grand_total>
+                    <shipping>Shipping</shipping>
+                    <payment>Payment</payment>
+                    <order_items>Order Items</order_items>
+                </attributes>
+                <routes>
+                    <route_collection>
+                        <route>/checkorder</route>
+                        <action_type>entity</action_type>
+                    </route_collection>
+                </routes>
+                <versions>1</versions>
+            </checkorder>   
+            <wishlistcollection translate="title" module="Bilna_Rest">
+                <group>bilna_rest</group>
+                <model>bilna_rest/api2_wishlistcollection</model>
+                <title>Get All Wishlist Collection</title>
+                <sort_order>112</sort_order>
+                <privileges>
+                    <admin>
+                        <retrieve>1</retrieve>
+                    </admin>
+                </privileges>
+                <attributes translate="total_record wishlist_id customer_id shared sharing_code updated_at cover cloud_cover desc view counter last_counter created_at name visibility wishlist_collection_items_total" module="Bilna_Rest">
+                    <total_record>Total Record</total_record>
+                    <wishlist_id>wishlist_id</wishlist_id> 
+                    <customer_id>customer_id</customer_id>                    
+                    <shared>shared</shared>                    
+                    <sharing_code>sharing_code</sharing_code>                    
+                    <updated_at>updated_at</updated_at>                    
+                    <cover>cover</cover>                    
+                    <cloud_cover>cloud_cover</cloud_cover>                    
+                    <desc>desc</desc>                    
+                    <view>view</view>                    
+                    <counter>counter</counter>
+                    <last_counter>last_counter</last_counter>                 
+                    <created_at>created_at</created_at>                    
+                    <name>name</name>                    
+                    <visibility>visibility</visibility>
+                    <wishlist_collection_items_total>Wishlist Collection Items Total</wishlist_collection_items_total>
+                </attributes>
+                <routes>
+                    <route_collection>
+                        <route>/wishlistcollection</route>
+                        <action_type>collection</action_type>
+                    </route_collection>
+                </routes>
+                <versions>1</versions>
+            </wishlistcollection>   
+            <wishlistcollectionitems translate="title" module="Bilna_Rest">
+                <group>bilna_rest</group>
+                <model>bilna_rest/api2_wishlistcollectionitems</model>
+                <title>Get All Wishlist Collection Items Based On Slug</title>
+                <sort_order>113</sort_order>
+                <privileges>
+                    <admin>
+                        <retrieve>1</retrieve>
+                    </admin>
+                </privileges>
+                <attributes translate="wishlist_collection_items" module="Bilna_Rest">
+                    <wishlist_collection_items>Wishlist Collection Items</wishlist_collection_items>
+                </attributes>
+                <routes>
+                    <route_collection>
+                        <route>/wishlistcollectionitems/:slug/slug</route>
+                        <action_type>collection</action_type>
+                    </route_collection>
+                </routes>
+                <versions>1</versions>
+            </wishlistcollectionitems>            
         </resources>
     </api2>
 </config>

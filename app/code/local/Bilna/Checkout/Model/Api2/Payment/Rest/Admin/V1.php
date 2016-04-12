@@ -29,9 +29,8 @@ class Bilna_Checkout_Model_Api2_Payment_Rest_Admin_V1 extends Bilna_Checkout_Mod
         $this->storeId = $storeId;
 
         try {
-            /*$quote = $this->_getQuote($quoteId, $storeId);
-            $store = $quote->getStoreId();*/
-
+            //$quote = $this->_getQuote($quoteId, $storeId);
+            
             $_methods = $this->_getMethods();
             $_methodsAllow = $this->getPaymentMethodsByShippingMethod();
             $_result = array ();
@@ -114,6 +113,19 @@ class Bilna_Checkout_Model_Api2_Payment_Rest_Admin_V1 extends Bilna_Checkout_Mod
         $method->setInfoInstance($this->getQuote()->getPayment());
         return $this;
     }
+    
+    protected function _validateCOD($paymentMethodCode = null)
+    {
+        $validateArray = [
+            'free', 
+            'cod'
+        ];
+        if(in_array($paymentMethodCode, $validateArray)) {
+            return TRUE;
+        }
+        
+        return FALSE;
+    }
 
     public function getPaymentMethodsByShippingMethod()
     {
@@ -126,16 +138,27 @@ class Bilna_Checkout_Model_Api2_Payment_Rest_Admin_V1 extends Bilna_Checkout_Mod
 
         $paymentMethodsArr = Mage::getModel('cod/paymentMethod')->getSupportPaymentMethodsByShippingMethod($shipData);
         $result = array ();
-
         if (is_array($paymentMethodsArr)) {
             if (count($paymentMethodsArr) > 0) {
                 foreach ($paymentMethodsArr as $key => $value) {
-                    if ($value == '*') {
-                        $result = $value;
-                        break;
-                    }
-                    else {
-                        $result[] = $value;
+                    if($this->_validateCOD($value)) {
+                        if($value != 'cod') {
+                            if ($value == '*') {
+                                $result = $value;
+                                break;
+                            }
+                            else {
+                                $result[] = $value;
+                            }
+                        }
+                    } else {
+                        if ($value == '*') {
+                            $result = $value;
+                            break;
+                        }
+                        else {
+                            $result[] = $value;
+                        }
                     }
                 }
             }
