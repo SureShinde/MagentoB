@@ -54,6 +54,8 @@ class Bilna_Rest_Model_Api2_Wishlistcollectionitems extends Bilna_Rest_Model_Api
             $profiler = Mage::getModel('socialcommerce/profile')->load($wishlist->getCustomerId(), 'customer_id');
             if(!empty($profiler->getUsername()) && !empty($wishlist->getName()) && $wishlist->getVisibility() == 1) {
                 $valid = TRUE;
+            } elseif(!empty($wishlist->getId().'-'.Mage::getModel('catalog/product_url')->formatUrlKey($wishlist->getName()))) {
+                $valid = TRUE;
             } else {
                 $valid = FALSE;
             }
@@ -62,5 +64,25 @@ class Bilna_Rest_Model_Api2_Wishlistcollectionitems extends Bilna_Rest_Model_Api
         }
         
         return $valid;
+    }
+    
+    /**
+     * Load customer by id
+     *
+     * @param int $id
+     * @throws Mage_Api2_Exception
+     * @return Mage_Customer_Model_Customer
+     */
+    protected function _loadCustomerById($id)
+    {
+        /* @var $customer Mage_Customer_Model_Customer */
+        
+        $customer = Mage::getModel('customer/customer')->load($id);
+        
+        if (!$customer->getId()) {
+            $this->_critical(self::RESOURCE_NOT_FOUND);
+        }
+        
+        return $customer;
     }
 }

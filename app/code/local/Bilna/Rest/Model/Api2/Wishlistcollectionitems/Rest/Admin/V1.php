@@ -33,11 +33,13 @@ class Bilna_Rest_Model_Api2_Wishlistcollectionitems_Rest_Admin_V1 extends Bilna_
                 if (!$profiler->getCustomerId()) {
                     $this->_critical('Current profile is not found.');
                 }
-                
+                $customerId = $profiler->getCustomerId();
+                $customer = $this->_loadCustomerById($customerId);
                 $result = $wishlistCollection;
                 $result['username'] = $profiler->getUsername();
                 $result['slug'] = $wishlistCollection->getId().'-'.Mage::getModel('catalog/product_url')->formatUrlKey($wishlistCollection->getName());
                 $result['avatar'] = $profiler->getAvatar();
+                $result['gender'] = $customer->getGender();
                 $result['wishlist_collection_items'] = $this->getWishlistCollectionItems($wishlistCollection);
                 
                 return $result;
