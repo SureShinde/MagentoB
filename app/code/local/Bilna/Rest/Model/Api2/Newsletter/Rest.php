@@ -80,4 +80,27 @@ class Bilna_Rest_Model_Api2_Newsletter_Rest extends Bilna_Rest_Model_Api2_Newsle
             $this->_critical($ex->getMessage());
         }
     }
+    
+    protected function getType($status = NULL)
+    {
+        if(empty($status)) {
+            return $status;
+        }
+        switch ($status) {
+            case 1:
+                $type = 'subscribe';
+                break;
+            case 2:
+                $type = 'not active';
+                break;
+            case 3:
+                $type = 'unsubscribe';
+                break;
+            case 4:
+                $type = 'unconfirmed';
+                break;
+        }
+        
+        return $type;
+    }
 }
