@@ -71,10 +71,11 @@ class bulkCreateInvoice extends Mage_Shell_Abstract {
         $successOrderNoWithoutInv = array();
 
         foreach ($orderIncrementIds as $orderIncrementId) {
-            $result = Veritrans_Transaction::status($orderIncrementId);
+            $result = Veritrans_Transaction::status($orderIncrementId['increment_id']);
+            $result = (array) $result;
 
-            if ((isset($result['transaction_status'])) && (($result['transaction_status'] == 'settlement') || ($result['transaction_status'] == 'success'))) {
-                $successOrderNoWithoutInv[] = $orderIncrementId;
+            if ((isset($result['transaction_status'])) && (($result['transaction_status'] == 'settlement') || ($result['transaction_status'] == 'success') || ($result['transaction_status'] == 'capture'))) {
+                $successOrderNoWithoutInv[] = $orderIncrementId['increment_id'];
             }
         }
 
