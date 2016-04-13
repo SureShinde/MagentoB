@@ -604,7 +604,9 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
 
     public function getWishlist()
     {
-        return $this->_data['wishlist'];
+        if (isset($this->_data['wishlist'])) {
+            return $this->_data['wishlist'];
+        }
     }
 
     public function getWishlistCoverImage()
