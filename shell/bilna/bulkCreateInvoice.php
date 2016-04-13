@@ -71,7 +71,12 @@ class bulkCreateInvoice extends Mage_Shell_Abstract {
         $successOrderNoWithoutInv = array();
 
         foreach ($orderIncrementIds as $orderIncrementId) {
-            $result = Veritrans_Transaction::status($orderIncrementId['increment_id']);
+            try {
+                $result = Veritrans_Transaction::status($orderIncrementId['increment_id']);
+            }
+            catch (Exception $e) {
+                Mage::log('Veritrans check order status error with message : '.$e->getMessage());
+            }
             $result = (array) $result;
 
             if ((isset($result['transaction_status'])) && (($result['transaction_status'] == 'settlement') || ($result['transaction_status'] == 'success') || ($result['transaction_status'] == 'capture'))) {
