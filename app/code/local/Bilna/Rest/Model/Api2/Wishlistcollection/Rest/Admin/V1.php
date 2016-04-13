@@ -27,19 +27,29 @@ class Bilna_Rest_Model_Api2_Wishlistcollection_Rest_Admin_V1 extends Bilna_Rest_
             
             //get all wishlist collection
             $wishlists = Mage::getModel('wishlist/wishlist')->getCollection();
-            $wishlists->setOrder('updated_at', 'desc');
+            $wishlists = $wishlists->addFilter('visibility', 1)
+                ->addFieldToFilter('name', array('notnull' => true))
+                ->addFieldToFilter('name', array('neq' => ' '))
+                ->addFieldToFilter('cover', array('notnull' => true))
+                ->setOrder('updated_at', 'desc');
             
             if ($wishlists) {
-                $wishlist_collection[0]['total_record'] = $wishlists->getSize();
                 $this->_pagination($wishlists);
-            
+                
+                $counting = 0;
                 foreach($wishlists as $wishlist) {
-                    $wishlist_collection[$wishlist->getId()] = $wishlist->getData();
-                    $wishlist_collection[$wishlist->getId()]['slug'] = $wishlist->getId().'-'.Mage::getModel('catalog/product_url')->formatUrlKey($wishlist->getName());
-                    $wishlist_collection[$wishlist->getId()]['wishlist_collection_items_total'] = $this->getCollectionItemsTotal($wishlist);
-                    $profiler = Mage::getModel('socialcommerce/profile')->load($wishlist->getCustomerId(), 'customer_id');
-                    $wishlist_collection[$wishlist->getId()]['username'] = $profiler->getUsername();
+                    if($this->filterWishlistCollectionOutput($wishlist)) {
+                        $counting++;
+                        $wishlist_collection[$wishlist->getId()] = $wishlist->getData();
+                        $wishlist_collection[$wishlist->getId()]['slug'] = $wishlist->getId().'-'.Mage::getModel('catalog/product_url')->formatUrlKey($wishlist->getName());
+                        $wishlist_collection[$wishlist->getId()]['wishlist_collection_items_total'] = $this->getCollectionItemsTotal($wishlist);
+                        $profiler = Mage::getModel('socialcommerce/profile')->load($wishlist->getCustomerId(), 'customer_id');
+                        $wishlist_collection[$wishlist->getId()]['username'] = $profiler->getUsername();
+                    }
                 }
+                
+                $wishlist_collection[0]['total_record'] = $counting;
+                
             }
             
             //get all favourite wishlist collection
@@ -52,14 +62,18 @@ class Bilna_Rest_Model_Api2_Wishlistcollection_Rest_Admin_V1 extends Bilna_Rest_
                 ->setPageSize(4);
             
             if ($faveWishlists) {
-                $wishlist_collection_fav[0]['total_record'] = $faveWishlists->getSize();
-            
+                $faveCounting = 0;
                 foreach ($faveWishlists as $faveWishlist) {
-                    $wishlist_collection_fav[$faveWishlist->getId()] = $faveWishlist->getData();
-                    $wishlist_collection_fav[$faveWishlist->getId()]['slug'] = $faveWishlist->getId().'-'.Mage::getModel('catalog/product_url')->formatUrlKey($faveWishlist->getName());
-                    $profiler = Mage::getModel('socialcommerce/profile')->load($faveWishlist->getCustomerId(), 'customer_id');
-                    $wishlist_collection_fav[$faveWishlist->getId()]['username'] = $profiler->getUsername();
+                    if($this->filterWishlistCollectionOutput($faveWishlist)) {
+                        $faveCounting++;
+                        $wishlist_collection_fav[$faveWishlist->getId()] = $faveWishlist->getData();
+                        $wishlist_collection_fav[$faveWishlist->getId()]['slug'] = $faveWishlist->getId().'-'.Mage::getModel('catalog/product_url')->formatUrlKey($faveWishlist->getName());
+                        $profiler = Mage::getModel('socialcommerce/profile')->load($faveWishlist->getCustomerId(), 'customer_id');
+                        $wishlist_collection_fav[$faveWishlist->getId()]['username'] = $profiler->getUsername();
+                    }
                 }
+                
+                $wishlist_collection_fav[0]['total_record'] = $faveCounting;
             }
                 
             return [

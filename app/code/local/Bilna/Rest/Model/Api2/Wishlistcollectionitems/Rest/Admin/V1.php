@@ -28,7 +28,7 @@ class Bilna_Rest_Model_Api2_Wishlistcollectionitems_Rest_Admin_V1 extends Bilna_
             $wishlistCollection = Mage::getModel('wishlist/wishlist')->load($collectionId);
             $result = [];
             
-            if ($wishlistCollection->getData()) {              
+            if ($wishlistCollection->getData() && $this->filterWishlistCollectionOutput($wishlistCollection)) {              
                 $profiler = Mage::getModel('socialcommerce/profile')->load($wishlistCollection->getCustomerId(), 'customer_id');
                 if (!$profiler->getCustomerId()) {
                     $this->_critical('Current profile is not found.');

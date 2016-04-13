@@ -48,4 +48,19 @@ class Bilna_Rest_Model_Api2_Wishlistcollectionitems extends Bilna_Rest_Model_Api
         }
     }
     
+    public function filterWishlistCollectionOutput($wishlist) 
+    {
+        if($wishlist) {
+            $profiler = Mage::getModel('socialcommerce/profile')->load($wishlist->getCustomerId(), 'customer_id');
+            if(!empty($profiler->getUsername()) && !empty($wishlist->getName()) && $wishlist->getVisibility() == 1) {
+                $valid = TRUE;
+            } else {
+                $valid = FALSE;
+            }
+        } else {
+            $valid = FALSE;
+        }
+        
+        return $valid;
+    }
 }
