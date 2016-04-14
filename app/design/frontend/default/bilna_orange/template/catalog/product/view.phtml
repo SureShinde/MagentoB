@@ -264,6 +264,7 @@
             $wishlistCollection = Mage::getModel('wishlist/wishlist')
             ->getCollection()
             ->addFieldToFilter('wishlist_id', $relatedCollectionId)
+            ->addFieldToFilter('visibility', 1)
             ->setOrder('counter', 'DESC')
             ->setPageSize(4);
 
