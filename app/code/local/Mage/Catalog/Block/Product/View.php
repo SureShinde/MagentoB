@@ -51,36 +51,6 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
     }
 
     /**
-     * Retrieve related collection from product
-     *
-     */
-    public function getRelatedCollection()
-    {
-        $product = $this->getProduct();
-        $collectionsCollection = Mage::getModel('wishlist/item')->getCollection();
-        $collectionsCollection->addFieldToFilter('product_id', array('eq' => $product->getId()));
-        $relatedCollections = $collectionsCollection->getData();
-
-        if (count($relatedCollections) < 1) {
-            return false;
-        }
-
-        $relatedCollectionId = array();
-        foreach ($relatedCollections as $relatedCollection) {
-            $relatedCollectionId[] = $relatedCollection['wishlist_id'];
-        }
-
-        $wishlistCollection = Mage::getModel('wishlist/wishlist')
-        ->getCollection()
-        ->addFieldToFilter('wishlist_id', $relatedCollectionId)
-        ->addFieldToFilter('visibility', 1)
-        ->setOrder('counter', 'DESC')
-        ->setPageSize(4);
-
-        return $wishlistCollection->getData();
-    }
-
-    /**
      * Retrieve current product model
      *
      * @return Mage_Catalog_Model_Product

@@ -399,4 +399,33 @@ class Moxy_SocialCommerce_Helper_Data extends Mage_Core_Helper_Abstract
         }
         return array('profile_image' => $img, 'display_name' => $title, 'url' => $url);
     }
+
+    /**
+     * Retrieve related collection from product
+     *
+     */
+    public function getRelatedCollection($product)
+    {
+        $collectionsCollection = Mage::getModel('wishlist/item')->getCollection();
+        $collectionsCollection->addFieldToFilter('product_id', array('eq' => $product->getId()));
+        $relatedCollections = $collectionsCollection->getData();
+
+        if (count($relatedCollections) < 1) {
+            return false;
+        }
+
+        $relatedCollectionId = array();
+        foreach ($relatedCollections as $relatedCollection) {
+            $relatedCollectionId[] = $relatedCollection['wishlist_id'];
+        }
+
+        $wishlistCollection = Mage::getModel('wishlist/wishlist')
+        ->getCollection()
+        ->addFieldToFilter('wishlist_id', $relatedCollectionId)
+        ->addFieldToFilter('visibility', 1)
+        ->setOrder('counter', 'DESC')
+        ->setPageSize(4);
+
+        return $wishlistCollection->getData();
+    }
 }
