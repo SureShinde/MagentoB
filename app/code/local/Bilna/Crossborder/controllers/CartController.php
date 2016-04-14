@@ -219,6 +219,7 @@ class Bilna_Crossborder_CartController extends Mage_Core_Controller_Front_Action
         $cart   = $this->_getCart();
         $params = $this->getRequest()->getParams();
         $crossBorderError = 0;
+
         try {
             if (isset($params['qty'])) {
                 $filter = new Zend_Filter_LocalizedToNormalized(
@@ -228,65 +229,73 @@ class Bilna_Crossborder_CartController extends Mage_Core_Controller_Front_Action
             }
 
             $product = $this->_initProduct();
+            $productParnership = $product->getPartnershipType();
+            $allowedPartnership = explode(',', Mage::getStoreConfig('bilna_crossborder/status/allowed_partnership'));
 
             if (($product->getData('cross_border')) && (Mage::getStoreConfig('bilna_crossborder/status/enabled') == 1)) {
-                $quoteId = $cart->getQuote()->getId();
-                $maxVolume = Mage::getStoreConfig('bilna_crossborder/configuration/max_volume_allowed');
-                $maxWeight = Mage::getStoreConfig('bilna_crossborder/configuration/max_weight_allowed');
-                $maxSubtotal = Mage::getStoreConfig('bilna_crossborder/configuration/max_subtotal_allowed');
-                $maxQty = Mage::getStoreConfig('bilna_crossborder/configuration/max_qty_allowed');
-                $volumeWeight = (float)$product->getData('volume_weight');
-                $weight = (float)$product->getData('weight');
-                $price = (int)$product->getData('price');
-                $qty = (isset($params['qty'])) ? $params['qty'] : 1;
+                if (in_array($productParnership, $allowedPartnership)) {
+                    $quoteId = $cart->getQuote()->getId();
+                    $maxVolume = Mage::getStoreConfig('bilna_crossborder/configuration/max_volume_allowed');
+                    $maxWeight = Mage::getStoreConfig('bilna_crossborder/configuration/max_weight_allowed');
+                    $maxSubtotal = Mage::getStoreConfig('bilna_crossborder/configuration/max_subtotal_allowed');
+                    $maxQty = Mage::getStoreConfig('bilna_crossborder/configuration/max_qty_allowed');
+                    $volumeWeight = (float)$product->getData('volume_weight');
+                    $weight = (float)$product->getData('weight');
+                    $price = (int)$product->getData('price');
+                    $qty = (isset($params['qty'])) ? $params['qty'] : 1;
 
-                $crossBorder = array();
+                    $crossBorder = array();
 
-                if (!is_null($quoteId)) {
-                    $quoteItemCollection = $cart->getItems()->getData();
-                    $totalArray = $this->__getTotalStoredCrossBorder($quoteItemCollection);
+                    if (!is_null($quoteId)) {
+                        $quoteItemCollection = $cart->getItems()->getData();
+                        $totalArray = $this->__getTotalStoredCrossBorder($quoteItemCollection);
 
-                    if ((($weight * $qty) + $totalArray['weight']) > $maxWeight) {
-                        $crossBorderError++;
-                        $message = $this->__('Import product weight exceeded maximum limitation.');
-                        Mage::throwException($message);
-                    }
+                        if ((($weight * $qty) + $totalArray['weight']) > $maxWeight) {
+                            $crossBorderError++;
+                            $message = $this->__('Import product weight exceeded maximum limitation.');
+                            Mage::throwException($message);
+                        }
 
-                    if ((($price * $qty) + $totalArray['subtotal']) > $maxSubtotal) {
-                        $crossBorderError++;
-                        $message = $this->__('Import product subtotal exceeded maximum limitation.');
-                        Mage::throwException($message);
-                    }
+                        if ((($price * $qty) + $totalArray['subtotal']) > $maxSubtotal) {
+                            $crossBorderError++;
+                            $message = $this->__('Import product subtotal exceeded maximum limitation.');
+                            Mage::throwException($message);
+                        }
 
-                    if (($qty + $totalArray['qty']) > $maxQty) {
-                        $crossBorderError++;
-                        $message = $this->__('Import product qty. exceeded maximum limitation.');
-                        Mage::throwException($message);
-                    }
-                } else { // if (count($storedCrossBorder) == 0)
-                    if (($volumeWeight * $qty) > $maxVolume) {
-                        $crossBorderError++;
-                        $message = $this->__('Import product volume weight exceeded maximum limitation.');
-                        Mage::throwException($message);
-                    }
-                    
-                    if (($weight * $qty) > $maxWeight) {
-                        $crossBorderError++;
-                        $message = $this->__('Import product weight exceeded maximum limitation.');
-                        Mage::throwException($message);
-                    }
+                        if (($qty + $totalArray['qty']) > $maxQty) {
+                            $crossBorderError++;
+                            $message = $this->__('Import product qty. exceeded maximum limitation.');
+                            Mage::throwException($message);
+                        }
+                    } else { // if (count($storedCrossBorder) == 0)
+                        if (($volumeWeight * $qty) > $maxVolume) {
+                            $crossBorderError++;
+                            $message = $this->__('Import product volume weight exceeded maximum limitation.');
+                            Mage::throwException($message);
+                        }
+                        
+                        if (($weight * $qty) > $maxWeight) {
+                            $crossBorderError++;
+                            $message = $this->__('Import product weight exceeded maximum limitation.');
+                            Mage::throwException($message);
+                        }
 
-                    if (($price * $qty) > $maxSubtotal) {
-                        $crossBorderError++;
-                        $message = $this->__('Import product subtotal exceeded maximum limitation.');
-                        Mage::throwException($message);
-                    }
+                        if (($price * $qty) > $maxSubtotal) {
+                            $crossBorderError++;
+                            $message = $this->__('Import product subtotal exceeded maximum limitation.');
+                            Mage::throwException($message);
+                        }
 
-                    if ($qty > $maxQty) {
-                        $crossBorderError++;
-                        $message = $this->__('Import product qty. exceeded maximum limitation.');
-                        Mage::throwException($message);
+                        if ($qty > $maxQty) {
+                            $crossBorderError++;
+                            $message = $this->__('Import product qty. exceeded maximum limitation.');
+                            Mage::throwException($message);
+                        }
                     }
+                } else {
+                    $crossBorderError++;
+                    $message = $this->__('Import product partnetship is not supported');
+                    Mage::throwException($message);
                 }
             }
             

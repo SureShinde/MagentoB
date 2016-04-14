@@ -75,8 +75,10 @@
             <bilna_crossborder>
                 <class>Bilna_Crossborder_Model</class>
             </bilna_crossborder>
+            <common>
+                <class>Bilna_Common_Model</class>
+            </common>
         </models>
-        
     </global>
     <adminhtml>
         <acl>
