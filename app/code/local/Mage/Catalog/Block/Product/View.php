@@ -51,6 +51,18 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
     }
 
     /**
+     * Retrieve related collection from product
+     *
+     */
+    public function getRelatedCollection()
+    {
+        $product = $this->getProduct();
+        $collectionsCollection = Mage::getModel('wishlist/item')->getCollection();
+        $collectionsCollection->addFieldToFilter('product_id', array('eq' => $product->getId()));
+        return $collectionsCollection->getData();
+    }
+
+    /**
      * Retrieve current product model
      *
      * @return Mage_Catalog_Model_Product
