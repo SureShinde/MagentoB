@@ -411,7 +411,7 @@ class Moxy_SocialCommerce_Helper_Data extends Mage_Core_Helper_Abstract
         $relatedCollections = $collectionsCollection->getData();
 
         if (count($relatedCollections) < 1) {
-            return false;
+            return array();
         }
 
         $relatedCollectionId = array();
