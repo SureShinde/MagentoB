@@ -22,7 +22,7 @@
                     <show_in_website>1</show_in_website>
                     <show_in_store>1</show_in_store>
                     <fields>
-			<enabled translate="label">
+            			<enabled translate="label">
                             <label>Cross Border Enable</label>
                             <frontend_type>select</frontend_type>
                             <sort_order>10</sort_order>
@@ -31,6 +31,16 @@
                             <show_in_store>1</show_in_store>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                         </enabled>
+                        <allowed_partnership translate="label">
+                            <label>Partnership Type: </label>
+                            <comment>Selected allowed partnership type for cross border.</comment>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>common/partnershiptype</source_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </allowed_partnership>
                     </fields>
                 </status>
                 <configuration translate="label">
@@ -41,7 +51,7 @@
                     <show_in_website>1</show_in_website>
                     <show_in_store>1</show_in_store>
                     <fields>
-			<max_weight_allowed translate="label">
+                        <max_weight_allowed translate="label">
                             <label>Max. Weight Limit Allowed</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>10</sort_order>
