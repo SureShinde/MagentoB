@@ -163,7 +163,7 @@ class Bilna_Paymethod_Model_Vtdirect extends Mage_Core_Model_Abstract {
             $resource = Mage::getSingleton('core/resource');
             $readConnection = $resource->getConnection('core_read');
             $table = "sales_order_daily_count";
-            $query = "SELECT sales_date FROM $table WHERE sales_date = '$todayDate' LIMIT 1";
+            $query = "SELECT sales_date FROM $table WHERE sales_date = '$orderDate' LIMIT 1";
             $salesDate = $readConnection->fetchOne($query);
             $writeConnection = $resource->getConnection('core_write');
             if ($salesDate) {

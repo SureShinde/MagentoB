@@ -30,6 +30,31 @@ class Bilna_Expressshipping_Model_Observer {
         return $this;
     }
 
+    public function expressSalesCancel(Varien_Event_Observer $observer)
+    {
+        $order = $observer->getEvent()->getOrder();
+        $shippingMethod = $order->getShippingMethod();
+        $orderDate = $order->getCreatedAt();
+
+        // only increment the sales order daily count table if the shipping method is Express
+        if ( (strpos(strtolower($shippingMethod), 'express') !== false) || (strpos(strtolower($shippingMethod), 'ekspres') !== false) )
+        {
+            $orderDate = Mage::getModel('core/date')->date('Y-m-d', strtotime($orderDate));
+            // check whether today's date is available inside the table sales_order_daily_count
+            $resource = Mage::getSingleton('core/resource');
+            $readConnection = $resource->getConnection('core_read');
+            $table = "sales_order_daily_count";
+            $query = "SELECT sales_date FROM $table WHERE sales_date = '$orderDate' LIMIT 1";
+            $salesDate = $readConnection->fetchOne($query);
+            $writeConnection = $resource->getConnection('core_write');
+            if ($salesDate) {
+                // update
+                $query = "UPDATE $table SET sales_count = sales_count - 1 WHERE sales_date = '$orderDate' AND sales_count > 0";
+            }
+            $writeConnection->query($query);
+        }
+    }
+
     public function salesOrderIncrementCount(Varien_Event_Observer $observer)
     {
         $order = $observer->getEvent()->getOrder();
