@@ -149,7 +149,7 @@ class Webshopapps_Premiumrate_Helper_Data extends Mage_Core_Helper_Abstract
 			$qty = $currentQty * $parentQty;
 			$total_volweight += ($product->getVolumeWeight() * $qty);
 
-            if ( is_null($product->getIsImport()) || $product->getIsImport() == 0 )
+            if ( is_null($product->getCrossBorder()) || $product->getCrossBorder() == 0 )
             {
             	$contain_local = 1;
             	$status['local_items']['product_ids'][] = $item->getProductId();
