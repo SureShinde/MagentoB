@@ -33,11 +33,13 @@
         <div class="txt-item"><?php echo $this->escapeHtml($this->getProductName()) ?></div>
 
         <?php if ($_options = $this->getOptionList()):?>
-        <dl class="item-options">
+        <div class="item-options item-bundle">
             <?php foreach ($_options as $_option) : ?>
             <?php $_formatedOptionValue = $this->getFormatedOptionValue($_option) ?>
-            <dt><?php echo $this->escapeHtml($_option['label']) ?></dt>
-            <dd<?php if (isset($_formatedOptionValue['full_view'])): ?> class="truncated"<?php endif; ?>><?php echo $_formatedOptionValue['value'] ?>
+            
+            <div class="list-item">
+              <div class="title"><strong><?php echo $this->escapeHtml($_option['label']) ?></strong></div>
+            <?php if (isset($_formatedOptionValue['full_view'])): ?> class="truncated"<?php endif; ?><?php echo $_formatedOptionValue['value'] ?>
                 <?php if (isset($_formatedOptionValue['full_view'])): ?>
                 <div class="truncated_full_value">
                     <dl class="item-options">
@@ -46,9 +48,10 @@
                     </dl>
                 </div>
                 <?php endif; ?>
-            </dd>
+            </div>
+
             <?php endforeach; ?>
-        </dl>
+        </div>
         <?php endif;?>
         <?php if ($addtInfoBlock = $this->getProductAdditionalInformationBlock()):?>
             <?php echo $addtInfoBlock->setItem($_item)->toHtml() ?>
