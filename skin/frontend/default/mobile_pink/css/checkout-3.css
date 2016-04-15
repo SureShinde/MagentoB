@@ -428,8 +428,202 @@
 	}
     #checkout-review-submit .discount-form .buttons-set{
 		clear: none;
-	    float: left;
-        width: auto;
-	    padding: 10px 0;
+    float: left;
+    width: auto;
+    padding: 10px 0;
 	}
+}
+
+
+/* ======== hack cross border ==========*/
+#checkout-step-review .table-wrap span {
+  display: block;
+  text-align: center;
+}
+.opc .checkout .table-bordered.bs>thead>tr>td,
+.opc .table-bordered.bs>thead>tr>th {
+  border-bottom-width: 1px;
+  background:#f6f6f6;
+  font-weight: 700;
+}
+.opc .table.bs .title > th{
+	background: #ff6c6c;
+	color: #fff;
+	font-size: 16px;
+	line-height: 16px;
+	text-transform: capitalize;
+	padding: 10px;
+}
+.opc .table.bs .txt-item{
+	display: inline-block;
+	vertical-align: top;
+}
+.opc .table.bs .img-item{
+	width: 50px;
+	height: 50px;
+	text-align: center;
+	overflow: hidden;
+	line-height: 50px;
+	display: inline-block;
+	vertical-align: top;
+	margin: 5px 10px 5px 5px;
+
+}
+.opc .table.bs .img-item img{
+	margin: 0 auto;
+	width: 100%;
+}
+.equal-box{
+	min-height: 300px;
+}
+.night{
+	background: #e7e7e7;
+}
+.text-left{
+	text-align: left!important;
+}
+.text-right{
+	text-align: right!important;
+}
+.text-center{
+	text-align: center!important;
+}
+.wrap-input-voucher{
+	background: #fff;
+	padding: 3px;
+	border: solid 1px #bbbbbb;
+	display: inline-block;
+  width: 100%;
+  margin: 0 -6px;
+
+}
+.wrap-input-voucher:after{
+	clear: both;
+}
+.wrap-input-voucher input{
+	border:none;
+	width: 60%;
+	display: inline-block;
+	vertical-align: middle;
+	float: left;
+	font-weight: 700;
+	padding: 7px 0;
+}
+.wrap-input-voucher .button{
+	text-transform: uppercase;
+	width: 30%;
+	display: inline-block;
+	vertical-align: middle;
+	float: right;
+	font-weight:bold;
+	font-size: 12px;
+	background: #bbbbbb;
+	line-height: 19px;
+	padding: 7px 15px;
+	border: 0;
+	color: #FFFFFF;
+}
+.cust-container .col-box{
+	margin-bottom: 20px;
+	padding: 15px;
+	position: relative;
+	margin-right: 20px;
+	font-size: 13px;
+}
+.cust-container .col-box:last-child{
+	margin-right: 0;
+}
+.cust-container .vmiddle.col-box{
+	text-align: center;
+}
+.cust-container .col-box .discount .label{
+	margin-bottom: 3px;
+}
+.cust-container .col-box .discount{
+	margin:115px auto 0;
+}
+.cust-container {
+  width: 100%;
+  display: inline-block;
+}
+.cust-row{
+	display: block;
+}
+.cust-row.padside50{
+	padding: 0 50px;
+}
+.table.grand-total .normal{
+	font-weight: normal;
+}
+.table.grand-total .grandline{
+	border-bottom: solid 2px #979797;
+	margin-bottom:10px;
+	padding-bottom: 10px;
+}
+.table.grand-total .uppercase{
+	text-transform: uppercase;
+	font-size: 16px;
+}
+.table.grand-total a, 
+.table.grand-total a:visited, 
+.table.grand-total a:hover{ 
+color: #FF6B6C;
+}
+.table.grand-total{
+	width: 100%;
+}
+.table.grand-total tbody>tr>td.cuts, 
+.table.grand-total tbody>tr>th.cuts {
+	color: #D6061C;
+}
+.table.grand-total tbody>tr>td, 
+.table.grand-total tbody>tr>th {
+	border-top: none;
+	padding: 5px 8px;
+	font-weight: 700;
+}
+.table.grand-total .button{
+	display: block;
+	text-transform: uppercase;
+	font-weight: 700;
+	font-size: 16px;
+	background: #3eb988;
+	line-height: 19px;
+	padding: 7px 15px;
+	border: 0;
+	color: #FFFFFF;
+	width: 100%;
+}
+@media (max-width: 990px) {
+	.table-wrap{
+		width: 100%;
+		overflow-x:scroll;
+		border: solid 1px #e7e7e7;
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.1);
+    -webkit-box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.1);
+	}
+	table.bs{
+		width: 720px!important;
+	}
+	.table.grand-total{
+		width: 100%!important;
+	}
+	.equal-box{
+		min-height: initial;
+	}
+	.cust-container .col-box .discount{
+		margin-top: 0px;
+	}
+	.wrap-input-voucher input,
+	.wrap-input-voucher .button{
+		width: 100%;
+    display: inline-block;
+    float: none;
+    padding-left: 0px;
+    padding-right: 0px;
+    text-align: center;
+	}
+
+}
 }
