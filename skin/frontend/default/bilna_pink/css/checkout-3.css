@@ -625,5 +625,21 @@ color: #FF6B6C;
     padding-right: 0px;
     text-align: center;
 	}
+}
 
+
+.item-bundle .list-item {
+margin-bottom: 10px;
+font-size: 12px;
+padding: 10px;
+background: #F6F6F6;
+}
+.item-bundle .list-item .title{
+	margin-bottom: 5px;
+}
+.item-bundle .list-item:last-child{
+margin-bottom: 0;
+}
+.item-bundle .list-item span {
+    text-align: left!important;
 }
