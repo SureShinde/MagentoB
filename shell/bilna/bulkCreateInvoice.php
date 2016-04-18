@@ -30,10 +30,14 @@ class bulkCreateInvoice extends Mage_Shell_Abstract {
                 $mergedOrderIncrementIds = "'".implode("','", $orderIncrementIds)."'";
                 $additionQuery = " AND sfo.increment_id IN (".$mergedOrderIncrementIds.")";
             } else {
-                if (!$this->getArg('dateStart') && !$this->getArg('dateEnd')) {
+                $dateStart = (!$this->getArg('dateStart')) ? false : $this->getArg('dateStart');
+                $dateEnd = (!$this->getArg('dateEnd')) ? false : $this->getArg('dateEnd');
+                if (!$dateStart && !$dateEnd) {
                     $additionQuery = " AND sfo.created_at BETWEEN DATE_FORMAT(NOW() - INTERVAL 7 DAY, '%Y-%m-%d 00:00:00') AND DATE_FORMAT(NOW(), '%Y-%m-%d %k:%i:%s')";
+                } elseif ($dateStart && $dateEnd) {
+                    $additionQuery = " AND sfo.created_at BETWEEN ".$dateStart." AND ".$dateEnd;
                 } else {
-                    $additionQuery = " AND sfo.created_at BETWEEN ".$this->getArg('dateStart')." AND ".$this->getArg('dateEnd');
+                    $this->critical('Both of date start and date end must be filled or not setted');
                 }
             }
             $paymentMethods = Mage::getStoreConfig('bilna_module/paymethod/payment_hide');
