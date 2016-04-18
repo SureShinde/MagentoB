@@ -25,14 +25,17 @@ class bulkCreateInvoice extends Mage_Shell_Abstract {
     public function run() {
         $this->init();
         $orderIncrementIds = $this->getOrderIncrementIds();
-
-        if (!$orderIncrementIds) {
-            if (!$this->getArg('dateStart') && !$this->getArg('dateEnd')) {
-                $date = "AND sfo.created_at BETWEEN DATE_FORMAT(NOW() - INTERVAL 7 DAY, '%Y-%m-%d 00:00:00') AND DATE_FORMAT(NOW(), '%Y-%m-%d %k:%i:%s')";
+        if ($this->getArg('check_veritrans') == 'true') {
+            if ((is_array($orderIncrementIds)) && (count($orderIncrementIds) > 0)) {
+                $mergedOrderIncrementIds = "'".implode("','", $orderIncrementIds)."'";
+                $additionQuery = " AND sfo.increment_id IN (".$mergedOrderIncrementIds.")";
             } else {
-                $date = "AND sfo.created_at BETWEEN ".$this->getArg('dateStart')." AND ".$this->getArg('dateEnd');
+                if (!$this->getArg('dateStart') && !$this->getArg('dateEnd')) {
+                    $additionQuery = " AND sfo.created_at BETWEEN DATE_FORMAT(NOW() - INTERVAL 7 DAY, '%Y-%m-%d 00:00:00') AND DATE_FORMAT(NOW(), '%Y-%m-%d %k:%i:%s')";
+                } else {
+                    $additionQuery = " AND sfo.created_at BETWEEN ".$this->getArg('dateStart')." AND ".$this->getArg('dateEnd');
+                }
             }
-
             $paymentMethods = Mage::getStoreConfig('bilna_module/paymethod/payment_hide');
             $paymentMethods = str_replace(',mandiriecash', '', $paymentMethods);
             $paymentMethods = str_replace('mandiriecash,', '', $paymentMethods);
@@ -47,7 +50,7 @@ class bulkCreateInvoice extends Mage_Shell_Abstract {
                     NOT EXISTS (SELECT null FROM sales_flat_invoice sfi WHERE sfi.order_id = sfo.entity_id)
                     AND sfo.state = 'processing'
                     AND sfo.entity_id = sfop.parent_id
-                    AND sfop.method IN ('".$paymentMethods."')".$date;
+                    AND sfop.method IN ('".$paymentMethods."')".$additionQuery;
             $orderIds = $this->read->fetchAll($sql);
 
             $orderIncrementIds = $this->getCCSuccessVeritransOrderIds($orderIds);
@@ -75,12 +78,13 @@ class bulkCreateInvoice extends Mage_Shell_Abstract {
                 $result = (array) Veritrans_Transaction::status($orderIncrementId['increment_id']);
             }
             catch (Exception $e) {
-                Mage::log('Veritrans check order status error with message : '.$e->getMessage());
+                $this->logProgress('Veritrans check order ID '.$orderIncrementId['increment_id'].' status error with message : '.$e->getMessage(), true);
                 continue;
             }
 
             if ((isset($result['transaction_status'])) && (($result['transaction_status'] == 'settlement') || ($result['transaction_status'] == 'success') || ($result['transaction_status'] == 'capture'))) {
                 $successOrderNoWithoutInv[] = $orderIncrementId['increment_id'];
+                $this->logProgress('Order : '.$orderIncrementId['increment_id'].' verified by veritrans with status : '.$result['transaction_status'], true);
             }
         }
 
@@ -132,6 +136,10 @@ class bulkCreateInvoice extends Mage_Shell_Abstract {
             }
             
             $invoiceId = $invoice->getId();
+
+            if ($this->getArg('check_veritrans') == 'true') {
+                $this->logProgress('Invoice for Order : '.$orderIncrementId.' successfully created with Invoice ID : '.$invoiceId, true);
+            }
             
             //- remove message invoice
             if (!$this->removeMessageInvoice($invoiceId)) {
@@ -400,8 +408,12 @@ class bulkCreateInvoice extends Mage_Shell_Abstract {
         return false;
     }
 
-    protected function logProgress($message) {
-        $this->writeLog($message);
+    protected function logProgress($message, $veritrans_log = false) {
+        if ($veritrans_log) {
+            $this->writeLogVeritrans($message);
+        } else {
+            $this->writeLog($message);
+        }
         
         if ($this->getArg('verbose')) {
             echo $message . "\n";
@@ -410,6 +422,10 @@ class bulkCreateInvoice extends Mage_Shell_Abstract {
     
     public function writeLog($message) {
         Mage::log($message, null, 'bulkCreateInvoice.log');
+    }
+
+    public function writeLogVeritrans($message) {
+        Mage::log($message, null, 'veritrans_status.log');
     }
 }
 
