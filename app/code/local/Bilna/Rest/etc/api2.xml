@@ -707,10 +707,10 @@
                     <type>Type</type>
                 </attributes>
                 <routes>
-                    <!--route_entity>
+                    <route_entity>
                         <route>/newsletter/:id</route>
                         <action_type>entity</action_type>
-                    </route_entity-->
+                    </route_entity>
                     <route_collection>
                         <route>/newsletter</route>
                         <action_type>collection</action_type>
@@ -759,7 +759,7 @@
                         <retrieve>1</retrieve>
                     </admin>
                 </privileges>
-                <attributes translate="total_record wishlist_id customer_id shared sharing_code updated_at cover cloud_cover desc view counter last_counter created_at name visibility" module="Bilna_Rest">
+                <attributes translate="total_record wishlist_id customer_id shared sharing_code updated_at cover cloud_cover desc view counter last_counter created_at name visibility wishlist_collection_items_total" module="Bilna_Rest">
                     <total_record>Total Record</total_record>
                     <wishlist_id>wishlist_id</wishlist_id> 
                     <customer_id>customer_id</customer_id>                    
@@ -774,7 +774,9 @@
                     <last_counter>last_counter</last_counter>                 
                     <created_at>created_at</created_at>                    
                     <name>name</name>                    
-                    <visibility>visibility</visibility>
+                    <visibility>visibility</visibility>               
+                    <avatar>avatar</avatar>                    
+                    <wishlist_collection_items_total>Wishlist Collection Items Total</wishlist_collection_items_total>
                 </attributes>
                 <routes>
                     <route_collection>
