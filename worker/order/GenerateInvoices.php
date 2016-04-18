@@ -40,9 +40,9 @@ class Bilna_Worker_Order_GenerateInvoices extends Bilna_Worker_Order_Order {
                 }
             }
         }
-        catch (Exception $ex) {
-            $this->_queueSvc->bury($job);
-            $this->_logProgress($ex->getMessage());
+        catch (Exception $e) {
+            Mage::logException($e);
+            $this->_logProgress($e->getMessage());
         }
     }
 }
