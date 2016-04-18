@@ -86,7 +86,7 @@
                 </div>
                 <?php endif ?>
                 </div>
-                <?php echo $_product->isImportProduct() ?>
+                <?php echo Mage::helper('bilna_crossborder')->getHtmlCrossBorder($_product); ?>
 				<div class="product-info-wrapper">
                 <?php if($this->getShowProductName()) : ?>
                 <div class="awafptitle">

@@ -194,7 +194,7 @@ $_core_helper =  Mage::helper('core');
             $productAvailability = 1;
 
             ?>
-            <?php echo $_product->isImportProduct() ?>
+            <?php echo Mage::helper('bilna_crossborder')->getHtmlCrossBorder($_product); ?>
             <!-- New layout for collection detail items -->
             <div class="cg-col-xs-6 cg-col-sm-4 cg-col-md-3 bottom-spacer-container">
               <div class="box">
