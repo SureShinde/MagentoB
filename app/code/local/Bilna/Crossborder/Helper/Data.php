@@ -23,9 +23,15 @@ class Bilna_Crossborder_Helper_Data extends Mage_Core_Helper_Abstract {
      */
     public function getHtmlCrossBorder($product)
     {
-        if ($product->getData('cross_border') == 1) {
-            return '<span>import</span>';
+        if ($product instanceOf Mage_Catalog_Model_Product) { // for product list and detail
+            if ($product->getData('cross_border') == 1) {
+                return '<span>import</span>';
+            }
+        } elseif ($product instanceOf Mage_Sales_Model_Quote_Item) { // for checkout/cart
+            if ($product->getCrossBorder() == 1) {
+                return '<span>import</span>';
+            }
         }
-        return '<span>&nbsp;</span>';
+        return '<span>&nbsp;not import</span>';
     }
 }
