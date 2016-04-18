@@ -698,7 +698,7 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
             ),
         );
 
-        //Ff custom expiry is set, add custom expiry to the request
+        //If custom expiry is set, add custom expiry to the request
         if (!empty($expiryDuration)) {
             $transactionData['custom_expiry'] = array(
                 "expiry_duration" => $expiryDuration,
