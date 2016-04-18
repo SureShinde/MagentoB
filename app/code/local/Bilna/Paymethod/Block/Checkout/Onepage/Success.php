@@ -53,6 +53,10 @@ class Bilna_Paymethod_Block_Checkout_Onepage_Success extends Mage_Checkout_Block
     public function getPaymentMethodVtdirect() {
         return Mage::helper('paymethod')->getPaymentMethodVtdirect();
     }
+
+    public function getPaymentMethodVA() {
+        return Mage::helper('paymethod')->getPaymentMethodVA();
+    }
     
     public function getResponseCharge() {
         return Mage::registry('response_charge');

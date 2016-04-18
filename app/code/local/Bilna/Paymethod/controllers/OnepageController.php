@@ -430,6 +430,27 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
             Mage::register('response_charge', $charge);
             Mage::dispatchEvent('sales_order_place_after', array ('order' => $order));
         }
+        /**
+         * Charge Transaction (Mandiri E-Cash)
+         */
+        elseif (in_array($paymentCode, $this->getPaymentMethodVtdirect())) {
+            $charge = $this->_vtdirectRedirectCharge($order);
+
+            Mage::getModel('paymethod/vtdirect')->addHistoryOrder($order, $charge);
+            Mage::register('response_charge', $charge);
+            //Mage::dispatchEvent('sales_order_place_after', array ('order' => $order));
+        }
+        /**
+         * Charge Virtual Account
+         */
+        elseif (in_array($paymentCode, $this->getPaymentMethodVA()) && $canceled == 0) {
+            // charge credit card
+            $charge = $this->_virtualAccountCharge($order);
+
+            // processing order
+            Mage::getModel('paymethod/vtdirect')->addHistoryOrder($order, $charge);
+            Mage::register('response_charge', $charge);
+        }
 
         // FDS (BILNA-1333) - Start
         if($canceled == 1) {
@@ -438,18 +459,7 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
             return;
         }
         // FDS (BILNA-1333) - End
-
-        /**
-         * Charge Transaction (Mandiri E-Cash)
-         */
-        if (in_array($paymentCode, $this->getPaymentMethodVtdirect())) {
-            $charge = $this->_vtdirectRedirectCharge($order);
-
-            Mage::getModel('paymethod/vtdirect')->addHistoryOrder($order, $charge);
-            Mage::register('response_charge', $charge);
-            //Mage::dispatchEvent('sales_order_place_after', array ('order' => $order));
-        }
-
+        
         $this->loadLayout();
         $this->_initLayoutMessages('checkout/session');
         Mage::dispatchEvent('checkout_onepage_controller_success_action', array ('order_ids' => array ($lastOrderId)));
@@ -596,6 +606,117 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
         return $result;
     }
 
+    protected function _virtualAccountCharge($order) {
+        Mage::helper('paymethod')->loadVeritransNamespace();
+
+        //- setting config vtdirect
+        Veritrans_Config::$serverKey = $this->getVtdirectServerKey();
+        Veritrans_Config::$isProduction = $this->getVtdirectIsProduction();
+
+        $incrementId = $order->getIncrementId();
+        $grossAmount = $order->getGrandTotal();
+        $payment = $order->getPayment();
+        $paymentCode = $payment->getMethodInstance()->getCode();
+        
+        // Get Configuration Data
+        $paymentConfig = Mage::getStoreConfig('payment/' . $paymentCode);
+        $inquiryTextID = $paymentConfig['inquiry_text_indonesian'];
+        $inquiryTextEN = $paymentConfig['inquiry_text_english'];
+        $paymentTextID = $paymentConfig['payment_text_indonesian'];
+        $paymentTextEN = $paymentConfig['payment_text_english'];
+        $paymentType = $paymentConfig['vtdirect_payment_type'];
+        $bank = $paymentConfig['bank'];
+
+        $inquiryRowLimit = 5;
+        $paymentRowLimit = 9;
+        $maxTextLength = 38;
+
+        // BEGIN - Replace freetext containing defined variables 
+        $stringToReplaceArr = array(
+            '{{order_no}}' => $incrementId
+        );
+        foreach ($stringToReplaceArr as $stringToReplace => $replacementText) {
+            $inquiryTextID = str_replace($stringToReplace, $replacementText, $inquiryTextID);
+            $inquiryTextEN = str_replace($stringToReplace, $replacementText, $inquiryTextEN);
+            $paymentTextID = str_replace($stringToReplace, $replacementText, $paymentTextID);
+            $paymentTextEN = str_replace($stringToReplace, $replacementText, $paymentTextEN);
+        }
+        // END - Replace freetext containing defined variables 
+
+        $inquiryTextIDArr = $this->_parseFreeText($inquiryTextID, 'id', $inquiryRowLimit, $maxTextLength);
+        $inquiryTextENArr = $this->_parseFreeText($inquiryTextEN, 'en', $inquiryRowLimit, $maxTextLength);
+        $paymentTextIDArr = $this->_parseFreeText($paymentTextID, 'id', $paymentRowLimit, $maxTextLength);
+        $paymentTextENArr = $this->_parseFreeText($paymentTextEN, 'en', $paymentRowLimit, $maxTextLength);
+        
+        // Building Inquiry Text Data
+        $inquiryTextArr = array();
+        foreach($inquiryTextIDArr as $key=>$val){ // Loop though one array
+            if (isset($inquiryTextENArr[$key])) {
+                $val2 = $inquiryTextENArr[$key]; // Get the values from the other array
+                $inquiryTextArr[$key] = $val + $val2; // combine 'em
+            } else {
+                $inquiryTextArr[$key] = $val;
+            }
+        }
+        
+        // Building Payment Text Data
+        $paymentTextArr = array();
+        foreach($paymentTextIDArr as $key=>$val){ // Loop though one array
+            if (isset($paymentTextENArr[$key])) {
+                $val2 = $paymentTextENArr[$key]; // Get the values from the other array
+                $paymentTextArr[$key] = $val + $val2; // combine 'em
+            } else {
+                $paymentTextArr[$key] = $val;
+            }
+        }
+
+        //-Required
+        $transactionDetails = array (
+            'order_id' => $incrementId,
+            'gross_amount' => $grossAmount
+        );
+        $customerDetails = array (
+            'first_name' => $order->getBillingAddress()->getFirstname(),
+            'last_name' => $order->getBillingAddress()->getLastname(),
+            'email' => $this->getCustomerEmail($order->getBillingAddress()->getEmail()),
+            'phone' => $order->getBillingAddress()->getTelephone(),
+        );
+
+        //- Data that will be sent for charge transaction request with Virtual Account.
+        $transactionData = array (
+            'payment_type' => $paymentType,
+            'transaction_details' => $transactionDetails,
+            'customer_details' => $customerDetails,
+            $paymentType => array (
+                'bank' => $bank,
+                'free_text' => array(
+                    'inquiry' => $inquiryTextArr,
+                    'payment' => $paymentTextArr
+                )
+            ),
+        );
+
+        try {
+            $this->writeLog($paymentCode, $this->_typeTransaction, 'charge', 'request: ' . json_encode($transactionData));
+            $result = Veritrans_VtDirect::charge($transactionData);
+            $vaNumbers = $result->va_numbers[0];
+            $payment->setVaNumber($vaNumbers->va_number);//Set value of va_number field from table sales_order_flat_payment
+            $payment->save();
+            $this->writeLog($paymentCode, $this->_typeTransaction, 'charge', 'response: ' . json_encode($result));
+        }
+        catch (Exception $e) {
+            $this->writeLog($paymentCode, $this->_typeTransaction, 'charge', "error: [" . $incrementId . "] " . $e->getMessage());
+            $response = array (
+                'transaction_status' => 'deny',
+                'fraud_status' => 'deny',
+                'status_message' => $e->getMessage()
+            );
+            $result = (object) $response;
+        }
+
+        return $result;
+    }
+    
     protected function logProgress($message) {
         Mage::log($message, null, 'newstack.log');
     }
@@ -722,6 +843,14 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
         return Mage::helper('paymethod')->getPaymentMethodVtdirect();
     }
 
+    /**
+     * Get List of Payment Method for Virtual Account
+     */
+    protected function getPaymentMethodVA()
+    {
+        return Mage::helper('paymethod')->getPaymentMethodVA();
+    }
+    
     protected function getTokenId() {
         $tokenId = Mage::getSingleton('core/session')->getVtdirectTokenId();
 
@@ -928,5 +1057,35 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
         $content = sprintf("%s|%s", $content, $tdate);
 
         return Mage::helper('paymethod')->writeLogFile($paymentCode, $type, $filename, $content, 'normal');
+    }
+
+    /**
+     * Function to parse text for Veritrans transaction
+     * @param $textToParse Array of text
+     * @param $languageKey string Language Key that will be used in the index
+     * @param $rowLimit int Limit of the return rows
+     * @param $maxRowLength int Maximum length of each row returned
+     * @return array of parsed text
+     */
+    protected function _parseFreeText($textToParse, $languageKey='id', $rowLimit = 5, $maxRowLength = 38)
+    {
+        $parsedText = array();
+        $splittedText = explode(PHP_EOL, $textToParse); 
+        $index = 0;
+
+        $numRow = count($splittedText);
+        if ($numRow > $rowLimit) {
+            $numRow = $rowLimit;
+        }
+
+        if (!empty($splittedText)) {
+            for ($i = 0; $i < $numRow; $i++) {
+                if (!empty($splittedText[$i])) {
+                    $parsedText[$index][$languageKey] = substr(trim($splittedText[$i]), 0, $maxRowLength);
+                    $index++;
+                }
+            }
+        }
+        return $parsedText;
     }
 }
