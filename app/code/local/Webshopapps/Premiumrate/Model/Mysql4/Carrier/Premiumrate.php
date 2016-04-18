@@ -131,7 +131,7 @@ class Webshopapps_Premiumrate_Model_Mysql4_Carrier_Premiumrate extends Mage_Core
                 $select->where('item_to_value>=?', $request->getData('package_qty'));
             }
 
-            if (is_null($itemStatus) || $itemStatus['item_status'] == Webshopapps_Premiumrate_Model_Carrier_Premiumrate::ITEMS_LOCAL)
+            if (is_null($itemStatus) || $itemStatus['item_status'] == Webshopapps_Premiumrate_Model_Carrier_Premiumrate::ITEMS_LOCAL || $itemStatus['item_status'] == Webshopapps_Premiumrate_Model_Carrier_Premiumrate::ITEMS_MIXED)
                 $select->where('(is_import IS NULL or is_import = ?)', 0);
             else
             if ($itemStatus['item_status'] == Webshopapps_Premiumrate_Model_Carrier_Premiumrate::ITEMS_IMPORT)
