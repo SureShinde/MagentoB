@@ -212,20 +212,20 @@ class Bilna_Customer_Model_Api2_Wishlistcollection extends Bilna_Rest_Model_Api2
         return FALSE;
     }
     
-    protected function _pagination($object)
+    protected function _pagination($object, $defaultPageSize = 24, $defaultCurPage = 1)
     {
         $limit = (int)$this->getRequest()->getParam('limit');
         $page = (int)$this->getRequest()->getParam('page');
-
-        if ($limit) {
+        
+        if ($limit > 0) {
             $object->setPageSize($limit);
         } else {
-            $object->setPageSize(10);
+            $object->setPageSize($defaultPageSize);
         }
-        if ($page) {
+        if ($page > 0) {
             $object->setCurPage($page);
         } else {
-            $object->setCurPage(1);
+            $object->setCurPage($defaultCurPage);
         }
     }
 }
