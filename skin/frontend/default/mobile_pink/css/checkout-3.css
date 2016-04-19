@@ -436,6 +436,9 @@
 
 
 /* ======== hack cross border ==========*/
+#checkout-step-review .table-wrap th:first-child {
+  width: 40%;
+}
 #checkout-step-review .table-wrap span {
   display: block;
   text-align: center;
@@ -457,6 +460,7 @@
 .opc .table.bs .txt-item{
 	display: inline-block;
 	vertical-align: top;
+	width: 65%;
 }
 .opc .table.bs .img-item{
 	width: 50px;
