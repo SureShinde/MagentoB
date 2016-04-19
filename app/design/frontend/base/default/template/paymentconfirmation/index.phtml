@@ -11,9 +11,7 @@
     </div>
 
     <div class="intro">
-      Terima kasih telah berbelanja di Bilna!
-      Konfirmasikan pembayaran anda agar pesanan dapat kami segera proses dan kirim.
-      Pastikan anda memasukan data dengan benar untuk mempercepat proses, jika anda melakukan kesalahan hubungi <a href="mailto:cs@bilna.com">cs@bilna.com</a>
+      Terima kasih telah berbelanja di Bilna by Orami! Konfirmasikan pembayaran anda agar pesanan dapat kami segera proses dan kirim. Pastikan anda memasukan data dengan benar untuk mempercepat proses, Konfirmasi pembayaran tidak dibutuhkan untuk metode pembayaran Bank Transfer BCA Virtual Account,jika anda melakukan kesalahan hubungi <a href="mailto:cs@bilna.com">cs@bilna.com</a>
     </div>
     
     <div class="static-page-content">
@@ -52,9 +50,14 @@
                                 <div class="input-box">
                                     <!--<input type="text" title="<?php echo $this->__('Bayar ke Rekening (a/n PT Bilna):'); ?>" class="input-text required-entry2 validate-failed" id="bank_to" value="" name="paymentconfirmation[bank_to]" />-->
                                     <select style="" name="paymentconfirmation[bank_to]" id="bank_to" title="<?php echo $this->__('Bayar ke Rekening (a/n PT Bilna):'); ?>">
-                                        <option value="BCA">BCA</option>
-                                        <option value="BNI">BNI</option>
-                                        <option value="Mandiri">Bank Mandiri</option>
+                                        <?php
+                                            $supportedBank = explode(",",$this->getSupportedBank());
+                                            if(count($supportedBank) > 0):
+                                                foreach($supportedBank as $idx => $bank):
+                                        ?>
+                                        <option value="<?php echo trim($bank);?>"><?php echo trim($bank);?></option>
+                                        <?php endforeach;?>
+                                        <?php endif;?>
                                     </select>
                                 </div>
                             </li>
@@ -76,7 +79,7 @@
                                     <select onchange="cek()" style="" name="paymentconfirmation[bank_from]" id="bank_from" title="<?php echo $this->__('Rekening Bilna yang dituju'); ?>">
                                         <option value="BCA">BCA</option>
                                         <option value="BNI">BNI</option>
-                                        <option value="Mandiri">Bank Mandiri</option>
+                                        <option value="Bank Mandiri">Bank Mandiri</option>
                                         <option value="BRI">BRI</option>
                                         <option value="CIMB">CIMB</option>
                                         <option value="Others">Lainnya</option>
