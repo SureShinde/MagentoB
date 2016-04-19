@@ -710,6 +710,8 @@
                 <inquiry_text_english>ORDER NO {{order_no}}</inquiry_text_english>
                 <payment_text_indonesian>TERIMA KASIH</payment_text_indonesian>
                 <payment_text_english>TERIMA KASIH</payment_text_english>
+                <expiry_duration>1</expiry_duration>
+                <expiry_duration_unit>day</expiry_duration_unit>
             </virtualaccountbca>
         </payment>
     </default>

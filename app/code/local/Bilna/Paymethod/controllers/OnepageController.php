@@ -625,6 +625,8 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
         $paymentTextID = $paymentConfig['payment_text_indonesian'];
         $paymentTextEN = $paymentConfig['payment_text_english'];
         $paymentType = $paymentConfig['vtdirect_payment_type'];
+        $expiryDuration = $paymentConfig['expiry_duration'];
+        $expiryDurationUnit = $paymentConfig['expiry_duration_unit'];
         $bank = $paymentConfig['bank'];
 
         $inquiryRowLimit = 5;
@@ -695,6 +697,14 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
                 )
             ),
         );
+
+        //If custom expiry is set, add custom expiry to the request
+        if (!empty($expiryDuration)) {
+            $transactionData['custom_expiry'] = array(
+                "expiry_duration" => $expiryDuration,
+                "unit" => $expiryDurationUnit
+            );
+        }
 
         try {
             $this->writeLog($paymentCode, $this->_typeTransaction, 'charge', 'request: ' . json_encode($transactionData));
