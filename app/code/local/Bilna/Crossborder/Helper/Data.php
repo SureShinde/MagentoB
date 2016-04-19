@@ -32,6 +32,6 @@ class Bilna_Crossborder_Helper_Data extends Mage_Core_Helper_Abstract {
                 return '<span>import</span>';
             }
         }
-        return '<span>&nbsp;not import</span>';
+        return '<span>&nbsp;</span>';
     }
 }
