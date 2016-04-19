@@ -1,5 +1,4 @@
 <?php
-
 /**
  * API2 class for coupon (admin)
  *
@@ -10,8 +9,7 @@
 
 use Pheanstalk\Pheanstalk;
 
-class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model_Api2_Order_Rest
-{
+class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model_Api2_Order_Rest {
 	/**
      * Covert Quote to Order
      *
@@ -21,10 +19,11 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
      */
     protected function _create(array $data) {
         $quoteId = $data['entity_id'];
-        $storeId = isset($data['store_id']) ? $data['store_id'] : 1;
+        $storeId = isset($data['store_id']) ? $data['store_id'] : self::DEFAULT_STORE_ID;
         $tokenId = isset($data['token_id']) ? $data['token_id'] : '';
         $payment = isset($data['payment']) ? $data['payment'] : '';
-
+        $trxFrom = isset($data['trx_from']) ? $data['trx_from'] : self::DEFAULT_TRX_FROM;
+        
         $allowInstallment = isset($data['allow_installment']) ? $data['allow_installment'] : '';
         $installmentMethod = isset($data['installment_method']) ? $data['installment_method'] : '';
         $installmentTenor = isset($data['installment']) ? $data['installment'] : '';
@@ -124,10 +123,30 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
                 }
             }
 
-            $order = $service->getOrder();
-
+            $order = $service->getOrder();            
+            
+            /**
+             *  
+             * setTrxFrom: to determine where is transaction came from.
+             * 
+             * Option: 
+             * - 1 is from logan apps
+             * - 2 is from mobile apps
+             * - 3 is from magento apps
+             * 
+             */
+            $saveOrder = false;
+            if(!empty($trxFrom)) {
+                $order->setTrxFrom($trxFrom);
+                $saveOrder = true;
+            }
+            
             if (isset ($payment['use_points']) && $payment['use_points'] > 0) {
                 $order = $this->submitPoints($order, $payment);
+                $saveOrder = true;
+            }
+            
+            if($saveOrder) {
                 $order->save();
             }
 
@@ -142,48 +161,27 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
                 }
             }
 
-            Mage::dispatchEvent(
-                'checkout_submit_all_after',
-                array('order' => $order, 'quote' => $quote)
-            );
+            Mage::dispatchEvent('checkout_submit_all_after', array ('order' => $order, 'quote' => $quote));
 
-            $lastOrderId = $order->getId();
+            $orderId = $order->getId();
             $paymentCode = $order->getPayment()->getMethodInstance()->getCode();
+            $orderIncrementId = $order->getIncrementId();
+            $orderGrandTotal = $order->getGrandTotal();
+            $orderCanceled = $this->_getOrderCanceled($order);
 
-            if (in_array($paymentCode, $this->getPaymentMethodCc()))
-            {
+            if (in_array($paymentCode, $this->getPaymentMethodCc()) && ($orderCanceled === false)) {
                 $charge = Mage::getModel('paymethod/api')->creditcardCharge($order, $tokenId);
-                $setData = array(
-                    'order_id'      => $lastOrderId,
-                    'increment_id'  => $order->getIncrementId(),
-                    'gross_amount'  => $order->getGrandTotal(),
-                    'payment_type'  => 'credit_card',
-                    'bank'          => $charge->bank,
-                    'token_id'      => $tokenId,
-                    'status_code'   => $charge->status_code,
-                    'status_message'=> $charge->status_message,
-                    'transaction_id'=> $charge->transaction_id,
-                    'masked_card'   => $charge->masked_card,
-                    'transaction_time'=> $charge->transaction_time,
-                    'transaction_status'=> $charge->transaction_status,
-                    'fraud_status' => $charge->fraud_status,
-                    'approval_code' => $charge->approval_code,
-                    'created_at'    => date('Y-m-d H:i:s')
-                );
-                
-                $hostname = Mage::getStoreConfig('bilna_queue/beanstalkd_settings/hostname');
-                $pheanstalk = new Pheanstalk($hostname);
-                $pheanstalk
-                  ->useTube('invoice')
-                  ->put(json_encode($setData));
-
-                //Mage::getModel('paymethod/vtdirect')->updateOrder($order, $paymentCode, $charge);
-                //Mage::register('response_charge', $charge);
-                Mage::dispatchEvent('sales_order_place_after', array ('order' => $order));
-
+                $order->setState(Mage_Sales_Model_Order::STATE_NEW, self::ORDER_STATUS_PENDING_INVOICE);
+                $order->save();
+                $this->_storeChargeDataToQueue($charge);
             }
-
-        } catch (Mage_Core_Exception $e) {
+            elseif (in_array($paymentCode, $this->getPaymentMethodVtdirect()) && ($orderCanceled === false)) {
+                $charge = Mage::getModel('paymethod/api')->vtdirectRedirectCharge($order);
+                $this->_addHistoryOrder($order, $charge['response']->status_message);
+                $this->_storeChargeDataToQueue($charge, false);
+            }
+        }
+        catch (Mage_Core_Exception $e) {
             $this->_critical($e->getMessage());
         }
 
@@ -273,6 +271,10 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
         return Mage::helper('paymethod')->getPaymentMethodCc();
     }
 
+    protected function getPaymentMethodVtdirect() {
+        return Mage::helper('paymethod')->getPaymentMethodVtdirect();
+    }
+
     protected function getPaymentTypeTransaction($paymentCode, $type)
     {
         if ($paymentCode == 'klikpay') {
@@ -299,6 +301,30 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
         }
         else {
             return '';
+        }
+    }
+    
+    protected function _getOrderCanceled($order) {
+        return (strtolower($order->getData('status')) == 'canceled');
+    }
+    
+    protected function _addHistoryOrder($order, $message) {
+        $order->addStatusHistoryComment($message);
+        $order->save();
+    }
+    
+    protected function _storeChargeDataToQueue($charge, $invoice = true) {
+        try {
+            $hostname = Mage::getStoreConfig('bilna_queue/beanstalkd_settings/hostname');
+            $pheanstalk = new Pheanstalk($hostname);
+            $pheanstalk->useTube('vt_charge')->put(json_encode($charge)); //- store charge request-response for API Charging Info
+
+            if ($invoice) {
+                $pheanstalk->useTube('invoice')->put(json_encode($charge['response']), '', 60); //- store charge reseponse for create invoice or cancel order (delay 1 minute)
+            }
+        }
+        catch (Exception $e) {
+            Mage::logException($e);
         }
     }
 }

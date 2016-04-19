@@ -37,7 +37,6 @@
                         <?php echo Mage::getBlockSingleton('directory/data')->getCountryHtmlSelect($this->getEstimateCountryId()) ?>
                     </div>
                 </li>
-            <?php //if($this->getStateActive()): ?>
                 <li>
                     <label for="region_id"<?php if ($this->isStateProvinceRequired()) echo ' class="required"' ?>><?php if ($this->isStateProvinceRequired()) echo '<em>*</em>' ?><?php echo $this->__('State/Province') ?></label>
                     <div class="input-box">
@@ -52,7 +51,6 @@
                        <input type="text" id="region" name="region" value="<?php echo $this->escapeHtml($this->getEstimateRegion()) ?>"  title="<?php echo $this->__('State/Province') ?>" class="input-text" style="display:none;" />
                    </div>
                 </li>
-            <?php //endif; ?>
             <?php if($this->getCityActive()): ?>
                 <li>
                     <label for="city"<?php if ($this->isCityRequired()) echo ' class="required"' ?>><?php if ($this->isCityRequired()) echo '<em>*</em>' ?><?php echo $this->__('City') ?></label>

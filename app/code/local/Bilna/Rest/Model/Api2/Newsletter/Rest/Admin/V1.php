@@ -2,22 +2,33 @@
 /**
  * Description of Bilna_Rest_Model_Api2_Newsletter_Rest_Admin_V1
  *
- * @author Bilna Development Team <development@bilna.com>
+ * @path    app/code/local/Bilna/Rest/Model/Api2/Newsletter/Rest/Admin/V1.php
+ * @author  Bilna Development Team <development@bilna.com>
  */
 
 class Bilna_Rest_Model_Api2_Newsletter_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_Newsletter_Rest {
     protected function _retrieve() {
-        $data = array (
-            'customer_id' => 20,
-            'email' => 'dhany@bilna.com',
-            'type' => 'subscribe',
-        );
+        $customer = Mage::getModel('customer/customer')->load($this->getRequest()->getParam('id'));
+        $subscriber = Mage::getModel('newsletter/subscriber')->loadByEmail($customer->getEmail());
+        
+        $data = [];
+        
+        if($customer->getId()) {
+            $status = $subscriber->getStatus();
+            
+            $data = array (
+                'customer_id' => $subscriber->getCustomerId(),
+                'email' => $subscriber->getEmail(),
+                'type' => $this->getType($status),
+            );
+        }
         
         return $data;
     }
 
     protected function _create(array $filteredData) {
         //- validasi request data
+        $this->_validate($filteredData);
         
         try {
             $customerId = $filteredData['customer_id'];
@@ -32,12 +43,18 @@ class Bilna_Rest_Model_Api2_Newsletter_Rest_Admin_V1 extends Bilna_Rest_Model_Ap
                 ->setWebsiteId($this->_getStore()->getWebsiteId())
                 ->loadByEmail($email)
                 ->getId();
-
-            if ($ownerId !== null && $ownerId != $customerId) {
-                $this->_critical('This email address is already assigned to another user.');
+            
+            if ($customerId) {
+                if ($ownerId !== null && $ownerId == $customerId) {
+                    $this->_critical('This email address is already assigned to another user.');
+                }
             }
             
             if ($type == 'subscribe') {
+                $ownerId->setIsSubscribed(TRUE);
+                $customer = Mage::getModel('customer/customer')->load($ownerId);
+                Mage::getModel('newsletter/subscriber')->subscribeCustomer($customer);
+                
                 return $this->_subscribe($customerId, $email, $ownerId);
             }
             elseif ($type == 'confirmation') {
