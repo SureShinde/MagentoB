@@ -30,7 +30,7 @@ class Bilna_Rest_Model_Api2_Wishlistcollection_Rest_Admin_V1 extends Bilna_Rest_
                 ->addFilter('visibility', 1)
                 ->addFieldToFilter('name', array('notnull' => true))
                 ->addFieldToFilter('name', array('neq' => ' '))
-                ->addFieldToFilter('cover', array('notnull' => true))
+                //->addFieldToFilter('cover', array('notnull' => true))
                 ->setOrder('updated_at', 'desc');
             
             $wishlist_collection[0]['total_record'] = $wishlists->getSize();
