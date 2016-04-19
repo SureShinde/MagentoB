@@ -501,7 +501,7 @@ class Webshopapps_Premiumrate_Model_Mysql4_Carrier_Premiumrate extends Mage_Core
                                             if ($usingGreaterVolLogic && $request->getPRConditionName()=='package_volweight' && $greaterVolume ) {
                                                 $weightDifference = $totalVolweight-$data['weight_from_value'];
                                             } else {
-                                                $weightDifference = $request->getData('package_weight')-$data['weight_from_value'];
+                                                $weightDifference = $itemStatus[$item_type]['weight']-$data['weight_from_value'];
                                             }
                                             $quotient=ceil($weightDifference / $weightIncrease[0]);
                                             $data['price']=$data['price']+$weightIncrease[1]*$quotient;
@@ -513,7 +513,7 @@ class Webshopapps_Premiumrate_Model_Mysql4_Carrier_Premiumrate extends Mage_Core
                                             if ($usingGreaterVolLogic && $request->getPRConditionName()=='package_volweight' && $greaterVolume ) {
                                                 $weightDifference = $totalVolweight-$data['weight_from_value'];
                                             } else {
-                                                $weightDifference = $request->getData('package_weight')-$data['weight_from_value'];
+                                                $weightDifference = $itemStatus[$item_type]['weight']-$data['weight_from_value'];
                                             }
                                             $quotient=$weightDifference / $weightIncrease[0];
                                             $data['price']=$data['price']+$weightIncrease[1]*$quotient;
@@ -522,7 +522,7 @@ class Webshopapps_Premiumrate_Model_Mysql4_Carrier_Premiumrate extends Mage_Core
                                         // always weight based
                                         $weightIncrease=explode("@",$algorithm[1]);
                                         if (!empty($weightIncrease) && count($weightIncrease)==2 ) {
-                                            $weightDifference = $request->getData('package_weight')-$data['weight_from_value'];
+                                            $weightDifference = $itemStatus[$item_type]['weight']-$data['weight_from_value'];
                                             $quotient=ceil($weightDifference / $weightIncrease[0]);
                                             $data['price']=$data['price']+$weightIncrease[1]*$quotient;
                                         }
@@ -538,14 +538,14 @@ class Webshopapps_Premiumrate_Model_Mysql4_Carrier_Premiumrate extends Mage_Core
                                         // volume based
                                         $perItemCost=$algorithm[1];
                                         if (!empty($perItemCost)) {
-                                            $numItemsAffected = $request->getData('package_qty')-$data['item_from_value'];
+                                            $numItemsAffected = $itemStatus[$item_type]['qty']-$data['item_from_value'];
                                             $data['price']=$data['price']+$perItemCost*$numItemsAffected;
                                         }
                                     } else if (strtolower($algorithm[0])=="ai") {
                                         //all items
                                         $itemCost=$algorithm[1];
                                         if (!empty($itemCost)) {
-                                            $data['price'] = $data['price']+$itemCost*$request->getData('package_qty');
+                                            $data['price'] = $data['price']+$itemCost*$itemStatus[$item_type]['qty'];
                                         }
                                     } else if (strtolower($algorithm[0])=="instock" && strtolower($algorithm[1])=="true") {
                                         // in stock
