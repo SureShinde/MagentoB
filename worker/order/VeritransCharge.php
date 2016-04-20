@@ -31,9 +31,9 @@ class Bilna_Worker_Order_VeritransCharge extends Bilna_Worker_Order_Order {
                 }
             }
         }
-        catch (Exception $ex) {
-            $this->_queueSvc->bury($job);
-            $this->_critical($ex->getMessage());
+        catch (Exception $e) {
+            Mage::logException($e);
+            $this->_logProgress($ex->getMessage());
         }
     }
     

@@ -10,7 +10,12 @@
 use Pheanstalk\Pheanstalk;
 
 class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model_Api2_Order_Rest {
-	/**
+    protected $_paymentMethodHelper;
+    protected $_paymentMethodCc = [];
+    protected $_paymentMethodVtdirect = [];
+    protected $_paymentMethodVa = [];
+
+    /**
      * Covert Quote to Order
      *
      * @param  $quoteId
@@ -265,14 +270,37 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
 
         return $quote;
     }
+    
+    protected function getPaymentMethodHelper() {
+        if (!$this->_paymentMethodHelper) {
+            $this->_paymentMethodHelper = Mage::helper('paymethod');
+        }
+        
+        return $this->_paymentMethodHelper;
+    }
 
-    protected function getPaymentMethodCc()
-    {
-        return Mage::helper('paymethod')->getPaymentMethodCc();
+    protected function getPaymentMethodCc() {
+        if (!$this->_paymentMethodCc) {
+            $this->_paymentMethodCc = $this->getPaymentMethodHelper()->getPaymentMethodCc();
+        }
+        
+        return $this->_paymentMethodCc;
     }
 
     protected function getPaymentMethodVtdirect() {
-        return Mage::helper('paymethod')->getPaymentMethodVtdirect();
+        if (!$this->_paymentMethodVtdirect) {
+            $this->_paymentMethodVtdirect = $this->getPaymentMethodHelper()->getPaymentMethodVtdirect();
+        }
+        
+        return $this->_paymentMethodVtdirect;
+    }
+    
+    protected function getPaymentMethodVa() {
+        if (!$this->_paymentMethodVa) {
+            $this->_paymentMethodVa = $this->getPaymentMethodHelper()->getPaymentMethodVA();
+        }
+        
+        return $this->_paymentMethodVa;
     }
 
     protected function getPaymentTypeTransaction($paymentCode, $type)
