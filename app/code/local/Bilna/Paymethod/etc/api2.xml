@@ -78,8 +78,10 @@
 						<retrieve>1</retrieve>
 					</customer>
 				</privileges>
-				<attributes translate="response" module="Bilna_Paymethod">
-					<response>Response</response>
+				<attributes translate="order_no request response" module="Bilna_Paymethod">
+                                    <order_no>order_no</order_no>
+                                    <request>request</request>
+                                    <response>response</response>
 				</attributes>
 				<routes>
 					<route_entity>

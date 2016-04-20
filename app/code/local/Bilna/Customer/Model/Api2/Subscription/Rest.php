@@ -6,6 +6,11 @@ class Bilna_Customer_Model_Api2_Subscription_Rest extends Bilna_Customer_Model_A
     protected function _create(array $data)
     {
         $customer = Mage::getModel('customer/customer')->load($data["customer_id"]);
+        
+        $owner = Mage::getModel('customer/customer')
+                ->setWebsiteId(1)
+                ->loadByEmail($customer->getEmail());
+        
         $customer->setIsSubscribed(TRUE);
         
         try {
@@ -15,8 +20,7 @@ class Bilna_Customer_Model_Api2_Subscription_Rest extends Bilna_Customer_Model_A
         } catch (Exception $e) {
             $this->_critical(self::RESOURCE_INTERNAL_ERROR);
         }
-
-        $newsletter = Mage::getModel('newsletter/subscriber')->subscribeCustomer($customer);
+        $newsletter = Mage::getModel('newsletter/subscriber')->subscribeCustomer($owner);
         
         return $this->_getLocation($newsletter);
     }
