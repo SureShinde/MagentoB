@@ -197,6 +197,7 @@ $_core_helper =  Mage::helper('core');
             $stocklevel = (int)Mage::getModel('cataloginventory/stock_item')->loadByProduct($productId)->getQty();
             
             $stockStatus = $_product->getStockItem();
+            //print "STATUS: ".$stockStatus->getIsInStock();
             
             $backOrder = Mage::getModel('cataloginventory/stock_item')->loadByProduct($productId)->getBackorders();
             
@@ -378,8 +379,7 @@ $_core_helper =  Mage::helper('core');
                             </div> -->
 
                             <!-- checking stock level for quick view-->
-                            <?php if (($stocklevel < 1) && (!$stockStatus->getIsInStock())) { ?>
-                            
+                            <?php if (($stocklevel < 1) && (!$stockStatus->getIsInStock()) && ($backOrder < 1)) { ?>
                             <div class="cg-col-xs-10">
                                               <button type ="button" class="btn btn-cancel-button nomargin" disabled style="">
                                                     Out Of Stock
