@@ -29,9 +29,8 @@ class Bilna_Checkout_Model_Api2_Payment_Rest_Admin_V1 extends Bilna_Checkout_Mod
         $this->storeId = $storeId;
 
         try {
-            /*$quote = $this->_getQuote($quoteId, $storeId);
-            $store = $quote->getStoreId();*/
-
+            //$quote = $this->_getQuote($quoteId, $storeId);
+            
             $_methods = $this->_getMethods();
             $_methodsAllow = $this->getPaymentMethodsByShippingMethod();
             $_result = array ();
@@ -114,6 +113,20 @@ class Bilna_Checkout_Model_Api2_Payment_Rest_Admin_V1 extends Bilna_Checkout_Mod
         $method->setInfoInstance($this->getQuote()->getPayment());
         return $this;
     }
+    
+    protected function _validateCOD($selectedShippingMethod = null)
+    {
+        $validateArray = [
+            'Free Shipping', 
+            'Bayar di Tempat', 
+            'Standard Shipping'
+        ];
+        if(in_array($selectedShippingMethod, $validateArray)) {
+            return TRUE;
+        }
+        
+        return FALSE;
+    }
 
     public function getPaymentMethodsByShippingMethod()
     {
@@ -123,25 +136,44 @@ class Bilna_Checkout_Model_Api2_Payment_Rest_Admin_V1 extends Bilna_Checkout_Mod
             'shipping_text' => $shippingAddress->getShippingDescription(),
             'shipping_type' => $shippingAddress->getShippingMethod()
         );
-
         $paymentMethodsArr = Mage::getModel('cod/paymentMethod')->getSupportPaymentMethodsByShippingMethod($shipData);
         $result = array ();
-
         if (is_array($paymentMethodsArr)) {
             if (count($paymentMethodsArr) > 0) {
                 foreach ($paymentMethodsArr as $key => $value) {
-                    if ($value == '*') {
-                        $result = $value;
-                        break;
-                    }
-                    else {
-                        $result[] = $value;
-                    }
+                     if ($value == '*') {
+                         $result = $value;
+                         break;
+                     }
+                     else {
+                         $result[] = $value;
+                     }
                 }
+                
+                if(!empty($result)) {
+                    $newResult = [];
+                    
+                    foreach($result as $key => $item) { 
+                        if(substr_count($shipData['shipping_text'], 'Free Shipping') || substr_count($shipData['shipping_text'], 'Standard Shipping')) {
+                            $newResult = $this->_removeKey('cod', $result);
+                            break;
+                        } elseif(substr_count($shipData['shipping_text'], 'Bayar di Tempat')) {
+                            $newResult = 'cod';
+                            break;
+                        }
+                    }
+                }                
             }
         }
 
-        return $result;
+        return (empty($newResult) ? $result : $newResult);
+    }
+    
+    protected function _removeKey($removedKey, $array = array())
+    {
+        $indexRemoved = array_search($removedKey, $array);
+        unset($array[$indexRemoved]);
+        return $array;
     }
 
     protected function getQuote()

@@ -51,11 +51,11 @@
 						<retrieve>1</retrieve>
 					</customer>
 				</privileges>
-				<attributes translate="entity_id store_id product_id weight created_at updated_at converted_at is_active is_virtual is_multi_shipping items_count items_qty orig_order_id store_to_base_rate store_to_quote_rate base_currency_code store_currency_code grand_total base_grand_total checkout_method customer_id customer_tax_class_id customer_group_id customer_email customer_prefix customer_firstname customer_middlename customer_lastname customer_suffix customer_dob customer_note customer_is_guest remote_ip applied_rule_ids reserved_order_id coupon_code subtotal base_subtotal subtotal_with_discount base_subtotal_with_discount" module="Bilna_Checkout">
+				<attributes translate="entity_id store_id product_id weight created_at updated_at converted_at is_active is_virtual is_multi_shipping items_count items_qty orig_order_id store_to_base_rate store_to_quote_rate base_currency_code store_currency_code grand_total base_grand_total checkout_method customer_id customer_tax_class_id customer_group_id customer_email customer_prefix customer_firstname customer_middlename customer_lastname customer_suffix customer_dob customer_note customer_is_guest remote_ip applied_rule_ids reserved_order_id coupon_code subtotal base_subtotal subtotal_with_discount base_subtotal_with_discount trx_from" module="Bilna_Checkout">
 					<entity_id>Quote ID</entity_id>
 					<store_id>Store ID</store_id>
-                    <product_id>Product ID</product_id>
-                    <weight>Weight</weight>
+                                        <product_id>Product ID</product_id>
+                                        <weight>Weight</weight>
 					<created_at>Created At</created_at>
 					<updated_at>Updated At</updated_at>
 					<converted_at>Converted At</converted_at>
@@ -91,7 +91,8 @@
 					<base_subtotal>base Subtotal</base_subtotal>
 					<subtotal_with_discount>Subtotal With Discount</subtotal_with_discount>
 					<base_subtotal_with_discount>Base Subtotal With Discount</base_subtotal_with_discount>
-                    <_payment_methods>Payment Method</_payment_methods>
+                                        <_payment_methods>Payment Method</_payment_methods>
+                                        <trx_from>trx_from</trx_from>
 				</attributes>
 				<exclude_attributes>
 					<admin>
@@ -783,14 +784,18 @@
                         <retrieve>1</retrieve>
                     </customer>
                 </privileges>
-                <attributes translate="status data message" module="Bilna_Checkout">
-                    <status>Status</status>
-                    <data>Data</data>
-                    <message>Message</message>
+                <attributes translate="bank_code cc_type acquired_bank secure secure_acquired_bank secure_min installment_process" module="Bilna_Checkout">
+                    <bank_code>Bank Code</bank_code>
+                    <cc_type>CC Type</cc_type>
+                    <acquired_bank>Acquired Bank</acquired_bank>
+                    <secure>Secure</secure>
+                    <secure_acquired_bank>Secure Acquired Bank</secure_acquired_bank>
+                    <secure_min>Secure Minimum</secure_min>
+                    <installment_process>Installment Process</installment_process>
                 </attributes>
                 <routes>
                     <route_entity>
-                        <route>/checkout/payment/method/bankcheck/:id</route>
+                        <route>/checkout/payment/method/bankcheck/:bin</route>
                         <action_type>entity</action_type>
                     </route_entity>
                     <route_collection>
@@ -895,7 +900,7 @@
                         <retrieve>1</retrieve>
                     </customer>
                 </privileges>
-                <attributes translate="entity_id increment_id created_at status shipping_description _payment_method base_currency_code store_currency_code store_name remote_ip store_to_order_rate subtotal subtotal_incl_tax discount_amount base_grand_total grand_total shipping_amount shipping_tax_amount shipping_incl_tax tax_amount _tax_name _tax_rate coupon_code base_discount_amount base_subtotal base_shipping_amount base_shipping_tax_amount base_tax_amount total_paid base_total_paid total_refunded base_total_refunded base_subtotal_incl_tax base_total_due total_due shipping_discount_amount base_shipping_discount_amount discount_description customer_balance_amount base_customer_balance_amount base_customer_balance_amount _gift_message _order_comments customer_id token_id payment allow_installment installment_method installment" module="api2">
+                <attributes translate="entity_id increment_id created_at status shipping_description _payment_method base_currency_code store_currency_code store_name remote_ip store_to_order_rate subtotal subtotal_incl_tax discount_amount base_grand_total grand_total shipping_amount shipping_tax_amount shipping_incl_tax tax_amount _tax_name _tax_rate coupon_code base_discount_amount base_subtotal base_shipping_amount base_shipping_tax_amount base_tax_amount total_paid base_total_paid total_refunded base_total_refunded base_subtotal_incl_tax base_total_due total_due shipping_discount_amount base_shipping_discount_amount discount_description customer_balance_amount base_customer_balance_amount base_customer_balance_amount _gift_message _order_comments customer_id token_id payment allow_installment installment_method installment trx_from" module="api2">
                     <entity_id>Order ID (internal)</entity_id>
                     <increment_id>Order ID</increment_id>
                     <created_at>Order Date</created_at>
@@ -944,6 +949,7 @@
                     <allow_installment>Allow Installment</allow_installment>
                     <installment_method>Installment Method</installment_method>
                     <installment>Installment</installment>
+                    <trx_from>trx_from</trx_from>
                 </attributes>
                 <include_attributes>
                     <customer>
