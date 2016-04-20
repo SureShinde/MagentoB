@@ -16,14 +16,15 @@ class Bilna_Crossborder_Model_CrossBorder
      */
     public function validateSaveOrder(Varien_Event_Observer $observer)
     {
-        if ($this->isCrossBorderEnabled()) {
+        $crossBorderHelper = Mage::helper('bilna_crossborder');
+        if ($crossBorderHelper->isCrossBorderEnabled()) {
             $invalidCount = 0;
             $messages = array();
             $totalWeight = 0;
             $totalVolume = 0;
             $totalQty = 0;
             $subtotal = 0;
-            $crossBorderConfig = $this->getConfiguration();
+            $crossBorderConfig = $crossBorderHelper->getConfiguration();
             $maxWeightAllowed = $crossBorderConfig['max_weight_allowed'];
             $maxVolumeAllowed = $crossBorderConfig['max_volume_allowed'];
             $maxQtyAllowed = $crossBorderConfig['max_qty_allowed'];
