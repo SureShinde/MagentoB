@@ -195,7 +195,11 @@ $_core_helper =  Mage::helper('core');
             $productDiscount = 100 - round(($productFinalPrice / $productRegularPrice) * 100);
 
             $stocklevel = (int)Mage::getModel('cataloginventory/stock_item')->loadByProduct($productId)->getQty();
-
+            
+            $stockStatus = $_product->getStockItem();
+            
+            $backOrder = Mage::getModel('cataloginventory/stock_item')->loadByProduct($productId)->getBackorders();
+            
               # Date compare for special price
             $productSpecialPriceFromDate = $_product->getSpecialFromDate();
             $productSpecialPriceToDate = $_product->getSpecialToDate();
@@ -374,16 +378,14 @@ $_core_helper =  Mage::helper('core');
                             </div> -->
 
                             <!-- checking stock level for quick view-->
-
-                            <?php if ($stocklevel < 1) { ?>
-
+                            <?php if (($stocklevel < 1) && (!$stockStatus->getIsInStock())) { ?>
+                            
                             <div class="cg-col-xs-10">
                                               <button type ="button" class="btn btn-cancel-button nomargin" disabled style="">
                                                     Out Of Stock
                                               </button>
-
+                            
                             </div>
-
                             <?php } else { ?>
                             
                             <div class="cg-col-xs-10">
