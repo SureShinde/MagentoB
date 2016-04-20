@@ -16,6 +16,9 @@ class bulkCreateInvoice extends Mage_Shell_Abstract {
     protected $status = 'processing';
     protected $orderIncrementIds;
 
+    const PROCESS_ID = 'cron_bulkCreateInvoice';
+    protected $_lockFile = null;
+
     public function init() {
         $this->resource = Mage::getSingleton('core/resource');
         $this->write = $this->resource->getConnection('core_write');
@@ -23,20 +26,25 @@ class bulkCreateInvoice extends Mage_Shell_Abstract {
     }
 
     public function run() {
+        if ($this->_isLocked()) {
+            $this->writeLog(sprintf("Another '%s' process is running! Abort", self::PROCESS_ID));
+            exit;
+        }
         $this->init();
         $orderIncrementIds = $this->getOrderIncrementIds();
         if ($this->getArg('check_veritrans') == 'true') {
             if ((is_array($orderIncrementIds)) && (count($orderIncrementIds) > 0)) {
                 $mergedOrderIncrementIds = "'".implode("','", $orderIncrementIds)."'";
-                $additionQuery = " AND sfo.increment_id IN (".$mergedOrderIncrementIds.")";
+                $additionalQuery = " AND sfo.increment_id IN (".$mergedOrderIncrementIds.")";
             } else {
                 $dateStart = (!$this->getArg('dateStart')) ? false : $this->getArg('dateStart');
                 $dateEnd = (!$this->getArg('dateEnd')) ? false : $this->getArg('dateEnd');
                 if (!$dateStart && !$dateEnd) {
-                    $additionQuery = " AND sfo.created_at BETWEEN DATE_FORMAT(NOW() - INTERVAL 7 DAY, '%Y-%m-%d 00:00:00') AND DATE_FORMAT(NOW(), '%Y-%m-%d %k:%i:%s')";
+                    $additionalQuery = " AND sfo.created_at BETWEEN DATE_FORMAT(NOW() - INTERVAL 7 DAY, '%Y-%m-%d 00:00:00') AND DATE_FORMAT(NOW(), '%Y-%m-%d %k:%i:%s')";
                 } elseif ($dateStart && $dateEnd) {
-                    $additionQuery = " AND sfo.created_at BETWEEN ".$dateStart." AND ".$dateEnd;
+                    $additionalQuery = " AND sfo.created_at BETWEEN ".$dateStart." AND ".$dateEnd;
                 } else {
+                    $this->_unlock();
                     $this->critical('Both of date start and date end must be filled or not setted');
                 }
             }
@@ -54,20 +62,22 @@ class bulkCreateInvoice extends Mage_Shell_Abstract {
                     NOT EXISTS (SELECT null FROM sales_flat_invoice sfi WHERE sfi.order_id = sfo.entity_id)
                     AND sfo.state = 'processing'
                     AND sfo.entity_id = sfop.parent_id
-                    AND sfop.method IN ('".$paymentMethods."')".$additionQuery;
+                    AND sfop.method IN ('".$paymentMethods."')".$additionalQuery;
             $orderIds = $this->read->fetchAll($sql);
 
             $orderIncrementIds = $this->getCCSuccessVeritransOrderIds($orderIds);
         }
         
         //- step 1 => get order where status & state is processing
-        if (!$orderIncrementIds) {
+        if (!$orderIncrementIds || count($orderIncrementIds == 0)) {
+            $this->_unlock();
             $this->critical('Order not found.');
         }
         
         //- step 2 => process order (normalisasi)
         $this->processOrders($orderIncrementIds);
         $this->logProgress('Process all order successfully.');
+        $this->unlock();
     }
 
     protected function getCCSuccessVeritransOrderIds($orderIncrementIds)
@@ -430,6 +440,46 @@ class bulkCreateInvoice extends Mage_Shell_Abstract {
 
     public function writeLogVeritrans($message) {
         Mage::log($message, null, 'veritrans_status.log');
+    }
+
+    protected function _isLocked() {
+        if ($this->_lockFile == null) {
+            $this->_lockFile = $this->_getLockFile();
+        }
+        
+        if (file_exists($this->_lockFile)) {
+            return true;
+        }
+        
+        //create lock file
+        $this->_lock();
+        
+        return false;
+    }
+
+    protected function _getLockFile() {
+        $varDir = Mage::getConfig()->getVarDir('locks');
+        $this->_lockFile = $varDir . DS . self::PROCESS_ID . '.lock';
+        
+        return $this->_lockFile;
+    }
+
+    protected function _lock() {
+        $handle = fopen($this->_lockFile, 'w');
+        $content = date('Y-m-d H:i:s', Mage::getModel('core/date')->timestamp(time()));
+        
+        fwrite($handle, $content);
+        fclose($handle);
+    }
+
+    protected function _unlock() {
+        if (file_exists($this->_lockFile)) {
+            unlink($this->_lockFile);
+            
+            return true;
+        }
+        
+        return false;
     }
 }
 
