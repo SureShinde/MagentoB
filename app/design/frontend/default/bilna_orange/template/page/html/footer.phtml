@@ -34,7 +34,7 @@
 			<p>Berlangganan Newsletter Bilna</p>
 			<div class="wrap-form-subscribe">
 				<form action="<?php echo Mage::getBaseUrl(); ?>newsletter/subscriber/new/" method="post" id="newsletter-validate-detail">
-                    
+
 					   <input type="text" name="email" id="newsletter" title="Sign up for our newsletter" class="input-text required-entry validate-email" placeholder="Masukkan email Anda untuk mendapatkan diskon hingga 70%">
 					   <button type="submit" title="Sign Up" class="button">Lanjut</button>
 				</form>
@@ -91,12 +91,25 @@
           'id': '035ca58dc2',
           'email': {
              'email': newsletter_email
-          }
+          },
+          'merge_vars': {
+            'groupings': [
+              {
+                'name': 'Data Source',
+                'groups': [
+                  'Website'
+                ]
+              }
+            ]
+          },
+          'double_optin': false,
+          'update_existing': true,
+          'replace_interests': false
         };
         jQuery.ajax({
           type: "POST",
           url: "https://us12.api.mailchimp.com/2.0/lists/subscribe",
-          dataType: "jsonp",
+          dataType: "json",
           data: subscribe_payload
         });
       }
@@ -108,14 +121,14 @@
 
 
       jQuery(document).ready(function() {
-        
+
 
         /*if (! jQuery.cookie("newsletter_subscribed")) {
           jQuery("#newsletter-registration-form-overlay").fadeIn(500);
 
           jQuery.cookie("newsletter_subscribed", 1, {expires : 1});
         }*/
-          
+
         jQuery("#newsletter-registration-close").click(function() {
           jQuery("#newsletter-registration-form-overlay").fadeOut(300);
         });
@@ -194,8 +207,8 @@
       <?php # Language cookie ?>
       jQuery(document).ready(function() {
         /*jQuery.cookie("userlang", "<?php echo Mage::app()->getLocale()->getLocaleCode(); ?>", {path: "/"});
-        
-        
+
+
         if (jQuery.cookie('test_status') != '1') {
 
           jQuery('#over-main').show();
