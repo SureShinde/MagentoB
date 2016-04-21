@@ -1,8 +1,8 @@
 <?php echo $this->getChildHtml('items_before'); ?>
 
 <style type="text/css">
-    .cross-border-cost {
-        display: block;
+    .cross-border-fee {
+        display: none;
     }
 </style>
 
@@ -42,8 +42,8 @@
                         echo $this->getItemHtml($localItem);    
                     }
                     ?>
-                        <tr class="cross-border-cost">
-                            <th class="footer-table" colspan="5" id="local-product-cost">
+                        <tr class="cross-border-fee">
+                            <th class="footer-table" colspan="5" id="local-product-fee">
                                 <strong>Biaya Pengiriman:&nbsp;</strong>
                             </th>
                         </tr>
@@ -78,8 +78,8 @@
                         echo $this->getItemHtml($importItem);    
                     }
                     ?>
-                        <tr class="cross-border-cost">
-                            <th class="footer-table" colspan="5" id="import-product-cost">
+                        <tr class="cross-border-fee">
+                            <th class="footer-table" colspan="5" id="import-product-fee">
                                 <strong>Biaya Pengiriman:&nbsp;</strong>
                             </th>
                         </tr>
@@ -167,27 +167,41 @@
     //<![CDATA[
         review = new Review('<?php echo $this->getUrl('checkout/onepage/saveOrder', array('form_key' => Mage::getSingleton('core/session')->getFormKey())) ?>', '<?php echo $this->getUrl('checkout/onepage/success') ?>', $('checkout-agreements'), $('co-installment-form'));
 
-        var extractCost = function(fullText) {
-            var cost;
+        /*** BEGIN - Hack to split Shipping Fee ***/
+        var extractFee = function(fullText) {
+            var fee;
             var regex = /Rp(.*)/g;
             var matches = fullText.match(regex);
             if (matches.length > 0) {
                 matches[0] = matches[0].trim();
-                cost = matches[0].slice(0, matches[0].indexOf(")"));
+                fee = matches[0].slice(0, matches[0].indexOf(")"));
             }
-            return cost;
+            return fee;
+        };
+        var extractDuration = function(fullText) {
+            var duration;
+            var regex = /\((.*)kerja\)/g;
+            var matches = fullText.match(regex);
+            if (matches.length > 0) {
+                matches[0] = matches[0].trim();
+                duration = matches[0].slice(matches[0].lastIndexOf("("));
+            }
+            return duration;
         };
         var shippingCol = jQuery('table.grand-total tbody tr:nth-child(2) th:nth-child(1)');
         var shippingText = shippingCol.text().trim();
-        console.log(shippingText);
         var splitShippingText = shippingText.split('+');
         if (splitShippingText.length === 2) {
-            var localCost = extractCost(splitShippingText[0]);
-            var importCost = extractCost(splitShippingText[1]);
-            jQuery('#local-product-cost').append(localCost);
-            jQuery('#import-product-cost').append(importCost)
+            var localFee = extractFee(splitShippingText[0]);
+            var importFee = extractFee(splitShippingText[1]);
+            var localDuration = extractDuration(splitShippingText[0]);
+            var importDuration = extractDuration(splitShippingText[1]);
+            jQuery('#local-product-fee').append(localFee + '&nbsp;' + localDuration);
+            jQuery('#import-product-fee').append(importFee + '&nbsp;' + importDuration);
+            jQuery('.cross-border-fee').fadeIn(500);
             jQuery('#review-shipping-label').html('Shipping & Handling');
         }
+        /*** END - Hack to split Shipping Fee ***/
     //]]>
   </script> 
 
