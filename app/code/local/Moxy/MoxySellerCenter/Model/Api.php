@@ -2,9 +2,6 @@
 class Moxy_MoxySellerCenter_Model_Api extends Mage_Api_Model_Resource_Abstract
 {
 
-    /**
-     * @author Indra Halim
-     */
     public function __construct()
     {
         $this->_storeIdSessionField = 'category_store_id';
@@ -566,7 +563,6 @@ class Moxy_MoxySellerCenter_Model_Api extends Mage_Api_Model_Resource_Abstract
 
     /**
      * Convert node to array
-     * @author Indra Halim
      * @param Varien_Data_Tree_Node $node
      * @return array
      */
@@ -591,7 +587,6 @@ class Moxy_MoxySellerCenter_Model_Api extends Mage_Api_Model_Resource_Abstract
 
     /**
      * Convert node to flatten array
-     * @author Indra Halim
      * @param Varien_Data_Tree_Node $node
      * @return array
      */
@@ -620,7 +615,6 @@ class Moxy_MoxySellerCenter_Model_Api extends Mage_Api_Model_Resource_Abstract
     /**
      * Retrives store id from store code, if no store id specified,
      * it use seted session or admin store
-     * @author Indra Halim
      * @param string|int $store
      * @return int
      */
@@ -642,7 +636,6 @@ class Moxy_MoxySellerCenter_Model_Api extends Mage_Api_Model_Resource_Abstract
 
     /**
      * Retrieve category tree
-     * @author Indra Halim
      * @param int $parent
      * @param string|int $store
      * @param boolean $flatten set to true to get flatten categories
