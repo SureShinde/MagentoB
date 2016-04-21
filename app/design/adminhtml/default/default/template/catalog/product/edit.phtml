@@ -196,7 +196,8 @@ Validation.addAllThese([
                 return (v != "no-attributes");
         }]
     ]);
-/**
+
+    /**
      * Add listener to change event on partnership_type
      */
     Event.observe('partnership_type', 'change', function () {
@@ -214,26 +215,39 @@ Validation.addAllThese([
     });
 
     /**
+     * Add listener to change event on backorders
+     */
+    Event.observe('inventory_backorders', 'change', function () {
+        var crossBorderId = 'cross_border';
+        var partnershipTypeLabel = $('inventory_backorders').getSelectedOptionHTML().toLowerCase();
+        switch(partnershipTypeLabel) {
+            case 'allow qty below 0':
+            case 'allow qty below 0 and notify customer':
+                $(crossBorderId).setValue(0); // Set the value to No
+                break;
+            default:
+                break;
+        }
+    });
+
+    /**
      * Add listener to change event on cross_border dropdown
      */
     Event.observe('cross_border', 'change', function () {
         var crossBorderValue = parseInt($('cross_border').getValue());
         var partnershipTypeId = 'partnership_type';
+        var backorderId = 'inventory_backorders';
         switch(crossBorderValue) {
             case 1:
-                // If the current Partnership type is dropship or special order, set the value to unselected
-                var partnershipTypeLabel = $('partnership_type').getSelectedOptionHTML().toLowerCase();
-                switch(partnershipTypeLabel) {
-                    case 'dropship':
-                    case 'special order':
-                        $(partnershipTypeId).setValue(''); // Set the value to No
-                        break;
-                }
                 // disable all partnership type
                 $(partnershipTypeId).disableOption(3155); // Disable the 'consignment' option
                 $(partnershipTypeId).disableOption(3154); // Disable the 'dropship' option
                 $(partnershipTypeId).disableOption(3156); // Disable the 'outright' option
                 $(partnershipTypeId).disableOption(3153); // Disable the 'special order' option
+
+                // disable all backorder except 'no backorder'
+                $(backorderId).disableOption(1);
+                $(backorderId).disableOption(2);
                 <?php
                     $allowedCBPartnershipTypeIds = Mage::getStoreConfig('bilna_crossborder/status/allowed_partnership');
                     $allowedCBPartnershipTypeId = explode(',', $allowedCBPartnershipTypeIds);
