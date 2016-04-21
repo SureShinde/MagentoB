@@ -82,7 +82,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit extends Mage_Adminhtml_Block_Wid
                     ))
             );
 
-            if (!$this->getProduct()->getCrossBorder()) {
+            //if (!$this->getProduct()->getCrossBorder()) { // Preparation for phase 2
                 $this->setChild('save_button',
                     $this->getLayout()->createBlock('adminhtml/widget_button')
                         ->setData(array(
@@ -91,12 +91,12 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit extends Mage_Adminhtml_Block_Wid
                             'class' => 'save'
                         ))
                 );
-            }
+            //}
         }
 
         if (!$this->getRequest()->getParam('popup')) {
             if (!$this->getProduct()->isReadonly()) {
-                if (!$this->getProduct()->getCrossBorder()) {
+                //if (!$this->getProduct()->getCrossBorder()) { // Preparation for phase 2
                     $this->setChild('save_and_edit_button',
                         $this->getLayout()->createBlock('adminhtml/widget_button')
                             ->setData(array(
@@ -105,7 +105,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit extends Mage_Adminhtml_Block_Wid
                                 'class' => 'save'
                             ))
                     );
-                }
+                //}
             }
             if ($this->getProduct()->isDeleteable()) {
                 $this->setChild('delete_button',
