@@ -707,10 +707,10 @@
                     <type>Type</type>
                 </attributes>
                 <routes>
-                    <!--route_entity>
+                    <route_entity>
                         <route>/newsletter/:id</route>
                         <action_type>entity</action_type>
-                    </route_entity-->
+                    </route_entity>
                     <route_collection>
                         <route>/newsletter</route>
                         <action_type>collection</action_type>
@@ -774,7 +774,8 @@
                     <last_counter>last_counter</last_counter>                 
                     <created_at>created_at</created_at>                    
                     <name>name</name>                    
-                    <visibility>visibility</visibility>
+                    <visibility>visibility</visibility>               
+                    <avatar>avatar</avatar>                    
                     <wishlist_collection_items_total>Wishlist Collection Items Total</wishlist_collection_items_total>
                 </attributes>
                 <routes>

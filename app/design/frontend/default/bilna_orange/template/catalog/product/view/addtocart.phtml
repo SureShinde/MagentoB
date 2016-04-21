@@ -29,7 +29,7 @@
 <?php $_product = $this->getProduct(); ?>
 
 <?php $buttonTitle = $this->__('Tambah ke troli'); ?>
-<?php $_cart = Mage::getModel('checkout/cart')->getQuote(); ?>
+<?php $_cart = Mage::helper('checkout/cart')->getQuote(); ?>
 <?php $_items = $_cart->getAllItems(); ?>
 <?php $itemQty = 0; ?>
 <?php foreach ($_items as $_item) { $parentId = $_item->getParentItemId(); if(empty($parentId)) {$itemQty++;} }?>
