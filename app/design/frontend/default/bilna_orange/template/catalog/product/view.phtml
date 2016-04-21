@@ -88,7 +88,9 @@
                     $shopName = $_product->getMerchantShopName();
                     $sold_by = $userName && $shopName ? $shopName : $_product->getAttributeText('sold_by');
                     ?>
-                    <?php echo Mage::helper('bilna_crossborder')->getHtmlCrossBorder($_product); ?>
+                    <?php if (Mage::helper('bilna_crossborder')->isCrossBorder($_product)) { ?>
+                        <img src="<?php echo $this->getSkinUrl('images/cross-border-logo.png'); ?>"/>
+                    <?php } ?>
                     <div class="shipsfrom-soldby">
                         <p><?php echo $this->__('Sold by <span>%s</span> and Shipped by <span>%s</span>', ( $sold_by ? $sold_by : '-' ), ( $ship_from ? $ship_from : '-' )) ?></p>
                     </div>

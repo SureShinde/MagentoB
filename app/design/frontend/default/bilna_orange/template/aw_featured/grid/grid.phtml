@@ -86,7 +86,9 @@
                 </div>
                 <?php endif ?>
                 </div>
-                <?php echo Mage::helper('bilna_crossborder')->getHtmlCrossBorder($_product); ?>
+                <?php if (Mage::helper('bilna_crossborder')->isCrossBorder($_product)) { ?>
+                    <img src="<?php echo $this->getSkinUrl('images/cross-border-logo.png'); ?>"/>
+                <?php } ?>
 				<div class="product-info-wrapper">
                 <?php if($this->getShowProductName()) : ?>
                 <div class="awafptitle">

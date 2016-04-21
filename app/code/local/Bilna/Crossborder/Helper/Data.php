@@ -17,22 +17,23 @@ class Bilna_Crossborder_Helper_Data extends Mage_Core_Helper_Abstract {
     }
 
     /**
-     * Helper to get html element for cross border product
+     * Helper to check whether a product is cross border product or not
      * @param $product
-     * @return string
+     * @return boolean
      */
-    public function getHtmlCrossBorder($product)
+    public function isCrossBorder($product)
     {
+        $isCrossBorder = false;
         if ($product instanceOf Mage_Catalog_Model_Product) { // for product list and detail
             if ($product->getData('cross_border') == 1) {
-                return '<span>import</span>';
+                $isCrossBorder = true;
             }
         } elseif ($product instanceOf Mage_Sales_Model_Quote_Item) { // for checkout/cart
             if ($product->getCrossBorder() == 1) {
-                return '<span>import</span>';
+                $isCrossBorder = true;
             }
         }
-        return '<span>&nbsp;</span>';
+        return $isCrossBorder;
     }
 
     public function validateAddToCart($product, $qty = 1, $cart)

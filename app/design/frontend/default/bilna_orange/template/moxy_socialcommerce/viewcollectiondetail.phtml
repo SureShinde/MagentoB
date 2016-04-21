@@ -194,7 +194,9 @@ $_core_helper =  Mage::helper('core');
             $productAvailability = 1;
 
             ?>
-            <?php echo Mage::helper('bilna_crossborder')->getHtmlCrossBorder($_product); ?>
+            <?php if (Mage::helper('bilna_crossborder')->isCrossBorder($_product)) { ?>
+                <img src="<?php echo $this->getSkinUrl('images/cross-border-logo.png'); ?>"/>
+            <?php } ?>
             <!-- New layout for collection detail items -->
             <div class="cg-col-xs-6 cg-col-sm-4 cg-col-md-3 bottom-spacer-container">
               <div class="box">
