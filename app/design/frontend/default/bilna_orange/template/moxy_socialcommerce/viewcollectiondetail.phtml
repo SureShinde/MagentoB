@@ -227,7 +227,7 @@ $_core_helper =  Mage::helper('core');
             </div>
 
             <div class="action<?php if ($productAvailability == 3) echo ' actions-outofstock hover'; ?>">
-              <a class="product-link" onclick="showQuickView<?php echo $i;?>()"></a>
+              <a class="product-link" onclick="showQuickView<?php echo $i;?>('<?php echo $productImageUrl;?>')"></a>
               <div class="add-to-links"> 
                 <div>
                  <?php 
@@ -253,7 +253,7 @@ $_core_helper =  Mage::helper('core');
              data-id="<?php echo $productId; ?>"
              title="Quick View"
              style="background: #3EB988; border:none;"
-             class="btn btn-size-small opensans pointer" onclick="showQuickView<?php echo $i;?>()">
+             class="btn btn-size-small opensans pointer" onclick="showQuickView<?php echo $i;?>('<?php echo $productImageUrl;?>')">
              Quick View
            </button>
          </div>
@@ -483,8 +483,9 @@ $_core_helper =  Mage::helper('core');
 
           });
 
-         function showQuickView<?php echo $i;?>() {
+         function showQuickView<?php echo $i;?>(imgSrc) {
           jQuery('#quickView<?php echo $i;?>').fadeIn('fast');
+          jQuery('.product-collection-image-quick').attr('src',imgSrc);
         }
 
         function hideQuickView<?php echo $i;?>() {
@@ -514,7 +515,7 @@ $_core_helper =  Mage::helper('core');
     <div class="text">
       <div class="preview-box">
         <div class="brand"><?php echo $productBrand; ?></div>
-        <p class="name-product opensans"><a class="bold" onclick = "showQuickView<?php echo $i; ?>()" title="<?php echo $productNameStripped; ?>" style = "cursor:pointer;"><?php echo $productNameStripped; ?></a></p>
+        <p class="name-product opensans"><a class="bold" onclick = "showQuickView<?php echo $i; ?>('<?php echo $productImageUrl;?>')" title="<?php echo $productNameStripped; ?>" style = "cursor:pointer;"><?php echo $productNameStripped; ?></a></p>
         <?php echo $this->getReviewsSummaryHtml($_product, 'short') ?>
       </div>
       <div class="price-box">
