@@ -86,9 +86,6 @@
                 </div>
                 <?php endif ?>
                 </div>
-                <?php if (Mage::helper('bilna_crossborder')->isCrossBorder($_product)) { ?>
-                    <img src="<?php echo $this->getSkinUrl('images/cross-border-logo.png'); ?>"/>
-                <?php } ?>
 				<div class="product-info-wrapper">
                 <?php if($this->getShowProductName()) : ?>
                 <div class="awafptitle">
@@ -110,6 +107,10 @@
                 <?php if($this->getShowPrice()) : ?>
                 <?php echo $_abstractBlock->getPriceHtml($_product, true) ?>
                 <?php endif ?>
+
+                <?php if (Mage::helper('bilna_crossborder')->isCrossBorder($_product)) { ?>
+                    <div><img src="<?php echo $this->getSkinUrl('images/cross-border-logo.png'); ?>" style="height:32px;height:32px;"/></div>
+                <?php } ?>
 
                 <?php if ($this->getShowRating()):?>
                 <div class="ratings">

@@ -59,15 +59,15 @@
 					<a href="<?php echo $_item->getProductUrl() ?>"><img class="lazy" data-src="<?php echo $this->helper('catalog/image')->init($_item, 'thumbnail')->resize(152) ?>" alt="<?php echo $this->htmlEscape($_item->getName()) ?>" /></a>
 				</div>
             </div>
-            <?php if (Mage::helper('bilna_crossborder')->isCrossBorder($_item)) { ?>
-                <img src="<?php echo $this->getSkinUrl('images/cross-border-logo.png'); ?>"/>
-            <?php } ?>
             <div class="product-info-wrapper">
 				<div class="product-details">
 					<div class="product-name-wrap">
 						<a href="<?php echo $_item->getProductUrl() ?>"><?php echo $this->htmlEscape($_item->getName()) ?></a>
 					</div>
 					<?php echo $this->getPriceHtml($_item, true); ?>
+                    <?php if (Mage::helper('bilna_crossborder')->isCrossBorder($_item)) { ?>
+                        <div><img src="<?php echo $this->getSkinUrl('images/cross-border-logo.png'); ?>"/></div>
+                    <?php } ?>
 				</div>
 				<?php echo $this->getReviewsSummaryHtml($_item, false, true)?>
 			</div>
