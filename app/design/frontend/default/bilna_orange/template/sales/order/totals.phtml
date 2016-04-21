@@ -28,25 +28,36 @@
  * @see Mage_Sales_Block_Order_Totals
  */
 ?>
+<table style="border-top:1px dashed #979797;" width="280" cellpadding="0" cellspacing="0">
+<tr height="10"></tr>
 <?php foreach ($this->getTotals() as $_code => $_total): ?>
     <?php if ($_total->getBlockName()): ?>
         <?php echo $this->getChildHtml($_total->getBlockName(), false); ?>
     <?php else:?>
-    <tr class="<?php echo $_code?>">
-        <td <?php echo $this->getLabelProperties()?>>
             <?php if ($_total->getStrong()):?>
-            <strong><?php echo $this->escapeHtml($_total->getLabel());?></strong>
-            <?php else:?>
-            <?php echo $this->escapeHtml($_total->getLabel());?>
+        <tr class="<?php echo $_code?>">
+                <td <?php echo $this->getLabelProperties()?>>
+                <hr>
+                <strong><?php echo $this->escapeHtml($_total->getLabel());?></strong>
+                <hr>
+                </td>
+                <td <?php echo $this->getValueProperties()?>>
+                    <hr>
+                    <strong><?php echo $this->formatValue($_total) ?></strong>
+                    <hr>
+                </td>
+        </tr>
+                <?php else:?>
+        <tr class="<?php echo $_code?>">
+                <td <?php echo $this->getLabelProperties()?>>
+                <?php echo $this->escapeHtml($_total->getLabel());?>
+                </td>
+                <td <?php echo $this->getValueProperties()?>> 
+                <?php echo $this->formatValue($_total) ?>
+                </td>
+
+        </tr>
             <?php endif?>
-        </td>
-        <td <?php echo $this->getValueProperties()?>>
-            <?php if ($_total->getStrong()):?>
-            <strong><?php echo $this->formatValue($_total) ?></strong>
-            <?php else:?>
-            <?php echo $this->formatValue($_total) ?>
-            <?php endif?>
-        </td>
-    </tr>
     <?php endif?>
 <?php endforeach?>
+</table>
