@@ -153,6 +153,70 @@ class Bilna_Paymethod_Model_Api {
 
         return $result;
     }
+    
+    public function vtdirectVaCharge($order) {
+        Mage::helper('paymethod')->loadVeritransNamespace();
+
+        //- setting config vtdirect
+        Veritrans_Config::$serverKey = $this->getVtdirectServerKey();
+        Veritrans_Config::$isProduction = $this->getVtdirectIsProduction();
+
+        $incrementId = $order->getIncrementId();
+        $grossAmount = $order->getGrandTotal();
+        $orderPayment = $order->getPayment();
+        $paymentCode = $orderPayment->getMethodInstance()->getCode();
+        $paymentConfig = $this->getPaymentConfig($paymentCode);
+        $paymentType = $paymentConfig['vtdirect_payment_type'];
+        $paymentBank = $paymentConfig['bank'];
+
+        //-Required
+        $transactionDetails = array (
+            'order_id' => $incrementId,
+            'gross_amount' => $grossAmount
+        );
+        $customerDetails = array (
+            'first_name' => $order->getBillingAddress()->getFirstname(),
+            'last_name' => $order->getBillingAddress()->getLastname(),
+            'email' => $order->getBillingAddress()->getEmail(),
+            'phone' => $order->getBillingAddress()->getTelephone(),
+        );
+
+        //- Data that will be sent for charge transaction request with Mandiri E-cash.
+        $transactionData = array (
+            'payment_type' => $paymentType,
+            'transaction_details' => $transactionDetails,
+            'customer_details' => $customerDetails,
+            $paymentType => array (
+                'bank' => $paymentBank,
+            ),
+        );
+
+        try {
+            $this->writeLog($paymentCode, $this->_typeTransaction, 'charge', 'request: ' . json_encode($transactionData));
+            $response = Veritrans_VtDirect::charge($transactionData);
+            $this->setOrderPaymentVaNumber($orderPayment, $response);
+            $this->writeLog($paymentCode, $this->_typeTransaction, 'charge', 'response: ' . json_encode($response));
+        }
+        catch (Exception $e) {
+            $this->writeLog($paymentCode, $this->_typeTransaction, 'charge', "error: [" . $incrementId . "] " . $e->getMessage());
+            $responseArr = array (
+                'order_id' => $incrementId,
+                'transaction_status' => 'deny',
+                'fraud_status' => 'deny',
+                'status_message' => $e->getMessage(),
+            );
+            $response = (object) $responseArr;
+        }
+
+        $result = array (
+            'order_no' => $incrementId,
+            'request' => $transactionData,
+            'response' => $response,
+            'type' => 'C',
+        );
+
+        return $result;
+    }
 
     public function getVtdirectConfig() {
         return Mage::getStoreConfig('payment/vtdirect');
@@ -231,6 +295,12 @@ class Bilna_Paymethod_Model_Api {
         return false;
     }
     
+    public function setOrderPaymentVaNumber($orderPayment, $response) {
+        $vaNumbers = $response->va_numbers[0];
+        $orderPayment->setVaNumber($vaNumbers->va_number); //- set value of va_number field from table sales_order_flat_payment
+        $orderPayment->save();
+    }
+
     protected function writeLog($paymentCode, $type, $logFile, $content) {
         $tdate = date('Ymd', Mage::getModel('core/date')->timestamp(time()));
         $filename = sprintf("%s_%s.%s", $paymentCode, $logFile, $tdate);

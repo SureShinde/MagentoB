@@ -185,6 +185,14 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
                 $this->_addHistoryOrder($order, $charge['response']->status_message);
                 $this->_storeChargeDataToQueue($charge, false);
             }
+            
+            if (in_array($paymentCode, $this->getPaymentMethodVA()) && ($orderCanceled === false)) {
+                $charge = Mage::getModel('paymethod/api')->vtdirectVaCharge($order);
+                $this->_addHistoryOrder($order, $charge['response']->status_message);
+                $this->_storeChargeDataToQueue($charge, false);
+            }
+            
+            Mage::dispatchEvent('checkout_onepage_controller_success_action', array ('order_ids' => array ($orderId), 'order' => $order));
         }
         catch (Mage_Core_Exception $e) {
             $this->_critical($e->getMessage());
@@ -235,8 +243,7 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
         return $order;
     }
 
-    protected function pointsCheck($quote, $payment)
-    {
+    protected function pointsCheck($quote, $payment) {
         if ($quote->getCustomerIsGuest()) 
         {
             return $quote;
@@ -303,8 +310,7 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
         return $this->_paymentMethodVa;
     }
 
-    protected function getPaymentTypeTransaction($paymentCode, $type)
-    {
+    protected function getPaymentTypeTransaction($paymentCode, $type) {
         if ($paymentCode == 'klikpay') {
             if ($type == 'full') {
                 return Bilna_Paymethod_Model_Method_Klikpay::PAYMENT_TYPE_FULL_TRANSACTION;
