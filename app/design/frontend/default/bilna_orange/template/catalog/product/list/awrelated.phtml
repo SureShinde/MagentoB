@@ -65,9 +65,6 @@
 						<a href="<?php echo $_item->getProductUrl() ?>"><?php echo $this->htmlEscape($_item->getName()) ?></a>
 					</div>
 					<?php echo $this->getPriceHtml($_item, true); ?>
-                    <?php if (Mage::helper('bilna_crossborder')->isCrossBorder($_item)) { ?>
-                        <div><img src="<?php echo $this->getSkinUrl('images/cross-border-logo.png'); ?>"/></div>
-                    <?php } ?>
 				</div>
 				<?php echo $this->getReviewsSummaryHtml($_item, false, true)?>
 			</div>

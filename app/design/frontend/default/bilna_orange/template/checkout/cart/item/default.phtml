@@ -39,9 +39,6 @@ $_escape_helper = Mage::helper('catalog/utils');
             <?php else: ?>
                 <?php echo $this->escapeHtml($this->getProductName()) ?>
             <?php endif; ?>
-            <?php if (Mage::helper('bilna_crossborder')->isCrossBorder($_item)) { ?>
-                <div><img src="<?php echo $this->getSkinUrl('images/cross-border-logo.png'); ?>"/></div>
-            <?php } ?>
         </h2>
         
         <?php if ($_options = $this->getOptionList()):?>
@@ -158,9 +155,6 @@ $_escape_helper = Mage::helper('catalog/utils');
             <?php else: ?>
                 <?php echo $this->escapeHtml($this->getProductName()) ?>
             <?php endif; ?>
-            <?php if (Mage::helper('bilna_crossborder')->isCrossBorder($_item)) { ?>
-                <div><img src="<?php echo $this->getSkinUrl('images/cross-border-logo.png'); ?>"/></div>
-            <?php } ?>
         </h2>
         
         <?php if ($_options = $this->getOptionList()):?>

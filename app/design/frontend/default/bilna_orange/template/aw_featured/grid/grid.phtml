@@ -108,10 +108,6 @@
                 <?php echo $_abstractBlock->getPriceHtml($_product, true) ?>
                 <?php endif ?>
 
-                <?php if (Mage::helper('bilna_crossborder')->isCrossBorder($_product)) { ?>
-                    <div><img src="<?php echo $this->getSkinUrl('images/cross-border-logo.png'); ?>" style="height:32px;height:32px;"/></div>
-                <?php } ?>
-
                 <?php if ($this->getShowRating()):?>
                 <div class="ratings">
                     <?php if ($_product->getRatingSummary()):?>
