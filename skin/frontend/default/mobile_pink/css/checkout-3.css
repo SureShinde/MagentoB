@@ -647,3 +647,7 @@ margin-bottom: 0;
 .item-bundle .list-item span {
     text-align: left!important;
 }
+
+.cross-border-fee {
+    display: none;
+}
