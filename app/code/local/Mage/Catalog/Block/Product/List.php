@@ -66,16 +66,9 @@ class Mage_Catalog_Block_Product_List extends Mage_Catalog_Block_Product_Abstrac
             // if this is a product view page
             if (Mage::registry('product')) {
                 // get collection of categories this product is associated with
-                if ($crossBorderEnabled == '0') {
-                    $categories = Mage::registry('product')->getCategoryCollection()
-                    ->addAttributeToFilter('cross_border', array('0', array("null" => true)))
-                    ->setPage(1, 1)
-                    ->load();
-                } else {
-                    $categories = Mage::registry('product')->getCategoryCollection()
-                    ->setPage(1, 1)
-                    ->load();
-                }
+                $categories = Mage::registry('product')->getCategoryCollection()
+                ->setPage(1, 1)
+                ->load();
                 // if the product is associated with any category
                 if ($categories->count()) {
                     // show products from this category
@@ -95,10 +88,6 @@ class Mage_Catalog_Block_Product_List extends Mage_Catalog_Block_Product_Abstrac
 
             $this->_productCollection = $layer->getProductCollection();
             $this->_productCollection->addAttributeToSelect('sku');
-
-            if ($crossBorderEnabled == '0') {
-                $this->_productCollection->addAttributeToFilter('cross_border', array('0', array("null" => true)));
-            }
 
             $this->prepareSortableFieldsByCategory($layer->getCurrentCategory());
 
