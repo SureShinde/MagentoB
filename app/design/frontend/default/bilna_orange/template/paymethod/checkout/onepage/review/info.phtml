@@ -182,7 +182,7 @@
             }
             return duration;
         };
-        var shippingCol = jQuery('table.grand-total tbody tr:nth-child(2) th:nth-child(1)');
+        var shippingCol = jQuery('table.grand-total tbody th#review-shipping-label');
         var shippingText = shippingCol.text().trim();
         var splitShippingText = shippingText.split('+');
         if (splitShippingText.length === 2) {
