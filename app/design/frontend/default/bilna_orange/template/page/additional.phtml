@@ -3,12 +3,13 @@
 <?php $itemQty = Mage::helper('checkout/cart')->getItemsCount(); ?>
 <?php foreach($_items as $_item): ?>
     <?php $parentId = $_item->getParentItemId(); ?>
+    <?php if (Mage::helper('weee')->typeOfDisplay($_item, array(0, 1, 4), 'sales') && $_item->getWeeeTaxAppliedAmount()): ?>
+        <?php $lastPrice = $_item->getCalculationPrice()+$_item->getWeeeTaxAppliedAmount()+$_item->getWeeeTaxDisposition(); ?>
+    <?php else: ?>
+        <?php $lastPrice = $_item->getCalculationPrice(); ?>
+    <?php endif; ?>
     <?php if(empty($parentId)): ?>
-        <?php echo '<span id="ematiccart" class="hidden">' . $_item->getProduct()->getName() . $_item->getTypeInstance() . '|' . $_item->getProduct()->getSku() . '|' . $_item->getProduct()->getPrice() . '|' . Mage::helper('core')->currency($_item->getProduct()->getPrice(), true, false) . '|' . $_item->getQty() . '|' . $this->helper('catalog/image')->init($_item->getProduct(), 'small_image')->resize(135, 135) . '|' . $_item->getProduct()->getProductUrl() . '</span>' ?>
-        <?php if($itrNumberItemsDisplayed < $_numberItemsDisplayed): ?>
-            <?php echo $this->getItemHtml($_item); ?>
-        <?php endif ?>
-        <?php $itrNumberItemsDisplayed++; ?>
+        <?php echo '<span id="ematiccart" class="hidden">' . $_item->getProduct()->getName() . $_item->getTypeInstance() . '|' . $_item->getProduct()->getSku() . '|' . $lastPrice . '|' . Mage::helper('core')->currency($lastPrice, true, false) . '|' . $_item->getQty() . '|' . $this->helper('catalog/image')->init($_item->getProduct(), 'small_image')->resize(135, 135) . '|' . $_item->getProduct()->getProductUrl() . '</span>' ?>
     <?php endif ?>
 <?php endforeach; ?>
 <!-- END ematic cart payload -->

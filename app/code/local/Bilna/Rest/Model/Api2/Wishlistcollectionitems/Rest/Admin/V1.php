@@ -37,6 +37,7 @@ class Bilna_Rest_Model_Api2_Wishlistcollectionitems_Rest_Admin_V1 extends Bilna_
                 $result = $wishlistCollection;
                 $result['username'] = $profiler->getUsername();
                 $result['slug'] = $wishlistCollection->getId().'-'.Mage::getModel('catalog/product_url')->formatUrlKey($wishlistCollection->getName());
+                $result['avatar'] = $profiler->getAvatar();
                 $result['wishlist_collection_items'] = $this->getWishlistCollectionItems($wishlistCollection);
                 
                 return $result;

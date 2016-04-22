@@ -1,6 +1,5 @@
 <?php
 /**
- * @author Indra Halim
  * Penambahan field include_in_megamenu di EAV untuk Catalog Category
  */
 $installer = $this;
