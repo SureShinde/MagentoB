@@ -127,7 +127,6 @@
 
     /**
      * Function to get the text from a selected option
-     * @author Indra Halim
      */
     Element.addMethods("SELECT", (function() {
         function getSelectedOptionHTML(element) {
@@ -205,7 +204,6 @@
 
     /**
      * Add listener to change event on partnership_type
-     * @author Indra Halim
      */
     Event.observe('partnership_type', 'change', function () {
         var expressShippingId = 'express_shipping';
@@ -224,7 +222,6 @@
 
     /**
      * Add listener to change event on express_shipping dropdown
-     * @author Indra Halim
      */
     Event.observe('express_shipping', 'change', function () {
         var expressShippingValue = parseInt($('express_shipping').getValue());
