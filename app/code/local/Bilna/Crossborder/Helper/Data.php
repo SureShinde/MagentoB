@@ -16,6 +16,26 @@ class Bilna_Crossborder_Helper_Data extends Mage_Core_Helper_Abstract {
         return $crossBorderModel->hasCrossBorderItem();
     }
 
+    /**
+     * Helper to check whether a product is cross border product or not
+     * @param $product
+     * @return boolean
+     */
+    public function isCrossBorder($product)
+    {
+        $isCrossBorder = false;
+        if ($product instanceOf Mage_Catalog_Model_Product) { // for product list and detail
+            if ($product->getData('cross_border') == 1) {
+                $isCrossBorder = true;
+            }
+        } elseif ($product instanceOf Mage_Sales_Model_Quote_Item) { // for checkout/cart
+            if ($product->getCrossBorder() == 1) {
+                $isCrossBorder = true;
+            }
+        }
+        return $isCrossBorder;
+    }
+
     public function validateAddToCart($product, $qty = 1, $cart)
     {
         $crossBorderError = 0;

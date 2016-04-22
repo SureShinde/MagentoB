@@ -288,9 +288,8 @@ class AW_Featured_Block_Representations_Common extends Mage_Core_Block_Template
             $attr = array(
                 'name', 'short_description', 'small_image', 'thumbnail', 'image', 'sku',
                 'msrp', 'msrp_enabled', 'msrp_display_actual_price_type', 'aw_os_category_display',
-
-                'aw_os_category_position', 'aw_os_category_image', 'aw_os_category_image_path', 'aw_os_category_text','news_from_date','news_to_date','cross_border'
-
+                'aw_os_category_position', 'aw_os_category_image', 'aw_os_category_image_path', 'aw_os_category_text','news_from_date','news_to_date',
+                'cross_border'
             );
             $this->_collection->addAttributeToSelect($attr);
             $crossBorderEnabled = Mage::getStoreConfig('bilna_crossborder/status/enabled');
