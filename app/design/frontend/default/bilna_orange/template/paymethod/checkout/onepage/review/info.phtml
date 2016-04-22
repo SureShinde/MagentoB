@@ -169,20 +169,20 @@
 
         /*** BEGIN - Hack to split Shipping Fee ***/
         var extractFee = function(fullText) {
-            var fee;
-            var regex = /Rp(.*)/g;
+            var fee = '';
+            var regex = /Rp(.*)/gi;
             var matches = fullText.match(regex);
-            if (matches.length > 0) {
+            if (matches != null && matches.length > 0) {
                 matches[0] = matches[0].trim();
                 fee = matches[0].slice(0, matches[0].indexOf(")"));
             }
             return fee;
         };
         var extractDuration = function(fullText) {
-            var duration;
-            var regex = /\((.*)kerja\)/g;
+            var duration = '';;
+            var regex = /\((.*)kerja\)/gi;
             var matches = fullText.match(regex);
-            if (matches.length > 0) {
+            if (matches != null && matches.length > 0) {
                 matches[0] = matches[0].trim();
                 duration = matches[0].slice(matches[0].lastIndexOf("("));
             }
