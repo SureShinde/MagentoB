@@ -186,12 +186,6 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
                 $this->_storeChargeDataToQueue($charge, false);
             }
             
-            if (in_array($paymentCode, $this->getPaymentMethodVA()) && ($orderCanceled === false)) {
-                $charge = Mage::getModel('paymethod/api')->vtdirectVaCharge($order);
-                $this->_addHistoryOrder($order, $charge['response']->status_message);
-                $this->_storeChargeDataToQueue($charge, false);
-            }
-            
             Mage::dispatchEvent('checkout_onepage_controller_success_action', array ('order_ids' => array ($orderId), 'order' => $order));
         }
         catch (Mage_Core_Exception $e) {
@@ -286,6 +280,10 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
         return $this->_paymentMethodHelper;
     }
 
+    /**
+     * for Credit & Debit Card
+     * by Veritrans
+     */
     protected function getPaymentMethodCc() {
         if (!$this->_paymentMethodCc) {
             $this->_paymentMethodCc = $this->getPaymentMethodHelper()->getPaymentMethodCc();
@@ -294,20 +292,16 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
         return $this->_paymentMethodCc;
     }
 
+    /**
+     * for Virtual Account & Mandiri Ecash
+     * by Veritrans
+     */
     protected function getPaymentMethodVtdirect() {
         if (!$this->_paymentMethodVtdirect) {
             $this->_paymentMethodVtdirect = $this->getPaymentMethodHelper()->getPaymentMethodVtdirect();
         }
         
         return $this->_paymentMethodVtdirect;
-    }
-    
-    protected function getPaymentMethodVa() {
-        if (!$this->_paymentMethodVa) {
-            $this->_paymentMethodVa = $this->getPaymentMethodHelper()->getPaymentMethodVA();
-        }
-        
-        return $this->_paymentMethodVa;
     }
 
     protected function getPaymentTypeTransaction($paymentCode, $type) {
