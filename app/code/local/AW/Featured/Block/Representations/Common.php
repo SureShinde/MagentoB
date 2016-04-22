@@ -292,6 +292,11 @@ class AW_Featured_Block_Representations_Common extends Mage_Core_Block_Template
                 'cross_border'
             );
             $this->_collection->addAttributeToSelect($attr);
+            $crossBorderEnabled = Mage::getStoreConfig('bilna_crossborder/status/enabled');
+
+            if ($crossBorderEnabled == '0') {
+                $this->_collection->addAttributeToFilter('cross_border', array('0', array("null" => true)));
+            }
             $this->_collection->getSelect()->limit($this->getItemsPerRow());
         }
         return $this->_collection;
