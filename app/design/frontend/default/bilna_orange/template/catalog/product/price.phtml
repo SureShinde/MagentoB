@@ -204,7 +204,8 @@
                     <?php else: ?>
                         <?php echo $_coreHelper->currency($_finalPrice, true, true) ?>
                     <?php endif; ?>
-                    <?php if ($_product->getData('express_shipping') == 1) : ?>
+                    <?php $isExpressShippingEnabled = Mage::getStoreConfig('bilna_expressshipping/status/enabled'); ?>
+                    <?php if ($_product->getData('express_shipping') == 1 && $isExpressShippingEnabled) : ?>
                         <span><img class="express-shipping" src="<?php echo $this->getSkinUrl('images/vip-shipment-mail.png'); ?>" style="width: 35px;"></span>
                     <?php endif; ?>
                 </span>
