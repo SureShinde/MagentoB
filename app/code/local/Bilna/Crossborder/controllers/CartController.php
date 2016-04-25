@@ -217,7 +217,6 @@ class Bilna_Crossborder_CartController extends Mage_Core_Controller_Front_Action
         $params = $this->getRequest()->getParams();
 
         try {
-            $crossBorderHelper = Mage::helper('bilna_crossborder');
             $product = $this->_initProduct();
 
             if (isset($params['qty'])) {
@@ -227,14 +226,7 @@ class Bilna_Crossborder_CartController extends Mage_Core_Controller_Front_Action
                 $params['qty'] = $filter->filter($params['qty']);
             }
 
-            $crossBorderCheck = $crossBorderHelper->validateAddToCart($product, $params['qty'], $cart);
-            
             $related = $this->getRequest()->getParam('related_product');
-
-            if ($crossBorderCheck > 0) {
-                $this->_goBack();
-                return;
-            }
 
             /**
              * Check product availability

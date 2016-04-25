@@ -7,16 +7,6 @@
 class Bilna_Crossborder_Helper_Data extends Mage_Core_Helper_Abstract {
 
     /**
-     * helper to check if a cart contains cross border item
-     * @return bool
-     */
-    public function hasCrossBorderItem()
-    {
-        $crossBorderModel = Mage::getModel('bilna_crossborder/CrossBorder');
-        return $crossBorderModel->hasCrossBorderItem();
-    }
-
-    /**
      * Helper to check whether a product is cross border product or not
      * @param $product
      * @return boolean
@@ -49,8 +39,6 @@ class Bilna_Crossborder_Helper_Data extends Mage_Core_Helper_Abstract {
             $volumeWeight = (float)$product->getData('volume_weight');
             $weight = (float)$product->getData('weight');
             $price = (int)$product->getData('price');
-
-            $crossBorder = array();
 
             if (!is_null($quoteId)) {
                 $quoteItemCollection = $cart->getItems()->getData();
@@ -86,6 +74,10 @@ class Bilna_Crossborder_Helper_Data extends Mage_Core_Helper_Abstract {
                     Mage::throwException($message);
                 }
             }
+        } elseif (($product->getData('cross_border')) && (!$this->isCrossBorderEnabled())) {
+            $crossBorderError++;
+            $message = $this->__('Import is not available for the moment.');
+            Mage::throwException($message);
         }
 
         return $crossBorderError;
