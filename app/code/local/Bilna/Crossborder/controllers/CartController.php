@@ -158,34 +158,37 @@ class Bilna_Crossborder_CartController extends Mage_Core_Controller_Front_Action
         $this->_getSession()->setCartWasUpdated(true);
 
         // BEGIN - Check if Cart exceeds Cross Border limitation
+        $errorMessage = '';
         $messages = array();
         $invalidCount = 0;
-        $errorMessage = '';
-        $cartCollection = $cart->getItems()->getData();
-        if (is_null($this->getRequest()->getParam('cart'))) {
-            $crossBorderHelper = Mage::helper('bilna_crossborder');
-            if ($crossBorderHelper->isCrossBorderEnabled()) {
-                $crossBorderConfig = $crossBorderHelper->getConfiguration();
-                $totalArray = $crossBorderHelper->__getTotalStoredCrossBorder($cartCollection);
-                
-                $maxWeightAllowed = $crossBorderConfig['max_weight_allowed'];
-                $maxSubtotalAllowed = $crossBorderConfig['max_subtotal_allowed'];
-                
-                // Check Weight Limitation
-                if ($totalArray['weight'] > $maxWeightAllowed) {
-                    $messages[] = 'Berat pesanan produk impor lebih dari ' . $maxWeightAllowed . ' kg';
-                    $invalidCount++;
-                }
+        $items = $cart->getItems();
+        if (!empty($items)) {
+            $cartCollection = $items->getData();
+            if (is_null($this->getRequest()->getParam('cart'))) {
+                $crossBorderHelper = Mage::helper('bilna_crossborder');
+                if ($crossBorderHelper->isCrossBorderEnabled()) {
+                    $crossBorderConfig = $crossBorderHelper->getConfiguration();
+                    $totalArray = $crossBorderHelper->__getTotalStoredCrossBorder($cartCollection);
 
-                // Check Subtotal Limitation
-                if ($totalArray['subtotal'] > (float) $maxSubtotalAllowed) {
-                    $messages[] = 'Harga total pesanan produk impor lebih dari Rp ' . $maxSubtotalAllowed;
-                    $invalidCount++;
-                }
+                    $maxWeightAllowed = $crossBorderConfig['max_weight_allowed'];
+                    $maxSubtotalAllowed = $crossBorderConfig['max_subtotal_allowed'];
 
-                if ($invalidCount > 0) { // If there is any invalid criteria, throw the Exception
-                    $errorMessage = Mage::helper('checkout')->__(implode(', ', $messages));
-                    $cart->getCheckoutSession()->addError($errorMessage);
+                    // Check Weight Limitation
+                    if ($totalArray['weight'] > $maxWeightAllowed) {
+                        $messages[] = 'Berat pesanan produk impor lebih dari ' . $maxWeightAllowed . ' kg';
+                        $invalidCount++;
+                    }
+
+                    // Check Subtotal Limitation
+                    if ($totalArray['subtotal'] > (float) $maxSubtotalAllowed) {
+                        $messages[] = 'Harga total pesanan produk impor lebih dari Rp ' . $maxSubtotalAllowed;
+                        $invalidCount++;
+                    }
+
+                    if ($invalidCount > 0) { // If there is any invalid criteria, throw the Exception
+                        $errorMessage = Mage::helper('checkout')->__(implode(', ', $messages));
+                        $cart->getCheckoutSession()->addError($errorMessage);
+                    }
                 }
             }
         }
