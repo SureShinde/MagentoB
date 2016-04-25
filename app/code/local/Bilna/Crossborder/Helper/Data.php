@@ -46,31 +46,31 @@ class Bilna_Crossborder_Helper_Data extends Mage_Core_Helper_Abstract {
 
                 if ((($weight * $qty) + $totalArray['weight']) > $maxWeight) {
                     $crossBorderError++;
-                    $message = $this->__('Import product weight exceeded maximum limitation.');
+                    $message = $this->__('Berat pesanan produk impor lebih dari ' . $maxWeight . ' kg');
                     Mage::throwException($message);
                 }
 
                 if ((($price * $qty) + $totalArray['subtotal']) > $maxSubtotal) {
                     $crossBorderError++;
-                    $message = $this->__('Import product subtotal exceeded maximum limitation.');
+                    $message = $this->__('Harga total pesanan produk impor lebih dari Rp ' . $maxSubtotal);
                     Mage::throwException($message);
                 }
             } else { // if (count($storedCrossBorder) == 0)
                 if (($volumeWeight * $qty) > $maxVolume) {
                     $crossBorderError++;
-                    $message = $this->__('Import product volume weight exceeded maximum limitation.');
+                    $message = $this->__('Volume pesanan produk impor lebih dari ' . $maxVolumeAllowed);
                     Mage::throwException($message);
                 }
                 
                 if (($weight * $qty) > $maxWeight) {
                     $crossBorderError++;
-                    $message = $this->__('Import product weight exceeded maximum limitation.');
+                    $message = $this->__('Berat pesanan produk impor lebih dari ' . $maxWeight . ' kg');
                     Mage::throwException($message);
                 }
 
                 if (($price * $qty) > $maxSubtotal) {
                     $crossBorderError++;
-                    $message = $this->__('Import product subtotal exceeded maximum limitation.');
+                    $message = $this->__('Harga total pesanan produk impor lebih dari Rp ' . $maxSubtotal);
                     Mage::throwException($message);
                 }
             }
