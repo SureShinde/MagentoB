@@ -1,6 +1,7 @@
 <!-- ematic cart payload -->
 <?php $_items = Mage::helper('checkout/cart')->getQuote()->getAllItems(); ?>
 <?php $itemQty = Mage::helper('checkout/cart')->getItemsCount(); ?>
+<?php $_escape_helper = Mage::helper('catalog/utils'); ?>
 
 <script type="text/javascript">
 var ecommerce_container = [];
@@ -14,7 +15,7 @@ ecommerce_container = [
             <?php $lastPrice = $_item->getCalculationPrice(); ?>
         <?php endif; ?>
         <?php
-            echo "{'name' : '".$_item->getProduct()->getName()."',";
+            echo "{'name' : '".$_escape_helper->escapeQuote($_item->getProduct()->getName())."',";
             echo "'id' : '".$_item->getProduct()->getSku()."',";
             echo "'price' : '".$lastPrice."',";
             echo "'quantity' : '".$_item->getQty()."',";
@@ -54,7 +55,7 @@ function ecommerceCheckout0_buttonclicked() {
     if (temp_cartQty > 0) {         // at least 1 item in cart
 
         // universal analytics
-        temp_container.ecommerce.checkout.products.push(products);
+        temp_container.ecommerce.checkout.products = products;
         dataLayer.push(temp_container);
 
         for (var itr=0; itr<temp_cartQty; itr++) {
