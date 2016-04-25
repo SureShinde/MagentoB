@@ -31,7 +31,6 @@
 ?>
 
 
-
 <div class="content-header">
     <h3 class="icon-head head-products"><?php echo $this->getHeader() ?></h3>
     <p class="content-buttons form-buttons"><?php echo $this->getBackButtonHtml() ?>
@@ -237,13 +236,23 @@ Validation.addAllThese([
         var crossBorderValue = parseInt($('cross_border').getValue());
         var partnershipTypeId = 'partnership_type';
         var backorderId = 'inventory_backorders';
+        <?php $allPartnership = Mage::getModel('common/partnershiptype')->getActivePartnershipType(); ?>
         switch(crossBorderValue) {
             case 1:
+                var partnershipTypeLabel = $('partnership_type').getSelectedOptionHTML().toLowerCase();
+                switch(partnershipTypeLabel) {
+                    case 'consignment':
+                    case 'outright':
+                    case 'special order':
+                        $(partnershipTypeId).setValue(''); // Set the value to No
+                        break;
+                }
                 // disable all partnership type
-                $(partnershipTypeId).disableOption(3155); // Disable the 'consignment' option
-                $(partnershipTypeId).disableOption(3154); // Disable the 'dropship' option
-                $(partnershipTypeId).disableOption(3156); // Disable the 'outright' option
-                $(partnershipTypeId).disableOption(3153); // Disable the 'special order' option
+                <?php foreach ($allPartnership as $id => $text) : ?>
+                    <?php if ($text != '-') : ?>
+                        $(partnershipTypeId).disableOption(<?php echo $id; ?>);
+                    <?php endif; ?>
+                <?php endforeach; ?>
 
                 // disable all backorder except 'no backorder'
                 $(backorderId).disableOption(1);
@@ -258,8 +267,12 @@ Validation.addAllThese([
                 <?php endforeach; ?>
                 break;
             default:
-                $(partnershipTypeId).enableOptionByLabel('dropship'); // Enable the 'dropship' option
-                $(partnershipTypeId).enableOptionByLabel('special order'); // Enable the 'special order' option
+                // enable all partnership type
+                <?php foreach ($allPartnership as $id => $text) : ?>
+                    <?php if ($text != '-') : ?>
+                        $(partnershipTypeId).enableOption(<?php echo $id; ?>);
+                    <?php endif; ?>
+                <?php endforeach; ?>
                 break;
         }
     });
