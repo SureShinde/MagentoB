@@ -1024,8 +1024,14 @@ Review.prototype = {
                     var responseJson = response.responseText.evalJSON();
 
                     if (responseJson.success == false && responseJson.error == true) {
-                        alert(responseJson.error_messages);
-                        checkout.gotoSection('payment');
+                        // If the message contains 'CrossBorder:'
+                        if (responseJson.error_messages.indexOf('CrossBorder:') > -1) {
+                            crossBorder.displayMessage(responseJson.error_messages);
+                            checkout.gotoSection('payment');
+                        } else{
+                            alert(responseJson.error_messages);
+                            checkout.gotoSection('payment');
+                        }
                     }
                     else {
                         review.nextStep(response);
@@ -1075,46 +1081,10 @@ Review.prototype = {
                         if (responseJson.success == false && responseJson.error == true) {
                             // If the message contains 'CrossBorder:'
                             if (responseJson.error_messages.indexOf('CrossBorder:') > -1) {
-                                var errorMessage = responseJson.error_messages.substring(12);
-                                var errorMessages = errorMessage.split(', ');
-                                console.log(errorMessage);
-
-                                // Combining error messages to be displayed
-                                var causeList = '';
-                                var index;
-                                if (errorMessages.length > 0) {
-                                    for (index = 0; index < errorMessages.length; index++) {
-                                        causeList += '<li>' + (index+1) + '. ' + errorMessages[index] + '</li>';
-                                    }
-                                } else {
-                                    causeList += '<li>1. ' + errorMessage + '</li>';
-                                }
-
-                                var dynamicDialog = jQuery(
-                                    '<div id="crossBorderDialog" class="container-collection-pop" style="display:none;" >\
-                                      <div class="cg-col-lg-5 cg-col-md-6 cg-col-sm-6 cg-col-xs-11 container-collection-whitebg white-bg-new-coll text-center" style="max-width:500px;">\
-                                        <div class="img-failed"></div>\
-                                        <p>Pesanan untuk produk impor <strong>tidak dapat diproses</strong> karena:</p>\
-                                        <p>\
-                                          <ol class="cause-list">\
-                                            ' + causeList + '\
-                                          </ol>\
-                                        </p>\
-                                            <div class="center-block info-bottom">\
-                                            <p>Edit pesanan produk impor anda</p>\
-                                            <button type="button" class="btn btn-hollow center-block" id="btnCrossBorderOk">Kembali ke Keranjang Belanja</button>\
-                                            </div>\
-                                      </div>\
-                                    </div>'
-                                );
-                                jQuery('#checkout-step-review').append(dynamicDialog);
-                                jQuery('#btnCrossBorderOk').click(function(){
-                                  location.href = baseUrl + 'checkout/cart';
-                                });
-                                jQuery('#crossBorderDialog').fadeIn(500);
+                                crossBorder.displayMessage(responseJson.error_messages);
                             } else{
-                               alert(responseJson.error_messages);
-                               checkout.gotoSection('payment');
+                                alert(responseJson.error_messages);
+                                checkout.gotoSection('payment');
                             }
                         }
                         else { // If it's default message
@@ -1222,18 +1192,23 @@ function callback(response) {
     //console.log('response: ' + JSON.stringify(response));
 
     if (response.status_code == '200') {
+      console.log('1');
         if (response.redirect_url) {
             // 3Dsecure transaction. Open 3Dsecure dialog
             jQuery('#threedsecure-popup iframe').attr('src', response.redirect_url);
             jQuery('#threedsecure-popup').show();
             jQuery('.wrapper').css({"position":"fixed"});
+          console.log('2');
         }
         else {
-            review.saveReview(response.token_id);
+          console.log('3');
+          review.saveReview(response.token_id);
         }
     }
     else {
-        review.resetLoadWaiting();
+      console.log('4');
+
+      review.resetLoadWaiting();
         checkout.gotoSection('payment', false);
         jQuery('#threedsecure-popup').hide();
         jQuery('.wrapper').css({"position":"relative"});
@@ -1241,3 +1216,54 @@ function callback(response) {
         jQuery('#payment-messages').show();
     }
 }
+
+/*
+ * Cross Border Class
+ */
+var CrossBorder = Class.create();
+CrossBorder.prototype = {
+    initialize: function (baseUrl) {
+        this.baseUrl = baseUrl;
+    },
+    displayMessage: function (crossBorderMessage) {
+        var _this = this;
+        if (typeof(crossBorderMessage) === 'string' && crossBorderMessage.length > 0) {
+            var errorMessage = crossBorderMessage.substring(12);
+            var errorMessages = errorMessage.split(', ');
+
+            // Combining error messages to be displayed
+            var causeList = '';
+            var index;
+            if (errorMessages.length > 0) {
+                for (index = 0; index < errorMessages.length; index++) {
+                    causeList += '<li>' + (index + 1) + '. ' + errorMessages[index] + '</li>';
+                }
+            } else {
+                causeList += '<li>1. ' + errorMessage + '</li>';
+            }
+
+            var dynamicDialog = jQuery(
+                '<div id="crossBorderDialog" class="container-collection-pop" style="display:none;" >\
+                    <div class="cg-col-lg-5 cg-col-md-6 cg-col-sm-6 cg-col-xs-11 container-collection-whitebg white-bg-new-coll text-center" style="max-width:500px;">\
+                        <div class="img-failed"></div>\
+                        <p>Pesanan untuk produk impor <strong>tidak dapat diproses</strong> karena:</p>\
+                        <p>\
+                            <ol class="cause-list">\
+                                ' + causeList + '\
+                        </ol>\
+                    </p>\
+                        <div class="center-block info-bottom">\
+                            <p>Edit pesanan produk impor anda</p>\
+                            <button type="button" class="btn btn-hollow center-block" id="btnCrossBorderOk">Kembali ke Keranjang Belanja</button>\
+                        </div>\
+                </div>\
+            </div>'
+            );
+            jQuery('#checkout-step-review').append(dynamicDialog);
+            jQuery('#btnCrossBorderOk').click(function () {
+                location.href = _this.baseUrl + 'checkout/cart';
+            });
+            jQuery('#crossBorderDialog').fadeIn(500);
+        }
+    }
+};

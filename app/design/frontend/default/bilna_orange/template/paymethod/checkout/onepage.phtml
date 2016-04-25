@@ -66,6 +66,8 @@
 <?php $valueDisplay =  implode("','", $valueCollection); ?>
 
 <script type="text/javascript">
+    var crossBorder = new CrossBorder(baseUrl);
+    
     jQuery(document).ready(function () {
         dataLayer.push({'ecomm_pagetype': 'cart'});
         dataLayer.push({'productid': ['<?php echo $productDisplay; ?>']});
