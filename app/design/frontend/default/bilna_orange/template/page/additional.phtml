@@ -59,7 +59,9 @@ function ecommerceCheckout0_buttonclicked() {
         dataLayer.push(temp_container);
 
         for (var itr=0; itr<temp_cartQty; itr++) {
-            products[itr].price = "Rp" + products[itr].price.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+            if (products[itr].price.indexOf("Rp") < 0) {
+                products[itr].price = "Rp" + products[itr].price.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+            }
         }
 
         // ematics track items in cart to enable pre-abandonded cart overlays
