@@ -33,6 +33,9 @@
 ?>
 <?php $_helper = $this->helper('catalog/output'); ?>
 <?php $_product = $this->getProduct(); ?>
+<?php $_helper_socialcommerce = $this->helper('socialcommerce'); ?>
+<?php $wishlists = $_helper_socialcommerce->getRelatedCollection($_product); ?>
+<?php $hasRelatedCollection = (count($wishlists) < 1) ? false : true; ?>
 <input type="hidden" id="3rdparty-type" value="product"/>
 <input type="hidden" id="3rdparty-value" value="<?php echo $_product->getId(); ?>" />
 <input type="hidden" id="base-url" value="<?php echo Mage::getBaseUrl(); ?>" />
@@ -84,7 +87,9 @@
                     <?php
                     $ship_from = $_helper->productAttribute($_product, $_product->getShipFrom(), 'ship_from');
                     $ship_by = $_product->getAttributeText('ship_by');
-                    $sold_by = $_product->getAttributeText('sold_by');
+                    $userName = $_product->getMerchantUsername();
+                    $shopName = $_product->getMerchantShopName();
+                    $sold_by = $userName && $shopName ? $shopName : $_product->getAttributeText('sold_by');
                     ?>
                     
                     <div class="shipsfrom-soldby">
@@ -260,6 +265,46 @@
             <?php endforeach; ?>
         </div>
     </div>
+    <?php if ($hasRelatedCollection) : ?>
+    <div class="product-tab-wrapper related-collection">
+        <div class="title-category">
+            <?php echo $this->__('Related Collections'); ?>
+        </div>
+        <div class="block-content">
+        <?php foreach ($wishlists as $wishlist) : ?>
+        <?php
+            $slug = Mage::getModel('catalog/product_url')->formatUrlKey($wishlist['name']);
+            $user = Mage::helper('socialcommerce')->getProfileInformation($wishlist['customer_id']);
+        ?>
+            <div class="cg-col-lg-3 cg-col-md-3 cg-col-sm-6 cg-col-xs-6 bottom-spacer-container">
+                <div class="cg-col-xs-12 nopadding collection-shade">
+                    <a href="<?php echo $this->getUrl('collections/' . $wishlist['wishlist_id'] . '-' . $slug); ?>">
+                    <?php if ($wishlist['cover'] && strpos($wishlist['cover'],'socialcommerce') == true) : ?>
+                        <img src="<?php echo $wishlist['cover']; ?>" width="100%" class="img-collection">
+                    <?php elseif ($wishlist['cover'] && strpos($wishlist['cover'],'socialcommerce') == false) : ?>
+                        <img src="<?php echo $this->getUrl('media/collection-cover') . $wishlist['cover']; ?>" width="275" height ="275" class="img-collection collection-img">
+                    <?php else : ?>
+                        <img src="<?php echo $this->getSkinUrl('images') . '/orami_collection_empty.png'; ?>" width="100%" class="img-collection">
+                    <?php endif; ?>
+                    </a>
+                    <div id="explanation"></div>
+                    <div class="cg-col-xs-12 collection-title">
+                        <div class="cg-col-lg-12 cg-col-md-10 cg-col-sm-10 cg-col-xs-12 take-left" style="">
+                            <a class="display-title-coll link-pink-hover nameOfList uppercase opensans" href="<?php echo $this->getUrl('collections/' . $wishlist['wishlist_id'] . '-' . $slug); ?>" style=""><?php echo $wishlist['name']; ?></a>
+                        <?php if ($user['url']) : ?>
+                            <span class="opensans hidden-xs oleh-elip">oleh</span> <a class="display-name-coll name-elip link-pink-hover opensans" href="<?php echo $user['url']; ?>" style=""><?php echo $user['display_name']; ?></a>
+                        <?php else : ?>
+                            <?php echo $user['display_name']; ?>
+                        <?php endif; ?>
+                            <span class="pull-right opensans hidden-md hidden-sm hidden-xs"><a href="<?php echo $this->getUrl('collections/' . $wishlist['wishlist_id'] . '-' . $slug); ?>">Lihat Koleksi ></a> </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <?php endforeach; ?>
+        </div>
+    </div>
+    <?php endif; ?>
     
     <script type="text/javascript">
         //<![CDATA[

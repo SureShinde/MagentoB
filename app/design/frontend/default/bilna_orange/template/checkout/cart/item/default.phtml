@@ -40,7 +40,7 @@ $_escape_helper = Mage::helper('catalog/utils');
                 <?php echo $this->escapeHtml($this->getProductName()) ?>
             <?php endif; ?>
         </h2>
-        
+
         <?php if ($_options = $this->getOptionList()):?>
             <dl class="item-options">
                 <?php foreach ($_options as $_option) : ?>
@@ -59,7 +59,7 @@ $_escape_helper = Mage::helper('catalog/utils');
                 <?php endforeach; ?>
             </dl>
         <?php endif; ?>
-        
+
         <?php if ($messages = $this->getMessages()): ?>
             <?php foreach ($messages as $message): ?>
                <?php /* <p class="item-msg <?php echo $message['type'] ?>">* <?php echo $this->escapeHtml($message['text']) ?></p> */ ?>
@@ -80,13 +80,13 @@ $_escape_helper = Mage::helper('catalog/utils');
             </div>
             <?php endforeach; ?>
         <?php endif; ?>
-        
+
         <?php $addInfoBlock = $this->getProductAdditionalInformationBlock(); ?>
         <?php if ($addInfoBlock): ?>
             <?php echo $addInfoBlock->setItem($_item)->toHtml() ?>
         <?php endif; ?>
     </td>
-    
+
     <?php if ($this->helper('wishlist')->isAllowInCart()) : ?>
         <td class="a-center hi-res">
             <?php if ($isVisibleProduct): ?>
@@ -108,7 +108,7 @@ $_escape_helper = Mage::helper('catalog/utils');
         </td>
     <?php else: ?>
 
-        
+
         <?php if ($this->helper('tax')->displayCartPriceInclTax() || $this->helper('tax')->displayCartBothPrices()): ?>
         <td>
             <?php $_incl = $this->helper('checkout')->getPriceInclTax($_item); ?>
@@ -152,9 +152,9 @@ $_escape_helper = Mage::helper('catalog/utils');
         </td>
         <?php endif; ?>
     <?php endif; ?>
-	
-   	
-    
+
+
+
 </tr>
 
 
@@ -209,7 +209,7 @@ $_escape_helper = Mage::helper('catalog/utils');
                 <?php endforeach; ?>
             </dl>
         <?php endif; ?>
-        
+
         <?php if ($messages = $this->getMessages()): ?>
             <?php foreach ($messages as $message): ?>
            <p class="item-msg <?php echo $message['type'] ?>">* <?php echo $this->escapeHtml($message['text']) ?></p> 
@@ -241,7 +241,7 @@ $_escape_helper = Mage::helper('catalog/utils');
             <?php echo $addInfoBlock->setItem($_item)->toHtml() ?>
         <?php endif; ?>
     </td>
-    
+
     <?php if ($this->helper('wishlist')->isAllowInCart()) : ?>
         <td class="a-center">
             <?php if ($isVisibleProduct): ?>
@@ -348,7 +348,7 @@ $_escape_helper = Mage::helper('catalog/utils');
         </td>
         <?php endif; ?>
     <?php endif; ?>
-	
+
     <td class="a-center" width="60">
         <input name="cart[<?php echo $_item->getId() ?>][qty]" value="<?php echo $this->getQty() ?>" size="4" title="<?php echo $this->__('Qty') ?>" class="input-text qty" maxlength="12" />
     </td>
@@ -361,7 +361,7 @@ $_escape_helper = Mage::helper('catalog/utils');
 		<?php endif; ?>
 		</span>
     </td>
-	
+
     <?php if (($this->helper('tax')->displayCartPriceExclTax() || $this->helper('tax')->displayCartBothPrices()) && !$_item->getNoSubtotal()): ?>
     <td class="a-right">
         <?php if (Mage::helper('weee')->typeOfDisplay($_item, array(1, 4), 'sales') && $_item->getWeeeTaxAppliedAmount()): ?>

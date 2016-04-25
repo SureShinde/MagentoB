@@ -73,7 +73,7 @@
   }
 ?>
 <?php $buttonTitle = $this->__('Tambah ke troli'); ?>
-<?php $_cart = Mage::getModel('checkout/cart')->getQuote(); ?>
+<?php $_cart = Mage::helper('checkout/cart')->getQuote(); ?>
 <?php $_items = $_cart->getAllItems(); ?>
 <?php $itemQty = 0; ?>
 <?php foreach ($_items as $_item) { $parentId = $_item->getParentItemId(); if(empty($parentId)) {$itemQty++;} }?>
@@ -143,7 +143,7 @@ function ecommerceProductDetailAddToCart(name, sku, price, price_ematic, link, i
           echo "'brandName' : 'brand name',";
           echo "'imageUrl' : temp_cart[".$i."][5],";
           echo "'link' : temp_cart[".$i."][6]}";if($i != $itemQty-1) {echo ",";}
-        } 
+        }
         ?>
         ];
 
@@ -162,7 +162,7 @@ function ecommerceProductDetailAddToCart(name, sku, price, price_ematic, link, i
             'link': link
           });
         }
-        
+
         // ematics track items in cart to enable pre-abandonded cart overlays
         ematics("log", "product", "cart", products);
       }
@@ -180,6 +180,6 @@ function ecommerceProductDetailAddToCart(name, sku, price, price_ematic, link, i
           // ematics track items in cart to enable pre-abandonded cart overlays
           ematics("log", "product", "cart", products);
       }
-    } 
+    }
 }
 </script>
