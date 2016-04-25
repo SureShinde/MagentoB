@@ -94,7 +94,8 @@
                                 }
                             } else if (strpos(strtolower($shipping_word), 'free shipping') !== false){
                                 $show = '<strong>Free Shipping<br/></strong>';
-                                $show .= '<p class="adjust">'.$helper->getDeliveryTime($shipping_word).'</p>';
+                                $show .= '<p class="adjust">'.$_excl.' ';
+                                $show .= $helper->getDeliveryTime($shipping_word).'</p>';
                             } else if (strpos(strtolower($shipping_word), 'bayar di tempat') !== false){
                                 $show = '<strong>Bayar di tempat<br/></strong>';
                                 $show .= '<p class="adjust">'.$_excl.' ';
