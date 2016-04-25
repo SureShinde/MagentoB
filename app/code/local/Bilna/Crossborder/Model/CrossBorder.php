@@ -22,11 +22,10 @@ class Bilna_Crossborder_Model_CrossBorder
             $messages = array();
             $totalWeight = 0;
             $totalVolume = 0;
-            $totalQty = 0;
             $subtotal = 0;
             $crossBorderConfig = $crossBorderHelper->getConfiguration();
             $maxWeightAllowed = $crossBorderConfig['max_weight_allowed'];
-            $maxVolumeAllowed = $crossBorderConfig['max_volume_allowed'];
+//            $maxVolumeAllowed = $crossBorderConfig['max_volume_allowed'];
             $maxSubtotalAllowed = $crossBorderConfig['max_subtotal_allowed'];
 
             // Get All Cross Border Items and calculate the totals
@@ -34,8 +33,7 @@ class Bilna_Crossborder_Model_CrossBorder
             foreach ($cartItems as $item) {
                 if ($item->cross_border == 1) {
                     $totalWeight += $item->weight * $item->qty;
-                    $totalVolume += ((float) $product->volume_weight ) * $item->qty;
-                    $totalQty += $item->qty;
+//                    $totalVolume += ((float) $item->volume_weight ) * $item->qty;
                     $subtotal += ($item->price * $item->qty) - $item->discount_amount;
                     break;
                 }
@@ -48,10 +46,10 @@ class Bilna_Crossborder_Model_CrossBorder
             }
 
             // Check Volume Limitation
-            if ($totalVolume > $maxVolumeAllowed) {
+            /*if ($totalVolume > $maxVolumeAllowed) {
                 $messages[] = 'Volume pesanan produk impor lebih dari ' . $maxVolumeAllowed;
                 $invalidCount++;
-            }
+            }*/
 
             // Check Subtotal Limitation
             if ($subtotal > (float) $maxSubtotalAllowed) {
