@@ -258,8 +258,11 @@ Validation.addAllThese([
                 <?php endforeach; ?>
                 break;
             default:
-                $(partnershipTypeId).enableOptionByLabel('dropship'); // Enable the 'dropship' option
-                $(partnershipTypeId).enableOptionByLabel('special order'); // Enable the 'special order' option
+                // enable all partnership type
+                $(partnershipTypeId).enableOption(3155); // Enable the 'consignment' option
+                $(partnershipTypeId).enableOption(3154); // Enable the 'dropship' option
+                $(partnershipTypeId).enableOption(3156); // Enable the 'outright' option
+                $(partnershipTypeId).enableOption(3153); // Enable the 'special order' option
                 break;
         }
     });
