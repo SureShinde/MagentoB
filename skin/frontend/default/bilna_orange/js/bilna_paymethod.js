@@ -1203,7 +1203,7 @@ function callback(response) {
         }
     }
     else {
-      review.resetLoadWaiting();
+        review.resetLoadWaiting();
         checkout.gotoSection('payment', false);
         jQuery('#threedsecure-popup').hide();
         jQuery('.wrapper').css({"position":"relative"});
