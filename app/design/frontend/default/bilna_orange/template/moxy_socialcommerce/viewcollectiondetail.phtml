@@ -383,7 +383,19 @@ $_core_helper =  Mage::helper('core');
                                 // if cross border is disabled and the item is cross border, don't display the add to cart button
                                 if (Mage::helper('bilna_crossborder')->isCrossBorderEnabled() == false && 
                                     Mage::helper('bilna_crossborder')->isCrossBorder($_product)): 
-                                    ;
+                                ?>
+                                  <button
+                                      type ="button"
+                                      style="margin-top: 1px;font-family:'open sans';border:1px solid #ee5191;background:#ffffff;color:#ee5191;border-radius:5px;
+                                      cursor:pointer;" 
+                                      id="closeqv<?php echo $i;?>"
+                                      data-id="<?php echo $productId; ?>"
+                                      title="<?php echo $productButtonLabel; ?>"
+                                      class="btn full-width btn-size-small btn-addtochart btn-cart"
+                                      onclick="javascript:">
+                                      Segera tersedia
+                                  </button>
+                                <?php
                                 else:
                                 ?>
 

@@ -72,7 +72,9 @@
                     // if cross border is disabled and the item is cross border, don't display the add to cart button
                     if (Mage::helper('bilna_crossborder')->isCrossBorderEnabled() == false && 
                         Mage::helper('bilna_crossborder')->isCrossBorder($_item)): 
-                        ;
+                    ?>
+                        <p class="availability out-of-stock"><a href="javascript:"><?php echo $this->__('Segera tersedia') ?></a></p>
+                    <?php
                     else:
                     ?>
     					<?php if($_item->getTypeId() != 'simple'):?>
