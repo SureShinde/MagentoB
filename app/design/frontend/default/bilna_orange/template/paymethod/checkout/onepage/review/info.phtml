@@ -161,41 +161,8 @@
     //<![CDATA[
         review = new Review('<?php echo $this->getUrl('checkout/onepage/saveOrder', array('form_key' => Mage::getSingleton('core/session')->getFormKey())) ?>', '<?php echo $this->getUrl('checkout/onepage/success') ?>', $('checkout-agreements'), $('co-installment-form'));
 
-        /*** BEGIN - Hack to split Shipping Fee ***/
-        var extractFee = function(fullText) {
-            var fee = '';
-            var regex = /Rp(.*)/gi;
-            var matches = fullText.match(regex);
-            if (matches != null && matches.length > 0) {
-                matches[0] = matches[0].trim();
-                fee = matches[0].slice(0, matches[0].indexOf(")"));
-            }
-            return fee;
-        };
-        var extractDuration = function(fullText) {
-            var duration = '';;
-            var regex = /\((.*)kerja\)/gi;
-            var matches = fullText.match(regex);
-            if (matches != null && matches.length > 0) {
-                matches[0] = matches[0].trim();
-                duration = matches[0].slice(matches[0].lastIndexOf("("));
-            }
-            return duration;
-        };
-        var shippingCol = jQuery('table.grand-total tbody th#review-shipping-label');
-        var shippingText = shippingCol.text().trim();
-        var splitShippingText = shippingText.split('+');
-        if (splitShippingText.length === 2) {
-            var localFee = extractFee(splitShippingText[0]);
-            var importFee = extractFee(splitShippingText[1]);
-            var localDuration = extractDuration(splitShippingText[0]);
-            var importDuration = extractDuration(splitShippingText[1]);
-            jQuery('#local-product-fee').append(localFee + '&nbsp;' + localDuration);
-            jQuery('#import-product-fee').append(importFee + '&nbsp;' + importDuration);
-            jQuery('.cross-border-fee').fadeIn(500);
-            jQuery('#review-shipping-label').html('Shipping & Handling');
-        }
-        /*** END - Hack to split Shipping Fee ***/
+        //Hack to split Shipping Fee
+        crossBorder.splitShippingInfo();
     //]]>
   </script> 
 

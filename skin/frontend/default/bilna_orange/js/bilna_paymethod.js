@@ -1221,6 +1221,9 @@ CrossBorder.prototype = {
     initialize: function (baseUrl) {
         this.baseUrl = baseUrl;
     },
+    shippingInfoId: 'review-shipping-label',
+    localProductFeeId: 'local-product-fee',
+    importProductFeeId: 'import-product-fee',
     displayMessage: function (crossBorderMessage) {
         var _this = this;
         if (typeof(crossBorderMessage) === 'string' && crossBorderMessage.length > 0) {
@@ -1262,6 +1265,42 @@ CrossBorder.prototype = {
                 location.href = _this.baseUrl + 'checkout/cart';
             });
             jQuery('#crossBorderDialog').fadeIn(500);
+        }
+    },
+    _extractFee: function(fullText) {
+        var fee = '';
+        var regex = /Rp(.*)/gi;
+        var matches = fullText.match(regex);
+        if (matches != null && matches.length > 0) {
+            matches[0] = matches[0].trim();
+            fee = matches[0].slice(0, matches[0].indexOf(")"));
+        }
+        return fee;
+    },
+    _extractDuration: function(fullText) {
+        var duration = '';
+        var regex = /\((.*)kerja\)/gi;
+        var matches = fullText.match(regex);
+        if (matches != null && matches.length > 0) {
+            matches[0] = matches[0].trim();
+            duration = matches[0].slice(matches[0].lastIndexOf("("));
+        }
+        return duration;
+    },
+    splitShippingInfo: function () {
+        var _this = this;
+        var shippingCol = jQuery('table.grand-total tbody th#' + _this.shippingInfoId);
+        var shippingText = shippingCol.text().trim();
+        var splitShippingText = shippingText.split('+');
+        if (splitShippingText.length === 2) {
+            var localFee = _this._extractFee(splitShippingText[0]);
+            var importFee = _this._extractFee(splitShippingText[1]);
+            var localDuration = _this._extractDuration(splitShippingText[0]);
+            var importDuration = _this._extractDuration(splitShippingText[1]);
+            jQuery('#' + _this.localProductFeeId).append(localFee + '&nbsp;' + localDuration);
+            jQuery('#' + _this.importProductFeeId).append(importFee + '&nbsp;' + importDuration);
+            jQuery('.cross-border-fee').fadeIn(500);
+            jQuery('#' + _this.shippingInfoId).html('Shipping & Handling');
         }
     }
 };
