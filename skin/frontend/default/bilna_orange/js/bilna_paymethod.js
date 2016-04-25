@@ -1026,6 +1026,7 @@ Review.prototype = {
                     if (responseJson.success == false && responseJson.error == true) {
                         // If the message contains 'CrossBorder:'
                         if (responseJson.error_messages.indexOf('CrossBorder:') > -1) {
+                            jQuery('#threedsecure-popup').hide();
                             crossBorder.displayMessage(responseJson.error_messages);
                             checkout.gotoSection('payment');
                         } else{
@@ -1192,22 +1193,17 @@ function callback(response) {
     //console.log('response: ' + JSON.stringify(response));
 
     if (response.status_code == '200') {
-      console.log('1');
         if (response.redirect_url) {
             // 3Dsecure transaction. Open 3Dsecure dialog
             jQuery('#threedsecure-popup iframe').attr('src', response.redirect_url);
             jQuery('#threedsecure-popup').show();
             jQuery('.wrapper').css({"position":"fixed"});
-          console.log('2');
         }
         else {
-          console.log('3');
-          review.saveReview(response.token_id);
+            review.saveReview(response.token_id);
         }
     }
     else {
-      console.log('4');
-
       review.resetLoadWaiting();
         checkout.gotoSection('payment', false);
         jQuery('#threedsecure-popup').hide();
@@ -1228,6 +1224,8 @@ CrossBorder.prototype = {
     displayMessage: function (crossBorderMessage) {
         var _this = this;
         if (typeof(crossBorderMessage) === 'string' && crossBorderMessage.length > 0) {
+            jQuery('#crossBorderDialog').remove(); //remove existing dialog
+
             var errorMessage = crossBorderMessage.substring(12);
             var errorMessages = errorMessage.split(', ');
 
@@ -1259,7 +1257,7 @@ CrossBorder.prototype = {
                 </div>\
             </div>'
             );
-            jQuery('#checkout-step-review').append(dynamicDialog);
+            jQuery('#checkoutSteps').append(dynamicDialog);
             jQuery('#btnCrossBorderOk').click(function () {
                 location.href = _this.baseUrl + 'checkout/cart';
             });
