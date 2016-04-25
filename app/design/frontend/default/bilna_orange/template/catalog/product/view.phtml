@@ -138,25 +138,17 @@
                     
                      <?php echo $this->getChildHtml('alert_urls') ?>
                     
-                    <?php
-                    // if cross border is disabled and the item is cross border, don't display the add to cart button
-                    if (Mage::helper('bilna_crossborder')->isCrossBorderEnabled() == false && 
-                        Mage::helper('bilna_crossborder')->isCrossBorder($_product)): 
-                        ;
-                    else:
-                    ?>
-                        <?php if (!$this->hasOptions()): ?>
-                            <div class="add-to-box">
-                                <?php if ($_product->isSaleable()): ?>
-                                    <?php echo $this->getChildHtml('addtocart') ?>
-                                <?php endif; ?>
-                            </div>
-                            
-                            <?php echo $this->getChildHtml('extra_buttons') ?>
-                        <?php elseif($this->hasOptions()): ?>
+                    <?php if (!$this->hasOptions()): ?>
+                        <div class="add-to-box">
                             <?php if ($_product->isSaleable()): ?>
                                 <?php echo $this->getChildHtml('addtocart') ?>
                             <?php endif; ?>
+                        </div>
+                        
+                        <?php echo $this->getChildHtml('extra_buttons') ?>
+                    <?php elseif($this->hasOptions()): ?>
+                        <?php if ($_product->isSaleable()): ?>
+                            <?php echo $this->getChildHtml('addtocart') ?>
                         <?php endif; ?>
                     <?php endif; ?>
                                     
