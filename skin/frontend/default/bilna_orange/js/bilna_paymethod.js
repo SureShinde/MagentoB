@@ -1053,8 +1053,7 @@ Review.prototype = {
 
         // get token from veritrans
         if (payment.inArray(payment.currentMethod, creditCardPaymentArr)) {
-            Veritrans.token(_cardSet, callback);
-
+            oramiOrder.validateOrder();
             return false;
         }
         else {
@@ -1301,6 +1300,48 @@ CrossBorder.prototype = {
             jQuery('#' + _this.importProductFeeId).append(importFee + '&nbsp;' + importDuration);
             jQuery('.cross-border-fee').fadeIn(500);
             jQuery('#' + _this.shippingInfoId).html('Shipping & Handling');
+        }
+    }
+};
+
+/**
+ * OramiOrder Class for validation
+ */
+var OramiOrder = Class.create();
+OramiOrder.prototype = {
+    initialize: function(baseUrl) {
+        this.baseUrl = baseUrl;
+        this.validationUrl =  baseUrl + 'checkout/onepage/validateOrder';
+    },
+    validateOrder: function() {
+        checkout.setLoadWaiting('review');
+
+        var currPayment = payment.currentMethod;
+        // If the method uses 3DS, validate the order first
+        if (jQuery('#payment_form_' + currPayment + ' #' + currPayment + '_secure').val() == 1) {
+            var request = new Ajax.Request(
+                this.validationUrl,
+                {
+                    method:'post',
+                    parameters: {},
+                    onComplete: checkout.setLoadWaiting(false),
+                    onSuccess: function(response) {
+                        var responseJson = response.responseText.evalJSON();
+                        if (responseJson.success == false) { // If validation is not passed
+                            if (responseJson.error_messages.indexOf('CrossBorder:') > -1) {
+                                crossBorder.displayMessage(responseJson.error_messages);
+                            } else{
+                                alert(responseJson.error_messages);
+                            }
+                        } else { // If validation is passed
+                            Veritrans.token(_cardSet, callback);
+                        }
+                    },
+                    onFailure: checkout.ajaxFailure.bind(checkout)
+                }
+            );
+        } else {
+            Veritrans.token(_cardSet, callback);
         }
     }
 };

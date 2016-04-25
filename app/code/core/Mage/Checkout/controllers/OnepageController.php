@@ -657,4 +657,29 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
             || Mage::helper('checkout')->isAllowedGuestCheckout($this->getOnepage()->getQuote())
             || !Mage::helper('checkout')->isCustomerMustBeLogged();
     }
+
+    /**
+     * Function to validate Order for Cross Border
+     */
+    public function validateOrderAction()
+    {
+        if ($this->_expireAjax()) {
+            return;
+        }
+
+        if ($this->getRequest()->isPost()) {
+            $result = array();
+            $result['success'] = true;
+            $result['error_messages'] = '';
+            $crossBorderModel = Mage::getModel('bilna_crossborder/CrossBorder');
+
+            $validationResult = $crossBorderModel->validate();
+            if ($validationResult['success'] == false) {
+                $result['success'] = false;
+                $result['error_messages'] = $validationResult['message'];
+            }
+
+            $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
+        }
+    }
 }
