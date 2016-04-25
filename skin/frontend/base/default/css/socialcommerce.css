@@ -831,6 +831,7 @@ a.btn-detail-profile:visited {
 	font-family: Montserrat, sans-serif
 }
 .container-collection-pop {
+        overflow: scroll;
 	position: fixed;
 	left: 0;
 	top: 0;
@@ -3507,6 +3508,7 @@ p.exp-three-col
     font-weight: 700;
 }
 .container-collection-pop {
+    overflow: scroll;
     position: fixed;
     left: 0;
     top: 0;
