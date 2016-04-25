@@ -7,16 +7,6 @@
 class Bilna_Crossborder_Helper_Data extends Mage_Core_Helper_Abstract {
 
     /**
-     * helper to check if a cart contains cross border item
-     * @return bool
-     */
-    public function hasCrossBorderItem()
-    {
-        $crossBorderModel = Mage::getModel('bilna_crossborder/CrossBorder');
-        return $crossBorderModel->hasCrossBorderItem();
-    }
-
-    /**
      * Helper to check whether a product is cross border product or not
      * @param $product
      * @return boolean
@@ -50,42 +40,44 @@ class Bilna_Crossborder_Helper_Data extends Mage_Core_Helper_Abstract {
             $weight = (float)$product->getData('weight');
             $price = (int)$product->getData('price');
 
-            $crossBorder = array();
-
             if (!is_null($quoteId)) {
                 $quoteItemCollection = $cart->getItems()->getData();
                 $totalArray = $this->__getTotalStoredCrossBorder($quoteItemCollection);
 
                 if ((($weight * $qty) + $totalArray['weight']) > $maxWeight) {
                     $crossBorderError++;
-                    $message = $this->__('Import product weight exceeded maximum limitation.');
+                    $message = $this->__('Berat pesanan produk impor lebih dari ' . $maxWeight . ' kg');
                     Mage::throwException($message);
                 }
 
                 if ((($price * $qty) + $totalArray['subtotal']) > $maxSubtotal) {
                     $crossBorderError++;
-                    $message = $this->__('Import product subtotal exceeded maximum limitation.');
+                    $message = $this->__('Harga total pesanan produk impor lebih dari Rp ' . $maxSubtotal);
                     Mage::throwException($message);
                 }
             } else { // if (count($storedCrossBorder) == 0)
                 if (($volumeWeight * $qty) > $maxVolume) {
                     $crossBorderError++;
-                    $message = $this->__('Import product volume weight exceeded maximum limitation.');
+                    $message = $this->__('Volume pesanan produk impor lebih dari ' . $maxVolumeAllowed);
                     Mage::throwException($message);
                 }
                 
                 if (($weight * $qty) > $maxWeight) {
                     $crossBorderError++;
-                    $message = $this->__('Import product weight exceeded maximum limitation.');
+                    $message = $this->__('Berat pesanan produk impor lebih dari ' . $maxWeight . ' kg');
                     Mage::throwException($message);
                 }
 
                 if (($price * $qty) > $maxSubtotal) {
                     $crossBorderError++;
-                    $message = $this->__('Import product subtotal exceeded maximum limitation.');
+                    $message = $this->__('Harga total pesanan produk impor lebih dari Rp ' . $maxSubtotal);
                     Mage::throwException($message);
                 }
             }
+        } elseif (($product->getData('cross_border')) && (!$this->isCrossBorderEnabled())) {
+            $crossBorderError++;
+            $message = $this->__('Import is not available for the moment.');
+            Mage::throwException($message);
         }
 
         return $crossBorderError;

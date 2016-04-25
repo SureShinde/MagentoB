@@ -373,6 +373,7 @@
 	bottom: 0;
 	margin-bottom: 10px;
 }
+.sp-methods dd li .adjust { padding-left:20px; }
 @media only screen and (max-width: 1215px) {}
 @media only screen and (max-width: 1023px) {
 	.checkout-onepage-index .col-main {
@@ -646,8 +647,4 @@ margin-bottom: 0;
 }
 .item-bundle .list-item span {
     text-align: left!important;
-}
-
-.cross-border-fee {
-    display: none;
 }

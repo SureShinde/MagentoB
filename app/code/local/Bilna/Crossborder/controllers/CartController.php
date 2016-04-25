@@ -175,18 +175,18 @@ class Bilna_Crossborder_CartController extends Mage_Core_Controller_Front_Action
 
                     // Check Weight Limitation
                     if ($totalArray['weight'] > $maxWeightAllowed) {
-                        $messages[] = 'max weight exceeded';
+                        $messages[] = 'Berat pesanan produk impor lebih dari ' . $maxWeightAllowed . ' kg';
                         $invalidCount++;
                     }
 
                     // Check Subtotal Limitation
                     if ($totalArray['subtotal'] > (float) $maxSubtotalAllowed) {
-                        $messages[] = 'max subtotal exceeded';
+                        $messages[] = 'Harga total pesanan produk impor lebih dari Rp ' . $maxSubtotalAllowed;
                         $invalidCount++;
                     }
 
                     if ($invalidCount > 0) { // If there is any invalid criteria, throw the Exception
-                        $errorMessage = Mage::helper('checkout')->__('CrossBorder: ' . implode(', ', $messages));
+                        $errorMessage = Mage::helper('checkout')->__(implode(', ', $messages));
                         $cart->getCheckoutSession()->addError($errorMessage);
                     }
                 }
@@ -220,7 +220,6 @@ class Bilna_Crossborder_CartController extends Mage_Core_Controller_Front_Action
         $params = $this->getRequest()->getParams();
 
         try {
-            $crossBorderHelper = Mage::helper('bilna_crossborder');
             $product = $this->_initProduct();
 
             if (isset($params['qty'])) {
@@ -230,14 +229,7 @@ class Bilna_Crossborder_CartController extends Mage_Core_Controller_Front_Action
                 $params['qty'] = $filter->filter($params['qty']);
             }
 
-            $crossBorderCheck = $crossBorderHelper->validateAddToCart($product, $params['qty'], $cart);
-            
             $related = $this->getRequest()->getParam('related_product');
-
-            if ($crossBorderCheck > 0) {
-                $this->_goBack();
-                return;
-            }
 
             /**
              * Check product availability
