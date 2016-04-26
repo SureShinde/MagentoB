@@ -12,6 +12,7 @@ class Bilna_Rest_Model_Api2_Wishlistcollectionitems extends Bilna_Rest_Model_Api
     {
         $productWishlistCollection = Mage::getResourceModel('wishlist/item_apicollection_item')
             ->addWishlistFilter($wishlist)
+            ->setOrder('added_at', 'desc')
             ->setVisibilityFilter();
         
         $result = [];     
@@ -31,21 +32,66 @@ class Bilna_Rest_Model_Api2_Wishlistcollectionitems extends Bilna_Rest_Model_Api
         return $result;
     }
     
-    protected function _pagination($object)
+    protected function _pagination($object, $defaultPageSize = 24, $defaultCurPage = 1)
     {
         $limit = (int)$this->getRequest()->getParam('limit');
         $page = (int)$this->getRequest()->getParam('page');
-
-        if ($limit) {
+        
+        if ($limit > 0) {
             $object->setPageSize($limit);
         } else {
-            $object->setPageSize(10);
+            $object->setPageSize($defaultPageSize);
         }
-        if ($page) {
+        if ($page > 0) {
             $object->setCurPage($page);
         } else {
-            $object->setCurPage(1);
+            $object->setCurPage($defaultCurPage);
         }
     }
     
+    public function filterWishlistCollectionOutput($wishlist) 
+    {
+        if($wishlist) {
+            $profiler = Mage::getModel('socialcommerce/profile')->load($wishlist->getCustomerId(), 'customer_id');
+            if(!empty($profiler->getUsername()) && $this->getCollectionItemsTotal($wishlist) > 4) {
+                $valid = TRUE;            
+            } else {
+                $valid = FALSE;
+            }
+        } else {
+            $valid = FALSE;
+        }
+        
+        return $valid;
+    }
+    
+    /**
+     * Load customer by id
+     *
+     * @param int $id
+     * @throws Mage_Api2_Exception
+     * @return Mage_Customer_Model_Customer
+     */
+    protected function _loadCustomerById($id)
+    {
+        /* @var $customer Mage_Customer_Model_Customer */
+        
+        $customer = Mage::getModel('customer/customer')->load($id);
+        
+        if (!$customer->getId()) {
+            $this->_critical(self::RESOURCE_NOT_FOUND);
+        }
+        
+        return $customer;
+    }
+    
+    public function getCollectionItemsTotal($wishlist)
+    {
+        $productWishlistCollection = Mage::getResourceModel('wishlist/item_apicollection_item')
+            ->addWishlistFilter($wishlist)
+            ->setOrder('added_at', 'desc')
+            ->setVisibilityFilter();
+        
+        return $productWishlistCollection->getSize();
+    }
 }
