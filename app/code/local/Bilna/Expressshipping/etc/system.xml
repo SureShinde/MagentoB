@@ -14,7 +14,7 @@
             <show_in_website>1</show_in_website>
             <show_in_store>1</show_in_store>
             <groups>
-                <status tranlate="label">
+                <status translate="label">
                     <label>Configuration</label>
                     <frontend_type>text</frontend_type>
                     <sort_order>10</sort_order>
