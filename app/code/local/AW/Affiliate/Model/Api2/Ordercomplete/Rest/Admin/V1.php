@@ -46,7 +46,6 @@ class AW_Affiliate_Model_Api2_Ordercomplete_Rest_Admin_V1 extends AW_Affiliate_M
                 $campaign = $client->getCampaign();
                 $conditionsModel = $campaign->getConditionsModel();
 
-                $orderModel->setQuote($orderModel->getQuote());
                 if ($orderModel->hasInvoices()) {
                     foreach ($orderModel->getInvoiceCollection() as $invoice) {
                         $getInvoice = $invoice;
