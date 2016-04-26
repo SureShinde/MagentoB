@@ -2,7 +2,8 @@
 /**
  * Description of Bilna_Worker_Order_VeritransCharge
  *
- * @author Bilna Development Team <development@bilna.com>
+ * @path    worker/order/VeritransCharge.php
+ * @author  Bilna Development Team <development@bilna.com>
  */
 
 require_once dirname(__FILE__) . '/Order.php';
@@ -32,8 +33,7 @@ class Bilna_Worker_Order_VeritransCharge extends Bilna_Worker_Order_Order {
             }
         }
         catch (Exception $e) {
-            Mage::logException($e);
-            $this->_logProgress($ex->getMessage());
+            $this->_logProgress("#{$orderNo} Insert to DB => {$ex->getMessage()}");
         }
     }
     
