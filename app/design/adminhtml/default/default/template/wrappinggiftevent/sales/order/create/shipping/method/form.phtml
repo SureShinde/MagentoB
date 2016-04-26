@@ -13,6 +13,11 @@
                 <?php 
                 // if current shipping method is Express, check whether all the items can be express-shipped
                 if ( (strpos(strtolower($_rate->getCode()), 'express') !== false) || (strpos(strtolower($_rate->getCode()), 'ekspres') !== false) ):
+
+                    // if express shipping config is disabled, do not show this option at all
+                    if ($this->isExpressShippingEnabled() === false)
+                        continue;
+                    
                     if (!$this->showExpressShippingMethod())
                         $disableOption = true;
                     else
