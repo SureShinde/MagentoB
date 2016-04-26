@@ -141,9 +141,13 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Shipping_Method_Form
     /* check the number of sales order with express shipping method */
     public function checkExpressShippingSalesCount()
     {
+        if ($this->isExpressShippingEnabled() === false) {
+            return false;
+        }
+        
         $showExpress = true;
 
-        $limit = (int) Mage::getStoreConfig('bilna_expressshipping_so_limit/orderlimit/limit');
+        $limit = (int) Mage::getStoreConfig('bilna_expressshipping/orderlimit/limit');
         $todayDate = Mage::getModel('core/date')->date('Y-m-d');
 
         $resource = Mage::getSingleton('core/resource');
@@ -159,5 +163,15 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Shipping_Method_Form
         }
 
         return $showExpress;
+    }
+
+    /* check whether express shipping enabled or not */
+    public function isExpressShippingEnabled()
+    {
+        $config = Mage::getStoreConfig('bilna_expressshipping/status/enabled');
+        if ($config) {
+            return true;
+        }
+        return false;
     }
 }
