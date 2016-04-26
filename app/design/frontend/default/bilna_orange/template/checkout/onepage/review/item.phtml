@@ -60,7 +60,7 @@
 
     <td class="a-center"><?php echo $_item->getQty() ?></td>
 
-    <td class="a-center"><?php echo $_item->getWeight() ?> kg</td>
+    <td class="a-center"><?php echo $_item->getRowWeight() ?> kg</td>
 
     <?php if ($this->helper('tax')->displayCartPriceExclTax() || $this->helper('tax')->displayCartBothPrices()): ?>
         <td class="a-right">
