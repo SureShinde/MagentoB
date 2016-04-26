@@ -105,4 +105,17 @@
             </resources>
         </acl>
     </adminhtml>
+
+    <default>
+        <bilna_crossborder>
+            <status>
+                <enabled>0</enabled>
+            </status>
+            <configuration>
+                <max_weight_allowed>0</max_weight_allowed>
+                <max_volume_allowed>0</max_volume_allowed>
+                <max_subtotal_allowed>0</max_subtotal_allowed>
+            </configuration>
+        </bilna_crossborder>
+    </default>
 </config>
