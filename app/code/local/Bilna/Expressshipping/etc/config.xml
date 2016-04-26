@@ -107,4 +107,15 @@
             </resources>
         </acl>
     </adminhtml>
+
+    <default>
+        <bilna_expressshipping>
+            <status>
+                <enabled>0</enabled>
+            </status>
+            <orderlimit>
+                <limit>0</limit>
+            </orderlimit>
+        </bilna_expressshipping>
+    </default>
 </config>
