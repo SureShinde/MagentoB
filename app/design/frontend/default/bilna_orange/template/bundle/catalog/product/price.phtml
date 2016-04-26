@@ -345,7 +345,8 @@ if ($_product->getPriceType() == 1) {
                     <script language="javascript">
                         setCollectionPrice(<?php echo $_id; ?>, <?php echo "'".$_coreHelper->currency($_minimalPriceTax)."'" ?>);
                     </script>
-                    <?php if ($_product->getData('express_shipping') == 1) : ?>
+                    <?php $isExpressShippingEnabled = Mage::getStoreConfig('bilna_expressshipping/status/enabled'); ?>
+                    <?php if ($_product->getData('express_shipping') == 1 && $isExpressShippingEnabled) : ?>
                         <img class="express-shipping" src="<?php echo $this->getSkinUrl('images/vip-shipment-mail.png'); ?>" style="width: 35px;">
                     <?php endif; ?>
                     <?php if ($_weeeTaxAmount && $_product->getPriceType() == 1 && $_weeeHelper->typeOfDisplay($_product, array(2, 1, 4))): ?>

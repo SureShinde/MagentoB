@@ -173,7 +173,8 @@ $_escape_helper = Mage::helper('catalog/utils');
         </h2>
 
         <?php $product = Mage::getModel('catalog/product')->load($_item->getProduct()->getId()); ?>
-        <?php if ($product->getExpressShipping()) : ?>
+        <?php $isExpressShippingEnabled = Mage::getStoreConfig('bilna_expressshipping/status/enabled'); ?>
+        <?php if ($product->getExpressShipping() && $isExpressShippingEnabled) : ?>
             <div class='in-block container-express noborder nopadding'>
                   <img src="<?php echo $this->getSkinUrl('images/') . 'VIP-SHIPMENT-ICON-GREEN.png'; ?>" class='in-block margin-right-8'  style='width:25px; margin-top:5px;'>
                 <div class='in-block'>
@@ -216,9 +217,7 @@ $_escape_helper = Mage::helper('catalog/utils');
            
             <?php endforeach; ?>
         <?php endif; ?>
-        <?php 
-                        if ($this->getExpressShipping()){
-                        ?>
+        <?php if ($this->getExpressShipping() && $isExpressShippingEnabled) { ?>
                 <div class='in-block container-express noborder nopadding'>
                   <img src="<?php echo $this->getSkinUrl('images/') . 'VIP-SHIPMENT-ICON-GREEN.png'; ?>" class='in-block margin-right-8'  style='width:25px; margin-top:5px;'>
                 <div class='in-block'>
