@@ -96,9 +96,9 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
                 
                 $quote->setPayType($payType)->save();
             }
-            else {
-                throw Mage::throwException('Please select an installment type before placing the order.');
-            }
+            //else {
+            //    throw Mage::throwException('Please select an installment type before placing the order.');
+            //}
 
             $payType = $this->getPaymentTypeTransaction($paymentCode, 'full');
             $quote->setPayType($payType);
