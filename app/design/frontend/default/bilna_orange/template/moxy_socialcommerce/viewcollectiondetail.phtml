@@ -530,18 +530,18 @@ $_core_helper =  Mage::helper('core');
 </div>
 <?php $i++; endforeach ?>
 <script language="javascript">
-    function showQuickView(layerId,imgSrc) {
-        jQuery('#quickView'+layerId).fadeIn('fast');
+    function showQuickView(id,imgSrc) {
+        jQuery('#quickView'+id).fadeIn('fast');
         jQuery('.product-collection-image-quick').attr('src',imgSrc);
     }
-    function hideQuickView(layerId) {
-        jQuery('#quickView'+layerId).fadeOut('fast');
+    function hideQuickView(id) {
+        jQuery('#quickView'+id).fadeOut('fast');
     }
-    function deleteItem(layerId){
-        jQuery('#deleteItemIdku'+layerId).fadeToggle('fast');
+    function deleteItem(id){
+        jQuery('#deleteItemIdku'+id).fadeToggle('fast');
     }
-    function dontDelete(layer){
-        jQuery('#deleteItemIdku'+layerId).fadeOut('fast');
+    function dontDelete(id){
+        jQuery('#deleteItemIdku'+id).fadeOut('fast');
     }
 </script>
 </div>
