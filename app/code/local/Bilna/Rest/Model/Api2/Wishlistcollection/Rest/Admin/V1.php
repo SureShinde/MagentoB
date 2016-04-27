@@ -30,7 +30,7 @@ class Bilna_Rest_Model_Api2_Wishlistcollection_Rest_Admin_V1 extends Bilna_Rest_
                 ->addFilter('visibility', 1)
                 ->addFieldToFilter('name', array('notnull' => true))
                 ->addFieldToFilter('name', array('neq' => ' '))
-                //->addFieldToFilter('cover', array('notnull' => true))
+                ->addFieldToFilter('cover', array('notnull' => true))
                 ->setOrder('updated_at', 'desc');
             
             $wishlist_collection[0]['total_record'] = $wishlists->getSize();
@@ -46,11 +46,13 @@ class Bilna_Rest_Model_Api2_Wishlistcollection_Rest_Admin_V1 extends Bilna_Rest_
 
             if ($wishlists) {
                 foreach($wishlists as $wishlist) {
-                    $wishlist_collection[$wishlist->getId()] = $wishlist->getData();
-                    $wishlist_collection[$wishlist->getId()]['slug'] = $wishlist->getId().'-'.Mage::getModel('catalog/product_url')->formatUrlKey($wishlist->getName());
-                    $wishlist_collection[$wishlist->getId()]['wishlist_collection_items_total'] = $this->getCollectionItemsTotal($wishlist);
-                    $profiler = Mage::getModel('socialcommerce/profile')->load($wishlist->getCustomerId(), 'customer_id');
-                    $wishlist_collection[$wishlist->getId()]['username'] = $profiler->getUsername();
+                    if($this->filterWishlistCollectionOutput($wishlist)) {
+                        $wishlist_collection[$wishlist->getId()] = $wishlist->getData();
+                        $wishlist_collection[$wishlist->getId()]['slug'] = $wishlist->getId().'-'.Mage::getModel('catalog/product_url')->formatUrlKey($wishlist->getName());
+                        $wishlist_collection[$wishlist->getId()]['wishlist_collection_items_total'] = $this->getCollectionItemsTotal($wishlist);
+                        $profiler = Mage::getModel('socialcommerce/profile')->load($wishlist->getCustomerId(), 'customer_id');
+                        $wishlist_collection[$wishlist->getId()]['username'] = $profiler->getUsername();
+                    }
                 }
                 //$wishlist_collection[1]['total_record_filter'] = (count($wishlist_collection) - 1);
             }
@@ -100,15 +102,5 @@ class Bilna_Rest_Model_Api2_Wishlistcollection_Rest_Admin_V1 extends Bilna_Rest_
         } else {
             $object->setCurPage($defaultCurPage);
         }
-    }
-    
-    public function getCollectionItemsTotal($wishlist)
-    {
-        $productWishlistCollection = Mage::getResourceModel('wishlist/item_apicollection_item')
-            ->addWishlistFilter($wishlist)
-            ->setOrder('added_at', 'desc')
-            ->setVisibilityFilter();
-        
-        return $productWishlistCollection->getSize();
     }
 }

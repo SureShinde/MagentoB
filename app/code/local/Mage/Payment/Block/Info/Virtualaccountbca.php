@@ -40,7 +40,6 @@ class Mage_Payment_Block_Info_Virtualaccountbca extends Mage_Payment_Block_Info
 
     /**
      * Function to get the VA Number that is used to pay the order
-     * @author Indra Halim
      * @return string
      */
     public function getVaNumber()

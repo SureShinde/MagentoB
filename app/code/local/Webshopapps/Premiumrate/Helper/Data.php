@@ -108,5 +108,102 @@ class Webshopapps_Premiumrate_Helper_Data extends Mage_Core_Helper_Abstract
     	}
 				
 	}
+
+	public function checkImportedItemsAvailability($request)
+	{
+		$contain_local = 0;
+		$contain_import = 0;
+		$status = array();
+
+		$total_volweight = 0;
+		$configurableQty = 0;
+
+		$all_items = $request->getAllItems();
+
+		foreach($all_items as $item) 
+		{
+			$product = Mage::getModel('catalog/product')->load( $item->getProductId() );
+			$currentQty = $item->getQty();
+
+			if ($item->getProductType() == Mage_Catalog_Model_Product_Type::TYPE_CONFIGURABLE) 
+			{
+				$configurableQty = $currentQty;
+				continue;
+			} 
+			elseif ($configurableQty > 0) 
+			{
+				$currentQty = $configurableQty;
+				$configurableQty = 0;
+			}
+
+			$parentQty = 1;
+
+			if ($item->getParentItem()!=null) 
+			{
+				if ($item->getParentItem()->getProductType() == Mage_Catalog_Model_Product_Type::TYPE_BUNDLE) 
+				{
+					$parentQty = $item->getParentItem()->getQty();
+				}
+			}
+
+			$qty = $currentQty * $parentQty;
+			$total_volweight += ($product->getVolumeWeight() * $qty);
+
+            if ( is_null($product->getCrossBorder()) || $product->getCrossBorder() == 0 )
+            {
+            	$contain_local = 1;
+            	$status['local_items']['product_ids'][] = $item->getProductId();
+
+            	// initialize ( if not set yet )
+            	if (!(isset($status['local_items']['qty']) && isset($status['local_items']['weight']) && isset($status['local_items']['price']) && isset($status['local_items']['volweight'])))
+            	{
+            		$status['local_items']['qty'] = 0;
+            		$status['local_items']['weight'] = 0;
+            		$status['local_items']['price'] = 0;
+            		$status['local_items']['volweight'] = 0;
+            	}
+
+            	$status['local_items']['qty'] += $item->getQty();
+        		$status['local_items']['weight'] += ( $item->getQty() * $item->getWeight() );
+        		$status['local_items']['price'] += ( $item->getQty() * $item->getPrice() );
+        		$status['local_items']['volweight'] += ( $product->getVolumeWeight() * $item->getQty() );
+            }
+            else
+            {
+            	$contain_import = 1;
+            	$status['import_items']['product_ids'][] = $item->getProductId();
+
+            	// initialize ( if not set yet )
+            	if (!(isset($status['import_items']['qty']) && isset($status['import_items']['weight']) && isset($status['import_items']['price']) && isset($status['import_items']['volweight'])))
+            	{
+            		$status['import_items']['qty'] = 0;
+            		$status['import_items']['weight'] = 0;
+            		$status['import_items']['price'] = 0;
+            		$status['import_items']['volweight'] = 0;
+            	}
+
+            	$status['import_items']['qty'] += $item->getQty();
+        		$status['import_items']['weight']+= ( $item->getQty() * $item->getWeight() );
+        		$status['import_items']['price'] += ( $item->getQty() * $item->getPrice() );
+        		$status['import_items']['volweight'] += ( $product->getVolumeWeight() * $item->getQty() );
+            }
+
+			$product=Mage::getModel('catalog/product')->load( $item->getProductId() );
+			
+		}
+
+        if ($contain_local == 1 && $contain_import == 1)
+        	$status['item_status'] = Webshopapps_Premiumrate_Model_Carrier_Premiumrate::ITEMS_MIXED;
+        else
+        {
+        	if ($contain_local == 1)
+        		$status['item_status'] = Webshopapps_Premiumrate_Model_Carrier_Premiumrate::ITEMS_LOCAL;
+        	else
+        	if ($contain_import == 1)
+        		$status['item_status'] = Webshopapps_Premiumrate_Model_Carrier_Premiumrate::ITEMS_IMPORT;
+        }
+
+        return $status;
+	}
 	
 }

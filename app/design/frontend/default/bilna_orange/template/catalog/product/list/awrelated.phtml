@@ -71,11 +71,21 @@
 			<div class="bottom_thumb_list_product">
 				
 				<?php if($_item->isSaleable()): ?>
-					<?php if($_item->getTypeId() != 'simple'):?>
-                    <a class="link-cart-special" href="<?php echo $_item->getProductUrl() ?>" title="<?php echo $this->stripTags($_item->getName(), null, true) ?>"><i class="fa fa-cart-plus"></i><?php echo $this->__('Tambah ke troli') ?></a>
-                    <?php else:?>
-                    <button type="button buynow_awrelated" title="<?php echo $this->__('Tambah ke troli') ?>" class="button btn-cart" onclick="setLocation('<?php echo $this->getAddToCartUrl($_item) ?>')"><span><span><i class="fa fa-cart-plus"></i> <?php echo $this->__('Tambah ke troli') ?></span></span></button>
-                    <?php endif; ?>    
+                    <?php
+                    // if cross border is disabled and the item is cross border, don't display the add to cart button
+                    if (Mage::helper('bilna_crossborder')->isCrossBorderEnabled() == false && 
+                        Mage::helper('bilna_crossborder')->isCrossBorder($_item)): 
+                    ?>
+                        <p class="availability out-of-stock"><a href="javascript:"><?php echo $this->__('Segera tersedia') ?></a></p>
+                    <?php
+                    else:
+                    ?>
+    					<?php if($_item->getTypeId() != 'simple'):?>
+                        <a class="link-cart-special" href="<?php echo $_item->getProductUrl() ?>" title="<?php echo $this->stripTags($_item->getName(), null, true) ?>"><i class="fa fa-cart-plus"></i><?php echo $this->__('Tambah ke troli') ?></a>
+                        <?php else:?>
+                        <button type="button buynow_awrelated" title="<?php echo $this->__('Tambah ke troli') ?>" class="button btn-cart" onclick="setLocation('<?php echo $this->getAddToCartUrl($_item) ?>')"><span><span><i class="fa fa-cart-plus"></i> <?php echo $this->__('Tambah ke troli') ?></span></span></button>
+                        <?php endif; ?>
+                    <?php endif; ?>
 				<?php else: ?>
 					<p class="availability out-of-stock"><a href="<?php echo $_item->getProductUrl() ?>"><?php echo $this->__('Kabari bila tersedia') ?></a></p>
 				<?php endif; ?>

@@ -169,7 +169,24 @@ $lastPageNumber = $this->getLastPageNumber();
                                             <?php $prevUrl = ($curPage == 1) ? 'javascript:;' : $this->getUrl('collections') . '?p=' . ($curPage - 1) ; ?>
                                             <?php $nextUrl = ($curPage == $lastPageNumber) ? 'javascript:;' : $this->getUrl('collections') . '?p=' . ($curPage + 1) ; ?>
                                             <li<?php if ($curPage == 1) : ?> class="disabled"<?php endif; ?>><a href="<?php echo $prevUrl; ?>" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
-                                            <?php for ($i=1; $i <= $lastPageNumber ; $i++ ) : ?>
+                                            <?php $limit_bottom = ($curPage>5) ? $curPage-4 : 1; ?>
+                                            <?php
+                                                $show = 10;
+                                                if($curPage>5) {
+                                                    if($curPage+5>$lastPageNumber) {
+                                                        $limit_top = $lastPageNumber;
+                                                    } else {
+                                                        $limit_top = $curPage+5;
+                                                    }
+                                                } else {
+                                                    if($lastPageNumber<$show) {
+                                                        $limit_top = $lastPageNumber;
+                                                    } else {
+                                                        $limit_top = $show;
+                                                    }
+                                                }
+                                            ?>
+                                            <?php for ($i=$limit_bottom; $i <= $limit_top ; $i++ ) : ?>
                                             <li<?php if ($i == $curPage) : ?> class="active"<?php endif; ?>><a href="<?php echo $this->getUrl('collections') . '?p=' . $i ?>"><?php echo $i; ?></a></li>
                                             <?php endfor; ?>
                                             <li<?php if ($curPage == $lastPageNumber) : ?> class="disabled"<?php endif; ?>><a href="<?php echo $nextUrl; ?>" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
