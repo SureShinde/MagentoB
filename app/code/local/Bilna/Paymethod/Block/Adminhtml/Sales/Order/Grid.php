@@ -63,6 +63,7 @@ class Bilna_Paymethod_Block_Adminhtml_Sales_Order_Grid extends Mage_Adminhtml_Bl
             'width' => '80px',
             'type' => 'text',
             'index' => 'increment_id',
+            'filter_index' => 'main_table.increment_id',
         ));
 
 //        if (!Mage::app()->isSingleStoreMode()) {
@@ -87,11 +88,13 @@ class Bilna_Paymethod_Block_Adminhtml_Sales_Order_Grid extends Mage_Adminhtml_Bl
         $this->addColumn('billing_name', array (
             'header' => $salesHelper->__('Bill to Name'),
             'index' => 'billing_name',
+            'filter_index' => 'main_table.billing_name',
         ));
 
         $this->addColumn('shipping_name', array (
             'header' => $salesHelper->__('Ship to Name'),
             'index' => 'shipping_name',
+            'filter_index' => 'main_table.shipping_name',
         ));
         
         $groups = Mage::getResourceModel('customer/group_collection')
@@ -109,7 +112,7 @@ class Bilna_Paymethod_Block_Adminhtml_Sales_Order_Grid extends Mage_Adminhtml_Bl
         $this->addColumn('method', array (
             'header' => $salesHelper->__('Payment Method'),
             'index' => 'method',
-            'filter_index' => 'method',
+            'filter_index' => 'payment.method',
             'type' => 'options',
             'width' => '70px',
             'options' => $methods,
@@ -118,6 +121,7 @@ class Bilna_Paymethod_Block_Adminhtml_Sales_Order_Grid extends Mage_Adminhtml_Bl
         $this->addColumn('base_grand_total', array (
             'header' => $salesHelper->__('G.T. (Base)'),
             'index' => 'base_grand_total',
+            'filter_index' => 'main_table.base_grand_total',
             'type' => 'currency',
             'currency' => 'base_currency_code',
         ));
@@ -125,6 +129,7 @@ class Bilna_Paymethod_Block_Adminhtml_Sales_Order_Grid extends Mage_Adminhtml_Bl
         $this->addColumn('grand_total', array (
             'header' => $salesHelper->__('G.T. (Purchased)'),
             'index' => 'grand_total',
+            'filter_index' => 'main_table.grand_total',
             'type' => 'currency',
             'currency' => 'order_currency_code',
         ));
@@ -141,6 +146,7 @@ class Bilna_Paymethod_Block_Adminhtml_Sales_Order_Grid extends Mage_Adminhtml_Bl
         $this->addColumn('trx_from', array (
             'header' => $salesHelper->__('Order From'),
             'index' => 'trx_from',
+            'filter_index' => 'order.trx_from',
             'type' => 'options',
             'width' => '50px',
             'options' => $this->_getTrxFroms(),

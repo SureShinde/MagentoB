@@ -7,17 +7,22 @@
 
 class Bilna_Paymethod_Model_Vtdirect extends Mage_Core_Model_Abstract {
     public function updateOrder($order, $paymentCode, $charge) {
+        $paymentCode = $order->getPayment()->getMethodInstance()->getCode();
+        $orderStatus = $order->getStatus();
+        $isVtdirectNotification = $this->isVtdirectNotification($charge, $paymentCode);
+
         // check order status if processing/complete then ignore
-        if (in_array($order->getStatus(), Mage::helper('paymethod/vtdirect')->getStatusOrderIgnore()) && !$this->isMandiriEcash($charge, $order->getPayment()->getMethodInstance()->getCode())) {
+        if (in_array($orderStatus, Mage::helper('paymethod/vtdirect')->getStatusOrderIgnore()) && !$isVtdirectNotification) {
             return true;
         }
                 
         $message = $charge->status_message;
         $transactionStatus = $charge->transaction_status;
         $fraudStatus = $charge->fraud_status;
-        
-        if ($this->isMandiriEcash($charge, $order->getPayment()->getMethodInstance()->getCode())) {
-            if ($transactionStatus == 'settlement' && $order->getStatus() == 'pending') {
+        $orderStatusAllow = $this->getNotificationOrderStatusAllow();
+
+        if ($isVtdirectNotification) {
+            if ($transactionStatus == 'settlement' && in_array($orderStatus, $orderStatusAllow)) {
                 if ($order->canInvoice()) {
                     $invoice = Mage::getModel('sales/service_order', $order)->prepareInvoice();
 
@@ -39,8 +44,7 @@ class Bilna_Paymethod_Model_Vtdirect extends Mage_Core_Model_Abstract {
             }
             
             return "skip";
-        }
-        else {
+        } else {
             if ($transactionStatus == 'capture') {
                 if ($fraudStatus == 'accept') {
                     if ($order->canInvoice()) {
@@ -126,19 +130,24 @@ class Bilna_Paymethod_Model_Vtdirect extends Mage_Core_Model_Abstract {
         
         return false;
     }
-    
-    protected function isMandiriEcash($notification, $paymentCode) {
+
+    protected function isVtdirectNotification($notification, $paymentCode) {
         $paymentType = Mage::getStoreConfig('payment/' . $paymentCode . '/vtdirect_payment_type');
-        
+
         if ($notification->payment_type == $paymentType) {
             return true;
         }
-        
+
         return false;
     }
     
     public function addHistoryOrder($order, $charge) {
         $order->addStatusHistoryComment($charge->status_message);
         $order->save();
+    }
+
+    protected function getNotificationOrderStatusAllow() {
+        $statusArr = array ('pending', 'pending_va');
+        return $statusArr;
     }
 }
