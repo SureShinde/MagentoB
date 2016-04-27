@@ -73,13 +73,23 @@ if ($this->getPosition() == AW_Autorelated_Model_Source_Position::INSTEAD_NATIVE
 									<?php echo $abstractBlock->getReviewsSummaryHtml($product, false, true)?>
 									<div class="aw-arp-addtocart">
 									<?php if ($product->isSaleable()) : ?>
-										<p>
-										   <?php if(!$this->isLocationLink($product)): ?>
-												<a class="link-cart" href="<?php echo $abstractBlock->getAddToCartUrl($product) ?>"><?php echo $this->__('Buy Now') ?></a>
-											<?php else : ?>
-												<a class="link-cart" href="javascript:setLocation('<?php echo $abstractBlock->getAddToCartUrl($product) ?>');"><?php echo $this->__('Buy Now') ?></a>                                            
-											<?php endif; ?>                                       
-										</p>
+                                        <?php
+                                        // if cross border is disabled and the item is cross border, don't display the add to cart button
+                                        if (Mage::helper('bilna_crossborder')->isCrossBorderEnabled() == false && 
+                                            Mage::helper('bilna_crossborder')->isCrossBorder($product)): 
+                                        ?>
+                                            <p class="availability out-of-stock"><span><a href="javascript:"><?php echo $this->__('Segera tersedia') ?></a></span></p>
+                                        <?php
+                                        else:
+                                        ?>
+    										<p>
+    										   <?php if(!$this->isLocationLink($product)): ?>
+    												<a class="link-cart" href="<?php echo $abstractBlock->getAddToCartUrl($product) ?>"><?php echo $this->__('Buy Now') ?></a>
+    											<?php else : ?>
+    												<a class="link-cart" href="javascript:setLocation('<?php echo $abstractBlock->getAddToCartUrl($product) ?>');"><?php echo $this->__('Buy Now') ?></a>                                            
+    											<?php endif; ?>                                       
+    										</p>
+                                        <?php endif; ?>
 									</div>
 								</div>
                                 <?php else : ?>

@@ -26,6 +26,7 @@
 ?>
 <?php /** @var $this Mage_Checkout_Block_Onepage_Shipping_Method_Available */ ?>
 <?php $_shippingRateGroups = $this->getShippingRates(); ?>
+<?php $helper = Mage::helper('wrappinggiftevent');?>
 <?php if (!$_shippingRateGroups): ?>
     <p><?php echo $this->__('Sorry, no quotes are available for this order at this time.') ?></p>
 <?php else: ?>
@@ -43,7 +44,7 @@
                    <?php else: ?>
                         <?php if ($_sole) : ?>
                         <span class="no-display">
-                        	<input name="shipping_method" type="radio" value="<?php echo $_rate->getCode() ?>" data-text="<?php echo $this->escapeHtml($_rate->getMethodTitle()) ?>" data-type="<?php echo $_rate->getDeliveryId() ?>" id="s_method_<?php echo $_rate->getCode() ?>" checked="checked" class="shipping-type" />
+                            <input name="shipping_method" type="radio" value="<?php echo $_rate->getCode() ?>" data-text="<?php echo $this->escapeHtml($_rate->getMethodTitle()) ?>" data-type="<?php echo $_rate->getDeliveryId() ?>" id="s_method_<?php echo $_rate->getCode() ?>" checked="checked" class="shipping-type" />
                         </span>
                         <?php else: ?>
                         <input name="shipping_method" type="radio" value="<?php echo $_rate->getCode() ?>" data-text="<?php echo $this->escapeHtml($_rate->getMethodTitle()) ?>" data-type="<?php echo $_rate->getDeliveryId() ?>" id="s_method_<?php echo $_rate->getCode() ?>"<?php if($_rate->getCode()===$this->getAddressShippingMethod()) echo ' checked="checked"' ?> class="radio shipping-type"/>
@@ -57,13 +58,60 @@
                         <?php endif; ?>
 
                         <?php endif; ?>
-						<?php
-							//TODO: ini untuk shipping method
-						?>
-                        <label for="s_method_<?php echo $_rate->getCode() ?>"><?php echo $this->escapeHtml($_rate->getMethodTitle()) ?>
+                        <?php
+                            //TODO: ini untuk shipping method
+                        ?>
+                        <label for="s_method_<?php echo $_rate->getCode() ?>" style='font-weight:normal !important;'>
+                        <?php $shipping_word =  $this->escapeHtml($_rate->getMethodTitle()) ?>
                         <?php $_excl = $this->getShippingPrice($_rate->getPrice(), $this->helper('tax')->displayShippingPriceIncludingTax()); ?>
+                        <?php 
+                            if (strpos(strtolower($shipping_word), 'standard shipping') !== false || strpos(strtolower($shipping_word), 'international shipping') !== false) {
+                                $show = '<strong>Pengiriman Standar<br/></strong>';
+                                $each = explode('+', $shipping_word);
+                                foreach ($each as $key => $value) {
+                                    if(strpos(strtolower($value), 'standard shipping') !== false || strpos(strtolower($value), 'free shipping') !== false) {
+                                        if(strpos(strtolower($shipping_word), 'international shipping') !== false)
+                                            $show .= '<strong>Produk lokal</strong> - ';
+                                        else
+                                            $show .= '<p class="adjust"><strong>Produk lokal</strong> - ';
+                                    }
+                                    if(strpos(strtolower($value), 'international shipping') !== false) {
+                                        $show .= '<strong>Produk impor</strong> - ';
+                                    }
+                                    if(strpos(strtolower($shipping_word), 'international shipping') === false ||
+                                        (count($each)==1 && strpos(strtolower($shipping_word), 'international shipping') !== false))
+                                        $show .= '<strong>'.$_excl.'</strong> ';
+                                    else
+                                        $show .= '<strong>'.$helper->getPrice($value).'</strong> ';
+                                    $show .= $helper->getDeliveryTime($value);
+                                    if(strpos(strtolower($value), 'standard shipping') !== false || strpos(strtolower($value), 'free shipping') !== false) {
+                                        if(strpos(strtolower($shipping_word), 'international shipping') !== false)
+                                            $show .= '<br/>';
+                                        else
+                                            $show .= '</p>';
+                                    }
+                                    
+                                }
+                            } else if (strpos(strtolower($shipping_word), 'free shipping') !== false){
+                                $show = '<strong>Free Shipping<br/></strong>';
+                                $show .= '<p class="adjust">'.$_excl.' ';
+                                $show .= $helper->getDeliveryTime($shipping_word).'</p>';
+                            } else if (strpos(strtolower($shipping_word), 'bayar di tempat') !== false){
+                                $show = '<strong>Bayar di tempat<br/></strong>';
+                                $show .= '<p class="adjust">'.$_excl.' ';
+                                $show .= $helper->getDeliveryTime($shipping_word).'</p>';
+                            } else if (strpos(strtolower($shipping_word), 'express shipping') !== false) {
+                                $show = '<strong>Express shipping<br/></strong>';
+                                $show .= '<p class="adjust">'.$_excl.' ';
+                                $time = explode('tanggal',$helper->getDeliveryTime($shipping_word));
+                                $show .= $time[0];
+                                if(count($time)>1) $show .= ' tanggal '.'<strong>'.$time[1].'</strong>';
+                                $show .= '</p>';
+                            }
+                            echo $show; 
+                        ?>
+                        <?php //echo $_excl; ?>
                         <?php $_incl = $this->getShippingPrice($_rate->getPrice(), true); ?>
-                        <?php echo $_excl; ?>
                         <?php if ($this->helper('tax')->displayShippingBothPrices() && $_incl != $_excl): ?>
                             (<?php echo $this->__('Incl. Tax'); ?> <?php echo $_incl; ?>)
                         <?php endif; ?>
