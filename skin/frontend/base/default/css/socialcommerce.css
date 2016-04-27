@@ -843,6 +843,7 @@ a.btn-detail-profile:visited {
 	z-index: 999999
 }
 .container-collection-whitebg {
+	/*width: 320px;*/
 	background: #fff;
 	overflow: auto;
 	margin: auto;
