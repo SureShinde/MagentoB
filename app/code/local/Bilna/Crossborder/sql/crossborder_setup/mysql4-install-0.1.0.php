@@ -24,8 +24,12 @@ $installer->addAttribute('catalog_product', 'cross_border', array(
     'used_in_product_listing' => 1
 ));
 
-$installer->run("ALTER TABLE `{$this->getTable('sales_flat_order_item')}` ADD COLUMN `cross_border` INT(11) DEFAULT 0");
-$installer->run("ALTER TABLE `{$this->getTable('sales_flat_quote_item')}` ADD COLUMN `cross_border` INT(11) DEFAULT 0");
+try {
+    $installer->run("ALTER TABLE `{$this->getTable('sales_flat_order_item')}` ADD COLUMN `cross_border` INT(11) DEFAULT 0");
+    $installer->run("ALTER TABLE `{$this->getTable('sales_flat_quote_item')}` ADD COLUMN `cross_border` INT(11) DEFAULT 0");
+} catch (Exception $e) {
+    Mage::logException($e);
+}
 
 $installer->endSetup();
 // END - Create cross_border attribute
