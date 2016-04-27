@@ -51,7 +51,7 @@ class Bilna_Rest_Model_Api2_Wishlistcollectionitems extends Bilna_Rest_Model_Api
     
     public function filterWishlistCollectionOutput($wishlist) 
     {
-        if($wishlist) {
+        /*if($wishlist) {
             $profiler = Mage::getModel('socialcommerce/profile')->load($wishlist->getCustomerId(), 'customer_id');
             if(!empty($profiler->getUsername()) && $this->getCollectionItemsTotal($wishlist) > 4) {
                 $valid = TRUE;            
@@ -63,6 +63,10 @@ class Bilna_Rest_Model_Api2_Wishlistcollectionitems extends Bilna_Rest_Model_Api
         }
         
         return $valid;
+         * 
+         */
+        
+        return TRUE;
     }
     
     /**
