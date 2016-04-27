@@ -111,6 +111,7 @@ class MP_MaxCouponDiscountAmount_Model_SalesRule_Validator extends Mage_SalesRul
                     break;
 
                 case Mage_SalesRule_Model_Rule::CART_FIXED_ACTION:
+                case MP_MaxCouponDiscountAmount_Model_Rule::CART_RANDOM_ACTION:
                     if (empty($this->_rulesItemTotals[$rule->getId()])) {
                         Mage::throwException(Mage::helper('salesrule')->__('Item totals are not set for rule.'));
                     }
@@ -128,7 +129,13 @@ class MP_MaxCouponDiscountAmount_Model_SalesRule_Validator extends Mage_SalesRul
                     }
                     $cartRules = $address->getCartFixedRules();
                     if (!isset($cartRules[$rule->getId()])) {
-                        $cartRules[$rule->getId()] = $rule->getDiscountAmount();
+                        if (MP_MaxCouponDiscountAmount_Model_Rule::CART_RANDOM_ACTION == $rule->getSimpleAction()) {
+
+                            // set discount code to modulo 100 of the quote id
+                            $cartRules[$rule->getId()] = $quote->getId() % 100;
+                        } else {
+                            $cartRules[$rule->getId()] = $rule->getDiscountAmount();
+                        }
                     }
 
                     if ($cartRules[$rule->getId()] > 0) {
@@ -317,5 +324,52 @@ class MP_MaxCouponDiscountAmount_Model_SalesRule_Validator extends Mage_SalesRul
         }
     }
 
+    /**
+     * Calculate quote totals for each rule and save results
+     *
+     * @param mixed $items
+     * @param Mage_Sales_Model_Quote_Address $address
+     * @return Mage_SalesRule_Model_Validator
+     */
+    public function initTotals($items, Mage_Sales_Model_Quote_Address $address)
+    {
+        $address->setCartFixedRules(array());
 
+        if (!$items) {
+            return $this;
+        }
+
+        foreach ($this->_getRules() as $rule) {
+            if ((Mage_SalesRule_Model_Rule::CART_FIXED_ACTION == $rule->getSimpleAction()
+                || MP_MaxCouponDiscountAmount_Model_Rule::CART_RANDOM_ACTION == $rule->getSimpleAction())
+                && $this->_canProcessRule($rule, $address)) {
+
+                $ruleTotalItemsPrice = 0;
+                $ruleTotalBaseItemsPrice = 0;
+                $validItemsCount = 0;
+
+                foreach ($items as $item) {
+                    //Skipping child items to avoid double calculations
+                    if ($item->getParentItemId()) {
+                        continue;
+                    }
+                    if (!$rule->getActions()->validate($item)) {
+                        continue;
+                    }
+                    $qty = $this->_getItemQty($item, $rule);
+                    $ruleTotalItemsPrice += $this->_getItemPrice($item) * $qty;
+                    $ruleTotalBaseItemsPrice += $this->_getItemBasePrice($item) * $qty;
+                    $validItemsCount++;
+                }
+
+                $this->_rulesItemTotals[$rule->getId()] = array(
+                    'items_price' => $ruleTotalItemsPrice,
+                    'base_items_price' => $ruleTotalBaseItemsPrice,
+                    'items_count' => $validItemsCount,
+                );
+            }
+        }
+
+        return $this;
+    }
 }

@@ -134,6 +134,7 @@ class Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Edit_Tabs_Edit_Tabs_Detail e
 			"multiple",
 			"hidden",
 			"date",
+                        "dob",
 			"datetime"
 		]);
 	}
