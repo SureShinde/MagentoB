@@ -321,7 +321,7 @@ $j(document).ready(function(){
                     'products': [{
                       'name': name,                      // Name or ID is required.
                       'id': sku,
-                      'category' : '<?php echo $category; ?>',
+                      'category' : '<?php echo $_escape_helper->escapeQuote($category); ?>',
                       'price': price
                      }]
                    }
