@@ -832,8 +832,8 @@ a.btn-detail-profile:visited {
 }
 .container-collection-pop {
         overflow: scroll;
-        position: fixed;
-        left: 0;
+	position: fixed;
+	left: 0;
 	top: 0;
 	right: 0;
 	color: #000;
