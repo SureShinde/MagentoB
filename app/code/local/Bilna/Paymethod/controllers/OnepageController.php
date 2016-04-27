@@ -430,6 +430,7 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
             Mage::register('response_charge', $charge);
             Mage::dispatchEvent('sales_order_place_after', array ('order' => $order));
         }
+        
         /**
          * Charge Transaction (Mandiri E-Cash)
          */
@@ -462,7 +463,7 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
         
         $this->loadLayout();
         $this->_initLayoutMessages('checkout/session');
-        Mage::dispatchEvent('checkout_onepage_controller_success_action', array ('order_ids' => array ($lastOrderId)));
+        Mage::dispatchEvent('checkout_onepage_controller_success_action', array ('order_ids' => array ($lastOrderId), 'order' => $order));
         $this->renderLayout();
     }
 
@@ -605,7 +606,7 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
 
         return $result;
     }
-
+    
     protected function _virtualAccountCharge($order) {
         Mage::helper('paymethod')->loadVeritransNamespace();
 
@@ -852,7 +853,7 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
     protected function getPaymentMethodVtdirect() {
         return Mage::helper('paymethod')->getPaymentMethodVtdirect();
     }
-
+    
     /**
      * Get List of Payment Method for Virtual Account
      */

@@ -2252,7 +2252,6 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
 
     /**
      * Function to check if the payment method is virtualaccountbca
-     * @author Indra Halim
      * @return bool
      */
     public function isVirtualAccountBCA()

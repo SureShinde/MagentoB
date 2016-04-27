@@ -274,7 +274,7 @@ hr{
     display: inline-block;
     padding: 0 25px;
     width: auto;
-    background: #DA2972;
+    background: #ff6c6c;
     color: #fff;
     position: relative;
 }
@@ -1352,3 +1352,7 @@ input#alert_email {
 	padding: 6px 0 3px;
 }
 
+.related-collection {
+	display: block;
+	clear: both;
+}

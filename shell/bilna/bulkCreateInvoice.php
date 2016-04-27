@@ -67,17 +67,17 @@ class bulkCreateInvoice extends Mage_Shell_Abstract {
 
             $orderIncrementIds = $this->getCCSuccessVeritransOrderIds($orderIds);
         }
-        
+
         //- step 1 => get order where status & state is processing
-        if (!$orderIncrementIds || count($orderIncrementIds == 0)) {
+        if (count($orderIncrementIds) == 0) {
             $this->_unlock();
             $this->critical('Order not found.');
         }
-        
+
         //- step 2 => process order (normalisasi)
         $this->processOrders($orderIncrementIds);
         $this->logProgress('Process all order successfully.');
-        $this->unlock();
+        $this->_unlock();
     }
 
     protected function getCCSuccessVeritransOrderIds($orderIncrementIds)
@@ -107,7 +107,7 @@ class bulkCreateInvoice extends Mage_Shell_Abstract {
     
     protected function getOrderIncrementIds() {
         if (!$this->getArg('orders')) {
-            return false;
+            return array();
         }
         
         $orders = str_replace(' ', '', $this->getArg('orders'));
@@ -386,7 +386,7 @@ class bulkCreateInvoice extends Mage_Shell_Abstract {
         ", $customerAddressId, $customerAddressId);
         
         if ($this->write->query($sql)) {
-            $this->logProgress('Success trigger netsuite as order place #' . $orderId);
+            $this->logProgress('Success trigger netsuite as customer save #' . $orderId);
             
             return true;
         }
