@@ -346,23 +346,6 @@
     }
 ?>
 <script type="text/javascript">
-var temp_cartQty = jQuery("span#ematiccart").length;
-function ecommerceCheckout0_pageload() {			// call ematic cart
-	// ematics cart - find duplicate items between added item and items in cart
-    var temp_cartQty = 0;
-    temp_cartQty = ecommerce_container.length;
-    products = ecommerce_container;
-
-    for (var itr=0; itr<temp_cartQty; itr++) {
-        products[itr].price = "Rp" + products[itr].price.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
-    }
-
-    // ematics cart - prepare for logging
-    if (temp_cartQty > 0) {         // at least 1 item in cart
-		ematics("log", "product", "cart", products);	// ematics track items in cart to enable pre-abandonded cart overlays
-    }
-}
-
 function ecommerceRemoveCart(name, sku, price, quantity, imageUrl, link) {
     dataLayer.push({
 	  'event': 'removeFromCart',
@@ -435,7 +418,5 @@ jQuery(document).ready(function () {
             return false;
         }
     });
-
-    ecommerceCheckout0_pageload();
 });
 </script>
