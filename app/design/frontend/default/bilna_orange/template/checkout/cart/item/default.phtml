@@ -31,7 +31,9 @@ $canApplyMsrp = Mage::helper('catalog')->canApplyMsrp($_item->getProduct(), Mage
 $_escape_helper = Mage::helper('catalog/utils');
 ?>
 <tr class="low-res-cart" width="100%">
-    <td><?php if ($this->hasProductUrl()):?><a href="<?php echo $this->getProductUrl() ?>" title="<?php echo $this->escapeHtml($this->getProductName()) ?>" class="product-image"><?php endif;?><img src="<?php echo $this->getProductThumbnail()->resize(75); ?>" width="75" height="75" alt="<?php echo $this->escapeHtml($this->getProductName()) ?>" /><?php if ($this->hasProductUrl()):?></a><?php endif;?></td>
+    <td>
+        <?php if ($this->hasProductUrl()):?><a href="<?php echo $this->getProductUrl() ?>" title="<?php echo $this->escapeHtml($this->getProductName()) ?>" class="product-image"><?php endif;?><img src="<?php echo $this->getProductThumbnail()->resize(75); ?>" width="75" height="75" alt="<?php echo $this->escapeHtml($this->getProductName()) ?>" /><?php if ($this->hasProductUrl()):?></a><?php endif;?>
+    </td>
     <td colspan="4">
         <h2 class="product-name">
             <?php if ($this->hasProductUrl()):?>
@@ -40,6 +42,7 @@ $_escape_helper = Mage::helper('catalog/utils');
                 <?php echo $this->escapeHtml($this->getProductName()) ?>
             <?php endif; ?>
         </h2>
+        <?php echo ($_item->getCrossBorder() == 1) ? '<p class="item-msg error">Produk Impor</p>' : ''; ?>
 
         <?php if ($_options = $this->getOptionList()):?>
             <dl class="item-options">
@@ -156,6 +159,7 @@ $_escape_helper = Mage::helper('catalog/utils');
                 <?php echo $this->escapeHtml($this->getProductName()) ?>
             <?php endif; ?>
         </h2>
+        <?php echo ($_item->getCrossBorder() == 1) ? '<p class="item-msg error">Produk Impor</p>' : ''; ?>
 
         <?php if ($_options = $this->getOptionList()):?>
             <dl class="item-options">
