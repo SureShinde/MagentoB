@@ -279,6 +279,10 @@ Validation.addAllThese([
                         $(partnershipTypeId).enableOption(<?php echo $id; ?>);
                     <?php endif; ?>
                 <?php endforeach; ?>
+
+                // enable all backorder
+                $(backorderId).enableOption(1);
+                $(backorderId).enableOption(2);
                 break;
         }
     });
