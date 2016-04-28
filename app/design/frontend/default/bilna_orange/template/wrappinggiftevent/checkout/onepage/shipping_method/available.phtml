@@ -64,7 +64,8 @@
                         <label for="s_method_<?php echo $_rate->getCode() ?>" style='font-weight:normal !important;'>
                         <?php $shipping_word =  $this->escapeHtml($_rate->getMethodTitle()) ?>
                         <?php $_excl = $this->getShippingPrice($_rate->getPrice(), $this->helper('tax')->displayShippingPriceIncludingTax()); ?>
-                        <?php 
+                        <?php
+                            $show = '';
                             if (strpos(strtolower($shipping_word), 'standard shipping') !== false || strpos(strtolower($shipping_word), 'international shipping') !== false) {
                                 $show = '<strong>Pengiriman Standar<br/></strong>';
                                 $each = explode('+', $shipping_word);
@@ -92,21 +93,21 @@
                                     }
                                     
                                 }
-                            } else if (strpos(strtolower($shipping_word), 'free shipping') !== false){
-                                $show = '<strong>Free Shipping<br/></strong>';
-                                $show .= '<p class="adjust">'.$_excl.' ';
-                                $show .= $helper->getDeliveryTime($shipping_word).'</p>';
-                            } else if (strpos(strtolower($shipping_word), 'bayar di tempat') !== false){
-                                $show = '<strong>Bayar di tempat<br/></strong>';
-                                $show .= '<p class="adjust">'.$_excl.' ';
-                                $show .= $helper->getDeliveryTime($shipping_word).'</p>';
-                            } else if (strpos(strtolower($shipping_word), 'express shipping') !== false) {
-                                $show = '<strong>Express shipping<br/></strong>';
-                                $show .= '<p class="adjust">'.$_excl.' ';
-                                $time = explode('tanggal',$helper->getDeliveryTime($shipping_word));
-                                $show .= $time[0];
-                                if(count($time)>1) $show .= ' tanggal '.'<strong>'.$time[1].'</strong>';
-                                $show .= '</p>';
+                            } else {
+                                preg_match('/^.*?(?=\()/', $shipping_word, $match);
+                                $shipping_type = $match[0];
+                                $price = !empty($helper->getPrice($value)) ? $helper->getPrice($value) : $_excl;
+                                $deliveryTime = $helper->getDeliveryTime($shipping_word);
+                                $show = '<strong>'.$shipping_type.'</strong><br/>';
+                                $show .= '<p class="adjust">'.$price.' ';
+                                if(strtolower($shipping_type) == 'express shipping'){
+                                    $time = explode('tanggal',$helper->getDeliveryTime($shipping_word));
+                                    $show .= $time[0];
+                                    if(count($time)>1) $show .= ' tanggal '.'<strong>'.$time[1].'</strong>';
+                                    $show .= '</p>';
+                                } else {
+                                    $show .= $deliveryTime.'</p>';
+                                }
                             }
                             echo $show; 
                         ?>
