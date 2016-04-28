@@ -66,27 +66,29 @@
                         <?php $_excl = $this->getShippingPrice($_rate->getPrice(), $this->helper('tax')->displayShippingPriceIncludingTax()); ?>
                         <?php
                             $show = '';
-                            if (strpos(strtolower($shipping_word), 'standard shipping') !== false || strpos(strtolower($shipping_word), 'international shipping') !== false) {
-                                $show = '<strong>Pengiriman Standar<br/></strong>';
+                            if ($helper->contain($shipping_word,'economy shipping') || $helper->contain($shipping_word,'standard shipping') || $helper->contain($shipping_word,'international shipping')) {
+                                if($helper->contain($shipping_word,'economy shipping'))
+                                    $show = '<strong>Economy Shipping<br/></strong>';
+                                else
+                                    $show = '<strong>Pengiriman Standar<br/></strong>'; 
                                 $each = explode('+', $shipping_word);
                                 foreach ($each as $key => $value) {
-                                    if(strpos(strtolower($value), 'standard shipping') !== false || strpos(strtolower($value), 'free shipping') !== false) {
-                                        if(strpos(strtolower($shipping_word), 'international shipping') !== false)
+                                    if($helper->contain($value,'standard shipping') || $helper->contain($value,'economy shipping') || $helper->contain($value,'free shipping')) {
+                                        if($helper->contain($shipping_word,'international shipping'))
                                             $show .= '<strong>Produk lokal</strong> - ';
                                         else
                                             $show .= '<p class="adjust"><strong>Produk lokal</strong> - ';
                                     }
-                                    if(strpos(strtolower($value), 'international shipping') !== false) {
+                                    if($helper->contain($value,'international shipping')) {
                                         $show .= '<strong>Produk impor</strong> - ';
                                     }
-                                    if(strpos(strtolower($shipping_word), 'international shipping') === false ||
-                                        (count($each)==1 && strpos(strtolower($shipping_word), 'international shipping') !== false))
+                                    if(!$helper->contain($shipping_word,'international shipping') || (count($each)==1 && $helper->contain($shipping_word,'international shipping')))
                                         $show .= '<strong>'.$_excl.'</strong> ';
                                     else
                                         $show .= '<strong>'.$helper->getPrice($value).'</strong> ';
                                     $show .= $helper->getDeliveryTime($value);
-                                    if(strpos(strtolower($value), 'standard shipping') !== false || strpos(strtolower($value), 'free shipping') !== false) {
-                                        if(strpos(strtolower($shipping_word), 'international shipping') !== false)
+                                    if($helper->contain($value,'economy shipping') || $helper->contain($value,'standard shipping') || $helper->contain($value, 'free shipping')) {
+                                        if($helper->contain($shipping_word,'international shipping'))
                                             $show .= '<br/>';
                                         else
                                             $show .= '</p>';

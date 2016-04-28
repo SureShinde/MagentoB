@@ -25,4 +25,8 @@ class Bilna_Wrappinggiftevent_Helper_Data extends Mage_Core_Helper_Abstract
         }
         return '';      
     }
+
+    public function contain($source, $check){
+        return strpos(strtolower($source), $check) !== false;
+    }
 }
