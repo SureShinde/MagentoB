@@ -1,8 +1,9 @@
 <?php
 $installer = $this;
 $installer->startSetup();
+
 // BEGIN - Create cross_border attribute
-$installer = Mage::getResourceModel('catalog/setup', 'catalog_setup');
+/*$installer = Mage::getResourceModel('catalog/setup', 'catalog_setup');
 $installer->addAttribute('catalog_product', 'cross_border', array(
     'global' => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_GLOBAL,
     'input' => 'boolean',
@@ -22,7 +23,7 @@ $installer->addAttribute('catalog_product', 'cross_border', array(
     'unique' => false,
     'used_for_promo_rules' => 1,
     'used_in_product_listing' => 1
-));
+));*/
 
 try {
     $installer->run("ALTER TABLE `{$this->getTable('sales_flat_order_item')}` ADD COLUMN `cross_border` INT(11) DEFAULT 0");
@@ -33,8 +34,9 @@ try {
 
 $installer->endSetup();
 // END - Create cross_border attribute
+
 // BEGIN - Assign 'cross_border' Attribute to group 'General' for All Attribute Sets
-$attSet = Mage::getModel('eav/entity_type')->getCollection()->addFieldToFilter('entity_type_code', 'catalog_product')->getFirstItem(); // This is because the you adding the attribute to catalog_products entity ( there is different entities in magento ex : catalog_category, order,invoice... etc )
+/*$attSet = Mage::getModel('eav/entity_type')->getCollection()->addFieldToFilter('entity_type_code', 'catalog_product')->getFirstItem(); // This is because the you adding the attribute to catalog_products entity ( there is different entities in magento ex : catalog_category, order,invoice... etc )
 $attSetCollection = Mage::getModel('eav/entity_type')->load($attSet->getId())->getAttributeSetCollection(); // this is the attribute sets associated with this entity
 $attributeInfo = Mage::getResourceModel('eav/entity_attribute_collection')
     ->setCodeFilter('cross_border')
@@ -57,5 +59,5 @@ foreach ($attSetCollection as $a)
         ->setAttributeId($attId) // Attribute ID that need to be added manually
         ->setSortOrder(5) // Sort Order for the attribute in the tab form edit
         ->save();
-}
+}*/
 // END - Assign 'cross_border' Attribute to group 'General' for All Attribute Sets
