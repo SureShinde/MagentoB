@@ -141,46 +141,6 @@ $categories = Mage::getModel('socialcommerce/collectioncategory')->getCollection
 $images = Mage::getModel('socialcommerce/collectioncover')->getCollection()->setCurPage(1)->setPageSize(12);
 ?>
 
-<!-- Modal dialog to create new collection -->
-<div class="container-collection-pop" style="display:none" id="addCollectionModal">
-    <div class="cg-col-lg-5 cg-col-md-6 cg-col-sm-6 cg-col-xs-11 container-collection-whitebg make-table">
-        <img class="cg-col-lg-6 cg-col-md-6 hidden-sm hidden-xs" src="<?php echo $this->getSkinUrl('images/') . 'add-col.jpg'; ?>" width="100%;" style="margin-top:25px;">
-        <form action="<?php echo $this->getUrl('social/settings/createnewcollection'); ?>" method="post" enctype="multipart/form-data" onsubmit="return preventDouble(this)">
-            <div class="cg-col-lg-6 cg-col-xs-12 cg-col-sm-12 cg-col-md-6 box inside-collection noborder">
-                <div class="cg-col-lg-12 cg-col-sm-12 cg-col-md-12 cg-col-xs-12 collection-top-part">
-                    <div class="cg-col-lg-11 cg-col-md-11 cg-col-sm-11 cg-col-xs-11 add-to-collection-title opensans take-left">Buat Halaman Koleksi</div>
-                    <div class="cg-col-lg-1 cg-col-md-1 cg-col-sm-1 cg-col-xs-1 " id="closer-collection">
-                        <a href="javascript:;" onclick="hideAddCollectionDialog()" style="text-decoration:none;width:100%;display:block">x</a>
-                    </div>
-                </div>
-                <div class="cg-col-xs-12">
-                    <label for="name" class="full-width" style="color: #545454; margin-bottom: 10px;">Collection Title</label>
-                    <input type="text" name="name" id="name" class="input-collection full-width" required>
-                    <label for="name" class="full-width" style="color: #545454; margin-bottom: 10px; margin-top: 10px;">Collection Description</label>
-                    <textarea rows="4" name="desc" class="input-collection full-width" maxlength="250" placeholer="what's your collection about?"></textarea>
-                    <div class="cg-col-xs-12 in-block upload nopadding" style="margin-top:10px;">
-                        <input type="file" title="browse your image" name="cover">
-                    </div>
-
-                    <label for="name" class="full-width cover-exp">Upload Cover Image <br /> (JPG image, 800px width and 800px height, max 1MB)</label>
-
-                    <div style="margin-top: 20px;">
-                        <input type="checkbox" name="visibility" id="visibility" class="input-collection" style="height: inherit; width:10px;" checked>
-                        <label for="visibility" style="color: #545454; height: 40px;">Make Public</label>
-                    </div>
-                </div>
-            </div>
-            <div class="cg-col-xs-6">
-                <a class="btn btn-default btn-block btn-cancel" style="text-decoration:none" onclick="hideAddCollectionDialog()">Cancel</a>
-            </div>
-            <div class="cg-col-xs-6">
-                <button type="submit" class="btn btn-primary btn-block" style="margin: 10px 0;" name="submitButton">Save</button>
-            </div>
-            <input type="hidden" name="username" value="<?php echo $profile->getUsername(); ?>">
-        </form>
-    </div>
-</div>
-
 <!-- new add collection popup -->
 <div class="container-collection-pop" style="display:none;" id="newAddCollectionModal">
     <div class="cg-col-lg-5 cg-col-md-6 cg-col-sm-6 cg-col-xs-11 container-collection-whitebg white-bg-new-coll" style="max-width:500px;">
