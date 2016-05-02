@@ -47,6 +47,8 @@ $coverImage = $this->getSkinUrl('images') . '/orami_collection_empty.png';
 $_productCollection = $this->getWishlistCollection();
 $_helper = $this->helper('catalog/output');
 $_core_helper =  Mage::helper('core');
+$messages=Mage::getSingleton("checkout/session")->getMessages();
+echo $this->getLayout()->createBlock("core/messages")->setMessages($messages)->getGroupedHtml();
 ?>
 <div class="cg-col-xs-12 nopadding detail-collect spacer-mobile">
   <div class="cg-col-xs-12 cg-col-sm-12 cg-col-md-4 cg-col-lg-4 nopadding bottom-spacer-container" >
@@ -178,6 +180,10 @@ $_core_helper =  Mage::helper('core');
             $productDiscount = 100 - round(($productFinalPrice / $productRegularPrice) * 100);
 
             $stocklevel = (int)Mage::getModel('cataloginventory/stock_item')->loadByProduct($productId)->getQty();
+            
+            $stockStatus = $_product->getStockItem();
+            
+            $backOrder = Mage::getModel('cataloginventory/stock_item')->loadByProduct($productId)->getBackorders();
 
               # Date compare for special price
             $productSpecialPriceFromDate = $_product->getSpecialFromDate();
@@ -218,7 +224,7 @@ $_core_helper =  Mage::helper('core');
               <span class="cg-col-xs-12 nopadding">Hapus product ini dari collection anda?</span>
               <div class="cg-col-xs-12 nopadding">
                 <div class="cg-col-xs-6">
-                  <span style="background: #3EB988;" class="btn btn-block btn-size-small yes-delete"  onclick="dontDelete<?php echo $i;?>()">tidak</span>
+                  <span style="background: #3EB988;" class="btn btn-block btn-size-small yes-delete"  onclick="dontDelete(<?php echo $i;?>)">tidak</span>
                 </div>
                 <div class="cg-col-xs-6">
                   <a class="btn btn-size-small btn-block yes-delete" style="" href="<?php echo $this->getUrl('social/settings/delitemcollection?user='.$user['display_name'].'&wlid='.$wlid.'&proid='.$_product->getId().'&url='); ?>">ya</a>
@@ -227,13 +233,13 @@ $_core_helper =  Mage::helper('core');
             </div>
 
             <div class="action<?php if ($productAvailability == 3) echo ' actions-outofstock hover'; ?>">
-              <a class="product-link" onclick="showQuickView<?php echo $i;?>()"></a>
+              <a class="product-link" onclick="showQuickView(<?php echo $i;?>,'<?php echo $productImageUrl;?>')"></a>
               <div class="add-to-links"> 
                 <div>
                  <?php 
                  $customerId = Mage::getSingleton('customer/session')->getCustomer()->getId();
                  if ($wishlist['customer_id'] == $customerId) { ?>
-                 <span  onclick="deleteItem<?php echo $i; ?>()" class="addToCollectionLink" ><i class="fa fa-trash"></i></span>
+                 <span  onclick="deleteItem(<?php echo $i; ?>)" class="addToCollectionLink" ><i class="fa fa-trash"></i></span>
 
                  <?php } else { ?>
                  <a id="collection-price-<?php echo $productId; ?>"
@@ -253,7 +259,7 @@ $_core_helper =  Mage::helper('core');
              data-id="<?php echo $productId; ?>"
              title="Quick View"
              style="background: #3EB988; border:none;"
-             class="btn btn-size-small opensans pointer" onclick="showQuickView<?php echo $i;?>()">
+             class="btn btn-size-small opensans pointer" onclick="showQuickView(<?php echo $i;?>,'<?php echo $productImageUrl;?>')">
              Quick View
            </button>
          </div>
@@ -262,7 +268,7 @@ $_core_helper =  Mage::helper('core');
               <div class="container-collection-pop" style="display:none;" id="quickView<?php echo $i; ?>">
                 <div class="cg-col-lg-5 cg-col-md-6 cg-col-sm-6 cg-col-xs-11 container-collection-whitebg white-bg-new-coll quick-col" style="display:inline-table !important;">
                <div class="cg-col-lg-1 cg-col-md-1 cg-col-sm-1 cg-col-xs-1 quick-sub-col " id="closer-collection bottom-spacer-little" style="">
-                    <a href="javascript:;" onclick="hideQuickView<?php echo $i;?>()" style="text-decoration:none;width:100%;display:block; line-height:1px;"><i class="fa fa-times"></i></a>
+                    <a href="javascript:;" onclick="hideQuickView(<?php echo $i;?>)" style="text-decoration:none;width:100%;display:block; line-height:1px;"><i class="fa fa-times"></i></a>
                   </div>
                   <div class="cg-col-lg-12 cg-col-sm-12 cg-col-md-12 cg-col-xs-12 text-right bottom-spacer-container" style="">
                       </div>
@@ -358,7 +364,7 @@ $_core_helper =  Mage::helper('core');
 
                             <!-- checking stock level for quick view-->
 
-                            <?php if ($stocklevel < 1) { ?>
+                            <?php if (($stocklevel < 1) && (!$stockStatus->getIsInStock()) && ($backOrder < 1)) { ?>
 
                             <div class="cg-col-xs-10">
                                               <button type ="button" class="btn btn-cancel-button nomargin" disabled style="">
@@ -483,21 +489,6 @@ $_core_helper =  Mage::helper('core');
 
           });
 
-         function showQuickView<?php echo $i;?>() {
-          jQuery('#quickView<?php echo $i;?>').fadeIn('fast');
-        }
-
-        function hideQuickView<?php echo $i;?>() {
-          jQuery('#quickView<?php echo $i;?>').fadeOut('fast');
-        }
-
-         function deleteItem<?php echo $i;?>(){
-          jQuery('#deleteItemIdku<?php echo $i;?>').fadeToggle('fast');
-        }
-        function dontDelete<?php echo $i;?>(){
-          jQuery('#deleteItemIdku<?php echo $i;?>').fadeOut('fast');
-        }
-
         </script>
 
         <input type = "hidden" class="collection-checkbox-qty" productId="<?php echo $_product->getId() ?>" id="qty-<?php echo $_product->getId() ?>" value ="1">
@@ -514,7 +505,7 @@ $_core_helper =  Mage::helper('core');
     <div class="text">
       <div class="preview-box">
         <div class="brand"><?php echo $productBrand; ?></div>
-        <p class="name-product opensans"><a class="bold" onclick = "showQuickView<?php echo $i; ?>()" title="<?php echo $productNameStripped; ?>" style = "cursor:pointer;"><?php echo $productNameStripped; ?></a></p>
+        <p class="name-product opensans"><a class="bold" onclick = "showQuickView(<?php echo $i; ?>,'<?php echo $productImageUrl;?>')" title="<?php echo $productNameStripped; ?>" style = "cursor:pointer;"><?php echo $productNameStripped; ?></a></p>
         <?php echo $this->getReviewsSummaryHtml($_product, 'short') ?>
       </div>
       <div class="price-box">
@@ -544,6 +535,21 @@ $_core_helper =  Mage::helper('core');
 </div>
 </div>
 <?php $i++; endforeach ?>
+<script language="javascript">
+    function showQuickView(id,imgSrc) {
+        jQuery('#quickView'+id).fadeIn('fast');
+        jQuery('.product-collection-image-quick').attr('src',imgSrc);
+    }
+    function hideQuickView(id) {
+        jQuery('#quickView'+id).fadeOut('fast');
+    }
+    function deleteItem(id){
+        jQuery('#deleteItemIdku'+id).fadeToggle('fast');
+    }
+    function dontDelete(id){
+        jQuery('#deleteItemIdku'+id).fadeOut('fast');
+    }
+</script>
 </div>
 </div>
 </div>  
