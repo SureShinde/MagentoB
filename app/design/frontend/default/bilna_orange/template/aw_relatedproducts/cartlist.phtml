@@ -63,15 +63,24 @@
                 ><i class="fa fa-heart"></i></a>
                     <a href="<?php echo $_item->getProductUrl() ?>"><img src="<?php echo $this->helper('catalog/image')->init($_item, 'thumbnail')->resize(50) ?>" alt="<?php echo $this->htmlEscape($_item->getName()) ?>" width="50" height="50" /></a>
                 </div>
+
                 <div class="product-details">
                     <a href="<?php echo $_item->getProductUrl() ?>"><?php echo $this->htmlEscape($_item->getName()) ?></a>
                     <?php echo $this->getPriceHtml($_item, true); ?>
                     <?php if ($this->helper('wishlist')->isAllow()) : ?>
                     <a href="<?php echo $this->getAddToWishlistUrl($_item) ?>" class="aw-link-cart"><?php echo $this->__('Add to Wishlist') ?></a>
                     <?php endif; ?>
-                    <div>
-                        <a class="aw-link-cart" href="#" onclick="setLocation('<?php echo $this->getAddToCartUrl($_item) ?>'); return false;"><i class="fa fa-cart-plus"></i><?php echo $this->__('Tambah Ke troli') ?></a>
-                    </div>
+                    <?php
+                    // if cross border is disabled and the item is cross border, don't display the add to cart button
+                    if (Mage::helper('bilna_crossborder')->isCrossBorderEnabled() == false && 
+                        Mage::helper('bilna_crossborder')->isCrossBorder($_item)): 
+                        ;
+                    else:
+                    ?>
+                        <div>
+                            <a class="aw-link-cart" href="#" onclick="setLocation('<?php echo $this->getAddToCartUrl($_item) ?>'); return false;"><i class="fa fa-cart-plus"></i><?php echo $this->__('Tambah Ke troli') ?></a>
+                        </div>
+                    <?php endif; ?>
                 </div>
             </li>
             <?php endforeach ?>

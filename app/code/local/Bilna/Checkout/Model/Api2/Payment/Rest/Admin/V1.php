@@ -141,13 +141,13 @@ class Bilna_Checkout_Model_Api2_Payment_Rest_Admin_V1 extends Bilna_Checkout_Mod
         if (is_array($paymentMethodsArr)) {
             if (count($paymentMethodsArr) > 0) {
                 foreach ($paymentMethodsArr as $key => $value) {
-                     if ($value == '*') {
-                         $result = $value;
-                         break;
-                     }
-                     else {
-                         $result[] = $value;
-                     }
+                    if ($value == '*') {
+                        $result = $value;
+                        break;
+                    }
+                    else {
+                        $result[] = $value;
+                    }
                 }
                 
                 if(!empty($result)) {
@@ -158,7 +158,7 @@ class Bilna_Checkout_Model_Api2_Payment_Rest_Admin_V1 extends Bilna_Checkout_Mod
                             $newResult = $this->_removeKey('cod', $result);
                             break;
                         } elseif(substr_count($shipData['shipping_text'], 'Bayar di Tempat')) {
-                            $newResult = 'cod';
+                            $newResult = ['cod'];
                             break;
                         }
                     }

@@ -200,11 +200,19 @@ $_core_helper =  Mage::helper('core');
                 <?php if(!$_product->canConfigure() && $_product->isSaleable() && $_product->getStockItem() && $_product->getStockItem()->getIsInStock()): ?>
                 <?php $item_in_stock = true; ?>
 
-                <div class="checker-this">
-                  <input type="checkbox" name="cc" class="check collection-checkbox" productId="<?php echo $_product->getId() ?>" id="check-<?php echo $_product->getId() ?>" value="<?php echo $_product->getId() ?>"/>
-                  <label for="check-<?php echo $_product->getId() ?>" ><span class="poper<?php echo $i;?>"></span></label>
-                  <div class="cg-hidden-xs check-to-clicking<?php echo $i;?>">select product</div>
-                </div>
+                <?php
+                // if cross border is disabled and the item is cross border, don't display the add to cart button
+                if (Mage::helper('bilna_crossborder')->isCrossBorderEnabled() == false && 
+                    Mage::helper('bilna_crossborder')->isCrossBorder($_product)): 
+                    ;
+                else:
+                ?>
+                  <div class="checker-this">
+                    <input type="checkbox" name="cc" class="check collection-checkbox" productId="<?php echo $_product->getId() ?>" id="check-<?php echo $_product->getId() ?>" value="<?php echo $_product->getId() ?>"/>
+                    <label for="check-<?php echo $_product->getId() ?>" ><span class="poper<?php echo $i;?>"></span></label>
+                    <div class="cg-hidden-xs check-to-clicking<?php echo $i;?>">select product</div>
+                  </div>
+                <?php endif; ?>
                 
                 <!--<div class="collection-checkbox-box">
                   <input type="checkbox" class="check collection-checkbox" productId="<?php echo $_product->getId() ?>" id="check-<?php echo $_product->getId() ?>" value="<?php echo $_product->getId() ?>">
@@ -371,6 +379,26 @@ $_core_helper =  Mage::helper('core');
                             
                             <div class="cg-col-xs-10">
 
+                               <?php
+                                // if cross border is disabled and the item is cross border, don't display the add to cart button
+                                if (Mage::helper('bilna_crossborder')->isCrossBorderEnabled() == false && 
+                                    Mage::helper('bilna_crossborder')->isCrossBorder($_product)): 
+                                ?>
+                                  <button
+                                      type ="button"
+                                      style="margin-top: 1px;font-family:'open sans';border:1px solid #ee5191;background:#ffffff;color:#ee5191;border-radius:5px;
+                                      cursor:pointer;" 
+                                      id="closeqv<?php echo $i;?>"
+                                      data-id="<?php echo $productId; ?>"
+                                      title="<?php echo $productButtonLabel; ?>"
+                                      class="btn full-width btn-size-small btn-addtochart btn-cart"
+                                      onclick="javascript:">
+                                      Segera tersedia
+                                  </button>
+                                <?php
+                                else:
+                                ?>
+
                                               <button
                                                     type ="button"
                                                     style="margin-top: 1px;font-family:'open sans';border:none;background:#ee5191;border-radius:5px;
@@ -382,6 +410,7 @@ $_core_helper =  Mage::helper('core');
                                                     onclick="setLocation('<?php echo $productAddToCartUrl; ?>'); hideQuickView();">
                                                     <?php echo $productButtonLabel; ?>
                                                 </button>
+                                <?php endif; ?>
 
                             </div>
 

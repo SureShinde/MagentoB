@@ -16,6 +16,9 @@ class bulkCreateInvoice extends Mage_Shell_Abstract {
     protected $status = 'processing';
     protected $orderIncrementIds;
 
+    const PROCESS_ID = 'cron_bulkCreateInvoice';
+    protected $_lockFile = null;
+
     public function init() {
         $this->resource = Mage::getSingleton('core/resource');
         $this->write = $this->resource->getConnection('core_write');
@@ -23,22 +26,88 @@ class bulkCreateInvoice extends Mage_Shell_Abstract {
     }
 
     public function run() {
+        if ($this->_isLocked()) {
+            $this->writeLog(sprintf("Another '%s' process is running! Abort", self::PROCESS_ID));
+            exit;
+        }
         $this->init();
         $orderIncrementIds = $this->getOrderIncrementIds();
-        
+        if ($this->getArg('check_veritrans') == 'true') {
+            if ((is_array($orderIncrementIds)) && (count($orderIncrementIds) > 0)) {
+                $mergedOrderIncrementIds = "'".implode("','", $orderIncrementIds)."'";
+                $additionalQuery = " AND sfo.increment_id IN (".$mergedOrderIncrementIds.")";
+            } else {
+                $dateStart = (!$this->getArg('dateStart')) ? false : $this->getArg('dateStart');
+                $dateEnd = (!$this->getArg('dateEnd')) ? false : $this->getArg('dateEnd');
+                if (!$dateStart && !$dateEnd) {
+                    $additionalQuery = " AND sfo.created_at BETWEEN DATE_FORMAT(NOW() - INTERVAL 7 DAY, '%Y-%m-%d 00:00:00') AND DATE_FORMAT(NOW(), '%Y-%m-%d %k:%i:%s')";
+                } elseif ($dateStart && $dateEnd) {
+                    $additionalQuery = " AND sfo.created_at BETWEEN ".$dateStart." AND ".$dateEnd;
+                } else {
+                    $this->_unlock();
+                    $this->critical('Both of date start and date end must be filled or not setted');
+                }
+            }
+            $paymentMethods = Mage::getStoreConfig('bilna_module/paymethod/payment_hide');
+            $paymentMethods = str_replace(',mandiriecash', '', $paymentMethods);
+            $paymentMethods = str_replace('mandiriecash,', '', $paymentMethods);
+            $paymentMethods = str_replace(',', "','", $paymentMethods);
+            $sql = "
+                SELECT
+                    sfo.increment_id
+                FROM
+                    sales_flat_order sfo,
+                    sales_flat_order_payment sfop
+                WHERE
+                    NOT EXISTS (SELECT null FROM sales_flat_invoice sfi WHERE sfi.order_id = sfo.entity_id)
+                    AND sfo.state = 'processing'
+                    AND sfo.entity_id = sfop.parent_id
+                    AND sfop.method IN ('".$paymentMethods."')".$additionalQuery;
+            $orderIds = $this->read->fetchAll($sql);
+
+            $orderIncrementIds = $this->getCCSuccessVeritransOrderIds($orderIds);
+        }
+
         //- step 1 => get order where status & state is processing
-        if (!$orderIncrementIds) {
+        if (count($orderIncrementIds) == 0) {
+            $this->_unlock();
             $this->critical('Order not found.');
         }
-        
+
         //- step 2 => process order (normalisasi)
         $this->processOrders($orderIncrementIds);
         $this->logProgress('Process all order successfully.');
+        $this->_unlock();
+    }
+
+    protected function getCCSuccessVeritransOrderIds($orderIncrementIds)
+    {
+        require_once dirname(__FILE__) . '/../../app/code/local/Bilna/Paymethod/lib/Veritrans.php';
+        Veritrans_Config::$serverKey = Mage::getStoreConfig('payment/vtdirect/server_key');
+        Veritrans_Config::$isProduction = (Mage::getStoreConfig('payment/vtdirect/development_testing') == 1) ? false : true;
+        $successOrderNoWithoutInv = array();
+
+        foreach ($orderIncrementIds as $orderIncrementId) {
+            try {
+                $result = (array) Veritrans_Transaction::status($orderIncrementId['increment_id']);
+            }
+            catch (Exception $e) {
+                $this->logProgress('Veritrans check order ID '.$orderIncrementId['increment_id'].' status error with message : '.$e->getMessage(), true);
+                continue;
+            }
+
+            if ((isset($result['transaction_status'])) && (($result['transaction_status'] == 'settlement') || ($result['transaction_status'] == 'success') || ($result['transaction_status'] == 'capture'))) {
+                $successOrderNoWithoutInv[] = $orderIncrementId['increment_id'];
+                $this->logProgress('Order : '.$orderIncrementId['increment_id'].' verified by veritrans with status : '.$result['transaction_status'], true);
+            }
+        }
+
+        return $successOrderNoWithoutInv;
     }
     
     protected function getOrderIncrementIds() {
         if (!$this->getArg('orders')) {
-            return false;
+            return array();
         }
         
         $orders = str_replace(' ', '', $this->getArg('orders'));
@@ -73,7 +142,7 @@ class bulkCreateInvoice extends Mage_Shell_Abstract {
             $this->logProgress($orderIncrementId . ' => Normalize order item success.');
             
             //- create invoice
-            $invoice = $this->createInvoice($orderId);
+            $invoice = $this->createInvoice($orderId, $order);
             
             if (!$invoice) {
                 $this->logProgress($orderIncrementId . ' => Invoice not found.');
@@ -81,6 +150,10 @@ class bulkCreateInvoice extends Mage_Shell_Abstract {
             }
             
             $invoiceId = $invoice->getId();
+
+            if ($this->getArg('check_veritrans') == 'true') {
+                $this->logProgress('Invoice for Order : '.$orderIncrementId.' successfully created with Invoice ID : '.$invoiceId, true);
+            }
             
             //- remove message invoice
             if (!$this->removeMessageInvoice($invoiceId)) {
@@ -313,7 +386,7 @@ class bulkCreateInvoice extends Mage_Shell_Abstract {
         ", $customerAddressId, $customerAddressId);
         
         if ($this->write->query($sql)) {
-            $this->logProgress('Success trigger netsuite as order place #' . $orderId);
+            $this->logProgress('Success trigger netsuite as customer save #' . $orderId);
             
             return true;
         }
@@ -349,8 +422,12 @@ class bulkCreateInvoice extends Mage_Shell_Abstract {
         return false;
     }
 
-    protected function logProgress($message) {
-        $this->writeLog($message);
+    protected function logProgress($message, $veritrans_log = false) {
+        if ($veritrans_log) {
+            $this->writeLogVeritrans($message);
+        } else {
+            $this->writeLog($message);
+        }
         
         if ($this->getArg('verbose')) {
             echo $message . "\n";
@@ -360,7 +437,52 @@ class bulkCreateInvoice extends Mage_Shell_Abstract {
     public function writeLog($message) {
         Mage::log($message, null, 'bulkCreateInvoice.log');
     }
+
+    public function writeLogVeritrans($message) {
+        Mage::log($message, null, 'veritrans_status.log');
+    }
+
+    protected function _isLocked() {
+        if ($this->_lockFile == null) {
+            $this->_lockFile = $this->_getLockFile();
+        }
+        
+        if (file_exists($this->_lockFile)) {
+            return true;
+        }
+        
+        //create lock file
+        $this->_lock();
+        
+        return false;
+    }
+
+    protected function _getLockFile() {
+        $varDir = Mage::getConfig()->getVarDir('locks');
+        $this->_lockFile = $varDir . DS . self::PROCESS_ID . '.lock';
+        
+        return $this->_lockFile;
+    }
+
+    protected function _lock() {
+        $handle = fopen($this->_lockFile, 'w');
+        $content = date('Y-m-d H:i:s', Mage::getModel('core/date')->timestamp(time()));
+        
+        fwrite($handle, $content);
+        fclose($handle);
+    }
+
+    protected function _unlock() {
+        if (file_exists($this->_lockFile)) {
+            unlink($this->_lockFile);
+            
+            return true;
+        }
+        
+        return false;
+    }
 }
 
 $shell = new bulkCreateInvoice();
 $shell->run();
+

@@ -8533,6 +8533,62 @@
                             <show_in_store>1</show_in_store>
                             <comment>Installment code that you received from the bank.</comment>
                         </installment_type_code>
+                        <threedsecure>
+                            <label>3D Secure</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>55</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </threedsecure>
+                        <threedsecure_bank_acquired translate="label">
+                            <label>3D Secure Bank Acquired</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>paymethod/system_config_acquiredbank</source_model>
+                            <sort_order>56</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_bank_acquired>
+                        <threedsecure_min_order_total>
+                            <label>3D Secure Minimum Order Total</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>57</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_min_order_total>
+                        <threedsecure_callback_url>
+                            <label>3D Secure Callback URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>58</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Merchant callback URL.</comment>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_callback_url>
+                        <threedsecure_notification_url>
+                            <label>3D Secure Notification URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>59</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Merchant notification URL.</comment>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_notification_url>
                         <allowspecific translate="label">
                             <label>Payment from Applicable Countries</label>
                             <frontend_type>allowspecific</frontend_type>
@@ -8692,6 +8748,62 @@
                             <show_in_store>1</show_in_store>
                             <comment>Installment code that you received from the bank.</comment>
                         </installment_type_code>
+                        <threedsecure>
+                            <label>3D Secure</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>55</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </threedsecure>
+                        <threedsecure_bank_acquired translate="label">
+                            <label>3D Secure Bank Acquired</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>paymethod/system_config_acquiredbank</source_model>
+                            <sort_order>56</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_bank_acquired>
+                        <threedsecure_min_order_total>
+                            <label>3D Secure Minimum Order Total</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>57</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_min_order_total>
+                        <threedsecure_callback_url>
+                            <label>3D Secure Callback URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>58</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Merchant callback URL.</comment>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_callback_url>
+                        <threedsecure_notification_url>
+                            <label>3D Secure Notification URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>59</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Merchant notification URL.</comment>
+                            <depends>
+                                <threedsecure>1</threedsecure>
+                            </depends>
+                        </threedsecure_notification_url>
                         <allowspecific translate="label">
                             <label>Payment from Applicable Countries</label>
                             <frontend_type>allowspecific</frontend_type>
@@ -9168,6 +9280,23 @@
                             <show_in_store>1</show_in_store>
                             <comment>Max 9 line(s), 38 character(s) per line. To display order no, use {{order_no}}</comment>
                         </payment_text_english>
+                        <expiry_duration translate="label">
+                            <label>Expiry Duration</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>95</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </expiry_duration>
+                        <expiry_duration_unit translate="label">
+                            <label>Expiry Unit</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>paymethod/system_config_vtdirect_expiryunit</source_model>
+                            <sort_order>96</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </expiry_duration_unit>
                         <min_order_total translate="label">
                             <label>Minimum Order Total</label>
                             <frontend_type>text</frontend_type>
