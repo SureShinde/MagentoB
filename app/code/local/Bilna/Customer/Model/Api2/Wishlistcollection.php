@@ -68,6 +68,92 @@ class Bilna_Customer_Model_Api2_Wishlistcollection extends Bilna_Rest_Model_Api2
             $profilerCustomerId = $profiler->getCustomerId();
             $customer = Mage::getModel('customer/customer')->load($profilerCustomerId);
             
+            $resource = Mage::getSingleton('core/resource');
+            $readConnection = $resource->getConnection('core_read');
+            
+            $recLimit = 40;
+            
+            $limit = (int)$this->getRequest()->getParam('limit');
+            $page = (int)$this->getRequest()->getParam('page');
+            $isOwner = (int)$this->getRequest()->getParam('is_owner');
+
+            if( $page > 0 ) {
+                $page = $page + 1;
+                $offset = $recLimit * $page ;
+            } else {
+                $page = 0;
+                $offset = 0;
+            }
+            
+            $customerQuery = NULL;
+            
+            if($isOwner == 1) {
+                $customerQuery = "
+                WHERE
+                g.customer_id = $customerId
+                GROUP BY g.wishlist_id
+                ";
+            } else {
+                $customerQuery = "
+                WHERE
+                g.visibility = 1 AND 
+                g.name IS NOT NULL AND 
+                g.cover IS NOT NULL AND
+                g.customer_id = $customerId
+                GROUP BY g.wishlist_id
+                HAVING totalItem > 0
+                ";
+            }
+            
+            $queryTotal = "SELECT g.wishlist_id, g.customer_id, g.visibility, g.customer_id, 
+            g.cover, g.name, g.updated_at,
+            COUNT(m.wishlist_id) AS totalItem
+            FROM ".$resource->getTableName('wishlist/wishlist')." AS g
+            LEFT JOIN ".$resource->getTableName('wishlist/item')." AS m ON g.wishlist_id = m.wishlist_id
+            $customerQuery
+            ORDER BY g.updated_at desc";
+
+            $query = "SELECT g.wishlist_id, g.customer_id, g.visibility, g.customer_id, 
+            g.cover, g.name, g.updated_at,
+            COUNT(m.wishlist_id) AS totalItem
+            FROM ".$resource->getTableName('wishlist/wishlist')." AS g
+            LEFT JOIN ".$resource->getTableName('wishlist/item')." AS m ON g.wishlist_id = m.wishlist_id
+            $customerQuery
+            ORDER BY g.updated_at desc
+            LIMIT $offset, $recLimit;";
+            
+            $countWishlists = $readConnection->fetchAll($queryTotal);            
+            $wishlistCollection = $readConnection->fetchAll($query);            
+            
+            if ($wishlistCollection) {
+
+                $result[0]['total_record'] = count($countWishlists);
+                foreach($wishlistCollection as $value) {
+                    $result[$value['wishlist_id']] = $value;
+                    $result[$value['wishlist_id']]['slug'] = $value['wishlist_id'].'-'.Mage::getModel('catalog/product_url')->formatUrlKey($value['name']);
+                    $result[$value['wishlist_id']]['wishlist_collection_items_total'] = $value['totalItem'];
+                }
+
+                return $result;
+            }
+        }
+        
+        return FALSE;
+    }
+    
+    /**
+     * public function getWishlistCollection($customerId = null) 
+     *
+    {
+        $username = $this->_getUsername($customerId);        
+        $profiler = Mage::getModel('socialcommerce/profile')->load($username, 'username');
+        $result = [];
+        
+        if ($profiler->getCustomerId()) {
+
+            $profilerCustomerId = $profiler->getCustomerId();
+            $customer = Mage::getModel('customer/customer')->load($profilerCustomerId);
+            
             # Get wishlist collection
             $wishlistCollection = Mage::getModel('wishlist/wishlist')->getCollection();
             $wishlistCollection->addFieldToFilter('customer_id', $customer->getId()); 
@@ -90,6 +176,8 @@ class Bilna_Customer_Model_Api2_Wishlistcollection extends Bilna_Rest_Model_Api2
         
         return FALSE;
     }
+     * 
+     */
     
     public function getCollectionItemsTotal($wishlist)
     {

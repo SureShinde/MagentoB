@@ -140,8 +140,16 @@ class bulkCreateInvoice extends Mage_Shell_Abstract {
                 continue;
             }
             $this->logProgress($orderIncrementId . ' => Normalize order item success.');
+
+            //- normalisasi order payment
+            if (!$this->normalizeOrderPayment($orderId)) {
+                $this->logProgress($orderIncrementId . ' => Normalize order payment failed.');
+                continue;
+            }
+            $this->logProgress($orderIncrementId . ' => Normalize order payment success.');
             
             //- create invoice
+            $order = Mage::getModel('sales/order')->loadByIncrementId($orderIncrementId);
             $invoice = $this->createInvoice($orderId, $order);
             
             if (!$invoice) {
@@ -207,8 +215,22 @@ class bulkCreateInvoice extends Mage_Shell_Abstract {
         $sql = sprintf("
             UPDATE `%s`
             SET `qty_invoiced` = 0.0000, `discount_invoiced` = 0.0000, `base_discount_invoiced` = 0.0000, `row_invoiced` = 0.0000, `base_row_invoiced` = 0.0000 
-            WHERE `order_id` IN (%d)
+            WHERE `order_id` IN (%d);
         ", $this->resource->getTableName('sales/order_item'), $orderId);
+        
+        if (!$this->write->query($sql)) {
+            return false;
+        }
+        
+        return true;
+    }
+
+    protected function normalizeOrderPayment($orderId) {
+        $sql = sprintf("
+            UPDATE `%s`
+            SET `base_shipping_captured` = NULL, `shipping_captured` = NULL, `base_amount_paid` = NULL, `amount_paid` = NULL 
+            WHERE `parent_id` IN (%d);
+        ", $this->resource->getTableName('sales/order_payment'), $orderId);
         
         if (!$this->write->query($sql)) {
             return false;
@@ -218,6 +240,10 @@ class bulkCreateInvoice extends Mage_Shell_Abstract {
     }
     
     protected function createInvoice($orderIncrementId, $order) {
+    // disable the point reward observer when running this code
+    Mage::app()->getConfig()->getEventConfig('global', 'sales_order_invoice_pay');
+    $path = 'global/events/sales_order_invoice_pay/observers/points_invoice_pay_observer/type';
+    Mage::app()->getConfig()->setNode($path, 'disabled');
         try {
             //- check invoice already exist?
             if (!$order->hasInvoices()) {

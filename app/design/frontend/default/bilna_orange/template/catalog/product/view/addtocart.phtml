@@ -29,6 +29,17 @@
 <?php $_product = $this->getProduct(); ?>
 <?php $buttonTitle = $this->__('Tambah ke troli'); ?>
 <?php if($_product->isSaleable()): ?>
+  <?php
+  // if cross border is disabled and the item is cross border, don't display the add to cart button
+  if (Mage::helper('bilna_crossborder')->isCrossBorderEnabled() == false && 
+      Mage::helper('bilna_crossborder')->isCrossBorder($_product)):
+  ?>
+      <p class="alert-stock link-stock-alert reserved-prod-btn">
+        <a href="#" title="Segera tersedia">Segera tersedia</a>
+      </p>
+  <?php
+  else:
+  ?>
     <div class="add-to-cart">
         <?php if(!$_product->isGrouped()): ?>
         <label for="qty"><?php echo $this->__('Jumlah:') ?></label>
@@ -45,6 +56,7 @@
                 data-id="<?php echo $_product->getId(); ?>"
                 ><i class="fa fa-heart"></i></a>
     </div>
+  <?php endif; ?>
 <?php endif; ?>
 
 <script type="text/javascript">
