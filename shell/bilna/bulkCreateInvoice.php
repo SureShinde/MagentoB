@@ -179,11 +179,13 @@ class bulkCreateInvoice extends Mage_Shell_Abstract {
             $this->logProgress($orderIncrementId . ' => Trigger Netsuite as InvoiceSave success.');
             
             //- insert ke table message dgn body sebagai order_place dan entity_id nya
-            if (!$this->triggerNetsuiteOrderPlace($orderId)) {
+            if ($this->getArg('check_veritrans') != 'true') {
+                if (!$this->triggerNetsuiteOrderPlace($orderId)) {
+                    $this->logProgress($orderIncrementId . ' => Trigger Netsuite as OrderPlace failed.');
+                    continue;
+                }
                 $this->logProgress($orderIncrementId . ' => Trigger Netsuite as OrderPlace failed.');
-                continue;
             }
-            $this->logProgress($orderIncrementId . ' => Trigger Netsuite as OrderPlace failed.');
             
             //- insert ke table message dgn body sebagai customer_save dan entity_id dari table sales_flat_order_adress dgn addres_type nya shipping dgn parent_id nya adalah entity_id sales order yg di atas
             if (!$this->triggerNetsuiteCustomerSave($orderId)) {
