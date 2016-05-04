@@ -852,8 +852,43 @@ a.btn-detail-profile:visited {
 	left: 0;
 	bottom: 0;
 	right: 0;
-	padding: 0 10px 20px;
+	padding: 20px 10px 20px;
 	display: inline-table;
+	font-size: 13px;
+	color: #868A8D;
+}
+.container-collection-whitebg .info-bottom{
+	padding-top: 20px;
+}
+.container-collection-whitebg .img-failed{
+	margin: 0 auto 5px;
+	width: 48px;
+	height: 48px;
+	background: url('../images/Crying-48.png') no-repeat center;
+}
+.container-collection-whitebg .btn{
+margin: 10px 0 10px;
+cursor: pointer;
+}
+.btn-hollow{
+	border-radius: 10px;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	padding: 10px 20px;
+	background: transparent;
+	border: 2px solid #FF6C6C;
+	font-size: 16px;
+	font-weight: bold;
+	color: #FF6C6C;
+}
+.center-block{
+	margin-left: auto!important;
+	margin-right: auto!important;
+	display: block;
+	text-align: center;
+}
+.text-center{
+	text-align: center;
 }
 .inside-collection {
 	border-bottom: 1px dashed #ccc;
@@ -2015,7 +2050,7 @@ input:focus {outline: none !important; }
 		.white-bg-new-coll
 	{
 		margin-top: 4% !important;
-	    overflow: scroll;
+	    overflow: initial;
 	    max-height: 70% !important;
 	    display: inline-block;
 	}
@@ -2432,10 +2467,16 @@ a.tabs-right
 }
 .white-bg-new-coll
 {
-	margin-top: 2%;
-    overflow: scroll;
+    margin-top: 2%;
+    overflow: initial;
+    bottom: initial;
+    min-height: initial;
+    height: auto;
     max-height: 600px;
     display: inline-block;
+}
+.white-bg-new-coll .cause-list{
+	padding-top: 20px;
 }
 div.choose-cover > span.overlayer-pink
 {

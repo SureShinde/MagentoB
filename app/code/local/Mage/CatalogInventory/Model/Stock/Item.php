@@ -558,6 +558,17 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
         }
 
         if ($this->getMaxSaleQty() && $qty > $this->getMaxSaleQty()) {
+            if ($this->getCrossBorder()) {
+                $result->setHasError(true)
+                    ->setMessage(
+                        Mage::helper('cataloginventory')->__('Jumlah pesanan produk impor lebih dari %s.', $this->getMaxSaleQty() * 1)
+                    )
+                    ->setErrorCode('qty_max')
+                    ->setQuoteMessage(Mage::helper('cataloginventory')->__('Some of the products cannot be ordered in requested quantity.'))
+                    ->setQuoteMessageIndex('qty');
+                return $result;
+            }
+
             $result->setHasError(true)
                 ->setMessage(
                     Mage::helper('cataloginventory')->__('The maximum quantity allowed for purchase is %s.', $this->getMaxSaleQty() * 1)
@@ -824,7 +835,8 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
             ->setProductName($product->getName())
             ->setProductTypeId($product->getTypeId())
             ->setProductStatusChanged($product->dataHasChangedFor('status'))
-            ->setProductChangedWebsites($product->getIsChangedWebsites());
+            ->setProductChangedWebsites($product->getIsChangedWebsites())
+            ->setCrossBorder($product->getCrossBorder());
 
         $this->_productInstance = $product;
 

@@ -40,6 +40,35 @@ class AW_Affiliate_Model_Api2_Ordercomplete_Rest_Admin_V1 extends AW_Affiliate_M
             
             try {
                 $historyModel->save();
+                $historyCollection = Mage::getModel('awaffiliate/client_history')->load($clientModel->getId());
+                $client = $historyCollection->getClient();
+
+                $campaign = $client->getCampaign();
+                $conditionsModel = $campaign->getConditionsModel();
+
+                if ($orderModel->hasInvoices()) {
+                    foreach ($orderModel->getInvoiceCollection() as $invoice) {
+                        $getInvoice = $invoice;
+                    }
+                }
+                if ($conditionsModel->getActions()->validate($order)) {
+                    /** @var $trx AW_Affiliate_Model_Transaction_Profit */
+                    $trx = Mage::getModel('awaffiliate/transaction_profit');
+                    $trx->setData(array(
+                        'campaign_id' => $client->getData('campaign_id'),
+                        'affiliate_id' => $client->getData('affiliate_id'),
+                        'traffic_id' => $client->getData('traffic_id'),
+                        'client_id' => $client->getId(),
+                        'linked_entity_type' => AW_Affiliate_Model_Source_Transaction_Profit_Linked::INVOICE_ITEM,
+                        'linked_entity_id' => $orderModel->getIncrementId(),
+                        'linked_entity_invoice' => $getInvoice,
+                        'linked_entity_order' => $orderModel,
+                        'created_at' => Mage::getModel('core/date')->gmtDate(),
+                        'type' => AW_Affiliate_Model_Source_Transaction_Profit_Type::CUSTOMER_PURCHASE
+                    ));
+                    $trx->createTransaction();
+                }
+                
                 $status = 'success';
                 $messages[] = Mage::helper('awaffiliate')->__('Affiliate client history saved successfully');
             } catch (Exception $e) {

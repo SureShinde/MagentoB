@@ -1352,3 +1352,7 @@ input#alert_email {
 	padding: 6px 0 3px;
 }
 
+.related-collection {
+	display: block;
+	clear: both;
+}
