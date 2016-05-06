@@ -231,6 +231,7 @@ extends Mage_Core_Controller_Front_Action
         $customerId = $customer->getId();
 
         $visibility = ($this->getRequest()->getParam('visibility', 0) === 'on' ? 1 : 0);
+        $editorFlag = ($this->getRequest()->getParam('editor_flag', 0) === 'on' ? 1 : 0);
 
         $wishlistName = (isset($this->postData['name'])) ?
             $this->postData['name'] : null;
@@ -256,7 +257,7 @@ extends Mage_Core_Controller_Front_Action
             # Check the limit is disabled
 			/*Mage::helper('socialcommerce')->checkCollectionLimit($customerId);*/
 
-            $this->createNewCollection($customerId, $wishlistName, $visibility, $desc, $collectionCategory);
+            $this->createNewCollection($customerId, $wishlistName, $visibility, $desc, $collectionCategory, $editorFlag);
 
             # Success notification
             $message = 'Your new collection "'.$wishlistName.'" has been successfully saved.';
@@ -277,7 +278,7 @@ extends Mage_Core_Controller_Front_Action
 
     }
 
-    protected function createNewCollection($customerId, $wishlistName, $visibility, $desc, $collectionCategory)
+    protected function createNewCollection($customerId, $wishlistName, $visibility, $desc, $collectionCategory, $editorFlag)
     {
         $wishlist = Mage::getModel('wishlist/wishlist');
 
@@ -291,6 +292,7 @@ extends Mage_Core_Controller_Front_Action
             //->setCloudCover($cover)
             ->setCover($cover)
             ->setCategories($collectionCategory)
+            ->setEditorFlag($editorFlag)
             ->save();
 
         if ($preset_image = $_POST['preset_image']) {
@@ -329,11 +331,13 @@ extends Mage_Core_Controller_Front_Action
                 $titleUpdate = null;
 
                 $visibility = (isset($this->postData['visibility'])) ? true : false;
+                $editorFlag = (isset($this->postData['editor_flag'])) ? true : false;
 
                 # TODO need to check if submitted collection is belong to logged user.
 
                 $wishlist = Mage::getModel('wishlist/wishlist')->load($collectionId);
                 $wishlist->setVisibility($visibility);
+                $wishlist->setEditorFlag($editorFlag);
 
                 #Get wishlist name
                 $wlname = $wishlist->getName();

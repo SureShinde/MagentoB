@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Moxy_SocialCommerce>
-            <version>0.1.11</version>
+            <version>0.1.12</version>
         </Moxy_SocialCommerce>
     </modules>
 

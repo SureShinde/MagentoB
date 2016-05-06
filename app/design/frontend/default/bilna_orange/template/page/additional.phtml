@@ -12,11 +12,6 @@
     <?php endif ?>
 <?php endforeach; ?>
 <!-- END ematic cart payload -->
-<?php
-# Get Collection Categories
-$collectionCategoriesCollection = Mage::getModel('socialcommerce/collectioncategory')->getCollection();
-$hasCollectionCategory = $collectionCategoriesCollection->count() < 1 ? false : true;
-?>
 
 <!-- ecommerce Google Analytics & Ematic -->
 <script type="text/javascript">
@@ -143,6 +138,20 @@ $customer = Mage::getSingleton('customer/session')->getCustomer();
 $profile = Mage::getModel('socialcommerce/profile')->load($customer->getId(), 'customer_id');
 $categories = Mage::getModel('socialcommerce/collectioncategory')->getCollection();
 $images = Mage::getModel('socialcommerce/collectioncover')->getCollection()->setCurPage(1)->setPageSize(12);
+$isLoggedIn = Mage::getSingleton('customer/session')->isLoggedIn();
+if ($isLoggedIn) {
+    $isEditor = false;
+    $customerGroupId = Mage::getSingleton('customer/session')->getCustomerGroupId();
+    $customerGroup = Mage::getModel('customer/group')->load($customerGroupId);
+
+    if (strtolower($customerGroup->getCode()) == 'editor') {
+        $isEditor = true;
+
+        # Get Collection Categories
+        $collectionCategoriesCollection = Mage::getModel('socialcommerce/collectioncategory')->getCollection();
+        $hasCollectionCategory = $collectionCategoriesCollection->count() < 1 ? false : true;
+    }
+}
 ?>
 
 <!-- Modal dialog to create new collection -->
@@ -209,6 +218,7 @@ $images = Mage::getModel('socialcommerce/collectioncover')->getCollection()->set
                             <textarea rows="4" name="desc" class="form-control input-new-collection" maxlength="250" placeholder="Mengapa produk-produk dalam koleksi ini menginspirasi anda? Apa cerita dibalik tema koleksi anda?" style="resize:none;height:auto;"></textarea>
                         </div>
                     </div>
+                    <?php if ($isEditor) : ?>
                     <div class="form-group in-block full-width">
                         <label for="inputEmail3" class="cg-col-xs-12 control-label label-color label-margin take-left opensans">Kategori <span class="light lil-exp">kategori koleksi yang ingin anda buat</span></label>
                         <div class="cg-col-sm-12">
@@ -222,6 +232,11 @@ $images = Mage::getModel('socialcommerce/collectioncover')->getCollection()->set
                             <?php endif; ?>
                         </div>
                     </div>
+                    <div class="take-left bottom-spacer-container" style="margin-top: 20px;">
+                        <input type="checkbox" name="editor_flag" id="editor_flag" class="input-collection" style="height: inherit; width:10px;" checked>
+                        <label for="editor_flag" class="check-public">Tampilkan di halaman utama</label>
+                    </div>
+                    <?php endif; ?>
                 </div>
                 <div class="cg-col-xs-12">
                     <div class="form-group in-block full-width nomargin">
@@ -336,8 +351,7 @@ $images = Mage::getModel('socialcommerce/collectioncover')->getCollection()->set
             </div>
         </div>
 
-        <?php if (Mage::getSingleton('customer/session')->isLoggedIn()) : ?>
-
+        <?php if (isLoggedIn) : ?>
             <form class="in-block cg-col-lg-7 cg-col-md-7 cg-col-sm-12 cg-col-xs-12 add-dashed" action="<?php echo $this->getUrl('social/settings/additemtocollection'); ?>" method="post" enctype="multipart/form-data" onsubmit="return preventDouble(this)" style="min-height:280px;">
 
                 <?php
@@ -517,7 +531,7 @@ $images = Mage::getModel('socialcommerce/collectioncover')->getCollection()->set
     <div class="in-block cg-col-lg-7 cg-col-md-7 cg-col-sm-12 cg-col-xs-12 login-collection">
         <p style="color: #545454;">Please login to add this item to your collection. <br>
             <a
-                <?php if (!Mage::getSingleton('customer/session')->isLoggedIn()): ?>
+                <?php if (!isLoggedIn): ?>
                     href="<?php echo Mage::getUrl('customer/account/login'); ?>"
                     onclick="hideAddToCollectionDialog();return false;" class="btn-pink-prime in-block"
                 <?php endif; ?>>

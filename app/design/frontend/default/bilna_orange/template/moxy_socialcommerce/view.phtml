@@ -5,6 +5,7 @@ $loggedCustomer = Mage::getSingleton('customer/session')->getCustomer();
 $isLoggedIn = Mage::getSingleton('customer/session')->isLoggedIn();
 // TODO: Check user condition by $viewer variable
 $viewer = '';
+$isEditor = false;
 
 if ($isLoggedIn) {
 
@@ -12,6 +13,12 @@ if ($isLoggedIn) {
         $viewer = 'owner';
     } else {
         $viewer = 'other_user';
+    }
+    $customerGroupId = Mage::getSingleton('customer/session')->getCustomerGroupId();
+
+    $customerGroup = Mage::getModel('customer/group')->load($customerGroupId);
+    if (strtolower($customerGroup->getCode()) == 'editor') {
+        $isEditor = true;
     }
 }
 
@@ -188,11 +195,11 @@ $hasCollectionCategory = $collectionCategoriesCollection->count() < 1 ? false : 
                         <?php if ($viewer == 'owner' || ! $collectionEmpty): ?>
                             <div class="cg-col-lg-3 cg-col-md-3 cg-col-sm-6 cg-col-xs-6 bottom-spacer-container">
 
-                            <?php if ($viewer == 'owner') : ?>
+                            <?php if ($viewer == 'owner' || $isEditor) : ?>
                                 <div class="cg-col-lg-12 relative">
                                     <div class="container-collection cg-col-lg-12 cg-col-md-12 cg-col-sm-12 cg-col-xs-12 nobackground">
                                         <div class="cg-col-lg-12 cg-col-md-12 cg-col-sm-12 cg-col-xs-12">
-                                            <a href="javascript:;" class="edit-collection editCollectionLink" onclick="" data-collection-id="<?php echo $wishlist->getId(); ?>" data-desc-col="<?php echo $wishlist->getDesc(); ?>"  data-title-col="<?php echo $wishlist->getName(); ?>" data-visibility-col="<?php echo $wishlist->getVisibility(); ?>"><i class="fa fa-pencil"></i></a>
+                                            <a href="javascript:;" class="edit-collection editCollectionLink" onclick="" data-collection-id="<?php echo $wishlist->getId(); ?>" data-desc-col="<?php echo $wishlist->getDesc(); ?>"  data-title-col="<?php echo $wishlist->getName(); ?>" data-visibility-col="<?php echo $wishlist->getVisibility(); ?>" data-editor-flag-col="<?php echo $wishlist->getEditorFlag(); ?>"><i class="fa fa-pencil"></i></a>
                                         </div>
                                     </div>
                                 </div>
@@ -270,6 +277,7 @@ $hasCollectionCategory = $collectionCategoriesCollection->count() < 1 ? false : 
                             <textarea rows="4" name="desc" id="modalDescCol" class="form-control input-new-collection" maxlength="250" placeholder="Penjelasan singkat mengenai tema koleksi anda" style="resize:none;height:auto;"></textarea>
                         </div>
                     </div>
+                    <?php if ($isEditor) : ?>
                     <div class="form-group in-block full-width">
                         <label for="inputEmail3" class="cg-col-xs-12 control-label label-color label-margin take-left opensans">Kategori <span class="light lil-exp">kategori koleksi yang ingin anda buat</span></label>
                         <div class="cg-col-sm-12">
@@ -285,6 +293,11 @@ $hasCollectionCategory = $collectionCategoriesCollection->count() < 1 ? false : 
                             <?php endif; ?>
                         </div>
                     </div>
+                    <div style="margin-top: 20px;" class="bottom-spacer-container">
+                        <input type="checkbox" name="editor_flag" id="modalEditorFlagCol" class="input-collection" style="height: inherit; width:10px;">
+                        <label for="editor_flag" class="check-public">Tampilkan di halaman utama</label>
+                    </div>
+                    <?php endif; ?>
                 </div>
                 <div class="cg-col-xs-12">
                     <div class="form-group in-block full-width nomargin">
@@ -520,9 +533,15 @@ jQuery(document).ready(function() {
     var desccol = jQuery(this).data('desc-col');
     var visibilitycol = jQuery(this).data('visibility-col');
     var visibility_val = false;
+    var editorflagcol = jQuery(this).data('editor-flag-col');
+    var editorflag_val = false;
 
     if (visibilitycol === 1) {
       visibility_val = true;
+    }
+
+    if (editorflagcol === 1) {
+        editorflag_val = true;
     }
 
     jQuery('#modalCollectionId').val(collectionId);
@@ -530,6 +549,7 @@ jQuery(document).ready(function() {
     jQuery('#modalTitleCol').val(titlecol);
     jQuery('#modalDescCol').val(desccol);
     jQuery('#modalVisibilityCol').prop('checked', visibility_val);
+    jQuery('#modalEditorFlagCol').prop('checked', editorflag_val);
     jQuery('#editCollectionModal').fadeIn('fast');
   });
 });
