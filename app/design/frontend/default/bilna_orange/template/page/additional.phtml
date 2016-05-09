@@ -5,6 +5,7 @@
 
 <script type="text/javascript">
 var ecommerce_container = [];
+$i = 0;
 ecommerce_container = [
 <?php foreach($_items as $_item): ?>
     <?php $parentId = $_item->getParentItemId(); ?>
@@ -21,7 +22,7 @@ ecommerce_container = [
             echo "'quantity' : '".$_item->getQty()."',";
             echo "'brandName' : 'brand name',";
             echo "'imageUrl' : '".$this->helper('catalog/image')->init($_item->getProduct(), 'small_image')->resize(135, 135)."',";
-            echo "'link' : '".$_item->getProduct()->getProductUrl()."'}";if($i != $itemQty-1) {echo ",";}
+            echo "'link' : '".$_item->getProduct()->getProductUrl()."'}";if($i++ != $itemQty-1) {echo ",";}
         ?>
     <?php endif ?>
 <?php endforeach; ?>

@@ -362,9 +362,9 @@ $j(document).ready(function(){
                       'click': {
                         'actionField': {'list': list},      // Optional list property.
                         'products': [
-                          <?php echo "{'name':$_escape_helper->escapeQuote(temp_name[temp_key])," ?>
-                          <?php echo "'sku':temp_sku[temp_key]," ?>
-                          <?php echo "'price':temp_price[temp_key]}" ?>
+                          <?php echo "{'name':".$_escape_helper->escapeQuote(temp_name[temp_key]).","; ?>
+                          <?php echo "'sku':temp_sku[temp_key],"; ?>
+                          <?php echo "'price':temp_price[temp_key]}"; ?>
                          ]
                        }
                      }
