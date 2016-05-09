@@ -140,6 +140,7 @@ $j(document).ready(function(){
                                 data-image="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(320 , 320); ?>"
                                 data-product-name="<?php echo $this->stripTags($_product->getName(), null, true); ?>"
                                 data-price="<?php $_core_helper->currency($_product->getFinalPrice(), true, false); ?>"
+                                data-oldprice="<?php echo $_core_helper->currency($_product->getPrice(),true,false);?>"
                                 data-id="<?php echo $_product->getId(); ?>"><i class="fa fa-heart"></i>
                                 <span class="poper poper<?php echo $_iterates; ?>"> </span>
                               <span class="check-to-clicking check-to-clicking<?php echo $_iterates;?>">tambah ke koleksi</span>
