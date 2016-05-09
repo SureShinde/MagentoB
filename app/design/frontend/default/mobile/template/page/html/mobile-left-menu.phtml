@@ -60,6 +60,7 @@
                         $_name = $_storeCategory['name'];
                         $_url = $_storeCategory['url'];
                         $_urlKey = $_storeCategory['url_key'];
+                        $_storeCategoryClass = ($_id == $_categoryActive) ? "active-category menu-active" : "";
                         ?>
                     
                         <li class="<?php echo $_storeCategoryClass; ?> <?php echo $_id; ?>">
@@ -77,6 +78,7 @@
                     
                             <?php
                             $_storeCategoriesChild = array ();
+                            $_storeCategoryClass = ($_id == $_categoryActive) ? "active-category menu-active" : "";
             
                             if ($_storeCategory['child'] && count($_storeCategory['child'] > 0)):
                                 $_storeCategoriesChild = $_storeCategory['child'];
@@ -103,8 +105,7 @@
                                                     </a>
                                                     <?php
                                                     $_storeCategoriesChildChild = array ();
-
-                                                    if ($_storeCategoryChild['child'] && count($_storeCategoryChild['child'] > 0)):
+                                                    if (isset($_storeCategoryChild['child']) && count($_storeCategoryChild['child'] > 0)):
                                                         $_storeCategoriesChildChild = $_storeCategoryChild['child'];
                                                     endif;
                                                     ?>
