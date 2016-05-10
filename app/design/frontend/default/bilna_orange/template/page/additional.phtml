@@ -1,23 +1,59 @@
 <!-- ematic cart payload -->
 <?php $_items = Mage::helper('checkout/cart')->getQuote()->getAllItems(); ?>
 <?php $itemQty = Mage::helper('checkout/cart')->getItemsCount(); ?>
+<?php $_escape_helper = Mage::helper('catalog/utils'); ?>
+
+<script type="text/javascript">
+var ecommerce_container = [];
+ecommerce_container = [
 <?php foreach($_items as $_item): ?>
     <?php $parentId = $_item->getParentItemId(); ?>
-    <?php if (Mage::helper('weee')->typeOfDisplay($_item, array(0, 1, 4), 'sales') && $_item->getWeeeTaxAppliedAmount()): ?>
-        <?php $lastPrice = $_item->getCalculationPrice()+$_item->getWeeeTaxAppliedAmount()+$_item->getWeeeTaxDisposition(); ?>
-    <?php else: ?>
-        <?php $lastPrice = $_item->getCalculationPrice(); ?>
-    <?php endif; ?>
     <?php if(empty($parentId)): ?>
-        <?php echo '<span id="ematiccart" class="hidden">' . $_item->getProduct()->getName() . $_item->getTypeInstance() . '|' . $_item->getProduct()->getSku() . '|' . $lastPrice . '|' . Mage::helper('core')->currency($lastPrice, true, false) . '|' . $_item->getQty() . '|' . $this->helper('catalog/image')->init($_item->getProduct(), 'small_image')->resize(135, 135) . '|' . $_item->getProduct()->getProductUrl() . '</span>' ?>
+        <?php if (Mage::helper('weee')->typeOfDisplay($_item, array(0, 1, 4), 'sales') && $_item->getWeeeTaxAppliedAmount()): ?>
+            <?php $lastPrice = $_item->getCalculationPrice()+$_item->getWeeeTaxAppliedAmount()+$_item->getWeeeTaxDisposition(); ?>
+        <?php else: ?>
+            <?php $lastPrice = $_item->getCalculationPrice(); ?>
+        <?php endif; ?>
+        <?php
+            echo "{'name' : '".$_escape_helper->escapeQuote($_item->getProduct()->getName())."',";
+            echo "'id' : '".$_item->getProduct()->getSku()."',";
+            echo "'price' : '".$lastPrice."',";
+            echo "'quantity' : '".$_item->getQty()."',";
+            echo "'brandName' : 'brand name',";
+            echo "'imageUrl' : '".$this->helper('catalog/image')->init($_item->getProduct(), 'small_image')->resize(135, 135)."',";
+            echo "'link' : '".$_item->getProduct()->getProductUrl()."'}";if($i != $itemQty-1) {echo ",";}
+        ?>
     <?php endif ?>
 <?php endforeach; ?>
+];
+</script>
 <!-- END ematic cart payload -->
 
 <!-- ecommerce Google Analytics & Ematic -->
 <script type="text/javascript">
-var temp_cartQty = jQuery("span#ematiccart").length;
-function ecommerceCheckout0_buttonclicked() {
+jQuery(document).ready(function(){
+    jQuery(".wrap-header-top-mobile #link-minicart").click(function(){      // call ematic cart in mobile
+        ecommerceCheckout0_reviewCart();
+    });
+});
+
+function ecommerceCheckout0_reviewCart() {            // call ematic cart
+    // ematics cart - find duplicate items between added item and items in cart
+    var temp_cartQty = 0;
+    temp_cartQty = ecommerce_container.length;
+    products = ecommerce_container;
+
+    for (var itr=0; itr<temp_cartQty; itr++) {
+        products[itr].price = "Rp" + products[itr].price.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+    }
+
+    // ematics cart - prepare for logging
+    if (temp_cartQty > 0) {         // at least 1 item in cart
+        ematics("log", "product", "cart", products);    // ematics track items in cart to enable pre-abandonded cart overlays
+    }
+}
+
+function ecommerceCheckout0_onepage() {
     var temp_container = {
         'event': 'checkout',
         'ecommerce': {
@@ -31,47 +67,24 @@ function ecommerceCheckout0_buttonclicked() {
        }
     }
 
-    // ematics cart - retrieve items from cart
-    var temp_cart = [];
-    var temp_item = "";
-    var index_removeditem = "";
-    for (var itr=0; itr < temp_cartQty; itr++) {
-        temp_item = jQuery("span#ematiccart").eq(itr).text();
-        temp_cart[itr] = temp_item.split("|");
-    }
+    // ematics cart - find duplicate items between added item and items in cart
+    var temp_cartQty = 0;
+    temp_cartQty = ecommerce_container.length;
+    products = ecommerce_container;
 
     // ematics cart - prepare for logging
     if (temp_cartQty > 0) {         // at least 1 item in cart
-        products = [
-        <?php for($i=0; $i<$itemQty; $i++) {
-            echo "{'name' : temp_cart[".$i."][0],";
-            echo "'id' : temp_cart[".$i."][1],";
-            echo "'price' : temp_cart[".$i."][3],";
-            echo "'quantity' : temp_cart[".$i."][4],";
-            echo "'brandName' : 'brand name',";
-            echo "'imageUrl' : temp_cart[".$i."][5],";
-            echo "'link' : temp_cart[".$i."][6]}";if($i != $itemQty-1) {echo ",";}
-        }
-        ?>
-        ];
-
-        // ematics track checkout
-        ematics("log", "product", "checkout", products);
 
         // universal analytics
-        temp_container.ecommerce.checkout.products.push(
-            <?php for($i=0; $i<$itemQty; $i++) {
-                echo "{'name' : temp_cart[".$i."][0],";
-                echo "'sku' : temp_cart[".$i."][1],";
-                echo "'price' : temp_cart[".$i."][2],";
-                echo "'quantity' : temp_cart[".$i."][4],";
-                echo "'brandName' : 'brand name',";
-                echo "'imageUrl' : temp_cart[".$i."][5],";
-                echo "'link' : temp_cart[".$i."][6]}";if($i != $itemQty-1) {echo ",";}
-            }
-            ?>
-            );
+        temp_container.ecommerce.checkout.products = products;
         dataLayer.push(temp_container);
+
+        for (var itr=0; itr<temp_cartQty; itr++) {
+            products[itr].price = "Rp" + products[itr].price.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+        }
+
+        // ematics track items in cart to enable pre-abandonded cart overlays
+        ematics("log", "product", "checkout", products);
     }
 }
 
@@ -93,37 +106,22 @@ function ecommerceRemoveCart(name, sku, price, quantity, imageUrl, link) {
       }
     });
 
-    // ematics cart - retrieve items from cart
-    var temp_cart = [];
-    var temp_item = "";
+    // ematics cart - find and remove removed items in cart
     var index_removeditem = "";
-    for (var itr=0; itr < <?php echo $itemQty ?>; itr++) {
-        temp_item = jQuery("span#ematiccart").eq(itr).text();
-        if (temp_item.indexOf(sku) == -1) {     // item that not removed
-            temp_cart[itr] = temp_item.split("|");
-        }
-        else {      // removed item
+    var temp_cartQty = 0;
+    temp_cartQty = ecommerce_container.length;
+    products = ecommerce_container;
+
+    for (var itr=0; itr<temp_cartQty; itr++) {
+        products[itr].price = "Rp" + products[itr].price.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+        if (products[itr].id.indexOf(sku) != -1) {
             index_removeditem = itr;
         }
     }
-
-    // trim empty array because removed item
-    temp_cart = temp_cart.filter(function(v){return v!==''});
+    products.splice(index_removeditem, 1);    // trim removed item
 
     // ematics cart - prepare for logging
-    if (temp_cartQty > 0) {         // at least 1 item in cart
-        products = [
-        <?php for($i=0; $i<$itemQty-1; $i++) {
-            echo "{'name' : temp_cart[".$i."][0],";
-            echo "'id' : temp_cart[".$i."][1],";
-            echo "'price' : temp_cart[".$i."][3],";
-            echo "'quantity' : temp_cart[".$i."][4],";
-            echo "'brandName' : 'brand name',";
-            echo "'imageUrl' : temp_cart[".$i."][5],";
-            echo "'link' : temp_cart[".$i."][6]}";if($i != $itemQty-2) {echo ",";}
-        }
-        ?>
-        ];
+    if (temp_cartQty >= 0) {         // at least 1 item in cart
 
         // ematics track items in cart to enable pre-abandonded cart overlays
         ematics("log", "product", "cart", products);
@@ -140,46 +138,6 @@ $profile = Mage::getModel('socialcommerce/profile')->load($customer->getId(), 'c
 $categories = Mage::getModel('socialcommerce/collectioncategory')->getCollection();
 $images = Mage::getModel('socialcommerce/collectioncover')->getCollection()->setCurPage(1)->setPageSize(12);
 ?>
-
-<!-- Modal dialog to create new collection -->
-<div class="container-collection-pop" style="display:none" id="addCollectionModal">
-    <div class="cg-col-lg-5 cg-col-md-6 cg-col-sm-6 cg-col-xs-11 container-collection-whitebg make-table">
-        <img class="cg-col-lg-6 cg-col-md-6 hidden-sm hidden-xs" src="<?php echo $this->getSkinUrl('images/') . 'add-col.jpg'; ?>" width="100%;" style="margin-top:25px;">
-        <form action="<?php echo $this->getUrl('social/settings/createnewcollection'); ?>" method="post" enctype="multipart/form-data" onsubmit="return preventDouble(this)">
-            <div class="cg-col-lg-6 cg-col-xs-12 cg-col-sm-12 cg-col-md-6 box inside-collection noborder">
-                <div class="cg-col-lg-12 cg-col-sm-12 cg-col-md-12 cg-col-xs-12 collection-top-part">
-                    <div class="cg-col-lg-11 cg-col-md-11 cg-col-sm-11 cg-col-xs-11 add-to-collection-title opensans take-left">Buat Halaman Koleksi</div>
-                    <div class="cg-col-lg-1 cg-col-md-1 cg-col-sm-1 cg-col-xs-1 " id="closer-collection">
-                        <a href="javascript:;" onclick="hideAddCollectionDialog()" style="text-decoration:none;width:100%;display:block">x</a>
-                    </div>
-                </div>
-                <div class="cg-col-xs-12">
-                    <label for="name" class="full-width" style="color: #545454; margin-bottom: 10px;">Collection Title</label>
-                    <input type="text" name="name" id="name" class="input-collection full-width" required>
-                    <label for="name" class="full-width" style="color: #545454; margin-bottom: 10px; margin-top: 10px;">Collection Description</label>
-                    <textarea rows="4" name="desc" class="input-collection full-width" maxlength="250" placeholer="what's your collection about?"></textarea>
-                    <div class="cg-col-xs-12 in-block upload nopadding" style="margin-top:10px;">
-                        <input type="file" title="browse your image" name="cover">
-                    </div>
-
-                    <label for="name" class="full-width cover-exp">Upload Cover Image <br /> (JPG image, 800px width and 800px height, max 1MB)</label>
-
-                    <div style="margin-top: 20px;">
-                        <input type="checkbox" name="visibility" id="visibility" class="input-collection" style="height: inherit; width:10px;" checked>
-                        <label for="visibility" style="color: #545454; height: 40px;">Make Public</label>
-                    </div>
-                </div>
-            </div>
-            <div class="cg-col-xs-6">
-                <a class="btn btn-default btn-block btn-cancel" style="text-decoration:none" onclick="hideAddCollectionDialog()">Cancel</a>
-            </div>
-            <div class="cg-col-xs-6">
-                <button type="submit" class="btn btn-primary btn-block" style="margin: 10px 0;" name="submitButton">Save</button>
-            </div>
-            <input type="hidden" name="username" value="<?php echo $profile->getUsername(); ?>">
-        </form>
-    </div>
-</div>
 
 <!-- new add collection popup -->
 <div class="container-collection-pop" style="display:none;" id="newAddCollectionModal">
