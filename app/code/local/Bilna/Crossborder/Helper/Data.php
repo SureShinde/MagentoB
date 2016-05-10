@@ -162,4 +162,76 @@ class Bilna_Crossborder_Helper_Data extends Mage_Core_Helper_Abstract {
 
         return false;
     }
+
+    /**
+     * Function to validate cross border items based on configuration limit (weight, volume, quantity, and subtotal)
+     * @param $quote
+     * @return array
+     */
+    public function validateQuote($quote)
+    {
+        $success = true;
+        $message = '';
+
+        if ($this->isCrossBorderEnabled()) {
+            $invalidCount = 0;
+            $messages = array();
+            $totalWeight = 0;
+            $totalVolume = 0;
+            $subtotal = 0;
+            $crossBorderConfig = $this->getConfiguration();
+            $maxWeightAllowed = $crossBorderConfig['max_weight_allowed'];
+//            $maxVolumeAllowed = $crossBorderConfig['max_volume_allowed'];
+            $maxSubtotalAllowed = $crossBorderConfig['max_subtotal_allowed'];
+
+            // Get All Cross Border Items and calculate the totals
+            $cartItems = $quote->getAllItems();
+            if (!empty($cartItems)) {
+                foreach ($cartItems as $item) {
+                    if ($item->cross_border == 1) {
+                        $totalWeight += $item->weight * $item->qty;
+                        //                    $totalVolume += ((float) $item->volume_weight ) * $item->qty;
+                        $subtotal += ($item->price * $item->qty) - $item->discount_amount;
+                    }
+                }
+            }
+
+            // Check Weight Limitation
+            if ($totalWeight > $maxWeightAllowed) {
+                $messages[] = Mage::helper('checkout')->__('Total berat produk impor melebihi ' . $maxWeightAllowed . ' kg');
+                $invalidCount++;
+            }
+
+            // Check Volume Limitation
+            /*if ($totalVolume > $maxVolumeAllowed) {
+                $messages[] = Mage::helper('checkout')->__('Volume pesanan produk impor lebih dari ') . $maxVolumeAllowed;
+                $invalidCount++;
+            }*/
+
+            // Check Subtotal Limitation
+            if ($subtotal > (float) $maxSubtotalAllowed) {
+                $messages[] = Mage::helper('checkout')->__('Total harga pesanan produk impor melebihi Rp ') . $maxSubtotalAllowed;
+                $invalidCount++;
+            }
+
+            if ($invalidCount > 0) { // If there is any invalid criteria, throw the Exception
+                $success = false;
+            }
+        } else { // If Cross Border is disabled
+            $cartItems = Mage::helper("checkout/cart")->getQuote()->getAllItems();
+            if (!empty($cartItems)) {
+                foreach ($cartItems as $item) {
+                    // If there is any cross border item on shopping cart
+                    if ($item->cross_border == 1) {
+                        $messages[] =
+                            Mage::helper('checkout')->__('Layanan pengiriman produk impor sedang tidak tersedia. Hapus produk impor untuk melanjutkan pesanan');
+                        $success = false;
+                        break;
+                    }
+                }
+            }
+        }
+
+        return array('success' => $success, 'messages' => $messages);
+    }
 }

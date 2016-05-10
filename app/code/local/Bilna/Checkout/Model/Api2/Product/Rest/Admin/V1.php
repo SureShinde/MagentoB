@@ -21,16 +21,15 @@ class Bilna_Checkout_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Checkout_Mod
     	$storeId = isset($data['store_id']) ? $data['store_id'] : 1;
     	/*$productId = $data['product_id'];
     	$qty = isset($data['qty']) ? $data['qty'] : 1;*/
-
         $productsData = array($data['products']);
 
     	try {
-	    	$quote = $this->_getQuote($quoteId, $storeId);                   
-
-	    	if(empty($productsData))
-	    	{
-	    		Mage::throwException("Invalid Product Data");
-	    	}
+	    	$quote = $this->_getQuote($quoteId, $storeId);
+            $crossBorderHelper = Mage::helper('bilna_crossborder');
+            if(empty($productsData))
+            {
+                Mage::throwException("Invalid Product Data");
+            }
 
             $errors = array();
             foreach ($productsData as $productItem)
@@ -42,6 +41,12 @@ class Bilna_Checkout_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Checkout_Mod
                     $result = $quote->addProduct($productByItem, $productRequest);
                     if (is_string($result)) {
                         Mage::throwException($result);
+                    }
+
+                    // Cross Border Validation
+                    $validationResult = $crossBorderHelper->validateQuote($quote);
+                    if (!$validationResult['success']) {
+                        $errors = array_merge($errors, $validationResult['messages']);
                     }
                 } catch (Mage_Core_Exception $e) {
                     $errors[] = $e->getMessage();
@@ -107,7 +112,9 @@ class Bilna_Checkout_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Checkout_Mod
         $productsData = array($data['products']);
     	
     	try {
+            $errors = array();
 	    	$quote = $this->_getQuote($quoteId, $storeId);
+            $crossBorderHelper = Mage::helper('bilna_crossborder');
 	        
 	    	if(empty($productsData))
 	    	{
@@ -144,8 +151,17 @@ class Bilna_Checkout_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Checkout_Mod
                 }
 
                 $quote->addItem($quoteItem);
+
+                // Cross Border Validation
+                $validationResult = $crossBorderHelper->validateQuote($quote);
+                if (!$validationResult['success']) {
+                    $errors = array_merge($errors, $validationResult['messages']);
+                }
             }
 
+            if (!empty($errors)){
+                Mage::throwException(implode(PHP_EOL, $errors));
+            }
             $quote->getShippingAddress()->setCollectShippingRates(true);
             $quote->getShippingAddress()->collectShippingRates();
             $quote->collectTotals(); // calls $address->collectTotals();
