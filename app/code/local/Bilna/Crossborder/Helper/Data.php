@@ -218,7 +218,7 @@ class Bilna_Crossborder_Helper_Data extends Mage_Core_Helper_Abstract {
                 $success = false;
             }
         } else { // If Cross Border is disabled
-            $cartItems = Mage::helper("checkout/cart")->getQuote()->getAllItems();
+            $cartItems = $quote->getAllItems();
             if (!empty($cartItems)) {
                 foreach ($cartItems as $item) {
                     // If there is any cross border item on shopping cart
