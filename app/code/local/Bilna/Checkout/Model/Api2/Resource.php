@@ -309,7 +309,7 @@ class Bilna_Checkout_Model_Api2_Resource extends Mage_Api2_Model_Resource
      */
     protected function _getCrossBorderHelper()
     {
-        if (! $this->_crossBorderHelper instanceOf Bilna_Crossborder_Helper_Data) {
+        if (!$this->_crossBorderHelper instanceOf Bilna_Crossborder_Helper_Data) {
             $this->_crossBorderHelper = Mage::helper('bilna_crossborder');
         }
         return;
