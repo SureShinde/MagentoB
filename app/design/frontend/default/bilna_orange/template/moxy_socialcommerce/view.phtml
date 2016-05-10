@@ -170,7 +170,7 @@ $hasCollection = $wishlistCollection->count() < 1 ? false : true;
                 # Check for wishlist visibility.
                 # If wishlist is private, and the active user is not the owner of the wishlist,
                 # the item should be skipped.
-                if ($wishlist->getVisibility() == 0 && $owner != 'owner') {
+                if ($wishlist->getVisibility() == 0 && $viewer != 'owner') {
                   continue;
                 }
 
