@@ -46,7 +46,9 @@ class Bilna_Checkout_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Checkout_Mod
                     // Cross Border Validation
                     $validationResult = $crossBorderHelper->validateQuote($quote);
                     if (!$validationResult['success']) {
-                        $errors = array_merge($errors, $validationResult['messages']);
+                        foreach($validationResult['messages'] as $errorMessage) {
+                            $this->_error($errorMessage, Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
+                        }
                     }
                 } catch (Mage_Core_Exception $e) {
                     $errors[] = $e->getMessage();
@@ -112,7 +114,6 @@ class Bilna_Checkout_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Checkout_Mod
         $productsData = array($data['products']);
     	
     	try {
-            $errors = array();
 	    	$quote = $this->_getQuote($quoteId, $storeId);
             $crossBorderHelper = Mage::helper('bilna_crossborder');
 	        
@@ -155,13 +156,12 @@ class Bilna_Checkout_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Checkout_Mod
                 // Cross Border Validation
                 $validationResult = $crossBorderHelper->validateQuote($quote);
                 if (!$validationResult['success']) {
-                    $errors = array_merge($errors, $validationResult['messages']);
+                    foreach($validationResult['messages'] as $errorMessage) {
+                        $this->_error($errorMessage, Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
+                    }
                 }
             }
 
-            if (!empty($errors)){
-                Mage::throwException(implode(PHP_EOL, $errors));
-            }
             $quote->getShippingAddress()->setCollectShippingRates(true);
             $quote->getShippingAddress()->collectShippingRates();
             $quote->collectTotals(); // calls $address->collectTotals();
