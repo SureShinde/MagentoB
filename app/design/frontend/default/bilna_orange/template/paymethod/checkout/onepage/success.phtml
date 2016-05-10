@@ -66,10 +66,14 @@ if ($this->getOrderId()):
     endif;
 endif;
 
+$orderNo = $this->getOrderId();
 $order = Mage::getSingleton('sales/order')->loadByIncrementId($this->getOrderId());
 if ($totalData = $order->getData()) {
     if (array_key_exists('subtotal', $totalData)) {
         $subtotal = $totalData['subtotal'];
+    }
+    if (array_key_exists('total_qty_ordered', $totalData)) {
+        $totalOrderedItems = $totalData['total_qty_ordered'];
     }
 }
 ?>
@@ -166,18 +170,6 @@ endif;
                 <?php echo $this->getInstruction(); ?>
             </div>
         <?php endif; ?>
-
-            <!-- Involve Asia -->
-            <div id="SS-GTM-order-id" style="display:none">
-                <?php echo $orderNoLink; ?>
-            </div>
-            <div id="SS-GTM-amount" style="display:none">
-                <?php echo $subtotal; ?>
-            </div>
-            <div id="SS-GTM-transaction-id" style="display:none">
-                <!-- [SESSION_ID] -->
-            </div>
-            <!-- END Involve Asia -->
     </div>
 <?php elseif ($responsePage == 'challenge'): ?>
     <div class="wrapper_challange_page">
@@ -304,6 +296,21 @@ endif;
 <?php else: ?>
     <!-- do nothing -->
 <?php endif; ?>
+
+<!-- Involve Asia -->
+<div id="SS-GTM-order-id" style="display:none">
+    <?php echo $orderNo; ?>
+</div>
+<div id="SS-GTM-amount" style="display:none">
+    <?php echo $subtotal; ?>
+</div>
+<div id="SS-GTM-total-item" style="display:none">
+    <?php echo $totalOrderedItems;?>
+</div>
+<div id="SS-GTM-transaction-id" style="display:none">
+    <!-- [SESSION_ID] -->
+</div>
+<!-- END Involve Asia -->
 
 <?php $cartItems = Mage::getModel('sales/order')->loadByIncrementId($this->getOrderId()); ?>
 <?php $skuCollection = array(); ?>
