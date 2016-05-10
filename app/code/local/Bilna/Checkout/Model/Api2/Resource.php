@@ -328,7 +328,6 @@ class Bilna_Checkout_Model_Api2_Resource extends Mage_Api2_Model_Resource
                 $this->_error($errorMessage, Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
             }
         }
-
         return;
     }
 
