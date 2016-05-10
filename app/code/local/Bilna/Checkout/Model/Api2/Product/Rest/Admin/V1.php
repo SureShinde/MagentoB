@@ -25,7 +25,7 @@ class Bilna_Checkout_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Checkout_Mod
 
     	try {
 	    	$quote = $this->_getQuote($quoteId, $storeId);
-            $crossBorderHelper = Mage::helper('bilna_crossborder');
+
             if(empty($productsData))
             {
                 Mage::throwException("Invalid Product Data");
@@ -42,14 +42,7 @@ class Bilna_Checkout_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Checkout_Mod
                     if (is_string($result)) {
                         Mage::throwException($result);
                     }
-
-                    // Cross Border Validation
-                    $validationResult = $crossBorderHelper->validateQuote($quote);
-                    if (!$validationResult['success']) {
-                        foreach($validationResult['messages'] as $errorMessage) {
-                            $this->_error($errorMessage, Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
-                        }
-                    }
+                    $this->_validateCrossBorder($quote);
                 } catch (Mage_Core_Exception $e) {
                     $errors[] = $e->getMessage();
                 }
@@ -115,7 +108,6 @@ class Bilna_Checkout_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Checkout_Mod
     	
     	try {
 	    	$quote = $this->_getQuote($quoteId, $storeId);
-            $crossBorderHelper = Mage::helper('bilna_crossborder');
 	        
 	    	if(empty($productsData))
 	    	{
@@ -152,14 +144,7 @@ class Bilna_Checkout_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Checkout_Mod
                 }
 
                 $quote->addItem($quoteItem);
-
-                // Cross Border Validation
-                $validationResult = $crossBorderHelper->validateQuote($quote);
-                if (!$validationResult['success']) {
-                    foreach($validationResult['messages'] as $errorMessage) {
-                        $this->_error($errorMessage, Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
-                    }
-                }
+                $this->_validateCrossBorder($quote);
             }
 
             $quote->getShippingAddress()->setCollectShippingRates(true);

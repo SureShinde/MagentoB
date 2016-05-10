@@ -36,7 +36,6 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
         try {
             $store = $this->_getStore();
             $quote = $this->_getQuote($quoteId, $store);
-            $crossBorderHelper = Mage::helper('bilna_crossborder');
             
             if ($quote->getIsMultiShipping()) {
                 throw Mage::throwException('Invalid Checkout Type');
@@ -46,13 +45,7 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
                 throw Mage::throwException('Guest Checkout is not Enable');
             }
 
-            // Cross Border Validation
-            $validationResult = $crossBorderHelper->validateQuote($quote);
-            if (!$validationResult['success']) {
-                foreach($validationResult['messages'] as $errorMessage) {
-                    $this->_error($errorMessage, Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
-                }
-            }
+            $this->_validateCrossBorder($quote);
 
              /** @var $customerResource Mage_Checkout_Model_Api_Resource_Customer */
             $customerResource = Mage::getModel("checkout/api_resource_customer");
