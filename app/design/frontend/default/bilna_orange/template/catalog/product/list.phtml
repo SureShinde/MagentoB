@@ -349,29 +349,6 @@ $j(document).ready(function(){
               });
             }
 
-            function ecommerceProductClickReview(url) {
-                var temp_name = <?php echo json_encode($productName); ?>;
-                var temp_sku = <?php echo json_encode($sku); ?>;
-                var temp_price = <?php echo json_encode($productPrice); ?>;
-                var temp_url = <?php echo json_encode($url_container); ?>;
-                var temp_id = <?php echo json_encode($productId); ?>;
-                var temp_key = temp_url.indexOf(url);
-                var ecommerceProductClickDataReview = {
-                    'event': 'productClick',
-                    'ecommerce': {
-                      'click': {
-                        'actionField': {'list': list},      // Optional list property.
-                        'products': [
-                          <?php echo "{'name':$_escape_helper->escapeQuote(temp_name[temp_key])," ?>
-                          <?php echo "'sku':temp_sku[temp_key]," ?>
-                          <?php echo "'price':temp_price[temp_key]}" ?>
-                         ]
-                       }
-                     }
-                };
-                dataLayer.push(ecommerceProductClickDataReview);
-            }
-
             $j(document).ready(function(){
                 // impression
                 if (typeof objDataLayer == "undefined") {
