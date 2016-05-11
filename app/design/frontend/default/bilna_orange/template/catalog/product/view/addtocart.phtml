@@ -28,6 +28,10 @@
 <?php $_core_helper =  Mage::helper('core'); ?>
 <?php $_product = $this->getProduct(); ?>
 <?php $buttonTitle = $this->__('Tambah ke troli'); ?>
+<?php 
+      $brand = $_product->getAttributeText('brand');
+      $merchant = $_product->getAttributeText('sold_by');
+?>
 <?php if($_product->isSaleable()): ?>
   <?php
   // if cross border is disabled and the item is cross border, don't display the add to cart button
