@@ -320,12 +320,15 @@ echo $this->getLayout()->createBlock("core/messages")->setMessages($messages)->g
                                 echo $productBlock->getPriceHtml($_product);
                               } else {
                                 $oldPrice = "";
+                                $oldText = "";
                                 if ($productRegularPriceFormatted != $productFinalPriceFormatted) {
                                   $oldPrice = $productRegularPriceFormatted;
+                                  $oldText = "Sebelumnya";
                                 }
                               echo '<span class="regular-price" id="product-price-<?php echo $productId; ?>">
                                     <p class="old-price">
-                                      <span class="price size12" id="old-price-65759">'.$oldPrice.'</span>
+                                      <span class="price-label">'.$oldText.'</span>
+                                      <span class="price size12" id="old-price">'.$oldPrice.'</span>
                                     </p>
                               <div class="price-box"><span class="price opensans">'.$productFinalPriceFormatted.'</span></div></span>'; 
                             }?>                                   
