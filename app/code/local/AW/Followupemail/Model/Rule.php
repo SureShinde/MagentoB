@@ -887,14 +887,14 @@ class AW_Followupemail_Model_Rule extends Mage_Core_Model_Abstract {
             $objects['order']->status = '"' . Mage::getSingleton('sales/order_config')->getStatusLabel($objects['order']->status) . '"';
         }
         
-        // if ($objects['via'] == 'formbuilder') {
-        //     $this->_isValid = true;
-        // }
-        // else {
+        if (isset($objects['via']) && $objects['via'] == 'formbuilder') {
+            $this->_isValid = true;
+        }
+        else {
             if (!$this->_validated) {
                 $this->validate($objects);
             }
-        // }
+        }
         
         if ($this->_isValid) {
             $message = 'rule id=' . $this->getId() . ' validation OK';
