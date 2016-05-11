@@ -72,10 +72,16 @@ if ($totalData = $order->getData()) {
     if (array_key_exists('subtotal', $totalData)) {
         $subtotal = $totalData['subtotal'];
     }
-    if (array_key_exists('total_qty_ordered', $totalData)) {
-        $totalOrderedItems = $totalData['total_qty_ordered'];
-    }
 }
+
+$_items = $order->getAllItems();
+$totalOrderedItems = 0;
+foreach($_items as $_item):
+    $parentId = $_item->getParentItemId();
+    if(empty($parentId)) {
+        $totalOrderedItems++;
+    }
+endforeach;
 ?>
 
 <?php
