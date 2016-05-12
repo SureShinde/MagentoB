@@ -1,9 +1,10 @@
 <?xml version="1.0"?>
 <config>
     <modules>
-        <Mage_Sales>
+        <Bilna_Sales>
             <active>true</active>
             <codePool>local</codePool>
-        </Mage_Sales>
+            <depends>Mage_Api2</depends>
+        </Bilna_Sales>
     </modules>
 </config>
