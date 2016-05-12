@@ -28,14 +28,14 @@
 <?php $_core_helper =  Mage::helper('core'); ?>
 <?php $_product = $this->getProduct(); ?>
 <?php $buttonTitle = $this->__('Tambah ke troli'); ?>
-<?php 
+<?php
       $brand = $_product->getAttributeText('brand');
       $merchant = $_product->getAttributeText('sold_by');
 ?>
 <?php if($_product->isSaleable()): ?>
   <?php
   // if cross border is disabled and the item is cross border, don't display the add to cart button
-  if (Mage::helper('bilna_crossborder')->isCrossBorderEnabled() == false && 
+  if (Mage::helper('bilna_crossborder')->isCrossBorderEnabled() == false &&
       Mage::helper('bilna_crossborder')->isCrossBorder($_product)):
   ?>
       <p class="alert-stock link-stock-alert reserved-prod-btn">
@@ -49,7 +49,7 @@
         <label for="qty"><?php echo $this->__('Jumlah:') ?></label>
         <input type="text" name="qty" id="qty" maxlength="12" value="<?php echo $this->getProductDefaultQty() * 1 ?>" title="<?php echo $this->__('Jumlah') ?>" class="input-text qty" />
         <?php endif; ?>
-        <button type="button" title="<?php echo $buttonTitle ?>" class="button btn-cart" onclick="productAddToCartForm.submit(this); ecommerceProductDetailAddToCart('<?php echo $_escape_helper->escapeQuote($_product->getName()); ?>','<?php echo $_product->getSku() ?>','<?php echo $_product->getPrice() ?>','<?php echo Mage::helper('core')->currency($_product->getPrice(), true, false) ?>','<?php echo $_product->getUrlInStore(array('_ignore_category' => true)) ?>','<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(135); ?>');"><i class="fa fa-cart-plus"></i><span><?php echo $buttonTitle ?></span></button>
+        <button type="button" title="<?php echo $buttonTitle ?>" class="button btn-cart" onclick="productAddToCartForm.submit(this); ecommerceProductDetailAddToCart('<?php echo $_escape_helper->escapeQuote($_product->getName()); ?>','<?php echo $_product->getSku() ?>','<?php echo $_product->getFinalPrice() ?>','<?php echo Mage::helper('core')->currency($_product->getFinalPrice(),true,false) ?>','<?php echo $_product->getUrlInStore(array('_ignore_category' => true)) ?>','<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(135); ?>');"><i class="fa fa-cart-plus"></i><span><?php echo $buttonTitle ?></span></button>
         <?php echo $this->getChildHtml('', true, true) ?>
         <a id="collection-price-<?php echo $_product->getId(); ?>" class="coll-quick addToCollectionLink coll-quick-top" onclick="showAddToCollectionDialog()" href="javascript:;"
                 data-brand-name="<?php echo $brand; ?>"
@@ -126,7 +126,7 @@ function ecommerceProductDetailAddToCart(name, sku, price, price_ematic, link, i
           products.push({
             'id': sku,
             'price': price_ematic,
-            'quantity': 1,
+            'quantity': jQuery("input.#qty").val().toString(),
             'name': name,
             'brandName': 'brand name',
             'imageUrl': imageUrl,
