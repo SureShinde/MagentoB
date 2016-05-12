@@ -323,12 +323,14 @@ class Bilna_Checkout_Model_Api2_Resource extends Mage_Api2_Model_Resource
     {
         $this->_getCrossBorderHelper();
         $validationResult = $this->_crossBorderHelper->validateQuote($quote);
-        if (!$validationResult['success']) {
+        $isValid = $validationResult['success'];
+        if (!$isValid) {
             foreach($validationResult['messages'] as $errorMessage) {
                 $this->_error($errorMessage, Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
             }
+            $this->_critical(self::RESOURCE_DATA_PRE_VALIDATION_ERROR);
         }
-        return;
+        return $isValid;
     }
 
 }
