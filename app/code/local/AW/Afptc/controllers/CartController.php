@@ -38,7 +38,7 @@ class AW_Afptc_CartController extends Mage_Checkout_CartController
         $cart   = $this->_getCart();
         $quote = $cart->getQuote();
         if (!$cart->getQuote()->hasItems()) {
-            Mage::getSingleton('checkout/session')->addError($this->__('Your session has expired (empty cart)'));
+            Mage::getSingleton('checkout/session')->addError($this->__('Your session has expired (empty cart), please resubmit data'));
             Mage::getSingleton('customer/session')->unsAwAfptcRule();
             return $this->_redirectReferer();
         }
@@ -60,12 +60,12 @@ class AW_Afptc_CartController extends Mage_Checkout_CartController
         }         
         $rule = $helper->getRuleFromSession();
         if(!$rule) {
-            Mage::getSingleton('checkout/session')->addError($this->__('Your session has expired (no rule)'));
+            Mage::getSingleton('checkout/session')->addError($this->__('Your session has expired (no rule), please resubmit data'));
             return $this->_redirectReferer();
         }
 
-        if (!$rule->load($rule->getId())->validate($quote)) {
-            Mage::getSingleton('checkout/session')->addError($this->__('Your session has expired (invalid rule)'));
+        if (!$rule->validate($quote)) {
+            Mage::getSingleton('checkout/session')->addError($this->__('Your session has expired (invalid rule), please resubmit data'));
             Mage::getSingleton('customer/session')->unsAwAfptcRule();   
             return $this->_redirectReferer();
         }        
