@@ -291,6 +291,7 @@ endif;
 <?php $qtyCollection = array(); ?>
 <?php $valueCollection = array(); ?>
 <?php $idCollection = array(); ?>
+<?php $totalAll = 0; ?>
 <?php foreach($cartItems->getAllItems() as $cartItem) : ?>
     <?php $idCollection[] = $cartItem->getProductId(); ?>
     <?php $skuCollection[] = $cartItem->getSku(); ?>
