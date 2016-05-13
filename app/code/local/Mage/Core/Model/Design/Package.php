@@ -631,18 +631,18 @@ class Mage_Core_Model_Design_Package
     public function getMergedCssUrl($files)
     {
 	// BILNA-1401 (Fix Merge CSS) - Start
-	$lastMod = null;
-	foreach($files as $singleFile) {
-            if(is_null($lastMod)) {
-                $lastMod = strtotime(date("Y-m-d", filemtime($singleFile)));
-                continue;
-            }
-            else{
-                if($lastMod < strtotime(date("Y-m-d", filemtime($singleFile)))){
-                    $lastMod = strtotime(date("Y-m-d", filemtime($singleFile)));
+	   $lastMod = -1;
+	   foreach($files as $singleFile) {
+            if (file_exists($singleFile)) {
+                $strtotime = strtotime(date("Y-m-d", filemtime($singleFile)));
+                if ($strtotime !== FALSE && $lastMod < $strtotime) {
+                    $lastMod = $strtotime;
                 }
+            } else {
+                Mage::log('File ' . $singleFile . ' not found.');
             }
         }
+        if ($lastMod == -1) return '';
 	// BILNA-1401 (Fix Merge CSS) - End
 
         // secure or unsecure
