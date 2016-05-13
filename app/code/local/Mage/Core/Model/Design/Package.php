@@ -669,10 +669,10 @@ class Mage_Core_Model_Design_Package
             array($this, 'beforeMergeCss'),
             'css'
         );
-        if ($mergeFilesResult) {
-            return $baseMediaUrl . $mergerDir . '/' . $targetFilename;
-        }
-        return '';
+        
+        if (!$mergeFilesResult) return '';
+
+        return $baseMediaUrl . $mergerDir . '/' . $targetFilename;
     }
 
     /**
