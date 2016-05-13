@@ -38,7 +38,7 @@ class AW_Afptc_CartController extends Mage_Checkout_CartController
         $cart   = $this->_getCart();
         $quote = $cart->getQuote();
         if (!$cart->getQuote()->hasItems()) {
-            Mage::getSingleton('checkout/session')->addError($this->__('Your session has expired, please resubmit data'));
+            Mage::getSingleton('checkout/session')->addError($this->__('Your session has expired (empty cart)'));
             Mage::getSingleton('customer/session')->unsAwAfptcRule();
             return $this->_redirectReferer();
         }
@@ -59,16 +59,17 @@ class AW_Afptc_CartController extends Mage_Checkout_CartController
            return $this->_redirectReferer();
         }         
         $rule = $helper->getRuleFromSession();
+        if(!$rule) {
+            Mage::getSingleton('checkout/session')->addError($this->__('Your session has expired (no rule)'));
+            return $this->_redirectReferer();
+        }
+
         if (!$rule->load($rule->getId())->validate($quote)) {
-            Mage::getSingleton('checkout/session')->addError($this->__('Your session has expired, please resubmit data'));
+            Mage::getSingleton('checkout/session')->addError($this->__('Your session has expired (invalid rule)'));
             Mage::getSingleton('customer/session')->unsAwAfptcRule();   
             return $this->_redirectReferer();
         }        
-        if(!$rule) {
-           Mage::getSingleton('checkout/session')->addError($this->__('Your session has expired, please resubmit data'));
-           return $this->_redirectReferer();
-        }
-       
+
         /* to add multiple products in cart add info as related products in request */
         Mage::register(AW_Afptc_Helper_Data::POPUP_PRODUCT_RULE, array($rule->getProductId() => $rule), true);
         
