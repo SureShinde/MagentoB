@@ -25,6 +25,11 @@ class Bilna_Expressshipping_Helper_Data extends Mage_Core_Helper_Abstract {
 
         $cartItems = $quote->getAllItems();
         foreach($cartItems as $item) {
+            
+            // ignore the parent ( configurable or bundle ), we only check the simple
+            if ($item->getProductType() == 'configurable' || $item->getProductType() == 'bundle')
+                continue;
+
             $product = $item->getProduct()->load();
             if ( is_null($product->getExpressShipping()) || $product->getExpressShipping() == 0 ) {
                 $showExpress = false;
