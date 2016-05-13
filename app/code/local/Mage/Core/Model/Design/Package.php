@@ -642,6 +642,7 @@ class Mage_Core_Model_Design_Package
                 Mage::log('File ' . $singleFile . ' not found.');
             }
         }
+        
         if ($lastMod == -1) return '';
 	// BILNA-1401 (Fix Merge CSS) - End
 
