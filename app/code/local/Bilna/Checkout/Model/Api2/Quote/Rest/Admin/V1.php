@@ -63,8 +63,45 @@ class Bilna_Checkout_Model_Api2_Quote_Rest_Admin_V1 extends Bilna_Checkout_Model
         if ($items) {
             $quoteData['quote_items'] = $items[$quoteData['entity_id']];
         }
+
+        $parents = array();
+
+        for ($i = (count($quoteData['quote_items']) - 1) ; $i >= 0 ; $i--)
+        {
+            $parentItemId = $quoteData['quote_items'][$i]['parent_item_id'];
+            $itemId = $quoteData['quote_items'][$i]['item_id'];
+            $isExpress = ( is_null($quoteData['quote_items'][$i]['express_shipping']) ? 0 : $quoteData['quote_items'][$i]['express_shipping'] );
+
+            // if parent does not exist
+            if (is_null($parentItemId) || $parentItemId == '')
+            {
+                $finalIsExpress = $this->checkParentExpress($itemId, $parents, $isExpress);
+                $quoteData['quote_items'][$i]['express_shipping'] = $finalIsExpress;
+            }
+            // if parent exists
+            else
+            {
+                $parents[$parentItemId]['express_shipping'][] = $isExpress;
+            }
+        }
         
         return $quoteData;
+    }
+
+    private function checkParentExpress($itemId, $parents, $isExpress)
+    {
+        if (is_null($parents[$itemId]))
+            return $isExpress;
+        else
+        {
+            for ($i = 0 ; $i < count($parents[$itemId]['express_shipping']) ; $i++)
+            {
+                if ($parents[$itemId]['express_shipping'][$i] == 0)
+                    return 0;
+            }
+        }
+
+        return 1;
     }
 
 }
