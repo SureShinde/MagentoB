@@ -198,19 +198,19 @@ class Bilna_Crossborder_Helper_Data extends Mage_Core_Helper_Abstract {
 
             // Check Weight Limitation
             if ($totalWeight > $maxWeightAllowed) {
-                $messages[] = Mage::helper('checkout')->__('Total berat produk impor melebihi ' . $maxWeightAllowed . ' kg');
+                $messages[] = Mage::helper('checkout')->__('Total berat kiriman luar negeri melebihi ' . $maxWeightAllowed . ' kg');
                 $invalidCount++;
             }
 
             // Check Volume Limitation
             /*if ($totalVolume > $maxVolumeAllowed) {
-                $messages[] = Mage::helper('checkout')->__('Volume pesanan produk impor lebih dari ') . $maxVolumeAllowed;
+                $messages[] = Mage::helper('checkout')->__('Volume pesanan kiriman luar negeri lebih dari ') . $maxVolumeAllowed;
                 $invalidCount++;
             }*/
 
             // Check Subtotal Limitation
             if ($subtotal > (float) $maxSubtotalAllowed) {
-                $messages[] = Mage::helper('checkout')->__('Total harga pesanan produk impor melebihi Rp ') . $maxSubtotalAllowed;
+                $messages[] = Mage::helper('checkout')->__('Total harga pesanan kiriman luar negeri melebihi Rp ') . $maxSubtotalAllowed;
                 $invalidCount++;
             }
 
@@ -224,7 +224,7 @@ class Bilna_Crossborder_Helper_Data extends Mage_Core_Helper_Abstract {
                     // If there is any cross border item on shopping cart
                     if ($item->cross_border == 1) {
                         $messages[] =
-                            Mage::helper('checkout')->__('Layanan pengiriman produk impor sedang tidak tersedia. Hapus produk impor untuk melanjutkan pesanan');
+                            Mage::helper('checkout')->__('Layanan pengiriman luar negeri sedang tidak tersedia. Hapus kiriman luar negeri untuk melanjutkan pesanan');
                         $success = false;
                         break;
                     }
