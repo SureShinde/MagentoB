@@ -802,7 +802,7 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
                     if ($invoice->getTotalQty()) {
                         $invoice->setRequestedCaptureCase(Mage_Sales_Model_Order_Invoice::CAPTURE_OFFLINE);
                         $invoice->setGrandTotal($order->getGrandTotal());
-                        $invoice->setBaseGrandTotal($order->getGrandTotal());
+                        $invoice->setBaseGrandTotal($order->getBaseGrandTotal());
                         $invoice->register();
                         $transaction = Mage::getModel('core/resource_transaction')
                             ->addObject($invoice)
