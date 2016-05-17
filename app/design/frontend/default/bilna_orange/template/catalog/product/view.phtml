@@ -66,8 +66,7 @@
                     </div>
                 
                     <?php
-                    $myproduct = Mage::getModel('catalog/product')->load($_product->getId());
-                    $product_brands = $myproduct->getAttributeText('brands');
+                    $product_brands = $_product->getAttributeText('brand');
                     
                     if ($product_brands):
                     ?>

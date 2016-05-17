@@ -39,11 +39,11 @@
                 <small><?php echo $this->helper('sales')->__('Your credit card will be charged for') ?></small>
             </td>
             <td class="a-right">
-                <small><?php echo $this->displayBaseGrandtotal() ?></small>
+                <small><?php echo $this->displayGrandtotal() ?></small>
             </td>
         </tr>
         <?php endif?>
     </tfoot>
 
-    <input type="hidden" name="gross_amount" id="gross_amount" value="<?php echo $this->getBaseGrandtotal(); ?>" />
+    <input type="hidden" name="gross_amount" id="gross_amount" value="<?php echo $this->getGrandtotal(); ?>" />
 <?php endif; ?>
