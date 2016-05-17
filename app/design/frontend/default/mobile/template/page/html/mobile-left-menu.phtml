@@ -60,10 +60,9 @@
                         $_name = $_storeCategory['name'];
                         $_url = $_storeCategory['url'];
                         $_urlKey = $_storeCategory['url_key'];
-                        $_storeCategoryClass = ($_id == $_categoryActive) ? "active-category menu-active" : "";
                         ?>
                     
-                        <li class="<?php echo $_storeCategoryClass; ?> <?php echo $_id; ?>">
+                        <li class="<?php echo $_id; ?>">
                             <p class="first-level" data-left-menu="<?php echo $_id; ?>"><?php echo $_name; ?></p>
                         </li>
                     <?php endforeach; ?>
@@ -77,8 +76,7 @@
                         ?>
                     
                             <?php
-                            $_storeCategoriesChild = array ();
-                            $_storeCategoryClass = ($_id == $_categoryActive) ? "active-category menu-active" : "";
+                            $_storeCategoriesChild = array ();                            
             
                             if ($_storeCategory['child'] && count($_storeCategory['child'] > 0)):
                                 $_storeCategoriesChild = $_storeCategory['child'];
@@ -86,7 +84,7 @@
                             ?>
                             
                             <?php if (count($_storeCategoriesChild) > 0): ?>
-                                <div class="wrap-first-level <?php echo $_storeCategoryClass; ?> <?php echo $_id; ?>">
+                                <div class="wrap-first-level <?php echo $_id; ?>">
                                     <div class="wrap-level2">
                                         <span class="close-level-2-top back-level-1"> <i class="fa fa-angle-left"></i>Kembali </span>
                                         
