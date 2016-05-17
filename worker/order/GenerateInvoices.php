@@ -29,14 +29,20 @@ class Bilna_Worker_Order_GenerateInvoices extends Bilna_Worker_Order_Order {
                 $paymentCode = $order->getPayment()->getMethodInstance()->getCode();
                 $status = Mage::getModel('paymethod/vtdirect')->updateOrder($order, $paymentCode, $dataObj);
                 
-                if ($status) {
-                    Mage::dispatchEvent('sales_order_place_after', array ('order' => $order));
-                    $this->_queueSvc->delete($job);
-                    $this->_logProgress("#{$incrementId} Process Invoice => success");
+                if ($status === false) {
+                    $this->_logProgress("#{$incrementId} Process Invoice => failed");
+                    $this->_queueSvc->bury($job);
                 }
                 else {
-                    $this->_queueSvc->bury($job);
-                    $this->_logProgress("#{$incrementId} Process Invoice => failed");
+                    if ($status === true) {
+                        Mage::dispatchEvent('sales_order_place_after', array ('order' => $order));
+                        $this->_logProgress("#{$incrementId} Process Invoice => success");
+                    }
+                    else {
+                        $this->_logProgress("#{$incrementId} Process Invoice => skip");
+                    }
+
+                    $this->_queueSvc->delete($job);
                 }
             }
         }
