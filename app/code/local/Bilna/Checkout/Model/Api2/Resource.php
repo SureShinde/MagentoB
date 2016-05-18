@@ -14,7 +14,9 @@ class Bilna_Checkout_Model_Api2_Resource extends Mage_Api2_Model_Resource
     
     const ORDER_STATUS_PENDING_PAYMENT = 'pending_payment';
     const ORDER_STATUS_PENDING_INVOICE = 'pending_invoice';
-    
+
+    protected $_crossBorderHelper;
+
     public function __construct() {
         Mage::app()->getStore()->setStoreId(self::DEFAULT_STORE_ID);
     }
@@ -301,6 +303,35 @@ class Bilna_Checkout_Model_Api2_Resource extends Mage_Api2_Model_Resource
             $address->setRegion($address->getRegionId());
         }
         return $address;
+    }
+
+    /**
+     * Get Bilna Cross Border Helper
+     */
+    protected function _getCrossBorderHelper()
+    {
+        if (!$this->_crossBorderHelper instanceOf Bilna_Crossborder_Helper_Data) {
+            $this->_crossBorderHelper = Mage::helper('bilna_crossborder');
+        }
+        return;
+    }
+
+    /**
+     * Validate Cross Border Items on Quote
+     * @param $quote
+     */
+    protected function _validateCrossBorder($quote)
+    {
+        $this->_getCrossBorderHelper();
+        $validationResult = $this->_crossBorderHelper->validateQuote($quote);
+        $isValid = $validationResult['success'];
+        if (!$isValid) {
+            foreach($validationResult['messages'] as $errorMessage) {
+                $this->_error($errorMessage, Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
+            }
+            $this->_critical(self::RESOURCE_DATA_PRE_VALIDATION_ERROR);
+        }
+        return $isValid;
     }
 
 }

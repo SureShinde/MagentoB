@@ -45,6 +45,8 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
                 throw Mage::throwException('Guest Checkout is not Enable');
             }
 
+            $this->_validateCrossBorder($quote);
+
              /** @var $customerResource Mage_Checkout_Model_Api_Resource_Customer */
             $customerResource = Mage::getModel("checkout/api_resource_customer");
             $isNewCustomer = $customerResource->prepareCustomerForQuote($quote);
