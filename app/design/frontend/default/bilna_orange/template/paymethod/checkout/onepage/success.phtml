@@ -72,14 +72,6 @@ if ($totalData = $order->getData()) {
         $subtotal = $totalData['subtotal'];
     }
 }
-$_items = $order->getAllItems();
-$totalOrderedItems = 0;
-foreach($_items as $_item):
-    $parentId = $_item->getParentItemId();
-    if(empty($parentId)) {
-        $totalOrderedItems++;
-    }
-endforeach;
 ?>
 
 <?php
@@ -147,7 +139,7 @@ endif;
         ?></p></div>
         <div class="col_left">
         <p><?php echo $this->__('Terima kasih Anda telah berbelanja di'); ?></p>
-            <p><?php echo $this->__('Bilna.com'); ?></p>
+            <p><?php echo $this->__('Orami.co.id'); ?></p>
             <p>
                 <?php echo $this->__('Nomor order Anda adalah'); ?>: <?php echo $orderNoLink; ?>.
                 <br/>
@@ -180,7 +172,7 @@ endif;
         <div class="col_left"><p><?php echo "Dear " . Mage::helper('customer')->getCustomerName() . ","; ?></p></div>
         <div class="col_left">
             <p><?php echo $this->__('Terima kasih Anda telah berbelanja di'); ?></p>
-            <p><?php echo $this->__('Bilna.com'); ?></p>
+            <p><?php echo $this->__('Orami.co.id'); ?></p>
             <p>
                 <?php echo $this->__('Nomor order Anda adalah'); ?>: <?php echo $orderNoLink; ?>.
                 <br/>
@@ -235,8 +227,8 @@ endif;
         <div class="col_left">
             <!--p><?php //echo $this->__('THANK YOU FOR SHOPPING WITH'); ?></p-->
             <p><?php echo $this->__('Terima kasih Anda telah berbelanja di'); ?></p>
-            <!--p><?php //echo $this->__('BILNA.COM'); ?></p-->
-            <p><?php echo $this->__('Bilna.com'); ?></p>
+            <!--p><?php //echo $this->__('Orami.co.id'); ?></p-->
+            <p><?php echo $this->__('Orami.co.id'); ?></p>
             <p>
                 <!--<?php //echo $this->__('Your order no is'); ?>: <?php echo $orderNoLink; ?>.-->
                 <?php echo $this->__('Nomor pesanan Anda adalah'); ?>: <?php echo $orderNoLink; ?>.
@@ -280,7 +272,7 @@ endif;
         <div class="col_left"><p><?php echo "Dear " . Mage::helper('customer')->getCustomerName() . ","; ?></p></div>
         <div class="col_left">
             <p><?php echo $this->__('Terima kasih Anda telah berbelanja di'); ?></p>
-            <p><?php echo $this->__('Bilna.com'); ?></p>
+            <p><?php echo $this->__('Orami.co.id'); ?></p>
             <p>
                 <?php echo $this->__('Kami informasikan, transaksi pembayaran untuk nomor order'); ?> [<?php echo $orderNoLink; ?>] <?php echo $this->__('adalah gagal'); ?>.
                 <br/>
@@ -307,9 +299,6 @@ endif;
 </div>
 <div id="SS-GTM-amount" style="display:none">
     <?php echo $subtotal; ?>
-</div>
-<div id="SS-GTM-total-item" style="display:none">
-    <?php echo $totalOrderedItems;?>
 </div>
 <div id="SS-GTM-transaction-id" style="display:none">
     <!-- [SESSION_ID] -->
@@ -345,7 +334,7 @@ endif;
             dataLayer.push({'prices': ['<?php echo $valueDisplay; ?>']});
             dataLayer.push({'quantities': ['<?php echo $qtyDisplay; ?>']});
 
-    	    var ajaxURL = 'https://www.bilna.com/ajaxrequest/data/retrieveconfirm2/';
+    	    var ajaxURL = 'https://www.orami.co.id/ajaxrequest/data/retrieveconfirm2/';
 
             var data = {};
             data.orderId = '<?php echo $this->escapeHtml($this->getOrderId()); ?>';
