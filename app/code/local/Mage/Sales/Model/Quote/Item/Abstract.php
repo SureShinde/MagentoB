@@ -322,6 +322,7 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
     {
         $qty        = $this->getTotalQty();
         // Round unit price before multiplying to prevent losing 1 cent on subtotal
+        // reference : http://support.mageworx.com/magento_problems/magento_bug_wrong_totals_plus_1_2_cents.html
         $total      = $this->getCalculationPriceOriginal() * $qty;
         $baseTotal  = $this->getBaseCalculationPriceOriginal() * $qty;
 
