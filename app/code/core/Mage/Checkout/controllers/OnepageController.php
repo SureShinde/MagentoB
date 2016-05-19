@@ -554,6 +554,20 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
 
         $result = array();
         try {
+//echo $this->getOnePage()->getQuote()->getId();die;
+$couponCodeUsed = Mage::getModel('sales/quote')->getCollection()->addFieldToFilter('coupon_code', $this->getOnePage()->getQuote()->getCouponCode())->getData();
+if (count($couponCodeUsed) > 1) {
+    $delay = 0;
+    foreach ($couponCodeUsed as $couponCode) {
+        $couponDelay[$couponCode['entity_id']] = $delay;
+        $delay++;
+    }
+}
+
+if (array_key_exists($this->getOnePage()->getQuote()->getId(), $couponDelay)) {
+    sleep($couponDelay[$this->getOnePage()->getQuote()->getId()]);
+}
+//echo "<pre>";print_r($couponDelay);die;
             $requiredAgreements = Mage::helper('checkout')->getRequiredAgreementIds();
             if ($requiredAgreements) {
                 $postedAgreements = array_keys($this->getRequest()->getPost('agreement', array()));
