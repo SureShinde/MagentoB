@@ -554,20 +554,29 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
 
         $result = array();
         try {
-//echo $this->getOnePage()->getQuote()->getId();die;
-$couponCodeUsed = Mage::getModel('sales/quote')->getCollection()->addFieldToFilter('coupon_code', $this->getOnePage()->getQuote()->getCouponCode())->getData();
-if (count($couponCodeUsed) > 1) {
-    $delay = 0;
-    foreach ($couponCodeUsed as $couponCode) {
-        $couponDelay[$couponCode['entity_id']] = $delay;
-        $delay++;
-    }
-}
+            $couponDelay = array();
+            $time = time();
+            $to = Mage::getModel('core/date')->date('Y-m-d H:i:s');
+            $from = Mage::getModel('core/date')->date('Y-m-d H:i:s', ($time - 600)); // 10 minutes
+            $couponCode = $this->getOnePage()->getQuote()->getCouponCode();
+            $couponCollection = Mage::getModel('salesrule/coupon')->getCollection()->addFieldToFilter('code', $couponCode)->addFieldToFilter('type', 1)->getFirstItem()->getData();
 
-if (array_key_exists($this->getOnePage()->getQuote()->getId(), $couponDelay)) {
-    sleep($couponDelay[$this->getOnePage()->getQuote()->getId()]);
-}
-//echo "<pre>";print_r($couponDelay);die;
+            if ($couponCollection['type'] == 1) {
+                $couponCodeUsed = Mage::getModel('sales/quote')->getCollection()->addFieldToFilter('coupon_code', $couponCode)->addFieldToFilter('updated_at', array('from' => $from, 'to' => $to));
+
+                if (count($couponCodeUsed) > 1) {
+                    $delay = 0;
+                    foreach ($couponCodeUsed as $couponCode) {
+                        $couponDelay[$couponCode['entity_id']] = $delay;
+                        $delay++;
+                    }
+                }
+            }
+
+            if (array_key_exists($this->getOnePage()->getQuote()->getId(), $couponDelay)) {
+                sleep($couponDelay[$this->getOnePage()->getQuote()->getId()]);
+            }
+
             $requiredAgreements = Mage::helper('checkout')->getRequiredAgreementIds();
             if ($requiredAgreements) {
                 $postedAgreements = array_keys($this->getRequest()->getPost('agreement', array()));
