@@ -66,8 +66,7 @@
                     </div>
                 
                     <?php
-                    $myproduct = Mage::getModel('catalog/product')->load($_product->getId());
-                    $product_brands = $myproduct->getAttributeText('brands');
+                    $product_brands = $_product->getAttributeText('brand');
                     
                     if ($product_brands):
                     ?>
@@ -91,11 +90,10 @@
                     $shopName = $_product->getMerchantShopName();
                     $sold_by = $userName && $shopName ? $shopName : $_product->getAttributeText('sold_by');
                     ?>
-                    
                     <div class="shipsfrom-soldby">
                         <p><?php echo $this->__('Sold by <span>%s</span> and Shipped by <span>%s</span>', ( $sold_by ? $sold_by : '-' ), ( $ship_from ? $ship_from : '-' )) ?></p>
                     </div>
-                
+
                     <hr/>
                     <?php echo $this->getChildHtml('product_type_data') ?>
                     
@@ -123,6 +121,10 @@
                         </p>
                     </div>
 
+                    <?php if (Mage::helper('bilna_crossborder')->isCrossBorder($_product)) { ?>
+                        <div><img src="<?php echo $this->getSkinUrl('images/cross-border-logo.png'); ?>"/></div>
+                    <?php } ?>
+                
                     <?php if ($_product->isSaleable() && $this->hasOptions()): ?>
                         <div class="product-container1">
                             <?php echo $this->getChildChildHtml('container1', '', true, true) ?>

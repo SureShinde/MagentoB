@@ -51,7 +51,7 @@ class Bilna_Rest_Model_Api2_Newsletter_Rest_Admin_V1 extends Bilna_Rest_Model_Ap
             }
             
             if ($type == 'subscribe') {
-                $ownerId->setIsSubscribed(TRUE);
+                //$ownerId->setIsSubscribed(TRUE);
                 $customer = Mage::getModel('customer/customer')->load($ownerId);
                 Mage::getModel('newsletter/subscriber')->subscribeCustomer($customer);
                 

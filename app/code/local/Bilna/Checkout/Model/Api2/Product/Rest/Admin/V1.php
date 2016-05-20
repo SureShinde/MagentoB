@@ -21,16 +21,15 @@ class Bilna_Checkout_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Checkout_Mod
     	$storeId = isset($data['store_id']) ? $data['store_id'] : 1;
     	/*$productId = $data['product_id'];
     	$qty = isset($data['qty']) ? $data['qty'] : 1;*/
-
         $productsData = array($data['products']);
 
     	try {
-	    	$quote = $this->_getQuote($quoteId, $storeId);                   
+	    	$quote = $this->_getQuote($quoteId, $storeId);
 
-	    	if(empty($productsData))
-	    	{
-	    		Mage::throwException("Invalid Product Data");
-	    	}
+            if(empty($productsData))
+            {
+                Mage::throwException("Invalid Product Data");
+            }
 
             $errors = array();
             foreach ($productsData as $productItem)
@@ -43,6 +42,7 @@ class Bilna_Checkout_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Checkout_Mod
                     if (is_string($result)) {
                         Mage::throwException($result);
                     }
+                    $this->_validateCrossBorder($quote);
                 } catch (Mage_Core_Exception $e) {
                     $errors[] = $e->getMessage();
                 }
@@ -144,6 +144,7 @@ class Bilna_Checkout_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Checkout_Mod
                 }
 
                 $quote->addItem($quoteItem);
+                $this->_validateCrossBorder($quote);
             }
 
             $quote->getShippingAddress()->setCollectShippingRates(true);
