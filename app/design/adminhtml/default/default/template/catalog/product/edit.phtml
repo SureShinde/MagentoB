@@ -225,33 +225,6 @@
                 break;
         }
     });
-
-    /**
-     * Add listener to change event on express_shipping dropdown
-     */
-    Event.observe('express_shipping', 'change', function () {
-        var expressShippingValue = parseInt($('express_shipping').getValue());
-        var partnershipTypeId = 'partnership_type';
-        switch(expressShippingValue) {
-            case 1:
-                // If the current Partnership type is dropship or special order, set the value to unselected
-                var partnershipTypeLabel = $('partnership_type').getSelectedOptionHTML().toLowerCase();
-                switch(partnershipTypeLabel) {
-                    case 'dropship':
-                    case 'special order':
-                        $(partnershipTypeId).setValue(''); // Set the value to No
-                        break;
-                }
-                $(partnershipTypeId).disableOptionByLabel('dropship'); // Disable the 'dropship' option
-                $(partnershipTypeId).disableOptionByLabel('special order'); // Disable the 'special order' option
-                break;
-            default:
-                $(partnershipTypeId).enableOptionByLabel('dropship'); // Enable the 'dropship' option
-                $(partnershipTypeId).enableOptionByLabel('special order'); // Enable the 'special order' option
-                break;
-        }
-    });
-
     /**
      * Add listener to change event on backorders
      */
@@ -267,7 +240,6 @@
                 break;
         }
     });
-
     /**
      * Add listener to change event on cross_border dropdown
      */
@@ -313,6 +285,31 @@
                 // enable all backorder
                 $(backorderId).enableOption(1);
                 $(backorderId).enableOption(2);
+                break;
+        }
+    });
+    /**
+     * Add listener to change event on express_shipping dropdown
+     */
+    Event.observe('express_shipping', 'change', function () {
+        var expressShippingValue = parseInt($('express_shipping').getValue());
+        var partnershipTypeId = 'partnership_type';
+        switch(expressShippingValue) {
+            case 1:
+                // If the current Partnership type is dropship or special order, set the value to unselected
+                var partnershipTypeLabel = $('partnership_type').getSelectedOptionHTML().toLowerCase();
+                switch(partnershipTypeLabel) {
+                    case 'dropship':
+                    case 'special order':
+                        $(partnershipTypeId).setValue(''); // Set the value to No
+                        break;
+                }
+                $(partnershipTypeId).disableOptionByLabel('dropship'); // Disable the 'dropship' option
+                $(partnershipTypeId).disableOptionByLabel('special order'); // Disable the 'special order' option
+                break;
+            default:
+                $(partnershipTypeId).enableOptionByLabel('dropship'); // Enable the 'dropship' option
+                $(partnershipTypeId).enableOptionByLabel('special order'); // Enable the 'special order' option
                 break;
         }
     });
