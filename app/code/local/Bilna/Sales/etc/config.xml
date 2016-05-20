@@ -38,4 +38,5 @@
                 <resourceModel>sales_resource</resourceModel>
             </sales>
         </models>
+    </global>
 </config>
