@@ -34,7 +34,7 @@
     $nextDay = date('d F Y', strtotime($orderDate . ' +1 day'));
     $isExpressShippingEnabled = Mage::getStoreConfig('bilna_expressshipping/status/enabled');
     if ($_product->getExpressShipping() && $isExpressShippingEnabled){
-        if($orderHour<11){
+        if($orderHour < 9){
             $img = $this->getSkinUrl('images/') . 'VIP-SHIPMENT-ICON-GREEN.png';
             echo "<div class='in-block container-express'>
                     <img src='".$img."' class='in-block margin-right-8'  style='width:35px;'>

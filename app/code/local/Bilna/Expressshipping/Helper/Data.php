@@ -120,7 +120,7 @@ class Bilna_Expressshipping_Helper_Data extends Mage_Core_Helper_Abstract {
         $additionalMessage = '';
         $additionalMessage .= 'Terima pesanan tanggal <u style="text-decoration:underline">';
 
-        if ( $orderHour < 11 )
+        if ( $orderHour < 9 )
              $additionalMessage .= $orderDate;
         else
             $additionalMessage .= $nextDay;
