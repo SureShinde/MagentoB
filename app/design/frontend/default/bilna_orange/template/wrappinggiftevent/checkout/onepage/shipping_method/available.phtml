@@ -148,7 +148,7 @@
                             $orderDate = date('d F Y', $dateTime);
                             $nextDay = date('d F Y', strtotime($orderDate . ' +1 day'));
                             echo "<div><p class='check-terima'>Terima pesanan tanggal <u style='text-decoration:underline;'>";
-                            if($orderHour < 11){
+                            if($orderHour < 9){
                                 echo $orderDate;
                             }else{
                                 echo $nextDay;
