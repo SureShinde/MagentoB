@@ -6,7 +6,7 @@
  * @author Bilna Development Team <development@bilna.com>
  */
 
-abstract class Bina_Sales_Model_Api2_Order_Rest extends Bilna_Sales_Model_Api2_Order {
+abstract class Bilna_Sales_Model_Api2_Order_Rest extends Bilna_Sales_Model_Api2_Order {
     protected function _getPaymentTitle($order) {
         try {
             if ($paymentTitle = $order->getPayment()->getMethodInstance()->getTitle()) {
