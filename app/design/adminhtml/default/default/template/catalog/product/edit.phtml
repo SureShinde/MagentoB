@@ -204,24 +204,24 @@
      * Add listener to change event on partnership_type
      */
     Event.observe('partnership_type', 'change', function () {
-        var expressShippingId = 'express_shipping';
         var crossBorderId = 'cross_border';
+        var expressShippingId = 'express_shipping';
         var partnershipTypeLabel = $('partnership_type').getSelectedOptionHTML().toLowerCase();
         switch(partnershipTypeLabel) {
             case '':
             case '-':
             case 'consignment':
             case 'outright':
-            case 'special order':
-                $(expressShippingId).disableOption(1); // Disable the Yes option
-                $(expressShippingId).setValue(0); // Set the value to No
                 $(crossBorderId).setValue(0); // Set the value to No
                 break;
-            case 'dropship':
-                $(expressShippingId).disableOption(1); // Disable the Yes option
+            case 'dropship' :
                 $(expressShippingId).setValue(0); // Set the value to No
+                break;
+            case 'special order':
+                $(crossBorderId).setValue(0); // Set the value to No
+                $(expressShippingId).setValue(0); // Set the value to No
+                break;
             default:
-                $(expressShippingId).enableOption(1); // Enable the Yes option
                 break;
         }
     });
@@ -242,7 +242,6 @@
                         $(partnershipTypeId).setValue(''); // Set the value to No
                         break;
                 }
-
                 $(partnershipTypeId).disableOptionByLabel('dropship'); // Disable the 'dropship' option
                 $(partnershipTypeId).disableOptionByLabel('special order'); // Disable the 'special order' option
                 break;
@@ -279,14 +278,6 @@
         <?php $allPartnership = Mage::getModel('common/partnershiptype')->getActivePartnershipType(); ?>
         switch(crossBorderValue) {
             case 1:
-                var partnershipTypeLabel = $('partnership_type').getSelectedOptionHTML().toLowerCase();
-                switch(partnershipTypeLabel) {
-                    case 'consignment':
-                    case 'outright':
-                    case 'special order':
-                        $(partnershipTypeId).setValue(''); // Set the value to No
-                        break;
-                }
                 // disable all partnership type
                 $(partnershipTypeId).disableOptionByLabel('');
                 $(partnershipTypeId).disableOptionByLabel('-');
@@ -294,15 +285,17 @@
             <?php if ($text != '-') : ?>
                 $(partnershipTypeId).disableOption(<?php echo $id; ?>);
             <?php endif; ?>
+            <?php if (strtolower($text) == 'dropship') : ?>
+                $(partnershipTypeId).setValue(<?php echo $id; ?>);
+            <?php endif; ?>
             <?php endforeach; ?>
-
                 // disable all backorder except 'no backorder'
                 $(backorderId).disableOption(1);
                 $(backorderId).disableOption(2);
+                $(backorderId).setValue(0);
             <?php
             $allowedCBPartnershipTypeIds = Mage::getStoreConfig('bilna_crossborder/status/allowed_partnership');
             $allowedCBPartnershipTypeId = explode(',', $allowedCBPartnershipTypeIds);
-
             foreach ($allowedCBPartnershipTypeId as $partnershipId) :
             ?>
                 $(partnershipTypeId).enableOption(<?php echo $partnershipId; ?>);
@@ -317,7 +310,6 @@
                 $(partnershipTypeId).enableOption(<?php echo $id; ?>);
             <?php endif; ?>
             <?php endforeach; ?>
-                
                 // enable all backorder
                 $(backorderId).enableOption(1);
                 $(backorderId).enableOption(2);
