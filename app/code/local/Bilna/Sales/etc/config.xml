@@ -33,10 +33,10 @@
     </modules>
     <global>
         <models>
-            <sales>
+            <bilna_sales>
                 <class>Bilna_Sales_Model</class>
                 <resourceModel>sales_resource</resourceModel>
-            </sales>
+            </bilna_sales>
         </models>
     </global>
 </config>
