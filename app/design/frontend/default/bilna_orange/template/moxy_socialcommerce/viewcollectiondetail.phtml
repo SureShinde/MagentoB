@@ -323,7 +323,7 @@ echo $this->getLayout()->createBlock("core/messages")->setMessages($messages)->g
                                 $oldText = "";
                                 if ($productRegularPriceFormatted != $productFinalPriceFormatted) {
                                   $oldPrice = $productRegularPriceFormatted;
-                                  $oldText = "Sebelumnya";
+                                  $oldText = $this->__('Sebelumnya');
                                 }
                               echo '<span class="regular-price" id="product-price-<?php echo $productId; ?>">
                                     <p class="old-price">
