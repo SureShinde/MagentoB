@@ -199,7 +199,7 @@ class Moxy_SocialCommerce_Helper_Data extends Mage_Core_Helper_Abstract
         if(!empty($data['image_url'])) {
             $_POST['image_url'] = $data['image_url'];
         }
-        if ($_POST['image_url']) {
+        if (isset($_POST['image_url']) && $_POST['image_url']) {
             $upFileTmpName = $this->download_image($_POST['image_url'], 'avatar');
             $imageUrl = 'media'. DS .'avatar'. DS . basename($upFileTmpName);
             $image = new Varien_Image ( $imageUrl );
