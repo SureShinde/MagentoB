@@ -45,6 +45,8 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
                 throw Mage::throwException('Guest Checkout is not Enable');
             }
 
+            $this->_validateCrossBorder($quote);
+
              /** @var $customerResource Mage_Checkout_Model_Api_Resource_Customer */
             $customerResource = Mage::getModel("checkout/api_resource_customer");
             $isNewCustomer = $customerResource->prepareCustomerForQuote($quote);
@@ -170,7 +172,7 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
 
             if (in_array($paymentCode, $this->getPaymentMethodCc()) && ($orderCanceled === false)) {
                 $charge = Mage::getModel('paymethod/api')->creditcardCharge($order, $tokenId);
-                $order->setState(Mage_Sales_Model_Order::STATE_NEW, self::ORDER_STATUS_PENDING_INVOICE);
+                $order->setState(Mage_Sales_Model_Order::STATE_NEW, self::ORDER_STATUS_PENDING_PAYMENT);
                 $order->save();
                 $this->_storeChargeDataToQueue($charge);
             }

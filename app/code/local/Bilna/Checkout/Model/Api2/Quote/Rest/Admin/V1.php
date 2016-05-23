@@ -63,6 +63,8 @@ class Bilna_Checkout_Model_Api2_Quote_Rest_Admin_V1 extends Bilna_Checkout_Model
         if ($items) {
             $quoteData['quote_items'] = $items[$quoteData['entity_id']];
         }
+
+        $quoteData = Mage::helper('bilna_expressshipping')->updateParentQuoteExpressShipping($quoteData);
         
         return $quoteData;
     }

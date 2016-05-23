@@ -61,7 +61,7 @@
 
 <script type="text/javascript">
 jQuery(document).ready(function () {    
-    var ajaxURL = 'https://www.bilna.com/ajaxrequest/data/retrievecart/';
+    var ajaxURL = 'https://www.orami.co.id/ajaxrequest/data/retrievecart/';
 
     var data = {};
 
@@ -72,9 +72,9 @@ jQuery(document).ready(function () {
         success: function(data){
             response = jQuery.parseJSON(data);
             if(response.status == true){
-            	dataLayer.push( {'productid': response.data.quote.productIds} );
-            	dataLayer.push( {'prices': response.data.quote.productPrices} );
-            	dataLayer.push( {'quantities': response.data.quote.productQtys} );
+                dataLayer.push( {'productid': response.data.quote.productIds} );
+                dataLayer.push( {'prices': response.data.quote.productPrices} );
+                dataLayer.push( {'quantities': response.data.quote.productQtys} );
             }else{
                 return false;
             }
