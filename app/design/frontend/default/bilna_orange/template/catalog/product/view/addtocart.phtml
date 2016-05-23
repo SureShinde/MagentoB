@@ -27,10 +27,69 @@
 <?php $_escape_helper = Mage::helper('catalog/utils'); ?>
 <?php $_core_helper =  Mage::helper('core'); ?>
 <?php $_product = $this->getProduct(); ?>
-<?php $buttonTitle = $this->__('Tambah ke troli'); ?>
 <?php
-      $brand = $_product->getAttributeText('brand');
-      $merchant = $_product->getAttributeText('sold_by');
+    $dateTime = Mage::getModel('core/date')->timestamp(time());
+    $orderHour = date("H", $dateTime); 
+    $orderDate = date('d F Y', $dateTime);
+    $nextDay = date('d F Y', strtotime($orderDate . ' +1 day'));
+    $isExpressShippingEnabled = Mage::getStoreConfig('bilna_expressshipping/status/enabled');
+    if ($_product->getExpressShipping() && $isExpressShippingEnabled){
+        if($orderHour < 9){
+            $img = $this->getSkinUrl('images/') . 'VIP-SHIPMENT-ICON-GREEN.png';
+            echo "<div class='in-block container-express'>
+                    <img src='".$img."' class='in-block margin-right-8'  style='width:35px;'>
+                    <div class='in-block'>
+                        <p class='bold'>Tersedia Pengiriman Ekspress!
+                            <span class='tool-box'>
+                                <span class='question'>?</span> 
+                                <span class='pops'>
+                                    <span class='arrow_box in-block stay-float'>
+                                        <span class='logo'>Selesaikan transaksi sebelum jam 11.00 WIB untuk terima produk hari ini. Pengiriman Express tersedia di <strong>Jakarta &amp; Bekasi</strong> khusus produk dengan icon <span class='in-tab'>
+                                            <img src='".$img."'  style='width:12px;'></span>. tidak dapat digabungkan dengan produk tanpa ikon tersebut &amp; COD</span>
+                                    </span>
+                                </span>
+                            </span>
+                        </p>
+                        <p>Terima pesanan tanggal ".$orderDate."</p>
+                    </div>
+                </div>";
+        } else {
+            $img = $this->getSkinUrl('images/') . 'VIP-SHIPMENT-ICON-GREEN.png';
+            echo "<div class='in-block container-express'>
+                        <img src='".$img."' class='in-block margin-right-8'  style='width:35px;'>
+                        <div class='in-block'>
+                            <p class='bold'>Tersedia Pengiriman Ekspress!
+                                <span class='tool-box'>
+                                    <span class='question'>?</span> 
+                                    <span class='pops'>
+                                        <span class='arrow_box in-block stay-float'>
+                                            <span class='logo'>Pengiriman Express tersedia di <strong>Jakarta &amp; Bekasi</strong> khusus produk dengan icon <span class='in-tab'>
+                                            <img src='".$img."'  style='width:12px;'></span>. tidak dapat digabungkan dengan produk tanpa ikon tersebut &amp; COD</span>
+                                        </span>
+                                    </span>
+                                </span>
+                            </p>
+                            <p>Terima pesanan tanggal ".$nextDay."</p>
+                        </div>
+                </div>";
+        }
+    }
+?>
+<?php
+    $buttonTitle = $this->__('Tambah ke troli');
+    $_cart = Mage::helper('checkout/cart')->getQuote();
+    $_items = $_cart->getAllItems();
+    $itemQty = 0;
+    $brand = $_product->getAttributeText('brand');
+    $merchant = $_product->getAttributeText('sold_by');
+?>
+<?php
+    foreach ($_items as $_item) {
+        $parentId = $_item->getParentItemId();
+        if(empty($parentId)) {
+            $itemQty++;
+        }
+    }
 ?>
 <?php if($_product->isSaleable()): ?>
   <?php
@@ -46,8 +105,8 @@
   ?>
     <div class="add-to-cart">
         <?php if(!$_product->isGrouped()): ?>
-        <label for="qty"><?php echo $this->__('Jumlah:') ?></label>
-        <input type="text" name="qty" id="qty" maxlength="12" value="<?php echo $this->getProductDefaultQty() * 1 ?>" title="<?php echo $this->__('Jumlah') ?>" class="input-text qty" />
+            <label for="qty"><?php echo $this->__('Jumlah:') ?></label>
+            <input type="text" name="qty" id="qty" maxlength="12" value="<?php echo $this->getProductDefaultQty() * 1 ?>" title="<?php echo $this->__('Jumlah') ?>" class="input-text qty" />
         <?php endif; ?>
         <button type="button" title="<?php echo $buttonTitle ?>" class="button btn-cart" onclick="productAddToCartForm.submit(this); ecommerceProductDetailAddToCart('<?php echo $_escape_helper->escapeQuote($_product->getName()); ?>','<?php echo $_product->getSku() ?>','<?php echo $_product->getFinalPrice() ?>','<?php echo Mage::helper('core')->currency($_product->getFinalPrice(),true,false) ?>','<?php echo $_product->getUrlInStore(array('_ignore_category' => true)) ?>','<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(135); ?>');"><i class="fa fa-cart-plus"></i><span><?php echo $buttonTitle ?></span></button>
         <?php echo $this->getChildHtml('', true, true) ?>
@@ -66,24 +125,24 @@
 <script type="text/javascript">
 function ecommerceProductDetailAddToCart(name, sku, price, price_ematic, link, imageUrl) {
     if (jQuery("div.input-box select").val() != false) {
-      dataLayer.push({
-        'event': 'addToCart',
-        'ecommerce': {
-          'currencyCode': 'IDR',
-          'add': {                                // 'add' actionFieldObject measures.
-            'actionField': {'list': 'browsing'},
-            'products': [{                        //  adding a product to a shopping cart.
-              'name': name,
-              'id': sku,
-              'price': price,
-              'quantity': jQuery("input.#qty").val(),
-              'brandName': 'brand name',
-              'imageUrl': imageUrl,
-              'link': link
-             }]
-          }
-        }
-      });
+        dataLayer.push({
+            'event': 'addToCart',
+            'ecommerce': {
+                'currencyCode': 'IDR',
+                'add': {                                // 'add' actionFieldObject measures.
+                    'actionField': {'list': 'browsing'},
+                    'products': [{                        //  adding a product to a shopping cart.
+                        'name': name,
+                        'id': sku,
+                        'price': price,
+                        'quantity': jQuery("input.#qty").val(),
+                        'brandName': 'brand name',
+                        'imageUrl': imageUrl,
+                        'link': link
+                    }]
+                }
+            }
+        });
 
       // ematics cart - find duplicate items between added item and items in cart
       var index_addeditem = -999;

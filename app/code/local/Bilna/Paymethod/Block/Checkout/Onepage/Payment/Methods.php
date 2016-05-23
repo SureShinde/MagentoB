@@ -120,18 +120,30 @@ class Bilna_Paymethod_Block_Checkout_Onepage_Payment_Methods extends Mage_Checko
             'shipping_text' => $order['shipping_text'],
             'shipping_type' => $order['shipping_type']
         );
+
+        if ($order['shipping_type'] == 3) { // if this is express shipping
+            $allowedPaymethod = explode(',', Mage::getStoreConfig('bilna_expressshipping/paymethod/allowed_paymethod'));
+        }
+
         $paymentMethodsArr = Mage::getModel('cod/paymentMethod')->getSupportPaymentMethodsByShippingMethod($postData);
         $result = array ();
 
         if (is_array($paymentMethodsArr)) {
             if (count($paymentMethodsArr) > 0) {
                 foreach ($paymentMethodsArr as $key => $value) {
-                    if ($value == '*') {
-                        $result = $value;
-                        break;
+                    if (isset($allowedPaymethod)) {
+                        if (in_array($value, $allowedPaymethod)) {
+                            $result[] = $value;
+                        }
                     }
                     else {
-                        $result[] = $value;
+                        if ($value == '*') {
+                            $result = $value;
+                            break;
+                        }
+                        else {
+                            $result[] = $value;
+                        }
                     }
                 }
             }

@@ -44,9 +44,31 @@ $carrierName = $carrierCode;
 */
 
                 foreach ($rates as $rate) {                    
+                    /* get from config whether express shipping is enabled or disabled */
+                    $expressShippingEnabled = Mage::getStoreConfig('bilna_expressshipping/status/enabled');
+                    $enabled = true;
+                    $additionalMessage = '';
+
+                    /* get reference to helper Bilna Express Shipping */
+                    $expressshippingHelper = Mage::helper('bilna_expressshipping');
+
+                    /* if express shipping is disabled in config, don't display the express shipping method */
+                    if ( strpos(strtolower($rate->getMethodTitle()), 'express') !== false && $expressShippingEnabled == 0 )
+                        continue;
+                    else
+                    /* if express shipping is enabled in config, check the condition to get whether the radio 
+                    is enabled or disabled */
+                    if ( strpos(strtolower($rate->getMethodTitle()), 'express') !== false && $expressShippingEnabled == 1 )
+                    {
+                        $enabled = $expressshippingHelper->enableStatusExpressShippingMethod($quote);
+                        $additionalMessage = $expressshippingHelper->getExpressShippingExpectedDeliveredDate();
+                    }
+
                     $rateItem['carrierName'] = $rate->getMethodTitle();
                     $rateItem['carrierPrice'] = $rate->getPrice();
                     $rateItem['carrierCode'] = $rate->getCode();
+                    $rateItem['enabledInFrontend'] = $enabled;
+                    $rateItem['additionalMessage'] = $additionalMessage;
                     $ratesResult[] = $rateItem;
                     unset($rateItem);
                 }

@@ -329,6 +329,8 @@
 	-webkit-overflow-scrolling: touch;
 	z-index:999999;
 }
+
+.sp-methods input.disabled + label { color:#c5c5c5; }
 	
 #checkout-review-submit .discount{
 	float: left !important;
