@@ -466,7 +466,7 @@ $hasCollection = $wishlistCollection->count() < 1 ? false : true;
 <!--  end of modal edit profile -->
 <!-- checking is the logged in customer seeing his own collection or not -->
 <?php $customerId = Mage::getSingleton('customer/session')->getCustomer()->getId();
-if ($wishlist['customer_id'] != $customerId) {
+//if ($wishlist['customer_id'] != $customerId) {
 ?>
 
 <?php /*  <div class="cg-row"  style="margin-bottom:20px;">
@@ -482,7 +482,7 @@ if ($wishlist['customer_id'] != $customerId) {
   </div>
 </div>
 */?>
-<?php } ?>
+<?php //} ?>
 
 <script>
 function newShowCollectionEdit(){
