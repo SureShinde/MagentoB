@@ -193,6 +193,11 @@ class RocketWeb_Netsuite_Model_Observer {
         }
 		
         $order = $observer->getEvent()->getOrder();
+        $shippingMethod = $order->getShippingMethod();
+        $priority = 1;
+
+        if ( (strpos(strtolower($shippingMethod), 'express') !== false) || (strpos(strtolower($shippingMethod), 'ekspres') !== false) )
+            $priority = 0;
         
         if ($this->checkQueueOrderPlace($order, $observer)) {
             $message = Mage::getModel('rocketweb_netsuite/queue_message');
@@ -202,7 +207,7 @@ class RocketWeb_Netsuite_Model_Observer {
             error_log($msg, 3, Mage::getBaseDir('var') . DS . 'log'.DS.'netsuite_order.log');
             /*end adding logger for fake order*/
             $message->create(RocketWeb_Netsuite_Model_Queue_Message::ORDER_PLACE, $order->getId(), RocketWeb_Netsuite_Helper_Queue::NETSUITE_EXPORT_QUEUE);
-            Mage::helper('rocketweb_netsuite/queue')->getQueue(RocketWeb_Netsuite_Helper_Queue::NETSUITE_EXPORT_QUEUE)->send($message->pack());
+            Mage::helper('rocketweb_netsuite/queue')->getQueue(RocketWeb_Netsuite_Helper_Queue::NETSUITE_EXPORT_QUEUE)->send($message->pack(), $priority);
         }
         
         return $this;
@@ -243,9 +248,17 @@ class RocketWeb_Netsuite_Model_Observer {
         }
 
         $invoice = $observer->getEvent()->getInvoice();
+
+        $order = $invoice->getOrder();
+        $shippingMethod = $order->getShippingMethod();
+        $priority = 1;
+
+        if ( (strpos(strtolower($shippingMethod), 'express') !== false) || (strpos(strtolower($shippingMethod), 'ekspres') !== false) )
+            $priority = 0;
+
         $message = Mage::getModel('rocketweb_netsuite/queue_message');
         $message->create(RocketWeb_Netsuite_Model_Queue_Message::INVOICE_SAVE,$invoice->getId(),RocketWeb_Netsuite_Helper_Queue::NETSUITE_EXPORT_QUEUE);
-        Mage::helper('rocketweb_netsuite/queue')->getQueue(RocketWeb_Netsuite_Helper_Queue::NETSUITE_EXPORT_QUEUE)->send($message->pack());
+        Mage::helper('rocketweb_netsuite/queue')->getQueue(RocketWeb_Netsuite_Helper_Queue::NETSUITE_EXPORT_QUEUE)->send($message->pack(), $priority);
 
         return $this;
     }
