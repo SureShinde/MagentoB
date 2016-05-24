@@ -41,7 +41,7 @@ class Bilna_Checkout_Model_Type_Onepage extends Mage_Checkout_Model_Type_Onepage
      */
     public function saveOrder()
     {
-        $this->_checkActiveCoupon();die;
+        $this->_checkActiveCoupon();
         $this->validate();
         $isNewCustomer = false;
         switch ($this->getCheckoutMethod()) {
