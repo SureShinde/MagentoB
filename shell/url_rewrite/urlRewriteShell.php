@@ -22,7 +22,7 @@ class Url_Rewrite_Shell extends Mage_Shell_Abstract {
         foreach ($urlLists as $item) {
             //print_r($item);
             $url = Mage::getBaseUrl().$item['request_path'];
-            $url = "http://www.bilna.com/".$item['request_path'];
+            $url = "http://www.orami.co.id/".$item['request_path'];
 //echo $url;            
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_URL, $url);

@@ -407,13 +407,15 @@
     left:0;
     top:67px;
     width:275px;
-    z-index:991;
     left:-100%;
      bottom: 0;
      overflow: hidden;
     position:fixed;
     display:block;
  }
+.mobile-left-menu.active-left-menu {
+    z-index:991;
+}
  .mobile-left-menu .wrap-left-menu{
     position: relative;
     max-height: 100%;

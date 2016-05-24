@@ -625,7 +625,7 @@ ShippingMethod.prototype = {
     save: function() {
         var requestData = "&shipping_text=" + jQuery('input[name=shipping_method]:checked').attr('data-text');
             requestData += "&shipping_type=" + jQuery('input[name=shipping_method]:checked').attr('data-type');
-            
+
         if (checkout.loadWaiting!=false) return;
         if (this.validate()) {
             checkout.setLoadWaiting('shipping-method');
@@ -809,7 +809,7 @@ Payment.prototype = {
         alert(Translator.translate('Please specify payment method.').stripTags());
         return false;
     },
-    
+
     errorMessage: function(action, message) {
         if (action == 'show') {
             jQuery('#payment-messages li.error-msg ul li span').html(message);
@@ -820,7 +820,7 @@ Payment.prototype = {
             jQuery('#payment-messages').hide();
         }
     },
-    
+
     bankValidate: function() {
         var methods = document.getElementsByName('payment[method]');
         var currPayment = $$('input:checked[type=radio][name=payment[method]]')[0].value;
@@ -869,10 +869,10 @@ Payment.prototype = {
         else {
             responseStatus = true;
         }
-        
+
         return responseStatus;
     },
-    
+
     inArray: function(item, arr) {
         if (!arr) {
             return false;
@@ -883,11 +883,11 @@ Payment.prototype = {
                     return true;
                 }
             }
-            
+
             return false;
         }
     },
-    
+
     savePayment: function() {
         checkout.setLoadWaiting('payment');
         var request = new Ajax.Request(
@@ -928,7 +928,7 @@ Payment.prototype = {
         if (!this.bankValidate()) {
             return false;
         }
-        
+
         var validator = new Validation(this.form);
         if (this.validate() && validator.validate()) {
             checkout.setLoadWaiting('payment');
@@ -999,19 +999,19 @@ Review.prototype = {
         this.onComplete = this.resetLoadWaiting.bindAsEventListener(this);
         //this.tokenId = null;
     },
-    
+
     saveReview: function(tokenId) {
         var params = Form.serialize(payment.form);
             params += '&token_id=' + tokenId;
-        
+
         if (this.agreementsForm) {
             params += '&' + Form.serialize(this.agreementsForm);
         }
-        
+
         if (this.installmentForm) {
             params += '&' + Form.serialize(this.installmentForm);
         }
-        
+
         params.save = true;
         var request = new Ajax.Request(
             this.saveUrl,
@@ -1022,10 +1022,17 @@ Review.prototype = {
                 //onSuccess: this.onSave,
                 onSuccess: function(response) {
                     var responseJson = response.responseText.evalJSON();
-                    
+
                     if (responseJson.success == false && responseJson.error == true) {
-                        alert(responseJson.error_messages);
-                        checkout.gotoSection('payment');
+                        // If the message contains 'CrossBorder:'
+                        if (responseJson.error_messages.indexOf('CrossBorder:') > -1) {
+                            jQuery('#threedsecure-popup').hide();
+                            crossBorder.displayMessage(responseJson.error_messages);
+                            checkout.gotoSection('payment');
+                        } else{
+                            alert(responseJson.error_messages);
+                            checkout.gotoSection('payment');
+                        }
                     }
                     else {
                         review.nextStep(response);
@@ -1041,13 +1048,12 @@ Review.prototype = {
         if (checkout.loadWaiting != false) {
             return;
         }
-        
+
         checkout.setLoadWaiting('review');
-        
+
         // get token from veritrans
         if (payment.inArray(payment.currentMethod, creditCardPaymentArr)) {
-            Veritrans.token(_cardSet, callback);
-            
+            oramiOrder.validateOrder();
             return false;
         }
         else {
@@ -1073,10 +1079,15 @@ Review.prototype = {
                         var responseJson = response.responseText.evalJSON();
 
                         if (responseJson.success == false && responseJson.error == true) {
-                            alert(responseJson.error_messages);
-                            checkout.gotoSection('payment');
+                            // If the message contains 'CrossBorder:'
+                            if (responseJson.error_messages.indexOf('CrossBorder:') > -1) {
+                                crossBorder.displayMessage(responseJson.error_messages);
+                            } else{
+                                alert(responseJson.error_messages);
+                                checkout.gotoSection('payment');
+                            }
                         }
-                        else {
+                        else { // If it's default message
                             review.nextStep(response);
                             //this.onSave
                         }
@@ -1146,7 +1157,7 @@ function _cardSet() {
     result['card_exp_month'] = jQuery('#payment_form_' + currPayment + ' select.card-expiry-month').val();
     result['card_exp_year'] = jQuery('#payment_form_' + currPayment + ' select.card-expiry-year').val();
     result['card_cvv'] = jQuery('#payment_form_' + currPayment + ' input.card-cvv').val();
-    
+
     // 3d secure
     if (jQuery('#payment_form_' + currPayment + ' #' + currPayment + '_secure').val() == 1) {
         result['secure'] = (grossAmount >= secureMin);
@@ -1154,14 +1165,14 @@ function _cardSet() {
     else {
         result['secure'] = false;
     }
-    
+
     if (result['secure'] == false) {
         result['bank'] = jQuery('#payment_form_' + currPayment + ' #' + currPayment + '_acquired_bank').val();
     }
     else {
         result['bank'] = jQuery('#payment_form_' + currPayment + ' #' + currPayment + '_secure_acquired_bank').val();
     }
-    
+
     // installment-term
     if (jQuery('#payment_form_' + currPayment + ' #' + currPayment + '_installment_process').val() != 'manual') {
         if (jQuery('input[name=installment]').is(':checked')) {
@@ -1171,15 +1182,15 @@ function _cardSet() {
             }
         }
     }
-    
+
     result['gross_amount'] = grossAmount;
-    
+
     return result;
 };
 
 function callback(response) {
     //console.log('response: ' + JSON.stringify(response));
-    
+
     if (response.status_code == '200') {
         if (response.redirect_url) {
             // 3Dsecure transaction. Open 3Dsecure dialog
@@ -1200,3 +1211,137 @@ function callback(response) {
         jQuery('#payment-messages').show();
     }
 }
+
+/*
+ * Cross Border Class
+ */
+var CrossBorder = Class.create();
+CrossBorder.prototype = {
+    initialize: function (baseUrl) {
+        this.baseUrl = baseUrl;
+    },
+    shippingInfoId: 'review-shipping-label',
+    localProductFeeId: 'local-product-fee',
+    importProductFeeId: 'import-product-fee',
+    displayMessage: function (crossBorderMessage) {
+        var _this = this;
+        if (typeof(crossBorderMessage) === 'string' && crossBorderMessage.length > 0) {
+            jQuery('#crossBorderDialog').remove(); //remove existing dialog
+
+            var errorMessage = crossBorderMessage.substring(12);
+            var errorMessages = errorMessage.split(', ');
+
+            // Combining error messages to be displayed
+            var causeList = '';
+            var index;
+            if (errorMessages.length > 0) {
+                for (index = 0; index < errorMessages.length; index++) {
+                    causeList += '<li>' + (index + 1) + '. ' + errorMessages[index] + '</li>';
+                }
+            } else {
+                causeList += '<li>1. ' + errorMessage + '</li>';
+            }
+
+            var dynamicDialog = jQuery(
+                '<div id="crossBorderDialog" class="container-collection-pop" style="display:none;" >\
+                    <div class="cg-col-lg-5 cg-col-md-6 cg-col-sm-6 cg-col-xs-11 container-collection-whitebg white-bg-new-coll text-center" style="max-width:500px;">\
+                        <div class="img-failed"></div>\
+                        <p>Pesanan untuk produk impor <strong>tidak dapat diproses</strong> karena:</p>\
+                        <p>\
+                            <ol class="cause-list">\
+                                ' + causeList + '\
+                        </ol>\
+                    </p>\
+                        <div class="center-block info-bottom">\
+                            <p>Edit pesanan produk impor anda</p>\
+                            <button type="button" class="btn btn-hollow center-block" id="btnCrossBorderOk">Kembali ke Keranjang Belanja</button>\
+                        </div>\
+                </div>\
+            </div>'
+            );
+            jQuery('#checkoutSteps').append(dynamicDialog);
+            jQuery('#btnCrossBorderOk').click(function () {
+                location.href = _this.baseUrl + 'checkout/cart';
+            });
+            jQuery('#crossBorderDialog').fadeIn(500);
+        }
+    },
+    _extractFee: function(fullText) {
+        var fee = '';
+        var regex = /Rp(.*)/gi;
+        var matches = fullText.match(regex);
+        if (matches != null && matches.length > 0) {
+            matches[0] = matches[0].trim();
+            fee = matches[0].slice(0, matches[0].indexOf(")"));
+        }
+        return fee;
+    },
+    _extractDuration: function(fullText) {
+        var duration = '';
+        var regex = /\((.*)kerja\)/gi;
+        var matches = fullText.match(regex);
+        if (matches != null && matches.length > 0) {
+            matches[0] = matches[0].trim();
+            duration = matches[0].slice(matches[0].lastIndexOf("("));
+        }
+        return duration;
+    },
+    splitShippingInfo: function () {
+        var _this = this;
+        var shippingCol = jQuery('table.grand-total tbody th#' + _this.shippingInfoId);
+        var shippingText = shippingCol.text().trim();
+        var splitShippingText = shippingText.split('+');
+        if (splitShippingText.length === 2) {
+            var localFee = _this._extractFee(splitShippingText[0]);
+            var importFee = _this._extractFee(splitShippingText[1]);
+            var localDuration = _this._extractDuration(splitShippingText[0]);
+            var importDuration = _this._extractDuration(splitShippingText[1]);
+            jQuery('#' + _this.localProductFeeId).append(localFee + '&nbsp;' + localDuration);
+            jQuery('#' + _this.importProductFeeId).append(importFee + '&nbsp;' + importDuration);
+            jQuery('.cross-border-fee').fadeIn(500);
+            jQuery('#' + _this.shippingInfoId).html('Shipping & Handling');
+        }
+    }
+};
+
+/**
+ * OramiOrder Class for validation
+ */
+var OramiOrder = Class.create();
+OramiOrder.prototype = {
+    initialize: function(baseUrl) {
+        this.baseUrl = baseUrl;
+        this.validationUrl =  baseUrl + 'checkout/onepage/validateOrder';
+    },
+    validateOrder: function() {
+        checkout.setLoadWaiting('review');
+
+        var currPayment = payment.currentMethod;
+        // If the method uses 3DS, validate the order first
+        if (jQuery('#payment_form_' + currPayment + ' #' + currPayment + '_secure').val() == 1) {
+            var request = new Ajax.Request(
+                this.validationUrl,
+                {
+                    method:'post',
+                    parameters: {},
+                    onComplete: checkout.setLoadWaiting(false),
+                    onSuccess: function(response) {
+                        var responseJson = response.responseText.evalJSON();
+                        if (responseJson.success == false) { // If validation is not passed
+                            if (responseJson.error_messages.indexOf('CrossBorder:') > -1) {
+                                crossBorder.displayMessage(responseJson.error_messages);
+                            } else{
+                                alert(responseJson.error_messages);
+                            }
+                        } else { // If validation is passed
+                            Veritrans.token(_cardSet, callback);
+                        }
+                    },
+                    onFailure: checkout.ajaxFailure.bind(checkout)
+                }
+            );
+        } else {
+            Veritrans.token(_cardSet, callback);
+        }
+    }
+};

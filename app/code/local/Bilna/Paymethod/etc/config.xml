@@ -57,8 +57,12 @@
         <rewrite>
             <paymethod>
                 <from><![CDATA[#^/checkout/onepage/#]]></from>
-                <to>/paymethod/onepage/</to>
+                <to><![CDATA[/paymethod/onepage/]]></to>
             </paymethod>
+            <paymethod_index>
+                <from><![CDATA[#^/checkout/onepage#]]></from>
+                <to><![CDATA[/paymethod/onepage/]]></to>
+            </paymethod_index>
         </rewrite>
 
         <resources>
