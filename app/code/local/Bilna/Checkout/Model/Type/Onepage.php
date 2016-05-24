@@ -41,50 +41,7 @@ class Bilna_Checkout_Model_Type_Onepage extends Mage_Checkout_Model_Type_Onepage
      */
     public function saveOrder()
     {
-        $couponCode = $this->getQuote()->getCouponCode();
-        if (!is_null($couponCode)) {
-            if ($this->_isUniqueCoupon($couponCode)) {
-                $this->_deleteOlderCouponLog(); // delete all coupon logged after one minute or older
-                
-                $couponLogData = array(
-                    "coupon_code" => $couponCode,
-                    "quote_id" => $this->getQuote()->getId()
-                );
-
-                $uniqueCouponLog = $this->getCouponLog();
-                $uniqueCouponLog->setData($couponLogData);
-
-                try {
-                    $uniqueCouponLog->save();
-                } catch (Exception $e) {
-                    $errorMessage = $e->getMessage();
-                    if ($errorMessage == "SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '".$couponCode."' for key 'coupon_code'") {
-                        $appliedRuleIds = $this->getQuote()->getAppliedRuleIds();
-                        $appliedRuleId = explode(',', $appliedRuleIds);
-
-                        if (count($appliedRuleId) > 1) {
-                            foreach ($appliedRuleId as $key => $ruleId) {
-                                if ($ruleId == $couponCollection['rule_id']) {
-                                    unset($appliedRuleId[$key]);
-                                }
-                            }
-
-                            $appliedRuleIds = implode(',', $appliedRuleId);
-                        } else {
-                            $appliedRuleIds = null;
-                        }
-
-                        $quoteData = Mage::getModel('sales/quote')->load($this->getQuote()->getId());
-                        $quoteData->setCouponCode(null);
-                        $quoteData->setAppliedRuleIds($appliedRuleIds);
-                        $quoteData->save();
-                        $this->getQuote()->setCouponCode(null);
-                        $this->getQuote()->setAppliesRuleIds($appliedRuleIds);
-                    }
-                }
-            }
-        }
-
+        $this->_checkActiveCoupon();die;
         $this->validate();
         $isNewCustomer = false;
         switch ($this->getCheckoutMethod()) {
@@ -167,7 +124,63 @@ class Bilna_Checkout_Model_Type_Onepage extends Mage_Checkout_Model_Type_Onepage
         return $this;
     }
 
-    private function _isUniqueCoupon ($couponCode)
+    /**
+     * This function will prevent raising condition if different user with same unique coupon code
+     * checkout at the same time (prevent single use coupon to be used multiple times at once)
+     *
+     */
+    private function _checkActiveCoupon()
+    {
+        $couponCode = $this->getQuote()->getCouponCode();
+        if (!is_null($couponCode)) {
+            $couponData = $this->_getCouponData($couponCode);
+
+            if ($couponData['type'] == 1) { // if this coupon is unique coupon
+                $this->_deleteOlderCouponLog(); // delete all active coupon logged after one minute or older
+                
+                $couponLogData = array(
+                    "coupon_code" => $couponCode,
+                    "quote_id" => $this->getQuote()->getId()
+                );
+
+                $uniqueCouponLog = $this->getCouponLog();
+                $uniqueCouponLog->setData($couponLogData);
+
+                try {
+                    $uniqueCouponLog->save();
+                } catch (Exception $e) {
+                    $errorMessage = $e->getMessage();
+
+                    // This is how we prevent raising condition by utilizing database unique lock
+                    if ($errorMessage == "SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '".$couponCode."' for key 'coupon_code'") {
+                        $appliedRuleIds = $this->getQuote()->getAppliedRuleIds();
+                        $appliedRuleIdsArray = explode(',', $appliedRuleIds);
+
+                        if (count($appliedRuleIdsArray) > 1) {
+                            foreach ($appliedRuleIdsArray as $key => $ruleId) {
+                                if ($ruleId == $couponData['rule_id']) {
+                                    unset($appliedRuleIdsArray[$key]);
+                                }
+                            }
+
+                            $appliedRuleIds = implode(',', $appliedRuleIdsArray);
+                        } else {
+                            $appliedRuleIds = null;
+                        }
+
+                        $quoteData = Mage::getModel('sales/quote')->load($this->getQuote()->getId());
+                        $quoteData->setCouponCode(null);
+                        $quoteData->setAppliedRuleIds($appliedRuleIds);
+                        $quoteData->save();
+                        $this->getQuote()->setCouponCode(null);
+                        $this->getQuote()->setAppliesRuleIds($appliedRuleIds);
+                    }
+                }
+            }
+        }
+    }
+
+    private function _getCouponData ($couponCode)
     {
         $couponCollection = Mage::getModel('salesrule/coupon')
             ->getCollection()
@@ -176,11 +189,7 @@ class Bilna_Checkout_Model_Type_Onepage extends Mage_Checkout_Model_Type_Onepage
             ->getFirstItem()
             ->getData();
 
-            if ($couponCollection['type'] == 1) {
-                return true;
-            }
-            
-        return false;
+        return $couponCollection;
     }
 
     private function _deleteOlderCouponLog()
@@ -190,7 +199,7 @@ class Bilna_Checkout_Model_Type_Onepage extends Mage_Checkout_Model_Type_Onepage
         $oneMinute = Mage::getModel('core/date')->date('Y-m-d H:i:s', ($time - 60));
         $olderCouponLogs = Mage::getModel('bilna_checkout/log')
             ->getCollection()
-            ->addFieldToFilter('created_at', array('lteq' => $oneMinute))
+            ->addFieldToFilter('created_at', array('lteq' => 'NOW() - INTERVAL 1 MINUTE'))
             ->getColumnValues('id');
 
         if (count($olderCouponLogs) > 0) {

@@ -9,6 +9,6 @@ CREATE TABLE IF NOT EXISTS `bilna_unique_coupon_log` (
   `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `coupon_code` (`coupon_code`)
-);
+) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 ");
 $installer->endSetup();
