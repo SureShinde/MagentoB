@@ -554,48 +554,6 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
 
         $result = array();
         try {
-            // code to cancel coupon code on others quote - start
-            /*$couponCode = $this->getOnePage()->getQuote()->getCouponCode();
-            $couponCollection = Mage::getModel('salesrule/coupon')->getCollection()->addFieldToFilter('code', $couponCode)->addFieldToFilter('type', 1)->getFirstItem()->getData();
-
-            if ($couponCollection['type'] == 1) {
-                $allSameCouponCodeInQuote = Mage::getModel('sales/quote')->getCollection()->addFieldToFilter('coupon_code', $couponCode)->addFieldToFilter('entity_id', array('neq' => $this->getOnepage()->getQuote()->getId()))->getColumnValues('entity_id');
-
-                if (count($allSameCouponCodeInQuote) > 0) {
-                    foreach ($allSameCouponCodeInQuote as $duplicateCouponCode) {
-                        $unsetOtherUniqueCoupon = Mage::getModel('sales/quote')->load($duplicateCouponCode['entity_id']);
-                        $unsetOtherUniqueCoupon->setCouponCode('');
-                        $unsetOtherUniqueCoupon->save();
-                    }
-                }
-            }*/
-            // code to cancel coupon code on others quote - end
-
-            // code to delay checkout if unique coupon code applied to more than 1 quote - start
-            /*$couponDelay = array();
-            $time = time();
-            $to = Mage::getModel('core/date')->date('Y-m-d H:i:s');
-            $from = Mage::getModel('core/date')->date('Y-m-d H:i:s', ($time - 600)); // 10 minutes
-            $couponCode = $this->getOnePage()->getQuote()->getCouponCode();
-            $couponCollection = Mage::getModel('salesrule/coupon')->getCollection()->addFieldToFilter('code', $couponCode)->addFieldToFilter('type', 1)->getFirstItem()->getData();
-
-            if ($couponCollection['type'] == 1) {
-                $couponCodeUsed = Mage::getModel('sales/quote')->getCollection()->addFieldToFilter('coupon_code', $couponCode)->addFieldToFilter('updated_at', array('from' => $from, 'to' => $to));
-
-                if (count($couponCodeUsed) > 1) {
-                    $delay = 0;
-                    foreach ($couponCodeUsed as $couponCode) {
-                        $couponDelay[$couponCode['entity_id']] = $delay;
-                        $delay++;
-                    }
-                }
-            }
-
-            if (array_key_exists($this->getOnePage()->getQuote()->getId(), $couponDelay)) {
-                sleep($couponDelay[$this->getOnePage()->getQuote()->getId()]);
-            }*/
-            // code to delay checkout if unique coupon code applied to more than 1 quote - end
-
             $requiredAgreements = Mage::helper('checkout')->getRequiredAgreementIds();
             if ($requiredAgreements) {
                 $postedAgreements = array_keys($this->getRequest()->getPost('agreement', array()));
