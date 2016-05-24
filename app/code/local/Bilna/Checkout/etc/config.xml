@@ -1,22 +1,46 @@
 <config>
 	<modules>
 		<Bilna_Checkout>
-                        <version>0.1.13</version>
+            <version>0.1.14</version>
 		</Bilna_Checkout>
 	</modules>
 	<global>
-		<models>
-			<bilna_checkout>
-				<class>Bilna_Checkout_Model</class>
-			</bilna_checkout>
-		</models>                
-                <resources>
-                    <bilna_checkout_setup>
-                        <setup>
-                            <module>Bilna_Checkout</module>
-                            <class>Bilna_Checkout_Model_Resource_Setup</class>
-                        </setup>
-                    </bilna_checkout_setup>
-                </resources>
+        <models>
+            <bilna_checkout>
+                <class>Bilna_Checkout_Model</class>
+                <resourceModel>bilna_checkout_mysql4</resourceModel>
+            </bilna_checkout>
+            <bilna_checkout_mysql4>
+                <class>Bilna_Checkout_Model_Mysql4</class>
+                <entities>
+                    <log>
+                        <table>bilna_unique_coupon_log</table>
+                    </log>
+                </entities>
+            </bilna_checkout_mysql4>
+            <checkout>
+                <rewrite>
+                    <type_onepage>Bilna_Checkout_Model_Type_Onepage</type_onepage>
+                </rewrite>
+            </checkout>
+        </models>
+        <resources>
+            <bilna_checkout_setup>
+                <setup>
+                    <module>Bilna_Checkout</module>
+                    <class>Bilna_Checkout_Model_Resource_Setup</class>
+                </setup>
+            </bilna_checkout_setup>
+            <bilna_checkout_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </bilna_checkout_write>
+            <bilna_checkout_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </bilna_checkout_read>
+        </resources>
 	</global>
 </config>
