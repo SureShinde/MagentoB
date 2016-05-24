@@ -472,7 +472,8 @@ class Bilna_Paymethod_OnepageController extends Mage_Checkout_OnepageController 
             //$this->updateOrder($order, $paymentCode, $charge);
             Mage::getModel('paymethod/vtdirect')->updateOrder($order, $paymentCode, $charge);
             Mage::register('response_charge', $charge);
-            Mage::dispatchEvent('sales_order_place_after', array ('order' => $order));
+            // move the dispatch event to process_order function in Mage::getModel('paymethod/vtdirect')
+            //Mage::dispatchEvent('sales_order_place_after', array ('order' => $order));
         }
         
         /**
