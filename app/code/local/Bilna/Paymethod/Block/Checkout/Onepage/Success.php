@@ -9,8 +9,8 @@ class Bilna_Paymethod_Block_Checkout_Onepage_Success extends Mage_Checkout_Block
     private $_order;
 
     public function getOrder() {
-        $orderId = $this->getOrderId();
         if (empty($_order)) {
+            $orderId = $this->getOrderId();
             $_order = Mage::getModel('sales/order')->loadByIncrementId($orderId);
         }
 
