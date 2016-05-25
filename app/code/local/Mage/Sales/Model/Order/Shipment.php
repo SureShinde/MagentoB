@@ -448,12 +448,12 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
         }
 
         // Get First Shipment Data
-        $shipmentData = $this->getFirstShipmentData();
+        $trackingData = $this->getFirstTrackingData();
         $shippedBy = '';
         $trackingNumber = '';
-        if (!empty($shipmentData)) {
-            $shippedBy = $shipmentData->getTitle();
-            $trackingNumber = $shipmentData->getNumber();
+        if (!empty($trackingData)) {
+            $shippedBy = $trackingData->getTitle();
+            $trackingNumber = $trackingData->getNumber();
         }
 
         // Set all required params and send emails
@@ -652,7 +652,7 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
      * Function to get first record from shipment data
      * @return mixed|null
      */
-    public function getFirstShipmentData()
+    public function getFirstTrackingData()
     {
         $tracks = $this->getAllTracks();
         if (!empty($tracks)) {
