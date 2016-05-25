@@ -65,8 +65,6 @@ if ($this->getOrderId()):
         $orderNoLink = sprintf('<a class="order_id">%s</a>', $this->escapeHtml($this->getOrderId()));
     endif;
 endif;
-$orderNo = $this->getOrderId();
-$subtotal = $this->getSubtotal();
 ?>
 
 <?php
@@ -290,10 +288,10 @@ endif;
 
 <!-- Involve Asia -->
 <div id="SS-GTM-order-id" style="display:none">
-    <?php echo $orderNo; ?>
+    <?php echo $this->getOrderId(); ?>
 </div>
 <div id="SS-GTM-amount" style="display:none">
-    <?php echo $subtotal; ?>
+    <?php echo $this->getSubtotal(); ?>
 </div>
 <!-- END Involve Asia -->
 

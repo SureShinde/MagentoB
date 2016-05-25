@@ -8,6 +8,15 @@
 class Bilna_Paymethod_Block_Checkout_Onepage_Success extends Mage_Checkout_Block_Onepage_Success {
     private $_order;
 
+    public function getOrder() {
+        $orderId = $this->getOrderId();
+        if (empty($_order)) {
+            $_order = Mage::getModel('sales/order')->loadByIncrementId($orderId);
+        }
+
+        return $_order;
+    }
+
     public function getInstruction() {
         $paymentCode = $this->getOrderPaymentCode();
         $instruction = Mage::getStoreConfig('payment/' . $paymentCode . '/instructions');
@@ -33,13 +42,7 @@ class Bilna_Paymethod_Block_Checkout_Onepage_Success extends Mage_Checkout_Block
     }
 
     public function getOrderPaymentCode() {
-        $orderId = $this->getOrderId();
-        if (empty($_order)) {
-            $_order = Mage::getModel('sales/order')->loadByIncrementId($orderId);
-        }
-        $paymentCode = $_order->getPayment()->getMethodInstance()->getCode();
-
-        return $paymentCode;
+        return $this->getOrder()->getPayment()->getMethodInstance()->getCode();
     }
 
     public function getPaymentMethodBankTransfer() {
@@ -92,13 +95,10 @@ class Bilna_Paymethod_Block_Checkout_Onepage_Success extends Mage_Checkout_Block
     }
 
     public function getSubtotal() {
-        $orderId = $this->getOrderId();
-        if (empty($_order)) {
-            $_order = Mage::getModel('sales/order')->loadByIncrementId($orderId);
-        }
-        if ($totalData = $_order->getData()) {
-            if (array_key_exists('subtotal', $totalData)) {
-                $subtotal = $totalData['subtotal'];
+        $subtotal = '';
+        if ($orderData = $this->getOrder()->getData()) {
+            if (array_key_exists('subtotal', $orderData)) {
+                $subtotal = $orderData['subtotal'];
             }
         }
 
