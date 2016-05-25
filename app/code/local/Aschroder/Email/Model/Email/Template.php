@@ -165,8 +165,6 @@ class Aschroder_Email_Model_Email_Template extends Mage_Core_Model_Email_Templat
         $sql = sprintf("SELECT email FROM bounced_email WHERE email = '%s' LIMIT 1", $emails);
         $result = $read->fetchAll($sql);
 
-        Mage::log(count($result));
-
         return (!$result) ? true : false;
     }
 }
