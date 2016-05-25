@@ -90,20 +90,12 @@ class RocketWeb_Netsuite_Helper_Data extends Mage_Core_Helper_Data {
                 // check recordtype argument first
                 if (Mage::registry('current_run_recordtype'))
                 {
-                    $iniFile = Mage::getBaseDir().'/files/netsuite/netsuite.ini';
-                    if(file_exists($iniFile))
-                    {
-                        $nsConfig = parse_ini_file($iniFile, true);
-                        if(isset($nsConfig['account']))
-                        {
-                            $nshost = $nsConfig['account']['host'];
-                            $nsendpoint = $nsConfig['account']['end_point'];
-                            $nsaccount = $nsConfig['account']['account_id'];
-                            $nsemail = $nsConfig['account']['email'];
-                            $nspassword = $nsConfig['account']['password'];
-                            $nsrole = $nsConfig['account']['role_id'];
-                        }
-                    }
+                    $nshost = Mage::getStoreConfig('rocketweb_netsuite/connection_import_recordtype/host');
+                    $nsendpoint = Mage::getStoreConfig('rocketweb_netsuite/connection_import_recordtype/end_point');
+                    $nsaccount = Mage::getStoreConfig('rocketweb_netsuite/connection_import_recordtype/account_id');
+                    $nsemail = Mage::getStoreConfig("rocketweb_netsuite/connection_import_recordtype/email");
+                    $nspassword = Mage::getStoreConfig("rocketweb_netsuite/connection_import_recordtype/password");
+                    $nsrole = Mage::getStoreConfig("rocketweb_netsuite/connection_import_recordtype/role_id");
                 }
 			}
 			else {
