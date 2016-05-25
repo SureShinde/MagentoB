@@ -21,8 +21,7 @@ class Bilna_Paymethod_Block_Checkout_Onepage_Review_Info extends Mage_Checkout_B
         $quoteItems = Mage::getSingleton('checkout/session')->getQuote()->getAllVisibleItems();
         if (!empty($quoteItems)) {
         	foreach($quoteItems as $quoteItem) {
-        		$product = $quoteItem->getProduct()->load();
-        		if ($product->getCrossBorder() == 1) {
+        		if ($quoteItem->getCrossBorder() == 1) {
         			$this->_importItems[] = $quoteItem;
         		} else {
         			$this->_localItems[] = $quoteItem;
