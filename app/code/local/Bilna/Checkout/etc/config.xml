@@ -13,9 +13,9 @@
             <bilna_checkout_mysql4>
                 <class>Bilna_Checkout_Model_Mysql4</class>
                 <entities>
-                    <log>
+                    <activeCoupon>
                         <table>bilna_unique_coupon_log</table>
-                    </log>
+                    </activeCoupon>
                 </entities>
             </bilna_checkout_mysql4>
             <checkout>
