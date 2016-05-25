@@ -127,14 +127,11 @@ class Bilna_Paymethod_Model_Vtdirect extends Mage_Core_Model_Abstract {
 
         $order->setState(Mage_Sales_Model_Order::STATE_PROCESSING, true, $message, true);
 
-        // FIXME: this save() needs to be removed to prevent order in processing state but no invoice,
-        //        but we can't do that yet because it seems to cause orders to not go to connectors
-        $order->save();
         // put the dispatch event here, so that the sales order will be queued in the table message
         // first before the invoice
         Mage::dispatchEvent('sales_order_place_after', array ('order' => $order));
         $invoice->register();
-
+        
         $transaction = Mage::getModel('core/resource_transaction')->addObject($invoice)->addObject($order);
         $transaction->save();
 
