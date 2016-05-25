@@ -66,12 +66,7 @@ if ($this->getOrderId()):
     endif;
 endif;
 $orderNo = $this->getOrderId();
-$order = Mage::getSingleton('sales/order')->loadByIncrementId($this->getOrderId());
-if ($totalData = $order->getData()) {
-    if (array_key_exists('subtotal', $totalData)) {
-        $subtotal = $totalData['subtotal'];
-    }
-}
+$subtotal = $this->getSubtotal();
 ?>
 
 <?php
