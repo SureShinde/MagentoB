@@ -19,32 +19,35 @@ class getBounceEmail extends Mage_Shell_Abstract {
 			    'region' => 'us-east-1'
 			));
 			
-			$result = $client->receiveMessage(array(
-			    'QueueUrl' => 'https://sqs.us-east-1.amazonaws.com/224198310470/BouncedEmail',
-			    'MessageAttributeNames' => array('All'),
-			    'MaxNumberOfMessages' => 10,
-			));
+			while(true) {
+				$result = $client->receiveMessage(array(
+				    'QueueUrl' => 'https://sqs.us-east-1.amazonaws.com/224198310470/BouncedEmail',
+				    'MessageAttributeNames' => array('All'),
+				    'MaxNumberOfMessages' => 10,
+				));
 
-			// $data = array();
-			foreach ($result["Messages"] as $key => $value) {
-				$body = json_decode($value["Body"]);
-				$bodyMessage = json_decode($body->Message);
-				if($bodyMessage->bounce->bounceType == "Permanent") {
-					// $data[] = array("ReceiptHandle" => $value["ReceiptHandle"], "emailAddress" => $bodyMessage->bounce->bouncedRecipients[0]->emailAddress, "bounceType" => $bodyMessage->bounce->bounceType, "diagnosticCode" => $bodyMessage->bounce->bouncedRecipients[0]->diagnosticCode);
+				if(!$result["Messages"]) break;
+			
+				foreach ($result["Messages"] as $key => $value) {
+					$body = json_decode($value["Body"]);
+					$bodyMessage = json_decode($body->Message);
+					if($bodyMessage->bounce->bounceType == "Permanent") {
+						// $data[] = array("ReceiptHandle" => $value["ReceiptHandle"], "emailAddress" => $bodyMessage->bounce->bouncedRecipients[0]->emailAddress, "bounceType" => $bodyMessage->bounce->bounceType, "diagnosticCode" => $bodyMessage->bounce->bouncedRecipients[0]->diagnosticCode);
 
-					$sql = sprintf("
-			            INSERT INTO `bounced_email`(`email`)
-			            VALUES('%s');
-			        ", $$bodyMessage->bounce->bouncedRecipients[0]->emailAddress);
-			        
-			        if ($this->write->query($sql)) {
-			            echo 'Success running SQL statement : ' . $sql . "\n";
-			            $client->deleteMessage(array(
-						    'QueueUrl' => 'https://sqs.us-east-1.amazonaws.com/224198310470/BouncedEmail',
-						    'ReceiptHandle' => $value["ReceiptHandle"],
-						));
-			        }
+						$sql = sprintf("
+				            INSERT INTO `bounced_email`(`email`)
+				            VALUES('%s');
+				        ", $$bodyMessage->bounce->bouncedRecipients[0]->emailAddress);
+				        
+				        if ($this->write->query($sql)) {
+				            echo 'Success running SQL statement : ' . $sql . "\n";
+				            $client->deleteMessage(array(
+							    'QueueUrl' => 'https://sqs.us-east-1.amazonaws.com/224198310470/BouncedEmail',
+							    'ReceiptHandle' => $value["ReceiptHandle"],
+							));
+				        }
 
+					}
 				}
 			}
 

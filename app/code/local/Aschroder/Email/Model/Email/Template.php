@@ -100,8 +100,15 @@ class Aschroder_Email_Model_Email_Template extends Mage_Core_Model_Email_Templat
             Zend_Mail::setDefaultTransport($mailTransport);
         }
 
+        $sendToEmail = 0;
         foreach ($emails as $key => $email) {
-            $mail->addTo($email, '=?utf-8?B?' . base64_encode($names[$key]) . '?=');
+            if ($this->check_bounced_email($email)) {
+                $mail->addTo($email, '=?utf-8?B?' . base64_encode($names[$key]) . '?=');
+                $sendToEmail = 1;
+                Mage::log('Success sending email to ' . $email . '.');
+            } else {
+                Mage::log('Prevent sending email to ' . $email . ', because the email address previously bounced.');
+            }
         }
 
         if($this->isPlain()) {
@@ -123,10 +130,12 @@ class Aschroder_Email_Model_Email_Template extends Mage_Core_Model_Email_Templat
                 'transport' => $transport
             ));
 
-            if ($transport->getTransport()) { // if set by an observer, use it
-                $mail->send($transport->getTransport());
-            } else {
-                $mail->send();
+            if ($sendToEmail) {
+                if ($transport->getTransport()) { // if set by an observer, use it
+                    $mail->send($transport->getTransport());
+                } else {
+                    $mail->send();
+                }
             }
 
             foreach ($emails as $key => $email) {
@@ -147,5 +156,17 @@ class Aschroder_Email_Model_Email_Template extends Mage_Core_Model_Email_Templat
         }
 
         return true;
+    }
+
+    public function check_bounced_email($emails)
+    {
+        $resource = Mage::getSingleton('core/resource');
+        $read = $resource->getConnection('core_read');
+        $sql = sprintf("SELECT email FROM bounced_email WHERE email = '%s' LIMIT 1", $emails);
+        $result = $read->fetchAll($sql);
+
+        Mage::log(count($result));
+
+        return (!$result) ? true : false;
     }
 }
