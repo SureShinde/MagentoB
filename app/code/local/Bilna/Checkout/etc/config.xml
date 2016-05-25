@@ -1,10 +1,10 @@
 <config>
-	<modules>
-		<Bilna_Checkout>
+    <modules>
+        <Bilna_Checkout>
             <version>0.1.14</version>
-		</Bilna_Checkout>
-	</modules>
-	<global>
+        </Bilna_Checkout>
+    </modules>
+    <global>
         <models>
             <bilna_checkout>
                 <class>Bilna_Checkout_Model</class>
@@ -42,5 +42,5 @@
                 </connection>
             </bilna_checkout_read>
         </resources>
-	</global>
+    </global>
 </config>

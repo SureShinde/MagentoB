@@ -122,7 +122,7 @@ class Bilna_Checkout_Model_Type_Onepage extends Mage_Checkout_Model_Type_Onepage
             return;
         }
 
-        if ($couponData['type'] != 1) { // only check for unique coupon code
+        if (!isset($couponData['type']) || $couponData['type'] != 1) { // check for unique coupon code only
             return;
         }
 
@@ -151,25 +151,14 @@ class Bilna_Checkout_Model_Type_Onepage extends Mage_Checkout_Model_Type_Onepage
 
     private function _getCouponData ($couponCode)
     {
-        $couponData = Mage::getModel('salesrule/coupon')->load($couponCode, 'code');
-        return $couponData;
+        $coupon = Mage::getModel('salesrule/coupon')->load($couponCode, 'code');
+        return $coupon;
     }
 
     private function _deleteOlderCouponLog()
     {
-        $uniqueCouponLog = $this->getCouponLog();
-        $time = time();
-        $oneMinute = Mage::getModel('core/date')->date('Y-m-d H:i:s', ($time - 60));
-        $olderCouponLogs = $this->getCouponLog()
-            ->getCollection()
-            ->addFieldToFilter('created_at', array('lteq' => new Zend_Db_Expr("NOW() - INTERVAL 1 MINUTE")))
-            ->getColumnValues('id');
-
-        if (count($olderCouponLogs) > 0) {
-            $olderCouponIds = implode(",", $olderCouponLogs);
-            $sql = "DELETE FROM bilna_unique_coupon_log WHERE id IN (".$olderCouponIds.")";
-            $connectionDelete = Mage::getSingleton('core/resource')->getConnection('core_write');
-            $connectionDelete->query($sql);
-        }
+        $sql = "DELETE FROM bilna_unique_coupon_log WHERE created_at <= NOW() - INTERVAL 1 MINUTE";
+        $connectionDelete = Mage::getSingleton('core/resource')->getConnection('core_write');
+        $connectionDelete->query($sql);
     }
 }
