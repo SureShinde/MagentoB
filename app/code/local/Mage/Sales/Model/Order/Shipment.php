@@ -447,7 +447,7 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
             }
         }
 
-        // Get First Tracking Data
+        // Get First Shipment Data
         $trackingData = $this->getFirstTrackingData();
         $shippedBy = '';
         $trackingNumber = '';
