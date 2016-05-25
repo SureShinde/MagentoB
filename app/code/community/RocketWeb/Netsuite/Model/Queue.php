@@ -1,8 +1,8 @@
 <?php
 class RocketWeb_Netsuite_Model_Queue extends Zend_Queue {
-    public function send($message,$priority = 0)
+    public function send($message,$priority = 0,$last_modified_date = null)
     {
-        return $this->getAdapter()->send($message,null,$priority);
+        return $this->getAdapter()->send($message,null,$priority,$last_modified_date);
     }
 
 

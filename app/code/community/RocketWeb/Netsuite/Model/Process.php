@@ -201,9 +201,15 @@ class RocketWeb_Netsuite_Model_Process {
 
                                         $message = Mage::getModel('rocketweb_netsuite/queue_message');
                                         $message = $message->create($importableEntityModel->getMessageType(), $record->internalId, RocketWeb_Netsuite_Helper_Queue::NETSUITE_IMPORT_QUEUE, $record);
+
+                                        // get last modified date from Netsuite
+                                        $lastModifiedDate = date("Y-m-d H:i:s", strtotime($record->lastModifiedDate));
                                         
-                                        if (!$importableEntityModel->isQueued($message)) {
-                                            Mage::helper('rocketweb_netsuite/queue')->getQueue(RocketWeb_Netsuite_Helper_Queue::NETSUITE_IMPORT_QUEUE)->send($message->pack(), Mage::helper('rocketweb_netsuite')->getRecordPriority($path));
+                                        /* if not inside the queue, send to the message queue */
+                                        /* if inside the queue and the last modified date is different,
+                                        send to the message queue as well */
+                                        if (!$importableEntityModel->isQueued($message) || ($importableEntityModel->isQueued($message) && Mage::helper('rocketweb_netsuite/queue')->lastModifiedDateChanged($message, $lastModifiedDate))) {
+                                            Mage::helper('rocketweb_netsuite/queue')->getQueue(RocketWeb_Netsuite_Helper_Queue::NETSUITE_IMPORT_QUEUE)->send($message->pack(), Mage::helper('rocketweb_netsuite')->getRecordPriority($path), $lastModifiedDate);
                                         }
                                     }
                                 
@@ -229,8 +235,14 @@ class RocketWeb_Netsuite_Model_Process {
                                 Mage::helper('rocketweb_netsuite')->log($e->getMessage());
                             }
 
-                            if (!$importableEntityModel->isQueued($message)) {
-                                Mage::helper('rocketweb_netsuite/queue')->getQueue(RocketWeb_Netsuite_Helper_Queue::NETSUITE_IMPORT_QUEUE)->send($message->pack(), Mage::helper('rocketweb_netsuite')->getRecordPriority($path));
+                            // get last modified date from Netsuite
+                            $lastModifiedDate = date("Y-m-d H:i:s", strtotime($record->lastModifiedDate));
+
+                            /* if not inside the queue, send to the message queue */
+                            /* if inside the queue and the last modified date is different,
+                            send to the message queue as well */
+                            if (!$importableEntityModel->isQueued($message) || ($importableEntityModel->isQueued($message) && Mage::helper('rocketweb_netsuite/queue')->lastModifiedDateChanged($message, $lastModifiedDate))) {
+                                Mage::helper('rocketweb_netsuite/queue')->getQueue(RocketWeb_Netsuite_Helper_Queue::NETSUITE_IMPORT_QUEUE)->send($message->pack(), Mage::helper('rocketweb_netsuite')->getRecordPriority($path), $lastModifiedDate);
                             }
                         }
                     }
