@@ -643,6 +643,7 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
     }
 
     /**
+     * Function to get first record from shipment data
      * @return mixed|null
      */
     public function getFirstShipmentData()
