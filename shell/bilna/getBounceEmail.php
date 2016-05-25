@@ -25,20 +25,20 @@ class getBounceEmail extends Mage_Shell_Abstract {
 			    'MaxNumberOfMessages' => 10,
 			));
 
-			$data = array();
+			// $data = array();
 			foreach ($result["Messages"] as $key => $value) {
 				$body = json_decode($value["Body"]);
 				$bodyMessage = json_decode($body->Message);
 				if($bodyMessage->bounce->bounceType == "Permanent") {
-					$data[] = array("ReceiptHandle" => $value["ReceiptHandle"], "emailAddress" => $bodyMessage->bounce->bouncedRecipients[0]->emailAddress, "bounceType" => $bodyMessage->bounce->bounceType, "diagnosticCode" => $bodyMessage->bounce->bouncedRecipients[0]->diagnosticCode);
+					// $data[] = array("ReceiptHandle" => $value["ReceiptHandle"], "emailAddress" => $bodyMessage->bounce->bouncedRecipients[0]->emailAddress, "bounceType" => $bodyMessage->bounce->bounceType, "diagnosticCode" => $bodyMessage->bounce->bouncedRecipients[0]->diagnosticCode);
 
 					$sql = sprintf("
-			            INSERT INTO `message`(`email`)
+			            INSERT INTO `bounced_email`(`email`)
 			            VALUES('%s');
 			        ", $$bodyMessage->bounce->bouncedRecipients[0]->emailAddress);
 			        
 			        if ($this->write->query($sql)) {
-			            $this->logProgress('Success running SQL statement : ' . $sql);
+			            echo 'Success running SQL statement : ' . $sql . "\n";
 			            $client->deleteMessage(array(
 						    'QueueUrl' => 'https://sqs.us-east-1.amazonaws.com/224198310470/BouncedEmail',
 						    'ReceiptHandle' => $value["ReceiptHandle"],
