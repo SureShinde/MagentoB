@@ -449,6 +449,12 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
 
         // Get First Shipment Data
         $shipmentData = $this->getFirstShipmentData();
+        $shippedBy = '';
+        $trackingNumber = '';
+        if (!empty($shipmentData)) {
+            $shippedBy = $shipmentData->getTitle();
+            $trackingNumber = $shipmentData->getNumber();
+        }
 
         // Set all required params and send emails
         $mailer->setSender(Mage::getStoreConfig(self::XML_PATH_EMAIL_IDENTITY, $storeId));
@@ -460,8 +466,8 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
                 'comment'      => $comment,
                 'billing'      => $order->getBillingAddress(),
                 'payment_html' => $paymentBlockHtml,
-                'shipped_by'   => $shipmentData->getTitle(),
-                'tracking_number' => $shipmentData->getNumber()
+                'shipped_by'   => $shippedBy,
+                'tracking_number' => $trackingNumber
             )
         );
         $mailer->send();
