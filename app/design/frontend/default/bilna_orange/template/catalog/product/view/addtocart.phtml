@@ -27,54 +27,7 @@
 <?php $_escape_helper = Mage::helper('catalog/utils'); ?>
 <?php $_core_helper =  Mage::helper('core'); ?>
 <?php $_product = $this->getProduct(); ?>
-<?php
-    $dateTime = Mage::getModel('core/date')->timestamp(time());
-    $orderHour = date("H", $dateTime); 
-    $orderDate = date('d F Y', $dateTime);
-    $nextDay = date('d F Y', strtotime($orderDate . ' +1 day'));
-    $isExpressShippingEnabled = Mage::getStoreConfig('bilna_expressshipping/status/enabled');
-    if ($_product->getExpressShipping() && $isExpressShippingEnabled){
-        if($orderHour < 9){
-            $img = $this->getSkinUrl('images/') . 'VIP-SHIPMENT-ICON-GREEN.png';
-            echo "<div class='in-block container-express'>
-                    <img src='".$img."' class='in-block margin-right-8'  style='width:35px;'>
-                    <div class='in-block'>
-                        <p class='bold'>Tersedia Pengiriman Ekspress!
-                            <span class='tool-box'>
-                                <span class='question'>?</span> 
-                                <span class='pops'>
-                                    <span class='arrow_box in-block stay-float'>
-                                        <span class='logo'>Selesaikan transaksi sebelum jam 11.00 WIB untuk terima produk hari ini. Pengiriman Express tersedia di <strong>Jakarta &amp; Bekasi</strong> khusus produk dengan icon <span class='in-tab'>
-                                            <img src='".$img."'  style='width:12px;'></span>. tidak dapat digabungkan dengan produk tanpa ikon tersebut &amp; COD</span>
-                                    </span>
-                                </span>
-                            </span>
-                        </p>
-                        <p>Terima pesanan tanggal ".$orderDate."</p>
-                    </div>
-                </div>";
-        } else {
-            $img = $this->getSkinUrl('images/') . 'VIP-SHIPMENT-ICON-GREEN.png';
-            echo "<div class='in-block container-express'>
-                        <img src='".$img."' class='in-block margin-right-8'  style='width:35px;'>
-                        <div class='in-block'>
-                            <p class='bold'>Tersedia Pengiriman Ekspress!
-                                <span class='tool-box'>
-                                    <span class='question'>?</span> 
-                                    <span class='pops'>
-                                        <span class='arrow_box in-block stay-float'>
-                                            <span class='logo'>Pengiriman Express tersedia di <strong>Jakarta &amp; Bekasi</strong> khusus produk dengan icon <span class='in-tab'>
-                                            <img src='".$img."'  style='width:12px;'></span>. tidak dapat digabungkan dengan produk tanpa ikon tersebut &amp; COD</span>
-                                        </span>
-                                    </span>
-                                </span>
-                            </p>
-                            <p>Terima pesanan tanggal ".$nextDay."</p>
-                        </div>
-                </div>";
-        }
-    }
-?>
+<div id="place-for-eta"></div>
 <?php
     $buttonTitle = $this->__('Tambah ke troli');
     $_cart = Mage::helper('checkout/cart')->getQuote();
@@ -123,6 +76,21 @@
 <?php endif; ?>
 
 <script type="text/javascript">
+  jQuery( document ).ready(function() {
+    jQuery.ajax({
+        url: "/expressshipping/index/getETA",
+        data: 'expressable=<?php echo $_product->getExpressShipping(); ?>',
+        type: "POST",
+        success: function(data) 
+        {
+            jQuery('#place-for-eta').html(data);
+        },
+        error: function(error)
+        {
+        }
+      });
+  });
+      
 function ecommerceProductDetailAddToCart(name, sku, price, price_ematic, link, imageUrl) {
     if (jQuery("div.input-box select").val() != false) {
         dataLayer.push({
