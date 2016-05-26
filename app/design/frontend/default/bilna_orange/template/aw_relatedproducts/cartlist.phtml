@@ -58,6 +58,7 @@
                 data-image="<?php echo $this->helper('catalog/image')->init($_item, 'small_image')->resize(320, 320); ?>"
                 data-product-name="<?php echo $this->stripTags($_item->getName(), null, true); ?>"
                 data-price="<?php echo $_core_helper->currency($_item->getFinalPrice(), true, false); ?>"
+                data-oldprice="<?php echo $_core_helper->currency($_item->getPrice(),true,false);?>"
                 data-merchant = "<?php echo ($merchant) ? 'dijual oleh ' . $merchant : ''; ?>"
                 data-id="<?php echo $_item->getId(); ?>"
                 ><i class="fa fa-heart"></i></a>
