@@ -47,7 +47,7 @@ $coverImage = $this->getSkinUrl('images') . '/orami_collection_empty.png';
 $_productCollection = $this->getWishlistCollection();
 $_helper = $this->helper('catalog/output');
 $_core_helper =  Mage::helper('core');
-$messages=Mage::getSingleton("checkout/session")->getMessages();
+$messages=Mage::getSingleton("checkout/session")->getMessages(true);
 echo $this->getLayout()->createBlock("core/messages")->setMessages($messages)->getGroupedHtml();
 ?>
 <div class="cg-col-xs-12 nopadding detail-collect spacer-mobile">
