@@ -3681,6 +3681,7 @@ span.question
 span.pops
 {
 	display: none;
+	position: relative;
 
 }
 span.tool-box:hover span.pops
@@ -3731,10 +3732,11 @@ span.arrow_box:before {
     width: 250px;
     padding: 10px;
     z-index: 999;
-    top: -100px;
+    top: -118px !important;
     font-size: 11px;
-    right: -200px;
+    right: -210px;
     font-weight: 300;
+    margin-right: 0 !important;
 }
 .in-tab
 {
@@ -3743,7 +3745,8 @@ span.arrow_box:before {
 .spancart
 {
 	padding: 3px 6px !important;
-    margin-left: 10px;
+    /*margin-left: 10px;*/
+    margin:0;
     line-height: 9px;
     border-radius: 100%;
 }
