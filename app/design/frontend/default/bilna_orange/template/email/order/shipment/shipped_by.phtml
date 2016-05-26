@@ -1,19 +1,19 @@
 <?php
 $_shipment=$this->getShipment();
-$tracks = $_shipment->getAllTracks();
+$_order=$this->getOrder();
+if ($_shipment && $_order && $_shipment->getAllTracks()):
 ?>
 <table cellpadding="0" width="100%" cellspacing="0" style="padding:10px 0 0;margin-bottom: 20px; font-size:15px;">
     <tr>
         <td><strong>Dikirimkan Oleh</strong></td>
     </tr>
     <tr height="10"></tr>
-    <?php if (!empty($tracks)): ?>
-        <?php foreach($tracks as $_item) : ?>
-            <tr>
-                <td>
-                    <?php echo $this->escapeHtml($_item->getTitle()) ?>
-                </td>
-            </tr>
-        <?php endforeach; ?>
-    <?php endif; ?>
+    <?php foreach($_shipment->getAllTracks() as $_item) : ?>
+        <tr>
+            <td>
+                <?php echo $this->escapeHtml($_item->getTitle()); ?>
+            </td>
+        </tr>
+    <?php endforeach; ?>
 </table>
+<?php endif; ?>
