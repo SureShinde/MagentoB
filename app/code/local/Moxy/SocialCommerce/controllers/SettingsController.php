@@ -78,11 +78,11 @@ extends Mage_Core_Controller_Front_Action
                 $postData = $this->postData;
 
                 # Get username and slug it
-                $postUsername = Mage::getModel('catalog/product_url')->formatUrlKey($postData['username']);
+                $postUsername = isset($postData['username']) ? Mage::getModel('catalog/product_url')->formatUrlKey($postData['username']) : null;
 
                 $postAbout = $postData['about'];
                 $postLocation = $postData['location'];
-                $postDob = $postData['dob'];
+                $postDob = isset($postData['dob']) ? $postData['dob'] : null;
 
                 # Update the customer profile
                 $profile = Mage::getModel('socialcommerce/profile')
