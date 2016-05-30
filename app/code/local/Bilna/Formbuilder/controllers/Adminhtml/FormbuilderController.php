@@ -287,6 +287,8 @@ $collection->getSelect()
 	protected function saveInput(int $formId)
 	{
 		$data = $this->getRequest()->getPost();
+		$toJson = array("dropdown", "checkbox", "multiple", "radio");
+		if(in_array($data['type'], $toJson))$data['value'] = Mage::helper('core')->jsonEncode($data['value']);
 		$data = array_merge($data, ['form_id' => $formId]);
 		if($data) {
 			$model = Mage::getModel('bilna_formbuilder/input');

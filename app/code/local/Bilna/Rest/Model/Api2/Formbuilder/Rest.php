@@ -6,8 +6,8 @@
  */
 
 abstract class Bilna_Rest_Model_Api2_Formbuilder_Rest extends Bilna_Rest_Model_Api2_Formbuilder {
-    protected $_inputSimple = array ('text', 'textarea', 'hidden', 'dropdown', 'date', 'datetime');
-    protected $_inputChoice = array ('checkbox', 'radio', 'multiple');
+    protected $_inputSimple = array ('text', 'textarea', 'hidden', 'date', 'datetime', 'ref');
+    protected $_inputChoice = array ('dropdown', 'checkbox', 'radio', 'multiple', 'terms');
     
     protected function _validRequired($_input, $_formData) {
         if ($_input['required'] == 1) {
@@ -195,9 +195,8 @@ abstract class Bilna_Rest_Model_Api2_Formbuilder_Rest extends Bilna_Rest_Model_A
     protected function _getInputs($_formId) {
         $_result = array ();
         $_collection = Mage::getModel('bilna_formbuilder/input')->getCollection()->addFieldToFilter('form_id', $_formId);
-        $_collection->getSelect()->order('group');
         $_collection->getSelect()->order('order');
-        
+        $_collection->getSelect()->order('group');
         if ($_collection->getSize() > 0) {
             foreach ($_collection as $_row) {
                 $_result[] = array (
@@ -214,6 +213,7 @@ abstract class Bilna_Rest_Model_Api2_Formbuilder_Rest extends Bilna_Rest_Model_A
                     'order' => $_row->getOrder(),
                 );
             }
+
         }
         
         return $_result;
