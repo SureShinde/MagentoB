@@ -4,12 +4,12 @@
     <div id="order-shipping-method-choose" style="display: none;">
     <dl class="shipment-methods">
     <?php $_checked = ''; $_codeChecked = ''; ?>
-    <?php $disableOption = false; ?>
     <?php foreach ($_shippingRateGroups as $code => $_rates): ?>
         <dt><strong><?php echo $this->escapeHtml($this->getCarrierName($code)) ?></strong></dt>
         <dd>
             <ul>
             <?php foreach ($_rates as $_rate): ?>
+                <?php $disableOption = false; ?>
                 <?php 
                 // if current shipping method is Express, check whether all the items can be express-shipped
                 if ( (strpos(strtolower($_rate->getCode()), 'express') !== false) || (strpos(strtolower($_rate->getCode()), 'ekspres') !== false) ):
