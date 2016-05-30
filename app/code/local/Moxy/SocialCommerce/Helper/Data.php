@@ -134,9 +134,8 @@ class Moxy_SocialCommerce_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     # Input validation
-    public function validateInput()
+    public function validateInput($postData)
     {
-        $postData = $this->postData;
         $postUsername = $postData['username'];
         if (! $postUsername) {
             throw new Exception("Please fill username field");
