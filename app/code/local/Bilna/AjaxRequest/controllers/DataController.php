@@ -58,6 +58,7 @@ class Bilna_AjaxRequest_DataController extends Mage_Core_Controller_Front_Action
             $gtmIds = '';
             $gtmPrices = '';
             $gtmQuantitys = '';
+            $response['data']["numofitem"] = 0;
 	        foreach ($order->getAllItems() as $item) {
 				$product = array();
 				$product["identifier"] = $item->getSku();
@@ -101,6 +102,7 @@ class Bilna_AjaxRequest_DataController extends Mage_Core_Controller_Front_Action
             $gtmIds = '';
             $gtmPrices = '';
             $gtmQuantitys = '';
+            $response['data']["numofitem"] = 0;
             foreach ($order->getAllItems() as $item) {
                 $product = array();
                 $product["id"] = $item->getProductId();

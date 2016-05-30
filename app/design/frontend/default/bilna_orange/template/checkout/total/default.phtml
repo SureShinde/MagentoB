@@ -25,14 +25,21 @@
  */
 ?>
 <tr>
-    <td colspan="<?php echo $this->getColspan(); ?>" style="<?php echo $this->getTotal()->getStyle() ?>" class="">
+    <?php 
+    $total = $this->getTotal()->getValue(); 
+    $isMinus = false;
+    if ($total < 0) {
+        $isMinus = true;            
+    }
+    ?>
+    <th scope="row" colspan="<?php echo $this->getColspan(); ?>" style="<?php echo $this->getTotal()->getStyle() ?>" class="">
         <?php if ($this->getRenderingArea() == $this->getTotal()->getArea()): ?><strong><?php endif; ?>
             <?php echo $this->escapeHtml($this->getTotal()->getTitle()); ?>
         <?php if ($this->getRenderingArea() == $this->getTotal()->getArea()): ?></strong><?php endif; ?>
-    </td>
-    <td style="<?php echo $this->getTotal()->getStyle() ?>" class="">
+    </th>
+    <td style="<?php echo $this->getTotal()->getStyle() ?>" class="text-right<?php echo ($isMinus) ? ' cuts' : ''; ?>">
         <?php if ($this->getRenderingArea() == $this->getTotal()->getArea()): ?><strong><?php endif; ?>
-            <?php echo $this->helper('checkout')->formatPrice($this->getTotal()->getValue()) ?>
+            <?php echo $this->helper('checkout')->formatPrice($total); ?>
         <?php if ($this->getRenderingArea() == $this->getTotal()->getArea()): ?></strong><?php endif; ?>
     </td>
 </tr>

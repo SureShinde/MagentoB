@@ -95,17 +95,7 @@ function getNetsuiteFormatProduct($magentoProduct) {
     $customFieldEventCost->scriptId = 'custitem_eventcost';
     $customFieldEventCost->value = utf8_encode($eventCost);
     $customFieldList->customField[] = $customFieldEventCost;
-
-    /* 
-     * product cost
-     */
-    $cost         = $magentoProduct->getCost();
-
-    $customFieldCost = new StringCustomFieldRef();
-    $customFieldCost->scriptId = 'custitem_cost';
-    $customFieldCost->value = utf8_encode($cost);
-    $customFieldList->customField[] = $customFieldCost;
-
+    
     $inventoryItem->customFieldList = $customFieldList;
 
     return $inventoryItem;

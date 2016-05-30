@@ -43,7 +43,7 @@ class Webshopapps_Premiumrate_Model_Mysql4_Carrier_Premiumrate extends Mage_Core
         $this->_init('shipping/premiumrate', 'pk');
     }
 
-    public function getNewRate(Mage_Shipping_Model_Rate_Request $request) {
+    public function getNewRate(Mage_Shipping_Model_Rate_Request $request, $itemStatus = null) {
         $read = $this->_getReadAdapter();
         $this->_table = Mage::getSingleton('core/resource')->getTableName('premiumrate_shipping/premiumrate');
         $this->_debug = Mage::helper('wsalogger')->isDebug('Webshopapps_Premiumrate');
@@ -130,6 +130,12 @@ class Webshopapps_Premiumrate_Model_Mysql4_Carrier_Premiumrate extends Mage_Core
                 $select->where('item_from_value<=?', $request->getData('package_qty'));
                 $select->where('item_to_value>=?', $request->getData('package_qty'));
             }
+
+            if (is_null($itemStatus) || $itemStatus['item_status'] == Webshopapps_Premiumrate_Model_Carrier_Premiumrate::ITEMS_LOCAL || $itemStatus['item_status'] == Webshopapps_Premiumrate_Model_Carrier_Premiumrate::ITEMS_MIXED)
+                $select->where('(is_import IS NULL or is_import = ?)', 0);
+            else
+            if ($itemStatus['item_status'] == Webshopapps_Premiumrate_Model_Carrier_Premiumrate::ITEMS_IMPORT)
+                $select->where('is_import = ?', 1);
 
             $select->where('website_id=?', $request->getWebsiteId());
             $select->order('sort_order ASC');
@@ -311,6 +317,400 @@ class Webshopapps_Premiumrate_Model_Mysql4_Carrier_Premiumrate extends Mage_Core
 		}
 
 		if(!empty($newData)){ return $newData;} else return;
+    }
+
+    public function getNewRateMixed(Mage_Shipping_Model_Rate_Request $request, $itemStatus) {
+        $read = $this->_getReadAdapter();
+        $this->_table = Mage::getSingleton('core/resource')->getTableName('premiumrate_shipping/premiumrate');
+        $this->_debug = Mage::helper('wsalogger')->isDebug('Webshopapps_Premiumrate');
+        $usingGreaterVolLogic=Mage::getStoreConfig('carriers/premiumrate/calculate_greater_volume');
+        $this->_alwaysUseWeight = Mage::getStoreConfig('carriers/premiumrate/always_weight');
+        $addOr = false;
+
+        $this->_request = $request;
+
+        $available_item_types = ['local_items', 'import_items'];
+
+        /**
+         * pdo has an issue. we cannot use bind
+         */
+        $newdata = array ();
+        $newlocaldata = array();
+        $newimportdata = array();
+
+        // loop through available item types ( local & import )
+        foreach($available_item_types as $item_type)
+        {
+            if (!isset($itemStatus[$item_type]))
+                continue;
+
+            if ($request->getPRConditionName() == 'package_volweight') {
+                $greaterVolume = true;
+                $totalVolweight = $itemStatus[$item_type]['volweight'];
+                
+                /* comment temporarily, otherwise request package weight will always exceed total volume weight
+                if ($usingGreaterVolLogic && $request->getData('package_weight')> $totalVolweight) {
+                    $greaterVolume = false;
+                    $totalVolweight = $request->getData('package_weight');
+                }
+                */
+            }
+
+            $zipcodeMaxLength = Mage::getStoreConfig('carriers/premiumrate/zipcode_max_length');
+            
+            if (empty ($zipcodeMaxLength)) {
+                if (Mage_Usa_Model_Shipping_Carrier_Abstract::USA_COUNTRY_ID == $request->getDestCountryId()) {
+                    $splitPostcode = explode('-',$request->getDestPostcode());
+                    $postcode = $splitPostcode[0];
+                }
+                else if ( 'BR' == $request->getDestCountryId()) {
+                    $postcode = str_replace("-","",$request->getDestPostcode());
+                }
+                else {
+                    $postcode = $request->getDestPostcode();
+                }
+            }
+            else {
+                $postcode = substr($request->getDestPostcode(), 0, $zipcodeMaxLength);
+            }
+
+            Mage::Helper('premiumrate')->processZipcode($read, $postcode, $this->_twoPhaseFiltering, $this->_zipSearchString, $this->_shortMatchPostcode, $this->_longMatchPostcode);
+            
+            if ($this->_twoPhaseFiltering) {
+                $switchSearches = 13;
+            }
+            else {
+                $switchSearches=9;
+            }
+            
+            for ($j = 0; $j < $switchSearches; $j++) {
+                $select = $this->getSwitchSelect($read,$j);
+
+                /* depending on the condition of current item type ( local or item ),
+                the where condition has to be checked whether it is import or local
+                */
+                if ($item_type == 'local_items')
+                    $select->where('(is_import IS NULL or is_import = ?)', 0);
+                else
+                if ($item_type == 'import_items')
+                    $select->where('is_import = ?', 1);
+
+                // we only want to find the one with Standard Shipping
+                $select->where('delivery_id = ?', 1);
+
+                if ($request->getPRConditionName() == 'package_volweight') {
+                    if ($usingGreaterVolLogic) {
+                        $select->where('condition_name=?', $request->getPRConditionName());
+                        $select->where('weight_from_value<=?', $totalVolweight);
+                        $select->where('weight_to_value>=?', $totalVolweight);
+                        $select->where('price_from_value<=?', $itemStatus[$item_type]['price']);
+                        $select->where('price_to_value>=?', $itemStatus[$item_type]['price']);
+                        $select->where('item_from_value<=?', $itemStatus[$item_type]['qty']);
+                        $select->where('item_to_value>=?', $itemStatus[$item_type]['qty']);
+                        
+                        if (!empty ($this->_alwaysUseWeight)) {
+                            foreach (explode(",",$this->_alwaysUseWeight) as $method) {
+                                $select->where('delivery_type<>?', $method);
+                            }
+                            
+                            $addOr = true;
+                        }
+                    }
+                    else {
+                        $select->where('condition_name=?', $request->getPRConditionName());
+                        $select->where('weight_from_value<=?', $itemStatus[$item_type]['weight']);
+                        $select->where('weight_to_value>=?', $itemStatus[$item_type]['weight']);
+                        $select->where('price_from_value<=?', $itemStatus[$item_type]['price']);
+                        $select->where('price_to_value>=?', $itemStatus[$item_type]['price']);
+                        $select->where('item_from_value<=?', $totalVolweight);
+                        $select->where('item_to_value>=?', $totalVolweight);
+                    }
+                }
+                else {
+                    $select->where('condition_name=?', $request->getPRConditionName());
+                    $select->where('weight_from_value<=?', $itemStatus[$item_type]['weight']);
+                    $select->where('weight_to_value>=?', $itemStatus[$item_type]['weight']);
+                    $select->where('price_from_value<=?', $itemStatus[$item_type]['price']);
+                    $select->where('price_to_value>=?', $itemStatus[$item_type]['price']);
+                    $select->where('item_from_value<=?', $itemStatus[$item_type]['qty']);
+                    $select->where('item_to_value>=?', $itemStatus[$item_type]['qty']);
+                }
+
+                $select->where('website_id=?', $request->getWebsiteId());
+                $select->order('sort_order ASC');
+
+                if ($addOr) {
+                    $actualWeightSelect = $this->getSwitchSelect($read,$j);
+                    $actualWeightSelect->where('condition_name=?', $request->getPRConditionName());
+                    $actualWeightSelect->where('weight_from_value<=?', $itemStatus[$item_type]['weight']);
+                    $actualWeightSelect->where('weight_to_value>=?', $itemStatus[$item_type]['weight']);
+                    $actualWeightSelect->where('price_from_value<=?', $itemStatus[$item_type]['price']);
+                    $actualWeightSelect->where('price_to_value>=?', $itemStatus[$item_type]['price']);
+                    $actualWeightSelect->where('item_from_value<=?', $itemStatus[$item_type]['qty']);
+                    $actualWeightSelect->where('item_to_value>=?', $itemStatus[$item_type]['qty']);
+
+                    $methods = explode(",",$this->_alwaysUseWeight);
+                    $actualWeightSelect->where('delivery_type IN (?)',$methods);
+
+                    $actualWeightSelect->where('website_id=?', $request->getWebsiteId());
+                    $actualWeightSelect->order('sort_order ASC');
+                }
+                
+                try {
+                    $row = $read->fetchAll($select);
+                    
+                    if ($addOr) {
+                        $row2 = $read->fetchAll($actualWeightSelect);
+                    }
+                }
+                catch (Exception $e) {
+                        Mage::helper('wsalogger/log')->postCritical('premiumrate','SQL Exception',$e,$this->_debug);
+                }
+
+                if($addOr) {
+                    $row = array_merge($row,$row2);
+                }
+
+                if (!empty($row))
+                {
+                    if ($this->_debug) {
+                        Mage::helper('wsalogger/log')->postInfo('premiumrate','SQL Select',$select->getPart('where'));
+                        if($addOr) {
+                            Mage::helper('wsalogger/log')->postInfo('premiumrate','SQL Select for Actual Weight Only Methods',$actualWeightSelect->getPart('where'));
+                        }
+                        Mage::helper('wsalogger/log')->postInfo('premiumrate','SQL Result',$row);
+                    }
+                    // have found a result or found nothing and at end of list!
+                    foreach ($row as $data) {
+                        if ($data['price']==-1) {
+                            $this->_excludedDeliveries[]=$data['delivery_type'];
+                            continue;
+                        }
+                        $data['method_name']=$data['delivery_type'];
+                        if ($data['algorithm']!="") {
+                            $algorithm_array=explode("&",$data['algorithm']);  // Multi-formula extension
+                            reset($algorithm_array);
+                            $skipData=false;
+                            foreach ($algorithm_array as $algorithm_single) {
+                                $algorithm=explode("=",$algorithm_single,2);
+                                if (!empty($algorithm) && count($algorithm)==2) {
+                                    if (strtolower($algorithm[0])=="w") {
+                                        // weight based
+                                        $weightIncrease=explode("@",$algorithm[1]);
+                                        if (!empty($weightIncrease) && count($weightIncrease)==2 ) {
+                                            if ($usingGreaterVolLogic && $request->getPRConditionName()=='package_volweight' && $greaterVolume ) {
+                                                $weightDifference = $totalVolweight-$data['weight_from_value'];
+                                            } else {
+                                                $weightDifference = $itemStatus[$item_type]['weight']-$data['weight_from_value'];
+                                            }
+                                            $quotient=ceil($weightDifference / $weightIncrease[0]);
+                                            $data['price']=$data['price']+$weightIncrease[1]*$quotient;
+                                        }
+                                    } else if (strtolower($algorithm[0])=="wnc") {
+                                        // weight based without rounding
+                                        $weightIncrease=explode("@",$algorithm[1]);
+                                        if (!empty($weightIncrease) && count($weightIncrease)==2 ) {
+                                            if ($usingGreaterVolLogic && $request->getPRConditionName()=='package_volweight' && $greaterVolume ) {
+                                                $weightDifference = $totalVolweight-$data['weight_from_value'];
+                                            } else {
+                                                $weightDifference = $itemStatus[$item_type]['weight']-$data['weight_from_value'];
+                                            }
+                                            $quotient=$weightDifference / $weightIncrease[0];
+                                            $data['price']=$data['price']+$weightIncrease[1]*$quotient;
+                                        }
+                                    } else if (strtolower($algorithm[0])=="aw") {
+                                        // always weight based
+                                        $weightIncrease=explode("@",$algorithm[1]);
+                                        if (!empty($weightIncrease) && count($weightIncrease)==2 ) {
+                                            $weightDifference = $itemStatus[$item_type]['weight']-$data['weight_from_value'];
+                                            $quotient=ceil($weightDifference / $weightIncrease[0]);
+                                            $data['price']=$data['price']+$weightIncrease[1]*$quotient;
+                                        }
+                                    } else if (strtolower($algorithm[0])=="v") {
+                                        // volume based
+                                        $weightIncrease=explode("@",$algorithm[1]);
+                                        if (!empty($weightIncrease) && count($weightIncrease)==2 ) {
+                                            $weightDifference=  $totalVolweight-$data['item_from_value'];
+                                            $quotient=ceil($weightDifference / $weightIncrease[0]);
+                                            $data['price']=$data['price']+$weightIncrease[1]*$quotient;
+                                        }
+                                    } else if (strtolower($algorithm[0])=="i") {
+                                        // volume based
+                                        $perItemCost=$algorithm[1];
+                                        if (!empty($perItemCost)) {
+                                            $numItemsAffected = $itemStatus[$item_type]['qty']-$data['item_from_value'];
+                                            $data['price']=$data['price']+$perItemCost*$numItemsAffected;
+                                        }
+                                    } else if (strtolower($algorithm[0])=="ai") {
+                                        //all items
+                                        $itemCost=$algorithm[1];
+                                        if (!empty($itemCost)) {
+                                            $data['price'] = $data['price']+$itemCost*$itemStatus[$item_type]['qty'];
+                                        }
+                                    } else if (strtolower($algorithm[0])=="instock" && strtolower($algorithm[1])=="true") {
+                                        // in stock
+                                        if (!$this->_stockFound) {
+                                            if ($this->checkOutOfStock($request)) {
+                                                $skipData = true;
+                                                break;
+                                            }
+                                        } else {
+                                            if ($this->_outofstock) {
+                                                $skipData = true;
+                                                break;
+                                            }
+                                        }
+                                    } else if (strtolower($algorithm[0])=="instock" && strtolower($algorithm[1])=="false") {
+                                        if (!$this->_stockFound) {
+                                            if (!$this->checkOutOfStock($this->_request)) {
+                                                $skipData = true;
+                                                break;
+                                            }
+                                        } else {
+                                            if (!$this->_outofstock) {
+                                                $skipData = true;
+                                                break;
+                                            }
+                                        }
+                                    } else if (strtolower($algorithm[0])=="m") {
+                                        $data['method_name']=$algorithm[1];
+                                    }
+                                }
+                            }
+                            if ($skipData) {
+                                continue;
+                            }
+                        }
+                        $newData[]=$data;
+
+                        if ($item_type == 'local_items')
+                            $newlocaldata[] = $data;
+                        else
+                        if ($item_type == 'import_items')
+                            $newimportdata[] = $data;
+                    }
+                    break;
+                } else {
+                    if ($this->_debug) {
+                        Mage::helper('wsalogger/log')->postDebug('premiumrate','SQL Select',$select->getPart('where'));
+                    }
+                }
+            }
+        }
+
+        if(empty($newData)){return;};
+
+        if (!empty($this->_excludedDeliveries)) {
+            foreach ($newData as $key=>$result) {
+                foreach ($this->_excludedDeliveries as $ekey=>$exclusionItem) {
+                    if ($result['delivery_type']==$exclusionItem) {
+                        $newData[$key]="";
+                        break;
+                    }
+                }
+
+            }
+            foreach ($newData as $key=>$result) {
+                if (empty($newData[$key])) {
+                    unset($newData[$key]);
+                }
+            }
+        }
+
+        $newDataJoined = array();
+
+        foreach($newlocaldata as $localkey => $localdata)
+        {
+            $localPrice = $localdata['price'];
+            $localDeliveryId = Mage::helper('shipping')->__($localdata['delivery_id']);
+            $localDeliveryType = Mage::helper('shipping')->__($localdata['delivery_type']);
+            $localMethodName = Mage::helper('shipping')->__($localdata['method_name']);
+            $localCost = $localdata['cost'];
+
+            foreach($newimportdata as $importkey => $importdata)
+            {
+                $importPrice = $importdata['price'];
+                $importDeliveryId = Mage::helper('shipping')->__($importdata['delivery_id']);
+                $importDeliveryType = Mage::helper('shipping')->__($importdata['delivery_type']);
+                $importMethodName = Mage::helper('shipping')->__($importdata['method_name']);
+                $importCost = $importdata['cost'];
+
+                $joinedMethodName = $localMethodName . ' ('.Mage::helper('core')->currency($localPrice, true, false).')' . ' + ' .
+                    $importMethodName . ' ('.Mage::helper('core')->currency($importPrice, true, false).')';
+                $joinedDeliveryType = $localMethodName . ' ('.Mage::helper('core')->currency($localPrice, true, false).')' . ' + ' .
+                    $importMethodName . ' ('.Mage::helper('core')->currency($importPrice, true, false).')';
+                $joinedDeliveryId = $localDeliveryId;
+                $joinedPrice = $localPrice + $importPrice;
+                $joinedCost = $localCost + $importCost;
+
+                $newDataJoined[] = ['price' => $joinedPrice, 'method_name' => $joinedMethodName,
+                    'delivery_type' => $joinedDeliveryType, 'delivery_id' => $joinedDeliveryId,
+                    'cost' => $joinedCost];
+            }
+        }
+
+        /*
+        $newDataJoined = array();
+        $joinedPrice = 0;
+
+        $min = 9999;
+        $max = 0;
+        */
+
+        /* join shipping rate */
+        /*
+        foreach ($newData as $key=>$result) {
+            $joinedPrice += $result['price'];
+            $joinedMethodName = Mage::helper('shipping')->__('Standard Shipping');
+            $joinedDeliveryType = Mage::helper('shipping')->__('Standard Shipping');
+            $joinedDeliveryId = $result['delivery_id'];
+            $joinedCost += $result['cost'];
+
+            // set min delivery days
+            if (!is_null($result['delivery_days_from']))
+            {
+                if (intval($result['delivery_days_from']) < $min)
+                    $min = $result['delivery_days_from'];
+            }
+            else
+                $min = $this->getMinDaysFromDeliveryType($result['delivery_type']);
+
+            // set max days
+            if (!is_null($result['delivery_days_to']))
+            {
+                if (intval($result['delivery_days_to']) > $max)
+                    $max = $result['delivery_days_to'];
+            }
+        }
+
+        $joinedMethodName .= " ($min - $max ".Mage::helper('shipping')->__('hari kerja').")";
+        $joinedDeliveryType .= " ($min - $max ".Mage::helper('shipping')->__('hari kerja').")";
+
+        $newDataJoined[] = ['price' => $joinedPrice, 'method_name' => $joinedMethodName,
+            'delivery_type' => $joinedDeliveryType, 'delivery_id' => $joinedDeliveryId,
+            'cost' => $joinedCost];
+        */
+
+        if(!empty($newDataJoined)){ return $newDataJoined;} else return;
+    }
+
+    private function getMinDaysFromDeliveryType($delivery_type)
+    {
+        // extract the min days from delivery type string
+        // e.g. Standard Shipping (2 - 5 hari kerja) -> get the 2
+        // e.g. Standard Shipping (11+ hari kerja) -> get the 11
+        $daysPos = strpos($delivery_type, '(') + 1;
+        $daysText = substr($delivery_type, $daysPos);
+
+        if (strpos($daysText, '-') !== false)
+            $daysArr = explode('-', $daysText);
+        else
+        if (strpos($daysText, '+') !== false)
+            $daysArr = explode('+', $daysText);
+
+        $min = intval($daysArr[0]);
+
+        return $min;
     }
 
 	private function getSwitchSelect($read,$j)
@@ -542,7 +942,7 @@ class Webshopapps_Premiumrate_Model_Mysql4_Carrier_Premiumrate extends Mage_Core
                 $csvLine = array_shift($csvLines);
                 $csvLine = $this->_getCsvValues($csvLine);
                 
-                if (count($csvLine) < 16) {
+                if (count($csvLine) < 17) {
                     $exceptions[0] = Mage::helper('shipping')->__('Invalid Premium Matrix Rates File Format');
                 }
 
@@ -552,7 +952,7 @@ class Webshopapps_Premiumrate_Model_Mysql4_Carrier_Premiumrate extends Mage_Core
                 foreach ($csvLines as $k => $csvLine) {
                     $csvLine = $this->_getCsvValues($csvLine);
                     
-                    if (count($csvLine) > 0 && count($csvLine) < 16) {
+                    if (count($csvLine) > 0 && count($csvLine) < 17) {
                         $exceptions[0] = Mage::helper('shipping')->__('Invalid Premium Matrix Rates File Format');
                     }
                     else {
@@ -706,6 +1106,16 @@ class Webshopapps_Premiumrate_Model_Mysql4_Carrier_Premiumrate extends Mage_Core
                     else {
                         $deliveryId = $csvLine[15];
                     }
+
+                    /**
+                     * get is import
+                     */
+                    if ($csvLine[16] == '*' || $csvLine[16] == '') {
+                        $isImport = '0';
+                    }
+                    else {
+                        $isImport = $csvLine[16];
+                    }
                     
                     foreach ($splitCountries as $country) {
                         $country = trim($country);
@@ -775,7 +1185,8 @@ class Webshopapps_Premiumrate_Model_Mysql4_Carrier_Premiumrate extends Mage_Core
                                     'algorithm' => $algorithm,
                                     'delivery_type' => $csvLine[13],
                                     'sort_order' => $sortOrder,
-                                    'delivery_id' => $deliveryId
+                                    'delivery_id' => $deliveryId,
+                                    'is_import' => $isImport
                                 );
                                 
                                 $dataDetails[] = array ('country' => $country, 'region' => $region);

@@ -32,6 +32,8 @@ abstract class Bilna_Worker_Abstract {
     private $_start;
     private $_stop;
 
+    private $_logFile = 'magento_worker.log';
+
     public function __construct() {
         if ($this->_includeMage) {
             require_once $this->_getRootPath() . 'app' . DIRECTORY_SEPARATOR . 'Mage.php';
@@ -230,5 +232,7 @@ USAGE;
             
             echo "[{$now}] {$message}\n";
         }
+
+        Mage::log($message, null, $this->_logFile);
     }
 }

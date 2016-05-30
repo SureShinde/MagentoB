@@ -9,7 +9,7 @@ class Bilna_Wrappinggiftevent_Model_Custom_Quote extends Mage_Core_Model_Abstrac
 	
 	public function deteleByQuote($quote_id)
 	{
-		$this->_getResource()->deteleByQuote($quote_id,$var);
+		$this->_getResource()->deteleByQuote($quote_id);
 	}
 	
 	public function getByQuote($quote_id)

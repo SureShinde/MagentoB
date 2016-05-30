@@ -15,4 +15,14 @@ class Bilna_Paymethod_Block_Checkout_Cart_Totals extends Mage_Checkout_Block_Car
         
         return 0;
     }
+
+    public function getGrandTotal() {
+    	$firstTotal = reset($this->_totals);
+        
+        if ($firstTotal) {
+            return $firstTotal->getAddress()->getGrandTotal();
+        }
+        
+        return 0;
+    }
 }

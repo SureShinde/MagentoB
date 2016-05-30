@@ -3,7 +3,7 @@
 <input type="hidden" id="order-id" value="<?php echo $this->getOrderId(); ?>" />
 
 <!--popup start-->
-	<div class="success-form-popup hidden">
+    <div class="success-form-popup hidden">
         <div class="popup">
             <form target="_blank" action="" method="post" id="event-form" name="event_form">
             <div class="blockbkg" id="bkg">
@@ -100,7 +100,7 @@ $responseStatus = $responseCharge->status;
             <div class="wrapper_success_page">
                 <div class="col_left">
                     <p><?php echo $this->__('THANK YOU FOR SHOPPING WITH'); ?></p>
-                    <p><?php echo $this->__('BILNA.COM'); ?></p>
+                    <p><?php echo $this->__('ORAMI.CO.ID'); ?></p>
                     <p>
                         <?php echo $this->__('Your order no is'); ?>: <?php echo $orderNoLink; ?>.
                         <br/>
@@ -128,7 +128,7 @@ $responseStatus = $responseCharge->status;
             <div class="wrapper_challange_page">
                 <div class="col_left">
                     <p><?php echo $this->__('THANK YOU FOR SHOPPING WITH'); ?></p>
-                    <p><?php echo $this->__('BILNA.COM'); ?></p>
+                    <p><?php echo $this->__('ORAMI.CO.ID'); ?></p>
                     <p>
                         <?php echo $this->__('Your order no is'); ?>: <?php echo $orderNoLink; ?>.
                         <br/>
@@ -151,7 +151,7 @@ $responseStatus = $responseCharge->status;
 
     <script type="text/javascript">
 jQuery(document).ready(function () {    
-    var ajaxURL = 'https://www.bilna.com/ajaxrequest/data/retrieveconfirm2/';
+    var ajaxURL = 'https://www.orami.co.id/ajaxrequest/data/retrieveconfirm2/';
 
     var data = {};
     data.orderId = '<?php echo $this->escapeHtml($this->getOrderId())?>';
@@ -163,13 +163,13 @@ jQuery(document).ready(function () {
         success: function(data){
             response = jQuery.parseJSON(data);
             if(response.status == true){
-            	dataLayer.push({'newcustomer': '0'} );
-            	dataLayer.push({'orderid': response.data.order.id} );
+                dataLayer.push({'newcustomer': '0'} );
+                dataLayer.push({'orderid': response.data.order.id} );
 
-            	dataLayer.push( {'productid': response.data.order.productIds} );
-            	dataLayer.push( {'prices': response.data.order.productPrices} );
-            	dataLayer.push( {'quantities': response.data.order.productQtys} );
-            	
+                dataLayer.push( {'productid': response.data.order.productIds} );
+                dataLayer.push( {'prices': response.data.order.productPrices} );
+                dataLayer.push( {'quantities': response.data.order.productQtys} );
+                
                 dataLayer.push({'customer': JSON.stringify(response.data.customer)});
                 dataLayer.push( {'order': JSON.stringify(response.data.order)} );
                 dataLayer.push({'event': 'salesConversionEvent'});
@@ -189,7 +189,7 @@ jQuery(document).ready(function () {
     <div class="wrapper_failure_page">
         <div class="col_left">
             <p><?php echo $this->__('THANK YOU FOR SHOPPING WITH'); ?></p>
-            <p><?php echo $this->__('BILNA.COM'); ?></p>
+            <p><?php echo $this->__('ORAMI.CO.ID'); ?></p>
             <p>
                 <?php echo $this->__('Your order no is'); ?>: <?php echo $orderNoLink; ?>.
                 <br/>
@@ -199,19 +199,19 @@ jQuery(document).ready(function () {
                 <br/><br/>
                 <?php echo $this->__('Click <a href="%s">here</a> to continue shopping.', $this->getUrl()); ?>
             </p>
-		
+        
             <div class="say_thanks">
                 <p>Have a great day! :)</p>
             </div>
         </div>
-	
+    
         <div class="col_right"></div>
     </div>
 <?php else: ?>
     <div class="wrapper_challange_page">
         <div class="col_left">
             <p><?php echo $this->__('THANK YOU FOR SHOPPING WITH'); ?></p>
-            <p><?php echo $this->__('BILNA.COM'); ?></p>
+            <p><?php echo $this->__('ORAMI.CO.ID'); ?></p>
             <p>
                 <?php echo $this->__('Your order no is'); ?>: <?php echo $orderNoLink; ?>.
                 <br/>
@@ -229,40 +229,39 @@ jQuery(document).ready(function () {
 
         <div class="col_right"></div>
     </div>
-	<script type="text/javascript">
-	jQuery(document).ready(function () {    
-	    var ajaxURL = 'https://www.bilna.com/ajaxrequest/data/retrieveconfirm2/';
-	
-	    var data = {};
-	    data.orderId = '<?php echo $this->escapeHtml($this->getOrderId())?>';
-	
-	    jQuery.ajax({
-	        type: "POST",
-	        url : ajaxURL,
-	        data: { data: data },
-	        success: function(data){
-	            response = jQuery.parseJSON(data);
-	            if(response.status == true){
-	            	dataLayer.push({'newcustomer': '0'} );
-	            	dataLayer.push({'orderid': response.data.order.id} );
+    <script type="text/javascript">
+    jQuery(document).ready(function () {    
+        var ajaxURL = 'https://www.orami.co.id/ajaxrequest/data/retrieveconfirm2/';
+    
+        var data = {};
+        data.orderId = '<?php echo $this->escapeHtml($this->getOrderId())?>';
+    
+        jQuery.ajax({
+            type: "POST",
+            url : ajaxURL,
+            data: { data: data },
+            success: function(data){
+                response = jQuery.parseJSON(data);
+                if(response.status == true){
+                    dataLayer.push({'newcustomer': '0'} );
+                    dataLayer.push({'orderid': response.data.order.id} );
 
-	            	dataLayer.push( {'productid': response.data.order.productIds} );
-	            	dataLayer.push( {'prices': response.data.order.productPrices} );
-	            	dataLayer.push( {'quantities': response.data.order.productQtys} );
-	            	
-	                dataLayer.push({'customer': response.data.customer});
-	                dataLayer.push( {'order': response.data.order} );
-	                dataLayer.push({'event': 'salesConversionEvent'});
-	                
-	            }else{
-	                return false;
-	            }
-	        },
-	        error: function() {
-	            return false;
-	        }
-	    });
-	});
-	</script>
+                    dataLayer.push( {'productid': response.data.order.productIds} );
+                    dataLayer.push( {'prices': response.data.order.productPrices} );
+                    dataLayer.push( {'quantities': response.data.order.productQtys} );
+                    
+                    dataLayer.push({'customer': response.data.customer});
+                    dataLayer.push( {'order': response.data.order} );
+                    dataLayer.push({'event': 'salesConversionEvent'});
+                    
+                }else{
+                    return false;
+                }
+            },
+            error: function() {
+                return false;
+            }
+        });
+    });
+    </script>
 <?php endif; ?>
-
