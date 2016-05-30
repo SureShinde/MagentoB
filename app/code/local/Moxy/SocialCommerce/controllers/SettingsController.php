@@ -93,7 +93,7 @@ extends Mage_Core_Controller_Front_Action
 
                     # Data validation
                     try {
-                        Mage::helper('socialcommerce')->validateInput();
+                        Mage::helper('socialcommerce')->validateInput($postData);
                     } catch (Exception $e) {
                         throw new Exception($e->getMessage());
                     }
