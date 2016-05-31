@@ -840,7 +840,7 @@ a.btn-detail-profile:visited {
 	width: 100%;
 	height: 100%;
 	background: rgba(0, 0, 0, .6);
-	z-index: 999999
+	z-index: 999999;
 }
 .container-collection-whitebg {
 	/*width: 320px;*/
@@ -2469,7 +2469,7 @@ a.tabs-right
 .white-bg-new-coll
 {
     margin-top: 2%;
-    overflow: initial;
+    overflow: auto;
     bottom: initial;
     min-height: initial;
     height: auto;
@@ -3548,17 +3548,6 @@ p.exp-three-col
     text-align: center;
     font-weight: 700;
 }
-.container-collection-pop {
-    position: fixed;
-    left: 0;
-    top: 0;
-    right: 0;
-    color: #000;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, .6);
-    z-index: 999999;
-}
 .collectioncontentbox {
     width: 75%;
     overflow: hidden;
@@ -3681,6 +3670,7 @@ span.question
 span.pops
 {
 	display: none;
+	position: relative;
 
 }
 span.tool-box:hover span.pops
@@ -3731,10 +3721,11 @@ span.arrow_box:before {
     width: 250px;
     padding: 10px;
     z-index: 999;
-    top: -100px;
+    top: -118px !important;
     font-size: 11px;
-    right: -200px;
+    right: -210px;
     font-weight: 300;
+    margin-right: 0 !important;
 }
 .in-tab
 {
@@ -3743,7 +3734,8 @@ span.arrow_box:before {
 .spancart
 {
 	padding: 3px 6px !important;
-    margin-left: 10px;
+    /*margin-left: 10px;*/
+    margin:0;
     line-height: 9px;
     border-radius: 100%;
 }

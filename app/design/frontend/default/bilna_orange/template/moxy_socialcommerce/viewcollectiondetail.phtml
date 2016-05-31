@@ -47,7 +47,7 @@ $coverImage = $this->getSkinUrl('images') . '/orami_collection_empty.png';
 $_productCollection = $this->getWishlistCollection();
 $_helper = $this->helper('catalog/output');
 $_core_helper =  Mage::helper('core');
-$messages=Mage::getSingleton("checkout/session")->getMessages();
+$messages=Mage::getSingleton("checkout/session")->getMessages(true);
 echo $this->getLayout()->createBlock("core/messages")->setMessages($messages)->getGroupedHtml();
 ?>
 <div class="cg-col-xs-12 nopadding detail-collect spacer-mobile">
@@ -258,6 +258,7 @@ echo $this->getLayout()->createBlock("core/messages")->setMessages($messages)->g
                  data-image="<?php echo $productImageUrl; ?>"
                  data-product-name="<?php echo $productNameStripped; ?>"
                  data-price="<?php echo $productFinalPriceFormatted; ?>"
+                 data-oldprice="<?php echo $productRegularPriceFormatted; ?>"
                  data-id="<?php echo $productId; ?>"><div class="cg-hidden-xs add-to-hovering">add to collection</div></a></a>
                  <?php } ?> 
                </div>
@@ -317,9 +318,20 @@ echo $this->getLayout()->createBlock("core/messages")->setMessages($messages)->g
                           <?php if ($_product->canConfigure()) {
                               $productBlock = $this->getLayout()->createBlock('catalog/product_price');
                                 echo $productBlock->getPriceHtml($_product);
-                              } else
-                              echo '<span class="regular-price" id="product-price-<?php echo $productId; ?>"><div class="price-box"><span class="price opensans">'.$productFinalPriceFormatted.'</span></div></span>'; 
-                            ?>                                   
+                              } else {
+                                $oldPrice = "";
+                                $oldText = "";
+                                if ($productRegularPriceFormatted != $productFinalPriceFormatted) {
+                                  $oldPrice = $productRegularPriceFormatted;
+                                  $oldText = $this->__('Sebelumnya');
+                                }
+                              echo '<span class="regular-price" id="product-price-<?php echo $productId; ?>">
+                                    <p class="old-price">
+                                      <span class="price-label">'.$oldText.'</span>
+                                      <span class="price size12" id="old-price">'.$oldPrice.'</span>
+                                    </p>
+                              <div class="price-box"><span class="price opensans">'.$productFinalPriceFormatted.'</span></div></span>'; 
+                            }?>                                   
                         
 
                         <!-- showing product rating --> 
@@ -547,6 +559,7 @@ echo $this->getLayout()->createBlock("core/messages")->setMessages($messages)->g
         <?php elseif ($productSpecialPrice && $productSpecialPrice < $productRegularPrice && $productSpecialDateIsValid) : ?>
         <div class="special-price in-block full-width">
           <p class="old-price">
+            <span class="price-label" style="display: block;"><?php echo $this->__('Sebelumnya');?></span>
             <span class="price size12" id="old-price-<?php echo $productId; ?>"><?php echo $productRegularPriceFormatted; ?></span>
           </p>
           <span class="current-price price" id="product-price-<?php echo $productId; ?>"><?php echo $productSpecialPriceFormatted; ?></span>

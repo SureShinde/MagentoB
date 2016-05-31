@@ -273,6 +273,10 @@ $images = Mage::getModel('socialcommerce/collectioncover')->getCollection()->set
                     <div class="seller-name"></div>
                     <div class="cg-col-xs-12 bottom-price">
                         <div class="cg-col-xs-12 main-price" id="modalCollectionPrice">n/a</div>
+                        <p class="old-price">
+                            <span class="price-label" id="old-label"></span>
+                            <span class="price" id="old-price"></span>
+                        </p>
                     </div>
                 </div>
             </div>
@@ -564,6 +568,13 @@ jQuery(document).ready(function() {
         jQuery('#modalCollectionProductName').html(modalCollectionProductName);
 
         var modalCollectionPrice = jQuery(this).attr('data-price');
+        if ((modalCollectionPrice != jQuery(this).attr('data-oldprice')) && (jQuery(this).attr('data-oldprice') != 'Rp0')) {
+            jQuery('#old-label').html("<?php echo $this->__('Sebelumnya');?>");
+            jQuery('#old-price').html(jQuery(this).attr('data-oldprice'));
+        } else {
+            jQuery('#old-label').html("");
+            jQuery('#old-price').html("");
+        }
         jQuery('#modalCollectionPrice').html(modalCollectionPrice);
 
         var modalCollectionMerchant = jQuery(this).attr('data-merchant');

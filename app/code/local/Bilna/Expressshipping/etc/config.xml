@@ -5,7 +5,17 @@
             <version>0.1.2</version>
         </Bilna_Expressshipping>
     </modules>
-
+    <frontend>
+        <routers>
+            <expressshipping>
+                <use>standard</use>
+                <args>
+                    <module>Bilna_Expressshipping</module>
+                    <frontName>expressshipping</frontName>
+                </args>
+            </expressshipping>
+        </routers>
+    </frontend>
     <global>
         <resources>
             <expressshipping_setup>

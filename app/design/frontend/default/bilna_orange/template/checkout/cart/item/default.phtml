@@ -67,7 +67,7 @@ $_escape_helper = Mage::helper('catalog/utils');
             <?php foreach ($messages as $message): ?>
                <?php /* <p class="item-msg <?php echo $message['type'] ?>">* <?php echo $this->escapeHtml($message['text']) ?></p> */ ?>
                <div class='in-block container-express noborder nopadding'>
-                  <img src="<?php echo $this->getSkinUrl('images/') . 'VIP-SHIPMENT-ICON-GREEN.png'; ?>" class='in-block margin-right-8'  style='width:25px; margin-top:5px;'>
+                  <img src="<?php echo $this->getSkinUrl('images/') . 'VIP-SHIPMENT-ICON-GREEN.png'; ?>" class='in-block margin-right-8'  style='width:25px; margin-top:5px;float:left;'>
                 <div class='in-block'>
                   <p class=''>Tersedia Pengiriman Ekspress untuk <strong>Jakarta &amp; Bekasi</strong>
                     <span class='tool-box relative in-block'>
@@ -180,7 +180,7 @@ $_escape_helper = Mage::helper('catalog/utils');
         <?php $isExpressShippingEnabled = Mage::getStoreConfig('bilna_expressshipping/status/enabled'); ?>
         <?php if ($product->getExpressShipping() && $isExpressShippingEnabled) : ?>
             <div class='in-block container-express noborder nopadding'>
-                  <img src="<?php echo $this->getSkinUrl('images/') . 'VIP-SHIPMENT-ICON-GREEN.png'; ?>" class='in-block margin-right-8'  style='width:25px; margin-top:5px;'>
+                  <img src="<?php echo $this->getSkinUrl('images/') . 'VIP-SHIPMENT-ICON-GREEN.png'; ?>" class='in-block margin-right-8'  style='width:25px; margin-top:5px;float:left;'>
                 <div class='in-block'>
                   <p class=''>Tersedia Pengiriman Ekspress untuk <strong>Jakarta &amp; Bekasi</strong>
                     <span class='tool-box relative in-block'>
@@ -223,7 +223,7 @@ $_escape_helper = Mage::helper('catalog/utils');
         <?php endif; ?>
         <?php if ($this->getExpressShipping() && $isExpressShippingEnabled) { ?>
                 <div class='in-block container-express noborder nopadding'>
-                  <img src="<?php echo $this->getSkinUrl('images/') . 'VIP-SHIPMENT-ICON-GREEN.png'; ?>" class='in-block margin-right-8'  style='width:25px; margin-top:5px;'>
+                  <img src="<?php echo $this->getSkinUrl('images/') . 'VIP-SHIPMENT-ICON-GREEN.png'; ?>" class='in-block margin-right-8'  style='width:25px; margin-top:5px;float:left;'>
                 <div class='in-block'>
                   <p class=''>Tersedia Pengiriman Ekspress untuk <strong>Jakarta &amp; Bekasi</strong>
                     <span class='tool-box relative in-block' >

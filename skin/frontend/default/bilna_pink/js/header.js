@@ -8,7 +8,9 @@
 		$j(".homepage-banner .first-level > ul > li").hover(function(){
 			$j(".homepage-banner .first-level-cat.hover-cat img").lazyload();
         });
-        $j("img.lazy").lazyload();
+        $j("img.lazy").lazyload({
+            threshold : 200
+        });
 	});
     $j(document).ready(function() {
 		$j(".homepage-banner .first-level > ul > li:first-of-type").addClass("active-cat");

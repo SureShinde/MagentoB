@@ -95,5 +95,13 @@ $profiler = Mage::getModel('socialcommerce/profile')->load($customerId, 'custome
         </div>
         <?php # A quick fix so the controller can detect POST request event it's empty ?>
         <input type="hidden" name="socialCommerceSettings" value="1">
+        <input type="hidden" name="username" value="<?php echo $profiler->getUsername(); ?>">
+        <?php
+            $customerDob = $customer->getDob();
+            if ($customerDob) {
+              $customerDob = date_format(new DateTime($customer->getDob()), 'm/d/Y');
+            }
+        ?>
+        <input type="hidden" name="dob" value="<?php echo $customerDob; ?>">
     </form>
 </div>
