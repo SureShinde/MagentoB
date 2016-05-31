@@ -6,8 +6,8 @@
  */
 
 abstract class Bilna_Rest_Model_Api2_Formbuilder_Rest extends Bilna_Rest_Model_Api2_Formbuilder {
-    protected $_inputSimple = array ('text', 'textarea', 'hidden', 'date', 'datetime', 'ref');
-    protected $_inputChoice = array ('dropdown', 'checkbox', 'radio', 'multiple', 'terms');
+    protected $_inputSimple = array ('text', 'textarea', 'hidden', 'dropdown', 'date', 'datetime', 'ref');
+    protected $_inputChoice = array ('checkbox', 'radio', 'multiple', 'terms');
     
     protected function _validRequired($_input, $_formData) {
         if ($_input['required'] == 1) {
