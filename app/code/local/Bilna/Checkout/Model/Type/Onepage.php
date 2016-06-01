@@ -118,7 +118,7 @@ class Bilna_Checkout_Model_Type_Onepage extends Mage_Checkout_Model_Type_Onepage
 
         $couponData = $this->_getCouponData($couponCode)->getData();
 
-        if (!isset($couponData['type']) || $couponData['type'] != 1) { // check for unique coupon code only
+        if (!isset($couponData['usage_limit']) || $couponData['usage_limit'] == 1) { // check for unique coupon code only
             return;
         }
 
