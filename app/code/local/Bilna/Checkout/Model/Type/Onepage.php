@@ -112,13 +112,13 @@ class Bilna_Checkout_Model_Type_Onepage extends Mage_Checkout_Model_Type_Onepage
     private function _checkActiveCoupon()
     {
         $couponCode = $this->getQuote()->getCouponCode();
-        if (is_null($couponCode)) {
+        if (!strlen($couponCode)) {
             return;
         }
 
-        $couponData = $this->_getCouponData($couponCode)->getData();
+        $coupon = $this->_getCoupon($couponCode);
 
-        if (!isset($couponData['type']) || $couponData['type'] != 1) { // check for unique coupon code only
+        if ($coupon->getUsageLimit() != 1) { // check for unique coupon code only
             return;
         }
 
@@ -145,7 +145,7 @@ class Bilna_Checkout_Model_Type_Onepage extends Mage_Checkout_Model_Type_Onepage
         }
     }
 
-    private function _getCouponData ($couponCode)
+    private function _getCoupon ($couponCode)
     {
         $coupon = Mage::getModel('salesrule/coupon')->load($couponCode, 'code');
         return $coupon;
