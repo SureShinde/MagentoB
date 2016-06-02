@@ -35,4 +35,6 @@
     <?php endif; ?>
 <?php endif; ?>
 <?php echo $this->getChildHtml('product_type_data_extra') ?>
+<?php Mage::register('detail_product', true); ?>
 <?php echo $this->getPriceHtml($_product) ?>
+<?php Mage::unregister('detail_product'); ?>
