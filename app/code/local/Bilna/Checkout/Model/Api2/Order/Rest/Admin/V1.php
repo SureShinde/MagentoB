@@ -150,25 +150,19 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
                 $order->save();
             }
 
-            /*if ($order) {
-                //- for FDS
-                Mage::dispatchEvent('checkout_type_onepage_save_order_after', ['order' => $order, 'quote' => $quote]);
-
-                try {
-                    $order->sendNewOrderEmail();
-                }
-                catch (Exception $e) {
-                    Mage::logException($e);
-                }
-            }*/
-
             Mage::dispatchEvent('checkout_submit_all_after', ['order' => $order, 'quote' => $quote]);
+            Mage::dispatchEvent('checkout_type_onepage_save_order_after', ['order' => $order, 'quote' => $quote]);
 
             $orderId = $order->getId();
             $paymentCode = $order->getPayment()->getMethodInstance()->getCode();
             $orderIncrementId = $order->getIncrementId();
             $orderGrandTotal = $order->getGrandTotal();
             $orderCanceled = $this->_getOrderCanceled($order);
+            
+            //- send new order email
+            if (!$orderCanceled && $order->getCanSendNewEmailFlag()) {
+                $order->sendNewOrderEmail();
+            }
 
             if (in_array($paymentCode, $this->getPaymentMethodCc()) && ($orderCanceled === false)) {
                 $charge = Mage::getModel('paymethod/api')->creditcardCharge($order, $tokenId);
