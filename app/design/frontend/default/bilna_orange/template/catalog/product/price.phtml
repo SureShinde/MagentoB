@@ -205,7 +205,7 @@
                         <?php echo $_coreHelper->currency($_finalPrice, true, true) ?>
                     <?php endif; ?>
                     <?php $isExpressShippingEnabled = Mage::getStoreConfig('bilna_expressshipping/status/enabled'); ?>
-                    <?php if ($_product->getData('express_shipping') == 1 && $isExpressShippingEnabled) : ?>
+                    <?php if ($isExpressShippingEnabled && $_product->getData('express_shipping') == 1 && !Mage::registry('detail_product')) : ?>
                         <span><img class="express-shipping" src="<?php echo $this->getSkinUrl('images/vip-shipment-mail.png'); ?>" style="width: 35px;"></span>
                     <?php endif; ?>
                 </span>
@@ -398,7 +398,7 @@
                 <span class="price" id="old-price-<?php echo $_id ?><?php echo $this->getIdSuffix() ?>">
                     <?php echo $_coreHelper->currency($_regularPrice, true, false) ?>
                     <?php $isExpressShippingEnabled = Mage::getStoreConfig('bilna_expressshipping/status/enabled'); ?>
-                    <?php if ($_product->getData('express_shipping') == 1 && $isExpressShippingEnabled) : ?>
+                    <?php if ($isExpressShippingEnabled && $_product->getData('express_shipping') == 1 && !Mage::registry('detail_product')) : ?>
                         <span><img class="express-shipping" src="<?php echo $this->getSkinUrl('images/vip-shipment-mail.png'); ?>" style="width: 35px;"></span>
                     <?php endif; ?>
                 </span>
