@@ -649,7 +649,18 @@
         margin: 0 auto;
         display: block;
         float: none;
-        overflow: auto;
+        /*overflow: auto;*/
+	}
+	.stay-float {
+	    position: absolute !important;
+	    width: 250px;
+	    padding: 10px;
+	    z-index: 9999999;
+	    top: -133px !important;
+	    font-size: 11px;
+	    right: -111px;
+	    font-weight: 300;
+	    margin-right: 0 !important;
 	}
 	.cart .cart-right {
 		width: 100%;
