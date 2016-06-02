@@ -119,13 +119,14 @@ class bulkCreateInvoice extends Mage_Shell_Abstract {
     protected function processOrders($orderIncrementIds) {
         foreach ($orderIncrementIds as $orderIncrementId) {
             $order = Mage::getModel('sales/order')->loadByIncrementId($orderIncrementId);
-            
+
             if (!$order->getId()) {
                 $this->logProgress($orderIncrementId . ' => load order failed.');
                 continue;
             }
             
             $orderId = $order->getId();
+            $orderNetsuiteInternalId = $order->getNetsuiteInternalId();
             
             //- normalisasi order
             if (!$this->normalizeOrder($orderId)) {
@@ -158,6 +159,7 @@ class bulkCreateInvoice extends Mage_Shell_Abstract {
             }
             
             $invoiceId = $invoice->getId();
+            $invoiceNetsuiteInternalId = $invoice->getNetsuiteInternalId();
 
             if ($this->getArg('check_veritrans') == 'true') {
                 $this->logProgress('Invoice for Order : '.$orderIncrementId.' successfully created with Invoice ID : '.$invoiceId, true);
@@ -172,18 +174,22 @@ class bulkCreateInvoice extends Mage_Shell_Abstract {
             $this->logProgress($orderIncrementId . ' => Remove queue InvoiceSave success.');
             
             //- insert ke table message dgn body sebagai invoice_save dan entity_id nya
-            if (!$this->triggerNetsuiteInvoiceSave($orderId, $invoiceId)) {
-                $this->logProgress($orderIncrementId . ' => Trigger Netsuite as InvoiceSave failed.');
-                continue;
+            if (empty($invoiceNetsuiteInternalId) || is_null($invoiceNetsuiteInternalId)) {
+                if (!$this->triggerNetsuiteInvoiceSave($orderId, $invoiceId)) {
+                    $this->logProgress($orderIncrementId . ' => Trigger Netsuite as InvoiceSave failed.');
+                    continue;
+                }
             }
             $this->logProgress($orderIncrementId . ' => Trigger Netsuite as InvoiceSave success.');
             
             //- insert ke table message dgn body sebagai order_place dan entity_id nya
-            if (!$this->triggerNetsuiteOrderPlace($orderId)) {
+            if (empty($orderNetsuiteInternalId) || is_null($orderNetsuiteInternalId)) {
+                if (!$this->triggerNetsuiteOrderPlace($orderId)) {
+                    $this->logProgress($orderIncrementId . ' => Trigger Netsuite as OrderPlace failed.');
+                    continue;
+                }
                 $this->logProgress($orderIncrementId . ' => Trigger Netsuite as OrderPlace failed.');
-                continue;
             }
-            $this->logProgress($orderIncrementId . ' => Trigger Netsuite as OrderPlace failed.');
             
             //- insert ke table message dgn body sebagai customer_save dan entity_id dari table sales_flat_order_adress dgn addres_type nya shipping dgn parent_id nya adalah entity_id sales order yg di atas
             if (!$this->triggerNetsuiteCustomerSave($orderId)) {
