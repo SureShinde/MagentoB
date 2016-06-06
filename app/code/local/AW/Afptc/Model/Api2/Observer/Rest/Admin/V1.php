@@ -1,5 +1,4 @@
 <?php
-
 /**
  * API2 class for Afptc (admin)
  *
@@ -7,35 +6,32 @@
  * @package    Custom AW_Afptc 
  * @author     Development Team <development@bilna.com>
  */
-class AW_Afptc_Model_Api2_Observer_Rest_Admin_V1 extends AW_Afptc_Model_Api2_Observer_Rest
-{
+
+class AW_Afptc_Model_Api2_Observer_Rest_Admin_V1 extends AW_Afptc_Model_Api2_Observer_Rest {
     /**
      * Default store Id (for install)
      */
-    const DISTRO_STORE_ID       = 1;
+    const DISTRO_STORE_ID = 1;
     
     /**
      * Default store code (for install)
      *
      */
-    const DISTRO_STORE_CODE     = 'default';
+    const DISTRO_STORE_CODE = 'default';
 
     protected $baseSubtotalFree = 0;
     protected $itemWeightFree = 0;
-    protected $_quoteRules = array();
+    protected $_quoteRules = [];
     
-    protected function _retrieve()
-    {
+    protected function _retrieve() {
         $quoteId = $this->getRequest()->getParam('id');
 
-        try{
-
+        try {
             $quote = $this->_getQuote($quoteId);
             $customerId = $quote->getCustomerId();
-            
             $customerGroup = 0;
-            if($customerId != null)
-            {
+            
+            if ($customerId != null) {
                 $customer = Mage::getModel('customer/customer')->load($customerId);
                 $customerGroup = Mage::getModel('customer/group')->load($customer->getGroupId()); 
             }
@@ -43,24 +39,25 @@ class AW_Afptc_Model_Api2_Observer_Rest_Admin_V1 extends AW_Afptc_Model_Api2_Obs
             $helper = Mage::helper('awafptc');
             $this->excludeFreeProductsFrom($quote);
 
-            if($quote->hasItems())
-            {
-                $rules = Mage::getModel('awafptc/rule')->getActiveRules(array(
-                        'store' => self::DISTRO_STORE_ID,
-                        'group' => $customerGroup,
-                        'website' => 1
-                ));
+            if ($quote->hasItems()) {
+                $rules = Mage::getModel('awafptc/rule')->getActiveRules([
+                    'store' => self::DISTRO_STORE_ID,
+                    'group' => $customerGroup,
+                    'website' => 1
+                ]);
 
-                $activeRules = array();
-                $popupRules = array();
-                foreach ($rules as $rule)
-                {
-                    /* rules deleted by customers are ignored */
+                $activeRules = [];
+                $popupRules = [];
+                
+                var_dump($this->_quoteRules);exit;
+                
+                foreach ($rules as $rule) {
+                    //- rules deleted by customers are ignored
                     if ($this->isRuleDeleted($rule, $quote)) {
                         continue;
                     }
 
-                    /* avoide multiple validations of rules with popups */
+                    //- avoide multiple validations of rules with popups
                     if ($rule->getShowPoup() && $helper->getValidatedRule() && !in_array($rule->getId(), $this->_quoteRules)) {
                         continue;
                     }
@@ -111,26 +108,23 @@ class AW_Afptc_Model_Api2_Observer_Rest_Admin_V1 extends AW_Afptc_Model_Api2_Obs
      * @param  $quote [type]
      * @return boolean
      */
-    public function isRuleDeleted($rule, $quote)
-    {        
+    public function isRuleDeleted($rule, $quote) {
         $deletedRules = $this->__getDeletedRules($quote);
-        if($deletedRules)
-        {
-            foreach($deletedRules as $delRule)
-            {
-                if($delRule->getRuleId() == $rule->getId())
-                {
-                    if($delRule->getIsRemoved()) {
+        
+        if ($deletedRules) {
+            foreach ($deletedRules as $delRule) {
+                if ($delRule->getRuleId() == $rule->getId()) {
+                    if ($delRule->getIsRemoved()) {
                          return true;
                     }
                 }
             }
         }
+        
         return false;
     }
 
-    private function __getDeletedRules($quote)
-    {
+    private function __getDeletedRules($quote) {
         return Mage::getModel('awafptc/used')->loadDeletedRules($quote->getId());
     }
 
