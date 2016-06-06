@@ -1,5 +1,4 @@
 <?php
-
 /**
  * API2 class for cart product deletion  (admin)
  *
@@ -7,84 +6,77 @@
  * @package    Bilna_Checkout
  * @author     Development Team <development@bilna.com>
  */
-class Bilna_Checkout_Model_Api2_Product_Delete_Rest_Admin_V1 extends Bilna_Checkout_Model_Api2_Product_Rest
-{
-	/**
+
+class Bilna_Checkout_Model_Api2_Product_Delete_Rest_Admin_V1 extends Bilna_Checkout_Model_Api2_Product_Rest {
+    protected function _create(array $filteredData) {
+        try {
+            $itemId = $filteredData['item_id'];
+            $quoteId = $filteredData['quote_id'];
+            $quote = $this->_getQuote($quoteId);
+            
+            if ($quote->removeItem($itemId)) {
+                $quote->save();
+                
+                return $this->_getLocation($quote);
+            }
+            else {
+                $this->_critical('Failed remove product', Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
+            }
+        }
+        catch (Exception $e) {
+            $this->_critical($e->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
+        }
+    }
+    
+    /**
      * Add new product/catalog for shopping cart
      *
      * @param array $data
      * @return int
      */
-    protected function _create(array $data)
-    {
+    protected function _createOld(array $data) {
     	$quoteId = $data['entity_id'];
-    	$storeId = isset($data['store_id']) ? $data['store_id'] : 1;
-    	//$productId = $data['product_id'];
-
-        $productsData = array($data['products']);
+    	$storeId = isset ($data['store_id']) ? $data['store_id'] : 1;
+        $productsData = [$data['products']];
 
     	try {
             $quote = $this->_getQuote($quoteId, $storeId);
             
-            if(empty($productsData))
-            {
+            if (empty ($productsData)) {
                 throw Mage::throwException("Invalid Product Data");
             }
 
-            $errors = array();
-            foreach ($productsData as $productItem)
-            {
+            $errors = [];
+            
+            foreach ($productsData as $productItem) {
                 $productByItem = $this->_getProduct($productItem['product_id'], $storeId, "id");
-                $quoteItem = $this->_getQuoteItemByProduct($quote, $productByItem,
-                    $this->_getProductRequest($productItem)
-                );
-                //bug fix if quote item id is free product, will return call to undefined getId, 
-                //since it was not an object. because the product is free, and will return null object.
-                if(is_object($quoteItem)) {
+                $quoteItem = $this->_getQuoteItemByProduct($quote, $productByItem, $this->_getProductRequest($productItem));
+                
+                //- bug fix if quote item id is free product, will return call to undefined getId, 
+                //- since it was not an object. because the product is free, and will return null object.
+                if (is_object($quoteItem)) {
                     $quoteItemId = $quoteItem->getId();
-                } else {
-                    $quoteItemId = array();
+                }
+                else {
+                    $quoteItemId = [];
                 }
                 
-                //if (!$quoteItem->getId()) {
-                if (empty($quoteItemId)) {
-                    
-                    $this->_removeFreeProduct($productItem['product_id'], $quote->getId());
-                    
-                    return false;
-                    //throw Mage::throwException("One item of products is not belong any of quote item");
-                }
+//                if (empty ($quoteItemId)) {
+//                    $this->_removeFreeProduct($productItem['product_id'], $quote->getId());
+//                    
+//                    return false;
+//                }
 
                 $quote->removeItem($quoteItem->getId());
-
                 $quote->collectTotals()->save();
+                $this->salesQuoteRemoveAfter($quoteItem);
             }
-
-//            $productByItem = $this->_getProduct($productId, $storeId, "id");
-
-            /** @var $quoteItem Mage_Sales_Model_Quote_Item */
-//            $quoteItem = $this->_getQuoteItemByProduct($quote, $productByItem,
-//                $this->_getProductRequest(
-//                    array(
-//                        'product_id' => $productId,
-//                        'qty'        => $qty
-//                    )
-//                ));
-
-//            if (is_null($quoteItem->getId())) {
-//                throw Mage::throwException("One item of products is not belong any of quote item");
-//            }
-
-//            $quote->removeItem($quoteItem->getId());
-
-//            $quote->collectTotals()->save();
-
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e) {
             $this->_error($e->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
         }
 
         return $this->_getLocation($quote);
-        
     }
     
     private function _removeFreeProduct($productId = null, $quoteId = null) {
@@ -104,6 +96,19 @@ class Bilna_Checkout_Model_Api2_Product_Delete_Rest_Admin_V1 extends Bilna_Check
         $writeConnection->query($query);
         
         return true;
+    }
+    
+    protected function _checkoutCartSaveAfter($quote) {
+        
+    }
+    
+    private function salesQuoteRemoveAfter($quoteItem) {
+        $option = $quoteItem->getOptionByCode('info_buyRequest');
+        $buyRequest = new Varien_Object($option && $option->getValue() ? unserialize($option->getValue()) : null);
+        
+        if ($buyRequest->getAwAfptcRule()) {
+            Mage::getResourceModel('awafptc/used')->markAsDeleted($buyRequest->getAwAfptcRule(), $quoteItem->getQuote()->getId());
+        }
     }
 
     /**
