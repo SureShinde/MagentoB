@@ -49,8 +49,6 @@ class AW_Afptc_Model_Api2_Observer_Rest_Admin_V1 extends AW_Afptc_Model_Api2_Obs
                 $activeRules = [];
                 $popupRules = [];
                 
-                var_dump($this->_quoteRules);exit;
-                
                 foreach ($rules as $rule) {
                     //- rules deleted by customers are ignored
                     if ($this->isRuleDeleted($rule, $quote)) {
