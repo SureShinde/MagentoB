@@ -51,6 +51,14 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </limit>
+                        <cut_off translate="label">
+                            <label>Cut Off Time</label>
+                            <frontend_type>time</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </cut_off>
                     </fields>
                 </orderlimit>
                 <paymethod translate="label">
