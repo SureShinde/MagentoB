@@ -8,15 +8,10 @@
  */
 
 class AW_Afptc_Model_Api2_Observer_Rest_Admin_V1 extends AW_Afptc_Model_Api2_Observer_Rest {
-    /**
-     * Default store Id (for install)
-     */
+    //- Default store Id (for install)
     const DISTRO_STORE_ID = 1;
     
-    /**
-     * Default store code (for install)
-     *
-     */
+    //- Default store code (for install)
     const DISTRO_STORE_CODE = 'default';
 
     protected $baseSubtotalFree = 0;
@@ -24,9 +19,8 @@ class AW_Afptc_Model_Api2_Observer_Rest_Admin_V1 extends AW_Afptc_Model_Api2_Obs
     protected $_quoteRules = [];
     
     protected function _retrieve() {
-        $quoteId = $this->getRequest()->getParam('id');
-
         try {
+            $quoteId = $this->getRequest()->getParam('id');
             $quote = $this->_getQuote($quoteId);
             $customerId = $quote->getCustomerId();
             $customerGroup = 0;
@@ -62,43 +56,45 @@ class AW_Afptc_Model_Api2_Observer_Rest_Admin_V1 extends AW_Afptc_Model_Api2_Obs
 
                     $this->_prepareValidate($quote);
                     $cart = Mage::getModel('checkout/cart')->setQuote($quote);
+                    
                     if (!$rule->load($rule->getId())->validate($cart)) {
                         continue;
                     }
 
-                    /* register valid rule for poup rules for later usage */
+                    //- register valid rule for poup rules for later usage
                     if ($rule->getShowPopup() && !in_array($rule->getId(), $this->_quoteRules)) {
-                        /*if (!$helper->getValidatedRule()) {                        
-                            $helper->setValidatedRule($rule->getId());
-                        }*/
-                        array_push($popupRules, $rule->getData()); //bug fix config data always empty, since , change from $rule to $rule->getData()
+                        //- bug fix config data always empty, since , change from $rule to $rule->getData()
+                        array_push($popupRules, $rule->getData());
                         continue;
                     }
+                    
                     array_push($activeRules, $rule->getData());
                 }
 
-                foreach ($activeRules as $rule)
-                {
-                    $product = Mage::getModel('catalog/product')->load($rule->getProductId());
-                    if (!$product->getId())
+                foreach ($activeRules as $rule) {
+                    $productId = $rule['product_id'];
+                    $product = Mage::getModel('catalog/product')->load($productId);
+                    
+                    if (!$product->getId()) {
                         continue;
+                    }
+                    
                     try {
                         $quote->addProduct($product->setData('aw_afptc_rule', $rule))->setQty(1);
-                    } catch (Exception $e) {
+                    }
+                    catch (Exception $e) {
                         throw Mage::throwException($e->getMessage());
                     }
                 }
-
             }
 
             $quote->unsTotalsCollectedFlag()->collectTotals()->save();
-
-        } catch (Mage_Core_Exception $e) {
-                $this->_error($e->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
+            
+            return ['config' => $popupRules];
         }
-
-        return array('config' => $popupRules);
-
+        catch (Mage_Core_Exception $e) {
+            $this->_critical($e->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
+        }
     }
 
     /**
@@ -113,7 +109,7 @@ class AW_Afptc_Model_Api2_Observer_Rest_Admin_V1 extends AW_Afptc_Model_Api2_Obs
             foreach ($deletedRules as $delRule) {
                 if ($delRule->getRuleId() == $rule->getId()) {
                     if ($delRule->getIsRemoved()) {
-                         return true;
+                        return true;
                     }
                 }
             }
@@ -126,30 +122,27 @@ class AW_Afptc_Model_Api2_Observer_Rest_Admin_V1 extends AW_Afptc_Model_Api2_Obs
         return Mage::getModel('awafptc/used')->loadDeletedRules($quote->getId());
     }
 
-    public function excludeFreeProductsFrom($quote)
-    {
-       $subtotal = null;
-       $weight = null;
-       foreach($quote->getAllVisibleItems() as $item)
-       {
+    public function excludeFreeProductsFrom($quote) {
+        $subtotal = null;
+        $weight = null;
+       
+        foreach ($quote->getAllVisibleItems() as $item) {
             $option = $item->getProduct()->getCustomOption('aw_afptc_rule');
+            
             if ($option) {
                 array_push($this->_quoteRules, $option->getValue());  
                 $subtotal += $item->getBaseRowTotal();
                 $weight += $item->getWeight();                
                 $quote->removeItem($item->getId());
             }
-       }
-
-       $this->baseSubtotalFree = $subtotal;
-       $this->itemWeightFree = $weight;
-
-       $quote->unsTotalsCollectedFlag()->collectTotals();  
-
+        }
+        
+        $this->baseSubtotalFree = $subtotal;
+        $this->itemWeightFree = $weight;
+        $quote->unsTotalsCollectedFlag()->collectTotals();
     }
-
-    protected function _prepareValidate($quote)
-    {         
+    
+    protected function _prepareValidate($quote) {
         if ($quote->isVirtual()) {
             $address = $quote->getBillingAddress();
         }
@@ -158,10 +151,7 @@ class AW_Afptc_Model_Api2_Observer_Rest_Admin_V1 extends AW_Afptc_Model_Api2_Obs
         }
        
         $address->setTotalQty($quote->getItemsQty());
-       
         $address->setBaseSubtotal($address->getBaseSubtotal() - $this->baseSubtotalFree);   
-        
         $address->setWeight($address->getWeight() - $this->itemWeightFree); 
     }
-
 }
