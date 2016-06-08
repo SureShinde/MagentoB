@@ -841,7 +841,7 @@ a.btn-detail-profile:visited {
 	width: 100%;
 	height: 100%;
 	background: rgba(0, 0, 0, .6);
-	z-index: 999999
+	z-index: 999999;
 }
 .container-collection-whitebg {
 	/*width: 320px;*/
@@ -2470,7 +2470,7 @@ a.tabs-right
 .white-bg-new-coll
 {
     margin-top: 2%;
-    overflow: initial;
+    overflow: auto;
     bottom: initial;
     min-height: initial;
     height: auto;
@@ -3548,18 +3548,6 @@ p.exp-three-col
     font-size: 14px;
     text-align: center;
     font-weight: 700;
-}
-.container-collection-pop {
-    overflow: scroll;
-    position: fixed;
-    left: 0;
-    top: 0;
-    right: 0;
-    color: #000;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, .6);
-    z-index: 999999;
 }
 .collectioncontentbox {
     width: 75%;

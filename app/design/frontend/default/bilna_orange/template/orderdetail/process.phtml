@@ -21,7 +21,7 @@
 <div class="">
     <?php
     $order = $this->getOrder();
-    
+    $checkEmail = false;
     if ($order):
         $orderStatus = $order->getStatus();
         $orderStatusTitle = $this->getOrderStatusTitle($order->getStatus());
