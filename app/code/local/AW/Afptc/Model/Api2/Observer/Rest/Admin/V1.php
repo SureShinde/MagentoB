@@ -68,19 +68,22 @@ class AW_Afptc_Model_Api2_Observer_Rest_Admin_V1 extends AW_Afptc_Model_Api2_Obs
                         continue;
                     }
                     
-                    array_push($activeRules, $rule->getData());
+                    array_push($activeRules, $rule);
                 }
 
                 foreach ($activeRules as $rule) {
-                    $productId = $rule['product_id'];
-                    $product = Mage::getModel('catalog/product')->load($productId);
+                    $product = Mage::getModel('catalog/product')->load($rule->getProductId());
                     
                     if (!$product->getId()) {
                         continue;
                     }
                     
                     try {
-                        $quote->addProduct($product->setData('aw_afptc_rule', $rule))->setQty(1);
+                        $quote->addProduct(
+                            $product->setData('aw_afptc_rule', $rule)
+                                ->addCustomOption('aw_afptc_discount', min(100, $rule->getDiscount()))
+                                ->addCustomOption('aw_afptc_rule', $rule->getId())
+                        )->setQty(1);
                     }
                     catch (Exception $e) {
                         throw Mage::throwException($e->getMessage());
