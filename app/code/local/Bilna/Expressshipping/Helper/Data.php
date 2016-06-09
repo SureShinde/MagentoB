@@ -148,7 +148,7 @@ class Bilna_Expressshipping_Helper_Data extends Mage_Core_Helper_Abstract {
     {
         $dateTime = Mage::getModel('core/date')->timestamp(time());
         $currentTime = date("H:i:s", $dateTime);
-		$cutOffTime = str_replace(',', ':', Mage::getStoreConfig('bilna_expressshipping/orderlimit/cut_off'));
+        $cutOffTime = str_replace(',', ':', Mage::getStoreConfig('bilna_expressshipping/orderlimit/cut_off'));
         if (strtotime($currentTime) < strtotime($cutOffTime)) {
             return true;
         }

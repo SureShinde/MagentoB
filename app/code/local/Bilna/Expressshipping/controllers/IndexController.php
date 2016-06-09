@@ -28,14 +28,14 @@ class Bilna_Expressshipping_IndexController extends Mage_Core_Controller_Front_A
 {
     public function getETAAction()
     {
-		$expressShippingHelper = Mage::helper('bilna_expressshipping');
-		$dateTime = Mage::getModel('core/date')->timestamp(time());
+        $expressShippingHelper = Mage::helper('bilna_expressshipping');
+        $dateTime = Mage::getModel('core/date')->timestamp(time());
 	    $orderDate = date('d F Y', $dateTime);
 	    $nextDay = date('d F Y', strtotime($orderDate . ' +1 day'));
 	    $isExpressShippingEnabled = Mage::getStoreConfig('bilna_expressshipping/status/enabled');
 
 		if ($isExpressShippingEnabled) {
-	        if ($expressShippingHelper->isBeforeCutOffTime()) {
+	    	if ($expressShippingHelper->isBeforeCutOffTime()) {
 	            $img = Mage::getModel('core/design_package' )->getSkinUrl('images/') . 'VIP-SHIPMENT-ICON-GREEN.png';
 	            $eta = "<div class='in-block container-express'>
 	                    <img src='".$img."' class='in-block margin-right-8'  style='width:35px;'>
