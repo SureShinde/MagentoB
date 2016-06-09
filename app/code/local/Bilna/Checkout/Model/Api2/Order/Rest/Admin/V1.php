@@ -159,39 +159,37 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
             $orderGrandTotal = $order->getGrandTotal();
             $orderCanceled = $this->_getOrderCanceled($order);
             
-            //- send new order email
-            if (!$orderCanceled && $order->getCanSendNewEmailFlag()) {
-                $order->sendNewOrderEmail();
+            if (!$orderCanceled) {
+                if (in_array($paymentCode, $this->getPaymentMethodCc()) && ($orderCanceled === false)) {
+                    $charge = Mage::getModel('paymethod/api')->creditcardCharge($order, $tokenId);
+                    $order->setState(Mage_Sales_Model_Order::STATE_NEW, self::ORDER_STATUS_PENDING_PAYMENT);
+                    $order->save();
+                    $this->_storeChargeDataToQueue($charge);
+                }
+                elseif (in_array($paymentCode, $this->getPaymentMethodVtdirect()) && ($orderCanceled === false)) {
+                    $charge = Mage::getModel('paymethod/api')->vtdirectRedirectCharge($order);
+                    $this->_addHistoryOrder($order, $charge['response']->status_message);
+                    $this->_storeChargeDataToQueue($charge, false);
+                }
+                elseif (in_array($paymentCode, $this->getPaymentMethodVA()) && ($orderCanceled === false)) {
+                    $charge = Mage::getModel('paymethod/api')->vtdirectVaCharge($order);
+                    $this->_addHistoryOrder($order, $charge['response']->status_message);
+                    $this->_storeChargeDataToQueue($charge, false);
+                }
+
+                Mage::dispatchEvent('checkout_onepage_controller_success_action', ['order_ids' => [$orderId], 'order' => $order]);
+                
+                //- send new order email
+                if ($order->getCanSendNewEmailFlag()) {
+                    $order->sendNewOrderEmail();
+                }
             }
 
-            if (in_array($paymentCode, $this->getPaymentMethodCc()) && ($orderCanceled === false)) {
-                $charge = Mage::getModel('paymethod/api')->creditcardCharge($order, $tokenId);
-                $order->setState(Mage_Sales_Model_Order::STATE_NEW, self::ORDER_STATUS_PENDING_PAYMENT);
-                $order->save();
-                $this->_storeChargeDataToQueue($charge);
-            }
-            elseif (in_array($paymentCode, $this->getPaymentMethodVtdirect()) && ($orderCanceled === false)) {
-                $charge = Mage::getModel('paymethod/api')->vtdirectRedirectCharge($order);
-                $this->_addHistoryOrder($order, $charge['response']->status_message);
-                $this->_storeChargeDataToQueue($charge, false);
-            }
-            elseif (in_array($paymentCode, $this->getPaymentMethodVA()) && ($orderCanceled === false)) {
-                $charge = Mage::getModel('paymethod/api')->vtdirectVaCharge($order);
-                $this->_addHistoryOrder($order, $charge['response']->status_message);
-                $this->_storeChargeDataToQueue($charge, false);
-            }
-            
-            Mage::dispatchEvent('checkout_onepage_controller_success_action', ['order_ids' => [$orderId], 'order' => $order]);
-            
-            if (in_array($paymentCode, $this->getPaymentMethodVA())) {
-                $order->sendNewOrderEmail();
-            }
+            return $this->_getLocation($order);
         }
         catch (Mage_Core_Exception $e) {
             $this->_critical($e->getMessage());
         }
-
-        return $this->_getLocation($order);
     }
 
     protected function submitPoints($order, $payment) {
