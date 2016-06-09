@@ -70,7 +70,7 @@
         <moxysellercenter>
             <configuration>
                 <enable_update_stock>0</enable_update_stock>
-                <update_stock_end_point></update_stock_end_point>
+                <update_stock_end_point>http://api.orami.co.id/api/product/update-stock/</update_stock_end_point>
             </configuration>
         </moxysellercenter>
     </default>
