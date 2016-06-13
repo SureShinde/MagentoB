@@ -23,11 +23,16 @@ class MDN_AdminLogger_Helper_Data extends Mage_Core_Helper_Abstract
 	{
 		if (mage::getStoreConfig('adminlogger/general/enable') != 1)
 			return;
-		
-		if ($forceUser)
+
+		$userName = null;
+		if ($forceUser) {
 			$userName = $forceUser;
-		else
+		} else {
 			$userName = $this->getCurrentUserName();
+			if (!$userName) {
+				$userName = $this->getCurrentApiUserName();
+			}
+		}
 			
 		if ($userName)
 		{
@@ -158,7 +163,10 @@ class MDN_AdminLogger_Helper_Data extends Mage_Core_Helper_Abstract
 				break;				
 			case 'cms/block':
 				$retour = mage::helper('AdminLogger')->__('CMS Block %s (id %s)', $object->gettitle(), $object->getId());												
-				break;				
+				break;
+			case 'catalog/product':
+				$retour = mage::helper('AdminLogger')->__('Catalog Product %s (id %s)', $object->gettitle(), $object->getId());
+				break;
 			default :
 				$retour = mage::helper('AdminLogger')->__($objectType.' (id %s)', $object->getId());	
 				if (mage::getStoreConfig('adminlogger/general/enable_log') == 1)											
@@ -386,7 +394,24 @@ class MDN_AdminLogger_Helper_Data extends Mage_Core_Helper_Abstract
 		}		
 	}
 
-
+	/**
+	 * Return name for current API user
+	 *
+	 */
+	public function getCurrentApiUserName()
+	{
+		$retour = null;
+		try
+		{
+			if (Mage::getSingleton('api/session')->getUser())
+				$retour = Mage::getSingleton('api/session')->getUser()->getusername();
+		}
+		catch (Exception $ex)
+		{
+			//nothing
+		}
+		return $retour;
+	}
 }
 
 ?>
