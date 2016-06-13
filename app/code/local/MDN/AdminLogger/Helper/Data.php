@@ -193,9 +193,25 @@ class MDN_AdminLogger_Helper_Data extends Mage_Core_Helper_Abstract
 		switch ($actionType)
 		{
 			case MDN_AdminLogger_Model_Log::kActionTypeInsert :
-				if (mage::getStoreConfig('adminlogger/general/enable_log') == 1)
+				if (mage::getStoreConfig('adminlogger/general/enable_log') == 1) {
 					mage::log('Retrieve description for insert');
-				//nothing
+
+					// If object type is catalog/product
+					$objectType = $this->getObjectType($object);
+					switch($objectType) {
+						case 'catalog/product':
+							if ($this->getCurrentApiUserName()) { // If data is inserted via API v1
+								$retour ='new: ';
+								$attributes = $object->getAttributes();
+								foreach ($attributes as $attribute) {
+									$attributeName = $attribute->getName();
+									$value = $attribute->getFrontend()->getValue($object);
+									$retour .= $this->buildProductAttributeDesc($attributeName, $value);
+								}
+							}
+							break;
+					}
+				}
 				break;
 			case MDN_AdminLogger_Model_Log::kActionTypeDelete :
 				if (mage::getStoreConfig('adminlogger/general/enable_log') == 1)
@@ -208,7 +224,7 @@ class MDN_AdminLogger_Helper_Data extends Mage_Core_Helper_Abstract
 				$data = $object->getData();
 				$origData = $object->getOrigData();
                                 
-                                $retour ='changes: ';
+				$retour ='changes: ';
                                 
 				if ($data && $origData)
 				{
@@ -411,6 +427,32 @@ class MDN_AdminLogger_Helper_Data extends Mage_Core_Helper_Abstract
 			//nothing
 		}
 		return $retour;
+	}
+
+	/**
+	 * Function to build description for catalog/product insertion
+	 * @param $key
+	 * @param $newValue
+	 * @return string
+	 */
+	private function buildProductAttributeDesc($key, $newValue)
+	{
+		$desc = '';
+
+		if (is_object($newValue) || is_array($newValue)) {
+			$desc .= $this->buildProductAttributeDesc($key, json_encode($newValue));
+			return $desc;
+		}
+
+		if (is_numeric($newValue)) {
+			$newValue = floatval($newValue);
+		}
+
+		if ($newValue != '') {
+			$desc .= '<b>' . $key . '</b><span><b>:</b>' . $newValue . '</span> , ';
+		}
+
+		return $desc;
 	}
 }
 
