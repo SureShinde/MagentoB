@@ -28,9 +28,16 @@ class MDN_AdminLogger_Helper_Data extends Mage_Core_Helper_Abstract
 		if ($forceUser) {
 			$userName = $forceUser;
 		} else {
-			$userName = $this->getCurrentUserName();
-			if (!$userName) {
-				$userName = $this->getCurrentApiUserName();
+			switch ($objectType) {
+				case 'catalog/product':
+					$userName = $this->getCurrentUserName();
+					if (!$userName) {
+						$userName = $this->getCurrentApiUserName();
+					}
+					break;
+				default:
+					$userName = $this->getCurrentUserName();
+					break;
 			}
 		}
 			
@@ -163,9 +170,6 @@ class MDN_AdminLogger_Helper_Data extends Mage_Core_Helper_Abstract
 				break;				
 			case 'cms/block':
 				$retour = mage::helper('AdminLogger')->__('CMS Block %s (id %s)', $object->gettitle(), $object->getId());												
-				break;
-			case 'catalog/product':
-				$retour = mage::helper('AdminLogger')->__('Catalog Product %s (id %s)', $object->gettitle(), $object->getId());
 				break;
 			default :
 				$retour = mage::helper('AdminLogger')->__($objectType.' (id %s)', $object->getId());	
