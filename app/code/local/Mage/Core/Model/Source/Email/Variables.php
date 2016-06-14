@@ -103,6 +103,10 @@ class Mage_Core_Model_Source_Email_Variables
             array(
                 'value' => 'bilna_expressshipping/orderlimit/limit',
                 'label' => Mage::helper('core')->__('Express Shipping Order Limit')
+            ),
+            array(
+                'value' => 'bilna_expressshipping/orderlimit/cut_off',
+                'label' => Mage::helper('core')->__('Express Shipping Cut Off')
             )
         );
     }
