@@ -312,7 +312,7 @@
                         <retrieve>1</retrieve>
                     </customer>
                 </privileges>
-                <attributes translate="item_id product_id weight name parent_item_id sku price price_incl_tax qty row_total row_total_incl_tax base_price  base_price_incl_tax tax_percent tax_amount base_tax_amount discount_amount base_discount_amount base_row_total base_row_total_incl_tax item_options express_shipping cross_border" module="Bilna_Sales">
+                <attributes translate="item_id product_id weight name parent_item_id sku price price_incl_tax qty row_total row_total_incl_tax base_price  base_price_incl_tax tax_percent tax_amount base_tax_amount discount_amount base_discount_amount base_row_total base_row_total_incl_tax item_options express_shipping cross_border cod" module="Bilna_Sales">
                     <item_id>Quote Item ID</item_id>
                     <product_id>Product ID</product_id>
                     <weight>Weight</weight>
@@ -336,6 +336,7 @@
                     <item_options>Item Options</item_options>
                     <express_shipping>Express Shipping</express_shipping>
                     <cross_border>Cross Border</cross_border>
+                    <cod>COD</cod>
                 </attributes>
                 <include_attributes>
                     <customer>

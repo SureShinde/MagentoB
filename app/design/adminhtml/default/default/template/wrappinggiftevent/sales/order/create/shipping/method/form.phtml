@@ -1,5 +1,6 @@
 <?php /** @var $this Mage_Adminhtml_Block_Sales_Order_Create_Shipping_Method_Form */ ?>
 <?php $_shippingRateGroups = $this->getShippingRates(); ?>
+<?php $codHelper = Mage::helper('cod');?>
 <?php if ($_shippingRateGroups): ?>
     <div id="order-shipping-method-choose" style="display: none;">
     <dl class="shipment-methods">
@@ -10,6 +11,17 @@
             <ul>
             <?php foreach ($_rates as $_rate): ?>
                 <?php $disableOption = false; ?>
+
+                <?php
+                // if current shipping method is COD, check whether all the items can be COD
+                if ( strpos(strtolower($_rate->getCode()), 'bayar_di_tempat') !== false ):
+
+                    // if COD config is disabled, do not show this option at all
+                    if (!$codHelper->showCodMethod('admin'))
+                        continue;
+                ?>
+                <?php endif; ?>
+
                 <?php 
                 // if current shipping method is Express, check whether all the items can be express-shipped
                 if ( (strpos(strtolower($_rate->getCode()), 'express') !== false) || (strpos(strtolower($_rate->getCode()), 'ekspres') !== false) ):
