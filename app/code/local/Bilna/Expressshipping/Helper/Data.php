@@ -75,7 +75,7 @@ class Bilna_Expressshipping_Helper_Data extends Mage_Core_Helper_Abstract {
         {
             $parentItemId = $quoteData['quote_items'][$i]['parent_item_id'];
             $itemId = $quoteData['quote_items'][$i]['item_id'];
-            $isExpress = ( is_null($quoteData['quote_items'][$i]['express_shipping']) ? 0 : $quoteData['quote_items'][$i]['express_shipping'] );
+            $isExpress = ( !isset($quoteData['quote_items'][$i]['express_shipping']) ? 0 : $quoteData['quote_items'][$i]['express_shipping'] );
 
             // if parent does not exist
             if (is_null($parentItemId) || $parentItemId == '')
@@ -95,7 +95,7 @@ class Bilna_Expressshipping_Helper_Data extends Mage_Core_Helper_Abstract {
 
     private function checkParentExpress($itemId, $parents, $isExpress)
     {
-        if (is_null($parents[$itemId]))
+        if (!isset($parents[$itemId]))
             return $isExpress;
         else
         {
