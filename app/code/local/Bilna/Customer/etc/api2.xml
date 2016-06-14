@@ -284,6 +284,42 @@
                 </routes>
                 <versions>1</versions>
             </customer_login>
+            <customer_findbyemail translate="title" module="Bilna_Customer">
+                <group>customer</group>
+                <sort_order>110</sort_order>
+                <model>bilna_customer/api2_findbyemail</model>
+                <title>Customer Findbyemail</title>
+                <privileges>
+                    <admin>
+                        <retrieve>1</retrieve>
+                    </admin>
+                </privileges>
+                <attributes translate="entity_id last_logged_in firstname lastname email gender dob newsletter password newsletter website_id created_in group_id disable_auto_group_change is_active username" module="Bilna_Customer">
+                    <entity_id>Customer ID</entity_id>
+                    <last_logged_in>Last Logged In</last_logged_in>
+                    <firstname>First Name</firstname>
+                    <lastname>Last Name</lastname>
+                    <email>Email</email>
+                    <gender>Gender</gender>
+                    <dob>Date of Birth</dob>
+                    <newsletter>Newsletter</newsletter>
+                    <password>Password</password>
+                    <newsletter>Newsletter</newsletter>
+                    <website_id>Associate to Website</website_id>
+                    <created_in>Created From</created_in>
+                    <group_id>Group</group_id>
+                    <is_active>Is Active</is_active>
+                    <disable_auto_group_change>Disable automatic group change based on VAT ID</disable_auto_group_change>
+                    <username>username</username>
+                </attributes>
+                <routes>
+                    <route_entity>
+                        <route>/customer/findbyemail</route>
+                        <action_type>entity</action_type>
+                    </route_entity>
+                </routes>
+                <versions>1</versions>
+            </customer_findbyemail>
             <customer_subscription translate="title" module="Bilna_Customer">
                 <group>customer</group>
                 <sort_order>110</sort_order>
