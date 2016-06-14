@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<config>
+    <tabs>
+        <bilna translate="label">
+            <label>Bilna Extensions</label>
+        </bilna>
+    </tabs>
+    <sections>
+        <moxysellercenter translate="label">
+            <label>Seller Center</label>
+            <tab>bilna</tab>
+            <frontend_type>text</frontend_type>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <configuration translate="label">
+                    <label>Update Stock</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <enable_update_stock translate="label">
+                            <label>Enable Update Stock</label>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                        </enable_update_stock>
+                        <update_stock_end_point translate="label">
+                            <label>Update Stock End Point</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </update_stock_end_point>
+                    </fields>
+                </configuration>
+            </groups>
+        </moxysellercenter>
+    </sections>
+</config>

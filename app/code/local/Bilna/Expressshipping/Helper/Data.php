@@ -75,7 +75,7 @@ class Bilna_Expressshipping_Helper_Data extends Mage_Core_Helper_Abstract {
         {
             $parentItemId = $quoteData['quote_items'][$i]['parent_item_id'];
             $itemId = $quoteData['quote_items'][$i]['item_id'];
-            $isExpress = ( is_null($quoteData['quote_items'][$i]['express_shipping']) ? 0 : $quoteData['quote_items'][$i]['express_shipping'] );
+            $isExpress = ( !isset($quoteData['quote_items'][$i]['express_shipping']) ? 0 : $quoteData['quote_items'][$i]['express_shipping'] );
 
             // if parent does not exist
             if (is_null($parentItemId) || $parentItemId == '')
@@ -95,7 +95,7 @@ class Bilna_Expressshipping_Helper_Data extends Mage_Core_Helper_Abstract {
 
     private function checkParentExpress($itemId, $parents, $isExpress)
     {
-        if (is_null($parents[$itemId]))
+        if (!isset($parents[$itemId]))
             return $isExpress;
         else
         {
@@ -113,14 +113,13 @@ class Bilna_Expressshipping_Helper_Data extends Mage_Core_Helper_Abstract {
     public function getExpressShippingExpectedDeliveredDate()
     {
     	$dateTime = Mage::getModel('core/date')->timestamp(time());
-        $orderHour = date("H", $dateTime);
         $orderDate = date('d F Y', $dateTime);
         $nextDay = date('d F Y', strtotime($orderDate . ' +1 day'));
         
         $additionalMessage = '';
         $additionalMessage .= 'Terima pesanan tanggal <u style="text-decoration:underline">';
 
-        if ( $orderHour < 9 )
+        if ($this->isBeforeCutOffTime())
              $additionalMessage .= $orderDate;
         else
             $additionalMessage .= $nextDay;
@@ -139,5 +138,30 @@ class Bilna_Expressshipping_Helper_Data extends Mage_Core_Helper_Abstract {
         }
 
         return false;
+    }
+
+    /**
+     * Method to check if the current time is before Express Shippping Cut Off Time
+     * @return bool
+     */
+    public function isBeforeCutOffTime()
+    {
+        $dateTime = Mage::getModel('core/date')->timestamp(time());
+        $currentTime = date("H:i:s", $dateTime);
+        $cutOffTime = str_replace(',', ':', Mage::getStoreConfig('bilna_expressshipping/orderlimit/cut_off'));
+        if (strtotime($currentTime) < strtotime($cutOffTime)) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Method to get the display format of Cut Off Time for front end
+     * @return bool|string
+     */
+    public function getDisplayCutOffTime()
+    {
+        $cutOffTime = str_replace(',', ':', Mage::getStoreConfig('bilna_expressshipping/orderlimit/cut_off'));
+        return date('H:i', strtotime($cutOffTime));
     }
 }
