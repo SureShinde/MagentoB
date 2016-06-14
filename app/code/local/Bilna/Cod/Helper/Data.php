@@ -61,7 +61,7 @@ class Bilna_Cod_Helper_Data extends Mage_Core_Helper_Abstract {
         {
             $parentItemId = $quoteData['quote_items'][$i]['parent_item_id'];
             $itemId = $quoteData['quote_items'][$i]['item_id'];
-            $isCod = ( is_null($quoteData['quote_items'[$i]['cod']]) ? 0 : $quoteData['quote_items'][$i]['cod'] );
+            $isCod = ( !isset($quoteData['quote_items'[$i]['cod']]) ? 0 : $quoteData['quote_items'][$i]['cod'] );
 
             // if parent does not exist
             if (is_null($parentItemId) || $parentItemId == '')
@@ -81,7 +81,7 @@ class Bilna_Cod_Helper_Data extends Mage_Core_Helper_Abstract {
 
     private function checkParentCod($itemId, $parents, $isCod)
     {
-        if (is_null($parents[$itemId]))
+        if (!isset($parents[$itemId]))
             return $isCod;
         else
         {
