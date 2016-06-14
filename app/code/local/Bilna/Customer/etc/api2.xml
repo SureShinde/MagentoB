@@ -310,7 +310,7 @@
                     <group_id>Group</group_id>
                     <is_active>Is Active</is_active>
                     <disable_auto_group_change>Disable automatic group change based on VAT ID</disable_auto_group_change>
-                    <username>username</username>
+                    <username>Username</username>
                 </attributes>
                 <routes>
                     <route_entity>

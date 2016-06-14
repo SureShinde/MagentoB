@@ -14,7 +14,7 @@ class Bilna_Customer_Model_Api2_Findbyemail_Rest_Admin_V1 extends Bilna_Customer
         $customer->setWebsiteId(1); 
         $customer->loadByEmail($email);
         
-        if(!$customer) {
+        if(!$customer->getId()) {
             return $this->_critical(self::RESOURCE_NOT_FOUND);
         }
         
