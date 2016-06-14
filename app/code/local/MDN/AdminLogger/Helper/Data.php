@@ -30,6 +30,7 @@ class MDN_AdminLogger_Helper_Data extends Mage_Core_Helper_Abstract
 		} else {
 			switch ($objectType) {
 				case 'catalog/product':
+				case 'cataloginventory/stock_item':
 					$userName = $this->getCurrentUserName();
 					if (!$userName) {
 						$userName = $this->getCurrentApiUserName();
