@@ -143,12 +143,12 @@
                         <?php
                         if ( (strpos(strtolower($_rate->getCode()), 'express') !== false) || (strpos(strtolower($_rate->getCode()), 'ekspres') !== false) )
                         {
+                            $expressShippingHelper = Mage::helper('bilna_expressshipping');
                             $dateTime = Mage::getModel('core/date')->timestamp(time());
-                            $orderHour = date("H", $dateTime);
                             $orderDate = date('d F Y', $dateTime);
                             $nextDay = date('d F Y', strtotime($orderDate . ' +1 day'));
                             echo "<div><p class='check-terima'>Terima pesanan tanggal <u style='text-decoration:underline;'>";
-                            if($orderHour < 10){
+                            if($expressShippingHelper->isBeforeCutOffTime()){
                                 echo $orderDate;
                             }else{
                                 echo $nextDay;

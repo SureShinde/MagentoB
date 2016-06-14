@@ -28,5 +28,50 @@
                 <resourceModel>moxysellercenter_mysql4</resourceModel>
             </moxysellercenter>
         </models>
+        <events>
+            <sales_order_invoice_save_after>
+                <observers>
+                    <update_qty_sellercenter>
+                        <type>singleton</type>
+                        <class>Moxy_MoxySellerCenter_Model_Observer</class>
+                        <method>updateQtySellerCenter</method>
+                    </update_qty_sellercenter>
+                </observers>
+            </sales_order_invoice_save_after>
+        </events>
     </global>
+    <adminhtml>
+        <acl>
+            <resources>
+                <all>
+                    <title>Allow Everything</title>
+                </all>
+
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <moxysellercenter>
+                                            <title>Bilna - All</title>
+                                        </moxysellercenter>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+    </adminhtml>
+
+    <default>
+        <moxysellercenter>
+            <configuration>
+                <enable_update_stock>0</enable_update_stock>
+                <update_stock_end_point>http://api.orami.co.id/api/product/update-stock/</update_stock_end_point>
+            </configuration>
+        </moxysellercenter>
+    </default>
 </config>
