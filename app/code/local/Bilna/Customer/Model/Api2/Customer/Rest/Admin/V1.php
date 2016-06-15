@@ -125,4 +125,64 @@ class Bilna_Customer_Model_Api2_Customer_Rest_Admin_V1 extends Bilna_Customer_Mo
             $this->_critical(self::RESOURCE_INTERNAL_ERROR);
         }
     }
+    
+    protected function _retrieveCollection() {
+        $result = $this->_getRetrieveCollection();
+        
+        if (!$result) {
+            $this->_critical(self::RESOURCE_NOT_FOUND);
+        }
+        
+        return $result;
+    }
+    
+    protected function _getRetrieveCollection() {
+        $result = array ();
+        $customerId = $this->getRequest()->getParam('id');
+        $email = $this->getRequest()->getParam('email');
+        $result = [];
+        $newsletter = null;
+        
+        try {
+            if (!empty($customerId)) {
+                $customer = parent::_loadCustomerById($customerId);
+                $result = $customer;
+                $result['username'] = $this->_getUsername($customerId);            
+            } else {
+                $customer = Mage::getModel('customer/customer'); 
+                $customer->setWebsiteId(1); 
+                $customer->loadByEmail($email);
+                
+                $result['entity_id'] = $customer->getId();
+                $result['website_id'] = $customer->getWebsiteId();
+                $result['email'] = $customer->getEmail();
+                $result['group_id'] = $customer->getGroupId();
+                $result['created_at'] = $customer->getCreatedAt();
+                $result['is_active'] = $customer->getIsActive();
+                $result['disable_auto_group_change'] = (empty($customer->getDisabledAutoGroupChange()) ? '0' : $customer->getDisabledAutoGroupChange());
+                $subscriber = Mage::getModel('newsletter/subscriber')->loadByEmail($email);
+                if ($subscriber->getId()) {
+                    $newsletter = $subscriber->getEmail();
+                }
+                $result['newsletter'] = $newsletter;
+                $result['firstname'] = $customer->getFirstname();
+                $result['lastname'] = $customer->getLastname();
+                $result['created_in'] = $customer->getCreatedIn();
+                $result['gender'] = $customer->getGender();
+                $result['netsuite_internal_id'] = $customer->getNetsuiteInternalId();
+                $result['dob'] = $customer->getDob();
+                $result['username'] = $this->_getUsername($customer->getId());
+                $log = Mage::getModel('log/customer');
+                $log->loadByCustomer($customer->getId());
+                $lastLoginAt = $log->getLoginAt();
+                if (null !== $lastLoginAt) {
+                    $result['last_logged_in'] = $lastLoginAt;
+                }
+            }
+        } catch (Exception $ex) {
+            $this->_critical($ex->getMessage());
+        }        
+        
+        return $result;
+    }
 }
