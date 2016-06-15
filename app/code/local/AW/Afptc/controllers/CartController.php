@@ -64,7 +64,7 @@ class AW_Afptc_CartController extends Mage_Checkout_CartController
             return $this->_redirectReferer();
         }
 
-        if (!$rule->validate($quote)) {
+        if (!$rule->validate($cart)) {
             Mage::getSingleton('checkout/session')->addError($this->__('Your session has expired (invalid rule), please resubmit data'));
             Mage::getSingleton('customer/session')->unsAwAfptcRule();   
             return $this->_redirectReferer();
