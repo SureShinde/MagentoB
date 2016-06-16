@@ -138,7 +138,7 @@ class Bilna_Checkout_Model_Api2_Payment_Rest_Admin_V1 extends Bilna_Checkout_Mod
 
         $mapper = [
             'standard' => 1,
-            'free' => 1,
+            'free shipping' => 1,
             'economy' => 1,
             'international' => 1,
             'bayar di tempat' => 2,
@@ -149,8 +149,8 @@ class Bilna_Checkout_Model_Api2_Payment_Rest_Admin_V1 extends Bilna_Checkout_Mod
         if (strpos(strtolower($shippingDescription), 'standard') !== false)
             $shippingType = $mapper['standard'];
         else
-        if (strpos(strtolower($shippingDescription), 'free') !== false)
-            $shippingType = $mapper['free'];
+        if (strpos(strtolower($shippingDescription), 'free shipping') !== false)
+            $shippingType = $mapper['free shipping'];
         else
         if (strpos(strtolower($shippingDescription), 'economy') !== false)
             $shippingType = $mapper['economy'];
