@@ -228,7 +228,7 @@ class MDN_AdminLogger_Helper_Data extends Mage_Core_Helper_Abstract
 					mage::log('Retrieve description for update');
 				$data = $object->getData();
 				$origData = $object->getOrigData();
-                                
+
 				$retour ='changes: ';
                                 
 				if ($data && $origData)
@@ -257,6 +257,21 @@ class MDN_AdminLogger_Helper_Data extends Mage_Core_Helper_Abstract
 						if (mage::getStoreConfig('adminlogger/general/enable_log') == 1)
 							mage::log('Orig Data is null');
 					}
+				}
+
+				$objectType = $this->getObjectType($object);
+				switch ($objectType) {
+					case 'catalog/product': // If object type is catalog/product
+						$newCategoryIds = $object->getResource()->getCategoryIds($object);
+						$oldCategoryIds = $object->getOldCategoryIds(); // Retrieve Old Category Ids
+						if (array_values($newCategoryIds) != array_values($oldCategoryIds)) { // If Category is changed
+							$retour .= '<strong>categoriesOld_value</strong> : '.implode(', ', $this->getCatalogCategoryNames($oldCategoryIds));
+							$retour .= '&nbsp;';
+							$retour .= '<strong>New_value</strong> : '.implode(', ', $this->getCatalogCategoryNames($newCategoryIds));
+						}
+						break;
+					default:
+						break;
 				}
 				
 				if ($retour == '')
@@ -458,6 +473,16 @@ class MDN_AdminLogger_Helper_Data extends Mage_Core_Helper_Abstract
 		}
 
 		return $desc;
+	}
+
+	private function getCatalogCategoryNames($categoryIds)
+	{
+		$categoryNames = array();
+		foreach ($categoryIds as $categoryId) {
+			$category = Mage::getModel('catalog/category')->setStoreId(Mage::app()->getStore()->getId())->load($categoryId);
+			$categoryNames[] =  $category->getName();
+		}
+		return $categoryNames;
 	}
 }
 
