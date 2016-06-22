@@ -51,6 +51,7 @@ class bulkCreateInvoice extends Mage_Shell_Abstract {
             $paymentMethods = Mage::getStoreConfig('bilna_module/paymethod/payment_hide');
             $paymentMethods = str_replace(',mandiriecash', '', $paymentMethods);
             $paymentMethods = str_replace('mandiriecash,', '', $paymentMethods);
+            $paymentMethods .= ',virtualaccountbca';
             $paymentMethods = str_replace(',', "','", $paymentMethods);
             $sql = "
                 SELECT
