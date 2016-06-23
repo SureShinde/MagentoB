@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Bilna_Cod>
-            <version>0.2.4</version>
+            <version>0.2.6</version>
         </Bilna_Cod>
     </modules>
     
@@ -26,6 +26,27 @@
                 <class>Bilna_Cod_Model</class>
             </cod>
         </models>
+
+        <events>
+            <sales_quote_add_item>
+                <observers>
+                    <cod_quote_add_item>
+                        <type>singleton</type>
+                        <class>Bilna_Cod_Model_Observer</class>
+                        <method>codQuoteAddItem</method>
+                    </cod_quote_add_item>
+                </observers>
+            </sales_quote_add_item>
+            <sales_convert_quote_item_to_order_item>
+                <observers>
+                    <cod_convert_to_order_item>
+                        <type>singleton</type>
+                        <class>Bilna_Cod_Model_Observer</class>
+                        <method>salesQuoteConvertToOrderItem</method>
+                    </cod_convert_to_order_item>
+                </observers>
+            </sales_convert_quote_item_to_order_item>
+        </events>
         
         <helpers>
             <cod>
