@@ -51,11 +51,11 @@
         </models>
 	
         <resources>
-            <bilna_formbuilder_setup>
+            <formbuilder_setup>
                 <setup>
                     <module>Bilna_Formbuilder</module>
                 </setup>
-            </bilna_formbuilder_setup>
+            </formbuilder_setup>
         </resources>
     </global>
     

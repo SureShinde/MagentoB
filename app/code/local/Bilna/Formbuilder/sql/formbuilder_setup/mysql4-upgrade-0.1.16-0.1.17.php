@@ -4,10 +4,9 @@
  *
  * @author Bilna Development Team <development@bilna.com>
  */
-
 $installer = $this;
 $installer->startSetup();
 $installer->run("
-	ALTER TABLE `bilna_formbuilder_input` CHANGE COLUMN `value` `value` TEXT NULL DEFAULT NULL ;
+	ALTER TABLE `bilna_formbuilder_input` MODIFY `value` TEXT DEFAULT NULL;
 	");
 $installer->endSetup();
