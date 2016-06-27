@@ -29,8 +29,8 @@ class Bilna_Rest_Model_Api2_Wishlistcollection_Rest_Admin_V1 extends Bilna_Rest_
             
             $recLimit = 40;
             
-            $limit = (int)$this->getRequest()->getParam('limit');
-            $page = (int)$this->getRequest()->getParam('page');
+            $limit = (isset($this->getRequest()->getParam('limit'))) ? (int)$this->getRequest()->getParam('limit') : 40;
+            $page = (isset($this->getRequest()->getParam('page'))) ? (int)$this->getRequest()->getParam('page') : 1;
             $offset = $limit * ($page - 1);
             $offset = ($offset < 0) ? 0 : $offset;
             
