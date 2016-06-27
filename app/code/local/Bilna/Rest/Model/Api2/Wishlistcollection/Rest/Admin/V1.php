@@ -33,8 +33,8 @@ class Bilna_Rest_Model_Api2_Wishlistcollection_Rest_Admin_V1 extends Bilna_Rest_
             $page = (int)$this->getRequest()->getParam('page');
 
             if( $page > 0 ) {
-                $page = $page + 1;
-                $offset = $recLimit * $page ;
+                $page = $page;
+                $offset = $limit * $page ;
             } else {
                 $page = 0;
                 $offset = 0;
@@ -59,7 +59,7 @@ class Bilna_Rest_Model_Api2_Wishlistcollection_Rest_Admin_V1 extends Bilna_Rest_
             GROUP BY g.wishlist_id
             HAVING totalItem > 4
             ORDER BY g.updated_at desc
-            LIMIT $offset, $recLimit;";
+            LIMIT $offset, $limit;";
             
             $countWishlists = $readConnection->fetchAll($queryTotal);            
             $wishlists = $readConnection->fetchAll($query);            
