@@ -31,7 +31,7 @@ class Bilna_Rest_Model_Api2_Wishlistcollection_Rest_Admin_V1 extends Bilna_Rest_
             
             $limit = (int)$this->getRequest()->getParam('limit');
             $page = (int)$this->getRequest()->getParam('page');
-            $offset = $limit * $page ;
+            $offset = $limit * ($page - 1) ;
             
             $queryTotal = "SELECT g.wishlist_id, g.customer_id, g.visibility, g.customer_id, 
             g.cover, g.name, g.updated_at,
