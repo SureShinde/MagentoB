@@ -17,6 +17,7 @@ class bulkCreateInvoice extends Mage_Shell_Abstract {
     protected $orderIncrementIds;
 
     const PROCESS_ID = 'cron_bulkCreateInvoice';
+    const LOCKFILE_TIME_LIMIT_IN_SECONDS = 59 * 60;
     protected $_lockFile = null;
 
     public function init() {
@@ -105,15 +106,15 @@ class bulkCreateInvoice extends Mage_Shell_Abstract {
 
         return $successOrderNoWithoutInv;
     }
-    
+
     protected function getOrderIncrementIds() {
         if (!$this->getArg('orders')) {
             return array();
         }
-        
+
         $orders = str_replace(' ', '', $this->getArg('orders'));
         $orderIncrementIds = explode(',', $orders);
-        
+
         return $orderIncrementIds;
     }
 
@@ -125,17 +126,17 @@ class bulkCreateInvoice extends Mage_Shell_Abstract {
                 $this->logProgress($orderIncrementId . ' => load order failed.');
                 continue;
             }
-            
+
             $orderId = $order->getId();
             $orderNetsuiteInternalId = $order->getNetsuiteInternalId();
-            
+
             //- normalisasi order
             if (!$this->normalizeOrder($orderId)) {
                 $this->logProgress($orderIncrementId . ' => Normalize order failed.');
                 continue;
             }
             $this->logProgress($orderIncrementId . ' => Normalize order success.');
-            
+
             //- normalisasi order item
             if (!$this->normalizeOrderItem($orderId)) {
                 $this->logProgress($orderIncrementId . ' => Normalize order item failed.');
@@ -149,23 +150,23 @@ class bulkCreateInvoice extends Mage_Shell_Abstract {
                 continue;
             }
             $this->logProgress($orderIncrementId . ' => Normalize order payment success.');
-            
+
             //- create invoice
             $order = Mage::getModel('sales/order')->loadByIncrementId($orderIncrementId);
             $invoice = $this->createInvoice($orderId, $order);
-            
+
             if (!$invoice) {
                 $this->logProgress($orderIncrementId . ' => Invoice not found.');
                 continue;
             }
-            
+
             $invoiceId = $invoice->getId();
             $invoiceNetsuiteInternalId = $invoice->getNetsuiteInternalId();
 
             if ($this->getArg('check_veritrans') == 'true') {
                 $this->logProgress('Invoice for Order : '.$orderIncrementId.' successfully created with Invoice ID : '.$invoiceId, true);
             }
-            
+
             //- remove message invoice
             if (!$this->removeMessageInvoice($invoiceId)) {
                 $this->logProgress($orderIncrementId . ' => Remove queue InvoiceSave failed.');
@@ -173,7 +174,7 @@ class bulkCreateInvoice extends Mage_Shell_Abstract {
                 continue;
             }
             $this->logProgress($orderIncrementId . ' => Remove queue InvoiceSave success.');
-            
+
             //- insert ke table message dgn body sebagai invoice_save dan entity_id nya
             if (empty($invoiceNetsuiteInternalId) || is_null($invoiceNetsuiteInternalId)) {
                 if (!$this->triggerNetsuiteInvoiceSave($orderId, $invoiceId)) {
@@ -182,7 +183,7 @@ class bulkCreateInvoice extends Mage_Shell_Abstract {
                 }
             }
             $this->logProgress($orderIncrementId . ' => Trigger Netsuite as InvoiceSave success.');
-            
+
             //- insert ke table message dgn body sebagai order_place dan entity_id nya
             if (empty($orderNetsuiteInternalId) || is_null($orderNetsuiteInternalId)) {
                 if (!$this->triggerNetsuiteOrderPlace($orderId)) {
@@ -191,7 +192,7 @@ class bulkCreateInvoice extends Mage_Shell_Abstract {
                 }
                 $this->logProgress($orderIncrementId . ' => Trigger Netsuite as OrderPlace failed.');
             }
-            
+
             //- insert ke table message dgn body sebagai customer_save dan entity_id dari table sales_flat_order_adress dgn addres_type nya shipping dgn parent_id nya adalah entity_id sales order yg di atas
             if (!$this->triggerNetsuiteCustomerSave($orderId)) {
                 $this->logProgress($orderIncrementId . ' => Trigger Netsuite as CustomerSave failed.');
@@ -203,49 +204,49 @@ class bulkCreateInvoice extends Mage_Shell_Abstract {
             unset ($order);
         }
     }
-    
+
     protected function normalizeOrder($orderId) {
         $sql = sprintf("
             UPDATE `%s`
             SET `state` = 'new', `status` = 'pending', `base_discount_invoiced` = 0.0000, `base_subtotal_invoiced` = 0.0000, `base_total_invoiced` = 0.0000, `base_total_invoiced_cost` = 0, `base_total_paid` = 0.0000, `discount_invoiced` = 0.0000, `subtotal_invoiced` = 0.0000, `total_invoiced` = 0.0000, `total_paid` = 0.0000, `base_total_due` = `base_total_paid`, `total_due` = `total_paid`
             WHERE `entity_id` IN (%d);
         ", $this->resource->getTableName('sales/order'), $orderId);
-        
+
         if (!$this->write->query($sql)) {
             return false;
         }
-        
+
         return true;
     }
-    
+
     protected function normalizeOrderItem($orderId) {
         $sql = sprintf("
             UPDATE `%s`
-            SET `qty_invoiced` = 0.0000, `discount_invoiced` = 0.0000, `base_discount_invoiced` = 0.0000, `row_invoiced` = 0.0000, `base_row_invoiced` = 0.0000 
+            SET `qty_invoiced` = 0.0000, `discount_invoiced` = 0.0000, `base_discount_invoiced` = 0.0000, `row_invoiced` = 0.0000, `base_row_invoiced` = 0.0000
             WHERE `order_id` IN (%d);
         ", $this->resource->getTableName('sales/order_item'), $orderId);
-        
+
         if (!$this->write->query($sql)) {
             return false;
         }
-        
+
         return true;
     }
 
     protected function normalizeOrderPayment($orderId) {
         $sql = sprintf("
             UPDATE `%s`
-            SET `base_shipping_captured` = NULL, `shipping_captured` = NULL, `base_amount_paid` = NULL, `amount_paid` = NULL 
+            SET `base_shipping_captured` = NULL, `shipping_captured` = NULL, `base_amount_paid` = NULL, `amount_paid` = NULL
             WHERE `parent_id` IN (%d);
         ", $this->resource->getTableName('sales/order_payment'), $orderId);
-        
+
         if (!$this->write->query($sql)) {
             return false;
         }
-        
+
         return true;
     }
-    
+
     protected function createInvoice($orderIncrementId, $order) {
     // disable the point reward observer when running this code
     Mage::app()->getConfig()->getEventConfig('global', 'sales_order_invoice_pay');
@@ -281,177 +282,177 @@ class bulkCreateInvoice extends Mage_Shell_Abstract {
             }
             else {
                 $this->logProgress($orderIncrementId . ' => Order has invoices.');
-                
+
                 foreach ($order->getInvoiceCollection() as $orderInvoice) {
                     $invoice = $orderInvoice;
                     break;
                 }
             }
-            
+
             $order->setState(Mage_Sales_Model_Order::STATE_PROCESSING, true, 'Create invoice by system');
             $order->save();
             $this->logProgress($orderIncrementId . ' => Update status order success.');
-            
+
             return $invoice;
         }
         catch (Mage_Core_Exception $e) {
             $this->logProgress($orderIncrementId . ' => ' . $e->getMessage());
-            
+
             return false;
         }
     }
 
     protected function removeMessageInvoice($invoiceId) {
         $this->logProgress('Start delete message invoice_save #' . $invoiceId);
-        
+
         $sql = sprintf("SELECT `message_id` FROM `message` WHERE `body` = 'invoice_save|%d' ORDER BY `message_id`", $invoiceId);
         $result = $this->read->fetchAll($sql);
-        
+
         if (!$result) {
             $this->logProgress('Message invoice_save #' . $invoiceId . ' not found');
-            
+
             return false;
         }
-        
+
         foreach ($result as $row) {
             if (!$this->deleteMessageInvoice($invoiceId, $row['message_id'])) {
                 $this->logProgress('Delete message invoice_save #' . $invoiceId . ' failed');
-                
+
                 return false;
             }
-            
+
             break;
         }
-        
+
         $this->logProgress('Success delete message invoice_save #' . $invoiceId);
-        
+
         return true;
     }
-    
+
     protected function deleteMessageInvoice($invoiceId, $messageId) {
         $sql = sprintf("DELETE FROM message WHERE message_id = %d AND body = 'invoice_save|%d' LIMIT 1", $messageId, $invoiceId);
-        
+
         if (!$this->write->query($sql)) {
             return false;
         }
-        
+
         return true;
     }
-    
+
     protected function triggerNetsuiteInvoiceSave($orderId, $invoiceId) {
         $this->logProgress('Start trigger netsuite as invoice save #' . $orderId);
-        
+
         $sql = sprintf("
             INSERT INTO `message`(`message_id`, `queue_id`, `handle`, `body`, `md5`, `timeout`, `created`, `priority`)
             VALUES(NULL, 1, NULL, 'invoice_save|%d', md5('invoice_save|%d'), NULL, unix_timestamp(), 0);
         ", $invoiceId, $invoiceId);
-        
+
         if ($this->write->query($sql)) {
             $this->logProgress('Success trigger netsuite as invoice save #' . $orderId);
-            
+
             return true;
         }
-        
+
         return false;
     }
 
     protected function triggerNetsuiteOrderPlace($orderId) {
         $this->logProgress('Start trigger netsuite as order place #' . $orderId);
-        
+
         //- check message
         if ($this->isExistNetsuiteOrderPlace($orderId)) {
             $this->logProgress('netsuite as order place #' . $orderId . ' already exist');
-            
+
             return true;
         }
-        
+
         $sql = sprintf("
             INSERT INTO `message`(`message_id`, `queue_id`, `handle`, `body`, `md5`, `timeout`, `created`, `priority`)
             VALUES(NULL, 1, NULL, 'order_place|%d', md5('order_place|%d'), NULL, unix_timestamp(), 0);
         ", $orderId, $orderId);
-        
+
         if ($this->write->query($sql)) {
             $this->logProgress('Success trigger netsuite as order place #' . $orderId);
-            
+
             return true;
         }
-        
+
         return false;
     }
-    
+
     protected function isExistNetsuiteOrderPlace($orderId) {
         $sql = sprintf("SELECT `message_id` FROM `message` WHERE `body` = 'order_place|%d' LIMIT 1", $orderId);
         $messageId = $this->read->fetchOne($sql);
-        
+
         if (!$messageId) {
             return false;
         }
-        
+
         return true;
     }
 
     protected function triggerNetsuiteCustomerSave($orderId) {
         $this->logProgress('Start trigger netsuite as customer save #' . $orderId);
-        
+
         $collection = Mage::getModel('sales/order_address')->getCollection();
         $collection->addFieldToSelect(array ('customer_address_id'));
         $collection->addFieldToFilter('`main_table`.`parent_id`', array ('eq' => $orderId));
         $collection->addFieldToFilter('address_type', 'shipping');
         //$collection->getFirstItem();
-        
+
         if ($collection->getSize() == 0) {
             return false;
         }
-        
+
         $orderAddress = $collection->getData();
         $customerAddressId = $orderAddress[0]['customer_address_id'];
-        
+
         //- check message
         if ($this->isExistNetsuiteCustomerSave($customerAddressId)) {
             $this->logProgress('netsuite as customer save #' . $customerAddressId . ' already exist');
-            
+
             return true;
         }
-        
+
         $sql = sprintf("
             INSERT INTO `message`(`message_id`, `queue_id`, `handle`, `body`, `md5`, `timeout`, `created`, `priority`)
             VALUES(NULL, 1, NULL, 'customer_save|%d', md5('customer_save|%d'), NULL, unix_timestamp(), 0);
         ", $customerAddressId, $customerAddressId);
-        
+
         if ($this->write->query($sql)) {
             $this->logProgress('Success trigger netsuite as customer save #' . $orderId);
-            
+
             return true;
         }
-        
+
         return true;
     }
-    
+
     protected function isExistNetsuiteCustomerSave($customerAddressId) {
         $sql = sprintf("SELECT `message_id` FROM `message` WHERE `body` = 'customer_save|%d' LIMIT 1", $customerAddressId);
         $messageId = $this->read->fetchOne($sql);
-        
+
         if (!$messageId) {
             return false;
         }
-        
+
         return true;
     }
 
     protected function parseConfig($data) {
         return explode(',', $data);
     }
-    
+
     protected function critical($message) {
         $this->logProgress($message);
         exit(1);
     }
-    
+
     protected function isTest() {
         if ($this->getArg('test')) {
             return true;
         }
-        
+
         return false;
     }
 
@@ -461,12 +462,12 @@ class bulkCreateInvoice extends Mage_Shell_Abstract {
         } else {
             $this->writeLog($message);
         }
-        
+
         if ($this->getArg('verbose')) {
             echo $message . "\n";
         }
     }
-    
+
     public function writeLog($message) {
         Mage::log($message, null, 'bulkCreateInvoice.log');
     }
@@ -479,28 +480,36 @@ class bulkCreateInvoice extends Mage_Shell_Abstract {
         if ($this->_lockFile == null) {
             $this->_lockFile = $this->_getLockFile();
         }
-        
+
         if (file_exists($this->_lockFile)) {
-            return true;
+            $handle = fopen($this->_lockFile, 'r');
+            $content = fread($handle, filesize($this->_lockFile));
+            fclose($handle);
+
+            $age_of_lock_file = strtotime($content);
+            $now = Mage::getModel('core/date')->timestamp(time());
+            if ($now < $age_of_lock_file + self::LOCKFILE_TIME_LIMIT_IN_SECONDS) {
+                return true;
+            }
         }
-        
+
         //create lock file
         $this->_lock();
-        
+
         return false;
     }
 
     protected function _getLockFile() {
         $varDir = Mage::getConfig()->getVarDir('locks');
         $this->_lockFile = $varDir . DS . self::PROCESS_ID . '.lock';
-        
+
         return $this->_lockFile;
     }
 
     protected function _lock() {
         $handle = fopen($this->_lockFile, 'w');
         $content = date('Y-m-d H:i:s', Mage::getModel('core/date')->timestamp(time()));
-        
+
         fwrite($handle, $content);
         fclose($handle);
     }
@@ -508,10 +517,10 @@ class bulkCreateInvoice extends Mage_Shell_Abstract {
     protected function _unlock() {
         if (file_exists($this->_lockFile)) {
             unlink($this->_lockFile);
-            
+
             return true;
         }
-        
+
         return false;
     }
 }
