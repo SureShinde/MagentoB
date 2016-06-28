@@ -66,8 +66,7 @@
                     </div>
                 
                     <?php
-                    $myproduct = Mage::getModel('catalog/product')->load($_product->getId());
-                    $product_brands = $myproduct->getAttributeText('brands');
+                    $product_brands = $_product->getAttributeText('brand');
                     
                     if ($product_brands):
                     ?>
@@ -89,7 +88,12 @@
                     $ship_by = $_product->getAttributeText('ship_by');
                     $userName = $_product->getMerchantUsername();
                     $shopName = $_product->getMerchantShopName();
-                    $sold_by = $userName && $shopName ? $shopName : $_product->getAttributeText('sold_by');
+                    if($userName && $shopName) {
+                        $sold_by =  $shopName;
+                        $ship_by = empty($ship_by) ? 'Bilna' : $ship_by;
+                    } else {
+                        $sold_by =  $_product->getAttributeText('sold_by');
+                    }
                     ?>
                     <div class="shipsfrom-soldby">
                         <p><?php echo $this->__('Sold by <span>%s</span> and Shipped by <span>%s</span>', ( $sold_by ? $sold_by : '-' ), ( $ship_from ? $ship_from : '-' )) ?></p>
@@ -221,6 +225,19 @@
                                         <td><?php echo $_data['value']; ?></td>
                                     </tr>
                                 <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    <?php elseif ($_code == 'express_shipping'): ?>
+                        <hr/>
+                        <div class="title-category" id="<?php echo "tabs-{$alias}"?>">
+                            <?php echo $this->__('Express Shipping'); ?>
+                        </div>
+                        <table id="product-attribute-specs-table" class="data-table">
+                            <tbody>
+                                <tr>
+                                    <th width="25%"><?php echo $_attribute['data'][0]['label']; ?></th>
+                                    <td><?php echo $_attribute['data'][0]['value']; ?></td>
+                                </tr>
                             </tbody>
                         </table>
                     <?php elseif ($_code == 'additional_info'): ?>
@@ -371,3 +388,5 @@
     dataLayer.push( {'skuid': '<?php echo $_product->getSku(); ?>'} );
     });
 </script>
+
+

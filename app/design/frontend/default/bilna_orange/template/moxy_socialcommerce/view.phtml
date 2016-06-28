@@ -170,7 +170,7 @@ $hasCollection = $wishlistCollection->count() < 1 ? false : true;
                 # Check for wishlist visibility.
                 # If wishlist is private, and the active user is not the owner of the wishlist,
                 # the item should be skipped.
-                if ($wishlist->getVisibility() == 0 && $owner != 'owner') {
+                if ($wishlist->getVisibility() == 0 && $viewer != 'owner') {
                   continue;
                 }
 
@@ -460,29 +460,6 @@ $hasCollection = $wishlistCollection->count() < 1 ? false : true;
     </div>
   </form>
 </div>
-
-
-
-<!--  end of modal edit profile -->
-<!-- checking is the logged in customer seeing his own collection or not -->
-<?php $customerId = Mage::getSingleton('customer/session')->getCustomer()->getId();
-if ($wishlist['customer_id'] != $customerId) {
-?>
-
-<?php /*  <div class="cg-row"  style="margin-bottom:20px;">
-   <div class="cg-col-lg-6 cg-col-lg-offset-3 cg-col-xs-12 cg-col-md-8 cg-col-md-offset-2 cg-col-sm-12 text-center no-collection-title bottom-spacer-container" style="font-size:20px; font-weight:500;">
-    Feeling inspired? <br>
-    Why don't you create your own collection!
-  </div>
-  <div class="cg-col-lg-4 cg-col-lg-offset-4 cg-col-xs-12 cg-col-md-8 cg-col-md-offset-2 cg-col-sm-12 bottom-spacer-container">
-    <img src="<?php echo $this->getSkinUrl('images/') . 'plus2-2x.png'; ?>" width="100%" >
-  </div>
-  <div class="cg-col-lg-2 cg-col-lg-offset-5 cg-col-xs-12 cg-col-md-8 cg-col-md-offset-2 cg-col-sm-12">
-    <div onclick="showAddCollectionDialog()" class="btn btn btn-pink-prime cursor" style="margin: 10px 0;">BUAT SEKARANG</div>
-  </div>
-</div>
-*/?>
-<?php } ?>
 
 <script>
 function newShowCollectionEdit(){

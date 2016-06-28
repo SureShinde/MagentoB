@@ -38,7 +38,7 @@
         </ul>
         <ul class="top-left-menu">
             <li><a href="<?php echo $this->getUrl('collections'); ?>">Koleksi</a></li>
-            <li><a href="http://magazine.bilna.com/">Inspirasi</a></li>
+            <li><a href="http://magazine.orami.co.id/">Inspirasi</a></li>
         </ul>
             <?php echo $this->getChildHtml('topLinks') ?>
         <div class="title-mobile-menu">
@@ -50,7 +50,7 @@
         $_storeCurrentCategory = Mage::registry('current_category');
         $_categoryActive = $this->getCurrentMainCategoryIdActive();
         ?>
-        
+
         <?php if (count($_storeCategories) > 0): ?>
             <div class="wrap-menu-cat">
                 <ul>
@@ -62,7 +62,7 @@
                         $_urlKey = $_storeCategory['url_key'];
                         ?>
                     
-                        <li class="<?php echo $_storeCategoryClass; ?> <?php echo $_id; ?>">
+                        <li class="<?php echo $_id; ?>">
                             <p class="first-level" data-left-menu="<?php echo $_id; ?>"><?php echo $_name; ?></p>
                         </li>
                     <?php endforeach; ?>
@@ -74,20 +74,19 @@
                         $_url = $_storeCategory['url'];
                         $_urlKey = $_storeCategory['url_key'];
                         ?>
-                    
+
                             <?php
                             $_storeCategoriesChild = array ();
-            
                             if ($_storeCategory['child'] && count($_storeCategory['child'] > 0)):
                                 $_storeCategoriesChild = $_storeCategory['child'];
                             endif;
                             ?>
-                            
+
                             <?php if (count($_storeCategoriesChild) > 0): ?>
-                                <div class="wrap-first-level <?php echo $_storeCategoryClass; ?> <?php echo $_id; ?>">
+                                <div class="wrap-first-level <?php echo $_id; ?>">
                                     <div class="wrap-level2">
                                         <span class="close-level-2-top back-level-1"> <i class="fa fa-angle-left"></i>Kembali </span>
-                                        
+
                                         <ul class="category-level-2">
                                             <?php foreach ($_storeCategoriesChild as $_storeCategoryChild): ?>
                                                 <?php
@@ -96,15 +95,14 @@
                                                 $_url2 = $_storeCategoryChild['url'];
                                                 $_urlKey2 = $_storeCategoryChild['url_key'];
                                                 ?>
-                                                <li> 
+                                                <li>
                                                     <a href="<?php echo $_url2; ?>"><?php echo $_name2; ?>
                                                         <i class="fa fa-caret-right"></i>
                                                         <i class="fa fa-caret-down"></i>
                                                     </a>
                                                     <?php
                                                     $_storeCategoriesChildChild = array ();
-
-                                                    if ($_storeCategoryChild['child'] && count($_storeCategoryChild['child'] > 0)):
+                                                    if (isset($_storeCategoryChild['child']) && count($_storeCategoryChild['child'] > 0)):
                                                         $_storeCategoriesChildChild = $_storeCategoryChild['child'];
                                                     endif;
                                                     ?>
@@ -140,14 +138,14 @@
         <div class="text-promo-mobile">
         <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('topmegamenu-promo')->toHtml() ?>
         </div>
-    </div>	
+    </div>
 </div>
-    
-    
+
+
     <div class="back-button back-left"></div>
 
 </script>
-<?php 
+<?php
  $customer = Mage::getSingleton('customer/session')->getCustomer();
  if(isset($customer) && !empty($customer)){
  	$email = $customer->getEmail();// for email address

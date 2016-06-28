@@ -80,10 +80,7 @@ class Bilna_Checkout_Model_Api2_Payment_Method_Rest_Admin_V1 extends Bilna_Check
             $payment = $quote->getPayment();
             $payment->importData($paymentData);
 
-
-            $quote->setTotalsCollectedFlag(false)
-                ->collectTotals()
-                ->save();
+            $quote->collectTotals()->save();
 
         } catch (Mage_Core_Exception $e) {
             $this->_error($e->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);

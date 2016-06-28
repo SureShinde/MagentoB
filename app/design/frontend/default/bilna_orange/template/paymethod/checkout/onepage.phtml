@@ -2,7 +2,7 @@
 <input type="hidden" id="3rdparty-value" value="" />
 <script type="text/javascript" src="<?php echo Mage::getStoreConfig('payment/vtdirect/vtdirect_src'); ?>"></script>
 <script type="text/javascript">
-    var baseUrl = '<?php echo Mage::getBaseUrl(); ?>';
+    var baseUrl = '<?php echo Mage::helper('paymethod')->checkHttpsProtocol(Mage::getBaseUrl()); ?>';
     var bankCheckUrl = '<?php echo Mage::helper('paymethod')->checkHttpsProtocol(Mage::getBaseUrl() . 'paymethod/onepage/bankCheck'); ?>';
     var vtDirectUrl = '<?php echo Mage::getStoreConfig('payment/vtdirect/vtdirect_url'); ?>';
     var vtDirectClientKey = '<?php echo Mage::getStoreConfig('payment/vtdirect/client_key'); ?>';
@@ -104,48 +104,25 @@
            }
         }
 
-        // ematics cart - retrieve items from cart
-        var temp_cart = [];
-        var temp_item = "";
-        var index_removeditem = "";
-        var temp_cartQty = jQuery("span#ematiccart").length;
-        for (var itr=0; itr < temp_cartQty; itr++) {
-            temp_item = jQuery("span#ematiccart").eq(itr).text();
-            temp_cart[itr] = temp_item.split("|");
-        }
+        // ematics cart - amount items in cart
+        var temp_cartQty = 0;
+        temp_cartQty = ecommerce_container.length;
 
         // ematics cart - prepare for logging
         if (temp_cartQty > 0) {         // at least 1 item in cart
-            products = [
-            <?php for($i=0; $i<$itemQty; $i++) {
-                echo "{'name' : temp_cart[".$i."][0],";
-                echo "'id' : temp_cart[".$i."][1],";
-                echo "'price' : temp_cart[".$i."][3],";
-                echo "'quantity' : temp_cart[".$i."][4],";
-                echo "'brandName' : 'brand name',";
-                echo "'imageUrl' : temp_cart[".$i."][5],";
-                echo "'link' : temp_cart[".$i."][6]}";if($i != $itemQty-1) {echo ",";}
-            }
-            ?>
-            ];
-
-            // ematics track convert
-            ematics("log", "product", "convert", products);
+            products = ecommerce_container;
 
             // universal analytics
-            temp_container.ecommerce.purchase.products.push(
-                <?php for($i=0; $i<$itemQty; $i++) {
-                    echo "{'name' : temp_cart[".$i."][0],";
-                    echo "'sku' : temp_cart[".$i."][1],";
-                    echo "'price' : temp_cart[".$i."][2],";
-                    echo "'quantity' : temp_cart[".$i."][4],";
-                    echo "'brandName' : 'brand name',";
-                    echo "'imageUrl' : temp_cart[".$i."][5],";
-                    echo "'link' : temp_cart[".$i."][6]}";if($i != $itemQty-1) {echo ",";}
-                }
-                ?>
-            );
+            temp_container.ecommerce.purchase.products = products;
             dataLayer.push(temp_container);
+
+            // add thousand separator and unit price to ematic container price
+            for (var itr=0; itr<temp_cartQty; itr++) {
+                products[itr].price = "Rp" + products[itr].price.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+            }
+
+            // ematics track items in cart to enable pre-abandonded cart overlays
+            ematics("log", "product", "convert", products);
         }
     }
 </script>

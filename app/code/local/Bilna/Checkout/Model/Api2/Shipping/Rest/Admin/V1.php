@@ -33,6 +33,18 @@ class Bilna_Checkout_Model_Api2_Shipping_Rest_Admin_V1 extends Bilna_Checkout_Mo
         	$quoteShippingAddress->collectShippingRates()->save();
             $groupedRates = $quoteShippingAddress->getGroupedAllShippingRates();
 
+            /* get reference to helper Bilna Express Shipping */
+            $expressshippingHelper = Mage::helper('bilna_expressshipping');
+
+            /* get from config whether express shipping is enabled or disabled */
+            $expressShippingEnabled = Mage::getStoreConfig('bilna_expressshipping/status/enabled');
+
+            /* get reference to helper Bilna COD */
+            /*
+            $codHelper = Mage::helper('cod');
+            $codEnabled = $codHelper->isCodEnabled();
+            */
+
             $ratesResult = array();
             foreach ($groupedRates as $carrierCode => $rates ) {
 
@@ -44,9 +56,36 @@ $carrierName = $carrierCode;
 */
 
                 foreach ($rates as $rate) {                    
+                    $enabled = true;
+                    $additionalMessage = '';
+
+                    /* if express shipping is disabled in config, don't display the express shipping method */
+                    if ( strpos(strtolower($rate->getMethodTitle()), 'express') !== false && $expressShippingEnabled == 0 )
+                        continue;
+                    else
+                    /* if express shipping is enabled in config, check the condition to get whether the radio 
+                    is enabled or disabled */
+                    if ( strpos(strtolower($rate->getMethodTitle()), 'express') !== false && $expressShippingEnabled == 1 )
+                    {
+                        $enabled = $expressshippingHelper->enableStatusExpressShippingMethod($quote);
+                        $additionalMessage = $expressshippingHelper->getExpressShippingExpectedDeliveredDate();
+                    }
+
+                    /* check for COD shipping */
+                    /*
+                    if ( strpos(strtolower($rate->getMethodTitle()), 'bayar di tempat') !== false )
+                    {
+                        // if not eligible to show COD method, skip the remaining process
+                        if (!$codHelper->showCodMethod('', $quote))
+                            continue;
+                    }
+                    */
+
                     $rateItem['carrierName'] = $rate->getMethodTitle();
                     $rateItem['carrierPrice'] = $rate->getPrice();
                     $rateItem['carrierCode'] = $rate->getCode();
+                    $rateItem['enabledInFrontend'] = $enabled;
+                    $rateItem['additionalMessage'] = $additionalMessage;
                     $ratesResult[] = $rateItem;
                     unset($rateItem);
                 }
