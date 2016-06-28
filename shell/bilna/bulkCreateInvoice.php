@@ -78,7 +78,7 @@ class bulkCreateInvoice extends Mage_Shell_Abstract {
 
         //- step 2 => process order (normalisasi)
         $this->processOrders($orderIncrementIds);
-        $this->logProgress('Process all order successfully.');    
+        $this->logProgress('Process all order successfully.');
         $this->_unlock();
     }
 
