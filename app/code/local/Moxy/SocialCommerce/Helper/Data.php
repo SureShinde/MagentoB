@@ -250,7 +250,7 @@ class Moxy_SocialCommerce_Helper_Data extends Mage_Core_Helper_Abstract
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
         curl_setopt($ch, CURLOPT_TIMEOUT, 1000);      // some large value to allow curl to run for a long time
         curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0');
-        curl_exec($ch);
+        if(curl_exec($ch) === false) Mage::log('CURL Error : ' . curl_error($ch));
         curl_close($ch);
         fclose($fp);
         return $image_file;
