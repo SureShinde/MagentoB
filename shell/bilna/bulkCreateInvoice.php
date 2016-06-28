@@ -17,6 +17,7 @@ class bulkCreateInvoice extends Mage_Shell_Abstract {
     protected $orderIncrementIds;
 
     const PROCESS_ID = 'cron_bulkCreateInvoice';
+    const LOCKFILE_TIME_LIMIT = 60 * 60;
     protected $_lockFile = null;
 
     public function init() {
@@ -481,7 +482,14 @@ class bulkCreateInvoice extends Mage_Shell_Abstract {
         }
         
         if (file_exists($this->_lockFile)) {
-            return true;
+            $handle = fopen($this->_lockFile, 'r');
+            $content = fread($handle, filesize($this->_lockFile));
+            fclose($handle);
+
+            $age_of_lock_file = strtotime($content);
+            $now = Mage::getModel('core/date')->timestamp(time());
+
+            if($now < $age_of_lock_file + LOCKFILE_TIME_LIMIT) return true;
         }
         
         //create lock file
