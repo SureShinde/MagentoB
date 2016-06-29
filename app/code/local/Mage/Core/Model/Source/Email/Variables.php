@@ -107,6 +107,14 @@ class Mage_Core_Model_Source_Email_Variables
             array(
                 'value' => 'bilna_expressshipping/orderlimit/cut_off',
                 'label' => Mage::helper('core')->__('Express Shipping Cut Off')
+            ),
+            array(
+                'value' => 'bilna_expressshipping/info/city_range',
+                'label' => Mage::helper('core')->__('Express Shipping City Range')
+            ),
+            array(
+                'value' => 'bilna_expressshipping/info/handling_fee',
+                'label' => Mage::helper('core')->__('Express Shipping Handling Fee')
             )
         );
     }
