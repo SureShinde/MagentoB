@@ -6,8 +6,8 @@ try {
     // BEGIN - Create custom_messages attribute
     $installer = Mage::getResourceModel('catalog/setup', 'catalog_setup');
     $installer->addAttribute('catalog_product', 'custom_messages', array(
-        'global' => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_GLOBAL,
-        'input' => 'textarea',
+        'global' => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_WEBSITE,
+        'input' => 'text',
         'type' => 'varchar',
         'label' => 'Custom Messages',
         'required' => 0,
@@ -47,7 +47,7 @@ try {
         ->setAttributeSetId($setId)// Attribute Set ID
         ->setAttributeGroupId($groupId)// Attribute Group ID ( usually general or whatever based on the query i automate to get the first attribute group in each attribute set )
         ->setAttributeId($attId)// Attribute ID that need to be added manually
-        ->setSortOrder(200)// Sort Order for the attribute in the tab form edit
+        ->setSortOrder(1000)// Sort Order for the attribute in the tab form edit
         ->save();
     }
     // END - Assign 'custom_messages' Attribute to group 'General' for All Attribute Sets
