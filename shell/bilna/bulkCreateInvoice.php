@@ -17,7 +17,7 @@ class bulkCreateInvoice extends Mage_Shell_Abstract {
     protected $orderIncrementIds;
 
     const PROCESS_ID = 'cron_bulkCreateInvoice';
-    const LOCKFILE_TIME_LIMIT_IN_SECONDS = 59 * 60;
+    const LOCKFILE_TIME_LIMIT_IN_SECONDS = 3540;
     protected $_lockFile = null;
 
     public function init() {
