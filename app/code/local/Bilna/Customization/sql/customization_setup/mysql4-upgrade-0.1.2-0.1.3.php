@@ -47,7 +47,7 @@ try {
         ->setAttributeSetId($setId)// Attribute Set ID
         ->setAttributeGroupId($groupId)// Attribute Group ID ( usually general or whatever based on the query i automate to get the first attribute group in each attribute set )
         ->setAttributeId($attId)// Attribute ID that need to be added manually
-        ->setSortOrder(1000)// Sort Order for the attribute in the tab form edit
+        ->setSortOrder(1100)// Sort Order for the attribute in the tab form edit
         ->save();
     }
     // END - Assign 'custom_messages' Attribute to group 'General' for All Attribute Sets
