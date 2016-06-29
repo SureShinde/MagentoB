@@ -164,27 +164,7 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
             
             if (!$orderCanceled) {
                 if (in_array($paymentCode, $this->getPaymentMethodCc()) && ($orderCanceled === false)) {
-                    $charge = Mage::getModel('paymethod/api')->creditcardCharge($order, $tokenId);
-                    
-                    //- cancel order if failed charge
-                    if ($this->_getChargeFailed($charge['response'])) {
-                        if ($order->canCancel()) {
-                            $order->cancel();
-                            $order->addStatusHistoryComment($message)->setIsCustomerNotified(true);
-                        }
-                        else {
-                            Mage::log('Unable to cancel order for ' . $orderIncrementId, Zend_Log::ERR);
-                        }
-        
-                        $invoice = false;
-                    }
-                    else {
-                        $order->setState(Mage_Sales_Model_Order::STATE_NEW, self::ORDER_STATUS_PENDING_PAYMENT);
-                        $invoice = true;
-                    }
-                    
-                    $order->save();
-                    $this->_storeChargeDataToQueue($charge, $invoice);
+                    $this->_processChargeCc($order, $tokenId);
                 }
                 elseif (in_array($paymentCode, $this->getPaymentMethodVtdirect()) && ($orderCanceled === false)) {
                     $charge = Mage::getModel('paymethod/api')->vtdirectRedirectCharge($order);
@@ -357,12 +337,28 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
         return (strtolower($order->getData('status')) == 'canceled');
     }
     
-    protected function _getChargeFailed($charge) {
-        if ($charge->transaction_status == 'deny' || $charge->fraud_status == 'deny') {
-            return true;
-        }
+    protected function _processChargeCc($order, $tokenId) {
+        $charge = Mage::getModel('paymethod/api')->creditcardCharge($order, $tokenId);
         
-        return false;
+        if (strtolower($charge['response']->transaction_status) == 'deny' || strtolower($charge['response']->fraud_status) == 'deny') {
+            if ($order->canCancel()) {
+                $order->cancel();
+                $order->addStatusHistoryComment($charge['response']->status_message)
+                    ->setIsCustomerNotified(true);
+            }
+            else {
+                Mage::log('Unable to cancel order for ' . $orderIncrementId, Zend_Log::ERR);
+            }
+
+            $invoice = false;
+        }
+        else {
+            $order->setState(Mage_Sales_Model_Order::STATE_NEW, self::ORDER_STATUS_PENDING_PAYMENT);
+            $invoice = true;
+        }
+
+        $order->save();
+        $this->_storeChargeDataToQueue($charge, $invoice);
     }
 
     protected function _addHistoryOrder($order, $message) {
