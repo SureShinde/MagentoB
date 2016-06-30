@@ -89,7 +89,7 @@ abstract class Bilna_Rest_Model_Api2_Formbuilder_Rest extends Bilna_Rest_Model_A
                 'record_id' => $_recordId,
                 'type' => $k,
                 'value' => $v,
-                'create_date' => $this->_getCurrentDate(),
+                'create_date' => $this->_getCurrentDateTime(),
                 );
         }
         
