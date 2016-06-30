@@ -40,10 +40,8 @@ class Bilna_Checkout_Model_Api2_Shipping_Rest_Admin_V1 extends Bilna_Checkout_Mo
             $expressShippingEnabled = Mage::getStoreConfig('bilna_expressshipping/status/enabled');
 
             /* get reference to helper Bilna COD */
-            /*
             $codHelper = Mage::helper('cod');
             $codEnabled = $codHelper->isCodEnabled();
-            */
 
             $ratesResult = array();
             foreach ($groupedRates as $carrierCode => $rates ) {
@@ -72,14 +70,12 @@ $carrierName = $carrierCode;
                     }
 
                     /* check for COD shipping */
-                    /*
                     if ( strpos(strtolower($rate->getMethodTitle()), 'bayar di tempat') !== false )
                     {
                         // if not eligible to show COD method, skip the remaining process
                         if (!$codHelper->showCodMethod('', $quote))
                             continue;
                     }
-                    */
 
                     $rateItem['carrierName'] = $rate->getMethodTitle();
                     $rateItem['carrierPrice'] = $rate->getPrice();
