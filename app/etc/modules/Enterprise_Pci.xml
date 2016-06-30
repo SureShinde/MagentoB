@@ -29,7 +29,7 @@
     <modules>
         <Enterprise_Pci>
             <active>true</active>
-            <codePool>core</codePool>
+            <codePool>local</codePool>
             <depends>
                 <Mage_Adminhtml/>
                 <Mage_Admin/>
