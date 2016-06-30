@@ -42,6 +42,7 @@ class Enterprise_Pci_Adminhtml_LocksController extends Mage_Adminhtml_Controller
 
         $this->loadLayout();
         $this->_setActiveMenu('system/acl_locks');
+        $this->_addContent($this->getLayout()->createBlock('enterprise_pci/adminhtml_locks_grid'));
         $this->renderLayout();
     }
 
