@@ -5,30 +5,16 @@
  * @path    shell/bilna/bulkCreateInvoice.php
  * @author  Bilna Development Team <development@bilna.com>
  */
+require_once dirname(__FILE__) . '/commonShellScripts.php';
 
-require_once dirname(__FILE__) . '/../abstract.php';
-
-class bulkCreateInvoice extends Mage_Shell_Abstract {
-    protected $resource;
-    protected $write;
-    protected $read;
+class bulkCreateInvoice extends commonShellScripts {
     protected $state = 'processing';
     protected $status = 'processing';
     protected $orderIncrementIds;
 
-    const PROCESS_ID = 'cron_bulkCreateInvoice';
-    const LOCKFILE_TIME_LIMIT_IN_SECONDS = 3540;
-    protected $_lockFile = null;
-
-    public function init() {
-        $this->resource = Mage::getSingleton('core/resource');
-        $this->write = $this->resource->getConnection('core_write');
-        $this->read = $this->resource->getConnection('core_read');
-    }
-
     public function run() {
         if ($this->_isLocked()) {
-            $this->writeLog(sprintf("Another '%s' process is running! Abort", self::PROCESS_ID));
+            $this->writeLog(sprintf("Another '%s' process is running! Abort", $this->get_process_id()));
             exit;
         }
         $this->init();
@@ -455,76 +441,11 @@ class bulkCreateInvoice extends Mage_Shell_Abstract {
 
         return false;
     }
-
-    protected function logProgress($message, $veritrans_log = false) {
-        if ($veritrans_log) {
-            $this->writeLogVeritrans($message);
-        } else {
-            $this->writeLog($message);
-        }
-
-        if ($this->getArg('verbose')) {
-            echo $message . "\n";
-        }
-    }
-
-    public function writeLog($message) {
-        Mage::log($message, null, 'bulkCreateInvoice.log');
-    }
-
-    public function writeLogVeritrans($message) {
-        Mage::log($message, null, 'veritrans_status.log');
-    }
-
-    protected function _isLocked() {
-        if ($this->_lockFile == null) {
-            $this->_lockFile = $this->_getLockFile();
-        }
-
-        if (file_exists($this->_lockFile)) {
-            $handle = fopen($this->_lockFile, 'r');
-            $content = fread($handle, filesize($this->_lockFile));
-            fclose($handle);
-
-            $age_of_lock_file = strtotime($content);
-            $now = Mage::getModel('core/date')->timestamp(time());
-            if ($now < $age_of_lock_file + self::LOCKFILE_TIME_LIMIT_IN_SECONDS) {
-                return true;
-            }
-        }
-
-        //create lock file
-        $this->_lock();
-
-        return false;
-    }
-
-    protected function _getLockFile() {
-        $varDir = Mage::getConfig()->getVarDir('locks');
-        $this->_lockFile = $varDir . DS . self::PROCESS_ID . '.lock';
-
-        return $this->_lockFile;
-    }
-
-    protected function _lock() {
-        $handle = fopen($this->_lockFile, 'w');
-        $content = date('Y-m-d H:i:s', Mage::getModel('core/date')->timestamp(time()));
-
-        fwrite($handle, $content);
-        fclose($handle);
-    }
-
-    protected function _unlock() {
-        if (file_exists($this->_lockFile)) {
-            unlink($this->_lockFile);
-
-            return true;
-        }
-
-        return false;
-    }
 }
 
 $shell = new bulkCreateInvoice();
+$shell->set_logfile('bulkCreateInvoice.log');
+$shell->set_lockfile_timelimit(59 * 60);
+$shell->set_process_id('cron_bulkCreateInvoice');
 $shell->run();
 
