@@ -10,4 +10,10 @@ if [[ "$FILE" =~ ^.+(php|inc|module|install|test)$ ]]; then
         fi
     fi
 fi
+for FILE in `exec git diff-index --check $against -- | sed '/^[+-]/d' | (sed -r 's/:[0-9]+:.*//' > /dev/null 2>&1 || sed -E 's/:[0-9]+:.*//') | uniq` ; do
+	# Fix them!
+	(sed -i 's/[[:space:]]*$//' "$FILE" > /dev/null 2>&1 || sed -i '' -E 's/[[:space:]]*$//' "$FILE")
+	git add "$FILE"
+	echo "NOTE: removed trailing whitespace from $FILE"
+done
 done || exit $?
