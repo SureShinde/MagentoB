@@ -32,11 +32,13 @@ class AW_Afptc_Model_Api2_Observer_Rest_Admin_V1 extends AW_Afptc_Model_Api2_Obs
 
             $helper = Mage::helper('awafptc');
             $this->excludeFreeProductsFrom($quote);
-
-            if ($quote->hasItems()) {
+            $items  = $this->_getItems(array($quoteId));
+            
+            if (!empty($items)) {
+                
                 $rules = Mage::getModel('awafptc/rule')->getActiveRules([
                     'store' => self::DISTRO_STORE_ID,
-                    'group' => $customerGroup,
+                    'group' => $customer->getGroupId(),
                     'website' => 1
                 ]);
 
@@ -72,7 +74,7 @@ class AW_Afptc_Model_Api2_Observer_Rest_Admin_V1 extends AW_Afptc_Model_Api2_Obs
                 }
 
                 foreach ($activeRules as $rule) {
-                    $product = Mage::getModel('catalog/product')->load($rule->getProductId());
+                    $product = Mage::getModel('catalog/product')->load($rule['product_id']);
                     
                     if (!$product->getId()) {
                         continue;
@@ -80,9 +82,9 @@ class AW_Afptc_Model_Api2_Observer_Rest_Admin_V1 extends AW_Afptc_Model_Api2_Obs
                     
                     try {
                         $quote->addProduct(
-                            $product->setData('aw_afptc_rule', $rule)
-                                ->addCustomOption('aw_afptc_discount', min(100, $rule->getDiscount()))
-                                ->addCustomOption('aw_afptc_rule', $rule->getId())
+                            $product->setData('aw_afptc_rule', $rule['rule_id'])
+                                ->addCustomOption('aw_afptc_discount', min(100, $rule['discount']))
+                                ->addCustomOption('aw_afptc_rule', $rule['rule_id'])
                         )->setQty(1);
                     }
                     catch (Exception $e) {
@@ -156,5 +158,50 @@ class AW_Afptc_Model_Api2_Observer_Rest_Admin_V1 extends AW_Afptc_Model_Api2_Obs
         $address->setTotalQty($quote->getItemsQty());
         $address->setBaseSubtotal($address->getBaseSubtotal() - $this->baseSubtotalFree);   
         $address->setWeight($address->getWeight() - $this->itemWeightFree); 
+    }
+
+    /**
+     * Retrieve a list or orders' items in a form of [order ID => array of items, ...]
+     *
+     * @param array $orderIds Orders identifiers
+     * @return array
+     */
+    protected function _getItems(array $orderIds) {
+        $items = array ();
+
+        if ($this->_isSubCallAllowed('quote_item')) {
+            /** @var $itemsFilter Mage_Api2_Model_Acl_Filter */
+            $itemsFilter = $this->_getSubModel('quote_item', array ())->getFilter();
+            
+            // do items request if at least one attribute allowed
+            if ($itemsFilter->getAllowedAttributes()) {
+                $resource = Mage::getSingleton('core/resource');
+                $adapter = $resource->getConnection('core_read');
+                $tableName = $resource->getTableName('sales_flat_quote_item');
+                $select = $adapter->select()
+                    ->from(array ('sfqi' => $tableName,new Zend_Db_Expr('*')))
+                    ->joinLeft(
+                        array ('sfqio' => $resource->getTableName('sales_flat_quote_item_option')),
+                        'sfqi.item_id=sfqio.item_id',
+                        array ('code' => 'sfqio.code', 'value' => 'sfqio.value', 'option_id'=> 'sfqio.option_id')
+                    )
+                    ->where('quote_id IN ('.implode(",",array_values($orderIds)).')');
+                
+                $salesQuotesItem = $adapter->fetchAll($select);
+                
+                foreach ($salesQuotesItem as $quoteItem) {
+                    $options[$quoteItem['item_id']]['options'][$quoteItem['option_id']]['code'] = $quoteItem['code'];
+                    $options[$quoteItem['item_id']]['options'][$quoteItem['option_id']]['value'] = $quoteItem['value'];
+                    $options[$quoteItem['item_id']]['quote'] = $quoteItem;
+                }
+
+                foreach ($options as $qi) {
+                    $qi['quote']['item_options'] = $qi['options'];
+                    $items[$qi['quote']['quote_id']][] = $itemsFilter->out($qi['quote']);
+                }
+            }
+        }
+        
+        return $items;
     }
 }
