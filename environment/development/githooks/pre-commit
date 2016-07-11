@@ -11,18 +11,17 @@ if [[ "$FILE" =~ ^.+(php|inc|module|install|test)$ ]]; then
     fi
 fi
 
-if git rev-parse --verify HEAD >/dev/null 2>&1
-then
-	against=HEAD
+if git-rev-parse --verify HEAD >/dev/null 2>&1 ; then
+    against=HEAD
 else
-	# Initial commit: diff against an empty tree object
-	against=4b825dc642cb6eb9a060e54bf8d69288fbee4904
+    # Initial commit: diff against an empty tree object
+    against=4b825dc642cb6eb9a060e54bf8d69288fbee4904
 fi
-
-for FILE in `exec git diff-index --check $against -- | sed '/^[+-]/d' | (sed -r 's/:[0-9]+:.*//' > /dev/null 2>&1 || sed -E 's/:[0-9]+:.*//') | uniq` ; do
-	# Fix them!
-	(sed -i 's/[[:space:]]*$//' "$FILE" > /dev/null 2>&1 || sed -i '' -E 's/[[:space:]]*$//' "$FILE")
-	git add "$FILE"
-	echo "NOTE: removed trailing whitespace from $FILE"
+# Find files with trailing whitespace
+for FILE in `exec git diff-index --check --cached $against -- | sed '/^[+-]/d' | sed -r 's/:[0-9]+:.*//' | uniq` ; do
+    # Fix them!
+    sed -i 's/[[:space:]]*$//' "$FILE"
+    git add "$FILE"
 done
+
 done || exit $?
