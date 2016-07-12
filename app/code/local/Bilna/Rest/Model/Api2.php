@@ -14,8 +14,8 @@ class Bilna_Rest_Model_Api2 extends Mage_Api2_Model_Resource {
 
     public function __construct() {
         Mage::app()->getStore()
-            ->setWebsiteId(self::DEFAULT_WEBSITE_ID)
-            ->setStoreId(self::DEFAULT_STORE_ID);
+        ->setWebsiteId(self::DEFAULT_WEBSITE_ID)
+        ->setStoreId(self::DEFAULT_STORE_ID);
     }
     
     protected function _getStore() {
@@ -38,6 +38,10 @@ class Bilna_Rest_Model_Api2 extends Mage_Api2_Model_Resource {
     
     protected function _getCurrentDate() {
         return Mage::getModel('core/date')->date('Y-m-d');
+    }
+
+    protected function _getCurrentDateTime() {
+        return Mage::getModel('core/date')->date('Y-m-d H:i:s');
     }
     
     protected $_cache;
@@ -78,9 +82,9 @@ class Bilna_Rest_Model_Api2 extends Mage_Api2_Model_Resource {
             $tags = array (
                 Mage_Catalog_Model_Product::CACHE_TAG,
                 Mage_Catalog_Model_Product::CACHE_TAG . $key,
-            );
+                );
             $lifetime = Mage::getStoreConfig('core/cache/lifetime');
-        
+            
             $this->_cache->save($response, $key, $tags, $lifetime);
         }
         catch (Exception $ex) {

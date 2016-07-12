@@ -6,9 +6,9 @@ class Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Edit_Tabs_Edit_Tabs_Detail e
 
    	protected function _prepareForm()
    	{
-		//$formbuilder	= Mage::registry('formbuilder_form');
+
+   		$helper = Mage::helper('core');
 		$this->inputId = (int) $this->getRequest()->getParam('id');
-	    //$form = new Varien_Data_Form();
 	    $form = new Varien_Data_Form(array('id' => 'edit_input',
 			'action' => $this->getUrl('*/*/saveInput', ['id' => $this->inputId]),
 			'method' => 'post', 
@@ -18,7 +18,6 @@ class Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Edit_Tabs_Edit_Tabs_Detail e
 		
 		$data = Mage::getModel('bilna_formbuilder/input')->findByParent($this->inputId);
 
-		//$fieldset->addField('name', 'label', array(
 		$fieldset->addField('name', 'text', array(
 		   'label'     => 'Name',
 		   'name'      => 'name',
@@ -40,6 +39,7 @@ class Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Edit_Tabs_Edit_Tabs_Detail e
 		$fieldset->addField('type', 'select', array(
 			'label'		=> 'Type',
 			'name'		=> 'type',
+			'onchange' => 'changeValue(this.value)',
 			'value'		=> $data["type"],
 			'values'	=> $this->fieldTypeOptions()
 		));
@@ -55,45 +55,70 @@ class Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Edit_Tabs_Edit_Tabs_Detail e
 			'name' => 'dbtype_length',
 		));
 
-		$fieldset->addField('value', 'textarea', array(
+		 $fieldset->addField('value', 'textarea', array(
 			'label' => 'Value',
 			'name' => 'value',
-			'value' => $data['value']
+			'value' => $data['value'],
+			'container_id' => 'text_value',
 		));
+
+		$fieldset->addType('customtype', 'Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Edit_Form_Renderer_Fieldset_Customtype');
+		$fieldset->addField('grid_value', 'customtype', array(
+		 	'label' => 'Value',
+		 	'name' => 'grid_value',
+			'container_id' => 'grid_value',
+		));
+		$asdf = $this->isJson($data['value']) ? Mage::helper('core')->jsonDecode($data['value']) : $data['value'];
+		Mage::register('grid_value', $asdf);
+
+		/*
+		$fieldset->addField('date_value', 'date', array(
+	        'label' => 'Value',
+	        'tabindex' => 1,
+	        'image' => $this->getSkinUrl('images/grid-cal.gif'),
+	        'format' => Mage::app()->getLocale()->getDateFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT),
+	        'value' => $data['value'],
+	        'container_id' => 'date_value'
+        ));
+       	*/       
 
 		$fieldset->addField('required', 'select', array(
 		   'label'     => 'Required',
 		   'name'      => 'required',
-		   //'value'   => $data["required"],
-       //'note'    => Mage::helper('bilna_formbuilder')->__('Status Note:</br>0=Enabled</br>1=Disabled'),
 		   'values'    => array(
-             array(
-                 'value' => 1,
-                 'label' => Mage::helper('bilna_formbuilder')->__('Yes'),
-             ),
-             array(
-                 'value' => 0,
-                 'label' => Mage::helper('bilna_formbuilder')->__('No'),
-             ),
-         ),
-    ));
+            	array(
+                	'value' => 1,
+                	'label' => Mage::helper('bilna_formbuilder')->__('Yes'),
+             	),
+             	array(
+                 	'value' => 0,
+                 	'label' => Mage::helper('bilna_formbuilder')->__('No'),
+             	),
+         	),
+    	));
 
 		$fieldset->addField('unique', 'select', array(
 		   'label'     => 'Unique',
 		   'name'      => 'unique',
-		   //'value'   => $data["unique"],
-       //'note'    => Mage::helper('bilna_formbuilder')->__('Status Note:</br>0=Enabled</br>1=Disabled'),
 		   'values'    => array(
-             array(
-                 'value' => 1,
-                 'label' => Mage::helper('bilna_formbuilder')->__('Yes'),
-             ),
-             array(
-                 'value' => 0,
-                 'label' => Mage::helper('bilna_formbuilder')->__('No'),
-             ),
-         ),
-    ));
+             	array(
+                 	'value' => 1,
+                 	'label' => Mage::helper('bilna_formbuilder')->__('Yes'),
+             	),
+             	array(
+                 	'value' => 0,
+                 	'label' => Mage::helper('bilna_formbuilder')->__('No'),
+             	),
+         	),
+    	));
+
+		$field = $fieldset->addField('stores', 'multiselect', array(
+            'label' => Mage::helper('rating')->__('Visible In'),
+            'name' => 'stores[]',
+            'values' => Mage::getSingleton('adminhtml/system_store')->getStoreValuesForForm()
+        ));
+        $renderer = $this->getLayout()->createBlock('adminhtml/store_switcher_form_renderer_fieldset_element');
+        $field->setRenderer($renderer);
 
 		$fieldset->addField('helper_message', 'text', array(
     		'label' => 'Helper message',
@@ -123,19 +148,28 @@ class Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Edit_Tabs_Edit_Tabs_Detail e
     return parent::_prepareForm();
 	}
 
+	private function isJson($string) {
+ 		json_decode($string);
+ 		return (json_last_error() == JSON_ERROR_NONE);
+	}
+
 	private function fieldTypeOptions()
 	{
+		//text|textarea|radio|checkbox|dropdown|multiple|hidden|date|datetime|terms|ref
 		return $this->renderOptions([
 			"text",
 			"textarea",
 			"radio",
 			"checkbox",
+			//"checkbox_multi",
 			"dropdown",
 			"multiple",
 			"hidden",
 			"date",
-                        "dob",
-			"datetime"
+            //"dob",
+			"datetime",
+			"terms",
+			"ref"
 		]);
 	}
 
