@@ -33,7 +33,7 @@ class OrderCheck extends commonShellScripts {
             WHERE
                 sfo.netsuite_internal_id = ''
                 AND sfo.status NOT IN ('canceled', 'pending')
-                AND sfo.updated_at BETWEEN (now() - interval 60 day) and (now() - interval 1 hour);
+                AND sfo.updated_at BETWEEN (now() - interval 60 day) and (now() - interval 15 minute);
         ";
         $rows = $this->read->fetchAll($sql);
 
@@ -177,7 +177,7 @@ class OrderCheck extends commonShellScripts {
 
 $shell = new OrderCheck();
 $shell->set_logfile('orderCheck.log');
-$shell->set_lockfile_timelimit(15 * 60);
+$shell->set_lockfile_timelimit(59 * 60);
 $shell->set_process_id('ORDER_CHECK');
 $shell->run();
 
