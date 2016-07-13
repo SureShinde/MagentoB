@@ -44,16 +44,26 @@ class Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Edit_Tabs_Edit_Tabs_Detail e
 			'values'	=> $this->fieldTypeOptions()
 		));
 
-		$fieldset->addField('dbtype', 'select', array(
+		$fieldset->addField('dbtype', 'hidden', array(
 			'label'	=> 'DbType',
 			'name'	=> 'dbtype',
-			'values' => $this->fieldDbTypeOptions()
-		));
+			'value' => 'varchar'
+			));
 
-		$fieldset->addField('dbtype_length', 'text', array(
-			'label' => 'DbType Length (if needed)',
-			'name' => 'dbtype_length',
-		));
+		if(!$this->inputId){
+			$fieldset->addField('dbtype_length', 'text', array(
+				'label' => 'Length (if needed)',
+				'name' => 'dbtype_length',
+				'after_element_html' => '<small><br/>0-255</small>',
+				));	
+		} else {
+			$fieldset->addField('dbtype_length', 'text', array(
+				'label' => 'Length (if needed)',
+				'name' => 'dbtype_length',
+				'readonly' => true,
+				'after_element_html' => '<small><br/>0-255</small>',
+				));
+		}
 
 		 $fieldset->addField('value', 'textarea', array(
 			'label' => 'Value',
@@ -68,19 +78,8 @@ class Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Edit_Tabs_Edit_Tabs_Detail e
 		 	'name' => 'grid_value',
 			'container_id' => 'grid_value',
 		));
-		$asdf = $this->isJson($data['value']) ? Mage::helper('core')->jsonDecode($data['value']) : $data['value'];
-		Mage::register('grid_value', $asdf);
-
-		/*
-		$fieldset->addField('date_value', 'date', array(
-	        'label' => 'Value',
-	        'tabindex' => 1,
-	        'image' => $this->getSkinUrl('images/grid-cal.gif'),
-	        'format' => Mage::app()->getLocale()->getDateFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT),
-	        'value' => $data['value'],
-	        'container_id' => 'date_value'
-        ));
-       	*/       
+		$gridVal = $this->isJson($data['value']) ? Mage::helper('core')->jsonDecode($data['value']) : $data['value'];
+		Mage::register('grid_value', $gridVal);     
 
 		$fieldset->addField('required', 'select', array(
 		   'label'     => 'Required',
@@ -155,18 +154,15 @@ class Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Edit_Tabs_Edit_Tabs_Detail e
 
 	private function fieldTypeOptions()
 	{
-		//text|textarea|radio|checkbox|dropdown|multiple|hidden|date|datetime|terms|ref
 		return $this->renderOptions([
 			"text",
 			"textarea",
 			"radio",
 			"checkbox",
-			//"checkbox_multi",
 			"dropdown",
 			"multiple",
 			"hidden",
 			"date",
-            //"dob",
 			"datetime",
 			"terms",
 			"ref"
@@ -217,6 +213,7 @@ class Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Edit_Tabs_Edit_Tabs_Detail e
 		preg_match_all("/\(([^)]+)\)/", $data, $matches);
 		try{
 			$length = $matches[1][0];
+			if(!$length) $length = 50;
 		} catch(Exception $e) {}
 		return $length;
 	}
