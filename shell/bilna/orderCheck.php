@@ -64,9 +64,9 @@ class OrderCheck extends commonShellScripts {
             $incrementId = $row['increment_id'];
             print "Processing $incrementId\n";
 
-            $this->updateNetsuitInternalId($incrementId, $netsuiteInternalId[$incrementId]);
-
             if (in_array($incrementId, $netsuiteIncrementIds)) {
+                $this->updateNetsuitInternalId($incrementId, $netsuiteInternalId[$incrementId]);
+
                 print "Ignoring $incrementId, since it's already in Netsuite\n";
                 continue;
             }
