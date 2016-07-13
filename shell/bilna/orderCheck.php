@@ -38,6 +38,11 @@ class OrderCheck extends commonShellScripts {
         $rows = $this->read->fetchAll($sql);
 
         print 'Found ' . count($rows) . " orders with no netsuite internal id\n";
+
+        if (count($rows) <= 0) {
+            return true;
+        }
+
         $incrementIds = [];
         foreach ($rows as $row) {
             print $row['increment_id'] . ',' . $row['status'] . ',' . $row['updated_at'] . ',' . $row['order_id'] . ',' . $row['invoice_id'] . "\n";
@@ -47,15 +52,19 @@ class OrderCheck extends commonShellScripts {
         $netsuiteOrders = $this->netsuiteGetOrders($incrementIds);
         print 'Found ' . count($netsuiteOrders) . " of those orders in netsuite\n";
         $netsuiteIncrementIds = [];
+        $netsuiteInternalId = [];
         foreach ($netsuiteOrders as $order) {
             print $order->increment_id . ',' . $order->netsuite_internal_id . "\n";
 
             $netsuiteIncrementIds[] = $order->increment_id;
+            $netsuiteInternalId[$order->increment_id] = $order->netsuite_internal_id;
         }
 
         foreach ($rows as $row) {
             $incrementId = $row['increment_id'];
             print "Processing $incrementId\n";
+
+            $this->updateNetsuitInternalId($incrementId, $netsuiteInternalId[$incrementId]);
 
             if (in_array($incrementId, $netsuiteIncrementIds)) {
                 print "Ignoring $incrementId, since it's already in Netsuite\n";
@@ -66,6 +75,8 @@ class OrderCheck extends commonShellScripts {
                 $this->triggerNetsuiteInvoiceSave($row['order_id'], $row['invoice_id']);
             }
         }
+
+        return true;
     }
 
     function netsuiteGetOrders($incrementIds) {
@@ -90,6 +101,25 @@ class OrderCheck extends commonShellScripts {
 
         $res = json_decode($server_output);
         return $res->orders;
+    }
+
+    protected function updateNetsuitInternalId($increment_id, $netsuiteInternalId) {
+        $this->logProgress('Start updating netsuite_internal_id for #' . $increment_id);
+
+        $sql = sprintf("
+            UPDATE `sales_flat_order`
+            SET `netsuite_internal_id` = %d
+            WHERE `increment_id` = %d;
+        ", $netsuiteInternalId, $increment_id);
+
+        if ($this->write->query($sql)) {
+            print 'Success updating netsuite_internal_id for #' . $increment_id;
+            $this->logProgress('Success updating netsuite_internal_id for #' . $increment_id);
+
+            return true;
+        }
+
+        return false;
     }
 
     protected function triggerNetsuiteInvoiceSave($orderId, $invoiceId) {
