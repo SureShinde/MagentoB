@@ -20,6 +20,20 @@ class Bilna_System_Model_Api2_Config_Rest_Admin_V1 extends Bilna_System_Model_Ap
 
             // Format config value
             switch ($keyConfig) {
+                case 'bilna_expressshipping':
+                    if (array_key_exists('orderlimit',$config)) {
+                        if (array_key_exists('cut_off', $config['orderlimit'])) {
+                            $expressShippingHelper = Mage::helper('bilna_expressshipping');
+                            $config['orderlimit']['cut_off'] = $expressShippingHelper->getDisplayCutOffTime($config['orderlimit']['cut_off']);
+                        }
+                    }
+                    break;
+                case 'bilna_expressshipping/orderlimit':
+                    if (array_key_exists('cut_off', $config)) {
+                        $expressShippingHelper = Mage::helper('bilna_expressshipping');
+                        $config['cut_off'] = $expressShippingHelper->getDisplayCutOffTime($config['orderlimit']['cut_off']);
+                    }
+                    break;
                 case 'bilna_expressshipping/orderlimit/cut_off':
                     $expressShippingHelper = Mage::helper('bilna_expressshipping');
                     $config = $expressShippingHelper->getDisplayCutOffTime($config);
