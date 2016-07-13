@@ -51,21 +51,19 @@ class OrderCheck extends commonShellScripts {
 
         $netsuiteOrders = $this->netsuiteGetOrders($incrementIds);
         print 'Found ' . count($netsuiteOrders) . " of those orders in netsuite\n";
-        $netsuiteIncrementIds = [];
-        $netsuiteInternalId = [];
+        $netsuiteInternalIdMap = [];
         foreach ($netsuiteOrders as $order) {
             print $order->increment_id . ',' . $order->netsuite_internal_id . "\n";
 
-            $netsuiteIncrementIds[] = $order->increment_id;
-            $netsuiteInternalId[$order->increment_id] = $order->netsuite_internal_id;
+            $netsuiteInternalIdMap[$order->increment_id] = $order->netsuite_internal_id;
         }
 
         foreach ($rows as $row) {
             $incrementId = $row['increment_id'];
             print "Processing $incrementId\n";
 
-            if (in_array($incrementId, $netsuiteIncrementIds)) {
-                $this->updateNetsuitInternalId($incrementId, $netsuiteInternalId[$incrementId]);
+            if (array_key_exists($incrementId, $netsuiteInternalIdMap)) {
+                $this->updateNetsuitInternalId($incrementId, $netsuiteInternalIdMap[$incrementId]);
 
                 print "Ignoring $incrementId, since it's already in Netsuite\n";
                 continue;
@@ -113,10 +111,12 @@ class OrderCheck extends commonShellScripts {
         ", $netsuiteInternalId, $increment_id);
 
         if ($this->write->query($sql)) {
-            print 'Success updating netsuite_internal_id for #' . $increment_id;
+            print 'Success updating netsuite_internal_id for #' . $increment_id . "\n";
             $this->logProgress('Success updating netsuite_internal_id for #' . $increment_id);
 
             return true;
+        } else {
+            print 'Error on updating netsuite_internal_id for #' . $increment_id . "\n";
         }
 
         return false;
@@ -177,7 +177,7 @@ class OrderCheck extends commonShellScripts {
 
 $shell = new OrderCheck();
 $shell->set_logfile('orderCheck.log');
-$shell->set_lockfile_timelimit(59 * 60);
+$shell->set_lockfile_timelimit(15 * 60);
 $shell->set_process_id('ORDER_CHECK');
 $shell->run();
 
