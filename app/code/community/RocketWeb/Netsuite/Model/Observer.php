@@ -194,7 +194,7 @@ class RocketWeb_Netsuite_Model_Observer {
 		
         $order = $observer->getEvent()->getOrder();
         $shippingMethod = $order->getShippingMethod();
-        $priority = 1;
+        $priority = 2;
 
         if ( (strpos(strtolower($shippingMethod), 'express') !== false) || (strpos(strtolower($shippingMethod), 'ekspres') !== false) )
             $priority = 0;
@@ -251,10 +251,10 @@ class RocketWeb_Netsuite_Model_Observer {
 
         $order = $invoice->getOrder();
         $shippingMethod = $order->getShippingMethod();
-        $priority = 1;
+        $priority = 3;
 
         if ( (strpos(strtolower($shippingMethod), 'express') !== false) || (strpos(strtolower($shippingMethod), 'ekspres') !== false) )
-            $priority = 0;
+            $priority = 1;
 
         $message = Mage::getModel('rocketweb_netsuite/queue_message');
         $message->create(RocketWeb_Netsuite_Model_Queue_Message::INVOICE_SAVE,$invoice->getId(),RocketWeb_Netsuite_Helper_Queue::NETSUITE_EXPORT_QUEUE);
