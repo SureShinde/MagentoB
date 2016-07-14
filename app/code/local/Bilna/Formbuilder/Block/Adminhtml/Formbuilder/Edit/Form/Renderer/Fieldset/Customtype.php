@@ -80,6 +80,14 @@ extends Varien_Data_Form_Element_Abstract
                     $("text_value").show();
                     $("grid_value").hide();
                 }
+                
+                if(selectElement=="textarea") {
+                    $("formbuilder_dbtype").value = "text";
+                    $("dbtype_length_field").hide();
+                } else {
+                    $("formbuilder_dbtype").value = "varchar";
+                    $("dbtype_length_field").show();
+                }
             }
             var type = $("formbuilder_type").value;
             changeValue(type);
