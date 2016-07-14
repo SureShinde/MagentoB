@@ -1,7 +1,7 @@
 <?php
 class Bilna_Googlesitemap_Model_Sitemap_Model_Sitemap extends Mage_Sitemap_Model_Sitemap
 {
-    const property_limit = 1000; // Google restrict number of entries in xml to 50k
+    const property_limit = 50000; // Google restrict number of entries in xml to 50k
 
     public function generateXml()
     {
