@@ -59,10 +59,10 @@ class Bilna_Checkout_Model_Api2_Quote_Rest_Admin_V1 extends Bilna_Checkout_Model
         
         $oCoupon = Mage::getModel('salesrule/coupon')->load($quoteData['coupon_code'], 'code');
         if($oCoupon->getRuleId()) {
-            $oRule = Mage::getModel('salesrule/rule')->load($oCoupon->getRuleId());
-            $message = $oRule->getData();                
-            $quoteData['coupon_name'] = $message['name'];
+            $ruleArr = Mage::getModel('salesrule/rule')->load($oCoupon->getRuleId())->getStoreLabels();
+            $quoteData['coupon_name'] = $ruleArr[0];
         }
+        
         if ($addresses) {
             $quoteData['addresses'] = $addresses[$quoteData['entity_id']];
         }
