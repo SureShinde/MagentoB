@@ -31,7 +31,7 @@ class MP_MaxCouponDiscountAmount_Model_SalesRule_Validator extends Mage_SalesRul
         $itemOriginalPrice      = $this->_getItemOriginalPrice($item);
         $baseItemOriginalPrice  = $this->_getItemBaseOriginalPrice($item);
 
-        if ($itemPrice < 0) {
+        if ($itemPrice <= 0) {
             return $this;
         }
 
