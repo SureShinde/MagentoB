@@ -30,8 +30,8 @@ class Bilna_Formbuilder_Block_Adminhtml_Formbuilder_Grid extends Mage_Adminhtml_
 			//'align' =>'right',
 			//'width' => '30px',
 			'index' 	=> 'title',
-			'type'  	=> 'options',
-			'options' => $combobox,
+			//'type'  	=> 'options',
+			//'options' => $combobox,
 			'header_css_class'=>'a-center'
 	));	  
 
