@@ -1,7 +1,7 @@
 <?php
 class Bilna_Googlesitemap_Model_Sitemap_Model_Sitemap extends Mage_Sitemap_Model_Sitemap
 {
-    const property_limit = 50000; // Google restrict number of entries in xml to 50k
+    const PROPERTY_LIMIT = 50000; // Google restrict number of entries in xml to 50k
 
     public function generateXml()
     {
@@ -10,7 +10,7 @@ class Bilna_Googlesitemap_Model_Sitemap_Model_Sitemap extends Mage_Sitemap_Model
         $io = $this->openXML($number_of_file++);
         $storeId = $this->getStoreId();
         $date    = Mage::getSingleton('core/date')->gmtDate('Y-m-d');
-        $baseUrl = Mage::app()->getStore($storeId)->getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK);
+        $baseUrl = Mage::app()->getStore($storeId)->getSecureBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK);
 
         /**
          * Generate categories sitemap
@@ -18,7 +18,7 @@ class Bilna_Googlesitemap_Model_Sitemap_Model_Sitemap extends Mage_Sitemap_Model
         $changefreq = (string)Mage::getStoreConfig('sitemap/category/changefreq', $storeId);
         $priority   = (string)Mage::getStoreConfig('sitemap/category/priority', $storeId);
         $collection = Mage::getResourceModel('sitemap/catalog_category')->getCollection($storeId);
-        $returnVars = $this->generateXmlFromCollections($collection, $io, $count_of_property, $number_of_file);
+        $returnVars = $this->generateXmlFromCollections($baseUrl, $date, $changefreq, $priority, $collection, $io, $count_of_property, $number_of_file);
         $io = $returnVars["io"];
         $count_of_property = $returnVars["count_of_property"];
         $number_of_file = $returnVars["number_of_file"];
@@ -30,7 +30,7 @@ class Bilna_Googlesitemap_Model_Sitemap_Model_Sitemap extends Mage_Sitemap_Model
         $changefreq = (string)Mage::getStoreConfig('sitemap/product/changefreq', $storeId);
         $priority   = (string)Mage::getStoreConfig('sitemap/product/priority', $storeId);
         $collection = Mage::getResourceModel('sitemap/catalog_product')->getCollection($storeId);
-        $returnVars = $this->generateXmlFromCollections($collection, $io, $count_of_property, $number_of_file);
+        $returnVars = $this->generateXmlFromCollections($baseUrl, $date, $changefreq, $priority, $collection, $io, $count_of_property, $number_of_file);
         $io = $returnVars["io"];
         $count_of_property = $returnVars["count_of_property"];
         $number_of_file = $returnVars["number_of_file"];
@@ -42,7 +42,7 @@ class Bilna_Googlesitemap_Model_Sitemap_Model_Sitemap extends Mage_Sitemap_Model
         $changefreq = (string)Mage::getStoreConfig('sitemap/page/changefreq', $storeId);
         $priority   = (string)Mage::getStoreConfig('sitemap/page/priority', $storeId);
         $collection = Mage::getResourceModel('sitemap/cms_page')->getCollection($storeId);
-        $returnVars = $this->generateXmlFromCollections($collection, $io, $count_of_property, $number_of_file);
+        $returnVars = $this->generateXmlFromCollections($baseUrl, $date, $changefreq, $priority, $collection, $io, $count_of_property, $number_of_file);
         $io = $returnVars["io"];
         $count_of_property = $returnVars["count_of_property"];
         $number_of_file = $returnVars["number_of_file"];
@@ -55,7 +55,7 @@ class Bilna_Googlesitemap_Model_Sitemap_Model_Sitemap extends Mage_Sitemap_Model
         return $this;
     }
 
-    public function generateXmlFromCollections($collections, $io, $count_of_property, $number_of_file)
+    public function generateXmlFromCollections($baseUrl, $date, $changefreq, $priority, $collections, $io, $count_of_property, $number_of_file)
     {
         foreach ($collections as $item) {
             $xml = sprintf(
@@ -66,7 +66,7 @@ class Bilna_Googlesitemap_Model_Sitemap_Model_Sitemap extends Mage_Sitemap_Model
                 $priority
             );
 
-            if ($count_of_property++ > self::property_limit) {
+            if ($count_of_property++ > self::PROPERTY_LIMIT) {
                 $count_of_property = 1;
                 $this->closeXML($io);
                 $io = $this->openXML($number_of_file++);
