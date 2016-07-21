@@ -27,7 +27,10 @@ class AW_Afptc_Model_Api2_Observer_Rest_Admin_V1 extends AW_Afptc_Model_Api2_Obs
             
             if ($customerId != null) {
                 $customer = Mage::getModel('customer/customer')->load($customerId);
-                $customerGroup = Mage::getModel('customer/group')->load($customer->getGroupId()); 
+                //$customerGroup = Mage::getModel('customer/group')->load($customer->getGroupId());
+                $groupId = $customer->getGroupId();
+            } else {
+                $groupId = 0;
             }
 
             $helper = Mage::helper('awafptc');
@@ -38,7 +41,7 @@ class AW_Afptc_Model_Api2_Observer_Rest_Admin_V1 extends AW_Afptc_Model_Api2_Obs
                 
                 $rules = Mage::getModel('awafptc/rule')->getActiveRules([
                     'store' => self::DISTRO_STORE_ID,
-                    'group' => $customer->getGroupId(),
+                    'group' => $groupId,
                     'website' => 1
                 ]);
 
