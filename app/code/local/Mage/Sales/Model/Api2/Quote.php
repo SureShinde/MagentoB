@@ -7,9 +7,14 @@
  * @package    Mage_Sales
  * @author     Bilna Development Team <development@bilna.com>
  */
-class Mage_Sales_Model_Api2_Quote extends Mage_Api2_Model_Resource
-{
-	/**#@+
+class Mage_Sales_Model_Api2_Quote extends Mage_Api2_Model_Resource {
+    const DEFAULT_STORE_ID = 1;
+    
+    public function __construct() {
+        Mage::app()->getStore()->setStoreId(self::DEFAULT_STORE_ID);
+    }
+    
+    /**#@+
      * Parameters' names in config with special ACL meaning
      */
     const PARAM_PAYMENT_METHOD = '_payment_method';
@@ -148,38 +153,34 @@ class Mage_Sales_Model_Api2_Quote extends Mage_Api2_Model_Resource
      * @param array $orderIds Orders identifiers
      * @return array
      */
-    protected function _getItems(array $orderIds)
-    {
-        $items = array();
+    protected function _getItems(array $orderIds) {
+        $items = array ();
 
         if ($this->_isSubCallAllowed('quote_item')) {
-       	
             /** @var $itemsFilter Mage_Api2_Model_Acl_Filter */
-            $itemsFilter = $this->_getSubModel('quote_item', array())->getFilter();
+            $itemsFilter = $this->_getSubModel('quote_item', array ())->getFilter();
+
             // do items request if at least one attribute allowed
             if ($itemsFilter->getAllowedAttributes()) {
-
-                $resource       = Mage::getSingleton('core/resource');
-		        $adapter        = $resource->getConnection('core_read');
-		        $tableName      = $resource->getTableName('sales_flat_quote_item');
-		        $select = $adapter->select()
-		            ->from(
-		                $tableName,
-		                new Zend_Db_Expr('*')
-		            )
-		            ->where('quote_id IN ('.implode(",",array_values($orderIds)).')');
-		            /*->where('name <> ""')
-		            ->order('name ASC');*/
-
-		        $salesQuotesItem = $adapter->fetchAll($select);
+                $resource = Mage::getSingleton('core/resource');
+                $adapter = $resource->getConnection('core_read');
+                $tableName = $resource->getTableName('sales_flat_quote_item');
+                $select = $adapter->select()
+                    ->from(array ('sfqi' => $tableName, new Zend_Db_Expr('*')))
+                    ->joinLeft(
+                        array ('cpf' => $resource->getTableName('catalog/product_flat') . '_' . $this->_getStore()->getId()),
+                        'sfqi.product_id = cpf.entity_id',
+                        array ('url_path' => 'cpf.url_path')
+                    )
+                    ->where('quote_id IN (' . implode(",", array_values($orderIds)) . ')');
+                $salesQuotesItem = $adapter->fetchAll($select);
                 
-
-                foreach($salesQuotesItem as $quoteItem)
-                {
-                	$items[$quoteItem['quote_id']][] = $itemsFilter->out($quoteItem);
+                foreach ($salesQuotesItem as $quoteItem) {
+                    $items[$quoteItem['quote_id']][] = $itemsFilter->out($quoteItem);
             	}
             }
         }
+        
         return $items;
     }
 

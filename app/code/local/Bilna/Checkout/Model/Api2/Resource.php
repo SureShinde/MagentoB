@@ -148,14 +148,18 @@ class Bilna_Checkout_Model_Api2_Resource extends Mage_Api2_Model_Resource
                 $adapter = $resource->getConnection('core_read');
                 $tableName = $resource->getTableName('sales_flat_quote_item');
                 $select = $adapter->select()
-                    ->from(array ('sfqi' => $tableName,new Zend_Db_Expr('*')))
+                    ->from(array ('sfqi' => $tableName, new Zend_Db_Expr('*')))
                     ->joinLeft(
                         array ('sfqio' => $resource->getTableName('sales_flat_quote_item_option')),
                         'sfqi.item_id=sfqio.item_id',
                         array ('code' => 'sfqio.code', 'value' => 'sfqio.value', 'option_id'=> 'sfqio.option_id')
                     )
-                    ->where('quote_id IN ('.implode(",",array_values($orderIds)).')');
-                
+                    ->joinLeft(
+                        array ('cpf' => $resource->getTableName('catalog/product_flat') . '_' . $this->_getStore()->getId()),
+                        'sfqi.product_id = cpf.entity_id',
+                        array ('url_path' => 'cpf.url_path')
+                    )
+                    ->where('quote_id IN (' . implode(",", array_values($orderIds)) . ')');
                 $salesQuotesItem = $adapter->fetchAll($select);
                 
                 foreach ($salesQuotesItem as $quoteItem) {
