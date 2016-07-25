@@ -10,7 +10,7 @@ class Bilna_Googlesitemap_Model_Sitemap_Model_Sitemap extends Mage_Sitemap_Model
         $io = $this->openXML($number_of_file++);
         $storeId = $this->getStoreId();
         $date    = Mage::getSingleton('core/date')->gmtDate('Y-m-d');
-        $baseUrl = Mage::app()->getStore($storeId)->getSecureBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK);
+        $baseUrl = Mage::app()->getStore($storeId)->getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK, true);
 
         /**
          * Generate categories sitemap
