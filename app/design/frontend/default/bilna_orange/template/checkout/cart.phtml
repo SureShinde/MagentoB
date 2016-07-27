@@ -24,6 +24,11 @@
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
+<style>
+    .main-container {
+        padding-top: 100px;
+    }
+</style>
 <?php
 /**
  * Shopping cart template
@@ -38,7 +43,7 @@
 <input type="hidden" id="3rdparty-type" value="cart"/>
 <input type="hidden" id="3rdparty-value" value="" />
 <div class="cart">
-    <div class="shopping-cart" rowspan="<?php echo $mergedCells; ?>">
+    <div class="shopping-cart">
         <span class="title"><?php echo $this->__('Shopping Cart') ?></span>
         <div class="continue-shopping">
             <?php if($this->getContinueShoppingUrl()): ?>
@@ -346,37 +351,6 @@
     }
 ?>
 <script type="text/javascript">
-var temp_cartQty = jQuery("span#ematiccart").length;
-function ecommerceCheckout0_pageload() {			// call ematic cart
-	// ematics cart - retrieve items from cart
-    var temp_cart = [];
-    var temp_item = "";
-    var index_removeditem = "";
-    for (var itr=0; itr < temp_cartQty; itr++) {
-    	temp_item = jQuery("span#ematiccart").eq(itr).text();
-    	temp_cart[itr] = temp_item.split("|");
-    }
-
-	// ematics cart - prepare for logging
-	if (temp_cartQty > 0) {         // at least 1 item in cart
-		products = [
-	    <?php for($i=0; $i<$itemQty; $i++) {
-	    	echo "{'name' : temp_cart[".$i."][0],";
-	    	echo "'id' : temp_cart[".$i."][1],";
-	    	echo "'price' : temp_cart[".$i."][3],";
-	    	echo "'quantity' : temp_cart[".$i."][4],";
-	    	echo "'brandName' : 'brand name',";
-	    	echo "'imageUrl' : temp_cart[".$i."][5],";
-	    	echo "'link' : temp_cart[".$i."][6]}";if($i != $itemQty-1) {echo ",";}
-	    }
-	    ?>
-	    ];
-
-	    // ematics cart
-		ematics("log", "product", "cart", products);
-	}
-}
-
 function ecommerceRemoveCart(name, sku, price, quantity, imageUrl, link) {
     dataLayer.push({
 	  'event': 'removeFromCart',
@@ -395,41 +369,26 @@ function ecommerceRemoveCart(name, sku, price, quantity, imageUrl, link) {
 	  }
 	});
 
-	// ematics cart - retrieve items from cart
-    var temp_cart = [];
-    var temp_item = "";
+    // ematics cart - find and remove removed items in cart
     var index_removeditem = "";
-    for (var itr=0; itr < <?php echo $itemQty ?>; itr++) {
-    	temp_item = jQuery("span#ematiccart").eq(itr).text();
-    	if (temp_item.indexOf(sku) == -1) {		// item that not removed
-    		temp_cart[itr] = temp_item.split("|");
-    	}
-    	else {		// removed item
-    		index_removeditem = itr;
-    	}
+    var temp_cartQty = 0;
+    temp_cartQty = ecommerce_container.length;
+    products = ecommerce_container;
+
+    for (var itr=0; itr<temp_cartQty; itr++) {
+    	products[itr].price = "Rp" + products[itr].price.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+        if (products[itr].id.indexOf(sku) != -1) {
+        	index_removeditem = itr;
+        }
     }
+    products.splice(index_removeditem, 1);	// trim removed item
 
-    // trim empty array because removed item
-    temp_cart = temp_cart.filter(function(v){return v!==''});
+    // ematics cart - prepare for logging
+    if (temp_cartQty >= 0) {         // at least 1 item in cart
 
-	// ematics cart - prepare for logging
-	if (temp_cartQty > 0) {         // at least 1 item in cart
-		products = [
-	    <?php for($i=0; $i<$itemQty-1; $i++) {
-	    	echo "{'name' : temp_cart[".$i."][0],";
-	    	echo "'id' : temp_cart[".$i."][1],";
-	    	echo "'price' : temp_cart[".$i."][3],";
-	    	echo "'quantity' : temp_cart[".$i."][4],";
-	    	echo "'brandName' : 'brand name',";
-	    	echo "'imageUrl' : temp_cart[".$i."][5],";
-	    	echo "'link' : temp_cart[".$i."][6]}";if($i != $itemQty-2) {echo ",";}
-	    }
-	    ?>
-	    ];
-
-		// ematics track items in cart to enable pre-abandonded cart overlays
-		ematics("log", "product", "cart", products);
-	}
+        // ematics track items in cart to enable pre-abandonded cart overlays
+        ematics("log", "product", "cart", products);
+    }
 }
 
 jQuery(document).ready(function () {
@@ -456,8 +415,6 @@ jQuery(document).ready(function () {
 				dataLayer.push( {'skuid': response.data.quote.productSkuIds} );
 				dataLayer.push( {'prices': response.data.quote.productPrices} );
 				dataLayer.push( {'quantities': response.data.quote.productQtys} );
-
-				ecommerceCheckout0_pageload();
             }else{
                 return false;
             }

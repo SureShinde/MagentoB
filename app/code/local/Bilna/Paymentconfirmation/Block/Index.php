@@ -13,5 +13,8 @@ class Bilna_Paymentconfirmation_Block_Index extends Mage_Core_Block_Template {
     public function getFormValidateUrl() {
         return sprintf("%skonfirmasipembayaran/index/validateOrder", Mage::getBaseUrl());
     }
+    public function getSupportedBank(){
+        return Mage::getStoreConfig('bilna_paymentconfirmation/paymentconfirmation/bank');
+    }
 }
 

@@ -6,21 +6,32 @@
  */
 
 class Bilna_Paymethod_Block_Checkout_Onepage_Success extends Mage_Checkout_Block_Onepage_Success {
+    private $_order;
+
+    public function getOrder() {
+        if (empty($_order)) {
+            $orderId = $this->getOrderId();
+            $_order = Mage::getModel('sales/order')->loadByIncrementId($orderId);
+        }
+
+        return $_order;
+    }
+
     public function getInstruction() {
         $paymentCode = $this->getOrderPaymentCode();
         $instruction = Mage::getStoreConfig('payment/' . $paymentCode . '/instructions');
-        
+
         if (empty ($instruction)) {
             $instruction = Mage::getStoreConfig('payment/' . $paymentCode . '/message');
         }
-        
+
         if (in_array($paymentCode, $this->getPaymentMethodKlikpay()) || in_array($paymentCode, $this->getPaymentMethodCc())) {
             $instruction = '';
         }
-        
+
         return $instruction;
     }
-    
+
     public function getOrderId() {
         if ($this->getRequest()->getParam('order_no')) {
             return $this->getRequest()->getParam('order_no');
@@ -29,42 +40,42 @@ class Bilna_Paymethod_Block_Checkout_Onepage_Success extends Mage_Checkout_Block
             return $this->_getData('order_id');
         }
     }
-    
+
     public function getOrderPaymentCode() {
-        $orderId = $this->getOrderId();
-        $order = Mage::getModel('sales/order')->loadByIncrementId($orderId);
-        $paymentCode = $order->getPayment()->getMethodInstance()->getCode();
-        
-        return $paymentCode;
+        return $this->getOrder()->getPayment()->getMethodInstance()->getCode();
     }
-    
+
     public function getPaymentMethodBankTransfer() {
         return Mage::helper('paymethod')->getPaymentMethodBankTransfer();
     }
-    
+
     public function getPaymentMethodKlikpay() {
         return Mage::helper('paymethod')->getPaymentMethodKlikpay();
     }
-    
+
     public function getPaymentMethodCc() {
         return Mage::helper('paymethod')->getPaymentMethodCc();
     }
-    
+
     public function getPaymentMethodVtdirect() {
         return Mage::helper('paymethod')->getPaymentMethodVtdirect();
     }
-    
+
+    public function getPaymentMethodVA() {
+        return Mage::helper('paymethod')->getPaymentMethodVA();
+    }
+
     public function getResponseCharge() {
         return Mage::registry('response_charge');
     }
-    
+
     public function getThreedSecure() {
         return Mage::registry('threedsecure');
     }
-    
+
     public function getDefaultResponseMessage($status, $message) {
         $result = '';
-        
+
         if ($message) {
             $result = $message;
         }
@@ -79,7 +90,18 @@ class Bilna_Paymethod_Block_Checkout_Onepage_Success extends Mage_Checkout_Block
                 $result = Mage::getStoreConfig('payment/vtdirect/charge_timeout_message');
             }
         }
-        
+
         return $result;
+    }
+
+    public function getSubtotal() {
+        $subtotal = '';
+        if ($orderData = $this->getOrder()->getData()) {
+            if (array_key_exists('subtotal', $orderData)) {
+                $subtotal = $orderData['subtotal'];
+            }
+        }
+
+        return $subtotal;
     }
 }

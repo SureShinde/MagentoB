@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Bilna_Formbuilder>
-            <version>0.1.16</version>
+            <version>0.1.18</version>
         </Bilna_Formbuilder>
     </modules>
   
@@ -51,11 +51,11 @@
         </models>
 	
         <resources>
-            <bilna_formbuilder_setup>
+            <formbuilder_setup>
                 <setup>
                     <module>Bilna_Formbuilder</module>
                 </setup>
-            </bilna_formbuilder_setup>
+            </formbuilder_setup>
         </resources>
     </global>
     

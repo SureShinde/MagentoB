@@ -11,7 +11,7 @@
                     <img id="gimmick-banner" src="" />
                     <div id="gimmick-tos" name="tos" style="-moz-appearance:textfield-multiline;-webkit-appearance:textarea;border:1px solid gray;font:medium-moz-fixed;font:-webkit-small-control;padding:2px;resize:none;overflow-y:scroll; height:167px; font-weight: bold; font-family: 'tin_doghouseregular';"></div>
                     <input id="event-data" name="data" type="hidden" value="" class="hidden" />
-                    <div class="position_button"> 
+                    <div class="position_button">
                         <img src="http://assets.bilna.com/media/wysiwyg/gimmick-event/BUTTON-JOIN.jpg" class="ok" id="friso-form-submit" onclick="_frisoSave();jQuery('#event-form').submit();" />
                         <img src="http://assets.bilna.com/media/wysiwyg/gimmick-event/BUTTON-NOTJOIN.jpg" class="cancel" id="friso-cancel" />
                     </div>
@@ -22,7 +22,7 @@
         </div>
     </div>
 <!--popup end-->
-	
+
 <style type="text/css">
     .wrapper_success_page{display:table;background:#4ec7da;width:80%;color:#fff;font-family:arial;position:relative;margin:5%;padding:2%}.wrapper_success_page p{margin:0}.wrapper_success_page .col_left p:nth-of-type(1){font-size:23px;line-height:20px}.wrapper_success_page .col_left p:nth-of-type(2){font-size:67px;line-height:65px;border-bottom:6px dotted;margin:0 0 100px;display:table}.wrapper_success_page .col_left p:nth-of-type(3){font-size:21px}.wrapper_success_page .order_id{color:#403c0a}.wrapper_success_page .say_thanks{border-bottom:7px dotted;margin-top:150px;position:relative}.wrapper_success_page .say_thanks p{padding:0 0 0 10px;background:#4EC7DA;position:absolute;right:-6px;top:-10px}.wrapper_success_page .col_left{float:left;width:62%;padding:2% 5% 2% 2%;border-right:1px #fff solid}.wrapper_success_page .col_right{width:28%;float:left;margin-left:2%;height:200px}
     .wrapper_failure_page{display:table;background:#da4e4e;width:80%;color:#fff;font-family:arial;position:relative;margin:5%;padding:2%}.wrapper_failure_page p{margin:0}.wrapper_failure_page .col_left p:nth-of-type(1){font-size:23px;line-height:20px}.wrapper_failure_page .col_left p:nth-of-type(2){font-size:67px;line-height:65px;border-bottom:6px dotted;margin:0 0 100px;display:table}.wrapper_failure_page .col_left p:nth-of-type(3){font-size:21px}.wrapper_failure_page .order_id{color:#403c0a}.wrapper_failure_page .say_thanks{border-bottom:7px dotted;margin-top:150px;position:relative}.wrapper_failure_page .say_thanks p{padding:0 0 0 10px;background:#da4e4e;position:absolute;right:-6px;top:-10px}.wrapper_failure_page .col_left{float:left;width:62%;padding:2% 5% 2% 2%;border-right:1px #fff solid}.wrapper_failure_page .col_right{width:28%;float:left;margin-left:2%;height:200px}
@@ -71,6 +71,7 @@ endif;
 $responsePage = '';
 $redirectUrl = '';
 $retrieveConfirm2 = true;
+$vaNumbers = new stdClass();
 
 if (in_array($this->getOrderPaymentCode(), $this->getPaymentMethodBankTransfer())):
     $responsePage = 'success';
@@ -80,7 +81,7 @@ elseif (in_array($this->getOrderPaymentCode(), $this->getPaymentMethodCc())):
     $responseCharge = $this->getResponseCharge();
     $transactionStatus = $responseCharge->transaction_status;
     $fraudStatus = $responseCharge->fraud_status;
-    
+
     if ($transactionStatus == 'capture'):
         if ($fraudStatus == 'accept'):
             $responsePage = 'success';
@@ -104,6 +105,15 @@ elseif (in_array($this->getOrderPaymentCode(), $this->getPaymentMethodVtdirect()
             $redirectUrl = $responseCharge->redirect_url;
         endif;
     endif;
+// If It's Virtual Account Transaction
+elseif (in_array($this->getOrderPaymentCode(), $this->getPaymentMethodVA())):
+    $responseCharge = $this->getResponseCharge();
+    $responsePage = 'failure';
+
+    if ($responseCharge->status_code == 201):
+        $responsePage = 'virtualAccountSuccess';
+        $vaNumbers = $responseCharge->va_numbers[0];
+    endif;
 else:
     $responsePage = 'failure';
 endif;
@@ -116,13 +126,13 @@ endif;
         $custname = trim(Mage::helper('customer')->getCustomerName());
         if ($custname == "") {
             echo "Dear Customer,";
-        }else{            
+        }else{
             echo "Dear " . $custname . ",";
         }
         ?></p></div>
         <div class="col_left">
-        <p><?php echo $this->__('Terima kasih Anda telah berbelanja di'); ?></p>          
-            <p><?php echo $this->__('Bilna.com'); ?></p>
+        <p><?php echo $this->__('Terima kasih Anda telah berbelanja di'); ?></p>
+            <p><?php echo $this->__('Orami.co.id'); ?></p>
             <p>
                 <?php echo $this->__('Nomor order Anda adalah'); ?>: <?php echo $orderNoLink; ?>.
                 <br/>
@@ -131,7 +141,7 @@ endif;
                 <br/><br/>
 
                 <?php if ($this->getCanViewOrder() && $this->getCanPrintOrder()): ?>
-                    <?php echo $this->__('Klik'); ?> <a href="<?php echo $this->escapeHtml($this->getPrintUrl()); ?>"><?php echo $this->__('di sini'); ?></a> <?php echo $this->__('untuk mencetak konfirmasi order.'); ?>                       
+                    <?php echo $this->__('Klik'); ?> <a href="<?php echo $this->escapeHtml($this->getPrintUrl()); ?>"><?php echo $this->__('di sini'); ?></a> <?php echo $this->__('untuk mencetak konfirmasi order.'); ?>
                 <?php endif; ?>
 
                 <br/><br/>
@@ -155,19 +165,19 @@ endif;
         <div class="col_left"><p><?php echo "Dear " . Mage::helper('customer')->getCustomerName() . ","; ?></p></div>
         <div class="col_left">
             <p><?php echo $this->__('Terima kasih Anda telah berbelanja di'); ?></p>
-            <p><?php echo $this->__('Bilna.com'); ?></p>                          
+            <p><?php echo $this->__('Orami.co.id'); ?></p>
             <p>
                 <?php echo $this->__('Nomor order Anda adalah'); ?>: <?php echo $orderNoLink; ?>.
                 <br/>
                 <?php echo $this->__('Status pembayaran Anda akan kami informasikan segera.'); ?>
                 <br/>
-                
+
                 <br/><br/>
                 <?php echo $this->__('Klik <a href="%s">di sini</a> untuk berbelanja kembali.', $this->getUrl()); ?>
             </p>
 
             <div class="say_thanks">
-                <p><?php echo $this->__('Selamat beraktifitas! :)'); ?></p>                
+                <p><?php echo $this->__('Selamat beraktifitas! :)'); ?></p>
             </div>
         </div>
 
@@ -195,37 +205,102 @@ endif;
             document.location = '<?php echo $redirectUrl; ?>';
         }, 5000);
     </script>
+
+<?php elseif ($responsePage == 'virtualAccountSuccess'): ?>
+    <div class="wrapper_success_page">
+        <div class="col_left"><p>
+                <?php
+                $custname = trim(Mage::helper('customer')->getCustomerName());
+                if ($custname == "") {
+                    echo "Dear Customer,";
+                }else{
+                    echo "Dear " . $custname . ",";
+                }
+                ?></p></div>
+        <div class="col_left">
+            <!--p><?php //echo $this->__('THANK YOU FOR SHOPPING WITH'); ?></p-->
+            <p><?php echo $this->__('Terima kasih Anda telah berbelanja di'); ?></p>
+            <!--p><?php //echo $this->__('Orami.co.id'); ?></p-->
+            <p><?php echo $this->__('Orami.co.id'); ?></p>
+            <p>
+                <!--<?php //echo $this->__('Your order no is'); ?>: <?php echo $orderNoLink; ?>.-->
+                <?php echo $this->__('Nomor pesanan Anda adalah'); ?>: <?php echo $orderNoLink; ?>.
+                <br/>
+
+                <!--<?php //echo $this->__('You will receive an order confirmation email with details of your order and a link to track its progress'); ?>.-->
+                <?php echo $this->__(' Anda akan segera menerima email konfirmasi mengenai detail pesanan.'); ?>
+                <br/><br/>
+
+                <?php
+                echo 'Ikuti langkah disamping untuk membayar ke rekening unik Virtual Account BCA ' . $vaNumbers->va_number . '.<br/>';
+                ?>
+                <br><br/>
+                <p style="font-size:21px;">
+                <?php if ($this->getCanViewOrder() && $this->getCanPrintOrder()): ?>
+                    <!--<?php //echo $this->__('Click'); ?> <a href="<?php //echo $this->escapeHtml($this->getPrintUrl()); ?>"><?php //echo $this->__('here'); ?></a> <?php //echo $this->__('to print a copy of your order confirmation'); ?>.-->
+                    <?php echo $this->__('Klik'); ?> <a href="<?php echo $this->escapeHtml($this->getPrintUrl()); ?>"><?php echo $this->__('di sini'); ?></a> <?php echo $this->__('untuk mencetak konfirmasi order.'); ?>
+                <?php endif; ?>
+
+                <br/><br/>
+                <!--<?php //echo $this->__('Click <a href="%s">here</a> to continue shopping.', $this->getUrl()); ?>-->
+                <?php echo $this->__('Klik <a href="%s">di sini</a> untuk berbelanja kembali.', $this->getUrl()); ?>
+                </p>
+            </p>
+
+            <div class="say_thanks">
+                <!--p><?php //echo $this->__('Have a great day :)'); ?></p-->
+                <p><?php echo $this->__('Selamat beraktifitas! :)'); ?></p>
+            </div>
+        </div>
+
+        <?php if ($this->getInstruction()): ?>
+            <div class="col_right">
+                <?php echo $this->getInstruction(); ?>
+            </div>
+        <?php endif; ?>
+    </div>
+
 <?php elseif ($responsePage == 'failure'): ?>
     <div class="wrapper_failure_page">
         <div class="col_left"><p><?php echo "Dear " . Mage::helper('customer')->getCustomerName() . ","; ?></p></div>
         <div class="col_left">
             <p><?php echo $this->__('Terima kasih Anda telah berbelanja di'); ?></p>
-            <p><?php echo $this->__('Bilna.com'); ?></p>
+            <p><?php echo $this->__('Orami.co.id'); ?></p>
             <p>
                 <?php echo $this->__('Kami informasikan, transaksi pembayaran untuk nomor order'); ?> [<?php echo $orderNoLink; ?>] <?php echo $this->__('adalah gagal'); ?>.
                 <br/>
                 <?php echo $this->__('Mohon pastikan seluruh detail kartu kredit yang Anda masukan tepat.'); ?>
                 <br/>
-                
+
                 <br/><br/>
                 <?php echo $this->__('Klik <a href="%s">di sini</a> untuk berbelanja kembali.', $this->getUrl()); ?>
             </p>
-		
+
             <div class="say_thanks">
                 <p><?php echo $this->__('Selamat beraktifitas! :)'); ?></p>
             </div>
-        </div>	
+        </div>
         <div class="col_right"></div>
     </div>
 <?php else: ?>
     <!-- do nothing -->
 <?php endif; ?>
 
+<!-- Involve Asia -->
+<div id="SS-GTM-order-id" style="display:none">
+    <?php echo $this->getOrderId(); ?>
+</div>
+<div id="SS-GTM-amount" style="display:none">
+    <?php echo $this->getSubtotal(); ?>
+</div>
+<!-- END Involve Asia -->
+
 <?php $cartItems = Mage::getModel('sales/order')->loadByIncrementId($this->getOrderId()); ?>
 <?php $skuCollection = array(); ?>
 <?php $qtyCollection = array(); ?>
 <?php $valueCollection = array(); ?>
 <?php $idCollection = array(); ?>
+<?php $totalAll = 0; ?>
 <?php foreach($cartItems->getAllItems() as $cartItem) : ?>
     <?php $idCollection[] = $cartItem->getProductId(); ?>
     <?php $skuCollection[] = $cartItem->getSku(); ?>
@@ -250,7 +325,7 @@ endif;
             dataLayer.push({'prices': ['<?php echo $valueDisplay; ?>']});
             dataLayer.push({'quantities': ['<?php echo $qtyDisplay; ?>']});
 
-    	    var ajaxURL = 'https://www.bilna.com/ajaxrequest/data/retrieveconfirm2/';
+    	    var ajaxURL = 'https://www.orami.co.id/ajaxrequest/data/retrieveconfirm2/';
 
             var data = {};
             data.orderId = '<?php echo $this->escapeHtml($this->getOrderId()); ?>';
@@ -269,7 +344,7 @@ endif;
                     	dataLayer.push( {'productid': response.data.order.productIds} );
                     	dataLayer.push( {'prices': response.data.order.productPrices} );
                     	dataLayer.push( {'quantities': response.data.order.productQtys} );
-                    	
+
                         dataLayer.push({'customer': response.data.customer});
                         dataLayer.push({'order': response.data.order});
                         dataLayer.push({'event': 'salesConversionEvent'});

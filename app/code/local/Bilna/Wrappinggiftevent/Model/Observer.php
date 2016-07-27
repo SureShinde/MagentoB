@@ -124,7 +124,7 @@ class Bilna_Wrappinggiftevent_Model_Observer {
         $quote = $observer->getQuote();
         $post = Mage::app()->getFrontController()->getRequest()->getPost();
 
-        if( $post['wrapping_for_gift'] == 'on' && isset($post['wrapping']['gift']))
+        if( isset($post['wrapping_for_gift']) && $post['wrapping_for_gift'] == 'on' && isset($post['wrapping']['gift']))
         {
             $arr = explode("_", $post['wrapping']['gift']);
             $type = $arr[0];

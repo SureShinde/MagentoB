@@ -260,6 +260,7 @@ $collection->getSelect()
 			$model = Mage::getModel('bilna_formbuilder/form');
 			try {
 				//title, url, active_from, active_to, status
+                            $data = $this->removePrefix($data,'dt_');
 				$data['title'] = $data['form_title'];
 				$model->setData($data);
 				if ($id) {
@@ -287,6 +288,8 @@ $collection->getSelect()
 	protected function saveInput(int $formId)
 	{
 		$data = $this->getRequest()->getPost();
+		$toJson = array("dropdown", "checkbox", "multiple", "radio");
+		if(in_array($data['type'], $toJson))$data['value'] = Mage::helper('core')->jsonEncode($data['value']);
 		$data = array_merge($data, ['form_id' => $formId]);
 		if($data) {
 			$model = Mage::getModel('bilna_formbuilder/input');
@@ -403,5 +406,16 @@ $collection->getSelect()
 		$model->delete();
 		$this->_getSession()->addSuccess("Delete form input successfully");
 		$this->_redirect('*/*/edit', array('id' => $formId));
+    }
+    
+    protected function removePrefix(array $input, $prefix) {
+        $result = array();
+        foreach($input as $key => $value) {
+            if (strpos($key, $prefix) === 0 || $key == 'form_key'){
+                $key = preg_replace('/^' . preg_quote($prefix, '/') . '/', '', $key);
+                $result[$key] = $value;
+            }
+        }
+        return $result;
     }
 }

@@ -192,9 +192,9 @@ class GenerateFormBuilder extends Mage_Shell_Abstract {
                 $required = $row->getRequired();
                 $comment = $row->getTitle();
 
-                if ($lastGroup == $group) {
-                    continue;
-                }
+                // if ($lastGroup == $group) {
+                //     continue;
+                // }
 
                 if (!$dbtype) {
                     return false;
@@ -210,7 +210,7 @@ class GenerateFormBuilder extends Mage_Shell_Abstract {
             $sql .= "`created_at` datetime DEFAULT NULL, ";
             $sql .= "PRIMARY KEY (`id`)";
             $sql .= ") ENGINE=InnoDB DEFAULT CHARSET=latin1;";
-            
+
             $success = 'successfully create table ' . $this->tablePrefix . $formId;
         }
         

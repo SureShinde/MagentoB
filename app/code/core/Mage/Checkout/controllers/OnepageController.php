@@ -206,6 +206,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
             $this->_redirect('checkout/cart');
             return;
         }
+
         Mage::getSingleton('checkout/session')->setCartWasUpdated(false);
         Mage::getSingleton('customer/session')->setBeforeAuthUrl(Mage::getUrl('*/*/*', array('_secure' => true)));
         $this->getOnepage()->initCheckout();

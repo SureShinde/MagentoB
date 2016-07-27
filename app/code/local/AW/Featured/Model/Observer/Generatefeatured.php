@@ -291,8 +291,8 @@ class AW_Featured_Model_Observer_Generatefeatured {
             $attr = array (
                 'name', 'short_description', 'small_image', 'thumbnail', 'image',
                 'msrp', 'msrp_enabled', 'msrp_display_actual_price_type', 'aw_os_category_display',
-                'aw_os_category_position', 'aw_os_category_image', 'aw_os_category_image_path', 'aw_os_category_text','news_from_date','news_to_date'
-
+                'aw_os_category_position', 'aw_os_category_image', 'aw_os_category_image_path', 'aw_os_category_text','news_from_date','news_to_date',
+                'cross_border'
             );
             $_productCollection->addAttributeToSelect($attr);
         }

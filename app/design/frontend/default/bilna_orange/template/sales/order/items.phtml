@@ -40,9 +40,6 @@
             <th class="a-right"><?php echo $this->__('Subtotal') ?></th>
         </tr>
     </thead>
-    <tfoot>
-        <?php echo $this->getChildHtml('order_totals') ?>
-    </tfoot>
         <?php $_items = $_order->getItemsCollection(); ?>
         <?php $_index = 0; ?>
             <?php $_count = $_items->count(); ?>
@@ -65,5 +62,13 @@
             <?php endif ?>
         </tbody>
         <?php endforeach; ?>
+    <tfoot>
+        <tr>
+            <td colspan="3">&nbsp;</td>
+            <td colspan="2">
+                <?php echo $this->getChildHtml('order_totals') ?>
+            </td>
+        </tr>
+    </tfoot>
 </table>
 <script type="text/javascript">decorateTable('my-orders-table', {'tbody' : ['odd', 'even'], 'tbody tr' : ['first', 'last']})</script>

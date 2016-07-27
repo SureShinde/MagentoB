@@ -1,0 +1,30 @@
+#!/bin/bash
+git diff --cached --name-only | while read FILE; do
+if [[ "$FILE" =~ ^.+(php|inc|module|install|test)$ ]]; then
+    # Courtesy of swytsh from the comments below.
+    if [[ -f $FILE ]]; then
+        php -l "$FILE" 1> /dev/null
+        if [ $? -ne 0 ]; then
+            echo -e "\e[1;31m\tAborting commit due to files with syntax errors.\e[0m" >&2
+            exit 1
+        fi
+    fi
+fi
+
+if git-rev-parse --verify HEAD >/dev/null 2>&1 ; then
+    against=HEAD
+else
+    # Initial commit: diff against an empty tree object
+    against=4b825dc642cb6eb9a060e54bf8d69288fbee4904
+fi
+# Find files with trailing whitespace
+for FILE in `exec git diff-index --check --cached $against -- | sed '/^[+-]/d' | sed -r 's/:[0-9]+:.*//' | uniq` ; do
+    # Fix them!
+    # sed -i 's/[[:space:]]*$//' "$FILE"
+    # git add "$FILE"
+    echo -e "\e[1;31m\tAborting commit. $FILE containes trailing white spaces.\e[0m" >&2
+    echo -e "\e[1;31m\tFor sublime users, add \"trim_trailing_white_space_on_save\": true, on Preferences -> Settings - User.\e[0m" >&2
+    exit 1
+done
+
+done || exit $?

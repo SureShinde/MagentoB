@@ -96,6 +96,10 @@ Customer account home dashboard layout
                 <block type="sales/order_items" name="order_items" template="sales/order/items.phtml">
                     <action method="addItemRender"><type>default</type><block>sales/order_item_renderer_default</block><template>sales/order/items/renderer/default.phtml</template></action>
                     <action method="addItemRender"><type>grouped</type><block>sales/order_item_renderer_grouped</block><template>sales/order/items/renderer/default.phtml</template></action>
+                    <block type="sales/order_totals" name="order_totals" template="sales/order/totals.phtml">
+                        <action method="setLabelProperties"><value>colspan="4" class="a-right"</value></action>
+                        <action method="setValueProperties"><value>class="last a-right"</value></action>
+                    </block>
                 </block>
             </block>
             <block type="sales/order_info" as="so_info" name="sales.order.info.bottom" template="sales/order/sales_order_info.phtml" />
@@ -268,8 +272,8 @@ Email layouts section
             <action method="addItemRender"><type>default</type><block>sales/order_email_items_order_default</block><template>email/order/items/order/default.phtml</template></action>
             <action method="addItemRender"><type>grouped</type><block>sales/order_email_items_order_grouped</block><template>email/order/items/order/default.phtml</template></action>
             <block type="sales/order_totals" name="order_totals" template="sales/order/totals.phtml">
-                <action method="setLabelProperties"><value>colspan="3" align="right" style="padding:3px 9px"</value></action>
-                <action method="setValueProperties"><value>align="right" style="padding:3px 9px"</value></action>
+                <action method="setLabelProperties"><value>colspan="3" align="left" style="padding:3px 0px"</value></action>
+                <action method="setValueProperties"><value>align="right" style="padding:3px 0"</value></action>
                 <block type="tax/sales_order_tax" name="tax" template="tax/order/tax.phtml">
                     <action method="setIsPlaneMode"><value>1</value></action>
                 </block>
@@ -283,8 +287,8 @@ Email layouts section
             <action method="addItemRender"><type>default</type><block>sales/order_email_items_default</block><template>email/order/items/invoice/default.phtml</template></action>
             <action method="addItemRender"><type>grouped</type><block>sales/order_email_items_order_grouped</block><template>email/order/items/invoice/default.phtml</template></action>
             <block type="sales/order_invoice_totals" name="invoice_totals" template="sales/order/totals.phtml">
-                <action method="setLabelProperties"><value>colspan="3" align="right" style="padding:3px 9px"</value></action>
-                <action method="setValueProperties"><value>align="right" style="padding:3px 9px"</value></action>
+                <action method="setLabelProperties"><value>colspan="3" align="left" style="padding:3px 0px"</value></action>
+                <action method="setValueProperties"><value>align="right" style="padding:3px 0px"</value></action>
                 <block type="tax/sales_order_tax" name="tax" template="tax/order/tax.phtml"/>
             </block>
         </block>

@@ -23,11 +23,24 @@ class MDN_AdminLogger_Helper_Data extends Mage_Core_Helper_Abstract
 	{
 		if (mage::getStoreConfig('adminlogger/general/enable') != 1)
 			return;
-		
-		if ($forceUser)
+
+		$userName = null;
+		if ($forceUser) {
 			$userName = $forceUser;
-		else
-			$userName = $this->getCurrentUserName();
+		} else {
+			switch ($objectType) {
+				case 'catalog/product':
+				case 'cataloginventory/stock_item':
+					$userName = $this->getCurrentUserName();
+					if (!$userName) {
+						$userName = $this->getCurrentApiUserName();
+					}
+					break;
+				default:
+					$userName = $this->getCurrentUserName();
+					break;
+			}
+		}
 			
 		if ($userName)
 		{
@@ -158,7 +171,7 @@ class MDN_AdminLogger_Helper_Data extends Mage_Core_Helper_Abstract
 				break;				
 			case 'cms/block':
 				$retour = mage::helper('AdminLogger')->__('CMS Block %s (id %s)', $object->gettitle(), $object->getId());												
-				break;				
+				break;
 			default :
 				$retour = mage::helper('AdminLogger')->__($objectType.' (id %s)', $object->getId());	
 				if (mage::getStoreConfig('adminlogger/general/enable_log') == 1)											
@@ -185,9 +198,25 @@ class MDN_AdminLogger_Helper_Data extends Mage_Core_Helper_Abstract
 		switch ($actionType)
 		{
 			case MDN_AdminLogger_Model_Log::kActionTypeInsert :
-				if (mage::getStoreConfig('adminlogger/general/enable_log') == 1)
+				if (mage::getStoreConfig('adminlogger/general/enable_log') == 1) {
 					mage::log('Retrieve description for insert');
-				//nothing
+
+					// If object type is catalog/product
+					$objectType = $this->getObjectType($object);
+					switch($objectType) {
+						case 'catalog/product':
+							if ($this->getCurrentApiUserName()) { // If data is inserted via API v1
+								$retour ='new: ';
+								$attributes = $object->getAttributes();
+								foreach ($attributes as $attribute) {
+									$attributeName = $attribute->getName();
+									$value = $attribute->getFrontend()->getValue($object);
+									$retour .= $this->buildProductAttributeDesc($attributeName, $value);
+								}
+							}
+							break;
+					}
+				}
 				break;
 			case MDN_AdminLogger_Model_Log::kActionTypeDelete :
 				if (mage::getStoreConfig('adminlogger/general/enable_log') == 1)
@@ -199,8 +228,8 @@ class MDN_AdminLogger_Helper_Data extends Mage_Core_Helper_Abstract
 					mage::log('Retrieve description for update');
 				$data = $object->getData();
 				$origData = $object->getOrigData();
-                                
-                                $retour ='changes: ';
+
+				$retour ='changes: ';
                                 
 				if ($data && $origData)
 				{
@@ -228,6 +257,21 @@ class MDN_AdminLogger_Helper_Data extends Mage_Core_Helper_Abstract
 						if (mage::getStoreConfig('adminlogger/general/enable_log') == 1)
 							mage::log('Orig Data is null');
 					}
+				}
+
+				$objectType = $this->getObjectType($object);
+				switch ($objectType) {
+					case 'catalog/product': // If object type is catalog/product
+						$newCategoryIds = $object->getResource()->getCategoryIds($object);
+						$oldCategoryIds = $object->getOldCategoryIds(); // Retrieve Old Category Ids
+						if (array_values($newCategoryIds) != array_values($oldCategoryIds)) { // If Category is changed
+							$retour .= '<strong>categoriesOld_value</strong> : '.implode(', ', $this->getCatalogCategoryNames($oldCategoryIds));
+							$retour .= '&nbsp;';
+							$retour .= '<strong>New_value</strong> : '.implode(', ', $this->getCatalogCategoryNames($newCategoryIds));
+						}
+						break;
+					default:
+						break;
 				}
 				
 				if ($retour == '')
@@ -386,7 +430,60 @@ class MDN_AdminLogger_Helper_Data extends Mage_Core_Helper_Abstract
 		}		
 	}
 
+	/**
+	 * Return name for current API user
+	 *
+	 */
+	public function getCurrentApiUserName()
+	{
+		$retour = null;
+		try
+		{
+			if (Mage::getSingleton('api/session')->getUser())
+				$retour = Mage::getSingleton('api/session')->getUser()->getusername();
+		}
+		catch (Exception $ex)
+		{
+			//nothing
+		}
+		return $retour;
+	}
 
+	/**
+	 * Function to build description for catalog/product insertion
+	 * @param $key
+	 * @param $newValue
+	 * @return string
+	 */
+	private function buildProductAttributeDesc($key, $newValue)
+	{
+		$desc = '';
+
+		if (is_object($newValue) || is_array($newValue)) {
+			$desc .= $this->buildProductAttributeDesc($key, json_encode($newValue));
+			return $desc;
+		}
+
+		if (is_numeric($newValue)) {
+			$newValue = floatval($newValue);
+		}
+
+		if ($newValue != '') {
+			$desc .= '<b>' . $key . '</b><span><b>:</b>' . $newValue . '</span> , ';
+		}
+
+		return $desc;
+	}
+
+	private function getCatalogCategoryNames($categoryIds)
+	{
+		$categoryNames = array();
+		foreach ($categoryIds as $categoryId) {
+			$category = Mage::getModel('catalog/category')->setStoreId(Mage::app()->getStore()->getId())->load($categoryId);
+			$categoryNames[] =  $category->getName();
+		}
+		return $categoryNames;
+	}
 }
 
 ?>
