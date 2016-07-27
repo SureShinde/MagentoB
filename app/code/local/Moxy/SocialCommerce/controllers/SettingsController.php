@@ -359,11 +359,13 @@ extends Mage_Core_Controller_Front_Action
                 }
 
                 if ((isset($this->postData['col_categories'])) && (count($this->postData['col_categories']) > 0)) {
-                        $collectionCategories = array();
-                        foreach ($this->postData['col_categories'] as $colCategories) {
-                            $collectionCategories[] = $colCategories;
-                        }
-                        $collectionCategory = implode(",", $collectionCategories);
+                    $collectionCategories = array();
+
+                    foreach ($this->postData['col_categories'] as $colCategories) {
+                        $collectionCategories[] = $colCategories;
+                    }
+
+                    $collectionCategory = implode(",", $collectionCategories);
                     $wlCategories = $wishlist->getCategories();
 
                     if ($wlCategories != $collectionCategory) {
