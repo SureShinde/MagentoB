@@ -24,12 +24,6 @@ class Moxy_SocialCommerce_Block_Adminhtml_Customercollection_Edit_Tab_Form exten
             Mage::getSingleton("adminhtml/session")->setCustomercollectionData(null);
         } elseif (Mage::registry("customercollection_data")) {
             $form->setValues(Mage::registry("customercollection_data"));
-            //$form->setValues(Mage::registry("customercollection_data")->getData());
-            //$form->setValues(Mage::registry("customercollectioncategory"));
-            /*$form->setValues(array(
-                "name" => "harfil",
-                "collection_category_id" => array(3,5)
-            ));*/
         }
 
         return parent::_prepareForm();
