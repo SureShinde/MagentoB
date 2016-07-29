@@ -72,7 +72,7 @@ class RocketWeb_Netsuite_Model_Process_Import_Order extends RocketWeb_Netsuite_M
             $netsuiteOrderId = $record->basic->internalId[0]->searchValue->internalId;
         else
             $netsuiteOrderId = $record->basic->customFieldList->customField[0]->searchValue->internalId;
-        
+
         $orderCollection = Mage::getModel('sales/order')->getCollection();
         $orderCollection->addFieldToFilter('netsuite_internal_id',$netsuiteOrderId);
         $netsuiteUpdateDatetime = Mage::helper('rocketweb_netsuite')->convertNetsuiteDateToSqlFormat($record->basic->lastModifiedDate[0]->searchValue);
@@ -131,7 +131,12 @@ class RocketWeb_Netsuite_Model_Process_Import_Order extends RocketWeb_Netsuite_M
         if ($readytoprocess && $paymentmethod == '12')
             $magentoOrder->setStatus('processing_cod');
 
-        $magentoOrder->setNetsuiteInternalId($netsuiteOrder->internalId);
+        if (is_null($netsuiteOrder->basic->customFieldList->customField[0]->searchValue->internalId) || $netsuiteOrder->basic->customFieldList->customField[0]->searchValue->internalId == '')
+            $netsuiteOrderId = $netsuiteOrder->internalId;
+        else
+            $netsuiteOrderId = $netsuiteOrder->basic->customFieldList->customField[0]->searchValue->internalId;
+
+        $magentoOrder->setNetsuiteInternalId($netsuiteOrderId);
         $magentoOrder->setLastImportDate(Mage::helper('rocketweb_netsuite')->convertNetsuiteDateToSqlFormat($netsuiteOrder->lastModifiedDate));
         $magentoOrder->getResource()->save($magentoOrder);
 

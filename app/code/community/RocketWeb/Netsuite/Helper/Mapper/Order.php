@@ -909,10 +909,14 @@ class RocketWeb_Netsuite_Helper_Mapper_Order extends RocketWeb_Netsuite_Helper_M
     }
 
     public function getMagentoFormat(SalesOrder $netsuiteOrder) {
-        $magentoOrders = Mage::getModel('sales/order')->getCollection()->addFieldToFilter('netsuite_internal_id', $netsuiteOrder->internalId);
+        if (is_null($netsuiteOrder->basic->customFieldList->customField[0]->searchValue->internalId) || $netsuiteOrder->basic->customFieldList->customField[0]->searchValue->internalId == '')
+            $netsuiteOrderId = $netsuiteOrder->internalId;
+        else
+            $netsuiteOrderId = $netsuiteOrder->basic->customFieldList->customField[0]->searchValue->internalId;
+        $magentoOrders = Mage::getModel('sales/order')->getCollection()->addFieldToFilter('netsuite_internal_id', $netsuiteOrderId);
        
         if (!$magentoOrders->count()) {
-            throw new Exception("Order with internal Netsuite id #{$netsuiteOrder->internalId} not found!");
+            throw new Exception("Order with internal Netsuite id #{$netsuiteOrderId} not found!");
         }
         
         $magentoOrder = $magentoOrders->getFirstItem();
@@ -936,7 +940,11 @@ class RocketWeb_Netsuite_Helper_Mapper_Order extends RocketWeb_Netsuite_Helper_M
                
                 try{
                     $magentoOrder->save();
-                    $orders = Mage::getModel('sales/order')->getCollection()->addFieldToFilter('netsuite_internal_id', $netsuiteOrder->internalId);
+                    if (is_null($netsuiteOrder->basic->customFieldList->customField[0]->searchValue->internalId) || $netsuiteOrder->basic->customFieldList->customField[0]->searchValue->internalId == '')
+                        $netsuiteOrderId = $netsuiteOrder->internalId;
+                    else
+                        $netsuiteOrderId = $netsuiteOrder->basic->customFieldList->customField[0]->searchValue->internalId;
+                    $orders = Mage::getModel('sales/order')->getCollection()->addFieldToFilter('netsuite_internal_id', $netsuiteOrderId);
                     $order  = $orders->getFirstItem();
 
                     $transaction = Mage::getModel('points/transaction')->loadByOrder($order);
