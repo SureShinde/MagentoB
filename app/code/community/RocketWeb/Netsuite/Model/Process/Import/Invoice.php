@@ -125,8 +125,13 @@ class RocketWeb_Netsuite_Model_Process_Import_Invoice extends RocketWeb_Netsuite
     }
 
     public function isAlreadyImported(SearchRow $record) {
+        if (is_null($record->basic->customFieldList->customField[0]->searchValue->internalId) || $record->basic->customFieldList->customField[0]->searchValue->internalId == '')
+            $netsuiteInternalId = $record->basic->internalId[0]->searchValue->internalId;
+        else
+            $netsuiteInternalId = $record->basic->customFieldList->customField[0]->searchValue->internalId;
+
         $shipmentCollection = Mage::getModel('sales/order_invoice')->getCollection();
-        $shipmentCollection->addFieldToFilter('netsuite_internal_id', $record->basic->internalId[0]->searchValue->internalId);
+        $shipmentCollection->addFieldToFilter('netsuite_internal_id', $netsuiteInternalId );
         $netsuiteUpdateDatetime = Mage::helper('rocketweb_netsuite')->convertNetsuiteDateToSqlFormat($record->basic->lastModifiedDate[0]->searchValue);
         $shipmentCollection->addFieldToFilter('last_import_date', array ('gteq' => $netsuiteUpdateDatetime));
         $shipmentCollection->load();
@@ -159,8 +164,12 @@ class RocketWeb_Netsuite_Model_Process_Import_Invoice extends RocketWeb_Netsuite
         if (is_null($invoice->basic->createdFrom)) {
             return false;
         }
+
+        if (is_null($invoice->basic->customFieldList->customField[0]->searchValue->internalId) || $invoice->basic->customFieldList->customField[0]->searchValue->internalId == '')
+            $netsuiteOrderId = $invoice->basic->createdFrom[0]->searchValue->internalId;
+        else
+            $netsuiteOrderId = $invoice->basic->customFieldList->customField[0]->searchValue->internalId;
         
-        $netsuiteOrderId = $invoice->basic->createdFrom[0]->searchValue->internalId;
         $magentoOrders = Mage::getModel('sales/order')->getCollection()->addFieldToFilter('netsuite_internal_id', $netsuiteOrderId);
         $magentoOrders->load();
         
