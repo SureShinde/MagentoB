@@ -93,7 +93,7 @@
                     <table>moxy_socialcommerce_collection_category</table>
                 </collectioncategory>
                 <customercollection>
-                    <table>wishlist</table>
+                    <table>moxy_socialcommerce_map_coll_category</table>
                 </customercollection>
             </entities>
         </socialcommerce_mysql4>
