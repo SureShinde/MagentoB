@@ -621,17 +621,14 @@
                         <retrieve>1</retrieve>
                     </admin>
                 </privileges>
-                <attributes translate="id name path total_record" module="Bilna_Customer">
-                    <id>ID</id>
-                    <name>Name</name>
-                    <path>Path</path>
+                <attributes translate="category_id category_name url_key total_record" module="Bilna_Customer">
+                    <category_id>ID</category_id>
+                    <category_name>Name</category_name>
+                    <url_key>URL Key</url_key>
+                    <collections>Collection</collections>
                     <total_record>Total Record</total_record>
                 </attributes>
                 <routes>
-                    <route_entity>
-                        <route>/customer/collections/category/:id</route>
-                        <action_type>entity</action_type>
-                    </route_entity>
                     <route_collection>
                         <route>/customer/collections/category</route>
                         <action_type>collection</action_type>
@@ -656,12 +653,8 @@
                     <total_record>Total Record</total_record>
                 </attributes>
                 <routes>
-                    <route_entity>
-                        <route>/customer/collections/category/:id</route>
-                        <action_type>entity</action_type>
-                    </route_entity>
                     <route_collection>
-                        <route>/customer/collections/category</route>
+                        <route>/customer/collections/category/:path</route>
                         <action_type>collection</action_type>
                     </route_collection>
                 </routes>
