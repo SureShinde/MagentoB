@@ -102,6 +102,27 @@ class RocketWeb_Netsuite_Model_Process_Import_Order extends RocketWeb_Netsuite_M
 
     public function process(Record $netsuiteOrder, $queueData = null) {
         $magentoOrder = Mage::helper('rocketweb_netsuite/mapper_order')->getMagentoFormat($netsuiteOrder);
+
+        $readytoprocess = false;
+        $paymentmethod = 0;
+
+        if (!is_null($netsuiteOrder->customFieldList->customField))
+        {
+            foreach ($netsuiteOrder->customFieldList->customField as $customField) {
+                if ($customField->internalId == 'custbody_orderfullypaid') {
+                    $readytoprocess = $customField->value->internalId;
+                }
+
+                if ($customField->internalId == 'custbody_paymentmethod') {
+                    $paymentmethod = $customField->value->internalId;
+                }
+            }
+        }
+
+        // if SO ready to process and payment method is COD
+        if ($readytoprocess && $paymentmethod == '12')
+            $magentoOrder->setStatus('processing_cod');
+
         $magentoOrder->setNetsuiteInternalId($netsuiteOrder->internalId);
         $magentoOrder->setLastImportDate(Mage::helper('rocketweb_netsuite')->convertNetsuiteDateToSqlFormat($netsuiteOrder->lastModifiedDate));
         $magentoOrder->getResource()->save($magentoOrder);
