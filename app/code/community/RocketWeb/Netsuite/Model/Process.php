@@ -183,7 +183,15 @@ class RocketWeb_Netsuite_Model_Process {
                     
                     if ($importableEntityModel->getRecordType() != RecordType::inventoryItem) {
                         foreach ($records as $record) {
-                            // if the record has no source RO, we will process it as usual (non one-world way)
+                            // if payment method is COD, do the old way
+                            if (Mage::helper('rocketweb_netsuite')->checkCODPaymentMethod($record, $importableEntityModel->getRecordType()))
+                            {
+                                if ($importableEntityModel->isMagentoImportable($record) && !$importableEntityModel->isAlreadyImported($record)) {
+                                    $internalRecordIds[] = $record->basic->internalId[0]->searchValue->internalId;
+                                }
+                            }
+                            else
+                            // if the record has no source RO, do the old way
                             if (!Mage::helper('rocketweb_netsuite')->checkOneWorldBasedOnROExistence($record, $importableEntityModel->getRecordType()))
                             {
                                 if ($importableEntityModel->isMagentoImportable($record) && !$importableEntityModel->isAlreadyImported($record)) {

@@ -129,15 +129,22 @@ class RocketWeb_Netsuite_Model_Process_Export_Invoice_Save extends RocketWeb_Net
 
         $server_output = json_decode($server_output, true);
 
+        $proforma_create_new_log_file = 'proforma_create_new.log';
+
         if ($server_output['status'] == 'success')
         {
             // if successful, save the internal ID into magento's invoice
             $magentoInvoice->setNetsuiteInternalId($server_output['internalid']);
             $magentoInvoice->getResource()->save($magentoInvoice);
+
+            Mage::log(('Invoice #' . $magentoInvoice->getIncrementId() . ' create Proforma with ID ' . $server_output['internalid']), null, $proforma_create_new_log_file);
         }
         else
         if ($server_output['status'] == 'error')
+        {
+            Mage::log(('Invoice #' . $magentoInvoice->getIncrementId() . ' failed with status ' . $server_output['msg']), null, $proforma_create_new_log_file);
             throw new Exception("Failed to create proforma invoice. Status : " . $server_output['msg']);
+        }
     }
 
     protected function processOld(RocketWeb_Netsuite_Model_Queue_Message $message, $queueData = array (), $magentoOrder, $magentoInvoice) {

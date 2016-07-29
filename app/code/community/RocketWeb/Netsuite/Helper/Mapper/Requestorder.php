@@ -36,8 +36,12 @@ class RocketWeb_Netsuite_Helper_Mapper_Requestorder extends RocketWeb_Netsuite_H
         // if cancel status is True, then we have to cancel the Magento Order
         if ($cancelStatus == 'T')
         {
+            $request_order_cancel_log_file = 'request_order_cancel.log';
+
             if ($magentoOrder->canCancel())
             {
+                Mage::log($magentoOrder->getNetsuiteInternalId() . ' is cancelled', null, $request_order_cancel_log_file);
+
                 $magentoOrder->cancel();
                 $magentoOrder->setStatus('canceled');
                 $magentoOrder->save();
@@ -53,6 +57,8 @@ class RocketWeb_Netsuite_Helper_Mapper_Requestorder extends RocketWeb_Netsuite_H
                 // create invoice
                 $invoiceMap = array();
                 $itemQty = array();
+
+                $request_order_create_invoice_log_file = 'request_order_create_invoice.log';
                 
                 foreach ($magentoOrder->getAllItems() as $magentoOrderItem) {
                     $itemQty[$magentoOrderItem->getId()] = $magentoOrderItem->getQtyOrdered();
@@ -62,6 +68,7 @@ class RocketWeb_Netsuite_Helper_Mapper_Requestorder extends RocketWeb_Netsuite_H
                  * Check shipment create availability
                  */
                 if (!$magentoOrder->canInvoice()) {
+                    Mage::log(($magentoOrder->getNetsuiteInternalId() . ' cannot create invoice'), null, $request_order_create_invoice_log_file);
                    throw new Exception("{$magentoOrder->getId()}: Cannot do shipment for this order!");
                 }
 
@@ -95,6 +102,8 @@ class RocketWeb_Netsuite_Helper_Mapper_Requestorder extends RocketWeb_Netsuite_H
                             ->addObject($magentoInvoice)
                             ->addObject($magentoInvoice->getOrder())
                             ->save();
+
+                        Mage::log(($magentoOrder->getNetsuiteInternalId() . ' successfully created invoice'), null, $request_order_create_invoice_log_file);
                         
                         return true;
                     }

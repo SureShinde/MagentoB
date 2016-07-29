@@ -128,15 +128,22 @@ class RocketWeb_Netsuite_Model_Process_Export_Order_Place extends RocketWeb_Nets
 
         $server_output = json_decode($server_output, true);
 
+        $request_order_create_new_log_file = 'request_order_create_new.log';
+
         if ($server_output['status'] == 'success')
         {
             $netsuite_internal_id = $server_output['internalid'];
             $magentoOrder->setNetsuiteInternalId($netsuite_internal_id);
             $magentoOrder->getResource()->save($magentoOrder);
+
+            Mage::log(('SO #' . $magentoOrder->getIncrementId() . ' create RO with ID ' . $netsuite_internal_id), null, $request_order_create_new_log_file);
         }
         else
         if ($server_output['status'] == 'error')
-            throw new Exception("Failed to create request order. Status : " . $server_output['msg']);        
+        {
+            Mage::log(('SO #' . $magentoOrder->getIncrementId() . ' failed with status ' . $server_output['msg']), null, $request_order_create_new_log_file);
+           throw new Exception("Failed to create request order. Status : " . $server_output['msg']);        
+        }
     }
 
     /**

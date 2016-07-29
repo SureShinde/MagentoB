@@ -211,7 +211,21 @@ abstract class RocketWeb_Netsuite_Model_Process_Import_Abstract {
             {
                 $colArr = new SearchColumnSelectCustomField();
                 $colArr->internalId = 'custbody_sourcero';
-                $tsa->columns->basic->customFieldList->customField = array($colArr);
+                if ($this->getRecordType() == RecordType::salesOrder || $this->getRecordType() == RecordType::invoice)
+                {
+                    $col2Arr = new SearchColumnSelectCustomField();
+                    $col2Arr->internalId = 'custbody_paymentmethod';
+                    $tsa->columns->basic->customFieldList->customField = array($colArr, $col2Arr);
+                }
+                else
+                if ($this->getRecordType() == RecordType::itemFulfillment)
+                {
+                    $col2Arr = new SearchColumnStringCustomField();
+                    $col2Arr->internalId = 'custbody_deliverytype';
+                    $tsa->columns->basic->customFieldList->customField = array($colArr, $col2Arr);
+                }
+                else
+                    $tsa->columns->basic->customFieldList->customField = array($colArr);
             }
 
             $tsa->criteria = new TransactionSearch();
