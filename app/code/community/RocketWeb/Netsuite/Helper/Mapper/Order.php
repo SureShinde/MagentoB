@@ -909,10 +909,17 @@ class RocketWeb_Netsuite_Helper_Mapper_Order extends RocketWeb_Netsuite_Helper_M
     }
 
     public function getMagentoFormat(SalesOrder $netsuiteOrder) {
-        if (is_null($netsuiteOrder->basic->customFieldList->customField[0]->searchValue->internalId) || $netsuiteOrder->basic->customFieldList->customField[0]->searchValue->internalId == '')
-            $netsuiteOrderId = $netsuiteOrder->internalId;
-        else
-            $netsuiteOrderId = $netsuiteOrder->basic->customFieldList->customField[0]->searchValue->internalId;
+        $netsuiteOrderId = $netsuiteOrder->internalId;
+        if (!is_null($netsuiteOrder->customFieldList->customField))
+        {
+            foreach ($netsuiteOrder->customFieldList->customField as $customField) {
+                if ($customField->internalId == 'custbody_sourcero') {
+                    $netsuiteOrderId = $customField->value->internalId;
+                    break;
+                }
+            }
+        }
+        
         $magentoOrders = Mage::getModel('sales/order')->getCollection()->addFieldToFilter('netsuite_internal_id', $netsuiteOrderId);
        
         if (!$magentoOrders->count()) {
@@ -940,10 +947,16 @@ class RocketWeb_Netsuite_Helper_Mapper_Order extends RocketWeb_Netsuite_Helper_M
                
                 try{
                     $magentoOrder->save();
-                    if (is_null($netsuiteOrder->basic->customFieldList->customField[0]->searchValue->internalId) || $netsuiteOrder->basic->customFieldList->customField[0]->searchValue->internalId == '')
-                        $netsuiteOrderId = $netsuiteOrder->internalId;
-                    else
-                        $netsuiteOrderId = $netsuiteOrder->basic->customFieldList->customField[0]->searchValue->internalId;
+                    $netsuiteOrderId = $netsuiteOrder->internalId;
+                    if (!is_null($netsuiteOrder->customFieldList->customField))
+                    {
+                        foreach ($netsuiteOrder->customFieldList->customField as $customField) {
+                            if ($customField->internalId == 'custbody_sourcero') {
+                                $netsuiteOrderId = $customField->value->internalId;
+                                break;
+                            }
+                        }
+                    }
                     $orders = Mage::getModel('sales/order')->getCollection()->addFieldToFilter('netsuite_internal_id', $netsuiteOrderId);
                     $order  = $orders->getFirstItem();
 
