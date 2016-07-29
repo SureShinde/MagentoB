@@ -23,6 +23,7 @@ class RocketWeb_Netsuite_Helper_Mapper_Requestorder extends RocketWeb_Netsuite_H
         $soReadyToProcess = $requestOrderData['soreadytoprocess'];
         $grandTotal = $requestOrderData['grandtotal'];
         $cancelStatus = $requestOrderData['cancelstatus'];
+        $paymentMethod = $requestOrderData['paymethod'];
 
         $magentoOrders = Mage::getModel('sales/order')->getCollection()->addFieldToFilter('netsuite_internal_id', $roInternalId);
         $magentoOrder = $magentoOrders->getFirstItem(); // @var Mage_Sales_Model_Order $magentoOrder
@@ -52,6 +53,50 @@ class RocketWeb_Netsuite_Helper_Mapper_Requestorder extends RocketWeb_Netsuite_H
         // if so ready to process is True, then check whether there is an invoice
         if ($soReadyToProcess == 'T')
         {
+            if ($paymentMethod == '12')
+            {
+                $magentoOrder->setStatus('processing_cod');
+                $magentoOrder->addStatusHistoryComment('', 'processing_cod')
+                    ->setIsVisibleOnFront(true)
+                    ->setIsCustomerNotified(true);
+
+                $magentoOrder->save();
+
+                // send email
+                $translate = Mage::getSingleton('core/translate');
+                $email = Mage::getModel('core/email_template');
+
+                $sender['name'] = Mage::getStoreConfig('trans_email/ident_support/name', Mage::app()->getStore()->getId());
+                $sender['email'] = Mage::getStoreConfig('trans_email/ident_support/email', Mage::app()->getStore()->getId());
+
+                $guess = $magentoOrder->getCustomerIsGuest();
+
+                if (!isset ($guess) || $guess == 0) {
+                    //login user
+                    $customerName = $magentoOrder->getShippingAddress()->getFirstname() . " " . $magentoOrder->getShippingAddress()->getLastname();
+
+                    //must change this id to actual template id
+                    $template = Mage::getStoreConfig('bilna_module/cod/template_email_user');
+                }
+                else {
+                    //guest
+                    $customerName = "Moms and Dads";
+
+                    //must change this id to actual template id
+                    $template = Mage::getStoreConfig('bilna_module/cod/template_email_guest');
+                }
+
+                $customerEmail = $magentoOrder->getPayment()->getOrder()->getCustomerEmail();
+
+                $vars = array ('order' => $magentoOrder);
+                $storeId = Mage::app()->getStore()->getId();
+                $translate = Mage::getSingleton('core/translate');
+                Mage::getModel('core/email_template')->sendTransactional($template, $sender, $customerEmail, $customerName, $vars, $storeId);
+                $translate->setTranslateInline(true);
+
+                return true;
+            }
+            else
             if ($magentoOrder->hasInvoices() <= 0)
             {
                 // create invoice

@@ -51,9 +51,11 @@ class RocketWeb_Netsuite_Model_Process_Import_Order extends RocketWeb_Netsuite_M
         //Exclude the orders that have the same creation and last modified date as:
         //  - they are already present in Magento in the same format (Magento sent them to Net Suite)
         //  - they are not part of Magento
+        /*
         if ($salesOrder->lastModifiedDate == $salesOrder->createdDate) {
             return false;
         }
+        */
 
         //check if the order already exists in Magento. If not, we do not care about its updates as the order is not related to the store.
         $netsuiteOrderId = $salesOrder->internalId;
@@ -128,7 +130,7 @@ class RocketWeb_Netsuite_Model_Process_Import_Order extends RocketWeb_Netsuite_M
         }
 
         // if SO ready to process and payment method is COD
-        if ($readytoprocess == '1' && $paymentmethod == '12')
+        if ($readytoprocess == 1 && $paymentmethod == '12')
             $magentoOrder->setStatus('processing_cod');
 
         $netsuiteOrderId = $netsuiteOrder->internalId;
