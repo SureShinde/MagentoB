@@ -14,7 +14,7 @@ class Moxy_SocialCommerce_Block_Adminhtml_Customercollection_Grid extends Mage_A
 
     protected function _prepareCollection()
     {
-        $collection = Mage::getModel("socialcommerce/customercollection")->getCollection()->addFieldToFilter("name", array("notnull" => true));
+        $collection = Mage::getModel("wishlist/wishlist")->getCollection()->addFieldToFilter("name", array("notnull" => true));
         $this->setCollection($collection);
         return parent::_prepareCollection();
     }

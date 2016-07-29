@@ -29,9 +29,15 @@ class Moxy_SocialCommerce_Adminhtml_CustomercollectionController extends Mage_Ad
         $this->_title($this->__("Edit Item"));
 
         $id = $this->getRequest()->getParam("id");
-        $model = Mage::getModel("socialcommerce/customercollection")->load($id);
-        if ($model->getId()) {
-            Mage::register("customercollection_data", $model);
+        $wishlist_model = Mage::getModel("wishlist/wishlist")->load($id);
+        $customer_collection_data = Mage::getModel("socialcommerce/customercollection")->getCollection()->addFieldToFilter("wishlist_id", array("eq" => $id))->getColumnValues("collection_category_id");
+        $prepared_cust_coll_data = array(
+            "id" => $wishlist_model["id"],
+            "name" => $wishlist_model["name"],
+            "collection_category_id" => $customer_collection_data
+        );
+        if ($wishlist_model->getId()) {
+            Mage::register("customercollection_data", $prepared_cust_coll_data);
             $this->loadLayout();
             $this->_setActiveMenu("socialcommerce/customercollection");
             $this->_addBreadcrumb(Mage::helper("adminhtml")->__("Customercollection Manager"), Mage::helper("adminhtml")->__("Customercollection Manager"));
@@ -52,22 +58,71 @@ class Moxy_SocialCommerce_Adminhtml_CustomercollectionController extends Mage_Ad
 
         if ($post_data) {
             try {
-                if (isset($post_data["categories"]) && $post_data["categories"][0] != "") {
-                    $combined_categories = implode(",", $post_data["categories"]);
-                    $post_data["categories"] = $combined_categories;
-                } else {
-                    $post_data["categories"] = '';
+                $wishlist_id = $this->getRequest()->getParam("id");
+                if ($post_data["categories"][0] == "") {
+                    $existing_collection_datas = Mage::getModel("socialcommerce/customercollection")->getCollection()->addFieldToFilter("wishlist_id", array("eq" => $wishlist_id))->getColumnValues("map_id");
+                    if (count($existing_collection_datas) > 0) {
+                        foreach ($existing_collection_datas as $existing_collection_data) {
+                            Mage::getModel("socialcommerce/customercollection")->setId($existing_collection_data)->delete();
+                        }
+
+                        Mage::getSingleton("adminhtml/session")->addSuccess(Mage::helper("adminhtml")->__("Collection category cleared"));
+                        if ($this->getRequest()->getParam("back")) {
+                            $this->_redirect("*/*/edit", array("id" => $wishlist_id));
+                            return;
+                        }
+                        $this->_redirect("*/*/");
+                        return;
+                    } else {
+                        Mage::getSingleton("adminhtml/session")->addSuccess(Mage::helper("adminhtml")->__("No data changed"));
+                        if ($this->getRequest()->getParam("back")) {
+                            $this->_redirect("*/*/edit", array("id" => $wishlist_id));
+                            return;
+                        }
+                        $this->_redirect("*/*/");
+                        return;
+                    }
                 }
-                $model = Mage::getModel("socialcommerce/customercollection")
-                    ->addData($post_data)
-                    ->setId($this->getRequest()->getParam("id"))
-                    ->save();
+
+                $cust_coll_model = Mage::getModel("socialcommerce/customercollection");
+                $existing_cust_coll_datas = $cust_coll_model->getCollection()->addFieldToFilter("wishlist_id", array("eq" => $wishlist_id))->getData();
+                if (count($existing_cust_coll_datas) > 0) { // If this collection has been mapped before
+                    $new_coll_cat_id = array();
+                    $unchanged_coll_cat_id = array();
+                    foreach ($existing_cust_coll_datas as $cust_coll_data) {
+                        // Remove all previous categories that aren't used anymore
+                        if (!in_array($cust_coll_data["collection_category_id"], $post_data["categories"])) {
+                            $cust_coll_model->setId($cust_coll_data["map_id"])->delete();
+                        } else {
+                            $unchanged_coll_cat_id[] = $cust_coll_data["collection_category_id"];
+                        }
+                    }
+
+                    $new_coll_cat_id = array_diff($post_data["categories"], $unchanged_coll_cat_id);
+
+                    $customer_collection_model = Mage::getModel("socialcommerce/customercollection");
+                    foreach ($new_coll_cat_id as $coll_cat_id) {
+                        $data = array(
+                            "wishlist_id" => $wishlist_id,
+                            "collection_category_id" => $coll_cat_id
+                        );
+                        $customer_collection_model->addData($data)->save();
+                    }
+                } else { // If there is no mapping for this collection before
+                    foreach ($post_data["categories"] as $coll_cat) {
+                        $data = array(
+                            "wishlist_id" => $wishlist_id,
+                            "collection_category_id" => $coll_cat
+                        );
+                        $cust_coll_model->addData($data)->save();
+                    }
+                }
 
                 Mage::getSingleton("adminhtml/session")->addSuccess(Mage::helper("adminhtml")->__("Customercollection was successfully saved"));
                 Mage::getSingleton("adminhtml/session")->setCustomercollectionData(false);
 
                 if ($this->getRequest()->getParam("back")) {
-                    $this->_redirect("*/*/edit", array("id" => $model->getId()));
+                    $this->_redirect("*/*/edit", array("id" => $wishlist_id));
                     return;
                 }
                 $this->_redirect("*/*/");

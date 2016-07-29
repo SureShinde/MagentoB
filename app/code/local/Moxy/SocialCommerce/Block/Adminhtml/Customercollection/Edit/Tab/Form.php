@@ -13,7 +13,7 @@ class Moxy_SocialCommerce_Block_Adminhtml_Customercollection_Edit_Tab_Form exten
             "name" => "name",
         ));
 
-        $fieldset->addField("categories", "multiselect", array(
+        $fieldset->addField("collection_category_id", "multiselect", array(
             "label" => Mage::helper("socialcommerce")->__("Collection categories"),
             "name" => "categories",
             "values" => $categories->toOptionArray()
@@ -23,7 +23,13 @@ class Moxy_SocialCommerce_Block_Adminhtml_Customercollection_Edit_Tab_Form exten
             $form->setValues(Mage::getSingleton("adminhtml/session")->getCustomercollectionData());
             Mage::getSingleton("adminhtml/session")->setCustomercollectionData(null);
         } elseif (Mage::registry("customercollection_data")) {
-            $form->setValues(Mage::registry("customercollection_data")->getData());
+            $form->setValues(Mage::registry("customercollection_data"));
+            //$form->setValues(Mage::registry("customercollection_data")->getData());
+            //$form->setValues(Mage::registry("customercollectioncategory"));
+            /*$form->setValues(array(
+                "name" => "harfil",
+                "collection_category_id" => array(3,5)
+            ));*/
         }
 
         return parent::_prepareForm();

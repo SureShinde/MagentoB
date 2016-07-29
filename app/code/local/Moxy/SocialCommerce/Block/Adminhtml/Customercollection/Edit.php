@@ -25,11 +25,7 @@ class Moxy_SocialCommerce_Block_Adminhtml_Customercollection_Edit extends Mage_A
 
     public function getHeaderText()
     {
-        if ( Mage::registry("customercollection_data") && Mage::registry("customercollection_data")->getId() ) {
-            return Mage::helper("socialcommerce")->__("Edit Item '%s'", $this->htmlEscape(Mage::registry("customercollection_data")->getId()));
-        } else {
-            return Mage::helper("socialcommerce")->__("Add Item");
-        }
+        return Mage::helper("socialcommerce")->__("Edit Item '%s'", $this->htmlEscape($this->getRequest()->getParam("id")));
     }
 }
 
