@@ -25,9 +25,9 @@ class RocketWeb_Netsuite_Helper_Mapper_Shipment extends RocketWeb_Netsuite_Helpe
         if (!$magentoShipment) {
             $netsuiteOrderId = $netsuiteShipment->createdFrom->internalId;
             // replace the way the order's internal ID is obtained. now we want to obtain the source RO
-            if (!is_null($invoice->customFieldList->customField))
+            if (!is_null($netsuiteShipment->customFieldList->customField))
             {
-                foreach ($invoice->customFieldList->customField as $customField) {
+                foreach ($netsuiteShipment->customFieldList->customField as $customField) {
                     if ($customField->internalId == 'custbody_sourcero') {
                         $netsuiteOrderId = $customField->value->internalId;
                         break;

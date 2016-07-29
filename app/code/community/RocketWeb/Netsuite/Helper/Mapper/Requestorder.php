@@ -83,6 +83,8 @@ class RocketWeb_Netsuite_Helper_Mapper_Requestorder extends RocketWeb_Netsuite_H
                 $magentoInvoice = $magentoOrder->prepareInvoice($itemQty);
                 
                 if ($magentoInvoice) {
+                    $grandTotal = $magentoOrder->getGrandTotal();
+
                     $magentoInvoice->register();
                     $magentoInvoice->addComment("Create Invoice from Netsuite RO#{$roInternalId}");
                     $magentoInvoice->getOrder()->setIsInProcess(true);
