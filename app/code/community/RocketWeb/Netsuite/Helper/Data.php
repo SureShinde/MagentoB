@@ -39,6 +39,29 @@ class RocketWeb_Netsuite_Helper_Data extends Mage_Core_Helper_Data {
         return $retVars;
     }
 
+    public function checkOneWorld($date)
+    {
+        $date = Mage::getModel('core/date')->date('Y-m-d H:i:s', $date);
+        $oneworldEffectiveDate = Mage::getStoreConfig('rocketweb_netsuite/oneworld/effectivedate');
+
+        if (strtotime($date) < strtotime($oneworldEffectiveDate))
+            return false;
+
+        return true;
+    }
+
+    public function checkOneWorldBasedOnROExistence($record, $recordtype)
+    {
+        // make exception for item fulfillment
+        if ($recordtype == RecordType::itemFulfillment)
+            return false;
+
+        if (is_null($record->basic->customFieldList->customField[0]->searchValue->internalId) || $record->basic->customFieldList->customField[0]->searchValue->internalId == '')
+            return false;
+
+        return true;
+    }
+
     //current_run_mode is set in shell/netsuite/netsuiteCron.php
     protected function getCurrentRunMode() {
         if(Mage::registry('current_run_mode')) return Mage::registry('current_run_mode');
@@ -284,10 +307,10 @@ class RocketWeb_Netsuite_Helper_Data extends Mage_Core_Helper_Data {
         if($path == 'order_fulfillment') {
             return 30;
         }
-        elseif($path == 'order') {
+        elseif($path == 'order' || $path == 'requestorder') {
             return 20;
         }
-        elseif($path == 'cashsale' || $path == 'invoice') {
+        elseif($path == 'cashsale' || $path == 'invoice' || $path == 'proformainvoice') {
             return 10;
         }
         elseif($path == 'creditmemo') {

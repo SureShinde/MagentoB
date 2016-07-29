@@ -114,7 +114,7 @@ class RocketWeb_Netsuite_Shell_NetsuiteCron extends Mage_Shell_Abstract {
 
     /* addition by Willy: get possible recordtype argument */
     protected function getPossibleRecordtypes() {
-        return array ('all', 'invoice', 'inventoryitem', 'order', 'order_fulfillment');
+        return array ('all', 'invoice', 'inventoryitem', 'order', 'order_fulfillment', 'requestorder');
     }
 
     public function logProgress($message) {
@@ -129,7 +129,7 @@ Usage:  php -f netsuiteCron.php -- [options]
   --verbose                     Display progress (useful for debugging)
   --mode <modes>                Run specified modes
   <modes>                       Comma separated modes (import,export,stock) or value "all" for all modes
-  --recordtype <type>           value "all", "invoice", "inventoryitem", "cashsale", "order", "order_fulfillment" (applied if mode is "import")
+  --recordtype <type>           value "all", "invoice", "inventoryitem", "cashsale", "order", "order_fulfillment", "requestorder" (applied if mode is "import")
 
 USAGE;
     }

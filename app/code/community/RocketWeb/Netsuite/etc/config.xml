@@ -55,22 +55,22 @@
                 </rewrite>
             </tax_resource>
         </models>
-    	<helpers>
-    		<rocketweb_netsuite>
-    			<class>RocketWeb_Netsuite_Helper</class>
-    		</rocketweb_netsuite>
-    	</helpers>
-    	<resources>
-    		<rocketweb_netsuite_setup>
-    			<setup>
-    				<module>RocketWeb_Netsuite</module>
-    			</setup>
-    			<connection>
+        <helpers>
+            <rocketweb_netsuite>
+                <class>RocketWeb_Netsuite_Helper</class>
+            </rocketweb_netsuite>
+        </helpers>
+        <resources>
+            <rocketweb_netsuite_setup>
+                <setup>
+                    <module>RocketWeb_Netsuite</module>
+                </setup>
+                <connection>
                     <use>core_setup</use>
                 </connection>
-    		</rocketweb_netsuite_setup>
-    	</resources>
-    	<events>
+            </rocketweb_netsuite_setup>
+        </resources>
+        <events>
             <customer_save_after>
                 <observers>
                     <queue_customer_for_netsuite>
@@ -144,18 +144,18 @@
                     </queue_invoice_save_for_netsuite>
                 </observers>
             </sales_order_invoice_save_after>
-    	</events>
+        </events>
     </global>
     <admin>
         <routers>
             <adminhtml>
                 <args>
                     <modules>
-    					<RocketWeb_Netsuite before="Mage_Adminhtml">RocketWeb_Netsuite_Adminhtml</RocketWeb_Netsuite>
-    				</modules>
-    			</args>
-    		</adminhtml>
-    	</routers>
+                        <RocketWeb_Netsuite before="Mage_Adminhtml">RocketWeb_Netsuite_Adminhtml</RocketWeb_Netsuite>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
     </admin>
     <adminhtml>
         <layout>
@@ -178,15 +178,15 @@
         </events>
     </adminhtml>
     <crontab>
-    	<jobs>
-    		<rocketweb_netsuite_send_warnings>
-    			<schedule>
-    				<cron_expr>1 1 * * *</cron_expr>
-    			</schedule>
-    			<run>
-    				<model>rocketweb_netsuite/observer::sendWarnings</model>
-    			</run>
-    		</rocketweb_netsuite_send_warnings>
+        <jobs>
+            <rocketweb_netsuite_send_warnings>
+                <schedule>
+                    <cron_expr>1 1 * * *</cron_expr>
+                </schedule>
+                <run>
+                    <model>rocketweb_netsuite/observer::sendWarnings</model>
+                </run>
+            </rocketweb_netsuite_send_warnings>
             <rocketweb_netsuite_clean_api_call_log>
                 <schedule>
                     <cron_expr>0 3 * * *</cron_expr>
@@ -203,7 +203,7 @@
                     <model>rocketweb_netsuite/observer::cleanChangelog</model>
                 </run>
             </rocketweb_netsuite_clean_changelog>
-    	</jobs>
+        </jobs>
     </crontab>
     <rocketweb_netsuite>
         <netsuite_links>
@@ -237,7 +237,9 @@
             <order_fulfillment>Order Fulfillment</order_fulfillment>
             <!-- <cashsale>Cash Sale</cashsale> -->
             <invoice>Invoice</invoice>
-            <inventoryitem>Inventory Item</inventoryitem>
+            <proformainvoice>Proforma Invoice</proformainvoice>
+            <requestorder>Request Order</requestorder>
+            <!--<inventoryitem>Inventory Item</inventoryitem>-->
             <creditmemo>Credit Memo</creditmemo>
         </import_entities>
         <mappings>
@@ -496,13 +498,13 @@
         </mappings>
     </rocketweb_netsuite>
     <default>
-    	<rocketweb_netsuite>
-    		<general>
-    			<host>https://webservices.netsuite.com</host>
-    			<end_point>2013_1</end_point>
-    			<role_id>3</role_id>
+        <rocketweb_netsuite>
+            <general>
+                <host>https://webservices.netsuite.com</host>
+                <end_point>2013_1</end_point>
+                <role_id>3</role_id>
                 <soap_request_timeout>1800</soap_request_timeout>
-    		</general>
+            </general>
             <connection_import>
                 <same>1</same>
             </connection_import>
@@ -515,12 +517,24 @@
             <connection_stock>
                 <same>1</same>
             </connection_stock>
-    		<queue_processing>
-    			<export_batch_size>50</export_batch_size>
-    			<import_batch_size>5000</import_batch_size>
-    			<timeout>180</timeout>
+            <queue_processing>
+                <export_batch_size>50</export_batch_size>
+                <import_batch_size>5000</import_batch_size>
+                <timeout>180</timeout>
                 <updated_from_minutes>1140</updated_from_minutes>
-    		</queue_processing>
+            </queue_processing>
+            <proformainvoice>
+                <sandbox_export_rst_id>509</sandbox_export_rst_id>
+                <sandbox_import_rst_id>512</sandbox_import_rst_id>
+            </proformainvoice>
+            <oneworld>
+                <effectivedate>2016-08-01 00:00:00</effectivedate>
+            </oneworld>
+            <requestorder>
+                <sandbox_import_rst_id>558</sandbox_import_rst_id>
+                <sandbox_create_rst_id>524</sandbox_create_rst_id>
+                <sandbox_find_rst_id>559</sandbox_find_rst_id>
+            </requestorder>
             <orders>
                 <set_tran_id>1</set_tran_id>
                 <default_status_map>
@@ -559,16 +573,16 @@
                 </default_status_map>
                 <invoices_netsuite_type>CashSale</invoices_netsuite_type> <!--TYPE_CASH_SALE-->
             </orders>
-    		<developer>
-    			<export_queue_threshold>100</export_queue_threshold>
-    			<import_queue_threshold>100</import_queue_threshold>
+            <developer>
+                <export_queue_threshold>100</export_queue_threshold>
+                <import_queue_threshold>100</import_queue_threshold>
                 <clean_api_call_log_after>30</clean_api_call_log_after>
                 <changelog_enabled>1</changelog_enabled>
                 <changelog_lifetime>30</changelog_lifetime>
-    		</developer>
-    		<products>
-    			<netsuite_link_field>externalIdString</netsuite_link_field>
-    			<magento_link_field>id</magento_link_field>
+            </developer>
+            <products>
+                <netsuite_link_field>externalIdString</netsuite_link_field>
+                <magento_link_field>id</magento_link_field>
                 <sync_product_images>1</sync_product_images>
                 <default_visibility>4</default_visibility> <!--Mage_Catalog_Model_Product_Visibility::VISIBILITY_BOTH-->
                 <default_status>1</default_status><!--Mage_Catalog_Model_Product_Status::STATUS_ENABLED-->
@@ -621,7 +635,7 @@
                         <netsuite>pageTitle</netsuite>
                     </meta_title_map>
                 </default_field_map>
-    		</products>
+            </products>
             <shipping_methods>
                 <default_tracking_code_carrier>custom</default_tracking_code_carrier>
                 <send_tracking_information_on_import>1</send_tracking_information_on_import>
@@ -645,6 +659,6 @@
             <customers>
                 <set_alt_name>1</set_alt_name>
             </customers>
-    	</rocketweb_netsuite>
+        </rocketweb_netsuite>
     </default>
 </config>

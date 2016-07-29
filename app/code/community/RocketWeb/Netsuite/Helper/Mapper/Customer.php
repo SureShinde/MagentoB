@@ -212,6 +212,10 @@ class RocketWeb_Netsuite_Helper_Mapper_Customer extends RocketWeb_Netsuite_Helpe
         $netsuiteCustomer->vatRegNumber = $magentoCustomer->getTaxvat();
         $netsuiteCustomer->stage = CustomerStage::_customer;
         $netsuiteCustomer->isPerson = true;
+
+        $netsuiteCustomer->subsidiary = new RecordRef();
+        $netsuiteCustomer->subsidiary->internalId = 1;
+        $netsuiteCustomer->subsidiary->type = RecordType::subsidiary;
 		
         return $netsuiteCustomer;
     }
@@ -229,8 +233,19 @@ class RocketWeb_Netsuite_Helper_Mapper_Customer extends RocketWeb_Netsuite_Helpe
         $searchField = new SearchStringField();
         $searchField->operator = SearchStringFieldOperator::is;
         $searchField->searchValue = $search_string;
+
+        $subsidiaryArr = array();
+        $subsidiaryArr[0] = new RecordRef();
+        $subsidiaryArr[0]->internalId = 1; // BJI customer
+        $subsidiaryArr[0]->type = RecordType::subsidiary;
+
+        $searchSubsidiaryField = new SearchMultiSelectField();
+        $searchSubsidiaryField->operator = SearchMultiSelectFieldOperator::anyOf;
+        $searchSubsidiaryField->searchValue = $subsidiaryArr;
+
         $search = new CustomerSearchBasic();
         $search->$by_field = $searchField;
+        $search->subsidiary = $searchSubsidiaryField;
 
         $request = new SearchRequest();
         $request->searchRecord = $search;

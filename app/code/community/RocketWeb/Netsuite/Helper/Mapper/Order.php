@@ -18,6 +18,313 @@
 class RocketWeb_Netsuite_Helper_Mapper_Order extends RocketWeb_Netsuite_Helper_Mapper {
     private $_customPriceLevelId = 0;
 
+    public function createPostParams(Mage_Sales_Model_Order $magentoOrder) {
+        // set customer
+        $netsuiteCustomerId = Mage::helper('rocketweb_netsuite/mapper_customer')->createNetsuiteCustomerFromOrder($magentoOrder);
+
+        if (!$netsuiteCustomerId) {
+            throw new Exception("Could not find / create the netsuite customer externalIdString=". $magentoOrder->getCustomerId());
+        }
+
+        $vars = array();
+        $items = array();
+
+        $vars['tranid'] = $magentoOrder->getIncrementId();
+        $vars['custbody_bln_customtrancustomer'] = $netsuiteCustomerId;
+        $vars['custbody_customeremail'] = $magentoOrder->getCustomerEmail();
+        $vars['subsidiary'] = 2;
+        $vars['custbody_bln_customtranshippingcost'] = $magentoOrder->getShippingAmount();
+        $vars['custbody_magento_order_id'] = $magentoOrder->getIncrementId();
+        $vars['custbody_bln_customtransubtotal'] = $magentoOrder->getSubtotal();
+
+        $paymentMethodNetsuiteId = Mage::helper('rocketweb_netsuite')->getNetsuitePaymentMethodInternalId($magentoOrder->getPayment());
+        if(!is_null($paymentMethodNetsuiteId)) {
+            $vars['custbody_paymentmethod'] = $paymentMethodNetsuiteId;
+        }
+
+        //shipping method
+        $netsuiteShippingInternalId = Mage::helper('rocketweb_netsuite')->getNetsuiteShippingMethodInternalId($magentoOrder->getShippingMethod());
+        if(!is_null($netsuiteShippingInternalId)) {
+            $vars['custbody_bln_customtran_shipmethod'] = $netsuiteShippingInternalId;
+        }
+
+        $locationId = $this->getLocationId();
+        if($locationId) {
+            $vars['location'] = $locationId;
+        }
+
+        $vars['custbody_deliverytype'] = preg_replace('/^(\w+) - /', '', $magentoOrder->getShippingDescription());
+
+        $groupname = Mage::getModel('customer/group')->load($magentoOrder->getCustomerGroupId())->getCustomerGroupCode();
+        $vars['custbody_customergroup'] = preg_replace('/^(\w+) - /', '', $groupname);
+        $vars['custbody_bln_shipping_phone'] = Mage::helper('rocketweb_netsuite/mapper_address')->getShippingPhoneNumber($magentoOrder->getShippingAddress());
+        $vars['shipphone'] = Mage::helper('rocketweb_netsuite/mapper_address')->getShippingPhoneNumber($magentoOrder->getShippingAddress());
+
+        $vars['billing_attr'] = Mage::helper('rocketweb_netsuite/mapper_address')->formatBillingAddress($magentoOrder->getBillingAddress());
+        $vars['shipping_attr'] = Mage::helper('rocketweb_netsuite/mapper_address')->formatShippingAddress($magentoOrder->getShippingAddress());
+
+        $confProduct = array();
+        $bundProduct = array();
+
+        $fixedPriceBundles = array();
+
+        //taxes
+        $taxItem = null;
+        $taxInfo = $magentoOrder->getFullTaxInfo();
+        if(is_array($taxInfo) && isset($taxInfo[0])) {
+            $rate = array_pop($taxInfo[0]['rates']);
+            $taxRate = Mage::getModel('tax/calculation_rate')->getCollection()->addFieldToFilter('code',$rate['code'])->getFirstItem();
+            $taxNetsuiteId = $taxRate->getNetsuiteInternalId();
+        }
+
+        foreach ($magentoOrder->getAllItems() as $item) {
+            if ($item->getProductType() == 'configurable') {
+                $confProduct[$item->getData('item_id')] = $item->getData('price');
+                $confProductDiscount[$item->getData('item_id')] = $item->getData('discount_amount');
+                $listProductOnOrder[$item->getData('item_id')]['name'] = $item->getData('name');
+            }elseif ($item->getProductType() == 'bundle') {
+                $parentItemId = $item->getData('parent_item_id');
+                if ($parentItemId == '' || $parentItemId == 0 || empty ($parentItemId)) {
+                    $parentItemId = $item->getData('item_id');
+                }
+                $productOptions = unserialize($item->getData('product_options'));
+                $bundleOptions = $productOptions['bundle_options'];
+                $totalPriceItemBundle = 0;
+
+                foreach($bundleOptions as $option){
+                    foreach($option['value'] as $value){
+                        $totalPriceItemBundle += $value['price'];
+                    }
+                }
+
+                $bundProduct[$item->getData('item_id')][$parentItemId]['price'] = $item->getData('price');
+                $bundProduct[$item->getData('item_id')][$parentItemId]['qty'] = $item->getData('qty_ordered');
+                $bundProduct[$item->getData('item_id')]['totalQtyBundle'] = $item->getData('qty_ordered');
+                $bundProduct[$item->getData('item_id')]['priceBundle'] = $item->getData('price') - $totalPriceItemBundle;
+                $bundProduct[$item->getData('item_id')]['priceBundle2'] = $item->getData('price');
+                $bundProduct[$item->getData('item_id')]['totalPriceItem'] = $totalPriceItemBundle;
+                $bundProduct[$item->getData('item_id')]['discountAmount'] = $item->getData('discount_amount');
+                $bundProduct[$item->getData('item_id')]['productOptions']   = $item->getData('product_options');
+                $listProductOnOrder[$item->getData('item_id')]['name'] = $item->getData('name');
+            }
+            elseif(isset($bundProduct[$item->getData('parent_item_id')])){
+                $bundProduct[$item->getData('parent_item_id')]['totalQty'] += $item->getData('qty_ordered');
+                $bundProduct[$item->getData('parent_item_id')][$item->getData('item_id')]['itemQty'] = $item->getData('qty_ordered');
+            }
+        }
+
+        $line_no = 1;
+
+        foreach ($magentoOrder->getAllItems() as $item) {
+            $set_parent_name = '';
+
+            if (in_array($item->getProductType(), array ('configurable', 'bundle'))) {
+                continue;
+            }
+
+            $product = Mage::getModel('catalog/product')->load($item->getProductId());
+            
+            if (!((float) $item->getRowTotal()) && $item->getParentItemId()) {
+                $parentItem = Mage::getModel('sales/order_item')->load($item->getParentItemId());
+                $price = $parentItem->getRowTotal();
+                $taxPercent = $parentItem->getTaxPercent();
+            }
+            else {
+                $price = $item->getRowTotal();
+                $taxPercent = $item->getTaxPercent();
+            }
+
+            $set_price = $price;
+
+            if ($item->getProductType() == 'bundle') {
+                if ($item->getProduct()->getPrice() == 0) {
+                    //We remove the price and tax here as a zero-priced bundle has the price of its parts.
+                    //Since we list the parts as simple products, the price will be doubled otherwise
+                    $price = 0;
+                }
+                else {
+                    //fixed price bundles. In this case, we must remove the price of the simple parts
+                    $fixedPriceBundles[$item->getId()] = true;
+                }
+            }
+            
+            if ($item->getProductType() == 'simple' && $item->getParentItemId() && isset ($fixedPriceBundles[$item->getParentItemId()])) {
+                $price = 0;
+            }
+            
+            //$netsuiteOrderItem->amount = $price;
+            
+            if (!is_null($taxItem)) {
+                $itemTaxCode = $taxNetsuiteId;
+            }
+            else {
+                $itemTaxCode = $this->getNotTaxableInternalNetsuiteId();
+            }
+
+            //custom fields item
+            if (Mage::helper('core')->isModuleEnabled('AW_Points')) {
+                $pointsTransaction = Mage::getModel('points/transaction')->loadByOrder($magentoOrder);
+            }
+            
+            $priceBeforeDiscount = 0;
+            
+            //if (is_array($customFieldsConfig) && count($customFieldsConfig)) {
+                $customFields = array ();
+                $totalDiscount = 0;
+                $totalDiscountOnly = 0; // discount only (without adding Bilna Credit)
+                $productOptions = unserialize($item->getData('product_options'));
+                
+                if($item->getProductType() == 'simple' && $item->getData('price') == 0 || $item->getData('parent_item_id') != ''){
+                    if(isset($productOptions['bundle_selection_attributes'])) {
+                        $bundleSelectionAttributes = unserialize($productOptions['bundle_selection_attributes']);
+                        $priceItemOnBundle = $bundleSelectionAttributes['price'] / $bundleSelectionAttributes['qty'];
+                        //$bundlePrice = $bundProduct[$item->getData('parent_item_id')][''] 
+                        //$priceItemOnBundle = $bundProduct[$item->getData('parent_item_id')][$item->getData('item_id')]['price'];
+                        $pricePerBundle = $bundProduct[$item->getData('parent_item_id')]['priceBundle'] * $bundProduct[$item->getData('parent_item_id')]['totalQtyBundle'];
+                        //$pricePerBundle = $bundProduct[$item->getData('parent_item_id')]['priceBundle'];
+                        //$pricePerBundle = $bundProduct[$item->getData('parent_item_id')][$item->getData('parent_item_id')]['price'] / $bundProduct[$item->getData('parent_item_id')]['totalQtyBundle'];
+                        $totalQty = $bundProduct[$item->getData('parent_item_id')]['totalQty'];
+                        //$finalPriceItem = $priceItemOnBundle + ($pricePerBundle / $totalQty);
+                        //Simple@Price + (BundleFixPrice * (Simple@Price/TotalSimplePrice))'
+                        
+                        //$_simplePrice = $bundProduct[$item->getData('parent_item_id')]['priceBundle2'];
+                        $_simplePrice = $bundleSelectionAttributes['price'] / $bundleSelectionAttributes['qty'];
+                        $_bundleFixPrice = $bundProduct[$item->getData('parent_item_id')]['priceBundle'];
+                        //$_bundleFixPrice = $bundProduct[$item->getData('parent_item_id')]['priceBundle'] * $bundProduct[$item->getData('parent_item_id')]['totalQtyBundle'];
+                        $_totalSimplePrice = $bundProduct[$item->getData('parent_item_id')]['totalPriceItem'];
+                        $finalPriceItem = $_simplePrice + ($_bundleFixPrice * ($_simplePrice / $_totalSimplePrice));
+                        //echo "finalPriceItem: " . $finalPriceItem . " = ". $_simplePrice."+ (".$_bundleFixPrice."*(".$_simplePrice."/".$_totalSimplePrice."))\n";
+                        //$item->setData('price', $finalPriceItem);
+                    }
+                    if(!empty($confProduct) && $confProduct[$item->getData('parent_item_id')] > 0) {
+                        $finalPriceItem = $confProduct[$item->getData('parent_item_id')];
+                    }
+                }
+
+                /**/
+                $bundleDiscount = 0;
+                $discountPerItem = 0;
+                if( (isset( $productOptions['bundle_selection_attributes'] )) && ($item->getProductType() == 'simple' && $item->getData('price') == 0 || $item->getData('parent_item_id') != '') ){
+                    $discountAmount = $bundProduct[$item->getData('parent_item_id')]['discountAmount'];
+                    $priceBundle = $bundProduct[$item->getData('parent_item_id')]['priceBundle2'] * $bundProduct[$item->getData('parent_item_id')]['totalQtyBundle'];
+                    //$totalQty = $bundProduct[$item->getData('parent_item_id')]['totalQty'];
+                    //$totalQtyBundle = $bundProduct[$item->getData('parent_item_id')]['totalQtyBundle'];
+
+                    $bundleDiscount = (($discountAmount / $priceBundle) * $finalPriceItem );
+
+                }
+                if( isset($confProductDiscount[$item->getData('parent_item_id')]) ){
+                    $disc = $confProductDiscount[$item->getData('parent_item_id')];
+                    $discountPerItem = - (float) (round(($disc / $item->getData('qty_ordered')),3));
+                }else{
+                    $discountPerItem = - (float) ($bundleDiscount + round(($item->getData('discount_amount') / $item->getData('qty_ordered')),3));
+                }
+                /**/
+
+                // SET PARENT ITEM ID
+                $set_parent_item_id = $item->getData('parent_item_id');
+
+                // SET PARENT NAME
+                $productBundleName = $listProductOnOrder[$item->getData('parent_item_id')]['name'];//$item->getData('name');
+                if( $item->getData('parent_item_id') != '' && isset($bundProduct[$item->getData('parent_item_id')]) )
+                {
+                    /*
+                    0: separate
+                    1: together
+                    */
+                    $productOptions = unserialize($bundProduct[$item->getData('parent_item_id')]['productOptions']);
+                    if($productOptions['shipment_type']==0)
+                    {
+                        $set_parent_name = 'Bundle Product Together - ' . $productBundleName;
+                    }elseif($productOptions['shipment_type']==1){
+                        $set_parent_name = 'Bundle Product Separate - ' . $productBundleName;
+                    }
+                }elseif($item->getData('parent_item_id') != ''){
+                    $set_parent_name = 'Configurable Product - ' . $productBundleName;
+                }
+
+                // SET DISCOUNT PER ITEM
+                $totalDiscount += $discountPerItem;
+                $set_discount_amount = $discountPerItem;
+
+                // SET BILNA CREDIT
+                $bilna_credit = $pointsTransaction->getData('base_points_to_money');
+                $subTotal = $magentoOrder->getSubtotal();
+                $orderDiscountAmount = $magentoOrder->getDiscountAmount();
+                $bilnaCreditItem = 0;
+                if ($item->getProductType() == 'simple' && $item->getData('price') == 0 || $item->getData('parent_item_id') != '') {
+                    if (isset ($productOptions['bundle_selection_attributes'])) {
+                        //$bilna_credit = $pointsTransaction->getData('base_points_to_money');
+                        //$subTotal = $magentoOrder->getSubtotal();
+                        //$bilnaCreditItem = $finalPriceItem * ($bilna_credit / $subTotal);
+                        $bilnaCreditItem = ( $finalPriceItem + $discountPerItem ) * ($bilna_credit / ($subTotal + $orderDiscountAmount) );
+                    }
+                    
+                    if (!empty ($confProduct) && $confProduct[$item->getData('parent_item_id')] > 0) {
+                        //$bilnaCreditItem = $confProduct[$item->getData('parent_item_id')] * ($bilna_credit / $subTotal);
+                        $bilnaCreditItem = ($confProduct[$item->getData('parent_item_id')] + $discountPerItem ) * ($bilna_credit / ($subTotal + $orderDiscountAmount) );
+                    }
+                }else{
+                    //$bilna_credit = $pointsTransaction->getData('base_points_to_money');
+                    //$subTotal = $magentoOrder->getSubtotal();
+                    //$bilnaCreditItem = $item->getData('price') * ($bilna_credit / $subTotal);
+                    $bilnaCreditItem = ($item->getData('price') + $discountPerItem) * ($bilna_credit / ($subTotal + $orderDiscountAmount) );
+                }
+
+                $set_bilna_credit = $bilnaCreditItem;
+                
+                $totalDiscountOnly = $totalDiscount;
+                $totalDiscount += $bilnaCreditItem;
+
+                // SET PRICE BEFORE DISCOUNT
+                if ($item->getProductType() == 'bundle') {
+                    $item->setData('price', 0);
+                }
+                elseif ($item->getProductType() == 'simple' && $item->getData('price') == 0) {
+                    if (isset ($productOptions['bundle_selection_attributes'])) {
+                        $item->setData('price', $finalPriceItem);
+                    }
+                    
+                    if (!empty ($confProduct) && $confProduct[$item->getData('parent_item_id')] > 0) {
+                        $item->setData('price', $confProduct[$item->getData('parent_item_id')]);
+                    }
+                }
+
+                $priceBeforeDiscount = $this->_getCustomFieldValueFromMagentoData($customFieldsConfigItem, $item);
+                $set_price_before_discount = $set_price;
+                
+            //}
+            
+            if(!empty($confProduct) && $confProduct[$item->getData('parent_item_id')] > 0 ){
+                $priceBeforeDiscount = $confProduct[$item->getData('parent_item_id')];
+                $set_price_before_discount = $priceBeforeDiscount;
+            }
+
+            $items[] = array(
+                'account' => 1,
+                'custcol_bln_customtran_quantity' => $item->getQtyOrdered(),
+                'custcol_bln_customtran_item' => ( $product->getNetsuiteInternalId() ? $product->getNetsuiteInternalId() : $this->getProductDefaultInternalId() ),
+                'custcol_bln_customtran_skubilna' => $product->getSku(),
+                'custcol_magentoitemid' => $item->getId(),
+                'amount' => ($set_price - (abs($totalDiscount) * $item->getData('qty_ordered'))),
+                'custcol_discountitem' =>  abs($totalDiscountOnly), // discount of 1 item only without bilna credit
+                'custcol_so_lineid' => $item->getProductId() . "_" . $line_no,
+                'custcol_pricebeforediscount' => ($set_price_before_discount / $item->getData('qty_ordered')), // original price of 1 item only
+                'custcol_bilnacredit' => abs($set_bilna_credit), // bilna credit of 1 item
+                'custcol_parentid' => $set_parent_item_id,
+                'custcol_parentname' => $set_parent_name,
+                'custcol_bln_customtran_taxcode' => $itemTaxCode,
+                'custcol_bln_customtran_unitprice' => (($set_price_before_discount / $item->getData('qty_ordered')) - abs($totalDiscount)) // price of 1 item - total discount inc. bilna credit
+            );
+
+            $line_no++;
+        }
+
+        $vars['items'] = $items;
+
+        return $vars;
+    }
+
     /**
      * @param Mage_Sales_Model_Order $magentoOrder
      * @return SalesOrder
@@ -863,6 +1170,73 @@ class RocketWeb_Netsuite_Helper_Mapper_Order extends RocketWeb_Netsuite_Helper_M
         }
         
         return $result;
+    }
+
+    public function findNetsuiteRequestOrder($order_id)
+    {
+        // for header purposes
+        $export_config_same = (int) Mage::getStoreConfig('rocketweb_netsuite/connection_export/same');
+        $nlauth_account = Mage::getStoreConfig('rocketweb_netsuite/general/account_id');
+        $ns_host = Mage::getStoreConfig('rocketweb_netsuite/general/host');
+
+        if ( $export_config_same == 1 )
+        {
+            $nlauth_email = Mage::getStoreConfig('rocketweb_netsuite/general/email');
+            $nlauth_signature = Mage::getStoreConfig('rocketweb_netsuite/general/password');
+            $nlauth_role = Mage::getStoreConfig('rocketweb_netsuite/general/role_id');
+        }
+        else
+        {
+            $nlauth_email = Mage::getStoreConfig('rocketweb_netsuite/connection_export/email');
+            $nlauth_signature = Mage::getStoreConfig('rocketweb_netsuite/connection_export/password');
+            $nlauth_role = Mage::getStoreConfig('rocketweb_netsuite/connection_export/role_id');
+        }
+
+        // check whether the url is sandbox or not
+        if (strpos($ns_host, 'sandbox') !== false)
+        {
+            $ns_rest_host = "https://rest.sandbox.netsuite.com";
+            $scriptId = Mage::getStoreConfig('rocketweb_netsuite/requestorder/sandbox_find_rst_id');
+        }
+        else
+        {
+            $ns_rest_host = "https://rest.netsuite.com";
+            $scriptId = Mage::getStoreConfig('rocketweb_netsuite/requestorder/production_find_rst_id');
+        }
+
+        if (!$scriptId)
+            return false;
+
+        // variables to be posted to find request order
+        $vars['tranid'] = $order_id;
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, ($ns_rest_host . "/app/site/hosting/restlet.nl?script=$scriptId&deploy=1"));
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($vars));  //Post Fields
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+        $headers = array();
+        $headers[] = 'Authorization: NLAuth nlauth_account='.$nlauth_account.',nlauth_email='.$nlauth_email.',nlauth_signature='.$nlauth_signature.',nlauth_role='.$nlauth_role;
+        //$headers[] = 'Accept-Encoding: gzip, deflate';
+        //$headers[] = 'Accept-Language: en-US,en;q=0.5';
+        //$headers[] = 'Cache-Control: no-cache';
+        $headers[] = 'Content-Type: application/json;';
+        $headers[] = 'User-Agent-x: SuiteScript-Call';
+
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+        $server_output = curl_exec($ch);
+
+        curl_close($ch);
+
+        $server_output = json_decode($server_output, true);
+
+        if ($server_output['status'] == 'success')
+            return true;
+        else
+        if ($server_output['status'] == 'error')
+            return false;
     }
 
     /* addition by Willy

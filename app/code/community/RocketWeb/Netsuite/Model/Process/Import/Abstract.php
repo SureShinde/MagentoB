@@ -52,6 +52,16 @@ abstract class RocketWeb_Netsuite_Model_Process_Import_Abstract {
         $netsuiteService = $this->_getNetsuiteService();
         $this->setSearchPreferences();
 
+        // if current record type is request order
+        if ($this->getRecordType() == 'requestorder')
+        {
+            $response = Mage::helper('rocketweb_netsuite/mapper_requestorder')->getRequestOrder();
+            if (is_array($response))
+                return $response;
+            else
+                return false;
+        }
+
         if (is_null($response)) {
             $searchRequest = $this->getNetsuiteRequest($this->getRecordType(),$startDateTime);
             $response = $netsuiteService->search($searchRequest);
@@ -196,6 +206,13 @@ abstract class RocketWeb_Netsuite_Model_Process_Import_Abstract {
             $tsa->columns->basic->searchId = new SearchColumnSelectField();
             $tsa->columns->basic->lastModifiedDate = new SearchColumnDateField();
             $tsa->columns->basic->dateCreated = new SearchColumnDateField();
+
+            if ($this->getRecordType() == RecordType::invoice || $this->getRecordType() == RecordType::salesOrder || $this->getRecordType() == RecordType::itemFulfillment)
+            {
+                $colArr = new SearchColumnSelectCustomField();
+                $colArr->internalId = 'custbody_sourcero';
+                $tsa->columns->basic->customFieldList->customField = array($colArr);
+            }
 
             $tsa->criteria = new TransactionSearch();
             $tsa->criteria->basic = new TransactionSearchBasic();

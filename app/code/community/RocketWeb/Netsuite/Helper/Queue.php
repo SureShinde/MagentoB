@@ -25,6 +25,8 @@ class RocketWeb_Netsuite_Helper_Queue extends Mage_Core_Helper_Data {
     const NETSUITE_IMPORT_INVENTORYITEM_QUEUE = 'netsuite_import_inventoryitem';
     const NETSUITE_IMPORT_CASHSALE_QUEUE = 'netsuite_import_cashsale';
     const NETSUITE_IMPORT_CREDITMEMO_QUEUE = 'netsuite_import_creditmemo';
+    const NETSUITE_IMPORT_PROFORMAINVOICE_QUEUE = 'netsuite_import_proformainvoice';
+    const NETSUITE_IMPORT_REQUESTORDER_QUEUE = 'netsuite_import_requestorder';
 
     const NETSUITE_DELETE_ORDER_QUEUE = 'netsuite_delete_order';
     const NETSUITE_DELETE_ORDER_FULFILLMENT_QUEUE = 'netsuite_delete_order_fulfillment';
@@ -32,6 +34,8 @@ class RocketWeb_Netsuite_Helper_Queue extends Mage_Core_Helper_Data {
     const NETSUITE_DELETE_INVENTORYITEM_QUEUE = 'netsuite_delete_inventoryitem';
     const NETSUITE_DELETE_CASHSALE_QUEUE = 'netsuite_delete_cashsale';
     const NETSUITE_DELETE_CREDITMEMO_QUEUE = 'netsuite_delete_creditmemo';
+    const NETSUITE_DELETE_PROFORMAINVOICE_QUEUE = 'netsuite_delete_proformainvoice';
+    const NETSUITE_DELETE_REQUESTORDER_QUEUE = 'netsuite_delete_requestorder';
 	
 	protected $_queues = array();
 	protected $_queue_ids = array();
@@ -122,8 +126,8 @@ class RocketWeb_Netsuite_Helper_Queue extends Mage_Core_Helper_Data {
     public function setLastUpdateAccessDateSpecificEntity($netsuiteDateString,$importEntity) {
         $netsuiteDateString = Mage::helper('rocketweb_netsuite')->convertNetsuiteDateToSqlFormat($netsuiteDateString);
         
-        if(!in_array($importEntity,array(self::NETSUITE_IMPORT_ORDER_QUEUE, self::NETSUITE_IMPORT_ORDER_FULFILLMENT_QUEUE, self::NETSUITE_IMPORT_INVOICE_QUEUE, self::NETSUITE_IMPORT_INVENTORYITEM_QUEUE, self::NETSUITE_IMPORT_CASHSALE_QUEUE, self::NETSUITE_IMPORT_CREDITMEMO_QUEUE, self::NETSUITE_DELETE_ORDER_QUEUE, self::NETSUITE_DELETE_ORDER_FULFILLMENT_QUEUE, self::NETSUITE_DELETE_INVOICE_QUEUE, self::NETSUITE_DELETE_INVENTORYITEM_QUEUE, self::NETSUITE_DELETE_CASHSALE_QUEUE, self::NETSUITE_DELETE_CREDITMEMO_QUEUE))) {
-            throw new Exception("Queue import entity must be ".self::NETSUITE_IMPORT_ORDER_QUEUE.", ".self::NETSUITE_IMPORT_ORDER_FULFILLMENT_QUEUE.", ".self::NETSUITE_IMPORT_INVENTORYITEM_QUEUE.", ".self::NETSUITE_IMPORT_CASHSALE_QUEUE.", ".self::NETSUITE_IMPORT_CREDITMEMO_QUEUE.", ".self::NETSUITE_DELETE_ORDER_QUEUE.", ".self::NETSUITE_DELETE_ORDER_FULFILLMENT_QUEUE.", ".self::NETSUITE_DELETE_INVOICE_QUEUE.", ".self::NETSUITE_DELETE_INVENTORYITEM_QUEUE.", ".self::NETSUITE_DELETE_CASHSALE_QUEUE." or ".self::NETSUITE_DELETE_CREDITMEMO_QUEUE);
+        if(!in_array($importEntity,array(self::NETSUITE_IMPORT_ORDER_QUEUE, self::NETSUITE_IMPORT_ORDER_FULFILLMENT_QUEUE, self::NETSUITE_IMPORT_INVOICE_QUEUE, self::NETSUITE_IMPORT_INVENTORYITEM_QUEUE, self::NETSUITE_IMPORT_CASHSALE_QUEUE, self::NETSUITE_IMPORT_CREDITMEMO_QUEUE, self::NETSUITE_IMPORT_PROFORMAINVOICE_QUEUE, self::NETSUITE_IMPORT_REQUESTORDER_QUEUE, self::NETSUITE_DELETE_ORDER_QUEUE, self::NETSUITE_DELETE_ORDER_FULFILLMENT_QUEUE, self::NETSUITE_DELETE_INVOICE_QUEUE, self::NETSUITE_DELETE_INVENTORYITEM_QUEUE, self::NETSUITE_DELETE_CASHSALE_QUEUE, self::NETSUITE_DELETE_CREDITMEMO_QUEUE, self::NETSUITE_DELETE_PROFORMAINVOICE_QUEUE, self::NETSUITE_DELETE_REQUESTORDER_QUEUE))) {
+            throw new Exception("Queue import entity must be ".self::NETSUITE_IMPORT_ORDER_QUEUE.", ".self::NETSUITE_IMPORT_ORDER_FULFILLMENT_QUEUE.", ".self::NETSUITE_IMPORT_INVENTORYITEM_QUEUE.", ".self::NETSUITE_IMPORT_CASHSALE_QUEUE.", ".self::NETSUITE_IMPORT_CREDITMEMO_QUEUE.", ".self::NETSUITE_IMPORT_PROFORMAINVOICE_QUEUE.", ".self::NETSUITE_IMPORT_REQUESTORDER_QUEUE.", ".self::NETSUITE_DELETE_ORDER_QUEUE.", ".self::NETSUITE_DELETE_ORDER_FULFILLMENT_QUEUE.", ".self::NETSUITE_DELETE_INVOICE_QUEUE.", ".self::NETSUITE_DELETE_INVENTORYITEM_QUEUE.", ".self::NETSUITE_DELETE_CASHSALE_QUEUE.", ".self::NETSUITE_DELETE_CREDITMEMO_QUEUE.", ".self::NETSUITE_DELETE_REQUESTORDER_QUEUE." or ".self::NETSUITE_DELETE_PROFORMAINVOICE_QUEUE);
         }
 
         switch ($importEntity) {
@@ -145,6 +149,12 @@ class RocketWeb_Netsuite_Helper_Queue extends Mage_Core_Helper_Data {
 		    case self::NETSUITE_IMPORT_CREDITMEMO_QUEUE:
 		        $variableName = 'last_import_creditmemo_queue_run_date';
 		        break;
+			case self::NETSUITE_IMPORT_PROFORMAINVOICE_QUEUE:
+		        $variableName = 'last_import_proformainvoice_queue_run_date';
+		        break;
+		    case self::NETSUITE_IMPORT_REQUESTORDER_QUEUE:
+		        $variableName = 'last_import_requestorder_queue_run_date';
+		        break;
 		    case self::NETSUITE_DELETE_ORDER_QUEUE:
 		        $variableName = 'last_delete_order_queue_run_date';
 		        break;
@@ -162,6 +172,12 @@ class RocketWeb_Netsuite_Helper_Queue extends Mage_Core_Helper_Data {
 		        break;
 		    case self::NETSUITE_DELETE_CREDITMEMO_QUEUE:
 		        $variableName = 'last_delete_creditmemo_queue_run_date';
+		        break;
+		    case self::NETSUITE_DELETE_PROFORMAINVOICE_QUEUE:
+		        $variableName = 'last_delete_proformainvoice_queue_run_date';
+		        break;
+		    case self::NETSUITE_DELETE_REQUESTORDER_QUEUE:
+		        $variableName = 'last_delete_requestorder_queue_run_date';
 		        break;
 		    default:
 		        $variableName = 'last_import_queue_run_date';
@@ -191,8 +207,8 @@ class RocketWeb_Netsuite_Helper_Queue extends Mage_Core_Helper_Data {
     }
 
     public function getLastUpdateAccessDateSpecificEntity($importEntity) {
-    	if(!in_array($importEntity,array(self::NETSUITE_IMPORT_ORDER_QUEUE, self::NETSUITE_IMPORT_ORDER_FULFILLMENT_QUEUE, self::NETSUITE_IMPORT_INVOICE_QUEUE, self::NETSUITE_IMPORT_INVENTORYITEM_QUEUE, self::NETSUITE_IMPORT_CASHSALE_QUEUE, self::NETSUITE_IMPORT_CREDITMEMO_QUEUE, self::NETSUITE_DELETE_ORDER_QUEUE, self::NETSUITE_DELETE_ORDER_FULFILLMENT_QUEUE, self::NETSUITE_DELETE_INVOICE_QUEUE, self::NETSUITE_DELETE_INVENTORYITEM_QUEUE, self::NETSUITE_DELETE_CASHSALE_QUEUE, self::NETSUITE_DELETE_CREDITMEMO_QUEUE))) {
-            throw new Exception("Queue import entity must be ".self::NETSUITE_IMPORT_ORDER_QUEUE.", ".self::NETSUITE_IMPORT_ORDER_FULFILLMENT_QUEUE.", ".self::NETSUITE_IMPORT_INVENTORYITEM_QUEUE.", ".self::NETSUITE_IMPORT_CASHSALE_QUEUE.", ".self::NETSUITE_IMPORT_CREDITMEMO_QUEUE.", ".self::NETSUITE_DELETE_ORDER_QUEUE.", ".self::NETSUITE_DELETE_ORDER_FULFILLMENT_QUEUE.", ".self::NETSUITE_DELETE_INVOICE_QUEUE.", ".self::NETSUITE_DELETE_INVENTORYITEM_QUEUE.", ".self::NETSUITE_DELETE_CASHSALE_QUEUE." or ".self::NETSUITE_DELETE_CREDITMEMO_QUEUE);
+    	if(!in_array($importEntity,array(self::NETSUITE_IMPORT_ORDER_QUEUE, self::NETSUITE_IMPORT_ORDER_FULFILLMENT_QUEUE, self::NETSUITE_IMPORT_INVOICE_QUEUE, self::NETSUITE_IMPORT_INVENTORYITEM_QUEUE, self::NETSUITE_IMPORT_CASHSALE_QUEUE, self::NETSUITE_IMPORT_CREDITMEMO_QUEUE, self::NETSUITE_IMPORT_PROFORMAINVOICE_QUEUE, self::NETSUITE_IMPORT_REQUESTORDER_QUEUE, self::NETSUITE_DELETE_ORDER_QUEUE, self::NETSUITE_DELETE_ORDER_FULFILLMENT_QUEUE, self::NETSUITE_DELETE_INVOICE_QUEUE, self::NETSUITE_DELETE_INVENTORYITEM_QUEUE, self::NETSUITE_DELETE_CASHSALE_QUEUE, self::NETSUITE_DELETE_CREDITMEMO_QUEUE, self::NETSUITE_DELETE_PROFORMAINVOICE_QUEUE, self::NETSUITE_DELETE_REQUESTORDER_QUEUE))) {
+            throw new Exception("Queue import entity must be ".self::NETSUITE_IMPORT_ORDER_QUEUE.", ".self::NETSUITE_IMPORT_ORDER_FULFILLMENT_QUEUE.", ".self::NETSUITE_IMPORT_INVENTORYITEM_QUEUE.", ".self::NETSUITE_IMPORT_CASHSALE_QUEUE.", ".self::NETSUITE_IMPORT_CREDITMEMO_QUEUE.", ".self::NETSUITE_IMPORT_PROFORMAINVOICE_QUEUE.", ".self::NETSUITE_IMPORT_REQUESTORDER_QUEUE.", ".self::NETSUITE_DELETE_ORDER_QUEUE.", ".self::NETSUITE_DELETE_ORDER_FULFILLMENT_QUEUE.", ".self::NETSUITE_DELETE_INVOICE_QUEUE.", ".self::NETSUITE_DELETE_INVENTORYITEM_QUEUE.", ".self::NETSUITE_DELETE_CASHSALE_QUEUE.", ".self::NETSUITE_DELETE_CREDITMEMO_QUEUE.", ".self::NETSUITE_DELETE_REQUESTORDER_QUEUE." or ".self::NETSUITE_DELETE_PROFORMAINVOICE_QUEUE);
         }
 
         switch ($importEntity) {
@@ -214,6 +230,12 @@ class RocketWeb_Netsuite_Helper_Queue extends Mage_Core_Helper_Data {
 		    case self::NETSUITE_IMPORT_CREDITMEMO_QUEUE:
 		        $variableName = 'last_import_creditmemo_queue_run_date';
 		        break;
+		    case self::NETSUITE_IMPORT_PROFORMAINVOICE_QUEUE:
+		        $variableName = 'last_import_proformainvoice_queue_run_date';
+		        break;
+		    case self::NETSUITE_IMPORT_REQUESTORDER_QUEUE:
+		        $variableName = 'last_import_requestorder_queue_run_date';
+		        break;
 		    case self::NETSUITE_DELETE_ORDER_QUEUE:
 		        $variableName = 'last_delete_order_queue_run_date';
 		        break;
@@ -231,6 +253,12 @@ class RocketWeb_Netsuite_Helper_Queue extends Mage_Core_Helper_Data {
 		        break;
 		    case self::NETSUITE_DELETE_CREDITMEMO_QUEUE:
 		        $variableName = 'last_delete_creditmemo_queue_run_date';
+		        break;
+		    case self::NETSUITE_DELETE_PROFORMAINVOICE_QUEUE:
+		        $variableName = 'last_delete_proformainvoice_queue_run_date';
+		        break;
+		    case self::NETSUITE_DELETE_REQUESTORDER_QUEUE:
+		        $variableName = 'last_delete_requestorder_queue_run_date';
 		        break;
 		    default:
 		        $variableName = 'last_import_queue_run_date';

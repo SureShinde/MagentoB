@@ -48,6 +48,9 @@ class RocketWeb_Netsuite_Model_Process_Export_Customer_Save extends RocketWeb_Ne
             unset($netsuiteCustomer->entityId);
 			$request->record = $netsuiteCustomer;
 			$response = $netsuiteService->update($request);
+
+			print_r($netsuiteCustomer);
+			echo "\n-----------------------------\n\n";
 		}
 		
 		if($response->writeResponse->status->isSuccess) {

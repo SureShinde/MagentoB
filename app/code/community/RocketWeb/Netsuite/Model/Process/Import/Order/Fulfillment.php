@@ -27,7 +27,13 @@ class RocketWeb_Netsuite_Model_Process_Import_Order_Fulfillment extends RocketWe
             return false;
         }
         
-        $netsuiteOrderId = $itemFulfillment->basic->createdFrom[0]->searchValue->internalId;
+        //$netsuiteOrderId = $itemFulfillment->basic->createdFrom[0]->searchValue->internalId;
+        // if RO not exists, use SO internal ID, otherwise, use RO internal ID
+        if (is_null($itemFulfillment->basic->customFieldList->customField[0]->searchValue->internalId) || $itemFulfillment->basic->customFieldList->customField[0]->searchValue->internalId == '')
+            $netsuiteOrderId = $itemFulfillment->basic->createdFrom[0]->searchValue->internalId;
+        else
+            $netsuiteOrderId = $itemFulfillment->basic->customFieldList->customField[0]->searchValue->internalId;
+
         $magentoOrders = Mage::getModel('sales/order')->getCollection()->addFieldToFilter('netsuite_internal_id', $netsuiteOrderId);
         $magentoOrders->load();
         
@@ -116,8 +122,17 @@ class RocketWeb_Netsuite_Model_Process_Import_Order_Fulfillment extends RocketWe
                     throw new Exception("error process shipment");
                 }
             }
+
+            $shipmentInternalId = $netsuiteShipment->internalId;
+            foreach ($netsuiteShipment->customFieldList->customField as $customField) {
+                // replace the netsuite internal ID to source RO if available
+                if ($customField->internalId == 'custbody_sourcero') {
+                    $shipmentInternalId = $customField->value->internalId;
+                    break;
+                }
+            }
             
-            $magentoShipment->setNetsuiteInternalId($netsuiteShipment->internalId);
+            $magentoShipment->setNetsuiteInternalId($shipmentInternalId);
             $magentoShipment->setLastImportDate(Mage::helper('rocketweb_netsuite')->convertNetsuiteDateToSqlFormat($netsuiteShipment->lastModifiedDate));
             $magentoShipment->save();
 

@@ -44,9 +44,106 @@ class RocketWeb_Netsuite_Model_Process_Export_Invoice_Save extends RocketWeb_Net
             return;
         }
 
-        $netsuiteService = Mage::helper('rocketweb_netsuite')->getNetsuiteService();
         $magentoOrder = $magentoInvoice->getOrder();
-        
+
+        $is_oneworld = Mage::helper('rocketweb_netsuite')->checkOneWorld($magentoOrder->getCreatedAt());
+
+        if ($is_oneworld)
+            $this->processOneWorld($message, $queueData, $magentoOrder, $magentoInvoice);
+        else
+            $this->processOld($message, $queueData, $magentoOrder, $magentoInvoice);
+    }
+
+    protected function processOneWorld(RocketWeb_Netsuite_Model_Queue_Message $message, $queueData = array (), $magentoOrder, $magentoInvoice) {
+
+        $netsuiteService = Mage::helper('rocketweb_netsuite')->getNetsuiteService();
+
+        // for header purposes
+        $export_config_same = (int) Mage::getStoreConfig('rocketweb_netsuite/connection_export/same');
+        $nlauth_account = Mage::getStoreConfig('rocketweb_netsuite/general/account_id');
+        $ns_host = Mage::getStoreConfig('rocketweb_netsuite/general/host');
+
+        if ( $export_config_same == 1 )
+        {
+            $nlauth_email = Mage::getStoreConfig('rocketweb_netsuite/general/email');
+            $nlauth_signature = Mage::getStoreConfig('rocketweb_netsuite/general/password');
+            $nlauth_role = Mage::getStoreConfig('rocketweb_netsuite/general/role_id');
+        }
+        else
+        {
+            $nlauth_email = Mage::getStoreConfig('rocketweb_netsuite/connection_export/email');
+            $nlauth_signature = Mage::getStoreConfig('rocketweb_netsuite/connection_export/password');
+            $nlauth_role = Mage::getStoreConfig('rocketweb_netsuite/connection_export/role_id');
+        }
+
+        // check whether the url is sandbox or not
+        if (strpos($ns_host, 'sandbox') !== false)
+        {
+            $ns_rest_host = "https://rest.sandbox.netsuite.com";
+            $scriptId = Mage::getStoreConfig('rocketweb_netsuite/proformainvoice/sandbox_export_rst_id');
+        }
+        else
+        {
+            $ns_rest_host = "https://rest.netsuite.com";
+            $scriptId = Mage::getStoreConfig('rocketweb_netsuite/proformainvoice/production_export_rst_id');
+        }
+
+        if (!$scriptId)
+            return;
+
+        $orderInternalId = $magentoInvoice->getOrder()->getNetsuiteInternalId();
+
+        // do not continue if there is no internal ID
+        if (!$orderInternalId)
+            throw new Exception("There is no order related to the magento invoice with entity ID : " . $invoice_id);
+
+        $invoiceDate = $magentoInvoice->getCreatedAt();
+        $invoiceDate = Mage::getModel('core/date')->date('j/n/Y', strtotime($invoiceDate));
+
+        // variables to be posted to proforma
+        $vars = array(
+            'magento_invoice_id' => $invoice_id,
+            'netsuite_order_internalid' => $orderInternalId,
+            'magento_invoice_date' => $invoiceDate
+        );
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, ($ns_rest_host . "/app/site/hosting/restlet.nl?script=$scriptId&deploy=1"));
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($vars));  //Post Fields
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+        $headers = array();
+        $headers[] = 'Authorization: NLAuth nlauth_account='.$nlauth_account.',nlauth_email='.$nlauth_email.',nlauth_signature='.$nlauth_signature.',nlauth_role='.$nlauth_role;
+        //$headers[] = 'Accept-Encoding: gzip, deflate';
+        //$headers[] = 'Accept-Language: en-US,en;q=0.5';
+        //$headers[] = 'Cache-Control: no-cache';
+        $headers[] = 'Content-Type: application/json;';
+        $headers[] = 'User-Agent-x: SuiteScript-Call';
+
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+        $server_output = curl_exec($ch);
+
+        curl_close($ch);
+
+        $server_output = json_decode($server_output, true);
+
+        if ($server_output['status'] == 'success')
+        {
+            // if successful, save the internal ID into magento's invoice
+            $magentoInvoice->setNetsuiteInternalId($server_output['internalid']);
+            $magentoInvoice->getResource()->save($magentoInvoice);
+        }
+        else
+        if ($server_output['status'] == 'error')
+            throw new Exception("Failed to create proforma invoice. Status : " . $server_output['msg']);
+    }
+
+    protected function processOld(RocketWeb_Netsuite_Model_Queue_Message $message, $queueData = array (), $magentoOrder, $magentoInvoice) {
+
+        $netsuiteService = Mage::helper('rocketweb_netsuite')->getNetsuiteService();
+
         $initializeObject = new InitializeRecord();
         $initializeObject->reference = new InitializeRef();
         $initializeObject->reference->type = RecordType::salesOrder;
