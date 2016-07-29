@@ -30,8 +30,11 @@ class RocketWeb_Netsuite_Model_Process_Import_Order extends RocketWeb_Netsuite_M
             return false;
         }
 
-        //check if the order already exists in Magento. If not, we do not care about its updates as the order is not related to the store.
-        $netsuiteOrderId = $salesOrder->basic->internalId[0]->searchValue->internalId;
+        if (is_null($salesOrder->basic->customFieldList->customField[0]->searchValue->internalId) || $salesOrder->basic->customFieldList->customField[0]->searchValue->internalId == '')
+            $netsuiteOrderId = $salesOrder->basic->internalId[0]->searchValue->internalId;
+        else
+            $netsuiteOrderId = $salesOrder->basic->customFieldList->customField[0]->searchValue->internalId;
+
         $magentoOrders = Mage::getModel('sales/order')->getCollection()->addFieldToFilter('netsuite_internal_id',$netsuiteOrderId);
         $magentoOrders->load();
         if(!$magentoOrders->getSize()) {
@@ -65,8 +68,13 @@ class RocketWeb_Netsuite_Model_Process_Import_Order extends RocketWeb_Netsuite_M
     }
 
     public function isAlreadyImported(SearchRow $record) {
+        if (is_null($record->basic->customFieldList->customField[0]->searchValue->internalId) || $record->basic->customFieldList->customField[0]->searchValue->internalId == '')
+            $netsuiteOrderId = $record->basic->internalId[0]->searchValue->internalId;
+        else
+            $netsuiteOrderId = $record->basic->customFieldList->customField[0]->searchValue->internalId;
+        
         $orderCollection = Mage::getModel('sales/order')->getCollection();
-        $orderCollection->addFieldToFilter('netsuite_internal_id',$record->basic->internalId[0]->searchValue->internalId);
+        $orderCollection->addFieldToFilter('netsuite_internal_id',$netsuiteOrderId);
         $netsuiteUpdateDatetime = Mage::helper('rocketweb_netsuite')->convertNetsuiteDateToSqlFormat($record->basic->lastModifiedDate[0]->searchValue);
         $orderCollection->addFieldToFilter('last_import_date',array('gteq'=>$netsuiteUpdateDatetime));
         $orderCollection->load();
