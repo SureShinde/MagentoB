@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
 <config>
-	<tabs>
+    <tabs>
         <rocketweb_tab>
             <label>Rocket Web Extensions</label>
             <sort_order>1005001</sort_order>
         </rocketweb_tab>
     </tabs>
     <sections>
-    	<rocketweb_netsuite translate="label" module="rocketweb_netsuite">
+        <rocketweb_netsuite translate="label" module="rocketweb_netsuite">
             <label>Netsuite Integration</label>
             <tab>rocketweb_tab</tab>
             <frontend_type>text</frontend_type>
@@ -16,92 +16,92 @@
             <show_in_website>1</show_in_website>
             <show_in_store>1</show_in_store>
             <groups>
-            	<general translate="label">
-            		<label>Default Connection Settings</label>
-            		<frontend_type>text</frontend_type>
+                <general translate="label">
+                    <label>Default Connection Settings</label>
+                    <frontend_type>text</frontend_type>
                     <sort_order>10</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
                     <show_in_store>1</show_in_store>
                     <fields>
-                    	<enabled translate="label">
-                    		<label>Enable Netsuite integration</label>
-	                        <frontend_type>select</frontend_type>
-	                        <source_model>adminhtml/system_config_source_yesno</source_model>
-	                        <sort_order>10</sort_order>
-	                        <show_in_default>1</show_in_default>
-	                        <show_in_website>0</show_in_website>
+                        <enabled translate="label">
+                            <label>Enable Netsuite integration</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
-                    	</enabled>
-                    	<host translate="label comment">
-                    		<label>Netsuite host</label>
-                    		<frontend_type>text</frontend_type>
-                    		<sort_order>20</sort_order>
-                    		<show_in_default>1</show_in_default>
+                        </enabled>
+                        <host translate="label comment">
+                            <label>Netsuite host</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
                             <depends><enabled>1</enabled></depends>
-                    	</host>
-                    	<end_point translate="label comment">
-                    		<label>Netsuite end point</label>
-                    		<frontend_type>select</frontend_type>
-                    		<source_model>rocketweb_netsuite/adminhtml_system_config_source_endpoint</source_model>
-                    		<sort_order>30</sort_order>
-                    		<show_in_default>1</show_in_default>
+                        </host>
+                        <end_point translate="label comment">
+                            <label>Netsuite end point</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>rocketweb_netsuite/adminhtml_system_config_source_endpoint</source_model>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
                             <depends><enabled>1</enabled></depends>
-                    	</end_point>
-                    	<account_id translate="label comment">
-                    		<label>Netsuite account ID</label>
-                    		<comment>To get this value, go to Setup->Integration->Web Services Preferences in Netsuite and look for "Account ID"</comment>
-                    		<frontend_type>text</frontend_type>
-                    		<sort_order>40</sort_order>
-                    		<show_in_default>1</show_in_default>
+                        </end_point>
+                        <account_id translate="label comment">
+                            <label>Netsuite account ID</label>
+                            <comment>To get this value, go to Setup->Integration->Web Services Preferences in Netsuite and look for "Account ID"</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
                             <depends><enabled>1</enabled></depends>
-                    	</account_id>
-                    	<email translate="label comment">
-                    		<label>Netsuite account email</label>
-                    		<comment>The email address of the web service user you have defined in Netsuite</comment>
-                    		<frontend_type>text</frontend_type>
-                    		<sort_order>50</sort_order>
-                    		<show_in_default>1</show_in_default>
+                        </account_id>
+                        <email translate="label comment">
+                            <label>Netsuite account email</label>
+                            <comment>The email address of the web service user you have defined in Netsuite</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
                             <depends><enabled>1</enabled></depends>
-                    	</email>
-                    	<password translate="label comment">
-                    		<label>Netsuite account password</label>
-                    		<comment>The password of the web service user you have defined in Netsuite</comment>
-                    		<frontend_type>text</frontend_type>
-                    		<sort_order>60</sort_order>
-                    		<show_in_default>1</show_in_default>
+                        </email>
+                        <password translate="label comment">
+                            <label>Netsuite account password</label>
+                            <comment>The password of the web service user you have defined in Netsuite</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>60</sort_order>
+                            <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
                             <depends><enabled>1</enabled></depends>
-                    	</password>
-                    	<role_id translate="label comment">
-                    		<label>Netsuite account role id</label>
-                    		<comment>The role id of the web service user you have defined in Netsuite. To get this value, go to Setup->Integration->Web Services Preferences in Netsuite and look for the "ID" value in the user list.</comment>
-                    		<frontend_type>text</frontend_type>
-                    		<sort_order>70</sort_order>
-                    		<show_in_default>1</show_in_default>
+                        </password>
+                        <role_id translate="label comment">
+                            <label>Netsuite account role id</label>
+                            <comment>The role id of the web service user you have defined in Netsuite. To get this value, go to Setup->Integration->Web Services Preferences in Netsuite and look for the "ID" value in the user list.</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>70</sort_order>
+                            <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
                             <depends><enabled>1</enabled></depends>
-                    	</role_id>
-                    	<test_connection translate="button_label">
-                    		<label></label>
-                    		<button_label>Test Connection</button_label>
-                    		<frontend_model>rocketweb_netsuite/adminhtml_system_config_testconnection</frontend_model>
+                        </role_id>
+                        <test_connection translate="button_label">
+                            <label></label>
+                            <button_label>Test Connection</button_label>
+                            <frontend_model>rocketweb_netsuite/adminhtml_system_config_testconnection</frontend_model>
                             <sort_order>80</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
                             <depends><enabled>1</enabled></depends>
-                    	</test_connection>
+                        </test_connection>
                         <netsuite_base_url>
                             <label>Netsuite Base url</label>
                             <frontend_type>text</frontend_type>
@@ -122,7 +122,7 @@
                             <depends><enabled>1</enabled></depends>
                         </soap_request_timeout>
                     </fields>
-            	</general>
+                </general>
                 <connection_import translate="label">
                     <label>Import Connection Settings</label>
                     <frontend_type>text</frontend_type>
@@ -434,11 +434,29 @@
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
                         </get_cash_sales>
+                        <get_proformainvoices>
+                            <label>Enable getting proforma invoice data from Net Suite</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>80</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </get_proformainvoices>
+                        <get_requestorder>
+                            <label>Enable getting Request Order data from Net Suite</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>85</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </get_requestorder>
                         <get_stock_updates>
                             <label>Enable getting stock updates from Net Suite</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
-                            <sort_order>80</sort_order>
+                            <sort_order>90</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
@@ -447,7 +465,7 @@
                             <label>Enable getting product data from Net Suite</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
-                            <sort_order>90</sort_order>
+                            <sort_order>100</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
@@ -456,48 +474,48 @@
                             <label>Enable getting Credit Memo data from NetSuite</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
-                            <sort_order>100</sort_order>
+                            <sort_order>110</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
                         </get_creditmemo>
                     </fields>
                 </enable_disable_features>
-            	<queue_processing translate="label">
-            		<label>Queue Processing Settings</label>
-            		<frontend_type>text</frontend_type>
+                <queue_processing translate="label">
+                    <label>Queue Processing Settings</label>
+                    <frontend_type>text</frontend_type>
                     <sort_order>20</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
                     <show_in_store>1</show_in_store>
                     <fields>
-                    	<export_batch_size translate="label comment">
-                    		<label>Export message limit</label>
-                    		<comment>The maximum number of messages that are to be exported (sent to) Netsuite in a single cron run</comment>
-                    		<frontend_type>text</frontend_type>
-                    		<sort_order>10</sort_order>
-                    		<show_in_default>1</show_in_default>
+                        <export_batch_size translate="label comment">
+                            <label>Export message limit</label>
+                            <comment>The maximum number of messages that are to be exported (sent to) Netsuite in a single cron run</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
-                    	</export_batch_size>
-                    	<import_batch_size translate="label comment">
-                    		<label>Import message limit</label>
-                    		<comment>The maximum number of messages that are to be imported (processed from) Netsuite in a single cron run</comment>
-                    		<frontend_type>text</frontend_type>
-                    		<sort_order>20</sort_order>
-                    		<show_in_default>1</show_in_default>
+                        </export_batch_size>
+                        <import_batch_size translate="label comment">
+                            <label>Import message limit</label>
+                            <comment>The maximum number of messages that are to be imported (processed from) Netsuite in a single cron run</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
-                    	</import_batch_size>
-                    	<timeout translate="label comment">
-                    		<label>Timeout</label>
-                    		<comment>In case processing an element fails, the element is added back to the queue. The timeout specifies the number of seconds that needs to pass so the item is considered for re-processing</comment>
-                    		<frontend_type>text</frontend_type>
-                    		<sort_order>30</sort_order>
-                    		<show_in_default>1</show_in_default>
+                        </import_batch_size>
+                        <timeout translate="label comment">
+                            <label>Timeout</label>
+                            <comment>In case processing an element fails, the element is added back to the queue. The timeout specifies the number of seconds that needs to pass so the item is considered for re-processing</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
-                    	</timeout>
+                        </timeout>
                         <updated_from_minutes>
                             <label>Import items updated in last N minutes</label>
                             <frontend_type>text</frontend_type>
@@ -508,27 +526,27 @@
                             <comment>The import queue will consider only items updated in at most this number of minutes</comment>
                         </updated_from_minutes>
                     </fields>
-            	</queue_processing>
-            	<forms translate="label">
-            		<label>Netsuite forms</label>
-            		<frontend_type>text</frontend_type>
+                </queue_processing>
+                <forms translate="label">
+                    <label>Netsuite forms</label>
+                    <frontend_type>text</frontend_type>
                     <sort_order>30</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
                     <show_in_store>1</show_in_store>
                     <fields>
-                    	<customer_form_id translate="label comment">
-                    		<label>Customer form id</label>
-                    		<comment>If the customer export does not work, got to Netsuite admin->Setup->Customization->Entry Forms and set this value to the internal id of another form, e.g. "Standard Customer Form". Your Netsuite default form may ask for more required information than Magento is able to provide</comment>
-                    		<frontend_type>text</frontend_type>
-                    		<sort_order>10</sort_order>
-                    		<show_in_default>1</show_in_default>
+                        <customer_form_id translate="label comment">
+                            <label>Customer form id</label>
+                            <comment>If the customer export does not work, got to Netsuite admin->Setup->Customization->Entry Forms and set this value to the internal id of another form, e.g. "Standard Customer Form". Your Netsuite default form may ask for more required information than Magento is able to provide</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
-                    	</customer_form_id>
+                        </customer_form_id>
                     </fields>
-            	</forms>
-            	<products>
+                </forms>
+                <products>
                     <label>Product synchronization</label>
                     <frontend_type>text</frontend_type>
                     <sort_order>40</sort_order>
@@ -536,24 +554,24 @@
                     <show_in_website>1</show_in_website>
                     <show_in_store>1</show_in_store>
                     <fields>
-                    	<netsuite_link_field translate="label comment">
-                    		<label>Netsuite field which holds the link to Magento</label>
-                    		<comment>Advanced setting, do not edit unless you are sure about its effects</comment>
-                    		<frontend_type>text</frontend_type>
-                    		<sort_order>10</sort_order>
-                    		<show_in_default>1</show_in_default>
+                        <netsuite_link_field translate="label comment">
+                            <label>Netsuite field which holds the link to Magento</label>
+                            <comment>Advanced setting, do not edit unless you are sure about its effects</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
-                    	</netsuite_link_field>
-                    	<magento_link_field translate="label comment">
-                    		<label>Magento field which holds the link to Netsuite</label>
-                    		<comment>Advanced setting, do not edit unless you are sure about its effects</comment>
-                    		<frontend_type>text</frontend_type>
-                    		<sort_order>20</sort_order>
-                    		<show_in_default>1</show_in_default>
+                        </netsuite_link_field>
+                        <magento_link_field translate="label comment">
+                            <label>Magento field which holds the link to Netsuite</label>
+                            <comment>Advanced setting, do not edit unless you are sure about its effects</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
-                    	</magento_link_field>
+                        </magento_link_field>
                         <saved_search_for_sync_id>
                             <label>The id of the saved search used for product sync</label>
                             <frontend_type>text</frontend_type>
@@ -674,7 +692,7 @@
                             <show_in_store>0</show_in_store>
                         </tier_price_customer_group>
                     </fields>
-            	</products>
+                </products>
                 <shipping_methods>
                     <label>Shipping Methods</label>
                     <frontend_type>text</frontend_type>
@@ -1081,7 +1099,136 @@
                         </order_status_allow>
                     </fields>
                 </exports>
-            	<developer translate="label">
+                <proformainvoice translate="label">
+                    <label>Proforma Invoice Settings</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>81</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <sandbox_export_rst_id translate="label comment">
+                            <label>Sandbox's Export Restlet ID</label>
+                            <comment>Restlet ID for Sandbox's Export Proforma Invoice</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </sandbox_export_rst_id>
+                        <production_export_rst_id translate="label comment">
+                            <label>Production's Export Restlet ID</label>
+                            <comment>Restlet ID for Production's Export Proforma Invoice</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </production_export_rst_id>
+                        <sandbox_import_rst_id translate="label comment">
+                            <label>Sandbox's Import Restlet ID</label>
+                            <comment>Restlet ID for Sandbox's Import Proforma Invoice</comment>
+                             <frontend_type>text</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </sandbox_import_rst_id>
+                        <production_import_rst_id translate="label comment">
+                            <label>Production's Import Restlet ID</label>
+                            <comment>Restlet ID for Production's Import Proforma Invoice</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </production_import_rst_id>
+                    </fields>
+                </proformainvoice>
+                <oneworld translate="label">
+                    <label>One World Setting</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>82</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <effectivedate translate="label">
+                            <label>One World Effective Date</label>
+                            <comment>Please put it in format yyyy-dd-mm hh:mm:ss, e.g. 2016-08-01 00:00:00</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </effectivedate>
+                    </fields>
+                </oneworld>
+                <requestorder translate="label">
+                    <label>Request Order Settings</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>86</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <sandbox_import_rst_id translate="label comment">
+                            <label>Sandbox's Import Restlet ID</label>
+                            <comment>Restlet ID for Sandbox's Import Request Order</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </sandbox_import_rst_id>
+                        <production_import_rst_id translate="label comment">
+                            <label>Production's Import Restlet ID</label>
+                            <comment>Restlet ID for Production's Import Request Order</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </production_import_rst_id>
+                        <sandbox_create_rst_id translate="label comment">
+                            <label>Sandbox's Create Restlet ID</label>
+                            <comment>Restlet ID for Sandbox's Create Request Order</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </sandbox_create_rst_id>
+                        <production_create_rst_id translate="label comment">
+                            <label>Production's Create Restlet ID</label>
+                            <comment>Restlet ID for Production's Create Request Order</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>60</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </production_create_rst_id>
+                        <sandbox_find_rst_id translate="label comment">
+                            <label>Sandbox's Find RO by Tran ID Restlet ID</label>
+                            <comment>Restlet ID for Sandbox's Find Request Order by Tran ID</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>70</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </sandbox_find_rst_id>
+                        <production_find_rst_id translate="label comment">
+                            <label>Production's Find RO by Tran ID Restlet ID</label>
+                            <comment>Restlet ID for Production's Find Request Order by Tran ID</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>80</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </production_find_rst_id>
+                    </fields>
+                </requestorder>
+                <developer translate="label">
                     <label>Developer</label>
                     <frontend_type>text</frontend_type>
                     <sort_order>100</sort_order>
@@ -1089,15 +1236,15 @@
                     <show_in_website>1</show_in_website>
                     <show_in_store>1</show_in_store>
                     <fields>
-                    	<enabled translate="label">
-                    		<label>Enable api call log</label>
-	                        <frontend_type>select</frontend_type>
-	                        <source_model>adminhtml/system_config_source_yesno</source_model>
-	                        <sort_order>10</sort_order>
-	                        <show_in_default>1</show_in_default>
-	                        <show_in_website>0</show_in_website>
+                        <enabled translate="label">
+                            <label>Enable api call log</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
-                    	</enabled>
+                        </enabled>
                         <changelog_enabled>
                             <label>Enable change log</label>
                             <frontend_type>select</frontend_type>
@@ -1116,33 +1263,33 @@
                             <show_in_store>0</show_in_store>
                             <depends><changelog_enabled>1</changelog_enabled></depends>
                         </changelog_lifetime>
-                    	<email translate="email comment">
-                    		<label>Developer E-mail</label>
-                    		<comment>Warning emails will be sent to this email address</comment>
-                    		<sort_order>20</sort_order>
-                    		<frontend_type>text</frontend_type>
-	                        <show_in_default>1</show_in_default>
-	                        <show_in_website>0</show_in_website>
+                        <email translate="email comment">
+                            <label>Developer E-mail</label>
+                            <comment>Warning emails will be sent to this email address</comment>
+                            <sort_order>20</sort_order>
+                            <frontend_type>text</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
-                    	</email>
-                    	<export_queue_threshold translate="email comment">
-                    		<label>Export queue threshold</label>
-                    		<comment>If the export queue has more elements than defined here, an email is sent to the developer. An ever-growing queue is a sign of processing being stuck. Set to zero to disable.</comment>
-                    		<sort_order>30</sort_order>
-                    		<frontend_type>text</frontend_type>
-	                        <show_in_default>1</show_in_default>
-	                        <show_in_website>0</show_in_website>
+                        </email>
+                        <export_queue_threshold translate="email comment">
+                            <label>Export queue threshold</label>
+                            <comment>If the export queue has more elements than defined here, an email is sent to the developer. An ever-growing queue is a sign of processing being stuck. Set to zero to disable.</comment>
+                            <sort_order>30</sort_order>
+                            <frontend_type>text</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
-                    	</export_queue_threshold>
-                    	<import_queue_threshold translate="email comment">
-                    		<label>Export queue threshold</label>
-                    		<comment>If the export queue has more elements than defined here, an email is sent to the developer. An ever-growing queue is a sign of processing being stuck. Set to zero to disable.</comment>
-                    		<sort_order>40</sort_order>
-                    		<frontend_type>text</frontend_type>
-	                        <show_in_default>1</show_in_default>
-	                        <show_in_website>0</show_in_website>
+                        </export_queue_threshold>
+                        <import_queue_threshold translate="email comment">
+                            <label>Export queue threshold</label>
+                            <comment>If the export queue has more elements than defined here, an email is sent to the developer. An ever-growing queue is a sign of processing being stuck. Set to zero to disable.</comment>
+                            <sort_order>40</sort_order>
+                            <frontend_type>text</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
-                    	</import_queue_threshold>
+                        </import_queue_threshold>
                         <clean_api_call_log_after>
                             <label>Clean API call log after (days)</label>
                             <sort_order>50</sort_order>
@@ -1152,8 +1299,8 @@
                             <show_in_store>0</show_in_store>
                         </clean_api_call_log_after>
                     </fields>
-            	</developer>
+                </developer>
             </groups>
-    	</rocketweb_netsuite>
+        </rocketweb_netsuite>
     </sections>
 </config>
