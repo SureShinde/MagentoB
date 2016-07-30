@@ -26,9 +26,11 @@ class RocketWeb_Netsuite_Model_Process_Import_Order extends RocketWeb_Netsuite_M
         //Exclude the orders that have the same creation and last modified date as:
         //  - they are already present in Magento in the same format (Magento sent them to Net Suite)
         //  - they are not part of Magento
+        /*
         if ($salesOrder->basic->lastModifiedDate[0]->searchValue == $salesOrder->basic->dateCreated[0]->searchValue) {
             return false;
         }
+        */
 
         if (is_null($salesOrder->basic->customFieldList->customField[0]->searchValue->internalId) || $salesOrder->basic->customFieldList->customField[0]->searchValue->internalId == '')
             $netsuiteOrderId = $salesOrder->basic->internalId[0]->searchValue->internalId;
