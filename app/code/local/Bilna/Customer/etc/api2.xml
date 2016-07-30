@@ -625,10 +625,14 @@
                     <category_id>ID</category_id>
                     <category_name>Name</category_name>
                     <url_key>URL Key</url_key>
-                    <collections>Collection</collections>
+                    <collections>Collections</collections>
                     <total_record>Total Record</total_record>
                 </attributes>
                 <routes>
+                    <route_entity>
+                        <route>/customer/collections/category/:url_key</route>
+                        <action_type>entity</action_type>
+                    </route_entity>
                     <route_collection>
                         <route>/customer/collections/category</route>
                         <action_type>collection</action_type>
@@ -636,30 +640,6 @@
                 </routes>
                 <versions>1</versions>
             </customer_wishlistcollection_category>
-            <customer_wishlistcollection_category_collection>
-                <group>customer</group>
-                <sort_order>120</sort_order>
-                <model>bilna_customer/api2_wishlistcollection_category_collection</model>
-                <title>Wishlist Collection Category Collection List</title>
-                <privileges>
-                    <admin>
-                        <retrieve>1</retrieve>
-                    </admin>
-                </privileges>
-                <attributes translate="id name path total_record" module="Bilna_Customer">
-                    <id>ID</id>
-                    <name>Name</name>
-                    <path>Path</path>
-                    <total_record>Total Record</total_record>
-                </attributes>
-                <routes>
-                    <route_collection>
-                        <route>/customer/collections/category/:path</route>
-                        <action_type>collection</action_type>
-                    </route_collection>
-                </routes>
-                <versions>1</versions>
-            </customer_wishlistcollection_category_collection>
         </resources>
     </api2>
 </config>
