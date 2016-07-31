@@ -9,14 +9,10 @@
 class Bilna_Customer_Model_Api2_Wishlistcollection_Category extends Bilna_Customer_Model_Api2_Wishlistcollection {
     protected function _getWishlistCollectionListByCategoryId($categoryId) {
         $collection = Mage::getModel('wishlist/wishlist')->getCollection();
-        $collection->getSelect()->limit(4);
+        $this->_applyCollectionModifiers($collection);
         $collection->load();
 
         return $this->_getCollectionListItems($collection);
-    }
-
-    protected function _getCollectionListByUrlKey($urlkey) {
-
     }
     
     protected function _getCollectionListItems($collection) {
@@ -24,6 +20,8 @@ class Bilna_Customer_Model_Api2_Wishlistcollection_Category extends Bilna_Custom
         $totalRecord = $collection->getSize();
 
         if ($totalRecord > 0) {
+            $result[0]['total_record'] = $totalRecord;
+            
             foreach ($collection as $key => $row) {
                 $id = $row->getId();
                 $name = $row->getName();
