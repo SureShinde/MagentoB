@@ -8,7 +8,14 @@
 
 class Bilna_Customer_Model_Api2_Wishlistcollection_Category extends Bilna_Customer_Model_Api2_Wishlistcollection {
     protected function _getWishlistCollectionListByCategoryId($categoryId) {
-        $collection = Mage::getModel('wishlist/wishlist')->getCollection();
+        $collection = Mage::getModel('socialcommerce/customercollection')->getCollection();
+        $collection->addFieldToSelect(['collection_category_id']);
+        $collection->addFieldToFilter('main_table.collection_category_id', $categoryId);
+        $collection->getSelect()->joinLeft(
+            ['wishlist' => Mage::getSingleton('core/resource')->getTableName('wishlist/wishlist')],
+            '`wishlist`.`wishlist_id` = `main_table`.`wishlist_id`',
+            ['wishlist.*']
+        );
         $this->_applyCollectionModifiers($collection);
         $collection->load();
 
